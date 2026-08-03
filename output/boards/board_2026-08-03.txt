@@ -1,0 +1,133 @@
+PART 0 — HEADER
+Date: 2026-08-03 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Leagues scanned: Scottish Premiership
+Calibration: 0 legs logged, CLV logged: ZERO
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ Scottish Premiership: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Scottish Premiership: 1 team name(s) in the fixtures feed not found in the fitted data — St Johnstone. Model knows: Aberdeen, Celtic, Dundee, Dundee United, Falkirk, Hearts, Hibernian, Kilmarnock, Livingston, Motherwell, Rangers, St Mirren. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
+  ⚠ logged 10 new paper leg(s) with a live entry price
+  ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+5 deploy-eligible fixture(s), softness A/B only, capped at 6 (ID402).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+
+1. Dundee v Aberdeen (Scottish Premiership)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Dundee to win .......... 40%
+      Draw ......................... 34%
+      Aberdeen to win .......... 26%
+   Goals: Over 1.5 goals 67% (model) | Under 2.5 goals 63% (model)
+   Both teams to score NO 54% (model)
+   Expected goals (model): Dundee 1.222, Aberdeen 0.948
+   Best available market: Draw
+      Model probability .......... 34%
+      Best quoted price .......... 3.60 decimal (betfred_uk, best of 11 books)
+      Breakeven trigger price .... 1.50 or longer
+      HR30 numerical MES ......... +24.11% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 34%, this price implies 28% — an implausible +24% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+2. Hearts v Dundee United (Scottish Premiership)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Hearts to win .......... 74%
+      Draw ......................... 19%
+      Dundee United to win .......... 7%
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 56% (model)
+   Both teams to score NO 57% (model)
+   Expected goals (model): Hearts 2.319, Dundee United 0.616
+   Best available market: Hearts to win
+      Model probability .......... 74%
+      Best quoted price .......... 1.64 decimal (smarkets, best of 17 books)
+      Breakeven trigger price .... 1.24 or longer
+      HR30 numerical MES ......... +21.68% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 74%, this price implies 61% — an implausible +22% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+3. Motherwell v Falkirk (Scottish Premiership)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Motherwell to win .......... 65%
+      Draw ......................... 24%
+      Falkirk to win .......... 11%
+   Goals: Over 1.5 goals 78% (model) | Over 2.5 goals 52% (model)
+   Both teams to score NO 53% (model)
+   Expected goals (model): Motherwell 2.017, Falkirk 0.739
+   Best available market: Motherwell to win
+      Model probability .......... 65%
+      Best quoted price .......... 1.80 decimal (smarkets, best of 17 books)
+      Breakeven trigger price .... 1.28 or longer
+      HR30 numerical MES ......... +17.62% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 65%, this price implies 56% — an implausible +18% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+4. Kilmarnock v Celtic (Scottish Premiership)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Kilmarnock to win .......... 17%
+      Draw ......................... 24%
+      Celtic to win .......... 58%
+   Goals: Over 1.5 goals 85% (model) | Over 2.5 goals 63% (model)
+   Both teams to score YES 61% (model)
+   Expected goals (model): Kilmarnock 1.124, Celtic 2.122
+   Best available market: Kilmarnock to win
+      Model probability .......... 17%
+      Best quoted price .......... 9.00 decimal (ladbrokes_uk, best of 11 books)
+      Breakeven trigger price .... 1.17 or longer
+      HR30 numerical MES ......... +57.15% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 17%, this price implies 11% — an implausible +57% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+5. Rangers v Hibernian (Scottish Premiership)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Rangers to win .......... 56%
+      Draw ......................... 26%
+      Hibernian to win .......... 18%
+   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 58% (model)
+   Both teams to score YES 58% (model)
+   Expected goals (model): Rangers 1.947, Hibernian 1.057
+   Best available market: Draw
+      Model probability .......... 26%
+      Best quoted price .......... 4.50 decimal (betfred_uk, best of 15 books)
+      Breakeven trigger price .... 1.22 or longer
+      HR30 numerical MES ......... +17.01% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 26%, this price implies 22% — an implausible +17% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+St Mirren v St Johnstone (Scottish Premiership) | NO DATA — PENDING | — | — | ○
+Dundee v Aberdeen (Scottish Premiership) | Dundee·40% | O67 / U63 | 1X74 / N54 | ○
+Hearts v Dundee United (Scottish Premiership) | Hearts·74% | O81 / O56 | 1X93 / N57 | ○
+Motherwell v Falkirk (Scottish Premiership) | Motherwell·65% | O78 / O52 | 1X89 / N53 | ○
+Kilmarnock v Celtic (Scottish Premiership) | Celtic·58% | O85 / O63 | X283 / Y61 | ○
+Rangers v Hibernian (Scottish Premiership) | Rangers·56% | O82 / O58 | 1X82 / Y58 | ○
+
+PART 3 — REJECTED / WATCHLIST
+St Mirren v St Johnstone (Scottish Premiership): NO DATA — PENDING: 'St Johnstone' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 6
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+No legs awaiting settlement.

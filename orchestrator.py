@@ -1,0 +1,261 @@
+"""
+Matchday orchestrator — runs pull -> fit -> scan -> board -> log, end to end,
+per the OPERATING PROTOCOL (no stop-and-ask at each step; near-zero deploys is
+correct behaviour, not failure).
+
+ID402 "wide eyes, narrow hands": run_all_leagues() scans every league on the
+ID401 whitelist (15 leagues) into ONE combined board. THE CALL (deploy
+shortlist) still only ever draws from softness A/B and is capped at 6 total
+across ALL leagues combined — scanning wide never widens the deploy pool.
+
+Usage:
+    python orchestrator.py --all --season 2526          # full 15-league scan
+    python orchestrator.py --league "Scottish Premiership" --season 2526
+
+Network note: fetching live data requires outbound internet, which this
+sandbox does not have. Run this in Claude Code, locally, or on a scheduled
+job. Everything downstream of a MatchResult list (engine, verification,
+output, CLV) has no network dependency and is fully testable here.
+"""
+from __future__ import annotations
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+
+from data.football_data_source import load_league, MatchResult, UNCOVERED_LEAGUES
+from data.fixtures_source import fetch_upcoming, as_pairs
+from data import thesportsdb_fixtures as tsdb
+from engine.dixon_coles import fit, predict, unrated_reason
+from engine.softness import (SOFTNESS_TIER, softness_tier, is_deploy_eligible,
+                              build_deploy_shortlist)
+from engine.mes import trigger_price
+from verification.id403 import verify, SourcedDatum, Tier
+from output.produce_bet import BoardFixture, render_produce_bet
+from clv.clv_logger import CLVLog
+from config import PHASE_LABEL
+
+# The full ID401 whitelist (15 leagues) — same set engine/softness.py tiers.
+FULL_WHITELIST = list(SOFTNESS_TIER.keys())
+
+
+def next_season_code(season: str) -> str:
+    """'2526' -> '2627'. The model is fit on the last COMPLETED season, but
+    fixtures come from the one now being played — conflating the two is why a
+    finished season yields a permanently empty board."""
+    if len(season) != 4 or not season.isdigit():
+        raise ValueError(f"Season code must be 4 digits like '2526', got {season!r}")
+    return f"{int(season[:2]) + 1:02d}{int(season[2:]) + 1:02d}"
+
+
+def _unrated_detail(model, home: str, away: str) -> str:
+    """Precise, per-side reason a fixture could not be modelled."""
+    reasons = [r for r in (unrated_reason(model, home), unrated_reason(model, away))
+               if r]
+    return "NO DATA — PENDING: " + "; ".join(reasons)
+
+
+def scan_one_league(league: str, season: str,
+                     upcoming_fixtures: list[tuple[str, str]] | None = None,
+                     api_football_season: int | None = None,
+                     fixtures_season: str | None = None
+                     ) -> tuple[list[BoardFixture], list[str]]:
+    """Returns (board_fixtures_for_this_league, data_flags). Never raises for
+    an ordinary data gap (uncovered league, thin history, fetch failure) —
+    those become data_flags and an empty board slice, per HR35: a gap is
+    reported, not skipped silently and not guessed around.
+
+    `season` is the season the Dixon-Coles model is FIT on (history).
+    `fixtures_season` is the season fixtures are pulled from (defaults to the
+    season after `season`)."""
+    flags: list[str] = []
+    fixture_dates: dict[tuple[str, str], str] = {}
+
+    if league in UNCOVERED_LEAGUES:
+        flags.append(f"{league}: NO DATA — PENDING (not covered by football-data.co.uk, "
+                      f"needs a different T1 source)")
+        return [], flags
+
+    if upcoming_fixtures is None:
+        fx_season = fixtures_season or next_season_code(season)
+        # TheSportsDB first (ratified HR34 2026-08-03) — it's the only free
+        # source that can see the CURRENT season. API-Football is kept as the
+        # fallback for whoever runs this on a paid plan.
+        errors: list[str] = []
+        upcoming_fixtures = []
+        try:
+            fixtures, fx_skipped = tsdb.fetch_upcoming(league, fx_season)
+            upcoming_fixtures = tsdb.as_pairs(fixtures)
+            # Kickoff dates, so a logged leg can be settled against THIS match
+            # and not a same-pairing fixture from a previous season.
+            fixture_dates.update({(f.home_team, f.away_team): f.date for f in fixtures})
+            if fx_skipped:
+                flags.append(f"{league}: {len(fx_skipped)} fixture rows skipped/malformed")
+        except Exception as e:
+            errors.append(f"thesportsdb: {e}")
+            try:
+                season_year = api_football_season or int(f"20{fx_season[:2]}")
+                upcoming_fixtures = as_pairs(fetch_upcoming(league, season_year))
+            except Exception as e2:
+                errors.append(f"api-football: {e2}")
+
+        if not upcoming_fixtures:
+            detail = " | ".join(errors) if errors else "no fixtures in window"
+            flags.append(f"{league}: no upcoming fixtures ({detail}) — NO DATA — PENDING")
+
+    try:
+        results, skipped = load_league(league, season)
+    except Exception as e:
+        flags.append(f"{league}: results fetch failed ({e}) — NO DATA — PENDING")
+        return [], flags
+
+    if skipped:
+        flags.append(f"{league}: {len(skipped)} source rows skipped/malformed")
+
+    if len(results) < 20:
+        flags.append(f"{league}: insufficient match history ({len(results)} results) "
+                      f"— NO DATA — PENDING rather than a thin fit")
+        return [], flags
+
+    model = fit(results)
+    tier = softness_tier(league)
+    board: list[BoardFixture] = []
+
+    for home, away in upcoming_fixtures:
+        probs = predict(model, home, away)
+        # The fixture itself comes from TheSportsDB (ratified T2), so that's
+        # what gets stamped — crediting football-data.co.uk here would claim a
+        # corroboration that didn't happen. One source => ○ SINGLE-SOURCE.
+        v = verify([SourcedDatum(domain="thesportsdb.com",
+                                  value=f"{home} v {away}",
+                                  url="https://www.thesportsdb.com",
+                                  structured=True)])
+        mes = None
+        if probs is not None:
+            best_prob = max(probs.p_home, probs.p_draw, probs.p_away,
+                             probs.p_over_15, 1 - probs.p_over_15)
+            mes = trigger_price(best_prob)
+
+        board.append(BoardFixture(
+            fixture=f"{home} v {away} ({league})",
+            probs=probs,
+            verification=v,
+            softness_tier=tier,
+            on_deploy_shortlist=(probs is not None and is_deploy_eligible(league)
+                                  and v.tier not in (Tier.CONFLICT, Tier.NO_DATA)),
+            mes_trigger_price=mes,
+            kickoff_date=fixture_dates.get((home, away)),
+            rejection_reason=(
+                _unrated_detail(model, home, away) if probs is None
+                else None if is_deploy_eligible(league)
+                else f"softness tier {tier} — scan-only"
+            ),
+        ))
+
+    # Surface unmapped names ONCE per league, with the model's actual roster
+    # beside them. A naming mismatch and a genuinely new club are
+    # indistinguishable from inside the model, but obvious to a human the
+    # moment the two lists sit next to each other.
+    unmapped = sorted({t for h, a in upcoming_fixtures for t in (h, a)
+                       if t not in model.teams and t not in model.thin_teams})
+    if unmapped:
+        flags.append(
+            f"{league}: {len(unmapped)} team name(s) in the fixtures feed not found "
+            f"in the fitted data — {', '.join(unmapped)}. Model knows: "
+            f"{', '.join(sorted(model.teams))}. If a name above is the same club "
+            f"under a different spelling, add it to TEAM_ALIASES in "
+            f"data/thesportsdb_fixtures.py; if it is newly promoted, it correctly "
+            f"has no rating yet.")
+
+    return board, flags
+
+
+def run_all_leagues(season: str = "2526", leagues: list[str] | None = None,
+                     fixtures_season: str | None = None):
+    """Scans every whitelisted league into ONE combined board. This is the
+    'wide eyes' half of ID402 — every league on the list gets scanned every
+    run, whether or not its season has started, whether or not it's deploy-
+    eligible. Leagues with no data this week simply show as NO DATA — PENDING
+    rather than being silently dropped from the run."""
+    leagues = leagues or FULL_WHITELIST
+    fixtures_season = fixtures_season or next_season_code(season)
+    combined_board: list[BoardFixture] = []
+    all_flags: list[str] = []
+
+    print(f"Fitting on season {season}; pulling fixtures for season {fixtures_season}")
+    if tsdb.using_test_key():
+        all_flags.append(
+            "THESPORTSDB_KEY not set — running on TheSportsDB's shared public "
+            "test key (rate-limited, truncated directory). Register free at "
+            "thesportsdb.com/register.php and set THESPORTSDB_KEY."
+        )
+    for league in leagues:
+        print(f"Scanning {league}...")
+        board_slice, flags = scan_one_league(league, season,
+                                              fixtures_season=fixtures_season)
+        combined_board.extend(board_slice)
+        all_flags.extend(flags)
+
+    # Global ID402 pool cap — 6 total across ALL leagues combined, not 6 per league.
+    shortlisted = [b for b in combined_board if b.on_deploy_shortlist]
+    capped_ids = set(id(b) for b in build_deploy_shortlist(shortlisted))
+    for b in combined_board:
+        if b.on_deploy_shortlist and id(b) not in capped_ids:
+            b.on_deploy_shortlist = False
+
+    clv = CLVLog()
+    status = clv.phase2_status()
+
+    output = render_produce_bet(
+        mode="Mode A", phase=PHASE_LABEL,
+        leagues_scanned=leagues,
+        calibration_count=status["legs_with_clv"],
+        mean_clv=status["mean_clv_pct"],
+        data_flags=all_flags,
+        board=combined_board,
+    )
+    print("\n" + "=" * 60 + "\n")
+    print(output)
+    return output
+
+
+def run(league: str, season: str, upcoming_fixtures: list[tuple[str, str]] | None = None,
+        api_football_season: int | None = None, fixtures_season: str | None = None):
+    """Single-league entry point — kept for the earlier smoke-test workflow
+    and for ad-hoc single-league checks. run_all_leagues() is the real daily
+    driver now."""
+    board, flags = scan_one_league(league, season, upcoming_fixtures,
+                                    api_football_season, fixtures_season)
+    if not board and flags:
+        print("\n".join(flags))
+        return
+
+    clv = CLVLog()
+    status = clv.phase2_status()
+    output = render_produce_bet(
+        mode="Mode A", phase=PHASE_LABEL,
+        leagues_scanned=[league],
+        calibration_count=status["legs_with_clv"],
+        mean_clv=status["mean_clv_pct"],
+        data_flags=flags,
+        board=board,
+    )
+    print("\n" + "=" * 60 + "\n")
+    print(output)
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--all", action="store_true", help="scan the full 15-league ID401 whitelist")
+    ap.add_argument("--league", default="Scottish Premiership")
+    ap.add_argument("--season", default="2526",
+                     help="season the model is FIT on (last completed season)")
+    ap.add_argument("--fixtures-season", default=None,
+                     help="season fixtures are pulled from (default: the season after --season)")
+    args = ap.parse_args()
+
+    if args.all:
+        run_all_leagues(season=args.season, fixtures_season=args.fixtures_season)
+    else:
+        run(args.league, args.season, fixtures_season=args.fixtures_season)

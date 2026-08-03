@@ -1,0 +1,75 @@
+name: OLP XDV daily board
+
+# 07:00 Africa/Lagos == 06:00 UTC (Nigeria is UTC+1 year-round, no DST).
+# GitHub cron is always UTC.
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:        # manual trigger, for testing without waiting a day
+
+# Needed so the run can commit the CLV log back — without persistence the
+# paper log resets every run and the Phase 3 gate can never accumulate.
+permissions:
+  contents: write
+
+concurrency:
+  group: olp-xdv-daily
+  cancel-in-progress: false   # never kill a run mid-write of the CLV log
+
+jobs:
+  board:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Football-Data CSVs and fitted models are expensive to refetch/refit.
+      # Keyed by day so the cache rolls over rather than going stale forever.
+      - name: Restore data cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/cache
+            backtest/cache
+          key: olp-xdv-data-${{ github.run_id }}
+          restore-keys: olp-xdv-data-
+
+      - name: Run the daily board
+        env:
+          ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
+          THESPORTSDB_KEY:    ${{ secrets.THESPORTSDB_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+        run: python run_daily.py
+
+      # The CLV log IS the Phase 2 evidence. Committing it back is what makes
+      # the gate cumulative across runs rather than starting from zero daily.
+      - name: Persist the CLV log and board
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add clv/clv_log.json output/boards memory/ || true
+          git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
+          git push || echo "nothing to push"
+
+      # A silent failure is worse than no agent: if the run dies, the Architect
+      # would otherwise just see no message and assume a quiet day.
+      - name: Report failure to Telegram
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            -d text="OLP XDV: the 07:00 run FAILED. No board today — this is a system failure, not a quiet slate. Run log: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"

@@ -1,0 +1,19 @@
+# Secrets — never committed. Keys live here locally and as encrypted repo
+# secrets in GitHub Actions (Settings -> Secrets and variables -> Actions).
+.env
+*.key
+
+# Cached source data — re-fetchable, and large
+data/cache/
+backtest/cache/
+backtest/results/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Scratch
+tests/tmp_*.json
+*.tmp

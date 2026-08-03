@@ -1,0 +1,52 @@
+name: OLP XDV telegram commands
+
+# Hourly. Deliberately not more often: every 15 minutes would be ~2,900
+# Actions minutes/month against a 2,000-minute free allowance, whereas hourly
+# is ~720. Replies can therefore be up to an hour behind — run
+# `python output/telegram_commands.py` locally for instant answers.
+on:
+  schedule:
+    - cron: "5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: olp-xdv-commands
+  cancel-in-progress: false   # /log writes to the CLV log — never interrupt it
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Answer pending commands
+        env:
+          ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
+          THESPORTSDB_KEY:    ${{ secrets.THESPORTSDB_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+        run: python output/telegram_commands.py
+
+      # /log appends a paper leg and /note appends a correction — both are
+      # state the next run must see, so they are committed back.
+      - name: Persist logged legs, notes and read offset
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add clv/clv_log.json memory/ || true
+          git diff --staged --quiet || git commit -m "telegram commands $(date -u +%Y-%m-%dT%H:%M) [skip ci]"
+          git pull --rebase --autostash || true
+          git push || echo "nothing to push"

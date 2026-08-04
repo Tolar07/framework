@@ -343,11 +343,17 @@ HANDLERS = {
 
 
 def handle(text: str) -> str:
-    """Route one message. Bright-line requests are refused, not executed."""
+    """Route one message. Bright-line requests are refused, not executed.
+
+    The leading slash is optional — the Architect types words, not tokens:
+    'status', 'send', 'produce bet', 'verify result', 'Start' all route to
+    the same handlers as their /-forms. A note stays a note whether or not
+    it has a slash, because notes are data, never instructions."""
     stripped = text.strip()
     low = stripped.lower()
 
-    if any(w in low for w in BRIGHT_LINE_WORDS) and not low.startswith("/note"):
+    if any(w in low for w in BRIGHT_LINE_WORDS) and not (
+            low.startswith("/note") or low.startswith("note ")):
         return (
             "REFUSED — that would move a bright line.\n\n"
             f"Capital is disabled in code at PHASE={PHASE}, and the honest-edge "
@@ -360,10 +366,13 @@ def handle(text: str) -> str:
         )
 
     cmd = low.split()[0] if low else ""
-    handler = HANDLERS.get(cmd)
+    bare = cmd.lstrip("/")
+    handler = HANDLERS.get(cmd) or HANDLERS.get("/" + bare)
     if handler is None:
         return f"Unknown command '{cmd or stripped[:20]}'.\n\n{cmd_help('')}"
-    return handler(stripped[len(cmd):])
+    # The argument is whatever followed the matched token, slash or no slash.
+    consumed = cmd if cmd.startswith("/") else bare
+    return handler(stripped[len(consumed):])
 
 
 def poll_once(token: Optional[str] = None) -> list[str]:
@@ -393,8 +402,15 @@ def poll_once(token: Optional[str] = None) -> list[str]:
             notes.append(f"IGNORED message from non-whitelisted chat {chat_id}")
             continue
         reply = handle(text)
-        send_telegram(reply, token=token, chat_id=chat_id)
-        notes.append(f"handled {text.split()[0] if text.split() else '?'} from {chat_id}")
+        ok, send_notes = send_telegram(reply, token=token, chat_id=chat_id)
+        label = text.split()[0] if text.split() else "?"
+        if ok:
+            notes.append(f"handled {label} from {chat_id} -> {', '.join(send_notes)}")
+        else:
+            # A command whose reply failed to send is NOT handled. Say so
+            # plainly — a silent reply failure must not look like success.
+            notes.append(f"handled {label} from {chat_id} but REPLY DELIVERY "
+                         f"FAILED: {'; '.join(send_notes)}")
 
     _save_offset(offset)
     return notes or ["no new commands"]

@@ -1,8 +1,12 @@
 # OLP XDV - register the Telegram command poller as a Task Scheduler task.
 #
-# Runs telegram_poll_once.bat every 5 minutes as the current user. Idempotent:
+# Runs telegram_poll_once.bat every minute as the current user. Idempotent:
 # re-running replaces the task with the same definition. No admin required for
 # a current-user, RunLevel Limited task.
+#
+# One minute keeps command latency to at most ~1 min without needing a
+# permanently-open window. If you want near-instant replies instead, run
+# telegram_poller.bat (--loop daemon) and leave its window open.
 #
 # Run with:
 #   powershell -NoProfile -ExecutionPolicy Bypass -File setup_poller_task.ps1
@@ -14,7 +18,7 @@ $task   = "OLP XDV Telegram Poller"
 
 $action     = New-ScheduledTaskAction -Execute $bat
 $trigger    = New-ScheduledTaskTrigger -Once -At (Get-Date) `
-                -RepetitionInterval (New-TimeSpan -Minutes 5)
+                -RepetitionInterval (New-TimeSpan -Minutes 1)
 $settings   = New-ScheduledTaskSettingsSet -StartWhenAvailable `
                 -ExecutionTimeLimit (New-TimeSpan -Minutes 10)
 $principal  = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" `

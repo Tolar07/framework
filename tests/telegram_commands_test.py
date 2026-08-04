@@ -62,6 +62,22 @@ unknown = handle("/frobnicate")
 assert unknown.startswith("Unknown command"), f"unknown command should be refused, got: {unknown[:40]}"
 print("Routing: help routes, unknown command refused: OK")
 
+# --- the leading slash is optional ------------------------------------------
+assert handle("status").startswith("PHASE 3 GATE"), \
+    "'status' without a slash must route to /status"
+assert handle("Start").strip().startswith("OLP XDV commands"), \
+    "'Start' must route to /start (help), not be an unknown command"
+assert handle("produce").startswith("Usage: /produce bet"), \
+    "'produce' without a slash must route to cmd_produce"
+assert handle("verify nonsense").startswith("Usage: /verify result"), \
+    "'verify' without a slash must route to cmd_verify"
+note2 = handle("note enable capital")
+assert note2.startswith("Correction logged"), \
+    "'note ...' without a slash must be exempt from the bright-line refusal"
+assert handle("frobnicate").startswith("Unknown command"), \
+    "an unknown bare word must still be refused"
+print("Leading slash optional; slash-less 'note' exempt from bright-line: OK")
+
 # --- bright lines refused (never removable from a message) ------------------
 for phrase in ("enable capital", "go live", "remove caveat", "stake 100"):
     r = handle(phrase)

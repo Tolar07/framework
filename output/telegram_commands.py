@@ -375,8 +375,14 @@ def handle(text: str) -> str:
     return handler(stripped[len(consumed):])
 
 
-def poll_once(token: Optional[str] = None) -> list[str]:
-    """One getUpdates pass. Returns a log line per message handled."""
+def poll_once(token: Optional[str] = None, long_poll_seconds: int = 0) -> list[str]:
+    """One getUpdates pass. Returns a log line per message handled.
+
+    long_poll_seconds > 0 uses Telegram long-polling: the request blocks up
+    to that many seconds waiting for a message and returns the instant one
+    arrives. A resident daemon passes 30, so a command is answered within
+    seconds instead of on the next scheduled fire. The single-pass caller
+    (default 0) stays an immediate no-wait poll."""
     notes: list[str] = []
     token = token or os.environ.get("TELEGRAM_BOT_TOKEN")
     if requests is None or not token:
@@ -385,7 +391,8 @@ def poll_once(token: Optional[str] = None) -> list[str]:
     offset = _load_offset()
     try:
         r = requests.get(f"https://api.telegram.org/bot{token}/getUpdates",
-                          params={"offset": offset + 1, "timeout": 0}, timeout=30)
+                          params={"offset": offset + 1, "timeout": long_poll_seconds},
+                          timeout=long_poll_seconds + 15)
         updates = r.json().get("result", [])
     except Exception as e:
         return [f"command poll failed: {e}"]
@@ -420,21 +427,43 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(
         description="OLP XDV Telegram command poller — the Architect's way in.")
     ap.add_argument("--loop", action="store_true",
-                    help="poll forever (default: one pass, for Task Scheduler)")
+                    help="run as a resident long-polling daemon (near-instant replies)")
     ap.add_argument("--interval", type=int, default=30,
-                    help="seconds between polls in --loop mode")
+                    help="long-poll seconds per getUpdates in --loop mode")
     args = ap.parse_args()
 
     if args.loop:
+        # Single-instance guard: two pollers would race on the getUpdates
+        # offset and double-answer. A stale lock (dead pid) is taken over.
+        lock = Path(__file__).parent.parent / "memory" / "telegram_poller.lock"
+        lock.parent.mkdir(parents=True, exist_ok=True)
+        if lock.exists():
+            try:
+                os.kill(int(lock.read_text().strip()), 0)
+                print(f"another poller is already running — exiting")
+                sys.exit(0)
+            except (OSError, ValueError):
+                pass  # stale lock from a killed process — take it over
+        lock.write_text(str(os.getpid()))
+
         print(f"OLP XDV command poller running — Ctrl-C to stop "
-              f"(poll every {args.interval}s)")
+              f"(long-poll {args.interval}s, replies near-instant)")
         try:
             while True:
-                for n in poll_once():
-                    print(f"[{datetime.now(timezone.utc).isoformat()}] {n}")
-                time.sleep(args.interval)
+                try:
+                    for n in poll_once(long_poll_seconds=args.interval):
+                        print(f"[{datetime.now(timezone.utc).isoformat()}] {n}")
+                except Exception as e:
+                    # self-healing: a transient error must not kill the one
+                    # process the phone depends on for replies.
+                    print(f"[{datetime.now(timezone.utc).isoformat()}] "
+                          f"poller error, continuing: {e}")
+                    time.sleep(10)
+                time.sleep(2)  # safety gap; long-poll does the waiting
         except KeyboardInterrupt:
             print("poller stopped")
+        finally:
+            lock.unlink(missing_ok=True)
     else:
         for n in poll_once():
             print(n)

@@ -28,15 +28,22 @@ COMMANDS
   /why <n>   full reasoning for fixture n on today's board
   /log       Home v Away | Market | price      -> CL-LIVE paper leg (HR46)
   /note      free text                          -> corrections log (blueprint 2.7)
+  /send      run the daily pipeline NOW and deliver the board (alias /run)
   /debrief   full framework status
   /help      this list
+
+The poller is lightweight on purpose: every command except /send imports
+nothing heavier than config + the CLV ledger. /send lazily imports run_daily
+(scipy + the whole pipeline), so answering a /status never pays for that.
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import os
 import sys
+import time
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -102,6 +109,7 @@ def cmd_help(_: str) -> str:
         "     records a price YOU got, as a CL-LIVE paper leg (HR46)\n"
         "/note the model looks wrong on Motherwell\n"
         "     records a correction for calibration to learn from\n"
+        "/send — run the daily pipeline now and deliver the board (~30s)\n"
         "/debrief — full framework status\n\n"
         f"{PHASE_LABEL}. Paper only — this system never stakes."
     )
@@ -248,10 +256,39 @@ def cmd_debrief(_: str) -> str:
     ])
 
 
+def cmd_send(_: str) -> str:
+    """Trigger a FRESH daily run and deliver the board, on demand.
+
+    The Architect's way to get today's board without waiting for 07:00: it
+    grades yesterday's legs, pulls live odds, rescans every league, logs any
+    new paper legs, and delivers the board to TELEGRAM_CHAT_ID — the SAME
+    code path as the scheduled run (run_daily.run), so an on-demand delivery
+    is the scheduled delivery, not a second opinion.
+
+    A run takes ~30s; during it the poller is busy and queued commands wait.
+    Bright-line rules still apply underneath: config.assert_paper_only()
+    keeps every leg paper, so /send can never stake."""
+    import run_daily  # lazy — the other commands must not pay for scipy
+    try:
+        run_daily.run(send=True)
+    except RuntimeError as e:
+        # run_daily raises exactly when delivery is incomplete. The board is
+        # on disk regardless; say so rather than claiming success.
+        return f"RUN FAILED — {e}\n\nBoard was written to disk; delivery incomplete."
+    except Exception as e:
+        return (f"RUN FAILED — {type(e).__name__}: {e}\n\n"
+                f"No board delivered; the run's log has the detail.")
+    return ("FRESH RUN COMPLETE — board delivered.\n\n"
+            "Graded yesterday's legs, pulled live prices, rescanned every "
+            "league, and logged any new paper legs. The board was sent in "
+            "parts; every part carries the honest-edge caveat.")
+
+
 HANDLERS = {
     "/help": cmd_help, "/start": cmd_help,
     "/status": cmd_status, "/board": cmd_board, "/verify": cmd_verify,
     "/why": cmd_why, "/log": cmd_log, "/note": cmd_note,
+    "/send": cmd_send, "/run": cmd_send,
     "/debrief": cmd_debrief,
 }
 
@@ -315,5 +352,24 @@ def poll_once(token: Optional[str] = None) -> list[str]:
 
 
 if __name__ == "__main__":
-    for n in poll_once():
-        print(n)
+    ap = argparse.ArgumentParser(
+        description="OLP XDV Telegram command poller — the Architect's way in.")
+    ap.add_argument("--loop", action="store_true",
+                    help="poll forever (default: one pass, for Task Scheduler)")
+    ap.add_argument("--interval", type=int, default=30,
+                    help="seconds between polls in --loop mode")
+    args = ap.parse_args()
+
+    if args.loop:
+        print(f"OLP XDV command poller running — Ctrl-C to stop "
+              f"(poll every {args.interval}s)")
+        try:
+            while True:
+                for n in poll_once():
+                    print(f"[{datetime.now(timezone.utc).isoformat()}] {n}")
+                time.sleep(args.interval)
+        except KeyboardInterrupt:
+            print("poller stopped")
+    else:
+        for n in poll_once():
+            print(n)

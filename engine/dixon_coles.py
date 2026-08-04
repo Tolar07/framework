@@ -110,9 +110,9 @@ def fit(results: list, min_matches_per_team: int = 4,
         return_raw_x: bool = False, half_life_days: Optional[float] = None,
         ref_date: Optional[str] = None) -> DixonColesModel:
     """Fit attack/defence/home-advantage/rho by maximum likelihood on a list of
-    MatchResult (from data.football_data_source). Time-weighting is NOT applied
-    in this version — most-recent-season data should be passed in already
-    filtered to what you want fit on (keeps the model auditable/simple).
+    MatchResult (from data.football_data_source). Time weighting is OFF by
+    default (see half_life_days below); pass results already filtered to the
+    window you want fit on.
 
     Warm start (optional, for the walk-forward backtest): pass `x0_teams` as
     {team: (attack, defence)} and `x0_globals` as (home_adv, rho) from a
@@ -155,6 +155,36 @@ def fit(results: list, min_matches_per_team: int = 4,
     def unpack(x):
         return x[:n], x[n:2 * n], x[2 * n], x[2 * n + 1]
 
+    # Pre-extract to arrays once, so the objective is pure numpy. The previous
+    # Python loop over every match, on every objective evaluation, made a
+    # cross-league pooled fit (~250 teams, ~5,000 matches) computationally
+    # impossible. Same mathematics — verified identical in
+    # tests/engine_regression_test.py.
+    _hi = np.fromiter((idx[r.home_team] for r in results), dtype=np.intp, count=len(results))
+    _ai = np.fromiter((idx[r.away_team] for r in results), dtype=np.intp, count=len(results))
+    _hg = np.fromiter((r.fthg for r in results), dtype=np.int64, count=len(results))
+    _ag = np.fromiter((r.ftag for r in results), dtype=np.int64, count=len(results))
+    _w = np.asarray(weights, dtype=float)
+    # Which matches the Dixon-Coles correction actually applies to: BOTH scores
+    # in {0,1}. Everything else has tau == 1 and contributes log(1) == 0.
+    _m00 = (_hg == 0) & (_ag == 0)
+    _m01 = (_hg == 0) & (_ag == 1)
+    _m10 = (_hg == 1) & (_ag == 0)
+    _m11 = (_hg == 1) & (_ag == 1)
+
+    def neg_log_likelihood_vec(x):
+        attack, defence, home_adv, rho = unpack(x)
+        lam_h = np.exp(attack[_hi] + defence[_ai] + home_adv)
+        lam_a = np.exp(attack[_ai] + defence[_hi])
+        ll = poisson.logpmf(_hg, lam_h) + poisson.logpmf(_ag, lam_a)
+        tau = np.ones_like(lam_h)
+        tau[_m00] = 1.0 - lam_h[_m00] * lam_a[_m00] * rho
+        tau[_m01] = 1.0 + lam_h[_m01] * rho
+        tau[_m10] = 1.0 + lam_a[_m10] * rho
+        tau[_m11] = 1.0 - rho
+        np.maximum(tau, 1e-6, out=tau)
+        return -float(np.sum(_w * (ll + np.log(tau))))
+
     def neg_log_likelihood(x):
         attack, defence, home_adv, rho = unpack(x)
         # BUG6 fix: rho is NOT clamped here. Clamping inside the objective made
@@ -168,11 +198,22 @@ def fit(results: list, min_matches_per_team: int = 4,
         ll = 0.0
         for k, r in enumerate(results):
             i, j = idx[r.home_team], idx[r.away_team]
+            # NOTE: lambdas are deliberately NOT clamped inside the likelihood.
+            # Clamping here is the same pathology as BUG6 — wherever a clamp
+            # binds, the objective goes flat in those parameters and the
+            # optimizer loses its gradient. The optimizer BOUNDS below keep the
+            # parameters in a sane range instead, and lambdas.py still clamps
+            # at PREDICTION time, which is where BUG1's guard actually belongs.
             lam_h = math.exp(attack[i] + defence[j] + home_adv)
             lam_a = math.exp(attack[j] + defence[i])
-            lam_h = min(max(lam_h, LAMBDA_CLAMP[0]), LAMBDA_CLAMP[1])
-            lam_a = min(max(lam_a, LAMBDA_CLAMP[0]), LAMBDA_CLAMP[1])
-            tau = _dc_tau(min(r.fthg, 1), min(r.ftag, 1), lam_h, lam_a, rho)
+            # BUG8 fix: pass the ACTUAL scores. This previously passed
+            # min(goals, 1), which collapses every scoreline onto {0,1}x{0,1} —
+            # so a 3-2 was handed to tau as (1,1) and received the same
+            # low-score correction as a real 1-1, and a 2-0 was treated as 1-0.
+            # tau(x,y) is defined as 1.0 outside {0,1}x{0,1}; the correction was
+            # being wrongly applied to 71% of matches in a typical season,
+            # biasing rho and, through it, every fitted parameter.
+            tau = _dc_tau(r.fthg, r.ftag, lam_h, lam_a, rho)
             tau = max(tau, 1e-6)
             ll += weights[k] * (poisson.logpmf(r.fthg, lam_h)
                                  + poisson.logpmf(r.ftag, lam_a)
@@ -199,10 +240,15 @@ def fit(results: list, min_matches_per_team: int = 4,
     # and defence are loosely bounded (they are log-scale strengths; +/-3 is
     # far outside anything football produces) purely to keep lambdas in a sane
     # range; rho carries its documented Dixon-Coles range.
-    bounds = ([(-3.0, 3.0)] * (2 * n)
+    # Attack/defence bounded at +/-2.0: with home advantage that caps a lambda
+    # at exp(2+2+1) ~ 148, far outside anything football produces but tight
+    # enough that poisson.logpmf stays numerically well behaved. Real fitted
+    # values sit within about +/-0.7, so these never bind in practice — they
+    # exist to stop the optimizer wandering, not to shape the answer.
+    bounds = ([(-2.0, 2.0)] * (2 * n)
               + [(-1.0, 1.0)]        # home advantage
               + [RHO_CLAMP])         # rho
-    res = minimize(neg_log_likelihood, x0, method="L-BFGS-B",
+    res = minimize(neg_log_likelihood_vec, x0, method="L-BFGS-B",
                     bounds=bounds, options={"maxiter": 500})
 
     attack, defence, home_adv, rho = unpack(res.x)

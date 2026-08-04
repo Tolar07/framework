@@ -1,14 +1,14 @@
 PART 0 — HEADER
-Date: 2026-08-03 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Date: 2026-08-04 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa
 Calibration: 0 legs logged, CLV logged: ZERO
 DATA FLAGS (surfaced first, per HR53/ID403):
-  ⚠ graded 0 of 11 pending leg(s)
-  ⚠ Eredivisie: odds served from cache (under the 60-minute V2 recency cap)
-  ⚠ Danish Superliga: odds served from cache (under the 60-minute V2 recency cap)
-  ⚠ Belgian Pro League: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ graded 0 of 18 pending leg(s)
+  ⚠ Eredivisie: odds pulled live (466 API credits left)
+  ⚠ Danish Superliga: odds pulled live (464 API credits left)
+  ⚠ Belgian Pro League: odds pulled live (462 API credits left)
   ⚠ Scottish Premiership: odds served from cache (under the 60-minute V2 recency cap)
-  ⚠ Ekstraklasa: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Ekstraklasa: odds pulled live (460 API credits left)
   ⚠ Eredivisie: 3 team name(s) in the fixtures feed not found in the fitted data — ADO Den Haag, Cambuur, Willem II. Model knows: AZ Alkmaar, Ajax, Excelsior, Feyenoord, For Sittard, Go Ahead Eagles, Groningen, Heerenveen, Heracles, NAC Breda, Nijmegen, PSV Eindhoven, Sparta Rotterdam, Telstar, Twente, Utrecht, Volendam, Zwolle. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ Danish Superliga: 2 team name(s) in the fixtures feed not found in the fitted data — AC Horsens, Lyngby. Model knows: Aarhus, Brondby, FC Copenhagen, Fredericia, Midtjylland, Nordsjaelland, Odense, Randers FC, Silkeborg, Sonderjyske, Vejle, Viborg. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ Belgian Pro League: 3 team name(s) in the fixtures feed not found in the fitted data — Beveren, Kortrijk, Lommel. Model knows: Anderlecht, Antwerp, Cercle Brugge, Charleroi, Club Brugge, Dender, Genk, Gent, Mechelen, Oud-Heverlee Leuven, RAAL La Louviere, St Truiden, St. Gilloise, Standard, Waregem, Westerlo. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
@@ -16,7 +16,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Ekstraklasa: odds served from cache (under the 60-minute V2 recency cap)
   ⚠ Ekstraklasa: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   ⚠ Excelsior v PSV Eindhoven: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ logged 7 new paper leg(s) with a live entry price
+  ⚠ logged 0 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 
@@ -34,12 +34,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 90% (model) | Over 2.5 goals 74% (model)
    Both teams to score YES 67% (model)
    Expected goals (model): Nijmegen 2.608, Telstar 1.257
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Nijmegen to win 67% · Draw 21% · Telstar to win 13%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Telstar to win
       Model probability .......... 16%
-      Best quoted price .......... 7.50 decimal (grosvenor, best of 19 books)
+      Best quoted price .......... 6.80 decimal (betfair_ex_uk, best of 19 books)
       Breakeven trigger price .... 1.11 or longer
-      HR30 numerical MES ......... +18.79% expected value per unit staked — POSITIVE expected value against this price
-      DIVERGENCE FLAG (ID403.1 V5): model says 16%, this price implies 13% — an implausible +19% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      HR30 numerical MES ......... +7.70% expected value per unit staked — POSITIVE expected value against this price
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 2. PSV Eindhoven v For Sittard (Eredivisie)
@@ -52,6 +54,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 96% (model) | Over 2.5 goals 87% (model)
    Both teams to score YES 66% (model)
    Expected goals (model): PSV Eindhoven 3.879, For Sittard 1.099
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      PSV Eindhoven to win 90% · Draw 8% · For Sittard to win 2%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Over 2.5 goals
       Model probability .......... 87%
       Best quoted price .......... 1.22 decimal (williamhill, best of 1 books)
@@ -69,6 +74,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 60% (model)
    Both teams to score YES 59% (model)
    Expected goals (model): Sparta Rotterdam 1.103, Feyenoord 1.983
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Sparta Rotterdam to win 17% · Draw 26% · Feyenoord to win 58%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Under 2.5 goals
       Model probability .......... 40%
       Best quoted price .......... 2.50 decimal (williamhill, best of 1 books)
@@ -86,12 +94,15 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 84% (model) | Over 2.5 goals 62% (model)
    Both teams to score YES 61% (model)
    Expected goals (model): Zwolle 1.162, Ajax 2.033
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Zwolle to win 17% · Draw 26% · Ajax to win 57%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Zwolle to win
       Model probability .......... 20%
-      Best quoted price .......... 6.50 decimal (grosvenor, best of 19 books)
+      Best quoted price .......... 5.70 decimal (betfair_ex_uk, best of 19 books)
       Breakeven trigger price .... 1.19 or longer
-      HR30 numerical MES ......... +32.57% expected value per unit staked — POSITIVE expected value against this price
-      DIVERGENCE FLAG (ID403.1 V5): model says 20%, this price implies 15% — an implausible +33% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      HR30 numerical MES ......... +16.26% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 20%, this price implies 18% — an implausible +16% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 5. Excelsior v PSV Eindhoven (Eredivisie)
@@ -104,6 +115,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 90% (model) | Over 2.5 goals 74% (model)
    Both teams to score YES 67% (model)
    Expected goals (model): Excelsior 1.256, PSV Eindhoven 2.612
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Excelsior to win 7% · Draw 15% · PSV Eindhoven to win 78%
+      ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +12pp on away win (Elo 7%/15%/78% vs Dixon-Coles 16%/18%/66%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
    HR30 MES trigger price: back only at decimal odds 1.11 or longer (breakeven vs the model).
       Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
 
@@ -117,6 +131,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Goals: Over 1.5 goals 80% (model) | Over 2.5 goals 57% (model)
    Both teams to score YES 60% (model)
    Expected goals (model): Sonderjyske 1.534, Viborg 1.414
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Sonderjyske to win 40% · Draw 30% · Viborg to win 29%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Sonderjyske to win
       Model probability .......... 40%
       Best quoted price .......... 3.05 decimal (betfair_ex_uk, best of 19 books)

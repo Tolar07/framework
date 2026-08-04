@@ -62,7 +62,7 @@ MODEL_CACHE_DIR = Path(__file__).parent / "cache" / "models"
 
 # Bumped whenever engine behaviour changes, so cached models fitted under old
 # behaviour are never silently reused. 2 = rho bounded in optimizer (BUG6).
-FIT_VERSION = 3  # 3 = scoring-neutral centering (BUG7)
+FIT_VERSION = 4  # 4 = BUG8 tau fix + lambda clamp out of the likelihood
 
 MARKETS_1X2 = ("1X2_H", "1X2_D", "1X2_A")
 MARKETS_OU = ("O2.5", "U2.5")
@@ -81,7 +81,15 @@ class BacktestConfig:
     markets: tuple[str, ...] = MARKETS_1X2 + MARKETS_OU + (MARKET_O15_DERIVED,)
     min_mes: float = 0.02           # PRE-DECLARED. See note in candidate_legs.
     book_preference: tuple[str, ...] = DEFAULT_BOOK_PREFERENCE
-    selector: str = "model"         # "model" | "random_placebo"
+    # "model" | "random_placebo" | "always_favourite" | "always_over"
+    #
+    # The three non-model selectors are the baselines the MD2 Pressure Test
+    # RULE 3 demands: "if the framework can't out-CLV those, the 43 directives
+    # are decoration." random_placebo is the WEAKEST of them — favourite-
+    # longshot drift makes random selection look bad almost for free, so
+    # beating it proves little. always_favourite is the demanding one: short
+    # prices are where the market is sharpest and where drift helps least.
+    selector: str = "model"
     random_seed: int = 390          # ID390, the open question this tests
     warm_start: bool = True
     half_life_days: Optional[float] = None   # None = no time decay (default)
@@ -294,6 +302,32 @@ def settle(market: str, fthg: int, ftag: int) -> Optional[bool]:
 # Leg selection
 # --------------------------------------------------------------------------
 
+def _select(cfg: BacktestConfig, market: str, mes, price, odds, rng) -> bool:
+    """Should this leg be taken? One rule per selector.
+
+    The baselines exist so the model's number has something to be measured
+    AGAINST. A mean CLV of -0.4% is meaningless in isolation; it only means
+    something next to what a rule with no model in it achieves on the very
+    same fixtures (MD2 Pressure Test, RULE 3)."""
+    if cfg.selector == "model":
+        return mes is not None and mes >= cfg.min_mes
+    if cfg.selector == "random_placebo":
+        return rng.random() < 0.5
+    if cfg.selector == "always_favourite":
+        # Back the shortest of the three 1X2 prices, every match. This is the
+        # hardest baseline: short prices are where the book is sharpest, so a
+        # model that cannot out-CLV it is adding nothing where it matters.
+        if market not in ("1X2_H", "1X2_D", "1X2_A"):
+            return False
+        line = [(o_.open, n) for n, o_ in
+                (("1X2_H", odds.home), ("1X2_D", odds.draw), ("1X2_A", odds.away))
+                if o_.open is not None]
+        return bool(line) and min(line)[1] == market
+    if cfg.selector == "always_over":
+        return market == "O2.5"
+    raise ValueError(f"unknown selector {cfg.selector!r}")
+
+
 def candidate_legs(match: MatchResult, probs, cfg: BacktestConfig,
                     rng: Optional[random.Random] = None) -> list[PaperLeg]:
     """Enumerate every market in scope for one fixture and keep those the model
@@ -341,9 +375,7 @@ def candidate_legs(match: MatchResult, probs, cfg: BacktestConfig,
             continue
 
         mes = mes_numeric(model_p, price.open)
-        selected = (rng.random() < 0.5) if cfg.selector == "random_placebo" \
-            else (mes is not None and mes >= cfg.min_mes)
-        if not selected:
+        if not _select(cfg, market, mes, price, o, rng):
             continue
 
         if price.close is None:
@@ -380,7 +412,14 @@ def _derived_o15_leg(match, probs, cfg, base, rng) -> list[PaperLeg]:
                       model_prob=probs.p_over_15)]
 
     edge = probs.p_over_15 - p_o15_open
-    selected = (rng.random() < 0.5) if cfg.selector == "random_placebo" else (edge >= cfg.min_mes)
+    if cfg.selector == "model":
+        selected = edge >= cfg.min_mes
+    elif cfg.selector == "random_placebo":
+        selected = rng.random() < 0.5
+    elif cfg.selector == "always_over":
+        selected = True          # the overs baseline takes this market too
+    else:
+        selected = False         # always_favourite is a 1X2-only rule
     if not selected:
         return []
 
@@ -551,7 +590,7 @@ def main() -> None:
     ap.add_argument("--leagues", nargs="+", default=list(DEFAULT_AB + DEFAULT_CONTROL))
     ap.add_argument("--refit-days", type=int, default=7)
     ap.add_argument("--min-mes", type=float, default=0.02)
-    ap.add_argument("--selector", choices=["model", "random_placebo"], default="model")
+    ap.add_argument("--selector", choices=["model","random_placebo","always_favourite","always_over"], default="model")
     ap.add_argument("--half-life-days", type=float, default=None)
     ap.add_argument("--no-write", action="store_true", help="skip writing the leg log")
     args = ap.parse_args()

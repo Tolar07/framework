@@ -83,6 +83,57 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Falkirk F.C.": "Falkirk",
         "Heart of Midlothian": "Hearts",
     },
+    # The odds feed favours official/registered club names (FC, SC, KV, IF
+    # prefixes and suffixes) where football-data.co.uk uses the short form.
+    # Every pair below was verified by diffing the two sources' live team
+    # lists; clubs genuinely new to the division are deliberately absent.
+    "Eredivisie": {
+        "FC Twente Enschede": "Twente",
+        "FC Utrecht": "Utrecht",
+        "FC Zwolle": "Zwolle",
+        "Fortuna Sittard": "For Sittard",
+        "NEC Nijmegen": "Nijmegen",
+        "SC Telstar": "Telstar",
+        # Newly promoted, so the model has no rating for it — but the name is
+        # still normalised, so the "new to this division" check recognises it
+        # instead of reporting it as an unexplained mismatch.
+        "SC Cambuur": "Cambuur",
+    },
+    "Danish Superliga": {
+        "Brondby IF": "Brondby",
+        "OB Odense BK": "Odense",
+        "Silkeborg IF": "Silkeborg",
+        "SonderjyskE": "Sonderjyske",
+        "Viborg FF": "Viborg",
+    },
+    "Belgian Pro League": {
+        "Cercle Brugge KSV": "Cercle Brugge",
+        "KV Kortrijk": "Kortrijk",
+        "KV Mechelen": "Mechelen",
+        "Leuven": "Oud-Heverlee Leuven",
+        "RAAL La Louvi\xe8re": "RAAL La Louviere",
+        "Royal Antwerp": "Antwerp",
+        "SV Zulte-Waregem": "Waregem",
+        "Sint Truiden": "St Truiden",
+        "Standard Liege": "Standard",
+        "Union Saint-Gilloise": "St. Gilloise",
+        # Promoted for 2026/27 — unrated, but normalised (see Cambuur note).
+        "Lommel SK": "Lommel",
+        "SK Beveren": "Beveren",
+    },
+    # Polish clubs: the Odds API carries full names with diacritics,
+    # football-data.co.uk carries shortened ASCII. Every pair verified against
+    # both sources' actual team lists.
+    "Ekstraklasa": {
+        "G\xf3rnik Zabrze": "Gornik Zabrze",
+        "Jagiellonia Białystok": "Jagiellonia",
+        "Lech Poznań": "Lech Poznan",
+        "Legia Warszawa": "Legia",
+        "Pogoń Szczecin": "Pogon Szczecin",
+        "Rak\xf3w Częstochowa": "Rakow",
+        "Widzew Ł\xf3dź": "Widzew Lodz",
+        "Zagłębie Lubin": "Zaglebie",
+    },
 }
 
 
@@ -144,14 +195,26 @@ def check_quota() -> tuple[int, int]:
             int(r.headers.get("x-requests-remaining", -1)))
 
 
-def _best_price(event: dict, market_key: str, outcome_name: str,
-                 point: Optional[float] = None) -> MarketQuote:
-    """Best (longest) price across books for one outcome.
+# Books the Architect can actually bet into, in preference order. Taking the
+# best price ACROSS ALL books quotes a number that may sit at an operator he
+# has no account with — which inflates every MES and every CLV figure derived
+# from it. A price you cannot take is not a price. (Pattern taken from
+# DataEngine v1.0, which had this right.)
+BOOKMAKER_PRIORITY = ("bet365", "pinnacle", "betfair_ex_uk", "williamhill",
+                      "betfair_ex_eu")
 
-    Best-of rather than an average: an average is a price nobody offers, and
-    the Architect bets at a real book. n_books is recorded so a price quoted by
-    a single outlier book is visibly distinguishable from a consensus one."""
-    best, book, n = None, None, 0
+
+def _best_price(event: dict, market_key: str, outcome_name: str,
+                 point: Optional[float] = None,
+                 priority: tuple[str, ...] = BOOKMAKER_PRIORITY) -> MarketQuote:
+    """Price for one outcome, preferring a book the Architect can reach.
+
+    Walks `priority` in order and returns the first book that quotes this
+    outcome. Only if NONE of them do does it fall back to the best price
+    across all books — and that fallback is marked, because it is a price he
+    may not be able to get. n_books is always the full count, so a single
+    outlier quote stays visibly distinguishable from a consensus one."""
+    quotes: dict[str, float] = {}
     for bm in event.get("bookmakers", []):
         for m in bm.get("markets", []):
             if m.get("key") != market_key:
@@ -161,12 +224,22 @@ def _best_price(event: dict, market_key: str, outcome_name: str,
                     continue
                 if point is not None and o.get("point") != point:
                     continue
-                n += 1
-                price = o.get("price")
-                if price is not None and (best is None or price > best):
-                    best, book = price, bm.get("key")
-    return MarketQuote(price=best, bookmaker=book, n_books=n,
-                        captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+                if o.get("price") is not None:
+                    quotes[bm.get("key")] = o["price"]
+
+    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    if not quotes:
+        return MarketQuote(captured_at=now)
+
+    for book in priority:
+        if book in quotes:
+            return MarketQuote(price=quotes[book], bookmaker=book,
+                                n_books=len(quotes), captured_at=now)
+
+    # No reachable book quoted it — best available, flagged by the book name.
+    book = max(quotes, key=quotes.get)
+    return MarketQuote(price=quotes[book], bookmaker=f"{book} (not a priority book)",
+                        n_books=len(quotes), captured_at=now)
 
 
 def _cache_path(league: str) -> Path:
@@ -246,6 +319,47 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
             fx.notes.append("Over/Under 2.5 not quoted — NO DATA — PENDING")
         out.append(fx)
     return out, flags
+
+
+def fixtures_from_odds(league: str, days_ahead: int = 14
+                        ) -> tuple[list[tuple[str, str]], dict[tuple[str, str], str], list[str]]:
+    """Derive the upcoming fixture LIST from the odds feed.
+
+    A priced event is by definition an upcoming fixture, so where a dedicated
+    fixtures source has no verified league ID this recovers the league rather
+    than dropping it. That is what unblocks Ekstraklasa — a tier-B,
+    deploy-eligible league with 306 matches of history and live prices, which
+    was otherwise scanning as NO DATA purely for want of a fixture list.
+
+    Returns (pairs, dates_by_pair, flags). Deduplicated: the feed can return
+    the same fixture more than once, and a duplicate would be logged as two
+    separate paper legs on one match."""
+    from datetime import date as _date, timedelta as _td
+    flags: list[str] = []
+    quotes, oflags = fetch_odds(league)
+    flags += oflags
+
+    horizon = _date.today() + _td(days=days_ahead)
+    pairs: list[tuple[str, str]] = []
+    dates: dict[tuple[str, str], str] = {}
+    for q in quotes:
+        day = (q.kickoff_utc or "")[:10]
+        if not day:
+            continue  # HR35 — no date means it could never be settled correctly
+        try:
+            if _date.fromisoformat(day) > horizon:
+                continue
+        except ValueError:
+            continue
+        key = (q.home_team, q.away_team)
+        if key in dates:
+            continue  # already seen — never log one match twice
+        dates[key] = day
+        pairs.append(key)
+
+    flags.append(f"{league}: {len(pairs)} fixture(s) derived from the odds feed "
+                 f"(no dedicated fixtures source for this league)")
+    return pairs, dates, flags
 
 
 def index_by_fixture(fixtures: list[FixtureOdds]) -> dict[tuple[str, str], FixtureOdds]:

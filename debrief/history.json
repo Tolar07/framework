@@ -1,0 +1,7 @@
+[
+  {
+    "date": "2026-08-04",
+    "text": "DEBRIEF \u2014 2026-08-04\n====================================================\nPhase 2 \u2014 paper calibration, zero capital\n\nPaper legs logged      : 18\nGraded (result known)  : 0\nWith closing price/CLV : 0\n\nMean CLV: NO DATA \u2014 PENDING\nPhase 3 gate: 0/30 legs \u2014 not met (Architect sign-off required regardless)\n\nBASELINES TO BEAT (2024/25 backtest, same fixtures, no model involved):\n   always-favourite   -0.047%\n   random selection   -0.530%\n   always-over        -0.754%\n   A model that cannot out-CLV the best of these is not adding anything (MD2 RULE 3).\n\nPROPOSED \u2014 awaiting your accept/reject. Nothing here is applied:\n   [rule_observation] 0 of 30 Phase 3 gate legs logged with CLV.\n      -> No rule change needed \u2014 this is expected at this stage. Note that the MD2 Pressure Test sets its own bar at 100+ settled picks, which is the more defensible number: at 30 legs the standard error cannot distinguish a real edge from zero.\n\nHONEST EDGE LINE: an excellent informed process, NOT a demonstrated profitable edge. Only logged closing lines prove otherwise.",
+    "logged_at": "2026-08-04T05:48:22.520202+00:00"
+  }
+]

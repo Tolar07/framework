@@ -136,10 +136,10 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Sonderjyske to win
       Model probability .......... 40%
-      Best quoted price .......... 3.05 decimal (betfair_ex_uk, best of 19 books)
+      Best quoted price .......... 3.10 decimal (betfair_ex_uk, best of 19 books)
       Breakeven trigger price .... 1.25 or longer
-      HR30 numerical MES ......... +20.90% expected value per unit staked — POSITIVE expected value against this price
-      DIVERGENCE FLAG (ID403.1 V5): model says 40%, this price implies 33% — an implausible +21% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      HR30 numerical MES ......... +22.89% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 40%, this price implies 32% — an implausible +23% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 PART 2 — THE SCAN

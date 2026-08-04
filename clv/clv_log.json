@@ -93,5 +93,24 @@
     "stake": null,
     "phase": "phase2_paper",
     "notes": ""
+  },
+  {
+    "leg_id": "Sonderjyske_v_Viborg_1X2_DRAW_1785875272",
+    "date_logged": "2026-08-04T20:27:51.678679+00:00",
+    "league": "Danish Superliga",
+    "fixture": "Sonderjyske v Viborg",
+    "market": "1X2_DRAW",
+    "model_prob": 0.26058883738822225,
+    "match_date": "2026-08-07",
+    "entry_odds": 3.85,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
   }
 ]

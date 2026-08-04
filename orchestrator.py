@@ -27,6 +27,9 @@ sys.path.insert(0, str(Path(__file__).parent))
 from data.football_data_source import load_league, MatchResult, UNCOVERED_LEAGUES
 from data.fixtures_source import fetch_upcoming, as_pairs
 from data import thesportsdb_fixtures as tsdb
+from data import api_football_results as apif
+from engine import cross_league as xleague
+from engine import elo as elo_engine
 from engine.dixon_coles import fit, predict, unrated_reason
 from engine.softness import (SOFTNESS_TIER, softness_tier, is_deploy_eligible,
                               build_deploy_shortlist)
@@ -72,10 +75,37 @@ def scan_one_league(league: str, season: str,
     flags: list[str] = []
     fixture_dates: dict[tuple[str, str], str] = {}
 
+    # football-data.co.uk carries no continental competitions and no Croatia.
+    # API-Football fills that gap for HISTORY (ratified 2026-08-03), but a
+    # continental competition still cannot be fitted as a standalone league —
+    # see api_football_results.is_cross_league for why.
+    fallback_history = None
+    cross_model = None
     if league in UNCOVERED_LEAGUES:
-        flags.append(f"{league}: NO DATA — PENDING (not covered by football-data.co.uk, "
-                      f"needs a different T1 source)")
-        return [], flags
+        if apif.is_cross_league(league):
+            # Fitted on the pooled European graph — domestic results plus the
+            # league phases of all three continental competitions, which are
+            # what put clubs from different leagues on one scale.
+            try:
+                cross_model, _info, xflags = xleague.fit_cross_league(league)
+                flags += xflags
+                if cross_model is None:
+                    return [], flags
+            except Exception as e:
+                flags.append(f"{league}: cross-league fit failed ({str(e)[:70]}) "
+                             f"— NO DATA — PENDING")
+                return [], flags
+        else:
+            try:
+                fallback_history, hflags = apif.load_results(league)
+                flags += hflags
+                if len(fallback_history) < 20:
+                    flags.append(f"{league}: fallback history too thin "
+                                 f"({len(fallback_history)}) — NO DATA — PENDING")
+                    return [], flags
+            except Exception as e:
+                flags.append(f"{league}: NO DATA — PENDING (no history source: {e})")
+                return [], flags
 
     if upcoming_fixtures is None:
         fx_season = fixtures_season or next_season_code(season)
@@ -94,31 +124,60 @@ def scan_one_league(league: str, season: str,
                 flags.append(f"{league}: {len(fx_skipped)} fixture rows skipped/malformed")
         except Exception as e:
             errors.append(f"thesportsdb: {e}")
+            # Fall back to deriving fixtures from the ODDS feed. A priced event
+            # is an upcoming fixture, so a league with history and live prices
+            # but no fixtures-source league ID (Ekstraklasa) is recovered
+            # rather than scanning as NO DATA.
             try:
-                season_year = api_football_season or int(f"20{fx_season[:2]}")
-                upcoming_fixtures = as_pairs(fetch_upcoming(league, season_year))
+                import pipeline.odds as _odds
+                pairs, dates, oflags = _odds.fixtures_from_odds(league)
+                if pairs:
+                    upcoming_fixtures = pairs
+                    fixture_dates.update(dates)
+                    flags += oflags
             except Exception as e2:
-                errors.append(f"api-football: {e2}")
+                errors.append(f"odds-derived fixtures: {e2}")
+                try:
+                    season_year = api_football_season or int(f"20{fx_season[:2]}")
+                    upcoming_fixtures = as_pairs(fetch_upcoming(league, season_year))
+                except Exception as e3:
+                    errors.append(f"api-football: {e3}")
 
         if not upcoming_fixtures:
             detail = " | ".join(errors) if errors else "no fixtures in window"
             flags.append(f"{league}: no upcoming fixtures ({detail}) — NO DATA — PENDING")
 
-    try:
-        results, skipped = load_league(league, season)
-    except Exception as e:
-        flags.append(f"{league}: results fetch failed ({e}) — NO DATA — PENDING")
-        return [], flags
+    if cross_model is not None:
+        results, skipped = [], []
+    elif fallback_history is not None:
+        results, skipped = fallback_history, []
+    else:
+        try:
+            results, skipped = load_league(league, season)
+        except Exception as e:
+            flags.append(f"{league}: results fetch failed ({e}) — NO DATA — PENDING")
+            return [], flags
 
     if skipped:
         flags.append(f"{league}: {len(skipped)} source rows skipped/malformed")
 
-    if len(results) < 20:
+    if cross_model is None and len(results) < 20:
         flags.append(f"{league}: insufficient match history ({len(results)} results) "
                       f"— NO DATA — PENDING rather than a thin fit")
         return [], flags
 
-    model = fit(results)
+    model = cross_model if cross_model is not None else fit(results)
+
+    # Second engine (ID82 Elo, ratified 2026-08-04). Built from the SAME match
+    # history the goals model was fitted on, so the two are reading identical
+    # evidence through different mathematics — which is what makes their
+    # disagreement meaningful rather than an artefact of different inputs.
+    elo_source = results if cross_model is None else xleague.build_pool(league)[0]
+    try:
+        elo_model = elo_engine.rate_through(elo_source)
+    except Exception as e:
+        elo_model = None
+        flags.append(f"{league}: Elo second opinion unavailable ({str(e)[:60]})")
     tier = softness_tier(league)
     board: list[BoardFixture] = []
 
@@ -131,6 +190,7 @@ def scan_one_league(league: str, season: str,
                                   value=f"{home} v {away}",
                                   url="https://www.thesportsdb.com",
                                   structured=True)])
+        elo_p = elo_model.probabilities(home, away) if elo_model else None
         mes = None
         if probs is not None:
             best_prob = max(probs.p_home, probs.p_draw, probs.p_away,
@@ -146,6 +206,8 @@ def scan_one_league(league: str, season: str,
                                   and v.tier not in (Tier.CONFLICT, Tier.NO_DATA)),
             mes_trigger_price=mes,
             kickoff_date=fixture_dates.get((home, away)),
+            elo_probs=elo_p,
+            engine_divergence=elo_engine.divergence(elo_p, probs),
             rejection_reason=(
                 _unrated_detail(model, home, away) if probs is None
                 else None if is_deploy_eligible(league)

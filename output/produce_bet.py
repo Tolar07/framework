@@ -54,6 +54,13 @@ class BoardFixture:
     # settled against the right match rather than a same-pairing meeting from
     # an earlier season.
     kickoff_date: Optional[str] = None
+    # Second opinion from the Elo engine (ID82, ratified 2026-08-04) and the
+    # flag raised when the two engines disagree materially. Elo is independent
+    # of Dixon-Coles — different inputs, different mathematics, different
+    # failure modes — so its agreement is informative and its disagreement is
+    # a warning. It does NOT gate deployment.
+    elo_probs: Optional[tuple] = None
+    engine_divergence: Optional[str] = None
 
 
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],
@@ -188,6 +195,25 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
     L.append(f"   {btts} {round(btts_p*100)}% (model)")
     L.append(f"   Expected goals (model): {p.home_team} {p.lambda_home}, "
              f"{p.away_team} {p.lambda_away}")
+
+    # Second opinion — ID82 Elo, ratified 2026-08-04. Shown beside Dixon-Coles
+    # rather than blended into it: two engines that agree is evidence, and an
+    # averaged number would hide exactly the disagreement worth seeing.
+    if bf.elo_probs:
+        eh, ed, ea = bf.elo_probs
+        L.append(f"   Second opinion — Elo rating engine (ID82), independent of "
+                 f"the goals model:")
+        L.append(f"      {p.home_team} to win {round(eh*100)}% · Draw "
+                 f"{round(ed*100)}% · {p.away_team} to win {round(ea*100)}%")
+        if bf.engine_divergence:
+            L.append(f"      {bf.engine_divergence}")
+        else:
+            L.append(f"      Both engines agree within tolerance — no divergence "
+                     f"flag. Agreement is not proof of a good bet, only of a "
+                     f"consistent read.")
+    else:
+        L.append("   Second opinion (Elo): NO DATA — PENDING (one or both clubs "
+                 "below the Elo match floor)")
 
     if bf.best_market and bf.best_price is not None:
         ev = bf.best_mes_ev

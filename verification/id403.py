@@ -67,11 +67,22 @@ class VerificationResult:
 
 
 def _domain_root(domain: str) -> str:
-    d = domain.lower().replace("www.", "")
+    """Resolve a hostname to a registered source.
+
+    Matches on an exact hostname or a true subdomain (a dot-boundary suffix),
+    NOT a bare substring. Substring matching meant 'bbc.co.uk.evil.example'
+    resolved to the T2-trusted 'bbc.co.uk' — a domain the attacker controls
+    inheriting the trust tier of one they don't. Longest match wins, so a more
+    specific registration is never shadowed by a shorter one."""
+    d = domain.lower().strip().rstrip(".")
+    if d.startswith("www."):
+        d = d[4:]
+    best = None
     for known in SOURCE_TRUST:
-        if known in d:
-            return known
-    return d
+        if d == known or d.endswith("." + known):
+            if best is None or len(known) > len(best):
+                best = known
+    return best or d
 
 
 def verify(claims: list[SourcedDatum]) -> VerificationResult:
@@ -103,20 +114,31 @@ def verify(claims: list[SourcedDatum]) -> VerificationResult:
             note="CONFLICT — sources disagree, Architect must adjudicate",
         )
 
+    # ID404 / master doc 7.3: "T3 aggregators — lead-only, NEVER verifying."
+    # Quorum therefore counts only T1/T2 domains. Without this, two aggregators
+    # agreeing produced a full VERIFIED stamp — which is exactly the
+    # self-certification failure ID403 was created to end, just distributed
+    # across two low-trust sites instead of one node.
+    verifying_domains = {d for d in independent_domains
+                         if SOURCE_TRUST.get(d) in ("T1", "T2")}
+    f2_quorum = len(verifying_domains) >= 2
+
+    note = ""
     if f2_quorum and f1_structured and f4_provenance:
         tier = Tier.VERIFIED
-    elif len(usable) == 1:
-        tier = Tier.SINGLE_SOURCE
     else:
-        # multiple sources, same domain family only, or missing structure/provenance
         tier = Tier.SINGLE_SOURCE
+        if len(independent_domains) >= 2 and len(verifying_domains) < 2:
+            note = ("multiple sources agreed, but fewer than two are T1/T2 — "
+                    "T3 aggregators are lead-only and never verify (ID404)")
 
     return VerificationResult(
         tier=tier, value=usable[0].value,
         factors={"F1_structured": f1_structured, "F2_quorum": f2_quorum,
                  "F4_provenance": f4_provenance,
-                 "independent_domains": list(independent_domains)},
-        note="",
+                 "independent_domains": list(independent_domains),
+                 "verifying_domains": list(verifying_domains)},
+        note=note,
     )
 
 

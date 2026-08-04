@@ -28,13 +28,16 @@ COMMANDS
   /why <n>   full reasoning for fixture n on today's board
   /log       Home v Away | Market | price      -> CL-LIVE paper leg (HR46)
   /note      free text                          -> corrections log (blueprint 2.7)
-  /send      run the daily pipeline NOW and deliver the board (alias /run)
-  /debrief   full framework status
-  /help      this list
+  /send        run the daily pipeline NOW and deliver the board (alias /run)
+  /produce bet run the pipeline NOW, return the board as this reply (~30s)
+  /verify result  grade pending legs NOW (settles any since played, updates CLV)
+  /debrief     full framework status
+  /help        this list
 
-The poller is lightweight on purpose: every command except /send imports
-nothing heavier than config + the CLV ledger. /send lazily imports run_daily
-(scipy + the whole pipeline), so answering a /status never pays for that.
+The poller is lightweight on purpose: every command except /send, /produce
+and /verify result imports nothing heavier than config + the CLV ledger.
+Those three lazily import run_daily (scipy + the whole pipeline), so
+answering a /status never pays for that.
 """
 from __future__ import annotations
 
@@ -110,6 +113,8 @@ def cmd_help(_: str) -> str:
         "/note the model looks wrong on Motherwell\n"
         "     records a correction for calibration to learn from\n"
         "/send — run the daily pipeline now and deliver the board (~30s)\n"
+        "/produce bet — run the pipeline now, board returned as this reply (~30s)\n"
+        "/verify result — grade pending legs now (settles any played)\n"
         "/debrief — full framework status\n\n"
         f"{PHASE_LABEL}. Paper only — this system never stakes."
     )
@@ -146,14 +151,35 @@ def cmd_board(_: str) -> str:
     return p.read_text(encoding="utf-8")
 
 
-def cmd_verify(_: str) -> str:
-    p = BOARD_DIR / f"board_{date.today().isoformat()}.txt"
-    if not p.exists():
-        return "No board today yet — nothing graded. NO DATA — PENDING."
-    text = p.read_text(encoding="utf-8")
-    if "VERIFY RESULTS" in text:
-        return text.split("VERIFY RESULTS", 1)[1].strip()[:3500]
-    return "No VERIFY RESULTS section in today's board."
+def cmd_verify(arg: str) -> str:
+    """Two modes, same route:
+      /verify          today's saved VERIFY RESULTS section (read-only)
+      /verify result   grade pending legs NOW — settle any that have since
+                       been played and report, the same first step the daily
+                       run takes. On-demand grading updates the ledger: a
+                       settled leg gains its result and, when the source has
+                       a closing price, its CLV."""
+    sub = arg.strip().lower()
+    if sub and sub != "result":
+        return ("Usage: /verify result   (or /verify with no arg for today's "
+                "saved section)")
+    if not sub:
+        p = BOARD_DIR / f"board_{date.today().isoformat()}.txt"
+        if not p.exists():
+            return "No board today yet — nothing graded. NO DATA — PENDING."
+        text = p.read_text(encoding="utf-8")
+        if "VERIFY RESULTS" in text:
+            return text.split("VERIFY RESULTS", 1)[1].strip()[:3500]
+        return "No VERIFY RESULTS section in today's board."
+    # /verify result — fresh grading. Lazy import, same reason as /send.
+    import run_daily
+    log = CLVLog()
+    try:
+        block, flags = run_daily.grade_open_legs(log, "2526")
+    except Exception as e:
+        return (f"VERIFY FAILED — {type(e).__name__}: {e}\n\n"
+                f"See logs/daily_*.log for the detail.")
+    return block + ("\n\n" + "\n".join(flags) if flags else "")
 
 
 def cmd_why(arg: str) -> str:
@@ -284,11 +310,34 @@ def cmd_send(_: str) -> str:
             "parts; every part carries the honest-edge caveat.")
 
 
+def cmd_produce(arg: str) -> str:
+    """/produce bet — run the daily pipeline now and return the board as the reply.
+
+    Like /send, but the board comes back HERE as this reply instead of being
+    delivered as separate Telegram parts. Identical engine (run_daily.run):
+    grades yesterday's legs, pulls live odds, rescans every league, logs new
+    paper legs, renders THE CALL. Takes ~30s; the poller is busy during it."""
+    sub = arg.strip().lower()
+    if sub != "bet":
+        return ("Usage: /produce bet\n"
+                "Runs the daily pipeline now and returns the full board with "
+                "THE CALL as this reply. Same engine as /send, but no "
+                "separate Telegram delivery.")
+    import run_daily  # lazy — the other commands must not pay for scipy
+    try:
+        full = run_daily.run(send=False)
+    except Exception as e:
+        return (f"PRODUCE FAILED — {type(e).__name__}: {e}\n\n"
+                f"See logs/daily_*.log for the detail.")
+    return full
+
+
 HANDLERS = {
     "/help": cmd_help, "/start": cmd_help,
     "/status": cmd_status, "/board": cmd_board, "/verify": cmd_verify,
     "/why": cmd_why, "/log": cmd_log, "/note": cmd_note,
     "/send": cmd_send, "/run": cmd_send,
+    "/produce": cmd_produce,
     "/debrief": cmd_debrief,
 }
 

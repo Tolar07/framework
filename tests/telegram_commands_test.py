@@ -12,8 +12,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from output import telegram_commands as tc
-from output.telegram_commands import (handle, cmd_send, cmd_help, HANDLERS,
-                                      BRIGHT_LINE_WORDS)
+from output.telegram_commands import (handle, cmd_send, cmd_produce, cmd_verify,
+                                      cmd_help, HANDLERS, BRIGHT_LINE_WORDS)
 
 # Point the module's state files at a throwaway dir so no real ledger state
 # (corrections.csv / offset) is mutated by this suite.
@@ -33,6 +33,21 @@ print("Poller stays lightweight — /send lazy-imports run_daily: OK")
 assert HANDLERS["/send"] is cmd_send, "/send must route to cmd_send"
 assert HANDLERS["/run"] is cmd_send, "/run must be an alias for /send"
 print("/send and /run both route to cmd_send: OK")
+
+# --- /produce bet and /verify result ---------------------------------------
+assert HANDLERS["/produce"] is cmd_produce, "/produce must route to cmd_produce"
+assert HANDLERS["/verify"] is cmd_verify, "/verify must route to cmd_verify"
+# These branches must NOT execute the pipeline: wrong/missing subcommands
+# return usage, so invoking them is safe here.
+assert handle("/produce").startswith("Usage: /produce bet"), \
+    "bare /produce must ask for the 'bet' subcommand"
+assert handle("/produce nonsense").startswith("Usage: /produce bet"), \
+    "unknown /produce subcommand must be refused"
+assert handle("/verify nonsense").startswith("Usage: /verify result"), \
+    "unknown /verify subcommand must be refused"
+assert not any(w in BRIGHT_LINE_WORDS for w in ("produce", "verify")), \
+    "the new commands must never trip a bright-line word"
+print("/produce bet + /verify result registered, wrong subcommands refused: OK")
 
 # --- existing commands still registered -------------------------------------
 for cmd in ("/board", "/status", "/verify", "/why", "/log", "/note",
@@ -61,9 +76,10 @@ note = handle("/note we should discuss go live later")
 assert note.startswith("Correction logged"), f"/note must be exempt, got: {note[:40]}"
 print("/note records corrections even if they mention bright-line words: OK")
 
-# --- help advertises /send --------------------------------------------------
+# --- help advertises the pipeline commands ----------------------------------
 h = cmd_help("")
-assert "/send" in h and "~30s" in h, "help must advertise /send"
-print("Help advertises /send: OK")
+for advert in ("/send", "/produce bet", "/verify result", "~30s"):
+    assert advert in h, f"help must advertise {advert!r}"
+print("Help advertises /send, /produce bet, /verify result: OK")
 
 print("\n✅ ALL TELEGRAM COMMANDS TESTS PASSED")

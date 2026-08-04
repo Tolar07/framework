@@ -28,7 +28,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
-from engine.softness import SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS, build_deploy_shortlist
+from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS,
+                             build_deploy_shortlist, market_blocked)
 from engine.mes import mes_numeric
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import render_produce_bet, render_verify_results
@@ -190,6 +191,11 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
             ("Under 2.5 goals", 1 - p.p_over_25, fx.under25),
         ):
             if not quote.available:
+                continue
+            blocked = market_blocked(market)
+            if blocked:
+                # Ratified market gate — this market is structurally negative,
+                # so a leg on it would add noise to the Phase 2 evidence base.
                 continue
             mes = mes_numeric(model_p, quote.price)
             if mes is None or mes < min_mes:

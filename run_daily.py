@@ -31,6 +31,7 @@ from data.football_data_source import load_league
 from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS,
                              build_deploy_shortlist, market_blocked)
 from engine.mes import mes_numeric
+from engine import markets as mkt
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import render_produce_bet, render_verify_results
 from output import notify
@@ -49,18 +50,10 @@ DEPLOY_LEAGUES = [lg for lg, t in SOFTNESS_TIER.items() if t in DEPLOY_ELIGIBLE_
 # 1. GRADE YESTERDAY  (VERIFY RESULTS + forward CLV)
 # --------------------------------------------------------------------------
 
-def _settle(market: str, fthg: int, ftag: int):
-    total = fthg + ftag
-    return {
-        "Match result — home win": fthg > ftag,
-        "Match result — draw": fthg == ftag,
-        "Match result — away win": ftag > fthg,
-        "Over 2.5 goals": total > 2,
-        "Under 2.5 goals": total <= 2,
-        "Over 1.5 goals": total > 1,
-        "Both teams to score — yes": fthg > 0 and ftag > 0,
-        "Both teams to score — no": not (fthg > 0 and ftag > 0),
-    }.get(market)
+def _settle(market_key: str, fthg: int, ftag: int):
+    """Delegates to the canonical registry — one settlement rule per
+    market, shared with the backtest and the board."""
+    return mkt.settle(market_key, fthg, ftag)
 
 
 def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
@@ -128,13 +121,8 @@ def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
         # HR46 closing line, from the archive path (CL-ARCHIVE).
         closing = None
         if match.odds:
-            closing = {
-                "Match result — home win": match.odds.home.close,
-                "Match result — draw": match.odds.draw.close,
-                "Match result — away win": match.odds.away.close,
-                "Over 2.5 goals": match.odds.over25.close,
-                "Under 2.5 goals": match.odds.under25.close,
-            }.get(leg.market)
+            q = mkt.quote(leg.market, match.odds)
+            closing = q.close if q is not None else None
         if closing is not None and leg.entry_odds:
             log.log_close(leg.leg_id, closing_odds=closing,
                            closing_capture_path="CL-ARCHIVE")
@@ -183,19 +171,10 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
                          f"NO DATA — PENDING, leg not logged")
             continue
 
-        for market, model_p, quote in (
-            (f"Match result — home win", p.p_home, fx.home),
-            (f"Match result — draw", p.p_draw, fx.draw),
-            (f"Match result — away win", p.p_away, fx.away),
-            ("Over 2.5 goals", p.p_over_25, fx.over25),
-            ("Under 2.5 goals", 1 - p.p_over_25, fx.under25),
-        ):
-            if not quote.available:
-                continue
-            blocked = market_blocked(market)
-            if blocked:
-                # Ratified market gate — this market is structurally negative,
-                # so a leg on it would add noise to the Phase 2 evidence base.
+        for market in mkt.DEPLOYABLE:
+            quote = mkt.quote(market, fx)
+            model_p = mkt.model_prob(market, p)
+            if quote is None or not quote.available or model_p is None:
                 continue
             mes = mes_numeric(model_p, quote.price)
             if mes is None or mes < min_mes:
@@ -266,21 +245,22 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             continue
         p = bf.probs
         best = None
-        for market, model_p, quote in (
-            (f"{p.home_team} to win", p.p_home, fx.home),
-            ("Draw", p.p_draw, fx.draw),
-            (f"{p.away_team} to win", p.p_away, fx.away),
-            ("Over 2.5 goals", p.p_over_25, fx.over25),
-            ("Under 2.5 goals", 1 - p.p_over_25, fx.under25),
-        ):
-            if not quote.available:
+        # Only markets that could actually carry capital may headline THE CALL.
+        # Previously the board could headline Over 2.5 (or an away win, which
+        # the string-matched gate missed entirely) while the logger refused to
+        # record it — recommending what the framework would not log.
+        for market in mkt.DEPLOYABLE:
+            quote = mkt.quote(market, fx)
+            model_p = mkt.model_prob(market, p)
+            if quote is None or not quote.available or model_p is None:
                 continue
             ev = mes_numeric(model_p, quote.price)
             if ev is not None and (best is None or ev > best[0]):
                 best = (ev, market, model_p, quote)
         if best:
             ev, market, model_p, quote = best
-            bf.best_market, bf.best_price = market, quote.price
+            bf.best_market = mkt.display(market, p.home_team, p.away_team)
+            bf.best_price = quote.price
             bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
             bf.best_mes_ev, bf.best_model_prob = ev, model_p
 

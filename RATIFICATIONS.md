@@ -7,6 +7,47 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-04 · Wide-eyes daily scan + EV-ranked CALL + compact board — ratified by the ARCHITECT
+
+**What:** three connected decisions taken together, because the daily run was
+capturing the wrong universe and presenting it in a way too long for a phone.
+
+1. **The daily scan is now the full 15-league whitelist, not the 5 softness
+   A/B leagues.** Previously `run_daily.py` built its scan set from
+   `DEPLOY_ELIGIBLE_TIERS`, so an approved league (Premier League, Serie A,
+   Champions League) never appeared on the board at all — "wide eyes" existed
+   only in the dead `orchestrator --all` CLI path. Scan and deploy are now
+   decoupled: **SCAN is wide, DEPLOY stays narrow.** The CALL still draws only
+   from softness A/B, capped at 6 (ID402 unchanged); the odds pull stays A/B
+   only, so scan-only leagues' prices don't burn the free-tier quota. Showing
+   a competition is not staking it.
+
+2. **THE CALL is ranked by expected value, not model conviction.**
+   `build_deploy_shortlist` ranked by the model's strongest probability because
+   no price existed at board time. Markets are now attached before the
+   shortlist is built, so `best_mes_ev` exists — the ≤6 now fill with the
+   highest-EV fixtures (conviction as the fallback for unpriced rows, e.g. a
+   competition with no odds source).
+
+3. **Telegram output is compact tables.** `/produce bet` previously returned
+   the 20k-char file board. All channels (`/produce bet`, `/send`, 07:00) now
+   show the same compact per-league table board: every league scanned that day,
+   each rated fixture with its model prediction and a **Pick** column (the
+   recommended prediction), THE CALL with an **EV** column, data flags
+   compressed to a one-line count. Full detail remains in the file board and
+   `/why`.
+
+**Deferred, honestly:** Champions League / Europa League are capturable once a
+verified TheSportsDB ID exists (`resolve_thesportsdb_league.py` builds the
+read-only resolver). That stays UNRESOLVED until a personal key finds the ID
+and the event feed confirms the qualifying rounds are filed — HR35: a wrong ID
+silently returns another competition's fixtures, which is worse than a gap.
+
+**Authority:** Architect. These change what appears on the board and the
+shortlist, so they were not taken under the auto-ratification grant.
+
+---
+
 ## 2026-08-04 · ID82 Elo Rating Engine — ratified by the ARCHITECT
 
 **What:** A second, independent rating engine (`engine/elo.py`), ported from

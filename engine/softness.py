@@ -117,6 +117,23 @@ def _confidence(c) -> float:
                probs.p_btts_yes, 1 - probs.p_btts_yes)
 
 
+def call_key(c) -> tuple:
+    """THE CALL ranking key: tier first (A outranks B), then expected value
+    when a live price was attached (best_mes_ev, set by run_daily after the
+    odds pull), else model conviction as the fallback for unpriced rows (a
+    competition with no odds source). EV is the figure that actually decides
+    a bet; conviction without a price is unmeasurable, so it ranks last within
+    a tier rather than being treated as equal to a price.
+
+    Public so the renderer sorts THE CALL into the same order it was selected
+    — otherwise the right six are picked but shown in scan order, which reads
+    as if the ranking failed."""
+    ev = getattr(c, "best_mes_ev", None)
+    if ev is not None:
+        return (c.softness_tier, -ev)
+    return (c.softness_tier, -_confidence(c))
+
+
 def build_deploy_shortlist(candidates: list) -> list:
     """Softness A/B only, capped at DEPLOY_POOL_CAP — 'wide eyes, narrow
     hands' enforced here rather than left to a judgment call at render time.
@@ -124,8 +141,8 @@ def build_deploy_shortlist(candidates: list) -> list:
     Ranked before truncating. Previously this returned `eligible[:6]`, i.e. it
     kept whichever six happened to come first — and since leagues are scanned
     in dict order, one league's fixtures could fill the entire CALL while a
-    higher-conviction fixture in the next league was silently dropped. Tier A
-    outranks tier B, then model conviction descending."""
+    higher-value fixture in the next league was silently dropped. Tier A
+    outranks tier B, then expected value descending (conviction as fallback)."""
     eligible = [c for c in candidates if c.softness_tier in DEPLOY_ELIGIBLE_TIERS]
-    ranked = sorted(eligible, key=lambda c: (c.softness_tier, -_confidence(c)))
+    ranked = sorted(eligible, key=call_key)
     return ranked[:DEPLOY_POOL_CAP]

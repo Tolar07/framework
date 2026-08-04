@@ -14,7 +14,7 @@ from datetime import date
 from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
-from engine.softness import DEPLOY_POOL_CAP
+from engine.softness import DEPLOY_POOL_CAP, call_key
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 
@@ -286,6 +286,19 @@ def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
     return max(candidates, key=lambda c: c[1])
 
 
+def _pick_desc(bf: BoardFixture) -> str:
+    """The recommended prediction for a fixture's table row: the live-EV market
+    when a price was found, else the model's strongest deployable market.
+    Never blank for a rated fixture — naming the model's view is not claiming
+    it is a bet, and a blank Pick column hides a view the model genuinely holds."""
+    if bf.best_market and bf.best_model_prob is not None:
+        return f"{bf.best_market} ({round(bf.best_model_prob*100)}%)"
+    if bf.probs is not None:
+        pick, prob = _best_market_desc(bf.probs)
+        return f"{pick} ({round(prob*100)}%)"
+    return "—"
+
+
 def _dc_cell(p: FixtureProbabilities) -> str:
     """Double-chance / BTTS merged cell, per frozen example 'DC/BTTS (e.g. 1X82 / Y58)'.
     DC options: 1X (home-or-draw), X2 (draw-or-away), 12 (home-or-away)."""
@@ -422,9 +435,12 @@ def render_verify_results(rows: list[dict]) -> str:
 #     "(League)" suffix leaves the fixture cell, which is what buys the width)
 #   - unrated fixtures KEEP their row, marked NO DATA — PENDING, so the table
 #     shows the real matchday rather than an edited subset
-#   - MES, the Elo second opinion and any DIVERGENCE flag follow the
-#     RECOMMENDED table as plain text. Those are the safety warnings; they must
-#     reach the phone, but only for the <=6 picks that could be acted on.
+#   - the recommended prediction rides on every rated row (the Pick column),
+#     and THE CALL carries the EV column — HR30's numerical MES stays on the
+#     phone in one line. The long per-pick MES/Elo/DIVERGENCE blocks moved to
+#     the file board and /why, because they are the depth, not the decision.
+#   - every league with fixtures that day gets a table; the header names every
+#     league scanned, so "all leagues available" is visible without empty tables
 
 FENCE = "```"
 
@@ -456,6 +472,10 @@ def render_recommended_table(shortlist: list[BoardFixture]) -> str:
                 "NO DEPLOY-ELIGIBLE CALL this session.\n"
                 "That is a valid, honest result: the framework's value is "
                 "disciplined filtering, and near-zero approvals is correct.")
+    # THE CALL must READ in the order it was selected (tier, then EV), not the
+    # scan order it happened to arrive in — otherwise the highest-EV pick lands
+    # last and the ranking looks broken.
+    shortlist = sorted(shortlist, key=call_key)
     rows = []
     for bf in shortlist:
         # Prefer the market chosen on live EV. With no price available, still
@@ -469,9 +489,11 @@ def render_recommended_table(shortlist: list[BoardFixture]) -> str:
         else:
             pick, prob = "NO DATA — PENDING", None
         model = f"{round(prob*100)}%" if prob else "—"
-        trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
-        rows.append([_short_fixture(bf), pick, model, trig, bf.softness_tier])
-    table = _col(rows, ["Fixture", "Pick", "Model%", "Deploy at", "C"])
+        # The EV column keeps HR30's numerical MES on the picks that matter —
+        # it is the safety datum, now one line instead of a per-pick block.
+        ev = f"{bf.best_mes_ev:+.2%}" if bf.best_mes_ev is not None else "—"
+        rows.append([_short_fixture(bf), pick, model, ev, bf.softness_tier])
+    table = _col(rows, ["Fixture", "Pick", "Model%", "EV", "C"])
     return (f"RECOMMENDED — THE CALL  (softness A/B only, capped at "
             f"{DEPLOY_POOL_CAP}, ID402)\nMARKED PAPER — Phase 2, zero capital.\n"
             f"{FENCE}\n{table}\n{FENCE}")
@@ -497,11 +519,10 @@ def render_scan_tables(board: list[BoardFixture]) -> str:
                        (f"{p.away_team}·{round(p.p_away*100)}%", p.p_away),
                        key=lambda t: t[1])[0]
             rows.append([
-                _short_fixture(bf), best,
-                f"{_lean(p.p_over_15,'1.5')}/{_lean(p.p_over_25,'2.5')}",
-                _dc_cell(p), stamp(bf.verification),
+                _short_fixture(bf), best, _lean(p.p_over_25, "2.5"),
+                _pick_desc(bf), stamp(bf.verification),
             ])
-        table = _col(rows, ["Fixture", "1X2", "O1.5/O2.5", "DC/BTTS", "Src"])
+        table = _col(rows, ["Fixture", "1X2", "O2.5", "Pick", "Src"])
         out.append(f"{league}\n{FENCE}\n{table}\n{FENCE}")
     return "\n\n".join(out)
 
@@ -541,7 +562,9 @@ def render_pick_detail(shortlist: list[BoardFixture]) -> str:
 def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                            calibration_count: int, mean_clv: Optional[float],
                            data_flags: list[str], board: list[BoardFixture]) -> str:
-    """The 07:00 message: flags in plain text, then the two tables."""
+    """The compact board: header, one-line flag count, THE CALL table, and the
+    per-league scan tables. Brief but complete — full flag detail and the per-
+    pick MES/Elo reasoning live in the saved file board and /why."""
     shortlist = [bf for bf in board if bf.on_deploy_shortlist]
     clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
 
@@ -551,12 +574,9 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
         f"Calibration: {calibration_count} legs logged, {clv}",
     ]
     if data_flags:
-        parts.append("DATA FLAGS (surfaced first, per HR53/ID403)\n"
-                     + "\n".join(f"⚠ {f}" for f in data_flags))
+        parts.append(f"⚠ {len(data_flags)} data flag(s) — see /board or the "
+                     f"saved board for full detail")
     parts.append(render_recommended_table(shortlist))
-    detail = render_pick_detail(shortlist)
-    if detail:
-        parts.append(detail)
     parts.append(render_scan_tables(board))
     parts.append("HONEST EDGE LINE: an excellent informed process but NOT a "
                  "demonstrated profitable edge.\nCapital authority: THE "

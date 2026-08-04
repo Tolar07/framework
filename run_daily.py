@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -64,10 +65,27 @@ def _mark(log: Path, message: str) -> None:
         f.write(f"[{datetime.now(timezone.utc).isoformat()}] {message}\n")
 
 
-# Deploy-eligible leagues only for the odds pull — scan-only leagues can never
-# produce a capital pick, so spending API credits on their prices would burn
-# the monthly quota for nothing.
-DEPLOY_LEAGUES = [lg for lg, t in SOFTNESS_TIER.items() if t in DEPLOY_ELIGIBLE_TIERS]
+# SCAN is "wide eyes" (ID402): every whitelisted league is pulled and shown,
+# approved competition or not — capturing a fixture is what the board is for.
+# DEPLOY stays "narrow hands": build_deploy_shortlist below still draws THE CALL
+# only from softness A/B, capped at 6. Decoupling the two is what lets an
+# approved league appear on the board without silently widening what can carry
+# capital — showing a competition is not staking it.
+SCAN_LEAGUES = list(SOFTNESS_TIER.keys())
+
+
+@dataclass
+class RunResult:
+    """What one daily run produced, so callers can pick the render they need.
+
+    `full` is the wide PART0-5 file board (+verify block) written to disk;
+    `telegram_text` is the compact per-league table board. The 07:00 job and
+    /send deliver telegram_text; /produce bet returns it too, so every channel
+    shows the same brief board instead of /produce dumping the 20k file board."""
+    full: str
+    telegram_text: str
+    board: list
+    leagues_scanned: list[str]
 
 
 # --------------------------------------------------------------------------
@@ -230,7 +248,7 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0) -> str:
-    leagues = leagues or DEPLOY_LEAGUES
+    leagues = leagues or SCAN_LEAGUES
     today = date.today().isoformat()
     runlog = _mark_started()
     log = CLVLog()
@@ -240,9 +258,14 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     verify_block, gflags = grade_open_legs(log, season)
     all_flags += gflags
 
-    # --- live entry prices for the deploy leagues ---
+    # --- live entry prices ONLY for leagues that could produce a capital ---
+    # --- pick. Scan-only leagues' prices can never be deployed, so pulling
+    # --- them would burn the free-tier odds quota for nothing; their Pick
+    # --- column falls back to the model's strongest deployable market.
+    odds_leagues = [lg for lg in leagues
+                    if SOFTNESS_TIER.get(lg) in DEPLOY_ELIGIBLE_TIERS]
     odds_index: dict = {}
-    for lg in leagues:
+    for lg in odds_leagues:
         try:
             fixtures, oflags = odds_mod.fetch_odds(lg)
             odds_index.update(odds_mod.index_by_fixture(fixtures))
@@ -335,7 +358,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         path.write_text(full, encoding="utf-8")
         print(f"  board saved to {path} (delivery skipped)")
     _mark(runlog, "run completed OK")
-    return full
+    return RunResult(full=full, telegram_text=telegram_text,
+                     board=board, leagues_scanned=leagues)
 
 
 if __name__ == "__main__":
@@ -350,4 +374,4 @@ if __name__ == "__main__":
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes)
-    print("\n" + out)
+    print("\n" + out.full)

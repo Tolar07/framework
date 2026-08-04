@@ -189,4 +189,33 @@ d = divergence((0.35, 0.30, 0.35), _FakeDC())
 assert d and "ENGINE DIVERGENCE" in d, "a 35pp gap between engines must flag"
 print("14. Engine-divergence flag fires on disagreement, silent on agreement: OK")
 
-print("\n✅ ALL ENGINE REGRESSION TESTS PASSED (incl. Elo)")
+
+# --- ID405: a blocked market must be unreachable on EVERY path ------------
+from engine import markets as mkt
+from output.produce_bet import _best_market_desc
+
+
+class _P:
+    home_team, away_team = "Hearts", "Celtic"
+    p_home, p_draw, p_away = 0.20, 0.15, 0.65      # away is the strongest side
+    p_over_15, p_over_25, p_over_35 = 0.99, 0.95, 0.50   # overs also strong
+    p_btts_yes = 0.90
+
+
+assert mkt.blocked(mkt.AWAY) and mkt.blocked(mkt.OVER_25), "ID405 markets must be blocked"
+assert mkt.AWAY not in mkt.DEPLOYABLE and mkt.OVER_25 not in mkt.DEPLOYABLE
+name, prob = _best_market_desc(_P())
+assert "Celtic to win" not in name, (
+    f"ID405 LEAK: the board headlined a blocked away win ({name}). The gate "
+    f"must hold on the RENDER path too, not only when logging — otherwise the "
+    f"board recommends exactly what the framework refuses to record.")
+assert "Over 2.5" not in name, f"ID405 LEAK: board headlined a blocked Over 2.5 ({name})"
+print(f"15. ID405 - blocked markets cannot headline THE CALL (chose '{name}'): OK")
+
+assert mkt.settle(mkt.HOME, 2, 1) is True and mkt.settle(mkt.AWAY, 2, 1) is False
+assert mkt.settle(mkt.UNDER_25, 1, 1) is True and mkt.settle(mkt.OVER_25, 1, 1) is False
+assert mkt.settle("NOT_A_MARKET", 1, 1) is None, "an unknown market must not be guessed"
+assert mkt.display(mkt.AWAY, "Hearts", "Celtic") == "Celtic to win"
+print("16. Canonical registry: display, settle and gate all agree on one key: OK")
+
+print("\n✅ ALL ENGINE REGRESSION TESTS PASSED (incl. Elo + ID405)")

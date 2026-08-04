@@ -3,7 +3,7 @@ Date: 2026-08-04 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero cap
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa
 Calibration: 0 legs logged, CLV logged: ZERO
 DATA FLAGS (surfaced first, per HR53/ID403):
-  ⚠ graded 0 of 18 pending leg(s)
+  ⚠ graded 0 of 5 pending leg(s)
   ⚠ Eredivisie: odds served from cache (under the 60-minute V2 recency cap)
   ⚠ Danish Superliga: odds served from cache (under the 60-minute V2 recency cap)
   ⚠ Belgian Pro League: odds served from cache (under the 60-minute V2 recency cap)
@@ -37,11 +37,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Nijmegen to win 67% · Draw 21% · Telstar to win 13%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Telstar to win
-      Model probability .......... 16%
-      Best quoted price .......... 6.80 decimal (betfair_ex_uk, best of 19 books)
+   Best available market: Draw
+      Model probability .......... 18%
+      Best quoted price .......... 5.20 decimal (betfair_ex_uk, best of 19 books)
       Breakeven trigger price .... 1.11 or longer
-      HR30 numerical MES ......... +7.70% expected value per unit staked — POSITIVE expected value against this price
+      HR30 numerical MES ......... -4.24% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 2. PSV Eindhoven v For Sittard (Eredivisie)
@@ -57,11 +57,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       PSV Eindhoven to win 90% · Draw 8% · For Sittard to win 2%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Over 2.5 goals
-      Model probability .......... 87%
-      Best quoted price .......... 1.22 decimal (williamhill, best of 1 books)
+   Best available market: PSV Eindhoven to win
+      Model probability .......... 85%
+      Best quoted price .......... 1.24 decimal (betfair_ex_uk, best of 19 books)
       Breakeven trigger price .... 1.04 or longer
-      HR30 numerical MES ......... +6.53% expected value per unit staked — POSITIVE expected value against this price
+      HR30 numerical MES ......... +5.41% expected value per unit staked — POSITIVE expected value against this price
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 3. Sparta Rotterdam v Feyenoord (Eredivisie)

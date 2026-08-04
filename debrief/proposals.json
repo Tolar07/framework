@@ -5,5 +5,12 @@
     "observation": "0 of 30 Phase 3 gate legs logged with CLV.",
     "proposed_action": "No rule change needed \u2014 this is expected at this stage. Note that the MD2 Pressure Test sets its own bar at 100+ settled picks, which is the more defensible number: at 30 legs the standard error cannot distinguish a real edge from zero.",
     "status": "pending"
+  },
+  {
+    "date_raised": "2026-08-04",
+    "category": "rule_observation",
+    "observation": "0 of 30 Phase 3 gate legs logged with CLV.",
+    "proposed_action": "No rule change needed \u2014 this is expected at this stage. Note that the MD2 Pressure Test sets its own bar at 100+ settled picks, which is the more defensible number: at 30 legs the standard error cannot distinguish a real edge from zero.",
+    "status": "pending"
   }
 ]

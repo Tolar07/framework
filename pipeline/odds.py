@@ -132,6 +132,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Pogoń Szczecin": "Pogon Szczecin",
         "Rak\xf3w Częstochowa": "Rakow",
         "Widzew Ł\xf3dź": "Widzew Lodz",
+        "Wisła Płock": "Wisla Plock",
         "Zagłębie Lubin": "Zaglebie",
     },
 }

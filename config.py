@@ -16,6 +16,44 @@ is permitted to record a stake at all — and in Phase 2 it never is.
 """
 from __future__ import annotations
 
+import os
+from pathlib import Path
+
+
+def load_dotenv(path: Path | None = None) -> list[str]:
+    """Read .env into os.environ. Returns the names loaded.
+
+    This lives in Python rather than in the launcher because the launcher was
+    where it kept failing. run_daily.bat previously parsed .env with a cmd
+    `for /f` loop; when that construct failed the batch aborted before creating
+    its own log, so a scheduled run produced NO evidence at all while Task
+    Scheduler still reported Last Result 0. Moving the parsing here means the
+    behaviour is identical whether the run is launched by hand, by Task
+    Scheduler, or by GitHub Actions — and it is testable.
+
+    An existing environment variable always wins, so GitHub Actions secrets are
+    never overwritten by a stray local .env.
+    """
+    path = path or (Path(__file__).parent / ".env")
+    loaded: list[str] = []
+    if not path.exists():
+        return loaded
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key, value = key.strip(), value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+            loaded.append(key)
+    return loaded
+
+
+# Loaded on import so every entry point — run_daily, the Telegram poller, the
+# backtest — sees the same environment without each having to remember to.
+load_dotenv()
+
 # HR51 phase. 1 = infrastructure, 2 = paper calibration, 3 = live capital.
 PHASE = 2
 

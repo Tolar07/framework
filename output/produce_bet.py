@@ -406,3 +406,159 @@ def render_verify_results(rows: list[dict]) -> str:
         lines.append(f"{r['fixture']} | {ft} | {r.get('onextwo','—')} | "
                      f"{r.get('goals','—')} | {r.get('btts','—')} | {r.get('tally','—')}")
     return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# TELEGRAM TABLE BOARD
+# ---------------------------------------------------------------------------
+# The stacked per-fixture blocks above satisfy HR53's detail mandate but make a
+# 45-fixture board a wall of text on a phone — the recommendations end up
+# buried, and the message splits into eight parts. This renders the same
+# information as fixed-width tables inside Telegram code fences, which keep
+# column alignment and scroll horizontally rather than wrapping.
+#
+# HR53 is preserved, not traded away:
+#   - full club names, never truncated (leagues become section headers so the
+#     "(League)" suffix leaves the fixture cell, which is what buys the width)
+#   - unrated fixtures KEEP their row, marked NO DATA — PENDING, so the table
+#     shows the real matchday rather than an edited subset
+#   - MES, the Elo second opinion and any DIVERGENCE flag follow the
+#     RECOMMENDED table as plain text. Those are the safety warnings; they must
+#     reach the phone, but only for the <=6 picks that could be acted on.
+
+FENCE = "```"
+
+
+def _col(rows: list[list[str]], headers: list[str]) -> str:
+    """Fixed-width table. Widths come from the content, so nothing is cut."""
+    widths = [len(h) for h in headers]
+    for r in rows:
+        for i, cell in enumerate(r):
+            widths[i] = max(widths[i], len(cell))
+    def line(cells):
+        return "  ".join(c.ljust(widths[i]) for i, c in enumerate(cells)).rstrip()
+    return "\n".join([line(headers)] + [line(r) for r in rows])
+
+
+def _short_fixture(bf: BoardFixture) -> str:
+    """'Home v Away (League)' -> 'Home v Away'. The league is a section header,
+    so repeating it on every row wastes the width full club names need."""
+    return bf.fixture.split(" (")[0]
+
+
+def _league_of(bf: BoardFixture) -> str:
+    return bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture else "—"
+
+
+def render_recommended_table(shortlist: list[BoardFixture]) -> str:
+    if not shortlist:
+        return ("RECOMMENDED — THE CALL\n"
+                "NO DEPLOY-ELIGIBLE CALL this session.\n"
+                "That is a valid, honest result: the framework's value is "
+                "disciplined filtering, and near-zero approvals is correct.")
+    rows = []
+    for bf in shortlist:
+        # Prefer the market chosen on live EV. With no price available, still
+        # NAME the model's strongest deployable market and let the price be the
+        # thing that reads NO DATA — a blank Pick column hides a view the model
+        # genuinely holds, which is unhelpful without being any more honest.
+        if bf.best_market and bf.best_model_prob is not None:
+            pick, prob = bf.best_market, bf.best_model_prob
+        elif bf.probs is not None:
+            pick, prob = _best_market_desc(bf.probs)
+        else:
+            pick, prob = "NO DATA — PENDING", None
+        model = f"{round(prob*100)}%" if prob else "—"
+        trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
+        rows.append([_short_fixture(bf), pick, model, trig, bf.softness_tier])
+    table = _col(rows, ["Fixture", "Pick", "Model%", "Deploy at", "C"])
+    return (f"RECOMMENDED — THE CALL  (softness A/B only, capped at "
+            f"{DEPLOY_POOL_CAP}, ID402)\nMARKED PAPER — Phase 2, zero capital.\n"
+            f"{FENCE}\n{table}\n{FENCE}")
+
+
+def render_scan_tables(board: list[BoardFixture]) -> str:
+    """Every fixture, grouped by league. Unrated ones keep their row."""
+    by_league: dict[str, list[BoardFixture]] = {}
+    for bf in board:
+        by_league.setdefault(_league_of(bf), []).append(bf)
+
+    out = ["ALL FIXTURES SCANNED"]
+    for league, fixtures in by_league.items():
+        rows = []
+        for bf in fixtures:
+            if bf.probs is None:
+                rows.append([_short_fixture(bf), "NO DATA — PENDING", "—", "—",
+                             stamp(bf.verification)])
+                continue
+            p = bf.probs
+            best = max((f"{p.home_team}·{round(p.p_home*100)}%", p.p_home),
+                       (f"Draw·{round(p.p_draw*100)}%", p.p_draw),
+                       (f"{p.away_team}·{round(p.p_away*100)}%", p.p_away),
+                       key=lambda t: t[1])[0]
+            rows.append([
+                _short_fixture(bf), best,
+                f"{_lean(p.p_over_15,'1.5')}/{_lean(p.p_over_25,'2.5')}",
+                _dc_cell(p), stamp(bf.verification),
+            ])
+        table = _col(rows, ["Fixture", "1X2", "O1.5/O2.5", "DC/BTTS", "Src"])
+        out.append(f"{league}\n{FENCE}\n{table}\n{FENCE}")
+    return "\n\n".join(out)
+
+
+def render_pick_detail(shortlist: list[BoardFixture]) -> str:
+    """MES, Elo second opinion and DIVERGENCE for the recommended picks only.
+
+    These are the safety warnings — an implausible EV, or the two engines
+    disagreeing. Dropping them to keep the message tidy would remove exactly
+    the lines that stop a miscalibrated number being read as an edge."""
+    if not shortlist:
+        return ""
+    out = ["DETAIL — recommended picks only"]
+    for i, bf in enumerate(shortlist, 1):
+        L = [f"{i}. {_short_fixture(bf)}"]
+        if bf.best_price is not None and bf.best_mes_ev is not None:
+            verdict = "POSITIVE" if bf.best_mes_ev > 0 else "NEGATIVE"
+            L.append(f"   {bf.best_market} at {bf.best_price:.2f} "
+                     f"({bf.best_bookmaker}) — HR30 MES {bf.best_mes_ev:+.2%} "
+                     f"expected value, {verdict}")
+        else:
+            L.append("   HR30 MES: NO DATA — PENDING (no live price)")
+        if bf.elo_probs and bf.probs:
+            eh, ed, ea = bf.elo_probs
+            L.append(f"   Elo second opinion: {bf.probs.home_team} "
+                     f"{round(eh*100)}% / Draw {round(ed*100)}% / "
+                     f"{bf.probs.away_team} {round(ea*100)}%")
+        div = _divergence(bf)
+        if div:
+            L.append(f"   ⚠ {div}")
+        if bf.engine_divergence:
+            L.append(f"   ⚠ {bf.engine_divergence}")
+        out.append("\n".join(L))
+    return "\n\n".join(out)
+
+
+def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
+                           calibration_count: int, mean_clv: Optional[float],
+                           data_flags: list[str], board: list[BoardFixture]) -> str:
+    """The 07:00 message: flags in plain text, then the two tables."""
+    shortlist = [bf for bf in board if bf.on_deploy_shortlist]
+    clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
+
+    parts = [
+        f"OLP XDV — DAILY BOARD\n{date.today().isoformat()}  |  {phase}\n"
+        f"Leagues: {', '.join(leagues_scanned)}\n"
+        f"Calibration: {calibration_count} legs logged, {clv}",
+    ]
+    if data_flags:
+        parts.append("DATA FLAGS (surfaced first, per HR53/ID403)\n"
+                     + "\n".join(f"⚠ {f}" for f in data_flags))
+    parts.append(render_recommended_table(shortlist))
+    detail = render_pick_detail(shortlist)
+    if detail:
+        parts.append(detail)
+    parts.append(render_scan_tables(board))
+    parts.append("HONEST EDGE LINE: an excellent informed process but NOT a "
+                 "demonstrated profitable edge.\nCapital authority: THE "
+                 "ARCHITECT. Nothing here is live until you deploy it.")
+    return "\n\n".join(parts)

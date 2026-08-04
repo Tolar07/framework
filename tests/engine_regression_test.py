@@ -219,3 +219,47 @@ assert mkt.display(mkt.AWAY, "Hearts", "Celtic") == "Celtic to win"
 print("16. Canonical registry: display, settle and gate all agree on one key: OK")
 
 print("\n✅ ALL ENGINE REGRESSION TESTS PASSED (incl. Elo + ID405)")
+
+
+# --- Telegram board: fences balanced, no blocked market as a Pick ----------
+from output.notify import _chunk, FENCE
+from output.produce_bet import render_telegram_board, BoardFixture
+from verification.id403 import verify as _verify, SourcedDatum as _SD
+
+
+class _Probs:
+    home_team, away_team = "Heart of Midlothian", "Dundee United"
+    p_home, p_draw, p_away = 0.20, 0.15, 0.65        # away strongest
+    p_over_15, p_over_25, p_over_35 = 0.99, 0.95, 0.60
+    p_btts_yes, lambda_home, lambda_away = 0.90, 2.4, 1.1
+
+
+_v = _verify([_SD(domain="thesportsdb.com", value="x", url="http://x")])
+# Enough fixtures to exceed Telegram's per-message limit and force a split
+# INSIDE a code fence — the case that used to emit an unclosed ``` and render
+# the table as broken plain text.
+_fixtures = [
+    BoardFixture(fixture=f"Long Club Name {i} v Another Long Club {i} (Eredivisie)",
+                 probs=_Probs(), verification=_v, softness_tier="A",
+                 on_deploy_shortlist=(i < 3), mes_trigger_price=1.5)
+    for i in range(120)
+]
+_board_txt = render_telegram_board("Mode A", "Phase 2", ["Eredivisie"], 0, None,
+                                    ["a flag"], _fixtures)
+
+_parts = _chunk(_board_txt)
+for _i, _p in enumerate(_parts, 1):
+    assert _p.count(FENCE) % 2 == 0, (
+        f"chunk {_i} of {len(_parts)} has an unbalanced code fence — Telegram "
+        f"would render it as broken plain text and the columns would collapse")
+assert len(_parts) >= 2, "test board should be long enough to force a split"
+print(f"17. Telegram chunking: {len(_parts)} parts, every fence balanced: OK")
+
+_rec = _board_txt.split("RECOMMENDED")[1].split("ALL FIXTURES")[0]
+assert "Dundee United to win" not in _rec, (
+    "ID405 LEAK in the table board: a blocked away win appeared as a Pick")
+assert "Over 2.5" not in _rec, "ID405 LEAK: blocked Over 2.5 appeared as a Pick"
+assert "Heart of Midlothian" in _board_txt, "HR53: club names must not be truncated"
+print("18. Table board honours ID405 and keeps full club names: OK")
+
+print("\n\u2705 ALL ENGINE REGRESSION TESTS PASSED (incl. Elo + ID405 + board)")

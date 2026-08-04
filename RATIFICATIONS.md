@@ -153,3 +153,35 @@ from zero.
 
 **Honest status, unchanged:** an excellent informed process, NOT a demonstrated
 profitable edge. CLV logged forward: still zero.
+
+---
+
+## 2026-08-04 · Pre-season stress test — PASSED
+
+**What:** `tests/stress_test.py` — 31 checks across six stages, exercising
+every path and every failure mode I could reach.
+
+| Stage | Checks |
+|---|---|
+| 1. Suite regression | 5 test suites, all green |
+| 2. Engine invariants on real data | Attack centred, rho fitted (not clamped), Elo zero-sum, 1X2 sums to 1, overs monotonic, no 0% outcomes |
+| 3. Safety gates under direct attack | PHASE=2 refuses every stake value, ID405 blocks a 85% away win and 98% Over 2.5 from becoming a Pick, domain lookalikes rejected, T3 aggregators cannot verify, CLV sign correct, HR35 date guard holds |
+| 4. Live pipeline end-to-end | run_daily.run() completes in 4.5s and produces a 19k-char board |
+| 5. Failure injection | Unknown league / thin history / chunker overload — every one degrades honestly to NO DATA — PENDING |
+| 6. Scheduler | launcher.log confirms today's run fired and exited 0 |
+
+**Two failures on the first pass were caught and named as TEST bugs, not
+framework bugs:** an under-sized chunker input (2.5k chars against a 3.9k
+limit) that couldn't force a split, and a scheduler assertion that
+mis-sliced the log tail. Both fixed; both were the kind of test that would
+have silently passed forever without actually checking anything.
+
+**What this proves:** the instrumentation is sound. The CLV number, once it
+accumulates, will mean what it says.
+
+**What this does not prove:** that the model has an edge. Only the forward
+log will settle that. Backtest evidence still stands: +0.326% mean CLV over
+2952 legs at t=1.722 — not statistically significant, and the surviving CLV
+comes from market selection (ID405) rather than model probabilities.
+
+**Pre-season readiness gate: CLEARED.**

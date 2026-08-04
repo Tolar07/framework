@@ -18,9 +18,16 @@ $task   = "OLP XDV Telegram Poller"
 
 $action     = New-ScheduledTaskAction -Execute $bat
 $trigger    = New-ScheduledTaskTrigger -Once -At (Get-Date) `
-                -RepetitionInterval (New-TimeSpan -Minutes 1)
+                -RepetitionInterval (New-TimeSpan -Minutes 1) `
+                -RepetitionDuration (New-TimeSpan -Days 365)
+# StopAtDurationEnd defaulted to True and, with an empty Duration, can kill
+# the repetition. Force it off so the 1-minute cadence is truly indefinite.
+$trigger.Repetition.StopAtDurationEnd = $false
+# The default settings DISALLOW starting on battery — a poller must run
+# whenever the machine is on, plugged in or not.
 $settings   = New-ScheduledTaskSettingsSet -StartWhenAvailable `
-                -ExecutionTimeLimit (New-TimeSpan -Minutes 10)
+                -ExecutionTimeLimit (New-TimeSpan -Minutes 10) `
+                -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 $principal  = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" `
                 -LogonType Interactive -RunLevel Limited
 

@@ -33,12 +33,36 @@ from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS,
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from clv.clv_logger import CLVLog, compute_clv
-from output.produce_bet import render_produce_bet, render_verify_results
+from output.produce_bet import (render_produce_bet, render_verify_results,
+                                render_telegram_board)
 from output import notify
 import orchestrator
 import pipeline.odds as odds_mod
 
 BOARD_DIR = Path(__file__).parent / "output" / "boards"
+LOG_DIR = Path(__file__).parent / "logs"
+
+
+def _mark_started() -> Path:
+    """Write proof-of-life BEFORE anything can fail.
+
+    The 07:00 job failed silently twice because the only evidence a run had
+    happened was produced late, after several fragile steps. If this marker is
+    missing after a scheduled trigger, Python never started — which is a
+    different fault from Python starting and crashing, and needs a different
+    fix. Distinguishing the two is the whole point."""
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    log = LOG_DIR / f"daily_{date.today().isoformat()}.log"
+    with log.open("a", encoding="utf-8") as f:
+        f.write(f"\n[{datetime.now(timezone.utc).isoformat()}] "
+                f"run_daily.py STARTED\n")
+    return log
+
+
+def _mark(log: Path, message: str) -> None:
+    with log.open("a", encoding="utf-8") as f:
+        f.write(f"[{datetime.now(timezone.utc).isoformat()}] {message}\n")
+
 
 # Deploy-eligible leagues only for the odds pull — scan-only leagues can never
 # produce a capital pick, so spending API credits on their prices would burn
@@ -208,6 +232,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         min_mes: float = 0.0) -> str:
     leagues = leagues or DEPLOY_LEAGUES
     today = date.today().isoformat()
+    runlog = _mark_started()
     log = CLVLog()
     all_flags: list[str] = []
 
@@ -280,6 +305,11 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         f"legs with logged CLV; mean CLV "
         f"{status['mean_clv_pct'] if status['mean_clv_pct'] is not None else 'NO DATA — PENDING'}")
 
+    telegram_text = render_telegram_board(
+        mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
+        calibration_count=status["legs_with_clv"],
+        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board)
+
     board_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
@@ -288,12 +318,23 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
     path = BOARD_DIR / f"board_{today}.txt"
     if send:
-        for n in notify.deliver(full, save_to=path):
+        delivered, notes = notify.deliver(telegram_text, save_to=None)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(full, encoding="utf-8")
+        for n in notes:
             print(f"  {n}")
+            _mark(runlog, n)
+        if not delivered:
+            # A run that failed to reach the phone is NOT a completed run.
+            # Reporting OK here is what let three failed message parts pass as
+            # success — the launcher then exits 0 and no alert fires.
+            _mark(runlog, "RUN FAILED — board built but delivery incomplete")
+            raise RuntimeError("Telegram delivery incomplete — see log")
     else:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
         print(f"  board saved to {path} (delivery skipped)")
+    _mark(runlog, "run completed OK")
     return full
 
 

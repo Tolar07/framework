@@ -19,6 +19,7 @@ from __future__ import annotations
 import os
 import sys
 import textwrap
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -52,23 +53,38 @@ def _stamp(body: str) -> str:
     return f"{banner}\n{'=' * 34}\n\n{body}\n\n{'=' * 34}\n{HONEST_CAVEAT}"
 
 
+FENCE = "```"
+
+
+def _balance_fences(chunk: str) -> str:
+    """Close a code fence left open at the end of a chunk.
+
+    Splitting mid-fence leaves one message with an unclosed ``` and the next
+    with an orphan closer. Both then render as broken plain text and the whole
+    point of the table — aligned columns — is lost."""
+    return chunk + f"\n{FENCE}" if chunk.count(FENCE) % 2 else chunk
+
+
 def _chunk(text: str, limit: int = TELEGRAM_MAX) -> list[str]:
-    """Split on paragraph boundaries so a fixture block never straddles two
-    messages — a half-rendered pick is worse than a second notification."""
+    """Split on LINE boundaries, never mid-row, keeping fences balanced.
+
+    Line-level rather than paragraph-level because one league's table can
+    exceed the limit on its own: splitting between two rows stays readable,
+    splitting through one does not."""
     if len(text) <= limit:
         return [text]
-    chunks, current = [], ""
-    for para in text.split("\n\n"):
-        if len(current) + len(para) + 2 > limit and current:
-            chunks.append(current.rstrip())
-            current = ""
-        if len(para) > limit:
-            for line in textwrap.wrap(para, limit):
-                chunks.append(line)
-            continue
-        current += para + "\n\n"
+    chunks, current, in_fence = [], "", False
+    for line in text.split("\n"):
+        # Leave room for a closing fence when inside one.
+        room = limit - (len(FENCE) + 1 if in_fence else 0)
+        if len(current) + len(line) + 1 > room and current:
+            chunks.append(_balance_fences(current.rstrip()))
+            current = f"{FENCE}\n" if in_fence else ""
+        current += line + "\n"
+        if line.strip() == FENCE:
+            in_fence = not in_fence
     if current.strip():
-        chunks.append(current.rstrip())
+        chunks.append(_balance_fences(current.rstrip()))
     return chunks
 
 
@@ -85,32 +101,48 @@ def send_telegram(body: str, token: Optional[str] = None,
         return False, ["TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID not set — "
                        "board written to disk but not delivered"]
 
+    parts = _chunk(_stamp(body))
     ok = True
-    for i, part in enumerate(_chunk(_stamp(body)), 1):
-        try:
-            r = requests.post(f"{TELEGRAM_API.format(token=token)}/sendMessage",
-                               json={"chat_id": chat_id, "text": part,
-                                     "disable_web_page_preview": True},
-                               timeout=30)
-            payload = r.json()
-            if not payload.get("ok"):
-                ok = False
-                notes.append(f"part {i} failed: {payload.get('description')}")
-        except Exception as e:
+    for i, part in enumerate(parts, 1):
+        # Retry transient network faults. A real 07:00 run lost parts 6-8 to a
+        # connection reset followed by DNS failure while parts 1-5 went
+        # through, leaving a TRUNCATED board on the phone. A partial board is
+        # worse than none, because it looks complete.
+        last_err = None
+        for attempt in range(3):
+            try:
+                r = requests.post(f"{TELEGRAM_API.format(token=token)}/sendMessage",
+                                   json={"chat_id": chat_id, "text": part,
+                                         "parse_mode": "Markdown",
+                                         "disable_web_page_preview": True},
+                                   timeout=30)
+                payload = r.json()
+                if payload.get("ok"):
+                    last_err = None
+                    break
+                last_err = payload.get("description")
+            except Exception as e:
+                last_err = str(e)[:120]
+            time.sleep(2 * (attempt + 1))
+        if last_err:
             ok = False
-            notes.append(f"part {i} failed: {e}")
-    if ok:
-        notes.append("delivered to Telegram")
+            notes.append(f"part {i} of {len(parts)} FAILED after 3 attempts: {last_err}")
+    notes.append(f"delivered {len(parts)} part(s) to Telegram" if ok
+                 else f"DELIVERY INCOMPLETE — the board on the phone is TRUNCATED")
     return ok, notes
 
 
-def deliver(body: str, save_to: Optional[Path] = None) -> list[str]:
-    """Write the board to disk, then try to send it. Disk first, deliberately:
-    a failed send must never mean a lost board."""
+def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]:
+    """Write the board to disk, then send it. Returns (delivered_ok, notes).
+
+    Disk first, deliberately: a failed send must never lose the board. The
+    boolean matters — the caller previously discarded it and logged "run
+    completed OK" even when three message parts had failed, which is the same
+    silent-success failure the scheduler itself suffered from."""
     notes: list[str] = []
     if save_to:
         save_to.parent.mkdir(parents=True, exist_ok=True)
         save_to.write_text(_stamp(body), encoding="utf-8")
         notes.append(f"board saved to {save_to}")
     ok, send_notes = send_telegram(body)
-    return notes + send_notes
+    return ok, notes + send_notes

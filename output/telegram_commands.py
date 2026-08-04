@@ -311,25 +311,28 @@ def cmd_send(_: str) -> str:
 
 
 def cmd_produce(arg: str) -> str:
-    """/produce bet — run the daily pipeline now and return the board as the reply.
+    """/produce bet — run the daily pipeline now and return the compact board.
 
     Like /send, but the board comes back HERE as this reply instead of being
     delivered as separate Telegram parts. Identical engine (run_daily.run):
-    grades yesterday's legs, pulls live odds, rescans every league, logs new
-    paper legs, renders THE CALL. Takes ~30s; the poller is busy during it."""
+    grades yesterday's legs, pulls live prices, rescans every approved league,
+    logs new paper legs, renders THE CALL. Returns the compact per-league
+    table board (the same text /send delivers), not the 20k file board. Takes
+    ~30-90s (wider scan); the poller is busy during it."""
     sub = arg.strip().lower()
     if sub != "bet":
         return ("Usage: /produce bet\n"
-                "Runs the daily pipeline now and returns the full board with "
-                "THE CALL as this reply. Same engine as /send, but no "
-                "separate Telegram delivery.")
+                "Runs the daily pipeline now and returns the compact board — "
+                "all leagues with fixtures that day, each row showing the "
+                "model prediction and the recommended pick. Same engine as "
+                "/send, but no separate Telegram delivery.")
     import run_daily  # lazy — the other commands must not pay for scipy
     try:
-        full = run_daily.run(send=False)
+        res = run_daily.run(send=False)
     except Exception as e:
         return (f"PRODUCE FAILED — {type(e).__name__}: {e}\n\n"
                 f"See logs/daily_*.log for the detail.")
-    return full
+    return res.telegram_text
 
 
 HANDLERS = {

@@ -15,6 +15,7 @@ from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
 from engine.softness import DEPLOY_POOL_CAP
+from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 
 
@@ -273,15 +274,15 @@ def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
     """Placeholder selection logic for which market to headline — a real deploy
     decision needs the full ID402/softness/ID389 gating; this just picks the
     highest-confidence market to make the table renderable end to end."""
-    candidates = [
-        (f"{p.home_team} to win", p.p_home),
-        (f"Draw", p.p_draw),
-        (f"{p.away_team} to win", p.p_away),
-        (f"Over 1.5 goals", p.p_over_15),
-        (f"Under 1.5 goals", 1 - p.p_over_15),
-        (f"BTTS Yes", p.p_btts_yes),
-        (f"BTTS No", 1 - p.p_btts_yes),
-    ]
+    # Only markets that could actually carry capital may be headlined. Without
+    # this the legacy table could name an away win or an Over 2.5 as THE CALL
+    # while ID405 blocks the logger from ever recording it — the board
+    # recommending precisely what the framework refuses to log.
+    candidates = [(mkt.display(k, p.home_team, p.away_team), mkt.model_prob(k, p))
+                  for k in mkt.DEPLOYABLE]
+    candidates = [(name, prob) for name, prob in candidates if prob is not None]
+    if not candidates:
+        return ("NO DATA — PENDING", 0.0)
     return max(candidates, key=lambda c: c[1])
 
 

@@ -262,4 +262,62 @@ assert "Over 2.5" not in _rec, "ID405 LEAK: blocked Over 2.5 appeared as a Pick"
 assert "Heart of Midlothian" in _board_txt, "HR53: club names must not be truncated"
 print("18. Table board honours ID405 and keeps full club names: OK")
 
-print("\n\u2705 ALL ENGINE REGRESSION TESTS PASSED (incl. Elo + ID405 + board)")
+
+# --- Elo persistence ------------------------------------------------------
+# What must hold: round-trip is EXACT, snapshot + zero new matches is EXACT,
+# a wrong-version snapshot is REFUSED. What must NOT be claimed: that an
+# incremental run equals a fresh full run \u2014 burn-in makes that mathematically
+# impossible, and asserting it hid a real behaviour the caller needs to know.
+import json as _json
+import tempfile as _tempfile
+from pathlib import Path as _Path
+
+_data = synth(seed=19)
+_full = rate_through(_data)
+_snap = _Path(_tempfile.mkdtemp()) / "elo.json"
+_full.save(_snap)
+_back = EloModel.load(_snap)
+for _t in _full.ratings:
+    assert abs(_full.rating(_t) - _back.rating(_t)) < 1e-12, "round trip must be exact"
+assert (_full.n_matches == _back.n_matches and _full.last_date == _back.last_date
+        and abs(_full._draw_a - _back._draw_a) < 1e-12
+        and abs(_full._draw_b - _back._draw_b) < 1e-12), "metadata must round-trip"
+print(f"19. Elo save/load is byte-exact ({len(_full.ratings)} clubs): OK")
+
+# Snapshot + no new matches must be a no-op. This is the guarantee the daily
+# job depends on: "load yesterday's ratings, apply today's matches" must not
+# quietly rewrite yesterday.
+_noop = rate_through(_data, seed_from=_snap,
+                     cut_date=_full.last_date)  # cut BEFORE last_date -> 0 new
+assert _noop.n_matches == _full.n_matches, "noop must not change match count"
+for _t in _full.ratings:
+    assert abs(_noop.rating(_t) - _full.rating(_t)) < 1e-9, (
+        f"noop rerun changed {_t}: {_full.rating(_t)} -> {_noop.rating(_t)}")
+print("20. Elo incremental with no new matches is a no-op: OK")
+
+# Wrong-version snapshot must be REFUSED, not adapted. Adapting would mean
+# guessing what missing fields used to mean \u2014 the HR35 fabrication trap.
+_bad = _Path(_tempfile.mkdtemp()) / "wrong.json"
+_blob = _json.loads(_snap.read_text(encoding="utf-8"))
+_blob["version"] = 99
+_bad.write_text(_json.dumps(_blob), encoding="utf-8")
+try:
+    EloModel.load(_bad)
+    raise AssertionError("wrong-version snapshot was loaded silently")
+except ValueError:
+    pass
+print("21. Elo refuses a wrong-version snapshot (HR35): OK")
+
+# CSV export is human-inspection only, but must produce a header + at least
+# one row and must be sorted strongest first.
+_csv = _Path(_tempfile.mkdtemp()) / "elo.csv"
+_full.export_csv(_csv)
+_lines = _csv.read_text(encoding="utf-8").splitlines()
+assert _lines[0].startswith("rank,team,elo"), "CSV must have header row"
+_first_rating = float(_lines[1].split(",")[2])
+_last_rating = float(_lines[-1].split(",")[2])
+assert _first_rating >= _last_rating, "CSV must be sorted strongest first"
+print(f"22. Elo CSV export: {len(_lines)-1} rows, strongest first: OK")
+
+
+print("\n\u2705 ALL ENGINE REGRESSION TESTS PASSED (incl. Elo + ID405 + board + persistence)")

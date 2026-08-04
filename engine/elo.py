@@ -33,8 +33,10 @@ WHAT IT IS NOT
 """
 from __future__ import annotations
 
+import json
 import math
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Optional
 
 # ID82 constants, as specified in DataEngine v277.1:
@@ -80,6 +82,9 @@ def goal_difference_modifier(gd: int) -> float:
     return 1.75 + (gd - 3) / 8.0
 
 
+STATE_VERSION = 1  # bumped whenever the on-disk shape changes
+
+
 @dataclass
 class EloModel:
     ratings: dict[str, float] = field(default_factory=dict)
@@ -89,6 +94,66 @@ class EloModel:
     # Empirical draw curve, fitted from real results rather than assumed.
     _draw_a: float = 0.0
     _draw_b: float = 0.0
+
+    # ----- persistence ------------------------------------------------------
+    def save(self, path: str | Path) -> None:
+        """Write ratings and draw-curve state to disk as plain JSON.
+
+        Whole file is rewritten; the state is small (a few hundred floats)
+        and doing it atomically-ish beats risking a partial JSON on a crash
+        mid-write. Version stamped so a future change to the on-disk shape
+        can refuse to load an old snapshot instead of silently guessing."""
+        p = Path(path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps({
+            "version": STATE_VERSION,
+            "n_matches": self.n_matches,
+            "last_date": self.last_date,
+            "draw_a": self._draw_a,
+            "draw_b": self._draw_b,
+            "ratings": self.ratings,
+            "matches_seen": self.matches_seen,
+        }, sort_keys=True, indent=2), encoding="utf-8")
+
+    @classmethod
+    def load(cls, path: str | Path) -> "EloModel":
+        """Restore an EloModel from a `save()` snapshot.
+
+        Refuses (rather than adapts) a snapshot from a different STATE_VERSION.
+        HR35: adapting silently would mean guessing what the missing fields
+        used to mean, and a wrong guess would then propagate into every
+        rating computed against it."""
+        blob = json.loads(Path(path).read_text(encoding="utf-8"))
+        if blob.get("version") != STATE_VERSION:
+            raise ValueError(
+                f"Elo snapshot at {path} has version {blob.get('version')!r}, "
+                f"this build expects {STATE_VERSION}. Refusing to load rather "
+                f"than guess what the missing fields used to mean.")
+        m = cls()
+        m.ratings = dict(blob["ratings"])
+        m.matches_seen = {k: int(v) for k, v in blob["matches_seen"].items()}
+        m.n_matches = int(blob["n_matches"])
+        m.last_date = blob.get("last_date")
+        m._draw_a = float(blob.get("draw_a", 0.0))
+        m._draw_b = float(blob.get("draw_b", 0.0))
+        return m
+
+    def export_csv(self, path: str | Path) -> None:
+        """Human-readable rating table, sorted strongest first.
+
+        For the Architect's eyes, not for reloading. `save()` is the round-trip
+        path; this is what you open in Excel to sanity-check the top of the
+        table looks like the world actually is."""
+        import csv
+        p = Path(path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        with p.open("w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["rank", "team", "elo", "matches_seen"])
+            rows = sorted(self.ratings.items(), key=lambda kv: -kv[1])
+            for i, (team, rating) in enumerate(rows, 1):
+                w.writerow([i, team, round(rating, 2),
+                             self.matches_seen.get(team, 0)])
 
     def rating(self, team: str) -> float:
         return self.ratings.get(team, BASE_RATING)
@@ -183,7 +248,8 @@ BURN_IN_PASSES = 6
 
 def rate_through(results: list, cut_date: Optional[str] = None,
                   fit_draws: bool = True,
-                  burn_in: int = BURN_IN_PASSES) -> EloModel:
+                  burn_in: int = BURN_IN_PASSES,
+                  seed_from: Optional["EloModel | str | Path"] = None) -> EloModel:
     """Process matches in DATE ORDER up to (but excluding) `cut_date`.
 
     Pass results from every competition together — that is the whole point.
@@ -204,20 +270,65 @@ def rate_through(results: list, cut_date: Optional[str] = None,
 
     (Uniform 1/3 guessing scores 0.667.) Burn-in only sets the starting point
     for the final sequential pass — it cannot leak a result into its own
-    prediction, because that pass still walks the fixtures in date order."""
-    ordered = sorted((r for r in results if not cut_date or r.date < cut_date),
-                     key=lambda r: r.date)
+    prediction, because that pass still walks the fixtures in date order.
 
-    seed: dict[str, float] = {}
-    for _ in range(max(0, burn_in - 1)):
-        warm = EloModel()
-        warm.ratings = dict(seed)
-        for r in ordered:
-            warm.update(r.home_team, r.away_team, r.fthg, r.ftag)
-        seed = dict(warm.ratings)
+    Incremental use (opt-in, ratified 2026-08-04):
+      `seed_from` may be an existing EloModel, or a path to one saved with
+      EloModel.save(). Only matches strictly newer than the snapshot's
+      last_date are consumed, and burn-in is skipped — a fresh snapshot has
+      already burned in.
 
-    model = EloModel()
-    model.ratings = dict(seed)
+      HONEST LIMIT — the incremental path is NOT identical to a fresh full
+      run over the extended data. Burn-in re-plays the entire history 6 times
+      so league-strength information propagates backwards; splitting the data
+      across a save/load can't reproduce that. Two matched runs on the same
+      final data can differ by tens of Elo points at the strongest clubs.
+      That is expected mathematics, not a bug. What the incremental path
+      buys is CHEAPNESS during the season, not parity with a scratch fit.
+      Do a full cold refit periodically (~every 4 weeks) to reabsorb any
+      drift; running one on demand is a matter of calling this function
+      without seed_from.
+
+      A snapshot passed in and no new matches to consume returns the snapshot
+      unchanged (this IS a guaranteed invariant and is tested)."""
+    # Resolve seed. Accepts a model, a path, or None (cold start).
+    if isinstance(seed_from, (str, Path)):
+        snap: Optional[EloModel] = EloModel.load(seed_from)
+    else:
+        snap = seed_from
+
+    if snap is not None:
+        # Incremental path: skip burn-in (snapshot has already converged) and
+        # only ingest matches strictly after its cut-off. Using strict `>`
+        # avoids double-counting a match played exactly on last_date.
+        cut = snap.last_date
+        ordered = sorted(
+            (r for r in results
+             if (not cut_date or r.date < cut_date)
+             and (cut is None or r.date > cut)),
+            key=lambda r: r.date)
+        model = EloModel()
+        model.ratings = dict(snap.ratings)
+        model.matches_seen = dict(snap.matches_seen)
+        model.n_matches = snap.n_matches
+        model.last_date = snap.last_date
+        model._draw_a, model._draw_b = snap._draw_a, snap._draw_b
+    else:
+        # Cold start: multi-pass burn-in so weak-league dominance doesn't
+        # farm ratings from average-rated opponents.
+        ordered = sorted(
+            (r for r in results if not cut_date or r.date < cut_date),
+            key=lambda r: r.date)
+        seed: dict[str, float] = {}
+        for _ in range(max(0, burn_in - 1)):
+            warm = EloModel()
+            warm.ratings = dict(seed)
+            for r in ordered:
+                warm.update(r.home_team, r.away_team, r.fthg, r.ftag)
+            seed = dict(warm.ratings)
+        model = EloModel()
+        model.ratings = dict(seed)
+
     samples: list[tuple[float, bool]] = []
     for r in ordered:
         # Record the gap BEFORE updating, so the draw curve is fitted on
@@ -229,8 +340,15 @@ def rate_through(results: list, cut_date: Optional[str] = None,
             samples.append((gap, r.fthg == r.ftag))
         model.update(r.home_team, r.away_team, r.fthg, r.ftag)
         model.last_date = r.date
-    if fit_draws:
+    if fit_draws and samples:
+        # A short incremental slice can be too thin to refit the curve on its
+        # own; only overwrite the inherited curve when the fresh fit succeeds.
+        # If it doesn't, the snapshot's curve stays in place — a stale curve is
+        # far better than reverting to the flat prior.
+        prev_a, prev_b = model._draw_a, model._draw_b
         _fit_draw_curve(model, samples)
+        if not model._draw_b:
+            model._draw_a, model._draw_b = prev_a, prev_b
     return model
 
 

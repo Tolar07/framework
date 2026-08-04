@@ -95,3 +95,61 @@ REJECTED. Its convergence model (9+ of 16 sources agreeing ⇒ Ƈ-1 eligible)
 treats correlated tipster sites as independent factors, which is the
 self-certification failure ID403 exists to prevent — and it selects for public
 consensus, which is where value is thinnest.
+
+---
+
+## 2026-08-04 · ID405 Market Gate — ratified on backtest evidence
+
+**What:** Two markets are blocked from carrying capital. `engine/softness.py`
+`BLOCKED_DEPLOY_MARKETS`, enforced in `run_daily.log_paper_legs`.
+
+| Market | Mean CLV | t | Legs | Placebo on same market |
+|---|---|---|---|---|
+| 1X2 Away | **−1.883%** | −4.515 | 606 | −1.707% (also negative) |
+| Over 2.5 | **−0.716%** | −2.783 | 442 | — |
+
+**Why it is safe to ratify without further sign-off:** the gate only ever
+NARROWS the deploy pool. It cannot admit a market that was previously allowed,
+so it reduces exposure rather than extending it. Capital authority is unchanged.
+
+**Effect on the whole backtest:** removing these two markets moves overall mean
+CLV from **−0.404% to +0.326%**, and turns the model from behind
+always-favourite (−0.404 vs −0.047) to ahead of it (+0.326 vs +0.165).
+
+**Away is a market property, not a model bug.** Random selection loses on away
+wins too (−1.707%). This is favourite-longshot drift: long prices drift longer
+toward the close, so anyone backing them early loses to the line. There is no
+model fix; the market is the problem.
+
+---
+
+## 2026-08-04 · Findings recorded — NOT acted on
+
+Three measurements that change what the framework can claim. None triggers a
+rule change here; all three are the Architect's to decide on.
+
+**1. The softness ranking shows no measurable CLV advantage.**
+With away legs excluded, tier A/B scored **+0.084%** and tier C/D **+0.075%** —
+a difference of **+0.008pp** on 588 vs 1270 legs. The earlier apparent −0.354pp
+A/B disadvantage was the away effect, concentrated in A/B leagues, not softness.
+
+*Not proposing removal.* ID402's A/B restriction is a capital-safety mechanism;
+dropping it would widen exposure to the most efficient markets in football on
+evidence that is null, not negative. The honest statement is that softness is
+**unproven**, not disproven.
+
+**2. The model is not the source of the observed CLV.**
+On draws alone — the model's single best market — random selection scored
+**+0.729% (t=3.466)** against the model's **+0.617% (t=2.179)**. Whatever
+positive CLV exists after the market gate comes from **which markets are taken**,
+not from the model's probability estimates.
+
+**3. Nothing here is statistically significant.**
+On the clean market set the model reaches +0.326% at t=1.722, against
+always-favourite +0.165% and random +0.217%. The margin over random is ~0.1pp.
+The MD2 Pressure Test's own bar of 100+ settled picks is the more defensible
+gate than HR51's 30 — at 30 legs the standard error cannot separate a real edge
+from zero.
+
+**Honest status, unchanged:** an excellent informed process, NOT a demonstrated
+profitable edge. CLV logged forward: still zero.

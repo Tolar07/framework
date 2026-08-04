@@ -4,11 +4,11 @@ Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Prem
 Calibration: 0 legs logged, CLV logged: ZERO
 DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ graded 0 of 18 pending leg(s)
-  ⚠ Eredivisie: odds pulled live (466 API credits left)
-  ⚠ Danish Superliga: odds pulled live (464 API credits left)
-  ⚠ Belgian Pro League: odds pulled live (462 API credits left)
+  ⚠ Eredivisie: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Danish Superliga: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Belgian Pro League: odds served from cache (under the 60-minute V2 recency cap)
   ⚠ Scottish Premiership: odds served from cache (under the 60-minute V2 recency cap)
-  ⚠ Ekstraklasa: odds pulled live (460 API credits left)
+  ⚠ Ekstraklasa: odds served from cache (under the 60-minute V2 recency cap)
   ⚠ Eredivisie: 3 team name(s) in the fixtures feed not found in the fitted data — ADO Den Haag, Cambuur, Willem II. Model knows: AZ Alkmaar, Ajax, Excelsior, Feyenoord, For Sittard, Go Ahead Eagles, Groningen, Heerenveen, Heracles, NAC Breda, Nijmegen, PSV Eindhoven, Sparta Rotterdam, Telstar, Twente, Utrecht, Volendam, Zwolle. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ Danish Superliga: 2 team name(s) in the fixtures feed not found in the fitted data — AC Horsens, Lyngby. Model knows: Aarhus, Brondby, FC Copenhagen, Fredericia, Midtjylland, Nordsjaelland, Odense, Randers FC, Silkeborg, Sonderjyske, Vejle, Viborg. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ Belgian Pro League: 3 team name(s) in the fixtures feed not found in the fitted data — Beveren, Kortrijk, Lommel. Model knows: Anderlecht, Antwerp, Cercle Brugge, Charleroi, Club Brugge, Dender, Genk, Gent, Mechelen, Oud-Heverlee Leuven, RAAL La Louviere, St Truiden, St. Gilloise, Standard, Waregem, Westerlo. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.

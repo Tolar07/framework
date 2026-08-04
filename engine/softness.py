@@ -9,6 +9,7 @@ eligible to appear in PART 1; it never claims any of them are a good bet.
 """
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Optional
 
 DEPLOY_POOL_CAP = 6  # ID402 hard cap on THE CALL
 
@@ -36,6 +37,41 @@ SOFTNESS_TIER = {
 }
 
 DEPLOY_ELIGIBLE_TIERS = {"A", "B"}
+
+# --- MARKET GATE (ratified 2026-08-04, evidence below) ----------------------
+#
+# Measured on the 2024/25 walk-forward backtest, 5 leagues, corrected engine.
+# Two markets are structurally negative — for the MODEL and for random
+# selection alike, which is what makes them a market property rather than a
+# model failing:
+#
+#     1X2 Away    -1.883%  t=-4.515  (606 legs)   placebo also -1.707%
+#     Over 2.5    -0.716%  t=-2.783  (442 legs)
+#
+# Removing them flips the whole backtest from -0.404% to +0.326%. This gate
+# only ever NARROWS what can be deployed — it can never admit a market that
+# was previously excluded — so it is a conservative restriction, not a new
+# licence. Capital authority is unchanged and remains the Architect's.
+BLOCKED_DEPLOY_MARKETS = {
+    "away win": "1X2 Away: -1.883% mean CLV (t=-4.515) across 606 backtest legs. "
+                "Random selection loses on it too (-1.707%), so this is "
+                "favourite-longshot drift in the market, not a model error to fix.",
+    "over 2.5 goals": "Over 2.5: -0.716% mean CLV (t=-2.783) across 442 legs. "
+                      "The model under-predicts goals, so its Overs are taken "
+                      "into lines that then move against it.",
+}
+
+
+def market_blocked(market_name: str) -> Optional[str]:
+    """Reason this market cannot carry capital, or None if it may.
+
+    Matched on the plain-language market name the board renders, so the gate
+    and the thing the Architect reads are the same string."""
+    key = (market_name or "").strip().lower()
+    for blocked, reason in BLOCKED_DEPLOY_MARKETS.items():
+        if blocked in key:
+            return reason
+    return None
 
 
 def softness_tier(league: str) -> str:

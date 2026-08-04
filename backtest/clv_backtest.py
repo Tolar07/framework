@@ -592,6 +592,8 @@ def main() -> None:
     ap.add_argument("--min-mes", type=float, default=0.02)
     ap.add_argument("--selector", choices=["model","random_placebo","always_favourite","always_over"], default="model")
     ap.add_argument("--half-life-days", type=float, default=None)
+    ap.add_argument("--markets", nargs="+", default=None,
+                     help="restrict to these markets, e.g. 1X2_H 1X2_D O2.5 U2.5")
     ap.add_argument("--no-write", action="store_true", help="skip writing the leg log")
     args = ap.parse_args()
 
@@ -600,6 +602,7 @@ def main() -> None:
         test_season=args.test_season, refit_every_days=args.refit_days,
         min_mes=args.min_mes, selector=args.selector,
         half_life_days=args.half_life_days,
+        markets=tuple(args.markets) if args.markets else BacktestConfig.markets,
     )
     run_id = f"{cfg.test_season}_{cfg.selector}_{cfg.fingerprint()}"
     print(f"CLV backtest — fit {cfg.carry_in_season} -> legs in {cfg.test_season} "

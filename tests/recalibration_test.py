@@ -53,7 +53,8 @@ print("5. bounded under extreme evidence: OK")
 
 # --- 6. brain calibration_by_market + schema v2 migration ---------------------
 b = Brain(_tmp / "c1.db")
-assert b.schema_version == 2, "schema must migrate to v2"
+from brain.store import SCHEMA_VERSION
+assert b.schema_version == SCHEMA_VERSION, "schema must migrate to SCHEMA_VERSION"
 # seed a market with 15 settled, CLV-logged legs
 from clv.clv_logger import CLVLog
 log = CLVLog(path=_tmp / "clv.json")

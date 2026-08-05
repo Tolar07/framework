@@ -22,3 +22,4 @@ tests/tmp_*.json
 brain/*.db
 brain/*.db-wal
 brain/*.db-shm
+sandbox/sandbox_log.json

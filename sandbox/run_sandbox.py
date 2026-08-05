@@ -38,6 +38,7 @@ from brain.store import Brain, content_hash, dc_to_payload, dc_from_payload
 from clv.clv_logger import CLVLog
 from output import notify
 from sandbox import friendlies
+from sandbox import live as friendly_live
 
 SANDBOX_LOG = ROOT / "sandbox" / "sandbox_log.json"
 SANDBOX_PHASE = "sandbox"
@@ -129,6 +130,9 @@ def main() -> int:
                     help="settle finished sandbox legs before rating")
     ap.add_argument("--league-filter", default=None,
                     help="only pool these leagues (comma list of keys)")
+    ap.add_argument("--watch", type=int, default=0, metavar="SECONDS",
+                    help="after rating, live-watch today's friendlies, polling "
+                         "every N seconds, settling each at full time")
     args = ap.parse_args()
 
     brain = Brain()
@@ -230,6 +234,27 @@ def main() -> int:
     lines.append("")
     lines.append("Sandbox CLV: NO DATA — PENDING (no friendly odds source — "
                  "this tests machinery, not edge)")
+    if args.watch:
+        def _settle_live(eid: str, score: str, state: str) -> int:
+            ev = friendlies.lookup_event(eid)  # None unless the source says FT
+            if ev is None:
+                return 0
+            n = 0
+            for leg in [l for l in log.legs
+                        if (l.entry_capture_path or "") == f"EVENT:{eid}"
+                        and l.hit is None]:
+                hit = mkt.settle(leg.market, ev["fthg"], ev["ftag"])
+                if hit is None:
+                    continue
+                log.log_result(leg.leg_id, ft_result=f"{ev['fthg']}-{ev['ftag']}",
+                               hit=hit)
+                n += 1
+            return n
+        print("\n".join(lines))
+        print("\n--- live watch ---")
+        friendly_live.live_watch(args.watch, _settle_live)
+        _finish(lines, flags, args.send, reused, t0, brain, log)
+        return 0
     _finish(lines, flags, args.send, reused, t0, brain, log)
     return 0
 

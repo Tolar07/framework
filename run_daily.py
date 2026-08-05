@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 import uuid
@@ -42,6 +43,7 @@ from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import (render_produce_bet, render_verify_results,
                                 render_telegram_board)
 from output import notify
+from output import whatsapp_deliver
 import orchestrator
 import pipeline.odds as odds_mod
 
@@ -252,7 +254,8 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
-        min_mes: float = 0.0, days_ahead: int = 0) -> RunResult:
+        min_mes: float = 0.0, days_ahead: int = 0,
+        whatsapp: bool = True) -> RunResult:
     """Run the daily board end to end.
 
     Opens the brain, seeds the ledger + corrections mirrors, records the run
@@ -269,7 +272,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     brain.append_run(run_id, started, status="running")
     try:
         return _run(run_id, started, t0, brain, season, fixtures_season,
-                    leagues, send, min_mes, days_ahead)
+                    leagues, send, min_mes, days_ahead, whatsapp)
     except Exception:
         brain.update_run(run_id, status="failed")
         raise
@@ -279,7 +282,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 
 def _run(run_id: str, started: str, t0: float, brain: Brain,
          season: str, fixtures_season: str | None, leagues: list[str],
-         send: bool, min_mes: float, days_ahead: int) -> RunResult:
+         send: bool, min_mes: float, days_ahead: int,
+         whatsapp: bool = True) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     runlog = _mark_started()
@@ -417,6 +421,16 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             # success — the launcher then exits 0 and no alert fires.
             _mark(runlog, "RUN FAILED — board built but delivery incomplete")
             raise RuntimeError("Telegram delivery incomplete — see log")
+        # WhatsApp is the COPY channel, not the source of truth: a failure here
+        # is logged loudly but never fails the run — Telegram already reached
+        # the phone. Toggled off by --no-whatsapp or WHATSAPP_ENABLED=0; also
+        # silently skipped by whatsapp_deliver when no credentials are set.
+        if (whatsapp and os.environ.get("WHATSAPP_ENABLED", "1").lower()
+                not in ("0", "false", "no")):
+            wa_delivered, wa_notes = whatsapp_deliver.deliver(telegram_text)
+            for n in wa_notes:
+                print(f"  {n}")
+                _mark(runlog, n)
     else:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
@@ -489,8 +503,11 @@ if __name__ == "__main__":
     ap.add_argument("--min-mes", type=float, default=0.0,
                      help="minimum EV to log a paper leg (0 = log every priced market)")
     ap.add_argument("--no-send", action="store_true", help="write the board, don't deliver")
+    ap.add_argument("--no-whatsapp", action="store_true",
+                    help="skip the WhatsApp copy even when configured")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
-              leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes)
+              leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
+              whatsapp=not a.no_whatsapp)
     print("\n" + out.full)

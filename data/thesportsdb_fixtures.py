@@ -25,10 +25,20 @@ returns None for it (-> NO DATA — PENDING on the board) rather than being
 silently bent onto the nearest-looking team.
 """
 from __future__ import annotations
+import json
 import os
+import time
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
+from pathlib import Path
 from typing import Optional
+
+CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "thesportsdb"
+# Fixtures for a given day are known well ahead and rarely change intra-day, so
+# a half-day TTL is safe — the whole point is to stop re-hitting the network
+# for a schedule that was already fetched this morning. A reschedule is caught
+# within the TTL window, which is acceptable for a daily board.
+FIXTURES_MAX_AGE_SECONDS = 6 * 3600
 
 try:
     import requests
@@ -224,12 +234,41 @@ def map_team(league: str, name: str) -> str:
     return TEAM_ALIASES.get(league, {}).get(name, name)
 
 
+def _cache_path(league: str, fixtures_season: str) -> Path:
+    return CACHE_DIR / f"{league.replace(' ', '_')}_{fixtures_season}.json"
+
+
+def _read_cache(league: str, fixtures_season: str) -> Optional[list[dict]]:
+    p = _cache_path(league, fixtures_season)
+    if not p.exists():
+        return None
+    try:
+        blob = json.loads(p.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    age = time.time() - blob.get("fetched_at", 0)
+    if age > FIXTURES_MAX_AGE_SECONDS:
+        return None  # stale fixtures are REJECTED, not served (recency rule)
+    return blob.get("events")
+
+
+def _write_cache(league: str, fixtures_season: str, events: list[dict]) -> None:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    _cache_path(league, fixtures_season).write_text(
+        json.dumps({"fetched_at": time.time(), "events": events}),
+        encoding="utf-8")
+
+
 def fetch_upcoming(league: str, fixtures_season: str, days_ahead: int = 14
                     ) -> tuple[list[UpcomingFixture], list[dict]]:
     """Returns (fixtures, skipped) for not-yet-played matches inside the next
     `days_ahead` days. Raises only for a genuinely unusable request (no
     network lib, unmapped league); per-row problems become `skipped` entries
-    rather than guessed values."""
+    rather than guessed values.
+
+    The full season event list is cached per (league, season) with a 6-hour
+    TTL; the day window is re-filtered against the cache on every call, so a
+    warm run costs no network and the horizon stays correct."""
     if requests is None:
         raise RuntimeError("requests not installed — cannot fetch live fixtures")
     if league in UNRESOLVED_LEAGUES:
@@ -242,11 +281,14 @@ def fetch_upcoming(league: str, fixtures_season: str, days_ahead: int = 14
     if league not in LEAGUE_IDS:
         raise ValueError(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
 
-    url = (f"{API_BASE}/{_get_key()}/eventsseason.php"
-           f"?id={LEAGUE_IDS[league]}&s={_season_label(fixtures_season)}")
-    resp = requests.get(url, timeout=25, headers={"User-Agent": "OLP-XDV/1.0"})
-    resp.raise_for_status()
-    events = resp.json().get("events") or []
+    events = _read_cache(league, fixtures_season)
+    if events is None:
+        url = (f"{API_BASE}/{_get_key()}/eventsseason.php"
+               f"?id={LEAGUE_IDS[league]}&s={_season_label(fixtures_season)}")
+        resp = requests.get(url, timeout=25, headers={"User-Agent": "OLP-XDV/1.0"})
+        resp.raise_for_status()
+        events = resp.json().get("events") or []
+        _write_cache(league, fixtures_season, events)
 
     today = date.today()
     horizon = today + timedelta(days=days_ahead)

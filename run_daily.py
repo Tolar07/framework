@@ -289,23 +289,6 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     verify_block, gflags = grade_open_legs(log, season)
     all_flags += gflags
 
-    # --- live entry prices ONLY for leagues that could produce a capital ---
-    # --- pick. Scan-only leagues' prices can never be deployed, so pulling
-    # --- them would burn the free-tier odds quota for nothing; their Pick
-    # --- column falls back to the model's strongest deployable market.
-    odds_leagues = [lg for lg in leagues
-                    if SOFTNESS_TIER.get(lg) in DEPLOY_ELIGIBLE_TIERS]
-    odds_index: dict = {}
-    for lg in odds_leagues:
-        try:
-            fixtures, oflags = odds_mod.fetch_odds(lg)
-            odds_index.update(odds_mod.index_by_fixture(fixtures))
-            all_flags += oflags
-        except odds_mod.QuotaExhausted as e:
-            all_flags.append(f"{lg}: {e}")
-        except Exception as e:
-            all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
-
     # --- scan every league into one board (ID402 wide eyes). The board is the
     # --- day's matches (days_ahead=0): 'today's board', not a 14-day lookahead.
     # --- Each league reports its fit outcome (reused vs refit, seeded vs cold)
@@ -321,6 +304,28 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags += flags
         for k in fit_stats:
             fit_stats[k] += int(st.get(k, False))
+
+    # --- live entry prices, pulled ONLY for leagues that actually produced a
+    # --- rated fixture today. Scan-only leagues' prices can never be deployed,
+    # --- so pulling them burns quota for nothing; and a deploy league with no
+    # --- fixtures today (a quiet midweek) needs no price pull either — the old
+    # --- order fetched all 6 deploy leagues before the scan, and today wasted
+    # --- ~10s doing so. Fixture LISTS are already cached (6h) inside the scan.
+    def _league_of(bf) -> str:
+        return bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture \
+            else "—"
+    odds_leagues = {_league_of(bf) for bf in board if bf.probs is not None
+                    and SOFTNESS_TIER.get(_league_of(bf)) in DEPLOY_ELIGIBLE_TIERS}
+    odds_index: dict = {}
+    for lg in sorted(odds_leagues):
+        try:
+            fixtures, oflags = odds_mod.fetch_odds(lg)
+            odds_index.update(odds_mod.index_by_fixture(fixtures))
+            all_flags += oflags
+        except odds_mod.QuotaExhausted as e:
+            all_flags.append(f"{lg}: {e}")
+        except Exception as e:
+            all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
 
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.

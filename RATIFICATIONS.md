@@ -361,3 +361,54 @@ heads the footer.
 (commit `80d9dc1`, from the second Claude session) did not match the
 Architect's answers to the rebuild questions (it stripped the header/flags and
 kept only deploy-eligible picks). It was replaced by this entry's design.
+
+## 2026-08-05 · WhatsApp delivery (official Meta Cloud API) — ID406
+
+**What the Architect asked:** deliver the daily board to WhatsApp too — "the
+same" as Telegram: same picks, same daily board text (whatever
+`render_telegram_board` produces — the Architect-approved `OLP XDV — DAILY
+BOARD` push with the `⭐ TODAY'S PICKS` parlay). Chose the **official Meta
+Cloud API** (no ban risk, free tier) and **push-only** scope (no command
+daemon).
+
+**What was built:**
+
+1. **`output/whatsapp_deliver.py`** — a sender mirroring `output/notify.py`'s
+   discipline exactly: `send_whatsapp(body) -> (ok, notes)`, never raises,
+   retries transient faults 3×, refuses to send when credentials are missing
+   (unconfigured ⇒ silently off — the framework behaves exactly as before).
+   Reuses `notify._stamp` + `notify._chunk` so the WhatsApp message is
+   **byte-identical** to the Telegram push. Because the 7am push is
+   **business-initiated**, it is sent as a **template message** (Meta rule:
+   free-form text only works inside the 24h customer-service window); the
+   template body is a single `{{1}}` placeholder carrying the full text, so one
+   template serves any content. Over-cap bodies are split into a few messages.
+2. **`.env` keys** — `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`,
+   `WHATSAPP_TO`, `WHATSAPP_TEMPLATE_NAME` (default `olp_daily_pick`),
+   `WHATSAPP_LANGUAGE` (default `en`). Commented placeholders only — no values
+   baked into the repo.
+3. **`run_daily.py` wiring** — after the Telegram delivery succeeds, the same
+   text is pushed to WhatsApp when configured. WhatsApp is the **copy** channel,
+   not the source of truth: a failure is logged but **never fails the run**
+   (Telegram remains phone-critical). `--no-whatsapp` CLI flag +
+   `WHATSAPP_ENABLED=0` toggle.
+4. **`tests/whatsapp_deliver_test.py`** — 7 mocked-network checks (URL/auth/
+   template payload, retry, persistent failure, env-missing guard, requests-
+   missing guard, chunking, explicit-param override). All green; the existing
+   suites (telegram_commands, engine_regression, stress 31/31, smoke, stress2)
+   stay green.
+
+**Guardrails:** Telegram delivery failure still fails the run (unchanged).
+WhatsApp is additive and inert until the Architect registers a Meta app and
+drops the credentials into `.env`. Nothing here touches capital, staking,
+fabrication, verification, or the honest-edge statement.
+
+**Known constraint (not a bug):** a real (non-test) WhatsApp Business number
+needs an **approved template** for the business-initiated daily push; approval
+takes hours and may require business verification. Until then the channel is
+verified on Meta's **test number** (templates usable immediately, recipient
+whitelisted as a test recipient).
+
+**Authority:** Architect — plan approved before build; additive delivery
+channel under the auto-ratification grant, no bright-line behaviour changed.
+

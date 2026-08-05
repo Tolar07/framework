@@ -294,7 +294,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- day's matches (days_ahead=0): 'today's board', not a 14-day lookahead.
     # --- Each league reports its fit outcome (reused vs refit, seeded vs cold)
     # --- so the run row proves the brain's speed win rather than assuming it.
-    fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0}
+    fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0,
+                 "xg_leagues": 0}
     board: list = []
     for lg in leagues:
         st: dict = {}
@@ -470,6 +471,12 @@ def _predictions_from_board(board, run_id: str, predicted_at: str,
             for key, prob in (("1X2_HOME", eh), ("1X2_DRAW", ed),
                               ("1X2_AWAY", ea)):
                 rows.append(dict(base, market=key, model_engine="elo",
+                                 model_prob=prob))
+        if bf.xg_probs:
+            xh, xd, xa = bf.xg_probs
+            for key, prob in (("1X2_HOME", xh), ("1X2_DRAW", xd),
+                              ("1X2_AWAY", xa)):
+                rows.append(dict(base, market=key, model_engine="xg",
                                  model_prob=prob))
     return brain.append_predictions(rows)
 

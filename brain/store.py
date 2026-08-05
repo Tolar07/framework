@@ -36,7 +36,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 DEFAULT_BRAIN_PATH = Path(__file__).parent / "olp.db"
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 # _create_tables builds the v1 BASELINE schema and stamps this version; _migrate
 # then steps a fresh DB forward to SCHEMA_VERSION. Keeping this at 1 (not
 # SCHEMA_VERSION) is what makes migrations actually run on a new DB.
@@ -56,6 +56,9 @@ _MIGRATIONS: dict[int, str] = {
     # brain is trained on. hit is per-market via the canonical settle rules.
     3: "ALTER TABLE predictions ADD COLUMN ft_result TEXT;",
     4: "ALTER TABLE predictions ADD COLUMN hit INTEGER;",
+    # v5: how many leagues got an xG third opinion this run (Understat covers
+    # Big-5 + RFPL only, so this is a coverage counter, not a quality claim).
+    5: "ALTER TABLE runs ADD COLUMN xg_leagues INTEGER NOT NULL DEFAULT 0;",
 }
 
 _WRITE_GUARD = ("SELECT", "PRAGMA", "EXPLAIN", "WITH")

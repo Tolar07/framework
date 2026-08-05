@@ -157,6 +157,8 @@ def _render_lookup(brain, arg: str) -> str:
               for r in rws if r["model_engine"] in ("dc", "cross")}
         elo = {r["market"]: r["model_prob"]
                for r in rws if r["model_engine"] == "elo"}
+        xg = {r["market"]: r["model_prob"]
+              for r in rws if r["model_engine"] == "xg"}
         priced = next((r for r in rws if r.get("entry_odds") is not None), None)
         out.append(f"{i}. {latest[:10]} | {fixture} ({league}){run_note}")
         if dc:
@@ -168,6 +170,9 @@ def _render_lookup(brain, arg: str) -> str:
         if elo:
             out.append(f"   Elo second opinion: {_pct(elo.get('1X2_HOME'))} / "
                        f"{_pct(elo.get('1X2_DRAW'))} / {_pct(elo.get('1X2_AWAY'))}")
+        if xg:
+            out.append(f"   xG third opinion: {_pct(xg.get('1X2_HOME'))} / "
+                       f"{_pct(xg.get('1X2_DRAW'))} / {_pct(xg.get('1X2_AWAY'))}")
         if priced:
             clv = (f"CLV {priced['clv_pct']:+.2f}%"
                    if priced.get("clv_pct") is not None

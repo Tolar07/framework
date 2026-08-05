@@ -28,6 +28,7 @@ from data.football_data_source import load_league, MatchResult, UNCOVERED_LEAGUE
 from data.fixtures_source import fetch_upcoming, as_pairs
 from data import thesportsdb_fixtures as tsdb
 from data import api_football_results as apif
+from data import xg_source
 from engine import cross_league as xleague
 from engine import elo as elo_engine
 from engine.dixon_coles import fit, predict, unrated_reason, FIT_VERSION
@@ -255,6 +256,23 @@ def scan_one_league(league: str, season: str,
     except Exception as e:
         elo_model = None
         flags.append(f"{league}: Elo second opinion unavailable ({str(e)[:60]})")
+
+    # Third engine: xG (expected goals) via Understat. FREE source, covers the
+    # Big-5 leagues + RFPL only. Quality-adjusted signal — reads the quality of
+    # chances, not the goals they produced. A genuinely independent third
+    # reading (score patterns / result history / chance quality). Falls back
+    # silently when a league isn't covered — the board omits the xG line, DC
+    # and Elo still work (HR35: never fabricate xG).
+    xg_ratings = None
+    xg_probs = None
+    if xg_source.is_covered(league):
+        try:
+            xg_ratings = xg_source.fit_xg(league, season)
+            if xg_ratings and stats is not None:
+                stats["xg_leagues"] = True
+        except Exception as e:
+            flags.append(f"{league}: xG third opinion unavailable "
+                         f"({str(e)[:60]})")
     tier = softness_tier(league)
     board: list[BoardFixture] = []
 
@@ -268,6 +286,8 @@ def scan_one_league(league: str, season: str,
                                   url="https://www.thesportsdb.com",
                                   structured=True)])
         elo_p = elo_model.probabilities(home, away) if elo_model else None
+        xg_p = (xg_source.predict_xg(home, away, xg_ratings, league=league)
+                if xg_ratings else None)
         mes = None
         if probs is not None:
             best_prob = max(probs.p_home, probs.p_draw, probs.p_away,
@@ -285,6 +305,7 @@ def scan_one_league(league: str, season: str,
             mes_trigger_price=mes,
             kickoff_date=fixture_dates.get((home, away)),
             elo_probs=elo_p,
+            xg_probs=(xg_p.home, xg_p.draw, xg_p.away) if xg_p else None,
             engine_divergence=elo_engine.divergence(elo_p, probs),
             rejection_reason=(
                 _unrated_detail(model, home, away) if probs is None

@@ -52,13 +52,21 @@ LEAGUE_IDS = {
     "Ligue 1": 4334,                # "French Ligue 1" (France)
     "La Liga": 4335,                # "Spanish La Liga" (Spain)
     "Primeira Liga": 4344,          # "Portuguese Primeira Liga" (Portugal)
+    # Continental competitions — resolved by NAME + COUNTRY via
+    # lookupleague.php (Europe, "UEFA Champions League" / "UEFA Europa League")
+    # on 2026-08-05, not guessed. The eventsseason feed currently lags weeks
+    # behind (July-only qualifiers), so the ACTIVE capture path for these is
+    # the odds feed (pipeline/odds.py SPORT_KEYS); this ID is what enables the
+    # league-phase capture once TheSportsDB loads it.
+    "Champions League": 4480,
+    "Europa League": 4481,
 }
 
 # Scanned 4328-4530 on the public test key and found NO verified ID for these.
 # Left unmapped deliberately — HR35: a wrong league ID silently returns another
 # competition's fixtures, which is worse than an honest gap. The test key also
 # truncates all_leagues.php to 5 entries, so a personal key may resolve these.
-UNRESOLVED_LEAGUES = {"Ekstraklasa", "HNL", "Champions League", "Europa League"}
+UNRESOLVED_LEAGUES = {"Ekstraklasa", "HNL"}
 
 # TheSportsDB name -> football-data.co.uk name (the key the fitted model uses).
 # Every pair below was confirmed by diffing the two sources' actual team lists

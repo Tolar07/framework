@@ -39,11 +39,16 @@ def make_synthetic_results(league: str, n_teams: int = 10) -> list[MatchResult]:
 
 
 # --- test 1: uncovered league is flagged, never silently skipped or guessed ---
-board, flags = orchestrator.scan_one_league("Champions League", season="2526")
+# Champions League was the original example, but it is now COVERED via the
+# odds feed (pipeline/odds.py SPORT_KEYS + the odds-derived fixtures fallback
+# in scan_one_league) — it returns real fixtures. HNL has no TheSportsDB id,
+# no odds sport key and only stale api-football history, so it is the honest
+# uncovered example.
+board, flags = orchestrator.scan_one_league("HNL", season="2526")
 assert board == [], "an uncovered league must produce an empty board, never fabricated fixtures"
-assert any("NO DATA" in f and "Champions League" in f for f in flags), \
+assert any("NO DATA" in f and "HNL" in f for f in flags), \
     f"uncovered league must be flagged explicitly, got: {flags}"
-print("Uncovered league (Champions League) correctly flagged, not silently dropped: OK")
+print("Uncovered league (HNL) correctly flagged, not silently dropped: OK")
 
 
 # --- test 2: thin history is flagged rather than fit on too little ---

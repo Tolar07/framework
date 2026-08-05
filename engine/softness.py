@@ -118,20 +118,23 @@ def _confidence(c) -> float:
 
 
 def call_key(c) -> tuple:
-    """THE CALL ranking key: tier first (A outranks B), then expected value
-    when a live price was attached (best_mes_ev, set by run_daily after the
-    odds pull), else model conviction as the fallback for unpriced rows (a
-    competition with no odds source). EV is the figure that actually decides
-    a bet; conviction without a price is unmeasurable, so it ranks last within
-    a tier rather than being treated as equal to a price.
+    """THE CALL ranking key: tier first (A outranks B), then PRICED picks
+    ahead of unpriced, then expected value descending (best_mes_ev, set by
+    run_daily after the odds pull) — unpriced rows rank by model conviction
+    as a fallback.
+
+    EV is the figure that actually decides a bet, so every fixture with a
+    live price outranks one without (conviction is unmeasurable against a
+    number). Without the priced-first separator, a 70%-confident unpriced
+    row's key could beat a +20%-EV priced row and the CALL would read wrong.
 
     Public so the renderer sorts THE CALL into the same order it was selected
     — otherwise the right six are picked but shown in scan order, which reads
     as if the ranking failed."""
     ev = getattr(c, "best_mes_ev", None)
     if ev is not None:
-        return (c.softness_tier, -ev)
-    return (c.softness_tier, -_confidence(c))
+        return (c.softness_tier, 0, -ev)          # priced first
+    return (c.softness_tier, 1, -_confidence(c))  # unpriced after
 
 
 def build_deploy_shortlist(candidates: list) -> list:

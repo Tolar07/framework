@@ -287,16 +287,32 @@ def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
 
 
 def _pick_desc(bf: BoardFixture) -> str:
-    """The recommended prediction for a fixture's table row: the live-EV market
-    when a price was found, else the model's strongest deployable market.
-    Never blank for a rated fixture — naming the model's view is not claiming
-    it is a bet, and a blank Pick column hides a view the model genuinely holds."""
+    """The recommended prediction for a fixture: the live-EV market when a price
+    was found, else the model's strongest deployable market. Plain language for
+    a non-technical reader. Never blank for a rated fixture — naming the model's
+    view is not claiming it is a bet."""
     if bf.best_market and bf.best_model_prob is not None:
         return f"{bf.best_market} ({round(bf.best_model_prob*100)}%)"
     if bf.probs is not None:
         pick, prob = _best_market_desc(bf.probs)
         return f"{pick} ({round(prob*100)}%)"
     return "—"
+
+
+def _fixture_block(bf: BoardFixture) -> str:
+    """One rated fixture in plain language, showing EVERY market the model
+    prices: who wins, the goals line, and both teams scoring. Readable to a
+    non-technical person — no column codes, no '1X2' jargon. The pick is the
+    last line, flagged."""
+    p = bf.probs
+    return "\n".join([
+        _short_fixture(bf),
+        f"  Win chance: {p.home_team} {_pct(p.p_home)} · Draw {_pct(p.p_draw)} · "
+        f"{p.away_team} {_pct(p.p_away)}",
+        f"  Over 1.5 goals: {_pct(p.p_over_15)} · Over 2.5 goals: "
+        f"{_pct(p.p_over_25)} · Both to score: {_pct(p.p_btts_yes)}",
+        f"  ⭐ Pick: {_pick_desc(bf)}",
+    ])
 
 
 def _dc_cell(p: FixtureProbabilities) -> str:
@@ -476,27 +492,19 @@ def render_recommended_table(shortlist: list[BoardFixture]) -> str:
     # scan order it happened to arrive in — otherwise the highest-EV pick lands
     # last and the ranking looks broken.
     shortlist = sorted(shortlist, key=call_key)
-    rows = []
+    lines = [f"RECOMMENDED — THE CALL  (paper · softness A/B only · capped at "
+             f"{DEPLOY_POOL_CAP})",
+             "MARKED PAPER — Phase 2, zero capital. Nothing is staked."]
     for bf in shortlist:
-        # Prefer the market chosen on live EV. With no price available, still
-        # NAME the model's strongest deployable market and let the price be the
-        # thing that reads NO DATA — a blank Pick column hides a view the model
-        # genuinely holds, which is unhelpful without being any more honest.
-        if bf.best_market and bf.best_model_prob is not None:
-            pick, prob = bf.best_market, bf.best_model_prob
-        elif bf.probs is not None:
-            pick, prob = _best_market_desc(bf.probs)
+        # Plain language for a non-technical reader: "value +22%" is the model's
+        # expected value on the current live price — positive means the price
+        # pays more than the model thinks it should.
+        if bf.best_mes_ev is not None:
+            value = f"value {bf.best_mes_ev:+.0%}"
         else:
-            pick, prob = "NO DATA — PENDING", None
-        model = f"{round(prob*100)}%" if prob else "—"
-        # The EV column keeps HR30's numerical MES on the picks that matter —
-        # it is the safety datum, now one line instead of a per-pick block.
-        ev = f"{bf.best_mes_ev:+.2%}" if bf.best_mes_ev is not None else "—"
-        rows.append([_short_fixture(bf), pick, model, ev, bf.softness_tier])
-    table = _col(rows, ["Fixture", "Pick", "Model%", "EV", "C"])
-    return (f"RECOMMENDED — THE CALL  (softness A/B only, capped at "
-            f"{DEPLOY_POOL_CAP}, ID402)\nMARKED PAPER — Phase 2, zero capital.\n"
-            f"{FENCE}\n{table}\n{FENCE}")
+            value = "no live price yet"
+        lines.append(f"⭐ {_short_fixture(bf)} — {_pick_desc(bf)} · {value}")
+    return "\n".join(lines)
 
 
 def render_scan_tables(board: list[BoardFixture]) -> str:
@@ -505,25 +513,15 @@ def render_scan_tables(board: list[BoardFixture]) -> str:
     for bf in board:
         by_league.setdefault(_league_of(bf), []).append(bf)
 
-    out = ["ALL FIXTURES SCANNED"]
+    out = []
     for league, fixtures in by_league.items():
-        rows = []
+        lines = [league]
         for bf in fixtures:
             if bf.probs is None:
-                rows.append([_short_fixture(bf), "NO DATA — PENDING", "—", "—",
-                             stamp(bf.verification)])
-                continue
-            p = bf.probs
-            best = max((f"{p.home_team}·{round(p.p_home*100)}%", p.p_home),
-                       (f"Draw·{round(p.p_draw*100)}%", p.p_draw),
-                       (f"{p.away_team}·{round(p.p_away*100)}%", p.p_away),
-                       key=lambda t: t[1])[0]
-            rows.append([
-                _short_fixture(bf), best, _lean(p.p_over_25, "2.5"),
-                _pick_desc(bf), stamp(bf.verification),
-            ])
-        table = _col(rows, ["Fixture", "1X2", "O2.5", "Pick", "Src"])
-        out.append(f"{league}\n{FENCE}\n{table}\n{FENCE}")
+                lines.append(f"{_short_fixture(bf)} — no prediction yet")
+            else:
+                lines.append(_fixture_block(bf))
+        out.append("\n".join(lines))
     return "\n\n".join(out)
 
 

@@ -43,6 +43,14 @@ CONTINENTAL_SPORTS: dict[str, str] = {
     "soccer_uefa_champs_league_qualification": "Champions League",
 }
 
+# TheSportsDB league IDs for the same competitions, used as a fallback score
+# source when The Odds API is unreachable (verified live 2026-08-05: UCL
+# qualification matches are under tsdb league 4480). A score source outage is
+# NOT a settlement signal — the watch must keep polling either way.
+TSDB_SPORT_LEAGUES: dict[str, int] = {
+    "soccer_uefa_champs_league_qualification": 4480,
+}
+
 # UCL/UEL qualifiers are scan-only (tier D): no capital, no paper legs. The
 # monitor's job is the OUTCOME evidence, which needs no price.
 SCAN_ONLY = True
@@ -54,11 +62,53 @@ def _json(url: str):
         return json.load(r)
 
 
+def _fetch_scores_tsdb(sport: str) -> list[dict]:
+    """Fallback score source: TheSportsDB (verified reachable when The Odds
+    API is not). Converts tsdb events into the same event shape the odds API
+    uses (home_team/away_team/commence_time/completed/scores) so everything
+    downstream — status, settle, display — is source-agnostic."""
+    lid = TSDB_SPORT_LEAGUES.get(sport)
+    if not lid:
+        return []
+    today = datetime.date.today().isoformat()
+    url = (f"https://www.thesportsdb.com/api/v1/json/3/eventsday.php"
+           f"?d={today}&l={lid}")
+    d = _json(url)
+    events = []
+    for e in d.get("events") or []:
+        status = e.get("strStatus") or ""
+        scores = []
+        if e.get("intHomeScore") not in (None, "") and \
+                e.get("intAwayScore") not in (None, ""):
+            scores = [{"position": 0, "score": int(e["intHomeScore"])},
+                      {"position": 1, "score": int(e["intAwayScore"])}]
+        # 'Z' suffix so _status's fromisoformat replace() yields aware UTC.
+        ct = f"{e.get('dateEvent', today)}T{(e.get('strTime') or '12:00:00')[:5]}:00Z"
+        events.append({
+            "sport_key": sport,
+            "commence_time": ct,
+            "home_team": e.get("strHomeTeam") or "",
+            "away_team": e.get("strAwayTeam") or "",
+            "completed": status.upper() == "FT",
+            "scores": scores,
+        })
+    return events
+
+
 def _fetch_scores(sport: str) -> list[dict]:
     key = odds._get_key()
     url = (f"https://api.the-odds-api.com/v4/sports/{sport}/scores/"
            f"?apiKey={key}&daysFrom=2")
-    return _json(url)
+    try:
+        return _json(url)
+    except Exception as e:
+        # The Odds API is down — fall back to TheSportsDB rather than
+        # pretending there's no game today. If tsdb also fails, the caller's
+        # retry loop keeps polling (a fetch failure is never 'all settled').
+        try:
+            return _fetch_scores_tsdb(sport)
+        except Exception:
+            raise e
 
 
 def _mapped(event: dict, league: str):
@@ -158,7 +208,11 @@ def _live_watch(brain: Brain, interval: int) -> int:
             try:
                 events = _fetch_scores(sport)
             except Exception as e:
-                lines.append(f"  {league}: fetch failed ({e})")
+                # A fetch failure is NOT a settlement signal — we don't know
+                # the state, so the watch must keep polling, not conclude
+                # "all settled". HR35: never assume a result you didn't see.
+                lines.append(f"  {league}: fetch failed ({e}) — retrying")
+                pending = True
                 continue
             todays = [e for e in events if (e.get("commence_time") or "")[:10] == today]
             lines.append(f"=== {league} — {len(todays)} event(s) today ===")

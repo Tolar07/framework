@@ -616,35 +616,47 @@ def render_pick_detail(shortlist: list[BoardFixture]) -> str:
 def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                            calibration_count: int, mean_clv: Optional[float],
                            data_flags: list[str], board: list[BoardFixture]) -> str:
-    """The compact board: header, one-line flag count, THE CALL table, and the
-    per-league scan tables. Brief but complete — full flag detail and the per-
-    pick MES/Elo reasoning live in the saved file board and /why."""
-    shortlist = [bf for bf in board if bf.on_deploy_shortlist]
-    clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
+    """The daily bet production: header, THE CALL picks, then the compact
+    per-league scan. This is what the 7am push delivers — the decisions, not
+    the diagnostics. Data flags, league counts, calibration stats and the
+    full per-pick reasoning all live in the saved board and behind /board,
+    /why, /status: a phone at 7am wants the bets, not the framework status.
 
+    The signature is unchanged (run_daily, /produce, /send all call it with
+    the same args); only the output text is the production."""
+    shortlist = sorted([bf for bf in board if bf.on_deploy_shortlist],
+                       key=call_key)
     scan_txt, any_blocked = render_scan_tables(board)
-    # The league count (not the full 15-name list) fits a phone line; the
-    # sections below name every league with fixtures, and the full list lives
-    # in the saved board and /board.
-    leagues_with_fixtures = len({_league_of(bf) for bf in board})
-    parts = [
-        f"OLP XDV — DAILY BOARD\n{date.today().isoformat()}  |  {phase}\n"
-        f"Leagues: {len(leagues_scanned)} · {leagues_with_fixtures} with "
-        f"fixtures\n"
-        f"Calibration: {calibration_count} legs logged, {clv}",
-    ]
-    if data_flags:
-        parts.append(f"⚠ {len(data_flags)} data flag(s) — see /board or the "
-                     f"saved board for full detail")
-    parts.append(render_recommended_table(shortlist))
-    parts.append(scan_txt)
+
+    parts = [f"OLP XDV — TODAY'S PICKS\n{date.today().isoformat()} · "
+             f"paper, zero capital"]
+
+    # THE CALL — the actual bets, one line each, in selection order. The
+    # plain-language EV ("value +5%") is the model's edge on the live price.
+    if shortlist:
+        call_lines = []
+        for bf in shortlist:
+            name, prob, blocked = _compact_pick(bf)
+            prob_s = f" ({round(prob*100)}%)" if prob is not None else ""
+            odds_s = (f" @{bf.best_price:.2f}"
+                      if bf.best_price is not None else "")
+            value = (f" · value {bf.best_mes_ev:+.0%}"
+                     if bf.best_mes_ev is not None else "")
+            marker = " †" if blocked else ""
+            call_lines.append(f"⭐ {_short_fixture(bf)} — {name}{prob_s}"
+                              f"{odds_s}{marker}{value}")
+        parts.append("\n".join(call_lines))
+    else:
+        parts.append("No pick cleared the bar today — honest, not noise.")
+
+    if scan_txt:
+        parts.append(scan_txt)
     if any_blocked:
         # One footnote explains every † on the board: the model can favour
         # Over 2.5 while the framework still refuses to recommend it (ID405,
         # a proven negative market) — so the pick falls to the Under.
         parts.append("† = Over 2.5 is never recommended (proven negative "
                      "market); the pick is the Under instead")
-    parts.append("HONEST EDGE LINE: an excellent informed process but NOT a "
-                 "demonstrated profitable edge.\nCapital authority: THE "
-                 "ARCHITECT. Nothing here is live until you deploy it.")
+    parts.append("Full board: /board · reasoning: /why\n"
+                 "Honest caveat: an informed process, NOT yet a proven edge.")
     return "\n\n".join(parts)

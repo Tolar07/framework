@@ -7,6 +7,32 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-05 · Board is today-only + compact codes — ratified by the ARCHITECT
+
+**What the Architect asked:** "when bet is produce is it today fixture across
+the leagues". The run had been scanning a **14-day fixture window**, so an
+otherwise quiet Wednesday still showed ~80 fixtures (weekend domestic rounds
+mixed into a Wednesday board). The Architect chose **today only**, then chose
+the **compact-codes layout** (see the previous entry) after the plain-word
+format read as too long and deformed on a phone.
+
+1. **Today-only window.** `orchestrator.scan_one_league` gains `days_ahead`
+   (default 14 for tooling that plans ahead); `run_daily.run()` defaults
+   `days_ahead=0` and threads it to the thesportsdb, odds-derived and
+   api-football fixture sources. `/produce bet`, `/send` and the 07:00 run now
+   show literally today's matches across all 15 leagues. Measured: the
+   14-day board (11.7k chars, 4 parts) became today's board (669 chars, 1 part).
+2. **Honest consequences, surfaced not hidden:** on days with no fixtures the
+   board is near-empty, and THE CALL can be empty when today's games are all
+   scan-only leagues — today's only matches were UCL qualifiers (tier D), so
+   there was no deploy-eligible call. That is correct: you can only bet on
+   what is playable today.
+
+**Authority:** Architect. The window and the layout change what appears on the
+board, so they were not taken under the auto-ratification grant.
+
+---
+
 ## 2026-08-05 · UCL captured via the odds feed + plain-language board — ratified by the ARCHITECT
 
 **What the Architect saw:** UCL/UEL qualifiers on Flashscore but nothing on the

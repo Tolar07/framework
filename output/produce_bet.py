@@ -62,6 +62,12 @@ class BoardFixture:
     # a warning. It does NOT gate deployment.
     elo_probs: Optional[tuple] = None
     engine_divergence: Optional[str] = None
+    # Third opinion from the xG engine (Understat, free). Reads the quality of
+    # chances, not the goals they produced — a genuinely independent signal
+    # from DC (score patterns) and Elo (result history). Only present for
+    # Big-5 leagues where a free xG source exists; omitted elsewhere (never
+    # fabricated, HR35).
+    xg_probs: Optional[tuple] = None
     # Which goals model priced this fixture: 'dc' (single-league Dixon-Coles)
     # or 'cross' (the pooled European graph). Carried so the brain can record
     # which engine produced each prediction.
@@ -223,6 +229,19 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
         L.append("   Second opinion (Elo): NO DATA — PENDING (one or both clubs "
                  "below the Elo match floor)")
 
+    # Third opinion — xG via Understat (free). Reads the quality of chances,
+    # not the goals they produced. Only present for Big-5 leagues where a free
+    # xG source exists; the board never fabricates one (HR35).
+    if bf.xg_probs:
+        xh, xd, xa = bf.xg_probs
+        L.append(f"   Third opinion — xG (Understat, quality-adjusted), "
+                 f"independent of goals + results:")
+        L.append(f"      {p.home_team} to win {round(xh*100)}% · Draw "
+                 f"{round(xd*100)}% · {p.away_team} to win {round(xa*100)}%")
+    else:
+        L.append("   Third opinion (xG): NO DATA — PENDING (no free xG source "
+                 "covers this league — xG covers Big-5 + RFPL only)")
+
     if bf.best_market and bf.best_price is not None:
         ev = bf.best_mes_ev
         verdict = ("POSITIVE expected value against this price"
@@ -314,19 +333,24 @@ def _compact_pick(bf: BoardFixture) -> tuple[str, Optional[float], bool]:
 
 
 def _compact_fixture(bf: BoardFixture) -> list[str]:
-    """Three lines for one rated fixture, each fitting a phone (~32 chars):
-    the fixture, the market probabilities as short codes (home/draw/away win,
-    Over 2.5, both teams), and the pick. The fixture line above decodes the
-    codes — '66/18/16' is Nijmegen/Draw/Telstar in fixture order."""
+    """Lines for one rated fixture, each fitting a phone (~32 chars):
+    the fixture, the DC probabilities as short codes, the xG third opinion
+    when a free source covers the league, and the pick. The fixture line
+    above decodes the codes — '66/18/16' is Nijmegen/Draw/Telstar in fixture
+    order. xG is omitted entirely when unavailable (never fabricated, HR35)."""
     p = bf.probs
     name, _prob, blocked = _compact_pick(bf)
     marker = " †" if blocked else ""
-    return [
+    lines = [
         _short_fixture(bf),
-        f" {round(p.p_home*100)}/{round(p.p_draw*100)}/{round(p.p_away*100)}"
+        f" DC {round(p.p_home*100)}/{round(p.p_draw*100)}/{round(p.p_away*100)}"
         f" · O2.5 {round(p.p_over_25*100)}% · BTTS {round(p.p_btts_yes*100)}%",
-        f" ⭐ {name}{marker}",
     ]
+    if bf.xg_probs:
+        xh, xd, xa = bf.xg_probs
+        lines.append(f" xG {round(xh*100)}/{round(xd*100)}/{round(xa*100)}")
+    lines.append(f" ⭐ {name}{marker}")
+    return lines
 
 
 def _dc_cell(p: FixtureProbabilities) -> str:

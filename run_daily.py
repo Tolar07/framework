@@ -247,7 +247,7 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
-        min_mes: float = 0.0) -> str:
+        min_mes: float = 0.0, days_ahead: int = 0) -> str:
     leagues = leagues or SCAN_LEAGUES
     today = date.today().isoformat()
     runlog = _mark_started()
@@ -275,11 +275,12 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         except Exception as e:
             all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
 
-    # --- scan every league into one board (ID402 wide eyes) ---
+    # --- scan every league into one board (ID402 wide eyes). The board is the
+    # --- day's matches (days_ahead=0): 'today's board', not a 14-day lookahead.
     board: list = []
     for lg in leagues:
         slice_, flags = orchestrator.scan_one_league(
-            lg, season, fixtures_season=fixtures_season)
+            lg, season, fixtures_season=fixtures_season, days_ahead=days_ahead)
         board += slice_
         all_flags += flags
 

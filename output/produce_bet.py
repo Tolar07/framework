@@ -58,6 +58,13 @@ class BoardFixture:
     # a warning. It does NOT gate deployment.
     elo_probs: Optional[tuple] = None
     engine_divergence: Optional[str] = None
+    # Which goals model priced this fixture: 'dc' (single-league Dixon-Coles)
+    # or 'cross' (the pooled European graph). Carried so the brain can record
+    # which engine produced each prediction.
+    model_engine: str = "dc"
+    # The canonical market key (1X2_HOME / 1X2_DRAW / 1X2_AWAY / OVER_1_5 /
+    # OVER_2_5 / BTTS_YES) of the priced best-market row, when one exists.
+    best_market_key: Optional[str] = None
 
 
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],

@@ -92,6 +92,29 @@ note = handle("/note we should discuss go live later")
 assert note.startswith("Correction logged"), f"/note must be exempt, got: {note[:40]}"
 print("/note records corrections even if they mention bright-line words: OK")
 
+# --- /note honesty: nothing is claimed to be applied automatically ----------
+note = handle("/note honesty check")
+assert "applied automatically" not in note, \
+    "/note must not claim corrections auto-apply"
+assert "/stats" in note, "/note must point the Architect at /stats to read back"
+print("/note no longer claims auto-apply; points at /stats: OK")
+
+# --- /stats is registered; empty brain renders honest NO DATA ---------------
+from brain.store import Brain
+from brain.report import render_stats
+assert HANDLERS["/stats"] is tc.cmd_stats, "/stats must route to cmd_stats"
+_sb = _tmp / "empty_brain.db"
+if _sb.exists():
+    _sb.unlink()
+_b = Brain(_sb)
+s = render_stats(_b, "")
+assert "OLP XDV — STATS" in s, "/stats must render the header"
+assert "NO DATA — PENDING" in s, "empty brain must surface NO DATA, never a guess"
+s2 = render_stats(_b, "ZzzNoTeamZzz")
+assert "NO DATA — PENDING" in s2, "missing-team lookup must be honest NO DATA"
+_b.close()
+print("/stats registered; empty brain renders honest NO DATA: OK")
+
 # --- help advertises the pipeline commands ----------------------------------
 h = cmd_help("")
 for advert in ("/send", "/produce bet", "/verify result", "~30s"):

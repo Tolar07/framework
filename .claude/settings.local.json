@@ -6,7 +6,12 @@
       "PowerShell(python3 --version)",
       "PowerShell(winget install --id Python.Python.3.12 -e --source winget --accept-package-agreements --accept-source-agreements)",
       "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); py --version; py -m pip --version)",
-      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); py -m pip install scipy numpy requests)"
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); py -m pip install scipy numpy requests)",
+      "Bash(command -v gh)",
+      "Bash(gh --version)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git -c user.name=olp-xdv -c user.email=olp-xdv@local commit -q -m 'Elo persistence: save/load, incremental seed, CSV export *)"
     ]
   }
 }

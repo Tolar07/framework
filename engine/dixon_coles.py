@@ -28,6 +28,12 @@ MAX_GOALS = 10          # matrix truncation — P(>10 goals) is negligible
 LAMBDA_CLAMP = (0.15, 4.5)   # BUG1: sane expected-goals range post-fit
 RHO_CLAMP = (-0.3, 0.1)      # Dixon-Coles rho is small; guards against a bad fit
 
+# Bumped whenever a fit-behaviour or fit-output change makes an OLD cached
+# model provably different from a fresh one. The single source of truth —
+# the backtest cache and the brain both key/version on it, so a model fitted
+# under pre-change code can never be silently reused.
+FIT_VERSION = 4
+
 
 @dataclass
 class TeamStrength:
@@ -53,6 +59,34 @@ class DixonColesModel:
     # the model knows perfectly well under a different name.
     seen_teams: dict[str, int] = field(default_factory=dict)   # name -> match count
     thin_teams: dict[str, int] = field(default_factory=dict)   # name -> match count
+
+    # ----- persistence ------------------------------------------------------
+    def to_payload(self) -> dict:
+        """The on-disk shape (single source of truth): the backtest's model
+        cache and the brain both persist through this, so one shape can never
+        drift from the other. `warm_seed` survives so a later run can warm-start
+        from it instead of refitting cold."""
+        return {
+            "league": self.league,
+            "home_advantage": self.home_advantage,
+            "rho": self.rho,
+            "n_matches_fit": self.n_matches_fit,
+            "teams": {t: [s.attack, s.defence] for t, s in self.teams.items()},
+            "warm_seed": self.warm_seed,
+        }
+
+    @classmethod
+    def from_payload(cls, d: dict) -> "DixonColesModel":
+        """Restore a model from a to_payload() dict."""
+        m = cls(league=d["league"], home_advantage=d["home_advantage"],
+                rho=d["rho"], n_matches_fit=d["n_matches_fit"])
+        m.teams = {t: TeamStrength(attack=a, defence=df)
+                   for t, (a, df) in d["teams"].items()}
+        seed = d.get("warm_seed")
+        if seed:
+            m.warm_seed = ({k: tuple(v) for k, v in seed[0].items()},
+                           tuple(seed[1]))
+        return m
 
     def lambdas(self, home: str, away: str) -> Optional[tuple[float, float]]:
         """Returns (lambda_home, lambda_away) or None if either team is unrated

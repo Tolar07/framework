@@ -185,10 +185,19 @@ def build_pool(competition: str, season: int = 2024,
 
 def fit_cross_league(competition: str, season: int = 2024,
                       anchor_season: str = "2425",
-                      min_matches_per_team: int = 6
+                      min_matches_per_team: int = 6,
+                      pool: Optional[tuple[list[MatchResult], dict]] = None
                       ) -> tuple[Optional[DixonColesModel], dict, list[str]]:
-    """One model spanning every pooled league. Returns (model, info, flags)."""
-    pooled, info, flags = build_pool(competition, season, anchor_season)
+    """One model spanning every pooled league. Returns (model, info, flags).
+
+    `pool=(pooled, info)` lets the caller build the pool once and reuse it
+    (e.g. for the Elo source and for the brain's content-hash) instead of
+    build_pool being called twice per continental league."""
+    if pool is not None:
+        pooled, info = pool
+        flags: list[str] = []
+    else:
+        pooled, info, flags = build_pool(competition, season, anchor_season)
     if len(pooled) < 200:
         flags.append(f"{competition}: pooled history too thin ({len(pooled)}) "
                      f"— NO DATA — PENDING")

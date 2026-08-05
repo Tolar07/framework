@@ -17,3 +17,8 @@ venv/
 # Scratch
 tests/tmp_*.json
 *.tmp
+
+# Brain database — derived, re-buildable from clv_log.json + model history
+brain/*.db
+brain/*.db-wal
+brain/*.db-shm

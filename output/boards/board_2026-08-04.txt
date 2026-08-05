@@ -3,7 +3,7 @@ Date: 2026-08-04 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero cap
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa
 Calibration: 0 legs logged, CLV logged: ZERO
 DATA FLAGS (surfaced first, per HR53/ID403):
-  ⚠ graded 0 of 5 pending leg(s)
+  ⚠ graded 0 of 6 pending leg(s)
   ⚠ Eredivisie: odds served from cache (under the 60-minute V2 recency cap)
   ⚠ Danish Superliga: odds served from cache (under the 60-minute V2 recency cap)
   ⚠ Belgian Pro League: odds served from cache (under the 60-minute V2 recency cap)
@@ -14,7 +14,8 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Belgian Pro League: 3 team name(s) in the fixtures feed not found in the fitted data — Beveren, Kortrijk, Lommel. Model knows: Anderlecht, Antwerp, Cercle Brugge, Charleroi, Club Brugge, Dender, Genk, Gent, Mechelen, Oud-Heverlee Leuven, RAAL La Louviere, St Truiden, St. Gilloise, Standard, Waregem, Westerlo. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ Scottish Premiership: 1 team name(s) in the fixtures feed not found in the fitted data — St Johnstone. Model knows: Aberdeen, Celtic, Dundee, Dundee United, Falkirk, Hearts, Hibernian, Kilmarnock, Livingston, Motherwell, Rangers, St Mirren. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ Ekstraklasa: odds served from cache (under the 60-minute V2 recency cap)
-  ⚠ Ekstraklasa: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Ekstraklasa: 7 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Ekstraklasa: 1 team name(s) in the fixtures feed not found in the fitted data — Wisła Kraków. Model knows: Arka Gdynia, Cracovia, GKS Katowice, Gornik Zabrze, Jagiellonia, Korona Kielce, Lech Poznan, Lechia Gdansk, Legia, Motor Lublin, Piast Gliwice, Pogon Szczecin, Radomiak Radom, Rakow, Termalica B-B., Widzew Lodz, Wisla Plock, Zaglebie. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ Excelsior v PSV Eindhoven: no live price found — NO DATA — PENDING, leg not logged
   ⚠ logged 0 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
@@ -37,11 +38,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Nijmegen to win 67% · Draw 21% · Telstar to win 13%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Draw
-      Model probability .......... 18%
-      Best quoted price .......... 5.20 decimal (betfair_ex_uk, best of 19 books)
+   Best available market: Nijmegen to win
+      Model probability .......... 66%
+      Best quoted price .......... 1.48 decimal (betfair_ex_uk, best of 19 books)
       Breakeven trigger price .... 1.11 or longer
-      HR30 numerical MES ......... -4.24% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.69% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 2. PSV Eindhoven v For Sittard (Eredivisie)
@@ -79,9 +80,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Under 2.5 goals
       Model probability .......... 40%
-      Best quoted price .......... 2.50 decimal (williamhill, best of 1 books)
+      Best quoted price .......... 2.40 decimal (williamhill, best of 1 books)
       Breakeven trigger price .... 1.22 or longer
-      HR30 numerical MES ......... +1.04% expected value per unit staked — POSITIVE expected value against this price
+      HR30 numerical MES ......... -3.00% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 4. Zwolle v Ajax (Eredivisie)
@@ -99,10 +100,10 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Zwolle to win
       Model probability .......... 20%
-      Best quoted price .......... 5.70 decimal (betfair_ex_uk, best of 19 books)
+      Best quoted price .......... 6.00 decimal (betfair_ex_uk, best of 19 books)
       Breakeven trigger price .... 1.19 or longer
-      HR30 numerical MES ......... +16.26% expected value per unit staked — POSITIVE expected value against this price
-      DIVERGENCE FLAG (ID403.1 V5): model says 20%, this price implies 18% — an implausible +16% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      HR30 numerical MES ......... +22.38% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 20%, this price implies 17% — an implausible +22% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 5. Excelsior v PSV Eindhoven (Eredivisie)
@@ -184,10 +185,11 @@ Motherwell v Falkirk (Scottish Premiership) | Motherwell·65% | O78 / O53 | 1X87
 Kilmarnock v Celtic (Scottish Premiership) | Celtic·60% | O86 / O65 | X282 / Y62 | ○
 Rangers v Hibernian (Scottish Premiership) | Rangers·55% | O81 / O58 | 1X80 / Y58 | ○
 Pogon Szczecin v Motor Lublin (Ekstraklasa) | Pogon Szcz·51% | O81 / O58 | 1X75 / Y59 | ○
+Wisła Kraków v Wisla Plock (Ekstraklasa) | NO DATA — PENDING | — | — | ○
 Radomiak Radom v Gornik Zabrze (Ekstraklasa) | Radomiak R·38% | O79 / O55 | 1273 / Y59 | ○
-Lech Poznan v Piast Gliwice (Ekstraklasa) | Lech Pozna·61% | O82 / O60 | 1X83 / Y57 | ○
 Korona Kielce v Legia (Ekstraklasa) | Korona Kie·38% | O59 / U69 | 1X71 / N61 | ○
 Rakow v Zaglebie (Ekstraklasa) | Rakow·46% | O69 / U58 | 1X75 / N53 | ○
+Lech Poznan v Piast Gliwice (Ekstraklasa) | Lech Pozna·61% | O82 / O60 | 1X83 / Y57 | ○
 Jagiellonia v Widzew Lodz (Ekstraklasa) | Jagielloni·54% | O74 / U52 | 1X81 / N51 | ○
 
 PART 3 — REJECTED / WATCHLIST
@@ -205,10 +207,11 @@ Antwerp v Beveren (Belgian Pro League): NO DATA — PENDING: 'Beveren' does not 
 Kortrijk v Antwerp (Belgian Pro League): NO DATA — PENDING: 'Kortrijk' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
 Beveren v Anderlecht (Belgian Pro League): NO DATA — PENDING: 'Beveren' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
 St Mirren v St Johnstone (Scottish Premiership): NO DATA — PENDING: 'St Johnstone' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
+Wisła Kraków v Wisla Plock (Ekstraklasa): NO DATA — PENDING: 'Wisła Kraków' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
 
 PART 4 — DATA INTEGRITY (ID403 counts)
 VERIFIED: 0
-SINGLE-SOURCE: 45
+SINGLE-SOURCE: 46
 CONFLICT: 0
 NO-DATA: 0
 DERIVED: 0

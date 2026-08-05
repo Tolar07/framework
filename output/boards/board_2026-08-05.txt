@@ -1,0 +1,74 @@
+PART 0 — HEADER
+Date: 2026-08-05 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League
+Calibration: 0 legs logged, CLV logged: ZERO
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ graded 0 of 11 pending leg(s)
+  ⚠ Eredivisie: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Danish Superliga: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Belgian Pro League: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Scottish Premiership: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Ekstraklasa: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Eredivisie: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Danish Superliga: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Belgian Pro League: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Scottish Premiership: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Ekstraklasa: no upcoming fixtures (thesportsdb: 'Ekstraklasa' has no VERIFIED TheSportsDB league ID yet — it wasn't found when scanning their directory on the public test key. Resolve it with a personal key and add it to LEAGUE_IDS; it is deliberately not guessed. | api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ HNL: history served from cache
+  ⚠ HNL: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ HNL: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ HNL: no upcoming fixtures (thesportsdb: 'HNL' has no VERIFIED TheSportsDB league ID yet — it wasn't found when scanning their directory on the public test key. Resolve it with a personal key and add it to LEAGUE_IDS; it is deliberately not guessed. | odds-derived fixtures: 'HNL' has no verified Odds API sport key. | api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Championship: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Serie A: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Bundesliga: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Ligue 1: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Europa League: history served from cache
+  ⚠ Europa League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Europa League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Europa League: no upcoming fixtures (odds-derived fixtures: 'Europa League' has no verified Odds API sport key. | api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Primeira Liga: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Premier League: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ La Liga: no upcoming fixtures (api-football: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Champions League: history served from cache
+  ⚠ Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Champions League: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Champions League: 2 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Champions League: 1 team name(s) in the fixtures feed not found in the fitted data — Sabah FK. Model knows: 1. FC Heidenheim, AVS, AZ Alkmaar, Aalborg, Aarhus, Aberdeen, Ajax, Alaves, Almere City, Anderlecht, Angers, Antwerp, Apoel Nicosia, Arouca, Arsenal, Aston Villa, Atalanta, Ath Bilbao, Ath Madrid, Augsburg, Auxerre, BSC Young Boys, Barcelona, Bayern Munich, Başakşehir, Beerschot VA, Benfica, Betis, Beşiktaş, Blackburn, Boavista, Bochum, Bodo/Glimt, Bologna, Borac Banja Luka, Bournemouth, Brentford, Brest, Brighton, Bristol City, Brondby, Burnley, Cagliari, Cardiff, Casa Pia, Celje, Celta, Celtic, Cercle Brugge, Charleroi, Chelsea, Club Brugge, Como, Coventry, Cracovia, Crystal Palace, Dender, Derby, Dinamo Minsk, Dinamo Zagreb, Djurgardens IF, Dortmund, Dundee, Dundee United, Dynamo Kyiv, Ein Frankfurt, Empoli, Espanol, Estoril, Estrela, Everton, FC Astana, FC Copenhagen, FC Lugano, FC Noah, FC ST. Gallen, FCSB, FK Crvena Zvezda, Famalicao, Farense, Fenerbahçe, Ferencvarosi TC, Feyenoord, Fiorentina, For Sittard, Freiburg, Fulham, GKS Katowice, Galatasaray, Genk, Genoa, Gent, Getafe, Gil Vicente, Girona, Go Ahead Eagles, Gornik Zabrze, Groningen, Guimaraes, HJK Helsinki, Heart Of Midlothian, Hearts, Heerenveen, Heidenheim, Heracles, Hibernian, Hoffenheim, Holstein Kiel, Hull, IF Elfsborg, Inter, Ipswich, Jagiellonia, Juventus, Kilmarnock, Korona Kielce, Kortrijk, Larne, Las Palmas, Lask Linz, Lazio, Le Havre, Lecce, Lech Poznan, Lechia Gdansk, Leeds, Leganes, Legia, Legia Warszawa, Leicester, Lens, Leverkusen, Lille, Liverpool, Ludogorets, Luton, Lyngby, Lyon, M'gladbach, Maccabi Tel Aviv, Mainz, Mallorca, Malmo FF, Man City, Man United, Marseille, Mechelen, Middlesbrough, Midtjylland, Milan, Millwall, Mlada Boleslav, Molde, Monaco, Montpellier, Monza, Moreirense, Motherwell, Motor Lublin, NAC Breda, Nacional, Nantes, Napoli, Newcastle, Nice, Nijmegen, Nordsjaelland, Norwich, Nott'm Forest, Olimpija Ljubljana, Olympiakos Piraeus, Omonia Nicosia, Osasuna, Oud-Heverlee Leuven, Oxford, PAOK, PSV Eindhoven, Pafos, Panathinaikos, Paris SG, Parma, Petrocub, Piast Gliwice, Plymouth, Plzen, Pogon Szczecin, Porto, Portsmouth, Preston, Puszcza, QPR, Qarabag, RB Leipzig, Radomiak Radom, Rakow, Randers FC, Rangers, Rapid Vienna, Real Madrid, Red Bull Salzburg, Reims, Rennes, Rio Ave, Roma, Ross County, Rīgas FS, Santa Clara, Sevilla, Shakhtar Donetsk, Shamrock Rovers, Sheffield United, Sheffield Weds, Silkeborg, Slask Wroclaw, Slavia Praha, Slovan Bratislava, Sociedad, Sonderjyske, Southampton, Sp Braga, Sp Lisbon, Sparta Praha, Sparta Rotterdam, St Etienne, St Johnstone, St Mirren, St Pauli, St Truiden, St. Gilloise, Stal Mielec, Standard, Stoke, Strasbourg, Sturm Graz, Stuttgart, Sunderland, Swansea, TSC Backa Topola, The New Saints, Torino, Tottenham, Toulouse, Twente, Udinese, Union Berlin, Utrecht, Valencia, Valladolid, Vallecano, Vejle, Venezia, Verona, Viborg, Vikingur Reykjavik, Villarreal, Waalwijk, Watford, Werder Bremen, West Brom, West Ham, Westerlo, Widzew Lodz, Willem II, Wolfsburg, Wolves, Zaglebie, Zwolle. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
+  ⚠ logged 0 new paper leg(s) with a live entry price
+  ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+NO DEPLOY-ELIGIBLE CALL this session.
+That is a valid, honest result — the framework's value is disciplined filtering, and near-zero approvals is correct behaviour, not failure.
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+Aarhus v Sabah FK (Champions League) | NO DATA — PENDING | — | — | ○
+Fenerbahçe v Sturm Graz (Champions League) | Fenerbahçe·56% | O60 / U67 | 1X84 / N65 | ○
+
+PART 3 — REJECTED / WATCHLIST
+Aarhus v Sabah FK (Champions League): NO DATA — PENDING: 'Sabah FK' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
+Fenerbahçe v Sturm Graz (Champions League): softness tier D — scan-only
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 2
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

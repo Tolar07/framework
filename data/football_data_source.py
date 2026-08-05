@@ -14,8 +14,9 @@ from __future__ import annotations
 import csv
 import io
 import json
+import time
 from dataclasses import dataclass, asdict, field
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Optional
 
@@ -25,6 +26,15 @@ except ImportError:
     requests = None
 
 BASE_URL = "https://www.football-data.co.uk/mmz4281/{season}/{code}.csv"
+
+# The daily run settles paper legs against the LIVE season's results (HR46
+# closing lines come from the same file). football-data.co.uk adds new results
+# to the current-season file every morning, so a stale cache means a played
+# match never settles and its CLV never reaches the Phase 3 gate — the bug this
+# TTL fixes. Completed-season files never change, so they keep a long TTL and
+# the run stays fast (the brain's content_hash reuse still holds).
+LIVE_SEASON_MAX_AGE_SECONDS = 6 * 3600        # refresh every run
+COMPLETED_SEASON_MAX_AGE_SECONDS = 30 * 24 * 3600
 
 # ID401 whitelist -> football-data.co.uk league codes.
 # Verified against football-data.co.uk's actual country/code list — codes below
@@ -364,11 +374,39 @@ def parse_csv_text(league: str, csv_text: str, season: Optional[str] = None,
 DEFAULT_CACHE_DIR = Path(__file__).parent / "cache"
 
 
+def _season_is_live(season: str) -> bool:
+    """'2627' spans Aug 2026 - May 2027. A season is LIVE while today sits in
+    that window (including the pre-season before it kicks off), because its
+    results are still being published. An unparseable code counts as live so we
+    always refresh rather than settle a leg against a stale snapshot."""
+    try:
+        start_year = 2000 + int(season[:2])
+        end_year = 2000 + int(season[2:])
+    except ValueError:
+        return True
+    today = date.today()
+    return date(start_year, 8, 1) <= today <= date(end_year, 7, 31)
+
+
+def _cache_age_seconds(cache_file: Path) -> float:
+    try:
+        return time.time() - cache_file.stat().st_mtime
+    except OSError:
+        return float("inf")
+
+
 def load_league(league: str, season: str, cache_dir: str | Path = DEFAULT_CACHE_DIR,
                  book_preference: tuple[str, ...] = DEFAULT_BOOK_PREFERENCE
                  ) -> tuple[list[MatchResult], list[dict]]:
     """Fetch (or use cache) + parse. Writes a cache file so repeated runs don't
-    hammer the source, and so results survive a sandbox reset."""
+    hammer the source, and so results survive a sandbox reset.
+
+    FRESHNESS: the LIVE season's file is re-downloaded when the cache is over
+    the (6h) TTL — that is what lets the daily run settle played legs and
+    capture closing lines (HR46). Completed seasons are stable and keep a
+    30-day TTL. If a refresh fails (e.g. football-data removes the file between
+    seasons), the STALE cache is kept rather than the data being lost — stale
+    beats nothing, and the next successful refresh supersedes it."""
     Path(cache_dir).mkdir(parents=True, exist_ok=True)
     # Extra-league files contain EVERY season in one download, so they're cached
     # once per league rather than once per league+season (and the season filter
@@ -377,11 +415,21 @@ def load_league(league: str, season: str, cache_dir: str | Path = DEFAULT_CACHE_
     cache_file = (Path(cache_dir) / f"{stem}_all.csv" if league in EXTRA_CODES
                   else Path(cache_dir) / f"{stem}_{season}.csv")
 
-    if cache_file.exists():
+    max_age = (LIVE_SEASON_MAX_AGE_SECONDS if _season_is_live(season)
+               else COMPLETED_SEASON_MAX_AGE_SECONDS)
+    csv_text = None
+    if cache_file.exists() and _cache_age_seconds(cache_file) <= max_age:
         csv_text = cache_file.read_text(encoding="utf-8")
-    else:
-        csv_text = fetch_csv_text(league, season)
-        cache_file.write_text(csv_text, encoding="utf-8")
+    if csv_text is None:
+        try:
+            csv_text = fetch_csv_text(league, season)
+            cache_file.write_text(csv_text, encoding="utf-8")
+        except Exception:
+            if cache_file.exists():
+                # Fresh failed; keep the stale snapshot rather than lose data.
+                csv_text = cache_file.read_text(encoding="utf-8")
+            else:
+                raise
 
     return parse_csv_text(league, csv_text, season=season,
                            book_preference=book_preference)

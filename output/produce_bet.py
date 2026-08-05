@@ -19,10 +19,6 @@ from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 
 
-def _pct(p: Optional[float]) -> str:
-    return f"{round(p * 100):d}%" if p is not None else "NO DATA — PENDING"
-
-
 def _lean(p_over: Optional[float], line_label: str) -> str:
     """BUG5 fix carried over: always show whichever side is >=50%, never force 'O'."""
     if p_over is None:
@@ -286,43 +282,40 @@ def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
     return max(candidates, key=lambda c: c[1])
 
 
-def _pick_desc(bf: BoardFixture) -> str:
-    """The recommended prediction for a fixture: the live-EV market when a price
-    was found, else the model's strongest deployable market. Plain language for
-    a non-technical reader. Never blank for a rated fixture — naming the model's
-    view is not claiming it is a bet.
+def _compact_pick(bf: BoardFixture) -> tuple[str, Optional[float], bool]:
+    """Pick for the compact board: the market NAME, its model probability, and
+    whether the ID405 blocked-Over-2.5 case applies (the model favours Over 2.5
+    but that market is never recommended, so the pick is the Under — it gets a
+    † on the board, explained once in the footnote).
 
-    When the model favours Over 2.5 but that market is blocked (ID405: a proven
-    negative market the framework never recommends), the Under pick reads as
-    wrong to a non-technical eye. The explanation rides on the pick line."""
+    Name-only because the probability already sits on the fixture's market line;
+    a phone line cannot carry both."""
     if bf.best_market and bf.best_model_prob is not None:
-        pick = f"{bf.best_market} ({round(bf.best_model_prob*100)}%)"
+        name, prob = bf.best_market, bf.best_model_prob
     elif bf.probs is not None:
-        pick, prob = _best_market_desc(bf.probs)
-        pick = f"{pick} ({round(prob*100)}%)"
+        name, prob = _best_market_desc(bf.probs)
     else:
-        return "—"
+        return "—", None, False
     p = bf.probs
-    if (p is not None and p.p_over_25 is not None and p.p_over_25 > 0.5
-            and pick.startswith("Under 2.5")):
-        return pick + " — Over 2.5 is never recommended (proven negative market)"
-    return pick
+    blocked = (p is not None and p.p_over_25 is not None
+               and p.p_over_25 > 0.5 and name.startswith("Under 2.5"))
+    return name, prob, blocked
 
 
-def _fixture_block(bf: BoardFixture) -> str:
-    """One rated fixture in plain language, showing EVERY market the model
-    prices: who wins, the goals line, and both teams scoring. Readable to a
-    non-technical person — no column codes, no '1X2' jargon. The pick is the
-    last line, flagged."""
+def _compact_fixture(bf: BoardFixture) -> list[str]:
+    """Three lines for one rated fixture, each fitting a phone (~32 chars):
+    the fixture, the market probabilities as short codes (home/draw/away win,
+    Over 2.5, both teams), and the pick. The fixture line above decodes the
+    codes — '66/18/16' is Nijmegen/Draw/Telstar in fixture order."""
     p = bf.probs
-    return "\n".join([
+    name, _prob, blocked = _compact_pick(bf)
+    marker = " †" if blocked else ""
+    return [
         _short_fixture(bf),
-        f"  Win chance: {p.home_team} {_pct(p.p_home)} · Draw {_pct(p.p_draw)} · "
-        f"{p.away_team} {_pct(p.p_away)}",
-        f"  Over 1.5 goals: {_pct(p.p_over_15)} · Over 2.5 goals: "
-        f"{_pct(p.p_over_25)} · Both to score: {_pct(p.p_btts_yes)}",
-        f"  ⭐ Pick: {_pick_desc(bf)}",
-    ])
+        f" {round(p.p_home*100)}/{round(p.p_draw*100)}/{round(p.p_away*100)}"
+        f" · O2.5 {round(p.p_over_25*100)}% · BTTS {round(p.p_btts_yes*100)}%",
+        f" ⭐ {name}{marker}",
+    ]
 
 
 def _dc_cell(p: FixtureProbabilities) -> str:
@@ -513,26 +506,44 @@ def render_recommended_table(shortlist: list[BoardFixture]) -> str:
             value = f"value {bf.best_mes_ev:+.0%}"
         else:
             value = "no live price yet"
-        lines.append(f"⭐ {_short_fixture(bf)} — {_pick_desc(bf)} · {value}")
+        name, prob, blocked = _compact_pick(bf)
+        prob_s = f" ({round(prob*100)}%)" if prob is not None else ""
+        marker = " †" if blocked else ""
+        lines.append(f"⭐ {_short_fixture(bf)} — {name}{prob_s}{marker} · {value}")
     return "\n".join(lines)
 
 
-def render_scan_tables(board: list[BoardFixture]) -> str:
-    """Every fixture, grouped by league. Unrated ones keep their row."""
+def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
+    """The compact board, grouped by league. Only RATED fixtures get a 3-line
+    block — the unrated ones collapse to a single footer line per league, so a
+    league with ten fixtures and three rated reads as three blocks plus one
+    footer instead of ten rows burying the real picks.
+
+    Returns (text, any_blocked_pick) — the bool tells render_telegram_board
+    whether the † footnote is needed."""
     by_league: dict[str, list[BoardFixture]] = {}
     for bf in board:
         by_league.setdefault(_league_of(bf), []).append(bf)
 
-    out = []
+    out: list[str] = []
+    any_blocked = False
     for league, fixtures in by_league.items():
-        lines = [league]
-        for bf in fixtures:
-            if bf.probs is None:
-                lines.append(f"{_short_fixture(bf)} — no prediction yet")
+        rated = [bf for bf in fixtures if bf.probs is not None]
+        lines = [league.upper()]
+        for bf in rated:
+            blk = _compact_fixture(bf)
+            any_blocked = any_blocked or blk[2].rstrip().endswith("†")
+            lines.extend(blk)
+        unrated = len(fixtures) - len(rated)
+        if unrated:
+            # Fits a phone line (~32 chars) under the league header; the league
+            # name is already the header so it is not repeated here.
+            if not rated:
+                lines.append(f"(all {unrated} unrated)")
             else:
-                lines.append(_fixture_block(bf))
+                lines.append(f"(+{unrated} unrated)")
         out.append("\n".join(lines))
-    return "\n\n".join(out)
+    return "\n\n".join(out), any_blocked
 
 
 def render_pick_detail(shortlist: list[BoardFixture]) -> str:
@@ -576,16 +587,28 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
     shortlist = [bf for bf in board if bf.on_deploy_shortlist]
     clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
 
+    scan_txt, any_blocked = render_scan_tables(board)
+    # The league count (not the full 15-name list) fits a phone line; the
+    # sections below name every league with fixtures, and the full list lives
+    # in the saved board and /board.
+    leagues_with_fixtures = len({_league_of(bf) for bf in board})
     parts = [
         f"OLP XDV — DAILY BOARD\n{date.today().isoformat()}  |  {phase}\n"
-        f"Leagues: {', '.join(leagues_scanned)}\n"
+        f"Leagues: {len(leagues_scanned)} · {leagues_with_fixtures} with "
+        f"fixtures\n"
         f"Calibration: {calibration_count} legs logged, {clv}",
     ]
     if data_flags:
         parts.append(f"⚠ {len(data_flags)} data flag(s) — see /board or the "
                      f"saved board for full detail")
     parts.append(render_recommended_table(shortlist))
-    parts.append(render_scan_tables(board))
+    parts.append(scan_txt)
+    if any_blocked:
+        # One footnote explains every † on the board: the model can favour
+        # Over 2.5 while the framework still refuses to recommend it (ID405,
+        # a proven negative market) — so the pick falls to the Under.
+        parts.append("† = Over 2.5 is never recommended (proven negative "
+                     "market); the pick is the Under instead")
     parts.append("HONEST EDGE LINE: an excellent informed process but NOT a "
                  "demonstrated profitable edge.\nCapital authority: THE "
                  "ARCHITECT. Nothing here is live until you deploy it.")

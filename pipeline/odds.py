@@ -45,10 +45,18 @@ except ImportError:
 
 API_BASE = "https://api.the-odds-api.com/v4"
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "odds"
+FIXTURES_DIR = Path(__file__).parent.parent / "data" / "cache" / "fixtures_from_odds"
 
 # ID403.1 V2: odds go stale at 60 minutes. A cached price older than this is
 # REJECTED, not merely flagged.
 ODDS_MAX_AGE_SECONDS = 60 * 60
+
+# A fixture LIST derived from the odds feed is different from a price: the
+# schedule for a given day is known ahead and does not change intra-day, so the
+# derived list can be cached far longer than the prices it was built from. This
+# stops scan-only leagues re-fetching live odds purely to learn "no fixtures
+# today" on every run (measured: 7 network pulls / ~13s wasted per run).
+FIXTURES_MAX_AGE_SECONDS = 6 * 3600
 
 # Refuse to spend the last of the monthly allowance on a routine pull, so an
 # unattended daily job can't exhaust the quota and leave the month blind.
@@ -336,6 +344,38 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
     return out, flags
 
 
+def _fixtures_cache_path(league: str, days_ahead: int) -> Path:
+    return FIXTURES_DIR / f"{league.replace(' ', '_')}_{days_ahead}d.json"
+
+
+def _read_fixtures_cache(league: str, days_ahead: int
+                         ) -> Optional[tuple[list, dict, list]]:
+    p = _fixtures_cache_path(league, days_ahead)
+    if not p.exists():
+        return None
+    try:
+        blob = json.loads(p.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    if time.time() - blob.get("fetched_at", 0) > FIXTURES_MAX_AGE_SECONDS:
+        return None
+    # Pairs round-trip as JSON lists, but callers use them as (home, away)
+    # TUPLES (dict keys, matches); restore the type. Dates were stored under
+    # "||"-joined keys (a tuple isn't JSON-serialisable).
+    pairs = [tuple(p) for p in blob.get("pairs", [])]
+    dates = {tuple(k.split("||")): v for k, v in blob.get("dates", {}).items()}
+    return pairs, dates, blob.get("flags", [])
+
+
+def _write_fixtures_cache(league: str, days_ahead: int,
+                          pairs: list, dates: dict, flags: list) -> None:
+    FIXTURES_DIR.mkdir(parents=True, exist_ok=True)
+    _fixtures_cache_path(league, days_ahead).write_text(json.dumps({
+        "fetched_at": time.time(), "pairs": pairs,
+        "dates": {"||".join(k): v for k, v in dates.items()}, "flags": flags,
+    }), encoding="utf-8")
+
+
 def fixtures_from_odds(league: str, days_ahead: int = 14
                         ) -> tuple[list[tuple[str, str]], dict[tuple[str, str], str], list[str]]:
     """Derive the upcoming fixture LIST from the odds feed.
@@ -348,7 +388,15 @@ def fixtures_from_odds(league: str, days_ahead: int = 14
 
     Returns (pairs, dates_by_pair, flags). Deduplicated: the feed can return
     the same fixture more than once, and a duplicate would be logged as two
-    separate paper legs on one match."""
+    separate paper legs on one match.
+
+    The DERIVED LIST is cached per (league, days_ahead) for 6 hours — a
+    schedule is stable, unlike a price — so a warm run costs no odds API quota
+    (the live prices were only needed once, to build the list)."""
+    cached = _read_fixtures_cache(league, days_ahead)
+    if cached is not None:
+        return cached
+
     from datetime import date as _date, timedelta as _td
     flags: list[str] = []
     quotes, oflags = fetch_odds(league)
@@ -374,6 +422,7 @@ def fixtures_from_odds(league: str, days_ahead: int = 14
 
     flags.append(f"{league}: {len(pairs)} fixture(s) derived from the odds feed "
                  f"(no dedicated fixtures source for this league)")
+    _write_fixtures_cache(league, days_ahead, pairs, dates, flags)
     return pairs, dates, flags
 
 

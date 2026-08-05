@@ -19,9 +19,12 @@ returning an empty/guessed fixture list — callers must treat that as
 NO DATA — PENDING at the league level, same as the results fetcher.
 """
 from __future__ import annotations
+import json
 import os
+import time
 from dataclasses import dataclass
 from datetime import date, timedelta
+from pathlib import Path
 from typing import Optional
 
 try:
@@ -30,6 +33,20 @@ except ImportError:
     requests = None
 
 API_BASE = "https://v3.football.api-sports.io"
+
+CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "api_football_fixtures"
+# Fixtures are the orchestrator's THIRD fallback (after TheSportsDB and the
+# odds feed) and it costs a network round-trip per league per run on days the
+# earlier sources find nothing. A fixture schedule is stable within a day, so
+# the response is cached for 6h — warm runs pay nothing, a reschedule is caught
+# within the window.
+FIXTURES_MAX_AGE_SECONDS = 6 * 3600
+# The free API-Football plan CANNOT see the current season — the API returns a
+# deterministic `{'plan': 'Free plans...'}` error. Retrying that every run is
+# ~0.6s of guaranteed-dead network per league (measured ~8s/run). Because the
+# restriction is stable for the whole season, the FAILURE is cached for 7 days;
+# a plan upgrade surfaces within a week. Transient errors are NOT cached.
+PLAN_ERROR_TTL_SECONDS = 7 * 24 * 3600
 
 # Verified API-Football league IDs (these specific numbers are widely and
 # consistently documented — confident in them). For the rest of the ID401
@@ -131,12 +148,64 @@ def _get_key() -> str:
     return key
 
 
+def _cache_path(league: str, season: int, days_ahead: int) -> Path:
+    return CACHE_DIR / f"{league.replace(' ', '_')}_{season}_{days_ahead}d.json"
+
+
+def _read_cache(league: str, season: int, days_ahead: int
+                ) -> tuple[Optional[list[dict]], Optional[str]]:
+    """Returns (items, error) — at most one non-None. Items are fresh for the
+    schedule TTL; a cached plan-restriction error for the (longer) plan TTL."""
+    p = _cache_path(league, season, days_ahead)
+    if not p.exists():
+        return None, None
+    try:
+        blob = json.loads(p.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None, None
+    age = time.time() - blob.get("fetched_at", 0)
+    if "items" in blob:
+        if age > FIXTURES_MAX_AGE_SECONDS:
+            return None, None  # stale fixtures are REJECTED, not served
+        return blob.get("items"), None
+    if "error" in blob:
+        if age > PLAN_ERROR_TTL_SECONDS:
+            return None, None  # restriction may have lifted — re-check
+        return None, blob.get("error")
+    return None, None
+
+
+def _write_cache(league: str, season: int, days_ahead: int,
+                 items: list[dict]) -> None:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    _cache_path(league, season, days_ahead).write_text(
+        json.dumps({"fetched_at": time.time(), "items": items}), encoding="utf-8")
+
+
+def _write_error_cache(league: str, season: int, days_ahead: int,
+                       error: str) -> None:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    _cache_path(league, season, days_ahead).write_text(
+        json.dumps({"fetched_at": time.time(), "error": error}), encoding="utf-8")
+
+
 def fetch_upcoming(league: str, season: int, days_ahead: int = 14) -> list[UpcomingFixture]:
     """Returns upcoming (not-yet-played) fixtures for a whitelisted league over
     the next `days_ahead` days. Raises on any failure — never returns a guessed
-    or partial list silently; caller decides how to surface that."""
+    or partial list silently; caller decides how to surface that.
+
+    The raw response is cached per (league, season, days_ahead) for 6 hours, so
+    the orchestrator's third-level fallback stops costing a network round-trip
+    for every league on every run (measured ~0.7s x 15 on quiet days). On a
+    cache hit no API key is needed."""
     if requests is None:
         raise RuntimeError("requests not installed — cannot fetch live fixtures")
+
+    cached_items, cached_error = _read_cache(league, season, days_ahead)
+    if cached_items is not None:
+        return _parse_items(league, cached_items)
+    if cached_error is not None:
+        raise RuntimeError(cached_error)
 
     key = _get_key()
     league_id = resolve_league_id(league)  # raises clearly if unresolvable — never guesses
@@ -158,10 +227,22 @@ def fetch_upcoming(league: str, season: int, days_ahead: int = 14) -> list[Upcom
     payload = resp.json()
 
     if payload.get("errors"):
-        raise RuntimeError(f"API-Football returned errors: {payload['errors']}")
+        err = f"API-Football returned errors: {payload['errors']}"
+        # A plan restriction is deterministic for the season — cache the FAILURE
+        # so it is paid once a week, not every run. Transient errors are not
+        # cached (a retry may legitimately succeed).
+        if "plan" in str(payload["errors"]).lower():
+            _write_error_cache(league, season, days_ahead, err)
+        raise RuntimeError(err)
 
+    items = payload.get("response", [])
+    _write_cache(league, season, days_ahead, items)
+    return _parse_items(league, items)
+
+
+def _parse_items(league: str, items: list[dict]) -> list[UpcomingFixture]:
     fixtures = []
-    for item in payload.get("response", []):
+    for item in items:
         fx = item.get("fixture", {})
         teams = item.get("teams", {})
         home = teams.get("home", {}).get("name")

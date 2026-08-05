@@ -290,13 +290,23 @@ def _pick_desc(bf: BoardFixture) -> str:
     """The recommended prediction for a fixture: the live-EV market when a price
     was found, else the model's strongest deployable market. Plain language for
     a non-technical reader. Never blank for a rated fixture — naming the model's
-    view is not claiming it is a bet."""
+    view is not claiming it is a bet.
+
+    When the model favours Over 2.5 but that market is blocked (ID405: a proven
+    negative market the framework never recommends), the Under pick reads as
+    wrong to a non-technical eye. The explanation rides on the pick line."""
     if bf.best_market and bf.best_model_prob is not None:
-        return f"{bf.best_market} ({round(bf.best_model_prob*100)}%)"
-    if bf.probs is not None:
+        pick = f"{bf.best_market} ({round(bf.best_model_prob*100)}%)"
+    elif bf.probs is not None:
         pick, prob = _best_market_desc(bf.probs)
-        return f"{pick} ({round(prob*100)}%)"
-    return "—"
+        pick = f"{pick} ({round(prob*100)}%)"
+    else:
+        return "—"
+    p = bf.probs
+    if (p is not None and p.p_over_25 is not None and p.p_over_25 > 0.5
+            and pick.startswith("Under 2.5")):
+        return pick + " — Over 2.5 is never recommended (proven negative market)"
+    return pick
 
 
 def _fixture_block(bf: BoardFixture) -> str:

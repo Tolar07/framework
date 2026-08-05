@@ -88,4 +88,54 @@ assert _calls["n"] == 1 and len(f3) == 1 and f3[0].home_team == "AAA"
 assert f3 == f4
 print("3. api-football plan-error + success cache (2nd call free): OK")
 
+# --- 4. football-data results freshness (the Phase-3-gate critical fix) -----
+import os
+import time as _time
+import data.football_data_source as fds
+
+assert fds._season_is_live("2627") is True, "current season must be live"
+assert fds._season_is_live("2526") is False, "completed season must be stable"
+print("4a. live vs completed season detection: OK")
+
+_cd = _tmp / "fd"
+_cd.mkdir()
+_old = _time.time() - 12 * 3600  # 12h old > 6h live-season TTL
+_f = _cd / "AA_2627.csv"
+_f.write_text("Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR\n", encoding="utf-8")
+os.utime(_f, (_old, _old))
+_fetch_calls = {"n": 0}
+
+def _new_fetch(league, season):
+    _fetch_calls["n"] += 1
+    return "Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR\n05/08/2026,AAA,BBB,2,1,H\n"
+
+with patch.object(fds, "fetch_csv_text", side_effect=_new_fetch):
+    _res, _ = fds.load_league("AA", "2627", cache_dir=_cd)
+assert _fetch_calls["n"] == 1, "stale live-season cache must refresh"
+assert any(r.fthg == 2 for r in _res), "new result must be parsed"
+print("4b. stale live-season cache refreshes + new result parsed: OK")
+
+# a failed refresh must KEEP the stale snapshot, never lose data
+_f2 = _cd / "BB_2627.csv"
+_f2.write_text("Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR\n", encoding="utf-8")
+os.utime(_f2, (_old, _old))
+
+def _fail_fetch(league, season):
+    raise RuntimeError("404 — file removed between seasons")
+
+with patch.object(fds, "fetch_csv_text", side_effect=_fail_fetch):
+    _res2, _ = fds.load_league("BB", "2627", cache_dir=_cd)
+assert _f2.exists(), "failed refresh must keep the stale snapshot"
+print("4c. failed refresh keeps the stale snapshot (no data loss): OK")
+
+# completed seasons keep their cache (30-day TTL) — the run stays fast
+_fetch_calls["n"] = 0
+_f3 = _cd / "CC_2526.csv"
+_f3.write_text("Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR\n", encoding="utf-8")
+os.utime(_f3, (_old, _old))
+with patch.object(fds, "fetch_csv_text", side_effect=_new_fetch):
+    fds.load_league("CC", "2526", cache_dir=_cd)
+assert _fetch_calls["n"] == 0, "completed-season cache must NOT refresh"
+print("4d. completed-season cache stays cached (speed preserved): OK")
+
 print("\n✅ ALL FIXTURE CACHE TESTS PASSED")

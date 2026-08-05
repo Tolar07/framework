@@ -117,6 +117,75 @@ def _status(event: dict) -> str:
     return "UPCOMING"
 
 
+def _score_of(event: dict):
+    """Current/final score if the source provides one, else None (never guessed)."""
+    scores = sorted(event.get("scores") or [], key=lambda s: s.get("position", 0))
+    if len(scores) >= 2:
+        return f"{scores[0]['score']}-{scores[1]['score']}"
+    return None
+
+
+def _event_line(ev: dict) -> str:
+    st = _status(ev)
+    ct = ev.get("commence_time") or ""
+    try:
+        ko = datetime.datetime.fromisoformat(ct.replace("Z", "+00:00"))
+    except ValueError:
+        ko = None
+    now = datetime.datetime.now(datetime.timezone.utc)
+    home, away = ev.get("home_team") or "?", ev.get("away_team") or "?"
+    if st == "UPCOMING" and ko:
+        mins = int((ko - now).total_seconds() // 60)
+        tail = f"kickoff in {mins} min"
+    elif st == "LIVE":
+        s = _score_of(ev)
+        tail = f"LIVE {s}" if s else "LIVE — no in-play score from source (NO DATA)"
+    else:
+        s = _score_of(ev)
+        tail = f"FT {s}" if s else "FT (no score)"
+    return f"  {st:9s} {home:24s} v {away:24s}  {tail}"
+
+
+def _live_watch(brain: Brain, interval: int) -> int:
+    """Poll until every continental event for today has settled, printing a
+    compact live board only when the state or score CHANGES."""
+    today = datetime.date.today().isoformat()
+    deadline = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=16)
+    last = None
+    while datetime.datetime.now(datetime.timezone.utc) < deadline:
+        lines, settled_total, pending = [], 0, False
+        for sport, league in CONTINENTAL_SPORTS.items():
+            try:
+                events = _fetch_scores(sport)
+            except Exception as e:
+                lines.append(f"  {league}: fetch failed ({e})")
+                continue
+            todays = [e for e in events if (e.get("commence_time") or "")[:10] == today]
+            lines.append(f"=== {league} — {len(todays)} event(s) today ===")
+            for ev in sorted(todays, key=lambda e: e.get("commence_time", "")):
+                st = _status(ev)
+                if st in ("LIVE", "UPCOMING"):
+                    pending = True
+                lines.append(_event_line(ev))
+                if st == "COMPLETED":
+                    n = _settle_predictions(brain, league, ev)
+                    settled_total += n
+                    if n:
+                        s = _score_of(ev)
+                        lines.append(f"        -> settled {n} prediction row(s): {s}")
+        stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%H:%M")
+        block = f"[{stamp} UTC]\n" + "\n".join(lines)
+        if block != last:
+            print(block, flush=True)
+            last = block
+        if not pending:
+            print("\nAll today's continental events settled.", flush=True)
+            return settled_total
+        time.sleep(interval)
+    print("\nWatch deadline reached.", flush=True)
+    return settled_total
+
+
 def run_once(brain: Brain, watch: bool = False) -> int:
     settled_total = 0
     for sport, league in CONTINENTAL_SPORTS.items():
@@ -165,24 +234,15 @@ def main() -> int:
         brain.close()
         return 0
 
-    # watch mode: poll until every event for today has settled
-    deadline = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=14)
-    while datetime.datetime.now(datetime.timezone.utc) < deadline:
-        run_once(brain)
-        brain.close()
-        pending = False
-        for sport, league in CONTINENTAL_SPORTS.items():
-            for ev in _fetch_scores(sport):
-                st = _status(ev)
-                if st in ("LIVE", "UPCOMING") and (ev.get("commence_time") or "")[:10] \
-                        == datetime.date.today().isoformat():
-                    pending = True
-        if not pending:
-            print("\nAll today's continental events settled.")
-            break
-        print(f"\n...polling again in {args.watch}s "
-              f"({datetime.datetime.now(datetime.timezone.utc):%H:%M} UTC)")
-        time.sleep(args.watch)
+    # watch mode: a live board that polls, reports LIVE scores when the source
+    # provides them, and settles each match into the brain at full time.
+    settled = _live_watch(brain, args.watch)
+    summary = brain.outcome_summary()
+    print(f"\nWatch finished: {settled} prediction row(s) settled.")
+    if summary["n"]:
+        print(f"Brain outcome record: {summary['n']} settled, hit rate "
+              f"{summary['hit_rate'] * 100:.0f}%")
+    brain.close()
     return 0
 
 

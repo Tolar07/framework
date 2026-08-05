@@ -36,14 +36,14 @@ from pathlib import Path
 from typing import Any, Optional
 
 DEFAULT_BRAIN_PATH = Path(__file__).parent / "olp.db"
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 4
 # _create_tables builds the v1 BASELINE schema and stamps this version; _migrate
 # then steps a fresh DB forward to SCHEMA_VERSION. Keeping this at 1 (not
 # SCHEMA_VERSION) is what makes migrations actually run on a new DB.
 BASELINE_SCHEMA_VERSION = 1
 
 # Future schema changes: bump SCHEMA_VERSION and add the SQL here, e.g.
-#   _MIGRATIONS[3] = "ALTER TABLE runs ADD COLUMN cold_elo_refit_days INTEGER;"
+#   _MIGRATIONS[5] = "ALTER TABLE runs ADD COLUMN cold_elo_refit_days INTEGER;"
 # A fresh DB still builds the full baseline then skips straight to the new
 # version; an OLD DB is migrated forward one step at a time inside a
 # transaction. A DB NEWER than this build is refused, never adapted.
@@ -51,6 +51,11 @@ _MIGRATIONS: dict[int, str] = {
     # v2: the priced EV row carries the calibration adjustment that was
     # actually applied to its probability (None = no evidence, or not priced).
     2: "ALTER TABLE predictions ADD COLUMN cal_adjustment REAL;",
+    # v3/v4: a rated prediction records its OUTCOME once the match settles
+    # (from a continental results source) — the model-vs-reality evidence the
+    # brain is trained on. hit is per-market via the canonical settle rules.
+    3: "ALTER TABLE predictions ADD COLUMN ft_result TEXT;",
+    4: "ALTER TABLE predictions ADD COLUMN hit INTEGER;",
 }
 
 _WRITE_GUARD = ("SELECT", "PRAGMA", "EXPLAIN", "WITH")
@@ -354,6 +359,33 @@ class Brain:
         params.append(limit)
         rows = self._conn.execute(" ".join(sql), params).fetchall()
         return [dict(r) for r in rows]
+
+    def record_outcomes(self, fixture: str, match_date: str, ft_result: str,
+                        hits: dict[str, bool]) -> int:
+        """Attach a settled result to every prediction row for this fixture and
+        date. `hits` maps market -> hit, graded by the canonical settle rules.
+        A row already settled is never overwritten (first result wins). Returns
+        the number of rows updated."""
+        with self._conn:
+            cur = self._conn.executemany(
+                "UPDATE predictions SET ft_result=:fr, hit=:h "
+                "WHERE fixture=:fix AND match_date=:md AND market=:m "
+                "AND hit IS NULL",
+                [{"fr": ft_result, "h": int(hit), "fix": fixture, "md": match_date,
+                  "m": market}
+                 for market, hit in hits.items()])
+        return cur.rowcount
+
+    def outcome_summary(self, league: Optional[str] = None) -> dict:
+        """Model-vs-reality: settled rated predictions. {'n', 'hit_rate'}."""
+        sql = "SELECT COUNT(*) AS n, SUM(hit) AS hits FROM predictions WHERE hit IS NOT NULL"
+        params: tuple = ()
+        if league:
+            sql += " AND league=?"
+            params = (league,)
+        row = self._conn.execute(sql, params).fetchone()
+        n = row["n"] or 0
+        return {"n": n, "hit_rate": (row["hits"] or 0) / n if n else None}
 
     def predictions_summary(self) -> dict:
         row = self._conn.execute(

@@ -255,10 +255,16 @@ for _i, _p in enumerate(_parts, 1):
 assert len(_parts) >= 2, "test board should be long enough to force a split"
 print(f"17. Telegram chunking: {len(_parts)} parts, every fence balanced: OK")
 
-_rec = _board_txt.split("RECOMMENDED")[1].split("ALL FIXTURES")[0]
-assert "Dundee United to win" not in _rec, (
-    "ID405 LEAK in the table board: a blocked away win appeared as a Pick")
-assert "Over 2.5" not in _rec, "ID405 LEAK: blocked Over 2.5 appeared as a Pick"
+# The board now shows market probabilities in plain language (e.g. an "Over
+# 2.5 goals: 74%" line is a probability, not a pick), so the leak check must
+# target the PICK lines only — the ⭐ rows. A blocked market as a ⭐ Pick is
+# the failure; mentioning it as a probability is not.
+_pick_lines = [ln for ln in _board_txt.splitlines()
+               if ln.lstrip().startswith("⭐")]
+assert not any("Dundee United to win" in ln for ln in _pick_lines), (
+    "ID405 LEAK in the board: a blocked away win appeared as a Pick")
+assert not any("Over 2.5" in ln for ln in _pick_lines), (
+    "ID405 LEAK: blocked Over 2.5 appeared as a Pick")
 assert "Heart of Midlothian" in _board_txt, "HR53: club names must not be truncated"
 print("18. Table board honours ID405 and keeps full club names: OK")
 

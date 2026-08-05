@@ -124,10 +124,14 @@ def scan_one_league(league: str, season: str,
                 flags.append(f"{league}: {len(fx_skipped)} fixture rows skipped/malformed")
         except Exception as e:
             errors.append(f"thesportsdb: {e}")
-            # Fall back to deriving fixtures from the ODDS feed. A priced event
-            # is an upcoming fixture, so a league with history and live prices
-            # but no fixtures-source league ID (Ekstraklasa) is recovered
-            # rather than scanning as NO DATA.
+
+        if not upcoming_fixtures:
+            # TheSportsDB had nothing in the upcoming window (or raised). A
+            # priced event IS an upcoming fixture, so recover from the ODDS
+            # feed before declaring NO DATA — the way UCL qualification and
+            # Ekstraklasa are captured when the fixtures source has nothing
+            # live (a league between rounds, or a continental qualifier TheSportsDB
+            # has not loaded yet).
             try:
                 import pipeline.odds as _odds
                 pairs, dates, oflags = _odds.fixtures_from_odds(league)
@@ -137,6 +141,7 @@ def scan_one_league(league: str, season: str,
                     flags += oflags
             except Exception as e2:
                 errors.append(f"odds-derived fixtures: {e2}")
+            if not upcoming_fixtures:
                 try:
                     season_year = api_football_season or int(f"20{fx_season[:2]}")
                     upcoming_fixtures = as_pairs(fetch_upcoming(league, season_year))

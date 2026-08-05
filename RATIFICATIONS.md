@@ -7,6 +7,40 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-05 · UCL captured via the odds feed + plain-language board — ratified by the ARCHITECT
+
+**What the Architect saw:** UCL/UEL qualifiers on Flashscore but nothing on the
+board, and the board read like a wall of technical noise. Two fixes.
+
+1. **UEFA Champions League fixtures are now captured.** TheSportsDB's UCL/UEL
+   league IDs were resolved by name+country (lookupleague.php, spaced probes on
+   the public test key — not guessed): **Champions League = 4480, Europa League
+   = 4481**. Their eventsseason feed lags weeks behind, so the ACTIVE
+   current-season capture path is the ODDS feed: `soccer_uefa_champs_league_qualification`
+   is now a ratified sport key in pipeline/odds.py, mapped to Champions League.
+   `scan_one_league` now falls back to odds-derived fixtures whenever TheSportsDB
+   has nothing in the window (previously it only fell back when TheSportsDB
+   raised — a league that returned empty was silently NO DATA). Team aliases
+   verified against the cross-league fitted pool ("AGF Aarhus"→Aarhus,
+   "Fenerbahce"→Fenerbahçe, "SK Sturm Graz"→Sturm Graz) so the model can rate
+   the fixtures it knows and honestly say "no prediction yet" for the rest.
+   Verified live 2026-08-05: AGF Aarhus v Sabah FK and Fenerbahce v SK Sturm
+   Graz appear with real book prices, and Fenerbahce v Sturm Graz carries a full
+   model prediction. Europa League has NO current-season source (no odds sport
+   key, stale TheSportsDB feed, API-Football free tier stops at 2024) — honest
+   NO DATA until one exists.
+
+2. **The board is plain language.** All markets, readable to a non-technical
+   person: each rated fixture shows "Win chance: X% · Draw % · Y%", the goals
+   and BTTS lines, and a flagged ⭐ Pick — no 1X2/O2.5/column-code jargon. THE
+   CALL reads "⭐ Fenerbahce v Sturm Graz — Fenerbahce to win (56%) · value +23%".
+   Fixed the EV ranking so a 70%-confident unpriced row can no longer outrank a
+   +20%-EV priced row (call_key now separates priced from unpriced first).
+
+**Authority:** Architect. New sport key, new team aliases, board format change.
+
+---
+
 ## 2026-08-04 · Wide-eyes daily scan + EV-ranked CALL + compact board — ratified by the ARCHITECT
 
 **What:** three connected decisions taken together, because the daily run was
@@ -37,11 +71,13 @@ capturing the wrong universe and presenting it in a way too long for a phone.
    compressed to a one-line count. Full detail remains in the file board and
    `/why`.
 
-**Deferred, honestly:** Champions League / Europa League are capturable once a
-verified TheSportsDB ID exists (`resolve_thesportsdb_league.py` builds the
-read-only resolver). That stays UNRESOLVED until a personal key finds the ID
-and the event feed confirms the qualifying rounds are filed — HR35: a wrong ID
-silently returns another competition's fixtures, which is worse than a gap.
+**Deferred, honestly:** Champions League / Europa League were originally
+considered blocked on a personal TheSportsDB key. They are NOT — see the
+next entry: the IDs were resolved by name+country on the test key
+(lookupleague.php, spaced probes), and the ACTIVE capture path for the
+current season is the odds feed (soccer_uefa_champs_league_qualification),
+which works with the existing key and no registration. TheSportsDB's own
+UCL/UEL feed lags weeks behind; a personal key would not change that.
 
 **Authority:** Architect. These change what appears on the board and the
 shortlist, so they were not taken under the auto-ratification grant.

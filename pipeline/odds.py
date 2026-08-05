@@ -71,6 +71,11 @@ SPORT_KEYS = {
     "Primeira Liga": "soccer_portugal_primeira_liga",
     "Premier League": "soccer_epl",
     "La Liga": "soccer_spain_la_liga",
+    # Champions League qualifying is the only current-season continental
+    # fixtures source in this framework: TheSportsDB's UCL feed lags weeks
+    # behind and API-Football's free tier stops at 2024. Verified live
+    # 2026-08-05 — returns the qualification fixtures with real book prices.
+    "Champions League": "soccer_uefa_champs_league_qualification",
 }
 
 # A THIRD naming convention to reconcile (football-data.co.uk and TheSportsDB
@@ -134,6 +139,15 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Widzew Ł\xf3dź": "Widzew Lodz",
         "Wisła Płock": "Wisla Plock",
         "Zagłębie Lubin": "Zaglebie",
+    },
+    # Champions League qualifiers come from the odds feed; the club names there
+    # are the registered/official forms. The cross-league model stores the
+    # api-football spellings. Each pair verified against the fitted pool's own
+    # team keys (engine/cross_league fit, 2026-08-05).
+    "Champions League": {
+        "AGF Aarhus": "Aarhus",
+        "Fenerbahce": "Fenerbahçe",
+        "SK Sturm Graz": "Sturm Graz",
     },
 }
 

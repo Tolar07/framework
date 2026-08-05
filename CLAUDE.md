@@ -5,7 +5,11 @@ cannot message each other. **Git is the only sync mechanism** — the other
 session edits the same files and commits independently, and it may do so
 while you are mid-task.
 
-## The Safe Move (mandatory before ANY board/Telegram/edit work)
+## The Safe Move — the DEFAULT opening move for EVERY task
+
+Applies to **everything** done in this repo (board/Telegram output, engine,
+tests, config, docs, anything) — not just board work. Treat it as the standing
+way of working in a two-session tree, not a special case:
 
 1. `git status --short` — see what is dirty and whether the other session left
    changes.
@@ -17,6 +21,8 @@ while you are mid-task.
      overwriting it,
    - commit the combined safe state **before** making new edits.
 4. Only then edit.
+5. Re-check `git status` after finishing — the other session may have written
+   again; combine and commit rather than leaving a divergent tree.
 
 ## Combining safe states
 

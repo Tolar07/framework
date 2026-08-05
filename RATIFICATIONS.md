@@ -7,6 +7,40 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-05 · The Brain (central persistent memory) — built by order of the ARCHITECT
+
+**What the Architect asked:** "the framework agent need a brain" and, after
+the design was presented, "yes build the brain".
+
+**What was built:** `brain/olp.db` (SQLite, stdlib-only, gitignored) as an
+additive persistence + query layer. Three jobs:
+
+1. **Remember the model.** `scan_one_league(brain=)` stores fitted
+   Elo / Dixon-Coles / cross-league params keyed by `content_hash` (sha1 over
+   the exact training rows + fit-config salt). An unchanged history is a
+   provably identical fit (BUG6 reproducibility), so the cached parameters are
+   reused verbatim. Measured steady-state: **refits 0 of 15 leagues** (was 15),
+   Elo fully incremental. The engine maths is unchanged — this is persistence,
+   not a model change.
+2. **Never forget a prediction.** Every rated board prediction is persisted
+   (1X2 / O1.5 / O2.5 / BTTS + Elo second opinion).
+3. **Answer questions.** New `/stats` telegram command (CLV by market/league/
+   tier, prediction counts, last-run summary, pending corrections read back).
+   Team lookup is accent-insensitive (Fenerbahce finds Fenerbahçe).
+
+**Guardrails:** `clv/clv_log.json` stays the canonical ledger (the brain's
+`legs` is a full-refresh mirror — the JSON always wins). HR35 kept throughout:
+missing data reads NO DATA — PENDING, never a guess; a newer schema or payload
+version is refused, never adapted. `/note` no longer claims corrections apply
+automatically — they are read back by `/stats`.
+
+**Authority:** Architect. Additive infrastructure under the auto-ratification
+grant, built at explicit request; no capital, staking, fabrication,
+verification or honest-edge behaviour changed. The two new test suites plus
+the telegram extensions guard it.
+
+---
+
 ## 2026-08-05 · Board is today-only + compact codes — ratified by the ARCHITECT
 
 **What the Architect asked:** "when bet is produce is it today fixture across

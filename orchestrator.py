@@ -62,7 +62,8 @@ def _unrated_detail(model, home: str, away: str) -> str:
 def scan_one_league(league: str, season: str,
                      upcoming_fixtures: list[tuple[str, str]] | None = None,
                      api_football_season: int | None = None,
-                     fixtures_season: str | None = None
+                     fixtures_season: str | None = None,
+                     days_ahead: int = 14
                      ) -> tuple[list[BoardFixture], list[str]]:
     """Returns (board_fixtures_for_this_league, data_flags). Never raises for
     an ordinary data gap (uncovered league, thin history, fetch failure) —
@@ -71,7 +72,10 @@ def scan_one_league(league: str, season: str,
 
     `season` is the season the Dixon-Coles model is FIT on (history).
     `fixtures_season` is the season fixtures are pulled from (defaults to the
-    season after `season`)."""
+    season after `season`).
+    `days_ahead` is the fixture window in days from today (0 = today's matches
+    only). The daily board runs today-only; tooling that plans ahead keeps the
+    14-day default."""
     flags: list[str] = []
     fixture_dates: dict[tuple[str, str], str] = {}
 
@@ -115,7 +119,8 @@ def scan_one_league(league: str, season: str,
         errors: list[str] = []
         upcoming_fixtures = []
         try:
-            fixtures, fx_skipped = tsdb.fetch_upcoming(league, fx_season)
+            fixtures, fx_skipped = tsdb.fetch_upcoming(league, fx_season,
+                                                       days_ahead=days_ahead)
             upcoming_fixtures = tsdb.as_pairs(fixtures)
             # Kickoff dates, so a logged leg can be settled against THIS match
             # and not a same-pairing fixture from a previous season.
@@ -134,7 +139,8 @@ def scan_one_league(league: str, season: str,
             # has not loaded yet).
             try:
                 import pipeline.odds as _odds
-                pairs, dates, oflags = _odds.fixtures_from_odds(league)
+                pairs, dates, oflags = _odds.fixtures_from_odds(
+                    league, days_ahead=days_ahead)
                 if pairs:
                     upcoming_fixtures = pairs
                     fixture_dates.update(dates)
@@ -144,7 +150,8 @@ def scan_one_league(league: str, season: str,
             if not upcoming_fixtures:
                 try:
                     season_year = api_football_season or int(f"20{fx_season[:2]}")
-                    upcoming_fixtures = as_pairs(fetch_upcoming(league, season_year))
+                    upcoming_fixtures = as_pairs(fetch_upcoming(
+                        league, season_year, days_ahead=days_ahead))
                 except Exception as e3:
                     errors.append(f"api-football: {e3}")
 

@@ -30,7 +30,9 @@ from data import thesportsdb_fixtures as tsdb
 from data import api_football_results as apif
 from engine import cross_league as xleague
 from engine import elo as elo_engine
-from engine.dixon_coles import fit, predict, unrated_reason
+from engine.dixon_coles import fit, predict, unrated_reason, FIT_VERSION
+from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload,
+                         dc_to_payload, dc_from_payload)
 from engine.softness import (SOFTNESS_TIER, softness_tier, is_deploy_eligible,
                               build_deploy_shortlist)
 from engine.mes import trigger_price
@@ -63,7 +65,9 @@ def scan_one_league(league: str, season: str,
                      upcoming_fixtures: list[tuple[str, str]] | None = None,
                      api_football_season: int | None = None,
                      fixtures_season: str | None = None,
-                     days_ahead: int = 14
+                     days_ahead: int = 14,
+                     brain: Optional[Brain] = None,
+                     stats: Optional[dict] = None
                      ) -> tuple[list[BoardFixture], list[str]]:
     """Returns (board_fixtures_for_this_league, data_flags). Never raises for
     an ordinary data gap (uncovered league, thin history, fetch failure) —
@@ -85,16 +89,41 @@ def scan_one_league(league: str, season: str,
     # see api_football_results.is_cross_league for why.
     fallback_history = None
     cross_model = None
+    pooled = None  # the cross-league pool — built ONCE, reused for fit + Elo
     if league in UNCOVERED_LEAGUES:
         if apif.is_cross_league(league):
             # Fitted on the pooled European graph — domestic results plus the
             # league phases of all three continental competitions, which are
             # what put clubs from different leagues on one scale.
             try:
-                cross_model, _info, xflags = xleague.fit_cross_league(league)
+                pooled, pool_info, xflags = xleague.build_pool(league)
                 flags += xflags
-                if cross_model is None:
-                    return [], flags
+                if stats is not None:
+                    stats["pool_built"] = True
+                pool_hash = content_hash(pooled, salt=f"cross:{league}:{season}")
+                row = brain.load_model_state(f"cross:{league}") if brain else None
+                if row is not None and row["content_hash"] == pool_hash:
+                    # Same rows + same config -> provably identical fit (BUG6
+                    # reproducibility). Reuse the cached parameters verbatim.
+                    cross_model = dc_from_payload(row["payload"])
+                    cross_model.league = league
+                    if stats is not None:
+                        stats["dc_reused"] = True
+                else:
+                    cross_model, _info, fit_flags = xleague.fit_cross_league(
+                        league, pool=(pooled, pool_info))
+                    flags += fit_flags
+                    if cross_model is None:
+                        return [], flags
+                    if brain:
+                        brain.save_model_state(
+                            f"cross:{league}", "cross", FIT_VERSION, pool_hash,
+                            cross_model.n_matches_fit,
+                            min(r.date for r in pooled),
+                            max(r.date for r in pooled),
+                            dc_to_payload(cross_model))
+                    if stats is not None:
+                        stats["dc_refit"] = True
             except Exception as e:
                 flags.append(f"{league}: cross-league fit failed ({str(e)[:70]}) "
                              f"— NO DATA — PENDING")
@@ -178,15 +207,51 @@ def scan_one_league(league: str, season: str,
                       f"— NO DATA — PENDING rather than a thin fit")
         return [], flags
 
-    model = cross_model if cross_model is not None else fit(results)
+    # Dixon-Coles: reuse the brain's cached fit ONLY when the training rows are
+    # provably identical (same content hash + same fit config). Otherwise refit.
+    # This is reuse, not approximation — the identical-fit guarantee (BUG6)
+    # means the cached params ARE what a fresh fit would produce.
+    if cross_model is not None:
+        model = cross_model
+    else:
+        dc_hash = content_hash(results, salt=f"dc:{league}:{season}")
+        row = brain.load_model_state(f"dc:{league}") if brain else None
+        if row is not None and row["content_hash"] == dc_hash:
+            model = dc_from_payload(row["payload"])
+            if stats is not None:
+                stats["dc_reused"] = True
+        else:
+            model = fit(results)
+            if brain:
+                brain.save_model_state(
+                    f"dc:{league}", "dc", FIT_VERSION, dc_hash,
+                    model.n_matches_fit,
+                    min(r.date for r in results), max(r.date for r in results),
+                    dc_to_payload(model))
+            if stats is not None:
+                stats["dc_refit"] = True
 
     # Second engine (ID82 Elo, ratified 2026-08-04). Built from the SAME match
     # history the goals model was fitted on, so the two are reading identical
     # evidence through different mathematics — which is what makes their
     # disagreement meaningful rather than an artefact of different inputs.
-    elo_source = results if cross_model is None else xleague.build_pool(league)[0]
+    # Incremental when the brain holds a snapshot: rate_through(seed_from=...)
+    # consumes only matches strictly newer than the snapshot's last_date and
+    # skips burn-in (already burned in on the snapshot).
+    elo_source = results if cross_model is None else pooled
+    elo_model = None
     try:
-        elo_model = elo_engine.rate_through(elo_source)
+        elo_row = brain.load_model_state(f"elo:{league}") if brain else None
+        seed = elo_from_payload(elo_row["payload"]) if elo_row else None
+        elo_model = elo_engine.rate_through(elo_source, seed_from=seed)
+        if stats is not None:
+            stats["elo_seeded"] = bool(seed)
+        if elo_model is not None and brain:
+            brain.save_model_state(
+                f"elo:{league}", "elo", elo_engine.STATE_VERSION,
+                content_hash(elo_source, salt=f"elo:{league}:{season}"),
+                elo_model.n_matches, elo_model.last_date, None,
+                elo_to_payload(elo_model))
     except Exception as e:
         elo_model = None
         flags.append(f"{league}: Elo second opinion unavailable ({str(e)[:60]})")
@@ -214,6 +279,7 @@ def scan_one_league(league: str, season: str,
             probs=probs,
             verification=v,
             softness_tier=tier,
+            model_engine="cross" if cross_model is not None else "dc",
             on_deploy_shortlist=(probs is not None and is_deploy_eligible(league)
                                   and v.tier not in (Tier.CONFLICT, Tier.NO_DATA)),
             mes_trigger_price=mes,

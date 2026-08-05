@@ -243,9 +243,23 @@ def cmd_note(arg: str) -> str:
         w.writerow([datetime.now(timezone.utc).isoformat(), "telegram",
                     arg.strip(), "no"])
     return ("Correction logged for review.\n\n"
-            "Data and calibration corrections are applied automatically; any "
-            "RULE change gets proposed to you for approval first — the "
-            "framework never rewrites its own rules.")
+            "It is stored in the framework's memory and is READ BACK by "
+            "/stats — nothing is applied silently. A RULE change still gets "
+            "proposed to you for approval first; the framework never rewrites "
+            "its own rules.")
+
+
+def cmd_stats(arg: str) -> str:
+    """The brain's plain-language stats: /stats for the overview, /stats <team>
+    for 'what did I predict for X'. The brain is stdlib-only, so importing it
+    here does not drag scipy into the lightweight poller."""
+    from brain.store import Brain
+    from brain.report import render_stats
+    try:
+        with Brain() as brain:
+            return render_stats(brain, arg)
+    except Exception as e:
+        return f"/stats unavailable: {e}"
 
 
 def cmd_debrief(_: str) -> str:
@@ -342,6 +356,7 @@ HANDLERS = {
     "/send": cmd_send, "/run": cmd_send,
     "/produce": cmd_produce,
     "/debrief": cmd_debrief,
+    "/stats": cmd_stats,
 }
 
 

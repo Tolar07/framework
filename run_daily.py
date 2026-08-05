@@ -20,13 +20,17 @@ OPERATING PROTOCOL (master 13.1, anti-iteration)
 from __future__ import annotations
 
 import argparse
+import json
 import sys
+import time
+import uuid
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+from brain.store import Brain
 from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
 from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS,
@@ -247,8 +251,35 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
-        min_mes: float = 0.0, days_ahead: int = 0) -> str:
+        min_mes: float = 0.0, days_ahead: int = 0) -> RunResult:
+    """Run the daily board end to end.
+
+    Opens the brain, seeds the ledger + corrections mirrors, records the run
+    as 'running', and marks it FAILED on any exception — a board that never
+    reached the phone is not a completed run, so the launcher can alert."""
     leagues = leagues or SCAN_LEAGUES
+    brain = Brain()
+    run_id = (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+              + "-" + uuid.uuid4().hex[:4])
+    started = datetime.now(timezone.utc).isoformat()
+    t0 = time.time()
+    brain.sync_legs()
+    brain.sync_corrections()
+    brain.append_run(run_id, started, status="running")
+    try:
+        return _run(run_id, started, t0, brain, season, fixtures_season,
+                    leagues, send, min_mes, days_ahead)
+    except Exception:
+        brain.update_run(run_id, status="failed")
+        raise
+    finally:
+        brain.close()
+
+
+def _run(run_id: str, started: str, t0: float, brain: Brain,
+         season: str, fixtures_season: str | None, leagues: list[str],
+         send: bool, min_mes: float, days_ahead: int) -> RunResult:
+    """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     runlog = _mark_started()
     log = CLVLog()
@@ -277,12 +308,19 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 
     # --- scan every league into one board (ID402 wide eyes). The board is the
     # --- day's matches (days_ahead=0): 'today's board', not a 14-day lookahead.
+    # --- Each league reports its fit outcome (reused vs refit, seeded vs cold)
+    # --- so the run row proves the brain's speed win rather than assuming it.
+    fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0}
     board: list = []
     for lg in leagues:
+        st: dict = {}
         slice_, flags = orchestrator.scan_one_league(
-            lg, season, fixtures_season=fixtures_season, days_ahead=days_ahead)
+            lg, season, fixtures_season=fixtures_season, days_ahead=days_ahead,
+            brain=brain, stats=st)
         board += slice_
         all_flags += flags
+        for k in fit_stats:
+            fit_stats[k] += int(st.get(k, False))
 
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
@@ -312,6 +350,10 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             bf.best_price = quote.price
             bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
             bf.best_mes_ev, bf.best_model_prob = ev, model_p
+            bf.best_market_key = market  # canonical key for the brain's ledger
+
+    # --- never forget a prediction: persist every rated board prediction ---
+    n_preds = _predictions_from_board(board, run_id, started, brain)
 
     shortlisted = [b for b in board if b.on_deploy_shortlist]
     capped = {id(b) for b in build_deploy_shortlist(shortlisted)}
@@ -359,8 +401,55 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         path.write_text(full, encoding="utf-8")
         print(f"  board saved to {path} (delivery skipped)")
     _mark(runlog, "run completed OK")
+    brain.update_run(
+        run_id, status="ok",
+        finished_at=datetime.now(timezone.utc).isoformat(),
+        leagues_scanned=len(leagues), fixtures_seen=len(board),
+        predictions_logged=n_preds,
+        legs_logged=status["legs_logged_total"],
+        fit_seconds=round(time.time() - t0, 1),
+        warnings=json.dumps(all_flags),
+        **fit_stats)
     return RunResult(full=full, telegram_text=telegram_text,
                      board=board, leagues_scanned=leagues)
+
+
+def _predictions_from_board(board, run_id: str, predicted_at: str,
+                            brain: Brain) -> int:
+    """Persist every rated board prediction to the brain's `predictions` table
+    so nothing the board said is forgotten. ~9 rows per rated fixture: the 1X2
+    and O1.5/O2.5/BTTS model probabilities from the goals engine, plus the Elo
+    second opinion's 1X2. The one priced best-market row also carries its
+    odds/bookmaker/EV. Returns the number of rows written."""
+    rows: list[dict] = []
+    for bf in board:
+        if bf.probs is None:
+            continue
+        league = bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture \
+            else "—"
+        fixture = bf.fixture.split(" (")[0]
+        engine = getattr(bf, "model_engine", "dc")
+        p = bf.probs
+        base = dict(run_id=run_id, predicted_at=predicted_at, league=league,
+                    fixture=fixture, match_date=bf.kickoff_date,
+                    softness_tier=bf.softness_tier,
+                    on_deploy_shortlist=int(bf.on_deploy_shortlist),
+                    entry_odds=None, bookmaker=None, ev=None)
+        for key, prob in (("1X2_HOME", p.p_home), ("1X2_DRAW", p.p_draw),
+                          ("1X2_AWAY", p.p_away), ("OVER_1_5", p.p_over_15),
+                          ("OVER_2_5", p.p_over_25), ("BTTS_YES", p.p_btts_yes)):
+            r = dict(base, market=key, model_engine=engine, model_prob=prob)
+            if getattr(bf, "best_market_key", None) == key:
+                r.update(entry_odds=bf.best_price, bookmaker=bf.best_bookmaker,
+                         ev=bf.best_mes_ev)
+            rows.append(r)
+        if bf.elo_probs:
+            eh, ed, ea = bf.elo_probs
+            for key, prob in (("1X2_HOME", eh), ("1X2_DRAW", ed),
+                              ("1X2_AWAY", ea)):
+                rows.append(dict(base, market=key, model_engine="elo",
+                                 model_prob=prob))
+    return brain.append_predictions(rows)
 
 
 if __name__ == "__main__":

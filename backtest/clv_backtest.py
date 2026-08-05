@@ -52,7 +52,7 @@ from scipy.optimize import brentq
 from scipy.stats import poisson
 
 from data.football_data_source import load_league, MatchResult, DEFAULT_BOOK_PREFERENCE
-from engine.dixon_coles import fit, predict, DixonColesModel, TeamStrength
+from engine.dixon_coles import fit, predict, DixonColesModel, TeamStrength, FIT_VERSION
 from engine.mes import mes_numeric
 from engine.softness import softness_tier
 from clv.clv_logger import LoggedLeg, CLVLog, compute_clv, BACKTEST_PHASE, DEFAULT_LOG_PATH
@@ -60,9 +60,9 @@ from clv.clv_logger import LoggedLeg, CLVLog, compute_clv, BACKTEST_PHASE, DEFAU
 RESULTS_DIR = Path(__file__).parent / "results"
 MODEL_CACHE_DIR = Path(__file__).parent / "cache" / "models"
 
-# Bumped whenever engine behaviour changes, so cached models fitted under old
-# behaviour are never silently reused. 2 = rho bounded in optimizer (BUG6).
-FIT_VERSION = 4  # 4 = BUG8 tau fix + lambda clamp out of the likelihood
+# FIT_VERSION now lives in engine/dixon_coles.py — the single source of truth
+# for the backtest cache AND the brain, so a model fitted under pre-change code
+# can never be silently reused by either path.
 
 MARKETS_1X2 = ("1X2_H", "1X2_D", "1X2_A")
 MARKETS_OU = ("O2.5", "U2.5")
@@ -184,13 +184,10 @@ def _model_cache_key(league: str, cut_date: str, window: list[MatchResult],
 
 
 def _save_model(path: Path, model: DixonColesModel) -> None:
+    # Delegates to DixonColesModel.to_payload() so the backtest cache and the
+    # brain share ONE on-disk shape. Byte-identical to the pre-brain layout.
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({
-        "league": model.league, "home_advantage": model.home_advantage,
-        "rho": model.rho, "n_matches_fit": model.n_matches_fit,
-        "teams": {t: [s.attack, s.defence] for t, s in model.teams.items()},
-        "warm_seed": model.warm_seed,
-    }), encoding="utf-8")
+    path.write_text(json.dumps(model.to_payload()), encoding="utf-8")
 
 
 def _load_model(path: Path) -> Optional[DixonColesModel]:
@@ -200,13 +197,10 @@ def _load_model(path: Path) -> Optional[DixonColesModel]:
         d = json.loads(path.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return None
-    m = DixonColesModel(league=d["league"], home_advantage=d["home_advantage"],
-                         rho=d["rho"], n_matches_fit=d["n_matches_fit"])
-    m.teams = {t: TeamStrength(attack=a, defence=df) for t, (a, df) in d["teams"].items()}
-    seed = d.get("warm_seed")
-    if seed:
-        m.warm_seed = ({k: tuple(v) for k, v in seed[0].items()}, tuple(seed[1]))
-    return m
+    try:
+        return DixonColesModel.from_payload(d)
+    except (KeyError, TypeError):
+        return None
 
 
 def get_model(league: str, cut_date: str, history: list[MatchResult],

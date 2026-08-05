@@ -96,6 +96,41 @@ class EloModel:
     _draw_b: float = 0.0
 
     # ----- persistence ------------------------------------------------------
+    def to_payload(self) -> dict:
+        """The full on-disk state as a JSON-able dict (the single source of
+        truth for persistence). The brain and save() both use this shape."""
+        return {
+            "version": STATE_VERSION,
+            "n_matches": self.n_matches,
+            "last_date": self.last_date,
+            "draw_a": self._draw_a,
+            "draw_b": self._draw_b,
+            "ratings": self.ratings,
+            "matches_seen": self.matches_seen,
+        }
+
+    @classmethod
+    def from_payload(cls, blob: dict) -> "EloModel":
+        """Restore an EloModel from a to_payload() dict.
+
+        Refuses (rather than adapts) a snapshot from a different STATE_VERSION.
+        HR35: adapting silently would mean guessing what the missing fields
+        used to mean, and a wrong guess would then propagate into every
+        rating computed against it."""
+        if blob.get("version") != STATE_VERSION:
+            raise ValueError(
+                f"Elo snapshot has version {blob.get('version')!r}, this build "
+                f"expects {STATE_VERSION}. Refusing to load rather than guess "
+                f"what the missing fields used to mean.")
+        m = cls()
+        m.ratings = dict(blob["ratings"])
+        m.matches_seen = {k: int(v) for k, v in blob["matches_seen"].items()}
+        m.n_matches = int(blob["n_matches"])
+        m.last_date = blob.get("last_date")
+        m._draw_a = float(blob.get("draw_a", 0.0))
+        m._draw_b = float(blob.get("draw_b", 0.0))
+        return m
+
     def save(self, path: str | Path) -> None:
         """Write ratings and draw-curve state to disk as plain JSON.
 
@@ -105,38 +140,13 @@ class EloModel:
         can refuse to load an old snapshot instead of silently guessing."""
         p = Path(path)
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps({
-            "version": STATE_VERSION,
-            "n_matches": self.n_matches,
-            "last_date": self.last_date,
-            "draw_a": self._draw_a,
-            "draw_b": self._draw_b,
-            "ratings": self.ratings,
-            "matches_seen": self.matches_seen,
-        }, sort_keys=True, indent=2), encoding="utf-8")
+        p.write_text(json.dumps(self.to_payload(), sort_keys=True, indent=2),
+                     encoding="utf-8")
 
     @classmethod
     def load(cls, path: str | Path) -> "EloModel":
-        """Restore an EloModel from a `save()` snapshot.
-
-        Refuses (rather than adapts) a snapshot from a different STATE_VERSION.
-        HR35: adapting silently would mean guessing what the missing fields
-        used to mean, and a wrong guess would then propagate into every
-        rating computed against it."""
-        blob = json.loads(Path(path).read_text(encoding="utf-8"))
-        if blob.get("version") != STATE_VERSION:
-            raise ValueError(
-                f"Elo snapshot at {path} has version {blob.get('version')!r}, "
-                f"this build expects {STATE_VERSION}. Refusing to load rather "
-                f"than guess what the missing fields used to mean.")
-        m = cls()
-        m.ratings = dict(blob["ratings"])
-        m.matches_seen = {k: int(v) for k, v in blob["matches_seen"].items()}
-        m.n_matches = int(blob["n_matches"])
-        m.last_date = blob.get("last_date")
-        m._draw_a = float(blob.get("draw_a", 0.0))
-        m._draw_b = float(blob.get("draw_b", 0.0))
-        return m
+        """Restore an EloModel from a `save()` snapshot (see from_payload)."""
+        return cls.from_payload(json.loads(Path(path).read_text(encoding="utf-8")))
 
     def export_csv(self, path: str | Path) -> None:
         """Human-readable rating table, sorted strongest first.

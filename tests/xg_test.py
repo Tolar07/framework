@@ -2,8 +2,9 @@
 
 The source is mocked (no network): the test verifies the Understat response
 shape parsing, team-name alias resolution, the Poisson-based prediction, the
-BoardFixture wiring, the compact-board xG line, and that xG rows land in the
-brain's predictions table under model_engine='xg'.
+BoardFixture wiring, the wide-board xG block (the phone board dropped the xG
+line on 2026-08-05), and that xG rows land in the brain's predictions table
+under model_engine='xg'.
 """
 import sys
 import tempfile
@@ -14,7 +15,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import orchestrator
 from brain.store import Brain
 from data import xg_source
-from output.produce_bet import BoardFixture, _compact_fixture, _short_fixture
+from output.produce_bet import BoardFixture, render_fixture_block
+from verification.id403 import verify as _verify, SourcedDatum as _SD
 
 _tmp = Path(tempfile.mkdtemp(prefix="olp_xdv_xg_test_"))
 
@@ -103,27 +105,29 @@ class _FakeProbs:
 _reset()
 ratings = xg_source.fit_xg("Bundesliga", "2526")
 px = xg_source.predict_xg("Dortmund", "Bayern Munich", ratings, league="Bundesliga")
-# Build a BoardFixture with xg_probs like orchestrator does
+_v = _verify([_SD(domain="thesportsdb.com", value="x", url="http://x")])
+# Build a BoardFixture with xg_probs like orchestrator does. Since the phone
+# board dropped the xG line (Architect 2026-08-05), the third opinion is
+# asserted on the WIDE board block, where it still renders.
 bf = BoardFixture(
     fixture="Dortmund v Bayern Munich (Bundesliga)",
     probs=_FakeProbs(),
-    verification=object(),
+    verification=_v,
     xg_probs=(px.home, px.draw, px.away),
 )
-lines = _compact_fixture(bf)
-xg_line = next((l for l in lines if "xG" in l), None)
-assert xg_line is not None, f"xG line missing from compact board: {lines}"
-assert "xG" in xg_line and "%" not in xg_line.split("xG")[1][:0], xg_line
-print(f"4. compact board xG line: '{xg_line.strip()}'")
+block = render_fixture_block(bf)
+assert "Understat" in block, f"xG third opinion missing from wide board: {block}"
+print("4. wide board renders the xG third opinion: OK")
 
-# fixture WITHOUT xg_probs must not fabricate a line
+# fixture WITHOUT xg_probs must say NO DATA, never fabricate a line
 bf_noxg = BoardFixture(
     fixture="Nijmegen v Telstar (Eredivisie)", probs=_FakeProbs(),
-    verification=object(), xg_probs=None,
+    verification=_v, xg_probs=None,
 )
-lines_noxg = _compact_fixture(bf_noxg)
-assert not any("xG" in l for l in lines_noxg), f"uncovered league fabricated xG: {lines_noxg}"
-print("5. uncovered league omits xG line (HR35): OK")
+block_noxg = render_fixture_block(bf_noxg)
+assert "no free xG source" in block_noxg, (
+    f"uncovered league must say NO DATA, not fabricate xG: {block_noxg}")
+print("5. uncovered league shows honest NO DATA for xG (HR35): OK")
 
 # --- 6. predictions land in the brain under model_engine='xg' -------------------
 brain = Brain(_tmp / "xg.db")

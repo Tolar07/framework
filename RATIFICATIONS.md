@@ -322,3 +322,42 @@ log will settle that. Backtest evidence still stands: +0.326% mean CLV over
 comes from market selection (ID405) rather than model probabilities.
 
 **Pre-season readiness gate: CLEARED.**
+
+---
+
+## 2026-08-05 · Telegram board rebuilt for the phone — by order of the ARCHITECT
+
+**What the Architect asked:** "The Telegram output keeps giving me too many
+information I don't need." The phone message was to become a compact table of
+the day's fixtures + predictions (no market columns), plus the day's
+recommended pick — a 2/3/4-leg parlay — drawn from ANY rated game that day
+(even Champions League-only days), with the probabilities shown. Header and
+flag-count line were explicitly kept.
+
+**What was built** (all in `output/produce_bet.py`, one render path feeds the
+scheduled run, `/send` and `/produce bet`):
+
+1. **`⭐ TODAY'S PICKS` recommendation.** The day's highest-probability
+   predicted RESULTS (home / draw / away), capped at **4 legs**
+   (`RECOMMEND_MAX_LEGS`); 2+ legs become a parlay whose combined chance is the
+   product of the legs, stated honestly as the chance *all* legs win, with the
+   caveat that parlay legs are not independent. A predicted **away win is never
+   a recommendation leg** (ID405 — proven-negative market), though the scan
+   table still shows it honestly as the prediction.
+2. **Per-league fixture tables.** Every fixture that day is one row inside a
+   code fence — `Fixture | Prediction` (e.g. `Fenerbahçe 56%`); unrated rows
+   stay visible as `NO DATA — PENDING` (HR35). Market columns, xG/DC lines and
+   EV text moved off the phone to the saved board and `/board`, `/why`.
+3. Header, `⚠ N data flag(s)` line and the honest-edge/capital-authority
+   footer retained. The old `⭐ RECOMMENDED — THE CALL` (deploy-shortlist only)
+   and the `_compact_fixture`/`_compact_pick` helpers were replaced; xG's third
+   opinion now renders only on the wide board (`tests/xg_test.py` updated).
+
+**HR35 guardrail intact:** nothing is fabricated to look complete — `NO DATA —
+PENDING` remains the honest fallback, and the honest-edge statement still
+heads the footer.
+
+**Note on provenance:** the previous "TODAY'S PICKS" telegram format
+(commit `80d9dc1`, from the second Claude session) did not match the
+Architect's answers to the rebuild questions (it stripped the header/flags and
+kept only deploy-eligible picks). It was replaced by this entry's design.

@@ -234,13 +234,23 @@ class _Probs:
     p_btts_yes, lambda_home, lambda_away = 0.90, 2.4, 1.1
 
 
+class _HomeHeavy:
+    home_team, away_team = "Heart of Midlothian", "Dundee United"
+    p_home, p_draw, p_away = 0.65, 0.15, 0.20        # home strongest
+    p_over_15, p_over_25, p_over_35 = 0.60, 0.35, 0.10
+    p_btts_yes, lambda_home, lambda_away = 0.50, 1.6, 0.9
+
+
 _v = _verify([_SD(domain="thesportsdb.com", value="x", url="http://x")])
 # Enough fixtures to exceed Telegram's per-message limit and force a split
 # INSIDE a code fence — the case that used to emit an unclosed ``` and render
-# the table as broken plain text.
+# the table as broken plain text. Half are away-favourites (honest prediction
+# shown in the table, never a recommendation leg) and half are home-favourites
+# (full club names in the pick), so every contract is exercised at once.
 _fixtures = [
     BoardFixture(fixture=f"Long Club Name {i} v Another Long Club {i} (Eredivisie)",
-                 probs=_Probs(), verification=_v, softness_tier="A",
+                 probs=(_Probs() if i % 2 else _HomeHeavy()), verification=_v,
+                 softness_tier="A",
                  on_deploy_shortlist=(i < 3), mes_trigger_price=1.5)
     for i in range(120)
 ]
@@ -255,16 +265,19 @@ for _i, _p in enumerate(_parts, 1):
 assert len(_parts) >= 2, "test board should be long enough to force a split"
 print(f"17. Telegram chunking: {len(_parts)} parts, every fence balanced: OK")
 
-# The board now shows market probabilities in plain language (e.g. an "Over
-# 2.5 goals: 74%" line is a probability, not a pick), so the leak check must
-# target the PICK lines only — the ⭐ rows. A blocked market as a ⭐ Pick is
-# the failure; mentioning it as a probability is not.
-_pick_lines = [ln for ln in _board_txt.splitlines()
-               if ln.lstrip().startswith("⭐")]
-assert not any("Dundee United to win" in ln for ln in _pick_lines), (
-    "ID405 LEAK in the board: a blocked away win appeared as a Pick")
-assert not any("Over 2.5" in ln for ln in _pick_lines), (
+# The board now shows the model's RESULT prediction per fixture ('the
+# prediction without the markets'). The leak check targets the recommendation
+# legs (after the →): a blocked market as a Pick is the failure. The scan
+# table may honestly PREDICT an away win, but the recommendation must never
+# pick one (ID405) — so the honest prediction appears, and the legs don't.
+_leg_cells = [ln.split("→", 1)[1] for ln in _board_txt.splitlines()
+              if "→" in ln]
+assert not any("Over 2.5" in _c for _c in _leg_cells), (
     "ID405 LEAK: blocked Over 2.5 appeared as a Pick")
+assert not any("Dundee United" in _c for _c in _leg_cells), (
+    "ID405 LEAK: the recommendation picked a blocked away win")
+assert "Dundee United 65%" in _board_txt, (
+    "the scan table must show the honest prediction, even a predicted away win")
 assert "Heart of Midlothian" in _board_txt, "HR53: club names must not be truncated"
 print("18. Table board honours ID405 and keeps full club names: OK")
 

@@ -14,7 +14,7 @@ from datetime import date
 from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
-from engine.softness import DEPLOY_POOL_CAP, call_key
+from engine.softness import DEPLOY_POOL_CAP
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 
@@ -312,47 +312,6 @@ def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
     return max(candidates, key=lambda c: c[1])
 
 
-def _compact_pick(bf: BoardFixture) -> tuple[str, Optional[float], bool]:
-    """Pick for the compact board: the market NAME, its model probability, and
-    whether the ID405 blocked-Over-2.5 case applies (the model favours Over 2.5
-    but that market is never recommended, so the pick is the Under — it gets a
-    † on the board, explained once in the footnote).
-
-    Name-only because the probability already sits on the fixture's market line;
-    a phone line cannot carry both."""
-    if bf.best_market and bf.best_model_prob is not None:
-        name, prob = bf.best_market, bf.best_model_prob
-    elif bf.probs is not None:
-        name, prob = _best_market_desc(bf.probs)
-    else:
-        return "—", None, False
-    p = bf.probs
-    blocked = (p is not None and p.p_over_25 is not None
-               and p.p_over_25 > 0.5 and name.startswith("Under 2.5"))
-    return name, prob, blocked
-
-
-def _compact_fixture(bf: BoardFixture) -> list[str]:
-    """Lines for one rated fixture, each fitting a phone (~32 chars):
-    the fixture, the DC probabilities as short codes, the xG third opinion
-    when a free source covers the league, and the pick. The fixture line
-    above decodes the codes — '66/18/16' is Nijmegen/Draw/Telstar in fixture
-    order. xG is omitted entirely when unavailable (never fabricated, HR35)."""
-    p = bf.probs
-    name, _prob, blocked = _compact_pick(bf)
-    marker = " †" if blocked else ""
-    lines = [
-        _short_fixture(bf),
-        f" DC {round(p.p_home*100)}/{round(p.p_draw*100)}/{round(p.p_away*100)}"
-        f" · O2.5 {round(p.p_over_25*100)}% · BTTS {round(p.p_btts_yes*100)}%",
-    ]
-    if bf.xg_probs:
-        xh, xd, xa = bf.xg_probs
-        lines.append(f" xG {round(xh*100)}/{round(xd*100)}/{round(xa*100)}")
-    lines.append(f" ⭐ {name}{marker}")
-    return lines
-
-
 def _dc_cell(p: FixtureProbabilities) -> str:
     """Double-chance / BTTS merged cell, per frozen example 'DC/BTTS (e.g. 1X82 / Y58)'.
     DC options: 1X (home-or-draw), X2 (draw-or-away), 12 (home-or-away)."""
@@ -476,25 +435,20 @@ def render_verify_results(rows: list[dict]) -> str:
 
 
 # ---------------------------------------------------------------------------
-# TELEGRAM TABLE BOARD
+# TELEGRAM TABLE BOARD  (Architect 2026-08-05)
 # ---------------------------------------------------------------------------
-# The stacked per-fixture blocks above satisfy HR53's detail mandate but make a
-# 45-fixture board a wall of text on a phone — the recommendations end up
-# buried, and the message splits into eight parts. This renders the same
-# information as fixed-width tables inside Telegram code fences, which keep
-# column alignment and scroll horizontally rather than wrapping.
+# The phone board is deliberately lean: the day's 2-4 leg recommendation, then
+# one table per league — every fixture as a row, the pick in words + chance.
+# No market columns, no xG/DC lines, no EV text on the phone: those live in the
+# saved file board and behind /board and /why (the depth, not the decision).
 #
-# HR53 is preserved, not traded away:
+# HR35 preserved, not traded away:
 #   - full club names, never truncated (leagues become section headers so the
-#     "(League)" suffix leaves the fixture cell, which is what buys the width)
-#   - unrated fixtures KEEP their row, marked NO DATA — PENDING, so the table
+#     "(League)" suffix leaves the fixture cell)
+#   - an unrated fixture KEEPS its row, marked NO DATA — PENDING, so the table
 #     shows the real matchday rather than an edited subset
-#   - the recommended prediction rides on every rated row (the Pick column),
-#     and THE CALL carries the EV column — HR30's numerical MES stays on the
-#     phone in one line. The long per-pick MES/Elo/DIVERGENCE blocks moved to
-#     the file board and /why, because they are the depth, not the decision.
-#   - every league with fixtures that day gets a table; the header names every
-#     league scanned, so "all leagues available" is visible without empty tables
+#   - every league with fixtures that day gets a table; the header names the
+#     league count, and the full list lives in the saved board and /board
 
 FENCE = "```"
 
@@ -520,65 +474,96 @@ def _league_of(bf: BoardFixture) -> str:
     return bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture else "—"
 
 
-def render_recommended_table(shortlist: list[BoardFixture]) -> str:
-    if not shortlist:
-        return ("RECOMMENDED — THE CALL\n"
-                "NO DEPLOY-ELIGIBLE CALL this session.\n"
-                "That is a valid, honest result: the framework's value is "
-                "disciplined filtering, and near-zero approvals is correct.")
-    # THE CALL must READ in the order it was selected (tier, then EV), not the
-    # scan order it happened to arrive in — otherwise the highest-EV pick lands
-    # last and the ranking looks broken.
-    shortlist = sorted(shortlist, key=call_key)
-    lines = [f"RECOMMENDED — THE CALL  (paper · softness A/B only · capped at "
-             f"{DEPLOY_POOL_CAP})",
-             "MARKED PAPER — Phase 2, zero capital. Nothing is staked."]
-    for bf in shortlist:
-        # Plain language for a non-technical reader: "value +22%" is the model's
-        # expected value on the current live price — positive means the price
-        # pays more than the model thinks it should.
-        if bf.best_mes_ev is not None:
-            value = f"value {bf.best_mes_ev:+.0%}"
-        else:
-            value = "no live price yet"
-        name, prob, blocked = _compact_pick(bf)
-        prob_s = f" ({round(prob*100)}%)" if prob is not None else ""
-        marker = " †" if blocked else ""
-        lines.append(f"⭐ {_short_fixture(bf)} — {name}{prob_s}{marker} · {value}")
+RECOMMEND_MAX_LEGS = 4  # Architect 2026-08-05: the day's pick is a 2-4 leg parlay
+
+
+def _result_pick(bf: BoardFixture) -> tuple[str, float, bool]:
+    """The model's predicted RESULT for this fixture (Architect 2026-08-05:
+    'the prediction without the markets'). Returns (name, probability,
+    is_away) where name is the predicted winner in words — the home club, the
+    away club, or 'Draw'. is_away flags a predicted away win: the scan table
+    may show it honestly as the prediction, but the recommendation never
+    recommends it (ID405 — away is a proven-negative market)."""
+    p = bf.probs
+    prob, side = max(
+        (p.p_home, "home"), (p.p_draw, "draw"), (p.p_away, "away"),
+        key=lambda t: t[0])
+    if side == "home":
+        return p.home_team, prob, False
+    if side == "away":
+        return p.away_team, prob, True
+    return "Draw", prob, False
+
+
+def render_daily_recommendation(board: list[BoardFixture]) -> str:
+    """The day's picks as a 2-4 leg parlay, drawn from ANY rated game today —
+    not just the deploy-eligible shortlist — so a Champions League-only day
+    still gets a readable recommendation (Architect 2026-08-05).
+
+    Legs are the day's highest-probability predicted results, capped at
+    RECOMMEND_MAX_LEGS. A predicted AWAY win is never recommended (ID405 —
+    proven-negative market). Two or more legs become a parlay; its combined
+    chance is the product of the legs, stated honestly as the chance ALL of
+    them win — a parlay's legs are not independent, so the combined number is
+    information, not encouragement to stack everything."""
+    legs: list[tuple] = []
+    for bf in board:
+        if bf.probs is None:
+            continue
+        name, prob, is_away = _result_pick(bf)
+        if is_away:
+            continue
+        legs.append((bf, name, prob))
+    legs.sort(key=lambda t: t[2], reverse=True)   # strongest picks first
+    legs = legs[:RECOMMEND_MAX_LEGS]
+
+    if not legs:
+        return ("⭐ TODAY'S PICKS\n"
+                "NO DATA — no eligible pick today.")
+
+    n = len(legs)
+    head = (f"⭐ TODAY'S PICKS — {n}-leg parlay" if n >= 2 else
+            "⭐ TODAY'S PICKS — 1 pick (not enough for a 2-leg parlay)")
+    lines = [head]
+    for i, (bf, name, prob) in enumerate(legs, 1):
+        lines.append(f"{i}. {_short_fixture(bf)} → {name} {round(prob*100)}%")
+    if n >= 2:
+        combined = 1.0
+        for _, _, prob in legs:
+            combined *= prob
+        lines.append(f"Combined: ~{round(combined*100)}% if every leg wins — "
+                     f"parlay risk, legs are not independent")
     return "\n".join(lines)
 
 
 def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
-    """The compact board, grouped by league. Only RATED fixtures get a 3-line
-    block — the unrated ones collapse to a single footer line per league, so a
-    league with ten fixtures and three rated reads as three blocks plus one
-    footer instead of ten rows burying the real picks.
+    """One compact table per league with fixtures that day (Architect 2026-08-05):
+    every fixture is a row, the prediction is the model's predicted winner +
+    its chance in words — no market columns. An unrated fixture keeps its row
+    as NO DATA — PENDING rather than being dropped (HR35). Tables sit in code
+    fences so Telegram renders the columns aligned.
 
-    Returns (text, any_blocked_pick) — the bool tells render_telegram_board
-    whether the † footnote is needed."""
+    Returns (text, any_away_pick) — the bool tells render_telegram_board
+    whether the 'away is never recommended' footnote is needed."""
     by_league: dict[str, list[BoardFixture]] = {}
     for bf in board:
         by_league.setdefault(_league_of(bf), []).append(bf)
 
     out: list[str] = []
-    any_blocked = False
+    any_away = False
     for league, fixtures in by_league.items():
-        rated = [bf for bf in fixtures if bf.probs is not None]
-        lines = [league.upper()]
-        for bf in rated:
-            blk = _compact_fixture(bf)
-            any_blocked = any_blocked or blk[2].rstrip().endswith("†")
-            lines.extend(blk)
-        unrated = len(fixtures) - len(rated)
-        if unrated:
-            # Fits a phone line (~32 chars) under the league header; the league
-            # name is already the header so it is not repeated here.
-            if not rated:
-                lines.append(f"(all {unrated} unrated)")
+        rows: list[list[str]] = []
+        for bf in fixtures:
+            if bf.probs is not None:
+                name, prob, is_away = _result_pick(bf)
+                any_away = any_away or is_away
+                pick = f"{name} {round(prob*100)}%"
             else:
-                lines.append(f"(+{unrated} unrated)")
-        out.append("\n".join(lines))
-    return "\n\n".join(out), any_blocked
+                pick = "NO DATA — PENDING"
+            rows.append([_short_fixture(bf), pick])
+        table = _col(rows, ["Fixture", "Prediction"])
+        out.append(f"{FENCE}\n{league.upper()}\n{table}\n{FENCE}")
+    return "\n".join(out), any_away
 
 
 def render_pick_detail(shortlist: list[BoardFixture]) -> str:
@@ -616,47 +601,32 @@ def render_pick_detail(shortlist: list[BoardFixture]) -> str:
 def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                            calibration_count: int, mean_clv: Optional[float],
                            data_flags: list[str], board: list[BoardFixture]) -> str:
-    """The daily bet production: header, THE CALL picks, then the compact
-    per-league scan. This is what the 7am push delivers — the decisions, not
-    the diagnostics. Data flags, league counts, calibration stats and the
-    full per-pick reasoning all live in the saved board and behind /board,
-    /why, /status: a phone at 7am wants the bets, not the framework status.
-
-    The signature is unchanged (run_daily, /produce, /send all call it with
-    the same args); only the output text is the production."""
-    shortlist = sorted([bf for bf in board if bf.on_deploy_shortlist],
-                       key=call_key)
-    scan_txt, any_blocked = render_scan_tables(board)
-
-    parts = [f"OLP XDV — TODAY'S PICKS\n{date.today().isoformat()} · "
-             f"paper, zero capital"]
-
-    # THE CALL — the actual bets, one line each, in selection order. The
-    # plain-language EV ("value +5%") is the model's edge on the live price.
-    if shortlist:
-        call_lines = []
-        for bf in shortlist:
-            name, prob, blocked = _compact_pick(bf)
-            prob_s = f" ({round(prob*100)}%)" if prob is not None else ""
-            odds_s = (f" @{bf.best_price:.2f}"
-                      if bf.best_price is not None else "")
-            value = (f" · value {bf.best_mes_ev:+.0%}"
-                     if bf.best_mes_ev is not None else "")
-            marker = " †" if blocked else ""
-            call_lines.append(f"⭐ {_short_fixture(bf)} — {name}{prob_s}"
-                              f"{odds_s}{marker}{value}")
-        parts.append("\n".join(call_lines))
-    else:
-        parts.append("No pick cleared the bar today — honest, not noise.")
-
-    if scan_txt:
-        parts.append(scan_txt)
-    if any_blocked:
-        # One footnote explains every † on the board: the model can favour
-        # Over 2.5 while the framework still refuses to recommend it (ID405,
-        # a proven negative market) — so the pick falls to the Under.
-        parts.append("† = Over 2.5 is never recommended (proven negative "
-                     "market); the pick is the Under instead")
-    parts.append("Full board: /board · reasoning: /why\n"
-                 "Honest caveat: an informed process, NOT yet a proven edge.")
+    """The Telegram push (Architect 2026-08-05): header, one-line flag count,
+    the day's 2-4 leg recommendation, then one table per league with fixtures —
+    every fixture and its predicted winner. Detail lives in the saved file board
+    and /board, /why; the phone gets the picks. Signature unchanged, so
+    run_daily, /send and /produce bet all show the same text."""
+    clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
+    scan_txt, any_away = render_scan_tables(board)
+    leagues_with_fixtures = len({_league_of(bf) for bf in board})
+    parts = [
+        f"OLP XDV — DAILY BOARD\n{date.today().isoformat()}  |  {phase}\n"
+        f"Leagues: {len(leagues_scanned)} · {leagues_with_fixtures} with "
+        f"fixtures\n"
+        f"Calibration: {calibration_count} legs logged, {clv}",
+    ]
+    if data_flags:
+        parts.append(f"⚠ {len(data_flags)} data flag(s) — see /board or the "
+                     f"saved board for full detail")
+    parts.append(render_daily_recommendation(board))
+    parts.append(scan_txt)
+    if any_away:
+        # A predicted away win may appear as a table Prediction, but is never
+        # a Pick — the framework measured away wins as a proven-negative market
+        # (ID405) and will not recommend one.
+        parts.append("Away wins are never recommended (ID405 — proven negative "
+                     "market); a table may still show one as the prediction")
+    parts.append("HONEST EDGE LINE: an excellent informed process but NOT a "
+                 "demonstrated profitable edge.\nCapital authority: THE "
+                 "ARCHITECT. Nothing here is live until you deploy it.")
     return "\n\n".join(parts)

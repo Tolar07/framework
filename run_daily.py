@@ -37,6 +37,7 @@ from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS,
                              build_deploy_shortlist, market_blocked)
 from engine.mes import mes_numeric
 from engine import markets as mkt
+from engine import recalibration as recal
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import (render_produce_bet, render_verify_results,
                                 render_telegram_board)
@@ -327,6 +328,16 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         except Exception as e:
             all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
 
+    # CLV-gated recalibration: the engine's probabilities for THE CALL's EV are
+    # nudged by settled-leg evidence ONLY where a market has enough logged CLV
+    # legs (engine/recalibration.py). Inert until that evidence exists — right
+    # now it is entirely dormant. The ledger still stores the RAW model_prob.
+    cal = recal.adjustments_for(brain.calibration_by_market())
+    if cal:
+        all_flags.append("Calibration active: "
+                         + ", ".join(f"{m} {d:+.1%}" for m, d in sorted(cal.items()))
+                         + " (from settled-leg CLV evidence, bounded ±3pts)")
+
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
     for bf in board:
@@ -343,19 +354,23 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         # record it — recommending what the framework would not log.
         for market in mkt.DEPLOYABLE:
             quote = mkt.quote(market, fx)
-            model_p = mkt.model_prob(market, p)
-            if quote is None or not quote.available or model_p is None:
+            raw_p = mkt.model_prob(market, p)
+            if quote is None or not quote.available or raw_p is None:
                 continue
-            ev = mes_numeric(model_p, quote.price)
+            # EV is priced on the CALIBRATED probability; the raw estimate is
+            # what the ledger records (no feedback loop).
+            ev = mes_numeric(recal.apply(raw_p, cal.get(market)), quote.price)
             if ev is not None and (best is None or ev > best[0]):
-                best = (ev, market, model_p, quote)
+                best = (ev, market, raw_p, quote)
         if best:
-            ev, market, model_p, quote = best
+            ev, market, raw_p, quote = best
             bf.best_market = mkt.display(market, p.home_team, p.away_team)
             bf.best_price = quote.price
             bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
-            bf.best_mes_ev, bf.best_model_prob = ev, model_p
+            bf.best_mes_ev = ev  # computed on the calibrated probability
+            bf.best_model_prob = raw_p  # ledger keeps the RAW model estimate
             bf.best_market_key = market  # canonical key for the brain's ledger
+            bf.cal_adjustment = cal.get(market, 0.0)
 
     # --- never forget a prediction: persist every rated board prediction ---
     n_preds = _predictions_from_board(board, run_id, started, brain)
@@ -439,14 +454,16 @@ def _predictions_from_board(board, run_id: str, predicted_at: str,
                     fixture=fixture, match_date=bf.kickoff_date,
                     softness_tier=bf.softness_tier,
                     on_deploy_shortlist=int(bf.on_deploy_shortlist),
-                    entry_odds=None, bookmaker=None, ev=None)
+                    entry_odds=None, bookmaker=None, ev=None,
+                    cal_adjustment=None)
         for key, prob in (("1X2_HOME", p.p_home), ("1X2_DRAW", p.p_draw),
                           ("1X2_AWAY", p.p_away), ("OVER_1_5", p.p_over_15),
                           ("OVER_2_5", p.p_over_25), ("BTTS_YES", p.p_btts_yes)):
             r = dict(base, market=key, model_engine=engine, model_prob=prob)
             if getattr(bf, "best_market_key", None) == key:
                 r.update(entry_odds=bf.best_price, bookmaker=bf.best_bookmaker,
-                         ev=bf.best_mes_ev)
+                         ev=bf.best_mes_ev,
+                         cal_adjustment=bf.cal_adjustment)
             rows.append(r)
         if bf.elo_probs:
             eh, ed, ea = bf.elo_probs

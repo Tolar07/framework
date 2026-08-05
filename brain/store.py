@@ -36,14 +36,22 @@ from pathlib import Path
 from typing import Any, Optional
 
 DEFAULT_BRAIN_PATH = Path(__file__).parent / "olp.db"
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
+# _create_tables builds the v1 BASELINE schema and stamps this version; _migrate
+# then steps a fresh DB forward to SCHEMA_VERSION. Keeping this at 1 (not
+# SCHEMA_VERSION) is what makes migrations actually run on a new DB.
+BASELINE_SCHEMA_VERSION = 1
 
 # Future schema changes: bump SCHEMA_VERSION and add the SQL here, e.g.
-#   _MIGRATIONS[2] = "ALTER TABLE runs ADD COLUMN cold_elo_refit_days INTEGER;"
+#   _MIGRATIONS[3] = "ALTER TABLE runs ADD COLUMN cold_elo_refit_days INTEGER;"
 # A fresh DB still builds the full baseline then skips straight to the new
 # version; an OLD DB is migrated forward one step at a time inside a
 # transaction. A DB NEWER than this build is refused, never adapted.
-_MIGRATIONS: dict[int, str] = {}
+_MIGRATIONS: dict[int, str] = {
+    # v2: the priced EV row carries the calibration adjustment that was
+    # actually applied to its probability (None = no evidence, or not priced).
+    2: "ALTER TABLE predictions ADD COLUMN cal_adjustment REAL;",
+}
 
 _WRITE_GUARD = ("SELECT", "PRAGMA", "EXPLAIN", "WITH")
 
@@ -203,7 +211,7 @@ class Brain:
         with self._conn:
             self._conn.execute(
                 "INSERT OR IGNORE INTO meta(key, value) VALUES('schema_version', ?)",
-                (str(SCHEMA_VERSION),))
+                (str(BASELINE_SCHEMA_VERSION),))
 
     def _migrate(self) -> None:
         row = self._conn.execute(
@@ -283,14 +291,18 @@ class Brain:
         """One INSERT transaction for all rows; returns the count."""
         if not rows:
             return 0
+        # Tolerate rows written before the cal_adjustment column existed.
+        for r in rows:
+            r.setdefault("cal_adjustment", None)
         with self._conn:
             self._conn.executemany(
                 "INSERT INTO predictions(run_id, predicted_at, league, fixture, "
                 " match_date, market, model_engine, model_prob, entry_odds, "
-                " bookmaker, ev, softness_tier, on_deploy_shortlist) "
+                " bookmaker, ev, softness_tier, on_deploy_shortlist, "
+                " cal_adjustment) "
                 "VALUES(:run_id,:predicted_at,:league,:fixture,:match_date,"
                 ":market,:model_engine,:model_prob,:entry_odds,:bookmaker,:ev,"
-                ":softness_tier,:on_deploy_shortlist)", rows)
+                ":softness_tier,:on_deploy_shortlist,:cal_adjustment)", rows)
         return len(rows)
 
     def predictions_for(self, fixture: Optional[str] = None,
@@ -430,6 +442,20 @@ class Brain:
             "SELECT market, COUNT(*) AS n, AVG(clv_pct) AS mean_clv_pct, "
             " SUM(CASE WHEN clv_pct > 0 THEN 1 ELSE 0 END) AS n_beat_close "
             "FROM legs WHERE phase=? AND clv_pct IS NOT NULL "
+            "GROUP BY market ORDER BY n DESC, market", (phase,)).fetchall()
+        return [dict(r) for r in rows]
+
+    def calibration_by_market(self, phase: str = "phase2_paper") -> list[dict]:
+        """Per-market calibration EVIDENCE from settled paper legs with a
+        logged closing line: n, mean CLV, mean hit rate and mean model
+        probability. This drives the engine's CLV-gated recalibration
+        (engine/recalibration.py) — which stays INERT until a market reaches
+        MIN_LEGS settled legs, so no thin/noisy sample ever moves the model."""
+        rows = self._conn.execute(
+            "SELECT market, COUNT(*) AS n, AVG(clv_pct) AS mean_clv_pct, "
+            " AVG(hit) AS mean_hit, AVG(model_prob) AS mean_model_prob "
+            "FROM legs WHERE phase=? AND clv_pct IS NOT NULL "
+            " AND hit IS NOT NULL AND model_prob IS NOT NULL "
             "GROUP BY market ORDER BY n DESC, market", (phase,)).fetchall()
         return [dict(r) for r in rows]
 

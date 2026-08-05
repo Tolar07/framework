@@ -47,6 +47,10 @@ class BoardFixture:
     best_n_books: int = 0
     best_mes_ev: Optional[float] = None      # model_prob * price - 1
     best_model_prob: Optional[float] = None
+    # CLV-gated recalibration delta actually applied to this pick's EV
+    # probability (0.0 = no evidence). The ledger still records the RAW
+    # model_prob above — no feedback loop.
+    cal_adjustment: Optional[float] = None
     # Kickoff date (ISO) of THIS fixture. Carried so a logged leg can be
     # settled against the right match rather than a same-pairing meeting from
     # an earlier season.

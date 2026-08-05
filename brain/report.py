@@ -71,6 +71,23 @@ def _render_overview(brain) -> str:
                        f"mean {r['mean_clv_pct']:+.2f}%")
     out.append("")
 
+    out.append("Engine calibration — the model learning from settled legs")
+    from engine import recalibration as recal
+    rows = brain.calibration_by_market(PAPER_PHASE)
+    if not rows:
+        out.append("  NO DATA — PENDING (needs ≥15 settled legs with a closing "
+                   "line per market before the engine adjusts)")
+    else:
+        cal = recal.adjustments_for(rows)
+        for r in rows:
+            adj = cal.get(r["market"])
+            suffix = f" -> adjust {adj:+.1%}" if adj else \
+                " (below evidence gate — NO DATA — PENDING)"
+            out.append(f"  {r['market']}: n={r['n']}, hit {r['mean_hit'] * 100:.0f}% "
+                       f"vs model {r['mean_model_prob'] * 100:.0f}%, "
+                       f"CLV {r['mean_clv_pct']:+.2f}%{suffix}")
+    out.append("")
+
     out.append(f"Phase-3 gate: {gate['legs_with_clv']} of "
                f"{gate['gate_requirement']} legs with logged CLV"
                + (f" — mean {gate['mean_clv_pct']:+.2f}%"

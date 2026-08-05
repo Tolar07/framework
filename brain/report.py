@@ -96,6 +96,11 @@ def _render_overview(brain) -> str:
 
     out.append(f"Predictions stored: {preds['n_rows']} across "
                f"{preds['n_runs']} run(s)")
+    oc = brain.outcome_summary()
+    out.append(
+        f"Outcome record (model vs reality): "
+        + (f"{oc['n']} settled, hit rate {oc['hit_rate'] * 100:.0f}%"
+           if oc["n"] else "0 settled — NO DATA — PENDING (matches still to play)"))
 
     if run:
         out.append(

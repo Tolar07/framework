@@ -189,7 +189,7 @@ if not os.environ.get("ODDS_API_KEY"):
 t0 = time.time()
 import run_daily
 try:
-    full = run_daily.run(send=False)
+    full = run_daily.run(send=False).full  # RunResult.full is the wide file board
     ok = bool(full) and "PART 0" in full and "PART 1" in full
     check(f"daily run completes and produces a board", ok,
           f"{time.time()-t0:.1f}s, {len(full)} chars" if full else "empty")

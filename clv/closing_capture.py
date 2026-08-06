@@ -69,18 +69,22 @@ def _in_window(minutes_to_kickoff: Optional[float]) -> bool:
 
 def capture_closing_lines(log: CLVLog, leagues: list[str],
                           odds_index: Optional[dict] = None,
-                          now: Optional[datetime] = None) -> tuple[int, list[str]]:
-    """Capture a CL-LIVE closing line for pending paper legs whose kickoff is
-    inside the window. Returns (captured, flags).
+                          now: Optional[datetime] = None,
+                          phase: str = PAPER_PHASE) -> tuple[int, list[str]]:
+    """Capture a CL-LIVE closing line for pending legs whose kickoff is inside
+    the window. Returns (captured, flags).
 
     `odds_index` maps (home, away) -> FixtureOdds. When provided it is used
     as-is (the daily run passes the index it already fetched, so capture costs
     zero extra quota); otherwise each league's odds are fetched (cached).
+    `phase` filters which legs are eligible — the daily run uses the default
+    PAPER_PHASE; the cup-training loop passes its own phase so those legs get
+    closing lines too.
     """
     now = now or datetime.now(timezone.utc)
     flags: list[str] = []
     pending = [l for l in log.legs
-               if l.phase == PAPER_PHASE and l.hit is None
+               if l.phase == phase and l.hit is None
                and l.closing_odds is None and l.entry_odds is not None
                and l.match_date]
     if not pending:

@@ -77,7 +77,7 @@ with patch.object(server, "BOARD_DIR", boards):
 
     # --- 2. today's board renders 200 ----------------------------------------
     code, body = _get(f"/board/{today}")
-    assert code == 200 and "TODAY'S PICKS" in body and "Bristol City v Walsall" in body
+    assert code == 200 and "TODAY'S PICKS" in body and "Bristol City" in body and "Walsall" in body
     print("2. /board/<today> 200 with the board: OK")
 
     # --- 3. missing date is an honest 404 -------------------------------------

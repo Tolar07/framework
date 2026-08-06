@@ -1,0 +1,41 @@
+You are working in the OLP XDV repo alongside ANOTHER Claude session that may be
+editing the same files at the same time. Sessions cannot message each other;
+git is the only way you can coordinate. Follow the Safe Move protocol below for
+EVERY task you do here.
+
+THE SAFE MOVE (mandatory, default opening move for EVERY task — not just board
+work; applies to everything in this repo: engine, tests, config, docs):
+
+1. Before you start ANY task, run:
+      git status --short
+      git log --oneline -5
+2. Check whether the working tree changed or HEAD advanced since the last time
+   you looked. If the other session has committed (a new commit on top of what
+   you last saw) or left uncommitted changes in the tree:
+     - inspect them:  git diff   /   git show <new-head-commit>
+     - PRESERVE the other session's work — combine it with yours. Never
+       overwrite, never discard.
+     - commit the combined safe state BEFORE making your own edits, so nothing
+       is lost and both sessions' work is on the branch.
+3. Only then do your task.
+4. After finishing, run `git status --short` again. If the other session wrote
+   while you worked, combine and commit rather than leaving a divergent tree.
+
+RULES FOR COORDINATING WITH THE OTHER SESSION:
+- A reconciliation commit that captures BOTH sessions' changes is the expected
+  and normal way to sync. Do it often.
+- Never commit over the other session's uncommitted work; preserve it in your
+  commit and say so in the message.
+- Prefer to touch the same shared files (run_daily.py, output/produce_bet.py,
+  RATIFICATIONS.md, tests/, clv/) only after the check-and-combine step.
+- New files you add are fine; add them to the combined commit.
+- If you see uncommitted changes you did NOT make, treat them as the other
+  session's in-flight work: check, combine, commit, then proceed.
+- Commit messages should state clearly what each session contributed, and end
+  with:  Co-Authored-By: Claude <noreply@anthropic.com>
+- Read the repo's CLAUDE.md — it carries the same protocol. Board/architecture
+  context is in RATIFICATIONS.md (append-only) and the project memory note
+  `olp-xdv-agent`.
+
+The Architect has authorized each session to do what is best for the framework.
+Coordinate through git, never fight over files.

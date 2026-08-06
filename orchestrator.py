@@ -321,13 +321,21 @@ def scan_one_league(league: str, season: str,
     unmapped = sorted({t for h, a in upcoming_fixtures for t in (h, a)
                        if t not in model.teams and t not in model.thin_teams})
     if unmapped:
+        # Suggest likely pool matches for each unknown name (read-only — a human
+        # verifies and adds to the alias tables; never auto-applied, HR35).
+        suggestions = []
+        for t in unmapped:
+            hits = xleague.suggest_aliases(t, sorted(model.teams))
+            suggestions.append(
+                f"{t} -> {hits[0][0]} ({hits[0][1]:.2f})" if hits
+                else f"{t} -> no close match in the model pool")
         flags.append(
             f"{league}: {len(unmapped)} team name(s) in the fixtures feed not found "
-            f"in the fitted data — {', '.join(unmapped)}. Model knows: "
-            f"{', '.join(sorted(model.teams))}. If a name above is the same club "
-            f"under a different spelling, add it to TEAM_ALIASES in "
-            f"data/thesportsdb_fixtures.py; if it is newly promoted, it correctly "
-            f"has no rating yet.")
+            f"in the fitted data — {', '.join(unmapped)}. Suggestions: "
+            f"{'; '.join(suggestions)}. If a suggestion is right, verify and add "
+            f"it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or "
+            f"CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly "
+            f"promoted, it correctly has no rating yet.")
 
     return board, flags
 

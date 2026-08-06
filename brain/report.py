@@ -94,6 +94,24 @@ def _render_overview(brain) -> str:
                   if gate["mean_clv_pct"] is not None else " — NO DATA — PENDING"))
     out.append("")
 
+    out.append("Road to the gate — how fast the paper record is actually building")
+    tm = brain.leg_telemetry(PAPER_PHASE)
+    out.append(f"  Legs logged: {tm['n_legs']} ({tm['n_with_clv']} with a closing line, "
+               f"{tm['n_settled']} settled)")
+    cap = tm["clv_capture_rate"]
+    out.append("  Closing-line capture: "
+               + (f"{cap * 100:.0f}% of settled legs earn a CLV number"
+                  if cap is not None else "NO DATA — PENDING (nothing settled yet)"))
+    out.append(f"  Legs per day (observed): {tm['legs_per_day']:.2f}")
+    if tm["days_to_gate"] is not None:
+        out.append(f"  At the current rate: ~{tm['days_to_gate']:.0f} days "
+                   f"to the {tm['gate_requirement']}-leg gate "
+                   f"(sustained {tm['clv_legs_per_day']:.3f} CLV legs/day)")
+    else:
+        out.append("  Projected days to gate: NO DATA — PENDING "
+                   "(no CLV legs are being produced yet — nothing to project)")
+    out.append("")
+
     out.append(f"Predictions stored: {preds['n_rows']} across "
                f"{preds['n_runs']} run(s)")
     oc = brain.outcome_summary()

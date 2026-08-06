@@ -668,3 +668,30 @@ DATA rows carry no fabricated probability.
 
 **Authority:** Architect — EFL Cup inclusion and the quota spend both chosen
 explicitly; additive under the auto-ratification grant.
+
+---
+
+## 2026-08-06 · EVENTSDAY FALLBACK — today's cup qualifiers reach the board (ID410)
+
+**Why:** the Architect asked why Europa League qualifiers (Jagiellonia v
+Rangers etc.) were not displaying on today's board. Investigation: the scan's
+TheSportsDB path used `eventsseason.php`, whose feed LAGS WEEKS BEHIND for
+continental qualifiers (verified live — Europa League 4481 showed July-only
+events while the real Aug 6 qualifiers were invisible), so nothing landed in
+the TODAY-only window.
+
+**What was built:**
+- `data/thesportsdb_fixtures.py`: `fetch_today(league, day)` — pulls the
+  `eventsday.php` feed, the same source the monitor already watches these
+  matches on. Already-played and team-name-missing rows excluded (HR35).
+- `orchestrator.py`: when the season feed returns nothing in the window and
+  `days_ahead==0` (today-only board), falls back to `fetch_today` before the
+  odds feed, flagged ("fixtures from eventsday (season feed lags)").
+
+**Verified live 2026-08-06:** the daily board now shows all 3 Europa League
+quals (Jagiellonia v Rangers, Lech Poznań v KÍ Klaksvík, Lincoln Red Imps v
+Omonia Nicosia) as honest NO DATA — PENDING rows — the same matches the
+cup-training monitor settles for the brain. EFL Cup (Bristol City v Walsall)
+was already on the board via the other session's ID409.
+
+**Tests:** `tests/eventsday_fallback_test.py` (3 checks). All 26 suites green.

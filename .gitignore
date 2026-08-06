@@ -23,3 +23,7 @@ brain/*.db
 brain/*.db-wal
 brain/*.db-shm
 sandbox/sandbox_log.json
+
+# Web dashboard generated artifacts — regenerated every run / export
+output/boards/*.json
+webapp/site/

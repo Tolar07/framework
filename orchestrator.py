@@ -20,6 +20,7 @@ output, CLV) has no network dependency and is fully testable here.
 from __future__ import annotations
 import argparse
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -194,6 +195,27 @@ def scan_one_league(league: str, season: str,
                 flags.append(f"{league}: {len(fx_skipped)} fixture rows skipped/malformed")
         except Exception as e:
             errors.append(f"thesportsdb: {e}")
+
+        if not upcoming_fixtures:
+            # TheSportsDB's SEASON feed lags weeks behind for continental
+            # qualifiers (verified 2026-08-06: Europa League showed July-only
+            # events while the real Aug 6 qualifiers were invisible), but its
+            # eventsday feed carries the actual fixtures for the date. The
+            # daily board is TODAY-ONLY, so try eventsday before the odds
+            # feed — it is the same source the monitor watches these matches
+            # on.
+            if days_ahead == 0:
+                try:
+                    day = str(date.today())
+                    day_fx = tsdb.fetch_today(league, day)
+                    if day_fx:
+                        upcoming_fixtures = tsdb.as_pairs(day_fx)
+                        fixture_dates.update(
+                            {(f.home_team, f.away_team): f.date for f in day_fx})
+                        flags.append(f"{league}: fixtures from eventsday "
+                                     f"(season feed lags)")
+                except Exception as e3:
+                    errors.append(f"thesportsdb eventsday: {e3}")
 
         if not upcoming_fixtures:
             # TheSportsDB had nothing in the upcoming window (or raised). A

@@ -77,4 +77,23 @@ bf = BoardFixture(fixture="H v A", probs=None, verification=None,
 assert bf.cal_adjustment == 0.012
 print("7. BoardFixture.cal_adjustment field: OK")
 
+# --- 8. SHADOW: below-gate evidence is traced but never applied ----------------
+thin = [{"market": "1X2_HOME", "n": 2, "mean_clv_pct": 0.08,
+         "mean_hit": 0.8, "mean_model_prob": 0.5}]
+assert recal.adjustments_for(thin) == {}, "2 legs < MIN_LEGS -> still inert"
+shadow = recal.shadow_adjustments(thin)
+assert "1X2_HOME" in shadow, "shadow must reveal the would-be adjustment"
+assert abs(shadow["1X2_HOME"]) <= recal.MAX_ADJUSTMENT + 1e-9, \
+    "shadow is bounded exactly like the applied path"
+print("8. SHADOW below gate traced (bounded), applied stays inert: OK")
+
+# --- 9. SHADOW: nothing for zero evidence; matches applied above the gate ------
+assert recal.shadow_adjustments([]) == {}, "no evidence -> no shadow either"
+cal_both = recal.adjustments_for(good + bad)
+shadow_both = recal.shadow_adjustments(good + bad)
+for m, d in cal_both.items():
+    assert abs(shadow_both[m] - d) < 1e-9, \
+        "above the gate, shadow equals the applied adjustment"
+print("9. SHADOW zero-evidence empty + matches applied above gate: OK")
+
 print("\n✅ ALL RECALIBRATION TESTS PASSED")

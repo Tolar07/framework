@@ -44,6 +44,7 @@ from output.produce_bet import (render_produce_bet, render_verify_results,
                                 render_telegram_board)
 from output import notify
 from output import whatsapp_deliver
+from output import email_deliver
 import orchestrator
 import pipeline.odds as odds_mod
 
@@ -255,7 +256,7 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, days_ahead: int = 0,
-        whatsapp: bool = True) -> RunResult:
+        whatsapp: bool = True, email: bool = True) -> RunResult:
     """Run the daily board end to end.
 
     Opens the brain, seeds the ledger + corrections mirrors, records the run
@@ -272,7 +273,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     brain.append_run(run_id, started, status="running")
     try:
         return _run(run_id, started, t0, brain, season, fixtures_season,
-                    leagues, send, min_mes, days_ahead, whatsapp)
+                    leagues, send, min_mes, days_ahead, whatsapp, email)
     except Exception:
         brain.update_run(run_id, status="failed")
         raise
@@ -283,7 +284,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 def _run(run_id: str, started: str, t0: float, brain: Brain,
          season: str, fixtures_season: str | None, leagues: list[str],
          send: bool, min_mes: float, days_ahead: int,
-         whatsapp: bool = True) -> RunResult:
+         whatsapp: bool = True, email: bool = True) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     runlog = _mark_started()
@@ -342,6 +343,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags.append("Calibration active: "
                          + ", ".join(f"{m} {d:+.1%}" for m, d in sorted(cal.items()))
                          + " (from settled-leg CLV evidence, bounded ±3pts)")
+    # SHADOW trace: the would-be adjustment on markets below the MIN_LEGS gate.
+    # Surfaced for honesty (the signal is visible as it builds) but NEVER applied
+    # — the engine only changes once a market crosses MIN_LEGS. Markets already
+    # in `cal` are the live ones and are NOT repeated here.
+    shadow = recal.shadow_adjustments(brain.calibration_by_market())
+    pending = {m: d for m, d in shadow.items() if m not in cal}
+    if pending:
+        all_flags.append("SHADOW calibration (below gate, NOT applied): "
+                         + ", ".join(f"{m} {d:+.1%}"
+                                     for m, d in sorted(pending.items()))
+                         + " — visible only; inert until MIN_LEGS legs settle")
 
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
@@ -431,6 +443,15 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             for n in wa_notes:
                 print(f"  {n}")
                 _mark(runlog, n)
+        # Email is likewise a best-effort COPY channel (zero-approval, SMTP).
+        # Toggled off by --no-email or EMAIL_ENABLED=0; skipped silently when
+        # no credentials are set.
+        if (email and os.environ.get("EMAIL_ENABLED", "1").lower()
+                not in ("0", "false", "no")):
+            em_delivered, em_notes = email_deliver.deliver(telegram_text)
+            for n in em_notes:
+                print(f"  {n}")
+                _mark(runlog, n)
     else:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
@@ -505,9 +526,11 @@ if __name__ == "__main__":
     ap.add_argument("--no-send", action="store_true", help="write the board, don't deliver")
     ap.add_argument("--no-whatsapp", action="store_true",
                     help="skip the WhatsApp copy even when configured")
+    ap.add_argument("--no-email", action="store_true",
+                    help="skip the email copy even when configured")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
-              whatsapp=not a.no_whatsapp)
+              whatsapp=not a.no_whatsapp, email=not a.no_email)
     print("\n" + out.full)

@@ -18,9 +18,11 @@ ERR_PAYLOAD = {"error": {"message": "boom", "code": 131026}}
 
 
 def _env(clear=True, **kw):
-    """Env vars for a configured send; clear removes any pre-set WHATSAPP_*."""
-    base = {k: "" for k in ("WHATSAPP_TOKEN", "WHATSAPP_PHONE_NUMBER_ID",
-                            "WHATSAPP_TO")} if clear else {}
+    """Env vars for a configured send; clear removes every pre-set WHATSAPP_*
+    key (the real .env now carries credentials — tests must not pick them up)."""
+    _ALL = ("WHATSAPP_TOKEN", "WHATSAPP_PHONE_NUMBER_ID", "WHATSAPP_TO",
+            "WHATSAPP_TEMPLATE_NAME", "WHATSAPP_LANGUAGE", "WHATSAPP_ENABLED")
+    base = {k: "" for k in _ALL} if clear else {}
     base.update(kw)
     return patch.dict(os.environ, base)
 

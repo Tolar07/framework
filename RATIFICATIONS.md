@@ -412,3 +412,48 @@ whitelisted as a test recipient).
 **Authority:** Architect — plan approved before build; additive delivery
 channel under the auto-ratification grant, no bright-line behaviour changed.
 
+## 2026-08-06 · Email copy channel + recalibration SHADOW mode — ID407
+
+**What the Architect asked** (both answered explicitly): (1) the official
+WhatsApp template approval was taking hours, so add an **instant, zero-approval
+second channel** → **email (SMTP)**. (2) the brain's self-adaptation is gated
+on 15 settled CLV legs (currently none) — the Architect asked why it can't
+adapt on its own; the answer is the honest-edge discipline (fast
+self-adaptation = overfitting the backtest = fabricated edge), and the
+Architect chose a **SHADOW mode** to watch the signal build without applying it.
+
+**What was built:**
+
+1. **`output/email_deliver.py`** — SMTP sender mirroring `notify.py` /
+   `whatsapp_deliver.py` discipline exactly: `send_email(body) -> (ok, notes)`,
+   never raises, retries transient faults 3×, refuses to send when credentials
+   are missing (unset/empty ⇒ silently off). Reuses `notify._stamp` so email
+   carries the **same stamped text** as Telegram/WhatsApp. Email has no length
+   limit → one message, subject `OLP XDV — Daily Board <date> · <phase>`.
+   `.env` keys (commented = off): `EMAIL_USER`, `EMAIL_APP_PASSWORD`,
+   `EMAIL_TO`, `EMAIL_SMTP_HOST` (default smtp.gmail.com), `EMAIL_SMTP_PORT`
+   (default 587). Wired into `run_daily` after WhatsApp — best-effort copy,
+   never fails the run; `--no-email` flag + `EMAIL_ENABLED=0` toggle.
+2. **`engine/recalibration.shadow_adjustments(rows)`** — the WOULD-BE
+   adjustment for every market with ANY settled evidence, including below the
+   `MIN_LEGS` gate, same bounded formula. **NEVER applied** — the engine only
+   changes once a market crosses `MIN_LEGS`. `run_daily` surfaces it as a
+   `SHADOW calibration (below gate, NOT applied): …` flag line, distinct from
+   the applied `Calibration active:` line and never repeating markets already
+   live. Currently renders nothing (no settled leg has a closing line yet) —
+   honest NO DATA — PENDING, exactly as designed.
+3. **Tests** — `tests/email_deliver_test.py` (5 mocked-SMTP checks) and
+   recalibration tests 8–9 (shadow traced-but-inert below gate; shadow ==
+   applied above gate; empty with zero evidence). WhatsApp test helper fixed to
+   clear ALL `WHATSAPP_*` keys — the real `.env` now carries credentials and
+   the suite must be hermetic against it. All suites green (email, whatsapp,
+   telegram_commands, engine_regression, recalibration, stress, smoke).
+
+**Guardrails:** both additions are additive and inert until configured; email
+needs a Gmail app-password (user-side, one-time); shadow never touches THE
+CALL's EV. No change to capital, staking, fabrication, verification, or the
+honest-edge statement.
+
+**Authority:** Architect — both directions chosen explicitly before build;
+additive under the auto-ratification grant, no bright-line behaviour changed.
+

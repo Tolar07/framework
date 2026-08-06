@@ -80,6 +80,26 @@ def adjustments_for(rows: list[dict]) -> dict[str, float]:
     return out
 
 
+def shadow_adjustments(rows: list[dict]) -> dict[str, float]:
+    """The WOULD-BE adjustment for every market with ANY settled evidence —
+    including markets below MIN_LEGS. NEVER applied: this is the shadow trace,
+    so the Architect can watch the signal build honestly while the engine stays
+    inert. Markets with zero legs are absent; the same bound applies."""
+    out: dict[str, float] = {}
+    for r in rows:
+        n = int(r.get("n") or 0)
+        if n < 1:
+            continue  # no evidence at all -> nothing to trace
+        residual = float(r.get("mean_hit") or 0.0) - float(r.get("mean_model_prob") or 0.0)
+        clv_drift = _clamp(float(r.get("mean_clv_pct") or 0.0) * CLV_SCALE,
+                           -MAX_ADJUSTMENT, MAX_ADJUSTMENT)
+        delta = (RESIDUAL_WEIGHT * residual + CLV_WEIGHT * clv_drift) * _weight(n)
+        delta = _clamp(delta, -MAX_ADJUSTMENT, MAX_ADJUSTMENT)
+        if abs(delta) >= 0.005:  # same noise floor as the applied path
+            out[r["market"]] = round(delta, 4)
+    return out
+
+
 def apply(model_prob: float, delta: Optional[float]) -> float:
     """Apply a per-market adjustment to a model probability for EV. delta=None
     (or the market having no entry) is a no-op. The result stays inside

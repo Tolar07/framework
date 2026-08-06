@@ -194,4 +194,45 @@ def test_priority_ordering():
     assert call_order == ["high_priority", "medium_priority"]
 
 
+def test_fixtures_failover_thesportsdb_down():
+    """Real concrete chain: TheSportsDB down -> odds feed serves fixtures.
+
+    This is the failure the whole layer exists for: one provider going down
+    must degrade to the next, not produce NO DATA. The three fixtures sources
+    share the MultiSource.fetch kwargs (league / fixtures_season / days_ahead),
+    so each fetch must tolerate the union of kwargs."""
+    from unittest.mock import patch
+    ms = build_fixtures_multi_source()
+    with patch("data.multi_source_concrete.tsdb.fetch_upcoming",
+               side_effect=RuntimeError("thesportsdb down")):
+        with patch("data.multi_source_concrete.odds_fixtures_from_odds",
+                   return_value=([("Arsenal", "Chelsea")],
+                                 {("Arsenal", "Chelsea"): "2026-08-07"},
+                                 ["odds ok"])):
+            r = ms.fetch(league="Premier League", fixtures_season="2627",
+                         days_ahead=0)
+            assert r.success
+            assert r.source_name == "odds_api_fixtures"
+            assert r.data["fixtures"] == [("Arsenal", "Chelsea")]
+            assert r.data["dates"][("Arsenal", "Chelsea")] == "2026-08-07"
+
+
+def test_fixtures_all_sources_down_exhausted():
+    """Every provider down -> MultiSourceExhausted (never a silent partial)."""
+    from unittest.mock import patch
+    from data.multi_source import MultiSourceExhausted
+    ms = build_fixtures_multi_source()
+    with patch("data.multi_source_concrete.tsdb.fetch_upcoming",
+               side_effect=RuntimeError("down")):
+        with patch("data.multi_source_concrete.odds_fixtures_from_odds",
+                   side_effect=RuntimeError("down")):
+            with patch("data.fixtures_source.fetch_upcoming",
+                       side_effect=RuntimeError("down")):
+                try:
+                    ms.fetch(league="X", fixtures_season="2627", days_ahead=0)
+                    raise SystemExit("all-down must raise MultiSourceExhausted")
+                except MultiSourceExhausted:
+                    pass
+
+
 print("✅ ALL MULTI_SOURCE TESTS PASSED")

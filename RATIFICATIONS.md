@@ -457,3 +457,49 @@ honest-edge statement.
 **Authority:** Architect — both directions chosen explicitly before build;
 additive under the auto-ratification grant, no bright-line behaviour changed.
 
+
+---
+
+## 2026-08-06 · CL-LIVE closing-line capture — the structural CLV gap closed
+
+**Why:** the Phase-3 gate needs >=30 paper legs with logged CLV. A closing
+line is what makes CLV measurable, but until now ONLY the football-data
+archive (CL-ARCHIVE) could produce one — on football-data's schedule (next
+morning) and only for the markets it publishes (Danish Superliga, an
+extra-schema league, carries 1X2 closing prices but NO totals). A paper leg
+therefore could not earn a CLV number until the archive published, and some
+markets could never earn one at all. HR46's CL-LIVE path existed on paper but
+was never built.
+
+**What was built** (`clv/closing_capture.py`, wired into `run_daily._run`,
+built by Architect authorization "do what is best for the framework"):
+
+1. `capture_closing_lines(log, leagues, odds_index=, now=)` records the live
+   feed's price near kickoff as the leg's closing line, capture path CL-LIVE.
+   The daily run passes the `odds_index` it already fetched for the day's
+   rated leagues — capture costs zero extra quota. Also runnable standalone:
+   `python -m clv.closing_capture [league ...]` (a scheduled pass near kickoff
+   closes legs the archive cannot).
+2. **The honesty rule (HR35) is the core of the design:** a price captured
+   HOURS before kickoff is an intraday price, not a closing line — treating it
+   as the close would manufacture CLV out of nothing. Capture fires only inside
+   the window: no earlier than `CLOSING_WINDOW_MINUTES=60` before kickoff, no
+   later than `KICKOFF_GRACE_MINUTES=10` after it (once in-play the API stops
+   quoting h2h anyway). Kickoff is read from the-odds-api `commence_time`; the
+   leg's `match_date` must match the fixture's kickoff DATE (HR48-style guard —
+   a same-pairing meeting on another day is never closed). A leg outside the
+   window stays PENDING, never estimated.
+3. `grade_open_legs` now: prefers the canonical archive close (upgrades a
+   CL-LIVE close to CL-ARCHIVE when the archive publishes); keeps the CL-LIVE
+   close when the archive has none (the leg still earns its CLV, no false NO
+   DATA flag); and only a leg with NO closing line from either path is NO DATA
+   — PENDING.
+
+**Tests:** `tests/closing_capture_test.py` — 9 checks (window maths, in-window
+capture, intraday/in-play refusal, date guard, first-capture-wins, entry-less
+and dateless refusal, archive upgrade, CL-LIVE survival, honest NO DATA). All
+20 suites green.
+
+**Guardrails untouched:** nothing estimates, nothing overwrites a real close,
+capital/staking/fabrication rules unchanged. Entry prices remain CL-LIVE at
+pick time; this only ADDS a closing path, never changes one.

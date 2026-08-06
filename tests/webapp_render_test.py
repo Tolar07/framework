@@ -59,36 +59,46 @@ for needle in ["TODAY'S PICKS", "THE CALL", "Honest edge",
 print("1. dashboard has picks/call/gate/honest-edge/capital: OK")
 
 # --- 2. NO DATA rows are shown, not dropped (HR35) ---------------------------
-assert "Bristol City v Walsall" in h
+assert "Bristol City" in h and "Walsall" in h
 assert "NO DATA — PENDING" in h
 assert "no fitted history" in h
 print("2. NO DATA fixture rendered honestly: OK")
 
 # --- 3. gate strip carries a number + label (colour is never alone) ----------
-assert "3 of 30 legs" in h
-assert "42 days" in h or "~42 days" in h
+assert "3 of 30" in h and "legs with CLV" in h
+assert "~42 days" in h
 print("3. gate strip labelled, not colour-alone: OK")
 
 # --- 4. league section header present -----------------------------------------
 assert "Champions League" in h and "EFL Cup" in h
-print("4. per-league tables render: OK")
+print("4. league sections render: OK")
 
 # --- 5. flags block collapses with a count ------------------------------------
 assert "1 data flag" in h or "⚠ 1" in h
 print("5. data flags rendered: OK")
 
-# --- 6. why / stats / history / 404 all render --------------------------------
+# --- 6. the rated card carries the design language ----------------------------
+assert "AI pick" in h                      # the pick line
+assert "2 of 2 models agree" in h          # DC + Elo agree (xG has no data)
+assert "2–1" in h                          # predicted score from lambda 1.8/0.9
+assert 'class="winbar"' in h               # win-probability bar
+assert "✓ Dixon-Coles" in h and "✓ Elo" in h and "xG —" in h  # model chips
+assert "Full analysis" in h                # per-match link
+print("6. rated card: pick / agreement / score / win bar / chips: OK")
+
+# --- 7. why / stats / history / 404 all render --------------------------------
 assert "Fenerbahce" in render.render_why_html(p, "Fenerbahce")
 assert "Win chance" in render.render_why_html(p, "Fenerbahce")
+assert "models agree" in render.render_why_html(p, "Fenerbahce")
 assert "NO DATA — PENDING" in render.render_why_html(p, "Nonexistent FC")
 assert "Gate &amp; calibration" in render.render_stats_html("x", "2026-08-11")
 assert "Board history" in render.render_history_html(["2026-08-11"], "2026-08-11")
 assert "No board for that date" in render.render_404_html("1999-01-01", "2026-08-11")
-print("6. why/stats/history/404 pages render: OK")
+print("7. why/stats/history/404 pages render: OK")
 
-# --- 7. tag balance sanity (no broken markup) ----------------------------------
-for tag in ("div", "table", "nav", "details", "ul"):
+# --- 8. tag balance sanity (no broken markup) ----------------------------------
+for tag in ("div", "nav", "details", "ul", "span"):
     assert h.count(f"<{tag}") == h.count(f"</{tag}>"), f"unbalanced <{tag}>"
-print("7. HTML tags balanced: OK")
+print("8. HTML tags balanced: OK")
 
 print("\n✅ ALL WEBAPP RENDER TESTS PASSED")

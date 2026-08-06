@@ -596,6 +596,17 @@ def _predictions_from_board(board, run_id: str, predicted_at: str,
                               ("1X2_AWAY", xa)):
                 rows.append(dict(base, market=key, model_engine="xg",
                                  model_prob=prob))
+        if getattr(bf, "consensus", None) and bf.consensus.result \
+                and bf.consensus.avg_home is not None:
+            # ID412: the cross-engine consensus, persisted so the brain can
+            # grade it against reality like any other model opinion. Only the
+            # averaged 1X2 when a majority exists — a split with no majority
+            # is NOT a prediction and is never persisted (HR35).
+            for key, prob in (("1X2_HOME", bf.consensus.avg_home),
+                              ("1X2_DRAW", bf.consensus.avg_draw),
+                              ("1X2_AWAY", bf.consensus.avg_away)):
+                rows.append(dict(base, market=key, model_engine="consensus",
+                                 model_prob=prob))
     return brain.append_predictions(rows)
 
 

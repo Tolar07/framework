@@ -191,6 +191,12 @@ def _render_lookup(brain, arg: str) -> str:
         if xg:
             out.append(f"   xG third opinion: {_pct(xg.get('1X2_HOME'))} / "
                        f"{_pct(xg.get('1X2_DRAW'))} / {_pct(xg.get('1X2_AWAY'))}")
+        cons = {r["market"]: r["model_prob"]
+                for r in rws if r["model_engine"] == "consensus"}
+        if cons:
+            out.append(f"   consensus (ID412): {_pct(cons.get('1X2_HOME'))} home / "
+                       f"{_pct(cons.get('1X2_DRAW'))} draw / "
+                       f"{_pct(cons.get('1X2_AWAY'))} away")
         if priced:
             clv = (f"CLV {priced['clv_pct']:+.2f}%"
                    if priced.get("clv_pct") is not None

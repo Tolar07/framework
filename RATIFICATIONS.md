@@ -792,3 +792,49 @@ into a vote.
 
 **Tests:** `tests/consensus_test.py` (9 checks: quorum rules, render, phone
 leanness, brain persistence). All 33 suites green.
+
+---
+
+## 2026-08-06 · BOOKMAKER ENGINE — equal 4th vote in the consensus (ID413)
+
+**Why:** the Architect asked for "more data" and named the bookmaker as the
+next engine. The three existing engines (Dixon-Coles goals model, Elo result
+history, xG chance quality) all predict from *modeled* inputs. The bookmaker
+is different: its odds are the aggregate of real money — the sharpest single
+calibration source in football. The ScoreGPT structure gains a fourth,
+genuinely independent voter.
+
+**Two decisions confirmed by the Architect:**
+1. **Equal 4th vote.** The market's devigged implied 1X2 joins DC/Elo/xG in
+   the consensus majority. With all four agreeing you get "4 of 4 engines".
+   Because the market is the best-calibrated signal, the consensus leans
+   toward it, and model-vs-market divergence becomes a *stronger* warning
+   (the market dissents explicitly, not just per-market).
+2. **Proportional devig.** `p_i = (1/odds_i) / Σ(1/odds_j)` over
+   home/draw/away — the standard 3-way margin removal. Implied probs sum to
+   exactly 1, so they fit the existing vote/average machinery. HR35: refuses
+   a two-price "1X2" (would fabricate the missing side).
+
+**Scope unchanged from ID412:** display + brain only. The bookmaker opinion
+renders on the full board ("Fourth opinion — bookmaker, real-money aggregate,
+margin removed") and persists to the brain as `model_engine='bookmaker'`
+rows, graded against reality like any other opinion. It NEVER changes what is
+logged — DC stays canonical for legs/CLV/calibration. The phone board stays
+lean. Scan-only leagues honestly show NO DATA (odds are pulled only for A/B
+deploy leagues, quota protection).
+
+**What was built:**
+- `engine/markets.py` — `implied_1x2(fx)`: proportional devig of the full 1X2.
+- `engine/consensus.py` — `compute_consensus(..., market_probs=None)`; the
+  majority rule (`agreeing > n/2`) already generalizes to 4 (3-of-4 = consensus,
+  2-2 = NO CONSENSUS).
+- `output/produce_bet.py` — `BoardFixture.market_probs` + render line.
+- `run_daily.py` — computes `implied_1x2` in the odds-attach loop and
+  RECOMPUTES the consensus with the market (orchestrator's 3-opinion consensus
+  predates the odds); persists `model_engine='bookmaker'` rows.
+- `brain/report.py` — `/why` lookups read back the bookmaker row.
+- `webapp/schema.py` — serializes `market_probs` + the consensus dict.
+
+**Tests:** `tests/bookmaker_engine_test.py` (9 checks: devig math, HR35
+refusals, 4-engine quorum, render, persistence) + a 4-engine case in
+`consensus_test.py`. All 34 suites green.

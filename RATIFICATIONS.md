@@ -752,3 +752,43 @@ trimmed from any view.
 
 **Authority:** Architect — the channel change (WhatsApp off by default) and the
 web dashboard were both chosen explicitly in answer to the question.
+
+---
+
+## 2026-08-06 · ENGINE CONSENSUS — majority vote across DC/Elo/xG (ID412)
+
+**Why:** the Architect reviewed ScoreGPT's methodology (scoregpt.app/
+methodology): five independent frontier LLMs each analyse a match blind, a
+meta-layer takes a MAJORITY VOTE on the result + averaged scoreline, and
+every prediction is graded against the real result afterward. The Architect
+chose to add the same *structure* over OLP's three real engines, which
+already produce independent 1X2 opinions per fixture but were never combined
+into a vote.
+
+**Three decisions confirmed by the Architect:**
+1. **Role — display + brain only.** Consensus is computed, shown on the full
+   board, and persisted to the brain for learning. It does NOT change what is
+   logged — DC stays canonical for paper legs / CLV / calibration.
+2. **Render surface — full board + /why only.** The phone board stays lean
+   (2026-08-05 decision intact); no consensus text on Telegram.
+3. **Quorum — majority of available engines.** 2-of-2 or 2-of-3 agreement =
+   consensus; 1-of-1 (a lone engine is not a consensus) or a 1-1/1-1-1 tie =
+   NO CONSENSUS (shown honestly). Any disagreement sets `split=True` — the
+   divergence guardrail, now extended to cover xG (the existing
+   `engine_divergence` flag only compared Elo vs Dixon-Coles).
+
+**What was built:**
+- `engine/consensus.py` — pure vote logic. Each engine's pick is the argmax
+  of its own 1X2; averaged 1X2 = mean of the available engines' probabilities
+  (the ScoreGPT "averaged" analog).
+- `output/produce_bet.py` — `BoardFixture.consensus` field + CONSENSUS render
+  line in the per-fixture block (after the xG third opinion). A no-majority
+  split renders "NO CONSENSUS — engines disagree" in full view, never smoothed.
+- `orchestrator.py` — computes the consensus for every RATED fixture.
+- `run_daily.py` — persists consensus 1X2 rows (`model_engine='consensus'`)
+  only when a majority exists; a split is never persisted (HR35: not a
+  prediction). The rows grade against reality like any other model opinion.
+- `brain/report.py` — `/why` lookups read back the consensus line.
+
+**Tests:** `tests/consensus_test.py` (9 checks: quorum rules, render, phone
+leanness, brain persistence). All 33 suites green.

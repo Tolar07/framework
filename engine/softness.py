@@ -34,6 +34,11 @@ SOFTNESS_TIER = {
     "Premier League": "D",
     "La Liga": "D",
     "Champions League": "D",
+    # EFL Cup — ratified 2026-08-06 (Architect): an ACTIVE Odds sport with real
+    # prices, but was never scanned (not in the whitelist), so its matches
+    # (e.g. Bristol City v Walsall that night) were invisible. Tier D = scan
+    # only, never a capital pick.
+    "EFL Cup": "D",
 }
 
 DEPLOY_ELIGIBLE_TIERS = {"A", "B"}

@@ -610,3 +610,61 @@ named.
 
 **Tests:** `tests/cup_training_test.py` (5 checks: O1.5+priced logging, phase
 separation, idempotency, settle to brain, gate exclusion). All 25 suites green.
+
+## 2026-08-06 · EFL Cup on the board + odds-quota override + fixtures never dropped — ID409
+
+**What the Architect asked:** "we have EFL and uefa qualifications match today
+why is not showing in the framework". The framework returned an honest empty
+board — and the investigation showed the fixtures EXISTED in the data but were
+invisible for three stacked reasons, each fixed or answered:
+
+1. **EFL Cup was not scanned.** `Bristol City v Walsall` (tonight) is a real,
+   priced event in the Odds feed (`soccer_england_efl_cup`, active+verified)
+   — but the EFL Cup was not in the 15-league whitelist, so the framework never
+   looked. **Fixed:** `SOFTNESS_TIER["EFL Cup"] = "D"` (scan-only, NEVER a
+   capital pick — same tier as Champions League/La Liga) + odds SPORT_KEY. The
+   daily board now reads `Leagues: 16` and lists the EFL Cup table.
+   *(The other Claude session independently added the EFL Cup + J-League odds
+   keys for its cup-training loop in cffa59c; reconciled — one key, no
+   duplication.)*
+2. **The odds quota guard blocked the only source for these fixtures.** The
+   free Odds API was at 34/500 (floor 40), and `check_quota()` refused to
+   spend — so the odds-derived fixture path (the ONLY current-season source for
+   EFL/UCL-qualifier fixtures: TheSportsDB lags, API-Football's free tier stops
+   at 2024) went silent for the rest of August. **Architect authorized
+   spending.** `QUOTA_HARD_FLOOR = 5`: FIXTURE CAPTURE may now spend below 40
+   down to 5 (one spend buys a 6h-cached fixture LIST — far more coverage than
+   a routine price pull), while the routine PRICE-PULL floor (40) is untouched
+   for every other caller. A fixture-capture call can never spend the last of
+   the month.
+3. **A league with fixtures but no history dropped them all.** `scan_one_league`
+   early-returned `[]` when `load_league` raised (EFL Cup has no football-data
+   CSV) or when history was <20 matches — so even a league with real fixtures
+   showed nothing. **Fixed:** `_render_unrated_fixtures()` — such fixtures now
+   appear on the wide-eyes board as **NO DATA — PENDING** rows with an explicit
+   reason ("no fitted history — fixture listed, not rated"), never silently
+   dropped (HR35).
+
+**Honest answers to the rest of the question:** the UCL-qualifier events in the
+feed are the **Aug 11** round (Sabah FK v AGF Aarhus, Bodø/Glimt v Union SG,
+…), not today — the Aug 5 round already played. The EFL Championship season
+opens **Aug 14**. If the Architect saw a qualifying fixture dated today, it is
+likely a Europa/Conference qualifier — which the framework has NO source for
+(no active odds sport key; documented gap).
+
+**Verified live 2026-08-06:** full pipeline board shows
+`EFL CUP → Bristol City v Walsall  NO DATA — PENDING`.
+
+**Tests:** `tests/quota_override_test.py` (5: floor ordering, price-pull still
+blocked<40, fixture-capture allowed<40, hard floor respected, EFL Cup tier-D);
+`tests/multi_league_test.py` updated (thin-history league now renders NO DATA
+rows instead of an empty board — the honest contract). All suites green
+(quota_override, fixtures_cache, multi_league, softness_mes, engine_regression,
+brain_orchestrator, telegram_commands, closing_capture, smoke).
+
+**Bright lines untouched:** EFL Cup is scan-only, never deployable; the
+fixture-capture spend stops at the hard floor (the month can't exhaust); NO
+DATA rows carry no fabricated probability.
+
+**Authority:** Architect — EFL Cup inclusion and the quota spend both chosen
+explicitly; additive under the auto-ratification grant.

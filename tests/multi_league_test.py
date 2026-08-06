@@ -51,13 +51,20 @@ assert any("NO DATA" in f and "HNL" in f for f in flags), \
 print("Uncovered league (HNL) correctly flagged, not silently dropped: OK")
 
 
-# --- test 2: thin history is flagged rather than fit on too little ---
+# --- test 2: thin history is flagged, fixtures still shown as NO DATA -------
+# A league with no usable history cannot be RATED, but its fixtures must still
+# appear on the wide-eyes board as NO DATA — PENDING rows (HR35) — never
+# silently dropped. The thin-fit guardrail stays: the flag is present and the
+# row carries no probability.
 with patch("orchestrator.load_league", return_value=([], [])):
     board, flags = orchestrator.scan_one_league("Scottish Premiership", season="2526",
                                                   upcoming_fixtures=[("A", "B")])
-    assert board == []
+    assert len(board) == 1, \
+        f"fixtures must survive as NO DATA rows, never dropped: {board}"
+    assert board[0].probs is None, "no probability on a historyless league"
+    assert "NO DATA — PENDING" in board[0].rejection_reason, board[0].rejection_reason
     assert any("insufficient match history" in f for f in flags)
-print("Thin/empty history correctly flagged rather than fit: OK")
+print("Thin/empty history flagged; fixtures shown as NO DATA (never dropped): OK")
 
 
 # --- test 3: global deploy cap across MULTIPLE leagues combined ---

@@ -91,11 +91,12 @@ SPORT_KEYS = {
     # behind and API-Football's free tier stops at 2024. Verified live
     # 2026-08-05 — returns the qualification fixtures with real book prices.
     "Champions League": "soccer_uefa_champs_league_qualification",
-    # Cup competitions verified live 2026-08-06. EFL Cup and J-League carry
-    # real prices on the free tier; Europa/Conference quals do NOT (no active
-    # sport key) — those stay TSDB-only and unpriced, which the cup-training
-    # logger handles by logging O1.5 outcome evidence without fabricating a
-    # price (HR35).
+    # Cup competitions verified live 2026-08-06 (ratified). EFL Cup and
+    # J-League carry real prices on the free tier; Europa/Conference quals do
+    # NOT (no active sport key) — those stay TSDB-only and unpriced, which the
+    # cup-training logger handles by logging O1.5 outcome evidence without
+    # fabricating a price (HR35). EFL Cup is also on the scan whitelist (tier
+    # D, scan-only — Architect), so its fixtures appear on the daily board.
     "EFL Cup": "soccer_england_efl_cup",
     "J League": "soccer_japan_j_league",
 }

@@ -191,6 +191,12 @@ def _render_lookup(brain, arg: str) -> str:
         if xg:
             out.append(f"   xG third opinion: {_pct(xg.get('1X2_HOME'))} / "
                        f"{_pct(xg.get('1X2_DRAW'))} / {_pct(xg.get('1X2_AWAY'))}")
+        book = {r["market"]: r["model_prob"]
+                for r in rws if r["model_engine"] == "bookmaker"}
+        if book:
+            out.append(f"   bookmaker implied: {_pct(book.get('1X2_HOME'))} home / "
+                       f"{_pct(book.get('1X2_DRAW'))} draw / "
+                       f"{_pct(book.get('1X2_AWAY'))} away")
         cons = {r["market"]: r["model_prob"]
                 for r in rws if r["model_engine"] == "consensus"}
         if cons:

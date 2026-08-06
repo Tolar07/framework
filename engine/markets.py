@@ -131,3 +131,32 @@ def quote(key: str, fixture_odds) -> Optional[object]:
 # blocked. Over/Under 1.5 and BTTS have no price source, so they are scan-only
 # by data availability rather than by rule.
 DEPLOYABLE = tuple(k for k in (HOME, DRAW, AWAY, OVER_25, UNDER_25) if k not in BLOCKED)
+
+
+def implied_1x2(fixture_odds) -> Optional[tuple[float, float, float]]:
+    """Bookmaker implied 1X2, margin removed by proportional devig (ID413).
+
+    Decimal odds carry an in-built margin: 1/odds over the three outcomes
+    sums to more than 1 (the overround). Proportional devig normalises by
+    that sum, so the three implied probabilities total exactly 1 and fit the
+    consensus vote/average machinery:
+
+        p_i = (1/odds_i) / (1/odds_h + 1/odds_d + 1/odds_a)
+
+    This is the bookmaker ENGINE's opinion — the aggregate of real money, the
+    sharpest single calibration source in football — and it joins Dixon-Coles,
+    Elo, and xG as an equal fourth voter in the cross-engine consensus. It
+    never changes what is logged (DC stays canonical for legs/CLV/calibration).
+
+    HR35: returns None unless ALL three prices are present. A two-price "1X2"
+    would require fabricating the missing side — which is worse than an honest
+    gap. A price <= 1.0 (degenerate decimal odds) is also refused."""
+    if fixture_odds is None:
+        return None
+    prices = [fixture_odds.home.price, fixture_odds.draw.price,
+              fixture_odds.away.price]
+    if any(p is None or p <= 1.0 for p in prices):
+        return None
+    inv = [1.0 / p for p in prices]
+    s = sum(inv)
+    return tuple(x / s for x in inv)

@@ -25,6 +25,22 @@ def _opt(x) -> Any:
     return None if x is None else x
 
 
+def _consensus_to_dict(c) -> Any:
+    """The cross-engine vote (ID412), JSON-safe, or None when absent."""
+    if c is None:
+        return None
+    return {
+        "result": _opt(c.result),
+        "votes": dict(c.votes),
+        "n_engines": c.n_engines,
+        "agreeing": c.agreeing,
+        "avg_home": _opt(c.avg_home),
+        "avg_draw": _opt(c.avg_draw),
+        "avg_away": _opt(c.avg_away),
+        "split": c.split,
+    }
+
+
 def probs_to_dict(p: FixtureProbabilities) -> dict:
     return {
         "home_team": p.home_team,
@@ -62,6 +78,8 @@ def fixture_to_dict(bf: BoardFixture) -> dict:
         "elo_probs": list(bf.elo_probs) if bf.elo_probs else None,
         "engine_divergence": _opt(bf.engine_divergence),
         "xg_probs": list(bf.xg_probs) if bf.xg_probs else None,
+        "market_probs": list(bf.market_probs) if bf.market_probs else None,
+        "consensus": _consensus_to_dict(bf.consensus),
         "model_engine": bf.model_engine,
         "verification": {
             "tier": str(getattr(bf.verification.tier, "name", bf.verification.tier)),

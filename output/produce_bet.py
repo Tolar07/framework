@@ -69,7 +69,14 @@ class BoardFixture:
     # Big-5 leagues where a free xG source exists; omitted elsewhere (never
     # fabricated, HR35).
     xg_probs: Optional[tuple] = None
-    # Cross-engine vote (DC · Elo · xG), ID412: the majority result across
+    # Fourth opinion — the BOOKMAKER's devigged implied 1X2 (ID413). The
+    # aggregate of real money, not a model; computed from the full home/draw/
+    # away odds by proportional margin removal (engine/markets.py implied_1x2).
+    # Only present for leagues where odds are pulled (A/B deploy leagues) —
+    # scan-only leagues honestly have no bookmaker opinion (HR35). It is an
+    # equal fourth voter in the consensus but NEVER changes what is logged.
+    market_probs: Optional[tuple] = None
+    # Cross-engine vote (DC · Elo · xG · bookmaker), ID412: the majority result across
     # whatever opinions exist, plus their averaged 1X2. DISPLAY + BRAIN ONLY —
     # it never changes what is logged (DC stays canonical for legs/CLV).
     # None when fewer than two engines had an opinion (a lone engine is not
@@ -248,6 +255,20 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
     else:
         L.append("   Third opinion (xG): NO DATA — PENDING (no free xG source "
                  "covers this league — xG covers Big-5 + RFPL only)")
+
+    # Fourth opinion — the BOOKMAKER (ID413). Real money, not a model: its
+    # devigged implied 1X2 is the sharpest single calibration source in
+    # football. Only present where odds are pulled (A/B deploy leagues);
+    # scan-only leagues show NO DATA rather than fabricating a market.
+    if bf.market_probs:
+        mh, md, ma = bf.market_probs
+        L.append(f"   Fourth opinion — bookmaker (real-money aggregate, "
+                 f"margin removed):")
+        L.append(f"      {p.home_team} to win {round(mh*100)}% · Draw "
+                 f"{round(md*100)}% · {p.away_team} to win {round(ma*100)}%")
+    else:
+        L.append("   Fourth opinion (bookmaker): NO DATA — PENDING (no odds "
+                 "pulled for this league — bookmaker covers deploy leagues only)")
 
     # Cross-engine CONSENSUS (ID412) — the ScoreGPT structure: a majority
     # vote over the available engines' 1X2 picks, plus their averaged

@@ -55,6 +55,16 @@ assert c is not None and c.result is None and c.split, c
 assert c.agreeing == 1, c
 print("5. 1-1 tie (no xG) -> NO CONSENSUS, split flagged: OK")
 
+# --- 6a. 4 engines (bookmaker added, ID413): 3-of-4 = consensus, 2-2 = none --
+c = compute_consensus(_probs(0.50, 0.25, 0.25), (0.45, 0.30, 0.25),
+                      (0.20, 0.30, 0.50), (0.4828, 0.2759, 0.2413))
+assert c is not None and c.result == "HOME" and c.n_engines == 4 \
+    and c.agreeing == 3 and c.split, c
+c = compute_consensus(_probs(0.50, 0.25, 0.25), (0.45, 0.30, 0.25),
+                      (0.20, 0.30, 0.50), (0.20, 0.30, 0.50))
+assert c is not None and c.result is None and c.n_engines == 4, c
+print("6a. 4-engine vote (bookmaker): 3-of-4 consensus, 2-2 none: OK")
+
 # --- 6. 1-1-1 -> result None -------------------------------------------------
 c = compute_consensus(_probs(0.50, 0.25, 0.25), (0.20, 0.50, 0.30),
                       (0.20, 0.30, 0.50))

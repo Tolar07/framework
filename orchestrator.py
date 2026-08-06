@@ -62,6 +62,41 @@ def _unrated_detail(model, home: str, away: str) -> str:
     return "NO DATA — PENDING: " + "; ".join(reasons)
 
 
+def _render_unrated_fixtures(league: str,
+                             upcoming_fixtures: list[tuple[str, str]],
+                             fixture_dates: dict) -> list[BoardFixture]:
+    """Fixtures for a league with NO usable history, shown as NO DATA rows.
+
+    The wide-eyes board lists every fixture it finds (HR35: missing data reads
+    NO DATA — PENDING, never a guess). A league with fixtures but no history to
+    fit on (e.g. the EFL Cup, which has no football-data CSV) must still show
+    its matches on the board — dropping them makes a real fixture invisible,
+    which is exactly the gap the EFL Cup surfaced. The row is deliberately
+    unrated: no probs, no price, an explicit reason."""
+    board: list[BoardFixture] = []
+    for home, away in upcoming_fixtures:
+        v = verify([SourcedDatum(domain="thesportsdb.com",
+                                 value=f"{home} v {away}",
+                                 url="https://www.thesportsdb.com",
+                                 structured=True)])
+        board.append(BoardFixture(
+            fixture=f"{home} v {away} ({league})",
+            probs=None,
+            verification=v,
+            softness_tier=softness_tier(league),
+            model_engine="dc",
+            on_deploy_shortlist=False,
+            mes_trigger_price=None,
+            kickoff_date=fixture_dates.get((home, away)),
+            elo_probs=None,
+            xg_probs=None,
+            engine_divergence=None,
+            rejection_reason="NO DATA — PENDING: no fitted history for this "
+                             "league — fixture listed, not rated",
+        ))
+    return board
+
+
 def scan_one_league(league: str, season: str,
                      upcoming_fixtures: list[tuple[str, str]] | None = None,
                      api_football_season: int | None = None,
@@ -198,7 +233,10 @@ def scan_one_league(league: str, season: str,
             results, skipped = load_league(league, season)
         except Exception as e:
             flags.append(f"{league}: results fetch failed ({e}) — NO DATA — PENDING")
-            return [], flags
+            # No history to rate on, but the league's FIXTURES still belong on
+            # the board as NO DATA rows (HR35 wide-eyes) — not silently dropped.
+            return _render_unrated_fixtures(
+                league, upcoming_fixtures, fixture_dates), flags
 
     if skipped:
         flags.append(f"{league}: {len(skipped)} source rows skipped/malformed")
@@ -206,7 +244,10 @@ def scan_one_league(league: str, season: str,
     if cross_model is None and len(results) < 20:
         flags.append(f"{league}: insufficient match history ({len(results)} results) "
                       f"— NO DATA — PENDING rather than a thin fit")
-        return [], flags
+        # No history to fit on — fixtures still belong on the board as NO DATA
+        # rows (HR35 wide-eyes), never silently dropped.
+        return _render_unrated_fixtures(
+            league, upcoming_fixtures, fixture_dates), flags
 
     # Dixon-Coles: reuse the brain's cached fit ONLY when the training rows are
     # provably identical (same content hash + same fit config). Otherwise refit.

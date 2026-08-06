@@ -288,7 +288,8 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, days_ahead: int = 0,
-        whatsapp: bool = True, email: bool = True) -> RunResult:
+        whatsapp: bool = True, email: bool = True,
+        web: bool = True) -> RunResult:
     """Run the daily board end to end.
 
     Opens the brain, seeds the ledger + corrections mirrors, records the run
@@ -305,7 +306,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     brain.append_run(run_id, started, status="running")
     try:
         return _run(run_id, started, t0, brain, season, fixtures_season,
-                    leagues, send, min_mes, days_ahead, whatsapp, email)
+                    leagues, send, min_mes, days_ahead, whatsapp, email, web)
     except Exception:
         brain.update_run(run_id, status="failed")
         raise
@@ -316,7 +317,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 def _run(run_id: str, started: str, t0: float, brain: Brain,
          season: str, fixtures_season: str | None, leagues: list[str],
          send: bool, min_mes: float, days_ahead: int,
-         whatsapp: bool = True, email: bool = True) -> RunResult:
+         whatsapp: bool = True, email: bool = True,
+         web: bool = True) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     runlog = _mark_started()
@@ -473,8 +475,35 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
 
     full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
     path = BOARD_DIR / f"board_{today}.txt"
+
+    # The web dashboard (webapp/) reads board_<today>.json — the local server
+    # and the hosted static export both consume it, so today's board is
+    # available without re-running the pipeline. Additive and cheap; written
+    # whether or not delivery happens. Toggled by --no-web / web=False.
+    if web:
+        try:
+            from webapp import schema as web_schema
+            from output.produce_bet import render_daily_recommendation
+            web_schema.write_payload(
+                web_schema.build_payload(
+                    date=today, phase=PHASE_LABEL, leagues_scanned=leagues,
+                    board=board, data_flags=all_flags,
+                    gate=brain.gate_status(),
+                    telemetry=brain.leg_telemetry(),
+                    calibration_count=status["legs_with_clv"],
+                    mean_clv=status["mean_clv_pct"],
+                    recommendation=render_daily_recommendation(board)),
+                BOARD_DIR / f"board_{today}.json")
+        except Exception as e:
+            _mark(runlog, f"web payload write failed ({e}) — txt board unaffected")
+
     if send:
-        delivered, notes = notify.deliver(telegram_text, save_to=None)
+        # BOARD_URL (set once the dashboard is hosted) appends a link to the
+        # Telegram push so the phone goes from summary to full board in one tap.
+        board_url = os.environ.get("BOARD_URL", "").strip()
+        push_text = (f"{telegram_text}\n\nFull board: {board_url}"
+                     if board_url else telegram_text)
+        delivered, notes = notify.deliver(push_text, save_to=None)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
         for n in notes:
@@ -488,9 +517,10 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             raise RuntimeError("Telegram delivery incomplete — see log")
         # WhatsApp is the COPY channel, not the source of truth: a failure here
         # is logged loudly but never fails the run — Telegram already reached
-        # the phone. Toggled off by --no-whatsapp or WHATSAPP_ENABLED=0; also
-        # silently skipped by whatsapp_deliver when no credentials are set.
-        if (whatsapp and os.environ.get("WHATSAPP_ENABLED", "1").lower()
+        # the phone. RETIRED BY DEFAULT (ID412): the web dashboard replaced it
+        # (recurring token-expiry + template-approval pain). Re-enable with
+        # WHATSAPP_ENABLED=1. Also silently skipped when no credentials are set.
+        if (whatsapp and os.environ.get("WHATSAPP_ENABLED", "0").lower()
                 not in ("0", "false", "no")):
             wa_delivered, wa_notes = whatsapp_deliver.deliver(telegram_text)
             for n in wa_notes:
@@ -581,9 +611,12 @@ if __name__ == "__main__":
                     help="skip the WhatsApp copy even when configured")
     ap.add_argument("--no-email", action="store_true",
                     help="skip the email copy even when configured")
+    ap.add_argument("--no-web", action="store_true",
+                    help="skip writing the board_<date>.json the web dashboard reads")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
-              whatsapp=not a.no_whatsapp, email=not a.no_email)
+              whatsapp=not a.no_whatsapp, email=not a.no_email,
+              web=not a.no_web)
     print("\n" + out.full)

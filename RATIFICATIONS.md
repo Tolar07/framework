@@ -695,3 +695,60 @@ cup-training monitor settles for the brain. EFL Cup (Bristol City v Walsall)
 was already on the board via the other session's ID409.
 
 **Tests:** `tests/eventsday_fallback_test.py` (3 checks). All 26 suites green.
+
+## 2026-08-06 · WEB DASHBOARD replaces WhatsApp, enriches Telegram — ID412
+
+**What the Architect asked:** "build a web app or app for the framework to
+solve the whatsapp issue and telegram". The WhatsApp channel had been a
+recurring liability (token expired again this session; Meta template approval
+for business-initiated messages). The Architect chose, explicitly: **web
+replaces WhatsApp**, Telegram keeps pushing the morning summary, and the full
+rich board lives at a URL — a **local dashboard first, hostable** so it can be
+opened from anywhere.
+
+**What was built (all stdlib-only, no pip — matches the repo's ethos):**
+- `webapp/schema.py` — the board JSON contract. `run_daily` now writes
+  `output/boards/board_<date>.json` next to the .txt each run (date, phase,
+  leagues, the serialized BoardFixture list, data flags, gate status +
+  leg telemetry, and the already-rendered ⭐ picks text so the web never
+  re-implements the pick rule and drifts from the phone board). Additive and
+  cheap; `--no-web` skips it.
+- `webapp/render.py` — plain-language, phone-first HTML from that JSON: header,
+  ⭐ TODAY'S PICKS, THE CALL (with EV), per-league fixture tables (NO DATA —
+  PENDING rows shown, never dropped — HR35), the Phase-3 gate strip, ⚠ flags
+  (collapsible), and the honest-edge + capital-authority footer ALWAYS present.
+  Colours follow the dataviz method: status colours only (good/warning/
+  serious), each with an icon + label, never colour alone.
+- `webapp/server.py` — stdlib `ThreadingHTTPServer`, READ-ONLY over the boards
+  + the brain: `/` (→ today), `/board/<date>`, `/history`, `/stats`, `/why`,
+  `/api/board.json`, `/api/stats.json`. A missing date is an honest **404**
+  (never a guess); traversal is blocked; the server never writes to the repo
+  (tested).
+- `webapp/export.py` — writes a self-contained `webapp/site/` (index.html +
+  board.json + stats.json + README) ready for any static host — the "open it
+  anywhere" half. Hosting setup (account + URL) is a short follow-up needing
+  the Architect.
+- `webapp/start_server.bat` — double-click launcher (binds 0.0.0.0 so a phone
+  on the same Wi-Fi can open the board).
+- **WhatsApp retired by default:** `WHATSAPP_ENABLED` now defaults to `0`
+  (module + tests kept — reversible). `BOARD_URL` env appends a "Full board:
+  <URL>" link to the Telegram push once the dashboard is hosted.
+
+**Verified 2026-08-06:** live `run_daily.run(send=False)` wrote the JSON; the
+server served today's board, history, stats, /why and the JSON API from localhost;
+the export produced a host-ready site.
+
+**Tests:** 5 new suites — `webapp_schema` (lossless round-trip, FileNotFoundError,
+newer-schema refused), `webapp_render` (picks/call/honest-edge/capital present,
+NO DATA shown, tags balanced), `webapp_server` (real HTTP server on an ephemeral
+port: 302, 404-not-guess, read-only, JSON API), `webapp_export` (self-contained
+site), `webapp_run_daily` (JSON written next to the txt; web=False skips).
+**All 31 suites green.**
+
+**Bright lines untouched:** the dashboard is read-only; it never fabricates a
+prediction (HR35); WhatsApp's code is retained so nothing is destroyed, only
+defaulted off; capital authority and the honest-edge statement are never
+trimmed from any view.
+
+**Authority:** Architect — the channel change (WhatsApp off by default) and the
+web dashboard were both chosen explicitly in answer to the question.

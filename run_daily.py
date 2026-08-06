@@ -353,15 +353,19 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # Multi-source health (data/multi_source_concrete.py): which provider served
     # each league is visible per-run so a silently-degraded source (circuit open,
     # fallback in use) is never mistaken for the primary serving. Backup providers
-    # are normal on quiet days; an OPEN circuit is worth a flag.
+    # are normal on quiet days; an OPEN circuit is worth a flag. The registry
+    # health report is {name: {sources: [{name, health, ...}]}} — unwrap it.
     from data.multi_source_concrete import get_all_health
     health = get_all_health()
-    if health.get("sources"):
-        names = ", ".join(s["name"] for s in health["sources"] if s["health"] == "circuit_open")
-        if names:
-            all_flags.append(f"⚠ source circuit OPEN (paused): {names}")
-        if fixture_sources and any(s != "thesportsdb" for s in fixture_sources):
-            all_flags.append(f"Fixtures served by: {', '.join(sorted(fixture_sources))}")
+    opened = []
+    for ms_report in health.get("sources", {}).values():
+        for s in ms_report.get("sources", []):
+            if s.get("health") == "circuit_open":
+                opened.append(s.get("name"))
+    if opened:
+        all_flags.append(f"⚠ source circuit OPEN (paused): {', '.join(opened)}")
+    if fixture_sources and any(s != "thesportsdb" for s in fixture_sources):
+        all_flags.append(f"Fixtures served by: {', '.join(sorted(fixture_sources))}")
 
     # --- live entry prices, pulled ONLY for leagues that actually produced a
     # --- rated fixture today. Scan-only leagues' prices can never be deployed,

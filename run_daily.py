@@ -371,6 +371,46 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         except Exception as e:
             all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
 
+    # ID414: widen bookmaker coverage — pull odds for ONE scan-only league
+    # if quota permits. The free plan allows 500 req/mo (~16/day); A/B pulls
+    # use ~10/day. One scan-league pull (2 credits) leaves ~4/day headroom.
+    # Priority: Championship > Serie A > Bundesliga > Ligue 1 > Primeira Liga
+    # > Premier League > La Liga > Champions League (all scan-only tiers).
+    if not odds_leagues:
+        # No deploy fixtures today — still try the top scan league if quota OK.
+        scan_only_leagues = [lg for lg in SCAN_LEAGUES
+                             if SOFTNESS_TIER.get(lg) not in DEPLOY_ELIGIBLE_TIERS]
+    else:
+        scan_only_leagues = [lg for lg in SCAN_LEAGUES
+                             if lg not in odds_leagues
+                             and SOFTNESS_TIER.get(lg) not in DEPLOY_ELIGIBLE_TIERS]
+    # Priority order for scan leagues (biggest interest first)
+    priority = ["Championship", "Serie A", "Bundesliga", "Ligue 1",
+                "Primeira Liga", "Premier League", "La Liga", "Champions League"]
+    for lg in priority:
+        if lg in scan_only_leagues:
+            # Check quota first without spending
+            try:
+                used, remaining = odds_mod.check_quota()
+                if remaining >= odds_mod.QUOTA_FLOOR:
+                    try:
+                        fixtures, oflags = _retry_transient(
+                            lambda lg=lg: odds_mod.fetch_odds(lg),
+                            f"{lg} scan odds", runlog)
+                        odds_index.update(odds_mod.index_by_fixture(fixtures))
+                        all_flags += oflags
+                        all_flags.append(f"Scan odds: {lg} pulled (quota {remaining})")
+                    except odds_mod.QuotaExhausted as e:
+                        all_flags.append(f"{lg}: {e}")
+                    except Exception as e:
+                        all_flags.append(f"{lg}: scan odds failed ({e})")
+                    break  # only ONE scan league per run
+                else:
+                    all_flags.append(f"Scan odds skipped — quota {remaining} < floor {odds_mod.QUOTA_FLOOR}")
+            except Exception as e:
+                all_flags.append(f"Scan odds quota check failed: {e}")
+            break
+
     # CLV-gated recalibration: the engine's probabilities for THE CALL's EV are
     # nudged by settled-leg evidence ONLY where a market has enough logged CLV
     # legs (engine/recalibration.py). Inert until that evidence exists — right
@@ -475,10 +515,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         f"legs with logged CLV; mean CLV "
         f"{status['mean_clv_pct'] if status['mean_clv_pct'] is not None else 'NO DATA — PENDING'}")
 
+    # ID414: ScoreGPT parity data — yesterday's graded fixtures + 7-day rolling
+    # stats, computed once and shared by the Telegram push and the web payload.
+    yesterday = (date.today() - timedelta(days=1)).isoformat()
+    yesterday_graded = brain.graded_yesterday(yesterday)
+    rolling_7d = brain.rolling_7d()
+
     telegram_text = render_telegram_board(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
-        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board)
+        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
+        yesterday_graded=yesterday_graded, rolling_7d=rolling_7d)
 
     board_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
@@ -504,7 +551,9 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     telemetry=brain.leg_telemetry(),
                     calibration_count=status["legs_with_clv"],
                     mean_clv=status["mean_clv_pct"],
-                    recommendation=render_daily_recommendation(board)),
+                    recommendation=render_daily_recommendation(board),
+                    yesterday_graded=yesterday_graded,
+                    rolling_7d=rolling_7d),
                 BOARD_DIR / f"board_{today}.json")
         except Exception as e:
             _mark(runlog, f"web payload write failed ({e}) — txt board unaffected")

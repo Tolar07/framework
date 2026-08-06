@@ -371,6 +371,10 @@ class FixtureProbabilities:
     p_over_25: float
     p_over_35: float
     p_btts_yes: float
+    # The single most-likely scoreline from the full Poisson matrix (ID414):
+    # argmax of m[i,j] over i,j in [0, MAX_GOALS]. This is what ScoreGPT shows
+    # as "predicted 2–1" — the modal scoreline, not rounded expected goals.
+    modal_scoreline: tuple[int, int]
 
 
 def predict(model: DixonColesModel, home: str, away: str) -> Optional[FixtureProbabilities]:
@@ -391,6 +395,12 @@ def predict(model: DixonColesModel, home: str, away: str) -> Optional[FixturePro
     btts_no = float(m[0, :].sum() + m[:, 0].sum() - m[0, 0])
     p_btts_yes = 1 - btts_no
 
+    # The modal scoreline: single most-likely exact score (ID414).
+    flat = m.flatten()
+    idx = int(np.argmax(flat))
+    most_h, most_a = divmod(idx, MAX_GOALS + 1)
+    modal_scoreline = (int(most_h), int(most_a))
+
     # Probabilities are kept at FULL precision. Rounding them to 4dp here made
     # 1X2 sum to 0.9999 instead of 1.0 — a small BUG2 violation (probabilities
     # that don't sum to 1 being accepted silently), which previously escaped
@@ -403,4 +413,5 @@ def predict(model: DixonColesModel, home: str, away: str) -> Optional[FixturePro
         p_home=p_home, p_draw=p_draw, p_away=p_away,
         p_over_15=p_over(1), p_over_25=p_over(2),
         p_over_35=p_over(3), p_btts_yes=p_btts_yes,
+        modal_scoreline=modal_scoreline,
     )

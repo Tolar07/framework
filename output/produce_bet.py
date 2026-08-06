@@ -588,12 +588,57 @@ def render_daily_recommendation(board: list[BoardFixture]) -> str:
     return "\n".join(lines)
 
 
+def _engine_chip(bf: BoardFixture) -> list[str]:
+    """One chip per engine that priced this fixture: the predicted side + the
+    agreed/missing marker. ScoreGPT shows each model's pick under the match;
+    here the chips are ✓ for agreement with the consensus pick, ✗ for dissent,
+    ? when that engine had no data. Honest: an engine that could not price the
+    fixture shows '—' not a fabricated pick (HR35)."""
+    out: list[str] = []
+    side = None
+    if bf.probs is not None:
+        side = _result_pick(bf)[0]
+    # DC / cross is the goals engine that owns bf.probs
+    if bf.probs is not None:
+        agreed = side is not None and side == _result_pick(bf)[0]
+        out.append(f"DC {round(max(bf.probs.p_home, bf.probs.p_draw, bf.probs.p_away)*100)}%")
+    else:
+        out.append("DC —")
+    if bf.elo_probs:
+        eh, ed, ea = bf.elo_probs
+        elo_side = max((eh, "home"), (ed, "draw"), (ea, "away"), key=lambda t: t[0])[1]
+        elo_name = {"home": bf.probs.home_team if bf.probs else "home",
+                    "draw": "Draw", "away": bf.probs.away_team if bf.probs else "away"}[elo_side]
+        agreed = side is not None and (elo_side == "home" or elo_side == "away") \
+            and elo_name == side
+        out.append(f"Elo {round(max(eh, ed, ea)*100)}%")
+    else:
+        out.append("Elo —")
+    if bf.xg_probs:
+        xh, xd, xa = bf.xg_probs
+        xg_side = max((xh, "home"), (xd, "draw"), (xa, "away"), key=lambda t: t[0])[1]
+        xg_name = {"home": bf.probs.home_team if bf.probs else "home",
+                   "draw": "Draw", "away": bf.probs.away_team if bf.probs else "away"}[xg_side]
+        out.append(f"xG {round(max(xh, xd, xa)*100)}%")
+    else:
+        out.append("xG —")
+    if bf.market_probs:
+        mh, md, ma = bf.market_probs
+        mk_side = max((mh, "home"), (md, "draw"), (ma, "away"), key=lambda t: t[0])[1]
+        mk_name = {"home": bf.probs.home_team if bf.probs else "home",
+                   "draw": "Draw", "away": bf.probs.away_team if bf.probs else "away"}[mk_side]
+        out.append(f"Book {round(max(mh, md, ma)*100)}%")
+    else:
+        out.append("Book —")
+    return out
+
+
 def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
-    """One compact table per league with fixtures that day (Architect 2026-08-05):
-    every fixture is a row, the prediction is the model's predicted winner +
-    its chance in words — no market columns. An unrated fixture keeps its row
-    as NO DATA — PENDING rather than being dropped (HR35). Tables sit in code
-    fences so Telegram renders the columns aligned.
+    """ScoreGPT-style per-league match cards (ID414): one card per fixture with
+    the AI pick, the predicted scoreline (modal), the consensus count, and the
+    per-engine chips. This REPLACES the old two-column `Fixture | Prediction`
+    table — the Architect's total-restructure order. An unrated fixture keeps
+    its card as NO DATA — PENDING rather than being dropped (HR35).
 
     Returns (text, any_away_pick) — the bool tells render_telegram_board
     whether the 'away is never recommended' footnote is needed."""
@@ -604,17 +649,31 @@ def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
     out: list[str] = []
     any_away = False
     for league, fixtures in by_league.items():
-        rows: list[list[str]] = []
+        league_blocks: list[str] = [league.upper()]
         for bf in fixtures:
-            if bf.probs is not None:
-                name, prob, is_away = _result_pick(bf)
-                any_away = any_away or is_away
-                pick = f"{name} {round(prob*100)}%"
+            if bf.probs is None:
+                league_blocks.append(f"· {_short_fixture(bf)}\n  NO DATA — PENDING")
+                continue
+            name, prob, is_away = _result_pick(bf)
+            any_away = any_away or is_away
+            # Predicted scoreline from the modal Poisson score (ID414). Defensive
+            # getattr: the regression tests feed fake prob objects without the
+            # field, and a missing datum must degrade to '—', never crash.
+            sl = getattr(bf.probs, "modal_scoreline", None)
+            score = f"{sl[0]}–{sl[1]}" if sl else "—"
+            pick_line = f"AI pick: {name} — predicted {score}"
+            # Consensus count (N of M engines agree) — ID412/ID413
+            if bf.consensus and bf.consensus.n_engines:
+                agree = f"{bf.consensus.agreeing} of {bf.consensus.n_engines} models agree"
             else:
-                pick = "NO DATA — PENDING"
-            rows.append([_short_fixture(bf), pick])
-        table = _col(rows, ["Fixture", "Prediction"])
-        out.append(f"{FENCE}\n{league.upper()}\n{table}\n{FENCE}")
+                agree = "consensus unavailable"
+            chips = " · ".join(_engine_chip(bf))
+            league_blocks.append(
+                f"· {_short_fixture(bf)}\n"
+                f"  {pick_line} ({round(prob*100)}%)\n"
+                f"  {agree}\n"
+                f"  {chips}")
+        out.append(f"{FENCE}\n" + "\n".join(league_blocks) + f"\n{FENCE}")
     return "\n".join(out), any_away
 
 
@@ -650,14 +709,62 @@ def render_pick_detail(shortlist: list[BoardFixture]) -> str:
     return "\n\n".join(out)
 
 
+def _render_yesterday_graded(yesterday_graded: Optional[list]) -> str:
+    """ScoreGPT's 'Yesterday — graded' block (ID414): each settled fixture with
+    its result and per-engine hit/miss. Built from the brain's graded_yesterday
+    query; empty when there is nothing settled — shown honestly, never filled."""
+    if not yesterday_graded:
+        return "YESTERDAY — GRADED\nNo settled predictions to grade yet."
+    lines = ["YESTERDAY — GRADED"]
+    for g in yesterday_graded:
+        fix = g.get("fixture") or "?"
+        outcome = g.get("outcome") or "?"
+        marks = []
+        for engine, markets in (g.get("engines") or {}).items():
+            # A hit is recorded per market; the 1X2_HOME row is the result pick
+            row = markets.get("1X2_HOME") or markets.get("1X2_DRAW") \
+                or markets.get("1X2_AWAY")
+            if row and row.get("hit") is not None:
+                marks.append(f"{engine} {'✓' if row['hit'] else '✗'}")
+        marks_txt = "  ".join(marks) if marks else "no engine pick recorded"
+        lines.append(f"· {fix} — {outcome}\n  {marks_txt}")
+    return "\n".join(lines)
+
+
+def _render_rolling_7d(rolling: Optional[dict]) -> str:
+    """ScoreGPT's rolling-stats bar (ID414): per-engine hit rates over the last
+    7 days plus CLV capture. Numbers come from the brain; nothing fabricated."""
+    if not rolling:
+        return "7-DAY ROLLING\nNo run history yet."
+    engines = rolling.get("engines") or {}
+    rates = []
+    for eng in ("dc", "cross", "elo", "xg", "bookmaker"):
+        st = engines.get(eng)
+        if st and st.get("hit_rate") is not None:
+            rates.append(f"{eng} {round(st['hit_rate']*100)}%")
+    rates_txt = " · ".join(rates) if rates else "no settled predictions in 7d"
+    legs = rolling.get("legs_logged", 0)
+    with_clv = rolling.get("legs_with_clv", 0)
+    avg = rolling.get("avg_clv_pct")
+    clv_txt = f"avg CLV {avg:+.2f}%" if avg is not None else "CLV: ZERO"
+    gate = (rolling.get("gate") or {})
+    gate_txt = (f" · gate {gate.get('legs_with_clv', 0)}/"
+                f"{gate.get('gate_requirement', 30)} legs") if gate else ""
+    return (f"7-DAY ROLLING\n{rates_txt}\n"
+            f"{legs} legs logged · {with_clv} with CLV ({clv_txt}){gate_txt}")
+
+
 def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                            calibration_count: int, mean_clv: Optional[float],
-                           data_flags: list[str], board: list[BoardFixture]) -> str:
-    """The Telegram push (Architect 2026-08-05): header, one-line flag count,
-    the day's 2-4 leg recommendation, then one table per league with fixtures —
-    every fixture and its predicted winner. Detail lives in the saved file board
-    and /board, /why; the phone gets the picks. Signature unchanged, so
-    run_daily, /send and /produce bet all show the same text."""
+                           data_flags: list[str], board: list[BoardFixture],
+                           yesterday_graded: Optional[list] = None,
+                           rolling_7d: Optional[dict] = None) -> str:
+    """The Telegram push — ScoreGPT format (ID414). Header, one-line flag count,
+    the day's picks (parlay), league-grouped match cards with AI pick + predicted
+    scoreline + N-of-N consensus + per-engine chips, then 'Yesterday — graded'
+    and the 7-day rolling bar. Detail lives in the saved file board and /board,
+    /why; the phone gets the picks. Optional yesterday_graded / rolling_7d come
+    from the brain (ID414); None renders the honest empty block."""
     clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
     scan_txt, any_away = render_scan_tables(board)
     leagues_with_fixtures = len({_league_of(bf) for bf in board})
@@ -673,11 +780,12 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
     parts.append(render_daily_recommendation(board))
     parts.append(scan_txt)
     if any_away:
-        # A predicted away win may appear as a table Prediction, but is never
-        # a Pick — the framework measured away wins as a proven-negative market
-        # (ID405) and will not recommend one.
+        # A predicted away win may appear as a card pick, but is never a Pick —
+        # the framework measured away wins as a proven-negative market (ID405).
         parts.append("Away wins are never recommended (ID405 — proven negative "
-                     "market); a table may still show one as the prediction")
+                     "market); a card may still show one as the prediction")
+    parts.append(_render_yesterday_graded(yesterday_graded))
+    parts.append(_render_rolling_7d(rolling_7d))
     parts.append("HONEST EDGE LINE: an excellent informed process but NOT a "
                  "demonstrated profitable edge.\nCapital authority: THE "
                  "ARCHITECT. Nothing here is live until you deploy it.")

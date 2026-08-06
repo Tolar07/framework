@@ -193,12 +193,18 @@ class EloModel:
         split it we need P(draw), and rather than assume a constant this uses a
         curve FITTED to real results as a function of the rating gap — draws
         genuinely become rarer as a mismatch widens, and a fixed 26% would
-        misprice both ends of the range."""
-        # After burn-in every club carries a seeded rating, so `matches_seen`
-        # counts only the final pass. A club is judged thin on either measure.
-        if self.rating(home) == BASE_RATING and self.matches_seen.get(home, 0) < min_matches:
+        misprice both ends of the range.
+        After burn-in every club carries a seeded rating, so `matches_seen`
+        counts only the final pass. A club is judged thin on either measure.
+        ID414: a club with a CROSS-LEAGUE seed (rating != BASE_RATING) but fewer
+        than min_matches in THIS division is NOT refused — the seed IS a rating,
+        just from the pooled graph. This widens coverage for promoted/new clubs
+        without fabricating ratings."""
+        home_rated = self.rating(home) != BASE_RATING
+        away_rated = self.rating(away) != BASE_RATING
+        if not home_rated and self.matches_seen.get(home, 0) < min_matches:
             return None
-        if self.rating(away) == BASE_RATING and self.matches_seen.get(away, 0) < min_matches:
+        if not away_rated and self.matches_seen.get(away, 0) < min_matches:
             return None
         e = self.expected(home, away)
         gap = abs(self.rating(home) + HOME_ADVANTAGE_ELO - self.rating(away))
@@ -209,12 +215,11 @@ class EloModel:
         a = self._draw_a if self._draw_b else DEFAULT_DRAW_A
         b = self._draw_b if self._draw_b else DEFAULT_DRAW_B
         p_draw = min(max(a * math.exp(-b * gap), 0.05), 0.40)
-        # E = P_home + 0.5 * P_draw  =>  P_home = E - 0.5 * P_draw
+        # E = P_home + 0.5 * P_draw  =>  P_home = E - 0.5 * p_draw
         p_home = e - 0.5 * p_draw
         p_away = 1.0 - p_home - p_draw
         # HR35: never publish a 0% — no football result is impossible. Each
-        # outcome carries a floor, and the set is renormalised afterwards so it
-        # still sums to 1 (same discipline as BUG2's matrix normalisation).
+        # outcome carries a floor, and the set is renormalised.
         p_home = max(p_home, MIN_OUTCOME_PROB)
         p_away = max(p_away, MIN_OUTCOME_PROB)
         p_draw = max(p_draw, MIN_OUTCOME_PROB)

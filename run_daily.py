@@ -40,6 +40,7 @@ from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine import recalibration as recal
 from clv.clv_logger import CLVLog, compute_clv
+from clv.closing_capture import capture_closing_lines
 from output.produce_bet import (render_produce_bet, render_verify_results,
                                 render_telegram_board)
 from output import notify
@@ -168,7 +169,11 @@ def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
 
         log.log_result(leg.leg_id, ft_result=f"{match.fthg}-{match.ftag}", hit=hit)
 
-        # HR46 closing line, from the archive path (CL-ARCHIVE).
+        # HR46 closing line. The ARCHIVE (CL-ARCHIVE) is the canonical close
+        # and upgrades a leg that already holds a CL-LIVE capture; if the
+        # archive has no price but a CL-LIVE closing line was captured near
+        # kickoff, that stands — the leg still earns its CLV. Only a leg with
+        # NO closing line from either path is NO DATA — PENDING.
         closing = None
         if match.odds:
             q = mkt.quote(leg.market, match.odds)
@@ -176,17 +181,21 @@ def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
         if closing is not None and leg.entry_odds:
             log.log_close(leg.leg_id, closing_odds=closing,
                            closing_capture_path="CL-ARCHIVE")
-        else:
+        elif leg.closing_odds is None:
             flags.append(f"{leg.fixture} / {leg.market}: no closing price in source "
                          f"— CLV stays NO DATA — PENDING, never estimated")
 
         graded += 1
-        clv = compute_clv(leg.entry_odds, closing) if (closing and leg.entry_odds) else None
+        # The number the ledger carries is the entry-vs-close CLV; prefer the
+        # (upgraded) archive close, else the CL-LIVE close captured at kickoff.
+        close_display = closing if closing is not None else leg.closing_odds
+        clv = (compute_clv(leg.entry_odds, close_display)
+               if (close_display and leg.entry_odds) else None)
         rows.append({
             "fixture": leg.fixture,
             "ft": f"{match.fthg}-{match.ftag}",
             "onextwo": leg.market,
-            "goals": f"entry {leg.entry_odds} / close {closing if closing else 'NO DATA — PENDING'}",
+            "goals": f"entry {leg.entry_odds} / close {close_display if close_display else 'NO DATA — PENDING'}",
             "btts": f"CLV {clv:+.2f}%" if clv is not None else "CLV NO DATA — PENDING",
             "tally": "HIT" if hit else "MISS",
         })
@@ -401,6 +410,18 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- log the paper legs (the point of Phase 2) ---
     _, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes)
     all_flags += lflags
+
+    # --- CL-LIVE closing lines: any pending leg whose kickoff is inside the
+    # --- closing window right now gets its closing line from the live feed,
+    # --- reusing the prices this run already pulled (zero extra quota). This
+    # --- lets a leg earn CLV the moment its match kicks off, before the
+    # --- football-data archive publishes — and covers markets the archive
+    # --- never serves (e.g. Danish Superliga totals). Honest rule enforced in
+    # --- clv/closing_capture.py: never captured far from kickoff, never
+    # --- estimated (HR35).
+    n_close, cflags = capture_closing_lines(log, sorted(odds_leagues),
+                                            odds_index=odds_index)
+    all_flags += cflags
 
     status = log.phase2_status()
     all_flags.append(

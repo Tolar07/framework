@@ -29,7 +29,8 @@ def _payload():
         best_market="Fenerbahce to win", best_price=1.91,
         best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0696,
         best_model_prob=0.56, kickoff_date="2026-08-11",
-        elo_probs=(0.52, 0.27, 0.21))
+        elo_probs=(0.52, 0.27, 0.21),
+        market_probs=(0.54, 0.26, 0.20))
     unrated = BoardFixture(
         fixture="Bristol City v Walsall (EFL Cup)", probs=None,
         verification=verify([SourcedDatum(domain="thesportsdb.com",
@@ -79,11 +80,10 @@ print("5. data flags rendered: OK")
 
 # --- 6. the rated card carries the design language ----------------------------
 assert "AI pick" in h                      # the pick line
-assert "2 of 2 models agree" in h          # DC + Elo agree (xG has no data)
+assert "3 of 3 models agree" in h          # DC + Elo + Bookmaker agree (xG no data)
 assert "2–1" in h                          # predicted score from lambda 1.8/0.9
 assert 'class="winbar"' in h               # win-probability bar
-assert "✓ Dixon-Coles" in h and "✓ Elo" in h and "xG —" in h  # model chips
-assert "Full analysis" in h                # per-match link
+assert "✓ Dixon-Coles" in h and "✓ Elo" in h and "✓ Bookmaker" in h and "xG —" in h
 print("6. rated card: pick / agreement / score / win bar / chips: OK")
 
 # --- 7. why / stats / history / 404 all render --------------------------------

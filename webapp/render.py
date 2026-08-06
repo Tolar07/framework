@@ -263,12 +263,15 @@ def _predicted_score(p: dict) -> str:
 
 
 def _models_agree(bf: dict) -> tuple[int, int, dict]:
-    """(agree, total, per-engine) — how many of our 3 engines pick the same
-    result as the DC lead. `total` counts engines with data (DC always)."""
+    """(agree, total, per-engine) — how many of the up-to-4 voters pick the
+    same result as the DC lead. Voters: Dixon-Coles, Elo, xG, and the
+    bookmaker's devigged implied 1X2 (market_probs, ID413). `total` counts
+    voters with an opinion (DC always)."""
     dc = _result_side(bf.get("probs"))
     elo = _result_side(bf.get("elo_probs"))
     xg = _result_side(bf.get("xg_probs"))
-    engines = {"Dixon-Coles": dc, "Elo": elo, "xG": xg}
+    mkt = _result_side(bf.get("market_probs"))
+    engines = {"Dixon-Coles": dc, "Elo": elo, "xG": xg, "Bookmaker": mkt}
     agree = sum(1 for s in engines.values() if s is not None and s == dc)
     total = sum(1 for s in engines.values() if s is not None)
     return agree, total, engines
@@ -433,15 +436,15 @@ def _hero(payload: dict) -> str:
     phase = payload.get("phase") or PHASE_LABEL
     pills = [f'<span class="pill">📅 {html.escape(payload.get("date","?"))}</span>',
              f'<span class="pill">🔒 {html.escape(phase)}</span>',
-             f'<span class="pill grad">🎯 3 models · graded in public</span>',
+             f'<span class="pill grad">🎯 4 engines · graded in public</span>',
              (f'<span class="pill good">✓ gate {n}/{req} legs</span>'
               if n >= req else f'<span class="pill warn">⏳ {n}/{req} CLV legs</span>')]
     return f"""<div class="hero">
   <div class="stamp">Updated {html.escape(payload.get('date','?'))} · daily 07:00 run</div>
-  <h1>AI football predictions from 3 competing models — graded in public</h1>
-  <p>Dixon-Coles + Elo + xG, paper-only, logged closing-line value toward the
-     Phase 3 capital gate. Honest edge: excellent process, NOT a demonstrated
-     profitable edge.</p>
+  <h1>AI football predictions from 4 competing engines — graded in public</h1>
+  <p>Dixon-Coles + Elo + xG + the market's devigged odds, paper-only, logged
+     closing-line value toward the Phase 3 capital gate. Honest edge:
+     excellent process, NOT a demonstrated profitable edge.</p>
   <div class="pills">{''.join(pills)}</div>
 </div>"""
 

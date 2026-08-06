@@ -32,6 +32,7 @@ from data import api_football_results as apif
 from data import xg_source
 from engine import cross_league as xleague
 from engine import elo as elo_engine
+from engine.consensus import compute_consensus
 from engine.dixon_coles import fit, predict, unrated_reason, FIT_VERSION
 from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload,
                          dc_to_payload, dc_from_payload)
@@ -351,6 +352,7 @@ def scan_one_league(league: str, season: str,
         elo_p = elo_model.probabilities(home, away) if elo_model else None
         xg_p = (xg_source.predict_xg(home, away, xg_ratings, league=league)
                 if xg_ratings else None)
+        xg_t = (xg_p.home, xg_p.draw, xg_p.away) if xg_p else None
         mes = None
         if probs is not None:
             best_prob = max(probs.p_home, probs.p_draw, probs.p_away,
@@ -368,7 +370,12 @@ def scan_one_league(league: str, season: str,
             mes_trigger_price=mes,
             kickoff_date=fixture_dates.get((home, away)),
             elo_probs=elo_p,
-            xg_probs=(xg_p.home, xg_p.draw, xg_p.away) if xg_p else None,
+            xg_probs=xg_t,
+            # ID412: majority vote across whatever engines priced the fixture.
+            # Pure display + brain data — never changes what is logged. Only
+            # for a RATED fixture (DC must have an opinion for a consensus to
+            # mean anything); unrated fixtures stay NO DATA — PENDING.
+            consensus=compute_consensus(probs, elo_p, xg_t) if probs else None,
             engine_divergence=elo_engine.divergence(elo_p, probs),
             rejection_reason=(
                 _unrated_detail(model, home, away) if probs is None

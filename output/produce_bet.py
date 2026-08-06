@@ -14,6 +14,7 @@ from datetime import date
 from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
+from engine.consensus import Consensus
 from engine.softness import DEPLOY_POOL_CAP
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
@@ -68,6 +69,12 @@ class BoardFixture:
     # Big-5 leagues where a free xG source exists; omitted elsewhere (never
     # fabricated, HR35).
     xg_probs: Optional[tuple] = None
+    # Cross-engine vote (DC · Elo · xG), ID412: the majority result across
+    # whatever opinions exist, plus their averaged 1X2. DISPLAY + BRAIN ONLY —
+    # it never changes what is logged (DC stays canonical for legs/CLV).
+    # None when fewer than two engines had an opinion (a lone engine is not
+    # a consensus); result=None on a split with no majority.
+    consensus: Optional[Consensus] = None
     # Which goals model priced this fixture: 'dc' (single-league Dixon-Coles)
     # or 'cross' (the pooled European graph). Carried so the brain can record
     # which engine produced each prediction.
@@ -241,6 +248,30 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
     else:
         L.append("   Third opinion (xG): NO DATA — PENDING (no free xG source "
                  "covers this league — xG covers Big-5 + RFPL only)")
+
+    # Cross-engine CONSENSUS (ID412) — the ScoreGPT structure: a majority
+    # vote over the available engines' 1X2 picks, plus their averaged
+    # probabilities. Shown as its own line, never blended into the engines.
+    # A lone opinion renders nothing (it IS the engine above); a split with
+    # no majority renders NO CONSENSUS in full view — never smoothed over.
+    if bf.consensus is not None:
+        c = bf.consensus
+        if c.result:
+            labels = {"HOME": p.home_team, "AWAY": p.away_team}
+            winner = labels.get(c.result, c.result)
+            L.append(f"   CONSENSUS (ID412) — {winner}, "
+                     f"{c.agreeing} of {c.n_engines} engines"
+                     + (" (one engine dissents)" if c.split else ""))
+            L.append(f"      averaged 1X2: {p.home_team} "
+                     f"{round(c.avg_home*100)}% · Draw {round(c.avg_draw*100)}% "
+                     f"· {p.away_team} {round(c.avg_away*100)}%")
+            if c.split:
+                L.append(f"      engines split on the result: "
+                         f"{', '.join(f'{k} {v}' for k, v in sorted(c.votes.items()))}")
+        else:
+            L.append(f"   CONSENSUS (ID412) — NO CONSENSUS: "
+                     f"{c.n_engines} engines disagree "
+                     f"({', '.join(f'{k} {v}' for k, v in sorted(c.votes.items()))})")
 
     if bf.best_market and bf.best_price is not None:
         ev = bf.best_mes_ev

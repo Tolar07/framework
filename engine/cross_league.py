@@ -32,6 +32,7 @@ HONESTY ABOUT WHAT IT CANNOT DO
 from __future__ import annotations
 
 import sys
+import unicodedata
 from pathlib import Path
 from typing import Optional
 
@@ -102,6 +103,40 @@ def map_continental(name: str) -> str:
     """Continental feed name -> model key. Unknown names pass through so an
     unanchored club is visibly unanchored rather than silently mis-joined."""
     return CONTINENTAL_ALIASES.get(name, name)
+
+
+def _fold_name(s: str) -> str:
+    """Accent- and case-fold for matching ('Fenerbahçe' -> 'fenerbahce')."""
+    return "".join(c for c in unicodedata.normalize("NFD", s)
+                   if unicodedata.category(c) != "Mn").lower()
+
+
+def suggest_aliases(feed_name: str, pool_teams: list[str],
+                    topk: int = 3, cutoff: float = 0.6) -> list[tuple[str, float]]:
+    """Candidates in the fitted pool that an unknown feed name most likely IS.
+
+    Used when a fixtures feed returns a team the model doesn't know (a new
+    qualifying entrant, a renamed club, a different transliteration). An exact
+    accent/case-folded match wins outright (score 1.0); otherwise difflib fuzzy
+    matches against the pool. Returns [(pool_name, similarity)] best-first,
+    empty when nothing clears the cutoff.
+
+    This is a SUGGESTION for a human to verify — never applied automatically.
+    An unverified alias is a silent mis-rating (the same bright line
+    verify_aliases() enforces on CONTINENTAL_ALIASES)."""
+    folded = _fold_name(feed_name)
+    exact = [t for t in pool_teams if _fold_name(t) == folded]
+    if exact:
+        return [(exact[0], 1.0)]
+    pool_folded = {_fold_name(t): t for t in pool_teams}
+    import difflib
+    candidates = difflib.get_close_matches(folded, list(pool_folded.keys()),
+                                           n=topk, cutoff=cutoff)
+    out = []
+    for c in candidates:
+        score = round(difflib.SequenceMatcher(None, folded, c).ratio(), 3)
+        out.append((pool_folded[c], score))
+    return out
 
 
 def verify_aliases(domestic_names: set[str]) -> list[str]:

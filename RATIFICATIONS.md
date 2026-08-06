@@ -503,3 +503,57 @@ and dateless refusal, archive upgrade, CL-LIVE survival, honest NO DATA). All
 **Guardrails untouched:** nothing estimates, nothing overwrites a real close,
 capital/staking/fabrication rules unchanged. Entry prices remain CL-LIVE at
 pick time; this only ADDS a closing path, never changes one.
+
+## 2026-08-06 · Four operational upgrades — run watchdog, gate telemetry, team-alias suggestions, auto-retry — ID408
+
+**What the Architect asked:** "is there any logic that needs to be upgraded and
+new logic added" — and chose ALL FOUR proposed upgrades.
+
+**What was built:**
+
+1. **Run watchdog** — `monitor/run_watchdog.py`. The daily run logs loudly
+   *inside* itself, but nothing noticed when the run **never happened** — the
+   disabled scheduler task that produced today's silent no-push is exactly that
+   class. The watchdog verifies `logs/daily_<date>.log` contains BOTH
+   `run completed OK` AND a `delivered N part(s) to Telegram` line (a built
+   but undelivered board is NOT a completed run — same rule run_daily enforces
+   by raising), and when either is missing sends a best-effort Telegram ALERT.
+   Never raises, so it can't crash its own scheduler. `--date`/`--logs-dir`
+   args; designed to run on its own schedule after the 07:00 slot.
+2. **Gate telemetry** — `Brain.leg_telemetry()` + a "Road to the gate" block
+   in `/stats`. Honest trajectory: legs logged / with closing line / settled,
+   the CLV-capture rate (fraction of SETTLED legs that earn a closing line),
+   observed legs-per-day, the sustained CLV-leg production rate, and a
+   projected days-to-gate. **0.0 capture survives as a real signal** ("settled
+   but NO closing line — capture is failing") distinct from None ("nothing
+   settled yet"); when no CLV legs are being produced the projection reads
+   NO DATA — PENDING (HR35).
+3. **Team-alias suggestions** — `engine/cross_league.suggest_aliases()`.
+   When a fixtures-feed name isn't in the fitted pool (e.g. Sabah FK), the
+   board flag now lists likely pool matches (accent/case-folded exact match
+   scores1.0, difflib fuzzy follows; a genuinely unknown team yields nothing).
+   **Suggestions only — never auto-applied**: an unverified alias is a silent
+   mis-rating (the same bright line verify_aliases() enforces).
+4. **Auto-retry** — `run_daily._retry_transient()`: a network fetch is retried
+   once on a transient fault (connection reset / DNS / timeout) so one blip
+   doesn't degrade today's board to NO DATA. Quota exhaustion and logic errors
+   pass straight through to the caller's own guard. Applied to the live-odds
+   pull; the CL-LIVE capture is additionally wrapped so a bug or transient
+   fault there can never kill the whole daily board (it degrades to a flag,
+   legs stay PENDING).
+
+**Tests:** `tests/run_watchdog_test.py` (7), `tests/gate_telemetry_test.py` (3),
+`tests/team_alias_test.py` (5), `tests/retry_transient_test.py` (5). All prior
+suites re-run green (brain_store, brain_orchestrator, engine_regression,
+email, whatsapp, telegram_commands, recalibration, fixtures_cache, monitor,
+closing_capture, multi_league, xg, softness_mes, clv_backtest, stress, stress2,
+smoke). The telemetry tests caught and fixed a real honesty bug: `if rate` was
+treating a legitimate 0.0 capture rate as "no data".
+
+**Bright lines untouched:** nothing here estimates, staked capital, or changes
+the honest-edge statement; aliases are suggested not applied; the projection is
+labelled a projection and reads NO DATA when it cannot be stated.
+
+**Authority:** Architect — all four directions chosen explicitly before build;
+additive operational upgrades under the auto-ratification grant, no bright-line
+behaviour changed.

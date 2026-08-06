@@ -74,6 +74,29 @@ def _mark(log: Path, message: str) -> None:
         f.write(f"[{datetime.now(timezone.utc).isoformat()}] {message}\n")
 
 
+def _retry_transient(fn, label: str, runlog: Path, delay: float = 5.0):
+    """Run a network fetch, retrying once on a transient fault.
+
+    A single connection reset / DNS blip should not degrade today's board to
+    NO DATA — PENDING. Only connection/timeout/DNS exceptions are retried;
+    quota exhaustion, logic errors and anything else pass straight through so
+    the caller's own guard handles them. Fetches are pure (they populate TTL
+    caches), so a retry is safe and idempotent."""
+    import socket
+    import requests
+    transient = (requests.exceptions.RequestException,
+                 socket.timeout, TimeoutError, OSError)
+    try:
+        return fn()
+    except transient as e:
+        msg = (f"{label}: transient {type(e).__name__} "
+               f"({str(e)[:80]}) — retrying once")
+        print(f"  {msg}")
+        _mark(runlog, msg)
+        time.sleep(delay)
+        return fn()
+
+
 # SCAN is "wide eyes" (ID402): every whitelisted league is pulled and shown,
 # approved competition or not — capturing a fixture is what the board is for.
 # DEPLOY stays "narrow hands": build_deploy_shortlist below still draws THE CALL
@@ -335,7 +358,9 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     odds_index: dict = {}
     for lg in sorted(odds_leagues):
         try:
-            fixtures, oflags = odds_mod.fetch_odds(lg)
+            # Retry a transient network blip once before degrading to NO DATA.
+            fixtures, oflags = _retry_transient(
+                lambda lg=lg: odds_mod.fetch_odds(lg), f"{lg} live odds", runlog)
             odds_index.update(odds_mod.index_by_fixture(fixtures))
             all_flags += oflags
         except odds_mod.QuotaExhausted as e:
@@ -419,9 +444,16 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- never serves (e.g. Danish Superliga totals). Honest rule enforced in
     # --- clv/closing_capture.py: never captured far from kickoff, never
     # --- estimated (HR35).
-    n_close, cflags = capture_closing_lines(log, sorted(odds_leagues),
-                                            odds_index=odds_index)
-    all_flags += cflags
+    try:
+        n_close, cflags = capture_closing_lines(log, sorted(odds_leagues),
+                                                odds_index=odds_index)
+        all_flags += cflags
+    except Exception as e:
+        # CL-LIVE is new and unproven in production; a bug or transient fault
+        # there must never kill the whole daily board. Legs stay PENDING rather
+        # than being guessed (HR35) — the flag keeps the failure visible.
+        all_flags.append(f"CL-LIVE closing-line capture failed ({e}) — "
+                         f"legs stay PENDING, not guessed")
 
     status = log.phase2_status()
     all_flags.append(

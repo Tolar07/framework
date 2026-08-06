@@ -556,6 +556,64 @@ class Brain:
                 "gate_met_pending_architect_signoff": gate_met,
                 "note": "mirror of clv/clv_log.json (JSON is the source)"}
 
+    def leg_rows(self, phase: str | None = None) -> list[tuple[str]]:
+        """All leg_ids in the ledger (optionally one phase). For tooling that
+        needs to touch the mirror without going through the JSON source."""
+        if phase:
+            return self._conn.execute(
+                "SELECT leg_id FROM legs WHERE phase=?", (phase,)).fetchall()
+        return self._conn.execute("SELECT leg_id FROM legs").fetchall()
+
+    def set_leg_date(self, leg_id: str, date_iso: str) -> None:
+        """Rewrite a leg's date_logged (YYYY-MM-DD). For corrections/tests."""
+        with self._conn:
+            self._conn.execute(
+                "UPDATE legs SET date_logged=? WHERE leg_id=?", (date_iso, leg_id))
+
+    def leg_telemetry(self, phase: str = "phase2_paper") -> dict:
+        """Trajectory to the Phase-3 gate, computed from the logged legs.
+
+        Returns legs logged, legs with a closing line, settled count, the CLV
+        capture rate (settled legs that earned a closing line), the observed
+        legs-per-day rate over the log's window, the sustained CLV-leg
+        production rate (legs/day x capture), and an honest projected
+        days-to-gate. Any rate that cannot be stated is None — never a guess
+        (HR35)."""
+        from clv.clv_logger import PHASE3_GATE_MIN_LEGS
+        rows = self._conn.execute(
+            "SELECT date_logged, clv_pct, hit FROM legs WHERE phase=?",
+            (phase,)).fetchall()
+        n = len(rows)
+        n_clv = sum(1 for _, c, _ in rows if c is not None)
+        n_settled = sum(1 for _, _, h in rows if h is not None)
+        capture_rate = (n_clv / n_settled) if n_settled else None
+        dates = sorted({r[0][:10] for r in rows if r[0]})
+        if len(dates) >= 2:
+            span = ((datetime.fromisoformat(dates[-1])
+                     - datetime.fromisoformat(dates[0])).days + 1)
+            legs_per_day = n / max(span, 1)
+        elif len(dates) == 1:
+            legs_per_day = float(n)  # single observed day
+        else:
+            legs_per_day = 0.0
+        # The sustained rate that actually advances the gate: how fast CLV legs
+        # (the only legs that count) are being produced.
+        clv_rate = (legs_per_day * capture_rate if capture_rate is not None
+                    else 0.0)
+        days_to_gate = None
+        if clv_rate > 0:
+            days_to_gate = round((PHASE3_GATE_MIN_LEGS - n_clv) / clv_rate, 1)
+        # 0.0 must survive as a real signal ("settled but NO closing line"),
+        # distinct from None ("nothing settled yet") — both are honest, but
+        # they mean different things.
+        return {"n_legs": n, "n_with_clv": n_clv, "n_settled": n_settled,
+                "clv_capture_rate": (round(capture_rate, 3)
+                                     if capture_rate is not None else None),
+                "legs_per_day": round(legs_per_day, 2),
+                "clv_legs_per_day": (round(clv_rate, 3) if clv_rate else None),
+                "days_to_gate": days_to_gate,
+                "gate_requirement": PHASE3_GATE_MIN_LEGS}
+
     # ---- corrections ------------------------------------------------------
     def sync_corrections(self, csv_path: Optional[Path] = None) -> int:
         """Idempotent seed from memory/corrections.csv, keyed on

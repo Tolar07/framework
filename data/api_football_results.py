@@ -178,4 +178,4 @@ def is_cross_league(league: str) -> bool:
     MEDIAN of 5 matches each (minimum 1), against an engine floor of 4-6. Those
     ratings would be noise on incomparable scales, so a standalone fit here is
     refused rather than published."""
-    return league in ("Champions League", "Europa League")
+    return league in ("Champions League", "Europa League", "Conference League")

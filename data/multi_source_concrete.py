@@ -30,7 +30,10 @@ class TheSportsDBFixturesSource(DataSource):
     def __init__(self):
         super().__init__("thesportsdb", priority=10, timeout=25.0)
 
-    def fetch(self, league: str, fixtures_season: str, days_ahead: int = 14) -> list:
+    def fetch(self, **kwargs) -> list:
+        league = kwargs["league"]
+        fixtures_season = kwargs.get("fixtures_season") or kwargs.get("season")
+        days_ahead = kwargs.get("days_ahead", 14)
         from datetime import date
         # Try season feed first
         fixtures, skipped = tsdb.fetch_upcoming(league, fixtures_season, days_ahead=days_ahead)
@@ -57,7 +60,9 @@ class OddsAPIFixturesSource(DataSource):
     def __init__(self):
         super().__init__("odds_api_fixtures", priority=20, timeout=30.0)
 
-    def fetch(self, league: str, days_ahead: int = 14) -> list:
+    def fetch(self, **kwargs) -> list:
+        league = kwargs["league"]
+        days_ahead = kwargs.get("days_ahead", 14)
         pairs, dates, flags = odds_fixtures_from_odds(league, days_ahead=days_ahead)
         if not pairs:
             raise RuntimeError(f"odds_api: no fixtures for {league}")
@@ -70,20 +75,47 @@ class APIFootballFixturesSource(DataSource):
     def __init__(self):
         super().__init__("api_football_fixtures", priority=15, timeout=25.0)
 
-    def fetch(self, league: str, season: int, days_ahead: int = 14) -> list:
-        # API-Football fixtures would go here - for now this documents the source
-        # Free tier returns deterministic {'plan': ...} error which is cached for 7 days
-        raise RuntimeError(f"api_football: not implemented for free tier (league={league}, season={season})")
+    def fetch(self, **kwargs) -> list:
+        # API-Football fixtures. The free tier CANNOT see the current season
+        # (deterministic {'plan': ...} error, cached 7 days by the caller), so
+        # this source honestly raises — it only becomes a real provider on a
+        # paid plan. Wiring it here means the failover chain is complete: when
+        # thesportsdb and the odds feed both fail, the paid-plan fallback is
+        # already in place instead of a dead stub.
+        league = kwargs["league"]
+        season = kwargs.get("season") or kwargs.get("fixtures_season")
+        season_year = kwargs.get("season_year") or kwargs.get("api_football_season")
+        from data.fixtures_source import fetch_upcoming, as_pairs
+        if season_year is None:
+            try:
+                season_year = (int(season[:2]) + 2000
+                               if isinstance(season, str) and season.isdigit() else season)
+            except Exception:
+                season_year = None
+        if season_year is None:
+            raise RuntimeError(f"api_football: cannot resolve season {season!r} for {league}")
+        fixtures = fetch_upcoming(league, season_year, days_ahead=kwargs.get("days_ahead", 14))
+        if not fixtures:
+            raise RuntimeError(f"api_football: no fixtures for {league} season {season_year}")
+        pairs = as_pairs(fixtures)
+        dates = {(f.home_team, f.away_team): f.date for f in fixtures}
+        return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "api_football"}
 
 
 def build_fixtures_multi_source() -> MultiSource:
-    """Build the fixtures multi-source with automatic failover."""
+    """Build the fixtures multi-source with automatic failover.
+
+    Order: TheSportsDB (its fetch already tries season feed then eventsday
+    internally) -> odds-derived fixtures -> API-Football (paid-plan fallback).
+    Each source's fetch is kwargs-tolerant so the shared MultiSource.fetch
+    kwargs (league, season/fixtures_season, days_ahead) work for all of them.
+    """
     return build_multi_source(
         "fixtures",
         [
-            (TheSportsDBFixturesSource().fetch, "thesportsdb_season", 10),
-            (TheSportsDBFixturesSource().fetch, "thesportsdb_eventsday", 11),  # only used when days_ahead=0
+            (TheSportsDBFixturesSource().fetch, "thesportsdb", 10),
             (OddsAPIFixturesSource().fetch, "odds_api_fixtures", 20),
+            (APIFootballFixturesSource().fetch, "api_football_fixtures", 30),
         ],
         max_retries_per_source=1,
     )
@@ -99,7 +131,9 @@ class FootballDataResultsSource(DataSource):
     def __init__(self):
         super().__init__("football_data", priority=10, timeout=30.0)
 
-    def fetch(self, league: str, season: str) -> list:
+    def fetch(self, **kwargs) -> list:
+        league = kwargs["league"]
+        season = kwargs.get("season") or kwargs.get("fixtures_season")
         from data.football_data_source import load_league
         results, skipped = load_league(league, season)
         if not results:
@@ -254,13 +288,15 @@ def initialize_multi_sources():
 
 # Convenience accessors for orchestrator integration
 
-def get_fixtures(league: str, fixtures_season: str, days_ahead: int = 14) -> dict:
+def get_fixtures(league: str, fixtures_season: str, days_ahead: int = 14,
+                 api_football_season: int | None = None) -> dict:
     """Fetch fixtures with automatic failover."""
     ms = registry.get_source("fixtures")
     if ms is None:
         ms = build_fixtures_multi_source()
         registry.register(ms)
-    result = ms.fetch(league=league, fixtures_season=fixtures_season, days_ahead=days_ahead)
+    result = ms.fetch(league=league, fixtures_season=fixtures_season,
+                      days_ahead=days_ahead, api_football_season=api_football_season)
     return result.data
 
 

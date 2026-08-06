@@ -337,6 +337,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0,
                  "xg_leagues": 0}
     board: list = []
+    fixture_sources: set[str] = set()
     for lg in leagues:
         st: dict = {}
         slice_, flags = orchestrator.scan_one_league(
@@ -346,6 +347,21 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags += flags
         for k in fit_stats:
             fit_stats[k] += int(st.get(k, False))
+        if st.get("fixture_source"):
+            fixture_sources.add(st["fixture_source"])
+
+    # Multi-source health (data/multi_source_concrete.py): which provider served
+    # each league is visible per-run so a silently-degraded source (circuit open,
+    # fallback in use) is never mistaken for the primary serving. Backup providers
+    # are normal on quiet days; an OPEN circuit is worth a flag.
+    from data.multi_source_concrete import get_all_health
+    health = get_all_health()
+    if health.get("sources"):
+        names = ", ".join(s["name"] for s in health["sources"] if s["health"] == "circuit_open")
+        if names:
+            all_flags.append(f"⚠ source circuit OPEN (paused): {names}")
+        if fixture_sources and any(s != "thesportsdb" for s in fixture_sources):
+            all_flags.append(f"Fixtures served by: {', '.join(sorted(fixture_sources))}")
 
     # --- live entry prices, pulled ONLY for leagues that actually produced a
     # --- rated fixture today. Scan-only leagues' prices can never be deployed,

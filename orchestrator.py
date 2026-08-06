@@ -20,13 +20,11 @@ output, CLV) has no network dependency and is fully testable here.
 from __future__ import annotations
 import argparse
 import sys
-from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
 from data.football_data_source import load_league, MatchResult, UNCOVERED_LEAGUES
-from data.fixtures_source import fetch_upcoming, as_pairs
 from data import thesportsdb_fixtures as tsdb
 from data import api_football_results as apif
 from data import xg_source
@@ -180,68 +178,34 @@ def scan_one_league(league: str, season: str,
 
     if upcoming_fixtures is None:
         fx_season = fixtures_season or next_season_code(season)
-        # TheSportsDB first (ratified HR34 2026-08-03) — it's the only free
-        # source that can see the CURRENT season. API-Football is kept as the
-        # fallback for whoever runs this on a paid plan.
+        # Multi-source fixtures failover (data/multi_source_concrete.py):
+        # TheSportsDB (season feed, then eventsday for today-only) -> odds-derived
+        # fixtures -> API-Football (paid plan). Each provider is tried in priority
+        # order with circuit breakers; the first that returns fixtures wins. This
+        # replaces the hand-rolled try-chain so one provider going down degrades
+        # to the next source instead of an immediate NO DATA (HR35: a real gap is
+        # still reported, never guessed). Kickoff dates ride along so a logged
+        # leg can be settled against THIS match, not a same-pairing prior-season
+        # fixture.
+        from data.multi_source_concrete import get_fixtures
         errors: list[str] = []
         upcoming_fixtures = []
         try:
-            fixtures, fx_skipped = tsdb.fetch_upcoming(league, fx_season,
-                                                       days_ahead=days_ahead)
-            upcoming_fixtures = tsdb.as_pairs(fixtures)
-            # Kickoff dates, so a logged leg can be settled against THIS match
-            # and not a same-pairing fixture from a previous season.
-            fixture_dates.update({(f.home_team, f.away_team): f.date for f in fixtures})
-            if fx_skipped:
-                flags.append(f"{league}: {len(fx_skipped)} fixture rows skipped/malformed")
+            fx = get_fixtures(league, fx_season, days_ahead=days_ahead,
+                              api_football_season=api_football_season)
+            upcoming_fixtures = fx.get("fixtures") or []
+            fixture_dates.update(fx.get("dates") or {})
+            src = fx.get("source", "?")
+            if fx.get("skipped"):
+                flags.append(f"{league}: {fx['skipped']} fixture rows "
+                             f"skipped/malformed")
+            if src != "thesportsdb":
+                # The primary source is the default; any backup provider that
+                # had to be used is worth a line so the board is honest about
+                # which source produced today's fixtures.
+                flags.append(f"{league}: fixtures via {src}")
         except Exception as e:
-            errors.append(f"thesportsdb: {e}")
-
-        if not upcoming_fixtures:
-            # TheSportsDB's SEASON feed lags weeks behind for continental
-            # qualifiers (verified 2026-08-06: Europa League showed July-only
-            # events while the real Aug 6 qualifiers were invisible), but its
-            # eventsday feed carries the actual fixtures for the date. The
-            # daily board is TODAY-ONLY, so try eventsday before the odds
-            # feed — it is the same source the monitor watches these matches
-            # on.
-            if days_ahead == 0:
-                try:
-                    day = str(date.today())
-                    day_fx = tsdb.fetch_today(league, day)
-                    if day_fx:
-                        upcoming_fixtures = tsdb.as_pairs(day_fx)
-                        fixture_dates.update(
-                            {(f.home_team, f.away_team): f.date for f in day_fx})
-                        flags.append(f"{league}: fixtures from eventsday "
-                                     f"(season feed lags)")
-                except Exception as e3:
-                    errors.append(f"thesportsdb eventsday: {e3}")
-
-        if not upcoming_fixtures:
-            # TheSportsDB had nothing in the upcoming window (or raised). A
-            # priced event IS an upcoming fixture, so recover from the ODDS
-            # feed before declaring NO DATA — the way UCL qualification and
-            # Ekstraklasa are captured when the fixtures source has nothing
-            # live (a league between rounds, or a continental qualifier TheSportsDB
-            # has not loaded yet).
-            try:
-                import pipeline.odds as _odds
-                pairs, dates, oflags = _odds.fixtures_from_odds(
-                    league, days_ahead=days_ahead)
-                if pairs:
-                    upcoming_fixtures = pairs
-                    fixture_dates.update(dates)
-                    flags += oflags
-            except Exception as e2:
-                errors.append(f"odds-derived fixtures: {e2}")
-            if not upcoming_fixtures:
-                try:
-                    season_year = api_football_season or int(f"20{fx_season[:2]}")
-                    upcoming_fixtures = as_pairs(fetch_upcoming(
-                        league, season_year, days_ahead=days_ahead))
-                except Exception as e3:
-                    errors.append(f"api-football: {e3}")
+            errors.append(f"multi-source fixtures: {e}")
 
         if not upcoming_fixtures:
             detail = " | ".join(errors) if errors else "no fixtures in window"

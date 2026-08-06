@@ -390,6 +390,89 @@ class Brain:
         n = row["n"] or 0
         return {"n": n, "hit_rate": (row["hits"] or 0) / n if n else None}
 
+    def graded_yesterday(self, date_iso: str) -> list[dict]:
+        """All settled predictions for a given match date (yesterday), with
+        per-engine predictions + outcome + hit per engine. Used for the
+        'Yesterday — graded' section (ID414)."""
+        sql = """
+            SELECT fixture, league, match_date, market, model_engine,
+                   model_prob, ft_result, hit
+            FROM predictions
+            WHERE match_date = ? AND hit IS NOT NULL
+            ORDER BY fixture, model_engine, market
+        """
+        rows = self._conn.execute(sql, (date_iso,)).fetchall()
+        # Group by fixture
+        from collections import defaultdict
+        grouped = defaultdict(lambda: {
+            "fixture": None, "league": None, "match_date": date_iso,
+            "outcome": None, "engines": defaultdict(dict)
+        })
+        for r in rows:
+            g = grouped[r["fixture"]]
+            g["fixture"] = r["fixture"]
+            g["league"] = r["league"]
+            g["outcome"] = r["ft_result"]
+            g["engines"][r["model_engine"]][r["market"]] = {
+                "prob": r["model_prob"], "hit": bool(r["hit"])
+            }
+        return list(grouped.values())
+
+    def rolling_7d(self) -> dict:
+        """Rolling 7-day aggregates across all engines + consensus + legs.
+        Returns hit rates, legs logged, capture rate, days-to-gate."""
+        from datetime import date as _date, timedelta as _td
+        today = _date.today()
+        week_ago = today - _td(days=7)
+        # Predictions in last 7 run dates
+        pred_sql = """
+            SELECT model_engine, COUNT(*) AS n,
+                   SUM(CASE WHEN hit IS NOT NULL THEN 1 ELSE 0 END) AS settled,
+                   SUM(hit) AS hits
+            FROM predictions
+            WHERE date(predicted_at) >= ?
+            GROUP BY model_engine
+        """
+        pred_rows = self._conn.execute(pred_sql, (week_ago.isoformat(),)).fetchall()
+        engine_stats = {}
+        for r in pred_rows:
+            n = r["n"] or 0
+            settled = r["settled"] or 0
+            hits = r["hits"] or 0
+            engine_stats[r["model_engine"]] = {
+                "predictions": n,
+                "settled": settled,
+                "hit_rate": hits / settled if settled else None
+            }
+        # Legs logged in last 7 days (from clv_log via brain's legs mirror)
+        leg_sql = """
+            SELECT COUNT(*) AS n,
+                   SUM(CASE WHEN clv_pct IS NOT NULL THEN 1 ELSE 0 END) AS with_clv,
+                   AVG(clv_pct) AS avg_clv
+            FROM legs
+            WHERE date(date_logged) >= ? AND phase = 'phase2_paper'
+        """
+        leg_row = self._conn.execute(leg_sql, (week_ago.isoformat(),)).fetchone()
+        legs_logged = leg_row["n"] or 0
+        legs_with_clv = leg_row["with_clv"] or 0
+        avg_clv = leg_row["avg_clv"]
+        # Gate progress from clv_log (not runs table — simpler, no migration needed)
+        gate = {
+            "legs_with_clv": legs_with_clv,
+            "gate_requirement": 30,
+            "gate_met": legs_with_clv >= 30
+        }
+        return {
+            "engines": engine_stats,
+            "legs_logged": legs_logged,
+            "legs_with_clv": legs_with_clv,
+            "avg_clv_pct": round(avg_clv, 2) if avg_clv is not None else None,
+            "gate": gate,
+            "period_days": 7,
+            "period_start": week_ago.isoformat(),
+            "period_end": today.isoformat(),
+        }
+
     def predictions_summary(self) -> dict:
         row = self._conn.execute(
             "SELECT COUNT(*) AS n_rows, COUNT(DISTINCT run_id) AS n_runs, "

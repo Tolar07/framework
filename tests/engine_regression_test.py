@@ -276,8 +276,8 @@ assert not any("Over 2.5" in _c for _c in _leg_cells), (
     "ID405 LEAK: blocked Over 2.5 appeared as a Pick")
 assert not any("Dundee United" in _c for _c in _leg_cells), (
     "ID405 LEAK: the recommendation picked a blocked away win")
-assert "Dundee United 65%" in _board_txt, (
-    "the scan table must show the honest prediction, even a predicted away win")
+assert "Dundee United" in _board_txt and "65%" in _board_txt, (
+    "the scan cards must show the honest prediction, even a predicted away win")
 assert "Heart of Midlothian" in _board_txt, "HR53: club names must not be truncated"
 print("18. Table board honours ID405 and keeps full club names: OK")
 

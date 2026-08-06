@@ -54,11 +54,57 @@ def probs_to_dict(p: FixtureProbabilities) -> dict:
         "p_over_25": _opt(p.p_over_25),
         "p_over_35": _opt(p.p_over_35),
         "p_btts_yes": _opt(p.p_btts_yes),
+        # ID414: the true modal scoreline from the Poisson matrix
+        "modal_scoreline": list(p.modal_scoreline) if p.modal_scoreline else None,
     }
 
 
 def fixture_to_dict(bf: BoardFixture) -> dict:
     """Every BoardFixture field, JSON-safe. Tuples (elo/xg) become lists."""
+    # Build per-engine predicted result + modal scoreline for ScoreGPT's
+    # "Model picks" expander (ID414).
+    engine_picks = {}
+    if bf.probs is not None:
+        # DC pick
+        dc_side = max(
+            (("HOME", bf.probs.p_home), ("DRAW", bf.probs.p_draw), ("AWAY", bf.probs.p_away)),
+            key=lambda t: t[1]
+        )[0]
+        engine_picks["Dixon-Coles"] = {
+            "result": dc_side,
+            "scala scoreline": list(bf.probs.modal_scoreline) if bf.probs.modal_scoreline else None
+        }
+        # Elo pick
+        if bf.elo_probs:
+            elo_side = max(
+                (("HOME", bf.elo_probs[0]), ("DRAW", bf.elo_probs[1]), ("AWAY", bf.elo_probs[2])),
+                key=lambda t: t[1]
+            )[0]
+            engine_picks["Elo"] = {"result": elo_side}
+        # xG pick
+        if bf.xg_probs:
+            xg_side = max(
+                (("HOME", bf.xg_probs[0]), ("DRAW", bf.xg_probs[1]), ("AWAY", bf.xg_probs[2])),
+                key=lambda t: t[1]
+            )[0]
+            engine_picks["xG"] = {"result": xg_side}
+        # Bookmaker pick
+        if bf.market_probs:
+            bm_side = max(
+                (("HOME", bf.market_probs[0]), ("DRAW", bf.market_probs[1]), ("AWAY", bf.market_probs[2])),
+                key=lambda t: t[1]
+            )[0]
+            engine_picks["Bookmaker"] = {"result": bm_side}
+    # Consensus pick (majority result + averaged modal scoreline)
+    consensus_pick = None
+    if bf.consensus and bf.consensus.result:
+        consensus_pick = {
+            "result": bf.consensus.result,
+            "agreeing": bf.consensus.agreeing,
+            "n_engines": bf.consensus.n_engines,
+            "avg_scoreline": [bf.consensus.avg_home, bf.consensus.avg_draw, bf.consensus.avg_away]
+        }
+
     return {
         "fixture": bf.fixture,
         "probs": probs_to_dict(bf.probs) if bf.probs is not None else None,
@@ -80,6 +126,8 @@ def fixture_to_dict(bf: BoardFixture) -> dict:
         "xg_probs": list(bf.xg_probs) if bf.xg_probs else None,
         "market_probs": list(bf.market_probs) if bf.market_probs else None,
         "consensus": _consensus_to_dict(bf.consensus),
+        "engine_picks": engine_picks,
+        "consensus_pick": consensus_pick,
         "model_engine": bf.model_engine,
         "verification": {
             "tier": str(getattr(bf.verification.tier, "name", bf.verification.tier)),
@@ -96,14 +144,24 @@ def build_payload(*, date: str, phase: str, leagues_scanned: list[str],
                   board: list[BoardFixture], data_flags: list[str],
                   gate: dict, telemetry: dict,
                   calibration_count: int, mean_clv: Optional[float],
-                  recommendation: str = "") -> dict:
+                  recommendation: str = "",
+                  yesterday_graded: Optional[list] = None,
+                  rolling_7d: Optional[dict] = None) -> dict:
     """The full board_<date>.json payload, ready to write to disk.
 
     `recommendation` is the already-rendered ⭐ TODAY'S PICKS parlay text
     (produce_bet.render_daily_recommendation) — computed from the REAL
     BoardFixture list at run time so the web never re-implements the pick
-    rule and drifts from the phone board."""
-    return {
+    rule and drifts from the phone board.
+
+    `yesterday_graded` — list of graded fixtures for the ScoreGPT "Yesterday"
+    section (ID414). Each has fixture, league, outcome, engines with per-market
+    prob+hit.
+
+    `rolling_7d` — rolling 7-day aggregates for the ScoreGPT stats bar (ID414).
+    Contains engine hit rates, legs logged, CLV capture, gate progress.
+    """
+    payload = {
         "schema_version": SCHEMA_VERSION,
         "date": date,
         "phase": phase,
@@ -117,6 +175,11 @@ def build_payload(*, date: str, phase: str, leagues_scanned: list[str],
         "recommendation": recommendation,
         "board": board_to_dict(board),
     }
+    if yesterday_graded is not None:
+        payload["yesterday_graded"] = yesterday_graded
+    if rolling_7d is not None:
+        payload["rolling_7d"] = rolling_7d
+    return payload
 
 
 def write_payload(payload: dict, path) -> Path:

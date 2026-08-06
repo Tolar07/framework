@@ -162,6 +162,12 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Vit\xf3ria de Guimar\xe3es": "Guimaraes",
         "Nacional de Madeira": "Nacional",
     },
+    "Europa League": {
+        "Jagiellonia Bialystok": "Jagiellonia",
+        "Lech Poznan": "Lech Poznan",
+        "Rangers": "Rangers",
+        "Omonia Nicosia": "Omonia Nicosia",
+    },
 }
 
 # Clubs deliberately ABSENT from TEAM_ALIASES above because they are genuinely

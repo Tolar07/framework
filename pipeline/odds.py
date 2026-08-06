@@ -62,6 +62,13 @@ FIXTURES_MAX_AGE_SECONDS = 6 * 3600
 # unattended daily job can't exhaust the quota and leave the month blind.
 QUOTA_FLOOR = 40
 
+# FIXTURE CAPTURE may spend below QUOTA_FLOOR (the Architect authorized it:
+# a single odds call buys a 6h-cached fixture LIST, which is the only source
+# for EFL/UCL-qualifier fixtures). But it may never spend the last of the
+# month — the framework must keep working, not exhaust itself. So fixture
+# capture stops at this HARD floor instead.
+QUOTA_HARD_FLOOR = 5
+
 # Verified live against /v4/sports on 2026-08-03 — every key below returned
 # active=True. Listing sports is free; only odds calls cost credits.
 SPORT_KEYS = {
@@ -84,6 +91,13 @@ SPORT_KEYS = {
     # behind and API-Football's free tier stops at 2024. Verified live
     # 2026-08-05 — returns the qualification fixtures with real book prices.
     "Champions League": "soccer_uefa_champs_league_qualification",
+    # Cup competitions verified live 2026-08-06. EFL Cup and J-League carry
+    # real prices on the free tier; Europa/Conference quals do NOT (no active
+    # sport key) — those stay TSDB-only and unpriced, which the cup-training
+    # logger handles by logging O1.5 outcome evidence without fabricating a
+    # price (HR35).
+    "EFL Cup": "soccer_england_efl_cup",
+    "J League": "soccer_japan_j_league",
 }
 
 # A THIRD naming convention to reconcile (football-data.co.uk and TheSportsDB
@@ -290,11 +304,17 @@ def _write_cache(league: str, events: list[dict]) -> None:
 
 
 def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
-                use_cache: bool = True) -> tuple[list[FixtureOdds], list[str]]:
+                use_cache: bool = True,
+                fixture_capture: bool = False) -> tuple[list[FixtureOdds], list[str]]:
     """Live prices for one league. Returns (fixtures, flags).
 
     Cost is len(regions) * len(markets) credits — the defaults are 1 x 2 = 2.
-    Raises QuotaExhausted rather than quietly returning nothing."""
+    Raises QuotaExhausted rather than quietly returning nothing.
+
+    `fixture_capture=True` relaxes the quota floor from QUOTA_FLOOR down to
+    QUOTA_HARD_FLOOR (Architect-authorized): a fixture LIST is cached 6h, so
+    one spend buys far more coverage than a routine price pull. The price-pull
+    floor (40) is untouched for every other caller."""
     flags: list[str] = []
     if requests is None:
         raise RuntimeError("requests not installed — cannot fetch odds")
@@ -304,9 +324,11 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
     events = _read_cache(league) if use_cache else None
     if events is None:
         used, remaining = check_quota()
-        if remaining < QUOTA_FLOOR:
+        floor = QUOTA_HARD_FLOOR if fixture_capture else QUOTA_FLOOR
+        if remaining < floor:
             raise QuotaExhausted(
-                f"Odds API quota down to {remaining} (floor {QUOTA_FLOOR}). "
+                f"Odds API quota down to {remaining} "
+                f"(floor {floor}{' — fixture capture' if fixture_capture else ''}). "
                 f"Refusing to spend it on a routine pull — today's entry prices "
                 f"are NO DATA — PENDING rather than exhausting the month.")
         r = requests.get(f"{API_BASE}/sports/{SPORT_KEYS[league]}/odds",
@@ -399,7 +421,10 @@ def fixtures_from_odds(league: str, days_ahead: int = 14
 
     from datetime import date as _date, timedelta as _td
     flags: list[str] = []
-    quotes, oflags = fetch_odds(league)
+    # Fixture capture may spend below the price-pull floor (Architect-
+    # authorized): one spend buys a 6h-cached list, the only source for
+    # EFL/UCL-qualifier fixtures. Stops at QUOTA_HARD_FLOOR regardless.
+    quotes, oflags = fetch_odds(league, fixture_capture=True)
     flags += oflags
 
     horizon = _date.today() + _td(days=days_ahead)

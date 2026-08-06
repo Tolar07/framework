@@ -35,24 +35,42 @@ import config  # noqa: E402  (loads .env -> ODDS_API_KEY)
 import pipeline.odds as odds  # noqa: E402
 from engine import markets as mkt  # noqa: E402
 from brain.store import Brain  # noqa: E402
+from clv.clv_logger import CLVLog  # noqa: E402
+from clv.closing_capture import capture_closing_lines  # noqa: E402
+from monitor import cup_training  # noqa: E402
 
 # Continental sports that actually carry PRICES today (verified 2026-08-05:
-# UCL qualification is the only active continental key on The Odds API).
+# UCL qualification is the only active continental key on The Odds API;
+# verified 2026-08-06: EFL Cup and J-League are active too, Europa quals are
+# NOT — they stay TSDB-only, logged as unpriced O1.5 outcome evidence).
 # Each maps to the framework's league label so predictions can be matched.
 CONTINENTAL_SPORTS: dict[str, str] = {
     "soccer_uefa_champs_league_qualification": "Champions League",
+    "soccer_england_efl_cup": "EFL Cup",
+    "soccer_japan_j_league": "J League",
 }
 
 # TheSportsDB league IDs for the same competitions, used as a fallback score
 # source when The Odds API is unreachable (verified live 2026-08-05: UCL
-# qualification matches are under tsdb league 4480). A score source outage is
-# NOT a settlement signal — the watch must keep polling either way.
+# qualification matches are under tsdb league 4480; 4481 is the Europa
+# League). EFL Cup / J-League have NO verified id on the test key -> None, so
+# an unreachable odds API degrades to an honest gap, never a wrong
+# competition's scores. A score source outage is NOT a settlement signal —
+# the watch must keep polling either way.
 TSDB_SPORT_LEAGUES: dict[str, int] = {
     "soccer_uefa_champs_league_qualification": 4480,
+    "_europa_league": 4481,                  # TSDB-only: no odds-api sport key
 }
 
-# UCL/UEL qualifiers are scan-only (tier D): no capital, no paper legs. The
-# monitor's job is the OUTCOME evidence, which needs no price.
+# Cup competitions with NO odds-api sport key — monitored purely for outcome
+# evidence via TheSportsDB, and cup-training legs logged unpriced (O1.5) so
+# the brain still learns. Europa quals verified live 2026-08-06.
+TSDB_ONLY_SPORTS: dict[str, str] = {
+    "_europa_league": "Europa League",
+}
+
+# UCL/UEL/cup competitions are scan-only (tier D): no capital. The monitor's
+# job is the OUTCOME evidence, which needs no price.
 SCAN_ONLY = True
 
 
@@ -96,6 +114,13 @@ def _fetch_scores_tsdb(sport: str) -> list[dict]:
 
 
 def _fetch_scores(sport: str) -> list[dict]:
+    # A TSDB-only sport (no odds-api key, e.g. Europa quals) goes straight to
+    # TheSportsDB — never a pointless call to a non-existent odds key.
+    if sport in TSDB_ONLY_SPORTS:
+        try:
+            return _fetch_scores_tsdb(sport)
+        except Exception:
+            raise
     key = odds._get_key()
     url = (f"https://api.the-odds-api.com/v4/sports/{sport}/scores/"
            f"?apiKey={key}&daysFrom=2")
@@ -196,15 +221,21 @@ def _event_line(ev: dict) -> str:
     return f"  {st:9s} {home:24s} v {away:24s}  {tail}"
 
 
+def _all_sports() -> dict[str, str]:
+    """CONTINENTAL_SPORTS plus the TSDB-only competitions (no odds key)."""
+    return {**CONTINENTAL_SPORTS, **TSDB_ONLY_SPORTS}
+
+
 def _live_watch(brain: Brain, interval: int) -> int:
     """Poll until every continental event for today has settled, printing a
     compact live board only when the state or score CHANGES."""
     today = datetime.date.today().isoformat()
     deadline = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=16)
+    log = CLVLog()
     last = None
     while datetime.datetime.now(datetime.timezone.utc) < deadline:
         lines, settled_total, pending = [], 0, False
-        for sport, league in CONTINENTAL_SPORTS.items():
+        for sport, league in _all_sports().items():
             try:
                 events = _fetch_scores(sport)
             except Exception as e:
@@ -216,6 +247,24 @@ def _live_watch(brain: Brain, interval: int) -> int:
                 continue
             todays = [e for e in events if (e.get("commence_time") or "")[:10] == today]
             lines.append(f"=== {league} — {len(todays)} event(s) today ===")
+            # Cup-training legs, logged once per watch.
+            try:
+                n_legs, cflags = cup_training.log_cup_legs(log, league, todays)
+                for f in cflags:
+                    lines.append(f"  {f}")
+            except Exception as e:
+                lines.append(f"  {league}: cup-leg logging skipped ({e})")
+            # CL-LIVE closing lines for cup legs whose kickoff is inside the
+            # window — a PRICED cup leg earns its real CLV at kickoff. Only
+            # leagues the odds feed carries (EFL, J-League, UCL) can capture;
+            # unpriced comps (Europa quals) stay outcome-only, never estimated.
+            try:
+                n_cap, cf = capture_closing_lines(log, [league],
+                                                  phase=cup_training.CUP_PHASE)
+                for f in cf:
+                    lines.append(f"  {f}")
+            except Exception as e:
+                lines.append(f"  {league}: CL-LIVE capture skipped ({e})")
             for ev in sorted(todays, key=lambda e: e.get("commence_time", "")):
                 st = _status(ev)
                 if st in ("LIVE", "UPCOMING"):
@@ -223,10 +272,13 @@ def _live_watch(brain: Brain, interval: int) -> int:
                 lines.append(_event_line(ev))
                 if st == "COMPLETED":
                     n = _settle_predictions(brain, league, ev)
-                    settled_total += n
-                    if n:
+                    ns, cflags = cup_training.settle_cup_legs(log, brain, league, [ev])
+                    for f in cflags:
+                        lines.append(f"  {f}")
+                    settled_total += n + ns
+                    if n + ns:
                         s = _score_of(ev)
-                        lines.append(f"        -> settled {n} prediction row(s): {s}")
+                        lines.append(f"        -> settled {n} prediction + {ns} cup leg(s): {s}")
         stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%H:%M")
         block = f"[{stamp} UTC]\n" + "\n".join(lines)
         if block != last:
@@ -242,13 +294,22 @@ def _live_watch(brain: Brain, interval: int) -> int:
 
 def run_once(brain: Brain, watch: bool = False) -> int:
     settled_total = 0
-    for sport, league in CONTINENTAL_SPORTS.items():
+    log = CLVLog()
+    for sport, league in _all_sports().items():
         try:
             events = _fetch_scores(sport)
         except Exception as e:
             print(f"{league}: scores fetch failed ({e}) — NO DATA — PENDING")
             continue
         print(f"=== {league} — {sport} ({len(events)} events) ===")
+        # Cup-training legs: O1.5 + priced markets on every fixture today,
+        # in phase cup_training (teaches the brain, never the capital gate).
+        try:
+            n, cflags = cup_training.log_cup_legs(log, league, events)
+            for f in cflags:
+                print(f"  {f}")
+        except Exception as e:
+            print(f"  {league}: cup-leg logging skipped ({e})")
         upcoming = 0
         for ev in sorted(events, key=lambda e: e.get("commence_time", "")):
             st = _status(ev)
@@ -258,12 +319,15 @@ def run_once(brain: Brain, watch: bool = False) -> int:
                   f"{ev.get('home_team') or '?':24s} v {ev.get('away_team') or '?':24s}")
             if st == "COMPLETED":
                 n = _settle_predictions(brain, league, ev)
-                if n:
+                ns, cflags = cup_training.settle_cup_legs(log, brain, league, [ev])
+                for f in cflags:
+                    print(f"  {f}")
+                if n or ns:
                     scores = sorted(ev.get("scores") or [],
                                     key=lambda s: s.get("position", 0))
-                    print(f"      -> settled {n} prediction row(s): "
+                    print(f"      -> settled {n} prediction + {ns} cup leg(s): "
                           f"{scores[0]['score']}-{scores[1]['score']}")
-                settled_total += n
+                settled_total += n + ns
         if upcoming == 0 and all(_status(e) != "LIVE" for e in events):
             print("      (no live/upcoming events)")
     return settled_total

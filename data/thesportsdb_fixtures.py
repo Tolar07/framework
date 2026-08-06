@@ -334,6 +334,43 @@ def fetch_upcoming(league: str, fixtures_season: str, days_ahead: int = 14
     return fixtures, skipped
 
 
+def fetch_today(league: str, day: str) -> list[UpcomingFixture]:
+    """Today's fixtures for a league via the eventsday endpoint.
+
+    WHY THIS EXISTS: the eventsseason feed lags WEEKS behind for continental
+    qualifiers (verified 2026-08-06 — Europa League 4481 showed July-only
+    events while the actual Aug 6 qualifiers were invisible), but eventsday
+    carries the real fixtures. The daily board is TODAY-ONLY, so when the
+    season feed has nothing in the window, fetch_today is the correct
+    fallback — the same source the monitor already uses to watch these
+    matches. Raises only for a genuinely unusable request; per-row problems
+    are skipped, never guessed (HR35)."""
+    if requests is None:
+        raise RuntimeError("requests not installed — cannot fetch live fixtures")
+    if league not in LEAGUE_IDS:
+        raise ValueError(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
+    url = (f"{API_BASE}/{_get_key()}/eventsday.php?d={day}&l={LEAGUE_IDS[league]}")
+    resp = requests.get(url, timeout=25, headers={"User-Agent": "OLP-XDV/1.0"})
+    resp.raise_for_status()
+    fixtures: list[UpcomingFixture] = []
+    for i, ev in enumerate(resp.json().get("events") or []):
+        home = (ev.get("strHomeTeam") or "").strip()
+        away = (ev.get("strAwayTeam") or "").strip()
+        if not home or not away:
+            continue  # HR35: no team name -> drop, never reconstruct
+        if ev.get("intHomeScore") not in (None, "") or ev.get("intAwayScore") not in (None, ""):
+            continue  # already played — not upcoming
+        time_str = (ev.get("strTime") or "").strip()
+        fixtures.append(UpcomingFixture(
+            league=league,
+            date=day,
+            home_team=map_team(league, home),
+            away_team=map_team(league, away),
+            kickoff_utc=f"{day}T{time_str}" if time_str else day,
+        ))
+    return fixtures
+
+
 def as_pairs(fixtures: list[UpcomingFixture]) -> list[tuple[str, str]]:
     """Adapter for orchestrator.scan_one_league()'s upcoming_fixtures argument."""
     return [(f.home_team, f.away_team) for f in fixtures]

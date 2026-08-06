@@ -838,3 +838,67 @@ deploy leagues, quota protection).
 **Tests:** `tests/bookmaker_engine_test.py` (9 checks: devig math, HR35
 refusals, 4-engine quorum, render, persistence) + a 4-engine case in
 `consensus_test.py`. All 34 suites green.
+
+---
+
+## 2026-08-06 · Multi-source data redundancy layer — ratified under the auto-grant
+
+**What the Architect asked:** "fix all data gap forever get multiple api as
+backup for intelligence gathering". The daily board has been gapped by any one
+provider going down (a TheSportsDB season-feed lag, an odds quota dip, a free
+API-Football plan error all produced NO DATA — PENDING on their own).
+
+**What was built:** `data/multi_source.py` + `data/multi_source_concrete.py` —
+a unified redundancy fabric over every data type the pipeline fetches:
+
+- **Fixtures** now fail over in priority order: TheSportsDB (season feed →
+  eventsday for today-only) → odds-derived fixtures → API-Football (paid-plan
+  fallback). One provider down degrades to the next, never to NO DATA.
+- **History / current results / xG / odds** get the same multi-source treatment.
+- **Circuit breakers + health metrics** per source: after repeated failures a
+  source is paused (not hammered), and the run reports which provider served
+  each league + any OPEN circuit on the board.
+
+**Integration:** `orchestrator.scan_one_league` now calls
+`get_fixtures()` instead of the hand-rolled 4-step try-chain (same priority
+order, now with circuit breakers + health). `run_daily` surfaces the health
+report per run. `webapp/render.py` got two bugfixes so the ScoreGPT-restyled
+dashboard imports and runs again (missing paren on an implicit string join;
+tuple→list on elo/xg probs after JSON serialization).
+
+**Honest limits:** API-Football's free tier CANNOT see the current season
+(deterministic `{'plan': ...}` error) — it stays a paid-plan-only fallback, and
+the layer reports that honestly rather than guessing. Odds quota floors still
+protect the free-tier month. History results do NOT mix football-data (current
+season) with API-Football (free tier stops at 2024) — wrong-season data would
+misrate, so history keeps its single-source integrity.
+
+**Authority:** Architect (auto-grant — additive redundancy, no change to
+capital, staking, fabrication, verification or honest-edge behaviour).
+Tests: `tests/multi_source_test.py` extended (failover + all-down exhaustion);
+all 36 suites green.
+
+---
+
+## 2026-08-06 · WhatsApp channel KILLED — by ARCHITECT order
+
+**What the Architect decided:** after the template watcher looped silently for
+hours on a stale Meta access token (`Authentication Error` — the token, not the
+template), the Architect said "kill whatsapp". The channel is now dead at two
+layers:
+
+1. `run_daily.py` already retired it by default (`WHATSAPP_ENABLED` default 0,
+   ID412 — the web dashboard replaced it); the recurring template-approval
+   watcher cron job has been deleted.
+2. `.env` credentials are now **commented out** (`WHATSAPP_ENABLED=0` plus all
+   `WHATSAPP_*` keys) so the channel CANNOT send even if the flag is flipped.
+   The module short-circuits with "not set — delivery skipped" instead of
+   burning a Meta API call.
+
+**Honest record:** the failure was the access token, not the template. If
+WhatsApp is ever wanted back, a fresh token + an approved template are the
+prereqs, and it needs Architect sign-off to re-enable (ID412 stands: the web
+dashboard is the "anywhere" home).
+
+**Authority:** Architect. Delivery-channel change only — no capital, staking,
+fabrication, verification or honest-edge behaviour changed. All 36 suites green.

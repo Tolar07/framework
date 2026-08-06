@@ -1,0 +1,68 @@
+PART 0 — HEADER
+Date: 2026-08-06 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, EFL Cup
+Calibration: 0 legs logged, CLV logged: ZERO
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ graded 0 of 11 pending leg(s)
+  ⚠ Eredivisie: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Danish Superliga: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Belgian Pro League: no upcoming fixtures (multi-source fixtures: '_FuncSource' object has no attribute 'circuit_breaker_failures') — NO DATA — PENDING
+  ⚠ Scottish Premiership: no upcoming fixtures (multi-source fixtures: '_FuncSource' object has no attribute 'circuit_breaker_failures') — NO DATA — PENDING
+  ⚠ Ekstraklasa: no upcoming fixtures (multi-source fixtures: '_FuncSource' object has no attribute 'circuit_breaker_failures') — NO DATA — PENDING
+  ⚠ HNL: history served from cache
+  ⚠ HNL: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ HNL: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ HNL: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Championship: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Serie A: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Ligue 1: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Europa League: history served from cache
+  ⚠ Europa League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Europa League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Europa League: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Primeira Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ La Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Champions League: history served from cache
+  ⚠ Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Champions League: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ EFL Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ EFL Cup: results fetch failed ('EFL Cup' is not in LEAGUE_CODES — add it or check spelling.) — NO DATA — PENDING
+  ⚠ ⚠ source circuit OPEN (paused): thesportsdb, odds_api_fixtures, api_football_fixtures
+  ⚠ Scan odds skipped — quota 4 < floor 40
+  ⚠ logged 0 new paper leg(s) with a live entry price
+  ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+NO DEPLOY-ELIGIBLE CALL this session.
+That is a valid, honest result — the framework's value is disciplined filtering, and near-zero approvals is correct behaviour, not failure.
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+
+PART 3 — REJECTED / WATCHLIST
+None.
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 0
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

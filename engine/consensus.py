@@ -63,13 +63,19 @@ def _pick(p: tuple[float, float, float]) -> str:
     return OUTCOMES[max(range(3), key=lambda i: p[i])]
 
 
-def compute_consensus(probs, elo_probs, xg_probs) -> Optional[Consensus]:
+def compute_consensus(probs, elo_probs, xg_probs,
+                      market_probs=None) -> Optional[Consensus]:
     """Vote over the available engines' 1X2 opinions for one fixture.
 
     `probs` is a FixtureProbabilities (or anything with p_home/p_draw/p_away)
     — the Dixon-Coles opinion; `elo_probs` and `xg_probs` are the
     (p_home, p_draw, p_away) tuples, or None when that engine had no opinion
     (xG is Big-5 only; Elo needs both clubs above its match floor).
+    `market_probs` is the BOOKMAKER's devigged implied 1X2 (engine/markets.py
+    implied_1x2) — the aggregate of real money, NOT a model. It is an equal
+    fourth voter (ID413): with all four agreeing you get 4 of 4 engines. A
+    fixture with no odds pulled (scan-only league) simply has no bookmaker
+    opinion — never fabricated (HR35).
 
     Returns None when fewer than two engines had an opinion — a single
     opinion is not a consensus, and reporting one as such would fabricate an
@@ -81,6 +87,8 @@ def compute_consensus(probs, elo_probs, xg_probs) -> Optional[Consensus]:
         opinions.append(tuple(elo_probs))
     if xg_probs is not None:
         opinions.append(tuple(xg_probs))
+    if market_probs is not None:
+        opinions.append(tuple(market_probs))
 
     if len(opinions) < 2:
         return None

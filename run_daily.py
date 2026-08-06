@@ -38,6 +38,7 @@ from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS,
                              build_deploy_shortlist, market_blocked)
 from engine.mes import mes_numeric
 from engine import markets as mkt
+from engine.consensus import compute_consensus
 from engine import recalibration as recal
 from clv.clv_logger import CLVLog, compute_clv
 from clv.closing_capture import capture_closing_lines
@@ -425,6 +426,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             bf.best_market_key = market  # canonical key for the brain's ledger
             bf.cal_adjustment = cal.get(market, 0.0)
 
+        # The BOOKMAKER engine (ID413): this fixture has live odds, so its
+        # devigged implied 1X2 becomes a fourth opinion — real money, the
+        # sharpest calibration source. The consensus was computed in the
+        # orchestrator over DC/Elo/xG only (odds don't exist there yet), so
+        # recompute it WITH the market now that the price is in hand. Pure
+        # display + brain data — never changes what is logged.
+        bf.market_probs = mkt.implied_1x2(fx)
+        if bf.market_probs is not None:
+            bf.consensus = compute_consensus(
+                bf.probs, bf.elo_probs, bf.xg_probs, bf.market_probs)
+
     # --- never forget a prediction: persist every rated board prediction ---
     n_preds = _predictions_from_board(board, run_id, started, brain)
 
@@ -595,6 +607,15 @@ def _predictions_from_board(board, run_id: str, predicted_at: str,
             for key, prob in (("1X2_HOME", xh), ("1X2_DRAW", xd),
                               ("1X2_AWAY", xa)):
                 rows.append(dict(base, market=key, model_engine="xg",
+                                 model_prob=prob))
+        if getattr(bf, "market_probs", None):
+            # ID413: the bookmaker's devigged implied 1X2 — real money, the
+            # sharpest calibration source. Persisted so the brain grades the
+            # market's opinion against reality like any other engine.
+            mh, md, ma = bf.market_probs
+            for key, prob in (("1X2_HOME", mh), ("1X2_DRAW", md),
+                              ("1X2_AWAY", ma)):
+                rows.append(dict(base, market=key, model_engine="bookmaker",
                                  model_prob=prob))
         if getattr(bf, "consensus", None) and bf.consensus.result \
                 and bf.consensus.avg_home is not None:

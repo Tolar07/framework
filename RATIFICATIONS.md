@@ -557,3 +557,56 @@ labelled a projection and reads NO DATA when it cannot be stated.
 **Authority:** Architect — all four directions chosen explicitly before build;
 additive operational upgrades under the auto-ratification grant, no bright-line
 behaviour changed.
+
+---
+
+## 2026-08-06 · CUP TRAINING LOOP — monitor EFL Cup / J-League / Europa quals live, teach the brain
+
+**Why:** the daily run logs paper legs only for deploy-eligible (softness A/B)
+leagues. The cups — EFL Cup, J-League, Europa League quals, Champions League
+quals — involve clubs from the 15 approved leagues but were never logged, so
+the brain never saw them. The Architect authorised (2026-08-06): log a paper
+leg on EVERY cup fixture — O1.5 as the baseline plus every priced market
+(1X2, O2.5, U2.5) — to train the brain. The monitor settles each completed
+match, so the brain accumulates hit-rate + CLV evidence per market.
+
+**What was built** (Architect authorization):
+
+1. `monitor/cup_training.py` — new module.
+   - `log_cup_legs`: O1.5 on every fixture (outcome evidence, `model_prob=None`
+     — the monitor does not run the DC model; a fabricated probability would
+     poison the engine's hit-vs-model residual) + priced markets where the feed
+     quotes them, with the REAL price. Idempotent.
+   - `settle_cup_legs`: matches completed events to logged legs on (home, away,
+     kickoff DATE), settles hit via canonical rules. Never overwrites; never
+     matches the wrong fixture (HR48).
+2. `monitor/run_monitor.py` — watches EFL Cup + J-League + Europa quals
+   alongside UCL quals (`TSDB_ONLY_SPORTS` routes Europa to TheSportsDB since
+   it has no odds key), logs cup legs each pass, captures CL-LIVE closing lines
+   for priced cup legs, settles completed matches. `run_once` + `_live_watch`
+   both covered.
+3. `pipeline/odds.py` — SPORT_KEYS gains EFL Cup (`soccer_england_efl_cup`) and
+   J League (`soccer_japan_j_league`), both verified live 2026-08-06.
+4. `clv/closing_capture.py` — `capture_closing_lines` takes a `phase` param so
+   cup-training legs can earn closing lines too (default unchanged).
+
+**PHASE SEPARATION (the whole point):** cup legs are written with
+`phase="cup_training"`, NOT `"phase2_paper"`. The brain's legs mirror +
+`clv_by_market` read them, so the engine LEARNS from the cups, while the
+Phase-3 capital gate counts ONLY `phase2_paper` — a flood of cup legs can
+never graduate the framework by volume. Training the brain is not a back-door
+to capital.
+
+**Honest constraints:** Europa quals have no price source (Odds API carries
+no Europa/Conference key) -> those legs are outcome-only (O1.5 evidence, CLV
+NO DATA — PENDING). The predictions table stays empty for cup legs (its
+`model_prob` is NOT NULL; cup legs honestly carry None). Model-vs-reality
+comparison remains with the board predictions, which the daily run prices.
+
+**Verified live 2026-08-06:** the monitor now sees Bristol City v Walsall
+(EFL Cup, 18:45) and Jagiellonia v Rangers / Lech Poznań v KÍ Klaksvík /
+Lincoln Red Imps v Omonia (Europa quals) — the exact fixtures the Architect
+named.
+
+**Tests:** `tests/cup_training_test.py` (5 checks: O1.5+priced logging, phase
+separation, idempotency, settle to brain, gate exclusion). All 25 suites green.

@@ -48,6 +48,24 @@ def summarise(legs: list, label: str) -> dict:
     or_open = [l.overround_open for l in measured if l.overround_open is not None]
     or_close = [l.overround_close for l in measured if l.overround_close is not None]
 
+    # Calibration view: what the model CLAIMED vs what reality did. The fair
+    # implied probability strips each leg's own open/close overround (the
+    # margin the book holds on that price), so model_p can be compared to a
+    # margin-free market probability — the honest comparison for a reliability
+    # check. This is why the away bucket was -2.1%: model_p sat ~8pp above
+    # fair-implied AND above the realized hit rate, a calibration gap a raw-EV
+    # screen cannot see (raw EV even amplifies it on long prices).
+    def _fair_implied(odds, overround):
+        if odds is None or not overround:
+            return None
+        return (1.0 / odds) / (1.0 + overround)
+
+    model_ps = [l.model_prob for l in measured if l.model_prob is not None]
+    fair_opens = [_fair_implied(l.entry_odds, l.overround_open)
+                  for l in measured if l.entry_odds and l.overround_open is not None]
+    fair_closes = [_fair_implied(l.closing_odds, l.overround_close)
+                   for l in measured if l.closing_odds and l.overround_close is not None]
+
     return {
         "label": label,
         "n_legs_selected": len(selected),
@@ -69,6 +87,9 @@ def summarise(legs: list, label: str) -> dict:
         "n_graded": len(pnl),
         "mean_overround_open": _mean(or_open),
         "mean_overround_close": _mean(or_close),
+        "mean_model_prob": _mean(model_ps),
+        "mean_fair_implied_open": _mean(fair_opens),
+        "mean_fair_implied_close": _mean(fair_closes),
     }
 
 
@@ -79,6 +100,29 @@ def _row(s: dict) -> str:
             f"beat={_pct(s['pct_beat_close'], 1):>8}  "
             f"flat={_pct(s['pct_zero_movement'], 1):>7}  "
             f"t={str(s['t_stat'] or '—'):>7}")
+
+
+def _cal_row(s: dict) -> str:
+    """One market's calibration line: what the model claimed vs what happened.
+
+    model_p, fair_open, hit_rate and fair_close are all PROBABILITIES (0-1) so
+    the reliability gap is readable directly in percentage points. hit_rate_pct
+    is a percentage in `summarise` — divided back to a fraction here. When the
+    model is calibrated, model_p ≈ hit_rate ≈ fair_close. A positive gap means
+    the model was overconfident: it claimed more than reality delivered.
+    """
+    mp, fo, hr, fc = s["mean_model_prob"], s["mean_fair_implied_open"], None, s["mean_fair_implied_close"]
+    if s["hit_rate_pct"] is not None:
+        hr = s["hit_rate_pct"] / 100.0
+    gap = None
+    if mp is not None and hr is not None:
+        gap = mp - hr
+    fmt = lambda x: "NO DATA" if x is None else f"{x:.3f}"
+    return (f"  {s['label']:<20} "
+            f"n={s['n_graded']:>4}  "
+            f"model_p={fmt(mp):>8}  fair_open={fmt(fo):>9}  "
+            f"hit={fmt(hr):>8}  fair_close={fmt(fc):>10}  "
+            f"gap={fmt(gap):>8}")
 
 
 def render_report(legs: list, flags: list[str], coverage: dict, cfg,
@@ -121,6 +165,14 @@ def render_report(legs: list, flags: list[str], coverage: dict, cfg,
     A("")
     for mkt in sorted({l.market for l in raw}):
         A(_row(summarise([l for l in raw if l.market == mkt], f"market: {mkt}")))
+    A("")
+
+    A("MODEL CALIBRATION — what the model CLAIMED vs what actually happened")
+    A("  (model_p is the model's mean probability on the legs it took; hit is")
+    A("   the realized rate. A calibrated model has model_p ~ hit ~ fair_close.")
+    A("   A positive gap = overconfidence: the model claimed more than reality.")
+    for mkt in sorted({l.market for l in raw}):
+        A(_cal_row(summarise([l for l in raw if l.market == mkt], mkt)))
     A("")
 
     ab = [l for l in raw if softness_tier(l.league) in DEPLOY_ELIGIBLE_TIERS]

@@ -218,20 +218,24 @@ class Handler(BaseHTTPRequestHandler):
                 self._render(R.render_why_html(payload, fixture))
 
             # --- JSON API -------------------------------------------------
+            # Public board JSON is served from the PUBLISHED store only —
+            # same approve-gate as the HTML /dashboard route. An unapproved
+            # board is never exposed via JSON (previously both these routes
+            # read the raw board dir, bypassing the gate).
             elif path == "/api/board.json":
-                payload = self._load_payload(today)
+                payload = self._load_published(today)
                 if payload is None:
                     return self._not_found()
-                self._json(S.trim_payload(payload))
+                self._json(payload)
 
             elif path.startswith("/api/board/"):
                 d = path[len("/api/board/"):].removesuffix(".json")
                 if not _DT.match(d):
                     return self._not_found()
-                payload = self._load_payload(d)
+                payload = self._load_published(d)
                 if payload is None:
                     return self._not_found()
-                self._json(S.trim_payload(payload))
+                self._json(payload)
 
             elif path == "/api/admin/board.json":
                 if not self._require_admin():

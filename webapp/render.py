@@ -421,6 +421,18 @@ def _gate_strip(gate: dict, telemetry: dict) -> str:
 def _match_card(bf: dict) -> str:
     home, away, league = _teams(bf)
     p = bf.get("probs")
+    # Market-aware display: when the engine and the real-money market disagree,
+    # the board shows the blended (market-anchored) probability — the honest
+    # number — rather than the raw overconfident model claim. This is what the
+    # probability engine "shows" per the Architect's order. When there is no
+    # live odds (blend_probs absent), the raw model IS the honest number.
+    display_p = p
+    if bf.get("blend_probs") and p is not None:
+        bp = bf["blend_probs"]  # [ph, pd, pa]
+        display_p = {
+            "home_team": p.get("home_team"),
+            "away_team": p.get("away_team"),
+            "p_home": bp[0], "p_draw": bp[1], "p_away": bp[2]}
     tier = bf.get("softness_tier", "?")
     kd = bf.get("kickoff_date") or ""
     # Format date for the left rail
@@ -451,7 +463,8 @@ def _match_card(bf: dict) -> str:
 </div>"""
 
     agree, total, engines = _models_agree(bf)
-    winner = _side_name(bf, _result_side(p))
+    # The displayed pick uses the market-aware probability when available.
+    winner = _side_name(bf, _result_side(display_p))
     # Per-engine chips (TEST NEEDLE: "✓ Dixon-Coles", "✓ Elo", "✓ Bookmaker", "xG —")
     chips = []
     for name, side in engines.items():
@@ -498,13 +511,13 @@ def _match_card(bf: dict) -> str:
       <span class="score win">{score_h}</span></div>
     <div class="mrow"><span class="tname lose">{html.escape(away)}</span>
       <span class="score lose">{score_a}</span></div>
-    {_win_bar(p)}
+    {_win_bar(display_p)}
     <div class="models">{''.join(chips)}</div>
     {market}
   </div>
   <div class="rail-r">
     <div class="pick-line">AI pick: <span class="team">{html.escape(winner)}</span>
-      — predicted {_predicted_score(p)}
+      — predicted {_predicted_score(display_p)}
       <span class="muted">· {agree} of {total} models agree</span></div>
     {model_picks}
     <a href="/why?fixture={html.escape(bf['fixture'])}" style="font-size:.75rem;color:var(--ink-3)">Full analysis →</a>
@@ -763,12 +776,19 @@ def render_why_html(payload: dict, fixture: str) -> str:
              f"{match.get('model_engine','dc')} engine · kickoff {match.get('kickoff_date') or 'NO DATA — PENDING'}</div>"]
     if p is not None:
         agree, total, engines = _models_agree(match)
+        # Market-aware display: use blend_probs (ID414) when the engine and
+        # real-money market disagree. The board shows the honest probability.
+        bp = match.get("blend_probs") or None
+        dp = p
+        if bp and len(bp) >= 3:
+            dp = {"home_team": p.get("home_team"), "away_team": p.get("away_team"),
+                  "p_home": bp[0], "p_draw": bp[1], "p_away": bp[2]}
         lines.append("<div class='card'>"
-                     f"<p><strong>Win chance:</strong> {html.escape(p['home_team'])} {_pct(p['p_home'])} · "
-                     f"Draw {_pct(p['p_draw'])} · {html.escape(p['away_team'])} {_pct(p['p_away'])}</p>"
-                     f"<p class='muted'>Predicted score ≈ {_predicted_score(p)} · Over 1.5 {_pct(p['p_over_15'])} · "
+                     f"<p><strong>Win chance:</strong> {html.escape(dp['home_team'])} {_pct(dp['p_home'])} · "
+                     f"Draw {_pct(dp['p_draw'])} · {html.escape(dp['away_team'])} {_pct(dp['p_away'])}</p>"
+                     f"<p class='muted'>Predicted score ≈ {_predicted_score(dp)} · Over 1.5 {_pct(p['p_over_15'])} · "
                      f"Over 2.5 {_pct(p['p_over_25'])} · BTTS {_pct(p['p_btts_yes'])}</p>"
-                     f"<p class='pick-line'>AI pick: {html.escape(_side_name(match, _result_side(p)))} "
+                     f"<p class='pick-line'>AI pick: {html.escape(_side_name(match, _result_side(dp)))} "
                      f"<span class='muted'>· {agree} of {total} models agree</span></p>"
                      f"<div class='models'>" + "".join(
                          f'<span class="chip {"ok" if s == _result_side(p) else ("na" if s is None else "miss")}">'

@@ -108,18 +108,25 @@ def classify(league: str) -> SlateDecision:
 
 
 def _confidence(c) -> float:
-    """Ranking key: the model's strongest market probability for this fixture.
+    """Ranking key: the model's strongest DEPLOYABLE market probability.
 
     Deliberately NOT an edge/EV figure — that would need a market price, and
     prices are ARCHITECT-FED (Section 7.2), so no EV number exists at board
     time. This ranks by model conviction only, which is what the engine
-    actually knows. Fixtures with no probabilities sort last."""
+    actually knows.
+
+    The key uses ONLY markets that can actually carry capital — home, draw,
+    under 2.5 (the ID405 market gate). An away win or an Over 2.5 can never
+    be deployed, so their conviction must not be what lifts a fixture into
+    THE CALL: otherwise the CALL ranks on exactly the markets the framework
+    refuses to log, and the user is told to bet what the ledger will not
+    record. Fixtures with no probabilities sort last."""
     probs = getattr(c, "probs", None)
     if probs is None:
         return -1.0
-    return max(probs.p_home, probs.p_draw, probs.p_away,
-               probs.p_over_15, 1 - probs.p_over_15,
-               probs.p_btts_yes, 1 - probs.p_btts_yes)
+    # p_home / p_draw / 1-p_over_25 are the three deployable markets' model
+    # probabilities (mkt.model_prob for HOME/DRAW/UNDER_25).
+    return max(probs.p_home, probs.p_draw, 1.0 - probs.p_over_25)
 
 
 def call_key(c) -> tuple:
@@ -150,7 +157,17 @@ def build_deploy_shortlist(candidates: list) -> list:
     kept whichever six happened to come first — and since leagues are scanned
     in dict order, one league's fixtures could fill the entire CALL while a
     higher-value fixture in the next league was silently dropped. Tier A
-    outranks tier B, then expected value descending (conviction as fallback)."""
-    eligible = [c for c in candidates if c.softness_tier in DEPLOY_ELIGIBLE_TIERS]
+    outranks tier B, then expected value descending (conviction as fallback).
+
+    The ID405 MARKET GATE is enforced at this boundary too: a fixture whose
+    headlined market is blocked (an away win or an Over 2.5 can never carry
+    capital) is excluded even if it is softness A/B. Priced fixtures already
+    get a deployable headlined market from run_daily, so this is a structural
+    backstop — the gate cannot silently widen later."""
+    from engine import markets as mkt
+    eligible = [c for c in candidates
+                if c.softness_tier in DEPLOY_ELIGIBLE_TIERS
+                and not (getattr(c, "best_market_key", None)
+                         and mkt.blocked(c.best_market_key))]
     ranked = sorted(eligible, key=call_key)
     return ranked[:DEPLOY_POOL_CAP]

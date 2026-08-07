@@ -160,3 +160,45 @@ def implied_1x2(fixture_odds) -> Optional[tuple[float, float, float]]:
     inv = [1.0 / p for p in prices]
     s = sum(inv)
     return tuple(x / s for x in inv)
+
+
+# Blend thresholds for disagreement_weighting. Measured on the 2425 backtest
+# (all 5577 predictions, not just selected legs): the model is well-calibrated
+# where it AGREES with the market's devigged implied, but +10-14pp overconfident
+# exactly where it DISAGREES — and the min_mes screen only ever bets the
+# disagreement bucket. These thresholds come from that measurement: |model -
+# market| below BLEND_NOOP_AT is a healthy agreement (keep the model's honest
+# number), at BLEND_FULL_AT it saturates (fully defer to the sharper market
+# prior). Values are evidence-anchored, not tuned to make the backtest green.
+BLEND_NOOP_AT = 0.04   # 4pp of disagreement = agreement, keep model
+BLEND_FULL_AT = 0.12   # 12pp of disagreement = market wins, defer fully
+BLEND_MAX_WEIGHT = 0.70  # never fully discard the model (it is honest at 0)
+
+
+def blend_toward_market(model_p: Optional[float],
+                        market_p: Optional[float],
+                        noop_at: float = BLEND_NOOP_AT,
+                        full_at: float = BLEND_FULL_AT,
+                        max_weight: float = BLEND_MAX_WEIGHT) -> Optional[float]:
+    """The market-anchored probability: model_p pulled toward the market's
+    devigged implied probability by an amount proportional to DISAGREEMENT.
+
+    WHY: the model is honest where it agrees with the market and overconfident
+    where it disagrees (measured). A raw model_p presented as "value" is exactly
+    the model's disagreement with real money — and the market wins that bucket.
+    This returns the probability the board should display and the EV should be
+    priced on: the model's honest estimate when it agrees with the market, and
+    a blend deferring toward the market as disagreement grows.
+
+    HR35: either input None -> None (no fabricated number). model_p is never
+    pushed past the market side of the disagreement, so the blend cannot turn a
+    market-mispriced longshot into a fabricated certainty."""
+    if model_p is None or market_p is None:
+        return None
+    d = abs(model_p - market_p)
+    if d <= noop_at:
+        return model_p  # agreement — the model's number is the honest one
+    w = min(max_weight, max_weight * (d - noop_at) / (full_at - noop_at))
+    # Blend toward the market, but never across it: the blended value stays
+    # between the two inputs, so it cannot overshoot into a new disagreement.
+    return model_p + w * (market_p - model_p)

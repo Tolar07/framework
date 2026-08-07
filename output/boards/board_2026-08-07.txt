@@ -50,9 +50,9 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Nijmegen v Telstar: no live price found — NO DATA — PENDING, leg not logged
   ⚠ Go Ahead Eagles v Willem II: no live price found — NO DATA — PENDING, leg not logged
   ⚠ PSV Eindhoven v For Sittard: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Sparta Rotterdam v Feyenoord: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Zwolle v Ajax: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Sonderjyske v Viborg: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Groningen v Utrecht: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Heerenveen v Twente: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Randers FC v Lyngby: no live price found — NO DATA — PENDING, leg not logged
   ⚠ logged 0 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
@@ -117,64 +117,58 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    HR30 MES trigger price: back only at decimal odds 1.04 or longer (breakeven vs the model).
       Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
 
-4. Sparta Rotterdam v Feyenoord (Eredivisie)
+4. Groningen v Utrecht (Eredivisie)
    Softness tier A — deploy-eligible
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
    Match result (model probabilities):
-      Sparta Rotterdam to win .......... 20%
-      Draw ......................... 23%
-      Feyenoord to win .......... 57%
-   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 60% (model)
+      Groningen to win .......... 38%
+      Draw ......................... 30%
+      Utrecht to win .......... 32%
+   Goals: Over 1.5 goals 70% (model) | Under 2.5 goals 57% (model)
+   Both teams to score YES 50% (model)
+   Expected goals (model): Groningen 1.266, Utrecht 1.139
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Groningen to win 29% · Draw 40% · Utrecht to win 31%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
+   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
+   CONSENSUS (ID412) — NO CONSENSUS: 2 engines disagree (DRAW 1, HOME 1)
+   HR30 MES trigger price: back only at decimal odds 1.42 or longer (breakeven vs the model).
+      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
+
+5. Heerenveen v Twente (Eredivisie)
+   Softness tier A — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Heerenveen to win .......... 36%
+      Draw ......................... 27%
+      Twente to win .......... 37%
+   Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 55% (model)
    Both teams to score YES 59% (model)
-   Expected goals (model): Sparta Rotterdam 1.103, Feyenoord 1.983
+   Expected goals (model): Heerenveen 1.426, Twente 1.465
    Second opinion — Elo rating engine (ID82), independent of the goals model:
-      Sparta Rotterdam to win 17% · Draw 26% · Feyenoord to win 58%
-      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+      Heerenveen to win 26% · Draw 39% · Twente to win 35%
+      ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +12pp on draw (Elo 26%/39%/35% vs Dixon-Coles 36%/27%/37%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
    Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
    Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
-   CONSENSUS (ID412) — Feyenoord, 2 of 2 engines
-      averaged 1X2: Sparta Rotterdam 18% · Draw 25% · Feyenoord 57%
-   HR30 MES trigger price: back only at decimal odds 1.22 or longer (breakeven vs the model).
+   CONSENSUS (ID412) — NO CONSENSUS: 2 engines disagree (AWAY 1, DRAW 1)
+   HR30 MES trigger price: back only at decimal odds 1.26 or longer (breakeven vs the model).
       Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
 
-5. Zwolle v Ajax (Eredivisie)
+6. Randers FC v Lyngby (Danish Superliga)
    Softness tier A — deploy-eligible
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
    Match result (model probabilities):
-      Zwolle to win .......... 20%
-      Draw ......................... 23%
-      Ajax to win .......... 57%
-   Goals: Over 1.5 goals 84% (model) | Over 2.5 goals 62% (model)
-   Both teams to score YES 61% (model)
-   Expected goals (model): Zwolle 1.162, Ajax 2.033
-   Second opinion — Elo rating engine (ID82), independent of the goals model:
-      Zwolle to win 17% · Draw 26% · Ajax to win 57%
-      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+      Randers FC to win .......... 62%
+      Draw ......................... 25%
+      Lyngby to win .......... 13%
+   Goals: Over 1.5 goals 70% (model) | Under 2.5 goals 57% (model)
+   Both teams to score NO 59% (model)
+   Expected goals (model): Randers FC 1.733, Lyngby 0.67
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
    Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
-   CONSENSUS (ID412) — Ajax, 2 of 2 engines
-      averaged 1X2: Zwolle 19% · Draw 25% · Ajax 57%
-   HR30 MES trigger price: back only at decimal odds 1.19 or longer (breakeven vs the model).
-      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
-
-6. Sonderjyske v Viborg (Danish Superliga)
-   Softness tier A — deploy-eligible
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
-   Match result (model probabilities):
-      Sonderjyske to win .......... 40%
-      Draw ......................... 26%
-      Viborg to win .......... 34%
-   Goals: Over 1.5 goals 80% (model) | Over 2.5 goals 57% (model)
-   Both teams to score YES 60% (model)
-   Expected goals (model): Sonderjyske 1.534, Viborg 1.414
-   Second opinion — Elo rating engine (ID82), independent of the goals model:
-      Sonderjyske to win 40% · Draw 30% · Viborg to win 29%
-      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
-   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
-   CONSENSUS (ID412) — Sonderjyske, 2 of 2 engines
-      averaged 1X2: Sonderjyske 40% · Draw 28% · Viborg 32%
-   HR30 MES trigger price: back only at decimal odds 1.25 or longer (breakeven vs the model).
+   HR30 MES trigger price: back only at decimal odds 1.42 or longer (breakeven vs the model).
       Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
 
 PART 2 — THE SCAN

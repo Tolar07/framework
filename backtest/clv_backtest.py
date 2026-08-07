@@ -553,6 +553,8 @@ def run_league_backtest(league: str, cfg: BacktestConfig
     rng = random.Random(cfg.random_seed)
     legs: list[PaperLeg] = []
     warm_seed = None
+    cal = CalibrationState(cfg.cal_min_legs, cfg.cal_max_adjustment) \
+        if cfg.calibrate else None
 
     for ci, cut in enumerate(cuts):
         block_end = (date.fromisoformat(cut) + timedelta(days=cfg.refit_every_days)).isoformat()
@@ -569,16 +571,33 @@ def run_league_backtest(league: str, cfg: BacktestConfig
         if getattr(model, "warm_seed", None):
             warm_seed = model.warm_seed
 
+        # Calibration deltas come from COMPLETED blocks only (state is
+        # populated below, after each block is predicted) — block k never
+        # calibrates on its own outcomes. cal is None when calibrate=False,
+        # so the baseline selector path is untouched.
+        cal_deltas = cal.deltas() if cal else None
+
         n_fit = model.n_matches_fit
         for m in block:
             probs = predict(model, m.home_team, m.away_team)
             if probs is None:
                 coverage["n_no_model"] += 1
-            produced = candidate_legs(m, probs, cfg, rng)
+            produced = candidate_legs(m, probs, cfg, rng, cal_deltas=cal_deltas)
             for lg in produced:
                 lg.model_cut_date = cut
                 lg.model_n_matches = n_fit
             legs.extend(produced)
+
+            # Record this match's full prediction record into the calibration
+            # evidence — the model's calibration is measured on EVERY match it
+            # predicted, not just the ones the screen happened to like (that
+            # would bias the residual toward already-selected legs).
+            if cal is not None and probs is not None:
+                for market, p in (("1X2_H", probs.p_home), ("1X2_D", probs.p_draw),
+                                  ("1X2_A", probs.p_away), ("O2.5", probs.p_over_25),
+                                  ("U2.5", 1 - probs.p_over_25)):
+                    if market in cfg.markets and p is not None:
+                        cal.record(market, p, settle(market, m.fthg, m.ftag))
 
     return legs, flags, coverage
 
@@ -659,6 +678,13 @@ def main() -> None:
     ap.add_argument("--min-mes", type=float, default=0.02)
     ap.add_argument("--selector", choices=["model","random_placebo","always_favourite","always_over"], default="model")
     ap.add_argument("--half-life-days", type=float, default=None)
+    ap.add_argument("--calibrate", action="store_true",
+                    help="apply out-of-sample per-market calibration to model "
+                         "probabilities before the min_mes screen")
+    ap.add_argument("--cal-min-legs", type=int, default=15,
+                    help="evidence gate per market before calibration acts")
+    ap.add_argument("--cal-max-adjustment", type=float, default=0.03,
+                    help="probability-points cap on the calibration nudge")
     ap.add_argument("--markets", nargs="+", default=None,
                      help="restrict to these markets, e.g. 1X2_H 1X2_D O2.5 U2.5")
     ap.add_argument("--no-write", action="store_true", help="skip writing the leg log")
@@ -669,6 +695,8 @@ def main() -> None:
         test_season=args.test_season, refit_every_days=args.refit_days,
         min_mes=args.min_mes, selector=args.selector,
         half_life_days=args.half_life_days,
+        calibrate=args.calibrate, cal_min_legs=args.cal_min_legs,
+        cal_max_adjustment=args.cal_max_adjustment,
         markets=tuple(args.markets) if args.markets else BacktestConfig.markets,
     )
     run_id = f"{cfg.test_season}_{cfg.selector}_{cfg.fingerprint()}"

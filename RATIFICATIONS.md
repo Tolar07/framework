@@ -7,6 +7,59 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-07 · Promoted-club honesty: per-case NO DATA message + second-division mechanism — by order of the ARCHITECT
+
+**What the Architect asked:** after the 3-day window filled the board (22/27
+rated), the remaining NO DATA rows (Cambuur, ADO Den Haag, AC Horsens,
+Lommel, Beveren) carried a message that offered "the fixtures source spells
+it differently (a name-mapping gap)" as the FIRST possibility for every
+unknown team — including clubs that are not mapping gaps at all. The
+Architect asked to fix "this and all occurrences".
+
+**The finding (verified, not assumed):** all 5 are clubs NEWLY PROMOTED from
+a second division, NOT spelling gaps. Verified against every fit season
+(2324/2425/2526) AND the framework's own suggest_aliases machinery — every
+one returns "no close match in the model pool", so no alias exists that would
+rate them. Fabricating one would violate HR35.
+
+**What was built:**
+1. **Per-case NO DATA message** (`_unrated_detail` in orchestrator.py): the
+   message now resolves each unknown team against the fitted roster. A close
+   alias match → a REAL mapping gap, named target, "verify and add to
+   TEAM_ALIASES". No match → "newly promoted with no top-flight history in
+   the fit window — no alias can rate it; becomes rateable once it has played
+   enough top-flight matches". Applies to every occurrence through the shared
+   path.
+2. **Second-division mechanism, wired and tested** (`predict_adjusted` in
+   engine/dixon_coles.py, `load_second_division` in
+   data/football_data_source.py, promoted-team detection in the carry-over
+   fit): a promoted club's second-division season rates it through the
+   carry-over model, with a CONSERVATIVE level adjustment (PROMOTION_SCALE
+   0.90 / PROMOTION_OPPONENT_SCALE 1.08 — its goals came against weaker
+   defences; better a cautious number than a confident wrong one).
+
+**The honest blocker:** the DATA is unreachable with current credentials.
+football-data publishes NONE of the needed second divisions (D2 is the GERMAN
+2. Bundesliga — verified and deliberately never mapped; N2/B2 are dead
+links; DNK is the Danish Superliga only). TheSportsDB has the leagues but the
+free test key truncates league discovery to 5, and API-Football's free tier
+stops before the 2425 season. So SECOND_DIVISION_CODES is EMPTY by design:
+the mechanism is ready (a personal TheSportsDB key is the documented path —
+one code + one league ID per league wires it), and the 5 clubs stay honest NO
+DATA until then, or self-rate in ~2–4 weeks once they have top-flight
+matches. The wrong D2 cache created while investigating was deleted.
+
+**Guardrails:** no capital, staking, fabrication, verification or
+honest-edge behaviour changed. The message is MORE honest (never claims a
+mapping that doesn't exist); the mechanism feeds nothing until real data
+exists. New suite: `tests/promoted_club_test.py` (7 checks).
+
+**Authority:** Architect. The message change and the mechanism change what
+appears on the board, so they were taken at explicit request; HR35 kept
+throughout.
+
+---
+
 ## 2026-08-07 · Out-of-sample calibration layer in the CLV backtest — built by order of the ARCHITECT
 
 **What the Architect asked:** after the three-way CLV breakdown showed the entire

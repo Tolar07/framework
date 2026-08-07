@@ -208,11 +208,11 @@ Kilmarnock v Celtic (Scottish Premiership) | Celtic·60% | O86 / O65 | X282 / Y6
 Rangers v Hibernian (Scottish Premiership) | Rangers·55% | O81 / O58 | 1X80 / Y58 | ○
 
 PART 3 — REJECTED / WATCHLIST
-Cambuur v Excelsior (Eredivisie): NO DATA — PENDING: 'Cambuur' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
-AZ Alkmaar v ADO Den Haag (Eredivisie): NO DATA — PENDING: 'ADO Den Haag' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
-AC Horsens v Brondby (Danish Superliga): NO DATA — PENDING: 'AC Horsens' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
-St Truiden v Lommel (Belgian Pro League): NO DATA — PENDING: 'Lommel' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
-Antwerp v Beveren (Belgian Pro League): NO DATA — PENDING: 'Beveren' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
+Cambuur v Excelsior (Eredivisie): NO DATA — PENDING: 'Cambuur' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+AZ Alkmaar v ADO Den Haag (Eredivisie): NO DATA — PENDING: 'ADO Den Haag' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+AC Horsens v Brondby (Danish Superliga): NO DATA — PENDING: 'AC Horsens' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+St Truiden v Lommel (Belgian Pro League): NO DATA — PENDING: 'Lommel' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Antwerp v Beveren (Belgian Pro League): NO DATA — PENDING: 'Beveren' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
 
 PART 4 — DATA INTEGRITY (ID403 counts)
 VERIFIED: 0

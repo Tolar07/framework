@@ -64,6 +64,21 @@ LEAGUE_CODES = {
 
 UNCOVERED_LEAGUES = {"Champions League", "Europa League", "HNL"}
 
+# Second-division feeds for the PREVIOUS completed season, used to give
+# promoted clubs a rating they otherwise lack (Architect 2026-08-07). The
+# mechanism is wired and tested; the DATA is what's blocked:
+#   - football-data publishes NONE of the needed second divisions: D2 is the
+#     GERMAN 2. Bundesliga (verified 2026-08-07 — must never be fed to a
+#     Danish fit), N2 (Eerste Divisie) and B2 (Challenger Pro League) are dead
+#     links, and the DNK Extra file is the Danish Superliga only.
+#   - TheSportsDB has the leagues but the free test key truncates league
+#     discovery to 5 (the framework's own comment: a personal key resolves
+#     these), and API-Football's free tier stops before the 2425 season.
+# So no code is mapped yet: promoted clubs stay honest NO DATA until a source
+# is reachable (a personal TheSportsDB key is the documented path). Adding one
+# league here + its ID in thesportsdb_fixtures.LEAGUE_IDS wires it.
+SECOND_DIVISION_CODES: dict[str, str] = {}
+
 EXTRA_URL = "https://www.football-data.co.uk/new/{code}.csv"
 EXTRA_CODES = {
     "Danish Superliga": "DNK",
@@ -433,6 +448,48 @@ def load_league(league: str, season: str, cache_dir: str | Path = DEFAULT_CACHE_
 
     return parse_csv_text(league, csv_text, season=season,
                            book_preference=book_preference)
+
+
+def load_second_division(league: str, season: str,
+                         cache_dir: str | Path = DEFAULT_CACHE_DIR,
+                         book_preference: tuple[str, ...] = DEFAULT_BOOK_PREFERENCE
+                         ) -> tuple[list[MatchResult], list[dict]]:
+    """The league's SECOND-division results for a completed season — the
+    promoted-club feed. A club promoted to the top flight has no top-flight
+    history in the carry window, but its second-division season is real data
+    that rates it (with a level adjustment applied at predict time).
+
+    Returns ([], []) for a league football-data no longer publishes a second
+    division for (honest empty — NO DATA rather than a guess). Rows carry the
+    TOP-flight league name because they only ever feed a model fit; no leg is
+    settled against them."""
+    code = SECOND_DIVISION_CODES.get(league)
+    if not code:
+        return [], []
+    Path(cache_dir).mkdir(parents=True, exist_ok=True)
+    stem = f"{league.replace(' ', '_')}_2nd"
+    cache_file = Path(cache_dir) / f"{stem}_{season}.csv"
+    # Second-division history is a completed-season feed: stable, 30-day TTL.
+    max_age = COMPLETED_SEASON_MAX_AGE_SECONDS
+    csv_text = None
+    if cache_file.exists() and _cache_age_seconds(cache_file) <= max_age:
+        csv_text = cache_file.read_text(encoding="utf-8")
+    if csv_text is None:
+        url = BASE_URL.format(season=season, code=code)
+        try:
+            resp = requests.get(url, timeout=20,
+                                headers={"User-Agent": "OLP-XDV/1.0"})
+            resp.raise_for_status()
+            csv_text = resp.text
+            cache_file.write_text(csv_text, encoding="utf-8")
+        except Exception:
+            if cache_file.exists():
+                # Fresh failed; keep the stale snapshot rather than lose data.
+                csv_text = cache_file.read_text(encoding="utf-8")
+            else:
+                return [], []
+    return parse_csv_text(league, csv_text, season=season,
+                          book_preference=book_preference)
 
 
 def save_results_json(results: list[MatchResult], path: str) -> None:

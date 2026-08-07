@@ -11,10 +11,11 @@ from data.multi_source import (
     SourceHealth, MultiSourceExhausted, registry
 )
 from data.multi_source_concrete import (
-    TheSportsDBFixturesSource, OddsAPIFixturesSource,
+    TheSportsDBFixturesSource, OddsAPIFixturesSource, ESPNFixturesSource,
     build_fixtures_multi_source, build_results_multi_source,
     get_all_health
 )
+from data.thesportsdb_fixtures import UpcomingFixture
 
 
 def test_source_metrics():
@@ -159,6 +160,7 @@ def test_concrete_sources_instantiate():
     """All concrete source classes can be instantiated."""
     sources = [
         TheSportsDBFixturesSource(),
+        ESPNFixturesSource(),
         OddsAPIFixturesSource(),
     ]
     for s in sources:
@@ -198,41 +200,77 @@ def test_fixtures_failover_thesportsdb_down():
     """Real concrete chain: TheSportsDB down -> odds feed serves fixtures.
 
     This is the failure the whole layer exists for: one provider going down
-    must degrade to the next, not produce NO DATA. The three fixtures sources
-    share the MultiSource.fetch kwargs (league / fixtures_season / days_ahead),
-    so each fetch must tolerate the union of kwargs."""
+    must degrade to the next, not produce NO DATA. The fixtures sources share
+    the MultiSource.fetch kwargs (league / fixtures_season / days_ahead), so
+    each fetch must tolerate the union of kwargs. ESPN (priority 15, between
+    thesportsdb and odds) must also be down for odds to serve — pinning it
+    keeps the chain deterministic (no real network in tests)."""
+    from unittest.mock import patch
+    from data.multi_source import SourceNoData
+    ms = build_fixtures_multi_source()
+    with patch("data.multi_source_concrete.tsdb.fetch_upcoming",
+               side_effect=RuntimeError("thesportsdb down")):
+        with patch("data.multi_source_concrete.espn_source.fetch_upcoming",
+                   side_effect=SourceNoData("espn no fixtures (down)")):
+            with patch("data.multi_source_concrete.odds_fixtures_from_odds",
+                       return_value=([("Arsenal", "Chelsea")],
+                                     {("Arsenal", "Chelsea"): "2026-08-07"},
+                                     ["odds ok"])):
+                r = ms.fetch(league="Premier League", fixtures_season="2627",
+                             days_ahead=0)
+                assert r.success
+                assert r.source_name == "odds_api_fixtures"
+                assert r.data["fixtures"] == [("Arsenal", "Chelsea")]
+                assert r.data["dates"][("Arsenal", "Chelsea")] == "2026-08-07"
+
+
+def test_fixtures_failover_thesportsdb_espn_down():
+    """ESPN serves when TheSportsDB is down (the redundancy ESPN adds).
+
+    This is the new intermediate hop: thesportsdb raises, ESPN (priority 15)
+    serves the fixtures before the odds feed is ever consulted. The source
+    name must ride back so the orchestrator can flag 'fixtures via espn'."""
     from unittest.mock import patch
     ms = build_fixtures_multi_source()
     with patch("data.multi_source_concrete.tsdb.fetch_upcoming",
                side_effect=RuntimeError("thesportsdb down")):
-        with patch("data.multi_source_concrete.odds_fixtures_from_odds",
-                   return_value=([("Arsenal", "Chelsea")],
-                                 {("Arsenal", "Chelsea"): "2026-08-07"},
-                                 ["odds ok"])):
+        with patch("data.multi_source_concrete.espn_source.fetch_upcoming",
+                   return_value=([UpcomingFixture(
+                       league="Premier League", date="2026-08-07",
+                       home_team="Arsenal", away_team="Chelsea",
+                       kickoff_utc="2026-08-07T12:00:00Z")],
+                                 [])):
             r = ms.fetch(league="Premier League", fixtures_season="2627",
                          days_ahead=0)
             assert r.success
-            assert r.source_name == "odds_api_fixtures"
+            assert r.source_name == "espn"
             assert r.data["fixtures"] == [("Arsenal", "Chelsea")]
-            assert r.data["dates"][("Arsenal", "Chelsea")] == "2026-08-07"
+            assert r.data["source"] == "espn"
+            # the odds feed must NOT be consulted when ESPN already answered
+            with patch("data.multi_source_concrete.odds_fixtures_from_odds",
+                       side_effect=AssertionError("odds must not be called")):
+                ms.fetch(league="Premier League", fixtures_season="2627",
+                         days_ahead=0)
 
 
 def test_fixtures_all_sources_down_exhausted():
     """Every provider down -> MultiSourceExhausted (never a silent partial)."""
     from unittest.mock import patch
-    from data.multi_source import MultiSourceExhausted
+    from data.multi_source import MultiSourceExhausted, SourceNoData
     ms = build_fixtures_multi_source()
     with patch("data.multi_source_concrete.tsdb.fetch_upcoming",
                side_effect=RuntimeError("down")):
-        with patch("data.multi_source_concrete.odds_fixtures_from_odds",
-                   side_effect=RuntimeError("down")):
-            with patch("data.fixtures_source.fetch_upcoming",
+        with patch("data.multi_source_concrete.espn_source.fetch_upcoming",
+                   side_effect=SourceNoData("espn down")):
+            with patch("data.multi_source_concrete.odds_fixtures_from_odds",
                        side_effect=RuntimeError("down")):
-                try:
-                    ms.fetch(league="X", fixtures_season="2627", days_ahead=0)
-                    raise SystemExit("all-down must raise MultiSourceExhausted")
-                except MultiSourceExhausted:
-                    pass
+                with patch("data.fixtures_source.fetch_upcoming",
+                           side_effect=RuntimeError("down")):
+                    try:
+                        ms.fetch(league="X", fixtures_season="2627", days_ahead=0)
+                        raise SystemExit("all-down must raise MultiSourceExhausted")
+                    except MultiSourceExhausted:
+                        pass
 
 
 print("✅ ALL MULTI_SOURCE TESTS PASSED")

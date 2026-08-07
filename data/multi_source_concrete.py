@@ -15,6 +15,7 @@ from data.multi_source import (
 )
 from data.football_data_source import load_league as fd_load_league
 from data import thesportsdb_fixtures as tsdb
+from data import espn_source
 from data import api_football_results as apif
 from data import xg_source
 from pipeline.odds import fetch_odds as odds_fetch_odds, fixtures_from_odds as odds_fixtures_from_odds
@@ -105,11 +106,36 @@ class APIFootballFixturesSource(DataSource):
         return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "api_football"}
 
 
+class ESPNFixturesSource(DataSource):
+    """ESPN scoreboard fixtures — key-free, covers continental comps + the
+    no-TSDB-ID leagues (Austrian Bundesliga, HNL). Slice 1 of the ESPN
+    redundancy layer (Architect order 2026-08-07)."""
+
+    def __init__(self):
+        super().__init__("espn", priority=15, timeout=25.0)
+
+    def fetch(self, **kwargs) -> list:
+        league = kwargs["league"]
+        fixtures_season = kwargs.get("fixtures_season") or kwargs.get("season")
+        days_ahead = kwargs.get("days_ahead", 14)
+        fixtures, skipped = espn_source.fetch_upcoming(
+            league, fixtures_season, days_ahead=days_ahead)
+        if not fixtures:
+            raise SourceNoData(
+                f"espn: no fixtures for {league} "
+                f"(days={days_ahead}, skipped={len(skipped)})")
+        pairs = espn_source.as_pairs(fixtures)
+        dates = {(f.home_team, f.away_team): f.date for f in fixtures}
+        return {"fixtures": pairs, "dates": dates, "skipped": skipped,
+                "source": "espn"}
+
+
 def build_fixtures_multi_source() -> MultiSource:
     """Build the fixtures multi-source with automatic failover.
 
     Order: TheSportsDB (its fetch already tries season feed then eventsday
-    internally) -> odds-derived fixtures -> API-Football (paid-plan fallback).
+    internally) -> ESPN scoreboard (key-free; covers continental + no-ID
+    leagues) -> odds-derived fixtures -> API-Football (paid-plan fallback).
     Each source's fetch is kwargs-tolerant so the shared MultiSource.fetch
     kwargs (league, season/fixtures_season, days_ahead) work for all of them.
     """
@@ -117,6 +143,7 @@ def build_fixtures_multi_source() -> MultiSource:
         "fixtures",
         [
             (TheSportsDBFixturesSource().fetch, "thesportsdb", 10),
+            (ESPNFixturesSource().fetch, "espn", 15),
             (OddsAPIFixturesSource().fetch, "odds_api_fixtures", 20),
             (APIFootballFixturesSource().fetch, "api_football_fixtures", 30),
         ],

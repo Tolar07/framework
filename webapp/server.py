@@ -267,30 +267,119 @@ class Handler(BaseHTTPRequestHandler):
         """Publish action — admin only. Accepts JSON {date, approved_by?}."""
         parsed = urlparse(self.path)
         path = parsed.path
-        if path != "/api/admin/publish":
-            self._not_found()
+        if path == "/api/admin/publish":
+            if not self._require_admin():
+                return
+            try:
+                import json
+                from webapp import schema as S
+                content_len = int(self.headers.get("Content-Length", "0"))
+                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
+                data = json.loads(body) if body else {}
+                d = data.get("date", "")
+                approved_by = data.get("approved_by", "admin")
+                if not d:
+                    self._json({"ok": False, "error": "date required"})
+                    return
+                payload = self._load_payload(d)
+                if payload is None:
+                    self._json({"ok": False, "error": f"no board for {d}"})
+                    return
+                S.write_published(payload, approved_by=approved_by)
+                self._json({"ok": True, "date": d, "published": True})
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)})
             return
-        if not self._require_admin():
+
+        # AI Analyst chat endpoint — public (uses same context as Telegram bot)
+        if path == "/api/analyst":
+            try:
+                import json
+                content_len = int(self.headers.get("Content-Length", "0"))
+                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
+                data = json.loads(body) if body else {}
+                message = data.get("message", "")
+                date_str = data.get("date", "") or date.today().isoformat()
+                if not message:
+                    self._json({"ok": False, "error": "message required"})
+                    return
+                # Load board for context
+                payload = self._load_payload(date_str) or self._load_published(date_str)
+                reply = self._analyst_reply(message, payload, date_str)
+                self._json({"ok": True, "reply": reply})
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)})
             return
+
+        self._not_found()
+
+    def _analyst_reply(self, message: str, payload: dict | None, date_str: str) -> str:
+        """Generate AI Analyst reply using Claude API with board context."""
         try:
-            import json
-            from webapp import schema as S
-            content_len = int(self.headers.get("Content-Length", "0"))
-            body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
-            data = json.loads(body) if body else {}
-            d = data.get("date", "")
-            approved_by = data.get("approved_by", "admin")
-            if not d:
-                self._json({"ok": False, "error": "date required"})
-                return
-            payload = self._load_payload(d)
-            if payload is None:
-                self._json({"ok": False, "error": f"no board for {d}"})
-                return
-            S.write_published(payload, approved_by=approved_by)
-            self._json({"ok": True, "date": d, "published": True})
+            # Build context from payload
+            context_parts = [f"Date: {date_str}"]
+            if payload:
+                board = payload.get("board", [])
+                context_parts.append(f"Total fixtures: {len(board)}")
+                # The Call
+                call_items = [bf for bf in board if bf.get("on_deploy_shortlist")]
+                if call_items:
+                    context_parts.append("THE CALL (deploy shortlist):")
+                    for bf in call_items[:6]:
+                        fixture = bf.get("fixture", "?")
+                        pick = bf.get("best_market", "?")
+                        prob = bf.get("best_model_prob")
+                        prob_str = f"{round(prob * 100)}%" if prob is not None else "?"
+                        context_parts.append(f"  - {fixture}: {pick} ({prob_str})")
+                # Top fixtures by confidence
+                rated = [bf for bf in board if bf.get("probs")]
+                if rated:
+                    rated.sort(key=lambda b: max(
+                        b["probs"].get("p_home", 0),
+                        b["probs"].get("p_draw", 0),
+                        b["probs"].get("p_away", 0)
+                    ), reverse=True)
+                    context_parts.append("Top fixtures by model confidence:")
+                    for bf in rated[:5]:
+                        fixture = bf.get("fixture", "?")
+                        p = bf["probs"]
+                        ph, pd, pa = p.get("p_home"), p.get("p_draw"), p.get("p_away")
+                        best = max((("Home", ph), ("Draw", pd), ("Away", pa)), key=lambda t: t[1] or 0)
+                        context_parts.append(f"  - {fixture}: {best[0]} {round((best[1] or 0) * 100)}%")
+                # Data flags
+                flags = payload.get("data_flags", [])
+                if flags:
+                    context_parts.append("Data flags: " + "; ".join(flags))
+            context = "\n".join(context_parts)
+
+            # Use the same approach as Telegram bot's freeform chat
+            import os
+            api_key = os.environ.get("ANTHROPIC_API_KEY")
+            if not api_key:
+                return "AI Analyst unavailable: ANTHROPIC_API_KEY not configured."
+
+            import anthropic
+            client = anthropic.Anthropic(api_key=api_key)
+
+            system_prompt = """You are the OLP XDV AI Analyst — an expert football betting analyst.
+You have access to today's model board (Dixon-Coles + Elo + xG + Bookmaker consensus).
+Answer questions about fixtures, markets, the framework methodology, or today's predictions.
+Be concise, honest, and cite specific data from the context. Never fabricate predictions.
+If asked about a specific fixture, look it up in the context. If not found, say so.
+Remember: this is a Phase-2 paper-only framework — no real capital is deployed."""
+
+            resp = client.messages.create(
+                model="claude-3-5-sonnet-20241022",
+                max_tokens=500,
+                temperature=0.3,
+                system=system_prompt,
+                messages=[
+                    {"role": "user", "content": f"Context:\n{context}\n\nUser: {message}"}
+                ]
+            )
+            return resp.content[0].text if resp.content else "No response generated."
         except Exception as e:
-            self._json({"ok": False, "error": str(e)})
+            return f"Analyst error: {e}"
 
 
 def main():

@@ -143,6 +143,14 @@ class Handler(BaseHTTPRequestHandler):
         except (FileNotFoundError, ValueError):
             return None
 
+    def _load_published(self, d: str):
+        """Published (trimmed) board payload, or None."""
+        try:
+            from webapp import schema as S
+            return S.read_published(d)
+        except (FileNotFoundError, ValueError):
+            return None
+
     # -- routing ----------------------------------------------------------
     def do_GET(self):
         parsed = urlparse(self.path)
@@ -165,12 +173,10 @@ class Handler(BaseHTTPRequestHandler):
                 d = path[len("/dashboard/"):]
                 if not _DT.match(d):
                     return self._not_found()
-                payload = self._load_payload(d)
+                payload = self._load_published(d)
                 if payload is None:
                     return self._not_found_html(R.render_404_html(d, today))
-                # The CLIENT view is served the trimmed payload — internals
-                # are stripped before the renderer ever sees them.
-                self._render(R.render_dashboard(S.trim_payload(payload)))
+                self._render(R.render_dashboard(payload))
 
             # --- authed admin view ----------------------------------------
             elif path in ("/admin", "/admin/"):
@@ -252,6 +258,35 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(500, (f"server error: {e}").encode("utf-8"), "text/plain; charset=utf-8")
             except Exception:
                 pass
+
+    def do_POST(self):
+        """Publish action — admin only. Accepts JSON {date, approved_by?}."""
+        parsed = urlparse(self.path)
+        path = parsed.path
+        if path != "/api/admin/publish":
+            self._not_found()
+            return
+        if not self._require_admin():
+            return
+        try:
+            import json
+            from webapp import schema as S
+            content_len = int(self.headers.get("Content-Length", "0"))
+            body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
+            data = json.loads(body) if body else {}
+            d = data.get("date", "")
+            approved_by = data.get("approved_by", "admin")
+            if not d:
+                self._json({"ok": False, "error": "date required"})
+                return
+            payload = self._load_payload(d)
+            if payload is None:
+                self._json({"ok": False, "error": f"no board for {d}"})
+                return
+            S.write_published(payload, approved_by=approved_by)
+            self._json({"ok": True, "date": d, "published": True})
+        except Exception as e:
+            self._json({"ok": False, "error": str(e)})
 
 
 def main():

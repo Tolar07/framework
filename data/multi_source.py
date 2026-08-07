@@ -127,7 +127,7 @@ class DataSource(abc.ABC, Generic[T]):
         if self.metrics.circuit_breaker_failures >= self.circuit_breaker_threshold:
             self.metrics.circuit_open_until = time.time() + self.circuit_breaker_timeout
             log.warning(f"Circuit breaker OPENED for {self.name} after "
-                        f"{self.circuit_breaker_failures} consecutive failures")
+                        f"{self.metrics.circuit_breaker_failures} consecutive failures")
 
 
 class MultiSource(Generic[T]):
@@ -179,6 +179,18 @@ class MultiSource(Generic[T]):
                     log.info(f"{self.name}: SUCCESS via {source.name} "
                              f"({latency_ms:.0f}ms, attempt {attempt+1})")
                     return result
+                except SourceNoData as e:
+                    # A valid "nothing here for this query" answer — fall
+                    # through to the next source WITHOUT opening the circuit
+                    # (a quiet league must not starve the leagues after it).
+                    latency_ms = (time.time() - start) * 1000
+                    last_error = str(e)
+                    self.call_history.append(SourceCallResult(
+                        data=None, source_name=source.name, success=False,
+                        latency_ms=latency_ms, error=str(e)))
+                    log.info(f"{self.name}: {source.name} has no data for this "
+                             f"query — trying next source: {e}")
+                    break
                 except Exception as e:
                     latency_ms = (time.time() - start) * 1000
                     last_error = str(e)
@@ -238,6 +250,18 @@ class MultiSource(Generic[T]):
 
 class MultiSourceExhausted(Exception):
     """Raised when all sources in a MultiSource fail."""
+    pass
+
+
+class SourceNoData(Exception):
+    """A source answered but has NO data for this particular query.
+
+    Deliberately distinct from a failure: "no fixtures in this window" or "no
+    VERIFIED league ID" is a valid answer for one league, not an outage of the
+    source. MultiSource.fetch lets SourceNoData fall through to the next source
+    WITHOUT recording a circuit-breaker failure — otherwise a run of quiet
+    leagues on the SHARED fixture source opens the circuit and starves every
+    league scanned after them (the bug that dropped Primeira Liga)."""
     pass
 
 

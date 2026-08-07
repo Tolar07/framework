@@ -34,6 +34,10 @@ SOFTNESS_TIER = {
     "Premier League": "D",
     "La Liga": "D",
     "Champions League": "D",
+    # Austrian Bundesliga — ratified 2026-08-07: scan-only, captured via the
+    # odds feed (soccer_austria_bundesliga, verified active). No history source
+    # covers it, so its fixtures list unrated NO DATA — PENDING until one does.
+    "Austrian Bundesliga": "D",
     # EFL Cup — ratified 2026-08-06 (Architect): an ACTIVE Odds sport with real
     # prices, but was never scanned (not in the whitelist), so its matches
     # (e.g. Bristol City v Walsall that night) were invisible. Tier D = scan

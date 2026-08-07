@@ -38,6 +38,8 @@ from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from data.multi_source import SourceNoData
+
 try:
     import requests
 except ImportError:
@@ -86,6 +88,13 @@ SPORT_KEYS = {
     "Primeira Liga": "soccer_portugal_primeira_liga",
     "Premier League": "soccer_epl",
     "La Liga": "soccer_spain_la_liga",
+    # Austrian Bundesliga — verified live 2026-08-07 against the Odds API
+    # /v4/sports list ("soccer_austria_bundesliga", active). No thesportsdb ID
+    # exists on the free key and no history source covers it, so the ODDS feed
+    # is its active fixture-capture path (same as Champions League), and the
+    # fixtures it returns are honestly unrated NO DATA until a history source
+    # exists. Scanned tier D (scan-only).
+    "Austrian Bundesliga": "soccer_austria_bundesliga",
     # Champions League qualifying is the only current-season continental
     # fixtures source in this framework: TheSportsDB's UCL feed lags weeks
     # behind and API-Football's free tier stops at 2024. Verified live
@@ -204,8 +213,13 @@ class FixtureOdds:
     notes: list[str] = field(default_factory=list)
 
 
-class QuotaExhausted(RuntimeError):
-    """Raised rather than silently returning an empty board."""
+class QuotaExhausted(SourceNoData):
+    """Raised rather than silently returning an empty board.
+
+    A deliberate monthly guard (500 free credits / reset), NOT a transient
+    outage — so it must not trip a circuit breaker. Subclassing SourceNoData
+    makes the multi-source fall through to the next provider without recording
+    a failure; run_daily still catches it by class for the honest board flag."""
 
 
 def _get_key() -> str:
@@ -320,7 +334,7 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
     if requests is None:
         raise RuntimeError("requests not installed — cannot fetch odds")
     if league not in SPORT_KEYS:
-        raise ValueError(f"'{league}' has no verified Odds API sport key.")
+        raise SourceNoData(f"'{league}' has no verified Odds API sport key.")
 
     events = _read_cache(league) if use_cache else None
     if events is None:

@@ -26,4 +26,7 @@ sandbox/sandbox_log.json
 
 # Web dashboard generated artifacts — regenerated every run / export
 output/boards/*.json
+# Published store — runtime state written by the /admin Approve→Publish action.
+# Like the raw boards, it is regenerated per publish and must not be committed.
+output/boards/published/
 webapp/site/

@@ -66,9 +66,33 @@ def previous_season_code(season: str) -> str:
 
 
 def _unrated_detail(model, home: str, away: str) -> str:
-    """Precise, per-side reason a fixture could not be modelled."""
-    reasons = [r for r in (unrated_reason(model, home), unrated_reason(model, away))
-               if r]
+    """Precise, per-side reason a fixture could not be modelled.
+
+    The engine-level `unrated_reason` deliberately does NOT guess whether an
+    unknown name is a mapping gap or a genuinely new club — from inside the
+    model they look identical. This caller HAS the fitted roster, so it
+    resolves the two per-side: a close alias match means the fixtures source
+    spells the club differently (a REAL mapping gap worth a TEAM_ALIASES
+    entry); no match means the club is genuinely new to the top flight and NO
+    alias can rate it — that stays honest NO DATA until it has top-flight
+    history. Never guessing a mapping either way is HR35."""
+    reasons = []
+    for team in (home, away):
+        r = unrated_reason(model, team)
+        if r is None:
+            continue
+        if "does not appear in the fitted data at all" in r:
+            hits = xleague.suggest_aliases(team, sorted(model.teams))
+            if hits:
+                cand, score = hits[0]
+                r = (f"'{team}' is likely '{cand}' (name similarity {score:.2f}) "
+                     f"— a fixtures/results name-mapping gap. Verify and add to "
+                     f"TEAM_ALIASES in data/thesportsdb_fixtures.py")
+            else:
+                r = (f"'{team}' is newly promoted with no top-flight history in "
+                     f"the fit window — no alias can rate it. It becomes "
+                     f"rateable once it has played enough top-flight matches")
+        reasons.append(r)
     return "NO DATA — PENDING: " + "; ".join(reasons)
 
 

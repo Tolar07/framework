@@ -7,6 +7,73 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-07 · The profitability question, answered with a complete 2x2 — by order of the ARCHITECT
+
+**What the Architect asked:** "how can the edge become profitable — find a
+lasting solution".
+
+**What was measured (the full experiment matrix on the 2425 walk-forward
+backtest, all four cells run and compared):**
+
+| cell | ALL | away (1X2_A) | draw (1X2_D) | home | O2.5 | U2.5 |
+|---|---|---|---|---|---|---|
+| baseline | 2952 · **-0.410%** t=-2.85 | **-2.125%** t=-5.50 | +0.415% | +0.233% | -0.550% | +0.247% |
+| + calibration | 3230 · **-0.358%** t=-2.64 | -1.738% t=-4.00 | +0.451% | -0.182% | -0.781% | +0.214% |
+| + market blend | 2652 · **-0.426%** t=-2.72 | -2.097% t=-5.28 | +0.415% | +0.236% | -0.613% | +0.230% |
+| + both | 2776 · **-0.425%** t=-2.78 | **-1.991%** t=-4.58 | **+0.546%** t=2.40 | -0.185% | -0.608% | -0.016% |
+
+**Three independent conclusions, each measured not assumed:**
+
+1. **The entire negative lives in the away market.** In every cell, the away
+   bucket is ~-2% (t between -4.0 and -5.5); the draw is the model's ONLY
+   genuine edge (+0.42 to +0.55%, beat 53-56%), home and U2.5 are roughly
+   neutral. The model's away probabilities are wrong (claims ~39%, delivers
+   ~30%) and the closing line is honest (hit ≈ fair_close), so every away
+   pick loses to the close wherever it is selected.
+2. **No probability-side nudge can fix aways.** Bounded out-of-sample
+   calibration (cap ±3pp and ±15pp measured earlier), a market-anchored
+   blend proportional to disagreement (the other session's ID414), and both
+   together all leave aways at ~-1.7 to -2.1%. The fix does not belong in any
+   screen or post-hoc nudge — it belongs in the model's away probabilities at
+   FIT time, or in not betting aways at all.
+3. **The deployable gated book is positive.** The ID405 market gate already
+   restricts capital to home/draw/under2.5. That gated book is **+0.13% to
+   +0.29% across all four cells** — positive everywhere, with the draw as its
+   engine. The gate is the lasting solution's foundation, and it was already
+   ratified and (this session) fully enforced.
+
+**What was changed (combined with the other session's ID414 in a
+reconciliation commit):**
+1. `engine/softness._confidence` now ranks unpriced fixtures by their best
+   DEPLOYABLE market only. Verified leak on the live 08-07 board: 2 of 6
+   CALL entries were unpriced away-conviction picks (Sparta v Feyenoord,
+   Zwolle v Ajax) — the board recommending exactly the markets the ledger
+   refuses to log. Now excluded.
+2. `build_deploy_shortlist` gains a structural backstop: a fixture whose
+   headlined market key is blocked cannot enter THE CALL even if softness
+   A/B.
+3. `backtest_report` now prints the Market blend knob (a --blend-market run
+   was previously indistinguishable from the baseline).
+4. The other session's ID414 (market-anchored display probability + EV on the
+   blend, backtest --blend-market) is preserved, committed, and measured.
+
+**The honest recommendation to the Architect:** profitability, if it exists,
+comes from (a) the gated deployable book — positive in every experiment cell
+— proven FORWARD through the 30-leg Phase-3 gate; and (b) fixing the model's
+away probabilities at fit time (asymmetric home advantage, time-decay) so
+aways stop being a guaranteed bleed. The framework is NOT yet a demonstrated
+edge; the gate exists for exactly that reason.
+
+**Guardrails:** no capital, staking, fabrication, verification or
+honest-edge behaviour changed. The blend is display + EV only; the ledger
+keeps raw model probabilities (no feedback loop). The gate only narrows what
+can be deployed.
+
+**Authority:** Architect. The gate enforcement reverses no ratified decision
+and only narrows; it and the measurements were taken at explicit request.
+
+---
+
 ## 2026-08-07 · Promoted-club honesty: per-case NO DATA message + second-division mechanism — by order of the ARCHITECT
 
 **What the Architect asked:** after the 3-day window filled the board (22/27

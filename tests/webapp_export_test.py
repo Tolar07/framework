@@ -26,6 +26,13 @@ boards = tmp / "output" / "boards"
 boards.mkdir(parents=True)
 out = tmp / "site"
 
+# Redirect the published store to the temp tree so the test never touches the
+# real published boards / audit log.
+pub = tmp / "output" / "boards" / "published"
+pub.mkdir(parents=True, exist_ok=True)
+patch.object(schema, "PUBLISHED_DIR", pub).start()
+patch.object(schema, "AUDIT_LOG", pub / "publish_audit.jsonl").start()
+
 bf = BoardFixture(
     fixture="Fenerbahce v Sturm Graz (Champions League)",
     probs=FixtureProbabilities("Fenerbahce", "Sturm Graz",
@@ -48,6 +55,9 @@ payload = schema.build_payload(
     data_flags=["⚠ x"], gate={"legs_with_clv": 0, "gate_requirement": 30},
     telemetry={}, calibration_count=0, mean_clv=None,
     recommendation="⭐ TODAY'S PICKS\nNO DATA — no eligible pick today.")
+# The export reads ONLY the published store (approve-gate boundary), so the
+# board must be published first — exactly as /admin's "Approve → Publish" does.
+schema.write_published(payload, approved_by="test")
 schema.write_payload(payload, boards / "board_2026-08-11.json")
 
 with patch.object(export, "ROOT", tmp):
@@ -71,13 +81,15 @@ for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
     assert needle not in html_src, f"public export leaks {needle!r}"
 print("2. index is the trimmed client view: OK")
 
-# --- 3. the only external fetch is the Architect-approved font CDN -------------
-# Count https:// occurrences; every one must be fonts.googleapis/gstatic.
+# --- 3. external fetches are limited to the two approved sources: the
+# Architect-approved Google Fonts CDN and flagcdn.com (league country flags,
+# per the flag/badge design) ------------------------------------------------
 for line in html_src.splitlines():
     if "https://" in line:
-        assert "fonts.googleapis" in line or "fonts.gstatic" in line, \
+        assert ("fonts.googleapis" in line or "fonts.gstatic" in line
+                or "flagcdn.com" in line), \
             f"unapproved external URL: {line.strip()}"
-print("3. only the approved Google Fonts CDN is referenced: OK")
+print("3. only approved CDNs (fonts + flagcdn) referenced: OK")
 
 # --- 4. board.json is the TRIMMED payload --------------------------------------
 d = schema.read_payload(out / "board.json")

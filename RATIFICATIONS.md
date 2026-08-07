@@ -7,6 +7,66 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-07 · Approve→Publish gate + admin search + grouping/flags/badges on both dashboards — ratified by the ARCHITECT
+
+**What the Architect asked** (restated for the record): "Good set of upgrades —
+let me restate a few garbled bits back to you before writing the plan." Four
+additions to the two-tier dashboard:
+
+1. **Admin search/filter bar** above THE CALL — live filter (no page reload) by
+   date, league (ID401 whitelist), team name, market type, softness tier; a
+   clicked result opens the same expand-in-place detail panel already built.
+2. **Approve → Publish to Client** — the one manual gate in the publish path.
+   It commits the board exactly as reviewed in admin (not a fresh re-fetch) to
+   the published store the client reads; nothing reaches the client dashboard
+   automatically, and every publish is written to `publish_audit.jsonl`
+   (timestamp, what went out, by whom).
+3. **Client visual overhaul** — a hero (today's date + the strongest pick
+   surfaced), card-forward layout, hover/transition states, the amber/teal
+   accent system. Same data, no data change.
+4. **THE SCAN grouped by league** (collapsible section per league) and sorted
+   within each league by pick confidence, strongest first — on BOTH dashboards,
+   on top of admin's existing detail-on-expand.
+5. **Flags + badges on both dashboards** — country flag next to each league
+   name (flagcdn.com, the one external flag source) and a club crest/badge next
+   to each team. Badges: real crests where a free source covers the club
+   (TheSportsDB-adjacent URLs are NOT used at render time — the export is
+   self-contained), otherwise a deterministic initials fallback (`_initials`)
+   with a colour derived from the club name — never a generic placeholder that
+   looks like real data; the fallback is labelled a placeholder.
+
+**What was built:**
+
+- `schema.py`: `trim_payload()` (client-safe trimming), `write_published()` +
+  `read_published()` + `PUBLISHED_DIR` + `read_audit_log()` (the published
+  store, gitignored like the raw boards — runtime state, never committed).
+- `server.py`: `POST /api/admin/publish` (Basic-auth'd, admin-only, writes the
+  exact admin-reviewed payload), client `/dashboard` reads the published store
+  not the raw board dir, `/api/board.json` trimmed.
+- `render.py`: `render_admin_dashboard()` (full internal view + search/filter
+  data-attrs + inline JS), client `render_dashboard()` with hero + grouped
+  league scan, `_pick_confidence` sort key, `_flag_html`, `_initials` fallback
+  crest, crest/flag rendering on BOTH views.
+- `export.py`: client-only export reads the published store; `stats.json` stays
+  out (admin-only diagnostic).
+- `monitor/health_monitor.py` + `logs/health_state.json`: the health monitor
+  (reconciled in from the parallel session's work).
+
+**Guardrails kept:** HR35 (a missing published board reads NO DATA — PENDING,
+never a guess; a newer schema is refused). The data-leak boundary from the
+previous entry still holds — the client view ships only trimmed payloads. The
+Audit log records the operator action; the capital block and honest-edge
+statements are untouched. All 40 test suites green, including the five webapp
+suites (render/schema/server/export/crest) rewritten for the boundary and the
+publish gate.
+
+**Authority:** Architect. New routes, a new publish gate, and a client visual
+redesign reverse the prior "no manual publish step" reading, so they were not
+taken under the auto-ratification grant. No capital, staking, fabrication,
+verification or honest-edge behaviour changed.
+
+---
+
 ## 2026-08-07 · Two-tier web dashboard: public client + authed /admin — ratified by the ARCHITECT
 
 **What the Architect asked:** "use it ui and every design from it everything

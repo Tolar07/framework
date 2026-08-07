@@ -33,6 +33,8 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Optional
 
+from data.multi_source import SourceNoData
+
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "thesportsdb"
 # Fixtures for a given day are known well ahead and rarely change intra-day, so
 # a half-day TTL is safe — the whole point is to stop re-hitting the network
@@ -278,14 +280,16 @@ def fetch_upcoming(league: str, fixtures_season: str, days_ahead: int = 14
     if requests is None:
         raise RuntimeError("requests not installed — cannot fetch live fixtures")
     if league in UNRESOLVED_LEAGUES:
-        raise ValueError(
+        # A coverage gap for THIS league, not an outage of the source — the
+        # multi-source failover must fall through without opening the circuit.
+        raise SourceNoData(
             f"'{league}' has no VERIFIED TheSportsDB league ID yet — it wasn't "
             f"found when scanning their directory on the public test key. "
             f"Resolve it with a personal key and add it to LEAGUE_IDS; it is "
             f"deliberately not guessed."
         )
     if league not in LEAGUE_IDS:
-        raise ValueError(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
+        raise SourceNoData(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
 
     events = _read_cache(league, fixtures_season)
     if events is None:

@@ -10,7 +10,8 @@ from datetime import date
 from typing import Any, Optional
 
 from data.multi_source import (
-    DataSource, MultiSource, build_multi_source, registry, as_source
+    DataSource, MultiSource, build_multi_source, registry, as_source,
+    SourceNoData,
 )
 from data.football_data_source import load_league as fd_load_league
 from data import thesportsdb_fixtures as tsdb
@@ -51,7 +52,9 @@ class TheSportsDBFixturesSource(DataSource):
                 dates = {(f.home_team, f.away_team): f.date for f in day_fixtures}
                 return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "thesportsdb_eventsday"}
 
-        raise RuntimeError(f"thesportsdb: no fixtures for {league} (season={fixtures_season}, days={days_ahead})")
+        # A legitimately-empty window is a valid answer for this league — fall
+        # through to the next source WITHOUT tripping the shared circuit breaker.
+        raise SourceNoData(f"thesportsdb: no fixtures for {league} (season={fixtures_season}, days={days_ahead})")
 
 
 class OddsAPIFixturesSource(DataSource):
@@ -65,7 +68,7 @@ class OddsAPIFixturesSource(DataSource):
         days_ahead = kwargs.get("days_ahead", 14)
         pairs, dates, flags = odds_fixtures_from_odds(league, days_ahead=days_ahead)
         if not pairs:
-            raise RuntimeError(f"odds_api: no fixtures for {league}")
+            raise SourceNoData(f"odds_api: no fixtures for {league}")
         return {"fixtures": pairs, "dates": dates, "flags": flags, "source": "odds_api"}
 
 
@@ -93,10 +96,10 @@ class APIFootballFixturesSource(DataSource):
             except Exception:
                 season_year = None
         if season_year is None:
-            raise RuntimeError(f"api_football: cannot resolve season {season!r} for {league}")
+            raise SourceNoData(f"api_football: cannot resolve season {season!r} for {league}")
         fixtures = fetch_upcoming(league, season_year, days_ahead=kwargs.get("days_ahead", 14))
         if not fixtures:
-            raise RuntimeError(f"api_football: no fixtures for {league} season {season_year}")
+            raise SourceNoData(f"api_football: no fixtures for {league} season {season_year}")
         pairs = as_pairs(fixtures)
         dates = {(f.home_team, f.away_team): f.date for f in fixtures}
         return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "api_football"}
@@ -137,7 +140,7 @@ class FootballDataResultsSource(DataSource):
         from data.football_data_source import load_league
         results, skipped = load_league(league, season)
         if not results:
-            raise RuntimeError(f"football_data: no results for {league} {season}")
+            raise SourceNoData(f"football_data: no results for {league} {season}")
         return {"results": results, "skipped": skipped, "source": "football_data"}
 
 
@@ -150,7 +153,7 @@ class APIFootballResultsSource(DataSource):
     def fetch(self, league: str, season: int) -> list:
         results, flags = apif.load_results(league, season=season)
         if not results:
-            raise RuntimeError(f"api_football_results: no results for {league} {season}")
+            raise SourceNoData(f"api_football_results: no results for {league} {season}")
         return {"results": results, "flags": flags, "source": "api_football_results"}
 
 
@@ -181,7 +184,7 @@ class OddsAPISource(DataSource):
     def fetch(self, league: str) -> list:
         fixtures, flags = odds_fetch_odds(league, regions=self.regions, markets=self.markets)
         if not fixtures:
-            raise RuntimeError(f"odds_api({self.regions}): no odds for {league}")
+            raise SourceNoData(f"odds_api({self.regions}): no odds for {league}")
         return {"fixtures": fixtures, "flags": flags, "source": f"odds_api_{self.regions}"}
 
 
@@ -210,10 +213,10 @@ class UnderstatXGSource(DataSource):
 
     def fetch(self, league: str, season: str) -> dict:
         if not xg_source.is_covered(league):
-            raise RuntimeError(f"understat: league {league} not covered")
+            raise SourceNoData(f"understat: league {league} not covered")
         ratings = xg_source.fit_xg(league, season)
         if not ratings:
-            raise RuntimeError(f"understat: no xG ratings for {league} {season}")
+            raise SourceNoData(f"understat: no xG ratings for {league} {season}")
         return {"ratings": ratings, "source": "understat"}
 
 
@@ -244,7 +247,7 @@ class FootballDataLiveSource(DataSource):
         from data.football_data_source import load_league
         results, skipped = load_league(league, season)
         if not results:
-            raise RuntimeError(f"football_data_live: no results for {league} {season}")
+            raise SourceNoData(f"football_data_live: no results for {league} {season}")
         return {"results": results, "skipped": skipped, "source": "football_data_live"}
 
 
@@ -257,7 +260,7 @@ class APIFootballLiveSource(DataSource):
     def fetch(self, league: str, season: int) -> list:
         results, flags = apif.load_results(league, season=season)
         if not results:
-            raise RuntimeError(f"api_football_live: no results for {league} {season}")
+            raise SourceNoData(f"api_football_live: no results for {league} {season}")
         return {"results": results, "flags": flags, "source": "api_football_live"}
 
 

@@ -34,10 +34,13 @@ def export(date_str: str, out: Path) -> list[Path]:
     from webapp import render as R
     from webapp import schema as S
 
-    payload = S.read_payload(ROOT / "output" / "boards" / f"board_{date_str}.json")
-    # The public surface is the TRIMMED payload — internals never reach the
-    # hosted copy, by construction.
-    client_payload = S.trim_payload(payload)
+    # The export is the PUBLIC face — it reads ONLY from the published store.
+    # If nothing is published for the date, the export fails honestly (no site).
+    try:
+        client_payload = S.read_published(date_str)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"No published board for {date_str}. Run the server, "
+                                f"open /admin/{date_str}, and click 'Approve → Publish to Client'.")
 
     out.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
@@ -53,11 +56,11 @@ def export(date_str: str, out: Path) -> list[Path]:
     (out / "README.md").write_text(
         "# OLP XDV hosted board\n\n"
         f"Client board for **{date_str}** — predictions only.\n\n"
-        "This export is the PUBLIC dashboard: it is trimmed server-side to the "
-        "market predictions (the model's 1X2 / goals / BTTS / double-chance "
-        "probabilities). Model internals (Elo second opinion, engine "
-        "divergence, consensus votes, verification, EV verdicts, the gate, "
-        "calibration) are admin-only and are not exported here.\n\n"
+        "This export is the PUBLIC dashboard: it is built from the PUBLISHED store "
+        "(written ONLY by the 'Approve → Publish to Client' action in /admin). "
+        "Model internals (Elo second opinion, engine divergence, consensus votes, "
+        "verification, EV verdicts, the gate, calibration) are admin-only and are "
+        "not exported here.\n\n"
         "Data is in `board.json` (same payload the page renders). The full "
         "admin view is served by the local server at `/admin`.\n",
         encoding="utf-8")

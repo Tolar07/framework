@@ -66,16 +66,29 @@ def _unrated_bf() -> BoardFixture:
         rejection_reason="NO DATA — PENDING: no fitted history")
 
 
-def _write_board(date_str: str):
-    payload = schema.build_payload(
-        date=date_str, phase="PHASE 2 — PAPER", leagues_scanned=["EFL Cup", "Champions League"],
-        board=[_rated_bf(), _unrated_bf()], data_flags=["⚠ test flag"],
-        gate={"legs_with_clv": 0, "gate_requirement": 30},
-        telemetry={}, calibration_count=0, mean_clv=None)
-    schema.write_payload(payload, boards / f"board_{date_str}.json")
+# The PUBLISHED_DIR patch must stay ACTIVE while the server serves —
+# _load_published reads from schema.PUBLISHED_DIR per request.
+# AUDIT_LOG is also module-level and must be patched to match.
+with patch.object(schema, "PUBLISHED_DIR", boards):
+    schema.AUDIT_LOG = boards / "publish_audit.jsonl"
+    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    port = httpd.server_address[1]
+    t = threading.Thread(target=httpd.serve_forever, daemon=True)
+    t.start()
+    BASE = f"http://127.0.0.1:{port}"
 
+    # Write the test board INSIDE the patch context
+    def _write_board(date_str: str):
+        payload = schema.build_payload(
+            date=date_str, phase="PHASE 2 — PAPER", leagues_scanned=["EFL Cup", "Champions League"],
+            board=[_rated_bf(), _unrated_bf()], data_flags=["⚠ test flag"],
+            gate={"legs_with_clv": 0, "gate_requirement": 30},
+            telemetry={}, calibration_count=0, mean_clv=None)
+        # The public dashboard reads from PUBLISHED_DIR, not BOARD_DIR.
+        # Write as "published" (trimmed) so the client view works.
+        schema.write_published(payload, approved_by="test")
 
-_write_board(today)
+    _write_board(today)
 
 
 def _req(path: str, headers: dict | None = None):
@@ -94,17 +107,6 @@ def _get(path: str, headers: dict | None = None):
 def _auth(user="test", pw="testpass"):
     token = base64.b64encode(f"{user}:{pw}".encode()).decode()
     return {"Authorization": f"Basic {token}"}
-
-
-# The patch must stay ACTIVE while the server serves — the handler resolves
-# server.BOARD_DIR per request, so if the patch ends the server reads the real
-# boards dir.
-with patch.object(server, "BOARD_DIR", boards):
-    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
-    port = httpd.server_address[1]
-    t = threading.Thread(target=httpd.serve_forever, daemon=True)
-    t.start()
-    BASE = f"http://127.0.0.1:{port}"
 
     # --- 1. / redirects to /dashboard/<today> ---------------------------------
     import urllib.request

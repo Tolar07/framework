@@ -12,6 +12,7 @@ converted here, so a consumer never touches engine objects.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
 
@@ -236,6 +237,84 @@ def trim_payload(payload: dict) -> dict:
     out = {k: payload[k] for k in CLIENT_TOP_KEYS if k in payload}
     out["board"] = trimmed_board
     return out
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Published store — the APPROVE gate boundary
+# ─────────────────────────────────────────────────────────────────────────────
+# The /admin board is the raw run_daily board (all model internals). The client
+# dashboard and static export MUST read from the PUBLISHED store, which is
+# written ONLY by the "Approve → Publish to Client" action. This enforces the
+# Architect's intent: nothing reaches the client without an explicit approval,
+# same principle as capital staying Architect-only.
+PUBLISHED_DIR = Path(__file__).parent.parent / "output" / "boards" / "published"
+AUDIT_LOG = PUBLISHED_DIR / "publish_audit.jsonl"
+
+
+def _ensure_published_dir() -> None:
+    PUBLISHED_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def list_published_dates() -> list[str]:
+    """Return sorted (descending) list of published board dates (YYYY-MM-DD)."""
+    _ensure_published_dir()
+    dates = [p.stem.replace("board_", "") for p in PUBLISHED_DIR.glob("board_*.json")]
+    return sorted(dates, reverse=True)
+
+
+def read_published(date_str: str) -> dict:
+    """Read a published board. Returns trimmed payload (client-safe)."""
+    path = PUBLISHED_DIR / f"board_{date_str}.json"
+    if not path.exists():
+        raise FileNotFoundError(f"no published board for {date_str}")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return trim_payload(payload)
+
+
+def write_published(admin_payload: dict, approved_by: str = "admin") -> Path:
+    """Write an admin-reviewed board to the published store + append audit log.
+
+    `admin_payload` is the FULL board payload as seen in admin (with all model
+    internals). We store the TRIMMED version and log the action."""
+    date_str = admin_payload.get("date", "")
+    if not date_str:
+        raise ValueError("payload must include 'date'")
+    trimmed = trim_payload(admin_payload)
+    path = PUBLISHED_DIR / f"board_{date_str}.json"
+    _ensure_published_dir()
+    path.write_text(json.dumps(trimmed, indent=1, ensure_ascii=False),
+                    encoding="utf-8")
+    # Append audit log
+    audit_entry = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "action": "publish",
+        "date": date_str,
+        "approved_by": approved_by,
+        "leagues_scanned": trimmed.get("leagues_scanned", []),
+        "n_leagues": trimmed.get("n_leagues", 0),
+        "n_fixtures": len(trimmed.get("board", [])),
+        "n_rated": sum(1 for bf in trimmed.get("board", []) if bf.get("probs") is not None),
+        "schema_version": SCHEMA_VERSION,
+    }
+    with AUDIT_LOG.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(audit_entry, ensure_ascii=False) + "\n")
+    return path
+
+
+def read_audit_log(limit: int = 50) -> list[dict]:
+    """Read the publish audit log (most recent first)."""
+    if not AUDIT_LOG.exists():
+        return []
+    entries = []
+    with AUDIT_LOG.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                try:
+                    entries.append(json.loads(line))
+                except json.JSONDecodeError:
+                    pass
+    return list(reversed(entries))[-limit:]
 
 
 def read_payload(path) -> dict:

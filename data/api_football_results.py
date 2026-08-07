@@ -44,6 +44,7 @@ except ImportError:
     requests = None
 
 from data.football_data_source import MatchResult
+from data.multi_source import SourceNoData
 
 API_BASE = "https://v3.football.api-sports.io"
 CACHE_DIR = Path(__file__).parent / "cache" / "api_football"
@@ -97,9 +98,9 @@ def load_results(league: str, season: int = FREE_TIER_LAST_SEASON,
     if requests is None:
         raise RuntimeError("requests not installed")
     if league not in LEAGUE_IDS:
-        raise ValueError(f"'{league}' has no verified API-Football league ID here.")
+        raise SourceNoData(f"'{league}' has no verified API-Football league ID here.")
     if season > FREE_TIER_LAST_SEASON:
-        raise ValueError(
+        raise SourceNoData(
             f"season {season} is beyond the free plan (ends {FREE_TIER_LAST_SEASON}). "
             f"Fetching it would return a plan error, not data.")
 

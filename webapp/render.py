@@ -236,6 +236,131 @@ footer{
   .scan-table{font-size:11.5px;}
   .scan-table th:nth-child(4), .scan-table td:nth-child(4){display:none;}
 }
+
+/* Hero section (client view) */
+.hero{
+  background:linear-gradient(180deg,#161C29,var(--surface));
+  border:1px solid var(--line);border-left:4px solid var(--amber);
+  border-radius:var(--radius);padding:24px 20px;margin-bottom:18px;
+  text-align:center;
+}
+.hero-date{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-faint);
+  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;
+}
+.hero-title{
+  font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;
+  color:var(--amber);text-transform:uppercase;letter-spacing:0.04em;margin:0 0 12px 0;
+}
+.hero-match{
+  margin-bottom:14px;
+}
+.hero-teams{
+  font-size:18px;font-weight:600;color:var(--ink);
+}
+.hero-league{
+  display:block;font-size:11px;color:var(--ink-faint);margin-top:4px;
+}
+.hero-pick{
+  display:inline-flex;align-items:center;gap:10px;padding:10px 18px;
+  background:rgba(79,184,148,0.1);border:1px solid var(--teal);
+  border-radius:999px;margin-bottom:16px;
+}
+.hero-team{font-size:16px;font-weight:600;color:var(--teal);}
+.hero-confidence{
+  font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--ink);
+}
+.hero-cta{
+  display:inline-block;padding:10px 22px;background:var(--amber);color:var(--bg);
+  font-weight:600;border-radius:8px;text-decoration:none;transition:opacity 0.15s;
+}
+.hero-cta:hover{opacity:0.9;}
+
+/* Admin actions + search bar */
+.admin-actions{
+  max-width:720px;margin:10px auto 0 auto;padding:0 20px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.btn-primary{
+  background:var(--amber);color:var(--bg);font-weight:600;
+  padding:9px 18px;border-radius:8px;border:none;cursor:pointer;
+  transition:opacity 0.15s,transform 0.05s;
+}
+.btn-primary:hover{opacity:0.9;}
+.btn-primary:active{transform:scale(0.98);}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
+.published-stamp{
+  display:none;font-size:12px;color:var(--teal);
+  font-family:'IBM Plex Mono',monospace;
+}
+.admin-search-bar{
+  max-width:720px;margin:14px auto 0 auto;padding:0 20px;
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  font-size:12px;
+}
+.admin-search-bar input[type="search"]{
+  flex:1;min-width:180px;padding:8px 12px;
+  background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;
+}
+.admin-search-bar input[type="search"]::placeholder{color:var(--ink-faint);}
+.admin-search-bar select{
+  padding:8px 12px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;
+  min-width:120px;
+}
+.admin-search-bar select:focus,
+.admin-search-bar input:focus{outline:none;border-color:var(--amber);}
+
+/* League group rows */
+.league-header{
+  cursor:pointer;
+  background:rgba(216,166,89,0.06);
+}
+.league-header:hover{
+  background:rgba(216,166,89,0.1);
+}
+.league-group{
+  display:flex;align-items:center;gap:8px;padding:8px 0;
+}
+.league-group-toggle{
+  color:var(--amber);font-size:12px;transition:transform 0.2s;flex:none;
+}
+.league-group-name{
+  font-weight:600;color:var(--ink);text-transform:uppercase;
+  font-family:'Barlow Condensed',sans-serif;letter-spacing:0.02em;
+}
+.league-group-count{
+  color:var(--ink-faint);font-size:11px;font-family:'IBM Plex Mono',monospace;
+}
+tbody.collapsed .league-group-toggle{
+  transform:rotate(-90deg);
+}
+tbody.collapsed .league-row,
+tfoot.collapsed .detail-row{
+  display:none;
+}
+
+/* Crests and flags */
+.crest{
+  width:18px;height:18px;border-radius:50%;object-fit:cover;
+  background:var(--surface-2);vertical-align:middle;margin-right:6px;
+  border:1px solid var(--line);flex:none;
+}
+.crest.placeholder{
+  border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:var(--ink-faint);background:var(--surface-2);
+}
+.flag{
+  width:22px;height:16px;border-radius:2px;object-fit:cover;
+  vertical-align:middle;margin-right:6px;flex:none;
+  border:1px solid var(--line);
+}
+.flag.placeholder{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:600;color:var(--ink-faint);background:var(--surface-2);
+}
+
 """
 
 _SCAN_JS = """<script>
@@ -243,6 +368,89 @@ _SCAN_JS = """<script>
     document.getElementById(id).classList.toggle('open');
     event.currentTarget.classList.toggle('open');
   }
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.league-header').forEach(function(h) {
+      h.addEventListener('click', function(e) {
+        if (e.target.classList.contains('league-group-toggle') ||
+            e.target.classList.contains('league-group-name') ||
+            e.target.classList.contains('league-group-count')) {
+          var tbody = h.parentElement;
+          tbody.classList.toggle('collapsed');
+        }
+      });
+    });
+  });
+</script>"""
+
+_PUBLISH_JS = """<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.querySelector('.publish-btn');
+    var stamp = document.querySelector('.published-stamp');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        var d = btn.getAttribute('data-date');
+        if (!d) return;
+        btn.disabled = true;
+        btn.textContent = 'Publishing…';
+        fetch('/api/admin/publish', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({date: d})
+        }).then(function(r){ return r.json(); })
+          .then(function(data) {
+            if (data.ok) {
+              btn.style.display = 'none';
+              if (stamp) stamp.style.display = 'block';
+            } else {
+              btn.disabled = false;
+              btn.textContent = 'Approve → Publish to Client';
+              alert('Publish failed: ' + (data.error || 'unknown'));
+            }
+          }).catch(function(e) {
+            btn.disabled = false;
+            btn.textContent = 'Approve → Publish to Client';
+            alert('Network error: ' + e);
+          });
+      });
+    }
+  });
+</script>"""
+
+_ADMIN_SEARCH_JS = """<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var input = document.getElementById('admin-search');
+    var leagueSel = document.getElementById('admin-filter-league');
+    var tierSel = document.getElementById('admin-filter-tier');
+    var marketSel = document.getElementById('admin-filter-market');
+    var statusSel = document.getElementById('admin-filter-status');
+    var dateSel = document.getElementById('admin-filter-date');
+    var allRows = document.querySelectorAll('table.scan-table tbody tr.clickable');
+    var allDetail = document.querySelectorAll('table.scan-table tbody tr.detail-row');
+    function filter() {
+      var q = (input?.value || '').toLowerCase();
+      var league = leagueSel?.value || '';
+      var tier = tierSel?.value || '';
+      var market = marketSel?.value || '';
+      var status = statusSel?.value || '';
+      var dateF = dateSel?.value || '';
+      allRows.forEach(function(tr, i) {
+        var txt = tr.textContent.toLowerCase();
+        var bf = tr.dataset;
+        var ok = true;
+        if (q && !txt.includes(q)) ok = false;
+        if (league && bf.league !== league) ok = false;
+        if (tier && bf.tier !== tier) ok = false;
+        if (market && bf.market !== market) ok = false;
+        if (status && bf.status !== status) ok = false;
+        if (dateF && bf.date !== dateF) ok = false;
+        tr.style.display = ok ? '' : 'none';
+        if (allDetail[i]) allDetail[i].style.display = ok ? '' : 'none';
+      });
+    }
+    [input, leagueSel, tierSel, marketSel, statusSel, dateSel].forEach(function(el) {
+      if (el) el.addEventListener('input', filter);
+    });
+  });
 </script>"""
 
 
@@ -286,6 +494,103 @@ def _teams(bf: dict) -> tuple[str, str, str]:
         h, a = [s.strip() for s in short.split(" v ", 1)]
         return h, a, league
     return short, "—", league
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# League flags + club crests (local cache, initials fallback)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Country code for each league (ISO alpha-2) — used for flag emoji/img
+_LEAGUE_COUNTRY = {
+    "Premier League": "GB",
+    "Championship": "GB",
+    "Bundesliga": "DE",
+    "Serie A": "IT",
+    "Ligue 1": "FR",
+    "La Liga": "ES",
+    "Eredivisie": "NL",
+    "Primeira Liga": "PT",
+    "Scottish Premiership": "GB",
+    "Danish Superliga": "DK",
+    "Belgian Pro League": "BE",
+    "Austrian Bundesliga": "AT",
+    "Champions League": "EU",
+    "Europa League": "EU",
+    "EFL Cup": "GB",
+    "Ekstraklasa": "PL",
+    "HNL": "HR",
+}
+
+# Club crest mapping: league -> {team_name: crest_url_or_data_uri}
+# Populated lazily; on miss, initials fallback is used.
+_CLUB_CRESTS: dict[str, dict[str, str]] = {}
+
+
+_CLUB_PREFIXES = ("fc", "ac", "cf", "sc", "rc", "afc", "as", "cd", "ud", "sv")
+
+
+def _initials(name: str) -> str:
+    """Badge initials for a club.
+
+    Multi-word clubs get the initials of their first two significant words
+    (Manchester United -> MU). A single significant word gets its first 3
+    letters (Ajax -> AJA) — but when a club prefix like FC/AC/AS was stripped,
+    the bare word is the club's common name, so a single letter reads best on
+    a badge (FC Barcelona -> B, AC Milan -> M, AS Roma -> R)."""
+    tokens = [t for t in name.split()]
+    words = [t for t in tokens if t.lower() not in _CLUB_PREFIXES]
+    if not words:
+        return name[:2].upper()
+    if len(words) == 1:
+        if len(words) < len(tokens):
+            return words[0][0].upper()
+        return words[0][:3].upper()
+    return "".join(w[0].upper() for w in words[:2])
+
+
+def _flag_html(league: str) -> str:
+    """Return <img class='flag' ...> for the league's country, or placeholder."""
+    code = _LEAGUE_COUNTRY.get(league)
+    if not code:
+        return '<span class="flag placeholder">?</span>'
+    if code == "EU":
+        return '<span class="flag placeholder" title="European competition">EU</span>'
+    # Use flagcdn.com (free, no key, SVG flags)
+    url = f"https://flagcdn.com/24x16/{code.lower()}.svg"
+    return f'<img class="flag" src="{url}" alt="{code}" title="{league}">'
+
+
+def _crest_html(team: str, league: str) -> str:
+    """Return <img class='crest' ...> for the club, or initials placeholder."""
+    league_crests = _CLUB_CRESTS.get(league, {})
+    url = league_crests.get(team)
+    if url:
+        return f'<img class="crest" src="{url}" alt="{team}" title="{team}">'
+    # Fallback: initials in a coloured circle
+    initials = _initials(team)
+    # Deterministic colour from team name
+    h = hash(team) % 360
+    color = f"hsl({h}, 55%, 45%)"
+    return (f'<span class="crest placeholder" style="background:{color}" '
+            f'title="{team}">{initials}</span>')
+
+
+def _fixture_teams_with_badges(bf: dict) -> tuple[str, str, str]:
+    """Return (home_badged, away_badged, league) for fixture rendering."""
+    home, away, league = _teams(bf)
+    home_badged = _crest_html(home, league) + html.escape(home)
+    away_badged = _crest_html(away, league) + html.escape(away)
+    return home_badged, away_badged, league
+
+
+def _fixture_teams_with_badges_admin(bf: dict) -> tuple[str, str, str]:
+    """Admin version includes flag on league name."""
+    home, away, league = _teams(bf)
+    flag = _flag_html(league)
+    home_badged = _crest_html(home, league) + html.escape(home)
+    away_badged = _crest_html(away, league) + html.escape(away)
+    league_badged = flag + " " + html.escape(league)
+    return home_badged, away_badged, league_badged
 
 
 def _friendly_date(d) -> str:
@@ -487,7 +792,10 @@ def _internals(bf: dict) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _call_card(bf: dict, admin: bool = False) -> str:
-    home, away, league = _teams(bf)
+    if admin:
+        home_badged, away_badged, league_badged = _fixture_teams_with_badges_admin(bf)
+    else:
+        home_badged, away_badged, league_badged = _fixture_teams_with_badges(bf)
     p = bf.get("probs")
     pick_label, pick_prob = _pick(bf)
     trigger = _fmt_price(bf.get("mes_trigger_price"))
@@ -495,15 +803,15 @@ def _call_card(bf: dict, admin: bool = False) -> str:
     if admin:
         tier = html.escape(str(bf.get("softness_tier", "?")))
         head = (f'<div class="call-top">'
-                f'<div><div class="fixture-name">{html.escape(f"{home} v {away}")}</div>'
-                f'<div class="league-tag">{html.escape(league)}</div></div>'
+                f'<div><div class="fixture-name">{home_badged} v {away_badged}</div>'
+                f'<div class="league-tag">{league_badged}</div></div>'
                 f'<div class="tier-badge">TIER {tier}</div></div>')
         stamp = _stamp_row(bf)
         hint = "Full analysis + model internals"
         extras = _internals(bf) if p is not None else ""
     else:
-        head = (f'<div class="fixture-name">{html.escape(f"{home} v {away}")}</div>'
-                f'<div class="league-tag">{html.escape(league)}</div>')
+        head = (f'<div class="fixture-name">{home_badged} v {away_badged}</div>'
+                f'<div class="league-tag">{league_badged}</div>')
         stamp = ""
         hint = "Full analysis — all markets"
         extras = ""
@@ -542,35 +850,85 @@ def _the_call(board: list[dict], admin: bool = False) -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# THE SCAN table (click-to-expand rows)
+# THE SCAN — grouped by league, sorted by pick confidence (both views)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _scan_table(board: list[dict], admin: bool = False) -> str:
+def _pick_confidence(bf: dict) -> float:
+    """Extract the highest model probability for sorting."""
+    p = bf.get("probs")
+    if not p:
+        return 0.0
+    # Get max of home/draw/away probabilities
+    probs = [p.get("p_home"), p.get("p_draw"), p.get("p_away")]
+    return max([pr for pr in probs if pr is not None] or [0.0])
+
+
+def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") -> str:
+    # Group by league
+    from collections import defaultdict
+    by_league = defaultdict(list)
+    for bf in board:
+        league = _league_of(bf.get("fixture", ""))
+        by_league[league].append(bf)
+
+    # Sort leagues by name for consistency
+    sorted_leagues = sorted(by_league.keys())
+
+    # Build the grouped table
     headers = ["Fixture", "1X2", "O1.5/O2.5", "DC/BTTS"] + (["Src"] if admin else [])
     n_cols = len(headers)
     thead = "<tr>" + "".join(f"<th>{h}</th>" for h in headers) + "</tr>"
-    body: list[str] = []
-    idx = 0
-    for bf in board:
-        idx += 1
-        home, away, league = _teams(bf)
-        fixture_td = (f'<td><span class="scan-fixture">{html.escape(f"{home} v {away}")}</span>'
-                      f'<span class="scan-league">{html.escape(league)}</span></td>')
-        src_td = f'<td>{_src_dot(bf)}</td>' if admin else ""
-        p = bf.get("probs")
-        if p is None:
-            reason = bf.get("rejection_reason") or "NO DATA — PENDING"
-            body.append(f"""<tr>
+
+    body_parts: list[str] = []
+
+    for league in sorted_leagues:
+        fixtures = by_league[league]
+        # Sort fixtures by pick confidence (highest first)
+        fixtures_sorted = sorted(fixtures, key=_pick_confidence, reverse=True)
+
+        # League header row — flag on BOTH views (client + admin)
+        flag = _flag_html(league)
+        league_badged = flag + " " + html.escape(league)
+        body_parts.append(f"""<tr class="league-header" data-league="{html.escape(league)}">
+  <td colspan="{n_cols}">
+    <div class="league-group">
+      <span class="league-group-toggle" onclick="this.parentElement.parentElement.parentElement.classList.toggle('collapsed')">▸</span>
+      <span class="league-group-name">{league_badged}</span>
+      <span class="league-group-count">({len(fixtures_sorted)} fixtures)</span>
+    </div>
+  </td>
+</tr>""")
+
+        # Fixture rows
+        idx = 0
+        for bf in fixtures_sorted:
+            idx += 1
+            if admin:
+                home_badged, away_badged, league_badged = _fixture_teams_with_badges_admin(bf)
+            else:
+                home_badged, away_badged, league_badged = _fixture_teams_with_badges(bf)
+            fixture_td = (f'<td><span class="scan-fixture">{home_badged} v {away_badged}</span>'
+                          f'<span class="scan-league">{league_badged}</span></td>')
+            src_td = f'<td>{_src_dot(bf)}</td>' if admin else ""
+            p = bf.get("probs")
+            tier = bf.get("softness_tier", "?")
+            status = "deploy" if bf.get("on_deploy_shortlist") else ("no-data" if p is None else "scan-only")
+            best_market = bf.get("best_market_key") or ""
+            date_str = payload_date if admin else ""
+
+            if p is None:
+                reason = bf.get("rejection_reason") or "NO DATA — PENDING"
+                body_parts.append(f"""<tr class="league-row" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}">
   {fixture_td}
   <td class="nodata" colspan="3">NO DATA — PENDING · {html.escape(reason)}</td>
   {src_td}
 </tr>""")
-            continue
-        row_id = ("a-" if admin else "") + f"scan-{idx}"
-        c2 = _scan_1x2(p)
-        c3 = _scan_goals(p)
-        c4 = _scan_dc_btts(p)
-        body.append(f"""<tr class="clickable" onclick="toggleScanRow('{row_id}')">
+                continue
+            row_id = ("a-" if admin else "") + f"scan-{idx}-{html.escape(league).replace(' ', '-')}"
+            c2 = _scan_1x2(p)
+            c3 = _scan_goals(p)
+            c4 = _scan_dc_btts(p)
+            body_parts.append(f"""<tr class="clickable league-row" onclick="toggleScanRow('{row_id}')" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}">
   <td><span class="chevron">▸</span>{fixture_td}</td>
   <td class="scan-num">{c2}</td>
   <td class="scan-num">{c3}</td>
@@ -585,12 +943,13 @@ def _scan_table(board: list[dict], admin: bool = False) -> str:
     </div>
   </td>
 </tr>""")
+
     return f"""<table class="scan-table">
   <thead>
   {thead}
   </thead>
   <tbody>
-  {''.join(body)}
+  {''.join(body_parts)}
   </tbody>
 </table>"""
 
@@ -695,6 +1054,45 @@ def _yesterday_graded(rows: list[dict]) -> str:
     return '<div class="flags" style="padding:6px 16px;">' + "".join(out) + "</div>"
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Admin search/filter bar
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _admin_search_bar(payload: dict) -> str:
+    """Search/filter controls for the admin scan table."""
+    # Collect unique values for dropdowns
+    leagues = sorted({_league_of(bf.get("fixture", "")) for bf in payload.get("board", [])})
+    tiers = ["A", "B", "C", "D"]
+    markets = ["1X2_HOME", "1X2_DRAW", "1X2_AWAY", "OVER_1_5", "OVER_2_5", "BTTS_YES"]
+    statuses = ["deploy", "scan-only", "no-data"]
+    dates = [payload.get("date", "")]
+
+    league_opts = "".join(f'<option value="{html.escape(lg)}">{html.escape(lg)}</option>' for lg in leagues)
+    tier_opts = "".join(f'<option value="{t}">{t}</option>' for t in tiers)
+    market_opts = "".join(f'<option value="{m}">{m}</option>' for m in markets)
+    status_opts = "".join(f'<option value="{s}">{s}</option>' for s in statuses)
+    date_opts = "".join(f'<option value="{d}">{d}</option>' for d in dates if d)
+
+    return f"""<div class="admin-search-bar">
+  <input type="search" id="admin-search" placeholder="Search team, league, fixture…" aria-label="Search fixtures">
+  <select id="admin-filter-league" aria-label="Filter by league">
+    <option value="">All leagues</option>{league_opts}
+  </select>
+  <select id="admin-filter-tier" aria-label="Filter by softness tier">
+    <option value="">All tiers</option>{tier_opts}
+  </select>
+  <select id="admin-filter-market" aria-label="Filter by market type">
+    <option value="">All markets</option>{market_opts}
+  </select>
+  <select id="admin-filter-status" aria-label="Filter by deploy status">
+    <option value="">All statuses</option>{status_opts}
+  </select>
+  <select id="admin-filter-date" aria-label="Filter by date">
+    <option value="">All dates</option>{date_opts}
+  </select>
+</div>"""
+
+
 def _admin_footer(payload: dict) -> str:
     gate = payload.get("gate") or {}
     n = gate.get("legs_with_clv")
@@ -723,14 +1121,58 @@ def _admin_footer(payload: dict) -> str:
 def render_dashboard(payload: dict) -> str:
     """The PUBLIC client view — predictions only (the caller is expected to have
     passed schema.trim_payload(payload); the renderer reads no internals)."""
+    d = payload.get("date", "")
+    today = _date.today().isoformat()
+    board = payload.get("board", [])
+    # Find the strongest pick for the hero
+    hero_pick = None
+    for bf in board:
+        if bf.get("probs") and bf.get("on_deploy_shortlist"):
+            hero_pick = bf
+            break
+    if not hero_pick:
+        for bf in board:
+            if bf.get("probs"):
+                hero_pick = bf
+                break
+
+    hero_html = ""
+    if hero_pick:
+        p = hero_pick.get("probs", {})
+        home, away, league = _teams(hero_pick)
+        probs = {}
+        if p:
+            probs = {
+                "home": p.get("p_home"),
+                "draw": p.get("p_draw"),
+                "away": p.get("p_away")
+            }
+        best = max(probs.items(), key=lambda x: x[1] or 0) if probs else ("home", 0)
+        best_team = home if best[0] == "home" else (away if best[0] == "away" else "Draw")
+        best_pct = round((best[1] or 0) * 100)
+        hero_html = f"""<section class="hero">
+  <div class="hero-date">Today — {_friendly_date(today)}</div>
+  <h1 class="hero-title">Top Pick</h1>
+  <div class="hero-match">
+    <span class="hero-teams">{html.escape(f"{home} v {away}")}</span>
+    <span class="hero-league">{html.escape(league)}</span>
+  </div>
+  <div class="hero-pick">
+    <span class="hero-team">{html.escape(best_team)}</span>
+    <span class="hero-confidence">{best_pct}%</span>
+  </div>
+  <a class="hero-cta" href="#scan">View Full Board</a>
+</section>"""
+
     body = (
         _board_header(payload, admin=False)
+        + hero_html
         + "<main>"
         + '<section><div class="sec-head"><h2 class="display">The Call</h2></div>'
         + _the_call(payload.get("board", []), admin=False)
         + "</section>"
         + '<section><div class="sec-head"><h2 class="display">The Scan</h2></div>'
-        + _scan_table(payload.get("board", []), admin=False)
+        + _scan_table(payload.get("board", []), admin=False, payload_date=payload.get("date", ""))
         + "</section>"
         + "</main>"
     )
@@ -742,9 +1184,25 @@ def render_admin_dashboard(payload: dict) -> str:
     verification, cap, data flags, yesterday-graded and the honest footer."""
     n_leagues = payload.get("n_leagues") or len(payload.get("leagues_scanned", []))
     n_call = sum(1 for bf in payload.get("board", []) if bf.get("on_deploy_shortlist"))
+    d = payload.get("date", "")
+    published_stamp = ""
+    if d:
+        try:
+            from webapp import schema as S
+            pub = S.read_published(d)
+            if pub:
+                published_stamp = f'<div class="published-stamp">✅ Published to client — {d}</div>'
+        except Exception:
+            pass
     body = (
         _board_header(payload, admin=True)
         + '<div class="paper-strip mono">PAPER ONLY — no stake is placed by this system</div>'
+        + '<div class="admin-actions">'
+        + f'<button class="btn-primary publish-btn" data-date="{html.escape(d)}">'
+        + 'Approve → Publish to Client</button>'
+        + f'{published_stamp}'
+        + '</div>'
+        + _admin_search_bar(payload)
         + "<main>"
         + '<section><div class="sec-head"><h2 class="display">The Call</h2>'
         + f'<span class="cap-pill">{n_call} / 6 CAP</span></div>'
@@ -753,7 +1211,7 @@ def render_admin_dashboard(payload: dict) -> str:
         + "</section>"
         + '<section><div class="sec-head"><h2 class="display">The Scan</h2></div>'
         + f'<p class="sec-sub">Every fixture across all {n_leagues} scanned leagues</p>'
-        + _scan_table(payload.get("board", []), admin=True)
+        + _scan_table(payload.get("board", []), admin=True, payload_date=payload.get("date", ""))
         + "</section>"
         + _flags_block(payload.get("data_flags", []))
         + '<section><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
@@ -763,7 +1221,7 @@ def render_admin_dashboard(payload: dict) -> str:
         + "</main>"
         + _admin_footer(payload)
     )
-    return html_shell("OLP XDV — Admin Dashboard", body, script=_SCAN_JS)
+    return html_shell("OLP XDV — Admin Dashboard", body, script=_SCAN_JS + _PUBLISH_JS + _ADMIN_SEARCH_JS)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

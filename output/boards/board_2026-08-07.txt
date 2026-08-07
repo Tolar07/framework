@@ -1,6 +1,6 @@
 PART 0 — HEADER
 Date: 2026-08-07 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
-Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, EFL Cup
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Austrian Bundesliga, EFL Cup
 Calibration: 0 legs logged, CLV logged: ZERO
 DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ graded 0 of 11 pending leg(s)
@@ -20,28 +20,31 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ HNL: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
   ⚠ HNL: NO ODDS available from this source — it can be modelled but never CLV-backtested.
   ⚠ HNL: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
-  ⚠ Championship: no upcoming fixtures (multi-source fixtures: '_FuncSource' object has no attribute 'circuit_breaker_failures') — NO DATA — PENDING
-  ⚠ Serie A: no upcoming fixtures (multi-source fixtures: '_FuncSource' object has no attribute 'circuit_breaker_failures') — NO DATA — PENDING
-  ⚠ Bundesliga: no upcoming fixtures (multi-source fixtures: '_FuncSource' object has no attribute 'circuit_breaker_failures') — NO DATA — PENDING
-  ⚠ Ligue 1: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Championship: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Serie A: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Ligue 1: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
   ⚠ Europa League: history served from cache
   ⚠ Europa League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
   ⚠ Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
   ⚠ Europa League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
   ⚠ Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
-  ⚠ Europa League: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
-  ⚠ Primeira Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
-  ⚠ Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
-  ⚠ La Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Europa League: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: 'Europa League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ⚠ Primeira Liga: fixtures via thesportsdb_season
+  ⚠ Primeira Liga: 2 team name(s) in the fixtures feed not found in the fitted data — Académico de Viseu, Marítimo. Suggestions: Académico de Viseu -> no close match in the model pool; Marítimo -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ La Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
   ⚠ Champions League: history served from cache
   ⚠ Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
   ⚠ Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
   ⚠ Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
   ⚠ Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
-  ⚠ Champions League: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
-  ⚠ EFL Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: None) — NO DATA — PENDING
+  ⚠ Champions League: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Austrian Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Austrian Bundesliga: results fetch failed ('Austrian Bundesliga' is not in LEAGUE_CODES — add it or check spelling.) — NO DATA — PENDING
+  ⚠ EFL Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 3 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
   ⚠ EFL Cup: results fetch failed ('EFL Cup' is not in LEAGUE_CODES — add it or check spelling.) — NO DATA — PENDING
-  ⚠ ⚠ source circuit OPEN (paused): thesportsdb, odds_api_fixtures, api_football_fixtures
+  ⚠ ⚠ source circuit OPEN (paused): api_football_fixtures
   ⚠ Belgian Pro League: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
   ⚠ Danish Superliga: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
   ⚠ Eredivisie: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
@@ -200,6 +203,15 @@ Hearts v Dundee United (Scottish Premiership) | Hearts·73% | O81 / O58 | 1X92 /
 Motherwell v Falkirk (Scottish Premiership) | Motherwell·65% | O78 / O53 | 1X87 / N52 | ○
 Kilmarnock v Celtic (Scottish Premiership) | Celtic·60% | O86 / O65 | X282 / Y62 | ○
 Rangers v Hibernian (Scottish Premiership) | Rangers·55% | O81 / O58 | 1X80 / Y58 | ○
+Estoril v Famalicao (Primeira Liga) | Famalicao·42% | O71 / U54 | 1273 / Y51 | ○
+Marítimo v Casa Pia (Primeira Liga) | NO DATA — PENDING | — | — | ○
+Guimaraes v Arouca (Primeira Liga) | Guimaraes·48% | O83 / O62 | 1277 / Y63 | ○
+Estrela v Sp Lisbon (Primeira Liga) | Sp Lisbon·80% | O86 / O67 | X293 / N53 | ○
+Benfica v Académico de Viseu (Primeira Liga) | NO DATA — PENDING | — | — | ○
+Porto v Alverca (Primeira Liga) | Porto·82% | O76 / O52 | 1X96 / N72 | ○
+Moreirense v Sp Braga (Primeira Liga) | Sp Braga·55% | O76 / O52 | X279 / Y52 | ○
+Gil Vicente v Rio Ave (Primeira Liga) | Gil Vicent·64% | O75 / U50 | 1X85 / N54 | ○
+Santa Clara v Nacional (Primeira Liga) | Santa Clar·38% | O56 / U71 | 1X71 / N63 | ○
 
 PART 3 — REJECTED / WATCHLIST
 Cambuur v Excelsior (Eredivisie): NO DATA — PENDING: 'Cambuur' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
@@ -207,10 +219,19 @@ AZ Alkmaar v ADO Den Haag (Eredivisie): NO DATA — PENDING: 'ADO Den Haag' is n
 AC Horsens v Brondby (Danish Superliga): NO DATA — PENDING: 'AC Horsens' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
 St Truiden v Lommel (Belgian Pro League): NO DATA — PENDING: 'Lommel' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
 Antwerp v Beveren (Belgian Pro League): NO DATA — PENDING: 'Beveren' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Estoril v Famalicao (Primeira Liga): softness tier D — scan-only
+Marítimo v Casa Pia (Primeira Liga): NO DATA — PENDING: 'Marítimo' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Guimaraes v Arouca (Primeira Liga): softness tier D — scan-only
+Estrela v Sp Lisbon (Primeira Liga): softness tier D — scan-only
+Benfica v Académico de Viseu (Primeira Liga): NO DATA — PENDING: 'Académico de Viseu' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Porto v Alverca (Primeira Liga): softness tier D — scan-only
+Moreirense v Sp Braga (Primeira Liga): softness tier D — scan-only
+Gil Vicente v Rio Ave (Primeira Liga): softness tier D — scan-only
+Santa Clara v Nacional (Primeira Liga): softness tier D — scan-only
 
 PART 4 — DATA INTEGRITY (ID403 counts)
 VERIFIED: 0
-SINGLE-SOURCE: 27
+SINGLE-SOURCE: 36
 CONFLICT: 0
 NO-DATA: 0
 DERIVED: 0

@@ -73,10 +73,27 @@ def main():
     ap = argparse.ArgumentParser(description="Export the public OLP XDV dashboard")
     ap.add_argument("--date", default=date.today().isoformat())
     ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    ap.add_argument("--no-prefetch-crests", action="store_true",
+                    help="skip the club-badge prefetch (the exported board.json "
+                         "already determines the crests)")
     a = ap.parse_args()
     written = export(a.date, a.out)
     for w in written:
         print(f"wrote {w}")
+    # Pre-warm club badges for the exported board so the hosted site carries
+    # real crests. Best-effort (never raises); `export()` stays offline-pure so
+    # the test suites don't hit the network.
+    if not a.no_prefetch_crests:
+        try:
+            from webapp import crests as _crests
+            teams = _crests.teams_from_board(a.out / "board.json")
+            got = _crests.prefetch(teams)
+            still = _crests.missing(teams)
+            print(f"crest prefetch: {len(got)} added, "
+                  f"{len(still)} team(s) still on initials: "
+                  + (", ".join(still) if still else "none"))
+        except Exception as e:
+            print(f"crest prefetch skipped ({e})")
 
 
 if __name__ == "__main__":

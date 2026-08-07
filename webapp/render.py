@@ -24,7 +24,7 @@ Google Fonts with system fallbacks (Architect approved the CDN).
 from __future__ import annotations
 
 import html
-from datetime import date as _date, datetime
+from datetime import date as _date, datetime, timedelta as _timedelta
 
 # Google Fonts (Architect-approved): degrade gracefully to the system stacks
 # below when offline.
@@ -66,7 +66,7 @@ body{
 .display{font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:0.02em;}
 
 header.top{
-  max-width:720px;margin:0 auto;padding:28px 20px 18px 20px;
+  max-width:1180px;margin:0 auto;padding:28px 20px 18px 20px;
   border-bottom:1px solid var(--line);
 }
 .brand{display:flex;align-items:baseline;gap:10px;}
@@ -81,13 +81,35 @@ header.top{
 }
 .meta-row{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--ink-dim);flex-wrap:wrap;}
 .meta-row b{color:var(--ink);font-weight:600;}
+.date-nav{
+  display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap;
+  font-size:12px;color:var(--ink-dim);
+}
+.date-nav-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border:1px solid var(--line);border-radius:8px;
+  background:var(--surface);color:var(--ink);text-decoration:none;
+  transition:border-color 0.15s,background 0.15s;
+}
+.date-nav-btn:hover{border-color:var(--amber-dim);background:var(--surface-2);}
+.date-nav-input{
+  padding:5px 8px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;
+}
+.date-nav-input::-webkit-calendar-picker-indicator{filter:invert(0.7);cursor:pointer;}
+.date-nav-today{
+  padding:5px 10px;border:1px solid var(--amber-dim);border-radius:8px;
+  color:var(--amber);text-decoration:none;font-size:11.5px;transition:opacity 0.15s;
+}
+.date-nav-today:hover{opacity:0.85;}
+.date-nav-label{font-size:11.5px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
 .paper-strip{
-  max-width:720px;margin:0 auto;padding:9px 20px;background:#1E1710;
+  max-width:1180px;margin:0 auto;padding:9px 20px;background:#1E1710;
   border-bottom:1px solid #3A2E18;color:#D8A659;font-size:12px;text-align:center;
   letter-spacing:0.03em;
 }
 
-main{max-width:720px;margin:0 auto;padding:0 20px;}
+main{max-width:1180px;margin:0 auto;padding:0 20px;}
 section{margin-top:34px;}
 .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
 .sec-head h2{font-size:20px;margin:0;font-weight:700;letter-spacing:0.01em;}
@@ -105,6 +127,15 @@ section{margin-top:34px;}
   cursor:pointer;transition:border-color 0.15s;
 }
 .call-card:hover{border-color:var(--amber-dim);}
+/* THE CALL on a wide desktop is a responsive card grid; it collapses to one
+   column on a phone (minmax floor) and reflows to 2-3 columns as the window
+   widens. Applied to BOTH dashboards via _the_call. */
+.call-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:14px;align-items:stretch;
+}
+.call-grid .call-card{margin-bottom:0;display:flex;flex-direction:column;}
+.call-grid .call-card .full-analysis{margin-top:auto;padding-top:14px;}
 .call-card .expand-hint{
   font-size:10.5px;color:var(--ink-faint);margin-top:10px;
   display:flex;align-items:center;gap:5px;
@@ -217,7 +248,7 @@ section{margin-top:34px;}
 
 /* footer honest line */
 footer{
-  max-width:720px;margin:40px auto 0 auto;padding:18px 20px 0 20px;
+  max-width:1180px;margin:40px auto 0 auto;padding:18px 20px 0 20px;
   border-top:1px solid var(--line);
 }
 .honest{
@@ -278,7 +309,7 @@ footer{
 
 /* Admin actions + search bar */
 .admin-actions{
-  max-width:720px;margin:10px auto 0 auto;padding:0 20px;
+  max-width:1180px;margin:10px auto 0 auto;padding:0 20px;
   display:flex;align-items:center;gap:14px;flex-wrap:wrap;
 }
 .btn-primary{
@@ -294,7 +325,7 @@ footer{
   font-family:'IBM Plex Mono',monospace;
 }
 .admin-search-bar{
-  max-width:720px;margin:14px auto 0 auto;padding:0 20px;
+  max-width:1180px;margin:14px auto 0 auto;padding:0 20px;
   display:flex;gap:10px;flex-wrap:wrap;align-items:center;
   font-size:12px;
 }
@@ -423,7 +454,6 @@ _ADMIN_SEARCH_JS = """<script>
     var tierSel = document.getElementById('admin-filter-tier');
     var marketSel = document.getElementById('admin-filter-market');
     var statusSel = document.getElementById('admin-filter-status');
-    var dateSel = document.getElementById('admin-filter-date');
     var allRows = document.querySelectorAll('table.scan-table tbody tr.clickable');
     var allDetail = document.querySelectorAll('table.scan-table tbody tr.detail-row');
     function filter() {
@@ -432,7 +462,6 @@ _ADMIN_SEARCH_JS = """<script>
       var tier = tierSel?.value || '';
       var market = marketSel?.value || '';
       var status = statusSel?.value || '';
-      var dateF = dateSel?.value || '';
       allRows.forEach(function(tr, i) {
         var txt = tr.textContent.toLowerCase();
         var bf = tr.dataset;
@@ -442,12 +471,11 @@ _ADMIN_SEARCH_JS = """<script>
         if (tier && bf.tier !== tier) ok = false;
         if (market && bf.market !== market) ok = false;
         if (status && bf.status !== status) ok = false;
-        if (dateF && bf.date !== dateF) ok = false;
         tr.style.display = ok ? '' : 'none';
         if (allDetail[i]) allDetail[i].style.display = ok ? '' : 'none';
       });
     }
-    [input, leagueSel, tierSel, marketSel, statusSel, dateSel].forEach(function(el) {
+    [input, leagueSel, tierSel, marketSel, statusSel].forEach(function(el) {
       if (el) el.addEventListener('input', filter);
     });
   });
@@ -561,11 +589,21 @@ def _flag_html(league: str) -> str:
 
 
 def _crest_html(team: str, league: str) -> str:
-    """Return <img class='crest' ...> for the club, or initials placeholder."""
-    league_crests = _CLUB_CRESTS.get(league, {})
-    url = league_crests.get(team)
+    """Return <img class='crest' ...> for the club, or initials placeholder.
+
+    The crest cache (webapp.crests.badge_url) is the hotlinked TheSportsDB
+    source (Architect-approved); _CLUB_CRESTS stays as a legacy in-memory
+    override for tests. A club TheSportsDB can't match keeps the labelled
+    initials placeholder — never a fake crest (HR35)."""
+    try:
+        from webapp import crests as _crests
+        url = _crests.badge_url(team)
+    except Exception:
+        url = None
+    if not url:
+        url = _CLUB_CRESTS.get(league, {}).get(team)
     if url:
-        return f'<img class="crest" src="{url}" alt="{team}" title="{team}">'
+        return f'<img class="crest" src="{url}" alt="{team}" title="{team}" loading="lazy">'
     # Fallback: initials in a coloured circle
     initials = _initials(team)
     # Deterministic colour from team name
@@ -846,7 +884,10 @@ def _the_call(board: list[dict], admin: bool = False) -> str:
     if not rows:
         return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
                 'No deploy-eligible call today (softness A/B only).</div></div>')
-    return "".join(_call_card(bf, admin=admin) for bf in rows)
+    # Responsive card grid — 2-3 columns on desktop, 1 column on mobile.
+    return ('<div class="call-grid">'
+            + "".join(_call_card(bf, admin=admin) for bf in rows)
+            + "</div>")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -958,8 +999,38 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
 # Headers + admin-only sections
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _date_nav(d: str, base: str) -> str:
+    """Prev / native date-picker / next / Today navigation between board dates.
+
+    `base` is the route prefix ("/admin" or "/dashboard") — a picked or stepped
+    date loads that board; a date with no board hits the existing honest 404
+    (HR35: NO DATA — PENDING, never a guess). The date is navigation, not a
+    filter, which is why it lives here rather than in the search bar."""
+    d = d or _date.today().isoformat()
+    today = _date.today().isoformat()
+    prev = (_date.fromisoformat(d) - _timedelta(days=1)).isoformat()
+    nxt = (_date.fromisoformat(d) + _timedelta(days=1)).isoformat()
+    today_link = f'<a class="date-nav-today" href="{base}/{today}">Today</a>' if d != today else ""
+    return (f'<div class="date-nav">'
+            f'<a class="date-nav-btn" href="{base}/{prev}" aria-label="Previous day">◀</a>'
+            f'<input type="date" class="date-nav-input" value="{d}" data-base="{base}" '
+            f'aria-label="Jump to a board date">'
+            f'<a class="date-nav-btn" href="{base}/{nxt}" aria-label="Next day">▶</a>'
+            f'{today_link}'
+            f'<span class="date-nav-label">{_friendly_date(d)}</span>'
+            f'</div>'
+            f'<script>'
+            f"document.addEventListener('DOMContentLoaded',function(){{"
+            f"var i=document.querySelector('.date-nav-input');"
+            f"if(i)i.addEventListener('change',function(){{"
+            f"if(i.value)window.location.href=i.getAttribute('data-base')+'/'+i.value;}});}});"
+            f'</script>')
+
+
 def _board_header(payload: dict, admin: bool = False) -> str:
     date_txt = _friendly_date(payload.get("date") or _date.today().isoformat())
+    d = payload.get("date") or _date.today().isoformat()
+    date_nav = _date_nav(d, "/admin" if admin else "/dashboard")
     if admin:
         n_leagues = payload.get("n_leagues") or len(payload.get("leagues_scanned", []))
         gate = payload.get("gate") or {}
@@ -984,6 +1055,7 @@ def _board_header(payload: dict, admin: bool = False) -> str:
   <div class="meta-row">
     {meta}
   </div>
+  {date_nav}
 </header>"""
 
 
@@ -1059,19 +1131,29 @@ def _yesterday_graded(rows: list[dict]) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _admin_search_bar(payload: dict) -> str:
-    """Search/filter controls for the admin scan table."""
-    # Collect unique values for dropdowns
-    leagues = sorted({_league_of(bf.get("fixture", "")) for bf in payload.get("board", [])})
+    """Search/filter controls for the admin scan table.
+
+    The league dropdown is the FULL ID401 whitelist (engine.softness.SOFTNESS_TIER)
+    plus any league actually on the board — an approved league with no fixtures
+    today is still searchable, because "I need all the leagues" is an audit
+    requirement, not a today-requirement. Date is NOT a filter here: it is a
+    navigation control in the header (see _date_nav), so the operator can move
+    between board dates instead of filtering one board."""
+    board_leagues = {_league_of(bf.get("fixture", "")) for bf in payload.get("board", [])}
+    try:
+        from engine.softness import SOFTNESS_TIER
+        whitelist = set(SOFTNESS_TIER.keys())
+    except Exception:
+        whitelist = set()
+    leagues = sorted(whitelist | board_leagues)
     tiers = ["A", "B", "C", "D"]
     markets = ["1X2_HOME", "1X2_DRAW", "1X2_AWAY", "OVER_1_5", "OVER_2_5", "BTTS_YES"]
     statuses = ["deploy", "scan-only", "no-data"]
-    dates = [payload.get("date", "")]
 
     league_opts = "".join(f'<option value="{html.escape(lg)}">{html.escape(lg)}</option>' for lg in leagues)
     tier_opts = "".join(f'<option value="{t}">{t}</option>' for t in tiers)
     market_opts = "".join(f'<option value="{m}">{m}</option>' for m in markets)
     status_opts = "".join(f'<option value="{s}">{s}</option>' for s in statuses)
-    date_opts = "".join(f'<option value="{d}">{d}</option>' for d in dates if d)
 
     return f"""<div class="admin-search-bar">
   <input type="search" id="admin-search" placeholder="Search team, league, fixture…" aria-label="Search fixtures">
@@ -1086,9 +1168,6 @@ def _admin_search_bar(payload: dict) -> str:
   </select>
   <select id="admin-filter-status" aria-label="Filter by deploy status">
     <option value="">All statuses</option>{status_opts}
-  </select>
-  <select id="admin-filter-date" aria-label="Filter by date">
-    <option value="">All dates</option>{date_opts}
   </select>
 </div>"""
 

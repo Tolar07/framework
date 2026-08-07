@@ -30,3 +30,6 @@ output/boards/*.json
 # Like the raw boards, it is regenerated per publish and must not be committed.
 output/boards/published/
 webapp/site/
+
+# Club-crest cache — populated by webapp/crests.prefetch(), runtime state
+webapp/crests_cache.json

@@ -113,4 +113,32 @@ except ValueError as e:
     assert "newer" in str(e)
 print("5. newer schema refused, never adapted: OK")
 
+# --- 6. trim_payload: the client-safe boundary (Architect order 2026-08-07) ---
+full = schema.build_payload(
+    date="2026-08-11", phase="PHASE 2 — PAPER", leagues_scanned=["Champions League"],
+    board=[_rated(), _unrated()], data_flags=["⚠ flag"], gate={"legs_with_clv": 0},
+    telemetry={}, calibration_count=0, mean_clv=None)
+trimmed = schema.trim_payload(full)
+for key in ("data_flags", "gate", "telemetry", "calibration_count", "mean_clv",
+            "recommendation"):
+    assert key not in trimmed, f"trim kept admin field {key}"
+t0, t1 = trimmed["board"]
+assert t0["fixture"].startswith("Fenerbahce")
+assert t0["on_deploy_shortlist"] is False
+assert t0["best_market"] == "Fenerbahce to win"
+assert t0["best_model_prob"] == 0.56
+assert t0["mes_trigger_price"] is None
+for k in ("elo_probs", "xg_probs", "market_probs", "engine_divergence",
+          "consensus", "engine_picks", "consensus_pick", "verification",
+          "cal_adjustment", "best_mes_ev", "best_price", "best_bookmaker",
+          "best_n_books", "softness_tier", "model_engine", "kickoff_date"):
+    assert k not in t0, f"trim kept internal {k}"
+assert set(t0["probs"]) == schema.CLIENT_PROBS_KEYS
+assert "lambda_home" not in t0["probs"] and "modal_scoreline" not in t0["probs"]
+assert t1["probs"] is None and "NO DATA" in t1["rejection_reason"]
+# never mutates the source payload
+assert "elo_probs" in full["board"][0] and "verification" in full["board"][0]
+assert "data_flags" in full and full["board"][0]["probs"]["lambda_home"] == 1.8
+print("6. trim_payload keeps predictions, drops internals, never mutates: OK")
+
 print("\n✅ ALL WEBAPP SCHEMA TESTS PASSED")

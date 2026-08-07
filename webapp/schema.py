@@ -190,6 +190,54 @@ def write_payload(payload: dict, path) -> Path:
     return path
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Client-safe trimming — the PUBLIC data-leak boundary
+# ─────────────────────────────────────────────────────────────────────────────
+# The /dashboard route, the public /api/board.json, and the static export are
+# all served from `trim_payload`. It keeps exactly the fields the client
+# dashboard renders (fixture, the market probabilities the full-analysis grid
+# is derived from, the pick and its price) and strips the diagnostic layer —
+# Elo/xG second opinions, engine divergence, consensus votes, verification,
+# EV/CLV verdicts, calibration, the gate, data flags, yesterday-graded and
+# rolling stats. The client browser therefore NEVER receives a model internal,
+# by construction (Architect order, 2026-08-07).
+CLIENT_PROBS_KEYS = frozenset({
+    "home_team", "away_team",
+    "p_home", "p_draw", "p_away",
+    "p_over_15", "p_over_25", "p_over_35",
+    "p_btts_yes",
+})
+CLIENT_FIXTURE_KEYS = frozenset({
+    "fixture", "probs", "on_deploy_shortlist",
+    "best_market", "best_market_key", "best_model_prob",
+    "mes_trigger_price", "rejection_reason",
+})
+CLIENT_TOP_KEYS = frozenset({
+    "schema_version", "date", "phase",
+    "leagues_scanned", "n_leagues", "board",
+})
+
+
+def trim_payload(payload: dict) -> dict:
+    """The public-facing payload — predictions only, no model internals.
+
+    Never mutates the source payload; builds fresh dicts. A fixture's `probs`
+    is reduced to the market-probability fields the grid needs (lambdas and the
+    modal scoreline are Dixon-Coles internals and are dropped)."""
+    trimmed_board = []
+    for bf in payload.get("board", []):
+        tb = {k: bf[k] for k in CLIENT_FIXTURE_KEYS if k in bf}
+        p = bf.get("probs")
+        if p is not None:
+            tb["probs"] = {k: p[k] for k in CLIENT_PROBS_KEYS if k in p}
+        else:
+            tb["probs"] = None
+        trimmed_board.append(tb)
+    out = {k: payload[k] for k in CLIENT_TOP_KEYS if k in payload}
+    out["board"] = trimmed_board
+    return out
+
+
 def read_payload(path) -> dict:
     """Read a board JSON. A missing file raises FileNotFoundError (the caller
     turns that into an honest 404/NO DATA, never a guess). A newer schema is

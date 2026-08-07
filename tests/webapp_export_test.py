@@ -1,6 +1,11 @@
-"""Static export tests — the export folder is self-contained and host-ready."""
+"""Static export tests — the export folder is the PUBLIC client surface.
+
+Since a static host cannot authenticate, the export is trimmed: predictions
+only, NO model internals (Architect order 2026-08-07). stats.json is gone —
+it is the admin diagnostic layer and must not be hostable. The only external
+fetch is the Architect-approved Google Fonts CDN; every other asset is inline.
+"""
 import json
-import sqlite3
 import sys
 import tempfile
 from pathlib import Path
@@ -13,17 +18,13 @@ from webapp import schema
 from engine.dixon_coles import FixtureProbabilities
 from output.produce_bet import BoardFixture
 from verification.id403 import verify, SourcedDatum
-import brain.report as rep
 
-# Redirect ROOT to a temp tree so the export reads a synthetic payload + a
-# throwaway brain instead of the real repo data.
+# Redirect ROOT to a temp tree so the export reads a synthetic payload instead
+# of the real repo data.
 tmp = Path(tempfile.mkdtemp(prefix="olp_webapp_export_"))
 boards = tmp / "output" / "boards"
 boards.mkdir(parents=True)
 out = tmp / "site"
-# The brain opens read-only — it needs an EXISTING db file.
-(tmp / "brain").mkdir(parents=True, exist_ok=True)
-sqlite3.connect(tmp / "brain" / "olp.db").close()
 
 bf = BoardFixture(
     fixture="Fenerbahce v Sturm Graz (Champions League)",
@@ -38,7 +39,9 @@ bf = BoardFixture(
                                       structured=True)]),
     softness_tier="D", on_deploy_shortlist=True,
     best_market="Fenerbahce to win", best_price=1.91, best_mes_ev=0.0696,
-    best_model_prob=0.56, kickoff_date="2026-08-11")
+    best_model_prob=0.56, mes_trigger_price=1.52, kickoff_date="2026-08-11",
+    elo_probs=(0.52, 0.27, 0.21),
+    engine_divergence="4pp on home — within tolerance")
 payload = schema.build_payload(
     date="2026-08-11", phase="PHASE 2 — PAPER",
     leagues_scanned=["Champions League"], board=[bf],
@@ -47,32 +50,52 @@ payload = schema.build_payload(
     recommendation="⭐ TODAY'S PICKS\nNO DATA — no eligible pick today.")
 schema.write_payload(payload, boards / "board_2026-08-11.json")
 
-with patch.object(export, "ROOT", tmp), \
-     patch.object(rep, "render_stats", lambda *a, **k: "OLP XDV — STATS (test)"):
+with patch.object(export, "ROOT", tmp):
     written = export.export("2026-08-11", out)
 
-# --- 1. all four artifacts exist ----------------------------------------------
+# --- 1. the three artifacts exist (stats.json is deliberately gone) ------------
 assert (out / "index.html").exists(), written
 assert (out / "board.json").exists()
-assert (out / "stats.json").exists()
 assert (out / "README.md").exists()
-print("1. index.html + board.json + stats.json + README.md written: OK")
+assert not (out / "stats.json").exists(), "stats.json must NOT be exported"
+print("1. index.html + board.json + README.md written; no stats.json: OK")
 
-# --- 2. index is self-contained (inline CSS, no external deps) ------------------
+# --- 2. index is the CLIENT view: no internals, no honest footer ---------------
 html_src = (out / "index.html").read_text(encoding="utf-8")
 assert "<style>" in html_src and "Fenerbahce v Sturm Graz" in html_src
-assert "https://" not in html_src or "thesportsdb" not in html_src  # no external fetch
-assert "Honest edge" in html_src
-print("2. index is self-contained + honest: OK")
+assert "The Call" in html_src and "The Scan" in html_src
+assert "Full analysis — all markets" in html_src
+for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
+               "Model Internals", "Data Flags", "Verified — Yesterday",
+               "Honest edge", "zero capital", "PHASE 3 GATE", "CAP"):
+    assert needle not in html_src, f"public export leaks {needle!r}"
+print("2. index is the trimmed client view: OK")
 
-# --- 3. board.json is the same structured payload -------------------------------
+# --- 3. the only external fetch is the Architect-approved font CDN -------------
+# Count https:// occurrences; every one must be fonts.googleapis/gstatic.
+for line in html_src.splitlines():
+    if "https://" in line:
+        assert "fonts.googleapis" in line or "fonts.gstatic" in line, \
+            f"unapproved external URL: {line.strip()}"
+print("3. only the approved Google Fonts CDN is referenced: OK")
+
+# --- 4. board.json is the TRIMMED payload --------------------------------------
 d = schema.read_payload(out / "board.json")
-assert d["date"] == "2026-08-11" and d["board"][0]["probs"]["p_home"] == 0.56
-print("3. board.json is the structured payload: OK")
+b0 = d["board"][0]
+assert d["date"] == "2026-08-11"
+assert b0["probs"]["p_home"] == 0.56 and b0["best_market"] == "Fenerbahce to win"
+assert "mes_trigger_price" in b0           # the public pick line keeps Deploy At
+for k in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
+          "best_price", "softness_tier", "consensus"):
+    assert k not in b0, f"board.json leaks {k}"
+for k in ("data_flags", "gate", "telemetry"):
+    assert k not in d, f"board.json leaks top-level {k}"
+print("4. board.json is the trimmed public payload: OK")
 
-# --- 4. stats.json exists and carries text --------------------------------------
-stats = json.loads((out / "stats.json").read_text(encoding="utf-8"))
-assert isinstance(stats.get("text"), str) and stats["text"]
-print("4. stats.json carries the stats text: OK")
+# --- 5. README explains the boundary -------------------------------------------
+readme = (out / "README.md").read_text(encoding="utf-8")
+assert "2026-08-11" in readme and "predictions only" in readme
+assert "admin-only" in readme
+print("5. README documents the public/admin boundary: OK")
 
 print("\n✅ ALL WEBAPP EXPORT TESTS PASSED")

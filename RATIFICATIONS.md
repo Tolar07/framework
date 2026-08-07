@@ -7,6 +7,64 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-07 · Two-tier web dashboard: public client + authed /admin — ratified by the ARCHITECT
+
+**What the Architect asked:** "use it ui and every design from it everything
+study and copy the website" with the ScoreGPT reference (scoregpt.app) and the
+approved design_reference HTML files — a dark, phone-first football-prediction
+dashboard. The design was approved as two views built on the SAME reference
+language.
+
+**What was built:**
+
+1. **Public client view** (`/dashboard/{date}`, the static export, `/api/board.json`):
+   predictions only. Header (`OLP XDV · 07:00`), **THE CALL** (deploy shortlist
+   as expandable cards: pick + probability + "Deploy At" trigger; tapping opens
+   the full 10-market grid — 1X2, goals lines, BTTS, double chance), **THE SCAN**
+   (every fixture across every league in one click-to-expand table with compact
+   codes: `1X2` favourite, `O1.5/O2.5`, `DC/BTTS`). This is exactly the approved
+   reference layout.
+2. **Authed admin view** (`/admin/{date}`, `/stats`, `/why`, `/api/admin/board.json`):
+   the same design PLUS the model internals — Dixon-Coles / Elo / xG probabilities,
+   engine divergence, HR30 MES (entry price, EV, bookmaker), verification
+   (verified/single-source stamp), softness tier, cap counter, data flags,
+   "Verified — Yesterday" graded rows, and the **honest-edge statement + capital
+   authority** footer with the Phase-3 gate bar. Protected by HTTP Basic auth
+   (`ADMIN_USER` / `ADMIN_PASS` in .env). No `ADMIN_PASS` set → /admin returns a
+   503 "set ADMIN_PASS", never a default password.
+3. **The DATA-LEAK BOUNDARY (the critical guardrail):** `schema.trim_payload()`
+   strips every internal from the public payload *before* the client renderer
+   ever sees it — elo/xg second opinions, engine divergence, consensus votes,
+   verification, EV verdicts, softness tier, gate, calibration, data flags,
+   kickoff date, price. The client "full analysis" market grid is derived from
+   the market probabilities alone, so it needs nothing the client is denied.
+   Enforced by the render, schema, server and export test suites (the server
+   test asserts no internal string appears in `/dashboard` or `/api/board.json`,
+   and `/api/admin/board.json` requires auth).
+4. **Static export is now client-only:** `webapp/site/` ships `index.html` +
+   trimmed `board.json` + a README explaining the boundary. `stats.json` is
+   deliberately NOT exported (it is the admin diagnostic layer; a static host
+   cannot authenticate). The only external fetch anywhere is the
+   Architect-approved Google Fonts CDN (Barlow Condensed / Inter / IBM Plex
+   Mono), with system fallbacks for offline.
+5. The old scorecard (TODAY'S PICKS parlay / gate tiles / yesterday-rolling
+   bars) is superseded by this two-tier layout; the honest-edge and capital
+   authority lines moved to /admin (the Architect's explicit choice — the
+   public client view matches the approved HTML and omits them).
+
+**Honest consequence, surfaced:** the public client shows the predictions and
+the honest NO DATA — PENDING rows (HR35); it deliberately does NOT claim the
+honest-edge/capital statements, because those are the operator's own guardrails,
+not a product claim. The operator's copy (admin view + /stats) keeps them.
+
+**Authority:** Architect. New rendering layer + new authed route; the design
+replaces a ratified board layout, so it was not taken under the auto-
+ratification grant. No capital, staking, fabrication, verification or honest-
+edge behaviour changed (the honest-edge text still ships — on /admin). All 38
+test suites green, including the four webapp suites rewritten for the boundary.
+
+---
+
 ## 2026-08-07 · The profitability question, answered with a complete 2x2 — by order of the ARCHITECT
 
 **What the Architect asked:** "how can the edge become profitable — find a

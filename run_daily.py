@@ -458,6 +458,30 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
 
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
+    #
+    # BOOKMAKER (ID413) + MARKET-ANCHORED PROBABILITY (ID414):
+    # The devigged implied 1X2 is the model's fourth opinion (real money), and
+    # the board DISPLAYS a probability pulled toward this market when the model
+    # and market disagree (the honest number — not the raw overconfident one).
+    # EV is priced on the blended probability too, so the board never presents
+    # model-vs-market disagreement as phantom value. Both computed BEFORE the
+    # EV loop so the blend is available for every market decision. Ledger
+    # stores the RAW model_prob — no feedback loop.
+    #
+    # Per-market implied: the devigged probability for the specific market key,
+    # so O2.5/U2.5 are anchored alongside the 1X2.
+    def _market_implied(market: str, fx) -> Optional[float]:
+        if mkt.MARKETS_1X2.get(market) is not None:
+            p1x2 = mkt.implied_1x2(fx)
+            return p1x2[mkt.MARKETS_1X2[market]] if p1x2 else None
+        if market in (mkt.OVER_2_5, mkt.UNDER_2_5):
+            price = fx.over25.price if market == mkt.OVER_2_5 else fx.under25.price
+            other = fx.under25.price if market == mkt.OVER_2_5 else fx.over25.price
+            if price and other:
+                s = 1 / price + 1 / other
+                return (1 / price) / s if s > 1.0 else None
+        return None
+
     for bf in board:
         if bf.probs is None:
             continue
@@ -465,19 +489,35 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         if fx is None:
             continue
         p = bf.probs
+
+        # BOOKMAKER (ID413) + MARKET-ANCHORED PROBABILITY (ID414): compute
+        # the devigged implied 1X2 and the blend before the EV loop so both
+        # are available for every market decision.
+        bf.market_probs = mkt.implied_1x2(fx)
+        if bf.market_probs is not None:
+            bf.consensus = compute_consensus(
+                bf.probs, bf.elo_probs, bf.xg_probs, bf.market_probs)
+            if bf.probs is not None:
+                mh, md, ma = bf.market_probs
+                bp = (mkt.blend_toward_market(p.p_home, mh),
+                      mkt.blend_toward_market(p.p_draw, md),
+                      mkt.blend_toward_market(p.p_away, ma))
+                if any(abs(bp[i] - v) > 0.005
+                       for i, v in enumerate((p.p_home, p.p_draw, p.p_away))):
+                    bf.blend_probs = bp
+
         best = None
-        # Only markets that could actually carry capital may headline THE CALL.
-        # Previously the board could headline Over 2.5 (or an away win, which
-        # the string-matched gate missed entirely) while the logger refused to
-        # record it — recommending what the framework would not log.
         for market in mkt.DEPLOYABLE:
             quote = mkt.quote(market, fx)
             raw_p = mkt.model_prob(market, p)
             if quote is None or not quote.available or raw_p is None:
                 continue
-            # EV is priced on the CALIBRATED probability; the raw estimate is
-            # what the ledger records (no feedback loop).
-            ev = mes_numeric(recal.apply(raw_p, cal.get(market)), quote.price)
+            # EV is priced on the BLEND — the honest probability when model
+            # and market disagree (ID414). Ledger keeps RAW model_est via
+            # best_model_prob; calibration stays inert (no feedback loop).
+            mp = _market_implied(market, fx)
+            p_ev = mkt.blend_toward_market(recal.apply(raw_p, cal.get(market)), mp)
+            ev = mes_numeric(p_ev, quote.price)
             if ev is not None and (best is None or ev > best[0]):
                 best = (ev, market, raw_p, quote)
         if best:
@@ -485,21 +525,10 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             bf.best_market = mkt.display(market, p.home_team, p.away_team)
             bf.best_price = quote.price
             bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
-            bf.best_mes_ev = ev  # computed on the calibrated probability
+            bf.best_mes_ev = ev  # priced on the blend; raw prob on the ledger
             bf.best_model_prob = raw_p  # ledger keeps the RAW model estimate
             bf.best_market_key = market  # canonical key for the brain's ledger
             bf.cal_adjustment = cal.get(market, 0.0)
-
-        # The BOOKMAKER engine (ID413): this fixture has live odds, so its
-        # devigged implied 1X2 becomes a fourth opinion — real money, the
-        # sharpest calibration source. The consensus was computed in the
-        # orchestrator over DC/Elo/xG only (odds don't exist there yet), so
-        # recompute it WITH the market now that the price is in hand. Pure
-        # display + brain data — never changes what is logged.
-        bf.market_probs = mkt.implied_1x2(fx)
-        if bf.market_probs is not None:
-            bf.consensus = compute_consensus(
-                bf.probs, bf.elo_probs, bf.xg_probs, bf.market_probs)
 
     # --- never forget a prediction: persist every rated board prediction ---
     n_preds = _predictions_from_board(board, run_id, started, brain)

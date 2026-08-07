@@ -76,6 +76,13 @@ class BoardFixture:
     # scan-only leagues honestly have no bookmaker opinion (HR35). It is an
     # equal fourth voter in the consensus but NEVER changes what is logged.
     market_probs: Optional[tuple] = None
+    # Market-anchored probability: blend_toward_market pulled the model's
+    # p_home/p_draw/p_away toward the market's devigged implied by an amount
+    # proportional to DISAGREEMENT. This is the probability the board DISPLAYS
+    # when it says "Win chance" — the honest number when the model and market
+    # disagree (ID414). Ledger stores raw model_prob (best_model_prob); this
+    # is display + EV only. None when the fixture has no live odds to anchor to.
+    blend_probs: Optional[tuple] = None
     # Cross-engine vote (DC · Elo · xG · bookmaker), ID412: the majority result across
     # whatever opinions exist, plus their averaged 1X2. DISPLAY + BRAIN ONLY —
     # it never changes what is logged (DC stays canonical for legs/CLV).

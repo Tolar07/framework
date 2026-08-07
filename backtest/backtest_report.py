@@ -147,6 +147,11 @@ def render_report(legs: list, flags: list[str], coverage: dict, cfg,
           f"cap +/-{cfg.cal_max_adjustment:.2f})")
     else:
         A("Calibration     : OFF")
+    if getattr(cfg, "blend_market", False):
+        A("Market blend    : ON (pull model probs toward the devigged line, "
+          "proportional to disagreement)")
+    else:
+        A("Market blend    : OFF")
     A("")
 
     A("COVERAGE — what was scanned and what never reached a leg")

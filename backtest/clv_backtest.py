@@ -56,6 +56,7 @@ from engine.dixon_coles import fit, predict, DixonColesModel, TeamStrength, FIT_
 from engine.mes import mes_numeric
 from engine.softness import softness_tier
 from engine.recalibration import apply as cal_apply
+from engine.markets import blend_toward_market
 from clv.clv_logger import LoggedLeg, CLVLog, compute_clv, BACKTEST_PHASE, DEFAULT_LOG_PATH
 
 RESULTS_DIR = Path(__file__).parent / "results"
@@ -104,6 +105,13 @@ class BacktestConfig:
     calibrate: bool = False
     cal_min_legs: int = 15          # evidence gate per market (matches live)
     cal_max_adjustment: float = 0.03  # probability-points cap on the nudge
+    # Market-anchored probability (engine/markets.py blend_toward_market): the
+    # EV decision pulls the model probability toward the market's devigged
+    # implied by an amount proportional to DISAGREEMENT. Measured reason: the
+    # model is calibrated where it agrees with the market and overconfident
+    # (+10-14pp) exactly where it disagrees — and min_mes only bets the
+    # disagreement bucket. Default OFF: the baseline selector stays identical.
+    blend_market: bool = False
 
     def fingerprint(self) -> str:
         """Short hash of every knob. Printed in the report so a run with
@@ -413,16 +421,17 @@ def candidate_legs(match: MatchResult, probs, cfg: BacktestConfig,
 
     or_open = overround([o.home.open, o.draw.open, o.away.open])
     or_close = overround([o.home.close, o.draw.close, o.away.close])
+    or_ou_open = overround([o.over25.open, o.under25.open])
 
     pairs = [
-        ("1X2_H", o.home, probs.p_home if probs else None),
-        ("1X2_D", o.draw, probs.p_draw if probs else None),
-        ("1X2_A", o.away, probs.p_away if probs else None),
-        ("O2.5", o.over25, probs.p_over_25 if probs else None),
-        ("U2.5", o.under25, (1 - probs.p_over_25) if probs else None),
+        ("1X2_H", o.home, probs.p_home if probs else None, or_open),
+        ("1X2_D", o.draw, probs.p_draw if probs else None, or_open),
+        ("1X2_A", o.away, probs.p_away if probs else None, or_open),
+        ("O2.5", o.over25, probs.p_over_25 if probs else None, or_ou_open),
+        ("U2.5", o.under25, (1 - probs.p_over_25) if probs else None, or_ou_open),
     ]
 
-    for market, price, model_p in pairs:
+    for market, price, model_p, or_mkt in pairs:
         if market not in cfg.markets:
             continue
         common = dict(book=price.book, entry_column=price.open_column,
@@ -440,6 +449,14 @@ def candidate_legs(match: MatchResult, probs, cfg: BacktestConfig,
         # and this is a no-op, so the baseline selector is byte-identical.
         delta = cal_deltas.get(market) if cal_deltas else None
         p_for_ev = cal_apply(model_p, delta)
+        # Market-anchored probability: pull toward the market's devigged implied
+        # by an amount proportional to disagreement (engine/markets.py). Only
+        # when blend_market is ON; otherwise a no-op so the baseline is exact.
+        if cfg.blend_market and or_mkt is not None:
+            # Devigged implied: 1/price normalised by the line's overround
+            # FACTOR (1 + margin). or_mkt is a margin, so add 1 back.
+            market_p = (1.0 / price.open) / (1.0 + or_mkt)
+            p_for_ev = blend_toward_market(p_for_ev, market_p)
         mes = mes_numeric(p_for_ev, price.open)
         if not _select(cfg, market, mes, price, o, rng):
             continue
@@ -685,6 +702,9 @@ def main() -> None:
                     help="evidence gate per market before calibration acts")
     ap.add_argument("--cal-max-adjustment", type=float, default=0.03,
                     help="probability-points cap on the calibration nudge")
+    ap.add_argument("--blend-market", action="store_true",
+                    help="pull model probabilities toward the market's devigged "
+                         "implied by an amount proportional to disagreement")
     ap.add_argument("--markets", nargs="+", default=None,
                      help="restrict to these markets, e.g. 1X2_H 1X2_D O2.5 U2.5")
     ap.add_argument("--no-write", action="store_true", help="skip writing the leg log")
@@ -697,6 +717,7 @@ def main() -> None:
         half_life_days=args.half_life_days,
         calibrate=args.calibrate, cal_min_legs=args.cal_min_legs,
         cal_max_adjustment=args.cal_max_adjustment,
+        blend_market=args.blend_market,
         markets=tuple(args.markets) if args.markets else BacktestConfig.markets,
     )
     run_id = f"{cfg.test_season}_{cfg.selector}_{cfg.fingerprint()}"

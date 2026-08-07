@@ -24,14 +24,16 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from data.football_data_source import load_league, MatchResult, UNCOVERED_LEAGUES
+from data.football_data_source import (load_league, load_second_division,
+                                       MatchResult, UNCOVERED_LEAGUES)
 from data import thesportsdb_fixtures as tsdb
 from data import api_football_results as apif
 from data import xg_source
 from engine import cross_league as xleague
 from engine import elo as elo_engine
 from engine.consensus import compute_consensus
-from engine.dixon_coles import fit, predict, unrated_reason, FIT_VERSION
+from engine.dixon_coles import (fit, predict, predict_adjusted,
+                                 unrated_reason, FIT_VERSION)
 from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload,
                          dc_to_payload, dc_from_payload)
 from engine.softness import (SOFTNESS_TIER, softness_tier, is_deploy_eligible,
@@ -44,6 +46,14 @@ from config import PHASE_LABEL
 
 # The full ID401 whitelist (15 leagues) — same set engine/softness.py tiers.
 FULL_WHITELIST = list(SOFTNESS_TIER.keys())
+
+# Promoted-club level adjustment (Architect 2026-08-07): a club whose
+# parameters were fit ONLY on second-division play is dampened against
+# top-flight opposition — its goals came against weaker defences. Conservative
+# by design (HR35: better a cautious number than a confident wrong one); the
+# exact gap is a modelling judgement, so both scales are named constants.
+PROMOTION_SCALE = 0.90          # the promoted side's goal expectancy
+PROMOTION_OPPONENT_SCALE = 1.08  # the top-flight side facing the promotion
 
 
 def next_season_code(season: str) -> str:
@@ -305,10 +315,26 @@ def scan_one_league(league: str, season: str,
     # is flagged on the board so it is visibly distinct from a primary rating.
     carry_model = None
     carry_flags: list[str] = []
+    carry_promoted: set[str] = set()  # teams known ONLY from 2nd-division rows
     if cross_model is None:
         try:
             carry_season = previous_season_code(season)
             carry_results, _ = load_league(league, carry_season)
+            # Second-division history for promoted clubs (Architect 2026-08-07).
+            # A club promoted to the top flight has no top-flight history in
+            # the carry window; its second-division season is real data that
+            # rates it. A team present ONLY in the second-division rows is a
+            # promotion — recorded so the level adjustment applies at predict
+            # time. Leagues whose second division football-data no longer
+            # publishes return ([], []) and simply keep the current coverage.
+            sec_results, _ = load_second_division(league, carry_season)
+            if sec_results:
+                top_flight = ({r.home_team for r in carry_results}
+                              | {r.away_team for r in carry_results})
+                sec_teams = ({r.home_team for r in sec_results}
+                             | {r.away_team for r in sec_results})
+                carry_promoted = sec_teams - top_flight
+                carry_results = carry_results + sec_results
             carry_hash = content_hash(
                 carry_results, salt=f"dc:{league}:carry:{carry_season}")
             row = brain.load_model_state(f"dc:{league}:carry") if brain else None
@@ -384,7 +410,19 @@ def scan_one_league(league: str, season: str,
         # row stays NO DATA — PENDING (HR35 unchanged).
         carry_rated = False
         if probs is None and carry_model is not None:
-            carry_p = predict(carry_model, home, away)
+            if home in carry_promoted or away in carry_promoted:
+                # Promoted-club level adjustment: the club's parameters were
+                # fit on second-division play, so its goal expectancy is
+                # dampened and the top-flight side's boosted before the matrix
+                # is built (predict_adjusted — never a guess, HR35).
+                carry_p = predict_adjusted(
+                    carry_model, home, away,
+                    scale_home=(PROMOTION_SCALE if home in carry_promoted
+                                else PROMOTION_OPPONENT_SCALE),
+                    scale_away=(PROMOTION_SCALE if away in carry_promoted
+                                else PROMOTION_OPPONENT_SCALE))
+            else:
+                carry_p = predict(carry_model, home, away)
             if carry_p is not None:
                 probs = carry_p
                 carry_rated = True

@@ -377,12 +377,12 @@ class FixtureProbabilities:
     modal_scoreline: tuple[int, int]
 
 
-def predict(model: DixonColesModel, home: str, away: str) -> Optional[FixtureProbabilities]:
-    """Returns None (never a guessed number) if either team is unrated — HR35."""
-    lambdas = model.lambdas(home, away)
-    if lambdas is None:
-        return None
-    lam_h, lam_a = lambdas
+def _predict_from_lambdas(model: DixonColesModel, home: str, away: str,
+                          lam_h: float, lam_a: float) -> FixtureProbabilities:
+    """The shared probability computation: score matrix from already-resolved
+    lambdas, then every margin/probability. Used by `predict` and by the
+    promoted-club `predict_adjusted` (which scales the lambdas first) so the
+    two can never drift apart on the marginals."""
     m = score_matrix(lam_h, lam_a, model.rho)
 
     p_home = float(np.tril(m, -1).sum())
@@ -415,3 +415,33 @@ def predict(model: DixonColesModel, home: str, away: str) -> Optional[FixturePro
         p_over_35=p_over(3), p_btts_yes=p_btts_yes,
         modal_scoreline=modal_scoreline,
     )
+
+
+def predict(model: DixonColesModel, home: str, away: str) -> Optional[FixtureProbabilities]:
+    """Returns None (never a guessed number) if either team is unrated — HR35."""
+    lambdas = model.lambdas(home, away)
+    if lambdas is None:
+        return None
+    return _predict_from_lambdas(model, home, away, *lambdas)
+
+
+def predict_adjusted(model: DixonColesModel, home: str, away: str,
+                     scale_home: float = 1.0, scale_away: float = 1.0
+                     ) -> Optional[FixtureProbabilities]:
+    """predict() but with the goal expectancies scaled before the matrix is
+    built — the promoted-club level adjustment.
+
+    A club whose parameters were fit ONLY on second-division play is not worth
+    its raw rating against top-flight opposition (the level gap means its
+    goals came against weaker defences). Rating such a club through the
+    carry-over model without an adjustment silently overrates the promotion.
+    The scales nudge the promoted side's lambda down and the opponent's up —
+    conservative by design (HR35: better a cautious number than a confident
+    wrong one). Returns None when either team is unrated, same as predict()."""
+    lambdas = model.lambdas(home, away)
+    if lambdas is None:
+        return None
+    lam_h, lam_a = lambdas
+    lam_h = min(max(lam_h * scale_home, LAMBDA_CLAMP[0]), LAMBDA_CLAMP[1])
+    lam_a = min(max(lam_a * scale_away, LAMBDA_CLAMP[0]), LAMBDA_CLAMP[1])
+    return _predict_from_lambdas(model, home, away, lam_h, lam_a)

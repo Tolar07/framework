@@ -7,6 +7,50 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-07 · Fixture window 0→3 days + promoted-club carry-over — ratified by the ARCHITECT
+
+**What the Architect asked:** "just like scoregpt everyday there is a
+prediction and it wont display no data how can we fix that" — a non-empty
+board with real predictions every day. Given two choices, the Architect chose
+**next 3 days** (a rolling window, like ScoreGPT) and **maximize coverage
+while keeping HR35** (never fabricate; widen what is honestly rated).
+
+**1. Window: today-only → next 3 days.** The 2026-08-05 today-only decision
+was reversed. `run_daily.run(days_ahead=0)` → `days_ahead=3` (CLI
+`--days-ahead` to override). Root cause of the empty boards: early August is
+preseason — no league has a fixture *today*, but Eredivisie's season opens
+tomorrow (Cambuur v Excelsior, PSV v Sittard, Ajax, Feyenoord…) and a 3-day
+rolling window surfaces them. The window already threads through every fixture
+source; TheSportsDB's season feed re-filters its cached list, so a warm run
+costs no extra network. Telegram `/produce bet` and `/send` inherit the
+default automatically. TODAY'S PICKS is probability-based and works even with
+zero prices.
+
+**2. Promoted-club carry-over fit.** A secondary Dixon-Coles model fit on the
+PREVIOUS completed season (2425), used ONLY to rate a fixture the primary
+2526 model cannot (a club relegated after 2425 and re-promoted for 2627 has no
+2526 history). The primary model is untouched — a full two-season fit would
+dilute form for every team and worsen the away-market overconfidence the CLV
+backtest found; carry-over only widens coverage where the primary has nothing.
+The carry model is a real DC fit on real prior-season data, never a guess, and
+carry-rated fixtures are named in a per-league data flag so they are never
+mistaken for primary-window ratings. Fixtures neither model can rate stay
+honest NO DATA — PENDING (HR35). Measured on Eredivisie's opening round:
+6 of 9 rated with the window alone, 7 of 9 with carry-over; the 2 remaining
+(Cambuur, Excelsior, ADO Den Haag) are truly new from the second division.
+
+**Honest note — the Odds API quota:** 496/500 credits used, 4 left (hard
+floor 5), so entry prices and the continental odds-derived fixture feed are
+NO DATA until the quota resets. Predictions, TODAY'S PICKS, and THE CALL
+(conviction-ranked fallback) still flow. A quota upgrade or a reset is needed
+for THE CALL's EV and CLV to resume.
+
+**Authority:** Architect. The window and the coverage change reverse a
+ratified decision and change what appears on the board, so they were not taken
+under the auto-ratification grant.
+
+---
+
 ## 2026-08-05 · The Brain (central persistent memory) — built by order of the ARCHITECT
 
 **What the Architect asked:** "the framework agent need a brain" and, after

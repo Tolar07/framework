@@ -55,6 +55,16 @@ def next_season_code(season: str) -> str:
     return f"{int(season[:2]) + 1:02d}{int(season[2:]) + 1:02d}"
 
 
+def previous_season_code(season: str) -> str:
+    """'2526' -> '2425'. The season before the one the model is fit on — the
+    carry-over fit for promoted clubs reads this (a club relegated after 2425
+    and re-promoted for 2627 has no 2526 history, but a full prior-season fit
+    still knows it)."""
+    if len(season) != 4 or not season.isdigit():
+        raise ValueError(f"Season code must be 4 digits like '2526', got {season!r}")
+    return f"{int(season[:2]) - 1:02d}{int(season[2:]) - 1:02d}"
+
+
 def _unrated_detail(model, home: str, away: str) -> str:
     """Precise, per-side reason a fixture could not be modelled."""
     reasons = [r for r in (unrated_reason(model, home), unrated_reason(model, away))
@@ -260,6 +270,43 @@ def scan_one_league(league: str, season: str,
             if stats is not None:
                 stats["dc_refit"] = True
 
+    # Promoted-club carry-over (Architect 2026-08-07): a secondary model fit on
+    # the PREVIOUS completed season, used ONLY to rate a fixture the primary
+    # model cannot (a club relegated after the prior season and re-promoted for
+    # this one has no history in the primary fit window). The primary model is
+    # untouched, so its recency and calibration baseline are preserved — a full
+    # two-season fit would dilute form for EVERY team; carry-over only widens
+    # coverage where the primary has nothing. The carry-over model is a real DC
+    # fit on real prior-season data, never a guess; a fixture rated through it
+    # is flagged on the board so it is visibly distinct from a primary rating.
+    carry_model = None
+    carry_flags: list[str] = []
+    if cross_model is None:
+        try:
+            carry_season = previous_season_code(season)
+            carry_results, _ = load_league(league, carry_season)
+            carry_hash = content_hash(
+                carry_results, salt=f"dc:{league}:carry:{carry_season}")
+            row = brain.load_model_state(f"dc:{league}:carry") if brain else None
+            if row is not None and row["content_hash"] == carry_hash:
+                carry_model = dc_from_payload(row["payload"])
+            else:
+                carry_model = fit(carry_results)
+                if brain:
+                    try:
+                        brain.save_model_state(
+                            f"dc:{league}:carry", "dc", FIT_VERSION, carry_hash,
+                            carry_model.n_matches_fit,
+                            min(r.date for r in carry_results),
+                            max(r.date for r in carry_results),
+                            dc_to_payload(carry_model))
+                    except Exception:
+                        pass  # a cache-write failure is not a rating failure
+        except Exception:
+            # A missing prior-season CSV, a network blip — the board simply
+            # has no carry-over; HR35 keeps the NO DATA row. Not an error.
+            carry_model = None
+
     # Second engine (ID82 Elo, ratified 2026-08-04). Built from the SAME match
     # history the goals model was fitted on, so the two are reading identical
     # evidence through different mathematics — which is what makes their
@@ -306,6 +353,18 @@ def scan_one_league(league: str, season: str,
 
     for home, away in upcoming_fixtures:
         probs = predict(model, home, away)
+        # Promoted-club fallback: the primary 2526 fit has no history for a
+        # re-promoted club, but the prior-season carry-over model does. The
+        # rating is real (a DC fit on real data), and it is named on the board
+        # so it is never mistaken for a primary-window rating. If BOTH fail the
+        # row stays NO DATA — PENDING (HR35 unchanged).
+        carry_rated = False
+        if probs is None and carry_model is not None:
+            carry_p = predict(carry_model, home, away)
+            if carry_p is not None:
+                probs = carry_p
+                carry_rated = True
+                carry_flags.append(f"{home} v {away}")
         # The fixture itself comes from TheSportsDB (ratified T2), so that's
         # what gets stamped — crediting football-data.co.uk here would claim a
         # corroboration that didn't happen. One source => ○ SINGLE-SOURCE.
@@ -348,12 +407,21 @@ def scan_one_league(league: str, season: str,
             ),
         ))
 
+    if carry_flags:
+        flags.append(f"{league}: {len(carry_flags)} fixture(s) rated on the "
+                     f"previous season's carry-over model (promoted clubs): "
+                     f"{', '.join(carry_flags)}")
+
     # Surface unmapped names ONCE per league, with the model's actual roster
     # beside them. A naming mismatch and a genuinely new club are
     # indistinguishable from inside the model, but obvious to a human the
-    # moment the two lists sit next to each other.
+    # moment the two lists sit next to each other. Teams a fixture was
+    # successfully rated through the carry-over model are excluded — they are
+    # not unmapped, they were rated on real prior-season data.
+    carry_teams = {t for fx in carry_flags for t in fx.split(" v ")}
     unmapped = sorted({t for h, a in upcoming_fixtures for t in (h, a)
-                       if t not in model.teams and t not in model.thin_teams})
+                       if t not in model.teams and t not in model.thin_teams
+                       and t not in carry_teams})
     if unmapped:
         # Suggest likely pool matches for each unknown name (read-only — a human
         # verifies and adds to the alias tables; never auto-applied, HR35).

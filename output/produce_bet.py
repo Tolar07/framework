@@ -548,9 +548,10 @@ def _result_pick(bf: BoardFixture) -> tuple[str, float, bool]:
 
 
 def render_daily_recommendation(board: list[BoardFixture]) -> str:
-    """The day's picks as a 2-4 leg parlay, drawn from ANY rated game today —
-    not just the deploy-eligible shortlist — so a Champions League-only day
-    still gets a readable recommendation (Architect 2026-08-05).
+    """The day's picks as a 2-4 leg parlay, drawn from ANY rated game in the
+    fixture window (next 3 days, ratified 2026-08-07) — not just the
+    deploy-eligible shortlist — so a quiet day still gets a readable
+    recommendation (Architect 2026-08-05).
 
     Legs are the day's highest-probability predicted results, capped at
     RECOMMEND_MAX_LEGS. A predicted AWAY win is never recommended (ID405 —

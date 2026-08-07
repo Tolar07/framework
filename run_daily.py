@@ -288,7 +288,7 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
-        min_mes: float = 0.0, days_ahead: int = 0,
+        min_mes: float = 0.0, days_ahead: int = 3,
         whatsapp: bool = True, email: bool = True,
         web: bool = True) -> RunResult:
     """Run the daily board end to end.
@@ -331,7 +331,11 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     all_flags += gflags
 
     # --- scan every league into one board (ID402 wide eyes). The board is the
-    # --- day's matches (days_ahead=0): 'today's board', not a 14-day lookahead.
+    # --- next 3 days' matches (days_ahead=3, ratified 2026-08-07): a rolling
+    # --- window like ScoreGPT, so a quiet midweek still shows the weekend round
+    # --- and preseason still shows the first fixtures of the season. Today-only
+    # --- (days_ahead=0) was reversed — it produced empty boards in early
+    # --- August when no league has a fixture literally today.
     # --- Each league reports its fit outcome (reused vs refit, seeded vs cold)
     # --- so the run row proves the brain's speed win rather than assuming it.
     fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0,
@@ -714,10 +718,13 @@ if __name__ == "__main__":
                     help="skip the email copy even when configured")
     ap.add_argument("--no-web", action="store_true",
                     help="skip writing the board_<date>.json the web dashboard reads")
+    ap.add_argument("--days-ahead", type=int, default=3,
+                    help="fixture window in days from today (3 = next 3 days)")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
+              days_ahead=a.days_ahead,
               whatsapp=not a.no_whatsapp, email=not a.no_email,
               web=not a.no_web)
     print("\n" + out.full)

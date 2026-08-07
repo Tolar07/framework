@@ -7,6 +7,58 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-07 · Health monitor — self-triggering, self-healing awareness — built by order of the ARCHITECT
+
+**What the Architect asked:** "can you build me a self healing monitoring bot"
+(after the 07:00 run failed silently twice and only the launch marker proved
+the difference between "never started" and "started and crashed").
+
+**What was built:** `monitor/health_monitor.py` — a 9-probe awareness layer that
+runs on ITS OWN schedule (Task Scheduler "OLP XDV Health Monitor", every 2h,
+via `health_monitor.bat` + `setup_health_monitor_task.ps1`, idempotent like the
+poller task). It answers the questions the daily run assumes are fine:
+
+1. **Phase guard** — is the paper-only capital block still in force?
+2. **Env completeness** — are the keys the pipeline needs actually set?
+3. **Brain health** — does `brain/olp.db` open, migrate, and hold model state?
+4. **CLV ledger** — does `clv/clv_log.json` parse and hold the canonical legs?
+5. **Odds quota** — how much of the free-tier monthly quota is left?
+6. **Cache freshness** — are the TTL caches within their max ages?
+7. **Last daily run** — did the latest run complete AND deliver?
+8. **Web dashboard** — is the local server reachable?
+9. **Data-source circuits** — is any fallback source stuck in circuit_open?
+
+**Self-healing:** the stale LIVE-season results feed is re-downloaded (the
+file whose staleness cost the Phase-3 gate its reachability) — a heal only
+counts as healed when the file is actually fresh afterwards, and it reuses the
+owner's own refresh path so a failed refresh keeps the stale snapshot (HR35:
+never a guessed heal).
+
+**Alerting — state changes only:** a NEW problem, a RESOLVED problem, or one
+still open after the 26h reminder ring alerts exactly once over best-effort
+Telegram. A problem that keeps failing check-to-check does NOT re-alert, so a
+2-hourly monitor never spams the phone. Same never-raises discipline as the
+watchdog — the monitor can never crash its own scheduler.
+
+**Live first run (2026-08-07):** 4 real findings surfaced — env missing
+THESPORTSDB_KEY, odds quota at 4/5 (the deploy-league guard), stale fixture
+caches (expected pre-season: 3-day window, no today-only re-pull), and last
+run completed but did not deliver to Telegram. Each honest, none guessed.
+
+**Authority:** Architect. Additive infrastructure under the auto-ratification
+grant — monitoring and alerting change no capital, staking, fabrication,
+verification or honest-edge behaviour, and nothing a probe reports alters the
+board. Test suite: `tests/health_monitor_test.py` (alert-on-change,
+resolution, reminder ring, heal honesty). The same commit carries the other
+session's scan-only **Austrian Bundesliga** capture (odds sport key + tier D
+whitelist — verified live 2026-08-07; no history source covers it, so its
+fixtures list honestly unrated NO DATA — PENDING until one does) and the
+**SourceNoData** refinement to the multi-source layer (a quiet league is a
+valid empty answer, not a fault — it falls through to the next source without
+tripping the circuit breaker).
+
+---
+
 ## 2026-08-07 · Approve→Publish gate + admin search + grouping/flags/badges on both dashboards — ratified by the ARCHITECT
 
 **What the Architect asked** (restated for the record): "Good set of upgrades —

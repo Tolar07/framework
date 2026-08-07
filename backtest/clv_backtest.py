@@ -55,6 +55,7 @@ from data.football_data_source import load_league, MatchResult, DEFAULT_BOOK_PRE
 from engine.dixon_coles import fit, predict, DixonColesModel, TeamStrength, FIT_VERSION
 from engine.mes import mes_numeric
 from engine.softness import softness_tier
+from engine.recalibration import apply as cal_apply
 from clv.clv_logger import LoggedLeg, CLVLog, compute_clv, BACKTEST_PHASE, DEFAULT_LOG_PATH
 
 RESULTS_DIR = Path(__file__).parent / "results"
@@ -93,6 +94,16 @@ class BacktestConfig:
     random_seed: int = 390          # ID390, the open question this tests
     warm_start: bool = True
     half_life_days: Optional[float] = None   # None = no time decay (default)
+    # Out-of-sample per-market calibration. When True, model probabilities are
+    # nudged toward the observed hit rate BEFORE the min_mes screen, using ONLY
+    # evidence from blocks already played (walk-forward: a block's outcome is
+    # recorded only after the whole block has been predicted — no within-block
+    # look-ahead). This is the backtest arm of engine/recalibration.py, with a
+    # configurable cap because the live ±3pp bound is smaller than the measured
+    # 9-17pp overconfidence gap the CLV backtest surfaced.
+    calibrate: bool = False
+    cal_min_legs: int = 15          # evidence gate per market (matches live)
+    cal_max_adjustment: float = 0.03  # probability-points cap on the nudge
 
     def fingerprint(self) -> str:
         """Short hash of every knob. Printed in the report so a run with
@@ -126,6 +137,7 @@ class PaperLeg:
     overround_close: Optional[float] = None
     model_cut_date: Optional[str] = None
     model_n_matches: Optional[int] = None
+    cal_delta: Optional[float] = None  # calibration nudge applied to model_p
 
 
 # --------------------------------------------------------------------------
@@ -322,15 +334,70 @@ def _select(cfg: BacktestConfig, market: str, mes, price, odds, rng) -> bool:
     raise ValueError(f"unknown selector {cfg.selector!r}")
 
 
+class CalibrationState:
+    """Per-market (model_prob, hit) evidence accumulated across COMPLETED
+    blocks, and the bounded delta it implies — the backtest arm of
+    engine/recalibration.py.
+
+    WALK-FORWARD HONESTY: a match's outcome is recorded only AFTER its whole
+    block has been predicted, so the selection inside block k never sees block
+    k's own outcomes (no within-block look-ahead). Block k's calibration uses
+    ONLY the evidence blocks 0..k-1 produced.
+
+    Same shape as the live machinery — evidence gate, cap, linear ramp to full
+    strength — but the cap is a config knob (`cal_max_adjustment`), because the
+    CLV backtest measured a 9-17pp overconfidence gap, larger than the live
+    fixed ±3pp bound. The residual is hit_rate - mean_model_prob: negative means
+    the model claimed more than reality delivered (overconfident), so the delta
+    deflates model_p toward what actually wins."""
+
+    def __init__(self, min_legs: int, max_adjustment: float):
+        self.min_legs = min_legs
+        self.max_adjustment = max_adjustment
+        self._evidence: dict[str, list[tuple[float, bool]]] = {}
+
+    def record(self, market: str, model_prob: float, hit: Optional[bool]) -> None:
+        if hit is None:
+            return  # unplayed / unsettled — never evidence
+        self._evidence.setdefault(market, []).append((model_prob, hit))
+
+    def deltas(self) -> dict[str, float]:
+        """{market: delta} for markets past the evidence gate. A missing key
+        means 'no adjustment' (same contract as recalibration.adjustments_for)."""
+        out: dict[str, float] = {}
+        for market, rows in self._evidence.items():
+            n = len(rows)
+            if n < self.min_legs:
+                continue  # evidence gate — thin sample never moves the engine
+            mean_p = sum(p for p, _ in rows) / n
+            mean_hit = sum(1 for _, h in rows if h) / n
+            residual = mean_hit - mean_p
+            weight = min(1.0, n / (3 * self.min_legs))  # ramp to full strength
+            delta = residual * weight
+            delta = max(-self.max_adjustment,
+                        min(self.max_adjustment, delta))
+            if abs(delta) >= 0.005:  # noise floor, mirrors the live machinery
+                out[market] = round(delta, 4)
+        return out
+
+
 def candidate_legs(match: MatchResult, probs, cfg: BacktestConfig,
-                    rng: Optional[random.Random] = None) -> list[PaperLeg]:
+                    rng: Optional[random.Random] = None,
+                    cal_deltas: Optional[dict[str, float]] = None
+                    ) -> list[PaperLeg]:
     """Enumerate every market in scope for one fixture and keep those the model
     likes enough.
 
     `min_mes` is the p-hacking surface of this whole exercise: sweep it and you
     will find a value that produces a positive headline. It is PRE-DECLARED in
     BacktestConfig, printed in the report, and if it is ever swept the report
-    must emit every value tried, not the best one."""
+    must emit every value tried, not the best one.
+
+    `cal_deltas` (optional, per-market) comes from CalibrationState and is
+    applied to the model probability BEFORE the min_mes screen — the MES the
+    leg is selected on is the CALIBRATED MES, while `model_prob` stays the raw
+    model estimate (NO FEEDBACK LOOP, same contract as recalibration.apply).
+    `cal_delta` is stored on the leg so the report can show what was nudged."""
     tier = softness_tier(match.league)
     fixture = f"{match.home_team} v {match.away_team}"
     o = match.odds
@@ -368,7 +435,12 @@ def candidate_legs(match: MatchResult, probs, cfg: BacktestConfig,
             legs.append(base(market, status="NO_MODEL", entry_odds=price.open, **common))
             continue
 
-        mes = mes_numeric(model_p, price.open)
+        # Calibrated probability for the EV decision (raw model_p stays on the
+        # leg — NO FEEDBACK LOOP). When calibration is off, cal_deltas is None
+        # and this is a no-op, so the baseline selector is byte-identical.
+        delta = cal_deltas.get(market) if cal_deltas else None
+        p_for_ev = cal_apply(model_p, delta)
+        mes = mes_numeric(p_for_ev, price.open)
         if not _select(cfg, market, mes, price, o, rng):
             continue
 
@@ -378,12 +450,13 @@ def candidate_legs(match: MatchResult, probs, cfg: BacktestConfig,
             # missing preferentially where the line moved most.
             legs.append(base(market, status="NO_CLOSE", model_prob=model_p,
                               entry_odds=price.open, mes_at_entry=mes,
+                              cal_delta=delta,
                               hit=settle(market, match.fthg, match.ftag), **common))
             continue
 
         legs.append(base(market, status="OK", model_prob=model_p,
                           entry_odds=price.open, closing_odds=price.close,
-                          mes_at_entry=mes,
+                          mes_at_entry=mes, cal_delta=delta,
                           clv_pct=compute_clv(price.open, price.close),
                           hit=settle(market, match.fthg, match.ftag), **common))
 

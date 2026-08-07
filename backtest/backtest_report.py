@@ -142,6 +142,11 @@ def render_report(legs: list, flags: list[str], coverage: dict, cfg,
     A(f"Selector        : {cfg.selector}   min_MES={cfg.min_mes}  (PRE-DECLARED, not swept)")
     A(f"Refit cadence   : every {cfg.refit_every_days} days   book preference: {', '.join(cfg.book_preference)}")
     A(f"Time decay      : {cfg.half_life_days or 'OFF'}")
+    if getattr(cfg, "calibrate", False):
+        A(f"Calibration     : ON (out-of-sample, gate >= {cfg.cal_min_legs} legs, "
+          f"cap +/-{cfg.cal_max_adjustment:.2f})")
+    else:
+        A("Calibration     : OFF")
     A("")
 
     A("COVERAGE — what was scanned and what never reached a leg")

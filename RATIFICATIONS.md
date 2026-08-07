@@ -7,6 +7,58 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-07 · Out-of-sample calibration layer in the CLV backtest — built by order of the ARCHITECT
+
+**What the Architect asked:** after the three-way CLV breakdown showed the entire
+negative result living in the away market (1X2_A at **-2.125%, t=-5.50**, negative
+in all six leagues), I recommended recalibrating the model's probabilities toward
+the closing line. The Architect ratified the prototype: "yes do what is best".
+
+**What was built:** `backtest/clv_backtest.py` gains an out-of-sample per-market
+calibration layer (`CalibrationState`), gated behind `--calibrate` (default OFF,
+so the baseline selector is byte-identical and every prior run stays
+reproducible). It reuses `engine/recalibration.py`'s `apply()` and mirrors its
+evidence gate / cap / ramp contract, but the cap is a config knob
+(`--cal-max-adjustment`) because the measured overconfidence (9-17pp) exceeds the
+live machinery's fixed ±3pp bound. WALK-FORWARD HONESTY: block k's delta comes
+only from blocks < k — a match's outcome is recorded only after its whole block
+has been predicted, so selection never calibrates on its own outcomes. Tests
+`12a-14` in `tests/clv_backtest_test.py` pin the gate, the bound, the
+walk-forward ordering, and the "calibrated MES gates selection, raw model_prob
+stays on the leg" contract (no feedback loop). The report now prints the
+calibration config and a per-market MODEL CALIBRATION block (model_p vs hit vs
+fair_close) so overconfidence is visible on every run.
+
+**What the measurement found — honestly, a NEGATIVE result:** calibration does
+NOT rescue the away market. Before/after on the same 2425 season:
+
+| cap | ALL LEAGUES | 1X2_A | tier A/B |
+|---|---|---|---|
+| OFF (baseline) | -0.410% (t=-2.84) | -2.125% (t=-5.50) | -0.616% |
+| ±3pp (live bound) | -0.368% | -2.072% | -0.568% |
+| ±10pp | -0.305% | -1.792% | -0.428% |
+| ±15pp, gate 5 | -0.358% | -1.738% | -0.547% |
+
+Even at 3-5x the live bound, 1X2_A stays ~-1.8% (t≈-4). Calibration nudges the
+headline but cannot fix the away bucket: the model's away picks lose to the
+closing line wherever they are selected. This is a **structural calibration
+failure on aways, not a selection-knob failure** — devigging the screen was also
+measured to be a no-op (100% of the same legs survive). The recalibration
+machinery the live path already has (inert at present for lack of settled legs)
+is, on this evidence, **not sufficient** to make the away market profitable; the
+fix belongs in the model's away probabilities themselves, not in any screen or
+bounded nudge.
+
+**Guardrails:** backtest-only and additive — `calibrate` defaults OFF, no capital,
+staking, fabrication, verification or honest-edge behaviour changed. The
+calibration layer and report block are measurement infrastructure; the finding
+is recorded, not tuned around.
+
+**Authority:** Architect. Additive infrastructure under the auto-ratification
+grant, built at explicit request. All 37 suites green.
+
+---
+
 ## 2026-08-07 · Fixture window 0→3 days + promoted-club carry-over — ratified by the ARCHITECT
 
 **What the Architect asked:** "just like scoregpt everyday there is a

@@ -1,231 +1,267 @@
-"""HTML rendering for the OLP XDV web dashboard — ScoreGPT visual language.
+"""HTML rendering for the OLP XDV web dashboard — the Architect's two-tier
+design (reference: webapp/design_reference/*.html, ratified 2026-08-07).
 
-Design: dark AI-prediction app modeled on scoregpt.app/ai-football-predictions.
-Every league has a header row; each match is a 3-rail card with team rows,
-predicted score, AI pick line, model agreement, expandable model picks, win bar,
-and market/EV line. NO DATA — PENDING is always shown, never guessed (HR35).
-The honest-edge statement and capital authority are never removed.
+Two views share one visual language:
 
-Fonts: Fraunces (serif display), Inter (body), JetBrains Mono (mono labels).
-Self-contained — no external URLs, no CDN (the export test asserts it).
+  render_dashboard(payload)       — the PUBLIC /dashboard (client view)
+  render_admin_dashboard(payload) — the authed /admin (client + internals)
+
+DATA-LEAK BOUNDARY: the client view is fed by schema.trim_payload(), so it
+never contains a model internal by construction (Architect order 2026-08-07):
+no Elo/xG second opinions, no engine divergence, no consensus votes, no
+verification, no EV verdicts, no gate/calibration/flags. The admin view renders
+the full payload. The client's full-analysis market grid is derived from the
+market probabilities alone, so the grid needs nothing the client is denied.
+
+HR35 is kept throughout — missing data reads NO DATA — PENDING, never a guess.
+The honest-edge statement and capital authority live on /admin only (the
+Architect's explicit choice: the public client view matches the approved HTML
+exactly and omits them).
+
+Fonts: Barlow Condensed (display), Inter (body), IBM Plex Mono (numbers) via
+Google Fonts with system fallbacks (Architect approved the CDN).
 """
 from __future__ import annotations
 
 import html
 from datetime import date as _date, datetime
 
-from config import PHASE_LABEL
+# Google Fonts (Architect-approved): degrade gracefully to the system stacks
+# below when offline.
+_FONTS = """<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">"""
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CSS — ScoreGPT design tokens + component styles (inline, self-contained)
+# CSS — the ratified design tokens + components (admin superset; the client
+# view simply never uses the admin-only classes)
 # ─────────────────────────────────────────────────────────────────────────────
 _CSS = """
-:root{color-scheme:dark;
-  --bg:#080b11;--surface:#0e1520;--card:#10161d;
-  --border:#141c26;--border-light:rgba(255,255,255,.06);
-  --ink:#f2f6ff;--ink-2:#9fb2c3;--ink-3:#808d9b;
-  --accent:#00d4aa;--accent-2:#3b82f6;--accent-light:#5cead0;
-  --accent-muted:rgba(0,212,170,.10);--accent-soft:rgba(0,212,170,.15);
-  --grad:linear-gradient(135deg,#00d4aa 0%,#3b82f6 100%);
-  --pick:#5cead0;
-  --good:#00c758;--good-bg:#0d2a1a;
-  --warning:#f59e0b;--warning-bg:#2b2414;
-  --serious:#ff6568;--serious-bg:rgba(255,101,104,.12);
-  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --display:Fraunces,Georgia,"Times New Roman",serif;
-  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+:root{
+  --bg:#0B0E13;
+  --surface:#131822;
+  --surface-2:#1A2130;
+  --line:#232B3B;
+  --ink:#E7EAF0;
+  --ink-dim:#8B93A6;
+  --ink-faint:#565F72;
+  --amber:#D8A659;
+  --amber-dim:#8C744A;
+  --teal:#4FB894;
+  --coral:#E2634F;
+  --violet:#9089D6;
+  --radius:10px;
 }
-*{box-sizing:border-box}
-html{background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
-.wrap{max-width:54rem;margin:0 auto;padding:1.4rem 1rem 3rem}
-a{color:var(--accent-2)}
-h1{font:700 1.2rem var(--display);margin:.2rem 0 .1rem}
-h2{font:700 1.05rem var(--display);margin:1.6rem 0 .5rem}
-.muted{color:var(--ink-2)}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 15% 0%, #161d2b 0%, transparent 45%),
+    var(--bg);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:0 0 80px 0;
+}
+.mono{font-family:'IBM Plex Mono',monospace;}
+.display{font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:0.02em;}
 
-/* ─── nav ─── */
-nav{position:sticky;top:.75rem;z-index:10;display:flex;align-items:center;gap:.9rem;padding:.55rem .9rem;
-  background:rgba(14,21,32,.7);backdrop-filter:blur(12px);border:1px solid var(--border-light);
-  border-radius:999px;margin-bottom:1.4rem;pointer-events:auto}
-.brand{font:700 .95rem/1 var(--display);font-style:italic;text-transform:uppercase;letter-spacing:.06em;
-  color:var(--ink);text-decoration:none;white-space:nowrap}
-.brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-nav .spacer{flex:1}
-nav a.link{font-size:.9rem;color:var(--ink-2);text-decoration:none}
-nav a.link:hover{color:var(--ink)}
-.nav-cta{background:var(--grad);color:#fff!important;padding:.3rem .85rem;border-radius:999px;
-  font-size:.85rem;font-weight:700;text-decoration:none;white-space:nowrap}
+header.top{
+  max-width:720px;margin:0 auto;padding:28px 20px 18px 20px;
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:baseline;gap:10px;}
+.brand .mark{
+  width:8px;height:8px;background:var(--amber);border-radius:1px;
+  transform:rotate(45deg);flex:none;
+}
+.brand h1{font-size:22px;font-weight:700;margin:0;letter-spacing:0.04em;}
+.brand .phase{
+  font-size:11px;color:var(--amber);border:1px solid var(--amber-dim);
+  padding:2px 8px;border-radius:20px;margin-left:auto;font-family:'IBM Plex Mono',monospace;
+}
+.meta-row{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--ink-dim);flex-wrap:wrap;}
+.meta-row b{color:var(--ink);font-weight:600;}
+.paper-strip{
+  max-width:720px;margin:0 auto;padding:9px 20px;background:#1E1710;
+  border-bottom:1px solid #3A2E18;color:#D8A659;font-size:12px;text-align:center;
+  letter-spacing:0.03em;
+}
 
-/* ─── hero ─── */
-.hero{padding:0 0 .8rem;margin-bottom:.6rem}
-.hero .stamp{font:.68rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:.5rem}
-.hero h1{font:700 1.85rem/1.15 var(--display);margin-bottom:.5rem}
-.hero p{color:var(--ink-2);font-size:.95rem;margin:.3rem 0}
-.hero .pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
-.pill{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;padding:.18rem .55rem;
-  border-radius:999px;border:1px solid var(--border);color:var(--ink-2)}
-.pill.good{color:var(--good);background:var(--good-bg);border-color:transparent}
-.pill.warn{color:var(--warning);background:var(--warning-bg);border-color:transparent}
-.pill.grad{border-color:transparent;color:#fff;background:var(--grad)}
+main{max-width:720px;margin:0 auto;padding:0 20px;}
+section{margin-top:34px;}
+.sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
+.sec-head h2{font-size:20px;margin:0;font-weight:700;letter-spacing:0.01em;}
+.sec-sub{font-size:12.5px;color:var(--ink-faint);margin:0 0 14px 0;}
+.cap-pill{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-dim);
+  border:1px solid var(--line);padding:2px 7px;border-radius:20px;
+}
 
-/* ─── buttons ─── */
-.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--grad);color:#fff;
-  font:700 .9rem/1 var(--sans);padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;margin-top:1rem}
-.btn-sub{font-size:.8rem;color:var(--ink-3);margin-top:.35rem}
+/* THE CALL — deploy shortlist cards */
+.call-card{
+  background:linear-gradient(180deg,#161C29,var(--surface));
+  border:1px solid var(--line);border-left:3px solid var(--amber);
+  border-radius:var(--radius);padding:16px 16px 14px 16px;margin-bottom:12px;
+  cursor:pointer;transition:border-color 0.15s;
+}
+.call-card:hover{border-color:var(--amber-dim);}
+.call-card .expand-hint{
+  font-size:10.5px;color:var(--ink-faint);margin-top:10px;
+  display:flex;align-items:center;gap:5px;
+}
+.call-card .expand-hint .chevron{transition:transform 0.2s;}
+.call-card.open .expand-hint .chevron{transform:rotate(90deg);}
+.full-analysis{
+  display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+}
+.call-card.open .full-analysis{display:block;}
+.market-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.market-row{
+  display:flex;justify-content:space-between;font-size:12.5px;
+  padding:6px 0;border-bottom:1px solid var(--line);
+}
+.market-row .m-name{color:var(--ink-dim);}
+.market-row .m-val{font-family:'IBM Plex Mono',monospace;color:var(--ink);font-weight:600;}
+.internals{
+  margin-top:14px;padding:12px;background:#0E1219;border:1px dashed var(--line);
+  border-radius:8px;
+}
+.internals .int-head{
+  font-size:10px;color:var(--violet);text-transform:uppercase;letter-spacing:0.06em;
+  margin-bottom:8px;font-family:'IBM Plex Mono',monospace;
+}
+.internals .int-row{font-size:12px;color:var(--ink-dim);padding:4px 0;line-height:1.5;}
+.internals .int-row b{color:var(--ink);}
+.divergence-warn{color:#E2634F;}
+@media (max-width:480px){.market-grid{grid-template-columns:1fr;}}
 
-/* ─── picks card ─── */
-.picks{border:1px solid transparent;border-radius:1rem;padding:1rem 1.1rem;margin:.7rem 0 1.2rem;
-  background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box}
-.picks h2{margin:0 0 .4rem;font:700 1.05rem var(--display)}
-.picks h2 .dot{display:inline-block;width:.55rem;height:.55rem;border-radius:50%;
-  background:var(--grad);margin-right:.4rem;vertical-align:1px}
-.picks pre{white-space:pre-wrap;margin:0;font:inherit}
+.call-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.fixture-name{font-size:16px;font-weight:600;}
+.league-tag{font-size:11px;color:var(--ink-faint);margin-top:2px;}
+.tier-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--bg);
+  background:var(--amber);padding:3px 8px;border-radius:4px;font-weight:600;flex:none;
+}
+.pick-line{
+  margin-top:12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+}
+.pick-label{font-size:14px;color:var(--ink);}
+.pick-prob{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-size:14px;font-weight:600;}
+.trigger{
+  margin-left:auto;text-align:right;font-family:'IBM Plex Mono',monospace;
+}
+.trigger .num{color:var(--amber);font-size:15px;font-weight:600;}
+.trigger .lbl{font-size:9.5px;color:var(--ink-faint);letter-spacing:0.06em;text-transform:uppercase;}
+.stamp-row{margin-top:10px;display:flex;gap:8px;align-items:center;}
+.stamp{
+  width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex:none;
+}
+.stamp.verified{background:rgba(79,184,148,0.15);color:var(--teal);border:1px solid var(--teal);}
+.stamp.single{background:rgba(216,166,89,0.12);color:var(--amber);border:1px solid var(--amber-dim);}
+.stamp.warn{background:rgba(226,99,79,0.15);color:var(--coral);border:1px solid var(--coral);}
+.stamp.na{background:rgba(86,95,114,0.15);color:var(--ink-faint);border:1px solid var(--line);}
+.stamp-note{font-size:11px;color:var(--ink-faint);}
 
-/* ─── section / tiles / card ─── */
-.section{margin-top:.3rem}
-.section-head{display:flex;align-items:baseline;gap:.75rem;margin:1.6rem 0 .8rem}
-.section-head h2{margin:0;font:700 1.25rem var(--display)}
-.rule{flex:1;height:1px;background:var(--border)}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr));gap:.55rem;margin:.9rem 0 1.1rem}
-.tile{background:var(--card);border:1px solid var(--border);border-radius:.8rem;padding:.6rem .8rem}
-.tile .n{font:700 1.25rem var(--mono)}
-.tile .l{font-size:.75rem;color:var(--ink-3)}
-.card{background:var(--card);border:1px solid var(--border);border-radius:.9rem;padding:.8rem .9rem;margin:.55rem 0}
-.card p{margin:.35rem 0}
-.card pre{white-space:pre-wrap;margin:.3rem 0 0;font:inherit}
+/* THE SCAN — wide table */
+.scan-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.scan-table th{
+  text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;
+  color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.05em;
+  padding:0 8px 8px 8px;font-weight:500;border-bottom:1px solid var(--line);
+}
+.scan-table td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:middle;}
+.scan-table tr:last-child td{border-bottom:none;}
+.scan-fixture{font-weight:500;color:var(--ink);}
+.scan-league{display:block;font-size:10px;color:var(--ink-faint);margin-top:1px;}
+.scan-num{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);white-space:nowrap;}
+.scan-num .fav{color:var(--ink);}
+.nodata{color:var(--ink-faint);font-style:italic;font-size:11.5px;}
+.src-dot{
+  width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  font-size:9.5px;font-weight:700;
+}
+.src-dot.v{background:rgba(79,184,148,0.15);color:var(--teal);}
+.src-dot.s{background:rgba(216,166,89,0.12);color:var(--amber);}
+.src-dot.n{background:rgba(86,95,114,0.15);color:var(--ink-faint);}
+.scan-table tr.clickable{cursor:pointer;transition:background 0.12s;}
+.scan-table tr.clickable:hover{background:rgba(216,166,89,0.04);}
+.scan-table .chevron{color:var(--ink-faint);font-size:11px;transition:transform 0.2s;display:inline-block;margin-right:6px;}
+.scan-table tr.open .chevron{transform:rotate(90deg);}
+.detail-row td{padding:0;border-bottom:1px solid var(--line);}
+.detail-row .full-analysis{display:none;padding:14px 8px 16px 8px;}
+.detail-row.open .full-analysis{display:block;}
 
-/* ─── gate bar ─── */
-.gatebar{height:.5rem;border-radius:999px;background:var(--surface);overflow:hidden;margin:.35rem 0 .15rem}
-.gatebar>i{display:block;height:100%;background:var(--grad);border-radius:999px}
+/* graded / verify results */
+.graded-row{
+  display:flex;align-items:center;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--line);font-size:13px;
+}
+.graded-row:last-child{border-bottom:none;}
+.hit-tag,.miss-tag,.pend-tag{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+  padding:2px 7px;border-radius:4px;flex:none;
+}
+.hit-tag{background:rgba(79,184,148,0.15);color:var(--teal);}
+.miss-tag{background:rgba(226,99,79,0.15);color:var(--coral);}
+.pend-tag{background:rgba(86,95,114,0.15);color:var(--ink-faint);}
+.graded-ft{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);font-size:12px;margin-left:auto;}
 
-/* ─── league header row ─── */
-.league-head{display:flex;align-items:center;gap:.6rem;margin:1.6rem 0 .7rem}
-.badge{width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font:700 .72rem var(--mono);color:var(--ink-3);background:var(--surface);border:1px solid var(--border);flex:none}
-.league-name{font:700 .85rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin:0}
-.league-count{font:700 .75rem var(--mono);color:var(--ink-3)}
+/* data flags */
+.flags{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 16px;
+}
+.flag-line{font-size:12px;color:var(--ink-dim);padding:5px 0;display:flex;gap:8px;}
+.flag-line .mk{color:var(--amber);flex:none;}
 
-/* ─── match card (3-rail) ─── */
-.match{display:flex;background:var(--card);border:1px solid var(--border);border-radius:.9rem;
-  overflow:hidden;margin:.55rem 0;transition:border-color .2s}
-.match:hover{border-color:var(--accent-muted)}
-.match.na{opacity:.72}
-.rail-l{width:4.2rem;border-right:1px solid var(--border);padding:.65rem .55rem;text-align:center;flex:none;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem}
-.rail-m{flex:1;min-width:0;padding:.65rem .75rem}
-.rail-r{width:9rem;border-left:1px solid var(--border);padding:.65rem .65rem;flex:none;
-  display:flex;flex-direction:column;gap:.35rem;justify-content:center}
-.tag{font:600 .65rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
-.date{font:700 .7rem var(--mono);color:var(--ink-3)}
-.tier{font:700 .6rem var(--mono);padding:.1rem .35rem;border-radius:999px;color:var(--accent);
-  border:1px solid var(--accent-muted)}
-.mrow{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.15rem 0}
-.tname{font:600 .92rem/1.2 var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
-.tname.win{color:var(--ink)}
-.tname.lose{color:var(--ink-3)}
-.score{font:700 .95rem var(--mono);padding:.1rem .35rem;border-radius:.35rem;
-  background:var(--surface);min-width:1.6rem;text-align:center}
-.score.win{color:var(--ink);background:var(--accent-muted)}
-.pick-line{font-size:.82rem;line-height:1.3}
-.pick-line .team{color:var(--pick);font-weight:700}
-.models{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.3rem}
-.chip{font:500 .68rem var(--mono);padding:.12rem .45rem;border-radius:999px;border:1px solid var(--border);
-  color:var(--ink-3);background:var(--surface)}
-.chip.ok{color:var(--accent);border-color:transparent;background:var(--accent-muted)}
-.chip.miss{color:var(--serious);border-color:transparent;background:var(--serious-bg)}
-.chip.na{opacity:.55}
-.market-line{font-size:.8rem;color:var(--ink-3);margin-top:.35rem;border-top:1px solid var(--border);
-  padding-top:.4rem}
-.market-line b{color:var(--pick)}
-.market-line .ev{color:var(--good);font-weight:700}
+/* footer honest line */
+footer{
+  max-width:720px;margin:40px auto 0 auto;padding:18px 20px 0 20px;
+  border-top:1px solid var(--line);
+}
+.honest{
+  font-size:12.5px;color:var(--ink-dim);line-height:1.6;text-align:center;
+  padding:14px 10px 4px 10px;
+}
+.honest b{color:var(--ink);}
+.gate{
+  display:flex;justify-content:center;gap:6px;align-items:center;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);margin-top:10px;
+}
+.gate .bar{width:90px;height:4px;background:var(--line);border-radius:2px;overflow:hidden;}
+.gate .fill{height:100%;background:var(--amber-dim);width:0%;}
 
-/* ─── win bar ─── */
-.winbar{display:flex;height:.4rem;border-radius:999px;overflow:hidden;background:var(--surface);margin:.45rem 0 .25rem}
-.winbar>i{display:block;height:100%}
-.winbar>i.lead{background:var(--grad)}
-.winbar>i.mid{background:rgba(255,255,255,.16)}
-.winbar-labels{display:flex;justify-content:space-between;font-size:.72rem;color:var(--ink-3);margin-bottom:.15rem}
-
-/* ─── model picks expander ─── */
-details.mpicks>summary{font:600 .8rem var(--sans);color:var(--ink-3);cursor:pointer;list-style:none;padding:.2rem 0}
-details.mpicks>summary::before{content:"▾ ";color:var(--accent)}
-details.mpicks[open]>summary::before{content:"▴ "}
-.mpicks-list{list-style:none;margin:0;padding:0}
-.mpicks-list li{display:flex;justify-content:space-between;align-items:baseline;font-size:.78rem;padding:.18rem 0;color:var(--ink-2)}
-.mpicks-list li span{color:var(--ink-3);font:500 .72rem var(--mono)}
-.mpicks-list li b{font:600 .78rem var(--mono);color:var(--ink)}
-
-/* ─── yesterday graded ─── */
-.graded .verdict{display:inline-flex;align-items:center;gap:.25rem;padding:.2rem .55rem;
-  border-radius:999px;font:700 .7rem var(--sans)}
-.verdict.hit{background:var(--accent-muted);color:var(--accent)}
-.verdict.miss{background:var(--serious-bg);color:var(--serious)}
-
-/* ─── rolling band ─── */
-.rolling{background:var(--card);border:1px solid var(--border);border-radius:.9rem;padding:.8rem .9rem;margin:.6rem 0}
-.rolling h3{margin:0 0 .3rem;font:700 .9rem var(--display)}
-.rolling p{color:var(--ink-2);font-size:.88rem;margin:.25rem 0}
-
-/* ─── league hubs ─── */
-.hubs{display:flex;flex-wrap:wrap;gap:.5rem;margin:.4rem 0 .8rem}
-.hub{padding:.4rem .8rem;border-radius:.6rem;border:1px solid var(--border);background:var(--card);
-  color:var(--ink-2);font-size:.85rem;text-decoration:none;transition:border-color .2s}
-.hub:hover{border-color:var(--accent-muted);color:var(--ink)}
-
-/* ─── methodology steps ─── */
-.steps{list-style:none;counter-reset:step;margin:.4rem 0 0;padding:0}
-.steps li{counter-increment:step;padding:.55rem 0 .55rem 2.6rem;position:relative;
-  font-size:.92rem;color:var(--ink-2);border-bottom:1px solid var(--border)}
-.steps li:last-child{border-bottom:none}
-.steps li::before{content:counter(step);position:absolute;left:0;top:.55rem;width:1.7rem;height:1.7rem;
-  display:flex;align-items:center;justify-content:center;border-radius:999px;
-  border:1px solid var(--accent-muted);color:var(--accent);font:700 .78rem var(--mono)}
-.steps li strong{color:var(--ink);font-weight:600}
-.steps li::after{content:"";position:absolute;left:2.55rem;bottom:-1px;width:0;height:1px;background:var(--border)}
-.steps li:last-child::after{display:none}
-
-/* ─── FAQ accordion ─── */
-details.faq{border:1px solid var(--border);border-radius:.8rem;background:var(--card);margin:.45rem 0}
-details.faq>summary{padding:.65rem .85rem;font:600 .88rem var(--sans);color:var(--ink);cursor:pointer;
-  list-style:none;display:flex;align-items:center;gap:.5rem}
-details.faq>summary::before{content:"▸";color:var(--accent);font-size:.8rem;flex:none;transition:transform .15s}
-details.faq[open]>summary::before{transform:rotate(90deg)}
-details.faq p{padding:0 .85rem .7rem;color:var(--ink-2);font-size:.88rem;line-height:1.5}
-
-/* ─── footer ─── */
-.foot{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--border);
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1rem}
-.foot p{margin:.2rem 0;font-size:.85rem;color:var(--ink-3)}
-.foot p strong{color:var(--ink-2);font-weight:600}
-
-/* ─── why / stats pages ─── */
-h1.serif{font:700 1.5rem var(--display);margin-bottom:.8rem}
-.pick{color:var(--accent-light);font-weight:700}
-
-/* ─── NO-DATA card ─── */
-.match.na .why{font-size:.8rem;color:var(--serious);margin-top:.2rem}
-.match.na .score{color:var(--ink-3);background:var(--surface);opacity:.7}
+@media (max-width:480px){
+  .scan-table{font-size:11.5px;}
+  .scan-table th:nth-child(4), .scan-table td:nth-child(4){display:none;}
+}
 """
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Page shell
-# ─────────────────────────────────────────────────────────────────────────────
+_SCAN_JS = """<script>
+  function toggleScanRow(id){
+    document.getElementById(id).classList.toggle('open');
+    event.currentTarget.classList.toggle('open');
+  }
+</script>"""
 
-def html_shell(title: str, body: str) -> str:
+
+def html_shell(title: str, body: str, script: str = "") -> str:
     return f"""<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>{html.escape(title)}</title>
+{_FONTS}
 <style>{_CSS}</style>
-</head><body><div class="wrap">
+</head><body>
 {body}
-</div></body></html>"""
+{script}
+</body></html>"""
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Shared helpers (unchanged logic — these carry the test needles)
+# Shared helpers
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _pct(x) -> str:
@@ -252,580 +288,565 @@ def _teams(bf: dict) -> tuple[str, str, str]:
     return short, "—", league
 
 
-def _monogram(league: str) -> str:
-    words = [w for w in league.replace("-", " ").split() if w]
-    if not words:
-        return "?"
-    if len(words) == 1:
-        return words[0][:2].upper()
-    return (words[0][0] + words[-1][0]).upper()
+def _friendly_date(d) -> str:
+    """ISO date -> 'Thu, 6 Aug 2026' (no platform-specific %-d)."""
+    try:
+        dt = datetime.strptime(d, "%Y-%m-%d")
+    except (TypeError, ValueError):
+        return str(d)
+    day = dt.strftime("%d").lstrip("0") or "0"
+    return f"{dt.strftime('%a')}, {day} {dt.strftime('%b %Y')}"
 
 
-def _result_side(probs) -> str | None:
-    if probs is None:
-        return None
-    if isinstance(probs, dict):
-        ph, pd, pa = probs.get("p_home"), probs.get("p_draw"), probs.get("p_away")
-    else:
-        # elo_probs / xg_probs arrive as LISTS from the JSON schema (tuples
-        # became lists on serialization), so normalise before padding.
-        seq = tuple(probs) if isinstance(probs, (tuple, list)) else ()
-        ph, pd, pa = (seq + (None, None, None))[:3]
-    if ph is None or pd is None or pa is None:
-        return None
-    m = max(ph, pd, pa)
-    return "home" if m == ph else ("draw" if m == pd else "away")
+def _fmt_price(x) -> str:
+    return "—" if x is None else f"{x:g}+"
 
 
-def _side_name(bf: dict, side: str) -> str:
-    home, away, _ = _teams(bf)
-    return {"home": home, "away": away, "draw": "Draw"}.get(side, "—")
+# ─────────────────────────────────────────────────────────────────────────────
+# The full-market grid (derived from market probabilities alone — this is what
+# makes the client grid possible without leaking model internals)
+# ─────────────────────────────────────────────────────────────────────────────
 
-
-def _predicted_score(p: dict) -> str:
-    lh, la = p.get("lambda_home"), p.get("lambda_away")
-    if lh is None or la is None:
-        return "—"
-    return f"{round(lh)}–{round(la)}"  # en-dash
-
-
-def _models_agree(bf: dict) -> tuple[int, int, dict]:
-    dc = _result_side(bf.get("probs"))
-    elo = _result_side(bf.get("elo_probs"))
-    xg = _result_side(bf.get("xg_probs"))
-    mkt = _result_side(bf.get("market_probs"))
-    engines = {"Dixon-Coles": dc, "Elo": elo, "xG": xg, "Bookmaker": mkt}
-    agree = sum(1 for s in engines.values() if s is not None and s == dc)
-    total = sum(1 for s in engines.values() if s is not None)
-    return agree, total, engines
-
-
-def _win_bar(p: dict) -> str:
+def _market_rows(p: dict) -> list[tuple[str, str]]:
+    """The 10-row full market breakdown: 1X2, goals lines, BTTS, double chance."""
+    home = p.get("home_team", "Home")
+    away = p.get("away_team", "Away")
     ph, pd, pa = p.get("p_home"), p.get("p_draw"), p.get("p_away")
-    if ph is None or pd is None or pa is None:
-        return '<div class="winbar"><i class="mid" style="width:100%"></i></div>'
-    lead = max(ph, pd, pa)
-    lead_i = ph if lead == ph else (1 if lead == pd else 2)
-    segs = [ph, pd, pa]
-    out = ['<div class="winbar">']
-    for i, s in enumerate(segs):
-        w = max(2.0, s * 100)
-        cls = "lead" if i == lead_i else "mid"
-        out.append(f'<i class="{cls}" style="width:{w:.1f}%"></i>')
-    out.append("</div>")
-    labels = (f'<div class="winbar-labels">'
-              f'<span>{html.escape(p.get("home_team", ""))} {_pct(ph)}</span>'
-              f'<span>Draw {_pct(pd)}</span>'
-              f'<span>{_pct(pa)} {html.escape(p.get("away_team", ""))}</span></div>')
-    return labels + "".join(out)
+    o15 = p.get("p_over_15")
+    o25 = p.get("p_over_25")
+    o35 = p.get("p_over_35")
+    btts = p.get("p_btts_yes")
+
+    def P(x) -> str:
+        return "—" if x is None else f"{round(x * 100)}%"
+
+    dc1x = None if (ph is None or pd is None) else ph + pd
+    dc12 = None if (ph is None or pa is None) else ph + pa
+    return [
+        (f"{home} to win", P(ph)),
+        ("Draw", P(pd)),
+        (f"{away} to win", P(pa)),
+        ("Over 1.5 goals", P(o15)),
+        ("Over 2.5 goals", P(o25)),
+        ("Over 3.5 goals", P(o35)),
+        ("BTTS Yes", P(btts)),
+        ("BTTS No", P(None if btts is None else 1 - btts)),
+        ("Double Chance 1X", P(dc1x)),
+        ("Double Chance 12", P(dc12)),
+    ]
 
 
-def _fmt_ev(ev) -> str:
-    return "NO DATA — PENDING" if ev is None else f"{ev:+.0%}"
-
-
-def _engine_display(key: str) -> str:
-    return {"dc": "Dixon-Coles", "cross": "Dixon-Coles (pooled)",
-            "elo": "Elo", "xg": "xG", "bookmaker": "Bookmaker",
-            "consensus": "Consensus"}.get(key, key)
+def _market_grid(p: dict) -> str:
+    cells = "\n".join(
+        f'<div class="market-row"><span class="m-name">{html.escape(name)}</span>'
+        f'<span class="m-val">{val}</span></div>'
+        for name, val in _market_rows(p))
+    return f'<div class="market-grid">\n{cells}\n</div>'
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Section builders
+# THE SCAN column codes (1X2 / goals / double-chance+BTTS)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _nav(active: str, today: str) -> str:
-    links = [("today", f"/board/{today}", "Today", False),
-             ("history", "/history", "History", False),
-             ("stats", "/stats", "Gate", True)]
-    parts: list[str] = []
-    for key, url, name, is_cta in links:
-        if key == active:
-            if is_cta:
-                parts.append(f'<a class="nav-cta" href="{url}">{name}</a>')
-            else:
-                parts.append(f'<span class="muted">{name}</span>')
-        else:
-            if is_cta:
-                parts.append(f'<a class="nav-cta" href="{url}">{name}</a>')
-            else:
-                parts.append(f'<a class="link" href="{url}">{name}</a>')
-    return (f'<nav><a class="brand" href="/board/{today}">OLP&nbsp;<b>XDV</b></a>'
-            f'<span class="spacer"></span>{" ".join(parts)}</nav>')
+def _scan_1x2(p: dict) -> str:
+    ph, pd, pa = p.get("p_home"), p.get("p_draw"), p.get("p_away")
+    if ph is None:
+        return "—"
+    side, pct = max((("home", ph), ("draw", pd), ("away", pa)), key=lambda t: t[1])
+    home = p.get("home_team", "Home")
+    away = p.get("away_team", "Away")
+    name = {"home": home, "draw": "Draw", "away": away}[side]
+    return f'<span class="fav">{html.escape(name)}</span>&nbsp;{round(pct * 100)}%'
 
 
-def _hero(payload: dict) -> str:
-    gate = payload.get("gate", {})
-    n = gate.get("legs_with_clv", 0)
-    req = gate.get("gate_requirement", 30)
-    phase = payload.get("phase") or PHASE_LABEL
-    gate_pill = (f'<span class="pill good">✓ gate reached</span>'
-                 if gate.get("gate_met_pending_architect_signoff")
-                 else f'<span class="pill warn">⏳ {n}/{req} CLV legs</span>')
-    pills = (f'<span class="pill">{html.escape(payload.get("date", "?"))}</span>'
-             f'<span class="pill">{html.escape(phase)}</span>'
-             f'<span class="pill grad">🎯 4 engines · graded in public</span>'
-             f'{gate_pill}')
-    return f"""<div class="hero">
-  <div class="stamp">Updated {html.escape(payload.get("date","?"))} · 07:00 run</div>
-  <h1>AI football predictions from 4 competing engines — graded in public</h1>
-  <p>Dixon-Coles + Elo + xG + the market's devigged odds, paper-only, logged
-     closing-line value toward the Phase 3 capital gate. Honest edge:
-     excellent process, NOT a demonstrated profitable edge.</p>
-  <div class="pills">{pills}</div>
-</div>"""
+def _scan_goals(p: dict) -> str:
+    def code(x) -> str:
+        if x is None:
+            return "—"
+        return f"O{round(x * 100)}" if x >= 0.5 else f"U{round((1 - x) * 100)}"
+
+    o15, o25 = p.get("p_over_15"), p.get("p_over_25")
+    if o15 is None and o25 is None:
+        return "—"
+    return f"{code(o15)} / {code(o25)}"
 
 
-def _picks_card(recommendation: str) -> str:
-    if not recommendation:
-        recommendation = "⭐ TODAY'S PICKS\nNO DATA — no eligible pick today."
-    lines = [l for l in recommendation.splitlines()
-             if not l.startswith("⭐ TODAY'S PICKS")]
-    if not lines:
-        lines = ["NO DATA — no eligible pick today."]
-    lines = [html.escape(l) for l in lines]
-    return (f'<div class="picks" id="picks"><h2><span class="dot"></span>TODAY\'S PICKS</h2>'
-            f'<pre>{chr(10).join(lines)}</pre></div>')
+def _scan_dc_btts(p: dict) -> str:
+    def dc(x) -> str:
+        if x is None:
+            return "—"
+        return f"1X{round(x * 100)}" if x >= 0.5 else f"X2{round((1 - x) * 100)}"
+
+    def bt(x) -> str:
+        if x is None:
+            return "—"
+        return f"Y{round(x * 100)}" if x >= 0.5 else f"N{round((1 - x) * 100)}"
+
+    ph, pd, pa = p.get("p_home"), p.get("p_draw"), p.get("p_away")
+    dc1x = None if (ph is None or pd is None) else ph + pd
+    return f"{dc(dc1x)} / {bt(p.get('p_btts_yes'))}"
 
 
-def _gate_strip(gate: dict, telemetry: dict) -> str:
-    n = gate.get("legs_with_clv", 0)
-    req = gate.get("gate_requirement", 30)
-    pct = min(1.0, n / req) if req else 0.0
-    capture = telemetry.get("clv_capture_rate")
-    cap_txt = "NO DATA — PENDING" if capture is None else f"{round(capture * 100)}%"
-    days = telemetry.get("days_to_gate")
-    days_txt = "NO DATA — PENDING" if days is None else f"~{days} days"
-    met = gate.get("gate_met_pending_architect_signoff")
-    pill = ('<span class="pill good">✓ gate reached — ARCHITECT sign-off pending</span>'
-            if met else '<span class="pill warn">⏳ paper calibration</span>')
-    return f"""<div class="tiles">
-  <div class="tile"><div class="n">{n}<small> / {req}</small></div>
-    <div class="l">legs with CLV</div></div>
-  <div class="tile"><div class="n">{cap_txt}</div>
-    <div class="l">closing-line capture</div></div>
-  <div class="tile"><div class="n">{days_txt}</div>
-    <div class="l">projected to gate</div></div>
-  <div class="tile"><div class="n">{telemetry.get("legs_per_day","—") or "—"}</div>
-    <div class="l">legs per day</div></div>
-</div>
-<div class="card">
-  <p><strong>Road to the Phase 3 gate</strong> {pill}</p>
-  <div class="gatebar" aria-label="{n} of {req}" style="margin-top:.5rem">
-    <i style="width:{round(pct*100)}%"></i></div>
-  <p class="muted">CLV legs are the only legs that count toward capital —
-    capture is {cap_txt} of settled legs.</p>
-</div>"""
+# ─────────────────────────────────────────────────────────────────────────────
+# Pick line + trigger + stamps (admin extras)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _pick(bf: dict) -> tuple[str, str]:
+    """(pick label, pick prob) — the market when priced, else the model argmax."""
+    label = bf.get("best_market")
+    prob = bf.get("best_model_prob")
+    if label and prob is not None:
+        return label, f"{round(prob * 100)}%"
+    p = bf.get("probs")
+    if p:
+        ph, pd, pa = p.get("p_home"), p.get("p_draw"), p.get("p_away")
+        if None not in (ph, pd, pa):
+            side, pct = max((("home", ph), ("draw", pd), ("away", pa)), key=lambda t: t[1])
+            home, away, _ = _teams(bf)
+            name = {"home": home, "draw": "Draw", "away": away}[side]
+            return f"{name} to win", f"{round(pct * 100)}%"
+    return "NO DATA — PENDING", "—"
 
 
-def _match_card(bf: dict) -> str:
+def _verification_tier(bf: dict) -> str:
+    v = bf.get("verification") or {}
+    return (v.get("tier") or "NO_DATA").upper()
+
+
+def _stamp_row(bf: dict) -> str:
+    tier = _verification_tier(bf)
+    note = (bf.get("verification") or {}).get("note")
+    if tier == "VERIFIED":
+        glyph, cls, label = "✓", "verified", "VERIFIED"
+    elif tier == "SINGLE_SOURCE":
+        glyph, cls, label = "○", "single", "SINGLE-SOURCE"
+    elif tier == "CONFLICT":
+        glyph, cls, label = "✗", "warn", "CONFLICT"
+    else:
+        glyph, cls, label = "—", "na", "NO-DATA"
+    src = f" — {note}" if note else ""
+    return (f'<div class="stamp-row"><span class="stamp {cls}">{glyph}</span>'
+            f'<span class="stamp-note">{label}{html.escape(src)}</span></div>')
+
+
+def _src_dot(bf: dict) -> str:
+    tier = _verification_tier(bf)
+    if tier == "VERIFIED":
+        return '<span class="src-dot v">✓</span>'
+    if tier == "SINGLE_SOURCE":
+        return '<span class="src-dot s">○</span>'
+    return '<span class="src-dot n">—</span>'
+
+
+def _internals(bf: dict) -> str:
+    """Model Internals — ADMIN ONLY. Never rendered by the client view."""
+    home, away, _ = _teams(bf)
+    p = bf.get("probs")
+
+    def pct(x) -> str:
+        return "—" if x is None else f"{round(x * 100)}%"
+
+    lines: list[str] = []
+    if p is not None:
+        lines.append(
+            f'<div class="int-row"><b>Dixon-Coles engine:</b> {html.escape(home)} '
+            f'{pct(p.get("p_home"))} / Draw {pct(p.get("p_draw"))} / '
+            f'{html.escape(away)} {pct(p.get("p_away"))}</div>')
+    elo = bf.get("elo_probs")
+    if elo:
+        lines.append(
+            f'<div class="int-row"><b>Elo second opinion:</b> {html.escape(home)} '
+            f'{pct(elo[0])} / Draw {pct(elo[1])} / {html.escape(away)} {pct(elo[2])}</div>')
+    div = bf.get("engine_divergence")
+    if div:
+        warn = ("divergence-warn" if ("⚠" in div or "approaching" in div.lower()
+                                      or "V5" in div) else "")
+        lines.append(f'<div class="int-row {warn}"><b>Engine divergence:</b> '
+                     f'{html.escape(div)}</div>')
+    if bf.get("best_market") and bf.get("best_price") is not None:
+        ev = bf.get("best_mes_ev")
+        ev_txt = ("NO DATA — PENDING" if ev is None
+                  else f"EV {ev:+.1%} ({'POSITIVE' if ev >= 0 else 'NEGATIVE'})")
+        book = f" ({bf['best_bookmaker']})" if bf.get("best_bookmaker") else ""
+        lines.append(f'<div class="int-row"><b>HR30 MES:</b> '
+                     f'{html.escape(bf["best_market"])} @ {bf["best_price"]}{book} — {ev_txt}</div>')
+    else:
+        lines.append('<div class="int-row"><b>HR30 MES:</b> '
+                     'NO DATA — PENDING (no live price captured this run)</div>')
+    tier = _verification_tier(bf)
+    note = (bf.get("verification") or {}).get("note")
+    vline = tier.replace("_", " ") + (f" ({note})" if note else "")
+    lines.append(f'<div class="int-row"><b>Verification:</b> {html.escape(vline)} '
+                 f'— no capital on this alone</div>')
+    return ('<div class="internals"><div class="int-head">Model Internals — '
+            'admin only</div>' + "".join(lines) + "</div>")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE CALL cards
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _call_card(bf: dict, admin: bool = False) -> str:
     home, away, league = _teams(bf)
     p = bf.get("probs")
-    # Market-aware display: when the engine and the real-money market disagree,
-    # the board shows the blended (market-anchored) probability — the honest
-    # number — rather than the raw overconfident model claim. This is what the
-    # probability engine "shows" per the Architect's order. When there is no
-    # live odds (blend_probs absent), the raw model IS the honest number.
-    display_p = p
-    if bf.get("blend_probs") and p is not None:
-        bp = bf["blend_probs"]  # [ph, pd, pa]
-        display_p = {
-            "home_team": p.get("home_team"),
-            "away_team": p.get("away_team"),
-            "p_home": bp[0], "p_draw": bp[1], "p_away": bp[2]}
-    tier = bf.get("softness_tier", "?")
-    kd = bf.get("kickoff_date") or ""
-    # Format date for the left rail
-    try:
-        dt = datetime.strptime(kd, "%Y-%m-%d")
-        date_txt = dt.strftime("%a %-d").upper()  # "THU 6"
-    except (ValueError, TypeError):
-        date_txt = "—"
-    # Determine match status tag (UP / LIVE / FT)
-    tag = "UP"
+    pick_label, pick_prob = _pick(bf)
+    trigger = _fmt_price(bf.get("mes_trigger_price"))
 
-    if p is None:
+    if admin:
+        tier = html.escape(str(bf.get("softness_tier", "?")))
+        head = (f'<div class="call-top">'
+                f'<div><div class="fixture-name">{html.escape(f"{home} v {away}")}</div>'
+                f'<div class="league-tag">{html.escape(league)}</div></div>'
+                f'<div class="tier-badge">TIER {tier}</div></div>')
+        stamp = _stamp_row(bf)
+        hint = "Full analysis + model internals"
+        extras = _internals(bf) if p is not None else ""
+    else:
+        head = (f'<div class="fixture-name">{html.escape(f"{home} v {away}")}</div>'
+                f'<div class="league-tag">{html.escape(league)}</div>')
+        stamp = ""
+        hint = "Full analysis — all markets"
+        extras = ""
+
+    grid = _market_grid(p) if p is not None else ""
+    if p is None and not admin:
+        # An unrated call row stays honest: shown, never guessed (HR35).
         reason = bf.get("rejection_reason") or "NO DATA — PENDING"
-        return f"""<div class="match na">
-  <div class="rail-l"><div class="tag">{tag}</div>
-    <div class="date">{date_txt}</div>
-    <div class="tier">{html.escape(tier)}</div></div>
-  <div class="rail-m">
-    <div class="mrow"><span class="tname">{html.escape(home)}</span>
-      <span class="score">—</span></div>
-    <div class="mrow"><span class="tname">{html.escape(away)}</span>
-      <span class="score">—</span></div>
-  </div>
-  <div class="rail-r">
-    <div class="pick-line" style="color:var(--ink-3)">NO DATA — PENDING</div>
-    <div class="why">⚠ {html.escape(reason)}</div>
-  </div>
-</div>"""
+        grid = f'<div class="flag-line"><span class="mk">⚠</span> {html.escape(reason)}</div>'
 
-    agree, total, engines = _models_agree(bf)
-    # The displayed pick uses the market-aware probability when available.
-    winner = _side_name(bf, _result_side(display_p))
-    # Per-engine chips (TEST NEEDLE: "✓ Dixon-Coles", "✓ Elo", "✓ Bookmaker", "xG —")
-    chips = []
-    for name, side in engines.items():
-        if side is None:
-            chips.append(f'<span class="chip na">{html.escape(name)} —</span>')
-        elif side == _result_side(p):
-            chips.append(f'<span class="chip ok">✓ {html.escape(name)}</span>')
-        else:
-            chips.append(f'<span class="chip miss">✗ {html.escape(name)}</span>')
-    # Market line
-    market = ""
-    if bf.get("best_market"):
-        ev = bf.get("best_mes_ev")
-        ev_txt = "NO DATA — PENDING" if ev is None else f"{ev:+.0%} EV"
-        market = (f'<div class="market-line">Pick: <b>{html.escape(bf["best_market"])}</b>'
-                  f' @ {bf.get("best_price","")} · <span class="ev">{ev_txt}</span>'
-                  f' <span class="muted">· {bf.get("best_n_books",0)} book(s)</span></div>')
-    # Model picks expander (engine_picks from schema)
-    ep = bf.get("engine_picks") or {}
-    mp_rows = []
-    for ek in ("Dixon-Coles", "Elo", "xG", "Bookmaker"):
-        ev_data = ep.get(ek)
-        name = html.escape(ek)
-        if ev_data is None:
-            mp_rows.append(f'<li><span>{name}</span><b class="muted">—</b></li>')
-        else:
-            result = ev_data.get("result", "?")
-            sl = ev_data.get("scala scoreline")
-            score_str = f" · {sl[0]}–{sl[1]}" if sl else ""
-            mp_rows.append(f'<li><span>{name}</span><b>{html.escape(result)}{score_str}</b></li>')
-    model_picks = (f'<details class="mpicks"><summary>Model picks ▾</summary>'
-                   f'<ul class="mpicks-list">{"".join(mp_rows)}</ul></details>')
-    # Home/away team scores for the middle rail
-    lam_h = p.get("lambda_home")
-    lam_a = p.get("lambda_away")
-    score_h = str(round(lam_h)) if lam_h is not None else "—"
-    score_a = str(round(lam_a)) if lam_a is not None else "—"
-    return f"""<div class="match">
-  <div class="rail-l"><div class="tag">{tag}</div>
-    <div class="date">{date_txt}</div>
-    <div class="tier">{html.escape(tier)}</div></div>
-  <div class="rail-m">
-    <div class="mrow"><span class="tname win">{html.escape(home)}</span>
-      <span class="score win">{score_h}</span></div>
-    <div class="mrow"><span class="tname lose">{html.escape(away)}</span>
-      <span class="score lose">{score_a}</span></div>
-    {_win_bar(display_p)}
-    <div class="models">{''.join(chips)}</div>
-    {market}
+    return f"""<div class="call-card" onclick="this.classList.toggle('open')">
+  {head}
+  <div class="pick-line">
+    <span class="pick-label">{html.escape(pick_label)}</span>
+    <span class="pick-prob">{pick_prob}</span>
+    <div class="trigger">
+      <div class="num">{trigger}</div>
+      <div class="lbl">Deploy At</div>
+    </div>
   </div>
-  <div class="rail-r">
-    <div class="pick-line">AI pick: <span class="team">{html.escape(winner)}</span>
-      — predicted {_predicted_score(display_p)}
-      <span class="muted">· {agree} of {total} models agree</span></div>
-    {model_picks}
-    <a href="/why?fixture={html.escape(bf['fixture'])}" style="font-size:.75rem;color:var(--ink-3)">Full analysis →</a>
+  {stamp}
+  <div class="expand-hint"><span class="chevron">▸</span> {hint}</div>
+  <div class="full-analysis">
+    {grid}
+    {extras}
   </div>
 </div>"""
 
 
-def _the_call(board: list[dict]) -> str:
+def _the_call(board: list[dict], admin: bool = False) -> str:
     rows = [bf for bf in board if bf.get("on_deploy_shortlist")]
     if not rows:
-        return ("<div class='card'><p class='muted'>No deploy-eligible call today "
-                "(softness A/B only).</p></div>")
-    return "".join(_match_card(bf) for bf in rows)
+        return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
+                'No deploy-eligible call today (softness A/B only).</div></div>')
+    return "".join(_call_card(bf, admin=admin) for bf in rows)
 
 
-def _league_sections(board: list[dict]) -> str:
-    leagues: dict[str, list[dict]] = {}
+# ─────────────────────────────────────────────────────────────────────────────
+# THE SCAN table (click-to-expand rows)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _scan_table(board: list[dict], admin: bool = False) -> str:
+    headers = ["Fixture", "1X2", "O1.5/O2.5", "DC/BTTS"] + (["Src"] if admin else [])
+    n_cols = len(headers)
+    thead = "<tr>" + "".join(f"<th>{h}</th>" for h in headers) + "</tr>"
+    body: list[str] = []
+    idx = 0
     for bf in board:
-        leagues.setdefault(_league_of(bf["fixture"]), []).append(bf)
-    if not leagues:
-        return ('<div class="card"><p class="muted">No fixtures in the window '
-                'today. On a quiet day the board is honestly near-empty.</p></div>')
-    out: list[str] = []
-    for league in sorted(leagues, key=lambda L: -len(leagues[L])):
-        n = len(leagues[league])
-        slug = league.lower().replace(" ", "-")
-        out.append(f'<div class="league-head" id="league-{slug}">'
-                   f'<span class="badge">{html.escape(_monogram(league))}</span>'
-                   f'<span class="league-name">{html.escape(league)}</span>'
-                   f'<span class="league-count">({n})</span>'
-                   f'<span class="rule"></span></div>')
-        for bf in leagues[league]:
-            out.append(_match_card(bf))
-    return "".join(out)
+        idx += 1
+        home, away, league = _teams(bf)
+        fixture_td = (f'<td><span class="scan-fixture">{html.escape(f"{home} v {away}")}</span>'
+                      f'<span class="scan-league">{html.escape(league)}</span></td>')
+        src_td = f'<td>{_src_dot(bf)}</td>' if admin else ""
+        p = bf.get("probs")
+        if p is None:
+            reason = bf.get("rejection_reason") or "NO DATA — PENDING"
+            body.append(f"""<tr>
+  {fixture_td}
+  <td class="nodata" colspan="3">NO DATA — PENDING · {html.escape(reason)}</td>
+  {src_td}
+</tr>""")
+            continue
+        row_id = ("a-" if admin else "") + f"scan-{idx}"
+        c2 = _scan_1x2(p)
+        c3 = _scan_goals(p)
+        c4 = _scan_dc_btts(p)
+        body.append(f"""<tr class="clickable" onclick="toggleScanRow('{row_id}')">
+  <td><span class="chevron">▸</span>{fixture_td}</td>
+  <td class="scan-num">{c2}</td>
+  <td class="scan-num">{c3}</td>
+  <td class="scan-num">{c4}</td>
+  {src_td}
+</tr>
+<tr class="detail-row" id="{row_id}">
+  <td colspan="{n_cols}">
+    <div class="full-analysis">
+      {_market_grid(p)}
+      {_internals(bf) if admin else ""}
+    </div>
+  </td>
+</tr>""")
+    return f"""<table class="scan-table">
+  <thead>
+  {thead}
+  </thead>
+  <tbody>
+  {''.join(body)}
+  </tbody>
+</table>"""
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# New ScoreGPT sections
+# Headers + admin-only sections
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _yesterday_graded(rows: list[dict]) -> str:
-    if not rows:
-        return ('<div class="section"><div class="section-head"><h2>Yesterday — graded</h2>'
-                '<span class="rule"></span></div>'
-                '<div class="card"><p class="muted">No settled predictions to grade yet.</p></div></div>')
-    cards = []
-    for g in rows:
-        fix = g.get("fixture") or "?"
-        outcome = g.get("outcome") or "?"
-        home, away = "—", "—"
-        if " v " in fix:
-            home, away = [s.strip() for s in fix.split(" v ", 1)]
-        # Parse FT score
-        ht, at = "—", "—"
-        if "-" in outcome:
-            parts = outcome.split("-")
-            ht, at = parts[0].strip(), parts[1].strip() if len(parts) > 1 else "?"
-        # Per-engine hits
-        engines = g.get("engines") or {}
-        engine_items = []
-        for ek, markets in engines.items():
-            for mk in ("1X2_HOME", "1X2_DRAW", "1X2_AWAY"):
-                row = markets.get(mk)
-                if row and row.get("hit") is not None:
-                    label = _engine_display(ek)
-                    icon = "✓" if row["hit"] else "✗"
-                    cls = "hit" if row["hit"] else "miss"
-                    engine_items.append(
-                        f'<div class="graded"><span class="verdict {cls}">{icon} {html.escape(label)}</span></div>')
-                    break
-        # Determine overall verdict (majority)
-        hits = sum(1 for _, markets in engines.items()
-                   for mk in ("1X2_HOME", "1X2_DRAW", "1X2_AWAY")
-                   if (markets.get(mk) or {}).get("hit"))
-        total_e = sum(1 for _, markets in engines.items()
-                      for mk in ("1X2_HOME", "1X2_DRAW", "1X2_AWAY")
-                      if (markets.get(mk) or {}).get("hit") is not None)
-        overall_cls = "hit" if hits > total_e / 2 else "miss" if total_e > 0 else "miss"
-        overall_icon = "✓" if overall_cls == "hit" else "✗"
-        try:
-            dt = datetime.strptime(g.get("match_date", ""), "%Y-%m-%d")
-            date_txt = dt.strftime("%a %-d").upper()
-        except (ValueError, TypeError):
-            date_txt = "—"
-        cards.append(f"""<div class="match">
-  <div class="rail-l"><div class="tag">FT</div><div class="date">{date_txt}</div></div>
-  <div class="rail-m">
-    <div class="mrow"><span class="tname win">{html.escape(home)}</span>
-      <span class="score win">{html.escape(ht)}</span></div>
-    <div class="mrow"><span class="tname lose">{html.escape(away)}</span>
-      <span class="score lose">{html.escape(at)}</span></div>
-  </div>
-  <div class="rail-r">
-    <div class="graded"><span class="verdict {overall_cls}">{overall_icon} Hit</span></div>
-    {''.join(engine_items)}
-  </div>
-</div>""")
-    return (f'<div class="section"><div class="section-head"><h2>Yesterday — graded</h2>'
-            f'<span class="rule"></span></div>{"".join(cards)}</div>')
-
-
-def _rolling_band(r: dict | None) -> str:
-    if not r or not r.get("engines"):
-        return (f'<div class="section"><div class="section-head"><h2>Rolling 7 days</h2>'
-                f'<span class="rule"></span></div>'
-                f'<div class="card"><p class="muted">No run history yet.</p></div></div>')
-    engines = r.get("engines", {})
-    total_preds = 0
-    total_hits = 0
-    for ek, st in engines.items():
-        s = st.get("settled", 0)
-        hr = st.get("hit_rate", 0) or 0
-        total_preds += s
-        total_hits += round(hr * s)
-    if total_preds == 0:
-        acc_txt = "NO DATA — PENDING"
+def _board_header(payload: dict, admin: bool = False) -> str:
+    date_txt = _friendly_date(payload.get("date") or _date.today().isoformat())
+    if admin:
+        n_leagues = payload.get("n_leagues") or len(payload.get("leagues_scanned", []))
+        gate = payload.get("gate") or {}
+        n = gate.get("legs_with_clv")
+        req = gate.get("gate_requirement")
+        calib = f"{n}/{req}" if (n is not None and req) else "—"
+        brand_right = ('<div style="margin-left:auto;display:flex;gap:6px;">'
+                       '<span class="phase mono">ADMIN</span>'
+                       '<span class="phase mono">PHASE 2 · PAPER</span></div>')
+        meta = (f'<span>{date_txt} · <b>07:00</b></span>'
+                f'<span>{n_leagues} leagues scanned</span>'
+                f'<span>Calibration: <b>{calib}</b> legs</span>')
     else:
-        acc_txt = f"{total_hits} of {total_preds} ({total_hits / total_preds * 100:.1f}%)"
-    legs = r.get("legs_logged", 0)
-    with_clv = r.get("legs_with_clv", 0)
-    gate_req = (r.get("gate") or {}).get("gate_requirement", 30)
-    cap = r.get("avg_clv_pct")
-    cap_txt = "NO DATA — PENDING" if cap is None else f"{cap:+.2f}%"
-    gate_pct = min(1.0, with_clv / gate_req) if gate_req else 0.0
-    return f"""<div class="rolling section">
-  <h3>Rolling 7 days</h3>
-  <p>Rolling 7 days: the board called <strong>{acc_txt}</strong> settled
-     predictions correctly. This is the whole public record, not a highlight reel.</p>
-  <div class="tiles" style="margin-top:.5rem">
-    <div class="tile"><div class="n">{legs}</div><div class="l">legs logged</div></div>
-    <div class="tile"><div class="n">{with_clv}</div><div class="l">with CLV</div></div>
-    <div class="tile"><div class="n">{cap_txt}</div><div class="l">mean CLV</div></div>
+        brand_right = ""
+        meta = f'<span>{date_txt}</span><span><b>07:00</b></span>'
+    return f"""<header class="top">
+  <div class="brand">
+    <span class="mark"></span>
+    <h1>OLP&nbsp;XDV</h1>
+    {brand_right}
   </div>
-  <div class="gatebar" aria-label="{with_clv} of {gate_req}"><i style="width:{round(gate_pct*100)}%"></i></div>
-</div>"""
+  <div class="meta-row">
+    {meta}
+  </div>
+</header>"""
 
-
-def _league_hubs(payload: dict) -> str:
-    leagues = payload.get("leagues_scanned", [])
-    if not leagues:
-        return ""
-    chips = "".join(
-        f'<a class="hub" href="#league-{html.escape(league.lower().replace(" ","-"))}">'
-        f'AI {html.escape(league)} predictions</a>'
-        for league in leagues)
-    return (f'<div class="section"><div class="section-head"><h2>League hubs</h2>'
-            f'<span class="rule"></span></div>'
-            f'<div class="hubs">{chips}</div></div>')
-
-
-def _methodology() -> str:
-    steps = [
-        ("Verified data in", "Data ingestion — every league in the whitelist is pulled from verified sources (football-data.co.uk, TheSportsDB, odds feed), with live entry prices attached."),
-        ("Independent engines", "Each of the four engines — Dixon-Coles, Elo, xG, and the market's devigged odds — analyses the match independently."),
-        ("Consensus vote", "A majority-vote consensus determines the AI pick; each card shows how many engines agree."),
-        ("Public grading", "After full-time, every prediction is graded against the real result and recorded in the brain — wins and losses alike."),
-    ]
-    items = "".join(f'<li><strong>{html.escape(t)}</strong> — {html.escape(d)}</li>' for t, d in steps)
-    return (f'<div class="section"><div class="section-head"><h2>How the predictions are made</h2>'
-            f'<span class="rule"></span></div>'
-            f'<ol class="steps">{items}</ol></div>')
-
-
-def _faq() -> str:
-    qs = [
-        ("What is OLP XDV?", "OLP XDV is a Phase 2 football-betting calibration framework. It runs Dixon-Coles, Elo, xG, and devigged bookmaker odds over every fixture across 16 leagues, and logs paper legs with closing-line value toward a 30-leg Phase 3 capital gate."),
-        ("Is any money staked?", "No. This is paper-only, zero capital. Capital is hard-blocked below Phase 3. The honest-edge statement at the bottom of every page is the truth, not marketing."),
-        ("What is the Phase 3 gate?", "A paper leg only counts toward the capital gate when it has a logged closing line (CLV). The gate requires 30 such legs before staking is considered — and even then, the Architect must explicitly approve."),
-        ("What does NO DATA — PENDING mean?", "The framework refused to fabricate a prediction. A team name isn't in the fitted data, a league has no history, or a fixture has no price — the gap is shown, never hidden."),
-        ("How is 'graded in public' honest?", "Every settled prediction — wins and losses — is recorded in the brain's predictions table and served on the dashboard. Nothing is deleted, filtered, or reworded after the fact."),
-    ]
-    items = "".join(
-        f'<details class="faq"><summary>{html.escape(q)}</summary>'
-        f'<p>{html.escape(a)}</p></details>'
-        for q, a in qs)
-    return (f'<div class="section"><div class="section-head"><h2>FAQ</h2>'
-            f'<span class="rule"></span></div><div style="margin-top:.4rem">{items}</div></div>')
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Secondary pages
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _flags_block(data_flags: list[str]) -> str:
     if not data_flags:
-        return ""
-    lis = "".join(f"<li>{html.escape(f)}</li>" for f in data_flags)
-    return (f'<div class="section"><div class="section-head"><h2>⚠ {len(data_flags)} data flag(s)</h2>'
-            f'<span class="rule"></span></div>'
-            f'<details class="faq"><summary>What the framework could not source — shown, never guessed</summary>'
-            f'<ul style="padding-left:.9rem;margin:0">{lis}</ul></details></div>')
+        rows = '<div class="flag-line"><span class="mk">✓</span> No data flags this run.</div>'
+    else:
+        rows = "".join(
+            f'<div class="flag-line"><span class="mk">⚠</span> {html.escape(f)}</div>'
+            for f in data_flags)
+    return (f'<section><div class="sec-head"><h2 class="display">Data Flags</h2></div>'
+            f'<div class="flags">{rows}</div></section>')
 
 
-def _footer(payload: dict) -> str:
-    phase = payload.get("phase") or PHASE_LABEL
-    return (f'<div class="foot">'
-            f'<div><p><strong>Honest edge statement:</strong> this is an excellent informed process, '
-            f'but it is NOT a demonstrated profitable edge. The forward paper ledger settles that '
-            f'— nothing here is staked.</p></div>'
-            f'<div><p><strong>Capital authority:</strong> {html.escape(phase)} — paper only, '
-            f'zero capital. Staking is hard-blocked below Phase&nbsp;3.</p></div>'
-            f'<div><p class="muted">Board for {html.escape(payload.get("date","?"))} · '
-            f'{payload.get("n_leagues","?")} leagues scanned · schema v{payload.get("schema_version","?")}</p></div>'
-            f'</div>')
+def _market_label(mk: str, fixture: str) -> str:
+    if mk == "1X2_HOME":
+        return f"{_short_fixture(fixture).split(' v ')[0]} to win"
+    if mk == "1X2_AWAY":
+        parts = _short_fixture(fixture).split(" v ")
+        return f"{parts[-1]} to win" if len(parts) > 1 else mk
+    if mk == "1X2_DRAW":
+        return "Draw"
+    return {
+        "OVER_1_5": "Over 1.5 goals", "OVER_2_5": "Over 2.5 goals",
+        "OVER_3_5": "Over 3.5 goals", "UNDER_1_5": "Under 1.5 goals",
+        "UNDER_2_5": "Under 2.5 goals", "UNDER_3_5": "Under 3.5 goals",
+        "BTTS_YES": "BTTS Yes", "BTTS_NO": "BTTS No",
+    }.get(mk, mk)
+
+
+def _yesterday_graded(rows: list[dict]) -> str:
+    """Verified — Yesterday: one row per (fixture, market), graded HIT/MISS/
+    PENDING against the 90-minute full-time result (HR15)."""
+    if not rows:
+        return ('<div class="flags"><div class="flag-line">NO DATA — PENDING — '
+                'no settled predictions from yesterday yet.</div></div>')
+    out: list[str] = []
+    for g in rows:
+        fixture = g.get("fixture", "?")
+        league = g.get("league")
+        label = fixture + (f" ({league})" if league else "")
+        ft_raw = g.get("outcome")
+        ft = ("FT " + ft_raw.replace("-", "–")) if ft_raw else "FT —"
+        engines = g.get("engines", {})
+        markets: dict[str, list] = {}
+        for eng, mdict in engines.items():
+            for mk, v in mdict.items():
+                markets.setdefault(mk, []).append(v.get("hit"))
+        if not markets:
+            out.append(
+                f'<div class="graded-row"><span class="pend-tag mono">— PENDING</span>'
+                f'<span>{html.escape(label)}</span><span class="graded-ft">{ft}</span></div>')
+            continue
+        for mk, hits in markets.items():
+            if any(h is None for h in hits):
+                tag = '<span class="pend-tag mono">— PENDING</span>'
+            elif all(hits):
+                tag = '<span class="hit-tag mono">✓ HIT</span>'
+            elif not any(hits):
+                tag = '<span class="miss-tag mono">✗ MISS</span>'
+            else:
+                tag = '<span class="pend-tag mono">— MIXED</span>'
+            mlabel = _market_label(mk, fixture)
+            out.append(
+                f'<div class="graded-row">{tag}'
+                f'<span>{html.escape(label)} — {html.escape(mlabel)}</span>'
+                f'<span class="graded-ft">{ft}</span></div>')
+    return '<div class="flags" style="padding:6px 16px;">' + "".join(out) + "</div>"
+
+
+def _admin_footer(payload: dict) -> str:
+    gate = payload.get("gate") or {}
+    n = gate.get("legs_with_clv")
+    req = gate.get("gate_requirement")
+    fill_w = 0
+    if n is not None and req:
+        fill_w = round(max(0.0, min(1.0, n / req)) * 100)
+    n_txt = f"{n} / {req} legs" if (n is not None and req) else "— / — legs"
+    return f"""<footer>
+  <div class="honest">
+    <b>Honest edge line:</b> an excellent informed process, <b>not</b> a demonstrated profitable edge.<br>
+    Capital authority: <b>THE ARCHITECT</b> — paper only, zero capital; nothing here is live until you deploy it.
+  </div>
+  <div class="gate">
+    <span>PHASE 3 GATE</span>
+    <div class="bar"><div class="fill" style="width:{fill_w}%"></div></div>
+    <span>{n_txt}</span>
+  </div>
+</footer>"""
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Dashboard composition
+# The two dashboards
 # ─────────────────────────────────────────────────────────────────────────────
 
 def render_dashboard(payload: dict) -> str:
-    today = payload.get("date", _date.today().isoformat())
-    title = f"OLP XDV — {today}"
-    board = payload.get("board", [])
+    """The PUBLIC client view — predictions only (the caller is expected to have
+    passed schema.trim_payload(payload); the renderer reads no internals)."""
     body = (
-        _nav("today", today)
-        + _hero(payload)
-        + _picks_card(payload.get("recommendation", ""))
-        + _gate_strip(payload.get("gate", {}), payload.get("telemetry", {}))
-        + f'<div class="section"><div class="section-head"><h2>THE CALL</h2><span class="rule"></span></div>'
-        + _the_call(board)
-        + f'</div><div class="section"><div class="section-head"><h2>Today\'s fixtures</h2><span class="rule"></span></div>'
-        + _league_sections(board)
-        + f'</div>'
-        + _yesterday_graded(payload.get("yesterday_graded", []))
-        + _rolling_band(payload.get("rolling_7d"))
-        + _league_hubs(payload)
-        + _methodology()
-        + _faq()
+        _board_header(payload, admin=False)
+        + "<main>"
+        + '<section><div class="sec-head"><h2 class="display">The Call</h2></div>'
+        + _the_call(payload.get("board", []), admin=False)
+        + "</section>"
+        + '<section><div class="sec-head"><h2 class="display">The Scan</h2></div>'
+        + _scan_table(payload.get("board", []), admin=False)
+        + "</section>"
+        + "</main>"
+    )
+    return html_shell("OLP XDV — Today's Board", body, script=_SCAN_JS)
+
+
+def render_admin_dashboard(payload: dict) -> str:
+    """The authed /admin view — the full payload including model internals,
+    verification, cap, data flags, yesterday-graded and the honest footer."""
+    n_leagues = payload.get("n_leagues") or len(payload.get("leagues_scanned", []))
+    n_call = sum(1 for bf in payload.get("board", []) if bf.get("on_deploy_shortlist"))
+    body = (
+        _board_header(payload, admin=True)
+        + '<div class="paper-strip mono">PAPER ONLY — no stake is placed by this system</div>'
+        + "<main>"
+        + '<section><div class="sec-head"><h2 class="display">The Call</h2>'
+        + f'<span class="cap-pill">{n_call} / 6 CAP</span></div>'
+        + '<p class="sec-sub">Deploy-eligible only — softness A/B, ID402 pool cap</p>'
+        + _the_call(payload.get("board", []), admin=True)
+        + "</section>"
+        + '<section><div class="sec-head"><h2 class="display">The Scan</h2></div>'
+        + f'<p class="sec-sub">Every fixture across all {n_leagues} scanned leagues</p>'
+        + _scan_table(payload.get("board", []), admin=True)
+        + "</section>"
         + _flags_block(payload.get("data_flags", []))
-        + _footer(payload))
-    return html_shell(title, body)
+        + '<section><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
+        + '<p class="sec-sub">Graded against full-time result, 90-min basis (HR15)</p>'
+        + _yesterday_graded(payload.get("yesterday_graded", []))
+        + "</section>"
+        + "</main>"
+        + _admin_footer(payload)
+    )
+    return html_shell("OLP XDV — Admin Dashboard", body, script=_SCAN_JS)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Admin pages (stats / why / history / 404)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _min_header(today: str) -> str:
+    return (f'<header class="top"><div class="brand"><span class="mark"></span>'
+            f'<h1>OLP&nbsp;XDV</h1></div>'
+            f'<div class="meta-row"><span>{_friendly_date(today)} · <b>07:00</b></span></div></header>')
 
 
 def render_stats_html(stats_text: str, today: str) -> str:
-    body = (_nav("stats", today)
-            + '<h1 class="serif">Gate &amp; calibration</h1>'
-            + '<div class="card"><pre>' + html.escape(stats_text) + "</pre></div>"
-            + '<p class="muted">CLV figures are read from clv/clv_log.json via the brain.</p>')
+    body = (_min_header(today) + "<main>" + '<section><div class="sec-head">'
+            '<h2 class="display">Gate &amp; calibration</h2></div>'
+            f'<div class="flags"><div class="flag-line" style="white-space:pre-wrap;'
+            f'display:block;line-height:1.6;">{html.escape(stats_text)}</div></div>'
+            "</section></main>")
     return html_shell("OLP XDV — Gate & calibration", body)
 
 
 def render_why_html(payload: dict, fixture: str) -> str:
-    today = payload.get("date", _date.today().isoformat())
-    match = next((bf for bf in payload.get("board", [])
-                  if fixture in bf.get("fixture", "")), None)
-    if match is None:
-        body = (_nav("today", today)
-                + '<h1 class="serif">No such fixture</h1>'
-                + "<p class='muted'>NO DATA — PENDING: no board row matches that fixture.</p>")
-        return html_shell("OLP XDV — not found", body)
-    p = match.get("probs")
-    home, away, league = _teams(match)
-    lines = [f'<h1 class="serif">{html.escape(home)} v {html.escape(away)}</h1>',
-             f"<div class='muted'>{html.escape(league)} · tier {match.get('softness_tier','?')} · "
-             f"{match.get('model_engine','dc')} engine · kickoff {match.get('kickoff_date') or 'NO DATA — PENDING'}</div>"]
-    if p is not None:
-        agree, total, engines = _models_agree(match)
-        # Market-aware display: use blend_probs (ID414) when the engine and
-        # real-money market disagree. The board shows the honest probability.
-        bp = match.get("blend_probs") or None
-        dp = p
-        if bp and len(bp) >= 3:
-            dp = {"home_team": p.get("home_team"), "away_team": p.get("away_team"),
-                  "p_home": bp[0], "p_draw": bp[1], "p_away": bp[2]}
-        lines.append("<div class='card'>"
-                     f"<p><strong>Win chance:</strong> {html.escape(dp['home_team'])} {_pct(dp['p_home'])} · "
-                     f"Draw {_pct(dp['p_draw'])} · {html.escape(dp['away_team'])} {_pct(dp['p_away'])}</p>"
-                     f"<p class='muted'>Predicted score ≈ {_predicted_score(dp)} · Over 1.5 {_pct(p['p_over_15'])} · "
-                     f"Over 2.5 {_pct(p['p_over_25'])} · BTTS {_pct(p['p_btts_yes'])}</p>"
-                     f"<p class='pick-line'>AI pick: {html.escape(_side_name(match, _result_side(dp)))} "
-                     f"<span class='muted'>· {agree} of {total} models agree</span></p>"
-                     f"<div class='models'>" + "".join(
-                         f'<span class="chip {"ok" if s == _result_side(p) else ("na" if s is None else "miss")}">'
-                         f'{"✓" if s == _result_side(p) else ("—" if s is None else "✗")} '
-                         f'{html.escape(name)}</span>' for name, s in engines.items()) + "</div>"
-                     "</div>")
-    else:
-        lines.append(f"<div class='card'><p class='muted'><strong>NO DATA — PENDING</strong></p>"
-                     f"<p>{html.escape(match.get('rejection_reason') or 'no fitted history')}</p></div>")
-    if match.get("best_market"):
-        lines.append("<div class='card'><p><strong>Best available market:</strong> "
-                     f"{html.escape(match['best_market'])} @ {match['best_price']} "
-                     f"(model {_pct(match['best_model_prob'])}, EV "
-                     f"<span class='pick'>{_fmt_ev(match['best_mes_ev'])}</span>).</p>"
-                     f"<p class='muted'>Bookmaker: {html.escape(match['best_bookmaker'] or '—')} · "
-                     f"{match.get('best_n_books',0)} book(s) quoted.</p></div>")
-    if match.get("engine_divergence"):
-        lines.append(f"<div class='card'><p class='muted'>⚠ {html.escape(match['engine_divergence'])}</p></div>")
-    lines.append(f"<div class='foot'><p class='muted'>Prediction persisted to the brain. "
-                 f"Model probability shown is the RAW model_prob — recalibration deltas "
-                 f"(cal_adjustment {match.get('cal_adjustment')}) apply only to THE CALL's EV, "
-                 f"never the ledger.</p></div>")
-    return html_shell("OLP XDV — fixture", _nav("today", today) + "".join(lines))
+    """Full analysis for one fixture (admin page)."""
+    board = payload.get("board", [])
+    q = fixture.strip().lower()
+    bf = next((b for b in board if q in _short_fixture(b.get("fixture", "")).lower()),
+              None)
+    if bf is None:
+        body = (_min_header(payload.get("date") or _date.today().isoformat())
+                + "<main>" + '<section><div class="flags"><div class="flag-line">'
+                + 'NO DATA — PENDING: no such fixture on this board.</div></div></section>'
+                + "</main>")
+        return html_shell("OLP XDV — No such fixture", body)
+    home, away, league = _teams(bf)
+    p = bf.get("probs")
+    pick_label, pick_prob = _pick(bf)
+    grid = _market_grid(p) if p is not None else ""
+    if p is None:
+        reason = bf.get("rejection_reason") or "NO DATA — PENDING"
+        grid = f'<div class="flag-line"><span class="mk">⚠</span> {html.escape(reason)}</div>'
+    tier = html.escape(str(bf.get("softness_tier", "?")))
+    kd = bf.get("kickoff_date") or "—"
+    body = (
+        _min_header(payload.get("date") or _date.today().isoformat())
+        + "<main>"
+        + '<section><div class="sec-head"><h2 class="display">Full analysis</h2></div>'
+        + f'<div class="call-card" style="cursor:default;">'
+        + f'<div class="call-top"><div>'
+        + f'<div class="fixture-name">{html.escape(f"{home} v {away}")}</div>'
+        + f'<div class="league-tag">{html.escape(league)} · tier {tier} · kickoff {html.escape(kd)}</div>'
+        + "</div></div>"
+        + f'<div class="pick-line"><span class="pick-label">{html.escape(pick_label)}</span>'
+        + f'<span class="pick-prob">{pick_prob}</span></div>'
+        + "</div>"
+        + f'<div class="flags" style="margin-top:14px;"><div class="flag-line" style="display:block;">'
+        + f'<span class="mk">Pick</span> {html.escape(pick_label)} — {pick_prob}. '
+        + f'Every market the model rates:</div></div>'
+        + f'<div style="margin-top:12px;">{grid}</div>'
+        + (_internals(bf) if p is not None else "")
+        + "</section></main>"
+    )
+    return html_shell("OLP XDV — Full analysis", body)
 
 
 def render_history_html(dates: list[str], today: str) -> str:
-    rows = "".join(f"<li style='padding:.3rem 0'><a href='/board/{d}'>{d}</a></li>" for d in dates)
-    body = (_nav("history", today)
-            + '<h1 class="serif">Board history</h1>'
-            + ("<ul style='list-style:none;padding:0;margin:0'>" + rows + "</ul>"
-               if rows else "<p class='muted'>No boards saved yet.</p>"))
-    return html_shell("OLP XDV — history", body)
+    if dates:
+        rows = "".join(
+            f'<div class="graded-row"><a class="scan-fixture" '
+            f'href="/dashboard/{html.escape(d)}">{html.escape(_friendly_date(d))}</a>'
+            f'<span class="graded-ft mono">{html.escape(d)}</span></div>'
+            for d in dates)
+    else:
+        rows = '<div class="flag-line">NO DATA — PENDING: no boards have been saved yet.</div>'
+    body = (_min_header(today) + "<main>" + '<section><div class="sec-head">'
+            '<h2 class="display">Board history</h2></div>'
+            f'<div class="flags" style="padding:6px 16px;">{rows}</div></section>'
+            "</main>")
+    return html_shell("OLP XDV — Board history", body)
 
 
 def render_404_html(date_str: str, today: str) -> str:
-    body = (_nav("today", today)
-            + '<h1 class="serif">No board for that date</h1>'
-            + '<p class="muted">NO DATA — PENDING: no board exists for '
-            + html.escape(date_str) + " — the run either didn't happen or produced no fixtures.</p>")
-    return html_shell("OLP XDV — not found", body)
+    body = (_min_header(today) + "<main>" + '<section><div class="flags">'
+            f'<div class="flag-line"><span class="mk">—</span> No board for that date '
+            f'({html.escape(date_str)}) — the run either didn\'t happen or produced '
+            'no fixtures. NO DATA — PENDING.</div></div></section></main>')
+    return html_shell("OLP XDV — Not found", body)

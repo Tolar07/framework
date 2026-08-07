@@ -60,7 +60,7 @@ body{
   color:var(--ink);
   font-family:'Inter',sans-serif;
   -webkit-font-smoothing:antialiased;
-  padding:0 0 80px 0;
+  padding:0 0 88px 0; /* space for bottom tab bar */
 }
 .mono{font-family:'IBM Plex Mono',monospace;}
 .display{font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:0.02em;}
@@ -268,13 +268,133 @@ footer{
   .scan-table th:nth-child(4), .scan-table td:nth-child(4){display:none;}
 }
 
-/* Hero section (client view) */
-.hero{
-  background:linear-gradient(180deg,#161C29,var(--surface));
-  border:1px solid var(--line);border-left:4px solid var(--amber);
-  border-radius:var(--radius);padding:24px 20px;margin-bottom:18px;
-  text-align:center;
+/* Bottom tab bar — persistent nav (ScoreAI-inspired layout) */
+.tab-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  display:flex;background:var(--surface);border-top:1px solid var(--line);
+  padding:6px env(safe-area-inset-bottom) 6px env(safe-area-inset-left);
 }
+.tab-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:6px 4px;border:none;background:transparent;color:var(--ink-dim);
+  font-family:'Inter',sans-serif;font-size:10.5px;text-decoration:none;
+  transition:color 0.15s;
+}
+.tab-btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;}
+.tab-btn.active{color:var(--amber);}
+.tab-btn:not(.active):hover{color:var(--ink);}
+.tab-btn:focus-visible{outline:none;color:var(--amber);}
+@media (max-width:480px){
+  .tab-btn span{display:none;}
+  .tab-btn{padding:8px 0;}
+}
+
+/* Date scroller pills */
+.date-pills{
+  display:flex;gap:6px;padding:10px 20px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+  scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+}
+.date-pill{
+  flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;
+  background:var(--surface);color:var(--ink);font-size:11.5px;
+  font-family:'IBM Plex Mono',monospace;white-space:nowrap;
+  text-decoration:none;scroll-snap-align:start;
+  transition:border-color 0.15s,background 0.15s,color 0.15s;
+}
+.date-pill:hover{border-color:var(--amber-dim);background:var(--surface-2);}
+.date-pill.today{
+  border-color:var(--amber);color:var(--amber);background:rgba(216,166,89,0.1);
+  font-weight:600;
+}
+
+/* Select Markets panel (admin) */
+.market-select-panel{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 16px;margin-bottom:16px;
+}
+.market-select-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.market-select-title{font-size:12px;font-weight:600;color:var(--ink);}
+.market-select-actions{display:flex;gap:6px;}
+.market-btn{
+  font-size:10px;padding:4px 10px;border:1px solid var(--line);border-radius:6px;
+  background:var(--surface-2);color:var(--ink);cursor:pointer;
+  transition:border-color 0.15s;
+}
+.market-btn:hover{border-color:var(--amber);}
+.market-checkboxes{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;}
+.market-checkbox{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink);}
+.market-checkbox input{width:14px;height:14px;accent-color:var(--amber);}
+
+/* AI Analyst chat tab */
+.chat-tab{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;max-width:1180px;
+  margin:0 auto;padding:0 20px 88px 20px;
+}
+.chat-tab.hidden{display:none;}
+.chat-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius) var(--radius) 0 0;
+}
+.chat-title{font-size:14px;font-weight:600;color:var(--ink);}
+.chat-close{background:none;border:none;color:var(--ink-dim);font-size:20px;cursor:pointer;}
+.chat-messages{
+  flex:1;overflow-y:auto;padding:16px;background:var(--bg);
+  border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);
+  max-height:300px;display:flex;flex-direction:column;gap:12px;
+}
+.chat-message{display:flex;gap:8px;max-width:85%;}
+.chat-message.user{align-self:flex-end;flex-direction:row-reverse;}
+.chat-message .bubble{
+  padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5;
+}
+.chat-message.assistant .bubble{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px;}
+.chat-message.user .bubble{background:var(--amber);color:var(--bg);border-bottom-right-radius:4px;}
+.chat-input-area{display:flex;gap:8px;padding:12px;background:var(--surface);border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);}
+.chat-input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid var(--line);border-radius:999px;color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
+.chat-input:focus{outline:none;border-color:var(--amber);}
+.chat-send{padding:10px 18px;background:var(--amber);color:var(--bg);border:none;border-radius:999px;font-weight:600;cursor:pointer;}
+.chat-send:disabled{opacity:0.5;cursor:not-allowed;}
+.chat-quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 12px 12px;}
+.chat-quick-btn{font-size:11px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--ink);cursor:pointer;}
+.chat-quick-btn:hover{border-color:var(--amber);}
+
+/* Fixture card with badges */
+.fixture-card{
+  display:flex;align-items:center;gap:10px;padding:12px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  margin-bottom:8px;transition:border-color 0.15s;
+}
+.fixture-card:hover{border-color:var(--amber-dim);}
+.fixture-card .crest{width:28px;height:28px;}
+.fixture-card .teams{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;}
+.fixture-card .team{display:flex;align-items:center;gap:6px;text-align:center;}
+.fixture-card .team-name{font-weight:600;font-size:13px;color:var(--ink);}
+.fixture-card .vs{color:var(--ink-faint);font-size:11px;font-weight:600;}
+.fixture-card .meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:11px;color:var(--ink-dim);}
+.fixture-card .kickoff{font-family:'IBM Plex Mono',monospace;}
+.fixture-card .star{color:var(--amber);cursor:pointer;font-size:16px;transition:transform 0.15s;}
+.fixture-card .star.active{transform:scale(1.2);}
+.fixture-card .star:hover{transform:scale(1.15);}
+
+/* League group header with badge + chevron */
+.league-group-header{
+  cursor:pointer;
+  background:rgba(216,166,89,0.06);
+  border-radius:8px;margin-bottom:8px;padding:8px 12px;
+  display:flex;align-items:center;gap:10px;
+  transition:background 0.15s;
+}
+.league-group-header:hover{background:rgba(216,166,89,0.1);}
+.league-group-toggle{color:var(--amber);font-size:14px;transition:transform 0.2s;flex:none;}
+.league-group-header.collapsed .league-group-toggle{transform:rotate(-90deg);}
+.league-group-badge{width:24px;height:24px;border-radius:50%;object-fit:cover;background:var(--surface-2);border:1px solid var(--line);}
+.league-group-name{font-weight:600;color:var(--ink);text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.02em;flex:1;}
+.league-group-count{color:var(--ink-faint);font-size:11px;font-family:'IBM Plex Mono',monospace;}
+.league-group-body.collapsed{display:none;}
+
+/* Hero section (client view) */
 .hero-date{
   font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-faint);
   text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;
@@ -481,6 +601,127 @@ _ADMIN_SEARCH_JS = """<script>
   });
 </script>"""
 
+_TAB_JS = """<script>
+  function switchTab(tabId) {
+    // Hide all sections
+    document.querySelectorAll('main > section').forEach(function(sec) {
+      sec.style.display = 'none';
+    });
+    // Show selected section
+    var sec = document.getElementById(tabId + '-section');
+    if (sec) sec.style.display = 'block';
+    // Update tab buttons
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.tab === tabId);
+    });
+    // Scroll to top
+    window.scrollTo(0, 0);
+  }
+  // Handle hash navigation
+  document.addEventListener('DOMContentLoaded', function() {
+    var hash = window.location.hash.slice(1);
+    if (hash && ['call', 'scan', 'search'].includes(hash)) {
+      switchTab(hash);
+    }
+  });
+</script>"""
+
+_CHAT_JS = """<script>
+  function openChatTab() {
+    document.getElementById('chat-tab').classList.remove('hidden');
+    document.getElementById('chat-input').focus();
+  }
+  function closeChatTab() {
+    document.getElementById('chat-tab').classList.add('hidden');
+  }
+  function getBoardDate() {
+    var tab = document.getElementById('chat-tab');
+    return tab ? (tab.getAttribute('data-date') || '') : '';
+  }
+  function sendChatMessage() {
+    var input = document.getElementById('chat-input');
+    var msg = input.value.trim();
+    if (!msg) return;
+    appendMessage('user', msg);
+    input.value = '';
+    document.getElementById('chat-send').disabled = true;
+    // Call the AI Analyst API
+    fetch('/api/analyst', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({message: msg, date: getBoardDate()})
+    }).then(function(r) { return r.json(); })
+      .then(function(data) {
+        appendMessage('assistant', data.reply || 'Error: no reply');
+      }).catch(function(e) {
+        appendMessage('assistant', 'Network error: ' + e);
+      });
+  }
+  function sendQuickPrompt(prompt) {
+    var input = document.getElementById('chat-input');
+    input.value = prompt;
+    sendChatMessage();
+  }
+  function appendMessage(role, text) {
+    var container = document.getElementById('chat-messages');
+    var div = document.createElement('div');
+    div.className = 'chat-message ' + role;
+    div.innerHTML = '<div class="bubble">' + escapeHtml(text) + '</div>';
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+  function escapeHtml(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var input = document.getElementById('chat-input');
+    var sendBtn = document.getElementById('chat-send');
+    if (!input) return;
+    input.addEventListener('input', function() {
+      sendBtn.disabled = !input.value.trim();
+    });
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        if (input.value.trim()) sendChatMessage();
+      }
+    });
+  });
+</script>"""
+
+_MARKET_SELECT_JS = """<script>
+  function toggleAllMarkets(select) {
+    document.querySelectorAll('.market-checkbox input[name="market-col"]').forEach(function(cb) {
+      cb.checked = select;
+      toggleMarketColumn(cb.value, select);
+    });
+  }
+  function toggleMarketColumn(key, show) {
+    var isAdmin = document.querySelector('.phase.mono')?.textContent?.includes('ADMIN') || false;
+    var thIndex = -1;
+    var headers = document.querySelectorAll('.scan-table th');
+    headers.forEach(function(th, i) {
+      if (th.textContent.includes(key.replace('/', '')) || th.textContent === key) {
+        thIndex = i;
+      }
+    });
+    if (thIndex === -1) return;
+    var selector = 'th:nth-child(' + (thIndex + 1) + '), td:nth-child(' + (thIndex + 1) + ')';
+    document.querySelectorAll(selector).forEach(function(cell) {
+      cell.style.display = show ? '' : 'none';
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.market-checkbox input').forEach(function(cb) {
+      cb.addEventListener('change', function() {
+        toggleMarketColumn(cb.value, cb.checked);
+      });
+    });
+  });
+</script>"""
+
 
 def html_shell(title: str, body: str, script: str = "") -> str:
     return f"""<!doctype html>
@@ -616,8 +857,8 @@ def _crest_html(team: str, league: str) -> str:
 def _fixture_teams_with_badges(bf: dict) -> tuple[str, str, str]:
     """Return (home_badged, away_badged, league) for fixture rendering."""
     home, away, league = _teams(bf)
-    home_badged = _crest_html(home, league) + html.escape(home)
-    away_badged = _crest_html(away, league) + html.escape(away)
+    home_badged = _crest_html(home, league)
+    away_badged = _crest_html(away, league)
     return home_badged, away_badged, league
 
 
@@ -625,8 +866,8 @@ def _fixture_teams_with_badges_admin(bf: dict) -> tuple[str, str, str]:
     """Admin version includes flag on league name."""
     home, away, league = _teams(bf)
     flag = _flag_html(league)
-    home_badged = _crest_html(home, league) + html.escape(home)
-    away_badged = _crest_html(away, league) + html.escape(away)
+    home_badged = _crest_html(home, league)
+    away_badged = _crest_html(away, league)
     league_badged = flag + " " + html.escape(league)
     return home_badged, away_badged, league_badged
 
@@ -837,19 +1078,73 @@ def _call_card(bf: dict, admin: bool = False) -> str:
     p = bf.get("probs")
     pick_label, pick_prob = _pick(bf)
     trigger = _fmt_price(bf.get("mes_trigger_price"))
+    kickoff = bf.get("kickoff_utc", "")
+    kickoff_display = ""
+    if kickoff:
+        try:
+            from datetime import datetime as _dt
+            dt = _dt.fromisoformat(kickoff.replace("Z", "+00:00"))
+            kickoff_display = dt.strftime("%H:%M")
+        except Exception:
+            kickoff_display = kickoff[:5] if len(kickoff) >= 5 else kickoff
+
+    # Star/favorite toggle - check if fixture is favorited
+    fixture_key = bf.get("fixture", "")
+    is_fav = bf.get("favorited", False)
 
     if admin:
         tier = html.escape(str(bf.get("softness_tier", "?")))
-        head = (f'<div class="call-top">'
-                f'<div><div class="fixture-name">{home_badged} v {away_badged}</div>'
-                f'<div class="league-tag">{league_badged}</div></div>'
-                f'<div class="tier-badge">TIER {tier}</div></div>')
+        # New fixture card layout for admin
+        head = f"""<div class="fixture-card">
+  {home_badged}
+  <div class="teams">
+    <div class="team"><span class="team-name">{html.escape(bf.get("probs", {}).get("home_team", "Home"))}</span></div>
+    <span class="vs">vs</span>
+    <div class="team"><span class="team-name">{html.escape(bf.get("probs", {}).get("away_team", "Away"))}</span></div>
+  </div>
+  {away_badged}
+  <div class="meta">
+    <span class="kickoff">{kickoff_display}</span>
+    <span class="league-tag">{league_badged}</span>
+    <span class="star{' active' if is_fav else ''}" onclick="event.stopPropagation(); toggleFavorite('{html.escape(fixture_key)}')">★</span>
+  </div>
+</div>
+<div class="pick-line">
+  <span class="pick-label">{html.escape(pick_label)}</span>
+  <span class="pick-prob">{pick_prob}</span>
+  <div class="trigger">
+    <div class="num">{trigger}</div>
+    <div class="lbl">Deploy At</div>
+  </div>
+</div>
+<div class="tier-badge">TIER {tier}</div>"""
         stamp = _stamp_row(bf)
         hint = "Full analysis + model internals"
         extras = _internals(bf) if p is not None else ""
     else:
-        head = (f'<div class="fixture-name">{home_badged} v {away_badged}</div>'
-                f'<div class="league-tag">{league_badged}</div>')
+        # New fixture card layout for client
+        head = f"""<div class="fixture-card">
+  {home_badged}
+  <div class="teams">
+    <div class="team"><span class="team-name">{html.escape(bf.get("probs", {}).get("home_team", "Home"))}</span></div>
+    <span class="vs">vs</span>
+    <div class="team"><span class="team-name">{html.escape(bf.get("probs", {}).get("away_team", "Away"))}</span></div>
+  </div>
+  {away_badged}
+  <div class="meta">
+    <span class="kickoff">{kickoff_display}</span>
+    <span class="league-tag">{league_badged}</span>
+    <span class="star{' active' if is_fav else ''}" onclick="event.stopPropagation(); toggleFavorite('{html.escape(fixture_key)}')">★</span>
+  </div>
+</div>
+<div class="pick-line">
+  <span class="pick-label">{html.escape(pick_label)}</span>
+  <span class="pick-prob">{pick_prob}</span>
+  <div class="trigger">
+    <div class="num">{trigger}</div>
+    <div class="lbl">Deploy At</div>
+  </div>
+</div>"""
         stamp = ""
         hint = "Full analysis — all markets"
         extras = ""
@@ -862,14 +1157,6 @@ def _call_card(bf: dict, admin: bool = False) -> str:
 
     return f"""<div class="call-card" onclick="this.classList.toggle('open')">
   {head}
-  <div class="pick-line">
-    <span class="pick-label">{html.escape(pick_label)}</span>
-    <span class="pick-prob">{pick_prob}</span>
-    <div class="trigger">
-      <div class="num">{trigger}</div>
-      <div class="lbl">Deploy At</div>
-    </div>
-  </div>
   {stamp}
   <div class="expand-hint"><span class="chevron">▸</span> {hint}</div>
   <div class="full-analysis">
@@ -915,6 +1202,24 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
     # Sort leagues by name for consistency
     sorted_leagues = sorted(by_league.keys())
 
+    # Determine which leagues have live/upcoming fixtures (default expanded)
+    # A league is "live/upcoming" if any fixture has a kickoff today or tomorrow
+    from datetime import date as _date_cls, timedelta as _td
+    today = _date_cls.today()
+    tomorrow = today + _td(days=1)
+    live_leagues = set()
+    for league, fixtures in by_league.items():
+        for bf in fixtures:
+            kickoff_str = bf.get("kickoff_utc") or bf.get("date")
+            if kickoff_str:
+                try:
+                    kickoff_date = _date_cls.fromisoformat(kickoff_str[:10])
+                    if kickoff_date <= tomorrow:
+                        live_leagues.add(league)
+                        break
+                except (ValueError, TypeError):
+                    pass
+
     # Build the grouped table
     headers = ["Fixture", "1X2", "O1.5/O2.5", "DC/BTTS"] + (["Src"] if admin else [])
     n_cols = len(headers)
@@ -927,20 +1232,27 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
         # Sort fixtures by pick confidence (highest first)
         fixtures_sorted = sorted(fixtures, key=_pick_confidence, reverse=True)
 
-        # League header row — flag on BOTH views (client + admin)
+        # Check if this league should be expanded by default
+        is_live = league in live_leagues
+        collapsed_class = "" if is_live else " collapsed"
+
+        # League group header with badge + chevron
         flag = _flag_html(league)
         league_badged = flag + " " + html.escape(league)
-        body_parts.append(f"""<tr class="league-header" data-league="{html.escape(league)}">
+        body_parts.append(f"""<tr class="league-group-header{collapsed_class}" data-league="{html.escape(league)}" onclick="this.classList.toggle('collapsed'); this.parentElement.querySelector('.league-group-body').classList.toggle('collapsed')">
   <td colspan="{n_cols}">
     <div class="league-group">
-      <span class="league-group-toggle" onclick="this.parentElement.parentElement.parentElement.classList.toggle('collapsed')">▸</span>
-      <span class="league-group-name">{league_badged}</span>
+      <span class="league-group-toggle">▸</span>
+      <span class="league-group-badge">{league_badged}</span>
+      <span class="league-group-name">{html.escape(league)}</span>
       <span class="league-group-count">({len(fixtures_sorted)} fixtures)</span>
     </div>
   </td>
 </tr>""")
 
-        # Fixture rows
+        # League group body (fixtures)
+        body_parts.append(f'<tr class="league-group-body{collapsed_class}"><td colspan="{n_cols}"><table class="scan-table"><tbody>')
+
         idx = 0
         for bf in fixtures_sorted:
             idx += 1
@@ -984,6 +1296,8 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
     </div>
   </td>
 </tr>""")
+
+        body_parts.append('</tbody></table></td></tr>')
 
     return f"""<table class="scan-table">
   <thead>
@@ -1197,9 +1511,107 @@ def _admin_footer(payload: dict) -> str:
 # The two dashboards
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _tab_bar(active: str, base: str, payload_date: str = "") -> str:
+    """Bottom tab bar navigation — 3 tabs: Call, Scan, Search."""
+    d = payload_date or _date.today().isoformat()
+    tabs = [
+        ("call", "Call", "📋", f"{base}/dashboard/{d}#call"),
+        ("scan", "Scan", "📊", f"{base}/dashboard/{d}#scan"),
+        ("search", "Search", "🔍", f"{base}/dashboard/{d}#search"),
+    ]
+    # We'll use onclick navigation instead of href for SPA-like behavior
+    tab_html = ""
+    for tab_id, label, icon, _ in tabs:
+        active_class = " active" if tab_id == active else ""
+        tab_html += f'<button class="tab-btn{active_class}" data-tab="{tab_id}" onclick="switchTab(\'{tab_id}\')"><svg viewBox="0 0 24 24">{_tab_icon(icon)}</svg><span>{label}</span></button>'
+    return f'<nav class="tab-bar" role="tablist" aria-label="Main navigation">{tab_html}</nav>'
+
+def _tab_icon(name: str) -> str:
+    """Return SVG path for tab icons."""
+    icons = {
+        "📋": '<path d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm0 2v14h6V5H9z"/><path d="M9 9h6"/><path d="M9 13h6"/>',
+        "📊": '<path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/><path d="M6 15h12"/><path d="M6 9h8"/>',
+        "🔍": '<circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>',
+    }
+    return icons.get(name, icons["🔍"])
+
+def _date_pills(payload_date: str, base: str) -> str:
+    """Horizontal scrollable date pills (yesterday, today, +3 days)."""
+    from datetime import date as _date_cls, timedelta as _td
+    today = _date_cls.today()
+    d = payload_date or today.isoformat()
+    try:
+        current = _date_cls.fromisoformat(d)
+    except ValueError:
+        current = today
+
+    pills = []
+    for offset in range(-1, 4):  # yesterday to +3 days
+        pill_date = today + _td(days=offset)
+        pill_str = pill_date.isoformat()
+        is_today = (pill_date == today)
+        is_active = (pill_date == current)
+        label = pill_date.strftime("%a %d %b")
+        if is_today:
+            label = "Today"
+        elif offset == -1:
+            label = "Yesterday"
+        elif offset == 1:
+            label = "Tomorrow"
+
+        active_class = " today" if is_active else ""
+        pills.append(f'<a class="date-pill{active_class}" href="{base}/dashboard/{pill_str}" data-date="{pill_str}">{label}</a>')
+
+    return f'<div class="date-pills" role="navigation" aria-label="Date filter">{"".join(pills)}</div>'
+
+def _market_select_panel(payload: dict) -> str:
+    """Admin-only: Select Markets to Display checkbox panel."""
+    # All available market columns in the scan table
+    all_markets = [
+        ("1X2", "1X2 (Home/Draw/Away)"),
+        ("O1.5/O2.5", "Over 1.5 / Over 2.5 Goals"),
+        ("DC/BTTS", "Double Chance / BTTS"),
+    ]
+    if payload.get("admin"):
+        all_markets.append(("Src", "Source Verification"))
+
+    checkboxes = ""
+    for key, label in all_markets:
+        checkboxes += f'<label class="market-checkbox"><input type="checkbox" name="market-col" value="{key}" checked> {html.escape(label)}</label>'
+
+    return f"""<div class="market-select-panel">
+  <div class="market-select-header">
+    <span class="market-select-title">Select Markets to Display</span>
+    <div class="market-select-actions">
+      <button class="market-btn" onclick="toggleAllMarkets(true)">Select All</button>
+      <button class="market-btn" onclick="toggleAllMarkets(false)">Clear All</button>
+    </div>
+  </div>
+  <div class="market-checkboxes">{checkboxes}</div>
+</div>"""
+
+def _chat_tab(payload_date: str = "") -> str:
+    """AI Analyst chat tab — reusable component."""
+    return f"""<div class="chat-tab hidden" id="chat-tab" role="dialog" aria-label="AI Analyst" data-date="{html.escape(payload_date)}">
+  <div class="chat-header">
+    <span class="chat-title">AI Analyst</span>
+    <button class="chat-close" onclick="closeChatTab()" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="chat-messages" id="chat-messages" role="log" aria-live="polite"></div>
+  <div class="chat-quick" role="group" aria-label="Quick actions">
+    <button class="chat-quick-btn" onclick="sendQuickPrompt('Analyze today\'s board')">Analyze Board</button>
+    <button class="chat-quick-btn" onclick="sendQuickPrompt('Explain the top pick')">Explain Top Pick</button>
+    <button class="chat-quick-btn" onclick="sendQuickPrompt('Which fixtures have the highest confidence?')">High Confidence</button>
+    <button class="chat-quick-btn" onclick="sendQuickPrompt('Show me value bets')">Value Bets</button>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chat-input" placeholder="Ask about today's board, a fixture, or the framework..." aria-label="Chat input">
+    <button class="chat-send" id="chat-send" onclick="sendChatMessage()" disabled>Send</button>
+  </div>
+</div>"""
+
 def render_dashboard(payload: dict) -> str:
-    """The PUBLIC client view — predictions only (the caller is expected to have
-    passed schema.trim_payload(payload); the renderer reads no internals)."""
+    """The PUBLIC client view — predictions only with tab navigation."""
     d = payload.get("date", "")
     today = _date.today().isoformat()
     board = payload.get("board", [])
@@ -1229,7 +1641,7 @@ def render_dashboard(payload: dict) -> str:
         best = max(probs.items(), key=lambda x: x[1] or 0) if probs else ("home", 0)
         best_team = home if best[0] == "home" else (away if best[0] == "away" else "Draw")
         best_pct = round((best[1] or 0) * 100)
-        hero_html = f"""<section class="hero">
+        hero_html = f"""<section class="hero" id="call">
   <div class="hero-date">Today — {_friendly_date(today)}</div>
   <h1 class="hero-title">Top Pick</h1>
   <div class="hero-match">
@@ -1247,15 +1659,21 @@ def render_dashboard(payload: dict) -> str:
         _board_header(payload, admin=False)
         + hero_html
         + "<main>"
-        + '<section><div class="sec-head"><h2 class="display">The Call</h2></div>'
+        + '<section id="call-section"><div class="sec-head"><h2 class="display">The Call</h2></div>'
         + _the_call(payload.get("board", []), admin=False)
         + "</section>"
-        + '<section><div class="sec-head"><h2 class="display">The Scan</h2></div>'
+        + '<section id="scan-section" style="display:none;"><div class="sec-head"><h2 class="display">The Scan</h2></div>'
+        + _date_pills(d, "/dashboard")
         + _scan_table(payload.get("board", []), admin=False, payload_date=payload.get("date", ""))
         + "</section>"
+        + '<section id="search-section" style="display:none;"><div class="sec-head"><h2 class="display">Search</h2></div>'
+        + '<div class="flags"><div class="flag-line">Search functionality coming soon — use the admin view for full filtering.</div></div>'
+        + "</section>"
         + "</main>"
+        + _chat_tab()
+        + _tab_bar("call", "/dashboard")
     )
-    return html_shell("OLP XDV — Today's Board", body, script=_SCAN_JS)
+    return html_shell("OLP XDV — Today's Board", body, script=_SCAN_JS + _TAB_JS + _CHAT_JS)
 
 
 def render_admin_dashboard(payload: dict) -> str:
@@ -1282,25 +1700,32 @@ def render_admin_dashboard(payload: dict) -> str:
         + f'{published_stamp}'
         + '</div>'
         + _admin_search_bar(payload)
+        + _market_select_panel(payload)
         + "<main>"
-        + '<section><div class="sec-head"><h2 class="display">The Call</h2>'
+        + '<section id="call-section"><div class="sec-head"><h2 class="display">The Call</h2>'
         + f'<span class="cap-pill">{n_call} / 6 CAP</span></div>'
         + '<p class="sec-sub">Deploy-eligible only — softness A/B, ID402 pool cap</p>'
         + _the_call(payload.get("board", []), admin=True)
         + "</section>"
-        + '<section><div class="sec-head"><h2 class="display">The Scan</h2></div>'
+        + '<section id="scan-section" style="display:none;"><div class="sec-head"><h2 class="display">The Scan</h2></div>'
         + f'<p class="sec-sub">Every fixture across all {n_leagues} scanned leagues</p>'
+        + _date_pills(d, "/admin")
         + _scan_table(payload.get("board", []), admin=True, payload_date=payload.get("date", ""))
         + "</section>"
+        + '<section id="search-section" style="display:none;"><div class="sec-head"><h2 class="display">Search</h2></div>'
+        + _admin_search_bar(payload)
+        + "</section>"
         + _flags_block(payload.get("data_flags", []))
-        + '<section><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
+        + '<section id="verified-section"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
         + '<p class="sec-sub">Graded against full-time result, 90-min basis (HR15)</p>'
         + _yesterday_graded(payload.get("yesterday_graded", []))
         + "</section>"
         + "</main>"
+        + _chat_tab()
+        + _tab_bar("call", "/admin", d)
         + _admin_footer(payload)
     )
-    return html_shell("OLP XDV — Admin Dashboard", body, script=_SCAN_JS + _PUBLISH_JS + _ADMIN_SEARCH_JS)
+    return html_shell("OLP XDV — Admin Dashboard", body, script=_SCAN_JS + _PUBLISH_JS + _ADMIN_SEARCH_JS + _TAB_JS + _CHAT_JS + _MARKET_SELECT_JS)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

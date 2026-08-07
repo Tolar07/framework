@@ -182,6 +182,26 @@ def _auth(user="test", pw="testpass"):
               "softness_tier", "consensus"):
         assert k not in b0, f"public api leaks {k}"
     assert _get("/api/board/1999-01-01.json")[0] == 404
+
+    # --- 8b. the public JSON never serves an UNPUBLISHED board -------------
+    # A raw board that exists in BOARD_DIR but was never approved/published
+    # must 404 on the public JSON routes — the approve gate is the only path
+    # to the client. (Regression guard: both /api/board routes previously read
+    # the raw board dir, bypassing the gate.)
+    raw_only = schema.build_payload(
+        date="2026-08-10", phase="PHASE 2 — PAPER",
+        leagues_scanned=["Champions League"], board=[_rated_bf()],
+        data_flags=[], gate={"legs_with_clv": 0, "gate_requirement": 30},
+        telemetry={}, calibration_count=0, mean_clv=None)
+    schema.write_payload(raw_only, boards / "board_2026-08-10.json")
+    assert _get("/api/board/2026-08-10.json")[0] == 404, \
+        "unpublished raw board leaked via public JSON"
+    assert _get("/api/board.json")[0] != 500  # today still served
+    # admin API still sees it (internal view, auth'd)
+    code, body = _get("/api/admin/board/2026-08-10.json", _auth())
+    assert code == 200 and body
+    print("8b. unpublished board NOT served publicly; admin-only: OK")
+
     code, body = _get("/api/admin/board.json", _auth())
     assert code == 200 and "elo_probs" in json.loads(body)["board"][0]
     assert _get("/api/admin/board.json")[0] == 401

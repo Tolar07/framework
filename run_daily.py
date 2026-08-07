@@ -290,12 +290,16 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, days_ahead: int = 3,
         whatsapp: bool = True, email: bool = True,
-        web: bool = True) -> RunResult:
+        web: bool = True, prefetch_crests: bool = False) -> RunResult:
     """Run the daily board end to end.
 
     Opens the brain, seeds the ledger + corrections mirrors, records the run
     as 'running', and marks it FAILED on any exception — a board that never
-    reached the phone is not a completed run, so the launcher can alert."""
+    reached the phone is not a completed run, so the launcher can alert.
+
+    `prefetch_crests` (default OFF so library/test callers stay offline) fetches
+    missing club badges from TheSportsDB after the web payload is written. The
+    CLI enables it by default (env OLP_PREFETCH_CRESTS=0 disables)."""
     leagues = leagues or SCAN_LEAGUES
     brain = Brain()
     run_id = (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -307,7 +311,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     brain.append_run(run_id, started, status="running")
     try:
         return _run(run_id, started, t0, brain, season, fixtures_season,
-                    leagues, send, min_mes, days_ahead, whatsapp, email, web)
+                    leagues, send, min_mes, days_ahead, whatsapp, email, web,
+                    prefetch_crests)
     except Exception:
         brain.update_run(run_id, status="failed")
         raise
@@ -319,7 +324,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
          season: str, fixtures_season: str | None, leagues: list[str],
          send: bool, min_mes: float, days_ahead: int,
          whatsapp: bool = True, email: bool = True,
-         web: bool = True) -> RunResult:
+         web: bool = True, prefetch_crests: bool = False) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     runlog = _mark_started()
@@ -608,6 +613,18 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     yesterday_graded=yesterday_graded,
                     rolling_7d=rolling_7d),
                 BOARD_DIR / f"board_{today}.json")
+            if prefetch_crests:
+                # Best-effort club-badge prefetch so the dashboard carries real
+                # TheSportsDB crests, not just initials. Never raises; a failed
+                # lookup is a miss, not a fault (HR35).
+                try:
+                    from webapp import crests as _crests
+                    n = len(_crests.prefetch(
+                        _crests.teams_from_board(
+                            BOARD_DIR / f"board_{today}.json")))
+                    _mark(runlog, f"crest prefetch added {n} badge(s)")
+                except Exception as e:
+                    _mark(runlog, f"crest prefetch skipped ({e})")
         except Exception as e:
             _mark(runlog, f"web payload write failed ({e}) — txt board unaffected")
 
@@ -749,11 +766,17 @@ if __name__ == "__main__":
                     help="skip writing the board_<date>.json the web dashboard reads")
     ap.add_argument("--days-ahead", type=int, default=3,
                     help="fixture window in days from today (3 = next 3 days)")
+    ap.add_argument("--no-prefetch-crests", action="store_true",
+                    help="skip the club-badge prefetch even when the web board is written")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
+    # The CLI pre-warms club badges by default (real runs have the network);
+    # env OLP_PREFETCH_CRESTS=0 or --no-prefetch-crests turns it off.
+    prefetch = (not a.no_prefetch_crests
+                and os.environ.get("OLP_PREFETCH_CRESTS", "1") != "0")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
               days_ahead=a.days_ahead,
               whatsapp=not a.no_whatsapp, email=not a.no_email,
-              web=not a.no_web)
+              web=not a.no_web, prefetch_crests=prefetch)
     print("\n" + out.full)

@@ -1,3 +1,26 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Python files - always use LF
+*.py text eol=lf
+
+# Web files - always use LF
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+
+# Config files - always use LF
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+
+# Markdown - always use LF
+*.md text eol=lf
+
+# Batch files - use CRLF on Windows
 *.bat text eol=crlf
 *.cmd text eol=crlf
 *.ps1 text eol=crlf

@@ -341,6 +341,26 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
         used, remaining = check_quota()
         floor = QUOTA_HARD_FLOOR if fixture_capture else QUOTA_FLOOR
         if remaining < floor:
+            # The Odds API monthly quota is spent. Before degrading to NO DATA,
+            # try the free API-Football fallback (same bookmakers, 1X2 + totals,
+            # 100 requests/day). Only for a routine PRICE pull — fixture capture
+            # stays on the cache discipline that is its whole purpose. The import
+            # is lazy to avoid a circular import (api_football_odds imports our
+            # MarketQuote/FixtureOdds contract).
+            if not fixture_capture:
+                try:
+                    from data import api_football_odds as _af_fallback
+                    fixtures, afl = _af_fallback.fetch_odds(league)
+                    return fixtures, [f"{league}: Odds API quota exhausted "
+                                      f"({remaining} left) — served via "
+                                      f"api-football free fallback"] + afl
+                except QuotaExhausted:
+                    raise
+                except Exception as e:
+                    raise QuotaExhausted(
+                        f"Odds API quota down to {remaining} (floor {floor}); "
+                        f"api-football fallback failed ({e}). Refusing to spend "
+                        f"the month — entry prices are NO DATA — PENDING.")
             raise QuotaExhausted(
                 f"Odds API quota down to {remaining} "
                 f"(floor {floor}{' — fixture capture' if fixture_capture else ''}). "

@@ -44,10 +44,10 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ EFL Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
   ⚠ EFL Cup: results fetch failed ('EFL Cup' is not in LEAGUE_CODES — add it or check spelling.) — NO DATA — PENDING
   ⚠ ⚠ source circuit OPEN (paused): api_football_fixtures
-  ⚠ Belgian Pro League: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
-  ⚠ Danish Superliga: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
-  ⚠ Eredivisie: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
-  ⚠ Scottish Premiership: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Belgian Pro League: Odds API quota down to 4 (floor 40); api-football fallback failed (API-Football daily quota down to 16 (floor 20). Refusing to spend it on a routine pull — prices are NO DATA — PENDING rather than exhausting the day.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Danish Superliga: Odds API quota down to 4 (floor 40); api-football fallback failed (API-Football daily quota down to 16 (floor 20). Refusing to spend it on a routine pull — prices are NO DATA — PENDING rather than exhausting the day.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Eredivisie: Odds API quota down to 4 (floor 40); api-football fallback failed (API-Football daily quota down to 16 (floor 20). Refusing to spend it on a routine pull — prices are NO DATA — PENDING rather than exhausting the day.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Scottish Premiership: Odds API quota down to 4 (floor 40); api-football fallback failed (API-Football daily quota down to 16 (floor 20). Refusing to spend it on a routine pull — prices are NO DATA — PENDING rather than exhausting the day.). Refusing to spend the month — entry prices are NO DATA — PENDING.
   ⚠ Scan odds skipped — quota 4 < floor 40
   ⚠ Nijmegen v Telstar: no live price found — NO DATA — PENDING, leg not logged
   ⚠ Go Ahead Eagles v Willem II: no live price found — NO DATA — PENDING, leg not logged

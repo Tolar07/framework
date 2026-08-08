@@ -202,14 +202,17 @@ class _P:
     p_btts_yes = 0.90
 
 
-assert mkt.blocked(mkt.AWAY) and mkt.blocked(mkt.OVER_25), "ID405 markets must be blocked"
+assert mkt.blocked(mkt.AWAY) and mkt.blocked(mkt.OVER_25) and mkt.blocked(mkt.HOME), (
+    "ID405 markets must be blocked")
 assert mkt.AWAY not in mkt.DEPLOYABLE and mkt.OVER_25 not in mkt.DEPLOYABLE
+assert mkt.HOME not in mkt.DEPLOYABLE, "1X2 Home must be blocked (both seasons negative)"
 name, prob = _best_market_desc(_P())
 assert "Celtic to win" not in name, (
     f"ID405 LEAK: the board headlined a blocked away win ({name}). The gate "
     f"must hold on the RENDER path too, not only when logging — otherwise the "
     f"board recommends exactly what the framework refuses to record.")
 assert "Over 2.5" not in name, f"ID405 LEAK: board headlined a blocked Over 2.5 ({name})"
+assert "Hearts to win" not in name, f"ID405 LEAK: board headlined a blocked Home win ({name})"
 print(f"15. ID405 - blocked markets cannot headline THE CALL (chose '{name}'): OK")
 
 assert mkt.settle(mkt.HOME, 2, 1) is True and mkt.settle(mkt.AWAY, 2, 1) is False

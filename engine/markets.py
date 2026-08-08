@@ -49,6 +49,13 @@ BLOCKED: dict[str, str] = {
     OVER_25: ("Over 2.5: -0.716% mean CLV (t=-2.783) across 442 legs. The model "
               "under-predicts goals, so its Overs are taken into lines that "
               "then move against it."),
+    HOME: ("1X2 Home: -0.640% mean CLV (t=-2.326) on 2425 (994 legs) and "
+           "-0.625% (t=-2.458) on 2526 (963 legs), all 10 leagues with a "
+           "closing-odds source. Random selection loses on it too in 2425 "
+           "(-0.524%, t=-2.731), so this is market drift, not a model error "
+           "to fix — the same favourite-longshot pattern that blocked Away. "
+           "Blocked per ID405's one-way-narrows rule on 2026-08-08; see "
+           "RATIFICATIONS.md."),
 }
 
 

@@ -68,6 +68,13 @@ BLOCKED_DEPLOY_MARKETS = {
     "over 2.5 goals": "Over 2.5: -0.716% mean CLV (t=-2.783) across 442 legs. "
                       "The model under-predicts goals, so its Overs are taken "
                       "into lines that then move against it.",
+    # Ratified 2026-08-08 (10-league pressure test, both seasons). Home is
+    # negative for the model in both 2425 (-0.640%, t=-2.326) and 2526
+    # (-0.625%, t=-2.458) and for random selection in 2425 (-0.524%, t=-2.731) —
+    # the same favourite-longshot drift pattern that blocked away. Narrows only.
+    "home win": "1X2 Home: -0.640% (2425) / -0.625% (2526) mean CLV across 10 "
+                "leagues. Random selection loses on it too in 2425, so this is "
+                "market drift, not a model error to fix.",
 }
 
 

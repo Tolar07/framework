@@ -178,13 +178,11 @@ class Handler(BaseHTTPRequestHandler):
                     return self._not_found_html(R.render_404_html(d, today))
                 self._render(R.render_dashboard(payload))
 
-            # --- authed admin view ----------------------------------------
+            # --- admin view (no auth required) -----------------------------
             elif path in ("/admin", "/admin/"):
                 self._redirect(f"/admin/{today}")
 
             elif path.startswith("/admin/"):
-                if not self._require_admin():
-                    return
                 d = path[len("/admin/"):]
                 if not _DT.match(d):
                     return self._not_found()
@@ -197,17 +195,13 @@ class Handler(BaseHTTPRequestHandler):
             elif path == "/history":
                 self._render(R.render_history_html(_board_dates(), today))
 
-            # --- internals pages: admin-only ------------------------------
+            # --- internals pages (no auth) --------------------------------
             elif path == "/stats":
-                if not self._require_admin():
-                    return
                 with _brain() as b:
                     from brain.report import render_stats
                     self._render(R.render_stats_html(render_stats(b), today))
 
             elif path == "/why":
-                if not self._require_admin():
-                    return
                 fixture = (qs.get("fixture") or [""])[0]
                 d = (qs.get("date") or [today])[0]
                 if not fixture:
@@ -238,23 +232,17 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(payload)
 
             elif path == "/api/admin/board.json":
-                if not self._require_admin():
-                    return
                 payload = self._load_payload(today)
                 if payload is None:
                     return self._not_found()
                 self._json(payload)
 
             elif path == "/api/stats.json":
-                if not self._require_admin():
-                    return
                 with _brain() as b:
                     from brain.report import render_stats
                     self._json({"text": render_stats(b)})
 
             elif path == "/api/admin/fixtures":
-                if not self._require_admin():
-                    return
                 try:
                     from webapp.produce import search_fixtures
                     league = (qs.get("league") or [""])[0]
@@ -279,12 +267,10 @@ class Handler(BaseHTTPRequestHandler):
                 pass
 
     def do_POST(self):
-        """Publish action — admin only. Accepts JSON {date, approved_by?}."""
+        """Publish action — no auth required. Accepts JSON {date, approved_by?}."""
         parsed = urlparse(self.path)
         path = parsed.path
         if path == "/api/admin/publish":
-            if not self._require_admin():
-                return
             try:
                 import json
                 from webapp import schema as S
@@ -306,10 +292,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"ok": False, "error": str(e)})
             return
 
-        # Produce endpoint — admin only, real-time engine run
+        # Produce endpoint — real-time engine run (no auth required)
         if path == "/api/admin/produce":
-            if not self._require_admin():
-                return
             try:
                 import json
                 from webapp.produce import produce_selection

@@ -497,7 +497,34 @@ footer{
 .produce-day-chip:hover{border-color:var(--amber-dim);color:var(--amber);}
 .produce-day-chip.active{border-color:var(--amber);color:var(--amber);background:rgba(216,166,89,0.1);}
 
-/* League card — ScoreAI card layout (badge + name + season + matchday + country) */
+/* Produce results — Select All + per-league controls */
+.produce-results-header{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:8px 12px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:var(--radius);margin-bottom:10px;font-size:12px;
+}
+.produce-select-all,.produce-clear-all,.produce-league-select-all,.produce-league-clear{
+  font-size:11px;padding:5px 10px;border:1px solid var(--line);
+  border-radius:6px;background:var(--surface);color:var(--ink-dim);
+  cursor:pointer;transition:border-color 0.15s,color 0.15s;
+}
+.produce-select-all:hover,.produce-clear-all:hover,
+.produce-league-select-all:hover,.produce-league-clear:hover{
+  border-color:var(--amber-dim);color:var(--amber);
+}
+.produce-count-display{margin-left:auto;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
+
+.produce-league-group{margin-bottom:16px;}
+.produce-league-header{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-bottom:8px;padding:8px 12px;
+  background:var(--surface-2);border:1px solid var(--line);
+  border-radius:var(--radius);font-size:12px;
+}
+.produce-league-name{font-weight:600;color:var(--ink);}
+.produce-league-select-all,.produce-league-clear{
+  margin-left:auto;font-size:11px;padding:4px 8px;
+}
 tbody.league-group{width:100%;}
 .league-group-header{cursor:pointer;}
 .league-group-header .league-card{
@@ -1885,13 +1912,9 @@ def _chat_tab(payload_date: str = "") -> str:
 def _produce_panel() -> str:
     """Admin-only: BET Production panel — visible at the top of /admin.
 
-    Pick a league + a day, search that day's fixtures across the approved
-    leagues, select matches, and produce predictions in real time. Defaults
-    to today (the board's rolling window is today..+3)."""
+    Pick a day, see ALL fixtures across all approved leagues, select matches,
+    and produce predictions in real time. Defaults to today."""
     from engine.softness import SOFTNESS_TIER
-    league_opts = "".join(
-        f'<option value="{html.escape(lg)}">{html.escape(lg)}</option>'
-        for lg in sorted(SOFTNESS_TIER.keys()))
     today = _date.today()
     day_isos = [(today + _timedelta(days=i)).isoformat() for i in range(4)]
     day_labels = ["Today", "Tomorrow", "+2 days", "+3 days"]
@@ -1901,9 +1924,6 @@ def _produce_panel() -> str:
         for di, lb in zip(day_isos, day_labels))
     return f"""<div class="produce-panel" id="produce-panel">
   <div class="produce-toolbar">
-    <select id="produce-league" aria-label="Select league">
-      <option value="">All leagues</option>{league_opts}
-    </select>
     <input type="search" id="produce-query" placeholder="Search team name…" aria-label="Search fixtures">
     <input type="date" id="produce-date" value="{today.isoformat()}" aria-label="Produce for day" title="Pick the day to produce">
     <button id="produce-search-btn" class="btn-primary" onclick="produceSearch()">Search fixtures</button>
@@ -1931,18 +1951,15 @@ _PRODUCE_JS = """<script>
   }
 
   function produceSearch() {
-    var league = document.getElementById('produce-league').value;
     var q = document.getElementById('produce-query').value;
     var date = document.getElementById('produce-date').value || '';
     var results = document.getElementById('produce-results');
     results.innerHTML = '<div style="padding:12px;color:var(--ink-faint);">Searching fixtures for ' + escapeHtml(date || 'window') + '…</div>';
     var params = 'days=4';
     if (date) params += '&date=' + encodeURIComponent(date);
-    if (league) params += '&league=' + encodeURIComponent(league);
     if (q) params += '&q=' + encodeURIComponent(q);
     fetch('/api/admin/fixtures?' + params)
       .then(function(r) {
-        if (r.status === 401) { window.location.href = '/admin'; return null; }
         return r.json();
       })
       .then(function(data) {
@@ -1951,22 +1968,32 @@ _PRODUCE_JS = """<script>
           return;
         }
         var html = '';
-        data.leagues.forEach(function(lg) {
-          html += '<div class="produce-league-group">';
-          html += '<div class="produce-league-name">' + escapeHtml(lg.name) + ' (' + lg.fixtures.length + ')</div>';
-          lg.fixtures.forEach(function(f) {
-            var key = lg.name + '|' + f.home + '|' + f.away + '|' + f.date;
-            var checked = _produceSelected.has(key) ? ' checked' : '';
-            html += '<label class="produce-item">';
-            html += '<input type="checkbox" data-key="' + escapeHtml(key) + '" data-league="' + escapeHtml(lg.name) + '" data-home="' + escapeHtml(f.home) + '" data-away="' + escapeHtml(f.away) + '" data-date="' + escapeHtml(f.date) + '"' + checked + '>';
-            html += '<span class="produce-item-text">' + escapeHtml(f.home) + ' vs ' + escapeHtml(f.away) + '</span>';
-            html += '<span class="produce-item-meta">' + escapeHtml(f.date || '') + '</span>';
-            html += '</label>';
-          });
-          html += '</div>';
-        });
         if (!data.leagues.length) {
-          html = '<div style="padding:12px;color:var(--ink-faint);">No fixtures found</div>';
+          html = '<div style="padding:12px;color:var(--ink-faint);">No fixtures found for ' + escapeHtml(date || 'this window') + '</div>';
+        } else {
+          html += '<div class="produce-results-header">';
+          html += '<button type="button" class="btn-secondary produce-select-all" onclick="produceSelectAll(true)">✓ Select All</button>';
+          html += '<button type="button" class="btn-secondary produce-clear-all" onclick="produceSelectAll(false)">✗ Clear All</button>';
+          html += '<span class="produce-count-display">0 selected</span>';
+          html += '</div>';
+          data.leagues.forEach(function(lg) {
+            html += '<div class="produce-league-group">';
+            html += '<div class="produce-league-header">';
+            html += '<span class="produce-league-name">' + escapeHtml(lg.name) + ' (' + lg.fixtures.length + ')</span>';
+            html += '<button type="button" class="btn-secondary produce-league-select-all" data-league="' + escapeHtml(lg.name) + '" onclick="produceSelectLeague(this, true)">✓ All</button>';
+            html += '<button type="button" class="btn-secondary produce-league-clear" data-league="' + escapeHtml(lg.name) + '" onclick="produceSelectLeague(this, false)">✗ None</button>';
+            html += '</div>';
+            lg.fixtures.forEach(function(f) {
+              var key = lg.name + '|' + f.home + '|' + f.away + '|' + f.date;
+              var checked = _produceSelected.has(key) ? ' checked' : '';
+              html += '<label class="produce-item">';
+              html += '<input type="checkbox" data-key="' + escapeHtml(key) + '" data-league="' + escapeHtml(lg.name) + '" data-home="' + escapeHtml(f.home) + '" data-away="' + escapeHtml(f.away) + '" data-date="' + escapeHtml(f.date) + '"' + checked + '>';
+              html += '<span class="produce-item-text">' + escapeHtml(f.home) + ' vs ' + escapeHtml(f.away) + '</span>';
+              html += '<span class="produce-item-meta">' + escapeHtml(f.date || '') + '</span>';
+              html += '</label>';
+            });
+            html += '</div>';
+          });
         }
         results.innerHTML = html;
         results.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
@@ -1983,6 +2010,27 @@ _PRODUCE_JS = """<script>
       });
   }
 
+  function produceSelectAll(select) {
+    var results = document.getElementById('produce-results');
+    results.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
+      cb.checked = select;
+      if (select) _produceSelected.add(cb.dataset.key);
+      else _produceSelected.delete(cb.dataset.key);
+    });
+    updateProduceTray();
+  }
+
+  function produceSelectLeague(btn, select) {
+    var league = btn.dataset.league;
+    var results = document.getElementById('produce-results');
+    results.querySelectorAll('input[type=checkbox][data-league="' + league + '"]').forEach(function(cb) {
+      cb.checked = select;
+      if (select) _produceSelected.add(cb.dataset.key);
+      else _produceSelected.delete(cb.dataset.key);
+    });
+    updateProduceTray();
+  }
+
   function updateProduceTray() {
     var tray = document.getElementById('produce-tray');
     var count = document.getElementById('produce-count');
@@ -1991,6 +2039,9 @@ _PRODUCE_JS = """<script>
     tray.style.display = _produceSelected.size > 0 ? 'flex' : 'none';
     count.textContent = _produceSelected.size + ' selected';
     go.disabled = _produceSelected.size === 0;
+    // Also update the count display in the results header
+    var countDisplay = document.querySelector('.produce-count-display');
+    if (countDisplay) countDisplay.textContent = _produceSelected.size + ' selected';
   }
 
   function produceClear() {

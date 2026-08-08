@@ -47,8 +47,10 @@ with patch("data.thesportsdb_fixtures.requests.get", side_effect=_fake_get):
     fx = tsdb.fetch_today("Europa League", DAY)
 assert len(fx) == 2, f"only 2 upcoming (played + missing-name excluded), got {len(fx)}"
 names = {(f.home_team, f.away_team) for f in fx}
-assert ("Jagiellonia Białystok", "Rangers") in names, names
-assert ("Lech Poznań", "KÍ Klaksvík") in names, names
+# The Europa League aliases normalise the feed spellings to the model keys,
+# so the mapped names are what reach the board.
+assert ("Jagiellonia", "Rangers") in names, names
+assert ("Lech Poznan", "KÍ Klaksvík") in names, names
 assert all(f.date == DAY for f in fx)
 print("1. fetch_today: upcoming only, played + malformed excluded: OK")
 

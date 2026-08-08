@@ -263,11 +263,24 @@ def scan_one_league(league: str, season: str,
         try:
             results, skipped = load_league(league, season)
         except Exception as e:
-            flags.append(f"{league}: results fetch failed ({e}) — NO DATA — PENDING")
-            # No history to rate on, but the league's FIXTURES still belong on
-            # the board as NO DATA rows (HR35 wide-eyes) — not silently dropped.
-            return _render_unrated_fixtures(
-                league, upcoming_fixtures, fixture_dates), flags
+            # football-data doesn't carry this league (HNL, continental comps) —
+            # fall back to the results multi-source (API-Football -> TheSportsDB
+            # single-source T2) before declaring NO DATA. The fallback stamps its
+            # own source on each MatchResult, so the board stays honest about it.
+            try:
+                from data.multi_source_concrete import get_historical_results
+                results = get_historical_results(league, season)
+                skipped = []
+                flags.append(f"{league}: history via multi-source "
+                             f"({results[0].source if results else '?'})")
+            except Exception:
+                flags.append(f"{league}: results fetch failed ({e}) — "
+                             f"NO DATA — PENDING")
+                # No history to rate on, but the league's FIXTURES still belong
+                # on the board as NO DATA rows (HR35 wide-eyes) — never silently
+                # dropped.
+                return _render_unrated_fixtures(
+                    league, upcoming_fixtures, fixture_dates), flags
 
     if skipped:
         flags.append(f"{league}: {len(skipped)} source rows skipped/malformed")

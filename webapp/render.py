@@ -268,25 +268,30 @@ footer{
   .scan-table th:nth-child(4), .scan-table td:nth-child(4){display:none;}
 }
 
-/* Bottom tab bar — persistent nav (ScoreAI-inspired layout) */
+/* Bottom tab bar — ScoreAI-style with pill active state */
 .tab-bar{
   position:fixed;bottom:0;left:0;right:0;z-index:100;
-  display:flex;background:var(--surface);border-top:1px solid var(--line);
-  padding:6px env(safe-area-inset-bottom) 6px env(safe-area-inset-left);
+  display:flex;background:var(--surface);
+  border-top:1px solid var(--line);
+  padding:8px env(safe-area-inset-bottom) 8px env(safe-area-inset-left);
+  gap:6px;
 }
 .tab-btn{
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
-  padding:6px 4px;border:none;background:transparent;color:var(--ink-dim);
-  font-family:'Inter',sans-serif;font-size:10.5px;text-decoration:none;
-  transition:color 0.15s;
+  flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 12px;border:none;background:transparent;color:var(--ink-dim);
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
+  border-radius:var(--radius);cursor:pointer;
+  transition:color 0.15s,background 0.15s,border-color 0.15s;
 }
-.tab-btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;}
-.tab-btn.active{color:var(--amber);}
-.tab-btn:not(.active):hover{color:var(--ink);}
-.tab-btn:focus-visible{outline:none;color:var(--amber);}
+.tab-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;flex:none;}
+.tab-btn.active{
+  background:rgba(216,166,89,0.1);border:1px solid var(--amber-dim);
+  color:var(--amber);font-weight:600;
+}
+.tab-btn:not(.active):hover{color:var(--ink);background:rgba(255,255,255,0.03);}
+.tab-btn:focus-visible{outline:none;}
 @media (max-width:480px){
-  .tab-btn span{display:none;}
-  .tab-btn{padding:8px 0;}
+  .tab-btn{padding:10px 8px;font-size:11px;}
 }
 
 /* Date scroller pills */
@@ -308,23 +313,32 @@ footer{
   font-weight:600;
 }
 
-/* Select Markets panel (admin) */
+/* Select Markets panel (admin) — ScoreAI collapsible style */
 .market-select-panel{
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:14px 16px;margin-bottom:16px;
+  margin-bottom:16px;overflow:hidden;
 }
-.market-select-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.market-select-title{font-size:12px;font-weight:600;color:var(--ink);}
-.market-select-actions{display:flex;gap:6px;}
-.market-btn{
-  font-size:10px;padding:4px 10px;border:1px solid var(--line);border-radius:6px;
-  background:var(--surface-2);color:var(--ink);cursor:pointer;
-  transition:border-color 0.15s;
+.market-select-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;cursor:pointer;
+  transition:background 0.15s;
 }
-.market-btn:hover{border-color:var(--amber);}
-.market-checkboxes{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;}
-.market-checkbox{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink);}
-.market-checkbox input{width:14px;height:14px;accent-color:var(--amber);}
+.market-select-header:hover{background:rgba(255,255,255,0.02);}
+.market-select-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);}
+.market-select-title svg{width:18px;height:18px;color:var(--amber);flex:none;}
+.market-select-chevron{color:var(--ink-faint);font-size:12px;transition:transform 0.2s;flex:none;}
+.market-select-panel.collapsed .market-select-chevron{transform:rotate(-90deg);}
+.market-select-body{padding:0 16px 14px 16px;display:block;}
+.market-select-panel.collapsed .market-select-body{display:none;}
+.market-select-actions{display:flex;gap:10px;margin-bottom:10px;}
+.market-select-action{
+  font-size:12px;padding:0;border:none;background:transparent;
+  color:var(--amber);cursor:pointer;font-weight:500;
+}
+.market-select-action:hover{text-decoration:underline;}
+.market-checkboxes{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;}
+.market-checkbox{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink);}
+.market-checkbox input{width:16px;height:16px;accent-color:var(--amber);flex:none;}
 
 /* AI Analyst chat tab */
 .chat-tab{
@@ -360,33 +374,56 @@ footer{
 .chat-quick-btn{font-size:11px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--ink);cursor:pointer;}
 .chat-quick-btn:hover{border-color:var(--amber);}
 
-/* Fixture card with badges */
+/* Fixture card — ScoreAI schedule layout (badge — team — vs — team — badge) */
 .fixture-card{
-  display:flex;align-items:center;gap:10px;padding:12px;
+  display:flex;align-items:center;gap:12px;padding:14px 16px;
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
   margin-bottom:8px;transition:border-color 0.15s;
 }
 .fixture-card:hover{border-color:var(--amber-dim);}
-.fixture-card .crest{width:28px;height:28px;}
-.fixture-card .teams{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;}
-.fixture-card .team{display:flex;align-items:center;gap:6px;text-align:center;}
-.fixture-card .team-name{font-weight:600;font-size:13px;color:var(--ink);}
-.fixture-card .vs{color:var(--ink-faint);font-size:11px;font-weight:600;}
-.fixture-card .meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:11px;color:var(--ink-dim);}
-.fixture-card .kickoff{font-family:'IBM Plex Mono',monospace;}
-.fixture-card .star{color:var(--amber);cursor:pointer;font-size:16px;transition:transform 0.15s;}
-.fixture-card .star.active{transform:scale(1.2);}
-.fixture-card .star:hover{transform:scale(1.15);}
+.fixture-card .crest{width:32px;height:32px;}
+.fixture-card .teams{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:14px;
+}
+.fixture-card .team{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:80px;}
+.fixture-card .team-name{font-weight:600;font-size:13px;color:var(--ink);text-align:center;}
+.fixture-card .vs{color:var(--ink-faint);font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.fixture-card .meta{
+  display:flex;flex-direction:column;align-items:flex-end;gap:4px;
+  font-size:11px;color:var(--ink-dim);min-width:50px;
+}
+.fixture-card .kickoff{font-family:'IBM Plex Mono',monospace;font-weight:500;}
+.fixture-card .star{
+  color:var(--ink-faint);cursor:pointer;font-size:16px;
+  transition:color 0.15s,transform 0.15s;
+}
+.fixture-card .star.active{color:var(--amber);transform:scale(1.15);}
+.fixture-card .star:hover{color:var(--amber);}
 
-/* League group — one tbody per league; header row toggles .collapsed on it */
+/* League card — ScoreAI card layout (badge + name + season + matchday + country) */
 tbody.league-group{width:100%;}
 .league-group-header{cursor:pointer;}
-.league-group-header .league-group{
-  display:flex;align-items:center;gap:10px;
-  background:rgba(216,166,89,0.06);
-  border-radius:8px;padding:8px 12px;margin:6px 0;
-  transition:background 0.15s;
+.league-group-header .league-card{
+  display:grid;grid-template-columns:auto auto 1fr auto;grid-template-rows:auto auto;
+  align-items:center;gap:6px 14px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;margin:6px 0;transition:border-color 0.15s;
 }
+.league-group-header:hover .league-card{border-color:var(--amber-dim);}
+.league-card .league-badge{grid-row:1/3;width:44px;height:44px;border-radius:10px;}
+.league-card .league-name{font-size:16px;font-weight:700;color:var(--ink);line-height:1.1;}
+.league-card .league-season{font-size:12px;color:var(--ink-dim);}
+.league-card .league-meta{
+  display:flex;align-items:center;gap:12px;font-size:11px;color:var(--ink-faint);
+  grid-column:3/4;
+}
+.league-card .league-meta span{display:flex;align-items:center;gap:4px;}
+.league-card .league-meta svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;}
+.league-card .league-chevron{
+  grid-row:1/3;grid-column:4;justify-self:end;
+  color:var(--amber);font-size:14px;transition:transform 0.2s;flex:none;
+}
+tbody.collapsed .league-chevron{transform:rotate(-90deg);}
 .league-group-header:hover .league-group{background:rgba(216,166,89,0.12);}
 .league-group-toggle{color:var(--amber);font-size:14px;transition:transform 0.2s;flex:none;}
 tbody.collapsed .league-group-toggle{transform:rotate(-90deg);}
@@ -1195,16 +1232,28 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
         is_live = league in live_leagues
         collapsed_class = "" if is_live else " collapsed"
 
-        # League group header — chevron + flag badge + name + count
+        # League card header — ScoreAI layout: badge + name + season + meta + chevron
         flag = _flag_html(league)
+        country_code = _LEAGUE_COUNTRY.get(league, "")
+        country_name = {"GB": "England", "DE": "Germany", "IT": "Italy", "FR": "France",
+                        "ES": "Spain", "NL": "Netherlands", "PT": "Portugal", "DK": "Denmark",
+                        "BE": "Belgium", "AT": "Austria", "EU": "Europe", "PL": "Poland",
+                        "HR": "Croatia"}.get(country_code, "")
+        # Derive matchday from the number of fixtures (approximate)
+        matchday = f"Matchday {len(fixtures_sorted)}" if fixtures_sorted else ""
+        season = "2026/27"
         body_parts.append(f"""<tbody class="league-group{collapsed_class}" data-league="{html.escape(league)}">
 <tr class="league-group-header" onclick="this.parentElement.classList.toggle('collapsed')">
   <td colspan="{n_cols}">
-    <div class="league-group">
-      <span class="league-group-toggle">▸</span>
-      <span class="league-group-badge">{flag}</span>
-      <span class="league-group-name">{html.escape(league)}</span>
-      <span class="league-group-count">({len(fixtures_sorted)} fixture{'s' if len(fixtures_sorted) != 1 else ''})</span>
+    <div class="league-card">
+      <div class="league-badge">{flag}</div>
+      <div class="league-name">{html.escape(league)}</div>
+      <div class="league-meta">
+        <span><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>{html.escape(matchday)}</span>
+        <span><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>{html.escape(country_name)}</span>
+      </div>
+      <span class="league-chevron">▾</span>
+      <div class="league-season">{html.escape(season)} · {len(fixtures_sorted)} fixture{'s' if len(fixtures_sorted) != 1 else ''}</div>
     </div>
   </td>
 </tr>""")
@@ -1519,8 +1568,11 @@ def _date_pills(payload_date: str, base: str) -> str:
     return f'<div class="date-pills" role="navigation" aria-label="Date filter">{"".join(pills)}</div>'
 
 def _market_select_panel(payload: dict) -> str:
-    """Admin-only: Select Markets to Display checkbox panel."""
-    # All available market columns in the scan table
+    """Admin-only: ScoreAI-style collapsible 'Select Markets to Display' panel.
+
+    Matches ScoreAI's 'Select Stats to Display': gear icon + title +
+    chevron toggle, 'Select All' / 'Clear All' text links, 2-column
+    checkbox grid."""
     all_markets = [
         ("1X2", "1X2 (Home/Draw/Away)"),
         ("O1.5/O2.5", "Over 1.5 / Over 2.5 Goals"),
@@ -1533,15 +1585,20 @@ def _market_select_panel(payload: dict) -> str:
     for key, label in all_markets:
         checkboxes += f'<label class="market-checkbox"><input type="checkbox" name="market-col" value="{key}" checked> {html.escape(label)}</label>'
 
-    return f"""<div class="market-select-panel">
-  <div class="market-select-header">
-    <span class="market-select-title">Select Markets to Display</span>
-    <div class="market-select-actions">
-      <button class="market-btn" onclick="toggleAllMarkets(true)">Select All</button>
-      <button class="market-btn" onclick="toggleAllMarkets(false)">Clear All</button>
-    </div>
+    # ScoreAI-style collapsible panel with gear icon
+    gear_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>'
+    return f"""<div class="market-select-panel" id="market-select-panel">
+  <div class="market-select-header" onclick="document.getElementById('market-select-panel').classList.toggle('collapsed')">
+    <span class="market-select-title">{gear_svg} Select Markets to Display</span>
+    <span class="market-select-chevron">▾</span>
   </div>
-  <div class="market-checkboxes">{checkboxes}</div>
+  <div class="market-select-body">
+    <div class="market-select-actions">
+      <button class="market-select-action" onclick="toggleAllMarkets(true)">Select All</button>
+      <button class="market-select-action" onclick="toggleAllMarkets(false)">Clear All</button>
+    </div>
+    <div class="market-checkboxes">{checkboxes}</div>
+  </div>
 </div>"""
 
 def _chat_tab(payload_date: str = "") -> str:

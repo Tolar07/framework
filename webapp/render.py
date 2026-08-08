@@ -378,21 +378,22 @@ footer{
 .fixture-card .star.active{transform:scale(1.2);}
 .fixture-card .star:hover{transform:scale(1.15);}
 
-/* League group header with badge + chevron */
-.league-group-header{
-  cursor:pointer;
-  background:rgba(216,166,89,0.06);
-  border-radius:8px;margin-bottom:8px;padding:8px 12px;
+/* League group — one tbody per league; header row toggles .collapsed on it */
+tbody.league-group{width:100%;}
+.league-group-header{cursor:pointer;}
+.league-group-header .league-group{
   display:flex;align-items:center;gap:10px;
+  background:rgba(216,166,89,0.06);
+  border-radius:8px;padding:8px 12px;margin:6px 0;
   transition:background 0.15s;
 }
-.league-group-header:hover{background:rgba(216,166,89,0.1);}
+.league-group-header:hover .league-group{background:rgba(216,166,89,0.12);}
 .league-group-toggle{color:var(--amber);font-size:14px;transition:transform 0.2s;flex:none;}
-.league-group-header.collapsed .league-group-toggle{transform:rotate(-90deg);}
-.league-group-badge{width:24px;height:24px;border-radius:50%;object-fit:cover;background:var(--surface-2);border:1px solid var(--line);}
+tbody.collapsed .league-group-toggle{transform:rotate(-90deg);}
+.league-group-badge{display:inline-flex;align-items:center;flex:none;}
+.league-group-badge .flag{margin-right:0;}
 .league-group-name{font-weight:600;color:var(--ink);text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.02em;flex:1;}
 .league-group-count{color:var(--ink-faint);font-size:11px;font-family:'IBM Plex Mono',monospace;}
-.league-group-body.collapsed{display:none;}
 
 /* Hero section (client view) */
 .hero-date{
@@ -463,32 +464,9 @@ footer{
 .admin-search-bar select:focus,
 .admin-search-bar input:focus{outline:none;border-color:var(--amber);}
 
-/* League group rows */
-.league-header{
-  cursor:pointer;
-  background:rgba(216,166,89,0.06);
-}
-.league-header:hover{
-  background:rgba(216,166,89,0.1);
-}
-.league-group{
-  display:flex;align-items:center;gap:8px;padding:8px 0;
-}
-.league-group-toggle{
-  color:var(--amber);font-size:12px;transition:transform 0.2s;flex:none;
-}
-.league-group-name{
-  font-weight:600;color:var(--ink);text-transform:uppercase;
-  font-family:'Barlow Condensed',sans-serif;letter-spacing:0.02em;
-}
-.league-group-count{
-  color:var(--ink-faint);font-size:11px;font-family:'IBM Plex Mono',monospace;
-}
-tbody.collapsed .league-group-toggle{
-  transform:rotate(-90deg);
-}
+/* League group collapse — hiding the fixture rows under a collapsed group */
 tbody.collapsed .league-row,
-tfoot.collapsed .detail-row{
+tbody.collapsed .detail-row{
   display:none;
 }
 
@@ -515,22 +493,13 @@ tfoot.collapsed .detail-row{
 """
 
 _SCAN_JS = """<script>
+  // Row expand/collapse for the full-analysis detail row.
   function toggleScanRow(id){
     document.getElementById(id).classList.toggle('open');
     event.currentTarget.classList.toggle('open');
   }
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.league-header').forEach(function(h) {
-      h.addEventListener('click', function(e) {
-        if (e.target.classList.contains('league-group-toggle') ||
-            e.target.classList.contains('league-group-name') ||
-            e.target.classList.contains('league-group-count')) {
-          var tbody = h.parentElement;
-          tbody.classList.toggle('collapsed');
-        }
-      });
-    });
-  });
+  // League group collapse is wired inline on each header row
+  // (onclick toggles 'collapsed' on the parent tbody).
 </script>"""
 
 _PUBLISH_JS = """<script>
@@ -855,10 +824,14 @@ def _crest_html(team: str, league: str) -> str:
 
 
 def _fixture_teams_with_badges(bf: dict) -> tuple[str, str, str]:
-    """Return (home_badged, away_badged, league) for fixture rendering."""
+    """Return (home_badged, away_badged, league) for fixture rendering.
+
+    Each badged team is crest + name (the scan table renders "crest Name v
+    crest Name"). The fixture CARD (THE CALL) builds its badge/name separately
+    via _crest_html + _teams so the name isn't duplicated."""
     home, away, league = _teams(bf)
-    home_badged = _crest_html(home, league)
-    away_badged = _crest_html(away, league)
+    home_badged = _crest_html(home, league) + html.escape(home)
+    away_badged = _crest_html(away, league) + html.escape(away)
     return home_badged, away_badged, league
 
 
@@ -866,8 +839,8 @@ def _fixture_teams_with_badges_admin(bf: dict) -> tuple[str, str, str]:
     """Admin version includes flag on league name."""
     home, away, league = _teams(bf)
     flag = _flag_html(league)
-    home_badged = _crest_html(home, league)
-    away_badged = _crest_html(away, league)
+    home_badged = _crest_html(home, league) + html.escape(home)
+    away_badged = _crest_html(away, league) + html.escape(away)
     league_badged = flag + " " + html.escape(league)
     return home_badged, away_badged, league_badged
 
@@ -1071,10 +1044,15 @@ def _internals(bf: dict) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _call_card(bf: dict, admin: bool = False) -> str:
+    """THE CALL fixture card — badge | home — vs — away | badge, plus kickoff,
+    league, star toggle, pick line and (admin) tier + internals."""
+    home, away, league = _teams(bf)
+    home_crest = _crest_html(home, league)
+    away_crest = _crest_html(away, league)
     if admin:
-        home_badged, away_badged, league_badged = _fixture_teams_with_badges_admin(bf)
+        league_badged = _flag_html(league) + " " + html.escape(league)
     else:
-        home_badged, away_badged, league_badged = _fixture_teams_with_badges(bf)
+        league_badged = html.escape(league)
     p = bf.get("probs")
     pick_label, pick_prob = _pick(bf)
     trigger = _fmt_price(bf.get("mes_trigger_price"))
@@ -1088,49 +1066,19 @@ def _call_card(bf: dict, admin: bool = False) -> str:
         except Exception:
             kickoff_display = kickoff[:5] if len(kickoff) >= 5 else kickoff
 
-    # Star/favorite toggle - check if fixture is favorited
+    # Star/favorite toggle — check if fixture is favorited
     fixture_key = bf.get("fixture", "")
     is_fav = bf.get("favorited", False)
 
-    if admin:
-        tier = html.escape(str(bf.get("softness_tier", "?")))
-        # New fixture card layout for admin
-        head = f"""<div class="fixture-card">
-  {home_badged}
+    # Fixture card header (shared by client + admin)
+    card_head = f"""<div class="fixture-card">
+  {home_crest}
   <div class="teams">
-    <div class="team"><span class="team-name">{html.escape(bf.get("probs", {}).get("home_team", "Home"))}</span></div>
+    <div class="team"><span class="team-name">{html.escape(home)}</span></div>
     <span class="vs">vs</span>
-    <div class="team"><span class="team-name">{html.escape(bf.get("probs", {}).get("away_team", "Away"))}</span></div>
+    <div class="team"><span class="team-name">{html.escape(away)}</span></div>
   </div>
-  {away_badged}
-  <div class="meta">
-    <span class="kickoff">{kickoff_display}</span>
-    <span class="league-tag">{league_badged}</span>
-    <span class="star{' active' if is_fav else ''}" onclick="event.stopPropagation(); toggleFavorite('{html.escape(fixture_key)}')">★</span>
-  </div>
-</div>
-<div class="pick-line">
-  <span class="pick-label">{html.escape(pick_label)}</span>
-  <span class="pick-prob">{pick_prob}</span>
-  <div class="trigger">
-    <div class="num">{trigger}</div>
-    <div class="lbl">Deploy At</div>
-  </div>
-</div>
-<div class="tier-badge">TIER {tier}</div>"""
-        stamp = _stamp_row(bf)
-        hint = "Full analysis + model internals"
-        extras = _internals(bf) if p is not None else ""
-    else:
-        # New fixture card layout for client
-        head = f"""<div class="fixture-card">
-  {home_badged}
-  <div class="teams">
-    <div class="team"><span class="team-name">{html.escape(bf.get("probs", {}).get("home_team", "Home"))}</span></div>
-    <span class="vs">vs</span>
-    <div class="team"><span class="team-name">{html.escape(bf.get("probs", {}).get("away_team", "Away"))}</span></div>
-  </div>
-  {away_badged}
+  {away_crest}
   <div class="meta">
     <span class="kickoff">{kickoff_display}</span>
     <span class="league-tag">{league_badged}</span>
@@ -1145,6 +1093,15 @@ def _call_card(bf: dict, admin: bool = False) -> str:
     <div class="lbl">Deploy At</div>
   </div>
 </div>"""
+
+    if admin:
+        tier = html.escape(str(bf.get("softness_tier", "?")))
+        head = card_head + f'<div class="tier-badge">TIER {tier}</div>'
+        stamp = _stamp_row(bf)
+        hint = "Full analysis + model internals"
+        extras = _internals(bf) if p is not None else ""
+    else:
+        head = card_head
         stamp = ""
         hint = "Full analysis — all markets"
         extras = ""
@@ -1220,7 +1177,9 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
                 except (ValueError, TypeError):
                     pass
 
-    # Build the grouped table
+    # Build the grouped table — one tbody per league so collapse is a valid
+    # per-group class toggle (CSS hides .league-row/.detail-row under
+    # tbody.collapsed, keeping the header visible as the toggle).
     headers = ["Fixture", "1X2", "O1.5/O2.5", "DC/BTTS"] + (["Src"] if admin else [])
     n_cols = len(headers)
     thead = "<tr>" + "".join(f"<th>{h}</th>" for h in headers) + "</tr>"
@@ -1232,26 +1191,23 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
         # Sort fixtures by pick confidence (highest first)
         fixtures_sorted = sorted(fixtures, key=_pick_confidence, reverse=True)
 
-        # Check if this league should be expanded by default
+        # Default expanded for live/upcoming leagues, collapsed otherwise
         is_live = league in live_leagues
         collapsed_class = "" if is_live else " collapsed"
 
-        # League group header with badge + chevron
+        # League group header — chevron + flag badge + name + count
         flag = _flag_html(league)
-        league_badged = flag + " " + html.escape(league)
-        body_parts.append(f"""<tr class="league-group-header{collapsed_class}" data-league="{html.escape(league)}" onclick="this.classList.toggle('collapsed'); this.parentElement.querySelector('.league-group-body').classList.toggle('collapsed')">
+        body_parts.append(f"""<tbody class="league-group{collapsed_class}" data-league="{html.escape(league)}">
+<tr class="league-group-header" onclick="this.parentElement.classList.toggle('collapsed')">
   <td colspan="{n_cols}">
     <div class="league-group">
       <span class="league-group-toggle">▸</span>
-      <span class="league-group-badge">{league_badged}</span>
+      <span class="league-group-badge">{flag}</span>
       <span class="league-group-name">{html.escape(league)}</span>
-      <span class="league-group-count">({len(fixtures_sorted)} fixtures)</span>
+      <span class="league-group-count">({len(fixtures_sorted)} fixture{'s' if len(fixtures_sorted) != 1 else ''})</span>
     </div>
   </td>
 </tr>""")
-
-        # League group body (fixtures)
-        body_parts.append(f'<tr class="league-group-body{collapsed_class}"><td colspan="{n_cols}"><table class="scan-table"><tbody>')
 
         idx = 0
         for bf in fixtures_sorted:
@@ -1260,8 +1216,8 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
                 home_badged, away_badged, league_badged = _fixture_teams_with_badges_admin(bf)
             else:
                 home_badged, away_badged, league_badged = _fixture_teams_with_badges(bf)
-            fixture_td = (f'<td><span class="scan-fixture">{home_badged} v {away_badged}</span>'
-                          f'<span class="scan-league">{league_badged}</span></td>')
+            fixture_td = (f'<span class="scan-fixture">{home_badged} v {away_badged}</span>'
+                          f'<span class="scan-league">{league_badged}</span>')
             src_td = f'<td>{_src_dot(bf)}</td>' if admin else ""
             p = bf.get("probs")
             tier = bf.get("softness_tier", "?")
@@ -1272,7 +1228,7 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
             if p is None:
                 reason = bf.get("rejection_reason") or "NO DATA — PENDING"
                 body_parts.append(f"""<tr class="league-row" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}">
-  {fixture_td}
+  <td>{fixture_td}</td>
   <td class="nodata" colspan="3">NO DATA — PENDING · {html.escape(reason)}</td>
   {src_td}
 </tr>""")
@@ -1297,15 +1253,13 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
   </td>
 </tr>""")
 
-        body_parts.append('</tbody></table></td></tr>')
+        body_parts.append("</tbody>")
 
     return f"""<table class="scan-table">
   <thead>
   {thead}
   </thead>
-  <tbody>
   {''.join(body_parts)}
-  </tbody>
 </table>"""
 
 

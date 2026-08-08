@@ -203,6 +203,37 @@ section{margin-top:34px;}
 .stamp.na{background:rgba(86,95,114,0.15);color:var(--ink-faint);border:1px solid var(--line);}
 .stamp-note{font-size:11px;color:var(--ink-faint);}
 
+/* THE CALL tier-grouped sections (admin "show all the tiers") */
+.tier-section{margin-bottom:24px;}
+.tier-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:14px;
+}
+.tier-name{
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
+  letter-spacing:0.02em;color:var(--amber);font-weight:700;font-size:15px;
+}
+.tier-count{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);
+  white-space:nowrap;
+}
+.tier-badge.deploy{
+  background:var(--teal);margin-left:6px;
+}
+.produce-summary{
+  margin-top:16px;padding:16px;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);
+  font-size:12.5px;color:var(--ink-dim);line-height:1.7;
+}
+.produce-summary h3{margin:0 0 10px 0;font-size:14px;color:var(--ink);}
+.produce-summary ul{margin:0;padding-left:16px;}
+.produce-summary li{margin-bottom:6px;}
+.produce-summary b{color:var(--ink);}
+.produce-summary .honest-line{
+  margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);
+  color:var(--amber);font-size:12px;
+}
+
 /* THE SCAN — wide table */
 .scan-table{width:100%;border-collapse:collapse;font-size:12.5px;}
 .scan-table th{
@@ -1183,7 +1214,9 @@ def _call_card(bf: dict, admin: bool = False) -> str:
 
     if admin:
         tier = html.escape(str(bf.get("softness_tier", "?")))
-        head = card_head + f'<div class="tier-badge">TIER {tier}</div>'
+        deploy = ('<span class="tier-badge deploy">DEPLOY</span>'
+                  if bf.get("on_deploy_shortlist") else "")
+        head = card_head + f'<div class="tier-badge">TIER {tier}</div>' + deploy
         stamp = _stamp_row(bf)
         hint = "Full analysis + model internals"
         extras = _internals(bf) if p is not None else ""
@@ -1210,14 +1243,62 @@ def _call_card(bf: dict, admin: bool = False) -> str:
 </div>"""
 
 
+def _tier_grouped_call(board: list[dict]) -> str:
+    """THE CALL grouped by softness tier — the FULL production, sorted into its
+    trust tiers (Architect order 2026-08-08). Every fixture stays visible: A/B
+    deploy-eligible first, C/D scan-only after, ranked within each tier by the
+    deploy pool first then model confidence. The DEPLOY pill (on the card)
+    marks the actual cap-6 pool — the tier grouping is display, the deploy cap
+    + market gate are unchanged rules. The public client view does NOT use this
+    (it renders the deploy shortlist only, per the data-leak boundary)."""
+    order = ["A", "B", "C", "D", "?"]
+    labels = {
+        "A": "Tier A — deploy-eligible",
+        "B": "Tier B — deploy-eligible",
+        "C": "Tier C — scan-only, never a capital pick",
+        "D": "Tier D — scan-only, never a capital pick",
+        "?": "Unrated league",
+    }
+    groups: dict[str, list[dict]] = {}
+    for bf in board:
+        groups.setdefault(str(bf.get("softness_tier", "?")), []).append(bf)
+    out: list[str] = []
+    for tier in order:
+        grp = groups.get(tier)
+        if not grp:
+            continue
+        # Deploy-pool picks first, then strongest model confidence.
+        grp.sort(key=lambda b: (not b.get("on_deploy_shortlist"),
+                                -_pick_confidence(b)))
+        n_deploy = sum(1 for b in grp if b.get("on_deploy_shortlist"))
+        count = f"{len(grp)} fixture{'s' if len(grp) != 1 else ''}"
+        if n_deploy:
+            count += f" · {n_deploy} in deploy pool"
+        cards = "".join(_call_card(b, admin=True) for b in grp)
+        out.append('<div class="tier-section">'
+                   f'<div class="tier-head"><span class="tier-name">'
+                   f'{html.escape(labels.get(tier, labels["?"]))}</span>'
+                   f'<span class="tier-count">{count}</span></div>'
+                   f'<div class="call-grid">{cards}</div>'
+                   '</div>')
+    return "".join(out)
+
+
 def _the_call(board: list[dict], admin: bool = False) -> str:
+    if not board:
+        return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
+                'No fixtures on this board today — NO DATA — PENDING.</div></div>')
+    if admin:
+        # The full production sorted into its softness tiers — nothing produced
+        # is hidden, ranked by the trust level assigned to each league.
+        return _tier_grouped_call(board)
     rows = [bf for bf in board if bf.get("on_deploy_shortlist")]
     if not rows:
         return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
                 'No deploy-eligible call today (softness A/B only).</div></div>')
     # Responsive card grid — 2-3 columns on desktop, 1 column on mobile.
     return ('<div class="call-grid">'
-            + "".join(_call_card(bf, admin=admin) for bf in rows)
+            + "".join(_call_card(bf, admin=False) for bf in rows)
             + "</div>")
 
 
@@ -1816,6 +1897,7 @@ _PRODUCE_JS = """<script>
         html += '</div>';
       }
       html += '<div class="produce-cards">' + data.cards_html + '</div>';
+      if (data.summary_html) html += data.summary_html;
       html += '</div>';
       output.innerHTML = html;
       output.querySelectorAll('.call-card').forEach(function(card) {
@@ -1925,7 +2007,7 @@ def render_admin_dashboard(payload: dict) -> str:
         + "<main>"
         + '<section id="call-section"><div class="sec-head"><h2 class="display">The Call</h2>'
         + f'<span class="cap-pill">{n_call} / 6 CAP</span></div>'
-        + '<p class="sec-sub">Deploy-eligible only — softness A/B, ID402 pool cap</p>'
+        + '<p class="sec-sub">All tiers grouped by trust — A/B deploy-eligible (DEPLOY = in today\'s cap-6 pool), C/D scan-only. Paper only, zero capital.</p>'
         + _the_call(payload.get("board", []), admin=True)
         + "</section>"
         + '<section id="scan-section" style="display:none;"><div class="sec-head"><h2 class="display">The Scan</h2></div>'

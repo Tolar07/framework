@@ -184,5 +184,21 @@ with mock.patch.object(af, "check_quota", return_value=(51, 49)):
         pass
 print("7. scan-only leagues are refused by the fallback (deploy only): OK")
 
+# --- 8. market constants the pricing path touches actually exist -------------
+# The fallback is the FIRST source to make odds present after weeks of quota
+# exhaustion — and pricing fixtures exposed two latent AttributeErrors that
+# were masked while no odds ever reached the EV loop (MARKETS_1X2 and
+# OVER_2_5/UNDER_2_5). Guard them so that path can never rot silently again.
+import engine.markets as mkt
+for const in ("MARKETS_1X2", "OVER_25", "UNDER_25", "OVER_15", "UNDER_15",
+              "HOME", "DRAW", "AWAY"):
+    assert hasattr(mkt, const), f"engine.markets.{const} missing"
+# MARKETS_1X2 must index into implied_1x2's (home, draw, away) tuple order
+assert mkt.MARKETS_1X2 == {mkt.HOME: 0, mkt.DRAW: 1, mkt.AWAY: 2}
+# run_daily and webapp use these exact attribute paths — import must resolve
+import run_daily  # noqa: F401  (import-time constant access)
+import webapp.produce  # noqa: F401
+print("8. market constants for the odds path all resolve (no latent AttrError): OK")
+
 print()
 print("✅ ALL API-FOOTBALL ODDS FALLBACK TESTS PASSED")

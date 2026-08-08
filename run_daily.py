@@ -47,6 +47,7 @@ from output.produce_bet import (render_produce_bet, render_verify_results,
 from output import notify
 from output import whatsapp_deliver
 from output import email_deliver
+import bets.produced_bet as produced_bet
 import orchestrator
 import pipeline.odds as odds_mod
 
@@ -335,6 +336,22 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     verify_block, gflags = grade_open_legs(log, season)
     all_flags += gflags
 
+    # --- produced-bet verification (ID415): settle YESTERDAY's produced legs
+    # --- against real results and record outcomes in the brain, so today's
+    # --- board shows what the framework bet yesterday and whether it won. ---
+    try:
+        vsum = produced_bet.verify_produced_bet(season, brain)
+        if vsum.get("n"):
+            all_flags.append(
+                f"produced-bet verified {vsum['date']}: "
+                f"{vsum['won']} won / {vsum['lost']} lost / "
+                f"{vsum['pending']} pending")
+    except Exception as e:
+        # a produced-bet verification fault must never kill the daily board —
+        # verification stays PENDING rather than guessed (HR35).
+        all_flags.append(f"produced-bet verification failed ({e}) — "
+                         f"legs stay PENDING")
+
     # --- scan every league into one board (ID402 wide eyes). The board is the
     # --- next 3 days' matches (days_ahead=3, ratified 2026-08-07): a rolling
     # --- window like ScoreGPT, so a quiet midweek still shows the weekend round
@@ -544,6 +561,18 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         if b.on_deploy_shortlist and id(b) not in capped:
             b.on_deploy_shortlist = False
 
+    # --- produced-bet record (ID415): every rated fixture with a kickoff
+    # --- today is one produced-bet leg, saved to produced_<date>.json + the
+    # --- brain mirror, so the framework always has a findable copy of what it
+    # --- bet today. No fixtures today -> an honest empty record, still written.
+    # --- The board is final here (prices attached, cap applied). ---
+    try:
+        produced_bet.record_produced_bet(board, today, brain)
+    except Exception as e:
+        # a produced-bet record fault must never kill the daily board — the
+        # rest of the run continues; the missing record is visible via the flag.
+        all_flags.append(f"produced-bet record failed ({e})")
+
     # --- log the paper legs (the point of Phase 2) ---
     _, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes)
     all_flags += lflags
@@ -579,16 +608,21 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     yesterday_graded = brain.graded_yesterday(yesterday)
     rolling_7d = brain.rolling_7d()
 
+    # ID415: today's produced-bet record, read back for the board/Telegram block.
+    produced_record = produced_bet.load_produced_bet(today)
+
     telegram_text = render_telegram_board(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
-        yesterday_graded=yesterday_graded, rolling_7d=rolling_7d)
+        yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
+        produced_bet=produced_record)
 
     board_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
-        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board)
+        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
+        produced_bet=produced_record)
 
     full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
     path = BOARD_DIR / f"board_{today}.txt"
@@ -610,6 +644,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     calibration_count=status["legs_with_clv"],
                     mean_clv=status["mean_clv_pct"],
                     recommendation=render_daily_recommendation(board),
+                    produced_bet=produced_record,
                     yesterday_graded=yesterday_graded,
                     rolling_7d=rolling_7d),
                 BOARD_DIR / f"board_{today}.json")

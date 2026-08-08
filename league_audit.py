@@ -27,6 +27,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+import config  # noqa: E402 — loads .env so the audit runs on the PROVISIONED
+# keys (personal TheSportsDB key, Odds API), not the shared public test key.
+# Without this the audit reports leagues as BLOCKED that the daily run actually
+# covers — the false picture that hid a completed Ekstraklasa season feed.
+
 from engine.softness import SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS
 from data.football_data_source import load_league, UNCOVERED_LEAGUES, LEAGUE_CODES
 from data import thesportsdb_fixtures as tsdb
@@ -129,7 +134,8 @@ def main() -> None:
 
     print(f"LEAGUE COVERAGE AUDIT — fit {a.fit_season}, fixtures {a.fixtures_season}")
     print("=" * 108)
-    print(f"{'league':<22}{'Ƈ':<4}{'history':<14}{'fixtures':<14}"
+    # cp1252-safe on Windows consoles — the Ƈ glyph cannot encode there.
+    print(f"{'league':<22}{'tier':<4}{'history':<14}{'fixtures':<14}"
           f"{'odds':<22}{'names':<14}verdict")
     print("-" * 108)
 

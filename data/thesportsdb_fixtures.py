@@ -33,6 +33,7 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Optional
 
+from data.football_data_source import MatchResult
 from data.multi_source import SourceNoData
 
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "thesportsdb"
@@ -78,6 +79,10 @@ LEAGUE_IDS = {
     # Resolved 2026-08-08 with personal key 5558126822:
     "Ekstraklasa": 4422,            # "Polish Ekstraklasa" (Poland)
     "HNL": 4629,                    # "Croatian First Football League" (Croatia)
+    # Resolved 2026-08-08 by scanning all_leagues.php on the personal key and
+    # confirming by events (Austrian clubs + 2026/27 season loaded, 123
+    # upcoming) — not guessed.
+    "Austrian Bundesliga": 4621,    # "Austrian Bundesliga" (Austria)
 }
 
 # Previously unresolved (public test key truncated directory).
@@ -92,6 +97,14 @@ UNRESOLVED_LEAGUES = set()
 # deliberately absent — mapping those would invent a rating for a club with no
 # top-flight history (the open promoted-club gap, master doc Section 11).
 TEAM_ALIASES: dict[str, dict[str, str]] = {
+    "Austrian Bundesliga": {
+        "Rapid Vienna": "SK Rapid",
+        "Red Bull Salzburg": "Salzburg",
+        "SCR Altach": "Altach",
+        "SV Ried": "Ried",
+        "TSV Hartberg": "Hartberg",
+        "WSG Tirol": "Tirol",
+    },
     "Scottish Premiership": {
         "Heart of Midlothian": "Hearts",
     },
@@ -99,6 +112,20 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Fortuna Sittard": "For Sittard",
         "NEC Nijmegen": "Nijmegen",
         "PEC Zwolle": "Zwolle",
+    },
+    "Ekstraklasa": {
+        # football-data.co.uk POL feed names — diacritic/name-normalised.
+        # Verified 2026-08-08 by diffing both sources' actual team lists for
+        # 2026/27; every pair below is the same club, not a guess.
+        "Górnik Zabrze": "Gornik Zabrze",
+        "Jagiellonia Białystok": "Jagiellonia",
+        "Lech Poznań": "Lech Poznan",
+        "Legia Warsaw": "Legia",
+        "Pogoń Szczecin": "Pogon Szczecin",
+        "Raków Częstochowa": "Rakow",
+        "Widzew Łódź": "Widzew Lodz",
+        "Wisła Płock": "Wisla Plock",
+        "Zagłębie Lubin": "Zaglebie",
     },
     "Danish Superliga": {
         "AGF Aarhus": "Aarhus",
@@ -201,6 +228,12 @@ KNOWN_NEW_TO_DIVISION_2627 = {
     "Primeira Liga": ("Mar\xedtimo", "Acad\xe9mico de Viseu"),
     "Scottish Premiership": ("St Johnstone",),
     "Eredivisie": ("ADO Den Haag", "Cambuur", "Willem II"),
+    # Austrian Bundesliga — verified 2026-08-08: A. Lustenau is promoted for
+    # 2627 and has no 2526 top-flight history in football-data's AUT feed.
+    "Austrian Bundesliga": ("Austria Lustenau",),
+    # Ekstraklasa — verified 2026-08-08 against the POL feed: these three are in
+    # the 2627 fixture list but NOT the 2526 model set (promoted from I liga).
+    "Ekstraklasa": ("Wieczysta Kraków", "Wisła Kraków", "Śląsk Wrocław"),
     "Danish Superliga": ("AC Horsens", "Lyngby"),
     "Belgian Pro League": ("Beveren", "Kortrijk", "Lommel"),
 }

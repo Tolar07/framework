@@ -148,7 +148,8 @@ def build_payload(*, date: str, phase: str, leagues_scanned: list[str],
                   calibration_count: int, mean_clv: Optional[float],
                   recommendation: str = "",
                   yesterday_graded: Optional[list] = None,
-                  rolling_7d: Optional[dict] = None) -> dict:
+                  rolling_7d: Optional[dict] = None,
+                  produced_bet: Optional[dict] = None) -> dict:
     """The full board_<date>.json payload, ready to write to disk.
 
     `recommendation` is the already-rendered ⭐ TODAY'S PICKS parlay text
@@ -162,6 +163,12 @@ def build_payload(*, date: str, phase: str, leagues_scanned: list[str],
 
     `rolling_7d` — rolling 7-day aggregates for the ScoreGPT stats bar (ID414).
     Contains engine hit rates, legs logged, CLV capture, gate progress.
+
+    `produced_bet` — the day's produced-bet record (ID415): one leg per rated
+    fixture with a kickoff today, plus the verified outcome (WON/LOST) once
+    yesterday's record is settled next day. The FULL record (model prob,
+    softness tier, best EV) is admin-visible; trim_payload reduces it to a
+    client-safe form (fixture + pick + price + outcome only).
     """
     payload = {
         "schema_version": SCHEMA_VERSION,
@@ -181,6 +188,8 @@ def build_payload(*, date: str, phase: str, leagues_scanned: list[str],
         payload["yesterday_graded"] = yesterday_graded
     if rolling_7d is not None:
         payload["rolling_7d"] = rolling_7d
+    if produced_bet is not None:
+        payload["produced_bet"] = produced_bet
     return payload
 
 
@@ -218,6 +227,31 @@ CLIENT_TOP_KEYS = frozenset({
     "schema_version", "date", "phase",
     "leagues_scanned", "n_leagues", "board",
 })
+# The produced-bet record is the ONE deliberate narrowing of the 2026-08-07
+# data-leak boundary (ratified ID415): the client dashboard shows what the
+# framework bet (fixture, pick, price) and the verified result (WON/LOST) —
+# the point of the produced-bet feature. Model prob, softness tier, deploy
+# shortlist and EV/CLV verdicts stay admin-only.
+CLIENT_PRODUCED_BET_KEYS = frozenset({
+    "fixture", "league", "pick", "pick_name",
+    "best_market", "best_price", "kickoff_date",
+    "ft_result", "hit", "settled",
+})
+_CLIENT_PRODUCED_RECORD_KEYS = frozenset({
+    "date", "produced", "n_legs", "note",
+})
+
+
+def _client_safe_produced(record: dict) -> dict:
+    """The produced-bet record as the client may see it: fixture + pick +
+    price + verified outcome, no model internals (ID415)."""
+    out = {k: record[k] for k in _CLIENT_PRODUCED_RECORD_KEYS if k in record}
+    legs = []
+    for leg in record.get("legs") or []:
+        lb = {k: leg[k] for k in CLIENT_PRODUCED_BET_KEYS if k in leg}
+        legs.append(lb)
+    out["legs"] = legs
+    return out
 
 
 def trim_payload(payload: dict) -> dict:
@@ -225,7 +259,8 @@ def trim_payload(payload: dict) -> dict:
 
     Never mutates the source payload; builds fresh dicts. A fixture's `probs`
     is reduced to the market-probability fields the grid needs (lambdas and the
-    modal scoreline are Dixon-Coles internals and are dropped)."""
+    modal scoreline are Dixon-Coles internals and are dropped). The produced-bet
+    record (ID415) passes through in a reduced client-safe form."""
     trimmed_board = []
     for bf in payload.get("board", []):
         tb = {k: bf[k] for k in CLIENT_FIXTURE_KEYS if k in bf}
@@ -237,6 +272,8 @@ def trim_payload(payload: dict) -> dict:
         trimmed_board.append(tb)
     out = {k: payload[k] for k in CLIENT_TOP_KEYS if k in payload}
     out["board"] = trimmed_board
+    if payload.get("produced_bet") is not None:
+        out["produced_bet"] = _client_safe_produced(payload["produced_bet"])
     return out
 
 

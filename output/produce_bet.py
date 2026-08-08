@@ -18,6 +18,7 @@ from engine.consensus import Consensus
 from engine.softness import DEPLOY_POOL_CAP
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
+from bets.produced_bet import render_produced_bet as render_produced_bet_block
 
 
 def _lean(p_over: Optional[float], line_label: str) -> str:
@@ -439,11 +440,13 @@ def render_part5_signoff(hard_rules_note: str = "") -> str:
 def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
                         calibration_count: int, mean_clv: Optional[float],
                         data_flags: list[str], board: list[BoardFixture],
-                        stacked: bool = True) -> str:
+                        stacked: bool = True,
+                        produced_bet: Optional[dict] = None) -> str:
     """`stacked=True` renders the HR53-preferred per-fixture blocks for PART 1
     (the decision-first section you actually act on) while PART 2 keeps the
     frozen wide table as the reference board. Set stacked=False for the
-    original all-tables v303.11 layout."""
+    original all-tables v303.11 layout. Optional produced_bet is the day's
+    produced-bet record (ID415) for the saved board block."""
     shortlist = [bf for bf in board if bf.on_deploy_shortlist]
 
     if stacked:
@@ -474,9 +477,10 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
         render_part3_rejected(board),
         "",
         render_part4_data_integrity(board),
-        "",
-        render_part5_signoff(),
     ]
+    if produced_bet is not None:
+        parts += ["", render_produced_bet_block(produced_bet)]
+    parts += ["", render_part5_signoff()]
     return "\n".join(parts)
 
 
@@ -766,13 +770,15 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                            calibration_count: int, mean_clv: Optional[float],
                            data_flags: list[str], board: list[BoardFixture],
                            yesterday_graded: Optional[list] = None,
-                           rolling_7d: Optional[dict] = None) -> str:
+                           rolling_7d: Optional[dict] = None,
+                           produced_bet: Optional[dict] = None) -> str:
     """The Telegram push — ScoreGPT format (ID414). Header, one-line flag count,
     the day's picks (parlay), league-grouped match cards with AI pick + predicted
     scoreline + N-of-N consensus + per-engine chips, then 'Yesterday — graded'
     and the 7-day rolling bar. Detail lives in the saved file board and /board,
     /why; the phone gets the picks. Optional yesterday_graded / rolling_7d come
-    from the brain (ID414); None renders the honest empty block."""
+    from the brain (ID414); produced_bet is the day's produced-bet record
+    (ID415); None renders the honest empty block."""
     clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
     scan_txt, any_away = render_scan_tables(board)
     leagues_with_fixtures = len({_league_of(bf) for bf in board})
@@ -786,6 +792,7 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
         parts.append(f"⚠ {len(data_flags)} data flag(s) — see /board or the "
                      f"saved board for full detail")
     parts.append(render_daily_recommendation(board))
+    parts.append(render_produced_bet_block(produced_bet))
     parts.append(scan_txt)
     if any_away:
         # A predicted away win may appear as a card pick, but is never a Pick —

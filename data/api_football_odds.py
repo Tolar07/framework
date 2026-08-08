@@ -175,7 +175,8 @@ def _write_fixture_ids(league: str, day: date, pairs: dict) -> None:
 # ---------------------------------------------------------------------------
 
 def _fixture_ids_for_day(league: str, day: date,
-                         use_cache: bool = True) -> dict:
+                         use_cache: bool = True,
+                         ensure_quota=None) -> dict:
     """API-Football fixture metadata for ONE league on ONE date.
 
     Returns {fixture_id: {"home": raw_name, "away": raw_name, "date": iso}}.
@@ -183,12 +184,17 @@ def _fixture_ids_for_day(league: str, day: date,
     We resolve the league's ID once (fixtures_source.resolve_league_id) and
     filter the day's feed to that league. No ID or team name is invented —
     HR35. The /odds response carries bookmakers only (no team names), so the
-    teams are captured HERE, from the fixtures feed, and carried alongside."""
+    teams are captured HERE, from the fixtures feed, and carried alongside.
+    `ensure_quota` (a zero-arg callable) is invoked before the network pull,
+    so the daily floor is checked only when a request is actually about to
+    be spent — never for a cache hit."""
     cached = _read_fixture_ids(league, day) if use_cache else None
     if cached is not None:
         return cached.get("fixtures", {})
     if requests is None:
         raise RuntimeError("requests not installed")
+    if ensure_quota is not None:
+        ensure_quota()  # about to spend a request — confirm the floor holds
     league_id = fixtures_source.resolve_league_id(league)
     r = _burst_get(f"{API_BASE}/fixtures", {"date": day.isoformat()})
     r.raise_for_status()
@@ -384,12 +390,25 @@ def fetch_odds(league: str, days_ahead: int = 3,
                            f"(deploy leagues only)")
     if requests is None:
         raise RuntimeError("requests not installed — cannot fetch odds")
-    used, remaining = check_quota()
-    if remaining < DAILY_FLOOR:
-        raise QuotaExhausted(
-            f"API-Football daily quota down to {remaining} (floor {DAILY_FLOOR}). "
-            f"Refusing to spend it on a routine pull — prices are NO DATA — "
-            f"PENDING rather than exhausting the day.")
+
+    # Quota guards NETWORK pulls only. Cached prices cost zero requests, so
+    # they are served even at the floor (mirrors pipeline/odds.py, which reads
+    # its cache before touching quota). A pull that can be served entirely from
+    # cache must not be refused because the day is otherwise spent.
+    _quota_checked: list[bool] = []
+
+    def _ensure_quota() -> None:
+        # The /status probe itself counts against the daily budget, so probe
+        # ONCE, at the first network need — not per fixture.
+        if not _quota_checked:
+            _quota_checked.append(True)
+            used, remaining = check_quota()
+            if remaining < DAILY_FLOOR:
+                raise QuotaExhausted(
+                    f"API-Football daily quota down to {remaining} "
+                    f"(floor {DAILY_FLOOR}). Refusing to spend it on a routine "
+                    f"pull — prices are NO DATA — PENDING rather than exhausting "
+                    f"the day.")
 
     out: list[FixtureOdds] = []
     today = date.today()
@@ -403,7 +422,9 @@ def fetch_odds(league: str, days_ahead: int = 3,
                          f"today±1 — {day.isoformat()} skipped")
             continue
         try:
-            meta = _fixture_ids_for_day(league, day, use_cache=use_cache)
+            # May hit the network for the fixture-ID feed — gate that pull.
+            meta = _fixture_ids_for_day(league, day, use_cache=use_cache,
+                                        ensure_quota=_ensure_quota)
         except _DateWindowError as e:
             flags.append(f"{league}: api-football free plan has no access to "
                          f"{day.isoformat()} (window is today±1) — skipping")
@@ -415,6 +436,7 @@ def fetch_odds(league: str, days_ahead: int = 3,
                 if blob is not None:
                     out.append(_parse_odds_payload(league, blob["payload"], meta))
                     continue
+            _ensure_quota()  # about to spend a request — confirm the floor holds
             if idx > 0:
                 time.sleep(BURST_PACE_SECONDS)  # stay inside the burst window
             r = _burst_get(f"{API_BASE}/odds", {"fixture": fid})

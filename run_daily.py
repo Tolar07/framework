@@ -479,9 +479,9 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         if mkt.MARKETS_1X2.get(market) is not None:
             p1x2 = mkt.implied_1x2(fx)
             return p1x2[mkt.MARKETS_1X2[market]] if p1x2 else None
-        if market in (mkt.OVER_2_5, mkt.UNDER_2_5):
-            price = fx.over25.price if market == mkt.OVER_2_5 else fx.under25.price
-            other = fx.under25.price if market == mkt.OVER_2_5 else fx.over25.price
+        if market in (mkt.OVER_25, mkt.UNDER_25):
+            price = fx.over25.price if market == mkt.OVER_25 else fx.under25.price
+            other = fx.under25.price if market == mkt.OVER_25 else fx.over25.price
             if price and other:
                 s = 1 / price + 1 / other
                 return (1 / price) / s if s > 1.0 else None

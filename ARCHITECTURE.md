@@ -139,13 +139,13 @@ run_daily.bat
 
 | Issue | Severity | Location | Mitigation |
 |-------|----------|----------|------------|
-| **THESPORTSDB_KEY empty** | High | `.env` | Register personal key at thesportsdb.com |
+| **THESPORTSDB_KEY empty** | High | `.env` | Register personal key at thesportsdb.com (steps below) |
 | **Odds quota low (4/500)** | High | `pipeline/odds.py` | Monthly reset; monitor via health monitor |
 | **Telegram delivery failing** | Critical | `logs/daily_*.log` | Check bot token / poller daemon |
 | **Stale fixture caches (18-25h)** | Medium | `data/cache/` | Self-heals on next run (6h TTL rejection) |
 | **Promoted clubs unrated** | Medium | `engine/softness.py` | 5 clubs need top-flight matches to self-rate |
-| **No backtest run against real history** | Critical | `backtest/` | Blocked by missing historical prediction log |
-| **ARCHITECT_SIGNOFF not set** | Medium | `.env` | Required for client publish gate |
+| **No demonstrated edge (backtest negative)** | Critical | `backtest/results/` | Historical CLV backtest RUNS (not blocked); recent results are negative — see section 12 below |
+| **ARCHITECT_SIGNOFF not set** | Medium | `.env` | Required for client publish gate — leave unset until Phase 3 gate is genuinely met |
 
 ---
 
@@ -193,13 +193,53 @@ schtasks /query /tn "OLP XDV Daily Run Dead Man's Switch"
 
 ---
 
-## 12. Next Priority Actions (Architect Order)
+## 12. Historical CLV Backtest — CURRENT RESULTS (verified 2026-08-08)
 
-1. **Run backtest against real historical data** — unblocks "demonstrated edge" question
-2. **Set THESPORTSDB_KEY** — eliminates rate-limiting on fixtures
+**The backtest is NOT blocked.** `backtest/clv_backtest.py` runs the framework's
+own engine walk-forward over completed seasons (needs historical closing odds
+only — Football-Data.co.uk provides them). The "blocked" note previously in this
+doc conflated it with the live Phase 2 calibration loop (which genuinely needs
+30+ real logged legs over time). They are two different instruments.
+
+Recent verified runs (fresh executions, 2026-08-08):
+
+| Run | Fit → Test | Legs | Mean CLV | Beat | t |
+|-----|-----------|------|----------|------|---|
+| model, 6-league | 2324 → 2425 | 2,776 | **−0.425%** | 46.5% | −2.776 |
+| Scottish Premiership only | 2324 → 2425 | 303 | **−0.748%** | 44.5% | −1.479 |
+| Scottish Premiership only | 2425 → 2526 | 253 | **+0.626%** | 52.6% | +1.278 |
+
+**Honest reading**: the framework does NOT yet demonstrate a profitable edge.
+Cross-season results are mixed (2425 negative, 2526 slightly positive); margin
+shrinks toward the close (drift ≈ −0.3pp) so part of any positive reading is
+shrinkage, not skill; the 1X2_A market is consistently negative. The report's own
+conclusion line: *"an excellent informed process but NOT a demonstrated
+profitable edge. A backtest measures; only logged forward CLV proves."*
+
+Re-run command:
+```bash
+PYTHONIOENCODING=utf-8 py -3.12 backtest/clv_backtest.py --test-season 2526 --carry-in 2425 --leagues "Scottish Premiership"
+```
+`--calibrate` / `--blend-market` / `--selector random_placebo` are the honest
+controls available per experiment.
+
+## 13. Next Priority Actions (Architect Order)
+
+1. **Set THESPORTSDB_KEY** — eliminates rate-limiting on fixtures (registration steps in section 14)
+2. **Read the backtest honestly** — it runs and it is currently negative; that IS the answer, not a blocker. Monitor whether 2526-style positive results repeat before any signal work.
 3. **Debug Telegram delivery failure** — check poller daemon + bot token
 4. **Monitor quota reset** — daily run needs odds to log legs
-5. **Set ARCHITECT_SIGNOFF=1** — only AFTER reviewing a board that meets Phase 3 gate
+5. **Set ARCHITECT_SIGNOFF=1** — only AFTER reviewing a board that meets Phase 3 gate; leave unset until then
+
+## 14. TheSportsDB Key Registration (manual, ~5 min)
+
+1. Go to `https://www.thesportsdb.com/api.php`
+2. Register for a free API key
+3. Open `.env`, find `THESPORTSDB_KEY=` (currently empty), paste your key after the `=`
+4. Save the file — the next daily run (or manual `run_daily.py`) picks it up via `config.load_dotenv()`
+
+Without a personal key the framework falls back to the shared public test key
+`"123"`, which is rate-limited and truncates the league list.
 
 ---
 

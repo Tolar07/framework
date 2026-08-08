@@ -141,4 +141,67 @@ assert "elo_probs" in full["board"][0] and "verification" in full["board"][0]
 assert "data_flags" in full and full["board"][0]["probs"]["lambda_home"] == 1.8
 print("6. trim_payload keeps predictions, drops internals, never mutates: OK")
 
+# --- 7. check_client_publish_gate: hard blocks until Phase 3 gate met ----------
+import os
+os.environ["ARCHITECT_SIGNOFF"] = "0"  # ensure sign-off is off
+
+# 7a: insufficient legs with CLV
+payload_few = schema.build_payload(
+    date="2026-08-11", phase="PHASE 2 — PAPER", leagues_scanned=["Test"],
+    board=[_rated()], data_flags=[], gate={"legs_with_clv": 5, "gate_requirement": 30, "mean_clv_pct": 2.5},
+    telemetry={}, calibration_count=0, mean_clv=2.5)
+try:
+    schema.check_client_publish_gate(payload_few)
+    raise SystemExit("should raise with 5 legs")
+except schema.ClientPublishGateError as e:
+    assert "5/30" in str(e)
+print("7a. gate blocks with <30 legs: OK")
+
+# 7b: enough legs but negative mean CLV
+payload_neg = schema.build_payload(
+    date="2026-08-11", phase="PHASE 2 — PAPER", leagues_scanned=["Test"],
+    board=[_rated()], data_flags=[], gate={"legs_with_clv": 35, "gate_requirement": 30, "mean_clv_pct": -1.2},
+    telemetry={}, calibration_count=0, mean_clv=-1.2)
+try:
+    schema.check_client_publish_gate(payload_neg)
+    raise SystemExit("should raise with negative mean CLV")
+except schema.ClientPublishGateError as e:
+    assert "negative" in str(e).lower() or "positive" in str(e).lower()
+print("7b. gate blocks with negative mean CLV: OK")
+
+# 7c: gate met but no Architect sign-off
+payload_gate_met = schema.build_payload(
+    date="2026-08-11", phase="PHASE 2 — PAPER", leagues_scanned=["Test"],
+    board=[_rated()], data_flags=[], gate={"legs_with_clv": 35, "gate_requirement": 30, "mean_clv_pct": 1.5},
+    telemetry={}, calibration_count=0, mean_clv=1.5)
+try:
+    schema.check_client_publish_gate(payload_gate_met, require_architect_signoff=True)
+    raise SystemExit("should raise without sign-off")
+except schema.ClientPublishGateError as e:
+    assert "sign-off" in str(e).lower() or "architect" in str(e).lower()
+print("7c. gate blocks without Architect sign-off: OK")
+
+# 7d: all requirements met -> passes
+os.environ["ARCHITECT_SIGNOFF"] = "1"
+schema.check_client_publish_gate(payload_gate_met, require_architect_signoff=True)
+print("7d. gate passes when all requirements met: OK")
+
+# Clean up
+os.environ.pop("ARCHITECT_SIGNOFF", None)
+
+# --- 8. write_published enforces the gate ---------------------------------------
+from pathlib import Path
+import tempfile
+with tempfile.TemporaryDirectory() as td:
+    pub_dir = Path(td) / "published"
+    with patch.object(schema, "PUBLISHED_DIR", pub_dir):
+        schema.AUDIT_LOG = pub_dir / "publish_audit.jsonl"
+        # Gate not met -> write_published raises
+        try:
+            schema.write_published(payload_few, approved_by="test")
+            raise SystemExit("write_published should raise when gate not met")
+        except schema.ClientPublishGateError:
+            pass
+        print("8. write_published enforces gate: OK")
+
 print("\n✅ ALL WEBAPP SCHEMA TESTS PASSED")

@@ -12,6 +12,7 @@ converted here, so a consumer never touches engine objects.
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
@@ -239,6 +240,51 @@ def trim_payload(payload: dict) -> dict:
     return out
 
 
+class ClientPublishGateError(RuntimeError):
+    """Raised when attempting to publish to client before Phase 3 gate is met."""
+
+
+def check_client_publish_gate(admin_payload: dict, require_architect_signoff: bool = True) -> None:
+    """
+    Hard gate: publishing to the client-facing dashboard is blocked until
+    the Phase 3 CLV gate is met (≥30 legs with logged CLV + positive mean CLV
+    + Architect sign-off). This mirrors config.assert_paper_only() — a code-level
+    hard fail, not a UI-only restriction.
+
+    Args:
+        admin_payload: The full board payload (must include 'gate' dict with
+                       legs_with_clv, mean_clv_pct, gate_requirement)
+        require_architect_signoff: If True, also requires ARCHITECT_SIGNOFF=1 in env
+
+    Raises:
+        ClientPublishGateError: If gate requirements are not met
+    """
+    gate = admin_payload.get("gate", {})
+    legs_with_clv = gate.get("legs_with_clv", 0)
+    mean_clv = gate.get("mean_clv_pct")
+    gate_req = gate.get("gate_requirement", 30)
+
+    if legs_with_clv < gate_req:
+        raise ClientPublishGateError(
+            f"Client publish blocked: {legs_with_clv}/{gate_req} legs with CLV "
+            f"(need ≥{gate_req} for Phase 3 gate)."
+        )
+    if mean_clv is None or mean_clv <= 0:
+        raise ClientPublishGateError(
+            f"Client publish blocked: mean CLV is {mean_clv!r} "
+            f"(must be positive for Phase 3 gate)."
+        )
+
+    # Architect sign-off — explicit env flag (defaults to required)
+    if require_architect_signoff:
+        signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower()
+        if signoff not in ("1", "true", "yes"):
+            raise ClientPublishGateError(
+                "Client publish blocked: Architect sign-off required. "
+                "Set ARCHITECT_SIGNOFF=1 in .env after reviewing the board."
+            )
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Published store — the APPROVE gate boundary
 # ─────────────────────────────────────────────────────────────────────────────
@@ -275,7 +321,14 @@ def write_published(admin_payload: dict, approved_by: str = "admin") -> Path:
     """Write an admin-reviewed board to the published store + append audit log.
 
     `admin_payload` is the FULL board payload as seen in admin (with all model
-    internals). We store the TRIMMED version and log the action."""
+    internals). We store the TRIMMED version and log the action.
+
+    HARD GATE: This call will raise ClientPublishGateError if the Phase 3
+    CLV gate is not met (≥30 legs with CLV + positive mean CLV + Architect sign-off).
+    """
+    # Hard gate — mirrors config.assert_paper_only() for capital
+    check_client_publish_gate(admin_payload)
+
     date_str = admin_payload.get("date", "")
     if not date_str:
         raise ValueError("payload must include 'date'")

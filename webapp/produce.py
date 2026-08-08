@@ -18,8 +18,12 @@ from typing import Optional
 
 
 def search_fixtures(league: Optional[str] = None, query: str = "",
-                    days: int = 7) -> dict:
+                    days: int = 7, date: str = "") -> dict:
     """Search available fixtures across whitelisted leagues.
+
+    `date` (ISO YYYY-MM-DD) narrows the result to fixtures kicking off on
+    exactly that day (read from the sources' dates map). Empty date keeps the
+    whole `days` window — the "produce for a chosen day" flow passes a date.
 
     Returns {"ok": True, "leagues": [...], "flags": [...]} or
     {"ok": False, "error": "..."}."""
@@ -52,6 +56,13 @@ def search_fixtures(league: Optional[str] = None, query: str = "",
                 q = query.lower()
                 pairs = [(h, a) for h, a in pairs
                          if q in h.lower() or q in a.lower() or q in lg.lower()]
+            # Narrow to a chosen day when the caller asked for one — the
+            # "produce the bet for that day" flow. A fixture whose date we
+            # don't know is kept only for the whole-window view (HR35: we
+            # never guess a date to keep it).
+            if date:
+                pairs = [(h, a) for h, a in pairs
+                         if dates.get((h, a)) == date]
             fixtures = []
             for h, a in pairs:
                 date_str = dates.get((h, a), "")

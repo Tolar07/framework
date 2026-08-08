@@ -260,8 +260,9 @@ class Handler(BaseHTTPRequestHandler):
                     league = (qs.get("league") or [""])[0]
                     q = (qs.get("q") or [""])[0]
                     days = int((qs.get("days") or ["7"])[0])
+                    fx_date = (qs.get("date") or [""])[0]
                     result = search_fixtures(
-                        league=league or None, query=q, days=days)
+                        league=league or None, query=q, days=days, date=fx_date)
                     self._json(result)
                 except Exception as e:
                     self._json({"ok": False, "error": str(e)})

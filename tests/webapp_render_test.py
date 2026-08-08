@@ -145,4 +145,4 @@ for html_text, label in ((h, "client"), (a, "admin")):
         assert opens == closes, f"unbalanced <{tag}> in {label} ({opens} vs {closes})"
 print("8. HTML tags balanced in both views: OK")
 
-print("\n✅ ALL WEBAPP RENDER TESTS PASSED")
+print("\n[OK] ALL WEBAPP RENDER TESTS PASSED")

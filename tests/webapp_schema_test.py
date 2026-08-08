@@ -204,4 +204,4 @@ with tempfile.TemporaryDirectory() as td:
             pass
         print("8. write_published enforces gate: OK")
 
-print("\n✅ ALL WEBAPP SCHEMA TESTS PASSED")
+print("\n[OK] ALL WEBAPP SCHEMA TESTS PASSED")

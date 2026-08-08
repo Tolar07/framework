@@ -386,6 +386,18 @@ footer{
   margin:0 auto;padding:0 20px 88px 20px;
 }
 .chat-tab.hidden{display:none;}
+/* Floating opener for the AI Analyst — the only path into the chat panel */
+.chat-fab{
+  position:fixed;right:20px;bottom:100px;z-index:190;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 16px;border-radius:999px;border:1px solid var(--amber-dim);
+  background:var(--surface);color:var(--ink);font-size:13px;font-weight:600;
+  cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.35);
+  transition:border-color 0.15s,color 0.15s,transform 0.05s;
+}
+.chat-fab:hover{border-color:var(--amber);color:var(--amber);}
+.chat-fab:active{transform:scale(0.98);}
+.chat-fab .fab-ico{font-size:15px;line-height:1;}
 .chat-header{
   display:flex;align-items:center;justify-content:space-between;
   padding:12px 16px;background:var(--surface);border:1px solid var(--line);
@@ -474,6 +486,16 @@ footer{
 }
 .produce-flags{padding:8px 16px;}
 .produce-cards{padding:12px 16px;}
+
+/* Produce day picker — "produce the bet for that day" chips + date input */
+.produce-day-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.produce-day-chip{
+  font-size:11.5px;padding:6px 12px;border:1px solid var(--line);
+  border-radius:999px;background:var(--surface-2);color:var(--ink-dim);
+  cursor:pointer;transition:border-color 0.15s,color 0.15s;
+}
+.produce-day-chip:hover{border-color:var(--amber-dim);color:var(--amber);}
+.produce-day-chip.active{border-color:var(--amber);color:var(--amber);background:rgba(216,166,89,0.1);}
 
 /* League card — ScoreAI card layout (badge + name + season + matchday + country) */
 tbody.league-group{width:100%;}
@@ -682,6 +704,51 @@ _ADMIN_SEARCH_JS = """<script>
   });
 </script>"""
 
+_CLIENT_SEARCH_JS = """<script>
+  // Client Search tab — live filter over the scan table in #search-section.
+  // Works on the trimmed payload only (team/league text already on the page),
+  // so the data-leak boundary (no model internals) is untouched.
+  document.addEventListener('DOMContentLoaded', function() {
+    var input = document.getElementById('client-search');
+    if (!input) return;
+    var leagueSel = document.getElementById('client-filter-league');
+    var groups = document.querySelectorAll('#search-section table.scan-table tbody.league-group');
+    var summary = document.getElementById('client-search-summary');
+    function filter() {
+      var q = (input.value || '').toLowerCase();
+      var league = leagueSel.value || '';
+      var shown = 0;
+      groups.forEach(function(tb) {
+        var any = false;
+        var lastOk = true;
+        tb.querySelectorAll('tr').forEach(function(tr) {
+          if (tr.classList.contains('league-row')) {
+            var txt = tr.textContent.toLowerCase();
+            var ok = true;
+            if (q && !txt.includes(q)) ok = false;
+            if (league && tr.dataset.league !== league) ok = false;
+            tr.style.display = ok ? '' : 'none';
+            if (ok) any = true;
+            lastOk = ok;
+          } else if (tr.classList.contains('detail-row')) {
+            // A detail row always immediately follows its fixture row
+            tr.style.display = lastOk ? '' : 'none';
+          }
+        });
+        tb.style.display = any ? '' : 'none';
+        if (any) shown++;
+      });
+      if (summary) {
+        summary.innerHTML = shown
+          ? '<div class="flag-line">' + shown + ' league' + (shown === 1 ? '' : 's') + ' match your search.</div>'
+          : '<div class="flag-line">No fixtures match — try another team or league.</div>';
+      }
+    }
+    input.addEventListener('input', filter);
+    if (leagueSel) leagueSel.addEventListener('change', filter);
+  });
+</script>"""
+
 _TAB_JS = """<script>
   function switchTab(tabId) {
     // Only toggle Call/Scan/Search — flags + verified stay visible always
@@ -716,10 +783,14 @@ _TAB_JS = """<script>
 _CHAT_JS = """<script>
   function openChatTab() {
     document.getElementById('chat-tab').classList.remove('hidden');
+    var fab = document.getElementById('chat-fab');
+    if (fab) fab.style.display = 'none';
     document.getElementById('chat-input').focus();
   }
   function closeChatTab() {
     document.getElementById('chat-tab').classList.add('hidden');
+    var fab = document.getElementById('chat-fab');
+    if (fab) fab.style.display = '';
   }
   function getBoardDate() {
     var tab = document.getElementById('chat-tab');
@@ -1737,6 +1808,15 @@ def _market_select_panel(payload: dict) -> str:
   </div>
 </div>"""
 
+def _chat_fab() -> str:
+    """Floating 'AI Analyst' opener — the only path into the chat panel
+    (openChatTab() is defined in _CHAT_JS; without this button the panel is
+    unreachable)."""
+    return ('<button class="chat-fab" id="chat-fab" onclick="openChatTab()" '
+            'aria-label="Open AI Analyst chat"><span class="fab-ico">✦</span> '
+            'AI Analyst</button>')
+
+
 def _chat_tab(payload_date: str = "") -> str:
     """AI Analyst chat tab — reusable component."""
     return f"""<div class="chat-tab hidden" id="chat-tab" role="dialog" aria-label="AI Analyst" data-date="{html.escape(payload_date)}">
@@ -1760,20 +1840,30 @@ def _chat_tab(payload_date: str = "") -> str:
 def _produce_panel() -> str:
     """Admin-only: BET Production panel — visible at the top of /admin.
 
-    Search fixtures across all leagues, select matches, and produce
-    predictions in real time. Defaults to today's fixtures."""
+    Pick a league + a day, search that day's fixtures across the approved
+    leagues, select matches, and produce predictions in real time. Defaults
+    to today (the board's rolling window is today..+3)."""
     from engine.softness import SOFTNESS_TIER
     league_opts = "".join(
         f'<option value="{html.escape(lg)}">{html.escape(lg)}</option>'
         for lg in sorted(SOFTNESS_TIER.keys()))
+    today = _date.today()
+    day_isos = [(today + _timedelta(days=i)).isoformat() for i in range(4)]
+    day_labels = ["Today", "Tomorrow", "+2 days", "+3 days"]
+    chips = "".join(
+        f'<button type="button" class="produce-day-chip" data-date="{di}" '
+        f'onclick="produceSetDay(\'{di}\')">{lb}</button>'
+        for di, lb in zip(day_isos, day_labels))
     return f"""<div class="produce-panel" id="produce-panel">
   <div class="produce-toolbar">
     <select id="produce-league" aria-label="Select league">
       <option value="">All leagues</option>{league_opts}
     </select>
     <input type="search" id="produce-query" placeholder="Search team name…" aria-label="Search fixtures">
-    <button id="produce-search-btn" class="btn-primary" onclick="produceSearch()">Search today</button>
+    <input type="date" id="produce-date" value="{today.isoformat()}" aria-label="Produce for day" title="Pick the day to produce">
+    <button id="produce-search-btn" class="btn-primary" onclick="produceSearch()">Search fixtures</button>
   </div>
+  <div class="produce-day-chips">{chips}</div>
   <div id="produce-results" class="produce-results"></div>
   <div class="produce-tray" id="produce-tray" style="display:none;">
     <span id="produce-count">0 selected</span>
@@ -1787,12 +1877,22 @@ def _produce_panel() -> str:
 _PRODUCE_JS = """<script>
   var _produceSelected = new Set();
 
+  function produceSetDay(date) {
+    document.getElementById('produce-date').value = date;
+    document.querySelectorAll('.produce-day-chip').forEach(function(ch) {
+      ch.classList.toggle('active', ch.getAttribute('data-date') === date);
+    });
+    produceSearch();
+  }
+
   function produceSearch() {
     var league = document.getElementById('produce-league').value;
     var q = document.getElementById('produce-query').value;
+    var date = document.getElementById('produce-date').value || '';
     var results = document.getElementById('produce-results');
-    results.innerHTML = '<div style="padding:12px;color:var(--ink-faint);">Searching today\'s fixtures…</div>';
-    var params = 'days=1';
+    results.innerHTML = '<div style="padding:12px;color:var(--ink-faint);">Searching fixtures for ' + escapeHtml(date || 'window') + '…</div>';
+    var params = 'days=4';
+    if (date) params += '&date=' + encodeURIComponent(date);
     if (league) params += '&league=' + encodeURIComponent(league);
     if (q) params += '&q=' + encodeURIComponent(q);
     fetch('/api/admin/fixtures?' + params)
@@ -1909,6 +2009,22 @@ _PRODUCE_JS = """<script>
       output.innerHTML = '<div style="padding:16px;color:var(--coral);">Network error: ' + e + '</div>';
     });
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var dateInput = document.getElementById('produce-date');
+    if (!dateInput) return;
+    // Mark the day chip that matches the default (today)
+    document.querySelectorAll('.produce-day-chip').forEach(function(ch) {
+      ch.classList.toggle('active', ch.getAttribute('data-date') === dateInput.value);
+    });
+    // A manual date-picker change triggers the same search
+    dateInput.addEventListener('change', function() {
+      document.querySelectorAll('.produce-day-chip').forEach(function(ch) {
+        ch.classList.toggle('active', ch.getAttribute('data-date') === dateInput.value);
+      });
+      produceSearch();
+    });
+  });
 </script>"""
 
 
@@ -1917,6 +2033,12 @@ def render_dashboard(payload: dict) -> str:
     d = payload.get("date", "")
     today = _date.today().isoformat()
     board = payload.get("board", [])
+    # League dropdown for the client Search tab — only leagues on this board
+    # (client-safe: names alone, no model internals).
+    _board_leagues = sorted({_league_of(bf.get("fixture", "")) for bf in board if bf.get("fixture")})
+    league_opts = "".join(
+        f'<option value="{html.escape(lg)}">{html.escape(lg)}</option>'
+        for lg in _board_leagues)
     # Find the strongest pick for the hero
     hero_pick = None
     for bf in board:
@@ -1969,13 +2091,20 @@ def render_dashboard(payload: dict) -> str:
         + _scan_table(payload.get("board", []), admin=False, payload_date=payload.get("date", ""))
         + "</section>"
         + '<section id="search-section" style="display:none;"><div class="sec-head"><h2 class="display">Search</h2></div>'
-        + '<div class="flags"><div class="flag-line">Search functionality coming soon — use the admin view for full filtering.</div></div>'
+        + '<div class="admin-search-bar">'
+        + '<input type="search" id="client-search" placeholder="Search team, league, fixture…" aria-label="Search fixtures">'
+        + f'<select id="client-filter-league" aria-label="Filter by league"><option value="">All leagues</option>{league_opts}</select>'
+        + "</div>"
+        + '<div id="client-search-summary" class="flags"></div>'
+        + _scan_table(board, admin=False, payload_date=payload.get("date", ""))
         + "</section>"
         + "</main>"
         + _chat_tab()
+        + _chat_fab()
         + _tab_bar("call", "/dashboard")
     )
-    return html_shell("OLP XDV — Today's Board", body, script=_SCAN_JS + _TAB_JS + _CHAT_JS)
+    return html_shell("OLP XDV — Today's Board", body,
+                      script=_SCAN_JS + _TAB_JS + _CHAT_JS + _CLIENT_SEARCH_JS)
 
 
 def render_admin_dashboard(payload: dict) -> str:
@@ -2026,6 +2155,7 @@ def render_admin_dashboard(payload: dict) -> str:
         + "</section>"
         + "</main>"
         + _chat_tab()
+        + _chat_fab()
         + _tab_bar("call", "/admin", d)
         + _admin_footer(payload)
     )

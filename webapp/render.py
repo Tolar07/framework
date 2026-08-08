@@ -75,6 +75,15 @@ header.top{
   transform:rotate(45deg);flex:none;
 }
 .brand h1{font-size:22px;font-weight:700;margin:0;letter-spacing:0.04em;}
+.brand-link{display:flex;align-items:baseline;gap:10px;color:inherit;text-decoration:none;}
+.brand-link:hover h1{opacity:.85;transition:opacity .15s;}
+.brand-link .mark{transition:transform .15s;}
+.brand-link:hover .mark{transform:rotate(90deg);}
+.crumbs{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:11.5px;color:var(--ink-faint);}
+.crumb-link a{color:var(--amber);text-decoration:none;}
+.crumb-link a:hover{text-decoration:underline;}
+.crumb-sep{color:var(--ink-faint);opacity:.5;}
+.crumb-current{color:var(--ink);font-weight:500;}
 .brand .phase{
   font-size:11px;color:var(--amber);border:1px solid var(--amber-dim);
   padding:2px 8px;border-radius:20px;margin-left:auto;font-family:'IBM Plex Mono',monospace;
@@ -609,26 +618,32 @@ _ADMIN_SEARCH_JS = """<script>
 
 _TAB_JS = """<script>
   function switchTab(tabId) {
-    // Hide all sections
-    document.querySelectorAll('main > section').forEach(function(sec) {
-      sec.style.display = 'none';
+    // Only toggle Call/Scan/Search — flags + verified stay visible always
+    var tabSections = ['call-section', 'scan-section', 'search-section'];
+    tabSections.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = (id === tabId + '-section') ? 'block' : 'none';
     });
-    // Show selected section
-    var sec = document.getElementById(tabId + '-section');
-    if (sec) sec.style.display = 'block';
     // Update tab buttons
     document.querySelectorAll('.tab-btn').forEach(function(btn) {
       btn.classList.toggle('active', btn.dataset.tab === tabId);
     });
-    // Scroll to top
     window.scrollTo(0, 0);
   }
-  // Handle hash navigation
+  function navTab(tabId, e) {
+    if (e) e.preventDefault();
+    switchTab(tabId);
+    return false;
+  }
   document.addEventListener('DOMContentLoaded', function() {
     var hash = window.location.hash.slice(1);
     if (hash && ['call', 'scan', 'search'].includes(hash)) {
       switchTab(hash);
     }
+  });
+  window.addEventListener('hashchange', function() {
+    var h = location.hash.slice(1);
+    if (['call','scan','search'].includes(h)) switchTab(h);
   });
 </script>"""
 
@@ -1093,7 +1108,7 @@ def _call_card(bf: dict, admin: bool = False) -> str:
     p = bf.get("probs")
     pick_label, pick_prob = _pick(bf)
     trigger = _fmt_price(bf.get("mes_trigger_price"))
-    kickoff = bf.get("kickoff_utc", "")
+    kickoff = bf.get("kickoff_date", "")
     kickoff_display = ""
     if kickoff:
         try:
@@ -1363,12 +1378,17 @@ def _board_header(payload: dict, admin: bool = False) -> str:
     else:
         brand_right = ""
         meta = f'<span>{date_txt}</span><span><b>07:00</b></span>'
+    base = "/admin" if admin else "/dashboard"
+    crumbs = _crumbs(base, d, admin)
     return f"""<header class="top">
   <div class="brand">
-    <span class="mark"></span>
-    <h1>OLP&nbsp;XDV</h1>
+    <a class="brand-link" href="{base}/{d}">
+      <span class="mark"></span>
+      <h1>OLP&nbsp;XDV</h1>
+    </a>
     {brand_right}
   </div>
+  {crumbs}
   <div class="meta-row">
     {meta}
   </div>
@@ -1383,7 +1403,7 @@ def _flags_block(data_flags: list[str]) -> str:
         rows = "".join(
             f'<div class="flag-line"><span class="mk">⚠</span> {html.escape(f)}</div>'
             for f in data_flags)
-    return (f'<section><div class="sec-head"><h2 class="display">Data Flags</h2></div>'
+    return (f'<section id="flags-section"><div class="sec-head"><h2 class="display">Data Flags</h2></div>'
             f'<div class="flags">{rows}</div></section>')
 
 
@@ -1518,9 +1538,9 @@ def _tab_bar(active: str, base: str, payload_date: str = "") -> str:
     """Bottom tab bar navigation — 3 tabs: Call, Scan, Search."""
     d = payload_date or _date.today().isoformat()
     tabs = [
-        ("call", "Call", "📋", f"{base}/dashboard/{d}#call"),
-        ("scan", "Scan", "📊", f"{base}/dashboard/{d}#scan"),
-        ("search", "Search", "🔍", f"{base}/dashboard/{d}#search"),
+        ("call", "Call", "📋", f"{base}/{d}#call"),
+        ("scan", "Scan", "📊", f"{base}/{d}#scan"),
+        ("search", "Search", "🔍", f"{base}/{d}#search"),
     ]
     # We'll use onclick navigation instead of href for SPA-like behavior
     tab_html = ""
@@ -1563,7 +1583,7 @@ def _date_pills(payload_date: str, base: str) -> str:
             label = "Tomorrow"
 
         active_class = " today" if is_active else ""
-        pills.append(f'<a class="date-pill{active_class}" href="{base}/dashboard/{pill_str}" data-date="{pill_str}">{label}</a>')
+        pills.append(f'<a class="date-pill{active_class}" href="{base}/{pill_str}" data-date="{pill_str}">{label}</a>')
 
     return f'<div class="date-pills" role="navigation" aria-label="Date filter">{"".join(pills)}</div>'
 
@@ -1724,7 +1744,7 @@ def render_admin_dashboard(payload: dict) -> str:
         + _scan_table(payload.get("board", []), admin=True, payload_date=payload.get("date", ""))
         + "</section>"
         + '<section id="search-section" style="display:none;"><div class="sec-head"><h2 class="display">Search</h2></div>'
-        + _admin_search_bar(payload)
+        + '<p class="sec-sub">Search fixtures across all leagues, select and produce predictions</p>'
         + "</section>"
         + _flags_block(payload.get("data_flags", []))
         + '<section id="verified-section"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
@@ -1743,9 +1763,31 @@ def render_admin_dashboard(payload: dict) -> str:
 # Admin pages (stats / why / history / 404)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _min_header(today: str) -> str:
-    return (f'<header class="top"><div class="brand"><span class="mark"></span>'
-            f'<h1>OLP&nbsp;XDV</h1></div>'
+def _crumbs(base: str, d: str, admin: bool, page: str = "") -> str:
+    """Breadcrumb bar: OLP XDV > {view} > {date} [> {page}] + admin toggle.
+
+    `base` is '/admin' or '/dashboard', `d` is the ISO date, `admin` is True
+    when the request is for /admin, `page` is an optional sub-page label."""
+    view_name = "Admin" if admin else "Client"
+    other_base = "/dashboard" if admin else "/admin"
+    other_name = "Client View" if admin else "Admin View"
+    today = _date.today().isoformat()
+    crumbs = (
+        f'<div class="crumbs">'
+        f'<span class="crumb-link"><a href="{other_base}/{d}">{other_name}</a></span>'
+        f'<span class="crumb-sep">›</span>'
+        f'<span class="crumb-current">{view_name}</span>'
+        + (f'<span class="crumb-sep">›</span><span class="crumb-current">{html.escape(page)}</span>' if page else "")
+        + '</div>')
+    return crumbs
+
+
+def _min_header(today: str, crumbs: str = "") -> str:
+    return (f'<header class="top"><div class="brand">'
+            f'<a class="brand-link" href="/dashboard/{today}">'
+            f'<span class="mark"></span>'
+            f'<h1>OLP&nbsp;XDV</h1></a></div>'
+            f'{crumbs}'
             f'<div class="meta-row"><span>{_friendly_date(today)} · <b>07:00</b></span></div></header>')
 
 

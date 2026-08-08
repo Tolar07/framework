@@ -223,9 +223,28 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
                 if b.on_deploy_shortlist and id(b) not in capped:
                     b.on_deploy_shortlist = False
 
-            # Render results
+            # Render results — grouped into the same trust tiers as THE CALL,
+            # with the Architect's requested summary at the end of production.
             bd = [S.fixture_to_dict(b) for b in board]
-            cards_html = "".join(R._call_card(x, admin=True) for x in bd)
+            cards_html = R._tier_grouped_call(bd)
+            summary_html = (
+                '<div class="produce-summary">'
+                '<h3>Summary — how to read this production</h3>'
+                '<ul>'
+                '<li><b>Tier A &amp; B</b> — deploy-eligible leagues. '
+                'The only leagues that can ever carry capital.</li>'
+                '<li><b>Tier C &amp; D</b> — scan-only: fully predicted, '
+                'never a capital pick.</li>'
+                '<li><b>DEPLOY</b> — this fixture made today\'s deploy pool '
+                '(softness A/B, cap 6).</li>'
+                '<li><b>Paper only</b> — Phase 2, zero capital. Nothing here '
+                'is placed; capital opens only at Phase 3 (30 paper legs with '
+                'logged CLV, positive CLV, V7 sign-off) and only the '
+                'Architect deploys.</li>'
+                '</ul>'
+                '<div class="honest-line">Honest edge line: a rigorous '
+                'informed process, NOT a demonstrated profitable edge.</div>'
+                '</div>')
             rendered_text = "\n\n".join(
                 render_fixture_block(b, i) for i, b in enumerate(board, 1))
 
@@ -233,6 +252,7 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
                 "ok": True,
                 "board": bd,
                 "cards_html": cards_html,
+                "summary_html": summary_html,
                 "rendered_text": rendered_text,
                 "flags": all_flags,
                 "elapsed_s": round(time.time() - t0, 1),

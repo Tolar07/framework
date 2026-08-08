@@ -184,6 +184,42 @@ class APIFootballResultsSource(DataSource):
         return {"results": results, "flags": flags, "source": "api_football_results"}
 
 
+class TheSportsDBResultsSource(DataSource):
+    """TheSportsDB historical results — last-resort history for leagues neither
+    football-data nor API-Football can serve (HNL, Champions League, Europa
+    League). Real current-season scores from the same feed that supplies the
+    fixtures, so a rated fixture and its fit always agree on club names.
+
+    Trust: this is SINGLE-SOURCE T2 reference data (ID404), never an
+    F2-quorum VERIFIED second source — a model fitted here is usable for the
+    board's reference scan, not calibration-grade."""
+
+    def __init__(self):
+        super().__init__("thesportsdb_results", priority=20, timeout=25.0)
+
+    def fetch(self, **kwargs) -> list:
+        league = kwargs["league"]
+        season = str(kwargs.get("season") or "")
+        # The framework's season code is a two-year span ('2526' = 2025/26).
+        # A bare year like '2025' would pass a length check but query the WRONG
+        # TheSportsDB season (football-data and API-Football conventions differ),
+        # so it is a contract error here, not something to guess — the caller
+        # passes the framework code ('2526') explicitly.
+        if len(season) != 4 or not season.isdigit():
+            raise SourceNoData(
+                f"thesportsdb_results: season {season!r} is not a '2526' code")
+        if int(season[2:4]) != (int(season[:2]) + 1) % 100:
+            raise SourceNoData(
+                f"thesportsdb_results: season {season!r} is not a two-year span "
+                f"code like '2526'")
+        from data import thesportsdb_fixtures as tsdb
+        results, skipped = tsdb.load_results(league, season)
+        if not results:
+            raise SourceNoData(f"thesportsdb_results: no results for {league} {season}")
+        return {"results": results, "skipped": skipped,
+                "source": "thesportsdb_results"}
+
+
 def build_results_multi_source() -> MultiSource:
     """Build the historical results multi-source."""
     return build_multi_source(
@@ -191,6 +227,7 @@ def build_results_multi_source() -> MultiSource:
         [
             (FootballDataResultsSource().fetch, "football_data", 10),
             (APIFootballResultsSource().fetch, "api_football_results", 15),
+            (TheSportsDBResultsSource().fetch, "thesportsdb_results", 20),
         ],
         max_retries_per_source=1,
     )

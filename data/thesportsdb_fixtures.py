@@ -197,10 +197,37 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Nacional de Madeira": "Nacional",
     },
     "Europa League": {
-        "Jagiellonia Bialystok": "Jagiellonia",
-        "Lech Poznan": "Lech Poznan",
+        # Keys are the ACTUAL TheSportsDB feed spellings (diacritics included),
+        # targets are the cross-model pool keys (engine/cross_league.py). Verified
+        # 2026-08-08 by folding the feed names against the 267-team pooled graph.
+        "Jagiellonia Białystok": "Jagiellonia",
+        "Lech Poznań": "Lech Poznan",
+        "Górnik Zabrze": "Gornik Zabrze",
+        "Ferencváros": "Ferencvarosi TC",
+        "Heart of Midlothian": "Hearts",
+        "Víkingur Reykjavík": "Vikingur Reykjavik",
         "Rangers": "Rangers",
         "Omonia Nicosia": "Omonia Nicosia",
+    },
+    "Champions League": {
+        # Same verification as Europa League above: feed spelling -> cross-model
+        # pool key, every pair the same club (never a fuzzy near-miss).
+        "Bodø/Glimt": "Bodo/Glimt",
+        "Crvena Zvezda": "FK Crvena Zvezda",
+        "NEC Nijmegen": "Nijmegen",
+        "Sparta Prague": "Sparta Praha",
+        "Olympiacos": "Olympiakos Piraeus",
+        "Union Saint-Gilloise": "St. Gilloise",
+        "LASK": "Lask Linz",
+        "AGF Aarhus": "Aarhus",
+    },
+    # HNL — verified 2026-08-08 by diffing the 2627 fixture feed against the
+    # 2526 results feed: TheSportsDB spells the same clubs differently in the
+    # two feeds (fixtures drop the 'NK ' prefix).
+    "HNL": {
+        "Istra 1961": "NK Istra 1961",
+        "Lokomotiva Zagreb": "NK Lokomotiva",
+        "Varaždin": "NK Varaždin",
     },
 }
 
@@ -236,6 +263,27 @@ KNOWN_NEW_TO_DIVISION_2627 = {
     "Ekstraklasa": ("Wieczysta Kraków", "Wisła Kraków", "Śląsk Wrocław"),
     "Danish Superliga": ("AC Horsens", "Lyngby"),
     "Belgian Pro League": ("Beveren", "Kortrijk", "Lommel"),
+    # HNL — verified 2026-08-08: Rudeš is in the 2627 fixture list but absent
+    # from the 2526 results set (promoted in), so there is no per-competition
+    # history to fit it from.
+    "HNL": ("Rudeš",),
+    # Continental comps — verified 2026-08-08 against the cross-model pooled
+    # graph (engine/cross_league.py): each club below is in the 2627 fixtures
+    # but absent from the 267-team pool. All come from leagues OUTSIDE
+    # ANCHOR_LEAGUES (Armenia, Azerbaijan, Israel, Kazakhstan, Lithuania,
+    # Bulgaria, Sweden, Czechia, Finland, Faroe Islands, Gibraltar,
+    # Switzerland, Romania) and did not reach last season's league phase, so
+    # the pool has no matches involving them. A rating would be a guess; they
+    # correctly show NO DATA — PENDING on the board.
+    "Champions League": ("Ararat-Armenia", "Hapoel Be'er Sheva", "Kairat Almaty",
+                         "Kauno Žalgiris", "Levski Sofia", "Mjällby", "Sabah Baku"),
+    "Europa League": ("Hradec Králové", "KuPS", "KÍ Klaksvík", "Lincoln Red Imps",
+                      "Thun", "Universitatea Craiova",
+                      # Bulgarian, Albanian and Georgian qualifiers — each fuzzy-
+                      # matched a WRONG pool club (Casa Pia, Legia, Hibernian),
+                      # which is exactly why they were never aliased: the same
+                      # spelling is not the same club.
+                      "CSKA Sofia", "Egnatia", "Iberia 1999"),
 }
 
 
@@ -417,6 +465,81 @@ def fetch_today(league: str, day: str) -> list[UpcomingFixture]:
             kickoff_utc=f"{day}T{time_str}" if time_str else day,
         ))
     return fixtures
+
+
+def load_results(league: str, season: str) -> tuple[list[MatchResult], list[dict]]:
+    """Historical results from TheSportsDB played events — the fallback history
+    for leagues football-data.co.uk does not carry (HNL, Champions League,
+    Europa League). `season` is the 4-digit fit code ('2526').
+
+    Shares the fixtures feed's cache and name mapping, so a rated fixture and
+    the fit that rated it agree on who the clubs are (a fixture passing through
+    map_team and a result passing through map_team can never disagree). Scores
+    are read straight from the feed; a row missing a team, date or score is
+    skipped, never guessed (HR35).
+
+    Trust: source_tier stays T2. This is the SAME SINGLE-SOURCE feed as the
+    fixtures, not an F2-quorum second source — a model fitted here is reference
+    data, exactly like the fixtures stamp. Never VERIFIED.
+    """
+    if requests is None:
+        raise RuntimeError("requests not installed — cannot fetch live results")
+    if league in UNRESOLVED_LEAGUES:
+        raise SourceNoData(
+            f"'{league}' has no VERIFIED TheSportsDB league ID yet — it wasn't "
+            f"found when scanning their directory. Deliberately not guessed."
+        )
+    if league not in LEAGUE_IDS:
+        raise SourceNoData(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
+
+    # Reuse the season-feed cache (same file as fetch_upcoming): a warm run costs
+    # no network, and played + upcoming events live in one fetch. A stale cache
+    # is REFETCHED, never served (recency rule).
+    events = _read_cache(league, season)
+    if events is None:
+        url = (f"{API_BASE}/{_get_key()}/eventsseason.php"
+               f"?id={LEAGUE_IDS[league]}&s={_season_label(season)}")
+        resp = requests.get(url, timeout=25, headers={"User-Agent": "OLP-XDV/1.0"})
+        resp.raise_for_status()
+        events = resp.json().get("events") or []
+        _write_cache(league, season, events)
+
+    results: list[MatchResult] = []
+    skipped: list[dict] = []
+    for i, ev in enumerate(events):
+        home = (ev.get("strHomeTeam") or "").strip()
+        away = (ev.get("strAwayTeam") or "").strip()
+        day = (ev.get("dateEvent") or "").strip()
+        hs, as_ = ev.get("intHomeScore"), ev.get("intAwayScore")
+
+        if not home or not away:
+            skipped.append({"row": i, "reason": "missing team name", "raw": ev})
+            continue
+        if not day:
+            skipped.append({"row": i, "reason": "missing date", "raw": ev})
+            continue
+        if hs in (None, "") or as_ in (None, ""):
+            continue  # not yet played — not a result
+        try:
+            fthg, ftag = int(hs), int(as_)
+            kickoff = datetime.strptime(day, "%Y-%m-%d").date()
+        except ValueError:
+            skipped.append({"row": i, "reason": f"unparseable score/date", "raw": ev})
+            continue
+
+        ftr = "H" if fthg > ftag else ("A" if ftag > fthg else "D")
+        results.append(MatchResult(
+            league=league,
+            date=kickoff.isoformat(),
+            home_team=map_team(league, home),
+            away_team=map_team(league, away),
+            fthg=fthg,
+            ftag=ftag,
+            ftr=ftr,
+            source="thesportsdb.com",
+            source_tier="T2",
+        ))
+    return results, skipped
 
 
 def as_pairs(fixtures: list[UpcomingFixture]) -> list[tuple[str, str]]:

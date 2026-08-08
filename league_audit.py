@@ -22,6 +22,7 @@ Quota note: odds checks cost 2 API credits per league.
 from __future__ import annotations
 
 import argparse
+import logging
 import sys
 from pathlib import Path
 
@@ -35,9 +36,40 @@ import config  # noqa: E402 — loads .env so the audit runs on the PROVISIONED
 from engine.softness import SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS
 from data.football_data_source import load_league, UNCOVERED_LEAGUES, LEAGUE_CODES
 from data import thesportsdb_fixtures as tsdb
+from data.api_football_results import is_cross_league
 import pipeline.odds as odds_mod
 
+# The multi-source failover chain logs every provider that failed (WARNING) and
+# every circuit breaker opening to stderr. The audit reports those failures
+# itself, per league, in the blockers column — keep the shared log out of the
+# table or the FAILED/Circuit lines bury the verdicts.
+logging.getLogger("multi_source").setLevel(logging.ERROR)
+
 MIN_HISTORY = 20     # orchestrator's own floor for attempting a fit
+
+# Cross-model pool team set, shared by Champions League and Europa League. The
+# daily run rates continental clubs on this pooled European graph (domestic
+# anchor leagues + continental league phases — engine/cross_league.py), NOT on
+# per-competition history, so the names gate must resolve against it. Built at
+# most once per audit run; _CROSS_POOL_DETAIL holds a failure reason if the
+# pool cannot be built (e.g. run under an interpreter without scipy).
+_CROSS_POOL: set[str] | None = None
+_CROSS_POOL_DETAIL = ""
+
+
+def _cross_pool_teams() -> tuple[set[str] | None, str]:
+    global _CROSS_POOL, _CROSS_POOL_DETAIL
+    if _CROSS_POOL is not None or _CROSS_POOL_DETAIL:
+        return _CROSS_POOL, _CROSS_POOL_DETAIL
+    try:
+        from engine import cross_league as xl
+        pooled, _info, _flags = xl.build_pool("Champions League")
+        _CROSS_POOL = {t for r in pooled for t in (r.home_team, r.away_team)}
+        _CROSS_POOL_DETAIL = f"{len(_CROSS_POOL)} teams (cross-model pool)"
+    except Exception as e:
+        _CROSS_POOL_DETAIL = (f"pool unavailable ({str(e)[:55]}) — rerun with the "
+                              f"project interpreter (Python 3.12, scipy)")
+    return _CROSS_POOL, _CROSS_POOL_DETAIL
 
 
 def audit(league: str, fit_season: str, fixtures_season: str,
@@ -48,11 +80,25 @@ def audit(league: str, fit_season: str, fixtures_season: str,
            "history": "", "fixtures": "", "odds": "", "names": "",
            "blockers": []}
 
-    # 1. HISTORY
+    # 1. HISTORY — football-data first; leagues it can't carry (HNL, continental
+    # comps) fall back to the results multi-source (API-Football -> TheSportsDB
+    # single-source T2), so the audit reports what the daily run ACTUALLY sees.
+    from data.multi_source_concrete import get_historical_results
     if league in UNCOVERED_LEAGUES:
-        row["history"] = "NOT COVERED"
-        row["blockers"].append("football-data.co.uk carries no data for this competition")
-        model_names: set[str] = set()
+        try:
+            res = get_historical_results(league, fit_season)
+            src = res[0].source if res else "?"
+            model_names = {r.home_team for r in res} | {r.away_team for r in res}
+            if len(res) < MIN_HISTORY:
+                row["history"] = f"THIN ({len(res)})"
+                row["blockers"].append(
+                    f"only {len(res)} historical matches ({src}), below the {MIN_HISTORY} floor")
+            else:
+                row["history"] = f"{len(res)} matches ({src})"
+        except Exception as e:
+            row["history"] = "NOT COVERED"
+            row["blockers"].append("no working history source for this competition")
+            model_names = set()
     else:
         try:
             res, _ = load_league(league, fit_season)
@@ -105,20 +151,45 @@ def audit(league: str, fit_season: str, fixtures_season: str,
             row["odds"] = f"{priced} priced ({ou} with O/U)"
             if priced == 0:
                 row["blockers"].append("odds source returned no priced fixtures")
+        except odds_mod.QuotaExhausted as e:
+            # External, self-resetting limit (monthly) — not a coverage gap, so
+            # call it out as such instead of a generic FAILED.
+            row["odds"] = "QUOTA EXHAUSTED"
+            row["blockers"].append(f"odds: {str(e)[:70]}")
         except Exception as e:
             row["odds"] = "FAILED"
             row["blockers"].append(f"odds: {str(e)[:70]}")
 
     # 4. NAMES — the silent killer. A club the model knows under another
-    # spelling looks identical to a club it has never seen.
-    if model_names and fixture_names:
+    # spelling looks identical to a club it has never seen. For the continental
+    # competitions the rating model is the cross-model pooled graph, so that is
+    # the roster their fixture names must resolve against — comparing them to
+    # the per-competition history would report a league blocked that the daily
+    # run actually covers.
+    if fixture_names:
         known_new = set(tsdb.KNOWN_NEW_TO_DIVISION_2627.get(league, ()))
-        unresolved = sorted(fixture_names - model_names - known_new)
-        matched = len(fixture_names & model_names)
-        row["names"] = f"{matched}/{len(fixture_names)} matched"
-        if unresolved:
-            row["blockers"].append(
-                f"{len(unresolved)} unmapped club name(s): {', '.join(unresolved[:4])}")
+        if is_cross_league(league):
+            pool_teams, detail = _cross_pool_teams()
+            if pool_teams is None:
+                row["names"] = detail
+                row["blockers"].append(f"names: {detail}")
+            else:
+                matched = len(fixture_names & pool_teams)
+                unresolved = sorted(fixture_names - pool_teams - known_new)
+                row["names"] = f"{matched}/{len(fixture_names)} matched"
+                if unresolved:
+                    row["blockers"].append(
+                        f"{len(unresolved)} club(s) absent from the pooled "
+                        f"graph: {', '.join(unresolved[:4])}")
+        elif model_names:
+            unresolved = sorted(fixture_names - model_names - known_new)
+            matched = len(fixture_names & model_names)
+            row["names"] = f"{matched}/{len(fixture_names)} matched"
+            if unresolved:
+                row["blockers"].append(
+                    f"{len(unresolved)} unmapped club name(s): {', '.join(unresolved[:4])}")
+        else:
+            row["names"] = "n/a"
     else:
         row["names"] = "n/a"
 

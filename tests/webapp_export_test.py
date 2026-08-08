@@ -6,12 +6,17 @@ it is the admin diagnostic layer and must not be hostable. The only external
 fetch is the Architect-approved Google Fonts CDN; every other asset is inline.
 """
 import json
+import os
 import sys
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# Publish-gate sign-off so the fixture board passes the gate (the gate itself
+# has its own dedicated tests in webapp_schema_test.py).
+os.environ["ARCHITECT_SIGNOFF"] = "1"
 
 from webapp import export
 from webapp import schema
@@ -52,8 +57,10 @@ bf = BoardFixture(
 payload = schema.build_payload(
     date="2026-08-11", phase="PHASE 2 — PAPER",
     leagues_scanned=["Champions League"], board=[bf],
-    data_flags=["⚠ x"], gate={"legs_with_clv": 0, "gate_requirement": 30},
-    telemetry={}, calibration_count=0, mean_clv=None,
+    # Gate-PASSING fixture so this test exercises the export path, not the
+    # publish gate (which has its own dedicated tests).
+    data_flags=["⚠ x"], gate={"legs_with_clv": 35, "gate_requirement": 30, "mean_clv_pct": 1.2},
+    telemetry={}, calibration_count=0, mean_clv=1.2,
     recommendation="⭐ TODAY'S PICKS\nNO DATA — no eligible pick today.")
 # The export reads ONLY the published store (approve-gate boundary), so the
 # board must be published first — exactly as /admin's "Approve → Publish" does.

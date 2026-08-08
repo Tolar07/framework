@@ -1288,3 +1288,53 @@ dashboard is the "anywhere" home).
 
 **Authority:** Architect. Delivery-channel change only — no capital, staking,
 fabrication, verification or honest-edge behaviour changed. All 36 suites green.
+
+---
+
+## 2026-08-08 · 1X2 Home added to the deploy market gate — 10-league CLV pressure test
+
+**Why:** the Architect asked for a full pressure test: *"check all the 15 leagues
+for this CLV pressure test, fix it, make it profitable."* The instruction was to
+narrow deploy to what the evidence actually supports — not to manufacture an
+edge, and specifically to apply the honest controls the framework already has.
+
+**What the pressure test found (all 10 leagues with a football-data.co.uk
+closing-odds source; the other 5 — Champions League, Europa League, Danish
+Superliga, Ekstraklasa, HNL — have no CLV source and cannot be measured):**
+
+| Market | 2425 mean CLV | 2526 mean CLV | 2425 placebo | 2526 placebo | verdict |
+|--------|--------------|--------------|--------------|--------------|---------|
+| 1X2 Away (already blocked) | -1.457% (t=-5.17) | -0.283% | — | — | market drift |
+| Over 2.5 (already blocked) | -0.770% (t=-4.25) | +0.084% | — | — | market drift |
+| 1X2 Home | -0.640% (t=-2.33) | -0.625% (t=-2.46) | -0.524% (t=-2.73) | -0.137% | negative both seasons |
+| 1X2 Draw | +0.404% (t=2.01) | +0.593% (t=2.68) | +0.575% (t=4.34) | +0.197% | placebo >= model — drift, not skill |
+| Under 2.5 | +0.054% | +0.233% | +0.092% | -0.236% | no signal |
+
+**The honest reading — and why the gate narrows rather than widens:** the draw
+market's positive CLV is *not* a model edge. Random selection on draws returns
++0.575% (2425) — better than the model's +0.404%. That is favourite-longshot
+drift in the draw direction, the mirror image of the away-market drift that
+already blocked 1X2 Away. Claiming draw as a demonstrated edge would be exactly
+the "beautifully designed wrong number" the framework exists to refuse. So the
+pressure test *narrows*: **1X2 Home** shows the same negative-for-everyone
+pattern as Away (model loses both seasons; random loses 2425) and is now blocked.
+
+**What changed:** `engine/markets.py` `BLOCKED` gains `HOME` (canonical key path)
+and `engine/softness.py` `BLOCKED_DEPLOY_MARKETS` gains `"home win"` (display-name
+path). `DEPLOYABLE` is derived from `BLOCKED`, so the deploy shortlist now draws
+from **1X2_DRAW + UNDER_2_5 only** — narrower, one-way, exactly ID405's rule.
+The board still *shows* home-win probabilities (prediction is not deployment);
+it just cannot carry capital or headline THE CALL as a deployable pick. On the
+narrowed universe the backtest is positive in both seasons (+0.199% 2425,
++0.351% 2526, t=2.78 on 2526) — but that residual is drift, NOT skill, and this
+entry records that explicitly so it is never mistaken for a demonstrated edge.
+
+**Phase 3 gate unchanged:** still 0 logged legs with CLV, still paper-only, still
+requires Architect V7 sign-off. Blocking home does NOT get the framework closer
+to capital — it gets the deploy universe closer to honest.
+
+**Authority:** Architect (via direct instruction to pressure-test and narrow to
+evidence). Restriction-only — narrows what may carry capital, cannot admit any
+previously-excluded market. No capital, staking, fabrication, verification or
+honest-edge behaviour changed. All 40/41 suites green (stress2 is a slow
+concurrency stress test, run separately with extended timeout).

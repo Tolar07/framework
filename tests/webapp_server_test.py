@@ -32,6 +32,9 @@ today = date.today().isoformat()
 # Auth under test — the server reads these from os.environ per request.
 os.environ["ADMIN_USER"] = "test"
 os.environ["ADMIN_PASS"] = "testpass"
+# Publish gate sign-off so the fixture board passes the gate (gate logic has
+# its own dedicated tests in webapp_schema_test.py).
+os.environ["ARCHITECT_SIGNOFF"] = "1"
 
 
 def _rated_bf() -> BoardFixture:
@@ -82,8 +85,10 @@ with patch.object(schema, "PUBLISHED_DIR", boards):
         payload = schema.build_payload(
             date=date_str, phase="PHASE 2 — PAPER", leagues_scanned=["EFL Cup", "Champions League"],
             board=[_rated_bf(), _unrated_bf()], data_flags=["⚠ test flag"],
-            gate={"legs_with_clv": 0, "gate_requirement": 30},
-            telemetry={}, calibration_count=0, mean_clv=None)
+            # A gate-PASSING fixture so the server-route tests exercise routing,
+            # not the publish gate (the gate has its own dedicated tests).
+            gate={"legs_with_clv": 35, "gate_requirement": 30, "mean_clv_pct": 1.2},
+            telemetry={}, calibration_count=0, mean_clv=1.2)
         # The public dashboard reads from PUBLISHED_DIR, not BOARD_DIR.
         # Write as "published" (trimmed) so the client view works.
         schema.write_published(payload, approved_by="test")

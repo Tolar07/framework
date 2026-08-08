@@ -1,0 +1,240 @@
+PART 0 — HEADER
+Date: 2026-08-08 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Austrian Bundesliga, EFL Cup
+Calibration: 0 legs logged, CLV logged: ZERO
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ graded 0 of 11 pending leg(s)
+  ⚠ Eredivisie: fixtures via thesportsdb_season
+  ⚠ Eredivisie: 1 fixture(s) rated on the previous season's carry-over model (promoted clubs): Go Ahead Eagles v Willem II
+  ⚠ Eredivisie: 1 team name(s) in the fixtures feed not found in the fitted data — ADO Den Haag. Suggestions: ADO Den Haag -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Danish Superliga: fixtures via thesportsdb_season
+  ⚠ Danish Superliga: 1 fixture(s) rated on the previous season's carry-over model (promoted clubs): Randers FC v Lyngby
+  ⚠ Danish Superliga: 1 team name(s) in the fixtures feed not found in the fitted data — AC Horsens. Suggestions: AC Horsens -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Belgian Pro League: fixtures via thesportsdb_season
+  ⚠ Belgian Pro League: 2 team name(s) in the fixtures feed not found in the fitted data — Beveren, Lommel. Suggestions: Beveren -> no close match in the model pool; Lommel -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Scottish Premiership: fixtures via thesportsdb_season
+  ⚠ Scottish Premiership: 1 fixture(s) rated on the previous season's carry-over model (promoted clubs): St Mirren v St Johnstone
+  ⚠ Ekstraklasa: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ HNL: history served from cache
+  ⚠ HNL: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ HNL: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ HNL: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Championship: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Serie A: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Ligue 1: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Europa League: history served from cache
+  ⚠ Europa League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Europa League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Europa League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Europa League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ⚠ Primeira Liga: fixtures via thesportsdb_season
+  ⚠ Primeira Liga: 2 team name(s) in the fixtures feed not found in the fitted data — Académico de Viseu, Marítimo. Suggestions: Académico de Viseu -> no close match in the model pool; Marítimo -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ La Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Champions League: history served from cache
+  ⚠ Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Champions League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Austrian Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Austrian Bundesliga: results fetch failed ('Austrian Bundesliga' is not in LEAGUE_CODES — add it or check spelling.) — NO DATA — PENDING
+  ⚠ EFL Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ EFL Cup: results fetch failed ('EFL Cup' is not in LEAGUE_CODES — add it or check spelling.) — NO DATA — PENDING
+  ⚠ ⚠ source circuit OPEN (paused): api_football_fixtures
+  ⚠ Belgian Pro League: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Danish Superliga: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Eredivisie: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Scottish Premiership: Odds API quota down to 4 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Scan odds skipped — quota 4 < floor 40
+  ⚠ Nijmegen v Telstar: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Go Ahead Eagles v Willem II: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ PSV Eindhoven v For Sittard: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Groningen v Utrecht: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Heerenveen v Twente: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Randers FC v Lyngby: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ logged 0 new paper leg(s) with a live entry price
+  ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+6 deploy-eligible fixture(s), softness A/B only, capped at 6 (ID402).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+
+1. Nijmegen v Telstar (Eredivisie)
+   Softness tier A — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Nijmegen to win .......... 66%
+      Draw ......................... 18%
+      Telstar to win .......... 16%
+   Goals: Over 1.5 goals 90% (model) | Over 2.5 goals 74% (model)
+   Both teams to score YES 67% (model)
+   Expected goals (model): Nijmegen 2.608, Telstar 1.257
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Nijmegen to win 67% · Draw 21% · Telstar to win 13%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
+   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
+   CONSENSUS (ID412) — Nijmegen, 2 of 2 engines
+      averaged 1X2: Nijmegen 66% · Draw 20% · Telstar 14%
+   HR30 MES trigger price: back only at decimal odds 1.11 or longer (breakeven vs the model).
+      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
+
+2. Go Ahead Eagles v Willem II (Eredivisie)
+   Softness tier A — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Go Ahead Eagles to win .......... 63%
+      Draw ......................... 21%
+      Willem II to win .......... 16%
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 58% (model)
+   Both teams to score YES 54% (model)
+   Expected goals (model): Go Ahead Eagles 2.078, Willem II 0.942
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
+   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
+   HR30 MES trigger price: back only at decimal odds 1.24 or longer (breakeven vs the model).
+      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
+
+3. PSV Eindhoven v For Sittard (Eredivisie)
+   Softness tier A — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      PSV Eindhoven to win .......... 85%
+      Draw ......................... 9%
+      For Sittard to win .......... 6%
+   Goals: Over 1.5 goals 96% (model) | Over 2.5 goals 87% (model)
+   Both teams to score YES 66% (model)
+   Expected goals (model): PSV Eindhoven 3.879, For Sittard 1.099
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      PSV Eindhoven to win 90% · Draw 8% · For Sittard to win 2%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
+   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
+   CONSENSUS (ID412) — PSV Eindhoven, 2 of 2 engines
+      averaged 1X2: PSV Eindhoven 88% · Draw 9% · For Sittard 4%
+   HR30 MES trigger price: back only at decimal odds 1.04 or longer (breakeven vs the model).
+      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
+
+4. Groningen v Utrecht (Eredivisie)
+   Softness tier A — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Groningen to win .......... 38%
+      Draw ......................... 30%
+      Utrecht to win .......... 32%
+   Goals: Over 1.5 goals 70% (model) | Under 2.5 goals 57% (model)
+   Both teams to score YES 50% (model)
+   Expected goals (model): Groningen 1.266, Utrecht 1.139
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Groningen to win 29% · Draw 40% · Utrecht to win 31%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
+   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
+   CONSENSUS (ID412) — NO CONSENSUS: 2 engines disagree (DRAW 1, HOME 1)
+   HR30 MES trigger price: back only at decimal odds 1.42 or longer (breakeven vs the model).
+      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
+
+5. Heerenveen v Twente (Eredivisie)
+   Softness tier A — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Heerenveen to win .......... 36%
+      Draw ......................... 27%
+      Twente to win .......... 37%
+   Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 55% (model)
+   Both teams to score YES 59% (model)
+   Expected goals (model): Heerenveen 1.426, Twente 1.465
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Heerenveen to win 26% · Draw 39% · Twente to win 35%
+      ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +12pp on draw (Elo 26%/39%/35% vs Dixon-Coles 36%/27%/37%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
+   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
+   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
+   CONSENSUS (ID412) — NO CONSENSUS: 2 engines disagree (AWAY 1, DRAW 1)
+   HR30 MES trigger price: back only at decimal odds 1.26 or longer (breakeven vs the model).
+      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
+
+6. Randers FC v Lyngby (Danish Superliga)
+   Softness tier A — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Randers FC to win .......... 62%
+      Draw ......................... 25%
+      Lyngby to win .......... 13%
+   Goals: Over 1.5 goals 70% (model) | Under 2.5 goals 57% (model)
+   Both teams to score NO 59% (model)
+   Expected goals (model): Randers FC 1.733, Lyngby 0.67
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
+   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
+   HR30 MES trigger price: back only at decimal odds 1.42 or longer (breakeven vs the model).
+      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+Nijmegen v Telstar (Eredivisie) | Nijmegen·66% | O90 / O74 | 1X84 / Y67 | ○
+Go Ahead Eagles v Willem II (Eredivisie) | Go Ahead E·63% | O81 / O58 | 1X84 / Y54 | ○
+PSV Eindhoven v For Sittard (Eredivisie) | PSV Eindho·85% | O96 / O87 | 1X94 / Y66 | ○
+AZ Alkmaar v ADO Den Haag (Eredivisie) | NO DATA — PENDING | — | — | ○
+Sparta Rotterdam v Feyenoord (Eredivisie) | Feyenoord·57% | O82 / O60 | X280 / Y59 | ○
+Zwolle v Ajax (Eredivisie) | Ajax·57% | O84 / O62 | X280 / Y61 | ○
+Groningen v Utrecht (Eredivisie) | Groningen·38% | O70 / U57 | 1270 / Y50 | ○
+Heerenveen v Twente (Eredivisie) | Twente·37% | O79 / O55 | 1273 / Y59 | ○
+Randers FC v Lyngby (Danish Superliga) | Randers FC·62% | O70 / U57 | 1X87 / N59 | ○
+AC Horsens v Brondby (Danish Superliga) | NO DATA — PENDING | — | — | ○
+Standard v Cercle Brugge (Belgian Pro League) | Standard·43% | O75 / U51 | 1273 / Y54 | ○
+Westerlo v St. Gilloise (Belgian Pro League) | St. Gilloi·61% | O68 / U59 | X286 / N60 | ○
+St Truiden v Lommel (Belgian Pro League) | NO DATA — PENDING | — | — | ○
+Charleroi v Oud-Heverlee Leuven (Belgian Pro League) | Charleroi·50% | O70 / U56 | 1X78 / N52 | ○
+Gent v Mechelen (Belgian Pro League) | Gent·46% | O76 / O51 | 1273 / Y55 | ○
+Waregem v Genk (Belgian Pro League) | Waregem·39% | O82 / O60 | 1275 / Y63 | ○
+Anderlecht v RAAL La Louviere (Belgian Pro League) | Anderlecht·53% | O75 / U50 | 1X79 / Y51 | ○
+Antwerp v Beveren (Belgian Pro League) | NO DATA — PENDING | — | — | ○
+St Mirren v St Johnstone (Scottish Premiership) | St Mirren·64% | O77 / O54 | 1X83 / N51 | ○
+Dundee v Aberdeen (Scottish Premiership) | Dundee·41% | O68 / U60 | 1X72 / N52 | ○
+Hearts v Dundee United (Scottish Premiership) | Hearts·73% | O81 / O58 | 1X92 / N54 | ○
+Motherwell v Falkirk (Scottish Premiership) | Motherwell·65% | O78 / O53 | 1X87 / N52 | ○
+Kilmarnock v Celtic (Scottish Premiership) | Celtic·60% | O86 / O65 | X282 / Y62 | ○
+Rangers v Hibernian (Scottish Premiership) | Rangers·55% | O81 / O58 | 1X80 / Y58 | ○
+Marítimo v Casa Pia (Primeira Liga) | NO DATA — PENDING | — | — | ○
+Guimaraes v Arouca (Primeira Liga) | Guimaraes·48% | O83 / O62 | 1277 / Y63 | ○
+Estrela v Sp Lisbon (Primeira Liga) | Sp Lisbon·80% | O86 / O67 | X293 / N53 | ○
+Benfica v Académico de Viseu (Primeira Liga) | NO DATA — PENDING | — | — | ○
+Porto v Alverca (Primeira Liga) | Porto·82% | O76 / O52 | 1X96 / N72 | ○
+Moreirense v Sp Braga (Primeira Liga) | Sp Braga·55% | O76 / O52 | X279 / Y52 | ○
+Gil Vicente v Rio Ave (Primeira Liga) | Gil Vicent·64% | O75 / U50 | 1X85 / N54 | ○
+Santa Clara v Nacional (Primeira Liga) | Santa Clar·38% | O56 / U71 | 1X71 / N63 | ○
+
+PART 3 — REJECTED / WATCHLIST
+AZ Alkmaar v ADO Den Haag (Eredivisie): NO DATA — PENDING: 'ADO Den Haag' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+AC Horsens v Brondby (Danish Superliga): NO DATA — PENDING: 'AC Horsens' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+St Truiden v Lommel (Belgian Pro League): NO DATA — PENDING: 'Lommel' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Antwerp v Beveren (Belgian Pro League): NO DATA — PENDING: 'Beveren' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Marítimo v Casa Pia (Primeira Liga): NO DATA — PENDING: 'Marítimo' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Guimaraes v Arouca (Primeira Liga): softness tier D — scan-only
+Estrela v Sp Lisbon (Primeira Liga): softness tier D — scan-only
+Benfica v Académico de Viseu (Primeira Liga): NO DATA — PENDING: 'Académico de Viseu' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Porto v Alverca (Primeira Liga): softness tier D — scan-only
+Moreirense v Sp Braga (Primeira Liga): softness tier D — scan-only
+Gil Vicente v Rio Ave (Primeira Liga): softness tier D — scan-only
+Santa Clara v Nacional (Primeira Liga): softness tier D — scan-only
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 32
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

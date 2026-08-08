@@ -409,6 +409,41 @@ footer{
 .fixture-card .star.active{color:var(--amber);transform:scale(1.15);}
 .fixture-card .star:hover{color:var(--amber);}
 
+/* Produce panel — Search → Select → Produce (admin Search tab) */
+.produce-panel{margin-top:12px;}
+.produce-toolbar{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.produce-toolbar select,.produce-toolbar input{
+  padding:8px 12px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;font-size:12px;
+}
+.produce-toolbar input{flex:1;min-width:180px;}
+.produce-toolbar select:focus,.produce-toolbar input:focus{outline:none;border-color:var(--amber);}
+.produce-results{max-height:400px;overflow-y:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg);}
+.produce-league-group{padding:8px 12px;}
+.produce-league-name{font-size:12px;font-weight:600;color:var(--amber);margin-bottom:6px;padding:4px 0;border-bottom:1px solid var(--line);}
+.produce-item{display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;transition:background 0.12s;}
+.produce-item:hover{background:rgba(216,166,89,0.04);}
+.produce-item input{width:16px;height:16px;accent-color:var(--amber);flex:none;}
+.produce-item-text{font-size:12.5px;color:var(--ink);flex:1;}
+.produce-item-meta{font-size:11px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
+.produce-tray{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:var(--surface);border:1px solid var(--amber-dim);border-radius:var(--radius);
+  margin-top:12px;
+}
+.produce-tray .btn-primary{flex:none;}
+.produce-result{
+  margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--bg);overflow:hidden;
+}
+.produce-result-header{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:var(--surface);border-bottom:1px solid var(--line);
+  font-size:12px;color:var(--ink-dim);
+}
+.produce-flags{padding:8px 16px;}
+.produce-cards{padding:12px 16px;}
+
 /* League card — ScoreAI card layout (badge + name + season + matchday + country) */
 tbody.league-group{width:100%;}
 .league-group-header{cursor:pointer;}
@@ -1641,6 +1676,184 @@ def _chat_tab(payload_date: str = "") -> str:
   </div>
 </div>"""
 
+def _produce_panel() -> str:
+    """Admin-only: Search → Select → Produce panel for the Search tab.
+
+    Matches ScoreAI's schedule view with a produce twist: search fixtures,
+    select them, and trigger real-time engine predictions."""
+    return """<div class="produce-panel">
+  <div class="produce-toolbar">
+    <select id="produce-league" aria-label="Filter by league">
+      <option value="">All leagues</option>
+    </select>
+    <input type="search" id="produce-query" placeholder="Search team name…" aria-label="Search fixtures">
+    <button id="produce-search-btn" class="btn-primary" onclick="produceSearch()">Search</button>
+  </div>
+  <div id="produce-results" class="produce-results"></div>
+  <div class="produce-tray" id="produce-tray" style="display:none;">
+    <span id="produce-count">0 selected</span>
+    <button id="produce-go" class="btn-primary" onclick="produceGo()" disabled>Produce predictions</button>
+    <button class="market-select-action" onclick="produceClear()">Clear</button>
+  </div>
+  <div id="produce-output"></div>
+</div>"""
+
+
+_PRODUCE_JS = """<script>
+  // League list populated on load
+  document.addEventListener('DOMContentLoaded', function() {
+    var sel = document.getElementById('produce-league');
+    if (!sel) return;
+    // Fetch leagues from the fixtures API
+    fetch('/api/admin/fixtures?days=1')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data.ok || !data.leagues) return;
+        data.leagues.forEach(function(lg) {
+          var opt = document.createElement('option');
+          opt.value = lg.name;
+          opt.textContent = lg.name + ' (' + lg.fixtures.length + ')';
+          sel.appendChild(opt);
+        });
+      }).catch(function() {});
+  });
+
+  var _produceSelected = new Set();
+
+  function produceSearch() {
+    var league = document.getElementById('produce-league').value;
+    var q = document.getElementById('produce-query').value;
+    var results = document.getElementById('produce-results');
+    results.innerHTML = '<div style="padding:12px;color:var(--ink-faint);">Searching…</div>';
+
+    var params = 'days=7';
+    if (league) params += '&league=' + encodeURIComponent(league);
+    if (q) params += '&q=' + encodeURIComponent(q);
+
+    fetch('/api/admin/fixtures?' + params)
+      .then(function(r) {
+        if (r.status === 401) { window.location.href = '/admin'; return null; }
+        return r.json();
+      })
+      .then(function(data) {
+        if (!data || !data.ok) {
+          results.innerHTML = '<div style="padding:12px;color:var(--coral);">Error: ' + (data ? data.error : 'failed') + '</div>';
+          return;
+        }
+        var html = '';
+        data.leagues.forEach(function(lg) {
+          html += '<div class="produce-league-group">';
+          html += '<div class="produce-league-name">' + escapeHtml(lg.name) + ' (' + lg.fixtures.length + ')</div>';
+          lg.fixtures.forEach(function(f) {
+            var key = lg.name + '|' + f.home + '|' + f.away + '|' + f.date;
+            var checked = _produceSelected.has(key) ? ' checked' : '';
+            html += '<label class="produce-item">';
+            html += '<input type="checkbox" data-key="' + escapeHtml(key) + '" data-league="' + escapeHtml(lg.name) + '" data-home="' + escapeHtml(f.home) + '" data-away="' + escapeHtml(f.away) + '" data-date="' + escapeHtml(f.date) + '"' + checked + '>';
+            html += '<span class="produce-item-text">' + escapeHtml(f.home) + ' vs ' + escapeHtml(f.away) + '</span>';
+            html += '<span class="produce-item-meta">' + escapeHtml(f.date || '') + '</span>';
+            html += '</label>';
+          });
+          html += '</div>';
+        });
+        if (!data.leagues.length) {
+          html = '<div style="padding:12px;color:var(--ink-faint);">No fixtures found</div>';
+        }
+        results.innerHTML = html;
+        // Bind checkbox events
+        results.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
+          cb.addEventListener('change', function() {
+            if (cb.checked) _produceSelected.add(cb.dataset.key);
+            else _produceSelected.delete(cb.dataset.key);
+            updateProduceTray();
+          });
+        });
+        // Restore checked state from _produceSelected
+        results.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
+          if (_produceSelected.has(cb.dataset.key)) cb.checked = true;
+        });
+        updateProduceTray();
+      }).catch(function(e) {
+        results.innerHTML = '<div style="padding:12px;color:var(--coral);">Network error: ' + e + '</div>';
+      });
+  }
+
+  function updateProduceTray() {
+    var tray = document.getElementById('produce-tray');
+    var count = document.getElementById('produce-count');
+    var go = document.getElementById('produce-go');
+    if (!tray) return;
+    tray.style.display = _produceSelected.size > 0 ? 'flex' : 'none';
+    count.textContent = _produceSelected.size + ' selected';
+    go.disabled = _produceSelected.size === 0;
+  }
+
+  function produceClear() {
+    _produceSelected.clear();
+    var results = document.getElementById('produce-results');
+    if (results) results.querySelectorAll('input[type=checkbox]').forEach(function(cb) { cb.checked = false; });
+    updateProduceTray();
+  }
+
+  function produceGo() {
+    if (_produceSelected.size === 0) return;
+    var go = document.getElementById('produce-go');
+    var output = document.getElementById('produce-output');
+    go.disabled = true;
+    go.textContent = 'Producing…';
+    output.innerHTML = '<div style="padding:20px;text-align:center;color:var(--ink-faint);">Running engine… (~3s warm)</div>';
+
+    // Group selections by league
+    var groups = {};
+    _produceSelected.forEach(function(key) {
+      var parts = key.split('|');
+      var league = parts[0], home = parts[1], away = parts[2], date = parts[3];
+      if (!groups[league]) groups[league] = [];
+      groups[league].push({home: home, away: away, date: date});
+    });
+    var groupsArr = Object.keys(groups).map(function(lg) {
+      return {league: lg, fixtures: groups[lg]};
+    });
+
+    fetch('/api/admin/produce', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({groups: groupsArr})
+    }).then(function(r) {
+      if (r.status === 401) { window.location.href = '/admin'; return null; }
+      return r.json();
+    }).then(function(data) {
+      go.disabled = false;
+      go.textContent = 'Produce predictions';
+      if (!data || !data.ok) {
+        output.innerHTML = '<div style="padding:16px;color:var(--coral);">Error: ' + (data ? data.error : 'failed') + '</div>';
+        return;
+      }
+      var html = '<div class="produce-result">';
+      html += '<div class="produce-result-header">';
+      html += '<span>' + data.n_rated + ' rated · ' + data.n_deploy + ' deploy-eligible · ' + data.elapsed_s + 's</span>';
+      html += '<span class="phase mono" style="margin-left:auto;">' + escapeHtml(data.phase || '') + '</span>';
+      html += '</div>';
+      if (data.flags && data.flags.length) {
+        html += '<div class="produce-flags">';
+        data.flags.forEach(function(f) { html += '<div class="flag-line"><span class="mk">⚠</span> ' + escapeHtml(f) + '</div>'; });
+        html += '</div>';
+      }
+      html += '<div class="produce-cards">' + data.cards_html + '</div>';
+      html += '</div>';
+      output.innerHTML = html;
+      // Bind call card expand
+      output.querySelectorAll('.call-card').forEach(function(card) {
+        card.addEventListener('click', function() { card.classList.toggle('open'); });
+      });
+    }).catch(function(e) {
+      go.disabled = false;
+      go.textContent = 'Produce predictions';
+      output.innerHTML = '<div style="padding:16px;color:var(--coral);">Network error: ' + e + '</div>';
+    });
+  }
+</script>"""
+
+
 def render_dashboard(payload: dict) -> str:
     """The PUBLIC client view — predictions only with tab navigation."""
     d = payload.get("date", "")
@@ -1743,8 +1956,9 @@ def render_admin_dashboard(payload: dict) -> str:
         + _date_pills(d, "/admin")
         + _scan_table(payload.get("board", []), admin=True, payload_date=payload.get("date", ""))
         + "</section>"
-        + '<section id="search-section" style="display:none;"><div class="sec-head"><h2 class="display">Search</h2></div>'
-        + '<p class="sec-sub">Search fixtures across all leagues, select and produce predictions</p>'
+        + '<section id="search-section" style="display:none;"><div class="sec-head"><h2 class="display">BET Production</h2></div>'
+        + '<p class="sec-sub">Search fixtures, select matches, and produce predictions in real time</p>'
+        + _produce_panel()
         + "</section>"
         + _flags_block(payload.get("data_flags", []))
         + '<section id="verified-section"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
@@ -1756,7 +1970,7 @@ def render_admin_dashboard(payload: dict) -> str:
         + _tab_bar("call", "/admin", d)
         + _admin_footer(payload)
     )
-    return html_shell("OLP XDV — Admin Dashboard", body, script=_SCAN_JS + _PUBLISH_JS + _ADMIN_SEARCH_JS + _TAB_JS + _CHAT_JS + _MARKET_SELECT_JS)
+    return html_shell("OLP XDV — Admin Dashboard", body, script=_SCAN_JS + _PUBLISH_JS + _ADMIN_SEARCH_JS + _TAB_JS + _CHAT_JS + _MARKET_SELECT_JS + _PRODUCE_JS)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

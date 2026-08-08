@@ -252,6 +252,20 @@ class Handler(BaseHTTPRequestHandler):
                     from brain.report import render_stats
                     self._json({"text": render_stats(b)})
 
+            elif path == "/api/admin/fixtures":
+                if not self._require_admin():
+                    return
+                try:
+                    from webapp.produce import search_fixtures
+                    league = (qs.get("league") or [""])[0]
+                    q = (qs.get("q") or [""])[0]
+                    days = int((qs.get("days") or ["7"])[0])
+                    result = search_fixtures(
+                        league=league or None, query=q, days=days)
+                    self._json(result)
+                except Exception as e:
+                    self._json({"ok": False, "error": str(e)})
+
             else:
                 self._not_found()
 
@@ -287,6 +301,27 @@ class Handler(BaseHTTPRequestHandler):
                     return
                 S.write_published(payload, approved_by=approved_by)
                 self._json({"ok": True, "date": d, "published": True})
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)})
+            return
+
+        # Produce endpoint — admin only, real-time engine run
+        if path == "/api/admin/produce":
+            if not self._require_admin():
+                return
+            try:
+                import json
+                from webapp.produce import produce_selection
+                content_len = int(self.headers.get("Content-Length", "0"))
+                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
+                data = json.loads(body) if body else {}
+                groups = data.get("groups", [])
+                season = data.get("season", "2526")
+                if not groups:
+                    self._json({"ok": False, "error": "No fixtures selected"})
+                    return
+                result = produce_selection(groups, season=season)
+                self._json(result)
             except Exception as e:
                 self._json({"ok": False, "error": str(e)})
             return

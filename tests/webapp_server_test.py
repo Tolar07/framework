@@ -135,7 +135,12 @@ def _auth(user="test", pw="testpass"):
     for needle in ("elo_probs", "engine_divergence", "verification",
                    "best_mes_ev", "Model Internals", "Honest edge", "zero capital"):
         assert needle not in body, f"/dashboard leaks {needle!r}"
+    # The client Search tab must be REAL, not a stub, and chat must be reachable.
+    assert "coming soon" not in body, "client Search tab is still a stub"
+    assert 'id="client-search"' in body and 'id="client-filter-league"' in body
+    assert 'id="chat-fab"' in body
     print("2. /dashboard is the trimmed client view: OK")
+    print("2b. client Search tab functional + chat FAB present: OK")
 
     # --- 3. missing date is an honest 404 --------------------------------------
     code, body = _get("/dashboard/1999-01-01")
@@ -155,9 +160,13 @@ def _auth(user="test", pw="testpass"):
     assert code == 401
     code, body = _get("/admin", _auth())
     assert code == 200 and "Model Internals" in body and "Honest edge" in body
+    # Produce panel carries a day picker and chat is reachable (fully functional).
+    assert 'id="produce-date"' in body, "admin produce panel missing day picker"
+    assert 'id="chat-fab"' in body
     code, body = _get("/admin", _auth(pw="wrong"))
     assert code == 401
     print("5. /admin: 401 without creds, 200 with, 401 wrong password: OK")
+    print("5b. admin produce day-picker + chat FAB present: OK")
 
     # --- 6. /admin renders the FULL payload (internals present) -----------------
     code, body = _get(f"/admin/{today}", _auth())
@@ -233,4 +242,4 @@ def _auth(user="test", pw="testpass"):
     print("11. server is read-only (board dir unchanged): OK")
 
     httpd.shutdown()
-print("\n✅ ALL WEBAPP SERVER TESTS PASSED")
+print("\n[OK] ALL WEBAPP SERVER TESTS PASSED")

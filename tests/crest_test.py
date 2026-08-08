@@ -79,4 +79,4 @@ bf_unrated = {"probs": None}
 assert render._pick_confidence(bf_unrated) == 0.0
 print("  _pick_confidence: OK")
 
-print("\n✅ ALL CREST/FLAG TESTS PASSED")
+print("\n[OK] ALL CREST/FLAG TESTS PASSED")

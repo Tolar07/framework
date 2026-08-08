@@ -3,7 +3,7 @@ Date: 2026-08-08 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero cap
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Austrian Bundesliga, EFL Cup
 Calibration: 0 legs logged, CLV logged: ZERO
 DATA FLAGS (surfaced first, per HR53/ID403):
-  ⚠ graded 0 of 11 pending leg(s)
+  ⚠ graded 0 of 12 pending leg(s)
   ⚠ Eredivisie: fixtures via thesportsdb_season
   ⚠ Eredivisie: 1 fixture(s) rated on the previous season's carry-over model (promoted clubs): Go Ahead Eagles v Willem II
   ⚠ Eredivisie: 1 team name(s) in the fixtures feed not found in the fitted data — ADO Den Haag. Suggestions: ADO Den Haag -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
@@ -44,17 +44,25 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ EFL Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
   ⚠ EFL Cup: results fetch failed ('EFL Cup' is not in LEAGUE_CODES — add it or check spelling.) — NO DATA — PENDING
   ⚠ ⚠ source circuit OPEN (paused): api_football_fixtures
-  ⚠ Belgian Pro League: Odds API quota down to 4 (floor 40); api-football fallback failed (API-Football daily quota down to 16 (floor 20). Refusing to spend it on a routine pull — prices are NO DATA — PENDING rather than exhausting the day.). Refusing to spend the month — entry prices are NO DATA — PENDING.
-  ⚠ Danish Superliga: Odds API quota down to 4 (floor 40); api-football fallback failed (API-Football daily quota down to 16 (floor 20). Refusing to spend it on a routine pull — prices are NO DATA — PENDING rather than exhausting the day.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Belgian Pro League: Odds API quota exhausted (4 left) — served via api-football free fallback
+  ⚠ Belgian Pro League: api-football free plan serves only today±1 — 2026-08-10 skipped
+  ⚠ Belgian Pro League: api-football free plan serves only today±1 — 2026-08-11 skipped
+  ⚠ Belgian Pro League: odds served from api-football free plan (8 fixture(s))
+  ⚠ Danish Superliga: Odds API quota exhausted (4 left) — served via api-football free fallback
+  ⚠ Danish Superliga: api-football free plan serves only today±1 — 2026-08-10 skipped
+  ⚠ Danish Superliga: api-football free plan serves only today±1 — 2026-08-11 skipped
+  ⚠ Danish Superliga: odds served from api-football free plan (2 fixture(s))
   ⚠ Eredivisie: Odds API quota down to 4 (floor 40); api-football fallback failed (API-Football daily quota down to 16 (floor 20). Refusing to spend it on a routine pull — prices are NO DATA — PENDING rather than exhausting the day.). Refusing to spend the month — entry prices are NO DATA — PENDING.
-  ⚠ Scottish Premiership: Odds API quota down to 4 (floor 40); api-football fallback failed (API-Football daily quota down to 16 (floor 20). Refusing to spend it on a routine pull — prices are NO DATA — PENDING rather than exhausting the day.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Scottish Premiership: Odds API quota exhausted (4 left) — served via api-football free fallback
+  ⚠ Scottish Premiership: api-football free plan serves only today±1 — 2026-08-10 skipped
+  ⚠ Scottish Premiership: api-football free plan serves only today±1 — 2026-08-11 skipped
+  ⚠ Scottish Premiership: odds served from api-football free plan (6 fixture(s))
   ⚠ Scan odds skipped — quota 4 < floor 40
   ⚠ Nijmegen v Telstar: no live price found — NO DATA — PENDING, leg not logged
   ⚠ Go Ahead Eagles v Willem II: no live price found — NO DATA — PENDING, leg not logged
   ⚠ PSV Eindhoven v For Sittard: no live price found — NO DATA — PENDING, leg not logged
   ⚠ Groningen v Utrecht: no live price found — NO DATA — PENDING, leg not logged
   ⚠ Heerenveen v Twente: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Randers FC v Lyngby: no live price found — NO DATA — PENDING, leg not logged
   ⚠ logged 0 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
@@ -169,9 +177,16 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Expected goals (model): Randers FC 1.733, Lyngby 0.67
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
-   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
-   HR30 MES trigger price: back only at decimal odds 1.42 or longer (breakeven vs the model).
-      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
+   Fourth opinion — bookmaker (real-money aggregate, margin removed):
+      Randers FC to win 44% · Draw 28% · Lyngby to win 29%
+   CONSENSUS (ID412) — Randers FC, 2 of 2 engines
+      averaged 1X2: Randers FC 53% · Draw 26% · Lyngby 21%
+   Best available market: Under 2.5 goals
+      Model probability .......... 57%
+      Best quoted price .......... 2.05 decimal (Bet365, best of 1 books)
+      Breakeven trigger price .... 1.42 or longer
+      HR30 numerical MES ......... +3.34% expected value per unit staked — POSITIVE expected value against this price
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 PART 2 — THE SCAN
 Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src

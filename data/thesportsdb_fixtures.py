@@ -52,6 +52,8 @@ PUBLIC_TEST_KEY = "123"
 
 # League IDs verified individually against TheSportsDB's own lookupleague.php
 # endpoint on 2026-08-03 — each one was confirmed by name+country, not guessed.
+# Champions League (4480) and Europa League (4481) verified 2026-08-05.
+# Ekstraklasa (4422) and HNL (4629) verified 2026-08-08 with personal key.
 LEAGUE_IDS = {
     "Scottish Premiership": 4330,   # "Scottish Premier League" (Scotland)
     "Eredivisie": 4337,             # "Dutch Eredivisie" (The Netherlands)
@@ -72,13 +74,16 @@ LEAGUE_IDS = {
     # league-phase capture once TheSportsDB loads it.
     "Champions League": 4480,
     "Europa League": 4481,
+    # Scan leagues previously unresolved (public test key truncated directory)
+    # Resolved 2026-08-08 with personal key 5558126822:
+    "Ekstraklasa": 4422,            # "Polish Ekstraklasa" (Poland)
+    "HNL": 4629,                    # "Croatian First Football League" (Croatia)
 }
 
-# Scanned 4328-4530 on the public test key and found NO verified ID for these.
-# Left unmapped deliberately — HR35: a wrong league ID silently returns another
-# competition's fixtures, which is worse than an honest gap. The test key also
-# truncates all_leagues.php to 5 entries, so a personal key may resolve these.
-UNRESOLVED_LEAGUES = {"Ekstraklasa", "HNL"}
+# Previously unresolved (public test key truncated directory).
+# Resolved 2026-08-08 with personal key 5558126822:
+# Ekstraklasa -> 4422, HNL -> 4629.
+UNRESOLVED_LEAGUES = set()
 
 # TheSportsDB name -> football-data.co.uk name (the key the fitted model uses).
 # Every pair below was confirmed by diffing the two sources' actual team lists

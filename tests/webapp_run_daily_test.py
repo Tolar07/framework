@@ -63,4 +63,4 @@ with patch.object(run_daily, "BOARD_DIR", boards), \
     assert out.full and out.telegram_text
     print("3. RunResult intact: OK")
 
-print("\n✅ ALL WEBAPP RUN_DAILY TESTS PASSED")
+print("\n[OK] ALL WEBAPP RUN_DAILY TESTS PASSED")

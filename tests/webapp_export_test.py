@@ -3,10 +3,13 @@
 Since a static host cannot authenticate, the export is trimmed: predictions
 only, NO model internals (Architect order 2026-08-07). stats.json is gone —
 it is the admin diagnostic layer and must not be hostable. The only external
-fetch is the Architect-approved Google Fonts CDN; every other asset is inline.
+fetches are the Architect-approved Google Fonts CDN, flagcdn.com (league
+country flags) and r2.thesportsdb.com (club crests); every other asset is
+inline.
 """
 import json
 import os
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -88,15 +91,41 @@ for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
     assert needle not in html_src, f"public export leaks {needle!r}"
 print("2. index is the trimmed client view: OK")
 
-# --- 3. external fetches are limited to the two approved sources: the
-# Architect-approved Google Fonts CDN and flagcdn.com (league country flags,
-# per the flag/badge design) ------------------------------------------------
-for line in html_src.splitlines():
-    if "https://" in line:
-        assert ("fonts.googleapis" in line or "fonts.gstatic" in line
-                or "flagcdn.com" in line), \
-            f"unapproved external URL: {line.strip()}"
-print("3. only approved CDNs (fonts + flagcdn) referenced: OK")
+# --- 3. external fetches are limited to the approved sources: the
+# Architect-approved Google Fonts CDN, flagcdn.com (league country flags)
+# and r2.thesportsdb.com (club crests). Every other asset is inline.
+# The scan catches absolute (https:// and http://) AND protocol-relative
+# (//host) references, so an unapproved host can't slip past either spelling.
+_APPROVED_EXTERNAL_HOSTS = (
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "flagcdn.com",          # league country flags
+    "r2.thesportsdb.com",   # club crests (Architect-approved hotlink)
+)
+_URL_RE = re.compile(r"(?:https?://|//)([a-zA-Z0-9][a-zA-Z0-9.-]*)")
+
+
+def _assert_external_urls(html: str) -> None:
+    """Every absolute or protocol-relative URL in `html` must be approved."""
+    for line in html.splitlines():
+        for host in _URL_RE.findall(line):
+            assert host in _APPROVED_EXTERNAL_HOSTS, \
+                f"unapproved external URL: {line.strip()} (host {host!r})"
+
+
+_assert_external_urls(html_src)
+
+# The crest hotlink is approved; a stranger is not — under every spelling.
+_assert_external_urls('<img src="https://r2.thesportsdb.com/media/badge/x.png">')
+for evil in ('<img src="https://evil.example/track.png">',
+             '<img src="//evil.example/x.png">',
+             '<script src="http://evil.example/x.js"></script>'):
+    try:
+        _assert_external_urls(evil)
+        raise SystemExit(f"FAIL: unapproved host accepted: {evil}")
+    except AssertionError:
+        pass
+print("3. only approved CDNs (fonts + flagcdn + thesportsdb crests) referenced: OK")
 
 # --- 4. board.json is the TRIMMED payload --------------------------------------
 d = schema.read_payload(out / "board.json")
@@ -117,4 +146,4 @@ assert "2026-08-11" in readme and "predictions only" in readme
 assert "admin-only" in readme
 print("5. README documents the public/admin boundary: OK")
 
-print("\n✅ ALL WEBAPP EXPORT TESTS PASSED")
+print("\n[OK] ALL WEBAPP EXPORT TESTS PASSED")

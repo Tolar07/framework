@@ -36,7 +36,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 DEFAULT_BRAIN_PATH = Path(__file__).parent / "olp.db"
-SCHEMA_VERSION = 5
+SCHEMA_VERSION = 6
 # _create_tables builds the v1 BASELINE schema and stamps this version; _migrate
 # then steps a fresh DB forward to SCHEMA_VERSION. Keeping this at 1 (not
 # SCHEMA_VERSION) is what makes migrations actually run on a new DB.
@@ -59,6 +59,18 @@ _MIGRATIONS: dict[int, str] = {
     # v5: how many leagues got an xG third opinion this run (Understat covers
     # Big-5 + RFPL only, so this is a coverage counter, not a quality claim).
     5: "ALTER TABLE runs ADD COLUMN xg_leagues INTEGER NOT NULL DEFAULT 0;",
+    # v6: the produced-bet record — the day's produced bet (today's rated
+    # fixtures) plus its next-day per-leg verification. JSON in
+    # output/boards/produced_<date>.json is canonical; this table is the
+    # queryable mirror /stats and the web dashboard read.
+    6: "CREATE TABLE IF NOT EXISTS produced_bets ("
+       " date TEXT NOT NULL, leg_id TEXT NOT NULL, fixture TEXT NOT NULL, "
+       " league TEXT NOT NULL, pick TEXT NOT NULL, pick_market TEXT NOT NULL, "
+       " model_prob REAL, softness_tier TEXT, on_deploy_shortlist INTEGER "
+       " NOT NULL DEFAULT 0, best_market TEXT, best_price REAL, "
+       " best_mes_ev REAL, kickoff_date TEXT, ft_result TEXT, hit INTEGER, "
+       " settled INTEGER NOT NULL DEFAULT 0, "
+       " PRIMARY KEY(date, leg_id))",
 }
 
 _WRITE_GUARD = ("SELECT", "PRAGMA", "EXPLAIN", "WITH")
@@ -418,6 +430,42 @@ class Brain:
             }
         return list(grouped.values())
 
+    def produced_bets(self, date_iso: Optional[str] = None,
+                      limit: int = 30) -> list[dict]:
+        """Rows from the produced-bets mirror: the day's produced bet + per-leg
+        next-day verification. Queryable by date or by most-recent-first. The
+        JSON at output/boards/produced_<date>.json is canonical; this is the
+        /stats + web history view."""
+        sql = "SELECT * FROM produced_bets"
+        params: tuple = ()
+        if date_iso:
+            sql += " WHERE date=?"
+            params = (date_iso,)
+        sql += " ORDER BY date DESC, fixture, pick LIMIT ?"
+        return [dict(r) for r in self._conn.execute(
+            sql, params + (limit,)).fetchall()]
+
+    def produced_bets_summary(self, limit: int = 30) -> dict:
+        """Verification record of produced bets: settled count, won/lost, rate.
+        Read from the mirror; a day with no produced bet contributes nothing."""
+        rows = self._conn.execute(
+            "SELECT date, COUNT(*) AS n, "
+            "SUM(CASE WHEN settled=1 THEN 1 ELSE 0 END) AS settled, "
+            "SUM(CASE WHEN settled=1 AND hit=1 THEN 1 ELSE 0 END) AS won "
+            "FROM produced_bets GROUP BY date ORDER BY date DESC LIMIT ?",
+            (limit,)).fetchall()
+        settled = sum(r["settled"] or 0 for r in rows)
+        won = sum(r["won"] or 0 for r in rows)
+        return {
+            "days": len(rows),
+            "legs": sum(r["n"] for r in rows),
+            "settled": settled,
+            "won": won,
+            "pending": sum(r["n"] for r in rows) - settled,
+            "hit_rate": (won / settled) if settled else None,
+            "by_day": [dict(r) for r in rows],
+        }
+
     def rolling_7d(self) -> dict:
         """Rolling 7-day aggregates across all engines + consensus + legs.
         Returns hit rates, legs logged, capture rate, days-to-gate."""
@@ -554,6 +602,33 @@ class Brain:
                          l.stake, l.phase, l.notes, src, synced_at))
                 counts[src] = len(log.legs)
         return counts
+
+    # ---- produced-bets mirror ----------------------------------------------
+    def sync_produced_bets(self, legs: list[dict]) -> int:
+        """Full-refresh mirror of one day's produced-bet record (the JSON at
+        output/boards/produced_<date>.json stays canonical). The date's slice is
+        deleted and re-inserted so the mirror never drifts from the record.
+        Returns the number of rows inserted."""
+        if not legs:
+            return 0
+        date_iso = legs[0]["date"]
+        with self._conn:
+            self._conn.execute(
+                "DELETE FROM produced_bets WHERE date=?", (date_iso,))
+            for l in legs:
+                self._conn.execute(
+                    "INSERT OR REPLACE INTO produced_bets(date, leg_id, fixture, "
+                    " league, pick, pick_market, model_prob, softness_tier, "
+                    " on_deploy_shortlist, best_market, best_price, best_mes_ev, "
+                    " kickoff_date, ft_result, hit, settled) "
+                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    (l["date"], l["leg_id"], l["fixture"], l["league"],
+                     l["pick"], l["pick_market"], l["model_prob"],
+                     l["softness_tier"], int(l["on_deploy_shortlist"]),
+                     l["best_market"], l["best_price"], l["best_mes_ev"],
+                     l["kickoff_date"], l["ft_result"], l["hit"],
+                     int(l["settled"])))
+        return len(legs)
 
     def clv_by_market(self, phase: str = "phase2_paper") -> list[dict]:
         rows = self._conn.execute(

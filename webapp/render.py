@@ -1654,6 +1654,51 @@ def _yesterday_graded(rows: list[dict]) -> str:
 # Admin search/filter bar
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _produced_bet_block(record: Optional[dict], admin: bool) -> str:
+    """The produced-bet section (ID415): what the framework bet today (one leg
+    per rated fixture, pick + price) and the verified WON/LOST outcome shown the
+    next day. `admin=True` renders model prob / softness tier / EV; the client
+    receives only fixture + pick + price + outcome (see schema.trim_payload)."""
+    if not record:
+        return ('<div class="flags"><div class="flag-line">NO DATA — PENDING — '
+                'no produced-bet record for this date.</div></div>')
+    if not record.get("produced"):
+        return ('<div class="flags"><div class="flag-line">No fixtures today — '
+                'no bet produced. A valid, honest result (ID415).</div></div>')
+    date = record.get("date", "")
+    rows: list[str] = []
+    for leg in record.get("legs") or []:
+        fixture = leg.get("fixture", "?")
+        league = leg.get("league")
+        label = fixture + (f" ({league})" if league else "")
+        pick = leg.get("pick_name") or leg.get("pick") or "?"
+        detail = pick
+        if admin and leg.get("model_prob") is not None:
+            detail += f" — {round((leg['model_prob'] or 0) * 100)}%"
+        if leg.get("best_price") is not None:
+            detail += f" @ {leg['best_price']:.2f}"
+            if admin and leg.get("best_mes_ev") is not None:
+                detail += f" (EV {leg['best_mes_ev']:+.2%})"
+        if leg.get("settled"):
+            mark = ('<span class="hit-tag mono">✓ WON</span>'
+                    if leg.get("hit") else '<span class="miss-tag mono">✗ LOST</span>')
+            ft = leg.get("ft_result") or "?"
+            verdict = f"{mark} <span class='graded-ft'>{ft}</span>"
+        else:
+            verdict = '<span class="pend-tag mono">— PENDING</span>'
+        rows.append(
+            f'<div class="graded-row">{verdict}'
+            f'<span>{html.escape(label)} — {html.escape(detail)}</span></div>')
+    head = (f'TODAY\'S PRODUCED BET — {date}'
+            if date else 'TODAY\'S PRODUCED BET')
+    tail = ('MARKED PAPER — Phase 2, zero capital.' if admin
+            else 'Predictions only — verified WON/LOST next day.')
+    return ('<div class="flags" style="padding:6px 16px;">'
+            f'<div class="flag-line">{head} — {record.get("n_legs", 0)} leg(s). '
+            f'{tail}</div>'
+            + "".join(rows) + "</div>")
+
+
 def _admin_search_bar(payload: dict) -> str:
     """Search/filter controls for the admin scan table.
 
@@ -2086,6 +2131,11 @@ def render_dashboard(payload: dict) -> str:
         + '<section id="call-section"><div class="sec-head"><h2 class="display">The Call</h2></div>'
         + _the_call(payload.get("board", []), admin=False)
         + "</section>"
+        + '<section id="produced-section"><div class="sec-head"><h2 class="display">Today\'s Produced Bet</h2></div>'
+        + '<p class="sec-sub">What the framework bet today — one leg per rated fixture, '
+        + 'verified WON/LOST next day (ID415)</p>'
+        + _produced_bet_block(payload.get("produced_bet"), admin=False)
+        + "</section>"
         + '<section id="scan-section" style="display:none;"><div class="sec-head"><h2 class="display">The Scan</h2></div>'
         + _date_pills(d, "/dashboard")
         + _scan_table(payload.get("board", []), admin=False, payload_date=payload.get("date", ""))
@@ -2149,6 +2199,11 @@ def render_admin_dashboard(payload: dict) -> str:
         + _admin_search_bar(payload)
         + "</section>"
         + _flags_block(payload.get("data_flags", []))
+        + '<section id="produced-section"><div class="sec-head"><h2 class="display">Today\'s Produced Bet</h2></div>'
+        + '<p class="sec-sub">The produced-bet record (ID415) — every rated fixture with a '
+        + 'kickoff today is one leg; the verified outcome is written next day</p>'
+        + _produced_bet_block(payload.get("produced_bet"), admin=True)
+        + "</section>"
         + '<section id="verified-section"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
         + '<p class="sec-sub">Graded against full-time result, 90-min basis (HR15)</p>'
         + _yesterday_graded(payload.get("yesterday_graded", []))

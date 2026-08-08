@@ -60,9 +60,10 @@ LEAGUE_CODES = {
     "Danish Superliga": None,   # 'Extra' league, different endpoint (see EXTRA_URL)
     "Ekstraklasa": None,        # 'Extra' league, different endpoint
     "HNL": None,                # NOT COVERED — Croatia isn't in football-data.co.uk's country list
+    "EFL Cup": None,            # NOT COVERED — football-data.co.uk has no cup competitions
 }
 
-UNCOVERED_LEAGUES = {"Champions League", "Europa League", "HNL"}
+UNCOVERED_LEAGUES = {"Champions League", "Europa League", "HNL", "EFL Cup"}
 
 # Second-division feeds for the PREVIOUS completed season, used to give
 # promoted clubs a rating they otherwise lack (Architect 2026-08-07). The
@@ -83,6 +84,9 @@ EXTRA_URL = "https://www.football-data.co.uk/new/{code}.csv"
 EXTRA_CODES = {
     "Danish Superliga": "DNK",
     "Ekstraklasa": "POL",
+    # Verified 2026-08-08 against new/AUT.csv: header Country=Austria,
+    # League=Bundesliga, carries the 2026/27 season (rows dated 2026-08-02).
+    "Austrian Bundesliga": "AUT",
 }
 
 # The 'Extra' endpoint uses a DIFFERENT schema from the main per-season CSVs,

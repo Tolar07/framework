@@ -119,6 +119,31 @@ def _render_overview(brain) -> str:
         f"Outcome record (model vs reality): "
         + (f"{oc['n']} settled, hit rate {oc['hit_rate'] * 100:.0f}%"
            if oc["n"] else "0 settled — NO DATA — PENDING (matches still to play)"))
+    out.append("")
+
+    out.append("Produced bet — the day's bet, verified next day (ID415)")
+    pb = brain.produced_bets_summary()
+    if not pb["days"]:
+        out.append("  NO DATA — PENDING (no produced-bet record yet)")
+    else:
+        out.append(f"  {pb['days']} day(s), {pb['legs']} leg(s) across the record; "
+                   f"{pb['settled']} settled")
+        if pb["hit_rate"] is not None:
+            out.append(f"  Verified: {pb['won']} won / "
+                       f"{pb['settled'] - pb['won']} lost — "
+                       f"hit rate {pb['hit_rate'] * 100:.0f}% "
+                       f"({pb['pending']} pending)")
+        else:
+            out.append(f"  Verified: 0 settled — NO DATA — PENDING "
+                       f"({pb['pending']} pending)")
+        for r in pb["by_day"][:10]:
+            day_n = r["n"]
+            day_settled = r["settled"] or 0
+            day_won = r["won"] or 0
+            tail = (f"{day_won} won / {day_settled - day_won} lost"
+                    if day_settled else f"{day_n - day_settled} pending")
+            out.append(f"    {r['date']}: {day_n} leg(s) — "
+                       f"{day_settled} settled, {tail}")
 
     if run:
         out.append(

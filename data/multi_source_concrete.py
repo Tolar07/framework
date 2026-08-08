@@ -215,14 +215,31 @@ class OddsAPISource(DataSource):
         return {"fixtures": fixtures, "flags": flags, "source": f"odds_api_{self.regions}"}
 
 
+class APIFootballOddsSource(DataSource):
+    """API-Football free-plan odds — the fallback when The Odds API quota is
+    spent (same bookmakers, 1X2 + totals, 100 req/day)."""
+
+    def __init__(self):
+        super().__init__("api_football_odds", priority=20, timeout=60.0)
+
+    def fetch(self, league: str) -> list:
+        from data.api_football_odds import fetch_odds as af_fetch
+        fixtures, flags = af_fetch(league)
+        if not fixtures:
+            raise SourceNoData(f"api_football_odds: no odds for {league}")
+        return {"fixtures": fixtures, "flags": flags, "source": "api_football_odds"}
+
+
 def build_odds_multi_source(league: str) -> MultiSource:
     """Build odds multi-source for a specific league."""
-    # UK + EU regions for redundancy
+    # UK + EU regions for redundancy, API-Football free plan as the last resort
+    # when the monthly Odds API quota is exhausted.
     return build_multi_source(
         f"odds_{league}",
         [
             (OddsAPISource(regions="uk", markets="h2h,totals").fetch, "odds_api_uk", 10),
             (OddsAPISource(regions="eu", markets="h2h,totals").fetch, "odds_api_eu", 15),
+            (APIFootballOddsSource().fetch, "api_football_odds", 20),
         ],
         max_retries_per_source=1,
     )

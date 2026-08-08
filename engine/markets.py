@@ -35,6 +35,13 @@ BTTS_NO = "BTTS_NO"
 
 ALL = (HOME, DRAW, AWAY, OVER_25, UNDER_25, OVER_15, UNDER_15, BTTS_YES, BTTS_NO)
 
+# Market key -> index into implied_1x2()'s (home, draw, away) tuple. Used by
+# run_daily/webapp to anchor a market's EV on the bookmaker's devigged implied
+# probability (ID413/ID414). Referenced since 6a976ca but the constant was never
+# defined — masked while no odds were present, exposed the moment the
+# API-Football fallback started pricing fixtures.
+MARKETS_1X2 = {HOME: 0, DRAW: 1, AWAY: 2}
+
 # --- ID405 MARKET GATE (ratified 2026-08-04) --------------------------------
 # Measured on the 2024/25 walk-forward backtest, 5 leagues, corrected engine.
 # Both markets are negative for the MODEL and for RANDOM SELECTION alike, which

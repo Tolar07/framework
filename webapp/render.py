@@ -1677,22 +1677,26 @@ def _chat_tab(payload_date: str = "") -> str:
 </div>"""
 
 def _produce_panel() -> str:
-    """Admin-only: Search → Select → Produce panel for the Search tab.
+    """Admin-only: BET Production panel — visible at the top of /admin.
 
-    Matches ScoreAI's schedule view with a produce twist: search fixtures,
-    select them, and trigger real-time engine predictions."""
-    return """<div class="produce-panel">
+    Search fixtures across all leagues, select matches, and produce
+    predictions in real time. Defaults to today's fixtures."""
+    from engine.softness import SOFTNESS_TIER
+    league_opts = "".join(
+        f'<option value="{html.escape(lg)}">{html.escape(lg)}</option>'
+        for lg in sorted(SOFTNESS_TIER.keys()))
+    return f"""<div class="produce-panel" id="produce-panel">
   <div class="produce-toolbar">
-    <select id="produce-league" aria-label="Filter by league">
-      <option value="">All leagues</option>
+    <select id="produce-league" aria-label="Select league">
+      <option value="">All leagues</option>{league_opts}
     </select>
     <input type="search" id="produce-query" placeholder="Search team name…" aria-label="Search fixtures">
-    <button id="produce-search-btn" class="btn-primary" onclick="produceSearch()">Search</button>
+    <button id="produce-search-btn" class="btn-primary" onclick="produceSearch()">Search today</button>
   </div>
   <div id="produce-results" class="produce-results"></div>
   <div class="produce-tray" id="produce-tray" style="display:none;">
     <span id="produce-count">0 selected</span>
-    <button id="produce-go" class="btn-primary" onclick="produceGo()" disabled>Produce predictions</button>
+    <button id="produce-go" class="btn-primary" onclick="produceGo()" disabled>⚡ Produce predictions</button>
     <button class="market-select-action" onclick="produceClear()">Clear</button>
   </div>
   <div id="produce-output"></div>
@@ -1700,36 +1704,16 @@ def _produce_panel() -> str:
 
 
 _PRODUCE_JS = """<script>
-  // League list populated on load
-  document.addEventListener('DOMContentLoaded', function() {
-    var sel = document.getElementById('produce-league');
-    if (!sel) return;
-    // Fetch leagues from the fixtures API
-    fetch('/api/admin/fixtures?days=1')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (!data.ok || !data.leagues) return;
-        data.leagues.forEach(function(lg) {
-          var opt = document.createElement('option');
-          opt.value = lg.name;
-          opt.textContent = lg.name + ' (' + lg.fixtures.length + ')';
-          sel.appendChild(opt);
-        });
-      }).catch(function() {});
-  });
-
   var _produceSelected = new Set();
 
   function produceSearch() {
     var league = document.getElementById('produce-league').value;
     var q = document.getElementById('produce-query').value;
     var results = document.getElementById('produce-results');
-    results.innerHTML = '<div style="padding:12px;color:var(--ink-faint);">Searching…</div>';
-
-    var params = 'days=7';
+    results.innerHTML = '<div style="padding:12px;color:var(--ink-faint);">Searching today\'s fixtures…</div>';
+    var params = 'days=1';
     if (league) params += '&league=' + encodeURIComponent(league);
     if (q) params += '&q=' + encodeURIComponent(q);
-
     fetch('/api/admin/fixtures?' + params)
       .then(function(r) {
         if (r.status === 401) { window.location.href = '/admin'; return null; }
@@ -1759,16 +1743,12 @@ _PRODUCE_JS = """<script>
           html = '<div style="padding:12px;color:var(--ink-faint);">No fixtures found</div>';
         }
         results.innerHTML = html;
-        // Bind checkbox events
         results.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
           cb.addEventListener('change', function() {
             if (cb.checked) _produceSelected.add(cb.dataset.key);
             else _produceSelected.delete(cb.dataset.key);
             updateProduceTray();
           });
-        });
-        // Restore checked state from _produceSelected
-        results.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
           if (_produceSelected.has(cb.dataset.key)) cb.checked = true;
         });
         updateProduceTray();
@@ -1801,8 +1781,6 @@ _PRODUCE_JS = """<script>
     go.disabled = true;
     go.textContent = 'Producing…';
     output.innerHTML = '<div style="padding:20px;text-align:center;color:var(--ink-faint);">Running engine… (~3s warm)</div>';
-
-    // Group selections by league
     var groups = {};
     _produceSelected.forEach(function(key) {
       var parts = key.split('|');
@@ -1813,7 +1791,6 @@ _PRODUCE_JS = """<script>
     var groupsArr = Object.keys(groups).map(function(lg) {
       return {league: lg, fixtures: groups[lg]};
     });
-
     fetch('/api/admin/produce', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -1823,31 +1800,30 @@ _PRODUCE_JS = """<script>
       return r.json();
     }).then(function(data) {
       go.disabled = false;
-      go.textContent = 'Produce predictions';
+      go.textContent = '\\u26a1 Produce predictions';
       if (!data || !data.ok) {
         output.innerHTML = '<div style="padding:16px;color:var(--coral);">Error: ' + (data ? data.error : 'failed') + '</div>';
         return;
       }
       var html = '<div class="produce-result">';
       html += '<div class="produce-result-header">';
-      html += '<span>' + data.n_rated + ' rated · ' + data.n_deploy + ' deploy-eligible · ' + data.elapsed_s + 's</span>';
+      html += '<span>' + data.n_rated + ' rated \\u00b7 ' + data.n_deploy + ' deploy-eligible \\u00b7 ' + data.elapsed_s + 's</span>';
       html += '<span class="phase mono" style="margin-left:auto;">' + escapeHtml(data.phase || '') + '</span>';
       html += '</div>';
       if (data.flags && data.flags.length) {
         html += '<div class="produce-flags">';
-        data.flags.forEach(function(f) { html += '<div class="flag-line"><span class="mk">⚠</span> ' + escapeHtml(f) + '</div>'; });
+        data.flags.forEach(function(f) { html += '<div class="flag-line"><span class="mk">\\u26a0</span> ' + escapeHtml(f) + '</div>'; });
         html += '</div>';
       }
       html += '<div class="produce-cards">' + data.cards_html + '</div>';
       html += '</div>';
       output.innerHTML = html;
-      // Bind call card expand
       output.querySelectorAll('.call-card').forEach(function(card) {
         card.addEventListener('click', function() { card.classList.toggle('open'); });
       });
     }).catch(function(e) {
       go.disabled = false;
-      go.textContent = 'Produce predictions';
+      go.textContent = '\\u26a1 Produce predictions';
       output.innerHTML = '<div style="padding:16px;color:var(--coral);">Network error: ' + e + '</div>';
     });
   }
@@ -1943,6 +1919,7 @@ def render_admin_dashboard(payload: dict) -> str:
         + 'Approve → Publish to Client</button>'
         + f'{published_stamp}'
         + '</div>'
+        + _produce_panel()
         + _admin_search_bar(payload)
         + _market_select_panel(payload)
         + "<main>"
@@ -1956,9 +1933,9 @@ def render_admin_dashboard(payload: dict) -> str:
         + _date_pills(d, "/admin")
         + _scan_table(payload.get("board", []), admin=True, payload_date=payload.get("date", ""))
         + "</section>"
-        + '<section id="search-section" style="display:none;"><div class="sec-head"><h2 class="display">BET Production</h2></div>'
-        + '<p class="sec-sub">Search fixtures, select matches, and produce predictions in real time</p>'
-        + _produce_panel()
+        + '<section id="search-section" style="display:none;"><div class="sec-head"><h2 class="display">Board Search</h2></div>'
+        + '<p class="sec-sub">Filter today\'s board by team, league, or market</p>'
+        + _admin_search_bar(payload)
         + "</section>"
         + _flags_block(payload.get("data_flags", []))
         + '<section id="verified-section"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'

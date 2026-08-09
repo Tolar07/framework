@@ -76,6 +76,35 @@ def _mark(log: Path, message: str) -> None:
         f.write(f"[{datetime.now(timezone.utc).isoformat()}] {message}\n")
 
 
+def _refresh_sportybet_cache(runlog: Path, days_ahead: int = 30) -> str | None:
+    """Best-effort SportyBet fixture-cache refresh ahead of the run.
+
+    The booking bridge reads SportyBet fixtures from a TTL cache
+    (data/cache/sportybet/). This warms it so the daily board can join
+    SportyBet prices without a browser mid-run. Strictly best-effort: a missing
+    playwright, a blocked site, or a fault is a miss, never a run failure (HR35).
+    The builder is incremental — only leagues whose cache is older than 6h are
+    actually re-navigated, so a warm day adds only the browser launch (~2s).
+
+    Returns a data-flag line (or None when skipped/disabled)."""
+    try:
+        from booking.sportybet_fixtures import build_cache
+        results = build_cache(days_ahead=days_ahead, headless=True)
+    except Exception as e:
+        msg = f"sportybet cache refresh skipped ({type(e).__name__}: {str(e)[:80]})"
+        _mark(runlog, msg)
+        return msg
+    # build_cache returns fixture counts for EVERY league checked — a fresh
+    # (skipped) cache still reports its count, so we cannot tell which were
+    # actually re-navigated. Report the total honestly: the cache is warm.
+    total = sum(results.values())
+    n_checked = len(results)
+    msg = (f"sportybet cache warm: {total} fixtures across {n_checked} "
+           f"league(s) ready for the booking bridge")
+    _mark(runlog, msg)
+    return msg
+
+
 def _retry_transient(fn, label: str, runlog: Path, delay: float = 5.0):
     """Run a network fetch, retrying once on a transient fault.
 
@@ -291,7 +320,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, days_ahead: int = 3,
         whatsapp: bool = True, email: bool = True,
-        web: bool = True, prefetch_crests: bool = False) -> RunResult:
+        web: bool = True, prefetch_crests: bool = False,
+        refresh_sportybet: bool = False) -> RunResult:
     """Run the daily board end to end.
 
     Opens the brain, seeds the ledger + corrections mirrors, records the run
@@ -300,7 +330,14 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 
     `prefetch_crests` (default OFF so library/test callers stay offline) fetches
     missing club badges from TheSportsDB after the web payload is written. The
-    CLI enables it by default (env OLP_PREFETCH_CRESTS=0 disables)."""
+    CLI enables it by default (env OLP_PREFETCH_CRESTS=0 disables).
+
+    `refresh_sportybet` (default OFF, same offline rule) warms the SportyBet
+    fixture cache (data/cache/sportybet/) with a headless Chromium pass before
+    the scan, so the booking bridge can join SportyBet prices. Incremental —
+    only stale leagues are re-navigated — and strictly best-effort: a missing
+    playwright or a fault is a flag, never a run failure (HR35). The CLI
+    enables it by default (env OLP_SPORTYBET=0 or --no-sportybet disables)."""
     leagues = leagues or SCAN_LEAGUES
     brain = Brain()
     run_id = (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -313,7 +350,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     try:
         return _run(run_id, started, t0, brain, season, fixtures_season,
                     leagues, send, min_mes, days_ahead, whatsapp, email, web,
-                    prefetch_crests)
+                    prefetch_crests, refresh_sportybet)
     except Exception:
         brain.update_run(run_id, status="failed")
         raise
@@ -325,12 +362,22 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
          season: str, fixtures_season: str | None, leagues: list[str],
          send: bool, min_mes: float, days_ahead: int,
          whatsapp: bool = True, email: bool = True,
-         web: bool = True, prefetch_crests: bool = False) -> RunResult:
+         web: bool = True, prefetch_crests: bool = False,
+         refresh_sportybet: bool = False) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     runlog = _mark_started()
     log = CLVLog()
     all_flags: list[str] = []
+
+    # --- warm the SportyBet fixture cache BEFORE the scan, so the booking
+    # --- bridge can join SportyBet prices onto the board. Best-effort: a
+    # --- fault is a flag, never a run failure (HR35). Incremental: only
+    # --- leagues whose 6h cache is stale are re-navigated. ---
+    if refresh_sportybet:
+        flag = _refresh_sportybet_cache(runlog)
+        if flag:
+            all_flags.append(flag)
 
     # --- grade yesterday first, so the board reports an up-to-date gate ---
     verify_block, gflags = grade_open_legs(log, season)
@@ -803,15 +850,22 @@ if __name__ == "__main__":
                     help="fixture window in days from today (3 = next 3 days)")
     ap.add_argument("--no-prefetch-crests", action="store_true",
                     help="skip the club-badge prefetch even when the web board is written")
+    ap.add_argument("--no-sportybet", action="store_true",
+                    help="skip the SportyBet fixture-cache refresh before the scan")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     # The CLI pre-warms club badges by default (real runs have the network);
     # env OLP_PREFETCH_CRESTS=0 or --no-prefetch-crests turns it off.
     prefetch = (not a.no_prefetch_crests
                 and os.environ.get("OLP_PREFETCH_CRESTS", "1") != "0")
+    # The CLI also warms the SportyBet fixture cache (best-effort, incremental);
+    # env OLP_SPORTYBET=0 or --no-sportybet turns it off.
+    refresh_sportybet = (not a.no_sportybet
+                         and os.environ.get("OLP_SPORTYBET", "1") != "0")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
               days_ahead=a.days_ahead,
               whatsapp=not a.no_whatsapp, email=not a.no_email,
-              web=not a.no_web, prefetch_crests=prefetch)
+              web=not a.no_web, prefetch_crests=prefetch,
+              refresh_sportybet=refresh_sportybet)
     print("\n" + out.full)

@@ -32,6 +32,8 @@ try:
 except ImportError:
     requests = None
 
+from data.retry import get_protected
+
 API_BASE = "https://v3.football.api-sports.io"
 
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "api_football_fixtures"
@@ -102,9 +104,9 @@ def resolve_league_id(league: str) -> int:
         params["country"] = country
 
     key = _get_key()
-    resp = requests.get(f"{API_BASE}/leagues", headers={"x-apisports-key": key},
+    resp = get_protected(f"{API_BASE}/leagues", breaker_name="api_football",
+                         headers={"x-apisports-key": key},
                          params=params, timeout=20)
-    resp.raise_for_status()
     payload = resp.json()
     results = payload.get("response", [])
     if not results:
@@ -212,8 +214,9 @@ def fetch_upcoming(league: str, season: int, days_ahead: int = 14) -> list[Upcom
     today = date.today()
     end = today + timedelta(days=days_ahead)
 
-    resp = requests.get(
+    resp = get_protected(
         f"{API_BASE}/fixtures",
+        breaker_name="api_football",
         headers={"x-apisports-key": key},
         params={
             "league": league_id,
@@ -223,7 +226,6 @@ def fetch_upcoming(league: str, season: int, days_ahead: int = 14) -> list[Upcom
         },
         timeout=20,
     )
-    resp.raise_for_status()
     payload = resp.json()
 
     if payload.get("errors"):

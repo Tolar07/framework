@@ -40,6 +40,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from data.multi_source import SourceNoData
 from data import fixtures_source
+from data import retry as retry_module
 from pipeline.odds import MarketQuote, FixtureOdds, map_team
 
 try:
@@ -114,8 +115,8 @@ def check_quota() -> tuple[int, int]:
     makes for its own quota — a free probe, not a priced pull."""
     if requests is None:
         raise RuntimeError("requests not installed")
-    r = requests.get(f"{API_BASE}/status", headers=_headers(), timeout=25)
-    r.raise_for_status()
+    r = retry_module.get_protected(f"{API_BASE}/status", breaker_name="api_football",
+                                   headers=_headers(), timeout=25)
     req = r.json().get("response", {}).get("requests", {})
     used = int(req.get("current", 0))
     limit = int(req.get("limit_day", 100))
@@ -315,23 +316,39 @@ def _pace() -> None:
 
 
 def _burst_get(url: str, params: dict) -> requests.Response:
-    """GET with burst-cap pacing and Retry-After backoff on 429.
+    """GET with burst-cap pacing, Retry-After backoff on 429, and a circuit
+    breaker so repeated failures degrade to NO DATA — PENDING instead of
+    hammering the quota.
 
     The free plan rate limit is 10 requests/minute (its own words), so every
     request — fixture lookup or odds — waits on the shared pace gate. On a 429
     we honour Retry-After (or the pace constant) up to BURST_MAX_RETRIES before
     giving up. A 429 is a pacing signal, not a permanent failure."""
     global _last_request_at
+    breaker = retry_module.get_breaker("api_football")
+    if not breaker.allow_request():
+        raise RuntimeError("api_football circuit breaker OPEN — quota in jeopardy, "
+                           "degrade to NO DATA — PENDING")
     _pace()
     for attempt in range(BURST_MAX_RETRIES + 1):
-        r = requests.get(url, headers=_headers(), params=params, timeout=30)
-        _last_request_at = time.time()
-        if r.status_code != 429:
-            return r
-        if attempt >= BURST_MAX_RETRIES:
-            break
-        wait = float(r.headers.get("Retry-After", BURST_PACE_SECONDS * 2))
-        time.sleep(max(wait, BURST_PACE_SECONDS))
+        try:
+            r = requests.get(url, headers=_headers(), params=params, timeout=30)
+            _last_request_at = time.time()
+            if r.status_code == 429:
+                breaker.record_failure()
+            else:
+                breaker.record_success()
+            if r.status_code != 429:
+                return r
+            if attempt >= BURST_MAX_RETRIES:
+                break
+            wait = float(r.headers.get("Retry-After", BURST_PACE_SECONDS * 2))
+            time.sleep(max(wait, BURST_PACE_SECONDS))
+        except (requests.RequestException, OSError) as e:
+            breaker.record_failure()
+            if attempt >= BURST_MAX_RETRIES:
+                raise
+            time.sleep(BURST_PACE_SECONDS)
     return r  # last attempt's 429 — caller raises
 
 

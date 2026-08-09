@@ -45,6 +45,7 @@ except ImportError:
 
 from data.football_data_source import MatchResult
 from data.multi_source import SourceNoData
+from data.retry import get_protected
 
 API_BASE = "https://v3.football.api-sports.io"
 CACHE_DIR = Path(__file__).parent / "cache" / "api_football"
@@ -114,10 +115,11 @@ def load_results(league: str, season: int = FREE_TIER_LAST_SEASON,
         except (json.JSONDecodeError, OSError):
             payload = None
     if payload is None:
-        r = requests.get(f"{API_BASE}/fixtures", headers={"x-apisports-key": _key()},
-                          params={"league": LEAGUE_IDS[league], "season": season},
-                          timeout=30)
-        r.raise_for_status()
+        r = get_protected(
+            f"{API_BASE}/fixtures", breaker_name="api_football",
+            headers={"x-apisports-key": _key()},
+            params={"league": LEAGUE_IDS[league], "season": season},
+            timeout=30)
         payload = r.json()
         if payload.get("errors"):
             raise RuntimeError(f"API-Football: {payload['errors']}")

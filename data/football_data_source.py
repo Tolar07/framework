@@ -25,6 +25,8 @@ try:
 except ImportError:
     requests = None
 
+from data.retry import request as _retry_request
+
 BASE_URL = "https://www.football-data.co.uk/mmz4281/{season}/{code}.csv"
 
 # The daily run settles paper legs against the LIVE season's results (HR46
@@ -320,9 +322,7 @@ def fetch_csv_text(league: str, season: str) -> str:
     else:
         raise ValueError(f"'{league}' is not in LEAGUE_CODES — add it or check spelling.")
 
-    resp = requests.get(url, timeout=20, headers={"User-Agent": "OLP-XDV/1.0"})
-    resp.raise_for_status()
-    return resp.text
+    return _retry_request("GET", url, timeout=20).text
 
 
 def parse_csv_text(league: str, csv_text: str, season: Optional[str] = None,
@@ -481,9 +481,7 @@ def load_second_division(league: str, season: str,
     if csv_text is None:
         url = BASE_URL.format(season=season, code=code)
         try:
-            resp = requests.get(url, timeout=20,
-                                headers={"User-Agent": "OLP-XDV/1.0"})
-            resp.raise_for_status()
+            resp = _retry_request("GET", url, timeout=20)
             csv_text = resp.text
             cache_file.write_text(csv_text, encoding="utf-8")
         except Exception:

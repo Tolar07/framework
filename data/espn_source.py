@@ -35,6 +35,7 @@ from pathlib import Path
 from typing import Optional
 
 from data.thesportsdb_fixtures import UpcomingFixture, map_team
+from data.retry import get
 
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "espn"
 # Fixtures for a given day are known well ahead and rarely change intra-day, so
@@ -116,9 +117,7 @@ def _fetch_day(league: str, slug: str, day: str) -> list[dict]:
     if requests is None:
         raise RuntimeError("espn_source: the 'requests' library is required")
     url = f"{API_BASE}/{slug}/scoreboard"
-    resp = requests.get(url, params={"dates": day}, timeout=25,
-                        headers={"User-Agent": "OLP-XDV/1.0"})
-    resp.raise_for_status()
+    resp = get(url, params={"dates": day}, timeout=25)
     events = (resp.json().get("events") or []) if resp.json() else []
     _write_cache(path, events)
     return events

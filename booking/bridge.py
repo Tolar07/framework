@@ -65,6 +65,10 @@ class PipelineFixture:
     sportybet_home: Optional[str] = None        # SportyBet official home name
     sportybet_away: Optional[str] = None        # SportyBet official away name
     country: Optional[str] = None               # SportyBet country
+    # 1X2 odds captured with the cache (None = not readable — HR35).
+    home_odds: Optional[float] = None
+    draw_odds: Optional[float] = None
+    away_odds: Optional[float] = None
 
 
 @dataclass
@@ -157,6 +161,9 @@ def load_sportybet_fixtures(
             sportybet_home=fx_data.get("sportybet_home"),
             sportybet_away=fx_data.get("sportybet_away"),
             country=mapping.country,
+            home_odds=fx_data.get("home_odds"),
+            draw_odds=fx_data.get("draw_odds"),
+            away_odds=fx_data.get("away_odds"),
         ))
 
     return fixtures
@@ -336,25 +343,21 @@ def get_sportybet_odds_for_leg(
         client = SportyBetClient()
 
     try:
-        fixtures = load_sportybet_fixtures(olp_league, days_ahead=7)
-        sb_home = resolve_team(home_team, "sportybet")
-        sb_away = resolve_team(away_team, "sportybet")
+        fixtures = load_sportybet_fixtures(olp_league, days_ahead=45)
 
+        # Match on MODEL keys — PipelineFixture.home_team/away_team are the
+        # football-data short names, the same keys the orchestrator passes in.
         for fx in fixtures:
-            if fx.model_home == home_team and fx.model_away == away_team:
-                if fx.sportybet_fixture_id:
-                    markets = client.get_odds(fx.sportybet_fixture_id)
-                    for m in markets:
-                        if market == "1X2_HOME" and m.market in ("1X2", "match_winner"):
-                            return m.outcomes.get("1") or m.outcomes.get("Home")
-                        elif market == "1X2_DRAW" and m.market in ("1X2", "match_winner"):
-                            return m.outcomes.get("X") or m.outcomes.get("Draw")
-                        elif market == "1X2_AWAY" and m.market in ("1X2", "match_winner"):
-                            return m.outcomes.get("2") or m.outcomes.get("Away")
-                        elif market == "OVER_2_5" and "OVER_UNDER" in m.market.upper():
-                            return m.outcomes.get("Over") or m.outcomes.get("Over 2.5")
-                        elif market == "UNDER_2_5" and "OVER_UNDER" in m.market.upper():
-                            return m.outcomes.get("Under") or m.outcomes.get("Under 2.5")
+            if fx.home_team == home_team and fx.away_team == away_team:
+                if market == "1X2_HOME":
+                    return fx.home_odds
+                elif market == "1X2_DRAW":
+                    return fx.draw_odds
+                elif market == "1X2_AWAY":
+                    return fx.away_odds
+                # Totals markets are NOT captured from the league page (the
+                # line is a variable selector, not fixed 2.5) — honest None.
+                return None
         return None
     finally:
         if client:

@@ -80,6 +80,12 @@ class CachedFixture:
     model_away: str      # Mapped to OLP XDV model key
     league: str
     country: str
+    # 1X2 odds as displayed on the league page (first market cell of the row).
+    # None means the row had no readable odds that pass (the row is still
+    # cached — a missing price is a miss, never a fabricated one, HR35).
+    home_odds: Optional[float] = None
+    draw_odds: Optional[float] = None
+    away_odds: Optional[float] = None
 
 
 @dataclass
@@ -248,6 +254,23 @@ def _parse_fixture_element(elem, league: str, country: str,
         model_home = resolve_team(sportybet_home, "sportybet")
         model_away = resolve_team(sportybet_away, "sportybet")
 
+        # 1X2 odds: the row's FIRST market cell (.market) carries the three
+        # match-result prices in order Home / Draw / Away. A row without
+        # readable prices keeps None for that side (HR35 — never fabricated).
+        home_odds, draw_odds, away_odds = None, None, None
+        first_market = elem.query_selector(".market-cell .market")
+        if first_market is not None:
+            outcome_elems = first_market.query_selector_all(".m-outcome-odds")
+            prices = []
+            for oe in outcome_elems:
+                raw = oe.inner_text().strip().replace(" ", "")
+                try:
+                    prices.append(float(raw))
+                except ValueError:
+                    prices.append(None)
+            if len(prices) >= 3 and all(p is not None for p in prices[:3]):
+                home_odds, draw_odds, away_odds = prices[0], prices[1], prices[2]
+
         return CachedFixture(
             fixture_id=fixture_id,
             home_team=sportybet_home,
@@ -259,6 +282,9 @@ def _parse_fixture_element(elem, league: str, country: str,
             model_away=model_away,
             league=league,
             country=country,
+            home_odds=home_odds,
+            draw_odds=draw_odds,
+            away_odds=away_odds,
         )
     except Exception:
         return None

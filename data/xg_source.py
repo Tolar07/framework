@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import math
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -158,7 +159,9 @@ class XGProbabilities:
     home: float
     draw: float
     away: float
+    over15: float
     over25: float
+    over35: float
     btts: float
 
 
@@ -208,6 +211,66 @@ def fit_xg(league: str, season: str) -> dict[str, TeamXG]:
     return ratings
 
 
+def poisson_pmf(k: int, lam: float) -> float:
+    """Poisson probability of exactly k goals under rate lam."""
+    return math.exp(-lam) * lam**k / math.factorial(k)
+
+
+# Goals totals are summed out to this many goals per side. predict_xg caps
+# lambdas at 4.5, so the omitted tail (P(>15) on either side) is far below
+# 1e-6 — it cannot move a reported percentage.
+_GOALS_CUTOFF = 15
+
+
+def _over_goals(lam_h: float, lam_a: float, line: int) -> float:
+    """P(total goals > line) from the Poisson product of both lambdas, where
+    `line` is the integer just below the market line (1 -> O1.5, 2 -> O2.5,
+    3 -> O3.5). Same shape as Dixon-Coles' p_over (score-matrix cells whose
+    total exceeds the line) so the two engines' numbers are directly
+    comparable — which the old `1 - P(h<=4)*P(a<=4)` was NOT: that measures
+    "at least one team scores 5+", a different event entirely."""
+    return sum(poisson_pmf(i, lam_h) * poisson_pmf(j, lam_a)
+               for i in range(_GOALS_CUTOFF) for j in range(_GOALS_CUTOFF)
+               if i + j > line)
+
+
+# A material goals-market disagreement: two engines whose probability reads
+# differ by at least this many points. Mirrors the 1X2 divergence tolerance
+# (engine/elo.py) — agreement within tolerance is consistent reads; a gap
+# this wide is a warning the board must surface.
+GOALS_DIVERGENCE_TOLERANCE = 0.20
+
+
+def goals_divergence(dc, xg: XGProbabilities) -> Optional[str]:
+    """Cross-check Dixon-Coles' goals-market read against xG's independent one.
+
+    DC reads SCORE PATTERNS (goals scored); xG reads CHANCE QUALITY (xG from
+    the same fixtures) — genuinely different inputs, so when they disagree
+    materially on a goals market the board says so. DC stays canonical for
+    what is logged; this is a warning, never a gate.
+
+    Returns None when either engine has no number on a market (HR35: missing
+    data is never flagged or passed)."""
+    if dc is None or xg is None:
+        return None
+    gaps = []
+    for label, dc_attr, xg_p in (
+        ("O2.5", "p_over_25", xg.over25),
+        ("BTTS", "p_btts_yes", xg.btts),
+    ):
+        dc_p = getattr(dc, dc_attr, None)
+        if dc_p is None or xg_p is None:
+            continue
+        if abs(dc_p - xg_p) >= GOALS_DIVERGENCE_TOLERANCE:
+            gaps.append(f"{label}: goals model {round(dc_p*100)}% vs "
+                        f"xG {round(xg_p*100)}%")
+    if not gaps:
+        return None
+    return ("GOALS DIVERGENCE — " + "; ".join(gaps)
+            + " (DC reads score patterns, xG reads chance quality; "
+              "disagreement is a warning, not a verdict)")
+
+
 def predict_xg(home: str, away: str, ratings: dict[str, TeamXG],
                league: str = "", home_adv: float = 0.15) -> Optional[XGProbabilities]:
     """Predict a match from xG ratings.
@@ -229,10 +292,8 @@ def predict_xg(home: str, away: str, ratings: dict[str, TeamXG],
     # Simplified: use raw attack vs defence as lambda scaling
     lam_h = max(0.15, min(4.5, hr.xg_attack * (ar.xg_defence / 1.0) + home_adv))
     lam_a = max(0.15, min(4.5, ar.xg_attack * (hr.xg_defence / 1.0)))
-    # Poisson probability calculation
-    import math
-    def poisson_pmf(k, lam):
-        return math.exp(-lam) * lam**k / math.factorial(k)
+    # Poisson probability calculation (poisson_pmf/_over_goals are module-level
+    # so the goals markets and the divergence check share one source of truth).
     p_home = p_draw = p_away = 0.0
     for i in range(8):
         for j in range(8):
@@ -243,11 +304,17 @@ def predict_xg(home: str, away: str, ratings: dict[str, TeamXG],
                 p_draw += p_ij
             else:
                 p_away += p_ij
-    p_over25 = 1 - sum(poisson_pmf(i, lam_h) * poisson_pmf(j, lam_a)
-                       for i in range(5) for j in range(5))
-    p_btts = 1 - poisson_pmf(0, lam_h) - poisson_pmf(0, lam_a) + poisson_pmf(0, lam_h)*poisson_pmf(0, lam_a)
+    # Goals markets (Phase 3.4): O1.5/O2.5/O3.5 via the same Poisson product,
+    # and BTTS as P(H>=1)*P(A>=1). Capped at 0.98 like the original file did —
+    # a display ceiling, never a fabrication.
+    p_over15 = _over_goals(lam_h, lam_a, 1)
+    p_over25 = _over_goals(lam_h, lam_a, 2)
+    p_over35 = _over_goals(lam_h, lam_a, 3)
+    p_btts = (1 - poisson_pmf(0, lam_h) - poisson_pmf(0, lam_a)
+              + poisson_pmf(0, lam_h) * poisson_pmf(0, lam_a))
     total = p_home + p_draw + p_away
     return XGProbabilities(
         home=p_home/total, draw=p_draw/total, away=p_away/total,
-        over25=min(p_over25, 0.98), btts=min(p_btts, 0.98),
+        over15=min(p_over15, 0.98), over25=min(p_over25, 0.98),
+        over35=min(p_over35, 0.98), btts=min(p_btts, 0.98),
     )

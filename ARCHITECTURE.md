@@ -1,6 +1,6 @@
 # OLP XDV — Current Architecture Summary
 
-**Generated**: 2026-08-07  
+**Generated**: 2026-08-07 (updated 2026-08-09 — same-day product bet + accas + booking codes)
 **Purpose**: Single source of truth for every moving part, credential, scheduled job, and third-party dependency. Drift like "auto/best-free" routing is caught here, not by accident.
 
 ---
@@ -9,11 +9,13 @@
 
 | Component | Path | Purpose | Language/Deps |
 |-----------|------|---------|---------------|
-| **Daily Pipeline** | `run_daily.py` | 07:00 run: grade→fixtures→odds→engine→verify→board→log→notify | Python 3.12, stdlib + `requests` |
+| **Daily Pipeline** | `run_daily.py` | 07:00 run: grade→fixtures→odds→engine→verify→board→log→notify. Product bet (THE CALL, produced bet, TODAY'S PICKS, accas) is TODAY's fixtures only (rule 2026-08-09); 3-day window is the scan reference | Python 3.12, stdlib + `requests` |
 | **Brain (SQLite)** | `brain/store.py` | Persistent memory: model fits, predictions, CLV legs mirror, runs | Python 3.12, sqlite3 (stdlib) |
 | **CLV Logger** | `clv/clv_logger.py` | Canonical ledger (JSON) — paper legs, entry/close prices, CLV | Python 3.12, stdlib |
 | **Engine Suite** | `engine/` | Dixon-Coles, Elo, xG (Understat), Bookmaker (devigged), Consensus | Python 3.12, stdlib + `numpy` (opt) |
+| **Acca Builder** | `engine/acca.py` | Up to 3 four-leg accas from TODAY's deploy shortlist, capital-cleared legs (Draw + Under 2.5, ID405), EV-ranked, disjoint combos (standing rule 2026-08-09) | Python 3.12 |
 | **Orchestrator** | `orchestrator.py` | Scan per league, fit/reuse models, build board | Python 3.12 |
+| **SportyBet Booking** | `booking/booking_codes.py` | Playwright booking-code generator — reads `acca_<date>.json`, drives the SPA, captures BOOKING CODES; codes pre-fill the slip, NEVER stake (Phase-2 safe); per-leg BOOKED/MANUAL | Python 3.12 + Playwright |
 | **Telegram Poller** | `output/telegram_commands.py` | Long-polling daemon: `/send`, `/produce`, `/verify`, `/stats`, `/board`, `/why` | Python 3.12, stdlib |
 | **Web Dashboard** | `webapp/` | Two-tier: `/dashboard` (public, trimmed) + `/admin` (authed, full) | Python 3.12, stdlib HTTP server |
 

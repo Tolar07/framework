@@ -7,6 +7,41 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-09 · SOFTNESS PAUSED — ID402 deploy gate suspended — by order of the ARCHITECT
+
+**What the Architect asked:** "remove all tiers in bet production and produce
+bet normally pause softness."
+
+**What changed:** `engine/softness.SOFTNESS_PAUSED = True` makes the ID402
+softness-tier deploy gate a no-op in bet production:
+- Every whitelisted league is now deploy-eligible (`is_deploy_eligible` returns
+  True for all tiers A-D; HR34 unrated `"?"` leagues still excluded).
+- `DEPLOY_POOL_CAP` (6) is lifted — `build_deploy_shortlist` returns all
+  market-gate-cleared fixtures when paused.
+- THE CALL is ranked purely priced-first then EV/conviction (no tier priority).
+- The odds price pull widens from A/B-only to all whitelisted leagues
+  (quota self-limits via `check_quota` / `QUOTA_HARD_FLOOR`).
+
+**Unchanged bright lines:**
+- **ID405 market gate stays active** — away win, Over 2.5, and home win remain
+  blocked from capital (evidence: negative CLV for the model AND random).
+- Phase 2 paper-only, zero capital, Architect-only deployment.
+- HR35 honesty — unpriced fixtures render NO DATA / are flagged for Architect
+  confirmation, never guessed.
+
+**Evidence basis:** the 2026-08-04 null measurement (recorded, not acted on at
+the time): softness A/B scored +0.084% vs C/D +0.075% mean CLV — a +0.008pp
+difference on 588 vs 1270 legs. Softness was "unproven, not disproven";
+pausing the tier gate on that null evidence widens exposure to the full
+whitelist. This is the Architect's call, not a model result.
+
+**Reversible:** set `engine.softness.SOFTNESS_PAUSED = False` to restore ID402
+(A/B only, cap 6). The machinery is intact.
+
+**Authority:** Architect direct instruction. No capital, staking, fabrication,
+verification or honest-edge behaviour changed (the market gate is unchanged).
+All softness/multi-league/engine-regression/webapp suites green.
+
 ## 2026-08-07 · Health monitor — self-triggering, self-healing awareness — built by order of the ARCHITECT
 
 **What the Architect asked:** "can you build me a self healing monitoring bot"

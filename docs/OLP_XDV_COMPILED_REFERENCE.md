@@ -86,11 +86,13 @@ Scottish Premiership · Belgian Pro League · Eredivisie · Championship · Prim
 
 Model-only SCAN is wide — every whitelisted league gets scanned every run, whether or not deploy-eligible, whether or not its season has started. Capital shortlist (THE CALL / DEPLOY) is narrow — softness tier A/B only, capped at 6 fixtures total across ALL leagues combined, never per-league.
 
+**⚠ SOFTNESS PAUSED (2026-08-09, Architect directive):** the tier gate is suspended in bet production — `engine/softness.SOFTNESS_PAUSED = True`. Every whitelisted league (A/B/C/D) is deploy-eligible, `DEPLOY_POOL_CAP` is lifted, THE CALL ranks purely priced-first then EV/conviction, and the odds price pull widens to all whitelisted leagues (quota self-limits via `check_quota`). The **ID405 market gate is unchanged** (away win, Over 2.5, home win still blocked from capital). Set `SOFTNESS_PAUSED = False` to restore ID402.
+
 **Softness tiers** (evidence-based ranking, Section 7.4 of the master doc per earlier sessions):
 - Tier A/B = deploy-eligible
 - Tier C/D = scan-only, never enters the capital shortlist regardless of how good a number looks
 
-> **REPO CROSS-CHECK:** ✓ matches the current design exactly (`orchestrator.py`, `engine/softness.py`). Scan = all 17 whitelisted leagues; deploy = A/B only, capped at 6 (`RECOMMEND_MAX_LEGS`, softness `cap`).
+> **REPO CROSS-CHECK:** ✓ `orchestrator.py`, `engine/softness.py`. Scan = all 17 whitelisted leagues. Deploy gating now honours `SOFTNESS_PAUSED`: when True, deploy = all whitelisted leagues with no cap; when False, deploy = A/B only, capped at 6. This doc's tier A/B-only description is the *unpaused* contract; the pause is recorded in RATIFICATIONS.md (2026-08-09).
 
 ---
 

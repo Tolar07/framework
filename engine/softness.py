@@ -47,6 +47,12 @@ SOFTNESS_TIER = {
 
 DEPLOY_ELIGIBLE_TIERS = {"A", "B"}
 
+# SOFTNESS_PAUSED — when True, ID402 deploy gate is suspended (all whitelisted
+# leagues deploy-eligible, no cap). Set False to restore ID402. Architect
+# directive 2026-08-09; evidence: 2026-08-05 null-CLV measurement (A/B +0.084%
+# vs C/D +0.075%, Δ+0.008pp). ID405 market gate UNCHANGED.
+SOFTNESS_PAUSED = True
+
 # --- MARKET GATE (ratified 2026-08-04, evidence below) ----------------------
 #
 # Measured on the 2024/25 walk-forward backtest, 5 leagues, corrected engine.
@@ -98,6 +104,8 @@ def softness_tier(league: str) -> str:
 
 
 def is_deploy_eligible(league: str) -> bool:
+    if SOFTNESS_PAUSED:
+        return softness_tier(league) != "?"  # all whitelisted, HR34 still excludes unrated
     return softness_tier(league) in DEPLOY_ELIGIBLE_TIERS
 
 
@@ -111,10 +119,14 @@ class SlateDecision:
 
 def classify(league: str) -> SlateDecision:
     tier = softness_tier(league)
+    if SOFTNESS_PAUSED:
+        deploy_eligible = tier != "?"
+    else:
+        deploy_eligible = tier in DEPLOY_ELIGIBLE_TIERS
     return SlateDecision(
         league=league, tier=tier,
         scan_eligible=tier != "?",     # HR34: an unratified league scans as NO DATA, never silently included
-        deploy_eligible=tier in DEPLOY_ELIGIBLE_TIERS,
+        deploy_eligible=deploy_eligible,
     )
 
 
@@ -153,10 +165,17 @@ def call_key(c) -> tuple:
 
     Public so the renderer sorts THE CALL into the same order it was selected
     — otherwise the right six are picked but shown in scan order, which reads
-    as if the ranking failed."""
+    as if the ranking failed.
+
+    When SOFTNESS_PAUSED=True: tier is dropped from the sort key; ranked purely
+    priced-first then EV/conviction, no cap."""
     ev = getattr(c, "best_mes_ev", None)
     if ev is not None:
+        if SOFTNESS_PAUSED:
+            return (0, -ev)          # priced first, no tier
         return (c.softness_tier, 0, -ev)          # priced first
+    if SOFTNESS_PAUSED:
+        return (1, -_confidence(c))  # unpriced after priced, no tier
     return (c.softness_tier, 1, -_confidence(c))  # unpriced after
 
 
@@ -174,8 +193,18 @@ def build_deploy_shortlist(candidates: list) -> list:
     headlined market is blocked (an away win or an Over 2.5 can never carry
     capital) is excluded even if it is softness A/B. Priced fixtures already
     get a deployable headlined market from run_daily, so this is a structural
-    backstop — the gate cannot silently widen later."""
+    backstop — the gate cannot silently widen later.
+
+    When SOFTNESS_PAUSED=True: the softness tier filter is dropped, the cap is
+    lifted (all market-gate-cleared fixtures returned), but the ID405 market
+    gate (mkt.blocked) remains enforced."""
     from engine import markets as mkt
+    if SOFTNESS_PAUSED:
+        eligible = [c for c in candidates
+                    if not (getattr(c, "best_market_key", None)
+                         and mkt.blocked(c.best_market_key))]
+        ranked = sorted(eligible, key=call_key)
+        return ranked  # NO CAP when paused
     eligible = [c for c in candidates
                 if c.softness_tier in DEPLOY_ELIGIBLE_TIERS
                 and not (getattr(c, "best_market_key", None)

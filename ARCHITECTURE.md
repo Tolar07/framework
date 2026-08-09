@@ -96,7 +96,9 @@ run_daily.bat
        │    ├─ ESPN scoreboard (NEW: key-free redundancy)
        │    ├─ Odds-derived fixtures (last resort)
        │    └─ API-Football (paid fallback)
-       ├─ fetch_odds() for deploy-eligible leagues only (quota protection)
+       ├─ fetch_odds() for deploy-eligible leagues only (quota protection;
+       │    softness PAUSED 2026-08-09 → all whitelisted leagues, self-limited
+       │    by check_quota)
        ├─ Engine: DC + Elo + xG + Bookmaker (devigged 1X2) → Consensus
        ├─ Market-anchored probability blend (ID414)
        ├─ CLV-gated recalibration (inert until MIN_LEGS=15)

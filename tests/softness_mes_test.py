@@ -2,11 +2,14 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from engine.softness import softness_tier, is_deploy_eligible, classify, build_deploy_shortlist, DEPLOY_POOL_CAP
+import engine.softness as softness
+from engine.softness import (softness_tier, is_deploy_eligible, classify,
+                             build_deploy_shortlist, DEPLOY_POOL_CAP, SOFTNESS_PAUSED)
 from engine.mes import trigger_price, mes_numeric
 from dataclasses import dataclass
 
-# --- softness tiers ---
+# --- softness tiers (machinery, SOFTNESS_PAUSED=False) ---
+softness.SOFTNESS_PAUSED = False
 assert softness_tier("Eredivisie") == "A"
 assert softness_tier("Scottish Premiership") == "B"
 assert softness_tier("Premier League") == "D"
@@ -19,9 +22,9 @@ assert is_deploy_eligible("Championship") is False      # C tier — scan-only
 
 c = classify("Not A Real League")
 assert c.scan_eligible is False, "HR34: an unratified league must never scan-eligible"
-print("Softness tier gating: OK")
+print("Softness tier gating (SOFTNESS_PAUSED=False): OK")
 
-# --- ID402 pool cap ---
+# --- ID402 pool cap (SOFTNESS_PAUSED=False) ---
 @dataclass
 class FakeCandidate:
     softness_tier: str
@@ -38,7 +41,25 @@ mixed = [FakeCandidate(softness_tier="A"), FakeCandidate(softness_tier="C"),
 shortlist2 = build_deploy_shortlist(mixed)
 assert all(c.softness_tier in ("A", "B") for c in shortlist2)
 assert len(shortlist2) == 2
-print("Tier C excluded from deploy shortlist: OK")
+print("Tier C excluded from deploy shortlist (SOFTNESS_PAUSED=False): OK")
+
+# --- SOFTNESS_PAUSED=True: all whitelisted deploy-eligible, no cap ---
+softness.SOFTNESS_PAUSED = True
+assert is_deploy_eligible("Eredivisie") is True
+assert is_deploy_eligible("Premier League") is True    # D tier now deploy-eligible
+assert is_deploy_eligible("Bundesliga") is True        # C tier now deploy-eligible
+assert is_deploy_eligible("Not A Real League") is False  # HR34 unrated still excluded
+assert classify("Bundesliga").deploy_eligible is True
+assert classify("Premier League").deploy_eligible is True
+
+# No cap when paused: 8 candidates -> all 8 shortlisted
+candidates3 = [FakeCandidate(softness_tier="A") for _ in range(8)]
+shortlist3 = build_deploy_shortlist(candidates3)
+assert len(shortlist3) == 8, f"no cap when paused, got {len(shortlist3)}"
+print("Softness PAUSED: all whitelisted deploy-eligible, no cap: OK")
+
+softness.SOFTNESS_PAUSED = False  # restore default for subsequent modules
+print(f"SOFTNESS_PAUSED default (module): {SOFTNESS_PAUSED}")
 
 # --- HR30 MES trigger price ---
 tp = trigger_price(0.60)

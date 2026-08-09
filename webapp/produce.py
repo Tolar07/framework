@@ -140,15 +140,18 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
             # Try to attach live odds for priced EV (best-effort)
             try:
                 import pipeline.odds as odds_mod
-                from engine.softness import DEPLOY_ELIGIBLE_TIERS
+                from engine.softness import DEPLOY_ELIGIBLE_TIERS, SOFTNESS_PAUSED, SOFTNESS_TIER
                 from run_daily import _retry_transient
 
                 odds_leagues = set()
                 for bf in board:
                     if bf.probs is not None:
                         lg = bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture else ""
-                        if SOFTNESS_TIER.get(lg) in DEPLOY_ELIGIBLE_TIERS:
-                            odds_leagues.add(lg)
+                        if SOFTNESS_PAUSED:
+                            odds_leagues.add(lg)  # all whitelisted rated fixtures
+                        else:
+                            if SOFTNESS_TIER.get(lg) in DEPLOY_ELIGIBLE_TIERS:
+                                odds_leagues.add(lg)
 
                 odds_index: dict = {}
                 for lg in sorted(odds_leagues):
@@ -240,24 +243,45 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
             # with the Architect's requested summary at the end of production.
             bd = [S.fixture_to_dict(b) for b in board]
             cards_html = R._tier_grouped_call(bd)
-            summary_html = (
-                '<div class="produce-summary">'
-                '<h3>Summary — how to read this production</h3>'
-                '<ul>'
-                '<li><b>Tier A &amp; B</b> — deploy-eligible leagues. '
-                'The only leagues that can ever carry capital.</li>'
-                '<li><b>Tier C &amp; D</b> — scan-only: fully predicted, '
-                'never a capital pick.</li>'
-                '<li><b>DEPLOY</b> — this fixture made today\'s deploy pool '
-                '(softness A/B, cap 6).</li>'
-                '<li><b>Paper only</b> — Phase 2, zero capital. Nothing here '
-                'is placed; capital opens only at Phase 3 (30 paper legs with '
-                'logged CLV, positive CLV, V7 sign-off) and only the '
-                'Architect deploys.</li>'
-                '</ul>'
-                '<div class="honest-line">Honest edge line: a rigorous '
-                'informed process, NOT a demonstrated profitable edge.</div>'
-                '</div>')
+            from engine.softness import SOFTNESS_PAUSED
+            if SOFTNESS_PAUSED:
+                summary_html = (
+                    '<div class="produce-summary">'
+                    '<h3>Summary — how to read this production (SOFTNESS PAUSED)</h3>'
+                    '<ul>'
+                    '<li><b>All whitelisted leagues</b> are deploy-eligible '
+                    '(softness PAUSED).</li>'
+                    '<li><b>No deploy pool cap</b> — every eligible fixture '
+                    'with a pick appears in the CALL.</li>'
+                    '<li><b>ID405 market gate</b> still active: away win, '
+                    'Over 2.5, and home win stay blocked from capital.</li>'
+                    '<li><b>Paper only</b> — Phase 2, zero capital. Nothing '
+                    'here is placed; capital opens only at Phase 3 (30 paper '
+                    'legs with logged CLV, positive CLV, V7 sign-off) and only '
+                    'the Architect deploys.</li>'
+                    '</ul>'
+                    '<div class="honest-line">Honest edge line: a rigorous '
+                    'informed process, NOT a demonstrated profitable edge.</div>'
+                    '</div>')
+            else:
+                summary_html = (
+                    '<div class="produce-summary">'
+                    '<h3>Summary — how to read this production</h3>'
+                    '<ul>'
+                    '<li><b>Tier A &amp; B</b> — deploy-eligible leagues. '
+                    'The only leagues that can ever carry capital.</li>'
+                    '<li><b>Tier C &amp; D</b> — scan-only: fully predicted, '
+                    'never a capital pick.</li>'
+                    '<li><b>DEPLOY</b> — this fixture made today\'s deploy pool '
+                    '(softness A/B, cap 6).</li>'
+                    '<li><b>Paper only</b> — Phase 2, zero capital. Nothing here '
+                    'is placed; capital opens only at Phase 3 (30 paper legs with '
+                    'logged CLV, positive CLV, V7 sign-off) and only the '
+                    'Architect deploys.</li>'
+                    '</ul>'
+                    '<div class="honest-line">Honest edge line: a rigorous '
+                    'informed process, NOT a demonstrated profitable edge.</div>'
+                    '</div>')
             rendered_text = "\n\n".join(
                 render_fixture_block(b, i) for i, b in enumerate(board, 1))
 

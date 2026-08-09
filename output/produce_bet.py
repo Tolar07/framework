@@ -76,6 +76,15 @@ class BoardFixture:
     # Big-5 leagues where a free xG source exists; omitted elsewhere (never
     # fabricated, HR35).
     xg_probs: Optional[tuple] = None
+    # xG's goals-market read (O1.5, O2.5, O3.5, BTTS-yes) from the SAME xG
+    # prediction as xg_probs — chance quality applied to the goals markets,
+    # not just 1X2 (Phase 3.4). DC's goals markets stay canonical for what is
+    # logged; this independent opinion is shown beside them, never blended.
+    xg_goals: Optional[tuple] = None
+    # Raised when DC's goals read and xG's disagree materially (>=20 points
+    # on a market). A warning the board surfaces, never a gate — the pick
+    # stays DC-canonical (HR35: missing data is never flagged or passed).
+    goals_divergence: Optional[str] = None
     # Fourth opinion — the BOOKMAKER's devigged implied 1X2 (ID413). The
     # aggregate of real money, not a model; computed from the full home/draw/
     # away odds by proportional margin removal (engine/markets.py implied_1x2).
@@ -268,6 +277,17 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
                  f"independent of goals + results:")
         L.append(f"      {p.home_team} to win {round(xh*100)}% · Draw "
                  f"{round(xd*100)}% · {p.away_team} to win {round(xa*100)}%")
+        # Phase 3.4: xG's goals-market read — chance quality applied to the
+        # goals markets. DC's goals markets above stay canonical for what is
+        # logged; this is the independent second opinion on the goals side,
+        # shown beside it and never blended.
+        if bf.xg_goals:
+            xo15, xo25, xo35, xb = bf.xg_goals
+            L.append(f"      Goals (chance quality): O1.5 {round(xo15*100)}% · "
+                     f"O2.5 {round(xo25*100)}% · O3.5 {round(xo35*100)}% · "
+                     f"BTTS yes {round(xb*100)}%")
+            if bf.goals_divergence:
+                L.append(f"      ⚠ {bf.goals_divergence}")
     else:
         L.append("   Third opinion (xG): NO DATA — PENDING (no free xG source "
                  "covers this league — xG covers Big-5 + RFPL only)")

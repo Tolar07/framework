@@ -519,6 +519,12 @@ def scan_one_league(league: str, season: str,
         xg_p = (xg_source.predict_xg(home, away, xg_ratings, league=league)
                 if xg_ratings else None)
         xg_t = (xg_p.home, xg_p.draw, xg_p.away) if xg_p else None
+        # Phase 3.4: xG's goals-market read (O1.5/O2.5/O3.5/BTTS) from the SAME
+        # prediction as xg_t — chance quality on the goals markets, not just
+        # 1X2. DC's goals markets stay canonical for what is logged; this is
+        # the independent second opinion shown beside them, never blended.
+        xg_goals = (xg_p.over15, xg_p.over25, xg_p.over35, xg_p.btts) \
+            if xg_p else None
         mes = None
         if probs is not None:
             best_prob = max(probs.p_home, probs.p_draw, probs.p_away,
@@ -562,6 +568,12 @@ def scan_one_league(league: str, season: str,
             kickoff_date=fixture_dates.get((home, away)),
             elo_probs=elo_p,
             xg_probs=xg_t,
+            # Phase 3.4: xG goals read + DC-vs-xG goals divergence (display
+            # only — never changes what is logged).
+            xg_goals=xg_goals,
+            goals_divergence=(xg_source.goals_divergence(probs, xg_p)
+                              if (probs is not None and xg_p is not None)
+                              else None),
             # ID412: majority vote across whatever engines priced the fixture.
             # Pure display + brain data — never changes what is logged. Only
             # for a RATED fixture (DC must have an opinion for a consensus to

@@ -126,6 +126,10 @@ def fixture_to_dict(bf: BoardFixture) -> dict:
         "elo_probs": list(bf.elo_probs) if bf.elo_probs else None,
         "engine_divergence": _opt(bf.engine_divergence),
         "xg_probs": list(bf.xg_probs) if bf.xg_probs else None,
+        # Phase 3.4: xG's goals-market read (O1.5/O2.5/O3.5/BTTS) + the
+        # DC-vs-xG goals divergence flag. Admin-only (trim_payload drops them).
+        "xg_goals": list(bf.xg_goals) if bf.xg_goals else None,
+        "goals_divergence": _opt(bf.goals_divergence),
         "market_probs": list(bf.market_probs) if bf.market_probs else None,
         "consensus": _consensus_to_dict(bf.consensus),
         "engine_picks": engine_picks,

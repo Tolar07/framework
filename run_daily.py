@@ -936,6 +936,16 @@ def _predictions_from_board(board, run_id: str, predicted_at: str,
                               ("1X2_AWAY", xa)):
                 rows.append(dict(base, market=key, model_engine="xg",
                                  model_prob=prob))
+            if getattr(bf, "xg_goals", None):
+                # Phase 3.4: xG's goals-market read persisted like its 1X2 —
+                # the brain grades chance quality on the goals markets it
+                # calls, so engine_clv attributes goals-market CLV to xG (and
+                # never to DC, which did not author these).
+                xo15, xo25, _, xb = bf.xg_goals
+                for key, prob in (("OVER_1_5", xo15), ("OVER_2_5", xo25),
+                                  ("BTTS_YES", xb)):
+                    rows.append(dict(base, market=key, model_engine="xg",
+                                     model_prob=prob))
         if getattr(bf, "market_probs", None):
             # ID413: the bookmaker's devigged implied 1X2 — real money, the
             # sharpest calibration source. Persisted so the brain grades the

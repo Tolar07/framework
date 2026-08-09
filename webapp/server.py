@@ -140,12 +140,45 @@ def _board_dates() -> list[str]:
                    BOARD_DIR.glob("board_*.json")), reverse=True)
 
 
+# Lazy-built structured access logger. Set OLP_ACCESS_LOG to redirect it
+# (tests point it at a tmp file so real logs/web.jsonl stays clean).
+_ACCESS_LOGGER = None
+
+
+def _access_log():
+    global _ACCESS_LOGGER
+    if _ACCESS_LOGGER is None:
+        from monitor import json_log
+        path = os.environ.get("OLP_ACCESS_LOG") or str(ROOT / "logs" / "web.jsonl")
+        _ACCESS_LOGGER = json_log.setup_json_logging(path)
+    return _ACCESS_LOGGER
+
+
 class Handler(BaseHTTPRequestHandler):
+    server_version = "OLPXDV/1"
+    protocol_version = "HTTP/1.1"
     server_version = "OLPXDV/1"
     protocol_version = "HTTP/1.1"
 
     def log_message(self, fmt, *args):  # quieter than the default stderr spam
-        sys.stderr.write("[web] %s %s\n" % (self.address_string(), fmt % args))
+        msg = fmt % args
+        sys.stderr.write("[web] %s %s\n" % (self.address_string(), msg))
+        # Structured twin: every request also lands in logs/web.jsonl (JSONL,
+        # rotated by size) for the Grafana/Prometheus side. Never raises —
+        # a logging failure must not take the dashboard down.
+        try:
+            logger = _access_log()
+            fields: dict = {"path": getattr(self, "path", ""),
+                            "method": getattr(self, "command", "")}
+            m = re.search(r"\s(\d{3})\s", msg)
+            if m:
+                fields["status"] = int(m.group(1))
+            started = getattr(self, "_req_started", None)
+            if started:
+                fields["duration_ms"] = round((time.time() - started) * 1000, 1)
+            logger.info(msg, extra={"extra_fields": fields})
+        except Exception:
+            pass
 
     # -- helpers ----------------------------------------------------------
     def _send(self, code: int, body: bytes, ctype: str = "text/html; charset=utf-8",
@@ -237,6 +270,7 @@ class Handler(BaseHTTPRequestHandler):
 
     # -- routing ----------------------------------------------------------
     def do_GET(self):
+        self._req_started = time.time()  # duration_ms for the JSONL access log
         parsed = urlparse(self.path)
         path = parsed.path
         qs = parse_qs(parsed.query)
@@ -253,6 +287,12 @@ class Handler(BaseHTTPRequestHandler):
             # --- health check endpoint -----------------------------------
             elif path in ("/health", "/healthz"):
                 self._json({"status": "ok", "service": "olp-xdv-dashboard", "version": "2.0.0"})
+
+            # --- Prometheus metrics scrape target -------------------------
+            elif path == "/metrics":
+                from monitor.metrics import collect_metrics
+                self._send(200, collect_metrics().encode("utf-8"),
+                           "text/plain; version=0.0.4; charset=utf-8")
 
             elif path.startswith("/static/"):
                 # Serve the Sprint-4 assets (css/js/fonts). The path is resolved
@@ -369,6 +409,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         """Publish action — no auth required. Accepts JSON {date, approved_by?}."""
+        self._req_started = time.time()  # duration_ms for the JSONL access log
         parsed = urlparse(self.path)
         path = parsed.path
         if path == "/api/admin/publish":

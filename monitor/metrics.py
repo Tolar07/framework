@@ -96,36 +96,47 @@ def _boards_published() -> str:
                    "Number of published client boards.", n)
 
 
+_GATE_HELP = {
+    "legs": "Paper legs logged to the ledger.",
+    "clv": "Logged legs that earned a closing line.",
+    "req": "Legs-with-CLV needed to clear the Phase-3 gate.",
+    "met": "1 when the leg-count and mean-CLV bar is met (pre-signoff).",
+    "mean": "Mean paper CLV across logged legs, percent.",
+}
+
+
 def _gate() -> str:
     """Phase-3 gate trajectory, mirrored from the brain SQL (same fields as
-    clv_log.json). A missing DB reports zeros and a -1 requirement."""
-    g: dict = {}
+    clv_log.json). When the brain DB is unreachable the requirement reports
+    -1 (unknown) — never 0, which would read as 'gate already met'."""
     try:
         from brain.store import Brain
 
         with Brain(BRAIN_DB, read_only=True) as b:
-            g = b.gate_status()
+            g: dict = b.gate_status()
     except Exception:
-        g = {}
+        return "\n".join([
+            _metric("olp_phase3_legs_logged_total", "gauge", _GATE_HELP["legs"], 0),
+            _metric("olp_phase3_legs_with_clv_total", "gauge", _GATE_HELP["clv"], 0),
+            _metric("olp_phase3_gate_requirement", "gauge", _GATE_HELP["req"], -1),
+            _metric("olp_phase3_gate_met_pending_architect_signoff", "gauge",
+                    _GATE_HELP["met"], 0),
+        ])
     out = [
-        _metric("olp_phase3_legs_logged_total", "gauge",
-                "Paper legs logged to the ledger.",
+        _metric("olp_phase3_legs_logged_total", "gauge", _GATE_HELP["legs"],
                 g.get("legs_logged_total")),
-        _metric("olp_phase3_legs_with_clv_total", "gauge",
-                "Logged legs that earned a closing line.",
+        _metric("olp_phase3_legs_with_clv_total", "gauge", _GATE_HELP["clv"],
                 g.get("legs_with_clv")),
-        _metric("olp_phase3_gate_requirement", "gauge",
-                "Legs-with-CLV needed to clear the Phase-3 gate.",
+        _metric("olp_phase3_gate_requirement", "gauge", _GATE_HELP["req"],
                 g.get("gate_requirement")),
         _metric("olp_phase3_gate_met_pending_architect_signoff", "gauge",
-                "1 when the leg-count and mean-CLV bar is met (pre-signoff).",
+                _GATE_HELP["met"],
                 1 if g.get("gate_met_pending_architect_signoff") else 0),
     ]
     mc = g.get("mean_clv_pct")
     if mc is not None:  # no data point = unknown, do not fabricate a value
         out.append(_metric("olp_phase3_mean_clv_pct", "gauge",
-                           "Mean paper CLV across logged legs, percent.",
-                           round(mc, 3)))
+                           _GATE_HELP["mean"], round(mc, 3)))
     return "\n".join(out)
 
 
@@ -140,8 +151,11 @@ def _last_run_age() -> str:
     except (FileNotFoundError, OSError, json.JSONDecodeError):
         ts = 0.0
     if not ts:
-        return "olp_last_run_age_seconds -1"
-    return f"olp_last_run_age_seconds {max(0.0, time.time() - ts):.0f}"
+        return _metric("olp_last_run_age_seconds", "gauge",
+                       "Seconds since the monitor heartbeat.", -1)
+    return _metric("olp_last_run_age_seconds", "gauge",
+                   "Seconds since the monitor heartbeat.",
+                   max(0.0, time.time() - ts))
 
 
 def collect_metrics() -> str:

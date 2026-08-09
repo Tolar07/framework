@@ -38,7 +38,8 @@ from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload,
                          dc_to_payload, dc_from_payload)
 from engine.softness import (SOFTNESS_TIER, softness_tier, is_deploy_eligible,
                               build_deploy_shortlist)
-from engine.mes import trigger_price
+from engine.mes import trigger_price, mes_numeric
+from booking.bridge import load_all_sportybet_fixtures, get_sportybet_odds_for_leg
 from verification.id403 import verify, SourcedDatum, Tier
 from output.produce_bet import BoardFixture, render_produce_bet
 from clv.clv_logger import CLVLog
@@ -457,6 +458,32 @@ def scan_one_league(league: str, season: str,
                              probs.p_over_15, 1 - probs.p_over_15)
             mes = trigger_price(best_prob)
 
+        # Fetch SportyBet odds for this fixture to compute actual MES and enable CLV
+        sb_odds = None
+        sb_mes = None
+        if probs is not None:
+            # Map model team names to SportyBet names using the bridge
+            from booking.team_map import resolve_team
+            sb_home = resolve_team(home, "sportybet")
+            sb_away = resolve_team(away, "sportybet")
+            # Get 1X2 odds from SportyBet
+            for market_key, prob_attr in [("1X2_HOME", "p_home"), ("1X2_DRAW", "p_draw"), ("1X2_AWAY", "p_away")]:
+                market_prob = getattr(probs, prob_attr)
+                if market_prob:
+                    sb_price = get_sportybet_odds_for_leg(sb_home, sb_away, league, market_key)
+                    if sb_price:
+                        sb_mes_val = mes_numeric(market_prob, sb_price)
+                        if sb_mes is None or (sb_mes_val is not None and sb_mes_val > sb_mes):
+                            sb_mes = sb_mes_val
+                        if sb_odds is None:
+                            sb_odds = {"home": None, "draw": None, "away": None}
+                        if market_key == "1X2_HOME":
+                            sb_odds["home"] = sb_price
+                        elif market_key == "1X2_DRAW":
+                            sb_odds["draw"] = sb_price
+                        elif market_key == "1X2_AWAY":
+                            sb_odds["away"] = sb_price
+
         board.append(BoardFixture(
             fixture=f"{home} v {away} ({league})",
             probs=probs,
@@ -480,6 +507,11 @@ def scan_one_league(league: str, season: str,
                 else None if is_deploy_eligible(league)
                 else f"softness tier {tier} — scan-only"
             ),
+            # SportyBet odds and MES
+            sb_home_odds=sb_odds.get("home") if sb_odds else None,
+            sb_draw_odds=sb_odds.get("draw") if sb_odds else None,
+            sb_away_odds=sb_odds.get("away") if sb_odds else None,
+            sb_mes_ev=sb_mes,
         ))
 
     if carry_flags:

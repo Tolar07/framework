@@ -15,7 +15,7 @@ from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
 from engine.consensus import Consensus
-from engine.softness import DEPLOY_POOL_CAP
+from engine.softness import DEPLOY_POOL_CAP, SOFTNESS_PAUSED
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 from bets.produced_bet import render_produced_bet as render_produced_bet_block
@@ -49,6 +49,11 @@ class BoardFixture:
     best_n_books: int = 0
     best_mes_ev: Optional[float] = None      # model_prob * price - 1
     best_model_prob: Optional[float] = None
+    # SportyBet odds (for Phase 2 CLV + Phase 3 live pricing)
+    sb_home_odds: Optional[float] = None
+    sb_draw_odds: Optional[float] = None
+    sb_away_odds: Optional[float] = None
+    sb_mes_ev: Optional[float] = None        # best EV across 1X2 markets on SportyBet
     # CLV-gated recalibration delta actually applied to this pick's EV
     # probability (0.0 = no evidence). The ledger still records the RAW
     # model_prob above — no feedback loop.
@@ -120,6 +125,8 @@ def render_part0(mode: str, phase: str, leagues_scanned: list[str],
 
 def _tier_words(tier: str) -> str:
     """HR53: no bare glyphs. A lone 'B' means nothing on a phone at 7am."""
+    if SOFTNESS_PAUSED:
+        return "Softness PAUSED — all whitelisted leagues deploy-eligible"
     return {
         "A": "Softness tier A — deploy-eligible",
         "B": "Softness tier B — deploy-eligible",
@@ -325,6 +332,26 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
             L.append(f"      {div}")
         L.append(f"      Price captured from the-odds-api.com. Confirm on "
                  f"SportyBet/Bet365 before acting — Architect deploys, not this system.")
+    elif bf.sb_home_odds is not None or bf.sb_draw_odds is not None or bf.sb_away_odds is not None:
+        # SportyBet odds are available (Phase 2 CLV / Phase 3 live)
+        from engine.mes import mes_numeric
+        L.append(f"   SportyBet Nigeria odds (real-money bookmaker, margin included):")
+        if bf.sb_home_odds is not None:
+            ev = mes_numeric(p.p_home, bf.sb_home_odds)
+            L.append(f"      {p.home_team} to win ....... {bf.sb_home_odds:.2f}  ->  EV {ev:+.2%}" if ev is not None
+                     else f"      {p.home_team} to win ....... {bf.sb_home_odds:.2f}  ->  EV NO DATA")
+        if bf.sb_draw_odds is not None:
+            ev = mes_numeric(p.p_draw, bf.sb_draw_odds)
+            L.append(f"      Draw ..................... {bf.sb_draw_odds:.2f}  ->  EV {ev:+.2%}" if ev is not None
+                     else f"      Draw ..................... {bf.sb_draw_odds:.2f}  ->  EV NO DATA")
+        if bf.sb_away_odds is not None:
+            ev = mes_numeric(p.p_away, bf.sb_away_odds)
+            L.append(f"      {p.away_team} to win ....... {bf.sb_away_odds:.2f}  ->  EV {ev:+.2%}" if ev is not None
+                     else f"      {p.away_team} to win ....... {bf.sb_away_odds:.2f}  ->  EV NO DATA")
+        if bf.sb_mes_ev is not None:
+            L.append(f"      Best SportyBet MES ......... {bf.sb_mes_ev:+.2%} per unit staked")
+        if bf.mes_trigger_price:
+            L.append(f"      Breakeven trigger price .... {bf.mes_trigger_price:.2f} or longer")
     elif bf.mes_trigger_price:
         L.append(f"   HR30 MES trigger price: back only at decimal odds "
                  f"{bf.mes_trigger_price:.2f} or longer (breakeven vs the model).")
@@ -450,11 +477,13 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
 
     if stacked:
         if shortlist:
-            call = ["PART 1 — THE CALL",
-                    f"{len(shortlist)} deploy-eligible fixture(s), softness A/B only, "
-                    f"capped at {DEPLOY_POOL_CAP} (ID402).",
-                    "MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.",
-                    ""]
+            call = ["PART 1 — THE CALL"]
+            if SOFTNESS_PAUSED:
+                call.append(f"{len(shortlist)} deploy-eligible fixture(s), softness PAUSED (all whitelisted leagues, no cap).")
+            else:
+                call.append(f"{len(shortlist)} deploy-eligible fixture(s), softness A/B only, capped at {DEPLOY_POOL_CAP} (ID402).")
+            call.append("MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.")
+            call.append("")
             call += [render_fixture_block(bf, i) + "\n"
                      for i, bf in enumerate(shortlist, 1)]
             part1 = "\n".join(call).rstrip()
@@ -666,14 +695,21 @@ def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
         league_blocks: list[str] = [league.upper()]
 
         # Separate accumulator candidates (Tier A/B + on_deploy_shortlist) from others
-        acc_candidates = [bf for bf in fixtures
-                         if bf.softness_tier in ("A", "B") and bf.on_deploy_shortlist]
-        other_fixtures = [bf for bf in fixtures
-                         if not (bf.softness_tier in ("A", "B") and bf.on_deploy_shortlist)]
+        if SOFTNESS_PAUSED:
+            acc_candidates = [bf for bf in fixtures if bf.on_deploy_shortlist]
+            other_fixtures = [bf for bf in fixtures if not bf.on_deploy_shortlist]
+        else:
+            acc_candidates = [bf for bf in fixtures
+                             if bf.softness_tier in ("A", "B") and bf.on_deploy_shortlist]
+            other_fixtures = [bf for bf in fixtures
+                             if not (bf.softness_tier in ("A", "B") and bf.on_deploy_shortlist)]
 
         # Show accumulator candidates first, marked with ★
         if acc_candidates:
-            league_blocks.append("  ⭐ ACCUMULATOR CANDIDATES (Tier A/B, deploy-eligible):")
+            if SOFTNESS_PAUSED:
+                league_blocks.append("  ⭐ ACCUMULATOR CANDIDATES (softness PAUSED, all whitelisted deploy-eligible):")
+            else:
+                league_blocks.append("  ⭐ ACCUMULATOR CANDIDATES (Tier A/B, deploy-eligible):")
             for bf in acc_candidates:
                 if bf.probs is None:
                     league_blocks.append(f"  · {_short_fixture(bf)}\n    NO DATA — PENDING")

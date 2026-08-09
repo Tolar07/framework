@@ -149,7 +149,8 @@ def build_payload(*, date: str, phase: str, leagues_scanned: list[str],
                   recommendation: str = "",
                   yesterday_graded: Optional[list] = None,
                   rolling_7d: Optional[dict] = None,
-                  produced_bet: Optional[dict] = None) -> dict:
+                  produced_bet: Optional[dict] = None,
+                  accas: Optional[list] = None) -> dict:
     """The full board_<date>.json payload, ready to write to disk.
 
     `recommendation` is the already-rendered ⭐ TODAY'S PICKS parlay text
@@ -169,6 +170,10 @@ def build_payload(*, date: str, phase: str, leagues_scanned: list[str],
     yesterday's record is settled next day. The FULL record (model prob,
     softness tier, best EV) is admin-visible; trim_payload reduces it to a
     client-safe form (fixture + pick + price + outcome only).
+
+    `accas` — the day's 4-leg acca set (standing rule 2026-08-09), as the
+    acca_<date>.json payload. Admin keeps every leg field (incl. EV); the
+    client-safe trim keeps fixture + market + price + probability only.
     """
     payload = {
         "schema_version": SCHEMA_VERSION,
@@ -190,6 +195,8 @@ def build_payload(*, date: str, phase: str, leagues_scanned: list[str],
         payload["rolling_7d"] = rolling_7d
     if produced_bet is not None:
         payload["produced_bet"] = produced_bet
+    if accas is not None:
+        payload["accas"] = accas
     return payload
 
 
@@ -222,6 +229,8 @@ CLIENT_FIXTURE_KEYS = frozenset({
     "fixture", "probs", "on_deploy_shortlist",
     "best_market", "best_market_key", "best_model_prob",
     "mes_trigger_price", "rejection_reason",
+    "kickoff_date",  # factual datum (not a model internal); needed for the
+                     # today-only call filter (standing rule 2026-08-09)
 })
 CLIENT_TOP_KEYS = frozenset({
     "schema_version", "date", "phase",
@@ -254,6 +263,23 @@ def _client_safe_produced(record: dict) -> dict:
     return out
 
 
+_CLIENT_ACCA_KEYS = ("label", "combined_odds", "combined_prob", "n_legs")
+_CLIENT_ACCA_LEG_KEYS = ("fixture", "league", "market_name", "price", "prob")
+
+
+def _client_safe_accas(accas: list[dict]) -> list[dict]:
+    """The acca set as the client may see it: fixture + market + price +
+    probability + combined figures — no EV, no market keys (model internals).
+    The full leg list (with EV) stays admin-only."""
+    out = []
+    for acca in accas:
+        a = {k: acca[k] for k in _CLIENT_ACCA_KEYS if k in acca}
+        a["legs"] = [{k: leg[k] for k in _CLIENT_ACCA_LEG_KEYS if k in leg}
+                     for leg in acca.get("legs") or []]
+        out.append(a)
+    return out
+
+
 def trim_payload(payload: dict) -> dict:
     """The public-facing payload — predictions only, no model internals.
 
@@ -274,6 +300,8 @@ def trim_payload(payload: dict) -> dict:
     out["board"] = trimmed_board
     if payload.get("produced_bet") is not None:
         out["produced_bet"] = _client_safe_produced(payload["produced_bet"])
+    if payload.get("accas") is not None:
+        out["accas"] = _client_safe_accas(payload["accas"])
     return out
 
 

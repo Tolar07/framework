@@ -16,6 +16,7 @@ from typing import Optional
 from engine.dixon_coles import FixtureProbabilities
 from engine.consensus import Consensus
 from engine.softness import DEPLOY_POOL_CAP, SOFTNESS_PAUSED
+from engine.acca import render_acca_block
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 from bets.produced_bet import render_produced_bet as render_produced_bet_block
@@ -366,11 +367,16 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
 
 
 def render_part1_the_call(shortlist: list[BoardFixture]) -> str:
-    """DEPLOY shortlist — softness A/B only, <=6 pool. Frozen columns:
+    """DEPLOY shortlist — TODAY'S fixtures only (standing rule 2026-08-09),
+    softness A/B, <=6 pool. Frozen columns:
     Fixture | Pick | Model% | Deploy at (MES trigger) | Softness tier"""
+    today = date.today().isoformat()
+    shortlist = [bf for bf in shortlist if bf.kickoff_date == today]
     if not shortlist:
-        return "PART 1 — THE CALL\nNO DEPLOY-ELIGIBLE CALL this session."
-    rows = ["PART 1 — THE CALL",
+        return ("PART 1 — THE CALL — today's fixtures only\n"
+                "NO DEPLOY-ELIGIBLE CALL this session — no deployable fixture "
+                "kicks off today (a valid, honest result).")
+    rows = ["PART 1 — THE CALL — today's fixtures only",
             "Fixture | Pick | Model% | Deploy at | Tier"]
     for bf in shortlist:
         if bf.probs is None:
@@ -467,31 +473,43 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
                         calibration_count: int, mean_clv: Optional[float],
                         data_flags: list[str], board: list[BoardFixture],
                         stacked: bool = True,
-                        produced_bet: Optional[dict] = None) -> str:
+                        produced_bet: Optional[dict] = None,
+                        accas: Optional[list] = None) -> str:
     """`stacked=True` renders the HR53-preferred per-fixture blocks for PART 1
     (the decision-first section you actually act on) while PART 2 keeps the
     frozen wide table as the reference board. Set stacked=False for the
     original all-tables v303.11 layout. Optional produced_bet is the day's
-    produced-bet record (ID415) for the saved board block."""
-    shortlist = [bf for bf in board if bf.on_deploy_shortlist]
+    produced-bet record (ID415) for the saved board block.
+
+    THE CALL is TODAY'S fixtures only (standing rule 2026-08-09) — the wider
+    scan stays the 3-day reference, the call is today's slate. `accas` (the
+    day's 4-leg accumulator set, optional) renders the acca block at the end
+    of production; computed from `board` when not provided."""
+    today = date.today().isoformat()
+    shortlist = [bf for bf in board
+                 if bf.on_deploy_shortlist and bf.kickoff_date == today]
+    if accas is None:
+        from engine.acca import build_accas
+        accas = build_accas(board)
 
     if stacked:
         if shortlist:
-            call = ["PART 1 — THE CALL"]
+            call = ["PART 1 — THE CALL — today's fixtures only"]
             if SOFTNESS_PAUSED:
-                call.append(f"{len(shortlist)} deploy-eligible fixture(s), softness PAUSED (all whitelisted leagues, no cap).")
+                call.append(f"{len(shortlist)} deploy-eligible fixture(s) kicking off today, softness PAUSED (all whitelisted leagues, no cap).")
             else:
-                call.append(f"{len(shortlist)} deploy-eligible fixture(s), softness A/B only, capped at {DEPLOY_POOL_CAP} (ID402).")
+                call.append(f"{len(shortlist)} deploy-eligible fixture(s) kicking off today, softness A/B only, capped at {DEPLOY_POOL_CAP} (ID402).")
             call.append("MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.")
             call.append("")
             call += [render_fixture_block(bf, i) + "\n"
                      for i, bf in enumerate(shortlist, 1)]
             part1 = "\n".join(call).rstrip()
         else:
-            part1 = ("PART 1 — THE CALL\nNO DEPLOY-ELIGIBLE CALL this session.\n"
-                     "That is a valid, honest result — the framework's value is "
-                     "disciplined filtering, and near-zero approvals is correct "
-                     "behaviour, not failure.")
+            part1 = ("PART 1 — THE CALL — today's fixtures only\n"
+                     "NO DEPLOY-ELIGIBLE CALL this session — no deployable "
+                     "fixture kicks off today. That is a valid, honest result — "
+                     "the framework's value is disciplined filtering, and "
+                     "near-zero approvals is correct behaviour, not failure.")
     else:
         part1 = render_part1_the_call(shortlist)
 
@@ -508,6 +526,9 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
     ]
     if produced_bet is not None:
         parts += ["", render_produced_bet_block(produced_bet)]
+    # The 4-leg acca set, named at the end of production (standing rule
+    # 2026-08-09). Before the sign-off so the sign-off stays the final word.
+    parts += ["", render_acca_block(accas, today)]
     parts += ["", render_part5_signoff()]
     return "\n".join(parts)
 
@@ -587,19 +608,22 @@ def _result_pick(bf: BoardFixture) -> tuple[str, float, bool]:
 
 
 def render_daily_recommendation(board: list[BoardFixture]) -> str:
-    """The day's picks as a 2-4 leg parlay, drawn from ANY rated game in the
-    fixture window (next 3 days, ratified 2026-08-07) — not just the
-    deploy-eligible shortlist — so a quiet day still gets a readable
-    recommendation (Architect 2026-08-05).
+    """The day's picks as a 2-4 leg parlay, drawn ONLY from fixtures kicking
+    off TODAY (standing rule 2026-08-09: the product bet is today's slate and
+    nothing else) — not the 3-day window. A fixture with no kickoff date is
+    never assumed to be today (HR35), so it cannot be a pick.
 
-    Legs are the day's highest-probability predicted results, capped at
+    Legs are today's highest-probability predicted results, capped at
     RECOMMEND_MAX_LEGS. A predicted AWAY win is never recommended (ID405 —
     proven-negative market). Two or more legs become a parlay; its combined
     chance is the product of the legs, stated honestly as the chance ALL of
     them win — a parlay's legs are not independent, so the combined number is
     information, not encouragement to stack everything."""
+    today = date.today().isoformat()
     legs: list[tuple] = []
     for bf in board:
+        if bf.kickoff_date != today:
+            continue  # standing rule: today's fixtures only
         if bf.probs is None:
             continue
         name, prob, is_away = _result_pick(bf)
@@ -840,14 +864,17 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                            data_flags: list[str], board: list[BoardFixture],
                            yesterday_graded: Optional[list] = None,
                            rolling_7d: Optional[dict] = None,
-                           produced_bet: Optional[dict] = None) -> str:
+                           produced_bet: Optional[dict] = None,
+                           accas: Optional[list] = None) -> str:
     """The Telegram push — ScoreGPT format (ID414). Header, one-line flag count,
-    the day's picks (parlay), league-grouped match cards with AI pick + predicted
-    scoreline + N-of-N consensus + per-engine chips, then 'Yesterday — graded'
-    and the 7-day rolling bar. Detail lives in the saved file board and /board,
-    /why; the phone gets the picks. Optional yesterday_graded / rolling_7d come
-    from the brain (ID414); produced_bet is the day's produced-bet record
-    (ID415); None renders the honest empty block."""
+    the day's picks (parlay), the day's 4-leg acca set, league-grouped match
+    cards with AI pick + predicted scoreline + N-of-N consensus + per-engine
+    chips, then 'Yesterday — graded' and the 7-day rolling bar. Detail lives in
+    the saved file board and /board, /why; the phone gets the picks. Optional
+    yesterday_graded / rolling_7d come from the brain (ID414); produced_bet is
+    the day's produced-bet record (ID415); accas is the day's 4-leg acca set
+    (standing rule 2026-08-09), computed from the board when not provided.
+    None renders the honest empty block."""
     clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
     scan_txt, any_away = render_scan_tables(board)
     leagues_with_fixtures = len({_league_of(bf) for bf in board})
@@ -862,6 +889,10 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                      f"saved board for full detail")
     parts.append(render_daily_recommendation(board))
     parts.append(render_produced_bet_block(produced_bet))
+    if accas is None:
+        from engine.acca import build_accas
+        accas = build_accas(board)
+    parts.append(render_acca_block(accas))
     parts.append(scan_txt)
     if any_away:
         # A predicted away win may appear as a card pick, but is never a Pick —

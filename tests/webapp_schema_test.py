@@ -131,8 +131,11 @@ assert t0["mes_trigger_price"] is None
 for k in ("elo_probs", "xg_probs", "market_probs", "engine_divergence",
           "consensus", "engine_picks", "consensus_pick", "verification",
           "cal_adjustment", "best_mes_ev", "best_price", "best_bookmaker",
-          "best_n_books", "softness_tier", "model_engine", "kickoff_date"):
+          "best_n_books", "softness_tier", "model_engine"):
     assert k not in t0, f"trim kept internal {k}"
+# kickoff_date is a factual match datum (not a model internal) and stays —
+# the client renders the today-only call from it (standing rule 2026-08-09).
+assert t0["kickoff_date"] == "2026-08-11"
 assert set(t0["probs"]) == schema.CLIENT_PROBS_KEYS
 assert "lambda_home" not in t0["probs"] and "modal_scoreline" not in t0["probs"]
 assert t1["probs"] is None and "NO DATA" in t1["rejection_reason"]

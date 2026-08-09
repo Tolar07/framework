@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import json
 import math
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -173,10 +174,19 @@ class EloModel:
         gap = self.rating(away) - self.rating(home) - HOME_ADVANTAGE_ELO
         return 1.0 / (1.0 + 10 ** (gap / 400.0))
 
-    def update(self, home: str, away: str, fthg: int, ftag: int) -> None:
+    def update(self, home: str, away: str, fthg: int, ftag: int,
+               weight: float = 1.0) -> None:
+        """Apply one match's result to both ratings (zero-sum, as Elo is).
+
+        `weight` scales the update — 1.0 is the classic Elo move. A weight > 1
+        makes a match speak louder than its neighbours, which is how the
+        cross-league blend (engine/cross_league.py) lets a club's handful of
+        European matches count more than its dozens of domestic ones when a
+        continental fixture is being priced. The zero-sum property is
+        preserved because the whole delta is scaled, home and away equally."""
         e = self.expected(home, away)
         result = 1.0 if fthg > ftag else (0.5 if fthg == ftag else 0.0)
-        delta = K_FACTOR * goal_difference_modifier(fthg - ftag) * (result - e)
+        delta = K_FACTOR * weight * goal_difference_modifier(fthg - ftag) * (result - e)
         self.ratings[home] = self.rating(home) + delta
         self.ratings[away] = self.rating(away) - delta   # zero-sum
         self.matches_seen[home] = self.matches_seen.get(home, 0) + 1
@@ -264,8 +274,20 @@ BURN_IN_PASSES = 6
 def rate_through(results: list, cut_date: Optional[str] = None,
                   fit_draws: bool = True,
                   burn_in: int = BURN_IN_PASSES,
-                  seed_from: Optional["EloModel | str | Path"] = None) -> EloModel:
+                  seed_from: Optional["EloModel | str | Path"] = None,
+                  match_weight: Callable | None = None,
+                  scorer: Callable | None = None) -> EloModel:
     """Process matches in DATE ORDER up to (but excluding) `cut_date`.
+
+    Phase 3.2 additions (both optional, both default to the classic engine):
+      `match_weight` — a callable(match) -> float scaling each update (see
+      EloModel.update). Used by the cross-league blend to let continental
+      matches count `w`-fold in a pooled fit; None means 1.0 everywhere.
+      `scorer` — a callable(model, match) invoked on the final sequential
+      pass, immediately BEFORE the match is applied to the ratings. This is
+      the leak-free out-of-sample hook (a prediction can never see its own
+      result) that the blend-weight optimiser in cross_league.py uses to score
+      each continental match from ratings that existed before it.
 
     Pass results from every competition together — that is the whole point.
     A continental match between clubs from different leagues updates both
@@ -339,7 +361,8 @@ def rate_through(results: list, cut_date: Optional[str] = None,
             warm = EloModel()
             warm.ratings = dict(seed)
             for r in ordered:
-                warm.update(r.home_team, r.away_team, r.fthg, r.ftag)
+                _w = match_weight(r) if match_weight else 1.0
+                warm.update(r.home_team, r.away_team, r.fthg, r.ftag, weight=_w)
             seed = dict(warm.ratings)
         model = EloModel()
         model.ratings = dict(seed)
@@ -353,7 +376,12 @@ def rate_through(results: list, cut_date: Optional[str] = None,
             gap = abs(model.rating(r.home_team) + HOME_ADVANTAGE_ELO
                       - model.rating(r.away_team))
             samples.append((gap, r.fthg == r.ftag))
-        model.update(r.home_team, r.away_team, r.fthg, r.ftag)
+        # The leak-free out-of-sample hook (Phase 3.2): same moment as the draw
+        # sample, BEFORE the result touches the ratings.
+        if scorer is not None:
+            scorer(model, r)
+        _w = match_weight(r) if match_weight else 1.0
+        model.update(r.home_team, r.away_team, r.fthg, r.ftag, weight=_w)
         model.last_date = r.date
     if fit_draws and samples:
         # A short incremental slice can be too thin to refit the curve on its

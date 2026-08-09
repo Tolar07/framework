@@ -12,6 +12,7 @@ import os
 import re
 import sys
 import tempfile
+from datetime import date
 from pathlib import Path
 from unittest.mock import patch
 
@@ -54,7 +55,8 @@ bf = BoardFixture(
                                       structured=True)]),
     softness_tier="D", on_deploy_shortlist=True,
     best_market="Fenerbahce to win", best_price=1.91, best_mes_ev=0.0696,
-    best_model_prob=0.56, mes_trigger_price=1.52, kickoff_date="2026-08-11",
+    best_model_prob=0.56, mes_trigger_price=1.52,
+    kickoff_date=date.today().isoformat(),  # same-day call rule (2026-08-09)
     elo_probs=(0.52, 0.27, 0.21),
     engine_divergence="4pp on home — within tolerance")
 payload = schema.build_payload(

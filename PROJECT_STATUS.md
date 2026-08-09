@@ -59,15 +59,17 @@
 
 ---
 
-## 🎯 NEXT ACTIONS (This Session)
+## 🎯 NEXT ACTIONS
 
-1. **Fix market scope bug** — Separate `APPROVED_MARKETS` (display/scan list: 6 markets) from `BLOCKED_DEPLOY_MARKETS` (deploy gate: currently 3 blocked). Update `_best_market_desc`, `render_part1_the_call`, `render_scan_tables`, web dashboard scan columns to use approved list.
+**Sprint 2026-08-09 ✅ COMPLETE** — all three items (market scope, full-picture display, accumulator prep) fixed and committed (`db687b5`).
 
-2. **Fix full-picture board display** — Update `render_telegram_board` to show ALL fixtures grouped by league with A/B candidates clearly marked as "Accumulator Candidates" subset at top. Update web dashboard `/dashboard` and `/admin` similarly.
+Next up (in priority order):
 
-3. **Build accumulator prep script** — New script `scripts/accumulator_prep.py` that reads today's board, extracts Tier A/B `on_deploy_shortlist` picks, formats: `Fixture | Market | Odds | Stake` with combined odds and total stake, ready to copy-paste into SportyBet.
-
-4. **Update PROJECT_STATUS.md** with results.
+1. **Run accumulator prep on a live board** — `python scripts/accumulator_prep.py` against today's `board_2026-08-09.json` once the daily run writes it; confirm the slip format against SportyBet (needs Architect's bet-slip answer, below).
+2. **Unblock odds pipeline** — Odds API quota (4/500 left) stalls live EV/CLV + Phase 3 CLV gate. Architect must upgrade/reset before live price pulls resume.
+3. **Model refit for away overconfidence** — model claims ~39% away, delivers ~30%; no screen/nudge fixes it. Structural; needs refit before Phase 3.
+4. **Promoted-club carry-over data** — 5 clubs stuck NO DATA until personal TheSportsDB key lands.
+5. **Land other session's in-flight work** — `run_daily.py` SportyBet cache-warm hook (imports clean), `monitor/data_quality.py` (mid-edit, IndentationError), `scripts/check_csv_validation.py`, `tests/data_quality_test.py` — verify, then reconcile commit.
 
 ---
 

@@ -173,28 +173,34 @@ def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
     read (the per-leg statuses already tell the Architect what to add
     manually — HR35)."""
     try:
+        # Let the betslip settle from the last click BEFORE pressing Book Bet —
+        # a selection clicked a few ms earlier may not be in the slip yet, and
+        # pressing too soon can race the betslip update (verified: the working
+        # path needed ~1.5s settle after the final click).
+        page.wait_for_timeout(1500)
         # The betslip's Book Bet is a SPAN (verified live); `text=` is the
         # only engine that reliably matches it. The `>> visible=true` chain is
         # NOT valid in query_selector, so we match plain and click the first.
         books = page.query_selector_all("text=Book Bet")
         if books:
             books[0].click()
-            page.wait_for_timeout(2500)
     except Exception:
         pass  # no Book Bet button — maybe the slip already shows the code
 
-    # Primary: the Booking Code modal. The label and the token are adjacent
-    # lines in the modal's inner_text.
+    # Primary: the Booking Code modal. The modal can take a couple of seconds
+    # to render after the click (SPA), so poll for it rather than reading once.
     try:
-        dialog = page.query_selector(".es-dialog.m-dialog")
-        if dialog is not None:
-            text = dialog.inner_text()
-            m = re.search(r"Booking Code\s*\n\s*([A-Z0-9]{5,10})", text)
-            if m:
-                return m.group(1)
-            m2 = re.search(r"Booking Code\s*[:.]?\s*([A-Z0-9]{5,10})", text)
-            if m2:
-                return m2.group(1)
+        for _ in range(8):
+            dialog = page.query_selector(".es-dialog.m-dialog")
+            if dialog is not None:
+                text = dialog.inner_text()
+                m = re.search(r"Booking Code\s*\n\s*([A-Z0-9]{5,10})", text)
+                if m:
+                    return m.group(1)
+                m2 = re.search(r"Booking Code\s*[:.]?\s*([A-Z0-9]{5,10})", text)
+                if m2:
+                    return m2.group(1)
+            page.wait_for_timeout(1000)
     except Exception:
         pass
 

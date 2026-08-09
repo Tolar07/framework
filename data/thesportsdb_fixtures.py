@@ -35,6 +35,7 @@ from typing import Optional
 
 from data.football_data_source import MatchResult
 from data.multi_source import SourceNoData
+from data.retry import get
 
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "thesportsdb"
 # Fixtures for a given day are known well ahead and rarely change intra-day, so
@@ -381,8 +382,7 @@ def fetch_upcoming(league: str, fixtures_season: str, days_ahead: int = 14
     if events is None:
         url = (f"{API_BASE}/{_get_key()}/eventsseason.php"
                f"?id={LEAGUE_IDS[league]}&s={_season_label(fixtures_season)}")
-        resp = requests.get(url, timeout=25, headers={"User-Agent": "OLP-XDV/1.0"})
-        resp.raise_for_status()
+        resp = get(url, timeout=25)
         events = resp.json().get("events") or []
         _write_cache(league, fixtures_season, events)
 
@@ -446,8 +446,7 @@ def fetch_today(league: str, day: str) -> list[UpcomingFixture]:
     if league not in LEAGUE_IDS:
         raise ValueError(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
     url = (f"{API_BASE}/{_get_key()}/eventsday.php?d={day}&l={LEAGUE_IDS[league]}")
-    resp = requests.get(url, timeout=25, headers={"User-Agent": "OLP-XDV/1.0"})
-    resp.raise_for_status()
+    resp = get(url, timeout=25)
     fixtures: list[UpcomingFixture] = []
     for i, ev in enumerate(resp.json().get("events") or []):
         home = (ev.get("strHomeTeam") or "").strip()
@@ -499,8 +498,7 @@ def load_results(league: str, season: str) -> tuple[list[MatchResult], list[dict
     if events is None:
         url = (f"{API_BASE}/{_get_key()}/eventsseason.php"
                f"?id={LEAGUE_IDS[league]}&s={_season_label(season)}")
-        resp = requests.get(url, timeout=25, headers={"User-Agent": "OLP-XDV/1.0"})
-        resp.raise_for_status()
+        resp = get(url, timeout=25)
         events = resp.json().get("events") or []
         _write_cache(league, season, events)
 

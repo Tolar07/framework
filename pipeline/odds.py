@@ -39,6 +39,7 @@ from typing import Optional
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from data.multi_source import SourceNoData
+from data.retry import get_protected
 
 try:
     import requests
@@ -241,8 +242,8 @@ def check_quota() -> tuple[int, int]:
     """(used, remaining). Listing sports costs nothing, so this is a free probe."""
     if requests is None:
         raise RuntimeError("requests not installed")
-    r = requests.get(f"{API_BASE}/sports", params={"apiKey": _get_key()}, timeout=25)
-    r.raise_for_status()
+    r = get_protected(f"{API_BASE}/sports", breaker_name="the_odds_api",
+                      params={"apiKey": _get_key()}, timeout=25)
     return (int(r.headers.get("x-requests-used", -1)),
             int(r.headers.get("x-requests-remaining", -1)))
 
@@ -366,11 +367,11 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
                 f"(floor {floor}{' — fixture capture' if fixture_capture else ''}). "
                 f"Refusing to spend it on a routine pull — today's entry prices "
                 f"are NO DATA — PENDING rather than exhausting the month.")
-        r = requests.get(f"{API_BASE}/sports/{SPORT_KEYS[league]}/odds",
+        r = get_protected(f"{API_BASE}/sports/{SPORT_KEYS[league]}/odds",
+                          breaker_name="the_odds_api",
                           params={"apiKey": _get_key(), "regions": regions,
                                   "markets": markets, "oddsFormat": "decimal"},
                           timeout=30)
-        r.raise_for_status()
         events = r.json()
         _write_cache(league, events)
         flags.append(f"{league}: odds pulled live "

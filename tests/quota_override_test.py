@@ -38,7 +38,7 @@ def _run(remaining: int, fixture_capture: bool):
          patch.object(odds_mod, "_get_key", return_value="test-key"), \
          patch.object(odds_mod, "check_quota",
                       return_value=(500 - remaining, remaining)), \
-         patch.object(odds_mod.requests, "get", return_value=_Resp()):
+         patch("data.retry.request", return_value=_Resp()):
         fx, flags = odds_mod.fetch_odds(
             "Championship", use_cache=True, fixture_capture=fixture_capture)
         return fx, flags

@@ -12,11 +12,14 @@ _tmp = Path(tempfile.mkdtemp(prefix="olp_xdv_fx_cache_test_"))
 
 
 def _count_get(target, payload):
-    """Patch requests.get under `target`; count real network calls; return
-    (getter, n_network_calls_after_calls)."""
+    """Patch the shared retry path; count real network calls; return
+    (getter, n_network_calls_after_calls). All data sources go through
+    data.retry.request, so that is what is patched."""
     calls = {"n": 0}
 
     class R:
+        status_code = 200
+
         def raise_for_status(self):
             pass
 
@@ -27,7 +30,7 @@ def _count_get(target, payload):
         calls["n"] += 1
         return R()
 
-    return patch(f"{target}.requests.get", side_effect=fake_get), calls
+    return patch("data.retry.request", side_effect=fake_get), calls
 
 
 # --- 1. thesportsdb fixture cache (6h TTL) ---------------------------------

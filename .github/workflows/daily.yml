@@ -33,15 +33,18 @@ jobs:
         run: pip install -r requirements.txt
 
       # Football-Data CSVs and fitted models are expensive to refetch/refit.
-      # Keyed by day so the cache rolls over rather than going stale forever.
+      # Keyed by date so the cache rolls over daily rather than going stale forever.
       - name: Restore data cache
         uses: actions/cache@v4
         with:
           path: |
             data/cache
             backtest/cache
-          key: olp-xdv-data-${{ github.run_id }}
-          restore-keys: olp-xdv-data-
+          key: olp-xdv-data-${{ runner.os }}-${{ github.run_number }}-${{ github.event.schedule || 'manual' }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            olp-xdv-data-${{ runner.os }}-${{ github.run_number }}-${{ github.event.schedule || 'manual' }}-${{ github.ref_name }}-
+            olp-xdv-data-${{ runner.os }}-${{ github.run_number }}-${{ github.event.schedule || 'manual' }}-
+            olp-xdv-data-
 
       - name: Run the daily board
         env:
@@ -50,7 +53,17 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
-        run: python run_daily.py
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            if python run_daily.py; then
+              exit 0
+            fi
+            echo "Attempt $attempt failed, retrying in 30s..."
+            sleep 30
+          done
+          echo "All 3 attempts failed"
+          exit 1
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.

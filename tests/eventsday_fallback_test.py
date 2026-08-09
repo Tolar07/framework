@@ -35,6 +35,7 @@ EVENTS = {
 
 def _fake_get(*a, **k):
     class R:
+        status_code = 200
         def raise_for_status(self):
             pass
         def json(self):
@@ -43,7 +44,7 @@ def _fake_get(*a, **k):
 
 
 # --- 1. fetch_today returns only the real upcoming fixtures ------------------
-with patch("data.thesportsdb_fixtures.requests.get", side_effect=_fake_get):
+with patch("data.retry.request", side_effect=_fake_get):
     fx = tsdb.fetch_today("Europa League", DAY)
 assert len(fx) == 2, f"only 2 upcoming (played + missing-name excluded), got {len(fx)}"
 names = {(f.home_team, f.away_team) for f in fx}
@@ -56,7 +57,7 @@ print("1. fetch_today: upcoming only, played + malformed excluded: OK")
 
 # --- 2. unmapped league raises, never guessed ---------------------------------
 try:
-    with patch("data.thesportsdb_fixtures.requests.get", side_effect=_fake_get):
+    with patch("data.retry.request", side_effect=_fake_get):
         tsdb.fetch_today("Conference League", DAY)
     assert False, "unmapped league must raise (HR35)"
 except ValueError:
@@ -71,7 +72,7 @@ b = Brain(_tmp / "t.db")
 
 # Make the season feed return nothing in the window: patch fetch_upcoming to
 # return [], and confirm scan_one_league still lands today's eventsday rows.
-with patch("data.thesportsdb_fixtures.requests.get", side_effect=_fake_get), \
+with patch("data.retry.request", side_effect=_fake_get), \
      patch("data.thesportsdb_fixtures._read_cache", return_value=[]), \
      patch("data.thesportsdb_fixtures.fetch_today",
            wraps=tsdb.fetch_today) as fetch_today_spy:
@@ -83,7 +84,7 @@ with patch("data.thesportsdb_fixtures.requests.get", side_effect=_fake_get), \
 
 # Prove the orchestrator's fallback block actually calls fetch_today by
 # checking it fires when fetch_upcoming is empty and days_ahead==0.
-with patch("data.thesportsdb_fixtures.requests.get", side_effect=_fake_get), \
+with patch("data.retry.request", side_effect=_fake_get), \
      patch("data.thesportsdb_fixtures.fetch_today", side_effect=_fake_get) if False else patch(
          "data.thesportsdb_fixtures.fetch_today", return_value=tsdb.fetch_today(
              "Europa League", DAY)) as spy:

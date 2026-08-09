@@ -36,6 +36,7 @@ from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
 from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS, SOFTNESS_PAUSED,
                              build_deploy_shortlist, market_blocked)
+from engine.acca import build_accas, render_acca_block
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine.consensus import compute_consensus
@@ -531,6 +532,28 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                                      for m, d in sorted(pending.items()))
                          + " — visible only; inert until MIN_LEGS legs settle")
 
+    # PLATT SCALING (Phase 3.1): a per-market calibration CURVE fitted on the
+    # settled-prediction record (raw model_prob -> outcome), correcting
+    # confidence that is miscalibrated at some points of the range but not
+    # others. Same gates as the flat nudge — a market needs PLATT_MIN_LEGS
+    # settled predictions before any curve exists, and the fit is shrunk to
+    # identity on thin samples. Inert today (no settled record). The ledger
+    # keeps the RAW model_prob; only the EV decision is priced on the curve.
+    platt_ev = brain.platt_evidence(engine="dc")
+    platt = recal.platt_scalers(platt_ev)
+    if platt:
+        all_flags.append("PLATT calibration active: "
+                         + ", ".join(f"{m} n={s.n} a={s.a:+.2f} b={s.b:.2f}"
+                                     for m, s in sorted(platt.items()))
+                         + " (curve on settled predictions, shrunk to identity)")
+    shadow_platt = recal.shadow_platt_scalers(platt_ev)
+    platt_pending = {m: s for m, s in shadow_platt.items() if m not in platt}
+    if platt_pending:
+        all_flags.append("SHADOW PLATT (below gate, NOT applied): "
+                         + ", ".join(f"{m} n={s.n}"
+                                     for m, s in sorted(platt_pending.items()))
+                         + " — visible only; inert until PLATT_MIN_LEGS settle")
+
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
     #
@@ -591,19 +614,21 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             # and market disagree (ID414). Ledger keeps RAW model_est via
             # best_model_prob; calibration stays inert (no feedback loop).
             mp = _market_implied(market, fx)
-            p_ev = mkt.blend_toward_market(recal.apply(raw_p, cal.get(market)), mp)
+            p_model = recal.apply(raw_p, cal.get(market))
+            p_model = recal.apply_platt(p_model, platt.get(market))
+            p_ev = mkt.blend_toward_market(p_model, mp)
             ev = mes_numeric(p_ev, quote.price)
             if ev is not None and (best is None or ev > best[0]):
-                best = (ev, market, raw_p, quote)
+                best = (ev, market, raw_p, quote, p_model)
         if best:
-            ev, market, raw_p, quote = best
+            ev, market, raw_p, quote, p_model = best
             bf.best_market = mkt.display(market, p.home_team, p.away_team)
             bf.best_price = quote.price
             bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
             bf.best_mes_ev = ev  # priced on the blend; raw prob on the ledger
             bf.best_model_prob = raw_p  # ledger keeps the RAW model estimate
             bf.best_market_key = market  # canonical key for the brain's ledger
-            bf.cal_adjustment = cal.get(market, 0.0)
+            bf.cal_adjustment = round(p_model - raw_p, 4)
 
     # --- never forget a prediction: persist every rated board prediction ---
     n_preds = _predictions_from_board(board, run_id, started, brain)
@@ -613,6 +638,18 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     for b in board:
         if b.on_deploy_shortlist and id(b) not in capped:
             b.on_deploy_shortlist = False
+
+    # --- TODAY'S 4-LEG ACCA SET (standing rule 2026-08-09): up to 3 accas
+    # --- from TODAY's deploy-eligible shortlist, priced on the live line in
+    # --- capital-cleared markets (ID405: Draw + Under 2.5). Named at the end
+    # --- of production in the board + Telegram + web; the same payload feeds
+    # --- the SportyBet booking-code generator. ---
+    accas = build_accas(board, today=today, odds_index=odds_index)
+    acca_text = render_acca_block(accas, today)
+    if accas:
+        all_flags.append(
+            f"today's acca set: {len(accas)} acca(s), "
+            f"{sum(a.n_legs for a in accas)} legs on today's slate")
 
     # --- produced-bet record (ID415): every rated fixture with a kickoff
     # --- today is one produced-bet leg, saved to produced_<date>.json + the
@@ -669,16 +706,40 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
         yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
-        produced_bet=produced_record)
+        produced_bet=produced_record, accas=accas)
 
     board_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
-        produced_bet=produced_record)
+        produced_bet=produced_record, accas=accas)
 
     full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
     path = BOARD_DIR / f"board_{today}.txt"
+
+    # The acca payload — what the booking-code generator and the web dashboard
+    # read. Always written (even an empty acca set), so downstream consumers
+    # never guess at a missing file.
+    import dataclasses
+    acca_payload = {
+        "date": today,
+        "n_accas": len(accas),
+        "accas": [{
+            "label": a.label,
+            "combined_odds": a.combined_odds,
+            "combined_prob": a.combined_prob,
+            "n_legs": a.n_legs,
+            "legs": [dataclasses.asdict(l) for l in a.legs],
+        } for a in accas],
+    }
+    try:
+        (BOARD_DIR / f"acca_{today}.json").write_text(
+            json.dumps(acca_payload, ensure_ascii=False, indent=2),
+            encoding="utf-8")
+        (BOARD_DIR / f"acca_{today}.txt").write_text(acca_text, encoding="utf-8")
+    except Exception as e:
+        # the acca files are additive — a fault never kills the board
+        all_flags.append(f"acca file write failed ({e})")
 
     # The web dashboard (webapp/) reads board_<today>.json — the local server
     # and the hosted static export both consume it, so today's board is
@@ -699,7 +760,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     recommendation=render_daily_recommendation(board),
                     produced_bet=produced_record,
                     yesterday_graded=yesterday_graded,
-                    rolling_7d=rolling_7d),
+                    rolling_7d=rolling_7d,
+                    accas=acca_payload["accas"]),
                 BOARD_DIR / f"board_{today}.json")
             if prefetch_crests:
                 # Best-effort club-badge prefetch so the dashboard carries real

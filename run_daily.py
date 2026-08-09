@@ -34,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from brain.store import Brain
 from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
-from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS,
+from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS, SOFTNESS_PAUSED,
                              build_deploy_shortlist, market_blocked)
 from engine.mes import mes_numeric
 from engine import markets as mkt
@@ -449,8 +449,14 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     def _league_of(bf) -> str:
         return bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture \
             else "—"
-    odds_leagues = {_league_of(bf) for bf in board if bf.probs is not None
-                    and SOFTNESS_TIER.get(_league_of(bf)) in DEPLOY_ELIGIBLE_TIERS}
+    if SOFTNESS_PAUSED:
+        # Softness paused: every rated fixture across all whitelisted leagues is
+        # deploy-eligible, so pull prices for all of them. check_quota below
+        # still self-limits spending (price pulls blocked <40).
+        odds_leagues = {_league_of(bf) for bf in board if bf.probs is not None}
+    else:
+        odds_leagues = {_league_of(bf) for bf in board if bf.probs is not None
+                        and SOFTNESS_TIER.get(_league_of(bf)) in DEPLOY_ELIGIBLE_TIERS}
     odds_index: dict = {}
     for lg in sorted(odds_leagues):
         try:

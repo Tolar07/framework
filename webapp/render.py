@@ -26,6 +26,7 @@ from __future__ import annotations
 import html
 from datetime import date as _date, datetime, timedelta as _timedelta
 from engine import markets as mkt
+from engine.softness import SOFTNESS_PAUSED
 
 # Google Fonts (Architect-approved): degrade gracefully to the system stacks
 # below when offline.
@@ -1411,7 +1412,25 @@ def _tier_grouped_call(board: list[dict]) -> str:
     deploy pool first then model confidence. The DEPLOY pill (on the card)
     marks the actual cap-6 pool — the tier grouping is display, the deploy cap
     + market gate are unchanged rules. The public client view does NOT use this
-    (it renders the deploy shortlist only, per the data-leak boundary)."""
+    (it renders the deploy shortlist only, per the data-leak boundary).
+
+    When SOFTNESS_PAUSED=True, there is a single section — every whitelisted
+    league is deploy-eligible, no cap — with a neutral header and the DEPLOY
+    pill on shortlisted cards."""
+    if SOFTNESS_PAUSED:
+        grp = sorted(board, key=lambda b: (not b.get("on_deploy_shortlist"),
+                                            -_pick_confidence(b)))
+        n_deploy = sum(1 for b in grp if b.get("on_deploy_shortlist"))
+        count = f"{len(grp)} fixture{'s' if len(grp) != 1 else ''}"
+        if n_deploy:
+            count += f" · {n_deploy} in deploy pool"
+        cards = "".join(_call_card(b, admin=True) for b in grp)
+        return ('<div class="tier-section">'
+                '<div class="tier-head"><span class="tier-name">'
+                'All Leagues — Softness PAUSED (all whitelisted deploy-eligible)</span>'
+                f'<span class="tier-count">{count}</span></div>'
+                f'<div class="call-grid">{cards}</div>'
+                '</div>')
     order = ["A", "B", "C", "D", "?"]
     labels = {
         "A": "Tier A — deploy-eligible",
@@ -1455,6 +1474,9 @@ def _the_call(board: list[dict], admin: bool = False) -> str:
         return _tier_grouped_call(board)
     rows = [bf for bf in board if bf.get("on_deploy_shortlist")]
     if not rows:
+        if SOFTNESS_PAUSED:
+            return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
+                    'No deploy-eligible call today.</div></div>')
         return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
                 'No deploy-eligible call today (softness A/B only).</div></div>')
     # Responsive card grid — 2-3 columns on desktop, 1 column on mobile.
@@ -1518,10 +1540,14 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
     for league in sorted_leagues:
         fixtures = by_league[league]
         # Separate accumulator candidates (Tier A/B + on_deploy_shortlist) from others
-        acc_candidates = [bf for bf in fixtures
-                         if bf.get("softness_tier") in ("A", "B") and bf.get("on_deploy_shortlist")]
-        other_fixtures = [bf for bf in fixtures
-                         if not (bf.get("softness_tier") in ("A", "B") and bf.get("on_deploy_shortlist"))]
+        if SOFTNESS_PAUSED:
+            acc_candidates = [bf for bf in fixtures if bf.get("on_deploy_shortlist")]
+            other_fixtures = [bf for bf in fixtures if not bf.get("on_deploy_shortlist")]
+        else:
+            acc_candidates = [bf for bf in fixtures
+                             if bf.get("softness_tier") in ("A", "B") and bf.get("on_deploy_shortlist")]
+            other_fixtures = [bf for bf in fixtures
+                             if not (bf.get("softness_tier") in ("A", "B") and bf.get("on_deploy_shortlist"))]
         # Accumulator candidates first, then others — both sorted by confidence
         acc_candidates.sort(key=_pick_confidence, reverse=True)
         other_fixtures.sort(key=_pick_confidence, reverse=True)
@@ -1575,7 +1601,7 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
             status = "deploy" if bf.get("on_deploy_shortlist") else ("no-data" if p is None else "scan-only")
             best_market = bf.get("best_market_key") or ""
             date_str = payload_date if admin else ""
-            is_acc = bf.get("softness_tier") in ("A", "B") and bf.get("on_deploy_shortlist")
+            is_acc = bf.get("on_deploy_shortlist")
             acc_marker = '<span class="acc-star">⭐</span> ' if is_acc else ""
             acc_row_class = " acc-row" if is_acc else ""
 
@@ -2316,8 +2342,12 @@ def render_admin_dashboard(payload: dict) -> str:
         + _market_select_panel(payload)
         + "<main>"
         + '<section id="call-section"><div class="sec-head"><h2 class="display">The Call</h2>'
-        + f'<span class="cap-pill">{n_call} / 6 CAP</span></div>'
-        + '<p class="sec-sub">All tiers grouped by trust — A/B deploy-eligible (DEPLOY = in today\'s cap-6 pool), C/D scan-only. Paper only, zero capital.</p>'
+        + (f'<span class="cap-pill">{n_call} deploy (no cap — softness PAUSED)</span></div>'
+           if SOFTNESS_PAUSED else
+           f'<span class="cap-pill">{n_call} / 6 CAP</span></div>')
+        + ('<p class="sec-sub">All whitelisted leagues deploy-eligible (softness PAUSED), no cap. Paper only, zero capital.</p>'
+           if SOFTNESS_PAUSED else
+           '<p class="sec-sub">All tiers grouped by trust — A/B deploy-eligible (DEPLOY = in today\'s cap-6 pool), C/D scan-only. Paper only, zero capital.</p>')
         + _the_call(payload.get("board", []), admin=True)
         + "</section>"
         + '<section id="scan-section" style="display:none;"><div class="sec-head"><h2 class="display">The Scan</h2></div>'

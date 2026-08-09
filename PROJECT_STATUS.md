@@ -13,7 +13,7 @@
 | **Dixon-Coles + Elo + xG + Bookmaker engines** | Green | Four independent opinions computed per fixture |
 | **Consensus vote (ID412/413)** | Green | Majority across available engines, persisted to brain |
 | **Market gate (ID405)** | Active | Away Win, Over 2.5, Home Win blocked from deploy |
-| **Softness tiers (ID402)** | Active | 17 leagues across A/B/C/D; deploy only from A/B, cap 6 |
+| **Softness tiers (ID402)** | **PAUSED 2026-08-09** | All whitelisted leagues deploy-eligible, no cap; `SOFTNESS_PAUSED=True` (reversible). ID405 market gate unchanged |
 | **3-day rolling window** | Active | `days_ahead=3` (ratified 2026-08-07) |
 | **Promoted-club carry-over** | Active | Prior-season fit rates newly promoted clubs |
 | **CLV logging + CL-LIVE capture** | Active | Paper legs logged, closing lines captured near kickoff |
@@ -61,12 +61,12 @@
 
 ## 🎯 NEXT ACTIONS
 
-**Sprint 2026-08-09 ✅ COMPLETE** — all three items (market scope, full-picture display, accumulator prep) fixed and committed (`db687b5`).
+**Sprint 2026-08-09 ✅ COMPLETE** — all three items (market scope, full-picture display, accumulator prep) fixed and committed (`db687b5`). **Softness PAUSED** (all leagues deploy-eligible, no cap) implemented — see RATIFICATIONS.md 2026-08-09.
 
 Next up (in priority order):
 
-1. **Run accumulator prep on a live board** — `python scripts/accumulator_prep.py` against today's `board_2026-08-09.json` once the daily run writes it; confirm the slip format against SportyBet (needs Architect's bet-slip answer, below).
-2. **Unblock odds pipeline** — Odds API quota (4/500 left) stalls live EV/CLV + Phase 3 CLV gate. Architect must upgrade/reset before live price pulls resume.
+1. **Re-run the daily pipeline** — the current `board_2026-08-09` was generated pre-pause (02:12, A/B shortlist only). A re-run regenerates it with all-league shortlisting + widened price pull. NOTE: quota at 4/500 means non-A/B prices will be mostly blocked until quota resets.
+2. **Unblock odds pipeline** — Odds API quota (4/500 left) stalls live EV/CLV + Phase 3 CLV gate. Architect must upgrade/reset before the widened price pull can actually price all leagues.
 3. **Model refit for away overconfidence** — model claims ~39% away, delivers ~30%; no screen/nudge fixes it. Structural; needs refit before Phase 3.
 4. **Promoted-club carry-over data** — 5 clubs stuck NO DATA until personal TheSportsDB key lands.
 5. **Land other session's in-flight work** — `run_daily.py` SportyBet cache-warm hook (imports clean), `monitor/data_quality.py` (mid-edit, IndentationError), `scripts/check_csv_validation.py`, `tests/data_quality_test.py` — verify, then reconcile commit.

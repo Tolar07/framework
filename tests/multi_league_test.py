@@ -87,6 +87,9 @@ def fake_load_league(league, season):
 def fake_fetch_upcoming(league, season_year):
     raise RuntimeError("fixtures_source not used in this test — fixtures passed directly")
 
+import engine.softness as softness
+softness.SOFTNESS_PAUSED = False  # test the ratified A/B gating machinery
+
 with patch("orchestrator.load_league", side_effect=fake_load_league):
     board_a, _ = orchestrator.scan_one_league("Eredivisie", "2526", upcoming_fixtures=fixtures_a)
     board_b, _ = orchestrator.scan_one_league("Scottish Premiership", "2526", upcoming_fixtures=fixtures_b)
@@ -105,5 +108,17 @@ print(f"Deploy-eligible fixtures across Eredivisie+Scottish Premiership combined
 capped = build_deploy_shortlist(eligible)
 assert len(capped) <= DEPLOY_POOL_CAP
 print(f"Global cap enforced across leagues combined: {len(capped)} <= {DEPLOY_POOL_CAP} OK")
+
+# --- test 3b: SOFTNESS_PAUSED=True — C tier becomes deploy-eligible, no cap ---
+softness.SOFTNESS_PAUSED = True
+with patch("orchestrator.load_league", side_effect=fake_load_league):
+    board_c_paused, _ = orchestrator.scan_one_league("Bundesliga", "2526", upcoming_fixtures=fixtures_c)
+assert any(b.on_deploy_shortlist for b in board_c_paused), \
+    "Bundesliga (tier C) must be deploy-eligible when softness is PAUSED"
+assert len(board_c_paused) == len(fixtures_c), "all C fixtures rated"
+print(f"Softness PAUSED: Bundesliga (tier C) fixtures deploy-shortlisted: OK "
+      f"({sum(1 for b in board_c_paused if b.on_deploy_shortlist)} of {len(board_c_paused)})")
+
+softness.SOFTNESS_PAUSED = False  # restore for subsequent modules
 
 print("\n✅ ALL MULTI-LEAGUE ORCHESTRATION TESTS PASSED")

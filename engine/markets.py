@@ -146,6 +146,25 @@ def quote(key: str, fixture_odds) -> Optional[object]:
 # by data availability rather than by rule.
 DEPLOYABLE = tuple(k for k in (HOME, DRAW, AWAY, OVER_25, UNDER_25) if k not in BLOCKED)
 
+# APPROVED_MARKETS — the full set of markets the Architect approved for
+# DISPLAY/SCAN/RANKING. This is SEPARATE from DEPLOYABLE (capital gate).
+# Approved list (ratified 2026-08-09): Win (HOME), Away Win (AWAY),
+# Double Chance, Over/Under 1.5, Over/Under 2.5, BTTS.
+# The market gate (BLOCKED) still prevents capital deployment on negative-CLV
+# markets (Away, Over 2.5, Home) — this list is for BOARD VISIBILITY ONLY.
+APPROVED_MARKETS = (
+    HOME,          # Win
+    DRAW,          # Draw
+    AWAY,          # Away Win
+    OVER_15,       # Over 1.5
+    UNDER_15,      # Under 1.5
+    OVER_25,       # Over 2.5
+    UNDER_25,      # Under 2.5
+    BTTS_YES,      # BTTS Yes
+    BTTS_NO,       # BTTS No
+)
+# Double Chance is derived from 1X2 probs (1X, X2, 12) — not a separate key.
+
 
 def implied_1x2(fixture_odds) -> Optional[tuple[float, float, float]]:
     """Bookmaker implied 1X2, margin removed by proportional devig (ID413).

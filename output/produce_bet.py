@@ -360,12 +360,11 @@ def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
     """Placeholder selection logic for which market to headline — a real deploy
     decision needs the full ID402/softness/ID389 gating; this just picks the
     highest-confidence market to make the table renderable end to end."""
-    # Only markets that could actually carry capital may be headlined. Without
-    # this the legacy table could name an away win or an Over 2.5 as THE CALL
-    # while ID405 blocks the logger from ever recording it — the board
-    # recommending precisely what the framework refuses to log.
+    # Only markets that are APPROVED for display/scan may be headlined.
+    # DEPLOYABLE is the capital gate (ID405); APPROVED_MARKETS is the
+    # full list the Architect approved for board visibility.
     candidates = [(mkt.display(k, p.home_team, p.away_team), mkt.model_prob(k, p))
-                  for k in mkt.DEPLOYABLE]
+                  for k in mkt.APPROVED_MARKETS]
     candidates = [(name, prob) for name, prob in candidates if prob is not None]
     if not candidates:
         return ("NO DATA — PENDING", 0.0)
@@ -648,9 +647,12 @@ def _engine_chip(bf: BoardFixture) -> list[str]:
 def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
     """ScoreGPT-style per-league match cards (ID414): one card per fixture with
     the AI pick, the predicted scoreline (modal), the consensus count, and the
-    per-engine chips. This REPLACES the old two-column `Fixture | Prediction`
-    table — the Architect's total-restructure order. An unrated fixture keeps
-    its card as NO DATA — PENDING rather than being dropped (HR35).
+    per-engine chips. Shows ALL fixtures across ALL leagues (not just deploy
+    eligible). Accumulator candidates (Tier A/B, on_deploy_shortlist) are marked
+    with ★ at the top of each league section. This REPLACES the old two-column
+    `Fixture | Prediction` table — the Architect's total-restructure order. An
+    unrated fixture keeps its card as NO DATA — PENDING rather than being
+    dropped (HR35).
 
     Returns (text, any_away_pick) — the bool tells render_telegram_board
     whether the 'away is never recommended' footnote is needed."""
@@ -662,26 +664,57 @@ def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
     any_away = False
     for league, fixtures in by_league.items():
         league_blocks: list[str] = [league.upper()]
-        for bf in fixtures:
+
+        # Separate accumulator candidates (Tier A/B + on_deploy_shortlist) from others
+        acc_candidates = [bf for bf in fixtures
+                         if bf.softness_tier in ("A", "B") and bf.on_deploy_shortlist]
+        other_fixtures = [bf for bf in fixtures
+                         if not (bf.softness_tier in ("A", "B") and bf.on_deploy_shortlist)]
+
+        # Show accumulator candidates first, marked with ★
+        if acc_candidates:
+            league_blocks.append("  ⭐ ACCUMULATOR CANDIDATES (Tier A/B, deploy-eligible):")
+            for bf in acc_candidates:
+                if bf.probs is None:
+                    league_blocks.append(f"  · {_short_fixture(bf)}\n    NO DATA — PENDING")
+                    continue
+                name, prob, is_away = _result_pick(bf)
+                any_away = any_away or is_away
+                sl = getattr(bf.probs, "modal_scoreline", None)
+                score = f"{sl[0]}–{sl[1]}" if sl else "—"
+                pick_line = f"AI pick: {name} — predicted {score}"
+                if bf.consensus and bf.consensus.n_engines:
+                    agree = f"{bf.consensus.agreeing} of {bf.consensus.n_engines} models agree"
+                else:
+                    agree = "consensus unavailable"
+                chips = " · ".join(_engine_chip(bf))
+                tier_label = f"[Tier {bf.softness_tier}]"
+                league_blocks.append(
+                    f"  ★ {_short_fixture(bf)} {tier_label}\n"
+                    f"    {pick_line} ({round(prob*100)}%)\n"
+                    f"    {agree}\n"
+                    f"    {chips}")
+
+        # Then show all other fixtures
+        for bf in other_fixtures:
             if bf.probs is None:
                 league_blocks.append(f"· {_short_fixture(bf)}\n  NO DATA — PENDING")
                 continue
             name, prob, is_away = _result_pick(bf)
             any_away = any_away or is_away
-            # Predicted scoreline from the modal Poisson score (ID414). Defensive
-            # getattr: the regression tests feed fake prob objects without the
-            # field, and a missing datum must degrade to '—', never crash.
             sl = getattr(bf.probs, "modal_scoreline", None)
             score = f"{sl[0]}–{sl[1]}" if sl else "—"
             pick_line = f"AI pick: {name} — predicted {score}"
-            # Consensus count (N of M engines agree) — ID412/ID413
             if bf.consensus and bf.consensus.n_engines:
                 agree = f"{bf.consensus.agreeing} of {bf.consensus.n_engines} models agree"
             else:
                 agree = "consensus unavailable"
             chips = " · ".join(_engine_chip(bf))
+            tier_label = f"[Tier {bf.softness_tier}]" if bf.softness_tier != "?" else ""
+            if tier_label:
+                tier_label += " "
             league_blocks.append(
-                f"· {_short_fixture(bf)}\n"
+                f"· {_short_fixture(bf)} {tier_label}\n"
                 f"  {pick_line} ({round(prob*100)}%)\n"
                 f"  {agree}\n"
                 f"  {chips}")

@@ -342,6 +342,15 @@ def parse_csv_text(league: str, csv_text: str, season: Optional[str] = None,
     is_extra = "HomeTeam" not in fieldnames and "Home" in fieldnames
     cols = EXTRA_COLUMNS if is_extra else STANDARD_COLUMNS
 
+    # Schema gate: the columns the parser depends on must exist, else the feed
+    # changed shape and parsing on would silently produce wrong/empty rows.
+    from data.validation import validate_header
+    header_issue = validate_header(
+        [cols["home"], cols["away"], cols["hg"], cols["ag"], "Date"],
+        fieldnames, source=f"football-data.co.uk ({league})")
+    if header_issue is not None:
+        raise ValueError(header_issue.problem)
+
     season_label = None
     if is_extra and season is not None:
         season_label = _season_to_extra_label(season)
@@ -361,29 +370,51 @@ def parse_csv_text(league: str, csv_text: str, season: Optional[str] = None,
                 # Fixture not yet played — not an error, just not a result yet.
                 continue
 
-            date_iso = _parse_date(row["Date"])
-            _odds = lambda key: _price(row, key)  # noqa: E731 — kept for the legacy fields below
-            match_odds = build_match_odds(row, is_extra, book_preference)
+            # Value sanity: a malformed date/score/odds must not reach the fit.
+            from data.validation import (validate_date_iso, validate_score_field,
+                                         validate_result_consistency,
+                                         validate_odds_value)
+            raw_date = row["Date"]
+            date_iso = _parse_date(raw_date)  # raises -> skipped (as before)
+            d_issue = validate_date_iso(date_iso, i)
+            if d_issue is not None:
+                skipped.append({"row": i, "reason": d_issue.problem, "raw": row})
+                continue
+            for field in (cols["hg"], cols["ag"]):
+                s_issue = validate_score_field(field, row.get(field), i)
+                if s_issue is not None:
+                    skipped.append({"row": i, "reason": s_issue.problem, "raw": row})
+                    break
+            else:
+                fthg, ftag = int(row[cols["hg"]]), int(row[cols["ag"]])
+                ftr = row.get(cols["res"], "").strip()
+                c_issue = validate_result_consistency(fthg, ftag, ftr, i)
+                if c_issue is not None:
+                    skipped.append({"row": i, "reason": c_issue.problem, "raw": row})
+                    continue
 
-            results.append(MatchResult(
-                league=league,
-                date=date_iso,
-                home_team=row[cols["home"]].strip(),
-                away_team=row[cols["away"]].strip(),
-                fthg=int(row[cols["hg"]]),
-                ftag=int(row[cols["ag"]]),
-                ftr=row.get(cols["res"], "").strip(),
-                # PSCH/PSCD/PSCA = Pinnacle closing odds (preferred per HR46).
-                # Falls back to AvgC (market average closing) if Pinnacle absent —
-                # NOTE per the master doc, Pinnacle odds have been unreliable since
-                # 23/07/2025; treat closing odds as SINGLE-SOURCE not VERIFIED
-                # unless cross-checked (ID403).
-                closing_home_odds=_odds("PSCH") if _odds("PSCH") is not None else _odds("AvgCH"),
-                closing_draw_odds=_odds("PSCD") if _odds("PSCD") is not None else _odds("AvgCD"),
-                closing_away_odds=_odds("PSCA") if _odds("PSCA") is not None else _odds("AvgCA"),
-                odds=match_odds,
-                kickoff_time=row.get("Time") or None,
-            ))
+                _odds = lambda key: _price(row, key)  # noqa: E731
+                match_odds = build_match_odds(row, is_extra, book_preference)
+
+                results.append(MatchResult(
+                    league=league,
+                    date=date_iso,
+                    home_team=row[cols["home"]].strip(),
+                    away_team=row[cols["away"]].strip(),
+                    fthg=fthg,
+                    ftag=ftag,
+                    ftr=ftr,
+                    # PSCH/PSCD/PSCA = Pinnacle closing odds (preferred per HR46).
+                    # Falls back to AvgC (market average closing) if Pinnacle absent —
+                    # NOTE per the master doc, Pinnacle odds have been unreliable since
+                    # 23/07/2025; treat closing odds as SINGLE-SOURCE not VERIFIED
+                    # unless cross-checked (ID403).
+                    closing_home_odds=_odds("PSCH") if _odds("PSCH") is not None else _odds("AvgCH"),
+                    closing_draw_odds=_odds("PSCD") if _odds("PSCD") is not None else _odds("AvgCD"),
+                    closing_away_odds=_odds("PSCA") if _odds("PSCA") is not None else _odds("AvgCA"),
+                    odds=match_odds,
+                    kickoff_time=row.get("Time") or None,
+                ))
         except Exception as e:
             skipped.append({"row": i, "reason": str(e), "raw": row})
 

@@ -100,8 +100,10 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
             total_fixtures += 1
             if f.get("date"):
                 fixture_dates[(f["home"], f["away"])] = f["date"]
-    if total_fixtures > 25:
-        return {"ok": False, "error": f"Too many fixtures ({total_fixtures} > 25 limit)"}
+    # The 'Select All' flow can push a full day across all ~17 approved
+    # leagues past the old 25 cap — a normal weekend is 30-50 fixtures.
+    if total_fixtures > 80:
+        return {"ok": False, "error": f"Too many fixtures ({total_fixtures} > 80 limit)"}
     if total_fixtures == 0:
         return {"ok": False, "error": "No fixtures selected"}
 

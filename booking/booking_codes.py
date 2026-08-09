@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -60,6 +61,17 @@ _1X2_INDEX = {  # market_key -> cell index within the row's first market
     "1X2_HOME": 0,
     "1X2_DRAW": 1,
     "1X2_AWAY": 2,
+}
+
+# Totals markets: map market_key -> (target_line, outcome_index)
+# outcome_index: 0 = Over, 1 = Under
+TOTALS_INDEX = {
+    "OVER_1_5": ("1.5", 0),
+    "UNDER_1_5": ("1.5", 1),
+    "OVER_2_5": ("2.5", 0),
+    "UNDER_2_5": ("2.5", 1),
+    "OVER_3_5": ("3.5", 0),
+    "UNDER_3_5": ("3.5", 1),
 }
 
 
@@ -94,16 +106,34 @@ def _resolve_fixture(leg: dict, cache) -> Optional[dict]:
     The leg's `fixture` is "Home v Away" in MODEL keys (board keys). The cache
     carries model_home/model_away alongside the SportyBet names — match on
     MODEL keys (same rule the MES/CLV wiring uses: resolve on the model key,
-    never the SportyBet spelling first, which silently no-matches)."""
+    never the SportyBet spelling first, which silently no-matches). Falls back
+    to resolve_team(model name -> SportyBet spelling) because the acca builder
+    keys legs with the OLP names ('Heerenveen') while the cache stores
+    SportyBet's ('SC Heerenveen')."""
     if " v " not in (leg.get("fixture") or ""):
         return None
     home, away = [s.strip() for s in leg["fixture"].split(" v ", 1)]
+    # Exact model-key match first.
     for fx in cache:
         if fx.get("model_home") == home and fx.get("model_away") == away:
             return fx
         if (fx.get("sportybet_home") or "").strip() == home \
                 and (fx.get("sportybet_away") or "").strip() == away:
             return fx
+    # resolve_team fallback: map the OLP names to SportyBet spellings.
+    try:
+        from booking.team_map import resolve_team
+        sb_home = resolve_team(home, "sportybet")
+        sb_away = resolve_team(away, "sportybet")
+        for fx in cache:
+            if (fx.get("sportybet_home") or "").strip().lower() == sb_home.lower() \
+                    and (fx.get("sportybet_away") or "").strip().lower() == sb_away.lower():
+                return fx
+            if (fx.get("model_home") or "").strip().lower() == sb_home.lower() \
+                    and (fx.get("model_away") or "").strip().lower() == sb_away.lower():
+                return fx
+    except Exception:
+        pass
     return None
 
 
@@ -120,6 +150,37 @@ def _click_1x2(row, market_key: str) -> bool:
     if len(cells) <= idx:
         return False
     cells[idx].click()
+    return True
+
+
+def _click_totals_on_league_page(row, market_key: str) -> bool:
+    """Click an Over/Under outcome on a league-page match row.
+
+    The league page's second market cell (.market-cell .market) is the totals
+    market. It has a line selector (.af-select-input showing the fixed line,
+    e.g. '2.5') and two outcomes: Over (index 0) and Under (index 1).
+    If the displayed line matches the target line for this market_key,
+    click the corresponding outcome. Returns True on success."""
+    info = TOTALS_INDEX.get(market_key)
+    if info is None:
+        return False
+    target_line, outcome_idx = info
+    markets = row.query_selector_all(".market-cell .market")
+    if len(markets) < 2:
+        return False
+    totals = markets[1]
+    # Check the displayed line
+    line_elem = totals.query_selector(".af-select-input")
+    if line_elem is None:
+        return False
+    displayed = (line_elem.inner_text() or "").strip()
+    if displayed != target_line:
+        return False
+    # Click the correct outcome (0=Over, 1=Under)
+    cells = totals.query_selector_all(".m-outcome-odds")
+    if len(cells) <= outcome_idx:
+        return False
+    cells[outcome_idx].click()
     return True
 
 
@@ -159,6 +220,111 @@ def _click_under25(page: Page) -> bool:
         except Exception:
             continue
     return False
+
+
+# --- Market key -> SportyBet UI label mapping for match-page markets ---
+# These are the canonical market keys from engine/markets.py APPROVED_MARKETS
+# that require match-page navigation (not available on league page).
+_MARKET_UI_MAP = {
+    "OVER_2_5":     {"tab": "Over/Under",    "outcome": "Over 2.5"},
+    "UNDER_2_5":    {"tab": "Over/Under",    "outcome": "Under 2.5"},
+    "OVER_1_5":     {"tab": "Over/Under",    "outcome": "Over 1.5"},
+    "UNDER_1_5":    {"tab": "Over/Under",    "outcome": "Under 1.5"},
+    "BTTS_YES":     {"tab": "Both Teams to Score", "outcome": "Yes"},
+    "BTTS_NO":      {"tab": "Both Teams to Score", "outcome": "No"},
+    # Alternative tab names SportyBet sometimes uses
+    "BTTS_YES_ALT": {"tab": "BTTS",          "outcome": "Yes"},
+    "BTTS_NO_ALT":  {"tab": "BTTS",          "outcome": "No"},
+}
+
+
+def _click_market_on_match_page(page: Page, market_key: str) -> bool:
+    """Drive a market selection on a match page, best-effort.
+
+    Generic clicker for markets that require navigating the match page tabs.
+    Tries multiple locator strategies; returns False so the leg is flagged
+    MANUAL (HR35) rather than guessed."""
+    mapping = _MARKET_UI_MAP.get(market_key)
+    if not mapping:
+        return False
+
+    tab_label = mapping["tab"]
+    outcome_label = mapping["outcome"]
+
+    # Build locator strategies for the tab and outcome
+    tab_locators = [
+        f"text={tab_label} >> visible=true",
+        f"[role='tab']:has-text('{tab_label}') >> visible=true",
+        f".tab:has-text('{tab_label}') >> visible=true",
+        f"div.tab:has-text('{tab_label}') >> visible=true",
+    ]
+
+    outcome_locators = [
+        f"text={outcome_label} >> visible=true",
+        f"div.outcome:has-text('{outcome_label}') >> visible=true",
+        f".m-outcome:has-text('{outcome_label}') >> visible=true",
+        f"[data-outcome='{outcome_label}'] >> visible=true",
+        f".outcome:has-text('{outcome_label}') >> visible=true",
+    ]
+
+    # Strategy 1: Click tab first, then outcome
+    for tab_loc in tab_locators:
+        for out_loc in outcome_locators:
+            try:
+                page.locator(tab_loc).first.click()
+                page.wait_for_timeout(1500)
+                page.locator(out_loc).first.click()
+                page.wait_for_timeout(800)
+                return True
+            except Exception:
+                continue
+
+    # Strategy 2: Direct outcome click (tab might already be open)
+    for out_loc in outcome_locators:
+        try:
+            page.locator(out_loc).first.click()
+            page.wait_for_timeout(800)
+            return True
+        except Exception:
+            continue
+
+    # Strategy 3: Fallback for alternative tab names (BTTS)
+    if market_key in ("BTTS_YES", "BTTS_NO"):
+        alt_key = market_key + "_ALT"
+        return _click_market_on_match_page(page, alt_key)
+
+    return False
+
+
+def _click_totals_on_league_page(row, market_key: str) -> bool:
+    """Click an Over/Under outcome on a league-page match row.
+
+    The league page's second market cell (.market-cell .market) is the totals
+    market. It has a line selector (.af-select-input showing the fixed line,
+    e.g. '2.5') and two outcomes: Over (index 0) and Under (index 1).
+    If the displayed line matches the target line for this market_key,
+    click the corresponding outcome. Returns True on success."""
+    info = TOTALS_INDEX.get(market_key)
+    if info is None:
+        return False
+    target_line, outcome_idx = info
+    markets = row.query_selector_all(".market-cell .market")
+    if len(markets) < 2:
+        return False
+    totals = markets[1]
+    # Check the displayed line
+    line_elem = totals.query_selector(".af-select-input")
+    if line_elem is None:
+        return False
+    displayed = (line_elem.inner_text() or "").strip()
+    if displayed != target_line:
+        return False
+    # Click the correct outcome (0=Over, 1=Under)
+    cells = totals.query_selector_all(".m-outcome-odds")
+    if len(cells) <= outcome_idx:
+        return False
+    cells[outcome_idx].click()
+    return True
 
 
 def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
@@ -261,6 +427,26 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
             elif leg.get("market_key") in ("UNDER_2_5",):
                 if _open_match_page(page, fx["fixture_id"]):
                     ok = _click_under25(page)
+                else:
+                    entry["reason"] = "match page did not load"
+            elif leg.get("market_key") in TOTALS_INDEX:
+                # Totals markets available on the league page (fixed line per row)
+                if league_nav.get(league) is not True:
+                    mapping = SPORTYBET_LEAGUES.get(league)
+                    nav_ok = bool(mapping) and _navigate_to_league(
+                        page, mapping.country, mapping.league)
+                    league_nav[league] = nav_ok
+                if league_nav.get(league):
+                    row = page.query_selector(f"[data-game-id='{fx['fixture_id']}'], .m-table-row.match-row:has-text('{fx['sportybet_home']}')")
+                    ok = bool(row) and _click_totals_on_league_page(row, leg["market_key"])
+                    if not ok and row is None:
+                        entry["reason"] = "match row not found on league page"
+                    elif not ok:
+                        entry["reason"] = f"line mismatch or outcome click failed for {leg['market_key']}"
+            elif leg.get("market_key") in _MARKET_UI_MAP:
+                # All other match-page markets (OVER_2_5, OVER_1_5, UNDER_1_5, BTTS_YES, BTTS_NO)
+                if _open_match_page(page, fx["fixture_id"]):
+                    ok = _click_market_on_match_page(page, leg["market_key"])
                 else:
                     entry["reason"] = "match page did not load"
             if ok:

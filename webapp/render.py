@@ -45,7 +45,7 @@ _CSS = """
   --line:#232B3B;
   --ink:#E7EAF0;
   --ink-dim:#8B93A6;
-  --ink-faint:#565F72;
+  --ink-faint:#7A8498;  /* WCAG AA: 4.6:1 on --bg (was #565F72 = 3.2:1) */
   --amber:#D8A659;
   --amber-dim:#8C744A;
   --teal:#4FB894;
@@ -101,6 +101,11 @@ header.top{
   width:28px;height:28px;border:1px solid var(--line);border-radius:8px;
   background:var(--surface);color:var(--ink);text-decoration:none;
   transition:border-color 0.15s,background 0.15s;
+  position:relative; /* hit area extended to 44px via ::after */
+}
+.date-nav-btn::after{
+  content:"";position:absolute;top:50%;left:50%;
+  width:44px;height:44px;transform:translate(-50%,-50%);
 }
 .date-nav-btn:hover{border-color:var(--amber-dim);background:var(--surface-2);}
 .date-nav-input{
@@ -269,6 +274,14 @@ section{margin-top:34px;}
 .detail-row td{padding:0;border-bottom:1px solid var(--line);}
 .detail-row .full-analysis{display:none;padding:14px 8px 16px 8px;}
 .detail-row.open .full-analysis{display:block;}
+/* Visible keyboard focus for the tabindex=0 rows/cards (Enter/Space toggle) */
+.scan-table tr[role="button"]:focus-visible td,
+.league-group-header:focus-visible td{
+  background:rgba(216,166,89,0.08);
+  box-shadow:inset 0 0 0 2px var(--amber);
+}
+.call-card:focus-visible{border-color:var(--amber);box-shadow:0 0 0 2px var(--amber);}
+.call-card:focus-visible{outline:none;}
 
 /* graded / verify results */
 .graded-row{
@@ -317,9 +330,57 @@ footer{
 .gate .bar{width:90px;height:4px;background:var(--line);border-radius:2px;overflow:hidden;}
 .gate .fill{height:100%;background:var(--amber-dim);width:0%;}
 
+/* Mobile (< 600px): the scan table becomes a stack of cards, one per fixture,
+   with each market column kept and labelled with its header text (shown via
+   ::before), so nothing is lost by dropping the table chrome. The league header
+   stays a card. Same markup — pure CSS transform. */
+@media (max-width:600px){
+  .scan-table,.scan-table thead,.scan-table tbody,
+  .scan-table tr,.scan-table td{display:block;}
+  .scan-table thead{display:none;}
+  .scan-table tbody.league-group{margin-bottom:16px;}
+  .scan-table tr.league-group-header td{padding:0;}
+  /* Fixture rows become cards */
+  .scan-table tr.clickable.league-row,
+  .scan-table tr.league-row{
+    display:flex;flex-wrap:wrap;align-items:center;
+    gap:4px 10px;padding:12px 12px 10px;
+    border:1px solid var(--line);border-radius:8px;
+    margin-bottom:6px;background:var(--surface);
+  }
+  .scan-table tr.league-row td{
+    display:flex;align-items:baseline;gap:6px;
+    border:none;padding:2px 0;font-size:12px;
+  }
+  .scan-table tr.league-row td:nth-child(1){flex:1 1 100%;padding-bottom:6px;}
+  .scan-table tr.league-row td:nth-child(n+2){flex:1 1 42%;min-width:0;}
+  /* Market column labels — mirrors the desktop header text */
+  .scan-table tr.league-row td::before{
+    font-family:'IBM Plex Mono',monospace;font-size:9px;
+    color:var(--ink-faint);letter-spacing:0.05em;text-transform:uppercase;
+    flex:none;min-width:42px;
+  }
+  .scan-table tr.league-row td:nth-child(2)::before{content:"1X2";}
+  .scan-table tr.league-row td:nth-child(3)::before{content:"Goals";}
+  .scan-table tr.league-row td:nth-child(4)::before{content:"DC/BTTS";}
+  .scan-table tr.league-row td:nth-child(5)::before{content:"Src";}
+  /* NO DATA rows span the card with a full-width message, no label */
+  .scan-table tr.league-row td.nodata{flex:1 1 100%;font-style:italic;}
+  .scan-table tr.league-row td.nodata::before{content:none;}
+  /* Detail rows expand below their card */
+  .scan-table tr.detail-row td{padding:0;}
+  .scan-table tr.detail-row .full-analysis{padding:10px 12px;}
+  /* League header card — let meta wrap below the name on narrow screens.
+     Chevron keeps a real column (col 3); name/meta/season stack in col 2. */
+  .league-card{grid-template-columns:auto 1fr auto;grid-template-rows:auto auto auto;}
+  .league-card .league-meta{grid-column:2/3;grid-row:2;justify-content:flex-start;}
+  .league-card .league-season{grid-column:2/3;grid-row:3;}
+  .league-card .league-chevron{grid-row:1/4;grid-column:3;}
+}
+
+/* Legacy ≤480px compactness kept for the market grid inside expanded cards */
 @media (max-width:480px){
   .scan-table{font-size:11.5px;}
-  .scan-table th:nth-child(4), .scan-table td:nth-child(4){display:none;}
 }
 
 /* Bottom tab bar — ScoreAI-style with pill active state */
@@ -332,6 +393,7 @@ footer{
 }
 .tab-btn{
   flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+  min-height:44px; /* WCAG 2.5.5 minimum touch target */
   padding:10px 12px;border:none;background:transparent;color:var(--ink-dim);
   font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
   border-radius:var(--radius);cursor:pointer;
@@ -343,9 +405,9 @@ footer{
   color:var(--amber);font-weight:600;
 }
 .tab-btn:not(.active):hover{color:var(--ink);background:rgba(255,255,255,0.03);}
-.tab-btn:focus-visible{outline:none;}
+.tab-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 @media (max-width:480px){
-  .tab-btn{padding:10px 8px;font-size:11px;}
+  .tab-btn{min-height:44px;padding:10px 8px;font-size:11px;}
 }
 
 /* Date scroller pills */
@@ -386,10 +448,12 @@ footer{
 .market-select-panel.collapsed .market-select-body{display:none;}
 .market-select-actions{display:flex;gap:10px;margin-bottom:10px;}
 .market-select-action{
-  font-size:12px;padding:0;border:none;background:transparent;
+  font-size:12px;padding:6px 4px;border:none;background:transparent;
   color:var(--amber);cursor:pointer;font-weight:500;
+  min-height:24px;display:inline-flex;align-items:center;
 }
 .market-select-action:hover{text-decoration:underline;}
+.market-select-action:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 .market-checkboxes{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;}
 .market-checkbox{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink);}
 .market-checkbox input{width:16px;height:16px;accent-color:var(--amber);flex:none;}
@@ -404,6 +468,7 @@ footer{
 .chat-fab{
   position:fixed;right:20px;bottom:100px;z-index:190;
   display:inline-flex;align-items:center;gap:8px;
+  min-height:44px; /* WCAG 2.5.5 minimum touch target */
   padding:11px 16px;border-radius:999px;border:1px solid var(--amber-dim);
   background:var(--surface);color:var(--ink);font-size:13px;font-weight:600;
   cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.35);
@@ -411,6 +476,7 @@ footer{
 }
 .chat-fab:hover{border-color:var(--amber);color:var(--amber);}
 .chat-fab:active{transform:scale(0.98);}
+.chat-fab:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 .chat-fab .fab-ico{font-size:15px;line-height:1;}
 .chat-header{
   display:flex;align-items:center;justify-content:space-between;
@@ -418,7 +484,11 @@ footer{
   border-radius:var(--radius) var(--radius) 0 0;
 }
 .chat-title{font-size:14px;font-weight:600;color:var(--ink);}
-.chat-close{background:none;border:none;color:var(--ink-dim);font-size:20px;cursor:pointer;}
+.chat-close{
+  background:none;border:none;color:var(--ink-dim);font-size:20px;cursor:pointer;
+  min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+}
+.chat-close:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 .chat-messages{
   flex:1;overflow-y:auto;padding:16px;background:var(--bg);
   border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);
@@ -433,12 +503,16 @@ footer{
 .chat-message.user .bubble{background:var(--amber);color:var(--bg);border-bottom-right-radius:4px;}
 .chat-input-area{display:flex;gap:8px;padding:12px;background:var(--surface);border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);}
 .chat-input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid var(--line);border-radius:999px;color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
-.chat-input:focus{outline:none;border-color:var(--amber);}
+.chat-input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
 .chat-send{padding:10px 18px;background:var(--amber);color:var(--bg);border:none;border-radius:999px;font-weight:600;cursor:pointer;}
 .chat-send:disabled{opacity:0.5;cursor:not-allowed;}
 .chat-quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 12px 12px;}
-.chat-quick-btn{font-size:11px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--ink);cursor:pointer;}
+.chat-quick-btn{
+  font-size:11px;min-height:30px;padding:6px 10px;border:1px solid var(--line);
+  border-radius:999px;background:var(--surface-2);color:var(--ink);cursor:pointer;
+}
 .chat-quick-btn:hover{border-color:var(--amber);}
+.chat-quick-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 
 /* Fixture card — ScoreAI schedule layout (badge — team — vs — team — badge) */
 .fixture-card{
@@ -462,6 +536,9 @@ footer{
 .fixture-card .star{
   color:var(--ink-faint);cursor:pointer;font-size:16px;
   transition:color 0.15s,transform 0.15s;
+  position:relative;line-height:1;
+  padding:0 10px;margin-right:-10px; /* 44px hit area around the glyph */
+  min-height:44px;display:inline-flex;align-items:center;
 }
 .fixture-card .star.active{color:var(--amber);transform:scale(1.15);}
 .fixture-card .star:hover{color:var(--amber);}
@@ -474,7 +551,7 @@ footer{
   border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;font-size:12px;
 }
 .produce-toolbar input{flex:1;min-width:180px;}
-.produce-toolbar select:focus,.produce-toolbar input:focus{outline:none;border-color:var(--amber);}
+.produce-toolbar select:focus,.produce-toolbar input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
 .produce-results{max-height:400px;overflow-y:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg);}
 .produce-league-group{padding:8px 12px;}
 .produce-league-name{font-size:12px;font-weight:600;color:var(--amber);margin-bottom:6px;padding:4px 0;border-bottom:1px solid var(--line);}
@@ -637,7 +714,7 @@ tbody.collapsed .league-group-toggle{transform:rotate(-90deg);}
   min-width:120px;
 }
 .admin-search-bar select:focus,
-.admin-search-bar input:focus{outline:none;border-color:var(--amber);}
+.admin-search-bar input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
 
 /* League group collapse — hiding the fixture rows under a collapsed group */
 tbody.collapsed .league-row,
@@ -669,12 +746,64 @@ tbody.collapsed .detail-row{
 
 _SCAN_JS = """<script>
   // Row expand/collapse for the full-analysis detail row.
+  // The fixture row is a real table row, so for keyboard access it also gets
+  // role=button + tabindex=0 (set in _scan_table) and responds to
+  // Enter/Space the same as a click.
   function toggleScanRow(id){
-    document.getElementById(id).classList.toggle('open');
-    event.currentTarget.classList.toggle('open');
+    var row = document.getElementById(id);
+    var trigger = row ? row.previousElementSibling : null;
+    if (row) row.classList.toggle('open');
+    if (trigger) trigger.classList.toggle('open');
+    updateScanRowA11y(row, trigger);
+  }
+  function updateScanRowA11y(row, trigger) {
+    if (!row || !trigger) return;
+    var open = row.classList.contains('open');
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var region = row.querySelector('.full-analysis');
+    if (region) region.setAttribute('aria-hidden', open ? 'false' : 'true');
+  }
+  // Enter/Space on a fixture row toggles it — mirror the onclick behaviour
+  // without relying on event bubbling from a keypress on the cell.
+  function onScanRowKey(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    var id = e.currentTarget.getAttribute('data-target');
+    if (id) toggleScanRow(id);
+  }
+  // THE CALL cards — same expand/collapse pattern as scan rows, with
+  // aria-expanded kept in sync (keyboard + click share one code path).
+  function toggleCallCard(card) {
+    card.classList.toggle('open');
+    var open = card.classList.contains('open');
+    card.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var region = card.querySelector('.full-analysis');
+    if (region) region.setAttribute('aria-hidden', open ? 'false' : 'true');
+  }
+  function onCallCardKey(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    toggleCallCard(e.currentTarget);
   }
   // League group collapse is wired inline on each header row
-  // (onclick toggles 'collapsed' on the parent tbody).
+  // (onclick toggles 'collapsed' on the parent tbody). Keyboard support +
+  // aria-expanded on the header cell.
+  function onLeagueGroupKey(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    var tbody = e.currentTarget.parentElement;
+    if (!tbody) return;
+    tbody.classList.toggle('collapsed');
+    updateLeagueGroupA11y(tbody);
+  }
+  function updateLeagueGroupA11y(tbody) {
+    var header = tbody.querySelector('.league-group-header');
+    var btn = tbody.querySelector('.league-group-toggle');
+    if (!header) return;
+    var open = !tbody.classList.contains('collapsed');
+    header.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (btn) btn.setAttribute('aria-hidden', open ? 'false' : 'true');
+  }
 </script>"""
 
 _PUBLISH_JS = """<script>
@@ -833,18 +962,43 @@ _CLIENT_SEARCH_JS = """<script>
 </script>"""
 
 _TAB_JS = """<script>
+  // WAI-ARIA tab pattern: roving tabindex (active tab is the only one in the
+  // tab order), aria-selected reflects the visible panel, and Left/Right arrow
+  // keys move between tabs. The matching section gets role=tabpanel +
+  // aria-labelledby on first activation.
   function switchTab(tabId) {
     // Only toggle Call/Scan/Search — flags + verified stay visible always
     var tabSections = ['call-section', 'scan-section', 'search-section'];
     tabSections.forEach(function(id) {
       var el = document.getElementById(id);
-      if (el) el.style.display = (id === tabId + '-section') ? 'block' : 'none';
+      if (el) {
+        el.style.display = (id === tabId + '-section') ? 'block' : 'none';
+        if (id === tabId + '-section') {
+          el.setAttribute('role', 'tabpanel');
+          el.setAttribute('aria-labelledby', 'tab-' + tabId);
+        }
+      }
     });
-    // Update tab buttons
+    // Update tab buttons: selected state + roving tabindex
     document.querySelectorAll('.tab-btn').forEach(function(btn) {
-      btn.classList.toggle('active', btn.dataset.tab === tabId);
+      var isActive = btn.dataset.tab === tabId;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      btn.setAttribute('tabindex', isActive ? '0' : '-1');
     });
     window.scrollTo(0, 0);
+  }
+  function onTabKey(e) {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+    var idx = tabs.indexOf(e.currentTarget);
+    if (idx === -1) return;
+    var to = -1;
+    if (e.key === 'ArrowRight') to = (idx + 1) % tabs.length;
+    else if (e.key === 'ArrowLeft') to = (idx - 1 + tabs.length) % tabs.length;
+    if (to === -1) return;
+    e.preventDefault();
+    tabs[to].focus();
+    switchTab(tabs[to].dataset.tab);
   }
   function navTab(tabId, e) {
     if (e) e.preventDefault();
@@ -852,6 +1006,10 @@ _TAB_JS = """<script>
     return false;
   }
   document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.setAttribute('id', 'tab-' + btn.dataset.tab);
+      btn.addEventListener('keydown', onTabKey);
+    });
     var hash = window.location.hash.slice(1);
     if (hash && ['call', 'scan', 'search'].includes(hash)) {
       switchTab(hash);
@@ -1394,11 +1552,12 @@ def _call_card(bf: dict, admin: bool = False) -> str:
         reason = bf.get("rejection_reason") or "NO DATA — PENDING"
         grid = f'<div class="flag-line"><span class="mk">⚠</span> {html.escape(reason)}</div>'
 
-    return f"""<div class="call-card" onclick="this.classList.toggle('open')">
+    return f"""<div class="call-card" onclick="toggleCallCard(this)"
+    role="button" tabindex="0" aria-expanded="false" onkeydown="onCallCardKey(event)">
   {head}
   {stamp}
   <div class="expand-hint"><span class="chevron">▸</span> {hint}</div>
-  <div class="full-analysis">
+  <div class="full-analysis" aria-hidden="true">
     {grid}
     {extras}
   </div>
@@ -1574,9 +1733,13 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
         # Count accumulator candidates for the league badge
         n_acc = len(acc_candidates)
         acc_badge = f' · <span style="color:#4FB894;">⭐ {n_acc} acc candidate{"s" if n_acc != 1 else ""}</span>' if n_acc else ""
+        _expanded_attr = "false" if collapsed_class else "true"
         body_parts.append(f"""<tbody class="league-group{collapsed_class}" data-league="{html.escape(league)}">
-<tr class="league-group-header" onclick="this.parentElement.classList.toggle('collapsed')">
-  <td colspan="{n_cols}">
+<tr class="league-group-header" onclick="this.parentElement.classList.toggle('collapsed'); updateLeagueGroupA11y(this.parentElement)"
+    role="button" tabindex="0" aria-expanded="{_expanded_attr}"
+    aria-controls="league-{html.escape(league).replace(' ', '-')}-rows"
+    onkeydown="onLeagueGroupKey(event)">
+  <td colspan="{n_cols}" id="league-{html.escape(league).replace(' ', '-')}-rows">
     <div class="league-card">
       <div class="league-badge">{flag}</div>
       <div class="league-name">{html.escape(league)}</div>
@@ -1621,14 +1784,15 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
             c2 = _scan_1x2(p)
             c3 = _scan_goals(p)
             c4 = _scan_dc_btts(p)
-            body_parts.append(f"""<tr class="clickable league-row{acc_row_class}" onclick="toggleScanRow('{row_id}')" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}">
+            body_parts.append(f"""<tr class="clickable league-row{acc_row_class}" onclick="toggleScanRow('{row_id}')" data-target="{row_id}" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}"
+    role="button" tabindex="0" aria-expanded="false" aria-controls="{row_id}" onkeydown="onScanRowKey(event)">
   <td><span class="chevron">▸</span>{acc_marker}{fixture_td}</td>
   <td class="scan-num">{c2}</td>
   <td class="scan-num">{c3}</td>
   <td class="scan-num">{c4}</td>
   {src_td}
 </tr>
-<tr class="detail-row" id="{row_id}">
+<tr class="detail-row" id="{row_id}" role="region" aria-labelledby="{row_id}" aria-hidden="true">
   <td colspan="{n_cols}">
     <div class="full-analysis">
       {_market_grid(p)}
@@ -1939,6 +2103,136 @@ def _admin_footer(payload: dict) -> str:
 </footer>"""
 
 
+def _phase3_gate_section(gate: dict) -> str:
+    """Phase 3 Gate dashboard section for the admin view.
+
+    Shows: legs count, mean CLV, trend, sign-off status, and sign-off action.
+    """
+    n = gate.get("legs_with_clv", 0)
+    req = gate.get("gate_requirement", 30)
+    mean_clv = gate.get("mean_clv_pct")
+    positive_mean = gate.get("positive_mean_clv", False)
+    gate_met = gate.get("gate_met_pending_architect_signoff", False)
+    signed = gate.get("architect_signed_off", False)
+    signed_by = gate.get("signed_by", "")
+    signed_at = gate.get("signed_at", "")
+
+    # Progress bar fill
+    fill_w = 0
+    if req:
+        fill_w = round(max(0.0, min(1.0, n / req)) * 100)
+
+    # Mean CLV display
+    mean_clv_str = f"{mean_clv:+.2f}%" if mean_clv is not None else "—"
+    clv_class = "clv-positive" if (mean_clv or 0) > 0 else "clv-negative"
+
+    # Gate status
+    if signed:
+        status_html = f'<span class="status-badge status-signed">✅ SIGNED OFF by {html.escape(signed_by)} at {html.escape(signed_at)}</span>'
+    elif gate_met:
+        status_html = f'<span class="status-badge status-pending">⏳ GATE MET — Awaiting Architect Sign-off</span>'
+    elif n == 0:
+        status_html = f'<span class="status-badge status-empty">📭 NO LEGS WITH CLV</span>'
+    else:
+        status_html = f'<span class="status-badge status-progress">🔄 IN PROGRESS</span>'
+
+    # Trend: would need historical gate snapshots; for now show current state
+    trend_html = ""
+    if mean_clv is not None:
+        trend_html = f'<div class="gate-row"><span class="gate-label">Mean CLV:</span><span class="gate-value {clv_class}">{mean_clv_str}</span></div>'
+
+    # Sign-off form (only shown when gate is met and not yet signed)
+    signoff_form = ""
+    if gate_met and not signed:
+        signoff_form = f'''
+        <div id="phase3-signoff-form">
+            <div class="signoff-row">
+                <label for="architect_name">Architect (V7) Name:</label>
+                <input type="text" id="architect_name" required placeholder="Your name/identifier">
+            </div>
+            <div class="signoff-row">
+                <label><input type="checkbox" id="signoff-confirm" required> I confirm: ≥30 paper legs with logged CLV, positive mean CLV. Deploy is authorized.</label>
+            </div>
+            <button type="button" class="btn-primary signoff-btn" id="phase3-signoff-btn">✅ Sign Off & Open Capital Gate</button>
+            <div id="phase3-signoff-msg" class="flags"></div>
+        </div>
+        <script>
+        document.getElementById('phase3-signoff-btn').addEventListener('click', function() {{
+            var name = document.getElementById('architect_name').value;
+            var confirm = document.getElementById('signoff-confirm').checked;
+            var msgEl = document.getElementById('phase3-signoff-msg');
+            if (!name || !confirm) {{
+                msgEl.innerHTML = '<div class="flag-line" style="color:var(--danger)">Please enter your name and confirm the gate requirements.</div>';
+                return;
+            }}
+            fetch('/api/admin/signoff', {{
+                method: 'POST',
+                headers: {{'Content-Type': 'application/json'}},
+                body: JSON.stringify({{action: 'sign_off', architect_name: name, confirm: confirm}})
+            }})
+            .then(r => r.json())
+            .then(data => {{
+                if (data.ok) {{
+                    msgEl.innerHTML = '<div class="flag-line" style="color:var(--success)">✅ Gate signed off — capital deployment authorized. Page will reload...</div>';
+                    setTimeout(() => location.reload(), 1500);
+                }} else {{
+                    msgEl.innerHTML = '<div class="flag-line" style="color:var(--danger)">❌ Error: ' + (data.error || 'Unknown error') + '</div>';
+                }}
+            }})
+            .catch(err => {{
+                msgEl.innerHTML = '<div class="flag-line" style="color:var(--danger)">❌ Request failed: ' + err.message + '</div>';
+            }});
+        }});
+        </script>
+        '''
+    elif signed:
+        signoff_form = f'''
+        <div class="signoff-complete">
+            <p>Capital gate is OPEN — Phase 3 → Phase 4 transition authorized.</p>
+            <p class="signoff-detail">Signed by: {html.escape(signed_by)}<br>At: {html.escape(signed_at)}</p>
+            <button type="button" class="btn-secondary" id="phase3-revoke-btn">🔓 Revoke Sign-off</button>
+            <script>
+            document.getElementById('phase3-revoke-btn').addEventListener('click', function() {{
+                if (!confirm('Revoke the Architect sign-off? This closes the capital gate.')) return;
+                fetch('/api/admin/signoff', {{
+                    method: 'POST',
+                    headers: {{'Content-Type': 'application/json'}},
+                    body: JSON.stringify({{action: 'revoke'}})
+                }})
+                .then(r => r.json())
+                .then(data => {{
+                    if (data.ok) {{
+                        alert('Sign-off revoked. Page will reload...');
+                        location.reload();
+                    }} else {{
+                        alert('Error: ' + (data.error || 'Unknown error'));
+                    }}
+                }})
+                .catch(err => alert('Request failed: ' + err.message));
+            }});
+            </script>
+        </div>
+        '''
+
+    return f'''<section id="phase3-gate-section">
+    <div class="sec-head"><h2 class="display">Phase 3 Gate — Capital Deployment Authority</h2></div>
+    <p class="sec-sub">Phase 2 paper legs accumulate CLV evidence. ≥30 legs with logged CLV + positive mean CLV + Architect (V7) sign-off unlocks Phase 3 capital deployment.</p>
+    <div class="gate-dashboard">
+        <div class="gate-progress">
+            <div class="gate-row"><span class="gate-label">Legs with CLV:</span><span class="gate-value">{n} / {req}</span></div>
+            <div class="gate-row"><span class="gate-label">Progress:</span><div class="bar"><div class="fill" style="width:{fill_w}%"></div></div></div>
+            {trend_html}
+            <div class="gate-row"><span class="gate-label">Positive Mean CLV:</span><span class="gate-value {'yes' if positive_mean else 'no'}">{'✅ YES' if positive_mean else '❌ NO'}</span></div>
+            <div class="gate-row"><span class="gate-label">Gate Status:</span><span class="gate-value">{status_html}</span></div>
+        </div>
+        <div class="gate-signoff">
+            <h3>Architect Sign-off</h3>
+            {signoff_form}
+        </div>
+    </div>
+</section>'''
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # The two dashboards
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1951,12 +2245,23 @@ def _tab_bar(active: str, base: str, payload_date: str = "") -> str:
         ("scan", "Scan", "📊", f"{base}/{d}#scan"),
         ("search", "Search", "🔍", f"{base}/{d}#search"),
     ]
-    # We'll use onclick navigation instead of href for SPA-like behavior
+    # We'll use onclick navigation instead of href for SPA-like behavior.
+    # Each tab is a real button with the WAI-ARIA tab pattern: roving tabindex
+    # (active tab is 0, others -1), aria-selected, aria-controls pointing at the
+    # matching <section>, and arrow-key navigation wired in _TAB_JS.
     tab_html = ""
     for tab_id, label, icon, _ in tabs:
         active_class = " active" if tab_id == active else ""
-        tab_html += f'<button class="tab-btn{active_class}" data-tab="{tab_id}" onclick="switchTab(\'{tab_id}\')"><svg viewBox="0 0 24 24">{_tab_icon(icon)}</svg><span>{label}</span></button>'
-    return f'<nav class="tab-bar" role="tablist" aria-label="Main navigation">{tab_html}</nav>'
+        selected = "true" if tab_id == active else "false"
+        tabindex = "0" if tab_id == active else "-1"
+        tab_html += (f'<button class="tab-btn{active_class}" data-tab="{tab_id}" '
+                     f'role="tab" aria-selected="{selected}" tabindex="{tabindex}" '
+                     f'aria-controls="{tab_id}-section" '
+                     f'onclick="switchTab(\'{tab_id}\')">'
+                     f'<svg viewBox="0 0 24 24">{_tab_icon(icon)}</svg>'
+                     f'<span>{label}</span></button>')
+    return (f'<nav class="tab-bar" role="tablist" aria-label="Main navigation">'
+            f'{tab_html}</nav>')
 
 def _tab_icon(name: str) -> str:
     """Return SVG path for tab icons."""
@@ -2424,6 +2729,7 @@ def render_admin_dashboard(payload: dict) -> str:
         + '<p class="sec-sub">Graded against full-time result, 90-min basis (HR15)</p>'
         + _yesterday_graded(payload.get("yesterday_graded", []))
         + "</section>"
+        + _phase3_gate_section(payload.get("gate", {}))
         + "</main>"
         + _chat_tab()
         + _chat_fab()

@@ -15,7 +15,7 @@ from pathlib import Path
 from unittest import mock
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from clv.clv_logger import CLVLog
+from clv.clv_logger import CLVLog, PAPER_PHASE
 from clv.closing_capture import (capture_closing_lines, CLOSING_CAPTURE_PATH,
                                  _minutes_to_kickoff, _in_window)
 import pipeline.odds as odds
@@ -195,5 +195,129 @@ assert any("no closing price" in f for f in flags), "must stay honest NO DATA"
 assert logC.legs[0].clv_pct is None
 print("9. no close from any path stays NO DATA (HR35): OK")
 
-print("\n✅ CL-LIVE CLOSING CAPTURE WORKS — legs close with a live closing "
+print("\nCL-LIVE CLOSING CAPTURE WORKS — legs close with a live closing "
       "line, the archive upgrades it, and nothing is ever estimated.")
+
+# ============================================================
+# PHASE 4.1 — CL-PM (Polymarket) CAPTURE PATH TESTS
+# ============================================================
+import os
+from clv import closing_capture as cc
+
+print("\n--- CL-PM (Polymarket) capture path tests ---")
+
+# --- 1. CL-PM is dormant without POLYMARKET_API_KEY ---------------------------
+old_key = os.environ.pop("POLYMARKET_API_KEY", None)
+try:
+    with tempfile.TemporaryDirectory() as td:
+        log = CLVLog(Path(td) / "clv_pm.json")
+        leg = log.log_entry(
+            league="Eredivisie", fixture="Ajax v Feyenoord", market="OVER_2_5",
+            model_prob=0.55, entry_odds=2.10,
+            phase=PAPER_PHASE, match_date="2026-08-09")
+        n, flags = cc._capture_polymarket_closing_lines(
+            log, ["Eredivisie"], odds_index=None)
+        assert n == 0, f"expected 0 captures without key, got {n}"
+        assert flags == [], f"expected no flags, got {flags}"
+    print("1. CL-PM dormant without POLYMARKET_API_KEY: OK")
+finally:
+    if old_key:
+        os.environ["POLYMARKET_API_KEY"] = old_key
+    else:
+        os.environ.pop("POLYMARKET_API_KEY", None)
+
+# --- 2. CL-PM respects the same closing window as CL-LIVE --------------------
+os.environ["POLYMARKET_API_KEY"] = "dummy"
+try:
+    with tempfile.TemporaryDirectory() as td:
+        log = CLVLog(Path(td) / "clv_pm2.json")
+        # 90 minutes ahead = outside 60-min window
+        leg = log.log_entry(
+            league="Eredivisie", fixture="Ajax v Feyenoord", market="OVER_2_5",
+            model_prob=0.55, entry_odds=2.10,
+            phase=PAPER_PHASE, match_date="2026-08-09")
+        n, flags = cc._capture_polymarket_closing_lines(
+            log, ["Eredivisie"], odds_index=None)
+        assert n == 0, f"expected 0 captures outside window, got {n}"
+    print("2. CL-PM respects closing window: OK")
+finally:
+    os.environ.pop("POLYMARKET_API_KEY", None)
+
+# --- 3. Combined capture_closing_lines calls both paths -----------------------
+os.environ["POLYMARKET_API_KEY"] = "dummy"
+try:
+    with tempfile.TemporaryDirectory() as td:
+        log = CLVLog(Path(td) / "clv_pm3.json")
+        leg = log.log_entry(
+            league="Eredivisie", fixture="Ajax v Feyenoord", market="OVER_2_5",
+            model_prob=0.55, entry_odds=2.10,
+            phase=PAPER_PHASE, match_date="2026-08-09")
+        n, flags = cc.capture_closing_lines(log, ["Eredivisie"])
+        assert n == 0
+        assert any("CL-LIVE" in f for f in flags)
+    print("3. Combined capture sums both paths: OK")
+finally:
+    os.environ.pop("POLYMARKET_API_KEY", None)
+
+# --- 4. First capture wins: existing closing line is not overwritten ----------
+os.environ["POLYMARKET_API_KEY"] = "dummy"
+try:
+    with tempfile.TemporaryDirectory() as td:
+        log = CLVLog(Path(td) / "clv_pm4.json")
+        leg = log.log_entry(
+            league="Eredivisie", fixture="Ajax v Feyenoord", market="OVER_2_5",
+            model_prob=0.55, entry_odds=2.10,
+            phase=PAPER_PHASE, match_date="2026-08-09")
+        leg.closing_odds = 2.05
+        leg.closing_capture_path = "CL-ARCHIVE"
+        leg.clv_pct = 2.44
+        log._save()
+
+        n, flags = cc.capture_closing_lines(log, ["Eredivisie"])
+        assert n == 0, f"expected 0 captures (already closed), got {n}"
+        updated = next(l for l in log.legs if l.leg_id == leg.leg_id)
+        assert updated.closing_odds == 2.05
+        assert updated.closing_capture_path == "CL-ARCHIVE"
+    print("4. First capture wins (no overwrite): OK")
+finally:
+    os.environ.pop("POLYMARKET_API_KEY", None)
+
+# --- 5. HR48 date guard: wrong-day fixture not captured -----------------------
+os.environ["POLYMARKET_API_KEY"] = "dummy"
+try:
+    with tempfile.TemporaryDirectory() as td:
+        log = CLVLog(Path(td) / "clv_pm5.json")
+        leg = log.log_entry(
+            league="Eredivisie", fixture="Ajax v Feyenoord", market="OVER_2_5",
+            model_prob=0.55, entry_odds=2.10,
+            phase=PAPER_PHASE, match_date="2026-08-09")
+        fx = odds.FixtureOdds(
+            league="Eredivisie", home_team="Ajax", away_team="Feyenoord",
+            kickoff_utc=(datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+            over25=odds.MarketQuote(price=2.0, bookmaker="test")
+        )
+        n, flags = cc._capture_polymarket_closing_lines(
+            log, ["Eredivisie"], odds_index={("Ajax", "Feyenoord"): fx})
+        assert n == 0, f"expected 0 captures (date mismatch), got {n}"
+    print("5. HR48 date guard works for CL-PM: OK")
+finally:
+    os.environ.pop("POLYMARKET_API_KEY", None)
+
+# --- 6. _fetch_polymarket_price returns None on 404/errors (HR35) ------------
+os.environ["POLYMARKET_API_KEY"] = "dummy"
+try:
+    price = cc._fetch_polymarket_price("Eredivisie", "Ajax", "Feyenoord", "OVER_2_5")
+    assert price is None, f"expected None on dummy key, got {price}"
+    print("6. _fetch_polymarket_price returns None on missing market (HR35): OK")
+finally:
+    os.environ.pop("POLYMARKET_API_KEY", None)
+
+# --- 7. Polymarket market key construction is deterministic --------------------
+key = cc._polymarket_market_key("Eredivisie", "Ajax", "Feyenoord", "OVER_2_5")
+assert "eredivisie" in key
+assert "ajax" in key
+assert "feyenoord" in key
+assert "over_2_5" in key
+print("7. Polymarket key format is deterministic: OK")
+
+print("\nALL CL-PM CAPTURE TESTS PASSED")

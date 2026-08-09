@@ -129,4 +129,4 @@ for advert in ("/send", "/produce bet", "/verify result", "~30s"):
     assert advert in h, f"help must advertise {advert!r}"
 print("Help advertises /send, /produce bet, /verify result: OK")
 
-print("\n✅ ALL TELEGRAM COMMANDS TESTS PASSED")
+print("\n[OK] ALL TELEGRAM COMMANDS TESTS PASSED")

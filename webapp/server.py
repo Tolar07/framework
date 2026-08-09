@@ -402,6 +402,40 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"ok": False, "error": str(e)})
             return
 
+        # Phase 3 Gate Architect sign-off endpoint
+        if path == "/api/admin/signoff":
+            try:
+                import json
+                content_len = int(self.headers.get("Content-Length", "0"))
+                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
+                data = json.loads(body) if body else {}
+                action = data.get("action", "")
+                architect_name = data.get("architect_name", "")
+                confirm = data.get("confirm", False)
+
+                if action == "sign_off":
+                    if not architect_name:
+                        self._json({"ok": False, "error": "Architect name required"})
+                        return
+                    if not confirm:
+                        self._json({"ok": False, "error": "Confirmation required"})
+                        return
+                    from clv.phase3_gate import sign_off_gate
+                    gate = sign_off_gate(architect_name)
+                    self._json({"ok": True, "gate": gate.to_dict()})
+                    return
+                elif action == "revoke":
+                    from clv.phase3_gate import revoke_sign_off
+                    gate = revoke_sign_off("Revoked via admin dashboard")
+                    self._json({"ok": True, "gate": gate.to_dict()})
+                    return
+                else:
+                    self._json({"ok": False, "error": f"Unknown action: {action}"})
+                    return
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)})
+            return
+
         self._not_found()
 
     def _analyst_reply(self, message: str, payload: dict | None, date_str: str) -> str:

@@ -737,6 +737,18 @@ def main() -> None:
         print(f"\n{n} legs written to backtest log (phase '{BACKTEST_PHASE}_*', "
               f"excluded from the Phase 3 capital gate by construction).")
 
+    # Phase 3.5: record this run into the metrics history so the trend across
+    # commits is trackable (backtest/metrics_history.py). Recording happens even
+    # with --no-write — the measurement is independent of the leg-log write.
+    try:
+        from backtest.metrics_history import record_run
+        mrow = record_run(legs, flags, coverage, cfg, run_id, context="manual")
+        print(f"\nMetrics recorded: {mrow['n_with_clv']} legs with CLV, "
+              f"mean {mrow['mean_clv_pct']}% "
+              f"(backtest/results/metrics_history.jsonl)")
+    except Exception as e:  # noqa: BLE001 — a history failure must not sink a run
+        print(f"\n(metrics history record skipped: {e})")
+
 
 if __name__ == "__main__":
     main()

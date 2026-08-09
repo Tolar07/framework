@@ -348,6 +348,21 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
                       timeout=PAGE_LOAD_TIMEOUT)
             page.wait_for_timeout(3000)
 
+        # Handle any modal dialogs that might block clicks
+        try:
+            dialog = page.query_selector(".es-dialog-wrap, .es-dialog.m-dialog")
+            if dialog:
+                close_btn = page.query_selector(".es-dialog .close, .es-dialog-wrap .close, button:has-text('×'), button:has-text('Close')")
+                if close_btn:
+                    close_btn.click()
+                    page.wait_for_timeout(500)
+                else:
+                    # Try clicking outside the dialog or pressing Escape
+                    page.keyboard.press("Escape")
+                    page.wait_for_timeout(500)
+        except Exception:
+            pass
+
         # Step 2: click the country in the sidebar (e.g. "England").
         # The sidebar country is a DIV.category-item inside LI.category-list-item.
         country_loc = page.locator(
@@ -359,7 +374,13 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
         if country_loc.count() == 0:
             print(f"  x Country '{country}' not found in sidebar")
             return False
-        country_loc.click()
+
+        # Click with force to handle potential overlay
+        try:
+            country_loc.click(force=True)
+        except Exception:
+            # Try alternative click method
+            country_loc.dispatch_event("click")
         page.wait_for_timeout(2500)
 
         # Step 3: click the league name (visible tournament in the list).
@@ -374,7 +395,11 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
         if league_loc.count() == 0:
             print(f"  x League '{league}' not found in sidebar for {country}")
             return False
-        league_loc.click()
+
+        try:
+            league_loc.click(force=True)
+        except Exception:
+            league_loc.dispatch_event("click")
 
         # Step 4: wait for fixtures to render
         page.wait_for_timeout(3000)

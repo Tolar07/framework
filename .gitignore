@@ -6,7 +6,11 @@
 # Cached source data — re-fetchable, and large
 data/cache/
 backtest/cache/
-backtest/results/
+backtest/results/*
+# EXCEPTION (Phase 3.5): the metrics history IS tracked — it is the
+# "metrics over time" record the backtest CI workflow commits back each run.
+# The bulky report .txt and leg-log .json in results/ stay ignored.
+!backtest/results/metrics_history.jsonl
 
 # Python
 __pycache__/

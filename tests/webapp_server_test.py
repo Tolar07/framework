@@ -152,6 +152,29 @@ def _auth(user="test", pw="testpass"):
     assert _get("/dashboard/..%2F..%2Fetc")[0] == 404
     print("4. malformed paths blocked: OK")
 
+    # --- 4b. /static serves Sprint-4 assets; traversal refused -------------------
+    code, body, hdrs = _req("/static/css/app.css")
+    assert code == 200 and ".chat-fab" in body and "font-family" in body
+    assert next((v for k, v in hdrs.items() if k.lower() == "content-type"),
+                "").startswith("text/css")
+    assert _get("/static/js/assets.js")[0] == 200
+    assert _get("/static/fonts/Inter-normal-400.woff2")[0] == 200
+    # Directory + traversal attempts are honest 404s, never a file read.
+    assert _get("/static/")[0] == 404
+    assert _get("/static/..%2F..%2Fconfig.py")[0] == 404
+    assert _get("/static/../config.py")[0] == 404
+    print("4b. /static serves css/js/fonts; traversal -> 404: OK")
+
+    # --- 4c. strict CSP header on every response --------------------------------
+    code, body, hdrs = _req(f"/dashboard/{today}")
+    csp = next((v for k, v in hdrs.items() if k.lower() == "content-security-policy"), "")
+    assert "script-src 'self'" in csp, f"CSP missing script-src 'self': {csp!r}"
+    assert "frame-ancestors 'none'" in csp and "object-src 'none'" in csp
+    code, body, hdrs = _req("/static/css/app.css")
+    csp = next((v for k, v in hdrs.items() if k.lower() == "content-security-policy"), "")
+    assert "script-src 'self'" in csp, "static assets should carry CSP too"
+    print("4c. strict CSP header present on HTML and static responses: OK")
+
     # --- 5. /admin requires Basic auth ------------------------------------------
     code, body, hdrs = _req("/admin")
     assert code == 401, f"/admin unauthed should 401, got {code}"

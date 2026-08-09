@@ -6,6 +6,7 @@ executes a full live run (network, ledger writes), so this suite asserts the
 mapping exists and that /send is the same handler as /run, without invoking
 either. A real end-to-end check belongs in the stress test, not here.
 """
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -20,7 +21,8 @@ _before = set(sys.modules)
 
 from output import telegram_commands as tc
 from output.telegram_commands import (handle, cmd_send, cmd_produce, cmd_verify,
-                                      cmd_help, HANDLERS, BRIGHT_LINE_WORDS)
+                                      cmd_help, HANDLERS, BRIGHT_LINE_WORDS,
+                                      Reply, _keyboard)
 
 # Point the module's state files at a throwaway dir so no real ledger state
 # (corrections.csv / offset) is mutated by this suite.
@@ -128,5 +130,63 @@ h = cmd_help("")
 for advert in ("/send", "/produce bet", "/verify result", "~30s"):
     assert advert in h, f"help must advertise {advert!r}"
 print("Help advertises /send, /produce bet, /verify result: OK")
+
+# --- inline keyboards (Phase 5.1): replies carry them, buttons are commands --
+help_reply = handle("/help")
+assert isinstance(help_reply, Reply), "/help must return a Reply carrying a keyboard"
+assert help_reply.keyboard and "inline_keyboard" in help_reply.keyboard, \
+    "/help must carry an inline keyboard"
+flat = [b["text"] for row in help_reply.keyboard["inline_keyboard"] for b in row]
+for expect in ("/board", "/status", "/why", "/produce bet", "/note"):
+    assert expect in flat, f"/help keyboard must offer {expect}"
+print("Inline keyboard on /help with the quick commands: OK")
+
+# /status carries a keyboard AND reports pipeline health (Phase 5.3).
+status_reply = handle("/status")
+assert isinstance(status_reply, Reply) and status_reply.keyboard, \
+    "/status must carry an inline keyboard"
+assert "PIPELINE HEALTH" in status_reply, \
+    "/status must show the pipeline health block (Phase 5.3)"
+assert "Next scheduled run: 07:00 daily" in status_reply
+print("Inline keyboard + PIPELINE HEALTH block on /status: OK")
+
+# --- callback_query tap (Phase 5.1): answered, then routed as the command ----
+import unittest.mock as mock
+
+_update = {"update_id": 7,
+           "callback_query": {"id": "cq1",
+                              "from": {"id": 999, "is_bot": False,
+                                       "first_name": "T"},
+                              "message": {"message_id": 1,
+                                          "chat": {"id": 888, "type": "private"}},
+                              "data": "/status"}}
+fake = mock.MagicMock()
+fake.get.return_value.json.return_value = {"ok": True, "result": [_update]}
+fake.post.return_value.json.return_value = {"ok": True}
+_old_cid = os.environ.get("TELEGRAM_CHAT_ID")
+os.environ["TELEGRAM_CHAT_ID"] = "888"  # whitelist the test chat, like the real one
+try:
+    # send_telegram lives in notify.py and uses ITS OWN requests import, so
+    # mock it here (poll_once's send step) rather than trying to intercept
+    # the real HTTP call with a fake token.
+    with mock.patch.object(tc, "requests", fake), \
+         mock.patch.object(tc, "send_telegram",
+                           return_value=(True, ["delivered 1 part(s) to Telegram"])) as _sent:
+        _notes = tc.poll_once(token="fake-token")
+finally:
+    if _old_cid is None:
+        os.environ.pop("TELEGRAM_CHAT_ID", None)
+    else:
+        os.environ["TELEGRAM_CHAT_ID"] = _old_cid
+calls = fake.post.call_args_list
+assert any("answerCallbackQuery" in str(c) for c in calls), \
+    "a tapped button must be answered first"
+assert _sent.call_count == 1, "the callback's command must produce one reply"
+_reply_call = _sent.call_args
+assert "PHASE 3 GATE" in _reply_call.args[0], \
+    "the routed callback must be /status's reply"
+assert _reply_call.kwargs.get("reply_markup", {}).get("inline_keyboard"), \
+    "the routed reply must keep its inline keyboard"
+print("callback_query tap answered + routed to the command with keyboard: OK")
 
 print("\n[OK] ALL TELEGRAM COMMANDS TESTS PASSED")

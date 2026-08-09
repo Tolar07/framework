@@ -89,9 +89,14 @@ def _chunk(text: str, limit: int = TELEGRAM_MAX) -> list[str]:
 
 
 def send_telegram(body: str, token: Optional[str] = None,
-                   chat_id: Optional[str] = None) -> tuple[bool, list[str]]:
+                   chat_id: Optional[str] = None,
+                   reply_markup: Optional[dict] = None) -> tuple[bool, list[str]]:
     """Returns (ok, notes). Never raises — a delivery failure must not lose the
-    board, which is written to disk regardless by the caller."""
+    board, which is written to disk regardless by the caller.
+
+    `reply_markup` is a Telegram reply_markup dict (e.g. an inline keyboard).
+    It is attached to the LAST chunk only, so a multi-part board carries the
+    buttons once, under the final part."""
     notes: list[str] = []
     token = token or os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = chat_id or os.environ.get("TELEGRAM_CHAT_ID")
@@ -111,16 +116,18 @@ def send_telegram(body: str, token: Optional[str] = None,
         last_err = None
         for attempt in range(3):
             try:
+                payload = {"chat_id": chat_id, "text": part,
+                           "parse_mode": "Markdown",
+                           "disable_web_page_preview": True}
+                if reply_markup and i == len(parts):
+                    payload["reply_markup"] = reply_markup
                 r = requests.post(f"{TELEGRAM_API.format(token=token)}/sendMessage",
-                                   json={"chat_id": chat_id, "text": part,
-                                         "parse_mode": "Markdown",
-                                         "disable_web_page_preview": True},
-                                   timeout=30)
-                payload = r.json()
-                if payload.get("ok"):
+                                   json=payload, timeout=30)
+                data = r.json()
+                if data.get("ok"):
                     last_err = None
                     break
-                last_err = payload.get("description")
+                last_err = data.get("description")
             except Exception as e:
                 last_err = str(e)[:120]
             time.sleep(2 * (attempt + 1))

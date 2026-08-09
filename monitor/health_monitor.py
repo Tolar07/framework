@@ -300,6 +300,36 @@ def probe_caches() -> ProbeResult:
     return _ok("caches", "all TTL caches within max age")
 
 
+def probe_data_quality() -> ProbeResult:
+    """6b. Are the cached results feeds complete, fresh, and duplicate-free?
+
+    Complements probe_caches (which watches TTLs) with the PER-LEAGUE view:
+    a whitelisted league with no results feed for the fit season is a coverage
+    gap (its fixtures stay NO DATA — PENDING and the Phase 3 gate cannot fill
+    itself), and a same-day same-pairing row twice in one season file is a
+    feed error that would teach the engine one match twice. Delegates to
+    monitor/data_quality.check(), which never raises — an unreadable cache is
+    itself a finding, not a crash."""
+    try:
+        from monitor.data_quality import check
+        findings = check()
+    except Exception as e:
+        return _crit("data_quality", f"cannot run data-quality check: {e}")
+    if not findings:
+        return _ok("data_quality", "all whitelisted leagues have fresh, "
+                                   "duplicate-free results feeds")
+    errors = [f for f in findings if f.level == "error"]
+    warns = [f for f in findings if f.level == "warn"]
+    parts = errors + warns
+    shown = parts[:2]
+    msg = "; ".join(f"{f.league}: {f.problem}" for f in shown)
+    if len(parts) > len(shown):
+        msg += f" (+{len(parts) - len(shown)} more)"
+    if errors:
+        return _crit("data_quality", msg)
+    return _warn("data_quality", msg)
+
+
 def probe_last_run() -> ProbeResult:
     """7. When did the last daily run complete AND deliver?
 
@@ -376,6 +406,7 @@ ALL_PROBES = (
     ("ledger", probe_ledger),
     ("quota", probe_quota),
     ("caches", probe_caches),
+    ("data_quality", probe_data_quality),
     ("last_run", probe_last_run),
     ("dashboard", probe_dashboard),
     ("circuits", probe_circuits),

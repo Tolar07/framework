@@ -137,7 +137,7 @@ def _confidence(c) -> float:
         return -1.0
     # p_home / p_draw / 1-p_over_25 are the three deployable markets' model
     # probabilities (mkt.model_prob for HOME/DRAW/UNDER_25).
-    return max(probs.p_home, probs.p_draw, 1.0 - probs.p_over_25)
+    return float(max(probs.p_home, probs.p_draw, 1.0 - probs.p_over_25))
 
 
 def call_key(c) -> tuple:

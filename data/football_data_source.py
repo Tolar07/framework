@@ -23,7 +23,7 @@ from typing import Optional
 try:
     import requests
 except ImportError:
-    requests = None
+    requests = None  # type: ignore[assignment]  # optional-import idiom
 
 from data.retry import request as _retry_request
 

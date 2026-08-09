@@ -30,7 +30,7 @@ from typing import Callable, Optional, TypeVar
 try:
     import requests
 except ImportError:
-    requests = None
+    requests = None  # type: ignore[assignment]  # optional-import idiom
 
 T = TypeVar("T")
 

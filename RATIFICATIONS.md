@@ -7,6 +7,64 @@ honest-edge) are never auto-ratified — Section 12.
 
 ---
 
+## 2026-08-09 · SAME-DAY PRODUCT BET + 4-LEG ACCAS + SPORTYBET BOOKING CODES — standing rule, by order of the ARCHITECT
+
+**What the Architect asked:** "new rule product bet should focus only on
+fixtures available for that day nothing else… at the end of the production the
+framework can now name a set of 4 leg acca in 2 or 3 places be honest and tell
+me what you think and you can then book the sportybet codes each acca bet."
+
+**What changed (standing rule 2026-08-09, commit `d7ccbdd`):**
+
+1. **Same-day-only product bet.** THE CALL, the produced bet, TODAY'S PICKS
+   parlay and the acca set draw ONLY from fixtures kicking off TODAY
+   (`kickoff_date == today`), on every path: `output/produce_bet.py`
+   (`render_daily_recommendation`, `render_part1_the_call`,
+   `render_produce_bet`, `render_telegram_board`), `webapp/render.py` client
+   call, `webapp/produce.py`, `scripts/accumulator_prep.py`. The wider 3-day
+   window stays the scan reference (PART 2 / scan tables), not the bet. A
+   fixture with no kickoff date is NEVER assumed to be today (HR35).
+2. **Up to three 4-leg accumulators** (`engine/acca.py`, new): from today's
+   deploy-eligible shortlist, ranked by EV (prob as tiebreak), Acca 1/2/3 are
+   disjoint combinations. Every leg is in a **capital-cleared market**
+   (`mkt.DEPLOYABLE` = Draw + Under 2.5, ID405 unchanged — the acca follows the
+   gate automatically). Combined odds = product of the leg prices; combined
+   chance stated as such ("legs are not independent"). Fewer than 4 eligible
+   today → a SHORTENED acca, honestly labelled, never padded. SportyBet's own
+   draw price is preferred over the Odds API. `run_daily` writes
+   `acca_<date>.json/.txt` (additive, faults never kill the board) and both the
+   Telegram and web renders carry the acca block.
+3. **SportyBet booking codes, Phase-2 safe** (`booking/booking_codes.py`, new):
+   a Playwright pass reads `acca_<date>.json`, resolves each leg's fixture in
+   the SportyBet cache, walks the SPA (country → league → match → market) and
+   captures the BOOKING CODE SportyBet returns. A booking code only pre-fills
+   the Architect's betslip — the module NEVER clicks Place Bet, so no stake is
+   ever placed. Per-leg status is BOOKED or MANUAL (a leg the browser cannot
+   drive is named for hand-entry, never guessed). Best-effort: a browser fault
+   degrades every acca to MANUAL, never a run failure.
+
+**The honest assessment the Architect asked for:** the acca is a *product
+shape*, not a demonstrated edge. The backtest is negative overall and the
+deployable book's positive residual is drift, not skill (2026-08-08 entry) —
+an acca multiplies the variance of legs that are not independent, and the
+combined odds understate the real risk. The framework is naming bets an
+informed operator can choose between, with the honest-edge line attached; it
+is NOT claiming a profitable system. Booking codes are conveniences, not
+permission to stake.
+
+**Guardrails kept:** HR35 (no-date fixtures never assumed today; shortened
+accas never padded; a code the browser can't read is MANUAL, never fabricated).
+ID405 unchanged (Draw + Under 2.5 only). Phase 2 bright line — codes only,
+zero capital, the Architect still reviews and pastes. The data-leak boundary
+holds: the client sees fixture + market + price + probability per leg, never
+EV or market keys.
+
+**Authority:** Architect direct instruction. Changes what the product bet and
+board contain, so not under the auto-ratification grant. No capital, staking,
+fabrication, verification or honest-edge behaviour changed.
+
+---
+
 ## 2026-08-09 · SOFTNESS PAUSED — ID402 deploy gate suspended — by order of the ARCHITECT
 
 **What the Architect asked:** "remove all tiers in bet production and produce

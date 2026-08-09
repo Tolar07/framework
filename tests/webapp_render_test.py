@@ -9,6 +9,7 @@ statement + capital authority live on /admin (the client view omits them by
 Architect's explicit choice)."""
 import sys
 import tempfile
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -44,7 +45,7 @@ def _rated() -> BoardFixture:
         best_market="Fenerbahce to win", best_price=1.91,
         best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0696,
         best_model_prob=0.56, mes_trigger_price=1.52,
-        kickoff_date="2026-08-11",
+        kickoff_date=date.today().isoformat(),  # same-day rule (2026-08-09)
         elo_probs=(0.52, 0.27, 0.21),
         market_probs=(0.54, 0.26, 0.20),
         engine_divergence="4pp on home — within tolerance",

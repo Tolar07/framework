@@ -322,7 +322,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         min_mes: float = 0.0, days_ahead: int = 3,
         whatsapp: bool = True, email: bool = True,
         web: bool = True, prefetch_crests: bool = False,
-        refresh_sportybet: bool = False) -> RunResult:
+        refresh_sportybet: bool = False,
+        booking_codes: bool = False) -> RunResult:
     """Run the daily board end to end.
 
     Opens the brain, seeds the ledger + corrections mirrors, records the run
@@ -338,7 +339,16 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     the scan, so the booking bridge can join SportyBet prices. Incremental —
     only stale leagues are re-navigated — and strictly best-effort: a missing
     playwright or a fault is a flag, never a run failure (HR35). The CLI
-    enables it by default (env OLP_SPORTYBET=0 or --no-sportybet disables)."""
+    enables it by default (env OLP_SPORTYBET=0 or --no-sportybet disables).
+
+    `booking_codes` (default OFF, same offline rule) drives today's acca
+    payload into SportyBet's betslip with a headless Chromium pass and reads
+    the BOOKING CODES SportyBet returns, writing them next to the acca payload
+    so the Architect can paste a code into SportyBet to recall the slip.
+    Phase 2 — codes only, never a stake (the module never clicks Place Bet).
+    Best-effort: a browser fault degrades each acca to MANUAL, never a run
+    failure (HR35). The CLI enables it by default (env OLP_BOOKING_CODES=0 or
+    --no-booking-codes disables)."""
     leagues = leagues or SCAN_LEAGUES
     brain = Brain()
     run_id = (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -351,7 +361,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     try:
         return _run(run_id, started, t0, brain, season, fixtures_season,
                     leagues, send, min_mes, days_ahead, whatsapp, email, web,
-                    prefetch_crests, refresh_sportybet)
+                    prefetch_crests, refresh_sportybet, booking_codes)
     except Exception:
         brain.update_run(run_id, status="failed")
         raise
@@ -364,7 +374,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
          send: bool, min_mes: float, days_ahead: int,
          whatsapp: bool = True, email: bool = True,
          web: bool = True, prefetch_crests: bool = False,
-         refresh_sportybet: bool = False) -> RunResult:
+         refresh_sportybet: bool = False,
+         booking_codes: bool = False) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     runlog = _mark_started()
@@ -741,6 +752,38 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         # the acca files are additive — a fault never kills the board
         all_flags.append(f"acca file write failed ({e})")
 
+    # --- SPORTYBET BOOKING CODES (Phase 2 — codes only, NO stake placed).
+    # --- Drives today's acca payload into SportyBet's betslip and reads the
+    # --- BOOKING CODES SportyBet returns, so the Architect can paste a code
+    # --- into SportyBet to recall the exact slip. Best-effort like the cache
+    # --- refresh: a browser fault degrades each acca to MANUAL, never a run
+    # --- failure (HR35). Gated by --no-booking-codes / OLP_BOOKING_CODES=0. ---
+    if booking_codes and accas:
+        try:
+            _mark(runlog, "generating SportyBet booking codes...")
+            from booking.booking_codes import book_accas, render_codes
+            codes_result = book_accas(acca_payload, headless=True)
+            codes_text = render_codes(codes_result)
+            codes_path = BOARD_DIR / f"acca_{today}_codes.json"
+            codes_path.write_text(
+                json.dumps(codes_result, ensure_ascii=False, indent=2),
+                encoding="utf-8")
+            # the acca text file carries the codes below the acca block, so one
+            # file has both the priced acca and its bookable codes.
+            with (BOARD_DIR / f"acca_{today}.txt").open("a", encoding="utf-8") as f:
+                f.write("\n\n" + codes_text + "\n")
+            n_booked = sum(1 for r in codes_result.get("results", [])
+                           if r.get("code"))
+            n_accas = len(codes_result.get("results", []))
+            all_flags.append(
+                f"SportyBet booking codes: {n_booked}/{n_accas} acca(s) "
+                f"booked — {codes_path.name}")
+            _mark(runlog, codes_text.replace("\n", " | ")[:200])
+        except Exception as e:
+            all_flags.append(
+                f"sportybet booking codes skipped "
+                f"({type(e).__name__}: {str(e)[:80]}) — add legs manually")
+
     # The web dashboard (webapp/) reads board_<today>.json — the local server
     # and the hosted static export both consume it, so today's board is
     # available without re-running the pipeline. Additive and cheap; written
@@ -920,6 +963,8 @@ if __name__ == "__main__":
                     help="skip the club-badge prefetch even when the web board is written")
     ap.add_argument("--no-sportybet", action="store_true",
                     help="skip the SportyBet fixture-cache refresh before the scan")
+    ap.add_argument("--no-booking-codes", action="store_true",
+                    help="skip generating SportyBet booking codes for today's accas")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     # The CLI pre-warms club badges by default (real runs have the network);
@@ -930,10 +975,16 @@ if __name__ == "__main__":
     # env OLP_SPORTYBET=0 or --no-sportybet turns it off.
     refresh_sportybet = (not a.no_sportybet
                          and os.environ.get("OLP_SPORTYBET", "1") != "0")
+    # And it generates SportyBet booking codes for today's accas (Phase 2 —
+    # codes only, never a stake); env OLP_BOOKING_CODES=0 or --no-booking-codes
+    # turns it off.
+    booking_codes = (not a.no_booking_codes
+                     and os.environ.get("OLP_BOOKING_CODES", "1") != "0")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
               days_ahead=a.days_ahead,
               whatsapp=not a.no_whatsapp, email=not a.no_email,
               web=not a.no_web, prefetch_crests=prefetch,
-              refresh_sportybet=refresh_sportybet)
+              refresh_sportybet=refresh_sportybet,
+              booking_codes=booking_codes)
     print("\n" + out.full)

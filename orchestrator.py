@@ -401,22 +401,67 @@ def scan_one_league(league: str, season: str,
     # consumes only matches strictly newer than the snapshot's last_date and
     # skips burn-in (already burned in on the snapshot).
     elo_source = results if cross_model is None else pooled
+    # Phase 3.2 — the cross-league ELO blend weight. A continental club's 38
+    # domestic matches would otherwise speak exactly as loudly as its 8
+    # European ones when a continental fixture is priced, which is how a
+    # weak-league dominant gets rated above a strong-league club (the pool's
+    # own calibration caveat). The optimiser (xleague.fit_blend_weight) finds
+    # the weight on continental matches relative to domestic that minimises
+    # out-of-sample Brier on the pooled continental record, and leaves the
+    # weight at 1.0 unless that is provably beaten. Cached on the pooled
+    # content-hash so it is fitted once, not on every daily run.
+    elo_weight = 1.0
+    blend_flags: list[str] = []
+    if cross_model is not None:
+        try:
+            blend_hash = content_hash(pooled, salt=f"blend:{league}:{season}")
+            brow = brain.load_model_state(f"blend:{league}") if brain else None
+            if brow is not None and brow["content_hash"] == blend_hash:
+                elo_weight = float(brow["payload"].get("w", 1.0))
+                if elo_weight != 1.0:
+                    blend_flags.append(f"{league}: Elo continental blend "
+                                       f"w={elo_weight} (cached)")
+            else:
+                elo_weight, b_info = xleague.fit_blend_weight(pooled)
+                if b_info.get("flag"):
+                    blend_flags.append(b_info["flag"])
+                if brain:
+                    brain.save_model_state(
+                        f"blend:{league}", "blend", 1, blend_hash,
+                        b_info.get("n_scored", 0),
+                        min(r.date for r in pooled),
+                        max(r.date for r in pooled),
+                        {"w": elo_weight, "applied": b_info.get("applied", False),
+                         "brier_w1": b_info.get("brier_w1"),
+                         "brier_best": b_info.get("brier_best"),
+                         "n_scored": b_info.get("n_scored", 0)})
+        except Exception as e:
+            blend_flags.append(f"{league}: Elo blend fit failed "
+                               f"({str(e)[:60]}) — weight left at 1.0")
+            elo_weight = 1.0
+
     elo_model = None
     try:
         elo_row = brain.load_model_state(f"elo:{league}") if brain else None
         seed = elo_from_payload(elo_row["payload"]) if elo_row else None
-        elo_model = elo_engine.rate_through(elo_source, seed_from=seed)
+        mw = xleague.continental_weight(elo_weight) if elo_weight != 1.0 else None
+        elo_model = elo_engine.rate_through(elo_source, seed_from=seed,
+                                            match_weight=mw)
         if stats is not None:
             stats["elo_seeded"] = bool(seed)
         if elo_model is not None and brain:
+            salt = f"elo:{league}:{season}"
+            if elo_weight != 1.0:
+                salt += f":w{elo_weight}"  # a changed weight forces a refit
             brain.save_model_state(
                 f"elo:{league}", "elo", elo_engine.STATE_VERSION,
-                content_hash(elo_source, salt=f"elo:{league}:{season}"),
+                content_hash(elo_source, salt=salt),
                 elo_model.n_matches, elo_model.last_date, None,
                 elo_to_payload(elo_model))
     except Exception as e:
         elo_model = None
         flags.append(f"{league}: Elo second opinion unavailable ({str(e)[:60]})")
+    flags += blend_flags
 
     # Third engine: xG (expected goals) via Understat. FREE source, covers the
     # Big-5 leagues + RFPL only. Quality-adjusted signal — reads the quality of

@@ -1472,7 +1472,11 @@ def _the_call(board: list[dict], admin: bool = False) -> str:
         # The full production sorted into its softness tiers — nothing produced
         # is hidden, ranked by the trust level assigned to each league.
         return _tier_grouped_call(board)
-    rows = [bf for bf in board if bf.get("on_deploy_shortlist")]
+    # Standing rule 2026-08-09: the call is TODAY's fixtures and nothing else.
+    # A fixture with no kickoff date is never assumed to be today (HR35).
+    today = _date.today().isoformat()
+    rows = [bf for bf in board
+            if bf.get("on_deploy_shortlist") and bf.get("kickoff_date") == today]
     if not rows:
         if SOFTNESS_PAUSED:
             return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
@@ -1830,6 +1834,46 @@ def _produced_bet_block(record: Optional[dict], admin: bool) -> str:
             f'<div class="flag-line">{head} — {record.get("n_legs", 0)} leg(s). '
             f'{tail}</div>'
             + "".join(rows) + "</div>")
+
+
+def _acca_section(accas: Optional[list], admin: bool) -> str:
+    """The day's 4-leg acca set (standing rule 2026-08-09) as HTML. `admin=True`
+    shows each leg's EV and market key; the client gets fixture + market + price
+    + probability only (see schema._client_safe_accas). No accas -> the honest
+    'no eligible today' note, never a fabricated set."""
+    if not accas:
+        return ('<div class="flags"><div class="flag-line">NO ACCA today — no '
+                'deploy-eligible fixture with a live price kicks off today. '
+                'A valid, honest result.</div></div>')
+    blocks: list[str] = []
+    for acca in accas:
+        rows = [f'<div class="acca-head mono">{html.escape(acca.get("label", "Acca"))} '
+                f'— {acca.get("n_legs", 0)} legs'
+                + (f' · combined {acca.get("combined_odds", 0):.2f}'
+                   if acca.get("combined_odds") else "")
+                + (f' (≈{round((acca.get("combined_prob") or 0) * 100)}% all win)'
+                   if acca.get("combined_prob") is not None else "")
+                + '</div>']
+        for leg in acca.get("legs") or []:
+            fixture = leg.get("fixture", "?")
+            league = leg.get("league")
+            label = fixture + (f" ({league})" if league else "")
+            detail = f'{html.escape(leg.get("market_name") or leg.get("market_key") or "?")}'
+            if leg.get("price") is not None:
+                detail += f" @ {leg['price']:.2f}"
+            if leg.get("prob") is not None:
+                detail += f" ({round((leg['prob'] or 0) * 100)}%)"
+            if admin and leg.get("ev") is not None:
+                detail += f" · EV {leg['ev']:+.1%}"
+            rows.append(f'<div class="acca-leg"><span>{html.escape(label)}</span> — '
+                        f'{detail}</div>')
+        blocks.append('<div class="acca-block">' + "".join(rows) + "</div>")
+    note = ('Capital gate (ID405): every leg is Draw or Under 2.5 — the only '
+            'markets cleared for capital. PAPER — Phase 2, zero capital.'
+            if admin else
+            'Today\'s fixtures only (standing rule 2026-08-09). Paper.')
+    return ('<div class="acca-wrap">' + "".join(blocks)
+            + f'<div class="acca-note">{note}</div></div>')
 
 
 def _admin_search_bar(payload: dict) -> str:
@@ -2293,6 +2337,11 @@ def render_dashboard(payload: dict) -> str:
         + 'verified WON/LOST next day (ID415)</p>'
         + _produced_bet_block(payload.get("produced_bet"), admin=False)
         + "</section>"
+        + '<section id="acca-section"><div class="sec-head"><h2 class="display">Today\'s 4-Leg Acca</h2></div>'
+        + '<p class="sec-sub">Today\'s fixtures only (standing rule) — a set of '
+        + '4-leg accas from the deploy call, named at the end of production</p>'
+        + _acca_section(payload.get("accas"), admin=False)
+        + "</section>"
         + '<section id="scan-section" style="display:none;"><div class="sec-head"><h2 class="display">The Scan</h2></div>'
         + _date_pills(d, "/dashboard")
         + _scan_table(payload.get("board", []), admin=False, payload_date=payload.get("date", ""))
@@ -2345,9 +2394,9 @@ def render_admin_dashboard(payload: dict) -> str:
         + (f'<span class="cap-pill">{n_call} deploy (no cap — softness PAUSED)</span></div>'
            if SOFTNESS_PAUSED else
            f'<span class="cap-pill">{n_call} / 6 CAP</span></div>')
-        + ('<p class="sec-sub">All whitelisted leagues deploy-eligible (softness PAUSED), no cap. Paper only, zero capital.</p>'
+        + ('<p class="sec-sub">All whitelisted leagues deploy-eligible (softness PAUSED), no cap. The full 3-day production shown; the BET is today\'s fixtures only (see Produced Bet / Acca). Paper only, zero capital.</p>'
            if SOFTNESS_PAUSED else
-           '<p class="sec-sub">All tiers grouped by trust — A/B deploy-eligible (DEPLOY = in today\'s cap-6 pool), C/D scan-only. Paper only, zero capital.</p>')
+           '<p class="sec-sub">All tiers grouped by trust — A/B deploy-eligible (DEPLOY = in today\'s cap-6 pool), C/D scan-only. The BET is today\'s fixtures only. Paper only, zero capital.</p>')
         + _the_call(payload.get("board", []), admin=True)
         + "</section>"
         + '<section id="scan-section" style="display:none;"><div class="sec-head"><h2 class="display">The Scan</h2></div>'
@@ -2364,6 +2413,12 @@ def render_admin_dashboard(payload: dict) -> str:
         + '<p class="sec-sub">The produced-bet record (ID415) — every rated fixture with a '
         + 'kickoff today is one leg; the verified outcome is written next day</p>'
         + _produced_bet_block(payload.get("produced_bet"), admin=True)
+        + "</section>"
+        + '<section id="acca-section"><div class="sec-head"><h2 class="display">Today\'s 4-Leg Acca</h2></div>'
+        + '<p class="sec-sub">Today\'s fixtures only (standing rule) — a set of 4-leg accas '
+        + 'from the deploy call, each leg capital-cleared (ID405). EV is a model '
+        + 'internal, admin-only.</p>'
+        + _acca_section(payload.get("accas"), admin=True)
         + "</section>"
         + '<section id="verified-section"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
         + '<p class="sec-sub">Graded against full-time result, 90-min basis (HR15)</p>'

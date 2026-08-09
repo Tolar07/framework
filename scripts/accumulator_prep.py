@@ -8,8 +8,11 @@ never submits anything anywhere. Capital deployment stays manual, with the
 Architect, per the Phase 2 paper-only bright line.
 
 Pick rule (matches the board, so the slip can never drift from what was shown):
-  * ONLY fixtures with on_deploy_shortlist. Softness is PAUSED (2026-08-09), so
-    every whitelisted league's shortlisted fixtures qualify — not just A/B.
+  * ONLY fixtures on the deploy shortlist whose kickoff is TODAY (standing rule
+    2026-08-09: the product bet is today's slate and nothing else — a fixture
+    with no kickoff date is never assumed to be today, HR35). Softness is
+    PAUSED (2026-08-09), so every whitelisted league's shortlisted fixtures
+    qualify — not just A/B.
   * Market = best_market (the priced headlined market) when one exists.
   * If no live price, the leg is listed with its breakeven trigger price and
     marked "NO PRICE — back at {trigger}+" so the Architect can confirm on
@@ -144,8 +147,13 @@ def build_slip(day: str, stake: float) -> dict:
     board = load_board(day)
     # Softness PAUSED (2026-08-09): all whitelisted leagues are deploy-eligible,
     # so the slip draws from every on_deploy_shortlist fixture, not just A/B.
+    # Standing rule (2026-08-09): TODAY's fixtures only — the product bet is the
+    # day's slate and nothing else; a fixture with no kickoff date is never
+    # assumed to be today (HR35).
+    today = date.today().isoformat()
     eligible = [bf for bf in board
-                if bf.get("on_deploy_shortlist")]
+                if bf.get("on_deploy_shortlist")
+                and bf.get("kickoff_date") == today]
 
     legs: list[str] = []
     prices: list[float] = []
@@ -199,8 +207,9 @@ def render_slip(s: dict) -> str:
         return "\n".join(out)
 
     out.append(f"ACCUMULATOR PREP — {s['day']}")
-    out.append("Deploy-shortlist picks only (softness PAUSED — all whitelisted "
-               "leagues qualify). Phase 2 paper — nothing placed by this system.")
+    out.append("Deploy-shortlist picks, TODAY's fixtures only (standing rule "
+               "2026-08-09). Softness PAUSED — all whitelisted leagues qualify. "
+               "Phase 2 paper — nothing placed by this system.")
     if not s["legs"]:
         out.append("NO DEPLOY-ELIGIBLE PICKS today — a valid, honest result.")
         if s["excluded"]:

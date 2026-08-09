@@ -15,6 +15,11 @@ Two-tier design (Architect order 2026-08-07, reference webapp/design_reference/)
 Everything is READ-ONLY over the saved board JSONs + the brain; a missing date
 is an honest 404 (HR35), never a guess.
 
+Static assets (Sprint 4): the rendered pages reference /static/css, /static/js
+and /static/fonts, which are served from webapp/static/ below. A strict
+Content-Security-Policy is sent on every response (script-src 'self' — no
+inline handlers anywhere; the pages and JS are written to comply).
+
 Usage:
     python webapp/server.py                     # localhost only
     python webapp/server.py --host 0.0.0.0      # reachable from a phone on the LAN
@@ -42,8 +47,36 @@ sys.path.insert(0, str(ROOT))
 import config  # noqa: E402 — imports and runs load_dotenv() so .env reaches os.environ
 
 BOARD_DIR = ROOT / "output" / "boards"
+STATIC_DIR = ROOT / "webapp" / "static"
 _DT = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _NO_DATA = b"NO DATA \xe2\x80\x94 PENDING: nothing here."
+
+# Strict CSP — the pages and JS are written to comply (no inline handlers,
+# external script/style/font only). style-src keeps 'unsafe-inline' for the
+# critical inline <style> block + the handful of dynamic style="" attributes
+# (produce panel widths/display) — documented in UX_UI_AUDIT_AND_PLAN.md 4.5.
+_CSP = ("default-src 'self'; script-src 'self'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data: https://flagcdn.com https://r2.thesportsdb.com; "
+        "font-src 'self'; connect-src 'self'; media-src 'self'; "
+        "object-src 'none'; frame-ancestors 'none'; base-uri 'self'; "
+        "form-action 'self'")
+
+# Content types for the /static route (stdlib-only, no mimetypes guess needed
+# beyond the few assets we actually ship).
+_CTYPES = {
+    ".css": "text/css; charset=utf-8",
+    ".js": "application/javascript; charset=utf-8",
+    ".woff2": "font/woff2",
+    ".woff": "font/woff",
+    ".ttf": "font/ttf",
+    ".svg": "image/svg+xml",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".ico": "image/x-icon",
+    ".json": "application/json; charset=utf-8",
+}
 
 
 def _brain():
@@ -121,6 +154,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store")
+        # Strict CSP on every response (see _CSP above).
+        self.send_header("Content-Security-Policy", _CSP)
         for k, v in (extra_headers or {}).items():
             self.send_header(k, v)
         self.end_headers()
@@ -218,6 +253,19 @@ class Handler(BaseHTTPRequestHandler):
             # --- health check endpoint -----------------------------------
             elif path in ("/health", "/healthz"):
                 self._json({"status": "ok", "service": "olp-xdv-dashboard", "version": "2.0.0"})
+
+            elif path.startswith("/static/"):
+                # Serve the Sprint-4 assets (css/js/fonts). The path is resolved
+                # then verified to stay under webapp/static — a traversal attempt
+                # (`/static/../../config.py`) is an honest 404, never a file read.
+                rel = path[len("/static/"):]
+                root = str(STATIC_DIR.resolve())
+                target = (STATIC_DIR / rel).resolve()
+                s = str(target)
+                if (s != root and not s.startswith(root + os.sep)) or not target.is_file():
+                    return self._not_found()
+                self._send(200, target.read_bytes(),
+                           _CTYPES.get(target.suffix.lower(), "application/octet-stream"))
 
             elif path in ("/dashboard", "/dashboard/") :
                 self._redirect(f"/dashboard/{today}")

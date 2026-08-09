@@ -30,6 +30,9 @@ COMMANDS
   /note      free text                          -> corrections log (blueprint 2.7)
   /send        run the daily pipeline NOW and deliver the board (alias /run)
   /produce bet run the pipeline NOW, return the board as this reply (~30s)
+  /produce search <q>  search today's fixtures for <q>, produce predictions
+                       for just those matches (~30s, preview only — nothing
+                       is written; the daily run owns the ledger)
   /verify result  grade pending legs NOW (settles any since played, updates CLV)
   /debrief     full framework status
   /help        this list
@@ -67,6 +70,9 @@ STATE_DIR = Path(__file__).parent.parent / "memory"
 OFFSET_FILE = STATE_DIR / "telegram_offset.json"
 CORRECTIONS_FILE = STATE_DIR / "corrections.csv"
 BOARD_DIR = Path(__file__).parent / "boards"
+
+# Per-fixture model blocks a phone should read in one /produce search reply.
+PRODUCE_SEARCH_MAX = 6
 
 # Only this chat is answered. Set TELEGRAM_CHAT_ID; anything else is ignored.
 def _allowed() -> set[str]:
@@ -140,6 +146,7 @@ def cmd_help(_: str) -> str:
         "     records a correction for calibration to learn from\n"
         "/send — run the daily pipeline now and deliver the board (~30s)\n"
         "/produce bet — run the pipeline now, board returned as this reply (~30s)\n"
+        "/produce search <q> — find today's fixtures for <q>, predict just those\n"
         "/verify result — grade pending legs now (settles any played)\n"
         "/debrief — full framework status\n\n"
         f"{PHASE_LABEL}. Paper only — this system never stakes.",
@@ -411,29 +418,115 @@ def cmd_send(_: str) -> str:
             "parts; every part carries the honest-edge caveat.")
 
 
-def cmd_produce(arg: str) -> str:
-    """/produce bet — run the daily pipeline now and return the compact board.
+def _produce_season() -> str:
+    """Current fixtures season code ('2526' -> '2627') — the same rule the web
+    dashboard (webapp/server.py) and the fixture sources use internally."""
+    try:
+        from orchestrator import next_season_code
+        return next_season_code("2526")
+    except Exception:
+        return "2627"
 
-    Like /send, but the board comes back HERE as this reply instead of being
-    delivered as separate Telegram parts. Identical engine (run_daily.run):
-    grades yesterday's legs, pulls live prices, rescans every approved league,
-    logs new paper legs, renders THE CALL. Returns the compact per-league
-    table board (the same text /send delivers), not the 20k file board. Takes
-    ~30-90s (wider scan); the poller is busy during it."""
-    sub = arg.strip().lower()
-    if sub != "bet":
+
+def _produce_search_usage() -> str:
+    return ("Usage: /produce search <team or league>\n"
+            "Searches today's fixtures for that team or league and returns the "
+            "model's prediction for each match found. Preview only — never "
+            "writes the ledger.\n"
+            "Example: /produce search Sparta")
+
+
+def _produce_search(query: str) -> str:
+    """Search + produce for a chosen query — the phone's fixture-select flow.
+
+    Reuses the admin panel's real-time production (webapp.produce) so the
+    phone gets the SAME engine: search_fixtures finds today's fixtures
+    matching <query>, produce_selection runs the engines over just those and
+    returns one model block per fixture. Nothing is written — no ledger rows,
+    no board file. The daily run owns the ledger; this is a preview."""
+    from webapp import produce as WP  # lazy — only /produce pays for the engine
+    season = _produce_season()
+    try:
+        found = WP.search_fixtures(query=query, days=7)
+    except Exception as e:
+        return (f"SEARCH FAILED — {type(e).__name__}: {e}\n\n"
+                f"Fixture lookup for '{query}' hit an error; see the log.")
+    if not found.get("ok"):
+        return f"SEARCH FAILED — {found.get('error', 'unknown fixture error')}"
+    groups: list[dict] = []
+    total = 0
+    for lg in found.get("leagues", []):
+        fixtures = lg.get("fixtures", [])[:max(0, PRODUCE_SEARCH_MAX - total)]
+        if fixtures:
+            groups.append({"league": lg["name"], "fixtures": fixtures})
+            total += len(fixtures)
+        if total >= PRODUCE_SEARCH_MAX:
+            break
+    if not groups:
+        return (f"No fixtures found for '{query}' in the next 7 days across the "
+                f"whitelisted leagues.\n\nNO DATA — PENDING: try a team or "
+                f"league name, or /produce bet for the full board.")
+    res = WP.produce_selection(groups, season=season)
+    if not res.get("ok"):
+        return f"PRODUCE FAILED — {res.get('error', 'engine error')}"
+    blocks = res.get("rendered_text", "")
+    if not blocks:
+        return (f"No prediction blocks produced for '{query}'.\n\n"
+                f"NO DATA — PENDING: the engines rated no fixture in the "
+                f"selection.")
+    n_rated = res.get("n_rated", 0)
+    n_fx = len(res.get("board", []))
+    body = (
+        f"PRODUCED FOR: \"{query}\"\n"
+        f"{n_rated} of {n_fx} fixture(s) rated in {res.get('elapsed_s', '?')}s.\n"
+        f"PREVIEW ONLY — zero capital, nothing written; the daily run owns the "
+        f"ledger.\n"
+        f"{'=' * 34}\n\n{blocks}"
+    )
+    flags = res.get("flags", [])
+    if flags:
+        body += "\n\nNOTES:\n" + "\n".join(flags[:3])
+    return Reply(body[:3500],
+                 keyboard=_keyboard(("/board", "/status"), ("/produce bet",)))
+
+
+def cmd_produce(arg: str) -> str:
+    """/produce bet | /produce search <team or league>
+
+    Two ways to run the engine from the phone:
+      /produce bet            full daily board — same engine as /send, returned
+                              here as the compact per-league tables.
+      /produce search <q>     search today's fixtures for <q> and produce
+                              predictions for up to PRODUCE_SEARCH_MAX of them,
+                              one model block each. Preview only — never writes
+                              the ledger.
+
+    Both take ~30-90s and keep the poller busy meanwhile. Bright-line rules
+    still apply underneath: config.assert_paper_only() keeps every leg paper,
+    so neither path can ever stake."""
+    parts = arg.strip().split(None, 1)
+    first = parts[0].lower() if parts else ""
+    if first == "search":
+        query = parts[1].strip() if len(parts) > 1 else ""
+        if not query:
+            return _produce_search_usage()
+        return _produce_search(query)
+    if first != "bet":
         return ("Usage: /produce bet\n"
+                "        /produce search <team or league>\n"
                 "Runs the daily pipeline now and returns the compact board — "
                 "all leagues with fixtures that day, each row showing the "
                 "model prediction and the recommended pick. Same engine as "
-                "/send, but no separate Telegram delivery.")
+                "/send, but no separate Telegram delivery. Add 'search <q>' "
+                "to produce just the fixtures matching a team or league.")
     import run_daily  # lazy — the other commands must not pay for scipy
     try:
         res = run_daily.run(send=False)
     except Exception as e:
         return (f"PRODUCE FAILED — {type(e).__name__}: {e}\n\n"
                 f"See logs/daily_*.log for the detail.")
-    return res.telegram_text
+    return Reply(res.telegram_text,
+                 keyboard=_keyboard(("/board", "/status"), ("/produce search",)))
 
 
 HANDLERS = {
@@ -502,50 +595,63 @@ def poll_once(token: Optional[str] = None, long_poll_seconds: int = 0) -> list[s
     except Exception as e:
         return [f"command poll failed: {e}"]
 
-    allowed = _allowed()
     for u in updates:
         offset = max(offset, u.get("update_id", offset))
-        msg = u.get("message") or {}
-        cq = u.get("callback_query") or {}
-        chat_id = str((msg.get("chat") or cq.get("message", {}).get("chat", {})).get("id", ""))
-        text = msg.get("text") or ""
-        if cq:
-            # An inline-keyboard tap. The button's callback_data IS the command
-            # (e.g. "/status"), so answer the tap (clears the clock spinner) and
-            # route it exactly like a typed message — no callback state needed.
-            data = cq.get("data") or ""
-            if allowed and chat_id not in allowed:
-                notes.append(f"IGNORED callback from non-whitelisted chat {chat_id}")
-                continue
-            # A failed ack must never drop the command that follows.
-            with contextlib.suppress(Exception):
-                requests.post(
-                    f"https://api.telegram.org/bot{token}/answerCallbackQuery",
-                    json={"callback_query_id": cq.get("id", ""),
-                          "text": "…"},
-                    timeout=15)
-            if data:
-                text = data
-        if not text:
-            continue
-        if allowed and chat_id not in allowed:
-            notes.append(f"IGNORED message from non-whitelisted chat {chat_id}")
-            continue
-        reply = handle(text)
-        markup = reply.keyboard if isinstance(reply, Reply) else None
-        ok, send_notes = send_telegram(reply, token=token, chat_id=chat_id,
-                                       reply_markup=markup)
-        label = text.split()[0] if text.split() else "?"
-        if ok:
-            notes.append(f"handled {label} from {chat_id} -> {', '.join(send_notes)}")
-        else:
-            # A command whose reply failed to send is NOT handled. Say so
-            # plainly — a silent reply failure must not look like success.
-            notes.append(f"handled {label} from {chat_id} but REPLY DELIVERY "
-                         f"FAILED: {'; '.join(send_notes)}")
-
+        notes.extend(handle_update(u, token=token)[1])
     _save_offset(offset)
     return notes or ["no new commands"]
+
+
+def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[str]]:
+    """Process ONE Telegram update — the shared heart of long-polling AND
+    webhook receivers. Returns (reply_delivered_ok, notes).
+
+    Handles a message or an inline-keyboard callback_query exactly as the
+    poller always has: whitelist first, answer a tapped button (clears the
+    clock spinner), route the command, send the reply (carrying any inline
+    keyboard). A webhook reply is therefore the same command, guard and
+    bright-line handling as a polled one — one code path, two transports."""
+    notes: list[str] = []
+    msg = update.get("message") or {}
+    cq = update.get("callback_query") or {}
+    chat_id = str((msg.get("chat") or cq.get("message", {}).get("chat", {})).get("id", ""))
+    text = msg.get("text") or ""
+    allowed = _allowed()
+    if cq:
+        # An inline-keyboard tap. The button's callback_data IS the command
+        # (e.g. "/status"), so answer the tap (clears the clock spinner) and
+        # route it exactly like a typed message — no callback state needed.
+        data = cq.get("data") or ""
+        if allowed and chat_id not in allowed:
+            notes.append(f"IGNORED callback from non-whitelisted chat {chat_id}")
+            return True, notes
+        # A failed ack must never drop the command that follows.
+        with contextlib.suppress(Exception):
+            requests.post(
+                f"https://api.telegram.org/bot{token}/answerCallbackQuery",
+                json={"callback_query_id": cq.get("id", ""),
+                      "text": "…"},
+                timeout=15)
+        if data:
+            text = data
+    if not text:
+        return True, notes
+    if allowed and chat_id not in allowed:
+        notes.append(f"IGNORED message from non-whitelisted chat {chat_id}")
+        return True, notes
+    reply = handle(text)
+    markup = reply.keyboard if isinstance(reply, Reply) else None
+    ok, send_notes = send_telegram(reply, token=token, chat_id=chat_id,
+                                   reply_markup=markup)
+    label = text.split()[0] if text.split() else "?"
+    if ok:
+        notes.append(f"handled {label} from {chat_id} -> {', '.join(send_notes)}")
+    else:
+        # A command whose reply failed to send is NOT handled. Say so
+        # plainly — a silent reply failure must not look like success.
+        notes.append(f"handled {label} from {chat_id} but REPLY DELIVERY "
+                     f"FAILED: {'; '.join(send_notes)}")
+    return ok, notes
 
 
 if __name__ == "__main__":

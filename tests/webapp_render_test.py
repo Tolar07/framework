@@ -120,9 +120,10 @@ assert "Over 1.5 goals" in h and "Double Chance 1X" in h and "BTTS No" in h
 assert "56%" in h and "Deploy At" in h
 print("5. full market grid + pick line render: OK")
 
-# --- 6. scan row click wiring present (toggleScanRow + detail rows) ----------
-assert "toggleScanRow('scan-" in h and "class=\"detail-row\"" in h
-assert "toggleScanRow('a-scan-" in a
+# --- 6. scan row click wiring present (data-target + detail rows) ------------
+# Sprint 4: no inline onclick — scan.js reads data-target under the strict CSP.
+assert "data-target=\"scan-" in h and "class=\"detail-row\"" in h
+assert "data-target=\"a-scan-" in a
 print("6. scan rows are click-to-expand in both views: OK")
 
 # --- 7. why / stats / history / 404 all render --------------------------------
@@ -145,5 +146,16 @@ for html_text, label in ((h, "client"), (a, "admin")):
         closes = len(re.findall(rf"</{tag}>", html_text))
         assert opens == closes, f"unbalanced <{tag}> in {label} ({opens} vs {closes})"
 print("8. HTML tags balanced in both views: OK")
+
+# --- 9. Sprint 4: strict-CSP discipline (no inline handlers, external assets) -
+import re as _re
+for html_text, label in ((h, "client"), (a, "admin")):
+    assert not _re.search(r"\son(click|keydown|keyup|change|submit|load|focus|blur)=",
+                          html_text), \
+        f"inline event handler in {label} — violates script-src 'self'"
+    assert 'data-asset-base="/static"' in html_text
+    assert 'src="/static/js/assets.js"' in html_text
+    assert 'src="/static/js/scan.js"' in html_text
+print("9. no inline handlers; external css/js/font assets referenced: OK")
 
 print("\n[OK] ALL WEBAPP RENDER TESTS PASSED")

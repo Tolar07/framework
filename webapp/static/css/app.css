@@ -1,0 +1,807 @@
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/Barlow-Condensed-normal-500.woff2') format('woff2');}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/Barlow-Condensed-normal-600.woff2') format('woff2');}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/Barlow-Condensed-normal-700.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-600.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/Inter-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/Inter-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/Inter-normal-400.woff2') format('woff2');}
+
+
+:root{
+  --bg:#0B0E13;
+  --surface:#131822;
+  --surface-2:#1A2130;
+  --line:#232B3B;
+  --ink:#E7EAF0;
+  --ink-dim:#8B93A6;
+  --ink-faint:#7A8498;  /* WCAG AA: 4.6:1 on --bg (was #565F72 = 3.2:1) */
+  --amber:#D8A659;
+  --amber-dim:#8C744A;
+  --teal:#4FB894;
+  --coral:#E2634F;
+  --violet:#9089D6;
+  --radius:10px;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 15% 0%, #161d2b 0%, transparent 45%),
+    var(--bg);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  padding:0 0 88px 0; /* space for bottom tab bar */
+}
+.mono{font-family:'IBM Plex Mono',monospace;}
+.display{font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:0.02em;}
+
+header.top{
+  max-width:1180px;margin:0 auto;padding:28px 20px 18px 20px;
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:baseline;gap:10px;}
+.brand .mark{
+  width:8px;height:8px;background:var(--amber);border-radius:1px;
+  transform:rotate(45deg);flex:none;
+}
+.brand h1{font-size:22px;font-weight:700;margin:0;letter-spacing:0.04em;}
+.brand-link{display:flex;align-items:baseline;gap:10px;color:inherit;text-decoration:none;}
+.brand-link:hover h1{opacity:.85;transition:opacity .15s;}
+.brand-link .mark{transition:transform .15s;}
+.brand-link:hover .mark{transform:rotate(90deg);}
+.crumbs{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:11.5px;color:var(--ink-faint);}
+.crumb-link a{color:var(--amber);text-decoration:none;}
+.crumb-link a:hover{text-decoration:underline;}
+.crumb-sep{color:var(--ink-faint);opacity:.5;}
+.crumb-current{color:var(--ink);font-weight:500;}
+.brand .phase{
+  font-size:11px;color:var(--amber);border:1px solid var(--amber-dim);
+  padding:2px 8px;border-radius:20px;margin-left:auto;font-family:'IBM Plex Mono',monospace;
+}
+/* Client header variant — quieter than the ADMIN pill, still never implied live */
+.brand .phase.client{
+  font-size:9.5px;color:var(--ink-dim);border-color:var(--line);
+  letter-spacing:0.08em;
+}
+.meta-row{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--ink-dim);flex-wrap:wrap;}
+.meta-row b{color:var(--ink);font-weight:600;}
+.date-nav{
+  display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap;
+  font-size:12px;color:var(--ink-dim);
+}
+.date-nav-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border:1px solid var(--line);border-radius:8px;
+  background:var(--surface);color:var(--ink);text-decoration:none;
+  transition:border-color 0.15s,background 0.15s;
+  position:relative; /* hit area extended to 44px via ::after */
+}
+.date-nav-btn::after{
+  content:"";position:absolute;top:50%;left:50%;
+  width:44px;height:44px;transform:translate(-50%,-50%);
+}
+.date-nav-btn:hover{border-color:var(--amber-dim);background:var(--surface-2);}
+/* Date picker: custom calendar icon + the native input stretched over the
+   whole field so a tap anywhere opens the calendar (touch-friendly). */
+.date-picker{position:relative;display:inline-flex;align-items:center;}
+.date-picker-ico{
+  position:absolute;left:9px;width:14px;height:14px;z-index:1;
+  stroke:var(--ink-dim);stroke-width:1.8;fill:none;pointer-events:none;
+}
+.date-nav-input{
+  padding:5px 8px 5px 28px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;
+  min-height:30px;
+}
+.date-nav-input:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.date-nav-input::-webkit-calendar-picker-indicator{
+  position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer;
+}
+.date-nav-today{
+  padding:5px 10px;border:1px solid var(--amber-dim);border-radius:8px;
+  color:var(--amber);text-decoration:none;font-size:11.5px;transition:opacity 0.15s;
+}
+.date-nav-today:hover{opacity:0.85;}
+.date-nav-label{font-size:11.5px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
+.paper-strip{
+  max-width:1180px;margin:0 auto;padding:9px 20px;background:#1E1710;
+  border-bottom:1px solid #3A2E18;color:#D8A659;font-size:12px;text-align:center;
+  letter-spacing:0.03em;
+}
+
+main{max-width:1180px;margin:0 auto;padding:0 20px;}
+section{margin-top:34px;}
+.sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
+.sec-head h2{font-size:20px;margin:0;font-weight:700;letter-spacing:0.01em;}
+.sec-sub{font-size:12.5px;color:var(--ink-faint);margin:0 0 14px 0;}
+.cap-pill{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-dim);
+  border:1px solid var(--line);padding:2px 7px;border-radius:20px;
+}
+
+/* THE CALL — deploy shortlist cards */
+.call-card{
+  background:linear-gradient(180deg,#161C29,var(--surface));
+  border:1px solid var(--line);border-left:3px solid var(--amber);
+  border-radius:var(--radius);padding:16px 16px 14px 16px;margin-bottom:12px;
+  cursor:pointer;transition:border-color 0.15s;
+}
+.call-card:hover{border-color:var(--amber-dim);}
+/* THE CALL on a wide desktop is a responsive card grid; it collapses to one
+   column on a phone (minmax floor) and reflows to 2-3 columns as the window
+   widens. Applied to BOTH dashboards via _the_call. */
+.call-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:14px;align-items:stretch;
+}
+.call-grid .call-card{margin-bottom:0;display:flex;flex-direction:column;}
+.call-grid .call-card .full-analysis{margin-top:auto;padding-top:14px;}
+.call-card .expand-hint{
+  font-size:10.5px;color:var(--ink-faint);margin-top:10px;
+  display:flex;align-items:center;gap:5px;
+}
+.call-card .expand-hint .chevron{transition:transform 0.2s;}
+.call-card.open .expand-hint .chevron{transform:rotate(90deg);}
+.full-analysis{
+  display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+}
+.call-card.open .full-analysis{display:block;}
+.market-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+.market-row{
+  display:flex;justify-content:space-between;font-size:12.5px;
+  padding:6px 0;border-bottom:1px solid var(--line);
+}
+.market-row .m-name{color:var(--ink-dim);}
+.market-row .m-val{font-family:'IBM Plex Mono',monospace;color:var(--ink);font-weight:600;}
+.internals{
+  margin-top:14px;padding:12px;background:#0E1219;border:1px dashed var(--line);
+  border-radius:8px;
+}
+.internals .int-head{
+  font-size:10px;color:var(--violet);text-transform:uppercase;letter-spacing:0.06em;
+  margin-bottom:8px;font-family:'IBM Plex Mono',monospace;
+}
+.internals .int-row{font-size:12px;color:var(--ink-dim);padding:4px 0;line-height:1.5;}
+.internals .int-row b{color:var(--ink);}
+.divergence-warn{color:#E2634F;}
+@media (max-width:480px){.market-grid{grid-template-columns:1fr;}}
+
+.call-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.fixture-name{font-size:16px;font-weight:600;}
+.league-tag{font-size:11px;color:var(--ink-faint);margin-top:2px;}
+.tier-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--bg);
+  background:var(--amber);padding:3px 8px;border-radius:4px;font-weight:600;flex:none;
+}
+.pick-line{
+  margin-top:12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+}
+.pick-label{font-size:14px;color:var(--ink);}
+.pick-prob{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-size:14px;font-weight:600;}
+.trigger{
+  margin-left:auto;text-align:right;font-family:'IBM Plex Mono',monospace;
+}
+.trigger .num{color:var(--amber);font-size:15px;font-weight:600;}
+.trigger .lbl{font-size:9.5px;color:var(--ink-faint);letter-spacing:0.06em;text-transform:uppercase;}
+.stamp-row{margin-top:10px;display:flex;gap:8px;align-items:center;}
+.stamp{
+  width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex:none;
+}
+.stamp.verified{background:rgba(79,184,148,0.15);color:var(--teal);border:1px solid var(--teal);}
+.stamp.single{background:rgba(216,166,89,0.12);color:var(--amber);border:1px solid var(--amber-dim);}
+.stamp.warn{background:rgba(226,99,79,0.15);color:var(--coral);border:1px solid var(--coral);}
+.stamp.na{background:rgba(86,95,114,0.15);color:var(--ink-faint);border:1px solid var(--line);}
+.stamp-note{font-size:11px;color:var(--ink-faint);}
+
+/* THE CALL tier-grouped sections (admin "show all the tiers") */
+.tier-section{margin-bottom:24px;}
+.tier-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:14px;
+}
+.tier-name{
+  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
+  letter-spacing:0.02em;color:var(--amber);font-weight:700;font-size:15px;
+}
+.tier-count{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);
+  white-space:nowrap;
+}
+.tier-badge.deploy{
+  background:var(--teal);margin-left:6px;
+}
+.produce-summary{
+  margin-top:16px;padding:16px;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);
+  font-size:12.5px;color:var(--ink-dim);line-height:1.7;
+}
+.produce-summary h3{margin:0 0 10px 0;font-size:14px;color:var(--ink);}
+.produce-summary ul{margin:0;padding-left:16px;}
+.produce-summary li{margin-bottom:6px;}
+.produce-summary b{color:var(--ink);}
+.produce-summary .honest-line{
+  margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);
+  color:var(--amber);font-size:12px;
+}
+
+/* THE SCAN — wide table */
+.scan-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+/* Accumulator candidate rows — Tier A/B deploy-eligible, marked at top of each
+   league group (ID402: scan everything, highlight what could carry capital).
+   The left border accent + teal pill make the candidate pop from the scan. */
+.acc-row td{background:rgba(79,184,148,0.05);}
+.acc-row td:first-child{border-left:3px solid var(--teal);}
+.acc-row .scan-fixture{color:var(--teal);font-weight:600;}
+.acc-star{color:var(--teal);}
+.acc-pill{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--teal);color:var(--bg);font-weight:700;
+  font-family:'IBM Plex Mono',monospace;font-size:8.5px;
+  letter-spacing:0.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:999px;margin-left:8px;flex:none;
+}
+.acc-pill svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+.scan-table th{
+  text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;
+  color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.05em;
+  padding:0 8px 8px 8px;font-weight:500;border-bottom:1px solid var(--line);
+}
+.scan-table td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:middle;}
+.scan-table tr:last-child td{border-bottom:none;}
+.scan-fixture{font-weight:500;color:var(--ink);}
+.scan-league{display:block;font-size:10px;color:var(--ink-faint);margin-top:1px;}
+.scan-num{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);white-space:nowrap;}
+.scan-num .fav{color:var(--ink);}
+.nodata{color:var(--ink-faint);font-style:italic;font-size:11.5px;}
+.src-dot{
+  width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  font-size:9.5px;font-weight:700;
+}
+.src-dot.v{background:rgba(79,184,148,0.15);color:var(--teal);}
+.src-dot.s{background:rgba(216,166,89,0.12);color:var(--amber);}
+.src-dot.n{background:rgba(86,95,114,0.15);color:var(--ink-faint);}
+.scan-table tr.clickable{cursor:pointer;transition:background 0.12s;}
+.scan-table tr.clickable:hover{background:rgba(216,166,89,0.04);}
+.scan-table .chevron{color:var(--ink-faint);font-size:11px;transition:transform 0.2s;display:inline-block;margin-right:6px;}
+.scan-table tr.open .chevron{transform:rotate(90deg);}
+.detail-row td{padding:0;border-bottom:1px solid var(--line);}
+.detail-row .full-analysis{display:none;padding:14px 8px 16px 8px;}
+.detail-row.open .full-analysis{display:block;}
+/* Visible keyboard focus for the tabindex=0 rows/cards (Enter/Space toggle) */
+.scan-table tr[role="button"]:focus-visible td,
+.league-group-header:focus-visible td{
+  background:rgba(216,166,89,0.08);
+  box-shadow:inset 0 0 0 2px var(--amber);
+}
+.call-card:focus-visible{border-color:var(--amber);box-shadow:0 0 0 2px var(--amber);}
+.call-card:focus-visible{outline:none;}
+
+/* graded / verify results */
+.graded-row{
+  display:flex;align-items:center;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--line);font-size:13px;
+}
+.graded-row:last-child{border-bottom:none;}
+.hit-tag,.miss-tag,.pend-tag{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+  padding:2px 7px;border-radius:4px;flex:none;
+}
+.hit-tag{background:rgba(79,184,148,0.15);color:var(--teal);}
+.miss-tag{background:rgba(226,99,79,0.15);color:var(--coral);}
+.pend-tag{background:rgba(86,95,114,0.15);color:var(--ink-faint);}
+.graded-ft{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);font-size:12px;margin-left:auto;}
+
+/* Live score display in produced bet block */
+.live-score{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);
+  margin-left:auto;flex:none;
+}
+.live-score.has-score{
+  color:var(--teal);
+  animation:live-pulse 2s ease-in-out infinite;
+}
+@keyframes live-pulse{0%,100%{opacity:1;}50%{opacity:0.55;}}
+
+/* Skeleton loaders — shimmering placeholders shown while an async section
+   (produce run, chat reply, live-score fetch) is still loading. */
+.skeleton{
+  position:relative;overflow:hidden;border-radius:6px;
+  background:var(--surface-2);min-height:14px;
+}
+.skeleton::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0) 100%);
+  animation:shimmer 1.4s infinite;
+  transform:translateX(-100%);
+}
+@keyframes shimmer{to{transform:translateX(100%);}}
+.skeleton.card{min-height:72px;border-radius:var(--radius);}
+.skeleton.line{min-height:12px;margin:6px 0;}
+.skeleton.chat-bubble{min-height:34px;border-radius:12px 12px 12px 4px;max-width:220px;}
+
+/* data flags */
+.flags{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 16px;
+}
+.flag-line{font-size:12px;color:var(--ink-dim);padding:5px 0;display:flex;gap:8px;}
+.flag-line .mk{color:var(--amber);flex:none;}
+
+/* Sprint 4: below-the-fold sections can skip layout/paint until scrolled near
+   (content-visibility:auto). contain-intrinsic-size keeps the scrollbar stable
+   while the section is skipped. Progressive enhancement — no-op in old browsers. */
+.cv-auto{content-visibility:auto;contain-intrinsic-size:auto 500px;}
+
+/* footer honest line */
+footer{
+  max-width:1180px;margin:40px auto 0 auto;padding:18px 20px 0 20px;
+  border-top:1px solid var(--line);
+}
+.honest{
+  font-size:12.5px;color:var(--ink-dim);line-height:1.6;text-align:center;
+  padding:14px 10px 4px 10px;
+}
+.honest b{color:var(--ink);}
+.gate{
+  display:flex;justify-content:center;gap:6px;align-items:center;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);margin-top:10px;
+}
+.gate .bar{width:90px;height:4px;background:var(--line);border-radius:2px;overflow:hidden;}
+.gate .fill{height:100%;background:var(--amber-dim);width:0%;transform-origin:left;animation:gate-fill 1.2s ease-out 0.2s both;}
+/* Sprint 3.5: the gate bar fills left→right on load. scaleX leaves the inline
+   width untouched, so a later reload with a different % still animates fine. */
+@keyframes gate-fill{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+
+/* Mobile (< 600px): the scan table becomes a stack of cards, one per fixture,
+   with each market column kept and labelled with its header text (shown via
+   ::before), so nothing is lost by dropping the table chrome. The league header
+   stays a card. Same markup — pure CSS transform. */
+@media (max-width:600px){
+  .scan-table,.scan-table thead,.scan-table tbody,
+  .scan-table tr,.scan-table td{display:block;}
+  .scan-table thead{display:none;}
+  .scan-table tbody.league-group{margin-bottom:16px;}
+  .scan-table tr.league-group-header td{padding:0;}
+  /* Fixture rows become cards */
+  .scan-table tr.clickable.league-row,
+  .scan-table tr.league-row{
+    display:flex;flex-wrap:wrap;align-items:center;
+    gap:4px 10px;padding:12px 12px 10px;
+    border:1px solid var(--line);border-radius:8px;
+    margin-bottom:6px;background:var(--surface);
+  }
+  .scan-table tr.league-row td{
+    display:flex;align-items:baseline;gap:6px;
+    border:none;padding:2px 0;font-size:12px;
+  }
+  .scan-table tr.league-row td:nth-child(1){flex:1 1 100%;padding-bottom:6px;}
+  .scan-table tr.league-row td:nth-child(n+2){flex:1 1 42%;min-width:0;}
+  /* Market column labels — mirrors the desktop header text */
+  .scan-table tr.league-row td::before{
+    font-family:'IBM Plex Mono',monospace;font-size:9px;
+    color:var(--ink-faint);letter-spacing:0.05em;text-transform:uppercase;
+    flex:none;min-width:42px;
+  }
+  .scan-table tr.league-row td:nth-child(2)::before{content:"1X2";}
+  .scan-table tr.league-row td:nth-child(3)::before{content:"Goals";}
+  .scan-table tr.league-row td:nth-child(4)::before{content:"DC/BTTS";}
+  .scan-table tr.league-row td:nth-child(5)::before{content:"Src";}
+  /* NO DATA rows span the card with a full-width message, no label */
+  .scan-table tr.league-row td.nodata{flex:1 1 100%;font-style:italic;}
+  .scan-table tr.league-row td.nodata::before{content:none;}
+  /* Detail rows expand below their card */
+  .scan-table tr.detail-row td{padding:0;}
+  .scan-table tr.detail-row .full-analysis{padding:10px 12px;}
+  /* League header card — let meta wrap below the name on narrow screens.
+     Chevron keeps a real column (col 3); name/meta/season stack in col 2. */
+  .league-card{grid-template-columns:auto 1fr auto;grid-template-rows:auto auto auto;}
+  .league-card .league-meta{grid-column:2/3;grid-row:2;justify-content:flex-start;}
+  .league-card .league-season{grid-column:2/3;grid-row:3;}
+  .league-card .league-chevron{grid-row:1/4;grid-column:3;}
+}
+
+/* Legacy ≤480px compactness kept for the market grid inside expanded cards */
+@media (max-width:480px){
+  .scan-table{font-size:11.5px;}
+}
+
+/* Bottom tab bar — ScoreAI-style with pill active state */
+.tab-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:100;
+  display:flex;background:var(--surface);
+  border-top:1px solid var(--line);
+  padding:8px env(safe-area-inset-bottom) 8px env(safe-area-inset-left);
+  gap:6px;
+}
+.tab-btn{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+  min-height:44px; /* WCAG 2.5.5 minimum touch target */
+  padding:10px 12px;border:none;background:transparent;color:var(--ink-dim);
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
+  border-radius:var(--radius);cursor:pointer;
+  transition:color 0.15s,background 0.15s,border-color 0.15s;
+}
+.tab-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;flex:none;}
+.tab-btn.active{
+  background:rgba(216,166,89,0.1);border:1px solid var(--amber-dim);
+  color:var(--amber);font-weight:600;
+}
+.tab-btn:not(.active):hover{color:var(--ink);background:rgba(255,255,255,0.03);}
+.tab-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+@media (max-width:480px){
+  .tab-btn{min-height:44px;padding:10px 8px;font-size:11px;}
+}
+
+/* Date scroller pills */
+.date-pills{
+  display:flex;gap:6px;padding:10px 20px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+  scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+}
+.date-pill{
+  flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;
+  background:var(--surface);color:var(--ink);font-size:11.5px;
+  font-family:'IBM Plex Mono',monospace;white-space:nowrap;
+  text-decoration:none;scroll-snap-align:start;
+  transition:border-color 0.15s,background 0.15s,color 0.15s;
+}
+.date-pill:hover{border-color:var(--amber-dim);background:var(--surface-2);}
+.date-pill.today{
+  border-color:var(--amber);color:var(--amber);background:rgba(216,166,89,0.1);
+  font-weight:600;
+}
+
+/* Select Markets panel (admin) — ScoreAI collapsible style */
+.market-select-panel{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  margin-bottom:16px;overflow:hidden;
+}
+.market-select-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;cursor:pointer;
+  transition:background 0.15s;
+}
+.market-select-header:hover{background:rgba(255,255,255,0.02);}
+.market-select-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);}
+.market-select-title svg{width:18px;height:18px;color:var(--amber);flex:none;}
+.market-select-chevron{color:var(--ink-faint);font-size:12px;transition:transform 0.2s;flex:none;}
+.market-select-panel.collapsed .market-select-chevron{transform:rotate(-90deg);}
+/* Smooth open/close: max-height transition instead of display:none snap */
+.market-select-body{
+  padding:0 16px 14px 16px;
+  max-height:420px;overflow:hidden;opacity:1;
+  transition:max-height 0.25s ease,opacity 0.2s ease,padding 0.25s ease;
+}
+.market-select-panel.collapsed .market-select-body{
+  max-height:0;padding:0 16px;opacity:0;
+}
+.market-checkbox input{transition:transform 0.12s;}
+.market-checkbox input:active{transform:scale(1.25);}
+.market-select-actions{display:flex;gap:10px;margin-bottom:10px;}
+.market-select-action{
+  font-size:12px;padding:6px 4px;border:none;background:transparent;
+  color:var(--amber);cursor:pointer;font-weight:500;
+  min-height:24px;display:inline-flex;align-items:center;
+}
+.market-select-action:hover{text-decoration:underline;}
+.market-select-action:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.market-checkboxes{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;}
+.market-checkbox{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink);}
+.market-checkbox input{width:16px;height:16px;accent-color:var(--amber);flex:none;}
+
+/* AI Analyst chat tab */
+.chat-tab{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;max-width:1180px;
+  margin:0 auto;padding:0 20px 88px 20px;
+}
+.chat-tab.hidden{display:none;}
+/* Floating opener for the AI Analyst — the only path into the chat panel */
+.chat-fab{
+  position:fixed;right:20px;bottom:100px;z-index:190;
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:44px; /* WCAG 2.5.5 minimum touch target */
+  padding:11px 16px;border-radius:999px;border:1px solid var(--amber-dim);
+  background:var(--surface);color:var(--ink);font-size:13px;font-weight:600;
+  cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.35);
+  transition:border-color 0.15s,color 0.15s,transform 0.05s;
+}
+.chat-fab:hover{border-color:var(--amber);color:var(--amber);}
+.chat-fab:active{transform:scale(0.98);}
+.chat-fab:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.chat-fab .fab-ico{font-size:15px;line-height:1;}
+.chat-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius) var(--radius) 0 0;
+}
+.chat-title{font-size:14px;font-weight:600;color:var(--ink);}
+.chat-close{
+  background:none;border:none;color:var(--ink-dim);font-size:20px;cursor:pointer;
+  min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+}
+.chat-close:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.chat-messages{
+  flex:1;overflow-y:auto;padding:16px;background:var(--bg);
+  border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);
+  max-height:300px;display:flex;flex-direction:column;gap:12px;
+}
+.chat-message{display:flex;gap:8px;max-width:85%;}
+.chat-message.user{align-self:flex-end;flex-direction:row-reverse;}
+.chat-message .bubble{
+  padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5;
+}
+.chat-message.assistant .bubble{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px;}
+.chat-message.user .bubble{background:var(--amber);color:var(--bg);border-bottom-right-radius:4px;}
+/* Per-message timestamp — small, faint, tucked under the bubble text */
+.msg-time{
+  display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  opacity:0.55;margin-top:5px;
+}
+.chat-message.user .msg-time{color:var(--bg);}
+.chat-message.assistant .msg-time{color:var(--ink-dim);}
+/* Pending assistant reply — skeleton shimmer inside the bubble */
+.chat-message.pending .bubble{padding:12px 14px;min-width:180px;}
+.chat-message.pending .skeleton{border:none;}
+.chat-input-area{display:flex;gap:8px;padding:12px;background:var(--surface);border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);}
+.chat-input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid var(--line);border-radius:999px;color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
+.chat-input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
+.chat-send{padding:10px 18px;background:var(--amber);color:var(--bg);border:none;border-radius:999px;font-weight:600;cursor:pointer;}
+.chat-send:disabled{opacity:0.5;cursor:not-allowed;}
+.chat-quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 12px 12px;}
+.chat-quick-btn{
+  font-size:11px;min-height:30px;padding:6px 10px;border:1px solid var(--line);
+  border-radius:999px;background:var(--surface-2);color:var(--ink);cursor:pointer;
+}
+.chat-quick-btn:hover{border-color:var(--amber);}
+.chat-quick-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+
+/* Fixture card — ScoreAI schedule layout (badge — team — vs — team — badge) */
+.fixture-card{
+  display:flex;align-items:center;gap:12px;padding:14px 16px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  margin-bottom:8px;transition:border-color 0.15s;
+}
+.fixture-card:hover{border-color:var(--amber-dim);}
+.fixture-card .crest{width:32px;height:32px;}
+.fixture-card .teams{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:14px;
+}
+.fixture-card .team{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:80px;}
+.fixture-card .team-name{font-weight:600;font-size:13px;color:var(--ink);text-align:center;}
+.fixture-card .vs{color:var(--ink-faint);font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.fixture-card .meta{
+  display:flex;flex-direction:column;align-items:flex-end;gap:4px;
+  font-size:11px;color:var(--ink-dim);min-width:50px;
+}
+.fixture-card .kickoff{font-family:'IBM Plex Mono',monospace;font-weight:500;}
+.fixture-card .star{
+  color:var(--ink-faint);cursor:pointer;font-size:16px;
+  transition:color 0.15s,transform 0.15s;
+  position:relative;line-height:1;
+  padding:0 10px;margin-right:-10px; /* 44px hit area around the glyph */
+  min-height:44px;display:inline-flex;align-items:center;
+}
+.fixture-card .star.active{color:var(--amber);transform:scale(1.15);}
+.fixture-card .star:hover{color:var(--amber);}
+
+/* Produce panel — Search → Select → Produce (admin Search tab) */
+.produce-panel{margin-top:12px;}
+.produce-toolbar{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.produce-toolbar select,.produce-toolbar input{
+  padding:8px 12px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;font-size:12px;
+}
+.produce-toolbar input{flex:1;min-width:180px;}
+.produce-toolbar select:focus,.produce-toolbar input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
+.produce-results{max-height:400px;overflow-y:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg);}
+.produce-league-group{padding:8px 12px;}
+.produce-league-name{font-size:12px;font-weight:600;color:var(--amber);margin-bottom:6px;padding:4px 0;border-bottom:1px solid var(--line);}
+.produce-item{display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;transition:background 0.12s;}
+.produce-item:hover{background:rgba(216,166,89,0.04);}
+.produce-item:has(input:checked){background:rgba(216,166,89,0.08);} /* selected-state ripple (Sprint 3.4) */
+.produce-item:has(input:checked) .produce-item-meta{color:var(--amber);}
+.produce-item input{width:16px;height:16px;accent-color:var(--amber);flex:none;}
+.produce-item-text{font-size:12.5px;color:var(--ink);flex:1;}
+.produce-item-meta{font-size:11px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
+.produce-tray{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:var(--surface);border:1px solid var(--amber-dim);border-radius:var(--radius);
+  margin-top:12px;
+}
+.produce-tray .btn-primary{flex:none;}
+.produce-result{
+  margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--bg);overflow:hidden;
+}
+.produce-result-header{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:var(--surface);border-bottom:1px solid var(--line);
+  font-size:12px;color:var(--ink-dim);
+}
+.produce-flags{padding:8px 16px;}
+.produce-cards{padding:12px 16px;}
+
+/* Produce day picker — "produce the bet for that day" chips + date input */
+.produce-day-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.produce-day-chip{
+  font-size:11.5px;padding:6px 12px;border:1px solid var(--line);
+  border-radius:999px;background:var(--surface-2);color:var(--ink-dim);
+  cursor:pointer;transition:border-color 0.15s,color 0.15s;
+}
+.produce-day-chip:hover{border-color:var(--amber-dim);color:var(--amber);}
+.produce-day-chip.active{border-color:var(--amber);color:var(--amber);background:rgba(216,166,89,0.1);}
+
+/* Produce results — Select All + per-league controls */
+.produce-results-header{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:8px 12px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:var(--radius);margin-bottom:10px;font-size:12px;
+}
+.produce-select-all,.produce-clear-all,.produce-league-select-all,.produce-league-clear{
+  font-size:11px;padding:5px 10px;border:1px solid var(--line);
+  border-radius:6px;background:var(--surface);color:var(--ink-dim);
+  cursor:pointer;transition:border-color 0.15s,color 0.15s;
+}
+.produce-select-all:hover,.produce-clear-all:hover,
+.produce-league-select-all:hover,.produce-league-clear:hover{
+  border-color:var(--amber-dim);color:var(--amber);
+}
+.produce-count-display{margin-left:auto;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
+.produce-count-display.pop{animation:produce-pop 0.25s ease;}
+@keyframes produce-pop{0%{transform:scale(1);color:var(--amber);}100%{transform:scale(1);color:var(--ink-faint);}}
+
+.produce-league-group{margin-bottom:16px;}
+.produce-league-header{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-bottom:8px;padding:8px 12px;
+  background:var(--surface-2);border:1px solid var(--line);
+  border-radius:var(--radius);font-size:12px;
+}
+.produce-league-name{font-weight:600;color:var(--ink);}
+.produce-league-select-all,.produce-league-clear{
+  margin-left:auto;font-size:11px;padding:4px 8px;
+}
+tbody.league-group{width:100%;}
+.league-group-header{cursor:pointer;}
+.league-group-header .league-card{
+  display:grid;grid-template-columns:auto auto 1fr auto;grid-template-rows:auto auto;
+  align-items:center;gap:6px 14px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;margin:6px 0;transition:border-color 0.15s;
+}
+.league-group-header:hover .league-card{border-color:var(--amber-dim);}
+.league-card .league-badge{grid-row:1/3;width:44px;height:44px;border-radius:10px;}
+.league-card .league-name{font-size:16px;font-weight:700;color:var(--ink);line-height:1.1;}
+.league-card .league-season{font-size:12px;color:var(--ink-dim);}
+.league-card .league-meta{
+  display:flex;align-items:center;gap:12px;font-size:11px;color:var(--ink-faint);
+  grid-column:3/4;
+}
+.league-card .league-meta span{display:flex;align-items:center;gap:4px;}
+.league-card .league-meta svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;}
+.league-card .league-chevron{
+  grid-row:1/3;grid-column:4;justify-self:end;
+  color:var(--amber);font-size:14px;transition:transform 0.2s;flex:none;
+}
+tbody.collapsed .league-chevron{transform:rotate(-90deg);}
+.league-group-header:hover .league-group{background:rgba(216,166,89,0.12);}
+.league-group-toggle{color:var(--amber);font-size:14px;transition:transform 0.2s;flex:none;}
+tbody.collapsed .league-group-toggle{transform:rotate(-90deg);}
+.league-group-badge{display:inline-flex;align-items:center;flex:none;}
+.league-group-badge .flag{margin-right:0;}
+.league-group-name{font-weight:600;color:var(--ink);text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.02em;flex:1;}
+.league-group-count{color:var(--ink-faint);font-size:11px;font-family:'IBM Plex Mono',monospace;}
+
+/* Hero section (client view) */
+.hero-date{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-faint);
+  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;
+}
+.hero-title{
+  font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;
+  color:var(--amber);text-transform:uppercase;letter-spacing:0.04em;margin:0 0 12px 0;
+}
+.hero-match{
+  margin-bottom:14px;
+}
+.hero-teams{
+  font-size:18px;font-weight:600;color:var(--ink);
+}
+.hero-league{
+  display:block;font-size:11px;color:var(--ink-faint);margin-top:4px;
+}
+/* Hero sits apart from The Call below — bottom rule gives it a clean edge,
+   and scroll-behavior:smooth makes the CTA glide to the scan board. */
+html{scroll-behavior:smooth;}
+.hero{
+  border-bottom:1px solid var(--line);
+  padding-bottom:26px;margin-bottom:6px;
+}
+#call-section,#produced-section,#acca-section,#scan-section,#search-section,
+#flags-section,#verified-section,#phase3-gate-section{scroll-margin-top:16px;}
+.hero-pick{
+  display:inline-flex;align-items:center;gap:10px;padding:10px 18px;
+  background:rgba(79,184,148,0.1);border:1px solid var(--teal);
+  border-radius:999px;margin-bottom:16px;
+}
+.hero-team{font-size:16px;font-weight:600;color:var(--teal);}
+.hero-confidence{
+  font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--ink);
+}
+.hero-cta{
+  display:inline-block;padding:10px 22px;background:var(--amber);color:var(--bg);
+  font-weight:600;border-radius:8px;text-decoration:none;transition:opacity 0.15s;
+}
+.hero-cta:hover{opacity:0.9;}
+
+/* Admin actions + search bar */
+.admin-actions{
+  max-width:1180px;margin:10px auto 0 auto;padding:0 20px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.btn-primary{
+  background:var(--amber);color:var(--bg);font-weight:600;
+  padding:9px 18px;border-radius:8px;border:none;cursor:pointer;
+  transition:opacity 0.15s,transform 0.05s;
+}
+.btn-primary:hover{opacity:0.9;}
+.btn-primary:active{transform:scale(0.98);}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
+.published-stamp{
+  display:none;font-size:12px;color:var(--teal);
+  font-family:'IBM Plex Mono',monospace;
+}
+.admin-search-bar{
+  max-width:1180px;margin:14px auto 0 auto;padding:0 20px;
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  font-size:12px;
+}
+.admin-search-bar input[type="search"]{
+  flex:1;min-width:180px;padding:8px 12px;
+  background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;
+}
+.admin-search-bar input[type="search"]::placeholder{color:var(--ink-faint);}
+.admin-search-bar select{
+  padding:8px 12px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;
+  min-width:120px;
+}
+.admin-search-bar select:focus,
+.admin-search-bar input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
+
+/* League group collapse — hiding the fixture rows under a collapsed group */
+tbody.collapsed .league-row,
+tbody.collapsed .detail-row{
+  display:none;
+}
+
+/* Crests and flags */
+.crest{
+  width:18px;height:18px;border-radius:50%;object-fit:cover;
+  background:var(--surface-2);vertical-align:middle;margin-right:6px;
+  border:1px solid var(--line);flex:none;
+}
+.crest.placeholder{
+  border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:var(--ink-faint);background:var(--surface-2);
+}
+.flag{
+  width:22px;height:16px;border-radius:2px;object-fit:cover;
+  vertical-align:middle;margin-right:6px;flex:none;
+  border:1px solid var(--line);
+}
+.flag.placeholder{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:600;color:var(--ink-faint);background:var(--surface-2);
+}
+
+
+/* Sign-off feedback (static/js/signoff.js) — real colors for the once-undefined --danger/--success vars */
+.flag-line.success{color:var(--teal);}
+.flag-line.error{color:var(--coral);}

@@ -2,6 +2,9 @@
 
 Writes a self-contained folder (webapp/site/) that any static host can serve:
 GitHub Pages, Netlify, Cloudflare Pages, or just a double-clicked index.html.
+Sprint 4: the exported page now references external assets (css/js/fonts), so
+the static tree (webapp/static → site/static) is copied alongside index.html;
+the page uses asset_base="./static" so the relative links resolve from file://.
 
 SECURITY (Architect order 2026-08-07): the export is public — a static host
 cannot authenticate — so it is built from schema.trim_payload(). It contains
@@ -20,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import sys
 from datetime import date
 from pathlib import Path
@@ -28,6 +32,7 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 DEFAULT_OUT = Path(__file__).parent / "site"
+STATIC_SRC = Path(__file__).parent / "static"
 
 
 def export(date_str: str, out: Path) -> list[Path]:
@@ -45,8 +50,23 @@ def export(date_str: str, out: Path) -> list[Path]:
     out.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
 
+    # Sprint 4: copy the static tree (css/js/fonts) so the page's external
+    # asset references (./static/...) resolve. Underscore-prefixed entries are
+    # build tooling (_fetch_fonts.py, css/_fontface.css), not served runtime
+    # assets — skip them.
+    (out / "static").mkdir(parents=True, exist_ok=True)
+    for child in STATIC_SRC.iterdir():
+        if child.name.startswith("_"):
+            continue
+        dst = out / "static" / child.name
+        if child.is_dir():
+            shutil.copytree(child, dst, dirs_exist_ok=True)
+        else:
+            shutil.copy2(child, dst)
+    written.append(out / "static")
+
     (out / "index.html").write_text(
-        R.render_dashboard(client_payload), encoding="utf-8")
+        R.render_dashboard(client_payload, asset_base="./static"), encoding="utf-8")
     written.append(out / "index.html")
 
     (out / "board.json").write_text(

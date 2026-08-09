@@ -9,6 +9,7 @@ either. A real end-to-end check belongs in the stress test, not here.
 import os
 import sys
 import tempfile
+import unittest.mock as mock
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -55,9 +56,61 @@ assert handle("/produce nonsense").startswith("Usage: /produce bet"), \
     "unknown /produce subcommand must be refused"
 assert handle("/verify nonsense").startswith("Usage: /verify result"), \
     "unknown /verify subcommand must be refused"
-assert not any(w in BRIGHT_LINE_WORDS for w in ("produce", "verify")), \
+assert not any(w in BRIGHT_LINE_WORDS for w in ("produce", "verify", "search")), \
     "the new commands must never trip a bright-line word"
 print("/produce bet + /verify result registered, wrong subcommands refused: OK")
+
+# --- /produce search: fixture-select flow (Phase 5.2) ----------------------
+# The search path lazily imports webapp.produce and runs the engines, so this
+# suite must never execute it. Mock both entry points — the assertion under
+# test is the WIRING (query -> search_fixtures -> produce_selection -> Reply),
+# not the engine.
+assert handle("/produce search").startswith("Usage: /produce search"), \
+    "bare '/produce search' must ask for a team or league"
+assert handle("/produce nonsense").startswith("Usage: /produce bet"), \
+    "an unknown subcommand must still be refused"
+_fixtures = {"ok": True,
+             "leagues": [{"name": "Eredivisie",
+                          "fixtures": [{"home": "Sparta Rotterdam",
+                                        "away": "FC Utrecht",
+                                        "date": "2026-08-09"}]}],
+             "flags": []}
+_prod = {"ok": True,
+         "board": [{"fixture": "Sparta Rotterdam v FC Utrecht"}],
+         "rendered_text": "1. Sparta Rotterdam v FC Utrecht — Over 2.5 (52%)",
+         "flags": [], "elapsed_s": 1.2, "n_rated": 1, "n_deploy": 1}
+with mock.patch.object(tc, "_produce_season", return_value="2627"), \
+     mock.patch("webapp.produce.search_fixtures", return_value=_fixtures) as _sf, \
+     mock.patch("webapp.produce.produce_selection", return_value=_prod) as _ps:
+    reply = handle("/produce search Sparta")
+assert isinstance(reply, Reply), "a produced search must return a Reply"
+assert "PRODUCED FOR: \"Sparta\"" in reply, "reply must name the query"
+assert "Sparta Rotterdam v FC Utrecht" in reply, "reply must carry the blocks"
+assert "PREVIEW ONLY" in reply, "reply must stay honest about paper-only"
+assert not reply.startswith("SEARCH FAILED"), "mocked search must not fail"
+_sf.assert_called_once()
+_groups = _ps.call_args[0][0]
+assert _groups[0]["league"] == "Eredivisie", \
+    "the selection must carry the matched league"
+assert _groups[0]["fixtures"][0]["home"] == "Sparta Rotterdam", \
+    "the selection must carry the matched fixture"
+assert _ps.call_args.kwargs.get("season") == "2627", \
+    "production must use the same fixtures season as the search"
+assert reply.keyboard and "inline_keyboard" in reply.keyboard, \
+    "a produced search must offer the follow-up buttons"
+print("/produce search Sparta searched, produced, returned as a Reply: OK")
+
+# An empty search result must answer honestly and NEVER run the engines.
+with mock.patch.object(tc, "_produce_season", return_value="2627"), \
+     mock.patch("webapp.produce.search_fixtures",
+                return_value={"ok": True, "leagues": [], "flags": []}) as _sf2, \
+     mock.patch("webapp.produce.produce_selection") as _ps2:
+    miss = handle("/produce search ZzzNoTeamZzz")
+assert "No fixtures found" in miss and "NO DATA — PENDING" in miss, \
+    "an empty search must be honest NO DATA"
+assert _sf2.call_count == 1, "the query must reach the fixture search"
+assert not _ps2.called, "an empty search must never run the engines"
+print("empty search is honest NO DATA and never runs the engine: OK")
 
 # --- existing commands still registered -------------------------------------
 for cmd in ("/board", "/status", "/verify", "/why", "/log", "/note",
@@ -151,8 +204,6 @@ assert "Next scheduled run: 07:00 daily" in status_reply
 print("Inline keyboard + PIPELINE HEALTH block on /status: OK")
 
 # --- callback_query tap (Phase 5.1): answered, then routed as the command ----
-import unittest.mock as mock
-
 _update = {"update_id": 7,
            "callback_query": {"id": "cq1",
                               "from": {"id": 999, "is_bot": False,

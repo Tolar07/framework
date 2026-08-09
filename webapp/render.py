@@ -28,1233 +28,105 @@ from datetime import date as _date, datetime, timedelta as _timedelta
 from engine import markets as mkt
 from engine.softness import SOFTNESS_PAUSED
 
-# Google Fonts (Architect-approved): degrade gracefully to the system stacks
-# below when offline.
-_FONTS = """<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Sprint 4: font stylesheet is non-render-blocking (media=print + onload
-     swap). Text paints in fallbacks immediately, swaps when WOFF2 arrives;
-     `display=swap` in the URL does the no-fout swap. <noscript> keeps fonts
-     for no-JS clients. -->
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>"""
-
 # ─────────────────────────────────────────────────────────────────────────────
 # CSS — the ratified design tokens + components (admin superset; the client
 # view simply never uses the admin-only classes)
+#
+# Sprint 4: the FULL stylesheet lives in static/css/app.css (loaded by
+# assets.js — see html_shell). Only the above-the-fold critical subset is
+# inlined here so the page paints instantly and never flashes unstyled.
+# Fonts are self-hosted in static/fonts/ (@font-face in app.css) — the Google
+# CDN dependency is gone.
 # ─────────────────────────────────────────────────────────────────────────────
-_CSS = """
-:root{
-  --bg:#0B0E13;
-  --surface:#131822;
-  --surface-2:#1A2130;
-  --line:#232B3B;
-  --ink:#E7EAF0;
-  --ink-dim:#8B93A6;
-  --ink-faint:#7A8498;  /* WCAG AA: 4.6:1 on --bg (was #565F72 = 3.2:1) */
-  --amber:#D8A659;
-  --amber-dim:#8C744A;
-  --teal:#4FB894;
-  --coral:#E2634F;
-  --violet:#9089D6;
+_CRITICAL_CSS = """:root{
+  --bg:#0B0E13;--surface:#131822;--surface-2:#1A2130;--line:#232B3B;
+  --ink:#E7EAF0;--ink-dim:#8B93A6;--ink-faint:#7A8498; /* WCAG AA 4.6:1 on --bg */
+  --amber:#D8A659;--amber-dim:#8C744A;--teal:#4FB894;--coral:#E2634F;--violet:#9089D6;
   --radius:10px;
 }
 *{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{
-  margin:0;
-  background:
-    radial-gradient(circle at 15% 0%, #161d2b 0%, transparent 45%),
-    var(--bg);
-  color:var(--ink);
-  font-family:'Inter',sans-serif;
-  -webkit-font-smoothing:antialiased;
-  padding:0 0 88px 0; /* space for bottom tab bar */
+  margin:0;background:radial-gradient(circle at 15% 0%,#161d2b 0%,transparent 45%),var(--bg);
+  color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+  padding:0 0 88px 0; /* room for the fixed bottom tab bar */
 }
 .mono{font-family:'IBM Plex Mono',monospace;}
-.display{font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:0.02em;}
-
-header.top{
-  max-width:1180px;margin:0 auto;padding:28px 20px 18px 20px;
-  border-bottom:1px solid var(--line);
-}
+.display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.02em;}
+header.top{max-width:1180px;margin:0 auto;padding:28px 20px 18px 20px;border-bottom:1px solid var(--line);}
 .brand{display:flex;align-items:baseline;gap:10px;}
-.brand .mark{
-  width:8px;height:8px;background:var(--amber);border-radius:1px;
-  transform:rotate(45deg);flex:none;
-}
+.brand .mark{width:8px;height:8px;background:var(--amber);border-radius:1px;transform:rotate(45deg);flex:none;}
 .brand h1{font-size:22px;font-weight:700;margin:0;letter-spacing:0.04em;}
 .brand-link{display:flex;align-items:baseline;gap:10px;color:inherit;text-decoration:none;}
 .brand-link:hover h1{opacity:.85;transition:opacity .15s;}
-.brand-link .mark{transition:transform .15s;}
-.brand-link:hover .mark{transform:rotate(90deg);}
+.brand .phase{font-size:11px;color:var(--amber);border:1px solid var(--amber-dim);padding:2px 8px;border-radius:20px;margin-left:auto;font-family:'IBM Plex Mono',monospace;}
+.brand .phase.client{font-size:9.5px;color:var(--ink-dim);border-color:var(--line);letter-spacing:0.08em;}
 .crumbs{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:11.5px;color:var(--ink-faint);}
 .crumb-link a{color:var(--amber);text-decoration:none;}
-.crumb-link a:hover{text-decoration:underline;}
 .crumb-sep{color:var(--ink-faint);opacity:.5;}
 .crumb-current{color:var(--ink);font-weight:500;}
-.brand .phase{
-  font-size:11px;color:var(--amber);border:1px solid var(--amber-dim);
-  padding:2px 8px;border-radius:20px;margin-left:auto;font-family:'IBM Plex Mono',monospace;
-}
-/* Client header variant — quieter than the ADMIN pill, still never implied live */
-.brand .phase.client{
-  font-size:9.5px;color:var(--ink-dim);border-color:var(--line);
-  letter-spacing:0.08em;
-}
 .meta-row{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--ink-dim);flex-wrap:wrap;}
 .meta-row b{color:var(--ink);font-weight:600;}
-.date-nav{
-  display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap;
-  font-size:12px;color:var(--ink-dim);
-}
-.date-nav-btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:28px;height:28px;border:1px solid var(--line);border-radius:8px;
-  background:var(--surface);color:var(--ink);text-decoration:none;
-  transition:border-color 0.15s,background 0.15s;
-  position:relative; /* hit area extended to 44px via ::after */
-}
-.date-nav-btn::after{
-  content:"";position:absolute;top:50%;left:50%;
-  width:44px;height:44px;transform:translate(-50%,-50%);
-}
-.date-nav-btn:hover{border-color:var(--amber-dim);background:var(--surface-2);}
-/* Date picker: custom calendar icon + the native input stretched over the
-   whole field so a tap anywhere opens the calendar (touch-friendly). */
-.date-picker{position:relative;display:inline-flex;align-items:center;}
-.date-picker-ico{
-  position:absolute;left:9px;width:14px;height:14px;z-index:1;
-  stroke:var(--ink-dim);stroke-width:1.8;fill:none;pointer-events:none;
-}
-.date-nav-input{
-  padding:5px 8px 5px 28px;background:var(--surface-2);border:1px solid var(--line);
-  border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;
-  min-height:30px;
-}
-.date-nav-input:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
-.date-nav-input::-webkit-calendar-picker-indicator{
-  position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer;
-}
-.date-nav-today{
-  padding:5px 10px;border:1px solid var(--amber-dim);border-radius:8px;
-  color:var(--amber);text-decoration:none;font-size:11.5px;transition:opacity 0.15s;
-}
-.date-nav-today:hover{opacity:0.85;}
+.date-nav{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-dim);}
+.date-nav-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);text-decoration:none;position:relative;}
+.date-nav-btn::after{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%);}
+.date-nav-today{padding:5px 10px;border:1px solid var(--amber-dim);border-radius:8px;color:var(--amber);text-decoration:none;font-size:11.5px;}
 .date-nav-label{font-size:11.5px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
-.paper-strip{
-  max-width:1180px;margin:0 auto;padding:9px 20px;background:#1E1710;
-  border-bottom:1px solid #3A2E18;color:#D8A659;font-size:12px;text-align:center;
-  letter-spacing:0.03em;
-}
-
+.paper-strip{max-width:1180px;margin:0 auto;padding:9px 20px;background:#1E1710;border-bottom:1px solid #3A2E18;color:#D8A659;font-size:12px;text-align:center;letter-spacing:0.03em;}
 main{max-width:1180px;margin:0 auto;padding:0 20px;}
 section{margin-top:34px;}
 .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
 .sec-head h2{font-size:20px;margin:0;font-weight:700;letter-spacing:0.01em;}
 .sec-sub{font-size:12.5px;color:var(--ink-faint);margin:0 0 14px 0;}
-.cap-pill{
-  font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-dim);
-  border:1px solid var(--line);padding:2px 7px;border-radius:20px;
-}
-
-/* THE CALL — deploy shortlist cards */
-.call-card{
-  background:linear-gradient(180deg,#161C29,var(--surface));
-  border:1px solid var(--line);border-left:3px solid var(--amber);
-  border-radius:var(--radius);padding:16px 16px 14px 16px;margin-bottom:12px;
-  cursor:pointer;transition:border-color 0.15s;
-}
-.call-card:hover{border-color:var(--amber-dim);}
-/* THE CALL on a wide desktop is a responsive card grid; it collapses to one
-   column on a phone (minmax floor) and reflows to 2-3 columns as the window
-   widens. Applied to BOTH dashboards via _the_call. */
-.call-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-  gap:14px;align-items:stretch;
-}
-.call-grid .call-card{margin-bottom:0;display:flex;flex-direction:column;}
-.call-grid .call-card .full-analysis{margin-top:auto;padding-top:14px;}
-.call-card .expand-hint{
-  font-size:10.5px;color:var(--ink-faint);margin-top:10px;
-  display:flex;align-items:center;gap:5px;
-}
-.call-card .expand-hint .chevron{transition:transform 0.2s;}
-.call-card.open .expand-hint .chevron{transform:rotate(90deg);}
-.full-analysis{
-  display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
-}
-.call-card.open .full-analysis{display:block;}
-.market-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
-.market-row{
-  display:flex;justify-content:space-between;font-size:12.5px;
-  padding:6px 0;border-bottom:1px solid var(--line);
-}
-.market-row .m-name{color:var(--ink-dim);}
-.market-row .m-val{font-family:'IBM Plex Mono',monospace;color:var(--ink);font-weight:600;}
-.internals{
-  margin-top:14px;padding:12px;background:#0E1219;border:1px dashed var(--line);
-  border-radius:8px;
-}
-.internals .int-head{
-  font-size:10px;color:var(--violet);text-transform:uppercase;letter-spacing:0.06em;
-  margin-bottom:8px;font-family:'IBM Plex Mono',monospace;
-}
-.internals .int-row{font-size:12px;color:var(--ink-dim);padding:4px 0;line-height:1.5;}
-.internals .int-row b{color:var(--ink);}
-.divergence-warn{color:#E2634F;}
-@media (max-width:480px){.market-grid{grid-template-columns:1fr;}}
-
-.call-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
-.fixture-name{font-size:16px;font-weight:600;}
-.league-tag{font-size:11px;color:var(--ink-faint);margin-top:2px;}
-.tier-badge{
-  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--bg);
-  background:var(--amber);padding:3px 8px;border-radius:4px;font-weight:600;flex:none;
-}
-.pick-line{
-  margin-top:12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
-}
-.pick-label{font-size:14px;color:var(--ink);}
-.pick-prob{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-size:14px;font-weight:600;}
-.trigger{
-  margin-left:auto;text-align:right;font-family:'IBM Plex Mono',monospace;
-}
-.trigger .num{color:var(--amber);font-size:15px;font-weight:600;}
-.trigger .lbl{font-size:9.5px;color:var(--ink-faint);letter-spacing:0.06em;text-transform:uppercase;}
-.stamp-row{margin-top:10px;display:flex;gap:8px;align-items:center;}
-.stamp{
-  width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;flex:none;
-}
-.stamp.verified{background:rgba(79,184,148,0.15);color:var(--teal);border:1px solid var(--teal);}
-.stamp.single{background:rgba(216,166,89,0.12);color:var(--amber);border:1px solid var(--amber-dim);}
-.stamp.warn{background:rgba(226,99,79,0.15);color:var(--coral);border:1px solid var(--coral);}
-.stamp.na{background:rgba(86,95,114,0.15);color:var(--ink-faint);border:1px solid var(--line);}
-.stamp-note{font-size:11px;color:var(--ink-faint);}
-
-/* THE CALL tier-grouped sections (admin "show all the tiers") */
-.tier-section{margin-bottom:24px;}
-.tier-head{
-  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
-  border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:14px;
-}
-.tier-name{
-  font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;
-  letter-spacing:0.02em;color:var(--amber);font-weight:700;font-size:15px;
-}
-.tier-count{
-  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);
-  white-space:nowrap;
-}
-.tier-badge.deploy{
-  background:var(--teal);margin-left:6px;
-}
-.produce-summary{
-  margin-top:16px;padding:16px;background:var(--surface);
-  border:1px solid var(--line);border-radius:var(--radius);
-  font-size:12.5px;color:var(--ink-dim);line-height:1.7;
-}
-.produce-summary h3{margin:0 0 10px 0;font-size:14px;color:var(--ink);}
-.produce-summary ul{margin:0;padding-left:16px;}
-.produce-summary li{margin-bottom:6px;}
-.produce-summary b{color:var(--ink);}
-.produce-summary .honest-line{
-  margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);
-  color:var(--amber);font-size:12px;
-}
-
-/* THE SCAN — wide table */
-.scan-table{width:100%;border-collapse:collapse;font-size:12.5px;}
-/* Accumulator candidate rows — Tier A/B deploy-eligible, marked at top of each
-   league group (ID402: scan everything, highlight what could carry capital).
-   The left border accent + teal pill make the candidate pop from the scan. */
-.acc-row td{background:rgba(79,184,148,0.05);}
-.acc-row td:first-child{border-left:3px solid var(--teal);}
-.acc-row .scan-fixture{color:var(--teal);font-weight:600;}
-.acc-star{color:var(--teal);}
-.acc-pill{
-  display:inline-flex;align-items:center;gap:4px;
-  background:var(--teal);color:var(--bg);font-weight:700;
-  font-family:'IBM Plex Mono',monospace;font-size:8.5px;
-  letter-spacing:0.06em;text-transform:uppercase;
-  padding:2px 7px;border-radius:999px;margin-left:8px;flex:none;
-}
-.acc-pill svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
-.scan-table th{
-  text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;
-  color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.05em;
-  padding:0 8px 8px 8px;font-weight:500;border-bottom:1px solid var(--line);
-}
-.scan-table td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:middle;}
-.scan-table tr:last-child td{border-bottom:none;}
-.scan-fixture{font-weight:500;color:var(--ink);}
-.scan-league{display:block;font-size:10px;color:var(--ink-faint);margin-top:1px;}
-.scan-num{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);white-space:nowrap;}
-.scan-num .fav{color:var(--ink);}
-.nodata{color:var(--ink-faint);font-style:italic;font-size:11.5px;}
-.src-dot{
-  width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
-  font-size:9.5px;font-weight:700;
-}
-.src-dot.v{background:rgba(79,184,148,0.15);color:var(--teal);}
-.src-dot.s{background:rgba(216,166,89,0.12);color:var(--amber);}
-.src-dot.n{background:rgba(86,95,114,0.15);color:var(--ink-faint);}
-.scan-table tr.clickable{cursor:pointer;transition:background 0.12s;}
-.scan-table tr.clickable:hover{background:rgba(216,166,89,0.04);}
-.scan-table .chevron{color:var(--ink-faint);font-size:11px;transition:transform 0.2s;display:inline-block;margin-right:6px;}
-.scan-table tr.open .chevron{transform:rotate(90deg);}
-.detail-row td{padding:0;border-bottom:1px solid var(--line);}
-.detail-row .full-analysis{display:none;padding:14px 8px 16px 8px;}
-.detail-row.open .full-analysis{display:block;}
-/* Visible keyboard focus for the tabindex=0 rows/cards (Enter/Space toggle) */
-.scan-table tr[role="button"]:focus-visible td,
-.league-group-header:focus-visible td{
-  background:rgba(216,166,89,0.08);
-  box-shadow:inset 0 0 0 2px var(--amber);
-}
-.call-card:focus-visible{border-color:var(--amber);box-shadow:0 0 0 2px var(--amber);}
-.call-card:focus-visible{outline:none;}
-
-/* graded / verify results */
-.graded-row{
-  display:flex;align-items:center;gap:12px;padding:10px 0;
-  border-bottom:1px solid var(--line);font-size:13px;
-}
-.graded-row:last-child{border-bottom:none;}
-.hit-tag,.miss-tag,.pend-tag{
-  font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
-  padding:2px 7px;border-radius:4px;flex:none;
-}
-.hit-tag{background:rgba(79,184,148,0.15);color:var(--teal);}
-.miss-tag{background:rgba(226,99,79,0.15);color:var(--coral);}
-.pend-tag{background:rgba(86,95,114,0.15);color:var(--ink-faint);}
-.graded-ft{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);font-size:12px;margin-left:auto;}
-
-/* Live score display in produced bet block */
-.live-score{
-  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);
-  margin-left:auto;flex:none;
-}
-.live-score.has-score{
-  color:var(--teal);
-  animation:live-pulse 2s ease-in-out infinite;
-}
-@keyframes live-pulse{0%,100%{opacity:1;}50%{opacity:0.55;}}
-
-/* Skeleton loaders — shimmering placeholders shown while an async section
-   (produce run, chat reply, live-score fetch) is still loading. */
-.skeleton{
-  position:relative;overflow:hidden;border-radius:6px;
-  background:var(--surface-2);min-height:14px;
-}
-.skeleton::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(90deg,
-    rgba(255,255,255,0) 0%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0) 100%);
-  animation:shimmer 1.4s infinite;
-  transform:translateX(-100%);
-}
-@keyframes shimmer{to{transform:translateX(100%);}}
-.skeleton.card{min-height:72px;border-radius:var(--radius);}
-.skeleton.line{min-height:12px;margin:6px 0;}
-.skeleton.chat-bubble{min-height:34px;border-radius:12px 12px 12px 4px;max-width:220px;}
-
-/* data flags */
-.flags{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:14px 16px;
-}
-.flag-line{font-size:12px;color:var(--ink-dim);padding:5px 0;display:flex;gap:8px;}
-.flag-line .mk{color:var(--amber);flex:none;}
-
-/* Sprint 4: below-the-fold sections can skip layout/paint until scrolled near
-   (content-visibility:auto). contain-intrinsic-size keeps the scrollbar stable
-   while the section is skipped. Progressive enhancement — no-op in old browsers. */
-.cv-auto{content-visibility:auto;contain-intrinsic-size:auto 500px;}
-
-/* footer honest line */
-footer{
-  max-width:1180px;margin:40px auto 0 auto;padding:18px 20px 0 20px;
-  border-top:1px solid var(--line);
-}
-.honest{
-  font-size:12.5px;color:var(--ink-dim);line-height:1.6;text-align:center;
-  padding:14px 10px 4px 10px;
-}
-.honest b{color:var(--ink);}
-.gate{
-  display:flex;justify-content:center;gap:6px;align-items:center;
-  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);margin-top:10px;
-}
-.gate .bar{width:90px;height:4px;background:var(--line);border-radius:2px;overflow:hidden;}
-.gate .fill{height:100%;background:var(--amber-dim);width:0%;transform-origin:left;animation:gate-fill 1.2s ease-out 0.2s both;}
-/* Sprint 3.5: the gate bar fills left→right on load. scaleX leaves the inline
-   width untouched, so a later reload with a different % still animates fine. */
-@keyframes gate-fill{from{transform:scaleX(0);}to{transform:scaleX(1);}}
-
-/* Mobile (< 600px): the scan table becomes a stack of cards, one per fixture,
-   with each market column kept and labelled with its header text (shown via
-   ::before), so nothing is lost by dropping the table chrome. The league header
-   stays a card. Same markup — pure CSS transform. */
-@media (max-width:600px){
-  .scan-table,.scan-table thead,.scan-table tbody,
-  .scan-table tr,.scan-table td{display:block;}
-  .scan-table thead{display:none;}
-  .scan-table tbody.league-group{margin-bottom:16px;}
-  .scan-table tr.league-group-header td{padding:0;}
-  /* Fixture rows become cards */
-  .scan-table tr.clickable.league-row,
-  .scan-table tr.league-row{
-    display:flex;flex-wrap:wrap;align-items:center;
-    gap:4px 10px;padding:12px 12px 10px;
-    border:1px solid var(--line);border-radius:8px;
-    margin-bottom:6px;background:var(--surface);
-  }
-  .scan-table tr.league-row td{
-    display:flex;align-items:baseline;gap:6px;
-    border:none;padding:2px 0;font-size:12px;
-  }
-  .scan-table tr.league-row td:nth-child(1){flex:1 1 100%;padding-bottom:6px;}
-  .scan-table tr.league-row td:nth-child(n+2){flex:1 1 42%;min-width:0;}
-  /* Market column labels — mirrors the desktop header text */
-  .scan-table tr.league-row td::before{
-    font-family:'IBM Plex Mono',monospace;font-size:9px;
-    color:var(--ink-faint);letter-spacing:0.05em;text-transform:uppercase;
-    flex:none;min-width:42px;
-  }
-  .scan-table tr.league-row td:nth-child(2)::before{content:"1X2";}
-  .scan-table tr.league-row td:nth-child(3)::before{content:"Goals";}
-  .scan-table tr.league-row td:nth-child(4)::before{content:"DC/BTTS";}
-  .scan-table tr.league-row td:nth-child(5)::before{content:"Src";}
-  /* NO DATA rows span the card with a full-width message, no label */
-  .scan-table tr.league-row td.nodata{flex:1 1 100%;font-style:italic;}
-  .scan-table tr.league-row td.nodata::before{content:none;}
-  /* Detail rows expand below their card */
-  .scan-table tr.detail-row td{padding:0;}
-  .scan-table tr.detail-row .full-analysis{padding:10px 12px;}
-  /* League header card — let meta wrap below the name on narrow screens.
-     Chevron keeps a real column (col 3); name/meta/season stack in col 2. */
-  .league-card{grid-template-columns:auto 1fr auto;grid-template-rows:auto auto auto;}
-  .league-card .league-meta{grid-column:2/3;grid-row:2;justify-content:flex-start;}
-  .league-card .league-season{grid-column:2/3;grid-row:3;}
-  .league-card .league-chevron{grid-row:1/4;grid-column:3;}
-}
-
-/* Legacy ≤480px compactness kept for the market grid inside expanded cards */
-@media (max-width:480px){
-  .scan-table{font-size:11.5px;}
-}
-
-/* Bottom tab bar — ScoreAI-style with pill active state */
-.tab-bar{
-  position:fixed;bottom:0;left:0;right:0;z-index:100;
-  display:flex;background:var(--surface);
-  border-top:1px solid var(--line);
-  padding:8px env(safe-area-inset-bottom) 8px env(safe-area-inset-left);
-  gap:6px;
-}
-.tab-btn{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
-  min-height:44px; /* WCAG 2.5.5 minimum touch target */
-  padding:10px 12px;border:none;background:transparent;color:var(--ink-dim);
-  font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
-  border-radius:var(--radius);cursor:pointer;
-  transition:color 0.15s,background 0.15s,border-color 0.15s;
-}
-.tab-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;flex:none;}
-.tab-btn.active{
-  background:rgba(216,166,89,0.1);border:1px solid var(--amber-dim);
-  color:var(--amber);font-weight:600;
-}
-.tab-btn:not(.active):hover{color:var(--ink);background:rgba(255,255,255,0.03);}
+.cap-pill{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-dim);border:1px solid var(--line);padding:2px 7px;border-radius:20px;}
+.hero-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:0.04em;margin:0 0 12px 0;}
+.hero-match{margin-bottom:14px;}
+.hero-teams{font-size:18px;font-weight:600;color:var(--ink);}
+.hero-league{display:block;font-size:11px;color:var(--ink-faint);margin-top:4px;}
+.hero{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:6px;}
+#call-section,#produced-section,#acca-section,#scan-section,#search-section,#flags-section,#verified-section,#phase3-gate-section{scroll-margin-top:16px;}
+.hero-pick{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;background:rgba(79,184,148,0.1);border:1px solid var(--teal);border-radius:999px;margin-bottom:16px;}
+.hero-team{font-size:16px;font-weight:600;color:var(--teal);}
+.hero-confidence{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--ink);}
+.hero-cta{display:inline-block;padding:10px 22px;background:var(--amber);color:var(--bg);font-weight:600;border-radius:8px;text-decoration:none;}
+.tab-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;background:var(--surface);border-top:1px solid var(--line);padding:8px env(safe-area-inset-bottom) 8px env(safe-area-inset-left);gap:6px;}
+.tab-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 12px;border:none;background:transparent;color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;border-radius:var(--radius);cursor:pointer;}
+.tab-btn.active{background:rgba(216,166,89,0.1);border:1px solid var(--amber-dim);color:var(--amber);font-weight:600;}
 .tab-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
-@media (max-width:480px){
-  .tab-btn{min-height:44px;padding:10px 8px;font-size:11px;}
-}
-
-/* Date scroller pills */
-.date-pills{
-  display:flex;gap:6px;padding:10px 20px;overflow-x:auto;
-  -webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
-  scrollbar-width:thin;scrollbar-color:var(--line) transparent;
-}
-.date-pill{
-  flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;
-  background:var(--surface);color:var(--ink);font-size:11.5px;
-  font-family:'IBM Plex Mono',monospace;white-space:nowrap;
-  text-decoration:none;scroll-snap-align:start;
-  transition:border-color 0.15s,background 0.15s,color 0.15s;
-}
-.date-pill:hover{border-color:var(--amber-dim);background:var(--surface-2);}
-.date-pill.today{
-  border-color:var(--amber);color:var(--amber);background:rgba(216,166,89,0.1);
-  font-weight:600;
-}
-
-/* Select Markets panel (admin) — ScoreAI collapsible style */
-.market-select-panel{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  margin-bottom:16px;overflow:hidden;
-}
-.market-select-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 16px;cursor:pointer;
-  transition:background 0.15s;
-}
-.market-select-header:hover{background:rgba(255,255,255,0.02);}
-.market-select-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);}
-.market-select-title svg{width:18px;height:18px;color:var(--amber);flex:none;}
-.market-select-chevron{color:var(--ink-faint);font-size:12px;transition:transform 0.2s;flex:none;}
-.market-select-panel.collapsed .market-select-chevron{transform:rotate(-90deg);}
-/* Smooth open/close: max-height transition instead of display:none snap */
-.market-select-body{
-  padding:0 16px 14px 16px;
-  max-height:420px;overflow:hidden;opacity:1;
-  transition:max-height 0.25s ease,opacity 0.2s ease,padding 0.25s ease;
-}
-.market-select-panel.collapsed .market-select-body{
-  max-height:0;padding:0 16px;opacity:0;
-}
-.market-checkbox input{transition:transform 0.12s;}
-.market-checkbox input:active{transform:scale(1.25);}
-.market-select-actions{display:flex;gap:10px;margin-bottom:10px;}
-.market-select-action{
-  font-size:12px;padding:6px 4px;border:none;background:transparent;
-  color:var(--amber);cursor:pointer;font-weight:500;
-  min-height:24px;display:inline-flex;align-items:center;
-}
-.market-select-action:hover{text-decoration:underline;}
-.market-select-action:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
-.market-checkboxes{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;}
-.market-checkbox{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink);}
-.market-checkbox input{width:16px;height:16px;accent-color:var(--amber);flex:none;}
-
-/* AI Analyst chat tab */
-.chat-tab{
-  position:fixed;bottom:0;left:0;right:0;z-index:200;max-width:1180px;
-  margin:0 auto;padding:0 20px 88px 20px;
-}
-.chat-tab.hidden{display:none;}
-/* Floating opener for the AI Analyst — the only path into the chat panel */
-.chat-fab{
-  position:fixed;right:20px;bottom:100px;z-index:190;
-  display:inline-flex;align-items:center;gap:8px;
-  min-height:44px; /* WCAG 2.5.5 minimum touch target */
-  padding:11px 16px;border-radius:999px;border:1px solid var(--amber-dim);
-  background:var(--surface);color:var(--ink);font-size:13px;font-weight:600;
-  cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.35);
-  transition:border-color 0.15s,color 0.15s,transform 0.05s;
-}
-.chat-fab:hover{border-color:var(--amber);color:var(--amber);}
-.chat-fab:active{transform:scale(0.98);}
+.chat-fab{position:fixed;right:20px;bottom:86px;z-index:101;display:inline-flex;align-items:center;gap:8px;padding:0 16px;min-height:44px;border:1px solid var(--amber-dim);border-radius:999px;background:var(--surface);color:var(--amber);font-size:12px;font-weight:600;cursor:pointer;}
 .chat-fab:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
 .chat-fab .fab-ico{font-size:15px;line-height:1;}
-.chat-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 16px;background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--radius) var(--radius) 0 0;
-}
-.chat-title{font-size:14px;font-weight:600;color:var(--ink);}
-.chat-close{
-  background:none;border:none;color:var(--ink-dim);font-size:20px;cursor:pointer;
-  min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
-}
-.chat-close:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
-.chat-messages{
-  flex:1;overflow-y:auto;padding:16px;background:var(--bg);
-  border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);
-  max-height:300px;display:flex;flex-direction:column;gap:12px;
-}
-.chat-message{display:flex;gap:8px;max-width:85%;}
-.chat-message.user{align-self:flex-end;flex-direction:row-reverse;}
-.chat-message .bubble{
-  padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5;
-}
-.chat-message.assistant .bubble{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px;}
-.chat-message.user .bubble{background:var(--amber);color:var(--bg);border-bottom-right-radius:4px;}
-/* Per-message timestamp — small, faint, tucked under the bubble text */
-.msg-time{
-  display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
-  opacity:0.55;margin-top:5px;
-}
-.chat-message.user .msg-time{color:var(--bg);}
-.chat-message.assistant .msg-time{color:var(--ink-dim);}
-/* Pending assistant reply — skeleton shimmer inside the bubble */
-.chat-message.pending .bubble{padding:12px 14px;min-width:180px;}
-.chat-message.pending .skeleton{border:none;}
-.chat-input-area{display:flex;gap:8px;padding:12px;background:var(--surface);border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);}
-.chat-input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid var(--line);border-radius:999px;color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
-.chat-input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
-.chat-send{padding:10px 18px;background:var(--amber);color:var(--bg);border:none;border-radius:999px;font-weight:600;cursor:pointer;}
-.chat-send:disabled{opacity:0.5;cursor:not-allowed;}
-.chat-quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 12px 12px;}
-.chat-quick-btn{
-  font-size:11px;min-height:30px;padding:6px 10px;border:1px solid var(--line);
-  border-radius:999px;background:var(--surface-2);color:var(--ink);cursor:pointer;
-}
-.chat-quick-btn:hover{border-color:var(--amber);}
-.chat-quick-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
-
-/* Fixture card — ScoreAI schedule layout (badge — team — vs — team — badge) */
-.fixture-card{
-  display:flex;align-items:center;gap:12px;padding:14px 16px;
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  margin-bottom:8px;transition:border-color 0.15s;
-}
-.fixture-card:hover{border-color:var(--amber-dim);}
-.fixture-card .crest{width:32px;height:32px;}
-.fixture-card .teams{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:14px;
-}
-.fixture-card .team{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:80px;}
-.fixture-card .team-name{font-weight:600;font-size:13px;color:var(--ink);text-align:center;}
-.fixture-card .vs{color:var(--ink-faint);font-size:11px;font-weight:700;letter-spacing:0.05em;}
-.fixture-card .meta{
-  display:flex;flex-direction:column;align-items:flex-end;gap:4px;
-  font-size:11px;color:var(--ink-dim);min-width:50px;
-}
-.fixture-card .kickoff{font-family:'IBM Plex Mono',monospace;font-weight:500;}
-.fixture-card .star{
-  color:var(--ink-faint);cursor:pointer;font-size:16px;
-  transition:color 0.15s,transform 0.15s;
-  position:relative;line-height:1;
-  padding:0 10px;margin-right:-10px; /* 44px hit area around the glyph */
-  min-height:44px;display:inline-flex;align-items:center;
-}
-.fixture-card .star.active{color:var(--amber);transform:scale(1.15);}
-.fixture-card .star:hover{color:var(--amber);}
-
-/* Produce panel — Search → Select → Produce (admin Search tab) */
-.produce-panel{margin-top:12px;}
-.produce-toolbar{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
-.produce-toolbar select,.produce-toolbar input{
-  padding:8px 12px;background:var(--surface-2);border:1px solid var(--line);
-  border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;font-size:12px;
-}
-.produce-toolbar input{flex:1;min-width:180px;}
-.produce-toolbar select:focus,.produce-toolbar input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
-.produce-results{max-height:400px;overflow-y:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg);}
-.produce-league-group{padding:8px 12px;}
-.produce-league-name{font-size:12px;font-weight:600;color:var(--amber);margin-bottom:6px;padding:4px 0;border-bottom:1px solid var(--line);}
-.produce-item{display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;transition:background 0.12s;}
-.produce-item:hover{background:rgba(216,166,89,0.04);}
-.produce-item:has(input:checked){background:rgba(216,166,89,0.08);} /* selected-state ripple (Sprint 3.4) */
-.produce-item:has(input:checked) .produce-item-meta{color:var(--amber);}
-.produce-item input{width:16px;height:16px;accent-color:var(--amber);flex:none;}
-.produce-item-text{font-size:12.5px;color:var(--ink);flex:1;}
-.produce-item-meta{font-size:11px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
-.produce-tray{
-  display:flex;align-items:center;gap:12px;padding:12px 16px;
-  background:var(--surface);border:1px solid var(--amber-dim);border-radius:var(--radius);
-  margin-top:12px;
-}
-.produce-tray .btn-primary{flex:none;}
-.produce-result{
-  margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);
-  background:var(--bg);overflow:hidden;
-}
-.produce-result-header{
-  display:flex;align-items:center;gap:12px;padding:12px 16px;
-  background:var(--surface);border-bottom:1px solid var(--line);
-  font-size:12px;color:var(--ink-dim);
-}
-.produce-flags{padding:8px 16px;}
-.produce-cards{padding:12px 16px;}
-
-/* Produce day picker — "produce the bet for that day" chips + date input */
-.produce-day-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
-.produce-day-chip{
-  font-size:11.5px;padding:6px 12px;border:1px solid var(--line);
-  border-radius:999px;background:var(--surface-2);color:var(--ink-dim);
-  cursor:pointer;transition:border-color 0.15s,color 0.15s;
-}
-.produce-day-chip:hover{border-color:var(--amber-dim);color:var(--amber);}
-.produce-day-chip.active{border-color:var(--amber);color:var(--amber);background:rgba(216,166,89,0.1);}
-
-/* Produce results — Select All + per-league controls */
-.produce-results-header{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  padding:8px 12px;background:var(--surface-2);border:1px solid var(--line);
-  border-radius:var(--radius);margin-bottom:10px;font-size:12px;
-}
-.produce-select-all,.produce-clear-all,.produce-league-select-all,.produce-league-clear{
-  font-size:11px;padding:5px 10px;border:1px solid var(--line);
-  border-radius:6px;background:var(--surface);color:var(--ink-dim);
-  cursor:pointer;transition:border-color 0.15s,color 0.15s;
-}
-.produce-select-all:hover,.produce-clear-all:hover,
-.produce-league-select-all:hover,.produce-league-clear:hover{
-  border-color:var(--amber-dim);color:var(--amber);
-}
-.produce-count-display{margin-left:auto;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
-.produce-count-display.pop{animation:produce-pop 0.25s ease;}
-@keyframes produce-pop{0%{transform:scale(1);color:var(--amber);}100%{transform:scale(1);color:var(--ink-faint);}}
-
-.produce-league-group{margin-bottom:16px;}
-.produce-league-header{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  margin-bottom:8px;padding:8px 12px;
-  background:var(--surface-2);border:1px solid var(--line);
-  border-radius:var(--radius);font-size:12px;
-}
-.produce-league-name{font-weight:600;color:var(--ink);}
-.produce-league-select-all,.produce-league-clear{
-  margin-left:auto;font-size:11px;padding:4px 8px;
-}
-tbody.league-group{width:100%;}
-.league-group-header{cursor:pointer;}
-.league-group-header .league-card{
-  display:grid;grid-template-columns:auto auto 1fr auto;grid-template-rows:auto auto;
-  align-items:center;gap:6px 14px;
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:16px;margin:6px 0;transition:border-color 0.15s;
-}
-.league-group-header:hover .league-card{border-color:var(--amber-dim);}
-.league-card .league-badge{grid-row:1/3;width:44px;height:44px;border-radius:10px;}
-.league-card .league-name{font-size:16px;font-weight:700;color:var(--ink);line-height:1.1;}
-.league-card .league-season{font-size:12px;color:var(--ink-dim);}
-.league-card .league-meta{
-  display:flex;align-items:center;gap:12px;font-size:11px;color:var(--ink-faint);
-  grid-column:3/4;
-}
-.league-card .league-meta span{display:flex;align-items:center;gap:4px;}
-.league-card .league-meta svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;}
-.league-card .league-chevron{
-  grid-row:1/3;grid-column:4;justify-self:end;
-  color:var(--amber);font-size:14px;transition:transform 0.2s;flex:none;
-}
-tbody.collapsed .league-chevron{transform:rotate(-90deg);}
-.league-group-header:hover .league-group{background:rgba(216,166,89,0.12);}
-.league-group-toggle{color:var(--amber);font-size:14px;transition:transform 0.2s;flex:none;}
-tbody.collapsed .league-group-toggle{transform:rotate(-90deg);}
-.league-group-badge{display:inline-flex;align-items:center;flex:none;}
-.league-group-badge .flag{margin-right:0;}
-.league-group-name{font-weight:600;color:var(--ink);text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.02em;flex:1;}
-.league-group-count{color:var(--ink-faint);font-size:11px;font-family:'IBM Plex Mono',monospace;}
-
-/* Hero section (client view) */
-.hero-date{
-  font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-faint);
-  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;
-}
-.hero-title{
-  font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;
-  color:var(--amber);text-transform:uppercase;letter-spacing:0.04em;margin:0 0 12px 0;
-}
-.hero-match{
-  margin-bottom:14px;
-}
-.hero-teams{
-  font-size:18px;font-weight:600;color:var(--ink);
-}
-.hero-league{
-  display:block;font-size:11px;color:var(--ink-faint);margin-top:4px;
-}
-/* Hero sits apart from The Call below — bottom rule gives it a clean edge,
-   and scroll-behavior:smooth makes the CTA glide to the scan board. */
-html{scroll-behavior:smooth;}
-.hero{
-  border-bottom:1px solid var(--line);
-  padding-bottom:26px;margin-bottom:6px;
-}
-#call-section,#produced-section,#acca-section,#scan-section,#search-section,
-#flags-section,#verified-section,#phase3-gate-section{scroll-margin-top:16px;}
-.hero-pick{
-  display:inline-flex;align-items:center;gap:10px;padding:10px 18px;
-  background:rgba(79,184,148,0.1);border:1px solid var(--teal);
-  border-radius:999px;margin-bottom:16px;
-}
-.hero-team{font-size:16px;font-weight:600;color:var(--teal);}
-.hero-confidence{
-  font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--ink);
-}
-.hero-cta{
-  display:inline-block;padding:10px 22px;background:var(--amber);color:var(--bg);
-  font-weight:600;border-radius:8px;text-decoration:none;transition:opacity 0.15s;
-}
-.hero-cta:hover{opacity:0.9;}
-
-/* Admin actions + search bar */
-.admin-actions{
-  max-width:1180px;margin:10px auto 0 auto;padding:0 20px;
-  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-}
-.btn-primary{
-  background:var(--amber);color:var(--bg);font-weight:600;
-  padding:9px 18px;border-radius:8px;border:none;cursor:pointer;
-  transition:opacity 0.15s,transform 0.05s;
-}
-.btn-primary:hover{opacity:0.9;}
-.btn-primary:active{transform:scale(0.98);}
-.btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
-.published-stamp{
-  display:none;font-size:12px;color:var(--teal);
-  font-family:'IBM Plex Mono',monospace;
-}
-.admin-search-bar{
-  max-width:1180px;margin:14px auto 0 auto;padding:0 20px;
-  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
-  font-size:12px;
-}
-.admin-search-bar input[type="search"]{
-  flex:1;min-width:180px;padding:8px 12px;
-  background:var(--surface-2);border:1px solid var(--line);
-  border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;
-}
-.admin-search-bar input[type="search"]::placeholder{color:var(--ink-faint);}
-.admin-search-bar select{
-  padding:8px 12px;background:var(--surface-2);border:1px solid var(--line);
-  border-radius:8px;color:var(--ink);font-family:'Inter',sans-serif;
-  min-width:120px;
-}
-.admin-search-bar select:focus,
-.admin-search-bar input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
-
-/* League group collapse — hiding the fixture rows under a collapsed group */
-tbody.collapsed .league-row,
-tbody.collapsed .detail-row{
-  display:none;
-}
-
-/* Crests and flags */
-.crest{
-  width:18px;height:18px;border-radius:50%;object-fit:cover;
-  background:var(--surface-2);vertical-align:middle;margin-right:6px;
-  border:1px solid var(--line);flex:none;
-}
-.crest.placeholder{
-  border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
-  font-size:9px;font-weight:700;color:var(--ink-faint);background:var(--surface-2);
-}
-.flag{
-  width:22px;height:16px;border-radius:2px;object-fit:cover;
-  vertical-align:middle;margin-right:6px;flex:none;
-  border:1px solid var(--line);
-}
-.flag.placeholder{
-  display:inline-flex;align-items:center;justify-content:center;
-  font-size:9px;font-weight:600;color:var(--ink-faint);background:var(--surface-2);
-}
-
-"""
-
-_SCAN_JS = """<script>
-  // Row expand/collapse for the full-analysis detail row.
-  // The fixture row is a real table row, so for keyboard access it also gets
-  // role=button + tabindex=0 (set in _scan_table) and responds to
-  // Enter/Space the same as a click.
-  function toggleScanRow(id){
-    var row = document.getElementById(id);
-    var trigger = row ? row.previousElementSibling : null;
-    if (row) row.classList.toggle('open');
-    if (trigger) trigger.classList.toggle('open');
-    updateScanRowA11y(row, trigger);
-  }
-  function updateScanRowA11y(row, trigger) {
-    if (!row || !trigger) return;
-    var open = row.classList.contains('open');
-    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    var region = row.querySelector('.full-analysis');
-    if (region) region.setAttribute('aria-hidden', open ? 'false' : 'true');
-  }
-  // Enter/Space on a fixture row toggles it — mirror the onclick behaviour
-  // without relying on event bubbling from a keypress on the cell.
-  function onScanRowKey(e) {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    e.preventDefault();
-    var id = e.currentTarget.getAttribute('data-target');
-    if (id) toggleScanRow(id);
-  }
-  // THE CALL cards — same expand/collapse pattern as scan rows, with
-  // aria-expanded kept in sync (keyboard + click share one code path).
-  function toggleCallCard(card) {
-    card.classList.toggle('open');
-    var open = card.classList.contains('open');
-    card.setAttribute('aria-expanded', open ? 'true' : 'false');
-    var region = card.querySelector('.full-analysis');
-    if (region) region.setAttribute('aria-hidden', open ? 'false' : 'true');
-  }
-  function onCallCardKey(e) {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    e.preventDefault();
-    toggleCallCard(e.currentTarget);
-  }
-  // League group collapse is wired inline on each header row
-  // (onclick toggles 'collapsed' on the parent tbody). Keyboard support +
-  // aria-expanded on the header cell.
-  function onLeagueGroupKey(e) {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    e.preventDefault();
-    var tbody = e.currentTarget.parentElement;
-    if (!tbody) return;
-    tbody.classList.toggle('collapsed');
-    updateLeagueGroupA11y(tbody);
-  }
-  function updateLeagueGroupA11y(tbody) {
-    var header = tbody.querySelector('.league-group-header');
-    var btn = tbody.querySelector('.league-group-toggle');
-    if (!header) return;
-    var open = !tbody.classList.contains('collapsed');
-    header.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (btn) btn.setAttribute('aria-hidden', open ? 'false' : 'true');
-  }
-</script>"""
-
-_PUBLISH_JS = """<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var btn = document.querySelector('.publish-btn');
-    var stamp = document.querySelector('.published-stamp');
-    if (btn) {
-      btn.addEventListener('click', function() {
-        var d = btn.getAttribute('data-date');
-        if (!d) return;
-        btn.disabled = true;
-        btn.textContent = 'Publishing…';
-        fetch('/api/admin/publish', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({date: d})
-        }).then(function(r){ return r.json(); })
-          .then(function(data) {
-            if (data.ok) {
-              btn.style.display = 'none';
-              if (stamp) stamp.style.display = 'block';
-            } else {
-              btn.disabled = false;
-              btn.textContent = 'Approve → Publish to Client';
-              alert('Publish failed: ' + (data.error || 'unknown'));
-            }
-          }).catch(function(e) {
-            btn.disabled = false;
-            btn.textContent = 'Approve → Publish to Client';
-            alert('Network error: ' + e);
-          });
-      });
-    }
-  });
-</script>"""
-
-_ADMIN_SEARCH_JS = """<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var input = document.getElementById('admin-search');
-    var leagueSel = document.getElementById('admin-filter-league');
-    var tierSel = document.getElementById('admin-filter-tier');
-    var marketSel = document.getElementById('admin-filter-market');
-    var statusSel = document.getElementById('admin-filter-status');
-    var allRows = document.querySelectorAll('table.scan-table tbody tr.clickable');
-    var allDetail = document.querySelectorAll('table.scan-table tbody tr.detail-row');
-    function filter() {
-      var q = (input?.value || '').toLowerCase();
-      var league = leagueSel?.value || '';
-      var tier = tierSel?.value || '';
-      var market = marketSel?.value || '';
-      var status = statusSel?.value || '';
-      allRows.forEach(function(tr, i) {
-        var txt = tr.textContent.toLowerCase();
-        var bf = tr.dataset;
-        var ok = true;
-        if (q && !txt.includes(q)) ok = false;
-        if (league && bf.league !== league) ok = false;
-        if (tier && bf.tier !== tier) ok = false;
-        if (market && bf.market !== market) ok = false;
-        if (status && bf.status !== status) ok = false;
-        tr.style.display = ok ? '' : 'none';
-        if (allDetail[i]) allDetail[i].style.display = ok ? '' : 'none';
-      });
-    }
-    // Sprint 4: the free-text field is debounced (150ms) so each keystroke
-    // doesn't reflow the whole table; the discrete selects filter immediately.
-    function debounce(fn, ms) {
-      var t;
-      return function() { var args = arguments, self = this; clearTimeout(t); t = setTimeout(function() { fn.apply(self, args); }, ms); };
-    }
-    if (input) input.addEventListener('input', debounce(filter, 150));
-    [leagueSel, tierSel, marketSel, statusSel].forEach(function(el) {
-      if (el) el.addEventListener('change', filter);
-    });
-  });
-</script>"""
-
-_CLIENT_SEARCH_JS = """<script>
-  // Client Search tab — live filter over the scan table in #search-section.
-  // Works on the trimmed payload only (team/league text already on the page),
-  // so the data-leak boundary (no model internals) is untouched.
-  document.addEventListener('DOMContentLoaded', function() {
-    var input = document.getElementById('client-search');
-    if (!input) return;
-    var leagueSel = document.getElementById('client-filter-league');
-    var groups = document.querySelectorAll('#search-section table.scan-table tbody.league-group');
-    var summary = document.getElementById('client-search-summary');
-    function filter() {
-      var q = (input.value || '').toLowerCase();
-      var league = leagueSel.value || '';
-      var shown = 0;
-      groups.forEach(function(tb) {
-        var any = false;
-        var lastOk = true;
-        tb.querySelectorAll('tr').forEach(function(tr) {
-          if (tr.classList.contains('league-row')) {
-            var txt = tr.textContent.toLowerCase();
-            var ok = true;
-            if (q && !txt.includes(q)) ok = false;
-            if (league && tr.dataset.league !== league) ok = false;
-            tr.style.display = ok ? '' : 'none';
-            if (ok) any = true;
-            lastOk = ok;
-          } else if (tr.classList.contains('detail-row')) {
-            // A detail row always immediately follows its fixture row
-            tr.style.display = lastOk ? '' : 'none';
-          }
-        });
-        tb.style.display = any ? '' : 'none';
-        if (any) shown++;
-      });
-      if (summary) {
-        summary.innerHTML = shown
-          ? '<div class="flag-line">' + shown + ' league' + (shown === 1 ? '' : 's') + ' match your search.</div>'
-          : '<div class="flag-line">No fixtures match — try another team or league.</div>';
-      }
-    }
-    // Sprint 4: debounce keystrokes (150ms) so a fast typist doesn't run the
-    // filter for every char — reflow cost is O(board), the page stays responsive.
-    function debounce(fn, ms) {
-      var t;
-      return function() { var args = arguments, self = this; clearTimeout(t); t = setTimeout(function() { fn.apply(self, args); }, ms); };
-    }
-    input.addEventListener('input', debounce(filter, 150));
-    if (leagueSel) leagueSel.addEventListener('change', filter);
-
-    // Live scores polling for produced bet block
-    function fetchLiveScores() {
-      var scoreEls = document.querySelectorAll('.live-score[data-fixture]');
-      if (!scoreEls.length) return;
-      // Collect unique leagues from the fixture elements
-      var leagues = new Set();
-      scoreEls.forEach(function(el) {
-        var text = el.closest('.graded-row').textContent;
-        var match = text.match(/\\(([^)]+)\\)$/);
-        if (match) leagues.add(match[1]);
-      });
-      if (!leagues.size) return;
-      fetch('/api/live-scores', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({leagues: Array.from(leagues)})
-      }).then(function(r) { return r.json(); })
-        .then(function(data) {
-          if (!data.ok) return;
-          scoreEls.forEach(function(el) {
-            var fixture = el.dataset.fixture;
-            var date = el.dataset.date;
-            // Try multiple key formats
-            var keys = [
-              fixture + '|' + date,
-              fixture.replace(' vs ', '|') + '|' + date,
-            ];
-            var score = null;
-            for (var k of keys) {
-              if (data.scores[k]) { score = data.scores[k]; break; }
-            }
-            if (score) {
-              el.textContent = 'LIVE — ' + score;
-              el.classList.add('has-score');
-            }
-          });
-        }).catch(function() {});
-    }
-    // Poll every 30 seconds
-    setInterval(fetchLiveScores, 30000);
-    fetchLiveScores();
-  });
-</script>"""
-
-_TAB_JS = """<script>
-  // WAI-ARIA tab pattern: roving tabindex (active tab is the only one in the
-  // tab order), aria-selected reflects the visible panel, and Left/Right arrow
-  // keys move between tabs. The matching section gets role=tabpanel +
-  // aria-labelledby on first activation.
-  function switchTab(tabId) {
-    // Only toggle Call/Scan/Search — flags + verified stay visible always
-    var tabSections = ['call-section', 'scan-section', 'search-section'];
-    tabSections.forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) {
-        el.style.display = (id === tabId + '-section') ? 'block' : 'none';
-        if (id === tabId + '-section') {
-          el.setAttribute('role', 'tabpanel');
-          el.setAttribute('aria-labelledby', 'tab-' + tabId);
-        }
-      }
-    });
-    // Update tab buttons: selected state + roving tabindex
-    document.querySelectorAll('.tab-btn').forEach(function(btn) {
-      var isActive = btn.dataset.tab === tabId;
-      btn.classList.toggle('active', isActive);
-      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      btn.setAttribute('tabindex', isActive ? '0' : '-1');
-    });
-    window.scrollTo(0, 0);
-  }
-  function onTabKey(e) {
-    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
-    var idx = tabs.indexOf(e.currentTarget);
-    if (idx === -1) return;
-    var to = -1;
-    if (e.key === 'ArrowRight') to = (idx + 1) % tabs.length;
-    else if (e.key === 'ArrowLeft') to = (idx - 1 + tabs.length) % tabs.length;
-    if (to === -1) return;
-    e.preventDefault();
-    tabs[to].focus();
-    switchTab(tabs[to].dataset.tab);
-  }
-  function navTab(tabId, e) {
-    if (e) e.preventDefault();
-    switchTab(tabId);
-    return false;
-  }
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.tab-btn').forEach(function(btn) {
-      btn.setAttribute('id', 'tab-' + btn.dataset.tab);
-      btn.addEventListener('keydown', onTabKey);
-    });
-    var hash = window.location.hash.slice(1);
-    if (hash && ['call', 'scan', 'search'].includes(hash)) {
-      switchTab(hash);
-    }
-  });
-  window.addEventListener('hashchange', function() {
-    var h = location.hash.slice(1);
-    if (['call','scan','search'].includes(h)) switchTab(h);
-  });
-</script>"""
-
-_CHAT_JS = """<script>
-  function openChatTab() {
-    document.getElementById('chat-tab').classList.remove('hidden');
-    var fab = document.getElementById('chat-fab');
-    if (fab) fab.style.display = 'none';
-    document.getElementById('chat-input').focus();
-  }
-  function closeChatTab() {
-    document.getElementById('chat-tab').classList.add('hidden');
-    var fab = document.getElementById('chat-fab');
-    if (fab) fab.style.display = '';
-  }
-  function getBoardDate() {
-    var tab = document.getElementById('chat-tab');
-    return tab ? (tab.getAttribute('data-date') || '') : '';
-  }
-  function timeNow() {
-    var d = new Date();
-    var h = d.getHours(), m = d.getMinutes();
-    return (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m);
-  }
-  function sendChatMessage() {
-    var input = document.getElementById('chat-input');
-    var msg = input.value.trim();
-    if (!msg) return;
-    appendMessage('user', msg);
-    input.value = '';
-    document.getElementById('chat-send').disabled = true;
-    // Pending bubble — skeleton shimmer replaces the inline "thinking" text.
-    var container = document.getElementById('chat-messages');
-    var pending = document.createElement('div');
-    pending.className = 'chat-message assistant pending';
-    pending.innerHTML = '<div class="bubble"><div class="skeleton chat-bubble"></div>'
-      + '<span class="msg-time">' + timeNow() + '</span></div>';
-    container.appendChild(pending);
-    container.scrollTop = container.scrollHeight;
-    // Call the AI Analyst API
-    fetch('/api/analyst', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({message: msg, date: getBoardDate()})
-    }).then(function(r) { return r.json(); })
-      .then(function(data) {
-        pending.remove();
-        appendMessage('assistant', data.reply || 'Error: no reply');
-      }).catch(function(e) {
-        pending.remove();
-        appendMessage('assistant', 'Network error: ' + e);
-      });
-  }
-  function sendQuickPrompt(prompt) {
-    var input = document.getElementById('chat-input');
-    input.value = prompt;
-    sendChatMessage();
-  }
-  function appendMessage(role, text) {
-    var container = document.getElementById('chat-messages');
-    var div = document.createElement('div');
-    div.className = 'chat-message ' + role;
-    div.innerHTML = '<div class="bubble">' + escapeHtml(text)
-      + '<span class="msg-time">' + timeNow() + '</span></div>';
-    container.appendChild(div);
-    container.scrollTop = container.scrollHeight;
-  }
-  function escapeHtml(text) {
-    var div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-  document.addEventListener('DOMContentLoaded', function() {
-    var input = document.getElementById('chat-input');
-    var sendBtn = document.getElementById('chat-send');
-    if (!input) return;
-    input.addEventListener('input', function() {
-      sendBtn.disabled = !input.value.trim();
-    });
-    input.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        if (input.value.trim()) sendChatMessage();
-      }
-    });
-  });
-</script>"""
-
-_MARKET_SELECT_JS = """<script>
-  function toggleAllMarkets(select) {
-    document.querySelectorAll('.market-checkbox input[name="market-col"]').forEach(function(cb) {
-      cb.checked = select;
-      toggleMarketColumn(cb.value, select);
-    });
-  }
-  function toggleMarketColumn(key, show) {
-    var isAdmin = document.querySelector('.phase.mono')?.textContent?.includes('ADMIN') || false;
-    var thIndex = -1;
-    var headers = document.querySelectorAll('.scan-table th');
-    headers.forEach(function(th, i) {
-      if (th.textContent.includes(key.replace('/', '')) || th.textContent === key) {
-        thIndex = i;
-      }
-    });
-    if (thIndex === -1) return;
-    var selector = 'th:nth-child(' + (thIndex + 1) + '), td:nth-child(' + (thIndex + 1) + ')';
-    document.querySelectorAll(selector).forEach(function(cell) {
-      cell.style.display = show ? '' : 'none';
-    });
-  }
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.market-checkbox input').forEach(function(cb) {
-      cb.addEventListener('change', function() {
-        toggleMarketColumn(cb.value, cb.checked);
-      });
-    });
-  });
-</script>"""
+.chat-tab.hidden{display:none;}
+@media (max-width:480px){.tab-btn{min-height:44px;padding:10px 8px;font-size:11px;}}"""
 
 
-def html_shell(title: str, body: str, script: str = "") -> str:
+def _js_refs(base: str, *names: str) -> str:
+    """External <script> tags for static/js/<name>.js, `defer` so they never
+    block the critical first paint. Files only define functions + attach
+    DOMContentLoaded hooks, so load order between them does not matter."""
+    return "".join(f'<script src="{base}/js/{nm}.js" defer></script>'
+                   for nm in names)
+
+
+def html_shell(title: str, body: str, script: str = "", asset_base: str = "/static") -> str:
+    """Full HTML document.
+
+    `asset_base` is the URL prefix for the external css/js/fonts tree:
+    '/static' on the local server, './static' for the static export (relative,
+    so any host path works). The critical CSS is inlined (fast first paint);
+    assets.js then injects app.css + font preloads off `data-asset-base`, which
+    keeps the page CSP-clean (script-src 'self', no inline handlers)."""
     return f"""<!doctype html>
-<html lang="en"><head>
+<html lang="en" data-asset-base="{html.escape(asset_base, quote=True)}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>{html.escape(title)}</title>
-{_FONTS}
-<style>{_CSS}</style>
+<style>{_CRITICAL_CSS}</style>
 </head><body>
 {body}
+<script src=\"{asset_base}/js/assets.js\" defer></script>
+<script src=\"{asset_base}/js/date_nav.js\" defer></script>
 {script}
 </body></html>"""
 
@@ -1643,7 +515,9 @@ def _call_card(bf: dict, admin: bool = False) -> str:
   <div class="meta">
     <span class="kickoff">{kickoff_display}</span>
     <span class="league-tag">{league_badged}</span>
-    <span class="star{' active' if is_fav else ''}" onclick="event.stopPropagation(); toggleFavorite('{html.escape(fixture_key)}')">★</span>
+    <span class="star{' active' if is_fav else ''}" data-fav="{html.escape(fixture_key)}"
+      role="button" tabindex="0" aria-label="Toggle favorite"
+      aria-pressed="{'true' if is_fav else 'false'}">★</span>
   </div>
 </div>
 <div class="pick-line">
@@ -1675,8 +549,8 @@ def _call_card(bf: dict, admin: bool = False) -> str:
         reason = bf.get("rejection_reason") or "NO DATA — PENDING"
         grid = f'<div class="flag-line"><span class="mk">⚠</span> {html.escape(reason)}</div>'
 
-    return f"""<div class="call-card" onclick="toggleCallCard(this)"
-    role="button" tabindex="0" aria-expanded="false" onkeydown="onCallCardKey(event)">
+    return f"""<div class="call-card"
+    role="button" tabindex="0" aria-expanded="false">
   {head}
   {stamp}
   <div class="expand-hint"><span class="chevron">▸</span> {hint}</div>
@@ -1864,10 +738,9 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
                      if n_acc else "")
         _expanded_attr = "false" if collapsed_class else "true"
         body_parts.append(f"""<tbody class="league-group{collapsed_class}" data-league="{html.escape(league)}">
-<tr class="league-group-header" onclick="this.parentElement.classList.toggle('collapsed'); updateLeagueGroupA11y(this.parentElement)"
+<tr class="league-group-header"
     role="button" tabindex="0" aria-expanded="{_expanded_attr}"
-    aria-controls="league-{html.escape(league).replace(' ', '-')}-rows"
-    onkeydown="onLeagueGroupKey(event)">
+    aria-controls="league-{html.escape(league).replace(' ', '-')}-rows">
   <td colspan="{n_cols}" id="league-{html.escape(league).replace(' ', '-')}-rows">
     <div class="league-card">
       <div class="league-badge">{flag}</div>
@@ -1915,8 +788,8 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
             c2 = _scan_1x2(p)
             c3 = _scan_goals(p)
             c4 = _scan_dc_btts(p)
-            body_parts.append(f"""<tr class="clickable league-row{acc_row_class}" onclick="toggleScanRow('{row_id}')" data-target="{row_id}" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}"
-    role="button" tabindex="0" aria-expanded="false" aria-controls="{row_id}" onkeydown="onScanRowKey(event)">
+            body_parts.append(f"""<tr class="clickable league-row{acc_row_class}" data-target="{row_id}" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}"
+    role="button" tabindex="0" aria-expanded="false" aria-controls="{row_id}">
   <td><span class="chevron">▸</span>{acc_marker}{fixture_td}</td>
   <td class="scan-num">{c2}</td>
   <td class="scan-num">{c3}</td>
@@ -1971,12 +844,7 @@ def _date_nav(d: str, base: str) -> str:
             f'{today_link}'
             f'<span class="date-nav-label">{_friendly_date(d)}</span>'
             f'</div>'
-            f'<script>'
-            f"document.addEventListener('DOMContentLoaded',function(){{"
-            f"var i=document.querySelector('.date-nav-input');"
-            f"if(i)i.addEventListener('change',function(){{"
-            f"if(i.value)window.location.href=i.getAttribute('data-base')+'/'+i.value;}});}});"
-            f'</script>')
+            f'<!-- picker jump wired in static/js/date_nav.js (loaded by html_shell) -->')
 
 
 def _board_header(payload: dict, admin: bool = False) -> str:
@@ -2298,34 +1166,7 @@ def _phase3_gate_section(gate: dict) -> str:
             <button type="button" class="btn-primary signoff-btn" id="phase3-signoff-btn">✅ Sign Off & Open Capital Gate</button>
             <div id="phase3-signoff-msg" class="flags"></div>
         </div>
-        <script>
-        document.getElementById('phase3-signoff-btn').addEventListener('click', function() {{
-            var name = document.getElementById('architect_name').value;
-            var confirm = document.getElementById('signoff-confirm').checked;
-            var msgEl = document.getElementById('phase3-signoff-msg');
-            if (!name || !confirm) {{
-                msgEl.innerHTML = '<div class="flag-line" style="color:var(--danger)">Please enter your name and confirm the gate requirements.</div>';
-                return;
-            }}
-            fetch('/api/admin/signoff', {{
-                method: 'POST',
-                headers: {{'Content-Type': 'application/json'}},
-                body: JSON.stringify({{action: 'sign_off', architect_name: name, confirm: confirm}})
-            }})
-            .then(r => r.json())
-            .then(data => {{
-                if (data.ok) {{
-                    msgEl.innerHTML = '<div class="flag-line" style="color:var(--success)">✅ Gate signed off — capital deployment authorized. Page will reload...</div>';
-                    setTimeout(() => location.reload(), 1500);
-                }} else {{
-                    msgEl.innerHTML = '<div class="flag-line" style="color:var(--danger)">❌ Error: ' + (data.error || 'Unknown error') + '</div>';
-                }}
-            }})
-            .catch(err => {{
-                msgEl.innerHTML = '<div class="flag-line" style="color:var(--danger)">❌ Request failed: ' + err.message + '</div>';
-            }});
-        }});
-        </script>
+        <!-- sign-off handler lives in static/js/signoff.js (admin _js_refs) -->
         '''
     elif signed:
         signoff_form = f'''
@@ -2333,26 +1174,7 @@ def _phase3_gate_section(gate: dict) -> str:
             <p>Capital gate is OPEN — Phase 3 → Phase 4 transition authorized.</p>
             <p class="signoff-detail">Signed by: {html.escape(signed_by)}<br>At: {html.escape(signed_at)}</p>
             <button type="button" class="btn-secondary" id="phase3-revoke-btn">🔓 Revoke Sign-off</button>
-            <script>
-            document.getElementById('phase3-revoke-btn').addEventListener('click', function() {{
-                if (!confirm('Revoke the Architect sign-off? This closes the capital gate.')) return;
-                fetch('/api/admin/signoff', {{
-                    method: 'POST',
-                    headers: {{'Content-Type': 'application/json'}},
-                    body: JSON.stringify({{action: 'revoke'}})
-                }})
-                .then(r => r.json())
-                .then(data => {{
-                    if (data.ok) {{
-                        alert('Sign-off revoked. Page will reload...');
-                        location.reload();
-                    }} else {{
-                        alert('Error: ' + (data.error || 'Unknown error'));
-                    }}
-                }})
-                .catch(err => alert('Request failed: ' + err.message));
-            }});
-            </script>
+            <!-- revoke handler lives in static/js/signoff.js (admin _js_refs) -->
         </div>
         '''
 
@@ -2390,7 +1212,7 @@ def _tab_bar(active: str, base: str, payload_date: str = "") -> str:
     # We'll use onclick navigation instead of href for SPA-like behavior.
     # Each tab is a real button with the WAI-ARIA tab pattern: roving tabindex
     # (active tab is 0, others -1), aria-selected, aria-controls pointing at the
-    # matching <section>, and arrow-key navigation wired in _TAB_JS.
+    # matching <section>, and arrow-key navigation wired in static/js/tab.js.
     tab_html = ""
     for tab_id, label, icon, _ in tabs:
         active_class = " active" if tab_id == active else ""
@@ -2398,8 +1220,7 @@ def _tab_bar(active: str, base: str, payload_date: str = "") -> str:
         tabindex = "0" if tab_id == active else "-1"
         tab_html += (f'<button class="tab-btn{active_class}" data-tab="{tab_id}" '
                      f'role="tab" aria-selected="{selected}" tabindex="{tabindex}" '
-                     f'aria-controls="{tab_id}-section" '
-                     f'onclick="switchTab(\'{tab_id}\')">'
+                     f'aria-controls="{tab_id}-section">'
                      f'<svg viewBox="0 0 24 24">{_tab_icon(icon)}</svg>'
                      f'<span>{label}</span></button>')
     return (f'<nav class="tab-bar" role="tablist" aria-label="Main navigation">'
@@ -2464,14 +1285,14 @@ def _market_select_panel(payload: dict) -> str:
     # ScoreAI-style collapsible panel with gear icon
     gear_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>'
     return f"""<div class="market-select-panel" id="market-select-panel">
-  <div class="market-select-header" onclick="document.getElementById('market-select-panel').classList.toggle('collapsed')">
+  <div class="market-select-header" role="button" tabindex="0" aria-expanded="true" aria-controls="market-select-body">
     <span class="market-select-title">{gear_svg} Select Markets to Display</span>
     <span class="market-select-chevron">▾</span>
   </div>
-  <div class="market-select-body">
+  <div class="market-select-body" id="market-select-body">
     <div class="market-select-actions">
-      <button class="market-select-action" onclick="toggleAllMarkets(true)">Select All</button>
-      <button class="market-select-action" onclick="toggleAllMarkets(false)">Clear All</button>
+      <button class="market-select-action" data-toggle="all">Select All</button>
+      <button class="market-select-action" data-toggle="none">Clear All</button>
     </div>
     <div class="market-checkboxes">{checkboxes}</div>
   </div>
@@ -2479,9 +1300,9 @@ def _market_select_panel(payload: dict) -> str:
 
 def _chat_fab() -> str:
     """Floating 'AI Analyst' opener — the only path into the chat panel
-    (openChatTab() is defined in _CHAT_JS; without this button the panel is
+    (openChatTab() is defined in static/js/chat.js; without this button the panel is
     unreachable)."""
-    return ('<button class="chat-fab" id="chat-fab" onclick="openChatTab()" '
+    return ('<button class="chat-fab" id="chat-fab" '
             'aria-label="Open AI Analyst chat"><span class="fab-ico">✦</span> '
             'AI Analyst</button>')
 
@@ -2491,18 +1312,18 @@ def _chat_tab(payload_date: str = "") -> str:
     return f"""<div class="chat-tab hidden" id="chat-tab" role="dialog" aria-label="AI Analyst" data-date="{html.escape(payload_date)}">
   <div class="chat-header">
     <span class="chat-title">AI Analyst</span>
-    <button class="chat-close" onclick="closeChatTab()" aria-label="Close chat">&times;</button>
+    <button class="chat-close" aria-label="Close chat">&times;</button>
   </div>
   <div class="chat-messages" id="chat-messages" role="log" aria-live="polite"></div>
   <div class="chat-quick" role="group" aria-label="Quick actions">
-    <button class="chat-quick-btn" onclick="sendQuickPrompt('Analyze today\'s board')">Analyze Board</button>
-    <button class="chat-quick-btn" onclick="sendQuickPrompt('Explain the top pick')">Explain Top Pick</button>
-    <button class="chat-quick-btn" onclick="sendQuickPrompt('Which fixtures have the highest confidence?')">High Confidence</button>
-    <button class="chat-quick-btn" onclick="sendQuickPrompt('Show me value bets')">Value Bets</button>
+    <button class="chat-quick-btn" data-prompt="Analyze today's board">Analyze Board</button>
+    <button class="chat-quick-btn" data-prompt="Explain the top pick">Explain Top Pick</button>
+    <button class="chat-quick-btn" data-prompt="Which fixtures have the highest confidence?">High Confidence</button>
+    <button class="chat-quick-btn" data-prompt="Show me value bets">Value Bets</button>
   </div>
   <div class="chat-input-area">
     <input type="text" class="chat-input" id="chat-input" placeholder="Ask about today's board, a fixture, or the framework..." aria-label="Chat input">
-    <button class="chat-send" id="chat-send" onclick="sendChatMessage()" disabled>Send</button>
+    <button class="chat-send" id="chat-send" disabled>Send</button>
   </div>
 </div>"""
 
@@ -2516,223 +1337,27 @@ def _produce_panel() -> str:
     day_isos = [(today + _timedelta(days=i)).isoformat() for i in range(4)]
     day_labels = ["Today", "Tomorrow", "+2 days", "+3 days"]
     chips = "".join(
-        f'<button type="button" class="produce-day-chip" data-date="{di}" '
-        f'onclick="produceSetDay(\'{di}\')">{lb}</button>'
+        f'<button type="button" class="produce-day-chip" data-date="{di}">{lb}</button>'
         for di, lb in zip(day_isos, day_labels))
     return f"""<div class="produce-panel" id="produce-panel">
   <div class="produce-toolbar">
     <input type="search" id="produce-query" placeholder="Search team name…" aria-label="Search fixtures">
     <input type="date" id="produce-date" value="{today.isoformat()}" aria-label="Produce for day" title="Pick the day to produce">
-    <button id="produce-search-btn" class="btn-primary" onclick="produceSearch()">Search fixtures</button>
+    <button id="produce-search-btn" class="btn-primary">Search fixtures</button>
   </div>
   <div class="produce-day-chips">{chips}</div>
   <div id="produce-results" class="produce-results"></div>
   <div class="produce-tray" id="produce-tray" style="display:none;">
     <span id="produce-count">0 selected</span>
-    <button id="produce-go" class="btn-primary" onclick="produceGo()" disabled>⚡ Produce predictions</button>
-    <button class="market-select-action" onclick="produceClear()">Clear</button>
+    <button id="produce-go" class="btn-primary" disabled>⚡ Produce predictions</button>
+    <button id="produce-clear" class="market-select-action">Clear</button>
   </div>
   <div id="produce-output"></div>
 </div>"""
 
 
-_PRODUCE_JS = """<script>
-  var _produceSelected = new Set();
 
-  function produceSetDay(date) {
-    document.getElementById('produce-date').value = date;
-    document.querySelectorAll('.produce-day-chip').forEach(function(ch) {
-      ch.classList.toggle('active', ch.getAttribute('data-date') === date);
-    });
-    produceSearch();
-  }
-
-  function produceSearch() {
-    var q = document.getElementById('produce-query').value;
-    var date = document.getElementById('produce-date').value || '';
-    var results = document.getElementById('produce-results');
-    results.innerHTML = '<div style="padding:12px;color:var(--ink-faint);">Searching fixtures for ' + escapeHtml(date || 'window') + '…</div>';
-    var params = 'days=4';
-    if (date) params += '&date=' + encodeURIComponent(date);
-    if (q) params += '&q=' + encodeURIComponent(q);
-    fetch('/api/admin/fixtures?' + params)
-      .then(function(r) {
-        return r.json();
-      })
-      .then(function(data) {
-        if (!data || !data.ok) {
-          results.innerHTML = '<div style="padding:12px;color:var(--coral);">Error: ' + (data ? data.error : 'failed') + '</div>';
-          return;
-        }
-        var html = '';
-        if (!data.leagues.length) {
-          html = '<div style="padding:12px;color:var(--ink-faint);">No fixtures found for ' + escapeHtml(date || 'this window') + '</div>';
-        } else {
-          html += '<div class="produce-results-header">';
-          html += '<button type="button" class="btn-secondary produce-select-all" onclick="produceSelectAll(true)">✓ Select All</button>';
-          html += '<button type="button" class="btn-secondary produce-clear-all" onclick="produceSelectAll(false)">✗ Clear All</button>';
-          html += '<span class="produce-count-display">0 selected</span>';
-          html += '</div>';
-          data.leagues.forEach(function(lg) {
-            html += '<div class="produce-league-group">';
-            html += '<div class="produce-league-header">';
-            html += '<span class="produce-league-name">' + escapeHtml(lg.name) + ' (' + lg.fixtures.length + ')</span>';
-            html += '<button type="button" class="btn-secondary produce-league-select-all" data-league="' + escapeHtml(lg.name) + '" onclick="produceSelectLeague(this, true)">✓ All</button>';
-            html += '<button type="button" class="btn-secondary produce-league-clear" data-league="' + escapeHtml(lg.name) + '" onclick="produceSelectLeague(this, false)">✗ None</button>';
-            html += '</div>';
-            lg.fixtures.forEach(function(f) {
-              var key = lg.name + '|' + f.home + '|' + f.away + '|' + f.date;
-              var checked = _produceSelected.has(key) ? ' checked' : '';
-              html += '<label class="produce-item">';
-              html += '<input type="checkbox" data-key="' + escapeHtml(key) + '" data-league="' + escapeHtml(lg.name) + '" data-home="' + escapeHtml(f.home) + '" data-away="' + escapeHtml(f.away) + '" data-date="' + escapeHtml(f.date) + '"' + checked + '>';
-              html += '<span class="produce-item-text">' + escapeHtml(f.home) + ' vs ' + escapeHtml(f.away) + '</span>';
-              html += '<span class="produce-item-meta">' + escapeHtml(f.date || '') + '</span>';
-              html += '</label>';
-            });
-            html += '</div>';
-          });
-        }
-        results.innerHTML = html;
-        results.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
-          cb.addEventListener('change', function() {
-            if (cb.checked) _produceSelected.add(cb.dataset.key);
-            else _produceSelected.delete(cb.dataset.key);
-            updateProduceTray();
-          });
-          if (_produceSelected.has(cb.dataset.key)) cb.checked = true;
-        });
-        updateProduceTray();
-      }).catch(function(e) {
-        results.innerHTML = '<div style="padding:12px;color:var(--coral);">Network error: ' + e + '</div>';
-      });
-  }
-
-  function produceSelectAll(select) {
-    var results = document.getElementById('produce-results');
-    results.querySelectorAll('input[type=checkbox]').forEach(function(cb) {
-      cb.checked = select;
-      if (select) _produceSelected.add(cb.dataset.key);
-      else _produceSelected.delete(cb.dataset.key);
-    });
-    updateProduceTray();
-  }
-
-  function produceSelectLeague(btn, select) {
-    var league = btn.dataset.league;
-    var results = document.getElementById('produce-results');
-    results.querySelectorAll('input[type=checkbox][data-league="' + league + '"]').forEach(function(cb) {
-      cb.checked = select;
-      if (select) _produceSelected.add(cb.dataset.key);
-      else _produceSelected.delete(cb.dataset.key);
-    });
-    updateProduceTray();
-  }
-
-  function updateProduceTray() {
-    var tray = document.getElementById('produce-tray');
-    var count = document.getElementById('produce-count');
-    var go = document.getElementById('produce-go');
-    if (!tray) return;
-    tray.style.display = _produceSelected.size > 0 ? 'flex' : 'none';
-    count.textContent = _produceSelected.size + ' selected';
-    go.disabled = _produceSelected.size === 0;
-    // Also update the count display in the results header (Sprint 3.4: pop on
-    // change — restart the animation by toggling the class off/on).
-    var countDisplay = document.querySelector('.produce-count-display');
-    if (countDisplay) {
-      countDisplay.textContent = _produceSelected.size + ' selected';
-      countDisplay.classList.remove('pop');
-      void countDisplay.offsetWidth; // reflow so the animation restarts
-      countDisplay.classList.add('pop');
-    }
-  }
-
-  function produceClear() {
-    _produceSelected.clear();
-    var results = document.getElementById('produce-results');
-    if (results) results.querySelectorAll('input[type=checkbox]').forEach(function(cb) { cb.checked = false; });
-    updateProduceTray();
-  }
-
-  function produceGo() {
-    if (_produceSelected.size === 0) return;
-    var go = document.getElementById('produce-go');
-    var output = document.getElementById('produce-output');
-    go.disabled = true;
-    go.textContent = 'Producing…';
-    output.innerHTML = '<div class="produce-skeleton">'
-      + '<div class="skeleton card"><div class="skeleton line" style="width:55%;"></div>'
-      + '<div class="skeleton line" style="width:80%;"></div><div class="skeleton line" style="width:40%;"></div></div>'
-      + '<div class="skeleton card"><div class="skeleton line" style="width:45%;"></div>'
-      + '<div class="skeleton line" style="width:70%;"></div><div class="skeleton line" style="width:60%;"></div></div>'
-      + '</div>';
-    var groups = {};
-    _produceSelected.forEach(function(key) {
-      var parts = key.split('|');
-      var league = parts[0], home = parts[1], away = parts[2], date = parts[3];
-      if (!groups[league]) groups[league] = [];
-      groups[league].push({home: home, away: away, date: date});
-    });
-    var groupsArr = Object.keys(groups).map(function(lg) {
-      return {league: lg, fixtures: groups[lg]};
-    });
-    fetch('/api/admin/produce', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({groups: groupsArr})
-    }).then(function(r) {
-      if (r.status === 401) { window.location.href = '/admin'; return null; }
-      return r.json();
-    }).then(function(data) {
-      go.disabled = false;
-      go.textContent = '\\u26a1 Produce predictions';
-      if (!data || !data.ok) {
-        output.innerHTML = '<div style="padding:16px;color:var(--coral);">Error: ' + (data ? data.error : 'failed') + '</div>';
-        return;
-      }
-      var html = '<div class="produce-result">';
-      html += '<div class="produce-result-header">';
-      html += '<span>' + data.n_rated + ' rated \\u00b7 ' + data.n_deploy + ' deploy-eligible \\u00b7 ' + data.elapsed_s + 's</span>';
-      html += '<span class="phase mono" style="margin-left:auto;">' + escapeHtml(data.phase || '') + '</span>';
-      html += '</div>';
-      if (data.flags && data.flags.length) {
-        html += '<div class="produce-flags">';
-        data.flags.forEach(function(f) { html += '<div class="flag-line"><span class="mk">\\u26a0</span> ' + escapeHtml(f) + '</div>'; });
-        html += '</div>';
-      }
-      html += '<div class="produce-cards">' + data.cards_html + '</div>';
-      if (data.summary_html) html += data.summary_html;
-      html += '</div>';
-      output.innerHTML = html;
-      output.querySelectorAll('.call-card').forEach(function(card) {
-        card.addEventListener('click', function() { card.classList.toggle('open'); });
-      });
-    }).catch(function(e) {
-      go.disabled = false;
-      go.textContent = '\\u26a1 Produce predictions';
-      output.innerHTML = '<div style="padding:16px;color:var(--coral);">Network error: ' + e + '</div>';
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var dateInput = document.getElementById('produce-date');
-    if (!dateInput) return;
-    // Mark the day chip that matches the default (today)
-    document.querySelectorAll('.produce-day-chip').forEach(function(ch) {
-      ch.classList.toggle('active', ch.getAttribute('data-date') === dateInput.value);
-    });
-    // A manual date-picker change triggers the same search
-    dateInput.addEventListener('change', function() {
-      document.querySelectorAll('.produce-day-chip').forEach(function(ch) {
-        ch.classList.toggle('active', ch.getAttribute('data-date') === dateInput.value);
-      });
-      produceSearch();
-    });
-  });
-</script>"""
-
-
-def render_dashboard(payload: dict) -> str:
+def render_dashboard(payload: dict, asset_base: str = "/static") -> str:
     """The PUBLIC client view — predictions only with tab navigation."""
     d = payload.get("date", "")
     today = _date.today().isoformat()
@@ -2818,10 +1443,12 @@ def render_dashboard(payload: dict) -> str:
         + _tab_bar("call", "/dashboard")
     )
     return html_shell("OLP XDV — Today's Board", body,
-                      script=_SCAN_JS + _TAB_JS + _CHAT_JS + _CLIENT_SEARCH_JS)
+                      script=_js_refs(asset_base, "scan", "tab", "chat",
+                                      "client_search"),
+                      asset_base=asset_base)
 
 
-def render_admin_dashboard(payload: dict) -> str:
+def render_admin_dashboard(payload: dict, asset_base: str = "/static") -> str:
     """The authed /admin view — the full payload including model internals,
     verification, cap, data flags, yesterday-graded and the honest footer."""
     n_leagues = payload.get("n_leagues") or len(payload.get("leagues_scanned", []))
@@ -2889,7 +1516,11 @@ def render_admin_dashboard(payload: dict) -> str:
         + _tab_bar("call", "/admin", d)
         + _admin_footer(payload)
     )
-    return html_shell("OLP XDV — Admin Dashboard", body, script=_SCAN_JS + _PUBLISH_JS + _ADMIN_SEARCH_JS + _TAB_JS + _CHAT_JS + _MARKET_SELECT_JS + _PRODUCE_JS)
+    return html_shell("OLP XDV — Admin Dashboard", body,
+                      script=_js_refs(asset_base, "scan", "publish",
+                                      "admin_search", "tab", "chat",
+                                      "market_select", "produce", "signoff"),
+                      asset_base=asset_base)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

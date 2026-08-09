@@ -184,6 +184,94 @@ class CLVLog:
             for leg in self.legs:
                 writer.writerow(asdict(leg))
 
+    def grade_all_pending(self, season: str) -> tuple[dict, list[str]]:
+        """Automated CLV grading for ALL pending legs in the log.
+
+        This is the Phase 4.2 entry point — callable from the daily run,
+        a scheduled job, or a CLI command. It settles any leg whose match
+        has been played (using football-data.co.uk results) and captures
+        its closing price (CL-ARCHIVE) so CLV can be computed.
+
+        HR46: the ARCHIVE (CL-ARCHIVE) is the canonical close and upgrades
+        a leg that already holds a CL-LIVE/CL-PM capture; if the archive
+        has no price but a live close was captured near kickoff, that
+        stands — the leg still earns its CLV. Only a leg with NO closing
+        line from either path is NO DATA — PENDING.
+
+        Returns (summary_dict, flags_list).
+        """
+        from data.football_data_source import load_league
+        from engine import markets as mkt
+
+        flags: list[str] = []
+        pending = [l for l in self.legs
+                   if l.phase == PAPER_PHASE and l.hit is None]
+        if not pending:
+            return {"graded": 0, "total_pending": 0}, flags
+
+        # Group by league for efficient loading
+        results_by_league: dict[str, dict] = {}
+        for lg in {l.league for l in pending}:
+            table: dict = {}
+            # Try both the current season and next season (for future fixtures)
+            for s in {season, self._next_season_code(season)}:
+                try:
+                    res, _ = load_league(lg, s)
+                    table.update({(r.home_team, r.away_team, r.date): r for r in res})
+                except Exception:
+                    continue
+            if table:
+                results_by_league[lg] = table
+            else:
+                flags.append(f"{lg}: no results available for grading")
+
+        graded = 0
+        for leg in pending:
+            table = results_by_league.get(leg.league)
+            if not table:
+                continue
+            try:
+                home, away = [s.strip() for s in leg.fixture.split(" v ", 1)]
+            except ValueError:
+                continue
+            if not leg.match_date:
+                flags.append(f"{leg.fixture}: no kickoff date recorded")
+                continue
+            match = table.get((home, away, leg.match_date))
+            if match is None:
+                continue  # not played yet or not published
+
+            hit = mkt.settle(leg.market, match.fthg, match.ftag)
+            if hit is None:
+                flags.append(f"{leg.fixture}: market '{leg.market}' has no settlement rule")
+                continue
+
+            self.log_result(leg.leg_id, ft_result=f"{match.fthg}-{match.ftag}", hit=hit)
+
+            # CL-ARCHIVE closing line (upgrades CL-LIVE/CL-PM if present)
+            closing = None
+            if match.odds:
+                q = mkt.quote(leg.market, match.odds)
+                closing = q.close if q is not None else None
+            if closing is not None and leg.entry_odds:
+                self.log_close(leg.leg_id, closing_odds=closing,
+                               closing_capture_path="CL-ARCHIVE")
+            elif leg.closing_odds is None:
+                flags.append(f"{leg.fixture} / {leg.market}: no closing price in source")
+
+            graded += 1
+
+        flags.append(f"Automated CLV grading: {graded} leg(s) settled")
+        return {"graded": graded, "total_pending": len(pending)}, flags
+
+    def _next_season_code(self, season: str) -> str:
+        """Convert '2526' -> '2627' etc."""
+        try:
+            start = int(season[:2])
+            return f"{start+1:02d}{start+2:02d}"
+        except Exception:
+            return season
+
 
 # ---------------------------------------------------------------------------
 # ENSEMBLE WEIGHTS (Phase 3.3) — how much each engine's opinion counts.
@@ -301,3 +389,34 @@ def ensemble_weights(clv_rows: list[dict], cal_rows: list[dict]
                 "— consensus unweighted")
     return weights, {"applied": applied, "weights": weights,
                      "details": details, "flag": flag}
+
+
+if __name__ == "__main__":
+    """CLI: automated CLV grading against settled results.
+
+    Usage:
+        python -m clv.clv_logger --grade --season 2526
+        python -m clv.clv_logger --status
+    """
+    import argparse
+    ap = argparse.ArgumentParser(description="CLV Log - grading and status")
+    ap.add_argument("--grade", action="store_true",
+                    help="grade all pending legs against settled results")
+    ap.add_argument("--season", default="2526",
+                    help="season the model is fit on (default: 2526)")
+    ap.add_argument("--status", action="store_true",
+                    help="print Phase 3 gate status")
+    a = ap.parse_args()
+
+    log = CLVLog()
+    if a.grade:
+        summary, flags = log.grade_all_pending(a.season)
+        for f in flags:
+            print(f"  {f}")
+        print(f"Graded: {summary['graded']}/{summary['total_pending']} pending legs")
+    elif a.status:
+        status = log.phase2_status()
+        for k, v in status.items():
+            print(f"  {k}: {v}")
+    else:
+        ap.print_help()

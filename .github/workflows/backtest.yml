@@ -1,0 +1,99 @@
+name: OLP XDV backtest metrics
+
+# Phase 3.5 — backtest automation: run on every commit, track metrics over time.
+#
+# Every push to main and every PR exercises the walk-forward backtest on a fast
+# slice (one deploy-eligible league) and records a metrics row into
+# backtest/results/metrics_history.jsonl, which is committed back so the trend
+# accumulates across commits (same persistence pattern as the daily CLV log).
+# PR runs also execute the backtest regression tests, so a regression fails the
+# PR, not a future commit.
+#
+# A manual trigger (workflow_dispatch) with "full: true" runs the complete
+# backtest across all deploy + control leagues for the deep history.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Run the FULL backtest (all deploy + control leagues)"
+        type: boolean
+        default: false
+
+# Needed so the run can commit the metrics history back — without persistence
+# the trend resets to zero on every run.
+permissions:
+  contents: write
+
+concurrency:
+  group: olp-xdv-backtest
+  cancel-in-progress: true   # a newer commit supersedes the older run
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Football-Data CSVs are gitignored and expensive to refetch. Same
+      # cache-key family as daily.yml so a morning daily run and a commit
+      # backtest share one fetched copy.
+      - name: Restore data cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/cache
+            backtest/cache
+          key: olp-xdv-backtest-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            olp-xdv-backtest-${{ runner.os }}-${{ github.ref_name }}-
+            olp-xdv-backtest-${{ runner.os }}-
+
+      # Full run = all DEFAULT_AB + DEFAULT_CONTROL leagues (omit --leagues);
+      # the commit/PR slice = Eredivisie only, kept fast (~1-3 min).
+      - name: Run the backtest and record metrics
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          set -euo pipefail
+          LEAGUES=""
+          if [ "${{ github.event.inputs.full }}" != "true" ]; then
+            LEAGUES="--leagues Eredivisie"
+          fi
+          python -m backtest.clv_backtest \
+            --test-season 2425 --carry-in 2324 \
+            $LEAGUES --no-write
+          python -m backtest.metrics_history
+
+      - name: Run backtest regression tests
+        if: github.event_name != 'workflow_dispatch'
+        run: |
+          set -euo pipefail
+          python tests/clv_backtest_test.py
+          python tests/backtest_report_test.py
+          python tests/engine_regression_test.py
+          python tests/metrics_history_test.py
+
+      # Commit the metrics row back on the default branch only. PR runs have a
+      # detached/merge HEAD — they record locally and lose nothing important;
+      # the push (which triggers this workflow) records the authoritative row.
+      - name: Commit the metrics history back
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add backtest/results/metrics_history.jsonl || true
+          git diff --staged --quiet || git commit -m "backtest metrics $(date -u +%Y-%m-%dT%H:%M:%SZ) [skip ci]"
+          git push || echo "nothing to push"

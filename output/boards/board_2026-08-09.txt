@@ -71,6 +71,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Scottish Premiership: Odds API quota down to 4 (floor 40); api-football fallback failed (API-Football daily quota down to 16 (floor 20). Refusing to spend it on a routine pull — prices are NO DATA — PENDING rather than exhausting the day.). Refusing to spend the month — entry prices are NO DATA — PENDING.
   ⚠ Serie A: Odds API quota down to 4 (floor 40); api-football fallback failed ('Serie A' has no API-Football odds fallback (deploy leagues only)). Refusing to spend the month — entry prices are NO DATA — PENDING.
   ⚠ Scan odds skipped — quota 4 < floor 40
+  ⚠ ensemble weights: no engine has enough settled evidence (cal >= 15 settled predictions and clv >= 5 legs-with-CLV) — consensus unweighted
   ⚠ today's acca set: 2 acca(s), 7 legs on today's slate
   ⚠ produced-bet record failed ('pick_market')
   ⚠ Sparta Rotterdam v Feyenoord: no live price found — NO DATA — PENDING, leg not logged

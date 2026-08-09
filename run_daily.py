@@ -392,8 +392,18 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             all_flags.append(flag)
 
     # --- grade yesterday first, so the board reports an up-to-date gate ---
+    # Phase 4.2: automated CLV grading — settle every pending paper leg
+    # against the settled record and capture its closing price (CL-ARCHIVE).
+    # grade_open_legs is the run_daily-specific richer renderer; the logger's
+    # grade_all_pending is the canonical automated path shared with the CLI.
     verify_block, gflags = grade_open_legs(log, season)
     all_flags += gflags
+    try:
+        auto_summary, auto_flags = log.grade_all_pending(season)
+        all_flags += [f for f in auto_flags
+                      if not any(f.split(":")[0] == g.split(":")[0] for g in gflags)]
+    except Exception as e:
+        all_flags.append(f"automated CLV grading failed ({e})")
 
     # --- produced-bet verification (ID415): settle YESTERDAY's produced legs
     # --- against real results and record outcomes in the brain, so today's
@@ -808,11 +818,12 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         try:
             from webapp import schema as web_schema
             from output.produce_bet import render_daily_recommendation
+            from clv.phase3_gate import gate_status_for_dashboard
             web_schema.write_payload(
                 web_schema.build_payload(
                     date=today, phase=PHASE_LABEL, leagues_scanned=leagues,
                     board=board, data_flags=all_flags,
-                    gate=brain.gate_status(),
+                    gate=gate_status_for_dashboard(),
                     telemetry=brain.leg_telemetry(),
                     calibration_count=status["legs_with_clv"],
                     mean_clv=status["mean_clv_pct"],

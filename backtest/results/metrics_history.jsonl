@@ -1,0 +1,7 @@
+# OLP XDV backtest metrics history (Phase 3.5) — one JSON object per backtest run, oldest first.
+# Fields: run_id, recorded_at, context, test_season, selector, fingerprint, leagues, calibrate,
+# blend_market, n_legs_selected, n_with_clv, n_distinct_matches, mean_clv_pct, median_clv_pct,
+# t_stat, pct_beat_close, hit_rate_pct, roi_pct, n_graded, mean_overround_open,
+# mean_overround_close, tier_ab_mean_clv, tier_ab_n, tier_cd_mean_clv, tier_cd_n, n_flags.
+# Written by backtest.metrics_history.record_run; rendered by python -m backtest.metrics_history.
+{"blend_market": false, "calibrate": false, "context": "manual", "fingerprint": "3221d5331cbd", "hit_rate_pct": 37.16, "leagues": ["Eredivisie"], "mean_clv_pct": -0.7199, "mean_overround_close": 0.054, "mean_overround_open": 0.0597, "median_clv_pct": -0.529, "n_distinct_matches": 253, "n_flags": 0, "n_graded": 444, "n_legs_selected": 444, "n_with_clv": 444, "pct_beat_close": 44.82, "recorded_at": "2026-08-09T09:31:21+00:00", "roi_pct": -7.98, "run_id": "2425_model_3221d5331cbd", "selector": "model", "t_stat": -1.76, "test_season": "2425", "tier_ab_mean_clv": -0.7199, "tier_ab_n": 444, "tier_cd_mean_clv": null, "tier_cd_n": 0}

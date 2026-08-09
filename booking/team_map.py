@@ -100,6 +100,11 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Burnley": "Burnley",
     "Sheffield Utd": "Sheffield United",
     "Sheffield United": "Sheffield United",
+    # Newly promoted for 2026/27 — unrated by the model, but explicitly
+    # mapped to itself so the fuzzy matcher never guesses a WRONG club
+    # (e.g. "Coventry City" must not match "Exeter City"). The "new to this
+    # division" check then recognises it instead of reporting a mis-map.
+    "Coventry City": "Coventry City",
     # EFL Cup / Championship
     "Mansfield Town": "Mansfield Town",
     "Plymouth Argyle": "Plymouth Argyle",

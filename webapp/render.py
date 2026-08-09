@@ -31,7 +31,13 @@ from engine.softness import SOFTNESS_PAUSED
 # Google Fonts (Architect-approved): degrade gracefully to the system stacks
 # below when offline.
 _FONTS = """<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">"""
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Sprint 4: font stylesheet is non-render-blocking (media=print + onload
+     swap). Text paints in fallbacks immediately, swaps when WOFF2 arrives;
+     `display=swap` in the URL does the no-fout swap. <noscript> keeps fonts
+     for no-JS clients. -->
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>"""
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CSS — the ratified design tokens + components (admin superset; the client
@@ -90,6 +96,11 @@ header.top{
   font-size:11px;color:var(--amber);border:1px solid var(--amber-dim);
   padding:2px 8px;border-radius:20px;margin-left:auto;font-family:'IBM Plex Mono',monospace;
 }
+/* Client header variant — quieter than the ADMIN pill, still never implied live */
+.brand .phase.client{
+  font-size:9.5px;color:var(--ink-dim);border-color:var(--line);
+  letter-spacing:0.08em;
+}
 .meta-row{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--ink-dim);flex-wrap:wrap;}
 .meta-row b{color:var(--ink);font-weight:600;}
 .date-nav{
@@ -108,11 +119,22 @@ header.top{
   width:44px;height:44px;transform:translate(-50%,-50%);
 }
 .date-nav-btn:hover{border-color:var(--amber-dim);background:var(--surface-2);}
-.date-nav-input{
-  padding:5px 8px;background:var(--surface-2);border:1px solid var(--line);
-  border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;
+/* Date picker: custom calendar icon + the native input stretched over the
+   whole field so a tap anywhere opens the calendar (touch-friendly). */
+.date-picker{position:relative;display:inline-flex;align-items:center;}
+.date-picker-ico{
+  position:absolute;left:9px;width:14px;height:14px;z-index:1;
+  stroke:var(--ink-dim);stroke-width:1.8;fill:none;pointer-events:none;
 }
-.date-nav-input::-webkit-calendar-picker-indicator{filter:invert(0.7);cursor:pointer;}
+.date-nav-input{
+  padding:5px 8px 5px 28px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;
+  min-height:30px;
+}
+.date-nav-input:focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+.date-nav-input::-webkit-calendar-picker-indicator{
+  position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer;
+}
 .date-nav-today{
   padding:5px 10px;border:1px solid var(--amber-dim);border-radius:8px;
   color:var(--amber);text-decoration:none;font-size:11.5px;transition:opacity 0.15s;
@@ -244,10 +266,20 @@ section{margin-top:34px;}
 /* THE SCAN — wide table */
 .scan-table{width:100%;border-collapse:collapse;font-size:12.5px;}
 /* Accumulator candidate rows — Tier A/B deploy-eligible, marked at top of each
-   league group (ID402: scan everything, highlight what could carry capital). */
-.acc-row td{background:rgba(79,184,148,0.04);}
+   league group (ID402: scan everything, highlight what could carry capital).
+   The left border accent + teal pill make the candidate pop from the scan. */
+.acc-row td{background:rgba(79,184,148,0.05);}
+.acc-row td:first-child{border-left:3px solid var(--teal);}
 .acc-row .scan-fixture{color:var(--teal);font-weight:600;}
 .acc-star{color:var(--teal);}
+.acc-pill{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--teal);color:var(--bg);font-weight:700;
+  font-family:'IBM Plex Mono',monospace;font-size:8.5px;
+  letter-spacing:0.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:999px;margin-left:8px;flex:none;
+}
+.acc-pill svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
 .scan-table th{
   text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;
   color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.05em;
@@ -303,7 +335,29 @@ section{margin-top:34px;}
   font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);
   margin-left:auto;flex:none;
 }
-.live-score.has-score{color:var(--teal);}
+.live-score.has-score{
+  color:var(--teal);
+  animation:live-pulse 2s ease-in-out infinite;
+}
+@keyframes live-pulse{0%,100%{opacity:1;}50%{opacity:0.55;}}
+
+/* Skeleton loaders — shimmering placeholders shown while an async section
+   (produce run, chat reply, live-score fetch) is still loading. */
+.skeleton{
+  position:relative;overflow:hidden;border-radius:6px;
+  background:var(--surface-2);min-height:14px;
+}
+.skeleton::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0) 100%);
+  animation:shimmer 1.4s infinite;
+  transform:translateX(-100%);
+}
+@keyframes shimmer{to{transform:translateX(100%);}}
+.skeleton.card{min-height:72px;border-radius:var(--radius);}
+.skeleton.line{min-height:12px;margin:6px 0;}
+.skeleton.chat-bubble{min-height:34px;border-radius:12px 12px 12px 4px;max-width:220px;}
 
 /* data flags */
 .flags{
@@ -312,6 +366,11 @@ section{margin-top:34px;}
 }
 .flag-line{font-size:12px;color:var(--ink-dim);padding:5px 0;display:flex;gap:8px;}
 .flag-line .mk{color:var(--amber);flex:none;}
+
+/* Sprint 4: below-the-fold sections can skip layout/paint until scrolled near
+   (content-visibility:auto). contain-intrinsic-size keeps the scrollbar stable
+   while the section is skipped. Progressive enhancement — no-op in old browsers. */
+.cv-auto{content-visibility:auto;contain-intrinsic-size:auto 500px;}
 
 /* footer honest line */
 footer{
@@ -328,7 +387,10 @@ footer{
   font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);margin-top:10px;
 }
 .gate .bar{width:90px;height:4px;background:var(--line);border-radius:2px;overflow:hidden;}
-.gate .fill{height:100%;background:var(--amber-dim);width:0%;}
+.gate .fill{height:100%;background:var(--amber-dim);width:0%;transform-origin:left;animation:gate-fill 1.2s ease-out 0.2s both;}
+/* Sprint 3.5: the gate bar fills left→right on load. scaleX leaves the inline
+   width untouched, so a later reload with a different % still animates fine. */
+@keyframes gate-fill{from{transform:scaleX(0);}to{transform:scaleX(1);}}
 
 /* Mobile (< 600px): the scan table becomes a stack of cards, one per fixture,
    with each market column kept and labelled with its header text (shown via
@@ -444,8 +506,17 @@ footer{
 .market-select-title svg{width:18px;height:18px;color:var(--amber);flex:none;}
 .market-select-chevron{color:var(--ink-faint);font-size:12px;transition:transform 0.2s;flex:none;}
 .market-select-panel.collapsed .market-select-chevron{transform:rotate(-90deg);}
-.market-select-body{padding:0 16px 14px 16px;display:block;}
-.market-select-panel.collapsed .market-select-body{display:none;}
+/* Smooth open/close: max-height transition instead of display:none snap */
+.market-select-body{
+  padding:0 16px 14px 16px;
+  max-height:420px;overflow:hidden;opacity:1;
+  transition:max-height 0.25s ease,opacity 0.2s ease,padding 0.25s ease;
+}
+.market-select-panel.collapsed .market-select-body{
+  max-height:0;padding:0 16px;opacity:0;
+}
+.market-checkbox input{transition:transform 0.12s;}
+.market-checkbox input:active{transform:scale(1.25);}
 .market-select-actions{display:flex;gap:10px;margin-bottom:10px;}
 .market-select-action{
   font-size:12px;padding:6px 4px;border:none;background:transparent;
@@ -501,6 +572,16 @@ footer{
 }
 .chat-message.assistant .bubble{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px;}
 .chat-message.user .bubble{background:var(--amber);color:var(--bg);border-bottom-right-radius:4px;}
+/* Per-message timestamp — small, faint, tucked under the bubble text */
+.msg-time{
+  display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  opacity:0.55;margin-top:5px;
+}
+.chat-message.user .msg-time{color:var(--bg);}
+.chat-message.assistant .msg-time{color:var(--ink-dim);}
+/* Pending assistant reply — skeleton shimmer inside the bubble */
+.chat-message.pending .bubble{padding:12px 14px;min-width:180px;}
+.chat-message.pending .skeleton{border:none;}
 .chat-input-area{display:flex;gap:8px;padding:12px;background:var(--surface);border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);}
 .chat-input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid var(--line);border-radius:999px;color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
 .chat-input:focus{outline:2px solid var(--amber);outline-offset:2px;border-color:var(--amber);}
@@ -557,6 +638,8 @@ footer{
 .produce-league-name{font-size:12px;font-weight:600;color:var(--amber);margin-bottom:6px;padding:4px 0;border-bottom:1px solid var(--line);}
 .produce-item{display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;transition:background 0.12s;}
 .produce-item:hover{background:rgba(216,166,89,0.04);}
+.produce-item:has(input:checked){background:rgba(216,166,89,0.08);} /* selected-state ripple (Sprint 3.4) */
+.produce-item:has(input:checked) .produce-item-meta{color:var(--amber);}
 .produce-item input{width:16px;height:16px;accent-color:var(--amber);flex:none;}
 .produce-item-text{font-size:12.5px;color:var(--ink);flex:1;}
 .produce-item-meta{font-size:11px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
@@ -604,6 +687,8 @@ footer{
   border-color:var(--amber-dim);color:var(--amber);
 }
 .produce-count-display{margin-left:auto;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;}
+.produce-count-display.pop{animation:produce-pop 0.25s ease;}
+@keyframes produce-pop{0%{transform:scale(1);color:var(--amber);}100%{transform:scale(1);color:var(--ink-faint);}}
 
 .produce-league-group{margin-bottom:16px;}
 .produce-league-header{
@@ -665,6 +750,15 @@ tbody.collapsed .league-group-toggle{transform:rotate(-90deg);}
 .hero-league{
   display:block;font-size:11px;color:var(--ink-faint);margin-top:4px;
 }
+/* Hero sits apart from The Call below — bottom rule gives it a clean edge,
+   and scroll-behavior:smooth makes the CTA glide to the scan board. */
+html{scroll-behavior:smooth;}
+.hero{
+  border-bottom:1px solid var(--line);
+  padding-bottom:26px;margin-bottom:6px;
+}
+#call-section,#produced-section,#acca-section,#scan-section,#search-section,
+#flags-section,#verified-section,#phase3-gate-section{scroll-margin-top:16px;}
 .hero-pick{
   display:inline-flex;align-items:center;gap:10px;padding:10px 18px;
   background:rgba(79,184,148,0.1);border:1px solid var(--teal);
@@ -868,8 +962,15 @@ _ADMIN_SEARCH_JS = """<script>
         if (allDetail[i]) allDetail[i].style.display = ok ? '' : 'none';
       });
     }
-    [input, leagueSel, tierSel, marketSel, statusSel].forEach(function(el) {
-      if (el) el.addEventListener('input', filter);
+    // Sprint 4: the free-text field is debounced (150ms) so each keystroke
+    // doesn't reflow the whole table; the discrete selects filter immediately.
+    function debounce(fn, ms) {
+      var t;
+      return function() { var args = arguments, self = this; clearTimeout(t); t = setTimeout(function() { fn.apply(self, args); }, ms); };
+    }
+    if (input) input.addEventListener('input', debounce(filter, 150));
+    [leagueSel, tierSel, marketSel, statusSel].forEach(function(el) {
+      if (el) el.addEventListener('change', filter);
     });
   });
 </script>"""
@@ -914,7 +1015,13 @@ _CLIENT_SEARCH_JS = """<script>
           : '<div class="flag-line">No fixtures match — try another team or league.</div>';
       }
     }
-    input.addEventListener('input', filter);
+    // Sprint 4: debounce keystrokes (150ms) so a fast typist doesn't run the
+    // filter for every char — reflow cost is O(board), the page stays responsive.
+    function debounce(fn, ms) {
+      var t;
+      return function() { var args = arguments, self = this; clearTimeout(t); t = setTimeout(function() { fn.apply(self, args); }, ms); };
+    }
+    input.addEventListener('input', debounce(filter, 150));
     if (leagueSel) leagueSel.addEventListener('change', filter);
 
     // Live scores polling for produced bet block
@@ -1037,6 +1144,11 @@ _CHAT_JS = """<script>
     var tab = document.getElementById('chat-tab');
     return tab ? (tab.getAttribute('data-date') || '') : '';
   }
+  function timeNow() {
+    var d = new Date();
+    var h = d.getHours(), m = d.getMinutes();
+    return (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m);
+  }
   function sendChatMessage() {
     var input = document.getElementById('chat-input');
     var msg = input.value.trim();
@@ -1044,6 +1156,14 @@ _CHAT_JS = """<script>
     appendMessage('user', msg);
     input.value = '';
     document.getElementById('chat-send').disabled = true;
+    // Pending bubble — skeleton shimmer replaces the inline "thinking" text.
+    var container = document.getElementById('chat-messages');
+    var pending = document.createElement('div');
+    pending.className = 'chat-message assistant pending';
+    pending.innerHTML = '<div class="bubble"><div class="skeleton chat-bubble"></div>'
+      + '<span class="msg-time">' + timeNow() + '</span></div>';
+    container.appendChild(pending);
+    container.scrollTop = container.scrollHeight;
     // Call the AI Analyst API
     fetch('/api/analyst', {
       method: 'POST',
@@ -1051,8 +1171,10 @@ _CHAT_JS = """<script>
       body: JSON.stringify({message: msg, date: getBoardDate()})
     }).then(function(r) { return r.json(); })
       .then(function(data) {
+        pending.remove();
         appendMessage('assistant', data.reply || 'Error: no reply');
       }).catch(function(e) {
+        pending.remove();
         appendMessage('assistant', 'Network error: ' + e);
       });
   }
@@ -1065,7 +1187,8 @@ _CHAT_JS = """<script>
     var container = document.getElementById('chat-messages');
     var div = document.createElement('div');
     div.className = 'chat-message ' + role;
-    div.innerHTML = '<div class="bubble">' + escapeHtml(text) + '</div>';
+    div.innerHTML = '<div class="bubble">' + escapeHtml(text)
+      + '<span class="msg-time">' + timeNow() + '</span></div>';
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
@@ -1626,7 +1749,8 @@ def _tier_grouped_call(board: list[dict]) -> str:
 def _the_call(board: list[dict], admin: bool = False) -> str:
     if not board:
         return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
-                'No fixtures on this board today — NO DATA — PENDING.</div></div>')
+                'No fixtures on this board today — NO DATA — PENDING. '
+                'The daily pipeline runs at 07:00; check back then.</div></div>')
     if admin:
         # The full production sorted into its softness tiers — nothing produced
         # is hidden, ranked by the trust level assigned to each league.
@@ -1639,9 +1763,13 @@ def _the_call(board: list[dict], admin: bool = False) -> str:
     if not rows:
         if SOFTNESS_PAUSED:
             return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
-                    'No deploy-eligible call today.</div></div>')
+                    'No deploy-eligible call today — the call is strictly fixtures '
+                    'kicking off today (same-day rule). Check the Scan tab for the '
+                    'wider window.</div></div>')
         return ('<div class="flags"><div class="flag-line"><span class="mk">—</span> '
-                'No deploy-eligible call today (softness A/B only).</div></div>')
+                'No deploy-eligible call today (softness A/B only) — the call is '
+                'strictly today\'s fixtures. Check the Scan tab for the wider '
+                'window.</div></div>')
     # Responsive card grid — 2-3 columns on desktop, 1 column on mobile.
     return ('<div class="call-grid">'
             + "".join(_call_card(bf, admin=False) for bf in rows)
@@ -1732,7 +1860,8 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
         season = "2026/27"
         # Count accumulator candidates for the league badge
         n_acc = len(acc_candidates)
-        acc_badge = f' · <span style="color:#4FB894;">⭐ {n_acc} acc candidate{"s" if n_acc != 1 else ""}</span>' if n_acc else ""
+        acc_badge = (f' · <span class="acc-pill league-count">⭐ {n_acc} acc candidate{"s" if n_acc != 1 else ""}</span>'
+                     if n_acc else "")
         _expanded_attr = "false" if collapsed_class else "true"
         body_parts.append(f"""<tbody class="league-group{collapsed_class}" data-league="{html.escape(league)}">
 <tr class="league-group-header" onclick="this.parentElement.classList.toggle('collapsed'); updateLeagueGroupA11y(this.parentElement)"
@@ -1760,15 +1889,17 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
                 home_badged, away_badged, league_badged = _fixture_teams_with_badges_admin(bf)
             else:
                 home_badged, away_badged, league_badged = _fixture_teams_with_badges(bf)
-            fixture_td = (f'<span class="scan-fixture">{home_badged} v {away_badged}</span>'
-                          f'<span class="scan-league">{league_badged}</span>')
-            src_td = f'<td>{_src_dot(bf)}</td>' if admin else ""
             p = bf.get("probs")
             tier = bf.get("softness_tier", "?")
-            status = "deploy" if bf.get("on_deploy_shortlist") else ("no-data" if p is None else "scan-only")
+            is_acc = bf.get("on_deploy_shortlist")
+            acc_pill = ('<span class="acc-pill"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 9.4l6.1-.9z"/></svg>Acca</span>'
+                        if is_acc else "")
+            fixture_td = (f'<span class="scan-fixture">{home_badged} v {away_badged}{acc_pill}</span>'
+                          f'<span class="scan-league">{league_badged}</span>')
+            src_td = f'<td>{_src_dot(bf)}</td>' if admin else ""
+            status = "deploy" if is_acc else ("no-data" if p is None else "scan-only")
             best_market = bf.get("best_market_key") or ""
             date_str = payload_date if admin else ""
-            is_acc = bf.get("on_deploy_shortlist")
             acc_marker = '<span class="acc-star">⭐</span> ' if is_acc else ""
             acc_row_class = " acc-row" if is_acc else ""
 
@@ -1829,8 +1960,13 @@ def _date_nav(d: str, base: str) -> str:
     today_link = f'<a class="date-nav-today" href="{base}/{today}">Today</a>' if d != today else ""
     return (f'<div class="date-nav">'
             f'<a class="date-nav-btn" href="{base}/{prev}" aria-label="Previous day">◀</a>'
+            f'<div class="date-picker">'
+            f'<svg class="date-picker-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+            f'<rect x="3" y="5" width="18" height="16" rx="2"/><line x1="16" y1="3" x2="16" y2="7"/>'
+            f'<line x1="8" y1="3" x2="8" y2="7"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
             f'<input type="date" class="date-nav-input" value="{d}" data-base="{base}" '
             f'aria-label="Jump to a board date">'
+            f'</div>'
             f'<a class="date-nav-btn" href="{base}/{nxt}" aria-label="Next day">▶</a>'
             f'{today_link}'
             f'<span class="date-nav-label">{_friendly_date(d)}</span>'
@@ -1860,7 +1996,10 @@ def _board_header(payload: dict, admin: bool = False) -> str:
                 f'<span>{n_leagues} leagues scanned</span>'
                 f'<span>Calibration: <b>{calib}</b> legs</span>')
     else:
-        brand_right = ""
+        # Client brand keeps a quiet phase note — the honest-edge statement and
+        # full capital authority stay on /admin (Architect's explicit choice),
+        # but the public view is never presented as a live product.
+        brand_right = '<span class="phase client">PAPER · PHASE 2</span>'
         meta = f'<span>{date_txt}</span><span><b>07:00</b></span>'
     base = "/admin" if admin else "/dashboard"
     crumbs = _crumbs(base, d, admin)
@@ -1959,10 +2098,12 @@ def _produced_bet_block(record: Optional[dict], admin: bool) -> str:
     Live scores are fetched client-side for pending legs."""
     if not record:
         return ('<div class="flags"><div class="flag-line">NO DATA — PENDING — '
-                'no produced-bet record for this date.</div></div>')
+                'no produced-bet record for this date. The daily pipeline writes '
+                'it at 07:00; Admin can produce one on demand.</div></div>')
     if not record.get("produced"):
         return ('<div class="flags"><div class="flag-line">No fixtures today — '
-                'no bet produced. A valid, honest result (ID415).</div></div>')
+                'no bet produced. A valid, honest result (ID415). '
+                'Check back tomorrow when the board runs.</div></div>')
     date = record.get("date", "")
     rows: list[str] = []
     for leg in record.get("legs") or []:
@@ -2008,7 +2149,8 @@ def _acca_section(accas: Optional[list], admin: bool) -> str:
     if not accas:
         return ('<div class="flags"><div class="flag-line">NO ACCA today — no '
                 'deploy-eligible fixture with a live price kicks off today. '
-                'A valid, honest result.</div></div>')
+                'A valid, honest result — check the Scan tab for priced '
+                'fixtures in the wider window.</div></div>')
     blocks: list[str] = []
     for acca in accas:
         rows = [f'<div class="acca-head mono">{html.escape(acca.get("label", "Acca"))} '
@@ -2214,7 +2356,7 @@ def _phase3_gate_section(gate: dict) -> str:
         </div>
         '''
 
-    return f'''<section id="phase3-gate-section">
+    return f'''<section id="phase3-gate-section" class="cv-auto">
     <div class="sec-head"><h2 class="display">Phase 3 Gate — Capital Deployment Authority</h2></div>
     <p class="sec-sub">Phase 2 paper legs accumulate CLV evidence. ≥30 legs with logged CLV + positive mean CLV + Architect (V7) sign-off unlocks Phase 3 capital deployment.</p>
     <div class="gate-dashboard">
@@ -2494,9 +2636,15 @@ _PRODUCE_JS = """<script>
     tray.style.display = _produceSelected.size > 0 ? 'flex' : 'none';
     count.textContent = _produceSelected.size + ' selected';
     go.disabled = _produceSelected.size === 0;
-    // Also update the count display in the results header
+    // Also update the count display in the results header (Sprint 3.4: pop on
+    // change — restart the animation by toggling the class off/on).
     var countDisplay = document.querySelector('.produce-count-display');
-    if (countDisplay) countDisplay.textContent = _produceSelected.size + ' selected';
+    if (countDisplay) {
+      countDisplay.textContent = _produceSelected.size + ' selected';
+      countDisplay.classList.remove('pop');
+      void countDisplay.offsetWidth; // reflow so the animation restarts
+      countDisplay.classList.add('pop');
+    }
   }
 
   function produceClear() {
@@ -2512,7 +2660,12 @@ _PRODUCE_JS = """<script>
     var output = document.getElementById('produce-output');
     go.disabled = true;
     go.textContent = 'Producing…';
-    output.innerHTML = '<div style="padding:20px;text-align:center;color:var(--ink-faint);">Running engine… (~3s warm)</div>';
+    output.innerHTML = '<div class="produce-skeleton">'
+      + '<div class="skeleton card"><div class="skeleton line" style="width:55%;"></div>'
+      + '<div class="skeleton line" style="width:80%;"></div><div class="skeleton line" style="width:40%;"></div></div>'
+      + '<div class="skeleton card"><div class="skeleton line" style="width:45%;"></div>'
+      + '<div class="skeleton line" style="width:70%;"></div><div class="skeleton line" style="width:60%;"></div></div>'
+      + '</div>';
     var groups = {};
     _produceSelected.forEach(function(key) {
       var parts = key.split('|');
@@ -2637,12 +2790,12 @@ def render_dashboard(payload: dict) -> str:
         + '<section id="call-section"><div class="sec-head"><h2 class="display">The Call</h2></div>'
         + _the_call(payload.get("board", []), admin=False)
         + "</section>"
-        + '<section id="produced-section"><div class="sec-head"><h2 class="display">Today\'s Produced Bet</h2></div>'
+        + '<section id="produced-section" class="cv-auto"><div class="sec-head"><h2 class="display">Today\'s Produced Bet</h2></div>'
         + '<p class="sec-sub">What the framework bet today — one leg per rated fixture, '
         + 'verified WON/LOST next day (ID415)</p>'
         + _produced_bet_block(payload.get("produced_bet"), admin=False)
         + "</section>"
-        + '<section id="acca-section"><div class="sec-head"><h2 class="display">Today\'s 4-Leg Acca</h2></div>'
+        + '<section id="acca-section" class="cv-auto"><div class="sec-head"><h2 class="display">Today\'s 4-Leg Acca</h2></div>'
         + '<p class="sec-sub">Today\'s fixtures only (standing rule) — a set of '
         + '4-leg accas from the deploy call, named at the end of production</p>'
         + _acca_section(payload.get("accas"), admin=False)
@@ -2714,18 +2867,18 @@ def render_admin_dashboard(payload: dict) -> str:
         + _admin_search_bar(payload)
         + "</section>"
         + _flags_block(payload.get("data_flags", []))
-        + '<section id="produced-section"><div class="sec-head"><h2 class="display">Today\'s Produced Bet</h2></div>'
+        + '<section id="produced-section" class="cv-auto"><div class="sec-head"><h2 class="display">Today\'s Produced Bet</h2></div>'
         + '<p class="sec-sub">The produced-bet record (ID415) — every rated fixture with a '
         + 'kickoff today is one leg; the verified outcome is written next day</p>'
         + _produced_bet_block(payload.get("produced_bet"), admin=True)
         + "</section>"
-        + '<section id="acca-section"><div class="sec-head"><h2 class="display">Today\'s 4-Leg Acca</h2></div>'
+        + '<section id="acca-section" class="cv-auto"><div class="sec-head"><h2 class="display">Today\'s 4-Leg Acca</h2></div>'
         + '<p class="sec-sub">Today\'s fixtures only (standing rule) — a set of 4-leg accas '
         + 'from the deploy call, each leg capital-cleared (ID405). EV is a model '
         + 'internal, admin-only.</p>'
         + _acca_section(payload.get("accas"), admin=True)
         + "</section>"
-        + '<section id="verified-section"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
+        + '<section id="verified-section" class="cv-auto"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
         + '<p class="sec-sub">Graded against full-time result, 90-min basis (HR15)</p>'
         + _yesterday_graded(payload.get("yesterday_graded", []))
         + "</section>"

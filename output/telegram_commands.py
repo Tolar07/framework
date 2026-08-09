@@ -42,6 +42,7 @@ answering a /status never pays for that.
 from __future__ import annotations
 
 import argparse
+import contextlib
 import csv
 import json
 import os
@@ -97,15 +98,40 @@ def _save_offset(offset: int) -> None:
     OFFSET_FILE.write_text(json.dumps({"offset": offset}), encoding="utf-8")
 
 
+class Reply(str):
+    """A command reply that may carry a Telegram inline keyboard.
+
+    A str subclass so every existing caller that treats a reply as plain text
+    (tests, logging, the poller's send) keeps working unchanged; `.keyboard`
+    is an optional dict shaped exactly like Telegram's reply_markup, attached
+    to the last chunk by send_telegram. Tapping a button fires a callback_query
+    whose data IS the command (e.g. "/status"), which poll_once answers and
+    routes like a message — so no callback handler state is needed."""
+
+    keyboard: dict | None = None
+
+    def __new__(cls, text: str, keyboard: dict | None = None) -> Reply:
+        obj = super().__new__(cls, text)
+        obj.keyboard = keyboard
+        return obj
+
+
+def _keyboard(*rows: tuple[str, ...]) -> dict:
+    """Inline keyboard whose button label and callback are the same command."""
+    return {"inline_keyboard": [
+        [{"text": cmd, "callback_data": cmd} for cmd in row] for row in rows
+    ]}
+
+
 # --------------------------------------------------------------------------
 # Command handlers — each returns the reply text
 # --------------------------------------------------------------------------
 
 def cmd_help(_: str) -> str:
-    return (
+    return Reply(
         "OLP XDV commands\n\n"
         "/board — re-send today's board\n"
-        "/status — Phase 3 gate progress\n"
+        "/status — pipeline health + Phase 3 gate progress\n"
         "/verify — yesterday's graded results\n"
         "/why 2 — full reasoning for fixture 2 on today's board\n"
         "/log Hearts v Dundee United | Over 1.5 goals | 1.42\n"
@@ -116,8 +142,59 @@ def cmd_help(_: str) -> str:
         "/produce bet — run the pipeline now, board returned as this reply (~30s)\n"
         "/verify result — grade pending legs now (settles any played)\n"
         "/debrief — full framework status\n\n"
-        f"{PHASE_LABEL}. Paper only — this system never stakes."
-    )
+        f"{PHASE_LABEL}. Paper only — this system never stakes.",
+        keyboard=_keyboard(("/board", "/status", "/stats"),
+                           ("/why", "/verify result", "/produce bet"),
+                           ("/log", "/note", "/debrief")))
+
+
+
+def _last_run_line() -> str:
+    """Pipeline health: the brain's most recent daily-run record, or NO DATA."""
+    try:
+        from brain.store import Brain  # stdlib-only — never drags in scipy
+    except Exception as e:
+        return f"Last run: unavailable ({e})"
+    try:
+        with Brain(read_only=True) as b:
+            r = b.last_run()
+    except Exception as e:
+        return f"Last run: unavailable ({e})"
+    if not r:
+        return "Last run: NO RUN RECORDED — the 07:00 job has not completed a run."
+    started = (r.get("started_at") or "")[:16].replace("T", " ")
+    status = r.get("status", "?")
+    n_lg, n_fx, n_pr, n_lg2 = (r.get("leagues_scanned") or "?",
+                               r.get("fixtures_seen") or "?",
+                               r.get("predictions_logged") or "?",
+                               r.get("legs_logged") or "?")
+    fit = r.get("fit_seconds")
+    fit_s = f" · fit {fit:.0f}s" if isinstance(fit, (int, float)) else ""
+    tail = " — last run FAILED" if status == "failed" else ""
+    return (f"Last run: {status.upper()}{tail} at {started}"
+            f"\n  {n_lg} leagues · {n_fx} fixtures · {n_pr} predictions · "
+            f"{n_lg2} legs logged{fit_s}")
+
+
+def _data_quality_line() -> str:
+    """One honest line from the data-quality monitor (HR35). Lazy import —
+    the monitor reads the cache, so /status pays for it only when asked."""
+    try:
+        from monitor import data_quality as dq
+        findings = dq.check()
+    except Exception as e:
+        return f"Data quality: unavailable ({e})"
+    if not findings:
+        return "Data quality: CLEAN — every whitelisted league has a fresh feed."
+    errs = [f for f in findings if f.level == "error"]
+    warns = [f for f in findings if f.level == "warn"]
+    total = len(findings)
+    err_n = len(errs)
+    warn_n = len(warns)
+    sample = errs[0] if errs else (warns[0] if warns else None)
+    sample_txt = f" e.g. {sample.league}: {sample.problem[:90]}" if sample else ""
+    return (f"Data quality: {err_n} error / {warn_n} warn of {total} finding(s)"
+            f"{sample_txt}")
 
 
 def cmd_status(_: str) -> str:
@@ -137,8 +214,14 @@ def cmd_status(_: str) -> str:
         "",
         "A leg only counts once its CLOSING price exists, which is after the "
         "match. Legs logged today will count tomorrow.",
+        "",
+        "PIPELINE HEALTH",
+        _last_run_line(),
+        "Next scheduled run: 07:00 daily (plus /send on demand)",
+        _data_quality_line(),
     ]
-    return "\n".join(lines)
+    return Reply("\n".join(lines), keyboard=_keyboard(("/board", "/stats", "/debrief"),
+                                                      ("/verify result", "/produce bet")))
 
 
 def cmd_board(_: str) -> str:
@@ -148,7 +231,8 @@ def cmd_board(_: str) -> str:
         if not boards:
             return "No board has been produced yet. NO DATA — PENDING."
         p = boards[-1]
-    return p.read_text(encoding="utf-8")
+    return Reply(p.read_text(encoding="utf-8"),
+                 keyboard=_keyboard(("/status", "/why"), ("/verify result", "/produce bet")))
 
 
 def cmd_verify(arg: str) -> str:
@@ -193,7 +277,8 @@ def cmd_why(arg: str) -> str:
         return f"No fixture {arg} on today's board."
     block = text.split(marker, 1)[1]
     nxt = f"\n{int(arg)+1}. "
-    return (marker.strip() + " " + (block.split(nxt)[0] if nxt in block else block))[:3500]
+    return Reply((marker.strip() + " " + (block.split(nxt)[0] if nxt in block else block))[:3500],
+                 keyboard=_keyboard(("/board", "/status")))
 
 
 def cmd_log(arg: str) -> str:
@@ -266,7 +351,7 @@ def cmd_debrief(_: str) -> str:
     log = CLVLog()
     s = log.phase2_status()
     mean = s["mean_clv_pct"]
-    return "\n".join([
+    lines = [
         "OLP XDV — FRAMEWORK DEBRIEF",
         f"{PHASE_LABEL}",
         "",
@@ -293,7 +378,9 @@ def cmd_debrief(_: str) -> str:
         "  which inflates Under 2.5 and BTTS-No — the markets you trade.",
         "",
         HONEST_CAVEAT,
-    ])
+    ]
+    return Reply("\n".join(lines),
+                 keyboard=_keyboard(("/status", "/board", "/stats")))
 
 
 def cmd_send(_: str) -> str:
@@ -419,15 +506,35 @@ def poll_once(token: Optional[str] = None, long_poll_seconds: int = 0) -> list[s
     for u in updates:
         offset = max(offset, u.get("update_id", offset))
         msg = u.get("message") or {}
-        chat_id = str(msg.get("chat", {}).get("id", ""))
+        cq = u.get("callback_query") or {}
+        chat_id = str((msg.get("chat") or cq.get("message", {}).get("chat", {})).get("id", ""))
         text = msg.get("text") or ""
+        if cq:
+            # An inline-keyboard tap. The button's callback_data IS the command
+            # (e.g. "/status"), so answer the tap (clears the clock spinner) and
+            # route it exactly like a typed message — no callback state needed.
+            data = cq.get("data") or ""
+            if allowed and chat_id not in allowed:
+                notes.append(f"IGNORED callback from non-whitelisted chat {chat_id}")
+                continue
+            # A failed ack must never drop the command that follows.
+            with contextlib.suppress(Exception):
+                requests.post(
+                    f"https://api.telegram.org/bot{token}/answerCallbackQuery",
+                    json={"callback_query_id": cq.get("id", ""),
+                          "text": "…"},
+                    timeout=15)
+            if data:
+                text = data
         if not text:
             continue
         if allowed and chat_id not in allowed:
             notes.append(f"IGNORED message from non-whitelisted chat {chat_id}")
             continue
         reply = handle(text)
-        ok, send_notes = send_telegram(reply, token=token, chat_id=chat_id)
+        markup = reply.keyboard if isinstance(reply, Reply) else None
+        ok, send_notes = send_telegram(reply, token=token, chat_id=chat_id,
+                                       reply_markup=markup)
         label = text.split()[0] if text.split() else "?"
         if ok:
             notes.append(f"handled {label} from {chat_id} -> {', '.join(send_notes)}")

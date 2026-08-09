@@ -137,6 +137,29 @@ def _resolve_fixture(leg: dict, cache) -> Optional[dict]:
     return None
 
 
+def _find_match_row(page: Page, fixture_id: str,
+                    home_name: Optional[str] = None):
+    """Locate a match row on the league page.
+
+    VERIFIED LIVE 2026-08-09: rows have NO `data-game-id` attribute — the ID
+    renders as TEXT inside `.game-id` ("ID: 25939"). The old
+    `[data-game-id='...']` selector therefore never matched and every 1X2 leg
+    fell through to the text fallback (which worked only by luck). Match on the
+    `.game-id` text first, then fall back to the home-team name."""
+    rows = page.query_selector_all(".m-table-row.match-row")
+    if fixture_id:
+        for r in rows:
+            gid = r.query_selector(".game-id")
+            if gid and fixture_id in (gid.inner_text() or ""):
+                return r
+    if home_name:
+        for r in rows:
+            h = r.query_selector(".teams .home-team")
+            if h and h.inner_text().strip() == home_name:
+                return r
+    return None
+
+
 def _click_1x2(row, market_key: str) -> bool:
     """Click a 1X2 outcome on a league-page match row. Returns True when the
     click was issued (betslip state is checked by the caller)."""
@@ -150,37 +173,6 @@ def _click_1x2(row, market_key: str) -> bool:
     if len(cells) <= idx:
         return False
     cells[idx].click()
-    return True
-
-
-def _click_totals_on_league_page(row, market_key: str) -> bool:
-    """Click an Over/Under outcome on a league-page match row.
-
-    The league page's second market cell (.market-cell .market) is the totals
-    market. It has a line selector (.af-select-input showing the fixed line,
-    e.g. '2.5') and two outcomes: Over (index 0) and Under (index 1).
-    If the displayed line matches the target line for this market_key,
-    click the corresponding outcome. Returns True on success."""
-    info = TOTALS_INDEX.get(market_key)
-    if info is None:
-        return False
-    target_line, outcome_idx = info
-    markets = row.query_selector_all(".market-cell .market")
-    if len(markets) < 2:
-        return False
-    totals = markets[1]
-    # Check the displayed line
-    line_elem = totals.query_selector(".af-select-input")
-    if line_elem is None:
-        return False
-    displayed = (line_elem.inner_text() or "").strip()
-    if displayed != target_line:
-        return False
-    # Click the correct outcome (0=Over, 1=Under)
-    cells = totals.query_selector_all(".m-outcome-odds")
-    if len(cells) <= outcome_idx:
-        return False
-    cells[outcome_idx].click()
     return True
 
 
@@ -243,7 +235,12 @@ def _click_market_on_match_page(page: Page, market_key: str) -> bool:
 
     Generic clicker for markets that require navigating the match page tabs.
     Tries multiple locator strategies; returns False so the leg is flagged
-    MANUAL (HR35) rather than guessed."""
+    MANUAL (HR35) rather than guessed.
+
+    NOTE: direct `/match/{id}` navigation TIMES OUT on SportyBet NG (verified
+    live 2026-08-09) — the SPA won't render it standalone. This path is a
+    fallback only; the league-page expand path (see
+    `_click_btts_on_league_page`) is what actually works."""
     mapping = _MARKET_UI_MAP.get(market_key)
     if not mapping:
         return False
@@ -325,6 +322,65 @@ def _click_totals_on_league_page(row, market_key: str) -> bool:
         return False
     cells[outcome_idx].click()
     return True
+
+
+def _click_btts_on_league_page(page: Page, fixture_id: str, market_key: str) -> bool:
+    """Drive a BTTS (GG/NG) selection on a league page, best-effort.
+
+    VERIFIED LIVE 2026-08-09: direct `/match/{id}` navigation TIMES OUT on
+    SportyBet NG, but clicking the match ROW expands an inline market selector
+    on the league page. That selector exposes category tabs (Main | Goals |
+    Half | ...) and, under the "Goals" tab, market-items including GG/NG. Clicking
+    GG/NG re-renders the table with two outcome columns: GG = Both Teams To
+    Score Yes (index 0), NG = No Goal (index 1).
+
+    Flow:
+      1. Click the target match row (opens the inline market selector)
+      2. Click the "Goals" category tab
+      3. Click the "GG/NG" market-item  -> the table re-renders with GG/NG
+      4. Re-locate the target row by fixture id, click GG (BTTS_YES, idx 0)
+         or NG (BTTS_NO, idx 1).
+
+    Returns False on any miss so the leg is flagged MANUAL (HR35) rather than
+    guessed."""
+    outcome_idx = 0 if market_key == "BTTS_YES" else 1
+    try:
+        # 1. Click the target match row to open the inline market selector.
+        row = _find_match_row(page, fixture_id)
+        if row is None:
+            return False
+        row.click()
+        page.wait_for_timeout(3000)
+
+        # 2. Click the "Goals" category tab.
+        goals = page.locator("text=Goals >> visible=true").first
+        if goals.count() == 0:
+            return False
+        goals.click()
+        page.wait_for_timeout(1500)
+
+        # 3. Click the "GG/NG" market-item; the table re-renders to GG/NG.
+        ggng = page.locator(".market-item:has-text('GG/NG') >> visible=true").first
+        if ggng.count() == 0:
+            return False
+        ggng.click()
+        page.wait_for_timeout(1500)
+
+        # 4. Re-locate the row (now showing GG/NG columns) and click GG/NG.
+        rows = page.query_selector_all(".m-table-row.match-row")
+        for r in rows:
+            gid_el = r.query_selector(".game-id")
+            gid_text = (gid_el.inner_text() if gid_el else "") or ""
+            if fixture_id in gid_text:
+                cells = r.query_selector_all(
+                    f".m-outcome[data-op='desktop-outcome_{outcome_idx}']")
+                if cells:
+                    cells[0].click()
+                    page.wait_for_timeout(800)
+                    return True
+        return False
+    except Exception:
+        return False
 
 
 def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
@@ -420,15 +476,28 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                         page, mapping.country, mapping.league)
                     league_nav[league] = nav_ok
                 if league_nav.get(league):
-                    row = page.query_selector(f"[data-game-id='{fx['fixture_id']}'], .m-table-row.match-row:has-text('{fx['sportybet_home']}')")
+                    row = _find_match_row(page, fx["fixture_id"], fx["sportybet_home"])
                     ok = bool(row) and _click_1x2(row, leg["market_key"])
                     if not ok and row is None:
                         entry["reason"] = "match row not found on league page"
             elif leg.get("market_key") in ("UNDER_2_5",):
-                if _open_match_page(page, fx["fixture_id"]):
-                    ok = _click_under25(page)
+                # The league-page totals cell handles Under 2.5 when its fixed
+                # line is 2.5. Deliberately NO match-page fallback: direct
+                # /match navigation TIMES OUT on SportyBet NG (see BTTS note)
+                # and leaves the session on a dead page, breaking every later
+                # leg. A line mismatch flags MANUAL rather than navigates.
+                if league_nav.get(league) is not True:
+                    mapping = SPORTYBET_LEAGUES.get(league)
+                    nav_ok = bool(mapping) and _navigate_to_league(
+                        page, mapping.country, mapping.league)
+                    league_nav[league] = nav_ok
+                if league_nav.get(league):
+                    row = _find_match_row(page, fx["fixture_id"], fx["sportybet_home"])
+                    ok = bool(row) and _click_totals_on_league_page(row, leg["market_key"])
+                    if not ok and row is None:
+                        entry["reason"] = "match row not found on league page"
                 else:
-                    entry["reason"] = "match page did not load"
+                    entry["reason"] = "league page did not load"
             elif leg.get("market_key") in TOTALS_INDEX:
                 # Totals markets available on the league page (fixed line per row)
                 if league_nav.get(league) is not True:
@@ -437,18 +506,36 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                         page, mapping.country, mapping.league)
                     league_nav[league] = nav_ok
                 if league_nav.get(league):
-                    row = page.query_selector(f"[data-game-id='{fx['fixture_id']}'], .m-table-row.match-row:has-text('{fx['sportybet_home']}')")
+                    row = _find_match_row(page, fx["fixture_id"], fx["sportybet_home"])
                     ok = bool(row) and _click_totals_on_league_page(row, leg["market_key"])
                     if not ok and row is None:
                         entry["reason"] = "match row not found on league page"
                     elif not ok:
                         entry["reason"] = f"line mismatch or outcome click failed for {leg['market_key']}"
-            elif leg.get("market_key") in _MARKET_UI_MAP:
-                # All other match-page markets (OVER_2_5, OVER_1_5, UNDER_1_5, BTTS_YES, BTTS_NO)
-                if _open_match_page(page, fx["fixture_id"]):
-                    ok = _click_market_on_match_page(page, leg["market_key"])
+            elif leg.get("market_key") in ("BTTS_YES", "BTTS_NO"):
+                # BTTS = GG/NG. The working path is the league-page inline
+                # market selector (direct /match navigation times out). The
+                # expand->Goals->GG/NG flow leaves the page on a deep
+                # tournament link in an expanded GG/NG state; _navigate_to_league
+                # now hard-reloads for deep /sr: links so each BTTS leg starts
+                # from a clean league page.
+                mapping = SPORTYBET_LEAGUES.get(league)
+                nav_ok = bool(mapping) and _navigate_to_league(
+                    page, mapping.country, mapping.league)
+                if nav_ok:
+                    ok = _click_btts_on_league_page(page, fx["fixture_id"], leg["market_key"])
+                    if not ok:
+                        entry["reason"] = "GG/NG (BTTS) selection could not be driven"
                 else:
-                    entry["reason"] = "match page did not load"
+                    entry["reason"] = "league page did not load"
+            elif leg.get("market_key") in _MARKET_UI_MAP:
+                # Defensive MANUAL. Every market in _MARKET_UI_MAP (totals +
+                # BTTS) is already handled by the league-page branches above,
+                # so reaching here means an unhandled variant. Deliberately do
+                # NOT fall back to the match page: direct /match navigation
+                # times out on SportyBet NG and leaves the session on a dead
+                # page, breaking every later leg.
+                entry["reason"] = f"market {leg['market_key']} not drivable on league page"
             if ok:
                 added += 1
                 entry["status"] = "BOOKED"

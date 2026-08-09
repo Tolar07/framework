@@ -342,11 +342,17 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
     fixtures ("Failed to load game data"). This function replicates the
     click-through that a user performs."""
     try:
-        # Step 1: ensure we're on the football page
-        if "/sport/football" not in page.url:
+        # Step 1: ensure we're on a clean football page. The guard is NOT just
+        # "/sport/football" — a deep tournament link (e.g. .../sr:tournament:36)
+        # also contains it, and after a BTTS leg we're left on that deep link in
+        # an EXPANDED GG/NG state. Reusing it (clicking the sidebar again) drives
+        # a corrupted DOM, so force a clean home reload whenever the URL is a
+        # deep /sr: link (verified live 2026-08-09: second leg after a BTTS leg
+        # failed until the hard reload was added).
+        if "/sr:" in page.url or "/sport/football" not in page.url:
             page.goto(f"{BASE_URL}/sport/football", wait_until="domcontentloaded",
                       timeout=PAGE_LOAD_TIMEOUT)
-            page.wait_for_timeout(3000)
+            page.wait_for_timeout(1500)
 
         # Handle any modal dialogs that might block clicks
         try:

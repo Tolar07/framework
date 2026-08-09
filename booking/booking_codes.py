@@ -293,14 +293,19 @@ def _click_market_on_match_page(page: Page, market_key: str) -> bool:
     return False
 
 
-def _click_totals_on_league_page(row, market_key: str) -> bool:
+def _click_totals_on_league_page(page: Page, row, market_key: str) -> bool:
     """Click an Over/Under outcome on a league-page match row.
 
     The league page's second market cell (.market-cell .market) is the totals
     market. It has a line selector (.af-select-input showing the fixed line,
     e.g. '2.5') and two outcomes: Over (index 0) and Under (index 1).
-    If the displayed line matches the target line for this market_key,
-    click the corresponding outcome. Returns True on success."""
+
+    This function:
+    1. Reads the displayed line
+    2. If it doesn't match the target line, clicks the dropdown and selects the target line
+    3. Clicks the corresponding outcome (Over/Under)
+
+    Returns True on success."""
     info = TOTALS_INDEX.get(market_key)
     if info is None:
         return False
@@ -309,13 +314,54 @@ def _click_totals_on_league_page(row, market_key: str) -> bool:
     if len(markets) < 2:
         return False
     totals = markets[1]
+
     # Check the displayed line
     line_elem = totals.query_selector(".af-select-input")
     if line_elem is None:
         return False
     displayed = (line_elem.inner_text() or "").strip()
+
+    # If the line doesn't match, click the dropdown and select the target line
     if displayed != target_line:
-        return False
+        try:
+            # Click the line selector dropdown to open it
+            line_elem.click()
+            page.wait_for_timeout(1000)  # wait for dropdown to render
+
+            # Find and click the target line option
+            # Options typically render as .af-select-option or similar
+            option_locators = [
+                f"text={target_line} >> visible=true",
+                f".af-select-option:has-text('{target_line}') >> visible=true",
+                f"[data-value='{target_line}'] >> visible=true",
+                f"li:has-text('{target_line}') >> visible=true",
+            ]
+            option_clicked = False
+            for loc in option_locators:
+                try:
+                    page.locator(loc).first.click()
+                    option_clicked = True
+                    break
+                except Exception:
+                    continue
+
+            if not option_clicked:
+                return False
+
+            # Wait for the line to update and markets to re-render
+            page.wait_for_timeout(1500)
+
+            # Re-read the displayed line to confirm
+            line_elem = totals.query_selector(".af-select-input")
+            if line_elem is None:
+                return False
+            displayed = (line_elem.inner_text() or "").strip()
+            if displayed != target_line:
+                return False
+
+        except Exception:
+            return False
+
     # Click the correct outcome (0=Over, 1=Under)
     cells = totals.query_selector_all(".m-outcome-odds")
     if len(cells) <= outcome_idx:

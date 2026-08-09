@@ -109,10 +109,29 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Mansfield Town": "Mansfield Town",
     "Plymouth Argyle": "Plymouth Argyle",
     "Exeter City": "Exeter City",
-    # La Liga
+    # La Liga — SportyBet uses standard names that match OLP keys.
+    # Add as identity mappings so reverse lookup (SportyBet -> OLP) works.
     "Real Madrid": "Real Madrid",
     "Barcelona": "Barcelona",
     "Atletico Madrid": "Atletico Madrid",
+    "Alaves": "Alaves",
+    "Getafe": "Getafe",
+    "Sevilla": "Sevilla",
+    "Rayo Vallecano": "Rayo Vallecano",
+    "Villarreal": "Villarreal",
+    "Espanyol": "Espanyol",
+    "Levante": "Levante",
+    "Celta": "Celta",
+    "Osasuna": "Osasuna",
+    "Racing Santander": "Racing Santander",
+    "Valencia": "Valencia",
+    "Athletic Bilbao": "Athletic Bilbao",
+    "Real Sociedad": "Real Sociedad",
+    "Betis": "Real Betis",
+    "Mallorca": "Mallorca",
+    "Girona": "Girona",
+    "Las Palmas": "Las Palmas",
+    "Leganes": "Leganes",
     # Serie A
     "Inter": "Inter Milan",
     "AC Milan": "AC Milan",
@@ -126,7 +145,8 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "RB Leipzig": "RB Leipzig",
     "Bayer Leverkusen": "Bayer Leverkusen",
     "Eintracht Frankfurt": "Eintracht Frankfurt",
-    # Ligue 1
+    # Ligue 1 — SportyBet uses standard names that match OLP keys.
+    # Add as identity mappings so reverse lookup (SportyBet -> OLP) works.
     "PSG": "Paris Saint-Germain",
     "Monaco": "Monaco",
     "Lille": "Lille",
@@ -140,6 +160,15 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Paris FC": "Paris FC",
     "Le Havre": "Le Havre",
     "Angers": "Angers",
+    "Strasbourg": "Strasbourg",
+    "Auxerre": "AJ Auxerre",
+    "Brest": "Brest",
+    "Lens": "RC Lens",
+    "Reims": "Reims",
+    "Montpellier": "Montpellier",
+    "Nantes": "Nantes",
+    "Saint Etienne": "Saint-Etienne",
+    "Le Mans FC": "Le Mans FC",
     # Primeira Liga
     "Porto": "FC Porto",
     "Benfica": "Benfica",

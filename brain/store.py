@@ -652,6 +652,26 @@ class Brain:
             "GROUP BY market ORDER BY n DESC, market", (phase,)).fetchall()
         return [dict(r) for r in rows]
 
+    def platt_evidence(self, engine: str = "dc") -> dict[str, list[tuple[float, bool]]]:
+        """Per-market (raw model_prob, settled outcome) pairs for ONE engine.
+
+        The input Platt scaling is fitted on (engine/recalibration.py): each
+        rated prediction the daily run persisted gets its outcome attached by
+        record_outcomes() once the match settles, so the model-vs-reality
+        record already exists — no new logging needed. Returns
+        {market: [(model_prob, hit), ...]} for markets with at least one
+        settled prediction, ordered oldest-first so the fit is stable."""
+        rows = self._conn.execute(
+            "SELECT market, model_prob, hit FROM predictions "
+            "WHERE model_engine=? AND hit IS NOT NULL AND model_prob IS NOT NULL "
+            "ORDER BY id ASC",
+            (engine,)).fetchall()
+        out: dict[str, list[tuple[float, bool]]] = {}
+        for r in rows:
+            out.setdefault(r["market"], []).append(
+                (float(r["model_prob"]), bool(r["hit"])))
+        return out
+
     def clv_by_league(self, phase: str = "phase2_paper") -> list[dict]:
         rows = self._conn.execute(
             "SELECT league, COUNT(*) AS n, AVG(clv_pct) AS mean_clv_pct "

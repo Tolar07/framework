@@ -11,6 +11,13 @@ import tempfile
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+# Snapshot the module set BEFORE telegram_commands loads, so the lightweight
+# assertions below test what THIS module dragged in — not what earlier test
+# files (e.g. api_football_odds_test importing run_daily) happened to load
+# first under pytest's collection order. The claim under test is unchanged:
+# importing the command layer must not pay for the pipeline.
+_before = set(sys.modules)
+
 from output import telegram_commands as tc
 from output.telegram_commands import (handle, cmd_send, cmd_produce, cmd_verify,
                                       cmd_help, HANDLERS, BRIGHT_LINE_WORDS)
@@ -25,8 +32,9 @@ tc.CORRECTIONS_FILE = _tmp / "corrections.csv"
 # --- the poller stays lightweight: importing the module must NOT drag in the
 # --- whole pipeline (scipy). /send lazy-imports run_daily exactly so the
 # --- other commands never pay for it.
-assert "run_daily" not in sys.modules, "run_daily must not be imported at module load"
-assert "scipy" not in sys.modules, "scipy must not be imported at module load"
+_imported = set(sys.modules) - _before
+assert "run_daily" not in _imported, "importing telegram_commands must not drag in run_daily"
+assert "scipy" not in _imported, "importing telegram_commands must not drag in scipy"
 print("Poller stays lightweight — /send lazy-imports run_daily: OK")
 
 # --- /send and /run are the same handler, registered -----------------------

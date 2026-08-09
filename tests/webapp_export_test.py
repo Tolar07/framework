@@ -2,10 +2,11 @@
 
 Since a static host cannot authenticate, the export is trimmed: predictions
 only, NO model internals (Architect order 2026-08-07). stats.json is gone —
-it is the admin diagnostic layer and must not be hostable. The only external
-fetches are the Architect-approved Google Fonts CDN, flagcdn.com (league
-country flags) and r2.thesportsdb.com (club crests); every other asset is
-inline.
+it is the admin diagnostic layer and must not be hostable. Fonts are
+self-hosted (Sprint 4, no Google CDN); the only external fetches left are the
+Architect-approved flagcdn.com (league country flags) and r2.thesportsdb.com
+(club crests). CSS/JS/fonts are copied as a relative ./static tree beside
+index.html, so the exported folder stays self-contained.
 """
 import json
 import os
@@ -93,14 +94,26 @@ for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
     assert needle not in html_src, f"public export leaks {needle!r}"
 print("2. index is the trimmed client view: OK")
 
-# --- 3. external fetches are limited to the approved sources: the
-# Architect-approved Google Fonts CDN, flagcdn.com (league country flags)
-# and r2.thesportsdb.com (club crests). Every other asset is inline.
-# The scan catches absolute (https:// and http://) AND protocol-relative
-# (//host) references, so an unapproved host can't slip past either spelling.
+# --- Sprint 4: self-hosted static tree copied; index references it relatively -
+assert (out / "static" / "css" / "app.css").is_file()
+assert (out / "static" / "js" / "assets.js").is_file()
+assert (out / "static" / "js" / "scan.js").is_file()
+assert (out / "static" / "fonts" / "Inter-normal-400.woff2").is_file()
+assert 'data-asset-base="./static"' in html_src
+assert 'src="./static/js/assets.js"' in html_src
+# Fonts are self-hosted — the Google CDN is gone, and section 3 would now
+# reject it too (it is no longer on the approved-host list).
+assert "fonts.googleapis.com" not in html_src and "fonts.gstatic.com" not in html_src
+print("Sprint 4. static tree copied + self-hosted fonts, no Google CDN: OK")
+
+# --- 3. external fetches are limited to the approved sources: flagcdn.com
+# (league country flags) and r2.thesportsdb.com (club crests). Fonts are
+# self-hosted — the Google CDN is NOT approved, so a reintroduced
+# fonts.googleapis.com link fails here. CSS/JS/fonts are relative (./static/...)
+# so they never match the absolute/protocol-relative scan. The scan catches
+# absolute (https:// and http://) AND protocol-relative (//host) references, so
+# an unapproved host can't slip past either spelling.
 _APPROVED_EXTERNAL_HOSTS = (
-    "fonts.googleapis.com",
-    "fonts.gstatic.com",
     "flagcdn.com",          # league country flags
     "r2.thesportsdb.com",   # club crests (Architect-approved hotlink)
 )

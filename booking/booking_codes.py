@@ -27,8 +27,9 @@ HONESTY (HR35)
     here as a data flag, never a run failure.
 
 USAGE
-  py -3.12 -m booking.booking_codes book [--date 2026-08-09] [--headed]
-  py -3.12 -m booking.booking_codes book --accas output/boards/acca_2026-08-09.json
+  py -3.12 -m booking.booking_codes [--date 2026-08-09] [--headed]
+  py -3.12 -m booking.booking_codes --accas output/boards/acca_2026-08-09.json
+  (run_daily invokes book_accas() directly; the CLI is a manual review tool)
 """
 from __future__ import annotations
 
@@ -71,6 +72,20 @@ def _load_acca_payload(day: str) -> dict:
             f"acca payload missing — {path}. Run the daily pipeline first, "
             f"or pass --accas with an explicit payload path.")
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _cache_entry(f) -> dict:
+    """One PipelineFixture (from booking.bridge) as the dict _resolve_fixture
+    reads. The model keys live on home_team/away_team — mapping them here is
+    what makes an acca leg resolvable (regression: f.get() on the dataclass
+    silently produced an empty cache and every leg reported 'not found')."""
+    return {
+        "fixture_id": f.sportybet_fixture_id,
+        "sportybet_home": f.sportybet_home,
+        "sportybet_away": f.sportybet_away,
+        "model_home": f.home_team,
+        "model_away": f.away_team,
+    }
 
 
 def _resolve_fixture(leg: dict, cache) -> Optional[dict]:
@@ -147,12 +162,43 @@ def _click_under25(page: Page) -> bool:
 
 
 def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
-    """Read the booking code from the betslip once all legs are in.
+    """Read the booking code once all legs are in the betslip.
 
-    The code element is not stable across SportyBet revisions, so several
-    locators are tried; the first non-empty match wins. Returns None when no
-    code can be read (the leg statuses already tell the Architect what to add
-    manually)."""
+    Verified live 2026-08-09: clicking the betslip's "Book Bet" opens a modal
+    (.es-dialog.m-dialog) whose body is "Booking Code\nQGF7G5\n<date>...". The
+    code only exists there — it is not in an input field. So this function
+    1) presses Book Bet, 2) waits for the modal, 3) reads the token right
+    after the "Booking Code" label. Falls back to any input-field locators on
+    the off-chance a revision renders one. Returns None when no code can be
+    read (the per-leg statuses already tell the Architect what to add
+    manually — HR35)."""
+    try:
+        # The betslip's Book Bet is a SPAN (verified live); `text=` is the
+        # only engine that reliably matches it. The `>> visible=true` chain is
+        # NOT valid in query_selector, so we match plain and click the first.
+        books = page.query_selector_all("text=Book Bet")
+        if books:
+            books[0].click()
+            page.wait_for_timeout(2500)
+    except Exception:
+        pass  # no Book Bet button — maybe the slip already shows the code
+
+    # Primary: the Booking Code modal. The label and the token are adjacent
+    # lines in the modal's inner_text.
+    try:
+        dialog = page.query_selector(".es-dialog.m-dialog")
+        if dialog is not None:
+            text = dialog.inner_text()
+            m = re.search(r"Booking Code\s*\n\s*([A-Z0-9]{5,10})", text)
+            if m:
+                return m.group(1)
+            m2 = re.search(r"Booking Code\s*[:.]?\s*([A-Z0-9]{5,10})", text)
+            if m2:
+                return m2.group(1)
+    except Exception:
+        pass
+
+    # Fallback: any input-style code field a future revision might render.
     selectors = [
         "input.booking-code, .booking-code input, [data-booking-code]",
         "input.bet-code, .bet-code input",
@@ -252,11 +298,13 @@ def book_accas(payload: dict, headless: bool = True) -> dict:
         if not lg or lg == "—":
             continue
         try:
+            # PipelineFixture carries the MODEL keys on home_team/away_team
+            # (the cache's model_home/model_away); _cache_entry maps them to
+            # the dict shape _resolve_fixture reads. `f.get()` would raise on
+            # the dataclass — that failure used to be swallowed into an empty
+            # cache, and every leg reported 'fixture not found' (fixed).
             cache_by_league[lg] = [
-                {k: f.get(k) for k in ("fixture_id", "sportybet_home",
-                                       "sportybet_away", "model_home",
-                                       "model_away")}
-                for f in load_sportybet_fixtures(lg, days_ahead=30)]
+                _cache_entry(f) for f in load_sportybet_fixtures(lg, days_ahead=30)]
         except Exception:
             cache_by_league[lg] = []
 

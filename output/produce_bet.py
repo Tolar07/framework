@@ -298,10 +298,14 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
             winner = labels.get(c.result, c.result)
             L.append(f"   CONSENSUS (ID412) — {winner}, "
                      f"{c.agreeing} of {c.n_engines} engines"
-                     + (" (one engine dissents)" if c.split else ""))
+                     + (" (one engine dissents)" if c.split else "")
+                     + (" — CLV-WEIGHTED" if c.weighted else ""))
             L.append(f"      averaged 1X2: {p.home_team} "
                      f"{round(c.avg_home*100)}% · Draw {round(c.avg_draw*100)}% "
                      f"· {p.away_team} {round(c.avg_away*100)}%")
+            if c.weighted and c.weight_used:
+                wstr = ", ".join(f"{k} {v:.2f}" for k, v in sorted(c.weight_used.items()))
+                L.append(f"      CLV-weighted by engine (dc/elo/xg/bookmaker): {wstr}")
             if c.split:
                 L.append(f"      engines split on the result: "
                          f"{', '.join(f'{k} {v}' for k, v in sorted(c.votes.items()))}")

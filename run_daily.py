@@ -41,7 +41,7 @@ from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine.consensus import compute_consensus
 from engine import recalibration as recal
-from clv.clv_logger import CLVLog, compute_clv
+from clv.clv_logger import CLVLog, compute_clv, ensemble_weights
 from clv.closing_capture import capture_closing_lines
 from output.produce_bet import (render_produce_bet, render_verify_results,
                                 render_telegram_board)
@@ -565,6 +565,21 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                                      for m, s in sorted(platt_pending.items()))
                          + " — visible only; inert until PLATT_MIN_LEGS settle")
 
+    # ENSEMBLE WEIGHTS (Phase 3.3) — per-engine consensus weights from the
+    # settled record: does an engine beat the close on the markets it calls,
+    # and is it well-calibrated on its own predictions? CLV-gated and bounded
+    # (clv/clv_logger.ensemble_weights): with no settled evidence every weight
+    # is 1.0 and the consensus stays the classic equal vote. Weights shape the
+    # DISPLAY-only consensus; DC stays canonical for legs, CLV and calibration.
+    engine_weights = None
+    try:
+        engine_weights, ew_info = ensemble_weights(
+            brain.engine_clv(), brain.engine_calibration())
+        all_flags.append(ew_info["flag"])
+    except Exception as e:
+        all_flags.append(f"ensemble weights unavailable ({str(e)[:60]}) "
+                         f"— consensus unweighted")
+
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
     #
@@ -605,7 +620,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         bf.market_probs = mkt.implied_1x2(fx)
         if bf.market_probs is not None:
             bf.consensus = compute_consensus(
-                bf.probs, bf.elo_probs, bf.xg_probs, bf.market_probs)
+                bf.probs, bf.elo_probs, bf.xg_probs, bf.market_probs,
+                engine_weights=engine_weights)
             if bf.probs is not None:
                 mh, md, ma = bf.market_probs
                 bp = (mkt.blend_toward_market(p.p_home, mh),

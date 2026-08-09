@@ -672,6 +672,47 @@ class Brain:
                 (float(r["model_prob"]), bool(r["hit"])))
         return out
 
+    def engine_calibration(self) -> list[dict]:
+        """Per-engine settled-prediction calibration evidence: n, mean_hit,
+        mean_model_prob. DIRECTLY attributed — every engine's own predictions
+        are graded once the match settles (record_outcomes), so this is each
+        engine's personal scorecard, not an inherited one. Feeds the ensemble
+        weight's calibration term (clv/clv_logger.ensemble_weights)."""
+        rows = self._conn.execute(
+            "SELECT model_engine, COUNT(*) AS n, AVG(hit) AS mean_hit, "
+            " AVG(model_prob) AS mean_model_prob "
+            "FROM predictions WHERE hit IS NOT NULL AND model_prob IS NOT NULL "
+            "GROUP BY model_engine ORDER BY COUNT(*) DESC").fetchall()
+        return [dict(r) for r in rows]
+
+    def engine_clv(self, phase: str = "phase2_paper") -> list[dict]:
+        """Per-engine CLV evidence: the CLV of the settled legs on the markets
+        each engine called, deduped by leg so a leg is never double-counted.
+
+        HONEST SCOPE: paper legs are authored by the canonical DC pick, so a
+        leg's CLV is a MARKET-level fact. It is attributed to every engine
+        that published a prediction on that market — the signal is "does this
+        engine call markets whose prices then move our way", never an author
+        claim. Returns [{model_engine, n, mean_clv_pct}], strongest first."""
+        rows = self._conn.execute(
+            "SELECT p.model_engine, l.leg_id, l.clv_pct "
+            "FROM legs l JOIN predictions p "
+            "  ON p.fixture = l.fixture AND p.market = l.market "
+            " AND p.match_date = l.match_date "
+            "WHERE l.phase=? AND l.clv_pct IS NOT NULL", (phase,)).fetchall()
+        per_engine: dict[str, set] = {}
+        clv_of: dict[str, dict[str, float]] = {}
+        for r in rows:
+            eng, lid, clv = r["model_engine"], r["leg_id"], r["clv_pct"]
+            per_engine.setdefault(eng, set()).add(lid)
+            clv_of.setdefault(eng, {})[lid] = clv
+        out = []
+        for eng, ids in per_engine.items():
+            vals = [clv_of[eng][lid] for lid in ids]
+            out.append({"model_engine": eng, "n": len(ids),
+                        "mean_clv_pct": round(sum(vals) / len(vals), 3)})
+        return sorted(out, key=lambda r: -r["n"])
+
     def clv_by_league(self, phase: str = "phase2_paper") -> list[dict]:
         rows = self._conn.execute(
             "SELECT league, COUNT(*) AS n, AVG(clv_pct) AS mean_clv_pct "

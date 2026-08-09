@@ -14,7 +14,10 @@
 | **Consensus vote (ID412/413)** | Green | Majority across available engines, persisted to brain |
 | **Market gate (ID405)** | Active | Away Win, Over 2.5, Home Win blocked from deploy |
 | **Softness tiers (ID402)** | **PAUSED 2026-08-09** | All whitelisted leagues deploy-eligible, no cap; `SOFTNESS_PAUSED=True` (reversible). ID405 market gate unchanged |
-| **3-day rolling window** | Active | `days_ahead=3` (ratified 2026-08-07) |
+| **Same-day product bet (rule 2026-08-09)** | Active | THE CALL, produced bet, TODAY'S PICKS and the acca draw only from fixtures kicking off today; 3-day window stays scan reference |
+| **4-leg acca set** | Active | `engine/acca.py` — up to 3 four-leg accas from today's deploy shortlist, capital-cleared legs (Draw + Under 2.5), ranked by EV, disjoint combos, shortened accas never padded |
+| **SportyBet booking codes** | Active (best-effort) | `booking/booking_codes.py` — Playwright captures booking codes for each acca; codes pre-fill the slip, NEVER stake (Phase-2 safe); per-leg BOOKED/MANUAL |
+| **3-day rolling window** | Active | `days_ahead=3` (ratified 2026-08-07); product bet filtered to today on top |
 | **Promoted-club carry-over** | Active | Prior-season fit rates newly promoted clubs |
 | **CLV logging + CL-LIVE capture** | Active | Paper legs logged, closing lines captured near kickoff |
 | **Health monitor** | Active | 9 probes, 2-hourly Task Scheduler, state-change alerts only |
@@ -61,15 +64,15 @@
 
 ## 🎯 NEXT ACTIONS
 
-**Sprint 2026-08-09 ✅ COMPLETE** — all three items (market scope, full-picture display, accumulator prep) fixed and committed (`db687b5`). **Softness PAUSED** (all leagues deploy-eligible, no cap) implemented — see RATIFICATIONS.md 2026-08-09.
+**Sprint 2026-08-09 ✅ COMPLETE** — market scope + full-picture display + accumulator prep (db687b5), **Softness PAUSED** (cab839b), and the **same-day product bet + 4-leg accas + booking codes** standing rule (d7ccbdd). See RATIFICATIONS.md 2026-08-09.
 
 Next up (in priority order):
 
-1. **Re-run the daily pipeline** — the current `board_2026-08-09` was generated pre-pause (02:12, A/B shortlist only). A re-run regenerates it with all-league shortlisting + widened price pull. NOTE: quota at 4/500 means non-A/B prices will be mostly blocked until quota resets.
-2. **Unblock odds pipeline** — Odds API quota (4/500 left) stalls live EV/CLV + Phase 3 CLV gate. Architect must upgrade/reset before the widened price pull can actually price all leagues.
-3. **Model refit for away overconfidence** — model claims ~39% away, delivers ~30%; no screen/nudge fixes it. Structural; needs refit before Phase 3.
-4. **Promoted-club carry-over data** — 5 clubs stuck NO DATA until personal TheSportsDB key lands.
-5. **Land other session's in-flight work** — `run_daily.py` SportyBet cache-warm hook (imports clean), `monitor/data_quality.py` (mid-edit, IndentationError), `scripts/check_csv_validation.py`, `tests/data_quality_test.py` — verify, then reconcile commit.
+1. **Re-run the daily pipeline** — regenerate today's board with the same-day filter + acca set + booking codes live (the current committed board predates the standing rule). NOTE: quota at 4/500 means prices may be blocked until the monthly reset.
+2. **Verify booking codes on a live SportyBet session** — `py -3.12 -m booking.booking_codes book --date <today>`; needs an acca with priced legs first (accas are empty on quiet days with no prices).
+3. **Unblock odds pipeline** — Odds API quota (4/500 left) stalls live EV/CLV + Phase 3 CLV gate. Architect must upgrade/reset before the widened price pull can actually price all leagues.
+4. **Model refit for away overconfidence** — model claims ~39% away, delivers ~30%; no screen/nudge fixes it. Structural; needs refit before Phase 3.
+5. **Promoted-club carry-over data** — 5 clubs stuck NO DATA until personal TheSportsDB key lands.
 
 ---
 

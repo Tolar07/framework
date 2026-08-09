@@ -3,6 +3,7 @@ Date: 2026-08-09 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero cap
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Austrian Bundesliga, EFL Cup
 Calibration: 0 legs logged, CLV logged: ZERO
 DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ sportybet cache warm: 993 fixtures across 17 league(s) ready for the booking bridge
   ⚠ graded 0 of 15 pending leg(s)
   ⚠ Eredivisie: fixtures via thesportsdb_season
   ⚠ Danish Superliga: fixtures via thesportsdb_season

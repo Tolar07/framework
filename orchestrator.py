@@ -255,6 +255,28 @@ def scan_one_league(league: str, season: str,
         if not upcoming_fixtures:
             detail = " | ".join(errors) if errors else "no fixtures in window"
             flags.append(f"{league}: no upcoming fixtures ({detail}) — NO DATA — PENDING")
+            # SportyBet cached-fixture fallback: the Playwright cache builder
+            # navigates the real SportyBet league pages, so its fixtures are a
+            # genuine, independently-captured source — not a guess (HR35). A
+            # fresh cache fills the board when every other provider is down
+            # (e.g. API-Football season lock + Odds API quota), keeping wide
+            # eyes without spending a single paid credit. Odds ride along in
+            # the cache, so SportyBet MES still populates.
+            try:
+                from booking.bridge import (load_sportybet_fixtures,
+                                            sportybet_fixtures_to_pairs)
+                sb_pairs = sportybet_fixtures_to_pairs(league, days_ahead=45)
+                if sb_pairs:
+                    upcoming_fixtures = sb_pairs
+                    for f in load_sportybet_fixtures(league, days_ahead=45):
+                        if f.kickoff_utc:
+                            fixture_dates[(f.home_team, f.away_team)] = \
+                                f.kickoff_utc[:10]
+                    flags.append(
+                        f"{league}: fixtures via SportyBet cache "
+                        f"({len(sb_pairs)} — primary sources failed)")
+            except Exception:
+                pass  # a missing cache/fault is a miss, not a new error
 
     if cross_model is not None:
         results, skipped = [], []
@@ -458,19 +480,18 @@ def scan_one_league(league: str, season: str,
                              probs.p_over_15, 1 - probs.p_over_15)
             mes = trigger_price(best_prob)
 
-        # Fetch SportyBet odds for this fixture to compute actual MES and enable CLV
+        # Fetch SportyBet odds for this fixture to compute actual MES and enable CLV.
+        # get_sportybet_odds_for_leg matches on MODEL keys (PipelineFixture
+        # home_team/away_team), so we pass `home`/`away` directly — resolving to
+        # the SportyBet spelling first would silently fail every fixture whose
+        # bookmaker name differs from the model key.
         sb_odds = None
         sb_mes = None
         if probs is not None:
-            # Map model team names to SportyBet names using the bridge
-            from booking.team_map import resolve_team
-            sb_home = resolve_team(home, "sportybet")
-            sb_away = resolve_team(away, "sportybet")
-            # Get 1X2 odds from SportyBet
             for market_key, prob_attr in [("1X2_HOME", "p_home"), ("1X2_DRAW", "p_draw"), ("1X2_AWAY", "p_away")]:
                 market_prob = getattr(probs, prob_attr)
                 if market_prob:
-                    sb_price = get_sportybet_odds_for_leg(sb_home, sb_away, league, market_key)
+                    sb_price = get_sportybet_odds_for_leg(home, away, league, market_key)
                     if sb_price:
                         sb_mes_val = mes_numeric(market_prob, sb_price)
                         if sb_mes is None or (sb_mes_val is not None and sb_mes_val > sb_mes):

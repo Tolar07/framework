@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import html
 from datetime import date as _date, datetime, timedelta as _timedelta
+from engine import markets as mkt
 
 # Google Fonts (Architect-approved): degrade gracefully to the system stacks
 # below when offline.
@@ -236,6 +237,11 @@ section{margin-top:34px;}
 
 /* THE SCAN — wide table */
 .scan-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+/* Accumulator candidate rows — Tier A/B deploy-eligible, marked at top of each
+   league group (ID402: scan everything, highlight what could carry capital). */
+.acc-row td{background:rgba(79,184,148,0.04);}
+.acc-row .scan-fixture{color:var(--teal);font-weight:600;}
+.acc-star{color:var(--teal);}
 .scan-table th{
   text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;
   color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.05em;
@@ -277,6 +283,13 @@ section{margin-top:34px;}
 .miss-tag{background:rgba(226,99,79,0.15);color:var(--coral);}
 .pend-tag{background:rgba(86,95,114,0.15);color:var(--ink-faint);}
 .graded-ft{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);font-size:12px;margin-left:auto;}
+
+/* Live score display in produced bet block */
+.live-score{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);
+  margin-left:auto;flex:none;
+}
+.live-score.has-score{color:var(--teal);}
 
 /* data flags */
 .flags{
@@ -773,6 +786,48 @@ _CLIENT_SEARCH_JS = """<script>
     }
     input.addEventListener('input', filter);
     if (leagueSel) leagueSel.addEventListener('change', filter);
+
+    // Live scores polling for produced bet block
+    function fetchLiveScores() {
+      var scoreEls = document.querySelectorAll('.live-score[data-fixture]');
+      if (!scoreEls.length) return;
+      // Collect unique leagues from the fixture elements
+      var leagues = new Set();
+      scoreEls.forEach(function(el) {
+        var text = el.closest('.graded-row').textContent;
+        var match = text.match(/\\(([^)]+)\\)$/);
+        if (match) leagues.add(match[1]);
+      });
+      if (!leagues.size) return;
+      fetch('/api/live-scores', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({leagues: Array.from(leagues)})
+      }).then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data.ok) return;
+          scoreEls.forEach(function(el) {
+            var fixture = el.dataset.fixture;
+            var date = el.dataset.date;
+            // Try multiple key formats
+            var keys = [
+              fixture + '|' + date,
+              fixture.replace(' vs ', '|') + '|' + date,
+            ];
+            var score = null;
+            for (var k of keys) {
+              if (data.scores[k]) { score = data.scores[k]; break; }
+            }
+            if (score) {
+              el.textContent = 'LIVE — ' + score;
+              el.classList.add('has-score');
+            }
+          });
+        }).catch(function() {});
+    }
+    // Poll every 30 seconds
+    setInterval(fetchLiveScores, 30000);
+    fetchLiveScores();
   });
 </script>"""
 
@@ -1009,9 +1064,9 @@ def _flag_html(league: str) -> str:
         return '<span class="flag placeholder">?</span>'
     if code == "EU":
         return '<span class="flag placeholder" title="European competition">EU</span>'
-    # Use flagcdn.com (free, no key, SVG flags)
+    # Use flagcdn.com (free, no key, SVG flags) - with onerror fallback
     url = f"https://flagcdn.com/24x16/{code.lower()}.svg"
-    return f'<img class="flag" src="{url}" alt="{code}" title="{league}">'
+    return f'<img class="flag" src="{url}" alt="{code}" title="{league}" onerror="this.onerror=null; this.outerHTML=\'<span class=\\\"flag placeholder\\\" title=\\\"{html.escape(league)}\\\">?</span>\'">'
 
 
 def _crest_html(team: str, league: str) -> str:
@@ -1029,7 +1084,15 @@ def _crest_html(team: str, league: str) -> str:
     if not url:
         url = _CLUB_CRESTS.get(league, {}).get(team)
     if url:
-        return f'<img class="crest" src="{url}" alt="{team}" title="{team}" loading="lazy">'
+        # onerror: swap to initials placeholder if the hotlinked image fails
+        escaped_initials = html.escape(_initials(team))
+        escaped_title = html.escape(team)
+        h = hash(team) % 360
+        color = f"hsl({h}, 55%, 45%)"
+        return (f'<img class="crest" src="{url}" alt="{escaped_title}" title="{escaped_title}" '
+                f'loading="lazy" onerror="this.onerror=null; this.outerHTML='
+                f'\'<span class=\\\"crest placeholder\\\" style=\\\"background:{color}\\\" '
+                f'title=\\\"{escaped_title}\\\">{escaped_initials}</span>\'">')
     # Fallback: initials in a coloured circle
     initials = _initials(team)
     # Deterministic colour from team name
@@ -1454,8 +1517,15 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
 
     for league in sorted_leagues:
         fixtures = by_league[league]
-        # Sort fixtures by pick confidence (highest first)
-        fixtures_sorted = sorted(fixtures, key=_pick_confidence, reverse=True)
+        # Separate accumulator candidates (Tier A/B + on_deploy_shortlist) from others
+        acc_candidates = [bf for bf in fixtures
+                         if bf.get("softness_tier") in ("A", "B") and bf.get("on_deploy_shortlist")]
+        other_fixtures = [bf for bf in fixtures
+                         if not (bf.get("softness_tier") in ("A", "B") and bf.get("on_deploy_shortlist"))]
+        # Accumulator candidates first, then others — both sorted by confidence
+        acc_candidates.sort(key=_pick_confidence, reverse=True)
+        other_fixtures.sort(key=_pick_confidence, reverse=True)
+        fixtures_sorted = acc_candidates + other_fixtures
 
         # Default expanded for live/upcoming leagues, collapsed otherwise
         is_live = league in live_leagues
@@ -1471,6 +1541,9 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
         # Derive matchday from the number of fixtures (approximate)
         matchday = f"Matchday {len(fixtures_sorted)}" if fixtures_sorted else ""
         season = "2026/27"
+        # Count accumulator candidates for the league badge
+        n_acc = len(acc_candidates)
+        acc_badge = f' · <span style="color:#4FB894;">⭐ {n_acc} acc candidate{"s" if n_acc != 1 else ""}</span>' if n_acc else ""
         body_parts.append(f"""<tbody class="league-group{collapsed_class}" data-league="{html.escape(league)}">
 <tr class="league-group-header" onclick="this.parentElement.classList.toggle('collapsed')">
   <td colspan="{n_cols}">
@@ -1482,7 +1555,7 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
         <span><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>{html.escape(country_name)}</span>
       </div>
       <span class="league-chevron">▾</span>
-      <div class="league-season">{html.escape(season)} · {len(fixtures_sorted)} fixture{'s' if len(fixtures_sorted) != 1 else ''}</div>
+      <div class="league-season">{html.escape(season)} · {len(fixtures_sorted)} fixture{'s' if len(fixtures_sorted) != 1 else ''}{acc_badge}</div>
     </div>
   </td>
 </tr>""")
@@ -1502,11 +1575,14 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
             status = "deploy" if bf.get("on_deploy_shortlist") else ("no-data" if p is None else "scan-only")
             best_market = bf.get("best_market_key") or ""
             date_str = payload_date if admin else ""
+            is_acc = bf.get("softness_tier") in ("A", "B") and bf.get("on_deploy_shortlist")
+            acc_marker = '<span class="acc-star">⭐</span> ' if is_acc else ""
+            acc_row_class = " acc-row" if is_acc else ""
 
             if p is None:
                 reason = bf.get("rejection_reason") or "NO DATA — PENDING"
-                body_parts.append(f"""<tr class="league-row" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}">
-  <td>{fixture_td}</td>
+                body_parts.append(f"""<tr class="league-row{acc_row_class}" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}">
+  <td>{acc_marker}{fixture_td}</td>
   <td class="nodata" colspan="3">NO DATA — PENDING · {html.escape(reason)}</td>
   {src_td}
 </tr>""")
@@ -1515,8 +1591,8 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
             c2 = _scan_1x2(p)
             c3 = _scan_goals(p)
             c4 = _scan_dc_btts(p)
-            body_parts.append(f"""<tr class="clickable league-row" onclick="toggleScanRow('{row_id}')" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}">
-  <td><span class="chevron">▸</span>{fixture_td}</td>
+            body_parts.append(f"""<tr class="clickable league-row{acc_row_class}" onclick="toggleScanRow('{row_id}')" data-fixture="{html.escape(bf.get("fixture", ""))}" data-league="{html.escape(_league_of(bf.get("fixture", "")))}" data-tier="{html.escape(tier)}" data-market="{html.escape(best_market)}" data-status="{html.escape(status)}" data-date="{html.escape(date_str)}">
+  <td><span class="chevron">▸</span>{acc_marker}{fixture_td}</td>
   <td class="scan-num">{c2}</td>
   <td class="scan-num">{c3}</td>
   <td class="scan-num">{c4}</td>
@@ -1685,7 +1761,8 @@ def _produced_bet_block(record: Optional[dict], admin: bool) -> str:
     """The produced-bet section (ID415): what the framework bet today (one leg
     per rated fixture, pick + price) and the verified WON/LOST outcome shown the
     next day. `admin=True` renders model prob / softness tier / EV; the client
-    receives only fixture + pick + price + outcome (see schema.trim_payload)."""
+    receives only fixture + pick + price + outcome (see schema.trim_payload).
+    Live scores are fetched client-side for pending legs."""
     if not record:
         return ('<div class="flags"><div class="flag-line">NO DATA — PENDING — '
                 'no produced-bet record for this date.</div></div>')
@@ -1712,7 +1789,10 @@ def _produced_bet_block(record: Optional[dict], admin: bool) -> str:
             ft = leg.get("ft_result") or "?"
             verdict = f"{mark} <span class='graded-ft'>{ft}</span>"
         else:
-            verdict = '<span class="pend-tag mono">— PENDING</span>'
+            # For pending legs, add a live score placeholder
+            verdict = ('<span class="pend-tag mono">— PENDING</span> '
+                       f'<span class="live-score" data-fixture="{html.escape(fixture)}" '
+                       f'data-date="{html.escape(date)}">LIVE — loading…</span>')
         rows.append(
             f'<div class="graded-row">{verdict}'
             f'<span>{html.escape(label)} — {html.escape(detail)}</span></div>')

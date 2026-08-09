@@ -29,6 +29,8 @@ import json
 import os
 import re
 import sys
+import threading
+import time
 from datetime import date
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -47,6 +49,53 @@ _NO_DATA = b"NO DATA \xe2\x80\x94 PENDING: nothing here."
 def _brain():
     from brain.store import Brain
     return Brain(ROOT / "brain" / "olp.db", read_only=True)
+
+
+# Live score cache (per-request to avoid stale data)
+_live_score_cache: dict[str, tuple[float, str]] = {}
+_LIVE_CACHE_TTL = 30  # seconds
+
+
+def _fetch_live_scores(leagues: list[str]) -> dict[str, str]:
+    """Fetch live scores for a list of leagues. Returns {fixture_key: score}."""
+    from data.multi_source_concrete import get_fixtures
+    from orchestrator import next_season_code
+    import datetime
+
+    today = date.today().isoformat()
+    season_code = next_season_code("2526")
+    scores = {}
+
+    for lg in leagues:
+        try:
+            # Use the current_results multi-source for live scores
+            from data.multi_source_concrete import registry
+            ms = registry.get_source("current_results")
+            if ms is None:
+                from data.multi_source_concrete import build_current_results_multi_source
+                ms = build_current_results_multi_source()
+                registry.register(ms)
+
+            # Try both current season and next season
+            for s in [int(season_code), int(next_season_code(season_code))]:
+                try:
+                    data = ms.fetch(league=lg, season=s)
+                    results = data.get("results", [])
+                    for r in results:
+                        home = r.get("home", "")
+                        away = r.get("away", "")
+                        rdate = r.get("date", "")
+                        if rdate and rdate >= today:
+                            score = r.get("score")
+                            if score:
+                                key = f"{home}|{away}|{rdate}"
+                                scores[key] = score
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+    return scores
 
 
 def _payload_path(date_str: str) -> Path:
@@ -165,6 +214,10 @@ class Handler(BaseHTTPRequestHandler):
             # --- public dashboard ----------------------------------------
             if path in ("/", "/board"):
                 self._redirect(f"/dashboard/{today}")
+
+            # --- health check endpoint -----------------------------------
+            elif path in ("/health", "/healthz"):
+                self._json({"status": "ok", "service": "olp-xdv-dashboard", "version": "2.0.0"})
 
             elif path in ("/dashboard", "/dashboard/") :
                 self._redirect(f"/dashboard/{today}")
@@ -307,6 +360,24 @@ class Handler(BaseHTTPRequestHandler):
                     return
                 result = produce_selection(groups, season=season)
                 self._json(result)
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)})
+            return
+
+        # Live scores endpoint — returns {fixture_key: score} for today's matches
+        if path == "/api/live-scores":
+            try:
+                import json
+                content_len = int(self.headers.get("Content-Length", "0"))
+                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
+                data = json.loads(body) if body else {}
+                leagues = data.get("leagues", [])
+                if not leagues:
+                    # Return all leagues if none specified
+                    from engine.softness import SOFTNESS_TIER
+                    leagues = list(SOFTNESS_TIER.keys())
+                scores = _fetch_live_scores(leagues)
+                self._json({"ok": True, "scores": scores})
             except Exception as e:
                 self._json({"ok": False, "error": str(e)})
             return

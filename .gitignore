@@ -24,6 +24,7 @@ tests/tmp_*.json
 
 # Active process logs — always changing
 logs/poller.log
+logs/web.jsonl
 
 # Brain database — derived, re-buildable from clv_log.json + model history
 brain/*.db

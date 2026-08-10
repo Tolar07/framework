@@ -27,12 +27,19 @@ from dataclasses import dataclass
 
 # Section 7.4 — the ID401 whitelist. A single unified pool (no tiers). Kept
 # sorted; HR34: a league not listed here is never scan- or deploy-eligible.
+# "Conference League" (UEFA Europa Conference League) was added 2026-08-10 —
+# it was already in the cross-league fit pool (BRIDGE_COMPETITIONS, API-Football
+# id 848) and IS modelled; the honest caveat is that its current-season FIXTURES
+# source is still being wired (football-data.co.uk does NOT carry it; see
+# competition_catalogue.py). The name is the framework-internal "Conference
+# League", exactly like "Champions League"/"Europa League" drop the UEFA prefix.
 WHITELISTED_LEAGUES: list[str] = [
     "Austrian Bundesliga",
     "Belgian Pro League",
     "Bundesliga",
     "Champions League",
     "Championship",
+    "Conference League",
     "Danish Superliga",
     "EFL Cup",
     "Ekstraklasa",

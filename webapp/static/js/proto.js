@@ -43,12 +43,22 @@ function bindClientTabs() {
   });
 }
 
-/* Client: card detail expand/collapse (Call + Scan rows) */
+/* Client: card detail expand/collapse (Call + Scan rows).
+   SCOPED PER-CARD: the detail toggled is the one INSIDE the clicked card
+   (top.closest('.c-card').querySelector('.c-detail')) — never a global id
+   lookup. This is the bulletproof form of the per-card contract: clicking one
+   tile can only ever open THAT tile, no matter how many cards are on the page
+   or what stale markup a browser holds. The data-detail/id pair is kept only
+   as a fallback for snapshots that pre-date the scoped markup. */
 function bindCardDetail() {
   document.querySelectorAll('.c-card-top').forEach(function (top) {
     top.addEventListener('click', function () {
-      var id = top.getAttribute('data-detail');
-      var detail = id ? document.getElementById(id) : null;
+      var card = top.closest ? top.closest('.c-card') : null;
+      var detail = card ? card.querySelector('.c-detail') : null;
+      if (!detail) {
+        var id = top.getAttribute('data-detail');
+        detail = id ? document.getElementById(id) : null;
+      }
       if (detail) {
         detail.classList.toggle('open');
         top.setAttribute('aria-expanded', detail.classList.contains('open') ? 'true' : 'false');

@@ -43,7 +43,7 @@ from sandbox import live as friendly_live
 SANDBOX_LOG = ROOT / "sandbox" / "sandbox_log.json"
 SANDBOX_PHASE = "sandbox"
 
-# The 15-league whitelist minus continental-only sources: every league the
+# The 18-league whitelist minus continental-only sources: every league the
 # main pipeline fits that football-data.co.uk carries.
 def _pooled_teams(leagues: list[str]) -> tuple[list, list[str]]:
     """(pooled MatchResults, team_keys) from each league's COMPLETED (2526)

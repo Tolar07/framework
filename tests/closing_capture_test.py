@@ -244,18 +244,38 @@ finally:
     os.environ.pop("POLYMARKET_API_KEY", None)
 
 # --- 3. Combined capture_closing_lines calls both paths -----------------------
+# Deterministic by design: both inner capture paths are MOCKED. The old version
+# leaned on odds.fetch_odds RAISING (emitting a "CL-LIVE capture skipped" flag);
+# the odds multi-source now returns informational flags instead of raising, so
+# the assertion was at the mercy of live Odds-API quota state. The contract under
+# test is the orchestration: capture_closing_lines MUST call CL-LIVE and CL-PM
+# and SUM their results — that is provable with mocks, no network involved.
 os.environ["POLYMARKET_API_KEY"] = "dummy"
 try:
     with tempfile.TemporaryDirectory() as td:
-        log = CLVLog(Path(td) / "clv_pm3.json")
-        leg = log.log_entry(
+        lg = CLVLog(Path(td) / "clv_pm3.json")
+        lg.log_entry(
             league="Eredivisie", fixture="Ajax v Feyenoord", market="OVER_2_5",
             model_prob=0.55, entry_odds=2.10,
             phase=PAPER_PHASE, match_date="2026-08-09")
-        n, flags = cc.capture_closing_lines(log, ["Eredivisie"])
-        assert n == 0
-        assert any("CL-LIVE" in f for f in flags)
-    print("3. Combined capture sums both paths: OK")
+        calls = {"live": False, "pm": False}
+
+        def _fake_live(log_, leagues_, *a, **k):
+            calls["live"] = True
+            return 2, ["Ajax v Feyenoord / OVER_2_5: CL-LIVE closing line"]
+
+        def _fake_pm(log_, leagues_, *a, **k):
+            calls["pm"] = True
+            return 3, ["CL-PM closing lines captured this run: 3"]
+
+        with mock.patch.object(cc, "_capture_live_closing_lines", _fake_live), \
+             mock.patch.object(cc, "_capture_polymarket_closing_lines", _fake_pm):
+            n, flags = cc.capture_closing_lines(lg, ["Eredivisie"])
+        assert calls["live"] and calls["pm"], \
+            "capture_closing_lines must call BOTH the CL-LIVE and CL-PM paths"
+        assert n == 5, f"combined capture must sum both paths, got {n}"
+        assert any("CL-LIVE" in f for f in flags) and any("CL-PM" in f for f in flags)
+    print("3. Combined capture calls both paths and sums them: OK")
 finally:
     os.environ.pop("POLYMARKET_API_KEY", None)
 

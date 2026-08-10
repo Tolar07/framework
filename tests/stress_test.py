@@ -141,12 +141,15 @@ class _AwayHeavy:
 
 
 name, _ = _best_market_desc(_AwayHeavy())
-check("ID405: away win blocked from Pick even when 85%",
-      "Celtic to win" not in name, f"chose '{name}'")
-check("ID405: Over 2.5 blocked from Pick even when 98%",
-      "Over 2.5" not in name, f"chose '{name}'")
-check("ID405: gate visible in markets registry",
-      mkt.AWAY not in mkt.DEPLOYABLE and mkt.OVER_25 not in mkt.DEPLOYABLE)
+# ID405 gate OPENED 2026-08-10 (Architect reversal, RATIFICATIONS.md): away
+# wins, Over 2.5 and Home are deployable again. The pick now headlines the
+# strongest market whatever it is — nothing gated by market.
+check("ID405 gate open: pick headlines the strongest market (Over 1.5 at 99%)",
+      name == "Over 1.5 goals", f"chose '{name}'")
+check("ID405 gate open: all five markets deployable",
+      set(mkt.DEPLOYABLE) == {"1X2_HOME", "1X2_DRAW", "1X2_AWAY",
+                              "OVER_2_5", "UNDER_2_5"},
+      f"DEPLOYABLE={mkt.DEPLOYABLE}")
 
 # Domain spoofing
 check("ID403: bbc.co.uk.evil.example NOT resolved to bbc.co.uk",

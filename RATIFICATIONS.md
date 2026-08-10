@@ -1611,3 +1611,53 @@ cannot admit an off-day fixture or fabricate a probability.
 **Honesty note:** the 10-league CLV pressure test (RATIFICATIONS 2026-08-08) that added Home to the gate measured those markets as negative. Opening the gate does not make them positive — it only makes them visible for forward observation in paper mode. The honest-edge statement is unchanged: no demonstrated profitable edge exists in any market, and the draw's positive residual is drift.
 
 **Authority:** Architect (direct instruction, 2026-08-10). Reverses the 2026-08-04 ID405 market gate (ratified) and the 2026-08-08 Home addition (ratified). Phase 2 paper-only and zero-capital bright lines remain unchanged. `RATIFICATIONS.md` records the reversal here so it is never silent.
+
+---
+
+## 2026-08-10 · FLAG TO ARCHITECT — dashboard live again, but today's board (2026-08-10) cannot be re-published without sign-off
+
+**What this is:** an operational flag, **not a ratification**. No behaviour,
+gate, or bright line was changed. This entry records the current publish-gate
+state so the Architect's sign-off decision is never silent.
+
+**What was found (2026-08-10, ~19:00 BST):**
+
+1. **Dashboard server is UP and healthy.** Port `8088` listening (PID 11868),
+   `/dashboard` and `/admin` return HTTP 302 → their `/<date>` pages. The
+   earlier "server down" health-monitor report was resolved by the other
+   session (server restarted, ratifies nothing new).
+
+2. **Today's board renders 404 on the client view.** `/dashboard/2026-08-10`
+   returns 404. Root cause is the **published store**, not the server:
+   - `output/boards/published/board_2026-08-10.json` is **missing from disk**
+     (only `board_2026-08-07.json` remains).
+   - Yet `publish_audit.jsonl` shows a publish for 2026-08-10 at
+     `2026-08-10T00:46:48Z` (`approved_by: architect`, 3 fixtures, 2 rated).
+     That audit entry predates the CLV-gate stamping, so it was written before
+     the `gate_at_publish` schema was added.
+   - The current `output/boards/board_2026-08-10.json` was regenerated at
+     20:29 (same session family), and its gate state reads:
+     `legs_with_clv: 12` (requirement 30), `mean_clv_pct: -1.631`
+     (`positive_mean_clv: false`), `gate_met: false`, `architect_signed_off:
+     false`.
+
+3. **Republishing is therefore blocked by the Phase 3 CLV gate** unless the
+   Architect explicitly overrides with `ARCHITECT_SIGNOFF=1` (the override
+   mechanism ratified earlier today). The client view honestly 404s rather
+   than serving an unpublished board (HR35 — honest edge, no fabrication).
+
+**What needs an Architect decision (one of):**
+- **A — Sign off the current board:** set `ARCHITECT_SIGNOFF=1`, re-run the
+  publish (`/api/admin/publish` or the write path), so `/dashboard/2026-08-10`
+  renders today's 3 fixtures. The override is stamped into the audit log
+  (gate numbers + override flag), so it would never be silent.
+- **B — Leave it unpublished:** the 404 is the honest, correct state given the
+  gate is unmet (12/30 legs, negative mean CLV). Nothing further to do.
+- **C — Reset/upgrade the Odds API quota** (currently 3/500 credits, floor 5)
+  so live pricing resumes and CLV capture can accumulate toward 30 legs — the
+  root cause of the gate being stuck.
+
+**Authority:** this is a **flag**, recorded by Claude at the Architect's
+request, for the Architect's decision. It changes nothing on its own and does
+not count as auto-ratification of any option. Phase 2 paper-only and
+zero-capital bright lines are untouched.

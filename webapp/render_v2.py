@@ -198,8 +198,8 @@ def _client_call(board: list, accas: list, codes) -> str:
                 f'<span class="c-league-sub">{html.escape(league)}</span></span>'
                 f'<span class="c-pct">{html.escape(pct)}</span>'
                 f'<span class="chev" aria-hidden="true">▸</span></button>'
-                # Full market grid visible by default (Architect 2026-08-10): the
-                # client sees the whole picture; tapping just collapses it.
+                # Per-tile expand/collapse (ratified 2026-08-10): cards are CLOSED
+                # by default; tapping expands THAT fixture's full breakdown.
                 f'<div class="c-detail" id="call-{i}">{_client_market_rows(bf)}</div>'
                 f"{_bookcode_block(code)}</div>"
             )
@@ -304,8 +304,8 @@ def _client_scan(board: list, d: str, today: str, scores: dict,
                 f'<span style="font-size:10px;color:var(--ink-faint);font-weight:400;">{sub_line}</span></span>'
                 f'<span class="c-pct">{html.escape(pick_prob)}</span>'
                 f'<span class="chev" aria-hidden="true">▸</span></button>'
-                # Full market grid visible by default (Architect 2026-08-10): the
-                # client sees the whole predicted table; tapping just collapses it.
+                # Per-tile expand/collapse (ratified 2026-08-10): cards are CLOSED
+                # by default; tapping expands THAT fixture's full breakdown.
                 f'<div class="c-detail" id="scan-{card_i}">{_client_market_rows(bf)}</div>'
                 f"</div>"
             )

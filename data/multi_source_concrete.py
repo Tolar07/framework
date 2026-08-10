@@ -324,7 +324,12 @@ class FootballDataLiveSource(DataSource):
     def __init__(self):
         super().__init__("football_data_live", priority=10, timeout=30.0)
 
-    def fetch(self, league: str, season: str) -> list:
+    def fetch(self, league: str, season: str | int) -> list:
+        # The current_results MultiSource is shared by the web live-scores feed
+        # (server.py passes season as int) and the daily pipeline (str like
+        # "2626"). load_league subscripts season[:2]/season[2:], so coerce here
+        # rather than letting an int crash the whole source.
+        season = str(season)
         from data.football_data_source import load_league
         results, skipped = load_league(league, season)
         if not results:

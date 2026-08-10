@@ -38,17 +38,17 @@ Ratified 22 July 2026. Governing principle: **trust tier sets the corroboration 
 
 ---
 
-## SECTION 2 — LEAGUE WHITELIST (ID401) — 15 leagues
+## SECTION 2 — LEAGUE WHITELIST (ID401) — 18 leagues
 
 **GREEN (tool-fed):**
-Premier League · La Liga · Serie A · Bundesliga · Ligue 1 · Champions League · Europa League
+Premier League · La Liga · Serie A · Bundesliga · Ligue 1 · Champions League · Europa League · Conference League (added 2026-08-10)
 
 **AMBER (FootyStats + F2 verification):**
 Scottish Premiership · Belgian Pro League · Eredivisie · Championship · Primeira Liga · Danish Superliga · Ekstraklasa · HNL
 
 *Turkish Süper Lig dropped to Ring-2 watchlist. Stage 2 leagues (Segunda, 2.Bundesliga, Serie B, Ligue 2) locked until 20 Championship predictions logged.*
 
-**Data coverage caveat (confirmed directly, not assumed):** Football-Data.co.uk does NOT cover Champions League, Europa League, or HNL — no continental competitions in that source, and Croatia isn't in its country list. Those three leagues need a different historical source before they can be backtested the same way as the other 12.
+**Data coverage caveat (confirmed directly, not assumed):** Football-Data.co.uk does NOT cover Champions League, Europa League, Conference League, or HNL — no continental competitions in that source, and Croatia isn't in its country list. Those four leagues need a different historical source before they can be backtested the same way as the other 12. Conference League IS modelled (cross-league fit pool, API-Football id 848) — the remaining gap is a current-season FIXTURES source; see `competition_catalogue.py`.
 
 > **REPO CROSS-CHECK (OUTDATED tiering):** the GREEN/AMBER feed-tool split is superseded. `engine/softness.py` now uses **evidence-based softness tiers** ranked by the CLV backtest (2026-08): **A** = Eredivisie, Danish Superliga; **B** = Belgian Pro League, Scottish Premiership, Ekstraklasa; **C** = HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League; **D** = Primeira Liga, Premier League, La Liga, Champions League + **Austrian Bundesliga** (D) + **EFL Cup** (D, added 2026-08-06) = 17 leagues scanned. Notably **Premier League / La Liga / Serie A are now D (scan-only)** — they are no longer "GREEN tool-fed" deploy favourites. The deploy shortlist (THE CALL) draws only tiers A/B, capped at 6 fixtures.
 

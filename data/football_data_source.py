@@ -63,9 +63,12 @@ LEAGUE_CODES = {
     "Ekstraklasa": None,        # 'Extra' league, different endpoint
     "HNL": None,                # NOT COVERED — Croatia isn't in football-data.co.uk's country list
     "EFL Cup": None,            # NOT COVERED — football-data.co.uk has no cup competitions
+    "Conference League": None,  # NOT COVERED — football-data.co.uk has no UEFA club comps
 }
 
-UNCOVERED_LEAGUES = {"Champions League", "Europa League", "HNL", "EFL Cup"}
+# Conference League added 2026-08-10 (with CL/EL it is in the cross-league fit
+# pool but football-data.co.uk carries NONE of the UEFA club competitions).
+UNCOVERED_LEAGUES = {"Champions League", "Europa League", "Conference League", "HNL", "EFL Cup"}
 
 # Second-division feeds for the PREVIOUS completed season, used to give
 # promoted clubs a rating they otherwise lack (Architect 2026-08-07). The

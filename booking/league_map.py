@@ -19,6 +19,11 @@ class BookmakerLeague:
 
 # --- SportyBet mapping ---
 # Verified live 2026-08-08 by navigating the SportyBet Nigeria sidebar.
+# "Conference League" (2026-08-10) follows the SAME "International Clubs" /
+# UEFA-family pattern as Champions League + Europa League — SportyBet lists all
+# three UEFA club comps under that one country node. Flagged for re-verification
+# on the next cache build (HR35: a wrong sidebar sub-item silently returns
+# another competition's fixtures).
 SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Eredivisie":          BookmakerLeague("Netherlands", "Eredivisie"),
     "Danish Superliga":    BookmakerLeague("Denmark", "Superliga"),
@@ -31,6 +36,7 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Bundesliga":          BookmakerLeague("Germany", "Bundesliga"),
     "Ligue 1":             BookmakerLeague("France", "Ligue 1"),
     "Europa League":       BookmakerLeague("International Clubs", "UEFA Europa League"),
+    "Conference League":   BookmakerLeague("International Clubs", "UEFA Conference League"),
     "Primeira Liga":       BookmakerLeague("Portugal", "Liga Portugal"),
     "Premier League":      BookmakerLeague("England", "Premier League"),
     "La Liga":             BookmakerLeague("Spain", "LaLiga"),
@@ -54,6 +60,7 @@ BET365_LEAGUES: dict[str, BookmakerLeague] = {
     "Bundesliga":          BookmakerLeague("Germany", "Bundesliga"),
     "Ligue 1":             BookmakerLeague("France", "Ligue 1"),
     "Europa League":       BookmakerLeague("International", "Europa League"),
+    "Conference League":   BookmakerLeague("International", "Conference League"),
     "Primeira Liga":       BookmakerLeague("Portugal", "Liga Portugal"),
     "Premier League":      BookmakerLeague("England", "Premier League"),
     "La Liga":             BookmakerLeague("Spain", "La Liga"),

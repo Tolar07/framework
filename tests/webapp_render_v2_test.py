@@ -5,15 +5,19 @@ The old webapp_render_test.py covers the legacy webapp.render module (still used
 for /why). This suite covers the new design that the server actually serves:
   - the FULL 13-row market grid on every client card (1X2, O/U 1.5, O/U 2.5,
     BTTS and Double Chance — derived only from client-safe probs),
-  - markets CLOSED BY DEFAULT on scan + call cards (ratified 2026-08-10:
-    per-tile expand — tapping a card opens THAT fixture's breakdown; the
-    open-by-default experiment was reversed),
+  - the CALL recommended singles OPEN BY DEFAULT (UX 2026-08-10: "every single
+    detail for every thing" on the actionable list), the SCAN board CLOSED by
+    default with per-tile expand — one tap opens THAT fixture's breakdown only,
+  - the breakeven trigger price honestly labelled as a trigger, NOT a live quote,
+  - a cache-buster (?v=) on the proto.js/css tags so browsers can never serve a
+    stale asset (the user's "clicking one tile opens every tile" was a cached JS),
   - the recommended pick row visually distinct (.c-mkt-row.pick),
   - the data-leak boundary still holds (no model internals reach the client),
   - the Phase 3 gate status on /admin: PASS / OVERRIDE / NOT MET, and the
     Architect override is honoured by render (as it is by schema).
 """
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -87,7 +91,7 @@ _MARKET_LABELS = ("Home win", "Draw", "Away win",
                   "Over 2.5 goals", "Under 2.5 goals",
                   "BTTS Yes", "BTTS No",
                   "Double Chance 1X", "Double Chance X2", "Double Chance 12",
-                  "Deploy at")
+                  "Trigger price")
 for label in _MARKET_LABELS:
     assert label in client, f"client card missing market {label!r}"
 print(f"1. full 13-row market grid renders (all {len(_MARKET_LABELS)} labels): OK")
@@ -104,12 +108,32 @@ assert 'class="c-mkt-row pick"' in client, "pick row must carry the .pick class"
 assert "Fenerbahce to win" in client and "56%" in client
 print("3. recommended pick row distinct + shows the pick: OK")
 
-# --- 4. markets CLOSED BY DEFAULT — per-tile expand (ratified 2026-08-10) -----
-assert 'class="c-detail open"' not in client, "cards must be closed by default"
-assert 'class="c-detail"' in client, "closed detail block must still render"
-assert 'aria-expanded="false"' in client, "cards must start collapsed"
-assert "scan-" in client  # scan cards carry the same closed detail block
-print("4. market detail closed by default on scan + call cards: OK")
+# --- 4. UX split (2026-08-10): CALL open by default, SCAN closed per-tile ----
+# CALL = the actionable shortlist (a handful of cards) — "every single detail
+# for every thing" visible immediately. SCAN = the whole board (10+ fixtures) —
+# collapsed, per-tile: one tap opens THAT fixture's breakdown only.
+assert 'class="c-detail open"' in client, "CALL cards must render OPEN by default"
+assert 'aria-expanded="true"' in client, "CALL cards must start expanded"
+assert 'data-detail="call-' in client and 'id="call-' in client
+# SCAN cards stay closed (no 'open' on their detail block).
+assert 'data-detail="scan-' in client and 'id="scan-' in client
+assert 'class="c-detail" id="scan-' in client, "scan detail must be closed (no 'open')"
+assert 'aria-expanded="false"' in client, "scan cards must start collapsed"
+print("4. CALL open by default + SCAN per-tile closed: OK")
+
+# --- 4b. breakeven trigger price honestly labelled — NOT a live quote ---------
+assert "breakeven, not a live quote" in client, \
+    "trigger price must be labelled a trigger, not a live price"
+assert "1.52+" in client, "trigger price must render the mes_trigger_price (1.52)"
+assert "Deploy at" not in client, "old 'Deploy at' label must be gone"
+print("4b. trigger price labelled breakeven-trigger, not a live quote: OK")
+
+# --- 4c. cache-buster on the asset tags. The user's "clicking one tile opens
+#        EVERY tile" was a stale cached proto.js (the on-disk code was already
+#        per-card correct); a ?v= on the script/css tags forces a refresh. -----
+assert re.search(r'proto\.css\?v=\d+', client), "stylesheet must carry ?v= cache-buster"
+assert re.search(r'proto\.js\?v=\d+', client), "script must carry ?v= cache-buster"
+print("4c. proto.css/js carry a ?v= cache-buster: OK")
 
 # --- 5. DATA-LEAK BOUNDARY: client still carries no model internals -----------
 for needle in _INTERNAL_FIELDS:

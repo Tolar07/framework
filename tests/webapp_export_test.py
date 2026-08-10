@@ -99,7 +99,11 @@ assert (out / "static" / "css" / "proto.css").is_file()
 assert (out / "static" / "js" / "proto.js").is_file()
 assert (out / "static" / "fonts" / "Inter-normal-400.woff2").is_file()
 assert 'data-asset-base="./static"' in html_src
-assert 'src="./static/js/proto.js"' in html_src
+# The static export uses the same _shell as the server, so it inherits the
+# ?v= cache-buster — a locally opened index.html can never serve a stale
+# proto.js (the user's all-tiles-open bug was exactly a cached JS).
+assert re.search(r'src="\./static/js/proto\.js\?v=\d+"', html_src), \
+    "exported script tag must carry the ?v= cache-buster"
 # Fonts are self-hosted — the Google CDN is gone, and section 3 would now
 # reject it too (it is no longer on the approved-host list).
 assert "fonts.googleapis.com" not in html_src and "fonts.gstatic.com" not in html_src

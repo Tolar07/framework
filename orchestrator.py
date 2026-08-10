@@ -4,12 +4,13 @@ per the OPERATING PROTOCOL (no stop-and-ask at each step; near-zero deploys is
 correct behaviour, not failure).
 
 ID402 "wide eyes, narrow hands": run_all_leagues() scans every league on the
-ID401 whitelist (15 leagues) into ONE combined board. THE CALL (deploy
-shortlist) still only ever draws from softness A/B and is capped at 6 total
-across ALL leagues combined — scanning wide never widens the deploy pool.
+ID401 whitelist (18 leagues incl. Conference League, added 2026-08-10) into ONE
+combined board. THE CALL (deploy shortlist) still only ever draws from softness
+A/B and is capped at 6 total across ALL leagues combined — scanning wide never
+widens the deploy pool.
 
 Usage:
-    python orchestrator.py --all --season 2526          # full 15-league scan
+    python orchestrator.py --all --season 2526          # full 18-league scan
     python orchestrator.py --league "Scottish Premiership" --season 2526
 
 Network note: fetching live data requires outbound internet, which this
@@ -716,7 +717,7 @@ def run(league: str, season: str, upcoming_fixtures: list[tuple[str, str]] | Non
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--all", action="store_true", help="scan the full 15-league ID401 whitelist")
+    ap.add_argument("--all", action="store_true", help="scan the full 18-league ID401 whitelist")
     ap.add_argument("--league", default="Scottish Premiership")
     ap.add_argument("--season", default="2526",
                      help="season the model is FIT on (last completed season)")

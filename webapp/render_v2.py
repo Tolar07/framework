@@ -47,8 +47,28 @@ from webapp.render import (
 # Document shell (PWA metas preserved from html_shell; stylesheet is proto.css,
 # interaction is proto.js — the old app.css/assets.js are NOT loaded here)
 # ─────────────────────────────────────────────────────────────────────────────
+def _asset_version() -> str:
+    """Cache-buster for the two proto assets. A version query on the <link> and
+    <script> tags means a browser can NEVER serve a stale proto.js/proto.css
+    from its cache — the user's "clicking one tile opens EVERY tile" report was
+    a stale cached proto.js (the on-disk code was already per-card correct). Any
+    edit to either asset bumps the mtime and therefore the query, so a normal
+    refresh re-fetches. Falls back to '1' if the assets can't be stat'd."""
+    from pathlib import Path as _P
+    mtimes = []
+    for f in (_P(__file__).parent / "static" / "css" / "proto.css",
+              _P(__file__).parent / "static" / "js" / "proto.js"):
+        try:
+            if f.exists():
+                mtimes.append(int(f.stat().st_mtime))
+        except OSError:
+            continue
+    return str(max(mtimes)) if mtimes else "1"
+
+
 def _shell(title: str, body: str, asset_base: str = "/static") -> str:
     base = html.escape(asset_base, quote=True)
+    v = _asset_version()
     return f"""<!doctype html>
 <html lang="en" data-asset-base="{base}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -57,11 +77,11 @@ def _shell(title: str, body: str, asset_base: str = "/static") -> str:
 <meta name="theme-color" content="#F5F6F8" media="(prefers-color-scheme: light)">
 <link rel="manifest" href="{base}/manifest.json">
 <title>{html.escape(title)}</title>
-<link rel="stylesheet" href="{base}/css/proto.css">
+<link rel="stylesheet" href="{base}/css/proto.css?v={v}">
 </head><body>
 {body}
 <div class="toast" id="toast"></div>
-<script src="{base}/js/proto.js" defer></script>
+<script src="{base}/js/proto.js?v={v}" defer></script>
 </body></html>"""
 
 
@@ -159,7 +179,12 @@ def _client_market_rows(bf: dict) -> str:
         row("Double Chance 1X", dc1x),
         row("Double Chance X2", dcx2),
         row("Double Chance 12", dc12),
-        f'<div class="c-mkt-row"><span>Deploy at</span>'
+        # The trigger price is the MODEL's breakeven EV line (deploy at this
+        # decimal odds or better) — it is NOT a live bookmaker quote. No live
+        # odds source is connected, so labelling it a price would be a lie;
+        # this is the honest wording (Architect 2026-08-10).
+        f'<div class="c-mkt-row"><span>Trigger price'
+        f'<span class="c-mkt-hint">breakeven, not a live quote — deploy at this or better</span></span>'
         f"<b>{html.escape(_fmt_price(bf.get('mes_trigger_price')))}</b></div>",
     ]
     return "".join(rows)
@@ -193,14 +218,16 @@ def _client_call(board: list, accas: list, codes) -> str:
             code = _single_code(codes, bf.get("fixture", ""))
             cards.append(
                 f'<div class="c-card">'
-                f'<button type="button" class="c-card-top" data-detail="call-{i}" aria-expanded="false">'
+                # CALL is the ARCHITECT's actionable list (only the deploy
+                # shortlist, a handful of cards) — every detail is visible
+                # immediately (UX, 2026-08-10: "let us have every single detail
+                # for every thing"). It stays toggleable, but OPEN by default.
+                f'<button type="button" class="c-card-top" data-detail="call-{i}" aria-expanded="true">'
                 f'<span><span class="c-fixture">{html.escape(fixture_txt)}</span>'
                 f'<span class="c-league-sub">{html.escape(league)}</span></span>'
                 f'<span class="c-pct">{html.escape(pct)}</span>'
                 f'<span class="chev" aria-hidden="true">▸</span></button>'
-                # Per-tile expand/collapse (ratified 2026-08-10): cards are CLOSED
-                # by default; tapping expands THAT fixture's full breakdown.
-                f'<div class="c-detail" id="call-{i}">{_client_market_rows(bf)}</div>'
+                f'<div class="c-detail open" id="call-{i}">{_client_market_rows(bf)}</div>'
                 f"{_bookcode_block(code)}</div>"
             )
         parts.append(f'<div class="c-grid">{"".join(cards)}</div>')
@@ -299,13 +326,15 @@ def _client_scan(board: list, d: str, today: str, scores: dict,
             cards.append(
                 f'<div class="c-card scan-row" data-fixture="{html.escape(key)}" '
                 f'data-search="{html.escape(search_hay)}">'
+                # SCAN is the whole board (10+ fixtures across leagues) — closed
+                # by default, per-tile expand (ratified 2026-08-10). This is the
+                # deliberate contrast to CALL: the scan list stays scannable;
+                # tapping ONE card opens THAT fixture's full breakdown only.
                 f'<button type="button" class="c-card-top" data-detail="scan-{card_i}" aria-expanded="false">'
                 f'<span class="c-fixture">{html.escape(fixture_txt)}<br>'
                 f'<span style="font-size:10px;color:var(--ink-faint);font-weight:400;">{sub_line}</span></span>'
                 f'<span class="c-pct">{html.escape(pick_prob)}</span>'
                 f'<span class="chev" aria-hidden="true">▸</span></button>'
-                # Per-tile expand/collapse (ratified 2026-08-10): cards are CLOSED
-                # by default; tapping expands THAT fixture's full breakdown.
                 f'<div class="c-detail" id="scan-{card_i}">{_client_market_rows(bf)}</div>'
                 f"</div>"
             )
@@ -391,6 +420,61 @@ def render_dashboard(payload: dict, asset_base: str = "/static",
   <section id="panel-analyst" class="c-panel">{analyst}</section>
 </div></div>"""
     return _shell("OLP XDV — Today's Board", body, asset_base)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PENDING — a date whose board RAN but has not passed the publish gate
+# ─────────────────────────────────────────────────────────────────────────────
+def render_pending(date_str: str, last_published: str | None = None,
+                   asset_base: str = "/static") -> str:
+    """Honest awaiting-approval view for the PUBLIC client (Architect 2026-08-10).
+
+    The approve→publish gate is a bright line: an unapproved board's predictions
+    NEVER reach the client. But when today's board merely hasn't been approved
+    yet, a bare 404 is a lie about the system's state — the run DID happen. This
+    view says so plainly, shows the current date (never a stale older board as
+    if it were today), and links to the most recent published board for context.
+    It shares the date pills so a reader can hop to a published day."""
+    today = _date.today().isoformat()
+    pills = []
+    for off in (-1, 0, 1, 2):
+        dt = _date.fromisoformat(date_str) + _timedelta(days=off)
+        iso = dt.isoformat()
+        cls = ["c-pill"]
+        if iso == date_str:
+            cls.append("selected")
+        if off == 0:
+            cls.append("today")
+        sub = iso[5:]
+        label = _friendly_day(iso, today)
+        pills.append(f'<a class="{" ".join(cls)}" '
+                     f'href="{_pill_href("/dashboard", iso)}">'
+                     f"{label}<span class='sub'>{sub}</span></a>")
+    datepills = f'<div class="c-datepills">{"".join(pills)}</div>'
+
+    last = ""
+    if last_published:
+        last = (f'<p class="c-pending-link">Reviewed boards are published here — '
+                f'<a href="/dashboard/{html.escape(last_published)}">'
+                f"{html.escape(_friendly_date(last_published))}</a></p>")
+    else:
+        last = '<p class="c-pending-link">No board has been published yet.</p>'
+
+    body = f"""<div class="app-frame"><div id="client-app">
+  <header class="c-header">
+    <div class="c-brand"><span class="mark"></span><h1>OLP XDV</h1></div>
+    <div class="c-date">{html.escape(_friendly_date(date_str))}</div>
+  </header>
+  {datepills}
+  <section class="c-pending">
+    <div class="c-pending-title">Today's board — awaiting approval</div>
+    <p class="c-pending-body">The run for this date happened, but it has not
+    passed the publish gate. Nothing appears on the client until the Architect
+    reviews and approves it — an unapproved prediction is never shown.
+    {last}
+  </section>
+</div></div>"""
+    return _shell("OLP XDV — Board awaiting approval", body, asset_base)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

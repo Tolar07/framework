@@ -343,6 +343,20 @@ class Handler(BaseHTTPRequestHandler):
                     return self._not_found()
                 payload = self._load_published(d)
                 if payload is None:
+                    # Honest pending-approval state (Architect 2026-08-10): the
+                    # run for this date happened but the board hasn't passed the
+                    # publish gate. The client must NEVER see unapproved
+                    # predictions, but a bare 404 lies about the system state —
+                    # so if a RAW board exists, render the awaiting-approval view
+                    # on the CURRENT date instead of the stale last-published day.
+                    # Only when no run happened at all does the 404 stand.
+                    from webapp import schema as S
+                    from webapp import render_v2 as V2
+                    if self._load_payload(d) is not None:
+                        published_dates = S.list_published_dates()
+                        last_pub = published_dates[0] if published_dates else None
+                        self._render(V2.render_pending(d, last_pub))
+                        return
                     return self._not_found_html(R.render_404_html(d, today))
                 # The NEW prototype design (render_v2). Booking codes come from
                 # the day's acca_<date>_codes.json (schema.read_booking_codes);

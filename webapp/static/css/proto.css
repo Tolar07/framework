@@ -103,6 +103,9 @@ button{font-family:inherit;cursor:pointer;}
 .c-mkt-row b{color:var(--ink);font-weight:600;font-family:'IBM Plex Mono',monospace;}
 .c-mkt-row.pick b{color:var(--amber);font-weight:700;}
 .c-mkt-row.total{border-top:1px dashed var(--line);padding-top:6px;margin-top:4px;}
+/* The trigger-price hint under the row label — honest wording: this is the
+   model's breakeven line, NOT a live bookmaker quote (no live odds source). */
+.c-mkt-hint{display:block;font-size:8.5px;color:var(--ink-faint);font-weight:400;letter-spacing:0.01em;margin-top:1px;}
 
 .c-search{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--ink);font-size:12px;margin-bottom:12px;}
 .c-search::placeholder{color:var(--ink-faint);}
@@ -118,6 +121,15 @@ button{font-family:inherit;cursor:pointer;}
 
 .c-empty{text-align:center;color:var(--ink-faint);font-size:12px;padding:22px 8px;}
 .c-empty b{color:var(--ink);}
+
+/* Honest awaiting-approval view for a date whose board RAN but is not yet
+   published (render_v2.render_pending). Distinct, calm, not an error. */
+.c-pending{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:8px;padding:18px 16px;margin-top:4px;}
+.c-pending-title{font-size:14px;font-weight:700;color:var(--amber);margin-bottom:8px;}
+.c-pending-body{font-size:12px;color:var(--ink-dim);line-height:1.55;margin:0;}
+.c-pending-link{margin:10px 0 0 0;font-size:11px;color:var(--ink-dim);}
+.c-pending-link a{color:var(--amber);font-weight:600;text-decoration:none;}
+.c-pending-link a:hover{text-decoration:underline;}
 
 /* ========== ADMIN (dark, dense — same palette as the client) ========== */
 #admin-app{background:var(--lbg);color:var(--link);min-height:100vh;display:block;}

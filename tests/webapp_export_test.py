@@ -85,9 +85,9 @@ print("1. index.html + board.json + README.md written; no stats.json: OK")
 
 # --- 2. index is the CLIENT view: no internals, no honest footer ---------------
 html_src = (out / "index.html").read_text(encoding="utf-8")
-assert "<style>" in html_src and "Fenerbahce v Sturm Graz" in html_src
-assert "The Call" in html_src and "The Scan" in html_src
-assert "Full analysis — all markets" in html_src
+assert "./static/css/proto.css" in html_src and "Fenerbahce v Sturm Graz" in html_src
+assert 'data-panel="call"' in html_src and 'data-panel="scan"' in html_src
+assert 'data-panel="analyst"' in html_src
 for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
                "Model Internals", "Data Flags", "Verified — Yesterday",
                "Honest edge", "zero capital", "PHASE 3 GATE", "CAP"):
@@ -95,12 +95,11 @@ for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
 print("2. index is the trimmed client view: OK")
 
 # --- Sprint 4: self-hosted static tree copied; index references it relatively -
-assert (out / "static" / "css" / "app.css").is_file()
-assert (out / "static" / "js" / "assets.js").is_file()
-assert (out / "static" / "js" / "scan.js").is_file()
+assert (out / "static" / "css" / "proto.css").is_file()
+assert (out / "static" / "js" / "proto.js").is_file()
 assert (out / "static" / "fonts" / "Inter-normal-400.woff2").is_file()
 assert 'data-asset-base="./static"' in html_src
-assert 'src="./static/js/assets.js"' in html_src
+assert 'src="./static/js/proto.js"' in html_src
 # Fonts are self-hosted — the Google CDN is gone, and section 3 would now
 # reject it too (it is no longer on the approved-host list).
 assert "fonts.googleapis.com" not in html_src and "fonts.gstatic.com" not in html_src

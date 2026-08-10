@@ -1661,3 +1661,48 @@ state so the Architect's sign-off decision is never silent.
 request, for the Architect's decision. It changes nothing on its own and does
 not count as auto-ratification of any option. Phase 2 paper-only and
 zero-capital bright lines are untouched.
+
+---
+
+## RATIFIED 2026-08-10 (evening) — Binance DESIGN.md token corrections in proto.css
+
+**Context:** the 2026-08-10 token pass (proto.css) was audited line-by-line
+against `design-md/binance/DESIGN.md` after the user reported "the app doesn't
+match Binance". The core palette was already exact (canvas #0b0e11, surface
+#1e2329, hairline #2b3139, single amber #FCD535 + on-primary #181a20, trading
+teal/coral, #3b82f6 focus ring, flat elevation, 4px spacing, Inter body + IBM
+Plex Mono numbers). Five gaps were closed:
+
+1. **Muted text tiers** — `--ink-dim`/`--ink-faint` were `#B7BDC6`/`#848E9C`,
+   neither in the Binance palette and both too close to body `#EAECEF`. Now the
+   DESIGN.md muted tiers: `#929aa5` (muted-strong, secondary) and `#707a8a`
+   (muted, captions/headers/hints).
+2. **button-primary spec** — `#trigger-btn` is now 40px tall, 6px radius,
+   14px/600, padding 0 24px (was ~32px, 12px label). Disabled desaturates to
+   amber-disabled `#3a3a1f` + muted text (was opacity dim). `#approve-btn`
+   matches the 40px silhouette.
+3. **Radius scale** — off-token 3px/5px/14px corrected to the DESIGN.md scale:
+   live badge + admin tags xs(2px), admin stat md(6px), admin filter chips
+   pill(9999px). Named `--r-*` tokens added to `:root`.
+4. **Display voice** — `.display` repointed from Barlow Condensed (render_v2
+   never emits it; a condensed face reads wrong for a trading platform) to
+   **Inter 700**, the DESIGN.md's stated BinanceNova substitute. Barlow
+   `@font-face` retired from proto.css.
+5. **body tokens** — `body` now uses `var(--bg)`/`var(--ink)` instead of
+   literals.
+
+**Two deliberate judgment calls, kept not changed:**
+- `#approve-btn` stays **teal** (trading-up). DESIGN.md says green is for
+  Buy/Sell/Long/Short only, but the ratified domain mapping treats
+  approve/publish as a directionally-positive signal — the admin's OK semantic
+  is already teal. Not flipped to yellow to avoid two identical yellow CTAs in
+  the action bar. Flag for Architect if they want strictness.
+- The `.toast` keeps its faint drop shadow (transient overlay over content —
+  the DESIGN.md "subtle shadow when a card sits over imagery" case, not a
+  system-wide surface shadow).
+
+**Commit:** `e01fad5` (proto.css only; other session's board/log files left
+in-flight). Tests: webapp_export / webapp_render_v2 / webapp_server all PASS.
+Cache-buster rolled to `proto.css?v=1786397873`.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

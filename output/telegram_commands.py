@@ -49,6 +49,7 @@ import contextlib
 import csv
 import json
 import os
+import random
 import sys
 import time
 from datetime import date, datetime, timezone
@@ -580,7 +581,13 @@ def poll_once(token: Optional[str] = None, long_poll_seconds: int = 0) -> list[s
     to that many seconds waiting for a message and returns the instant one
     arrives. A resident daemon passes 30, so a command is answered within
     seconds instead of on the next scheduled fire. The single-pass caller
-    (default 0) stays an immediate no-wait poll."""
+    (default 0) stays an immediate no-wait poll.
+
+    A network failure is absorbed as a returned note ("command poll failed:
+    …") rather than raised, so a single poll never kills the daemon. The
+    --loop caller counts consecutive failures and backs off (see
+    _poll_backoff_sleep) — a flaky network window must not hammer
+    api.telegram.org with back-to-back retries."""
     notes: list[str] = []
     token = token or os.environ.get("TELEGRAM_BOT_TOKEN")
     if requests is None or not token:
@@ -600,6 +607,22 @@ def poll_once(token: Optional[str] = None, long_poll_seconds: int = 0) -> list[s
         notes.extend(handle_update(u, token=token)[1])
     _save_offset(offset)
     return notes or ["no new commands"]
+
+
+def _poll_backoff_sleep(consecutive_failures: int,
+                        *,
+                        base: float = 5.0,
+                        cap: float = 300.0,
+                        jitter: float = 0.5) -> float:
+    """Seconds to sleep after `consecutive_failures` failed polls.
+
+    Exponential: base * 2**n, capped at `cap`, then a random ±jitter fraction
+    so retries don't pile up on the same boundary. Failure 0 -> ~5s, 1 -> ~10s,
+    2 -> ~20s … 6+ -> ~300s. The daemon sleeps this long and then re-polls; a
+    recovered network is picked up on the next attempt (getUpdates is offset-
+    based, so nothing is missed while backed off)."""
+    delay = min(cap, base * (2 ** max(0, consecutive_failures - 1)))
+    return delay * random.uniform(1 - jitter, 1 + jitter)
 
 
 def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[str]]:
@@ -679,17 +702,35 @@ if __name__ == "__main__":
 
         print(f"OLP XDV command poller running — Ctrl-C to stop "
               f"(long-poll {args.interval}s, replies near-instant)")
+        consecutive_failures = 0
         try:
             while True:
                 try:
-                    for n in poll_once(long_poll_seconds=args.interval):
+                    notes = poll_once(long_poll_seconds=args.interval)
+                    for n in notes:
                         print(f"[{datetime.now(timezone.utc).isoformat()}] {n}")
                 except Exception as e:
                     # self-healing: a transient error must not kill the one
                     # process the phone depends on for replies.
                     print(f"[{datetime.now(timezone.utc).isoformat()}] "
                           f"poller error, continuing: {e}")
-                    time.sleep(10)
+                    consecutive_failures += 1
+                    time.sleep(_poll_backoff_sleep(consecutive_failures))
+                    continue
+                if any(n.startswith("command poll failed") for n in notes):
+                    # poll_once absorbs network failures as a returned note, so
+                    # the except path above never sees them. Count them here and
+                    # back off exponentially — a flaky network window (observed:
+                    # hours of NameResolutionError/read-timeouts) must not hammer
+                    # api.telegram.org with 45s-out retries on a 2s gap.
+                    consecutive_failures += 1
+                    wait = _poll_backoff_sleep(consecutive_failures)
+                    print(f"[{datetime.now(timezone.utc).isoformat()}] "
+                          f"command poll failed — backing off "
+                          f"{wait:.0f}s ({consecutive_failures} consecutive)")
+                    time.sleep(wait)
+                    continue
+                consecutive_failures = 0
                 time.sleep(2)  # safety gap; long-poll does the waiting
         except KeyboardInterrupt:
             print("poller stopped")

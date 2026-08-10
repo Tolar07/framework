@@ -240,4 +240,31 @@ assert _reply_call.kwargs.get("reply_markup", {}).get("inline_keyboard"), \
     "the routed reply must keep its inline keyboard"
 print("callback_query tap answered + routed to the command with keyboard: OK")
 
+# --- poll backoff (flaky-network resilience) --------------------------------
+# A failed poll is absorbed as a note by poll_once, so the loop must detect it
+# and back off exponentially instead of hammering api.telegram.org on a 2s gap
+# (observed: 6170 failures during one flaky window). _poll_backoff_sleep grows
+# with consecutive failures, stays within cap, and never sleeps <= 0.
+# Monotonic growth below the cap: each consecutive failure must back off no
+# shorter than the last. Compare median of many draws (jitter makes any single
+# draw noisy). Failures 1..6 are 5,10,20,40,80,160s — all strictly below the
+# 300s cap; 7+ saturate at the cap, so growth is checked only up to 6.
+_mids = []
+for n in (1, 2, 3, 4, 5, 6):
+    draws = sorted(tc._poll_backoff_sleep(n, cap=300.0) for _ in range(101))
+    _mids.append((n, draws[50]))  # median
+for (n1, m1), (n2, m2) in zip(_mids, _mids[1:]):
+    assert m1 < m2, f"median backoff must grow: failure {n1} -> {n2}"
+assert _mids[-1][1] < 300.0, "growth must be checked strictly below the cap"
+assert all(s > 0 for s in [m for _, m in _mids]), "backoff must never be <= 0"
+# Failure 1 backoff is ~5s (base), scaled by jitter — the point is a failed
+# poll stops the tight 2s loop immediately.
+assert tc._poll_backoff_sleep(1, jitter=0.0) == 5.0, \
+    "first failure must back off the base 5s (jitter disabled)"
+assert tc._poll_backoff_sleep(2, jitter=0.0) == 10.0, \
+    "second failure must double to 10s (jitter disabled)"
+assert tc._poll_backoff_sleep(100, jitter=0.0) == 300.0, \
+    "long outage must saturate at the 300s cap"
+print("poll backoff grows exponentially, caps at 300s, jitters: OK")
+
 print("\n[OK] ALL TELEGRAM COMMANDS TESTS PASSED")

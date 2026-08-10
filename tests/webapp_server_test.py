@@ -234,6 +234,7 @@ assert code == 200 and 'id="trigger-btn"' in body and "Model Internals" in body
 # dense table, Approve->Publish, and the AI Analyst FULL chat.
 assert 'id="admin-search"' in body and 'id="trigger-date"' in body
 assert 'class="a-stat"' in body and 'class="a-chip"' in body
+assert 'data-chip="eligible"' in body and 'data-gate' in body and 'id="gate-detail"' in body
 assert 'class="a-table"' in body and 'id="approve-btn"' in body
 assert 'id="admin-chatlog"' in body and 'id="admin-chat-send"' in body
 code, body = _get("/admin", _auth(pw="wrong"))

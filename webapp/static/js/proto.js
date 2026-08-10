@@ -351,14 +351,47 @@ function bindAdminChat() {
   input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); ask(); } });
 }
 
-/* Admin: clickable stat pills */
+/* Admin: filter the grid to deploy-eligible (on-shortlist) fixtures */
+function filterEligible() {
+  document.querySelectorAll('.a-filterbar .a-chip').forEach(function (c) { c.classList.remove('active'); });
+  var all = document.querySelector('.a-chip[data-league="all"]');
+  if (all) all.classList.add('active');
+  document.querySelectorAll('#admin-tbody tr').forEach(function (row) {
+    if (!row.getAttribute('data-league')) return; /* detail rows follow their parent */
+    if (row.classList.contains('a-league-sep')) return;
+    row.classList.toggle('hidden', row.getAttribute('data-short') !== '1');
+  });
+  /* hide league separators with no visible rows */
+  document.querySelectorAll('#admin-tbody .a-league-sep').forEach(function (sep) {
+    var league = sep.getAttribute('data-league');
+    var any = false;
+    document.querySelectorAll('#admin-tbody tr[data-league="' + league + '"]').forEach(function (r) {
+      if (r.classList.contains('a-league-sep')) return;
+      if (!r.classList.contains('hidden')) any = true;
+    });
+    sep.classList.toggle('hidden', !any);
+  });
+}
+
+/* Admin: clickable stat pills — "N scanned" -> all, "N eligible" -> shortlist */
 function bindStatPills() {
   document.querySelectorAll('.a-stat[data-chip]').forEach(function (pill) {
     pill.addEventListener('click', function () {
       var league = pill.getAttribute('data-chip');
+      if (league === 'eligible') { filterEligible(); return; }
       var chip = document.querySelector('.a-chip[data-league="' + league + '"]');
       if (chip) chip.click();
       else showToast('No filter for that group', 2000);
+    });
+  });
+}
+
+/* Admin: CLV gate stat pill toggles the Phase 3 gate detail panel */
+function bindGatePill() {
+  document.querySelectorAll('.a-stat[data-gate]').forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      var d = document.getElementById('gate-detail');
+      if (d) d.classList.toggle('hidden');
     });
   });
 }
@@ -420,6 +453,7 @@ document.addEventListener('DOMContentLoaded', function () {
   bindAdminDate();
   bindAdminChat();
   bindStatPills();
+  bindGatePill();
   bindLogToggle();
   bindLiveScores();
 });

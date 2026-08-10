@@ -9,8 +9,9 @@ WHAT THIS BUILDS
   Up to three 4-leg accumulators (Acca 1 / 2 / 3) from today's deploy-eligible
   shortlist, so the Architect gets a choice at the end of production. Each leg
   is priced on the live line in a CAPITAL-CLEARED market — mkt.DEPLOYABLE
-  (currently Draw + Under 2.5; ID405 blocks Away / Over 2.5 / Home from
-  capital). If the market gate changes, the acca follows it automatically.
+  (ID405 market gate opened 2026-08-10: all five markets — 1X2 Home/Draw/Away,
+  Over/Under 1.5, Over/Under 2.5, BTTS, Double Chance — are now deployable).
+  If the market gate changes, the acca follows it automatically.
 
 HONESTY (HR35 carried through)
   - A fixture with no kickoff date is NOT in the acca — a date we cannot
@@ -214,8 +215,8 @@ def render_acca_block(accas: List[Acca], today: Optional[str] = None) -> str:
             lines.append(f"    NOTE: only {acca.n_legs} eligible today — acca "
                          f"shortened, not padded (HR35)")
 
-    lines.append("  Capital gate (ID405): every leg is Draw or Under 2.5 — the "
-                 "only markets cleared for capital.")
+    lines.append("  Capital gate (ID405): all five markets are deployable (gate opened "
+                 "2026-08-10 — no market blocked).")
     lines.append("  PAPER — Phase 2, zero capital. Booking codes are generated "
                  "for your review; YOU approve and paste.")
     lines.append("  HONEST EDGE LINE: excellent informed process, NOT a "

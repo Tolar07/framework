@@ -721,17 +721,20 @@ class Brain:
         return [dict(r) for r in rows]
 
     def clv_by_tier(self, phase: str = "phase2_paper") -> list[dict]:
-        """CLV grouped by softness tier. Lazy engine import — brain stays
-        stdlib-only at module load."""
+        """CLV grouped by pool. ID402 A/B/C/D tiers removed 2026-08-10 — every
+        whitelisted league is one unified pool, so the only real grouping left
+        is whitelisted-vs-unrated. The field name is kept for back-compat with
+        the dashboard/CLI that may still call this method."""
         from engine.softness import softness_tier
         rows = self._conn.execute(
             "SELECT DISTINCT league, clv_pct FROM legs "
             "WHERE phase=? AND clv_pct IS NOT NULL", (phase,)).fetchall()
-        tiers: dict[str, list] = {}
+        buckets: dict[str, list] = {}
         for r in rows:
-            tiers.setdefault(softness_tier(r["league"]), []).append(r["clv_pct"])
+            # softness_tier now returns "ONE" (whitelisted) or "?" (unrated).
+            buckets.setdefault(softness_tier(r["league"]), []).append(r["clv_pct"])
         out = []
-        for tier, vals in sorted(tiers.items()):
+        for tier, vals in sorted(buckets.items()):
             out.append({"tier": tier, "n": len(vals),
                         "mean_clv_pct": round(sum(vals) / len(vals), 3)})
         return out

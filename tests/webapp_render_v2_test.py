@@ -5,8 +5,9 @@ The old webapp_render_test.py covers the legacy webapp.render module (still used
 for /why). This suite covers the new design that the server actually serves:
   - the FULL 13-row market grid on every client card (1X2, O/U 1.5, O/U 2.5,
     BTTS and Double Chance — derived only from client-safe probs),
-  - markets OPEN BY DEFAULT on scan + call cards (the client sees the whole
-    predicted table and decides; the recommended acca + call sit above it),
+  - markets OPEN BY DEFAULT on scan + call cards (Architect 2026-08-10: the
+    client sees the whole predicted table and decides; the recommended acca +
+    call sit above it),
   - the recommended pick row visually distinct (.c-mkt-row.pick),
   - the data-leak boundary still holds (no model internals reach the client),
   - the Phase 3 gate status on /admin: PASS / OVERRIDE / NOT MET, and the

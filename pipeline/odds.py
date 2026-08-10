@@ -13,10 +13,10 @@ WHY THIS EXISTS
 QUOTA — THE BINDING CONSTRAINT
   The free plan allows 500 requests/month, and a request costs
   (number of regions) x (number of markets). A single 'uk,eu' + 'h2h,totals'
-  call therefore costs 4, and five deploy leagues once daily would burn
+  call therefore costs 4, and every whitelisted league once daily would burn
   ~600/month — over the cap. Defaults here are ONE region ('uk', where Bet365
   sits) and two markets, i.e. 2 credits per league per pull: about 300/month
-  for the five deploy leagues. `check_quota()` refuses to spend when the
+  at ~15 priced leagues/day. `check_quota()` refuses to spend when the
   remaining balance is low, so a scheduled run degrades to NO DATA — PENDING
   rather than silently dying mid-month.
 
@@ -57,7 +57,7 @@ ODDS_MAX_AGE_SECONDS = 60 * 60
 # A fixture LIST derived from the odds feed is different from a price: the
 # schedule for a given day is known ahead and does not change intra-day, so the
 # derived list can be cached far longer than the prices it was built from. This
-# stops scan-only leagues re-fetching live odds purely to learn "no fixtures
+# stops leagues with no fixtures re-fetching live odds purely to learn "no fixtures
 # today" on every run (measured: 7 network pulls / ~13s wasted per run).
 FIXTURES_MAX_AGE_SECONDS = 6 * 3600
 
@@ -72,16 +72,16 @@ QUOTA_FLOOR = 40
 # capture stops at this HARD floor instead.
 QUOTA_HARD_FLOOR = 5
 
-# Verified live against /v4/sports on 2026-08-03 — every key below returned
+# Verified live against /v4/sports on 2026-08-10 — every key below returned
 # active=True. Listing sports is free; only odds calls cost credits.
 SPORT_KEYS = {
-    # deploy-eligible (softness A/B)
+    # one unified pool (ID402 softness tiers removed 2026-08-10) — every
+    # whitelisted league is deploy-eligible, no cap
     "Eredivisie": "soccer_netherlands_eredivisie",
     "Danish Superliga": "soccer_denmark_superliga",
     "Belgian Pro League": "soccer_belgium_first_div",
     "Scottish Premiership": "soccer_spl",
     "Ekstraklasa": "soccer_poland_ekstraklasa",
-    # scan-only (softness C/D) — never a capital pick, pulled only if asked
     "Championship": "soccer_efl_champ",
     "Serie A": "soccer_italy_serie_a",
     "Bundesliga": "soccer_germany_bundesliga",
@@ -94,7 +94,7 @@ SPORT_KEYS = {
     # exists on the free key and no history source covers it, so the ODDS feed
     # is its active fixture-capture path (same as Champions League), and the
     # fixtures it returns are honestly unrated NO DATA until a history source
-    # exists. Scanned tier D (scan-only).
+    # exists.
     "Austrian Bundesliga": "soccer_austria_bundesliga",
     # Champions League qualifying is the only current-season continental
     # fixtures source in this framework: TheSportsDB's UCL feed lags weeks
@@ -105,10 +105,16 @@ SPORT_KEYS = {
     # J-League carry real prices on the free tier; Europa/Conference quals do
     # NOT (no active sport key) — those stay TSDB-only and unpriced, which the
     # cup-training logger handles by logging O1.5 outcome evidence without
-    # fabricating a price (HR35). EFL Cup is also on the scan whitelist (tier
-    # D, scan-only — Architect), so its fixtures appear on the daily board.
+    # fabricating a price (HR35). EFL Cup is on the whitelist (one unified pool
+    # — Architect 2026-08-10), so its fixtures appear on the daily board.
     "EFL Cup": "soccer_england_efl_cup",
     "J League": "soccer_japan_j_league",
+    # HNL (Croatian First League) — verified live 2026-08-10 against the Odds API
+    # /v4/sports list ("soccer_croatia_hnl", active). football-data.co.uk does not
+    # cover Croatia (no T1 history), so the odds feed is the active fixture-capture
+    # path. Fixtures returned are honestly unrated NO DATA until a history source
+    # exists (API-Football paid plan is the documented path).
+    "HNL": "soccer_croatia_hnl",
 }
 
 # A THIRD naming convention to reconcile (football-data.co.uk and TheSportsDB

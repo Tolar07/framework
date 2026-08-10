@@ -172,7 +172,7 @@ def build_payload(*, date: str, phase: str, leagues_scanned: list[str],
     `produced_bet` — the day's produced-bet record (ID415): one leg per rated
     fixture with a kickoff today, plus the verified outcome (WON/LOST) once
     yesterday's record is settled next day. The FULL record (model prob,
-    softness tier, best EV) is admin-visible; trim_payload reduces it to a
+    best EV) is admin-visible; trim_payload reduces it to a
     client-safe form (fixture + pick + price + outcome only).
 
     `accas` — the day's 4-leg acca set (standing rule 2026-08-09), as the
@@ -243,7 +243,7 @@ CLIENT_TOP_KEYS = frozenset({
 # The produced-bet record is the ONE deliberate narrowing of the 2026-08-07
 # data-leak boundary (ratified ID415): the client dashboard shows what the
 # framework bet (fixture, pick, price) and the verified result (WON/LOST) —
-# the point of the produced-bet feature. Model prob, softness tier, deploy
+# the point of the produced-bet feature. Model prob, deploy
 # shortlist and EV/CLV verdicts stay admin-only.
 CLIENT_PRODUCED_BET_KEYS = frozenset({
     "fixture", "league", "pick", "pick_name",

@@ -15,7 +15,6 @@ from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
 from engine.consensus import Consensus
-from engine.softness import DEPLOY_POOL_CAP, SOFTNESS_PAUSED
 from engine.acca import render_acca_block
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
@@ -36,7 +35,7 @@ class BoardFixture:
     fixture: str  # "Home v Away"
     probs: Optional[FixtureProbabilities]
     verification: VerificationResult
-    softness_tier: str = "?"   # A/B/C/D
+    softness_tier: str = "ONE"   # unified pool marker (back-compat field)
     on_deploy_shortlist: bool = False
     mes_trigger_price: Optional[float] = None
     rejection_reason: Optional[str] = None
@@ -133,16 +132,6 @@ def render_part0(mode: str, phase: str, leagues_scanned: list[str],
     return "\n".join(lines)
 
 
-def _tier_words(tier: str) -> str:
-    """HR53: no bare glyphs. A lone 'B' means nothing on a phone at 7am."""
-    if SOFTNESS_PAUSED:
-        return "Softness PAUSED — all whitelisted leagues deploy-eligible"
-    return {
-        "A": "Softness tier A — deploy-eligible",
-        "B": "Softness tier B — deploy-eligible",
-        "C": "Softness tier C — scan-only, never a capital pick",
-        "D": "Softness tier D — scan-only, never a capital pick",
-    }.get(tier, "Softness tier unrated — not on the ID401 whitelist")
 
 
 def _verification_words(v: VerificationResult) -> str:
@@ -227,7 +216,6 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
     L = []
     head = f"{index}. {bf.fixture}" if index else bf.fixture
     L.append(head)
-    L.append(f"   {_tier_words(bf.softness_tier)}")
     L.append(f"   Data confidence: {_verification_words(bf.verification)}")
 
     if bf.probs is None:
@@ -392,8 +380,8 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
 
 def render_part1_the_call(shortlist: list[BoardFixture]) -> str:
     """DEPLOY shortlist — TODAY'S fixtures only (standing rule 2026-08-09),
-    softness A/B, <=6 pool. Frozen columns:
-    Fixture | Pick | Model% | Deploy at (MES trigger) | Softness tier"""
+    unified pool (no tiers, no cap). Frozen columns:
+    Fixture | Pick | Model% | Deploy at (MES trigger)"""
     today = date.today().isoformat()
     shortlist = [bf for bf in shortlist if bf.kickoff_date == today]
     if not shortlist:
@@ -401,15 +389,15 @@ def render_part1_the_call(shortlist: list[BoardFixture]) -> str:
                 "NO DEPLOY-ELIGIBLE CALL this session — no deployable fixture "
                 "kicks off today (a valid, honest result).")
     rows = ["PART 1 — THE CALL — today's fixtures only",
-            "Fixture | Pick | Model% | Deploy at | Tier"]
+            "Fixture | Pick | Model% | Deploy at"]
     for bf in shortlist:
         if bf.probs is None:
-            rows.append(f"{bf.fixture} | NO DATA — PENDING | — | — | {bf.softness_tier}")
+            rows.append(f"{bf.fixture} | NO DATA — PENDING | — | —")
             continue
         # Plain-language pick line (HR53 — no bare glyphs)
         pick_desc, prob = _best_market_desc(bf.probs)
         trigger = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA — PENDING"
-        rows.append(f"{bf.fixture} | {pick_desc} | {round(prob*100)}% | {trigger} | {bf.softness_tier}")
+        rows.append(f"{bf.fixture} | {pick_desc} | {round(prob*100)}% | {trigger}")
     return "\n".join(rows)
 
 
@@ -519,10 +507,7 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
     if stacked:
         if shortlist:
             call = ["PART 1 — THE CALL — today's fixtures only"]
-            if SOFTNESS_PAUSED:
-                call.append(f"{len(shortlist)} deploy-eligible fixture(s) kicking off today, softness PAUSED (all whitelisted leagues, no cap).")
-            else:
-                call.append(f"{len(shortlist)} deploy-eligible fixture(s) kicking off today, softness A/B only, capped at {DEPLOY_POOL_CAP} (ID402).")
+            call.append(f"{len(shortlist)} deploy-eligible fixture(s) kicking off today (unified pool — all whitelisted leagues, no cap).")
             call.append("MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.")
             call.append("")
             call += [render_fixture_block(bf, i) + "\n"
@@ -742,22 +727,13 @@ def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
     for league, fixtures in by_league.items():
         league_blocks: list[str] = [league.upper()]
 
-        # Separate accumulator candidates (Tier A/B + on_deploy_shortlist) from others
-        if SOFTNESS_PAUSED:
-            acc_candidates = [bf for bf in fixtures if bf.on_deploy_shortlist]
-            other_fixtures = [bf for bf in fixtures if not bf.on_deploy_shortlist]
-        else:
-            acc_candidates = [bf for bf in fixtures
-                             if bf.softness_tier in ("A", "B") and bf.on_deploy_shortlist]
-            other_fixtures = [bf for bf in fixtures
-                             if not (bf.softness_tier in ("A", "B") and bf.on_deploy_shortlist)]
+        # Separate accumulator candidates (on the deploy shortlist) from others
+        acc_candidates = [bf for bf in fixtures if bf.on_deploy_shortlist]
+        other_fixtures = [bf for bf in fixtures if not bf.on_deploy_shortlist]
 
         # Show accumulator candidates first, marked with ★
         if acc_candidates:
-            if SOFTNESS_PAUSED:
-                league_blocks.append("  ⭐ ACCUMULATOR CANDIDATES (softness PAUSED, all whitelisted deploy-eligible):")
-            else:
-                league_blocks.append("  ⭐ ACCUMULATOR CANDIDATES (Tier A/B, deploy-eligible):")
+            league_blocks.append("  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):")
             for bf in acc_candidates:
                 if bf.probs is None:
                     league_blocks.append(f"  · {_short_fixture(bf)}\n    NO DATA — PENDING")
@@ -772,9 +748,8 @@ def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
                 else:
                     agree = "consensus unavailable"
                 chips = " · ".join(_engine_chip(bf))
-                tier_label = f"[Tier {bf.softness_tier}]"
                 league_blocks.append(
-                    f"  ★ {_short_fixture(bf)} {tier_label}\n"
+                    f"  ★ {_short_fixture(bf)}\n"
                     f"    {pick_line} ({round(prob*100)}%)\n"
                     f"    {agree}\n"
                     f"    {chips}")
@@ -794,11 +769,8 @@ def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
             else:
                 agree = "consensus unavailable"
             chips = " · ".join(_engine_chip(bf))
-            tier_label = f"[Tier {bf.softness_tier}]" if bf.softness_tier != "?" else ""
-            if tier_label:
-                tier_label += " "
             league_blocks.append(
-                f"· {_short_fixture(bf)} {tier_label}\n"
+                f"· {_short_fixture(bf)}\n"
                 f"  {pick_line} ({round(prob*100)}%)\n"
                 f"  {agree}\n"
                 f"  {chips}")

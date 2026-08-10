@@ -45,8 +45,8 @@ from output.produce_bet import BoardFixture, render_produce_bet
 from clv.clv_logger import CLVLog
 from config import PHASE_LABEL
 
-# The full ID401 whitelist (15 leagues) — same set engine/softness.py tiers.
-FULL_WHITELIST = list(SOFTNESS_TIER.keys())
+# The full ID401 whitelist — the unified pool (engine/softness.py).
+FULL_WHITELIST = list(WHITELISTED_LEAGUES)
 
 # Promoted-club level adjustment (Architect 2026-08-07): a club whose
 # parameters were fit ONLY on second-division play is dampened against
@@ -271,10 +271,15 @@ def scan_one_league(league: str, season: str,
             try:
                 from booking.bridge import (load_sportybet_fixtures,
                                             sportybet_fixtures_to_pairs)
-                sb_pairs = sportybet_fixtures_to_pairs(league, days_ahead=45)
+                # Use generous max_age_hours (48h) on fallback — the
+                # cache builder runs twice daily; when it's the ONLY
+                # source we should be lenient rather than lose fixtures.
+                sb_pairs = sportybet_fixtures_to_pairs(
+                    league, days_ahead=45, max_age_hours=48)
                 if sb_pairs:
                     upcoming_fixtures = sb_pairs
-                    for f in load_sportybet_fixtures(league, days_ahead=45):
+                    for f in load_sportybet_fixtures(
+                            league, days_ahead=45, max_age_hours=48):
                         if f.kickoff_utc:
                             fixture_dates[(f.home_team, f.away_team)] = \
                                 f.kickoff_utc[:10]
@@ -587,9 +592,11 @@ def scan_one_league(league: str, season: str,
             consensus=compute_consensus(probs, elo_p, xg_t) if probs else None,
             engine_divergence=elo_engine.divergence(elo_p, probs),
             rejection_reason=(
+                # Unrated: honest NO DATA reason. Every whitelisted league is
+                # deploy-eligible in the unified pool (2026-08-10), so a RATED
+                # fixture is never rejected on a league tier.
                 _unrated_detail(model, home, away) if probs is None
-                else None if is_deploy_eligible(league)
-                else f"softness tier {tier} — scan-only"
+                else None
             ),
             # SportyBet odds and MES
             sb_home_odds=sb_odds.get("home") if sb_odds else None,

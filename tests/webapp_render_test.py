@@ -111,7 +111,7 @@ print("3. client view has NO model internals / admin sections: OK")
 for needle in ["Model Internals", "Elo second opinion", "Engine divergence",
                "HR30 MES", "Verification", "Data Flags", "Verified — Yesterday",
                "✓ HIT", "Honest edge", "zero capital", "PHASE 3 GATE",
-               "TIER D", "SINGLE-SOURCE"]:
+               "one unified pool", "SINGLE-SOURCE"]:
     assert needle in a, f"admin dashboard missing {needle!r}"
 print("4. admin has internals + verification + flags + yesterday + footer: OK")
 

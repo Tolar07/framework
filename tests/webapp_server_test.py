@@ -338,14 +338,16 @@ assert code == 401, "board-edit must require admin"
 code, body, _ = _post("/api/admin/board-edit", _auth(),
                       data={"date": today, "fixture": "Fenerbahce v Sturm Graz",
                             "edits": {"best_market": "Fenerbahce -1", "best_price": "2.05",
-                                      "softness_tier": "C", "on_deploy_shortlist": False}})
+                                      "on_deploy_shortlist": False}})
 assert code == 200
 d = json.loads(body)
 assert d.get("ok") is True and "best_price" in d.get("applied", []), body[:200]
 edited = schema.read_payload(edit_dir / f"board_{today}.json")
 b0 = edited["board"][0]
 assert b0["best_price"] == 2.05 and b0["best_market"] == "Fenerbahce -1"
-assert b0["softness_tier"] == "C" and b0["on_deploy_shortlist"] is False
+# No softness-tier edit exists any more (ID402 tiers removed 2026-08-10) — the
+# deploy-shortlist toggle is the only gating control the edit can change.
+assert b0["on_deploy_shortlist"] is False
 # bad fixture / bad price are honest errors, never a crash
 code, body, _ = _post("/api/admin/board-edit", _auth(),
                       data={"date": today, "fixture": "NoSuchTeam", "edits": {"best_market": "x"}})

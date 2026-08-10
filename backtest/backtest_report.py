@@ -16,7 +16,9 @@ import math
 import statistics
 from typing import Optional
 
-from engine.softness import softness_tier, DEPLOY_ELIGIBLE_TIERS
+# No softness imports — ID402 A/B/C/D tiers were removed 2026-08-10 (one
+# unified pool). The A/B-vs-C/D control section that used softness_tier /
+# DEPLOY_ELIGIBLE_TIERS was replaced with a single whole-pool summary.
 
 
 def _pct(x: Optional[float], dp: int = 2) -> str:
@@ -185,18 +187,10 @@ def render_report(legs: list, flags: list[str], coverage: dict, cfg,
         A(_cal_row(summarise([l for l in raw if l.market == mkt], mkt)))
     A("")
 
-    ab = [l for l in raw if softness_tier(l.league) in DEPLOY_ELIGIBLE_TIERS]
-    cd = [l for l in raw if softness_tier(l.league) not in DEPLOY_ELIGIBLE_TIERS]
-    A("SOFTNESS THESIS — deploy-eligible (A/B) vs scan-only (C/D) control")
-    A(_row(summarise(ab, "tier A/B (deploy)")))
-    A(_row(summarise(cd, "tier C/D (control)")))
-    s_ab, s_cd = summarise(ab, "ab"), summarise(cd, "cd")
-    if s_ab["mean_clv_pct"] is not None and s_cd["mean_clv_pct"] is not None:
-        diff = s_ab["mean_clv_pct"] - s_cd["mean_clv_pct"]
-        A(f"  difference: {diff:+.3f}pp  "
-          f"(n={s_ab['n_with_clv']} vs {s_cd['n_with_clv']})")
-        if min(s_ab["n_with_clv"], s_cd["n_with_clv"]) < 200:
-            A("  ! Under 200 legs in a bucket, this difference is not evidence of anything.")
+    A("UNIFIED POOL — every whitelisted league is one deploy-eligible pool")
+    A("  (ID402 A/B/C/D softness tiers removed 2026-08-10 — the A/B-vs-C/D")
+    A("  control is dead; the pool is measured as a whole, not split by tier.)")
+    A(_row(summarise(raw, "ONE pool (all whitelisted)")))
     A("")
 
     if derived:

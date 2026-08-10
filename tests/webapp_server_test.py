@@ -36,8 +36,11 @@ boards.mkdir()
 today = date.today().isoformat()
 
 # Auth under test — the server reads these from os.environ per request.
+# Pin the auth toggle ON: importing server runs config.load_dotenv(), which
+# would pull OLP_REQUIRE_ADMIN_AUTH=0 from the real .env and break the 401s.
 os.environ["ADMIN_USER"] = "test"
 os.environ["ADMIN_PASS"] = "testpass"
+os.environ["OLP_REQUIRE_ADMIN_AUTH"] = "1"
 # Publish gate sign-off so the fixture board passes the gate (gate logic has
 # its own dedicated tests in webapp_schema_test.py).
 os.environ["ARCHITECT_SIGNOFF"] = "1"
@@ -238,6 +241,18 @@ assert code == 401
 print("5. /admin: 401 without creds, 200 with, 401 wrong password: OK")
 print("5b. admin has trigger/date/stats/chips/table/approve/chat: OK")
 
+# --- 5c. OLP_REQUIRE_ADMIN_AUTH=0 lifts the wall (dev escape hatch) ----------
+# Default is ON (sections 5/7/8c assert the 401s); setting the flag to 0 makes
+# /admin and the mutating trigger route reachable without credentials.
+with patch.dict(os.environ, {"OLP_REQUIRE_ADMIN_AUTH": "0"}, clear=False):
+    assert _get("/admin/2026-08-10")[0] == 200
+    assert _get("/stats")[0] == 200
+    assert _get("/api/admin/board.json")[0] == 200
+    code, body, _ = _post("/api/trigger-board?date=bad-date")
+    assert code == 200 and json.loads(body).get("ok") is False, \
+        "bad-date guard must still reject even with auth off"
+print("5c. OLP_REQUIRE_ADMIN_AUTH=0 lifts auth; guards still hold: OK")
+
 # --- 6. /admin renders the FULL payload (internals present) -----------------
 code, body = _get(f"/admin/{today}", _auth())
 assert code == 200
@@ -349,6 +364,7 @@ assert code == 503 and "ADMIN_PASS" in body
 os.environ["ADMIN_USER"] = "test"
 os.environ["ADMIN_PASS"] = "testpass"
 os.environ["ARCHITECT_SIGNOFF"] = "1"
+os.environ["OLP_REQUIRE_ADMIN_AUTH"] = "1"
 print("9. no ADMIN_PASS -> /admin 503 'set ADMIN_PASS': OK")
 
 # --- 10. history stays public ------------------------------------------------

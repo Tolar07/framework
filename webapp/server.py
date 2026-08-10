@@ -135,6 +135,15 @@ def _payload_path(date_str: str) -> Path:
     return BOARD_DIR / f"board_{date_str}.json"
 
 
+def _admin_auth_disabled() -> bool:
+    """Dev convenience toggle: OLP_REQUIRE_ADMIN_AUTH=0 lifts the Basic-auth
+    wall on /admin, /stats, /why, /api/admin/* and POST /api/trigger-board.
+    Default is ON — the flag must never default off on a phone-reachable host,
+    because /admin exposes full model internals."""
+    return os.environ.get("OLP_REQUIRE_ADMIN_AUTH", "1").strip().lower() \
+        in ("0", "false", "no", "off")
+
+
 def _board_dates() -> list[str]:
     return sorted((p.name[len("board_"):-len(".json")] for p in
                    BOARD_DIR.glob("board_*.json")), reverse=True)
@@ -255,6 +264,8 @@ class Handler(BaseHTTPRequestHandler):
         """401 (+WWW-Authenticate so the browser prompts) when not authed;
         503 when auth is unconfigured. Returns True only when the request is
         allowed through."""
+        if _admin_auth_disabled():
+            return True
         if self._admin_ok():
             return True
         if not os.environ.get("ADMIN_PASS"):

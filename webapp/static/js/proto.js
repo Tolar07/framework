@@ -190,7 +190,6 @@ function bindRowEdits() {
         fixture: document.getElementById('edit-fixture-' + row).value.trim(),
         best_market: document.getElementById('edit-market-' + row).value.trim(),
         best_price: document.getElementById('edit-price-' + row).value.trim(),
-        softness_tier: document.getElementById('edit-tier-' + row).value,
         on_deploy_shortlist: document.getElementById('edit-short-' + row).checked
       };
       btn.disabled = true;

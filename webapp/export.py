@@ -65,9 +65,32 @@ def export(date_str: str, out: Path) -> list[Path]:
             shutil.copy2(child, dst)
     written.append(out / "static")
 
+    # A STANDALONE multi-date site: the root page links its Scan date pills to a
+    # per-date page for every published board (relative ./<iso>/index.html, so
+    # file:// and every static host resolve them — no dead /dashboard/... links
+    # and no trailing-slash that only a host's directory index would answer).
+    # Booking codes render like the served client (codes are client-safe betslip
+    # recalls; a missing codes file renders the honest NO DATA — PENDING).
     (out / "index.html").write_text(
-        R.render_dashboard(client_payload, asset_base="./static"), encoding="utf-8")
+        R.render_dashboard(client_payload, asset_base="./static",
+                           booking_codes=S.read_booking_codes(date_str),
+                           pill_base="."),
+        encoding="utf-8")
     written.append(out / "index.html")
+
+    for iso in S.list_published_dates():
+        try:
+            sub_payload = S.read_published(iso)
+        except FileNotFoundError:
+            continue  # the published list is authoritative; skip a race if any
+        sub = out / iso
+        sub.mkdir(parents=True, exist_ok=True)
+        (sub / "index.html").write_text(
+            R.render_dashboard(sub_payload, asset_base="../static",
+                               booking_codes=S.read_booking_codes(iso),
+                               pill_base=".."),
+            encoding="utf-8")
+        written.append(sub / "index.html")
 
     (out / "board.json").write_text(
         json.dumps(client_payload, indent=1, ensure_ascii=False), encoding="utf-8")
@@ -75,13 +98,16 @@ def export(date_str: str, out: Path) -> list[Path]:
 
     (out / "README.md").write_text(
         "# OLP XDV hosted board\n\n"
-        f"Client board for **{date_str}** — predictions only.\n\n"
+        f"Client boards — {date_str} and every other published date — predictions only.\n\n"
         "This export is the PUBLIC dashboard: it is built from the PUBLISHED store "
         "(written ONLY by the 'Approve → Publish to Client' action in /admin). "
-        "Model internals (Elo second opinion, engine divergence, consensus votes, "
-        "verification, EV verdicts, the gate, calibration) are admin-only and are "
-        "not exported here.\n\n"
-        "Data is in `board.json` (same payload the page renders). The full "
+        "`index.html` is the board for the exported date; the Scan date pills link "
+        "to a per-date page under `<date>/index.html` for each published day, so the "
+        "folder is a fully independent site (plain static host or straight from "
+        "file://). Model internals (Elo second opinion, engine divergence, consensus "
+        "votes, verification, EV verdicts, the gate, calibration) are admin-only and "
+        "are not exported here.\n\n"
+        "Data is in `board.json` (same payload the root page renders). The full "
         "admin view is served by the local server at `/admin`.\n",
         encoding="utf-8")
     written.append(out / "README.md")

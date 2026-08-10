@@ -1542,3 +1542,39 @@ publish authority to the Architect but **does not** change capital, staking,
 fabrication, verification or honest-edge rules; the statistical gate and the
 honest-edge statement remain. Items 1/3/4 are rendering/scan correctness that
 cannot admit an off-day fixture or fabricate a probability.
+
+---
+
+## 2026-08-10 · PER-TILE INTERACTION REVERSAL + BINANCE DESIGN ADOPTION + STANDALONE MULTI-DATE EXPORT + SERVER RESTART — by order of the ARCHITECT
+
+**What the Architect asked:** "When I clicked call and the call instruction of tense for the clients and the call section of tense for the client page, each tell should respond individually. Now when I click on one of the tell, the own website is open. Not... each tell should respond individually. The website should be a fully independent website that works functionally." — the client web app gave a **"really, really terrible"** experience: Call tiles showed empty `—` confidence, were open-by-default (wall of content), tapping one tile navigated the whole page, and the static export was a single-date snapshot with dead absolute `/dashboard/...` links.
+
+**What changed:**
+
+1. **Per-tile expand/collapse (reverses the 2026-08-10 "whole-picture" open-by-default experiment):**
+   - `render_v2.py` `_client_call` and `_client_scan`: cards now **closed by default** (`aria-expanded="false"`, no `.c-detail.open` class). Tapping a card expands **that tile's own full market breakdown** — the ratified function-map behaviour ("Tap: expands to full market breakdown").
+   - Added a chevron affordance (`.c-card-top .chev`) that brightens on hover and rotates 90° when open — every tile visibly indicates its expand state.
+   - Call confidence fixed: `_pick(bf)` (falls back to `probs` argmax) instead of `bf.get("best_model_prob")` — now shows the real pick % (matches Scan), never `—` when probabilities exist.
+
+2. **Binance DESIGN.md token pass (`proto.css`):** adopted the awesome-design-md Binance design language:
+   - Canvas dark `#0b0e11`, surface `#1e2329`, surface-2/hairline `#2b3139`
+   - Primary amber `#FCD535` (active `#f0b90b`, disabled `#3a3a1f`), on-primary `#181a20`
+   - Trading up `#0ecb81`, trading down `#f6465d`, focus `#3b82f6`
+   - Per-tile interaction states: `.c-card:hover` border, `.c-card-top:active` press, `:focus-visible` rings on all interactive elements, chevron spin animation, `.c-league-head` press/focus
+   - Focus rings unified to `var(--focus)` (info blue) across tabs, cards, chips, inputs
+
+3. **Standalone multi-date static export (`export.py`):**
+   - Root `index.html` uses `pill_base="."` → Scan date pills become `./<iso>/index.html`
+   - Per-date pages at `site/<iso>/index.html` with `asset_base="../static"` and `pill_base=".."`
+   - Works from `file://` and every static host (GitHub Pages, Netlify, Cloudflare Pages) — no dead `/dashboard/...` links, no trailing-slash dependency on directory index.
+
+4. **Server restart (Architect-approved):** killed stale `python webapp/server.py` processes on `0.0.0.0:8088` (PIDs 14908, 13772, 252) and `8089` (PID 6956); restarted the phone-reachable server on `8088` serving the new `render_v2` app. **Preserved** the other session's Telegram daemon (`telegram_commands.py --loop`, PID 13472) — never touched.
+
+5. **Reconciliation with the other session:** the other session's in-flight unified-pool refactor (`engine/softness.py`, staged) removed the A/B/C/D softness tier system — `render.py` was fully reconciled by them (switched to `WHITELISTED_LEAGUES`, removed all `SOFTNESS_PAUSED`/`SOFTNESS_TIER` usages). My commit used `git commit --only <paths>` (per memory `git-commit-sweeps-staged`) to avoid sweeping their staged file.
+
+**Verification:**
+- All four webapp test suites green (`webapp_server_test.py`, `webapp_render_test.py`, `webapp_export_test.py`, `webapp_schema_test.py`)
+- Export regenerated: `python webapp/export.py --date 2026-08-07` → multi-date `site/` with Binance tokens, closed-by-default tiles, real Call %, relative pills
+- Served `/dashboard/2026-08-07` now shows `render_v2` (Call/Scan/Analyst tabs, Binance palette, chevron affordance, tiles expand individually)
+
+**Authority:** Architect (direct instruction, 2026-08-10). The open-by-default reversal reverses a 2026-08-10 ratified experiment; Binance design and standalone export are additive rendering/export improvements; server restart is operational. No capital, staking, fabrication, verification or honest-edge behaviour changed. HR35 kept (missing data reads NO DATA — PENDING). Data-leak boundary holds (client reads `schema.trim_payload()` published store; test `_assert_external_urls` still green — only approved CDNs).

@@ -27,6 +27,7 @@ captured booking codes renders NO DATA — PENDING, never a fabricated code.
 from __future__ import annotations
 
 import html
+import os
 import re
 from datetime import date as _date, datetime, timedelta as _timedelta
 
@@ -444,6 +445,8 @@ def _admin_table(board: list) -> str:
             ]
             rows.append(
                 f'<tr class="clickable" data-target="adm-{row_i}" data-league="L{sep_i}" '
+                f'data-tier="{html.escape(bf.get("softness_tier") or "", quote=True)}" '
+                f'data-short="{"1" if bf.get("on_deploy_shortlist") else "0"}" '
                 f'data-fixture="{html.escape(bf.get("fixture", ""), quote=True)}" '
                 f'data-search="{html.escape(hay)}" aria-expanded="false" tabindex="0">'
                 f'{"".join(cells)}</tr>'
@@ -518,8 +521,25 @@ def render_admin_dashboard(payload: dict, asset_base: str = "/static",
     last_run = f"Last run: {predicted_at}" if predicted_at else "Last run: —"
 
     stat_scanned = f'<div class="a-stat" data-chip="all" title="All fixtures"><b>{n_scanned}</b>scanned</div>'
-    stat_eligible = f'<div class="a-stat" title="Deploy-shortlist fixtures"><b>{n_eligible}</b>eligible</div>'
-    stat_gate = f'<div class="a-stat" title="Phase 3 CLV gate - publish blocked until met"><b>{clv}/{req}</b>CLV gate</div>'
+    stat_eligible = f'<div class="a-stat" data-chip="eligible" title="Deploy-eligible (on shortlist) fixtures"><b>{n_eligible}</b>eligible</div>'
+    _gate_met = clv >= req and (gate.get("mean_clv_pct") or 0) > 0
+    _gate_cls = "a-stat" + ("" if _gate_met else " warn")
+    stat_gate = (f'<div class="{_gate_cls}" data-gate title="Phase 3 CLV gate — publish '
+                 f'blocked until met"><b>{clv}/{req}</b>CLV gate</div>')
+
+    # Phase 3 gate detail (opened by the CLV gate stat pill).
+    mean_clv = gate.get("mean_clv_pct")
+    signoff = "YES" if os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower() == "1" else "no"
+    gate_met = _gate_met
+    gate_detail = (
+        f'<div class="a-gate hidden" id="gate-detail">'
+        f'<div class="a-gate-row"><b>Legs with CLV:</b> {clv} / {req} required</div>'
+        f'<div class="a-gate-row"><b>Mean CLV:</b> {mean_clv if mean_clv is not None else "—"}%</div>'
+        f'<div class="a-gate-row"><b>Architect sign-off:</b> {signoff}</div>'
+        f'<div class="a-gate-row"><b>Gate status:</b> '
+        f'{"PASS — publish allowed" if gate_met else "NOT MET — publish blocked"}</div>'
+        f'</div>'
+    )
 
     body = f"""<div class="app-frame wide"><div id="admin-app">
   <header class="a-topbar">
@@ -532,6 +552,7 @@ def render_admin_dashboard(payload: dict, asset_base: str = "/static",
     {stat_scanned}{stat_eligible}{stat_gate}
     <span id="last-run">{html.escape(last_run)}</span>
   </div>
+  {gate_detail}
   {_admin_chips(board)}
   {_admin_table(board)}
   <div class="a-approve-row">

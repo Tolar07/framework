@@ -102,6 +102,10 @@ button{font-family:inherit;cursor:pointer;}
 .a-stat{border:1px solid var(--lline);border-radius:5px;padding:5px 10px;font-size:10px;color:var(--link-dim);cursor:pointer;background:#fff;}
 .a-stat:hover{border-color:#999;}
 .a-stat b{display:block;font-size:13px;color:var(--link);font-family:'IBM Plex Mono',monospace;}
+.a-stat.warn{border-color:var(--coral);color:var(--coral);}
+.a-stat.warn b{color:var(--coral);}
+.a-gate{border:1px solid var(--lline);border-radius:8px;background:#FAF7F0;padding:10px 14px;margin-bottom:12px;font-size:11px;color:var(--link-dim);display:flex;flex-wrap:wrap;gap:8px 18px;}
+.a-gate-row b{color:var(--link);font-weight:600;}
 #last-run{font-size:10px;color:var(--link-dim);margin-left:auto;}
 
 .a-filterbar{display:flex;gap:6px;padding:8px 16px;border-bottom:1px solid var(--lline);overflow-x:auto;background:#FAFAFA;}

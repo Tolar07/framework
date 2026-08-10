@@ -202,18 +202,18 @@ class _P:
     p_btts_yes = 0.90
 
 
-assert mkt.blocked(mkt.AWAY) and mkt.blocked(mkt.OVER_25) and mkt.blocked(mkt.HOME), (
-    "ID405 markets must be blocked")
-assert mkt.AWAY not in mkt.DEPLOYABLE and mkt.OVER_25 not in mkt.DEPLOYABLE
-assert mkt.HOME not in mkt.DEPLOYABLE, "1X2 Home must be blocked (both seasons negative)"
+# ID405 gate OPENED 2026-08-10 (Architect reversal of the 2026-08-04/08
+# restriction, recorded in RATIFICATIONS.md): all five markets are deployable.
+assert mkt.blocked(mkt.HOME) is None and mkt.blocked(mkt.AWAY) is None
+assert mkt.blocked(mkt.OVER_25) is None, "ID405 gate open: no market blocked"
+assert mkt.HOME in mkt.DEPLOYABLE and mkt.AWAY in mkt.DEPLOYABLE
+assert mkt.OVER_25 in mkt.DEPLOYABLE, "all five markets deployable after the gate reversal"
 name, prob = _best_market_desc(_P())
-assert "Celtic to win" not in name, (
-    f"ID405 LEAK: the board headlined a blocked away win ({name}). The gate "
-    f"must hold on the RENDER path too, not only when logging — otherwise the "
-    f"board recommends exactly what the framework refuses to record.")
-assert "Over 2.5" not in name, f"ID405 LEAK: board headlined a blocked Over 2.5 ({name})"
-assert "Hearts to win" not in name, f"ID405 LEAK: board headlined a blocked Home win ({name})"
-print(f"15. ID405 - blocked markets cannot headline THE CALL (chose '{name}'): OK")
+assert "Over 1.5 goals" == name, (
+    f"gate-open board must headline the strongest market ({name}), nothing gated")
+# With the gate open the away win / Over 2.5 CAN headline whenever the model is
+# most confident there — the old "ID405 LEAK" concept is gone with the gate.
+print(f"15. ID405 - gate open (2026-08-10): strongest market headlines, none blocked: OK")
 
 assert mkt.settle(mkt.HOME, 2, 1) is True and mkt.settle(mkt.AWAY, 2, 1) is False
 assert mkt.settle(mkt.UNDER_25, 1, 1) is True and mkt.settle(mkt.OVER_25, 1, 1) is False

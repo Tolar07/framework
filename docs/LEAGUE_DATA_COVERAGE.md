@@ -33,7 +33,7 @@
 | 12 | Primeira Liga | ✅ `P1` | ✅ thesportsdb | ✅ `soccer_portugal_primeira_liga` | ❌ | ✅ | ✅ "Portugal" / "Liga Portugal" |
 | 13 | Danish Superliga | ✅ `DK1` | ✅ thesportsdb | ✅ `soccer_denmark_superliga` | ❌ | ✅ | ✅ "Denmark" / "Superliga" |
 | 14 | Ekstraklasa | ✅ `POL` | ✅ thesportsdb (4422) | ✅ `soccer_poland_ekstraklasa` | ❌ | ✅ | ✅ "Poland" / "Ekstraklasa" |
-| 15 | HNL | ❌ **GAP** | ✅ thesportsdb (4629) | ✅ `soccer_croatia_hnl` | ❌ | ✅ | ✅ "Croatia" / "HNL" |
+| 15 | HNL | ❌ **GAP** | ✅ thesportsdb (4629) | ⚠️ `soccer_croatia_hnl` (unverified) | ❌ | ✅ | ✅ "Croatia" / "HNL" |
 | 16 | Austrian Bundesliga | ❌ **GAP** | ✅ thesportsdb (4621) | ✅ `soccer_austria_bundesliga` | ❌ | ✅ | ⚠️ "Austria" / "Bundesliga" (TBC) |
 | 17 | EFL Cup | ❌ **GAP** | ⚠️ odds-derived only | ✅ `soccer_england_efl_cup` | ❌ | ✅ | ✅ "England" / "EFL Cup" |
 
@@ -252,7 +252,7 @@
 |-----------|--------|----------|--------|-------|
 | **History** | — | — | ❌ **GAP** | football-data.co.uk does NOT cover Croatia. API-Football (paid) needed for T1 history |
 | **Fixtures** | TheSportsDB (personal key) | `4629` | ✅ WIRED | Resolved 2026-08-08 |
-| **Live Odds** | The Odds API | `soccer_croatia_hnl` | ✅ WIRED | |
+| **Live Odds** | The Odds API | `soccer_croatia_hnl` | ⚠️ UNVERIFIED | Standard Odds API name but not probed at add time (no key in build env); probe `/v4/sports` with a live key before trusting |
 | **xG** | — | — | ❌ **GAP** | Understat Big-5 only |
 | **Live Scores** | TheSportsDB | — | ✅ WIRED | |
 | **Booking** | SportyBet | "Croatia" / "HNL" | ✅ WIRED | Verified |
@@ -326,7 +326,7 @@
 
 ## NEXT STEPS (Phase 3 — Data Sourcing)
 
-1. **Probe Odds API `/v4/sports`** with live key → confirm all domestic cup sport keys above (mark ✅ or ❌)
+1. **Probe Odds API `/v4/sports`** with live key → confirm all domestic cup sport keys above AND the unverified HNL league key `soccer_croatia_hnl` (mark ✅ or ❌; nothing stays WIRED without the probe)
 2. **Verify Austrian Bundesliga SportyBet sidebar name** — live check
 3. **Add confirmed cup keys to `pipeline/odds.py` SPORT_KEYS** — only keys returning `active=True`
 4. **Document any cup keys that are INACTIVE** as permanent gaps

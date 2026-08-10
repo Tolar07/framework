@@ -33,7 +33,7 @@ import config  # noqa: E402 — loads .env so the audit runs on the PROVISIONED
 # Without this the audit reports leagues as BLOCKED that the daily run actually
 # covers — the false picture that hid a completed Ekstraklasa season feed.
 
-from engine.softness import SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS
+from engine.softness import WHITELISTED_LEAGUES, softness_tier
 from data.football_data_source import load_league, UNCOVERED_LEAGUES, LEAGUE_CODES
 from data import thesportsdb_fixtures as tsdb
 from data.api_football_results import is_cross_league
@@ -74,9 +74,9 @@ def _cross_pool_teams() -> tuple[set[str] | None, str]:
 
 def audit(league: str, fit_season: str, fixtures_season: str,
            check_odds: bool) -> dict:
-    tier = SOFTNESS_TIER.get(league, "?")
+    tier = softness_tier(league)  # "ONE" for whitelisted, "?" otherwise
     row = {"league": league, "tier": tier,
-           "deploy_eligible": tier in DEPLOY_ELIGIBLE_TIERS,
+           "deploy_eligible": tier != "?",
            "history": "", "fixtures": "", "odds": "", "names": "",
            "blockers": []}
 
@@ -211,7 +211,7 @@ def main() -> None:
     print("-" * 108)
 
     rows = []
-    for league in SOFTNESS_TIER:
+    for league in WHITELISTED_LEAGUES:
         r = audit(league, a.fit_season, a.fixtures_season, not a.no_odds)
         rows.append(r)
         if not r["blockers"]:
@@ -238,8 +238,8 @@ def main() -> None:
     print(f"\nSUMMARY")
     print(f"  fully ready               : {len(ready)} of {len(rows)}")
     print(f"  DEPLOY-eligible and ready : {len(deploy_ready)} of {len(deploy_total)}")
-    print(f"  (only softness A/B leagues can ever produce a capital pick — a")
-    print(f"   blocked C/D league costs you reference coverage, not edge)")
+    print(f"  (unified pool 2026-08-10: every whitelisted league is deploy-")
+    print(f"   eligible — a blocked league costs you coverage AND deployable edge)")
 
 
 if __name__ == "__main__":

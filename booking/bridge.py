@@ -367,12 +367,13 @@ def get_sportybet_odds_for_leg(
 def sportybet_fixtures_to_pairs(
     olp_league: str,
     days_ahead: int = 3,
+    max_age_hours: int = 6,
 ) -> List[Tuple[str, str]]:
     """Convert SportyBet fixtures to (home, away) pairs for the pipeline.
 
     Returns pairs in model key format, ready for scan_one_league.
     """
-    fixtures = load_sportybet_fixtures(olp_league, days_ahead)
+    fixtures = load_sportybet_fixtures(olp_league, days_ahead, max_age_hours)
     return [(fx.home_team, fx.away_team) for fx in fixtures if fx.home_team and fx.away_team]
 
 
@@ -391,10 +392,9 @@ def refresh_sportybet_cache(
 # --- Integration helpers for run_daily.py ---
 
 def get_deploy_leagues_fixtures(days_ahead: int = 3) -> Dict[str, List[PipelineFixture]]:
-    """Get fixtures for all deploy-eligible leagues (softness A/B)."""
-    from engine.softness import SOFTNESS_TIER
-    deploy_leagues = [lg for lg, tier in SOFTNESS_TIER.items() if tier in ("A", "B")]
-    return load_all_sportybet_fixtures(days_ahead, deploy_leagues)
+    """Get fixtures for all deploy-eligible leagues (the unified pool)."""
+    from engine.softness import WHITELISTED_LEAGUES
+    return load_all_sportybet_fixtures(days_ahead, WHITELISTED_LEAGUES)
 
 
 def get_scan_leagues_fixtures(days_ahead: int = 3) -> Dict[str, List[PipelineFixture]]:

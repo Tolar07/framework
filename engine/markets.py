@@ -43,27 +43,25 @@ ALL = (HOME, DRAW, AWAY, OVER_25, UNDER_25, OVER_15, UNDER_15, BTTS_YES, BTTS_NO
 MARKETS_1X2 = {HOME: 0, DRAW: 1, AWAY: 2}
 
 # --- ID405 MARKET GATE (ratified 2026-08-04) --------------------------------
-# Measured on the 2024/25 walk-forward backtest, 5 leagues, corrected engine.
-# Both markets are negative for the MODEL and for RANDOM SELECTION alike, which
-# is what makes them a property of the market rather than a model failing.
+# OPENED 2026-08-10 by ARCHITECT order — every market may carry capital again.
+# The gate was originally ratified on backtest evidence that these markets are
+# negative for the MODEL and for RANDOM SELECTION alike (favourite-longshot
+# drift), which is what made them a property of the market rather than a model
+# failing:
 #
-# This gate only ever NARROWS what may carry capital. It cannot admit a market
-# that was previously excluded.
-BLOCKED: dict[str, str] = {
-    AWAY: ("1X2 Away: -1.883% mean CLV (t=-4.515) across 606 backtest legs. "
-           "Random selection loses on it too (-1.707%), so this is "
-           "favourite-longshot drift in the market, not a model error to fix."),
-    OVER_25: ("Over 2.5: -0.716% mean CLV (t=-2.783) across 442 legs. The model "
-              "under-predicts goals, so its Overs are taken into lines that "
-              "then move against it."),
-    HOME: ("1X2 Home: -0.640% mean CLV (t=-2.326) on 2425 (994 legs) and "
-           "-0.625% (t=-2.458) on 2526 (963 legs), all 10 leagues with a "
-           "closing-odds source. Random selection loses on it too in 2425 "
-           "(-0.524%, t=-2.731), so this is market drift, not a model error "
-           "to fix — the same favourite-longshot pattern that blocked Away. "
-           "Blocked per ID405's one-way-narrows rule on 2026-08-08; see "
-           "RATIFICATIONS.md."),
-}
+#     1X2 Away    -1.883%  t=-4.515  (606 legs)   placebo also -1.707%
+#     Over 2.5    -0.716%  t=-2.783  (442 legs)
+#     1X2 Home    -0.640%  (2425) / -0.625% (2526)  placebo loses 2425 too
+#
+# The Architect chose to open the gate anyway (2026-08-10), as part of the
+# same order that removed the softness tier system. This REVERSES a ratified
+# bright line and widens the deploy book to evidence-negative markets; it is
+# recorded in RATIFICATIONS.md (2026-08-10 entry) so the reversal is never
+# silent. `blocked()` is kept so any future gate is enforced in ONE place.
+#
+# A gate that is emptied here cannot silently widen later — re-adding a key to
+# BLOCKED re-engages it everywhere (DEPLOYABLE below is derived from it).
+BLOCKED: dict[str, str] = {}
 
 
 def blocked(key: str) -> Optional[str]:
@@ -150,8 +148,9 @@ DEPLOYABLE = tuple(k for k in (HOME, DRAW, AWAY, OVER_25, UNDER_25) if k not in 
 # DISPLAY/SCAN/RANKING. This is SEPARATE from DEPLOYABLE (capital gate).
 # Approved list (ratified 2026-08-09): Win (HOME), Away Win (AWAY),
 # Double Chance, Over/Under 1.5, Over/Under 2.5, BTTS.
-# The market gate (BLOCKED) still prevents capital deployment on negative-CLV
-# markets (Away, Over 2.5, Home) — this list is for BOARD VISIBILITY ONLY.
+# The market gate was opened 2026-08-10 (Architect), so DEPLOYABLE now equals
+# this deployable set — the capital gate no longer excludes any market. This
+# list remains for BOARD VISIBILITY of the non-priced scan markets.
 APPROVED_MARKETS = (
     HOME,          # Win
     DRAW,          # Draw

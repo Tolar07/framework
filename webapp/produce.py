@@ -8,7 +8,8 @@ Phase-2 constraints:
   - NEVER stakes capital (config.assert_paper_only untouched)
   - NEVER logs legs or predictions (daily run owns the ledger)
   - NEVER writes board files (preview only — admin reviews then publishes)
-  - DEPLOY_POOL_CAP=6 enforced on the produced board
+  - No deploy cap: all whitelisted leagues are one unified pool (ID402 tiers
+    removed 2026-08-10); the deploy shortlist stands as computed
   - HR35: missing history → honest NO DATA — PENDING, never guessed
 """
 from __future__ import annotations
@@ -27,14 +28,14 @@ def search_fixtures(league: Optional[str] = None, query: str = "",
 
     Returns {"ok": True, "leagues": [...], "flags": [...]} or
     {"ok": False, "error": "..."}."""
-    from engine.softness import SOFTNESS_TIER
+    from engine.softness import WHITELISTED_LEAGUES
 
     if league:
-        leagues = [league] if league in SOFTNESS_TIER else []
+        leagues = [league] if league in WHITELISTED_LEAGUES else []
         if not leagues:
             return {"ok": False, "error": f"'{league}' not in whitelisted leagues"}
     else:
-        leagues = sorted(SOFTNESS_TIER.keys())
+        leagues = sorted(WHITELISTED_LEAGUES)
 
     try:
         from orchestrator import next_season_code
@@ -88,11 +89,11 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
     fixture_dates: dict[tuple[str, str], str] = {}
 
     # Validate input
-    from engine.softness import SOFTNESS_TIER
+    from engine.softness import WHITELISTED_LEAGUES
     total_fixtures = 0
     for g in groups:
         lg = g.get("league", "")
-        if lg not in SOFTNESS_TIER:
+        if lg not in WHITELISTED_LEAGUES:
             return {"ok": False, "error": f"'{lg}' not in whitelisted leagues"}
         for f in g.get("fixtures", []):
             if not f.get("home") or not f.get("away"):
@@ -110,7 +111,6 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
     try:
         from brain.store import Brain
         from orchestrator import scan_one_league
-        from engine.softness import build_deploy_shortlist
         from webapp import schema as S
         from webapp import render as R
         from output.produce_bet import render_fixture_block
@@ -140,18 +140,15 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
             # Try to attach live odds for priced EV (best-effort)
             try:
                 import pipeline.odds as odds_mod
-                from engine.softness import DEPLOY_ELIGIBLE_TIERS, SOFTNESS_PAUSED, SOFTNESS_TIER
                 from run_daily import _retry_transient
 
                 odds_leagues = set()
                 for bf in board:
                     if bf.probs is not None:
                         lg = bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture else ""
-                        if SOFTNESS_PAUSED:
-                            odds_leagues.add(lg)  # all whitelisted rated fixtures
-                        else:
-                            if SOFTNESS_TIER.get(lg) in DEPLOY_ELIGIBLE_TIERS:
-                                odds_leagues.add(lg)
+                        # All whitelisted leagues are one unified pool — every
+                        # rated fixture gets a live price (quota self-limits).
+                        odds_leagues.add(lg)
 
                 odds_index: dict = {}
                 for lg in sorted(odds_leagues):
@@ -232,61 +229,34 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
             except Exception as e:
                 all_flags.append(f"Odds attach failed — {str(e)[:80]}")
 
-            # Apply deploy pool cap
-            shortlisted = [b for b in board if b.on_deploy_shortlist]
-            capped = {id(b) for b in build_deploy_shortlist(shortlisted)}
-            for b in board:
-                if b.on_deploy_shortlist and id(b) not in capped:
-                    b.on_deploy_shortlist = False
+            # No deploy cap — the shortlist stands as computed by the engine
+            # (one unified pool, Architect 2026-08-10).
 
-            # Render results — grouped into the same trust tiers as THE CALL,
-            # with the Architect's requested summary at the end of production.
+            # Render results as one unified pool, with the Architect's requested
+            # summary at the end of production.
             bd = [S.fixture_to_dict(b) for b in board]
             cards_html = R._tier_grouped_call(bd)
-            from engine.softness import SOFTNESS_PAUSED
-            if SOFTNESS_PAUSED:
-                summary_html = (
-                    '<div class="produce-summary">'
-                    '<h3>Summary — how to read this production (SOFTNESS PAUSED)</h3>'
-                    '<ul>'
-                    '<li><b>Today\'s fixtures only</b> (standing rule '
-                    '2026-08-09) — the BET is the day\'s slate, nothing else. '
-                    'The full 3-day production stays visible as reference.</li>'
-                    '<li><b>All whitelisted leagues</b> are deploy-eligible '
-                    '(softness PAUSED).</li>'
-                    '<li><b>No deploy pool cap</b> — every eligible fixture '
-                    'with a pick appears in the CALL.</li>'
-                    '<li><b>ID405 market gate</b> still active: away win, '
-                    'Over 2.5, and home win stay blocked from capital.</li>'
-                    '<li><b>Paper only</b> — Phase 2, zero capital. Nothing '
-                    'here is placed; capital opens only at Phase 3 (30 paper '
-                    'legs with logged CLV, positive CLV, V7 sign-off) and only '
-                    'the Architect deploys.</li>'
-                    '</ul>'
-                    '<div class="honest-line">Honest edge line: a rigorous '
-                    'informed process, NOT a demonstrated profitable edge.</div>'
-                    '</div>')
-            else:
-                summary_html = (
-                    '<div class="produce-summary">'
-                    '<h3>Summary — how to read this production</h3>'
-                    '<ul>'
-                    '<li><b>Today\'s fixtures only</b> (standing rule '
-                    '2026-08-09) — the BET is the day\'s slate, nothing else.</li>'
-                    '<li><b>Tier A &amp; B</b> — deploy-eligible leagues. '
-                    'The only leagues that can ever carry capital.</li>'
-                    '<li><b>Tier C &amp; D</b> — scan-only: fully predicted, '
-                    'never a capital pick.</li>'
-                    '<li><b>DEPLOY</b> — this fixture made today\'s deploy pool '
-                    '(softness A/B, cap 6).</li>'
-                    '<li><b>Paper only</b> — Phase 2, zero capital. Nothing here '
-                    'is placed; capital opens only at Phase 3 (30 paper legs with '
-                    'logged CLV, positive CLV, V7 sign-off) and only the '
-                    'Architect deploys.</li>'
-                    '</ul>'
-                    '<div class="honest-line">Honest edge line: a rigorous '
-                    'informed process, NOT a demonstrated profitable edge.</div>'
-                    '</div>')
+            summary_html = (
+                '<div class="produce-summary">'
+                '<h3>Summary — how to read this production</h3>'
+                '<ul>'
+                '<li><b>Today\'s fixtures only</b> (standing rule '
+                '2026-08-09) — the BET is the day\'s slate, nothing else. '
+                'The full 3-day production stays visible as reference.</li>'
+                '<li><b>One unified pool</b> — every whitelisted league is '
+                'deploy-eligible; no tiers, no deploy cap (Architect '
+                '2026-08-10).</li>'
+                '<li><b>ID405 market gate</b> opened the same day: all five '
+                'markets (home / draw / away / Over 2.5 / Under 2.5) can carry '
+                'capital.</li>'
+                '<li><b>Paper only</b> — Phase 2, zero capital. Nothing here '
+                'is placed; capital opens only at Phase 3 (30 paper legs with '
+                'logged CLV, positive CLV, V7 sign-off) and only the Architect '
+                'deploys.</li>'
+                '</ul>'
+                '<div class="honest-line">Honest edge line: a rigorous informed '
+                'process, NOT a demonstrated profitable edge.</div>'
+                '</div>')
             rendered_text = "\n\n".join(
                 render_fixture_block(b, i) for i, b in enumerate(board, 1))
 

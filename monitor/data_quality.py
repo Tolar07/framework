@@ -38,7 +38,7 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 from data import football_data_source as fds  # noqa: E402
-from engine.softness import SOFTNESS_TIER  # noqa: E402
+from engine.softness import WHITELISTED_LEAGUES  # noqa: E402
 
 CACHE_DIR = fds.DEFAULT_CACHE_DIR
 
@@ -116,7 +116,7 @@ def check(season: str | None = None) -> list[DataFinding]:
 
     cached = {p.stem: p for p in CACHE_DIR.glob("*.csv")}
 
-    for league in sorted(SOFTNESS_TIER):
+    for league in sorted(WHITELISTED_LEAGUES):
         # Cache files are named <League>_<season>.csv; the league part can
         # contain underscores (e.g. Belgian_Pro_League). Find any file whose
         # name starts with the league's own stem.

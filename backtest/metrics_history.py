@@ -28,7 +28,10 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from backtest import backtest_report as br
-from engine.softness import DEPLOY_ELIGIBLE_TIERS, softness_tier
+# No softness imports — ID402 A/B/C/D tiers were removed 2026-08-10 (one
+# unified pool). The A/B-vs-C/D split in the metrics history is replaced with
+# a single whole-pool summary. The legacy tier_ab/tier_cd keys are kept in the
+# JSON schema for backward compatibility (set to None).
 
 RESULTS_DIR = Path(__file__).parent / "results"
 METRICS_PATH = RESULTS_DIR / "metrics_history.jsonl"
@@ -46,9 +49,10 @@ def record_run(legs: list, flags: list[str], coverage: dict, cfg,
     deployable. Returns the dict that was written — the caller may print it."""
     raw = [lg for lg in legs if not lg.derived]
     s = br.summarise(raw, "ALL")
-    ab = [lg for lg in raw if softness_tier(lg.league) in DEPLOY_ELIGIBLE_TIERS]
-    cd = [lg for lg in raw if softness_tier(lg.league) not in DEPLOY_ELIGIBLE_TIERS]
-    s_ab, s_cd = br.summarise(ab, "ab"), br.summarise(cd, "cd")
+    # ID402 tiers removed 2026-08-10 — one unified pool. Headline is the whole
+    # pool; legacy tier keys are kept as None for back-compat with history files.
+    s_ab = {"mean_clv_pct": None, "n_with_clv": 0}
+    s_cd = {"mean_clv_pct": None, "n_with_clv": 0}
 
     row = {
         "run_id": run_id,

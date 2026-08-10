@@ -5,7 +5,8 @@ exhaust the month. FIXTURE CAPTURE (fixtures_from_odds) is authorized to spend
 below that floor, down to QUOTA_HARD_FLOOR (5): one spend buys a 6h-cached
 fixture list — the only source for EFL/UCL-qualifier fixtures. It may NEVER
 spend the last of the month. The price-pull floor (40) is untouched for every
-other caller."""
+other caller.
+"""
 import sys
 import tempfile
 from pathlib import Path
@@ -65,12 +66,11 @@ except odds_mod.QuotaExhausted:
     pass
 print("4. fixture capture blocked at 3 (hard floor 5): OK")
 
-# --- 5. EFL Cup is whitelisted (tier D, scan-only) + has an odds sport key ----
-from engine.softness import SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS
-assert SOFTNESS_TIER["EFL Cup"] == "D", SOFTNESS_TIER["EFL Cup"]
-assert SOFTNESS_TIER["EFL Cup"] not in DEPLOY_ELIGIBLE_TIERS, \
-    "EFL Cup must never be a capital pick"
+# --- 5. EFL Cup is whitelisted (unified pool = "ONE", deploy-eligible) + has an odds sport key ----
+from engine.softness import WHITELISTED_LEAGUES, softness_tier, ONE_POOL
+assert "EFL Cup" in WHITELISTED_LEAGUES, "EFL Cup must be whitelisted"
+assert softness_tier("EFL Cup") == ONE_POOL, f"EFL Cup should be '{ONE_POOL}', got {softness_tier('EFL Cup')}"
 assert odds_mod.SPORT_KEYS["EFL Cup"] == "soccer_england_efl_cup"
-print("5. EFL Cup whitelisted tier-D scan-only + odds sport key: OK")
+print("5. EFL Cup whitelisted (unified pool 'ONE') + deploy-eligible + odds sport key: OK")
 
-print("\n✅ ALL QUOTA OVERRIDE TESTS PASSED")
+print("\n=== ALL QUOTA OVERRIDE TESTS PASSED ===")

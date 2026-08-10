@@ -305,11 +305,10 @@ if __name__ == "__main__":
         description="Capture CL-LIVE + CL-PM closing lines for pending paper legs "
                     "whose kickoff is within the closing window.")
     ap.add_argument("leagues", nargs="*",
-                    help="leagues to scan (default: all softness A/B leagues)")
+                    help="leagues to scan (default: all whitelisted leagues)")
     a = ap.parse_args()
-    from engine.softness import DEPLOY_ELIGIBLE_TIERS, SOFTNESS_TIER
-    target = a.leagues or [lg for lg, t in SOFTNESS_TIER.items()
-                           if t in DEPLOY_ELIGIBLE_TIERS]
+    from engine.softness import WHITELISTED_LEAGUES
+    target = a.leagues or list(WHITELISTED_LEAGUES)
     n, flags = capture_closing_lines(CLVLog(), target)
     for f in flags:
         print(f"  {f}")

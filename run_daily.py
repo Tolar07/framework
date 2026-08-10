@@ -34,8 +34,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from brain.store import Brain
 from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
-from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS, SOFTNESS_PAUSED,
-                             build_deploy_shortlist, market_blocked)
+from engine.softness import (WHITELISTED_LEAGUES, build_deploy_shortlist)
 from engine.acca import build_accas, render_acca_block
 from engine.mes import mes_numeric
 from engine import markets as mkt
@@ -129,13 +128,12 @@ def _retry_transient(fn, label: str, runlog: Path, delay: float = 5.0):
         return fn()
 
 
-# SCAN is "wide eyes" (ID402): every whitelisted league is pulled and shown,
-# approved competition or not — capturing a fixture is what the board is for.
-# DEPLOY stays "narrow hands": build_deploy_shortlist below still draws THE CALL
-# only from softness A/B, capped at 6. Decoupling the two is what lets an
-# approved league appear on the board without silently widening what can carry
-# capital — showing a competition is not staking it.
-SCAN_LEAGUES = list(SOFTNESS_TIER.keys())
+# SCAN and DEPLOY are the SAME pool (unified, 2026-08-10): every whitelisted
+# league is pulled, shown AND deploy-eligible. There is no softness A/B cap —
+# build_deploy_shortlist returns every market-gate-cleared fixture. Showing a
+# competition is not staking it; the market gate (engine/markets.BLOCKED) is the
+# only capital restriction, and it is currently open (Architect order 2026-08-10).
+SCAN_LEAGUES = list(WHITELISTED_LEAGUES)
 
 
 @dataclass
@@ -512,14 +510,10 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     def _league_of(bf) -> str:
         return bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture \
             else "—"
-    if SOFTNESS_PAUSED:
-        # Softness paused: every rated fixture across all whitelisted leagues is
-        # deploy-eligible, so pull prices for all of them. check_quota below
-        # still self-limits spending (price pulls blocked <40).
-        odds_leagues = {_league_of(bf) for bf in board if bf.probs is not None}
-    else:
-        odds_leagues = {_league_of(bf) for bf in board if bf.probs is not None
-                        and SOFTNESS_TIER.get(_league_of(bf)) in DEPLOY_ELIGIBLE_TIERS}
+    # Unified pool: every rated fixture across all whitelisted leagues is
+    # deploy-eligible, so pull prices for all of them. check_quota below still
+    # self-limits spending (price pulls blocked <40).
+    odds_leagues = {_league_of(bf) for bf in board if bf.probs is not None}
     odds_index: dict = {}
     for lg in sorted(odds_leagues):
         try:
@@ -532,46 +526,6 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             all_flags.append(f"{lg}: {e}")
         except Exception as e:
             all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
-
-    # ID414: widen bookmaker coverage — pull odds for ONE scan-only league
-    # if quota permits. The free plan allows 500 req/mo (~16/day); A/B pulls
-    # use ~10/day. One scan-league pull (2 credits) leaves ~4/day headroom.
-    # Priority: Championship > Serie A > Bundesliga > Ligue 1 > Primeira Liga
-    # > Premier League > La Liga > Champions League (all scan-only tiers).
-    if not odds_leagues:
-        # No deploy fixtures today — still try the top scan league if quota OK.
-        scan_only_leagues = [lg for lg in SCAN_LEAGUES
-                             if SOFTNESS_TIER.get(lg) not in DEPLOY_ELIGIBLE_TIERS]
-    else:
-        scan_only_leagues = [lg for lg in SCAN_LEAGUES
-                             if lg not in odds_leagues
-                             and SOFTNESS_TIER.get(lg) not in DEPLOY_ELIGIBLE_TIERS]
-    # Priority order for scan leagues (biggest interest first)
-    priority = ["Championship", "Serie A", "Bundesliga", "Ligue 1",
-                "Primeira Liga", "Premier League", "La Liga", "Champions League"]
-    for lg in priority:
-        if lg in scan_only_leagues:
-            # Check quota first without spending
-            try:
-                used, remaining = odds_mod.check_quota()
-                if remaining >= odds_mod.QUOTA_FLOOR:
-                    try:
-                        fixtures, oflags = _retry_transient(
-                            lambda lg=lg: odds_mod.fetch_odds(lg),
-                            f"{lg} scan odds", runlog)
-                        odds_index.update(odds_mod.index_by_fixture(fixtures))
-                        all_flags += oflags
-                        all_flags.append(f"Scan odds: {lg} pulled (quota {remaining})")
-                    except odds_mod.QuotaExhausted as e:
-                        all_flags.append(f"{lg}: {e}")
-                    except Exception as e:
-                        all_flags.append(f"{lg}: scan odds failed ({e})")
-                    break  # only ONE scan league per run
-                else:
-                    all_flags.append(f"Scan odds skipped — quota {remaining} < floor {odds_mod.QUOTA_FLOOR}")
-            except Exception as e:
-                all_flags.append(f"Scan odds quota check failed: {e}")
-            break
 
     # CLV-gated recalibration: the engine's probabilities for THE CALL's EV are
     # nudged by settled-leg evidence ONLY where a market has enough logged CLV

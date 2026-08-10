@@ -540,10 +540,9 @@ class Handler(BaseHTTPRequestHandler):
                     except (TypeError, ValueError):
                         self._json({"ok": False, "error": "best_price must be a number"})
                         return
-                if "softness_tier" in edits:
-                    t = (edits["softness_tier"] or "").strip().upper()
-                    bf["softness_tier"] = t or None
-                    applied.append("softness_tier")
+                # No softness-tier edit: ID402 tiers were removed 2026-08-10
+                # (one unified pool). The deploy shortlist toggle below is the
+                # only gating control left.
                 if "on_deploy_shortlist" in edits:
                     bf["on_deploy_shortlist"] = bool(edits["on_deploy_shortlist"])
                     applied.append("on_deploy_shortlist")
@@ -582,8 +581,8 @@ class Handler(BaseHTTPRequestHandler):
                 leagues = data.get("leagues", [])
                 if not leagues:
                     # Return all leagues if none specified
-                    from engine.softness import SOFTNESS_TIER
-                    leagues = list(SOFTNESS_TIER.keys())
+                    from engine.softness import WHITELISTED_LEAGUES
+                    leagues = list(WHITELISTED_LEAGUES)
                 scores = _fetch_live_scores(leagues)
                 self._json({"ok": True, "scores": scores})
             except Exception as e:

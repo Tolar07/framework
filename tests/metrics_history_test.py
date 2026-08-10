@@ -6,8 +6,9 @@ render_history groups rows by (test_season, selector) family so a partial CI
 slice is never compared against a full run as if equal.
 
 Honesty rules proven here:
-  1. a recorded row carries mean CLV + the softness-thesis A/B-vs-C/D split,
-     and DERIVED O1.5 legs are excluded from the headline (never pooled)
+  1. a recorded row carries mean CLV over the unified pool (ID402 A/B-vs-C/D
+     split removed 2026-08-10 — the legacy tier_ab/tier_cd keys stay None for
+     back-compat), and DERIVED O1.5 legs are excluded from the headline
   2. context is recorded so a CI slice is distinguishable from a full run
   3. read_history survives a comment line / corrupt line, oldest first
   4. render_history groups by family; an empty history says so plainly
@@ -44,21 +45,22 @@ def _leg(league: str, clv: float, *, hit: bool = True, derived: bool = False,
 cfg = BacktestConfig(leagues=("Eredivisie",), carry_in_season="2324",
                      test_season="2425")
 
-# --- 1. record_run appends a row with the headline + softness split ----------
+# --- 1. record_run appends a row with the headline (unified pool) -------------
 legs = [
-    _leg("Eredivisie", 2.04),                 # A/B deploy-eligible, +CLV
-    _leg("Bundesliga", -1.0, hit=False),      # C/D control, -CLV
+    _leg("Eredivisie", 2.04),
+    _leg("Bundesliga", -1.0, hit=False),
     _leg("Eredivisie", 9.99, derived=True),   # DERIVED — must be excluded
 ]
 row = mh.record_run(legs, ["flag"], {}, cfg, "2425_model_smoke",
                     context="ci_push", run_date="2026-08-09T10:00:00Z")
 assert row["mean_clv_pct"] == 0.52, row  # (2.04 + -1.0) / 2, DERIVED excluded
 assert row["n_with_clv"] == 2 and row["n_legs_selected"] == 2, row
-assert row["tier_ab_mean_clv"] == 2.04 and row["tier_ab_n"] == 1, row
-assert row["tier_cd_mean_clv"] == -1.0 and row["tier_cd_n"] == 1, row
+# ID402 tiers removed 2026-08-10 — unified pool, legacy keys kept as None
+assert row["tier_ab_mean_clv"] is None and row["tier_ab_n"] == 0, row
+assert row["tier_cd_mean_clv"] is None and row["tier_cd_n"] == 0, row
 assert row["context"] == "ci_push" and row["test_season"] == "2425", row
 assert row["selector"] == "model" and "Eredivisie" in row["leagues"], row
-print("1. record_run writes headline + softness split, DERIVED excluded: OK")
+print("1. record_run writes headline (unified pool), DERIVED excluded, legacy tier keys None: OK")
 
 # --- 2. read_history: oldest first, survives comments and a corrupt line -----
 HIST.write_text(HIST.read_text(encoding="utf-8")

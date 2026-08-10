@@ -11,7 +11,7 @@ WHY THIS EXISTS
   This module closes both gaps:
     - record_produced_bet() writes output/boards/produced_<date>.json each run:
       every RATED fixture whose kickoff is TODAY as one leg (pick + model prob
-      + tier + best price/EV when present). No fixtures today -> an honest empty
+      + best price/EV when present). No fixtures today -> an honest empty
       record ("no bet produced"), still written and findable.
     - verify_produced_bet() runs the NEXT day: settles each pending leg against
       the real result (football-data, same keying + refusal rules as

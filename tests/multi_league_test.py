@@ -38,20 +38,23 @@ def make_synthetic_results(league: str, n_teams: int = 10) -> list[MatchResult]:
     return results, teams
 
 
-# --- test 1: uncovered league is flagged, never silently skipped or guessed ---
-# Champions League was the original example, but it is now COVERED via the
-# odds feed (pipeline/odds.py SPORT_KEYS + the odds-derived fixtures fallback
-# in scan_one_league) — it returns real fixtures. HNL was the next example,
-# but it is now COVERED too: TheSportsDB id 4621 supplies the fixtures and the
-# thesportsdb_results fallback in the results multi-source supplies history.
-# EFL Cup is the remaining honest uncovered league — no free history source,
-# and the API-Football history lookup raises before fixtures are even fetched,
-# so the empty board is deterministic (not quota-dependent).
+# --- test 1: uncovered league is flagged AND its real fixtures survive as ---
+# NO DATA rows (2026-08-10 ratification). Champions League and HNL are now
+# COVERED (odds feed / TheSportsDB + thesportsdb_results fallback). EFL Cup is
+# the remaining honest uncovered league — no free history source. Ratified
+# behavior: the history gap must NEVER make a real fixture invisible (HR35
+# wide-eyes), so the fixture scan falls through to the SportyBet cache and the
+# fixture is listed as a NO DATA — PENDING row, never fabricated, never dropped.
 board, flags = orchestrator.scan_one_league("EFL Cup", season="2526")
-assert board == [], "an uncovered league must produce an empty board, never fabricated fixtures"
+assert len(board) >= 1, \
+    "an uncovered league's real fixtures must still be listed as NO DATA rows, never dropped"
+assert all(b.probs is None for b in board), \
+    "no probability may be fabricated for an uncovered league"
+assert all("NO DATA — PENDING" in (b.rejection_reason or "") for b in board), \
+    "unrated fixtures must carry the honest NO DATA reason"
 assert any("NO DATA" in f and "EFL Cup" in f for f in flags), \
     f"uncovered league must be flagged explicitly, got: {flags}"
-print("Uncovered league (EFL Cup) correctly flagged, not silently dropped: OK")
+print(f"Uncovered league (EFL Cup) flagged + {len(board)} fixture(s) listed as NO DATA (never dropped): OK")
 
 
 # --- test 2: thin history is flagged, fixtures still shown as NO DATA -------

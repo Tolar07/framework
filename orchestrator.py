@@ -216,10 +216,16 @@ def scan_one_league(league: str, season: str,
                 if len(fallback_history) < 20:
                     flags.append(f"{league}: fallback history too thin "
                                  f"({len(fallback_history)}) — NO DATA — PENDING")
-                    return [], flags
+                    fallback_history = None
             except Exception as e:
                 flags.append(f"{league}: NO DATA — PENDING (no history source: {e})")
-                return [], flags
+                # Fall through to the fixture scan (2026-08-10): a league with
+                # no usable history (e.g. the EFL Cup) must still have its
+                # FIXTURES listed as NO DATA rows (HR35 wide-eyes). Early
+                # returning here dropped a real fixture (Plymouth v Exeter on
+                # 2026-08-10) that the SportyBet cache carried — the history
+                # gap must never make a real fixture invisible.
+                fallback_history = None
 
     if upcoming_fixtures is None:
         fx_season = fixtures_season or next_season_code(season)

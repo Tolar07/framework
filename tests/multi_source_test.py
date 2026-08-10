@@ -21,7 +21,9 @@ from data.thesportsdb_fixtures import UpcomingFixture
 def test_source_metrics():
     """Test SourceMetrics health tracking."""
     m = SourceMetrics(name="test")
-    assert m.health == SourceHealth.UNKNOWN
+    # A source with no calls yet is optimistically healthy (no evidence of
+    # failure); health degrades only on observed failures.
+    assert m.health == SourceHealth.HEALTHY
     m.total_calls = 10
     m.successful_calls = 9
     m.consecutive_failures = 0
@@ -93,7 +95,10 @@ def test_circuit_breaker_opens():
     """Circuit breaker opens after threshold failures."""
     class FlakySource(DataSource):
         def __init__(self, name, fail_count):
-            super().__init__(name, priority=0, circuit_breaker_threshold=2)
+            # A source opens its circuit after `circuit_breaker_threshold`
+            # RECORDED failures — record_failure fires once per exhausted
+            # fetch(), so a single failing fetch with threshold=1 opens it.
+            super().__init__(name, priority=0, circuit_breaker_threshold=1)
             self.fail_count = fail_count
             self.calls = 0
 
@@ -103,10 +108,10 @@ def test_circuit_breaker_opens():
                 raise RuntimeError("fail")
             return "ok"
 
-    # First source fails twice -> circuit opens
+    # First source fails once (max_retries=0 -> no retry) -> circuit opens
     # Second source succeeds
     ms = MultiSource("test", [
-        FlakySource("flaky", fail_count=2),
+        FlakySource("flaky", fail_count=1),
         FlakySource("good", fail_count=0),
     ], max_retries_per_source=0)
 
@@ -184,12 +189,14 @@ def test_priority_ordering():
                 return f"data from {self.name}"
             raise RuntimeError(f"{self.name} failed")
 
-    # Higher priority number = lower priority
+    # Higher priority number = lower priority. max_retries_per_source=0 so
+    # each source is tried exactly ONCE — with the default 1 retry, a failing
+    # high-priority source would legitimately be tried twice.
     ms = MultiSource("test", [
         TrackingSource("low_priority", priority=20, should_succeed=True),
         TrackingSource("high_priority", priority=5, should_succeed=False),
         TrackingSource("medium_priority", priority=10, should_succeed=True),
-    ])
+    ], max_retries_per_source=0)
 
     result = ms.fetch()
     assert result.source_name == "medium_priority"  # tried after high_priority fails

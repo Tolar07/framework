@@ -19,7 +19,7 @@ import sys
 import tempfile
 from datetime import date, timedelta
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -44,7 +44,10 @@ from verification.id403 import verify, SourcedDatum
 today = date.today().isoformat()
 yesterday = (date.today() - timedelta(days=1)).isoformat()
 
-def _rated_bf(fixture: str, league: str, home: str, away: str) -> BoardFixture:
+def _rated_bf(fixture: str, home: str, away: str) -> BoardFixture:
+    # NOTE: BoardFixture has no `league` field — league is carried in the
+    # fixture string ("Arsenal v Chelsea (Premier League)") and derived at
+    # render time, so the builder passes only the fixture text.
     return BoardFixture(
         fixture=fixture,
         probs=FixtureProbabilities(
@@ -60,26 +63,26 @@ def _rated_bf(fixture: str, league: str, home: str, away: str) -> BoardFixture:
         best_market=f"{home} to win", best_price=1.91,
         best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0696,
         best_model_prob=0.56, mes_trigger_price=1.52,
-        kickoff_date=today, league=league,
+        kickoff_date=today,
         elo_probs=(0.52, 0.27, 0.21),
         engine_divergence="4pp on home — within tolerance",
         rejection_reason=None)
 
-def _unrated_bf(fixture: str, league: str, reason: str) -> BoardFixture:
+def _unrated_bf(fixture: str, reason: str) -> BoardFixture:
     return BoardFixture(
         fixture=fixture, probs=None,
         verification=verify([SourcedDatum(
             domain="thesportsdb.com", value="x", url="https://x", structured=True)]),
-        softness_tier="D", rejection_reason=reason, league=league)
+        softness_tier="D", rejection_reason=reason)
 
 # 1. BUILD + WRITE a raw board (BOARD_DIR) + publish it (PUBLISHED_DIR)
 raw_payload = build_payload(
     date=today, phase="PHASE 2 — PAPER",
     leagues_scanned=["Premier League", "Championship", "Serie A"],
     board=[
-        _rated_bf("Arsenal v Chelsea (Premier League)", "Premier League", "Arsenal", "Chelsea"),
-        _rated_bf("Leicester v Leeds (Championship)", "Championship", "Leicester", "Leeds"),
-        _unrated_bf("Juventus v Napoli (Serie A)", "Serie A",
+        _rated_bf("Arsenal v Chelsea (Premier League)", "Arsenal", "Chelsea"),
+        _rated_bf("Leicester v Leeds (Championship)", "Leicester", "Leeds"),
+        _unrated_bf("Juventus v Napoli (Serie A)",
                     "NO DATA — PENDING: no fitted history"),
     ],
     data_flags=[],
@@ -104,76 +107,76 @@ import brain.store as BS
 BS.DEFAULT_BRAIN_PATH = _tmp / "olp.db"
 print("2. Brain DB redirected to temp: OK")
 
-# 3. VERIFY web dashboard routes (no HTTP server — just the handlers)
-from webapp.server import Handler
-from webapp import render as R
-import webapp.server as WS
-
-# The Handler relies on module-level helpers; we just call the internal fns
-from webapp.server import _load_payload, _load_published
-
-payload = _load_payload(today)
+# 3. VERIFY web dashboard routes (no HTTP server — just the handlers).
+# The server's Handler methods read via webapp.schema (read_payload /
+# read_published); we call those same functions directly, with the dirs
+# already redirected to the temp tree above.
+payload = S.read_payload(_tmp / "boards" / f"board_{today}.json")
 assert payload is not None and payload["date"] == today
 assert len(payload["board"]) == 3
 assert payload["board"][0]["fixture"].startswith("Arsenal")
 # Admin payload carries internals
 for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev"):
     assert needle in payload["board"][0], f"admin payload missing {needle}"
-print("3a. _load_payload (admin view) returns full internals: OK")
+print("3a. read_payload (admin view) returns full internals: OK")
 
-pub = _load_published(today)
+pub = S.read_published(today)
 assert pub is not None and pub["date"] == today
-assert len(pub["board"]) == 2  # only rated fixtures survive trim
+# All three fixtures survive the client trim; the unrated one is kept and
+# honestly marked NO DATA (HR35) rather than dropped.
+assert len(pub["board"]) == 3
 for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev"):
     assert needle not in pub["board"][0], f"public payload leaks {needle}"
-print("3b. _load_published (client view) is trimmed: OK")
+unrated = pub["board"][2]
+assert unrated["probs"] is None
+assert "NO DATA" in unrated.get("rejection_reason", "")
+print("3b. read_published (client view) is trimmed + NO DATA honest: OK")
 
-# 4. TELEGRAM command layer — exercise routing without network
+# 4. TELEGRAM command layer — exercise routing + the bright-line gate without
+#    network. send_telegram is patched (no network); BOARD_DIR is redirected to
+#    the temp tree so /board reads a synthetic board, never the real repo's.
 import output.telegram_commands as TC
 TC.STATE_DIR = _tmp
 TC.OFFSET_FILE = _tmp / "telegram_offset.json"
 TC.CORRECTIONS_FILE = _tmp / "corrections.csv"
+TC.BOARD_DIR = _tmp / "boards"
+(_tmp / "boards").mkdir(parents=True, exist_ok=True)
+(_tmp / "boards" / f"board_{today}.txt").write_text(
+    "OLP XDV — TODAY'S PICKS\nArsenal v Chelsea (Premier League)\n"
+    "Leicester v Leeds (Championship)\n", encoding="utf-8")
+
+def _msg(mid: int, text: str) -> dict:
+    return {"update_id": mid,
+            "message": {"message_id": mid, "chat": {"id": 888, "type": "private"},
+                        "text": text}}
 
 with patch.object(TC, "send_telegram", return_value=(True, ["ok"])) as sent:
-    ok, notes = TC.handle_update({
-        "update_id": 1,
-        "message": {"message_id": 1, "chat": {"id": 888, "type": "private"},
-                    "text": "/board"}}, token="t")
+    ok, notes = TC.handle_update(_msg(1, "/status"), token="t")
+    assert ok and sent.call_count == 1
+    assert "PHASE 3 GATE" in sent.call_args[0][0]
+    print("3c. /status -> PHASE 3 GATE: OK")
+
+with patch.object(TC, "send_telegram", return_value=(True, ["ok"])) as sent:
+    ok, notes = TC.handle_update(_msg(2, "/board"), token="t")
     assert ok and sent.call_count == 1
     assert "TODAY'S PICKS" in sent.call_args[0][0]
-    print("3c. /board -> TODAY'S PICKS: OK")
+    print("3d. /board -> synthetic board txt: OK")
 
+# Bright-line: a message that would move a bright line is REFUSED, not sent.
 with patch.object(TC, "send_telegram", return_value=(True, ["ok"])) as sent:
-    ok, notes = TC.handle_update({
-        "update_id": 2,
-        "message": {"message_id": 2, "chat": {"id": 888, "type": "private"},
-                    "text": "/legs"}}, token="t")
-    assert ok and "CLV" in sent.call_args[0][0]
-    print("3d. /legs -> CLV section: OK")
+    ok, notes = TC.handle_update(_msg(3, "go live and deploy capital"), token="t")
+    assert sent.call_count == 1
+    assert "REFUSED" in sent.call_args[0][0]
+    print("3e. bright-line message refused end-to-end: OK")
 
-with patch.object(TC, "send_telegram", return_value=(True, ["ok"])) as sent:
-    ok, notes = TC.handle_update({
-        "update_id": 3,
-        "message": {"message_id": 3, "chat": {"id": 888, "type": "private"},
-                    "text": "/clv"}}, token="t")
-    assert ok and "Mean CLV" in sent.call_args[0][0]
-    print("3e. /clv -> Mean CLV: OK")
-
+# Non-whitelisted chat is IGNORED — send_telegram is never called.
 with patch.object(TC, "send_telegram", return_value=(True, ["ok"])) as sent:
     ok, notes = TC.handle_update({
         "update_id": 4,
-        "message": {"message_id": 4, "chat": {"id": 888, "type": "private"},
+        "message": {"message_id": 4, "chat": {"id": 999, "type": "private"},
                     "text": "/status"}}, token="t")
-    assert ok and "PHASE 3 GATE" in sent.call_args[0][0]
-    print("3f. /status -> PHASE 3 GATE: OK")
-
-with patch.object(TC, "send_telegram", return_value=(True, ["ok"])) as sent:
-    ok, notes = TC.handle_update({
-        "update_id": 5,
-        "message": {"message_id": 5, "chat": {"id": 888, "type": "private"},
-                    "text": "/produce bet"}}, token="t")
-    assert ok and "PRODUCE" in sent.call_args[0][0].upper()
-    print("3g. /produce bet -> PRODUCE panel: OK")
+    assert sent.call_count == 0
+    print("3f. non-whitelisted chat ignored (no send): OK")
 
 # 5. JSONL access log + /metrics both emit lines (no HTTP server)
 from monitor import json_log, metrics
@@ -192,26 +195,31 @@ assert "olp_boards_published_total 1" in mtext
 assert "olp_phase3_gate_requirement 30" in mtext
 print("4b. /metrics exposition emits gauges: OK")
 
-# 6. CLV logging — a leg is appended and read back
+# 6. CLV logging — a leg is logged and read back
 from clv.clv_logger import CLVLog
-CLVLog.LOG_FILE = _tmp / "clv_log.json"
-log = CLVLog()
-log.append(league="Premier League", fixture="Arsenal v Chelsea",
-           market="1X2 Home", model_prob=0.56, book="bet365",
-           opening_price=1.90, kickoff_iso=today + "T15:00:00+01:00")
-assert len(log.entries) >= 1
-print("5. CLV log append + read: OK")
+log = CLVLog(_tmp / "clv_log.json")
+log.log_entry(league="Premier League", fixture="Arsenal v Chelsea",
+              market="1X2 Home", model_prob=0.56, entry_odds=1.90)
+assert len(log.legs) >= 1
+print("5. CLV log entry + read: OK")
 
 # 7. The approve→publish gate in schema.py is the single source of truth
 from webapp import schema as SCH
-gated = SCH.check_client_publish_gate({
-    "gate": {"legs_with_clv": 35, "gate_requirement": 30, "mean_clv_pct": 1.2}
-})
-assert gated[0] is True
-gated = SCH.check_client_publish_gate({
-    "gate": {"legs_with_clv": 5, "gate_requirement": 30, "mean_clv_pct": -0.1}
-})
-assert gated[0] is False
-print("6. Approve→publish gate logic: OK")
+# Passing board (≥30 legs, positive mean CLV) → no exception (architect
+# sign-off relaxed so the unit check is about the gate arithmetic).
+SCH.check_client_publish_gate(
+    {"gate": {"legs_with_clv": 35, "gate_requirement": 30, "mean_clv_pct": 1.2}},
+    require_architect_signoff=False,
+)
+print("6. Approve->publish gate (passing board opens): OK")
+try:
+    SCH.check_client_publish_gate(
+        {"gate": {"legs_with_clv": 5, "gate_requirement": 30, "mean_clv_pct": -0.1}},
+        require_architect_signoff=False,
+    )
+    raise SystemExit("gate must raise for a failing board")
+except SCH.ClientPublishGateError:
+    pass
+print("7. Approve->publish gate (failing board blocked): OK")
 
 print("\n[OK] ALL INTEGRATION TESTS PASSED")

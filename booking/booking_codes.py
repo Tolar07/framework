@@ -338,13 +338,14 @@ def _click_totals_on_league_page(page: Page, row, market_key: str) -> bool:
             # showing its current line) instead of this row's menu item —
             # always scope to `.af-select-list-open` and match the item text.
             option_clicked = False
-            open_list = page.locator(".af-select-list.af-select-list-open").first
+            open_list = page.locator(".af-select-list.af-select-list-open")
             if open_list.count() > 0:
-                items = open_list.query_selector_all(".af-select-item")
-                for it in items:
-                    if (it.inner_text() or "").strip() == target_line:
+                items = open_list.locator(".af-select-item")
+                n = items.count()
+                for i in range(n):
+                    if (items.nth(i).inner_text() or "").strip() == target_line:
                         try:
-                            it.click()
+                            items.nth(i).click()
                             option_clicked = True
                         except Exception:
                             pass

@@ -5,9 +5,9 @@ The old webapp_render_test.py covers the legacy webapp.render module (still used
 for /why). This suite covers the new design that the server actually serves:
   - the FULL 13-row market grid on every client card (1X2, O/U 1.5, O/U 2.5,
     BTTS and Double Chance — derived only from client-safe probs),
-  - markets OPEN BY DEFAULT on scan + call cards (Architect 2026-08-10: the
-    client sees the whole predicted table and decides; the recommended acca +
-    call sit above it),
+  - markets CLOSED BY DEFAULT on scan + call cards (ratified 2026-08-10:
+    per-tile expand — tapping a card opens THAT fixture's breakdown; the
+    open-by-default experiment was reversed),
   - the recommended pick row visually distinct (.c-mkt-row.pick),
   - the data-leak boundary still holds (no model internals reach the client),
   - the Phase 3 gate status on /admin: PASS / OVERRIDE / NOT MET, and the
@@ -104,11 +104,12 @@ assert 'class="c-mkt-row pick"' in client, "pick row must carry the .pick class"
 assert "Fenerbahce to win" in client and "56%" in client
 print("3. recommended pick row distinct + shows the pick: OK")
 
-# --- 4. markets OPEN BY DEFAULT on the client (whole picture, then decide) ----
-assert 'class="c-detail open"' in client, "market detail must be open by default"
-assert 'aria-expanded="true"' in client
-assert "scan-" in client  # scan cards carry the same open detail block
-print("4. market detail open by default on scan + call cards: OK")
+# --- 4. markets CLOSED BY DEFAULT — per-tile expand (ratified 2026-08-10) -----
+assert 'class="c-detail open"' not in client, "cards must be closed by default"
+assert 'class="c-detail"' in client, "closed detail block must still render"
+assert 'aria-expanded="false"' in client, "cards must start collapsed"
+assert "scan-" in client  # scan cards carry the same closed detail block
+print("4. market detail closed by default on scan + call cards: OK")
 
 # --- 5. DATA-LEAK BOUNDARY: client still carries no model internals -----------
 for needle in _INTERNAL_FIELDS:

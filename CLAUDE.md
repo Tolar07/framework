@@ -63,3 +63,17 @@ Key components now available:
 - **Contexts**: dev, review, research modes for dynamic system prompt injection
 
 **Use these proactively** — e.g., `tdd-guide` for new features, `code-reviewer` after writing code, `planner` for complex tasks.
+
+## Design reference — awesome-design-md (standing)
+
+Dashboard/UI styling uses **awesome-design-md** — a design-token library at
+`C:\Users\Motunrayo\Downloads\awesome-design-md-main\awesome-design-md-main`
+(`design-md/<brand>/DESIGN.md` for 73 brands). The current web dashboard
+(`webapp/static/css/proto.css`) is a **Binance DESIGN.md token pass** (ratified
+2026-08-10): canvas dark `#0b0e11`, surface `#1e2329`, hairline `#2b3139`,
+amber primary `#FCD535`, trading up `#0ecb81` / down `#f6465d`.
+
+When changing or extending the web UI, keep the Binance tokens in `proto.css`
+(they are the ratified palette). If a new design language is ever chosen, pull
+it from the awesome-design-md collection and ratify the swap — tokens are a
+skin, never a reason to hide data (honest-edge + data-density stay intact).

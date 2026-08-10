@@ -11,7 +11,7 @@ Reference: webapp/design_reference/OLP_XDV_PROTOTYPE.html + FUNCTION_MAP.md
   render_admin_dashboard(payload, booking_codes=None)
       — the authed /admin: light theme, top search, Trigger Production + date
         selector, clickable stat pills, league filter chips, a dense
-        Fixture|1|X|2|O1.5|Elo|MES|Tier|Src table with expandable internals,
+        Fixture|1|X|2|O1.5|Elo|MES|Src table with expandable internals,
         Approve→Publish (hard-gated), the error/rejection log, and the AI
         Analyst full chat (real /api/analyst backend, same as the Telegram bot).
 
@@ -53,7 +53,7 @@ def _shell(title: str, body: str, asset_base: str = "/static") -> str:
 <html lang="en" data-asset-base="{base}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#0B0E13" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#F5F6F8" media="(prefers-color-scheme: light)">
 <link rel="manifest" href="{base}/manifest.json">
 <title>{html.escape(title)}</title>
@@ -187,8 +187,7 @@ def _client_call(board: list, accas: list, codes) -> str:
         cards = []
         for i, bf in enumerate(singles):
             home, away, league = _teams(bf)
-            p = bf.get("probs") or {}
-            pct = _pct_of(bf.get("best_model_prob"))
+            _, pct = _pick(bf)  # the pick's real confidence — matches Scan, never "—"
             fixture_txt = f"{home} v {away}" if home and away and away != "—" \
                 else _short_fixture(bf.get("fixture", ""))
             code = _single_code(codes, bf.get("fixture", ""))
@@ -197,7 +196,8 @@ def _client_call(board: list, accas: list, codes) -> str:
                 f'<button type="button" class="c-card-top" data-detail="call-{i}" aria-expanded="true">'
                 f'<span><span class="c-fixture">{html.escape(fixture_txt)}</span>'
                 f'<span class="c-league-sub">{html.escape(league)}</span></span>'
-                f'<span class="c-pct">{pct}</span></button>'
+                f'<span class="c-pct">{html.escape(pct)}</span>'
+                f'<span class="chev" aria-hidden="true">▸</span></button>'
                 # Full market grid visible by default (Architect 2026-08-10): the
                 # client sees the whole picture; tapping just collapses it.
                 f'<div class="c-detail open" id="call-{i}">{_client_market_rows(bf)}</div>'
@@ -233,8 +233,20 @@ def _client_call(board: list, accas: list, codes) -> str:
     return "".join(parts)
 
 
-def _client_scan(board: list, d: str, today: str, scores: dict) -> str:
-    # Date pills: yesterday / today / +1 / +2 (links — honest 404 on missing days)
+def _pill_href(pill_base: str, iso: str) -> str:
+    """Date-pill href. A route base ('/dashboard') links to the served route;
+    a relative base ('.' at the site root, '..' on a per-date page) links to a
+    per-date page of the static export — explicit index.html so file:// and
+    every static host resolve it (no dead /dashboard/... links, no trailing
+    slash that only a host's directory-index would answer)."""
+    if pill_base.startswith("/"):
+        return f"{pill_base}/{iso}"
+    return f"{pill_base}/{iso}/index.html"
+
+
+def _client_scan(board: list, d: str, today: str, scores: dict,
+                 pill_base: str = "/dashboard") -> str:
+    # Date pills: yesterday / today / +1 / +2 (honest 404 on missing served days)
     pills = []
     for off in (-1, 0, 1, 2):
         dt = _date.fromisoformat(d) + _timedelta(days=off)
@@ -246,7 +258,7 @@ def _client_scan(board: list, d: str, today: str, scores: dict) -> str:
             cls.append("today")
         sub = iso[5:]
         label = _friendly_day(iso, today)
-        pills.append(f'<a class="{" ".join(cls)}" href="/dashboard/{iso}">'
+        pills.append(f'<a class="{" ".join(cls)}" href="{_pill_href(pill_base, iso)}">'
                      f"{label}<span class='sub'>{sub}</span></a>")
     datepills = f'<div class="c-datepills">{"".join(pills)}</div>'
 
@@ -290,7 +302,8 @@ def _client_scan(board: list, d: str, today: str, scores: dict) -> str:
                 f'<button type="button" class="c-card-top" data-detail="scan-{card_i}" aria-expanded="true">'
                 f'<span class="c-fixture">{html.escape(fixture_txt)}<br>'
                 f'<span style="font-size:10px;color:var(--ink-faint);font-weight:400;">{sub_line}</span></span>'
-                f'<span class="c-pct">{html.escape(pick_prob)}</span></button>'
+                f'<span class="c-pct">{html.escape(pick_prob)}</span>'
+                f'<span class="chev" aria-hidden="true">▸</span></button>'
                 # Full market grid visible by default (Architect 2026-08-10): the
                 # client sees the whole predicted table; tapping just collapses it.
                 f'<div class="c-detail open" id="scan-{card_i}">{_client_market_rows(bf)}</div>'
@@ -350,7 +363,8 @@ def _client_analyst(payload: dict, n_singles: int, n_accas: int) -> str:
 
 
 def render_dashboard(payload: dict, asset_base: str = "/static",
-                     booking_codes=None, scores=None) -> str:
+                     booking_codes=None, scores=None,
+                     pill_base: str = "/dashboard") -> str:
     d = payload.get("date", _date.today().isoformat())
     today = _date.today().isoformat()
     board = payload.get("board", [])
@@ -359,7 +373,7 @@ def render_dashboard(payload: dict, asset_base: str = "/static",
     singles = sum(1 for bf in board if bf.get("probs") and bf.get("on_deploy_shortlist"))
 
     call = _client_call(board, accas, booking_codes)
-    scan = _client_scan(board, d, today, scores or {})
+    scan = _client_scan(board, d, today, scores or {}, pill_base)
     analyst = _client_analyst(payload, singles, len(accas))
 
     body = f"""<div class="app-frame"><div id="client-app">
@@ -400,25 +414,15 @@ def _a_mes(bf: dict) -> str:
     return "—" if ev is None else f"{ev:+.0%}"
 
 
-def _a_tier(bf: dict) -> str:
-    t = bf.get("softness_tier")
-    if not t:
-        return '<span class="a-tag">—</span>'
-    return f'<span class="a-tag T{t}">{html.escape(str(t))}</span>'
-
-
 def _a_edit_form(bf: dict, row_i: int) -> str:
     """Inline edit-before-publish: adjusts the publishable (client-visible)
-    fields on the RAW board; Approve→Publish then ships the edited trim."""
+    fields on the RAW board; Approve→Publish then ships the edited trim. The
+    softness-tier field is gone (ID402 tiers removed 2026-08-10) — the deploy
+    shortlist toggle is the only gating control left."""
     f = html.escape(bf.get("fixture", ""), quote=True)
     market = html.escape(bf.get("best_market") or "", quote=True)
     price = "" if bf.get("best_price") is None else html.escape(str(bf["best_price"]))
-    tier = bf.get("softness_tier") or ""
     short = ' checked' if bf.get("on_deploy_shortlist") else ""
-    opts = "".join(
-        f'<option value="{t}"{" selected" if t == tier else ""}>'
-        f'{"Tier " + t if t else "Tier —"}</option>'
-        for t in ("", "A", "B", "C", "D"))
     return (
         f'<div class="a-edit">'
         f'<div class="a-edit-title">Edit before publish — <span class="dim">client-visible fields</span></div>'
@@ -426,7 +430,6 @@ def _a_edit_form(bf: dict, row_i: int) -> str:
         f'<label>Fixture <input class="a-edit-in" id="edit-fixture-{row_i}" value="{f}"></label>'
         f'<label>Best market <input class="a-edit-in" id="edit-market-{row_i}" value="{market}"></label>'
         f'<label>Best price <input class="a-edit-in" id="edit-price-{row_i}" value="{price}" inputmode="decimal"></label>'
-        f'<label>Softness tier <select class="a-edit-in" id="edit-tier-{row_i}">{opts}</select></label>'
         f'<label class="check"><input type="checkbox" id="edit-short-{row_i}"{short}> Deploy shortlist</label>'
         f'</div>'
         f'<button type="button" class="a-edit-save" data-row="{row_i}" data-fixture="{f}">Save edits</button>'
@@ -459,7 +462,7 @@ def _admin_table(board: list) -> str:
     row_i = 0
     for league, bfs in sorted(by_league.items()):
         rows.append(f'<tr class="a-league-sep" data-league="L{sep_i}">'
-                    f'<td colspan="9">{html.escape(league.upper())}'
+                    f'<td colspan="8">{html.escape(league.upper())}'
                     f'<span class="cnt">({len(bfs)})</span></td></tr>')
         for bf in bfs:
             home, away, lg = _teams(bf)
@@ -475,23 +478,21 @@ def _admin_table(board: list) -> str:
                 f'<td>{_a_pct(bf, "p_over_15") if has_probs else "—"}</td>',
                 f"<td>{_a_elo(bf)}</td>",
                 f"<td>{_a_mes(bf)}</td>",
-                f"<td>{_a_tier(bf)}</td>",
                 f"<td>{_src_dot(bf)}</td>",
             ]
             rows.append(
                 f'<tr class="clickable" data-target="adm-{row_i}" data-league="L{sep_i}" '
-                f'data-tier="{html.escape(bf.get("softness_tier") or "", quote=True)}" '
                 f'data-short="{"1" if bf.get("on_deploy_shortlist") else "0"}" '
                 f'data-fixture="{html.escape(bf.get("fixture", ""), quote=True)}" '
                 f'data-search="{html.escape(hay)}" aria-expanded="false" tabindex="0">'
                 f'{"".join(cells)}</tr>'
                 f'<tr class="a-detail-row hidden" id="adm-{row_i}" data-league="L{sep_i}">'
-                f'<td colspan="9">{_a_detail(bf, row_i)}</td></tr>'
+                f'<td colspan="8">{_a_detail(bf, row_i)}</td></tr>'
             )
             row_i += 1
         sep_i += 1
     thead = ("<tr><th>Fixture</th><th>1</th><th>X</th><th>2</th><th>O1.5</th>"
-             "<th>Elo</th><th>MES</th><th>Tier</th><th>Src</th></tr>")
+             "<th>Elo</th><th>MES</th><th>Src</th></tr>")
     return (f'<div class="a-tablewrap"><table class="a-table" id="admin-table">'
             f"<thead>{thead}</thead><tbody id=\"admin-tbody\">"
             f'{"".join(rows)}</tbody></table></div>')
@@ -516,8 +517,7 @@ def _admin_log(payload: dict, board: list) -> str:
         rows.append(f'<div class="log-row"><span class="tier flag">FLAG</span>'
                     f'<span class="why">{html.escape(flag)}</span></div>')
     for bf in rejected:
-        t = bf.get("softness_tier") or "—"
-        rows.append(f'<div class="log-row"><span class="tier">T{t}</span>'
+        rows.append(f'<div class="log-row"><span class="tier">✗</span>'
                     f'<span class="why"><b>{html.escape(_short_fixture(bf.get("fixture", "")))}</b> — '
                     f"{html.escape(bf.get('rejection_reason', ''))}</span></div>")
     if not rows:

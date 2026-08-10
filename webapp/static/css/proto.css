@@ -14,19 +14,22 @@
 @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/Inter-normal-400.woff2') format('woff2');}
 
 :root{
-  --bg:#0B0E13; --surface:#131822; --surface-2:#1A2130; --line:#232B3B;
-  --ink:#E7EAF0; --ink-dim:#8B93A6; --ink-faint:#565F72;
-  --amber:#D8A659; --amber-dim:#8C744A; --teal:#4FB894; --coral:#E2634F;
+  /* Binance DESIGN.md (awesome-design-md) — canvas dark + one yellow accent +
+     trading green/red signals + hairlines + tabular numbers (Architect 2026-08-10). */
+  --bg:#0b0e11; --surface:#1e2329; --surface-2:#2b3139; --line:#2b3139;
+  --ink:#EAECEF; --ink-dim:#B7BDC6; --ink-faint:#848E9C;
+  --amber:#FCD535; --amber-dim:#f0b90b; --teal:#0ecb81; --coral:#f6465d;
+  --focus:#3b82f6; --on-primary:#181a20;
   /* ONE palette. Admin aliases point at the SAME dark tokens as the client,
-     so the admin inherits the dark amber/charcoal theme — the admin keeps its
+     so the admin inherits the dark yellow/charcoal theme — the admin keeps its
      denser layout (columns, tighter rows), which is layout, not color. */
   --lbg:var(--bg); --lsurface:var(--surface); --lline:var(--line);
   --link:var(--ink); --link-dim:var(--ink-dim);
-  --a-accent:#2f6f4f; --a-ok:#3f9c62; --a-warn:var(--coral);
+  --a-accent:var(--teal); --a-ok:var(--teal); --a-warn:var(--coral);
 }
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}
-body{margin:0;font-family:'Inter',sans-serif;background:#0a0a0a;color:#ccc;-webkit-font-smoothing:antialiased;}
+body{margin:0;font-family:'Inter',sans-serif;background:#0b0e11;color:#EAECEF;-webkit-font-smoothing:antialiased;}
 .mono{font-family:'IBM Plex Mono',monospace;}
 .display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.02em;}
 button{font-family:inherit;cursor:pointer;}
@@ -52,7 +55,7 @@ button{font-family:inherit;cursor:pointer;}
 .c-tabs{display:flex;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;background:var(--bg);}
 .c-tab{flex:1;text-align:center;padding:13px 0;font-size:12px;font-weight:600;color:var(--ink-faint);border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;}
 .c-tab.active{color:var(--amber);border-bottom-color:var(--amber);}
-.c-tab:focus-visible{outline:2px solid var(--amber);outline-offset:-2px;}
+.c-tab:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;}
 
 .c-panel{display:none;padding:14px;}
 .c-panel.active{display:block;}
@@ -65,20 +68,30 @@ button{font-family:inherit;cursor:pointer;}
 .c-pill .sub{display:block;font-size:8.5px;color:var(--ink-faint);margin-top:1px;}
 
 .c-league-group{margin-bottom:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden;}
-.c-league-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;font-size:12px;font-weight:700;color:var(--ink);cursor:pointer;}
+.c-league-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;font-size:12px;font-weight:700;color:var(--ink);cursor:pointer;transition:background 0.1s ease;}
+.c-league-head:active{background:var(--surface-2);}
+.c-league-head:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;border-radius:6px;}
 .c-league-head .chev{transition:transform 0.2s;color:var(--ink-faint);}
 .c-league-head.open .chev{transform:rotate(90deg);}
 .c-league-body{max-height:0;overflow:hidden;transition:max-height 0.25s ease;}
 .c-league-body.open{max-height:2400px;}
 
-.c-card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:8px;padding:12px;margin:8px 0;}
+.c-card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:8px;padding:12px;margin:8px 0;transition:border-color 0.15s ease;}
+.c-card:hover{border-color:var(--surface-2);}
 /* Call singles widen with the viewport (full-screen app), never a fixed column */
 .c-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:2px 0;}
 .c-grid .c-card{margin:0;}
 @media (min-width:760px){.c-grid{grid-template-columns:repeat(2,1fr);}}
 @media (min-width:1160px){.c-grid{grid-template-columns:repeat(3,1fr);}}
 .c-card.acca{border-left-color:var(--teal);}
-.c-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;cursor:pointer;border:none;background:none;width:100%;text-align:left;padding:0;color:inherit;}
+.c-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;cursor:pointer;border:none;background:none;width:100%;text-align:left;padding:0;color:inherit;transition:transform 0.1s ease;}
+.c-card-top:active{transform:translateY(1px);}
+.c-card-top:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:6px;}
+/* Per-tile affordance: a chevron that brightens on hover and rotates open —
+   every tile is closed by default and expands individually on tap. */
+.c-card-top .chev{font-size:10px;color:var(--ink-faint);flex:none;align-self:center;transition:transform 0.2s ease,color 0.15s ease;}
+.c-card-top:hover .chev{color:var(--amber);}
+.c-card-top[aria-expanded="true"] .chev{transform:rotate(90deg);color:var(--amber);}
 .c-fixture{font-size:13px;font-weight:600;}
 .c-league-sub{font-size:10px;color:var(--ink-faint);margin-top:2px;}
 .c-pct{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-weight:700;flex:none;}
@@ -99,7 +112,9 @@ button{font-family:inherit;cursor:pointer;}
 .c-bookcode.acca{border-top-color:var(--teal);}
 .c-bookcode .pnd{color:var(--ink-faint);font-style:italic;}
 .c-bookcode button{background:var(--surface-2);border:1px solid var(--line);color:var(--ink-dim);border-radius:4px;padding:3px 8px;font-size:9px;}
-.c-bookcode button:focus-visible{outline:2px solid var(--amber);outline-offset:1px;}
+.c-bookcode button:focus-visible{outline:2px solid var(--focus);outline-offset:1px;}
+/* Honest NO DATA — PENDING reads as a designed placeholder, not a bug (HR35). */
+.c-bookcode .pnd{color:var(--ink-faint);font-style:italic;font-size:10px;letter-spacing:0.03em;}
 
 .c-empty{text-align:center;color:var(--ink-faint);font-size:12px;padding:22px 8px;}
 .c-empty b{color:var(--ink);}
@@ -112,9 +127,9 @@ button{font-family:inherit;cursor:pointer;}
 .a-search::placeholder{color:var(--ink-faint);}
 
 .a-actionbar{display:flex;gap:10px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--lline);flex-wrap:wrap;background:var(--surface);}
-#trigger-btn{background:var(--amber);color:#0B0E13;border:none;border-radius:6px;padding:9px 16px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:8px;}
+#trigger-btn{background:var(--amber);color:var(--on-primary);border:none;border-radius:6px;padding:9px 16px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:8px;}
 #trigger-btn:disabled{opacity:0.6;cursor:not-allowed;}
-#trigger-btn .spinner{display:none;width:12px;height:12px;border:2px solid #0B0E13;border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite;}
+#trigger-btn .spinner{display:none;width:12px;height:12px;border:2px solid var(--on-primary);border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite;}
 #trigger-btn.loading .spinner{display:inline-block;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .a-date{font-size:12px;padding:7px 8px;border:1px solid var(--lline);border-radius:6px;background:var(--surface);color:var(--ink);color-scheme:dark;}
@@ -129,8 +144,8 @@ button{font-family:inherit;cursor:pointer;}
 
 .a-filterbar{display:flex;gap:6px;padding:8px 16px;border-bottom:1px solid var(--lline);overflow-x:auto;background:var(--surface);}
 .a-chip{border:1px solid var(--line);background:var(--surface-2);border-radius:14px;font-size:10px;padding:5px 10px;flex:none;white-space:nowrap;color:var(--link-dim);cursor:pointer;}
-.a-chip.active{background:var(--amber);color:#0B0E13;border-color:var(--amber);font-weight:700;}
-.a-chip:focus-visible{outline:2px solid var(--teal);outline-offset:1px;}
+.a-chip.active{background:var(--amber);color:var(--on-primary);border-color:var(--amber);font-weight:700;}
+.a-chip:focus-visible{outline:2px solid var(--focus);outline-offset:1px;}
 
 .a-tablewrap{overflow-x:auto;padding:0 16px;}
 table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
@@ -168,7 +183,7 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 .chat-row{display:flex;gap:6px;}
 #admin-chat-input{flex:1;border:1px solid var(--lline);border-radius:6px;padding:8px;font-size:11px;background:var(--surface);color:var(--ink);}
 #admin-chat-input::placeholder{color:var(--ink-faint);}
-#admin-chat-input:focus-visible{outline:2px solid var(--teal);outline-offset:1px;}
+#admin-chat-input:focus-visible{outline:2px solid var(--focus);outline-offset:1px;}
 #admin-chat-send{background:var(--amber);color:#0B0E13;border:none;border-radius:6px;padding:8px 14px;font-size:11px;font-weight:700;}
 
 .a-log{background:var(--surface);border:1px solid var(--lline);border-radius:6px;padding:10px;font-size:10.5px;margin-top:6px;}
@@ -198,7 +213,7 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 .a-edit-grid label{display:flex;flex-direction:column;font-size:9.5px;font-weight:600;color:var(--link-dim);gap:3px;}
 .a-edit-grid label.check{flex-direction:row;align-items:center;font-weight:600;color:var(--link);}
 .a-edit-in{font:inherit;font-size:11px;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface-2);color:var(--ink);min-width:0;}
-.a-edit-in:focus{outline:2px solid var(--a-accent,#2f6f4f);outline-offset:0;}
+.a-edit-in:focus{outline:2px solid var(--focus);outline-offset:0;}
 .a-edit-save{font:inherit;font-size:10.5px;font-weight:700;padding:6px 12px;border:none;border-radius:6px;background:var(--teal);color:#04231a;cursor:pointer;}
 .a-edit-save:hover{opacity:.88;}
 .a-edit-save:disabled{opacity:.5;cursor:wait;}

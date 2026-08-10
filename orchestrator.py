@@ -36,7 +36,7 @@ from engine.dixon_coles import (fit, predict, predict_adjusted,
                                  unrated_reason, FIT_VERSION)
 from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload,
                          dc_to_payload, dc_from_payload)
-from engine.softness import (SOFTNESS_TIER, softness_tier, is_deploy_eligible,
+from engine.softness import (WHITELISTED_LEAGUES, softness_tier, is_deploy_eligible,
                               build_deploy_shortlist)
 from engine.mes import trigger_price, mes_numeric
 from booking.bridge import load_all_sportybet_fixtures, get_sportybet_odds_for_leg

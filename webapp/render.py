@@ -117,10 +117,16 @@ def html_shell(title: str, body: str, script: str = "", asset_base: str = "/stat
     so any host path works). The critical CSS is inlined (fast first paint);
     assets.js then injects app.css + font preloads off `data-asset-base`, which
     keeps the page CSP-clean (script-src 'self', no inline handlers)."""
+    # PWA manifest + theme-color for install prompt + dark-mode initial state
+    # Service worker registration is inline (tiny) and CSP-safe because it's a
+    # single 'self' script-src — no inline event handlers used.
     return f"""<!doctype html>
 <html lang="en" data-asset-base="{html.escape(asset_base, quote=True)}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0B0E13" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F6F8" media="(prefers-color-scheme: light)">
+<link rel="manifest" href="{html.escape(asset_base, quote=True)}/manifest.json">
 <title>{html.escape(title)}</title>
 <style>{_CRITICAL_CSS}</style>
 </head><body>
@@ -128,6 +134,20 @@ def html_shell(title: str, body: str, script: str = "", asset_base: str = "/stat
 <script src=\"{asset_base}/js/assets.js\" defer></script>
 <script src=\"{asset_base}/js/date_nav.js\" defer></script>
 {script}
+<script>
+  // Service Worker registration (cache-first static, network-first HTML/API)
+  if ('serviceWorker' in navigator) {{
+    navigator.serviceWorker.register('{html.escape(asset_base, quote=True)}/sw.js', {{scope: '{html.escape(asset_base, quote=True)}/'}})
+      .catch(() => {{ /* SW optional — ignore if unsupported */ }});
+  }}
+  // Dark-mode initial sync: respect localStorage, then prefers-color-scheme
+  (function() {{
+    var saved = localStorage.getItem('olp-theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var dark = saved ? saved === 'dark' : prefersDark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  }})();
+</script>
 </body></html>"""
 
 
@@ -871,6 +891,19 @@ def _board_header(payload: dict, admin: bool = False) -> str:
         meta = f'<span>{date_txt}</span><span><b>07:00</b></span>'
     base = "/admin" if admin else "/dashboard"
     crumbs = _crumbs(base, d, admin)
+    # Theme toggle button (top-right in header, next to phase badge)
+    theme_toggle = ('<button class="theme-toggle" id="theme-toggle" '
+                    'aria-label="Toggle dark/light mode" '
+                    'aria-pressed="true" title="Toggle theme">'
+                    '<svg class="theme-icon theme-sun" viewBox="0 0 24 24" '
+                    'fill="none" stroke="currentColor" stroke-width="2" '
+                    'aria-hidden="true"><circle cx="12" cy="12" r="5"/><path '
+                    'd="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 '
+                    '1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+                    '<svg class="theme-icon theme-moon" viewBox="0 0 24 24" '
+                    'fill="none" stroke="currentColor" stroke-width="2" '
+                    'aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 '
+                    '7 7 0 0 0 21 12.79z"/></svg></button>')
     return f"""<header class="top">
   <div class="brand">
     <a class="brand-link" href="{base}/{d}">
@@ -878,6 +911,7 @@ def _board_header(payload: dict, admin: bool = False) -> str:
       <h1>OLP&nbsp;XDV</h1>
     </a>
     {brand_right}
+    {theme_toggle}
   </div>
   {crumbs}
   <div class="meta-row">
@@ -1046,6 +1080,51 @@ def _acca_section(accas: Optional[list], admin: bool) -> str:
             'markets cleared for capital. PAPER — Phase 2, zero capital.'
             if admin else
             'Today\'s fixtures only (standing rule 2026-08-09). Paper.')
+    return ('<div class="acca-wrap">' + "".join(blocks)
+            + f'<div class="acca-note">{note}</div></div>')
+
+
+def _booking_codes_section(codes: Optional[dict], accas: Optional[list]) -> str:
+    """Admin-only: the day's SportyBet booking codes, captured by
+    booking/booking_codes.py. A code recalls the betslip — a pre-fill, never a
+    stake (Phase-2 bright line: the Architect is the only one who can turn a
+    code into money). Missing file → NO DATA — PENDING (HR35)."""
+    if not codes or not codes.get("results"):
+        return ('<div class="flags"><div class="flag-line">NO DATA — PENDING — '
+                'no SportyBet booking codes captured for this board. Run '
+                '`py -3.12 -m booking.booking_codes --date <day>` after the '
+                'daily pipeline has priced the acca legs.</div></div>')
+    blocks: list[str] = []
+    for r in codes.get("results") or []:
+        status = r.get("status", "MANUAL")
+        code = r.get("code")
+        status_cls = ("hit-tag mono" if status == "BOOKED" and code
+                      else "pend-tag mono" if status == "SLIP READY"
+                      else "miss-tag mono")
+        head = (f'<div class="acca-head mono">{html.escape(r.get("label", "Acca"))}'
+                f' — {r.get("n_legs", 0)} legs · '
+                f'<span class="{status_cls}">{status}</span>')
+        if code:
+            head += (f' · <span class="booking-code" '
+                     f'title="Paste into SportyBet to recall the slip">'
+                     f'CODE {html.escape(code)}</span>')
+        head += '</div>'
+        legs = []
+        for leg in r.get("per_leg") or []:
+            booked = leg.get("status") == "BOOKED"
+            mark = ('<span class="hit-tag mono">✓</span>' if booked
+                    else '<span class="miss-tag mono">✗</span>')
+            note = f' — {html.escape(leg.get("reason", ""))}' if leg.get("reason") else ""
+            legs.append(f'<div class="acca-leg">{mark} '
+                        f'{html.escape(leg.get("fixture", "?"))} — '
+                        f'{html.escape(leg.get("market_name", "?"))}'
+                        f'<span class="graded-ft">{note}</span></div>')
+        blocks.append('<div class="acca-block">' + head + "".join(legs) + "</div>")
+    n_codes = sum(1 for r in codes.get("results") or [] if r.get("code"))
+    note = (f'{n_codes} code(s) captured. Codes pre-fill the slip when pasted '
+            'into SportyBet — a MANUAL leg must be added by hand first. '
+            'PAPER — Phase 2: this system never stakes. The Architect approves '
+            'and stakes.')
     return ('<div class="acca-wrap">' + "".join(blocks)
             + f'<div class="acca-note">{note}</div></div>')
 
@@ -1444,7 +1523,7 @@ def render_dashboard(payload: dict, asset_base: str = "/static") -> str:
     )
     return html_shell("OLP XDV — Today's Board", body,
                       script=_js_refs(asset_base, "scan", "tab", "chat",
-                                      "client_search"),
+                                      "client_search", "theme"),
                       asset_base=asset_base)
 
 
@@ -1455,14 +1534,17 @@ def render_admin_dashboard(payload: dict, asset_base: str = "/static") -> str:
     n_call = sum(1 for bf in payload.get("board", []) if bf.get("on_deploy_shortlist"))
     d = payload.get("date", "")
     published_stamp = ""
+    booking_codes = None
     if d:
+        from webapp import schema as S
         try:
-            from webapp import schema as S
             pub = S.read_published(d)
             if pub:
                 published_stamp = f'<div class="published-stamp">✅ Published to client — {d}</div>'
         except Exception:
-            pass
+            pass  # not published yet — honest, not an error
+        # Separate read: a missing published board must not hide the codes.
+        booking_codes = S.read_booking_codes(d)
     body = (
         _board_header(payload, admin=True)
         + '<div class="paper-strip mono">PAPER ONLY — no stake is placed by this system</div>'
@@ -1505,6 +1587,12 @@ def render_admin_dashboard(payload: dict, asset_base: str = "/static") -> str:
         + 'internal, admin-only.</p>'
         + _acca_section(payload.get("accas"), admin=True)
         + "</section>"
+        + '<section id="booking-section" class="cv-auto"><div class="sec-head"><h2 class="display">SportyBet Booking Codes</h2></div>'
+        + '<p class="sec-sub">Codes captured from the day\'s accas by '
+        + 'booking/booking_codes.py — paste into SportyBet to recall the slip. '
+        + 'A pre-fill, never a stake.</p>'
+        + _booking_codes_section(booking_codes, payload.get("accas"))
+        + "</section>"
         + '<section id="verified-section" class="cv-auto"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
         + '<p class="sec-sub">Graded against full-time result, 90-min basis (HR15)</p>'
         + _yesterday_graded(payload.get("yesterday_graded", []))
@@ -1519,7 +1607,7 @@ def render_admin_dashboard(payload: dict, asset_base: str = "/static") -> str:
     return html_shell("OLP XDV — Admin Dashboard", body,
                       script=_js_refs(asset_base, "scan", "publish",
                                       "admin_search", "tab", "chat",
-                                      "market_select", "produce", "signoff"),
+                                      "market_select", "produce", "signoff", "theme"),
                       asset_base=asset_base)
 
 

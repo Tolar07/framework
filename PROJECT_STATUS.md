@@ -69,7 +69,7 @@
 Next up (in priority order):
 
 1. **Re-run the daily pipeline** — regenerate today's board with the same-day filter + acca set + booking codes live (the current committed board predates the standing rule). NOTE: quota at 4/500 means prices may be blocked until the monthly reset.
-2. **Verify booking codes on a live SportyBet session** — `py -3.12 -m booking.booking_codes book --date <today>`; needs an acca with priced legs first (accas are empty on quiet days with no prices).
+2. **Verify booking codes on a live SportyBet session** — `py -3.12 -m booking.booking_codes --date <today>` (no `book` subcommand — the module's CLI is `--date`/`--accas`/`--headed`); needs an acca with priced legs first (accas are empty on quiet days with no prices).
 3. **Unblock odds pipeline** — Odds API quota (4/500 left) stalls live EV/CLV + Phase 3 CLV gate. Architect must upgrade/reset before the widened price pull can actually price all leagues.
 4. **Model refit for away overconfidence** — model claims ~39% away, delivers ~30%; no screen/nudge fixes it. Structural; needs refit before Phase 3.
 5. **Promoted-club carry-over data** — 5 clubs stuck NO DATA until personal TheSportsDB key lands.

@@ -1,0 +1,307 @@
+PART 0 — HEADER
+Date: 2026-08-10 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Austrian Bundesliga, EFL Cup
+Calibration: 0 legs logged, CLV logged: ZERO
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ graded 0 of 15 pending leg(s)
+  ⚠ Automated CLV grading: 0 leg(s) settled
+  ⚠ Eredivisie: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Eredivisie: fixtures via SportyBet cache (9 — primary sources failed)
+  ⚠ Eredivisie: 11 team name(s) in the fixtures feed not found in the fitted data — ADO Den Haag, FC Groningen, FC Twente Enschede, FC Utrecht, Fortuna Sittard, NEC Nijmegen, PEC Zwolle, SC Cambuur, SC Heerenveen, SC Telstar, Willem II. Suggestions: ADO Den Haag -> no close match in the model pool; FC Groningen -> Groningen (0.86); FC Twente Enschede -> no close match in the model pool; FC Utrecht -> Utrecht (0.82); Fortuna Sittard -> For Sittard (0.85); NEC Nijmegen -> Nijmegen (0.80); PEC Zwolle -> Zwolle (0.75); SC Cambuur -> no close match in the model pool; SC Heerenveen -> Heerenveen (0.87); SC Telstar -> Telstar (0.82); Willem II -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Danish Superliga: fixtures via thesportsdb_season
+  ⚠ Belgian Pro League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Scottish Premiership: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: API-Football returned errors: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}) — NO DATA — PENDING
+  ⚠ Ekstraklasa: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ HNL: history served from cache
+  ⚠ HNL: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ HNL: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ HNL: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'HNL' has no verified Odds API sport key.) — NO DATA — PENDING
+  ⚠ Championship: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Serie A: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Ligue 1: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Ligue 1: fixtures via SportyBet cache (9 — primary sources failed)
+  ⚠ Ligue 1: 5 team name(s) in the fixtures feed not found in the fitted data — AJ Auxerre, Le Mans FC, Paris Saint-Germain, RC Lens, Troyes. Suggestions: AJ Auxerre -> Auxerre (0.82); Le Mans FC -> no close match in the model pool; Paris Saint-Germain -> no close match in the model pool; RC Lens -> Lens (0.73); Troyes -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Europa League: history served from cache
+  ⚠ Europa League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Europa League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Europa League: fixtures via thesportsdb_season
+  ⚠ Europa League: Elo continental blend w=2.5 (cached)
+  ⚠ Europa League: 9 team name(s) in the fixtures feed not found in the fitted data — CSKA Sofia, Egnatia, Hradec Králové, Iberia 1999, KuPS, KÍ Klaksvík, Lincoln Red Imps, Thun, Universitatea Craiova. Suggestions: CSKA Sofia -> Casa Pia (0.67); Egnatia -> Legia (0.67); Hradec Králové -> no close match in the model pool; Iberia 1999 -> Hibernian (0.60); KuPS -> no close match in the model pool; KÍ Klaksvík -> no close match in the model pool; Lincoln Red Imps -> no close match in the model pool; Thun -> no close match in the model pool; Universitatea Craiova -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Primeira Liga: fixtures via thesportsdb_season
+  ⚠ Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ Premier League: fixtures via SportyBet cache (10 — primary sources failed)
+  ⚠ Premier League: 7 team name(s) in the fixtures feed not found in the fitted data — Coventry City, Hull City, Ipswich Town, Leeds United, Man Utd, Nottm Forest, Sunderland AFC. Suggestions: Coventry City -> no close match in the model pool; Hull City -> no close match in the model pool; Ipswich Town -> no close match in the model pool; Leeds United -> Man United (0.64); Man Utd -> Man United (0.82); Nottm Forest -> Nott'm Forest (0.96); Sunderland AFC -> Sunderland (0.83). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ La Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ La Liga: fixtures via SportyBet cache (20 — primary sources failed)
+  ⚠ La Liga: 10 team name(s) in the fixtures feed not found in the fitted data — Athletic Bilbao, Atletico Madrid, Espanyol, Malaga CF, Mechelen, RC Deportivo De La Coruna, Racing Santander, Rayo Vallecano, Real Betis, Real Sociedad. Suggestions: Athletic Bilbao -> Ath Bilbao (0.80); Atletico Madrid -> Ath Madrid (0.72); Espanyol -> Espanol (0.93); Malaga CF -> no close match in the model pool; Mechelen -> Elche (0.61); RC Deportivo De La Coruna -> no close match in the model pool; Racing Santander -> no close match in the model pool; Rayo Vallecano -> Vallecano (0.78); Real Betis -> Betis (0.67); Real Sociedad -> Sociedad (0.76). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Champions League: history served from cache
+  ⚠ Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Champions League: fixtures via thesportsdb_season
+  ⚠ Champions League: Elo continental blend w=2.5 (cached)
+  ⚠ Champions League: 7 team name(s) in the fixtures feed not found in the fitted data — Ararat-Armenia, Hapoel Be'er Sheva, Kairat Almaty, Kauno Žalgiris, Levski Sofia, Mjällby, Sabah Baku. Suggestions: Ararat-Armenia -> no close match in the model pool; Hapoel Be'er Sheva -> no close match in the model pool; Kairat Almaty -> no close match in the model pool; Kauno Žalgiris -> no close match in the model pool; Levski Sofia -> no close match in the model pool; Mjällby -> no close match in the model pool; Sabah Baku -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Austrian Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota down to 4 (floor 5 — fixture capture). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.) — NO DATA — PENDING
+  ⚠ EFL Cup: NO DATA — PENDING (no history source: 'EFL Cup' has no verified API-Football league ID here.)
+  ⚠ ⚠ source circuit OPEN (paused): api_football_fixtures
+  ⚠ Champions League: Odds API quota down to 4 (floor 40); api-football fallback failed ('Champions League' has no API-Football odds fallback (deploy leagues only)). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Danish Superliga: Odds API quota exhausted (4 left) — served via api-football free fallback
+  ⚠ Danish Superliga: api-football free plan serves only today±1 — 2026-08-12 skipped
+  ⚠ Danish Superliga: api-football free plan serves only today±1 — 2026-08-13 skipped
+  ⚠ Danish Superliga: odds served from api-football free plan (1 fixture(s))
+  ⚠ Eredivisie: Odds API quota exhausted (4 left) — served via api-football free fallback
+  ⚠ Eredivisie: api-football free plan serves only today±1 — 2026-08-12 skipped
+  ⚠ Eredivisie: api-football free plan serves only today±1 — 2026-08-13 skipped
+  ⚠ Eredivisie: api-football returned no priced fixtures in the next 3 day(s)
+  ⚠ Europa League: odds fetch failed ('Europa League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ⚠ La Liga: Odds API quota down to 4 (floor 40); api-football fallback failed ('La Liga' has no API-Football odds fallback (deploy leagues only)). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Ligue 1: Odds API quota down to 4 (floor 40); api-football fallback failed ('Ligue 1' has no API-Football odds fallback (deploy leagues only)). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Premier League: Odds API quota down to 4 (floor 40); api-football fallback failed ('Premier League' has no API-Football odds fallback (deploy leagues only)). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Primeira Liga: Odds API quota down to 4 (floor 40); api-football fallback failed ('Primeira Liga' has no API-Football odds fallback (deploy leagues only)). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ Scan odds skipped — quota 4 < floor 40
+  ⚠ ensemble weights: no engine has enough settled evidence (cal >= 15 settled predictions and clv >= 5 legs-with-CLV) — consensus unweighted
+  ⚠ today's acca set: 1 acca(s), 1 legs on today's slate
+  ⚠ produced-bet record failed ('pick_market')
+  ⚠ Sparta Rotterdam v PSV Eindhoven: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Feyenoord v Go Ahead Eagles: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Marseille v Strasbourg: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Nice v Lorient: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Toulouse v Lyon: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Angers v Lille: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Le Havre v Monaco: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Rangers v Jagiellonia: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Hearts v Benfica: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Gornik Zabrze v Ferencvarosi TC: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Anderlecht v PAOK: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Red Bull Salzburg v Pafos: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Santa Clara v Nacional: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Everton v Crystal Palace: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Brentford v Tottenham: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Brighton v Aston Villa: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Man City v Bournemouth: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Newcastle v Liverpool: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Fulham v Chelsea: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Alaves v Getafe: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Celta v Osasuna: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Valencia v Celta: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Osasuna v Levante: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Lyon v Sparta Praha: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Bodo/Glimt v St. Gilloise: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Nijmegen v Olympiakos Piraeus: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Sturm Graz v Fenerbahçe: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ logged 0 new paper leg(s) with a live entry price
+  ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL — today's fixtures only
+2 deploy-eligible fixture(s) kicking off today, softness PAUSED (all whitelisted leagues, no cap).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+
+1. Silkeborg v Odense (Danish Superliga)
+   Softness PAUSED — all whitelisted leagues deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Silkeborg to win .......... 33%
+      Draw ......................... 23%
+      Odense to win .......... 44%
+   Goals: Over 1.5 goals 88% (model) | Over 2.5 goals 70% (model)
+   Both teams to score YES 71% (model)
+   Expected goals (model): Silkeborg 1.688, Odense 1.953
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Silkeborg to win 37% · Draw 31% · Odense to win 32%
+      ENGINE DIVERGENCE: Elo and Dixon-Coles differ by -12pp on away win (Elo 37%/31%/32% vs Dixon-Coles 33%/23%/44%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
+   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
+   Fourth opinion — bookmaker (real-money aggregate, margin removed):
+      Silkeborg to win 37% · Draw 26% · Odense to win 37%
+   CONSENSUS (ID412) — Silkeborg, 2 of 3 engines (one engine dissents)
+      averaged 1X2: Silkeborg 36% · Draw 27% · Odense 37%
+      engines split on the result: AWAY 1, HOME 2
+   Best available market: Draw
+      Model probability .......... 23%
+      Best quoted price .......... 3.60 decimal (Bet365, best of 1 books)
+      Breakeven trigger price .... 1.13 or longer
+      HR30 numerical MES ......... -17.87% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      DIVERGENCE FLAG (ID403.1 V5): model says 23%, this price implies 28% — an implausible -18% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+2. Santa Clara v Nacional (Primeira Liga)
+   Softness PAUSED — all whitelisted leagues deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Santa Clara to win .......... 38%
+      Draw ......................... 32%
+      Nacional to win .......... 29%
+   Goals: Over 1.5 goals 56% (model) | Under 2.5 goals 71% (model)
+   Both teams to score NO 63% (model)
+   Expected goals (model): Santa Clara 1.021, Nacional 0.852
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Santa Clara to win 48% · Draw 28% · Nacional to win 24%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Third opinion (xG): NO DATA — PENDING (no free xG source covers this league — xG covers Big-5 + RFPL only)
+   Fourth opinion (bookmaker): NO DATA — PENDING (no odds pulled for this league — bookmaker covers deploy leagues only)
+   CONSENSUS (ID412) — Santa Clara, 2 of 2 engines
+      averaged 1X2: Santa Clara 43% · Draw 30% · Nacional 27%
+   HR30 MES trigger price: back only at decimal odds 1.79 or longer (breakeven vs the model).
+      Numerical MES: NO DATA — PENDING (HR30 exception — no live price available for this fixture)
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+SC Telstar v Sparta Rotterdam (Eredivisie) | NO DATA — PENDING | — | — | ○
+Willem II v NEC Nijmegen (Eredivisie) | NO DATA — PENDING | — | — | ○
+FC Utrecht v AZ Alkmaar (Eredivisie) | NO DATA — PENDING | — | — | ○
+Sparta Rotterdam v PSV Eindhoven (Eredivisie) | PSV Eindho·72% | O92 / O77 | X288 / Y66 | ○
+Fortuna Sittard v SC Cambuur (Eredivisie) | NO DATA — PENDING | — | — | ○
+ADO Den Haag v FC Groningen (Eredivisie) | NO DATA — PENDING | — | — | ○
+FC Twente Enschede v PEC Zwolle (Eredivisie) | NO DATA — PENDING | — | — | ○
+Feyenoord v Go Ahead Eagles (Eredivisie) | Feyenoord·63% | O86 / O66 | 1X83 / Y62 | ○
+Ajax v SC Heerenveen (Eredivisie) | NO DATA — PENDING | — | — | ○
+Silkeborg v Odense (Danish Superliga) | Odense·44% | O88 / O70 | 1277 / Y71 | ○
+Marseille v Strasbourg (Ligue 1) | Marseille·52% | O86 / O68 | 1279 / Y67 | ○
+RC Lens v AJ Auxerre (Ligue 1) | NO DATA — PENDING | — | — | ○
+Le Mans FC v Brest (Ligue 1) | NO DATA — PENDING | — | — | ○
+Nice v Lorient (Ligue 1) | Lorient·42% | O78 / O55 | 1275 / Y58 | ○
+Toulouse v Lyon (Ligue 1) | Lyon·37% | O73 / U52 | 1273 / Y53 | ○
+Troyes v Paris FC (Ligue 1) | NO DATA — PENDING | — | — | ○
+Angers v Lille (Ligue 1) | Lille·50% | O61 / U67 | X279 / N62 | ○
+Le Havre v Monaco (Ligue 1) | Monaco·42% | O74 / U52 | 1274 / Y53 | ○
+Paris Saint-Germain v Rennes (Ligue 1) | NO DATA — PENDING | — | — | ○
+Iberia 1999 v Larne (Europa League) | NO DATA — PENDING | — | — | ○
+Rangers v Jagiellonia (Europa League) | Rangers·53% | O80 / O57 | 1X77 / Y57 | ○
+Egnatia v Shamrock Rovers (Europa League) | NO DATA — PENDING | — | — | ○
+Vikingur Reykjavik v Thun (Europa League) | NO DATA — PENDING | — | — | ○
+Universitatea Craiova v KuPS (Europa League) | NO DATA — PENDING | — | — | ○
+KÍ Klaksvík v Lech Poznan (Europa League) | NO DATA — PENDING | — | — | ○
+Omonia Nicosia v Lincoln Red Imps (Europa League) | NO DATA — PENDING | — | — | ○
+Hearts v Benfica (Europa League) | Benfica·63% | O80 / O57 | X284 / Y53 | ○
+Gornik Zabrze v Ferencvarosi TC (Europa League) | Gornik Zab·45% | O82 / O60 | 1276 / Y62 | ○
+Beşiktaş v Hradec Králové (Europa League) | NO DATA — PENDING | — | — | ○
+Anderlecht v PAOK (Europa League) | Anderlecht·53% | O74 / U52 | 1X78 / Y51 | ○
+CSKA Sofia v Maccabi Tel Aviv (Europa League) | NO DATA — PENDING | — | — | ○
+Red Bull Salzburg v Pafos (Europa League) | Pafos·88% | O92 / O77 | X296 / N53 | ○
+Santa Clara v Nacional (Primeira Liga) | Santa Clar·38% | O56 / U71 | 1X71 / N63 | ○
+Arsenal v Coventry City (Premier League) | NO DATA — PENDING | — | — | ○
+Hull City v Man Utd (Premier League) | NO DATA — PENDING | — | — | ○
+Everton v Crystal Palace (Premier League) | Everton·44% | O68 / U61 | 1X76 / N54 | ○
+Ipswich Town v Sunderland AFC (Premier League) | NO DATA — PENDING | — | — | ○
+Nottm Forest v Leeds United (Premier League) | NO DATA — PENDING | — | — | ○
+Brentford v Tottenham (Premier League) | Brentford·50% | O80 / O55 | 1X77 / Y58 | ○
+Brighton v Aston Villa (Premier League) | Brighton·41% | O74 / U53 | 1X71 / Y53 | ○
+Man City v Bournemouth (Premier League) | Man City·67% | O85 / O63 | 1X88 / Y57 | ○
+Newcastle v Liverpool (Premier League) | Liverpool·37% | O84 / O61 | 1273 / Y65 | ○
+Fulham v Chelsea (Premier League) | Fulham·36% | O76 / U50 | 1270 / Y56 | ○
+Alaves v Getafe (La Liga) | Alaves·40% | O52 / U75 | 1X73 / N67 | ○
+Sevilla v Rayo Vallecano (La Liga) | NO DATA — PENDING | — | — | ○
+Racing Santander v Villarreal (La Liga) | NO DATA — PENDING | — | — | ○
+Espanyol v Levante (La Liga) | NO DATA — PENDING | — | — | ○
+Celta v Osasuna (La Liga) | Celta·53% | O71 / U55 | 1X79 / N53 | ○
+RC Deportivo De La Coruna v Mechelen (La Liga) | NO DATA — PENDING | — | — | ○
+Atletico Madrid v Malaga CF (La Liga) | NO DATA — PENDING | — | — | ○
+Rayo Vallecano v Alaves (La Liga) | NO DATA — PENDING | — | — | ○
+Real Betis v Real Sociedad (La Liga) | NO DATA — PENDING | — | — | ○
+Athletic Bilbao v Sevilla (La Liga) | NO DATA — PENDING | — | — | ○
+Valencia v Celta (La Liga) | Valencia·39% | O73 / U53 | 1273 / Y52 | ○
+Espanyol v Real Madrid (La Liga) | NO DATA — PENDING | — | — | ○
+Atletico Madrid v Villarreal (La Liga) | NO DATA — PENDING | — | — | ○
+Getafe v Racing Santander (La Liga) | NO DATA — PENDING | — | — | ○
+Mechelen v Barcelona (La Liga) | NO DATA — PENDING | — | — | ○
+Osasuna v Levante (La Liga) | Osasuna·51% | O74 / U52 | 1X76 / Y51 | ○
+Malaga CF v RC Deportivo De La Coruna (La Liga) | NO DATA — PENDING | — | — | ○
+Valencia v Real Betis (La Liga) | NO DATA — PENDING | — | — | ○
+Real Madrid v Real Sociedad (La Liga) | NO DATA — PENDING | — | — | ○
+Barcelona v Athletic Bilbao (La Liga) | NO DATA — PENDING | — | — | ○
+Lyon v Sparta Praha (Champions League) | Lyon·85% | O91 / O77 | 1X95 / Y51 | ○
+Bodo/Glimt v St. Gilloise (Champions League) | St. Gilloi·47% | O70 / U56 | X275 / N52 | ○
+Nijmegen v Olympiakos Piraeus (Champions League) | Olympiakos·47% | U52 / U79 | X282 / N73 | ○
+Celje v Ararat-Armenia (Champions League) | NO DATA — PENDING | — | — | ○
+FK Crvena Zvezda v Hapoel Be'er Sheva (Champions League) | NO DATA — PENDING | — | — | ○
+Sturm Graz v Fenerbahçe (Champions League) | Fenerbahçe·44% | O57 / U70 | X276 / N63 | ○
+Slovan Bratislava v Mjällby (Champions League) | NO DATA — PENDING | — | — | ○
+Kairat Almaty v Levski Sofia (Champions League) | NO DATA — PENDING | — | — | ○
+Kauno Žalgiris v Dinamo Zagreb (Champions League) | NO DATA — PENDING | — | — | ○
+Sabah Baku v Aarhus (Champions League) | NO DATA — PENDING | — | — | ○
+
+PART 3 — REJECTED / WATCHLIST
+SC Telstar v Sparta Rotterdam (Eredivisie): NO DATA — PENDING: 'SC Telstar' is likely 'Telstar' (name similarity 0.82) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Willem II v NEC Nijmegen (Eredivisie): NO DATA — PENDING: 'Willem II' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'NEC Nijmegen' is likely 'Nijmegen' (name similarity 0.80) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+FC Utrecht v AZ Alkmaar (Eredivisie): NO DATA — PENDING: 'FC Utrecht' is likely 'Utrecht' (name similarity 0.82) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Fortuna Sittard v SC Cambuur (Eredivisie): NO DATA — PENDING: 'Fortuna Sittard' is likely 'For Sittard' (name similarity 0.85) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'SC Cambuur' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+ADO Den Haag v FC Groningen (Eredivisie): NO DATA — PENDING: 'ADO Den Haag' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'FC Groningen' is likely 'Groningen' (name similarity 0.86) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+FC Twente Enschede v PEC Zwolle (Eredivisie): NO DATA — PENDING: 'FC Twente Enschede' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'PEC Zwolle' is likely 'Zwolle' (name similarity 0.75) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Ajax v SC Heerenveen (Eredivisie): NO DATA — PENDING: 'SC Heerenveen' is likely 'Heerenveen' (name similarity 0.87) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+RC Lens v AJ Auxerre (Ligue 1): NO DATA — PENDING: 'RC Lens' is likely 'Lens' (name similarity 0.73) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'AJ Auxerre' is likely 'Auxerre' (name similarity 0.82) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Le Mans FC v Brest (Ligue 1): NO DATA — PENDING: 'Le Mans FC' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Troyes v Paris FC (Ligue 1): NO DATA — PENDING: 'Troyes' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Paris Saint-Germain v Rennes (Ligue 1): NO DATA — PENDING: 'Paris Saint-Germain' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Iberia 1999 v Larne (Europa League): NO DATA — PENDING: 'Iberia 1999' is likely 'Hibernian' (name similarity 0.60) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Egnatia v Shamrock Rovers (Europa League): NO DATA — PENDING: 'Egnatia' is likely 'Legia' (name similarity 0.67) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Vikingur Reykjavik v Thun (Europa League): NO DATA — PENDING: 'Thun' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Universitatea Craiova v KuPS (Europa League): NO DATA — PENDING: 'Universitatea Craiova' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'KuPS' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+KÍ Klaksvík v Lech Poznan (Europa League): NO DATA — PENDING: 'KÍ Klaksvík' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Omonia Nicosia v Lincoln Red Imps (Europa League): NO DATA — PENDING: 'Lincoln Red Imps' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Beşiktaş v Hradec Králové (Europa League): NO DATA — PENDING: 'Hradec Králové' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+CSKA Sofia v Maccabi Tel Aviv (Europa League): NO DATA — PENDING: 'CSKA Sofia' is likely 'Casa Pia' (name similarity 0.67) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Arsenal v Coventry City (Premier League): NO DATA — PENDING: 'Coventry City' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Hull City v Man Utd (Premier League): NO DATA — PENDING: 'Hull City' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Man Utd' is likely 'Man United' (name similarity 0.82) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Ipswich Town v Sunderland AFC (Premier League): NO DATA — PENDING: 'Ipswich Town' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Sunderland AFC' is likely 'Sunderland' (name similarity 0.83) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Nottm Forest v Leeds United (Premier League): NO DATA — PENDING: 'Nottm Forest' is likely 'Nott'm Forest' (name similarity 0.96) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Leeds United' is likely 'Man United' (name similarity 0.64) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Sevilla v Rayo Vallecano (La Liga): NO DATA — PENDING: 'Rayo Vallecano' is likely 'Vallecano' (name similarity 0.78) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Racing Santander v Villarreal (La Liga): NO DATA — PENDING: 'Racing Santander' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Espanyol v Levante (La Liga): NO DATA — PENDING: 'Espanyol' is likely 'Espanol' (name similarity 0.93) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+RC Deportivo De La Coruna v Mechelen (La Liga): NO DATA — PENDING: 'RC Deportivo De La Coruna' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Mechelen' is likely 'Elche' (name similarity 0.61) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Atletico Madrid v Malaga CF (La Liga): NO DATA — PENDING: 'Atletico Madrid' is likely 'Ath Madrid' (name similarity 0.72) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Malaga CF' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Rayo Vallecano v Alaves (La Liga): NO DATA — PENDING: 'Rayo Vallecano' is likely 'Vallecano' (name similarity 0.78) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Real Betis v Real Sociedad (La Liga): NO DATA — PENDING: 'Real Betis' is likely 'Betis' (name similarity 0.67) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Real Sociedad' is likely 'Sociedad' (name similarity 0.76) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Athletic Bilbao v Sevilla (La Liga): NO DATA — PENDING: 'Athletic Bilbao' is likely 'Ath Bilbao' (name similarity 0.80) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Espanyol v Real Madrid (La Liga): NO DATA — PENDING: 'Espanyol' is likely 'Espanol' (name similarity 0.93) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Atletico Madrid v Villarreal (La Liga): NO DATA — PENDING: 'Atletico Madrid' is likely 'Ath Madrid' (name similarity 0.72) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Getafe v Racing Santander (La Liga): NO DATA — PENDING: 'Racing Santander' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Mechelen v Barcelona (La Liga): NO DATA — PENDING: 'Mechelen' is likely 'Elche' (name similarity 0.61) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Malaga CF v RC Deportivo De La Coruna (La Liga): NO DATA — PENDING: 'Malaga CF' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'RC Deportivo De La Coruna' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Valencia v Real Betis (La Liga): NO DATA — PENDING: 'Real Betis' is likely 'Betis' (name similarity 0.67) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Real Madrid v Real Sociedad (La Liga): NO DATA — PENDING: 'Real Sociedad' is likely 'Sociedad' (name similarity 0.76) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Barcelona v Athletic Bilbao (La Liga): NO DATA — PENDING: 'Athletic Bilbao' is likely 'Ath Bilbao' (name similarity 0.80) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Celje v Ararat-Armenia (Champions League): NO DATA — PENDING: 'Ararat-Armenia' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+FK Crvena Zvezda v Hapoel Be'er Sheva (Champions League): NO DATA — PENDING: 'Hapoel Be'er Sheva' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Slovan Bratislava v Mjällby (Champions League): NO DATA — PENDING: 'Mjällby' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Kairat Almaty v Levski Sofia (Champions League): NO DATA — PENDING: 'Kairat Almaty' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Levski Sofia' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Kauno Žalgiris v Dinamo Zagreb (Champions League): NO DATA — PENDING: 'Kauno Žalgiris' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Sabah Baku v Aarhus (Champions League): NO DATA — PENDING: 'Sabah Baku' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 73
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+TODAY'S PRODUCED BET — 2026-08-10
+2 produced leg(s), today's fixtures alone (ID415). MARKED PAPER — Phase 2, zero capital.
+
+1. Silkeborg v Odense (Danish Superliga)
+   Pick: Odense to win (44%)
+   Best market: Draw at 3.60 — -17.87% EV
+2. Santa Clara v Nacional (Primeira Liga)
+   Pick: Santa Clara to win (38%)
+
+🎯 TODAY'S 4-LEG ACCA — 2026-08-10 (today's fixtures only)
+  Acca 1 — 1 legs
+    Silkeborg v Odense (Danish Superliga) — Draw @ 3.60 (23%), EV -17.9%
+    Combined 3.60 (≈23% all four win — legs are not independent)
+    NOTE: only 1 eligible today — acca shortened, not padded (HR35)
+  Capital gate (ID405): every leg is Draw or Under 2.5 — the only markets cleared for capital.
+  PAPER — Phase 2, zero capital. Booking codes are generated for your review; YOU approve and paste.
+  HONEST EDGE LINE: excellent informed process, NOT a demonstrated profitable edge. An acca multiplies variance.
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

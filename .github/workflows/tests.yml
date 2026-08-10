@@ -1,0 +1,55 @@
+# Full test suite — runs on every push + PR, separate from the daily board job.
+# This workflow is strictly tests; it does NOT write CLV logs back to the repo.
+
+name: OLP XDV test suite
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: olp-xdv-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit + integration tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install test dependencies
+        run: |
+          pip install ruff mypy pytest pytest-cov pre-commit
+
+      - name: Lint (ruff)
+        run: python -m ruff check .
+
+      - name: Type check (mypy gate scope)
+        run: python -m mypy --config-file pyproject.toml
+
+      - name: Unit tests with coverage
+        run: |
+          python -m pytest tests/ -v --cov=olp_xdv --cov-report=term-missing --cov-report=xml
+
+      - name: Integration test (full pipeline on synthetic data)
+        run: python tests/integration_test.py
+
+      - name: Upload coverage to Codecov (optional, requires CODECOV_TOKEN)
+        if: env.CODECOV_TOKEN != ''
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false
+
+  # The daily board workflow (daily.yml) already runs the pipeline and commits
+  # the CLV log. This job is ONLY the test suite — it never mutates the repo.

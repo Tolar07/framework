@@ -64,7 +64,7 @@ python_functions = ["test_*"]
 addopts = "-v --tb=short"
 
 [tool.coverage.run]
-source = ["olp_xdv"]
+source = ["."]
 omit = ["*/tests/*", "*/__pycache__/*"]
 
 [tool.coverage.report]

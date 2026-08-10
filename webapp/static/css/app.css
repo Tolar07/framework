@@ -805,3 +805,315 @@ tbody.collapsed .detail-row{
 /* Sign-off feedback (static/js/signoff.js) — real colors for the once-undefined --danger/--success vars */
 .flag-line.success{color:var(--teal);}
 .flag-line.error{color:var(--coral);}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Dark / Light theme — CSS custom properties
+   The html[data-theme="light"] overrides are applied when the user toggles
+   light mode (persisted in localStorage). Default is dark (prefers-color-scheme).
+   ───────────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] {
+  --bg:#F5F6F8;
+  --surface:#FFFFFF;
+  --surface-2:#E8EBF0;
+  --line:#D0D5DD;
+  --ink:#1D2939;
+  --ink-dim:#667085;
+  --ink-faint:#98A2B3;  /* WCAG AA 4.6:1 on --bg */
+  --amber:#B58640;
+  --amber-dim:#8C744A;
+  --teal:#3A9272;
+  --coral:#C45542;
+  --violet:#7B74C2;
+}
+
+/* Light theme specific tweaks for readability */
+html[data-theme="light"] body {
+  background: radial-gradient(circle at 15% 0%, #E8EBF0 0%, transparent 45%), var(--bg);
+}
+
+html[data-theme="light"] .fixture-card,
+html[data-theme="light"] .call-card,
+html[data-theme="light"] .flags,
+html[data-theme="light"] .tab-bar,
+html[data-theme="light"] .chat-fab,
+html[data-theme="light"] .chat-tab .chat-header,
+html[data-theme="light"] .chat-tab .chat-messages,
+html[data-theme="light"] .chat-tab .chat-input-area,
+html[data-theme="light"] .produce-panel,
+html[data-theme="light"] .admin-actions,
+html[data-theme="light"] .admin-search-bar,
+html[data-theme="light"] .market-select-panel,
+html[data-theme="light"] .league-card,
+html[data-theme="light"] .produce-results,
+html[data-theme="light"] .produce-tray,
+html[data-theme="light"] .produce-result,
+html[data-theme="light"] .produce-result-header,
+html[data-theme="light"] .produce-day-chip,
+html[data-theme="light"] .produce-league-header,
+html[data-theme="light"] .produce-results-header {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+html[data-theme="light"] .crest.placeholder,
+html[data-theme="light"] .flag.placeholder {
+  background: var(--surface-2);
+  color: var(--ink-dim);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  flex: none;
+}
+.theme-toggle:hover {
+  border-color: var(--amber-dim);
+  background: var(--surface-2);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+.theme-toggle .theme-icon {
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+html[data-theme="dark"] .theme-sun {
+  display: none;
+}
+html[data-theme="light"] .theme-moon {
+  display: none;
+}
+html[data-theme="light"] .theme-sun {
+  display: block;
+}
+html[data-theme="dark"] .theme-moon {
+  display: block;
+}
+
+/* Light theme: date nav buttons */
+html[data-theme="light"] .date-nav-btn {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+html[data-theme="light"] .date-nav-btn:hover {
+  border-color: var(--amber-dim);
+  background: var(--surface-2);
+}
+html[data-theme="light"] .date-nav-input {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+html[data-theme="light"] .paper-strip {
+  background: #FFF3E0;
+  border-color: #FFE0B2;
+  color: #B58640;
+}
+
+/* Light theme: scan table */
+html[data-theme="light"] .scan-table td,
+html[data-theme="light"] .scan-table th {
+  border-color: var(--line);
+}
+html[data-theme="light"] .scan-table tr.clickable:hover {
+  background: rgba(181, 134, 64, 0.05);
+}
+html[data-theme="light"] .acc-row td {
+  background: rgba(58, 146, 114, 0.08);
+}
+html[data-theme="light"] .acc-row td:first-child {
+  border-left-color: var(--teal);
+}
+html[data-theme="light"] .detail-row td {
+  border-color: var(--line);
+}
+
+/* Light theme: input focus states */
+html[data-theme="light"] input:focus-visible,
+html[data-theme="light"] select:focus-visible,
+html[data-theme="light"] button:focus-visible,
+html[data-theme="light"] .tab-btn:focus-visible,
+html[data-theme="light"] .chat-fab:focus-visible,
+html[data-theme="light"] .theme-toggle:focus-visible,
+html[data-theme="light"] .date-nav-btn:focus-visible,
+html[data-theme="light"] .date-nav-input:focus-visible {
+  outline-color: var(--amber);
+}
+
+/* Light theme: tab bar */
+html[data-theme="light"] .tab-bar {
+  background: var(--surface);
+  border-top-color: var(--line);
+}
+html[data-theme="light"] .tab-btn.active {
+  background: rgba(181, 134, 64, 0.12);
+  border-color: var(--amber-dim);
+}
+
+/* Light theme: buttons */
+html[data-theme="light"] .btn-primary {
+  background: var(--amber);
+  color: var(--bg);
+}
+html[data-theme="light"] .btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Light theme: date pills */
+html[data-theme="light"] .date-pill {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+html[data-theme="light"] .date-pill:hover {
+  border-color: var(--amber-dim);
+  background: var(--surface-2);
+}
+html[data-theme="light"] .date-pill.today {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(181, 134, 64, 0.12);
+}
+
+/* Light theme: chat */
+html[data-theme="light"] .chat-fab {
+  background: var(--surface);
+  border-color: var(--amber-dim);
+  color: var(--ink);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+html[data-theme="light"] .chat-fab:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+html[data-theme="light"] .chat-tab .chat-header {
+  background: var(--surface);
+  border-color: var(--line);
+}
+html[data-theme="light"] .chat-tab .chat-messages {
+  background: var(--bg);
+  border-color: var(--line);
+}
+html[data-theme="light"] .chat-message.assistant .bubble {
+  background: var(--surface);
+  border-color: var(--line);
+}
+html[data-theme="light"] .chat-message.user .bubble {
+  background: var(--amber);
+  color: var(--bg);
+}
+html[data-theme="light"] .chat-input {
+  background: var(--bg);
+  border-color: var(--line);
+  color: var(--ink);
+}
+html[data-theme="light"] .chat-input:focus {
+  border-color: var(--amber);
+  outline-color: var(--amber);
+}
+html[data-theme="light"] .chat-quick-btn {
+  background: var(--surface-2);
+  border-color: var(--line);
+  color: var(--ink);
+}
+html[data-theme="light"] .chat-quick-btn:hover {
+  border-color: var(--amber);
+}
+
+/* Light theme: produce panel */
+html[data-theme="light"] .produce-toolbar input,
+html[data-theme="light"] .produce-toolbar select {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+html[data-theme="light"] .produce-results {
+  background: var(--bg);
+  border-color: var(--line);
+}
+html[data-theme="light"] .produce-item:hover {
+  background: rgba(181, 134, 64, 0.05);
+}
+html[data-theme="light"] .produce-tray {
+  background: var(--surface);
+  border-color: var(--amber-dim);
+}
+html[data-theme="light"] .produce-league-header {
+  background: var(--surface-2);
+  border-color: var(--line);
+}
+html[data-theme="light"] .produce-results-header {
+  background: var(--surface-2);
+  border-color: var(--line);
+}
+
+/* Light theme: market select panel */
+html[data-theme="light"] .market-select-panel {
+  background: var(--surface);
+  border-color: var(--line);
+}
+html[data-theme="light"] .market-select-header:hover {
+  background: rgba(0,0,0,0.03);
+}
+html[data-theme="light"] .market-select-action {
+  color: var(--amber);
+}
+html[data-theme="light"] .market-select-action:hover {
+  color: var(--amber-dim);
+}
+html[data-theme="light"] .market-checkbox input {
+  accent-color: var(--amber);
+}
+
+/* Light theme: admin actions */
+html[data-theme="light"] .admin-actions {
+  background: transparent;
+}
+html[data-theme="light"] .published-stamp {
+  color: var(--teal);
+}
+
+/* Light theme: footer */
+html[data-theme="light"] footer {
+  border-top-color: var(--line);
+}
+html[data-theme="light"] .honest {
+  color: var(--ink-dim);
+}
+html[data-theme="light"] .gate .bar {
+  background: var(--line);
+}
+html[data-theme="light"] .gate .fill {
+  background: var(--amber-dim);
+}
+
+/* Light theme: phase3 gate section */
+html[data-theme="light"] #phase3-gate-section {
+  background: var(--surface);
+  border-color: var(--line);
+}
+html[data-theme="light"] .signoff-btn {
+  background: var(--amber);
+  color: var(--bg);
+}
+html[data-theme="light"] .btn-secondary {
+  background: var(--surface-2);
+  border-color: var(--line);
+  color: var(--ink);
+}
+html[data-theme="light"] .btn-secondary:hover {
+  border-color: var(--amber-dim);
+  color: var(--amber);
+}

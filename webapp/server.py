@@ -333,32 +333,49 @@ class Handler(BaseHTTPRequestHandler):
                 payload = self._load_published(d)
                 if payload is None:
                     return self._not_found_html(R.render_404_html(d, today))
-                self._render(R.render_dashboard(payload))
+                # The NEW prototype design (render_v2). Booking codes come from
+                # the day's acca_<date>_codes.json (schema.read_booking_codes);
+                # live scores are fetched client-side by proto.js so page load
+                # stays fast and the badge refreshes during a match.
+                from webapp import render_v2 as V2
+                self._render(V2.render_dashboard(
+                    payload, booking_codes=S.read_booking_codes(d)))
 
             # --- admin view (no auth required) -----------------------------
             elif path in ("/admin", "/admin/"):
                 self._redirect(f"/admin/{today}")
 
             elif path.startswith("/admin/"):
+                if not self._require_admin():
+                    return
                 d = path[len("/admin/"):]
                 if not _DT.match(d):
                     return self._not_found()
                 payload = self._load_payload(d)
                 if payload is None:
                     return self._not_found_html(R.render_404_html(d, today))
-                self._render(R.render_admin_dashboard(payload))
+                # The NEW light-theme admin (render_v2). Booking codes are the
+                # Architect's betslip recall codes — codes only, never a stake.
+                from webapp import render_v2 as V2
+                self._render(V2.render_admin_dashboard(
+                    payload, booking_codes=S.read_booking_codes(d)))
 
             # --- history (a date list, no internals — stays public) ------
             elif path == "/history":
                 self._render(R.render_history_html(_board_dates(), today))
 
-            # --- internals pages (no auth) --------------------------------
+            # --- internals pages: admin-only (restored 2026-08-10 — commit
+            # 2f41a4f had silently dropped the _require_admin() guards) -----
             elif path == "/stats":
+                if not self._require_admin():
+                    return
                 with _brain() as b:
                     from brain.report import render_stats
                     self._render(R.render_stats_html(render_stats(b), today))
 
             elif path == "/why":
+                if not self._require_admin():
+                    return
                 fixture = (qs.get("fixture") or [""])[0]
                 d = (qs.get("date") or [today])[0]
                 if not fixture:
@@ -389,12 +406,27 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(payload)
 
             elif path == "/api/admin/board.json":
+                if not self._require_admin():
+                    return
                 payload = self._load_payload(today)
                 if payload is None:
                     return self._not_found()
                 self._json(payload)
 
+            elif path.startswith("/api/admin/board/"):
+                if not self._require_admin():
+                    return
+                d = path[len("/api/admin/board/"):].removesuffix(".json")
+                if not _DT.match(d):
+                    return self._not_found()
+                payload = self._load_payload(d)
+                if payload is None:
+                    return self._not_found()
+                self._json(payload)
+
             elif path == "/api/stats.json":
+                if not self._require_admin():
+                    return
                 with _brain() as b:
                     from brain.report import render_stats
                     self._json({"text": render_stats(b)})
@@ -428,6 +460,11 @@ class Handler(BaseHTTPRequestHandler):
         self._req_started = time.time()  # duration_ms for the JSONL access log
         parsed = urlparse(self.path)
         path = parsed.path
+        # Every mutating admin endpoint requires Basic auth (restored 2026-08-10:
+        # commit 2f41a4f had silently dropped the auth guard on these too).
+        if path.startswith("/api/admin") or path == "/api/trigger-board":
+            if not self._require_admin():
+                return
         if path == "/api/admin/publish":
             try:
                 import json
@@ -544,6 +581,35 @@ class Handler(BaseHTTPRequestHandler):
                     return
             except Exception as e:
                 self._json({"ok": False, "error": str(e)})
+            return
+
+        # Trigger Production — a REAL on-demand orchestrator run (not a stub).
+        # Runs the full pipeline for the chosen date and writes the board to
+        # BOARD_DIR. Sends are forced OFF: a manual trigger produces the web
+        # board only, it never pushes to Telegram/WhatsApp/email. A second
+        # concurrent run is refused (409) rather than raced.
+        if path == "/api/trigger-board":
+            d = (parse_qs(parsed.query).get("date") or [today])[0]
+            if not _DT.match(d):
+                self._json({"ok": False, "error": "date must be YYYY-MM-DD"})
+                return
+            if getattr(self.server, "_olp_running", False):
+                self._json({"ok": False,
+                            "error": "a production run is already in progress — wait for it to finish"})
+                return
+            self.server._olp_running = True
+            try:
+                import run_daily
+                res = run_daily.run(season="2526", send=False, whatsapp=False,
+                                    email=False, web=True, refresh_sportybet=False,
+                                    booking_codes=True, days_ahead=3)
+                self._json({"ok": True, "date": d,
+                            "message": f"Board produced: {len(res.board)} fixtures, "
+                                       f"{len(res.leagues_scanned)} leagues scanned"})
+            except Exception as e:
+                self._json({"ok": False, "error": f"production failed: {e}"})
+            finally:
+                self.server._olp_running = False
             return
 
         self._not_found()

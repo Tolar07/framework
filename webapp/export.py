@@ -36,7 +36,7 @@ STATIC_SRC = Path(__file__).parent / "static"
 
 
 def export(date_str: str, out: Path) -> list[Path]:
-    from webapp import render as R
+    from webapp import render_v2 as R
     from webapp import schema as S
 
     # The export is the PUBLIC face — it reads ONLY from the published store.

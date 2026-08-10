@@ -47,3 +47,19 @@ are recorded in the Claude memory note `olp-xdv-agent`. Board decisions are
 ratified in `RATIFICATIONS.md` (append-only). The honest-edge statement and the
 capital block (Phase 2 = paper only, zero capital) are Architect bright lines —
 never bypassed.
+
+## everything-claude-code integration
+
+This repo uses the **everything-claude-code** plugin (installed at `.claude/` from
+`C:\Users\Motunrayo\Downloads\everything-claude-code-main\everything-claude-code-main`).
+All agents, skills, commands, rules, hooks, and contexts are available in every session.
+
+Key components now available:
+- **Agents**: planner, architect, tdd-guide, code-reviewer, security-reviewer, build-error-resolver, e2e-runner, refactor-cleaner, doc-updater
+- **Skills**: coding-standards, backend-patterns, frontend-patterns, continuous-learning, strategic-compact, tdd-workflow, security-review, eval-harness, verification-loop
+- **Commands**: /plan, /tdd, /e2e, /code-review, /build-fix, /refactor-clean, /learn, /checkpoint, /verify, /setup-pm
+- **Rules**: security, coding-style, testing, git-workflow, agents, performance, patterns, hooks
+- **Hooks**: tmux reminders, git push review, doc blocking, PR logging, prettier, TypeScript check, console.log audit, session persistence, continuous learning extraction
+- **Contexts**: dev, review, research modes for dynamic system prompt injection
+
+**Use these proactively** — e.g., `tdd-guide` for new features, `code-reviewer` after writing code, `planner` for complex tasks.

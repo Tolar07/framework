@@ -123,16 +123,42 @@ def _pct_of(x) -> str:
 # CLIENT — the mobile-first Call / Scan / Analyst view
 # ─────────────────────────────────────────────────────────────────────────────
 def _client_market_rows(bf: dict) -> str:
-    """The expandable market detail for a client card (derived ONLY from the
-    client-safe `probs` — no model internals reach this markup)."""
+    """The FULL market detail for a client card (Architect 2026-08-10): every
+    approved market — 1X2, Over/Under 1.5, Over/Under 2.5, BTTS and Double
+    Chance — derived ONLY from the client-safe `probs`, no model internals.
+    The client sees the whole picture and makes the decision; the recommended
+    acca + call sit above it."""
     p = bf.get("probs") or {}
+    ph, pd, pa = p.get("p_home"), p.get("p_draw"), p.get("p_away")
+    o15, o25 = p.get("p_over_15"), p.get("p_over_25")
+    btts = p.get("p_btts_yes")
+    u15 = None if o15 is None else 1 - o15
+    u25 = None if o25 is None else 1 - o25
+    btts_no = None if btts is None else 1 - btts
+    dc1x = None if (ph is None or pd is None) else ph + pd
+    dcx2 = None if (pd is None or pa is None) else pd + pa
+    dc12 = None if (ph is None or pa is None) else ph + pa
+
+    def row(name: str, val) -> str:
+        return f'<div class="c-mkt-row"><span>{html.escape(name)}</span>' \
+               f"<b>{_pct_of(val)}</b></div>"
+
     pick_label, pick_prob = _pick(bf)
     rows = [
-        f'<div class="c-mkt-row"><span>{html.escape(pick_label)}</span>'
+        f'<div class="c-mkt-row pick"><span>{html.escape(pick_label)}</span>'
         f"<b>{html.escape(pick_prob)}</b></div>",
-        f'<div class="c-mkt-row"><span>Draw</span><b>{_pct_of(p.get("p_draw"))}</b></div>',
-        f'<div class="c-mkt-row"><span>Over 1.5 goals</span><b>{_pct_of(p.get("p_over_15"))}</b></div>',
-        f'<div class="c-mkt-row"><span>BTTS Yes</span><b>{_pct_of(p.get("p_btts_yes"))}</b></div>',
+        row("Home win", ph),
+        row("Draw", pd),
+        row("Away win", pa),
+        row("Over 1.5 goals", o15),
+        row("Under 1.5 goals", u15),
+        row("Over 2.5 goals", o25),
+        row("Under 2.5 goals", u25),
+        row("BTTS Yes", btts),
+        row("BTTS No", btts_no),
+        row("Double Chance 1X", dc1x),
+        row("Double Chance X2", dcx2),
+        row("Double Chance 12", dc12),
         f'<div class="c-mkt-row"><span>Deploy at</span>'
         f"<b>{html.escape(_fmt_price(bf.get('mes_trigger_price')))}</b></div>",
     ]
@@ -168,11 +194,13 @@ def _client_call(board: list, accas: list, codes) -> str:
             code = _single_code(codes, bf.get("fixture", ""))
             cards.append(
                 f'<div class="c-card">'
-                f'<button type="button" class="c-card-top" data-detail="call-{i}" aria-expanded="false">'
+                f'<button type="button" class="c-card-top" data-detail="call-{i}" aria-expanded="true">'
                 f'<span><span class="c-fixture">{html.escape(fixture_txt)}</span>'
                 f'<span class="c-league-sub">{html.escape(league)}</span></span>'
                 f'<span class="c-pct">{pct}</span></button>'
-                f'<div class="c-detail" id="call-{i}">{_client_market_rows(bf)}</div>'
+                # Full market grid visible by default (Architect 2026-08-10): the
+                # client sees the whole picture; tapping just collapses it.
+                f'<div class="c-detail open" id="call-{i}">{_client_market_rows(bf)}</div>'
                 f"{_bookcode_block(code)}</div>"
             )
         parts.append(f'<div class="c-grid">{"".join(cards)}</div>')
@@ -259,11 +287,13 @@ def _client_scan(board: list, d: str, today: str, scores: dict) -> str:
             cards.append(
                 f'<div class="c-card scan-row" data-fixture="{html.escape(key)}" '
                 f'data-search="{html.escape(search_hay)}">'
-                f'<button type="button" class="c-card-top" data-detail="scan-{card_i}" aria-expanded="false">'
+                f'<button type="button" class="c-card-top" data-detail="scan-{card_i}" aria-expanded="true">'
                 f'<span class="c-fixture">{html.escape(fixture_txt)}<br>'
                 f'<span style="font-size:10px;color:var(--ink-faint);font-weight:400;">{sub_line}</span></span>'
                 f'<span class="c-pct">{html.escape(pick_prob)}</span></button>'
-                f'<div class="c-detail" id="scan-{card_i}">{_client_market_rows(bf)}</div>'
+                # Full market grid visible by default (Architect 2026-08-10): the
+                # client sees the whole predicted table; tapping just collapses it.
+                f'<div class="c-detail open" id="scan-{card_i}">{_client_market_rows(bf)}</div>'
                 f"</div>"
             )
             card_i += 1
@@ -532,17 +562,25 @@ def render_admin_dashboard(payload: dict, asset_base: str = "/static",
     stat_gate = (f'<div class="{_gate_cls}" data-gate title="Phase 3 CLV gate — publish '
                  f'blocked until met"><b>{clv}/{req}</b>CLV gate</div>')
 
-    # Phase 3 gate detail (opened by the CLV gate stat pill).
+    # Phase 3 gate detail (opened by the CLV gate stat pill). Since 2026-08-10
+    # an explicit Architect sign-off is publish authority even when the
+    # statistical gate is unmet — the detail says so plainly so the Architect
+    # always sees exactly what they are overriding.
     mean_clv = gate.get("mean_clv_pct")
     signoff = "YES" if os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower() == "1" else "no"
     gate_met = _gate_met
+    if gate_met:
+        _gate_status = "PASS — publish allowed"
+    elif signoff == "YES":
+        _gate_status = "OVERRIDE — publish allowed by Architect sign-off"
+    else:
+        _gate_status = "NOT MET — publish blocked"
     gate_detail = (
         f'<div class="a-gate hidden" id="gate-detail">'
         f'<div class="a-gate-row"><b>Legs with CLV:</b> {clv} / {req} required</div>'
         f'<div class="a-gate-row"><b>Mean CLV:</b> {mean_clv if mean_clv is not None else "—"}%</div>'
         f'<div class="a-gate-row"><b>Architect sign-off:</b> {signoff}</div>'
-        f'<div class="a-gate-row"><b>Gate status:</b> '
-        f'{"PASS — publish allowed" if gate_met else "NOT MET — publish blocked"}</div>'
+        f'<div class="a-gate-row"><b>Gate status:</b> {_gate_status}</div>'
         f'</div>'
     )
 

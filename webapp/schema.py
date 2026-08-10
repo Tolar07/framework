@@ -313,45 +313,78 @@ class ClientPublishGateError(RuntimeError):
     """Raised when attempting to publish to client before Phase 3 gate is met."""
 
 
-def check_client_publish_gate(admin_payload: dict, require_architect_signoff: bool = True) -> None:
+def _gate_state(admin_payload: dict) -> dict:
+    """Compute the publish-gate state: the statistical gate + Architect override.
+
+    The statistical gate is `legs_with_clv >= gate_requirement` AND
+    `mean_clv_pct is not None and > 0`. `ARCHITECT_SIGNOFF=1` is the Architect's
+    explicit override of that statistical gate (Architect 2026-08-10): it does
+    NOT pretend the gate is met — it records that the Architect chose to publish
+    knowing the evidence, so `override` stays visible in the audit trail and the
+    honest-edge statement is never removed from the client view."""
+    gate = admin_payload.get("gate", {})
+    legs_with_clv = gate.get("legs_with_clv", 0)
+    mean_clv = gate.get("mean_clv_pct")
+    gate_req = gate.get("gate_requirement", 30)
+    gate_met = (legs_with_clv >= gate_req) and (mean_clv is not None and mean_clv > 0)
+    signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower()
+    signed_off = signoff in ("1", "true", "yes")
+    return {
+        "legs_with_clv": legs_with_clv,
+        "gate_requirement": gate_req,
+        "mean_clv_pct": mean_clv,
+        "gate_met": gate_met,
+        "architect_signed_off": signed_off,
+        "override": (not gate_met) and signed_off,
+    }
+
+
+def check_client_publish_gate(admin_payload: dict, require_architect_signoff: bool = True) -> dict:
     """
-    Hard gate: publishing to the client-facing dashboard is blocked until
-    the Phase 3 CLV gate is met (≥30 legs with logged CLV + positive mean CLV
-    + Architect sign-off). This mirrors config.assert_paper_only() — a code-level
-    hard fail, not a UI-only restriction.
+    Hard gate: publishing to the client-facing dashboard is blocked until the
+    Phase 3 CLV gate is met (≥30 legs with logged CLV + positive mean CLV +
+    Architect sign-off), OR the Architect explicitly overrides it.
+
+    Architect override (2026-08-10): `ARCHITECT_SIGNOFF=1` bypasses the
+    statistical gate. The Architect is publish authority — the same authority
+    they hold over capital (config.assert_paper_only()). The override is never
+    silent: write_published stamps `_gate_state` (gate numbers + override) into
+    the audit log, and the honest-edge statement stays in the client view.
 
     Args:
         admin_payload: The full board payload (must include 'gate' dict with
                        legs_with_clv, mean_clv_pct, gate_requirement)
         require_architect_signoff: If True, also requires ARCHITECT_SIGNOFF=1 in env
 
+    Returns:
+        The gate state dict (see _gate_state) — the caller stamps it into the
+        audit log so an override is never silent.
+
     Raises:
-        ClientPublishGateError: If gate requirements are not met
+        ClientPublishGateError: If the gate is unmet AND no override applies.
     """
-    gate = admin_payload.get("gate", {})
-    legs_with_clv = gate.get("legs_with_clv", 0)
-    mean_clv = gate.get("mean_clv_pct")
-    gate_req = gate.get("gate_requirement", 30)
-
-    if legs_with_clv < gate_req:
-        raise ClientPublishGateError(
-            f"Client publish blocked: {legs_with_clv}/{gate_req} legs with CLV "
-            f"(need ≥{gate_req} for Phase 3 gate)."
-        )
-    if mean_clv is None or mean_clv <= 0:
-        raise ClientPublishGateError(
-            f"Client publish blocked: mean CLV is {mean_clv!r} "
-            f"(must be positive for Phase 3 gate)."
-        )
-
-    # Architect sign-off — explicit env flag (defaults to required)
-    if require_architect_signoff:
-        signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower()
-        if signoff not in ("1", "true", "yes"):
+    st = _gate_state(admin_payload)
+    if st["gate_met"]:
+        if require_architect_signoff and not st["architect_signed_off"]:
             raise ClientPublishGateError(
-                "Client publish blocked: Architect sign-off required. "
-                "Set ARCHITECT_SIGNOFF=1 in .env after reviewing the board."
+                "Client publish blocked: gate met but Architect sign-off "
+                "required — set ARCHITECT_SIGNOFF=1 after reviewing the board."
             )
+        return st
+
+    if require_architect_signoff and st["architect_signed_off"]:
+        # Architect override — the sign-off IS publish authority.
+        return st
+
+    parts = []
+    if st["legs_with_clv"] < st["gate_requirement"]:
+        parts.append(f"{st['legs_with_clv']}/{st['gate_requirement']} legs "
+                     f"with CLV (need ≥{st['gate_requirement']})")
+    if st["mean_clv_pct"] is None or st["mean_clv_pct"] <= 0:
+        parts.append(f"mean CLV {st['mean_clv_pct']!r} (must be positive)")
+    if require_architect_signoff and not st["architect_signed_off"]:
+        parts.append("Architect sign-off (set ARCHITECT_SIGNOFF=1)")
+    raise ClientPublishGateError("Client publish blocked: " + "; ".join(parts) + ".")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -422,10 +455,13 @@ def write_published(admin_payload: dict, approved_by: str = "admin") -> Path:
     internals). We store the TRIMMED version and log the action.
 
     HARD GATE: This call will raise ClientPublishGateError if the Phase 3
-    CLV gate is not met (≥30 legs with CLV + positive mean CLV + Architect sign-off).
+    CLV gate is not met (≥30 legs with CLV + positive mean CLV + Architect
+    sign-off), unless ARCHITECT_SIGNOFF=1 explicitly overrides it (2026-08-10).
+    The gate state — including the override flag and the live gate numbers — is
+    stamped into the audit entry so an override is never silent.
     """
     # Hard gate — mirrors config.assert_paper_only() for capital
-    check_client_publish_gate(admin_payload)
+    gate_state = check_client_publish_gate(admin_payload)
 
     date_str = admin_payload.get("date", "")
     if not date_str:
@@ -446,6 +482,16 @@ def write_published(admin_payload: dict, approved_by: str = "admin") -> Path:
         "n_fixtures": len(trimmed.get("board", [])),
         "n_rated": sum(1 for bf in trimmed.get("board", []) if bf.get("probs") is not None),
         "schema_version": SCHEMA_VERSION,
+        # Gate evidence at publish time (Architect 2026-08-10): the numbers the
+        # Architect published against + whether it was an explicit override.
+        "gate_at_publish": {
+            "legs_with_clv": gate_state["legs_with_clv"],
+            "gate_requirement": gate_state["gate_requirement"],
+            "mean_clv_pct": gate_state["mean_clv_pct"],
+            "gate_met": gate_state["gate_met"],
+            "architect_signed_off": gate_state["architect_signed_off"],
+            "override": gate_state["override"],
+        },
     }
     with AUDIT_LOG.open("a", encoding="utf-8") as f:
         f.write(json.dumps(audit_entry, ensure_ascii=False) + "\n")

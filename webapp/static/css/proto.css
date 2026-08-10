@@ -88,6 +88,7 @@ button{font-family:inherit;cursor:pointer;}
 .c-detail.open{max-height:600px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);}
 .c-mkt-row{display:flex;justify-content:space-between;padding:4px 0;font-size:11.5px;color:var(--ink-dim);}
 .c-mkt-row b{color:var(--ink);font-weight:600;font-family:'IBM Plex Mono',monospace;}
+.c-mkt-row.pick b{color:var(--amber);font-weight:700;}
 .c-mkt-row.total{border-top:1px dashed var(--line);padding-top:6px;margin-top:4px;}
 
 .c-search{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--ink);font-size:12px;margin-bottom:12px;}

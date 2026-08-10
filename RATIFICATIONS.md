@@ -1480,3 +1480,65 @@ the scan sense — it narrows what a production can contain to one day and canno
 admit an off-day fixture. No capital, staking, fabrication, verification or
 honest-edge behaviour changed; a fixture without a provable kickoff date is
 refused rather than guessed (HR35). All webapp test suites green.
+
+---
+
+## 2026-08-10 · FOUR-FIX WORKING DECISION — EFL CUP FIXTURES + ARCHITECT PUBLISH OVERRIDE + FULL CLIENT MARKET GRID + WHOLE-PICTURE CLIENT VIEW — by order of the ARCHITECT
+
+**What the Architect asked** (2026-08-10, after reviewing today's board): four
+interlocking problems — (1) "I've approved EFL as an approved league, but
+today's EFL fixture is not there"; (2) "the publish to clients is blocked
+because it does not meet the standard... If a prediction has been made, 32%...
+why is it blocked? The Architect's sign-off — there's none"; (3) "the market it
+is giving me is not correct. I want whom win, he will win, draw, over an under
+1.5, over an under 2.5, btts and dc"; (4) "I show the client's entire table
+that has predicted, and the client should make a decision. That's why this
+recommended ECCA and the recommended call. The client sees the whole picture
+and they make their decision."
+
+**What changed:**
+
+1. **EFL Cup fixtures survive the history gap** (`orchestrator.py`). The
+   non-cross-league branch for a league with no usable history early-returned
+   `[], flags` before the fixture scan ran — so a real EFL Cup fixture
+   (Plymouth Argyle v Exeter City, 2026-08-10) that the SportyBet cache carried
+   was invisible. It now falls through: the fixture is listed as a
+   **NO DATA — PENDING** row (HR35 wide-eyes), never fabricated, never dropped.
+   Verified end-to-end: `scan_one_league("EFL Cup", "2526")` returns the real
+   fixture with `probs=None` + the honest reason.
+2. **Architect publish override** (`webapp/schema.py`, `render_v2.py`). The
+   Phase 3 gate was three independent hard requirements with **no override**:
+   ≥30 legs with CLV + positive mean CLV + `ARCHITECT_SIGNOFF=1`. Now
+   `ARCHITECT_SIGNOFF=1` **is publish authority** — it bypasses the statistical
+   gate the same way the Architect holds authority over capital. The override is
+   never silent: `_gate_state` (live gate numbers + `override` flag) is stamped
+   into the audit log at publish, and the admin gate detail shows
+   PASS / **OVERRIDE — publish allowed by Architect sign-off** / NOT MET so the
+   Architect always sees exactly what they are overriding. The honest-edge
+   statement stays in the client view. This is an AUTHORITY transfer, not a
+   gate removal: the statistical gate still blocks by default.
+3. **Full market grid** (`webapp/render_v2.py` `_client_market_rows`). Every
+   client card now shows all approved markets: 1X2, Over/Under 1.5,
+   Over/Under 2.5, BTTS Yes/No and Double Chance (1X/X2/12) + Deploy at — all
+   derived **only** from the client-safe `probs` (Under = 1 − Over,
+   BTTS No = 1 − BTTS, DC = sum of the two sides). The recommended pick row is
+   visually distinct (`.c-mkt-row.pick`, amber).
+4. **Whole-picture client view** (`webapp/render_v2.py` + `proto.css`). Market
+   detail is **open by default** on Call and Scan cards (`c-detail open`,
+   `aria-expanded="true"`); tapping collapses. The client sees the full
+   predicted table and makes the decision; the recommended acca + call sit
+   above it.
+
+**Verification:** all webapp suites green — `webapp_schema_test` (gate override
+plus audit stamp), new `webapp_render_v2_test` (13-row grid, derived values,
+open by default, pick highlight, data-leak boundary, gate PASS/OVERRIDE/NOT
+MET), `webapp_render_test`, `webapp_run_daily_test`, `webapp_server_test`,
+`eventsday_fallback_test`, and `multi_league_test` (updated: the EFL Cup now
+produces a NO-DATA row, not an empty board). Lint tools (ruff/mypy) are not
+installed in this environment; the pytest gate stands.
+
+**Authority:** Architect (direct instruction, 2026-08-10). Item 2 transfers
+publish authority to the Architect but **does not** change capital, staking,
+fabrication, verification or honest-edge rules; the statistical gate and the
+honest-edge statement remain. Items 1/3/4 are rendering/scan correctness that
+cannot admit an off-day fixture or fabricate a probability.

@@ -69,8 +69,9 @@ TSDB_ONLY_SPORTS: dict[str, str] = {
     "_europa_league": "Europa League",
 }
 
-# UCL/UEL/cup competitions are scan-only (tier D): no capital. The monitor's
-# job is the OUTCOME evidence, which needs no price.
+# Competitions outside the whitelist (Europa League, etc.) are not deploy-
+# eligible (HR34 — unratified leagues never carry capital); the monitor's job
+# is the OUTCOME evidence, which needs no price.
 SCAN_ONLY = True
 
 

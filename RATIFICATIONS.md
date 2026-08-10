@@ -1578,3 +1578,36 @@ cannot admit an off-day fixture or fabricate a probability.
 - Served `/dashboard/2026-08-07` now shows `render_v2` (Call/Scan/Analyst tabs, Binance palette, chevron affordance, tiles expand individually)
 
 **Authority:** Architect (direct instruction, 2026-08-10). The open-by-default reversal reverses a 2026-08-10 ratified experiment; Binance design and standalone export are additive rendering/export improvements; server restart is operational. No capital, staking, fabrication, verification or honest-edge behaviour changed. HR35 kept (missing data reads NO DATA — PENDING). Data-leak boundary holds (client reads `schema.trim_payload()` published store; test `_assert_external_urls` still green — only approved CDNs).
+
+---
+
+## 2026-08-10 · UNIFIED LEAGUE POOL — softness tiers removed + ID405 market gate opened — ratified by the ARCHITECT
+
+**What:** two structural changes to the deploy book, both Architect-ratified in this session (2026-08-10):
+
+1. **ID402 softness tier system removed.** `SOFTNESS_PAUSED`, `SOFTNESS_TIER`, `DEPLOY_ELIGIBLE_TIERS`, `DEPLOY_POOL_CAP`, `_tier_words()` and all tier-based gating are gone. Every whitelisted league (ID401, 17 leagues) is ONE unified pool — `WHITELISTED_LEAGUES` in `engine/softness.py`. `softness_tier()` is retained only as a back-compat slot returning `"ONE"` (whitelisted) or `"?"` (unrated). `on_deploy_shortlist` is now set by `is_deploy_eligible()` which checks only league membership (HR34 unrated excluded), no tier split. Telegram/web renderers switch from tier-split grouping to a single unified deploy-eligible pool; accas draw from the same unified pool.
+
+2. **ID405 market gate opened.** `engine/markets.py` `BLOCKED` is now empty `{}`; every approved market (1X2 Home/Draw/Away, O/U 1.5, O/U 2.5, BTTS, Double Chance) may carry (paper) capital. The structural `blocked()` function is kept so any future gate can be re-engaged by adding keys back. The original backtest evidence that triggered the gate (Away −2% CLV, Home −0.6% CLV, Over 2.5 −0.7% CLV) is NOT being dismissed — the Architect is choosing to widen the deploy book in Phase 2 paper mode to test forward whether those markets improve or hurt in live observation. No capital is at risk (Phase 2 = paper only, zero capital). If the forward observation shows negative CLV, the Architect may re-close specific markets by re-adding to `BLOCKED`.
+
+**What changed (files):**
+- `engine/softness.py` — `SOFTNESS_TIER` → `WHITELISTED_LEAGUES`, tier system removed, `BLOCKED_DEPLOY_MARKETS` removed
+- `engine/markets.py` — `BLOCKED = {}` (emptied); `DEPLOYABLE` now = all approved 1X2 markets
+- `engine/acca.py` — acca legs may now be any deployable market (not just Draw/Under 2.5)
+- `orchestrator.py` — `FULL_WHITELIST = list(WHITELISTED_LEAGUES)`, `rejection_reason` simplified (no tier-based rejections)
+- `output/produce_bet.py` — tier columns removed from render, unified pool messages
+- `backtest/backtest_report.py`, `backtest/metrics_history.py` — A/B vs C/D control replaced with unified pool summary
+- `brain/store.py` — `clv_by_tier` returns "ONE" bucket instead of per-tier split
+- `clv/closing_capture.py` — scans all whitelisted leagues (not just deploy-eligible tiers)
+- `booking/bridge.py` — uses `WHITELISTED_LEAGUES` (not SOFTNESS_TIER A/B)
+- `league_audit.py` — `deploy_eligible` = any whitelisted league (not just tier-in-A/B)
+- `monitor/data_quality.py` — iterates `WHITELISTED_LEAGUES`
+- `pipeline/odds.py` — docstring updated (all whitelisted, not A/B only)
+- `webapp/render.py`, `webapp/produce.py` — unified pool rendering, no tier badges
+
+**Verification:**
+- Tests run: `softness_mes_test`, `multi_league_test`, `quota_override_test`, `webapp_render_test`, `webapp_render_v2_test`, `webapp_server_test`, `webapp_schema_test` — all green
+- Backward compat: `softness_tier("Eredivisie")` → `"ONE"`, `softness_tier("Unknown")` → `"?"`; `blocked("home win")` → `None` (no block); `DEPLOYABLE` includes Home, Away, Over2.5
+
+**Honesty note:** the 10-league CLV pressure test (RATIFICATIONS 2026-08-08) that added Home to the gate measured those markets as negative. Opening the gate does not make them positive — it only makes them visible for forward observation in paper mode. The honest-edge statement is unchanged: no demonstrated profitable edge exists in any market, and the draw's positive residual is drift.
+
+**Authority:** Architect (direct instruction, 2026-08-10). Reverses the 2026-08-04 ID405 market gate (ratified) and the 2026-08-08 Home addition (ratified). Phase 2 paper-only and zero-capital bright lines remain unchanged. `RATIFICATIONS.md` records the reversal here so it is never silent.

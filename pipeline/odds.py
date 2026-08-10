@@ -109,9 +109,13 @@ SPORT_KEYS = {
     # — Architect 2026-08-10), so its fixtures appear on the daily board.
     "EFL Cup": "soccer_england_efl_cup",
     "J League": "soccer_japan_j_league",
-    # HNL (Croatian First League) — verified live 2026-08-10 against the Odds API
-    # /v4/sports list ("soccer_croatia_hnl", active). football-data.co.uk does not
-    # cover Croatia (no T1 history), so the odds feed is the active fixture-capture
+    # HNL (Croatian First League) — UNVERIFIED PROBE, added 2026-08-10.
+    # The key "soccer_croatia_hnl" is the standard Odds API name for the HNL but
+    # could not be confirmed active at add time (no ODDS_API_KEY in the build
+    # env). HR35: nothing claimed verified without the probe — the next run with
+    # a key must check /v4/sports before trusting this entry (see Phase 3 notes
+    # in docs/LEAGUE_DATA_COVERAGE.md). football-data.co.uk does not cover
+    # Croatia (no T1 history), so the odds feed is the intended fixture-capture
     # path. Fixtures returned are honestly unrated NO DATA until a history source
     # exists (API-Football paid plan is the documented path).
     "HNL": "soccer_croatia_hnl",
@@ -446,9 +450,10 @@ def fixtures_from_odds(league: str, days_ahead: int = 14
 
     A priced event is by definition an upcoming fixture, so where a dedicated
     fixtures source has no verified league ID this recovers the league rather
-    than dropping it. That is what unblocks Ekstraklasa — a tier-B,
-    deploy-eligible league with 306 matches of history and live prices, which
-    was otherwise scanning as NO DATA purely for want of a fixture list.
+    than dropping it. That is what unblocks Ekstraklasa — a whitelisted
+    (unified-pool, deploy-eligible) league with 306 matches of history and live
+    prices, which was otherwise scanning as NO DATA purely for want of a fixture
+    list.
 
     Returns (pairs, dates_by_pair, flags). Deduplicated: the feed can return
     the same fixture more than once, and a duplicate would be logged as two

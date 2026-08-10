@@ -3,8 +3,9 @@
 The product bet (TODAY'S PICKS, THE CALL, the acca set) draws ONLY from
 fixtures kicking off today — nothing else. A fixture with no kickoff date is
 never assumed to be today (HR35), so it cannot be in the bet. The acca set is
-up to 3 four-leg accas, each leg capital-cleared (ID405: today that is Draw +
-Under 2.5).
+up to 3 four-leg accas, each leg capital-cleared (ID405 gate opened 2026-08-10:
+all five markets — 1X2 Home/Draw/Away, Over/Under 1.5, Over/Under 2.5, BTTS,
+Double Chance — are now deployable).
 
 Run directly:  PYTHONIOENCODING=utf-8 py -3.12 tests/acca_builder_test.py
 """
@@ -88,18 +89,17 @@ accas2 = build_accas(board_no_date, today=TODAY, odds_index=None)
 legs2 = {l.fixture for a in accas2 for l in a.legs}
 _check("HR35: no-date fixture excluded", "Undated v Ghost" not in legs2, f"got {legs2}")
 
-# --- 3. capital gate: only Draw + Under 2.5; a blocked-only fixture is skipped
+# --- 3. capital gate: ID405 gate opened 2026-08-10 — all five markets deployable
 board_gate = [
     _bf("Alpha v Beta (Eredivisie)", _probs(d=0.30), TODAY, sb_draw=3.30),
-    # This fixture is priced in a BLOCKED market only (Away) — no capital-
-    # cleared leg, so it cannot be in the acca.
+    # Away is now deployable (gate open) — should appear in the acca.
     _bf("Blocked v Only (Eredivisie)", _probs(h=0.10, d=0.15, a=0.75),
         TODAY, market_key=mkt.AWAY, price=1.60, sb_draw=None),
 ]
 accas3 = build_accas(board_gate, today=TODAY, odds_index=None)
 legs3 = {l.fixture for a in accas3 for l in a.legs}
-_check("ID405: away-priced fixture skipped", legs3 == {"Alpha v Beta"}, f"got {legs3}")
-_check("ID405: leg market is Draw or Under 2.5",
+_check("ID405 gate open: away-priced fixture NOW included", "Blocked v Only" in legs3, f"got {legs3}")
+_check("ID405: leg market may be any of the five deployable markets",
        all(l.market_key in mkt.DEPLOYABLE for a in accas3 for l in a.legs))
 
 # --- 4. up to 3 accas, disjoint 4s, ranked by EV ----------------------------

@@ -355,6 +355,35 @@ def check_client_publish_gate(admin_payload: dict, require_architect_signoff: bo
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Booking codes — SportyBet codes captured from the day's accas
+# ─────────────────────────────────────────────────────────────────────────────
+# booking/booking_codes.py writes acca_<date>_codes.json next to the acca
+# payload. The /admin view surfaces them so the Architect can paste a code into
+# SportyBet to recall the slip — a pre-fill, never a stake (Phase-2 bright
+# line). Missing file → None; the renderer says NO DATA — PENDING (HR35).
+BOARD_DIR = Path(__file__).parent.parent / "output" / "boards"
+
+
+def read_booking_codes(date_str: str) -> Optional[dict]:
+    """Read the day's SportyBet booking codes, or None when not captured yet.
+
+    Codes are Architect-sensitive (they recall a betslip), so this is an
+    admin-only read — the client view never calls it."""
+    path = BOARD_DIR / f"acca_{date_str}_codes.json"
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        # Guard: a codes file must at least carry results; anything else is
+        # treated as absent rather than rendered as a fabricated code (HR35).
+        if not isinstance(data, dict) or not isinstance(data.get("results"), list):
+            return None
+        return data
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Published store — the APPROVE gate boundary
 # ─────────────────────────────────────────────────────────────────────────────
 # The /admin board is the raw run_daily board (all model internals). The client
@@ -362,7 +391,7 @@ def check_client_publish_gate(admin_payload: dict, require_architect_signoff: bo
 # written ONLY by the "Approve → Publish to Client" action. This enforces the
 # Architect's intent: nothing reaches the client without an explicit approval,
 # same principle as capital staying Architect-only.
-PUBLISHED_DIR = Path(__file__).parent.parent / "output" / "boards" / "published"
+PUBLISHED_DIR = BOARD_DIR / "published"
 AUDIT_LOG = PUBLISHED_DIR / "publish_audit.jsonl"
 
 

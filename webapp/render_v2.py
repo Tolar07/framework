@@ -155,22 +155,27 @@ def _client_call(board: list, accas: list, codes) -> str:
     if not singles:
         parts.append('<div class="c-empty">NO DATA — PENDING: no deploy-shortlist '
                      'fixtures rated on this board yet.</div>')
-    for i, bf in enumerate(singles):
-        home, away, league = _teams(bf)
-        p = bf.get("probs") or {}
-        pct = _pct_of(bf.get("best_model_prob"))
-        fixture_txt = f"{home} v {away}" if home and away and away != "—" \
-            else _short_fixture(bf.get("fixture", ""))
-        code = _single_code(codes, bf.get("fixture", ""))
-        parts.append(
-            f'<div class="c-card">'
-            f'<button type="button" class="c-card-top" data-detail="call-{i}" aria-expanded="false">'
-            f'<span><span class="c-fixture">{html.escape(fixture_txt)}</span>'
-            f'<span class="c-league-sub">{html.escape(league)}</span></span>'
-            f'<span class="c-pct">{pct}</span></button>'
-            f'<div class="c-detail" id="call-{i}">{_client_market_rows(bf)}</div>'
-            f"{_bookcode_block(code)}</div>"
-        )
+    else:
+        # .c-grid widens with the viewport (1 col phone -> 2 -> 3 on desktop) so
+        # the app fills the screen edge-to-edge instead of a fixed phone column.
+        cards = []
+        for i, bf in enumerate(singles):
+            home, away, league = _teams(bf)
+            p = bf.get("probs") or {}
+            pct = _pct_of(bf.get("best_model_prob"))
+            fixture_txt = f"{home} v {away}" if home and away and away != "—" \
+                else _short_fixture(bf.get("fixture", ""))
+            code = _single_code(codes, bf.get("fixture", ""))
+            cards.append(
+                f'<div class="c-card">'
+                f'<button type="button" class="c-card-top" data-detail="call-{i}" aria-expanded="false">'
+                f'<span><span class="c-fixture">{html.escape(fixture_txt)}</span>'
+                f'<span class="c-league-sub">{html.escape(league)}</span></span>'
+                f'<span class="c-pct">{pct}</span></button>'
+                f'<div class="c-detail" id="call-{i}">{_client_market_rows(bf)}</div>'
+                f"{_bookcode_block(code)}</div>"
+            )
+        parts.append(f'<div class="c-grid">{"".join(cards)}</div>')
     parts.append('<div class="c-panel-head" style="margin-top:18px;">'
                  'The Accumulator — all singles combined, one bet</div>')
     if accas:

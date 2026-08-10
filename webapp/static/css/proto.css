@@ -26,8 +26,12 @@ body{margin:0;font-family:'Inter',sans-serif;background:#0a0a0a;color:#ccc;-webk
 .display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.02em;}
 button{font-family:inherit;cursor:pointer;}
 
-.app-frame{max-width:420px;margin:0 auto;overflow:hidden;}
-.app-frame.wide{max-width:1180px;}
+/* Client is a FULL-SCREEN web app: the frame fills the viewport edge-to-edge
+   at every size (no fixed phone column, no website margins). The admin keeps a
+   capped wide frame (.app-frame.wide). Content that shouldn't get absurdly wide
+   (search, pills, cards) caps itself / grids inside the full-width shell. */
+.app-frame{width:100%;max-width:none;margin:0;}
+.app-frame.wide{max-width:1180px;margin:0 auto;}
 
 /* ========== CLIENT (dark, cards) ========== */
 #client-app{background:var(--bg);color:var(--ink);min-height:100vh;display:block;}
@@ -37,7 +41,7 @@ button{font-family:inherit;cursor:pointer;}
 .c-brand h1{font-size:19px;margin:0;font-weight:700;letter-spacing:0.03em;}
 .c-date{font-size:12px;color:var(--ink-dim);margin-top:6px;}
 
-.c-tabs{display:flex;border-bottom:1px solid var(--line);}
+.c-tabs{display:flex;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;background:var(--bg);}
 .c-tab{flex:1;text-align:center;padding:13px 0;font-size:12px;font-weight:600;color:var(--ink-faint);border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;}
 .c-tab.active{color:var(--amber);border-bottom-color:var(--amber);}
 .c-tab:focus-visible{outline:2px solid var(--amber);outline-offset:-2px;}
@@ -60,6 +64,11 @@ button{font-family:inherit;cursor:pointer;}
 .c-league-body.open{max-height:2400px;}
 
 .c-card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:8px;padding:12px;margin:8px 0;}
+/* Call singles widen with the viewport (full-screen app), never a fixed column */
+.c-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:2px 0;}
+.c-grid .c-card{margin:0;}
+@media (min-width:760px){.c-grid{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:1160px){.c-grid{grid-template-columns:repeat(3,1fr);}}
 .c-card.acca{border-left-color:var(--teal);}
 .c-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;cursor:pointer;border:none;background:none;width:100%;text-align:left;padding:0;color:inherit;}
 .c-fixture{font-size:13px;font-weight:600;}
@@ -186,6 +195,11 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 .a-edit-status.ok{color:var(--a-ok,#2f7d32);}
 .a-edit-status.err{color:var(--coral);}
 
+@media (min-width:760px){
+  .c-panel{padding:20px 26px;}
+  .c-search{max-width:480px;}
+  .c-pill{padding:9px 16px;}
+}
 @media (max-width:480px){
   .a-tablewrap{padding:0 8px;}
   .a-table th,.a-table td{padding:6px;}

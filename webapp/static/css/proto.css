@@ -2,10 +2,10 @@
    Mobile-first client (dark, card-based) + light dense admin. This replaces
    app.css for /dashboard and /admin; render_v2.py is the only consumer. */
 
-/* Self-hosted fonts (same weights as the Sprint-4 _fontface.css). */
-@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/Barlow-Condensed-normal-500.woff2') format('woff2');}
-@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/Barlow-Condensed-normal-600.woff2') format('woff2');}
-@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/Barlow-Condensed-normal-700.woff2') format('woff2');}
+/* Self-hosted fonts (same weights as the Sprint-4 _fontface.css). Barlow
+   Condensed is RETIRED: render_v2 never emits .display, and Binance substitutes
+   Inter for BinanceNova (DESIGN.md "Note on Font Substitutes") — a condensed
+   face reads wrong for a trading platform. Inter + IBM Plex Mono are the pair. */
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-400.woff2') format('woff2');}
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-500.woff2') format('woff2');}
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-600.woff2') format('woff2');}
@@ -15,11 +15,17 @@
 
 :root{
   /* Binance DESIGN.md (awesome-design-md) — canvas dark + one yellow accent +
-     trading green/red signals + hairlines + tabular numbers (Architect 2026-08-10). */
+     trading green/red signals + hairlines + tabular numbers (Architect 2026-08-10).
+     Muted text is the DESIGN.md muted tiers: #929aa5 (muted-strong, secondary)
+     and #707a8a (muted, captions/headers/hints). The old #B7BDC6/#848E9C were
+     not in the Binance palette and sat too close to body #EAECEF. */
   --bg:#0b0e11; --surface:#1e2329; --surface-2:#2b3139; --line:#2b3139;
-  --ink:#EAECEF; --ink-dim:#B7BDC6; --ink-faint:#848E9C;
-  --amber:#FCD535; --amber-dim:#f0b90b; --teal:#0ecb81; --coral:#f6465d;
+  --ink:#EAECEF; --ink-dim:#929aa5; --ink-faint:#707a8a; --on-dark:#ffffff;
+  --amber:#FCD535; --amber-dim:#f0b90b; --amber-disabled:#3a3a1f;
+  --teal:#0ecb81; --coral:#f6465d;
   --focus:#3b82f6; --on-primary:#181a20;
+  /* Binance rounded scale (DESIGN.md): xs 2 · sm 4 · md 6 · lg 8 · xl 12 · pill. */
+  --r-xs:2px; --r-sm:4px; --r-md:6px; --r-lg:8px; --r-xl:12px; --r-pill:9999px;
   /* ONE palette. Admin aliases point at the SAME dark tokens as the client,
      so the admin inherits the dark yellow/charcoal theme — the admin keeps its
      denser layout (columns, tighter rows), which is layout, not color. */
@@ -29,9 +35,11 @@
 }
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}
-body{margin:0;font-family:'Inter',sans-serif;background:#0b0e11;color:#EAECEF;-webkit-font-smoothing:antialiased;}
+body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
 .mono{font-family:'IBM Plex Mono',monospace;}
-.display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.02em;}
+/* Display voice = Inter 700 — BinanceNova substitute per DESIGN.md. Kept for
+   latent use only; render_v2 emits no .display today. */
+.display{font-family:'Inter',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;}
 button{font-family:inherit;cursor:pointer;}
 
 /* Client AND admin are FULL-SCREEN web apps: the frame fills the viewport
@@ -95,7 +103,7 @@ button{font-family:inherit;cursor:pointer;}
 .c-fixture{font-size:13px;font-weight:600;}
 .c-league-sub{font-size:10px;color:var(--ink-faint);margin-top:2px;}
 .c-pct{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-weight:700;flex:none;}
-.c-live{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink);background:var(--coral);border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:1px;}
+.c-live{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink);background:var(--coral);border-radius:var(--r-xs);padding:1px 5px;margin-left:6px;vertical-align:1px;}
 .c-live:empty{display:none;}
 .c-detail{max-height:0;overflow:hidden;transition:max-height 0.25s ease;}
 .c-detail.open{max-height:600px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);}
@@ -139,13 +147,16 @@ button{font-family:inherit;cursor:pointer;}
 .a-search::placeholder{color:var(--ink-faint);}
 
 .a-actionbar{display:flex;gap:10px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--lline);flex-wrap:wrap;background:var(--surface);}
-#trigger-btn{background:var(--amber);color:var(--on-primary);border:none;border-radius:6px;padding:9px 16px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:8px;}
-#trigger-btn:disabled{opacity:0.6;cursor:not-allowed;}
+/* Binance button-primary: yellow / on-primary black, 6px radius, height 40px,
+   14px/600 label. Disabled desaturates to amber-disabled #3a3a1f + muted text
+   (DESIGN.md button-primary-disabled) instead of a flat opacity dim. */
+#trigger-btn{background:var(--amber);color:var(--on-primary);border:none;border-radius:var(--r-md);height:40px;padding:0 24px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;}
+#trigger-btn:disabled{background:var(--amber-disabled);color:var(--ink-faint);opacity:1;cursor:not-allowed;}
 #trigger-btn .spinner{display:none;width:12px;height:12px;border:2px solid var(--on-primary);border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite;}
 #trigger-btn.loading .spinner{display:inline-block;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .a-date{font-size:12px;padding:7px 8px;border:1px solid var(--lline);border-radius:6px;background:var(--surface);color:var(--ink);color-scheme:dark;}
-.a-stat{border:1px solid var(--lline);border-radius:5px;padding:5px 10px;font-size:10px;color:var(--link-dim);cursor:pointer;background:var(--surface);}
+.a-stat{border:1px solid var(--lline);border-radius:var(--r-md);padding:5px 10px;font-size:10px;color:var(--link-dim);cursor:pointer;background:var(--surface);}
 .a-stat:hover{border-color:var(--amber);}
 .a-stat b{display:block;font-size:13px;color:var(--link);font-family:'IBM Plex Mono',monospace;}
 .a-stat.warn{border-color:var(--coral);color:var(--coral);}
@@ -155,7 +166,7 @@ button{font-family:inherit;cursor:pointer;}
 #last-run{font-size:10px;color:var(--link-dim);margin-left:auto;}
 
 .a-filterbar{display:flex;gap:6px;padding:8px 16px;border-bottom:1px solid var(--lline);overflow-x:auto;background:var(--surface);}
-.a-chip{border:1px solid var(--line);background:var(--surface-2);border-radius:14px;font-size:10px;padding:5px 10px;flex:none;white-space:nowrap;color:var(--link-dim);cursor:pointer;}
+.a-chip{border:1px solid var(--line);background:var(--surface-2);border-radius:var(--r-pill);font-size:10px;padding:5px 10px;flex:none;white-space:nowrap;color:var(--link-dim);cursor:pointer;}
 .a-chip.active{background:var(--amber);color:var(--on-primary);border-color:var(--amber);font-weight:700;}
 .a-chip:focus-visible{outline:2px solid var(--focus);outline-offset:1px;}
 
@@ -172,7 +183,7 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 .a-league-sep .cnt{color:var(--ink-faint);font-weight:500;margin-left:6px;}
 .a-detail-row td{background:var(--surface);border-bottom:1px solid var(--line);}
 .a-detail-inner{padding:8px 4px;white-space:normal;max-width:760px;}
-.a-tag{border:1px solid var(--line);border-radius:3px;padding:1px 5px;font-size:9px;font-family:'IBM Plex Mono',monospace;background:var(--surface-2);color:var(--ink-dim);}
+.a-tag{border:1px solid var(--line);border-radius:var(--r-xs);padding:1px 5px;font-size:9px;font-family:'IBM Plex Mono',monospace;background:var(--surface-2);color:var(--ink-dim);}
 .a-tag.TA,.a-tag.TB{border-color:var(--teal);color:var(--teal);}
 .a-tag.TC,.a-tag.TD{border-color:var(--amber);color:var(--amber);}
 .src-dot.v{color:var(--teal);font-weight:700;}
@@ -181,7 +192,12 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 .a-pnd{color:var(--ink-faint);font-style:italic;font-size:10px;}
 
 .a-approve-row{padding:14px 16px;}
-#approve-btn{background:var(--teal);border:none;color:#04231a;border-radius:6px;padding:10px 18px;font-size:12px;font-weight:700;width:100%;}
+/* Publish stays teal (trading-up) — the ratified domain mapping: "approve /
+   publish" is directionally positive here, not a generic confirm, so it may
+   carry the up signal (DESIGN.md allows trading-up as a small text/badge cue,
+   and this app's Architect keeps it on the publish CTA). Silhouette matches the
+   40px primary CTA so it reads as THE action beside Run. */
+#approve-btn{background:var(--teal);border:none;color:#04231a;border-radius:var(--r-md);height:40px;padding:0 24px;font-size:14px;font-weight:600;width:100%;}
 #approve-btn:disabled{opacity:0.6;cursor:not-allowed;}
 #approve-btn.published{background:#2e6b55;color:#fff;}
 #publish-status{font-size:10px;color:var(--link-dim);margin-top:6px;text-align:center;}

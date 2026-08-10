@@ -106,4 +106,4 @@ except (NotADirectoryError, FileNotFoundError, OSError):
 mh.METRICS_PATH = HIST   # restore
 print("5. write failure propagates; the swallow is the caller's, as wired: OK")
 
-print("\n✅ ALL METRICS HISTORY TESTS PASSED")
+print("\n=== ALL METRICS HISTORY TESTS PASSED ===")

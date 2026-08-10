@@ -177,6 +177,49 @@ function bindAdminRows() {
   });
 }
 
+/* Admin: edit-before-publish — save per-row publishable edits to the RAW board.
+   POST /api/admin/board-edit; Approve→Publish then trims+ships the edited board. */
+function bindRowEdits() {
+  document.querySelectorAll('.a-edit-save').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var row = btn.getAttribute('data-row');
+      var fixture = btn.getAttribute('data-fixture');
+      var dateInput = document.getElementById('trigger-date');
+      var status = document.getElementById('edit-status-' + row);
+      var edits = {
+        fixture: document.getElementById('edit-fixture-' + row).value.trim(),
+        best_market: document.getElementById('edit-market-' + row).value.trim(),
+        best_price: document.getElementById('edit-price-' + row).value.trim(),
+        softness_tier: document.getElementById('edit-tier-' + row).value,
+        on_deploy_shortlist: document.getElementById('edit-short-' + row).checked
+      };
+      btn.disabled = true;
+      if (status) { status.textContent = 'Saving…'; status.className = ''; }
+      var payload = { fixture: fixture, edits: edits };
+      if (dateInput && dateInput.value) payload.date = dateInput.value;
+      fetch('/api/admin/board-edit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          btn.disabled = false;
+          if (data && data.ok) {
+            if (status) { status.textContent = 'Saved — Approve → Publish ships this edit'; status.className = 'ok'; }
+            showToast('Edits saved to board_' + (payload.date || '') + '.json');
+          } else {
+            if (status) { status.textContent = 'Failed: ' + ((data && data.error) || 'unknown'); status.className = 'err'; }
+          }
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          if (status) { status.textContent = 'Failed: ' + err; status.className = 'err'; }
+        });
+    });
+  });
+}
+
 /* Admin: Trigger Production → POST /api/trigger-board?date= (real run) */
 function bindTrigger() {
   var btn = document.getElementById('trigger-btn');
@@ -320,6 +363,37 @@ function bindStatPills() {
   });
 }
 
+/* Client: live-score feed — poll /api/live-scores, update Scan cards in place.
+   Keys are "home|away|date"; cards carry data-fixture="home|away" so a live
+   score slots into the matching card's [data-live-score] badge (kickoff -> live). */
+function bindLiveScores() {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.scan-row[data-fixture]'));
+  if (!rows.length) return;
+  function update() {
+    fetch('/api/live-scores', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: '{}'
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var scores = (data && data.scores) || {};
+        rows.forEach(function (row) {
+          var key = row.getAttribute('data-fixture');
+          var score = null;
+          Object.keys(scores).forEach(function (k) {
+            if (k.indexOf(key + '|') === 0) score = scores[k];
+          });
+          var badge = row.querySelector('[data-live-score]');
+          if (badge) badge.textContent = score ? ('LIVE ' + score) : '';
+        });
+      })
+      .catch(function () { /* transient — retry next tick */ });
+  }
+  update();
+  setInterval(update, 60000);
+}
+
 /* Admin: error/rejection log expand/collapse */
 function bindLogToggle() {
   var head = document.getElementById('log-toggle');
@@ -340,10 +414,12 @@ document.addEventListener('DOMContentLoaded', function () {
   bindAdminSearch();
   bindFilterChips();
   bindAdminRows();
+  bindRowEdits();
   bindTrigger();
   bindApprove();
   bindAdminDate();
   bindAdminChat();
   bindStatPills();
   bindLogToggle();
+  bindLiveScores();
 });

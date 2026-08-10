@@ -244,11 +244,15 @@ def _client_scan(board: list, d: str, today: str, scores: dict) -> str:
                 if k.startswith(key + "|") or k.startswith(f"{key}|"):
                     score = v
                     break
-            if score:
-                live = f'<span class="c-live">LIVE {html.escape(score)}</span>'
+            # Live badge is a data-live-score placeholder: server can pre-fill it,
+            # and proto.js polls /api/live-scores to update it in place. Empty is
+            # hidden by CSS (.c-live:empty{display:none}).
+            live = (f'<span class="c-live" data-live-score>{html.escape(score)}</span>'
+                    if score else '<span class="c-live" data-live-score></span>')
             sub_line = f'{html.escape(pick_label)}{live}'
             cards.append(
-                f'<div class="c-card scan-row" data-search="{html.escape(search_hay)}">'
+                f'<div class="c-card scan-row" data-fixture="{html.escape(key)}" '
+                f'data-search="{html.escape(search_hay)}">'
                 f'<button type="button" class="c-card-top" data-detail="scan-{card_i}" aria-expanded="false">'
                 f'<span class="c-fixture">{html.escape(fixture_txt)}<br>'
                 f'<span style="font-size:10px;color:var(--ink-faint);font-weight:400;">{sub_line}</span></span>'
@@ -367,7 +371,35 @@ def _a_tier(bf: dict) -> str:
     return f'<span class="a-tag T{t}">{html.escape(str(t))}</span>'
 
 
-def _a_detail(bf: dict) -> str:
+def _a_edit_form(bf: dict, row_i: int) -> str:
+    """Inline edit-before-publish: adjusts the publishable (client-visible)
+    fields on the RAW board; Approve→Publish then ships the edited trim."""
+    f = html.escape(bf.get("fixture", ""), quote=True)
+    market = html.escape(bf.get("best_market") or "", quote=True)
+    price = "" if bf.get("best_price") is None else html.escape(str(bf["best_price"]))
+    tier = bf.get("softness_tier") or ""
+    short = ' checked' if bf.get("on_deploy_shortlist") else ""
+    opts = "".join(
+        f'<option value="{t}"{" selected" if t == tier else ""}>'
+        f'{"Tier " + t if t else "Tier —"}</option>'
+        for t in ("", "A", "B", "C", "D"))
+    return (
+        f'<div class="a-edit">'
+        f'<div class="a-edit-title">Edit before publish — <span class="dim">client-visible fields</span></div>'
+        f'<div class="a-edit-grid">'
+        f'<label>Fixture <input class="a-edit-in" id="edit-fixture-{row_i}" value="{f}"></label>'
+        f'<label>Best market <input class="a-edit-in" id="edit-market-{row_i}" value="{market}"></label>'
+        f'<label>Best price <input class="a-edit-in" id="edit-price-{row_i}" value="{price}" inputmode="decimal"></label>'
+        f'<label>Softness tier <select class="a-edit-in" id="edit-tier-{row_i}">{opts}</select></label>'
+        f'<label class="check"><input type="checkbox" id="edit-short-{row_i}"{short}> Deploy shortlist</label>'
+        f'</div>'
+        f'<button type="button" class="a-edit-save" data-row="{row_i}" data-fixture="{f}">Save edits</button>'
+        f'<span class="a-edit-status" id="edit-status-{row_i}"></span>'
+        f'</div>'
+    )
+
+
+def _a_detail(bf: dict, row_i: int) -> str:
     """Expanded internals under a dense row — admin only."""
     inner = [_internals(bf)]
     p = bf.get("probs")
@@ -379,7 +411,7 @@ def _a_detail(bf: dict) -> str:
     reason = bf.get("rejection_reason")
     if reason:
         inner.append(f'<div class="int-row"><b>Rejection:</b> {html.escape(reason)}</div>')
-    return f'<div class="a-detail-inner">{"".join(inner)}</div>'
+    return f'<div class="a-detail-inner">{"".join(inner)}</div>' + _a_edit_form(bf, row_i)
 
 
 def _admin_table(board: list) -> str:
@@ -412,10 +444,11 @@ def _admin_table(board: list) -> str:
             ]
             rows.append(
                 f'<tr class="clickable" data-target="adm-{row_i}" data-league="L{sep_i}" '
+                f'data-fixture="{html.escape(bf.get("fixture", ""), quote=True)}" '
                 f'data-search="{html.escape(hay)}" aria-expanded="false" tabindex="0">'
                 f'{"".join(cells)}</tr>'
                 f'<tr class="a-detail-row hidden" id="adm-{row_i}" data-league="L{sep_i}">'
-                f'<td colspan="9">{_a_detail(bf)}</td></tr>'
+                f'<td colspan="9">{_a_detail(bf, row_i)}</td></tr>'
             )
             row_i += 1
         sep_i += 1

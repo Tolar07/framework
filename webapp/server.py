@@ -487,6 +487,61 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"ok": False, "error": str(e)})
             return
 
+        # Edit-before-publish: patch publishable fields on the RAW board.
+        # (Admin-only via the /api/admin prefix guard above.) The edited board
+        # is what Approve -> Publish later trims + ships to the client.
+        if path == "/api/admin/board-edit":
+            try:
+                import json
+                from webapp import schema as S
+                content_len = int(self.headers.get("Content-Length", "0"))
+                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
+                data = json.loads(body) if body else {}
+                d = data.get("date", "")
+                fixture = data.get("fixture", "")
+                edits = data.get("edits") or {}
+                if not d or not fixture:
+                    self._json({"ok": False, "error": "date and fixture required"})
+                    return
+                payload = self._load_payload(d)
+                if payload is None:
+                    self._json({"ok": False, "error": f"no board for {d}"})
+                    return
+                board = payload.get("board", [])
+                idx = next((i for i, bf in enumerate(board)
+                            if bf.get("fixture") == fixture
+                            or bf.get("fixture", "").startswith(fixture.split(" (")[0])), None)
+                if idx is None:
+                    self._json({"ok": False, "error": f"fixture not on board: {fixture}"})
+                    return
+                bf = board[idx]
+                applied = []
+                if "fixture" in edits and edits["fixture"]:
+                    bf["fixture"] = str(edits["fixture"]).strip()
+                    applied.append("fixture")
+                if "best_market" in edits:
+                    bf["best_market"] = str(edits["best_market"]).strip() or None
+                    applied.append("best_market")
+                if "best_price" in edits and edits["best_price"] not in ("", None):
+                    try:
+                        bf["best_price"] = float(edits["best_price"])
+                        applied.append("best_price")
+                    except (TypeError, ValueError):
+                        self._json({"ok": False, "error": "best_price must be a number"})
+                        return
+                if "softness_tier" in edits:
+                    t = (edits["softness_tier"] or "").strip().upper()
+                    bf["softness_tier"] = t or None
+                    applied.append("softness_tier")
+                if "on_deploy_shortlist" in edits:
+                    bf["on_deploy_shortlist"] = bool(edits["on_deploy_shortlist"])
+                    applied.append("on_deploy_shortlist")
+                S.write_payload(payload, _payload_path(d))
+                self._json({"ok": True, "date": d, "fixture": fixture, "applied": applied})
+            except Exception as e:
+                self._json({"ok": False, "error": str(e)})
+            return
+
         # Produce endpoint — real-time engine run (no auth required)
         if path == "/api/admin/produce":
             try:

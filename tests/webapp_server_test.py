@@ -75,6 +75,15 @@ def _unrated_bf() -> BoardFixture:
         rejection_reason="NO DATA — PENDING: no fitted history")
 
 
+def _rated_bf_payload() -> dict:
+    """A full raw board payload holding just the rated fixture (for board-edit)."""
+    return schema.build_payload(
+        date=date.today().isoformat(), phase="PHASE 2 — PAPER",
+        leagues_scanned=["Champions League"], board=[_rated_bf()],
+        data_flags=[], gate={"legs_with_clv": 35, "gate_requirement": 30, "mean_clv_pct": 1.2},
+        telemetry={}, calibration_count=0, mean_clv=1.2)
+
+
 # PUBLISHED_DIR must stay redirected for the WHOLE test — the server reads
 # schema.PUBLISHED_DIR per request, and every GET below hits that store. A
 # `with patch.object` block would revert the moment the board write finished,
@@ -299,6 +308,37 @@ assert d.get("ok") is False and "date" in d.get("error", ""), \
 code, _, _ = _post("/api/admin/publish", data={"date": today})
 assert code == 401, "unauth publish should 401"
 print("8c. trigger-board + publish require admin; guard rejects bad date: OK")
+
+# --- 8d. edit-before-publish: POST /api/admin/board-edit patches the RAW board
+# Redirect BOARD_DIR to a temp dir so the edit writes there, never the repo.
+edit_dir = tmp / "boards_edit"
+edit_dir.mkdir()
+_real_board_dir_edit = server.BOARD_DIR
+server.BOARD_DIR = edit_dir
+schema.write_payload(_rated_bf_payload(), edit_dir / f"board_{today}.json")
+code, _, _ = _post("/api/admin/board-edit",
+                   data={"date": today, "fixture": "Fenerbahce v Sturm Graz", "edits": {"best_price": "2.05"}})
+assert code == 401, "board-edit must require admin"
+code, body, _ = _post("/api/admin/board-edit", _auth(),
+                      data={"date": today, "fixture": "Fenerbahce v Sturm Graz",
+                            "edits": {"best_market": "Fenerbahce -1", "best_price": "2.05",
+                                      "softness_tier": "C", "on_deploy_shortlist": False}})
+assert code == 200
+d = json.loads(body)
+assert d.get("ok") is True and "best_price" in d.get("applied", []), body[:200]
+edited = schema.read_payload(edit_dir / f"board_{today}.json")
+b0 = edited["board"][0]
+assert b0["best_price"] == 2.05 and b0["best_market"] == "Fenerbahce -1"
+assert b0["softness_tier"] == "C" and b0["on_deploy_shortlist"] is False
+# bad fixture / bad price are honest errors, never a crash
+code, body, _ = _post("/api/admin/board-edit", _auth(),
+                      data={"date": today, "fixture": "NoSuchTeam", "edits": {"best_market": "x"}})
+assert code == 200 and json.loads(body).get("ok") is False, "unknown fixture should error"
+code, body, _ = _post("/api/admin/board-edit", _auth(),
+                      data={"date": today, "fixture": "Fenerbahce v Sturm Graz", "edits": {"best_price": "abc"}})
+assert code == 200 and json.loads(body).get("ok") is False, "non-numeric price should error"
+server.BOARD_DIR = _real_board_dir_edit
+print("8d. board-edit patches the raw board (auth'd), honest errors otherwise: OK")
 
 # --- 9. when ADMIN_PASS is unset, /admin is locked (503, no default) --------
 with patch.dict(os.environ, {}, clear=True):

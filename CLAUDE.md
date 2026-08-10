@@ -57,6 +57,7 @@ All agents, skills, commands, rules, hooks, and contexts are available in every 
 Key components now available:
 - **Agents**: planner, architect, tdd-guide, code-reviewer, security-reviewer, build-error-resolver, e2e-runner, refactor-cleaner, doc-updater
 - **Skills**: coding-standards, backend-patterns, frontend-patterns, continuous-learning, strategic-compact, tdd-workflow, security-review, eval-harness, verification-loop
+- **Motion-craft skills** (Emil Kowalski pack, added 2026-08-10): `emil-design-eng`, `review-animations`, `improve-animations`, `find-animation-opportunities`. Run `improve-animations` for a prioritized motion audit → plans in `plans/`; `review-animations` for a strict diff pass on motion. Motion is decor, never data-hiding (honest-edge).
 - **Commands**: /plan, /tdd, /e2e, /code-review, /build-fix, /refactor-clean, /learn, /checkpoint, /verify, /setup-pm
 - **Rules**: security, coding-style, testing, git-workflow, agents, performance, patterns, hooks
 - **Hooks**: tmux reminders, git push review, doc blocking, PR logging, prettier, TypeScript check, console.log audit, session persistence, continuous learning extraction

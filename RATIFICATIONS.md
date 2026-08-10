@@ -1431,3 +1431,52 @@ evidence). Restriction-only — narrows what may carry capital, cannot admit any
 previously-excluded market. No capital, staking, fabrication, verification or
 honest-edge behaviour changed. All 40/41 suites green (stress2 is a slow
 concurrency stress test, run separately with extended timeout).
+
+---
+
+## 2026-08-10 · STRICT SINGLE-DAY PRODUCTION (reverses the 2026-08-07 3-day rolling window) — by order of the ARCHITECT
+
+**What the Architect asked:** "when I have trigger production, it should only
+show me that this production… it should only produce matches of fixtures or
+competition for today. If I click tomorrow, it should do that for tomorrow. And
+even if it's going to do it automatically for me in the daily run… don't produce
+into the future. A production that is triggered for that [day] is for that day
+alone."
+
+**What changed (commit HEAD):**
+
+1. **Every production is pinned to ONE calendar day.** `run_daily.run()`
+   gains `target_date` (YYYY-MM-DD, default None = today). The board, accas,
+   produced-bet record, acca/booking-code files and web payload are all written
+   for that date, and only fixtures whose `kickoff_date == board_date` survive.
+   This **reverses** the 2026-08-07 ratification of a rolling `days_ahead=3`
+   scan window — today-only (`days_ahead=0`) was then reversed for producing
+   empty early-August boards; the Architect now explicitly wants the honest
+   quiet board back. The `days_ahead` default becomes `0` (today only) in both
+   the CLI and the library; the scan window only ever widens far enough to
+   REACH a future `target_date`, and the kickoff-date filter is the hard
+   guarantee that nothing from an adjacent day survives.
+2. **Manual trigger honours the selected date.** `webapp/server.py`
+   `POST /api/trigger-board?date=<d>` now passes `target_date=<d>` into
+   `run_daily.run()` (it previously parsed the date and then ignored it while
+   running `days_ahead=3`). Choosing tomorrow produces tomorrow's board only.
+3. **Strict-day pacing.** A today-only scan falls back to TheSportsDB's
+   `eventsday` endpoint for any league with no today fixture in its cached
+   season feed; the free key rate-limits at ~1 req/s, so the scan loop now
+   paces per-league calls (`time.sleep(1.1)` when scanning today only) to avoid
+   429ing a league that DOES have today's fixture into a false NO DATA.
+   Inert for future-date runs (cached season feed, no throttle needed).
+
+**Verified against real sources (2026-08-10, the 16 approved leagues + EFL Cup
++ Austrian Bundesliga):** Monday 10 Aug has **exactly 2 fixtures** — `Silkeborg
+v Odense` (Danish Superliga) and `Santa Clara v Nacional` (Primeira Liga) —
+confirmed via TheSportsDB season feed (cached) and `eventsday`. Every other
+approved league has zero fixtures that day. This matches the Architect's
+expectation ("very few matches today"). A quiet day is now an honest quiet
+board, never a wider net.
+
+**Authority:** Architect (direct instruction, 2026-08-10). Restriction-only in
+the scan sense — it narrows what a production can contain to one day and cannot
+admit an off-day fixture. No capital, staking, fabrication, verification or
+honest-edge behaviour changed; a fixture without a provable kickoff date is
+refused rather than guessed (HR35). All webapp test suites green.

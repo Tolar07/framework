@@ -666,12 +666,17 @@ class Handler(BaseHTTPRequestHandler):
             self.server._olp_running = True
             try:
                 import run_daily
+                # Strict single-day (Architect 2026-08-10): the run is pinned to
+                # the SELECTED date — only fixtures kicking off that exact day
+                # survive; nothing from adjacent/future days. The daily run uses
+                # the same rule (today only).
                 res = run_daily.run(season="2526", send=False, whatsapp=False,
                                     email=False, web=True, refresh_sportybet=False,
-                                    booking_codes=True, days_ahead=3)
+                                    booking_codes=True, target_date=d)
                 self._json({"ok": True, "date": d,
-                            "message": f"Board produced: {len(res.board)} fixtures, "
-                                       f"{len(res.leagues_scanned)} leagues scanned"})
+                            "message": f"Board produced: {len(res.board)} fixtures "
+                                       f"for {d} ({len(res.leagues_scanned)} leagues "
+                                       f"scanned)"})
             except Exception as e:
                 self._json({"ok": False, "error": f"production failed: {e}"})
             finally:

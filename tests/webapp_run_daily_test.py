@@ -19,12 +19,16 @@ brain_path = tmp / "brain" / "olp.db"
 
 
 def _fake_scan(lg, season, **kw):
+    # Real scanned fixtures carry a kickoff date (the source's fixture date);
+    # strict single-day production keeps ONLY fixtures on the board date, so the
+    # stub must be dated today or it is honestly refused (HR35).
     return ([BoardFixture(
         fixture="Bristol City v Walsall (EFL Cup)", probs=None,
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="x", url="https://x",
                                           structured=True)]),
         softness_tier="D",
+        kickoff_date=date.today().isoformat(),
         rejection_reason="NO DATA — PENDING: test")], [])
 
 

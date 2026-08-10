@@ -319,7 +319,8 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
-        min_mes: float = 0.0, days_ahead: int = 3,
+        min_mes: float = 0.0, days_ahead: int = 0,
+        target_date: str | None = None,
         whatsapp: bool = True, email: bool = True,
         web: bool = True, prefetch_crests: bool = False,
         refresh_sportybet: bool = False,
@@ -348,7 +349,17 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     Phase 2 — codes only, never a stake (the module never clicks Place Bet).
     Best-effort: a browser fault degrades each acca to MANUAL, never a run
     failure (HR35). The CLI enables it by default (env OLP_BOOKING_CODES=0 or
-    --no-booking-codes disables)."""
+    --no-booking-codes disables).
+
+    STRICT SINGLE-DAY PRODUCTION (Architect 2026-08-10, reversing the ratified
+    2026-08-07 3-day rolling window): a run is for ONE day and one day alone.
+    `target_date` (YYYY-MM-DD, default None = today) pins the production to a
+    specific calendar day — the board, accas, produced-bet record and web
+    payload are all written for that date, and only fixtures whose kickoff is
+    exactly on that date survive. `days_ahead` is now the scan-window default
+    0 = today's matches only; when `target_date` is given the scan window is
+    widened just enough to reach it and the kickoff-date filter enforces the
+    cut. A quiet day is an honest quiet board, never a wider net."""
     leagues = leagues or SCAN_LEAGUES
     brain = Brain()
     run_id = (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -360,8 +371,9 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     brain.append_run(run_id, started, status="running")
     try:
         return _run(run_id, started, t0, brain, season, fixtures_season,
-                    leagues, send, min_mes, days_ahead, whatsapp, email, web,
-                    prefetch_crests, refresh_sportybet, booking_codes)
+                    leagues, send, min_mes, days_ahead, target_date,
+                    whatsapp, email, web, prefetch_crests, refresh_sportybet,
+                    booking_codes)
     except Exception:
         brain.update_run(run_id, status="failed")
         raise
@@ -372,12 +384,20 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 def _run(run_id: str, started: str, t0: float, brain: Brain,
          season: str, fixtures_season: str | None, leagues: list[str],
          send: bool, min_mes: float, days_ahead: int,
+         target_date: str | None = None,
          whatsapp: bool = True, email: bool = True,
          web: bool = True, prefetch_crests: bool = False,
          refresh_sportybet: bool = False,
          booking_codes: bool = False) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
+    # STRICT SINGLE-DAY (Architect 2026-08-10): the production is pinned to ONE
+    # board date — the automated daily run produces today, a manual trigger pins
+    # to its selected date. The scan window only has to REACH that day; the
+    # kickoff_date filter on the scanned board is the hard guarantee that
+    # nothing from an adjacent day survives.
+    board_date = target_date or today
+    scan_window = max(0, (date.fromisoformat(board_date) - date.today()).days)
     runlog = _mark_started()
     log = CLVLog()
     all_flags: list[str] = []
@@ -421,12 +441,13 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags.append(f"produced-bet verification failed ({e}) — "
                          f"legs stay PENDING")
 
-    # --- scan every league into one board (ID402 wide eyes). The board is the
-    # --- next 3 days' matches (days_ahead=3, ratified 2026-08-07): a rolling
-    # --- window like ScoreGPT, so a quiet midweek still shows the weekend round
-    # --- and preseason still shows the first fixtures of the season. Today-only
-    # --- (days_ahead=0) was reversed — it produced empty boards in early
-    # --- August when no league has a fixture literally today.
+    # --- scan every league into one board (ID402 wide eyes). The board is for
+    # --- ONE day (Architect 2026-08-10, reversing the 2026-08-07 3-day rolling
+    # --- window): the automated daily run produces today's matches only, and a
+    # --- manual trigger pins the run to its selected date. The scan window
+    # --- reaches the board date (scan_window); the kickoff_date filter below
+    # --- then drops anything that does not kick off on that exact day, so a
+    # --- quiet day is an honest quiet board, never a wider net.
     # --- Each league reports its fit outcome (reused vs refit, seeded vs cold)
     # --- so the run row proves the brain's speed win rather than assuming it.
     fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0,
@@ -436,7 +457,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     for lg in leagues:
         st: dict = {}
         slice_, flags = orchestrator.scan_one_league(
-            lg, season, fixtures_season=fixtures_season, days_ahead=days_ahead,
+            lg, season, fixtures_season=fixtures_season,
+            days_ahead=scan_window,
             brain=brain, stats=st)
         board += slice_
         all_flags += flags
@@ -444,6 +466,25 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             fit_stats[k] += int(st.get(k, False))
         if st.get("fixture_source"):
             fixture_sources.add(st["fixture_source"])
+        # Strict-day pacing (today-only runs only): a league with no today
+        # fixture in its cached season feed falls back to TheSportsDB's
+        # eventsday endpoint. The free key rate-limits at ~1 req/s, so a
+        # back-to-back per-league burst can 429 a league that DOES have today's
+        # fixtures into a false NO DATA — PENDING. Pacing the per-league calls
+        # keeps that from happening. Future-target runs use the cached season
+        # feed and need no throttle (inert there).
+        if scan_window == 0:
+            time.sleep(1.1)
+
+    # Strict single-day cut: the fixture sources return a WINDOW, so trim the
+    # board to the board date. A fixture without a kickoff date cannot be
+    # proven to be on the day and is refused rather than guessed (HR35).
+    scanned = len(board)
+    board = [b for b in board if (b.kickoff_date or "") == board_date]
+    if len(board) != scanned:
+        all_flags.append(
+            f"day-scoped to {board_date}: kept {len(board)} of {scanned} "
+            f"scanned fixture(s) — adjacent-day matches dropped")
 
     # Multi-source health (data/multi_source_concrete.py): which provider served
     # each league is visible per-run so a silently-degraded source (circuit open,
@@ -676,25 +717,26 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         if b.on_deploy_shortlist and id(b) not in capped:
             b.on_deploy_shortlist = False
 
-    # --- TODAY'S 4-LEG ACCA SET (standing rule 2026-08-09): up to 3 accas
-    # --- from TODAY's deploy-eligible shortlist, priced on the live line in
-    # --- capital-cleared markets (ID405: Draw + Under 2.5). Named at the end
-    # --- of production in the board + Telegram + web; the same payload feeds
-    # --- the SportyBet booking-code generator. ---
-    accas = build_accas(board, today=today, odds_index=odds_index)
-    acca_text = render_acca_block(accas, today)
+    # --- THE BOARD DATE'S 4-LEG ACCA SET (standing rule 2026-08-09): up to 3
+    # --- accas from the board date's deploy-eligible shortlist, priced on the
+    # --- live line in capital-cleared markets (ID405: Draw + Under 2.5). Named
+    # --- at the end of production in the board + Telegram + web; the same
+    # --- payload feeds the SportyBet booking-code generator. ---
+    accas = build_accas(board, today=board_date, odds_index=odds_index)
+    acca_text = render_acca_block(accas, board_date)
     if accas:
         all_flags.append(
             f"today's acca set: {len(accas)} acca(s), "
             f"{sum(a.n_legs for a in accas)} legs on today's slate")
 
-    # --- produced-bet record (ID415): every rated fixture with a kickoff
-    # --- today is one produced-bet leg, saved to produced_<date>.json + the
-    # --- brain mirror, so the framework always has a findable copy of what it
-    # --- bet today. No fixtures today -> an honest empty record, still written.
-    # --- The board is final here (prices attached, cap applied). ---
+    # --- produced-bet record (ID415): every rated fixture with a kickoff on
+    # --- the board date is one produced-bet leg, saved to produced_<date>.json
+    # --- + the brain mirror, so the framework always has a findable copy of
+    # --- what it produced for that day. No fixtures on the date -> an honest
+    # --- empty record, still written. The board is final here (prices
+    # --- attached, cap applied). ---
     try:
-        produced_bet.record_produced_bet(board, today, brain)
+        produced_bet.record_produced_bet(board, board_date, brain)
     except Exception as e:
         # a produced-bet record fault must never kill the daily board — the
         # rest of the run continues; the missing record is visible via the flag.
@@ -735,8 +777,9 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     yesterday_graded = brain.graded_yesterday(yesterday)
     rolling_7d = brain.rolling_7d()
 
-    # ID415: today's produced-bet record, read back for the board/Telegram block.
-    produced_record = produced_bet.load_produced_bet(today)
+    # ID415: the board date's produced-bet record, read back for the
+    # board/Telegram block.
+    produced_record = produced_bet.load_produced_bet(board_date)
 
     telegram_text = render_telegram_board(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
@@ -752,14 +795,14 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         produced_bet=produced_record, accas=accas)
 
     full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
-    path = BOARD_DIR / f"board_{today}.txt"
+    path = BOARD_DIR / f"board_{board_date}.txt"
 
     # The acca payload — what the booking-code generator and the web dashboard
     # read. Always written (even an empty acca set), so downstream consumers
     # never guess at a missing file.
     import dataclasses
     acca_payload = {
-        "date": today,
+        "date": board_date,
         "n_accas": len(accas),
         "accas": [{
             "label": a.label,
@@ -770,33 +813,34 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         } for a in accas],
     }
     try:
-        (BOARD_DIR / f"acca_{today}.json").write_text(
+        (BOARD_DIR / f"acca_{board_date}.json").write_text(
             json.dumps(acca_payload, ensure_ascii=False, indent=2),
             encoding="utf-8")
-        (BOARD_DIR / f"acca_{today}.txt").write_text(acca_text, encoding="utf-8")
+        (BOARD_DIR / f"acca_{board_date}.txt").write_text(
+            acca_text, encoding="utf-8")
     except Exception as e:
         # the acca files are additive — a fault never kills the board
         all_flags.append(f"acca file write failed ({e})")
 
     # --- SPORTYBET BOOKING CODES (Phase 2 — codes only, NO stake placed).
-    # --- Drives today's acca payload into SportyBet's betslip and reads the
-    # --- BOOKING CODES SportyBet returns, so the Architect can paste a code
-    # --- into SportyBet to recall the exact slip. Best-effort like the cache
-    # --- refresh: a browser fault degrades each acca to MANUAL, never a run
-    # --- failure (HR35). Gated by --no-booking-codes / OLP_BOOKING_CODES=0. ---
+    # --- Drives the board date's acca payload into SportyBet's betslip and
+    # --- reads the BOOKING CODES SportyBet returns, so the Architect can paste
+    # --- a code into SportyBet to recall the exact slip. Best-effort like the
+    # --- cache refresh: a browser fault degrades each acca to MANUAL, never a
+    # --- run failure (HR35). Gated by --no-booking-codes / OLP_BOOKING_CODES=0.
     if booking_codes and accas:
         try:
             _mark(runlog, "generating SportyBet booking codes...")
             from booking.booking_codes import book_accas, render_codes
             codes_result = book_accas(acca_payload, headless=True)
             codes_text = render_codes(codes_result)
-            codes_path = BOARD_DIR / f"acca_{today}_codes.json"
+            codes_path = BOARD_DIR / f"acca_{board_date}_codes.json"
             codes_path.write_text(
                 json.dumps(codes_result, ensure_ascii=False, indent=2),
                 encoding="utf-8")
             # the acca text file carries the codes below the acca block, so one
             # file has both the priced acca and its bookable codes.
-            with (BOARD_DIR / f"acca_{today}.txt").open("a", encoding="utf-8") as f:
+            with (BOARD_DIR / f"acca_{board_date}.txt").open("a", encoding="utf-8") as f:
                 f.write("\n\n" + codes_text + "\n")
             n_booked = sum(1 for r in codes_result.get("results", [])
                            if r.get("code"))
@@ -821,7 +865,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             from clv.phase3_gate import gate_status_for_dashboard
             web_schema.write_payload(
                 web_schema.build_payload(
-                    date=today, phase=PHASE_LABEL, leagues_scanned=leagues,
+                    date=board_date, phase=PHASE_LABEL, leagues_scanned=leagues,
                     board=board, data_flags=all_flags,
                     gate=gate_status_for_dashboard(),
                     telemetry=brain.leg_telemetry(),
@@ -832,7 +876,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     yesterday_graded=yesterday_graded,
                     rolling_7d=rolling_7d,
                     accas=acca_payload["accas"]),
-                BOARD_DIR / f"board_{today}.json")
+                BOARD_DIR / f"board_{board_date}.json")
             if prefetch_crests:
                 # Best-effort club-badge prefetch so the dashboard carries real
                 # TheSportsDB crests, not just initials. Never raises; a failed
@@ -841,7 +885,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     from webapp import crests as _crests
                     n = len(_crests.prefetch(
                         _crests.teams_from_board(
-                            BOARD_DIR / f"board_{today}.json")))
+                            BOARD_DIR / f"board_{board_date}.json")))
                     _mark(runlog, f"crest prefetch added {n} badge(s)")
                 except Exception as e:
                     _mark(runlog, f"crest prefetch skipped ({e})")
@@ -994,8 +1038,12 @@ if __name__ == "__main__":
                     help="skip the email copy even when configured")
     ap.add_argument("--no-web", action="store_true",
                     help="skip writing the board_<date>.json the web dashboard reads")
-    ap.add_argument("--days-ahead", type=int, default=3,
-                    help="fixture window in days from today (3 = next 3 days)")
+    ap.add_argument("--days-ahead", type=int, default=0,
+                    help="fixture window in days from today (0 = today's matches only — "
+                         "strict single-day production, Architect 2026-08-10)")
+    ap.add_argument("--date", dest="target_date", default=None,
+                    help="produce the board for this exact YYYY-MM-DD only "
+                         "(default: today; same strict single-day rule)")
     ap.add_argument("--no-prefetch-crests", action="store_true",
                     help="skip the club-badge prefetch even when the web board is written")
     ap.add_argument("--no-sportybet", action="store_true",
@@ -1019,7 +1067,7 @@ if __name__ == "__main__":
                      and os.environ.get("OLP_BOOKING_CODES", "1") != "0")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
-              days_ahead=a.days_ahead,
+              days_ahead=a.days_ahead, target_date=a.target_date,
               whatsapp=not a.no_whatsapp, email=not a.no_email,
               web=not a.no_web, prefetch_crests=prefetch,
               refresh_sportybet=refresh_sportybet,

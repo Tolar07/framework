@@ -10,9 +10,10 @@ caller is a scheduled job that nobody reads before it sends:
   1. The honest-edge caveat is appended UNCONDITIONALLY. It cannot be
      suppressed by a flag, because "just this once" is exactly how a standing
      caveat erodes.
-  2. Every message is stamped with the phase. At 07:00 on a phone, a board of
-     model probabilities and trigger prices could be misread as a slate of
-     live picks; the stamp makes that misreading impossible.
+  2. Every message carries the Architect's lean banner (2026-08-11 "use this
+     always"): `##########OLP XDV#########` + the honest-edge/capital line.
+     A board of probabilities and trigger prices could be misread as a slate
+     of live picks; the capital line makes that misreading impossible.
 """
 from __future__ import annotations
 
@@ -30,7 +31,12 @@ try:
 except ImportError:
     requests = None
 
-from config import PHASE, PHASE_LABEL, CAPITAL_ENABLED
+# Importing config is what loads .env on import (its module-level load_dotenv).
+# send_telegram reads TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID from the env, so a
+# caller that imports notify without first importing config would otherwise
+# silently never deliver. Kept as a side-effect import — no names used.
+import config  # noqa: F401
+
 
 TELEGRAM_API = "https://api.telegram.org/bot{token}"
 
@@ -39,17 +45,13 @@ TELEGRAM_API = "https://api.telegram.org/bot{token}"
 TELEGRAM_MAX = 3900
 
 HONEST_CAVEAT = (
-    "Honest edge status: an excellent informed process, NOT a demonstrated "
-    "profitable edge. Capital authority: THE ARCHITECT — nothing here is live "
-    "until you deploy it."
+    "Honest edge: not a demonstrated edge · Capital: Architect only."
 )
 
 
 def _stamp(body: str) -> str:
-    """Phase banner + the caveat that never comes off."""
-    banner = f"OLP XDV — {PHASE_LABEL}"
-    if not CAPITAL_ENABLED:
-        banner += "\nPAPER ONLY. No stake is placed by this system."
+    """Architect banner (2026-08-11) + the caveat that never comes off."""
+    banner = "##########OLP XDV#########"
     return f"{banner}\n{'=' * 34}\n\n{body}\n\n{'=' * 34}\n{HONEST_CAVEAT}"
 
 

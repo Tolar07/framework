@@ -250,8 +250,10 @@ _check("shortened acca (never padded with a non-today fixture)",
        and not bets9.split_accas and not bets9.singles,
        f"got acca_a={bets9.acca_a.n_legs if bets9.acca_a else None}")
 txt9 = render_production_block(bets9, today=TODAY)
-_check("shortened acca labelled honestly",
-       "shortened, not padded" in txt9, txt9)
+_check("shortened acca renders lean (no prob/EV on the leg)",
+       "★ Acca A — HEADLINE, 1 legs" in txt9
+       and "Only v One (Eredivisie) — Draw @ 3.30" in txt9
+       and "30%" not in txt9, txt9)
 
 # --- 10. empty today -> honest NO production pick (HR35) --------------------
 bets10 = build_production_bets([], today=TODAY, odds_index=None)
@@ -271,19 +273,21 @@ txt11 = render_production_block(bets5, codes=codes11, today=TODAY)
 _check("block leads with Acca A as the HEADLINE",
        txt11.find("★ Acca A") < txt11.find("Acca B") < txt11.find("SINGLES"),
        txt11[:120])
-_check("codes render inline per bet",
-       "AAA11" in txt11 and "BBB22" in txt11 and "S555" in txt11)
-_check("ALL BOOKING CODES strip appears with the codes",
-       "ALL BOOKING CODES" in txt11 and "[Acca A] AAA11" in txt11)
-_check("honest combined line: legs are not independent",
-       "legs are not independent" in txt11)
+_check("codes render inline on the combined line (Architect format)",
+       "AAA11" in txt11 and "BBB22" in txt11 and "S555" in txt11
+       and any("Combined" in ln and "Booking code: AAA11" in ln
+               for ln in txt11.splitlines()), txt11[:400])
+_check("star on EVERY acca (not just the headline)",
+       "★ Acca A" in txt11 and "★ Acca B" in txt11, txt11[:400])
+_check("legs are lean — no prob% or EV on any leg",
+       "EV" not in txt11 and "%" not in txt11, txt11[:400])
 txt11b = render_production_block(bets5, codes=None, today=TODAY)
 _check("no codes -> honest NO DATA — PENDING per item "
        "(3 accas + 7 singles = 10)",
        txt11b.count("NO DATA — PENDING") == 10, txt11b)
-_check("capital/Phase-3 honest lines carried",
-       "Phase 3 live — capital authority is the Architect's" in txt11
-       and "HONEST EDGE" in txt11)
+_check("block is lean — honest/capital lines moved to the notify envelope",
+       "Phase 3 live" not in txt11 and "HONEST EDGE" not in txt11
+       and "shortened, not padded" not in txt11, txt11[:400])
 
 # --- 12. SportyBet price preferred for Draw over the Odds API ----------------
 board_sb = [

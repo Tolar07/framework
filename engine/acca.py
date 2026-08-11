@@ -67,7 +67,7 @@ from typing import Any, Iterator, List, Optional
 from engine import markets as mkt
 
 ACCA_A_MAX = 5          # the headline acca holds the top 4-5 confidence legs
-HEADLINE_MIN_LEGS = 4   # below this, the acca honestly says "shortened, not padded"
+HEADLINE_MIN_LEGS = 4   # below this, Acca A is a shortened acca, never padded
 SPLIT_GROUP_TARGET = 5  # remainder splits into ~4-5 leg groups, never one giant acca
 
 
@@ -339,15 +339,16 @@ def _code_for(codes: Optional[dict], label: str) -> Optional[str]:
 
 def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
                             today: Optional[str] = None) -> str:
-    """Human-readable production block for Telegram + the saved board.
+    """Lean production block for Telegram + the saved board.
 
-    Order (production intent #7): Acca A (headline) -> split accas -> singles,
-    each with its booking code (or NO DATA — PENDING when not captured, HR35),
-    then a compact ALL BOOKING CODES strip, then the honest lines. No eligible
-    bets -> an honest 'no production pick today' note (a quiet day is a correct
-    result, not a failure)."""
+    ARCHITECT FORMAT (2026-08-11, "use this always"): star on every acca,
+    legs carry fixture + market + price only (no prob/EV), combined odds and
+    booking code on ONE line, no note/footer lines. The honest-edge/capital
+    line lives in the notify envelope, not here. No eligible bets -> an honest
+    'no production pick today' note (a quiet day is a correct result, not a
+    failure)."""
     today = today or date.today().isoformat()
-    lines = [f"🎯 PRODUCTION BETS — {today} (today's fixtures only)"]
+    lines = [f"🎯 PRODUCTION BETS — {today} (today's fixtures only)", ""]
     accas = ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
     if not accas and not bets.singles:
         lines.append("NO production pick today — no deploy-eligible fixture "
@@ -355,48 +356,30 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
                      "result (HR35).")
         return "\n".join(lines)
 
-    for acca in accas:
+    for i, acca in enumerate(accas):
+        if i:
+            lines.append("")  # blank line between accas (Architect format)
         code = _code_for(codes, acca.label)
         is_headline = acca.label == "Acca A"
         head = (f"★ {acca.label} — HEADLINE, {acca.n_legs} legs"
-                if is_headline else f"  {acca.label} — {acca.n_legs} legs")
+                if is_headline else f"★ {acca.label}  {acca.n_legs} legs")
         lines.append(head)
+        indent = "    " if is_headline else ""
         for leg in acca.legs:
-            ev_txt = f", EV {leg.ev:+.1%}" if leg.ev is not None else ""
-            lines.append(
-                f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
-                f"@ {leg.price:.2f} ({round(leg.prob*100)}%){ev_txt}")
+            lines.append(f"{indent}{leg.fixture} ({leg.league}) — "
+                         f"{leg.market_name} @ {leg.price:.2f}")
         if acca.combined_odds is not None:
             lines.append(f"    Combined {acca.combined_odds:.2f} "
-                         f"(≈{round((acca.combined_prob or 0)*100)}% all legs "
-                         f"win — legs are not independent)")
-        lines.append(f"    Booking code: {code}"
-                     if code else "    Booking code: NO DATA — PENDING")
-        if is_headline and acca.n_legs < HEADLINE_MIN_LEGS:
-            lines.append(f"    NOTE: only {acca.n_legs} eligible today — "
-                         f"acca shortened, not padded (HR35)")
+                         f"Booking code: {code or 'NO DATA — PENDING'}")
+        else:
+            lines.append(f"    Booking code: {code or 'NO DATA — PENDING'}")
 
     if bets.singles:
+        lines.append("")
         lines.append("  SINGLES — one standalone slip each, own booking code")
         for leg in bets.singles:
             code = _code_for(codes, f"SINGLE — {leg.fixture}")
-            code_txt = f"  code {code}" if code else "  code NO DATA — PENDING"
-            lines.append(
-                f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
-                f"@ {leg.price:.2f} ({round(leg.prob*100)}%){code_txt}")
-
-    booked = {r.get("label"): r.get("code") for r in (codes or {}).get("results") or []
-              if r.get("code")}
-    if booked:
-        strip = "  ALL BOOKING CODES:  " + "   ".join(
-            f"[{label}] {code}" for label, code in booked.items())
-        lines.append(strip)
-
-    lines.append("  Capital gate (ID405 overridden 2026-08-11 — Architect "
-                 "directive): all markets deployable, away may be recommended.")
-    lines.append("  Phase 3 live — capital authority is the Architect's. "
-                 "Booking codes are generated for your review; YOU approve "
-                 "and paste.")
-    lines.append("  HONEST EDGE LINE: excellent informed process, NOT a "
-                 "demonstrated profitable edge. An acca multiplies variance.")
+            lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
+                         f"@ {leg.price:.2f}  Booking code: "
+                         f"{code or 'NO DATA — PENDING'}")
     return "\n".join(lines)

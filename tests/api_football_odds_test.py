@@ -15,6 +15,8 @@ from unittest import mock
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from data import api_football_odds as af
+import engine.leagues as leagues
+import engine.markets as mkt
 import pipeline.odds as odds
 from pipeline.odds import MarketQuote, FixtureOdds
 
@@ -175,14 +177,25 @@ with mock.patch.object(odds, "check_quota", return_value=(496, 4)), \
         pass  # expected — fixture capture keeps its cache discipline
 print("6. fixture capture does NOT fall back to the price feed: OK")
 
-# --- 7. only deploy leagues get the fallback ---------------------------------
+# --- 7. fallback serves EVERY whitelisted league (unified pool, ID401) --------
+# When the Odds API quota is spent, this module is the only full multi-market
+# price source (the free tier does not serve O/U1.5, BTTS or Double Chance). A
+# league the fallback refuses therefore prices 1X2-only and its acca legs can
+# never diversify — so the gate must be open for the WHOLE whitelist, not a
+# hardcoded 5-league deploy set (multi-market selection, Architect 2026-08-11).
+_missing = sorted(set(leagues.WHITELISTED_LEAGUES) - set(af.DEPLOY_LEAGUES))
+assert not _missing, f"fallback gate excludes whitelisted leagues: {_missing}"
+print(f"7. fallback gate covers all {len(leagues.WHITELISTED_LEAGUES)} "
+      f"whitelisted leagues (unified pool): OK")
+
+# --- 7b. off-whitelist leagues are still refused (HR34) -----------------------
 with mock.patch.object(af, "check_quota", return_value=(51, 49)):
     try:
-        af.fetch_odds("Premier League", days_ahead=0)
-        raise AssertionError("scan-only league must not get the fallback")
+        af.fetch_odds("Fake League XYZ", days_ahead=0)
+        raise AssertionError("off-whitelist league must not get the fallback")
     except af.SourceNoData:
         pass
-print("7. scan-only leagues are refused by the fallback (deploy only): OK")
+print("7b. off-whitelist league refused by the fallback (HR34): OK")
 
 # --- 8. market constants the pricing path touches actually exist -------------
 # The fallback is the FIRST source to make odds present after weeks of quota
@@ -199,6 +212,57 @@ assert mkt.MARKETS_1X2 == {mkt.HOME: 0, mkt.DRAW: 1, mkt.AWAY: 2}
 import run_daily  # noqa: F401  (import-time constant access)
 import webapp.produce  # noqa: F401
 print("8. market constants for the odds path all resolve (no latent AttrError): OK")
+
+# --- 8b. full multi-market parse — REAL api-football value names --------------
+# The multi-market selection (2026-08-11) needs a real price on every market a
+# fixture is scored on (1X2, O/U1.5, O/U2.5, BTTS, DC), or the acca leg is stuck
+# on 1X2 and can never diversify. api-football names Double Chance outcomes
+# "Home/Draw"/"Draw/Away"/"Home/Away" (NOT our canonical 1X/X2/12) — this used
+# to silently return None for all three DC markets on every fixture. The value
+# names below are copied from the LIVE /odds payload (verified 2026-08-11).
+_FULL_PAYLOAD = {
+    "get": "odds",
+    "response": [{
+        "fixture": {"id": 1552118, "date": "2026-08-08T14:30:00+00:00"},
+        "league": {"id": 88, "name": "Eredivisie"},
+        "bookmakers": [{
+            "name": "Bet365", "bets": [
+                {"name": "Match Winner", "values": [
+                    {"value": "Home", "odd": "1.90"},
+                    {"value": "Draw", "odd": "3.60"},
+                    {"value": "Away", "odd": "4.10"}]},
+                {"name": "Goals Over/Under", "values": [
+                    {"value": "Over 1.5", "odd": "1.30"},
+                    {"value": "Under 1.5", "odd": "3.40"},
+                    {"value": "Over 2.5", "odd": "1.85"},
+                    {"value": "Under 2.5", "odd": "1.95"}]},
+                {"name": "Both Teams Score", "values": [
+                    {"value": "Yes", "odd": "1.70"},
+                    {"value": "No", "odd": "2.10"}]},
+                {"name": "Double Chance", "values": [
+                    {"value": "Home/Draw", "odd": "1.25"},
+                    {"value": "Draw/Away", "odd": "1.85"},
+                    {"value": "Home/Away", "odd": "1.30"}]}]}],
+    }],
+}
+fx_full = af._parse_odds_payload("Eredivisie", _FULL_PAYLOAD, FIXTURE_META)
+assert fx_full.over15.price == 1.30, f"O/U1.5 not priced: {fx_full.over15.price}"
+assert fx_full.under15.price == 3.40
+assert fx_full.btts_yes.price == 1.70, f"BTTS not priced: {fx_full.btts_yes.price}"
+assert fx_full.btts_no.price == 2.10
+assert fx_full.dc_1x.price == 1.25, \
+    f"DC 1X must price from 'Home/Draw': {fx_full.dc_1x.price}"
+assert fx_full.dc_x2.price == 1.85, \
+    f"DC X2 must price from 'Draw/Away': {fx_full.dc_x2.price}"
+assert fx_full.dc_12.price == 1.30, \
+    f"DC 12 must price from 'Home/Away': {fx_full.dc_12.price}"
+# every one of the 11 selection markets must be priceable off this payload
+_quoted = [mk for mk in mkt.EDGE_MARKETS
+           if (q := mkt.quote(mk, fx_full)) is not None and q.available]
+assert set(_quoted) == set(mkt.EDGE_MARKETS), \
+    f"multi-market parse must price all 11 selection markets, got {_quoted}"
+print("8b. full multi-market parse prices all 11 selection markets "
+      "(real api-football DC value names): OK")
 
 print()
 print("✅ ALL API-FOOTBALL ODDS FALLBACK TESTS PASSED")

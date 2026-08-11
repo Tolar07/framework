@@ -56,6 +56,7 @@ All agents, skills, commands, rules, hooks, and contexts are available in every 
 - **Agents**: planner, architect, tdd-guide, code-reviewer, security-reviewer, build-error-resolver, e2e-runner, refactor-cleaner, doc-updater
 - **Skills**: coding-standards, backend-patterns, frontend-patterns, continuous-learning, strategic-compact, tdd-workflow, security-review, eval-harness, verification-loop
 - **Motion-craft skills** (Emil Kowalski pack, added 2026-08-10): `emil-design-eng`, `review-animations`, `improve-animations`, `find-animation-opportunities`. Run `improve-animations` for a prioritized motion audit → plans in `plans/`; `review-animations` for a strict diff pass on motion. Motion is decor, never data-hiding (honest-edge).
+- **Design skills** (added 2026-08-11, presentation-layer only): `web-design-guidelines` (Vercel Web Interface Guidelines review — audits UI/accessibility), `brandkit` (taste-skill — brand voice/style), `image-to-code` (taste-skill — screenshot → code), `ui-ux-pro-max` (wrapper → 24MB CLI toolkit at `external/design-skills/ui-ux-pro-max-skill`), `extract-design-system` (wrapper → token-extraction tool at `external/design-skills/extract-design-system`). All are **reference/tooling for UI work only** — they never touch prediction logic, and they never silently swap the ratified Binance palette (a design-language change needs Architect ratification).
 - **Commands**: /plan, /tdd, /e2e, /code-review, /build-fix, /refactor-clean, /learn, /checkpoint, /verify, /setup-pm
 - **Rules**: security, coding-style, testing, git-workflow, agents, performance, patterns, hooks
 - **Hooks**: tmux reminders, git push review, doc blocking, PR logging, prettier, TypeScript check, console.log audit, session persistence, continuous learning extraction
@@ -121,3 +122,20 @@ available for study — **not** wired into the pipeline:
 - `external/betting-app-skill` — Next.js14 + Supabase pari-mutuel app patterns
   (atomic `place_bet`, RLS, force-dynamic anti-stale-financials). The webapp is
   stdlib-only Python, so only the *patterns* transfer, not the code.
+- `external/design-skills/` — six design-skill sources (emilkowalski `skills/`,
+  `ui-ux-pro-max-skill`, vercel `agent-skills` (web-design-guidelines),
+  `taste-skill` (brandkit + image-to-code), `extract-design-system`). Emils' pack
+  is copied into `.claude/skills/` (motion-craft); three single-file skills are
+  copied (web-design-guidelines, brandkit, image-to-code); the two heavy tools
+  (ui-ux-pro-max 24MB, extract-design-system) are thin wrappers pointing at the
+  clone. Presentation-layer only — no prediction-logic involvement.
+- `external/football-prediction/` — four **reference-only** repos: `penaltyblog`
+  (read for scrapers + backtest utils; do NOT adopt its Cython model as our
+  engine — ours stays hand-rolled/auditable), `soccerstan` + `Dixon-Coles-Football-Predictor`
+  (independent cross-checks of our DC math), `MatchOutcomeAI` (read for its
+  calibration-vs-bookmaker-odds approach vs our MES/EV). None are merged.
+- `external/nba-patterns/` — `NBA_Betting` + `nba-prediction` (architecture
+  patterns for daily scrape→predict→deploy only; NBA markets are banned in our
+  hard rules, so the prediction models are never borrowed).
+- `external/low-priority/soccer_xg` — filed away; only relevant once/if we get
+  real event-level data (we don't, per the xG coverage conclusion).

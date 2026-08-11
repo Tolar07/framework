@@ -82,6 +82,110 @@ def _payload() -> dict:
                     "legs_logged": 3, "legs_with_clv": 0, "avg_clv_pct": None})
 
 
+def _rated_beta() -> BoardFixture:
+    return BoardFixture(
+        fixture="Beta v Gamma (Eredivisie)",
+        probs=FixtureProbabilities("Beta", "Gamma",
+                                   lambda_home=1.7, lambda_away=0.8,
+                                   p_home=0.61, p_draw=0.22, p_away=0.17,
+                                   p_over_15=0.72, p_over_25=0.47,
+                                   p_over_35=0.24, p_btts_yes=0.52,
+                                   modal_scoreline=(1, 0)),
+        verification=verify([SourcedDatum(domain="thesportsdb.com",
+                                          value="Beta v Gamma",
+                                          url="https://x", structured=True)]),
+        softness_tier="D", on_deploy_shortlist=True,
+        best_market="Beta to win", best_price=1.80,
+        best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.098,
+        best_model_prob=0.61, mes_trigger_price=1.48,
+        kickoff_date="2026-08-10",
+        rejection_reason=None)
+
+
+def _rated_delta() -> BoardFixture:
+    return BoardFixture(
+        fixture="Delta v Epsilon (Eredivisie)",
+        probs=FixtureProbabilities("Delta", "Epsilon",
+                                   lambda_home=1.5, lambda_away=0.9,
+                                   p_home=0.55, p_draw=0.24, p_away=0.21,
+                                   p_over_15=0.68, p_over_25=0.43,
+                                   p_over_35=0.20, p_btts_yes=0.50,
+                                   modal_scoreline=(1, 0)),
+        verification=verify([SourcedDatum(domain="thesportsdb.com",
+                                          value="Delta v Epsilon",
+                                          url="https://x", structured=True)]),
+        softness_tier="D", on_deploy_shortlist=True,
+        best_market="Delta to win", best_price=1.75,
+        best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0625,
+        best_model_prob=0.55, mes_trigger_price=1.52,
+        kickoff_date="2026-08-10",
+        rejection_reason=None)
+
+
+def _prod_leg(fixture, market_name, price, prob, league, ev):
+    return {"fixture": fixture, "league": league, "market_key": "1X2_HOME",
+            "market_name": market_name, "price": price, "prob": prob,
+            "ev": ev, "softness_tier": "D"}
+
+
+def _prod_acca(label, legs, combined_odds, combined_prob):
+    return {"label": label, "legs": legs, "combined_odds": combined_odds,
+            "combined_prob": combined_prob, "n_legs": len(legs)}
+
+
+def _payload_prod() -> dict:
+    """A production payload: Acca A (Fenerbahce) + Acca B (Beta, Delta) +
+    the two remainder fixtures as singles — exercises hero band, copy strip,
+    split list, true single codes and the admin Production Bets panel."""
+    accas = [
+        _prod_acca("Acca A",
+                   [_prod_leg("Fenerbahce v Sturm Graz (Champions League)",
+                              "Fenerbahce to win", 1.91, 0.56,
+                              "Champions League", 0.0696)],
+                   1.91, 0.56),
+        _prod_acca("Acca B",
+                   [_prod_leg("Beta v Gamma (Eredivisie)", "Beta to win",
+                              1.80, 0.61, "Eredivisie", 0.098),
+                    _prod_leg("Delta v Epsilon (Eredivisie)", "Delta to win",
+                              1.75, 0.55, "Eredivisie", 0.0625)],
+                   1.80 * 1.75, 0.61 * 0.55),
+        _prod_acca("SINGLE — Beta v Gamma (Eredivisie)",
+                   [_prod_leg("Beta v Gamma (Eredivisie)", "Beta to win",
+                              1.80, 0.61, "Eredivisie", 0.098)],
+                   1.80, 0.61),
+        _prod_acca("SINGLE — Delta v Epsilon (Eredivisie)",
+                   [_prod_leg("Delta v Epsilon (Eredivisie)", "Delta to win",
+                              1.75, 0.55, "Eredivisie", 0.0625)],
+                   1.75, 0.55),
+    ]
+    return schema.build_payload(
+        date="2026-08-10", phase="Phase 2 — paper calibration, zero capital",
+        leagues_scanned=["Champions League", "Eredivisie", "EFL Cup"],
+        board=[_rated(), _rated_beta(), _rated_delta(), _unrated()],
+        data_flags=["⚠ EFL Cup: no history"],
+        gate={"legs_with_clv": 3, "gate_requirement": 30},
+        telemetry={"clv_capture_rate": 0.5, "days_to_gate": 42,
+                   "legs_per_day": 5.5},
+        calibration_count=3, mean_clv=1.2,
+        recommendation="",
+        rolling_7d={"engines": {"dc": {"settled": 1, "hits": 1}},
+                    "legs_logged": 3, "legs_with_clv": 0, "avg_clv_pct": None},
+        accas=accas)
+
+
+CODES_PROD = {"results": [
+    {"label": "Acca A", "code": "AA111",
+     "per_leg": [{"fixture": "Fenerbahce v Sturm Graz (Champions League)"}]},
+    {"label": "Acca B", "code": "AB222",
+     "per_leg": [{"fixture": "Beta v Gamma (Eredivisie)"},
+                 {"fixture": "Delta v Epsilon (Eredivisie)"}]},
+    {"label": "SINGLE — Beta v Gamma (Eredivisie)", "code": "SB_BETA",
+     "per_leg": [{"fixture": "Beta v Gamma (Eredivisie)"}]},
+    {"label": "SINGLE — Delta v Epsilon (Eredivisie)", "code": "SB_DELTA",
+     "per_leg": [{"fixture": "Delta v Epsilon (Eredivisie)"}]},
+]}
+
+
 p = _payload()
 client = render_v2.render_dashboard(schema.trim_payload(p))
 
@@ -177,14 +281,63 @@ for needle in ("Elo second opinion:", "Engine divergence:", "HR30 MES:",
     assert needle in admin, f"admin missing internal {needle!r}"
 print("8. admin has engine internals + rejection log + flags + gate: OK")
 
-# --- 9. tag balance sanity -----------------------------------------------------
+# --- 9. PRODUCTION INTENT on the client (hero band, copy strip, splits) -------
+p_prod = _payload_prod()
+client_prod = render_v2.render_dashboard(schema.trim_payload(p_prod),
+                                         booking_codes=CODES_PROD)
+assert 'class="c-codestrip"' in client_prod, "client missing the copy strip"
+assert "ALL BOOKING CODES — tap to copy" in client_prod, \
+    "client missing the ALL BOOKING CODES label"
+assert 'class="c-card c-acca-hero"' in client_prod, "client missing the Acca A hero"
+assert "ACCA A — TODAY'S HEADLINE" in client_prod, "client missing the hero title"
+assert "AA111" in client_prod, "hero must carry Acca A's booking code"
+assert "legs are not independent" in client_prod, \
+    "hero must carry the honest combined line"
+assert 'class="c-acca-split-title"' in client_prod, "client missing split accas"
+assert "Acca B — 2 legs" in client_prod, "split acca must list its legs count"
+assert "AB222" in client_prod, "split acca must carry its own booking code"
+print("9. client: copy strip + Acca A hero band + split accas with codes: OK")
+
+# --- 9b. client singles: true single code, prob-desc sort, Acca A excluded ----
+# Bound to the CALL panel only — the SCAN panel below it legitimately lists
+# every board fixture (incl. Acca A's), which would false-positive the leak check.
+call_region = client_prod.split("Singles — one bet each, own code")[1] \
+    .split('id="panel-scan"')[0]
+singles_part = call_region
+assert "Fenerbahce" not in singles_part, \
+    "Acca A fixture leaked into the singles grid"
+assert "SB_BETA" in singles_part and "SB_DELTA" in singles_part, \
+    "singles must show their OWN booking code"
+assert "Beta to win 61%" in singles_part, \
+    "single card must show the booked pick, not a drift"
+assert singles_part.index("SB_BETA") < singles_part.index("SB_DELTA"), \
+    "singles must be sorted confidence-first (61% before 55%)"
+print("9b. client singles: own code, prob-desc sort, Acca A excluded: OK")
+
+# --- 9c. admin Production Bets panel: Acca A hero + splits + singles + EV -----
+admin_prod = render_v2.render_admin_dashboard(p_prod, booking_codes=CODES_PROD)
+assert 'class="a-panel a-prodpanel"' in admin_prod, "admin missing the prod panel"
+assert "Production Bets" in admin_prod, "admin prod panel heading missing"
+assert 'class="a-prod-acca hero"' in admin_prod, \
+    "admin Acca A must render the hero variant"
+# admin titles use the label case ("Acca A"); the ALL-CAPS "ACCA A" is the
+# client hero title only.
+assert "Acca A" in admin_prod and "Acca B" in admin_prod
+assert "EV +7.0%" in admin_prod, \
+    "admin leg must carry the full EV (client-safe trim strips it)"
+assert 'class="a-prod-singles"' in admin_prod, "admin missing the singles block"
+assert "SB_BETA" in admin_prod, "admin single must carry its own code"
+print("9c. admin Production Bets panel (hero + splits + singles + EV): OK")
+
+# --- 10. tag balance sanity ----------------------------------------------------
 import re
-for html_text, label in ((client, "client-v2"), (admin, "admin-v2")):
+for html_text, label in ((client, "client-v2"), (admin, "admin-v2"),
+                         (client_prod, "client-prod"), (admin_prod, "admin-prod")):
     for tag in ("div", "table", "thead", "tbody", "tr", "td", "th", "section",
                 "header", "main", "footer", "span", "script", "a", "li", "button"):
         opens = len(re.findall(rf"<{tag}\b", html_text))
         closes = len(re.findall(rf"</{tag}>", html_text))
         assert opens == closes, f"unbalanced <{tag}> in {label} ({opens} vs {closes})"
-print("9. HTML tags balanced in both views: OK")
+print("10. HTML tags balanced in all four views: OK")
 
 print("\n[OK] ALL WEBAPP RENDER_V2 TESTS PASSED")

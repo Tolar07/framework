@@ -53,7 +53,9 @@ with patch.object(run_daily, "BOARD_DIR", boards), \
     assert payload["n_leagues"] == 1
     assert payload["board"][0]["fixture"] == "Bristol City v Walsall (EFL Cup)"
     assert payload["board"][0]["probs"] is None
-    assert "TODAY'S PICKS" in payload["recommendation"]
+    # ⭐ TODAY'S PICKS parlay was REPLACED by the Acca A production block
+    # (Architect 2026-08-10) — the recommendation is now empty.
+    assert payload["recommendation"] == ""
     print("1. web=True writes a readable board JSON: OK")
 
     # --- 2. web=False skips the JSON, keeps the txt --------------------------

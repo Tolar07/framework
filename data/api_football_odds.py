@@ -14,11 +14,13 @@ WHY THIS EXISTS
 QUOTA — DIFFERENT SHAPE, SAME DISCIPLINE
   API-Football free is 100 requests/day with a BURST cap (x-ratelimit-limit,
   seen at 10). A single /odds?fixture=ID call costs 1 request, and a deploy
-  pull needs one fixture-ID lookup per fixture. Five leagues x ~6 fixtures is
-  ~30-35 requests/day — inside 100, but a burst of 10 must be paced. check_quota
-  reads the response headers and refuses to START a league pull when the daily
-  balance is low, so a scheduled run degrades to NO DATA — PENDING rather than
-  silently dying mid-day (mirroring pipeline/odds.py's floor discipline).
+  pull needs one fixture-ID lookup per fixture. When The Odds API is spent this
+  module serves EVERY whitelisted league (ID401, unified pool) so the acca can
+  diversify across markets; a fully-cold day for 18 leagues can exceed 100, so
+  check_quota refuses to START a league pull below the floor and the run
+  degrades to NO DATA — PENDING rather than silently dying mid-day (mirroring
+  pipeline/odds.py's floor discipline). Fixture-ID lists and per-fixture odds
+  blobs are cached, so warm days cost only the day's new fixture IDs.
 
 HR35
   A price that isn't quoted is None and is reported as NO DATA — PENDING.
@@ -42,6 +44,7 @@ from data.multi_source import SourceNoData
 from data import fixtures_source
 from data import retry as retry_module
 from pipeline.odds import MarketQuote, FixtureOdds, map_team
+from engine.leagues import WHITELISTED_LEAGUES
 
 try:
     import requests
@@ -71,11 +74,17 @@ DAILY_FLOOR = 20
 BURST_PACE_SECONDS = 6.0
 BURST_MAX_RETRIES = 3
 
-# Deploy leagues only. The Odds API refuses on these; every other league stays
-# on The Odds API (its richer multi-region feed is the primary). Scan-only
-# leagues are never a capital pick, so pricing them via fallback is not needed.
-DEPLOY_LEAGUES = ("Eredivisie", "Danish Superliga", "Belgian Pro League",
-                  "Scottish Premiership", "Ekstraklasa")
+# The api-football fallback serves the FULL whitelist (unified pool, ID401).
+# When The Odds API quota is spent, this module is the ONLY full multi-market
+# price source — the free tier does not serve O/U1.5, BTTS or Double Chance, so
+# a fixture restricted to SportyBet 1X2 can only ever be a 1X2 leg and the acca
+# clusters on one outcome type. Serving every whitelisted league means each
+# fixture is priced on all markets it is scored on, so the edge selector can
+# actually diversify (multi-market selection, Architect 2026-08-11). The daily
+# 100-request budget still self-limits: a league pull below the floor raises
+# QuotaExhausted and degrades to NO DATA — PENDING, never a fabricated price
+# (HR35). This was 5 hardcoded leagues before 2026-08-11.
+DEPLOY_LEAGUES = tuple(WHITELISTED_LEAGUES)
 
 # Bookmakers the Architect can actually reach, in preference order — the same
 # principle as pipeline/odds.BOOKMAKER_PRIORITY but in API-Football's own names.

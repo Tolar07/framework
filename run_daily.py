@@ -35,7 +35,8 @@ from brain.store import Brain
 from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
 from engine.softness import (WHITELISTED_LEAGUES, build_deploy_shortlist)
-from engine.acca import build_accas, render_acca_block
+from engine.acca import (build_production_bets, build_single_accas,
+                         render_production_block)
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine.consensus import compute_consensus
@@ -671,17 +672,25 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         if b.on_deploy_shortlist and id(b) not in capped:
             b.on_deploy_shortlist = False
 
-    # --- THE BOARD DATE'S 4-LEG ACCA SET (standing rule 2026-08-09): up to 3
-    # --- accas from the board date's deploy-eligible shortlist, priced on the
-    # --- live line in capital-cleared markets (ID405: Draw + Under 2.5). Named
-    # --- at the end of production in the board + Telegram + web; the same
-    # --- payload feeds the SportyBet booking-code generator. ---
-    accas = build_accas(board, today=board_date, odds_index=odds_index)
-    acca_text = render_acca_block(accas, board_date)
-    if accas:
+    # --- THE BOARD DATE'S PRODUCTION BETS (production intent 2026-08-10):
+    # --- Acca A (headline, top 4-5 by confidence) + the remainder split into
+    # --- ~4-5 leg accas + a standalone single per remainder fixture — all from
+    # --- today's deploy-eligible shortlist, priced on the live line in
+    # --- capital-cleared markets (ID405). Named in the board + Telegram + web;
+    # --- the same payload feeds the SportyBet booking-code generator. ---
+    production = build_production_bets(board, today=board_date,
+                                       odds_index=odds_index)
+    acca_list: list = []
+    if production.acca_a is not None:
+        acca_list.append(production.acca_a)
+    acca_list += production.split_accas
+    acca_list += build_single_accas(production.singles)
+    if production.acca_a or production.split_accas or production.singles:
         all_flags.append(
-            f"today's acca set: {len(accas)} acca(s), "
-            f"{sum(a.n_legs for a in accas)} legs on today's slate")
+            f"production bets: "
+            f"{production.acca_a.n_legs if production.acca_a else 0} leg(s) in "
+            f"Acca A, {len(production.split_accas)} split acca(s), "
+            f"{len(production.singles)} single(s) on today's slate")
 
     # --- produced-bet record (ID415): every rated fixture with a kickoff on
     # --- the board date is one produced-bet leg, saved to produced_<date>.json
@@ -735,37 +744,87 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # board/Telegram block.
     produced_record = produced_bet.load_produced_bet(board_date)
 
-    telegram_text = render_telegram_board(
-        mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
-        calibration_count=status["legs_with_clv"],
-        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
-        yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
-        produced_bet=produced_record, accas=accas)
-
-    board_text = render_produce_bet(
-        mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
-        calibration_count=status["legs_with_clv"],
-        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
-        produced_bet=produced_record, accas=accas)
-
-    full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
-    path = BOARD_DIR / f"board_{board_date}.txt"
-
     # The acca payload — what the booking-code generator and the web dashboard
     # read. Always written (even an empty acca set), so downstream consumers
-    # never guess at a missing file.
+    # never guess at a missing file. Carries Acca A, the split accas AND the
+    # singles as 1-leg slips (production intent #6 — every single its own code).
     import dataclasses
     acca_payload = {
         "date": board_date,
-        "n_accas": len(accas),
+        "n_accas": len(acca_list),
         "accas": [{
             "label": a.label,
             "combined_odds": a.combined_odds,
             "combined_prob": a.combined_prob,
             "n_legs": a.n_legs,
             "legs": [dataclasses.asdict(l) for l in a.legs],
-        } for a in accas],
+        } for a in acca_list],
     }
+
+    # --- SPORTYBET BOOKING CODES (Phase 2 — codes only, NO stake placed).
+    # --- Drives the board date's acca payload into SportyBet's betslip and
+    # --- reads the BOOKING CODES SportyBet returns, so the Architect can paste
+    # --- a code into SportyBet to recall the exact slip. Runs BEFORE any render
+    # --- so the codes reach the Telegram push and the web board. Best-effort
+    # --- like the cache refresh: a browser fault degrades each slip to MANUAL,
+    # --- never a run failure (HR35). Gated by --no-booking-codes /
+    # --- OLP_BOOKING_CODES=0; when skipped, a stale codes file is unlinked so
+    # --- yesterday's codes can never surface as today's.
+    codes_result = None
+    if booking_codes and acca_list:
+        try:
+            _mark(runlog, "generating SportyBet booking codes...")
+            from booking.booking_codes import book_accas, render_codes
+            codes_result = book_accas(acca_payload, headless=True)
+            codes_text = render_codes(codes_result)
+            codes_path = BOARD_DIR / f"acca_{board_date}_codes.json"
+            codes_path.write_text(
+                json.dumps(codes_result, ensure_ascii=False, indent=2),
+                encoding="utf-8")
+            n_booked = sum(1 for r in codes_result.get("results", [])
+                           if r.get("code"))
+            n_slips = len(codes_result.get("results", []))
+            all_flags.append(
+                f"SportyBet booking codes: {n_booked}/{n_slips} slip(s) "
+                f"booked — {codes_path.name}")
+            _mark(runlog, codes_text.replace("\n", " | ")[:200])
+        except Exception as e:
+            codes_result = None
+            all_flags.append(
+                f"sportybet booking codes skipped "
+                f"({type(e).__name__}: {str(e)[:80]}) — add legs manually")
+    elif not booking_codes:
+        try:
+            stale = BOARD_DIR / f"acca_{board_date}_codes.json"
+            if stale.exists():
+                stale.unlink()
+        except OSError:
+            pass
+
+    # The production block (Acca A -> split accas -> singles) with codes inline;
+    # the same block feeds the saved acca txt, the Telegram push and the wide
+    # board.
+    acca_text = render_production_block(production, codes=codes_result,
+                                        today=board_date)
+
+    telegram_text = render_telegram_board(
+        mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
+        calibration_count=status["legs_with_clv"],
+        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
+        yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
+        produced_bet=produced_record, production=production,
+        codes=codes_result)
+
+    board_text = render_produce_bet(
+        mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
+        calibration_count=status["legs_with_clv"],
+        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
+        produced_bet=produced_record, production=production,
+        codes=codes_result)
+
+    full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
+    path = BOARD_DIR / f"board_{board_date}.txt"
+
     try:
         (BOARD_DIR / f"acca_{board_date}.json").write_text(
             json.dumps(acca_payload, ensure_ascii=False, indent=2),
@@ -776,38 +835,6 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         # the acca files are additive — a fault never kills the board
         all_flags.append(f"acca file write failed ({e})")
 
-    # --- SPORTYBET BOOKING CODES (Phase 2 — codes only, NO stake placed).
-    # --- Drives the board date's acca payload into SportyBet's betslip and
-    # --- reads the BOOKING CODES SportyBet returns, so the Architect can paste
-    # --- a code into SportyBet to recall the exact slip. Best-effort like the
-    # --- cache refresh: a browser fault degrades each acca to MANUAL, never a
-    # --- run failure (HR35). Gated by --no-booking-codes / OLP_BOOKING_CODES=0.
-    if booking_codes and accas:
-        try:
-            _mark(runlog, "generating SportyBet booking codes...")
-            from booking.booking_codes import book_accas, render_codes
-            codes_result = book_accas(acca_payload, headless=True)
-            codes_text = render_codes(codes_result)
-            codes_path = BOARD_DIR / f"acca_{board_date}_codes.json"
-            codes_path.write_text(
-                json.dumps(codes_result, ensure_ascii=False, indent=2),
-                encoding="utf-8")
-            # the acca text file carries the codes below the acca block, so one
-            # file has both the priced acca and its bookable codes.
-            with (BOARD_DIR / f"acca_{board_date}.txt").open("a", encoding="utf-8") as f:
-                f.write("\n\n" + codes_text + "\n")
-            n_booked = sum(1 for r in codes_result.get("results", [])
-                           if r.get("code"))
-            n_accas = len(codes_result.get("results", []))
-            all_flags.append(
-                f"SportyBet booking codes: {n_booked}/{n_accas} acca(s) "
-                f"booked — {codes_path.name}")
-            _mark(runlog, codes_text.replace("\n", " | ")[:200])
-        except Exception as e:
-            all_flags.append(
-                f"sportybet booking codes skipped "
-                f"({type(e).__name__}: {str(e)[:80]}) — add legs manually")
-
     # The web dashboard (webapp/) reads board_<today>.json — the local server
     # and the hosted static export both consume it, so today's board is
     # available without re-running the pipeline. Additive and cheap; written
@@ -815,7 +842,6 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     if web:
         try:
             from webapp import schema as web_schema
-            from output.produce_bet import render_daily_recommendation
             from clv.phase3_gate import gate_status_for_dashboard
             web_schema.write_payload(
                 web_schema.build_payload(
@@ -825,7 +851,9 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     telemetry=brain.leg_telemetry(),
                     calibration_count=status["legs_with_clv"],
                     mean_clv=status["mean_clv_pct"],
-                    recommendation=render_daily_recommendation(board),
+                    # the ⭐ TODAY'S PICKS parlay is retired (2026-08-10) — Acca A
+                    # is the headline product; the slot stays for schema compat.
+                    recommendation="",
                     produced_bet=produced_record,
                     yesterday_graded=yesterday_graded,
                     rolling_7d=rolling_7d,

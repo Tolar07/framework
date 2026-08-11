@@ -269,20 +269,19 @@ assert len(_parts) >= 2, "test board should be long enough to force a split"
 print(f"17. Telegram chunking: {len(_parts)} parts, every fence balanced: OK")
 
 # The board now shows the model's RESULT prediction per fixture ('the
-# prediction without the markets'). The leak check targets the recommendation
-# legs (after the →): a blocked market as a Pick is the failure. The scan
-# table may honestly PREDICT an away win, but the recommendation must never
-# pick one (ID405) — so the honest prediction appears, and the legs don't.
-_leg_cells = [ln.split("→", 1)[1] for ln in _board_txt.splitlines()
-              if "→" in ln]
-assert not any("Over 2.5" in _c for _c in _leg_cells), (
-    "ID405 LEAK: blocked Over 2.5 appeared as a Pick")
-assert not any("Dundee United" in _c for _c in _leg_cells), (
-    "ID405 LEAK: the recommendation picked a blocked away win")
+# prediction without the markets') and the production block (Acca A + split
+# accas + singles) is part of the telegram board. These 120 fixtures carry NO
+# kickoff date, so the same-day discipline (standing rule 2026-08-09) must keep
+# every one of them OUT of the production block: a date we cannot confirm as
+# today cannot be bet as today (HR35). The block must say so plainly, never
+# invent a pick — the honest line is the contract.
+assert "PRODUCTION BETS" in _board_txt, "production block missing from the board"
+assert "NO production pick today" in _board_txt, (
+    "an undated board must not fabricate production picks (HR35)")
 assert "Dundee United" in _board_txt and "65%" in _board_txt, (
     "the scan cards must show the honest prediction, even a predicted away win")
 assert "Heart of Midlothian" in _board_txt, "HR53: club names must not be truncated"
-print("18. Table board honours ID405 and keeps full club names: OK")
+print("18. Undated board: honest NO-production line + full club names: OK")
 
 
 # --- Elo persistence ------------------------------------------------------

@@ -170,14 +170,17 @@ except urllib.error.HTTPError as e:
 print("1. / -> 302 to /dashboard/<today>: OK")
 
 # --- 2. /dashboard (public, no auth) renders the NEW client view ----------
-# Call/Scan/Analyst tabs; singles + accumulator with booking-code lines; scan
-# date pills + search + collapsible league groups; Analyst is READ-ONLY (no
-# chat anywhere on the client — chat is admin-only per the function map).
+# Call/Scan/Analyst tabs; the published board has no accas payload, so the
+# client shows the honest NO DATA — PENDING single-card grid (the production
+# panel stays admin-only). Date pills + search + collapsible league groups;
+# Analyst is READ-ONLY (no chat anywhere on the client — admin-only).
 code, body = _get(f"/dashboard/{today}")
 assert code == 200
 assert 'data-panel="call"' in body and 'data-panel="scan"' in body and 'data-panel="analyst"' in body
-assert "Singles" in body and "Accumulator" in body and "Booking code" in body
-assert "Fenerbahce" in body and "NO DATA" in body
+# The published board has no 'accas', so the Call holds the single-fiixture
+# grid (honest NO DATA — PENDING for the unrated) and the scan list, not the
+# OLD "Accumulator" / "Booking code" wording (replaced by the production block).
+assert "NO DATA" in body and "Singles" in body
 assert 'id="scan-search"' in body and 'class="c-datepills"' in body
 assert 'class="c-league-head"' in body
 # The client view must NOT carry model internals — not even in the HTML.

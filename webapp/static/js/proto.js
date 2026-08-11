@@ -109,9 +109,10 @@ function bindScanSearch() {
   });
 }
 
-/* Client: booking code copy buttons */
+/* Client: booking code copy buttons (inline codes + the all-codes strip) */
 function bindCopyButtons() {
-  document.querySelectorAll('.c-bookcode button[data-code]').forEach(function (btn) {
+  var selectors = '.c-bookcode button[data-code], .c-codestrip button[data-code]';
+  document.querySelectorAll(selectors).forEach(function (btn) {
     btn.addEventListener('click', function () {
       copyCode(btn.getAttribute('data-code'), btn);
     });

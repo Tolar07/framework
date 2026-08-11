@@ -1,4 +1,4 @@
-"""SPORTYBET BOOKING-CODES — turn the day's accas into bookable codes.
+"""SPORTYBET BOOKING-CODES — turn the day's accas + singles into bookable codes.
 
 WHAT THIS DOES
   Reads the day's acca payload (output/boards/acca_<date>.json — built by
@@ -7,6 +7,13 @@ WHAT THIS DOES
   betslip. When all of an acca's legs are in the betslip it reads the
   generated BOOKING CODE and records it. The output is a code the Architect
   can paste into SportyBet to recall the slip — it is a pre-fill, NOT a stake.
+
+  PRODUCTION INTENT (2026-08-10): the payload now also carries 1-leg slips
+  labelled "SINGLE — <fixture>" — one per remaining fixture's natural best
+  market, each with its OWN booking code. A single is just a 1-leg acca here:
+  book_accas drives one selection and reads one code per entry, so no new
+  driver logic is needed. Every acca (Acca A / Acca B, ... ) AND every single
+  gets its own code.
 
 DEPLOY GATE (Phase 2 — bright line)
   This module NEVER clicks "Place Bet", NEVER enters a stake, and NEVER

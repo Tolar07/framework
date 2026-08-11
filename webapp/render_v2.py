@@ -37,6 +37,7 @@ from webapp.render import (
     _league_of,
     _pct,
     _pick,
+    _pick_confidence,
     _short_fixture,
     _src_dot,
     _teams,
@@ -126,8 +127,16 @@ def _codes_by_label(codes) -> dict:
 
 
 def _single_code(codes, fixture: str) -> str | None:
-    """The acca booking code a single fixture was booked inside, if any."""
+    """A single's OWN booking code when it has one (a 'SINGLE — <fixture>'
+    slip, production intent #6), else the acca code the fixture was booked
+    inside (legacy fallback — covers an Acca A fixture shown as a card)."""
     short = _norm(_short_fixture(fixture))
+    for r in (codes or {}).get("results") or []:
+        label = r.get("label") or ""
+        if label.startswith("SINGLE — "):
+            per_leg = r.get("per_leg") or []
+            if per_leg and _norm(_short_fixture(per_leg[0].get("fixture", ""))) == short:
+                return r.get("code")
     for r in (codes or {}).get("results") or []:
         for leg in r.get("per_leg") or []:
             if _norm(leg.get("fixture", "")) == short:
@@ -200,9 +209,100 @@ def _bookcode_block(code: str | None, extra_cls: str = "") -> str:
             '<span class="pnd">NO DATA — PENDING</span></div>')
 
 
+def _single_pool(board: list, accas: list) -> list:
+    """Deploy-shortlist board fixtures EXCLUDING Acca A's fixtures (production
+    intent #3: once a fixture is in Acca A it leaves the singles pool)."""
+    acca_a = next((a for a in (accas or [])
+                   if (a.get("label") or "") == "Acca A"), None)
+    excluded = {_norm(_short_fixture(l.get("fixture", "")))
+                for l in ((acca_a or {}).get("legs") or [])}
+    return [bf for bf in board
+            if bf.get("probs") and bf.get("on_deploy_shortlist")
+            and _norm(_short_fixture(bf.get("fixture", ""))) not in excluded]
+
+
+def _acca_leg_rows(legs: list) -> str:
+    return "".join(
+        f'<div class="c-mkt-row"><span>{html.escape(l.get("fixture", ""))} — '
+        f'{html.escape(l.get("market_name", ""))}</span>'
+        f"<b>{_pct_of(l.get('prob'))}</b></div>"
+        for l in legs)
+
+
+def _acca_hero(acca: dict, code) -> str:
+    """The headline Acca A — the amber hero band (Architect 2026-08-10)."""
+    legs = acca.get("legs") or []
+    return (
+        f'<div class="c-card c-acca-hero">'
+        f'<div class="c-acca-hero-title">ACCA A — TODAY\'S HEADLINE</div>'
+        f'<div class="c-acca-hero-sub">{len(legs)} legs · combined '
+        f'{_pct_of(acca.get("combined_prob"))} (legs are not independent)</div>'
+        f'{_acca_leg_rows(legs)}'
+        f"{_bookcode_block(code, 'acca')}</div>")
+
+
+def _acca_card(acca: dict, code) -> str:
+    """A split acca (Acca B/C/D...) in the consistent list."""
+    legs = acca.get("legs") or []
+    return (
+        f'<div class="c-card acca">'
+        f'<div class="c-acca-split-title">{html.escape(acca.get("label", ""))} '
+        f'— {len(legs)} legs · combined {_pct_of(acca.get("combined_prob"))}</div>'
+        f'{_acca_leg_rows(legs)}'
+        f"{_bookcode_block(code, 'acca')}</div>")
+
+
+def _codestrip(codes) -> str:
+    """Compact 'All booking codes' strip — one tappable copy chip per slip
+    (Architect 2026-08-10: batch copy-paste into SportyBet)."""
+    booked = [r for r in (codes or {}).get("results") or [] if r.get("code")]
+    if not booked:
+        return ""
+    items = []
+    for r in booked:
+        label = r.get("label", "") or ""
+        show = label[len("SINGLE — "):] if label.startswith("SINGLE — ") else label
+        items.append(
+            f'<button type="button" class="c-codestrip-item" '
+            f'data-code="{html.escape(r["code"])}" title="{html.escape(label)}">'
+            f'{html.escape(show)} <b>{html.escape(r["code"])}</b></button>')
+    return (f'<div class="c-codestrip"><span class="c-codestrip-label">'
+            f'ALL BOOKING CODES — tap to copy</span>{"".join(items)}</div>')
+
+
 def _client_call(board: list, accas: list, codes) -> str:
-    singles = [bf for bf in board if bf.get("probs") and bf.get("on_deploy_shortlist")]
-    parts = ['<div class="c-panel-head">Singles — recommended individually</div>']
+    accas = accas or []
+    codes_by_label = _codes_by_label(codes)
+    accas_real = [a for a in accas
+                  if not (a.get("label") or "").startswith("SINGLE — ")]
+    acca_a = (next((a for a in accas_real if a.get("label") == "Acca A"), None)
+              or (accas_real[0] if accas_real else None))
+    split_accas = [a for a in accas_real if a is not acca_a]
+
+    # natural-best-market pick per fixture from the acca payload legs — the
+    # single card shows the SAME pick the single slip books, never a drift.
+    pick_lookup = {}
+    for a in accas_real:
+        for l in a.get("legs") or []:
+            pick_lookup[_norm(_short_fixture(l.get("fixture", "")))] = l
+
+    singles = _single_pool(board, accas)
+
+    def _confidence(bf) -> float:
+        leg = pick_lookup.get(_norm(_short_fixture(bf.get("fixture", ""))))
+        if leg:
+            return leg.get("prob") or 0.0
+        return _pick_confidence(bf)
+
+    singles.sort(key=_confidence, reverse=True)  # confidence first
+
+    parts = [_codestrip(codes)]
+    if acca_a:
+        parts.append(_acca_hero(acca_a, codes_by_label.get(acca_a.get("label"))))
+    parts += [_acca_card(a, codes_by_label.get(a.get("label")))
+              for a in split_accas]
+
+    parts.append('<div class="c-panel-head">Singles — one bet each, own code</div>')
     if not singles:
         parts.append('<div class="c-empty">NO DATA — PENDING: no deploy-shortlist '
                      'fixtures rated on this board yet.</div>')
@@ -212,9 +312,11 @@ def _client_call(board: list, accas: list, codes) -> str:
         cards = []
         for i, bf in enumerate(singles):
             home, away, league = _teams(bf)
-            _, pct = _pick(bf)  # the pick's real confidence — matches Scan, never "—"
             fixture_txt = f"{home} v {away}" if home and away and away != "—" \
                 else _short_fixture(bf.get("fixture", ""))
+            leg = pick_lookup.get(_norm(_short_fixture(bf.get("fixture", ""))))
+            pct = (f'{leg.get("market_name", "")} {_pct_of(leg.get("prob"))}'
+                   if leg else (_pick(bf)[1] or "—"))
             code = _single_code(codes, bf.get("fixture", ""))
             cards.append(
                 f'<div class="c-card">'
@@ -231,32 +333,6 @@ def _client_call(board: list, accas: list, codes) -> str:
                 f"{_bookcode_block(code)}</div>"
             )
         parts.append(f'<div class="c-grid">{"".join(cards)}</div>')
-    parts.append('<div class="c-panel-head" style="margin-top:18px;">'
-                 'The Accumulator — all singles combined, one bet</div>')
-    if accas:
-        acca = accas[0]
-        legs = acca.get("legs") or []
-        codes_by_label = _codes_by_label(codes)
-        code = codes_by_label.get(acca.get("label"))
-        leg_rows = "".join(
-            f'<div class="c-mkt-row"><span>{html.escape(l.get("fixture", ""))} — '
-            f'{html.escape(l.get("market_name", ""))}</span>'
-            f"<b>{_pct_of(l.get('prob'))}</b></div>"
-            for l in legs
-        )
-        combined = _pct_of(acca.get("combined_prob"))
-        parts.append(
-            f'<div class="c-card acca">'
-            f'<div style="font-size:12px;font-weight:700;margin-bottom:6px;">'
-            f'{len(legs)}-leg ACCA</div>'
-            f'{leg_rows}'
-            f'<div class="c-mkt-row total"><span>Combined probability</span>'
-            f"<b>{combined}</b></div>"
-            f"{_bookcode_block(code, 'acca')}</div>"
-        )
-    else:
-        parts.append('<div class="c-empty">NO DATA — PENDING: no accumulator '
-                     'produced for this board.</div>')
     return "".join(parts)
 
 
@@ -399,7 +475,7 @@ def render_dashboard(payload: dict, asset_base: str = "/static",
     board = payload.get("board", [])
     accas = payload.get("accas") or []
 
-    singles = sum(1 for bf in board if bf.get("probs") and bf.get("on_deploy_shortlist"))
+    singles = len(_single_pool(board, accas))  # excludes Acca A (intent #3)
 
     call = _client_call(board, accas, booking_codes)
     scan = _client_scan(board, d, today, scores or {}, pill_base)
@@ -615,6 +691,62 @@ def _admin_log(payload: dict, board: list) -> str:
     )
 
 
+def _ev_txt(ev) -> str:
+    return "—" if ev is None else f"{ev:+.1%}"
+
+
+def _admin_production_panel(payload: dict, codes) -> str:
+    """The admin PRODUCTION BETS panel — Acca A + split accas + singles with
+    full EV and codes, above the dense grid (Architect 2026-08-10: the acca
+    grouping is a different object from the fixture grid, so it gets its own
+    panel)."""
+    accas = payload.get("accas") or []
+    if not accas:
+        return ('<div class="a-panel a-prodpanel"><h3>Production Bets</h3>'
+                '<div class="a">NO DATA — PENDING: no production bets for this '
+                'board yet.</div></div>')
+    codes_by_label = _codes_by_label(codes)
+    accas_real = [a for a in accas
+                  if not (a.get("label") or "").startswith("SINGLE — ")]
+    singles = [a for a in accas if (a.get("label") or "").startswith("SINGLE — ")]
+
+    def _leg_rows(acc) -> str:
+        return "".join(
+            f'<div class="a-prod-leg"><span>{html.escape(l.get("fixture", ""))}'
+            f' — {html.escape(l.get("market_name", ""))} @ '
+            f'{_fmt_price(l.get("price"))}</span>'
+            f'<span>{_pct_of(l.get("prob"))} · EV {_ev_txt(l.get("ev"))}</span>'
+            f'</div>'
+            for l in (acc.get("legs") or []))
+
+    rows = []
+    for acc in accas_real:
+        label = acc.get("label", "")
+        cls = "a-prod-acca" + (" hero" if label == "Acca A" else "")
+        rows.append(
+            f'<div class="{cls}">'
+            f'<div class="a-prod-title">{html.escape(label)} — '
+            f'{len(acc.get("legs") or [])} legs · combined '
+            f'{_pct_of(acc.get("combined_prob"))}</div>'
+            f'{_leg_rows(acc)}'
+            f"{_bookcode_block(codes_by_label.get(label), 'acca')}</div>")
+    if singles:
+        def _single_row(s) -> str:
+            label = (s.get("label") or "").replace("SINGLE — ", "")
+            leg0 = (s.get("legs") or [{}])[0]
+            return (f'<div class="a-prod-leg"><span>{html.escape(label)} — '
+                    f'{html.escape(leg0.get("market_name", ""))} @ '
+                    f'{_fmt_price(leg0.get("price"))}</span>'
+                    f'<span>{_pct_of(leg0.get("prob"))}</span>'
+                    f'{_bookcode_block(codes_by_label.get(s.get("label")), "acca")}'
+                    f'</div>')
+        single_rows = "".join(_single_row(s) for s in singles)
+        rows.append('<div class="a-prod-singles"><div class="a-prod-title">'
+                    'Singles — own code each</div>' + single_rows + '</div>')
+    return (f'<div class="a-panel a-prodpanel"><h3>Production Bets</h3>'
+            f'{"".join(rows)}</div>')
+
+
 def render_admin_dashboard(payload: dict, asset_base: str = "/static",
                            booking_codes=None) -> str:
     d = payload.get("date", _date.today().isoformat())
@@ -680,6 +812,7 @@ def render_admin_dashboard(payload: dict, asset_base: str = "/static",
     <span id="last-run">{html.escape(last_run)}</span>
   </div>
   {gate_detail}
+  {_admin_production_panel(payload, booking_codes)}
   {_admin_chips(board)}
   {_admin_table(board)}
   <div class="a-approve-row">

@@ -127,6 +127,24 @@ button{font-family:inherit;cursor:pointer;}
 /* Honest NO DATA — PENDING reads as a designed placeholder, not a bug (HR35). */
 .c-bookcode .pnd{color:var(--ink-faint);font-style:italic;font-size:10px;letter-spacing:0.03em;}
 
+/* Acca A hero band — the amber headline (Architect 2026-08-10). Reads as THE
+   pick, distinct from the teal split accas and the plain singles. */
+.c-card.c-acca-hero{border-left:4px solid var(--amber);background:linear-gradient(180deg,#221d0e 0%,var(--surface) 68%);}
+.c-acca-hero-title{font-size:13px;font-weight:700;color:var(--amber);letter-spacing:0.02em;}
+.c-acca-hero-sub{font-size:10px;color:var(--ink-dim);margin:3px 0 8px 0;}
+.c-acca-hero .c-bookcode{border-top-color:rgba(252,213,53,.35);}
+/* Split accas (Acca B/C/D...) — consistent list under the hero. */
+.c-acca-split-title{font-size:12px;font-weight:700;color:var(--teal);margin-bottom:6px;}
+
+/* 'All booking codes' strip — top of Call; one tappable chip per slip
+   (batch copy-paste into SportyBet). */
+.c-codestrip{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:2px 0 10px 0;}
+.c-codestrip-label{font-size:9px;text-transform:uppercase;letter-spacing:0.04em;color:var(--ink-faint);width:100%;}
+.c-codestrip-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:6px 9px;font-size:10px;color:var(--ink-dim);display:inline-flex;gap:6px;align-items:center;transition:border-color 0.15s ease,color 0.15s ease;}
+.c-codestrip-item b{color:var(--amber);font-family:'IBM Plex Mono',monospace;font-weight:600;}
+.c-codestrip-item:hover{border-color:var(--amber);color:var(--ink);}
+.c-codestrip-item:focus-visible{outline:2px solid var(--focus);outline-offset:1px;}
+
 .c-empty{text-align:center;color:var(--ink-faint);font-size:12px;padding:22px 8px;}
 .c-empty b{color:var(--ink);}
 
@@ -205,6 +223,22 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 
 .a-panel{padding:16px;border-top:1px solid var(--lline);}
 .a-panel h3{font-size:11px;font-weight:700;margin:0 0 8px 0;text-transform:uppercase;letter-spacing:0.04em;color:var(--ink-faint);}
+
+/* Production Bets panel — Acca A + split accas + singles, above the grid
+   (Architect 2026-08-10). Same hero/teal split grammar as the client. */
+.a-prodpanel h3{margin:0 0 10px 0;}
+.a-prodpanel .a{font-size:11px;color:var(--ink-faint);font-style:italic;}
+.a-prod-acca{border:1px solid var(--lline);border-left:3px solid var(--teal);border-radius:var(--r-md);background:var(--surface);padding:10px 12px;margin-bottom:10px;}
+.a-prod-acca.hero{border-left-color:var(--amber);background:linear-gradient(180deg,#221d0e 0%,var(--surface) 70%);}
+.a-prod-title{font-size:11px;font-weight:700;color:var(--ink);margin-bottom:6px;text-transform:none;letter-spacing:0.02em;}
+.a-prod-acca.hero .a-prod-title{color:var(--amber);}
+.a-prod-leg{display:flex;justify-content:space-between;gap:12px;font-size:10.5px;color:var(--link-dim);padding:3px 0;}
+.a-prod-leg span:first-child{color:var(--link);}
+.a-prod-leg span:last-child{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);flex:none;}
+.a-prod-singles{margin-top:4px;}
+.a-prod-singles .a-prod-title{color:var(--ink-dim);text-transform:uppercase;font-size:9px;letter-spacing:0.04em;}
+.a-prod-singles .a-prod-leg{border-bottom:1px dotted var(--line);}
+.a-prod-singles .a-prod-leg:last-child{border-bottom:none;}
 #admin-chatlog{min-height:110px;background:var(--surface);border:1px solid var(--lline);border-radius:6px;padding:10px;margin-bottom:8px;font-size:11px;overflow-y:auto;max-height:300px;}
 #admin-chatlog .q{text-align:right;color:var(--ink);margin:4px 0;}
 #admin-chatlog .a{color:var(--link-dim);margin:4px 0;white-space:pre-wrap;}

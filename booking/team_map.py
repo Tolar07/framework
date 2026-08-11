@@ -10,7 +10,6 @@ document known name differences — this module consolidates them.
 """
 from __future__ import annotations
 import re
-from difflib import SequenceMatcher
 from typing import Optional
 
 
@@ -209,6 +208,30 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Sparta Praha": "Sparta Prague",
     "Olympiakos Piraeus": "Olympiacos",
     "AGF Aarhus": "AGF Aarhus",
+    # UEFA qualifiers (2026-08-11 board). Without these the fuzzy matcher in
+    # resolve_team attached WRONG clubs (Celje -> Chelsea, Iberia 1999 ->
+    # Hibernian FC, Larne -> Levante, SK Brann -> SC Braga) — a real price on
+    # the wrong team. With the exact entry the exact match wins (HR35); the
+    # reverse table also picks up these SportyBet spellings, so the next cache
+    # build stores model keys that match the board directly.
+    "Celje": "NK Celje",
+    "Ararat-Armenia": "FC Ararat-Armenia",
+    "Hapoel Be'er Sheva": "Hapoel Be`er Sheva FC",  # SportyBet spells it with a backtick
+    "Mjällby": "Mjallby AIF",
+    "Kairat Almaty": "FC Kairat Almaty",
+    "Levski Sofia": "PFC Levski Sofia",
+    "Kauno Žalgiris": "FK Kauno Zalgiris",
+    "Dinamo Zagreb": "GNK Dinamo Zagreb",
+    "Sabah Baku": "Sabah Masazir",      # SportyBet's spelling of the Baku club (Masazir)
+    "Aarhus": "AGF Aarhus",             # CL-qualifier board key; AGF's Danish pool key is "Aarhus"
+    "FK Crvena Zvezda": "Crvena Zvezda",
+    "Iberia 1999": "FC Iberia 1999",
+    "Larne": "Larne FC",
+    "SK Brann": "SK Brann",             # identity — blocks the fuzzy guess "SC Braga"
+    "Slovan Bratislava": "Slovan Bratislava",   # identity
+    "Panathinaikos": "Panathinaikos",           # identity
+    "FC CSKA 1948": "FC CSKA 1948",             # identity
+    "Apollon Limassol": "Apollon Limassol",     # identity
 }
 
 
@@ -250,10 +273,13 @@ def _normalize(name: str) -> str:
 def resolve_team(olp_name: str, bookmaker: str = "sportybet") -> str:
     """Resolve an OLP XDV team name to a bookmaker's official name.
 
-    Strategy:
-    1. Exact match in SPORTYBET_TEAMS / BET365_TEAMS dict
-    2. Fuzzy match using normalized names and SequenceMatcher
-    3. Return original name if no match found (best effort)
+    EXACT + NORMALIZED-EXACT ONLY — deliberately NO fuzzy pass (HR35), mirroring
+    resolve_team_to_model. The old fuzzy pass returned a DIFFERENT club when the
+    board key wasn't in the table (verified live 2026-08-11: "Celje" -> "Chelsea",
+    "Iberia 1999" -> "Hibernian FC", "Larne" -> "Levante", "SK Brann" ->
+    "SC Braga"), which would attach one club's real price to the wrong team.
+    An unmapped name returns UNCHANGED so the caller reports NO DATA — PENDING
+    rather than guess across clubs; add a verified alias instead.
 
     Returns the bookmaker's official name, or the original OLP name as fallback.
     """
@@ -263,27 +289,14 @@ def resolve_team(olp_name: str, bookmaker: str = "sportybet") -> str:
             return SPORTYBET_TEAMS[olp_name]
     # (Bet365 teams TBD)
 
-    # 2. Fuzzy match
+    # 2. Normalized-exact (case/diacritics/prefix/suffix equal) — never fuzzy.
     target = _normalize(olp_name)
-    best_match = None
-    best_score = 0.0
-
     source = SPORTYBET_TEAMS if bookmaker == "sportybet" else {}
     for olp_key, bm_name in source.items():
-        bm_norm = _normalize(bm_name)
-        # Prefix match (one contains the other)
-        if target in bm_norm or bm_norm in target:
-            score = 0.9
-        else:
-            score = SequenceMatcher(None, target, bm_norm).ratio()
-        if score > best_score:
-            best_score = score
-            best_match = bm_name
+        if _normalize(olp_key) == target:
+            return bm_name
 
-    if best_score >= 0.6:
-        return best_match
-
-    # 3. Fallback: return original
+    # 3. Unmapped: return the original — an honest NO DATA, never a guess.
     return olp_name
 
 

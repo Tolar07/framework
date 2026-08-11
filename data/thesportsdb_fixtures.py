@@ -127,6 +127,13 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Widzew Łódź": "Widzew Lodz",
         "Wisła Płock": "Wisla Plock",
         "Zagłębie Lubin": "Zaglebie",
+        # 2026-08-11 board flags — TheSportsDB spells these with the club-prefix
+        # suffix; every pair is the same club, targets are real pool keys.
+        "KKS Lech Poznan": "Lech Poznan",
+        "RKS Radomiak Radom": "Radomiak Radom",
+        "GKS Piast Gliwice": "Piast Gliwice",
+        "LKP Motor Lublin": "Motor Lublin",
+        "KS Cracovia Krakow": "Cracovia",
     },
     "Danish Superliga": {
         "AGF Aarhus": "Aarhus",
@@ -136,6 +143,10 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Odense BK": "Odense",
         "Silkeborg IF": "Silkeborg",
         "S\xf8nderjyske": "Sonderjyske",
+        # 2026-08-11 board flags — feed uses ASCII spellings the exact dict
+        # lookup (map_team) can't match. Same club, real pool keys.
+        "Copenhagen": "FC Copenhagen",
+        "SonderjyskE": "Sonderjyske",
     },
     "Belgian Pro League": {
         "Sint-Truiden": "St Truiden",
@@ -152,6 +163,8 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Nottingham Forest": "Nott'm Forest",
         "Tottenham Hotspur": "Tottenham",
         "Leeds United": "Leeds",
+        # 2026-08-11 board flag — feed's short form; same club.
+        "Man Utd": "Man United",
     },
     "Championship": {
         "Birmingham City": "Birmingham",
@@ -164,6 +177,13 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Stoke City": "Stoke",
         "Swansea City": "Swansea",
         "West Bromwich Albion": "West Brom",
+        # 2026-08-11 board flags — same club, real pool keys.
+        "Bolton Wanderers": "Bolton",
+        "Middlesbrough FC": "Middlesbrough",
+        "Portsmouth FC": "Portsmouth",
+        "Sheffield Utd": "Sheffield United",
+        "Sunderland AFC": "Sunderland",
+        "Wrexham AFC": "Wrexham",
     },
     "La Liga": {
         "Athletic Bilbao": "Ath Bilbao",
@@ -174,10 +194,16 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Rayo Vallecano": "Vallecano",
         "Real Betis": "Betis",
         "Real Sociedad": "Sociedad",
+        # 2026-08-11 board flags — same club, real pool keys.
+        "Atletico Madrid": "Ath Madrid",
+        "Elche CF": "Elche",
     },
     "Serie A": {
         "AC Milan": "Milan",
         "Inter Milan": "Inter",
+        # 2026-08-11 board flags — same club, real pool keys.
+        "FC Torino": "Torino",
+        "US Lecce": "Lecce",
     },
     "Bundesliga": {
         "Bayer Leverkusen": "Leverkusen",
@@ -185,6 +211,8 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Borussia M\xf6nchengladbach": "M'gladbach",
         "Eintracht Frankfurt": "Ein Frankfurt",
         "K\xf6ln": "FC Koln",
+        # 2026-08-11 board flag — same club, real pool key.
+        "Hamburger SV": "Hamburg",
     },
     "Ligue 1": {
         "Paris Saint-Germain": "Paris SG",
@@ -196,6 +224,12 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Sporting CP": "Sp Lisbon",
         "Vit\xf3ria de Guimar\xe3es": "Guimaraes",
         "Nacional de Madeira": "Nacional",
+        # 2026-08-11 board flags — same club, real pool keys.
+        "Alverca Futebol": "Alverca",
+        "FC Arouca": "Arouca",
+        "FC Famalicao": "Famalicao",
+        "Moreirense FC": "Moreirense",
+        "Rio Ave FC": "Rio Ave",
     },
     "Europa League": {
         # Keys are the ACTUAL TheSportsDB feed spellings (diacritics included),
@@ -209,6 +243,13 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Víkingur Reykjavík": "Vikingur Reykjavik",
         "Rangers": "Rangers",
         "Omonia Nicosia": "Omonia Nicosia",
+        # 2026-08-11 board flags — same club, real cross-model pool keys.
+        "AC Omonia Nicosia": "Omonia Nicosia",
+        "Ferencvarosi Budapest": "Ferencvarosi TC",
+        "KKS Lech Poznan": "Lech Poznan",
+        "Larne FC": "Larne",
+        "Maccabi Tel Aviv FC": "Maccabi Tel Aviv",
+        "Pafos FC": "Pafos",
     },
     "Champions League": {
         # Same verification as Europa League above: feed spelling -> cross-model
@@ -221,6 +262,16 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Union Saint-Gilloise": "St. Gilloise",
         "LASK": "Lask Linz",
         "AGF Aarhus": "Aarhus",
+    },
+    "Conference League": {
+        # Same verification rule as CL/EL: feed spelling -> cross-model pool key,
+        # every pair the same club. Added 2026-08-11 from the ConfL board flags.
+        "Braga": "Sp Braga",
+        "Copenhagen": "FC Copenhagen",
+        "FC Dinamo Minsk": "Dinamo Minsk",
+        "FC Dynamo Kyiv": "Dynamo Kyiv",
+        "FK Borac Banja Luka": "Borac Banja Luka",
+        "Lugano": "FC Lugano",
     },
     # HNL — verified 2026-08-08 by diffing the 2627 fixture feed against the
     # 2526 results feed: TheSportsDB spells the same clubs differently in the

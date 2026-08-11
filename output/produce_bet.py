@@ -616,63 +616,18 @@ def _result_pick(bf: BoardFixture) -> tuple[str, float, bool]:
     return "Draw", prob, False
 
 
-def _engine_chip(bf: BoardFixture) -> list[str]:
-    """One chip per engine that priced this fixture: the predicted side + the
-    agreed/missing marker. ScoreGPT shows each model's pick under the match;
-    here the chips are ✓ for agreement with the consensus pick, ✗ for dissent,
-    ? when that engine had no data. Honest: an engine that could not price the
-    fixture shows '—' not a fabricated pick (HR35)."""
-    out: list[str] = []
-    side = None
-    if bf.probs is not None:
-        side = _result_pick(bf)[0]
-    # DC / cross is the goals engine that owns bf.probs
-    if bf.probs is not None:
-        agreed = side is not None and side == _result_pick(bf)[0]
-        out.append(f"DC {round(max(bf.probs.p_home, bf.probs.p_draw, bf.probs.p_away)*100)}%")
-    else:
-        out.append("DC —")
-    if bf.elo_probs:
-        eh, ed, ea = bf.elo_probs
-        elo_side = max((eh, "home"), (ed, "draw"), (ea, "away"), key=lambda t: t[0])[1]
-        elo_name = {"home": bf.probs.home_team if bf.probs else "home",
-                    "draw": "Draw", "away": bf.probs.away_team if bf.probs else "away"}[elo_side]
-        agreed = side is not None and (elo_side == "home" or elo_side == "away") \
-            and elo_name == side
-        out.append(f"Elo {round(max(eh, ed, ea)*100)}%")
-    else:
-        out.append("Elo —")
-    if bf.xg_probs:
-        xh, xd, xa = bf.xg_probs
-        xg_side = max((xh, "home"), (xd, "draw"), (xa, "away"), key=lambda t: t[0])[1]
-        xg_name = {"home": bf.probs.home_team if bf.probs else "home",
-                   "draw": "Draw", "away": bf.probs.away_team if bf.probs else "away"}[xg_side]
-        out.append(f"xG {round(max(xh, xd, xa)*100)}%")
-    else:
-        out.append("xG —")
-    if bf.market_probs:
-        mh, md, ma = bf.market_probs
-        mk_side = max((mh, "home"), (md, "draw"), (ma, "away"), key=lambda t: t[0])[1]
-        mk_name = {"home": bf.probs.home_team if bf.probs else "home",
-                   "draw": "Draw", "away": bf.probs.away_team if bf.probs else "away"}[mk_side]
-        out.append(f"Book {round(max(mh, md, ma)*100)}%")
-    else:
-        out.append("Book —")
-    return out
-
 
 def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
-    """ScoreGPT-style per-league match cards (ID414): one card per fixture with
-    the AI pick, the predicted scoreline (modal), the consensus count, and the
-    per-engine chips. Shows ALL fixtures across ALL leagues (not just deploy
-    eligible). Accumulator candidates (Tier A/B, on_deploy_shortlist) are marked
-    with ★ at the top of each league section. This REPLACES the old two-column
-    `Fixture | Prediction` table — the Architect's total-restructure order. An
-    unrated fixture keeps its card as NO DATA — PENDING rather than being
-    dropped (HR35).
+    """LEAN per-league fixture cards (Architect 2026-08-11: "reduce the amount
+    of information"): one card per fixture with the AI pick only — no model
+    agreement count, no per-engine chips, no scoreline. Shows ALL fixtures
+    across ALL leagues (not just deploy eligible). Accumulator candidates
+    (on_deploy_shortlist) are marked with ★ at the top of each league section.
+    An unrated fixture keeps its card as NO DATA — PENDING rather than being
+    dropped (HR35). Full model detail lives on the saved board / /board.
 
     Returns (text, any_away_pick) — the bool tells render_telegram_board
-    whether the 'away is never recommended' footnote is needed."""
+    whether the 'away may be recommended' footnote is needed."""
     by_league: dict[str, list[BoardFixture]] = {}
     for bf in board:
         by_league.setdefault(_league_of(bf), []).append(bf)
@@ -695,19 +650,9 @@ def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
                     continue
                 name, prob, is_away = _result_pick(bf)
                 any_away = any_away or is_away
-                sl = getattr(bf.probs, "modal_scoreline", None)
-                score = f"{sl[0]}–{sl[1]}" if sl else "—"
-                pick_line = f"AI pick: {name} — predicted {score}"
-                if bf.consensus and bf.consensus.n_engines:
-                    agree = f"{bf.consensus.agreeing} of {bf.consensus.n_engines} models agree"
-                else:
-                    agree = "consensus unavailable"
-                chips = " · ".join(_engine_chip(bf))
                 league_blocks.append(
                     f"  ★ {_short_fixture(bf)}\n"
-                    f"    {pick_line} ({round(prob*100)}%)\n"
-                    f"    {agree}\n"
-                    f"    {chips}")
+                    f"    AI pick: {name} ({round(prob*100)}%)")
 
         # Then show all other fixtures
         for bf in other_fixtures:
@@ -716,19 +661,9 @@ def render_scan_tables(board: list[BoardFixture]) -> tuple[str, bool]:
                 continue
             name, prob, is_away = _result_pick(bf)
             any_away = any_away or is_away
-            sl = getattr(bf.probs, "modal_scoreline", None)
-            score = f"{sl[0]}–{sl[1]}" if sl else "—"
-            pick_line = f"AI pick: {name} — predicted {score}"
-            if bf.consensus and bf.consensus.n_engines:
-                agree = f"{bf.consensus.agreeing} of {bf.consensus.n_engines} models agree"
-            else:
-                agree = "consensus unavailable"
-            chips = " · ".join(_engine_chip(bf))
             league_blocks.append(
                 f"· {_short_fixture(bf)}\n"
-                f"  {pick_line} ({round(prob*100)}%)\n"
-                f"  {agree}\n"
-                f"  {chips}")
+                f"  AI pick: {name} ({round(prob*100)}%)")
         out.append(f"{FENCE}\n" + "\n".join(league_blocks) + f"\n{FENCE}")
     return "\n".join(out), any_away
 

@@ -28,7 +28,8 @@ USAGE
       log.warning("Fixture not on SportyBet — skipping paper leg")
 
 DEPLOY GATE
-  Phase 2 = paper only. This module NEVER places bets. It only reads and verifies.
+  Phase 3 live — capital authority is the Architect's. This module NEVER
+  places bets. It only reads and verifies.
 """
 
 from __future__ import annotations
@@ -337,31 +338,66 @@ def get_sportybet_odds_for_leg(
 ) -> Optional[float]:
     """Get SportyBet odds for a specific leg/market.
 
-    Returns the decimal odds if available, None otherwise.
+    Returns the decimal odds if available, None otherwise. This reads the
+    cached fixture list (no live call), so `client` is accepted for call
+    compatibility but never used — no session is opened.
+
+    Matching (all EXACT / normalized-exact only — HR35, never a fuzzy guess
+    across clubs):
+      1. Exact model-key match — PipelineFixture.home_team/away_team are the
+         cache's model keys, the same football-data names the orchestrator
+         passes in.
+      2. Normalized model-key match — case/diacritics/prefix stripped via
+         team_map._normalize. A cached model key can still differ from the
+         board key by a diacritic or prefix ("Fenerbahce" vs "Fenerbahçe",
+         "SK Sturm Graz" vs "Sturm Graz"); this pass is what prices the leg
+         instead of silently no-matching.
+      3. SportyBet-name match — the board key resolved to its SportyBet
+         spelling (resolve_team) compared against the cache's RAW
+         sportybet_home/away, the most trustworthy name in the cache.
     """
-    if client is None:
-        client = SportyBetClient()
+    fixtures = load_sportybet_fixtures(olp_league, days_ahead=45)
 
-    try:
-        fixtures = load_sportybet_fixtures(olp_league, days_ahead=45)
-
-        # Match on MODEL keys — PipelineFixture.home_team/away_team are the
-        # football-data short names, the same keys the orchestrator passes in.
-        for fx in fixtures:
-            if fx.home_team == home_team and fx.away_team == away_team:
-                if market == "1X2_HOME":
-                    return fx.home_odds
-                elif market == "1X2_DRAW":
-                    return fx.draw_odds
-                elif market == "1X2_AWAY":
-                    return fx.away_odds
-                # Totals markets are NOT captured from the league page (the
-                # line is a variable selector, not fixed 2.5) — honest None.
-                return None
+    def _price(fx) -> Optional[float]:
+        if market == "1X2_HOME":
+            return fx.home_odds
+        if market == "1X2_DRAW":
+            return fx.draw_odds
+        if market == "1X2_AWAY":
+            return fx.away_odds
+        # Totals markets are NOT captured from the league page (the line is a
+        # variable selector, not fixed 2.5) — honest None.
         return None
-    finally:
-        if client:
-            client.close()
+
+    # 1. Exact model-key match.
+    for fx in fixtures:
+        if fx.home_team == home_team and fx.away_team == away_team:
+            return _price(fx)
+
+    # 2. Normalized model-key match.
+    try:
+        from booking.team_map import _normalize
+        nh, na = _normalize(home_team), _normalize(away_team)
+        for fx in fixtures:
+            if (_normalize(fx.home_team) == nh
+                    and _normalize(fx.away_team) == na):
+                return _price(fx)
+    except Exception:
+        pass
+
+    # 3. SportyBet-name match (raw cache names).
+    try:
+        from booking.team_map import resolve_team, _normalize
+        sh = _normalize(resolve_team(home_team, "sportybet"))
+        sa = _normalize(resolve_team(away_team, "sportybet"))
+        for fx in fixtures:
+            if (_normalize(fx.sportybet_home or "") == sh
+                    and _normalize(fx.sportybet_away or "") == sa):
+                return _price(fx)
+    except Exception:
+        pass
+
+    return None
 
 
 def sportybet_fixtures_to_pairs(

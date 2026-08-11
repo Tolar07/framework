@@ -192,10 +192,22 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Sp Lisbon": "Sporting CP",
     "Braga": "SC Braga",
     "Guimaraes": "Vitoria de Guimaraes",
-    # Champions League / Europa League
+    # Champions League / Europa League. The board's model keys are the
+    # football-data.co.uk spellings ("Bodo/Glimt", "Sparta Praha",
+    # "Olympiakos Piraeus", "Fenerbahçe"); SportyBet's league page uses
+    # "Bodoe/Glimt", "Sparta Prague", "Olympiacos", "Fenerbahce Istanbul".
+    # These entries make the reverse resolver produce model keys that MATCH the
+    # board, so the SportyBet-price join and the booking-code driver both
+    # resolve (the old cache silently stored SportyBet spellings as model keys
+    # — e.g. "Sparta Rotterdam" for the board's "Sparta Praha" — and every
+    # acca leg reported 'fixture not found').
     "Fenerbahce": "Fenerbahce Istanbul",
+    "Fenerbahçe": "Fenerbahce Istanbul",   # board/ç variant -> same SportyBet
     "Sturm Graz": "SK Sturm Graz",
-    "Bodoe/Glimt": "Bodoe/Glimt",
+    "Bodo/Glimt": "Bodoe/Glimt",           # football-data key -> SportyBet
+    "Bodoe/Glimt": "Bodoe/Glimt",          # legacy alias (reverse prefers Bodo/Glimt)
+    "Sparta Praha": "Sparta Prague",
+    "Olympiakos Piraeus": "Olympiacos",
     "AGF Aarhus": "AGF Aarhus",
 }
 
@@ -214,17 +226,22 @@ for _olp_key, _sb_name in SPORTYBET_TEAMS.items():
 def _normalize(name: str) -> str:
     """Normalize a team name for comparison."""
     name = name.lower().strip()
-    # Remove common prefixes/suffixes
-    for prefix in ("fc ", "sc ", "ac ", "cd ", "cf ", "rk ", "ss "):
+    # Remove common prefixes/suffixes. "sk " / "fk " are Scandinavian club
+    # prefixes ("SK Sturm Graz", "FK Kauno Zalgiris") — without them the
+    # reverse resolver can't match "SK Sturm Graz" back to model key "Sturm
+    # Graz", and the cache stores the SportyBet spelling as the model key.
+    for prefix in ("fc ", "sc ", "ac ", "cd ", "cf ", "rk ", "ss ", "sk ", "fk "):
         if name.startswith(prefix):
             name = name[len(prefix):]
     for suffix in (" fc", " sc", " ac", " cf", " if", " bk", " fk", " sk"):
         if name.endswith(suffix):
             name = name[:-len(suffix)]
-    # Remove diacritics (basic)
+    # Remove diacritics (basic). ç matters for "Fenerbahçe" — without it the
+    # board's football-data key never normalizes equal to SportyBet's plain
+    # "Fenerbahce", so the leg silently no-matches.
     replacements = {"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u",
                     "ä": "a", "ö": "o", "ü": "u", "ñ": "n", "ø": "o",
-                    "æ": "ae", "ß": "ss"}
+                    "æ": "ae", "ß": "ss", "ç": "c"}
     for old, new in replacements.items():
         name = name.replace(old, new)
     return name.strip()

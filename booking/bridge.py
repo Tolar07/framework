@@ -107,14 +107,25 @@ def _odds_cache_path(fixture_id: str) -> Path:
 def load_sportybet_fixtures(
     olp_league: str,
     days_ahead: int = 3,
-    max_age_hours: int = 6,
+    max_age_hours: int = 24,
 ) -> List[PipelineFixture]:
     """Load fixtures from SportyBet cache for an OLP XDV league.
 
     Args:
         olp_league: OLP XDV league name (e.g., "Premier League")
         days_ahead: How many days ahead to include
-        max_age_hours: Maximum cache age in hours
+        max_age_hours: Maximum cache age in hours.
+
+    Default is 24h, NOT 6h (was 6h until 2026-08-11): a 6h window meant any
+    daily run more than ~6h after the last cache build lost EVERY league's
+    prices at once — the board showed the fixtures (the orchestrator's fixture
+    fallback already read 48h) but the price join (`get_sportybet_odds_for_leg`)
+    and the booking-code driver both used this default and silently returned
+    "fixture not found in SportyBet cache". The cached 1X2 snapshot is a
+    same-day reference: the booking driver re-reads the LIVE price at booking
+    time and CLV grades on the closing line, so a 24h window is honest and
+    keeps today's fixtures priceable all day (HR35 — a real snapshot, just
+    not a live one).
 
     Returns:
         List of PipelineFixture objects ready for the pipeline.

@@ -86,6 +86,9 @@ def _refresh_sportybet_cache(runlog: Path, days_ahead: int = 30) -> str | None:
     playwright, a blocked site, or a fault is a miss, never a run failure (HR35).
     The builder is incremental — only leagues whose cache is older than 6h are
     actually re-navigated, so a warm day adds only the browser launch (~2s).
+    Even when the refresh cannot run (no browser), the LOADER now accepts the
+    cache up to 24h old (2026-08-11), so the board never loses every league's
+    prices to a 6h window again.
 
     Returns a data-flag line (or None when skipped/disabled)."""
     try:
@@ -405,7 +408,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- warm the SportyBet fixture cache BEFORE the scan, so the booking
     # --- bridge can join SportyBet prices onto the board. Best-effort: a
     # --- fault is a flag, never a run failure (HR35). Incremental: only
-    # --- leagues whose 6h cache is stale are re-navigated. ---
+    # --- leagues whose 6h-old cache is stale are re-navigated (the loader
+    # --- accepts up to 24h, so a failed refresh is a miss, not a wipe). ---
     if refresh_sportybet:
         flag = _refresh_sportybet_cache(runlog)
         if flag:

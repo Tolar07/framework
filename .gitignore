@@ -21,10 +21,13 @@ venv/
 # Scratch
 tests/tmp_*.json
 *.tmp
+# Rendered-output scratch captures (manual test artifacts, e.g. lean_reply.txt)
+*_reply.txt
 
 # Active process logs — always changing
 logs/poller.log
 logs/web.jsonl
+logs/web_server.log
 
 # Brain database — derived, re-buildable from clv_log.json + model history
 brain/*.db

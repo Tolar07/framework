@@ -1706,3 +1706,36 @@ in-flight). Tests: webapp_export / webapp_render_v2 / webapp_server all PASS.
 Cache-buster rolled to `proto.css?v=1786397873`.
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+---
+
+## 2026-08-11 — Softness/tiering FULLY REMOVED (not just cancelled)
+
+**Decision:** The 2026-08-10 cancellation of the softness/deploy-eligibility
+gate (ID402 Tier A/B league restriction, FIX 3, v303.10) is now a full
+deletion, per the "remove softness fully" prompt. Not disabled, not
+defaulted-open — actually removed from the code, with nothing left that could
+silently re-enable it.
+
+**What changed (this session, completing the in-flight removal):**
+- `engine/softness.py` deleted from the tree; `engine/leagues.py` is the single
+  league-eligibility home: `WHITELISTED_LEAGUES` (18) + `is_deploy_eligible()`
+  (whitelist membership only), `call_key()`, `build_deploy_shortlist()` (no
+  cap; ID405 `mkt.blocked()` kept purely as a structural backstop — it never
+  blocks today).
+- `tests/softness_mes_test.py` (imported the deleted module → broke pytest
+  collection) removed; superseded by `tests/leagues_test.py` (import-order
+  lint fixed).
+- mypy gate re-pointed `engine/softness.py` → `engine/leagues.py` in
+  `pyproject.toml` (was CI-breaking).
+- `softness_tier` columns dropped from live schemas by migrations v7/v8
+  (`brain/store.py`) — no back-compat slot remains.
+- Docs updated to say "fully removed" not "cancelled": master documentation
+  (ID402 row + changelog), compiled reference, league dossier, data-coverage
+  matrix, ARCHITECTURE.md risk row.
+
+**Explicitly UNCHANGED (separate mechanisms, per the prompt):** ID405 away-win
+exclusion, the CLV/legs-required publish gate, `ARCHITECT_SIGNOFF`, and
+calibration-log league scope. None were widened, narrowed, or touched.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

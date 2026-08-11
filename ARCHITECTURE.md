@@ -147,7 +147,7 @@ run_daily.bat
 | **Odds quota low (4/500)** | High | `pipeline/odds.py` | Monthly reset; monitor via health monitor |
 | **Telegram delivery failing** | Critical | `logs/daily_*.log` | Check bot token / poller daemon |
 | **Stale fixture caches (18-25h)** | Medium | `data/cache/` | Self-heals on next run (6h TTL rejection) |
-| **Promoted clubs unrated** | Medium | `engine/softness.py` | 5 clubs need top-flight matches to self-rate |
+| **Promoted clubs unrated** | Medium | `engine/leagues.py` | 5 clubs need top-flight matches to self-rate |
 | **No demonstrated edge (backtest negative)** | Critical | `backtest/results/` | Historical CLV backtest RUNS (not blocked); recent results are negative — see section 12 below |
 | **ARCHITECT_SIGNOFF not set** | Medium | `.env` | Required for client publish gate — leave unset until Phase 3 gate is genuinely met |
 

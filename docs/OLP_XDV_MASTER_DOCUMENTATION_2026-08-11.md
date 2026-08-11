@@ -36,7 +36,7 @@ OLP XDV is a **Phase-2 paper-only** football-betting calibration framework. A da
 |----|----------------|--------|----------------|
 | **ID82** | **Elo rating engine** — built from the same match data as Dixon-Coles; shown beside DC | **Active** | `engine/elo.py` |
 | **ID401** | **League whitelist = unified pool** — 18 leagues (incl. Conference League added 2026-08-10). Every whitelisted league is scan- AND deploy-eligible | **Active** | `engine/leagues.py` `WHITELISTED_LEAGUES` |
-| **ID402** | **Softness tiers** (A/B/C/D ranking, deploy cap, scan-only class) | **REMOVED 2026-08-10** — code no longer has tiers; `engine/softness.py` deleted, replaced by `engine/leagues.py`. `softness_tier()` kept only as a back-compat slot returning `"ONE"`/`"?"` | `engine/leagues.py` |
+| **ID402** | **Softness tiers** (A/B/C/D ranking, deploy cap, scan-only class) | **FULLY REMOVED 2026-08-11** — no tier logic remains anywhere: `engine/softness.py` deleted, `engine/leagues.py` is the only league-eligibility home (unified pool). No `softness_tier()` function, no `SOFTNESS_TIER`/`SOFTNESS_PAUSED`/`DEPLOY_POOL_CAP` constants, no tier column in live schemas (migrations v7/v8 drop it). Nothing left that could silently re-enable tiers | `engine/leagues.py` |
 | **ID403** | **Multi-factor verification tiers** — VERIFIED / SINGLE-SOURCE / CONFLICT / NO-DATA / DERIVED; CONFLICT & NO-DATA never silently resolved | **Active** | `verification/id403.py` |
 | **ID404** | **Source trust register** — ratified sources; trust tier sets corroboration requirement | **Active** | `RATIFICATIONS.md`, `data/` |
 | **ID405** | **Market gate** — which markets may carry (paper) capital. **OPENED 2026-08-10:** `BLOCKED = {}`, all five 1X2 markets + O/U + BTTS deployable. The earlier block (Away −2% CLV, Home −0.6%, Over2.5 −0.7% backtest evidence) is *not* dismissed — the Architect widened the book to test forward in paper mode; markets can be re-closed by re-adding to `BLOCKED` | **OPEN (all markets deployable)** | `engine/markets.py` |
@@ -140,7 +140,7 @@ OLP XDV is a **Phase-2 paper-only** football-betting calibration framework. A da
 ### 2.3 What changed when softness was cancelled (2026-08-10)
 
 - **Before:** `engine/softness.py` carried `SOFTNESS_TIER`, `SOFTNESS_PAUSED`, `DEPLOY_ELIGIBLE_TIERS`, `DEPLOY_POOL_CAP`, `_tier_words()`; leagues ranked A/B/C/D; deploy shortlist came only from eligible tiers; board rendered tier labels; accas drew only from capital-cleared tiers.
-- **After:** `engine/softness.py` is **deleted** from the working tree; `engine/leagues.py` (new) holds `WHITELISTED_LEAGUES` (18) + `is_deploy_eligible()` (whitelist membership only). `softness_tier()` survives as a back-compat slot returning `"ONE"`/`"?"` only. `on_deploy_shortlist` = whitelisted + rated + verification not CONFLICT/NO-DATA. Board renders one unified deploy pool with no tier labels. **Deploy eligibility is now: on the whitelist, or it does not deploy.**
+- **After (2026-08-11, fully removed):** `engine/softness.py` is **deleted**; `engine/leagues.py` holds `WHITELISTED_LEAGUES` (18) + `is_deploy_eligible()` (whitelist membership only). No `softness_tier()` function or back-compat slot remains — the column is dropped from live schemas by migrations v7/v8. `on_deploy_shortlist` = whitelisted + rated + verification not CONFLICT/NO-DATA. Board renders one unified deploy pool with no tier labels. **Deploy eligibility is now: on the whitelist, or it does not deploy.**
 
 ### 2.4 Calibration / CLV logging
 
@@ -246,4 +246,8 @@ olp_xdv/
 
 ---
 
-*End of master documentation. Generated 2026-08-11 by Claude Code from the working tree at HEAD `f9063b2` (+ uncommitted softness-removal refactor in progress: `engine/softness.py` deleted, `engine/leagues.py` new).*
+## Changelog
+
+- **2026-08-11 — softness/tiering fully removed (not just cancelled).** The 2026-08-10 cancellation is now a deletion: `engine/softness.py` removed from the tree; `engine/leagues.py` (unified pool, 18 leagues) is the single league-eligibility home; the stale `tests/softness_mes_test.py` (which imported the deleted module and broke pytest collection) is superseded by `tests/leagues_test.py` and removed; the mypy gate now checks `engine/leagues.py`. No `softness_tier` / `SOFTNESS_PAUSED` / `DEPLOY_POOL_CAP` code, function, constant, or live schema column remains.
+
+*End of master documentation. Generated 2026-08-11 by Claude Code; softness-removal refactor fully applied and committed.*

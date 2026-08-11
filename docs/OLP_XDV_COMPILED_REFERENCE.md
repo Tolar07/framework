@@ -50,7 +50,7 @@ Scottish Premiership · Belgian Pro League · Eredivisie · Championship · Prim
 
 **Data coverage caveat (confirmed directly, not assumed):** Football-Data.co.uk does NOT cover Champions League, Europa League, Conference League, or HNL — no continental competitions in that source, and Croatia isn't in its country list. Those four leagues need a different historical source before they can be backtested the same way as the other 12. Conference League IS modelled (cross-league fit pool, API-Football id 848) — the remaining gap is a current-season FIXTURES source; see `competition_catalogue.py`.
 
-> **REPO CROSS-CHECK (OUTDATED tiering):** the GREEN/AMBER feed-tool split is superseded. `engine/softness.py` now uses **evidence-based softness tiers** ranked by the CLV backtest (2026-08): **A** = Eredivisie, Danish Superliga; **B** = Belgian Pro League, Scottish Premiership, Ekstraklasa; **C** = HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League; **D** = Primeira Liga, Premier League, La Liga, Champions League + **Austrian Bundesliga** (D) + **EFL Cup** (D, added 2026-08-06) = 17 leagues scanned. Notably **Premier League / La Liga / Serie A are now D (scan-only)** — they are no longer "GREEN tool-fed" deploy favourites. The deploy shortlist (THE CALL) draws only tiers A/B, capped at 6 fixtures.
+> **REPO CROSS-CHECK (updated 2026-08-11):** softness tiering was **fully removed** — the GREEN/AMBER feed-tool split and the evidence-based A/B/C/D tiers are gone. `engine/softness.py` is deleted; `engine/leagues.py` holds the unified 18-league whitelist (`WHITELISTED_LEAGUES`) and `is_deploy_eligible()` (whitelist membership only). Every whitelisted league is scan- AND deploy-eligible — no tiers, no cap, no `SOFTNESS_PAUSED`.
 
 ---
 
@@ -86,15 +86,9 @@ Scottish Premiership · Belgian Pro League · Eredivisie · Championship · Prim
 
 ## SECTION 5 — MATCHDAY SLATE ENGINE (ID402) — "wide eyes, narrow hands"
 
-Model-only SCAN is wide — every whitelisted league gets scanned every run, whether or not deploy-eligible, whether or not its season has started. Capital shortlist (THE CALL / DEPLOY) is narrow — softness tier A/B only, capped at 6 fixtures total across ALL leagues combined, never per-league.
+Model-only SCAN is wide — every whitelisted league gets scanned every run, whether or not its season has started. THE CALL / DEPLOY draws from the SAME unified pool — softness tiering was **fully removed 2026-08-11** (`engine/softness.py` deleted): every whitelisted league is deploy-eligible, `DEPLOY_POOL_CAP` is gone, THE CALL ranks priced-first then EV/conviction (see `engine/leagues.call_key`), and the odds price pull widens to all 18 whitelisted leagues (quota self-limits via `check_quota`). No `SOFTNESS_PAUSED`, no tier A/B/C/D — nothing left that could be re-enabled.
 
-**⚠ SOFTNESS PAUSED (2026-08-09, Architect directive):** the tier gate is suspended in bet production — `engine/softness.SOFTNESS_PAUSED = True`. Every whitelisted league (A/B/C/D) is deploy-eligible, `DEPLOY_POOL_CAP` is lifted, THE CALL ranks purely priced-first then EV/conviction, and the odds price pull widens to all whitelisted leagues (quota self-limits via `check_quota`). The **ID405 market gate is unchanged** (away win, Over 2.5, home win still blocked from capital). Set `SOFTNESS_PAUSED = False` to restore ID402.
-
-**Softness tiers** (evidence-based ranking, Section 7.4 of the master doc per earlier sessions):
-- Tier A/B = deploy-eligible
-- Tier C/D = scan-only, never enters the capital shortlist regardless of how good a number looks
-
-> **REPO CROSS-CHECK:** ✓ `orchestrator.py`, `engine/softness.py`. Scan = all 17 whitelisted leagues. Deploy gating now honours `SOFTNESS_PAUSED`: when True, deploy = all whitelisted leagues with no cap; when False, deploy = A/B only, capped at 6. This doc's tier A/B-only description is the *unpaused* contract; the pause is recorded in RATIFICATIONS.md (2026-08-09).
+> **REPO CROSS-CHECK:** ✓ `engine/leagues.py`. Scan = all 18 whitelisted leagues, all deploy-eligible. Deploy gating honours the ID401 whitelist only (`is_deploy_eligible`) and the ID405 market gate (`engine/markets.py` `blocked()`); the ID405 gate is currently OPEN (`BLOCKED = {}`). Softness removal recorded in RATIFICATIONS.md (2026-08-11).
 
 ---
 

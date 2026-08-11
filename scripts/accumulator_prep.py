@@ -5,20 +5,23 @@ dashboard serves) and formats the deploy-shortlist picks as a bet slip:
 selections, per-leg market + odds, combined parlay odds, and a suggested total
 stake. The output is a COPY-PASTE artefact — this script NEVER places a bet and
 never submits anything anywhere. Capital deployment stays manual, with the
-Architect, per the Phase 2 paper-only bright line.
+Architect (Phase 3 live: this framework records stakes the Architect logs, but
+never places one itself — capital authority is the Architect's).
 
 Pick rule (matches the board, so the slip can never drift from what was shown):
   * ONLY fixtures on the deploy shortlist whose kickoff is TODAY (standing rule
     2026-08-09: the product bet is today's slate and nothing else — a fixture
-    with no kickoff date is never assumed to be today, HR35). Softness is
-    PAUSED (2026-08-09), so every whitelisted league's shortlisted fixtures
-    qualify — not just A/B.
+    with no kickoff date is never assumed to be today, HR35). Softness is fully
+    REMOVED (2026-08-11), so every whitelisted league's shortlisted fixtures
+    qualify — the unified pool, not Tier A/B.
   * Market = best_market (the priced headlined market) when one exists.
   * If no live price, the leg is listed with its breakeven trigger price and
     marked "NO PRICE — back at {trigger}+" so the Architect can confirm on
     SportyBet before adding it.
-  * Away wins are never recommended (ID405 — proven-negative market); a pick
-    whose best_market_key is an away win is flagged and excluded.
+  * Away wins / Over 2.5 are conservatively excluded here pending Architect
+    ratification of the ID405 scope (an OPEN QUESTION per CLAUDE.md — the
+    market gate engine/markets.BLOCKED is open, but this slip tool keeps its
+    caution until told otherwise, by name).
 
 Usage:
     python scripts/accumulator_prep.py                  # today's board
@@ -145,11 +148,11 @@ def build_slip(day: str, stake: float) -> dict:
     framework's value is disciplined filtering; a quiet day is a correct result,
     not a failure."""
     board = load_board(day)
-    # Softness PAUSED (2026-08-09): all whitelisted leagues are deploy-eligible,
-    # so the slip draws from every on_deploy_shortlist fixture, not just A/B.
-    # Standing rule (2026-08-09): TODAY's fixtures only — the product bet is the
-    # day's slate and nothing else; a fixture with no kickoff date is never
-    # assumed to be today (HR35).
+    # Softness fully REMOVED (2026-08-11): all whitelisted leagues are
+    # deploy-eligible, so the slip draws from every on_deploy_shortlist
+    # fixture — the unified pool, not Tier A/B. Standing rule (2026-08-09):
+    # TODAY's fixtures only — the product bet is the day's slate and nothing
+    # else; a fixture with no kickoff date is never assumed to be today (HR35).
     today = date.today().isoformat()
     eligible = [bf for bf in board
                 if bf.get("on_deploy_shortlist")
@@ -208,8 +211,9 @@ def render_slip(s: dict) -> str:
 
     out.append(f"ACCUMULATOR PREP — {s['day']}")
     out.append("Deploy-shortlist picks, TODAY's fixtures only (standing rule "
-               "2026-08-09). Softness PAUSED — all whitelisted leagues qualify. "
-               "Phase 2 paper — nothing placed by this system.")
+               "2026-08-09). Softness REMOVED — all whitelisted leagues qualify "
+               "(unified pool). Phase 3 live — this slip is manual; the "
+               "framework never places a stake.")
     if not s["legs"]:
         out.append("NO DEPLOY-ELIGIBLE PICKS today — a valid, honest result.")
         if s["excluded"]:
@@ -237,8 +241,9 @@ def render_slip(s: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Format the day's Tier A/B picks into a ready-to-paste "
-                    "SportyBet accumulator slip. READ-ONLY — never places a bet.")
+        description="Format the day's deploy-shortlist picks into a "
+                    "ready-to-paste SportyBet accumulator slip. READ-ONLY — "
+                    "never places a bet.")
     parser.add_argument("day", nargs="?", default=date.today().isoformat(),
                         help="Board date as YYYY-MM-DD (default: today)")
     parser.add_argument("--stake", type=float, default=DEFAULT_STAKE_NGN,

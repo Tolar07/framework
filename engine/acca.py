@@ -48,7 +48,7 @@ HONESTY (HR35 carried through)
   - An acca is a product shape, NOT a demonstrated edge. The backtest is
     negative; the block carries the honest line.
 
-PHASE 2
+PHASE 3 (live capital, Architect-deployed 2026-08-11)
   This module only NAMES and PRICES the bets. It never places, never stakes.
   Booking codes are generated separately (booking/booking_codes.py) for the
   Architect's review; capital authority stays with the Architect.
@@ -152,8 +152,14 @@ def _best_deployable_leg(bf, odds_index: Optional[dict]) -> Optional[AccaLeg]:
         price = None
         # SportyBet first for the markets it carries (1X2) — it is the book the
         # Architect actually bets at. The Odds API covers the rest (totals).
-        if market == mkt.DRAW:
-            price = getattr(bf, "sb_draw_odds", None)
+        # The orchestrator attaches sb_home/draw/away_odds from the SportyBet
+        # cache; using all three means a leg prices on SportyBet's own line
+        # even when the Odds API quota is exhausted (verified 2026-08-11).
+        sb_attr = {mkt.HOME: "sb_home_odds",
+                   mkt.DRAW: "sb_draw_odds",
+                   mkt.AWAY: "sb_away_odds"}.get(market)
+        if sb_attr:
+            price = getattr(bf, sb_attr, None)
         if price is None and odds_index is not None:
             fx = odds_index.get((home, away))
             if fx is not None:
@@ -373,8 +379,9 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
 
     lines.append("  Capital gate (ID405): all five markets are deployable "
                  "(gate opened 2026-08-10 — no market blocked).")
-    lines.append("  PAPER — Phase 2, zero capital. Booking codes are generated "
-                 "for your review; YOU approve and paste.")
+    lines.append("  Phase 3 live — capital authority is the Architect's. "
+                 "Booking codes are generated for your review; YOU approve "
+                 "and paste.")
     lines.append("  HONEST EDGE LINE: excellent informed process, NOT a "
                  "demonstrated profitable edge. An acca multiplies variance.")
     return "\n".join(lines)

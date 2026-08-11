@@ -275,8 +275,9 @@ txt11b = render_production_block(bets5, codes=None, today=TODAY)
 _check("no codes -> honest NO DATA — PENDING per item "
        "(3 accas + 7 singles = 10)",
        txt11b.count("NO DATA — PENDING") == 10, txt11b)
-_check("capital/Phase-2 honest lines carried",
-       "PAPER — Phase 2" in txt11 and "HONEST EDGE" in txt11)
+_check("capital/Phase-3 honest lines carried",
+       "Phase 3 live — capital authority is the Architect's" in txt11
+       and "HONEST EDGE" in txt11)
 
 # --- 12. SportyBet price preferred for Draw over the Odds API ----------------
 board_sb = [

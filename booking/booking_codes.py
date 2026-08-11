@@ -15,7 +15,7 @@ WHAT THIS DOES
   driver logic is needed. Every acca (Acca A / Acca B, ... ) AND every single
   gets its own code.
 
-DEPLOY GATE (Phase 2 — bright line)
+DEPLOY GATE (Phase 3 live — capital authority stays with the Architect)
   This module NEVER clicks "Place Bet", NEVER enters a stake, and NEVER
   confirms a wager. It adds selections and copies a code. The Architect is the
   only person who can turn a code into money. A bug here can at most assemble
@@ -120,6 +120,17 @@ def _resolve_fixture(leg: dict, cache) -> Optional[dict]:
     if " v " not in (leg.get("fixture") or ""):
         return None
     home, away = [s.strip() for s in leg["fixture"].split(" v ", 1)]
+
+    def _norm(s):
+        # Normalized-exact only (case/diacritics/prefix via team_map._normalize)
+        # — never a fuzzy guess across clubs (HR35). Falls back to lower/strip
+        # if team_map ever changes its helper.
+        try:
+            from booking.team_map import _normalize
+            return _normalize(s or "")
+        except Exception:
+            return (s or "").lower().strip()
+
     # Exact model-key match first.
     for fx in cache:
         if fx.get("model_home") == home and fx.get("model_away") == away:
@@ -127,17 +138,27 @@ def _resolve_fixture(leg: dict, cache) -> Optional[dict]:
         if (fx.get("sportybet_home") or "").strip() == home \
                 and (fx.get("sportybet_away") or "").strip() == away:
             return fx
-    # resolve_team fallback: map the OLP names to SportyBet spellings.
+
+    # Normalized model-key match: the cache's model keys are the reverse-
+    # resolved football-data names, which can still differ from the acca leg by
+    # a diacritic or prefix ("Fenerbahce" vs "Fenerbahçe").
+    nh, na = _norm(home), _norm(away)
+    for fx in cache:
+        if _norm(fx.get("model_home")) == nh and _norm(fx.get("model_away")) == na:
+            return fx
+
+    # resolve_team fallback: map the OLP names to SportyBet spellings, then
+    # compare NORMALIZED — resolve_team("Sturm Graz") -> "SK Sturm Graz" while
+    # the cache's raw name is "Sturm Graz", equal only after the prefix strip.
     try:
         from booking.team_map import resolve_team
-        sb_home = resolve_team(home, "sportybet")
-        sb_away = resolve_team(away, "sportybet")
+        sb_home, sb_away = resolve_team(home, "sportybet"), resolve_team(away, "sportybet")
         for fx in cache:
-            if (fx.get("sportybet_home") or "").strip().lower() == sb_home.lower() \
-                    and (fx.get("sportybet_away") or "").strip().lower() == sb_away.lower():
+            if _norm(fx.get("sportybet_home")) == _norm(sb_home) \
+                    and _norm(fx.get("sportybet_away")) == _norm(sb_away):
                 return fx
-            if (fx.get("model_home") or "").strip().lower() == sb_home.lower() \
-                    and (fx.get("model_away") or "").strip().lower() == sb_away.lower():
+            if _norm(fx.get("model_home")) == _norm(sb_home) \
+                    and _norm(fx.get("model_away")) == _norm(sb_away):
                 return fx
     except Exception:
         pass
@@ -693,7 +714,7 @@ def book_accas(payload: dict, headless: bool = True) -> dict:
 
 def render_codes(result: dict) -> str:
     """Human-readable booking-code report for the Architect."""
-    out = ["SPORTYBET BOOKING CODES — PHASE 2 (codes only, NO stake placed)"]
+    out = ["SPORTYBET BOOKING CODES — Phase 3 (codes only, NO stake placed)"]
     if "error" in result:
         out.append(f"  ERROR: {result['error']}")
         out.append("  Codes not generated — nothing to paste. NO DATA — PENDING (HR35).")

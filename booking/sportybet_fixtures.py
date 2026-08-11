@@ -27,7 +27,8 @@ CACHE STRUCTURE
     {league_key}.json  -> { "fetched_at": timestamp, "fixtures": [...], "league": "...", "country": "..." }
 
 DEPLOY GATE
-  Phase 2 = paper only. This module NEVER places bets. It only reads and caches.
+  Phase 3 live — capital authority is the Architect's. This module NEVER
+  places bets. It only reads and caches.
 """
 
 from __future__ import annotations

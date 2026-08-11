@@ -402,7 +402,7 @@ def render_part1_the_call(shortlist: list[BoardFixture]) -> str:
 
 def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
     """Placeholder selection logic for which market to headline — a real deploy
-    decision needs the full ID402/softness/ID389 gating; this just picks the
+    decision needs the full market-gate (ID405) gating; this just picks the
     highest-confidence market to make the table renderable end to end."""
     # Only markets that are APPROVED for display/scan may be headlined.
     # DEPLOYABLE is the capital gate (ID405); APPROVED_MARKETS is the

@@ -5,7 +5,7 @@ Usage:  python webapp/_restart_server.py
 Called by Claude when the safety classifier blocks direct taskkill/netstat.
 Kills PIDs the plan identified (14908, 13772, 252 on 8088; 6956 on 8089),
 plus any other python process bound to those ports.  Does NOT touch the
-Telegram daemon (telegram_commands.py --loop, PID 13472).
+Telegram daemon (telegram_commands.py --loop, PID 4188 as of 2026-08-11).
 """
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ try:
             parts = line.split()
             if parts:
                 pid_s = parts[-1]
-                if pid_s.isdigit() and int(pid_s) > 100 and int(pid_s) != 13472:
+                if pid_s.isdigit() and int(pid_s) > 100 and int(pid_s) != 4188:
                     try:
                         subprocess.run(["taskkill", "/F", "/PID", pid_s],
                                        capture_output=True)

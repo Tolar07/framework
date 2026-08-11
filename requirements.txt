@@ -1,3 +1,5 @@
 numpy>=1.26
 scipy>=1.11
 requests>=2.31
+anthropic>=0.40
+playwright>=1.40

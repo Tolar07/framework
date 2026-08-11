@@ -1,5 +1,59 @@
 # OLP XDV — working protocol for Claude sessions
 
+---
+
+## OPERATING RULES — OLP XDV Operating Rules for All Agents
+
+This file governs every agent working in this repo — plugin agents (planner, architect, tdd-guide, code-reviewer, security-reviewer, build-error-resolver, e2e-runner, refactor-cleaner, doc-updater) and chusri agents (backend-architect, frontend-developer, ui-ux-designer, security-auditor, code-reviewer-config, devops-troubleshooter, database-admin). Read this file completely before touching any code.
+
+### MANDATORY: READ BEFORE YOU WORK
+
+No agent may write, edit, or run anything in this repo until it has read and can demonstrate understanding of:
+
+1. **This file, in full** — the rules and the protected-constants list below.
+2. **The full HR/ID rule set** — every hard rule and numbered protocol, current status (active/superseded/shelved), and where each is implemented in code.
+3. **The current framework architecture** — the SCAN → trigger production → publish pipeline, the admin dashboard, the CLV/calibration logging, the Telegram/client board output.
+4. **Recent Architect decisions on record**, specifically:
+   - Softness/deploy-eligibility gate (Tier A/B league restriction, FIX 3) was cancelled 11 Aug 2026 — the market is intentionally open to all leagues now. This was a deliberate, explicit discipline reduction, not a bug to be "fixed" by re-adding the restriction.
+   - ID405 (away wins are never recommended) and calibration-log league scope were explicitly left as **open questions** by that same decision — neither was automatically widened. Do not assume either has changed unless told so directly, by name, the same way the softness cancellation was.
+5. **The `olp-xdv` skill** (read-only brain/CLV/board query surface) — this is the correct way to check current gate status, legs logged, and mean CLV. Don't query raw tables directly if this surface covers it.
+
+If an agent's task touches a part of the system it hasn't read about, it stops and reads that part first. "I didn't know that mattered" is not an acceptable reason for touching a protected constant — see below.
+
+### HOW THE TEAM WORKS TOGETHER
+
+1. `planner` scopes the task — steps, dependencies, risk.
+2. `architect` (read-only, for anything touching OLP XDV's own rule logic) or `backend-architect` (full tools, for generic build work like the live-odds ingestion service) designs the approach.
+3. Implementation agents build it, `tdd-guide`-style — tests first.
+4. `code-reviewer` reviews every change, no exceptions.
+5. `code-reviewer-config` is the specific gatekeeper for anything touching a protected constant (see below) — production-outage prevention and magic-number skepticism is exactly its job.
+6. `security-auditor` reviews anything touching auth, data handling, or external APIs (e.g. a new odds feed).
+7. `doc-updater` keeps this file and the master documentation current after every merge — the docs must always match the actual code, not the other way around.
+
+Duplicate-role note: `code-reviewer` and `code-reviewer-config` are not run redundantly — `code-reviewer` is the general mandatory pass, `code-reviewer-config` is the specific check for protected-constant diffs. `security-reviewer` (plugin) is retired in favor of `security-auditor` (chusri, opus) for this repo.
+
+### WHAT AGENTS CAN DO FREELY
+
+Everything that isn't on the protected list below: build the live-odds ingestion path, fix bugs, refactor, write tests, update docs, improve the pipeline, run the operations loop autonomously, propose architecture changes. Move fast here.
+
+### PROTECTED — NO AGENT MAY EDIT OR SELF-APPROVE THESE, EVER
+
+- `ARCHITECT_SIGNOFF` flag and any logic gating it
+- The CLV/legs-required publish gate (currently 12/30 legs, mean CLV must be positive) — the threshold values, the count logic, or what it blocks
+- Client-publish gating logic generally
+- Capital-deployment logic or anything that could route real stake
+- Softness-tier defaults (currently open/cancelled — do not silently restore Tier A/B restriction)
+- ID405 (away-win exclusion) scope
+- Calibration-log league-inclusion scope
+
+Any diff touching these is flagged by `code-reviewer-config` and stops. It does not get merged, auto-approved, or resolved by agent consensus. It becomes a named, explicit question back to the Architect — same shape as "I have killed engine softness" was: stated plainly, on the record, decided by the Architect, not inferred by the team.
+
+### WHY THIS MATTERS
+
+The CLV number is the only thing that tells the Architect whether this framework actually works. If agents can edit how it's measured or gated while doing unrelated "improvement" work, that number stops being trustworthy — which defeats the entire purpose of going live to let the framework learn. Protecting these constants is not bureaucracy; it's the mechanism that makes the live test meaningful.
+
+---
+
 This repo is worked by **more than one Claude session at a time**. Sessions
 cannot message each other. **Git is the only sync mechanism** — the other
 session edits the same files and commits independently, and it may do so

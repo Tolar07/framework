@@ -1775,3 +1775,81 @@ gap (HR44: ratify at time of change).
   capital; the gate overrides are deliberate, recorded, and reversible.
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+---
+
+## 2026-08-11 — Go-live: ID405 scope overridden + multi-market EDGE selection + paid-key priority — by order of the ARCHITECT
+
+**What the Architect ordered** (2026-08-11 go-live session, named decisions): "ID four
+zero five should be ignored. All markets remains open. We are going live. We are testing
+live. The brain should be learning." — the framework should pick each fixture's own best
+market across the FULL universe ("the market are home win, away win, o/u1.5, o/u2.5 Dc
+btts please never forget add it"); and the paid Odds API key becomes the primary with free
+keys demoted to backup.
+
+**Three decisions, each named and on the record:**
+
+1. **ID405 scope override — recommendation layer.** The market gate was already open
+   (`engine/markets.BLOCKED = {}`, ratified 2026-08-10). This overrides the separate
+   *recommendation-layer* exclusions that still refused to *recommend* away wins: the
+   "Away wins are never recommended (ID405)" footers in `output/produce_bet.py`,
+   `bets/produced_bet.py`, the away + Over 2.5 slip exclusions in
+   `scripts/accumulator_prep.py`, and the doubly-stale webapp render note. Away wins may
+   now be **recommended**, not just shown. The honest historical note is kept in one line
+   (away was measured negative — −1.883% 2026-08-04, −1.457% 2026-08-08 — this is the live
+   test; the brain learns from live legs). The `blocked()` structural backstop stays so a
+   future gate can be re-engaged by adding keys back.
+2. **Multi-market EDGE selection ratified.** Every fixture evaluates ALL 12 model-scorable
+   markets — 1X2 (home/draw/away), Over/Under 1.5, Over/Under 2.5, BTTS (Yes/No) and
+   Double Chance (1X/X2/12) — and books its OWN single best market by **edge**
+   (EV = model_prob × price − 1), NOT raw probability. The Architect chose edge over
+   probability explicitly (AskUserQuestion, 2026-08-11) on the framework's own backtest
+   evidence: raw probability drifts into favourite-longshot losses; the draw's +0.42→+0.55%
+   was the only genuine edge. Probability stays visible as information. Different fixtures
+   picking different markets (one Over 1.5, another BTTS) is intentional, not an
+   inconsistency. `engine/acca.py` `_best_deployable_leg` selects by highest EV
+   (tiebreak probability, then deterministic market order); `build_production_bets` sorts
+   Acca A by `(leg.ev, leg.prob, fixture)` desc; write-back
+   (`best_market_key/best_market/best_price/best_model_prob/best_mes_ev`) is unchanged so
+   every downstream view agrees with the booked leg.
+3. **Paid Odds API key = primary.** `ODDS_API_KEY` is now the paid primary;
+   `ODDS_API_KEY_BACKUP` (free) and new `ODDS_API_KEY_TERTIARY` (free) are backups. The
+   resolution logic already walks primary→backup — this change orders and documents it.
+   Free-backup research: live web search returned no usable new providers (empty twice);
+   the repo's own providers are the candidates — api-football free (already wired, extra
+   markets below come free on the same request) and multiple free keys on The Odds API
+   (each pays its own 500/mo). **User action: paste the paid key value into `ODDS_API_KEY`
+   in `.env`.** No new provider is added beyond those.
+
+**Price universe widened (so the new markets are bookable and the brain learns):**
+`FixtureOdds` gains `over15/under15/btts_yes/btts_no/dc_1x/dc_x2/dc_12`; the api-football
+odds parser now reads the "Goals Over/Under" (1.5), "Both Teams Score" and "Double Chance"
+markets it already receives — **zero extra requests**, same odds payload. HR35 holds: a
+market absent from the feed simply has no price and stays honest scan-only. The Odds API
+free tier keeps returning only h2h + totals-2.5 (its reality); BTTS/DC/O1.5 prices come
+from api-football, to be verified against a live key.
+
+**Honest constraint recorded:** The Odds API archive only closes 1X2 + O/U2.5, so
+BTTS/DC/O1.5 legs may have an entry price but **NO closing line → CLV NO DATA — PENDING**
+at first. The brain still learns hit/miss (outcome record); CLV for those markets needs a
+closing source (api-football historical, if the plan serves them) — noted, not a blocker.
+
+**Booking codes reach the phone path:** `cmd_produce("bet")` now passes
+`booking_codes=True` to `run_daily.run(send=False)` (it previously ran with the default
+False, so codes read NO DATA — PENDING on the produce path). Adds ~30s Playwright pass;
+browser faults degrade to honest MANUAL/NO DATA, never a run failure.
+
+**Tests:** new `tests/multi_market_edge_test.py` (13 checks — Over1.5 picks on highest
+edge, BTTS picks on another fixture, edge beats probability, DC derivation, HR35
+unpriced→never a leg, same-day/no-date rules, Acca A EV-desc + varied market mix +
+write-back); `tests/acca_builder_test.py` updated to edge ranking; engine regression
+(ID405-open gate test) green.
+
+**Authority:** Architect direct instruction, named and on the record. This overrides the
+2026-08-04 ID405 gate ratification and the 2026-08-08 Home addition *at the
+recommendation layer* (the market gate itself was already open 2026-08-10). Capital,
+staking, fabrication, verification and honest-edge rules unchanged — the framework never
+places a stake; capital authority remains the Architect's. HR35 held throughout: never a
+fabricated price, never a fabricated closing line, never an off-day fixture.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

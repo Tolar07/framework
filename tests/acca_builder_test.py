@@ -1,15 +1,17 @@
-"""ACCA BUILDER + SAME-DAY RULE tests — PRODUCTION INTENT shape (2026-08-10).
+"""ACCA BUILDER + SAME-DAY RULE tests — PRODUCTION INTENT shape (2026-08-10,
+ranking 2026-08-11 EDGE).
 
 The product bet (THE CALL, Acca A, the split accas, the singles) draws ONLY
 from fixtures kicking off today — nothing else. A fixture with no kickoff date
 is never assumed to be today (HR35), so it cannot be in any bet. Each leg is
-priced on the live line in a CAPITAL-CLEARED market — mkt.DEPLOYABLE (ID405
-market gate opened 2026-08-10: all five markets — 1X2 Home/Draw/Away,
-Over/Under 2.5 — are now deployable).
+priced on the live line in a CAPITAL-CLEARED market — every market a fixture
+can be scored on (1X2, O/U1.5, O/U2.5, BTTS, Double Chance) that carries a real
+price (ID405 scope overridden 2026-08-11 — away may be recommended).
 
 Production shape (OLP_XDV_PRODUCTION_INTENT1.md):
-  - Acca A (headline): the top 4-5 HIGHEST-CONFIDENCE fixtures, each leg that
-    fixture's OWN single highest-probability market (no forced diversity).
+  - Acca A (headline): the top 4-5 HIGHEST-EDGE fixtures, each leg that
+    fixture's OWN single best market across the full universe (no forced
+    diversity).
   - Acca A fixtures are REMOVED from the pool — a fixture never appears in two
     different bets.
   - Singles: every remaining fixture's natural best market, each with its own
@@ -73,8 +75,9 @@ def _fx(home, away, draw=None, under25=None):
 
 
 def _fx_full(home, away, h, d, a, over25, under25):
-    """FixtureOdds with ALL five deployable markets priced — lets the builder
-    rank by probability across the whole capital-cleared set."""
+    """FixtureOdds with the five base markets priced — lets the builder rank by
+    EDGE (EV = prob*price-1) across the priced set. O1.5/BTTS/DC have no price
+    here so they are honest scan-only, exactly as on a bare Odds-API pull."""
     return FixtureOdds(
         league="Eredivisie", home_team=home, away_team=away, kickoff_utc="",
         home=MarketQuote(price=h), draw=MarketQuote(price=d),
@@ -149,9 +152,9 @@ _check("best market: each leg is the fixture's highest-probability market",
 _check("best market: leg prob is the model prob of that market",
        abs(leg3["HighOver v LowUnder"].prob - 0.85) < 1e-9
        and abs(leg3["UnderKing v OverQueen"].prob - 0.90) < 1e-9)
-_check("confidence ranking: Acca A legs sorted by prob desc",
-       [round(l.prob, 2) for l in bets3.acca_a.legs] == [0.90, 0.85, 0.75, 0.62],
-       f"got {[round(l.prob, 2) for l in bets3.acca_a.legs]}")
+_check("edge ranking: Acca A legs sorted by EV desc",
+       [round(l.ev, 2) for l in bets3.acca_a.legs] == [1.17, 0.70, 0.62, 0.50],
+       f"got {[round(l.ev, 2) for l in bets3.acca_a.legs]}")
 _check("EV stays on the leg as information (prob*price-1)",
        all(l.ev is not None for l in bets3.acca_a.legs))
 
@@ -174,7 +177,10 @@ def _conf_board(n, start=0.31):
 board_rich = _conf_board(12)
 bets5 = build_production_bets(board_rich, today=TODAY, odds_index=None)
 a5 = bets5.acca_a
-_check("Acca A holds the top 5 by probability",
+# With _conf_board's prob/price schedule (draw prob falls 0.01, draw price
+# rises 0.1 per fixture) EV is monotonic with prob, so the top-5 by EDGE is
+# also the top-5 by probability — the assertion pins the ORDER either way.
+_check("Acca A holds the top 5 by edge",
        [round(l.prob, 2) for l in a5.legs] == [0.31, 0.30, 0.29, 0.28, 0.27],
        f"got {[round(l.prob, 2) for l in a5.legs]}")
 _check("Acca A has no duplicate fixture",

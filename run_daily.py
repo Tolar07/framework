@@ -345,7 +345,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     payload into SportyBet's betslip with a headless Chromium pass and reads
     the BOOKING CODES SportyBet returns, writing them next to the acca payload
     so the Architect can paste a code into SportyBet to recall the slip.
-    Phase 2 — codes only, never a stake (the module never clicks Place Bet).
+    Phase 3 — codes only, never a stake (the module never clicks Place Bet;
+    capital authority is the Architect's).
     Best-effort: a browser fault degrades each acca to MANUAL, never a run
     failure (HR35). The CLI enables it by default (env OLP_BOOKING_CODES=0 or
     --no-booking-codes disables).

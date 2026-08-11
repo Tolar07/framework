@@ -15,7 +15,7 @@ No agent may write, edit, or run anything in this repo until it has read and can
 3. **The current framework architecture** — the SCAN → trigger production → publish pipeline, the admin dashboard, the CLV/calibration logging, the Telegram/client board output.
 4. **Recent Architect decisions on record**, specifically:
    - Softness/deploy-eligibility gate (Tier A/B league restriction, FIX 3) was cancelled 11 Aug 2026 — the market is intentionally open to all leagues now. This was a deliberate, explicit discipline reduction, not a bug to be "fixed" by re-adding the restriction.
-   - ID405 (away wins are never recommended) and calibration-log league scope were explicitly left as **open questions** by that same decision — neither was automatically widened. Do not assume either has changed unless told so directly, by name, the same way the softness cancellation was.
+   - ID405 scope was **overridden 2026-08-11** (Architect directive, named): "ID four zero five should be ignored. All markets remains open." Away wins may now be **recommended**, not just shown — the recommendation-layer exclusions were removed (RATIFICATIONS 2026-08-11). The market gate was already open (`BLOCKED = {}`). The `blocked()` structural backstop stays so a future gate can be re-engaged by adding keys back. Calibration-log league scope remains unchanged.
 5. **The `olp-xdv` skill** (read-only brain/CLV/board query surface) — this is the correct way to check current gate status, legs logged, and mean CLV. Don't query raw tables directly if this surface covers it.
 
 If an agent's task touches a part of the system it hasn't read about, it stops and reads that part first. "I didn't know that mattered" is not an acceptable reason for touching a protected constant — see below.
@@ -43,7 +43,7 @@ Everything that isn't on the protected list below: build the live-odds ingestion
 - Client-publish gating logic generally
 - Capital-deployment logic or anything that could route real stake
 - Softness-tier defaults (currently open/cancelled — do not silently restore Tier A/B restriction)
-- ID405 (away-win exclusion) scope
+- ID405 (away-win exclusion) scope — currently **overridden** (2026-08-11 Architect directive: all markets deployable, away may be recommended; recorded in RATIFICATIONS.md). Do not silently restore the exclusion — the override is the Architect's, not inferred.
 - Calibration-log league-inclusion scope
 
 Any diff touching these is flagged by `code-reviewer-config` and stops. It does not get merged, auto-approved, or resolved by agent consensus. It becomes a named, explicit question back to the Architect — same shape as "I have killed engine softness" was: stated plainly, on the record, decided by the Architect, not inferred by the team.

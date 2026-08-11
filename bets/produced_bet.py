@@ -225,8 +225,8 @@ def render_produced_bet(record: Optional[dict]) -> str:
     today (pick + model prob + best price/EV when present). This is the ID415
     paper trail the next day's verification settles — it is NOT a production
     recommendation, and the header says so (HR53): the actual production pick,
-    if any, lives in the separate PRODUCTION BETS block. Away picks appear here
-    as the model's raw prediction only, never as a recommendation (ID405)."""
+    if any, lives in the separate PRODUCTION BETS block. Away picks may be
+    recommended (ID405 scope overridden 2026-08-11, Architect directive)."""
     if not record:
         return ("📋 SCAN RECORD — today's rated fixtures (paper, ID415)\n"
                 "No produced-bet record yet.")
@@ -255,6 +255,7 @@ def render_produced_bet(record: Optional[dict]) -> str:
         lines.append("\n".join(L))
     if any((leg.get("pick") or "").endswith("_AWAY")
            for leg in record.get("legs") or []):
-        lines.append("Away picks are the model's prediction only — never "
-                     "recommended (ID405).")
+        lines.append("Away picks may now be recommended (ID405 overridden "
+                     "2026-08-11, Architect directive) — historically measured "
+                     "negative; the brain learns from live legs.")
     return "\n".join(lines)

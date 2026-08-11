@@ -1030,10 +1030,11 @@ def _acca_section(accas: Optional[list], admin: bool) -> str:
             rows.append(f'<div class="acca-leg"><span>{html.escape(label)}</span> — '
                         f'{detail}</div>')
         blocks.append('<div class="acca-block">' + "".join(rows) + "</div>")
-    note = ('Capital gate (ID405): every leg is Draw or Under 2.5 — the only '
-            'markets cleared for capital. PAPER — Phase 2, zero capital.'
+    note = ('Capital gate (ID405 overridden 2026-08-11 — Architect directive): '
+            'all markets deployable — 1X2, O/U1.5, O/U2.5, DC, BTTS. Phase 3 '
+            'live; the framework never places a stake.'
             if admin else
-            'Today\'s fixtures only (standing rule 2026-08-09). Paper.')
+            'Today\'s fixtures only (standing rule 2026-08-09).')
     return ('<div class="acca-wrap">' + "".join(blocks)
             + f'<div class="acca-note">{note}</div></div>')
 

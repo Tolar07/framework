@@ -601,9 +601,10 @@ def _result_pick(bf: BoardFixture) -> tuple[str, float, bool]:
     """The model's predicted RESULT for this fixture (Architect 2026-08-05:
     'the prediction without the markets'). Returns (name, probability,
     is_away) where name is the predicted winner in words — the home club, the
-    away club, or 'Draw'. is_away flags a predicted away win: the scan table
-    may show it honestly as the prediction, but the recommendation never
-    recommends it (ID405 — away is a proven-negative market)."""
+    away club, or 'Draw'. is_away flags a predicted away win (ID405 scope
+    overridden 2026-08-11, Architect directive): away may now be RECOMMENDED,
+    not just shown — the honest historical note (away measured negative) stays
+    with it, but it no longer carries an exclusion."""
     p = bf.probs
     prob, side = max(
         (p.p_home, "home"), (p.p_draw, "draw"), (p.p_away, "away"),
@@ -846,10 +847,12 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
         production = build_production_bets(board)
     parts.append(render_production_block(production, codes=codes))
     if any_away:
-        # A predicted away win may appear as a card pick, but is never a Pick —
-        # the framework measured away wins as a proven-negative market (ID405).
-        parts.append("Away wins are never recommended (ID405 — proven negative "
-                     "market); a card may still show one as the prediction")
+        # ID405 scope overridden 2026-08-11 (Architect directive): away wins may
+        # now be RECOMMENDED, not just shown. The historical measurement (away
+        # was a proven-negative market) stays as honest context, not an exclusion.
+        parts.append("Away picks may now be recommended (ID405 overridden "
+                     "2026-08-11, Architect directive); away was historically "
+                     "measured negative — the brain learns from live legs")
     parts.append(_render_yesterday_graded(yesterday_graded))
     parts.append(_render_rolling_7d(rolling_7d))
     parts.append("HONEST EDGE LINE: an excellent informed process but NOT a "

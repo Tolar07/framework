@@ -219,6 +219,17 @@ class FixtureOdds:
     away: MarketQuote = field(default_factory=MarketQuote)
     over25: MarketQuote = field(default_factory=MarketQuote)
     under25: MarketQuote = field(default_factory=MarketQuote)
+    # Multi-market prices (Architect 2026-08-11): O/U 1.5, BTTS and Double
+    # Chance. The Odds API free tier does NOT serve these — they fill from the
+    # api-football parser (same request, zero extra quota). Absent = no price =
+    # honest scan-only (HR35), never a fabricated quote.
+    over15: MarketQuote = field(default_factory=MarketQuote)
+    under15: MarketQuote = field(default_factory=MarketQuote)
+    btts_yes: MarketQuote = field(default_factory=MarketQuote)
+    btts_no: MarketQuote = field(default_factory=MarketQuote)
+    dc_1x: MarketQuote = field(default_factory=MarketQuote)
+    dc_x2: MarketQuote = field(default_factory=MarketQuote)
+    dc_12: MarketQuote = field(default_factory=MarketQuote)
     source: str = "the-odds-api.com"
     source_tier: str = "T1"
     notes: list[str] = field(default_factory=list)
@@ -234,29 +245,30 @@ class QuotaExhausted(SourceNoData):
 
 
 def _get_key() -> str:
-    """The PRIMARY Odds API key — the Architect's personal key."""
+    """The PRIMARY Odds API key — the PAID key (Architect 2026-08-11)."""
     key = os.environ.get("ODDS_API_KEY")
     if not key:
         raise RuntimeError(
-            "ODDS_API_KEY not set. Free key at https://the-odds-api.com/ — "
-            "put it in .env (gitignored) or as a GitHub Actions secret.")
+            "ODDS_API_KEY not set. Put the PAID key in .env (gitignored) — a "
+            "free key at https://the-odds-api.com/ goes in ODDS_API_KEY_BACKUP.")
     return key
 
 
 def _odds_keys() -> list[str]:
     """Candidate keys in priority order.
 
-    Architect model (2026-08-11): the personal API key is the MAIN source and
-    the free-tier monthly reset is the BACKUP. The pipeline walks ODDS_API_KEY
-    first, then the optional ODDS_API_KEY_BACKUP (paste a second key there for
-    a true main/backup pair — a fresh free-tier key works and resets monthly;
-    each key pays its own 500/month)."""
+    Architect model (2026-08-11): the PAID key is the PRIMARY (ODDS_API_KEY)
+    and free/router/quota-limited keys are the BACKUP chain. The pipeline walks
+    ODDS_API_KEY first, then the optional ODDS_API_KEY_BACKUP, then the optional
+    ODDS_API_KEY_TERTIARY — a fresh free-tier key works and resets monthly; each
+    key pays its own quota bucket."""
     keys = [k for k in (os.environ.get("ODDS_API_KEY"),
-                        os.environ.get("ODDS_API_KEY_BACKUP")) if k]
+                        os.environ.get("ODDS_API_KEY_BACKUP"),
+                        os.environ.get("ODDS_API_KEY_TERTIARY")) if k]
     if not keys:
         raise RuntimeError(
-            "ODDS_API_KEY not set. Free key at https://the-odds-api.com/ — "
-            "put it in .env (gitignored) or as a GitHub Actions secret.")
+            "ODDS_API_KEY not set. Put the PAID key in .env (gitignored) — a "
+            "free key at https://the-odds-api.com/ goes in ODDS_API_KEY_BACKUP.")
     return keys
 
 
@@ -275,7 +287,7 @@ _active_key: Optional[str] = None  # last key found above the floor (process cac
 def _resolve_key(floor: int) -> tuple[str, int, int]:
     """(key, used, remaining) for the first key with remaining >= floor.
 
-    Walks ODDS_API_KEY then ODDS_API_KEY_BACKUP and remembers the winner for
+    Walks the _odds_keys() chain (paid primary, then free backups) and remembers the winner for
     the process so a league-by-league pull doesn't re-probe on every call.
     Raises QuotaExhausted when NO key is above the floor, reporting the best
     remaining honestly (HR35 — never pretends a spent key has quota)."""
@@ -297,8 +309,8 @@ def _resolve_key(floor: int) -> tuple[str, int, int]:
         f"Odds API quota spent across all keys (best remaining {best_rem} on "
         f"{best_key or 'no key'}, floor {floor}). Refusing to spend the month "
         f"— entry prices are NO DATA — PENDING. The free tier resets monthly; "
-        f"set a fresh key in ODDS_API_KEY / ODDS_API_KEY_BACKUP or wait for "
-        f"the reset.")
+        f"set a fresh key in ODDS_API_KEY / ODDS_API_KEY_BACKUP / "
+        f"ODDS_API_KEY_TERTIARY or wait for the reset.")
 
 
 def map_team(league: str, name: str) -> str:

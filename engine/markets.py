@@ -32,8 +32,22 @@ OVER_15 = "OVER_1_5"
 UNDER_15 = "UNDER_1_5"
 BTTS_YES = "BTTS_YES"
 BTTS_NO = "BTTS_NO"
+# Double chance — DERIVED from 1X2 probs (1X = home or draw, etc.), not a
+# separate 1X2 identity. A bookmaker price exists (api-football "Double Chance"),
+# so it can carry capital like any other priced market (Architect 2026-08-11
+# multi-market selection).
+DC_1X = "DC_1X"
+DC_X2 = "DC_X2"
+DC_12 = "DC_12"
 
 ALL = (HOME, DRAW, AWAY, OVER_25, UNDER_25, OVER_15, UNDER_15, BTTS_YES, BTTS_NO)
+
+# The full market universe a fixture's pick is chosen from (Architect 2026-08-11):
+# 1X2 + Over/Under 1.5 + Over/Under 2.5 + BTTS + Double Chance. A market enters a
+# bookable leg ONLY when it carries a real bookmaker price (HR35 — model_prob is
+# never a price). `ALL` stays the 9 canonical markets (outcome/settlement loops
+# iterate it); this adds the DC derivations for the selection engine.
+EDGE_MARKETS = ALL + (DC_1X, DC_X2, DC_12)
 
 # Market key -> index into implied_1x2()'s (home, draw, away) tuple. Used by
 # run_daily/webapp to anchor a market's EV on the bookmaker's devigged implied
@@ -44,6 +58,11 @@ MARKETS_1X2 = {HOME: 0, DRAW: 1, AWAY: 2}
 
 # --- ID405 MARKET GATE (ratified 2026-08-04) --------------------------------
 # OPENED 2026-08-10 by ARCHITECT order — every market may carry capital again.
+# SCOPE OVERRIDDEN 2026-08-11 (Architect directive, named): away wins may now be
+# RECOMMENDED, not just shown — all markets remain open, the brain learns from
+# live legs. The recommendation-layer exclusions ("never recommended" wording,
+# accumulator_prep slip exclusions) were removed the same day; recorded in
+# RATIFICATIONS.md (2026-08-11 entry) so it is never silently re-applied.
 # The gate was originally ratified on backtest evidence that these markets are
 # negative for the MODEL and for RANDOM SELECTION alike (favourite-longshot
 # drift), which is what made them a property of the market rather than a model
@@ -54,10 +73,11 @@ MARKETS_1X2 = {HOME: 0, DRAW: 1, AWAY: 2}
 #     1X2 Home    -0.640%  (2425) / -0.625% (2526)  placebo loses 2425 too
 #
 # The Architect chose to open the gate anyway (2026-08-10), as part of the
-# same order that removed the softness tier system. This REVERSES a ratified
-# bright line and widens the deploy book to evidence-negative markets; it is
-# recorded in RATIFICATIONS.md (2026-08-10 entry) so the reversal is never
-# silent. `blocked()` is kept so any future gate is enforced in ONE place.
+# same order that removed the softness tier system, and to override the away-
+# recommendation scope on 2026-08-11. Both REVERSE ratified bright lines and
+# widen the deploy book to evidence-negative markets; both are recorded in
+# RATIFICATIONS.md so the reversals are never silent. `blocked()` is kept so any
+# future gate is enforced in ONE place.
 #
 # A gate that is emptied here cannot silently widen later — re-adding a key to
 # BLOCKED re-engages it everywhere (DEPLOYABLE below is derived from it).
@@ -88,6 +108,9 @@ def display(key: str, home_team: str = "Home", away_team: str = "Away") -> str:
         UNDER_15: "Under 1.5 goals",
         BTTS_YES: "Both teams to score — yes",
         BTTS_NO: "Both teams to score — no",
+        DC_1X: f"{home_team} or Draw (double chance)",
+        DC_X2: f"{away_team} or Draw (double chance)",
+        DC_12: f"{home_team} or {away_team} (double chance)",
     }.get(key, key)
 
 
@@ -106,6 +129,9 @@ def settle(key: str, fthg: int, ftag: int) -> Optional[bool]:
         UNDER_15: total <= 1,
         BTTS_YES: fthg > 0 and ftag > 0,
         BTTS_NO: not (fthg > 0 and ftag > 0),
+        DC_1X: fthg >= ftag,
+        DC_X2: ftag >= fthg,
+        DC_12: fthg != ftag,
     }.get(key)
 
 
@@ -123,11 +149,18 @@ def model_prob(key: str, probs) -> Optional[float]:
         UNDER_15: 1.0 - probs.p_over_15,
         BTTS_YES: probs.p_btts_yes,
         BTTS_NO: 1.0 - probs.p_btts_yes,
+        DC_1X: probs.p_home + probs.p_draw,
+        DC_X2: probs.p_draw + probs.p_away,
+        DC_12: probs.p_home + probs.p_away,
     }.get(key)
 
 
 def quote(key: str, fixture_odds) -> Optional[object]:
-    """The live MarketQuote for this market, from a FixtureOdds."""
+    """The live MarketQuote for this market, from a FixtureOdds.
+
+    Over/Under 1.5, BTTS and Double Chance have no price on The Odds API free
+    tier — they fill from the api-football parser (Architect 2026-08-11 multi-
+    market selection). A market with no price stays honest scan-only (HR35)."""
     if fixture_odds is None:
         return None
     return {
@@ -136,12 +169,21 @@ def quote(key: str, fixture_odds) -> Optional[object]:
         AWAY: fixture_odds.away,
         OVER_25: fixture_odds.over25,
         UNDER_25: fixture_odds.under25,
+        OVER_15: getattr(fixture_odds, "over15", None),
+        UNDER_15: getattr(fixture_odds, "under15", None),
+        BTTS_YES: getattr(fixture_odds, "btts_yes", None),
+        BTTS_NO: getattr(fixture_odds, "btts_no", None),
+        DC_1X: getattr(fixture_odds, "dc_1x", None),
+        DC_X2: getattr(fixture_odds, "dc_x2", None),
+        DC_12: getattr(fixture_odds, "dc_12", None),
     }.get(key)
 
 
-# Markets that can carry capital: everything with a live price that isn't
-# blocked. Over/Under 1.5 and BTTS have no price source, so they are scan-only
-# by data availability rather than by rule.
+# Markets that can carry capital on the base price feeds: everything with a live
+# price that isn't blocked. The Odds API free tier serves exactly these five.
+# Over/Under 1.5, BTTS and Double Chance get prices from the api-football parser
+# (2026-08-11) — they are priced per-fixture and the acca builder admits any
+# market with a real price, so DEPLOYABLE here is the minimum, not the ceiling.
 DEPLOYABLE = tuple(k for k in (HOME, DRAW, AWAY, OVER_25, UNDER_25) if k not in BLOCKED)
 
 # APPROVED_MARKETS — the full set of markets the Architect approved for

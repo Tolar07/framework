@@ -523,7 +523,10 @@ def cmd_produce(arg: str) -> str:
                 "to produce just the fixtures matching a team or league.")
     import run_daily  # lazy — the other commands must not pay for scipy
     try:
-        res = run_daily.run(send=False)
+        # booking_codes=True so the phone's /produce bet reply carries today's
+        # SportyBet codes (Architect 2026-08-11) — a browser fault degrades each
+        # slip to honest MANUAL/NO DATA, never a run failure (HR35).
+        res = run_daily.run(send=False, booking_codes=True)
     except Exception as e:
         return (f"PRODUCE FAILED — {type(e).__name__}: {e}\n\n"
                 f"See logs/daily_*.log for the detail.")

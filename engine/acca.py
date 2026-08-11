@@ -6,12 +6,12 @@ STANDING RULE (Architect 2026-08-09)
   every leg of the produced bet, THE CALL, the acca and the singles comes from
   today's slate.
 
-PRODUCTION INTENT (OLP_XDV_PRODUCTION_INTENT1.md, 2026-08-10)
-  - Acca A (headline): the framework's top 4-5 HIGHEST-CONFIDENCE fixtures,
-    each leg = that fixture's OWN single highest-probability market. No forced
-    diversity — confirmed against the Architect's ₦578,502 World Cup ticket,
-    which worked precisely because each leg was the match's true strongest
-    signal, not because of artificial variety.
+PRODUCTION INTENT (OLP_XDV_PRODUCTION_INTENT1.md, 2026-08-10; ranking 2026-08-11)
+  - Acca A (headline): the framework's top 4-5 highest-EDGE fixtures, each leg =
+    that fixture's OWN single best market across the FULL universe (1X2, O/U1.5,
+    O/U2.5, BTTS, Double Chance) — no forced diversity. Confirmed against the
+    Architect's ₦578,502 World Cup ticket, which worked precisely because each
+    leg was the match's true strongest signal, not because of artificial variety.
   - Once a fixture is in Acca A it is REMOVED from the pool — a fixture never
     appears in two bets.
   - Singles: every remaining fixture's natural best market as a standalone
@@ -23,18 +23,22 @@ PRODUCTION INTENT (OLP_XDV_PRODUCTION_INTENT1.md, 2026-08-10)
 WHAT THIS BUILDS
   `build_production_bets` returns the full production shape (Acca A, split
   accas, singles). Every leg is priced on the live line in a CAPITAL-CLEARED
-  market — mkt.DEPLOYABLE (ID405 market gate opened 2026-08-10: all five
-  markets — 1X2 Home/Draw/Away, Over/Under 1.5, Over/Under 2.5, BTTS, Double
-  Chance — are now deployable). If the market gate changes, the picks follow it
-  automatically.
+  market: the builder evaluates ALL markets a fixture can be scored on
+  (mkt.EDGE_MARKETS — 1X2 Home/Draw/Away, Over/Under 1.5/2.5, BTTS, Double
+  Chance) and admits any that carry a real bookmaker price. The Odds API free
+  tier prices the five base markets; api-football fills O1.5/BTTS/DC (2026-08-11,
+  same request, zero extra quota). ID405 scope is overridden (2026-08-11,
+  Architect directive) — away wins may be recommended; all markets stay open.
 
-RANKING (changed 2026-08-10)
-  Legs are ranked by CONFIDENCE = the natural best market's model PROBABILITY
-  (EV was the old rank; a longshot with a big price can have high EV but low
-  confidence, and the production intent is the highest-confidence picks first).
-  EV stays on every leg as information. When a fixture's true natural best
-  market has no live price, it ranks by its best PRICED deployable market — you
-  can only bet a priced market (HR35).
+RANKING (changed 2026-08-11 — EDGE)
+  Legs are ranked by EDGE = the natural best market's EV (model_prob × price − 1):
+  the market where the book misprices the fixture in our favour, which is the
+  signal that drives positive CLV. This replaced the 2026-08-10 probability-first
+  ranking — raw probability drifts into favourite-longshot losses (the framework's
+  own backtest: draw +0.42→+0.55% was the only genuine edge; aways −2% even at
+  high probability). Probability stays visible as information. EV stays on every
+  leg. When a fixture's true best market has no live price, it cannot be a leg —
+  you can only bet a priced market (HR35).
 
 HONESTY (HR35 carried through)
   - A fixture with no kickoff date is NOT in any bet — a date we cannot
@@ -134,24 +138,30 @@ def _team_pair(bf) -> tuple[str, str]:
 def _best_deployable_leg(bf, odds_index: Optional[dict]) -> Optional[AccaLeg]:
     """The best CAPITAL-CLEARED market for one fixture, priced on the live line.
 
-    Selection is by the highest model PROBABILITY among priced deployable
-    markets (the production intent's "that fixture's own strongest signal"),
-    with EV as the tiebreak and DEPLOYABLE order as the final deterministic
-    tiebreak. Returns None when the fixture has no model probs, is not on the
-    deploy shortlist, or has no deployable market with a live price — a leg we
-    cannot price is not a leg (HR35)."""
+    Multi-market selection (Architect 2026-08-11): every fixture is evaluated
+    across ALL markets — 1X2, Over/Under 1.5, Over/Under 2.5, BTTS and Double
+    Chance — and picks its OWN single best market. Selection is by the highest
+    EDGE = model_prob × price − 1 (where the book misprices the fixture in our
+    favour — the signal that drives positive CLV), tiebreak model_prob, then
+    canonical market order. Probability stays visible as information.
+
+    A market enters only when it carries a REAL bookmaker price (SportyBet 1X2
+    attrs, or the odds index — api-football fills O1.5/BTTS/DC, the Odds API
+    free tier fills the rest). Returns None when the fixture has no model probs,
+    is not on the deploy shortlist, or has no priced market — a leg we cannot
+    price is not a leg (HR35)."""
     if bf.probs is None or not getattr(bf, "on_deploy_shortlist", False):
         return None
     home, away = _team_pair(bf)
 
     best: Optional[AccaLeg] = None
-    for market in mkt.DEPLOYABLE:
+    for market in mkt.EDGE_MARKETS:
         prob = mkt.model_prob(market, bf.probs)
         if prob is None:
             continue
         price = None
         # SportyBet first for the markets it carries (1X2) — it is the book the
-        # Architect actually bets at. The Odds API covers the rest (totals).
+        # Architect actually bets at. The Odds API / api-football cover the rest.
         # The orchestrator attaches sb_home/draw/away_odds from the SportyBet
         # cache; using all three means a leg prices on SportyBet's own line
         # even when the Odds API quota is exhausted (verified 2026-08-11).
@@ -176,9 +186,10 @@ def _best_deployable_leg(bf, odds_index: Optional[dict]) -> Optional[AccaLeg]:
         if price is None:
             continue
         ev = (prob * price - 1.0) if price else None
-        if best is None or prob > best.prob or (
-                prob == best.prob
-                and (ev is not None and (best.ev is None or ev > best.ev))):
+        # Highest EDGE wins (strictly better only — EDGE_MARKETS order is the
+        # deterministic final tiebreak). Probability breaks an EV tie.
+        if (best is None or (ev is not None and (best.ev is None or ev > best.ev))
+                or (ev == best.ev and prob > best.prob)):
             best = AccaLeg(
                 fixture=bf.fixture.split(" (")[0],
                 league=_league_of(bf.fixture),
@@ -280,8 +291,12 @@ def build_production_bets(
         bf.best_mes_ev = leg.ev
         pairs.append((bf, leg))
 
-    pairs.sort(key=lambda p: (p[1].prob,
-                              p[1].ev if p[1].ev is not None else -1.0,
+    # EDGE ranking (Architect 2026-08-11): Acca A leads with the highest-EDGE
+    # legs (model_prob × price − 1) — the book mispricing the fixture in our
+    # favour. Probability breaks an EV tie; fixture name is the deterministic
+    # final tiebreak. This replaced the 2026-08-10 probability-first ranking.
+    pairs.sort(key=lambda p: (p[1].ev if p[1].ev is not None else -1.0,
+                              p[1].prob,
                               p[1].fixture),
                 reverse=True)
 
@@ -377,8 +392,8 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
             f"[{label}] {code}" for label, code in booked.items())
         lines.append(strip)
 
-    lines.append("  Capital gate (ID405): all five markets are deployable "
-                 "(gate opened 2026-08-10 — no market blocked).")
+    lines.append("  Capital gate (ID405 overridden 2026-08-11 — Architect "
+                 "directive): all markets deployable, away may be recommended.")
     lines.append("  Phase 3 live — capital authority is the Architect's. "
                  "Booking codes are generated for your review; YOU approve "
                  "and paste.")

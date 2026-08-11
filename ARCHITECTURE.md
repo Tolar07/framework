@@ -14,8 +14,8 @@
 | **CLV Logger** | `clv/clv_logger.py` | Canonical ledger (JSON) — paper legs, entry/close prices, CLV | Python 3.12, stdlib |
 | **Engine Suite** | `engine/` | Dixon-Coles, Elo, xG (Understat), Bookmaker (devigged), Consensus | Python 3.12, stdlib + `numpy` (opt) |
 | **League eligibility** | `engine/leagues.py` | **ONE unified pool (ID401)** — 18 whitelisted leagues, all scan- AND deploy-eligible. `engine/softness.py` DELETED 2026-08-11 (ID402 removed); no tier logic remains | Python 3.12 |
-| **Market gate** | `engine/markets.py` | **ID405 OPEN** — `BLOCKED = {}`, all five 1X2 markets + O/U + BTTS deployable | Python 3.12 |
-| **Acca Builder** | `engine/acca.py` | Production intent (2026-08-10): Acca A = top 4–5 highest-confidence fixtures (each leg the fixture's own highest-probability market), remainder → split accas + singles, legs ranked by model probability, a fixture never in two bets, each with its own booking code | Python 3.12 |
+| **Market gate** | `engine/markets.py` | **ID405 OPEN; scope overridden 2026-08-11** — `BLOCKED = {}`, all markets deployable; away wins may now be RECOMMENDED (Architect directive, named); `blocked()` backstop retained | Python 3.12 |
+| **Acca Builder** | `engine/acca.py` | Production intent (2026-08-10; ranking 2026-08-11): Acca A = top 4–5 highest-EDGE fixtures (each leg the fixture's own single best market across the FULL universe — 1X2, O/U1.5, O/U2.5, BTTS, Double Chance), remainder → split accas + singles, legs ranked by EDGE (EV = model_prob × price − 1, not raw probability), a fixture never in two bets, each with its own booking code | Python 3.12 |
 | **Orchestrator** | `orchestrator.py` | Scan per league, fit/reuse models, build board | Python 3.12 |
 | **SportyBet Booking** | `booking/booking_codes.py` | Playwright booking-code generator — reads `acca_<date>.json`, drives the SPA, captures BOOKING CODES; codes pre-fill the slip, NEVER stake (Phase-2 safe); per-leg BOOKED/MANUAL | Python 3.12 + Playwright |
 | **Team-name mapping** | `booking/team_map.py` | OLP XDV ↔ SportyBet names. Forward (`resolve_team`, fuzzy ok) + REVERSE (`resolve_team_to_model`, EXACT + normalized-exact ONLY, no fuzzy — HR35). Reverse table built first-wins from `SPORTYBET_TEAMS` | Python 3.12 |
@@ -40,8 +40,9 @@
 
 | Key | Source | Purpose | Status |
 |-----|--------|---------|--------|
-| `ODDS_API_KEY` | the-odds-api.com (personal) | Live odds — **MAIN** source | **SET** — 1/500 remaining (monthly reset restores) |
+| `ODDS_API_KEY` | the-odds-api.com (**PAID**) | Live odds — **PRIMARY** (2026-08-11: paid key = main) | **SET** — 1/500 remaining (monthly reset restores) |
 | `ODDS_API_KEY_BACKUP` | the-odds-api.com (free tier) | Live odds — **BACKUP** (optional, resets monthly; each key pays its own 500/mo) | **EMPTY** (documented slot) |
+| `ODDS_API_KEY_TERTIARY` | the-odds-api.com (free tier) | Live odds — **2nd BACKUP** (new 2026-08-11; walked after BACKUP) | **EMPTY** (documented slot) |
 | `THESPORTSDB_KEY` | thesportsdb.com | Fixtures | **SET** (personal key) |
 | `TELEGRAM_BOT_TOKEN` | @BotFather | Bot API + poller | **SET** |
 | `TELEGRAM_CHAT_ID` | getUpdates | Delivery target | **SET** |
@@ -57,7 +58,7 @@
 
 | Service | Tier | Quota | Notes |
 |---------|------|-------|-------|
-| **The Odds API** | Free | 500 req/mo per key | UK + EU regions; multi-key (`ODDS_API_KEY` + `ODDS_API_KEY_BACKUP`); `QUOTA_HARD_FLOOR=5`, `QUOTA_FLOOR=40`; api-football fallback for the 5 deploy leagues when both keys are spent |
+| **The Odds API** | Free | 500 req/mo per key | UK + EU regions; multi-key chain (`ODDS_API_KEY` paid primary → `ODDS_API_KEY_BACKUP` → `ODDS_API_KEY_TERTIARY`); `QUOTA_HARD_FLOOR=5`, `QUOTA_FLOOR=40`; api-football fallback (incl. O1.5/BTTS/DC, same request) for the deploy leagues when all keys are spent |
 | **TheSportsDB** | Free personal key | Rate-limited | `THESPORTSDB_KEY` set |
 | **API-Football** | Free | Odds today±1, 100 req/day | Covers 5 deploy leagues; pace-limited (6s between requests) |
 | **Understat** | Free | Big-5 + RFPL xG | No key needed; 6h TTL cache |
@@ -102,7 +103,7 @@ run_daily.bat
        │    ├─ ESPN scoreboard (key-free redundancy)
        │    ├─ SportyBet cache (booking/team_map reverse resolver — exact, no fuzzy)
        │    └─ API-Football (paid fallback)
-       ├─ fetch_odds() — _resolve_key walks ODDS_API_KEY then ODDS_API_KEY_BACKUP
+       ├─ fetch_odds() — _resolve_key walks ODDS_API_KEY → BACKUP → TERTIARY
        │    (whichever has quota above the floor); if BOTH spent → api-football
        │    fallback for the 5 deploy leagues; otherwise honest NO DATA — PENDING
        │    (HR35, refuses to spend the month)
@@ -163,8 +164,8 @@ run_daily.bat
 
 | File | Purpose |
 |------|---------|
-| `pipeline/odds.py` | Multi-key Odds API: `_odds_keys()`, `_probe_key()`, `_resolve_key()` walk `ODDS_API_KEY` → `ODDS_API_KEY_BACKUP`; api-football fallback when both spent; honest `QuotaExhausted` (HR35) |
-| `.env` | `ODDS_API_KEY_BACKUP` documented slot; `ARCHITECT_SIGNOFF=1` with rationale |
+| `pipeline/odds.py` | Multi-key Odds API: `_odds_keys()`, `_probe_key()`, `_resolve_key()` walk `ODDS_API_KEY` (paid primary) → `ODDS_API_KEY_BACKUP` → `ODDS_API_KEY_TERTIARY`; `FixtureOdds` carries O1.5/BTTS/DC (`over15/under15/btts_yes/btts_no/dc_1x/dc_x2/dc_12`) filled by the api-football parser (same request); api-football fallback when all keys spent; honest `QuotaExhausted` (HR35) |
+| `.env` | `ODDS_API_KEY_BACKUP` + `ODDS_API_KEY_TERTIARY` documented slots (paid key = `ODDS_API_KEY`); `ARCHITECT_SIGNOFF=1` with rationale |
 | `booking/team_map.py` | Verified SportyBet league-page spellings; reverse table `_MODEL_BY_SPORTYBET`; `resolve_team_to_model()` (exact only, no fuzzy) |
 | `booking/sportybet_fixtures.py` | Cache builder now resolves SportyBet names → MODEL keys via `resolve_team_to_model` (was calling the forward resolver backwards) |
 | `tests/team_map_reverse_test.py` | **NEW** — 33-check regression pinning reverse + no-fuzzy (HR35) |
@@ -238,9 +239,9 @@ PYTHONIOENCODING=utf-8 py -3.12 backtest/clv_backtest.py --test-season 2526 --ca
 
 ## 13. Next Priority Actions (Architect Order)
 
-1. **Restore odds quota** — paste a fresh key in `ODDS_API_KEY`/`ODDS_API_KEY_BACKUP` or wait for the monthly reset; the live blocker
+1. **Restore odds quota** — paste a fresh key in `ODDS_API_KEY` (paid) / `ODDS_API_KEY_BACKUP` / `ODDS_API_KEY_TERTIARY` or wait for the monthly reset; the live blocker
 2. **Watch forward CLV daily** — the published board runs live side-by-side with paper until mean CLV turns positive; publish override stays only as long as the Architect keeps `ARCHITECT_SIGNOFF=1`
-3. **Model refit for away overconfidence** — structural, needs refit before Phase 3 capital
+3. **Model refit for away overconfidence** — structural, and now live-relevant: the ID405 scope override (2026-08-11) lets away be recommended, so the model's ~39%-claims-vs-~30%-delivers gap is exactly what the live legs should measure
 4. **Keep the team-map reverse resolver honest** — new SportyBet clubs appear each transfer window; add exact spellings to `SPORTYBET_TEAMS` rather than ever weakening the no-fuzzy rule
 
 ---

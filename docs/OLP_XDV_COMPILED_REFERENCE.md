@@ -67,6 +67,8 @@ Scottish Premiership · Belgian Pro League · Eredivisie · Championship · Prim
 
 > **REPO CROSS-CHECK:** ✓ matches the current `engine/` suite (Dixon-Coles + Elo + xG/Understat + bookmaker devig + consensus). rho = −0.13 and the goals-display ≥50% fix are in place.
 
+> **INDEPENDENT VALIDATION (2026-08-11):** DC scoring math cross-checked against the reference implementation `RyanSCodes/Dixon-Coles-Football-Predictor` (py3 port of its Monte-Carlo fit + tau correction). Tau formulas are byte-identical between the two. Both fitted on the same 356-match 2015/16 EPL window (pre-07/05/2016) and scored on the same 5 out-of-sample fixtures. Model-agnostic negative log-likelihood on the training window: OLP **1005.7** vs reference **1085.1** (+79.4) — the reference's greedy MC hill-climb lands in a bad local optimum (it rates champions Leicester's attack 0.78 and Man Utd's attack *below Bournemouth's*). Where both fits are sane (2/5 fixtures) they agree ≤5.3pp and track the market; OLP tracks the market correctly on 4/5. **Conclusion: no bug in OLP's DC; the reference repo is not a usable independent sanity band as-is and is NOT wired in.** Evidence (throwaway, outside repo): `external/football-prediction/crosschecks/` (also holds the penaltyblog 7-method de-vig comparison — OLP's proportional devig == multiplicative, and on real 1X2 closing lines the 7 methods agree ≤0.7pp on the longshot, so the method choice is second-order).
+
 ---
 
 ## SECTION 4 — VERIFICATION (ID403 / ID403.1)

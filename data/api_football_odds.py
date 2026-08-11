@@ -247,6 +247,15 @@ def _pick_price(bookmakers: list[dict], market_name: str,
     (Asian lines) as {value: "Over 2.5", point: 2.5}. If no book in priority
     quotes it, falls back to the best price across all books and marks n_books
     so an outlier stays visible. Mirrors pipeline/odds._best_price."""
+    # api-football names Double Chance outcomes as "Home/Draw", "Draw/Away",
+    # "Home/Away" (not our canonical 1X/X2/12). Normalize both sides before the
+    # comparison so the DC markets actually price — verified against the live
+    # /odds payload 2026-08-11. No other market's value collides with these.
+    _DC_ALIAS = {"Home/Draw": "1X", "Draw/Away": "X2", "Home/Away": "12"}
+
+    def _norm(v: str) -> str:
+        return _DC_ALIAS.get(v, v)
+
     def _book_price(name: str) -> Optional[float]:
         """Price this book quotes for the outcome, else None (HR35 — a bad or
         missing price is None, never guessed)."""
@@ -257,7 +266,7 @@ def _pick_price(bookmakers: list[dict], market_name: str,
                 if m.get("name") != market_name:
                     continue
                 for v in m.get("values", []):
-                    if v.get("value", "") != outcome_name:
+                    if _norm(v.get("value", "")) != _norm(outcome_name):
                         continue
                     if point is not None and v.get("point") != point:
                         continue
@@ -288,7 +297,7 @@ def _pick_price(bookmakers: list[dict], market_name: str,
             if m.get("name") != market_name:
                 continue
             for v in m.get("values", []):
-                if v.get("value", "") != outcome_name:
+                if _norm(v.get("value", "")) != _norm(outcome_name):
                     continue
                 if point is not None and v.get("point") != point:
                     continue
@@ -391,6 +400,8 @@ def _parse_odds_payload(league: str, payload: dict, meta: dict) -> FixtureOdds:
         # Multi-market prices (Architect 2026-08-11) — the /odds payload already
         # carries these markets; parsing them costs zero extra requests. A book
         # that doesn't quote one leaves it None = honest scan-only (HR35).
+        # Double Chance value names are normalized inside _pick_price (real
+        # api-football values are "Home/Draw" etc., our keys are 1X/X2/12).
         over15=_pick_price(bookmakers, "Goals Over/Under", "Over 1.5"),
         under15=_pick_price(bookmakers, "Goals Over/Under", "Under 1.5"),
         btts_yes=_pick_price(bookmakers, "Both Teams Score", "Yes"),

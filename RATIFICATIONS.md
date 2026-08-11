@@ -1739,3 +1739,39 @@ exclusion, the CLV/legs-required publish gate, `ARCHITECT_SIGNOFF`, and
 calibration-log league scope. None were widened, narrowed, or touched.
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+---
+
+## 2026-08-11 — Go-live: PHASE moved 2 → 3 (capital block lifted, Architect order)
+
+**Decision (ARCHITECT, 2026-08-11):** lift the paper-only capital block —
+`config.PHASE` moves **2 → 3**. The framework is now permitted to record real
+stakes when they are logged, running **side-by-side with the paper legs that
+still feed the CLV gate**, until the mean CLV turns positive. This is a
+retroactive record of the order already implemented in commit **`62ba6b9`**
+("feat: go-live Phase 3 — lift capital block") — the config.py comment claimed
+it was "recorded in RATIFICATIONS.md", but no entry existed; this closes that
+gap (HR44: ratify at time of change).
+
+**Context (why the statistical gate is NOT the authority here):**
+
+- The Phase-3 CLV gate is **NOT met**: 12/30 legs with CLV, mean CLV **−1.631%**
+  (negative). This go-live is an **Architect override** of that gate, the same
+  authority exercised for `ARCHITECT_SIGNOFF=1` (board published to the client
+  dashboard, live side-by-side with paper). It is **not** a demonstrated edge.
+- ID405 market gate is **OPEN** (`engine/markets.BLOCKED = {}`, all markets
+  deployable — ratified 2026-08-10); `ARCHITECT_SIGNOFF=1` is set.
+- The Odds API primary key is at **1/500** (monthly reset is the accepted
+  resolution); multi-key + api-football fallback cover the 5 deploy leagues.
+
+**What this change does and does NOT do (the bright line):**
+
+- **Allows:** a stake to reach disk when a leg is logged at Phase 3. The capital
+  engine can now carry a real (not just paper) stake.
+- **Does NOT:** this code never places a bet — no auto-submission, no
+  Playwright stake entry, no API bet placement. `booking/booking_codes.py`
+  remains read-only (codes pre-fill the slip; the Architect submits manually).
+- **Capital authority remains the Architect's alone.** Nothing here auto-deploys
+  capital; the gate overrides are deliberate, recorded, and reversible.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

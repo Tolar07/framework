@@ -191,7 +191,11 @@ print("4a. JSONL access log writes structured line: OK")
 # /metrics render (globals already patched by env)
 mtext = metrics.collect_metrics()
 assert "olp_web_up 1" in mtext
-assert "olp_boards_published_total 1" in mtext
+# boards_published counts real published/board_*.json files on disk; it grows
+# as more boards are signed off (2 on 2026-08-11), so assert >=1 not ==1.
+_pub = [l for l in mtext.splitlines()
+        if l.startswith("olp_boards_published_total ")]
+assert _pub and int(_pub[0].split()[-1]) >= 1, mtext
 assert "olp_phase3_gate_requirement 30" in mtext
 print("4b. /metrics exposition emits gauges: OK")
 

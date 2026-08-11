@@ -621,6 +621,8 @@ class Brain:
             self._conn.execute(
                 "DELETE FROM produced_bets WHERE date=?", (date_iso,))
             for l in legs:
+                # pick_market added v6 (ID415); fallback to pick for legacy rows
+                pick_market = l.get("pick_market", l.get("pick"))
                 self._conn.execute(
                     "INSERT OR REPLACE INTO produced_bets(date, leg_id, fixture, "
                     " league, pick, pick_market, model_prob, "
@@ -628,7 +630,7 @@ class Brain:
                     " kickoff_date, ft_result, hit, settled) "
                     "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                     (l["date"], l["leg_id"], l["fixture"], l["league"],
-                     l["pick"], l["pick_market"], l["model_prob"],
+                     l["pick"], pick_market, l["model_prob"],
                      int(l["on_deploy_shortlist"]),
                      l["best_market"], l["best_price"], l["best_mes_ev"],
                      l["kickoff_date"], l["ft_result"], l["hit"],

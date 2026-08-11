@@ -141,6 +141,19 @@ def send_telegram(body: str, token: Optional[str] = None,
     return ok, notes
 
 
+def send_alert(body: str, **kw) -> tuple[bool, list[str]]:
+    """Best-effort ALERT send, gated OFF by default.
+
+    Architect directive 2026-08-11: the bot pushes ONLY the daily run and
+    command responses. Monitor alerts (health, watchdog, dead-man's-switch)
+    keep logging locally and returning their status, but do NOT message
+    Telegram unless TELEGRAM_ALERTS_ENABLED=1 is set in .env. When it is, the
+    standing honest/capital stamp still applies (send_telegram wraps _stamp)."""
+    if os.environ.get("TELEGRAM_ALERTS_ENABLED", "") not in ("1", "true", "True"):
+        return False, ["TELEGRAM_ALERTS_ENABLED not set — alert logged locally, not sent"]
+    return send_telegram(body, **kw)
+
+
 def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]:
     """Write the board to disk, then send it. Returns (delivered_ok, notes).
 

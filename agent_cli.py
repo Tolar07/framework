@@ -350,7 +350,7 @@ def cmd_schema(args) -> int:
     # Mirrors sports-skills cli.py _generate_schema pattern
     schema = {
         "name": "olp-xdv",
-        "description": "OLP XDV read-only query surface for brain, CLV ledger, board, and league audit. Paper-only, zero capital, phase-gated.",
+        "description": "OLP XDV read-only query surface for brain, CLV ledger, board, and league audit. Phase 3 live (2026-08-11) — read-only, capital authority is the Architect's.",
         "commands": [
             {
                 "name": "stats",

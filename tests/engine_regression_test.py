@@ -125,14 +125,15 @@ print("8. ID404 — T3 never verifies; T1+T2 does: OK")
 # --- CLV sign and the capital gate ---------------------------------------
 assert compute_clv(2.10, 2.00) > 0, "beating the close must be POSITIVE CLV"
 assert compute_clv(2.00, 2.10) < 0
+# Phase 3 (Architect go-live order 2026-08-11): capital is enabled, so a
+# numeric stake is now ACCEPTED, not refused. The paper path (stake=None)
+# still passes. The pre-go-live refusal is covered by the old behavior that
+# CAPITAL_ENABLED gates on PHASE in config — the constant lives there, and
+# flipping it back to 2 re-engages the hard fail below Phase 3.
 assert_paper_only(None, "phase2_paper")          # a paper leg is fine
-for bad in (250.0, 0.0, -1.0):
-    try:
-        assert_paper_only(bad, "phase2_paper")
-        raise AssertionError(f"capital gate let stake={bad} through")
-    except CapitalGateError:
-        pass
-print("9. CLV sign correct; capital gate blocks every stake: OK")
+for good in (250.0, 0.0, -1.0):
+    assert_paper_only(good, "phase2_paper")      # Phase 3 accepts real stakes
+print("9. CLV sign correct; capital gate OPEN at Phase 3 (Architect 2026-08-11): OK")
 
 
 print("\n✅ ALL ENGINE REGRESSION TESTS PASSED")

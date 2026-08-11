@@ -58,7 +58,7 @@ def _rated_bf() -> BoardFixture:
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="x", url="https://x",
                                           structured=True)]),
-        softness_tier="D", on_deploy_shortlist=True,
+        on_deploy_shortlist=True,
         best_market="Fenerbahce to win", best_price=1.91,
         best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0696,
         best_model_prob=0.56, mes_trigger_price=1.52,
@@ -74,7 +74,7 @@ def _unrated_bf() -> BoardFixture:
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="x", url="https://x",
                                           structured=True)]),
-        softness_tier="D",
+        on_deploy_shortlist=True,
         rejection_reason="NO DATA — PENDING: no fitted history")
 
 
@@ -281,7 +281,7 @@ assert code == 200 and d["date"] == today
 b0 = d["board"][0]
 assert b0["fixture"].startswith("Fenerbahce")
 for k in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
-          "softness_tier", "consensus"):
+          "consensus"):
     assert k not in b0, f"public api leaks {k}"
 assert _get("/api/board/1999-01-01.json")[0] == 404
 

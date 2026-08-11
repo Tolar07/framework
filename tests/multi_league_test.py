@@ -107,7 +107,7 @@ print(f"Deploy-eligible fixtures across Eredivisie+Scottish+German combined: {le
 assert len(eligible) == len(combined), "ALL fixtures from whitelisted leagues should be deploy-eligible"
 
 # NO CAP — build_deploy_shortlist returns all eligible
-from engine.softness import build_deploy_shortlist
+from engine.leagues import build_deploy_shortlist
 capped = build_deploy_shortlist(eligible)
 assert len(capped) == len(eligible), f"no cap: expected {len(eligible)}, got {len(capped)}"
 print(f"No deploy cap enforced: all {len(capped)} eligible fixtures shortlisted: OK")

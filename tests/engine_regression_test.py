@@ -253,7 +253,6 @@ _v = _verify([_SD(domain="thesportsdb.com", value="x", url="http://x")])
 _fixtures = [
     BoardFixture(fixture=f"Long Club Name {i} v Another Long Club {i} (Eredivisie)",
                  probs=(_Probs() if i % 2 else _HomeHeavy()), verification=_v,
-                 softness_tier="A",
                  on_deploy_shortlist=(i < 3), mes_trigger_price=1.5)
     for i in range(120)
 ]

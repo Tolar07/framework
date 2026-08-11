@@ -28,7 +28,7 @@ def search_fixtures(league: Optional[str] = None, query: str = "",
 
     Returns {"ok": True, "leagues": [...], "flags": [...]} or
     {"ok": False, "error": "..."}."""
-    from engine.softness import WHITELISTED_LEAGUES
+    from engine.leagues import WHITELISTED_LEAGUES
 
     if league:
         leagues = [league] if league in WHITELISTED_LEAGUES else []
@@ -89,7 +89,7 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
     fixture_dates: dict[tuple[str, str], str] = {}
 
     # Validate input
-    from engine.softness import WHITELISTED_LEAGUES
+    from engine.leagues import WHITELISTED_LEAGUES
     total_fixtures = 0
     for g in groups:
         lg = g.get("league", "")

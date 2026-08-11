@@ -27,7 +27,6 @@ def _fake_scan(lg, season, **kw):
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="x", url="https://x",
                                           structured=True)]),
-        softness_tier="D",
         kickoff_date=date.today().isoformat(),
         rejection_reason="NO DATA — PENDING: test")], [])
 

@@ -26,7 +26,7 @@ tmp = Path(tempfile.mkdtemp(prefix="olp_webapp_render_"))
 _INTERNAL_FIELDS = ("elo_probs", "xg_probs", "engine_divergence", "consensus",
                     "engine_picks", "consensus_pick", "verification",
                     "cal_adjustment", "best_mes_ev", "best_price",
-                    "best_bookmaker", "best_n_books", "softness_tier")
+                    "best_bookmaker", "best_n_books")
 
 
 def _rated() -> BoardFixture:
@@ -41,7 +41,7 @@ def _rated() -> BoardFixture:
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="Fenerbahce v Sturm Graz",
                                           url="https://x", structured=True)]),
-        softness_tier="D", on_deploy_shortlist=True,
+        on_deploy_shortlist=True,
         best_market="Fenerbahce to win", best_price=1.91,
         best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0696,
         best_model_prob=0.56, mes_trigger_price=1.52,
@@ -58,7 +58,6 @@ def _unrated() -> BoardFixture:
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="x", url="https://x",
                                           structured=True)]),
-        softness_tier="D",
         rejection_reason="NO DATA — PENDING: no fitted history")
 
 

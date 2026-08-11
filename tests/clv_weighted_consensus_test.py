@@ -132,7 +132,7 @@ assert b.schema_version == SCHEMA_VERSION
 base = {"run_id": "r1", "predicted_at": "2026-08-01T08:00:00Z",
         "league": "Eredivisie", "fixture": "AAA v BBB", "match_date": "2026-08-02",
         "model_engine": "dc", "entry_odds": None, "bookmaker": None, "ev": None,
-        "softness_tier": "B", "on_deploy_shortlist": 0, "cal_adjustment": None}
+        "on_deploy_shortlist": 0, "cal_adjustment": None}
 preds = [dict(base, market="1X2_HOME", model_prob=0.5) for _ in range(6)]
 preds += [dict(base, market="1X2_HOME", model_prob=0.6) for _ in range(4)]
 assert b.append_predictions(preds) == 10

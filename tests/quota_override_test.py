@@ -66,11 +66,11 @@ except odds_mod.QuotaExhausted:
     pass
 print("4. fixture capture blocked at 3 (hard floor 5): OK")
 
-# --- 5. EFL Cup is whitelisted (unified pool = "ONE", deploy-eligible) + has an odds sport key ----
-from engine.softness import WHITELISTED_LEAGUES, softness_tier, ONE_POOL
+# --- 5. EFL Cup is whitelisted (unified pool, deploy-eligible) + has an odds sport key ----
+from engine.leagues import WHITELISTED_LEAGUES, is_deploy_eligible
 assert "EFL Cup" in WHITELISTED_LEAGUES, "EFL Cup must be whitelisted"
-assert softness_tier("EFL Cup") == ONE_POOL, f"EFL Cup should be '{ONE_POOL}', got {softness_tier('EFL Cup')}"
+assert is_deploy_eligible("EFL Cup"), "EFL Cup must be deploy-eligible (unified pool)"
 assert odds_mod.SPORT_KEYS["EFL Cup"] == "soccer_england_efl_cup"
-print("5. EFL Cup whitelisted (unified pool 'ONE') + deploy-eligible + odds sport key: OK")
+print("5. EFL Cup whitelisted + deploy-eligible + odds sport key: OK")
 
 print("\n=== ALL QUOTA OVERRIDE TESTS PASSED ===")

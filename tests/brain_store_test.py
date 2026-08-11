@@ -90,12 +90,12 @@ for i, mkt in enumerate(["1X2_HOME", "OVER_2_5"]):
                      league="Eredivisie", fixture="Nijmegen v Telstar",
                      match_date="2026-08-05", market=mkt, model_engine="dc",
                      model_prob=0.5 + 0.1 * i, entry_odds=None, bookmaker=None,
-                     ev=None, softness_tier="A", on_deploy_shortlist=1))
+                     ev=None, on_deploy_shortlist=1))
 rows.append(dict(run_id="r1", predicted_at="2026-08-05T07:00:00+00:00",
                  league="Champions League", fixture="Fenerbahçe v Sturm Graz",
                  match_date="2026-08-05", market="1X2_HOME", model_engine="dc",
                  model_prob=0.56, entry_odds=1.9, bookmaker="Bet365", ev=0.05,
-                 softness_tier="D", on_deploy_shortlist=0))
+                 on_deploy_shortlist=0))
 assert b4.append_predictions(rows) == 3
 assert len(b4.predictions_for(market="1X2_HOME")) == 2
 assert len(b4.predictions_for(run_id="r1", fixture="Nijmegen")) == 2

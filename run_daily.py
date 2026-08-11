@@ -34,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from brain.store import Brain
 from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
-from engine.softness import (WHITELISTED_LEAGUES, build_deploy_shortlist)
+from engine.leagues import (WHITELISTED_LEAGUES, build_deploy_shortlist)
 from engine.acca import (build_production_bets, build_single_accas,
                          render_production_block)
 from engine.mes import mes_numeric
@@ -948,7 +948,6 @@ def _predictions_from_board(board, run_id: str, predicted_at: str,
         p = bf.probs
         base = dict(run_id=run_id, predicted_at=predicted_at, league=league,
                     fixture=fixture, match_date=bf.kickoff_date,
-                    softness_tier=bf.softness_tier,
                     on_deploy_shortlist=int(bf.on_deploy_shortlist),
                     entry_odds=None, bookmaker=None, ev=None,
                     cal_adjustment=None)

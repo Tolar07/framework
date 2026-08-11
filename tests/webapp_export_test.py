@@ -54,7 +54,7 @@ bf = BoardFixture(
     verification=verify([SourcedDatum(domain="thesportsdb.com",
                                       value="x", url="https://x",
                                       structured=True)]),
-    softness_tier="D", on_deploy_shortlist=True,
+    on_deploy_shortlist=True,
     best_market="Fenerbahce to win", best_price=1.91, best_mes_ev=0.0696,
     best_model_prob=0.56, mes_trigger_price=1.52,
     kickoff_date=date.today().isoformat(),  # same-day call rule (2026-08-09)
@@ -152,7 +152,7 @@ assert d["date"] == "2026-08-11"
 assert b0["probs"]["p_home"] == 0.56 and b0["best_market"] == "Fenerbahce to win"
 assert "mes_trigger_price" in b0           # the public pick line keeps Deploy At
 for k in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
-          "best_price", "softness_tier", "consensus"):
+          "best_price", "consensus"):
     assert k not in b0, f"board.json leaks {k}"
 for k in ("data_flags", "gate", "telemetry"):
     assert k not in d, f"board.json leaks top-level {k}"

@@ -595,7 +595,7 @@ class Handler(BaseHTTPRequestHandler):
                 leagues = data.get("leagues", [])
                 if not leagues:
                     # Return all leagues if none specified
-                    from engine.softness import WHITELISTED_LEAGUES
+                    from engine.leagues import WHITELISTED_LEAGUES
                     leagues = list(WHITELISTED_LEAGUES)
                 scores = _fetch_live_scores(leagues)
                 self._json({"ok": True, "scores": scores})

@@ -35,7 +35,6 @@ class BoardFixture:
     fixture: str  # "Home v Away"
     probs: Optional[FixtureProbabilities]
     verification: VerificationResult
-    softness_tier: str = "ONE"   # unified pool marker (back-compat field)
     on_deploy_shortlist: bool = False
     mes_trigger_price: Optional[float] = None
     rejection_reason: Optional[str] = None

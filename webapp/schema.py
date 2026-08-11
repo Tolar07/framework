@@ -110,7 +110,6 @@ def fixture_to_dict(bf: BoardFixture) -> dict:
     return {
         "fixture": bf.fixture,
         "probs": probs_to_dict(bf.probs) if bf.probs is not None else None,
-        "softness_tier": bf.softness_tier,
         "on_deploy_shortlist": bf.on_deploy_shortlist,
         "mes_trigger_price": _opt(bf.mes_trigger_price),
         "rejection_reason": _opt(bf.rejection_reason),

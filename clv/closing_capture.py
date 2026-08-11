@@ -307,7 +307,7 @@ if __name__ == "__main__":
     ap.add_argument("leagues", nargs="*",
                     help="leagues to scan (default: all whitelisted leagues)")
     a = ap.parse_args()
-    from engine.softness import WHITELISTED_LEAGUES
+    from engine.leagues import WHITELISTED_LEAGUES
     target = a.leagues or list(WHITELISTED_LEAGUES)
     n, flags = capture_closing_lines(CLVLog(), target)
     for f in flags:

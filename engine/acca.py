@@ -77,7 +77,6 @@ class AccaLeg:
     price: float          # decimal odds on the live line
     prob: float           # model probability for that market
     ev: Optional[float]   # model_prob * price - 1, when computable
-    softness_tier: str = "?"
     sportybet_fixture_id: Optional[str] = None  # set by the booking step
 
 
@@ -182,7 +181,6 @@ def _best_deployable_leg(bf, odds_index: Optional[dict]) -> Optional[AccaLeg]:
                 price=price,
                 prob=prob,
                 ev=ev,
-                softness_tier=bf.softness_tier,
             )
     return best
 

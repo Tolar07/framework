@@ -393,7 +393,7 @@ def refresh_sportybet_cache(
 
 def get_deploy_leagues_fixtures(days_ahead: int = 3) -> Dict[str, List[PipelineFixture]]:
     """Get fixtures for all deploy-eligible leagues (the unified pool)."""
-    from engine.softness import WHITELISTED_LEAGUES
+    from engine.leagues import WHITELISTED_LEAGUES
     return load_all_sportybet_fixtures(days_ahead, WHITELISTED_LEAGUES)
 
 

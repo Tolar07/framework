@@ -82,19 +82,19 @@ yesterday = (_date.today() - _td(days=1)).isoformat()
 brain._conn.execute("""
     INSERT INTO predictions (run_id, predicted_at, league, fixture, match_date,
         market, model_engine, model_prob, entry_odds, bookmaker, ev,
-        softness_tier, on_deploy_shortlist, ft_result, hit)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        on_deploy_shortlist, ft_result, hit)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 """, ("run1", "2026-08-06T12:00:00Z", "Eredivisie", "Ajax v Feyenoord",
       yesterday, "1X2_HOME", "dc", 0.55, 1.9, "bet365", 0.045,
-      "A", 1, "2-1", 1))
+      1, "2-1", 1))
 brain._conn.execute("""
     INSERT INTO predictions (run_id, predicted_at, league, fixture, match_date,
         market, model_engine, model_prob, entry_odds, bookmaker, ev,
-        softness_tier, on_deploy_shortlist, ft_result, hit)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        on_deploy_shortlist, ft_result, hit)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 """, ("run1", "2026-08-06T12:00:00Z", "Eredivisie", "Ajax v Feyenoord",
       yesterday, "1X2_HOME", "elo", 0.52, 1.9, "bet365", 0.028,
-      "A", 1, "2-1", 1))
+      1, "2-1", 1))
 brain._conn.commit()
 
 graded = brain.graded_yesterday(yesterday)
@@ -128,7 +128,7 @@ p = SimpleNamespace(
 cons = compute_consensus(p, (0.49,0.28,0.23), (0.34,0.31,0.35), (0.522,0.248,0.23))
 bf = BoardFixture(
     fixture="Feyenoord v AZ (Eredivisie)", probs=p, verification=v,
-    softness_tier="A", elo_probs=(0.49,0.28,0.23),
+    elo_probs=(0.49,0.28,0.23),
     xg_probs=(0.34,0.31,0.35), market_probs=(0.522,0.248,0.23), consensus=cons
 )
 d = fixture_to_dict(bf)

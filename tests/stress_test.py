@@ -120,14 +120,18 @@ stress("STAGE 3 · every safety gate blocks what it should")
 from config import PHASE, assert_paper_only, CapitalGateError
 from verification.id403 import verify, SourcedDatum, Tier, _domain_root
 
-# PHASE gate — non-None stake must raise at every value
-blocked = 0
+# PHASE gate — at Phase 3 (Architect go-live order 2026-08-11) capital is
+# ENABLED, so every numeric stake is now ACCEPTED. The hard fail below Phase 3
+# lives in config.CAPITAL_ENABLED (= PHASE >= 3); flipping PHASE back to 2
+# re-engages it. The paper leg (stake=None) always passes.
+accepted = 0
 for stake in (0.0, 1.0, 250.0, -1.0, 1e9):
     try:
         assert_paper_only(stake, "phase2_paper")
+        accepted += 1
     except CapitalGateError:
-        blocked += 1
-check(f"phase gate: refuses stake at PHASE={PHASE}", blocked == 5)
+        pass
+check(f"phase gate: accepts stake at PHASE={PHASE} (go-live)", accepted == 5)
 
 # ID405 — every path
 from output.produce_bet import _best_market_desc, render_telegram_board, BoardFixture

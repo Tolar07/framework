@@ -238,8 +238,8 @@ def render_produced_bet(record: Optional[dict]) -> str:
              "(paper, ID415)",
              f"{record.get('n_legs', 0)} rated fixture(s) today. This is the "
              "scan's paper record, NOT a recommendation — the production pick "
-             "(if any) is in PRODUCTION BETS below. MARKED PAPER — Phase 2, "
-             "zero capital.", ""]
+             "(if any) is in PRODUCTION BETS below. MARKED PAPER — the scan "
+             "itself never carries a stake (capital is the Architect's).", ""]
     for i, leg in enumerate(record.get("legs") or [], 1):
         L = [f"{i}. {leg.get('fixture', '?')} ({leg.get('league', '?')})"]
         L.append(f"   Pick: {leg.get('pick_name', leg.get('pick', '?'))} "

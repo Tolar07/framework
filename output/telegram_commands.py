@@ -150,7 +150,8 @@ def cmd_help(_: str) -> str:
         "/produce search <q> — find today's fixtures for <q>, predict just those\n"
         "/verify result — grade pending legs now (settles any played)\n"
         "/debrief — full framework status\n\n"
-        f"{PHASE_LABEL}. Paper only — this system never stakes.",
+        f"{PHASE_LABEL}. Capital authority is the Architect's — this system "
+        "records stakes you log but never places a bet itself.",
         keyboard=_keyboard(("/board", "/status", "/stats"),
                            ("/why", "/verify result", "/produce bet"),
                            ("/log", "/note", "/debrief")))
@@ -555,10 +556,12 @@ def handle(text: str) -> str:
             low.startswith("/note") or low.startswith("note ")):
         return (
             "REFUSED — that would move a bright line.\n\n"
-            f"Capital is disabled in code at PHASE={PHASE}, and the honest-edge "
-            "caveat is not removable. Those are not settings I change from a "
-            "message: a chat channel can be spoofed, and the framework exists "
-            "because of a fabrication incident.\n\n"
+            f"At PHASE={PHASE} capital is enabled, but capital authority "
+            "remains the Architect's: bets are placed by you, never by this "
+            "framework, and the honest-edge caveat is not removable. Those are "
+            "not settings I change from a message: a chat channel can be "
+            "spoofed, and the framework exists because of a fabrication "
+            "incident.\n\n"
             "If you genuinely want to change this, do it deliberately in a "
             "working session where the reasoning is on the record. Logged as a "
             "note in the meantime."

@@ -55,7 +55,14 @@ def load_dotenv(path: Path | None = None) -> list[str]:
 load_dotenv()
 
 # HR51 phase. 1 = infrastructure, 2 = paper calibration, 3 = live capital.
-PHASE = 2
+#
+# 2026-08-11 ARCHITECT ORDER (go-live, Phase 3): PHASE moved 2 -> 3. The
+# market gate (engine/markets.BLOCKED) is open, ARCHITECT_SIGNOFF=1 is set, and
+# the framework is live — it now records real stakes when they are logged,
+# side-by-side with the paper legs that still feed the CLV gate. Capital
+# authority remains the Architect's: this code never places a bet, it only
+# permits a stake to reach disk. Recorded in RATIFICATIONS.md (2026-08-11).
+PHASE = 3
 
 # Derived, never set by hand — capital is only ever enabled at Phase 3, and
 # even then the Architect deploys it, not this code.

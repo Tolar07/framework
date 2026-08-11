@@ -1,6 +1,6 @@
 # 003 — Press feedback + toast slide polish
 
-- **Status**: TODO
+- **Status**: DONE (2026-08-11)
 - **Commit**: a3df429
 - **Severity**: MEDIUM
 - **Category**: physicality / easing & duration

@@ -1,6 +1,6 @@
 # 004 — New-row flash: shorten, keep as a comprehension cue
 
-- **Status**: TODO
+- **Status**: DONE (2026-08-11)
 - **Commit**: a3df429
 - **Severity**: LOW
 - **Category**: accessibility / easing & duration

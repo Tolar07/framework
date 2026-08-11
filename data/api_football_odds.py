@@ -379,6 +379,16 @@ def _parse_odds_payload(league: str, payload: dict, meta: dict) -> FixtureOdds:
         away=_pick_price(bookmakers, "Match Winner", "Away"),
         over25=_pick_price(bookmakers, "Goals Over/Under", "Over 2.5"),
         under25=_pick_price(bookmakers, "Goals Over/Under", "Under 2.5"),
+        # Multi-market prices (Architect 2026-08-11) — the /odds payload already
+        # carries these markets; parsing them costs zero extra requests. A book
+        # that doesn't quote one leaves it None = honest scan-only (HR35).
+        over15=_pick_price(bookmakers, "Goals Over/Under", "Over 1.5"),
+        under15=_pick_price(bookmakers, "Goals Over/Under", "Under 1.5"),
+        btts_yes=_pick_price(bookmakers, "Both Teams Score", "Yes"),
+        btts_no=_pick_price(bookmakers, "Both Teams Score", "No"),
+        dc_1x=_pick_price(bookmakers, "Double Chance", "1X"),
+        dc_x2=_pick_price(bookmakers, "Double Chance", "X2"),
+        dc_12=_pick_price(bookmakers, "Double Chance", "12"),
         source="api-football.com (free plan)",
         source_tier="T1",
     )

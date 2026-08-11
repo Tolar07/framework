@@ -18,10 +18,11 @@ Pick rule (matches the board, so the slip can never drift from what was shown):
   * If no live price, the leg is listed with its breakeven trigger price and
     marked "NO PRICE — back at {trigger}+" so the Architect can confirm on
     SportyBet before adding it.
-  * Away wins / Over 2.5 are conservatively excluded here pending Architect
-    ratification of the ID405 scope (an OPEN QUESTION per CLAUDE.md — the
-    market gate engine/markets.BLOCKED is open, but this slip tool keeps its
-    caution until told otherwise, by name).
+  * All markets enter the slip — 1X2 (home/draw/away), O/U1.5, O/U2.5, Double
+    Chance and BTTS (Architect 2026-08-11 multi-market selection). ID405 scope
+    is OVERRIDDEN (2026-08-11, Architect directive): away wins and Over 2.5 are
+    no longer excluded here — the historical negative measurement stays as an
+    honest note, not an exclusion (recorded in RATIFICATIONS.md).
 
 Usage:
     python scripts/accumulator_prep.py                  # today's board
@@ -118,17 +119,8 @@ def _leg_line(bf: dict, idx: int, stake: float) -> tuple[str, Optional[float], O
     fixture = bf.get("fixture", "?")
     name, price, prob = _pick_market(bf)
 
-    # ID405: away wins are proven-negative — never in the slip.
-    best_key = bf.get("best_market_key") or ""
-    if best_key == mkt.AWAY:
-        return (f"{idx}. {fixture} — {name} "
-                f"(away win, ID405 blocked — EXCLUDED from slip)", None,
-                "away pick excluded")
-    if best_key == mkt.OVER_25:
-        # Over 2.5 has a proven-negative price line too (ID405).
-        return (f"{idx}. {fixture} — {name} "
-                f"(Over 2.5 blocked by ID405 — EXCLUDED from slip)", None,
-                "over 2.5 pick excluded")
+    # ID405 scope overridden 2026-08-11 (Architect directive) — away wins and
+    # Over 2.5 are no longer excluded; every priced market enters the slip.
 
     price_txt = f"{price:.2f}" if price is not None else "NO PRICE — confirm on SportyBet"
     prob_txt = f"{round(prob*100)}%" if prob is not None else "NO DATA — PENDING"

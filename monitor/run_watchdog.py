@@ -76,7 +76,7 @@ def verify(date_iso: str | None = None, logs_dir: Path | None = None,
     # Alert (best-effort). notify_fn injectable for tests.
     notes.append(f"{date_iso}: run MISSING or incomplete — "
                  f"{'; '.join(reasons)}")
-    send = notify_fn or notify.send_telegram
+    send = notify_fn or notify.send_alert
     try:
         ok, n = send(_alert_text(date_iso, reasons))
         notes.append("ALERT sent to Telegram" if ok

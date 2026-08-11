@@ -82,7 +82,7 @@ def verify(logs_dir: Path | None = None, notify_fn=None) -> tuple[bool, list[str
 
     # Distinct alert — this is the dead-man's-switch, not health monitor
     notes.append(f"{today}: 07:00 run MISSING/INCOMPLETE — {'; '.join(reasons)}")
-    send = notify_fn or notify.send_telegram
+    send = notify_fn or notify.send_alert
     try:
         ok, n = send(alert_text(today, reasons))
         notes.append("DEAD-MAN'S-SWITCH ALERT sent to Telegram" if ok

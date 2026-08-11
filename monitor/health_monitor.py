@@ -509,7 +509,7 @@ def run_check(state_path: Path = DEFAULT_STATE, alert: bool = True,
     alerted = False
     if changed and alert:
         try:
-            ok, _ = notify.send_telegram(_alert_text(results, changed))
+            ok, _ = notify.send_alert(_alert_text(results, changed))
             alerted = ok
         except Exception:
             alerted = False  # monitor must never crash the scheduler

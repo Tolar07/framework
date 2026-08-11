@@ -51,7 +51,7 @@ except ImportError:
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from booking.league_map import SPORTYBET_LEAGUES, BookmakerLeague
-from booking.team_map import resolve_team
+from booking.team_map import resolve_team, resolve_team_to_model
 
 
 # --- Configuration ---
@@ -250,9 +250,12 @@ def _parse_fixture_element(elem, league: str, country: str,
         if clock and match_date:
             kickoff_utc = f"{match_date}T{clock}:00Z"
 
-        # Map to model keys
-        model_home = resolve_team(sportybet_home, "sportybet")
-        model_away = resolve_team(sportybet_away, "sportybet")
+        # Map to model keys — REVERSE resolution (SportyBet -> model key), never
+        # the forward map: the old code called resolve_team backwards, which
+        # fuzzy-matched the SportyBet name against SportyBet VALUES and stored a
+        # different club (e.g. "Millwall FC" -> "AC Milan").
+        model_home = resolve_team_to_model(sportybet_home)
+        model_away = resolve_team_to_model(sportybet_away)
 
         # 1X2 odds: the row's FIRST market cell (.market) carries the three
         # match-result prices in order Home / Draw / Away. A row without
@@ -324,8 +327,8 @@ def _parse_next_data(data: Dict, league: str, country: str) -> List[CachedFixtur
                     kickoff_utc=match.get("startTime", ""),
                     sportybet_home=sportybet_home,
                     sportybet_away=sportybet_away,
-                    model_home=resolve_team(sportybet_home, "sportybet"),
-                    model_away=resolve_team(sportybet_away, "sportybet"),
+                    model_home=resolve_team_to_model(sportybet_home),
+                    model_away=resolve_team_to_model(sportybet_away),
                     league=league,
                     country=country,
                 ))

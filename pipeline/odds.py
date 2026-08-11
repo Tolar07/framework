@@ -234,12 +234,71 @@ class QuotaExhausted(SourceNoData):
 
 
 def _get_key() -> str:
+    """The PRIMARY Odds API key — the Architect's personal key."""
     key = os.environ.get("ODDS_API_KEY")
     if not key:
         raise RuntimeError(
             "ODDS_API_KEY not set. Free key at https://the-odds-api.com/ — "
             "put it in .env (gitignored) or as a GitHub Actions secret.")
     return key
+
+
+def _odds_keys() -> list[str]:
+    """Candidate keys in priority order.
+
+    Architect model (2026-08-11): the personal API key is the MAIN source and
+    the free-tier monthly reset is the BACKUP. The pipeline walks ODDS_API_KEY
+    first, then the optional ODDS_API_KEY_BACKUP (paste a second key there for
+    a true main/backup pair — a fresh free-tier key works and resets monthly;
+    each key pays its own 500/month)."""
+    keys = [k for k in (os.environ.get("ODDS_API_KEY"),
+                        os.environ.get("ODDS_API_KEY_BACKUP")) if k]
+    if not keys:
+        raise RuntimeError(
+            "ODDS_API_KEY not set. Free key at https://the-odds-api.com/ — "
+            "put it in .env (gitignored) or as a GitHub Actions secret.")
+    return keys
+
+
+def _probe_key(key: str) -> tuple[int, int]:
+    """(used, remaining) for ONE key. Listing sports costs nothing, so the
+    probe is free."""
+    r = get_protected(f"{API_BASE}/sports", breaker_name="the_odds_api",
+                      params={"apiKey": key}, timeout=25)
+    return (int(r.headers.get("x-requests-used", -1)),
+            int(r.headers.get("x-requests-remaining", -1)))
+
+
+_active_key: Optional[str] = None  # last key found above the floor (process cache)
+
+
+def _resolve_key(floor: int) -> tuple[str, int, int]:
+    """(key, used, remaining) for the first key with remaining >= floor.
+
+    Walks ODDS_API_KEY then ODDS_API_KEY_BACKUP and remembers the winner for
+    the process so a league-by-league pull doesn't re-probe on every call.
+    Raises QuotaExhausted when NO key is above the floor, reporting the best
+    remaining honestly (HR35 — never pretends a spent key has quota)."""
+    global _active_key
+    if _active_key is not None:
+        used, remaining = _probe_key(_active_key)
+        if remaining >= floor:
+            return _active_key, used, remaining
+        _active_key = None  # spent since we last checked — re-walk the list
+    best_used, best_rem, best_key = -1, -1, ""
+    for key in _odds_keys():
+        used, remaining = _probe_key(key)
+        if remaining >= floor:
+            _active_key = key
+            return key, used, remaining
+        if remaining > best_rem:
+            best_used, best_rem, best_key = used, remaining, key
+    raise QuotaExhausted(
+        f"Odds API quota spent across all keys (best remaining {best_rem} on "
+        f"{best_key or 'no key'}, floor {floor}). Refusing to spend the month "
+        f"— entry prices are NO DATA — PENDING. The free tier resets monthly; "
+        f"set a fresh key in ODDS_API_KEY / ODDS_API_KEY_BACKUP or wait for "
+        f"the reset.")
 
 
 def map_team(league: str, name: str) -> str:
@@ -249,13 +308,12 @@ def map_team(league: str, name: str) -> str:
 
 
 def check_quota() -> tuple[int, int]:
-    """(used, remaining). Listing sports costs nothing, so this is a free probe."""
+    """(used, remaining) on the PRIMARY key. Listing sports costs nothing, so
+    this is a free probe (kept on the primary for external callers like the
+    health monitor / league audit)."""
     if requests is None:
         raise RuntimeError("requests not installed")
-    r = get_protected(f"{API_BASE}/sports", breaker_name="the_odds_api",
-                      params={"apiKey": _get_key()}, timeout=25)
-    return (int(r.headers.get("x-requests-used", -1)),
-            int(r.headers.get("x-requests-remaining", -1)))
+    return _probe_key(_get_key())
 
 
 # Books the Architect can actually bet into, in preference order. Taking the
@@ -349,37 +407,35 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
 
     events = _read_cache(league) if use_cache else None
     if events is None:
-        used, remaining = check_quota()
         floor = QUOTA_HARD_FLOOR if fixture_capture else QUOTA_FLOOR
-        if remaining < floor:
-            # The Odds API monthly quota is spent. Before degrading to NO DATA,
-            # try the free API-Football fallback (same bookmakers, 1X2 + totals,
-            # 100 requests/day). Only for a routine PRICE pull — fixture capture
-            # stays on the cache discipline that is its whole purpose. The import
-            # is lazy to avoid a circular import (api_football_odds imports our
-            # MarketQuote/FixtureOdds contract).
+        try:
+            key, used, remaining = _resolve_key(floor)
+        except QuotaExhausted as qe:
+            # The Odds API monthly quota is spent on every key. Before
+            # degrading to NO DATA, try the free API-Football fallback (same
+            # bookmakers, 1X2 + totals, 100 requests/day). Only for a routine
+            # PRICE pull — fixture capture stays on the cache discipline that
+            # is its whole purpose. The import is lazy to avoid a circular
+            # import (api_football_odds imports our MarketQuote/FixtureOdds
+            # contract).
             if not fixture_capture:
                 try:
                     from data import api_football_odds as _af_fallback
                     fixtures, afl = _af_fallback.fetch_odds(league)
-                    return fixtures, [f"{league}: Odds API quota exhausted "
-                                      f"({remaining} left) — served via "
-                                      f"api-football free fallback"] + afl
+                    return fixtures, [f"{league}: Odds API quota spent across "
+                                      f"all keys — served via api-football "
+                                      f"free fallback"] + afl
                 except QuotaExhausted:
                     raise
                 except Exception as e:
                     raise QuotaExhausted(
-                        f"Odds API quota down to {remaining} (floor {floor}); "
-                        f"api-football fallback failed ({e}). Refusing to spend "
-                        f"the month — entry prices are NO DATA — PENDING.")
-            raise QuotaExhausted(
-                f"Odds API quota down to {remaining} "
-                f"(floor {floor}{' — fixture capture' if fixture_capture else ''}). "
-                f"Refusing to spend it on a routine pull — today's entry prices "
-                f"are NO DATA — PENDING rather than exhausting the month.")
+                        f"Odds API quota spent across all keys; api-football "
+                        f"fallback failed ({e}). Refusing to spend the month — "
+                        f"entry prices are NO DATA — PENDING.") from e
+            raise qe
         r = get_protected(f"{API_BASE}/sports/{SPORT_KEYS[league]}/odds",
                           breaker_name="the_odds_api",
-                          params={"apiKey": _get_key(), "regions": regions,
+                          params={"apiKey": key, "regions": regions,
                                   "markets": markets, "oddsFormat": "decimal"},
                           timeout=30)
         events = r.json()

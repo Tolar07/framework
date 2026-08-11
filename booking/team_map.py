@@ -16,11 +16,12 @@ from typing import Optional
 
 # --- SportyBet team names (verified live 2026-08-08) ---
 SPORTYBET_TEAMS: dict[str, str] = {
-    # Eredivisie
+    # Eredivisie — values are the SportyBet league-page spellings (verified from
+    # the 2026-08-11 cache); the keys are the football-data model keys.
     "Nijmegen": "NEC Nijmegen",
     "Telstar": "SC Telstar",           # Eerste Divisie, not on SportyBet Eredivisie
     "Go Ahead Eagles": "Go Ahead Eagles",
-    "Willem II": "Willem II",
+    "Willem II": "Willem II Tilburg",
     "PSV Eindhoven": "PSV Eindhoven",
     "For Sittard": "Fortuna Sittard",
     "Groningen": "FC Groningen",
@@ -31,8 +32,9 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Feyenoord": "Feyenoord",
     "Ajax": "Ajax",
     "Zwolle": "PEC Zwolle",
-    "AZ Alkmaar": "AZ Alkmaar",
-    "Alkmaar": "AZ Alkmaar",
+    "AZ Alkmaar": "Alkmaar",           # SportyBet league page spells AZ "Alkmaar"
+    "Alkmaar": "Alkmaar",              # legacy alias; reverse picks "AZ Alkmaar" (first)
+    "Excelsior": "Excelsior Rotterdam",
     # Danish Superliga
     "Randers FC": "Randers FC",
     "Lyngby": "Lyngby BK",
@@ -46,35 +48,49 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Midtjylland": "FC Midtjylland",
     "SonderjyskE": "SonderjyskE",
     "Copenhagen": "Copenhagen",
-    # Scottish Premiership
+    # Scottish Premiership — values are the SportyBet league-page spellings
+    # (2026-08-11 cache): SportyBet appends "FC" to most SPFL names.
     "Celtic": "Celtic",
     "Rangers": "Rangers",
-    "Hearts": "Hearts",
+    "Hearts": "Heart of Midlothian FC",
     "Aberdeen": "Aberdeen",
-    "Hibernian": "Hibernian",
+    "Hibernian": "Hibernian FC",
     "Dundee": "Dundee",
     "Dundee United": "Dundee United",
-    "Motherwell": "Motherwell",
-    "St Mirren": "St Mirren",
-    "Kilmarnock": "Kilmarnock",
-    "Falkirk": "Falkirk",
+    "Motherwell": "Motherwell FC",
+    "St Mirren": "St Mirren FC",
+    "Kilmarnock": "Kilmarnock FC",
+    "Falkirk": "Falkirk FC",
     "St Johnstone": "St Johnstone",
-    # Belgian Pro League
-    "Standard": "Standard de Liege",
+    # Belgian Pro League — values are the SportyBet league-page spellings
+    # (2026-08-11 cache). "Club Brugge" and "Kortrijk" were previously missing
+    # entirely, so the fuzzy matcher attached them to the WRONG clubs ("Club
+    # Brugge" -> Cercle Brugge). The no-fuzzy reverse resolver prevents that
+    # class of corruption.
+    "Standard": "Standard Liege",
     "Cercle Brugge": "Cercle Brugge",
-    "Westerlo": "Westerlo",
-    "St. Gilloise": "Union St. Gilloise",
-    "St Truiden": "STVV",
+    "Club Brugge": "Club Brugge",
+    "Westerlo": "KVC Westerlo",
+    "St. Gilloise": "Union Gilloise",
+    "St Truiden": "St. Truidense VV",
     "Lommel": "Lommel SK",
-    "Charleroi": "Charleroi",
+    "Kortrijk": "KV Kortrijk",
+    "Charleroi": "Royal Charleroi SC",
     "Oud-Heverlee Leuven": "Oud-Heverlee Leuven",
     "Gent": "Gent",
-    "Mechelen": "Mechelen",
-    "Waregem": "Zulte Waregem",
+    "Mechelen": "Yellow-Red KV Mechelen",
+    "Waregem": "SV Zulte Waregem",
     "Genk": "Genk",
-    "Anderlecht": "Anderlecht",
-    "Antwerp": "Antwerp",
-    "Beveren": "Beveren",
+    "Anderlecht": "RSC Anderlecht",
+    "Antwerp": "Royal Antwerp FC",
+    "Beveren": "KV Waasland-Beveren",
+    # Ekstraklasa (2026-08-11) — model keys from odds.py aliases. Other clubs in
+    # the division are NOT mapped: they pass through unchanged (NO DATA — PENDING)
+    # rather than risk a wrong map (HR35).
+    "Legia": "Legia Warszawa",
+    "Jagiellonia": "Jagiellonia Bialystok",
+    "Pogon Szczecin": "Pogon Szczecin",
+    "Zaglebie": "Zaglebie Lubin",
     # Premier League
     "Arsenal": "Arsenal",
     "Man City": "Man City",
@@ -109,6 +125,7 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Mansfield Town": "Mansfield Town",
     "Plymouth Argyle": "Plymouth Argyle",
     "Exeter City": "Exeter City",
+    "Millwall": "Millwall FC",
     # La Liga — SportyBet uses standard names that match OLP keys.
     # Add as identity mappings so reverse lookup (SportyBet -> OLP) works.
     "Real Madrid": "Real Madrid",
@@ -183,6 +200,17 @@ SPORTYBET_TEAMS: dict[str, str] = {
 }
 
 
+# Reverse table: SportyBet league-page spelling -> OLP XDV model key. Built
+# once from SPORTYBET_TEAMS (model key -> SportyBet name). First-wins on
+# collisions preserves the canonical key — the table is ordered canonical-
+# before-alias, e.g. "AZ Alkmaar" before "Alkmaar" (reverse("Alkmaar") ->
+# "AZ Alkmaar") and "Sheffield Utd" before "Sheffield United" (reverse
+# ("Sheffield United") -> "Sheffield Utd").
+_MODEL_BY_SPORTYBET: dict[str, str] = {}
+for _olp_key, _sb_name in SPORTYBET_TEAMS.items():
+    _MODEL_BY_SPORTYBET.setdefault(_sb_name, _olp_key)
+
+
 def _normalize(name: str) -> str:
     """Normalize a team name for comparison."""
     name = name.lower().strip()
@@ -240,3 +268,29 @@ def resolve_team(olp_name: str, bookmaker: str = "sportybet") -> str:
 
     # 3. Fallback: return original
     return olp_name
+
+
+def resolve_team_to_model(sportybet_name: str) -> str:
+    """SportyBet league-page name -> OLP XDV model key (football-data short name).
+
+    The REVERSE of resolve_team, used by the SportyBet cache builder so
+    model_home/model_away hold REAL model keys, not SportyBet spellings. The
+    old code called resolve_team backwards (SportyBet name -> table of
+    SportyBet VALUES), which fuzzy-matched one club against another and could
+    return a DIFFERENT team entirely — e.g. "Millwall FC" -> "AC Milan",
+    "Club Brugge" -> "Cercle Brugge", "Excelsior Rotterdam" ->
+    "Sparta Rotterdam". That attached one club's real price to the wrong model
+    team.
+
+    EXACT + NORMALIZED-EXACT ONLY — deliberately NO fuzzy pass (HR35). A name
+    that isn't in the reverse table returns UNCHANGED so the caller reports
+    NO DATA — PENDING. Attaching a real price to the wrong team is worse than
+    an honest gap, so we never guess across clubs.
+    """
+    if sportybet_name in _MODEL_BY_SPORTYBET:
+        return _MODEL_BY_SPORTYBET[sportybet_name]
+    target = _normalize(sportybet_name)
+    for sb_name, model_key in _MODEL_BY_SPORTYBET.items():
+        if _normalize(sb_name) == target:
+            return model_key
+    return sportybet_name

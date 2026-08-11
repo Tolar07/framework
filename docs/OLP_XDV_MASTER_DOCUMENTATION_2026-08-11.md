@@ -8,7 +8,7 @@
 
 ## 0. ONE-PARAGRAPH SUMMARY
 
-OLP XDV is a **Phase-2 paper-only** football-betting calibration framework. A daily 07:00 pipeline (`run_daily.py`) scans **18 whitelisted leagues** (one unified pool — softness tiers were removed on 2026-08-10), fits **Dixon-Coles + Elo + xG + Bookmaker** models into one consensus, builds a board, logs **paper legs with closing-line value (CLV)**, produces a **today-only** production bet (Acca A + split accas + singles) with **SportyBet booking codes**, and delivers to **Telegram** and a **two-tier web dashboard** (public client view + authed admin). It has **never staked a kobo**: capital is hard-blocked in `config.py` below the Phase 3 gate (≥30 legs with CLV AND positive mean CLV AND Architect V7 sign-off). As of today the gate reads **12/30 legs with CLV, mean CLV −1.631% (negative)** — the system is currently *losing* to the closing line and is therefore **not** publishable to clients or deployable with capital.
+OLP XDV is a **Phase-2 paper-only** football-betting calibration framework. A daily 07:00 pipeline (`run_daily.py`) scans **18 whitelisted leagues** (one unified pool — softness tiers were removed on 2026-08-10), fits **Dixon-Coles + Elo + xG + Bookmaker** models into one consensus, builds a board, logs **paper legs with closing-line value (CLV)**, produces a **today-only** production bet (Acca A + split accas + singles) with **SportyBet booking codes**, and delivers to **Telegram** and a **two-tier web dashboard** (public client view + authed admin). It has **never staked a kobo**: capital is hard-blocked in `config.py` below the Phase 3 gate (≥30 legs with CLV AND positive mean CLV AND Architect V7 sign-off). As of today the gate reads **12/30 legs with CLV, mean CLV −1.631% (negative)** — the system is currently *losing* to the closing line and is therefore **not** deployable with capital. However, on **2026-08-11 the Architect set `ARCHITECT_SIGNOFF=1`** and the current board is **published live to the client dashboard**, running **side-by-side with paper** until mean CLV turns positive — an override that is never silent: the live gate numbers + override flag are stamped into `publish_audit.jsonl` and the honest-edge statement stays on the client view.
 
 ---
 
@@ -55,22 +55,24 @@ OLP XDV is a **Phase-2 paper-only** football-betting calibration framework. A da
 | **Two-tier web dashboard (2026-08-07)** — public `/dashboard` trimmed via `trim_payload()`; `/admin` authed via HTTP Basic; read-only over board JSON + brain | **Active** | `webapp/server.py` |
 | **Binance design pass (2026-08-10)** — dashboard styling follows `design-md/binance/DESIGN.md` tokens in `proto.css` | **Active** | `webapp/` |
 
-### 1.4 Where docs and code DISAGREE (verified 2026-08-11)
+### 1.4 Where docs and code DISAGREE (verified 2026-08-11, docs updated same day)
 
-| Claim in docs | Doc | What the code actually does |
+`PROJECT_STATUS.md` and `ARCHITECTURE.md` were **rewritten to the ratified state on 2026-08-11**; the drift below is closed. Kept here for the historical record of what was wrong, with the corrected code-truth beside it.
+
+| Claim in docs (was) | Doc | What the code actually does (now in the doc) |
 |---------------|-----|-----------------------------|
-| "ID405 market gate **ACTIVE** — Away/Over2.5/Home blocked from deploy" | `PROJECT_STATUS.md` (2026-08-09), `ARCHITECTURE.md` | Gate **OPEN** — `engine/markets.py` `BLOCKED = {}`; all markets deployable (ratified 2026-08-10). Docs are stale |
-| "Softness tiers active / `SOFTNESS_PAUSED=True` (reversible)" | `PROJECT_STATUS.md`, `ARCHITECTURE.md` | Softness **deleted** — `engine/softness.py` removed from working tree, `engine/leagues.py` is the new home; no `SOFTNESS_PAUSED` anywhere |
-| "17 leagues" | `ARCHITECTURE.md`, `RATIFICATIONS.md` (2026-08-10 §1584) | **18 leagues** — Conference League added 2026-08-10 |
-| "3-day rolling window for product bet" | `ARCHITECTURE.md` | **Strict single-day** since 2026-08-10 |
-| "Phase 3 gate 0/30" | `PROJECT_STATUS.md` | **12/30** legs with CLV (15 logged) |
-| "4-leg acca set (up to 3 accas)" | `PROJECT_STATUS.md`, `ARCHITECTURE.md` | **Acca A + splits + singles** production shape (2026-08-10 production intent) |
-| "TODAY'S PICKS parlay" | `ARCHITECTURE.md` | Retired; `recommendation=""` in web payload |
-| "THESPORTSDB_KEY empty" | `ARCHITECTURE.md` | **Set** in `.env` (personal key, len 10) |
-| "ODDS_API_KEY not in build env" | memory note (2026-08-10) | **Set** in `.env` (len 32) — but quota exhausted |
-| "Odds API quota 4/500" | `ARCHITECTURE.md` | **3/500** (critical floor) as of 2026-08-11 |
-| Health monitor "9 probes, 2-hourly" | `PROJECT_STATUS.md` | Runs hourly; last run returned **result code 2 (error)** |
-| "THE CALL + acca draw only from Draw+Under2.5 (ID405)" | `PROJECT_STATUS.md` §18 | Market gate open — acca legs may use any of the five markets |
+| "ID405 market gate **ACTIVE** — Away/Over2.5/Home blocked from deploy" | `PROJECT_STATUS.md` (2026-08-09), `ARCHITECTURE.md` | Gate **OPEN** — `engine/markets.py` `BLOCKED = {}`; all markets deployable (ratified 2026-08-10). **Fixed in docs 2026-08-11** |
+| "Softness tiers active / `SOFTNESS_PAUSED=True` (reversible)" | `PROJECT_STATUS.md`, `ARCHITECTURE.md` | Softness **deleted** — `engine/softness.py` removed, `engine/leagues.py` is the new home; no `SOFTNESS_PAUSED` anywhere. **Fixed in docs 2026-08-11** |
+| "17 leagues" | `ARCHITECTURE.md`, `RATIFICATIONS.md` (2026-08-10 §1584) | **18 leagues** — Conference League added 2026-08-10. **Fixed in docs 2026-08-11** |
+| "3-day rolling window for product bet" | `ARCHITECTURE.md` | **Strict single-day** since 2026-08-10. **Fixed in docs 2026-08-11** |
+| "Phase 3 gate 0/30" | `PROJECT_STATUS.md` | **12/30** legs with CLV (15 logged). **Fixed in docs 2026-08-11** |
+| "4-leg acca set (up to 3 accas)" | `PROJECT_STATUS.md`, `ARCHITECTURE.md` | **Acca A + splits + singles** production shape (2026-08-10 production intent). **Fixed in docs 2026-08-11** |
+| "TODAY'S PICKS parlay" | `ARCHITECTURE.md` | Retired; `recommendation=""` in web payload. **Fixed in docs 2026-08-11** |
+| "THESPORTSDB_KEY empty" | `ARCHITECTURE.md` | **Set** in `.env` (personal key, len 10). **Fixed in docs 2026-08-11** |
+| "Odds quota 3/500" | master doc first draft | **1/500** (primary personal key) as of 2026-08-11 afternoon; multi-key (`ODDS_API_KEY_BACKUP`) + api-football fallback for the 5 deploy leagues. **Fixed in docs 2026-08-11** |
+| Health monitor "last run errored (code 2)" | master doc first draft | Exit code **2 is by design** — the monitor exits 2 whenever ANY issue exists. Env + Telegram-delivery issues GONE 2026-08-11; quota honest (1 left). **Fixed in docs 2026-08-11** |
+| "`ARCHITECT_SIGNOFF` unset" | master doc §4/§5, `ARCHITECTURE.md` | **SET = 1** (2026-08-11) — board published to client dashboard, live side-by-side with paper until CLV positive. **Fixed in docs 2026-08-11** |
+| "THE CALL + acca draw only from Draw+Under2.5 (ID405)" | `PROJECT_STATUS.md` §18 | Market gate open — acca legs may use any of the five markets. **Fixed in docs 2026-08-11** |
 
 ---
 
@@ -131,10 +133,11 @@ OLP XDV is a **Phase-2 paper-only** football-betting calibration framework. A da
 | **Notifiers** | `output/notify.py`, `whatsapp_deliver.py`, `email_deliver.py` | Delivery; email skipped when `EMAIL_*` unset |
 | **Booking codes** | `booking/booking_codes.py` | Playwright drives SportyBet SPA, captures booking codes per acca; READ-ONLY — never stakes, never clicks "Place Bet" |
 | **Booking bridge/odds** | `booking/bridge.py` | SportyBet odds read for leg pricing |
+| **Team-name mapping** | `booking/team_map.py` | OLP XDV ↔ SportyBet names. Forward `resolve_team()` (fuzzy ok) + REVERSE `resolve_team_to_model()` — reverse is EXACT + normalized-exact ONLY, NO fuzzy (HR35: a wrong-club map attaches a real price to the wrong team, worse than an honest gap). Reverse table `_MODEL_BY_SPORTYBET` built first-wins so canonical keys win collisions |
 | **Web dashboard** | `webapp/server.py` | Two-tier: `/dashboard` (public, trimmed) + `/admin` (authed); `/stats`, `/why`, `/api/stats.json` admin-only |
 | **Schema** | `webapp/schema.py` | Board JSON contract; `trim_payload()`; `check_client_publish_gate()`; `write_published()` + audit |
 | **Produce preview** | `webapp/produce.py` | Real-time fixture prediction production (preview only, no ledger writes) |
-| **Health monitor** | `health_monitor.py` | Hourly probes, state-change alerts; last run errored (code 2) |
+| **Health monitor** | `health_monitor.py` | Hourly probes, state-change alerts; exit code 2 = issues exist (BY DESIGN); env + Telegram-delivery issues GONE 2026-08-11, quota honest (1 left) |
 | **Agent CLI** | `agent_cli.py` | Read-only query surface for AI agents (brain + ledger + coverage) |
 
 ### 2.3 What changed when softness was cancelled (2026-08-10)
@@ -191,10 +194,11 @@ olp_xdv/
 ├── docs/                  OLP_XDV_COMPILED_REFERENCE.md, LEAGUE_INTELLIGENCE_DOSSIER.md,
 │                          LEAGUE_DATA_COVERAGE.md, THIS file
 ├── RATIFICATIONS.md       append-only rule log (authority after the code)
-├── ARCHITECTURE.md / PROJECT_STATUS.md   overview docs — SEE §1.4 for staleness
+├── ARCHITECTURE.md / PROJECT_STATUS.md   overview docs — updated to ratified state 2026-08-11 (was stale; §1.4)
 ├── CLAUDE.md              two-session working protocol (safe move)
-└── .env                   credentials (ADMIN_*, ODDS_API_KEY, THESPORTSDB_KEY, API_FOOTBALL_KEY,
-                           TELEGRAM_*, WHATSAPP_ENABLED, OLP_REQUIRE_ADMIN_AUTH) — no ARCHITECT_SIGNOFF
+└── .env                   credentials (ADMIN_*, ODDS_API_KEY + ODDS_API_KEY_BACKUP, THESPORTSDB_KEY,
+                           API_FOOTBALL_KEY, TELEGRAM_*, WHATSAPP_ENABLED, OLP_REQUIRE_ADMIN_AUTH,
+                           ARCHITECT_SIGNOFF=1)
 ```
 
 ---
@@ -209,10 +213,10 @@ olp_xdv/
 | Legs with logged CLV | **12** | **≥ 30** | ❌ NOT met (18 short) |
 | Mean CLV | **−1.631%** | **> 0** | ❌ NOT met (currently losing to the closing line) |
 | `gate_met` | **false** | true | ❌ |
-| `ARCHITECT_SIGNOFF` env | **unset** | `=1` to publish/override | ❌ |
+| `ARCHITECT_SIGNOFF` env | **SET = 1** (2026-08-11) | `=1` to publish/override | ✅ override active |
 | Projected days-to-gate (if mean were positive) | 7.2 | — | irrelevant — mean is negative |
 
-**Consequence:** `Approve → Publish to Client` is **blocked** (confirmed — dashboard text matches code). Setting `ARCHITECT_SIGNOFF=1` alone would override the statistical gate (2026-08-10 Architect override) and publish the current board to the client view — with the honest-edge statement still visible ("Phase 2 — paper calibration, 12/30 legs logged. Not yet a demonstrated edge.").
+**Consequence:** the statistical gate is NOT met, but the **Architect override (`ARCHITECT_SIGNOFF=1`) is live** (2026-08-11 decision): the current board is **published to the client dashboard**, running side-by-side with paper until mean CLV turns positive. The override is never silent — `write_published()` stamps the live gate numbers + `override: true` into `publish_audit.jsonl` and the honest-edge statement stays on the client view ("Phase 2 — paper calibration, 12/30 legs logged. Not yet a demonstrated edge."). If the Architect unsets the flag, the gate re-blocks automatically.
 
 ### 5.2 Paper-leg record (all 15)
 
@@ -224,14 +228,15 @@ olp_xdv/
 ### 5.3 Scan vs eligible vs blocked today
 
 - **18 leagues** scanned by the 07:00 run (board 2026-08-11): 16 coverage-READY, **2 BLOCKED (no working history source)** — Conference League + EFL Cup.
-- Board 08-11: **13 fixtures, 4 rated, 4 on deploy shortlist, 0 produced** (no priced fixture today → honest "NO production pick today").
+- Board 08-11: **13 fixtures, 4 rated, 4 on deploy shortlist**; produced bet has **4 legs** (Lyon win, St. Gilloise win, Olympiakos win, Fenerbahçe win) — published to the client dashboard under the override.
 - Board 08-12 (already generated): **0 fixtures** — nothing rated for tomorrow.
-- **90 data flags** on the 08-11 board — dominated by: **Odds API quota down to 3 (floor 5)** on every league, "all 4 sources exhausted → via SportyBet cache", and **team-name mismatches** between the SportyBet cache and the fitted model (e.g. Bundesliga 10/18, Belgian 7/18, Championship 6/24 unmatched).
+- **Team-name mismatches FIXED 2026-08-11** — the SportyBet cache builder was calling the forward resolver backwards, so model_home/model_away held SportyBet spellings and the fuzzy matcher attached real prices to WRONG clubs ("Millwall FC"→AC Milan, "Club Brugge"→Cercle Brugge, "Excelsior Rotterdam"→Sparta Rotterdam). New `resolve_team_to_model()` (reverse table, EXACT + normalized-exact only, NO fuzzy — HR35) fixes the direction; `tests/team_map_reverse_test.py` (33 checks) pins it.
+- **Remaining board flags** dominated by the **Odds API quota (1/500, floor 5)** on non-deploy leagues — entry prices are honestly `NO DATA — PENDING` (HR35); api-football serves the 5 deploy leagues meanwhile.
 
 ### 5.4 The two structural reasons the gate is stuck
 
-1. **Odds API quota is exhausted (3/500, hard floor 5)** — `pipeline/odds.py check_quota()` refuses to pull prices. Without live prices: no EV, no entry odds → **no new paper legs can be logged at all**. The 12/30 count cannot move until the quota resets (monthly) or is upgraded.
-2. **Mean CLV is negative** — even if legs reached 30, `mean_clv > 0` fails. The system must *demonstrate* it beats the closing line, not just log volume. 9 of 12 settled legs currently lose to the closing line.
+1. **Odds API quota is spent (1/500, hard floor 5)** — the primary personal key is at its monthly cap. **Multi-key support added 2026-08-11** (`pipeline/odds.py`): `_resolve_key()` walks `ODDS_API_KEY` → `ODDS_API_KEY_BACKUP`, using whichever has quota above the floor; if BOTH are spent, the api-football free fallback (100 req/day, today±1) prices the 5 deploy leagues, and every other league honestly reports `NO DATA — PENDING` (HR35) rather than fabricating prices. Heals on the monthly reset or a pasted backup key.
+2. **Mean CLV is negative** — even if legs reached 30, `mean_clv > 0` fails. The system must *demonstrate* it beats the closing line, not just log volume. 9 of 12 settled legs currently lose to the closing line. This is exactly what the live side-by-side publish (Architect override) is now measuring forward.
 
 ### 5.5 Open findings / open questions
 
@@ -239,15 +244,16 @@ olp_xdv/
 2. **Calibration-league-scope question** (raised after softness cancellation): calibration evidence was historically Eredivisie/Danish/Scottish-only; the unified pool now deploys across 18 leagues without per-league forward evidence. Cross-league fit (`engine/cross_league.py`) mitigates, but the 15-leg record is 3-league-only.
 3. **Conference League + EFL Cup** are whitelisted but have no working history source → scan to NO DATA; Conference League also has no verified Odds API sport key → can never price even when quota resets.
 4. **3 stale pending legs** — Danish Superliga closing lines never captured; won't count without a close.
-5. **Health monitor errored** (Last Result 2, 2026-08-11 09:35).
+5. ~~Health monitor errored (result code 2)~~ **CLOSED 2026-08-11** — exit code 2 is BY DESIGN (`sys.exit(0 if all(r.is_fine()...) else 2)`); it is the honest signal that issues exist. Verified: env (missing THESPORTSDB_KEY) and last_run (not delivered to Telegram) issues are GONE; quota reports honestly (1 left); the two remaining flags (quota, stale odds-fixture caches) are the accepted quota blocker + a deliberately-un-healed cache (re-pull spends quota).
 6. **AI Analyst offline** — `ANTHROPIC_API_KEY` not set.
-7. **Docs drift** — see §1.4; `PROJECT_STATUS.md`/`ARCHITECTURE.md` are at least 2 days behind the ratified code.
-8. **Only 2 boards ever published** (2026-08-07, 2026-08-10) — publish has been rare; the client dashboard mostly shows the last published board.
+7. ~~Docs drift~~ **CLOSED 2026-08-11** — `PROJECT_STATUS.md` + `ARCHITECTURE.md` rewritten to the ratified state (see §1.4).
+8. **3 boards published** (2026-08-07, 2026-08-10, 2026-08-11) — the 2026-08-11 publish is the first under the Architect override, running live side-by-side with paper until mean CLV turns positive.
 
 ---
 
 ## Changelog
 
 - **2026-08-11 — softness/tiering fully removed (not just cancelled).** The 2026-08-10 cancellation is now a deletion: `engine/softness.py` removed from the tree; `engine/leagues.py` (unified pool, 18 leagues) is the single league-eligibility home; the stale `tests/softness_mes_test.py` (which imported the deleted module and broke pytest collection) is superseded by `tests/leagues_test.py` and removed; the mypy gate now checks `engine/leagues.py`. No `softness_tier` / `SOFTNESS_PAUSED` / `DEPLOY_POOL_CAP` code, function, constant, or live schema column remains.
+- **2026-08-11 (afternoon) — live-state hardening.** (1) **Multi-key Odds API**: `pipeline/odds.py` `_resolve_key()` walks `ODDS_API_KEY` (personal, main) → `ODDS_API_KEY_BACKUP` (free-tier reset, backup); api-football free fallback prices the 5 deploy leagues when both are spent; otherwise honest `NO DATA — PENDING` (HR35). (2) **Architect override live**: `ARCHITECT_SIGNOFF=1`, board 2026-08-11 published to the client dashboard (running side-by-side with paper until mean CLV turns positive); `write_published()` stamps the live gate numbers + `override: true` into `publish_audit.jsonl`. (3) **SportyBet team-map reverse resolver**: `booking/team_map.py` + `sportybet_fixtures.py` fixed the backwards-resolver bug that attached real prices to wrong clubs; reverse lookup is exact-only (no fuzzy), regression-pinned by `tests/team_map_reverse_test.py` (33 checks). (4) **Docs brought to the ratified state**: `PROJECT_STATUS.md` + `ARCHITECTURE.md` rewritten (§1.4 drift closed). (5) **Health monitor verified**: exit code 2 is by design; env + Telegram-delivery issues gone; quota honest (1 left).
 
-*End of master documentation. Generated 2026-08-11 by Claude Code; softness-removal refactor fully applied and committed.*
+*End of master documentation. Generated 2026-08-11 by Claude Code; softness-removal refactor fully applied and committed; live-state hardening applied and verified.*

@@ -52,9 +52,7 @@ never bypassed.
 
 This repo uses the **everything-claude-code** plugin (installed at `.claude/` from
 `C:\Users\Motunrayo\Downloads\everything-claude-code-main\everything-claude-code-main`).
-All agents, skills, commands, rules, hooks, and contexts are available in every session.
-
-Key components now available:
+All agents, skills, commands, rules, hooks, and contexts are available in every session.Key components now available:
 - **Agents**: planner, architect, tdd-guide, code-reviewer, security-reviewer, build-error-resolver, e2e-runner, refactor-cleaner, doc-updater
 - **Skills**: coding-standards, backend-patterns, frontend-patterns, continuous-learning, strategic-compact, tdd-workflow, security-review, eval-harness, verification-loop
 - **Motion-craft skills** (Emil Kowalski pack, added 2026-08-10): `emil-design-eng`, `review-animations`, `improve-animations`, `find-animation-opportunities`. Run `improve-animations` for a prioritized motion audit → plans in `plans/`; `review-animations` for a strict diff pass on motion. Motion is decor, never data-hiding (honest-edge).
@@ -78,3 +76,48 @@ When changing or extending the web UI, keep the Binance tokens in `proto.css`
 (they are the ratified palette). If a new design language is ever chosen, pull
 it from the awesome-design-md collection and ratify the swap — tokens are a
 skin, never a reason to hide data (honest-edge + data-density stay intact).
+
+## Sports-data skills (installed 2026-08-11)
+
+Four skills from the **machina-sports/sports-skills** repo are installed at
+`.claude/skills/sports-*` (source clone at `external/sports-skills`, sibling of
+`olp_xdv_agent/`). They use the `sports-skills` Python package — installed for
+`py -3.12` and the default `python` — invoked as `python -m sports_skills <skill>
+<command>` (the `sports-skills` console script is NOT on PATH in this shell).
+
+| Skill | What it adds to OLP XDV |
+|-------|-------------------------|
+| `sports-football-data` | ESPN scores/standings/schedules for **all leagues** (independent of TheSportsDB — closes F2 cross-source gaps), H2H via football-data.co.uk (11 European leagues), ClubElo team strength + short-horizon match forecasts, Transfermarkt player values. Zero API keys. |
+| `sports-betting` | Pure-compute odds math: convert, de-vig, find_edge, evaluate_bet, Kelly, arbitrage, parlay, line_movement classification. No network. Useful to sanity-check CLV/consensus outputs. |
+| `sports-markets` | Orchestrates ESPN schedules with Kalshi + Polymarket prediction markets — odds comparison, entity search, arbitrage detection across venues. |
+| `sports-polymarket` | Read-only Polymarket prediction-market odds/order books for EPL, UCL, La Liga etc. — a genuine second opinion on the Odds API's moneyline. |
+
+Quick check a skill is live:
+```bash
+py -3.12 -m sports_skills football get_competitions
+```
+
+**Honest-edge:** these are independent *inputs* to verification, not an
+automatic override — anything they say still passes through the publish gate
+(ID403 multi-factor verify) like any other source. xG remains top-5-only
+(Understat limitation, same as the existing `data/xg_source.py`).
+
+## External reference repos (clone, not integrated)
+
+Cloned into `external/` at the workspace root (sibling of `olp_xdv_agent/`),
+available for study — **not** wired into the pipeline:
+
+- `external/sports-skills` — the source of the installed skills above (upstream
+  for `git pull` updates).
+- `external/sports-betting-claude` — methodology skills: edge detection
+  (de-vig → implied prob → Kelly → anti-bias checklist), bankroll management,
+  performance/ROI tracking, sport-specific NFL/NBA/MLB/NHL/NCAA. The
+  `skills/shared/anti-bias-checklist.md` is a useful red-team pass against the
+  brain's own narratives. Mostly US-sports; football coverage is thin.
+- `external/betting-odds-tracker` — real-time line-movement snapshots across
+  books + reverse-line-movement (sharp money) flags via The Odds API + SHIPP.
+  Requires those two API keys; a candidate future *input feeder* if sharp-money
+  signalling is ever ratified, not a current data source.
+- `external/betting-app-skill` — Next.js14 + Supabase pari-mutuel app patterns
+  (atomic `place_bet`, RLS, force-dynamic anti-stale-financials). The webapp is
+  stdlib-only Python, so only the *patterns* transfer, not the code.

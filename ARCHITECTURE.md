@@ -70,7 +70,7 @@
 
 ## 5. Git & Commit Conventions
 
-- **Branch**: `main` (OLP XDV agent at `olp_xdv_agent/olp_xdv`)
+- **Branch**: `elo-persistence` (ACTUAL working branch as of 2026-08-11 — carries all of 2026-08-08→11 history; `main`/`origin/main` are stale at 2026-08-06 board artifacts, NOT merged). OLP XDV agent at `olp_xdv_agent/olp_xdv`
 - **User**: `tolar07` (repo default)
 - **Message suffix**: `Co-Authored-By: Claude <noreply@anthropic.com>`
 - **Artifacts committed**: Only meaningful ones (boards when published, RATIFICATIONS.md, code changes); logs/ledger/cache left dirty

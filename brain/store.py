@@ -36,7 +36,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 DEFAULT_BRAIN_PATH = Path(__file__).parent / "olp.db"
-SCHEMA_VERSION = 6
+SCHEMA_VERSION = 8
 # _create_tables builds the v1 BASELINE schema and stamps this version; _migrate
 # then steps a fresh DB forward to SCHEMA_VERSION. Keeping this at 1 (not
 # SCHEMA_VERSION) is what makes migrations actually run on a new DB.
@@ -71,6 +71,11 @@ _MIGRATIONS: dict[int, str] = {
        " best_mes_ev REAL, kickoff_date TEXT, ft_result TEXT, hit INTEGER, "
        " settled INTEGER NOT NULL DEFAULT 0, "
        " PRIMARY KEY(date, leg_id))",
+    # v7/v8: softness killed (Architect, 2026-08-11) — the softness_tier
+    # back-compat columns are dropped from predictions and produced_bets. One
+    # statement per migration (the runner executes each SQL string directly).
+    7: "ALTER TABLE predictions DROP COLUMN softness_tier;",
+    8: "ALTER TABLE produced_bets DROP COLUMN softness_tier;",
 }
 
 _WRITE_GUARD = ("SELECT", "PRAGMA", "EXPLAIN", "WITH")
@@ -318,11 +323,11 @@ class Brain:
             self._conn.executemany(
                 "INSERT INTO predictions(run_id, predicted_at, league, fixture, "
                 " match_date, market, model_engine, model_prob, entry_odds, "
-                " bookmaker, ev, softness_tier, on_deploy_shortlist, "
+                " bookmaker, ev, on_deploy_shortlist, "
                 " cal_adjustment) "
                 "VALUES(:run_id,:predicted_at,:league,:fixture,:match_date,"
                 ":market,:model_engine,:model_prob,:entry_odds,:bookmaker,:ev,"
-                ":softness_tier,:on_deploy_shortlist,:cal_adjustment)", rows)
+                ":on_deploy_shortlist,:cal_adjustment)", rows)
         return len(rows)
 
     def predictions_for(self, fixture: Optional[str] = None,
@@ -618,13 +623,13 @@ class Brain:
             for l in legs:
                 self._conn.execute(
                     "INSERT OR REPLACE INTO produced_bets(date, leg_id, fixture, "
-                    " league, pick, pick_market, model_prob, softness_tier, "
+                    " league, pick, pick_market, model_prob, "
                     " on_deploy_shortlist, best_market, best_price, best_mes_ev, "
                     " kickoff_date, ft_result, hit, settled) "
-                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                     (l["date"], l["leg_id"], l["fixture"], l["league"],
                      l["pick"], l["pick_market"], l["model_prob"],
-                     l["softness_tier"], int(l["on_deploy_shortlist"]),
+                     int(l["on_deploy_shortlist"]),
                      l["best_market"], l["best_price"], l["best_mes_ev"],
                      l["kickoff_date"], l["ft_result"], l["hit"],
                      int(l["settled"])))
@@ -720,22 +725,22 @@ class Brain:
             "GROUP BY league ORDER BY n DESC, league", (phase,)).fetchall()
         return [dict(r) for r in rows]
 
-    def clv_by_tier(self, phase: str = "phase2_paper") -> list[dict]:
-        """CLV grouped by pool. ID402 A/B/C/D tiers removed 2026-08-10 — every
-        whitelisted league is one unified pool, so the only real grouping left
-        is whitelisted-vs-unrated. The field name is kept for back-compat with
-        the dashboard/CLI that may still call this method."""
-        from engine.softness import softness_tier
+    def clv_by_pool(self, phase: str = "phase2_paper") -> list[dict]:
+        """CLV grouped by pool. ID402 A/B/C/D tiers removed 2026-08-11 — every
+        whitelisted league is one unified pool, so the only grouping left is
+        whitelisted-vs-unrated."""
+        from engine.leagues import WHITELISTED_LEAGUES
         rows = self._conn.execute(
             "SELECT DISTINCT league, clv_pct FROM legs "
             "WHERE phase=? AND clv_pct IS NOT NULL", (phase,)).fetchall()
         buckets: dict[str, list] = {}
         for r in rows:
-            # softness_tier now returns "ONE" (whitelisted) or "?" (unrated).
-            buckets.setdefault(softness_tier(r["league"]), []).append(r["clv_pct"])
+            pool = ("whitelisted" if r["league"] in WHITELISTED_LEAGUES
+                    else "unrated")
+            buckets.setdefault(pool, []).append(r["clv_pct"])
         out = []
-        for tier, vals in sorted(buckets.items()):
-            out.append({"tier": tier, "n": len(vals),
+        for pool, vals in sorted(buckets.items()):
+            out.append({"pool": pool, "n": len(vals),
                         "mean_clv_pct": round(sum(vals) / len(vals), 3)})
         return out
 

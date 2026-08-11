@@ -136,7 +136,7 @@ rows = [dict(run_id="xgrun", predicted_at="2026-08-05T00:00:00+00:00",
              league="Bundesliga", fixture="Dortmund v Bayern Munich",
              match_date="2026-08-05", market=m, model_engine="xg",
              model_prob=prob, entry_odds=None, bookmaker=None, ev=None,
-             softness_tier="A", on_deploy_shortlist=0, cal_adjustment=None)
+             on_deploy_shortlist=0, cal_adjustment=None)
         for m, prob in (("1X2_HOME", px.home), ("1X2_DRAW", px.draw),
                         ("1X2_AWAY", px.away))]
 n = brain.append_predictions(rows)
@@ -152,7 +152,7 @@ bf_full = BoardFixture(
     fixture="Dortmund v Bayern Munich (Bundesliga)",
     probs=_FakeProbs(), verification=object(),
     xg_probs=(px.home, px.draw, px.away),
-    softness_tier="A", kickoff_date="2026-08-05", model_engine="dc",
+    kickoff_date="2026-08-05", model_engine="dc",
 )
 n2 = _predictions_from_board([bf_full], "xgrun2", "2026-08-05T00:00:00+00:00", brain)
 res2 = brain.predictions_for(run_id="xgrun2", engine="xg")

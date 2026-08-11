@@ -55,7 +55,7 @@ def stress(label: str) -> None:
 # --------------------------------------------------------------------------
 stress("STAGE 1 · every existing test suite still green")
 # --------------------------------------------------------------------------
-for suite in ("smoke_test", "softness_mes_test", "multi_league_test",
+for suite in ("smoke_test", "leagues_test", "multi_league_test",
               "clv_backtest_test", "engine_regression_test"):
     r = subprocess.run([PY, f"tests/{suite}.py"], cwd=PROJ,
                         capture_output=True, timeout=600)

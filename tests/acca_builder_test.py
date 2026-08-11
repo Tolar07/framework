@@ -52,13 +52,13 @@ def _probs(h=0.5, d=0.25, a=0.25, over25=0.5, home="Home FC", away="Away FC"):
 
 
 def _bf(fixture, probs, day, market_key=None, price=None, sb_draw=None,
-        shortlist=True, tier="A"):
+        shortlist=True):
     """BoardFixture for the acca paths. Prices via best_market/best_price for
     the fallback, or sb_draw_odds for the SportyBet-first Draw path."""
     name, league = fixture.split(" (")
     return BoardFixture(
         fixture=fixture, probs=probs, verification=verify([]),
-        softness_tier=tier, on_deploy_shortlist=shortlist,
+        on_deploy_shortlist=shortlist,
         kickoff_date=day, best_market_key=market_key, best_price=price,
         best_model_prob=(probs.p_draw if market_key == mkt.DRAW else
                          (1 - probs.p_over_25) if market_key == mkt.UNDER_25 else None),

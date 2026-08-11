@@ -18,7 +18,7 @@ from backtest.clv_backtest import PaperLeg
 
 def _leg(**kw) -> PaperLeg:
     base = dict(league="PL", date="2024-08-10", fixture="A v B",
-                softness_tier="A", status="OK", derived=False,
+                status="OK", derived=False,
                 overround_open=0.05, overround_close=0.05)
     base.update(kw)
     return PaperLeg(**base)

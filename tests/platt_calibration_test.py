@@ -138,7 +138,6 @@ base = {
     "entry_odds": None,
     "bookmaker": None,
     "ev": None,
-    "softness_tier": "B",
     "on_deploy_shortlist": 0,
     "cal_adjustment": None,
 }

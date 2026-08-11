@@ -33,7 +33,7 @@ import config  # noqa: E402 — loads .env so the audit runs on the PROVISIONED
 # Without this the audit reports leagues as BLOCKED that the daily run actually
 # covers — the false picture that hid a completed Ekstraklasa season feed.
 
-from engine.softness import WHITELISTED_LEAGUES, softness_tier
+from engine.leagues import WHITELISTED_LEAGUES
 from data.football_data_source import load_league, UNCOVERED_LEAGUES, LEAGUE_CODES
 from data import thesportsdb_fixtures as tsdb
 from data.api_football_results import is_cross_league
@@ -74,9 +74,9 @@ def _cross_pool_teams() -> tuple[set[str] | None, str]:
 
 def audit(league: str, fit_season: str, fixtures_season: str,
            check_odds: bool) -> dict:
-    tier = softness_tier(league)  # "ONE" for whitelisted, "?" otherwise
-    row = {"league": league, "tier": tier,
-           "deploy_eligible": tier != "?",
+    whitelisted = league in WHITELISTED_LEAGUES
+    row = {"league": league,
+           "deploy_eligible": whitelisted,
            "history": "", "fixtures": "", "odds": "", "names": "",
            "blockers": []}
 
@@ -206,7 +206,7 @@ def main() -> None:
     print(f"LEAGUE COVERAGE AUDIT — fit {a.fit_season}, fixtures {a.fixtures_season}")
     print("=" * 108)
     # cp1252-safe on Windows consoles — the Ƈ glyph cannot encode there.
-    print(f"{'league':<22}{'tier':<4}{'history':<14}{'fixtures':<14}"
+    print(f"{'league':<22}{'history':<14}{'fixtures':<14}"
           f"{'odds':<22}{'names':<14}verdict")
     print("-" * 108)
 
@@ -220,7 +220,7 @@ def main() -> None:
             verdict = "BLOCKED (deploy league)"
         else:
             verdict = "blocked (scan-only)"
-        print(f"{r['league']:<22}{r['tier']:<4}{r['history']:<14}{r['fixtures']:<14}"
+        print(f"{r['league']:<22}{r['history']:<14}{r['fixtures']:<14}"
               f"{r['odds']:<22}{r['names']:<14}{verdict}")
 
     print("-" * 108)
@@ -228,7 +228,7 @@ def main() -> None:
     for r in rows:
         if r["blockers"]:
             marker = "!!" if r["deploy_eligible"] else "  "
-            print(f"{marker} {r['league']} (tier {r['tier']}):")
+            print(f"{marker} {r['league']}:")
             for b in r["blockers"]:
                 print(f"     - {b}")
 

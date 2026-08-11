@@ -34,7 +34,7 @@ def _leg(league: str, clv: float, *, hit: bool = True, derived: bool = False,
          fixture: str = "Home v Away") -> PaperLeg:
     return PaperLeg(
         league=league, date=date, fixture=fixture, market=market,
-        softness_tier="A", model_prob=0.55, entry_odds=2.0,
+        model_prob=0.55, entry_odds=2.0,
         closing_odds=1.96, book="Pinnacle", entry_column="BbAv",
         closing_column="BbAv", mes_at_entry=0.10, clv_pct=clv, derived=derived,
         status=status, hit=hit, fthg=2, ftag=1, overround_open=0.05,

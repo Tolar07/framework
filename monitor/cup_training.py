@@ -1,7 +1,7 @@
 """Cup training — monitor cup competitions live and TRAIN THE BRAIN.
 
 WHY IT EXISTS
-  The daily run logs paper legs only for deploy-eligible (softness A/B)
+  The daily run logs paper legs only for deploy-eligible (whitelisted)
   leagues. The cups — EFL Cup, J-League, Europa League quals, Champions
   League quals — involve clubs from the 15 approved leagues but are not
   deploy leagues themselves, so they were never logged. The Architect

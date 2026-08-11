@@ -26,7 +26,7 @@ from __future__ import annotations
 import html
 from datetime import date as _date, datetime, timedelta as _timedelta
 from engine import markets as mkt
-from engine.softness import WHITELISTED_LEAGUES
+from engine.leagues import WHITELISTED_LEAGUES
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CSS — the ratified design tokens + components (admin superset; the client

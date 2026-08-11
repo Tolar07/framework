@@ -38,7 +38,7 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 from data import football_data_source as fds  # noqa: E402
-from engine.softness import WHITELISTED_LEAGUES  # noqa: E402
+from engine.leagues import WHITELISTED_LEAGUES  # noqa: E402
 
 CACHE_DIR = fds.DEFAULT_CACHE_DIR
 

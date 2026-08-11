@@ -4,7 +4,7 @@ The Architect is non-technical, so this speaks the same prose as the board:
 no column codes, no raw SQL. HR35 is kept throughout — a query with no data
 reads NO DATA — PENDING, never a guessed number.
 
-render_stats(brain, "")  -> the overview (CLV by market/league/tier, prediction
+render_stats(brain, "")  -> the overview (CLV by market/league/pool, prediction
                             counts, last-run summary, pending corrections).
 render_stats(brain, arg) -> "what did I predict for <team/fixture>" lookup.
 """
@@ -13,11 +13,6 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from config import PAPER_PHASE
-
-# Softness tier labels shown to the Architect (engine.softness uses A/B/C/D).
-_TIER_LABEL = {"A": "Tier A (deploy)", "B": "Tier B (deploy)",
-               "C": "Tier C (scan-only)", "D": "Tier D (scan-only)",
-               "?": "unrated"}
 
 
 def _pct(x: float | None) -> str:
@@ -61,13 +56,13 @@ def _render_overview(brain) -> str:
             out.append(f"  {r['league']}: n={r['n']}, mean {r['mean_clv_pct']:+.2f}%")
     out.append("")
 
-    out.append("CLV by softness tier")
-    tiers = brain.clv_by_tier(PAPER_PHASE)
-    if not tiers:
+    out.append("CLV by pool")
+    pools = brain.clv_by_pool(PAPER_PHASE)
+    if not pools:
         out.append("  NO DATA — PENDING")
     else:
-        for r in tiers:
-            out.append(f"  {_TIER_LABEL.get(r['tier'], r['tier'])}: n={r['n']}, "
+        for r in pools:
+            out.append(f"  {r['pool']}: n={r['n']}, "
                        f"mean {r['mean_clv_pct']:+.2f}%")
     out.append("")
 

@@ -81,7 +81,6 @@ def _leg_from_board(bf, run_date: str) -> Optional[dict]:
         "pick": pick,            # canonical market key, e.g. "1X2_HOME"
         "pick_name": pick_name,  # words, e.g. "Dundee to win"
         "model_prob": prob,
-        "softness_tier": bf.softness_tier,
         "on_deploy_shortlist": bool(bf.on_deploy_shortlist),
         "best_market": bf.best_market,
         "best_price": bf.best_price,

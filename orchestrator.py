@@ -3,11 +3,11 @@ Matchday orchestrator — runs pull -> fit -> scan -> board -> log, end to end,
 per the OPERATING PROTOCOL (no stop-and-ask at each step; near-zero deploys is
 correct behaviour, not failure).
 
-ID402 "wide eyes, narrow hands": run_all_leagues() scans every league on the
-ID401 whitelist (18 leagues incl. Conference League, added 2026-08-10) into ONE
-combined board. THE CALL (deploy shortlist) still only ever draws from softness
-A/B and is capped at 6 total across ALL leagues combined — scanning wide never
-widens the deploy pool.
+ID401 (unified pool, 2026-08-10): run_all_leagues() scans every league on the
+whitelist (18 leagues incl. Conference League, added 2026-08-10) into ONE
+combined board. Every whitelisted league is deploy-eligible — there is no
+softness tier, and THE CALL (deploy shortlist) carries no cap: scanning wide
+IS the deploy pool.
 
 Usage:
     python orchestrator.py --all --season 2526          # full 18-league scan
@@ -37,8 +37,8 @@ from engine.dixon_coles import (fit, predict, predict_adjusted,
                                  unrated_reason, FIT_VERSION)
 from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload,
                          dc_to_payload, dc_from_payload)
-from engine.softness import (WHITELISTED_LEAGUES, softness_tier, is_deploy_eligible,
-                              build_deploy_shortlist)
+from engine.leagues import (WHITELISTED_LEAGUES, is_deploy_eligible,
+                            build_deploy_shortlist)
 from engine.mes import trigger_price, mes_numeric
 from booking.bridge import load_all_sportybet_fixtures, get_sportybet_odds_for_leg
 from verification.id403 import verify, SourcedDatum, Tier
@@ -46,7 +46,7 @@ from output.produce_bet import BoardFixture, render_produce_bet
 from clv.clv_logger import CLVLog
 from config import PHASE_LABEL
 
-# The full ID401 whitelist — the unified pool (engine/softness.py).
+# The full ID401 whitelist — the unified pool (engine/leagues.py).
 FULL_WHITELIST = list(WHITELISTED_LEAGUES)
 
 # Promoted-club level adjustment (Architect 2026-08-07): a club whose
@@ -129,7 +129,6 @@ def _render_unrated_fixtures(league: str,
             fixture=f"{home} v {away} ({league})",
             probs=None,
             verification=v,
-            softness_tier=softness_tier(league),
             model_engine="dc",
             on_deploy_shortlist=False,
             mes_trigger_price=None,
@@ -491,7 +490,6 @@ def scan_one_league(league: str, season: str,
         except Exception as e:
             flags.append(f"{league}: xG third opinion unavailable "
                          f"({str(e)[:60]})")
-    tier = softness_tier(league)
     board: list[BoardFixture] = []
 
     for home, away in upcoming_fixtures:
@@ -572,7 +570,6 @@ def scan_one_league(league: str, season: str,
             fixture=f"{home} v {away} ({league})",
             probs=probs,
             verification=v,
-            softness_tier=tier,
             model_engine="cross" if cross_model is not None else "dc",
             on_deploy_shortlist=(probs is not None and is_deploy_eligible(league)
                                   and v.tier not in (Tier.CONFLICT, Tier.NO_DATA)),

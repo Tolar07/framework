@@ -92,7 +92,7 @@ def _writer(i: int) -> None:
                 "league": "Eredivisie", "fixture": f"Ajax v PSV {k}",
                 "match_date": "2026-08-05", "market": "1X2_HOME",
                 "model_engine": "dc", "model_prob": 0.5, "entry_odds": None,
-                "bookmaker": None, "ev": None, "softness_tier": "D",
+                "bookmaker": None, "ev": None,
                 "on_deploy_shortlist": 0, "cal_adjustment": None} for _ in range(3)])
             br.save_model_state(f"elo:stress{i}", "elo", 1, f"h{i}",
                                 10, "2026-08-05", None, {"ratings": {}})
@@ -160,7 +160,7 @@ for k in range(25):
         "league": "Serie A", "fixture": f"Inter v Milan {k}",
         "match_date": "2026-08-05", "market": "1X2_HOME", "model_engine": "dc",
         "model_prob": 0.5, "entry_odds": None, "bookmaker": None, "ev": None,
-        "softness_tier": "D", "on_deploy_shortlist": 0, "cal_adjustment": None}])
+        "on_deploy_shortlist": 0, "cal_adjustment": None}])
     br.sync_legs([%r])
     br.record_outcomes(f"Inter v Milan {k}", "2026-08-05", "1-0",
                        {"1X2_HOME": True})
@@ -193,7 +193,7 @@ for k in range(500):
         "league": "Premier League", "fixture": f"Arsenal v Chelsea {k}",
         "match_date": "2026-08-05", "market": "1X2_HOME",
         "model_engine": "dc", "model_prob": 0.5, "entry_odds": None,
-        "bookmaker": None, "ev": None, "softness_tier": "A",
+        "bookmaker": None, "ev": None,
         "on_deploy_shortlist": 0, "cal_adjustment": None} for _ in range(10)])
 n_preds = b3._conn.execute("SELECT COUNT(*) FROM predictions").fetchone()[0]
 check("accumulation: 500 batches x 10 rows all land", n_preds == 5000, f"{n_preds}")

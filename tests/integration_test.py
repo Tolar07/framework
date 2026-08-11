@@ -59,7 +59,7 @@ def _rated_bf(fixture: str, home: str, away: str) -> BoardFixture:
             modal_scoreline=(1, 0)),
         verification=verify([SourcedDatum(
             domain="thesportsdb.com", value="x", url="https://x", structured=True)]),
-        softness_tier="A", on_deploy_shortlist=True,
+        on_deploy_shortlist=True,
         best_market=f"{home} to win", best_price=1.91,
         best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0696,
         best_model_prob=0.56, mes_trigger_price=1.52,
@@ -73,7 +73,7 @@ def _unrated_bf(fixture: str, reason: str) -> BoardFixture:
         fixture=fixture, probs=None,
         verification=verify([SourcedDatum(
             domain="thesportsdb.com", value="x", url="https://x", structured=True)]),
-        softness_tier="D", rejection_reason=reason)
+        rejection_reason=reason)
 
 # 1. BUILD + WRITE a raw board (BOARD_DIR) + publish it (PUBLISHED_DIR)
 raw_payload = build_payload(

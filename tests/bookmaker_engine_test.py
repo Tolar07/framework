@@ -90,7 +90,7 @@ print("7. no odds pulled -> 2-engine consensus, bookmaker absent: OK")
 v = VerificationResult(tier=Tier.VERIFIED, value=None)
 mp = mkt.implied_1x2(_odds())
 bf = BoardFixture(fixture="Home FC v Away FC (Eredivisie)", probs=_probs(),
-                  verification=v, softness_tier="A",
+                  verification=v,
                   elo_probs=(0.45, 0.30, 0.25), market_probs=mp,
                   consensus=compute_consensus(_probs(), (0.45, 0.30, 0.25),
                                               None, mp))

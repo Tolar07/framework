@@ -74,7 +74,7 @@ print("6. 1-1-1 (three different picks) -> NO CONSENSUS: OK")
 # --- 7. render_fixture_block shows the consensus line ------------------------
 v = VerificationResult(tier=Tier.VERIFIED, value=None)
 bf = BoardFixture(fixture="Home FC v Away FC (Eredivisie)", probs=_probs(),
-                  verification=v, softness_tier="A",
+                  verification=v,
                   elo_probs=(0.45, 0.30, 0.25),
                   consensus=compute_consensus(_probs(), (0.45, 0.30, 0.25), None))
 block = render_fixture_block(bf)
@@ -83,7 +83,7 @@ assert "2 of 2 engines" in block, block
 
 # A split renders NO CONSENSUS, never a smoothed number.
 bf2 = BoardFixture(fixture="Home FC v Away FC (Eredivisie)", probs=_probs(),
-                   verification=v, softness_tier="A",
+                   verification=v,
                    elo_probs=(0.10, 0.40, 0.50),
                    consensus=compute_consensus(_probs(), (0.10, 0.40, 0.50), None))
 assert "NO CONSENSUS" in render_fixture_block(bf2)
@@ -111,7 +111,7 @@ assert by_market["1X2_HOME"] == 0.475 and by_market["1X2_DRAW"] == 0.275, by_mar
 # a prediction) — the DC + Elo rows still persist, only the consensus rows
 # are absent.
 bf3 = BoardFixture(fixture="Split FC v Other FC (Eredivisie)", probs=_probs(),
-                   verification=v, softness_tier="A",
+                   verification=v,
                    elo_probs=(0.10, 0.40, 0.50),
                    consensus=compute_consensus(_probs(), (0.10, 0.40, 0.50), None))
 n2 = _predictions_from_board([bf3], "test-run", "2026-08-06T12:00:00Z", brain)

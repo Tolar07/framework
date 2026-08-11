@@ -101,7 +101,7 @@ def cmd_stats(args) -> int:
             "overview": brain.predictions_summary(),
             "clv_by_market": brain.clv_by_market(args.phase),
             "clv_by_league": brain.clv_by_league(args.phase),
-            "clv_by_tier": brain.clv_by_tier(args.phase),
+            "clv_by_pool": brain.clv_by_pool(args.phase),
             "engine_clv": brain.engine_clv(args.phase),
             "calibration_by_market": brain.calibration_by_market(args.phase),
             "gate_status": brain.gate_status(),
@@ -198,12 +198,12 @@ def cmd_board(args) -> int:
 
 
 def cmd_clv(args) -> int:
-    """CLV breakdown by market/league/tier."""
+    """CLV breakdown by market/league/pool."""
     by = args.by or "market"
     phase = args.phase
 
-    if by not in ("market", "league", "tier"):
-        msg = f"Unknown --by value: {by} (expected market|league|tier)"
+    if by not in ("market", "league", "pool"):
+        msg = f"Unknown --by value: {by} (expected market|league|pool)"
         if args.json:
             print_json(error(msg))
         else:
@@ -227,8 +227,8 @@ def cmd_clv(args) -> int:
         data = brain.clv_by_market(phase)
     elif by == "league":
         data = brain.clv_by_league(phase)
-    else:  # tier
-        data = brain.clv_by_tier(phase)
+    else:  # pool
+        data = brain.clv_by_pool(phase)
 
     if args.json:
         print_json(success(data))
@@ -241,8 +241,8 @@ def cmd_clv(args) -> int:
                     print_text(f"  {row['market']}: n={row['n']} mean_clv_pct={row['mean_clv_pct']:.2f}% beat_close={row['n_beat_close']}")
                 elif by == "league":
                     print_text(f"  {row['league']}: n={row['n']} mean_clv_pct={row['mean_clv_pct']:.2f}%")
-                elif by == "tier":
-                    print_text(f"  {row['tier']}: n={row['n']} mean_clv_pct={row['mean_clv_pct']:.2f}%")
+                elif by == "pool":
+                    print_text(f"  {row['pool']}: n={row['n']} mean_clv_pct={row['mean_clv_pct']:.2f}%")
     return 0
 
 
@@ -297,7 +297,7 @@ def cmd_audit(args) -> int:
     with suppress(ImportError):
         import config  # noqa: F401
 
-    from engine.softness import WHITELISTED_LEAGUES
+    from engine.leagues import WHITELISTED_LEAGUES
     from league_audit import audit
 
     leagues_to_audit = [args.league] if args.league else WHITELISTED_LEAGUES
@@ -309,7 +309,6 @@ def cmd_audit(args) -> int:
             row = audit(league, FIT_SEASON, FIXTURES_SEASON, not args.no_odds)
             results[league] = {
                 "ready": not row["blockers"],
-                "tier": row["tier"],
                 "deploy_eligible": row["deploy_eligible"],
                 "history": row["history"],
                 "fixtures": row["fixtures"],
@@ -333,17 +332,16 @@ def cmd_audit(args) -> int:
 
 
 def cmd_leagues(args) -> int:
-    """Whitelisted leagues + tier."""
-    from engine.softness import WHITELISTED_LEAGUES, softness_tier
+    """Whitelisted leagues."""
+    from engine.leagues import WHITELISTED_LEAGUES
 
     if args.json:
-        data = [{"league": league, "tier": softness_tier(league)} for league in WHITELISTED_LEAGUES]
+        data = [{"league": league} for league in WHITELISTED_LEAGUES]
         print_json(success(data))
     else:
-        print_text("WHITELISTED LEAGUES (18):")
+        print_text(f"WHITELISTED LEAGUES ({len(WHITELISTED_LEAGUES)}):")
         for league in WHITELISTED_LEAGUES:
-            tier = softness_tier(league)
-            print_text(f"  {league} — tier: {tier}")
+            print_text(f"  {league}")
     return 0
 
 
@@ -400,7 +398,7 @@ def cmd_schema(args) -> int:
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "by": {"type": "string", "enum": ["market", "league", "tier"], "description": "Group by (default: market)"},
+                        "by": {"type": "string", "enum": ["market", "league", "pool"], "description": "Group by (default: market)"},
                         "phase": {"type": "string", "description": "Phase filter (default: phase2_paper)"},
                         "json": {"type": "boolean", "description": "Output structured JSON"},
                         "brain": {"type": "string", "description": "Override brain DB path"},
@@ -529,7 +527,7 @@ Examples:
 
     # clv
     p_clv = subparsers.add_parser("clv", help="CLV breakdown", parents=[common])
-    p_clv.add_argument("--by", type=str, choices=["market", "league", "tier"], default="market",
+    p_clv.add_argument("--by", type=str, choices=["market", "league", "pool"], default="market",
                        help="Group by (default: market)")
     p_clv.set_defaults(func=cmd_clv)
 

@@ -31,7 +31,7 @@ from webapp import render_v2, schema
 _INTERNAL_FIELDS = ("elo_probs", "xg_probs", "engine_divergence", "consensus",
                     "engine_picks", "consensus_pick", "verification",
                     "cal_adjustment", "best_mes_ev", "best_price",
-                    "best_bookmaker", "best_n_books", "softness_tier")
+                    "best_bookmaker", "best_n_books")
 
 
 def _rated() -> BoardFixture:
@@ -46,7 +46,7 @@ def _rated() -> BoardFixture:
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="Fenerbahce v Sturm Graz",
                                           url="https://x", structured=True)]),
-        softness_tier="D", on_deploy_shortlist=True,
+        on_deploy_shortlist=True,
         best_market="Fenerbahce to win", best_price=1.91,
         best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0696,
         best_model_prob=0.56, mes_trigger_price=1.52,
@@ -63,7 +63,6 @@ def _unrated() -> BoardFixture:
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="x", url="https://x",
                                           structured=True)]),
-        softness_tier="D",
         rejection_reason="NO DATA — PENDING: no fitted history")
 
 
@@ -94,7 +93,7 @@ def _rated_beta() -> BoardFixture:
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="Beta v Gamma",
                                           url="https://x", structured=True)]),
-        softness_tier="D", on_deploy_shortlist=True,
+        on_deploy_shortlist=True,
         best_market="Beta to win", best_price=1.80,
         best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.098,
         best_model_prob=0.61, mes_trigger_price=1.48,
@@ -114,7 +113,7 @@ def _rated_delta() -> BoardFixture:
         verification=verify([SourcedDatum(domain="thesportsdb.com",
                                           value="Delta v Epsilon",
                                           url="https://x", structured=True)]),
-        softness_tier="D", on_deploy_shortlist=True,
+        on_deploy_shortlist=True,
         best_market="Delta to win", best_price=1.75,
         best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0625,
         best_model_prob=0.55, mes_trigger_price=1.52,
@@ -125,7 +124,7 @@ def _rated_delta() -> BoardFixture:
 def _prod_leg(fixture, market_name, price, prob, league, ev):
     return {"fixture": fixture, "league": league, "market_key": "1X2_HOME",
             "market_name": market_name, "price": price, "prob": prob,
-            "ev": ev, "softness_tier": "D"}
+            "ev": ev}
 
 
 def _prod_acca(label, legs, combined_odds, combined_prob):

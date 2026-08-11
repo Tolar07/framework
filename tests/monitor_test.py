@@ -43,7 +43,7 @@ b = Brain(_tmp / "t.db")
 b.append_predictions([dict(run_id="r1", predicted_at="2026-08-05T07:00:00+00:00",
     league="Champions League", fixture="Fenerbahçe v Sturm Graz",
     match_date="2026-08-05", market=m, model_engine="cross", model_prob=p,
-    entry_odds=None, bookmaker=None, ev=None, softness_tier="D",
+    entry_odds=None, bookmaker=None, ev=None,
     on_deploy_shortlist=0, cal_adjustment=None)
     for m, p in [("1X2_HOME", 0.56), ("1X2_DRAW", 0.28), ("1X2_AWAY", 0.16),
                  ("OVER_1_5", 0.60), ("OVER_2_5", 0.33), ("BTTS_YES", 0.35)]])
@@ -68,7 +68,7 @@ b2.append_predictions([dict(run_id="r1", predicted_at="2026-08-05T07:00:00+00:00
     league="Champions League", fixture="Arsenal v Barcelona",
     match_date="2026-08-05", market="1X2_HOME", model_engine="cross",
     model_prob=0.5, entry_odds=None, bookmaker=None, ev=None,
-    softness_tier="D", on_deploy_shortlist=0, cal_adjustment=None)])
+    on_deploy_shortlist=0, cal_adjustment=None)])
 n = mon._settle_predictions(b2, "Champions League", evt)
 assert n == 0, "a non-matching prediction must not be settled against a wrong match"
 print("3. non-matching prediction never settled (HR35): OK")

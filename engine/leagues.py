@@ -1,32 +1,24 @@
 """
-Unified league pool (2026-08-10) — the softness tier system is gone.
+Unified league pool (ID401) — the whitelist, with no softness.
 
-The A/B/C/D softness ranking (ID402) was removed by Architect order: every
-approved league is ONE pool — no tier priority, no deploy cap, no scan-only
-classification. The whitelist itself (ID401) survives as the single source of
-truth: a league on it is scan- AND deploy-eligible; a league off it (HR34) is
-neither.
+The softness A/B/C/D ranking (ID402) and every trace of a "softness tier" were
+removed by Architect order (2026-08-10, finished 2026-08-11). There is ONE
+pool: every whitelisted league is scan- AND deploy-eligible; a league off the
+whitelist (HR34) is neither. No tier priority, no deploy cap, no scan-only
+class.
 
 The ID405 MARKET GATE was also opened (2026-08-10, Architect order): every
-market may carry capital again. The `engine/markets.py` BLOCKED dict is empty;
+market may carry capital again. `engine/markets.py` BLOCKED is empty;
 `build_deploy_shortlist` still calls `mkt.blocked()` as a structural backstop so
 a future market gate would be honoured automatically, but today it never blocks.
 
-The `softness_tier()` function name is retained ONLY as a back-compat storage
-slot: the database column and JSON payload still carry a tier string, which is
-now always "ONE" for a whitelisted league (and "?" for an unrated one). It is a
-pool marker, never a rank.
-
-Softness was always a hypothesis about where to look, not proof — only logged
-CLV (clv/clv_logger.py) confirms edge. Removing it widens what the shortlist may
-contain; it claims nothing about whether any of it is a good bet.
+The whitelist itself (ID401) remains the single source of truth for league
+eligibility — a league on it is deploy-eligible, a league off it is not.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
-
-# Section 7.4 — the ID401 whitelist. A single unified pool (no tiers). Kept
-# sorted; HR34: a league not listed here is never scan- or deploy-eligible.
+# Section 7.4 — the ID401 whitelist. A single unified pool. Kept sorted; HR34:
+# a league not listed here is never scan- or deploy-eligible.
 # "Conference League" (UEFA Europa Conference League) was added 2026-08-10 —
 # it was already in the cross-league fit pool (BRIDGE_COMPETITIONS, API-Football
 # id 848) and IS modelled; the honest caveat is that its current-season FIXTURES
@@ -54,43 +46,11 @@ WHITELISTED_LEAGUES: list[str] = [
     "Serie A",
 ]
 
-# The single pool marker every whitelisted league carries in the back-compat
-# `softness_tier` storage slot. Never a rank — all leagues are equal.
-ONE_POOL = "ONE"
-
-
-def softness_tier(league: str) -> str:
-    """Returns the league's pool marker, or '?' if not on the whitelist at
-    all (ID401 default-ban / HR34 — an unratified league is never scan- or
-    deploy-eligible). Retained name: the DB/JSON field this feeds is still
-    called `softness_tier`; its value is now always ONE_POOL for whitelisted
-    leagues, never a rank."""
-    return ONE_POOL if league in WHITELISTED_LEAGUES else "?"
-
 
 def is_deploy_eligible(league: str) -> bool:
-    """Every whitelisted league is deploy-eligible (unified pool). HR34 still
-    excludes a league that is not on the whitelist at all."""
-    return softness_tier(league) != "?"
-
-
-@dataclass
-class SlateDecision:
-    league: str
-    tier: str
-    scan_eligible: bool
-    deploy_eligible: bool
-
-
-def classify(league: str) -> SlateDecision:
-    """Classify a league against the unified pool: whitelisted = scan- AND
-    deploy-eligible; anything else is excluded (HR34)."""
-    eligible = is_deploy_eligible(league)
-    return SlateDecision(
-        league=league, tier=softness_tier(league),
-        scan_eligible=eligible,
-        deploy_eligible=eligible,
-    )
+    """A whitelisted league is deploy-eligible (unified pool, no tiers). HR34
+    still excludes a league that is not on the whitelist at all."""
+    return league in WHITELISTED_LEAGUES
 
 
 def _confidence(c) -> float:

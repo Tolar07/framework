@@ -147,7 +147,7 @@ bf_full = BoardFixture(
     probs=_ProbsDisagree(), verification=_v,
     xg_probs=(xp.home, xp.draw, xp.away),
     xg_goals=(xp.over15, xp.over25, xp.over35, xp.btts),
-    softness_tier="A", kickoff_date="2026-08-10", model_engine="dc",
+    kickoff_date="2026-08-10", model_engine="dc",
 )
 n = _predictions_from_board([bf_full], "xgrun", "2026-08-09T00:00:00+00:00", brain)
 res = brain.predictions_for(run_id="xgrun", engine="xg")

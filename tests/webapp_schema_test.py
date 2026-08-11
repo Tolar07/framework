@@ -32,7 +32,6 @@ def _rated() -> BoardFixture:
                                           value="Fenerbahce v Sturm Graz",
                                           url="https://www.thesportsdb.com",
                                           structured=True)]),
-        softness_tier="D",
         on_deploy_shortlist=False,
         mes_trigger_price=None,
         best_market="Fenerbahce to win",
@@ -57,13 +56,12 @@ def _unrated() -> BoardFixture:
                                           value="Bristol City v Walsall",
                                           url="https://www.thesportsdb.com",
                                           structured=True)]),
-        softness_tier="D",
         rejection_reason="NO DATA — PENDING: no fitted history for this league")
 
 
 # --- 1. fixture_to_dict is lossless over a rated fixture ----------------------
 d = schema.fixture_to_dict(_rated())
-for key in ("fixture", "probs", "softness_tier", "on_deploy_shortlist",
+for key in ("fixture", "probs", "on_deploy_shortlist",
             "best_market", "best_price", "best_bookmaker", "best_n_books",
             "best_mes_ev", "best_model_prob", "kickoff_date", "elo_probs",
             "verification"):
@@ -131,7 +129,7 @@ assert t0["mes_trigger_price"] is None
 for k in ("elo_probs", "xg_probs", "market_probs", "engine_divergence",
           "consensus", "engine_picks", "consensus_pick", "verification",
           "cal_adjustment", "best_mes_ev", "best_price", "best_bookmaker",
-          "best_n_books", "softness_tier", "model_engine"):
+          "best_n_books", "model_engine"):
     assert k not in t0, f"trim kept internal {k}"
 # kickoff_date is a factual match datum (not a model internal) and stays —
 # the client renders the today-only call from it (standing rule 2026-08-09).

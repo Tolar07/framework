@@ -73,13 +73,17 @@ def _leg_from_board(bf, run_date: str) -> Optional[dict]:
     if bf.probs is None:
         return None
     pick, pick_name, prob = _result_pick(bf.probs)
+    # pick_market (schema v6): canonical key of the fixture's best EV market
+    # (best_market_key when priced; falls back to the 1X2 result pick)
+    pick_market = bf.best_market_key or pick
     return {
         "date": run_date,
         "leg_id": f"{bf.fixture.split(' (')[0]}_{pick}",
         "fixture": bf.fixture.split(" (")[0],
         "league": _league_of(bf.fixture),
-        "pick": pick,            # canonical market key, e.g. "1X2_HOME"
-        "pick_name": pick_name,  # words, e.g. "Dundee to win"
+        "pick": pick,                # 1X2 result market key, e.g. "1X2_HOME"
+        "pick_market": pick_market,  # best EV market key (may differ from pick)
+        "pick_name": pick_name,      # words, e.g. "Dundee to win"
         "model_prob": prob,
         "on_deploy_shortlist": bool(bf.on_deploy_shortlist),
         "best_market": bf.best_market,

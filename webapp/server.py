@@ -751,7 +751,8 @@ You have access to today's model board (Dixon-Coles + Elo + xG + Bookmaker conse
 Answer questions about fixtures, markets, the framework methodology, or today's predictions.
 Be concise, honest, and cite specific data from the context. Never fabricate predictions.
 If asked about a specific fixture, look it up in the context. If not found, say so.
-Remember: this is a Phase-2 paper-only framework — no real capital is deployed."""
+The framework is Phase 3 live (2026-08-11): it records stakes the Architect logs,
+but capital authority stays with the Architect — nothing here is a guaranteed bet."""
 
             resp = client.messages.create(
                 model="claude-3-5-sonnet-20241022",

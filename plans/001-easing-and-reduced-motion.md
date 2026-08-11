@@ -1,6 +1,6 @@
 # 001 — Easing tokens + reduced-motion foundation
 
-- **Status**: TODO
+- **Status**: DONE (2026-08-11)
 - **Commit**: a3df429
 - **Severity**: HIGH
 - **Category**: tokens / accessibility

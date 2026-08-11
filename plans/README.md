@@ -13,10 +13,10 @@ right shape for a dense, honest-edge dashboard.
 
 | # | Title | Severity | Category | Dependencies | Status |
 | --- | --- | --- | --- | --- | --- |
-| 001 | Easing tokens + reduced-motion foundation | HIGH | tokens / a11y | — | TODO |
-| 002 | Accordion reveal: craft-correct max-height transition | HIGH | performance | 001 | TODO |
-| 003 | Press feedback + toast slide polish | MEDIUM | physicality / easing | 001 | TODO |
-| 004 | New-row flash: shorten, keep as comprehension cue | LOW | a11y / duration | 001 | TODO |
+| 001 | Easing tokens + reduced-motion foundation | HIGH | tokens / a11y | — | DONE (2026-08-11) |
+| 002 | Accordion reveal: craft-correct max-height transition | HIGH | performance | 001 | DONE (2026-08-11) |
+| 003 | Press feedback + toast slide polish | MEDIUM | physicality / easing | 001 | DONE (2026-08-11) |
+| 004 | New-row flash: shorten, keep as comprehension cue | LOW | a11y / duration | 001 | DONE (2026-08-11) |
 
 ## Recommended execution order
 

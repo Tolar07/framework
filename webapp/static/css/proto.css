@@ -26,6 +26,12 @@
   --focus:#3b82f6; --on-primary:#181a20;
   /* Binance rounded scale (DESIGN.md): xs 2 · sm 4 · md 6 · lg 8 · xl 12 · pill. */
   --r-xs:2px; --r-sm:4px; --r-md:6px; --r-lg:8px; --r-xl:12px; --r-pill:9999px;
+  /* Binance DESIGN.md motion: strong custom curves (Emil Kowalski skill pack,
+     improve-animations plan 001). Built-in CSS easings are too weak for UI —
+     they start slow, delaying the moment the user is watching most. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);        /* strong ease-out for UI interactions */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);    /* strong ease-in-out for on-screen movement */
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);     /* iOS-like drawer curve (reserved) */
   /* ONE palette. Admin aliases point at the SAME dark tokens as the client,
      so the admin inherits the dark yellow/charcoal theme — the admin keeps its
      denser layout (columns, tighter rows), which is layout, not color. */
@@ -79,9 +85,15 @@ button{font-family:inherit;cursor:pointer;}
 .c-league-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;font-size:12px;font-weight:700;color:var(--ink);cursor:pointer;transition:background 0.1s ease;}
 .c-league-head:active{background:var(--surface-2);}
 .c-league-head:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;border-radius:6px;}
-.c-league-head .chev{transition:transform 0.2s;color:var(--ink-faint);}
+/* proto.css:82 — league-head chevron: same curve, keep instant default */
+.c-league-head .chev{transition:transform 200ms var(--ease-out);color:var(--ink-faint);}
 .c-league-head.open .chev{transform:rotate(90deg);}
-.c-league-body{max-height:0;overflow:hidden;transition:max-height 0.25s ease;}
+/* proto.css — accordion reveal. max-height is a layout animation; the full
+   GPU fix (a single-child wrapper + grid-template-rows 0fr→1fr, or JS-measured
+   height + transform) is deferred — it needs a markup change in render_v2.py,
+   which the other session owns right now. These values keep it responsive and
+   honest about its timing; reduced-motion makes it instant (plan 001). */
+.c-league-body{max-height:0;overflow:hidden;transition:max-height 200ms var(--ease-out);}
 .c-league-body.open{max-height:2400px;}
 
 .c-card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:8px;padding:12px;margin:8px 0;transition:border-color 0.15s ease;}
@@ -92,12 +104,15 @@ button{font-family:inherit;cursor:pointer;}
 @media (min-width:760px){.c-grid{grid-template-columns:repeat(2,1fr);}}
 @media (min-width:1160px){.c-grid{grid-template-columns:repeat(3,1fr);}}
 .c-card.acca{border-left-color:var(--teal);}
-.c-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;cursor:pointer;border:none;background:none;width:100%;text-align:left;padding:0;color:inherit;transition:transform 0.1s ease;}
-.c-card-top:active{transform:translateY(1px);}
+/* proto.css:95-96 — press feedback: subtle scale from the top edge. The card
+   top is a wide button; scaling toward its own top keeps content anchored. */
+.c-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;cursor:pointer;border:none;background:none;width:100%;text-align:left;padding:0;color:inherit;transition:transform 120ms var(--ease-out);}
+.c-card-top:active{transform:scale(0.98);transform-origin:center top;}
 .c-card-top:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:6px;}
 /* Per-tile affordance: a chevron that brightens on hover and rotates open —
    every tile is closed by default and expands individually on tap. */
-.c-card-top .chev{font-size:10px;color:var(--ink-faint);flex:none;align-self:center;transition:transform 0.2s ease,color 0.15s ease;}
+/* proto.css:100 — chevron rotate uses the strong curve; color stays ease */
+.c-card-top .chev{font-size:10px;color:var(--ink-faint);flex:none;align-self:center;transition:transform 200ms var(--ease-out),color 150ms ease;}
 .c-card-top:hover .chev{color:var(--amber);}
 .c-card-top[aria-expanded="true"] .chev{transform:rotate(90deg);color:var(--amber);}
 .c-fixture{font-size:13px;font-weight:600;}
@@ -105,7 +120,7 @@ button{font-family:inherit;cursor:pointer;}
 .c-pct{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-weight:700;flex:none;}
 .c-live{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink);background:var(--coral);border-radius:var(--r-xs);padding:1px 5px;margin-left:6px;vertical-align:1px;}
 .c-live:empty{display:none;}
-.c-detail{max-height:0;overflow:hidden;transition:max-height 0.25s ease;}
+.c-detail{max-height:0;overflow:hidden;transition:max-height 200ms var(--ease-out);}
 .c-detail.open{max-height:600px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);}
 .c-mkt-row{display:flex;justify-content:space-between;padding:4px 0;font-size:11.5px;color:var(--ink-dim);}
 .c-mkt-row b{color:var(--ink);font-weight:600;font-family:'IBM Plex Mono',monospace;}
@@ -195,7 +210,8 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 .a-table tr.hidden{display:none;}
 .a-table tr.clickable{cursor:pointer;}
 .a-table tr.clickable:hover td{background:var(--surface-2);}
-.a-table tr.new-row{animation:flash 1.2s ease;}
+/* proto.css:198 — new-row flash: a short color cue, not a slow blink. */
+.a-table tr.new-row{animation:flash 0.9s ease;}
 @keyframes flash{0%{background:#3a2f1c;}100%{background:transparent;}}
 .a-league-sep td{background:var(--surface-2);font-weight:700;padding:5px 8px;color:var(--ink);}
 .a-league-sep .cnt{color:var(--ink-faint);font-weight:500;margin-left:6px;}
@@ -256,8 +272,9 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 .a-log .why{color:var(--ink-dim);white-space:normal;}
 .a-log .empty{color:var(--ink-faint);font-style:italic;}
 
+/* proto.css:226 — toast slide: under the 300ms ceiling, strong ease-out */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#1a1a1a;color:#fff;
-  padding:12px 20px;border-radius:8px;font-size:12px;transition:transform 0.3s;z-index:100;max-width:340px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.4);}
+  padding:12px 20px;border-radius:8px;font-size:12px;transition:transform 220ms var(--ease-out);z-index:100;max-width:340px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.4);}
 .toast.show{transform:translateX(-50%) translateY(0);}
 
 /* Model Internals (reused from render._internals — admin only) */
@@ -292,4 +309,15 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
   .a-tablewrap{padding:0 8px;}
   .a-table th,.a-table td{padding:6px;}
   #last-run{display:none;}
+}
+
+/* Reduced motion (improve-animations plan 001): movement drops to instant;
+   color/opacity feedback (hovers, active backgrounds) is kept — it aids
+   comprehension. The spinner stays: a loading cue is progress, not decor. */
+@media (prefers-reduced-motion: reduce){
+  .c-detail, .c-league-body { transition: none; }
+  .c-card-top:active { transform: none; }
+  .c-card-top .chev, .c-league-head .chev { transition: none; }
+  .toast { transition: none; }
+  .a-table tr.new-row { animation-duration: 0.4s; }
 }

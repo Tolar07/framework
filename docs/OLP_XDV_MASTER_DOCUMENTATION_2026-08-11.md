@@ -1,0 +1,249 @@
+# OLP XDV — MASTER DOCUMENTATION
+
+> **Date:** 2026-08-11 · **Repo:** `olp_xdv_agent/olp_xdv` · **Branch:** `elo-persistence`
+> **Purpose:** Single reference for anyone — human or AI — who needs to understand the framework as it is **actually built today**, including every place where the docs disagree with the code. Where the written docs and the code conflict, this document says so and treats **the code + `RATIFICATIONS.md`** as the authority (RATIFICATIONS is append-only per HR33).
+> **Honesty rule (HR35) applies to this document too:** nothing here is invented to fill a gap; where something is unknown it is marked as such.
+
+---
+
+## 0. ONE-PARAGRAPH SUMMARY
+
+OLP XDV is a **Phase-2 paper-only** football-betting calibration framework. A daily 07:00 pipeline (`run_daily.py`) scans **18 whitelisted leagues** (one unified pool — softness tiers were removed on 2026-08-10), fits **Dixon-Coles + Elo + xG + Bookmaker** models into one consensus, builds a board, logs **paper legs with closing-line value (CLV)**, produces a **today-only** production bet (Acca A + split accas + singles) with **SportyBet booking codes**, and delivers to **Telegram** and a **two-tier web dashboard** (public client view + authed admin). It has **never staked a kobo**: capital is hard-blocked in `config.py` below the Phase 3 gate (≥30 legs with CLV AND positive mean CLV AND Architect V7 sign-off). As of today the gate reads **12/30 legs with CLV, mean CLV −1.631% (negative)** — the system is currently *losing* to the closing line and is therefore **not** publishable to clients or deployable with capital.
+
+---
+
+## 1. EVERY RULE AS CODED
+
+### 1.1 HR rules (hard requirements — `HR###`)
+
+| Rule | Name / meaning | Status | Where it lives |
+|------|----------------|--------|----------------|
+| **HR15** | **90-minute basis** — results settle on full-time (90-min) score, not extra time / penalties | **Active** | `clv/clv_logger.py`, grading |
+| **HR30** | **Numerical MES required** — every capital pick carries a numerical Market Edge Score; MES = breakeven trigger price = `1/model_prob` (optional edge buffer). No live price → explicit exception note, never a silent blank | **Active** | `engine/mes.py` |
+| **HR33** | **RATIFICATIONS append-only** — the ratification log is never rewritten | **Active** | `RATIFICATIONS.md` |
+| **HR34** | **Unratified leagues never scan- or deploy-eligible** — only `WHITELISTED_LEAGUES` counts; whitelist changes are Architect-only | **Active** | `engine/leagues.py` (`is_deploy_eligible`) |
+| **HR35** | **No fabrication** — missing data renders `NO DATA — PENDING` everywhere; a gate never matches display text (canonical keys instead); CONFLICT/NO-DATA never silently resolved | **Active (36 refs — the most-cited rule)** | Everywhere |
+| **HR44** | **Ratify at time of change** — each RATIFICATIONS entry is written when the change happens | **Active** | `RATIFICATIONS.md` |
+| **HR46** | **CLV logging** — paper legs carry entry price (CL-LIVE) + closing line (CL-ARCHIVE) | **Active** | `clv/clv_logger.py`, `clv/closing_capture.py` |
+| **HR48** | **Kickoff-date guard** — a leg with no recorded kickoff date is refused; a no-date fixture is NEVER assumed to be today | **Active** | `bets/produced_bet.py`, `clv/closing_capture.py` |
+| **HR51** | **Capital phase** — Phase 2 = paper only, zero capital; Phase 3 (live capital) gated on ≥30 legs with CLV + positive mean CLV + Architect V7 sign-off; `assert_paper_only()` is a hard fail, not a warning | **Active (Phase 2)** | `config.py`, `clv/phase3_gate.py` |
+| **HR52** | **Pro-rigor auto-ratification** for changes that add real data sources without weakening existing checks | **Active** | `RATIFICATIONS.md` |
+| **HR53** | **Full-detail-but-honest / plain-language mandate** — board uses full club names, markets in words; completeness never overrides honesty | **Active** | `output/produce_bet.py`, `engine/markets.py` (`display()`) |
+
+### 1.2 ID rules (design IDs / ratified components — `ID###`)
+
+| ID | Name / meaning | Status | Where it lives |
+|----|----------------|--------|----------------|
+| **ID82** | **Elo rating engine** — built from the same match data as Dixon-Coles; shown beside DC | **Active** | `engine/elo.py` |
+| **ID401** | **League whitelist = unified pool** — 18 leagues (incl. Conference League added 2026-08-10). Every whitelisted league is scan- AND deploy-eligible | **Active** | `engine/leagues.py` `WHITELISTED_LEAGUES` |
+| **ID402** | **Softness tiers** (A/B/C/D ranking, deploy cap, scan-only class) | **REMOVED 2026-08-10** — code no longer has tiers; `engine/softness.py` deleted, replaced by `engine/leagues.py`. `softness_tier()` kept only as a back-compat slot returning `"ONE"`/`"?"` | `engine/leagues.py` |
+| **ID403** | **Multi-factor verification tiers** — VERIFIED / SINGLE-SOURCE / CONFLICT / NO-DATA / DERIVED; CONFLICT & NO-DATA never silently resolved | **Active** | `verification/id403.py` |
+| **ID404** | **Source trust register** — ratified sources; trust tier sets corroboration requirement | **Active** | `RATIFICATIONS.md`, `data/` |
+| **ID405** | **Market gate** — which markets may carry (paper) capital. **OPENED 2026-08-10:** `BLOCKED = {}`, all five 1X2 markets + O/U + BTTS deployable. The earlier block (Away −2% CLV, Home −0.6%, Over2.5 −0.7% backtest evidence) is *not* dismissed — the Architect widened the book to test forward in paper mode; markets can be re-closed by re-adding to `BLOCKED` | **OPEN (all markets deployable)** | `engine/markets.py` |
+| **ID412** | **Cross-engine consensus vote** — majority across available engines, persisted to brain | **Active** | `engine/consensus.py` |
+| **ID413** | **Devigged implied probability** — market's devigged 1X2 as the EV anchor | **Active** | `engine/markets.py` (`MARKETS_1X2`), `run_daily.py` |
+| **ID414** | **Market-anchored display probability / true modal scoreline** — Poisson modal scoreline for display + EV | **Active** | `engine/dixon_coles.py`, `webapp/schema.py` |
+
+### 1.3 Standing rules / recent Architect orders (not HR/ID-numbered)
+
+| Rule | Status | Where recorded |
+|------|--------|----------------|
+| **Same-day product bet (2026-08-10, replaces the 3-day rolling window)** | **Active** — THE CALL, produced bet, accas, singles draw ONLY from fixtures kicking off today; the 3-day window stays the scan reference | `RATIFICATIONS.md` §1437 |
+| **Production intent (2026-08-10)** — Acca A = top 4–5 highest-confidence fixtures, each leg the fixture's own single highest-probability market; no forced diversity; a fixture never appears in two bets; remainder → split accas (~4–5 legs) + singles, each with its own booking code | **Active** | `engine/acca.py`, `.claude/OLP_XDV_PRODUCTION_INTENT.md` |
+| **Ranking by confidence (2026-08-10)** — legs ranked by model probability (was EV) | **Active** | `engine/acca.py` |
+| **Architect publish override (2026-08-10)** — `ARCHITECT_SIGNOFF=1` bypasses the statistical client-publish gate; override is never silent (stamped in audit log + honest-edge statement stays on client view) | **Active** | `webapp/schema.py` |
+| **Two-tier web dashboard (2026-08-07)** — public `/dashboard` trimmed via `trim_payload()`; `/admin` authed via HTTP Basic; read-only over board JSON + brain | **Active** | `webapp/server.py` |
+| **Binance design pass (2026-08-10)** — dashboard styling follows `design-md/binance/DESIGN.md` tokens in `proto.css` | **Active** | `webapp/` |
+
+### 1.4 Where docs and code DISAGREE (verified 2026-08-11)
+
+| Claim in docs | Doc | What the code actually does |
+|---------------|-----|-----------------------------|
+| "ID405 market gate **ACTIVE** — Away/Over2.5/Home blocked from deploy" | `PROJECT_STATUS.md` (2026-08-09), `ARCHITECTURE.md` | Gate **OPEN** — `engine/markets.py` `BLOCKED = {}`; all markets deployable (ratified 2026-08-10). Docs are stale |
+| "Softness tiers active / `SOFTNESS_PAUSED=True` (reversible)" | `PROJECT_STATUS.md`, `ARCHITECTURE.md` | Softness **deleted** — `engine/softness.py` removed from working tree, `engine/leagues.py` is the new home; no `SOFTNESS_PAUSED` anywhere |
+| "17 leagues" | `ARCHITECTURE.md`, `RATIFICATIONS.md` (2026-08-10 §1584) | **18 leagues** — Conference League added 2026-08-10 |
+| "3-day rolling window for product bet" | `ARCHITECTURE.md` | **Strict single-day** since 2026-08-10 |
+| "Phase 3 gate 0/30" | `PROJECT_STATUS.md` | **12/30** legs with CLV (15 logged) |
+| "4-leg acca set (up to 3 accas)" | `PROJECT_STATUS.md`, `ARCHITECTURE.md` | **Acca A + splits + singles** production shape (2026-08-10 production intent) |
+| "TODAY'S PICKS parlay" | `ARCHITECTURE.md` | Retired; `recommendation=""` in web payload |
+| "THESPORTSDB_KEY empty" | `ARCHITECTURE.md` | **Set** in `.env` (personal key, len 10) |
+| "ODDS_API_KEY not in build env" | memory note (2026-08-10) | **Set** in `.env` (len 32) — but quota exhausted |
+| "Odds API quota 4/500" | `ARCHITECTURE.md` | **3/500** (critical floor) as of 2026-08-11 |
+| Health monitor "9 probes, 2-hourly" | `PROJECT_STATUS.md` | Runs hourly; last run returned **result code 2 (error)** |
+| "THE CALL + acca draw only from Draw+Under2.5 (ID405)" | `PROJECT_STATUS.md` §18 | Market gate open — acca legs may use any of the five markets |
+
+---
+
+## 2. FULL ARCHITECTURE
+
+### 2.1 The pipeline (SCAN → TRIGGER → PRODUCTION → PUBLISH)
+
+```
+            ┌────────────────────────────────────────────────────────────┐
+            │  07:00 DAILY RUN — run_daily.py  (Task Scheduler, enabled)  │
+            └────────────────────────────────────────────────────────────┘
+ SCAN        grade yesterday → fixtures → odds → engine → verify → board → log → notify
+            │
+            ├─ data/  football-data.co.uk history (fit) + multi-source fixtures:
+            │         TheSportsDB → odds-derived → API-Football → SportyBet cache
+            │         (failover with circuit breakers; all 4 primary sources currently fail,
+            │          so fixtures come from the SportyBet cache)
+            │
+ TRIGGER     ├─ Task Scheduler "OLP XDV Daily Board" — 07:00, enabled, last run OK
+            ├─ Manual: /api/trigger-board?date=<d> (admin) — refuses concurrent runs
+            └─ Manual: /api/admin/produce (search → select → produce) — preview only,
+                       never writes the ledger or board store
+            │
+ PRODUCTION  ├─ orchestrator.run_all_leagues() — 18-league scan, ONE unified pool (ID401)
+            │    → fit Dixon-Coles per league, Elo, xG (top-5 Understat), Bookmaker
+            ├─ consensus (ID412) → verification (ID403) → deploy shortlist
+            │    → produce_bet / THE CALL (today only) + accas (engine/acca.py)
+            │    → booking codes (booking/booking_codes.py — Playwright, NEVER stakes)
+            │    → log paper legs with entry price (CL-LIVE) — capital blocked (HR51)
+            │
+ PUBLISH     ├─ board_<date>.json + board_<date>.txt written to output/boards/
+            ├─ Admin reviews → "Approve → Publish" (webapp/schema.check_client_publish_gate)
+            │    → write_published() copies TRIMMED board to output/boards/published/ + audit
+            └─ Telegram board + client dashboard (two tiers)
+```
+
+### 2.2 Components (engine, storage, calibration, delivery)
+
+| Component | Path | What it does |
+|-----------|------|--------------|
+| **Daily pipeline** | `run_daily.py` | Orchestrates the 07:00 run end-to-end (grade→fixtures→odds→engine→verify→board→log→notify). Phase-2 calibration instrument; capital hard-blocked |
+| **Orchestrator** | `orchestrator.py` | `run_all_leagues()` scans all 18 whitelisted leagues into one board; `pull→fit→scan→board→log` per operating protocol (no stop-and-ask) |
+| **League pool** | `engine/leagues.py` | `WHITELISTED_LEAGUES` (18) + `is_deploy_eligible()` (whitelist membership only) + `build_deploy_shortlist()` (honours `mkt.blocked()` as structural backstop) |
+| **Dixon-Coles** | `engine/dixon_coles.py` | Per-league Poisson model fit + `predict_adjusted` + true modal scoreline (ID414) |
+| **Elo** | `engine/elo.py` | ID82 Elo rating, same match data |
+| **xG** | `data/xg_source.py` | Understat top-5 xG, treated like any other source (ID403) |
+| **Bookmaker** | `engine/` (bookmaker), `engine/consensus.py` | Devigged implied probabilities (ID413); four independent opinions → majority vote (ID412) |
+| **Consensus** | `engine/consensus.py` | Cross-engine vote persisted to brain |
+| **Verification** | `verification/id403.py` | Multi-factor tiers (ID403) — VERIFIED/SINGLE-SOURCE/CONFLICT/NO-DATA/DERIVED |
+| **Recalibration** | `engine/recalibration.py` | Platt-scaling style calibration, inert below minimum settled-leg counts |
+| **Brain (SQLite)** | `brain/store.py` | Persistent memory: model fits, predictions, legs mirror, runs, corrections |
+| **Stats renderer** | `brain/report.py` | Plain-language `/stats` for non-technical Architect |
+| **CLV logger** | `clv/clv_logger.py` | Canonical JSON ledger; `phase2_status()` evaluates the gate; `grade_all_pending()` |
+| **Closing capture** | `clv/closing_capture.py` | Captures closing lines near kickoff (CL-ARCHIVE); HR48 date guards |
+| **Phase 3 gate** | `clv/phase3_gate.py` | Separate Architect sign-off record for capital deployment |
+| **Produces/verify** | `output/produce_bet.py` | Plain-language THE CALL / produced bet / verify-results rendering (HR53) |
+| **Telegram** | `output/telegram_commands.py` | Long-polling daemon: `/send /produce /verify /stats /board /why` |
+| **Notifiers** | `output/notify.py`, `whatsapp_deliver.py`, `email_deliver.py` | Delivery; email skipped when `EMAIL_*` unset |
+| **Booking codes** | `booking/booking_codes.py` | Playwright drives SportyBet SPA, captures booking codes per acca; READ-ONLY — never stakes, never clicks "Place Bet" |
+| **Booking bridge/odds** | `booking/bridge.py` | SportyBet odds read for leg pricing |
+| **Web dashboard** | `webapp/server.py` | Two-tier: `/dashboard` (public, trimmed) + `/admin` (authed); `/stats`, `/why`, `/api/stats.json` admin-only |
+| **Schema** | `webapp/schema.py` | Board JSON contract; `trim_payload()`; `check_client_publish_gate()`; `write_published()` + audit |
+| **Produce preview** | `webapp/produce.py` | Real-time fixture prediction production (preview only, no ledger writes) |
+| **Health monitor** | `health_monitor.py` | Hourly probes, state-change alerts; last run errored (code 2) |
+| **Agent CLI** | `agent_cli.py` | Read-only query surface for AI agents (brain + ledger + coverage) |
+
+### 2.3 What changed when softness was cancelled (2026-08-10)
+
+- **Before:** `engine/softness.py` carried `SOFTNESS_TIER`, `SOFTNESS_PAUSED`, `DEPLOY_ELIGIBLE_TIERS`, `DEPLOY_POOL_CAP`, `_tier_words()`; leagues ranked A/B/C/D; deploy shortlist came only from eligible tiers; board rendered tier labels; accas drew only from capital-cleared tiers.
+- **After:** `engine/softness.py` is **deleted** from the working tree; `engine/leagues.py` (new) holds `WHITELISTED_LEAGUES` (18) + `is_deploy_eligible()` (whitelist membership only). `softness_tier()` survives as a back-compat slot returning `"ONE"`/`"?"` only. `on_deploy_shortlist` = whitelisted + rated + verification not CONFLICT/NO-DATA. Board renders one unified deploy pool with no tier labels. **Deploy eligibility is now: on the whitelist, or it does not deploy.**
+
+### 2.4 Calibration / CLV logging
+
+- Paper legs logged each daily run for rated, whitelisted, priced fixtures on a deployable market (all markets now).
+- Entry price stamped `CL-LIVE` (the price used at decision time); closing line captured near kickoff and stamped `CL-ARCHIVE`; `clv_pct` computed; `grade_all_pending()` settles against the 90-minute result (HR15) when it appears.
+- Ledger (`clv/clv_log.json`) and brain legs mirror both carry the record; `phase2_status()` (in `clv_logger.py`) is the gate evaluator the board JSON embeds.
+
+---
+
+## 3. EVERY AGENT IN THE SYSTEM
+
+| Agent | What it is | Authorized to do | Explicitly barred from |
+|-------|-----------|------------------|------------------------|
+| **Claude Code — session A/B** (this repo) | The interactive coding agent; two sessions share the working tree, git is the only sync | Edit code, run tests, inspect state, update docs, commit | *Nothing on its own authority:* all changes go through the safe-move protocol + Architect review |
+| **Telegram poller daemon** | `output/telegram_commands.py --loop`, PID active | Answer `/send /produce /verify /stats /board /why` on the live Telegram chat; deliver the daily board | Cannot publish to clients (publish is admin-web only), cannot stake (Phase 2) |
+| **AI Analyst** (web dashboard `/api/analyst`) | Claude 3.5 Sonnet (Anthropic) chat endpoint | Answer questions about the board given a trimmed view | **Offline today** — `ANTHROPIC_API_KEY` not set; also rate-limited 10 req/min |
+| **Task Scheduler jobs** | "OLP XDV Daily Board" (07:00, enabled, last OK) + "OLP XDV Health Monitor" (hourly, last run errored code 2) | Run the daily pipeline / health probes unattended | Anything beyond their defined batch; capital never touched |
+| **agent_cli.py** | Read-only query surface | Let another AI agent query brain/ledger/coverage | No writes, no stake, no publish |
+| **sports-skills + everything-claude-code plugins** | `.claude/skills`, `.claude/agents` (7 subagents installed) | Assistive tooling for Claude Code sessions | Nothing autonomous |
+| **Gemini / DeepSeek** | — | — | **Do not exist in this repo.** Verified: no integration, no keys, no code. The PROMPT2 "every agent" list is fully covered by the above |
+
+---
+
+## 4. REPO STRUCTURE (plain language)
+
+```
+olp_xdv/
+├── run_daily.py           07:00 daily pipeline (SCAN→…→notify)
+├── orchestrator.py        18-league scan → one board
+├── config.py              PHASE, capital bright line (assert_paper_only), dotenv loader
+├── agent_cli.py           read-only AI-query surface
+├── league_audit.py        league coverage audit (fit/fixtures/odds/names verdict)
+├── health_monitor.py      hourly health probes
+├── engine/                Dixon-Coles, Elo, consensus, markets, mes, recalibration,
+│                          acca builder, leagues (whitelist, was softness)
+├── data/                  football-data history, TheSportsDB/API-Football fixtures,
+│                          xG (Understat), multi-source failover, competition catalogue
+├── clv/                   clv_logger (ledger + gate eval), closing_capture, phase3_gate
+├── brain/                 SQLite store + plain-language /stats
+├── output/                produce_bet (renders), notify/whatsapp/email, telegram_commands
+├── booking/               sportybet_client, fixtures, bridge, booking_codes (Playwright)
+├── webapp/                server.py (two-tier), schema.py (gate+trim+audit), produce.py,
+│                          render*.py, static/ (Binance-design proto.css), design_reference/
+├── verification/          id403 multi-factor tiers
+├── backtest/              CLV backtest, out-of-sample calibration layer
+├── monitor/               cup_training, data_quality
+├── tests/                 40+ test files (engine, webapp, CLV, stress, quota, …)
+├── docs/                  OLP_XDV_COMPILED_REFERENCE.md, LEAGUE_INTELLIGENCE_DOSSIER.md,
+│                          LEAGUE_DATA_COVERAGE.md, THIS file
+├── RATIFICATIONS.md       append-only rule log (authority after the code)
+├── ARCHITECTURE.md / PROJECT_STATUS.md   overview docs — SEE §1.4 for staleness
+├── CLAUDE.md              two-session working protocol (safe move)
+└── .env                   credentials (ADMIN_*, ODDS_API_KEY, THESPORTSDB_KEY, API_FOOTBALL_KEY,
+                           TELEGRAM_*, WHATSAPP_ENABLED, OLP_REQUIRE_ADMIN_AUTH) — no ARCHITECT_SIGNOFF
+```
+
+---
+
+## 5. WHERE THINGS STAND RIGHT NOW (2026-08-11)
+
+### 5.1 The gate
+
+| Metric | Value | Needed | Verdict |
+|--------|-------|--------|---------|
+| Phase 2 paper legs logged | **15** | — | — |
+| Legs with logged CLV | **12** | **≥ 30** | ❌ NOT met (18 short) |
+| Mean CLV | **−1.631%** | **> 0** | ❌ NOT met (currently losing to the closing line) |
+| `gate_met` | **false** | true | ❌ |
+| `ARCHITECT_SIGNOFF` env | **unset** | `=1` to publish/override | ❌ |
+| Projected days-to-gate (if mean were positive) | 7.2 | — | irrelevant — mean is negative |
+
+**Consequence:** `Approve → Publish to Client` is **blocked** (confirmed — dashboard text matches code). Setting `ARCHITECT_SIGNOFF=1` alone would override the statistical gate (2026-08-10 Architect override) and publish the current board to the client view — with the honest-edge statement still visible ("Phase 2 — paper calibration, 12/30 legs logged. Not yet a demonstrated edge.").
+
+### 5.2 Paper-leg record (all 15)
+
+- **12 settled** with closing line: **3 won / 9 lost** (25% hit rate) — that's why mean CLV is negative.
+- **3 stuck pending** (Danish Superliga, closing line never captured): Sonderjyske v Viborg (1X2_HOME, 1X2_DRAW), Randers FC v Lyngby (UNDER_2_5) — they will **never count** toward the 30 unless a closing line appears.
+- Per-market: 1X2_DRAW −2.367% (5 legs), 1X2_HOME −0.863% (3), UNDER_2_5 −1.288% (4). **Zero Away and zero Over2.5 legs** have been logged since the gate opened.
+- All 15 are Eredivisie / Danish Superliga / Scottish Premiership — no leg from the other 15 whitelisted leagues yet.
+
+### 5.3 Scan vs eligible vs blocked today
+
+- **18 leagues** scanned by the 07:00 run (board 2026-08-11): 16 coverage-READY, **2 BLOCKED (no working history source)** — Conference League + EFL Cup.
+- Board 08-11: **13 fixtures, 4 rated, 4 on deploy shortlist, 0 produced** (no priced fixture today → honest "NO production pick today").
+- Board 08-12 (already generated): **0 fixtures** — nothing rated for tomorrow.
+- **90 data flags** on the 08-11 board — dominated by: **Odds API quota down to 3 (floor 5)** on every league, "all 4 sources exhausted → via SportyBet cache", and **team-name mismatches** between the SportyBet cache and the fitted model (e.g. Bundesliga 10/18, Belgian 7/18, Championship 6/24 unmatched).
+
+### 5.4 The two structural reasons the gate is stuck
+
+1. **Odds API quota is exhausted (3/500, hard floor 5)** — `pipeline/odds.py check_quota()` refuses to pull prices. Without live prices: no EV, no entry odds → **no new paper legs can be logged at all**. The 12/30 count cannot move until the quota resets (monthly) or is upgraded.
+2. **Mean CLV is negative** — even if legs reached 30, `mean_clv > 0` fails. The system must *demonstrate* it beats the closing line, not just log volume. 9 of 12 settled legs currently lose to the closing line.
+
+### 5.5 Open findings / open questions
+
+1. **ID405 scope question** (raised after gate opened): all five markets deployable, but the negative-CLV evidence that once blocked Away/Home/Over2.5 (−2%, −0.6%, −0.7%) was not dismissed — only deferred. Forward observation will decide whether markets re-close. **Today's record is not yet enough to answer it** (no Away/Over2.5 legs logged).
+2. **Calibration-league-scope question** (raised after softness cancellation): calibration evidence was historically Eredivisie/Danish/Scottish-only; the unified pool now deploys across 18 leagues without per-league forward evidence. Cross-league fit (`engine/cross_league.py`) mitigates, but the 15-leg record is 3-league-only.
+3. **Conference League + EFL Cup** are whitelisted but have no working history source → scan to NO DATA; Conference League also has no verified Odds API sport key → can never price even when quota resets.
+4. **3 stale pending legs** — Danish Superliga closing lines never captured; won't count without a close.
+5. **Health monitor errored** (Last Result 2, 2026-08-11 09:35).
+6. **AI Analyst offline** — `ANTHROPIC_API_KEY` not set.
+7. **Docs drift** — see §1.4; `PROJECT_STATUS.md`/`ARCHITECTURE.md` are at least 2 days behind the ratified code.
+8. **Only 2 boards ever published** (2026-08-07, 2026-08-10) — publish has been rare; the client dashboard mostly shows the last published board.
+
+---
+
+*End of master documentation. Generated 2026-08-11 by Claude Code from the working tree at HEAD `f9063b2` (+ uncommitted softness-removal refactor in progress: `engine/softness.py` deleted, `engine/leagues.py` new).*

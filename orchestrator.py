@@ -592,7 +592,7 @@ def scan_one_league(league: str, season: str,
             rejection_reason=(
                 # Unrated: honest NO DATA reason. Every whitelisted league is
                 # deploy-eligible in the unified pool (2026-08-10), so a RATED
-                # fixture is never rejected on a league tier.
+                # fixture is never rejected on league eligibility.
                 _unrated_detail(model, home, away) if probs is None
                 else None
             ),

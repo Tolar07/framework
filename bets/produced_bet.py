@@ -221,16 +221,25 @@ def verify_produced_bet(season: str, brain: Brain,
 # --------------------------------------------------------------------------
 
 def render_produced_bet(record: Optional[dict]) -> str:
-    """'TODAY'S PRODUCED BET' block: the produced legs (pick + model prob +
-    best price/EV when present), or the honest 'no fixtures today' note."""
+    """The day's SCAN RECORD block: one paper leg per RATED fixture kicking off
+    today (pick + model prob + best price/EV when present). This is the ID415
+    paper trail the next day's verification settles — it is NOT a production
+    recommendation, and the header says so (HR53): the actual production pick,
+    if any, lives in the separate PRODUCTION BETS block. Away picks appear here
+    as the model's raw prediction only, never as a recommendation (ID405)."""
     if not record:
-        return "TODAY'S PRODUCED BET\nNo produced-bet record yet."
+        return ("📋 SCAN RECORD — today's rated fixtures (paper, ID415)\n"
+                "No produced-bet record yet.")
     if not record.get("produced"):
-        return ("TODAY'S PRODUCED BET\nNo fixtures today — no bet produced. "
-                "A valid, honest result (ID415).")
-    lines = [f"TODAY'S PRODUCED BET — {record.get('date', '')}",
-             f"{record.get('n_legs', 0)} produced leg(s), today's fixtures "
-             "alone (ID415). MARKED PAPER — Phase 2, zero capital.", ""]
+        return ("📋 SCAN RECORD — today's rated fixtures (paper, ID415)\n"
+                "No rated fixtures today — no bet recorded. A valid, honest "
+                "result (ID415).")
+    lines = [f"📋 SCAN RECORD — today's rated fixtures — {record.get('date', '')} "
+             "(paper, ID415)",
+             f"{record.get('n_legs', 0)} rated fixture(s) today. This is the "
+             "scan's paper record, NOT a recommendation — the production pick "
+             "(if any) is in PRODUCTION BETS below. MARKED PAPER — Phase 2, "
+             "zero capital.", ""]
     for i, leg in enumerate(record.get("legs") or [], 1):
         L = [f"{i}. {leg.get('fixture', '?')} ({leg.get('league', '?')})"]
         L.append(f"   Pick: {leg.get('pick_name', leg.get('pick', '?'))} "
@@ -244,4 +253,8 @@ def render_produced_bet(record: Optional[dict]) -> str:
             mark = "✓" if leg.get("hit") else "✗"
             L.append(f"   Verified: {mark} {leg.get('ft_result', '?')}")
         lines.append("\n".join(L))
+    if any((leg.get("pick") or "").endswith("_AWAY")
+           for leg in record.get("legs") or []):
+        lines.append("Away picks are the model's prediction only — never "
+                     "recommended (ID405).")
     return "\n".join(lines)

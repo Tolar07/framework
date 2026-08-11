@@ -985,9 +985,11 @@ def _produced_bet_block(record: Optional[dict], admin: bool) -> str:
         rows.append(
             f'<div class="graded-row">{verdict}'
             f'<span>{html.escape(label)} — {html.escape(detail)}</span></div>')
-    head = (f'TODAY\'S PRODUCED BET — {date}'
-            if date else 'TODAY\'S PRODUCED BET')
-    tail = ('MARKED PAPER — Phase 2, zero capital.' if admin
+    head = (f'📋 SCAN RECORD — today\'s rated fixtures — {date} (paper, ID415)'
+            if date else '📋 SCAN RECORD — today\'s rated fixtures (paper, ID415)')
+    tail = ('This is the scan\'s paper record, NOT a recommendation — the '
+            'production pick (if any) is in PRODUCTION BETS. MARKED PAPER — '
+            'Phase 2, zero capital.' if admin
             else 'Predictions only — verified WON/LOST next day.')
     return ('<div class="flags" style="padding:6px 16px;">'
             f'<div class="flag-line">{head} — {record.get("n_legs", 0)} leg(s). '

@@ -4,7 +4,7 @@
 
 ---
 
-## ✅ WORKING (as of 2026-08-11)
+## ✅ WORKING (as of 2026-08-12)
 
 | Area | Status | Evidence |
 |------|--------|----------|
@@ -21,8 +21,9 @@
 | **Team-name mapping (OLP ↔ SportyBet)** | Green 2026-08-11 | `booking/team_map.py` — reverse resolver (`resolve_team_to_model`) is EXACT + normalized-exact ONLY, NO fuzzy (HR35). Fixed wrong-club corruption (Millwall→AC Milan, Club Brugge→Cercle, Excelsior→Sparta). 33-check regression suite passes |
 | **CLV logging + CL-LIVE capture** | Active | Paper legs logged, closing lines captured near kickoff |
 | **Health monitor** | Active | 9 probes, 2-hourly Task Scheduler, state-change alerts only; self-heals stale live-season CSVs (NOT odds-fixture caches — re-pulling would spend the quota it protects) |
-| **Two-tier web dashboard** | Green | `/dashboard` (client, trimmed) + `/admin` (authed, full internals); Binance design tokens |
-| **Admin publish gate** | Active | Manual "Approve → Publish to Client" with audit log; `ARCHITECT_SIGNOFF=1` override stamped honestly into `publish_audit.jsonl` |
+| **Web feed (single tier, 2026-08-12)** | Green | **The web IS the Telegram board** (one render, two outlets): `/dashboard/{date}` → raw `board_<date>.json` → `build_feed_payload()` → feed page. **Admin tier PAUSED** — `/admin*`, `/stats`, `/why`, `/api/admin/*`, `/api/trigger-board` removed → 404. Auto-feed = auto-publish (no publish step). Binance design tokens |
+| **Feed audit (never silent)** | Green | `run_daily.py` writes `output/boards/telegram_<date>.txt` (byte-faithful feed body) + stamps `feed_audit.jsonl` (gate/override numbers) after writing the board |
+| **Booking-codes erasure bug** | **FIXED 2026-08-12** | A booking-skip run no longer unlinks `acca_<date>_codes.json` (the M5LMFE capture destroyed by a MANUAL regen on 2026-08-11); the file is date-scoped and retained |
 | **Telegram push** | Green | Daily board delivered at 07:00 via notify.py; 2026-08-11 run delivered |
 | **Email copy channel** | Green | SMTP delivery, best-effort, never fails run (disabled in `.env` by default) |
 | **Brain (SQLite persistence)** | Green | Model caching, prediction log, `/stats` queries |
@@ -63,6 +64,8 @@
 
 **Sprint 2026-08-11 ✅ COMPLETE** — multi-key Odds API (paid primary + free backups), `ARCHITECT_SIGNOFF=1` + board published to client dashboard (live side-by-side with paper until CLV positive), SportyBet team-map reverse resolver (no-fuzzy, HR35) + 33-check regression suite, health monitor verified (exit code 2 is by design; env + Telegram-delivery issues GONE; quota reported honestly), **multi-market EDGE selection + ID405 scope override + paid-key primary** (go-live, RATIFICATIONS §1781). See `docs/OLP_XDV_MASTER_DOCUMENTATION_2026-08-11.md`.
 
+**Sprint 2026-08-12 ✅ COMPLETE — single-tier feed web, admin paused** — the web IS the Telegram board (one render, two outlets, parity test pins every Telegram line on the page); admin tier hard-paused (`/admin*`, `/stats`, `/why`, `/api/admin/*`, `/api/trigger-board` → 404); auto-feed = auto-publish (`telegram_<date>.txt` byte-faithful feed + `feed_audit.jsonl` gate stamp); **booking-codes erasure bug fixed** (date-scoped codes file retained, never unlinked). All 10 web suites green.
+
 Next up (in priority order):
 
 1. **Monitor quota reset / paste backup key** — the live blocker. Once quota returns, run_daily refreshes the stale odds-fixture caches and price pulls resume.
@@ -71,4 +74,4 @@ Next up (in priority order):
 
 ---
 
-*Last updated: 2026-08-11 — this file is the single status reference. Do not reconstruct from chat history. If it disagrees with the code, trust the code + RATIFICATIONS.md and fix this file.*
+*Last updated: 2026-08-12 — this file is the single status reference. Do not reconstruct from chat history. If it disagrees with the code, trust the code + RATIFICATIONS.md and fix this file.*

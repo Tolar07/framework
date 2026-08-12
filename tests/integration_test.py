@@ -5,9 +5,9 @@ tiny, deterministic synthetic fixture set so we can assert end-to-end behavior
 without network I/O or the real football-data CSVs. It validates:
 
 1. Data ingestion → model fitting → board generation → CLV logging
-2. The approve→publish gate (Architect sign-off env) works
+2. The client-publish gate arithmetic (Architect sign-off env) works
 3. Telegram command layer loads and routes /board /legs /clv /status /produce
-4. Web dashboard routes serve the correct payloads (trimmed vs full)
+4. The feed layer (raw board → schema.read_feed) is lean + honest gate numbers
 5. JSONL access log + /metrics exposition both emit lines
 
 It does NOT send Telegram messages, start HTTP servers, or touch the real
@@ -36,7 +36,7 @@ os.environ.update({
 })
 
 # --- minimal synthetic board that passes the produce gate --------------------
-from webapp.schema import build_payload, write_payload, write_published
+from webapp.schema import build_payload, write_payload
 from engine.dixon_coles import FixtureProbabilities
 from output.produce_bet import BoardFixture
 from verification.id403 import verify, SourcedDatum
@@ -89,48 +89,45 @@ raw_payload = build_payload(
     gate={"legs_with_clv": 35, "gate_requirement": 30, "mean_clv_pct": 1.2},
     telemetry={}, calibration_count=0, mean_clv=1.2)
 
-# Override schema dirs to the temp tree
+# Override the board store to the temp tree (auto-feed = auto-publish — there
+# is no published store any more; the raw board IS the source of truth).
 import webapp.schema as S
 S.BOARD_DIR = _tmp / "boards"
-S.PUBLISHED_DIR = _tmp / "published"
-S.AUDIT_LOG = S.PUBLISHED_DIR / "publish_audit.jsonl"
 S.BOARD_DIR.mkdir(parents=True, exist_ok=True)
-S.PUBLISHED_DIR.mkdir(parents=True, exist_ok=True)
 
 write_payload(raw_payload, S.BOARD_DIR / f"board_{today}.json")
-# Publish so the public dashboard sees it
-write_published(raw_payload, approved_by="architect")
-print("1. Synthetic board built, written, and published: OK")
+print("1. Synthetic board built + written (no publish step): OK")
 
 # 2. PATCH brain DB path + run orchestrator's next_season_code fallback path
 import brain.store as BS
 BS.DEFAULT_BRAIN_PATH = _tmp / "olp.db"
 print("2. Brain DB redirected to temp: OK")
 
-# 3. VERIFY web dashboard routes (no HTTP server — just the handlers).
-# The server's Handler methods read via webapp.schema (read_payload /
-# read_published); we call those same functions directly, with the dirs
-# already redirected to the temp tree above.
+# 3. VERIFY the web feed layer (no HTTP server — just the handlers).
+# The server reads via webapp.schema (read_payload / read_feed); we call those
+# same functions directly, with BOARD_DIR already redirected to the temp tree.
 payload = S.read_payload(_tmp / "boards" / f"board_{today}.json")
 assert payload is not None and payload["date"] == today
 assert len(payload["board"]) == 3
 assert payload["board"][0]["fixture"].startswith("Arsenal")
-# Admin payload carries internals
+# The raw board carries internals — the feed builder trims them at the boundary.
 for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev"):
-    assert needle in payload["board"][0], f"admin payload missing {needle}"
-print("3a. read_payload (admin view) returns full internals: OK")
+    assert needle in payload["board"][0], f"raw board missing {needle}"
+print("3a. read_payload (raw board) carries full internals: OK")
 
-pub = S.read_published(today)
-assert pub is not None and pub["date"] == today
-# All three fixtures survive the client trim; the unrated one is kept and
+# read_feed = the ONE payload both Telegram and the web page render from
+# (build_feed_payload over the raw board) — no publish step, no internals.
+feed = S.read_feed(today)
+assert feed is not None and feed["date"] == today
+# All three fixtures survive the feed trim; the unrated one is kept and
 # honestly marked NO DATA (HR35) rather than dropped.
-assert len(pub["board"]) == 3
+assert len(feed["board"]) == 3
 for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev"):
-    assert needle not in pub["board"][0], f"public payload leaks {needle}"
-unrated = pub["board"][2]
+    assert needle not in feed["board"][0], f"feed payload leaks {needle}"
+unrated = feed["board"][2]
 assert unrated["probs"] is None
 assert "NO DATA" in unrated.get("rejection_reason", "")
-print("3b. read_published (client view) is trimmed + NO DATA honest: OK")
+print("3b. read_feed (shared by page + Telegram) is lean + NO DATA honest: OK")
 
 # 4. TELEGRAM command layer — exercise routing + the bright-line gate without
 #    network. send_telegram is patched (no network); BOARD_DIR is redirected to

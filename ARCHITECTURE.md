@@ -1,6 +1,6 @@
 # OLP XDV — Current Architecture Summary
 
-**Generated**: 2026-08-07 (updated 2026-08-11 — multi-key Odds API, publish override live, team-map reverse resolver, softness removed, 18-league unified pool)
+**Generated**: 2026-08-07 (updated 2026-08-12 — single-tier feed web, admin tier paused, codes-erasure bug fixed, feed audit)
 **Purpose**: Single source of truth for every moving part, credential, scheduled job, and third-party dependency. Drift like "auto/best-free" routing is caught here, not by accident.
 
 ---
@@ -20,7 +20,7 @@
 | **SportyBet Booking** | `booking/booking_codes.py` | Playwright booking-code generator — reads `acca_<date>.json`, drives the SPA, captures BOOKING CODES; codes pre-fill the slip, NEVER stake (Phase-2 safe); per-leg BOOKED/MANUAL | Python 3.12 + Playwright |
 | **Team-name mapping** | `booking/team_map.py` | OLP XDV ↔ SportyBet names. Forward (`resolve_team`, fuzzy ok) + REVERSE (`resolve_team_to_model`, EXACT + normalized-exact ONLY, no fuzzy — HR35). Reverse table built first-wins from `SPORTYBET_TEAMS` | Python 3.12 |
 | **Telegram Poller** | `output/telegram_commands.py` | Long-polling daemon: `/send`, `/produce`, `/verify`, `/stats`, `/board`, `/why` | Python 3.12, stdlib |
-| **Web Dashboard** | `webapp/` | Two-tier: `/dashboard` (public, trimmed) + `/admin` (authed, full) | Python 3.12, stdlib HTTP server |
+| **Web Dashboard** | `webapp/` | **Single tier (2026-08-12)** — the web IS the Telegram board (one render, two outlets): `/dashboard/{date}` → raw `board_<date>.json` → `build_feed_payload()` → feed page. Admin tier PAUSED (all `/admin*`, `/stats`, `/why`, `/api/admin/*`, `/api/trigger-board` removed → 404). Auto-feed = auto-publish | Python 3.12, stdlib HTTP server |
 
 ---
 
@@ -47,7 +47,7 @@
 | `TELEGRAM_BOT_TOKEN` | @BotFather | Bot API + poller | **SET** |
 | `TELEGRAM_CHAT_ID` | getUpdates | Delivery target | **SET** |
 | `API_FOOTBALL_KEY` | api-football.com | Odds fallback for the 5 deploy leagues (100 req/day) | **SET** |
-| `ADMIN_USER` / `ADMIN_PASS` | Local | `/admin` Basic auth | **SET** |
+| `ADMIN_USER` / `ADMIN_PASS` | Local | `/admin` Basic auth — **admin tier PAUSED 2026-08-12 (routes removed → 404); credential retained** | **SET** |
 | `ARCHITECT_SIGNOFF` | Local | Architect override of the statistical client-publish gate (2026-08-11 — live side-by-side with paper until mean CLV positive; override never silent, stamped in audit log) | **SET = 1** |
 | `WHATSAPP_*` | Meta Cloud API | **RETIRED** (commented out) | **DISABLED** |
 | `EMAIL_*` | Gmail SMTP | **OPTIONAL** (commented out) | **DISABLED** |
@@ -113,9 +113,13 @@ run_daily.bat
        ├─ log_paper_legs() → clv/clv_log.json (Phase 2 gate)
        ├─ capture_closing_lines() (CL-LIVE, reuses odds_index)
        ├─ produce_bet / THE CALL (today only) + accas (production intent) + booking codes
+       │    (acca_<date>_codes.json is date-scoped and NEVER unlinked — the 2026-08-11
+       │     erasure bug is fixed: a booking-skip run retains the prior capture)
        ├─ render_telegram_board() + render_produce_bet()
-       ├─ write board_<date>.txt + board_<date>.json
-       ├─ notify.deliver() → Telegram (fails run if incomplete)
+       ├─ feed_text = telegram board + full-board URL (when set)
+       ├─ write output/boards/telegram_<date>.txt (byte-faithful feed — the SAME body delivered)
+       ├─ write board_<date>.json (raw, unchanged) + stamp feed_audit.jsonl (gate numbers, never silent)
+       ├─ notify.deliver(push_text=feed_text) → Telegram (fails run if incomplete)
        ├─ whatsapp_deliver.deliver() (copy channel, disabled)
        ├─ email_deliver.deliver() (copy channel, never fails run)
        └─ Brain.update_run(status="ok")
@@ -123,28 +127,41 @@ run_daily.bat
 
 ---
 
-## 8. Web Dashboard Architecture
+## 8. Web Dashboard Architecture — Single Tier (2026-08-12)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  webapp/server.py (ThreadingHTTPServer, 0.0.0.0:8088)      │
 ├─────────────────────────────────────────────────────────────┤
-│  /dashboard/{date}     → schema.read_published()            │
-│  /api/board.json       → schema.read_published()            │
-│  /history              → public, no internals               │
+│  /dashboard/{date}     → raw board_<date>.json             │
+│                         → schema.build_feed_payload()       │
+│                         → render_v2.render_dashboard()      │
+│                           (the feed page = the Telegram     │
+│                            board; booking codes attached)   │
+│  /api/board.json       → build_feed_payload() (lean feed)   │
+│  /api/board/{date}     → build_feed_payload()               │
+│  /api/analyst          → scoped to the feed payload only    │
+│  /history /metrics /health /static /api/live-scores → keep  │
 ├─────────────────────────────────────────────────────────────┤
-│  /admin/{date}         → schema.read_payload() + Basic Auth │
-│  /stats, /why          → Brain, auth required               │
-│  /api/admin/board.json → full payload, auth required        │
-│  POST /api/admin/publish → schema.write_published()         │
-│                          → check_client_publish_gate()      │
-│                          (Architect override honored +       │
-│                           stamped into audit log)           │
-│                          → trim_payload() + audit log       │
+│  /admin* /stats /why /api/admin/* /api/trigger-board        │
+│  → REMOVED 2026-08-12 (404) — admin tier paused             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**Data-leak boundary**: `trim_payload()` strips ALL model internals (Elo, xG, consensus, verification, EV, gate, flags, prices) — client only receives market probabilities + picks. The honest-edge statement (mean CLV negative, override active) stays on the client view.
+**Auto-feed = auto-publish**: there is no publish step. `run_daily.py` writes
+`output/boards/board_<date>.json` (raw) and `telegram_<date>.txt` (the feed
+body); the web reads the raw board directly and renders the same Telegram
+content. The publish gate arithmetic still lives in `schema.check_client_publish_gate()`
+(protected constant — the single source of truth), but no web route invokes it;
+the gate/override numbers are shown honestly on the page via `gate_state` and
+stamped to `feed_audit.jsonl` by the daily run (never silent).
+
+**Data-leak boundary**: `build_feed_payload()` starts from `trim_payload()` and
+adds back ONLY the honest gate/edge fields the Telegram board already carries
+(`data_flags`, `calibration_count`, `mean_clv`, `gate_state`, `yesterday_graded`,
+`rolling_7d`, client-safe accas). No Elo/xG/consensus/EV/verification internals
+reach the page. The honest-edge statement and the `ARCHITECT_SIGNOFF` override
+stay on the page, never removed.
 
 ---
 
@@ -173,6 +190,19 @@ run_daily.bat
 | `output/boards/published/board_2026-08-11.json` | Published client board (18 leagues, 13 fixtures, 4 rated) |
 | `output/boards/published/publish_audit.jsonl` | Audit entry #3: override + gate numbers stamped |
 
+### Files Changed This Session (2026-08-12 — single-tier web, admin paused)
+
+| File | Purpose |
+|------|---------|
+| `webapp/schema.py` | **ADDITIVE ONLY** — `list_board_dates()`, `build_feed_payload()` (trim + honest gate/edge fields, never mutates source), `read_feed()`, `stamp_feed_audit()`. Protected constants untouched |
+| `run_daily.py` | `feed_text` built once → persisted `output/boards/telegram_<date>.txt` + reused as `push_text` (byte-faithful body); `feed_audit.jsonl` stamped after write; **codes-erasure bug fixed** (no-booking run no longer unlinks `acca_<date>_codes.json`) |
+| `webapp/render_v2.py` | Single feed page: `_feed_hero`, `_feed_gate_callout`, `_feed_production_block` (Acca A hero → splits → singles, byte-faithful ` — ` separators), `_feed_scan_cards`, `_feed_yesterday`, `_feed_rolling`, `_feed_honest_edge`. Admin/pending renderers removed |
+| `webapp/server.py` | Admin tier removed (`/admin*`, `/stats`, `/why`, `/api/admin/*`, `/api/trigger-board` → 404); `/dashboard/{date}` + `/api/board.json` → `build_feed_payload()`; `/api/analyst` scoped to the feed |
+| `webapp/export.py` + `webapp/render.py` | Export reads `read_feed`/`list_board_dates` (no publish step); dead admin renderers removed from render.py (history/404 kept) |
+| `webapp/static/css/proto.css` + `js/proto.js` | Feed styles (`.f-hero`, `.f-gate`, `.f-code-pill`, `.f-prod-acca.hero`…) on Binance tokens; admin JS bindings removed |
+| `tests/webapp_feed_parity_test.py` | **NEW** — one `ProductionBets` → both outlets; every Telegram line is a substring of the page text |
+| `tests/webapp_server_test.py`, `webapp_export_test.py`, `webapp_render_test.py`, `webapp_render_v2_test.py`, `integration_test.py`, `webapp_schema_test.py`, `webapp_run_daily_test.py` | Rewritten for the single-tier feed design |
+
 ---
 
 ## 11. Verification Commands
@@ -186,6 +216,18 @@ git log --oneline -5
 PYTHONIOENCODING=utf-8 py -3.12 tests/team_map_reverse_test.py
 PYTHONIOENCODING=utf-8 py -3.12 tests/booking_codes_test.py
 PYTHONIOENCODING=utf-8 py -3.12 tests/webapp_schema_test.py
+
+# Web feed (single tier) — all ten suites
+PYTHONIOENCODING=utf-8 py -3.12 tests/webapp_schema_test.py
+PYTHONIOENCODING=utf-8 py -3.12 tests/webapp_run_daily_test.py
+PYTHONIOENCODING=utf-8 py -3.12 tests/webapp_render_v2_test.py
+PYTHONIOENCODING=utf-8 py -3.12 tests/webapp_feed_parity_test.py
+PYTHONIOENCODING=utf-8 py -3.12 tests/webapp_server_test.py
+PYTHONIOENCODING=utf-8 py -3.12 tests/webapp_export_test.py
+PYTHONIOENCODING=utf-8 py -3.12 tests/webapp_render_test.py
+PYTHONIOENCODING=utf-8 py -3.12 tests/integration_test.py
+PYTHONIOENCODING=utf-8 py -3.12 tests/booking_codes_test.py
+PYTHONIOENCODING=utf-8 py -3.12 tests/engine_regression_test.py
 PYTHONIOENCODING=utf-8 py -3.12 tests/dead_mans_switch_test.py
 PYTHONIOENCODING=utf-8 py -3.12 tests/run_watchdog_test.py
 PYTHONIOENCODING=utf-8 py -3.12 tests/multi_source_test.py

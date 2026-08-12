@@ -42,6 +42,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from data.multi_source import SourceNoData
 from data import fixtures_source
+from data import api_football_plan
 from data import retry as retry_module
 from pipeline.odds import MarketQuote, FixtureOdds, map_team
 from engine.leagues import WHITELISTED_LEAGUES
@@ -459,12 +460,15 @@ def fetch_odds(league: str, days_ahead: int = 3,
 
     out: list[FixtureOdds] = []
     today = date.today()
-    # Free plan serves only today-1 .. today+1 (verified live 2026-08-08). A
-    # day outside the window would be refused by the API — skip it before the
-    # request, so a doomed pull never wastes a burst slot.
+    # PLAN-GATED window (Architect 2026-08-12): the free plan serves only
+    # today-1 .. today+1 (verified live 2026-08-08), so a day outside the
+    # window is skipped BEFORE the request — a doomed pull never wastes a burst
+    # slot. A paid key widens the window to the full requested range; the
+    # request itself still carries the same quota/burst discipline.
+    paid = api_football_plan.is_paid_plan()
     for offset in range(days_ahead + 1):
         day = today + timedelta(days=offset)
-        if day > today + timedelta(days=1):
+        if day > today + timedelta(days=1) and not paid:
             flags.append(f"{league}: api-football free plan serves only "
                          f"today±1 — {day.isoformat()} skipped")
             continue

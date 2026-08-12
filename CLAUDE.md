@@ -102,6 +102,11 @@ ratified in `RATIFICATIONS.md` (append-only). The honest-edge statement and the
 capital block (Phase 2 = paper only, zero capital) are Architect bright lines —
 never bypassed.
 
+**Daemon inventory (Task Scheduler + resident):** see `olp-xdv-agent` memory note
+for the full list — Daily Board (07:00), Health Monitor (2h), Run Watchdog (post-07:00),
+Dead Man's Switch (nightly), **Data Steward (06:00 + 15:00)**, Telegram poller (resident),
+Web dashboard (resident), Cup training monitor (ad-hoc), Continental outcome monitor (ad-hoc).
+
 ## everything-claude-code integration
 
 This repo uses the **everything-claude-code** plugin (installed at `.claude/` from

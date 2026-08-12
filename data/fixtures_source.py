@@ -33,6 +33,7 @@ except ImportError:
     requests = None
 
 from data.retry import get_protected
+from data import api_football_plan
 
 API_BASE = "https://v3.football.api-sports.io"
 
@@ -206,7 +207,14 @@ def fetch_upcoming(league: str, season: int, days_ahead: int = 14) -> list[Upcom
     cached_items, cached_error = _read_cache(league, season, days_ahead)
     if cached_items is not None:
         return _parse_items(league, cached_items)
-    if cached_error is not None:
+    # PLAN-GATED (Architect 2026-08-12): a cached plan-restriction error was
+    # recorded when the key was FREE. On a PAID key that restriction no longer
+    # applies — serving the stale error would hide the paid upgrade for up to
+    # 7 days. A paid key ignores cached plan errors and re-fetches. Non-plan
+    # errors are served as before (they are real failures, not plan gates).
+    if cached_error is not None and not (
+            api_football_plan.is_paid_plan()
+            and "plan" in str(cached_error).lower()):
         raise RuntimeError(cached_error)
 
     key = _get_key()
@@ -232,8 +240,11 @@ def fetch_upcoming(league: str, season: int, days_ahead: int = 14) -> list[Upcom
         err = f"API-Football returned errors: {payload['errors']}"
         # A plan restriction is deterministic for the season — cache the FAILURE
         # so it is paid once a week, not every run. Transient errors are not
-        # cached (a retry may legitimately succeed).
-        if "plan" in str(payload["errors"]).lower():
+        # cached (a retry may legitimately succeed). On a PAID key a "plan"
+        # error is anomalous, never a deterministic gate — do NOT cache it,
+        # or the next run would serve a week-old error that hides the upgrade.
+        if "plan" in str(payload["errors"]).lower() \
+                and not api_football_plan.is_paid_plan():
             _write_error_cache(league, season, days_ahead, err)
         raise RuntimeError(err)
 

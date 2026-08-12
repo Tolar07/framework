@@ -38,6 +38,11 @@ class BoardFixture:
     on_deploy_shortlist: bool = False
     mes_trigger_price: Optional[float] = None
     rejection_reason: Optional[str] = None
+    # Provenance of this fixture's probability: None = primary fitted DC fit,
+    # "carry" = prior-season carry-over fit, "clubelo" = ClubElo stretch (a
+    # real keyless current-season rating — bookable per Architect 2026-08-12,
+    # but labeled so it is never mistaken for a fitted rating).
+    rating_source: Optional[str] = None
     # Live market side (populated when an odds source is wired in). HR30 wants
     # a NUMERICAL Market Edge Score on every capital-relevant pick; without a
     # real price the best the board could do was a breakeven trigger and an
@@ -224,15 +229,27 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
         return "\n".join(L)
 
     p = bf.probs
+    # A STRETCH 1X2-only rating (ClubElo fallback) has no goals opinion — its
+    # goals markets stay honestly unpriced (None, HR35), never guessed.
+    if bf.rating_source == "clubelo":
+        L.append(f"   Rating source: ClubElo stretch (keyless current-season Elo)"
+                 f" — bookable, labeled")
+    elif bf.rating_source == "carry":
+        L.append(f"   Rating source: previous-season carry-over fit "
+                 f"(promoted clubs)")
     L.append(f"   Match result (model probabilities):")
     L.append(f"      {p.home_team} to win .......... {round(p.p_home*100)}%")
     L.append(f"      Draw ......................... {round(p.p_draw*100)}%")
     L.append(f"      {p.away_team} to win .......... {round(p.p_away*100)}%")
-    L.append(f"   Goals: {_side_words(p, 1.5, p.p_over_15)}"
-             f" | {_side_words(p, 2.5, p.p_over_25)}")
-    btts = ("Both teams to score YES" if p.p_btts_yes >= 0.5 else "Both teams to score NO")
-    btts_p = p.p_btts_yes if p.p_btts_yes >= 0.5 else 1 - p.p_btts_yes
-    L.append(f"   {btts} {round(btts_p*100)}% (model)")
+    if p.p_over_15 is not None:
+        L.append(f"   Goals: {_side_words(p, 1.5, p.p_over_15)}"
+                 f" | {_side_words(p, 2.5, p.p_over_25)}")
+    else:
+        L.append(f"   Goals: NO DATA — stretch 1X2 rating has no goals opinion")
+    if p.p_btts_yes is not None:
+        btts = ("Both teams to score YES" if p.p_btts_yes >= 0.5 else "Both teams to score NO")
+        btts_p = p.p_btts_yes if p.p_btts_yes >= 0.5 else 1 - p.p_btts_yes
+        L.append(f"   {btts} {round(btts_p*100)}% (model)")
     L.append(f"   Expected goals (model): {p.home_team} {p.lambda_home}, "
              f"{p.away_team} {p.lambda_away}")
 
@@ -424,6 +441,10 @@ def _dc_cell(p: FixtureProbabilities) -> str:
         ("12", p.p_home + p.p_away),
     ]
     label, prob = max(dc_options, key=lambda t: t[1])
+    # A STRETCH 1X2-only rating has no BTTS opinion (None, HR35) — the cell
+    # reports DC with a missing BTTS half rather than crashing.
+    if p.p_btts_yes is None:
+        return f"{label}{round(prob*100)} / —"
     btts_label, btts_prob = (("Y", p.p_btts_yes) if p.p_btts_yes >= 0.5
                               else ("N", 1 - p.p_btts_yes))
     return f"{label}{round(prob*100)} / {btts_label}{round(btts_prob*100)}"

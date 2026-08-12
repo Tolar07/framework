@@ -62,8 +62,12 @@ def _confidence(c) -> float:
     if probs is None:
         return -1.0
     # p_home / p_draw / p_away / 1-p_over_25 are the model's probabilities for
-    # the deployable markets.
-    return float(max(probs.p_home, probs.p_draw, probs.p_away, 1.0 - probs.p_over_25))
+    # the deployable markets. A STRETCH 1X2-only rating (ClubElo fallback) has
+    # no goals opinion — its p_over_25 is None, so the goals market is skipped
+    # rather than crashing (HR35).
+    over25 = probs.p_over_25
+    return float(max(probs.p_home, probs.p_draw, probs.p_away,
+                     1.0 - over25 if over25 is not None else 0.0))
 
 
 def call_key(c) -> tuple:

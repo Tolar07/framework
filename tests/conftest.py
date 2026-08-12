@@ -25,4 +25,11 @@ collect_ignore = [
     "stress2_test.py",
     "sandbox_live_test.py",
     "integration_test.py",
+    "sportybet_continental_test.py",  # reads live SportyBet cache for a
+                                       # date-specific continental slate;
+                                       # hard-crashes when the market's day
+                                       # rolls over (section 4 asserts the
+                                       # 2026-08-11 qualifier fixtures are
+                                       # priced; they move off the page next
+                                       # day). Standalone runnable.
 ]

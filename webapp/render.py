@@ -445,6 +445,23 @@ def _src_dot(bf: dict) -> str:
     return '<span class="src-dot n">—</span>'
 
 
+def _provenance_tag(bf: dict) -> str:
+    """Provenance tag for a NON-fitted rating (bookable, labeled per Architect
+    2026-08-12): a stretch or carry rating is a real rating, but it must never
+    be mistaken for a primary-window fitted one. Renders empty for a fitted
+    fixture — only ratings that need labeling carry the tag."""
+    rs = bf.get("rating_source")
+    if rs == "clubelo":
+        return ('<span class="prov-tag stretch" title="Rated on the keyless '
+                'ClubElo current-season snapshot — not a fitted model">'
+                'ClubElo</span>')
+    if rs == "carry":
+        return ('<span class="prov-tag carry" title="Rated on the previous-'
+                'season carry-over fit (promoted club) — not a primary fit">'
+                'Carry</span>')
+    return ""
+
+
 def _internals(bf: dict) -> str:
     """Model Internals — ADMIN ONLY. Never rendered by the client view."""
     home, away, _ = _teams(bf)
@@ -519,6 +536,7 @@ def _call_card(bf: dict, admin: bool = False) -> str:
     # Star/favorite toggle — check if fixture is favorited
     fixture_key = bf.get("fixture", "")
     is_fav = bf.get("favorited", False)
+    prov = _provenance_tag(bf)
 
     # Fixture card header (shared by client + admin)
     card_head = f"""<div class="fixture-card">
@@ -532,6 +550,7 @@ def _call_card(bf: dict, admin: bool = False) -> str:
   <div class="meta">
     <span class="kickoff">{kickoff_display}</span>
     <span class="league-tag">{league_badged}</span>
+    {prov}
     <span class="star{' active' if is_fav else ''}" data-fav="{html.escape(fixture_key)}"
       role="button" tabindex="0" aria-label="Toggle favorite"
       aria-pressed="{'true' if is_fav else 'false'}">★</span>
@@ -736,7 +755,9 @@ def _scan_table(board: list[dict], admin: bool = False, payload_date: str = "") 
             is_acc = bf.get("on_deploy_shortlist")
             acc_pill = ('<span class="acc-pill"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 9.4l6.1-.9z"/></svg>Acca</span>'
                         if is_acc else "")
-            fixture_td = (f'<span class="scan-fixture">{home_badged} v {away_badged}{acc_pill}</span>'
+            prov = _provenance_tag(bf)
+            fixture_td = (f'<span class="scan-fixture">{home_badged} v {away_badged}'
+                          f'{acc_pill}{prov}</span>'
                           f'<span class="scan-league">{league_badged}</span>')
             src_td = f'<td>{_src_dot(bf)}</td>' if admin else ""
             status = "deploy" if is_acc else ("no-data" if p is None else "scan-only")

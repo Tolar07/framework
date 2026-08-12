@@ -63,6 +63,18 @@ _CSP = ("default-src 'self'; script-src 'self'; "
         "object-src 'none'; frame-ancestors 'none'; base-uri 'self'; "
         "form-action 'self'")
 
+# Hardening headers sent on every response alongside the CSP. HSTS is only
+# meaningful behind TLS (Caddy); when the server is hit directly over HTTP it
+# is inert. X-Content-Type-Options stops MIME sniffing; X-Frame-Options +
+# frame-ancestors 'none' in the CSP make the dashboard un-embeddable (anti
+# clickjacking); Referrer-Policy strips the path/query on outbound links.
+_HARDEN_HEADERS = {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+}
+
 # Content types for the /static route (stdlib-only, no mimetypes guess needed
 # beyond the few assets we actually ship).
 _CTYPES = {
@@ -132,23 +144,61 @@ def _board_dates() -> list[str]:
 # (tests point it at a tmp file so real logs/web.jsonl stays clean).
 _ACCESS_LOGGER = None
 
-# Simple in-memory rate limiter (stdlib only) for paid-API endpoints
+# Simple in-memory rate limiters (stdlib only).
+#
+# Two tiers:
+#   - _API_LIMIT       — covers every /api/* endpoint (global abuse shield)
+#   - _ANALYST_LIMIT   — stricter sub-limit for /api/analyst (paid Anthropic)
+#
+# Both are per-IP, sliding-window counters. Stdlib only — no Flask, no Redis.
+# In a two-server deployment (Caddy + Python), the real client IP is read from
+# the X-Forwarded-For header Caddy sets; without it we fall back to the socket
+# address (the Caddy proxy itself, which collapses everyone to one "IP" —
+# acceptable for a single-user/LAN deployment but not for production scale).
+_API_LIMIT: dict[str, tuple[float, int]] = {}
 _ANALYST_LIMIT: dict[str, tuple[float, int]] = {}
-_LIMIT_WINDOW = 60  # seconds
-_LIMIT_MAX = 10     # requests per window
+_API_WINDOW = 60        # seconds
+_API_MAX = 60           # 60 req/min per IP across all /api/* endpoints
+_ANALYST_WINDOW = 60    # seconds
+_ANALYST_MAX = 10       # 10 req/min per IP for the paid /api/analyst
+
+
+def _check_limit(store: dict, ip: str, window: int, limit: int) -> bool:
+    """Sliding-window counter: up to `limit` requests per `window` seconds."""
+    now = time.time()
+    win_start, count = store.get(ip, (now, 0))
+    if now - win_start > window:
+        store[ip] = (now, 1)
+        return True
+    if count >= limit:
+        return False
+    store[ip] = (win_start, count + 1)
+    return True
 
 
 def _check_rate_limit(ip: str) -> bool:
-    """Token-bucket style: up to _LIMIT_MAX requests per _LIMIT_WINDOW seconds."""
-    now = time.time()
-    win_start, count = _ANALYST_LIMIT.get(ip, (now, 0))
-    if now - win_start > _LIMIT_WINDOW:
-        _ANALYST_LIMIT[ip] = (now, 1)
-        return True
-    if count >= _LIMIT_MAX:
-        return False
-    _ANALYST_LIMIT[ip] = (win_start, count + 1)
-    return True
+    """Legacy entry point — the /api/analyst sub-limit (kept for the existing
+    call site and tests). New code should call _check_api_limit for the global
+    gate, then _check_limit(_ANALYST_LIMIT, ...) for the analyst sub-limit."""
+    return _check_limit(_ANALYST_LIMIT, ip, _ANALYST_WINDOW, _ANALYST_MAX)
+
+
+def _check_api_limit(ip: str) -> bool:
+    """Global /api/* rate gate — 60 req/min per IP."""
+    return _check_limit(_API_LIMIT, ip, _API_WINDOW, _API_MAX)
+
+
+def _resolve_client_ip(handler: BaseHTTPRequestHandler) -> str:
+    """Best-effort real client IP. Reads X-Forwarded-For (set by Caddy) when
+    present and OLP_TRUST_PROXY is 1; otherwise falls back to the socket peer
+    address. OLP_TRUST_PROXY defaults OFF so a direct (un-proxied) server
+    never trusts a client-supplied header."""
+    if os.environ.get("OLP_TRUST_PROXY") == "1":
+        xff = handler.headers.get("X-Forwarded-For", "")
+        if xff:
+            # First IP in the list is the original client
+            return xff.split(",")[0].strip()
+    return handler.client_address[0] if handler.client_address else "unknown"
 
 
 def _access_log():
@@ -193,6 +243,9 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")
         # Strict CSP on every response (see _CSP above).
         self.send_header("Content-Security-Policy", _CSP)
+        # Hardening headers: nosniff, anti-clickjacking, referrer strip, HSTS.
+        for k, v in _HARDEN_HEADERS.items():
+            self.send_header(k, v)
         for k, v in (extra_headers or {}).items():
             self.send_header(k, v)
         self.end_headers()
@@ -244,6 +297,17 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
         today = date.today().isoformat()
+
+        # Global /api/* rate gate — protects every JSON endpoint from abuse
+        # (the /api/analyst sub-limit still applies on top of this). 429 is
+        # returned as plain text so a fetcher can tell it apart from a real
+        # response; the browser pages never hit /api/* on initial load.
+        if path.startswith("/api/"):
+            ip = _resolve_client_ip(self)
+            if not _check_api_limit(ip):
+                return self._send(429,
+                    b"rate limited: max 60 api requests per minute per ip",
+                    "text/plain; charset=utf-8")
 
         try:
             from webapp import render as R
@@ -335,6 +399,14 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
 
+        # Global /api/* rate gate (same as do_GET — applies before any route).
+        if path.startswith("/api/"):
+            ip = _resolve_client_ip(self)
+            if not _check_api_limit(ip):
+                return self._send(429,
+                    b"rate limited: max 60 api requests per minute per ip",
+                    "text/plain; charset=utf-8")
+
         # Live scores endpoint — returns {fixture_key: score} for today's matches
         if path == "/api/live-scores":
             try:
@@ -356,8 +428,11 @@ class Handler(BaseHTTPRequestHandler):
         # payload (build_feed_payload): the browser-facing model gets exactly
         # what the page shows, never a model internal (elo/xg/consensus/EV).
         if path == "/api/analyst":
-            # Rate limit: max 10 req/min per IP (paid Anthropic API)
-            if not _check_rate_limit(self.client_address[0]):
+            # Rate limit: max 10 req/min per IP (paid Anthropic API). Uses the
+            # resolved client IP (X-Forwarded-For when behind Caddy, socket
+            # address otherwise) so the sub-limit tracks the real caller.
+            ip = _resolve_client_ip(self)
+            if not _check_rate_limit(ip):
                 self._send(429, b"rate limited: max 10 requests per minute",
                            "text/plain; charset=utf-8")
                 return

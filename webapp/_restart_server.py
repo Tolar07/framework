@@ -69,14 +69,14 @@ try:
     url = f"http://127.0.0.1:8088/dashboard/{time.strftime('%Y-%m-%d')}"
     resp = urllib.request.urlopen(url, timeout=5)
     body = resp.read(600).decode("utf-8", errors="replace")
-    has_verge = "#131313" in body.lower()
-    has_binance = "#0b0e11" in body.lower()
+    has_pitch = "#0e1a16" in body.lower()
+    has_old = "#131313" in body.lower() or "#0b0e11" in body.lower()
     print(f"\nHealth check: {url}")
     print(f"  status: {resp.status}")
-    print(f"  Verge tokens: {'YES' if has_verge else 'no'}")
-    if has_binance:
-        print("  Binance canvas still present (BAD — stale cache)")
-    print(f"  old theme: {'YES (BAD — still cached)' if not has_verge and not has_binance else 'no'}")
+    print(f"  pitch-night tokens: {'YES' if has_pitch else 'no'}")
+    if has_old:
+        print("  old theme still present (BAD — stale cache)")
+    print(f"  old theme: {'YES (BAD — still cached)' if not has_pitch and has_old else 'no'}")
 except Exception as e:
     print(f"\nHealth check failed: {e}")
     print("  Server may still be starting — check manually.")

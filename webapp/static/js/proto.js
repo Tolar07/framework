@@ -1,10 +1,16 @@
-/* proto.js — interaction for the FEED page (render_v2, Verge pass 2026-08-12).
-   Strict CSP: script-src 'self' → NO inline onclick/onkeydown anywhere; every
-   binding is addEventListener.
-   Interactions: copy a SportyBet booking code, the live-score badge poll, the
-   density switcher (Lean/Trimmed/Full), the sticky-tab scrollspy, and the
-   dial / market-bar / breakeven-strip fills (rAF, reduced-motion aware —
-   motion is decor, never data-hiding). */
+/* proto.js — interaction for the FEED page (render_v2, pitch-night editorial
+   pass 2026-08-12, ratified by the Architect). Strict CSP: script-src 'self'
+   → NO inline onclick/onkeydown anywhere; every binding is addEventListener.
+   Interactions: booking-code copy pills, the live-score badge poll, the
+   density switcher (Lean/Trimmed/Full), the sticky-tab scrollspy + scroll
+   CTAs, and the dial / market-bar / breakeven fills (CSS-transitioned;
+   prefers-reduced-motion makes every fill instant — motion is decor, never
+   data-hiding). The `.js` flag on <html> gates the CSS entrance states so a
+   no-JS render still shows every number. */
+
+/* Gate the CSS entrance states (reveal/density-view) behind a JS flag — a
+   no-JS page renders everything visible instead of stuck at opacity:0. */
+document.documentElement.classList.add('js');
 
 function showToast(msg, ms) {
   var t = document.getElementById('toast');
@@ -18,7 +24,10 @@ function showToast(msg, ms) {
 function copyCode(code, btn) {
   function done() {
     showToast('Copied: ' + code + ' — paste into SportyBet to load selections');
-    if (btn) btn.textContent = 'Copied';
+    if (btn) {
+      btn.textContent = code + ' Copied';
+      setTimeout(function () { btn.textContent = code + ' Copy'; }, 1600);
+    }
   }
   function fallback() {
     var ta = document.createElement('textarea');
@@ -33,18 +42,18 @@ function copyCode(code, btn) {
   } else { fallback(); }
 }
 
-/* Feed: booking-code copy pills (Acca A / splits / singles) */
+/* Booking-code copy pills (Acca A / splits / singles / call cards) */
 function bindCopyButtons() {
-  document.querySelectorAll('.f-code-pill[data-code]').forEach(function (btn) {
+  document.querySelectorAll('.copy-pill[data-code]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       copyCode(btn.getAttribute('data-code'), btn);
     });
   });
 }
 
-/* Feed: live-score feed — poll /api/live-scores, update scan rows in place.
+/* Live-score feed — poll /api/live-scores, update scan rows in place.
    Keys are "home|away|date"; rows carry data-fixture="home|away" so a live
-   score slots into the matching row's .f-live badge (kickoff -> live). */
+   score slots into the matching row's .f-live badge. */
 function bindLiveScores() {
   var rows = Array.prototype.slice.call(
     document.querySelectorAll('.f-scan-row[data-fixture]'));
@@ -74,130 +83,117 @@ function bindLiveScores() {
   setInterval(update, 60000);
 }
 
-/* ---- motion helpers (reduced-motion aware) ---- */
-function prefersReducedMotion() {
-  return window.matchMedia &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var reduceMotion = window.matchMedia &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---- gauges: wire every dial to a computed circumference ---- */
+function setupDials() {
+  document.querySelectorAll('.dial, .single-dial').forEach(function (svg) {
+    var r = parseFloat(svg.getAttribute('data-radius'));
+    var value = parseFloat(svg.getAttribute('data-value'));
+    if (!r || Number.isNaN(value)) return;
+    var c = 2 * Math.PI * r;
+    var fill = svg.querySelector('.dial-fill');
+    if (!fill) return;
+    fill.style.strokeDasharray = String(c);
+    fill.style.strokeDashoffset = String(c);
+    fill.setAttribute('data-target', String(c * (1 - value / 100)));
+  });
 }
-
-function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-
-/* ---- probability dials: rAF stroke-dashoffset animation ----
-   The HTML already carries the final offset (no-JS shows the filled dial).
-   On activation we reset to the empty offset and animate to the target. */
-function dialTarget(circle) {
-  var el = circle.closest('.f-dial');
-  if (!el) return null;
-  var prob = parseFloat(el.getAttribute('data-prob'));
-  if (isNaN(prob)) return null;
-  prob = Math.max(0, Math.min(1, prob));
-  var c = parseFloat(circle.getAttribute('stroke-dasharray'));
-  if (!c) c = 2 * Math.PI * parseFloat(circle.getAttribute('r'));
-  return c * (1 - prob);
-}
-
 function fillDials(scope) {
-  var circles = Array.prototype.slice.call(scope.querySelectorAll('.f-dial-fill'));
-  if (!circles.length) return;
-  var reduced = prefersReducedMotion();
-  circles.forEach(function (c) {
-    var target = dialTarget(c);
-    if (target === null) return;
-    var from = parseFloat(c.getAttribute('stroke-dasharray'));
-    if (reduced) { c.setAttribute('stroke-dashoffset', String(target)); return; }
-    c.setAttribute('stroke-dashoffset', String(from));
-    var start = null;
-    function step(ts) {
-      if (start === null) start = ts;
-      var t = Math.min(1, (ts - start) / 650);
-      c.setAttribute('stroke-dashoffset', String(from + (target - from) * easeOut(t)));
-      if (t < 1) requestAnimationFrame(step);
+  scope.querySelectorAll('.dial-fill').forEach(function (fill) {
+    if (fill.getAttribute('data-target') !== null) {
+      fill.style.strokeDashoffset = fill.getAttribute('data-target');
     }
-    requestAnimationFrame(step);
   });
 }
-
-/* ---- market bars + breakeven fills: width animations (rAF) ---- */
 function fillBars(scope) {
-  var reduced = prefersReducedMotion();
-  scope.querySelectorAll('.f-mkt-fill, .f-edge-fill').forEach(function (f) {
-    var target = parseFloat(f.getAttribute('data-value'));
-    if (isNaN(target)) { target = parseFloat((f.getAttribute('style') || '').replace(/[^0-9.]/g, '')) || 0; }
-    if (reduced) { f.style.width = target + '%'; return; }
-    f.style.width = '0%';
-    var start = null;
-    function step(ts) {
-      if (start === null) start = ts;
-      var t = Math.min(1, (ts - start) / 650);
-      f.style.width = (target * easeOut(t)).toFixed(2) + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+  scope.querySelectorAll('.mkt-bar-fill, .edge-fill').forEach(function (bar) {
+    if (bar.getAttribute('data-value') !== null) bar.style.width = bar.getAttribute('data-value') + '%';
   });
 }
+setupDials();
 
-/* ---- density switcher (Lean / Trimmed / Full) ---- */
-function activateDensity(group, view) {
-  var bar = document.querySelector('.f-densitybar[data-group="' + group + '"]');
-  if (!bar) return;
-  bar.querySelectorAll('.f-density-pill').forEach(function (p) {
-    p.classList.toggle('active', p.getAttribute('data-for') === view);
-  });
-  var container = bar.parentNode;
-  container.querySelectorAll('.f-density-view[data-view]').forEach(function (v) {
-    var on = v.getAttribute('data-view') === view;
-    v.classList.toggle('active', on);
-    if (on) {
-      v.classList.remove('enter');
-      fillDials(v);
-      fillBars(v);
-      void v.offsetWidth;               /* force reflow so the entrance runs */
-      v.classList.add('enter');
+/* ---- scroll-triggered reveal (fills gauges/bars the first time each element is seen) ---- */
+var revealEls = document.querySelectorAll('.reveal');
+var io = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('show');
+      fillDials(e.target);
+      fillBars(e.target);
+      io.unobserve(e.target);
     }
   });
-}
+}, { threshold: 0.15 });
+revealEls.forEach(function (el) { io.observe(el); });
 
-function bindDensitySwitchers() {
-  document.querySelectorAll('.f-density-pill').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var bar = btn.closest('.f-densitybar');
-      if (!bar) return;
-      activateDensity(bar.getAttribute('data-group'), btn.getAttribute('data-for'));
+/* ---- density switcher: cross-fade + animate gauges/bars on entry ---- */
+document.querySelectorAll('.densitybar').forEach(function (bar) {
+  bar.addEventListener('click', function (e) {
+    var btn = e.target.closest('.density-pill');
+    if (!btn) return;
+    var section = bar.closest('.section');
+    var density = btn.getAttribute('data-density');
+    section.querySelectorAll('.density-pill').forEach(function (p) {
+      p.classList.toggle('on', p === btn);
     });
-  });
-}
-
-/* ---- sticky-tab scrollspy (CALL / SCAN / SINGLES) ---- */
-function bindTabSpy() {
-  var nav = document.querySelector('.f-tabnav');
-  if (!nav || typeof IntersectionObserver === 'undefined') return;
-  var pills = Array.prototype.slice.call(nav.querySelectorAll('.f-tabpill'));
-  var sections = pills.map(function (p) {
-    var id = p.getAttribute('href');
-    return id ? document.querySelector(id) : null;
-  }).filter(Boolean);
-  if (!sections.length) return;
-  var spy = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      pills.forEach(function (p) {
-        p.classList.toggle('active',
-          p.getAttribute('href') === '#' + entry.target.id);
-      });
+    section.querySelectorAll('.density-view').forEach(function (v) {
+      if (v.getAttribute('data-for') === density) {
+        v.classList.add('active');
+        v.classList.remove('in');
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            v.classList.add('in');
+            fillDials(v);
+            fillBars(v);
+            v.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('show'); });
+          });
+        });
+      } else {
+        v.classList.remove('active');
+        v.classList.remove('in');
+      }
     });
-  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-  sections.forEach(function (s) { spy.observe(s); });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  bindCopyButtons();
-  bindLiveScores();
-  bindDensitySwitchers();
-  bindTabSpy();
-  /* initial fills for whatever density is active when the page loads */
-  document.querySelectorAll('.f-density-view.active').forEach(function (v) {
-    fillDials(v);
-    fillBars(v);
-    v.classList.add('enter');
   });
 });
+
+/* the default-active views still need their gauges/bars filled once */
+document.querySelectorAll('.density-view.active').forEach(function (v) {
+  v.classList.add('in');
+  if (reduceMotion) { fillDials(v); fillBars(v); }
+});
+
+/* ---- every scroll-nav control (tabnav pills, hero CTAs) is a real button, wired directly ---- */
+document.querySelectorAll('[data-scroll-target]').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var target = document.getElementById(btn.getAttribute('data-scroll-target'));
+    if (!target) return;
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  });
+});
+
+/* ---- tabnav active state: immediate on click, corrected by scroll position afterwards ---- */
+var navPills = document.querySelectorAll('.tabnav .pill');
+navPills.forEach(function (p) {
+  p.addEventListener('click', function () {
+    navPills.forEach(function (x) { x.classList.toggle('on', x === p); });
+  });
+});
+var trackedSections = ['top', 'the-call', 'the-scan', 'the-singles']
+  .map(function (id) { return document.getElementById(id); })
+  .filter(Boolean);
+var spy = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (e.isIntersecting) {
+      var id = e.target.id;
+      navPills.forEach(function (p) {
+        p.classList.toggle('on', p.getAttribute('data-scroll-target') === id);
+      });
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+trackedSections.forEach(function (s) { spy.observe(s); });
+
+bindCopyButtons();
+bindLiveScores();

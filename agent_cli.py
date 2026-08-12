@@ -18,6 +18,7 @@ Commands:
     gate           Phase-3 gate status + road-to-gate
     audit [--no-odds] [--league L]  League coverage audit (READY/BLOCKED per league)
     leagues        Whitelisted leagues + tier
+    livescores [--league L] [--day D]  Live in-play scores for a league (default: today)
     schema         JSON-Schema tool definitions for agent tool-loading
 """
 
@@ -345,6 +346,61 @@ def cmd_leagues(args) -> int:
     return 0
 
 
+def cmd_livescores(args) -> int:
+    """Live in-play scores for a league (default: today)."""
+    from data.multi_source_concrete import get_live_scores
+    from data.live_scores import LiveScore
+
+    if args.league:
+        leagues = [args.league]
+    else:
+        from engine.leagues import WHITELISTED_LEAGUES
+        leagues = list(WHITELISTED_LEAGUES)
+
+    day = args.day  # None -> today (source uses today by default)
+    results: dict = {}
+
+    for league in leagues:
+        try:
+            data = get_live_scores(league, day=day)
+            scores: list[LiveScore] = data.get("scores", [])
+            results[league] = {
+                "source": data.get("source", "?"),
+                "scores": [
+                    {
+                        "home": s.home_team,
+                        "away": s.away_team,
+                        "home_score": s.home_score,
+                        "away_score": s.away_score,
+                        "status": s.status,
+                        "minute": s.minute,
+                        "kickoff": s.kickoff.isoformat() if s.kickoff else None,
+                    }
+                    for s in scores
+                ],
+            }
+        except Exception as e:
+            results[league] = {"error": str(e)}
+
+    if args.json:
+        print_json(success(results))
+    else:
+        for league, data in results.items():
+            print_text(f"\n=== {league} ===")
+            if "error" in data:
+                print_text(f"  ERROR: {data['error']}")
+                continue
+            scores = data.get("scores", [])
+            if not scores:
+                print_text("  NO DATA — PENDING")
+                continue
+            for s in scores:
+                minute = f" ({s['minute']}')" if s.get("minute") else ""
+                print_text(f"  {s['home']} {s['home_score']} - {s['away_score']} {s['away']} "
+                           f"[{s['status']}{minute}]")
+    return 0
+
+
 def cmd_schema(args) -> int:
     """JSON-Schema tool definitions for agent tool-loading."""
     # Mirrors sports-skills cli.py _generate_schema pattern
@@ -544,6 +600,12 @@ Examples:
     # leagues
     p_leagues = subparsers.add_parser("leagues", help="Whitelisted leagues + tier", parents=[common])
     p_leagues.set_defaults(func=cmd_leagues)
+
+    # livescores
+    p_livescores = subparsers.add_parser("livescores", help="Live in-play scores for a league", parents=[common])
+    p_livescores.add_argument("--league", type=str, help="Specific league (default: all whitelisted)")
+    p_livescores.add_argument("--day", type=str, help="Day in YYYYMMDD format (default: today)")
+    p_livescores.set_defaults(func=cmd_livescores)
 
     # schema
     p_schema = subparsers.add_parser("schema", help="JSON-Schema tool definitions", parents=[common])

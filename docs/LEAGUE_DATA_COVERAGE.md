@@ -1,7 +1,7 @@
 # LEAGUE DATA COVERAGE MATRIX — OLP XDV
-**Version:** 2026-08-10  
+**Version:** 2026-08-12  
 **Status:** Live reference — updated for 2026/27 season  
-**Scope:** All 25 whitelisted leagues in `engine.leagues.WHITELISTED_LEAGUES` (unified pool — softness tiers fully removed 2026-08-11; UEFA Super Cup + 6 new European leagues added 2026-08-12)
+**Scope:** All 25 whitelisted leagues in `engine.leagues.WHITELISTED_LEAGUES` (unified pool — softness tiers fully removed 2026-08-11; UEFA Super Cup + 6 new European leagues added 2026-08-12; HNL + Austrian Bundesliga current-season history WIRED via football-data.org 2026-08-12)
 
 ---
 
@@ -33,8 +33,8 @@
 | 12 | Primeira Liga | ✅ `P1` | ✅ thesportsdb | ✅ `soccer_portugal_primeira_liga` | ❌ | ✅ | ✅ "Portugal" / "Liga Portugal" |
 | 13 | Danish Superliga | ✅ `DK1` | ✅ thesportsdb | ✅ `soccer_denmark_superliga` | ❌ | ✅ | ✅ "Denmark" / "Superliga" |
 | 14 | Ekstraklasa | ✅ `POL` | ✅ thesportsdb (4422) | ✅ `soccer_poland_ekstraklasa` | ❌ | ✅ | ✅ "Poland" / "Ekstraklasa" |
-| 15 | HNL | ❌ **GAP** | ✅ thesportsdb (4629) | ⚠️ `soccer_croatia_hnl` (unverified) | ❌ | ✅ | ✅ "Croatia" / "HNL" |
-| 16 | Austrian Bundesliga | ❌ **GAP** | ✅ thesportsdb (4621) | ✅ `soccer_austria_bundesliga` | ❌ | ✅ | ⚠️ "Austria" / "Bundesliga" (TBC) |
+| 15 | HNL | ✅ football-data.org (T1 current-season) | ✅ thesportsdb (4629) | ⚠️ `soccer_croatia_hnl` (unverified) | ❌ | ✅ | ✅ "Croatia" / "HNL" |
+| 16 | Austrian Bundesliga | ✅ football-data.org (T1 current-season) | ✅ thesportsdb (4621) | ✅ `soccer_austria_bundesliga` | ❌ | ✅ | ⚠️ "Austria" / "Bundesliga" (TBC) |
 | 17 | EFL Cup | ❌ **GAP** | ⚠️ odds-derived only | ✅ `soccer_england_efl_cup` | ❌ | ✅ | ✅ "England" / "EFL Cup" |
 
 ---
@@ -247,10 +247,10 @@
 
 ---
 
-### 15. HNL (Croatian First League) — **HISTORY GAP**
+### 15. HNL (Croatian First League) — **HISTORY NOW WIRED (2026-08-12)**
 | Data Type | Source | Code/Key | Status | Notes |
 |-----------|--------|----------|--------|-------|
-| **History** | — | — | ❌ **GAP** | football-data.co.uk does NOT cover Croatia. API-Football (paid) needed for T1 history |
+| **History** | football-data.org (current-season) | free registration | ✅ **WIRED** | FootballDataOrgResultsSource at priority12 in build_results_multi_source() — live current-season results for promoted clubs. football-data.co.uk still does NOT cover Croatia. |
 | **Fixtures** | TheSportsDB (personal key) | `4629` | ✅ WIRED | Resolved 2026-08-08 |
 | **Live Odds** | The Odds API | `soccer_croatia_hnl` | ⚠️ UNVERIFIED | Standard Odds API name but not probed at add time (no key in build env); probe `/v4/sports` with a live key before trusting |
 | **xG** | — | — | ❌ **GAP** | Understat Big-5 only |
@@ -262,10 +262,10 @@
 
 ---
 
-### 16. Austrian Bundesliga — **HISTORY GAP**
+### 16. Austrian Bundesliga — **HISTORY NOW WIRED (2026-08-12)**
 | Data Type | Source | Code/Key | Status | Notes |
 |-----------|--------|----------|--------|-------|
-| **History** | — | — | ❌ **GAP** | football-data.co.uk does NOT cover Austria. API-Football (paid) needed |
+| **History** | football-data.org (current-season) | free registration | ✅ **WIRED** | FootballDataOrgResultsSource at priority12 in build_results_multi_source() — live current-season results for promoted clubs. football-data.co.uk still does NOT cover Austria. |
 | **Fixtures** | TheSportsDB (personal key) | `4621` | ✅ WIRED | Resolved 2026-08-08 |
 | **Live Odds** | The Odds API | `soccer_austria_bundesliga` | ✅ WIRED | |
 | **xG** | — | — | ❌ **GAP** | Understat Big-5 only |
@@ -316,7 +316,8 @@
 
 | Gap | Leagues Affected | Solution | Cost/Action |
 |-----|-----------------|----------|-------------|
-| **No T1 history (football-data.co.uk)** | HNL, Austrian Bundesliga, EFL Cup | API-Football paid plan (current season history) | ~€150–200/mo for full coverage |
+| **No T1 history (football-data.co.uk)** | EFL Cup | API-Football paid plan (current season history) | ~€150–200/mo for full coverage |
+| **No END-OF-SEASON history (football-data.co.uk)** | HNL, Austrian Bundesliga | football-data.org current-season (WIRED 2026-08-12, priority12) — promoted clubs rateable; end-of-season CSV gap remains | Free registration, 10 req/min, 100 req/day |
 | **No xG beyond Big-5** | 12 of 17 leagues | FootyStats / fbref / FotMob API (paid) or custom scraper | €50–100/mo or dev time |
 | **EFL Cup standalone fixtures** | EFL Cup | TheSportsDB eventsday (free key works) or API-Football | Free personal key or paid |
 | **Second-division codes (promoted clubs)** | All 17 — promoted clubs enter with NO history | `SECOND_DIVISION_CODES` empty; needs API-Football history for 2. Bundesliga, Championship, etc. | API-Football paid |
@@ -330,8 +331,8 @@
 2. **Verify Austrian Bundesliga SportyBet sidebar name** — live check
 3. **Add confirmed cup keys to `pipeline/odds.py` SPORT_KEYS** — only keys returning `active=True`
 4. **Document any cup keys that are INACTIVE** as permanent gaps
-5. **Cost analysis** for API-Football paid plan to close HNL + Austrian history gaps
-6. **Evaluate FootyStats/fbref** for xG beyond Understat's 5 leagues
+5. **Evaluate FootyStats/fbref** for xG beyond Understat's 5 leagues
+6. **End-of-season CSV gap for HNL/Austrian Bundesliga** — football-data.org provides current-season but not historical CSV archives; API-Football paid plan still needed for multi-season history if ever required
 
 ---
 

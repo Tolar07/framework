@@ -123,17 +123,18 @@ All agents, skills, commands, rules, hooks, and contexts are available in every 
 Dashboard/UI styling uses **awesome-design-md** — a design-token library at
 `C:\Users\Motunrayo\Downloads\awesome-design-md-main\awesome-design-md-main`
 (`design-md/<brand>/DESIGN.md` for 73 brands). The current web dashboard
-(`webapp/static/css/proto.css`) is a **Verge DESIGN.md token pass** (ratified
-2026-08-12, replaces the 2026-08-10 Binance pass): canvas `#131313`, surface
-`#2d2d2d`, hairline `rgba(255,255,255,0.14)`, ink `#ffffff` / dim `#949494` /
-faint `#8c8c8c`, **amber `#e8a33d`** (pick/deploy accent), **mint `#3cffd0`**
-(hit/positive), **ultraviolet `#5200ff`** (miss/alert), focus `#1eaedb`.
-Type: Anton (display) / Space Grotesk (ui) / Space Mono (mono-uppercase labels),
-self-hosted under `font-src 'self'`. Full spec:
-`docs/design-reference/OLP_XDV_VERGE_TOKEN_REFERENCE.md` (source:
-`docs/design-reference/theverge_DESIGN.md`).
+(`webapp/static/css/proto.css`) is a **pitch-night editorial pass** (ratified
+2026-08-12, supersedes the Verge pass ratified earlier the same day, itself the
+replacement for the 2026-08-10 Binance pass): canvas `#0e1a16`, surface
+`#142720`, hairline `#26392f`, ink `#f2efe4` / dim `#93ab9c` / faint `#5c7268`,
+**amber `#e8a33d`** (pick/deploy accent — MODEL dial, DEPLOY breakeven, booking
+code), **clay `#c05a4c`** (honest pending/missing). Type: **Fraunces** (display)
+/ **Inter** (body) / **IBM Plex Mono** (mono-uppercase micro-labels), self-hosted
+under `font-src 'self'`. Full spec:
+`docs/design-reference/OLP_XDV_PITCH_NIGHT_TOKEN_REFERENCE.md` (source, kept
+verbatim: `docs/design-reference/pitch_night_mockup.html`).
 
-When changing or extending the web UI, keep the Verge tokens in `proto.css`
+When changing or extending the web UI, keep the pitch-night tokens in `proto.css`
 (they are the ratified palette). If a new design language is ever chosen, pull
 it from the awesome-design-md collection and ratify the swap — tokens are a
 skin, never a reason to hide data (honest-edge + data-density stay intact).

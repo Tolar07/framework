@@ -1921,3 +1921,63 @@ the page). No capital, staking, fabrication, verification or honest-edge behavio
 Tier markers stay dropped per the 2026-08-11 ratification — not restored.
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+## 2026-08-12 · PITCH-NIGHT EDITORIAL DESIGN-LANGUAGE PASS on the feed page (replaces the Verge pass) — ratified by the ARCHITECT
+
+**What the Architect asked:** paste a fully-refined "OLP·XDV — Match Intelligence" **pitch-night
+editorial** board (deep-green `#0e1a16` canvas, chalk `#f2efe4` ink, amber `#e8a33d` pick
+accent, **Fraunces** display serif / Inter body / IBM Plex Mono, animated SVG dials +
+all-market bars + breakeven edge strips, density switcher Lean/Trimmed/Full, the lean
+Telegram ticket, scan table, singles, honest capital-authority footer) with the single
+instruction **"use this code for the webapp"**. This **supersedes** the Verge pass (ratified
+earlier the same day) — the mockup is the ratified source, kept verbatim at
+`docs/design-reference/pitch_night_mockup.html`. EV + source-tier confirmed OFF the public
+page via AskUserQuestion 2026-08-12 (Full = denser grid of the same public feed fields).
+
+**What changed (skin only):**
+
+1. **Palette/type — pitch-night editorial replaces Verge** (`docs/design-reference/pitch_night_mockup.html`
+   copied as the ratified source; `docs/design-reference/OLP_XDV_PITCH_NIGHT_TOKEN_REFERENCE.md`
+   is the OLP XDV token spec):
+   - Canvas `--pitch-night #0e1a16`, surface `--pitch-elevated #142720`, hairline
+     `--pitch-line #26392f`, ink `--chalk #f2efe4`, ink-dim `--sage #93ab9c`,
+     ink-faint `--sage-dim #5c7268`
+   - **Amber `#e8a33d`** = pick/deploy accent (MODEL dial, DEPLOY breakeven, booking code,
+     favorite bar, active tab, `.yes` scan cell); **Clay `#c05a4c`** = honest pending/missing
+   - Colour-as-elevation, 1px hairlines; **Fraunces** (display) / **Inter** (body) /
+     **IBM Plex Mono** (mono-uppercase micro-labels) self-hosted under `font-src 'self'`.
+2. **render_v2.py rebuilt** to the mockup's class grammar — masthead (wordmark + centerline +
+   live phase pill) → sticky tab nav CALL/SCAN/SINGLES (scrollspy + smooth scroll) → hero
+   (honest-edge line, CTAs, **gate callout always visible** — PASS/OVERRIDE/NOT MET, override
+   never silent) → Part 1 THE CALL (density switcher: *Lean* = byte-faithful Telegram ticket
+   + singles; *Trimmed/Full* = `.call-card` grid with SVG dial MODEL %, DEPLOY breakeven line,
+   all-market bars from public `probs` incl. derived DC, breakeven edge strip "not a live
+   quote", booking-code pill) → Part 2 THE SCAN (`.scan-table-wrap` table, `.f-scan-row`
+   rows, honest `.pending`) → Part 3 SINGLES → YESTERDAY — GRADED / 7-DAY ROLLING →
+   honest-edge + capital-authority footer. **Tier markers and "softness tier A/B" copy stay
+   dropped** (2026-08-11), **EV + source-tier stay off the public page**, and the stale
+   "Phase 3 opens only once thirty logged paper legs…" footer claim is **corrected** —
+   Phase 3 is LIVE (go-live 2026-08-11, board header "Phase3 — live capital
+   (Architect-deployed)").
+3. **proto.css** — pitch-night token pass + mockup CSS externalized (dials/bars/edge strips,
+   density switcher, reveal-on-scroll, reduced-motion, responsive); old Verge fonts removed.
+4. **proto.js** — mockup's JS ported (`setupDials`/`fillDials`/`fillBars`, `.reveal`
+   IntersectionObserver, density cross-fade, `[data-scroll-target]` scroll buttons, tabnav
+   scrollspy) + copy-code + live-score poll kept. All `addEventListener`, zero inline
+   handlers — CSP-clean.
+5. **server.py / schema.py unchanged** — Full is feed-data-only; one render, two outlets.
+
+**Verification:** webapp suites + `webapp_feed_parity_test.py` green; byte-faithful Telegram
+production lines, `data-code` hooks and honest `NO DATA — PENDING` hold; `_INTERNAL_FIELDS`
+leak boundary green; no inline handlers (CSP `script-src 'self'`); fonts woff2 200s under
+`font-src 'self'`.
+
+**Authority:** Architect (direct instruction "use this code for the webapp" + AskUserQuestion,
+2026-08-12). This **replaces** the 2026-08-12 Verge pass — a ratified design-language change.
+It is a **skin, never a reason to hide data**: honest-edge + data density stay intact, HR35
+kept (`NO DATA — PENDING`), booking codes remain SportyBet recall slips (never a stake), the
+trim boundary holds (no EV/`best_price`/verification/source-tier on the page), ID405 all
+markets open, softness tiers remain cancelled. No capital, staking, fabrication, verification
+or honest-edge behaviour changed.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

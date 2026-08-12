@@ -17,7 +17,9 @@ from data.football_data_source import load_league as fd_load_league
 from data import thesportsdb_fixtures as tsdb
 from data import espn_source
 from data import api_football_results as apif
+from data import football_data_org_source as fdo
 from data import xg_source
+from data import live_scores as ls
 from pipeline.odds import fetch_odds as odds_fetch_odds, fixtures_from_odds as odds_fixtures_from_odds
 
 log = logging.getLogger("multi_source.concrete")
@@ -171,6 +173,36 @@ class FootballDataResultsSource(DataSource):
         return {"results": results, "skipped": skipped, "source": "football_data"}
 
 
+class FootballDataOrgResultsSource(DataSource):
+    """football-data.org CURRENT-SEASON results — the P0 fix for promoted clubs.
+
+    football-data.co.uk CSVs are end-of-season only; football-data.org serves
+    live current-season results (updated daily). A promoted club (Cambuur,
+    Beveren, Lommel, Horsens, etc.) becomes rateable through the existing DC
+    machinery once it has ≥4 current-season matches — WITHOUT waiting for
+    api-football paid activation. This source is keyless-ish (free registration),
+    10 req/min, 100 req/day. Added 2026-08-12 as P0 gap fix."""
+
+    def __init__(self):
+        super().__init__("football_data_org", priority=12, timeout=30.0)
+
+    def fetch(self, **kwargs) -> list:
+        league = kwargs["league"]
+        season = kwargs.get("season") or kwargs.get("fixtures_season")
+        # season may be a framework code ('2526') or a year (2025)
+        if isinstance(season, str) and len(season) == 4 and season.isdigit():
+            # '2526' -> 2025 (football-data.org uses the start year)
+            season_year = int(season[:2]) + 2000
+        elif isinstance(season, int):
+            season_year = season
+        else:
+            raise SourceNoData(f"football_data_org: cannot resolve season {season!r} for {league}")
+        results, flags = fdo.fetch_current_season_results(league, season_year)
+        if not results:
+            raise SourceNoData(f"football_data_org: no results for {league} {season_year}")
+        return {"results": results, "flags": flags, "source": "football_data_org"}
+
+
 class APIFootballResultsSource(DataSource):
     """API-Football historical results (fallback for uncovered leagues)."""
 
@@ -226,6 +258,7 @@ def build_results_multi_source() -> MultiSource:
         "historical_results",
         [
             (FootballDataResultsSource().fetch, "football_data", 10),
+            (FootballDataOrgResultsSource().fetch, "football_data_org", 12),
             (APIFootballResultsSource().fetch, "api_football_results", 15),
             (TheSportsDBResultsSource().fetch, "thesportsdb_results", 20),
         ],
@@ -362,6 +395,53 @@ def build_current_results_multi_source() -> MultiSource:
 
 
 # =============================================================================
+# LIVE SCORES MULTI-SOURCE (in-play real-time scores for client dashboard)
+# =============================================================================
+
+class ESPNLiveScoresSource(DataSource):
+    """ESPN scoreboard live scores (key-free, covers all WHITELISTED_LEAGUES)."""
+
+    def __init__(self):
+        super().__init__("espn_live_scores", priority=10, timeout=15.0)
+
+    def fetch(self, league: str, day: str | None = None) -> dict:
+        scores = ls.fetch_espn_live_scores(league, day)
+        if not scores:
+            raise SourceNoData(f"espn_live_scores: no scores for {league}")
+        return {
+            "scores": scores,
+            "source": "espn",
+        }
+
+
+class APIFootballLiveScoresSource(DataSource):
+    """API-Football live scores (paid plan fallback)."""
+
+    def __init__(self):
+        super().__init__("api_football_live_scores", priority=15, timeout=30.0)
+
+    def fetch(self, league: str, day: str | None = None) -> dict:
+        scores = ls.fetch_apif_live_scores(league, day)
+        if not scores:
+            raise SourceNoData(f"api_football_live_scores: no scores for {league}")
+        return {
+            "scores": scores,
+            "source": "api_football",
+        }
+
+
+def build_live_scores_multi_source() -> MultiSource:
+    return build_multi_source(
+        "live_scores",
+        [
+            (ESPNLiveScoresSource().fetch, "espn_live_scores", 10),
+            (APIFootballLiveScoresSource().fetch, "api_football_live_scores", 15),
+        ],
+        max_retries_per_source=1,
+    )
+
+
+# =============================================================================
 # INITIALIZATION - register all multi-sources with global registry
 # =============================================================================
 
@@ -371,6 +451,7 @@ def initialize_multi_sources():
     registry.register(build_results_multi_source())
     registry.register(build_xg_multi_source())
     registry.register(build_current_results_multi_source())
+    registry.register(build_live_scores_multi_source())
     # Odds sources are per-league, created on demand
     log.info("Multi-source registry initialized")
 
@@ -423,6 +504,16 @@ def get_odds(league: str) -> list:
     """Fetch odds with automatic failover (per-league multi-source)."""
     # Build per-league odds source on demand
     return build_odds_multi_source(league).fetch(league=league).data["fixtures"]
+
+
+def get_live_scores(league: str, day: str | None = None) -> dict:
+    """Fetch live scores with automatic failover."""
+    ms = registry.get_source("live_scores")
+    if ms is None:
+        ms = build_live_scores_multi_source()
+        registry.register(ms)
+    result = ms.fetch(league=league, day=day)
+    return result.data
 
 
 def get_all_health() -> dict:

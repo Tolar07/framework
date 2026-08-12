@@ -86,42 +86,34 @@ _LIVE_CACHE_TTL = 30  # seconds
 
 
 def _fetch_live_scores(leagues: list[str]) -> dict[str, str]:
-    """Fetch live scores for a list of leagues. Returns {fixture_key: score}."""
-    from data.multi_source_concrete import get_fixtures
-    from orchestrator import next_season_code
-    import datetime
+    """Fetch live in-play scores for a list of leagues using the live_scores multi-source.
+    Returns {fixture_key: score} where fixture_key = "home|away|YYYY-MM-DD".
+    """
+    from data.multi_source_concrete import get_live_scores
+    from data.live_scores import LiveScore
 
-    today = date.today().isoformat()
-    season_code = next_season_code("2526")
+    today_str = date.today().isoformat()
     scores = {}
 
     for lg in leagues:
         try:
-            # Use the current_results multi-source for live scores
-            from data.multi_source_concrete import registry
-            ms = registry.get_source("current_results")
-            if ms is None:
-                from data.multi_source_concrete import build_current_results_multi_source
-                ms = build_current_results_multi_source()
-                registry.register(ms)
+            data = get_live_scores(league=lg, day=today_str)
+            live_scores: list[LiveScore] = data.get("scores", [])
 
-            # Try both current season and next season
-            for s in [int(season_code), int(next_season_code(season_code))]:
-                try:
-                    data = ms.fetch(league=lg, season=s)
-                    results = data.get("results", [])
-                    for r in results:
-                        home = r.get("home", "")
-                        away = r.get("away", "")
-                        rdate = r.get("date", "")
-                        if rdate and rdate >= today:
-                            score = r.get("score")
-                            if score:
-                                key = f"{home}|{away}|{rdate}"
-                                scores[key] = score
-                except Exception:
-                    pass
+            for ls in live_scores:
+                # Only include in-play or recently finished matches
+                if ls.status in ("LIVE", "HT", "FT", "PEN", "AET", "SUSPENDED"):
+                    key = f"{ls.home_team}|{ls.away_team}|{ls.kickoff or today_str}"
+                    score_str = f"{ls.home_score}-{ls.away_score}"
+                    if ls.minute is not None and ls.status == "LIVE":
+                        score_str += f" ({ls.minute}')"
+                    elif ls.status == "HT":
+                        score_str += " (HT)"
+                    elif ls.status in ("PEN", "AET"):
+                        score_str += f" ({ls.status})"
+                    scores[key] = score_str
         except Exception:
+            # HR35: fail silently per league, continue with others
             pass
 
     return scores

@@ -1981,3 +1981,138 @@ markets open, softness tiers remain cancelled. No capital, staking, fabrication,
 or honest-edge behaviour changed.
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+---
+
+## 2026-08-12 · DATA STEWARD DAEMON — the "always fetch" agent that solves NO DATA for good
+
+**What the Architect asked:** "find a way to solve [NO DATA] for good, create an agent to
+always fetch the data needed."
+
+**What was built:** `steward/run_steward.py` — a one-shot daemon that runs on its own
+schedule (Task Scheduler "OLP XDV Data Steward", 06:00 pre-board + 15:00 afternoon refresh,
+via `steward.bat` + `setup_steward_task.ps1`, idempotent like the poller/health-monitor
+tasks). It fetches everything the 07:00 board needs ahead of time, best-effort per source
+(a source failure is a flag in state, never a crash):
+
+- **SportyBet cache** — `booking.bridge.refresh_sportybet_cache(leagues=WHITELISTED_LEAGUES)`
+  (Playwright, incremental — the builder already skips caches <6h old).
+- **The Odds API prices** — `pipeline.odds.fetch_odds(lg)` per whitelisted league (paid key
+  primary, quota-guarded; `QuotaExhausted` → flag, not failure).
+- **api-football odds fallback** — `data.api_football_odds.fetch_odds(lg, date)` (free today±1).
+- **TheSportsDB fixtures** — `data.thesportsdb_fixtures.fetch_upcoming(lg, season)` for all
+  whitelisted leagues (6h TTL, previously rejected-when-stale → steward warms them).
+- **ESPN fixtures** — `data.espn_source.fetch_upcoming(lg)` (keyless leg of the multi-source
+  chain).
+- **ClubElo snapshot** — one keyless fetch of `http://api.clubelo.com/{iso_date}` →
+  `data/cache/clubelo/latest.json` (see §3 below).
+- **football-data live-season CSV** — already self-healed by `health_monitor`; steward only
+  verifies presence, doesn't duplicate.
+
+Writes **`logs/steward_state.json`** (per-source `fetched_at`, freshness, counts, errors) and
+appends **`logs/steward.log`** with proof-of-life lines. Reuses `monitor/json_log.py` /
+`monitor/health_monitor.py` state-change alert pattern (`_should_alert`) → Telegram on a
+source going red. The alert body now **names the source that went red** (steward test3) and
+`_should_alert` correctly reads the nested `state["sources"][name]["ok"]` (not flat).
+
+**Tests:** `tests/steward_test.py` — run the steward pass: state file written with per-source
+`fetched_at`/counts, a simulated source failure lands as a flag not a crash, cache reads after
+the pass are fresh. All 3 PASSED.
+
+**Authority:** Architect (direct instruction). Additive infrastructure — the steward changes
+no capital, staking, fabrication, verification or honest-edge behaviour; it only makes the
+data fresher when the 07:00 run starts.
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+---
+
+## 2026-08-12 · PAID API-FOOTBALL PLAN GATE + CLUBELO STRETCH FALLBACK — rating the irreducible
+
+**Context (live-probed 2026-08-12):** The `API_FOOTBALL_KEY` in `.env` is a **Free plan**
+(`/status` → `"plan":"Free"`, end 2027-08-03). The API returns *"Free plans do not have access
+to this season, try from 2022 to 2024"* for `season=2025` standings. So promoted clubs and any
+team whose history starts after 2024 fall to `NO DATA — PENDING` on model probability.
+The keyless **ClubElo** snapshot (`http://api.clubelo.com/{date}`, 594 clubs) already carries
+current ratings for Celje, Ararat-Armenia, Kauno Žalgiris, Larne, Sabah, Crvena Zvezda,
+Bodo/Glimt, Apollon, CSKA 1948, Slovan Bratislava **and** the promoted clubs (Cambuur,
+Beveren, Lommel, Horsens) — i.e. the clubs previously called "irreducible" are rateable for
+free.
+
+**Decisions on record (Architect, 2026-08-12, via AskUserQuestion):**
+- **Rating mechanism = the paid api-football plan** (primary). The steward keeps everything
+  fresh; the current-season rating fix comes from api-football once the paid key is live. Code
+  is plan-gated so it auto-enables the moment the paid key replaces the free one.
+- **Fallback-rated fixtures are bookable and labeled** — a real probability enters the same
+  edge/EV/CLV gates as any fixture; the board stamps the rating source so it is never mistaken
+  for a fitted rating. Protected constants untouched (CLV/publish gate, ID405 scope — stays
+  overridden, softness — stays open, calibration scope).
+- **Complementary stretch fallback = ClubElo** (included, keyless, verified): paid api-football
+  structurally cannot rate a club with **zero current-season matches** (DC needs ≥4 in the
+  fitted window). ClubElo covers exactly those. It complements, never replaces, the paid plan.
+
+**What changed:**
+
+1. **`data/api_football_plan.py`** — Plan probe: GET `/status` with the `API_FOOTBALL_KEY`,
+   cache the plan (`Free`/`Standard`/… ) with the existing `PLAN_ERROR_TTL_SECONDS` pattern,
+   expose `is_paid_plan()`. Live-probe verified: free returns `"plan":"Free"` + the
+   "try from 2022 to 2024" error for current-season standings.
+
+2. **Lift the free gates when paid** (each currently a hard free-plan assumption):
+   - `data/api_football_results.py:71` `FREE_TIER_LAST_SEASON = 2024` guard → when
+     `is_paid_plan()`, allow current-season loads so the fitted pool sees 2025-26 results and
+     promoted clubs become rateable through the existing DC/elo machinery (no new engine code).
+   - `data/api_football_odds.py` free date-window (`today-1..today+1`) + season-scoped refusals
+     → paid plan widens the window / enables season-scoped queries.
+   - `data/fixtures_source.py` `PLAN_ERROR_TTL_SECONDS` plan-error path → paid path.
+   - `.env` — comment slot documenting the paid→free chain. **User action: paste the paid key
+     into `API_FOOTBALL_KEY`** (current value verified Free). Until then the probe reports Free
+     and the gates stay — honest, no behavior change.
+
+3. **`data/clubelo_source.py`** — `fetch_daily_snapshot()` (one keyless CSV, cached at
+   `data/cache/clubelo/latest.json`), `ratings()` → dict keyed by ClubElo name, name-mapped via
+   the existing `booking/team_map` + `thesportsdb_fixtures` alias machinery; a team with no
+   rating → `None` (HR35, honest NO DATA).
+
+4. **`engine/dixon_coles.py:361-377`** — make `FixtureProbabilities.p_over_15/p_over_25/
+   p_over_35/p_btts_yes` `Optional[float] = None` (backward-compatible; DC always fills them;
+   a stretch 1X2 rating leaves goals markets honestly unpriced).
+
+5. **`orchestrator.py`** per-fixture loop, after the carry-over fallback (~line 520):
+   `if probs is None:` → build a 1X2 `FixtureProbabilities` from the ClubElo Elo gap via the
+   existing `engine/elo.py` `probabilities()` math (ID414 "a seed IS a rating"); stamp
+   `rating_source="clubelo"` on the `BoardFixture`. Market engine already skips None-prob
+   markets (`engine/markets.py quote()`), so multi-market edge stays intact. The board labels
+   the source; the leg is bookable per the ratified decision.
+
+6. **Provenance labeling** — `output/produce_bet.py` + `webapp/render.py` + `webapp/render_v2.py`
+   + `webapp/static/css/proto.css` + `webapp/static/css/app.css`: when `rating_source` is
+   `clubelo` (or a current-season api-football fit), append a short provenance tag
+   (`·ClubElo stretch`, `·Carry`) so a stretch-rated pick is never mistaken for a fitted one —
+   the "bookable, labeled" ratification, applied to the honest-edge display. Schema carries
+   `rating_source` in `CLIENT_FIXTURE_KEYS`; render_v2 test 10 asserts the tag renders on the
+   feed page.
+
+**Tests:**
+- `tests/api_football_plan_test.py` — live `/status` probe: current (free) key → gates stay;
+  simulated paid response → `is_paid_plan()` true, free guards lift. All 6 PASSED.
+- `tests/clubelo_source_test.py` — snapshot fetch/parse, name-map resolution, missing-team →
+  `None`. All 5 PASSED.
+- `tests/clubelo_fallback_test.py` — fixture whose teams are missing from the fit → ClubElo
+  probability produced + `rating_source` stamped; both teams unrated → still `NO DATA` (HR35);
+  goals markets `None` for stretch rows. All 3 PASSED.
+
+**Verification:** Full suite (pytest 34 + 58 standalone) green. Run `steward/run_steward.py`
+live: `logs/steward_state.json` shows every source fetched fresh; SportyBet cache rebuilt;
+ClubElo snapshot cached; board-visible prices resolve. Run one `/produce bet` pass: a
+previously-NO-DATA continental/qualifier fixture now shows a labeled probability + price (or
+honest `NO DATA — PENDING` only when both the paid fit AND ClubElo lack the team). Paste paid
+key → probe flips to paid → current-season standings load → promoted clubs rate via the
+existing fit. Until then, everything above works on free + ClubElo.
+
+**Authority:** Architect (direct instruction + AskUserQuestion, 2026-08-12). Additive
+infrastructure + a complementary fallback that never replaces the paid plan. No capital,
+staking, fabrication, verification or honest-edge behaviour changed. The provenance tag is a
+skin on the honest-edge display — it hides nothing.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

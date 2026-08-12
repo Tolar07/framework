@@ -46,6 +46,7 @@ except ImportError:
 from data.football_data_source import MatchResult
 from data.multi_source import SourceNoData
 from data.retry import get_protected
+from data import api_football_plan
 
 API_BASE = "https://v3.football.api-sports.io"
 CACHE_DIR = Path(__file__).parent / "cache" / "api_football"
@@ -100,7 +101,12 @@ def load_results(league: str, season: int = FREE_TIER_LAST_SEASON,
         raise RuntimeError("requests not installed")
     if league not in LEAGUE_IDS:
         raise SourceNoData(f"'{league}' has no verified API-Football league ID here.")
-    if season > FREE_TIER_LAST_SEASON:
+    # PLAN-GATED (Architect 2026-08-12): the free plan stops at 2024; a PAID
+    # key lifts the guard so the current-season (2025-26) history loads and
+    # promoted clubs become rateable through the existing DC/elo machinery.
+    # is_paid_plan() fails closed (a probe failure keeps the free gate), so a
+    # transient probe error can never silently open the current-season path.
+    if season > FREE_TIER_LAST_SEASON and not api_football_plan.is_paid_plan():
         raise SourceNoData(
             f"season {season} is beyond the free plan (ends {FREE_TIER_LAST_SEASON}). "
             f"Fetching it would return a plan error, not data.")

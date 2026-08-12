@@ -30,11 +30,13 @@ from data.football_data_source import (load_league, load_second_division,
 from data import thesportsdb_fixtures as tsdb
 from data import api_football_results as apif
 from data import xg_source
+from data import clubelo_source
 from engine import cross_league as xleague
 from engine import elo as elo_engine
 from engine.consensus import compute_consensus
 from engine.dixon_coles import (fit, predict, predict_adjusted,
-                                 unrated_reason, FIT_VERSION)
+                                 unrated_reason, FIT_VERSION,
+                                 FixtureProbabilities)
 from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload,
                          dc_to_payload, dc_from_payload)
 from engine.leagues import (WHITELISTED_LEAGUES, is_deploy_eligible,
@@ -362,6 +364,7 @@ def scan_one_league(league: str, season: str,
     # is flagged on the board so it is visibly distinct from a primary rating.
     carry_model = None
     carry_flags: list[str] = []
+    clubelo_flags: list[str] = []
     carry_promoted: set[str] = set()  # teams known ONLY from 2nd-division rows
     if cross_model is None:
         try:
@@ -518,6 +521,33 @@ def scan_one_league(league: str, season: str,
                 probs = carry_p
                 carry_rated = True
                 carry_flags.append(f"{home} v {away}")
+        # rating_source provenance: None = primary DC fit, "carry" = prior-
+        # season carry-over fit (promoted clubs), "clubelo" = ClubElo stretch.
+        # The board labels the source so a stretch rating is never mistaken
+        # for a fitted one (Architect 2026-08-12, bookable + labeled).
+        rating_source = "carry" if carry_rated else None
+        # ClubElo stretch fallback: a keyless current-season Elo snapshot is a
+        # real rating (ID414 — a seed IS a rating), so a fixture neither the
+        # primary fit nor the carry-over model covers is still rated rather
+        # than left NO DATA. Both clubs must carry a real ClubElo value (HR35:
+        # a missing side keeps the row NO DATA — PENDING). Only its 1X2
+        # probabilities count — goals markets stay None, so a stretch-rated
+        # fixture is never priced on a goals market it has no opinion on.
+        if probs is None:
+            cl_h = clubelo_source.elo_for(home)
+            cl_a = clubelo_source.elo_for(away)
+            if cl_h is not None and cl_a is not None:
+                cl_p = elo_engine.EloModel(
+                    ratings={home: cl_h, away: cl_a}).probabilities(home, away)
+                if cl_p is not None:
+                    ph, pd, pa = cl_p
+                    probs = FixtureProbabilities(
+                        home_team=home, away_team=away,
+                        lambda_home=0.0, lambda_away=0.0,
+                        p_home=ph, p_draw=pd, p_away=pa,
+                        modal_scoreline=(0, 0))
+                    rating_source = "clubelo"
+                    clubelo_flags.append(f"{home} v {away}")
         # The fixture itself comes from TheSportsDB (ratified T2), so that's
         # what gets stamped — crediting football-data.co.uk here would claim a
         # corroboration that didn't happen. One source => ○ SINGLE-SOURCE.
@@ -537,8 +567,13 @@ def scan_one_league(league: str, season: str,
             if xg_p else None
         mes = None
         if probs is not None:
+            # A STRETCH 1X2-only rating (ClubElo fallback) has no goals
+            # opinion — p_over_15 is None, so the goals markets contribute
+            # nothing to best_prob rather than crashing (HR35).
+            over15 = probs.p_over_15
             best_prob = max(probs.p_home, probs.p_draw, probs.p_away,
-                             probs.p_over_15, 1 - probs.p_over_15)
+                            over15 if over15 is not None else 0.0,
+                            1 - over15 if over15 is not None else 0.0)
             mes = trigger_price(best_prob)
 
         # Fetch SportyBet odds for this fixture to compute actual MES and enable CLV.
@@ -596,6 +631,10 @@ def scan_one_league(league: str, season: str,
                 _unrated_detail(model, home, away) if probs is None
                 else None
             ),
+            # Provenance: None=DC fit, "carry"=carry-over, "clubelo"=stretch.
+            # The board labels it so a stretch rating is never mistaken for a
+            # fitted one (bookable, labeled — Architect 2026-08-12).
+            rating_source=rating_source,
             # SportyBet odds and MES
             sb_home_odds=sb_odds.get("home") if sb_odds else None,
             sb_draw_odds=sb_odds.get("draw") if sb_odds else None,
@@ -608,16 +647,22 @@ def scan_one_league(league: str, season: str,
                      f"previous season's carry-over model (promoted clubs): "
                      f"{', '.join(carry_flags)}")
 
+    if clubelo_flags:
+        flags.append(f"{league}: {len(clubelo_flags)} fixture(s) rated on the "
+                     f"ClubElo stretch fallback (keyless current-season Elo): "
+                     f"{', '.join(clubelo_flags)}")
+
     # Surface unmapped names ONCE per league, with the model's actual roster
     # beside them. A naming mismatch and a genuinely new club are
     # indistinguishable from inside the model, but obvious to a human the
     # moment the two lists sit next to each other. Teams a fixture was
-    # successfully rated through the carry-over model are excluded — they are
-    # not unmapped, they were rated on real prior-season data.
+    # successfully rated through the carry-over model or the ClubElo stretch
+    # are excluded — they are not unmapped, they were rated on real data.
     carry_teams = {t for fx in carry_flags for t in fx.split(" v ")}
+    clubelo_teams = {t for fx in clubelo_flags for t in fx.split(" v ")}
     unmapped = sorted({t for h, a in upcoming_fixtures for t in (h, a)
                        if t not in model.teams and t not in model.thin_teams
-                       and t not in carry_teams})
+                       and t not in carry_teams and t not in clubelo_teams})
     if unmapped:
         # Suggest likely pool matches for each unknown name (read-only — a human
         # verifies and adds to the alias tables; never auto-applied, HR35).

@@ -367,14 +367,20 @@ class FixtureProbabilities:
     p_home: float
     p_draw: float
     p_away: float
-    p_over_15: float
-    p_over_25: float
-    p_over_35: float
-    p_btts_yes: float
     # The single most-likely scoreline from the full Poisson matrix (ID414):
     # argmax of m[i,j] over i,j in [0, MAX_GOALS]. This is what ScoreGPT shows
     # as "predicted 2–1" — the modal scoreline, not rounded expected goals.
     modal_scoreline: tuple[int, int]
+    # Goals/other markets. REQUIRED for a full DC fit (always filled by
+    # _predict_from_lambdas). A STRETCH 1X2-only rating (ClubElo fallback,
+    # Architect 2026-08-12) leaves them None and the market engine honestly
+    # reports those markets as unpriced (quote() skips None — HR35), so a
+    # stretch-rated fixture is bookable on 1X2/DC only, never on a goals
+    # market it has no opinion on.
+    p_over_15: Optional[float] = None
+    p_over_25: Optional[float] = None
+    p_over_35: Optional[float] = None
+    p_btts_yes: Optional[float] = None
 
 
 def _predict_from_lambdas(model: DixonColesModel, home: str, away: str,

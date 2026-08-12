@@ -15,6 +15,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import pipeline.odds as odds_mod
+import data.api_football_odds as af_fallback_mod
 
 # --- 1. the two floors exist and are ordered correctly ------------------------
 assert odds_mod.QUOTA_HARD_FLOOR < odds_mod.QUOTA_FLOOR, \
@@ -29,7 +30,13 @@ odds_mod.CACHE_DIR = _tmp  # redirect cache writes away from the real data dir
 
 def _run(remaining: int, fixture_capture: bool):
     """fetch_odds with a mocked quota + HTTP layer. Returns True if it fetched,
-    raises QuotaExhausted if the guard blocked it."""
+    raises QuotaExhausted if the guard blocked it.
+
+    The api-football fallback's cache dir is isolated too: when the Odds API is
+    spent, a routine price pull degrades THROUGH the fallback, and a real warm
+    cache (e.g. from the data steward's 06:00 pass) would serve a genuine price
+    instead of the mocked network path — so the floor guard test must never see
+    the real cache. Both caches point at the same throwaway temp dir."""
     class _Resp:
         status_code = 200
         headers = {"x-requests-remaining": str(remaining)}
@@ -39,6 +46,7 @@ def _run(remaining: int, fixture_capture: bool):
          patch.object(odds_mod, "_get_key", return_value="test-key"), \
          patch.object(odds_mod, "check_quota",
                       return_value=(500 - remaining, remaining)), \
+         patch.object(af_fallback_mod, "CACHE_DIR", _tmp), \
          patch("data.retry.request", return_value=_Resp()):
         fx, flags = odds_mod.fetch_odds(
             "Championship", use_cache=True, fixture_capture=fixture_capture)

@@ -134,6 +134,12 @@ def fixture_to_dict(bf: BoardFixture) -> dict:
         "engine_picks": engine_picks,
         "consensus_pick": consensus_pick,
         "model_engine": bf.model_engine,
+        # Provenance of this fixture's probability: None = primary fitted DC
+        # fit, "carry" = prior-season carry-over fit (promoted club),
+        # "clubelo" = ClubElo stretch (keyless current-season Elo). The board
+        # labels it so a stretch/carry rating is never mistaken for a fitted
+        # one (bookable, labeled — Architect 2026-08-12).
+        "rating_source": _opt(bf.rating_source),
         "verification": {
             "tier": str(getattr(bf.verification.tier, "name", bf.verification.tier)),
             "note": _opt(bf.verification.note),
@@ -234,6 +240,9 @@ CLIENT_FIXTURE_KEYS = frozenset({
     "mes_trigger_price", "rejection_reason",
     "kickoff_date",  # factual datum (not a model internal); needed for the
                      # today-only call filter (standing rule 2026-08-09)
+    "rating_source",  # provenance label ("clubelo"/"carry"/None) — a factual
+                      # tag, not a model internal; the board labels stretch/
+                      # carry ratings so they are never mistaken for a fit
 })
 CLIENT_TOP_KEYS = frozenset({
     "schema_version", "date", "phase",

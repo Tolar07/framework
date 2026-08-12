@@ -245,6 +245,18 @@ section{margin-top:34px;}
   padding:2px 7px;border-radius:999px;margin-left:8px;flex:none;
 }
 .acc-pill svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+/* Provenance tag — labels a NON-fitted rating (Architect 2026-08-12): a
+   ClubElo stretch / carry-over rating is real and bookable, but must never be
+   mistaken for a primary-window fit. Quiet outlined pill: provenance, not a
+   recommendation boost. */
+.prov-tag{
+  display:inline-flex;align-items:center;
+  color:var(--amber);border:1px solid var(--amber-dim);
+  font-family:'IBM Plex Mono',monospace;font-size:8.5px;
+  letter-spacing:0.06em;text-transform:uppercase;
+  padding:1px 6px;border-radius:999px;margin-left:6px;flex:none;
+  vertical-align:middle;
+}
 .scan-table th{
   text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;
   color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.05em;

@@ -110,7 +110,7 @@ All agents, skills, commands, rules, hooks, and contexts are available in every 
 - **Agents**: planner, architect, tdd-guide, code-reviewer, security-reviewer, build-error-resolver, e2e-runner, refactor-cleaner, doc-updater
 - **Skills**: coding-standards, backend-patterns, frontend-patterns, continuous-learning, strategic-compact, tdd-workflow, security-review, eval-harness, verification-loop
 - **Motion-craft skills** (Emil Kowalski pack, added 2026-08-10): `emil-design-eng`, `review-animations`, `improve-animations`, `find-animation-opportunities`. Run `improve-animations` for a prioritized motion audit → plans in `plans/`; `review-animations` for a strict diff pass on motion. Motion is decor, never data-hiding (honest-edge).
-- **Design skills** (added 2026-08-11, presentation-layer only): `web-design-guidelines` (Vercel Web Interface Guidelines review — audits UI/accessibility), `brandkit` (taste-skill — brand voice/style), `image-to-code` (taste-skill — screenshot → code), `ui-ux-pro-max` (wrapper → 24MB CLI toolkit at `external/design-skills/ui-ux-pro-max-skill`), `extract-design-system` (wrapper → token-extraction tool at `external/design-skills/extract-design-system`). All are **reference/tooling for UI work only** — they never touch prediction logic, and they never silently swap the ratified Binance palette (a design-language change needs Architect ratification).
+- **Design skills** (added 2026-08-11, presentation-layer only): `web-design-guidelines` (Vercel Web Interface Guidelines review — audits UI/accessibility), `brandkit` (taste-skill — brand voice/style), `image-to-code` (taste-skill — screenshot → code), `ui-ux-pro-max` (wrapper → 24MB CLI toolkit at `external/design-skills/ui-ux-pro-max-skill`), `extract-design-system` (wrapper → token-extraction tool at `external/design-skills/extract-design-system`). All are **reference/tooling for UI work only** — they never touch prediction logic, and they never silently swap the ratified Verge palette (a design-language change needs Architect ratification).
 - **Commands**: /plan, /tdd, /e2e, /code-review, /build-fix, /refactor-clean, /learn, /checkpoint, /verify, /setup-pm
 - **Rules**: security, coding-style, testing, git-workflow, agents, performance, patterns, hooks
 - **Hooks**: tmux reminders, git push review, doc blocking, PR logging, prettier, TypeScript check, console.log audit, session persistence, continuous learning extraction
@@ -123,11 +123,17 @@ All agents, skills, commands, rules, hooks, and contexts are available in every 
 Dashboard/UI styling uses **awesome-design-md** — a design-token library at
 `C:\Users\Motunrayo\Downloads\awesome-design-md-main\awesome-design-md-main`
 (`design-md/<brand>/DESIGN.md` for 73 brands). The current web dashboard
-(`webapp/static/css/proto.css`) is a **Binance DESIGN.md token pass** (ratified
-2026-08-10): canvas dark `#0b0e11`, surface `#1e2329`, hairline `#2b3139`,
-amber primary `#FCD535`, trading up `#0ecb81` / down `#f6465d`.
+(`webapp/static/css/proto.css`) is a **Verge DESIGN.md token pass** (ratified
+2026-08-12, replaces the 2026-08-10 Binance pass): canvas `#131313`, surface
+`#2d2d2d`, hairline `rgba(255,255,255,0.14)`, ink `#ffffff` / dim `#949494` /
+faint `#8c8c8c`, **amber `#e8a33d`** (pick/deploy accent), **mint `#3cffd0`**
+(hit/positive), **ultraviolet `#5200ff`** (miss/alert), focus `#1eaedb`.
+Type: Anton (display) / Space Grotesk (ui) / Space Mono (mono-uppercase labels),
+self-hosted under `font-src 'self'`. Full spec:
+`docs/design-reference/OLP_XDV_VERGE_TOKEN_REFERENCE.md` (source:
+`docs/design-reference/theverge_DESIGN.md`).
 
-When changing or extending the web UI, keep the Binance tokens in `proto.css`
+When changing or extending the web UI, keep the Verge tokens in `proto.css`
 (they are the ratified palette). If a new design language is ever chosen, pull
 it from the awesome-design-md collection and ratify the swap — tokens are a
 skin, never a reason to hide data (honest-edge + data-density stay intact).

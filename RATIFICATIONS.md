@@ -1853,3 +1853,71 @@ places a stake; capital authority remains the Architect's. HR35 held throughout:
 fabricated price, never a fabricated closing line, never an off-day fixture.
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+## 2026-08-12 · VERGE DESIGN-LANGUAGE PASS on the feed page (replaces the Binance token pass) — ratified by the ARCHITECT
+
+**What the Architect asked:** paste the full "OLP·XDV — Match Intelligence" mockup
+(a dark editorial intelligence board: wordmark + centerline, sticky tab nav CALL/SCAN/SINGLES,
+hero honest-edge line, density switcher Lean/Trimmed/Full, call cards with SVG dials +
+all-market bars + breakeven edge strips + booking codes, the lean Telegram ticket, scan
+table, singles, footer with the capital-authority line) and "blend the web app currently
+designed in other with this, use the best tool you have and best brand design, also use a
+frontend and backend agent to help with the work." Three decisions locked via
+AskUserQuestion 2026-08-12: **(1)** palette/type sourced from a brand DESIGN.md picked by
+me from awesome-design-md → **The Verge**; **(2)** the stale Ƈ-A/Ƈ-B softness-tier chips +
+"softness tier A/B only, capped at six" copy **dropped** (tiers were fully cancelled
+2026-08-11; all leagues one open pool — ID405 override); **(3)** the Full density view
+renders from **public feed data only** — no EV, no source-tier (those stay admin-only).
+
+**What changed (skin only — commit `43839d7`, branch `elo-persistence`):**
+
+1. **Palette/type — Verge replaces Binance** (`docs/design-reference/theverge_DESIGN.md`
+   copied from the awesome-design-md collection; `docs/design-reference/OLP_XDV_VERGE_TOKEN_REFERENCE.md`
+   is the ratified OLP XDV token spec; full token table in the reference doc):
+   - Canvas `#131313`, surface `#2d2d2d`, surface-2 `#313131`, hairline
+     `rgba(255,255,255,0.14)`, ink `#ffffff`, ink-dim `#949494`, ink-faint `#8c8c8c`
+   - **Amber `#e8a33d`** = pick/deploy accent (mockup's amber kept; Verge tile yellow/orange
+     family) — ★ Acca A hero, deploy emphasis, OVERRIDE
+   - **Mint `#3cffd0`** = hit/positive/trading-up, gate PASS; **Ultraviolet `#5200ff`** =
+     miss/alert/trading-down, data flags
+   - Mono-uppercase labels (kickers, timestamps, tab labels, market names); **colour-as-
+     elevation** (1px hairlines do the work shadows did — no decorative gradients, no drop
+     shadows; the Acca A hero is a flat amber left border + `--surface-2` fill); cards ~20px,
+     pills ~24px; motion 150–180ms ease, `prefers-reduced-motion` respected, motion is decor
+     never data-hiding.
+2. **Type substitutes self-hosted** under `font-src 'self'` (CSP unchanged): Manuka → **Anton**
+   (400), PolySans → **Space Grotesk** (300/500/700), PolySans Mono → **Space Mono** (400/700).
+   Fetched via `webapp/static/_fetch_fonts.py`; legacy Inter/IBM Plex Mono `@font-face` kept
+   for the latent client/admin blocks.
+3. **render_v2.py rebuilt** — masthead (wordmark/centerline/dateline) → sticky tab nav
+   CALL/SCAN/SINGLES → hero (honest-edge kicker, CTAs, chips, flags, gate callout) →
+   Part 1 THE CALL (density switcher: *Lean* = byte-faithful Telegram tickets, *Trimmed/Full*
+   = call cards with MODEL % dial from `best_model_prob`, DEPLOY breakeven line from
+   `mes_trigger_price`, all-market bars from feed-safe `probs`, `1/price` breakeven edge
+   strip, booking-code copy pills) → Part 2 THE SCAN (date pills + table) → Part 3 SINGLES →
+   YESTERDAY — GRADED / 7-DAY ROLLING → honest-edge + capital-authority footer. **Tier
+   markers dropped, not restored.**
+4. **Density views are the same public feed** — Lean = the Telegram ticket; Trimmed = call
+   cards; Full = a denser grid of the SAME feed fields. No EV, no source-tier anywhere on
+   the page (trim boundary protected). `ARCHITECT_SIGNOFF` override never silent.
+5. **proto.js** — density switcher, sticky-tab scrollspy (IntersectionObserver), rAF
+   dial/bar/edge fills (reduced-motion aware; no-JS shows filled dials via inlined values),
+   copy pills, live-score poll. All `addEventListener`, zero inline handlers — CSP-clean.
+6. **server.py / schema.py unchanged** — Full is feed-data-only; one render, two outlets.
+
+**Verification:** the four webapp suites + `webapp_feed_parity_test.py` green; the read-only
+parity test's byte-faithful Telegram production lines, `data-code` hooks and honest
+`NO DATA — PENDING` hold; `_INTERNAL_FIELDS` leak boundary green (rendered pages contain
+zero internals); rendered HTML has no inline handlers (CSP `script-src 'self'`); fonts serve
+as woff2 200s under `font-src 'self'`. Same-output proof: the served `/dashboard/<date>` carries
+the same production-block text as the day's Telegram board.
+
+**Authority:** Architect (direct instruction + AskUserQuestion, 2026-08-12). This **replaces**
+the 2026-08-10 Binance DESIGN.md token pass — a ratified design-language change. It is a
+**skin, never a reason to hide data**: honest-edge + data density stay intact, HR35 kept
+(`NO DATA — PENDING` for any genuinely missing pick/code), booking codes remain SportyBet
+recall slips (never a stake), the trim boundary holds (no EV/`best_price`/verification on
+the page). No capital, staking, fabrication, verification or honest-edge behaviour changed.
+Tier markers stay dropped per the 2026-08-11 ratification — not restored.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

@@ -174,20 +174,20 @@ os.environ["ARCHITECT_SIGNOFF"] = "0"
 
 feed = _render(_payload())
 
-# --- 1. masthead + tabnav + hero: wordmark / date / phase / leagues / cal ------
+# --- 1. masthead + tabnav + hero: wordmark + centerline + honest-edge sub + CTAs ------
 assert 'class="masthead"' in feed and 'class="hero"' in feed
-assert "OLP XDV" in feed and "Mon, 10 Aug 2026" in feed
-assert "Phase 2 — paper calibration, zero capital" in feed
-assert "2 leagues" in feed and "3 legs logged" in feed
+assert "OLP XDV" in feed
+# Mockup masthead has wordmark + centerline only (no date pill); hero has sub + CTAs only (no chips)
+assert "An excellent informed process" in feed  # hero-sub text
 assert 'class="tabnav"' in feed
-for pill in ("CALL", "SCAN", "SINGLES"):
+for pill in ("Call", "Scan", "Singles"):
     assert f'class="pill' in feed and pill in feed
 assert 'class="btn btn-primary"' in feed and 'class="btn btn-ghost"' in feed
-print("1. masthead + tab nav + hero (date/phase/leagues/calibration): OK")
+print("1. masthead + tab nav + hero (wordmark/centerline/honest-edge/CTAs): OK")
 
-# --- 2. data-flag chips -------------------------------------------------------
-assert "1 data flag" in feed and "EFL Cup: no history" in feed
-print("2. data-flag chips render: OK")
+# --- 2. NO data-flag chips on public page (Architect directive) ---------------
+assert "data-flag" not in feed and "⚠" not in feed
+print("2. NO data-flag chips on public page: OK")
 
 # --- 3. gate callout: NOT MET without sign-off --------------------------------
 assert 'class="gate-callout notmet"' in feed
@@ -234,10 +234,10 @@ assert 'data-for="lean"' in feed_prod and 'data-for="trimmed"' in feed_prod \
     and 'data-for="full"' in feed_prod
 # Trimmed call cards carry the MODEL % dial + market bars + breakeven strip.
 assert 'class="call-card"' in feed_prod
-assert 'class="dial"' in feed_prod and "MODEL 56%" in feed_prod
-assert "DEPLOY @ 1.52" in feed_prod
+assert 'class="dial"' in feed_prod and "MODEL" in feed_prod and "56%" in feed_prod
+assert "DEPLOY" in feed_prod and "1.52" in feed_prod
 assert 'class="mkt-bar"' in feed_prod and "O2.5" in feed_prod
-assert 'class="edge-block"' in feed_prod and "BREAKEVEN" in feed_prod
+assert 'class="edge-block"' in feed_prod and "Breakeven" in feed_prod
 print("5a. density switcher + Trimmed call cards (dial/bars/edge): OK")
 
 # --- 5b. HR35: missing codes render NO DATA — PENDING, never fabricated -------

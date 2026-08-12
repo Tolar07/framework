@@ -38,10 +38,10 @@ Ratified 22 July 2026. Governing principle: **trust tier sets the corroboration 
 
 ---
 
-## SECTION 2 — LEAGUE WHITELIST (ID401) — 18 leagues
+## SECTION 2 — LEAGUE WHITELIST (ID401) — 25 leagues
 
 **GREEN (tool-fed):**
-Premier League · La Liga · Serie A · Bundesliga · Ligue 1 · Champions League · Europa League · Conference League (added 2026-08-10)
+Premier League · La Liga · Serie A · Bundesliga · Ligue 1 · Champions League · Europa League · Conference League (added 2026-08-10) · UEFA Super Cup (added 2026-08-12)
 
 **AMBER (FootyStats + F2 verification):**
 Scottish Premiership · Belgian Pro League · Eredivisie · Championship · Primeira Liga · Danish Superliga · Ekstraklasa · HNL
@@ -86,9 +86,9 @@ Scottish Premiership · Belgian Pro League · Eredivisie · Championship · Prim
 
 ## SECTION 5 — MATCHDAY SLATE ENGINE (ID402) — "wide eyes, narrow hands"
 
-Model-only SCAN is wide — every whitelisted league gets scanned every run, whether or not its season has started. THE CALL / DEPLOY draws from the SAME unified pool — softness tiering was **fully removed 2026-08-11** (`engine/softness.py` deleted): every whitelisted league is deploy-eligible, `DEPLOY_POOL_CAP` is gone, THE CALL ranks priced-first then EV/conviction (see `engine/leagues.call_key`), and the odds price pull widens to all 18 whitelisted leagues (quota self-limits via `check_quota`). No `SOFTNESS_PAUSED`, no tier A/B/C/D — nothing left that could be re-enabled.
+Model-only SCAN is wide — every whitelisted league gets scanned every run, whether or not its season has started. THE CALL / DEPLOY draws from the SAME unified pool — softness tiering was **fully removed 2026-08-11** (`engine/softness.py` deleted): every whitelisted league is deploy-eligible, `DEPLOY_POOL_CAP` is gone, THE CALL ranks priced-first then EV/conviction (see `engine/leagues.call_key`), and the odds price pull widens to all 19 whitelisted leagues (quota self-limits via `check_quota`). No `SOFTNESS_PAUSED`, no tier A/B/C/D — nothing left that could be re-enabled.
 
-> **REPO CROSS-CHECK:** ✓ `engine/leagues.py`. Scan = all 18 whitelisted leagues, all deploy-eligible. Deploy gating honours the ID401 whitelist only (`is_deploy_eligible`) and the ID405 market gate (`engine/markets.py` `blocked()`); the ID405 gate is currently OPEN (`BLOCKED = {}`). Softness removal recorded in RATIFICATIONS.md (2026-08-11).
+> **REPO CROSS-CHECK:** ✓ `engine/leagues.py`. Scan = all 19 whitelisted leagues, all deploy-eligible. Deploy gating honours the ID401 whitelist only (`is_deploy_eligible`) and the ID405 market gate (`engine/markets.py` `blocked()`); the ID405 gate is currently OPEN (`BLOCKED = {}`). Softness removal recorded in RATIFICATIONS.md (2026-08-11).
 
 ---
 

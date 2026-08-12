@@ -36,6 +36,7 @@ from typing import Optional
 from data.football_data_source import MatchResult
 from data.multi_source import SourceNoData
 from data.retry import get
+from engine.league_registry import get_thesportsdb_id
 
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "thesportsdb"
 # Fixtures for a given day are known well ahead and rarely change intra-day, so
@@ -52,39 +53,42 @@ except ImportError:
 API_BASE = "https://www.thesportsdb.com/api/v1/json"
 PUBLIC_TEST_KEY = "123"
 
-# League IDs verified individually against TheSportsDB's own lookupleague.php
-# endpoint on 2026-08-03 — each one was confirmed by name+country, not guessed.
-# Champions League (4480) and Europa League (4481) verified 2026-08-05.
-# Ekstraklasa (4422) and HNL (4629) verified 2026-08-08 with personal key.
-LEAGUE_IDS = {
-    "Scottish Premiership": 4330,   # "Scottish Premier League" (Scotland)
-    "Eredivisie": 4337,             # "Dutch Eredivisie" (The Netherlands)
-    "Danish Superliga": 4340,       # "Danish Superliga" (Denmark)
-    "Belgian Pro League": 4338,     # "Belgian Pro League" (Belgium)
-    "Premier League": 4328,         # "English Premier League" (England)
-    "Championship": 4329,           # "English League Championship" (England)
-    "Bundesliga": 4331,             # "German Bundesliga" (Germany)
-    "Serie A": 4332,                # "Italian Serie A" (Italy)
-    "Ligue 1": 4334,                # "French Ligue 1" (France)
-    "La Liga": 4335,                # "Spanish La Liga" (Spain)
-    "Primeira Liga": 4344,          # "Portuguese Primeira Liga" (Portugal)
-    # Continental competitions — resolved by NAME + COUNTRY via
-    # lookupleague.php (Europe, "UEFA Champions League" / "UEFA Europa League")
-    # on 2026-08-05, not guessed. The eventsseason feed currently lags weeks
-    # behind (July-only qualifiers), so the ACTIVE capture path for these is
-    # the odds feed (pipeline/odds.py SPORT_KEYS); this ID is what enables the
-    # league-phase capture once TheSportsDB loads it.
-    "Champions League": 4480,
-    "Europa League": 4481,
-    # Scan leagues previously unresolved (public test key truncated directory)
-    # Resolved 2026-08-08 with personal key 5558126822:
-    "Ekstraklasa": 4422,            # "Polish Ekstraklasa" (Poland)
-    "HNL": 4629,                    # "Croatian First Football League" (Croatia)
-    # Resolved 2026-08-08 by scanning all_leagues.php on the personal key and
-    # confirming by events (Austrian clubs + 2026/27 season loaded, 123
-    # upcoming) — not guessed.
-    "Austrian Bundesliga": 4621,    # "Austrian Bundesliga" (Austria)
-}
+# League IDs — now sourced from the dynamic registry (config/leagues.json).
+# LEAGUE_IDS is kept as a backward-compat fallback dict populated from the
+# registry at import time. New leagues are added via config/leagues.json; no
+# code edits needed. Each entry was verified against TheSportsDB's own
+# lookupleague.php endpoint (name+country), not guessed.
+LEAGUE_IDS: dict[str, int] = {}
+
+# Populate from registry for backward compatibility
+try:
+    from engine.league_registry import registry
+    for name, cfg in registry._leagues.items():
+        tid = cfg.get_id("thesportsdb")
+        if tid is not None:
+            LEAGUE_IDS[name] = int(tid)
+except Exception:
+    # Registry not yet loaded (tests, import order) — fall back to hardcoded
+    # values so existing paths keep working during transition.
+    LEAGUE_IDS = {
+        "Scottish Premiership": 4330,   # "Scottish Premier League" (Scotland)
+        "Eredivisie": 4337,             # "Dutch Eredivisie" (The Netherlands)
+        "Danish Superliga": 4340,       # "Danish Superliga" (Denmark)
+        "Belgian Pro League": 4338,     # "Belgian Pro League" (Belgium)
+        "Premier League": 4328,         # "English Premier League" (England)
+        "Championship": 4329,           # "English League Championship" (England)
+        "Bundesliga": 4331,             # "German Bundesliga" (Germany)
+        "Serie A": 4332,                # "Italian Serie A" (Italy)
+        "Ligue 1": 4334,                # "French Ligue 1" (France)
+        "La Liga": 4335,                # "Spanish La Liga" (Spain)
+        "Primeira Liga": 4344,          # "Portuguese Primeira Liga" (Portugal)
+        "Champions League": 4480,
+        "Europa League": 4481,
+        "UEFA Super Cup": 4512,
+        "Ekstraklasa": 4422,
+        "HNL": 4629,
+        "Austrian Bundesliga": 4621,
+    }
 
 # Previously unresolved (public test key truncated directory).
 # Resolved 2026-08-08 with personal key 5558126822:
@@ -273,6 +277,10 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "FK Borac Banja Luka": "Borac Banja Luka",
         "Lugano": "FC Lugano",
     },
+    "UEFA Super Cup": {
+        # TheSportsDB feed spells Paris Saint-Germain with hyphen; pool key is Paris SG.
+        "Paris Saint-Germain": "Paris SG",
+    },
     # HNL — verified 2026-08-08 by diffing the 2627 fixture feed against the
     # 2526 results feed: TheSportsDB spells the same clubs differently in the
     # two feeds (fixtures drop the 'NK ' prefix).
@@ -281,6 +289,18 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Lokomotiva Zagreb": "NK Lokomotiva",
         "Varaždin": "NK Varaždin",
     },
+    # --- NEW 2026-08-12: ALIASES PENDING VERIFICATION ---
+    # These leagues were just added to the registry. Team aliases must be
+    # verified by diffing each league's TheSportsDB fixture feed against the
+    # cross-model pool before they're filled in (HR35: no guessing). Until then
+    # these entries stay EMPTY — unmatched names pass through unchanged and the
+    # engine correctly returns NO DATA — PENDING for any club not in the pool.
+    "Süper Lig": {},
+    "Super League Greece": {},
+    "Swiss Super League": {},
+    "Eliteserien": {},
+    "Allsvenskan": {},
+    "Czech First League": {},
 }
 
 # Clubs deliberately ABSENT from TEAM_ALIASES above because they are genuinely

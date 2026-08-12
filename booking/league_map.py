@@ -43,6 +43,14 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Champions League":    BookmakerLeague("International Clubs", "UEFA Champions League"),
     "Austrian Bundesliga": BookmakerLeague("Austria", "Bundesliga"),
     "EFL Cup":             BookmakerLeague("England", "EFL Cup"),
+    # --- NEW 2026-08-12: Require live SportyBet sidebar verification (HR35) ---
+    # These mappings are PENDING live verification — wrong sub-item = silent wrong data
+    "Süper Lig":           BookmakerLeague("Turkey", "Süper Lig"),
+    "Super League Greece": BookmakerLeague("Greece", "Super League"),
+    "Swiss Super League":  BookmakerLeague("Switzerland", "Super League"),
+    "Eliteserien":         BookmakerLeague("Norway", "Eliteserien"),
+    "Allsvenskan":         BookmakerLeague("Sweden", "Allsvenskan"),
+    "Czech First League":  BookmakerLeague("Czech Republic", "First League"),
 }
 
 # --- Bet365 mapping ---
@@ -61,12 +69,20 @@ BET365_LEAGUES: dict[str, BookmakerLeague] = {
     "Ligue 1":             BookmakerLeague("France", "Ligue 1"),
     "Europa League":       BookmakerLeague("International", "Europa League"),
     "Conference League":   BookmakerLeague("International", "Conference League"),
+    "UEFA Super Cup":      BookmakerLeague("International", "Super Cup"),
     "Primeira Liga":       BookmakerLeague("Portugal", "Liga Portugal"),
     "Premier League":      BookmakerLeague("England", "Premier League"),
     "La Liga":             BookmakerLeague("Spain", "La Liga"),
     "Champions League":    BookmakerLeague("International", "Champions League"),
     "Austrian Bundesliga": BookmakerLeague("Austria", "Bundesliga"),
     "EFL Cup":             BookmakerLeague("England", "League Cup"),
+    # --- NEW 2026-08-12: Require live Bet365 verification ---
+    "Süper Lig":           BookmakerLeague("Turkey", "Süper Lig"),
+    "Super League Greece": BookmakerLeague("Greece", "Super League"),
+    "Swiss Super League":  BookmakerLeague("Switzerland", "Super League"),
+    "Eliteserien":         BookmakerLeague("Norway", "Eliteserien"),
+    "Allsvenskan":         BookmakerLeague("Sweden", "Allsvenskan"),
+    "Czech First League":  BookmakerLeague("Czech Republic", "First League"),
 }
 
 

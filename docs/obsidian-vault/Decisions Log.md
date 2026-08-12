@@ -30,7 +30,7 @@
 ## The four directives for this record (11 Aug 2026) — all verified in code
 
 1. **Softness / deploy-eligibility gate (Tier A/B league restriction, FIX 3) CANCELLED — market opened to all leagues.**
-   Verified: `engine/softness.py` deleted from the tree; `engine/leagues.py` is the single home (`WHITELISTED_LEAGUES`, 18 leagues, `is_deploy_eligible()` = whitelist membership only). ID402 FULLY REMOVED. → [[Rules.md]]
+   Verified: `engine/softness.py` deleted from the tree; `engine/leagues.py` is the single home (`WHITELISTED_LEAGUES`, 25 leagues, `is_deploy_eligible()` = whitelist membership only). ID402 FULLY REMOVED. → [[Rules.md]]
 
 2. **ID405 (away wins never recommended) OVERRIDDEN — away-win recommendations now allowed.**
    Verified: `engine/markets.py:61` "SCOPE OVERRIDDEN 2026-08-11 (Architect directive, named): away wins may now be …" + `BLOCKED = {}`. All markets deployable. → [[Rules.md]]

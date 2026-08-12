@@ -7,7 +7,7 @@
 
 ## What OLP XDV is
 A **Phase-3 live** football-betting calibration framework (paper→live transition
-ratified 2026-08-11). A daily pipeline scans **18 whitelisted leagues**, fits
+ratified 2026-08-11). A daily pipeline scans **19 whitelisted leagues** (UEFA Super Cup added 2026-08-12), fits
 Dixon-Coles + Elo + xG + bookmaker engines into one consensus, builds a board,
 produces a **today-only** bet (Acca A + split accas + singles) priced on
 **SportyBet's own line** with **booking codes**, logs **paper legs with CLV**, and

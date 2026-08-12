@@ -313,6 +313,50 @@ expected = sorted([f"board_{today}.json", f"acca_{today}_codes.json"])
 assert after == expected, f"server wrote to disk: {after}"
 print("10. server is read-only (board dir unchanged): OK")
 
+# --- 11. global /api/* rate limiting (60 req/min) ------------------------------
+# Hit /api/board.json 61 times rapidly — the 61st should 429. The test uses
+# the same in-memory store so the counter carries across requests.
+# Note: the test client (localhost) is the single "IP" here; production behind
+# Caddy would see real client IPs via X-Forwarded-For.
+for i in range(61):
+    code, _, _ = _req("/api/board.json")
+    if i == 60:
+        assert code == 429, f"request 61 should 429, got {code}"
+        assert b"rate limited" in _req("/api/board.json")[1].encode() or b"rate limited" in _req("/api/board.json")[1]
+print("11. global /api/* rate limit (60/min) -> 429 on 61st: OK")
+
+# --- 11b. /api/analyst sub-limit still applies (10 req/min) --------------------
+# The analyst endpoint has a stricter 10/min sub-limit ON TOP OF the global 60.
+# We've already made 61 requests above (all to /api/board.json), so the global
+# limit for this IP is exhausted. But let's test the sub-limit independently
+# by clearing the global store and hitting /api/analyst 11 times.
+# (In practice, both limits track the same IP; this verifies the sub-limit code
+# path is reachable and the stricter bound is enforced.)
+server._API_LIMIT.clear()
+server._ANALYST_LIMIT.clear()
+with patch.dict(os.environ, {"ANTHROPIC_API_KEY": ""}, clear=False):
+    for i in range(11):
+        code, body, _ = _post("/api/analyst", data={"message": "hi"})
+        if i == 10:
+            assert code == 429, f"analyst request 11 should 429, got {code}"
+print("11b. /api/analyst sub-limit (10/min) -> 429 on 11th: OK")
+
+# --- 12. hardening headers present on every response ---------------------------
+code, body, hdrs = _req(f"/dashboard/{today}")
+for hdr, expected in [
+    ("x-content-type-options", "nosniff"),
+    ("x-frame-options", "DENY"),
+    ("referrer-policy", "strict-origin-when-cross-origin"),
+    ("strict-transport-security", "max-age=31536000; includesubdomains"),
+]:
+    val = next((v for k, v in hdrs.items() if k.lower() == hdr), "")
+    assert expected.lower() in val.lower(), f"missing {hdr}={expected!r} (got {val!r})"
+# Also check static assets get the headers
+code, body, hdrs = _req("/static/css/proto.css")
+val = next((v for k, v in hdrs.items() if k.lower() == "x-content-type-options"), "")
+assert val.lower() == "nosniff", f"static missing nosniff: {val!r}"
+print("12. hardening headers (nosniff, DENY, referrer, HSTS) on all responses: OK")
+
 httpd.shutdown()
 schema.BOARD_DIR = _real_schema_board_dir
 server.BOARD_DIR = _real_server_board_dir

@@ -84,7 +84,7 @@ assert "./static/css/proto.css" in html_src and "Fenerbahce v Sturm Graz" in htm
 # The export IS the Telegram board: hero, gate callout, PRODUCTION BETS, scan
 # cards, rolling + honest edge (one render, two outlets).
 assert 'class="f-hero"' in html_src and "PRODUCTION BETS" in html_src
-assert 'class="f-scan-card"' in html_src and "7-DAY ROLLING" in html_src
+assert 'class="f-scan-row"' in html_src and "7-DAY ROLLING" in html_src
 assert "HONEST EDGE LINE" in html_src and "Capital authority: THE ARCHITECT" in html_src
 for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
                "consensus", "Model Internals", "Data Flags", "Verified — Yesterday",

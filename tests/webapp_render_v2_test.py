@@ -1,5 +1,5 @@
 """Render tests for render_v2.py — the FEED page (Architect 2026-08-11;
-Verge "Match Intelligence" skin, ratified 2026-08-12).
+pitch-night editorial skin, ratified 2026-08-12 — supersedes the Verge pass).
 
 The web page IS the Telegram board: one render, two outlets. `render_dashboard`
 is fed by schema.build_feed_payload (a widened trim) and renders:
@@ -175,14 +175,14 @@ os.environ["ARCHITECT_SIGNOFF"] = "0"
 feed = _render(_payload())
 
 # --- 1. masthead + tabnav + hero: wordmark / date / phase / leagues / cal ------
-assert 'class="f-masthead"' in feed and 'class="f-hero"' in feed
+assert 'class="masthead"' in feed and 'class="hero"' in feed
 assert "OLP XDV" in feed and "Mon, 10 Aug 2026" in feed
 assert "Phase 2 — paper calibration, zero capital" in feed
 assert "2 leagues" in feed and "3 legs logged" in feed
-assert 'class="f-tabnav"' in feed
+assert 'class="tabnav"' in feed
 for pill in ("CALL", "SCAN", "SINGLES"):
-    assert f'class="f-tabpill' in feed and pill in feed
-assert 'class="f-btn f-btn-primary"' in feed and 'class="f-btn f-btn-ghost"' in feed
+    assert f'class="pill' in feed and pill in feed
+assert 'class="btn btn-primary"' in feed and 'class="btn btn-ghost"' in feed
 print("1. masthead + tab nav + hero (date/phase/leagues/calibration): OK")
 
 # --- 2. data-flag chips -------------------------------------------------------
@@ -190,14 +190,14 @@ assert "1 data flag" in feed and "EFL Cup: no history" in feed
 print("2. data-flag chips render: OK")
 
 # --- 3. gate callout: NOT MET without sign-off --------------------------------
-assert 'class="f-gate notmet"' in feed
+assert 'class="gate-callout notmet"' in feed
 assert "NOT MET" in feed and "3/30 legs with CLV" in feed
 print("3. gate callout shows NOT MET: OK")
 
 # --- 3b. gate callout: OVERRIDE when the Architect signs off (never silent) ---
 os.environ["ARCHITECT_SIGNOFF"] = "1"
 feed_ovr = _render(_payload())
-assert 'class="f-gate override"' in feed_ovr and "OVERRIDE" in feed_ovr
+assert 'class="gate-callout override"' in feed_ovr and "OVERRIDE" in feed_ovr
 assert "Architect sign-off active" in feed_ovr
 assert "override never silent" in feed_ovr
 os.environ.pop("ARCHITECT_SIGNOFF", None)
@@ -212,7 +212,7 @@ print("4. feed carries no model internals: OK")
 feed_prod = _render(_payload_prod(), booking_codes=CODES_PROD)
 assert "PRODUCTION BETS" in feed_prod and "today's fixtures only" in feed_prod
 # Lean tickets carry the byte-faithful block; Acca A is the amber hero ticket.
-assert 'class="f-ticket f-ticket-hero"' in feed_prod
+assert 'class="ticket ticket-hero"' in feed_prod
 assert "★ Acca A — HEADLINE, 1 legs" in feed_prod
 assert "Fenerbahce v Sturm Graz (Champions League)" in feed_prod
 assert "Fenerbahce to win @ 1.91" in feed_prod
@@ -223,20 +223,21 @@ assert "SB_BETA" in feed_prod and "SB_DELTA" in feed_prod
 print("5. production block: hero -> splits -> singles, own codes: OK")
 
 # --- 5a. density switcher + three density views per group ----------------------
-assert feed_prod.count('class="f-densitybar"') == 2      # call + singles
+assert feed_prod.count('class="densitybar"') == 2      # call + singles
 assert 'data-group="call"' in feed_prod and 'data-group="singles"' in feed_prod
 for grp in ("call", "singles"):
     for view in ("lean", "trimmed", "full"):
-        assert f'data-view="{view}"' in feed_prod
-assert feed_prod.count('class="f-density-view active" data-view="trimmed"') == 2
+        assert f'data-for="{view}"' in feed_prod
+assert feed_prod.count('class="density-view active" data-group="call" data-for="trimmed"') == 1
+assert feed_prod.count('class="density-view active" data-group="singles" data-for="trimmed"') == 1
 assert 'data-for="lean"' in feed_prod and 'data-for="trimmed"' in feed_prod \
     and 'data-for="full"' in feed_prod
 # Trimmed call cards carry the MODEL % dial + market bars + breakeven strip.
-assert 'class="f-call-card"' in feed_prod
-assert 'class="f-dial"' in feed_prod and "MODEL 56%" in feed_prod
+assert 'class="call-card"' in feed_prod
+assert 'class="dial"' in feed_prod and "MODEL 56%" in feed_prod
 assert "DEPLOY @ 1.52" in feed_prod
-assert 'class="f-mkt-line"' in feed_prod and "O2.5" in feed_prod
-assert 'class="f-edge-block"' in feed_prod and "MODEL vs BREAKEVEN" in feed_prod
+assert 'class="mkt-bar"' in feed_prod and "O2.5" in feed_prod
+assert 'class="edge-block"' in feed_prod and "BREAKEVEN" in feed_prod
 print("5a. density switcher + Trimmed call cards (dial/bars/edge): OK")
 
 # --- 5b. HR35: missing codes render NO DATA — PENDING, never fabricated -------
@@ -254,9 +255,10 @@ assert "NO production pick today" in feed_empty and "HR35" in feed_empty
 print("5c. no eligible picks -> honest 'NO production pick today': OK")
 
 # --- 6. scan: league-grouped table + live badge + honest pending ---------------
-assert 'class="f-scan"' in feed and "<table" in feed
+assert 'class="scan"' in feed and "<table" in feed
 assert "Champions League (1)" in feed
-assert "Fenerbahce to win" in feed and "56%" in feed
+# The scan shows the probability, not a pick column (picks live in the Call).
+assert "56%" in feed and "1 · 56%" in feed
 assert "NO DATA — PENDING (1)" in feed and "Plymouth Argyle v Exeter City" in feed
 assert 'data-fixture="Fenerbahce|Sturm Graz"' in feed
 assert "<th>Fixture</th>" in feed and "<th>1X2</th>" in feed and "<th>BTTS</th>" in feed
@@ -268,7 +270,7 @@ print("6. scan table (league rows, live badge, honest pending): OK")
 # --- 7. yesterday / rolling / honest edge -------------------------------------
 assert "YESTERDAY — GRADED" in feed
 assert "Fenerbahce v Sturm Graz — HOME" in feed
-assert 'class="f-mark hit"' in feed and 'class="f-mark miss"' in feed
+assert 'class="mark hit"' in feed and 'class="mark miss"' in feed
 assert "7-DAY ROLLING" in feed and "50%" in feed
 assert "40 legs logged · 3 with CLV (avg CLV -1.20%)" in feed
 assert "HONEST EDGE LINE" in feed
@@ -293,5 +295,51 @@ for page, label in ((feed, "feed"), (feed_prod, "feed-prod")):
 assert re.search(r"proto\.css\?v=\d+", feed)
 assert re.search(r"proto\.js\?v=\d+", feed)
 print("9. HTML tags balanced + proto assets cache-busted: OK")
+
+# --- 10. provenance tag: ClubElo stretch labeled, fitted fixtures untagged ---
+def _stretch() -> BoardFixture:
+    # A ClubElo stretch rating (1X2-only — goals fields stay None, HR35).
+    return BoardFixture(
+        fixture="Cambuur v Beveren (Eredivisie)",
+        probs=FixtureProbabilities("Cambuur", "Beveren",
+                                   lambda_home=0.0, lambda_away=0.0,
+                                   p_home=0.46, p_draw=0.28, p_away=0.26,
+                                   modal_scoreline=(0, 0)),
+        verification=verify([SourcedDatum(domain="thesportsdb.com",
+                                          value="x", url="https://x",
+                                          structured=True)]),
+        on_deploy_shortlist=True,
+        rejection_reason=None,
+        rating_source="clubelo")
+
+
+stretch_payload = schema.build_payload(
+    date="2026-08-10", phase="Phase 2 — paper calibration, zero capital",
+    leagues_scanned=["Eredivisie"],
+    board=[_stretch()],
+    data_flags=[], gate={}, telemetry={}, calibration_count=0, mean_clv=None,
+    recommendation="")
+stretch_page = render_v2.render_dashboard(stretch_payload, asset_base="/static")
+assert "ClubElo" in stretch_page, "stretch rating must be labeled on the board"
+assert 'call-prov' in stretch_page, "provenance tag class must render"
+# The main feed's fitted fixture (rating_source=None) must carry NO tag — a
+# fitted DC rating is canonical and needs no labeling.
+assert "call-prov" not in feed, "a fitted fixture must not carry a provenance tag"
+print("10. ClubElo stretch provenance tag renders; fitted fixtures untagged: OK")
+
+# --- 11. pitch-night tokens: palette / type / density / grammar on the page ----
+assert '#0e1a16' in feed, "pitch-night canvas must be in the theme-color meta"
+assert "data-density=\"lean\"" in feed_prod and "data-density=\"trimmed\"" in feed_prod
+for cls in ("call-card", "ticket", "scan", "single-card", "edge-block", "mkt-bar",
+            "dial", "gate-callout", "densitybar", "date-pill", "grade-card",
+            "roll-card", "honest-edge", "toast"):
+    assert f'class="{cls}' in feed or f'class="{cls}"' in feed_prod, cls
+css = (Path(__file__).parent.parent / "webapp" / "static" / "css" / "proto.css").read_text(encoding="utf-8")
+assert "--pitch-night: #0e1a16" in css, "proto.css must carry the pitch-night token"
+assert "'Fraunces', serif" in css, "proto.css must set Fraunces as the display face"
+assert "@font-face" in css and "IBM Plex Mono" in css and "Inter" in css
+assert "font-src 'self'" not in css  # font-src is server-side; page must not link Google fonts
+assert "fonts.googleapis.com" not in feed_prod, "self-hosted fonts only (font-src 'self')"
+print("11. pitch-night tokens (palette/type/grammar/self-hosted fonts): OK")
 
 print("\n[OK] ALL WEBAPP RENDER_V2 TESTS PASSED")

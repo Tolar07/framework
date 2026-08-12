@@ -1,6 +1,11 @@
-@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/Anton-normal-400.woff2') format('woff2');}
-@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300;font-display:swap;src:url('../fonts/Space-Grotesk-normal-300.woff2') format('woff2');}
-@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/Space-Grotesk-normal-300.woff2') format('woff2');}
-@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/Space-Grotesk-normal-300.woff2') format('woff2');}
-@font-face{font-family:'Space Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/Space-Mono-normal-400.woff2') format('woff2');}
-@font-face{font-family:'Space Mono';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/Space-Mono-normal-700.woff2') format('woff2');}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/Fraunces-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/Fraunces-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/Fraunces-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/Fraunces-normal-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-400.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-500.woff2') format('woff2');}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-600.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/Inter-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/Inter-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/Inter-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/Inter-normal-400.woff2') format('woff2');}

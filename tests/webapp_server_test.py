@@ -196,8 +196,8 @@ print("1. / -> 302 to /dashboard/<today>: OK")
 # the booking codes, lean scan — and carries NO model internals in the HTML.
 code, body = _get(f"/dashboard/{today}")
 assert code == 200, f"dashboard should 200, got {code}"
-assert 'class="f-hero"' in body and "OLP XDV" in body
-assert 'class="f-gate notmet"' in body and "NOT MET" in body
+assert 'class="hero"' in body and "OLP XDV" in body
+assert 'class="gate-callout notmet"' in body and "NOT MET" in body
 assert "PRODUCTION BETS" in body
 assert "★ Acca A — HEADLINE, 1 legs" in body
 assert "Fenerbahce to win @ 1.91" in body
@@ -223,7 +223,7 @@ print("4. malformed paths blocked: OK")
 
 # --- 4b. /static serves the feed assets; traversal refused -------------------
 code, body, hdrs = _req("/static/css/proto.css")
-assert code == 200 and ".f-hero" in body and "font-family" in body
+assert code == 200 and ".hero" in body and "font-family" in body
 assert next((v for k, v in hdrs.items() if k.lower() == "content-type"),
             "").startswith("text/css")
 assert _get("/static/js/proto.js")[0] == 200

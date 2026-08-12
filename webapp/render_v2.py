@@ -1,60 +1,44 @@
-"""render_v2.py — the NEW OLP XDV design, implementing the ratified prototype.
+"""render_v2.py — the web page IS the Telegram board (Architect 2026-08-11).
 
-Reference: webapp/design_reference/OLP_XDV_PROTOTYPE.html + FUNCTION_MAP.md
-(full-replacement rebuild of /dashboard and /admin).
+One render, two outlets: the daily run's production builds the Telegram
+message, and THAT same output (telegram_<date>.txt + the raw board JSON) feeds
+this page. The page is the Telegram board — same lean PRODUCTION BETS block
+(Acca A headline, split accas, singles, each with its SportyBet booking code),
+same lean scan, yesterday-graded, 7-day rolling, and the honest-edge line. An
+honest NO DATA — PENDING renders wherever a pick or code is genuinely missing
+(HR35) — nothing is fabricated.
 
-  render_dashboard(payload, booking_codes=None, scores=None)
-      — the PUBLIC /dashboard: a mobile-first (~420px) client with bottom
-        tabs CALL / SCAN / ANALYST. No model internals (fed by
-        schema.trim_payload() via the published store). No chat — the client
-        Analyst tab is READ-ONLY (full chat lives in admin only).
-  render_admin_dashboard(payload, booking_codes=None)
-      — the authed /admin: light theme, top search, Trigger Production + date
-        selector, clickable stat pills, league filter chips, a dense
-        Fixture|1|X|2|O1.5|Elo|MES|Src table with expandable internals,
-        Approve→Publish (hard-gated), the error/rejection log, and the AI
-        Analyst full chat (real /api/analyst backend, same as the Telegram bot).
+  render_dashboard(payload, booking_codes=None, scores=None, pill_base=...)
+      — the single-scroll feed page. Fed by schema.build_feed_payload (a widened
+        trim: elo/xg/consensus/EV/verification never leave the server). The
+        gate_state callout (PASS / OVERRIDE / NOT MET) is always visible and an
+        ARCHITECT_SIGNOFF override is stated plainly, never silent.
 
-Interaction is CSP-clean: NO inline handlers anywhere. Every control carries a
-data-* hook and static/js/proto.js binds them via addEventListener
-(script-src 'self'). Booking codes are read server-side from the day's
-acca_<date>_codes.json (schema.read_booking_codes) and rendered as text — they
-recall a betslip in SportyBet; they are never a stake (Phase-2 bright line).
-
-HR35 is kept: a fixture with no rating renders NO DATA — PENDING, a day with no
-captured booking codes renders NO DATA — PENDING, never a fabricated code.
+Interaction is CSP-clean: NO inline handlers anywhere. Every copyable booking
+code carries a data-* hook and static/js/proto.js binds them via
+addEventListener (script-src 'self'). Codes are read server-side from the
+day's acca_<date>_codes.json (schema.read_booking_codes) — they recall a
+betslip in SportyBet; they are never a stake (Phase-2 bright line).
 """
 from __future__ import annotations
 
 import html
-import os
-import re
 from datetime import date as _date, datetime, timedelta as _timedelta
 
 from webapp.render import (
-    _fmt_price,
-    _internals,
     _league_of,
-    _pct,
     _pick,
-    _pick_confidence,
     _short_fixture,
-    _src_dot,
     _teams,
-    _verification_tier,
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Document shell (PWA metas preserved from html_shell; stylesheet is proto.css,
-# interaction is proto.js — the old app.css/assets.js are NOT loaded here)
-# ─────────────────────────────────────────────────────────────────────────────
+
 def _asset_version() -> str:
     """Cache-buster for the two proto assets. A version query on the <link> and
     <script> tags means a browser can NEVER serve a stale proto.js/proto.css
-    from its cache — the user's "clicking one tile opens EVERY tile" report was
-    a stale cached proto.js (the on-disk code was already per-card correct). Any
-    edit to either asset bumps the mtime and therefore the query, so a normal
-    refresh re-fetches. Falls back to '1' if the assets can't be stat'd."""
+    from its cache. Any edit to either asset bumps the mtime and therefore the
+    query, so a normal refresh re-fetches. Falls back to '1' if the assets
+    can't be stat'd."""
     from pathlib import Path as _P
     mtimes = []
     for f in (_P(__file__).parent / "static" / "css" / "proto.css",
@@ -109,14 +93,18 @@ def _friendly_day(d: str, today: str) -> str:
     return dt.strftime("%a")
 
 
-def _norm(name: str) -> str:
-    """Lowercase + strip punctuation, for booking-code fixture matching."""
-    return re.sub(r"[^a-z0-9 ]", "", name.lower()).strip()
+def _pill_href(pill_base: str, iso: str) -> str:
+    """Date-pill href. A route base ('/dashboard') links to the served route;
+    a relative base ('.' at the site root, '..' on a per-date page) links to a
+    per-date page of the static export — explicit index.html so file:// and
+    every static host resolve it."""
+    if pill_base.startswith("/"):
+        return f"{pill_base}/{iso}"
+    return f"{pill_base}/{iso}/index.html"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Booking codes (from schema.read_booking_codes) — label → code, plus a
-# per-single lookup across every booked acca's legs.
+# Booking codes (from schema.read_booking_codes) — label → code
 # ─────────────────────────────────────────────────────────────────────────────
 def _codes_by_label(codes) -> dict:
     out = {}
@@ -126,235 +114,188 @@ def _codes_by_label(codes) -> dict:
     return out
 
 
-def _single_code(codes, fixture: str) -> str | None:
-    """A single's OWN booking code when it has one (a 'SINGLE — <fixture>'
-    slip, production intent #6), else the acca code the fixture was booked
-    inside (legacy fallback — covers an Acca A fixture shown as a card)."""
-    short = _norm(_short_fixture(fixture))
-    for r in (codes or {}).get("results") or []:
-        label = r.get("label") or ""
-        if label.startswith("SINGLE — "):
-            per_leg = r.get("per_leg") or []
-            if per_leg and _norm(_short_fixture(per_leg[0].get("fixture", ""))) == short:
-                return r.get("code")
-    for r in (codes or {}).get("results") or []:
-        for leg in r.get("per_leg") or []:
-            if _norm(leg.get("fixture", "")) == short:
-                return r.get("code")
-    return None
+def _price2(x) -> str:
+    """Price as the Telegram board writes it — '1.91', never a fabricated
+    quote (HR35: None renders NO DATA — PENDING)."""
+    return "—" if x is None else f"{x:.2f}"
 
 
 def _pct_of(x) -> str:
     return "—" if x is None else f"{round(x * 100)}%"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# CLIENT — the mobile-first Call / Scan / Analyst view
-# ─────────────────────────────────────────────────────────────────────────────
-def _client_market_rows(bf: dict) -> str:
-    """The FULL market detail for a client card (Architect 2026-08-10): every
-    approved market — 1X2, Over/Under 1.5, Over/Under 2.5, BTTS and Double
-    Chance — derived ONLY from the client-safe `probs`, no model internals.
-    The client sees the whole picture and makes the decision; the recommended
-    acca + call sit above it."""
-    p = bf.get("probs") or {}
-    ph, pd, pa = p.get("p_home"), p.get("p_draw"), p.get("p_away")
-    o15, o25 = p.get("p_over_15"), p.get("p_over_25")
-    btts = p.get("p_btts_yes")
-    u15 = None if o15 is None else 1 - o15
-    u25 = None if o25 is None else 1 - o25
-    btts_no = None if btts is None else 1 - btts
-    dc1x = None if (ph is None or pd is None) else ph + pd
-    dcx2 = None if (pd is None or pa is None) else pd + pa
-    dc12 = None if (ph is None or pa is None) else ph + pa
-
-    def row(name: str, val) -> str:
-        return f'<div class="c-mkt-row"><span>{html.escape(name)}</span>' \
-               f"<b>{_pct_of(val)}</b></div>"
-
-    pick_label, pick_prob = _pick(bf)
-    rows = [
-        f'<div class="c-mkt-row pick"><span>{html.escape(pick_label)}</span>'
-        f"<b>{html.escape(pick_prob)}</b></div>",
-        row("Home win", ph),
-        row("Draw", pd),
-        row("Away win", pa),
-        row("Over 1.5 goals", o15),
-        row("Under 1.5 goals", u15),
-        row("Over 2.5 goals", o25),
-        row("Under 2.5 goals", u25),
-        row("BTTS Yes", btts),
-        row("BTTS No", btts_no),
-        row("Double Chance 1X", dc1x),
-        row("Double Chance X2", dcx2),
-        row("Double Chance 12", dc12),
-        # The trigger price is the MODEL's breakeven EV line (deploy at this
-        # decimal odds or better) — it is NOT a live bookmaker quote. No live
-        # odds source is connected, so labelling it a price would be a lie;
-        # this is the honest wording (Architect 2026-08-10).
-        f'<div class="c-mkt-row"><span>Trigger price'
-        f'<span class="c-mkt-hint">breakeven, not a live quote — deploy at this or better</span></span>'
-        f"<b>{html.escape(_fmt_price(bf.get('mes_trigger_price')))}</b></div>",
-    ]
-    return "".join(rows)
-
-
-def _bookcode_block(code: str | None, extra_cls: str = "") -> str:
-    """Booking-code line: the real SportyBet code + Copy, or an honest
-    NO DATA — PENDING (HR35: never fabricate a code)."""
+def _feed_code_line(code: str | None) -> str:
+    """Booking-code line: the real SportyBet code + a copy button, or an honest
+    NO DATA — PENDING (HR35: never fabricate a code). Copy binds via proto.js."""
     if code:
-        return (f'<div class="c-bookcode {extra_cls}">Booking code: <b>{html.escape(code)}</b> '
-                f'<button type="button" data-code="{html.escape(code)}">Copy</button></div>')
-    return ('<div class="c-bookcode ' + extra_cls + '">Booking code: '
+        return (f'<div class="f-code"><span>Booking code:</span>'
+                f'<button type="button" class="f-code-pill" '
+                f'data-code="{html.escape(code)}"><b>{html.escape(code)}</b> '
+                f'Copy</button></div>')
+    return ('<div class="f-code"><span>Booking code:</span>'
             '<span class="pnd">NO DATA — PENDING</span></div>')
 
 
-def _single_pool(board: list, accas: list) -> list:
-    """Deploy-shortlist board fixtures EXCLUDING Acca A's fixtures (production
-    intent #3: once a fixture is in Acca A it leaves the singles pool)."""
-    acca_a = next((a for a in (accas or [])
-                   if (a.get("label") or "") == "Acca A"), None)
-    excluded = {_norm(_short_fixture(l.get("fixture", "")))
-                for l in ((acca_a or {}).get("legs") or [])}
-    return [bf for bf in board
-            if bf.get("probs") and bf.get("on_deploy_shortlist")
-            and _norm(_short_fixture(bf.get("fixture", ""))) not in excluded]
+# ─────────────────────────────────────────────────────────────────────────────
+# FEED — the single scrolling Telegram-board page
+# ─────────────────────────────────────────────────────────────────────────────
+def _feed_hero(payload: dict) -> str:
+    """Date / phase / leagues / calibration stat header."""
+    d = payload.get("date", _date.today().isoformat())
+    phase = payload.get("phase", "")
+    leagues = payload.get("leagues_scanned") or []
+    cal = payload.get("calibration_count", 0)
+    leagues_txt = f"{len(leagues)} leagues" if leagues else "no leagues"
+    return (
+        f'<header class="f-hero">'
+        f'<div class="f-brand"><span class="mark"></span><h1>OLP XDV</h1></div>'
+        f'<div class="f-date">{html.escape(_friendly_date(d))}</div>'
+        f'<div class="f-chips">'
+        f'<span class="f-chip">{html.escape(phase)}</span>'
+        f'<span class="f-chip">{html.escape(leagues_txt)}</span>'
+        f'<span class="f-chip">{cal} legs logged</span>'
+        f'</div></header>')
 
 
-def _acca_leg_rows(legs: list) -> str:
+def _feed_flags(payload: dict) -> str:
+    """Data flags — the honest ⚠ line, absent when clean."""
+    flags = payload.get("data_flags") or []
+    if not flags:
+        return ""
+    chips = "".join(f'<span class="f-flag">{html.escape(f)}</span>' for f in flags)
+    return f'<div class="f-flags"><span class="f-flag-head">⚠ {len(flags)} data flag(s)</span>{chips}</div>'
+
+
+def _feed_gate_callout(payload: dict) -> str:
+    """The publish-gate callout — PASS / OVERRIDE / NOT MET, always visible.
+    An Architect override is stated plainly, never silent."""
+    gs = payload.get("gate_state") or {}
+    legs = gs.get("legs_with_clv", 0)
+    req = gs.get("gate_requirement", 30)
+    mean = gs.get("mean_clv_pct")
+    gate_met = gs.get("gate_met", False)
+    override = gs.get("override", False)
+    if gate_met:
+        status, cls = "PASS", "pass"
+    elif override:
+        status, cls = "OVERRIDE", "override"
+    else:
+        status, cls = "NOT MET", "notmet"
+    detail = (f"{legs}/{req} legs with CLV · mean CLV {mean:+.2f}%"
+              if mean is not None else f"{legs}/{req} legs with CLV · mean CLV ZERO")
+    if override:
+        detail += " · Architect sign-off active — live side-by-side with paper until mean CLV turns positive"
+    return (f'<div class="f-gate {cls}"><span class="f-gate-status">{status}</span>'
+            f'<span class="f-gate-detail">{html.escape(detail)}</span></div>')
+
+
+def _feed_leg_rows(legs: list) -> str:
+    """Leg row — byte-faithful to the Telegram production block:
+    `fixture (league) — market @ price` (the — is part of the parity anchor)."""
     return "".join(
-        f'<div class="c-mkt-row"><span>{html.escape(l.get("fixture", ""))} — '
-        f'{html.escape(l.get("market_name", ""))}</span>'
-        f"<b>{_pct_of(l.get('prob'))}</b></div>"
+        f'<div class="f-leg"><span class="f-leg-name">{html.escape(l.get("fixture", ""))} '
+        f'({html.escape(l.get("league", ""))}) —</span>'
+        f'<span class="f-leg-mkt">{html.escape(l.get("market_name", ""))} @ '
+        f'{_price2(l.get("price"))}</span></div>'
         for l in legs)
 
 
-def _acca_hero(acca: dict, code) -> str:
-    """The headline Acca A — the amber hero band (Architect 2026-08-10)."""
+def _feed_acca_hero(acca: dict, code: str | None) -> str:
+    """Acca A — the amber hero band (the Telegram headline, byte-faithful:
+    ★ Acca A — HEADLINE, N legs; each leg fixture (league) — market @ price;
+    Combined X.XX · Booking code: CODE)."""
     legs = acca.get("legs") or []
+    n_legs = acca.get("n_legs", len(legs))
+    combined = acca.get("combined_odds")
+    comb = f"Combined {combined:.2f}" if combined is not None else "Combined —"
     return (
-        f'<div class="c-card c-acca-hero">'
-        f'<div class="c-acca-hero-title">ACCA A — TODAY\'S HEADLINE</div>'
-        f'<div class="c-acca-hero-sub">{len(legs)} legs · combined '
-        f'{_pct_of(acca.get("combined_prob"))} (legs are not independent)</div>'
-        f'{_acca_leg_rows(legs)}'
-        f"{_bookcode_block(code, 'acca')}</div>")
+        f'<div class="f-card f-acca f-acca-hero">'
+        f'<div class="f-acca-title">★ {html.escape(acca.get("label", "Acca A"))} '
+        f'— HEADLINE, {n_legs} legs</div>'
+        f'{_feed_leg_rows(legs)}'
+        f'<div class="f-combined">{comb}{_feed_code_line(code)}</div>'
+        f'</div>')
 
 
-def _acca_card(acca: dict, code) -> str:
+def _feed_acca_card(acca: dict, code: str | None) -> str:
     """A split acca (Acca B/C/D...) in the consistent list."""
     legs = acca.get("legs") or []
+    n_legs = acca.get("n_legs", len(legs))
+    combined = acca.get("combined_odds")
+    comb = f"Combined {combined:.2f}" if combined is not None else "Combined —"
+    label = acca.get("label", "")
     return (
-        f'<div class="c-card acca">'
-        f'<div class="c-acca-split-title">{html.escape(acca.get("label", ""))} '
-        f'— {len(legs)} legs · combined {_pct_of(acca.get("combined_prob"))}</div>'
-        f'{_acca_leg_rows(legs)}'
-        f"{_bookcode_block(code, 'acca')}</div>")
+        f'<div class="f-card f-acca">'
+        f'<div class="f-acca-title">★ {html.escape(label)}  {n_legs} legs</div>'
+        f'{_feed_leg_rows(legs)}'
+        f'<div class="f-combined">{comb}{_feed_code_line(code)}</div>'
+        f'</div>')
 
 
-def _codestrip(codes) -> str:
-    """Compact 'All booking codes' strip — one tappable copy chip per slip
-    (Architect 2026-08-10: batch copy-paste into SportyBet)."""
-    booked = [r for r in (codes or {}).get("results") or [] if r.get("code")]
-    if not booked:
-        return ""
-    items = []
-    for r in booked:
-        label = r.get("label", "") or ""
-        show = label[len("SINGLE — "):] if label.startswith("SINGLE — ") else label
-        items.append(
-            f'<button type="button" class="c-codestrip-item" '
-            f'data-code="{html.escape(r["code"])}" title="{html.escape(label)}">'
-            f'{html.escape(show)} <b>{html.escape(r["code"])}</b></button>')
-    return (f'<div class="c-codestrip"><span class="c-codestrip-label">'
-            f'ALL BOOKING CODES — tap to copy</span>{"".join(items)}</div>')
+def _feed_singles(singles: list, codes_by_label: dict) -> str:
+    """Singles — one standalone slip each, own booking code (production intent
+    #6; the Telegram format: fixture (league) — market @ price  Booking code)."""
+    rows = []
+    for s in singles:
+        label = (s.get("label") or "").replace("SINGLE — ", "")
+        leg0 = (s.get("legs") or [{}])[0]
+        rows.append(
+            f'<div class="f-single">'
+            f'<div class="f-leg"><span class="f-leg-name">{html.escape(label)} '
+            f'({html.escape(leg0.get("league", ""))}) —</span>'
+            f'<span class="f-leg-mkt">{html.escape(leg0.get("market_name", ""))} @ '
+            f'{_price2(leg0.get("price"))}</span></div>'
+            f'{_feed_code_line(codes_by_label.get(s.get("label")))}'
+            f'</div>')
+    return ('<div class="f-card"><div class="f-singles-title">'
+            'SINGLES — one standalone slip each, own booking code</div>'
+            + "".join(rows) + '</div>')
 
 
-def _client_call(board: list, accas: list, codes) -> str:
-    accas = accas or []
-    codes_by_label = _codes_by_label(codes)
+def _feed_production_block(payload: dict, booking_codes) -> str:
+    """PRODUCTION BETS — the parity anchor. Acca A (headline) → split accas →
+    singles, each with its own booking code; honest NO production pick today
+    when nothing eligible (HR35)."""
+    d = payload.get("date", _date.today().isoformat())
+    accas = payload.get("accas") or []
+    codes_by_label = _codes_by_label(booking_codes)
     accas_real = [a for a in accas
                   if not (a.get("label") or "").startswith("SINGLE — ")]
-    acca_a = (next((a for a in accas_real if a.get("label") == "Acca A"), None)
-              or (accas_real[0] if accas_real else None))
-    split_accas = [a for a in accas_real if a is not acca_a]
+    singles = [a for a in accas if (a.get("label") or "").startswith("SINGLE — ")]
+    acca_a = next((a for a in accas_real if a.get("label") == "Acca A"), None)
+    splits = [a for a in accas_real if a is not acca_a]
 
-    # natural-best-market pick per fixture from the acca payload legs — the
-    # single card shows the SAME pick the single slip books, never a drift.
-    pick_lookup = {}
-    for a in accas_real:
-        for l in a.get("legs") or []:
-            pick_lookup[_norm(_short_fixture(l.get("fixture", "")))] = l
+    heading = (f'<div class="f-prod-head">PRODUCTION BETS — {html.escape(d)}'
+               f'<span class="f-prod-sub">today\'s fixtures only</span></div>')
 
-    singles = _single_pool(board, accas)
+    if not accas_real and not singles:
+        return (heading + '<div class="f-card f-prod-empty">'
+                'NO production pick today — no deploy-eligible fixture with a '
+                'live price kicks off today. A valid, honest result (HR35).</div>')
 
-    def _confidence(bf) -> float:
-        leg = pick_lookup.get(_norm(_short_fixture(bf.get("fixture", ""))))
-        if leg:
-            return leg.get("prob") or 0.0
-        return _pick_confidence(bf)
-
-    singles.sort(key=_confidence, reverse=True)  # confidence first
-
-    parts = [_codestrip(codes)]
+    parts = [heading]
     if acca_a:
-        parts.append(_acca_hero(acca_a, codes_by_label.get(acca_a.get("label"))))
-    parts += [_acca_card(a, codes_by_label.get(a.get("label")))
-              for a in split_accas]
-
-    parts.append('<div class="c-panel-head">Singles — one bet each, own code</div>')
-    if not singles:
-        parts.append('<div class="c-empty">NO DATA — PENDING: no deploy-shortlist '
-                     'fixtures rated on this board yet.</div>')
-    else:
-        # .c-grid widens with the viewport (1 col phone -> 2 -> 3 on desktop) so
-        # the app fills the screen edge-to-edge instead of a fixed phone column.
-        cards = []
-        for i, bf in enumerate(singles):
-            home, away, league = _teams(bf)
-            fixture_txt = f"{home} v {away}" if home and away and away != "—" \
-                else _short_fixture(bf.get("fixture", ""))
-            leg = pick_lookup.get(_norm(_short_fixture(bf.get("fixture", ""))))
-            pct = (f'{leg.get("market_name", "")} {_pct_of(leg.get("prob"))}'
-                   if leg else (_pick(bf)[1] or "—"))
-            code = _single_code(codes, bf.get("fixture", ""))
-            cards.append(
-                f'<div class="c-card">'
-                # CALL is the ARCHITECT's actionable list (only the deploy
-                # shortlist, a handful of cards) — every detail is visible
-                # immediately (UX, 2026-08-10: "let us have every single detail
-                # for every thing"). It stays toggleable, but OPEN by default.
-                f'<button type="button" class="c-card-top" data-detail="call-{i}" aria-expanded="true">'
-                f'<span><span class="c-fixture">{html.escape(fixture_txt)}</span>'
-                f'<span class="c-league-sub">{html.escape(league)}</span></span>'
-                f'<span class="c-pct">{html.escape(pct)}</span>'
-                f'<span class="chev" aria-hidden="true">▸</span></button>'
-                f'<div class="c-detail open" id="call-{i}">{_client_market_rows(bf)}</div>'
-                f"{_bookcode_block(code)}</div>"
-            )
-        parts.append(f'<div class="c-grid">{"".join(cards)}</div>')
+        parts.append(_feed_acca_hero(acca_a, codes_by_label.get(acca_a.get("label"))))
+    parts += [_feed_acca_card(a, codes_by_label.get(a.get("label")))
+              for a in splits]
+    if singles:
+        parts.append(_feed_singles(singles, codes_by_label))
     return "".join(parts)
 
 
-def _pill_href(pill_base: str, iso: str) -> str:
-    """Date-pill href. A route base ('/dashboard') links to the served route;
-    a relative base ('.' at the site root, '..' on a per-date page) links to a
-    per-date page of the static export — explicit index.html so file:// and
-    every static host resolve it (no dead /dashboard/... links, no trailing
-    slash that only a host's directory-index would answer)."""
-    if pill_base.startswith("/"):
-        return f"{pill_base}/{iso}"
-    return f"{pill_base}/{iso}/index.html"
+def _feed_scan(payload: dict, scores: dict, pill_base: str) -> str:
+    """The lean scan — league-grouped cards, live-score badge, honest PENDING
+    rows (the other session's lean board commit carried the same simplification:
+    AI-pick cards, no internals)."""
+    board = payload.get("board", [])
+    d = payload.get("date", _date.today().isoformat())
+    today = _date.today().isoformat()
 
-
-def _client_scan(board: list, d: str, today: str, scores: dict,
-                 pill_base: str = "/dashboard") -> str:
-    # Date pills: yesterday / today / +1 / +2 (honest 404 on missing served days)
     pills = []
     for off in (-1, 0, 1, 2):
         dt = _date.fromisoformat(d) + _timedelta(days=off)
         iso = dt.isoformat()
-        cls = ["c-pill"]
+        cls = ["f-pill"]
         if iso == d:
             cls.append("selected")
         if off == 0:
@@ -362,11 +303,8 @@ def _client_scan(board: list, d: str, today: str, scores: dict,
         sub = iso[5:]
         label = _friendly_day(iso, today)
         pills.append(f'<a class="{" ".join(cls)}" href="{_pill_href(pill_base, iso)}">'
-                     f"{label}<span class='sub'>{sub}</span></a>")
-    datepills = f'<div class="c-datepills">{"".join(pills)}</div>'
-
-    search = ('<input class="c-search" id="scan-search" type="search" '
-              'placeholder="Filter by team or league...">')
+                     f"{label}<span class='f-pill-sub'>{sub}</span></a>")
+    datepills = f'<div class="f-datepills">{"".join(pills)}</div>'
 
     rated = [bf for bf in board if bf.get("probs")]
     unrated = [bf for bf in board if not bf.get("probs")]
@@ -375,458 +313,133 @@ def _client_scan(board: list, d: str, today: str, scores: dict,
         groups.setdefault(_league_of(bf.get("fixture", "")), []).append(bf)
 
     group_html = []
-    card_i = 0
-    for gi, (league, bfs) in enumerate(sorted(groups.items())):
-        open_cls = " open" if gi == 0 else ""
+    for league, bfs in sorted(groups.items()):
         cards = []
         for bf in bfs:
-            home, away, _ = _teams(bf)
-            pick_label, pick_prob = _pick(bf)
-            p = bf.get("probs") or {}
+            home, away, lg = _teams(bf)
             fixture_txt = f"{home} v {away}" if home and away and away != "—" \
                 else _short_fixture(bf.get("fixture", ""))
-            search_hay = f"{fixture_txt} {league}".lower()
-            live = ""
-            key = f"{home}|{away}" if home and away and away != "—" else _short_fixture(bf.get("fixture", ""))
-            score = None
+            pick_label, pick_prob = _pick(bf)
+            key = f"{home}|{away}" if home and away and away != "—" \
+                else _short_fixture(bf.get("fixture", ""))
+            score = ""
             for k, v in (scores or {}).items():
-                if k.startswith(key + "|") or k.startswith(f"{key}|"):
+                if k.startswith(key + "|"):
                     score = v
                     break
-            # Live badge is a data-live-score placeholder: server can pre-fill it,
-            # and proto.js polls /api/live-scores to update it in place. Empty is
-            # hidden by CSS (.c-live:empty{display:none}).
-            live = (f'<span class="c-live" data-live-score>{html.escape(score)}</span>'
-                    if score else '<span class="c-live" data-live-score></span>')
-            sub_line = f'{html.escape(pick_label)}{live}'
+            live = (f'<span class="f-live">{html.escape(score)}</span>'
+                    if score else '<span class="f-live"></span>')
             cards.append(
-                f'<div class="c-card scan-row" data-fixture="{html.escape(key)}" '
-                f'data-search="{html.escape(search_hay)}">'
-                # SCAN is the whole board (10+ fixtures across leagues) — closed
-                # by default, per-tile expand (ratified 2026-08-10). This is the
-                # deliberate contrast to CALL: the scan list stays scannable;
-                # tapping ONE card opens THAT fixture's full breakdown only.
-                f'<button type="button" class="c-card-top" data-detail="scan-{card_i}" aria-expanded="false">'
-                f'<span class="c-fixture">{html.escape(fixture_txt)}<br>'
-                f'<span style="font-size:10px;color:var(--ink-faint);font-weight:400;">{sub_line}</span></span>'
-                f'<span class="c-pct">{html.escape(pick_prob)}</span>'
-                f'<span class="chev" aria-hidden="true">▸</span></button>'
-                f'<div class="c-detail" id="scan-{card_i}">{_client_market_rows(bf)}</div>'
-                f"</div>"
-            )
-            card_i += 1
+                f'<div class="f-scan-card" data-fixture="{html.escape(key)}">'
+                f'<div class="f-scan-name"><span class="f-fixture">'
+                f'{html.escape(fixture_txt)}</span>'
+                f'<span class="f-league">{html.escape(lg)}</span>{live}</div>'
+                f'<div class="f-scan-pick"><span>{html.escape(pick_label)}</span>'
+                f'<b>{html.escape(pick_prob)}</b></div>'
+                f'</div>')
         group_html.append(
-            f'<div class="c-league-group">'
-            f'<button type="button" class="c-league-head{open_cls}" aria-expanded="{"true" if open_cls else "false"}">'
-            f'<span>{html.escape(league)} ({len(bfs)})</span><span class="chev">▸</span></button>'
-            f'<div class="c-league-body{open_cls}">{"".join(cards)}</div></div>'
-        )
+            f'<div class="f-league-group"><div class="f-league-head">'
+            f'<span>{html.escape(league)} ({len(bfs)})</span></div>'
+            f'<div class="f-league-body">{"".join(cards)}</div></div>')
 
     if unrated:
-        unrated_cards = "".join(
-            f'<div class="c-card scan-row" data-search="{html.escape(_short_fixture(bf.get("fixture","")) + " " + _league_of(bf.get("fixture",""))).lower()}">'
-            f'<div class="c-card-top"><span><span class="c-fixture">'
-            f'{html.escape(_short_fixture(bf.get("fixture", "")))}</span>'
-            f'<span class="c-league-sub">{html.escape(_league_of(bf.get("fixture", "")))}</span></span>'
-            f'<span class="c-pct" style="color:var(--ink-faint);">PENDING</span></div>'
-            f'<div class="c-bookcode"><span class="pnd">NO DATA — PENDING</span></div></div>'
-            for bf in unrated
-        )
+        uc = "".join(
+            f'<div class="f-scan-card pending"><div class="f-scan-name">'
+            f'<span class="f-fixture">{html.escape(_short_fixture(bf.get("fixture", "")))}</span>'
+            f'<span class="f-league">{html.escape(_league_of(bf.get("fixture", "")))}</span></div>'
+            f'<div class="f-scan-pick"><span class="pnd">NO DATA — PENDING</span></div></div>'
+            for bf in unrated)
         group_html.append(
-            f'<div class="c-league-group">'
-            f'<button type="button" class="c-league-head" aria-expanded="false">'
-            f'<span>NO DATA — PENDING ({len(unrated)})</span><span class="chev">▸</span></button>'
-            f'<div class="c-league-body">{unrated_cards}</div></div>'
-        )
+            f'<div class="f-league-group"><div class="f-league-head">'
+            f'<span>NO DATA — PENDING ({len(unrated)})</span></div>'
+            f'<div class="f-league-body">{uc}</div></div>')
 
-    empty = ('<div id="scan-empty" style="display:none;text-align:center;'
-             'color:var(--ink-faint);font-size:12px;padding:20px;">No fixtures match '
-             '"<span id="scan-empty-term"></span>"</div>')
-    return datepills + search + "".join(group_html) + empty
+    return datepills + "".join(group_html)
 
 
-def _client_analyst(payload: dict, n_singles: int, n_accas: int) -> str:
-    n_leagues = payload.get("n_leagues", payload.get("leagues_scanned") and len(payload.get("leagues_scanned")) or 0)
-    phase = payload.get("phase", "")
-    cal = payload.get("calibration_count")
-    cards = [
-        ("Today's board",
-         f"{n_singles} singles, {n_accas} accumulator, {n_leagues} leagues scanned. Full detail above."),
-        ("Track record",
-         f"Phase 2 — paper calibration, {cal or 0}/30 legs logged. Not yet a demonstrated edge."),
-        ("Explain a pick",
-         "Tap any fixture in Call or Scan to see the full market breakdown behind it."),
-    ]
-    html_cards = "".join(
-        f'<div class="c-card"><div style="font-size:12px;font-weight:700;'
-        f'margin-bottom:6px;">{t}</div><div style="font-size:11px;color:var(--ink-dim);">'
-        f"{html.escape(desc)}</div></div>"
-        for t, desc in cards
-    )
-    return ('<div class="c-panel-head">READ-ONLY — full chat lives in admin only</div>'
-            + html_cards)
+def _feed_yesterday(payload: dict) -> str:
+    """Yesterday — graded: fixture, outcome and per-engine ✓/✗ (the Telegram
+    block, carried through the feed-safe yesterday_graded)."""
+    yg = payload.get("yesterday_graded")
+    if not yg:
+        return ('<div class="f-card"><div class="f-sec-title">YESTERDAY — GRADED</div>'
+                '<div class="f-dim">No settled predictions to grade yet.</div></div>')
+    rows = []
+    for g in yg:
+        marks = []
+        for eng, hit in (g.get("engines_hit") or {}).items():
+            marks.append(f'<span class="f-mark {"hit" if hit else "miss"}">'
+                         f'{html.escape(eng)} {"✓" if hit else "✗"}</span>')
+        marks_txt = "".join(marks) if marks \
+            else '<span class="f-dim">no engine pick recorded</span>'
+        rows.append(
+            f'<div class="f-yday-row"><span class="f-yday-fix">'
+            f'{html.escape(g.get("fixture", ""))} — '
+            f'{html.escape(g.get("outcome", "?"))}</span>'
+            f'<span class="f-yday-marks">{marks_txt}</span></div>')
+    return ('<div class="f-card"><div class="f-sec-title">YESTERDAY — GRADED</div>'
+            + "".join(rows) + '</div>')
+
+
+def _feed_rolling(payload: dict) -> str:
+    """7-day rolling — per-engine hit rates plus the honest legs/CLV/gate line
+    (the Telegram bar, through the feed-safe rolling_7d)."""
+    r7 = payload.get("rolling_7d")
+    if not r7:
+        return ('<div class="f-card"><div class="f-sec-title">7-DAY ROLLING</div>'
+                '<div class="f-dim">No run history yet.</div></div>')
+    engines = r7.get("engines") or {}
+    rates = []
+    for eng in ("dc", "cross", "elo", "xg", "bookmaker"):
+        st = engines.get(eng)
+        if st and st.get("hit_rate") is not None:
+            rates.append(f'<span class="f-rate"><b>{html.escape(eng)}</b> '
+                         f'{round(st["hit_rate"] * 100)}%</span>')
+    rates_txt = "".join(rates) if rates \
+        else '<span class="f-dim">no settled predictions in 7d</span>'
+    legs = r7.get("legs_logged", 0)
+    with_clv = r7.get("legs_with_clv", 0)
+    avg = r7.get("avg_clv_pct")
+    clv_txt = f'avg CLV {avg:+.2f}%' if avg is not None else "CLV: ZERO"
+    gate = r7.get("gate") or {}
+    gate_txt = (f' · gate {gate.get("legs_with_clv", 0)}/'
+                f'{gate.get("gate_requirement", 30)} legs') if gate else ""
+    return (f'<div class="f-card"><div class="f-sec-title">7-DAY ROLLING</div>'
+            f'<div class="f-rates">{rates_txt}</div>'
+            f'<div class="f-roll-line">{legs} legs logged · {with_clv} with CLV '
+            f'({html.escape(clv_txt)}){html.escape(gate_txt)}</div></div>')
+
+
+def _feed_honest_edge(payload: dict) -> str:
+    """The honest-edge/capital line — carried from the Telegram envelope.
+    An active override is stated plainly (never silent)."""
+    gs = payload.get("gate_state") or {}
+    extra = (" Architect sign-off is active — publishing live side-by-side "
+             "with paper until mean CLV turns positive (override never silent)."
+             if gs.get("override", False) else "")
+    return (
+        f'<div class="f-honest">'
+        f'<span class="f-honest-title">HONEST EDGE LINE</span>'
+        f'<span class="f-honest-body">An excellent informed process but NOT a '
+        f'demonstrated profitable edge.{html.escape(extra)}</span>'
+        f'<span class="f-honest-cap">Capital authority: THE ARCHITECT. '
+        f'Nothing here is live until you deploy it.</span></div>')
 
 
 def render_dashboard(payload: dict, asset_base: str = "/static",
                      booking_codes=None, scores=None,
                      pill_base: str = "/dashboard") -> str:
-    d = payload.get("date", _date.today().isoformat())
-    today = _date.today().isoformat()
-    board = payload.get("board", [])
-    accas = payload.get("accas") or []
-
-    singles = len(_single_pool(board, accas))  # excludes Acca A (intent #3)
-
-    call = _client_call(board, accas, booking_codes)
-    scan = _client_scan(board, d, today, scores or {}, pill_base)
-    analyst = _client_analyst(payload, singles, len(accas))
-
-    body = f"""<div class="app-frame"><div id="client-app">
-  <header class="c-header">
-    <div class="c-brand"><span class="mark"></span><h1>OLP XDV</h1></div>
-    <div class="c-date">{_friendly_date(d)}</div>
-  </header>
-  <nav class="c-tabs">
-    <button type="button" class="c-tab active" data-panel="call">Call</button>
-    <button type="button" class="c-tab" data-panel="scan">Scan</button>
-    <button type="button" class="c-tab" data-panel="analyst">Analyst</button>
-  </nav>
-  <section id="panel-call" class="c-panel active">{call}</section>
-  <section id="panel-scan" class="c-panel">{scan}</section>
-  <section id="panel-analyst" class="c-panel">{analyst}</section>
-</div></div>"""
+    """The single-scroll feed page — structurally the Telegram board."""
+    body = f"""<div class="f-page">
+  {_feed_hero(payload)}
+  {_feed_flags(payload)}
+  {_feed_gate_callout(payload)}
+  <main class="f-main">
+    <section class="f-section" id="production">{_feed_production_block(payload, booking_codes)}</section>
+    <section class="f-section" id="scan">{_feed_scan(payload, scores or {}, pill_base)}</section>
+    <section class="f-section" id="yesterday">{_feed_yesterday(payload)}</section>
+    <section class="f-section" id="rolling">{_feed_rolling(payload)}</section>
+  </main>
+  {_feed_honest_edge(payload)}
+</div>"""
     return _shell("OLP XDV — Today's Board", body, asset_base)
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# PENDING — a date whose board RAN but has not passed the publish gate
-# ─────────────────────────────────────────────────────────────────────────────
-def render_pending(date_str: str, last_published: str | None = None,
-                   asset_base: str = "/static") -> str:
-    """Honest awaiting-approval view for the PUBLIC client (Architect 2026-08-10).
-
-    The approve→publish gate is a bright line: an unapproved board's predictions
-    NEVER reach the client. But when today's board merely hasn't been approved
-    yet, a bare 404 is a lie about the system's state — the run DID happen. This
-    view says so plainly, shows the current date (never a stale older board as
-    if it were today), and links to the most recent published board for context.
-    It shares the date pills so a reader can hop to a published day."""
-    today = _date.today().isoformat()
-    pills = []
-    for off in (-1, 0, 1, 2):
-        dt = _date.fromisoformat(date_str) + _timedelta(days=off)
-        iso = dt.isoformat()
-        cls = ["c-pill"]
-        if iso == date_str:
-            cls.append("selected")
-        if off == 0:
-            cls.append("today")
-        sub = iso[5:]
-        label = _friendly_day(iso, today)
-        pills.append(f'<a class="{" ".join(cls)}" '
-                     f'href="{_pill_href("/dashboard", iso)}">'
-                     f"{label}<span class='sub'>{sub}</span></a>")
-    datepills = f'<div class="c-datepills">{"".join(pills)}</div>'
-
-    last = ""
-    if last_published:
-        last = (f'<p class="c-pending-link">Reviewed boards are published here — '
-                f'<a href="/dashboard/{html.escape(last_published)}">'
-                f"{html.escape(_friendly_date(last_published))}</a></p>")
-    else:
-        last = '<p class="c-pending-link">No board has been published yet.</p>'
-
-    body = f"""<div class="app-frame"><div id="client-app">
-  <header class="c-header">
-    <div class="c-brand"><span class="mark"></span><h1>OLP XDV</h1></div>
-    <div class="c-date">{html.escape(_friendly_date(date_str))}</div>
-  </header>
-  {datepills}
-  <section class="c-pending">
-    <div class="c-pending-title">Today's board — awaiting approval</div>
-    <p class="c-pending-body">The run for this date happened, but it has not
-    passed the publish gate. Nothing appears on the client until the Architect
-    reviews and approves it — an unapproved prediction is never shown.
-    {last}
-  </section>
-</div></div>"""
-    return _shell("OLP XDV — Board awaiting approval", body, asset_base)
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# ADMIN — light, dense production control + internals + AI chat
-# ─────────────────────────────────────────────────────────────────────────────
-def _a_pct(bf: dict, key: str) -> str:
-    p = bf.get("probs")
-    return _pct_of(p.get(key)) if p else "NO DATA"
-
-
-def _a_elo(bf: dict) -> str:
-    elo = bf.get("elo_probs")
-    if not elo or len(elo) < 3:
-        return "—"
-    best = max(elo)
-    return _pct_of(best)
-
-
-def _a_mes(bf: dict) -> str:
-    ev = bf.get("best_mes_ev")
-    return "—" if ev is None else f"{ev:+.0%}"
-
-
-def _a_edit_form(bf: dict, row_i: int) -> str:
-    """Inline edit-before-publish: adjusts the publishable (client-visible)
-    fields on the RAW board; Approve→Publish then ships the edited trim. The
-    softness-tier field is gone (ID402 tiers removed 2026-08-10) — the deploy
-    shortlist toggle is the only gating control left."""
-    f = html.escape(bf.get("fixture", ""), quote=True)
-    market = html.escape(bf.get("best_market") or "", quote=True)
-    price = "" if bf.get("best_price") is None else html.escape(str(bf["best_price"]))
-    short = ' checked' if bf.get("on_deploy_shortlist") else ""
-    return (
-        f'<div class="a-edit">'
-        f'<div class="a-edit-title">Edit before publish — <span class="dim">client-visible fields</span></div>'
-        f'<div class="a-edit-grid">'
-        f'<label>Fixture <input class="a-edit-in" id="edit-fixture-{row_i}" value="{f}"></label>'
-        f'<label>Best market <input class="a-edit-in" id="edit-market-{row_i}" value="{market}"></label>'
-        f'<label>Best price <input class="a-edit-in" id="edit-price-{row_i}" value="{price}" inputmode="decimal"></label>'
-        f'<label class="check"><input type="checkbox" id="edit-short-{row_i}"{short}> Deploy shortlist</label>'
-        f'</div>'
-        f'<button type="button" class="a-edit-save" data-row="{row_i}" data-fixture="{f}">Save edits</button>'
-        f'<span class="a-edit-status" id="edit-status-{row_i}"></span>'
-        f'</div>'
-    )
-
-
-def _a_detail(bf: dict, row_i: int) -> str:
-    """Expanded internals under a dense row — admin only."""
-    inner = [_internals(bf)]
-    p = bf.get("probs")
-    if p:
-        pick_label, pick_prob = _pick(bf)
-        price = bf.get("best_price")
-        inner.append(f'<div class="int-row"><b>Pick:</b> {html.escape(pick_label)} '
-                     f"({html.escape(pick_prob)}{f' @ {price}' if price is not None else ''})</div>")
-    reason = bf.get("rejection_reason")
-    if reason:
-        inner.append(f'<div class="int-row"><b>Rejection:</b> {html.escape(reason)}</div>')
-    return f'<div class="a-detail-inner">{"".join(inner)}</div>' + _a_edit_form(bf, row_i)
-
-
-def _admin_table(board: list) -> str:
-    sep_i = 0
-    rows = []
-    by_league: dict[str, list] = {}
-    for bf in board:
-        by_league.setdefault(_league_of(bf.get("fixture", "")), []).append(bf)
-    row_i = 0
-    for league, bfs in sorted(by_league.items()):
-        rows.append(f'<tr class="a-league-sep" data-league="L{sep_i}">'
-                    f'<td colspan="8">{html.escape(league.upper())}'
-                    f'<span class="cnt">({len(bfs)})</span></td></tr>')
-        for bf in bfs:
-            home, away, lg = _teams(bf)
-            fixture_txt = f"{home} v {away}" if home and away and away != "—" \
-                else _short_fixture(bf.get("fixture", ""))
-            hay = f"{fixture_txt} {lg}".lower()
-            has_probs = bf.get("probs") is not None
-            cells = [
-                f'<td>{html.escape(fixture_txt)}</td>',
-                f'<td>{_a_pct(bf, "p_home") if has_probs else "—"}</td>',
-                f'<td>{_a_pct(bf, "p_draw") if has_probs else "—"}</td>',
-                f'<td>{_a_pct(bf, "p_away") if has_probs else "—"}</td>',
-                f'<td>{_a_pct(bf, "p_over_15") if has_probs else "—"}</td>',
-                f"<td>{_a_elo(bf)}</td>",
-                f"<td>{_a_mes(bf)}</td>",
-                f"<td>{_src_dot(bf)}</td>",
-            ]
-            rows.append(
-                f'<tr class="clickable" data-target="adm-{row_i}" data-league="L{sep_i}" '
-                f'data-short="{"1" if bf.get("on_deploy_shortlist") else "0"}" '
-                f'data-fixture="{html.escape(bf.get("fixture", ""), quote=True)}" '
-                f'data-search="{html.escape(hay)}" aria-expanded="false" tabindex="0">'
-                f'{"".join(cells)}</tr>'
-                f'<tr class="a-detail-row hidden" id="adm-{row_i}" data-league="L{sep_i}">'
-                f'<td colspan="8">{_a_detail(bf, row_i)}</td></tr>'
-            )
-            row_i += 1
-        sep_i += 1
-    thead = ("<tr><th>Fixture</th><th>1</th><th>X</th><th>2</th><th>O1.5</th>"
-             "<th>Elo</th><th>MES</th><th>Src</th></tr>")
-    return (f'<div class="a-tablewrap"><table class="a-table" id="admin-table">'
-            f"<thead>{thead}</thead><tbody id=\"admin-tbody\">"
-            f'{"".join(rows)}</tbody></table></div>')
-
-
-def _admin_chips(board: list) -> str:
-    leagues = sorted({_league_of(bf.get("fixture", "")) for bf in board})
-    chips = ['<div class="a-chip active" data-league="all" tabindex="0">All leagues</div>']
-    for i, lg in enumerate(leagues):
-        if lg in ("—", ""):
-            continue
-        chips.append(f'<div class="a-chip" data-league="L{i}" tabindex="0">'
-                     f"{html.escape(lg)}</div>")
-    return f'<div class="a-filterbar">{"".join(chips)}</div>'
-
-
-def _admin_log(payload: dict, board: list) -> str:
-    flags = payload.get("data_flags") or []
-    rejected = [bf for bf in board if bf.get("rejection_reason")]
-    rows = []
-    for flag in flags:
-        rows.append(f'<div class="log-row"><span class="tier flag">FLAG</span>'
-                    f'<span class="why">{html.escape(flag)}</span></div>')
-    for bf in rejected:
-        rows.append(f'<div class="log-row"><span class="tier">✗</span>'
-                    f'<span class="why"><b>{html.escape(_short_fixture(bf.get("fixture", "")))}</b> — '
-                    f"{html.escape(bf.get('rejection_reason', ''))}</span></div>")
-    if not rows:
-        rows.append('<div class="log-row"><span class="empty">No rejections or data flags '
-                    'on this board.</span></div>')
-    n = len(flags) + len(rejected)
-    return (
-        f'<div class="a-panel"><h3 id="log-toggle" role="button" tabindex="0" '
-        f'aria-expanded="false" style="cursor:pointer;">Error / Rejection Log ({n}) ▸</h3>'
-        f'<div id="log-body" class="a-log hidden">{"".join(rows)}</div></div>'
-    )
-
-
-def _ev_txt(ev) -> str:
-    return "—" if ev is None else f"{ev:+.1%}"
-
-
-def _admin_production_panel(payload: dict, codes) -> str:
-    """The admin PRODUCTION BETS panel — Acca A + split accas + singles with
-    full EV and codes, above the dense grid (Architect 2026-08-10: the acca
-    grouping is a different object from the fixture grid, so it gets its own
-    panel)."""
-    accas = payload.get("accas") or []
-    if not accas:
-        return ('<div class="a-panel a-prodpanel"><h3>Production Bets</h3>'
-                '<div class="a">NO DATA — PENDING: no production bets for this '
-                'board yet.</div></div>')
-    codes_by_label = _codes_by_label(codes)
-    accas_real = [a for a in accas
-                  if not (a.get("label") or "").startswith("SINGLE — ")]
-    singles = [a for a in accas if (a.get("label") or "").startswith("SINGLE — ")]
-
-    def _leg_rows(acc) -> str:
-        return "".join(
-            f'<div class="a-prod-leg"><span>{html.escape(l.get("fixture", ""))}'
-            f' — {html.escape(l.get("market_name", ""))} @ '
-            f'{_fmt_price(l.get("price"))}</span>'
-            f'<span>{_pct_of(l.get("prob"))} · EV {_ev_txt(l.get("ev"))}</span>'
-            f'</div>'
-            for l in (acc.get("legs") or []))
-
-    rows = []
-    for acc in accas_real:
-        label = acc.get("label", "")
-        cls = "a-prod-acca" + (" hero" if label == "Acca A" else "")
-        rows.append(
-            f'<div class="{cls}">'
-            f'<div class="a-prod-title">{html.escape(label)} — '
-            f'{len(acc.get("legs") or [])} legs · combined '
-            f'{_pct_of(acc.get("combined_prob"))}</div>'
-            f'{_leg_rows(acc)}'
-            f"{_bookcode_block(codes_by_label.get(label), 'acca')}</div>")
-    if singles:
-        def _single_row(s) -> str:
-            label = (s.get("label") or "").replace("SINGLE — ", "")
-            leg0 = (s.get("legs") or [{}])[0]
-            return (f'<div class="a-prod-leg"><span>{html.escape(label)} — '
-                    f'{html.escape(leg0.get("market_name", ""))} @ '
-                    f'{_fmt_price(leg0.get("price"))}</span>'
-                    f'<span>{_pct_of(leg0.get("prob"))}</span>'
-                    f'{_bookcode_block(codes_by_label.get(s.get("label")), "acca")}'
-                    f'</div>')
-        single_rows = "".join(_single_row(s) for s in singles)
-        rows.append('<div class="a-prod-singles"><div class="a-prod-title">'
-                    'Singles — own code each</div>' + single_rows + '</div>')
-    return (f'<div class="a-panel a-prodpanel"><h3>Production Bets</h3>'
-            f'{"".join(rows)}</div>')
-
-
-def render_admin_dashboard(payload: dict, asset_base: str = "/static",
-                           booking_codes=None) -> str:
-    d = payload.get("date", _date.today().isoformat())
-    board = payload.get("board", [])
-    gate = payload.get("gate") or {}
-    telemetry = payload.get("telemetry") or {}
-
-    n_scanned = len(board)
-    n_eligible = sum(1 for bf in board if bf.get("on_deploy_shortlist"))
-    clv = gate.get("legs_with_clv", 0)
-    req = gate.get("gate_requirement", 30)
-
-    predicted_at = ""
-    for k in ("predicted_at", "run_started", "produced_at"):
-        if telemetry.get(k):
-            predicted_at = telemetry[k]
-            break
-    if predicted_at:
-        try:
-            predicted_at = datetime.fromisoformat(str(predicted_at)).strftime("%H:%M")
-        except (TypeError, ValueError):
-            pass
-    last_run = f"Last run: {predicted_at}" if predicted_at else "Last run: —"
-
-    stat_scanned = f'<div class="a-stat" data-chip="all" title="All fixtures"><b>{n_scanned}</b>scanned</div>'
-    stat_eligible = f'<div class="a-stat" data-chip="eligible" title="Deploy-eligible (on shortlist) fixtures"><b>{n_eligible}</b>eligible</div>'
-    _gate_met = clv >= req and (gate.get("mean_clv_pct") or 0) > 0
-    _gate_cls = "a-stat" + ("" if _gate_met else " warn")
-    stat_gate = (f'<div class="{_gate_cls}" data-gate title="Phase 3 CLV gate — publish '
-                 f'blocked until met"><b>{clv}/{req}</b>CLV gate</div>')
-
-    # Phase 3 gate detail (opened by the CLV gate stat pill). Since 2026-08-10
-    # an explicit Architect sign-off is publish authority even when the
-    # statistical gate is unmet — the detail says so plainly so the Architect
-    # always sees exactly what they are overriding.
-    mean_clv = gate.get("mean_clv_pct")
-    signoff = "YES" if os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower() == "1" else "no"
-    gate_met = _gate_met
-    if gate_met:
-        _gate_status = "PASS — publish allowed"
-    elif signoff == "YES":
-        _gate_status = "OVERRIDE — publish allowed by Architect sign-off"
-    else:
-        _gate_status = "NOT MET — publish blocked"
-    gate_detail = (
-        f'<div class="a-gate hidden" id="gate-detail">'
-        f'<div class="a-gate-row"><b>Legs with CLV:</b> {clv} / {req} required</div>'
-        f'<div class="a-gate-row"><b>Mean CLV:</b> {mean_clv if mean_clv is not None else "—"}%</div>'
-        f'<div class="a-gate-row"><b>Architect sign-off:</b> {signoff}</div>'
-        f'<div class="a-gate-row"><b>Gate status:</b> {_gate_status}</div>'
-        f'</div>'
-    )
-
-    body = f"""<div class="app-frame wide"><div id="admin-app">
-  <header class="a-topbar">
-    <div class="a-logo">OLP XDV — ADMIN</div>
-    <input class="a-search" id="admin-search" type="search" placeholder="Search fixture, team, league...">
-  </header>
-  <div class="a-actionbar">
-    <button id="trigger-btn" type="button"><span class="spinner"></span><span id="trigger-label">▶ Trigger Production</span></button>
-    <input class="a-date" id="trigger-date" type="date" value="{d}" aria-label="Board date">
-    {stat_scanned}{stat_eligible}{stat_gate}
-    <span id="last-run">{html.escape(last_run)}</span>
-  </div>
-  {gate_detail}
-  {_admin_production_panel(payload, booking_codes)}
-  {_admin_chips(board)}
-  {_admin_table(board)}
-  <div class="a-approve-row">
-    <button id="approve-btn" type="button">Approve → Publish to Client</button>
-    <div id="publish-status"></div>
-  </div>
-  <div class="a-panel">
-    <h3>AI Analyst (admin — full chat)</h3>
-    <div id="admin-chatlog"><div class="a">Ask about today's board, why a pick diverged, or the CLV backtest.</div></div>
-    <div class="chat-row">
-      <input id="admin-chat-input" type="text" placeholder="Ask a question..." aria-label="Ask the AI Analyst">
-      <button id="admin-chat-send" type="button">Send</button>
-    </div>
-  </div>
-  {_admin_log(payload, board)}
-</div></div>"""
-    return _shell("OLP XDV — Admin", body, asset_base)

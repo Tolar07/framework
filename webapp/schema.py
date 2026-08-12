@@ -526,3 +526,114 @@ def read_payload(path) -> dict:
             f"board schema v{payload['schema_version']} is newer than this "
             f"build supports (v{SCHEMA_VERSION}) — NO DATA — PENDING")
     return payload
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Daily feed — the Telegram board, served to the web (Architect 2026-08-11)
+# ─────────────────────────────────────────────────────────────────────────────
+# One render, two outlets: the daily run's production builds the Telegram
+# message, and THAT same output feeds the web. The web page is the Telegram
+# board — same content, same honesty (NO DATA — PENDING when a pick or code is
+# genuinely missing, HR35). `build_feed_payload` starts from the client-safe
+# trim (never a model internal) and adds back exactly the honest gate/edge
+# numbers the Telegram message already carries: data flags, calibration count,
+# mean CLV, the gate state (incl. the ARCHITECT_SIGNOFF override — never
+# silent), yesterday-graded and the 7-day rolling bar.
+#
+# Nothing here is written by the web layer; the raw board_<date>.json is the
+# single source. `read_feed` is the read path; `stamp_feed_audit` records the
+# gate numbers on the feed's side of the boundary so an override is stamped,
+# never silent.
+FEED_AUDIT = BOARD_DIR / "feed_audit.jsonl"
+
+
+def list_board_dates() -> list[str]:
+    """Return sorted (descending) list of raw board dates (YYYY-MM-DD)."""
+    dates = [p.stem.replace("board_", "") for p in BOARD_DIR.glob("board_*.json")]
+    return sorted(dates, reverse=True)
+
+
+def _feed_safe_yesterday(yesterday_graded: Optional[list]) -> Optional[list]:
+    """Yesterday-graded as the Telegram board shows it: fixture, outcome and a
+    per-engine ✓/✗ mark. The engine probabilities each mark was derived from
+    are model internals and never leave this module."""
+    if not yesterday_graded:
+        return None
+    out = []
+    for g in yesterday_graded:
+        marks = {}
+        for engine, markets in (g.get("engines") or {}).items():
+            row = markets.get("1X2_HOME") or markets.get("1X2_DRAW") \
+                or markets.get("1X2_AWAY")
+            if row and row.get("hit") is not None:
+                marks[engine] = bool(row["hit"])
+        out.append({
+            "fixture": g.get("fixture"),
+            "league": g.get("league"),
+            "outcome": g.get("outcome"),
+            "engines_hit": marks,
+        })
+    return out
+
+
+def _feed_safe_rolling(rolling_7d: Optional[dict]) -> Optional[dict]:
+    """7-day rolling as the Telegram board shows it: per-engine hit rates plus
+    the honest legs/CLV/gate line. Prediction volumes are dropped — the
+    Telegram bar never shows them."""
+    if not rolling_7d:
+        return None
+    engines = {}
+    for eng, st in (rolling_7d.get("engines") or {}).items():
+        if st and st.get("hit_rate") is not None:
+            engines[eng] = {"hit_rate": st["hit_rate"]}
+    return {
+        "engines": engines,
+        "legs_logged": rolling_7d.get("legs_logged", 0),
+        "legs_with_clv": rolling_7d.get("legs_with_clv", 0),
+        "avg_clv_pct": rolling_7d.get("avg_clv_pct"),
+        "gate": rolling_7d.get("gate"),
+    }
+
+
+def build_feed_payload(payload: dict) -> dict:
+    """The daily feed — what the web page renders. Structurally the Telegram
+    board: starts from `trim_payload` (so the data-leak boundary holds by
+    construction), then adds back the honest gate/edge fields the Telegram
+    message already carries. Never mutates the source payload, never carries
+    elo/xg/consensus/EV/verification internals."""
+    feed = trim_payload(payload)
+    feed["data_flags"] = payload.get("data_flags", [])
+    feed["calibration_count"] = payload.get("calibration_count", 0)
+    feed["mean_clv"] = payload.get("mean_clv")
+    feed["gate_state"] = _gate_state(payload)
+    if payload.get("yesterday_graded") is not None:
+        feed["yesterday_graded"] = _feed_safe_yesterday(payload["yesterday_graded"])
+    if payload.get("rolling_7d") is not None:
+        feed["rolling_7d"] = _feed_safe_rolling(payload["rolling_7d"])
+    return feed
+
+
+def read_feed(date_str: str) -> dict:
+    """The feed for a date: the raw board → build_feed_payload. A missing board
+    raises FileNotFoundError (the caller turns that into an honest 404, never a
+    guess — HR35)."""
+    path = BOARD_DIR / f"board_{date_str}.json"
+    return build_feed_payload(read_payload(path))
+
+
+def stamp_feed_audit(date_str: str, payload: dict) -> None:
+    """Best-effort stamp of the day's gate numbers into the feed audit — the
+    feed-side mirror of publish_audit, so an ARCHITECT_SIGNOFF override on the
+    auto-published feed is recorded, never silent. A failed write never kills
+    the run."""
+    entry = {
+        "ts": datetime.now(timezone.utc).isoformat(),
+        "date": date_str,
+        "gate": _gate_state(payload),
+    }
+    try:
+        FEED_AUDIT.parent.mkdir(parents=True, exist_ok=True)
+        with FEED_AUDIT.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    except OSError:
+        pass

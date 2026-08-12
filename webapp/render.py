@@ -1,22 +1,19 @@
-"""HTML rendering for the OLP XDV web dashboard — the Architect's two-tier
-design (reference: webapp/design_reference/*.html, ratified 2026-08-07).
+"""HTML rendering for the OLP XDV web dashboard.
 
-Two views share one visual language:
+Single-tier (Architect 2026-08-12): the web page IS the Telegram board and is
+rendered by render_v2.py (fed by schema.build_feed_payload). This module keeps
+the public support pages the server imports, plus the small helpers render_v2
+borrows:
 
-  render_dashboard(payload)       — the PUBLIC /dashboard (client view)
-  render_admin_dashboard(payload) — the authed /admin (client + internals)
+  render_history_html(dates, today) — the /history date list
+  render_404_html(date_str, today)  — honest 404 for a missing board (HR35)
 
-DATA-LEAK BOUNDARY: the client view is fed by schema.trim_payload(), so it
-never contains a model internal by construction (Architect order 2026-08-07):
-no Elo/xG second opinions, no engine divergence, no consensus votes, no
-verification, no EV verdicts, no gate/calibration/flags. The admin view renders
-the full payload. The client's full-analysis market grid is derived from the
-market probabilities alone, so the grid needs nothing the client is denied.
+The admin tier is paused: render_admin_dashboard, render_stats_html and
+render_why_html were removed with it. `render_dashboard` (the legacy client
+renderer) is retained only because the old two-tier render tests still exercise
+it — render_v2 is the one renderer the server and export use.
 
 HR35 is kept throughout — missing data reads NO DATA — PENDING, never a guess.
-The honest-edge statement and capital authority live on /admin only (the
-Architect's explicit choice: the public client view matches the approved HTML
-exactly and omits them).
 
 Fonts: Barlow Condensed (display), Inter (body), IBM Plex Mono (numbers) via
 Google Fonts with system fallbacks (Architect approved the CDN).
@@ -1471,92 +1468,9 @@ def render_dashboard(payload: dict, asset_base: str = "/static") -> str:
                       asset_base=asset_base)
 
 
-def render_admin_dashboard(payload: dict, asset_base: str = "/static") -> str:
-    """The authed /admin view — the full payload including model internals,
-    verification, cap, data flags, yesterday-graded and the honest footer."""
-    n_leagues = payload.get("n_leagues") or len(payload.get("leagues_scanned", []))
-    n_call = sum(1 for bf in payload.get("board", []) if bf.get("on_deploy_shortlist"))
-    d = payload.get("date", "")
-    published_stamp = ""
-    booking_codes = None
-    if d:
-        from webapp import schema as S
-        try:
-            pub = S.read_published(d)
-            if pub:
-                published_stamp = f'<div class="published-stamp">✅ Published to client — {d}</div>'
-        except Exception:
-            pass  # not published yet — honest, not an error
-        # Separate read: a missing published board must not hide the codes.
-        booking_codes = S.read_booking_codes(d)
-    body = (
-        _board_header(payload, admin=True)
-        + '<div class="paper-strip mono">PAPER ONLY — no stake is placed by this system</div>'
-        + '<div class="admin-actions">'
-        + f'<button class="btn-primary publish-btn" data-date="{html.escape(d)}">'
-        + 'Approve → Publish to Client</button>'
-        + f'{published_stamp}'
-        + '</div>'
-        + _produce_panel()
-        + _admin_search_bar(payload)
-        + _market_select_panel(payload)
-        + "<main>"
-        + '<section id="call-section"><div class="sec-head"><h2 class="display">The Call</h2>'
-        + f'<span class="cap-pill">{n_call} deploy (no cap)</span></div>'
-        + '<p class="sec-sub">All whitelisted leagues are one unified pool — every '
-        + 'rated fixture is deploy-eligible, no cap, ranked by EV/conviction '
-        + '(Architect 2026-08-10). The full 3-day production shown; the BET is '
-        + 'today\'s fixtures only (see Produced Bet / Acca). Paper only, zero '
-        + 'capital.</p>'
-        + _the_call(payload.get("board", []), admin=True)
-        + "</section>"
-        + '<section id="scan-section" style="display:none;"><div class="sec-head"><h2 class="display">The Scan</h2></div>'
-        + f'<p class="sec-sub">Every fixture across all {n_leagues} scanned leagues</p>'
-        + _date_pills(d, "/admin")
-        + _scan_table(payload.get("board", []), admin=True, payload_date=payload.get("date", ""))
-        + "</section>"
-        + '<section id="search-section" style="display:none;"><div class="sec-head"><h2 class="display">Board Search</h2></div>'
-        + '<p class="sec-sub">Filter today\'s board by team, league, or market</p>'
-        + _admin_search_bar(payload)
-        + "</section>"
-        + _flags_block(payload.get("data_flags", []))
-        + '<section id="produced-section" class="cv-auto"><div class="sec-head"><h2 class="display">Today\'s Produced Bet</h2></div>'
-        + '<p class="sec-sub">The produced-bet record (ID415) — every rated fixture with a '
-        + 'kickoff today is one leg; the verified outcome is written next day</p>'
-        + _produced_bet_block(payload.get("produced_bet"), admin=True)
-        + "</section>"
-        + '<section id="acca-section" class="cv-auto"><div class="sec-head"><h2 class="display">Today\'s 4-Leg Acca</h2></div>'
-        + '<p class="sec-sub">Today\'s fixtures only (standing rule) — a set of 4-leg accas '
-        + 'from the deploy call, each leg capital-cleared (ID405). EV is a model '
-        + 'internal, admin-only.</p>'
-        + _acca_section(payload.get("accas"), admin=True)
-        + "</section>"
-        + '<section id="booking-section" class="cv-auto"><div class="sec-head"><h2 class="display">SportyBet Booking Codes</h2></div>'
-        + '<p class="sec-sub">Codes captured from the day\'s accas by '
-        + 'booking/booking_codes.py — paste into SportyBet to recall the slip. '
-        + 'A pre-fill, never a stake.</p>'
-        + _booking_codes_section(booking_codes, payload.get("accas"))
-        + "</section>"
-        + '<section id="verified-section" class="cv-auto"><div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>'
-        + '<p class="sec-sub">Graded against full-time result, 90-min basis (HR15)</p>'
-        + _yesterday_graded(payload.get("yesterday_graded", []))
-        + "</section>"
-        + _phase3_gate_section(payload.get("gate", {}))
-        + "</main>"
-        + _chat_tab()
-        + _chat_fab()
-        + _tab_bar("call", "/admin", d)
-        + _admin_footer(payload)
-    )
-    return html_shell("OLP XDV — Admin Dashboard", body,
-                      script=_js_refs(asset_base, "scan", "publish",
-                                      "admin_search", "tab", "chat",
-                                      "market_select", "produce", "signoff", "theme"),
-                      asset_base=asset_base)
-
-
 # ─────────────────────────────────────────────────────────────────────────────
-# Admin pages (stats / why / history / 404)
+# Public pages (history / 404) — the admin pages were removed with the paused
+# admin tier (Architect 2026-08-12)
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _crumbs(base: str, d: str, admin: bool, page: str = "") -> str:
@@ -1585,57 +1499,6 @@ def _min_header(today: str, crumbs: str = "") -> str:
             f'<h1>OLP&nbsp;XDV</h1></a></div>'
             f'{crumbs}'
             f'<div class="meta-row"><span>{_friendly_date(today)} · <b>07:00</b></span></div></header>')
-
-
-def render_stats_html(stats_text: str, today: str) -> str:
-    body = (_min_header(today) + "<main>" + '<section><div class="sec-head">'
-            '<h2 class="display">Gate &amp; calibration</h2></div>'
-            f'<div class="flags"><div class="flag-line" style="white-space:pre-wrap;'
-            f'display:block;line-height:1.6;">{html.escape(stats_text)}</div></div>'
-            "</section></main>")
-    return html_shell("OLP XDV — Gate & calibration", body)
-
-
-def render_why_html(payload: dict, fixture: str) -> str:
-    """Full analysis for one fixture (admin page)."""
-    board = payload.get("board", [])
-    q = fixture.strip().lower()
-    bf = next((b for b in board if q in _short_fixture(b.get("fixture", "")).lower()),
-              None)
-    if bf is None:
-        body = (_min_header(payload.get("date") or _date.today().isoformat())
-                + "<main>" + '<section><div class="flags"><div class="flag-line">'
-                + 'NO DATA — PENDING: no such fixture on this board.</div></div></section>'
-                + "</main>")
-        return html_shell("OLP XDV — No such fixture", body)
-    home, away, league = _teams(bf)
-    p = bf.get("probs")
-    pick_label, pick_prob = _pick(bf)
-    grid = _market_grid(p) if p is not None else ""
-    if p is None:
-        reason = bf.get("rejection_reason") or "NO DATA — PENDING"
-        grid = f'<div class="flag-line"><span class="mk">⚠</span> {html.escape(reason)}</div>'
-    kd = bf.get("kickoff_date") or "—"
-    body = (
-        _min_header(payload.get("date") or _date.today().isoformat())
-        + "<main>"
-        + '<section><div class="sec-head"><h2 class="display">Full analysis</h2></div>'
-        + f'<div class="call-card" style="cursor:default;">'
-        + f'<div class="call-top"><div>'
-        + f'<div class="fixture-name">{html.escape(f"{home} v {away}")}</div>'
-        + f'<div class="league-tag">{html.escape(league)} · kickoff {html.escape(kd)}</div>'
-        + "</div></div>"
-        + f'<div class="pick-line"><span class="pick-label">{html.escape(pick_label)}</span>'
-        + f'<span class="pick-prob">{pick_prob}</span></div>'
-        + "</div>"
-        + f'<div class="flags" style="margin-top:14px;"><div class="flag-line" style="display:block;">'
-        + f'<span class="mk">Pick</span> {html.escape(pick_label)} — {pick_prob}. '
-        + f'Every market the model rates:</div></div>'
-        + f'<div style="margin-top:12px;">{grid}</div>'
-        + (_internals(bf) if p is not None else "")
-        + "</section></main>"
-    )
-    return html_shell("OLP XDV — Full analysis", body)
 
 
 def render_history_html(dates: list[str], today: str) -> str:

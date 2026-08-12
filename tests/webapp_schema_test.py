@@ -7,7 +7,7 @@ import json
 import sys
 import tempfile
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -204,5 +204,101 @@ with tempfile.TemporaryDirectory() as td:
         except schema.ClientPublishGateError:
             pass
         print("8. write_published enforces gate: OK")
+
+# --- 9. build_feed_payload: the Telegram board, lean + honest ----------------
+os.environ["ARCHITECT_SIGNOFF"] = "1"   # override active → feed shows it
+feed_src = schema.build_payload(
+    date="2026-08-11", phase="PHASE 2 — PAPER", leagues_scanned=["Champions League"],
+    board=[_rated(), _unrated()], data_flags=["⚠ EFL Cup: no history"],
+    gate={"legs_with_clv": 12, "gate_requirement": 30, "mean_clv_pct": -1.631},
+    telemetry={}, calibration_count=3, mean_clv=-1.631,
+    yesterday_graded=[{
+        "fixture": "Fenerbahce v Sturm Graz",
+        "league": "Champions League",
+        "outcome": "HOME",
+        "engines": {
+            "dc": {"1X2_HOME": {"prob": 0.56, "hit": True}},
+            "elo": {"1X2_HOME": {"prob": 0.52, "hit": False}},
+            "xg": {"1X2_DRAW": {"prob": 0.30, "hit": True}},
+        },
+    }],
+    rolling_7d={
+        "engines": {
+            "dc": {"predictions": 20, "settled": 10, "hit_rate": 0.5},
+            "elo": {"predictions": 8, "settled": 4, "hit_rate": 0.25},
+            "xg": {"predictions": 0, "settled": 0, "hit_rate": None},
+        },
+        "legs_logged": 40, "legs_with_clv": 12, "avg_clv_pct": -1.631,
+        "gate": {"legs_with_clv": 12, "gate_requirement": 30, "gate_met": False},
+    })
+feed = schema.build_feed_payload(feed_src)
+
+# honest gate/edge fields added back (the Telegram message carries them)
+assert feed["data_flags"] == ["⚠ EFL Cup: no history"]
+assert feed["calibration_count"] == 3 and feed["mean_clv"] == -1.631
+gs = feed["gate_state"]
+assert gs["legs_with_clv"] == 12 and gs["gate_requirement"] == 30
+assert gs["mean_clv_pct"] == -1.631
+assert gs["gate_met"] is False and gs["override"] is True
+assert gs["architect_signed_off"] is True
+# still the data-leak boundary: no internals at top level or per fixture
+for k in ("gate", "telemetry", "elo_probs", "xg_probs", "market_probs",
+          "consensus", "engine_picks", "verification", "best_mes_ev"):
+    assert k not in feed, f"feed leaked internal {k}"
+for k in ("elo_probs", "xg_probs", "market_probs", "engine_picks",
+          "consensus_pick", "verification", "best_mes_ev"):
+    assert k not in feed["board"][0], f"feed board leaked {k}"
+# yesterday-graded is lean: hit marks only, never the per-engine probs
+yg = feed["yesterday_graded"]
+assert yg[0]["fixture"] == "Fenerbahce v Sturm Graz"
+assert yg[0]["engines_hit"] == {"dc": True, "elo": False, "xg": True}
+assert "engines" not in yg[0] and "prob" not in yg[0]
+# rolling is lean: hit rates + legs/CLV, no prediction volumes
+r7 = feed["rolling_7d"]
+assert r7["engines"] == {"dc": {"hit_rate": 0.5}, "elo": {"hit_rate": 0.25}}
+assert "xg" not in r7["engines"]      # no settled predictions → not shown
+assert r7["legs_logged"] == 40 and r7["avg_clv_pct"] == -1.631
+assert r7["gate"]["legs_with_clv"] == 12
+# never mutates the source payload
+assert "elo_probs" in feed_src["board"][0]
+assert "prob" in feed_src["yesterday_graded"][0]["engines"]["dc"]["1X2_HOME"]
+assert "predictions" in feed_src["rolling_7d"]["engines"]["dc"]
+os.environ.pop("ARCHITECT_SIGNOFF", None)
+print("9. build_feed_payload: lean Telegram board, honest fields, no internals: OK")
+
+# --- 10. read_feed / list_board_dates read the RAW board, never published ----
+with patch.object(schema, "BOARD_DIR", tmp):
+    p = tmp / "board_2026-08-11.json"
+    schema.write_payload(feed_src, p)
+    f2 = schema.read_feed("2026-08-11")
+    assert f2["date"] == "2026-08-11"
+    assert f2["gate_state"]["legs_with_clv"] == 12
+    assert "elo_probs" not in f2["board"][0]
+    assert schema.list_board_dates() == ["2026-08-11"]
+    try:
+        schema.read_feed("1999-01-01")
+        raise SystemExit("missing feed board must raise FileNotFoundError")
+    except FileNotFoundError:
+        pass
+print("10. read_feed + list_board_dates: raw board feed, HR35 on missing: OK")
+
+# --- 11. stamp_feed_audit: the feed's never-silent gate record ----------------
+with patch.object(schema, "FEED_AUDIT", tmp / "feed_audit.jsonl"):
+    os.environ["ARCHITECT_SIGNOFF"] = "1"
+    schema.stamp_feed_audit("2026-08-11", feed_src)
+    lines = (tmp / "feed_audit.jsonl").read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) == 1
+    entry = json.loads(lines[0])
+    assert entry["date"] == "2026-08-11"
+    assert entry["gate"]["override"] is True
+    assert entry["gate"]["architect_signed_off"] is True
+    assert entry["gate"]["mean_clv_pct"] == -1.631
+    os.environ.pop("ARCHITECT_SIGNOFF", None)
+# best-effort: a stamp into an unwritable path never raises
+bad_path = MagicMock()
+bad_path.parent.mkdir.side_effect = OSError
+with patch.object(schema, "FEED_AUDIT", bad_path):
+    schema.stamp_feed_audit("2026-08-12", feed_src)
+print("11. stamp_feed_audit records gate numbers, never raises on failure: OK")
 
 print("\n[OK] ALL WEBAPP SCHEMA TESTS PASSED")

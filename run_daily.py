@@ -773,8 +773,9 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- so the codes reach the Telegram push and the web board. Best-effort
     # --- like the cache refresh: a browser fault degrades each slip to MANUAL,
     # --- never a run failure (HR35). Gated by --no-booking-codes /
-    # --- OLP_BOOKING_CODES=0; when skipped, a stale codes file is unlinked so
-    # --- yesterday's codes can never surface as today's.
+    # --- OLP_BOOKING_CODES=0; when skipped, any EXISTING capture for this date
+    # --- is preserved (the file is date-scoped, so it can never surface as
+    # --- another day's) — see the codes-fix note below.
     codes_result = None
     if booking_codes and acca_list:
         try:
@@ -799,12 +800,16 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                 f"sportybet booking codes skipped "
                 f"({type(e).__name__}: {str(e)[:80]}) — add legs manually")
     elif not booking_codes:
-        try:
-            stale = BOARD_DIR / f"acca_{board_date}_codes.json"
-            if stale.exists():
-                stale.unlink()
-        except OSError:
-            pass
+        # CODES-FIX (2026-08-12): the old code UNLINKED acca_<date>_codes.json
+        # whenever a run skipped booking, which destroyed a good capture on a
+        # later MANUAL regen (M5LMFE, 2026-08-11). The file is date-scoped —
+        # acca_{board_date}_codes.json can never surface as another day's codes
+        # — so the unlink was harmful and unnecessary. A capture is preserved,
+        # and the skip is logged loudly (never silent).
+        stale = BOARD_DIR / f"acca_{board_date}_codes.json"
+        if stale.exists():
+            all_flags.append("booking codes skipped — existing capture "
+                             f"{stale.name} preserved (codes-fix)")
 
     # The production block (Acca A -> split accas -> singles) with codes inline;
     # the same block feeds the saved acca txt, the Telegram push and the wide
@@ -819,6 +824,16 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
         produced_bet=produced_record, production=production,
         codes=codes_result)
+
+    # The FEED text — one render, two outlets (Architect 2026-08-11). This
+    # exact string is BOTH what the phone receives (notify.deliver below) AND
+    # what telegram_<date>.txt persists for the web feed, so the web == Telegram
+    # structurally and the two can never disagree about today's picks or codes.
+    # The persisted file is intentionally the UNSTAMPED body (notify wraps the
+    # banner internally); document, don't "fix".
+    board_url = os.environ.get("BOARD_URL", "").strip()
+    feed_text = (f"{telegram_text}\n\nFull board: {board_url}"
+                 if board_url else telegram_text)
 
     board_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
@@ -848,22 +863,32 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         try:
             from webapp import schema as web_schema
             from clv.phase3_gate import gate_status_for_dashboard
+            web_payload = web_schema.build_payload(
+                date=board_date, phase=PHASE_LABEL, leagues_scanned=leagues,
+                board=board, data_flags=all_flags,
+                gate=gate_status_for_dashboard(),
+                telemetry=brain.leg_telemetry(),
+                calibration_count=status["legs_with_clv"],
+                mean_clv=status["mean_clv_pct"],
+                # the ⭐ TODAY'S PICKS parlay is retired (2026-08-10) — Acca A
+                # is the headline product; the slot stays for schema compat.
+                recommendation="",
+                produced_bet=produced_record,
+                yesterday_graded=yesterday_graded,
+                rolling_7d=rolling_7d,
+                accas=acca_payload["accas"])
             web_schema.write_payload(
-                web_schema.build_payload(
-                    date=board_date, phase=PHASE_LABEL, leagues_scanned=leagues,
-                    board=board, data_flags=all_flags,
-                    gate=gate_status_for_dashboard(),
-                    telemetry=brain.leg_telemetry(),
-                    calibration_count=status["legs_with_clv"],
-                    mean_clv=status["mean_clv_pct"],
-                    # the ⭐ TODAY'S PICKS parlay is retired (2026-08-10) — Acca A
-                    # is the headline product; the slot stays for schema compat.
-                    recommendation="",
-                    produced_bet=produced_record,
-                    yesterday_graded=yesterday_graded,
-                    rolling_7d=rolling_7d,
-                    accas=acca_payload["accas"]),
-                BOARD_DIR / f"board_{board_date}.json")
+                web_payload, BOARD_DIR / f"board_{board_date}.json")
+            # The Telegram-feed copy — byte-faithful to feed_text, so the web
+            # page == the phone push for today's picks and codes. Additive; a
+            # fault is logged, never a run failure. The audit stamp records the
+            # gate numbers on the feed side so an override is never silent.
+            try:
+                (BOARD_DIR / f"telegram_{board_date}.txt").write_text(
+                    feed_text, encoding="utf-8")
+                web_schema.stamp_feed_audit(board_date, web_payload)
+            except Exception as e:
+                _mark(runlog, f"telegram feed file write failed ({e})")
             if prefetch_crests:
                 # Best-effort club-badge prefetch so the dashboard carries real
                 # TheSportsDB crests, not just initials. Never raises; a failed
@@ -880,12 +905,11 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             _mark(runlog, f"web payload write failed ({e}) — txt board unaffected")
 
     if send:
-        # BOARD_URL (set once the dashboard is hosted) appends a link to the
-        # Telegram push so the phone goes from summary to full board in one tap.
-        board_url = os.environ.get("BOARD_URL", "").strip()
-        push_text = (f"{telegram_text}\n\nFull board: {board_url}"
-                     if board_url else telegram_text)
-        delivered, notes = notify.deliver(push_text, save_to=None)
+        # The delivered body IS feed_text — the same string persisted to
+        # telegram_<date>.txt above, so the phone and the web feed are one
+        # render, two outlets (Architect 2026-08-11). BOARD_URL (set once the
+        # dashboard is hosted) rides inside feed_text.
+        delivered, notes = notify.deliver(feed_text, save_to=None)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
         for n in notes:

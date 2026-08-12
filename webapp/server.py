@@ -1,19 +1,22 @@
 """Local dashboard server for the OLP XDV board — stdlib-only (no pip).
 
-Two-tier design (Architect order 2026-08-07, reference webapp/design_reference/):
+Single-tier auto-publish design (Architect 2026-08-12): the web page IS the
+Telegram board. The daily run produces the board and delivers it to Telegram;
+the web server reads the SAME raw board_<date>.json and serves it through
+schema.build_feed_payload() — one render, two outlets. There is no admin tier,
+no Approve → Publish: auto-feed = auto-publish.
 
-  /dashboard            — the PUBLIC client view: predictions only. Served from
-                          schema.trim_payload(), so a model internal can NEVER
-                          reach this route or the public JSON API.
-  /admin                — the authed view: everything + model internals,
-                          verification, cap, data flags, yesterday-graded.
-                          Protected by HTTP Basic auth (ADMIN_USER / ADMIN_PASS
-                          from .env). Without ADMIN_PASS configured it returns a
-                          503 "set ADMIN_PASS" — never a default password.
+  /dashboard/<date> — the feed page (render_v2)
+  /api/board.json   — the feed payload (lean, no model internals)
+  /api/board/<date> — same, pinned to a date
+  /history          — public date list
+  /api/live-scores  — live scores for the scan cards
+  /api/analyst      — AI Analyst, context scoped to the feed payload
+  /health /metrics  — ops endpoints
 
-/stats, /why and /api/stats.json are admin-only too (they render internals).
-Everything is READ-ONLY over the saved board JSONs + the brain; a missing date
-is an honest 404 (HR35), never a guess.
+A missing board is an honest 404 (HR35), never a guess. The paused admin tier
+(/admin*, /stats, /why, /api/trigger-board, /api/admin/*) is REMOVED and 404s —
+it is not hidden, and no mutating endpoint exists any more.
 
 Static assets (Sprint 4): the rendered pages reference /static/css, /static/js
 and /static/fonts, which are served from webapp/static/ below. A strict
@@ -28,8 +31,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import base64
-import hmac
 import json
 import os
 import re
@@ -39,7 +40,7 @@ import time
 from datetime import date
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
@@ -77,11 +78,6 @@ _CTYPES = {
     ".ico": "image/x-icon",
     ".json": "application/json; charset=utf-8",
 }
-
-
-def _brain():
-    from brain.store import Brain
-    return Brain(ROOT / "brain" / "olp.db", read_only=True)
 
 
 # Live score cache (per-request to avoid stale data)
@@ -133,15 +129,6 @@ def _fetch_live_scores(leagues: list[str]) -> dict[str, str]:
 
 def _payload_path(date_str: str) -> Path:
     return BOARD_DIR / f"board_{date_str}.json"
-
-
-def _admin_auth_disabled() -> bool:
-    """Dev convenience toggle: OLP_REQUIRE_ADMIN_AUTH=0 lifts the Basic-auth
-    wall on /admin, /stats, /why, /api/admin/* and POST /api/trigger-board.
-    Default is ON — the flag must never default off on a phone-reachable host,
-    because /admin exposes full model internals."""
-    return os.environ.get("OLP_REQUIRE_ADMIN_AUTH", "1").strip().lower() \
-        in ("0", "false", "no", "off")
 
 
 def _board_dates() -> list[str]:
@@ -241,57 +228,21 @@ class Handler(BaseHTTPRequestHandler):
         # real board.
         self._send(404, html.encode("utf-8"))
 
-    # -- admin auth ---------------------------------------------------------
-    def _admin_ok(self) -> bool:
-        """True when the request carries valid ADMIN_USER/ADMIN_PASS (Basic).
-        A missing ADMIN_PASS env var is treated as NOT ok — the caller returns
-        a 503 "set ADMIN_PASS" rather than ever accepting a default."""
-        pw = os.environ.get("ADMIN_PASS")
-        user = os.environ.get("ADMIN_USER", "admin")
-        if not pw:
-            return False
-        hdr = self.headers.get("Authorization", "")
-        if not hdr.startswith("Basic "):
-            return False
-        try:
-            raw = base64.b64decode(hdr[len("Basic "):]).decode("utf-8")
-            u, _, p = raw.partition(":")
-        except Exception:
-            return False
-        return hmac.compare_digest(u, user) and hmac.compare_digest(p, pw)
-
-    def _require_admin(self) -> bool:
-        """401 (+WWW-Authenticate so the browser prompts) when not authed;
-        503 when auth is unconfigured. Returns True only when the request is
-        allowed through."""
-        if _admin_auth_disabled():
-            return True
-        if self._admin_ok():
-            return True
-        if not os.environ.get("ADMIN_PASS"):
-            self._send(503, (b"NO DATA \xe2\x80\x94 PENDING: ADMIN_PASS is not "
-                             b"set in .env, so /admin is locked."),
-                       "text/plain; charset=utf-8")
-            return False
-        body = (b"NO DATA \xe2\x80\x94 PENDING: admin authentication required.")
-        self._send(401, body,
-                   "text/plain; charset=utf-8",
-                   extra_headers={"WWW-Authenticate": 'Basic realm="OLP XDV Admin"'})
-        return False
-
     def _load_payload(self, d: str):
-        """Full board payload, or None when missing/refused (honest 404)."""
+        """Full raw board payload, or None when missing/refused (honest 404)."""
         try:
             from webapp import schema as S
             return S.read_payload(_payload_path(d))
         except (FileNotFoundError, ValueError):
             return None
 
-    def _load_published(self, d: str):
-        """Published (trimmed) board payload, or None."""
+    def _load_feed(self, d: str):
+        """The daily feed for a date: raw board → build_feed_payload (the same
+        content Telegram delivers — one render, two outlets). None when missing
+        (the caller 404s, never a guess)."""
         try:
             from webapp import schema as S
-            return S.read_published(d)
+            return S.build_feed_payload(S.read_payload(_payload_path(d)))
         except (FileNotFoundError, ValueError):
             return None
 
@@ -300,14 +251,13 @@ class Handler(BaseHTTPRequestHandler):
         self._req_started = time.time()  # duration_ms for the JSONL access log
         parsed = urlparse(self.path)
         path = parsed.path
-        qs = parse_qs(parsed.query)
         today = date.today().isoformat()
 
         try:
             from webapp import render as R
             from webapp import schema as S
 
-            # --- public dashboard ----------------------------------------
+            # --- the feed page -------------------------------------------
             if path in ("/", "/board"):
                 self._redirect(f"/dashboard/{today}")
 
@@ -334,140 +284,46 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(200, target.read_bytes(),
                            _CTYPES.get(target.suffix.lower(), "application/octet-stream"))
 
-            elif path in ("/dashboard", "/dashboard/") :
+            elif path in ("/dashboard", "/dashboard/"):
                 self._redirect(f"/dashboard/{today}")
 
             elif path.startswith("/dashboard/"):
                 d = path[len("/dashboard/"):]
                 if not _DT.match(d):
                     return self._not_found()
-                payload = self._load_published(d)
-                if payload is None:
-                    # Honest pending-approval state (Architect 2026-08-10): the
-                    # run for this date happened but the board hasn't passed the
-                    # publish gate. The client must NEVER see unapproved
-                    # predictions, but a bare 404 lies about the system state —
-                    # so if a RAW board exists, render the awaiting-approval view
-                    # on the CURRENT date instead of the stale last-published day.
-                    # Only when no run happened at all does the 404 stand.
-                    from webapp import schema as S
-                    from webapp import render_v2 as V2
-                    if self._load_payload(d) is not None:
-                        published_dates = S.list_published_dates()
-                        last_pub = published_dates[0] if published_dates else None
-                        self._render(V2.render_pending(d, last_pub))
-                        return
+                feed = self._load_feed(d)
+                if feed is None:
+                    # A missing board is an honest 404 (HR35) — never a guess.
                     return self._not_found_html(R.render_404_html(d, today))
-                # The NEW prototype design (render_v2). Booking codes come from
-                # the day's acca_<date>_codes.json (schema.read_booking_codes);
-                # live scores are fetched client-side by proto.js so page load
-                # stays fast and the badge refreshes during a match.
+                # The feed page (render_v2). Booking codes come from the day's
+                # acca_<date>_codes.json (schema.read_booking_codes); live
+                # scores are fetched client-side by proto.js so page load stays
+                # fast and the badge refreshes during a match.
                 from webapp import render_v2 as V2
                 self._render(V2.render_dashboard(
-                    payload, booking_codes=S.read_booking_codes(d)))
-
-            # --- admin view (no auth required) -----------------------------
-            elif path in ("/admin", "/admin/"):
-                self._redirect(f"/admin/{today}")
-
-            elif path.startswith("/admin/"):
-                if not self._require_admin():
-                    return
-                d = path[len("/admin/"):]
-                if not _DT.match(d):
-                    return self._not_found()
-                payload = self._load_payload(d)
-                if payload is None:
-                    return self._not_found_html(R.render_404_html(d, today))
-                # The NEW light-theme admin (render_v2). Booking codes are the
-                # Architect's betslip recall codes — codes only, never a stake.
-                from webapp import render_v2 as V2
-                self._render(V2.render_admin_dashboard(
-                    payload, booking_codes=S.read_booking_codes(d)))
+                    feed, booking_codes=S.read_booking_codes(d)))
 
             # --- history (a date list, no internals — stays public) ------
             elif path == "/history":
                 self._render(R.render_history_html(_board_dates(), today))
 
-            # --- internals pages: admin-only (restored 2026-08-10 — commit
-            # 2f41a4f had silently dropped the _require_admin() guards) -----
-            elif path == "/stats":
-                if not self._require_admin():
-                    return
-                with _brain() as b:
-                    from brain.report import render_stats
-                    self._render(R.render_stats_html(render_stats(b), today))
-
-            elif path == "/why":
-                if not self._require_admin():
-                    return
-                fixture = (qs.get("fixture") or [""])[0]
-                d = (qs.get("date") or [today])[0]
-                if not fixture:
-                    return self._redirect(f"/admin/{today}")
-                payload = self._load_payload(d)
-                if payload is None:
-                    return self._not_found_html(R.render_404_html(d, today))
-                self._render(R.render_why_html(payload, fixture))
-
             # --- JSON API -------------------------------------------------
-            # Public board JSON is served from the PUBLISHED store only —
-            # same approve-gate as the HTML /dashboard route. An unapproved
-            # board is never exposed via JSON (previously both these routes
-            # read the raw board dir, bypassing the gate).
+            # The public JSON is the daily feed: raw board → build_feed_payload
+            # (lean, no model internals) — the same boundary as the HTML page.
             elif path == "/api/board.json":
-                payload = self._load_published(today)
-                if payload is None:
+                feed = self._load_feed(today)
+                if feed is None:
                     return self._not_found()
-                self._json(payload)
+                self._json(feed)
 
             elif path.startswith("/api/board/"):
                 d = path[len("/api/board/"):].removesuffix(".json")
                 if not _DT.match(d):
                     return self._not_found()
-                payload = self._load_published(d)
-                if payload is None:
+                feed = self._load_feed(d)
+                if feed is None:
                     return self._not_found()
-                self._json(payload)
-
-            elif path == "/api/admin/board.json":
-                if not self._require_admin():
-                    return
-                payload = self._load_payload(today)
-                if payload is None:
-                    return self._not_found()
-                self._json(payload)
-
-            elif path.startswith("/api/admin/board/"):
-                if not self._require_admin():
-                    return
-                d = path[len("/api/admin/board/"):].removesuffix(".json")
-                if not _DT.match(d):
-                    return self._not_found()
-                payload = self._load_payload(d)
-                if payload is None:
-                    return self._not_found()
-                self._json(payload)
-
-            elif path == "/api/stats.json":
-                if not self._require_admin():
-                    return
-                with _brain() as b:
-                    from brain.report import render_stats
-                    self._json({"text": render_stats(b)})
-
-            elif path == "/api/admin/fixtures":
-                try:
-                    from webapp.produce import search_fixtures
-                    league = (qs.get("league") or [""])[0]
-                    q = (qs.get("q") or [""])[0]
-                    days = int((qs.get("days") or ["7"])[0])
-                    fx_date = (qs.get("date") or [""])[0]
-                    result = search_fixtures(
-                        league=league or None, query=q, days=days, date=fx_date)
-                    self._json(result)
-                except Exception as e:
-                    self._json({"ok": False, "error": str(e)})
+                self._json(feed)
 
             else:
                 self._not_found()
@@ -481,114 +337,15 @@ class Handler(BaseHTTPRequestHandler):
                 pass
 
     def do_POST(self):
-        """Publish action — no auth required. Accepts JSON {date, approved_by?}."""
+        """Read-only data endpoints: live scores + the AI Analyst. The admin
+        tier is paused — no mutating endpoint exists any more (they 404)."""
         self._req_started = time.time()  # duration_ms for the JSONL access log
         parsed = urlparse(self.path)
         path = parsed.path
-        # Every mutating admin endpoint requires Basic auth (restored 2026-08-10:
-        # commit 2f41a4f had silently dropped the auth guard on these too).
-        if path.startswith("/api/admin") or path == "/api/trigger-board":
-            if not self._require_admin():
-                return
-        if path == "/api/admin/publish":
-            try:
-                import json
-                from webapp import schema as S
-                content_len = int(self.headers.get("Content-Length", "0"))
-                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
-                data = json.loads(body) if body else {}
-                d = data.get("date", "")
-                approved_by = data.get("approved_by", "admin")
-                if not d:
-                    self._json({"ok": False, "error": "date required"})
-                    return
-                payload = self._load_payload(d)
-                if payload is None:
-                    self._json({"ok": False, "error": f"no board for {d}"})
-                    return
-                S.write_published(payload, approved_by=approved_by)
-                self._json({"ok": True, "date": d, "published": True})
-            except Exception as e:
-                self._json({"ok": False, "error": str(e)})
-            return
-
-        # Edit-before-publish: patch publishable fields on the RAW board.
-        # (Admin-only via the /api/admin prefix guard above.) The edited board
-        # is what Approve -> Publish later trims + ships to the client.
-        if path == "/api/admin/board-edit":
-            try:
-                import json
-                from webapp import schema as S
-                content_len = int(self.headers.get("Content-Length", "0"))
-                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
-                data = json.loads(body) if body else {}
-                d = data.get("date", "")
-                fixture = data.get("fixture", "")
-                edits = data.get("edits") or {}
-                if not d or not fixture:
-                    self._json({"ok": False, "error": "date and fixture required"})
-                    return
-                payload = self._load_payload(d)
-                if payload is None:
-                    self._json({"ok": False, "error": f"no board for {d}"})
-                    return
-                board = payload.get("board", [])
-                idx = next((i for i, bf in enumerate(board)
-                            if bf.get("fixture") == fixture
-                            or bf.get("fixture", "").startswith(fixture.split(" (")[0])), None)
-                if idx is None:
-                    self._json({"ok": False, "error": f"fixture not on board: {fixture}"})
-                    return
-                bf = board[idx]
-                applied = []
-                if "fixture" in edits and edits["fixture"]:
-                    bf["fixture"] = str(edits["fixture"]).strip()
-                    applied.append("fixture")
-                if "best_market" in edits:
-                    bf["best_market"] = str(edits["best_market"]).strip() or None
-                    applied.append("best_market")
-                if "best_price" in edits and edits["best_price"] not in ("", None):
-                    try:
-                        bf["best_price"] = float(edits["best_price"])
-                        applied.append("best_price")
-                    except (TypeError, ValueError):
-                        self._json({"ok": False, "error": "best_price must be a number"})
-                        return
-                # No softness-tier edit: ID402 tiers were removed 2026-08-10
-                # (one unified pool). The deploy shortlist toggle below is the
-                # only gating control left.
-                if "on_deploy_shortlist" in edits:
-                    bf["on_deploy_shortlist"] = bool(edits["on_deploy_shortlist"])
-                    applied.append("on_deploy_shortlist")
-                S.write_payload(payload, _payload_path(d))
-                self._json({"ok": True, "date": d, "fixture": fixture, "applied": applied})
-            except Exception as e:
-                self._json({"ok": False, "error": str(e)})
-            return
-
-        # Produce endpoint — real-time engine run (no auth required)
-        if path == "/api/admin/produce":
-            try:
-                import json
-                from webapp.produce import produce_selection
-                content_len = int(self.headers.get("Content-Length", "0"))
-                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
-                data = json.loads(body) if body else {}
-                groups = data.get("groups", [])
-                season = data.get("season", "2526")
-                if not groups:
-                    self._json({"ok": False, "error": "No fixtures selected"})
-                    return
-                result = produce_selection(groups, season=season)
-                self._json(result)
-            except Exception as e:
-                self._json({"ok": False, "error": str(e)})
-            return
 
         # Live scores endpoint — returns {fixture_key: score} for today's matches
         if path == "/api/live-scores":
             try:
-                import json
                 content_len = int(self.headers.get("Content-Length", "0"))
                 body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
                 data = json.loads(body) if body else {}
@@ -603,7 +360,9 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"ok": False, "error": str(e)})
             return
 
-        # AI Analyst chat endpoint — public (uses same context as Telegram bot)
+        # AI Analyst chat endpoint — public. Context is scoped to the FEED
+        # payload (build_feed_payload): the browser-facing model gets exactly
+        # what the page shows, never a model internal (elo/xg/consensus/EV).
         if path == "/api/analyst":
             # Rate limit: max 10 req/min per IP (paid Anthropic API)
             if not _check_rate_limit(self.client_address[0]):
@@ -611,7 +370,6 @@ class Handler(BaseHTTPRequestHandler):
                            "text/plain; charset=utf-8")
                 return
             try:
-                import json
                 content_len = int(self.headers.get("Content-Length", "0"))
                 body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
                 data = json.loads(body) if body else {}
@@ -620,80 +378,12 @@ class Handler(BaseHTTPRequestHandler):
                 if not message:
                     self._json({"ok": False, "error": "message required"})
                     return
-                # Load board for context
-                payload = self._load_payload(date_str) or self._load_published(date_str)
-                reply = self._analyst_reply(message, payload, date_str)
+                # Load the day's feed for context (never the raw internals).
+                feed = self._load_feed(date_str)
+                reply = self._analyst_reply(message, feed, date_str)
                 self._json({"ok": True, "reply": reply})
             except Exception as e:
                 self._json({"ok": False, "error": str(e)})
-            return
-
-        # Phase 3 Gate Architect sign-off endpoint
-        if path == "/api/admin/signoff":
-            try:
-                import json
-                content_len = int(self.headers.get("Content-Length", "0"))
-                body = self.rfile.read(content_len).decode("utf-8") if content_len else "{}"
-                data = json.loads(body) if body else {}
-                action = data.get("action", "")
-                architect_name = data.get("architect_name", "")
-                confirm = data.get("confirm", False)
-
-                if action == "sign_off":
-                    if not architect_name:
-                        self._json({"ok": False, "error": "Architect name required"})
-                        return
-                    if not confirm:
-                        self._json({"ok": False, "error": "Confirmation required"})
-                        return
-                    from clv.phase3_gate import sign_off_gate
-                    gate = sign_off_gate(architect_name)
-                    self._json({"ok": True, "gate": gate.to_dict()})
-                    return
-                elif action == "revoke":
-                    from clv.phase3_gate import revoke_sign_off
-                    gate = revoke_sign_off("Revoked via admin dashboard")
-                    self._json({"ok": True, "gate": gate.to_dict()})
-                    return
-                else:
-                    self._json({"ok": False, "error": f"Unknown action: {action}"})
-                    return
-            except Exception as e:
-                self._json({"ok": False, "error": str(e)})
-            return
-
-        # Trigger Production — a REAL on-demand orchestrator run (not a stub).
-        # Runs the full pipeline for the chosen date and writes the board to
-        # BOARD_DIR. Sends are forced OFF: a manual trigger produces the web
-        # board only, it never pushes to Telegram/WhatsApp/email. A second
-        # concurrent run is refused (409) rather than raced.
-        if path == "/api/trigger-board":
-            d = (parse_qs(parsed.query).get("date") or [today])[0]
-            if not _DT.match(d):
-                self._json({"ok": False, "error": "date must be YYYY-MM-DD"})
-                return
-            if getattr(self.server, "_olp_running", False):
-                self._json({"ok": False,
-                            "error": "a production run is already in progress — wait for it to finish"})
-                return
-            self.server._olp_running = True
-            try:
-                import run_daily
-                # Strict single-day (Architect 2026-08-10): the run is pinned to
-                # the SELECTED date — only fixtures kicking off that exact day
-                # survive; nothing from adjacent/future days. The daily run uses
-                # the same rule (today only).
-                res = run_daily.run(season="2526", send=False, whatsapp=False,
-                                    email=False, web=True, refresh_sportybet=False,
-                                    booking_codes=True, target_date=d)
-                self._json({"ok": True, "date": d,
-                            "message": f"Board produced: {len(res.board)} fixtures "
-                                       f"for {d} ({len(res.leagues_scanned)} leagues "
-                                       f"scanned)"})
-            except Exception as e:
-                self._json({"ok": False, "error": f"production failed: {e}"})
-            finally:
-                self.server._olp_running = False
             return
 
         self._not_found()
@@ -701,9 +391,11 @@ class Handler(BaseHTTPRequestHandler):
     def _analyst_reply(self, message: str, payload: dict | None, date_str: str) -> str:
         """Generate AI Analyst reply using Claude API with board context."""
         try:
-            # Build context from payload
+            # Build context from the FEED payload (browser-safe only)
             context_parts = [f"Date: {date_str}"]
             if payload:
+                if payload.get("phase"):
+                    context_parts.append(f"Phase: {payload['phase']}")
                 board = payload.get("board", [])
                 context_parts.append(f"Total fixtures: {len(board)}")
                 # The Call
@@ -716,7 +408,7 @@ class Handler(BaseHTTPRequestHandler):
                         prob = bf.get("best_model_prob")
                         prob_str = f"{round(prob * 100)}%" if prob is not None else "?"
                         context_parts.append(f"  - {fixture}: {pick} ({prob_str})")
-                # Top fixtures by confidence
+                # Top fixtures by model confidence
                 rated = [bf for bf in board if bf.get("probs")]
                 if rated:
                     rated.sort(key=lambda b: max(
@@ -747,12 +439,13 @@ class Handler(BaseHTTPRequestHandler):
             client = anthropic.Anthropic(api_key=api_key)
 
             system_prompt = """You are the OLP XDV AI Analyst — an expert football betting analyst.
-You have access to today's model board (Dixon-Coles + Elo + xG + Bookmaker consensus).
-Answer questions about fixtures, markets, the framework methodology, or today's predictions.
-Be concise, honest, and cite specific data from the context. Never fabricate predictions.
-If asked about a specific fixture, look it up in the context. If not found, say so.
-The framework is Phase 3 live (2026-08-11): it records stakes the Architect logs,
-but capital authority stays with the Architect — nothing here is a guaranteed bet."""
+You have today's daily board: fixtures, league, the framework's chosen market
+and probability, and any data flags. Answer questions about fixtures, markets,
+the framework methodology, or today's picks.
+Be concise, honest, and cite specific data from the context. Never fabricate
+predictions. If asked about a specific fixture, look it up in the context. If
+not found, say so.
+Capital authority stays with the Architect — nothing here is a guaranteed bet."""
 
             resp = client.messages.create(
                 model="claude-3-5-sonnet-20241022",
@@ -786,7 +479,6 @@ def main():
     httpd = ThreadingHTTPServer((a.host, a.port), Handler)
     print(f"OLP XDV dashboard on http://{a.host}:{a.port}")
     print(f"  today:  http://localhost:{a.port}/dashboard/{date.today().isoformat()}")
-    print(f"  admin:  http://localhost:{a.port}/admin (Basic auth — ADMIN_USER/ADMIN_PASS)")
     print("  Ctrl+C to stop.")
     try:
         httpd.serve_forever()

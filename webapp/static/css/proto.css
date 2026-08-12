@@ -321,3 +321,106 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
   .toast { transition: none; }
   .a-table tr.new-row { animation-duration: 0.4s; }
 }
+
+/* ========== FEED — the web page IS the Telegram board (2026-08-11) ==========
+   One render, two outlets: same lean PRODUCTION BETS block + booking codes,
+   same honest NO DATA — PENDING (HR35), the gate callout always visible. The
+   scan is a single scroll (no tabs, no expanders) — the phone board, mapped
+   to a phone-first page. Amber is reserved for OVERRIDE + the Acca A hero;
+   NOT MET stays muted (honest, no fake urgency/pulse). */
+.f-page{max-width:720px;margin:0 auto;padding:0 16px 44px;}
+.f-hero{padding:20px 0 12px;border-bottom:1px solid var(--line);}
+.f-brand{display:flex;align-items:center;gap:8px;}
+.f-brand .mark{width:8px;height:8px;background:var(--amber);transform:rotate(45deg);flex:none;}
+.f-brand h1{font-size:19px;margin:0;font-weight:700;letter-spacing:0.03em;}
+.f-date{font-size:12px;color:var(--ink-dim);margin-top:4px;}
+.f-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.f-chip{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:4px 10px;font-size:10px;color:var(--ink-dim);}
+.f-flags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.f-flag-head{font-size:10px;color:var(--amber-dim);font-weight:700;flex-basis:100%;}
+.f-flag{font-size:10px;color:var(--ink-dim);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xs);padding:3px 8px;}
+
+/* Gate callout — always visible. Amber ONLY for OVERRIDE (the Architect's
+   explicit call); NOT MET is muted ink, never alarm-red (no fake urgency). */
+.f-gate{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:12px;border:1px solid var(--line);border-radius:var(--r-md);padding:10px 12px;background:var(--surface);}
+.f-gate-status{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:11px;letter-spacing:0.05em;flex:none;}
+.f-gate.notmet .f-gate-status{color:var(--ink-faint);}
+.f-gate.pass .f-gate-status{color:var(--teal);}
+.f-gate.override{border-color:var(--amber);}
+.f-gate.override .f-gate-status{color:var(--amber);}
+.f-gate-detail{font-size:10px;color:var(--ink-dim);}
+
+.f-main{margin-top:16px;}
+.f-section{margin-bottom:18px;}
+.f-prod-head{font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;}
+.f-prod-sub{display:block;font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--ink-faint);margin-top:2px;}
+
+/* Production block — Acca A amber hero, splits, singles, code pills. */
+.f-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;margin:10px 0;}
+.f-card.f-acca-hero{border-left:4px solid var(--amber);background:linear-gradient(180deg,#221d0e 0%,var(--surface) 68%);}
+.f-acca-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.f-acca-hero .f-acca-title{color:var(--amber);}
+.f-leg{display:flex;justify-content:space-between;gap:12px;font-size:12px;padding:5px 0;border-bottom:1px dotted var(--line);}
+.f-leg:last-child{border-bottom:none;}
+.f-leg-name{color:var(--ink);}
+.f-leg-mkt{font-family:'IBM Plex Mono',monospace;color:var(--teal);flex:none;font-size:11px;white-space:nowrap;}
+.f-combined{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);font-size:12px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--ink);}
+.f-combined .f-code{font-family:'Inter',sans-serif;font-weight:400;}
+.f-code{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--ink-faint);}
+.f-code .pnd{color:var(--ink-faint);font-style:italic;}
+.f-code-pill{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);padding:4px 10px;font-size:11px;color:var(--ink-dim);display:inline-flex;gap:6px;align-items:center;transition:border-color 0.15s ease,color 0.15s ease;}
+.f-code-pill b{color:var(--amber);font-family:'IBM Plex Mono',monospace;font-weight:600;}
+.f-code-pill:hover{border-color:var(--amber);color:var(--ink);}
+.f-code-pill:focus-visible{outline:2px solid var(--focus);outline-offset:1px;}
+.f-singles-title{font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:6px;}
+.f-single{border-bottom:1px dotted var(--line);padding:7px 0;}
+.f-single:last-child{border-bottom:none;}
+.f-prod-empty{color:var(--ink-dim);font-size:12px;font-style:italic;}
+
+/* Scan — league-grouped lean cards, live badge, honest pending rows. */
+.f-datepills{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none;}
+.f-pill{flex:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:7px 13px;font-size:11px;text-align:center;color:var(--ink-dim);text-decoration:none;display:inline-block;}
+.f-pill.today{border-color:var(--amber);color:var(--amber);font-weight:700;}
+.f-pill.selected{background:var(--surface-2);color:var(--ink);}
+.f-pill-sub{display:block;font-size:8.5px;color:var(--ink-faint);margin-top:1px;}
+.f-league-group{margin-bottom:8px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;}
+.f-league-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;font-size:11px;font-weight:700;color:var(--ink);}
+.f-league-body{padding:2px 12px 10px;}
+.f-scan-card{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dotted var(--line);}
+.f-scan-card:last-child{border-bottom:none;}
+.f-scan-name{display:flex;align-items:baseline;gap:8px;min-width:0;flex:1;}
+.f-fixture{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.f-league{font-size:9px;color:var(--ink-faint);flex:none;}
+.f-live{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink);background:var(--coral);border-radius:var(--r-xs);padding:1px 5px;}
+.f-live:empty{display:none;}
+.f-scan-pick{font-size:10px;color:var(--ink-dim);text-align:right;flex:none;}
+.f-scan-pick b{color:var(--teal);font-family:'IBM Plex Mono',monospace;display:block;font-size:11px;}
+.f-scan-card.pending .f-scan-pick .pnd{color:var(--ink-faint);font-style:italic;}
+
+/* Yesterday / rolling — the Telegram bars, mapped to cards. */
+.f-sec-title{font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;}
+.f-dim{font-size:11px;color:var(--ink-faint);font-style:italic;}
+.f-yday-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px dotted var(--line);font-size:11.5px;}
+.f-yday-row:last-child{border-bottom:none;}
+.f-yday-fix{color:var(--ink);}
+.f-yday-marks{display:flex;gap:6px;flex-wrap:wrap;flex:none;}
+.f-mark{font-family:'IBM Plex Mono',monospace;font-size:10px;border-radius:var(--r-xs);padding:1px 6px;}
+.f-mark.hit{color:var(--teal);background:rgba(14,203,129,.12);}
+.f-mark.miss{color:var(--coral);background:rgba(246,70,93,.12);}
+.f-rates{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+.f-rate{font-size:11px;color:var(--ink-dim);background:var(--surface-2);border-radius:var(--r-xs);padding:3px 8px;}
+.f-rate b{color:var(--ink);font-family:'IBM Plex Mono',monospace;}
+.f-roll-line{font-size:11px;color:var(--ink-dim);}
+
+/* Honest-edge line — carried from the Telegram envelope. Muted, designed,
+   never alarm. */
+.f-honest{margin-top:6px;border:1px dashed var(--line);border-radius:var(--r-md);padding:12px 14px;background:var(--surface);}
+.f-honest-title{display:block;font-size:9px;font-weight:700;letter-spacing:0.06em;color:var(--amber-dim);margin-bottom:4px;}
+.f-honest-body{display:block;font-size:11px;color:var(--ink-dim);line-height:1.5;}
+.f-honest-cap{display:block;font-size:10px;color:var(--ink-faint);margin-top:4px;}
+
+@media (min-width:760px){
+  .f-page{max-width:760px;padding:0 24px 52px;}
+  .f-scan-card{padding:9px 6px;}
+  .f-scan-card:hover{background:var(--surface-2);border-radius:var(--r-md);}
+}

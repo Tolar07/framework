@@ -1,20 +1,19 @@
-"""Render tests for render_v2.py — the ACTIVE /dashboard and /admin renderer
-(Architect order 2026-08-10).
+"""Render tests for render_v2.py — the FEED page (Architect 2026-08-11).
 
-The old webapp_render_test.py covers the legacy webapp.render module (still used
-for /why). This suite covers the new design that the server actually serves:
-  - the FULL 13-row market grid on every client card (1X2, O/U 1.5, O/U 2.5,
-    BTTS and Double Chance — derived only from client-safe probs),
-  - the CALL recommended singles OPEN BY DEFAULT (UX 2026-08-10: "every single
-    detail for every thing" on the actionable list), the SCAN board CLOSED by
-    default with per-tile expand — one tap opens THAT fixture's breakdown only,
-  - the breakeven trigger price honestly labelled as a trigger, NOT a live quote,
-  - a cache-buster (?v=) on the proto.js/css tags so browsers can never serve a
-    stale asset (the user's "clicking one tile opens every tile" was a cached JS),
-  - the recommended pick row visually distinct (.c-mkt-row.pick),
-  - the data-leak boundary still holds (no model internals reach the client),
-  - the Phase 3 gate status on /admin: PASS / OVERRIDE / NOT MET, and the
-    Architect override is honoured by render (as it is by schema).
+The web page IS the Telegram board: one render, two outlets. `render_dashboard`
+is fed by schema.build_feed_payload (a widened trim) and renders:
+  - the hero (date / phase / leagues / calibration),
+  - the data-flag chips,
+  - the gate callout — PASS / OVERRIDE / NOT MET, always visible (an Architect
+    sign-off override is stated plainly, never silent),
+  - the PRODUCTION BETS block — the parity anchor (Acca A headline -> split
+    accas -> singles, each with its own SportyBet booking code; honest
+    NO DATA — PENDING where a code is missing, HR35),
+  - the lean league-grouped scan with live-score badges,
+  - yesterday-graded, 7-day rolling, and the honest-edge/capital line.
+
+The data-leak boundary holds: no elo/xg/consensus/EV/verification internals
+reach the page. Interaction is CSP-clean — no inline event handlers.
 """
 import os
 import re
@@ -31,7 +30,8 @@ from webapp import render_v2, schema
 _INTERNAL_FIELDS = ("elo_probs", "xg_probs", "engine_divergence", "consensus",
                     "engine_picks", "consensus_pick", "verification",
                     "cal_adjustment", "best_mes_ev", "best_price",
-                    "best_bookmaker", "best_n_books")
+                    "best_bookmaker", "best_n_books", "lambda_home",
+                    "modal_scoreline", "market_probs")
 
 
 def _rated() -> BoardFixture:
@@ -72,53 +72,23 @@ def _payload() -> dict:
         leagues_scanned=["Champions League", "EFL Cup"],
         board=[_rated(), _unrated()],
         data_flags=["⚠ EFL Cup: no history"],
-        gate={"legs_with_clv": 3, "gate_requirement": 30},
-        telemetry={"clv_capture_rate": 0.5, "days_to_gate": 42,
-                   "legs_per_day": 5.5},
-        calibration_count=3, mean_clv=1.2,
-        recommendation="⭐ TODAY'S PICKS — 1 pick",
-        rolling_7d={"engines": {"dc": {"settled": 1, "hits": 1}},
-                    "legs_logged": 3, "legs_with_clv": 0, "avg_clv_pct": None})
-
-
-def _rated_beta() -> BoardFixture:
-    return BoardFixture(
-        fixture="Beta v Gamma (Eredivisie)",
-        probs=FixtureProbabilities("Beta", "Gamma",
-                                   lambda_home=1.7, lambda_away=0.8,
-                                   p_home=0.61, p_draw=0.22, p_away=0.17,
-                                   p_over_15=0.72, p_over_25=0.47,
-                                   p_over_35=0.24, p_btts_yes=0.52,
-                                   modal_scoreline=(1, 0)),
-        verification=verify([SourcedDatum(domain="thesportsdb.com",
-                                          value="Beta v Gamma",
-                                          url="https://x", structured=True)]),
-        on_deploy_shortlist=True,
-        best_market="Beta to win", best_price=1.80,
-        best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.098,
-        best_model_prob=0.61, mes_trigger_price=1.48,
-        kickoff_date="2026-08-10",
-        rejection_reason=None)
-
-
-def _rated_delta() -> BoardFixture:
-    return BoardFixture(
-        fixture="Delta v Epsilon (Eredivisie)",
-        probs=FixtureProbabilities("Delta", "Epsilon",
-                                   lambda_home=1.5, lambda_away=0.9,
-                                   p_home=0.55, p_draw=0.24, p_away=0.21,
-                                   p_over_15=0.68, p_over_25=0.43,
-                                   p_over_35=0.20, p_btts_yes=0.50,
-                                   modal_scoreline=(1, 0)),
-        verification=verify([SourcedDatum(domain="thesportsdb.com",
-                                          value="Delta v Epsilon",
-                                          url="https://x", structured=True)]),
-        on_deploy_shortlist=True,
-        best_market="Delta to win", best_price=1.75,
-        best_bookmaker="bet365", best_n_books=3, best_mes_ev=0.0625,
-        best_model_prob=0.55, mes_trigger_price=1.52,
-        kickoff_date="2026-08-10",
-        rejection_reason=None)
+        gate={"legs_with_clv": 3, "gate_requirement": 30, "mean_clv_pct": -1.2},
+        telemetry={}, calibration_count=3, mean_clv=-1.2,
+        recommendation="",
+        yesterday_graded=[{
+            "fixture": "Fenerbahce v Sturm Graz",
+            "league": "Champions League",
+            "outcome": "HOME",
+            "engines": {"dc": {"1X2_HOME": {"prob": 0.56, "hit": True}},
+                        "elo": {"1X2_HOME": {"prob": 0.52, "hit": False}}},
+        }],
+        rolling_7d={
+            "engines": {"dc": {"predictions": 20, "settled": 10,
+                               "hit_rate": 0.5}},
+            "legs_logged": 40, "legs_with_clv": 3, "avg_clv_pct": -1.2,
+            "gate": {"legs_with_clv": 3, "gate_requirement": 30,
+                     "gate_met": False},
+        })
 
 
 def _prod_leg(fixture, market_name, price, prob, league, ev):
@@ -134,8 +104,8 @@ def _prod_acca(label, legs, combined_odds, combined_prob):
 
 def _payload_prod() -> dict:
     """A production payload: Acca A (Fenerbahce) + Acca B (Beta, Delta) +
-    the two remainder fixtures as singles — exercises hero band, copy strip,
-    split list, true single codes and the admin Production Bets panel."""
+    the two remainder fixtures as singles — exercises hero band, split list,
+    true single codes and the honest NO DATA — PENDING when codes are absent."""
     accas = [
         _prod_acca("Acca A",
                    [_prod_leg("Fenerbahce v Sturm Graz (Champions League)",
@@ -160,15 +130,17 @@ def _payload_prod() -> dict:
     return schema.build_payload(
         date="2026-08-10", phase="Phase 2 — paper calibration, zero capital",
         leagues_scanned=["Champions League", "Eredivisie", "EFL Cup"],
-        board=[_rated(), _rated_beta(), _rated_delta(), _unrated()],
-        data_flags=["⚠ EFL Cup: no history"],
-        gate={"legs_with_clv": 3, "gate_requirement": 30},
-        telemetry={"clv_capture_rate": 0.5, "days_to_gate": 42,
-                   "legs_per_day": 5.5},
-        calibration_count=3, mean_clv=1.2,
+        board=[_rated()], data_flags=["⚠ EFL Cup: no history"],
+        gate={"legs_with_clv": 3, "gate_requirement": 30, "mean_clv_pct": -1.2},
+        telemetry={}, calibration_count=3, mean_clv=-1.2,
         recommendation="",
-        rolling_7d={"engines": {"dc": {"settled": 1, "hits": 1}},
-                    "legs_logged": 3, "legs_with_clv": 0, "avg_clv_pct": None},
+        rolling_7d={
+            "engines": {"dc": {"predictions": 20, "settled": 10,
+                               "hit_rate": 0.5}},
+            "legs_logged": 40, "legs_with_clv": 3, "avg_clv_pct": -1.2,
+            "gate": {"legs_with_clv": 3, "gate_requirement": 30,
+                     "gate_met": False},
+        },
         accas=accas)
 
 
@@ -185,158 +157,111 @@ CODES_PROD = {"results": [
 ]}
 
 
-p = _payload()
-client = render_v2.render_dashboard(schema.trim_payload(p))
+def _render(payload, **kw):
+    # Mirror the server path exactly: raw board -> build_feed_payload -> render.
+    return render_v2.render_dashboard(schema.build_feed_payload(payload), **kw)
 
-# --- 1. FULL market grid: all 13 rows on the rated card -----------------------
-_MARKET_LABELS = ("Home win", "Draw", "Away win",
-                  "Over 1.5 goals", "Under 1.5 goals",
-                  "Over 2.5 goals", "Under 2.5 goals",
-                  "BTTS Yes", "BTTS No",
-                  "Double Chance 1X", "Double Chance X2", "Double Chance 12",
-                  "Trigger price")
-for label in _MARKET_LABELS:
-    assert label in client, f"client card missing market {label!r}"
-print(f"1. full 13-row market grid renders (all {len(_MARKET_LABELS)} labels): OK")
 
-# --- 2. derived markets are correct (Under = 1 - Over, DC = sum) --------------
-# p_over_15=0.71 -> Under 1.5 = 29%; p_over_25=0.45 -> Under 2.5 = 55%
-# p_btts_yes=0.55 -> BTTS No = 45%; DC 1X = 0.56+0.24 = 80%; X2 = 44%; 12 = 76%
-for needle in ("29%", "55%", "45%", "80%", "44%", "76%"):
-    assert needle in client, f"derived market {needle!r} missing/wrong"
-print("2. derived Under / BTTS No / Double Chance values correct: OK")
+# Deterministic gate state: section 3 asserts the honest "NOT MET" callout, so
+# pin the Architect sign-off OFF before the first render (3b flips it ON). This
+# is robust whether or not the .env sets ARCHITECT_SIGNOFF=1.
+os.environ["ARCHITECT_SIGNOFF"] = "0"
 
-# --- 3. recommended pick row is visually distinct + correct -------------------
-assert 'class="c-mkt-row pick"' in client, "pick row must carry the .pick class"
-assert "Fenerbahce to win" in client and "56%" in client
-print("3. recommended pick row distinct + shows the pick: OK")
+feed = _render(_payload())
 
-# --- 4. UX split (2026-08-10): CALL open by default, SCAN closed per-tile ----
-# CALL = the actionable shortlist (a handful of cards) — "every single detail
-# for every thing" visible immediately. SCAN = the whole board (10+ fixtures) —
-# collapsed, per-tile: one tap opens THAT fixture's breakdown only.
-assert 'class="c-detail open"' in client, "CALL cards must render OPEN by default"
-assert 'aria-expanded="true"' in client, "CALL cards must start expanded"
-assert 'data-detail="call-' in client and 'id="call-' in client
-# SCAN cards stay closed (no 'open' on their detail block).
-assert 'data-detail="scan-' in client and 'id="scan-' in client
-assert 'class="c-detail" id="scan-' in client, "scan detail must be closed (no 'open')"
-assert 'aria-expanded="false"' in client, "scan cards must start collapsed"
-print("4. CALL open by default + SCAN per-tile closed: OK")
+# --- 1. hero: date / phase / leagues / calibration ----------------------------
+assert 'class="f-hero"' in feed
+assert "OLP XDV" in feed and "Mon, 10 Aug 2026" in feed
+assert "Phase 2 — paper calibration, zero capital" in feed
+assert "2 leagues" in feed and "3 legs logged" in feed
+print("1. feed hero (date/phase/leagues/calibration): OK")
 
-# --- 4b. breakeven trigger price honestly labelled — NOT a live quote ---------
-assert "breakeven, not a live quote" in client, \
-    "trigger price must be labelled a trigger, not a live price"
-assert "1.52+" in client, "trigger price must render the mes_trigger_price (1.52)"
-assert "Deploy at" not in client, "old 'Deploy at' label must be gone"
-print("4b. trigger price labelled breakeven-trigger, not a live quote: OK")
+# --- 2. data-flag chips -------------------------------------------------------
+assert "1 data flag" in feed and "EFL Cup: no history" in feed
+print("2. data-flag chips render: OK")
 
-# --- 4c. cache-buster on the asset tags. The user's "clicking one tile opens
-#        EVERY tile" was a stale cached proto.js (the on-disk code was already
-#        per-card correct); a ?v= on the script/css tags forces a refresh. -----
-assert re.search(r'proto\.css\?v=\d+', client), "stylesheet must carry ?v= cache-buster"
-assert re.search(r'proto\.js\?v=\d+', client), "script must carry ?v= cache-buster"
-print("4c. proto.css/js carry a ?v= cache-buster: OK")
+# --- 3. gate callout: NOT MET without sign-off --------------------------------
+assert 'class="f-gate notmet"' in feed
+assert "NOT MET" in feed and "3/30 legs with CLV" in feed
+print("3. gate callout shows NOT MET: OK")
 
-# --- 5. DATA-LEAK BOUNDARY: client still carries no model internals -----------
-for needle in _INTERNAL_FIELDS:
-    assert needle not in client, f"client leaks {needle!r}"
-for needle in ("Model Internals", "Data Flags", "PHASE 3 GATE", "CAP",
-               "zero capital"):
-    assert needle not in client, f"client leaks admin section {needle!r}"
-print("5. client view has NO model internals / admin sections: OK")
-
-# --- 6. NO DATA fixture stays honest on the client (HR35) ---------------------
-assert "Plymouth Argyle v Exeter City" in client
-assert "NO DATA — PENDING" in client
-print("6. NO DATA fixture rendered honestly: OK")
-
-# --- 7. admin gate status: NOT MET (no sign-off) then OVERRIDE (sign-off) -----
-os.environ.pop("ARCHITECT_SIGNOFF", None)
-admin = render_v2.render_admin_dashboard(p)
-assert "NOT MET — publish blocked" in admin, "gate detail must say NOT MET"
-assert "Legs with CLV:</b> 3 / 30 required" in admin
-
+# --- 3b. gate callout: OVERRIDE when the Architect signs off (never silent) ---
 os.environ["ARCHITECT_SIGNOFF"] = "1"
-admin_override = render_v2.render_admin_dashboard(p)
-assert "OVERRIDE — publish allowed by Architect sign-off" in admin_override, \
-    "gate detail must show the Architect override"
-assert "Architect sign-off:</b> YES" in admin_override
+feed_ovr = _render(_payload())
+assert 'class="f-gate override"' in feed_ovr and "OVERRIDE" in feed_ovr
+assert "Architect sign-off active" in feed_ovr
+assert "override never silent" in feed_ovr
 os.environ.pop("ARCHITECT_SIGNOFF", None)
+print("3b. gate callout shows OVERRIDE + honest statement: OK")
 
-# gate PASS path
-p_pass = _payload()
-p_pass["gate"] = {"legs_with_clv": 30, "gate_requirement": 30, "mean_clv_pct": 1.1}
-admin_pass = render_v2.render_admin_dashboard(p_pass)
-assert "PASS — publish allowed" in admin_pass, "met gate must say PASS"
-print("7. admin gate status shows PASS / OVERRIDE / NOT MET correctly: OK")
+# --- 4. DATA-LEAK BOUNDARY: no model internals reach the page -----------------
+for needle in _INTERNAL_FIELDS:
+    assert needle not in feed, f"feed leaks {needle!r}"
+print("4. feed carries no model internals: OK")
 
-# --- 8. admin still renders the internals the client was denied ---------------
-# render_v2 inlines _internals per-row (no "Model Internals" heading), so assert
-# the actual emitted labels: the engine second opinions, MES, the log, the flag.
-for needle in ("Elo second opinion:", "Engine divergence:", "HR30 MES:",
-               "Error / Rejection Log", "FLAG", "no fitted history",
-               "Gate status:", "Architect sign-off:"):
-    assert needle in admin, f"admin missing internal {needle!r}"
-print("8. admin has engine internals + rejection log + flags + gate: OK")
+# --- 5. PRODUCTION BETS — the parity anchor (hero -> splits -> singles) -------
+feed_prod = _render(_payload_prod(), booking_codes=CODES_PROD)
+assert "PRODUCTION BETS" in feed_prod and "today's fixtures only" in feed_prod
+assert 'class="f-card f-acca f-acca-hero"' in feed_prod
+assert "★ Acca A — HEADLINE, 1 legs" in feed_prod
+assert "Fenerbahce v Sturm Graz (Champions League)" in feed_prod
+assert "Fenerbahce to win @ 1.91" in feed_prod
+assert "Combined 1.91" in feed_prod and "AA111" in feed_prod
+assert "★ Acca B  2 legs" in feed_prod and "AB222" in feed_prod
+assert "SINGLES — one standalone slip each, own booking code" in feed_prod
+assert "SB_BETA" in feed_prod and "SB_DELTA" in feed_prod
+print("5. production block: hero -> splits -> singles, own codes: OK")
 
-# --- 9. PRODUCTION INTENT on the client (hero band, copy strip, splits) -------
-p_prod = _payload_prod()
-client_prod = render_v2.render_dashboard(schema.trim_payload(p_prod),
-                                         booking_codes=CODES_PROD)
-assert 'class="c-codestrip"' in client_prod, "client missing the copy strip"
-assert "ALL BOOKING CODES — tap to copy" in client_prod, \
-    "client missing the ALL BOOKING CODES label"
-assert 'class="c-card c-acca-hero"' in client_prod, "client missing the Acca A hero"
-assert "ACCA A — TODAY'S HEADLINE" in client_prod, "client missing the hero title"
-assert "AA111" in client_prod, "hero must carry Acca A's booking code"
-assert "legs are not independent" in client_prod, \
-    "hero must carry the honest combined line"
-assert 'class="c-acca-split-title"' in client_prod, "client missing split accas"
-assert "Acca B — 2 legs" in client_prod, "split acca must list its legs count"
-assert "AB222" in client_prod, "split acca must carry its own booking code"
-print("9. client: copy strip + Acca A hero band + split accas with codes: OK")
+# --- 5b. HR35: missing codes render NO DATA — PENDING, never fabricated -------
+feed_nocodes = _render(_payload_prod())
+# 2 accas + 2 singles each need a code line -> at least 4 honest pendings
+assert feed_nocodes.count("NO DATA — PENDING") >= 4
+assert "AA111" not in feed_nocodes and "SB_BETA" not in feed_nocodes
+print("5b. absent codes render NO DATA — PENDING (HR35): OK")
 
-# --- 9b. client singles: true single code, prob-desc sort, Acca A excluded ----
-# Bound to the CALL panel only — the SCAN panel below it legitimately lists
-# every board fixture (incl. Acca A's), which would false-positive the leak check.
-call_region = client_prod.split("Singles — one bet each, own code")[1] \
-    .split('id="panel-scan"')[0]
-singles_part = call_region
-assert "Fenerbahce" not in singles_part, \
-    "Acca A fixture leaked into the singles grid"
-assert "SB_BETA" in singles_part and "SB_DELTA" in singles_part, \
-    "singles must show their OWN booking code"
-assert "Beta to win 61%" in singles_part, \
-    "single card must show the booked pick, not a drift"
-assert singles_part.index("SB_BETA") < singles_part.index("SB_DELTA"), \
-    "singles must be sorted confidence-first (61% before 55%)"
-print("9b. client singles: own code, prob-desc sort, Acca A excluded: OK")
+# --- 5c. honest empty day: no production picks -> the honest note --------------
+p_empty = _payload()
+p_empty["accas"] = []
+feed_empty = _render(p_empty)
+assert "NO production pick today" in feed_empty and "HR35" in feed_empty
+print("5c. no eligible picks -> honest 'NO production pick today': OK")
 
-# --- 9c. admin Production Bets panel: Acca A hero + splits + singles + EV -----
-admin_prod = render_v2.render_admin_dashboard(p_prod, booking_codes=CODES_PROD)
-assert 'class="a-panel a-prodpanel"' in admin_prod, "admin missing the prod panel"
-assert "Production Bets" in admin_prod, "admin prod panel heading missing"
-assert 'class="a-prod-acca hero"' in admin_prod, \
-    "admin Acca A must render the hero variant"
-# admin titles use the label case ("Acca A"); the ALL-CAPS "ACCA A" is the
-# client hero title only.
-assert "Acca A" in admin_prod and "Acca B" in admin_prod
-assert "EV +7.0%" in admin_prod, \
-    "admin leg must carry the full EV (client-safe trim strips it)"
-assert 'class="a-prod-singles"' in admin_prod, "admin missing the singles block"
-assert "SB_BETA" in admin_prod, "admin single must carry its own code"
-print("9c. admin Production Bets panel (hero + splits + singles + EV): OK")
+# --- 6. scan: league-grouped lean cards + live badge + honest pending ---------
+assert 'class="f-scan-card"' in feed
+assert "Champions League (1)" in feed
+assert "Fenerbahce to win" in feed and "56%" in feed
+assert "NO DATA — PENDING (1)" in feed and "Plymouth Argyle v Exeter City" in feed
+feed_scores = _render(_payload(),
+                      scores={"Fenerbahce|Sturm Graz|2-1": "2-1"})
+assert "2-1" in feed_scores
+print("6. scan cards (league-grouped, live badge, honest pending): OK")
 
-# --- 10. tag balance sanity ----------------------------------------------------
-import re
-for html_text, label in ((client, "client-v2"), (admin, "admin-v2"),
-                         (client_prod, "client-prod"), (admin_prod, "admin-prod")):
-    for tag in ("div", "table", "thead", "tbody", "tr", "td", "th", "section",
-                "header", "main", "footer", "span", "script", "a", "li", "button"):
-        opens = len(re.findall(rf"<{tag}\b", html_text))
-        closes = len(re.findall(rf"</{tag}>", html_text))
+# --- 7. yesterday / rolling / honest edge -------------------------------------
+assert "YESTERDAY — GRADED" in feed
+assert "Fenerbahce v Sturm Graz — HOME" in feed
+assert 'class="f-mark hit"' in feed and 'class="f-mark miss"' in feed
+assert "7-DAY ROLLING" in feed and "50%" in feed
+assert "40 legs logged · 3 with CLV (avg CLV -1.20%)" in feed
+assert "HONEST EDGE LINE" in feed
+assert "Capital authority: THE ARCHITECT" in feed
+print("7. yesterday / rolling / honest-edge sections render: OK")
+
+# --- 8. CSP: no inline event handlers anywhere --------------------------------
+for page in (feed, feed_prod, feed_nocodes, feed_empty, feed_ovr):
+    assert not re.search(r"\son(?:click|change|submit|keyup|input|focus|blur)=",
+                         page), "inline event handler found (CSP violation)"
+    assert "javascript:" not in page
+print("8. no inline handlers (CSP-clean): OK")
+
+# --- 9. HTML tag balance + proto assets cache-busted --------------------------
+for page, label in ((feed, "feed"), (feed_prod, "feed-prod")):
+    for tag in ("div", "span", "section", "header", "main", "a", "button",
+                "script"):
+        opens = len(re.findall(rf"<{tag}\b", page))
+        closes = len(re.findall(rf"</{tag}>", page))
         assert opens == closes, f"unbalanced <{tag}> in {label} ({opens} vs {closes})"
-print("10. HTML tags balanced in all four views: OK")
+assert re.search(r"proto\.css\?v=\d+", feed)
+assert re.search(r"proto\.js\?v=\d+", feed)
+print("9. HTML tags balanced + proto assets cache-busted: OK")
 
 print("\n[OK] ALL WEBAPP RENDER_V2 TESTS PASSED")

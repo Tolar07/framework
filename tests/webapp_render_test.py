@@ -1,12 +1,14 @@
-"""HTML render tests for the two-tier dashboard (Architect order 2026-08-07).
+"""HTML render tests for the legacy client dashboard (Architect 2026-08-12).
 
-The critical guarantee tested here is the DATA-LEAK BOUNDARY: the public
-client view (render_dashboard on a trim_payload) contains NO model internals —
-no Elo/xG second opinion, no engine divergence, no consensus votes, no
-verification, no EV verdicts, no gate/flags — while the authed admin view
-renders them. NO DATA rows are shown, never dropped (HR35). The honest-edge
-statement + capital authority live on /admin (the client view omits them by
-Architect's explicit choice)."""
+The admin tier is paused: render_admin_dashboard / render_stats_html /
+render_why_html were removed (server + export both use render_v2's feed page).
+This suite now guards the legacy client renderer that the old two-tier tests
+still exercise, plus the public pages that remain: /history and the honest 404.
+
+The DATA-LEAK BOUNDARY still holds: the client view (render_dashboard on a
+trim_payload) contains NO model internals — no Elo/xG second opinion, no engine
+divergence, no consensus votes, no verification, no EV verdicts, no gate/flags.
+NO DATA rows are shown, never dropped (HR35)."""
 import sys
 import tempfile
 from datetime import date
@@ -84,7 +86,6 @@ def _payload() -> dict:
 p = _payload()
 client_payload = schema.trim_payload(p)
 h = render.render_dashboard(client_payload)
-a = render.render_admin_dashboard(p)
 
 # --- 1. client view: the two sections + click-to-expand -----------------------
 for needle in ["The Call", "The Scan", "Full analysis — all markets",
@@ -106,55 +107,43 @@ for needle in ["Model Internals", "Data Flags", "Verified — Yesterday",
     assert needle not in h, f"client dashboard leaks admin section {needle!r}"
 print("3. client view has NO model internals / admin sections: OK")
 
-# --- 4. admin view renders the internals the client was denied ---------------
-for needle in ["Model Internals", "Elo second opinion", "Engine divergence",
-               "HR30 MES", "Verification", "Data Flags", "Verified — Yesterday",
-               "✓ HIT", "Honest edge", "zero capital", "PHASE 3 GATE",
-               "one unified pool", "SINGLE-SOURCE"]:
-    assert needle in a, f"admin dashboard missing {needle!r}"
-print("4. admin has internals + verification + flags + yesterday + footer: OK")
-
-# --- 5. the full market grid renders (10 rows) -------------------------------
+# --- 4. the full market grid renders (10 rows) -------------------------------
 assert "Over 1.5 goals" in h and "Double Chance 1X" in h and "BTTS No" in h
 assert "56%" in h and "Deploy At" in h
-print("5. full market grid + pick line render: OK")
+print("4. full market grid + pick line render: OK")
 
-# --- 6. scan row click wiring present (data-target + detail rows) ------------
+# --- 5. scan row click wiring present (data-target + detail rows) ------------
 # Sprint 4: no inline onclick — scan.js reads data-target under the strict CSP.
 assert "data-target=\"scan-" in h and "class=\"detail-row\"" in h
-assert "data-target=\"a-scan-" in a
-print("6. scan rows are click-to-expand in both views: OK")
+print("5. scan rows are click-to-expand: OK")
 
-# --- 7. why / stats / history / 404 all render --------------------------------
-assert "Fenerbahce" in render.render_why_html(p, "Fenerbahce")
-assert "Pick" in render.render_why_html(p, "Fenerbahce")
-assert "NO DATA — PENDING" in render.render_why_html(p, "Nonexistent FC")
-assert "Gate &amp; calibration" in render.render_stats_html("x", "2026-08-11")
+# --- 6. history / 404 — the public pages that remain ---------------------------
 assert "Board history" in render.render_history_html(["2026-08-11"], "2026-08-11")
 assert "No board for that date" in render.render_404_html("1999-01-01", "2026-08-11")
-print("7. why/stats/history/404 pages render: OK")
+# The admin pages were removed with the paused tier — calling them is an
+# AttributeError (they no longer exist), which the routes prove by 404ing.
+for dead in ("render_admin_dashboard", "render_stats_html", "render_why_html"):
+    assert not hasattr(render, dead), f"{dead} should be removed with the admin tier"
+print("6. history/404 render; admin renderers removed: OK")
 
-# --- 8. tag balance sanity (no broken markup) ---------------------------------
+# --- 7. tag balance sanity (no broken markup) ---------------------------------
 import re
-for html_text, label in ((h, "client"), (a, "admin")):
+for tag in ("div", "table", "thead", "tbody", "tr", "td", "th", "section",
+            "header", "main", "footer", "span", "script", "a", "li"):
     # Word-boundary match so "<th>" counts but "<thead" doesn't, and "<li>" is
     # distinguishable from the "<link ...>" font tags.
-    for tag in ("div", "table", "thead", "tbody", "tr", "td", "th", "section",
-                "header", "main", "footer", "span", "script", "a", "li"):
-        opens = len(re.findall(rf"<{tag}\b", html_text))
-        closes = len(re.findall(rf"</{tag}>", html_text))
-        assert opens == closes, f"unbalanced <{tag}> in {label} ({opens} vs {closes})"
-print("8. HTML tags balanced in both views: OK")
+    opens = len(re.findall(rf"<{tag}\b", h))
+    closes = len(re.findall(rf"</{tag}>", h))
+    assert opens == closes, f"unbalanced <{tag}> ({opens} vs {closes})"
+print("7. HTML tags balanced: OK")
 
-# --- 9. Sprint 4: strict-CSP discipline (no inline handlers, external assets) -
+# --- 8. Sprint 4: strict-CSP discipline (no inline handlers, external assets) -
 import re as _re
-for html_text, label in ((h, "client"), (a, "admin")):
-    assert not _re.search(r"\son(click|keydown|keyup|change|submit|load|focus|blur)=",
-                          html_text), \
-        f"inline event handler in {label} — violates script-src 'self'"
-    assert 'data-asset-base="/static"' in html_text
-    assert 'src="/static/js/assets.js"' in html_text
-    assert 'src="/static/js/scan.js"' in html_text
-print("9. no inline handlers; external css/js/font assets referenced: OK")
+assert not _re.search(r"\son(click|keydown|keyup|change|submit|load|focus|blur)=",
+                      h), "inline event handler — violates script-src 'self'"
+assert 'data-asset-base="/static"' in h
+assert 'src="/static/js/assets.js"' in h
+assert 'src="/static/js/scan.js"' in h
+print("8. no inline handlers; external css/js/font assets referenced: OK")
 
 print("\n[OK] ALL WEBAPP RENDER TESTS PASSED")

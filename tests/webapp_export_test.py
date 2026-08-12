@@ -1,12 +1,13 @@
-"""Static export tests — the export folder is the PUBLIC client surface.
+"""Static export tests — the export folder is the PUBLIC feed surface.
 
-Since a static host cannot authenticate, the export is trimmed: predictions
-only, NO model internals (Architect order 2026-08-07). stats.json is gone —
-it is the admin diagnostic layer and must not be hostable. Fonts are
-self-hosted (Sprint 4, no Google CDN); the only external fetches left are the
-Architect-approved flagcdn.com (league country flags) and r2.thesportsdb.com
-(club crests). CSS/JS/fonts are copied as a relative ./static tree beside
-index.html, so the exported folder stays self-contained.
+The export IS the Telegram board (one render, two outlets): it is built from
+the raw board_<date>.json via schema.build_feed_payload — NO publish step, NO
+model internals (Architect 2026-08-12). stats.json is gone — it was the admin
+diagnostic layer and must not be hostable. Fonts are self-hosted (Sprint 4, no
+Google CDN); the only external fetches left are the Architect-approved
+flagcdn.com (league country flags) and r2.thesportsdb.com (club crests).
+CSS/JS/fonts are copied as a relative ./static tree beside index.html, so the
+exported folder stays self-contained.
 """
 import json
 import os
@@ -18,10 +19,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-
-# Publish-gate sign-off so the fixture board passes the gate (the gate itself
-# has its own dedicated tests in webapp_schema_test.py).
-os.environ["ARCHITECT_SIGNOFF"] = "1"
 
 from webapp import export
 from webapp import schema
@@ -36,12 +33,11 @@ boards = tmp / "output" / "boards"
 boards.mkdir(parents=True)
 out = tmp / "site"
 
-# Redirect the published store to the temp tree so the test never touches the
-# real published boards / audit log.
-pub = tmp / "output" / "boards" / "published"
-pub.mkdir(parents=True, exist_ok=True)
-patch.object(schema, "PUBLISHED_DIR", pub).start()
-patch.object(schema, "AUDIT_LOG", pub / "publish_audit.jsonl").start()
+# The export now reads the day's RAW board through the feed builder
+# (schema.read_feed → build_feed_payload) — redirect BOARD_DIR to the temp tree
+# so the test never touches the real boards. Auto-feed = auto-publish: there is
+# no publish step at all.
+patch.object(schema, "BOARD_DIR", boards).start()
 
 bf = BoardFixture(
     fixture="Fenerbahce v Sturm Graz (Champions League)",
@@ -68,9 +64,8 @@ payload = schema.build_payload(
     data_flags=["⚠ x"], gate={"legs_with_clv": 35, "gate_requirement": 30, "mean_clv_pct": 1.2},
     telemetry={}, calibration_count=0, mean_clv=1.2,
     recommendation="⭐ TODAY'S PICKS\nNO DATA — no eligible pick today.")
-# The export reads ONLY the published store (approve-gate boundary), so the
-# board must be published first — exactly as /admin's "Approve → Publish" does.
-schema.write_published(payload, approved_by="test")
+# The export reads the day's RAW board via the feed builder (auto-feed =
+# auto-publish) — a plain board_<date>.json is all it needs, no publish step.
 schema.write_payload(payload, boards / "board_2026-08-11.json")
 
 with patch.object(export, "ROOT", tmp):
@@ -83,16 +78,19 @@ assert (out / "README.md").exists()
 assert not (out / "stats.json").exists(), "stats.json must NOT be exported"
 print("1. index.html + board.json + README.md written; no stats.json: OK")
 
-# --- 2. index is the CLIENT view: no internals, no honest footer ---------------
+# --- 2. index IS the feed (Telegram board): no internals ----------------------
 html_src = (out / "index.html").read_text(encoding="utf-8")
 assert "./static/css/proto.css" in html_src and "Fenerbahce v Sturm Graz" in html_src
-assert 'data-panel="call"' in html_src and 'data-panel="scan"' in html_src
-assert 'data-panel="analyst"' in html_src
+# The export IS the Telegram board: hero, gate callout, PRODUCTION BETS, scan
+# cards, rolling + honest edge (one render, two outlets).
+assert 'class="f-hero"' in html_src and "PRODUCTION BETS" in html_src
+assert 'class="f-scan-card"' in html_src and "7-DAY ROLLING" in html_src
+assert "HONEST EDGE LINE" in html_src and "Capital authority: THE ARCHITECT" in html_src
 for needle in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
-               "Model Internals", "Data Flags", "Verified — Yesterday",
+               "consensus", "Model Internals", "Data Flags", "Verified — Yesterday",
                "Honest edge", "zero capital", "PHASE 3 GATE", "CAP"):
     assert needle not in html_src, f"public export leaks {needle!r}"
-print("2. index is the trimmed client view: OK")
+print("2. index is the feed (Telegram board) view: OK")
 
 # --- Sprint 4: self-hosted static tree copied; index references it relatively -
 assert (out / "static" / "css" / "proto.css").is_file()
@@ -145,23 +143,28 @@ for evil in ('<img src="https://evil.example/track.png">',
         pass
 print("3. only approved CDNs (fonts + flagcdn + thesportsdb crests) referenced: OK")
 
-# --- 4. board.json is the TRIMMED payload --------------------------------------
+# --- 4. board.json is the FEED payload: lean + honest gate numbers -------------
 d = schema.read_payload(out / "board.json")
 b0 = d["board"][0]
 assert d["date"] == "2026-08-11"
 assert b0["probs"]["p_home"] == 0.56 and b0["best_market"] == "Fenerbahce to win"
 assert "mes_trigger_price" in b0           # the public pick line keeps Deploy At
+# The honest gate/edge numbers the Telegram board carries ARE present...
+assert d["data_flags"] == ["⚠ x"]
+assert d["gate_state"]["legs_with_clv"] == 35
+assert d["mean_clv"] == 1.2
+# ...and the model internals are not.
 for k in ("elo_probs", "engine_divergence", "verification", "best_mes_ev",
           "best_price", "consensus"):
     assert k not in b0, f"board.json leaks {k}"
-for k in ("data_flags", "gate", "telemetry"):
+for k in ("gate", "telemetry"):
     assert k not in d, f"board.json leaks top-level {k}"
-print("4. board.json is the trimmed public payload: OK")
+print("4. board.json is the feed payload (lean + gate numbers): OK")
 
-# --- 5. README explains the boundary -------------------------------------------
+# --- 5. README explains the feed boundary --------------------------------------
 readme = (out / "README.md").read_text(encoding="utf-8")
-assert "2026-08-11" in readme and "predictions only" in readme
-assert "admin-only" in readme
-print("5. README documents the public/admin boundary: OK")
+assert "2026-08-11" in readme and "Telegram board" in readme
+assert "never leave the server" in readme
+print("5. README documents the feed/public boundary: OK")
 
 print("\n[OK] ALL WEBAPP EXPORT TESTS PASSED")

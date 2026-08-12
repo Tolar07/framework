@@ -202,7 +202,7 @@ assert "PRODUCTION BETS" in body
 assert "★ Acca A — HEADLINE, 1 legs" in body
 assert "Fenerbahce to win @ 1.91" in body
 assert "AA111" in body and "SB_BRST" in body  # booking codes render + copyable
-assert 'class="f-scan-card"' in body
+assert 'class="f-scan-row"' in body
 assert "proto.css" in body and "proto.js" in body
 # The data-leak boundary: no internals anywhere in the HTML.
 for needle in ("elo_probs", "engine_divergence", "verification",

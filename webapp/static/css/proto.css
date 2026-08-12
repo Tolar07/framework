@@ -1,11 +1,22 @@
-/* proto.css — the NEW OLP XDV design (OLP_XDV_PROTOTYPE.html, ratified).
-   Mobile-first client (dark, card-based) + light dense admin. This replaces
-   app.css for /dashboard and /admin; render_v2.py is the only consumer. */
+/* proto.css — the OLP XDV "Match Intelligence" web feed (Verge DESIGN.md pass,
+   Architect 2026-08-12). render_v2.py is the only consumer.
+   Replaces the Binance DESIGN.md pass (ratified 2026-08-10). This is a SKIN —
+   the web page IS the Telegram board (one render, two outlets): honest-edge +
+   data density stay intact, no model internals ever reach the page. */
 
-/* Self-hosted fonts (same weights as the Sprint-4 _fontface.css). Barlow
-   Condensed is RETIRED: render_v2 never emits .display, and Binance substitutes
-   Inter for BinanceNova (DESIGN.md "Note on Font Substitutes") — a condensed
-   face reads wrong for a trading platform. Inter + IBM Plex Mono are the pair. */
+/* Self-hosted fonts (OFL, redistribution OK — _fetch_fonts.py). Display =
+   Anton (Manuka substitute), UI = Space Grotesk (PolySans substitute),
+   mono = Space Mono (PolySans Mono substitute). Display sizes keep looser
+   line-height for the open-source substitutes, per the DESIGN.md note.
+   Inter + IBM Plex Mono @font-face stay on disk as fallbacks for the latent
+   client/admin blocks (legacy app.css consumers) — they are no longer loaded
+   by the feed page. */
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/Anton-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300;font-display:swap;src:url('../fonts/Space-Grotesk-normal-300.woff2') format('woff2');}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/Space-Grotesk-normal-300.woff2') format('woff2');}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/Space-Grotesk-normal-300.woff2') format('woff2');}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/Space-Mono-normal-400.woff2') format('woff2');}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/Space-Mono-normal-700.woff2') format('woff2');}
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-400.woff2') format('woff2');}
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-500.woff2') format('woff2');}
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/IBM-Plex-Mono-normal-600.woff2') format('woff2');}
@@ -14,39 +25,44 @@
 @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/Inter-normal-400.woff2') format('woff2');}
 
 :root{
-  /* Binance DESIGN.md (awesome-design-md) — canvas dark + one yellow accent +
-     trading green/red signals + hairlines + tabular numbers (Architect 2026-08-10).
-     Muted text is the DESIGN.md muted tiers: #929aa5 (muted-strong, secondary)
-     and #707a8a (muted, captions/headers/hints). The old #B7BDC6/#848E9C were
-     not in the Binance palette and sat too close to body #EAECEF. */
-  --bg:#0b0e11; --surface:#1e2329; --surface-2:#2b3139; --line:#2b3139;
-  --ink:#EAECEF; --ink-dim:#929aa5; --ink-faint:#707a8a; --on-dark:#ffffff;
-  --amber:#FCD535; --amber-dim:#f0b90b; --amber-disabled:#3a3a1f;
-  --teal:#0ecb81; --coral:#f6465d;
-  --focus:#3b82f6; --on-primary:#181a20;
-  /* Binance rounded scale (DESIGN.md): xs 2 · sm 4 · md 6 · lg 8 · xl 12 · pill. */
-  --r-xs:2px; --r-sm:4px; --r-md:6px; --r-lg:8px; --r-xl:12px; --r-pill:9999px;
-  /* Binance DESIGN.md motion: strong custom curves (Emil Kowalski skill pack,
-     improve-animations plan 001). Built-in CSS easings are too weak for UI —
-     they start slow, delaying the moment the user is watching most. */
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);        /* strong ease-out for UI interactions */
-  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);    /* strong ease-in-out for on-screen movement */
-  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);     /* iOS-like drawer curve (reserved) */
-  /* ONE palette. Admin aliases point at the SAME dark tokens as the client,
-     so the admin inherits the dark yellow/charcoal theme — the admin keeps its
-     denser layout (columns, tighter rows), which is layout, not color. */
-  --lbg:var(--bg); --lsurface:var(--surface); --lline:var(--line);
-  --link:var(--ink); --link-dim:var(--ink-dim);
-  --a-accent:var(--teal); --a-ok:var(--teal); --a-warn:var(--coral);
+  /* Verge DESIGN.md (awesome-design-md) — the "Match Intelligence" web pass
+     (Architect 2026-08-12). Near-black editorial canvas, mono-uppercase labels,
+     colour-as-elevation (1px hairlines instead of shadows), flat surfaces, pill
+     cards, a heavy display voice. Colour usage is intentionally sparse — a page
+     uses black/white/gray plus at most one or two accent moments (amber pick,
+     mint hit, ultraviolet miss/alert). */
+  --canvas:#131313; --surface:#2d2d2d; --surface-2:#313131;
+  --line:rgba(255,255,255,0.14);
+  --ink:#ffffff; --ink-dim:#949494; --ink-faint:#8c8c8c;
+  --amber:#e8a33d; --amber-dim:#c78a2c; --amber-disabled:#3b3326;
+  --mint:#3cffd0; --ultraviolet:#5200ff;
+  --focus:#1eaedb; --link-hover:#3860be;
+  /* Verge radius scale: cards ~20px, pills/buttons ~24px, badges ~2px. */
+  --r-xs:2px; --r-sm:6px; --r-md:10px; --r-lg:20px; --r-xl:24px; --r-pill:9999px;
+  /* Motion 150-180ms ease (Verge); strong custom curves (Emil Kowalski skill
+     pack, improve-animations plan 001) — motion is decor, never data-hiding. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  /* ONE palette. Legacy aliases point at the SAME dark Verge tokens, so the
+     latent client/admin blocks (app.css consumers) inherit the Verge skin —
+     teal→mint (trading up), coral→ultraviolet (down/alert). */
+  --bg:var(--canvas); --lbg:var(--canvas); --lsurface:var(--surface);
+  --lline:var(--line); --link:var(--ink); --link-dim:var(--ink-dim);
+  --teal:var(--mint); --coral:var(--ultraviolet);
+  --a-accent:var(--mint); --a-ok:var(--mint); --a-warn:var(--ultraviolet);
+  --on-primary:#141414;
 }
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}
-body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
-.mono{font-family:'IBM Plex Mono',monospace;}
-/* Display voice = Inter 700 — BinanceNova substitute per DESIGN.md. Kept for
-   latent use only; render_v2 emits no .display today. */
-.display{font-family:'Inter',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;}
+body{margin:0;font-family:'Space Grotesk',sans-serif;background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;}
+.mono{font-family:'Space Mono',monospace;}
+/* Display voice = Anton (Manuka substitute per DESIGN.md). Kept for latent use
+   only; the feed sets its own display rules. */
+.display{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0.02em;}
 button{font-family:inherit;cursor:pointer;}
+a{color:var(--link-dim);text-decoration:underline;text-underline-offset:2px;}
+a:hover{color:var(--link-hover);}
 
 /* Client AND admin are FULL-SCREEN web apps: the frame fills the viewport
    edge-to-edge at every size (no fixed phone column, no website margins, no
@@ -144,10 +160,10 @@ button{font-family:inherit;cursor:pointer;}
 
 /* Acca A hero band — the amber headline (Architect 2026-08-10). Reads as THE
    pick, distinct from the teal split accas and the plain singles. */
-.c-card.c-acca-hero{border-left:4px solid var(--amber);background:linear-gradient(180deg,#221d0e 0%,var(--surface) 68%);}
+.c-card.c-acca-hero{border-left:4px solid var(--amber);background:var(--surface-2);}
 .c-acca-hero-title{font-size:13px;font-weight:700;color:var(--amber);letter-spacing:0.02em;}
 .c-acca-hero-sub{font-size:10px;color:var(--ink-dim);margin:3px 0 8px 0;}
-.c-acca-hero .c-bookcode{border-top-color:rgba(252,213,53,.35);}
+.c-acca-hero .c-bookcode{border-top-color:rgba(232,163,61,.35);}
 /* Split accas (Acca B/C/D...) — consistent list under the hero. */
 .c-acca-split-title{font-size:12px;font-weight:700;color:var(--teal);margin-bottom:6px;}
 
@@ -180,9 +196,9 @@ button{font-family:inherit;cursor:pointer;}
 .a-search::placeholder{color:var(--ink-faint);}
 
 .a-actionbar{display:flex;gap:10px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--lline);flex-wrap:wrap;background:var(--surface);}
-/* Binance button-primary: yellow / on-primary black, 6px radius, height 40px,
-   14px/600 label. Disabled desaturates to amber-disabled #3a3a1f + muted text
-   (DESIGN.md button-primary-disabled) instead of a flat opacity dim. */
+/* Button-primary: amber / on-primary dark, pill radius, height 40px,
+   14px/600 label. Disabled desaturates to amber-disabled + muted text
+   instead of a flat opacity dim. */
 #trigger-btn{background:var(--amber);color:var(--on-primary);border:none;border-radius:var(--r-md);height:40px;padding:0 24px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;}
 #trigger-btn:disabled{background:var(--amber-disabled);color:var(--ink-faint);opacity:1;cursor:not-allowed;}
 #trigger-btn .spinner{display:none;width:12px;height:12px;border:2px solid var(--on-primary);border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite;}
@@ -226,11 +242,9 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 .a-pnd{color:var(--ink-faint);font-style:italic;font-size:10px;}
 
 .a-approve-row{padding:14px 16px;}
-/* Publish stays teal (trading-up) — the ratified domain mapping: "approve /
-   publish" is directionally positive here, not a generic confirm, so it may
-   carry the up signal (DESIGN.md allows trading-up as a small text/badge cue,
-   and this app's Architect keeps it on the publish CTA). Silhouette matches the
-   40px primary CTA so it reads as THE action beside Run. */
+/* Publish stays mint (trading-up) — the ratified domain mapping: "approve /
+   publish" is directionally positive here, so it may carry the up signal.
+   Silhouette matches the 40px primary CTA so it reads as THE action beside Run. */
 #approve-btn{background:var(--teal);border:none;color:#04231a;border-radius:var(--r-md);height:40px;padding:0 24px;font-size:14px;font-weight:600;width:100%;}
 #approve-btn:disabled{opacity:0.6;cursor:not-allowed;}
 #approve-btn.published{background:#2e6b55;color:#fff;}
@@ -245,7 +259,7 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 .a-prodpanel h3{margin:0 0 10px 0;}
 .a-prodpanel .a{font-size:11px;color:var(--ink-faint);font-style:italic;}
 .a-prod-acca{border:1px solid var(--lline);border-left:3px solid var(--teal);border-radius:var(--r-md);background:var(--surface);padding:10px 12px;margin-bottom:10px;}
-.a-prod-acca.hero{border-left-color:var(--amber);background:linear-gradient(180deg,#221d0e 0%,var(--surface) 70%);}
+.a-prod-acca.hero{border-left-color:var(--amber);background:var(--surface-2);}
 .a-prod-title{font-size:11px;font-weight:700;color:var(--ink);margin-bottom:6px;text-transform:none;letter-spacing:0.02em;}
 .a-prod-acca.hero .a-prod-title{color:var(--amber);}
 .a-prod-leg{display:flex;justify-content:space-between;gap:12px;font-size:10.5px;color:var(--link-dim);padding:3px 0;}
@@ -262,7 +276,7 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
 #admin-chat-input{flex:1;border:1px solid var(--lline);border-radius:6px;padding:8px;font-size:11px;background:var(--surface);color:var(--ink);}
 #admin-chat-input::placeholder{color:var(--ink-faint);}
 #admin-chat-input:focus-visible{outline:2px solid var(--focus);outline-offset:1px;}
-#admin-chat-send{background:var(--amber);color:#0B0E13;border:none;border-radius:6px;padding:8px 14px;font-size:11px;font-weight:700;}
+#admin-chat-send{background:var(--amber);color:var(--on-primary);border:none;border-radius:6px;padding:8px 14px;font-size:11px;font-weight:700;}
 
 .a-log{background:var(--surface);border:1px solid var(--lline);border-radius:6px;padding:10px;font-size:10.5px;margin-top:6px;}
 .a-log .log-row{display:flex;gap:8px;padding:3px 0;border-bottom:1px dotted var(--line);align-items:flex-start;}
@@ -322,105 +336,212 @@ table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
   .a-table tr.new-row { animation-duration: 0.4s; }
 }
 
-/* ========== FEED — the web page IS the Telegram board (2026-08-11) ==========
-   One render, two outlets: same lean PRODUCTION BETS block + booking codes,
-   same honest NO DATA — PENDING (HR35), the gate callout always visible. The
-   scan is a single scroll (no tabs, no expanders) — the phone board, mapped
-   to a phone-first page. Amber is reserved for OVERRIDE + the Acca A hero;
-   NOT MET stays muted (honest, no fake urgency/pulse). */
-.f-page{max-width:720px;margin:0 auto;padding:0 16px 44px;}
-.f-hero{padding:20px 0 12px;border-bottom:1px solid var(--line);}
-.f-brand{display:flex;align-items:center;gap:8px;}
-.f-brand .mark{width:8px;height:8px;background:var(--amber);transform:rotate(45deg);flex:none;}
-.f-brand h1{font-size:19px;margin:0;font-weight:700;letter-spacing:0.03em;}
-.f-date{font-size:12px;color:var(--ink-dim);margin-top:4px;}
-.f-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
-.f-chip{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:4px 10px;font-size:10px;color:var(--ink-dim);}
-.f-flags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
-.f-flag-head{font-size:10px;color:var(--amber-dim);font-weight:700;flex-basis:100%;}
-.f-flag{font-size:10px;color:var(--ink-dim);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xs);padding:3px 8px;}
+/* ========== FEED — the web page IS the Telegram board (Verge pass 2026-08-12)
+   One render, two outlets: same PRODUCTION BETS block + booking codes, same
+   honest NO DATA — PENDING (HR35), the gate callout always visible, the honest
+   edge/capital line in the footer. Structure: masthead → sticky tab nav →
+   hero → THE CALL (Lean/Trimmed/Full densities) → THE SCAN (table) →
+   SINGLES (three densities) → YESTERDAY/ROLLING → footer.
+   Verge rules: mono-uppercase labels, colour-as-elevation (1px hairlines, no
+   shadows/gradients), pill cards, sparse accent (amber = pick, mint = hit,
+   ultraviolet = miss/alert), 150-180ms motion, reduced-motion respected. */
+
+.f-page{max-width:980px;margin:0 auto;padding:0 20px 52px;}
+
+/* Masthead — wordmark / centerline / dateline */
+.f-masthead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:22px 0 14px;border-bottom:1px solid var(--line);}
+.f-wordmark{display:flex;align-items:center;gap:10px;}
+.f-mark{width:10px;height:10px;background:var(--amber);transform:rotate(45deg);flex:none;}
+.f-name{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:0.03em;text-transform:uppercase;color:var(--ink);line-height:1;}
+.f-centerline{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-faint);}
+.f-dateline{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);margin-left:auto;}
+
+/* Sticky tab nav — CALL / SCAN / SINGLES */
+.f-tabnav{display:flex;gap:2px;position:sticky;top:0;z-index:60;background:var(--canvas);border-bottom:1px solid var(--line);padding:8px 0 0;}
+.f-tabpill{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-dim);text-decoration:none;padding:10px 16px;border-bottom:2px solid transparent;transition:color 160ms ease;}
+.f-tabpill:hover{color:var(--ink);}
+.f-tabpill.active{color:var(--ink);border-bottom-color:var(--amber);}
+.f-tabpill:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;}
+
+/* Hero — honest-edge kicker, CTAs, chips, flags, gate */
+.f-hero{padding:24px 0 6px;}
+.f-hero-sub{font-size:13px;line-height:1.55;color:var(--ink-dim);margin:0 0 16px;max-width:660px;}
+.f-hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.f-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:var(--r-pill);padding:9px 18px;font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 160ms ease,color 160ms ease,border-color 160ms ease;}
+.f-btn-primary{background:var(--amber);color:var(--on-primary);}
+.f-btn-primary:hover{background:#f0b95e;color:var(--on-primary);}
+.f-btn-ghost{border:1px solid var(--line);color:var(--ink);background:transparent;}
+.f-btn-ghost:hover{border-color:var(--ink-dim);color:var(--ink);}
+.f-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+
+.f-chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px;}
+.f-chip{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--line);border-radius:var(--r-xs);padding:4px 9px;}
+
+.f-flags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px;}
+.f-flag-head{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);font-weight:700;flex-basis:100%;}
+.f-flag{font-family:'Space Mono',monospace;font-size:9.5px;color:var(--ink-dim);border:1px solid var(--line);border-radius:var(--r-xs);padding:3px 8px;}
 
 /* Gate callout — always visible. Amber ONLY for OVERRIDE (the Architect's
    explicit call); NOT MET is muted ink, never alarm-red (no fake urgency). */
-.f-gate{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:12px;border:1px solid var(--line);border-radius:var(--r-md);padding:10px 12px;background:var(--surface);}
-.f-gate-status{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:11px;letter-spacing:0.05em;flex:none;}
+.f-gate{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 6px;border:1px solid var(--line);border-radius:var(--r-lg);padding:12px 14px;background:var(--surface);}
+.f-gate-status{font-family:'Space Mono',monospace;font-weight:700;font-size:11px;letter-spacing:0.14em;flex:none;}
 .f-gate.notmet .f-gate-status{color:var(--ink-faint);}
-.f-gate.pass .f-gate-status{color:var(--teal);}
+.f-gate.pass .f-gate-status{color:var(--mint);}
 .f-gate.override{border-color:var(--amber);}
 .f-gate.override .f-gate-status{color:var(--amber);}
-.f-gate-detail{font-size:10px;color:var(--ink-dim);}
+.f-gate-detail{font-size:11px;color:var(--ink-dim);}
 
-.f-main{margin-top:16px;}
-.f-section{margin-bottom:18px;}
-.f-prod-head{font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;}
-.f-prod-sub{display:block;font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--ink-faint);margin-top:2px;}
+.f-main{margin-top:28px;}
+.f-section{margin-bottom:44px;scroll-margin-top:56px;}
+.f-sec-head{margin-bottom:16px;}
+.f-eyebrow{display:block;font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:0.24em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
+.f-title{font-family:'Anton',sans-serif;font-size:34px;line-height:1.05;letter-spacing:0.01em;text-transform:uppercase;color:var(--ink);margin:0 0 6px;}
+.f-desc{font-size:12px;color:var(--ink-dim);margin:0;line-height:1.5;}
 
-/* Production block — Acca A amber hero, splits, singles, code pills. */
-.f-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;margin:10px 0;}
-.f-card.f-acca-hero{border-left:4px solid var(--amber);background:linear-gradient(180deg,#221d0e 0%,var(--surface) 68%);}
-.f-acca-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;}
-.f-acca-hero .f-acca-title{color:var(--amber);}
-.f-leg{display:flex;justify-content:space-between;gap:12px;font-size:12px;padding:5px 0;border-bottom:1px dotted var(--line);}
+/* Density switcher (Lean / Trimmed / Full) + views */
+.f-densitybar{display:flex;gap:6px;margin:0 0 16px;border-bottom:1px solid var(--line);padding-bottom:10px;}
+.f-density-pill{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);background:none;border:1px solid transparent;border-radius:var(--r-pill);padding:6px 14px;transition:color 160ms ease,border-color 160ms ease,background 160ms ease;}
+.f-density-pill:hover{color:var(--ink);}
+.f-density-pill.active{color:var(--ink);border-color:var(--line);background:var(--surface-2);}
+.f-density-pill:focus-visible{outline:2px solid var(--focus);outline-offset:1px;}
+
+/* No-JS safety: content is visible because .active sets display; .enter is a
+   JS-only entrance (motion is decor, never data-hiding). */
+.f-density-view{display:none;}
+.f-density-view.active{display:block;}
+.f-density-view.enter{animation:fadeUp 180ms var(--ease-out);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion: reduce){.f-density-view.enter{animation:none;}}
+
+/* Telegram-faithful tickets (Lean) — the byte-faithful parity anchor */
+.f-prod-head{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:10px;}
+.f-prod-sub{display:block;font-family:'Space Grotesk',sans-serif;font-weight:400;text-transform:none;letter-spacing:0;font-size:10.5px;color:var(--ink-faint);margin-top:3px;}
+.f-ticket{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;margin:0 0 12px;}
+.f-ticket-hero{border-left:4px solid var(--amber);background:var(--surface-2);}
+.f-ticket-head{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:0.01em;}
+.f-ticket-hero .f-ticket-head{color:var(--amber);}
+.f-ticket-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);}
+.f-combined{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--ink);}
+.f-combined .f-code{font-family:'Space Grotesk',sans-serif;font-weight:400;}
+
+/* Leg row — byte-faithful to the Telegram block:
+   `fixture (league) — market @ price` (the — is part of the parity anchor). */
+.f-leg{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.08);}
 .f-leg:last-child{border-bottom:none;}
 .f-leg-name{color:var(--ink);}
-.f-leg-mkt{font-family:'IBM Plex Mono',monospace;color:var(--teal);flex:none;font-size:11px;white-space:nowrap;}
-.f-combined{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);font-size:12px;font-weight:700;font-family:'IBM Plex Mono',monospace;color:var(--ink);}
-.f-combined .f-code{font-family:'Inter',sans-serif;font-weight:400;}
-.f-code{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--ink-faint);}
+.f-leg-mkt{font-family:'Space Mono',monospace;color:var(--mint);flex:none;font-size:11px;white-space:nowrap;}
+
+/* Booking-code pill + honest NO DATA — PENDING (HR35) */
+.f-code{display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--ink-faint);}
 .f-code .pnd{color:var(--ink-faint);font-style:italic;}
-.f-code-pill{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);padding:4px 10px;font-size:11px;color:var(--ink-dim);display:inline-flex;gap:6px;align-items:center;transition:border-color 0.15s ease,color 0.15s ease;}
-.f-code-pill b{color:var(--amber);font-family:'IBM Plex Mono',monospace;font-weight:600;}
+.f-code-pill{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:5px 12px;font-size:11px;color:var(--ink-dim);display:inline-flex;gap:7px;align-items:center;transition:border-color 160ms ease,color 160ms ease;}
+.f-code-pill b{color:var(--amber);font-family:'Space Mono',monospace;font-weight:700;}
 .f-code-pill:hover{border-color:var(--amber);color:var(--ink);}
 .f-code-pill:focus-visible{outline:2px solid var(--focus);outline-offset:1px;}
-.f-singles-title{font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:6px;}
-.f-single{border-bottom:1px dotted var(--line);padding:7px 0;}
-.f-single:last-child{border-bottom:none;}
-.f-prod-empty{color:var(--ink-dim);font-size:12px;font-style:italic;}
 
-/* Scan — league-grouped lean cards, live badge, honest pending rows. */
-.f-datepills{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none;}
-.f-pill{flex:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:7px 13px;font-size:11px;text-align:center;color:var(--ink-dim);text-decoration:none;display:inline-block;}
+/* Singles list (parity) */
+.f-singles-title{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px;}
+.f-single{border-bottom:1px dotted rgba(255,255,255,0.08);padding:9px 0;}
+.f-single:last-child{border-bottom:none;}
+
+/* Call / single cards (Trimmed + Full densities) */
+.f-call-grid,.f-singles-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+@media (min-width:760px){.f-call-grid,.f-singles-grid{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:1160px){.f-call-grid.dense,.f-singles-grid.dense{grid-template-columns:repeat(3,1fr);}}
+.f-call-card,.f-single-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;display:flex;flex-direction:column;gap:10px;}
+.f-call-card .f-code,.f-single-card .f-code{margin-top:2px;}
+.f-call-league{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-faint);}
+.f-call-fixture{font-family:'Anton',sans-serif;font-size:20px;line-height:1.1;text-transform:uppercase;color:var(--ink);}
+.f-call-market{font-family:'Space Mono',monospace;font-size:11px;color:var(--mint);}
+.f-call-dial-row{display:flex;align-items:center;gap:14px;}
+.f-call-data{display:flex;flex-direction:column;gap:3px;min-width:0;}
+.f-call-model{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink);}
+.f-call-hint{font-size:9.5px;color:var(--ink-faint);line-height:1.4;}
+
+/* Probability dial — SVG circle, rAF stroke fill (reduced-motion aware) */
+.f-dial{position:relative;width:64px;height:64px;flex:none;}
+.f-dial svg{width:100%;height:100%;transform:rotate(-90deg);}
+.f-dial-track,.f-dial-fill{fill:none;stroke-width:4;}
+.f-dial-track{stroke:rgba(255,255,255,0.12);}
+.f-dial-fill{stroke:var(--amber);stroke-linecap:round;}
+.f-dial-txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--ink);}
+
+/* Market bars (from probs) — the model's own read, not a live quote */
+.f-mkt-block{display:flex;flex-direction:column;gap:6px;}
+.f-mkt-line{display:flex;align-items:center;gap:10px;font-size:10px;}
+.f-mkt-fam{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:0.1em;color:var(--ink-faint);width:52px;flex:none;}
+.f-mkt-track{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;}
+.f-mkt-fill{display:block;height:100%;width:0;background:var(--ink-dim);border-radius:3px;transition:width 180ms var(--ease-out);}
+.f-mkt-line.strong .f-mkt-fill{background:var(--mint);}
+.f-mkt-pct{font-family:'Space Mono',monospace;font-size:9.5px;color:var(--ink-dim);width:36px;text-align:right;flex:none;}
+
+/* Breakeven strip — MODEL % vs 1/price (honest; NOT EV, never a live quote) */
+.f-edge-block{display:flex;flex-direction:column;gap:6px;margin-top:2px;}
+.f-edge-cap{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);}
+.f-edge-track{position:relative;height:8px;border-radius:4px;background:rgba(255,255,255,0.08);}
+.f-edge-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:4px;transition:width 180ms var(--ease-out);}
+.f-edge-fill.above{background:var(--mint);}
+.f-edge-fill.below{background:var(--ink-dim);}
+.f-edge-marker{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--amber);transition:left 180ms var(--ease-out);}
+.f-edge-line{display:flex;justify-content:space-between;gap:8px;}
+.f-edge-note{font-family:'Space Mono',monospace;font-size:8.5px;color:var(--ink-dim);}
+
+/* Scan — the table (date pills + league rows + live badge + honest pending) */
+.f-datepills{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;scrollbar-width:none;}
+.f-pill{flex:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-pill);padding:7px 14px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.06em;text-align:center;color:var(--ink-dim);text-decoration:none;display:inline-block;}
+.f-pill:hover{color:var(--ink);border-color:var(--ink-dim);}
 .f-pill.today{border-color:var(--amber);color:var(--amber);font-weight:700;}
 .f-pill.selected{background:var(--surface-2);color:var(--ink);}
-.f-pill-sub{display:block;font-size:8.5px;color:var(--ink-faint);margin-top:1px;}
-.f-league-group{margin-bottom:8px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden;}
-.f-league-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;font-size:11px;font-weight:700;color:var(--ink);}
-.f-league-body{padding:2px 12px 10px;}
-.f-scan-card{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dotted var(--line);}
-.f-scan-card:last-child{border-bottom:none;}
-.f-scan-name{display:flex;align-items:baseline;gap:8px;min-width:0;flex:1;}
-.f-fixture{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.f-league{font-size:9px;color:var(--ink-faint);flex:none;}
-.f-live{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink);background:var(--coral);border-radius:var(--r-xs);padding:1px 5px;}
+.f-pill-sub{display:block;font-size:8px;color:var(--ink-faint);margin-top:1px;}
+.f-scan-wrap{border:1px solid var(--line);border-radius:var(--r-lg);overflow-x:auto;background:var(--surface);}
+.f-scan{width:100%;border-collapse:collapse;font-size:11.5px;min-width:640px;}
+.f-scan th{text-align:left;padding:10px 12px;font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);border-bottom:1px solid var(--line);white-space:nowrap;}
+.f-scan td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:middle;}
+.f-scan tbody tr:last-child td{border-bottom:none;}
+.f-scan-row:hover td{background:rgba(255,255,255,0.03);}
+.f-league-sep td{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);background:var(--surface-2);font-weight:700;padding:6px 12px;white-space:nowrap;}
+.f-fx{min-width:170px;}
+.f-fx-name{display:block;font-size:12px;font-weight:600;color:var(--ink);}
+.f-fx-league{display:block;font-size:9px;color:var(--ink-faint);margin-top:1px;}
+.f-cell{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--ink-dim);white-space:nowrap;}
+.f-cell b{color:var(--ink);font-weight:700;}
+.f-cell.pick{font-family:'Space Grotesk',sans-serif;font-size:10.5px;color:var(--ink);}
+.f-cell.pick .pnd,.f-scan-row.pending .pnd{color:var(--ink-faint);font-style:italic;}
+.f-live{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;color:var(--ink);background:var(--ultraviolet);border-radius:var(--r-xs);padding:1px 6px;margin-left:6px;vertical-align:1px;}
 .f-live:empty{display:none;}
-.f-scan-pick{font-size:10px;color:var(--ink-dim);text-align:right;flex:none;}
-.f-scan-pick b{color:var(--teal);font-family:'IBM Plex Mono',monospace;display:block;font-size:11px;}
-.f-scan-card.pending .f-scan-pick .pnd{color:var(--ink-faint);font-style:italic;}
 
-/* Yesterday / rolling — the Telegram bars, mapped to cards. */
-.f-sec-title{font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;}
+/* Yesterday / rolling — the Telegram bars, mapped to cards */
+.f-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;margin:0 0 12px;}
+.f-sec-title{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px;}
 .f-dim{font-size:11px;color:var(--ink-faint);font-style:italic;}
-.f-yday-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px dotted var(--line);font-size:11.5px;}
+.f-yday-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:12px;}
 .f-yday-row:last-child{border-bottom:none;}
 .f-yday-fix{color:var(--ink);}
 .f-yday-marks{display:flex;gap:6px;flex-wrap:wrap;flex:none;}
-.f-mark{font-family:'IBM Plex Mono',monospace;font-size:10px;border-radius:var(--r-xs);padding:1px 6px;}
-.f-mark.hit{color:var(--teal);background:rgba(14,203,129,.12);}
-.f-mark.miss{color:var(--coral);background:rgba(246,70,93,.12);}
-.f-rates{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
-.f-rate{font-size:11px;color:var(--ink-dim);background:var(--surface-2);border-radius:var(--r-xs);padding:3px 8px;}
-.f-rate b{color:var(--ink);font-family:'IBM Plex Mono',monospace;}
+.f-mark{font-family:'Space Mono',monospace;font-size:9.5px;border-radius:var(--r-xs);padding:1px 7px;}
+.f-mark.hit{color:var(--mint);background:rgba(60,255,208,0.1);}
+.f-mark.miss{color:var(--ink);background:rgba(82,0,255,0.35);}
+.f-rates{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.f-rate{font-size:11px;color:var(--ink-dim);background:var(--surface-2);border-radius:var(--r-xs);padding:3px 9px;}
+.f-rate b{color:var(--ink);font-family:'Space Mono',monospace;}
 .f-roll-line{font-size:11px;color:var(--ink-dim);}
+.f-prod-empty{color:var(--ink-dim);font-size:12px;font-style:italic;}
 
-/* Honest-edge line — carried from the Telegram envelope. Muted, designed,
-   never alarm. */
-.f-honest{margin-top:6px;border:1px dashed var(--line);border-radius:var(--r-md);padding:12px 14px;background:var(--surface);}
-.f-honest-title{display:block;font-size:9px;font-weight:700;letter-spacing:0.06em;color:var(--amber-dim);margin-bottom:4px;}
-.f-honest-body{display:block;font-size:11px;color:var(--ink-dim);line-height:1.5;}
-.f-honest-cap{display:block;font-size:10px;color:var(--ink-faint);margin-top:4px;}
+/* Footer — the honest-edge / capital line carried from the Telegram envelope */
+.f-footer{margin-top:8px;border-top:1px solid var(--line);padding-top:20px;}
+.f-honest{border:1px dashed var(--line);border-radius:var(--r-lg);padding:14px 16px;background:var(--surface);}
+.f-honest-title{display:block;font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.16em;color:var(--amber);margin-bottom:5px;}
+.f-honest-body{display:block;font-size:12px;color:var(--ink-dim);line-height:1.55;}
+.f-honest-cap{display:block;font-family:'Space Mono',monospace;font-size:9.5px;color:var(--ink-faint);margin-top:6px;letter-spacing:0.04em;}
+.f-foot-bottom{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);padding:16px 2px 0;}
 
 @media (min-width:760px){
-  .f-page{max-width:760px;padding:0 24px 52px;}
-  .f-scan-card{padding:9px 6px;}
-  .f-scan-card:hover{background:var(--surface-2);border-radius:var(--r-md);}
+  .f-page{max-width:980px;padding:0 28px 60px;}
+  .f-tabpill{padding:11px 20px;}
+  .f-call-fixture{font-size:22px;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .f-mkt-fill,.f-edge-fill,.f-edge-marker{transition:none;}
+  .f-tabpill,.f-btn,.f-density-pill,.f-code-pill{transition:none;}
 }

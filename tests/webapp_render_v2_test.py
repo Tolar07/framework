@@ -1,16 +1,21 @@
-"""Render tests for render_v2.py — the FEED page (Architect 2026-08-11).
+"""Render tests for render_v2.py — the FEED page (Architect 2026-08-11;
+Verge "Match Intelligence" skin, ratified 2026-08-12).
 
 The web page IS the Telegram board: one render, two outlets. `render_dashboard`
 is fed by schema.build_feed_payload (a widened trim) and renders:
-  - the hero (date / phase / leagues / calibration),
+  - the masthead (wordmark / centerline / dateline) + sticky tab nav,
+  - the hero (honest-edge kicker, CTAs, phase / leagues / calibration chips),
   - the data-flag chips,
   - the gate callout — PASS / OVERRIDE / NOT MET, always visible (an Architect
     sign-off override is stated plainly, never silent),
-  - the PRODUCTION BETS block — the parity anchor (Acca A headline -> split
-    accas -> singles, each with its own SportyBet booking code; honest
-    NO DATA — PENDING where a code is missing, HR35),
-  - the lean league-grouped scan with live-score badges,
-  - yesterday-graded, 7-day rolling, and the honest-edge/capital line.
+  - Part 1 THE CALL — the parity anchor (Acca A headline -> split accas, each
+    with its own SportyBet booking code; honest NO DATA — PENDING where a code
+    is missing, HR35), at three densities (Lean tickets / Trimmed + Full call
+    cards with the MODEL % dial, market bars and breakeven strip),
+  - Part 2 THE SCAN — date pills + the league-grouped table with live-score
+    badges and honest PENDING rows,
+  - Part 3 SINGLES — standalone slips at three densities,
+  - yesterday-graded, 7-day rolling, and the honest-edge/capital footer.
 
 The data-leak boundary holds: no elo/xg/consensus/EV/verification internals
 reach the page. Interaction is CSP-clean — no inline event handlers.
@@ -169,12 +174,16 @@ os.environ["ARCHITECT_SIGNOFF"] = "0"
 
 feed = _render(_payload())
 
-# --- 1. hero: date / phase / leagues / calibration ----------------------------
-assert 'class="f-hero"' in feed
+# --- 1. masthead + tabnav + hero: wordmark / date / phase / leagues / cal ------
+assert 'class="f-masthead"' in feed and 'class="f-hero"' in feed
 assert "OLP XDV" in feed and "Mon, 10 Aug 2026" in feed
 assert "Phase 2 — paper calibration, zero capital" in feed
 assert "2 leagues" in feed and "3 legs logged" in feed
-print("1. feed hero (date/phase/leagues/calibration): OK")
+assert 'class="f-tabnav"' in feed
+for pill in ("CALL", "SCAN", "SINGLES"):
+    assert f'class="f-tabpill' in feed and pill in feed
+assert 'class="f-btn f-btn-primary"' in feed and 'class="f-btn f-btn-ghost"' in feed
+print("1. masthead + tab nav + hero (date/phase/leagues/calibration): OK")
 
 # --- 2. data-flag chips -------------------------------------------------------
 assert "1 data flag" in feed and "EFL Cup: no history" in feed
@@ -202,7 +211,8 @@ print("4. feed carries no model internals: OK")
 # --- 5. PRODUCTION BETS — the parity anchor (hero -> splits -> singles) -------
 feed_prod = _render(_payload_prod(), booking_codes=CODES_PROD)
 assert "PRODUCTION BETS" in feed_prod and "today's fixtures only" in feed_prod
-assert 'class="f-card f-acca f-acca-hero"' in feed_prod
+# Lean tickets carry the byte-faithful block; Acca A is the amber hero ticket.
+assert 'class="f-ticket f-ticket-hero"' in feed_prod
 assert "★ Acca A — HEADLINE, 1 legs" in feed_prod
 assert "Fenerbahce v Sturm Graz (Champions League)" in feed_prod
 assert "Fenerbahce to win @ 1.91" in feed_prod
@@ -211,6 +221,23 @@ assert "★ Acca B  2 legs" in feed_prod and "AB222" in feed_prod
 assert "SINGLES — one standalone slip each, own booking code" in feed_prod
 assert "SB_BETA" in feed_prod and "SB_DELTA" in feed_prod
 print("5. production block: hero -> splits -> singles, own codes: OK")
+
+# --- 5a. density switcher + three density views per group ----------------------
+assert feed_prod.count('class="f-densitybar"') == 2      # call + singles
+assert 'data-group="call"' in feed_prod and 'data-group="singles"' in feed_prod
+for grp in ("call", "singles"):
+    for view in ("lean", "trimmed", "full"):
+        assert f'data-view="{view}"' in feed_prod
+assert feed_prod.count('class="f-density-view active" data-view="trimmed"') == 2
+assert 'data-for="lean"' in feed_prod and 'data-for="trimmed"' in feed_prod \
+    and 'data-for="full"' in feed_prod
+# Trimmed call cards carry the MODEL % dial + market bars + breakeven strip.
+assert 'class="f-call-card"' in feed_prod
+assert 'class="f-dial"' in feed_prod and "MODEL 56%" in feed_prod
+assert "DEPLOY @ 1.52" in feed_prod
+assert 'class="f-mkt-line"' in feed_prod and "O2.5" in feed_prod
+assert 'class="f-edge-block"' in feed_prod and "MODEL vs BREAKEVEN" in feed_prod
+print("5a. density switcher + Trimmed call cards (dial/bars/edge): OK")
 
 # --- 5b. HR35: missing codes render NO DATA — PENDING, never fabricated -------
 feed_nocodes = _render(_payload_prod())
@@ -226,15 +253,17 @@ feed_empty = _render(p_empty)
 assert "NO production pick today" in feed_empty and "HR35" in feed_empty
 print("5c. no eligible picks -> honest 'NO production pick today': OK")
 
-# --- 6. scan: league-grouped lean cards + live badge + honest pending ---------
-assert 'class="f-scan-card"' in feed
+# --- 6. scan: league-grouped table + live badge + honest pending ---------------
+assert 'class="f-scan"' in feed and "<table" in feed
 assert "Champions League (1)" in feed
 assert "Fenerbahce to win" in feed and "56%" in feed
 assert "NO DATA — PENDING (1)" in feed and "Plymouth Argyle v Exeter City" in feed
+assert 'data-fixture="Fenerbahce|Sturm Graz"' in feed
+assert "<th>Fixture</th>" in feed and "<th>1X2</th>" in feed and "<th>BTTS</th>" in feed
 feed_scores = _render(_payload(),
                       scores={"Fenerbahce|Sturm Graz|2-1": "2-1"})
 assert "2-1" in feed_scores
-print("6. scan cards (league-grouped, live badge, honest pending): OK")
+print("6. scan table (league rows, live badge, honest pending): OK")
 
 # --- 7. yesterday / rolling / honest edge -------------------------------------
 assert "YESTERDAY — GRADED" in feed
@@ -256,7 +285,8 @@ print("8. no inline handlers (CSP-clean): OK")
 # --- 9. HTML tag balance + proto assets cache-busted --------------------------
 for page, label in ((feed, "feed"), (feed_prod, "feed-prod")):
     for tag in ("div", "span", "section", "header", "main", "a", "button",
-                "script"):
+                "script", "nav", "footer", "p", "h2", "table", "tr", "td",
+                "th", "svg", "circle"):
         opens = len(re.findall(rf"<{tag}\b", page))
         closes = len(re.findall(rf"</{tag}>", page))
         assert opens == closes, f"unbalanced <{tag}> in {label} ({opens} vs {closes})"

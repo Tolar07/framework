@@ -173,29 +173,23 @@ def _masthead(payload: dict) -> str:
             f'<div class="masthead-row">'
             f'<div class="intro" style="animation-delay:0s">'
             f'<div class="wordmark">OLP<span>·</span>XDV</div></div>'
-            f'<span class="pill masthead-date">{html.escape(_friendly_date(d))}</span>'
             f'</div>'
             f'<div class="centerline"></div></div></header>')
 
 
 def _tabnav() -> str:
     return ('<nav class="tabnav"><div class="wrap"><div class="tabnav-row">'
-            '<button type="button" class="pill on" data-scroll-target="the-call">CALL</button>'
-            '<button type="button" class="pill" data-scroll-target="the-scan">SCAN</button>'
-            '<button type="button" class="pill" data-scroll-target="the-singles">SINGLES</button>'
+            '<button type="button" class="pill on" data-scroll-target="the-call">Call</button>'
+            '<button type="button" class="pill" data-scroll-target="the-scan">Scan</button>'
+            '<button type="button" class="pill" data-scroll-target="the-singles">Singles</button>'
             '</div></div></nav>')
 
 
 def _hero(payload: dict) -> str:
-    """Hero — honest-edge kicker, the two CTAs, phase/league/calibration chips,
-    data flags, and the always-visible gate callout."""
-    phase = payload.get("phase", "")
-    leagues = payload.get("leagues_scanned") or []
-    cal = payload.get("calibration_count", 0)
-    leagues_txt = f"{len(leagues)} leagues" if leagues else "no leagues"
-    chips = "".join(
-        f'<span class="pill hero-chip">{html.escape(t)}</span>'
-        for t in (phase, leagues_txt, f"{cal} legs logged") if t)
+    """Hero — honest-edge kicker + the two CTAs (mockup layout: no chips, no
+    data flags, no gate callout in the hero — the gate rides as a strip at the
+    top of THE CALL section so it stays always visible without breaking the
+    mockup's hero grammar)."""
     sub = ("An excellent informed process. Not, on its own, a demonstrated "
            "profitable edge — the board says so before it says anything else. "
            "Every number here is auditable Dixon-Coles, not a black box, and "
@@ -208,9 +202,6 @@ def _hero(payload: dict) -> str:
             f'<button type="button" class="btn btn-primary" data-scroll-target="the-call">View the Call</button>'
             f'<button type="button" class="btn btn-ghost" data-scroll-target="the-scan">View the full Scan</button>'
             f'</div>'
-            f'<div class="hero-chips">{chips}</div>'
-            f'{_feed_flags(payload)}'
-            f'{_feed_gate_callout(payload)}'
             f'</div></section>')
 
 
@@ -263,17 +254,20 @@ def _density_bar() -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 def _ticket_leg(l: dict) -> str:
     """Leg row — byte-faithful to the Telegram production block:
-    `fixture (league) — market @ price` (the — is part of the parity anchor)."""
+    `fixture (league) — market @ price` (the — is part of the parity anchor).
+    Layout matches the mockup: leg-fixture (with inline .leg-league span) +
+    .leg-market + .leg-price as three flex children."""
     fix = l.get("fixture", "")
     lg = l.get("league", "")
     if lg and not fix.endswith(f" ({lg})"):
-        fixture_html = f"{html.escape(fix)} ({html.escape(lg)})"
+        fixture_html = (f"{html.escape(fix)} "
+                        f'<span class="leg-league">({html.escape(lg)})</span> —')
     else:
-        fixture_html = html.escape(fix)
+        fixture_html = f"{html.escape(fix)} —"
     return (f'<div class="ticket-leg">'
-            f'<span class="leg-fixture">{fixture_html} —</span>'
-            f'<span class="leg-market">{html.escape(l.get("market_name", ""))} @ '
-            f'{_price2(l.get("price"))}</span></div>')
+            f'<span class="leg-fixture">{fixture_html}</span>'
+            f'<span class="leg-market">{html.escape(l.get("market_name", ""))} @</span>'
+            f'<span class="leg-price">{_price2(l.get("price"))}</span></div>')
 
 
 def _ticket_foot(combined, code: str | None) -> str:
@@ -313,24 +307,31 @@ def _acca_ticket(acca: dict, code: str | None, hero: bool = False) -> str:
 
 def _single_line(s: dict, codes_by_label: dict) -> str:
     """A lean single line — parity anchor:
-    `fixture (league) — market @ price Booking code: <code>`."""
+    `fixture (league) — market @ price Booking code: <code>`. Mockup grammar:
+    .sl-fixture + .sl-market + .sl-price + .sl-code (the fixed test asserts the
+    combined `fixture (league) — market @ price` substring, so the — and @ are
+    kept as separators between the three spans)."""
     label = (s.get("label") or "").replace("SINGLE — ", "")
     leg0 = (s.get("legs") or [{}])[0]
     lg = leg0.get("league", "")
     fix = leg0.get("fixture") or label
-    fix_txt = fix if (not lg or fix.endswith(f" ({lg})")) else f"{fix} ({lg})"
+    if lg and not fix.endswith(f" ({lg})"):
+        fix_txt = (f"{html.escape(fix)} "
+                   f'<span class="leg-league">({html.escape(lg)})</span> —')
+    else:
+        fix_txt = f"{html.escape(fix)} —"
     code = codes_by_label.get(s.get("label"))
     if code:
-        code_html = (f'<span class="sl-code"><span class="code-label-t">Booking code:</span>'
+        code_html = (f'<span class="sl-code">'
+                     f'<span class="code-label-t">Booking code:</span>'
                      f'<button type="button" class="copy-pill" data-code="{html.escape(code)}">'
                      f'{html.escape(code)} Copy</button></span>')
     else:
-        code_html = ('<span class="sl-code pending"><span class="code-label-t">Booking code:</span>'
-                     '<span>NO DATA — PENDING</span></span>')
+        code_html = '<span class="sl-code pending">NO DATA — PENDING</span>'
     return (f'<div class="single-line">'
-            f'<span class="sl-fixture">{html.escape(fix_txt)} —</span>'
-            f'<span class="sl-market">{html.escape(leg0.get("market_name", ""))} @ '
-            f'{_price2(leg0.get("price"))}</span>'
+            f'<span class="sl-fixture">{fix_txt}</span>'
+            f'<span class="sl-market">{html.escape(leg0.get("market_name", ""))} @</span>'
+            f'<span class="sl-price">{_price2(leg0.get("price"))}</span>'
             f'{code_html}</div>')
 
 
@@ -439,8 +440,8 @@ def _edge_strip(prob, deploy) -> str:
     marker_l = max(0.0, min(100.0, break_pct))
     model_l = max(0.0, min(100.0, model_pct))
     return (f'<div class="edge-block">'
-            f'<div class="edge-caption"><span class="model">MODEL {model_pct}%</span>'
-            f'<span class="break">BREAKEVEN {break_pct}%</span></div>'
+            f'<div class="edge-caption"><span class="model">Model {model_pct}%</span>'
+            f'<span class="break">Breakeven {break_pct}%</span></div>'
             f'<div class="edge-track">'
             f'<div class="edge-fill" data-value="{model_pct}"></div>'
             f'<div class="edge-break" style="left:{break_pct}%"></div>'
@@ -450,16 +451,15 @@ def _edge_strip(prob, deploy) -> str:
 
 
 def _code_row(code: str | None) -> str:
-    """Booking-code line on a call card: the real SportyBet code + a copy
-    button, or an honest NO DATA — PENDING (HR35). Copy binds via proto.js."""
+    """Booking-code line on a call card: the real SportyBet code, or an honest
+    No data — pending (HR35). Structure matches pitch-night mockup grammar."""
     if code:
         return (f'<div class="code-row">'
-                f'<span class="code-label">Booking code:</span>'
-                f'<button type="button" class="code-value copy-pill" '
-                f'data-code="{html.escape(code)}">{html.escape(code)} Copy</button></div>')
+                f'<span class="code-label">Booking code</span>'
+                f'<span class="code-value">{html.escape(code)}</span></div>')
     return ('<div class="code-row pending">'
-            '<span class="code-label">Booking code:</span>'
-            '<span class="code-value">NO DATA — PENDING</span></div>')
+            '<span class="code-label">Booking code</span>'
+            '<span class="code-value">No data — pending</span></div>')
 
 
 def _call_card(leg: dict, code: str | None, bf: dict | None, dense: bool = False) -> str:
@@ -481,19 +481,19 @@ def _call_card(leg: dict, code: str | None, bf: dict | None, dense: bool = False
     league_label = lg or _league_of(fixture)
     prov = _prov_tag(bf)
     reveal = "" if dense else " reveal"
-    deploy_html = (f'<br><span class="call-deploy">DEPLOY @ {deploy:.2f}+</span>'
+    deploy_html = (f'<br>DEPLOY <b>@{deploy:.2f}+</b>'
                    if deploy is not None else "")
     note = ""
     if deploy is not None:
         note = (f'<p class="call-note">Deploy at {deploy:.2f}+ — breakeven, not a '
                 f'live quote. Deploy at this price or better.</p>')
+    model_pct = _pct_of(prob)
     return (f'<article class="call-card{reveal}">'
             f'<div class="call-league">{html.escape(league_label)}</div>{prov}'
             f'<h3 class="call-fixture">{html.escape(_short_fixture(fix))}</h3>'
             f'<div class="call-market">{html.escape(market)} @ {_price2(price)}</div>'
             f'<div class="call-dial-row">{_dial(prob)}'
-            f'<div class="call-data"><span class="call-model">MODEL {_pct_of(prob)}</span>'
-            f'{deploy_html}</div></div>'
+            f'<div class="call-data">MODEL <b>{model_pct}</b>{deploy_html}</div></div>'
             f'{note}'
             f'{_market_bars(probs)}'
             f'{_edge_strip(prob, deploy)}'
@@ -510,7 +510,11 @@ def _call_cards(payload: dict, accas_real: list, codes_by_label: dict,
     for acca in accas_real:
         code = codes_by_label.get(acca.get("label"))
         for leg in acca.get("legs") or []:
-            cards.append(_call_card(leg, code, board_by_fixture.get(leg.get("fixture")),
+            fix = leg.get("fixture")
+            lg = leg.get("league")
+            # Board keys include league suffix; acca legs may omit it — reconstruct
+            board_fix = f"{fix} ({lg})" if lg and f"{fix} ({lg})" in board_by_fixture else fix
+            cards.append(_call_card(leg, code, board_by_fixture.get(board_fix),
                                     dense=dense))
     grid = "call-grid dense" if dense else "call-grid"
     return f'<div class="{grid}">{"".join(cards)}</div>' if cards \
@@ -540,6 +544,7 @@ def _call_section(payload: dict, codes_by_label: dict) -> str:
     if not accas_real and not singles:
         return (f'<section class="section" id="the-call"><div class="wrap">{head}'
                 f'{prod_head}'
+                f'{_feed_gate_callout(payload)}'
                 '<div class="density-note">NO production pick today — no '
                 'deploy-eligible fixture with a live price kicks off today. A '
                 'valid, honest result (HR35).</div></div></section>')
@@ -550,6 +555,7 @@ def _call_section(payload: dict, codes_by_label: dict) -> str:
 
     return (f'<section class="section" id="the-call"><div class="wrap">{head}'
             f'{prod_head}'
+            f'{_feed_gate_callout(payload)}'
             f'{_density_bar()}'
             f'<div class="density-note">Lean mirrors the Telegram production '
             f'ticket. Trimmed and Full show the same public fields — the full '

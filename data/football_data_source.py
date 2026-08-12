@@ -53,6 +53,7 @@ LEAGUE_CODES = {
     "Ligue 1": "F1",
     "Champions League": None,   # NOT COVERED — football-data.co.uk has no continental competitions
     "Europa League": None,      # NOT COVERED — same reason
+    "UEFA Super Cup": None,     # NOT COVERED — football-data.co.uk has no continental competitions
     # AMBER — FootyStats + F2 verified
     "Scottish Premiership": "SC0",
     "Belgian Pro League": "B1",
@@ -68,7 +69,7 @@ LEAGUE_CODES = {
 
 # Conference League added 2026-08-10 (with CL/EL it is in the cross-league fit
 # pool but football-data.co.uk carries NONE of the UEFA club competitions).
-UNCOVERED_LEAGUES = {"Champions League", "Europa League", "Conference League", "HNL", "EFL Cup"}
+UNCOVERED_LEAGUES = {"Champions League", "Europa League", "Conference League", "UEFA Super Cup", "HNL", "EFL Cup"}
 
 # Second-division feeds for the PREVIOUS completed season, used to give
 # promoted clubs a rating they otherwise lack (Architect 2026-08-07). The
@@ -93,6 +94,29 @@ EXTRA_CODES = {
     # League=Bundesliga, carries the 2026/27 season (rows dated 2026-08-02).
     "Austrian Bundesliga": "AUT",
 }
+
+# --- Dynamic registry integration ----------------------------------------
+# The 'Extra' endpoint codes (DNK/POL/AUT) and the standard per-season codes
+# (E0/SP1/...) plus uncovered (None) leagues are now driven by config/leagues.json
+# via the registry. The three dicts above remain the live source the loader reads;
+# they are re-synced from the registry below so adding a league in the config
+# (with its "football_data" id) is enough — no code edit here.
+try:
+    from engine.league_registry import registry, get_football_data_code
+    _extra_codes = {"DNK", "POL", "AUT"}
+    for name, cfg in registry._leagues.items():
+        code = cfg.get_id("football_data")
+        if code is None:
+            LEAGUE_CODES[name] = None
+            UNCOVERED_LEAGUES.add(name)
+        elif code in _extra_codes:
+            EXTRA_CODES[name] = code
+            LEAGUE_CODES[name] = None  # resolved via EXTRA_URL, not standard CSV
+        else:
+            LEAGUE_CODES[name] = code
+except Exception:
+    # Registry not yet loaded (tests, import order) — keep hardcoded values.
+    pass
 
 # The 'Extra' endpoint uses a DIFFERENT schema from the main per-season CSVs,
 # and bundles every season into one file. Mapping the core fields here (rather

@@ -13,7 +13,7 @@
   widened. But the unified 18-league pool (ID401) and the new **edge-based
   market selection** ([[Decisions Log.md]] directive #4) assume wide coverage.
 - **Open:** should the calibration log (which CLV statistics the Phase-3 gate is
-  built from) now cover all 18 leagues, or stay on the original deploy set? This
+  built from) now cover all 25 leagues (UEFA Super Cup added 2026-08-12), or stay on the original deploy set? This
   directly affects whether the 12/30-leg CLV tally is even measuring the right
   population.
 - **Impact:** answers whether the current −1.631% mean CLV is meaningful.

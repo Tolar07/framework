@@ -29,7 +29,7 @@
 |---|---------|--------|-------------------|
 | **ID82** | **Elo rating engine** — built from the same match data as Dixon-Coles; shown beside DC | Active | `engine/elo.py` |
 | **ID130** | **Statarea convergence model** — Tier A list promoting Statarea to PRIORITY; convergence = 9+ of 16 sites agreeing ⇒ eligible | **SUPERSEDED / REJECTED** — master doc + `verification/id403.py` both mark it rejected; its Tier A promotes a REJECTED source | `verification/id403.py` |
-| **ID401** | **League whitelist = unified pool** — **18 leagues** (incl. Conference League, added 2026-08-10). Every whitelisted league is scan- AND deploy-eligible | Active | `engine/leagues.py` `WHITELISTED_LEAGUES` |
+| **ID401** | **League whitelist = unified pool** — **25 leagues** (incl. Conference League added 2026-08-10, UEFA Super Cup added 2026-08-12). Every whitelisted league is scan- AND deploy-eligible | Active | `engine/leagues.py` `WHITELISTED_LEAGUES` |
 | **ID402** | **Softness tiers** (A/B/C/D ranking, deploy cap, scan-only class) | **FULLY REMOVED 2026-08-11** — `engine/softness.py` deleted; nothing left that could re-enable tiers (see [[Decisions Log.md]]) | `engine/leagues.py` (only league-eligibility home) |
 | **ID403** | **Multi-factor verification tiers** — VERIFIED / SINGLE-SOURCE / CONFLICT / NO-DATA / DERIVED; CONFLICT & NO-DATA never silently resolved | Active | `verification/id403.py` |
 | **ID404** | **Source trust register** — ratified sources; trust tier sets corroboration requirement | Active | `RATIFICATIONS.md`, `data/` |

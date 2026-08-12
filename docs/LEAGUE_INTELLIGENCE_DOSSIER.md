@@ -1,7 +1,7 @@
 # LEAGUE INTELLIGENCE DOSSIER — OLP XDV
 **Version:** 2026-08-10  
 **Status:** Live reference — updated for 2026/27 season  
-**Scope:** All 18 whitelisted leagues in `engine.leagues.WHITELISTED_LEAGUES` (unified pool — softness tiers fully removed 2026-08-11)
+**Scope:** All 25 whitelisted leagues in `engine.leagues.WHITELISTED_LEAGUES` (unified pool — softness tiers fully removed 2026-08-11; UEFA Super Cup + 6 new European leagues added 2026-08-12)
 
 ---
 

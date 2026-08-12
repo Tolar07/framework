@@ -47,23 +47,33 @@ from data.football_data_source import MatchResult
 from data.multi_source import SourceNoData
 from data.retry import get_protected
 from data import api_football_plan
+from engine.league_registry import get_api_football_id
 
 API_BASE = "https://v3.football.api-sports.io"
 CACHE_DIR = Path(__file__).parent / "cache" / "api_football"
 
-# Verified live against API-Football's own directory (name + country, exactly
-# one match each). See data/fixtures_source.py for the resolver that found them.
-LEAGUE_IDS = {
-    "HNL": 210,                 # Croatia — the gap football-data.co.uk leaves
-    "Champions League": 2,
-    "Europa League": 3,
-    # NOT on the ID401 whitelist and NOT a betting surface. Included solely as
-    # a source of cross-league BRIDGE matches for engine/cross_league.py — 108
-    # league-phase matches linking 36 more clubs across Europe, which sharpens
-    # the shared scale every continental prediction rests on. Ratifying it as
-    # a competition to bet would be an HR34 whitelist change: Architect-only.
-    "Conference League": 848,
-}
+# League IDs — now sourced from the dynamic registry (config/leagues.json).
+# LEAGUE_IDS is kept as a backward-compat fallback dict populated from the
+# registry at import time. New leagues are added via config/leagues.json; no
+# code edits needed. Each ID was verified against API-Football's directory (name+country).
+LEAGUE_IDS: dict[str, int] = {}
+
+# Populate from registry for backward compatibility
+try:
+    from engine.league_registry import registry
+    for name, cfg in registry._leagues.items():
+        aid = cfg.get_id("api_football")
+        if aid is not None:
+            LEAGUE_IDS[name] = int(aid)
+except Exception:
+    # Registry not yet loaded (tests, import order) — fall back to hardcoded
+    # values so existing paths keep working during transition.
+    LEAGUE_IDS = {
+        "HNL": 210,
+        "Champions League": 2,
+        "Europa League": 3,
+        "Conference League": 848,
+    }
 
 # Continental competitions whose LEAGUE PHASE supplies cross-league bridges.
 BRIDGE_COMPETITIONS = ("Champions League", "Europa League", "Conference League")
@@ -187,4 +197,5 @@ def is_cross_league(league: str) -> bool:
     MEDIAN of 5 matches each (minimum 1), against an engine floor of 4-6. Those
     ratings would be noise on incomparable scales, so a standalone fit here is
     refused rather than published."""
-    return league in ("Champions League", "Europa League", "Conference League")
+    return league in ("Champions League", "Europa League", "Conference League",
+                      "UEFA Super Cup")

@@ -1,5 +1,11 @@
   var _produceSelected = new Set();
 
+  function escapeHtml(text) {
+    var div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
   function produceSetDay(date) {
     document.getElementById('produce-date').value = date;
     document.querySelectorAll('.produce-day-chip').forEach(function(ch) {
@@ -22,7 +28,7 @@
       })
       .then(function(data) {
         if (!data || !data.ok) {
-          results.innerHTML = '<div style="padding:12px;color:var(--coral);">Error: ' + (data ? data.error : 'failed') + '</div>';
+          results.innerHTML = '<div style="padding:12px;color:var(--coral);">Error: ' + escapeHtml(data ? data.error : 'failed') + '</div>';
           return;
         }
         var html = '';
@@ -64,7 +70,7 @@
         });
         updateProduceTray();
       }).catch(function(e) {
-        results.innerHTML = '<div style="padding:12px;color:var(--coral);">Network error: ' + e + '</div>';
+        results.innerHTML = '<div style="padding:12px;color:var(--coral);">Network error: ' + escapeHtml(e) + '</div>';
       });
   }
 
@@ -148,7 +154,7 @@
       go.disabled = false;
       go.textContent = '\\u26a1 Produce predictions';
       if (!data || !data.ok) {
-        output.innerHTML = '<div style="padding:16px;color:var(--coral);">Error: ' + (data ? data.error : 'failed') + '</div>';
+        output.innerHTML = '<div style="padding:16px;color:var(--coral);">Error: ' + escapeHtml(data ? data.error : 'failed') + '</div>';
         return;
       }
       var html = '<div class="produce-result">';
@@ -171,7 +177,7 @@
     }).catch(function(e) {
       go.disabled = false;
       go.textContent = '\\u26a1 Produce predictions';
-      output.innerHTML = '<div style="padding:16px;color:var(--coral);">Network error: ' + e + '</div>';
+      output.innerHTML = '<div style="padding:16px;color:var(--coral);">Network error: ' + escapeHtml(e) + '</div>';
     });
   }
 

@@ -254,6 +254,8 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Larne FC": "Larne",
         "Maccabi Tel Aviv FC": "Maccabi Tel Aviv",
         "Pafos FC": "Pafos",
+        # 2026-08-13 scan flag — same club, cross-model pool key.
+        "Crvena Zvezda": "FK Crvena Zvezda",
     },
     "Champions League": {
         # Same verification as Europa League above: feed spelling -> cross-model
@@ -270,109 +272,52 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
     "Conference League": {
         # Same verification rule as CL/EL: feed spelling -> cross-model pool key,
         # every pair the same club. Added 2026-08-11 from the ConfL board flags.
+        # Only aliases where the TARGET exists in the cross-league pool are kept.
+        # Other feed names (newly promoted clubs, qualifiers without continental
+        # matches) correctly have no alias — they stay NO DATA — PENDING (HR35).
         "Braga": "Sp Braga",
         "Copenhagen": "FC Copenhagen",
         "FC Dinamo Minsk": "Dinamo Minsk",
         "FC Dynamo Kyiv": "Dynamo Kyiv",
         "FK Borac Banja Luka": "Borac Banja Luka",
         "Lugano": "FC Lugano",
-        "FC St. Gallen 1879": "St. Gallen",
-        "CSKA Sofia": "CSKA Sofia",
-        "Hradec Králové": "Hradec Kralove",
-        "KuPS": "KuPS",
-        "KÍ Klaksvík": "KI Klaksvik",
-        "Lincoln Red Imps": "Lincoln Red Imps",
-        "Thun": "Thun",
-        "Universitatea Craiova": "Universitatea Craiova",
-        "Egnatia": "Egnatia",
-        "Iberia 1999": "Iberia 1999",
+        "FC St. Gallen 1879": "FC ST. Gallen",
         "Víkingur Reykjavík": "Vikingur Reykjavik",
-        "FK Austria Wien": "Austria Wien",
-        "Beitar Jerusalem FC": "Beitar Jerusalem",
-        "IFK Göteborg": "IFK Goteborg",
-        "Riga FC": "Rigas FS",
-        "HNK Hajduk Split": "Hajduk Split",
-        "Vilnius FK Zalgiris": "Zalgiris Vilnius",
-        "FC Drita": "Drita",
-        "SP Tre Fiori": "Tre Fiori",
-        "Tallinna FC Flora": "Flora Tallinn",
-        "Inter Club de Escaldes": "Inter Escaldes",
-        "Tampereen Ilves": "Ilves Tampere",
-        "HNK Rijeka": "Rijeka",
-        "DAC 1904 Dunajska Streda": "DAC Dunajska Streda",
+        "Riga FC": "Rīgas FS",
         "FC Midtjylland": "Midtjylland",
-        "Bohemians Dublin FC": "Bohemians Dublin",
-        "Hammarby IF": "Hammarby",
         "Rakow Czestochowa": "Rakow",
-        "Maxline Vitebsk": "Maxline Vitebsk",
         "Nordsjaelland": "Nordsjaelland",
-        "Valur Reykjavik": "Valur",
-        "Tromsoe IL": "Tromso",
-        "NSI Runavik": "NSI Runavik",
-        "Sheriff Tiraspol": "Sheriff Tiraspol",
-        "Shkendija Tetovo": "Shkendija",
         "Hibernian": "Hibernian",
-        "FC Sion": "Sion",
-        "FC Noah Yerevan": "Noah Yerevan",
-        "Valur Reykjavik": "Valur",
         "FC Lugano": "FC Lugano",
         "FK Borac Banja Luka": "Borac Banja Luka",
         "FC Dynamo Kyiv": "Dynamo Kyiv",
-        "FC St. Gallen": "St. Gallen",
-        "FK Austria Wien": "Austria Wien",
-        "Beitar Jerusalem FC": "Beitar Jerusalem",
-        "IFK Goteborg": "IFK Goteborg",
-        "Rigas FS": "Rigas FS",
-        "Hajduk Split": "Hajduk Split",
-        "Zalgiris Vilnius": "Zalgiris Vilnius",
-        "Drita": "Drita",
-        "Tre Fiori": "Tre Fiori",
-        "Flora Tallinn": "Flora Tallinn",
-        "Inter Escaldes": "Inter Escaldes",
-        "Ilves Tampere": "Ilves Tampere",
-        "Rijeka": "Rijeka",
-        "DAC Dunajska Streda": "DAC Dunajska Streda",
         "Midtjylland": "Midtjylland",
-        "Bohemians Dublin": "Bohemians Dublin",
-        "Hammarby": "Hammarby",
         "Rakow": "Rakow",
-        "Maxline Vitebsk": "Maxline Vitebsk",
-        "Nordsjaelland": "Nordsjaelland",
-        "Valur": "Valur",
-        "Tromso": "Tromso",
-        "NSI Runavik": "NSI Runavik",
-        "Sheriff Tiraspol": "Sheriff Tiraspol",
-        "Shkendija": "Shkendija",
-        "Hibernian": "Hibernian",
-        "Sion": "Sion",
-        "Noah Yerevan": "Noah Yerevan",
     },
     "UEFA Super Cup": {
         # TheSportsDB feed spells Paris Saint-Germain with hyphen; pool key is Paris SG.
         "Paris Saint-Germain": "Paris SG",
     },
-    # HNL — verified 2026-08-08 by diffing the 2627 fixture feed against the
-    # 2526 results feed: TheSportsDB spells the same clubs differently in the
-    # two feeds (fixtures drop the 'NK ' prefix).
+    # HNL — verified 2026-08-13 from scan flags: TheSportsDB fixture feed
+    # vs football-data results feed — pool key is "NK Lokomotiva Zagreb"
     "HNL": {
-        "Istra 1961": "NK Istra 1961",
-        "Lokomotiva Zagreb": "NK Lokomotiva",
-        "Varaždin": "NK Varaždin",
+        "Istra 1961": "Istra 1961",
+        "NK Istra 1961": "Istra 1961",
+        "Istra1961": "Istra 1961",
+        "Lokomotiva Zagreb": "NK Lokomotiva Zagreb",
+        "NK Lokomotiva": "NK Lokomotiva Zagreb",
+        "NK Lokomotiva Zagreb": "NK Lokomotiva Zagreb",
+        "Varaždin": "NK Varazdin",
+        "NK Varaždin": "NK Varazdin",
+        "NK Varazdin": "NK Varazdin",
         "Osijek": "NK Osijek",
-        "NK Lokomotiva": "NK Lokomotiva",
-        "NK Istra 1961": "NK Istra 1961",
         "Hajduk Split": "HNK Hajduk Split",
         "HNK Hajduk Split": "HNK Hajduk Split",
         "Rijeka": "HNK Rijeka",
         "HNK Rijeka": "HNK Rijeka",
-        "NK Varaždin": "NK Varaždin",
-        "NK Varazdin": "NK Varaždin",
         "Slaven Belupo Koprivnica": "NK Slaven Belupo",
         "NK Slaven Belupo": "NK Slaven Belupo",
         "HNK Gorica": "HNK Gorica",
-        "NK Lokomotiva Zagreb": "NK Lokomotiva",
-        "Istra1961": "NK Istra 1961",
-        "NK Varaždin": "NK Varaždin",
     },
     # --- VERIFIED ALIASES FOR NEWLY-REGISTERED LEAGUES (2026-08-12) ---
     # Every pair below was confirmed by diffing the league's TheSportsDB fixture
@@ -381,10 +326,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
     # flagged by the scan (e.g. Kalamata->Lamia, Sardarapat->Ararat, Riga->Rigas
     # FS) are deliberately OMITTED — mapping those would bend one club onto
     # another and poison the rating (HR35).
-    "Süper Lig": {
-        "Galatasaray": "Galatasaray",
-    },
-    "Super League Greece": {
+    "Greek Super League": {
         "Olympiacos": "Olympiakos Piraeus",
         "AEK Athens": "AEK Athens FC",
         "Panathinaikos": "Panathinaikos",
@@ -422,28 +364,6 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Ferencváros": "Ferencvarosi TC",
         "Nyíregyháza": "Nyiregyhaza",
         "MTK Budapest": "MTK Budapest",
-    },
-    "Luxembourg National Division": {
-        "Wiltz 71": "Wiltz",
-        "Differdange 03": "FC Differdange 03",
-        "Racing Union Luxembourg": "Racing FC Union Luxembourg",
-        "Jeunesse Esch": "AS Jeunesse Esch",
-        "Mondorf-les-Bains": "US Mondorf-les-bains",
-        "Hostert": "US Hostert",
-        "Progrès Niederkorn": "Progres Niederkorn",
-    },
-    "Maltese Premier League": {
-        "Balzan": "Balzan FC",
-        "Gżira United": "Gzira United",
-        "Ħamrun Spartans": "Hamrun Spartans",
-        "Żabbar St Patrick": "Zabbar St. Patrick",
-    },
-    "Montenegrin First League": {
-        "Budućnost Podgorica": "Buducnost Podgorica",
-        "Arsenal Tivat": "Arsenal Tivat",
-        "Mladost Donja Gorica": "Mladost Donja Gorica",
-        "Mornar": "Mornar",
-        "Petrovac": "Petrovac",
     },
     "Luxembourg National Division": {
         "Wiltz 71": "Wiltz",
@@ -502,22 +422,13 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Akron Tolyatti": "Akron Tolyatti",
         "Baltika Kaliningrad": "Baltika Kaliningrad",
     },
-    "Ukrainian Premier League": {
-        "Karpaty Lviv": "Karpaty Lviv",
-        "Kryvbas Kryvyi Rih": "Kryvbas",
-        "Shakhtar Donetsk": "Shakhtar",
-        "Chornomorets Odesa": "Chornomorets",
-        "LNZ Cherkasy": "LNZ Cherkasy",
-        "Livyi Bereh Kyiv": "Livyi Bereh",
-        "Kharkiv": "Metalist Kharkiv",
-    },
     "Swiss Super League": {
         "Grasshopper Club Zürich": "Grasshopper",
         "FC Zürich": "Zurich",
         "BSC Young Boys": "Young Boys",
         "FC Basel": "Basel",
         "FC Lugano": "Lugano",
-        "FC St. Gallen 1879": "St. Gallen",
+        "FC St. Gallen 1879": "FC ST. Gallen",
         "Servette FC": "Servette",
         "FC Lausanne-Sport": "Lausanne-Sport",
         "Yverdon Sport FC": "Yverdon",
@@ -525,7 +436,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "FC Sion": "Sion",
         "FC Winterthur": "Winterthur",
     },
-    "Eliteserien": {
+    "Norwegian Eliteserien": {
         "Bodø/Glimt": "Bodo/Glimt",
         "Molde FK": "Molde",
         "Rosenborg BK": "Rosenborg",
@@ -543,7 +454,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Stabæk Fotball": "Stabaek",
         "Fredrikstad FK": "Fredrikstad",
     },
-    "Allsvenskan": {
+    "Swedish Allsvenskan": {
         "Malmö FF": "Malmo",
         "AIK Stockholm": "AIK",
         "IFK Göteborg": "IFK Goteborg",
@@ -596,10 +507,10 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Mladost Lučani": "Mladost Lucani",
         "Radnički Niš": "Radnicki NIS",
         "Mačva Šabac": "Macva Sabac",
-        "Železničar Pančevo": "FK Zeleznicar",
+        "FK Zeleznicar": "Železničar Pančevo",
         "OFK Beograd": "OFK Beograd",
         "Zemun": "Zemun",
-        "IMT Novi Beograd": "IMT Beograd",
+        "IMT Beograd": "IMT Novi Beograd",
         "Partizan Belgrade": "FK Partizan",
         "Radnicki 1923": "Radnicki 1923",
         "Radnicki NIS": "Radnicki NIS",
@@ -664,7 +575,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
     },
     # Montenegrin First League — verified 2026-08-13 from scan flags
     "Montenegrin First League": {
-        "Mladost Donja Gorica": "Buducnost Podgorica",
+        "Budućnost Podgorica": "Buducnost Podgorica",
         "Buducnost Podgorica": "Buducnost Podgorica",
         "Mornar": "Mornar",
         "Petrovac": "Petrovac",
@@ -675,8 +586,10 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Karpaty Lviv": "Karpaty",
         "Karpaty": "Karpaty",
         "Bukovyna Chernivtsi": "Bukovyna Chernivtsi",
+        "Kryvbas Kryvyi Rih": "Kryvbas KR",
         "Kryvbas": "Kryvbas KR",
         "Kryvbas KR": "Kryvbas KR",
+        "Livyi Bereh Kyiv": "Livyi Bereh",
         "Livyi Bereh": "Livyi Bereh",
         "Obolon Kyiv": "Obolon Kyiv",
         "Metalist Kharkiv": "Metalist Kharkiv",
@@ -688,8 +601,12 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Veres Rivne": "Veres Rivne",
         "Kudrivka": "Kudrivka",
         "UCSA Tarasivka": "UCSA",
+        "Chornomorets Odesa": "Chornomorets",
+        "Chornomorets": "Chornomorets",
+        "LNZ Cherkasy": "LNZ Cherkasy",
+        "Kharkiv": "Metalist Kharkiv",
     },
-    # Luxembourg National Division — additional from scan flags
+    # Luxembourg National Division — verified 2026-08-13 from scan flags
     "Luxembourg National Division": {
         "Wiltz 71": "Wiltz",
         "Differdange 03": "FC Differdange 03",
@@ -698,7 +615,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Mondorf-les-Bains": "US Mondorf-les-bains",
         "Hostert": "US Hostert",
         "Progrès Niederkorn": "Progres Niederkorn",
-        "Rumelange": "F91 Dudelange",
+        "Rumelange": "Rumelange",
         "Kaerjeng 97": "Kaerjeng 97",
         "Residence Walferdange": "Residence Walferdange",
         "UNA Strassen": "UNA Strassen",
@@ -708,7 +625,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Atert Bissen": "Atert Bissen",
         "F91 Dudelange": "F91 Dudelange",
     },
-    # Maltese Premier League — additional from scan flags
+    # Maltese Premier League — verified 2026-08-13 from scan flags
     "Maltese Premier League": {
         "Balzan": "Balzan FC",
         "Gżira United": "Gzira United",
@@ -720,7 +637,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Birkirkara": "Birkirkara",
         "Mosta": "Mosta",
         "Zabbar St. Patrick": "Zabbar St. Patrick",
-        "Birzebbuga St. Peter": "Zabbar St. Patrick",
+        "Birzebbuga St. Peter": "Birzebbuga St. Peter",
     },
 }
 

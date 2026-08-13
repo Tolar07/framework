@@ -5,8 +5,14 @@ document.addEventListener('DOMContentLoaded', function () {
   var btn = document.getElementById('phase3-signoff-btn');
   var revoke = document.getElementById('phase3-revoke-btn');
 
+  function escapeHtml(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   function flag(msgEl, text, kind) {
-    msgEl.innerHTML = '<div class="flag-line ' + (kind || '') + '">' + text + '</div>';
+    msgEl.innerHTML = '<div class="flag-line ' + escapeHtml(kind || '') + '">' + escapeHtml(text) + '</div>';
   }
 
   if (btn) {

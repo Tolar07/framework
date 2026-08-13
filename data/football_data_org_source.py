@@ -68,15 +68,20 @@ COMPETITION_CODES = {
     "Ligue 1": "FL1",
     "Eredivisie": "DED",
     "Primeira Liga": "PPL",
+    # Free tier covers 12 competitions; these are NOT on the free plan and will
+    # 404. They stay mapped so a paid upgrade auto-enables them, but fail
+    # silently through SourceNoData in the multi-source chain.
     "Scottish Premiership": "SPL",
-    "Belgian Pro League": "BSA",
-    "Danish Superliga": "DSC",
-    "Ekstraklasa": "POL",
-    "Austrian Bundesliga": "AUT",
+    "Belgian Pro League": "BE1",  # BSA is Brazilian Serie A, not Belgian
+    "Danish Superliga": "DKS",
+    "Ekstraklasa": "PL1",
+    "Austrian Bundesliga": "AT1",
     "HNL": "HNL",
     # Continental competitions
     "Champions League": "CL",
-    "Europa League": "ELC",  # Note: same code as Championship per API docs, but different area
+    # Europa League is NOT on the free tier; the code is "EL" but football-data.org
+    # does not serve it at the free level (ELC is Championship, not Europa League).
+    "Europa League": "EL",
     "Conference League": "UECL",
     "UEFA Super Cup": "USC",
 }

@@ -67,14 +67,15 @@ def _prov_tag(bf: dict | None) -> str:
 
 
 def _asset_version() -> str:
-    """Cache-buster for the two proto assets. A version query on the <link> and
-    <script> tags means a browser can NEVER serve a stale proto.js/proto.css
-    from its cache. Any edit to either asset bumps the mtime and therefore the
-    query, so a normal refresh re-fetches. Falls back to '1' if the assets
-    can't be stat'd."""
+    """Cache-buster for the three proto assets (proto.css, motion.js, proto.js).
+    A version query on the <link> and <script> tags means a browser can NEVER
+    serve a stale asset from its cache. Any edit to any asset bumps the mtime
+    and therefore the query, so a normal refresh re-fetches. Falls back to '1'
+    if the assets can't be stat'd."""
     from pathlib import Path as _P
     mtimes = []
     for f in (_P(__file__).parent / "static" / "css" / "proto.css",
+              _P(__file__).parent / "static" / "js" / "motion.js",
               _P(__file__).parent / "static" / "js" / "proto.js"):
         try:
             if f.exists():
@@ -99,6 +100,7 @@ def _shell(title: str, body: str, asset_base: str = "/static") -> str:
 </head><body>
 {body}
 <div class="toast" id="toast"></div>
+<script src="{base}/js/motion.js?v={v}"></script>
 <script src="{base}/js/proto.js?v={v}" defer></script>
 </body></html>"""
 

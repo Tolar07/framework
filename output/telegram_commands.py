@@ -534,6 +534,23 @@ def cmd_produce(arg: str) -> str:
                  keyboard=_keyboard(("/board", "/status"), ("/produce search",)))
 
 
+def cmd_ceo(arg: str) -> str:
+    """CEO orchestrator — routes /ceo <subcommand> [args] to CEOAgent.
+
+    Delegates command parsing and routing to the CEOAgent class so the CEO's
+    own command surface stays in one place (ceo_agent.py). Wrapped in
+    try/except so a CEO bug never takes down the poller — the Architect still
+    gets an answer (an error reply), not silence."""
+    try:
+        from ceo_agent import CEOAgent
+        ceo = CEOAgent()
+        parsed = ceo.parse_command("/ceo " + arg)
+        return ceo.handle_command(parsed.command, parsed.arg)
+    except Exception as e:
+        return (f"CEO agent error: {type(e).__name__}: {e}\n\n"
+                f"Send /ceo help for the command reference.")
+
+
 HANDLERS = {
     "/help": cmd_help, "/start": cmd_help,
     "/status": cmd_status, "/board": cmd_board, "/verify": cmd_verify,
@@ -542,6 +559,7 @@ HANDLERS = {
     "/produce": cmd_produce,
     "/debrief": cmd_debrief,
     "/stats": cmd_stats,
+    "/ceo": cmd_ceo,
 }
 
 

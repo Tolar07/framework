@@ -92,8 +92,22 @@ class FixtureOdds:
     bookmaker: str = "SportyBet Nigeria"
 
 
+# OLP XDV name -> SportyBet cache key aliases.
+# The cache was built under SportyBet sidebar names (e.g., "Eliteserien.json"),
+# but the orchestrator calls with OLP names (e.g., "Norwegian Eliteserien").
+# This map resolves the OLP name to the actual cache filename.
+SPORTYBET_CACHE_ALIASES: dict[str, str] = {
+    "Norwegian Eliteserien": "Eliteserien",
+    "Turkish Super Lig":     "Süper Lig",
+    "Greek Super League":    "Super League Greece",
+    "Swedish Allsvenskan":   "Allsvenskan",
+}
+
+
 def _league_key(league: str) -> str:
-    return league.replace(" ", "_").replace("/", "_")
+    # Resolve OLP name -> cache key via alias map, then filesystem-safe
+    cache_key = SPORTYBET_CACHE_ALIASES.get(league, league)
+    return cache_key.replace(" ", "_").replace("/", "_")
 
 
 def _cache_path(league: str) -> Path:

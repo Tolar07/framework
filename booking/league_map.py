@@ -51,6 +51,15 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Eliteserien":         BookmakerLeague("Norway", "Eliteserien"),
     "Allsvenskan":         BookmakerLeague("Sweden", "Allsvenskan"),
     "Czech First League":  BookmakerLeague("Czech Republic", "First League"),
+    # --- OLP XDV official name aliases (2026-08-13): same SportyBet league, different OLP key ---
+    # Norwegian Eliteserien (OLP) == Eliteserien (SportyBet)
+    "Norwegian Eliteserien": BookmakerLeague("Norway", "Eliteserien"),
+    # Turkish Super Lig (OLP) == Süper Lig (SportyBet)
+    "Turkish Super Lig":     BookmakerLeague("Turkey", "Süper Lig"),
+    # Greek Super League (OLP) == Super League Greece (SportyBet)
+    "Greek Super League":    BookmakerLeague("Greece", "Super League"),
+    # Swedish Allsvenskan (OLP) == Allsvenskan (SportyBet)
+    "Swedish Allsvenskan":   BookmakerLeague("Sweden", "Allsvenskan"),
 }
 
 # --- Bet365 mapping ---

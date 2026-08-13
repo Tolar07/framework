@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OLP·XDV — Match Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch-night: #0e1a16;
+    --pitch-elevated: #142720;
+    --pitch-line: #26392f;
+    --chalk: #f2efe4;
+    --sage: #93ab9c;
+    --sage-dim: #5c7268;
+    --amber: #e8a33d;
+    --clay: #c05a4c;
+
+    --display: 'Fraunces', serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(180deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 2px, transparent 2px, transparent 46px),
+      var(--pitch-night);
+    color: var(--chalk);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+  ::selection{ background: var(--amber); color: var(--pitch-night); }
+
+  :focus-visible{
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead{ padding: 28px 0 0; }
+  .masthead-row{
+    display:flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .wordmark{
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+  }
+  .wordmark span{ color: var(--amber); }
+  .pill{
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border: 1px solid var(--pitch-line);
+    border-radius: 999px;
+    color: var(--sage);
+    white-space: nowrap;
+    background: transparent;
+    margin: 0;
+  }
+  .pill.on{
+    color: var(--pitch-night);
+    background: var(--amber);
+    border-color: var(--amber);
+  }
+
+  .centerline{
+    margin-top: 26px;
+    position: relative;
+    height: 1px;
+    background: var(--pitch-line);
+  }
+  .centerline::before{
+    content:"";
+    position:absolute;
+    left:50%; top:50%;
+    width:7px; height:7px;
+    background: var(--sage);
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+  /* ---------- TAB NAV ---------- */
+  .tabnav{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(14,26,22,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--pitch-line);
+  }
+  .tabnav-row{
+    display:flex;
+    gap: 8px;
+    padding: 12px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabnav-row::-webkit-scrollbar{ display:none; }
+  .tabnav .pill{
+    cursor:pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .tabnav .pill:hover{ border-color: var(--sage-dim); color: var(--chalk); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 64px 0 56px;
+    position: relative;
+    overflow: hidden;
+    scroll-margin-top: 60px;
+  }
+  .hero-sub{
+    max-width: 560px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--sage);
+  }
+
+  .hero-cta{ margin-top: 36px; display:flex; gap: 14px; flex-wrap: wrap; }
+  .btn{
+    font-family: var(--body);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 13px 22px;
+    border-radius: 3px;
+    text-decoration: none;
+    display:inline-block;
+    border: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary{ background: var(--amber); color: var(--pitch-night); }
+  .btn-ghost{ background: transparent; border: 1px solid var(--pitch-line); color: var(--chalk); }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn-primary:hover{ box-shadow: 0 8px 24px -8px rgba(232,163,61,0.55); }
+
+  .sweep{
+    position:absolute; top:0; left:-40%; width:40%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(232,163,61,0.05), transparent);
+    animation: sweep 3.4s ease-in-out 0.3s 1;
+    pointer-events: none;
+  }
+  @keyframes sweep{ from{ left:-40%; } to{ left: 110%; } }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{ padding: 64px 0; border-top: 1px solid var(--pitch-line); scroll-margin-top: 60px; }
+  .section-eyebrow{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  .section-title{
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(24px, 3vw, 32px);
+    margin: 10px 0 6px;
+  }
+  .section-desc{ font-size: 14px; color: var(--sage); max-width: 560px; line-height: 1.6; }
+
+  /* ---------- THE CALL ---------- */
+  .call-grid{ margin-top: 36px; display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .call-card{
+    background: var(--pitch-elevated);
+    border: 1px solid var(--pitch-line);
+    border-radius: 6px;
+    padding: 24px;
+    position: relative;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .call-card:hover{ border-color: rgba(232,163,61,0.45); transform: translateY(-3px); }
+  .call-league{
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+  .call-fixture{
+    font-family: var(--display);
+    font-size: 21px;
+    font-weight: 500;
+    margin: 8px 0 4px;
+    line-height: 1.25;
+  }
+  .call-market{ font-size: 13px; color: var(--amber); font-weight: 600; margin-bottom: 18px; }
+  .call-dial-row{
+    display:flex; align-items: center; gap: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--pitch-line);
+  }
+  .dial{ flex-shrink:0; }
+  .dial text{ font-family: var(--mono); font-size: 15px; font-weight: 600; fill: var(--chalk); }
+  .dial .tier{ font-family: var(--mono); font-size: 9px; fill: var(--sage); }
+  .call-data{ font-family: var(--mono); font-size: 11.5px; line-height: 1.85; color: var(--sage); }
+  .call-data b{ color: var(--chalk); font-weight: 500; }
+  .call-note{ margin-top: 14px; font-size: 12px; line-height: 1.55; color: var(--sage); font-style: italic; }
+  .src-dots{ display:flex; gap:5px; margin-top: 10px; }
+  .src-dot{
+    font-family: var(--mono); font-size: 9px; color: var(--pitch-night);
+    background: var(--sage); padding: 2px 6px; border-radius: 2px; letter-spacing: 0.03em;
+  }
+
+  /* ---------- market family bars (full grid, infographic) ---------- */
+  .mkt-block{ margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--pitch-line); }
+  .mkt-block-label{
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--sage-dim); margin-bottom: 10px;
+  }
+  .mkt-fam{ margin-bottom: 12px; }
+  .mkt-fam:last-child{ margin-bottom: 0; }
+  .mkt-fam-label{
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 5px;
+  }
+  .mkt-bar{ display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .mkt-bar:last-child{ margin-bottom: 0; }
+  .mkt-bar-name{ font-family: var(--body); font-size: 11px; color: var(--sage); flex: 0 0 56px; }
+  .mkt-bar-track{ flex:1; height:6px; background: var(--pitch-line); border-radius: 999px; overflow:hidden; }
+  .mkt-bar-fill{ height:100%; width:0; border-radius: 999px; background: var(--sage-dim); transition: width 0.9s cubic-bezier(.16,1,.3,1); }
+  .mkt-bar.fav .mkt-bar-fill{ background: var(--amber); }
+  .mkt-bar.fav .mkt-bar-name{ color: var(--chalk); font-weight: 500; }
+  .mkt-bar-pct{ font-family: var(--mono); font-size: 11px; color: var(--sage); flex: 0 0 32px; text-align:right; }
+  .mkt-bar.fav .mkt-bar-pct{ color: var(--chalk); font-weight: 600; }
+
+  /* ---------- edge strip ---------- */
+  .edge-block{ margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--pitch-line); }
+  .edge-track{ position:relative; height:5px; background: var(--pitch-line); border-radius: 999px; margin: 10px 0 8px; }
+  .edge-fill{ position:absolute; left:0; top:0; bottom:0; width:0; background: rgba(232,163,61,0.35); border-radius: 999px; transition: width 0.9s cubic-bezier(.16,1,.3,1); }
+  .edge-marker{
+    position:absolute; top:50%; width:10px; height:10px; border-radius:50%;
+    background: var(--amber); border: 2px solid var(--pitch-elevated); transform: translate(-50%,-50%);
+  }
+  .edge-break{ position:absolute; top:-4px; bottom:-4px; width:2px; background: var(--sage); }
+  .edge-caption{ display:flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; }
+  .edge-caption .model{ color: var(--amber); }
+  .edge-caption .break{ color: var(--sage); }
+  .edge-note{ margin-top: 6px; font-size: 11px; color: var(--sage-dim); line-height: 1.5; }
+
+  /* ---------- booking code ---------- */
+  .code-row{
+    margin-top: 14px;
+    display:flex; align-items:center; justify-content: space-between;
+    background: rgba(242,239,228,0.03);
+    border-radius: 4px;
+    padding: 9px 12px;
+    font-family: var(--mono);
+  }
+  .code-label{ font-size: 10.5px; color: var(--sage); text-transform: uppercase; letter-spacing: 0.05em; }
+  .code-value{ font-size: 12px; font-weight: 600; color: var(--amber); letter-spacing: 0.03em; }
+  .code-row.pending{ background: transparent; border: 1px dashed var(--pitch-line); }
+  .code-row.pending .code-value{ color: var(--clay); font-style: italic; font-weight: 500; }
+
+  /* ---------- THE SCAN ---------- */
+  .scan-table-wrap{ margin-top: 32px; overflow-x: auto; border: 1px solid var(--pitch-line); border-radius: 6px; }
+  table.scan{ width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12.5px; min-width: 760px; }
+  table.scan thead th{
+    text-align: left; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--sage); font-weight: 500; padding: 14px 18px;
+    background: var(--pitch-elevated); border-bottom: 1px solid var(--pitch-line);
+    position: sticky; top: 49px;
+  }
+  table.scan td{ padding: 13px 18px; border-bottom: 1px solid var(--pitch-line); color: var(--chalk); white-space: nowrap; }
+  table.scan tbody tr:last-child td{ border-bottom: none; }
+  table.scan tbody tr:hover{ background: rgba(242,239,228,0.02); }
+  .fx-name{ font-family: var(--body); font-weight: 500; font-size: 13px; }
+  .fx-league{ display:block; font-size: 9.5px; color: var(--sage); margin-top:2px; letter-spacing: 0.05em;}
+  .pending{ color: var(--clay); font-style: italic; }
+  .yes{ color: var(--amber); }
+  .no{ color: var(--sage); }
+  .tag-src{ font-size: 10px; padding: 2px 7px; border: 1px solid var(--pitch-line); border-radius: 3px; color: var(--sage); }
+
+  /* ---------- SINGLES ---------- */
+  .singles-grid{ margin-top: 32px; display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .single-card{
+    background: var(--pitch-elevated);
+    border: 1px solid var(--pitch-line);
+    border-radius: 6px;
+    padding: 18px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .single-card:hover{ border-color: rgba(232,163,61,0.4); transform: translateY(-2px); }
+  .single-league{ font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sage); }
+  .single-fixture{ font-family: var(--display); font-size: 15px; font-weight: 500; margin: 6px 0 10px; line-height: 1.3; }
+  .single-dial-row{ display:flex; align-items:center; gap:12px; padding-top: 12px; border-top: 1px dashed var(--pitch-line); }
+  .single-dial text{ font-family: var(--mono); font-size: 12px; font-weight: 600; fill: var(--chalk); }
+  .single-data{ font-family: var(--mono); font-size: 10.5px; line-height: 1.8; color: var(--sage); }
+  .single-data b{ color: var(--chalk); font-weight: 500; }
+  .single-data .mkt{ color: var(--amber); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding: 56px 0 48px; border-top: 1px solid var(--pitch-line); }
+  .foot-note{ font-size: 13px; line-height: 1.7; color: var(--sage); max-width: 620px; }
+  .foot-bottom{
+    margin-top: 32px; display:flex; justify-content: space-between; align-items:center;
+    flex-wrap: wrap; gap: 12px; font-family: var(--mono); font-size: 11px; color: var(--pitch-line);
+  }
+  .foot-bottom span{ color: var(--sage); }
+
+  /* ---------- DENSITY SWITCHER ---------- */
+  .densitybar{ display:flex; align-items:center; gap:12px; margin-top:24px; flex-wrap:wrap; }
+  .densitybar-label{ font-family: var(--mono); font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--sage-dim); }
+  .density-pills{ display:flex; gap:6px; }
+  .density-pill{
+    font-family: var(--mono); font-size:11px; letter-spacing:0.04em;
+    padding:7px 14px; border:1px solid var(--pitch-line); border-radius:999px;
+    color:var(--sage); background:transparent; cursor:pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .density-pill:hover{ border-color: var(--sage-dim); color:var(--chalk); }
+  .density-pill.on{ background:var(--amber); color:var(--pitch-night); border-color:var(--amber); font-weight:600; }
+  .density-pill:focus-visible{ outline:2px solid var(--amber); outline-offset:2px; }
+  .density-note{ font-size:11.5px; color:var(--sage-dim); margin-top:8px; font-style:italic; }
+  .density-view{ display:none; margin-top:32px; }
+  .density-view.active{ display:block; }
+
+  /* ---------- LEAN TICKET ---------- */
+  .ticket{
+    background: var(--pitch-elevated);
+    border:1px solid var(--pitch-line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .ticket-head{
+    display:flex; align-items:baseline; gap:10px;
+    padding:18px 22px;
+    border-bottom:1px dashed var(--pitch-line);
+  }
+  .ticket-star{ color:var(--amber); font-size:16px; }
+  .ticket-title{ font-family:var(--display); font-size:18px; font-weight:600; }
+  .ticket-legs-count{ margin-left:auto; font-family:var(--mono); font-size:11px; color:var(--sage); }
+  .ticket-legs{ padding: 4px 22px; }
+  .ticket-leg{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    padding:13px 0; border-bottom:1px dashed var(--pitch-line);
+  }
+  .ticket-leg:last-child{ border-bottom:none; }
+  .leg-fixture{ font-family: var(--body); font-size:13.5px; color:var(--chalk); flex:1; }
+  .leg-league{ color:var(--sage); font-size:11px; font-family: var(--mono); }
+  .leg-market{ font-family: var(--mono); font-size:12px; color:var(--amber); flex:0 0 auto; padding:0 14px; }
+  .leg-price{ font-family: var(--mono); color:var(--chalk); font-weight:600; flex:0 0 46px; text-align:right; }
+  .ticket-foot{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    padding:16px 22px; background: rgba(232,163,61,0.05); border-top:1px solid var(--pitch-line);
+  }
+  .combined-label, .code-label-t{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--sage); display:block; margin-bottom:4px; }
+  .combined-price{ font-family:var(--display); font-size:24px; font-weight:600; color:var(--chalk); }
+  .code-value-t{ font-family:var(--mono); font-size:14px; font-weight:600; color:var(--amber); }
+
+  .ticket-singles{ margin-top:22px; }
+  .ticket-singles-label{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--sage-dim); margin-bottom:10px; }
+  .single-line{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    padding:12px 16px; background:var(--pitch-elevated); border:1px solid var(--pitch-line); border-radius:5px;
+    margin-bottom:8px;
+  }
+  .sl-fixture{ font-family:var(--body); font-size:13px; color:var(--chalk); flex:1; min-width:160px; }
+  .sl-market{ font-family: var(--mono); font-size:11.5px; color:var(--amber); }
+  .sl-price{ font-family: var(--mono); font-size:12px; color:var(--chalk); font-weight:600; }
+  .sl-code{ margin-left:auto; font-family: var(--mono); font-size:11px; color:var(--sage); }
+  .sl-code.pending{ color:var(--clay); font-style:italic; }
+
+  /* ---------- FULL-TIER ADDITIONS ---------- */
+  .ev-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:14px; padding-top:12px; border-top:1px dashed var(--pitch-line);
+  }
+  .ev-label{ font-family:var(--mono); font-size:10px; color:var(--sage); text-transform:uppercase; letter-spacing:0.06em; }
+  .ev-value{ font-family:var(--mono); color:var(--amber); font-weight:600; font-size:13px; }
+  .key-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .key-chip{
+    font-family:var(--mono); font-size:9.5px; letter-spacing:0.02em;
+    padding:3px 7px; border-radius:3px; border:1px solid var(--pitch-line); color:var(--sage);
+  }
+  .key-chip b{ color:var(--chalk); }
+  .single-ev{ font-family:var(--mono); font-size:10px; color:var(--sage); margin-top:4px; }
+  .single-ev b{ color:var(--amber); }
+
+  .reveal{ opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.show{ opacity: 1; transform: none; }
+
+  /* ---------- ANIMATED GAUGES ---------- */
+  .dial-fill{ transition: stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1); }
+
+  /* ---------- DENSITY VIEW TRANSITION ---------- */
+  .density-view{ opacity:0; transform: translateY(8px); transition: opacity 0.35s ease, transform 0.35s ease; }
+  .density-view.active{ display:block; }
+  .density-view.active.in{ opacity:1; transform:none; }
+
+  /* ---------- PAGE-LOAD ENTRANCE ---------- */
+  @keyframes fadeUp{ from{ opacity:0; transform: translateY(10px); } to{ opacity:1; transform:none; } }
+  .intro{ animation: fadeUp 0.8s cubic-bezier(.16,1,.3,1) both; }
+
+  .count{ font-variant-numeric: tabular-nums; }
+
+  /* ---------- SCAN TABLE SCROLL HINT ---------- */
+  .scan-table-wrap{ position:relative; }
+  .scan-table-wrap::after{
+    content:""; position:absolute; top:0; right:0; bottom:0; width:28px;
+    background: linear-gradient(90deg, transparent, var(--pitch-night));
+    pointer-events:none;
+  }
+
+  /* ---------- RESPONSIVE REFINEMENTS ---------- */
+  @media (max-width: 640px){
+    .density-pill{ padding:9px 14px; }
+    .tabnav .pill{ padding:9px 13px; }
+    .tabnav-row{ padding: 10px 0; }
+  }
+  @media (max-width: 480px){
+    .ticket-leg{ flex-direction:column; align-items:flex-start; gap:4px; }
+    .leg-market{ padding:0; }
+    .leg-price{ text-align:left; }
+    .ticket-foot{ flex-direction:column; align-items:flex-start; gap:14px; }
+    .single-line{ flex-direction:column; align-items:flex-start; gap:6px; }
+    .sl-code{ margin-left:0; }
+    .ticket-title{ font-size:16px; }
+    .combined-price{ font-size:21px; }
+    .call-fixture{ font-size:19px; }
+  }
+
+  .scan-table-wrap{ -webkit-overflow-scrolling: touch; }
+  .tabnav-row{ -webkit-overflow-scrolling: touch; }
+
+  @media (max-width: 860px){
+    .call-grid{ grid-template-columns: 1fr; }
+    .singles-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px){
+    .ticket-head{ flex-wrap: wrap; row-gap: 4px; }
+    .ticket-legs-count{ margin-left: 0; flex-basis: 100%; }
+    .ticket-leg{ flex-wrap: wrap; row-gap: 6px; }
+    .leg-fixture{ flex-basis: 100%; }
+    .leg-market{ padding: 0 10px 0 0; }
+    .ticket-foot{ flex-direction: column; align-items: flex-start; }
+    .single-line{ padding: 12px 14px; }
+    .sl-fixture{ flex-basis: 100%; min-width: 0; }
+    .sl-code{ margin-left: 0; }
+    .edge-caption{ flex-wrap: wrap; row-gap: 2px; }
+    .key-row{ gap: 5px; }
+  }
+  @media (max-width: 560px){
+    .wrap{ padding: 0 20px; }
+    .masthead-row{ flex-direction: column; }
+    .singles-grid{ grid-template-columns: 1fr; }
+    .call-card{ padding: 20px; }
+    .ticket-head, .ticket-legs, .ticket-foot{ padding-left: 18px; padding-right: 18px; }
+    .densitybar{ gap: 8px; }
+    .density-pill{ padding: 6px 11px; font-size: 10.5px; }
+  }
+  @media (max-width: 400px){
+    .dial{ width: 60px; height: 60px; }
+    .call-data{ font-size: 10.5px; }
+    .mkt-bar-name{ flex-basis: 46px; font-size: 10px; }
+    .mkt-bar-pct{ flex-basis: 28px; font-size: 10px; }
+    .single-card{ padding: 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    html{ scroll-behavior: auto; }
+  }
+</style>
+</head>
+
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <div class="intro" style="animation-delay:0s">
+        <div class="wordmark">OLP<span>·</span>XDV</div>
+      </div>
+    </div>
+    <div class="centerline"></div>
+  </div>
+</header>
+
+<nav class="tabnav">
+  <div class="wrap">
+    <div class="tabnav-row">
+      <button type="button" class="pill on" data-scroll-target="the-call">Call</button>
+      <button type="button" class="pill" data-scroll-target="the-scan">Scan</button>
+      <button type="button" class="pill" data-scroll-target="the-singles">Singles</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="sweep" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="hero-sub intro" style="animation-delay:.08s">An excellent informed process. Not, on its own, a demonstrated profitable edge — the board says so before it says anything else. Every number here is auditable Dixon-Coles, not a black box, and every source is graded before it's trusted.</p>
+
+    <div class="hero-cta intro" style="animation-delay:.16s">
+      <button type="button" class="btn btn-primary" data-scroll-target="the-call">View the Call</button>
+      <button type="button" class="btn btn-ghost" data-scroll-target="the-scan">View the full Scan</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="the-call">
+  <div class="wrap">
+    <div class="section-eyebrow">Part 1</div>
+    <h2 class="section-title">The Call</h2>
+    <p class="section-desc">The deploy shortlist. Softness tier A/B only, capped at six — narrow hands by design. Every market is shown, not just the pick — nothing here needs a click to reveal.</p>
+
+    <div class="densitybar">
+      <span class="densitybar-label">Board density</span>
+      <div class="density-pills">
+        <button class="density-pill" data-density="lean" type="button">Lean</button>
+        <button class="density-pill on" data-density="trimmed" type="button">Trimmed</button>
+        <button class="density-pill" data-density="full" type="button">Full</button>
+      </div>
+    </div>
+    <div class="density-note">Lean mirrors the Telegram production ticket. Full adds EV and the source-tier key — it requires Architect sign-in on the live app; shown here for design reference.</div>
+
+    <!-- LEAN -->
+    <div class="density-view" data-group="call" data-for="lean">
+      <div class="ticket">
+        <div class="ticket-head">
+          <span class="ticket-star">★</span>
+          <span class="ticket-title">Acca A — Headline</span>
+          <span class="ticket-legs-count">3 legs</span>
+        </div>
+        <div class="ticket-legs">
+          <div class="ticket-leg">
+            <span class="leg-fixture">Ajax — FC Twente <span class="leg-league">(Eredivisie)</span></span>
+            <span class="leg-market">BTTS — Yes</span>
+            <span class="leg-price">1.85</span>
+          </div>
+          <div class="ticket-leg">
+            <span class="leg-fixture">FC Copenhagen — Midtjylland <span class="leg-league">(Danish Superliga)</span></span>
+            <span class="leg-market">Over 2.5</span>
+            <span class="leg-price">1.95</span>
+          </div>
+          <div class="ticket-leg">
+            <span class="leg-fixture">Celtic — Rangers <span class="leg-league">(Scottish Prem)</span></span>
+            <span class="leg-market">DC — 1X</span>
+            <span class="leg-price">1.55</span>
+          </div>
+        </div>
+        <div class="ticket-foot">
+          <div><span class="combined-label">Combined</span><span class="combined-price">5.59</span></div>
+          <div><span class="code-label-t">Booking code</span><span class="code-value-t">A7WXQP</span></div>
+        </div>
+      </div>
+
+      <div class="ticket-singles">
+        <div class="ticket-singles-label">Singles — one standalone slip each, own booking code</div>
+        <div class="single-line">
+          <span class="sl-fixture">Lyon — Angers</span>
+          <span class="sl-market">1X2 — Lyon</span>
+          <span class="sl-price">1.55</span>
+          <span class="sl-code">L4TXPN</span>
+        </div>
+        <div class="single-line">
+          <span class="sl-fixture">Midtjylland — Silkeborg</span>
+          <span class="sl-market">BTTS — Yes</span>
+          <span class="sl-price">1.72</span>
+          <span class="sl-code pending">No data — pending</span>
+        </div>
+        <div class="single-line">
+          <span class="sl-fixture">Ajax — FC Twente</span>
+          <span class="sl-market">O/U 1.5 — Over</span>
+          <span class="sl-price">1.38</span>
+          <span class="sl-code">AJ8KRM</span>
+        </div>
+        <div class="single-line">
+          <span class="sl-fixture">Celtic — St Johnstone</span>
+          <span class="sl-market">DC — 1X</span>
+          <span class="sl-price">1.14</span>
+          <span class="sl-code pending">No data — pending</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRIMMED -->
+    <div class="density-view active" data-group="call" data-for="trimmed">
+    <div class="call-grid">
+
+      <article class="call-card reveal">
+        <div class="call-league">Eredivisie</div>
+        <h3 class="call-fixture">Ajax — FC&nbsp;Twente</h3>
+        <div class="call-market">BTTS — Yes</div>
+        <div class="call-dial-row">
+          <svg class="dial" width="72" height="72" viewBox="0 0 72 72" data-value="71" data-radius="30">
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#26392f" stroke-width="5"/>
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#e8a33d" stroke-width="5" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 36 36)"/>
+            <text x="36" y="33" text-anchor="middle">71%</text>
+            <text class="tier" x="36" y="47" text-anchor="middle">Ƈ-B</text>
+          </svg>
+          <div class="call-data">
+            MODEL <b>71%</b><br>
+            DEPLOY <b>1.85+</b><br>
+            TIER <b>Ƈ-B</b>
+          </div>
+        </div>
+        <div class="src-dots"><span class="src-dot">T1</span><span class="src-dot">T1</span><span class="src-dot">T2</span></div>
+        <p class="call-note">Tier-A softness league. Home side's BTTS base rate sits above 63% this season.</p>
+
+        <div class="mkt-block">
+          <div class="mkt-block-label">All markets</div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">1X2</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Ajax</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="58"></div></div><span class="mkt-bar-pct">58%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Draw</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="24"></div></div><span class="mkt-bar-pct">24%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Twente</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="18"></div></div><span class="mkt-bar-pct">18%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 1.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="88"></div></div><span class="mkt-bar-pct">88%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="12"></div></div><span class="mkt-bar-pct">12%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 2.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="61"></div></div><span class="mkt-bar-pct">61%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="39"></div></div><span class="mkt-bar-pct">39%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">BTTS</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Yes</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="71"></div></div><span class="mkt-bar-pct">71%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">No</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="29"></div></div><span class="mkt-bar-pct">29%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">Double chance</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">1X</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="82"></div></div><span class="mkt-bar-pct">82%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">12</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="76"></div></div><span class="mkt-bar-pct">76%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">X2</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="42"></div></div><span class="mkt-bar-pct">42%</span></div>
+          </div>
+        </div>
+
+        <div class="edge-block">
+          <div class="edge-caption"><span class="model">Model 71%</span><span class="break">Breakeven 54.1%</span></div>
+          <div class="edge-track">
+            <div class="edge-fill" data-value="71"></div>
+            <div class="edge-break" style="left:54.1%"></div>
+            <div class="edge-marker" style="left:71%"></div>
+          </div>
+          <div class="edge-note">Deploy at 1.85+ — breakeven, not a live quote. Deploy at this price or better.</div>
+        </div>
+
+        <div class="code-row">
+          <span class="code-label">Booking code</span>
+          <span class="code-value">K3PLNX</span>
+        </div>
+      </article>
+
+      <article class="call-card reveal">
+        <div class="call-league">Danish Superliga</div>
+        <h3 class="call-fixture">FC Copenhagen — Midtjylland</h3>
+        <div class="call-market">Over 2.5 Goals</div>
+        <div class="call-dial-row">
+          <svg class="dial" width="72" height="72" viewBox="0 0 72 72" data-value="64" data-radius="30">
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#26392f" stroke-width="5"/>
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#e8a33d" stroke-width="5" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 36 36)"/>
+            <text x="36" y="33" text-anchor="middle">64%</text>
+            <text class="tier" x="36" y="47" text-anchor="middle">Ƈ-B</text>
+          </svg>
+          <div class="call-data">
+            MODEL <b>64%</b><br>
+            DEPLOY <b>1.95+</b><br>
+            TIER <b>Ƈ-B</b>
+          </div>
+        </div>
+        <div class="src-dots"><span class="src-dot">T1</span><span class="src-dot">T1</span></div>
+        <p class="call-note">Both sides rank top-three for attack in the league this season.</p>
+
+        <div class="mkt-block">
+          <div class="mkt-block-label">All markets</div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">1X2</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Copenh.</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="52"></div></div><span class="mkt-bar-pct">52%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Draw</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="26"></div></div><span class="mkt-bar-pct">26%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Midtj.</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="22"></div></div><span class="mkt-bar-pct">22%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 1.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="91"></div></div><span class="mkt-bar-pct">91%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="9"></div></div><span class="mkt-bar-pct">9%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 2.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="64"></div></div><span class="mkt-bar-pct">64%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="36"></div></div><span class="mkt-bar-pct">36%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">BTTS</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Yes</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="66"></div></div><span class="mkt-bar-pct">66%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">No</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="34"></div></div><span class="mkt-bar-pct">34%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">Double chance</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">1X</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="78"></div></div><span class="mkt-bar-pct">78%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">12</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="74"></div></div><span class="mkt-bar-pct">74%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">X2</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="48"></div></div><span class="mkt-bar-pct">48%</span></div>
+          </div>
+        </div>
+
+        <div class="edge-block">
+          <div class="edge-caption"><span class="model">Model 64%</span><span class="break">Breakeven 51.3%</span></div>
+          <div class="edge-track">
+            <div class="edge-fill" data-value="64"></div>
+            <div class="edge-break" style="left:51.3%"></div>
+            <div class="edge-marker" style="left:64%"></div>
+          </div>
+          <div class="edge-note">Deploy at 1.95+ — breakeven, not a live quote. Deploy at this price or better.</div>
+        </div>
+
+        <div class="code-row pending">
+          <span class="code-label">Booking code</span>
+          <span class="code-value">No data — pending</span>
+        </div>
+      </article>
+
+      <article class="call-card reveal">
+        <div class="call-league">Scottish Premiership</div>
+        <h3 class="call-fixture">Celtic — Rangers</h3>
+        <div class="call-market">Double Chance — 1X</div>
+        <div class="call-dial-row">
+          <svg class="dial" width="72" height="72" viewBox="0 0 72 72" data-value="68" data-radius="30">
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#26392f" stroke-width="5"/>
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#e8a33d" stroke-width="5" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 36 36)"/>
+            <text x="36" y="33" text-anchor="middle">68%</text>
+            <text class="tier" x="36" y="47" text-anchor="middle">Ƈ-A</text>
+          </svg>
+          <div class="call-data">
+            MODEL <b>68%</b><br>
+            DEPLOY <b>1.55+</b><br>
+            TIER <b>Ƈ-A</b>
+          </div>
+        </div>
+        <div class="src-dots"><span class="src-dot">T1</span><span class="src-dot">T2</span><span class="src-dot">T2</span></div>
+        <p class="call-note">Home advantage has held stable across the last eighteen months, same division.</p>
+
+        <div class="mkt-block">
+          <div class="mkt-block-label">All markets</div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">1X2</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Celtic</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="51"></div></div><span class="mkt-bar-pct">51%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Draw</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="17"></div></div><span class="mkt-bar-pct">17%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Rangers</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="32"></div></div><span class="mkt-bar-pct">32%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 1.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="84"></div></div><span class="mkt-bar-pct">84%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="16"></div></div><span class="mkt-bar-pct">16%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 2.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="55"></div></div><span class="mkt-bar-pct">55%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="45"></div></div><span class="mkt-bar-pct">45%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">BTTS</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Yes</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="59"></div></div><span class="mkt-bar-pct">59%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">No</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="41"></div></div><span class="mkt-bar-pct">41%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">Double chance</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">1X</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="68"></div></div><span class="mkt-bar-pct">68%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">12</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="83"></div></div><span class="mkt-bar-pct">83%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">X2</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="49"></div></div><span class="mkt-bar-pct">49%</span></div>
+          </div>
+        </div>
+
+        <div class="edge-block">
+          <div class="edge-caption"><span class="model">Model 68%</span><span class="break">Breakeven 64.5%</span></div>
+          <div class="edge-track">
+            <div class="edge-fill" data-value="68"></div>
+            <div class="edge-break" style="left:64.5%"></div>
+            <div class="edge-marker" style="left:68%"></div>
+          </div>
+          <div class="edge-note">Deploy at 1.55+ — breakeven, not a live quote. Deploy at this price or better.</div>
+        </div>
+
+        <div class="code-row">
+          <span class="code-label">Booking code</span>
+          <span class="code-value">H9QWZT</span>
+        </div>
+      </article>
+
+    </div>
+    </div>
+
+    <!-- FULL -->
+    <div class="density-view" data-group="call" data-for="full">
+    <div class="call-grid">
+
+      <article class="call-card">
+        <div class="call-league">Eredivisie</div>
+        <h3 class="call-fixture">Ajax — FC&nbsp;Twente</h3>
+        <div class="call-market">BTTS — Yes</div>
+        <div class="call-dial-row">
+          <svg class="dial" width="72" height="72" viewBox="0 0 72 72" data-value="71" data-radius="30">
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#26392f" stroke-width="5"/>
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#e8a33d" stroke-width="5" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 36 36)"/>
+            <text x="36" y="33" text-anchor="middle">71%</text>
+            <text class="tier" x="36" y="47" text-anchor="middle">Ƈ-B</text>
+          </svg>
+          <div class="call-data">
+            MODEL <b>71%</b><br>
+            DEPLOY <b>1.85+</b><br>
+            TIER <b>Ƈ-B</b>
+          </div>
+        </div>
+        <div class="src-dots"><span class="src-dot">T1</span><span class="src-dot">T1</span><span class="src-dot">T2</span></div>
+        <p class="call-note">Tier-A softness league. Home side's BTTS base rate sits above 63% this season.</p>
+
+        <div class="mkt-block">
+          <div class="mkt-block-label">All markets</div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">1X2</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Ajax</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="58"></div></div><span class="mkt-bar-pct">58%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Draw</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="24"></div></div><span class="mkt-bar-pct">24%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Twente</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="18"></div></div><span class="mkt-bar-pct">18%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 1.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="88"></div></div><span class="mkt-bar-pct">88%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="12"></div></div><span class="mkt-bar-pct">12%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 2.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="61"></div></div><span class="mkt-bar-pct">61%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="39"></div></div><span class="mkt-bar-pct">39%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">BTTS</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Yes</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="71"></div></div><span class="mkt-bar-pct">71%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">No</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="29"></div></div><span class="mkt-bar-pct">29%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">Double chance</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">1X</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="82"></div></div><span class="mkt-bar-pct">82%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">12</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="76"></div></div><span class="mkt-bar-pct">76%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">X2</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="42"></div></div><span class="mkt-bar-pct">42%</span></div>
+          </div>
+        </div>
+
+        <div class="edge-block">
+          <div class="edge-caption"><span class="model">Model 71%</span><span class="break">Breakeven 54.1%</span></div>
+          <div class="edge-track">
+            <div class="edge-fill" data-value="71"></div>
+            <div class="edge-break" style="left:54.1%"></div>
+            <div class="edge-marker" style="left:71%"></div>
+          </div>
+          <div class="edge-note">Deploy at 1.85+ — breakeven, not a live quote. Deploy at this price or better.</div>
+        </div>
+
+        <div class="ev-row"><span class="ev-label">Expected value</span><span class="ev-value">+31.4%</span></div>
+        <div class="key-row">
+          <span class="key-chip">1X2 <b>T1</b></span>
+          <span class="key-chip">O1.5 <b>T1</b></span>
+          <span class="key-chip">O2.5 <b>T1</b></span>
+          <span class="key-chip">BTTS <b>T2</b></span>
+          <span class="key-chip">DC <b>T1</b></span>
+        </div>
+        <div class="code-row">
+          <span class="code-label">Booking code</span>
+          <span class="code-value">K3PLNX</span>
+        </div>
+      </article>
+
+      <article class="call-card">
+        <div class="call-league">Danish Superliga</div>
+        <h3 class="call-fixture">FC Copenhagen — Midtjylland</h3>
+        <div class="call-market">Over 2.5 Goals</div>
+        <div class="call-dial-row">
+          <svg class="dial" width="72" height="72" viewBox="0 0 72 72" data-value="64" data-radius="30">
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#26392f" stroke-width="5"/>
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#e8a33d" stroke-width="5" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 36 36)"/>
+            <text x="36" y="33" text-anchor="middle">64%</text>
+            <text class="tier" x="36" y="47" text-anchor="middle">Ƈ-B</text>
+          </svg>
+          <div class="call-data">
+            MODEL <b>64%</b><br>
+            DEPLOY <b>1.95+</b><br>
+            TIER <b>Ƈ-B</b>
+          </div>
+        </div>
+        <div class="src-dots"><span class="src-dot">T1</span><span class="src-dot">T1</span></div>
+        <p class="call-note">Both sides rank top-three for attack in the league this season.</p>
+
+        <div class="mkt-block">
+          <div class="mkt-block-label">All markets</div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">1X2</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Copenh.</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="52"></div></div><span class="mkt-bar-pct">52%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Draw</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="26"></div></div><span class="mkt-bar-pct">26%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Midtj.</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="22"></div></div><span class="mkt-bar-pct">22%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 1.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="91"></div></div><span class="mkt-bar-pct">91%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="9"></div></div><span class="mkt-bar-pct">9%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 2.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="64"></div></div><span class="mkt-bar-pct">64%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="36"></div></div><span class="mkt-bar-pct">36%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">BTTS</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Yes</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="66"></div></div><span class="mkt-bar-pct">66%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">No</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="34"></div></div><span class="mkt-bar-pct">34%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">Double chance</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">1X</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="78"></div></div><span class="mkt-bar-pct">78%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">12</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="74"></div></div><span class="mkt-bar-pct">74%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">X2</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="48"></div></div><span class="mkt-bar-pct">48%</span></div>
+          </div>
+        </div>
+
+        <div class="edge-block">
+          <div class="edge-caption"><span class="model">Model 64%</span><span class="break">Breakeven 51.3%</span></div>
+          <div class="edge-track">
+            <div class="edge-fill" data-value="64"></div>
+            <div class="edge-break" style="left:51.3%"></div>
+            <div class="edge-marker" style="left:64%"></div>
+          </div>
+          <div class="edge-note">Deploy at 1.95+ — breakeven, not a live quote. Deploy at this price or better.</div>
+        </div>
+
+        <div class="ev-row"><span class="ev-label">Expected value</span><span class="ev-value">+24.8%</span></div>
+        <div class="key-row">
+          <span class="key-chip">1X2 <b>T1</b></span>
+          <span class="key-chip">O1.5 <b>T1</b></span>
+          <span class="key-chip">O2.5 <b>T1</b></span>
+          <span class="key-chip">BTTS <b>T1</b></span>
+          <span class="key-chip">DC <b>T2</b></span>
+        </div>
+        <div class="code-row pending">
+          <span class="code-label">Booking code</span>
+          <span class="code-value">No data — pending</span>
+        </div>
+      </article>
+
+      <article class="call-card">
+        <div class="call-league">Scottish Premiership</div>
+        <h3 class="call-fixture">Celtic — Rangers</h3>
+        <div class="call-market">Double Chance — 1X</div>
+        <div class="call-dial-row">
+          <svg class="dial" width="72" height="72" viewBox="0 0 72 72" data-value="68" data-radius="30">
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#26392f" stroke-width="5"/>
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#e8a33d" stroke-width="5" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 36 36)"/>
+            <text x="36" y="33" text-anchor="middle">68%</text>
+            <text class="tier" x="36" y="47" text-anchor="middle">Ƈ-A</text>
+          </svg>
+          <div class="call-data">
+            MODEL <b>68%</b><br>
+            DEPLOY <b>1.55+</b><br>
+            TIER <b>Ƈ-A</b>
+          </div>
+        </div>
+        <div class="src-dots"><span class="src-dot">T1</span><span class="src-dot">T2</span><span class="src-dot">T2</span></div>
+        <p class="call-note">Home advantage has held stable across the last eighteen months, same division.</p>
+
+        <div class="mkt-block">
+          <div class="mkt-block-label">All markets</div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">1X2</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Celtic</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="51"></div></div><span class="mkt-bar-pct">51%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Draw</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="17"></div></div><span class="mkt-bar-pct">17%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Rangers</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="32"></div></div><span class="mkt-bar-pct">32%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 1.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="84"></div></div><span class="mkt-bar-pct">84%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="16"></div></div><span class="mkt-bar-pct">16%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">O/U 2.5</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Over</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="55"></div></div><span class="mkt-bar-pct">55%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">Under</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="45"></div></div><span class="mkt-bar-pct">45%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">BTTS</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">Yes</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="59"></div></div><span class="mkt-bar-pct">59%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">No</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="41"></div></div><span class="mkt-bar-pct">41%</span></div>
+          </div>
+          <div class="mkt-fam">
+            <div class="mkt-fam-label">Double chance</div>
+            <div class="mkt-bar fav"><span class="mkt-bar-name">1X</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="68"></div></div><span class="mkt-bar-pct">68%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">12</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="83"></div></div><span class="mkt-bar-pct">83%</span></div>
+            <div class="mkt-bar"><span class="mkt-bar-name">X2</span><div class="mkt-bar-track"><div class="mkt-bar-fill" data-value="49"></div></div><span class="mkt-bar-pct">49%</span></div>
+          </div>
+        </div>
+
+        <div class="edge-block">
+          <div class="edge-caption"><span class="model">Model 68%</span><span class="break">Breakeven 64.5%</span></div>
+          <div class="edge-track">
+            <div class="edge-fill" data-value="68"></div>
+            <div class="edge-break" style="left:64.5%"></div>
+            <div class="edge-marker" style="left:68%"></div>
+          </div>
+          <div class="edge-note">Deploy at 1.55+ — breakeven, not a live quote. Deploy at this price or better.</div>
+        </div>
+
+        <div class="ev-row"><span class="ev-label">Expected value</span><span class="ev-value">+5.4%</span></div>
+        <div class="key-row">
+          <span class="key-chip">1X2 <b>T1</b></span>
+          <span class="key-chip">O1.5 <b>T2</b></span>
+          <span class="key-chip">O2.5 <b>T2</b></span>
+          <span class="key-chip">BTTS <b>T2</b></span>
+          <span class="key-chip">DC <b>T1</b></span>
+        </div>
+        <div class="code-row">
+          <span class="code-label">Booking code</span>
+          <span class="code-value">H9QWZT</span>
+        </div>
+      </article>
+
+    </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="the-scan">
+  <div class="wrap">
+    <div class="section-eyebrow">Part 2</div>
+    <h2 class="section-title">The Scan</h2>
+    <p class="section-desc">Every fixture, every approved league, every market — scored whether or not it deploys.</p>
+
+    <div class="scan-table-wrap">
+      <table class="scan">
+        <thead>
+          <tr>
+            <th>Fixture</th>
+            <th>1X2</th>
+            <th>O1.5 / O2.5</th>
+            <th>BTTS</th>
+            <th>Src</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="fx-name">Ajax v FC Twente</span><span class="fx-league">Eredivisie</span></td>
+            <td>1 · 58%</td><td>O88 / O61</td><td class="yes">Y 71%</td><td><span class="tag-src">T1</span></td>
+          </tr>
+          <tr>
+            <td><span class="fx-name">FC Copenhagen v Midtjylland</span><span class="fx-league">Danish Superliga</span></td>
+            <td>1 · 52%</td><td>O91 / O64</td><td class="yes">Y 66%</td><td><span class="tag-src">T1</span></td>
+          </tr>
+          <tr>
+            <td><span class="fx-name">Celtic v Rangers</span><span class="fx-league">Scottish Premiership</span></td>
+            <td>1X · 68%</td><td>O84 / O55</td><td class="yes">Y 59%</td><td><span class="tag-src">T1</span></td>
+          </tr>
+          <tr>
+            <td><span class="fx-name">Legia Warszawa v Lech Poznań</span><span class="fx-league">Ekstraklasa</span></td>
+            <td>X2 · 44%</td><td>O79 / O48</td><td class="no">N 54%</td><td><span class="tag-src">T2</span></td>
+          </tr>
+          <tr>
+            <td><span class="fx-name">Club Brugge v Anderlecht</span><span class="fx-league">Belgian Pro League</span></td>
+            <td>1 · 61%</td><td>O86 / O57</td><td class="yes">Y 62%</td><td><span class="tag-src">T1</span></td>
+          </tr>
+          <tr>
+            <td><span class="fx-name">Arsenal v Aston Villa</span><span class="fx-league">Premier League</span></td>
+            <td>1 · 66%</td><td>O90 / O69</td><td class="yes">Y 68%</td><td><span class="tag-src">T1</span></td>
+          </tr>
+          <tr>
+            <td><span class="fx-name">Real Madrid v Villarreal</span><span class="fx-league">La Liga</span></td>
+            <td>1 · 74%</td><td>O93 / O73</td><td class="yes">Y 61%</td><td><span class="tag-src">T1</span></td>
+          </tr>
+          <tr>
+            <td><span class="fx-name">St Johnstone v Aberdeen</span><span class="fx-league">Scottish Premiership</span></td>
+            <td class="pending">NO DATA — PENDING</td><td class="pending">—</td><td class="pending">—</td><td>—</td>
+          </tr>
+          <tr>
+            <td><span class="fx-name">Willem II v ADO Den Haag</span><span class="fx-league">Eredivisie</span></td>
+            <td>X · 41%</td><td>O77 / <span class="pending">PENDING</span></td><td class="no">N 57%</td><td><span class="tag-src">T2</span></td>
+          </tr>
+          <tr>
+            <td><span class="fx-name">Sparta Rotterdam v Utrecht</span><span class="fx-league">Eredivisie</span></td>
+            <td>1 · 55%</td><td>O81 / O52</td><td class="yes">Y 60%</td><td><span class="tag-src">T1</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="the-singles">
+  <div class="wrap">
+    <div class="section-eyebrow">Part 3</div>
+    <h2 class="section-title">Singles</h2>
+    <p class="section-desc">One market, one line, no accumulator risk — for legs the board rates highly enough to stand alone.</p>
+
+    <div class="densitybar">
+      <span class="densitybar-label">Board density</span>
+      <div class="density-pills">
+        <button class="density-pill" data-density="lean" type="button">Lean</button>
+        <button class="density-pill on" data-density="trimmed" type="button">Trimmed</button>
+        <button class="density-pill" data-density="full" type="button">Full</button>
+      </div>
+    </div>
+
+    <div class="density-view" data-group="singles" data-for="lean">
+      <div class="single-line">
+        <span class="sl-fixture">Lyon — Angers</span>
+        <span class="sl-market">1X2 — Lyon</span>
+        <span class="sl-price">1.55</span>
+        <span class="sl-code">L4TXPN</span>
+      </div>
+      <div class="single-line">
+        <span class="sl-fixture">Midtjylland — Silkeborg</span>
+        <span class="sl-market">BTTS — Yes</span>
+        <span class="sl-price">1.72</span>
+        <span class="sl-code pending">No data — pending</span>
+      </div>
+      <div class="single-line">
+        <span class="sl-fixture">Ajax — FC Twente</span>
+        <span class="sl-market">O/U 1.5 — Over</span>
+        <span class="sl-price">1.38</span>
+        <span class="sl-code">AJ8KRM</span>
+      </div>
+      <div class="single-line">
+        <span class="sl-fixture">Celtic — St Johnstone</span>
+        <span class="sl-market">DC — 1X</span>
+        <span class="sl-price">1.14</span>
+        <span class="sl-code pending">No data — pending</span>
+      </div>
+    </div>
+
+    <div class="density-view active" data-group="singles" data-for="trimmed">
+    <div class="singles-grid">
+      <div class="single-card reveal">
+        <div class="single-league">Ligue 1</div>
+        <div class="single-fixture">Lyon — Angers</div>
+        <div class="single-dial-row">
+          <svg class="single-dial" width="48" height="48" viewBox="0 0 48 48" data-value="68" data-radius="19">
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#26392f" stroke-width="4"/>
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#e8a33d" stroke-width="4" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 24 24)"/>
+            <text x="24" y="28" text-anchor="middle">68%</text>
+          </svg>
+          <div class="single-data"><span class="mkt">1X2 — Lyon</span><br>DEPLOY <b>1.55+</b></div>
+        </div>
+      </div>
+      <div class="single-card reveal">
+        <div class="single-league">Danish Superliga</div>
+        <div class="single-fixture">Midtjylland — Silkeborg</div>
+        <div class="single-dial-row">
+          <svg class="single-dial" width="48" height="48" viewBox="0 0 48 48" data-value="61" data-radius="19">
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#26392f" stroke-width="4"/>
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#e8a33d" stroke-width="4" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 24 24)"/>
+            <text x="24" y="28" text-anchor="middle">61%</text>
+          </svg>
+          <div class="single-data"><span class="mkt">BTTS — Yes</span><br>DEPLOY <b>1.72+</b></div>
+        </div>
+      </div>
+      <div class="single-card reveal">
+        <div class="single-league">Eredivisie</div>
+        <div class="single-fixture">Ajax — FC Twente</div>
+        <div class="single-dial-row">
+          <svg class="single-dial" width="48" height="48" viewBox="0 0 48 48" data-value="74" data-radius="19">
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#26392f" stroke-width="4"/>
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#e8a33d" stroke-width="4" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 24 24)"/>
+            <text x="24" y="28" text-anchor="middle">74%</text>
+          </svg>
+          <div class="single-data"><span class="mkt">O/U 1.5 — Over</span><br>DEPLOY <b>1.38+</b></div>
+        </div>
+      </div>
+      <div class="single-card reveal">
+        <div class="single-league">Scottish Premiership</div>
+        <div class="single-fixture">Celtic — St Johnstone</div>
+        <div class="single-dial-row">
+          <svg class="single-dial" width="48" height="48" viewBox="0 0 48 48" data-value="88" data-radius="19">
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#26392f" stroke-width="4"/>
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#e8a33d" stroke-width="4" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 24 24)"/>
+            <text x="24" y="28" text-anchor="middle">88%</text>
+          </svg>
+          <div class="single-data"><span class="mkt">Dbl chance — 1X</span><br>DEPLOY <b>1.14+</b></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="density-view" data-group="singles" data-for="full">
+    <div class="singles-grid">
+      <div class="single-card">
+        <div class="single-league">Ligue 1</div>
+        <div class="single-fixture">Lyon — Angers</div>
+        <div class="single-dial-row">
+          <svg class="single-dial" width="48" height="48" viewBox="0 0 48 48" data-value="68" data-radius="19">
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#26392f" stroke-width="4"/>
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#e8a33d" stroke-width="4" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 24 24)"/>
+            <text x="24" y="28" text-anchor="middle">68%</text>
+          </svg>
+          <div class="single-data"><span class="mkt">1X2 — Lyon</span><br>DEPLOY <b>1.55+</b></div>
+        </div>
+        <div class="single-ev">EV <b>+5.4%</b> · Src <b>T1</b></div>
+      </div>
+      <div class="single-card">
+        <div class="single-league">Danish Superliga</div>
+        <div class="single-fixture">Midtjylland — Silkeborg</div>
+        <div class="single-dial-row">
+          <svg class="single-dial" width="48" height="48" viewBox="0 0 48 48" data-value="61" data-radius="19">
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#26392f" stroke-width="4"/>
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#e8a33d" stroke-width="4" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 24 24)"/>
+            <text x="24" y="28" text-anchor="middle">61%</text>
+          </svg>
+          <div class="single-data"><span class="mkt">BTTS — Yes</span><br>DEPLOY <b>1.72+</b></div>
+        </div>
+        <div class="single-ev">EV <b>+4.9%</b> · Src <b>T1</b></div>
+      </div>
+      <div class="single-card">
+        <div class="single-league">Eredivisie</div>
+        <div class="single-fixture">Ajax — FC Twente</div>
+        <div class="single-dial-row">
+          <svg class="single-dial" width="48" height="48" viewBox="0 0 48 48" data-value="74" data-radius="19">
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#26392f" stroke-width="4"/>
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#e8a33d" stroke-width="4" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 24 24)"/>
+            <text x="24" y="28" text-anchor="middle">74%</text>
+          </svg>
+          <div class="single-data"><span class="mkt">O/U 1.5 — Over</span><br>DEPLOY <b>1.38+</b></div>
+        </div>
+        <div class="single-ev">EV <b>+2.1%</b> · Src <b>T1</b></div>
+      </div>
+      <div class="single-card">
+        <div class="single-league">Scottish Premiership</div>
+        <div class="single-fixture">Celtic — St Johnstone</div>
+        <div class="single-dial-row">
+          <svg class="single-dial" width="48" height="48" viewBox="0 0 48 48" data-value="88" data-radius="19">
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#26392f" stroke-width="4"/>
+            <circle cx="24" cy="24" r="19" fill="none" stroke="#e8a33d" stroke-width="4" stroke-linecap="round"
+              class="dial-fill" transform="rotate(-90 24 24)"/>
+            <text x="24" y="28" text-anchor="middle">88%</text>
+          </svg>
+          <div class="single-data"><span class="mkt">Dbl chance — 1X</span><br>DEPLOY <b>1.14+</b></div>
+        </div>
+        <div class="single-ev">EV <b>+0.3%</b> · Src <b>T2</b></div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-note">All capital deployment decisions rest solely with the Architect. This board is read-only intelligence — never a place to place a bet from. Phase 3 opens only once thirty logged paper legs show a positive mean CLV against closing lines.</p>
+
+    <div class="foot-bottom">
+      <span>OLP·XDV v303.15</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+  // Motion One enhancement layer — vanilla DOM, no React.
+  // Falls back to native CSS animations if the module fails to load.
+  try {
+    const { animate, inView, scroll } = await import('https://cdn.jsdelivr.net/npm/motion@13.1.0/+esm');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---------- gauge data-fill (no animation, pure state) ----------
+    function fillAllGauges(scope) {
+      scope.querySelectorAll('.dial, .single-dial').forEach((svg) => {
+        const r = parseFloat(svg.dataset.radius);
+        const value = parseFloat(svg.dataset.value);
+        if (!r || Number.isNaN(value)) return;
+        const c = 2 * Math.PI * r;
+        const fill = svg.querySelector('.dial-fill');
+        if (!fill) return;
+        fill.style.strokeDasharray = c;
+        fill.style.strokeDashoffset = c;
+        fill.dataset.target = c * (1 - value / 100);
+      });
+      scope.querySelectorAll('.mkt-bar-fill, .edge-fill').forEach((bar) => {
+        if (bar.dataset.value !== undefined) bar.style.width = bar.dataset.value + '%';
+      });
+    }
+
+    if (reduceMotion) {
+      // No animation — just fill the gauges/bars once.
+      fillAllGauges(document);
+      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('show'));
+      document.querySelectorAll('.density-view.active').forEach((v) => v.classList.add('in'));
+    } else {
+      // ---------- 1. staggered scroll reveals ----------
+      document.querySelectorAll('.reveal').forEach((el) => {
+        inView(el, () => {
+          animate(
+            el,
+            { opacity: [0, 1], transform: ['translateY(14px)', 'none'] },
+            { duration: 0.6, easing: [0.16, 1, 0.3, 1] }
+          );
+        });
+      });
+
+      // ---------- 2. dial fill animation ----------
+      document.querySelectorAll('.dial, .single-dial').forEach((svg) => {
+        const r = parseFloat(svg.dataset.radius);
+        const value = parseFloat(svg.dataset.value);
+        if (!r || Number.isNaN(value)) return;
+        const c = 2 * Math.PI * r;
+        const fill = svg.querySelector('.dial-fill');
+        if (!fill) return;
+        const target = c * (1 - value / 100);
+
+        inView(svg, () => {
+          animate(
+            fill,
+            { strokeDasharray: c, strokeDashoffset: [c, target] },
+            { duration: 1.1, easing: [0.16, 1, 0.3, 1] }
+          );
+        });
+      });
+
+      // ---------- 3. market bar + edge strip fill animation ----------
+      document.querySelectorAll('.mkt-bar-fill, .edge-fill').forEach((bar) => {
+        const value = parseFloat(bar.dataset.value);
+        if (Number.isNaN(value)) return;
+        inView(bar, () => {
+          animate(
+            bar,
+            { width: ['0%', value + '%'] },
+            { duration: 0.9, easing: [0.16, 1, 0.3, 1] }
+          );
+        });
+      });
+
+      // ---------- 4. density-view cross-fade transitions ----------
+      document.querySelectorAll('.densitybar').forEach((bar) => {
+        bar.addEventListener('click', (e) => {
+          const btn = e.target.closest('.density-pill');
+          if (!btn) return;
+          const section = bar.closest('.section');
+          const density = btn.dataset.density;
+          section.querySelectorAll('.density-pill').forEach((p) => p.classList.toggle('on', p === btn));
+          section.querySelectorAll('.density-view').forEach((v) => {
+            if (v.dataset.for === density) {
+              v.classList.add('active');
+              animate(
+                v,
+                { opacity: [0, 1], transform: ['translateY(8px)', 'none'] },
+                { duration: 0.35, easing: 'ease-out' }
+              );
+              requestAnimationFrame(() => {
+                fillAllGauges(v);
+                v.querySelectorAll('.dial-fill').forEach((fill) => {
+                  if (fill.dataset.target !== undefined) {
+                    const c = parseFloat(fill.style.strokeDasharray) || 0;
+                    animate(fill, { strokeDashoffset: [c, parseFloat(fill.dataset.target)] }, { duration: 1.1, easing: [0.16, 1, 0.3, 1] });
+                  }
+                });
+                v.querySelectorAll('.mkt-bar-fill, .edge-fill').forEach((bar) => {
+                  const value = parseFloat(bar.dataset.value);
+                  if (!Number.isNaN(value)) animate(bar, { width: ['0%', value + '%'] }, { duration: 0.9, easing: [0.16, 1, 0.3, 1] });
+                });
+                v.querySelectorAll('.reveal').forEach((el) => {
+                  animate(el, { opacity: [0, 1], transform: ['translateY(14px)', 'none'] }, { duration: 0.6, easing: [0.16, 1, 0.3, 1] });
+                });
+              });
+            } else {
+              animate(v, { opacity: [1, 0] }, { duration: 0.2, easing: 'ease-in' }).finished.then(() => {
+                v.classList.remove('active');
+                v.classList.remove('in');
+              });
+            }
+          });
+        });
+      });
+      document.querySelectorAll('.density-view.active').forEach((v) => {
+        v.classList.add('in');
+        fillAllGauges(v);
+      });
+
+      // ---------- 5. tab scroll + active-state spy ----------
+      document.querySelectorAll('[data-scroll-target]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = document.getElementById(btn.dataset.scrollTarget);
+          if (!target) return;
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+      const navPills = document.querySelectorAll('.tabnav .pill');
+      navPills.forEach((p) => {
+        p.addEventListener('click', () => navPills.forEach((x) => x.classList.toggle('on', x === p)));
+      });
+      const trackedSections = ['top','the-call','the-scan','the-singles'].map((id) => document.getElementById(id)).filter(Boolean);
+      const spy = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const id = e.target.id;
+            navPills.forEach((p) => p.classList.toggle('on', p.dataset.scrollTarget === id));
+          }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      trackedSections.forEach((s) => spy.observe(s));
+    }
+  } catch (err) {
+    // Motion One failed to load (e.g. offline) — fall back to vanilla CSS.
+    console.warn('Motion One unavailable, using CSS fallback:', err.message);
+    document.querySelectorAll('.dial, .single-dial').forEach((svg) => {
+      const r = parseFloat(svg.dataset.radius);
+      const value = parseFloat(svg.dataset.value);
+      if (!r || Number.isNaN(value)) return;
+      const c = 2 * Math.PI * r;
+      const fill = svg.querySelector('.dial-fill');
+      if (fill) { fill.style.strokeDasharray = c; fill.style.strokeDashoffset = c * (1 - value / 100); }
+    });
+    document.querySelectorAll('.mkt-bar-fill, .edge-fill').forEach((bar) => {
+      if (bar.dataset.value !== undefined) bar.style.width = bar.dataset.value + '%';
+    });
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('show'));
+    document.querySelectorAll('.density-view.active').forEach((v) => v.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>

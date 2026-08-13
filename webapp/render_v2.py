@@ -627,9 +627,102 @@ def _scan_row(bf: dict, scores: dict) -> str:
             f'<td>{live}</td></tr>')
 
 
+def _scan_card(bf: dict, scores: dict, dense: bool = False) -> str:
+    """A scan card (Trimmed/Full) — same grammar as call cards: league kicker,
+    fixture, MODEL % dial, market @ best price, all-market bars, breakeven strip,
+    live score badge. Honest NO DATA — PENDING for missing fields."""
+    fixture = bf.get("fixture", "")
+    lg = _league_of(fixture)
+    probs = bf.get("probs") or {}
+    ph, pd, pa = probs.get("p_home"), probs.get("p_draw"), probs.get("p_away")
+    best_p = max(v for v in (ph, pd, pa) if v is not None) if None not in (ph, pd, pa) else None
+    market_name = "1X2"  # primary market shown
+    price = None
+    if ph is not None and pd is not None and pa is not None:
+        if ph == best_p:
+            price = round(1 / ph, 2) if ph > 0 else None
+            market_name = "Home"
+        elif pd == best_p:
+            price = round(1 / pd, 2) if pd > 0 else None
+            market_name = "Draw"
+        else:
+            price = round(1 / pa, 2) if pa > 0 else None
+            market_name = "Away"
+    prob = bf.get("best_model_prob", best_p)
+    deploy = bf.get("mes_trigger_price")
+    reveal = "" if dense else " reveal"
+    league_label = lg
+    prov = _prov_tag(bf)
+
+    # Live score
+    home, away, _ = _teams(bf)
+    key = f"{home}|{away}" if home and away and away != "—" else _short_fixture(fixture)
+    score = ""
+    for k, v in (scores or {}).items():
+        if k.startswith(key + "|"):
+            score = v
+            break
+    live_badge = (f'<span class="f-live">{html.escape(score)}</span>'
+                  if score else '<span class="f-live">—</span>')
+
+    deploy_html = (f'<br>DEPLOY <b>@{deploy:.2f}+</b>'
+                   if deploy is not None else "")
+    note = ""
+    if deploy is not None:
+        note = (f'<p class="call-note">Deploy at {deploy:.2f}+ — breakeven, not a '
+                f'live quote. Deploy at this price or better.</p>')
+    model_pct = _pct_of(prob)
+
+    return (f'<article class="call-card{reveal}">'
+            f'<div class="call-league">{html.escape(league_label)}</div>{prov}'
+            f'{live_badge}'
+            f'<h3 class="call-fixture">{html.escape(_short_fixture(fixture))}</h3>'
+            f'<div class="call-market">{html.escape(market_name)} @ {_price2(price)}</div>'
+            f'<div class="call-dial-row">{_dial(prob)}'
+            f'<div class="call-data">MODEL <b>{model_pct}</b>{deploy_html}</div></div>'
+            f'{note}'
+            f'{_market_bars(probs)}'
+            f'{_edge_strip(prob, deploy)}'
+            f'</article>')
+
+
+def _scan_cards(payload: dict, scores: dict, dense: bool = False) -> str:
+    """Scan cards at Trimmed or Full density — same fields as call cards."""
+    board = payload.get("board", [])
+    rated = [bf for bf in board if bf.get("probs")]
+    unrated = [bf for bf in board if not bf.get("probs")]
+    groups: dict[str, list] = {}
+    for bf in rated:
+        groups.setdefault(_league_of(bf.get("fixture", "")), []).append(bf)
+
+    cards = []
+    for league, bfs in sorted(groups.items()):
+        cards.append(f'<div class="scan-league-header">'
+                     f'<span>{html.escape(league)} ({len(bfs)})</span></div>')
+        for bf in bfs:
+            cards.append(_scan_card(bf, scores, dense=dense))
+
+    if unrated:
+        cards.append(f'<div class="scan-league-header">'
+                     f'<span>NO DATA — PENDING ({len(unrated)})</span></div>')
+        for bf in unrated:
+            fix = _short_fixture(bf.get("fixture", ""))
+            lg = _league_of(bf.get("fixture", ""))
+            cards.append(
+                f'<article class="call-card{"" if dense else " reveal"} pending">'
+                f'<div class="call-league">{html.escape(lg)}</div>'
+                f'<h3 class="call-fixture">{html.escape(fix)}</h3>'
+                f'<div class="call-market pending">NO DATA — PENDING</div>'
+                f'</article>')
+
+    grid = "call-grid dense" if dense else "call-grid"
+    return f'<div class="{grid}">{"".join(cards)}</div>' if cards \
+        else '<div class="density-note">No fixtures on this board.</div>'
+
+
 def _feed_scan(payload: dict, scores: dict, pill_base: str) -> str:
-    """Part 2 — THE SCAN: date pills + the league-grouped table with live-score
-    badges and honest NO DATA — PENDING rows (HR35)."""
+    """Part 2 — THE SCAN: date pills + three-density rich cards (Lean/Trimmed/Full),
+    matching the Call layout with dials, market bars, edge strips, and live scores."""
     board = payload.get("board", [])
     d = payload.get("date", _date.today().isoformat())
     today = _date.today().isoformat()
@@ -649,6 +742,7 @@ def _feed_scan(payload: dict, scores: dict, pill_base: str) -> str:
                      f"{label}<span class='date-pill-sub'>{sub}</span></a>")
     datepills = f'<div class="datepills">{"".join(pills)}</div>'
 
+    # Lean density: compact table (the original scan table)
     rated = [bf for bf in board if bf.get("probs")]
     unrated = [bf for bf in board if not bf.get("probs")]
     groups: dict[str, list] = {}
@@ -673,14 +767,23 @@ def _feed_scan(payload: dict, scores: dict, pill_base: str) -> str:
                 f'<span class="fx-league">{html.escape(lg)}</span></td>'
                 f'<td class="pending" colspan="4">NO DATA — PENDING</td></tr>')
 
-    if not rows:
-        return datepills + '<div class="density-note">No fixtures on this board.</div>'
+    lean_table = (f'<div class="scan-table-wrap"><table class="scan">'
+                  f'<thead><tr><th>Fixture</th><th>1X2</th><th>O1.5 / O2.5</th>'
+                  f'<th>BTTS</th><th>Live</th></tr></thead>'
+                  f'<tbody>{"".join(rows)}</tbody></table></div>')
 
-    table = (f'<div class="scan-table-wrap"><table class="scan">'
-             f'<thead><tr><th>Fixture</th><th>1X2</th><th>O1.5 / O2.5</th>'
-             f'<th>BTTS</th><th>Live</th></tr></thead>'
-             f'<tbody>{"".join(rows)}</tbody></table></div>')
-    return datepills + table
+    trimmed = _scan_cards(payload, scores, dense=False)
+    full = _scan_cards(payload, scores, dense=True)
+
+    return (f'{datepills}'
+            f'{_density_bar()}'
+            f'<div class="density-note">Lean mirrors the Telegram production '
+            f'ticket. Trimmed and Full show the same public fields — the full '
+            f'market family, the model\'s breakeven, and live scores. No '
+            f'EV, no source tier on the public board.</div>'
+            f'<div class="density-view" data-group="scan" data-for="lean">{lean_table}</div>'
+            f'<div class="density-view active" data-group="scan" data-for="trimmed">{trimmed}</div>'
+            f'<div class="density-view" data-group="scan" data-for="full">{full}</div>')
 
 
 def _scan_section(payload: dict, scores: dict, pill_base: str) -> str:
@@ -691,6 +794,7 @@ def _scan_section(payload: dict, scores: dict, pill_base: str) -> str:
             f'<p class="section-desc">Every fixture, every approved league, '
             f'every market — scored whether or not it deploys.</p>'
             f'{_feed_scan(payload, scores, pill_base)}</div></section>')
+
 
 
 def _single_card(leg0: dict, code: str | None, bf: dict | None,

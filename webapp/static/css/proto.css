@@ -339,6 +339,44 @@ a{ color: inherit; }
 .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ---------- THE SCAN ---------- */
+/* League header band for scan card layout (replaces table rows) */
+.scan-league-header{
+  grid-column: 1 / -1;
+  margin: 24px 0 0;
+  padding: 10px 16px;
+  background: rgba(232,163,61,0.06);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.scan-league-header:first-child{ margin-top: 0; }
+/* Live-score badge in scan card (absolute positioned, top-right) */
+.call-card .f-live{
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--pitch-night);
+  background: var(--amber);
+  border-radius: 999px;
+  padding: 3px 10px;
+  letter-spacing: 0.03em;
+}
+.call-card .f-live:empty,
+.call-card .f-live:not(:empty):contains('—'){}
+.call-card.pending{
+  border-style: dashed;
+}
+.call-card.pending .call-market{ color: var(--clay); font-style: italic; }
+/* Lean scan table still uses the table layout inside its density-view */
+.density-view[data-for="leadn"] .scan-table-wrap,
+.density-view[data-for="lean"] .scan-table-wrap{ margin-top: 0; }
+
 .datepills{ margin-top: 28px; display:flex; gap:8px; flex-wrap:wrap; }
 .date-pill{
   font-family: var(--mono); font-size:11px; letter-spacing:0.04em; text-decoration:none;

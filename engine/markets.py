@@ -136,23 +136,40 @@ def settle(key: str, fthg: int, ftag: int) -> Optional[bool]:
 
 
 def model_prob(key: str, probs) -> Optional[float]:
-    """The model's probability for this market, from a FixtureProbabilities."""
+    """The model's probability for this market, from a FixtureProbabilities.
+
+    Returns None if the source probability is None (e.g. ClubElo stretch
+    ratings only provide 1X2, goals/BTTS markets are honestly unpriced)."""
     if probs is None:
         return None
-    return {
+
+    # Direct probabilities
+    direct = {
         HOME: probs.p_home,
         DRAW: probs.p_draw,
         AWAY: probs.p_away,
         OVER_25: probs.p_over_25,
-        UNDER_25: 1.0 - probs.p_over_25,
         OVER_15: probs.p_over_15,
-        UNDER_15: 1.0 - probs.p_over_15,
         BTTS_YES: probs.p_btts_yes,
-        BTTS_NO: 1.0 - probs.p_btts_yes,
-        DC_1X: probs.p_home + probs.p_draw,
-        DC_X2: probs.p_draw + probs.p_away,
-        DC_12: probs.p_home + probs.p_away,
-    }.get(key)
+    }
+    if key in direct:
+        return direct[key]
+
+    # Derived probabilities — only compute if source is not None
+    if key == UNDER_25:
+        return 1.0 - probs.p_over_25 if probs.p_over_25 is not None else None
+    if key == UNDER_15:
+        return 1.0 - probs.p_over_15 if probs.p_over_15 is not None else None
+    if key == BTTS_NO:
+        return 1.0 - probs.p_btts_yes if probs.p_btts_yes is not None else None
+    if key == DC_1X:
+        return (probs.p_home + probs.p_draw) if probs.p_home is not None and probs.p_draw is not None else None
+    if key == DC_X2:
+        return (probs.p_draw + probs.p_away) if probs.p_draw is not None and probs.p_away is not None else None
+    if key == DC_12:
+        return (probs.p_home + probs.p_away) if probs.p_home is not None and probs.p_away is not None else None
+
+    return None
 
 
 def quote(key: str, fixture_odds) -> Optional[object]:

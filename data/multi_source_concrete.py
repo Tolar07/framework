@@ -188,10 +188,16 @@ class FootballDataOrgResultsSource(DataSource):
 
     def fetch(self, **kwargs) -> list:
         league = kwargs["league"]
-        season = kwargs.get("season") or kwargs.get("fixtures_season")
-        # season may be a framework code ('2526') or a year (2025)
-        if isinstance(season, str) and len(season) == 4 and season.isdigit():
-            # '2526' -> 2025 (football-data.org uses the start year)
+        # football-data.org provides CURRENT-SEASON results. The fit season
+        # (e.g. '2526') is last season's data; the fixtures season ('2627')
+        # is the current season with promoted clubs. Prefer fixtures_season.
+        fixtures_season = kwargs.get("fixtures_season")
+        season = kwargs.get("season")
+        if fixtures_season and isinstance(fixtures_season, str) and len(fixtures_season) == 4 and fixtures_season.isdigit():
+            # '2627' -> 2026 (football-data.org uses the start year)
+            season_year = int(fixtures_season[:2]) + 2000
+        elif isinstance(season, str) and len(season) == 4 and season.isdigit():
+            # fallback: fit season '2526' -> 2025
             season_year = int(season[:2]) + 2000
         elif isinstance(season, int):
             season_year = season

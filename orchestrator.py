@@ -333,6 +333,35 @@ def scan_one_league(league: str, season: str,
                 return _render_unrated_fixtures(
                     league, upcoming_fixtures, fixture_dates), flags
 
+        # Merge current-season results from football-data.org when the primary
+        # CSV lacks them (promoted clubs). The CSV carries last season's data;
+        # football-data.org serves the live current season so a promoted club
+        # becomes rateable through the existing DC machinery once it has ≥4
+        # matches — WITHOUT waiting for api-football paid activation. This is a
+        # COMPLEMENT, never a replace: existing CSV rows stay, and only NEW
+        # teams/matches are added (dedup by date+home+away).
+        try:
+            from data.multi_source_concrete import FootballDataOrgResultsSource
+            fdo = FootballDataOrgResultsSource()
+            fdo_result = fdo.fetch(league=league, season=season, fixtures_season=fixtures_season)
+            fdo_results = fdo_result.get("results", [])
+            if fdo_results:
+                existing = {(r.date, r.home_team, r.away_team)
+                            for r in results}
+                added = 0
+                for r in fdo_results:
+                    key = (r.date, r.home_team, r.away_team)
+                    if key not in existing:
+                        results.append(r)
+                        existing.add(key)
+                        added += 1
+                if added:
+                    flags.append(
+                        f"{league}: +{added} current-season results "
+                        f"from football-data.org (promoted-club fix)")
+        except Exception:
+            pass  # fdo unavailable/not-covered is a miss, not a new error
+
     if skipped:
         flags.append(f"{league}: {len(skipped)} source rows skipped/malformed")
 

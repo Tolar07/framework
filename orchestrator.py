@@ -279,12 +279,27 @@ def scan_one_league(league: str, season: str,
                 sb_pairs = sportybet_fixtures_to_pairs(
                     league, days_ahead=45, max_age_hours=48)
                 if sb_pairs:
+                    # Apply the same TEAM_ALIASES resolution that the
+                    # TheSportsDB path applies inside fetch_upcoming. The
+                    # SportyBet cache stores model_home/model_away via
+                    # resolve_team_to_model, but that table only covers
+                    # domestic leagues — continental qualifiers (Conference
+                    # League, Europa League) come through with raw SportyBet
+                    # spellings that map_team would have resolved if the
+                    # thesportsdb source had been used. Without this, e.g.
+                    # "Copenhagen" stays unmapped though the alias
+                    # "Copenhagen" -> "FC Copenhagen" exists (HR35: a real
+                    # mapping, never a guess).
+                    from data.thesportsdb_fixtures import map_team
+                    sb_pairs = [(map_team(league, h), map_team(league, a))
+                                for h, a in sb_pairs]
                     upcoming_fixtures = sb_pairs
                     for f in load_sportybet_fixtures(
                             league, days_ahead=45, max_age_hours=48):
                         if f.kickoff_utc:
-                            fixture_dates[(f.home_team, f.away_team)] = \
-                                f.kickoff_utc[:10]
+                            mh = map_team(league, f.home_team)
+                            ma = map_team(league, f.away_team)
+                            fixture_dates[(mh, ma)] = f.kickoff_utc[:10]
                     flags.append(
                         f"{league}: fixtures via SportyBet cache "
                         f"({len(sb_pairs)} — primary sources failed)")

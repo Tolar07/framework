@@ -16,6 +16,10 @@ import time
 from pathlib import Path
 from unittest import mock
 
+# Fix __file__ when running via exec
+if '__file__' not in globals():
+    __file__ = r'c:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\tests\api_football_plan_test.py'
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import data.api_football_plan as plan_mod

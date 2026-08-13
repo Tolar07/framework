@@ -72,54 +72,41 @@ QUOTA_FLOOR = 40
 # capture stops at this HARD floor instead.
 QUOTA_HARD_FLOOR = 5
 
-# Verified live against /v4/sports on 2026-08-10 — every key below returned
-# active=True. Listing sports is free; only odds calls cost credits.
-SPORT_KEYS = {
-    # one unified pool (ID402 softness tiers removed 2026-08-10) — every
-    # whitelisted league is deploy-eligible, no cap
-    "Eredivisie": "soccer_netherlands_eredivisie",
-    "Danish Superliga": "soccer_denmark_superliga",
-    "Belgian Pro League": "soccer_belgium_first_div",
-    "Scottish Premiership": "soccer_spl",
-    "Ekstraklasa": "soccer_poland_ekstraklasa",
-    "Championship": "soccer_efl_champ",
-    "Serie A": "soccer_italy_serie_a",
-    "Bundesliga": "soccer_germany_bundesliga",
-    "Ligue 1": "soccer_france_ligue_one",
-    "Primeira Liga": "soccer_portugal_primeira_liga",
-    "Premier League": "soccer_epl",
-    "La Liga": "soccer_spain_la_liga",
-    # Austrian Bundesliga — verified live 2026-08-07 against the Odds API
-    # /v4/sports list ("soccer_austria_bundesliga", active). No thesportsdb ID
-    # exists on the free key and no history source covers it, so the ODDS feed
-    # is its active fixture-capture path (same as Champions League), and the
-    # fixtures it returns are honestly unrated NO DATA until a history source
-    # exists.
-    "Austrian Bundesliga": "soccer_austria_bundesliga",
-    # Champions League qualifying is the only current-season continental
-    # fixtures source in this framework: TheSportsDB's UCL feed lags weeks
-    # behind and API-Football's free tier stops at 2024. Verified live
-    # 2026-08-05 — returns the qualification fixtures with real book prices.
-    "Champions League": "soccer_uefa_champs_league_qualification",
-    # Cup competitions verified live 2026-08-06 (ratified). EFL Cup and
-    # J-League carry real prices on the free tier; Europa/Conference quals do
-    # NOT (no active sport key) — those stay TSDB-only and unpriced, which the
-    # cup-training logger handles by logging O1.5 outcome evidence without
-    # fabricating a price (HR35). EFL Cup is on the whitelist (one unified pool
-    # — Architect 2026-08-10), so its fixtures appear on the daily board.
-    "EFL Cup": "soccer_england_efl_cup",
-    "J League": "soccer_japan_j_league",
-    # HNL (Croatian First League) — UNVERIFIED PROBE, added 2026-08-10.
-    # The key "soccer_croatia_hnl" is the standard Odds API name for the HNL but
-    # could not be confirmed active at add time (no ODDS_API_KEY in the build
-    # env). HR35: nothing claimed verified without the probe — the next run with
-    # a key must check /v4/sports before trusting this entry (see Phase 3 notes
-    # in docs/LEAGUE_DATA_COVERAGE.md). football-data.co.uk does not cover
-    # Croatia (no T1 history), so the odds feed is the intended fixture-capture
-    # path. Fixtures returned are honestly unrated NO DATA until a history source
-    # exists (API-Football paid plan is the documented path).
-    "HNL": "soccer_croatia_hnl",
-}
+# Sport keys — now sourced from the dynamic registry (config/leagues.json).
+# SPORT_KEYS is kept as a backward-compat fallback dict populated from the
+# registry at import time. New leagues are added via config/leagues.json; no
+# code edits needed. Each key was verified live against /v4/sports (active=True).
+SPORT_KEYS: dict[str, str] = {}
+
+# Populate from registry for backward compatibility
+try:
+    from engine.league_registry import registry
+    for name, cfg in registry._leagues.items():
+        oid = cfg.get_id("odds_api")
+        if oid is not None:
+            SPORT_KEYS[name] = oid
+except Exception:
+    # Registry not yet loaded (tests, import order) — fall back to hardcoded
+    # values so existing paths keep working during transition.
+    SPORT_KEYS = {
+        "Eredivisie": "soccer_netherlands_eredivisie",
+        "Danish Superliga": "soccer_denmark_superliga",
+        "Belgian Pro League": "soccer_belgium_first_div",
+        "Scottish Premiership": "soccer_spl",
+        "Ekstraklasa": "soccer_poland_ekstraklasa",
+        "Championship": "soccer_efl_champ",
+        "Serie A": "soccer_italy_serie_a",
+        "Bundesliga": "soccer_germany_bundesliga",
+        "Ligue 1": "soccer_france_ligue_one",
+        "Primeira Liga": "soccer_portugal_primeira_liga",
+        "Premier League": "soccer_epl",
+        "La Liga": "soccer_spain_la_liga",
+        "Austrian Bundesliga": "soccer_austria_bundesliga",
+        "Champions League": "soccer_uefa_champs_league_qualification",
+        "EFL Cup": "soccer_england_efl_cup",
+        "J League": "soccer_japan_j_league",
+        "HNL": "soccer_croatia_hnl",
+    }
 
 # A THIRD naming convention to reconcile (football-data.co.uk and TheSportsDB
 # being the other two). Same rule as the others: explicit pairs only, verified

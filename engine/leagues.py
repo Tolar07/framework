@@ -14,43 +14,25 @@ a future market gate would be honoured automatically, but today it never blocks.
 
 The whitelist itself (ID401) remains the single source of truth for league
 eligibility — a league on it is deploy-eligible, a league off it is not.
+
+Since 2026-08-12 the whitelist is DRIVEN BY the dynamic registry
+(config/leagues.json). WHITELISTED_LEAGUES below is a derived symbol computed
+from the registry so all existing importers keep working without changes.
 """
 from __future__ import annotations
 
-# Section 7.4 — the ID401 whitelist. A single unified pool. Kept sorted; HR34:
-# a league not listed here is never scan- or deploy-eligible.
-# "Conference League" (UEFA Europa Conference League) was added 2026-08-10 —
-# it was already in the cross-league fit pool (BRIDGE_COMPETITIONS, API-Football
-# id 848) and IS modelled; the honest caveat is that its current-season FIXTURES
-# source is still being wired (football-data.co.uk does NOT carry it; see
-# competition_catalogue.py). The name is the framework-internal "Conference
-# League", exactly like "Champions League"/"Europa League" drop the UEFA prefix.
-WHITELISTED_LEAGUES: list[str] = [
-    "Austrian Bundesliga",
-    "Belgian Pro League",
-    "Bundesliga",
-    "Champions League",
-    "Championship",
-    "Conference League",
-    "Danish Superliga",
-    "EFL Cup",
-    "Ekstraklasa",
-    "Eredivisie",
-    "Europa League",
-    "HNL",
-    "La Liga",
-    "Ligue 1",
-    "Premier League",
-    "Primeira Liga",
-    "Scottish Premiership",
-    "Serie A",
-]
+from engine.league_registry import registry
+
+# WHITELISTED_LEAGUES is now derived from the registry — all deploy-eligible
+# leagues, kept sorted for stable ordering. Do NOT edit this list directly;
+# add/remove leagues in config/leagues.json instead.
+WHITELISTED_LEAGUES: list[str] = registry.WHITELISTED_LEAGUES
 
 
 def is_deploy_eligible(league: str) -> bool:
     """A whitelisted league is deploy-eligible (unified pool, no tiers). HR34
     still excludes a league that is not on the whitelist at all."""
-    return league in WHITELISTED_LEAGUES
+    return registry.is_eligible(league)
 
 
 def _confidence(c) -> float:

@@ -51,6 +51,15 @@ def _import_telegram_commands():
     import output.telegram_commands as tc
     return tc
 
+def _load_league_groups():
+    """Load league groups from config/league_groups.json."""
+    import json
+    path = REPO_ROOT / "config" / "league_groups.json"
+    if not path.exists():
+        return {"groups": []}
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
 
 # ============================================================================
 # Data Structures
@@ -153,6 +162,12 @@ class CEOAgent:
         elif cmd in ("daily", "d", "log"):
             return self._cmd_daily(arg)
 
+        elif cmd in ("league-groups", "lg", "groups"):
+            return self._cmd_league_groups()
+
+        elif cmd in ("coverage", "cov", "league-coverage"):
+            return self._cmd_coverage()
+
         else:
             return Reply(
                 f"Unknown CEO command: /ceo {command}\n\n"
@@ -170,6 +185,7 @@ class CEOAgent:
             ("/ceo health", "/ceo gate"),
             ("/ceo verify", "/ceo agents"),
             ("/ceo board", "/ceo daily"),
+            ("/ceo groups", "/ceo coverage"),
         )
 
     def _cmd_help(self, _keyboard) -> Any:
@@ -186,6 +202,8 @@ class CEOAgent:
             "• `/ceo agents` — List active sub-agents & last activity\n"
             "• `/ceo board` — Re-send today's board with production bets\n"
             "• `/ceo daily` — Show today's run log summary\n"
+            "• `/ceo groups` — Show league groups & per-group stewards\n"
+            "• `/ceo coverage` — Run league coverage audit per group\n"
             "• `/ceo help` — This reference\n\n"
             "**Daemons (auto-scheduled):**\n"
             "• 07:00 — Daily Board (run_daily.py)\n"
@@ -436,6 +454,123 @@ class CEOAgent:
             keyboard=self._help_keyboard(tc._keyboard)
         )
 
+    def _cmd_league_groups(self) -> Any:
+        """Show league groups and their assigned stewards."""
+        tc = _import_telegram_commands()
+        Reply = tc.Reply
+
+        try:
+            cfg = _load_league_groups()
+            groups = cfg.get("groups", [])
+
+            if not groups:
+                return Reply(
+                    "⚠️ No league groups configured.\n\n"
+                    "Expected: config/league_groups.json",
+                    keyboard=self._help_keyboard(tc._keyboard)
+                )
+
+            lines = ["⚽ **League Groups & Stewards**\n"]
+            total_leagues = 0
+
+            for g in groups:
+                gid = g.get("id", "?")
+                name = g.get("name", gid)
+                leagues = g.get("leagues", [])
+                profile = g.get("coverage_profile", "?")
+                priority = g.get("priority", "?")
+                agents = g.get("agents", [])
+
+                total_leagues += len(leagues)
+                lines.append(f"**{name}** (P{priority})")
+                lines.append(f"  {len(leagues)} leagues · {profile}")
+                lines.append(f"  Agents: {', '.join(agents)}")
+
+            lines.append(f"\n📊 **Total**: {total_leagues} leagues across {len(groups)} groups")
+
+            return Reply(
+                "\n".join(lines),
+                keyboard=self._help_keyboard(tc._keyboard)
+            )
+        except Exception as e:
+            return Reply(
+                f"❌ League groups error: {e}",
+                keyboard=self._help_keyboard(tc._keyboard)
+            )
+
+    def _cmd_coverage(self) -> Any:
+        """Run league coverage audit per group and report (in-process, fast)."""
+        tc = _import_telegram_commands()
+        Reply = tc.Reply
+
+        try:
+            cfg = _load_league_groups()
+            groups = cfg.get("groups", [])
+
+            if not groups:
+                return Reply(
+                    "⚠️ No league groups configured.",
+                    keyboard=self._help_keyboard(tc._keyboard)
+                )
+
+            # Import and run audit in-process once for all leagues
+            import sys
+            sys.path.insert(0, str(self.repo_root))
+            from league_audit import audit
+
+            fit_season = "2526"
+            fixtures_season = "2627"
+            check_odds = False  # Fast mode
+
+            # Run audit for all whitelisted leagues once
+            from engine.leagues import WHITELISTED_LEAGUES
+            all_results = {}
+            for league in WHITELISTED_LEAGUES:
+                try:
+                    all_results[league] = audit(league, fit_season, fixtures_season, check_odds)
+                except Exception as e:
+                    all_results[league] = {"blockers": [f"audit failed: {str(e)[:60]}"], "deploy_eligible": True}
+
+            # Now slice by group
+            lines = ["🔍 **League Coverage Audit**\n"]
+
+            for g in groups:
+                gid = g.get("id", "?")
+                name = g.get("name", gid)
+                leagues = g.get("leagues", [])
+                priority = g.get("priority", "?")
+
+                ready = blocked = 0
+                details = []
+
+                for league in leagues:
+                    r = all_results.get(league, {})
+                    if not r.get("blockers"):
+                        ready += 1
+                        details.append(f"  ✅ {league}")
+                    else:
+                        blocked += 1
+                        # Show first blocker
+                        blocker = r.get("blockers", ["unknown"])[0]
+                        details.append(f"  ⚠️ {league}: {blocker[:50]}")
+
+                emoji = "✅" if blocked == 0 else "⚠️" if blocked <= 2 else "❌"
+                lines.append(f"{emoji} **{name}** (P{priority})")
+                lines.append(f"  {ready} ready / {blocked} blocked / {len(leagues)} total")
+                # Show details for blocked leagues
+                if blocked > 0:
+                    lines.extend(details)
+
+            return Reply(
+                "\n".join(lines),
+                keyboard=self._help_keyboard(tc._keyboard)
+            )
+        except Exception as e:
+            return Reply(
+                f"❌ Coverage audit error: {e}",
+                keyboard=self._help_keyboard(tc._keyboard)
+            )
+
     # -------------------------------------------------------------------------
     # Status Aggregation Helpers
     # -------------------------------------------------------------------------
@@ -512,7 +647,7 @@ class CEOAgent:
             return f"📊 **Data Quality**: Error — {e}"
 
     def _get_agent_statuses(self) -> list[AgentStatus]:
-        """Get status of all known sub-agents."""
+        """Get status of all known sub-agents including per-group league stewards."""
         agents = []
 
         # Claude Code agents (check agent_cli.py stats for brain activity)
@@ -553,6 +688,26 @@ class CEOAgent:
 
         for name, typ in daemon_agents:
             agents.append(AgentStatus(name, typ, None, "active"))
+
+        # Per-group league stewards (from league_groups.json)
+        try:
+            cfg = _load_league_groups()
+            groups = cfg.get("groups", [])
+            for g in groups:
+                gid = g.get("id", "?")
+                name = g.get("name", gid)
+                agents_list = g.get("agents", [])
+                league_count = len(g.get("leagues", []))
+                # Show the primary assigned agents for this group
+                if agents_list:
+                    agents.append(AgentStatus(
+                        f"League Steward: {name}",
+                        "league_steward",
+                        gid,
+                        f"active ({league_count} leagues, agents: {', '.join(agents_list)})"
+                    ))
+        except Exception:
+            pass  # Silently skip if config not available
 
         return agents
 

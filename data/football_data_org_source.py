@@ -125,6 +125,41 @@ def _write_cache(path: Path, payload: dict) -> None:
         pass  # cache write failure must never fail the fetch
 
 
+# football-data.org uses formal club names (e.g. "AFC Ajax", "SC
+# Cambuur-Leeuwarden") while football-data.co.uk CSVs use the short
+# canonical names the DC fit pools on ("Ajax", "Cambuur"). Without
+# normalization the merged results create ghost teams the fit can't
+# match to the fixture feed. This map aligns football-data.org names
+# to the football-data.co.uk pool keys. Verified per-league against
+# both sources' actual team lists (2026-08-13).
+TEAM_NAME_MAP: dict[str, dict[str, str]] = {
+    "Eredivisie": {
+        "AFC Ajax": "Ajax",
+        "AZ": "AZ Alkmaar",
+        "Feyenoord Rotterdam": "Feyenoord",
+        "FC Groningen": "Groningen",
+        "FC Twente '65": "Twente",
+        "FC Utrecht": "Utrecht",
+        "Fortuna Sittard": "For Sittard",
+        "NEC": "Nijmegen",
+        "PEC Zwolle": "Zwolle",
+        "PSV": "PSV Eindhoven",
+        "SBV Excelsior": "Excelsior",
+        "SC Cambuur-Leeuwarden": "Cambuur",
+        "SC Heerenveen": "Heerenveen",
+        "Telstar 1963": "Telstar",
+        "Willem II Tilburg": "Willem II",
+    },
+}
+
+
+def _normalize_team(league: str, name: str) -> str:
+    """Map a football-data.org team name to the football-data.co.uk
+    pool-canonical name. Unknown names pass through unchanged (a new
+    promotion correctly becomes a new pool key)."""
+    return TEAM_NAME_MAP.get(league, {}).get(name, name)
+
+
 def _parse_match(match: dict, league: str) -> Optional[MatchResult]:
     """football-data.org match object -> MatchResult (football-data.co.uk schema)."""
     try:
@@ -133,8 +168,8 @@ def _parse_match(match: dict, league: str) -> Optional[MatchResult]:
         if status != "FINISHED":
             return None
 
-        home = match["homeTeam"]["name"]
-        away = match["awayTeam"]["name"]
+        home = _normalize_team(league, match["homeTeam"]["name"])
+        away = _normalize_team(league, match["awayTeam"]["name"])
         score = match.get("score", {})
         ft = score.get("fullTime", {})
         if ft.get("home") is None or ft.get("away") is None:

@@ -171,6 +171,16 @@
           }
         ],
         "description": "Sync project docs to Obsidian vault on session end"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/scripts/hooks/archive-conversation.js\""
+          }
+        ],
+        "description": "Archive conversation transcript to memory/conversations/"
       }
     ]
   },

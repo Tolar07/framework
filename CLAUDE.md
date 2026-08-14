@@ -54,6 +54,27 @@ The CLV number is the only thing that tells the Architect whether this framework
 
 ---
 
+### TOOL NAMING CONVENTION (Claude Code CLI)
+
+**All agents MUST use PascalCase for tool names** — this is a CLI requirement, not repo code:
+
+| Tool | Wrong | Right |
+|------|-------|-------|
+| Read files | `read(...)` | `Read(...)` |
+| Write files | `write(...)` | `Write(...)` |
+| Edit files | `edit(...)` | `Edit(...)` |
+| Search content | `grep(...)` | `Grep(...)` |
+| Find files | `glob(...)` | `Glob(...)` |
+| Run commands | `bash(...)` | `Bash(...)` |
+| Launch agents | `agent(...)` | `Agent(...)` |
+| Task/Subagent | `task(...)` | `Task(...)` |
+
+Lowercase tool names will fail with: `Error: No such tool available: <toolname>`
+
+This applies to **every tool call in every agent session** — no exceptions.
+
+---
+
 This repo is worked by **more than one Claude session at a time**. Sessions
 cannot message each other. **Git is the only sync mechanism** — the other
 session edits the same files and commits independently, and it may do so

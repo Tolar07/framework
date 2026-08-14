@@ -346,7 +346,11 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
     booking code on ONE line, no note/footer lines. The honest-edge/capital
     line lives in the notify envelope, not here. No eligible bets -> an honest
     'no production pick today' note (a quiet day is a correct result, not a
-    failure)."""
+    failure).
+
+    ID407 (proposed) — Accumulator compounding disclosure: any multi-leg acca
+    must show the combined probability (product of leg probabilities) with the
+    explicit label that this is arithmetic, not a framework weakness."""
     today = today or date.today().isoformat()
     lines = [f"🎯 PRODUCTION BETS — {today} (today's fixtures only)", ""]
     accas = ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
@@ -371,6 +375,13 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
         if acca.combined_odds is not None:
             lines.append(f"    Combined {acca.combined_odds:.2f} "
                          f"Booking code: {code or 'NO DATA — PENDING'}")
+        # ID407 — acca compounding disclosure: show combined probability
+        # (product of independent leg probabilities). This is near-certain to
+        # be much lower than any individual leg — this is expected arithmetic,
+        # not a framework weakness.
+        if acca.combined_prob is not None and acca.n_legs > 1:
+            lines.append(f"    Combined prob {acca.combined_prob:.1%} "
+                         f"(product of {acca.n_legs} legs — compounding is arithmetic, not a weakness)")
         else:
             lines.append(f"    Booking code: {code or 'NO DATA — PENDING'}")
 

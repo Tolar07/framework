@@ -1,13 +1,15 @@
 # OLP XDV — Vault Home
 
-> **Read this first — it is the entry point for every session.** The six notes
+> **Read this first — it is the entry point for every session.** The notes
 > below are the persistent memory for the OLP XDV football-betting calibration
 > framework (`olp_xdv_agent/olp_xdv`), pulled from the **actual code** (verified
-> 2026-08-11). If you only read one thing, read this page.
+> 2026-08-11, refreshed 2026-08-13). If you only read one thing, read this page.
 
 ## What OLP XDV is
 A **Phase-3 live** football-betting calibration framework (paper→live transition
-ratified 2026-08-11). A daily pipeline scans **19 whitelisted leagues** (UEFA Super Cup added 2026-08-12), fits
+ratified 2026-08-11). A daily pipeline scans **61 whitelisted leagues** from the
+dynamic registry (`config/leagues.json`, aggressive European expansion ratified
+2026-08-12), fits
 Dixon-Coles + Elo + xG + bookmaker engines into one consensus, builds a board,
 produces a **today-only** bet (Acca A + split accas + singles) priced on
 **SportyBet's own line** with **booking codes**, logs **paper legs with CLV**, and
@@ -16,7 +18,7 @@ Architect turns a booking code into money. Statistical gate: **12/30 legs with
 CLV, mean CLV −1.631% (NOT met)** — the live publish runs on the Architect's
 `ARCHITECT_SIGNOFF` override, side-by-side with paper until CLV turns positive.
 
-## The six notes
+## Core notes
 - **[[Rules.md]]** — every HR (hard rule) and ID (protocol) as coded: number,
   status, and the file/function that implements it. Also the standing
   (un-numbered) rules and the doc-vs-code disagreements.

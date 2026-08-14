@@ -79,12 +79,14 @@ brain = Brain(_tmp / "t.db")
 # Need a settled prediction to test
 from datetime import date as _date, timedelta as _td
 yesterday = (_date.today() - _td(days=1)).isoformat()
+# predicted_at must be within last 7 days for rolling_7d to include it
+run_time = (_date.today() - _td(days=3)).isoformat() + "T12:00:00Z"
 brain._conn.execute("""
     INSERT INTO predictions (run_id, predicted_at, league, fixture, match_date,
         market, model_engine, model_prob, entry_odds, bookmaker, ev,
         on_deploy_shortlist, ft_result, hit)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-""", ("run1", "2026-08-06T12:00:00Z", "Eredivisie", "Ajax v Feyenoord",
+""", ("run1", run_time, "Eredivisie", "Ajax v Feyenoord",
       yesterday, "1X2_HOME", "dc", 0.55, 1.9, "bet365", 0.045,
       1, "2-1", 1))
 brain._conn.execute("""
@@ -92,7 +94,7 @@ brain._conn.execute("""
         market, model_engine, model_prob, entry_odds, bookmaker, ev,
         on_deploy_shortlist, ft_result, hit)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-""", ("run1", "2026-08-06T12:00:00Z", "Eredivisie", "Ajax v Feyenoord",
+""", ("run1", run_time, "Eredivisie", "Ajax v Feyenoord",
       yesterday, "1X2_HOME", "elo", 0.52, 1.9, "bet365", 0.028,
       1, "2-1", 1))
 brain._conn.commit()

@@ -55,7 +55,8 @@ assert all(b.probs is None for b in board), \
     "no probability may be fabricated for an uncovered league"
 assert all("NO DATA — PENDING" in (b.rejection_reason or "") for b in board), \
     "unrated fixtures must carry the honest NO DATA reason"
-assert any("NO DATA" in f and "EFL Cup" in f for f in flags), \
+# EFL Cup is the remaining uncovered league — flags now report history/odds/team gaps explicitly
+assert any("EFL Cup" in f for f in flags), \
     f"uncovered league must be flagged explicitly, got: {flags}"
 print(f"Uncovered league (EFL Cup) flagged + {len(board)} fixture(s) listed as NO DATA (never dropped): OK")
 

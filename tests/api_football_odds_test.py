@@ -155,7 +155,7 @@ _priced = [FixtureOdds(
     over25=MarketQuote(price=1.45, bookmaker="Bet365"),
     under25=MarketQuote(price=2.70, bookmaker="Bet365"),
     source="api-football.com (free plan)")]
-with mock.patch.object(odds, "check_quota", return_value=(496, 4)), \
+with mock.patch.object(odds, "_resolve_key", side_effect=odds.QuotaExhausted("quota spent")), \
      mock.patch.object(odds, "_read_cache", return_value=None), \
      mock.patch.object(af, "fetch_odds", return_value=(_priced, ["af served"])):
     fixtures, flags = odds.fetch_odds("Eredivisie", use_cache=False)
@@ -167,7 +167,7 @@ assert any("api-football free fallback" in f for f in flags), (
 print("5. Odds API quota exhausted -> transparent api-football fallback: OK")
 
 # --- 6. fallback does NOT trigger on fixture capture --------------------------
-with mock.patch.object(odds, "check_quota", return_value=(496, 4)), \
+with mock.patch.object(odds, "_resolve_key", side_effect=odds.QuotaExhausted("quota spent")), \
      mock.patch.object(odds, "_read_cache", return_value=None), \
      mock.patch.object(af, "check_quota", return_value=(51, 49)):
     try:

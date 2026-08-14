@@ -55,6 +55,7 @@ from brain.store import Brain  # noqa: E402
 from clv.clv_logger import CLVLog  # noqa: E402
 from monitor import run_watchdog  # noqa: E402
 from output import notify  # noqa: E402
+from monitor import alert_dispatcher  # noqa: E402
 # Deterministic import order for a latent cycle: pipeline.odds does
 # `from data.multi_source import SourceNoData` at line 41, but SourceNoData is
 # only DEFINED at line 256 of data/multi_source.py. If odds is imported while
@@ -509,10 +510,22 @@ def run_check(state_path: Path = DEFAULT_STATE, alert: bool = True,
     alerted = False
     if changed and alert:
         try:
-            ok, _ = notify.send_alert(_alert_text(results, changed))
-            alerted = ok
+            # Multi-channel dispatch (Telegram + email + webhook) — the
+            # health monitor's own state-change gate prevents duplicates
+            # here; the alert_dispatcher adds a second layer of dedup.
+            max_level = "critical" if any(r.level == "critical" for r in changed) else "warn"
+            title = f"OLP XDV health: {len(changed)} probe(s) changed"
+            body = _alert_text(results, changed)
+            tags = [r.name for r in changed]
+            results_disp = alert_dispatcher.dispatch_alert(max_level, title, body, tags)
+            alerted = any(ok for ok, _ in results_disp.values())
         except Exception:
-            alerted = False  # monitor must never crash the scheduler
+            try:
+                # Fallback to original notify.send_alert (Telegram only)
+                ok, _ = notify.send_alert(_alert_text(results, changed))
+                alerted = ok
+            except Exception:
+                alerted = False  # monitor must never crash the scheduler
     return results, alerted
 
 

@@ -61,20 +61,22 @@ assert "08:00 dead-man's-switch" in text
 print("5. alert_text renders correctly: OK")
 
 
-# --- 6. verify() with mocked notify -------------------------------------------
+# --- 6. verify() with mocked alert_dispatcher (primary path) -------------------
 # Need a fresh log dir for missing log test
 _logs2 = _tmp / "logs2"
 _logs2.mkdir()
-with patch("monitor.dead_mans_switch.notify.send_telegram", return_value=(True, ["sent"])):
-    complete, notes = verify(_logs2, notify_fn=lambda m: (True, ["mocked"]))
+# Primary path: alert_dispatcher.dispatch_alert returns results dict
+with patch("monitor.dead_mans_switch.alert_dispatcher.dispatch_alert",
+           return_value={"telegram": (True, "ok"), "email": (False, "no config"), "webhook": (False, "no config")}):
+    complete, notes = verify(_logs2)
     assert not complete  # missing log
-    assert any("ALERT" in n for n in notes)
-print("6. verify() with mocked notify: OK")
+    assert any("ALERT dispatched" in n for n in notes)
+print("6. verify() with mocked alert_dispatcher: OK")
 
 
 # --- 7. verify() success path -------------------------------------------------
 _write_log("[2026-08-07T07:00:00] run_daily.py STARTED\n[2026-08-07T07:00:30] run completed OK\n[2026-08-07T07:00:31] delivered 3 part(s) to Telegram")
-complete, notes = verify(_logs, notify_fn=lambda m: (True, ["mocked"]))
+complete, notes = verify(_logs)
 assert complete
 assert any("OK" in n for n in notes)
 print("7. verify() success path: OK")
@@ -82,10 +84,14 @@ print("7. verify() success path: OK")
 
 # --- 8. alert delivery failure doesn't crash ----------------------------------
 _write_log("[2026-08-07T07:00:00] run_daily.py STARTED\n[2026-08-07T07:00:30] run completed OK")  # no delivery
-complete, notes = verify(_logs, notify_fn=lambda m: (_ for _ in ()).throw(RuntimeError("telegram down")))
+# alert_dispatcher throws, notify fallback throws -> should not crash
+with patch("monitor.dead_mans_switch.alert_dispatcher.dispatch_alert",
+           side_effect=RuntimeError("dispatcher down")):
+    complete, notes = verify(_logs, notify_fn=lambda m: (_ for _ in ()).throw(RuntimeError("telegram down")))
 assert not complete
-assert any("raised" in n for n in notes)
+# With the new architecture, both dispatcher and fallback fail -> note contains "failed"
+assert any("failed" in n.lower() or "raised" in n.lower() for n in notes)
 print("8. alert delivery failure doesn't crash: OK")
 
 
-print("\n✅ ALL DEAD-MAN'S-SWITCH TESTS PASSED")
+print("\nALL DEAD-MAN'S-SWITCH TESTS PASSED")

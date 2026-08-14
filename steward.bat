@@ -15,10 +15,15 @@ REM ==========================================================================
 
 cd /d "%~dp0"
 if not exist "logs" mkdir "logs"
+
+REM Rotate .bat-redirected logs before writing new entries (10MB/5 backups)
+set "PY=C:\Users\Motunrayo\AppData\Local\Programs\Python\Python312\python.exe"
+if not exist "%PY%" set "PY=py"
+"%PY%" scripts\rotate_logs.py >> "logs\steward.log" 2>&1
+
 echo [%date% %time%] steward launcher invoked >> "logs\steward.log"
 
 set "PYTHONIOENCODING=utf-8"
-set "PY=C:\Users\Motunrayo\AppData\Local\Programs\Python\Python312\python.exe"
 
 "%PY%" steward\run_steward.py >> "logs\steward.log" 2>&1
 set "RC=%ERRORLEVEL%"

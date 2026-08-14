@@ -279,8 +279,20 @@ _check("codes render inline on the combined line (Architect format)",
                for ln in txt11.splitlines()), txt11[:400])
 _check("star on EVERY acca (not just the headline)",
        "★ Acca A" in txt11 and "★ Acca B" in txt11, txt11[:400])
-_check("legs are lean — no prob% or EV on any leg",
-       "EV" not in txt11 and "%" not in txt11, txt11[:400])
+_check("legs are lean — no prob% or EV on any leg line",
+       # Leg lines carry only fixture + market + price. The ID407 combined-prob
+       # disclosure is a SEPARATE line (allowed to carry %); the assertion checks
+       # each leg line, not the whole block, so the disclosure doesn't trip it.
+       all("EV" not in ln and "%" not in ln
+           for ln in txt11.splitlines()
+           if ln.strip().startswith(("F", "★")) and "Combined" not in ln
+           and "compounding" not in ln),
+       txt11[:400])
+_check("ID407: combined-prob disclosure present on multi-leg accas, "
+       "labelled 'arithmetic, not a weakness'",
+       "Combined prob" in txt11
+       and "product of 5 legs — compounding is arithmetic, not a weakness" in txt11,
+       txt11[:400])
 txt11b = render_production_block(bets5, codes=None, today=TODAY)
 _check("no codes -> honest NO DATA — PENDING per item "
        "(3 accas + 7 singles = 10)",

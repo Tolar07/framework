@@ -85,6 +85,16 @@
           }
         ],
         "description": "OLP XDV session initialization — safe-move protocol, skill auto-detection, context loading"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/scripts/hooks/memory-check.js\" check-in"
+          }
+        ],
+        "description": "HR54 mandatory memory check-in — read canonical Obsidian vault before any output"
       }
     ],
     "PostToolUse": [
@@ -181,6 +191,16 @@
           }
         ],
         "description": "Archive conversation transcript to memory/conversations/"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/scripts/hooks/memory-check.js\" check-out"
+          }
+        ],
+        "description": "HR54 mandatory memory check-out — verify memory writes before session close"
       }
     ]
   },

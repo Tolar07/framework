@@ -260,51 +260,66 @@ def scan_one_league(league: str, season: str,
         except Exception as e:
             errors.append(f"multi-source fixtures: {e}")
 
-        if not upcoming_fixtures:
+        # Track whether primary sources returned any fixtures — used for flag wording
+        primary_had_fixtures = bool(upcoming_fixtures)
+        if not primary_had_fixtures:
             detail = " | ".join(errors) if errors else "no fixtures in window"
             flags.append(f"{league}: no upcoming fixtures ({detail}) — NO DATA — PENDING")
-            # SportyBet cached-fixture fallback: the Playwright cache builder
-            # navigates the real SportyBet league pages, so its fixtures are a
-            # genuine, independently-captured source — not a guess (HR35). A
-            # fresh cache fills the board when every other provider is down
-            # (e.g. API-Football season lock + Odds API quota), keeping wide
-            # eyes without spending a single paid credit. Odds ride along in
-            # the cache, so SportyBet MES still populates.
-            try:
-                from booking.bridge import (load_sportybet_fixtures,
-                                            sportybet_fixtures_to_pairs)
-                # Use generous max_age_hours (48h) on fallback — the
-                # cache builder runs twice daily; when it's the ONLY
-                # source we should be lenient rather than lose fixtures.
-                sb_pairs = sportybet_fixtures_to_pairs(
-                    league, days_ahead=45, max_age_hours=48)
-                if sb_pairs:
-                    # Apply the same TEAM_ALIASES resolution that the
-                    # TheSportsDB path applies inside fetch_upcoming. The
-                    # SportyBet cache stores model_home/model_away via
-                    # resolve_team_to_model, but that table only covers
-                    # domestic leagues — continental qualifiers (Conference
-                    # League, Europa League) come through with raw SportyBet
-                    # spellings that map_team would have resolved if the
-                    # thesportsdb source had been used. Without this, e.g.
-                    # "Copenhagen" stays unmapped though the alias
-                    # "Copenhagen" -> "FC Copenhagen" exists (HR35: a real
-                    # mapping, never a guess).
-                    from data.thesportsdb_fixtures import map_team
-                    sb_pairs = [(map_team(league, h), map_team(league, a))
-                                for h, a in sb_pairs]
-                    upcoming_fixtures = sb_pairs
-                    for f in load_sportybet_fixtures(
-                            league, days_ahead=45, max_age_hours=48):
-                        if f.kickoff_utc:
-                            mh = map_team(league, f.home_team)
-                            ma = map_team(league, f.away_team)
-                            fixture_dates[(mh, ma)] = f.kickoff_utc[:10]
-                    flags.append(
-                        f"{league}: fixtures via SportyBet cache "
-                        f"({len(sb_pairs)} — primary sources failed)")
-            except Exception:
-                pass  # a missing cache/fault is a miss, not a new error
+
+        # SportyBet cached-fixture MERGE (not fallback): the Playwright cache builder
+        # navigates the real SportyBet league pages, so its fixtures are a
+        # genuine, independently-captured source — not a guess (HR35). We now
+        # ALWAYS attempt to merge SportyBet fixtures alongside primary sources,
+        # so fixtures that only SportyBet carries (or that primary sources miss)
+        # still reach the board. Dedup on model-key tuple to avoid duplicates.
+        try:
+            from booking.bridge import (load_sportybet_fixtures,
+                                        sportybet_fixtures_to_pairs)
+            # Use generous max_age_hours (48h) — the cache builder runs
+            # twice daily; lenient window keeps fixtures available all day.
+            sb_pairs = sportybet_fixtures_to_pairs(
+                league, days_ahead=45, max_age_hours=48)
+            if sb_pairs:
+                # Apply the same TEAM_ALIASES resolution that the
+                # TheSportsDB path applies inside fetch_upcoming. The
+                # SportyBet cache stores model_home/model_away via
+                # resolve_team_to_model, but that table only covers
+                # domestic leagues — continental qualifiers (Conference
+                # League, Europa League) come through with raw SportyBet
+                # spellings that map_team would have resolved if the
+                # thesportsdb source had been used. Without this, e.g.
+                # "Copenhagen" stays unmapped though the alias
+                # "Copenhagen" -> "FC Copenhagen" exists (HR35: a real
+                # mapping, never a guess).
+                from data.thesportsdb_fixtures import map_team
+                sb_pairs = [(map_team(league, h), map_team(league, a))
+                            for h, a in sb_pairs]
+                # Merge: add only pairs not already present (dedup on model-key).
+                existing = set(upcoming_fixtures)
+                merged = 0
+                for h, a in sb_pairs:
+                    if (h, a) not in existing:
+                        upcoming_fixtures.append((h, a))
+                        existing.add((h, a))
+                        merged += 1
+                # Merge kickoff dates from SportyBet cache
+                for f in load_sportybet_fixtures(
+                        league, days_ahead=45, max_age_hours=48):
+                    if f.kickoff_utc:
+                        mh = map_team(league, f.home_team)
+                        ma = map_team(league, f.away_team)
+                        fixture_dates[(mh, ma)] = f.kickoff_utc[:10]
+                if merged:
+                    if primary_had_fixtures:
+                        flags.append(
+                            f"{league}: +{merged} fixture(s) merged from SportyBet cache "
+                            f"(primary: {src})")
+                    else:
+                        flags.append(
+                            f"{league}: fixtures via SportyBet cache "
+                            f"({merged} — primary sources failed)")
+        except Exception:
+            pass  # a missing cache/fault is a miss, not a new error
 
     if cross_model is not None:
         results, skipped = [], []

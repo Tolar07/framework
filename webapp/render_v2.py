@@ -272,18 +272,35 @@ def _ticket_leg(l: dict) -> str:
             f'<span class="leg-price">{_price2(l.get("price"))}</span></div>')
 
 
-def _ticket_foot(combined, code: str | None) -> str:
+def _ticket_foot(combined, code: str | None,
+                 combined_prob: float | None = None, n_legs: int = 0) -> str:
     """`Combined X.XX` + `Booking code: <code>` — the parity foot. A missing
-    code is an honest NO DATA — PENDING (HR35), never a fabricated one."""
+    code is an honest NO DATA — PENDING (HR35), never a fabricated one.
+
+    ID407 (proposed) — accumulator compounding disclosure: any multi-leg acca
+    shows the combined probability (product of leg probabilities) with the
+    explicit label that this is arithmetic, not a framework weakness. Mirrors
+    `engine.acca.render_production_block`'s ID407 line so the two outlets stay
+    byte-faithful (webapp_feed_parity_test)."""
     comb = f"Combined {combined:.2f}" if combined is not None else "Combined —"
     if code:
         code_html = (f'<button type="button" class="code-value-t copy-pill" '
                      f'data-code="{html.escape(code)}">{html.escape(code)} Copy</button>')
     else:
         code_html = '<span class="code-value-t pending">NO DATA — PENDING</span>'
+    # ID407 — combined-prob disclosure (only when there is more than one leg).
+    # Mirrors `engine.acca.render_production_block`: `Combined X.XX Booking
+    # code:` on one line, the `Combined prob ...` disclosure on the NEXT line.
+    prob_line = ""
+    if combined_prob is not None and n_legs > 1:
+        prob_line = (f'<div class="combined-prob">'
+                     f'Combined prob {combined_prob:.1%} '
+                     f'(product of {n_legs} legs — compounding is arithmetic, '
+                     f'not a weakness)</div>')
     return (f'<div class="ticket-foot">'
             f'<div><span class="combined-price">{comb}</span></div>'
             f'<div><span class="code-label-t">Booking code:</span>{code_html}</div>'
+            f'{prob_line}'
             f'</div>')
 
 
@@ -303,7 +320,7 @@ def _acca_ticket(acca: dict, code: str | None, hero: bool = False) -> str:
             f'<span class="ticket-title">{title}</span>'
             f'<span class="ticket-legs-count">{n_legs} legs</span></div>'
             f'<div class="ticket-legs">{"".join(_ticket_leg(l) for l in legs)}</div>'
-            f'{_ticket_foot(combined, code)}'
+            f'{_ticket_foot(combined, code, acca.get("combined_prob"), n_legs)}'
             f'</div>')
 
 

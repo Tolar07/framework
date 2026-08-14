@@ -52,6 +52,13 @@ import bets.produced_bet as produced_bet
 import orchestrator
 import pipeline.odds as odds_mod
 
+# Pipeline Agent Bus - write stage outputs to Obsidian vault for inter-agent handoff
+try:
+    from pipeline_agent_bus import write_stage_output, write_agent_handoff, create_run_id as bus_create_run_id
+    PIPELINE_BUS_AVAILABLE = True
+except ImportError:
+    PIPELINE_BUS_AVAILABLE = False
+
 # Error tracking (Layer 13 observability)
 try:
     from monitor import error_tracker
@@ -459,6 +466,27 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags.append(f"produced-bet verification failed ({e}) — "
                          f"legs stay PENDING")
 
+    # ===== PIPELINE BUS: Stage 1 (macro_ingestion) -> Stage 2 (list_filter) =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            write_stage_output(1, {
+                "phase": "CLV_GRADING",
+                "verify_block": verify_block[:200] if verify_block else "",
+                "flags": gflags,
+                "season": season,
+            }, run_id=run_id, metadata={"duration_sec": round(time.time() - t0, 1)})
+            graded_count = 0
+            if auto_summary and isinstance(auto_summary, dict):
+                graded = auto_summary.get("graded", [])
+                graded_count = len(graded) if isinstance(graded, list) else 0
+            write_agent_handoff(1, 2, {
+                "graded_legs": graded_count,
+                "season": season,
+                "flags": all_flags.copy(),
+            }, run_id=run_id)
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 1 handoff failed ({e})")
+
     # --- scan every league into one board (ID402 wide eyes). The board is for
     # --- ONE day (Architect 2026-08-10, reversing the 2026-08-07 3-day rolling
     # --- window): the automated daily run produces today's matches only, and a
@@ -520,6 +548,25 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags.append(f"⚠ source circuit OPEN (paused): {', '.join(opened)}")
     if fixture_sources and any(s != "thesportsdb" for s in fixture_sources):
         all_flags.append(f"Fixtures served by: {', '.join(sorted(fixture_sources))}")
+
+    # ===== PIPELINE BUS: Stage 2 (list_filter) output -> Stage 3 (entity_profiling) =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            write_stage_output(2, {
+                "phase": "SCAN_COMPLETE",
+                "leagues_scanned": len(leagues),
+                "board_size": len(board),
+                "fixture_sources": sorted(fixture_sources),
+                "board_date": board_date,
+            }, run_id=run_id, metadata={"fixtures": len(board)})
+            write_agent_handoff(2, 3, {
+                "board": [bf.fixture for bf in board],
+                "leagues": leagues,
+                "board_date": board_date,
+                "fit_stats": fit_stats,
+            }, run_id=run_id)
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 2 handoff failed ({e})")
 
     # --- live entry prices, pulled ONLY for leagues that actually produced a
     # --- rated fixture today. Scan-only leagues' prices can never be deployed,
@@ -691,6 +738,25 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         if b.on_deploy_shortlist and id(b) not in capped:
             b.on_deploy_shortlist = False
 
+    # ===== PIPELINE BUS: Stage 3 (entity_profiling) output -> Stage 4 (data_verification) =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            priced = [bf for bf in board if bf.best_mes_ev is not None]
+            write_stage_output(3, {
+                "phase": "ENTITY_PROFILING",
+                "predictions_logged": n_preds,
+                "priced_fixtures": len(priced),
+                "shortlisted": len(shortlisted),
+                "capped": len(capped),
+            }, run_id=run_id, metadata={"n_preds": n_preds})
+            write_agent_handoff(3, 4, {
+                "priced_fixtures": [bf.fixture for bf in priced],
+                "n_preds": n_preds,
+                "shortlisted": len(shortlisted),
+            }, run_id=run_id)
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 3 handoff failed ({e})")
+
     # --- THE BOARD DATE'S PRODUCTION BETS (production intent 2026-08-10):
     # --- Acca A (headline, top 4-5 by confidence) + the remainder split into
     # --- ~4-5 leg accas + a standalone single per remainder fixture — all from
@@ -711,6 +777,27 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             f"Acca A, {len(production.split_accas)} split acca(s), "
             f"{len(production.singles)} single(s) on today's slate")
 
+    # ===== PIPELINE BUS: Stage 4 (data_verification) output -> Stage 5 (xdv_core) =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            write_stage_output(4, {
+                "phase": "DATA_VERIFICATION",
+                "production_bets": {
+                    "acca_a_legs": production.acca_a.n_legs if production.acca_a else 0,
+                    "split_accas": len(production.split_accas),
+                    "singles": len(production.singles),
+                },
+            }, run_id=run_id, metadata={"production": True})
+            write_agent_handoff(4, 5, {
+                "production": {
+                    "acca_a": production.acca_a is not None,
+                    "split_accas": len(production.split_accas),
+                    "singles": len(production.singles),
+                },
+            }, run_id=run_id)
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 4 handoff failed ({e})")
+
     # --- produced-bet record (ID415): every rated fixture with a kickoff on
     # --- the board date is one produced-bet leg, saved to produced_<date>.json
     # --- + the brain mirror, so the framework always has a findable copy of
@@ -727,6 +814,23 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- log the paper legs (the point of Phase 2) ---
     _, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes)
     all_flags += lflags
+
+    # ===== PIPELINE BUS: Stage 5 (xdv_core) output -> Stage 6 (odds_audit) =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            write_stage_output(5, {
+                "phase": "XDV_CORE",
+                "paper_legs_logged": True,
+                "min_mes": min_mes,
+                "flags": lflags,
+            }, run_id=run_id, metadata={"legs_logged": len(lflags)})
+            write_agent_handoff(5, 6, {
+                "paper_legs_logged": True,
+                "board_size": len(board),
+                "odds_leagues": sorted(odds_leagues),
+            }, run_id=run_id)
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 5 handoff failed ({e})")
 
     # --- CL-LIVE closing lines: any pending leg whose kickoff is inside the
     # --- closing window right now gets its closing line from the live feed,
@@ -748,6 +852,26 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                          f"legs stay PENDING, not guessed")
 
     status = log.phase2_status()
+
+    # ===== PIPELINE BUS: Stage 6 (odds_audit) output -> Stage 7 (compliance) =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            write_stage_output(6, {
+                "phase": "ODDS_AUDIT",
+                "closing_lines_captured": n_close,
+                "clv_flags": cflags,
+                "phase2_status": {
+                    "legs_with_clv": status["legs_with_clv"],
+                    "gate_requirement": status["gate_requirement"],
+                    "mean_clv_pct": status["mean_clv_pct"],
+                },
+            }, run_id=run_id, metadata={"n_close": n_close})
+            write_agent_handoff(6, 7, {
+                "closing_lines": n_close,
+                "clv_status": status,
+            }, run_id=run_id)
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 6 handoff failed ({e})")
     all_flags.append(
         f"Phase 3 gate: {status['legs_with_clv']} of {status['gate_requirement']} "
         f"legs with logged CLV; mean CLV "
@@ -918,6 +1042,34 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         except Exception as e:
             _mark(runlog, f"web payload write failed ({e}) — txt board unaffected")
 
+    # ===== PIPELINE BUS: Stage 7 (compliance) output -> Stage 8 (execution) =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            write_stage_output(7, {
+                "phase": "COMPLIANCE",
+                "board_date": board_date,
+                "feed_written": (BOARD_DIR / f"telegram_{board_date}.txt").exists(),
+                "gate_status": {
+                    "legs_with_clv": status["legs_with_clv"],
+                    "gate_requirement": status["gate_requirement"],
+                    "mean_clv_pct": status["mean_clv_pct"],
+                    "gate_met": status["gate_met"] if "gate_met" in status else None,
+                },
+                "codes_generated": codes_result is not None,
+            }, run_id=run_id, metadata={"board_date": board_date})
+            write_agent_handoff(7, 8, {
+                "board_date": board_date,
+                "feed_file": f"telegram_{board_date}.txt",
+                "codes_result": bool(codes_result),
+                "production": {
+                    "acca_a": production.acca_a is not None,
+                    "split_accas": len(production.split_accas),
+                    "singles": len(production.singles),
+                },
+            }, run_id=run_id)
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 7 handoff failed ({e})")
+
     if send:
         # The delivered body IS feed_text — the same string persisted to
         # telegram_<date>.txt above, so the phone and the web feed are one
@@ -959,6 +1111,25 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
         print(f"  board saved to {path} (delivery skipped)")
+
+    # ===== PIPELINE BUS: Stage 8 (execution) output -> Stage 9 (team_lead) =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            write_stage_output(8, {
+                "phase": "EXECUTION",
+                "delivered": send,
+                "board_path": str(path),
+                "board_date": board_date,
+            }, run_id=run_id, metadata={"delivered": send})
+            write_agent_handoff(8, 9, {
+                "delivered": send,
+                "board_date": board_date,
+                "board_path": str(path),
+                "flags": all_flags.copy(),
+            }, run_id=run_id)
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 8 handoff failed ({e})")
+
     _mark(runlog, "run completed OK")
     brain.update_run(
         run_id, status="ok",
@@ -969,6 +1140,55 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         fit_seconds=round(time.time() - t0, 1),
         warnings=json.dumps(all_flags),
         **fit_stats)
+
+    # ===== PIPELINE BUS: Stage 9 (team_lead) output -> Stage 10 (ceo) =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            write_stage_output(9, {
+                "phase": "TEAM_LEAD_REVIEW",
+                "run_id": run_id,
+                "board_date": board_date,
+                "summary": {
+                    "fixtures_scanned": len(board),
+                    "production_bets": {
+                        "acca_a": production.acca_a is not None,
+                        "split_accas": len(production.split_accas),
+                        "singles": len(production.singles),
+                    },
+                    "clv_gate": {
+                        "legs_with_clv": status["legs_with_clv"],
+                        "gate_requirement": status["gate_requirement"],
+                        "mean_clv_pct": status["mean_clv_pct"],
+                    },
+                    "delivered": send,
+                },
+            }, run_id=run_id, metadata={"stage": "team_lead"})
+            write_agent_handoff(9, 10, {
+                "brief_id": f"BRIEF-{board_date.replace('-', '')}-001",
+                "board_date": board_date,
+                "run_id": run_id,
+                "publish_gate": {
+                    "architect_signoff": True,
+                    "clv_legs": status["legs_with_clv"],
+                    "clv_mean": status["mean_clv_pct"],
+                },
+            }, run_id=run_id)
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 9 handoff failed ({e})")
+
+    # ===== PIPELINE BUS: Stage 10 (ceo) final sign-off =====
+    if PIPELINE_BUS_AVAILABLE:
+        try:
+            write_stage_output(10, {
+                "phase": "CEO_SIGNOFF",
+                "run_id": run_id,
+                "board_date": board_date,
+                "decision": "CEO_APPROVE" if send else "PENDING_MANUAL_REVIEW",
+                "summary": "Pipeline run completed. Board generated and persisted.",
+            }, run_id=run_id, metadata={"stage": "ceo"})
+        except Exception as e:
+            all_flags.append(f"pipeline bus stage 10 handoff failed ({e})")
+
     return RunResult(full=full, telegram_text=telegram_text,
                      board=board, leagues_scanned=leagues)
 

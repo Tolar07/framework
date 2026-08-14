@@ -401,6 +401,103 @@ def cmd_livescores(args) -> int:
     return 0
 
 
+def cmd_pipeline_status(args) -> int:
+    """Show pipeline run status from Obsidian vault."""
+    from pipeline_agent_bus import get_pipeline_status, list_recent_runs
+
+    if args.json:
+        if args.run_id:
+            status = get_pipeline_status(args.run_id)
+        else:
+            runs = list_recent_runs(1)
+            if not runs:
+                print_json(success({"status": "no_runs_found", "runs": []}))
+                return 0
+            status = get_pipeline_status(runs[0])
+        print_json(success(status))
+    else:
+        if args.run_id:
+            status = get_pipeline_status(args.run_id)
+        else:
+            runs = list_recent_runs(1)
+            if not runs:
+                print_text("NO DATA — PENDING")
+                return 0
+            status = get_pipeline_status(runs[0])
+
+        print_text(f"=== PIPELINE STATUS: {status['run_id']} ===")
+        print_text(f"Complete: {status.get('complete', False)}")
+        print_text("")
+        for agent_num in range(1, 11):
+            s = status["stages"].get(agent_num, {})
+            name = s.get("name", f"agent{agent_num:02d}")
+            completed = s.get("completed", False)
+            ts = s.get("timestamp", "N/A")
+            print_text(f"  Stage {agent_num:02d} ({name}): {'���' if completed else '���'} {ts}")
+        print_text("")
+        for handoff, h in status["handoffs"].items():
+            completed = h.get("completed", False)
+            ts = h.get("timestamp", "N/A")
+            print_text(f"  Handoff {handoff}: {'���' if completed else '���'} {ts}")
+    return 0
+
+
+def cmd_vault_status(args) -> int:
+    """Show Obsidian vault sync status and recent pipeline writes."""
+    import os
+    from pathlib import Path
+    from datetime import datetime, timezone
+
+    VAULT_ROOT = Path(os.environ.get("OLP_XDV_VAULT", r"C:\Users\Motunrayo\Documents\OLP_XDV_Vault"))
+    HANDOFFS_DIR = VAULT_ROOT / "Pipeline Runs" / "Handoffs"
+    STAGE_DIR = VAULT_ROOT / "Pipeline Runs" / "Stages"
+
+    if args.json:
+        data = {
+            "vault_root": str(VAULT_ROOT),
+            "handoffs_dir": str(HANDOFFS_DIR),
+            "stage_dir": str(STAGE_DIR),
+            "handoffs_dir_exists": HANDOFFS_DIR.exists(),
+            "stage_dir_exists": STAGE_DIR.exists(),
+        }
+        if HANDOFFS_DIR.exists():
+            handoff_files = sorted(HANDOFFS_DIR.glob("*.json"), reverse=True)
+            data["recent_handoffs"] = [f.name for f in handoff_files[:10]]
+            data["total_handoffs"] = len(handoff_files)
+        if STAGE_DIR.exists():
+            stage_files = sorted(STAGE_DIR.glob("*.json"), reverse=True)
+            data["recent_stages"] = [f.name for f in stage_files[:10]]
+            data["total_stages"] = len(stage_files)
+        print_json(success(data))
+    else:
+        print_text(f"=== OBSIDIAN VAULT STATUS ===")
+        print_text(f"Vault root: {VAULT_ROOT}")
+        print_text(f"  Exists: {VAULT_ROOT.exists()}")
+        print_text(f"")
+        print_text(f"Handoffs dir: {HANDOFFS_DIR}")
+        print_text(f"  Exists: {HANDOFFS_DIR.exists()}")
+        if HANDOFFS_DIR.exists():
+            handoff_files = sorted(HANDOFFS_DIR.glob("*.json"), reverse=True)
+            print_text(f"  Total files: {len(handoff_files)}")
+            if handoff_files:
+                print_text(f"  Recent:")
+                for f in handoff_files[:5]:
+                    mtime = datetime.fromtimestamp(f.stat().st_mtime, tz=timezone.utc)
+                    print_text(f"    {f.name} ({mtime.isoformat()})")
+        print_text(f"")
+        print_text(f"Stages dir: {STAGE_DIR}")
+        print_text(f"  Exists: {STAGE_DIR.exists()}")
+        if STAGE_DIR.exists():
+            stage_files = sorted(STAGE_DIR.glob("*.json"), reverse=True)
+            print_text(f"  Total files: {len(stage_files)}")
+            if stage_files:
+                print_text(f"  Recent:")
+                for f in stage_files[:5]:
+                    mtime = datetime.fromtimestamp(f.stat().st_mtime, tz=timezone.utc)
+                    print_text(f"    {f.name} ({mtime.isoformat()})")
+    return 0
+
+
 def cmd_schema(args) -> int:
     """JSON-Schema tool definitions for agent tool-loading."""
     # Mirrors sports-skills cli.py _generate_schema pattern
@@ -522,6 +619,7 @@ def _build_common(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--phase", type=str, default="phase2_paper",
                         help="Phase filter (default: phase2_paper)")
     parser.add_argument("--limit", type=int, default=100, help="Row limit (default: 100)")
+    parser.add_argument("--run-id", type=str, help="Specific pipeline run ID")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -541,6 +639,8 @@ Commands:
   gate           Phase-3 gate status + road-to-gate
   audit [--no-odds] [--league L]  League coverage audit (READY/BLOCKED per league)
   leagues        Whitelisted leagues + tier
+  pipeline-status  Show pipeline run status from Obsidian vault
+  vault-status  Show Obsidian vault sync status and recent writes
   schema         JSON-Schema tool definitions for agent tool-loading
 
 Global options (usable after any command):
@@ -548,6 +648,7 @@ Global options (usable after any command):
   --brain PATH   Override brain DB path (default: brain/store.DEFAULT_BRAIN_PATH)
   --phase PHASE  Phase filter for CLV/gate (default: phase2_paper)
   --limit N      Row limit for predictions/produced bets (default: 100)
+  --run-id ID    Specific pipeline run ID (for pipeline-status)
 
 Examples:
   py -3.12 agent_cli.py stats --json
@@ -557,6 +658,8 @@ Examples:
   py -3.12 agent_cli.py gate --json
   py -3.12 agent_cli.py audit --no-odds --league "Danish Superliga" --json
   py -3.12 agent_cli.py leagues --json
+  py -3.12 agent_cli.py pipeline-status --json
+  py -3.12 agent_cli.py vault-status --json
   py -3.12 agent_cli.py schema --json
 """,
     )
@@ -606,6 +709,14 @@ Examples:
     p_livescores.add_argument("--league", type=str, help="Specific league (default: all whitelisted)")
     p_livescores.add_argument("--day", type=str, help="Day in YYYYMMDD format (default: today)")
     p_livescores.set_defaults(func=cmd_livescores)
+
+    # pipeline-status
+    p_pipeline = subparsers.add_parser("pipeline-status", help="Show pipeline run status from Obsidian vault", parents=[common])
+    p_pipeline.set_defaults(func=cmd_pipeline_status)
+
+    # vault-status
+    p_vault = subparsers.add_parser("vault-status", help="Show Obsidian vault sync status and recent writes", parents=[common])
+    p_vault.set_defaults(func=cmd_vault_status)
 
     # schema
     p_schema = subparsers.add_parser("schema", help="JSON-Schema tool definitions", parents=[common])

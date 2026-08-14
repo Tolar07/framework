@@ -92,9 +92,9 @@ _others = {"_st_odds": (True, "fine", []), "_st_af_odds": _ok(),
            "_st_fdc": _ok()}
 
 
-def fake_alert(body, **kw):
+def fake_alert_dispatcher(level, title, body, tags, telegram_override=None):
     calls.append(body)
-    return True, []
+    return {"telegram": (True, "ok"), "email": (False, "no config"), "webhook": (False, "no config")}
 
 
 with mock.patch.object(st, "_st_sportybet", return_value=_fail()), \
@@ -105,7 +105,7 @@ with mock.patch.object(st, "_st_sportybet", return_value=_fail()), \
      mock.patch.object(st, "_st_clubelo", return_value=_ok()), \
      mock.patch.object(st, "_st_fdc", return_value=_ok()), \
      state_patch, log_patch, mock.patch(
-            "output.notify.send_alert", side_effect=fake_alert):
+            "monitor.alert_dispatcher.dispatch_alert", side_effect=fake_alert_dispatcher):
     st.run(alert=True)   # first pass: sportybet went red -> alert
 assert len(calls) == 1 and "sportybet" in calls[0], "first red must alert"
 
@@ -118,7 +118,7 @@ with mock.patch.object(st, "_st_sportybet", return_value=_fail()), \
      mock.patch.object(st, "_st_clubelo", return_value=_ok()), \
      mock.patch.object(st, "_st_fdc", return_value=_ok()), \
      state_patch, log_patch, mock.patch(
-            "output.notify.send_alert", side_effect=fake_alert):
+            "monitor.alert_dispatcher.dispatch_alert", side_effect=fake_alert_dispatcher):
     st.run(alert=True)
 assert len(calls) == 1, "an already-red source must NOT re-alert"
 
@@ -131,7 +131,7 @@ with mock.patch.object(st, "_st_sportybet", return_value=_ok()), \
      mock.patch.object(st, "_st_clubelo", return_value=_ok()), \
      mock.patch.object(st, "_st_fdc", return_value=_ok()), \
      state_patch, log_patch, mock.patch(
-            "output.notify.send_alert", side_effect=fake_alert):
+            "monitor.alert_dispatcher.dispatch_alert", side_effect=fake_alert_dispatcher):
     st.run(alert=True)
 assert len(calls) == 1, "resolution must not alert (it is not red)"
 print("3. state-change alert: first red only, no re-alert, no resolve-alert: OK")

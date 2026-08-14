@@ -727,8 +727,20 @@ if __name__ == "__main__":
         print(f"OLP XDV command poller running — Ctrl-C to stop "
               f"(long-poll {args.interval}s, replies near-instant)")
         consecutive_failures = 0
+        _last_rotate = time.time()
+        _ROTATE_INTERVAL = 3600  # check log sizes every hour
         try:
             while True:
+                # Periodically rotate poller.log so the resident daemon's
+                # output doesn't grow unbounded (10MB / 5 backups).
+                if time.time() - _last_rotate > _ROTATE_INTERVAL:
+                    try:
+                        from monitor.json_log import rotate_log_file
+                        p = Path(__file__).parent.parent / "logs" / "poller.log"
+                        rotate_log_file(p)
+                    except Exception:
+                        pass
+                    _last_rotate = time.time()
                 try:
                     notes = poll_once(long_poll_seconds=args.interval)
                     for n in notes:

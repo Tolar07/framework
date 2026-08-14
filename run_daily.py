@@ -52,6 +52,12 @@ import bets.produced_bet as produced_bet
 import orchestrator
 import pipeline.odds as odds_mod
 
+# Error tracking (Layer 13 observability)
+try:
+    from monitor import error_tracker
+except ImportError:
+    error_tracker = None
+
 BOARD_DIR = Path(__file__).parent / "output" / "boards"
 LOG_DIR = Path(__file__).parent / "logs"
 
@@ -377,8 +383,16 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                     leagues, send, min_mes, days_ahead, target_date,
                     whatsapp, email, web, prefetch_crests, refresh_sportybet,
                     booking_codes)
-    except Exception:
+    except Exception as exc:
         brain.update_run(run_id, status="failed")
+        # Record to error tracker (Layer 13 observability)
+        if error_tracker:
+            try:
+                error_tracker.record_error(
+                    exc, context="run_daily.run",
+                    tags=["daily-run", "unhandled"])
+            except Exception:
+                pass  # error tracking must never break the run further
         raise
     finally:
         brain.close()
@@ -983,6 +997,11 @@ def _predictions_from_board(board, run_id: str, predicted_at: str,
         for key, prob in (("1X2_HOME", p.p_home), ("1X2_DRAW", p.p_draw),
                           ("1X2_AWAY", p.p_away), ("OVER_1_5", p.p_over_15),
                           ("OVER_2_5", p.p_over_25), ("BTTS_YES", p.p_btts_yes)):
+            # HR35: a stretch-rated fixture (ClubElo fallback, Architect
+            # 2026-08-12) has no goals-market opinion — p_over_*/p_btts are
+            # None. Never persist a fabricated prediction; skip the row.
+            if prob is None:
+                continue
             r = dict(base, market=key, model_engine=engine, model_prob=prob)
             if getattr(bf, "best_market_key", None) == key:
                 r.update(entry_odds=bf.best_price, bookmaker=bf.best_bookmaker,
@@ -1082,4 +1101,8 @@ if __name__ == "__main__":
               web=not a.no_web, prefetch_crests=prefetch,
               refresh_sportybet=refresh_sportybet,
               booking_codes=booking_codes)
-    print("\n" + out.full)
+    # Windows console (cp1252) can't encode ��� and other Unicode chars
+    try:
+        print("\n" + out.full)
+    except UnicodeEncodeError:
+        print("\n" + out.full.encode('cp1252', 'replace').decode('cp1252'))

@@ -406,11 +406,23 @@ def run(alert: bool = True, fit_season: str = "2526") -> dict:
                                 for name in red)
                     + "\n\nFull state: logs/steward_state.json")
             try:
-                from output import notify
-                ok_sent, notes = notify.send_alert(body)
-                _log(f"alert sent={ok_sent} notes={'; '.join(notes)[:100]}")
+                from monitor import alert_dispatcher
+                results_disp = alert_dispatcher.dispatch_alert(
+                    "warn",
+                    f"OLP XDV STEWARD — {len(red)} source(s) went red",
+                    body,
+                    tags=red,
+                )
+                ok_sent = any(ok for ok, _ in results_disp.values())
+                _log(f"alert dispatched={ok_sent} channels={list(results_disp.keys())}")
             except Exception as e:
-                _log(f"WARN alert failed ({str(e)[:60]})")
+                _log(f"WARN alert dispatch failed ({str(e)[:60]}), falling back to notify")
+                try:
+                    from output import notify
+                    ok_sent, notes = notify.send_alert(body)
+                    _log(f"alert sent (fallback) =={ok_sent} notes={'; '.join(notes)[:100]}")
+                except Exception as e2:
+                    _log(f"WARN alert failed ({str(e2)[:60]})")
 
     _log(f"steward pass DONE ({state['duration_s']}s, "
          f"{sum(1 for s in sources.values() if s['ok'])}/7 sources OK)")

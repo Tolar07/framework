@@ -223,9 +223,9 @@ assert "SB_BETA" in feed_prod and "SB_DELTA" in feed_prod
 print("5. production block: hero -> splits -> singles, own codes: OK")
 
 # --- 5a. density switcher + three density views per group ----------------------
-assert feed_prod.count('class="densitybar"') == 2      # call + singles
-assert 'data-group="call"' in feed_prod and 'data-group="singles"' in feed_prod
-for grp in ("call", "singles"):
+assert feed_prod.count('class="densitybar"') == 3      # call + scan + singles
+assert 'data-group="call"' in feed_prod and 'data-group="scan"' in feed_prod and 'data-group="singles"' in feed_prod
+for grp in ("call", "scan", "singles"):
     for view in ("lean", "trimmed", "full"):
         assert f'data-for="{view}"' in feed_prod
 assert feed_prod.count('class="density-view active" data-group="call" data-for="trimmed"') == 1

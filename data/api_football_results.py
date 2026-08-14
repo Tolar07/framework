@@ -97,7 +97,7 @@ def season_age_years(season: int) -> int:
 LEAGUE_PHASE_PREFIX = "League Stage"
 
 
-def load_results(league: str, season: int = FREE_TIER_LAST_SEASON,
+def load_results(league: str, season: int | str = FREE_TIER_LAST_SEASON,
                   use_cache: bool = True,
                   round_prefix: Optional[str] = None
                   ) -> tuple[list[MatchResult], list[str]]:
@@ -109,6 +109,13 @@ def load_results(league: str, season: int = FREE_TIER_LAST_SEASON,
     flags: list[str] = []
     if requests is None:
         raise RuntimeError("requests not installed")
+    # Coerce season to int — callers may pass "2526" (a football-data.co.uk
+    # style season string). A non-numeric string is treated as the free-tier
+    # last season so the plan-gate logic stays type-safe.
+    try:
+        season = int(season)
+    except (TypeError, ValueError):
+        season = FREE_TIER_LAST_SEASON
     if league not in LEAGUE_IDS:
         raise SourceNoData(f"'{league}' has no verified API-Football league ID here.")
     # PLAN-GATED (Architect 2026-08-12): the free plan stops at 2024; a PAID

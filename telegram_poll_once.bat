@@ -17,5 +17,9 @@ if not exist "logs" mkdir "logs"
 
 set "PYTHONIOENCODING=utf-8"
 set "PY=C:\Users\Motunrayo\AppData\Local\Programs\Python\Python312\python.exe"
+if not exist "%PY%" set "PY=py"
+
+REM Rotate poller.log if it exceeds 10MB (prevents unbounded growth)
+"%PY%" scripts\rotate_logs.py >> "logs\poller.log" 2>&1
 
 "%PY%" output\telegram_commands.py >> "logs\poller.log" 2>&1

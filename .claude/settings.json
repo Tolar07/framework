@@ -75,6 +75,16 @@
           }
         ],
         "description": "Load previous context and detect package manager on new session"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/scripts/hooks/session-init.js\""
+          }
+        ],
+        "description": "OLP XDV session initialization — safe-move protocol, skill auto-detection, context loading"
       }
     ],
     "PostToolUse": [
@@ -151,6 +161,16 @@
           }
         ],
         "description": "Evaluate session for extractable patterns"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/scripts/hooks/obsidian-sync.js\" push"
+          }
+        ],
+        "description": "Sync project docs to Obsidian vault on session end"
       }
     ]
   },
@@ -168,5 +188,19 @@
       "Bash(git add *)",
       "Bash(git -c user.name=olp-xdv -c user.email=olp-xdv@local commit -q -m 'Elo persistence: save/load, incremental seed, CSV export *)"
     ]
+  },
+  "mcpServers": {
+    "obsidian": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@smithery/cli@latest",
+        "run",
+        "@af/mcp-obsidian",
+        "--config",
+        "{\"vaultPath\":\"C:\\Users\\Motunrayo\\Documents\\OLP_XDV_Vault\"}"
+      ],
+      "env": {}
+    }
   }
 }

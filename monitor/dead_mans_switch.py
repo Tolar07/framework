@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT))
 
 from monitor import run_watchdog
 from output import notify
+from monitor import alert_dispatcher
 
 DEFAULT_LOGS_DIR = ROOT / "logs"
 
@@ -82,13 +83,28 @@ def verify(logs_dir: Path | None = None, notify_fn=None) -> tuple[bool, list[str
 
     # Distinct alert — this is the dead-man's-switch, not health monitor
     notes.append(f"{today}: 07:00 run MISSING/INCOMPLETE — {'; '.join(reasons)}")
-    send = notify_fn or notify.send_alert
     try:
-        ok, n = send(alert_text(today, reasons))
-        notes.append("DEAD-MAN'S-SWITCH ALERT sent to Telegram" if ok
-                     else f"ALERT delivery failed: {n}")
+        # Multi-channel dispatch (Telegram + email + webhook)
+        results_disp = alert_dispatcher.dispatch_alert(
+            "critical",
+            f"OLP XDV DEAD-MAN'S-SWITCH — the {today} 07:00 run DID NOT COMPLETE",
+            "\n".join(f"• {r}" for r in reasons) + "\n\nThis is NOT the health monitor — this is the 08:00 dead-man's-switch. "
+                "The daily run either didn't fire, crashed, or failed to deliver. "
+                f"Check Task Scheduler ('OLP XDV Daily Board') and logs/daily_{today}.log immediately.",
+            tags=["dead-man", "daily-run", today.replace("-", "")],
+        )
+        ok = any(ok for ok, _ in results_disp.values())
+        notes.append("DEAD-MAN'S-SWITCH ALERT dispatched multi-channel" if ok
+                     else f"ALERT delivery failed: {results_disp}")
     except Exception as e:
-        notes.append(f"ALERT delivery raised ({e}) — dead-man's-switch continues")
+        # Fallback to original notify.send_alert
+        send = notify_fn or notify.send_alert
+        try:
+            ok, n = send(alert_text(today, reasons))
+            notes.append("DEAD-MAN'S-SWITCH ALERT sent to Telegram (fallback)" if ok
+                         else f"ALERT delivery failed: {n}")
+        except Exception as e2:
+            notes.append(f"ALERT delivery raised ({e2}) — dead-man's-switch continues")
     return False, notes
 
 

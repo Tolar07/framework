@@ -1,0 +1,216 @@
+OLP XDV — DAILY BOARD
+2026-08-14  |  Phase 3 — live capital (Architect-deployed)
+Leagues: 61 · 26 with fixtures
+Calibration: 16 legs logged, mean CLV -2.62%
+
+⚠ 321 data flag(s) — see /board or the saved board for full detail
+
+📋 SCAN RECORD — today's rated fixtures — 2026-08-14 (paper, ID415)
+11 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+
+1. Gandzasar v Shirak (Armenian Premier League)
+   Pick: Shirak to win (55%)
+2. LASK v Ried (Austrian Bundesliga)
+   Pick: LASK to win (56%)
+3. Cercle Brugge v St Truiden (Belgian Pro League)
+   Pick: St Truiden to win (49%)
+   Best market: St Truiden to win at 2.98 — +45.30% EV
+4. CSKA 1948 v Cherno More Varna (Bulgarian First League)
+   Pick: Cherno More Varna to win (49%)
+5. Viborg v Aarhus (Danish Superliga)
+   Pick: Aarhus to win (53%)
+   Best market: Aarhus to win at 3.40 — +79.36% EV
+6. Legia v Radomiak Radom (Ekstraklasa)
+   Pick: Legia to win (50%)
+7. Telstar v Sparta Rotterdam (Eredivisie)
+   Pick: Telstar to win (56%)
+   Best market: Telstar to win at 2.31 — +28.40% EV
+8. Marsaxlokk v Balzan FC (Maltese Premier League)
+   Pick: Marsaxlokk to win (53%)
+9. Sp Lisbon v Guimaraes (Primeira Liga)
+   Pick: Sp Lisbon to win (87%)
+10. FC Orenburg v Lokomotiv (Russian Premier League)
+   Pick: Lokomotiv to win (57%)
+11. Haverfordwest County AFC v Penybont (Welsh Premier League)
+   Pick: Haverfordwest County AFC to win (35%)
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
+```
+ARMENIAN PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Gandzasar v Shirak
+    AI pick: Shirak (55%)
+```
+```
+AUSTRIAN BUNDESLIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ LASK v Ried
+    AI pick: LASK (56%)
+```
+```
+BELGIAN PRO LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Cercle Brugge v St Truiden
+    AI pick: St Truiden (49%)
+```
+```
+BULGARIAN FIRST LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ CSKA 1948 v Cherno More Varna
+    AI pick: Cherno More Varna (49%)
+```
+```
+CHAMPIONSHIP
+· Wolverhampton Wanderers v Blackburn
+  NO DATA — PENDING
+```
+```
+DANISH SUPERLIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Viborg v Aarhus
+    AI pick: Aarhus (53%)
+```
+```
+EKSTRAKLASA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Legia v Radomiak Radom
+    AI pick: Legia (50%)
+```
+```
+EREDIVISIE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Telstar v Sparta Rotterdam
+    AI pick: Telstar (56%)
+```
+```
+ESTONIAN MEISTRILIIGA
+· Nõmme United v Tartu Tammeka
+  NO DATA — PENDING
+```
+```
+EUROPA LEAGUE
+· KI Klaksvik v Lech Poznan
+  NO DATA — PENDING
+```
+```
+FINNISH VEIKKAUSLIIGA
+· VPS v TPS
+  NO DATA — PENDING
+```
+```
+GIBRALTARIAN NATIONAL LEAGUE
+· Al Wahda v Ajman
+  NO DATA — PENDING
+· Al Nasr v Ittihad Kalba
+  NO DATA — PENDING
+```
+```
+HNL
+· Dinamo Zagreb v Rudeš
+  NO DATA — PENDING
+```
+```
+HUNGARIAN NB I
+· Budapest Honvéd v Vasas
+  NO DATA — PENDING
+```
+```
+MALTESE PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Marsaxlokk v Balzan FC
+    AI pick: Marsaxlokk (53%)
+· Birzebbuga St. Peter v Floriana
+  NO DATA — PENDING
+```
+```
+NORTH MACEDONIAN FIRST LEAGUE
+· Arsimi v Bashkimi
+  NO DATA — PENDING
+```
+```
+NORWEGIAN ELITESERIEN
+· Rosenborg v Viking
+  NO DATA — PENDING
+```
+```
+PRIMEIRA LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Sp Lisbon v Guimaraes
+    AI pick: Sp Lisbon (87%)
+```
+```
+ROMANIAN LIGA I
+· Voluntari v Petrolul Ploiesti
+  NO DATA — PENDING
+· Argeș Pitești v Farul Constanta
+  NO DATA — PENDING
+```
+```
+RUSSIAN PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ FC Orenburg v Lokomotiv
+    AI pick: Lokomotiv (57%)
+```
+```
+SLOVENIAN PRVALIGA
+· Ahrobiznes Volochysk v Lokomotyv Kyiv
+  NO DATA — PENDING
+· Prykarpattia-Blaho v Probiy Horodenka
+  NO DATA — PENDING
+```
+```
+SWEDISH ALLSVENSKAN
+· Elfsborg v Västerås
+  NO DATA — PENDING
+```
+```
+SWISS SUPER LEAGUE
+· Basel v Young Boys Bern
+  NO DATA — PENDING
+```
+```
+TURKISH SUPER LIG
+· Galatasaray v Corum
+  NO DATA — PENDING
+```
+```
+UKRAINIAN PREMIER LEAGUE
+· Epitsentr v Veres Rivne
+  NO DATA — PENDING
+```
+```
+WELSH PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Haverfordwest County AFC v Penybont
+    AI pick: Haverfordwest County AFC (35%)
+· TNS v Briton Ferry
+  NO DATA — PENDING
+· GAP Connah S Quay FC v Trefelin BGC
+  NO DATA — PENDING
+· Llandudno v Holywell Town
+  NO DATA — PENDING
+· Cambrian United v Flint Town
+  NO DATA — PENDING
+· Airbus UK v Ammanford
+  NO DATA — PENDING
+```
+
+🎯 PRODUCTION BETS — 2026-08-14 (today's fixtures only)
+
+★ Acca A — HEADLINE, 3 legs
+    Viborg v Aarhus (Danish Superliga) — Aarhus to win @ 3.40
+    Cercle Brugge v St Truiden (Belgian Pro League) — St Truiden to win @ 2.98
+    Telstar v Sparta Rotterdam (Eredivisie) — Telstar to win @ 2.31
+    Combined 23.40 Booking code: PL7YCH
+
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive); away was historically measured negative — the brain learns from live legs
+
+YESTERDAY — GRADED
+No settled predictions to grade yet.
+
+7-DAY ROLLING
+no settled predictions in 7d
+6 legs logged · 5 with CLV (avg CLV -2.86%) · gate 5/30 legs
+
+HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

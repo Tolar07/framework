@@ -47,6 +47,13 @@ sys.path.insert(0, str(ROOT))
 
 import config  # noqa: E402 — imports and runs load_dotenv() so .env reaches os.environ
 
+# Install global error tracker hook (records unhandled exceptions to logs/errors.jsonl)
+try:
+    from monitor import error_tracker
+    error_tracker.install_excepthook()
+except Exception:
+    pass
+
 BOARD_DIR = ROOT / "output" / "boards"
 STATIC_DIR = ROOT / "webapp" / "static"
 _DT = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -381,12 +388,40 @@ class Handler(BaseHTTPRequestHandler):
                     return self._not_found()
                 self._json(feed)
 
+            # --- Error tracking summary (Layer 13 observability) -----------
+            elif path == "/api/errors/summary":
+                try:
+                    from monitor import error_tracker
+                    # Parse query params for filtering
+                    parsed = urlparse(self.path)
+                    query = parsed.query
+                    params = {}
+                    for part in query.split("&"):
+                        if "=" in part:
+                            k, v = part.split("=", 1)
+                            params[k] = v
+                    hours = int(params.get("hours", "24"))
+                    limit = int(params.get("limit", "100"))
+                    error_id = params.get("error_id")
+                    summary = error_tracker.get_error_summary(
+                        limit=limit, since_hours=hours, error_id=error_id
+                    )
+                    self._json(summary)
+                except Exception as e:
+                    self._json({"ok": False, "error": str(e)})
+
             else:
                 self._not_found()
 
         except FileNotFoundError:
             self._not_found()
         except Exception as e:  # server must never crash the thread
+            try:
+                from monitor import error_tracker
+                error_tracker.record_error(e, context=f"webapp.do_GET {path}",
+                                          tags=["web", "unhandled"])
+            except Exception:
+                pass
             try:
                 self._send(500, (f"server error: {e}").encode("utf-8"), "text/plain; charset=utf-8")
             except Exception:
@@ -421,6 +456,12 @@ class Handler(BaseHTTPRequestHandler):
                 scores = _fetch_live_scores(leagues)
                 self._json({"ok": True, "scores": scores})
             except Exception as e:
+                try:
+                    from monitor import error_tracker
+                    error_tracker.record_error(e, context=f"webapp.do_POST {path}",
+                                              tags=["web", "live-scores"])
+                except Exception:
+                    pass
                 self._json({"ok": False, "error": str(e)})
             return
 
@@ -450,6 +491,12 @@ class Handler(BaseHTTPRequestHandler):
                 reply = self._analyst_reply(message, feed, date_str)
                 self._json({"ok": True, "reply": reply})
             except Exception as e:
+                try:
+                    from monitor import error_tracker
+                    error_tracker.record_error(e, context=f"webapp.do_POST {path}",
+                                              tags=["web", "analyst"])
+                except Exception:
+                    pass
                 self._json({"ok": False, "error": str(e)})
             return
 
@@ -543,6 +590,16 @@ def main():
                     help="0.0.0.0 makes it reachable from a phone on the LAN")
     ap.add_argument("--port", type=int, default=8088)
     a = ap.parse_args()
+
+    # Rotate .bat-redirected logs (web_server.log, poller.log, etc.)
+    # at startup. Python-managed logs (web.jsonl) are handled by their
+    # own RotatingFileHandler when setup_json_logging() is called.
+    try:
+        from monitor import json_log
+        json_log.rotate_all_bat_logs()
+    except Exception:
+        pass
+
     httpd = ThreadingHTTPServer((a.host, a.port), Handler)
     print(f"OLP XDV dashboard on http://{a.host}:{a.port}")
     print(f"  today:  http://localhost:{a.port}/dashboard/{date.today().isoformat()}")

@@ -1,12 +1,12 @@
 OLP XDV — DAILY BOARD
 2026-08-14  |  Phase 3 — live capital (Architect-deployed)
-Leagues: 61 · 26 with fixtures
+Leagues: 61 · 28 with fixtures
 Calibration: 16 legs logged, mean CLV -2.62%
 
-⚠ 321 data flag(s) — see /board or the saved board for full detail
+⚠ 364 data flag(s) — see /board or the saved board for full detail
 
 📋 SCAN RECORD — today's rated fixtures — 2026-08-14 (paper, ID415)
-11 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+12 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
 
 1. Gandzasar v Shirak (Armenian Premier League)
    Pick: Shirak to win (55%)
@@ -17,21 +17,23 @@ Calibration: 16 legs logged, mean CLV -2.62%
    Best market: St Truiden to win at 2.98 — +45.30% EV
 4. CSKA 1948 v Cherno More Varna (Bulgarian First League)
    Pick: Cherno More Varna to win (49%)
-5. Viborg v Aarhus (Danish Superliga)
+5. Wolves v Blackburn (Championship)
+   Pick: Wolves to win (70%)
+6. Viborg v Aarhus (Danish Superliga)
    Pick: Aarhus to win (53%)
    Best market: Aarhus to win at 3.40 — +79.36% EV
-6. Legia v Radomiak Radom (Ekstraklasa)
+7. Legia v Radomiak Radom (Ekstraklasa)
    Pick: Legia to win (50%)
-7. Telstar v Sparta Rotterdam (Eredivisie)
+8. Telstar v Sparta Rotterdam (Eredivisie)
    Pick: Telstar to win (56%)
    Best market: Telstar to win at 2.31 — +28.40% EV
-8. Marsaxlokk v Balzan FC (Maltese Premier League)
+9. Marsaxlokk v Balzan FC (Maltese Premier League)
    Pick: Marsaxlokk to win (53%)
-9. Sp Lisbon v Guimaraes (Primeira Liga)
+10. Sp Lisbon v Guimaraes (Primeira Liga)
    Pick: Sp Lisbon to win (87%)
-10. FC Orenburg v Lokomotiv (Russian Premier League)
+11. FC Orenburg v Lokomotiv (Russian Premier League)
    Pick: Lokomotiv to win (57%)
-11. Haverfordwest County AFC v Penybont (Welsh Premier League)
+12. Haverfordwest County AFC v Penybont (Welsh Premier League)
    Pick: Haverfordwest County AFC to win (35%)
 Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
 
@@ -40,18 +42,33 @@ ARMENIAN PREMIER LEAGUE
   ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
   ★ Gandzasar v Shirak
     AI pick: Shirak (55%)
+· Gandzasar Kapan FC v FC Shirak Gyumri
+  NO DATA — PENDING
 ```
 ```
 AUSTRIAN BUNDESLIGA
   ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
   ★ LASK v Ried
     AI pick: LASK (56%)
+· LASK Linz v Ried
+  NO DATA — PENDING
 ```
 ```
 BELGIAN PRO LEAGUE
   ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
   ★ Cercle Brugge v St Truiden
     AI pick: St Truiden (49%)
+```
+```
+BOSNIAN PREMIER LEAGUE
+· Parma Calcio v Calcio Catania
+  NO DATA — PENDING
+· Cagliari v SS Arezzo
+  NO DATA — PENDING
+· Monza v US Avellino
+  NO DATA — PENDING
+· Fiorentina v Benevento Calcio
+  NO DATA — PENDING
 ```
 ```
 BULGARIAN FIRST LEAGUE
@@ -61,6 +78,9 @@ BULGARIAN FIRST LEAGUE
 ```
 ```
 CHAMPIONSHIP
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Wolves v Blackburn
+    AI pick: Wolves (70%)
 · Wolverhampton Wanderers v Blackburn
   NO DATA — PENDING
 ```
@@ -96,6 +116,8 @@ EUROPA LEAGUE
 FINNISH VEIKKAUSLIIGA
 · VPS v TPS
   NO DATA — PENDING
+· Vaasan Palloseura v Turun Palloseura
+  NO DATA — PENDING
 ```
 ```
 GIBRALTARIAN NATIONAL LEAGUE
@@ -108,10 +130,19 @@ GIBRALTARIAN NATIONAL LEAGUE
 HNL
 · Dinamo Zagreb v Rudeš
   NO DATA — PENDING
+· Dinamo Zagreb v NK Rudes Zagreb
+  NO DATA — PENDING
 ```
 ```
 HUNGARIAN NB I
 · Budapest Honvéd v Vasas
+  NO DATA — PENDING
+· Budapest Honved FC v Vasas FC
+  NO DATA — PENDING
+```
+```
+KOSOVAN SUPERLIGA
+· KF Feronikeli v SC Gjilani
   NO DATA — PENDING
 ```
 ```
@@ -120,6 +151,10 @@ MALTESE PREMIER LEAGUE
   ★ Marsaxlokk v Balzan FC
     AI pick: Marsaxlokk (53%)
 · Birzebbuga St. Peter v Floriana
+  NO DATA — PENDING
+· Birzebbuga St. Peters F.C. v Floriana FC
+  NO DATA — PENDING
+· Balzan Youths v Marsaxlokk FC
   NO DATA — PENDING
 ```
 ```
@@ -137,6 +172,8 @@ PRIMEIRA LIGA
   ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
   ★ Sp Lisbon v Guimaraes
     AI pick: Sp Lisbon (87%)
+· Sporting v Vitoria SC Guimaraes
+  NO DATA — PENDING
 ```
 ```
 ROMANIAN LIGA I
@@ -161,6 +198,8 @@ SLOVENIAN PRVALIGA
 ```
 SWEDISH ALLSVENSKAN
 · Elfsborg v Västerås
+  NO DATA — PENDING
+· Vaxjo DFF v Djurgardens IF DFF
   NO DATA — PENDING
 ```
 ```

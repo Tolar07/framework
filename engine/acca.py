@@ -65,10 +65,12 @@ from itertools import count
 from typing import Any, Iterator, List, Optional
 
 from engine import markets as mkt
+from engine.markets import blend_toward_market
 
 ACCA_A_MAX = 5          # the headline acca holds the top 4-5 confidence legs
 HEADLINE_MIN_LEGS = 4   # below this, Acca A is a shortened acca, never padded
 SPLIT_GROUP_TARGET = 5  # remainder splits into ~4-5 leg groups, never one giant acca
+MAX_ODDS_CAP = 2.00     # hard cap — any leg with price > 2.00 is rejected (FL-bias guardrail)
 
 
 @dataclass
@@ -162,7 +164,8 @@ def _market_implied(market_key: str, fx, price) -> Optional[float]:
 
 
 def _best_deployable_leg(bf, odds_index: Optional[dict],
-                         agreement_band: Optional[float] = None) -> Optional[AccaLeg]:
+                         agreement_band: Optional[float] = None,
+                         max_odds_cap: float = MAX_ODDS_CAP) -> Optional[AccaLeg]:
     """The best CAPITAL-CLEARED market for one fixture, priced on the live line.
 
     Multi-market selection (Architect 2026-08-11): every fixture is evaluated
@@ -221,19 +224,30 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
             prob = bf.best_model_prob if bf.best_model_prob is not None else prob
         if price is None:
             continue
+        # HARD ODDS CAP (FL-bias guardrail): reject any market priced above
+        # max_odds_cap — long odds are where the bookmaker's overround is
+        # thickest and the model is least reliable. This is a deployment policy,
+        # not a calibration change; it keeps Acca A in the favourite/short-price
+        # zone where CLV has been positive.
+        if price > max_odds_cap:
+            continue
         # AGREEMENT GATE (gambler move #2, opt-in): skip any market where the
         # model and the book DISAGREE beyond the honest band. The measured CLV
         # says this disagreement bucket is exactly where the model is most
         # overconfident (+10-14pp) and where legs lose. Inside the band the
         # model is calibrated, so only trusted legs are eligible. Disabled when
         # agreement_band is None (shipped behaviour).
+        book_p = _market_implied(market, fx, price)
         if agreement_band is not None:
-            book_p = _market_implied(market, fx, price)
             if book_p is None:
                 continue  # cannot anchor to the book — not judged, skip (HR35)
             if abs(prob - book_p) > agreement_band:
                 continue  # disagreement bucket — the trap; exclude it
-        ev = (prob * price - 1.0) if price else None
+        # EV is priced on the BLEND — the honest probability when model and
+        # market disagree (ID414). Ledger keeps RAW model_est via prob;
+        # calibration stays inert (no feedback loop).
+        prob_ev = blend_toward_market(prob, book_p) if book_p is not None else prob
+        ev = (prob_ev * price - 1.0) if price else None
         # Highest EDGE wins (strictly better only — EDGE_MARKETS order is the
         # deterministic final tiebreak). Probability breaks an EV tie.
         if (best is None or (ev is not None and (best.ev is None or ev > best.ev))
@@ -302,6 +316,7 @@ def build_production_bets(
     odds_index: Optional[dict] = None,
     acca_a_max: int = ACCA_A_MAX,
     agreement_band: Optional[float] = None,
+    max_odds_cap: Optional[float] = MAX_ODDS_CAP,
 ) -> ProductionBets:
     """Build the day's production output: Acca A + split accas + singles.
 
@@ -329,12 +344,13 @@ def build_production_bets(
     single book — the same fixture must never carry two different "picks".
     """
     today = today or date.today().isoformat()
+    cap = MAX_ODDS_CAP if max_odds_cap is None else max_odds_cap
 
     pairs: List[tuple[Any, AccaLeg]] = []
     for bf in board:
         if bf.kickoff_date != today:
             continue  # standing rule: today's fixtures only
-        leg = _best_deployable_leg(bf, odds_index, agreement_band=agreement_band)
+        leg = _best_deployable_leg(bf, odds_index, agreement_band=agreement_band, max_odds_cap=cap)
         if leg is None:
             continue
         # Write-back (see docstring) — run before produced_bet.record so every
@@ -365,13 +381,15 @@ def build_production_bets(
 
 def build_accas(board, today: Optional[str] = None,
                 odds_index: Optional[dict] = None,
-                agreement_band: Optional[float] = None) -> List[Acca]:
+                agreement_band: Optional[float] = None,
+                max_odds_cap: Optional[float] = MAX_ODDS_CAP) -> List[Acca]:
     """LEGACY — the acca set only (Acca A + split accas, no singles).
 
     Kept for callers that want just the accumulator set; the production flow
     should use `build_production_bets`."""
     bets = build_production_bets(board, today=today, odds_index=odds_index,
-                                agreement_band=agreement_band)
+                                agreement_band=agreement_band,
+                                max_odds_cap=max_odds_cap)
     return ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
 
 

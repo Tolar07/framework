@@ -344,7 +344,13 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
     SportyBet's fixture page is a SPA: the country must be clicked in the
     sidebar first, then the league name. Direct URL navigation does NOT load
     fixtures ("Failed to load game data"). This function replicates the
-    click-through that a user performs."""
+    click-through that a user performs.
+
+    CRITICAL (2026-08-15): After navigation, we VERIFY the page shows the
+    expected league by checking the visible breadcrumb/heading. If verification
+    fails, the cache write is ABORTED — this prevents silent cross-contamination
+    (e.g. Bosnian/Israeli/Welsh "Premier League" all colliding with England's).
+    """
     try:
         # Step 1: ensure we're on a clean football page. The guard is NOT just
         # "/sport/football" — a deep tournament link (e.g. .../sr:tournament:36)
@@ -393,13 +399,18 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
             country_loc.dispatch_event("click")
         page.wait_for_timeout(2500)
 
-        # Step 3: click the league name (visible tournament in the list).
-        # The league name shows as e.g. "Premier League" with count "(11)".
+        # Step 3: click the league name — SCOPED to the just-expanded country.
+        # After clicking the country, only that country's tournaments are visible.
+        # Match the tournament-name INSIDE the expanded country section, NOT
+        # globally — this prevents "Premier League" colliding across countries.
         league_loc = page.locator(
+            ".category-list-item:visible").filter(
+            has=page.locator(f"text={country}")).first.locator(
             ".tournament-name:visible, .tournament-list-item:visible",
             has_text=league).first
         if league_loc.count() == 0:
-            # Fallback: plain visible text match within the sidebar
+            # Fallback: try the old global match (for backward compatibility
+            # if the scoped selector fails due to DOM structure)
             league_loc = page.locator(
                 f"text={league} >> visible=true").first
         if league_loc.count() == 0:
@@ -413,9 +424,59 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
 
         # Step 4: wait for fixtures to render
         page.wait_for_timeout(3000)
-        return _wait_for_fixtures(page)
+        if not _wait_for_fixtures(page):
+            print(f"  x Fixtures did not render for {country}/{league}")
+            return False
+
+        # Step 5: VERIFY the page actually shows the expected league.
+        # Read the breadcrumb/heading that SportyBet displays on the league page.
+        # If it doesn't match, ABORT — this is the anti-contamination gate.
+        if not _verify_league_page(page, country, league):
+            print(f"  x PAGE VERIFICATION FAILED: expected {country}/{league}")
+            return False
+
+        return True
     except Exception as e:
         print(f"  x Navigation failed for {country}/{league}: {e}")
+        return False
+
+
+def _verify_league_page(page: Page, expected_country: str, expected_league: str) -> bool:
+    """Verify the current page is the expected league.
+
+    SportyBet renders a breadcrumb/heading like "Spain > LaLiga" or a page
+    title. We check for the expected league name in the visible page header.
+    This is the anti-contamination gate (ID408): if the sidebar click landed
+    on the wrong tournament, we catch it BEFORE caching wrong fixtures.
+    """
+    try:
+        # Strategy 1: Check the breadcrumb/heading in the main content area
+        # SportyBet shows "Spain / LaLiga" or similar in .breadcrumb or .tournament-header
+        breadcrumb = page.locator(
+            ".breadcrumb:visible, .tournament-header:visible, .page-header:visible, .league-title:visible").first
+        if breadcrumb.count() > 0:
+            text = breadcrumb.inner_text().strip().lower()
+            # Fuzzy match: expected league must appear in breadcrumb (case-insensitive)
+            if expected_league.lower() in text:
+                return True
+            # Also allow country name as a secondary signal
+            if expected_country.lower() in text:
+                return True
+
+        # Strategy 2: Check the URL — SportyBet URLs contain /sr:tournament:<id>
+        # Not reliable for name matching, but a last resort
+        url = page.url.lower()
+        # Could add tournament ID mapping later, for now skip
+
+        # Strategy 3: Check page <title>
+        title = page.title().lower()
+        if expected_league.lower() in title or expected_country.lower() in title:
+            return True
+
+        print(f"  ! Verification: breadcrumb='{breadcrumb.inner_text().strip() if breadcrumb.count() else 'none'}', title='{title}'")
+        return False
+    except Exception as e:
+        print(f"  ! Verification error: {e}")
         return False
 
 

@@ -51,6 +51,24 @@
           }
         ],
         "description": "Suggest manual compaction at logical intervals"
+      },
+      {
+        "matcher": "Bash|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:/Users/Motunrayo/.local/bin/graphify.EXE hook-guard search"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:/Users/Motunrayo/.local/bin/graphify.EXE hook-guard read"
+          }
+        ]
       }
     ],
     "PreCompact": [
@@ -84,7 +102,7 @@
             "command": "node \".claude/scripts/hooks/session-init.js\""
           }
         ],
-        "description": "OLP XDV session initialization — safe-move protocol, skill auto-detection, context loading"
+        "description": "OLP XDV session initialization \u2014 safe-move protocol, skill auto-detection, context loading"
       },
       {
         "matcher": "*",
@@ -94,7 +112,7 @@
             "command": "node \".claude/scripts/hooks/memory-check.js\" check-in"
           }
         ],
-        "description": "HR54 mandatory memory check-in — read canonical Obsidian vault before any output"
+        "description": "HR54 mandatory memory check-in \u2014 read canonical Obsidian vault before any output"
       }
     ],
     "PostToolUse": [
@@ -200,7 +218,7 @@
             "command": "node \".claude/scripts/hooks/memory-check.js\" check-out"
           }
         ],
-        "description": "HR54 mandatory memory check-out — verify memory writes before session close"
+        "description": "HR54 mandatory memory check-out \u2014 verify memory writes before session close"
       }
     ]
   },

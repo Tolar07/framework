@@ -399,27 +399,112 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
     return "\n".join(L)
 
 
+def _fmt_eng(cell: Optional[tuple]) -> str:
+    """Format a (home, draw, away) probability tuple as 'H/D/A' percentages,
+    or '—' when no opinion exists (HR35 — never fabricated)."""
+    if not cell:
+        return "—"
+    h, d, a = cell
+    if h is None:
+        return "—"
+    return f"{round(h*100)}/{round(d*100)}/{round(a*100)}"
+
+
+def _fmt_consensus(bf: BoardFixture) -> str:
+    """Compact consensus cell: the winning side + 'k/n engines', or NO CONS /
+    — when there is none (HR35 — never smoothed over)."""
+    c = bf.consensus
+    if c is None:
+        return "—"
+    if not c.result:
+        return "NO CONS"
+    label = {"HOME": bf.probs.home_team, "AWAY": bf.probs.away_team}.get(c.result, c.result)
+    return f"{label[:10]} {c.agreeing}/{c.n_engines}"
+
+
+def _fmt_ev(ev: Optional[float]) -> str:
+    """Format an MES expected-value figure as a signed percentage, or '—'."""
+    if ev is None:
+        return "—"
+    return f"{ev:+.2%}"
+
+
 def render_part1_the_call(shortlist: list[BoardFixture]) -> str:
     """DEPLOY shortlist — TODAY'S fixtures only (standing rule 2026-08-09),
-    unified pool (no tiers, no cap). Frozen columns:
-    Fixture | Pick | Model% | Deploy at (MES trigger)"""
+    unified pool (no tiers, no cap). FULL DETAIL TABLE (ID409 + HR53): every
+    fixture one row, all probability/opinion/edge columns inline — no stacked
+    prose blocks. Columns:
+    Fixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A |
+    Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes"""
     today = date.today().isoformat()
     shortlist = [bf for bf in shortlist if bf.kickoff_date == today]
     if not shortlist:
         return ("PART 1 — THE CALL — today's fixtures only\n"
                 "NO DEPLOY-ELIGIBLE CALL this session — no deployable fixture "
                 "kicks off today (a valid, honest result).")
-    rows = ["PART 1 — THE CALL — today's fixtures only",
-            "Fixture | Pick | Model% | Deploy at"]
+    header = ("PART 1 — THE CALL (full detail) — today's fixtures only\n"
+              f"{len(shortlist)} deploy-eligible fixture(s) kicking off today "
+              "(unified pool — all whitelisted leagues, no cap).\n"
+              "MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.\n")
+    cols = ["Fixture", "H%", "D%", "A%", "O1.5", "O2.5", "BTTS",
+            "Elo H/D/A", "xG H/D/A", "Mkt H/D/A", "Cons",
+            "BestMkt", "Price", "MES EV", "Trig", "Src", "Notes"]
+    rows = [" | ".join(cols)]
     for bf in shortlist:
         if bf.probs is None:
-            rows.append(f"{bf.fixture} | NO DATA — PENDING | — | —")
+            rows.append(" | ".join([
+                bf.fixture, "—", "—", "—", "—", "—", "—", "—", "—", "—", "—",
+                "NO DATA — PENDING", "—", "—", "—", stamp(bf.verification),
+                (bf.rejection_reason or "")]))
             continue
-        # Plain-language pick line (HR53 — no bare glyphs)
-        pick_desc, prob = _best_market_desc(bf.probs)
-        trigger = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA — PENDING"
-        rows.append(f"{bf.fixture} | {pick_desc} | {round(prob*100)}% | {trigger}")
-    return "\n".join(rows)
+        p = bf.probs
+        # Goals: Honest-edge — a stretch 1X2-only rating has no goals opinion
+        # (None, HR35); report it, never guess.
+        o15 = _lean(p.p_over_15, '1.5') if p.p_over_15 is not None else "—"
+        o25 = _lean(p.p_over_25, '2.5') if p.p_over_25 is not None else "—"
+        if p.p_btts_yes is None:
+            btts = "—"
+        else:
+            btts = (f"Y{round(p.p_btts_yes*100)}"
+                    if p.p_btts_yes >= 0.5
+                    else f"N{round((1-p.p_btts_yes)*100)}")
+        # Best market + price + MES EV: prefer the priced best-market row,
+        # fall back to SportyBet odds (Phase 2 CLV / Phase 3 live).
+        best_mkt = bf.best_market or "—"
+        if bf.best_price is not None:
+            price = f"{bf.best_price:.2f}"
+            mes_ev = _fmt_ev(bf.best_mes_ev)
+        elif bf.sb_home_odds is not None or bf.sb_draw_odds is not None or bf.sb_away_odds is not None:
+            # Single best SportyBet leg price isn't stored per-fixture; show the
+            # best MES EV we have (sb_mes_ev) and 'SB' as the price source tag.
+            price = "SB"
+            mes_ev = _fmt_ev(bf.sb_mes_ev)
+        else:
+            price = "—"
+            mes_ev = _fmt_ev(bf.best_mes_ev)
+        trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "—"
+        # Notes: carry the textual divergence/verdict flags so the table stays
+        # FULL — nothing important is dropped to a separate prose block.
+        notes = []
+        if bf.engine_divergence:
+            notes.append("ELO DIV")
+        if bf.goals_divergence:
+            notes.append("xG GOALS DIV")
+        if bf.best_mes_ev is not None and bf.best_mes_ev < 0:
+            notes.append("NEG EV")
+        if bf.rating_source == "clubelo":
+            notes.append("CLUBELO STRETCH")
+        rows.append(" | ".join([
+            bf.fixture,
+            f"{round(p.p_home*100)}", f"{round(p.p_draw*100)}", f"{round(p.p_away*100)}",
+            o15, o25, btts,
+            _fmt_eng(bf.elo_probs), _fmt_eng(bf.xg_probs), _fmt_eng(bf.market_probs),
+            _fmt_consensus(bf),
+            best_mkt, price, mes_ev, trig,
+            stamp(bf.verification),
+            " ".join(notes),
+        ]))
+    return header + "\n".join(rows)
 
 
 def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
@@ -532,20 +617,12 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
         production = build_production_bets(board)
 
     if stacked:
-        if shortlist:
-            call = ["PART 1 — THE CALL — today's fixtures only"]
-            call.append(f"{len(shortlist)} deploy-eligible fixture(s) kicking off today (unified pool — all whitelisted leagues, no cap).")
-            call.append("MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.")
-            call.append("")
-            call += [render_fixture_block(bf, i) + "\n"
-                     for i, bf in enumerate(shortlist, 1)]
-            part1 = "\n".join(call).rstrip()
-        else:
-            part1 = ("PART 1 — THE CALL — today's fixtures only\n"
-                     "NO DEPLOY-ELIGIBLE CALL this session — no deployable "
-                     "fixture kicks off today. That is a valid, honest result — "
-                     "the framework's value is disciplined filtering, and "
-                     "near-zero approvals is correct behaviour, not failure.")
+        # ID409 + HR53: PART 1 THE CALL renders as a FULL DETAIL TABLE (one row
+        # per today's fixture, all probability/opinion/edge columns inline), not
+        # stacked prose blocks. The stacked fixture-block form is retained in
+        # render_fixture_block for callers that want it (e.g. /why), but the
+        # shipped board uses the table.
+        part1 = render_part1_the_call(shortlist)
     else:
         part1 = render_part1_the_call(shortlist)
 

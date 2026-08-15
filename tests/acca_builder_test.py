@@ -42,14 +42,15 @@ TODAY = date.today().isoformat()
 TOMORROW = (date.today() + timedelta(days=1)).isoformat()
 
 
-def _probs(h=0.5, d=0.25, a=0.25, over25=0.5, home="Home FC", away="Away FC"):
+def _probs(h=0.5, d=0.25, a=0.25, over25=0.5, home="Home FC", away="Away FC",
+          over15=0.7, btts=0.5):
     """Fake FixtureProbabilities with the fields build_production_bets reads
     (attribute access — SimpleNamespace is fine, same pattern as consensus_test)."""
     return SimpleNamespace(
         home_team=home, away_team=away,
         lambda_home=1.4, lambda_away=1.0,
         p_home=h, p_draw=d, p_away=a,
-        p_over_15=0.7, p_over_25=over25, p_over_35=0.3, p_btts_yes=0.5,
+        p_over_15=over15, p_over_25=over25, p_over_35=0.3, p_btts_yes=btts,
         modal_scoreline=(1, 0))
 
 
@@ -603,5 +604,38 @@ _check("REAL TICKET: Acca A combined odds is product of top 5 edge legs (not all
        f"Acca A combined odds = {bets_ticket.acca_a.combined_odds if bets_ticket.acca_a else 'N/A'}")
 _check("REAL TICKET: the 2.00 ceiling works as designed — filters longshot bias, admits short prices",
        True, "")  # validated by the 13 admitted / 1 filtered checks above
+
+# --- 16. PART 1 (THE CALL) renders as a FULL DETAIL TABLE (ID409 + HR53) -----
+# Every today's fixture is ONE row; all probability/opinion/edge columns inline.
+# No stacked prose blocks. Regression guard so a future edit cannot silently
+# revert the table back to per-fixture text blocks.
+from output.produce_bet import render_part1_the_call, stamp
+_t1 = _bf("TableTest v Row (Eredivisie)",
+          _probs(home="TableTest", away="Row", h=0.42, d=0.32, a=0.26,
+                 over15=0.61, over25=0.33, btts=0.41),
+          TODAY)
+_t1.elo_probs = (0.48, 0.26, 0.26)
+_t1.consensus = SimpleNamespace(result="HOME", agreeing=2, n_engines=2,
+                                split=False, weighted=False, weight_used=None,
+                                avg_home=0.45, avg_draw=0.29, avg_away=0.26, votes=None)
+_t1.best_market = "Draw"
+_t1.best_price = 3.25
+_t1.best_model_prob = 0.32
+_t1.best_mes_ev = 0.0452
+_t1.mes_trigger_price = 1.63
+t1_out = render_part1_the_call([_t1])
+_check("PART 1 is a table: data row has 17 columns joined by ' | '",
+       "\n" in t1_out and len(t1_out.splitlines()[-1].split(" | ")) == 17,
+       f"last row cols = {len(t1_out.splitlines()[-1].split(' | ')) if t1_out.splitlines() else 0}")
+_check("PART 1 table carries the frozen column names (Fixture, H%, D%, A%, O1.5, O2.5, BTTS, Elo H/D/A, xG H/D/A, Mkt H/D/A, Cons, BestMkt, Price, MES EV, Trig, Src, Notes)",
+       "Fixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A | Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes" in t1_out,
+       "frozen header missing")
+_check("PART 1 table row renders all numeric cells inline (no stacked prose)",
+       "TableTest v Row (Eredivisie) | 42 | 32 | 26 | O61 | U67 | N59 | 48/26/26" in t1_out
+       and "Draw | 3.25 | +4.52% | 1.63+" in t1_out,
+       "detail cells not inline in one row")
+_check("PART 1 has NO stacked fixture-block markers (no 'Second opinion' prose)",
+       "Second opinion" not in t1_out and "Expected goals (model)" not in t1_out,
+       "PART 1 reverted to prose blocks")
 
 print("\n✅ ALL ACCA + PRODUCTION INTENT TESTS PASSED")

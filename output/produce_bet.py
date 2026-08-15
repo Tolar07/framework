@@ -133,11 +133,11 @@ def render_part0(mode: str, phase: str, leagues_scanned: list[str],
         lines.extend(f"  ⚠ {flag}" for flag in data_flags)
     lines.append("HONEST EDGE LINE: this is an excellent informed process but "
                   "NOT a demonstrated profitable edge.")
-    # ID409 frozen-contract supersession is PENDING Architect ratification:
-    # the board now renders Detail (PART 2) → Call (PART 1), reversing the
-    # v303.11 frozen order. Surfaced here, not silently, per briefing §6/§9.
-    lines.append("⚠ ID409 PENDING — board order superseded to "
-                 "Detail(PART 2) → Call(PART 1); not yet ratified.")
+    # ID409 frozen-contract supersession — RATIFIED 2026-08-15 (Architect
+    # sign-off): the board renders Detail (PART 2) → Call (PART 1), reversing
+    # the v303.11 frozen order. Logged, not a runtime warning anymore.
+    lines.append("ID409 RATIFIED 2026-08-15 — board order: "
+                 "Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.")
     return "\n".join(lines)
 
 
@@ -552,13 +552,11 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
     parts = [
         render_part0(mode, phase, leagues_scanned, calibration_count, mean_clv, data_flags),
         "",
-        # ID409 (PROPOSED, pending Architect ratification — frozen-contract
-        # supersession, 2026-08-15): Detail → Summary → Call.
-        # PART 2 (THE SCAN, the full per-fixture market grid — Layer 2 detail)
-        # now prints FIRST, then PART 1 (THE CALL — the summary + pick, Layer 1).
-        # Previously v303.11 froze Part 1 before Part 2; this is the explicit
-        # reverse. Flagged pending so no downstream consumer treats it as
-        # ratified until the Architect signs off.
+        # ID409 RATIFIED 2026-08-15 (Architect sign-off — frozen-contract
+        # supersession): Detail(PART 2, THE SCAN — Layer 2 grid) → Call
+        # (PART 1, THE CALL — Layer 1 summary + pick) → Acca Route
+        # (PRODUCTION BETS) → THE PICK (sign-off). Previously v303.11 froze
+        # Part 1 before Part 2; this explicit reverse is now the shipped order.
         render_part2_the_scan(board),
         "",
         part1,

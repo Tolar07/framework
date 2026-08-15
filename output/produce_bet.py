@@ -133,6 +133,11 @@ def render_part0(mode: str, phase: str, leagues_scanned: list[str],
         lines.extend(f"  ⚠ {flag}" for flag in data_flags)
     lines.append("HONEST EDGE LINE: this is an excellent informed process but "
                   "NOT a demonstrated profitable edge.")
+    # ID409 frozen-contract supersession is PENDING Architect ratification:
+    # the board now renders Detail (PART 2) → Call (PART 1), reversing the
+    # v303.11 frozen order. Surfaced here, not silently, per briefing §6/§9.
+    lines.append("⚠ ID409 PENDING — board order superseded to "
+                 "Detail(PART 2) → Call(PART 1); not yet ratified.")
     return "\n".join(lines)
 
 
@@ -547,9 +552,16 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
     parts = [
         render_part0(mode, phase, leagues_scanned, calibration_count, mean_clv, data_flags),
         "",
-        part1,
-        "",
+        # ID409 (PROPOSED, pending Architect ratification — frozen-contract
+        # supersession, 2026-08-15): Detail → Summary → Call.
+        # PART 2 (THE SCAN, the full per-fixture market grid — Layer 2 detail)
+        # now prints FIRST, then PART 1 (THE CALL — the summary + pick, Layer 1).
+        # Previously v303.11 froze Part 1 before Part 2; this is the explicit
+        # reverse. Flagged pending so no downstream consumer treats it as
+        # ratified until the Architect signs off.
         render_part2_the_scan(board),
+        "",
+        part1,
         "",
         render_part3_rejected(board),
         "",

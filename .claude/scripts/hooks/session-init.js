@@ -252,7 +252,15 @@ async function main() {
   loadContext();
   detectSkills();
   verifyData();
+  checkProtectedConstants();
   checkPermissions();
+
+  // Team roster summary
+  log('👥 Active Team:');
+  log('  Native (submodule): planner, architect, backend-architect, tdd-guide, code-reviewer, code-reviewer-config, security-auditor, build-error-resolver, e2e-runner, refactor-cleaner, doc-updater, conversation-auditor, league-steward, fixtures-checker, pipeline 1-10');
+  log('  Plugin (parent): olp-xdv-specialist, productivity-assistant');
+  log('  Plugin Skills (parent): coding-standards, backend-patterns, frontend-patterns, continuous-learning, strategic-compact, eval-harness, verification-loop, security-review, tdd-workflow, emil-design-eng, review-animations, improve-animations, find-animation-opportunities, web-design-guidelines, brandkit, image-to-code, impeccable, taste-skill, soft-skill, minimalist-skill, brutalist-skill, redesign-skill, stitch-skill, output-skill, image-to-code-skill, imagegen-frontend-web, imagegen-frontend-mobile, gpt-tasteskill, sports-football-data, sports-betting, sports-markets, sports-polymarket, olp-xdv, clickhouse-io, extract-design-system, project-guidelines-example');
+  log('  GStack (global): /office-hours, /spec, /plan-ceo-review, /plan-eng-review, /plan-design-review, /plan-devex-review, /autoplan, /design-consultation, /review, /codex, /investigate, /design-review, /design-shotgun, /design-html, /devex-review, /qa, /qa-only, /scrape, /skillify, /ship, /land-and-deploy, /canary, /landing-report, /document-release, /document-generate, /setup-deploy, /gstack-upgrade, /context-save, /context-restore, /learn, /retro, /health, /benchmark, /benchmark-models, /cso, /setup-gbrain, /sync-gbrain, /browse, /open-gstack-browser, /setup-browser-cookies, /pair-agent, /freeze, /unfreeze');
 
   // NEW: Read Obsidian vault for context
   checkVaultSync();

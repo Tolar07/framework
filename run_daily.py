@@ -363,8 +363,16 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         web: bool = True, prefetch_crests: bool = False,
         refresh_sportybet: bool = False,
         booking_codes: bool = False,
-        agreement_band: Optional[float] = None) -> RunResult:
+        agreement_band: Optional[float] = 0.04) -> RunResult:
     """Run the daily board end to end.
+
+    `agreement_band` (default 0.04, the measured calibrated zone — see
+    engine/markets.py BLEND, the honest zone where the model agrees with the
+    sharper book) is the gambler-move-#2 experiment gate: when set, legs are
+    drawn ONLY from markets where the model and book agree within the band —
+    the disagreement bucket the measured CLV says is the losing V5-trap. Enabled
+    by Architect go-ahead (2026-08-15); explicitly an experiment flag that does
+    NOT touch any protected constant.
 
     Opens the brain, seeds the ledger + corrections mirrors, records the run
     as 'running', and marks it FAILED on any exception — a board that never
@@ -1333,10 +1341,11 @@ if __name__ == "__main__":
                     help="skip the SportyBet fixture-cache refresh before the scan")
     ap.add_argument("--no-booking-codes", action="store_true",
                     help="skip generating SportyBet booking codes for today's accas")
-    ap.add_argument("--agreement-band", type=float, default=None,
+    ap.add_argument("--agreement-band", type=float, default=0.04,
                     help="experiment (gambler move #2): only bet markets where "
                          "model and book agree within this probability band "
-                         "(e.g. 0.04 = the calibrated zone). Off by default.")
+                         "(default 0.04 = the calibrated zone, BLEND_NOOP_AT). "
+                         "Explicitly an experiment flag — no protected constant.")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     # The CLI pre-warms club badges by default (real runs have the network);

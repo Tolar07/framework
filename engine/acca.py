@@ -135,7 +135,34 @@ def _team_pair(bf) -> tuple[str, str]:
     return "", ""
 
 
-def _best_deployable_leg(bf, odds_index: Optional[dict]) -> Optional[AccaLeg]:
+def _market_implied(market_key: str, fx, price) -> Optional[float]:
+    """The bookmaker's implied probability for one market.
+
+    Devigged where a clean two-sided quote exists (1X2 via implied_1x2,
+    O2.5/U2.5 via the over/under pair); otherwise the raw 1/price (which still
+    carries the overround — conservative: disagreements read slightly LARGER, so
+    the agreement band sits a touch tighter on favourites). Returns None when no
+    price basis exists (a leg we cannot anchor to the book is not judged)."""
+    if fx is not None:
+        if market_key in mkt.MARKETS_1X2:
+            p1x2 = mkt.implied_1x2(fx)
+            if p1x2 is not None:
+                return p1x2[mkt.MARKETS_1X2[market_key]]
+        if market_key in (mkt.OVER_25, mkt.UNDER_25):
+            o = fx.over25.price if market_key == mkt.OVER_25 else fx.under25.price
+            other = (fx.under25.price if market_key == mkt.OVER_25
+                     else fx.over25.price)
+            if o and other:
+                s = 1.0 / o + 1.0 / other
+                if s > 1.0:
+                    return (1.0 / o) / s
+    if price and price > 1.0:
+        return 1.0 / price
+    return None
+
+
+def _best_deployable_leg(bf, odds_index: Optional[dict],
+                         agreement_band: Optional[float] = None) -> Optional[AccaLeg]:
     """The best CAPITAL-CLEARED market for one fixture, priced on the live line.
 
     Multi-market selection (Architect 2026-08-11): every fixture is evaluated
@@ -145,6 +172,15 @@ def _best_deployable_leg(bf, odds_index: Optional[dict]) -> Optional[AccaLeg]:
     favour — the signal that drives positive CLV), tiebreak model_prob, then
     canonical market order. Probability stays visible as information.
 
+    AGREEMENT GATE (gambler move #2, 2026-08-15 experiment — opt-in, default
+    off): when `agreement_band` is set, a market is only admitted where the
+    model's probability and the book's implied probability AGREE within that
+    band (markets.py BLEND_NOOP_AT = 0.04 is the honest default — the zone
+    where the model is calibrated, not the +10-14pp overconfident disagreement
+    bucket the measured CLV says is losing). The EV ranking then chooses the
+    best leg ONLY inside that trusted zone. Disabled (None) = today's shipped
+    EV-ranking behaviour, untouched.
+
     A market enters only when it carries a REAL bookmaker price (SportyBet 1X2
     attrs, or the odds index — api-football fills O1.5/BTTS/DC, the Odds API
     free tier fills the rest). Returns None when the fixture has no model probs,
@@ -153,6 +189,7 @@ def _best_deployable_leg(bf, odds_index: Optional[dict]) -> Optional[AccaLeg]:
     if bf.probs is None or not getattr(bf, "on_deploy_shortlist", False):
         return None
     home, away = _team_pair(bf)
+    fx = odds_index.get((home, away)) if odds_index is not None else None
 
     best: Optional[AccaLeg] = None
     for market in mkt.EDGE_MARKETS:
@@ -171,7 +208,6 @@ def _best_deployable_leg(bf, odds_index: Optional[dict]) -> Optional[AccaLeg]:
         if sb_attr:
             price = getattr(bf, sb_attr, None)
         if price is None and odds_index is not None:
-            fx = odds_index.get((home, away))
             if fx is not None:
                 q = mkt.quote(market, fx)
                 if q is not None and q.available:
@@ -185,6 +221,18 @@ def _best_deployable_leg(bf, odds_index: Optional[dict]) -> Optional[AccaLeg]:
             prob = bf.best_model_prob if bf.best_model_prob is not None else prob
         if price is None:
             continue
+        # AGREEMENT GATE (gambler move #2, opt-in): skip any market where the
+        # model and the book DISAGREE beyond the honest band. The measured CLV
+        # says this disagreement bucket is exactly where the model is most
+        # overconfident (+10-14pp) and where legs lose. Inside the band the
+        # model is calibrated, so only trusted legs are eligible. Disabled when
+        # agreement_band is None (shipped behaviour).
+        if agreement_band is not None:
+            book_p = _market_implied(market, fx, price)
+            if book_p is None:
+                continue  # cannot anchor to the book — not judged, skip (HR35)
+            if abs(prob - book_p) > agreement_band:
+                continue  # disagreement bucket — the trap; exclude it
         ev = (prob * price - 1.0) if price else None
         # Highest EDGE wins (strictly better only — EDGE_MARKETS order is the
         # deterministic final tiebreak). Probability breaks an EV tie.
@@ -253,6 +301,7 @@ def build_production_bets(
     today: Optional[str] = None,
     odds_index: Optional[dict] = None,
     acca_a_max: int = ACCA_A_MAX,
+    agreement_band: Optional[float] = None,
 ) -> ProductionBets:
     """Build the day's production output: Acca A + split accas + singles.
 
@@ -268,6 +317,12 @@ def build_production_bets(
     top `acca_a_max` (the headline), the remainder splits into ~4-5 leg accas
     (Acca B, C, ...), and every remainder fixture is ALSO a standalone single.
 
+    `agreement_band` (optional, default None): the gambler move #2 experiment.
+    When set, legs are drawn ONLY from markets where the model and the book
+    agree within the band (the calibrated zone) — the disagreement bucket the
+    measured CLV says is losing is excluded. None = shipped EV-ranking (no
+    gate). This is an experiment flag; it does NOT touch any protected constant.
+
     Write-back: each leg's pick is written onto the BoardFixture
     (best_market_key/best_market/best_price/best_model_prob/best_mes_ev) so the
     CALL cards, produced-bet record and scan show the SAME market the acca and
@@ -279,7 +334,7 @@ def build_production_bets(
     for bf in board:
         if bf.kickoff_date != today:
             continue  # standing rule: today's fixtures only
-        leg = _best_deployable_leg(bf, odds_index)
+        leg = _best_deployable_leg(bf, odds_index, agreement_band=agreement_band)
         if leg is None:
             continue
         # Write-back (see docstring) — run before produced_bet.record so every
@@ -309,12 +364,14 @@ def build_production_bets(
 
 
 def build_accas(board, today: Optional[str] = None,
-                odds_index: Optional[dict] = None) -> List[Acca]:
+                odds_index: Optional[dict] = None,
+                agreement_band: Optional[float] = None) -> List[Acca]:
     """LEGACY — the acca set only (Acca A + split accas, no singles).
 
     Kept for callers that want just the accumulator set; the production flow
     should use `build_production_bets`."""
-    bets = build_production_bets(board, today=today, odds_index=odds_index)
+    bets = build_production_bets(board, today=today, odds_index=odds_index,
+                                agreement_band=agreement_band)
     return ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
 
 

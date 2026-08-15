@@ -1210,7 +1210,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                 "board_date": board_date,
                 "run_id": run_id,
                 "publish_gate": {
-                    "architect_signoff": True,
+                    "architect_signoff": os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower() in ("1", "true", "yes"),
                     "clv_legs": status["legs_with_clv"],
                     "clv_mean": status["mean_clv_pct"],
                 },

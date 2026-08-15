@@ -2116,3 +2116,64 @@ staking, fabrication, verification or honest-edge behaviour changed. The provena
 skin on the honest-edge display — it hides nothing.
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+## 2026-08-15 — Contradiction cleanup: Phase-3 state, open pool, pitch-night shipped, canonical gate
+
+**Trigger:** Full contradiction audit of the `olp_xdv` submodule surfaced five drift points
+between the documented "current state" and the code/config. Architect gave explicit, on-record
+go-ahead to fix all five (this is the named decision per CLAUDE.md's protected-constants rule,
+not an agent inference).
+
+**F1 — CLAUDE.md + config.py now report Phase 3, not Phase 2.**
+- `CLAUDE.md:123` previously said "the capital block (Phase 2 = paper only, zero capital)"
+  contradicting `config.py:65` (`PHASE = 3`) and four other authoritative sources. Reworded to
+  state the framework is at `PHASE = 3` (live capital, Architect-deployed 2026-08-11) while
+  preserving the bright line: `assert_paper_only()` hard-fails below Phase 3 and no code routes
+  a real stake.
+- `config.py` docstring (lines 4-6) still said "Phase 2 — paper only, zero capital"; updated to
+  Phase 3 with the same bright-line note. `CAPITAL_ENABLED = PHASE >= 3` and
+  `assert_paper_only()` are unchanged — capital authority stays with the Architect.
+
+**F2 — Two silently-gated leagues re-enabled (open pool restored).**
+- `config/leagues.json` carried `deploy_eligible: false` for Scottish Premiership
+  (api_football 179) and Danish Superliga (api_football 119), dated 2026-08-15 — a per-league
+  deploy gate that directly re-added the Tier A/B restriction CLAUDE.md §:45-47 says must never
+  be silently restored. Both flipped back to `deploy_eligible: true` and the `deploy_pause_reason`
+  keys removed. All 61 leagues are now deploy-eligible, matching the "ONE unified pool, no tiers"
+  invariant. This is an Architect-ratified reversal of the 2026-08-15 pause, recorded here.
+
+**F3 — Live `webapp/static/css/proto.css` confirmed already pitch-night (no change needed).**
+- The audit flagged the live CSS as the superseded Binance palette, but on-disk inspection the
+  file already carries the ratified pitch-night tokens (`--pitch-night:#0e1a16`,
+  `--amber:#e8a33d`, `--clay:#c05a4c`, Fraunces/Inter/IBM Plex Mono). The grep hit was a
+  *detector string* in `webapp/_restart_server.py`, not live CSS. Recorded as verified-clear;
+  no edit made. The stale export copy `webapp/site/static/css/proto.css` (2026-08-11) can be
+  deleted in a later cosmetic cleanup if desired.
+
+**F4 — Pipeline CLV gate threshold aligned to canonical 30.**
+- `olp_xdv_pipeline.py:65` had `CLV_GATE_LEGS = 12`, authorizing publish 18 legs before the
+  canonical gate (`clv/clv_logger.PHASE3_GATE_MIN_LEGS = 30`, `webapp/schema.py:336`,
+  `tests/webapp_schema_test.py:240`). Bumped to `30` so the pipeline half of the publish
+  decision agrees with the rest of the code. Mean-CLV-positivity check unchanged.
+
+**F5 — Pipeline + run_daily handoff read ARCHITECT_SIGNOFF from env.**
+- `olp_xdv_pipeline.py` (Agent 9 gate) derived `architect_signoff` from
+  `(PHASE_LABEL or "").upper() != "PHASE 2"` — effectively always-true at PHASE=3 and blind to
+  the protected `ARCHITECT_SIGNOFF` env flag that `webapp/schema.py:338-339` and
+  `clv/phase3_gate.py` gate on. Rewrote to read `os.environ.get("ARCHITECT_SIGNOFF", "0")`
+  with the same override semantics (`override = not gate_met AND signed_off`), matching the
+  canonical implementation. `run_daily.py:1213` handoff also stopped hardcoding
+  `architect_signoff: True` and now reads the env flag.
+
+**Out of scope (noted, not fixed):** ARCHITECTURE.md still describes the Verge palette and a
+"5 deploy leagues" cap; league-whitelist counts disagree across docs (18/19/20/25/61/64);
+admin-dashboard HTML still renders a "PHASE 2 · PAPER" badge; daemon inventory in ARCHITECTURE.md
+omits Steward/Watchdog/residents. These are doc-vs-doc inconsistencies that don't touch protected
+code paths — flagged for a later doc-updater pass, not part of this Architect go-ahead.
+
+**Authority:** Architect (explicit go-ahead via chat, 2026-08-15). F1-F2 touch the
+protected-constants list; they are ratified here on the record per CLAUDE.md §PROTECTED.
+No capital, staking, honest-edge, or market-gate behaviour changed beyond the documented
+threshold/signoff-source alignment.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

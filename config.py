@@ -1,9 +1,12 @@
 """
 Framework-wide operating constants and the capital bright line.
 
-HR51 / master v303.15 Section 8: the framework is in **Phase 2 — paper only,
-zero capital**. Phase 3 (live capital) is gated on >=30 paper legs with logged
-CLV AND positive mean CLV AND the Architect's V7 sign-off.
+HR51 / master v303.15 Section 8: the framework is at **Phase 3 — live capital,
+Architect-deployed** (PHASE moved 2 -> 3 on 2026-08-11). Phase 3 is gated on
+>=30 paper legs with logged CLV AND positive mean CLV AND the Architect's V7
+sign-off. The capital bright line still holds: `assert_paper_only()` hard-fails
+below Phase 3 and the booking module never clicks Place Bet, so no code routes
+a real stake — capital authority stays with the Architect.
 
 Before this module existed the phase was a display string only — nothing
 branched on it, and `CLVLog.log_entry(phase="live", stake=250.0)` would have

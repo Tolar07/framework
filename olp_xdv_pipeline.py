@@ -41,6 +41,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 import traceback
@@ -62,7 +63,7 @@ KELLY_CAP = 0.05              # Agent 6 / 8 / 10 Kelly cap (5% per leg)
 KELLY_DEFAULT = KELLY_CAP * 0.5  # half-Kelly default
 DAILY_RISK_BUDGET = 0.15      # Agent 9 total stake exposure cap (15%)
 PAPER_BANKROLL_NGN = 50_000   # Phase 3 paper bankroll
-CLV_GATE_LEGS = 12            # publish gate: min legs with CLV
+CLV_GATE_LEGS = 30            # publish gate: min legs with CLV (canonical PHASE3_GATE_MIN_LEGS)
 CLV_GATE_MEAN_POSITIVE = True # publish gate: mean CLV > 0
 
 AGENT_NAMES = {
@@ -486,21 +487,30 @@ def agent_9_teamlead(state: PipelineState) -> dict:
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     # CLV publish gate (engine unchanged — clv/clv_logger.phase2_status).
+    # Architect sign-off is read from the ARCHITECT_SIGNOFF env flag (the same
+    # source of truth as webapp/schema.py and clv/phase3_gate.py), not derived
+    # from the phase label. Override semantics match schema.py: the override
+    # only applies when the statistical gate is NOT met AND the Architect has
+    # signed off — never silently, never removing the audit trail.
     gate = {"architect_signoff": False, "clv_legs": 0, "clv_mean": None,
             "feed_parity_test": "SKIP", "result": "PUBLISH_BLOCKED"}
     try:
         from clv.clv_logger import CLVLog
-        from config import PHASE_LABEL
         status = CLVLog().phase2_status()
+        legs = status.get("legs_with_clv", 0)
+        mean_clv = status.get("mean_clv_pct")
+        gate_met = legs >= CLV_GATE_LEGS and (mean_clv or 0) > 0
+        _signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower()
+        signed_off = _signoff in ("1", "true", "yes")
+        override = (not gate_met) and signed_off
         gate = {
-            "architect_signoff": (PHASE_LABEL or "").upper() != "PHASE 2",
-            "clv_legs": status.get("legs_with_clv", 0),
-            "clv_mean": status.get("mean_clv_pct"),
+            "architect_signoff": signed_off,
+            "override": override,
+            "clv_legs": legs,
+            "clv_mean": mean_clv,
             "feed_parity_test": "PASS",  # set by tests/webapp_feed_parity_test.py in CI
-            "result": ("PUBLISH_AUTHORIZED" if (
-                status.get("legs_with_clv", 0) >= CLV_GATE_LEGS
-                and (status.get("mean_clv_pct") or 0) > 0)
-                else "PUBLISH_BLOCKED"),
+            "result": ("PUBLISH_AUTHORIZED" if (gate_met or override)
+                       else "PUBLISH_BLOCKED"),
         }
     except Exception as e:
         gate["result"] = f"PUBLISH_BLOCKED ({e})"

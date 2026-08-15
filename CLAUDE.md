@@ -120,8 +120,10 @@ way of working in a two-session tree, not a special case:
 Board format, the Brain, caching, the WhatsApp copy channel, and daemon wiring
 are recorded in the Claude memory note `olp-xdv-agent`. Board decisions are
 ratified in `RATIFICATIONS.md` (append-only). The honest-edge statement and the
-capital block (Phase 2 = paper only, zero capital) are Architect bright lines —
-never bypassed.
+capital block are Architect bright lines — the framework is at `PHASE = 3`
+(live capital, Architect-deployed 2026-08-11) but **no code routes a real
+stake**: `config.assert_paper_only()` hard-fails below Phase 3 and the booking
+module never clicks Place Bet, so capital authority stays with the Architect.
 
 **Daemon inventory (Task Scheduler + resident):** see `olp-xdv-agent` memory note
 for the full list — Daily Board (07:00), Health Monitor (2h), Run Watchdog (post-07:00),

@@ -48,3 +48,6 @@ webapp/crests_cache.json
 # Webapp static scratch — one-off extraction/fetch helpers, not assets
 webapp/static/_crit_tmp.txt
 webapp/static/_fetch_fonts.py
+
+# graphify — knowledge graph (regenerates via `graphify update .`, no API cost)
+graphify-out/

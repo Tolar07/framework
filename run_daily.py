@@ -302,12 +302,17 @@ def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
 # --------------------------------------------------------------------------
 
 def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
-                    min_mes: float = 0.0) -> tuple[int, list[str]]:
+                    min_mes: float = 0.0,
+                    agreement_band: Optional[float] = None) -> tuple[int, list[str]]:
     """Attach a live entry price to each deploy-eligible fixture and log it.
 
     Without this the daily run produces a board and nothing else, the paper
     log stays empty, and the Phase 3 gate can never be reached — which is the
-    entire purpose of Phase 2."""
+    entire purpose of Phase 2.
+
+    When `agreement_band` is set (the gambler move #2 experiment), only markets
+    where the model and book agree within the band are logged — so the CLV ledger
+    reflects the SAME gated universe the acca builder selects from."""
     flags: list[str] = []
     logged = 0
     already = {(l.fixture, l.market) for l in log.legs}
@@ -328,15 +333,17 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
             model_p = mkt.model_prob(market, p)
             if quote is None or not quote.available or model_p is None:
                 continue
+            # Agreement gate (gambler move #2): skip markets in the disagreement bucket
+            if agreement_band is not None:
+                book_p = _market_implied(market, fx, quote.price)
+                if book_p is None or abs(model_p - book_p) > agreement_band:
+                    continue
             mes = mes_numeric(model_p, quote.price)
             if mes is None or mes < min_mes:
                 continue
             if (fixture_name, market) in already:
                 continue
             if not bf.kickoff_date:
-                # No kickoff date means this leg could never be settled against
-                # the right match. Refuse to log it rather than create
-                # something that can only be graded by guessing.
                 flags.append(f"{fixture_name}: no kickoff date — leg not logged "
                              f"(it could not be settled against the correct match)")
                 break
@@ -347,8 +354,29 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
                            stake=None,   # Phase 2: never a stake
                            match_date=bf.kickoff_date)
             logged += 1
-    flags.append(f"logged {logged} new paper leg(s) with a live entry price")
+    flags.append(f"logged {logged} new paper leg(s) with a live entry price"
+                 + (f" (agreement_band={agreement_band})" if agreement_band else ""))
     return logged, flags
+
+
+def _market_implied(market_key: str, fx, price) -> Optional[float]:
+    """Local copy of engine.acca._market_implied (devigged where possible)."""
+    if fx is not None:
+        if market_key in mkt.MARKETS_1X2:
+            p1x2 = mkt.implied_1x2(fx)
+            if p1x2 is not None:
+                return p1x2[mkt.MARKETS_1X2[market_key]]
+        if market_key in (mkt.OVER_25, mkt.UNDER_25):
+            o = fx.over25.price if market_key == mkt.OVER_25 else fx.under25.price
+            other = (fx.under25.price if market_key == mkt.OVER_25
+                     else fx.over25.price)
+            if o and other:
+                s = 1.0 / o + 1.0 / other
+                if s > 1.0:
+                    return (1.0 / o) / s
+    if price and price > 1.0:
+        return 1.0 / price
+    return None
 
 
 # --------------------------------------------------------------------------
@@ -854,7 +882,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags.append(f"produced-bet record failed ({e})")
 
     # --- log the paper legs (the point of Phase 2) ---
-    _, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes)
+    _, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes,
+                               agreement_band=agreement_band)
     all_flags += lflags
 
     # ===== PIPELINE BUS: Stage 5 (xdv_core) output -> Stage 6 (odds_audit) =====

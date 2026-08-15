@@ -25,7 +25,12 @@ echo [%date% %time%] launcher invoked >> "logs\launcher.log"
 
 set "PYTHONIOENCODING=utf-8"
 
-"%PY%" run_daily.py >> "logs\launcher.log" 2>&1
+REM Gambler move #2 (2026-08-14): the agreement gate keeps the daily paper run
+REM inside the model's calibrated zone — only bet markets where model and book
+REM agree within 0.04 probability. This is the Phase-2 experiment we are
+REM backfilling; it MUST be on for the scheduled run or the CLV ledger diverges
+REM from the experiment we are measuring.
+"%PY%" run_daily.py --agreement-band 0.04 >> "logs\launcher.log" 2>&1
 set "RC=%ERRORLEVEL%"
 echo [%date% %time%] python exited with %RC% >> "logs\launcher.log"
 

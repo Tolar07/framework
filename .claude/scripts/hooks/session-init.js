@@ -22,6 +22,14 @@ const ROOT = process.env.OLP_XDV_ROOT
 const VAULT_ROOT = 'C:/Users/Motunrayo/Documents/OLP_XDV_Vault';
 const VAULT_API_KEY = '32f3dcf8f4b514ce5b6fce5dfd04dc7f0f9d4d01636834b792e33b7803cd1143';
 
+// Team briefing files (mandatory for all agents)
+const BRIEFING_FILES = [
+  'TEAM_BRIEFING.md',
+  'DISPATCH_PROTOCOL.md',
+  'RATIFICATIONS.md',
+  'PROJECT_STATUS.md'
+];
+
 function run(cmd, args, cwd) {
   try {
     const r = spawnSync(cmd, args, { cwd, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] });
@@ -63,6 +71,17 @@ function loadContext() {
       log(`✓ Loaded ${f} (${fs.statSync(p).size} bytes)`);
     } else {
       log(`✗ Missing ${f}`);
+    }
+  });
+
+  // Mandatory team briefing (all agents)
+  log('📋 Team Briefing:');
+  BRIEFING_FILES.forEach(f => {
+    const p = path.join(ROOT, f);
+    if (fs.existsSync(p)) {
+      log(`  ✓ ${f} (${fs.statSync(p).size} bytes)`);
+    } else {
+      log(`  ✗ MISSING ${f} — ALL AGENTS MUST READ THIS`);
     }
   });
 
@@ -112,6 +131,18 @@ function verifyData() {
   } else {
     log('ℹ No league catalog found at config/leagues.json');
   }
+}
+
+function checkProtectedConstants() {
+  log('🔒 Protected Constants (read CLAUDE.md for full list):');
+  log('  • ARCHITECT_SIGNOFF flag & gating logic');
+  log('  • CLV/legs publish gate (12/30, mean CLV > 0)');
+  log('  • Client-publish gating logic');
+  log('  • Capital-deployment / stake routing');
+  log('  • Softness-tier defaults (cancelled — do not restore)');
+  log('  • ID405 away-win exclusion (OVERRIDDEN 2026-08-11)');
+  log('  • Calibration-log league-inclusion scope');
+  log('  👉 ANY diff touching these → code-reviewer-config blocks → Architect decides');
 }
 
 function checkPermissions() {

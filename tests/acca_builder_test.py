@@ -325,4 +325,94 @@ _check("THE CALL excludes the tomorrow fixture",
 _check("render_produce_bet carries the production block (Acca A headline)",
        "PRODUCTION BETS" in out13 and "★ Acca A" in out13, out13[-500:])
 
+# --- 14. agreement gate (gambler move #2, 2026-08-15 experiment) -------------
+# A fixture where the model and the book DISAGREE hard (the measured-losing
+# bucket): model loves the away dog at 45%, book prices it at 3.60 => implied
+# ~27.8%, a >17pp gap. With NO gate, this is a +62% EV "value" leg that the
+# framework would headline. With agreement_band=0.04 it must be excluded.
+#
+# A second fixture where model and book AGREE (the calibrated zone): model 52%,
+# book prices home at 1.95 => implied ~51.3%, a 0.7pp gap. This leg must
+# survive the gate when it carries positive EV, and be excluded when EV <= 0.
+def _fx_home(home, away, h, d, a):
+    return FixtureOdds(
+        league="Eredivisie", home_team=home, away_team=away, kickoff_utc="",
+        home=MarketQuote(price=h), draw=MarketQuote(price=d),
+        away=MarketQuote(price=a), over25=MarketQuote(price=2.0),
+        under25=MarketQuote(price=1.8))
+
+agree_board = [
+    # DISAGREEMENT: model away 45% vs book away @3.60 (implied ~27.8%) — EV +62%
+    _bf("Dog v Fav (Eredivisie)", _probs(h=0.40, d=0.15, a=0.45,
+                                         home="Dog FC", away="Fav FC"), TODAY),
+    # AGREEMENT, positive EV: model home 52% vs book home @1.95 (implied ~51.3%)
+    _bf("Tier v Mid (Eredivisie)", _probs(h=0.52, d=0.24, a=0.24,
+                                         home="Tier FC", away="Mid FC"), TODAY),
+    # AGREEMENT, NEGATIVE EV: model home 55% vs book home @1.70 (implied ~58.8%)
+    # i.e. book SHORTENS the favourite below true value — inside band, but no edge
+    _bf("Big v Small (Eredivisie)", _probs(h=0.55, d=0.22, a=0.23,
+                                          home="Big FC", away="Small FC"), TODAY),
+]
+agree_index = {
+    ("Dog FC", "Fav FC"): _fx_home("Dog FC", "Fav FC", 2.30, 3.40, 3.60),
+    ("Tier FC", "Mid FC"): _fx_home("Tier FC", "Mid FC", 1.95, 3.30, 4.20),
+    ("Big FC", "Small FC"): _fx_home("Big FC", "Small FC", 1.70, 3.60, 5.50),
+}
+# Baseline (no gate): the disagreement leg is the highest EV, so it headlines.
+bets_base = build_production_bets(agree_board, today=TODAY, odds_index=agree_index)
+_check("agreement gate: without band, the disagreement leg is headlined",
+       bets_base.acca_a is not None
+       and bets_base.acca_a.legs[0].fixture == "Dog v Fav"
+       and "Fav" in bets_base.acca_a.legs[0].market_name,
+       f"got {bets_base.acca_a.legs[0].fixture if bets_base.acca_a else 'no acca'} "
+       f"market={bets_base.acca_a.legs[0].market_name if bets_base.acca_a else '?'}")
+# With band=0.04: the DISAGREEING away market on Dog v Fav (17pp gap) is
+# excluded — but the fixture may still appear on a DIFFERENT market that agrees.
+# True per-fixture exclusion requires ALL markets to disagree, so we verify
+# per-MARKET instead: the away market must never be selected within the gate.
+bets_gate = build_production_bets(agree_board, today=TODAY,
+                                 odds_index=agree_index, agreement_band=0.04)
+gate_legs = [l for a in
+             (([bets_gate.acca_a] if bets_gate.acca_a else [])
+              + bets_gate.split_accas) for l in a.legs] \
+    + list(bets_gate.singles)
+gate_fixtures = {l.fixture for l in gate_legs}
+gate_away_legs = [l for l in gate_legs if "Away" in l.market_name
+                  or "away" in l.market_name.lower()
+                  or "Fav" in l.market_name
+                  or "Dog" in l.market_name]  # Dog is the away team in this test
+_check("agreement gate: disagreement AWAY market (17pp) never selected",
+       len(gate_away_legs) == 0,
+       f"got away legs: {[(l.fixture, l.market_name) for l in gate_away_legs]}")
+_check("agreement gate: agreement leg with positive EV (Tier v Mid) survives",
+       "Tier v Mid" in gate_fixtures, f"got {gate_fixtures}")
+# Big v Small: home model 55% vs book implied ~58.8% -> 3.8pp gap, inside band
+# but EV is negative (0.55 * 1.70 - 1 = -6.5%). The agreement gate passes it
+# through (band does NOT check EV), but the EV filter recomputes the best leg
+# across all markets.  So Big v Small may appear on Over 2.5 (model 50% vs devig
+# ~47.4% = 2.6pp, inside band, EV = 0.0 if price 2.0).  Verify it never appears
+# on the NEGATIVE-EV home market.
+big_legs = [l for l in gate_legs if l.fixture == "Big v Small"]
+if big_legs:
+    _check("agreement gate: Big v Small never on negative-EV home market",
+           all("Home" not in l.market_name and "home" not in l.market_name.lower()
+               for l in big_legs),
+           f"got {[(l.market_name, l.price) for l in big_legs]}")
+else:
+    _check("agreement gate: Big v Small excluded entirely (no agreeing +EV market)",
+           True, "")
+bets_none = build_production_bets(agree_board, today=TODAY,
+                                 odds_index=agree_index, agreement_band=None)
+none_legs = [l for a in
+             (([bets_none.acca_a] if bets_none.acca_a else [])
+              + bets_none.split_accas) for l in a.legs] \
+    + list(bets_none.singles)
+_check("agreement gate: agreement_band=None == no-gate (shipped behaviour)",
+       {l.fixture for l in none_legs} == {l.fixture for l in
+           [ll for a in
+            (([bets_base.acca_a] if bets_base.acca_a else [])
+             + bets_base.split_accas) for ll in a.legs]
+           + list(bets_base.singles)},
+       f"none={[l.fixture for l in none_legs]}")
+
 print("\n✅ ALL ACCA + PRODUCTION INTENT TESTS PASSED")

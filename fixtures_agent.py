@@ -97,7 +97,9 @@ def fetch_sportybet_cache(today: str) -> List[Dict]:
     if not load_all_sportybet_fixtures:
         return []
     try:
-        all_fx = load_all_sportybet_fixtures(days_ahead=0)
+        # Use a wide window (7 days) so the target date is included;
+        # the manual filter on kickoff date below does the precise selection.
+        all_fx = load_all_sportybet_fixtures(days_ahead=7)
     except Exception:
         return []
     rows = []

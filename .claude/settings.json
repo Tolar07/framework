@@ -33,6 +33,16 @@
         "description": "Reminder before git push to review changes"
       },
       {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"\\\\bgit\\\\s+(commit|merge|push|rebase)\\\\b\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/check_protected_files.py"
+          }
+        ],
+        "description": "Block git operations that touch protected files (Architect-only constants)"
+      },
+      {
         "matcher": "tool == \"Write\" && tool_input.file_path matches \"\\\\.(md|txt)$\" && !(tool_input.file_path matches \"README\\\\.md|CLAUDE\\\\.md|AGENTS\\\\.md|CONTRIBUTING\\\\.md\")",
         "hooks": [
           {

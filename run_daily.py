@@ -25,6 +25,7 @@ import os
 import sys
 import time
 import uuid
+from typing import Optional
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -151,6 +152,28 @@ def _retry_transient(fn, label: str, runlog: Path, delay: float = 5.0):
 # competition is not staking it; the market gate (engine/markets.BLOCKED) is the
 # only capital restriction, and it is currently open (Architect order 2026-08-10).
 SCAN_LEAGUES = list(WHITELISTED_LEAGUES)
+
+# --- Gambler-move selection discipline (Architect 2026-08-15) -------------
+# These are SELECTION-SIDE knobs (not protected gate constants): they decide
+# which priced markets earn a paper-leg slot, never whether real capital may
+# deploy. The Phase 3 capital gate (CLV_LOG.PHASE3_GATE_MIN_LEGS + positive
+# mean CLV + ARCHITECT_SIGNOFF) is untouched.
+#
+# DRAW_DISCOUNT: the model overweights draws on Phase-2 legs (4/16 picks were
+# draws, 0 hit, CLV -4.8% to -10% in the Scottish/Danish draw legs). Apply a
+# bounded multiplicative haircut to the DRAW model probability BEFORE the EV
+# screen so a draw must beat a higher bar to be logged. 0.85 = draw needs
+# ~15% more apparent edge to clear. Bounded away from 0; never touches HOME/
+# AWAY/BTTS/O-U. This is a visible, single-line lever, not a hidden fudge.
+DRAW_DISCOUNT: float = 0.85
+
+# MIN_MES_FLOOR: the default EV floor to LOG a paper leg. The CLI --min-mes
+# override still wins. 0.0 (the old default) logs every priced market and
+# fills the 30-leg gate with negative-CLV noise. 0.03 requires a real ≥3% EV
+# before a leg is logged — the pro would rather reach 30 legs of POSITIVE CLV
+# than 30 of mixed. This throttles gate-fill volume, it does not lower the
+# gate itself.
+MIN_MES_FLOOR: float = 0.03
 
 
 @dataclass
@@ -339,7 +362,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         whatsapp: bool = True, email: bool = True,
         web: bool = True, prefetch_crests: bool = False,
         refresh_sportybet: bool = False,
-        booking_codes: bool = False) -> RunResult:
+        booking_codes: bool = False,
+        agreement_band: Optional[float] = None) -> RunResult:
     """Run the daily board end to end.
 
     Opens the brain, seeds the ledger + corrections mirrors, records the run
@@ -377,6 +401,10 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     widened just enough to reach it and the kickoff-date filter enforces the
     cut. A quiet day is an honest quiet board, never a wider net."""
     leagues = leagues or SCAN_LEAGUES
+    # Gambler move #3: don't fill the Phase-3 gate with negative-CLV noise.
+    # The default EV floor is MIN_MES_FLOOR (0.03); an explicit --min-mes
+    # override always wins (the CLI default 0.0 activates the floor).
+    min_mes = min_mes if min_mes != 0.0 else MIN_MES_FLOOR
     brain = Brain()
     run_id = (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
               + "-" + uuid.uuid4().hex[:4])
@@ -389,7 +417,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         return _run(run_id, started, t0, brain, season, fixtures_season,
                     leagues, send, min_mes, days_ahead, target_date,
                     whatsapp, email, web, prefetch_crests, refresh_sportybet,
-                    booking_codes)
+                    booking_codes, agreement_band)
     except Exception as exc:
         brain.update_run(run_id, status="failed")
         # Record to error tracker (Layer 13 observability)
@@ -412,7 +440,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
          whatsapp: bool = True, email: bool = True,
          web: bool = True, prefetch_crests: bool = False,
          refresh_sportybet: bool = False,
-         booking_codes: bool = False) -> RunResult:
+         booking_codes: bool = False,
+         agreement_band: Optional[float] = None) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     # STRICT SINGLE-DAY (Architect 2026-08-10): the production is pinned to ONE
@@ -709,11 +738,15 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             raw_p = mkt.model_prob(market, p)
             if quote is None or not quote.available or raw_p is None:
                 continue
+            # DRAW DISCOUNT (gambler move #2): the model overweighted draws on
+            # Phase-2 legs. Haircut the DRAW model prob before the EV screen so
+            # a draw must clear a higher bar. HOME/AWAY/BTTS/O-U are untouched.
+            model_p_in = raw_p * DRAW_DISCOUNT if market == mkt.DRAW else raw_p
             # EV is priced on the BLEND — the honest probability when model
             # and market disagree (ID414). Ledger keeps RAW model_est via
             # best_model_prob; calibration stays inert (no feedback loop).
             mp = _market_implied(market, fx)
-            p_model = recal.apply(raw_p, cal.get(market))
+            p_model = recal.apply(model_p_in, cal.get(market))
             p_model = recal.apply_platt(p_model, platt.get(market))
             p_ev = mkt.blend_toward_market(p_model, mp)
             ev = mes_numeric(p_ev, quote.price)
@@ -764,7 +797,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- capital-cleared markets (ID405). Named in the board + Telegram + web;
     # --- the same payload feeds the SportyBet booking-code generator. ---
     production = build_production_bets(board, today=board_date,
-                                       odds_index=odds_index)
+                                       odds_index=odds_index,
+                                       agreement_band=agreement_band)
     acca_list: list = []
     if production.acca_a is not None:
         acca_list.append(production.acca_a)
@@ -1299,6 +1333,10 @@ if __name__ == "__main__":
                     help="skip the SportyBet fixture-cache refresh before the scan")
     ap.add_argument("--no-booking-codes", action="store_true",
                     help="skip generating SportyBet booking codes for today's accas")
+    ap.add_argument("--agreement-band", type=float, default=None,
+                    help="experiment (gambler move #2): only bet markets where "
+                         "model and book agree within this probability band "
+                         "(e.g. 0.04 = the calibrated zone). Off by default.")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     # The CLI pre-warms club badges by default (real runs have the network);
@@ -1320,7 +1358,8 @@ if __name__ == "__main__":
               whatsapp=not a.no_whatsapp, email=not a.no_email,
               web=not a.no_web, prefetch_crests=prefetch,
               refresh_sportybet=refresh_sportybet,
-              booking_codes=booking_codes)
+              booking_codes=booking_codes,
+              agreement_band=a.agreement_band)
     # Windows console (cp1252) can't encode ��� and other Unicode chars
     try:
         print("\n" + out.full)

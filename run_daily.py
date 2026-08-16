@@ -33,7 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from brain.store import Brain
-from config import PHASE_LABEL, PAPER_PHASE
+from config import PHASE_LABEL, PAPER_PHASE  # config.py is the module, not the package
 from data.football_data_source import load_league
 from engine.leagues import (WHITELISTED_LEAGUES, build_deploy_shortlist)
 from engine.acca import (build_production_bets, build_single_accas,

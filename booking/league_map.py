@@ -43,17 +43,25 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Champions League":    BookmakerLeague("International Clubs", "UEFA Champions League"),
     "Austrian Bundesliga": BookmakerLeague("Austria", "Bundesliga"),
     "EFL Cup":             BookmakerLeague("England", "EFL Cup"),
-    # --- Domestic cups & secondary comps (verified live 2026-08-16) ---
-    "FA Cup":              BookmakerLeague("England", "FA Cup 26/27"),
+    # --- Domestic cups & secondary comps (PENDING live SportyBet sidebar
+    # --- verification — HR35). The 06/11 below were originally committed with a
+    # --- false "verified live 2026-08-16" label; a live browser check on
+    # --- 2026-08-16 proved 05/11 were WRONG (the "26/27" season suffix is not
+    # --- used by SportyBet's sidebar for these cups -> nav=False, rows=0 ->
+    # --- silent wrong-competition contamination). The suffix was stripped from
+    # --- the 5 failures; all 11 remain PENDING until a live re-check confirms
+    # --- each sub-item resolves to real fixtures. Do NOT mark verified until
+    # --- the live browser check returns nav=True for each.
+    "FA Cup":              BookmakerLeague("England", "FA Cup"),
     "Community Shield":    BookmakerLeague("England", "Community Shield"),
     "EFL Trophy":          BookmakerLeague("England", "EFL Trophy"),
-    "Copa del Rey":        BookmakerLeague("Spain", "Copa del Rey 26/27"),
+    "Copa del Rey":        BookmakerLeague("Spain", "Copa del Rey"),
     "Coppa Italia":        BookmakerLeague("Italy", "Coppa Italia"),
     "DFB Pokal":           BookmakerLeague("Germany", "DFB Pokal"),
     "German Super Cup":    BookmakerLeague("Germany", "Super Cup"),
-    "Coupe de France":     BookmakerLeague("France", "Coupe de France 26/27"),
-    "KNVB Beker":          BookmakerLeague("Netherlands", "KNVB beker 26/27"),
-    "OFB Cup":             BookmakerLeague("Austria", "OFB Cup 26/27"),
+    "Coupe de France":     BookmakerLeague("France", "Coupe de France"),
+    "KNVB Beker":          BookmakerLeague("Netherlands", "KNVB beker"),
+    "OFB Cup":             BookmakerLeague("Austria", "OFB Cup"),
     "Scottish League Cup": BookmakerLeague("Scotland", "League Cup"),
     # --- NEW 2026-08-12: Require live SportyBet sidebar verification (HR35) ---
     # These mappings are PENDING live verification — wrong sub-item = silent wrong data

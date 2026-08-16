@@ -10,6 +10,10 @@ WHY
   seasons ≤2024; the current season requires a paid key (gated by
   api_football_plan.is_paid_plan()).
 
+FREE ALTERNATIVE: football-data.org (free tier: 100 req/day, keyless-ish with
+  free registration). Provides current-season results for mapped leagues.
+  Used as a fallback when api-football free plan blocks current season.
+
 PLAN-AWARE
   Free plan:  only seasons ≤ FREE_TIER_LAST_SEASON (2024) — historical backfill.
   Paid plan:  current season unlocks — the daily scrape becomes live.
@@ -25,6 +29,7 @@ WHAT THIS DELIBERATELY DOES NOT DO
     (ID403). This module is the FETCH layer only.
 
 ID404 TIER: T1 (api-football.com, structured/official, ratified 2026-08-03).
+           T1 (football-data.org, structured/official, ratified 2026-08-13).
 
 ID416: full_slate_results table in brain/store.py stores these rows.
 """
@@ -49,6 +54,7 @@ except ImportError:
 from data.multi_source import SourceNoData
 from data.retry import get_protected
 from data import api_football_plan
+from data import football_data_org_source as fdo
 from engine.league_registry import registry, get_api_football_id
 
 API_BASE = "https://v3.football.api-sports.io"
@@ -223,13 +229,43 @@ def fetch_slate(fixture_date: str | date,
     all_results: list[SlateResult] = []
     flags: list[str] = []
 
+    d = date.fromisoformat(fixture_date)
+    season = _season_for_date(d)
+
     for league in league_names:
+        # Try api-football first
         try:
             rows = _fetch_date(league, fixture_date, use_cache=use_cache)
             if rows:
                 all_results.extend(rows)
             # No flag for empty — only flag if skipped rows or errors.
+            continue
         except SourceNoData as e:
+            # If free plan blocks current season, try football-data.org fallback
+            if "beyond the free plan" in str(e) and league in fdo.COMPETITION_CODES:
+                try:
+                    fdo_results, fdo_flags = fdo.fetch_current_season_results(
+                        league, season, use_cache=use_cache)
+                    for mr in fdo_results:
+                        # Only include if match date matches the requested date
+                        if mr.date == fixture_date:
+                            all_results.append(SlateResult(
+                                league=league,
+                                fixture_date=mr.date,
+                                home_team=mr.home_team,
+                                away_team=mr.away_team,
+                                fthg=mr.fthg,
+                                ftag=mr.ftag,
+                                ftr=mr.ftr,
+                                hthg=None, htag=None, htr=None,  # FDO doesn't provide HT
+                                kickoff_time=None,
+                                source="football-data.org",
+                                source_tier="T1",
+                            ))
+                    flags.extend(fdo_flags)
+                    continue
+                except Exception as fe:
+                    flags.append(f"{league}: FDO fallback failed ({str(fe)[:60]})")
             flags.append(f"{league}: {e}")
         except Exception as e:
             flags.append(f"{league}: full-slate fetch failed ({str(e)[:80]})")

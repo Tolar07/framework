@@ -15,7 +15,7 @@ interpolates, guesses, or coerces a bad value into a good-looking one.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 # A sane score is non-negative and, for football, essentially never above 15.
@@ -72,7 +72,7 @@ def validate_date_iso(raw: str, row: int) -> Optional[ValidationIssue]:
         d = datetime.strptime(raw, "%Y-%m-%d").date()
     except ValueError:
         return ValidationIssue(row, "Date", f"Date={raw!r} is not a real date")
-    if (datetime.now().date() - d).days < -FUTURE_TOLERANCE_DAYS:
+    if (datetime.now(timezone.utc).date() - d).days < -FUTURE_TOLERANCE_DAYS:
         return ValidationIssue(row, "Date",
                                f"Date={raw} is in the future for a result row")
     return None

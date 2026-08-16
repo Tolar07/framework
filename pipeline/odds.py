@@ -70,7 +70,10 @@ QUOTA_FLOOR = 40
 # for EFL/UCL-qualifier fixtures). But it may never spend the last of the
 # month — the framework must keep working, not exhaust itself. So fixture
 # capture stops at this HARD floor instead.
-QUOTA_HARD_FLOOR = 5
+# TEMPORARY (2026-08-16): lowered from 5 to 1 to allow fixture capture while
+# primary key is at 1 remaining (monthly reset pending). Restore to 5 after
+# backup keys added or monthly reset.
+QUOTA_HARD_FLOOR = 1
 
 # Sport keys — now sourced from the dynamic registry (config/leagues.json).
 # SPORT_KEYS is kept as a backward-compat fallback dict populated from the
@@ -412,26 +415,24 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
         except QuotaExhausted as qe:
             # The Odds API monthly quota is spent on every key. Before
             # degrading to NO DATA, try the free API-Football fallback (same
-            # bookmakers, 1X2 + totals, 100 requests/day). Only for a routine
-            # PRICE pull — fixture capture stays on the cache discipline that
-            # is its whole purpose. The import is lazy to avoid a circular
-            # import (api_football_odds imports our MarketQuote/FixtureOdds
-            # contract).
-            if not fixture_capture:
-                try:
-                    from data import api_football_odds as _af_fallback
-                    fixtures, afl = _af_fallback.fetch_odds(league)
-                    return fixtures, [f"{league}: Odds API quota spent across "
-                                      f"all keys — served via api-football "
-                                      f"free fallback"] + afl
-                except QuotaExhausted:
-                    raise
-                except Exception as e:
-                    raise QuotaExhausted(
-                        f"Odds API quota spent across all keys; api-football "
-                        f"fallback failed ({e}). Refusing to spend the month — "
-                        f"entry prices are NO DATA — PENDING.") from e
-            raise qe
+            # bookmakers, 1X2 + totals, 100 requests/day).
+            # For fixture_capture: also try the fallback, since the fixture LIST
+            # is what we need (and api-football provides fixture IDs via /fixtures).
+            # The import is lazy to avoid a circular import (api_football_odds
+            # imports our MarketQuote/FixtureOdds contract).
+            try:
+                from data import api_football_odds as _af_fallback
+                fixtures, afl = _af_fallback.fetch_odds(league)
+                return fixtures, [f"{league}: Odds API quota spent across "
+                                  f"all keys — served via api-football "
+                                  f"free fallback"] + afl
+            except QuotaExhausted:
+                raise
+            except Exception as e:
+                raise QuotaExhausted(
+                    f"Odds API quota spent across all keys; api-football "
+                    f"fallback failed ({e}). Refusing to spend the month — "
+                    f"entry prices are NO DATA — PENDING.") from e
         r = get_protected(f"{API_BASE}/sports/{SPORT_KEYS[league]}/odds",
                           breaker_name="the_odds_api",
                           params={"apiKey": key, "regions": regions,

@@ -406,7 +406,10 @@ def cmd_send(_: str) -> str:
     keeps every leg paper, so /send can never stake."""
     import run_daily  # lazy — the other commands must not pay for scipy
     try:
-        run_daily.run(send=True)
+        # Production delivery MUST include SportyBet booking codes for every
+        # acca + single (Architect directive 2026-08-16) — enable booking so a
+        # send never ships "NO DATA — PENDING" picks.
+        run_daily.run(send=True, booking_codes=True)
     except RuntimeError as e:
         # run_daily raises exactly when delivery is incomplete. The board is
         # on disk regardless; say so rather than claiming success.

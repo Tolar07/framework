@@ -121,49 +121,80 @@ def fetch_sportybet_cache(today: str) -> List[Dict]:
     return rows
 
 
-def fetch_flashscore(today: str) -> List[Dict]:
-    """Scrape FlashScore football page for today's fixtures.
+def _flashscore_line_to_date(match_datetime: str) -> str:
+    """FlashScore match_1x2 `match_datetime` is '21.08. 20:00' (D.MM. HH:MM, no
+    year). Resolve to a guessable ISO date for the current/next 12 months."""
+    import re as _re
+    m = _re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime or "")
+    if not m:
+        return ""
+    day, mon, hh, mm = (int(x) for x in m.groups())
+    now = datetime.now()
+    # Prefer a date in the current or next year, within ~12 months.
+    for year in (now.year, now.year + 1):
+        try:
+            d = datetime(year, mon, day)
+        except ValueError:
+            continue
+        if 0 <= (d - now).days <= 400:
+            return d.strftime("%Y-%m-%d")
+    return ""
 
-    FlashScore renders via JS, so we hit the JSON API endpoint the page uses
-    internally (flashscore.com/api/v1/football/events?date=YYYY-MM-DD).
-    Falls back to scraping if API is unavailable.
+
+def fetch_flashscore(today: str) -> List[Dict]:
+    """Read FlashScore fixtures from the scraped match_1x2 JSONL feed.
+
+    FlashScore renders via JS, so the live HTML is scraped by
+    scripts/scrape_live_odds_v3.py (Playwright) into
+    data/live_odds/flashscore_odds_*.jsonl. Each `match_1x2` row carries
+    home_team/away_team/match_datetime + a scrape timestamp + a source field —
+    real provenance, RATIFIED as T2 in verification/id403.py (Architect
+    2026-08-16). The odds inside the feed are NOT trusted (the scraper's odds
+    regex is buggy); only team identity + date are consumed here, for the
+    verification gate.
+
+    If the feed is absent (not yet scraped, or cleaned), returns [] — the
+    caller treats a missing FlashScore feed as "source unavailable", never as a
+    list of empty fixtures (HR35: absence is not a fabricated negative).
     """
     rows: List[Dict] = []
-    try:
-        import requests
-        # FlashScore uses an XHR API - try fetching the page HTML first
-        url = f"https://www.flashscore.com/football/"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                          "AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/120.0.0.0 Safari/537.36",
-            "Accept-Language": "en-US,en;q=0.9",
-        }
-        resp = requests.get(url, headers=headers, timeout=15)
-        # Extract embedded JSON match data from the page
-        # FlashScore embeds tournament data in script tags
-        text = resp.text
-        # Try parsing embedded tournament > match structures
-        # Pattern: tournament name + match rows
-        # This is a best-effort scrape - FlashScore's JS renders most content
-        # so if we get nothing, we rely on other sources
-        matches = re.findall(
-            r'"homeTeam":\{"name":"([^"]+)".*?"awayTeam":\{"name":"([^"]+)"',
-            text
-        )
-        for home, away in matches:
-            rows.append({
-                "league": "FlashScore",
-                "home": home,
-                "away": away,
-                "kickoff": "TBD",
-                "odds_1": None,
-                "odds_x": None,
-                "odds_2": None,
-                "source": "FlashScore",
-            })
-    except Exception:
-        pass
+    feed_dir = Path(__file__).parent / "data" / "live_odds"
+    if not feed_dir.exists():
+        return rows
+    files = sorted(feed_dir.glob("flashscore_odds_*.jsonl"), reverse=True)
+    if not files:
+        return rows
+    seen: set = set()
+    for line in files[0].read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            d = json.loads(line)
+        except Exception:
+            continue
+        if d.get("type") != "match_1x2":
+            continue
+        home = (d.get("home_team") or "").strip()
+        away = (d.get("away_team") or "").strip()
+        if not home or not away:
+            continue
+        kickoff = _flashscore_line_to_date(d.get("match_datetime"))
+        key = f"{home}|{away}|{kickoff}"
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append({
+            "league": "FlashScore",
+            "home": home,
+            "away": away,
+            "kickoff": kickoff[11:16] if kickoff else "TBD",
+            "odds_1": None,
+            "odds_x": None,
+            "odds_2": None,
+            "source": "FlashScore",
+            "kickoff_date": kickoff,
+        })
     return rows
 
 

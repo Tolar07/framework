@@ -59,23 +59,39 @@ def _save_gate(record: GateRecord) -> None:
         json.dump(record.to_dict(), f, indent=2)
 
 
+def evaluate_gate_from_stats(legs_with_clv: int,
+                             mean_clv_pct: Optional[float]) -> GateRecord:
+    """Pure gate evaluation from pre-computed leg stats.
+
+    Lets ANY data source — the Brain's SQL mirror, a CLVLog JSON, a test
+    fixture — reuse the canonical threshold without re-implementing
+    `n >= PHASE3_GATE_MIN_LEGS and mean > 0`. Single source of truth for the
+    gate decision; callers only supply their counted legs."""
+    positive = (mean_clv_pct or 0) > 0
+    gate_met = legs_with_clv >= PHASE3_GATE_MIN_LEGS and positive
+    return GateRecord(
+        legs_with_clv=legs_with_clv,
+        gate_requirement=PHASE3_GATE_MIN_LEGS,
+        mean_clv_pct=mean_clv_pct,
+        positive_mean_clv=positive,
+        gate_met=gate_met,
+        architect_signed_off=False,
+        signed_by="",
+        signed_at="",
+        notes="Auto-evaluated from supplied stats",
+    )
+
+
 def evaluate_gate(log: Optional[CLVLog] = None) -> GateRecord:
     """Evaluate the current Phase 3 gate status from the CLV log."""
     log = log or CLVLog()
     status = log.phase2_status()
 
-    # Create a gate record reflecting current state (unsigned)
-    return GateRecord(
-        legs_with_clv=status["legs_with_clv"],
-        gate_requirement=status["gate_requirement"],
-        mean_clv_pct=status["mean_clv_pct"],
-        positive_mean_clv=status["positive_mean_clv"],
-        gate_met=status["gate_met_pending_architect_signoff"],
-        architect_signed_off=False,
-        signed_by="",
-        signed_at="",
-        notes="Auto-evaluated from CLV log"
-    )
+    # Create a gate record reflecting current state (unsigned). clv_logger
+    # phase2_status() is the source for the leg counts; the gate decision
+    # (n>=MIN_LEGS and mean>0) lives in phase3_gate, so recompute it there.
+    return evaluate_gate_from_stats(
+        status["legs_with_clv"], status["mean_clv_pct"])
 
 
 def sign_off_gate(architect_name: str, log: Optional[CLVLog] = None) -> GateRecord:
@@ -119,7 +135,12 @@ def can_deploy_capital() -> tuple[bool, str]:
 
 
 def gate_status_for_dashboard() -> dict:
-    """Build the gate status dict for the admin dashboard payload."""
+    """Build the gate status dict for the admin dashboard payload.
+
+    Emits BOTH the canonical `gate_met` key and the legacy alias
+    `gate_met_pending_architect_signoff` so readers migrated to either form
+    keep working during the rename (olp_xdv_pipeline reads `gate_met`;
+    monitor/metrics and agent_cli still read the alias)."""
     # Start with live evaluation
     gate = evaluate_gate()
     # Overlay any persisted signature
@@ -129,7 +150,10 @@ def gate_status_for_dashboard() -> dict:
         gate.signed_by = signed.signed_by
         gate.signed_at = signed.signed_at
         gate.notes = signed.notes
-    return gate.to_dict()
+    out = gate.to_dict()
+    # legacy alias kept during key rename (clv_logger.phase2_status still emits it)
+    out["gate_met_pending_architect_signoff"] = gate.gate_met
+    return out
 
 
 def revoke_sign_off(reason: str = "Revoked by Architect") -> GateRecord:

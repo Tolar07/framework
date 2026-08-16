@@ -765,9 +765,17 @@ class Brain:
         return [dict(r) for r in rows]
 
     def gate_status(self) -> dict:
-        """Mirror of CLVLog.phase2_status computed from SQL — same fields."""
-        from clv.clv_logger import PHASE3_GATE_MIN_LEGS
+        """Phase-3 gate status computed from THIS Brain's SQL mirror.
+
+        Keeps the per-Brain isolation the sandbox/cup/brain-store tests rely on
+        (each Brain counts only its own legs), while delegating the gate
+        *decision* (n >= PHASE3_GATE_MIN_LEGS and mean CLV > 0) to
+        clv/phase3_gate.evaluate_gate_from_stats so the threshold has a single
+        source of truth (no drift between clv_logger, phase3_gate, pipeline).
+        Emits both `gate_met` and the legacy `gate_met_pending_architect_signoff`
+        alias for backward-compatible production readers."""
         from config import PAPER_PHASE
+        from clv.phase3_gate import evaluate_gate_from_stats
         row = self._conn.execute(
             "SELECT COUNT(*) AS n_total, "
             " SUM(CASE WHEN clv_pct IS NOT NULL THEN 1 ELSE 0 END) AS n_clv, "
@@ -776,14 +784,11 @@ class Brain:
         n_total = row["n_total"] or 0
         n_clv = row["n_clv"] or 0
         mean_clv = round(row["mean_clv"], 3) if row["mean_clv"] is not None else None
-        gate_met = (n_clv >= PHASE3_GATE_MIN_LEGS
-                    and (mean_clv or 0) > 0)
-        return {"legs_logged_total": n_total, "legs_with_clv": n_clv,
-                "gate_requirement": PHASE3_GATE_MIN_LEGS,
-                "mean_clv_pct": mean_clv,
-                "positive_mean_clv": bool(mean_clv and mean_clv > 0),
-                "gate_met_pending_architect_signoff": gate_met,
-                "note": "mirror of clv/clv_log.json (JSON is the source)"}
+        rec = evaluate_gate_from_stats(n_clv, mean_clv)
+        out = rec.to_dict()
+        out["legs_logged_total"] = n_total
+        out["gate_met_pending_architect_signoff"] = rec.gate_met
+        return out
 
     def leg_rows(self, phase: str | None = None) -> list[tuple[str]]:
         """All leg_ids in the ledger (optionally one phase). For tooling that

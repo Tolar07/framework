@@ -73,6 +73,41 @@
 
 ---
 
+## 9. Team-Intelligence-Layer proposal — two source gaps + ID-numbering block (2026-08-15)
+- **Context:** a proposed *Team-Intelligence-Layer* spec (full-slate result scrape
+  + team-state intelligence) was pasted for Architect review. Read-only check
+  (2026-08-15) found it sound *as a proposal* but **not buildable yet**:
+  - **Idea 1 (full-slate scrape):** `data/football_data_source.py` already
+    captures full-time scores (`MatchResult.fthg/ftag/ftr`) and has
+    `load_league`/`save_results_json`. **Half-time scores (HTHG/HTAG/HTR) are
+    NOT parsed** — `MatchResult` has no HT fields. football-data.co.uk carries
+    them, so this is an additive parser change only. `brain/store.py` is the
+    natural (currently unused) home for a `full_slate_results` table.
+  - **Idea 2 (team-state):** engine has a promoted-club handler
+    (`engine/dixon_coles.py`) but **no slots** for low-block / absentees /
+    tier-drop / manager-bounce. These are *new* engine adjustments → pure
+    Architect decision. The two stated data gaps are **absent from the current
+    source stack** and need ID404 trust-tiering before any capital use.
+- **Open (gaps to source before any ingestion):**
+  1. **HT / score feed** — source exists upstream (football-data.co.uk), parser
+     not yet wired to HT columns.
+  2. **Team-state sources** (lineup / formation / coach / tactical profile) —
+     **no current source feeds these**; must be found and ID404 trust-tiered.
+  3. **ID numbering is blocked:** spec says "confirm IDs against
+     `OLP_XDV_ID_RECONCILIATION_15AUG2026.md`" but **that doc does not exist**,
+     and it references **ID418 (manager bounce) which is NOT a defined ID**.
+     `Rules.md` tops out at **ID414**; **ID415 is already taken** (Produced-bet
+     verification, `bets/produced_bet.py`). Free IDs: 416, 417, 419, 421+.
+- **Impact:** proposal must NOT be built until (a) the two sources are sourced
+  and ID404-tiered, (b) the engine action per field is decided by Architect, and
+  (c) ID numbering is reconciled. No silent engine changes to live capital picks
+  (HR51 / HR35). Per spec, Idea 1 score-only ingestion is the lowest-risk first
+  build — but still requires Architect go-ahead.
+- **Status:** proposal only; awaiting Architect ID assignment + engine-action
+  decisions. No code changes made.
+
+---
+
 ## How to use this file
 - **If you are an agent and something here blocks you:** surface the question
   again rather than picking an answer yourself (HR35 — no fabrication, no

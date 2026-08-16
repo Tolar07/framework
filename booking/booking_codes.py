@@ -736,6 +736,16 @@ def render_codes(result: dict) -> str:
 
 
 def main() -> None:
+    # Reconfigure stdout/stderr to UTF-8 so page-derived text prints cleanly on
+    # Windows' cp1252 console instead of raising UnicodeEncodeError. No-op if
+    # already utf-8.
+    try:
+        import sys as _sys
+        _sys.stdout.reconfigure(encoding="utf-8")
+        _sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
     parser = argparse.ArgumentParser(
         description="Generate SportyBet booking codes for the day's accas. "
                     "READ-ONLY — never places a bet, never stakes.")

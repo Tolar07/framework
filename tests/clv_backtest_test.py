@@ -54,6 +54,21 @@ assert res_x[0].closing_home_odds == 5.65, "legacy closing field must still popu
 print("2. Extra schema: closing-only detected and flagged, not faked: OK")
 
 
+# --- 2b. Norway/Sweden Extra files label Season as a SINGLE year ('2026'),
+# not the double-year ('2025/2026') that DNK/POL/AUT use. The season filter
+# must accept BOTH so these leagues aren't silently dropped to an empty cache.
+NOR_SWE_EXTRA_CSV = (
+    "Country,League,Season,Date,Time,Home,Away,HG,AG,Res,AvgCH,AvgCD,AvgCA\n"
+    "Norway,Eliteserien,2026,04/04/2026,18:00,Bodo/Glimt,Rosenborg,2,1,H,1.90,3.60,3.80\n"
+    "Norway,Eliteserien,2025,19/10/2025,17:00,Molde,Viking,1,2,A,2.10,3.40,3.20\n"
+)
+res_n, _ = parse_csv_text("Norwegian Eliteserien", NOR_SWE_EXTRA_CSV, season="2526")
+# Only the 2026 (== 2025/2026) row must survive; the 2025 row is a different season.
+assert len(res_n) == 1, f"single-year Season label must match, got {len(res_n)} rows"
+assert res_n[0].home_team == "Bodo/Glimt" and res_n[0].fthg == 2
+print("2b. Extra schema single-year Season label (NOR/SWE) matched: OK")
+
+
 # --- 3. same-book pairing: never mix one book's open with another's close ----
 MIXED_CSV = (
     "Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,"

@@ -93,6 +93,13 @@ EXTRA_CODES = {
     # Verified 2026-08-08 against new/AUT.csv: header Country=Austria,
     # League=Bundesliga, carries the 2026/27 season (rows dated 2026-08-02).
     "Austrian Bundesliga": "AUT",
+    # Norway / Sweden — BACKFILL 2026-08-15 (Task #4). Both files exist at the
+    # Extra endpoint (new/NOR.csv, new/SWE.csv) and carry the live season, BUT
+    # they label Season as a SINGLE year ("2026") whereas DNK/POL/AUT use a
+    # double-year ("2025/2026"). The season filter in parse_csv_text accepts
+    # BOTH formats, so these two are not silently dropped (see _season_matches).
+    "Norwegian Eliteserien": "NOR",
+    "Swedish Allsvenskan": "SWE",
 }
 
 # --- Dynamic registry integration ----------------------------------------
@@ -103,7 +110,11 @@ EXTRA_CODES = {
 # (with its "football_data" id) is enough — no code edit here.
 try:
     from engine.league_registry import registry, get_football_data_code
-    _extra_codes = {"DNK", "POL", "AUT"}
+    # Extra-endpoint codes: DNK/POL/AUT use double-year Season labels
+    # ("2025/2026"); NOR/SWE use single-year ("2026"). Both formats are accepted
+    # by the season filter in parse_csv_text (see _season_matches), so all five
+    # resolve via EXTRA_URL.
+    _extra_codes = {"DNK", "POL", "AUT", "NOR", "SWE"}
     for name, cfg in registry._leagues.items():
         code = cfg.get_id("football_data")
         if code is None:
@@ -135,6 +146,28 @@ def _season_to_extra_label(season: str) -> str:
     if len(season) != 4 or not season.isdigit():
         raise ValueError(f"Season code must be 4 digits like '2526', got {season!r}")
     return f"20{season[:2]}/20{season[2:]}"
+
+
+def _season_matches(row_season: Optional[str], season_label: str) -> bool:
+    """Tolerant match of an Extra-file `Season` cell against our label.
+
+    The Extra endpoint is NOT internally consistent: DNK/POL/AUT label seasons
+    with a double year ('2025/2026') while NOR/SWE use a single year ('2026').
+    Both describe the same 2025/26 season, so accept either form instead of
+    silently dropping the single-year leagues' rows (which would yield an empty
+    cache and a phantom NO DATA — PENDING for Norway/Sweden)."""
+    if row_season is None:
+        return False
+    if row_season == season_label:
+        return True
+    # single-year row ('2026') vs double-year label ('2025/2026')
+    if "/" in season_label and row_season == season_label.split("/")[1]:
+        return True
+    # double-year row ('2025/2026') vs single-year label ('2026') — symmetric,
+    # in case a source flips the convention.
+    if "/" in (row_season or "") and (row_season or "").split("/")[1] == season_label:
+        return True
+    return False
 
 
 def _clean_row(row: dict) -> dict:
@@ -387,7 +420,9 @@ def parse_csv_text(league: str, csv_text: str, season: Optional[str] = None,
         try:
             # Extra files bundle all seasons — keep only the one asked for.
             # A non-matching season is simply a different row, not a defect.
-            if season_label is not None and row.get("Season") != season_label:
+            # Match is tolerant of single-year ('2026') vs double-year
+            # ('2025/2026') labelling across Extra files (see _season_matches).
+            if season_label is not None and not _season_matches(row.get("Season"), season_label):
                 continue
 
             if not row.get(cols["home"]) or not row.get(cols["away"]):

@@ -448,20 +448,30 @@ def _verify_league_page(page: Page, expected_country: str, expected_league: str)
     title. We check for the expected league name in the visible page header.
     This is the anti-contamination gate (ID408): if the sidebar click landed
     on the wrong tournament, we catch it BEFORE caching wrong fixtures.
+
+    FIX (2026-08-16): Multiple elements can match the breadcrumb selectors.
+    The first one in DOM order (e.g., a "Live Betting" label) may not contain
+    the league name. We must check ALL visible matching elements and return
+    True if ANY contains the expected league/country.
     """
     try:
         # Strategy 1: Check the breadcrumb/heading in the main content area
         # SportyBet shows "Spain / LaLiga" or similar in .breadcrumb or .tournament-header
-        breadcrumb = page.locator(
-            ".breadcrumb:visible, .tournament-header:visible, .page-header:visible, .league-title:visible").first
-        if breadcrumb.count() > 0:
-            text = breadcrumb.inner_text().strip().lower()
-            # Fuzzy match: expected league must appear in breadcrumb (case-insensitive)
-            if expected_league.lower() in text:
-                return True
-            # Also allow country name as a secondary signal
-            if expected_country.lower() in text:
-                return True
+        # Use .all() instead of .first() — multiple elements can match; any one
+        # containing the league/country name means we're on the right page.
+        breadcrumbs = page.locator(
+            ".breadcrumb:visible, .tournament-header:visible, .page-header:visible, .league-title:visible").all()
+        for bc in breadcrumbs:
+            try:
+                text = bc.inner_text().strip().lower()
+                # Fuzzy match: expected league must appear in breadcrumb (case-insensitive)
+                if expected_league.lower() in text:
+                    return True
+                # Also allow country name as a secondary signal
+                if expected_country.lower() in text:
+                    return True
+            except Exception:
+                continue
 
         # Strategy 2: Check the URL — SportyBet URLs contain /sr:tournament:<id>
         # Not reliable for name matching, but a last resort
@@ -476,7 +486,10 @@ def _verify_league_page(page: Page, expected_country: str, expected_league: str)
         # Safely get breadcrumb text for debug logging (handle Unicode chars that
         # can't encode to Windows console cp1252)
         try:
-            breadcrumb_text = breadcrumb.inner_text().strip() if breadcrumb.count() else 'none'
+            if breadcrumbs:
+                breadcrumb_text = breadcrumbs[0].inner_text().strip()
+            else:
+                breadcrumb_text = 'none'
             # Replace non-encodable chars with placeholder
             breadcrumb_text = breadcrumb_text.encode('ascii', 'replace').decode('ascii')
         except Exception:

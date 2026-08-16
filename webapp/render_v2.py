@@ -256,9 +256,10 @@ def _density_bar() -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 def _ticket_leg(l: dict) -> str:
     """Leg row — byte-faithful to the Telegram production block:
-    `fixture (league) — market @ price` (the — is part of the parity anchor).
-    Layout matches the mockup: leg-fixture (with inline .leg-league span) +
-    .leg-market + .leg-price as three flex children."""
+    `fixture (league) — market @ price [✓ …]` (the — is part of the parity
+    anchor; the trailing verification stamp echoes the gate). Layout matches the
+    mockup: leg-fixture (with inline .leg-league span) + .leg-market + .leg-price
+    + .leg-verify as four flex children."""
     fix = l.get("fixture", "")
     lg = l.get("league", "")
     if lg and not fix.endswith(f" ({lg})"):
@@ -266,10 +267,13 @@ def _ticket_leg(l: dict) -> str:
                         f'<span class="leg-league">({html.escape(lg)})</span> —')
     else:
         fixture_html = f"{html.escape(fix)} —"
+    stamp = l.get("verification_stamp") or ""
+    stamp_html = (f'<span class="leg-verify">{html.escape(stamp)}</span>'
+                  if stamp else "")
     return (f'<div class="ticket-leg">'
             f'<span class="leg-fixture">{fixture_html}</span>'
             f'<span class="leg-market">{html.escape(l.get("market_name", ""))} @</span>'
-            f'<span class="leg-price">{_price2(l.get("price"))}</span></div>')
+            f'<span class="leg-price">{_price2(l.get("price"))}</span>{stamp_html}</div>')
 
 
 def _ticket_foot(combined, code: str | None,
@@ -347,11 +351,14 @@ def _single_line(s: dict, codes_by_label: dict) -> str:
                      f'{html.escape(code)} Copy</button></span>')
     else:
         code_html = '<span class="sl-code pending">NO DATA — PENDING</span>'
+    stamp = leg0.get("verification_stamp") or ""
+    stamp_html = (f'<span class="sl-verify">{html.escape(stamp)}</span>'
+                  if stamp else "")
     return (f'<div class="single-line">'
             f'<span class="sl-fixture">{fix_txt}</span>'
             f'<span class="sl-market">{html.escape(leg0.get("market_name", ""))} @</span>'
             f'<span class="sl-price">{_price2(leg0.get("price"))}</span>'
-            f'{code_html}</div>')
+            f'{stamp_html}{code_html}</div>')
 
 
 def _call_lean(accas_real: list, singles: list, codes_by_label: dict) -> str:

@@ -75,42 +75,43 @@ def _norm(s: Optional[str]) -> str:
     return " ".join(s.split())
 
 
-def _find_feed_dir() -> Optional[Path]:
-    """Locate the FlashScore match_1x2 feed directory.
+def _find_feed_dir(pattern: str) -> Optional[Path]:
+    """Locate a feed directory containing files matching `pattern`.
 
-    The scraper writes to `<repo>/data/live_odds/`. But a feed generated from a
-    different CWD may have landed at the workspace root or a sibling. To stay
-    robust we walk UP from this file for the first `data/live_odds` dir that
-    actually contains `flashscore_odds_*.jsonl` files, then fall back to the
-    workspace-root location. Returns None if no usable feed exists.
+    Walks UP from this file for the first `data/live_odds` dir that actually
+    contains files matching the pattern. Falls back to workspace-root sibling.
+    Returns None if no usable feed exists.
 
     Absence is NOT a fabricated negative (HR35): the caller treats None as
-    "FlashScore source unavailable" and keeps-but-warns, never empties the board.
+    "source unavailable" and keeps-but-warns, never empties the board.
     """
     here = Path(__file__).resolve()
     # 1) walk up the repo tree for a data/live_odds that has feed files
     for candidate in [here, *here.parents]:
         feed = candidate / "data" / "live_odds"
-        if feed.is_dir() and any(feed.glob("flashscore_odds_*.jsonl")):
+        if feed.is_dir() and any(feed.glob(pattern)):
             return feed
-    # 2) workspace-root sibling (e.g. C:/Users/.../data/live_odds when the
-    #    scraper was run from the workspace root)
+    # 2) workspace-root sibling
     ws = here.parents[2] if len(here.parents) >= 3 else here.parent
     fallback = ws / "data" / "live_odds"
-    if fallback.is_dir() and any(fallback.glob("flashscore_odds_*.jsonl")):
+    if fallback.is_dir() and any(fallback.glob(pattern)):
         return fallback
     return None
 
 
-def _load_flashscore_pairs() -> List[Dict]:
-    """Read (home, away, date) pairs from the latest FlashScore match_1x2 feed.
+def _load_feed_pairs(pattern: str, datetime_parser: callable) -> List[Dict]:
+    """Generic loader for structured fixture feeds.
+
+    Args:
+        pattern: glob pattern for the feed files (e.g., "flashscore_odds_*.jsonl")
+        datetime_parser: function(match_datetime: str) -> ISO date string
 
     Returns [] if the feed is absent entirely. Absence is NOT a list of empty
     fixtures (HR35: a missing source is 'unavailable', not 'no fixtures')."""
-    feed_dir = _find_feed_dir()
+    feed_dir = _find_feed_dir(pattern)
     if feed_dir is None:
         return []
-    files = sorted(feed_dir.glob("flashscore_odds_*.jsonl"), reverse=True)
+    files = sorted(feed_dir.glob(pattern), reverse=True)
     if not files:
         return []
     pairs: List[Dict] = []
@@ -128,14 +129,115 @@ def _load_flashscore_pairs() -> List[Dict]:
         away = (d.get("away_team") or "").strip()
         if not home or not away:
             continue
-        # Resolve FlashScore's '21.08. 20:00' datetime to an ISO date,
-        # reusing fixtures_agent's logic by re-parsing match_datetime.
-        kickoff = ""
-        m = re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})",
-                     d.get("match_datetime") or "")
-        if m:
+        kickoff = datetime_parser(d.get("match_datetime"))
+        pairs.append({"home": home, "away": away, "date": kickoff})
+    return pairs
+
+
+def _parse_flashscore_datetime(match_datetime: str) -> str:
+    """Parse FlashScore '21.08. 20:00' to ISO date."""
+    m = re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime or "")
+    if not m:
+        return ""
+    day, mon, hh, mm = (int(x) for x in m.groups())
+    from datetime import datetime as _dt
+    now = _dt.now()
+    for year in (now.year, now.year + 1):
+        try:
+            cand = _dt(year, mon, day)
+        except ValueError:
+            continue
+        if 0 <= (cand - now).days <= 400:
+            return cand.strftime("%Y-%m-%d")
+    return ""
+
+
+def _parse_predictz_datetime(match_datetime: str) -> str:
+    """Parse PredictZ '21/08/2026 20:00' or '21/08/2026' to ISO date."""
+    if not match_datetime:
+        return ""
+    # Try with time
+    m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})\s+(\d{1,2}):(\d{2})", match_datetime)
+    if m:
+        day, mon, year, hh, mm = (int(x) for x in m.groups())
+        try:
             from datetime import datetime as _dt
-            day, mon, hh, mm = (int(x) for x in m.groups())
+            cand = _dt(year, mon, day)
+            return cand.strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+    # Try date only
+    m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})", match_datetime)
+    if m:
+        day, mon, year = (int(x) for x in m.groups())
+        try:
+            from datetime import datetime as _dt
+            cand = _dt(year, mon, day)
+            return cand.strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+    return ""
+
+
+def _parse_statsarea_datetime(match_datetime: str) -> str:
+    """Parse StatsArea '21.08.2026 20:00' or '21/08/2026' to ISO date."""
+    if not match_datetime:
+        return ""
+    # Try DD.MM.YYYY HH:MM
+    m = re.match(r"(\d{1,2})\.(\d{1,2})\.(\d{4})\s+(\d{1,2}):(\d{2})", match_datetime)
+    if m:
+        day, mon, year, hh, mm = (int(x) for x in m.groups())
+        try:
+            from datetime import datetime as _dt
+            cand = _dt(year, mon, day)
+            return cand.strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+    # Try DD/MM/YYYY
+    m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})", match_datetime)
+    if m:
+        day, mon, year = (int(x) for x in m.groups())
+        try:
+            from datetime import datetime as _dt
+            cand = _dt(year, mon, day)
+            return cand.strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+    # Try FlashScore-like DD.MM. HH:MM
+    m = re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime)
+    if m:
+        day, mon, hh, mm = (int(x) for x in m.groups())
+        from datetime import datetime as _dt
+        now = _dt.now()
+        for year in (now.year, now.year + 1):
+            try:
+                cand = _dt(year, mon, day)
+            except ValueError:
+                continue
+            if 0 <= (cand - now).days <= 400:
+                return cand.strftime("%Y-%m-%d")
+    return ""
+
+
+def _parse_bet365_datetime(match_datetime: str) -> str:
+    """Parse Bet365 '21 Aug 20:00' or '21/08/2026 20:00' to ISO date."""
+    if not match_datetime:
+        return ""
+    # Try '21 Aug 20:00'
+    m = re.match(r"(\d{1,2})\s+(\w{3})\s+(\d{1,2}):(\d{2})", match_datetime)
+    if m:
+        day, mon_str, hh, mm = m.groups()
+        day = int(day)
+        hh = int(hh)
+        mm = int(mm)
+        # Map month abbreviation to number
+        month_map = {
+            "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+            "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12
+        }
+        mon = month_map.get(mon_str.lower()[:3])
+        if mon:
+            from datetime import datetime as _dt
             now = _dt.now()
             for year in (now.year, now.year + 1):
                 try:
@@ -143,10 +245,38 @@ def _load_flashscore_pairs() -> List[Dict]:
                 except ValueError:
                     continue
                 if 0 <= (cand - now).days <= 400:
-                    kickoff = cand.strftime("%Y-%m-%d")
-                    break
-        pairs.append({"home": home, "away": away, "date": kickoff})
-    return pairs
+                    return cand.strftime("%Y-%m-%d")
+    # Try DD/MM/YYYY HH:MM
+    m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})\s+(\d{1,2}):(\d{2})", match_datetime)
+    if m:
+        day, mon, year, hh, mm = (int(x) for x in m.groups())
+        try:
+            from datetime import datetime as _dt
+            cand = _dt(year, mon, day)
+            return cand.strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+    return ""
+
+
+def _load_flashscore_pairs() -> List[Dict]:
+    """Read (home, away, date) pairs from the latest FlashScore match_1x2 feed."""
+    return _load_feed_pairs("flashscore_odds_*.jsonl", _parse_flashscore_datetime)
+
+
+def _load_predictz_pairs() -> List[Dict]:
+    """Read (home, away, date) pairs from the latest PredictZ match_1x2 feed."""
+    return _load_feed_pairs("predictz_fixtures_*.jsonl", _parse_predictz_datetime)
+
+
+def _load_statsarea_pairs() -> List[Dict]:
+    """Read (home, away, date) pairs from the latest StatsArea match_1x2 feed."""
+    return _load_feed_pairs("statsarea_fixtures_*.jsonl", _parse_statsarea_datetime)
+
+
+def _load_bet365_pairs() -> List[Dict]:
+    """Read (home, away, date) pairs from the latest Bet365 match_1x2 feed."""
+    return _load_feed_pairs("bet365_fixtures_*.jsonl", _parse_bet365_datetime)
 
 
 def _load_sportybet_pairs(leagues: List[str]) -> List[Dict]:
@@ -182,7 +312,7 @@ def _index(pairs: List[Dict]) -> Dict[Tuple[str, str], set]:
 
 def verify_board(board: List, board_date: str,
                  leagues: List[str]) -> Tuple[List, "VerifierReport"]:
-    """Gate a scanned board against the two independent fixture sources.
+    """Gate a scanned board against independent fixture sources.
 
     Args:
         board: list of BoardFixture (fixture="Home v Away (League)",
@@ -193,32 +323,71 @@ def verify_board(board: List, board_date: str,
     Returns:
         (verified_board, report). The returned board is a NEW list; fixtures that
         fail the gate are EXCLUDED. Each surviving fixture gains a
-        `verified_sources` attribute (["SportyBet", "FlashScore"]) and its
+        `verified_sources` attribute (list of confirming sources) and its
         `.verification` is upgraded to reflect the cross-source agreement.
+
+    Sources (in priority order for F2 quorum):
+        1. SportyBet cache — Playwright-captured real fixtures
+        2. FlashScore feed — scraped match_1x2 JSONL (T2 ratified)
+        3. PredictZ feed — curated fixtures JSONL (T2)
+        4. StatsArea feed — curated fixtures JSONL (T2)
+        5. Bet365 feed — curated fixtures JSONL (T2)
+
+    F2 Quorum Rule: A fixture is VERIFIED when >=2 independent sources agree.
+    If a source is available but does NOT carry the fixture, it counts as
+    a miss (dropped). Double outage (no sources available) -> keep all with
+    UNVERIFIED stamp (keep-but-warn, never guess).
     """
+    # Load all sources
     fs_pairs = _load_flashscore_pairs()
+    pz_pairs = _load_predictz_pairs()
+    sa_pairs = _load_statsarea_pairs()
+    b365_pairs = _load_bet365_pairs()
     sb_pairs = _load_sportybet_pairs(leagues)
+
+    # Index all sources
     fs_idx = _index(fs_pairs)
+    pz_idx = _index(pz_pairs)
+    sa_idx = _index(sa_pairs)
+    b365_idx = _index(b365_pairs)
     sb_idx = _index(sb_pairs)
 
+    # Availability flags
     fs_available = len(fs_idx) > 0
+    pz_available = len(pz_idx) > 0
+    sa_available = len(sa_idx) > 0
+    b365_available = len(b365_idx) > 0
     sb_available = len(sb_idx) > 0
+
+    available_sources = {
+        "FlashScore": fs_available,
+        "PredictZ": pz_available,
+        "StatsArea": sa_available,
+        "Bet365": b365_available,
+        "SportyBet": sb_available,
+    }
 
     report = VerifierReport(
         board_date=board_date,
         flashscore_available=fs_available,
         sportybet_available=sb_available,
+        predictz_available=pz_available,
+        statsarea_available=sa_available,
+        bet365_available=b365_available,
         flashscore_count=len(fs_pairs),
         sportybet_count=len(sb_pairs),
+        predictz_count=len(pz_pairs),
+        statsarea_count=len(sa_pairs),
+        bet365_count=len(b365_pairs),
     )
 
-    # Double outage: neither source has data. Keep all fixtures, flag UNVERIFIED.
-    if not fs_available and not sb_available:
+    # Double outage: NO source has data. Keep all fixtures, flag UNVERIFIED.
+    if not any(available_sources.values()):
         report.outage = True
         report.outage_reason = (
-            "neither SportyBet cache nor FlashScore feed available — "
-            "verification gate could not run; all fixtures KEPT but stamped "
-            "UNVERIFIED (keep-but-warn, never guess)")
+            "no verification sources available (SportyBet, FlashScore, PredictZ, "
+            "StatsArea, Bet365 all unavailable) — verification gate could not run; "
+            "all fixtures KEPT but stamped UNVERIFIED (keep-but-warn, never guess)")
         for bf in board:
             _stamp(bf, [], verified=False, reason=report.outage_reason)
             report.kept_unverified += 1
@@ -235,42 +404,52 @@ def verify_board(board: List, board_date: str,
                 f"name (cannot verify)")
             continue
 
-        fs_hit = nh in {k[0] for k in fs_idx} and na in {k[1] for k in fs_idx if k[0] == nh} \
-            if False else _pair_in(fs_idx, nh, na)
-        sb_hit = _pair_in(sb_idx, nh, na)
+        # Check each available source
+        source_hits = {}
+        if fs_available:
+            source_hits["FlashScore"] = _pair_in(fs_idx, nh, na)
+        if pz_available:
+            source_hits["PredictZ"] = _pair_in(pz_idx, nh, na)
+        if sa_available:
+            source_hits["StatsArea"] = _pair_in(sa_idx, nh, na)
+        if b365_available:
+            source_hits["Bet365"] = _pair_in(b365_idx, nh, na)
+        if sb_available:
+            source_hits["SportyBet"] = _pair_in(sb_idx, nh, na)
 
-        sources = []
-        if fs_available and fs_hit:
-            sources.append("FlashScore")
-        if sb_available and sb_hit:
-            sources.append("SportyBet")
+        # Count confirming sources
+        confirming_sources = [src for src, hit in source_hits.items() if hit]
+        available_source_names = [src for src, avail in available_sources.items() if avail]
 
-        # Need BOTH available sources to confirm. If a source is available but
-        # does NOT carry this fixture, the fixture is unverifiable -> drop.
-        if fs_available and not fs_hit:
-            report.dropped_missing_source += 1
-            report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' dropped — absent from FlashScore "
-                f"feed (only one source could confirm)")
-            continue
-        if sb_available and not sb_hit:
-            report.dropped_missing_source += 1
-            report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' dropped — absent from SportyBet "
-                f"cache (only one source could confirm)")
-            continue
-
-        if len(sources) == 2:
-            _stamp(bf, sources, verified=True)
+        # F2 Quorum: need >=2 independent sources confirming
+        if len(confirming_sources) >= 2:
+            _stamp(bf, confirming_sources, verified=True)
             report.verified += 1
-        else:
-            # Single outage on this fixture only — the other source confirmed it.
-            # Per the keep-but-warn rule we still verify when at least one
-            # source agrees AND no available source contradicts it; mark the
-            # missing source so the board shows a partial confirmation.
-            _stamp(bf, sources, verified=False,
-                   reason="partial — one verification source unavailable")
+            verified_board.append(bf)
+            continue
+
+        # If fixture missing from ANY available source, it's unverifiable -> DROP
+        # (strict F2 quorum: all available sources must agree OR at least 2 confirm)
+        missing_from = [src for src in available_source_names if src not in confirming_sources]
+        if missing_from:
+            report.dropped_missing_source += 1
+            report.flags.append(
+                f"VERIFY GATE: '{bf.fixture}' dropped — absent from {', '.join(missing_from)} "
+                f"(only {len(confirming_sources)} source(s) confirmed, need >=2)")
+            continue
+
+        # Edge case: only 1 source available and it confirms -> partial keep
+        if len(available_source_names) == 1 and len(confirming_sources) == 1:
+            _stamp(bf, confirming_sources, verified=False,
+                   reason="partial — only one verification source available")
             report.kept_unverified += 1
+            verified_board.append(bf)
+            continue
+
+        # Should not reach here, but safety fallback
+        _stamp(bf, confirming_sources, verified=False,
+               reason="insufficient quorum")
+        report.kept_unverified += 1
         verified_board.append(bf)
 
     return verified_board, report
@@ -325,8 +504,14 @@ class VerifierReport:
     board_date: str
     flashscore_available: bool = False
     sportybet_available: bool = False
+    predictz_available: bool = False
+    statsarea_available: bool = False
+    bet365_available: bool = False
     flashscore_count: int = 0
     sportybet_count: int = 0
+    predictz_count: int = 0
+    statsarea_count: int = 0
+    bet365_count: int = 0
     verified: int = 0
     kept_unverified: int = 0
     dropped_missing_source: int = 0
@@ -343,6 +528,12 @@ class VerifierReport:
             f" ({self.flashscore_count} pairs)",
             f"  SportyBet cache : {'AVAILABLE' if self.sportybet_available else 'UNAVAILABLE'}"
             f" ({self.sportybet_count} pairs)",
+            f"  PredictZ feed   : {'AVAILABLE' if self.predictz_available else 'UNAVAILABLE'}"
+            f" ({self.predictz_count} pairs)",
+            f"  StatsArea feed  : {'AVAILABLE' if self.statsarea_available else 'UNAVAILABLE'}"
+            f" ({self.statsarea_count} pairs)",
+            f"  Bet365 feed     : {'AVAILABLE' if self.bet365_available else 'UNAVAILABLE'}"
+            f" ({self.bet365_count} pairs)",
         ]
         if self.outage:
             lines.append(f"  ⚠ DOUBLE OUTAGE: {self.outage_reason}")

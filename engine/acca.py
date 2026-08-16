@@ -437,6 +437,10 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
     The same stamp rides through to the web (the leg is serialized into the acca
     payload), so the two outlets stay byte-faithful (webapp_feed_parity_test).
 
+    `board` is accepted for call-site compatibility (run_daily passes it) but
+    is NOT read — the stamp rides on each `AccaLeg.verification_stamp`, set
+    once at build time. The legs ARE the source of truth.
+
     ID407 (proposed) — Accumulator compounding disclosure: any multi-leg acca
     must show the combined probability (product of leg probabilities) with the
     explicit label that this is arithmetic, not a framework weakness."""

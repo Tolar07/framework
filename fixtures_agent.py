@@ -141,6 +141,26 @@ def _flashscore_line_to_date(match_datetime: str) -> str:
     return ""
 
 
+def _find_flashscore_feed() -> Optional[Path]:
+    """Locate the FlashScore match_1x2 feed directory.
+
+    Same logic as booking.verify_fixtures._find_feed_dir() — walks UP from this
+    file for a `data/live_odds` dir that actually contains flashscore_odds_*.jsonl
+    files, then falls back to the workspace-root sibling. Returns None if no
+    usable feed exists (HR35: absence = unavailable, not a fabricated negative).
+    """
+    here = Path(__file__).resolve()
+    for candidate in [here, *here.parents]:
+        feed = candidate / "data" / "live_odds"
+        if feed.is_dir() and any(feed.glob("flashscore_odds_*.jsonl")):
+            return feed
+    ws = here.parents[2] if len(here.parents) >= 3 else here.parent
+    fallback = ws / "data" / "live_odds"
+    if fallback.is_dir() and any(fallback.glob("flashscore_odds_*.jsonl")):
+        return fallback
+    return None
+
+
 def fetch_flashscore(today: str) -> List[Dict]:
     """Read FlashScore fixtures from the scraped match_1x2 JSONL feed.
 
@@ -158,8 +178,8 @@ def fetch_flashscore(today: str) -> List[Dict]:
     list of empty fixtures (HR35: absence is not a fabricated negative).
     """
     rows: List[Dict] = []
-    feed_dir = Path(__file__).parent / "data" / "live_odds"
-    if not feed_dir.exists():
+    feed_dir = _find_flashscore_feed()
+    if feed_dir is None:
         return rows
     files = sorted(feed_dir.glob("flashscore_odds_*.jsonl"), reverse=True)
     if not files:

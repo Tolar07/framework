@@ -75,13 +75,40 @@ def _norm(s: Optional[str]) -> str:
     return " ".join(s.split())
 
 
+def _find_feed_dir() -> Optional[Path]:
+    """Locate the FlashScore match_1x2 feed directory.
+
+    The scraper writes to `<repo>/data/live_odds/`. But a feed generated from a
+    different CWD may have landed at the workspace root or a sibling. To stay
+    robust we walk UP from this file for the first `data/live_odds` dir that
+    actually contains `flashscore_odds_*.jsonl` files, then fall back to the
+    workspace-root location. Returns None if no usable feed exists.
+
+    Absence is NOT a fabricated negative (HR35): the caller treats None as
+    "FlashScore source unavailable" and keeps-but-warns, never empties the board.
+    """
+    here = Path(__file__).resolve()
+    # 1) walk up the repo tree for a data/live_odds that has feed files
+    for candidate in [here, *here.parents]:
+        feed = candidate / "data" / "live_odds"
+        if feed.is_dir() and any(feed.glob("flashscore_odds_*.jsonl")):
+            return feed
+    # 2) workspace-root sibling (e.g. C:/Users/.../data/live_odds when the
+    #    scraper was run from the workspace root)
+    ws = here.parents[2] if len(here.parents) >= 3 else here.parent
+    fallback = ws / "data" / "live_odds"
+    if fallback.is_dir() and any(fallback.glob("flashscore_odds_*.jsonl")):
+        return fallback
+    return None
+
+
 def _load_flashscore_pairs() -> List[Dict]:
     """Read (home, away, date) pairs from the latest FlashScore match_1x2 feed.
 
     Returns [] if the feed is absent entirely. Absence is NOT a list of empty
     fixtures (HR35: a missing source is 'unavailable', not 'no fixtures')."""
-    feed_dir = Path(__file__).parent.parent / "data" / "live_odds"
-    if not feed_dir.exists():
+    feed_dir = _find_feed_dir()
+    if feed_dir is None:
         return []
     files = sorted(feed_dir.glob("flashscore_odds_*.jsonl"), reverse=True)
     if not files:

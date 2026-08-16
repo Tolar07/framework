@@ -473,10 +473,23 @@ def _verify_league_page(page: Page, expected_country: str, expected_league: str)
         if expected_league.lower() in title or expected_country.lower() in title:
             return True
 
-        print(f"  ! Verification: breadcrumb='{breadcrumb.inner_text().strip() if breadcrumb.count() else 'none'}', title='{title}'")
+        # Safely get breadcrumb text for debug logging (handle Unicode chars that
+        # can't encode to Windows console cp1252)
+        try:
+            breadcrumb_text = breadcrumb.inner_text().strip() if breadcrumb.count() else 'none'
+            # Replace non-encodable chars with placeholder
+            breadcrumb_text = breadcrumb_text.encode('ascii', 'replace').decode('ascii')
+        except Exception:
+            breadcrumb_text = 'unreadable'
+        print(f"  ! Verification: breadcrumb='{breadcrumb_text}', title='{title}'")
         return False
     except Exception as e:
-        print(f"  ! Verification error: {e}")
+        # Safely print error message (handle Unicode in exception)
+        try:
+            err_msg = str(e).encode('ascii', 'replace').decode('ascii')
+        except Exception:
+            err_msg = 'unprintable error'
+        print(f"  ! Verification error: {err_msg}")
         return False
 
 
@@ -604,6 +617,16 @@ def clear_cache(leagues: Optional[List[str]] = None) -> int:
 
 
 def main():
+    # Reconfigure stdout/stderr to UTF-8 so page-derived text (team names,
+    # breadcrumbs, web-font glyphs) prints cleanly on Windows' cp1252 console
+    # instead of raising UnicodeEncodeError. No-op if already utf-8.
+    try:
+        import sys as _sys
+        _sys.stdout.reconfigure(encoding="utf-8")
+        _sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
     parser = argparse.ArgumentParser(description="SportyBet fixtures cache builder")
     subparsers = parser.add_subparsers(dest="command", required=True)
 

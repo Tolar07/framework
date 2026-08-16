@@ -45,7 +45,7 @@ from data.espn_winprob import (
     _extract_live_winprob,
     CACHE_DIR as WINPROB_CACHE_DIR,
 )
-from data.espn_source import LEAGUE_MAP
+from data.espn_source import SLUGS as LEAGUE_MAP
 
 
 class TestESPNResults:

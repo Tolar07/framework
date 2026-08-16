@@ -23,7 +23,8 @@ class FlashScoreOddsScraper:
     """Scrapes live odds from FlashScore Premier League page."""
 
     BASE_URL = "https://www.flashscore.com/football/england/premier-league/"
-    OUTPUT_DIR = Path("data/live_odds")
+    # Anchor output to the repo's data/live_odds so readers find it regardless of CWD
+    OUTPUT_DIR = Path(__file__).parent.parent / "data" / "live_odds"
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # Known team codes for Premier League

@@ -131,7 +131,7 @@ mirrored = leg.clv_pct
 assert mirrored is not None, "log_close must compute a CLV"
 assert b6.sync_legs([ledger])[str(ledger)] == 1
 g = b6.gate_status()
-assert g["legs_logged_total"] == 1, "mirror must reflect the ledger"
+assert g["legs_with_clv"] == 1, "mirror must reflect the ledger's paper leg"
 mk = b6.clv_by_market("phase2_paper")
 assert mk and abs(mk[0]["mean_clv_pct"] - mirrored) < 1e-9
 # edit the JSON, re-sync -> the JSON wins

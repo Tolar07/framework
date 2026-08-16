@@ -43,6 +43,18 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Champions League":    BookmakerLeague("International Clubs", "UEFA Champions League"),
     "Austrian Bundesliga": BookmakerLeague("Austria", "Bundesliga"),
     "EFL Cup":             BookmakerLeague("England", "EFL Cup"),
+    # --- Domestic cups & secondary comps (verified live 2026-08-16) ---
+    "FA Cup":              BookmakerLeague("England", "FA Cup 26/27"),
+    "Community Shield":    BookmakerLeague("England", "Community Shield"),
+    "EFL Trophy":          BookmakerLeague("England", "EFL Trophy"),
+    "Copa del Rey":        BookmakerLeague("Spain", "Copa del Rey 26/27"),
+    "Coppa Italia":        BookmakerLeague("Italy", "Coppa Italia"),
+    "DFB Pokal":           BookmakerLeague("Germany", "DFB Pokal"),
+    "German Super Cup":    BookmakerLeague("Germany", "Super Cup"),
+    "Coupe de France":     BookmakerLeague("France", "Coupe de France 26/27"),
+    "KNVB Beker":          BookmakerLeague("Netherlands", "KNVB beker 26/27"),
+    "OFB Cup":             BookmakerLeague("Austria", "OFB Cup 26/27"),
+    "Scottish League Cup": BookmakerLeague("Scotland", "League Cup"),
     # --- NEW 2026-08-12: Require live SportyBet sidebar verification (HR35) ---
     # These mappings are PENDING live verification — wrong sub-item = silent wrong data
     "Süper Lig":           BookmakerLeague("Turkiye", "Super Lig"),

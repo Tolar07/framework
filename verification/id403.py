@@ -46,6 +46,17 @@ SOURCE_TRUST = {
     "predictz.com": "T3", "betinf.com": "T3", "fctables.com": "T3",
     # Rejected / JS-locked — never usable even as a lead
     "flashscore.com": "REJECTED", "statarea.com": "REJECTED",
+    # FlashScore fixture feed (Architect 2026-08-16): the flashscore.com web
+    # domain stays REJECTED (HR34 domain-spoofing guard), but the Playwright-
+    # scraped match_1x2 JSONL dataset (data/live_odds/flashscore_odds_*.jsonl)
+    # carries real provenance — home/away/date + scrape timestamp + source
+    # field. That dataset is a genuine independent fixture source and is
+    # RATIFIED as T2 for fixture verification (F1 structured, F4 traceable).
+    # Mismatched odds in that feed are NOT used for pricing — only the fixture
+    # identity (teams + date) is consumed by the verification gate, never the
+    # odds. Registered as a distinct key so the web-domain REJECTED tier is
+    # preserved and only the curated local feed earns T2.
+    "flashscore_fixtures": "T2",
 }
 
 

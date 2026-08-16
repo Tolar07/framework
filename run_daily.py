@@ -391,7 +391,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         web: bool = True, prefetch_crests: bool = False,
         refresh_sportybet: bool = False,
         booking_codes: bool = False,
-        agreement_band: Optional[float] = 0.04) -> RunResult:
+        agreement_band: Optional[float] = 0.04,
+        verify_only: bool = False) -> RunResult:
     """Run the daily board end to end.
 
     `agreement_band` (default 0.04, the measured calibrated zone — see
@@ -453,7 +454,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         return _run(run_id, started, t0, brain, season, fixtures_season,
                     leagues, send, min_mes, days_ahead, target_date,
                     whatsapp, email, web, prefetch_crests, refresh_sportybet,
-                    booking_codes, agreement_band)
+                    booking_codes, agreement_band, verify_only)
     except Exception as exc:
         brain.update_run(run_id, status="failed")
         # Record to error tracker (Layer 13 observability)
@@ -477,7 +478,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
          web: bool = True, prefetch_crests: bool = False,
          refresh_sportybet: bool = False,
          booking_codes: bool = False,
-         agreement_band: Optional[float] = None) -> RunResult:
+         agreement_band: Optional[float] = None,
+         verify_only: bool = False) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     # STRICT SINGLE-DAY (Architect 2026-08-10): the production is pinned to ONE
@@ -596,6 +598,37 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags.append(
             f"day-scoped to {board_date}: kept {len(board)} of {scanned} "
             f"scanned fixture(s) — adjacent-day matches dropped")
+
+    # ===== MANDATORY FIXTURE VERIFICATION GATE (Architect directive 2026-08-16
+    # ===== — STOP FABRICATION). Every board fixture must be confirmed by BOTH
+    # ===== independent live sources (SportyBet cache + FlashScore feed) before it
+    # ===== can be priced, scored, or booked. A fixture only one source knows
+    # ===== about is unverifiable and is DROPPED (with a loud flag) — shipping it
+    # ===== is exactly the fabrication this ends. Double outage (neither source
+    # ===== has data) -> keep-but-warn, never guess (HR35). Runs BEFORE the odds
+    # ===== pull so bad fixtures never reach the engine, production, or booking.
+    from booking.verify_fixtures import verify_board
+    board, _verify_report = verify_board(board, board_date, leagues)
+    all_flags.append(
+        f"VERIFY GATE: {_verify_report.verified} verified, "
+        f"{_verify_report.kept_unverified} kept-unverified, "
+        f"{_verify_report.dropped_missing_source} dropped "
+        f"(FlashScore {'on' if _verify_report.flashscore_available else 'OFF'}, "
+        f"SportyBet {'on' if _verify_report.sportybet_available else 'OFF'})")
+    all_flags += _verify_report.flags
+    if _verify_report.outage:
+        all_flags.append(f"⚠ VERIFY GATE OUTAGE: {_verify_report.outage_reason}")
+
+    if verify_only:
+        # Pre-flight / audit mode: print the verification report and stop before
+        # any odds pull, engine scoring, production, or booking.
+        _mark(runlog, "verify-only: stopping before odds pull")
+        return RunResult(
+            full=_verify_report.summary(),
+            telegram_text=_verify_report.summary(),
+            board=[],
+            leagues_scanned=leagues,
+        )
 
     # Multi-source health (data/multi_source_concrete.py): which provider served
     # each league is visible per-run so a silently-degraded source (circuit open,
@@ -1019,12 +1052,47 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         if stale.exists():
             all_flags.append("booking codes skipped — existing capture "
                              f"{stale.name} preserved (codes-fix)")
+        # MANDATORY BOOKING (Architect directive 2026-08-16): a PRODUCTION run
+        # (it delivers to Telegram/web) must not finish a day with production
+        # slips that have no booking code. If booking_codes was disabled in a
+        # production context, that is a configuration error, not a quiet skip —
+        # refuse the run rather than ship "NO DATA — PENDING" picks to the phone.
+        if acca_list and (send or web):
+            raise RuntimeError(
+                "REFUSING PRODUCTION RUN: booking_codes disabled but this run "
+                "delivers to Telegram/web. Every Acca A leg, split acca leg and "
+                "single must carry a SportyBet booking code at pipeline end "
+                "(Architect 2026-08-16). Re-run with booking enabled "
+                "(OLP_BOOKING_CODES=1, drop --no-booking-codes).")
+
+    # --- POST-BOOKING ALL-LEGS CHECK (Architect directive 2026-08-16). After
+    # --- codes are generated, every leg of every acca AND every single must have
+    # --- a booked code. The old code tolerated silent per-leg MANUAL failures,
+    # --- which left "NO DATA — PENDING" in the production output. Now a missing
+    # --- code is a loud run failure, never a silent gap. Honest-edge preserved:
+    # --- a MANUAL reason (browser couldn't drive the selection) is reported, but
+    # --- it still counts as a missing code and is flagged, not hidden.
+    if codes_result and acca_list:
+        _missing: list[str] = []
+        for r in codes_result.get("results", []):
+            for leg in r.get("per_leg", []):
+                if leg.get("status") != "BOOKED":
+                    _missing.append(
+                        f"{r.get('label','?')}: {leg.get('fixture','?')} "
+                        f"({leg.get('market_name','?')}) — "
+                        f"{leg.get('reason', leg.get('status', 'no code'))}")
+        if _missing:
+            all_flags.append(
+                f"⚠ BOOKING COVERAGE GAP — {len(_missing)} leg(s) WITHOUT a "
+                f"booked code: " + "; ".join(_missing[:12])
+                + (" …" if len(_missing) > 12 else "")
+                + " (Architect must add manually before placing)")
 
     # The production block (Acca A -> split accas -> singles) with codes inline;
     # the same block feeds the saved acca txt, the Telegram push and the wide
     # board.
     acca_text = render_production_block(production, codes=codes_result,
-                                        today=board_date)
+                                        today=board_date, board=board)
 
     telegram_text = render_telegram_board(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
@@ -1370,6 +1438,10 @@ if __name__ == "__main__":
                     help="skip the SportyBet fixture-cache refresh before the scan")
     ap.add_argument("--no-booking-codes", action="store_true",
                     help="skip generating SportyBet booking codes for today's accas")
+    ap.add_argument("--verify-only", action="store_true",
+                    help="run ONLY the fixture verification gate (SportyBet + "
+                         "FlashScore cross-check) and print the report — no odds "
+                         "pull, engine scoring, production, or booking")
     ap.add_argument("--agreement-band", type=float, default=0.04,
                     help="experiment (gambler move #2): only bet markets where "
                          "model and book agree within this probability band "
@@ -1397,7 +1469,8 @@ if __name__ == "__main__":
               web=not a.no_web, prefetch_crests=prefetch,
               refresh_sportybet=refresh_sportybet,
               booking_codes=booking_codes,
-              agreement_band=a.agreement_band)
+              agreement_band=a.agreement_band,
+              verify_only=a.verify_only)
     # Windows console (cp1252) can't encode ��� and other Unicode chars
     try:
         print("\n" + out.full)

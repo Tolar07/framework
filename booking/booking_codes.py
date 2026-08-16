@@ -252,6 +252,11 @@ _MARKET_UI_MAP = {
     "UNDER_1_5":    {"tab": "Over/Under",    "outcome": "Under 1.5"},
     "BTTS_YES":     {"tab": "Both Teams to Score", "outcome": "Yes"},
     "BTTS_NO":      {"tab": "Both Teams to Score", "outcome": "No"},
+    # Double Chance (DC) markets — added 2026-08-11 (Architect multi-market
+    # selection). SportyBet renders these under "Double Chance" tab.
+    "DC_1X":        {"tab": "Double Chance", "outcome": "1X"},
+    "DC_X2":        {"tab": "Double Chance", "outcome": "X2"},
+    "DC_12":        {"tab": "Double Chance", "outcome": "12"},
     # Alternative tab names SportyBet sometimes uses
     "BTTS_YES_ALT": {"tab": "BTTS",          "outcome": "Yes"},
     "BTTS_NO_ALT":  {"tab": "BTTS",          "outcome": "No"},

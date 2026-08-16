@@ -63,8 +63,10 @@ KELLY_CAP = 0.05              # Agent 6 / 8 / 10 Kelly cap (5% per leg)
 KELLY_DEFAULT = KELLY_CAP * 0.5  # half-Kelly default
 DAILY_RISK_BUDGET = 0.15      # Agent 9 total stake exposure cap (15%)
 PAPER_BANKROLL_NGN = 50_000   # Phase 3 paper bankroll
-CLV_GATE_LEGS = 30            # publish gate: min legs with CLV (canonical PHASE3_GATE_MIN_LEGS)
-CLV_GATE_MEAN_POSITIVE = True # publish gate: mean CLV > 0
+# CLV gate constants imported from canonical source (clv/clv_logger.py)
+from clv.clv_logger import PHASE3_GATE_MIN_LEGS
+CLV_GATE_LEGS = PHASE3_GATE_MIN_LEGS  # publish gate: min legs with CLV
+CLV_GATE_MEAN_POSITIVE = True         # publish gate: mean CLV > 0
 
 AGENT_NAMES = {
     1: "agent_1_macro_ingestion",
@@ -486,7 +488,8 @@ def agent_9_teamlead(state: PipelineState) -> dict:
     inp = state.payloads[8]
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    # CLV publish gate (engine unchanged — clv/clv_logger.phase2_status).
+    # CLV publish gate — single source of truth via clv/phase3_gate.py
+    # (replaces inline gate logic that duplicated PHASE3_GATE_MIN_LEGS).
     # Architect sign-off is read from the ARCHITECT_SIGNOFF env flag (the same
     # source of truth as webapp/schema.py and clv/phase3_gate.py), not derived
     # from the phase label. Override semantics match schema.py: the override
@@ -495,11 +498,11 @@ def agent_9_teamlead(state: PipelineState) -> dict:
     gate = {"architect_signoff": False, "clv_legs": 0, "clv_mean": None,
             "feed_parity_test": "SKIP", "result": "PUBLISH_BLOCKED"}
     try:
-        from clv.clv_logger import CLVLog
-        status = CLVLog().phase2_status()
+        from clv.phase3_gate import gate_status_for_dashboard
+        status = gate_status_for_dashboard()
         legs = status.get("legs_with_clv", 0)
         mean_clv = status.get("mean_clv_pct")
-        gate_met = legs >= CLV_GATE_LEGS and (mean_clv or 0) > 0
+        gate_met = status.get("gate_met", False)
         _signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower()
         signed_off = _signoff in ("1", "true", "yes")
         override = (not gate_met) and signed_off

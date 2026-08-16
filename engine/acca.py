@@ -84,6 +84,7 @@ class AccaLeg:
     prob: float           # model probability for that market
     ev: Optional[float]   # model_prob * price - 1, when computable
     sportybet_fixture_id: Optional[str] = None  # set by the booking step
+    verification_stamp: Optional[str] = None    # "[✓ SportyBet ✓ FlashScore]" or "[⚠ unverified]" from pre-production gate
 
 
 @dataclass
@@ -360,6 +361,9 @@ def build_production_bets(
         bf.best_price = leg.price
         bf.best_model_prob = leg.prob
         bf.best_mes_ev = leg.ev
+        # Carry the gate's verification stamp onto the leg so BOTH outlets
+        # (Telegram + web) show the same [✓ …]/[⚠ …] source confirmation.
+        leg.verification_stamp = getattr(bf, "verification_stamp", None)
         pairs.append((bf, leg))
 
     # EDGE ranking (Architect 2026-08-11): Acca A leads with the highest-EDGE
@@ -413,7 +417,8 @@ def _code_for(codes: Optional[dict], label: str) -> Optional[str]:
 
 
 def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
-                            today: Optional[str] = None) -> str:
+                            today: Optional[str] = None,
+                            board: Optional[list] = None) -> str:
     """Lean production block for Telegram + the saved board.
 
     ARCHITECT FORMAT (2026-08-11, "use this always"): star on every acca,
@@ -423,10 +428,28 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
     'no production pick today' note (a quiet day is a correct result, not a
     failure).
 
+    VERIFICATION STAMP (Architect directive 2026-08-16 — STOP FABRICATION):
+    every leg carries its own `verification_stamp` (set by `build_production_bets`
+    from the board the gate stamped). VERIFIED legs show `[✓ SportyBet ✓ FlashScore]`;
+    a leg that reached production without a confirmation (e.g. a double-outage
+    keep-but-warn day) shows `[⚠ unverified]`. A leg the gate dropped can never
+    appear here — it was removed from the board before production was built.
+    The same stamp rides through to the web (the leg is serialized into the acca
+    payload), so the two outlets stay byte-faithful (webapp_feed_parity_test).
+
     ID407 (proposed) — Accumulator compounding disclosure: any multi-leg acca
     must show the combined probability (product of leg probabilities) with the
     explicit label that this is arithmetic, not a framework weakness."""
     today = today or date.today().isoformat()
+
+    def _stamp_for(leg) -> str:
+        # The gate is the only thing that sets verification_stamp; without it
+        # (e.g. a parity test building legs by hand with no board) there is
+        # nothing to stamp — return "" so the lean block is unchanged. Fabricating
+        # a stamp (even an "unverified" one) without the gate running would be
+        # exactly the honesty violation we are ending.
+        return getattr(leg, "verification_stamp", None) or ""
+
     lines = [f"🎯 PRODUCTION BETS — {today} (today's fixtures only)", ""]
     accas = ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
     if not accas and not bets.singles:
@@ -446,7 +469,8 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
         indent = "    " if is_headline else ""
         for leg in acca.legs:
             lines.append(f"{indent}{leg.fixture} ({leg.league}) — "
-                         f"{leg.market_name} @ {leg.price:.2f}")
+                         f"{leg.market_name} @ {leg.price:.2f} "
+                         f"{_stamp_for(leg)}")
         if acca.combined_odds is not None:
             lines.append(f"    Combined {acca.combined_odds:.2f} "
                          f"Booking code: {code or 'NO DATA — PENDING'}")
@@ -467,5 +491,6 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
             code = _code_for(codes, f"SINGLE — {leg.fixture}")
             lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
                          f"@ {leg.price:.2f}  Booking code: "
-                         f"{code or 'NO DATA — PENDING'}")
+                         f"{code or 'NO DATA — PENDING'} "
+                         f"{_stamp_for(leg)}")
     return "\n".join(lines)

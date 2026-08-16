@@ -128,6 +128,10 @@ def _implied_probabilities_from_odds(home_odds: float, draw_odds: float, away_od
 
 def _extract_odds_from_summary(summary_data: Dict[str, Any]) -> tuple[Optional[float], Optional[float], Optional[float], str]:
     """Extract 1X2 odds from ESPN summary data."""
+    home = None
+    draw = None
+    away = None
+
     # Check pickcenter (pre-match odds)
     pickcenter = summary_data.get("pickcenter", [])
     for pick in pickcenter:
@@ -137,12 +141,17 @@ def _extract_odds_from_summary(summary_data: Dict[str, Any]) -> tuple[Optional[f
             if "draftkings" in name or "bet365" in name:
                 outcomes = provider.get("outcomes", [])
                 for outcome in outcomes:
+                    val = outcome.get("odds", {}).get("american") or outcome.get("odds", {}).get("decimal")
+                    if not val:
+                        continue
                     if outcome.get("type") == "home":
-                        home = outcome.get("odds", {}).get("american") or outcome.get("odds", {}).get("decimal")
+                        home = float(val)
                     elif outcome.get("type") == "away":
-                        away = outcome.get("odds", {}).get("american") or outcome.get("odds", {}).get("decimal")
+                        away = float(val)
                     elif outcome.get("type") == "draw":
-                        draw = outcome.get("odds", {}).get("american") or outcome.get("odds", {}).get("decimal")
+                        draw = float(val)
+                if home and draw and away:
+                    return home, draw, away, name
 
     # Check odds in competitions (same as scoreboard)
     competitions = summary_data.get("competitions", [])

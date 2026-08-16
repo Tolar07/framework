@@ -128,7 +128,7 @@ def register_all_espn_sources(leagues: Optional[List[str]] = None) -> dict:
 
     Returns dict mapping league -> {results, lineups, winprob} multi-sources.
     """
-    from data.espn_source import LEAGUE_MAP
+    from data.espn_source import SLUGS as LEAGUE_MAP
 
     target_leagues = leagues or list(LEAGUE_MAP.keys())
     registered = {}

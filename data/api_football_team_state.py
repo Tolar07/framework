@@ -141,9 +141,9 @@ def fetch_manager(team_name: str, league: str,
     """Fetch the current manager/coach for a team.
 
     Returns (manager_id, manager_name, manager_since). All None if no data.
-    Uses /coaches?team={id} when the api-football team ID is available;
-    falls back to /coaches?search={name} otherwise (less precise, may match
-    multiple coaches).
+    Uses /fixtures/lineups from the team's most recent match — the lineup
+    includes a `coach` object with id and name. The /coaches endpoint does
+    not exist in the current API-Football API.
 
     Raises SourceNoData if the season is beyond the plan gate."""
     if requests is None:
@@ -153,39 +153,71 @@ def fetch_manager(team_name: str, league: str,
     if tid is None:
         raise SourceNoData(f"no api-football team ID for '{team_name}' in '{league}'")
 
-    # /coaches has no season param, so it's available on all plans. Still
-    # guard with a generous cache (7 days — managers don't change daily).
-    cache_dir = _cache_dir("coaches")
+    # Get the most recent fixture for this team to extract coach from lineups.
+    # This is plan-aware: current season requires paid plan.
+    cache_dir = _cache_dir("managers")
     cache = cache_dir / f"team_{tid}.json"
     payload = _cached(cache, 7 * 24 * 3600) if use_cache else None
 
     if payload is None:
+        # Fetch the most recent fixture (last=1)
+        season = _season_for_date(date.today())
+        if not _is_season_accessible(season):
+            raise SourceNoData(
+                f"season {season} for '{team_name}' is beyond the free plan "
+                f"(ends {FREE_TIER_LAST_SEASON}).")
+
         r = get_protected(
-            f"{API_BASE}/coaches", breaker_name="api_football",
+            f"{API_BASE}/fixtures", breaker_name="api_football",
             headers={"x-apisports-key": _key()},
-            params={"team": tid},
+            params={"team": tid, "season": season, "last": 1},
             timeout=30)
-        payload = r.json()
-        if payload.get("errors"):
-            raise RuntimeError(f"API-Football /coaches: {payload['errors']}")
+        fixtures_payload = r.json()
+        if fixtures_payload.get("errors"):
+            raise RuntimeError(f"API-Football /fixtures: {fixtures_payload['errors']}")
+
+        fixture_ids = [
+            item["fixture"]["id"]
+            for item in fixtures_payload.get("response", [])
+            if item.get("fixture", {}).get("id")
+        ]
+        if not fixture_ids:
+            return None, None, None
+
+        # Fetch lineups for the most recent fixture
+        fid = fixture_ids[0]
+        r = get_protected(
+            f"{API_BASE}/fixtures/lineups", breaker_name="api_football",
+            headers={"x-apisports-key": _key()},
+            params={"fixture": fid},
+            timeout=30)
+        lineups_payload = r.json()
+        if lineups_payload.get("errors"):
+            raise RuntimeError(f"API-Football /fixtures/lineups: {lineups_payload['errors']}")
+
+        # Find our team's lineup and extract coach
+        for lu in lineups_payload.get("response", []):
+            lu_team = lu.get("team", {})
+            if lu_team.get("id") == tid:
+                coach = lu.get("coach", {})
+                name = coach.get("name")
+                cid = str(coach.get("id")) if coach.get("id") else None
+                # manager_since is not available from lineups; leave as None
+                payload = {"response": [{"coach": coach}]}
+                break
+        else:
+            return None, None, None
+
         _write_cache(cache, payload)
 
     coaches = payload.get("response", [])
     if not coaches:
         return None, None, None
 
-    # /coaches returns an array; pick the first as the current coach.
-    # API-Football does not always mark "current", but the first result is the
-    # most recent. The `career` array has start/end dates; the last entry with
-    # no end date is the current appointment.
-    c = coaches[0]
-    name = c.get("name")
-    cid = str(c.get("id")) if c.get("id") else None
-    since = None
-    career = c.get("career") or []
-    if career:
-        last = career[-1]
-        since = last.get("start")
+    coach = coaches[0].get("coach", {})
+    name = coach.get("name")
+    cid = str(coach.get("id")) if coach.get("id") else None
+    since = None  # not available from lineups endpoint
     return cid, name, since
 
 

@@ -25,7 +25,7 @@ from .multi_source import (
 from .espn_source import (
     fetch_upcoming as fetch_fixtures,
     as_pairs,
-    SLUGS,
+    SLUGS as LEAGUE_MAP,
     UPCOMING_STATUSES,
 )
 

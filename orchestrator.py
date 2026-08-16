@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -29,6 +30,7 @@ from data.football_data_source import (load_league, load_second_division,
                                        MatchResult, UNCOVERED_LEAGUES)
 from data import thesportsdb_fixtures as tsdb
 from data import api_football_results as apif
+from data import api_football_full_slate as afslate
 from data import xg_source
 from data import clubelo_source
 from engine import cross_league as xleague
@@ -742,6 +744,83 @@ def scan_one_league(league: str, season: str,
     return board, flags
 
 
+def pull_full_slate_and_team_state(brain: Brain, date_str: str | None = None,
+                                    leagues: list[str] | None = None) -> tuple[int, int, list[str]]:
+    """Pull full-slate results + team-state for a date and persist to brain.
+
+    This is the daily ingestion step for ID416 (full_slate_results) and ID417
+    (team_state). Runs after the board is produced so the day's settled
+    fixtures are captured.
+
+    Args:
+        brain: Brain instance for persistence.
+        date_str: YYYY-MM-DD (default: today). The date whose settled fixtures
+                  to ingest. The daily run uses today; backfill uses history.
+        leagues: subset of leagues (default: ALL registry leagues).
+
+    Returns (slate_inserted, teamstate_inserted, flags)."""
+    from datetime import date
+    if date_str is None:
+        date_str = date.today().isoformat()
+
+    all_flags: list[str] = []
+    slate_inserted = 0
+    teamstate_inserted = 0
+
+    # 1. Full-slate results (FT/HT/kickoff)
+    slate_results, slate_flags = afslate.fetch_slate(date_str, leagues=leagues)
+    all_flags.extend(slate_flags)
+
+    for r in slate_results:
+        # ID403 verification: single source (api-football T1) -> SINGLE-SOURCE
+        # The verification gate will upgrade if a second source corroborates.
+        from verification.id403 import verify, SourcedDatum, Tier
+        v = verify([SourcedDatum(domain="api-football.com",
+                                 value=f"{r.home_team} v {r.away_team} {r.fthg}-{r.ftag}",
+                                 url="https://v3.football.api-sports.io",
+                                 structured=True)])
+        verified_tier = v.tier.value
+        if brain.log_full_slate_result(
+            league=r.league, fixture_date=r.fixture_date,
+            home_team=r.home_team, away_team=r.away_team,
+            fthg=r.fthg, ftag=r.ftag, ftr=r.ftr,
+            hthg=r.hthg, htag=r.htag, htr=r.htr,
+            kickoff_time=r.kickoff_time,
+            source=r.source, source_tier=r.source_tier,
+            verified_tier=verified_tier):
+            slate_inserted += 1
+
+    # 2. Team-state (manager, squad, formation) — per league
+    # This is heavier; do it once daily. Use registry leagues if not specified.
+    if leagues is None:
+        from engine.league_registry import registry
+        team_state_leagues = registry.all_leagues()
+    else:
+        team_state_leagues = leagues
+
+    from data import api_football_team_state as afstate
+    for league in team_state_leagues:
+        try:
+            snapshots, ts_flags = afstate.fetch_league_team_states(league)
+        except Exception as e:
+            all_flags.append(f"{league}: team-state fetch failed ({str(e)[:80]})")
+            continue
+        all_flags.extend(ts_flags)
+
+        for snap in snapshots:
+            if brain.log_team_state(
+                team=snap.team, league=snap.league, as_of=snap.as_of,
+                manager_id=snap.manager_id, manager_name=snap.manager_name,
+                manager_since=snap.manager_since,
+                squad_hash=snap.squad_hash,
+                derived_formation=snap.derived_formation,
+                source_tier=snap.source_tier,
+                derived_flag=snap.derived_flag):
+                teamstate_inserted += 1
+
+    return slate_inserted, teamstate_inserted, all_flags
+
+
 def run_all_leagues(season: str = "2526", leagues: list[str] | None = None,
                      fixtures_season: str | None = None):
     """Scans every whitelisted league into ONE combined board. This is the
@@ -788,6 +867,23 @@ def run_all_leagues(season: str = "2526", leagues: list[str] | None = None,
     )
     print("\n" + "=" * 60 + "\n")
     print(output)
+
+    # ID416/417: full-slate results + team-state ingestion.
+    # Runs after the board is produced so a fetch failure never blocks the
+    # daily publish. Failures are flags, not stops (HR35).
+    try:
+        brain = Brain()
+        slate_n, ts_n, ingest_flags = pull_full_slate_and_team_state(
+            brain, leagues=leagues)
+        if slate_n:
+            print(f"  full-slate: {slate_n} result rows ingested (ID416)")
+        if ts_n:
+            print(f"  team-state: {ts_n} snapshots ingested (ID417)")
+        if ingest_flags:
+            print(f"  ingestion flags: {len(ingest_flags)} (non-fatal)")
+    except Exception as e:
+        print(f"  full-slate/team-state ingestion skipped: {str(e)[:80]}")
+
     return output
 
 

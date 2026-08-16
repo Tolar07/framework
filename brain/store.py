@@ -36,7 +36,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 DEFAULT_BRAIN_PATH = Path(__file__).parent / "olp.db"
-SCHEMA_VERSION = 8
+SCHEMA_VERSION = 10
 # _create_tables builds the v1 BASELINE schema and stamps this version; _migrate
 # then steps a fresh DB forward to SCHEMA_VERSION. Keeping this at 1 (not
 # SCHEMA_VERSION) is what makes migrations actually run on a new DB.
@@ -76,6 +76,37 @@ _MIGRATIONS: dict[int, str] = {
     # statement per migration (the runner executes each SQL string directly).
     7: "ALTER TABLE predictions DROP COLUMN softness_tier;",
     8: "ALTER TABLE produced_bets DROP COLUMN softness_tier;",
+    # v9: full-slate results + team-state intelligence (ID416/ID417)
+    # full_slate_results — one row per whitelisted fixture, bet or not (retrospective calibration)
+    9: """CREATE TABLE IF NOT EXISTS full_slate_results (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        league TEXT NOT NULL,
+        fixture_date TEXT NOT NULL,
+        home_team TEXT NOT NULL,
+        away_team TEXT NOT NULL,
+        fthg INTEGER NOT NULL, ftag INTEGER NOT NULL, ftr TEXT NOT NULL,
+        hthg INTEGER, htag INTEGER, htr TEXT,
+        kickoff_time TEXT,
+        source TEXT NOT NULL,
+        source_tier TEXT NOT NULL,
+        verified_tier TEXT,  -- ID403: VERIFIED/SINGLE-SOURCE/CONFLICT/NO-DATA/DERIVED
+        date_logged TEXT NOT NULL,
+        UNIQUE(league, fixture_date, home_team, away_team)
+    )""",
+    # team_state — per-team, time-windowed intelligence (manager, squad, derived formation)
+    10: """CREATE TABLE IF NOT EXISTS team_state (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        team TEXT NOT NULL,
+        league TEXT NOT NULL,
+        as_of TEXT NOT NULL,  -- ISO date this snapshot represents
+        manager_id TEXT, manager_name TEXT, manager_since TEXT,
+        squad_hash TEXT,  -- hash of current squad composition for change detection
+        derived_formation TEXT,  -- mode of recent match formations (e.g., "4-3-3")
+        source_tier TEXT NOT NULL,
+        derived_flag INTEGER NOT NULL DEFAULT 1,  -- 1=derived, 0=direct from source
+        date_logged TEXT NOT NULL,
+        UNIQUE(team, as_of)
+    )""",
 }
 
 _WRITE_GUARD = ("SELECT", "PRAGMA", "EXPLAIN", "WITH")
@@ -395,6 +426,94 @@ class Brain:
                   "m": market}
                  for market, hit in hits.items()])
         return cur.rowcount
+
+    # ---- full_slate_results (ID416) -----------------------------------------
+    def log_full_slate_result(self, league: str, fixture_date: str,
+                               home_team: str, away_team: str,
+                               fthg: int, ftag: int, ftr: str,
+                               hthg: int | None = None, htag: int | None = None,
+                               htr: str | None = None, kickoff_time: str | None = None,
+                               source: str = "api-football.com",
+                               source_tier: str = "T1",
+                               verified_tier: str | None = None) -> bool:
+        """Insert one full-slate result row. Returns True if inserted,
+        False if duplicate (same fixture already logged)."""
+        from datetime import datetime, timezone
+        date_logged = datetime.now(timezone.utc).isoformat()
+        try:
+            with self._conn:
+                self._conn.execute(
+                    """INSERT INTO full_slate_results
+                       (league, fixture_date, home_team, away_team,
+                        fthg, ftag, ftr, hthg, htag, htr, kickoff_time,
+                        source, source_tier, verified_tier, date_logged)
+                       VALUES (?,?,?,?, ?,?,?, ?,?,?, ?,?,?,?,?)""",
+                    (league, fixture_date, home_team, away_team,
+                     fthg, ftag, ftr, hthg, htag, htr, kickoff_time,
+                     source, source_tier, verified_tier, date_logged))
+            return True
+        except sqlite3.IntegrityError:
+            return False  # duplicate
+
+    def get_full_slate_results(self, league: str | None = None,
+                                fixture_date: str | None = None,
+                                limit: int = 100) -> list[dict]:
+        """Query full-slate results with optional filters."""
+        sql = "SELECT * FROM full_slate_results WHERE 1=1"
+        params: list = []
+        if league:
+            sql += " AND league=?"
+            params.append(league)
+        if fixture_date:
+            sql += " AND fixture_date=?"
+            params.append(fixture_date)
+        sql += " ORDER BY fixture_date DESC, id DESC LIMIT ?"
+        params.append(limit)
+        return [dict(r) for r in self._conn.execute(sql, params).fetchall()]
+
+    # ---- team_state (ID417) -------------------------------------------------
+    def log_team_state(self, team: str, league: str, as_of: str,
+                       manager_id: str | None = None,
+                       manager_name: str | None = None,
+                       manager_since: str | None = None,
+                       squad_hash: str | None = None,
+                       derived_formation: str | None = None,
+                       source_tier: str = "T1",
+                       derived_flag: int = 1) -> bool:
+        """Insert/update a team-state snapshot. Returns True if inserted,
+        False if duplicate (same team+as_of already exists)."""
+        from datetime import datetime, timezone
+        date_logged = datetime.now(timezone.utc).isoformat()
+        try:
+            with self._conn:
+                self._conn.execute(
+                    """INSERT INTO team_state
+                       (team, league, as_of, manager_id, manager_name, manager_since,
+                        squad_hash, derived_formation, source_tier, derived_flag, date_logged)
+                       VALUES (?,?,?, ?,?,?, ?,?,?,?,?)""",
+                    (team, league, as_of, manager_id, manager_name, manager_since,
+                     squad_hash, derived_formation, source_tier, derived_flag, date_logged))
+            return True
+        except sqlite3.IntegrityError:
+            return False  # duplicate
+
+    def get_team_state(self, team: str | None = None, league: str | None = None,
+                        as_of: str | None = None, limit: int = 100) -> list[dict]:
+        """Query team-state snapshots with optional filters."""
+        sql = "SELECT * FROM team_state WHERE 1=1"
+        params: list = []
+        if team:
+            sql += " AND team=?"
+            params.append(team)
+        if league:
+            sql += " AND league=?"
+            params.append(league)
+        if as_of:
+            sql += " AND as_of=?"
+            params.append(as_of)
+        sql += " ORDER BY as_of DESC, team LIMIT ?"
+        params.append(limit)
+        return [dict(r) for r in self._conn.execute(sql, params).fetchall()]
 
     def outcome_summary(self, league: Optional[str] = None) -> dict:
         """Model-vs-reality: settled rated predictions. {'n', 'hit_rate'}."""

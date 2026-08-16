@@ -31,6 +31,7 @@ CLV, mean CLV −1.631% (NOT met)** — the live publish runs on the Architect's
   deployment.
 - **[[Agents.md]]** — the full roster (16 project agents: 7 chusri + 9 plugin)
   with model/tools/function and the resolved overlaps.
+- **[[HR56]]** — Architect Directive Supremacy (formalized 2026-08-16, [[Rules.md]]).
 - **[[Architecture.md]]** — the pipeline end to end: SCAN → trigger production →
   publish, the CLV loop, the admin dashboard, Telegram/client output.
 - **[[Open Questions.md]]** — unresolved items needing an explicit Architect
@@ -52,7 +53,4 @@ CLV, mean CLV −1.631% (NOT met)** — the live publish runs on the Architect's
 - **RATIFICATIONS.md is append-only** (HR33); a go-live entry was retroactively
   appended 2026-08-11 (commit `76216e0`) — the config.py comment had claimed it
   without it existing.
-- Vault folder: `docs/obsidian-vault/` in the repo (moved here + committed
-  2026-08-11). A copy also lives at `Documents/OLP_XDV_Vault` for Obsidian to
-  open. Built by Claude Code directly (Obsidian MCP was not connected — the
-  notes are plain markdown and work identically).
+- Vault folder: **`olp_xdv_agent/olp_xdv/docs/obsidian-vault/` (git-tracked, canonical per Architect 2026-08-16)**. A drifted mirror exists at `Documents/OLP_XDV_Vault` (non-git, NOT authoritative — deprecated). Built by Claude Code directly (Obsidian MCP was not connected — the notes are plain markdown and work identically).

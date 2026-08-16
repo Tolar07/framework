@@ -14,6 +14,7 @@ Architecture: same pattern as FlashScore scraper (scrape_live_odds_v3.py)
 """
 
 import asyncio
+import importlib.util
 import json
 import re
 import sys
@@ -25,8 +26,22 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 from playwright.async_api import async_playwright
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from config.statsarea_leagues import STATSAREA_LEAGUES, BASE_URL
+# Load config module directly to avoid config.py package collision (HR35)
+_REPO_ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(_REPO_ROOT))
+def _load_statsarea_map():
+    fallback = ({"Premier League": "england/premier-league"},
+                "https://www.statarea.com/football/{slug}/")
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "statsarea_leagues", _REPO_ROOT / "config" / "statsarea_leagues.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod.STATSAREA_LEAGUES, mod.BASE_URL
+    except Exception:
+        return fallback
+
+STATSAREA_LEAGUES, BASE_URL = _load_statsarea_map()
 
 
 class StatsAreaFixturesScraper:

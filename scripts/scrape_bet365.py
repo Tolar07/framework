@@ -18,6 +18,7 @@ Architecture: same pattern as FlashScore scraper
 """
 
 import asyncio
+import importlib.util
 import json
 import re
 import sys
@@ -29,8 +30,22 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 from playwright.async_api import async_playwright
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from config.bet365_leagues import BET365_LEAGUES, BASE_URL
+# Load config module directly to avoid config.py package collision (HR35)
+_REPO_ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(_REPO_ROOT))
+def _load_bet365_map():
+    fallback = ({"Premier League": "1000000000"},
+                "https://www.bet365.com/#/AC/B1/C1/D{slug}/")
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "bet365_leagues", _REPO_ROOT / "config" / "bet365_leagues.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod.BET365_LEAGUES, mod.BASE_URL
+    except Exception:
+        return fallback
+
+BET365_LEAGUES, BASE_URL = _load_bet365_map()
 
 
 class Bet365FixturesScraper:

@@ -45,7 +45,7 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "EFL Cup":             BookmakerLeague("England", "EFL Cup"),
     # --- NEW 2026-08-12: Require live SportyBet sidebar verification (HR35) ---
     # These mappings are PENDING live verification — wrong sub-item = silent wrong data
-    "Süper Lig":           BookmakerLeague("Turkey", "Süper Lig"),
+    "Süper Lig":           BookmakerLeague("Turkiye", "Super Lig"),
     "Super League Greece": BookmakerLeague("Greece", "Super League"),
     "Swiss Super League":  BookmakerLeague("Switzerland", "Super League"),
     "Eliteserien":         BookmakerLeague("Norway", "Eliteserien"),
@@ -54,8 +54,8 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     # --- OLP XDV official name aliases (2026-08-13): same SportyBet league, different OLP key ---
     # Norwegian Eliteserien (OLP) == Eliteserien (SportyBet)
     "Norwegian Eliteserien": BookmakerLeague("Norway", "Eliteserien"),
-    # Turkish Super Lig (OLP) == Süper Lig (SportyBet)
-    "Turkish Super Lig":     BookmakerLeague("Turkey", "Süper Lig"),
+    # Turkish Super Lig (OLP) == Super Lig (SportyBet) — sidebar uses "Turkiye" + "Super Lig" (no diacritics)
+    "Turkish Super Lig":     BookmakerLeague("Turkiye", "Super Lig"),
     # Greek Super League (OLP) == Super League Greece (SportyBet)
     "Greek Super League":    BookmakerLeague("Greece", "Super League"),
     # Swedish Allsvenskan (OLP) == Allsvenskan (SportyBet)
@@ -124,7 +124,7 @@ BET365_LEAGUES: dict[str, BookmakerLeague] = {
     "Austrian Bundesliga": BookmakerLeague("Austria", "Bundesliga"),
     "EFL Cup":             BookmakerLeague("England", "League Cup"),
     # --- NEW 2026-08-12: Require live Bet365 verification ---
-    "Süper Lig":           BookmakerLeague("Turkey", "Süper Lig"),
+    "Süper Lig":           BookmakerLeague("Turkiye", "Super Lig"),
     "Super League Greece": BookmakerLeague("Greece", "Super League"),
     "Swiss Super League":  BookmakerLeague("Switzerland", "Super League"),
     "Eliteserien":         BookmakerLeague("Norway", "Eliteserien"),

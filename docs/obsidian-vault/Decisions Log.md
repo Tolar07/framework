@@ -48,3 +48,28 @@
 - **Exact dating of earlier RATIFICATIONS entries** was transcribed from the log's own headers; the four 2026-08-11 directives above are the ones checked directly against code.
 - The **calibration-log league scope** question (did it widen with the softness cancellation?) is NOT resolved — see [[Open Questions.md]].
 - The **go-live ratification was retroactive**: `config.py` claimed "Recorded in RATIFICATIONS.md (2026-08-11)" but no entry existed until appended 2026-08-11 (commit `76216e0`).
+
+---
+
+## 2026-08-16 · HR56 Architect Directive Supremacy + Whitelist reconciliation
+
+**Directive (chat, 2026-08-16):**
+1. **HR56 formalized** as a hard rule in [[Rules.md]] (Directive Supremacy).
+2. **Whitelist consolidated to 61** — the union of historical 18 (2026-08-10), 25 (2026-08-12), and current 61 (2026-08-13 aggressive European expansion) is **61 distinct leagues** (18⊂61; 25⊂61 with 4 renames). A literal sum (104) would fabricate 43 leagues → HR35 forbids. The authoritative file is `config/leagues.json` (loaded by `engine/league_registry.py` at import; `engine/leagues.py` `WHITELISTED_LEAGUES` is derived).
+3. **Git-tracked repo copy is canonical** — `olp_xdv_agent/olp_xdv/docs/obsidian-vault/` is the single source of truth for governance docs. The `Documents/OLP_XDV_Vault` mirror (non-git, drifted) is deprecated.
+
+**Implemented in code (retroactive ratification):**
+- `config/leagues.json` already at 61 (`deploy_eligible=true` for all 61) — committed clean at HEAD (`f571f9f`), no reversion.
+- `engine/league_registry.py` is the runtime loader (authoritative).
+- **Note:** The 61 was originally added by agent commit `811eefb` (2026-08-13, message "fix(data): correct thesportsdb league IDs + add verified TEAM_ALIASES") without a dated Architect directive — a breach of HR34 / Protected Constants #5. This is now **retroactively ratified** by HR56 r7 audit order.
+
+**Doc updates applied (this commit):**
+- [[Rules.md]] — HR56 row added; ID401 updated to "61 leagues" with authoritative-file chain; "Ranking by confidence" superseded by EDGE; two new doc-vs-code disagreements (#5 two vaults, #6 config/leagues.json authority).
+- [[Open Questions.md]] — Item 1 updated 25→61; new Item 9 (two vaults).
+- [[Protected Constants.md]] — Item 5 updated to 61 + authoritative file chain.
+- [[Architecture.md]] — League pool line updated to 61 + authoritative file chain.
+- [[OLP XDV.md]] — Already says "61 whitelisted leagues"; vault location note updated to canonical repo copy.
+
+**Committed & saved:** this session will commit the four doc changes above. The 61 whitelist was already committed in `config/leagues.json`.
+
+**Discrepancy found & resolved:** the undocumented 61 expansion (`811eefb`) + two drifting vaults + stale doc numbers (18/25/61) — all resolved by this reconciliation per HR56 r7.

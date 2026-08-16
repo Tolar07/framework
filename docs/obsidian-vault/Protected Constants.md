@@ -37,7 +37,7 @@
 - **Linked:** [[Decisions Log.md]] 2026-08-11 go-live; [[Rules.md]] HR51.
 
 ## 5. Related protections (smaller, but Architect-only too)
-- **`WHITELISTED_LEAGUES`** (`engine/leagues.py`) — league eligibility is Architect-only (HR34); adding a league means adding a data source for it first.
+- **`WHITELISTED_LEAGUES`** — league eligibility is Architect-only (HR34); the **authoritative file is `config/leagues.json`** (loaded by `engine/league_registry.py` at import; `engine/leagues.py` `WHITELISTED_LEAGUES` is a derived back-compat symbol). Current whitelist = **61 leagues** (2026-08-13 aggressive European expansion, retroactively ratified 2026-08-16). Historical sizes 18 (2026-08-10) → 25 (2026-08-12) → 61 are the SAME growing list; the union is 61. Adding a league means editing `config/leagues.json` (with per-source IDs) — never editing `engine/leagues.py` directly.
 - **`RATIFICATIONS.md`** — append-only (HR33); never rewritten, only extended.
 - **`engine/markets.py` `BLOCKED`** — the ID405 market gate. It is currently OPEN (`BLOCKED = {}`); **re-closing a market** is an Architect decision (the negative-CLV evidence that justified the earlier block is not dismissed).
 - **`.env` credentials** — `ODDS_API_KEY` (primary) / `ODDS_API_KEY_BACKUP` (backup), `THESPORTSDB_KEY`, `TELEGRAM_BOT_TOKEN`. Re-enabling a killed channel (e.g. WhatsApp) requires Architect approval per the standing order.

@@ -10,10 +10,10 @@
 ## 1. Did calibration-log league scope widen with the softness cancellation?
 - **Context:** the softness-removal ratification (2026-08-11) said
   "calibration-log league scope … **UNCHANGED**" — i.e. it was explicitly NOT
-  widened. But the unified 18-league pool (ID401) and the new **edge-based
+  widened. But the unified **61-league pool** (ID401, per `config/leagues.json`; historical 18→25→61) and the new **edge-based
   market selection** ([[Decisions Log.md]] directive #4) assume wide coverage.
 - **Open:** should the calibration log (which CLV statistics the Phase-3 gate is
-  built from) now cover all 25 leagues (UEFA Super Cup added 2026-08-12), or stay on the original deploy set? This
+  built from) now cover all **61** leagues (aggressive European expansion ratified 2026-08-12, now retroactively ratified 2026-08-16), or stay on the original deploy set? This
   directly affects whether the 12/30-leg CLV tally is even measuring the right
   population.
 - **Impact:** answers whether the current −1.631% mean CLV is meaningful.
@@ -71,6 +71,13 @@
 - **Open:** should the dead one be deleted, or kept for reference? Affects
   [[Agents.md]] accuracy and which reviewer an agent actually invokes.
 
+## 9. Two vault copies — which is canonical? (2026-08-16)
+- **Context:** the governance vault exists in two places:
+  - **Canonical (git-tracked):** `olp_xdv_agent/olp_xdv/docs/obsidian-vault/` — committed, part of repo history.
+  - **Drifted mirror (non-git):** `Documents/OLP_XDV_Vault/` — NOT a git repo, has more lines (e.g. `Decisions Log.md` 125 vs 50, `Rules.md` 73 vs 63) and stale numbers (still says "25 leagues").
+- **Architect 2026-08-16 ruled:** the git-tracked repo copy is authoritative; the `Documents` mirror is deprecated and must not be treated as source of truth.
+- **Open:** retire the `Documents/OLP_XDV_Vault` mirror (delete or symlink to repo copy)? Or establish a one-way sync (repo → mirror only)? Until resolved, **all agents must read/write the repo copy only**.
+
 ---
 
 ## 9. Team-Intelligence-Layer proposal — two source gaps + ID-numbering block (2026-08-15)
@@ -103,8 +110,14 @@
   (c) ID numbering is reconciled. No silent engine changes to live capital picks
   (HR51 / HR35). Per spec, Idea 1 score-only ingestion is the lowest-risk first
   build — but still requires Architect go-ahead.
-- **Status:** proposal only; awaiting Architect ID assignment + engine-action
-  decisions. No code changes made.
+- **Status (2026-08-15 HR52 sourcing directive EXECUTED):** the two source gaps
+  are **resolved** — every clean source needed is already ratified in
+  `SOURCE_TRUST` (api-football T1 is the workhorse for all six needs; the
+  ~11/65 football-data.co.uk coverage gap and the Transfermarkt ToS exposure are
+  the real findings). Full sourcing findings + ingestion design + proposed
+  ID416/417/419/421/422 are in [[Decisions Log.md]] (2026-08-15 entry). The
+  remaining gating items are **Architect decisions** (Transfermarkt ToS demotion,
+  confirm api-football as Idea-1 primary, engine-action per field) — NOT sourcing.
 
 ---
 

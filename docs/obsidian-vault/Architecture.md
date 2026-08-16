@@ -28,7 +28,7 @@ booking code into money.
 | xG | `data/xg_source.py` | xG engine input |
 | Engines | `engine/dixon_coles.py`, `engine/elo.py`, `engine/cross_league.py`, `engine/xg_*.py` | Dixon-Coles (Poisson modal, ID414) + Elo (ID82) + cross-league blend + xG + bookmaker anchor |
 | Consensus | `engine/consensus.py` | cross-engine vote (ID412), devigged implied probability as EV anchor (ID413) |
-| League pool | `engine/leagues.py` | `WHITELISTED_LEAGUES` (18, unified pool, HR34); no tiers (ID402 removed) |
+| League pool | `config/leagues.json` → `engine/league_registry.py` → `engine/leagues.py` | **61 leagues** (unified pool, HR34, `deploy_eligible=true` for all); `engine/leagues.py` `WHITELISTED_LEAGUES` is derived from registry; no tiers (ID402 removed). Authoritative file is `config/leagues.json`. |
 | Verification | `verification/id403.py` | multi-factor source tiers; CONFLICT/NO-DATA never silently resolved (HR35) |
 
 ## Stage 2 — TRIGGER PRODUCTION (probabilities → a bet)

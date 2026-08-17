@@ -453,22 +453,27 @@ def _verify_league_page(page: Page, expected_country: str, expected_league: str)
     The first one in DOM order (e.g., a "Live Betting" label) may not contain
     the league name. We must check ALL visible matching elements and return
     True if ANY contains the expected league/country.
+
+    FIX (2026-08-17): Country-name fallback REMOVED. The old code allowed
+    `expected_country.lower() in text` as a secondary signal — this caused
+    catastrophic cross-contamination (e.g., Premier League fixtures cached under
+    "Bosnian Premier League" because both breadcrumbs contained "England" or
+    similar). Now ONLY the exact league name (case-insensitive) in the breadcrumb
+    or page title passes. This is strict but necessary — HR35: absence = unavailable,
+    never fabricated.
     """
     try:
         # Strategy 1: Check the breadcrumb/heading in the main content area
         # SportyBet shows "Spain / LaLiga" or similar in .breadcrumb or .tournament-header
         # Use .all() instead of .first() — multiple elements can match; any one
-        # containing the league/country name means we're on the right page.
+        # containing the league name means we're on the right page.
         breadcrumbs = page.locator(
             ".breadcrumb:visible, .tournament-header:visible, .page-header:visible, .league-title:visible").all()
         for bc in breadcrumbs:
             try:
                 text = bc.inner_text().strip().lower()
-                # Fuzzy match: expected league must appear in breadcrumb (case-insensitive)
+                # STRICT: Only league name match passes. Country fallback REMOVED.
                 if expected_league.lower() in text:
-                    return True
-                # Also allow country name as a secondary signal
-                if expected_country.lower() in text:
                     return True
             except Exception:
                 continue
@@ -478,9 +483,9 @@ def _verify_league_page(page: Page, expected_country: str, expected_league: str)
         url = page.url.lower()
         # Could add tournament ID mapping later, for now skip
 
-        # Strategy 3: Check page <title>
+        # Strategy 3: Check page <title> — STRICT: league name only
         title = page.title().lower()
-        if expected_league.lower() in title or expected_country.lower() in title:
+        if expected_league.lower() in title:
             return True
 
         # Safely get breadcrumb text for debug logging (handle Unicode chars that

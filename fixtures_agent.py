@@ -67,7 +67,7 @@ def load_whitelist() -> set[str]:
     """Load deploy-eligible leagues from config/leagues.json."""
     try:
         config_path = Path(__file__).parent / "config" / "leagues.json"
-        with open(config_path) as f:
+        with open(config_path, encoding="utf-8") as f:
             data = json.load(f)
         return {l["name"] for l in data["leagues"] if l.get("deploy_eligible", False)}
     except Exception:

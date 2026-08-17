@@ -21,6 +21,7 @@ output, CLV) has no network dependency and is fully testable here.
 from __future__ import annotations
 import argparse
 import sys
+from datetime import date
 from pathlib import Path
 from typing import Optional
 
@@ -44,6 +45,7 @@ from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload,
 from engine.leagues import (WHITELISTED_LEAGUES, is_deploy_eligible,
                             build_deploy_shortlist)
 from engine.mes import trigger_price, mes_numeric
+from engine import tactical as tactical_engine
 from booking.bridge import load_all_sportybet_fixtures, get_sportybet_odds_for_leg
 from verification.id403 import verify, SourcedDatum, Tier
 from output.produce_bet import BoardFixture, render_produce_bet
@@ -167,6 +169,9 @@ def scan_one_league(league: str, season: str,
     14-day default."""
     flags: list[str] = []
     fixture_dates: dict[tuple[str, str], str] = {}
+    # as_of for team-state lookups (today). The daily board runs on today's
+    # snapshots; a fixture without a snapshot simply gets no tactical nudge.
+    as_of_str = date.today().isoformat()
 
     # football-data.co.uk carries no continental competitions and no Croatia.
     # API-Football fills that gap for HISTORY (ratified 2026-08-03), but a
@@ -609,6 +614,48 @@ def scan_one_league(league: str, season: str,
                         modal_scoreline=(0, 0))
                     rating_source = "clubelo"
                     clubelo_flags.append(f"{home} v {away}")
+        # ------------------------------------------------------------------
+        # Tactical engine action (ID417): team-state intelligence -> goal
+        # expectancy nudge. squad_hash change detection + derived_formation
+        # shape. Applied via predict_adjusted (same scale path as the
+        # promoted-club level adjustment) so tactical + promoted can never
+        # drift apart on the marginals. HR35: absent data => 1.0 (no nudge).
+        # The brain is the only place team_state lives; a missing brain or a
+        # missing snapshot => no adjustment, never a guessed one.
+        tactical_adj = None
+        tactical_prov = "tactical: none"
+        if probs is not None and brain is not None:
+            try:
+                home_snap = brain.get_team_state(team=home, league=league,
+                                                  as_of=as_of_str, limit=1)
+                away_snap = brain.get_team_state(team=away, league=league,
+                                                  as_of=as_of_str, limit=1)
+                h_form = home_snap[0].get("derived_formation") if home_snap else None
+                a_form = away_snap[0].get("derived_formation") if away_snap else None
+                h_hash = home_snap[0].get("squad_hash") if home_snap else None
+                a_hash = away_snap[0].get("squad_hash") if away_snap else None
+                h_prior, a_prior = tactical_engine.load_prior_hashes(
+                    brain, home, away, league, as_of=as_of_str)
+                adj = tactical_engine.tactical_for_fixture(
+                    home_formation=h_form, away_formation=a_form,
+                    home_squad_hash=h_hash, away_squad_hash=a_hash,
+                    home_prior_hash=h_prior, away_prior_hash=a_prior)
+                if adj.applied:
+                    tactical_adj = adj
+                    tactical_prov = adj.provenance
+                    # Re-run the SAME prediction with scaled Lambdas. We re-predict
+                    # rather than post-hoc scaling probabilities so the score matrix
+                    # stays consistent (BUG2-safe: probabilities still sum to 1).
+                    base_model = carry_model if carry_rated else model
+                    base_probs = carry_p if carry_rated else probs
+                    if base_probs is not None:
+                        probs = predict_adjusted(
+                            base_model, home, away,
+                            scale_home=adj.scale_home,
+                            scale_away=adj.scale_away)
+            except Exception:
+                # A team-state read failure is a None field, not a board failure.
+                pass
         # The fixture itself comes from TheSportsDB (ratified T2), so that's
         # what gets stamped — crediting football-data.co.uk here would claim a
         # corroboration that didn't happen. One source => ○ SINGLE-SOURCE.
@@ -696,6 +743,9 @@ def scan_one_league(league: str, season: str,
             # The board labels it so a stretch rating is never mistaken for a
             # fitted one (bookable, labeled — Architect 2026-08-12).
             rating_source=rating_source,
+            # Tactical provenance (ID417): None = no tactical signal, "tactical"
+            # = formation and/or squad-change adjustment applied to Lambdas.
+            tactical_provenance=tactical_prov if tactical_prov != "tactical: none" else None,
             # SportyBet odds and MES
             sb_home_odds=sb_odds.get("home") if sb_odds else None,
             sb_draw_odds=sb_odds.get("draw") if sb_odds else None,
@@ -759,7 +809,6 @@ def pull_full_slate_and_team_state(brain: Brain, date_str: str | None = None,
         leagues: subset of leagues (default: ALL registry leagues).
 
     Returns (slate_inserted, teamstate_inserted, flags)."""
-    from datetime import date
     if date_str is None:
         date_str = date.today().isoformat()
 

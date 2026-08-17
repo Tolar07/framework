@@ -289,11 +289,19 @@ def fetch_lineup_for_event(event_id: str) -> Optional[MatchLineup]:
         match_date = header.get("date", "").split("T")[0]
         status = header.get("status", {}).get("type", {}).get("name", "unknown")
 
-        home_lineup_data = data.get("lineups", [{}])[0] if data.get("lineups") else {}
-        away_lineup_data = data.get("lineups", [{}])[1] if len(data.get("lineups", [])) > 1 else {}
+        lineups_raw = data.get("lineups") or []
+        home_lineup_data = lineups_raw[0] if len(lineups_raw) > 0 else {}
+        away_lineup_data = lineups_raw[1] if len(lineups_raw) > 1 else {}
 
-        home_team = header.get("competitors", [{}])[0].get("team", {}).get("shortDisplayName", "")
-        away_team = header.get("competitors", [{}])[1].get("team", {}).get("shortDisplayName", "")
+        # ESPN summary endpoint has team names under header.competitions[].team
+        # (or header.competitors[] in some older shapes). Be defensive.
+        teams = header.get("competitions") or header.get("competitors") or []
+        home_team = ""
+        away_team = ""
+        if len(teams) >= 1:
+            home_team = (teams[0].get("team") or {}).get("shortDisplayName", "") or (teams[0].get("team") or {}).get("displayName", "")
+        if len(teams) >= 2:
+            away_team = (teams[1].get("team") or {}).get("shortDisplayName", "") or (teams[1].get("team") or {}).get("displayName", "")
 
         home = _extract_team_lineup(home_lineup_data, "home") if home_lineup_data else None
         away = _extract_team_lineup(away_lineup_data, "away") if away_lineup_data else None

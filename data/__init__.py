@@ -69,19 +69,32 @@ from .espn_multi_source import (
 )
 
 from .xg_source import (
-    fetch_team_xg,
-    fetch_league_xg,
+    fit_xg,
+    predict_xg,
     TeamXG,
+    XGProbabilities,
+    is_covered,
 )
 
 from .thesportsdb_fixtures import (
-    fetch_fixtures as fetch_thesportsdb_fixtures,
-    fetch_league_fixtures,
+    fetch_upcoming as fetch_thesportsdb_fixtures,
+    fetch_today as fetch_league_fixtures,
+    load_results as fetch_thesportsdb_results,
+    map_team,
+)
+
+from .api_football_team_state import (
+    TeamStateSnapshot,
+    fetch_manager,
+    fetch_squad_hash,
+    fetch_derived_formation,
+    fetch_team_state,
+    fetch_league_team_states,
 )
 
 from .football_data_source import (
-    fetch_results as fetch_football_data_results,
-    fetch_odds as fetch_football_data_odds,
+    load_league as fetch_football_data_results,
+    load_second_division as fetch_football_data_odds,
 )
 
 __all__ = [
@@ -98,9 +111,9 @@ __all__ = [
     "SourceRegistry",
     # ESPN
     "fetch_fixtures",
-    "fetch_odds",
+    "as_pairs",
     "LEAGUE_MAP",
-    "ESPNClient",
+    "UPCOMING_STATUSES",
     "fetch_results_for_date",
     "fetch_results_range",
     "fetch_results_for_league_season",
@@ -129,12 +142,23 @@ __all__ = [
     "fetch_winprob_multi",
     "get_espn_health_report",
     # xG
-    "fetch_team_xg",
-    "fetch_league_xg",
+    "fit_xg",
+    "predict_xg",
     "TeamXG",
+    "XGProbabilities",
+    "is_covered",
     # TheSportsDB
     "fetch_thesportsdb_fixtures",
     "fetch_league_fixtures",
+    "fetch_thesportsdb_results",
+    "map_team",
+    # API-Football team-state (ID417)
+    "TeamStateSnapshot",
+    "fetch_manager",
+    "fetch_squad_hash",
+    "fetch_derived_formation",
+    "fetch_team_state",
+    "fetch_league_team_states",
     # football-data.co.uk
     "fetch_football_data_results",
     "fetch_football_data_odds",

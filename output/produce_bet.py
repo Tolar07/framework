@@ -115,6 +115,13 @@ class BoardFixture:
     # The canonical market key (1X2_HOME / 1X2_DRAW / 1X2_AWAY / OVER_1_5 /
     # OVER_2_5 / BTTS_YES) of the priced best-market row, when one exists.
     best_market_key: Optional[str] = None
+    # Tactical engine action (ID417): team-state intelligence applied as a goal
+    # expectancy nudge. None = no tactical signal, "tactical" = a formation and/or
+    # squad-change adjustment was applied to this fixture's Lambdas (via
+    # predict_adjusted). The board labels it so a tactically-adjusted rating is
+    # never mistaken for a pure fitted rating (HR35: honest provenance). The
+    # adjustment is a small, conservative nudge — never a re-rating.
+    tactical_provenance: Optional[str] = None
 
 
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],

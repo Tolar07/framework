@@ -177,18 +177,6 @@
           }
         ],
         "description": "Check for console.log in modified files after each response"
-      },
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "(IN=\"$(cat)\"; SID=\"$(printf \"%s\" \"$IN\" | python -c \"import sys,json;s=sys.stdin.read();d=json.loads(s) if s.strip() else {};print(d.get(\" + Q + \"session_id\" + Q + \") or \" + Q + Q + \")\")\"; [ -n \"$SID\" ] || SID=\"${CLAUDE_SESSION_ID:-unknown}\"; T=\"${CLAUDE_TRANSCRIPT_PATH:-}\"; if [ -n \"$T\" ] && [ -f \"$T\" ]; then D=\"/c/Users/Motunrayo/omniroute test/olp_xdv_agent/olp_xdv/memory/conversations\"; mkdir -p \"$D\" && cp \"$T\" \"$D/$(date +%Y-%m-%d)-${SID}.jsonl\"; fi) 2>/dev/null || true",
-            "shell": "bash",
-            "timeout": 30,
-            "statusMessage": "Archiving session transcript to memory/conversations"
-          }
-        ]
       }
     ],
     "SessionEnd": [

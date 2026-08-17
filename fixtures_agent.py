@@ -46,6 +46,10 @@ LEAGUE_SEASON_START: dict[str, str] = {
     "Championship":        "2026-08-14",
     "Primeira Liga":       "2026-08-14",
     "Turkish Super Lig":   "2026-08-14",
+    "La Liga 2":           "2026-08-14",
+    "Serie B":             "2026-08-14",
+    "2. Bundesliga":       "2026-08-14",
+    "Ligue 2":             "2026-08-14",
     "Austrian Bundesliga": "2026-08-14",
     "Belgian Pro League":  "2026-08-14",
     "Danish Superliga":    "2026-08-14",
@@ -326,6 +330,7 @@ def fetch_sportinglife(today: str) -> List[Dict]:
                 "Coppa Italia", "Copa del Rey", "DFB-Pokal", "Coupe de France",
                 "FA Cup", "KNVB Beker", "Taça de Portugal",
                 "Scottish League Cup", "Bundesliga 2",
+                "La Liga 2", "Serie B", "2. Bundesliga", "Ligue 2",
                 "Europa League", "Champions League", "Conference League",
             ]:
                 if league_name.lower() in text.lower() and len(text) < 60:

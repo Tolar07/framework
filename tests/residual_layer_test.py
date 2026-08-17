@@ -76,9 +76,9 @@ def main():
             pairs.append((p_m, p_m, hit))  # p_model == p_market
     fit = fit_residual("test", pairs, min_sample=100, kappa=20)
     check("recovers market-only: active", fit is not None and fit.active)
-    check("recovers market-only: a≈0", abs(fit.a) < 0.2, f"a={fit.a:.3f}")
-    check("recovers market-only: g≈0", abs(fit.g) < 0.2, f"g={fit.g:.3f}")
-    check("recovers market-only: b≈1", abs(fit.b - 1.0) < 0.2, f"b={fit.b:.3f}")
+    check("recovers market-only: a~0", abs(fit.a) < 0.2, f"a={fit.a:.3f}")
+    check("recovers market-only: g~0", abs(fit.g) < 0.2, f"g={fit.g:.3f}")
+    check("recovers market-only: b~1", abs(fit.b - 1.0) < 0.2, f"b={fit.b:.3f}")
     # calibrate returns p_market
     for p_m in [0.2, 0.5, 0.8]:
         p_c = calibrate(fit, p_m, p_m)

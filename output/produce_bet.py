@@ -569,6 +569,44 @@ def render_part2_the_scan(board: list[BoardFixture]) -> str:
     return "\n".join(rows)
 
 
+def render_part2_compact(board: list[BoardFixture],
+                         codes: Optional[dict] = None) -> str:
+    """HR57 compact Layer 2 fast-scan: just Fixture | Selected Pick | Booking
+    Code — sitting ABOVE the full Layer 2 grid (render_part2_the_scan), not
+    replacing it. Same booking code across the whole layer (ID409 — one code
+    for the Layer 2 scan, not per fixture). If the booking bridge has not
+    produced a Layer 2 aggregate code, the column renders the honest
+    NO DATA — PENDING (HR35), never a fabricated code.
+
+    'Selected Pick' is the fixture's best-EV market in words when priced
+    (best_market), else the 1X2 result pick; an unrated fixture keeps its row
+    as NO DATA — PENDING so the fast-scan shows the real matchday."""
+    L2_CODE_LABEL = "Layer 2"
+    layer_code = None
+    if codes:
+        for r in codes.get("results") or []:
+            if r.get("label") == L2_CODE_LABEL and r.get("code"):
+                layer_code = r["code"]
+                break
+    code_cell = layer_code or "NO DATA — PENDING"
+
+    rows = ["PART 2 — COMPACT (fast-scan)",
+            "Fixture | Selected Pick | Booking Code"]
+    for bf in board:
+        if bf.probs is None:
+            rows.append(f"{bf.fixture} | NO DATA — PENDING | {code_cell}")
+            continue
+        if bf.best_market:
+            pick = bf.best_market
+        else:
+            # _result_pick returns (name, prob, is_away); name is the predicted
+            # winner or 'Draw' — render faithfully.
+            name, _prob, _is_away = _result_pick(bf)
+            pick = name if name == "Draw" else f"{name} to win"
+        rows.append(f"{bf.fixture} | {pick} | {code_cell}")
+    return "\n".join(rows)
+
+
 def render_part3_rejected(board: list[BoardFixture]) -> str:
     rejected = [bf for bf in board if bf.rejection_reason]
     if not rejected:
@@ -635,6 +673,10 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
 
     parts = [
         render_part0(mode, phase, leagues_scanned, calibration_count, mean_clv, data_flags),
+        "",
+        # HR57 (proposed 2026-08-15): compact Layer 2 fast-scan ABOVE full grid.
+        # Same booking code across the whole Layer 2 (ID409).
+        render_part2_compact(board, codes=codes),
         "",
         # ID409 RATIFIED 2026-08-15 (Architect sign-off — frozen-contract
         # supersession): Detail(PART 2, THE SCAN — Layer 2 grid) → Call

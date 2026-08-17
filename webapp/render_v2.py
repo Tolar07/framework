@@ -810,13 +810,73 @@ def _feed_scan(payload: dict, scores: dict, pill_base: str) -> str:
             f'<div class="density-view" data-group="scan" data-for="full">{full}</div>')
 
 
-def _scan_section(payload: dict, scores: dict, pill_base: str) -> str:
+def _scan_compact(payload: dict, booking_codes=None) -> str:
+    """HR57 compact Layer 2 fast-scan (web parity with the Telegram board):
+    Fixture | Selected Pick | Booking Code — sitting ABOVE the full scan grid,
+    not replacing it. Same booking code across the whole Layer 2 (ID409). When
+    the bridge has not produced a Layer 2 aggregate code, the column renders the
+    honest NO DATA — PENDING (HR35), never a fabricated code.
+
+    'Selected Pick' is best_market (in words) when priced, else the 1X2 result
+    pick; an unrated fixture keeps its row as NO DATA — PENDING."""
+    board = payload.get("board", [])
+    layer_code = None
+    for r in (booking_codes or {}).get("results") or []:
+        if r.get("label") == "Layer 2" and r.get("code"):
+            layer_code = r["code"]
+            break
+    code_cell = layer_code or "NO DATA — PENDING"
+
+    rows = []
+    for bf in board:
+        fixture = bf.get("fixture", "")
+        fix = _short_fixture(fixture)
+        lg = _league_of(fixture)
+        if not bf.get("probs"):
+            rows.append(
+                f'<tr class="l2c-row pending"><td>{html.escape(fix)}'
+                f'<span class="fx-league">{html.escape(lg)}</span></td>'
+                f'<td class="pending">NO DATA — PENDING</td>'
+                f'<td class="code-cell pending">{html.escape(code_cell)}</td></tr>')
+            continue
+        best = bf.get("best_market")
+        if best:
+            pick = best
+        else:
+            probs = bf.get("probs") or {}
+            ph, pd, pa = (probs.get("p_home"), probs.get("p_draw"),
+                          probs.get("p_away"))
+            if ph is not None and pd is not None and pa is not None:
+                name, _p, _a = max(
+                    ((bf.get("probs", {}).get("home_team", "Home"), ph, False),
+                     ("Draw", pd, False),
+                     (bf.get("probs", {}).get("away_team", "Away"), pa, True)),
+                    key=lambda t: t[1])
+                pick = name if name == "Draw" else f"{name} to win"
+            else:
+                pick = "NO DATA — PENDING"
+        rows.append(
+            f'<tr class="l2c-row"><td>{html.escape(fix)}'
+            f'<span class="fx-league">{html.escape(lg)}</span></td>'
+            f'<td>{html.escape(pick)}</td>'
+            f'<td class="code-cell">{html.escape(code_cell)}</td></tr>')
+
+    return (f'<div class="l2-compact">'
+            f'<div class="l2-compact-head">Layer 2 — fast-scan '
+            f'(Fixture · Selected Pick · Booking Code)</div>'
+            f'<table class="l2-compact-table"><tbody>{"".join(rows)}'
+            f'</tbody></table></div>')
+
+
+def _scan_section(payload: dict, scores: dict, pill_base: str,
+                  booking_codes=None) -> str:
     return (f'<section class="section" id="the-scan">'
             f'<div class="wrap">'
             f'<div class="section-eyebrow">Part 2</div>'
             f'<h2 class="section-title">The Scan</h2>'
             f'<p class="section-desc">Every fixture, every approved league, '
             f'every market — scored whether or not it deploys.</p>'
+            f'{_scan_compact(payload, booking_codes)}'
             f'{_feed_scan(payload, scores, pill_base)}</div></section>')
 
 
@@ -981,7 +1041,7 @@ def render_dashboard(payload: dict, asset_base: str = "/static",
 {_hero(payload)}
 <main>
   {_call_section(payload, codes_by_label)}
-  {_scan_section(payload, scores or {}, pill_base)}
+  {_scan_section(payload, scores or {}, pill_base, booking_codes)}
   {_singles_section(payload, codes_by_label)}
   <section class="section" id="yesterday"><div class="wrap">{_feed_yesterday(payload)}</div></section>
   <section class="section" id="rolling"><div class="wrap">{_feed_rolling(payload)}</div></section>

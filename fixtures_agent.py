@@ -33,6 +33,13 @@ LEAGUE_SEASON_START: dict[str, str] = {
     "Premier League":      "2026-08-21",
     "La Liga":             "2026-08-15",
     "Serie A":             "2026-08-22",
+    "Coppa Italia":        "2026-08-17",  # 2026-27 season starts mid-August
+    "Copa del Rey":        "2026-08-17",  # 2026-27 season starts mid-August
+    "DFB-Pokal":           "2026-08-17",  # 2026-27 season starts mid-August
+    "Coupe de France":     "2026-08-17",  # 2026-27 season starts mid-August
+    "FA Cup":              "2026-08-17",  # 2026-27 season starts mid-August
+    "KNVB Beker":          "2026-08-17",  # 2026-27 season starts mid-August
+    "Taça de Portugal":    "2026-08-17",  # 2026-27 season starts mid-August
     "Bundesliga":          "2026-08-28",
     "Ligue 1":             "2026-08-21",
     "Eredivisie":          "2026-08-14",
@@ -67,10 +74,18 @@ def load_whitelist() -> set[str]:
         return set()
 
 
+def _parse_date(d: str) -> date:
+    """Parse an ISO YYYY-MM-DD string to a date object. Raises on bad format."""
+    return datetime.strptime(d, "%Y-%m-%d").date()
+
+
 def check_league_calendar(target_date: str) -> tuple[set[str], set[str]]:
     """Return (active_leagues, not_started_leagues) for a given date."""
-    active = {lg for lg, start in LEAGUE_SEASON_START.items() if target_date >= start}
-    not_started = {lg for lg, start in LEAGUE_SEASON_START.items() if target_date < start}
+    tgt = _parse_date(target_date)
+    active = {lg for lg, start in LEAGUE_SEASON_START.items()
+              if tgt >= _parse_date(start)}
+    not_started = {lg for lg, start in LEAGUE_SEASON_START.items()
+                   if tgt < _parse_date(start)}
     return active, not_started
 
 
@@ -80,7 +95,9 @@ def verify_league_fixture(league: str, target_date: str) -> tuple[bool, str]:
     Returns (is_plausible, reason).
     """
     if league in LEAGUE_SEASON_START:
-        if target_date < LEAGUE_SEASON_START[league]:
+        tgt = _parse_date(target_date)
+        start = _parse_date(LEAGUE_SEASON_START[league])
+        if tgt < start:
             return False, f"{league} season starts {LEAGUE_SEASON_START[league]} - before {target_date}"
     return True, "OK"
 
@@ -117,20 +134,38 @@ def fetch_sportybet_cache(today: str) -> List[Dict]:
                 "odds_x": fx.draw_odds,
                 "odds_2": fx.away_odds,
                 "source": "SportyBet cache",
+                "kickoff_date": kickoff[:10],
             })
     return rows
 
 
-def _flashscore_line_to_date(match_datetime: str) -> str:
+def _flashscore_line_to_date(match_datetime: str, target_date: str | None = None) -> str:
     """FlashScore match_1x2 `match_datetime` is '21.08. 20:00' (D.MM. HH:MM, no
-    year). Resolve to a guessable ISO date for the current/next 12 months."""
+    year). Resolve to an ISO date.
+
+    If `target_date` is provided (YYYY-MM-DD), resolve the year to match that
+    date's month/day. Otherwise fall back to the current/next year within 400 days.
+    """
     import re as _re
     m = _re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime or "")
     if not m:
         return ""
     day, mon, hh, mm = (int(x) for x in m.groups())
+
+    # If target_date given, use its year (and validate month/day match)
+    if target_date:
+        try:
+            tgt = datetime.fromisoformat(target_date)
+            # Ensure the day/month in match_datetime matches target_date
+            if tgt.month == mon and tgt.day == day:
+                return target_date
+            # If month/day don't match target_date, we can't resolve — return empty
+            return ""
+        except ValueError:
+            pass  # fall through to fallback
+
+    # Fallback: prefer a date in the current or next year, within ~12 months.
     now = datetime.now()
-    # Prefer a date in the current or next year, within ~12 months.
     for year in (now.year, now.year + 1):
         try:
             d = datetime(year, mon, day)
@@ -173,6 +208,8 @@ def fetch_flashscore(today: str) -> List[Dict]:
     regex is buggy); only team identity + date are consumed here, for the
     verification gate.
 
+    Only fixtures matching the requested `today` date are returned.
+
     If the feed is absent (not yet scraped, or cleaned), returns [] — the
     caller treats a missing FlashScore feed as "source unavailable", never as a
     list of empty fixtures (HR35: absence is not a fabricated negative).
@@ -199,7 +236,9 @@ def fetch_flashscore(today: str) -> List[Dict]:
         away = (d.get("away_team") or "").strip()
         if not home or not away:
             continue
-        kickoff = _flashscore_line_to_date(d.get("match_datetime"))
+        kickoff = _flashscore_line_to_date(d.get("match_datetime"), target_date=today)
+        if kickoff != today:
+            continue  # filter to requested date
         key = f"{home}|{away}|{kickoff}"
         if key in seen:
             continue
@@ -284,7 +323,9 @@ def fetch_sportinglife(today: str) -> List[Dict]:
                 "Primeira Liga", "Scottish Premiership", "Belgian Pro League",
                 "Danish Superliga", "Ekstraklasa", "Austrian Bundesliga",
                 "Swiss Super League", "HNL", "Eliteserien", "Allsvenskan",
-                "Coppa Italia", "Scottish League Cup", "Bundesliga 2",
+                "Coppa Italia", "Copa del Rey", "DFB-Pokal", "Coupe de France",
+                "FA Cup", "KNVB Beker", "Taça de Portugal",
+                "Scottish League Cup", "Bundesliga 2",
                 "Europa League", "Champions League", "Conference League",
             ]:
                 if league_name.lower() in text.lower() and len(text) < 60:
@@ -293,6 +334,24 @@ def fetch_sportinglife(today: str) -> List[Dict]:
     except Exception:
         pass
     return rows
+
+
+def _apply_verification(all_rows: List[Dict]) -> None:
+    """Mark rows as verified only when >=2 distinct sources agree on the same
+    (home, away, date). A single-source row is left UNVERIFIED so the provenance
+    stamp reflects real cross-source confirmation, not a blanket claim."""
+    today = date.today().isoformat()
+    # Map (home, away, date) -> set of distinct source names
+    agreement: Dict[tuple, set] = {}
+    for r in all_rows:
+        key = (r.get("home", "").strip().lower(), r.get("away", "").strip().lower(),
+               r.get("kickoff_date") or today)
+        agreement.setdefault(key, set()).add(r.get("source", ""))
+
+    for r in all_rows:
+        key = (r.get("home", "").strip().lower(), r.get("away", "").strip().lower(),
+               r.get("kickoff_date") or today)
+        r["verified"] = len(agreement.get(key, set())) >= 2
 
 
 def print_fixtures(today: str, all_rows: List[Dict]) -> None:
@@ -403,40 +462,33 @@ def main(target_date: Optional[str] = None, verify_only: bool = False):
     fetch_time = datetime.utcnow().isoformat() + "Z"
 
     # 1. FlashScore (PRIMARY - always first per Architect directive)
-    print("  [1/4] FlashScore...")
+    print("  [1/3] FlashScore...")
     fs_rows = fetch_flashscore(today)
     for r in fs_rows:
         r["fetched_at"] = fetch_time
-        r["verified"] = True
     print(f"       {len(fs_rows)} fixtures found")
     all_rows.extend(fs_rows)
 
     # 2. LiveScore
-    print("  [2/4] LiveScore...")
+    print("  [2/3] LiveScore...")
     ls_rows = fetch_livescore(today)
     for r in ls_rows:
         r["fetched_at"] = fetch_time
-        r["verified"] = True
     print(f"       {len(ls_rows)} fixtures found")
     all_rows.extend(ls_rows)
 
-    # 3. Sporting Life
-    print("  [3/4] Sporting Life...")
-    sl_rows = fetch_sportinglife(today)
-    for r in sl_rows:
-        r["fetched_at"] = fetch_time
-        r["verified"] = True
-    print(f"       {len(sl_rows)} fixtures found")
-    all_rows.extend(sl_rows)
-
-    # 4. OLP XDV SportyBet cache (odds-enhanced)
-    print("  [4/4] SportyBet cache (odds)...")
+    # 3. OLP XDV SportyBet cache (odds-enhanced)
+    print("  [3/3] SportyBet cache (odds)...")
     sb_rows = fetch_sportybet_cache(today)
     for r in sb_rows:
         r["fetched_at"] = fetch_time
-        r["verified"] = True
     print(f"       {len(sb_rows)} fixtures with odds")
     all_rows.extend(sb_rows)
+
+    # Cross-source verification: a row is verified only if >=2 distinct sources
+    # agree on the same (home, away, date). This replaces the old behavior of
+    # marking every row "verified" unconditionally.
+    _apply_verification(all_rows)
 
     print_fixtures(today, all_rows)
 

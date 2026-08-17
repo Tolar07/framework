@@ -116,11 +116,13 @@ def send_telegram(body: str, token: Optional[str] = None,
         # through, leaving a TRUNCATED board on the phone. A partial board is
         # worse than none, because it looks complete.
         last_err = None
+        parse_mode = "Markdown"
         for attempt in range(3):
             try:
                 payload = {"chat_id": chat_id, "text": part,
-                           "parse_mode": "Markdown",
                            "disable_web_page_preview": True}
+                if parse_mode:
+                    payload["parse_mode"] = parse_mode
                 if reply_markup and i == len(parts):
                     payload["reply_markup"] = reply_markup
                 r = requests.post(f"{TELEGRAM_API.format(token=token)}/sendMessage",
@@ -130,6 +132,18 @@ def send_telegram(body: str, token: Optional[str] = None,
                     last_err = None
                     break
                 last_err = data.get("description")
+                # A markdown PARSE error (e.g. an unbalanced `*`, `_` or `#`
+                # left at a chunk boundary) is NOT transient — resending the
+                # same markup will fail forever and abort the whole run. Fall
+                # back to plain text for THIS part so the board still reaches
+                # the phone complete (honest-edge: a complete plain board beats
+                # a truncated/invalid-markup one). Only retry-as-plain once.
+                if (parse_mode == "Markdown" and last_err
+                        and "parse" in (last_err or "").lower()
+                        and attempt == 0):
+                    parse_mode = None
+                    last_err = None
+                    continue
             except Exception as e:
                 last_err = str(e)[:120]
             time.sleep(2 * (attempt + 1))

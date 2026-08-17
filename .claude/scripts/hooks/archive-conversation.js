@@ -15,6 +15,7 @@ const REPO_ROOT = process.env.OLP_XDV_ROOT
   || 'c:/Users/Motunrayo/omniroute test/olp_xdv_agent/olp_xdv';
 
 const CONVERSATIONS_DIR = path.join(REPO_ROOT, 'memory', 'conversations');
+const CLAUDE_PROJECTS_DIR = path.join(process.env.USERPROFILE || process.env.HOME || '', '.claude', 'projects', 'C--Users-Motunrayo-omniroute-test');
 
 function log(msg) {
   console.error(`[ArchiveConversation] ${msg}`);
@@ -31,12 +32,54 @@ function getTimestamp() {
   return `${year}-${month}-${day}T${hours}-${minutes}-${seconds}`;
 }
 
+function findTranscriptBySessionId(sessionId) {
+  // First check CLAUDE_TRANSCRIPT_PATH env var
+  if (process.env.CLAUDE_TRANSCRIPT_PATH && fs.existsSync(process.env.CLAUDE_TRANSCRIPT_PATH)) {
+    return process.env.CLAUDE_TRANSCRIPT_PATH;
+  }
+
+  // Fallback: look in the project directory for a transcript with this session ID
+  if (fs.existsSync(CLAUDE_PROJECTS_DIR)) {
+    const files = fs.readdirSync(CLAUDE_PROJECTS_DIR).filter(f => f.endsWith('.jsonl'));
+    for (const file of files) {
+      const filepath = path.join(CLAUDE_PROJECTS_DIR, file);
+      try {
+        const content = fs.readFileSync(filepath, 'utf8');
+        const lines = content.split('\n').filter(l => l.trim());
+        // Check first few lines for sessionId
+        for (const line of lines.slice(0, 10)) {
+          try {
+            const entry = JSON.parse(line);
+            if (entry.sessionId === sessionId) {
+              return filepath;
+            }
+          } catch (e) {
+            // Skip non-JSON lines
+          }
+        }
+      } catch (e) {
+        // Skip unreadable files
+      }
+    }
+  }
+
+  return null;
+}
+
 async function main() {
-  // Get transcript path from environment (set by Claude Code)
-  const transcriptPath = process.env.CLAUDE_TRANSCRIPT_PATH;
+  // Get transcript path from environment (set by Claude Code) or find by session ID
+  const sessionId = process.env.CLAUDE_SESSION_ID;
+  let transcriptPath = process.env.CLAUDE_TRANSCRIPT_PATH;
 
   if (!transcriptPath || !fs.existsSync(transcriptPath)) {
-    log('No transcript path or file not found, skipping archive');
+    if (sessionId) {
+      log(`Searching for transcript with session ID: ${sessionId}`);
+      transcriptPath = findTranscriptBySessionId(sessionId);
+    }
+  }
+
+  if (!transcriptPath || !fs.existsSync(transcriptPath)) {
+    log('No transcript path found or file not found, skipping archive');
     process.exit(0);
   }
 

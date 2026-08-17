@@ -137,8 +137,9 @@ def _extract_odds_from_summary(summary_data: Dict[str, Any]) -> tuple[Optional[f
     for pick in pickcenter:
         providers = pick.get("providers", [])
         for provider in providers:
-            name = provider.get("name", "").lower()
-            if "draftkings" in name or "bet365" in name:
+            name = provider.get("name", "")
+            name_lower = name.lower()
+            if "draftkings" in name_lower or "bet365" in name_lower:
                 outcomes = provider.get("outcomes", [])
                 for outcome in outcomes:
                     val = outcome.get("odds", {}).get("american") or outcome.get("odds", {}).get("decimal")
@@ -158,7 +159,7 @@ def _extract_odds_from_summary(summary_data: Dict[str, Any]) -> tuple[Optional[f
     if competitions:
         odds = competitions[0].get("odds", [])
         for odd in odds:
-            provider = odd.get("provider", {}).get("name", "").lower()
+            provider_name = odd.get("provider", {}).get("name", "")
             items = odd.get("items", [])
             if len(items) >= 3:
                 try:
@@ -166,7 +167,7 @@ def _extract_odds_from_summary(summary_data: Dict[str, Any]) -> tuple[Optional[f
                     draw = float(items[1].get("price"))
                     away = float(items[2].get("price"))
                     if home and draw and away:
-                        return home, draw, away, provider
+                        return home, draw, away, provider_name
                 except (ValueError, TypeError):
                     continue
 

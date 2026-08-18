@@ -15,8 +15,10 @@ EVENTSDAY fallback pinned at: data/thesportsdb_fixtures.py:fetch_today (lines 85
 """
 
 import sys
+import os
 import tempfile
 from pathlib import Path
+from datetime import date, timedelta
 from unittest.mock import patch, MagicMock
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -32,29 +34,34 @@ def test_thesportsdb_fetch_upcoming_no_fabrication_on_missing_team():
     """Season feed: rows with missing team name/date are skipped, not fabricated."""
     from data import thesportsdb_fixtures as tsdb
 
+    # Use relative dates: today + 1 day (within default 14-day window)
+    today = date.today()
+    tomorrow = (today + timedelta(days=1)).isoformat()
+    yesterday = (today - timedelta(days=1)).isoformat()
+
     # Mock response: one valid, one missing home team, one missing away team,
-    # one with missing date (strTimestamp), one already played
+    # one with missing date, one already played
     MOCK_EVENTS = {
         "events": [
-            # VALID upcoming fixture
+            # VALID upcoming fixture (using tomorrow's date)
             {"idEvent": "1", "strHomeTeam": "Team A", "strAwayTeam": "Team B",
-             "strTimestamp": "2026-08-20 15:00:00", "strStatus": "NS",
+             "dateEvent": tomorrow, "strTime": "15:00:00", "strStatus": "NS",
              "intHomeScore": None, "intAwayScore": None},
             # MISSING home team — must be skipped (HR35)
             {"idEvent": "2", "strHomeTeam": "", "strAwayTeam": "Team C",
-             "strTimestamp": "2026-08-20 16:00:00", "strStatus": "NS",
+             "dateEvent": tomorrow, "strTime": "16:00:00", "strStatus": "NS",
              "intHomeScore": None, "intAwayScore": None},
             # MISSING away team — must be skipped (HR35)
             {"idEvent": "3", "strHomeTeam": "Team D", "strAwayTeam": "",
-             "strTimestamp": "2026-08-20 17:00:00", "strStatus": "NS",
+             "dateEvent": tomorrow, "strTime": "17:00:00", "strStatus": "NS",
              "intHomeScore": None, "intAwayScore": None},
             # MISSING date — must be skipped (HR35)
             {"idEvent": "4", "strHomeTeam": "Team E", "strAwayTeam": "Team F",
-             "strTimestamp": "", "strStatus": "NS",
+             "dateEvent": "", "strTime": "18:00:00", "strStatus": "NS",
              "intHomeScore": None, "intAwayScore": None},
             # ALREADY PLAYED — must be excluded (not upcoming)
             {"idEvent": "5", "strHomeTeam": "Team G", "strAwayTeam": "Team H",
-             "strTimestamp": "2026-08-10 15:00:00", "strStatus": "FT",
+             "dateEvent": yesterday, "strTime": "15:00:00", "strStatus": "FT",
              "intHomeScore": "2", "intAwayScore": "1"},
         ]
     }
@@ -70,9 +77,16 @@ def test_thesportsdb_fetch_upcoming_no_fabrication_on_missing_team():
     original_league_ids = dict(tsdb.LEAGUE_IDS)
     tsdb.LEAGUE_IDS["Test League"] = 999999
 
+    # Clean cache to avoid interference
+    cache_dir = Path(__file__).parent.parent / "data" / "cache" / "thesportsdb"
+    if cache_dir.exists():
+        for f in cache_dir.glob("Test_League_*.json"):
+            f.unlink()
+
     try:
-        with patch("data.retry.request", side_effect=_fake_get):
-            fixtures = tsdb.fetch_upcoming("Test League")
+        # Patch the local import in thesportsdb_fixtures module
+        with patch("data.thesportsdb_fixtures.get", side_effect=_fake_get):
+            fixtures, _ = tsdb.fetch_upcoming("Test League", "2627")
         # Only the VALID fixture should be returned
         assert len(fixtures) == 1, f"Expected 1 valid fixture, got {len(fixtures)}"
         assert fixtures[0].home_team == "Team A"
@@ -90,17 +104,19 @@ def test_thesportsdb_fetch_today_no_fabrication():
     """EVENTSDAY fallback: same HR35 rules — missing data skipped, never guessed."""
     from data import thesportsdb_fixtures as tsdb
 
+    today_str = date.today().isoformat()
+
     MOCK_EVENTS = {
         "events": [
-            {"strHomeTeam": "Team A", "strAwayTeam": "Team B", "strTime": "15:00", "strStatus": "NS"},
-            {"strHomeTeam": "", "strAwayTeam": "Team C", "strTime": "16:00", "strStatus": "NS"},  # skipped
-            {"strHomeTeam": "Team D", "strAwayTeam": "", "strTime": "17:00", "strStatus": "NS"},  # skipped
+            {"strHomeTeam": "Team A", "strAwayTeam": "Team B", "strTime": "15:00"},
+            {"strHomeTeam": "", "strAwayTeam": "Team C", "strTime": "16:00"},  # skipped
+            {"strHomeTeam": "Team D", "strAwayTeam": "", "strTime": "17:00"},  # skipped
             {"strHomeTeam": "Team E", "strAwayTeam": "Team F", "strTime": "18:00",
-             "strStatus": "FT", "intHomeScore": "1", "intAwayScore": "0"},  # played -> excluded
+             "intHomeScore": "1", "intAwayScore": "0"},  # played -> excluded
         ]
     }
 
-    def _fake_get(*a, **k):
+    def _fake_request(*a, **k):
         class R:
             status_code = 200
             def raise_for_status(self): pass
@@ -111,8 +127,9 @@ def test_thesportsdb_fetch_today_no_fabrication():
     tsdb.LEAGUE_IDS["Test League"] = 999999
 
     try:
-        with patch("data.retry.request", side_effect=_fake_get):
-            fixtures = tsdb.fetch_today("Test League", "2026-08-20")
+        # fetch_today uses get from data.retry (patched at module level)
+        with patch("data.thesportsdb_fixtures.get", side_effect=_fake_request):
+            fixtures = tsdb.fetch_today("Test League", today_str)
         assert len(fixtures) == 1, f"Expected 1 valid fixture, got {len(fixtures)}"
         assert fixtures[0].home_team == "Team A"
         assert fixtures[0].away_team == "Team B"
@@ -125,14 +142,17 @@ def test_thesportsdb_load_results_no_fabrication():
     """Historical results: missing score/team -> skipped, never guessed."""
     from data import thesportsdb_fixtures as tsdb
 
+    # Use a past date for finished matches
+    yesterday = (date.today() - timedelta(days=1)).isoformat()
+
     MOCK_EVENTS = {
         "events": [
             {"idEvent": "1", "strHomeTeam": "Team A", "strAwayTeam": "Team B",
-             "intHomeScore": "2", "intAwayScore": "1", "strStatus": "FT"},
+             "dateEvent": yesterday, "intHomeScore": "2", "intAwayScore": "1", "strStatus": "FT"},
             {"idEvent": "2", "strHomeTeam": "", "strAwayTeam": "Team C",
-             "intHomeScore": "1", "intAwayScore": "0", "strStatus": "FT"},  # skipped
+             "dateEvent": yesterday, "intHomeScore": "1", "intAwayScore": "0", "strStatus": "FT"},  # skipped
             {"idEvent": "3", "strHomeTeam": "Team D", "strAwayTeam": "Team E",
-             "intHomeScore": None, "intAwayScore": None, "strStatus": "NS"},  # not finished -> skipped
+             "dateEvent": yesterday, "intHomeScore": None, "intAwayScore": None, "strStatus": "NS"},  # not finished -> skipped
         ]
     }
 
@@ -146,14 +166,20 @@ def test_thesportsdb_load_results_no_fabrication():
     original_league_ids = dict(tsdb.LEAGUE_IDS)
     tsdb.LEAGUE_IDS["Test League"] = 999999
 
+    # Clean cache
+    cache_dir = Path(__file__).parent.parent / "data" / "cache" / "thesportsdb"
+    if cache_dir.exists():
+        for f in cache_dir.glob("Test_League_*.json"):
+            f.unlink()
+
     try:
-        with patch("data.retry.request", side_effect=_fake_get):
-            results = tsdb.load_results("Test League", "2026-08-20")
+        with patch("data.thesportsdb_fixtures.get", side_effect=_fake_get):
+            results, _ = tsdb.load_results("Test League", "2526")
         assert len(results) == 1, f"Expected 1 valid result, got {len(results)}"
         assert results[0].home_team == "Team A"
         assert results[0].away_team == "Team B"
-        assert results[0].home_score == 2
-        assert results[0].away_score == 1
+        assert results[0].fthg == 2
+        assert results[0].ftag == 1
     finally:
         tsdb.LEAGUE_IDS.clear()
         tsdb.LEAGUE_IDS.update(original_league_ids)
@@ -165,6 +191,8 @@ def test_thesportsdb_load_results_no_fabrication():
 
 def test_apifootball_fetch_upcoming_raises_on_failure():
     """fetch_upcoming must raise on API failure — never return empty/guessed list."""
+    import os
+    os.environ["API_FOOTBALL_KEY"] = "test_key"  # Required for the function to proceed
     from data import fixtures_source as af
 
     # Simulate an HTTP error (e.g., 401, 403, 500)
@@ -177,13 +205,15 @@ def test_apifootball_fetch_upcoming_raises_on_failure():
             def json(self): return {"errors": "Internal Server Error"}
         return R()
 
-    with patch("data.retry.request", side_effect=_fake_get_error):
+    with patch("data.fixtures_source.get_protected", side_effect=_fake_get_error):
         with pytest.raises(Exception):  # SourceNoData or HTTPError bubbled up
-            af.fetch_upcoming("Premier League", "2026-08-20", "2026-08-27")
+            af.fetch_upcoming("Premier League", 2026, 7)
 
 
 def test_apifootball_resolve_league_id_raises_on_empty_or_ambiguous():
     """resolve_league_id must raise on empty/ambiguous matches — never guess."""
+    import os
+    os.environ["API_FOOTBALL_KEY"] = "test_key"
     from data import fixtures_source as af
 
     # Empty response
@@ -194,8 +224,9 @@ def test_apifootball_resolve_league_id_raises_on_empty_or_ambiguous():
             def json(self): return {"response": []}
         return R()
 
-    with patch("data.retry.request", side_effect=_fake_get_empty):
-        with pytest.raises(ValueError, match="No leagues found|not found|ambiguous"):
+    with patch("data.fixtures_source.get_protected", side_effect=_fake_get_empty):
+        # The actual error message says "has no league matching" not "No leagues found"
+        with pytest.raises(ValueError, match="has no league matching|not found|ambiguous"):
             af.resolve_league_id("Nonexistent League")
 
     # Ambiguous response (multiple matches)
@@ -204,13 +235,13 @@ def test_apifootball_resolve_league_id_raises_on_empty_or_ambiguous():
             status_code = 200
             def raise_for_status(self): pass
             def json(self): return {"response": [
-                {"league": {"name": "League A", "id": 1}},
-                {"league": {"name": "League A", "id": 2}},
+                {"league": {"name": "League A", "id": 1}, "country": {"name": "Country1"}},
+                {"league": {"name": "League A", "id": 2}, "country": {"name": "Country2"}},
             ]}
         return R()
 
-    with patch("data.retry.request", side_effect=_fake_get_multi):
-        with pytest.raises(ValueError, match="ambiguous|multiple"):
+    with patch("data.fixtures_source.get_protected", side_effect=_fake_get_multi):
+        with pytest.raises(ValueError, match="[Mm]ultiple"):
             af.resolve_league_id("League A")
 
 
@@ -225,14 +256,14 @@ def test_espn_fetch_upcoming_raises_on_unmapped_slug():
 
     # A slug that doesn't exist in ESPN's league mapping
     with pytest.raises(ValueError, match="No ESPN slug|not mapped|unknown"):
-        espn.fetch_upcoming("2026-08-20", "2026-08-27", league="Nonexistent League")
+        espn.fetch_upcoming("Nonexistent League", "2627")
 
 
 def test_espn_fetch_upcoming_skips_missing_team_or_date():
     """Missing team name or date -> row skipped, never fabricated."""
     from data import espn_source as espn
 
-    # Mock a valid ESPN scoreboard response with one good event and one bad
+    # Mock a valid ESPN scoreboard response with one good event and two bad
     MOCK_ESPN = {
         "events": [
             {
@@ -285,12 +316,13 @@ def test_espn_fetch_upcoming_skips_missing_team_or_date():
         return R()
 
     # Need a league with ESPN slug - use a known one or mock the slug map
-    original_map = dict(espn.LEAGUE_SLUGS)
-    espn.LEAGUE_SLUGS["Test League"] = "test.league"
+    original_map = dict(espn.SLUGS)
+    espn.SLUGS["Test League"] = "test.league"
 
     try:
-        with patch("data.retry.request", side_effect=_fake_get):
-            fixtures = espn.fetch_upcoming("2026-08-20", "2026-08-27", league="Test League")
+        # Patch the local import in espn_source module; use days_ahead=0 to only fetch today
+        with patch("data.espn_source.get", side_effect=_fake_get):
+            fixtures, _ = espn.fetch_upcoming("Test League", "2627", 0)
         # Only the fully valid event should appear
         assert len(fixtures) == 1, f"Expected 1 valid fixture, got {len(fixtures)}"
         assert fixtures[0].home_team == "Team A"
@@ -300,8 +332,8 @@ def test_espn_fetch_upcoming_skips_missing_team_or_date():
             assert f.home_team and f.away_team
             assert f.date
     finally:
-        espn.LEAGUE_SLUGS.clear()
-        espn.LEAGUE_SLUGS.update(original_map)
+        espn.SLUGS.clear()
+        espn.SLUGS.update(original_map)
 
 
 # =============================================================================
@@ -311,96 +343,63 @@ def test_espn_fetch_upcoming_skips_missing_team_or_date():
 def test_odds_fixtures_from_odds_skips_incomplete_records():
     """Derived fixtures: any record missing team/date/kickoff -> skipped, never fabricated."""
     from pipeline import odds as odds_module
+    from datetime import datetime, timezone
+    from pathlib import Path
 
-    # Build a mock priced event with missing fields
-    MOCK_ODDS_RESPONSE = {
-        "data": [
-            # VALID event
-            {
-                "id": "evt_1",
-                "commence_time": "2026-08-20T15:00:00Z",
-                "home_team": "Team A",
-                "away_team": "Team B",
-                "bookmakers": [{
-                    "title": "SportyBet",
-                    "markets": [{
-                        "key": "h2h",
-                        "outcomes": [
-                            {"name": "Team A", "price": 2.0},
-                            {"name": "Draw", "price": 3.2},
-                            {"name": "Team B", "price": 3.5},
-                        ]
-                    }]
-                }]
-            },
-            # MISSING home_team — must be skipped
-            {
-                "id": "evt_2",
-                "commence_time": "2026-08-20T16:00:00Z",
-                "home_team": "",
-                "away_team": "Team C",
-                "bookmakers": [{
-                    "title": "SportyBet",
-                    "markets": [{
-                        "key": "h2h",
-                        "outcomes": [
-                            {"name": "", "price": 2.0},
-                            {"name": "Draw", "price": 3.2},
-                            {"name": "Team C", "price": 3.5},
-                        ]
-                    }]
-                }]
-            },
-            # MISSING commence_time — must be skipped
-            {
-                "id": "evt_3",
-                "commence_time": "",
-                "home_team": "Team D",
-                "away_team": "Team E",
-                "bookmakers": [{
-                    "title": "SportyBet",
-                    "markets": [{
-                        "key": "h2h",
-                        "outcomes": [
-                            {"name": "Team D", "price": 2.0},
-                            {"name": "Draw", "price": 3.2},
-                            {"name": "Team E", "price": 3.5},
-                        ]
-                    }]
-                }]
-            },
-            # STALE odds (> 60 min old) — must be rejected
-            {
-                "id": "evt_4",
-                "commence_time": "2026-08-20T15:00:00Z",
-                "home_team": "Team F",
-                "away_team": "Team G",
-                "bookmakers": [{
-                    "title": "SportyBet",
-                    "last_update": "2026-08-20T10:00:00Z",  # > 60 min before commence
-                    "markets": [{
-                        "key": "h2h",
-                        "outcomes": [
-                            {"name": "Team F", "price": 2.0},
-                            {"name": "Draw", "price": 3.2},
-                            {"name": "Team G", "price": 3.5},
-                        ]
-                    }]
-                }]
-            },
-        ]
-    }
+    # Clean any stale fixtures cache for Test League so the fix is exercised
+    cache_dir = Path(__file__).parent.parent / "data" / "cache" / "fixtures_from_odds"
+    if cache_dir.exists():
+        for f in cache_dir.glob("Test_League_*.json"):
+            f.unlink()
 
-    fixtures = odds_module.fixtures_from_odds(MOCK_ODDS_RESPONSE)
+    # Create mock quotes that simulate what fetch_odds returns AFTER its internal filtering
+    # Must match FixtureOdds dataclass structure
+    mock_quotes = []
 
-    # Only the valid event should produce a fixture
-    assert len(fixtures) == 1, f"Expected 1 valid fixture, got {len(fixtures)}"
-    assert fixtures[0].home_team == "Team A"
-    assert fixtures[0].away_team == "Team B"
+    # VALID event - create proper FixtureOdds object
+    from pipeline.odds import FixtureOdds, MarketQuote
+    now = datetime.now(timezone.utc)
+
+    q1 = FixtureOdds(
+        league="Test League",
+        home_team="Team A",
+        away_team="Team B",
+        kickoff_utc=(now + timedelta(days=1)).isoformat(),
+        source_tier="T1"
+    )
+    mock_quotes.append(q1)
+
+    # MISSING kickoff_utc — filtered by fixtures_from_odds (no day = continue)
+    q2 = FixtureOdds(
+        league="Test League",
+        home_team="Team D",
+        away_team="Team E",
+        kickoff_utc="",  # Empty kickoff
+        source_tier="T1"
+    )
+    mock_quotes.append(q2)
+
+    # MISSING home team — should be skipped
+    q3 = FixtureOdds(
+        league="Test League",
+        home_team="",  # Empty home team
+        away_team="Team G",
+        kickoff_utc=(now + timedelta(days=2)).isoformat(),
+        source_tier="T1"
+    )
+    mock_quotes.append(q3)
+
+    with patch("pipeline.odds.fetch_odds", return_value=(mock_quotes, ["test"])):
+        pairs, dates, flags = odds_module.fixtures_from_odds("Test League", 14)
+
+    # Only the valid event should produce a fixture (q2 has no date, q3 has no home team)
+    assert len(pairs) == 1, f"Expected 1 valid fixture, got {len(pairs)}"
+    assert pairs[0] == ("Team A", "Team B")
+    assert dates[("Team A", "Team B")] == (now + timedelta(days=1)).date().isoformat()
     # No fabricated data
-    for f in fixtures:
-        assert f.home_team and f.away_team
-        assert f.date
+    for home, away in pairs:
+        assert home and away
+        assert dates[(home, away)]
 
 
 # =============================================================================

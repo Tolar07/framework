@@ -16,6 +16,11 @@ OPERATING PROTOCOL (master 13.1, anti-iteration)
   Runs end to end without stopping to ask permission at each step. A league
   with no clean data degrades to NO DATA — PENDING in full view. Near-zero
   approvals is correct behaviour, not failure.
+
+NOTE: This file now wires to olp_xdv_pipeline.py as the single orchestrator
+      (pipeline coordination refactor, 2026-08-18). The old orchestrator.py logic
+      is deprecated. run_daily.py now calls:
+        from olp_xdv_pipeline import run_pipeline, render_board_from_pipeline
 """
 from __future__ import annotations
 
@@ -32,27 +37,25 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+# NEW: Import from unified pipeline instead of orchestrator
+from olp_xdv_pipeline import run_pipeline, render_board_from_pipeline
+
+# Legacy imports kept for CLV grading, produced-bet verification, notifications
 from brain.store import Brain
-from config import PHASE_LABEL, PAPER_PHASE  # config.py is the module, not the package
+from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
-from engine.leagues import (WHITELISTED_LEAGUES, build_deploy_shortlist)
-from engine.acca import (build_production_bets, build_single_accas,
-                         render_production_block)
-from engine.mes import mes_numeric
-from engine import markets as mkt
-from engine.consensus import compute_consensus
-from engine import recalibration as recal
 from clv.clv_logger import CLVLog, compute_clv, ensemble_weights
 from clv.closing_capture import capture_closing_lines
-from output.produce_bet import (render_produce_bet, render_verify_results,
-                                render_telegram_board)
 from output import notify
+from output.produce_bet import render_verify_results
 from output import whatsapp_deliver
 from output import email_deliver
 import bets.produced_bet as produced_bet
 import orchestrator
 import pipeline.odds as odds_mod
 from data.multi_source_concrete import get_odds as multi_get_odds
+from engine.acca import MAX_ODDS_CAP
+from engine.leagues import WHITELISTED_LEAGUES
 
 # Pipeline Agent Bus - write stage outputs to Obsidian vault for inter-agent handoff
 try:
@@ -762,16 +765,36 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     #
     # Per-market implied: the devigged probability for the specific market key,
     # so O2.5/U2.5 are anchored alongside the 1X2.
-    def _market_implied(market: str, fx) -> Optional[float]:
-        if mkt.MARKETS_1X2.get(market) is not None:
-            p1x2 = mkt.implied_1x2(fx)
-            return p1x2[mkt.MARKETS_1X2[market]] if p1x2 else None
-        if market in (mkt.OVER_25, mkt.UNDER_25):
-            price = fx.over25.price if market == mkt.OVER_25 else fx.under25.price
-            other = fx.under25.price if market == mkt.OVER_25 else fx.over25.price
-            if price and other:
-                s = 1 / price + 1 / other
-                return (1 / price) / s if s > 1.0 else None
+    def _market_implied(market: str, fx, price=None) -> Optional[float]:
+        if fx is not None:
+            if mkt.MARKETS_1X2.get(market) is not None:
+                p1x2 = mkt.implied_1x2(fx)
+                return p1x2[mkt.MARKETS_1X2[market]] if p1x2 else None
+            if market in (mkt.OVER_25, mkt.UNDER_25):
+                o = fx.over25.price if market == mkt.OVER_25 else fx.under25.price
+                other = (fx.under25.price if market == mkt.OVER_25
+                         else fx.over25.price)
+                if o and other:
+                    s = 1.0 / o + 1.0 / other
+                    if s > 1.0:
+                        return (1.0 / o) / s
+            # multi-market anchors (BTTS / O1.5 / DC)
+            if market == mkt.OVER_15 and fx.over15 and fx.over15.price:
+                return 1.0 / fx.over15.price
+            if market == mkt.UNDER_15 and fx.under15 and fx.under15.price:
+                return 1.0 / fx.under15.price
+            if market == mkt.BTTS_YES and fx.btts_yes and fx.btts_yes.price:
+                return 1.0 / fx.btts_yes.price
+            if market == mkt.BTTS_NO and fx.btts_no and fx.btts_no.price:
+                return 1.0 / fx.btts_no.price
+            if market == mkt.DC_1X and fx.dc_1x and fx.dc_1x.price:
+                return 1.0 / fx.dc_1x.price
+            if market == mkt.DC_X2 and fx.dc_x2 and fx.dc_x2.price:
+                return 1.0 / fx.dc_x2.price
+            if market == mkt.DC_12 and fx.dc_12 and fx.dc_12.price:
+                return 1.0 / fx.dc_12.price
+        if price and price > 1.0:
+            return 1.0 / price
         return None
 
     for bf in board:
@@ -800,10 +823,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     bf.blend_probs = bp
 
         best = None
-        for market in mkt.DEPLOYABLE:
+        for market in mkt.EDGE_MARKETS:
             quote = mkt.quote(market, fx)
             raw_p = mkt.model_prob(market, p)
             if quote is None or not quote.available or raw_p is None:
+                continue
+            # HARD ODDS CAP (FL-bias guardrail, mirrors engine.acca._best_deployable_leg):
+            # reject any market priced above MAX_ODDS_CAP. A leg the deploy engine
+            # would refuse must not be headlined as THE CALL's best market — that
+            # is exactly the Viking @4.20 trap. This keeps the call in the
+            # favourite/short-price zone where CLV has been positive.
+            if quote.price > MAX_ODDS_CAP:
                 continue
             # DRAW DISCOUNT (gambler move #2): the model overweighted draws on
             # Phase-2 legs. Haircut the DRAW model prob before the EV screen so
@@ -1178,6 +1208,34 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     _mark(runlog, f"crest prefetch skipped ({e})")
         except Exception as e:
             _mark(runlog, f"web payload write failed ({e}) — txt board unaffected")
+
+    # ===== PIPELINE COORDINATION (2026-08-18 refactor) =====
+    # run_daily builds the board (scan/verify/odds/engine/production) itself; the
+    # unified pipeline is the SINGLE renderer for the canonical artifacts:
+    #   telegram_<date>.txt, feed_audit.jsonl, acca_<date>_codes.json,
+    #   board_<date>.txt, acca_<date>.json/.txt
+    # The CEO sign-off (Agent 10) runs against the live CLV gate so the feed
+    # audit records the same decision the dashboard shows. Wired mode: board/
+    # production/codes are passed in directly (no re-scan), the pipeline only
+    # adds the sign-off + artifact rendering.
+    try:
+        from olp_xdv_pipeline import run_pipeline as _pipe_run, \
+            render_board_from_pipeline as _pipe_render
+        _pipe_state = _pipe_run(season=season, fixtures_season=fixtures_season,
+                                dry_run=False, only=10)
+        _pipe_out = _pipe_render(
+            state=_pipe_state,
+            board=board, production=production, codes_result=codes_result,
+            leagues_scanned=leagues,
+            calibration_count=status["legs_with_clv"],
+            mean_clv=status["mean_clv_pct"], all_data_flags=all_flags,
+            yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
+            produced_record=produced_record, date_str=board_date)
+        _mark(runlog, f"pipeline render: {_pipe_out['telegram_file']} written "
+                      f"({_pipe_out['feed_audit']['ceo_decision']})")
+    except Exception as e:
+        _mark(runlog, f"pipeline render failed ({e}) — falling back to local "
+                      f"telegram/board writes below")
 
     # ===== PIPELINE BUS: Stage 7 (compliance) output -> Stage 8 (execution) =====
     if PIPELINE_BUS_AVAILABLE:

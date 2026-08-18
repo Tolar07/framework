@@ -175,6 +175,27 @@ def print_audit_report(findings: list[dict[str, Any]]) -> None:
         print()
 
 
+def print_audit_report_json(findings: list[dict[str, Any]]) -> None:
+    """Print machine-readable JSON audit report for hook integration."""
+    critical = [f for f in findings if f["severity"] == "CRITICAL"]
+    high = [f for f in findings if f["severity"] == "HIGH"]
+    medium = [f for f in findings if f["severity"] == "MEDIUM"]
+
+    report = {
+        "summary": {
+            "total_incidents": len(findings),
+            "critical": len(critical),
+            "high": len(high),
+            "medium": len(medium),
+            "passed": len(findings) == 0,
+            "blocked": len(critical) > 0  # CRITICAL findings block archive
+        },
+        "findings": findings,
+        "timestamp": datetime.now().isoformat()
+    }
+    print(json.dumps(report, indent=2))
+
+
 def check_fixtures_command(target_date: str) -> None:
     """Pre-flight check: which leagues should NOT have fixtures on this date?"""
     print(f"\n{'='*60}")
@@ -215,6 +236,8 @@ def main() -> None:
 
     audit = sub.add_parser("audit", help="Audit a conversation transcript JSONL")
     audit.add_argument("transcript", help="Path to .jsonl transcript file")
+    audit.add_argument("--json", action="store_true", help="Output machine-readable JSON report")
+    audit.add_argument("--report-dir", help="Directory to write full audit report JSON")
 
     check = sub.add_parser("check-fixtures", help="Pre-flight: check which leagues are active on a date")
     check.add_argument("date", help="Target date (YYYY-MM-DD)")
@@ -225,7 +248,30 @@ def main() -> None:
 
     if args.command == "audit":
         findings = audit_transcript(args.transcript)
-        print_audit_report(findings)
+        if args.json:
+            print_audit_report_json(findings)
+        else:
+            print_audit_report(findings)
+        # Write full report to file if --report-dir specified
+        if args.report_dir:
+            import os
+            os.makedirs(args.report_dir, exist_ok=True)
+            report_path = os.path.join(args.report_dir, f"audit_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
+            with open(report_path, 'w', encoding='utf-8') as f:
+                json.dump({
+                    "summary": {
+                        "total_incidents": len(findings),
+                        "critical": len([f for f in findings if f["severity"] == "CRITICAL"]),
+                        "high": len([f for f in findings if f["severity"] == "HIGH"]),
+                        "medium": len([f for f in findings if f["severity"] == "MEDIUM"]),
+                        "passed": len(findings) == 0,
+                        "blocked": len([f for f in findings if f["severity"] == "CRITICAL"]) > 0
+                    },
+                    "findings": findings,
+                    "timestamp": datetime.now().isoformat(),
+                    "transcript": args.transcript
+                }, f, indent=2)
+            print(f"\nFull report written to: {report_path}")
 
     elif args.command == "check-fixtures":
         check_fixtures_command(args.date)

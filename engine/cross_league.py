@@ -100,6 +100,8 @@ CONTINENTAL_ALIASES: dict[str, str] = {
     "FC Midtjylland": "Midtjylland",
     # Champions League 2026-08-18 scan flags — exact accent/case-fold match (score 1.00)
     "LASK Linz": "Lask Linz",
+    # Viking FK (Norway) — continental feed name -> domestic key
+    "Viking FK": "Viking",
 }
 
 

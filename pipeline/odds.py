@@ -181,6 +181,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "AGF Aarhus": "Aarhus",
         "Fenerbahce": "Fenerbahçe",
         "SK Sturm Graz": "Sturm Graz",
+        "Viking FK": "Viking",
     },
 }
 
@@ -542,6 +543,8 @@ def fixtures_from_odds(league: str, days_ahead: int = 14
                 continue
         except ValueError:
             continue
+        if not q.home_team or not q.away_team:
+            continue  # HR35 — incomplete record, skipped not guessed
         key = (q.home_team, q.away_team)
         if key in dates:
             continue  # already seen — never log one match twice

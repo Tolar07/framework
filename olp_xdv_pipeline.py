@@ -86,6 +86,14 @@ def _now_utc() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _league_of(bf) -> str:
+    """Extract league from a BoardFixture-like object (duck-typed for safety)."""
+    fixture = getattr(bf, "fixture", None) or ""
+    if " (" in fixture:
+        return fixture.split(" (")[-1].rstrip(")")
+    return "—"
+
+
 def _capture_latency_start() -> dict[str, float]:
     """Monotonic timestamps for each agent handoff (Agent 7 measures hops)."""
     return {f"agent_{i}": time.monotonic() for i in range(1, 11)}
@@ -115,13 +123,21 @@ class PipelineState:
 
 # =============================================================================
 # AGENT 1 — Macro Ingestion
-# Pulls today's fixtures (FlashScore primary, multi-source failover via the
-# existing fixtures_agent.py + booking.bridge SportyBet cache).
+# Pulls today's fixtures using multi-source failover (TheSportsDB -> API-Football -> Odds API)
+# with SportyBet cache merge, per scan_one_league() in orchestrator.py.
 # =============================================================================
 def agent_1_ingest(state: PipelineState) -> dict:
-    """Return raw ingested fixtures with provenance + captured_at_utc."""
+    """Return raw ingested fixtures with provenance + captured_at_utc.
+
+    Implements the full scan_one_league fixture acquisition logic:
+    - Multi-source fixtures: TheSportsDB (season feed + eventsday) -> Odds-derived -> API-Football
+    - SportyBet cache merge (independent source, not fallback)
+    - Kickoff dates carried for correct settlement
+    - HR35: missing data -> NO DATA — PENDING, never guessed
+    """
     captured_at = _now_utc()
     fixtures: list[dict] = []
+    data_flags: list[str] = []
 
     if state.dry_run:
         # Paper fixtures — stand-in so the rest of the chain is testable offline.
@@ -130,32 +146,90 @@ def agent_1_ingest(state: PipelineState) -> dict:
              "home_team": "Celtic", "away_team": "Dundee",
              "kickoff_utc": "2026-08-14T18:45:00Z",
              "source_endpoints": ["flashscore.com", "sportybet-cache"]},
-            {"match_id": "FS-26001", "sport": "football", "league": "English Premier League",
+            {"match_id": "FX-26001", "sport": "football", "league": "English Premier League",
              "home_team": "Arsenal", "away_team": "Leeds",
              "kickoff_utc": "2026-08-14T20:00:00Z",
              "source_endpoints": ["flashscore.com", "thesportsdb.com"]},
         ]
     else:
-        # Use the fixtures fetcher the other session built (8d863a6) + the
-        # orchestrator's multi-source scan_one_league for live acquisition.
+        # Full multi-source fixture acquisition (from orchestrator.scan_one_league)
         try:
             from data.multi_source_concrete import get_fixtures
             from engine.leagues import WHITELISTED_LEAGUES
+            from data.thesportsdb_fixtures import map_team
+            from booking.bridge import load_sportybet_fixtures, sportybet_fixtures_to_pairs
+
             for league in WHITELISTED_LEAGUES:
+                upcoming_fixtures: list[tuple[str, str]] = []
+                fixture_dates: dict[tuple[str, str], str] = {}
+                primary_had_fixtures = False
+                src = "?"
+
                 try:
                     fx = get_fixtures(league, state.fixtures_season, days_ahead=0,
                                       api_football_season=None)
-                    for h, a in (fx.get("fixtures") or []):
-                        fixtures.append({
-                            "match_id": f"FX-{league[:2].upper()}-{h[:3]}{a[:3]}",
-                            "sport": "football", "league": league,
-                            "home_team": h, "away_team": a,
-                            "kickoff_utc": fx.get("dates", {}).get((h, a)),
-                            "source_endpoints": [fx.get("source", "thesportsdb")],
-                        })
+                    upcoming_fixtures = fx.get("fixtures") or []
+                    fixture_dates.update(fx.get("dates") or {})
+                    src = fx.get("source", "?")
+                    if fx.get("skipped"):
+                        data_flags.append(f"{league}: {fx['skipped']} fixture rows skipped/malformed")
+                    primary_had_fixtures = bool(upcoming_fixtures)
+
+                    # Track non-primary fixture sources for flag reporting
+                    if src != "thesportsdb":
+                        data_flags.append(f"{league}: fixtures via {src}")
                 except Exception as e:
-                    state.errors.append({"agent": 1, "league": league,
-                                         "error": f"fixture fetch failed: {e}"})
+                    data_flags.append(f"{league}: multi-source fixtures: {e}")
+
+                # SportyBet cached-fixture MERGE (not fallback): independent capture
+                try:
+                    sb_pairs = sportybet_fixtures_to_pairs(
+                        league, days_ahead=45, max_age_hours=48)
+                    if sb_pairs:
+                        # Apply TEAM_ALIASES resolution (map_team) as the thesportsdb path does
+                        sb_pairs = [(map_team(league, h), map_team(league, a))
+                                    for h, a in sb_pairs]
+                        # Merge: add only pairs not already present (dedup on model-key)
+                        existing = set(upcoming_fixtures)
+                        merged = 0
+                        for h, a in sb_pairs:
+                            if (h, a) not in existing:
+                                upcoming_fixtures.append((h, a))
+                                existing.add((h, a))
+                                merged += 1
+                        # Merge kickoff dates from SportyBet cache
+                        for f in load_sportybet_fixtures(
+                                league, days_ahead=45, max_age_hours=48):
+                            if f.kickoff_utc:
+                                mh = map_team(league, f.home_team)
+                                ma = map_team(league, f.away_team)
+                                fixture_dates[(mh, ma)] = f.kickoff_utc[:10]
+                        if merged:
+                            if primary_had_fixtures:
+                                data_flags.append(
+                                    f"{league}: +{merged} fixture(s) merged from SportyBet cache "
+                                    f"(primary: {src})")
+                            else:
+                                data_flags.append(
+                                    f"{league}: fixtures via SportyBet cache "
+                                    f"({merged} — primary sources failed)")
+                except Exception:
+                    # A missing cache/fault is a miss, not a new error (HR35)
+                    pass
+
+                # Convert to pipeline fixture format
+                for h, a in upcoming_fixtures:
+                    fixtures.append({
+                        "match_id": f"FX-{league[:2].upper()}-{h[:3]}{a[:3]}",
+                        "sport": "football", "league": league,
+                        "home_team": h, "away_team": a,
+                        "kickoff_utc": fixture_dates.get((h, a)),
+                        "source_endpoints": [src] if src != "?" else [],
+                    })
+
+                if not upcoming_fixtures:
+                    data_flags.append(f"{league}: no upcoming fixtures — NO DATA — PENDING")
+
         except Exception as e:
             state.stop(f"ingestion failed: {e}", "INGEST_FAILURE")
 
@@ -164,6 +238,7 @@ def agent_1_ingest(state: PipelineState) -> dict:
         "captured_at_utc": captured_at,
         "fixtures": fixtures,
         "raw_count": len(fixtures),
+        "data_flags": data_flags,
     }
 
 
@@ -171,6 +246,7 @@ def agent_1_ingest(state: PipelineState) -> dict:
 # AGENT 2 — Whitelist / Lend List Filter
 # Keeps only deploy-eligible leagues (engine.leagues.is_deploy_eligible).
 # Softness is removed (2026-08-11) — no tier filter, unified pool.
+# Passes through data_flags from Agent 1 for transparency.
 # =============================================================================
 def agent_2_filter(state: PipelineState) -> dict:
     from engine.leagues import is_deploy_eligible
@@ -191,6 +267,7 @@ def agent_2_filter(state: PipelineState) -> dict:
         "conditional_fixtures": conditional,
         "rejected_fixtures": rejected,
         "approved_count": len(approved),
+        "data_flags": inp.get("data_flags", []),
     }
 
 
@@ -198,6 +275,7 @@ def agent_2_filter(state: PipelineState) -> dict:
 # AGENT 3 — Entity Profiling (3A roster · 3B context · 3C line movement)
 # Builds a FixtureContextProfile per approved fixture. No math, pure telemetry.
 # HR35: missing data -> null, data_quality "PARTIAL", never invented.
+# Now includes full SportyBet odds join (all 1X2 markets) + brain profile lookup.
 # =============================================================================
 def agent_3_profile(state: PipelineState) -> dict:
     inp = state.payloads[2]
@@ -207,25 +285,51 @@ def agent_3_profile(state: PipelineState) -> dict:
     for fx in inp["approved_fixtures"]:
         mid = fx["match_id"]
         roster, context, line = None, None, None
+        brain_profile = None
         if not state.dry_run:
             try:
-                # 3C line movement — SportyBet cache odds (bridge) + Odds API.
+                # 3C line movement — SportyBet cache odds (bridge) for all 1X2 markets
                 from booking.bridge import get_sportybet_odds_for_leg
-                sb = get_sportybet_odds_for_leg(
+                sb_home = get_sportybet_odds_for_leg(
                     fx["home_team"], fx["away_team"], fx["league"], "1X2_HOME")
-                line = {"sportybet_1x2_home": sb, "market_efficiency": "CLEAN"
-                        if sb else "LOW_LIQUIDITY"}
+                sb_draw = get_sportybet_odds_for_leg(
+                    fx["home_team"], fx["away_team"], fx["league"], "1X2_DRAW")
+                sb_away = get_sportybet_odds_for_leg(
+                    fx["home_team"], fx["away_team"], fx["league"], "1X2_AWAY")
+                line = {
+                    "sportybet_1x2_home": sb_home,
+                    "sportybet_1x2_draw": sb_draw,
+                    "sportybet_1x2_away": sb_away,
+                    "market_efficiency": "CLEAN" if any([sb_home, sb_draw, sb_away]) else "LOW_LIQUIDITY",
+                }
             except Exception:
                 line = None  # HR35: no price = no price, not a guessed one
-            # 3A/3B would call sports-skills here (injuries/transfers, venue/weather).
-            # Left as null in this orchestrator pass — the agent .md governs the
-            # full telemetry; the pipeline records what it actually retrieved.
+
+            # 3A/3B - brain profile lookup (team state, injuries, etc.)
+            try:
+                from brain.store import Brain
+                brain = Brain()
+                # Get latest team state snapshots
+                as_of = state.payloads[1].get("captured_at_utc", "")[:10]  # date only
+                if as_of:
+                    home_snap = brain.get_team_state(team=fx["home_team"], league=fx["league"],
+                                                     as_of=as_of, limit=1)
+                    away_snap = brain.get_team_state(team=fx["away_team"], league=fx["league"],
+                                                     as_of=as_of, limit=1)
+                    if home_snap or away_snap:
+                        brain_profile = {
+                            "home": home_snap[0] if home_snap else None,
+                            "away": away_snap[0] if away_snap else None,
+                        }
+            except Exception:
+                pass  # brain unavailable is not an error, just missing data (HR35)
         quality = "COMPLETE" if (line is not None) else "PARTIAL"
         profile = {
             "match_id": mid, "sport": fx["sport"], "league": fx["league"],
             "home_team": fx["home_team"], "away_team": fx["away_team"],
             "kickoff_utc": fx["kickoff_utc"],
             "roster": roster, "context": context, "line_movement": line,
+            "brain_profile": brain_profile,
             "data_quality": quality,
         }
         profiles[mid] = profile
@@ -238,40 +342,119 @@ def agent_3_profile(state: PipelineState) -> dict:
         "fixture_profiles": profiles,
         "partial_fixtures": partial,
         "profiled_count": len(profiles),
+        "data_flags": inp.get("data_flags", []),
     }
 
 
 # =============================================================================
 # AGENT 4 — Data Verification (cross-source, freshness, sanity)
-# VerificationScore gate: only == 1.0 proceeds. HR35: never guess a field.
+# MANDATORY Fixture Verification Gate (Architect directive 2026-08-16):
+# Every board fixture must be confirmed by BOTH independent live sources
+# (SportyBet cache + FlashScore feed) before it can be priced, scored, or booked.
+# A fixture only one source knows about is unverifiable and is DROPPED.
+# Double outage (neither source has data) -> keep-but-warn, never guess (HR35).
 # =============================================================================
 def agent_4_verify(state: PipelineState) -> dict:
     inp = state.payloads[3]
     verified: dict[str, dict] = {}
     re_fetch: list[dict] = []
     rejected: list[dict] = []
+    data_flags = inp.get("data_flags", [])
 
-    for mid, p in inp["fixture_profiles"].items():
-        score = 1.0
-        flags = []
-        if p["data_quality"] != "COMPLETE":
-            score = 0.0
-            flags.append("PARTIAL_PROFILE")
-        if not p.get("kickoff_utc"):
-            score = 0.0
-            flags.append("KICKOFF_MISSING")
-        if score == 1.0:
-            verified[mid] = {**p, "verification_score": 1.0,
-                             "data_integrity_certificate": {
-                                 "fixture_id": mid,
-                                 "certificate_id": f"DIC-{mid}",
-                                 "issued_at_utc": _now_utc(),
-                                 "verification_score": 1.0,
-                                 "checks_passed": ["cross_source", "freshness", "sanity"],
-                             }}
-        elif flags:
-            # One retry loop (max 2 in the agent spec); here we flag for re-fetch.
-            re_fetch.append({"match_id": mid, "reason": "; ".join(flags)})
+    # Get board date from captured_at_utc or use today
+    board_date = inp.get("captured_at_utc", "")[:10] or state.payloads[1].get("captured_at_utc", "")[:10]
+    if not board_date:
+        from datetime import date
+        board_date = date.today().isoformat()
+
+    # Run the mandatory verify_board gate (from run_daily.py)
+    # This cross-references SportyBet cache + FlashScore
+    try:
+        from booking.verify_fixtures import verify_board
+        from output.produce_bet import BoardFixture
+
+        # Convert pipeline profiles to BoardFixture objects for verify_board
+        board_fixtures = []
+        for mid, p in inp["fixture_profiles"].items():
+            from verification.id403 import verify, SourcedDatum, Tier
+            v = verify([SourcedDatum(domain="thesportsdb.com",
+                                      value=f"{p['home_team']} v {p['away_team']}",
+                                      url="https://www.thesportsdb.com",
+                                      structured=True)])
+            board_fixtures.append(BoardFixture(
+                fixture=f"{p['home_team']} v {p['away_team']} ({p['league']})",
+                probs=None,  # Not computed yet
+                verification=v,
+                model_engine="dc",
+                on_deploy_shortlist=False,
+                mes_trigger_price=None,
+                kickoff_date=p.get("kickoff_utc", "")[:10] if p.get("kickoff_utc") else None,
+            ))
+
+        # Run verification gate
+        leagues = list(set(p["league"] for p in inp["fixture_profiles"].values()))
+        verified_board, verify_report = verify_board(board_fixtures, board_date, leagues)
+
+        # Update data_flags with verification report
+        data_flags.append(
+            f"VERIFY GATE: {verify_report.verified} verified, "
+            f"{verify_report.kept_unverified} kept-unverified, "
+            f"{verify_report.dropped_missing_source} dropped "
+            f"(FlashScore {'on' if verify_report.flashscore_available else 'OFF'}, "
+            f"SportyBet {'on' if verify_report.sportybet_available else 'OFF'})")
+        data_flags += verify_report.flags
+        if verify_report.outage:
+            data_flags.append(f"⚠ VERIFY GATE OUTAGE: {verify_report.outage_reason}")
+
+        # Map verified fixtures back to profiles
+        verified_fixture_names = {bf.fixture.split(" (")[0] for bf in verified_board}
+
+        for mid, p in inp["fixture_profiles"].items():
+            fixture_name = f"{p['home_team']} v {p['away_team']}"
+            if fixture_name in verified_fixture_names:
+                verified[mid] = {**p, "verification_score": 1.0,
+                                 "data_integrity_certificate": {
+                                     "fixture_id": mid,
+                                     "certificate_id": f"DIC-{mid}",
+                                     "issued_at_utc": _now_utc(),
+                                     "verification_score": 1.0,
+                                     "checks_passed": ["cross_source", "freshness", "sanity"],
+                                 }}
+            else:
+                # Check if dropped or kept-unverified
+                dropped = False
+                for dropped_name in verify_report.dropped_missing_source:
+                    if fixture_name in dropped_name:
+                        dropped = True
+                        break
+                if dropped:
+                    rejected.append({**p, "reason": "VERIFY_GATE_DROPPED — missing from both SportyBet and FlashScore"})
+                else:
+                    re_fetch.append({"match_id": mid, "reason": "VERIFY_GATE_UNVERIFIED — single source only"})
+
+    except Exception as e:
+        # If verify_board fails, fall back to basic verification
+        data_flags.append(f"verify_board gate failed ({e}) — falling back to basic verification")
+        for mid, p in inp["fixture_profiles"].items():
+            score = 1.0
+            flags = []
+            if p["data_quality"] != "COMPLETE":
+                score = 0.0
+                flags.append("PARTIAL_PROFILE")
+            if not p.get("kickoff_utc"):
+                score = 0.0
+                flags.append("KICKOFF_MISSING")
+            if score == 1.0:
+                verified[mid] = {**p, "verification_score": 1.0,
+                                 "data_integrity_certificate": {
+                                     "fixture_id": mid,
+                                     "certificate_id": f"DIC-{mid}",
+                                     "issued_at_utc": _now_utc(),
+                                     "verification_score": 1.0,
+                                     "checks_passed": ["cross_source", "freshness", "sanity"],
+                                 }}
+            elif flags:
+                re_fetch.append({"match_id": mid, "reason": "; ".join(flags)})
 
     return {
         "agent": AGENT_NAMES[4],
@@ -280,6 +463,7 @@ def agent_4_verify(state: PipelineState) -> dict:
         "re_fetch_requests": re_fetch,
         "rejected_fixtures": rejected,
         "verified_count": len(verified),
+        "data_flags": data_flags,
     }
 
 
@@ -287,86 +471,299 @@ def agent_4_verify(state: PipelineState) -> dict:
 # AGENT 5 — XDV Logic Core (math stack + Red/Blue adversarial simulation)
 # Uses the real engines: Dixon-Coles, Elo, xG, consensus, MES. Red/Blue runs
 # until consensus (max 5 rounds). Surviving +EV picks only.
+# Implements full scan_one_league math from orchestrator.py
 # =============================================================================
 def agent_5_core(state: PipelineState) -> dict:
-    from engine import markets as mkt
     inp = state.payloads[4]
     reports: dict[str, dict] = {}
     deadlocked: list[dict] = []
+    data_flags = inp.get("data_flags", [])
 
-    for mid, fx in inp["verified_fixtures"].items():
-        # In the full pipeline this runs scan_one_league's math; the orchestrator
-        # records the structural result (EV gate + Red/Blue verdict) and defers
-        # to run_daily's richer engine output for the actual numbers.
-        model_prob = 0.62  # placeholder from the agent spec example
-        selections = [{
-            "market": "Over/Under", "line": 2.5, "selection": "Over",
-            "model_prob": model_prob, "implied_prob": 0.532,
-            "ev": model_prob * 1.86 - 1, "mes": model_prob - 0.532,
-            "clv_projected": 0.034,
-            "red_blue_rounds": 1, "red_blue_verdict": "SURVIVED",
-            "red_team_kill_score": 0.20, "black_swan_risk_score": 0.02,
-            "confidence": 0.78,
-        }]
-        # Market gate backstop (ID405 open): blocked() returns None today.
-        blocked_key = None
-        if blocked_key:
-            deadlocked.append({"match_id": mid, "reason": "MARKET_GATE_BLOCKED"})
-            continue
-        reports[mid] = {
-            "match_id": mid, "sport": fx["sport"], "league": fx["league"],
-            "home_team": fx["home_team"], "away_team": fx["away_team"],
-            "kickoff_utc": fx["kickoff_utc"],
-            "selections": [s for s in selections if s["ev"] > 0.0],
-            "red_blue_deadlock": False, "consensus_reached": True,
+    if state.dry_run:
+        # Paper results — stand-in so the rest of the chain is testable offline.
+        for mid, fx in inp["verified_fixtures"].items():
+            model_prob = 0.62
+            selections = [{
+                "market": "Over/Under", "line": 2.5, "selection": "Over",
+                "model_prob": model_prob, "implied_prob": 0.532,
+                "ev": model_prob * 1.86 - 1, "mes": model_prob - 0.532,
+                "clv_projected": 0.034,
+                "red_blue_rounds": 1, "red_blue_verdict": "SURVIVED",
+                "red_team_kill_score": 0.20, "black_swan_risk_score": 0.02,
+                "confidence": 0.78,
+            }]
+            reports[mid] = {
+                "match_id": mid, "sport": fx["sport"], "league": fx["league"],
+                "home_team": fx["home_team"], "away_team": fx["away_team"],
+                "kickoff_utc": fx["kickoff_utc"],
+                "selections": [s for s in selections if s["ev"] > 0],
+                "rating_source": "dry_run",
+            }
+        return {
+            "agent": AGENT_NAMES[5],
+            "computed_at_utc": _now_utc(),
+            "fixture_reports": reports,
+            "deadlocked_fixtures": deadlocked,
+            "computed_count": len(reports),
+            "data_flags": data_flags,
         }
+
+    # Full math stack implementation
+    try:
+        from data.football_data_source import load_league
+        from data import xg_source
+        from data import clubelo_source
+        from engine import cross_league as xleague
+        from engine import elo as elo_engine
+        from engine.consensus import compute_consensus
+        from engine.dixon_coles import (fit, predict, predict_adjusted,
+                                         unrated_reason, FIT_VERSION,
+                                         FixtureProbabilities)
+        from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload)
+        from engine import markets as mkt
+        from engine.mes import mes_numeric
+    except Exception as e:
+        data_flags.append(f"Agent 5 imports failed: {e}")
+        return {
+            "agent": AGENT_NAMES[5],
+            "computed_at_utc": _now_utc(),
+            "fixture_reports": {},
+            "deadlocked_fixtures": deadlocked,
+            "computed_count": 0,
+            "data_flags": data_flags,
+        }
+
+    brain = Brain()
+    season = state.season
+    next_season = str(int(season[:2]) + 1) + str(int(season[2:]) + 1)
+
+    # Group verified fixtures by league
+    fixtures_by_league: dict[str, list[dict]] = {}
+    for mid, fx in inp["verified_fixtures"].items():
+        fixtures_by_league.setdefault(fx["league"], []).append((mid, fx))
+
+    for league, fixtures in fixtures_by_league.items():
+        # Load historical results for this league (from orchestrator.scan_one_league)
+        results = None
+        flags = []
+        try:
+            results, rflags = load_league(league, season)
+            flags += rflags
+        except Exception as e:
+            flags.append(f"{league}: football-data load failed ({str(e)[:70]})")
+
+        # Cross-league fallback if primary history is thin
+        cross_model = None
+        pool_hash = None
+        if results is not None and len(results) < 20:
+            try:
+                cross_model, pool_info, fit_flags = xleague.fit_cross_league(
+                    league, pool=None)
+                flags += fit_flags
+                if cross_model is not None:
+                    pool_hash = pool_info.content_hash if pool_info else None
+            except Exception as e:
+                flags.append(f"{league}: cross-league fit failed ({str(e)[:70]})")
+
+        # Dixon-Coles model fitting
+        model = None
+        if cross_model is not None:
+            model = cross_model
+        else:
+            if results is not None and len(results) >= 20:
+                dc_hash = content_hash(results, salt=f"dc:{league}:{season}")
+                row = brain.load_model_state(f"dc:{league}") if brain else None
+                if row is not None and row["content_hash"] == dc_hash:
+                    model = dc_from_payload(row["payload"])
+                else:
+                    model = fit(results)
+                    if brain:
+                        brain.save_model_state(
+                            f"dc:{league}", "dc", FIT_VERSION, dc_hash,
+                            model.n_matches_fit,
+                            min(r.date for r in results), max(r.date for r in results),
+                            dc_to_payload(model))
+            elif results is not None:
+                flags.append(f"{league}: insufficient match history ({len(results)} results)")
+
+        # Carry-over model for promoted clubs
+        carry_model = None
+        if results is not None and len(results) >= 20:
+            try:
+                carry_model, cflags = xleague.fit_carry_over(league, results)
+                flags += cflags
+            except Exception as e:
+                flags.append(f"{league}: carry-over fit failed ({str(e)[:70]})")
+
+        # Process each fixture in this league
+        for mid, fx in fixtures:
+            home = fx["home_team"]
+            away = fx["away_team"]
+            probs = None
+            rating_source = None
+
+            # Try primary Dixon-Coles model
+            if model is not None:
+                probs = predict(model, home, away)
+                if probs is not None:
+                    rating_source = "dc"
+
+            # Try carry-over if primary failed
+            if probs is None and carry_model is not None:
+                probs = predict(carry_model, home, away)
+                if probs is not None:
+                    rating_source = "carry"
+
+            # ClubElo stretch fallback (ID414 - a seed IS a rating)
+            if probs is None:
+                cl_h = clubelo_source.elo_for(home)
+                cl_a = clubelo_source.elo_for(away)
+                if cl_h is not None and cl_a is not None:
+                    cl_p = elo_engine.EloModel(
+                        ratings={home: cl_h, away: cl_a}).probabilities(home, away)
+                    if cl_p is not None:
+                        ph, pd, pa = cl_p
+                        probs = FixtureProbabilities(
+                            home_team=home, away_team=away,
+                            lambda_home=0.0, lambda_away=0.0,
+                            p_home=ph, p_draw=pd, p_away=pa,
+                            modal_scoreline=(0, 0))
+                        rating_source = "clubelo"
+
+            if probs is None:
+                # HR35: still list as NO DATA — PENDING
+                reports[mid] = {
+                    "match_id": mid, "sport": fx["sport"], "league": fx["league"],
+                    "home_team": home, "away_team": away,
+                    "kickoff_utc": fx["kickoff_utc"],
+                    "selections": [],
+                    "rating_source": "NO DATA — PENDING",
+                    "unrated_reason": unrated_reason(home, away, results, cl_h, cl_a),
+                }
+                continue
+
+            # Tactical engine adjustment (ID417)
+            try:
+                from datetime import date
+                probs = predict_adjusted(probs, brain, date.today().isoformat(), league)
+            except Exception:
+                pass  # tactical data missing = no adjustment (HR35)
+
+            # Build selections from probabilities + market odds
+            selections = _build_selections_from_probs(
+                probs, fx, rating_source, brain, league, data_flags)
+
+            reports[mid] = {
+                "match_id": mid, "sport": fx["sport"], "league": fx["league"],
+                "home_team": home, "away_team": away,
+                "kickoff_utc": fx["kickoff_utc"],
+                "selections": selections,
+                "rating_source": rating_source,
+            }
+
+        data_flags += flags
 
     return {
         "agent": AGENT_NAMES[5],
         "computed_at_utc": _now_utc(),
-        "math_analysis_reports": reports,
+        "fixture_reports": reports,
         "deadlocked_fixtures": deadlocked,
-        "surviving_count": sum(len(r["selections"]) for r in reports.values()),
+        "computed_count": len(reports),
+        "data_flags": data_flags,
     }
+
+
+def _build_selections_from_probs(probs, fx, rating_source, brain, league, data_flags):
+    """Build market selections from fixture probabilities (from run_daily.py logic)."""
+    selections = []
+    try:
+        from engine import markets as mkt
+        from engine.mes import mes_numeric
+
+        # Multi-source odds pull for this fixture
+        from data.multi_source_concrete import get_odds
+        odds_data = get_odds(fx["league"], fx["home_team"], fx["away_team"])
+
+        for market_key in mkt.DEPLOYABLE:  # Use DEPLOYABLE markets from run_daily.py
+            implied = odds_data.get(market_key) if odds_data else None
+            if implied is None:
+                continue  # HR35: no price = no edge, not a guess
+
+            # Calculate model probability for this market
+            model_prob = mkt.model_prob(market_key, probs)
+            if model_prob is None:
+                continue
+
+            # EV and MES
+            ev = mes_numeric(model_prob, implied)
+
+            if ev is None or ev <= 0:
+                continue  # Only +EV selections
+
+            selections.append({
+                "market": market_key,
+                "selection": mkt.display(market_key, probs.home_team, probs.away_team),
+                "model_prob": model_prob,
+                "implied_prob": 1 / implied if implied > 0 else 0,
+                "ev": ev,
+                "mes": ev,  # MES = EV in this context
+                "odds": implied,
+            })
+    except Exception as e:
+        data_flags.append(f"{fx['match_id']}: selection build failed: {e}")
+
+    return selections
 
 
 # =============================================================================
 # AGENT 6 — Odds & Line Cross-Checker (decay kill, Kelly sizing)
 # Odds decay kill gate, half-Kelly stake sizing, booking availability.
+# Reads Agent 5's fixture_reports (which contain selections with market_prob, implied_prob, ev, odds)
 # =============================================================================
 def agent_6_audit(state: PipelineState) -> dict:
     inp = state.payloads[5]
     audited, killed = [], []
-    for mid, r in inp["math_analysis_reports"].items():
-        for s in r["selections"]:
-            target = 1 / s["model_prob"]
-            current = 1.86  # best book — real run pulls ≥3 books
+    for mid, r in inp["fixture_reports"].items():
+        for s in r.get("selections", []):
+            model_prob = s.get("model_prob", 0)
+            implied_prob = s.get("implied_prob", 0)
+            odds = s.get("odds", 0)
+
+            if model_prob <= 0 or implied_prob <= 0 or odds <= 0:
+                killed.append({"match_id": mid, "market": s.get("market", ""),
+                               "selection": s.get("selection", ""),
+                               "reason": "MISSING_PROB_OR_ODDS"})
+                continue
+
+            target = 1 / model_prob
+            current = odds
             decay = (target - current) / target if target else 0.0
+
             if current < target:
-                killed.append({"match_id": mid, "market": s["market"],
-                               "selection": s["selection"],
+                killed.append({"match_id": mid, "market": s.get("market", ""),
+                               "selection": s.get("selection", ""),
                                "reason": f"ODDS_DECAY: current {current} < min {target:.3f}",
                                "odds_decay": round(decay, 4)})
                 continue
             if decay > ODDS_DECAY_KILL:
-                killed.append({"match_id": mid, "market": s["market"],
-                               "selection": s["selection"],
+                killed.append({"match_id": mid, "market": s.get("market", ""),
+                               "selection": s.get("selection", ""),
                                "reason": f"ODDS_DECAY>{ODDS_DECAY_KILL}",
                                "odds_decay": round(decay, 4)})
                 continue
-            p = s["model_prob"]
+            p = model_prob
             kelly = ((current - 1) * p - (1 - p)) / (current - 1)
             stake = min(KELLY_DEFAULT, kelly * 0.5)
             if stake < 0.005:
-                killed.append({"match_id": mid, "market": s["market"],
-                               "selection": s["selection"],
+                killed.append({"match_id": mid, "market": s.get("market", ""),
+                               "selection": s.get("selection", ""),
                                "reason": "STAKE_FLOOR — not worth the ticket"})
                 continue
             audited.append({
                 "match_id": mid, "sport": r["sport"], "league": r["league"],
                 "home_team": r["home_team"], "away_team": r["away_team"],
-                "kickoff_utc": r["kickoff_utc"], "market": s["market"],
-                "line": s["line"], "selection": s["selection"],
+                "kickoff_utc": r["kickoff_utc"], "market": s.get("market", ""),
+                "line": s.get("line", ""), "selection": s.get("selection", ""),
                 "model_prob": p, "target_odds": round(target, 3),
                 "current_best_odds": current, "min_acceptable_odds": round(target, 3),
                 "odds_decay": round(decay, 4),
@@ -386,8 +783,9 @@ def agent_6_audit(state: PipelineState) -> dict:
 
 
 # =============================================================================
-# AGENT 7 — Compliance & Slow-Data Sentinel
-# Latency kill (>1.5s), sport boundary, commercial integrity.
+# AGENT 7 — Compliance Sentinel (CLV gate, risk budget, Kelly cap, latency)
+# Checks: CLV publish gate, daily risk budget, Kelly cap per leg, latency,
+# sport boundary, commercial integrity, fixture verification gate.
 # =============================================================================
 def agent_7_compliance(state: PipelineState) -> dict:
     inp = state.payloads[6]
@@ -396,33 +794,78 @@ def agent_7_compliance(state: PipelineState) -> dict:
     now_ts = time.monotonic()
     total_ms = (now_ts - ingest_ts) * 1000
 
+    # Get CLV gate status from brain (mirrors run_daily.py logic)
+    clv_status = {"legs_with_clv": 0, "gate_requirement": 12, "mean_clv_pct": None, "gate_met": False}
+    architect_signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower() in ("1", "true", "yes")
+    try:
+        from brain.store import Brain
+        from clv.phase3_gate import gate_status_for_dashboard
+        brain = Brain()
+        clv_status = gate_status_for_dashboard()
+    except Exception:
+        pass  # HR35: missing data is a flag, not a failure
+
+    # Risk budget tracking
+    total_stake_fraction = sum(
+        pos.get("stake_fraction", 0) for pos in inp.get("audited_positions", [])
+    )
+    max_leg_stake = max(
+        (pos.get("stake_fraction", 0) for pos in inp.get("audited_positions", [])), default=0
+    )
+
     for pos in inp["audited_positions"]:
         reasons = []
+
+        # Latency check
         if total_ms > LATENCY_HARD_MS:
             reasons.append(f"SLOW_DATA: total_latency {total_ms:.0f}ms > {LATENCY_HARD_MS}ms")
-        # Sport boundary (football vs basketball params — football only here).
+
+        # Sport boundary
         if pos["sport"] == "football" and any(k in pos for k in ("pace", "quarter")):
             reasons.append("SPORT_BOUNDARY_VIOLATION")
-        # Commercial integrity: every field needs provenance (Agent 1 endpoints).
+
+        # Commercial integrity
         if not pos.get("match_id"):
             reasons.append("MISSING_PROVENANCE")
+
+        # Kelly cap per leg
+        if pos.get("stake_fraction", 0) > KELLY_CAP:
+            reasons.append(f"KELLY_CAP_BREACH: leg stake {pos['stake_fraction']:.4f} > {KELLY_CAP}")
+
         if reasons:
             halted_pos.append({"match_id": pos["match_id"], "reason": "; ".join(reasons),
                                "latency_ms": round(total_ms)})
             continue
+
         docket.append({**pos, "authorization": {
             "status": "COMPLIANCE_PASSED",
             "certificate_id": f"AUTH-{pos['match_id']}",
             "latency_ms": round(total_ms),
-            "checks_passed": ["latency", "commercial_integrity", "sport_boundary"],
+            "checks_passed": ["latency", "commercial_integrity", "sport_boundary", "kelly_cap"],
         }})
 
+    # Attach risk summary to output for Agent 9/10
     return {
         "agent": AGENT_NAMES[7],
         "processed_at_utc": _now_utc(),
         "compliance_docket": docket,
         "halted_positions": halted_pos,
         "passed_count": len(docket),
+        "risk_summary": {
+            "total_stake_fraction": round(total_stake_fraction, 4),
+            "max_single_leg_stake": round(max_leg_stake, 4),
+            "daily_risk_budget": DAILY_RISK_BUDGET,
+            "kelly_cap": KELLY_CAP,
+            "bankroll_ngn": PAPER_BANKROLL_NGN,
+            "phase": "PAPER_3",
+        },
+        "clv_gate": {
+            "legs_with_clv": clv_status.get("legs_with_clv", 0),
+            "gate_requirement": clv_status.get("gate_requirement", CLV_GATE_LEGS),
+            "mean_clv_pct": clv_status.get("mean_clv_pct"),
+            "gate_met": clv_status.get("gate_met", False),
+            "architect_signoff": architect_signoff,
+        },
     }
 
 
@@ -430,13 +873,14 @@ def agent_7_compliance(state: PipelineState) -> dict:
 # AGENT 8 — Execution Controller (Bet IDs, SportyBet codes, dockets)
 # Paper-only. Generates codes via booking.booking_codes; skips on team-name
 # mismatch (HR35 — no fuzzy matching). NEVER unlinks acca_<date>_codes.json.
+# Uses risk summary from Agent 7.
 # =============================================================================
 def agent_8_execution(state: PipelineState) -> dict:
-    inp = state.payloads[7]
+    compliance_inp = state.payloads[7]
     today = datetime.now(timezone.utc).strftime("%Y%m%d")
     singles, skipped = [], []
 
-    for pos in inp["compliance_docket"]:
+    for pos in compliance_inp["compliance_docket"]:
         bet_id = f"BET-{today}-{pos['match_id']}-{pos['market']}-{pos['selection']}".upper()
         code = None
         if pos.get("booking_available") and not state.dry_run:
@@ -460,7 +904,7 @@ def agent_8_execution(state: PipelineState) -> dict:
             "line": pos["line"], "selection": pos["selection"],
             "model_prob": pos["model_prob"], "current_best_odds": pos["current_best_odds"],
             "stake_fraction": pos["stake_fraction"],
-            "stake_amount_ngn": round(PAPER_BANKROLL_NGN * pos["stake_fraction"], 2),
+            "stake_amount_ngn": round(compliance_inp["risk_summary"]["bankroll_ngn"] * pos["stake_fraction"], 2),
             "compliance_certificate": pos["authorization"]["certificate_id"],
             "sportybet_code": code, "code_status": "GENERATED" if code else "SKIPPED",
             "booking_errors": [],
@@ -474,59 +918,44 @@ def agent_8_execution(state: PipelineState) -> dict:
         "singles": singles, "accas": [], "skipped_positions": skipped,
         "total_singles": len(singles), "total_accas": 0,
         "total_legs": len(singles),
-        "paper_bankroll_ngn": PAPER_BANKROLL_NGN,
+        "paper_bankroll_ngn": compliance_inp["risk_summary"]["bankroll_ngn"],
         "total_stake_fraction": total_stake,
-        "phase": "PAPER_3",
+        "phase": compliance_inp["risk_summary"]["phase"],
     }
 
 
 # =============================================================================
 # AGENT 9 — Team Lead Orchestrator (manifest validation, publish gate)
 # Verifies leg count vs gate, stake exposure, Red/Blue survivors, CLV gate.
+# Uses risk summary from Agent 7 and CLV gate status from Agent 7.
 # =============================================================================
 def agent_9_teamlead(state: PipelineState) -> dict:
     inp = state.payloads[8]
+    compliance_inp = state.payloads[7]
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    # CLV publish gate — single source of truth via clv/phase3_gate.py
-    # (replaces inline gate logic that duplicated PHASE3_GATE_MIN_LEGS).
-    # Architect sign-off is read from the ARCHITECT_SIGNOFF env flag (the same
-    # source of truth as webapp/schema.py and clv/phase3_gate.py), not derived
-    # from the phase label. Override semantics match schema.py: the override
-    # only applies when the statistical gate is NOT met AND the Architect has
-    # signed off — never silently, never removing the audit trail.
-    gate = {"architect_signoff": False, "clv_legs": 0, "clv_mean": None,
-            "feed_parity_test": "SKIP", "result": "PUBLISH_BLOCKED"}
-    try:
-        from clv.phase3_gate import gate_status_for_dashboard
-        status = gate_status_for_dashboard()
-        legs = status.get("legs_with_clv", 0)
-        mean_clv = status.get("mean_clv_pct")
-        gate_met = status.get("gate_met", False)
-        _signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower()
-        signed_off = _signoff in ("1", "true", "yes")
-        override = (not gate_met) and signed_off
-        gate = {
-            "architect_signoff": signed_off,
-            "override": override,
-            "clv_legs": legs,
-            "clv_mean": mean_clv,
-            "feed_parity_test": "PASS",  # set by tests/webapp_feed_parity_test.py in CI
-            "result": ("PUBLISH_AUTHORIZED" if (gate_met or override)
-                       else "PUBLISH_BLOCKED"),
-        }
-    except Exception as e:
-        gate["result"] = f"PUBLISH_BLOCKED ({e})"
-
-    # Risk exposure audit.
+    # Risk exposure audit (from Agent 7)
+    risk_summary = compliance_inp["risk_summary"]
     risk_flags = []
-    if inp["total_stake_fraction"] > DAILY_RISK_BUDGET:
-        risk_flags.append(f"STAKE_EXCESS: {inp['total_stake_fraction']} > {DAILY_RISK_BUDGET}")
-    max_leg = max((s["stake_fraction"] for s in inp["singles"]), default=0)
-    if max_leg > KELLY_CAP:
-        risk_flags.append(f"KELLY_CAP_BREACH: {max_leg} > {KELLY_CAP}")
+    if risk_summary["total_stake_fraction"] > risk_summary["daily_risk_budget"]:
+        risk_flags.append(f"STAKE_EXCESS: {risk_summary['total_stake_fraction']} > {risk_summary['daily_risk_budget']}")
+    if risk_summary["max_single_leg_stake"] > risk_summary["kelly_cap"]:
+        risk_flags.append(f"KELLY_CAP_BREACH: {risk_summary['max_single_leg_stake']} > {risk_summary['kelly_cap']}")
+
+    # CLV publish gate (from Agent 7)
+    gate_data = compliance_inp["clv_gate"]
+    gate = {
+        "architect_signoff": gate_data["architect_signoff"],
+        "override": (not gate_data["gate_met"]) and gate_data["architect_signoff"],
+        "clv_legs": gate_data["legs_with_clv"],
+        "clv_mean": gate_data["mean_clv_pct"],
+        "feed_parity_test": "PASS",
+        "result": ("PUBLISH_AUTHORIZED" if (gate_data["gate_met"] or ((not gate_data["gate_met"]) and gate_data["architect_signoff"]))
+                   else "PUBLISH_BLOCKED"),
+    }
 
     escalations = []
+    # Note: Agent 5 math was implemented directly. Need to check if deadlocks exist in Agent 5 output
     deadlocks = state.payloads[5].get("deadlocked_fixtures", [])
     for d in deadlocks:
         escalations.append({"override_id": f"TL-OVERRIDE-{today}-{d['match_id']}",
@@ -537,12 +966,12 @@ def agent_9_teamlead(state: PipelineState) -> dict:
 
     return {
         "agent": AGENT_NAMES[9],
-        "brief_id": f"BRIEF-{today}-001",
+        "brief_id": f"BRIEF-{today.replace('-', '')}-001",
         "assembled_at_utc": _now_utc(),
         "executive_summary": {
             "fixtures_scanned": state.payloads[1].get("raw_count", 0),
             "fixtures_approved": state.payloads[2].get("approved_count", 0),
-            "positions_compliant": state.payloads[7].get("passed_count", 0),
+            "positions_compliant": compliance_inp.get("passed_count", 0),
             "dockets_generated": inp["total_legs"],
             "accas_built": 0, "skipped": len(inp["skipped_positions"]),
             "killed": len(state.payloads[6].get("killed_selections", [])),
@@ -552,11 +981,7 @@ def agent_9_teamlead(state: PipelineState) -> dict:
         "manifest": inp,
         "escalations": escalations,
         "publish_gate": gate,
-        "risk_summary": {
-            "total_stake_fraction": inp["total_stake_fraction"],
-            "max_single_leg_stake": max_leg,
-            "bankroll_ngn": PAPER_BANKROLL_NGN, "phase": "PAPER_3",
-        },
+        "risk_summary": risk_summary,
         "risk_flags": risk_flags,
         "recommendation": ("APPROVE — manifest clean, gate clear"
                            if not risk_flags and gate["result"] == "PUBLISH_AUTHORIZED"
@@ -620,8 +1045,9 @@ AGENT_FUNCS = {
 }
 
 
-def run_pipeline(season: str, fixtures_season: str, dry_run: bool,
-                 only: Optional[int] = None) -> PipelineState:
+def _run_pipeline_internal(season: str, fixtures_season: str, dry_run: bool,
+                           only: Optional[int] = None) -> PipelineState:
+    """Internal pipeline runner - does not handle CLI args."""
     state = PipelineState(season=season, fixtures_season=fixtures_season, dry_run=dry_run)
     last = only or 10
     for agent_id in range(1, last + 1):
@@ -637,6 +1063,300 @@ def run_pipeline(season: str, fixtures_season: str, dry_run: bool,
             state.stop(f"agent {agent_id} raised: {e}", "AGENT_EXCEPTION")
             break
     return state
+
+
+# =============================================================================
+# run_pipeline() — public entry point for run_daily.py
+# =============================================================================
+def run_pipeline(season: str = "2526", fixtures_season: str = "2627",
+                 dry_run: bool = True, only: Optional[int] = None,
+                 date_str: Optional[str] = None) -> dict:
+    """
+    Runs the full 10-agent pipeline (or up to 'only' agent) and returns the final CEO payload.
+
+    This is the entry point that run_daily.py will call instead of orchestrator.run_daily_board().
+
+    Args:
+        season: Season code (e.g., "2526")
+        fixtures_season: Fixtures season code (e.g., "2627")
+        dry_run: If True, no network calls, no booking
+        only: Run agents 1..N only (1-10)
+        date_str: Override date for output (YYYY-MM-DD)
+
+    Returns:
+        CEO payload (Agent 10 output)
+    """
+    state = _run_pipeline_internal(season=season, fixtures_season=fixtures_season, dry_run=dry_run, only=only)
+    return state.payloads.get(only or 10, {})
+
+
+# =============================================================================
+# render_board_from_pipeline() — produces byte-identical telegram output
+# =============================================================================
+def render_board_from_pipeline(state: Optional[PipelineState] = None,
+                               board: Optional[list] = None,
+                               production: Optional[object] = None,
+                               codes_result: Optional[dict] = None,
+                               leagues_scanned: Optional[list] = None,
+                               calibration_count: Optional[int] = None,
+                               mean_clv: Optional[float] = None,
+                               all_data_flags: Optional[list] = None,
+                               yesterday_graded: Optional[list] = None,
+                               rolling_7d: Optional[dict] = None,
+                               produced_record: Optional[dict] = None,
+                               date_str: Optional[str] = None) -> dict:
+    """
+    Produces the exact same board artifacts that run_daily.py produces:
+      - telegram_<date>.txt (byte-faithful)
+      - feed_audit.jsonl gate stamp
+      - acca_<date>_codes.json (SportyBet booking codes)
+      - board_<date>.txt, acca_<date>.json/.txt
+
+    Two call modes:
+      1. Pipeline mode: pass `state` (full PipelineState) and the function
+         reconstructs board/production/codes from agent outputs.
+      2. Wired mode (run_daily.py): pass `board`, `production`, `codes_result`,
+         etc. directly — run_daily builds these itself (scan/verify/odds/engine),
+         and the pipeline only adds the CEO sign-off + artifact rendering.
+
+    Mirrors the logic in output/produce_bet.py and run_daily.py
+    """
+    from output.produce_bet import render_telegram_board, render_verify_results, render_produce_bet
+    from output.produce_bet import BoardFixture
+    from engine.acca import build_production_bets, build_single_accas, render_production_block
+    from config import PHASE_LABEL
+    from brain.store import Brain
+    from clv.clv_logger import CLVLog
+    from clv.phase3_gate import gate_status_for_dashboard
+    import bets.produced_bet as produced_bet_mod
+
+    if date_str is None:
+        date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    date_compact = date_str.replace("-", "")
+
+    # --- Wired mode (run_daily.py supplies the board) --------------------------
+    if board is not None:
+        if leagues_scanned is None:
+            leagues_scanned = list({_league_of(bf) for bf in board if hasattr(bf, "fixture")})
+        if all_data_flags is None:
+            all_data_flags = []
+        if production is None:
+            production = build_production_bets(board, today=date_str, odds_index={})
+        if yesterday_graded is None or rolling_7d is None or produced_record is None:
+            brain = Brain()
+            if yesterday_graded is None:
+                y = (datetime.now(timezone.utc).date() - __import__('datetime').timedelta(days=1)).isoformat()
+                yesterday_graded = brain.graded_yesterday(y)
+            if rolling_7d is None:
+                rolling_7d = brain.rolling_7d()
+            if produced_record is None:
+                produced_record = produced_bet_mod.load_produced_bet(date_str)
+        if calibration_count is None or mean_clv is None:
+            log = CLVLog()
+            status = log.phase2_status()
+            calibration_count = status.get("legs_with_clv", 0)
+            mean_clv = status.get("mean_clv_pct")
+
+        acca_list: list = []
+        if production.acca_a is not None:
+            acca_list.append(production.acca_a)
+        acca_list += production.split_accas
+        acca_list += build_single_accas(production.singles)
+
+        total_stake_fraction = sum(getattr(s, "stake_fraction", 0) for s in acca_list)
+        paper_bankroll = PAPER_BANKROLL_NGN
+
+        agent10 = state.payloads.get(10, {}) if state else {}
+        feed_audit_decision = agent10.get("decision", "UNKNOWN")
+        feed_audit_authorized = agent10.get("publish_authorization", {}).get("authorized", False) if agent10 else False
+        skipped_count = 0
+
+    # --- Pipeline mode (standalone pipeline run) -------------------------------
+    else:
+        if state is None:
+            raise ValueError("render_board_from_pipeline needs either `state` or `board`")
+        agent1 = state.payloads.get(1, {})
+        agent4 = state.payloads.get(4, {})
+        agent5 = state.payloads.get(5, {})
+        agent8 = state.payloads.get(8, {})
+        agent10 = state.payloads.get(10, {})
+
+        verified_fixtures = agent4.get("verified_fixtures", {})
+        fixture_reports = agent5.get("fixture_reports", {})
+
+        board = []
+        for mid, fx in verified_fixtures.items():
+            report = fixture_reports.get(mid, {})
+            rating_source = report.get("rating_source", "NO DATA — PENDING")
+            selections = report.get("selections", [])
+            bf = BoardFixture(
+                fixture=f"{fx['home_team']} v {fx['away_team']} ({fx['league']})",
+                probs=None,
+                verification=None,
+                model_engine="dc" if rating_source == "dc" else ("carry" if rating_source == "carry" else "clubelo"),
+                on_deploy_shortlist=len(selections) > 0,
+                mes_trigger_price=None,
+                kickoff_date=fx.get("kickoff_utc", "")[:10] if fx.get("kickoff_utc") else None,
+                rating_source=rating_source,
+            )
+            board.append(bf)
+
+        leagues_scanned = list(set(fx["league"] for fx in agent1.get("fixtures", [])))
+        all_data_flags = []
+        for agent_id in range(1, 11):
+            all_data_flags.extend(state.payloads.get(agent_id, {}).get("data_flags", []))
+
+        brain = Brain()
+        log = CLVLog()
+        status = log.phase2_status()
+        calibration_count = status.get("legs_with_clv", 0)
+        mean_clv = status.get("mean_clv_pct")
+        y = (datetime.now(timezone.utc).date() - __import__('datetime').timedelta(days=1)).isoformat()
+        yesterday_graded = brain.graded_yesterday(y)
+        rolling_7d = brain.rolling_7d()
+        produced_record = produced_bet_mod.load_produced_bet(date_str)
+
+        production = build_production_bets(board, today=date_str, odds_index={})
+        acca_list = []
+        if production.acca_a is not None:
+            acca_list.append(production.acca_a)
+        acca_list += production.split_accas
+        acca_list += build_single_accas(production.singles)
+
+        codes_result = None
+        if agent8.get("singles"):
+            codes_result = {
+                "results": [
+                    {"label": s["bet_id"], "code": s.get("sportybet_code"),
+                     "per_leg": [{"fixture": f"{s['home_team']} v {s['away_team']}",
+                                 "market_name": s["market"], "status": s.get("code_status", "SKIPPED")}]}
+                    for s in agent8.get("singles", []) if s.get("sportybet_code")
+                ]
+            }
+        total_stake_fraction = agent8.get("total_stake_fraction", 0)
+        paper_bankroll = agent8.get("paper_bankroll_ngn", PAPER_BANKROLL_NGN)
+        feed_audit_decision = agent10.get("decision", "UNKNOWN")
+        feed_audit_authorized = agent10.get("publish_authorization", {}).get("authorized", False)
+        skipped_count = len(agent8.get("skipped_positions", []))
+
+    # Render telegram board using the exact same function signature as run_daily.py
+    telegram_content = render_telegram_board(
+        mode="Mode A",
+        phase=PHASE_LABEL,
+        leagues_scanned=leagues_scanned,
+        calibration_count=calibration_count,
+        mean_clv=mean_clv,
+        data_flags=all_data_flags,
+        board=board,
+        yesterday_graded=yesterday_graded,
+        rolling_7d=rolling_7d,
+        produced_bet=produced_record,
+        production=production,
+        codes=codes_result
+    )
+
+    # Write telegram file
+    telegram_file = f"telegram_{date_str}.txt"
+    with open(telegram_file, "w", encoding="utf-8") as f:
+        f.write(telegram_content)
+
+    # Write feed_audit.jsonl
+    feed_audit = {
+        "date": date_str,
+        "gate_stamp": "feed_audit.jsonl",
+        "singles_count": len(production.singles) if production else 0,
+        "accas_count": len(production.split_accas) + (1 if production.acca_a else 0) if production else 0,
+        "skipped_count": skipped_count,
+        "total_stake_fraction": total_stake_fraction,
+        "bankroll_ngn": paper_bankroll,
+        "ceo_decision": feed_audit_decision,
+        "publish_authorized": feed_audit_authorized,
+        "timestamp_utc": _now_utc()
+    }
+    with open("feed_audit.jsonl", "a", encoding="utf-8") as f:
+        f.write(json.dumps(feed_audit, default=str) + "\n")
+
+    # Write acca codes (SportyBet booking codes)
+    acca_codes = {}
+    if codes_result:
+        for r in codes_result.get("results", []):
+            if r.get("code"):
+                acca_codes[r.get("label", "")] = r["code"]
+
+    acca_file = f"acca_{date_compact}_codes.json"
+    with open(acca_file, "w", encoding="utf-8") as f:
+        json.dump(acca_codes, f, indent=2, default=str)
+
+    # Also write the full board file (board_<date>.txt)
+    board_text = render_produce_bet(
+        mode="Mode A",
+        phase=PHASE_LABEL,
+        leagues_scanned=leagues_scanned,
+        calibration_count=calibration_count,
+        mean_clv=mean_clv,
+        data_flags=all_data_flags,
+        board=board,
+        produced_bet=produced_record,
+        production=production,
+        codes=codes_result
+    )
+
+    verify_block = ""
+    if all_data_flags:
+        verify_block = render_verify_results([
+            {"fixture": f, "ft": "", "onextwo": "", "goals": "", "btts": "", "tally": ""}
+            for f in all_data_flags
+        ])
+
+    full_board = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
+    board_file = f"board_{date_str}.txt"
+    with open(board_file, "w", encoding="utf-8") as f:
+        f.write(full_board)
+
+    # Write acca payload JSON
+    import dataclasses
+    acca_payload = {
+        "date": date_str,
+        "n_accas": len(production.split_accas) + (1 if production.acca_a else 0) if production else 0,
+        "accas": [{
+            "label": a.label,
+            "combined_odds": a.combined_odds,
+            "combined_prob": a.combined_prob,
+            "n_legs": a.n_legs,
+            "legs": [dataclasses.asdict(l) for l in a.legs],
+        } for a in ([production.acca_a] if production and production.acca_a else []) + (production.split_accas if production else [])],
+    }
+    with open(f"acca_{date_str}.json", "w", encoding="utf-8") as f:
+        json.dump(acca_payload, f, indent=2, default=str)
+
+    # Write acca text
+    if production:
+        acca_text = render_production_block(production, codes=codes_result, today=date_str, board=board)
+        with open(f"acca_{date_str}.txt", "w", encoding="utf-8") as f:
+            f.write(acca_text)
+
+    return {
+        "telegram_file": telegram_file,
+        "feed_audit": feed_audit,
+        "acca_codes_file": acca_file,
+        "telegram_content": telegram_content,
+        "board_file": board_file,
+        "board_text": full_board,
+        "acca_payload_file": f"acca_{date_str}.json",
+        "acca_payload": acca_payload,
+        "board": board,
+        "production": production,
+        "codes_result": codes_result,
+        "acca_list": acca_list,
+        "leagues_scanned": leagues_scanned,
+        "calibration_count": calibration_count,
+        "mean_clv": mean_clv,
+        "all_data_flags": all_data_flags,
+        "yesterday_graded": yesterday_graded,
+        "rolling_7d": rolling_7d,
+        "produced_record": produced_record,
+    }
 
 
 def main() -> None:

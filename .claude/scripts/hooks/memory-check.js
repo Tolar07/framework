@@ -6,19 +6,21 @@
  * Enforces: every session must read canonical memory before output,
  * and write substantive changes back before ending.
  *
- * Canonical store: Documents/OLP_XDV_Vault (Obsidian vault)
+ * Canonical store: docs/obsidian-vault/ (git-tracked repo copy —
+ * Architect 2026-08-16). The Documents/OLP_XDV_Vault mirror is
+ * DEPRECATED and must NOT be read. Filesystem read (no REST API
+ * dependency) so context loads even when Obsidian is closed.
  * Cross-platform (Windows, macOS, Linux)
  */
 
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
 
 const ROOT = process.env.OLP_XDV_ROOT
   || 'c:/Users/Motunrayo/omniroute test/olp_xdv_agent/olp_xdv';
 
-const VAULT_ROOT = 'C:/Users/Motunrayo/Documents/OLP_XDV_Vault';
-const VAULT_API_KEY = '32f3dcf8f4b514ce5b6fce5dfd04dc7f0f9d4d01636834b792e33b7803cd1143';
+// Canonical vault = git-tracked repo copy (Architect 2026-08-16).
+const VAULT_ROOT = path.join(ROOT, 'docs', 'obsidian-vault');
 
 // The canonical memory files that MUST be read every session
 const CANONICAL_MEMORY_FILES = [
@@ -39,38 +41,12 @@ function log(msg) {
 }
 
 function readVaultFile(filename) {
-  return new Promise((resolve, reject) => {
-    const encoded = encodeURIComponent(filename);
-    const options = {
-      hostname: 'localhost',
-      port: 27124,
-      path: `/vault/${encoded}`,
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${VAULT_API_KEY}`,
-        'Accept': 'text/markdown'
-      },
-      rejectUnauthorized: false
-    };
-
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode === 200) {
-          resolve(data);
-        } else if (res.statusCode === 404) {
-          resolve(null);
-        } else {
-          reject(new Error(`HTTP ${res.statusCode}: ${data}`));
-        }
-      });
-    });
-
-    req.on('error', reject);
-    req.setTimeout(10000, () => req.destroy(new Error('Timeout')));
-    req.end();
-  });
+  const fullPath = path.join(VAULT_ROOT, filename);
+  try {
+    return fs.readFileSync(fullPath, 'utf8');
+  } catch {
+    return null;
+  }
 }
 
 function writeComplianceEntry(action, details) {
@@ -121,7 +97,7 @@ async function checkIn() {
   return true;
 }
 
-async function checkOut() {
+function checkOut() {
   log('=== HR54 CHECK-OUT: Verifying memory writes ===');
 
   // Check if any canonical files were modified this session
@@ -132,7 +108,7 @@ async function checkOut() {
 
   const changes = gitStatus.stdout.trim().split('\n').filter(Boolean);
   const vaultChanges = changes.filter(c =>
-    c.includes('Documents/OLP_XDV_Vault') ||
+    c.includes('docs/obsidian-vault') ||
     c.includes('memory/') ||
     c.includes('RATIFICATIONS.md') ||
     c.includes('Decisions Log.md') ||
@@ -162,20 +138,17 @@ async function checkOut() {
   process.exit(0);
 }
 
-async function main() {
+function main() {
   const action = process.argv[2] || 'check-in';
 
   if (action === 'check-in') {
-    await checkIn();
+    checkIn();
   } else if (action === 'check-out') {
-    await checkOut();
+    checkOut();
   } else {
     log(`Usage: node memory-check.js [check-in|check-out]`);
     process.exit(1);
   }
 }
 
-main().catch(err => {
-  console.error('[memory-check] Fatal:', err.message);
-  process.exit(1);
-});
+main();

@@ -98,6 +98,8 @@ CONTINENTAL_ALIASES: dict[str, str] = {
     "Club Brugge KV": "Club Brugge",
     "Union St. Gilloise": "St. Gilloise",
     "FC Midtjylland": "Midtjylland",
+    # Champions League 2026-08-18 scan flags — exact accent/case-fold match (score 1.00)
+    "LASK Linz": "Lask Linz",
 }
 
 

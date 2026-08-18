@@ -123,6 +123,16 @@
           }
         ],
         "description": "HR54 mandatory memory check-in \u2014 read canonical Obsidian vault before any output"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/scripts/hooks/session-vault-inject.js\""
+          }
+        ],
+        "description": "HR58 Part2 enforced memory continuity \u2014 inject canonical vault content to stdout"
       }
     ],
     "PostToolUse": [

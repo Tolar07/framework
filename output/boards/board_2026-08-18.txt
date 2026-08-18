@@ -3,6 +3,7 @@ Date: 2026-08-18 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-dep
 Leagues scanned: 2. Bundesliga, Albanian Superliga, Andorran Primera Divisió, Armenian Premier League, Austrian Bundesliga, Azerbaijani Premyer Liqa, Belarusian Premier League, Belgian Pro League, Bosnian Premier League, Bulgarian First League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey, Coppa Italia, Coupe de France, Cypriot First Division, Czech First League, DFB-Pokal, Danish Superliga, EFL Cup, Ekstraklasa, Eredivisie, Estonian Meistriliiga, Europa League, FA Cup, Faroe Islands Premier League, Finnish Veikkausliiga, Georgian Erovnuli Liga, Gibraltarian National League, Greek Super League, HNL, Hungarian NB I, Icelandic Urvalsdeild, Israeli Premier League, KNVB Beker, Kazakhstan Premier League, Kosovan Superliga, La Liga, La Liga 2, Latvian Virsliga, Liechtensteiner Cup, Ligue 1, Ligue 2, Lithuanian A Lyga, Luxembourg National Division, Maltese Premier League, Moldovan Super Liga, Montenegrin First League, North Macedonian First League, Northern Irish Premiership, Norwegian Eliteserien, Premier League, Primeira Liga, Republic of Ireland Premier Division, Romanian Liga I, Russian Premier League, Sanmarinese Campionato, Scottish Premiership, Serbian Super Liga, Serie A, Serie B, Slovak Super Liga, Slovenian PrvaLiga, Swedish Allsvenskan, Swiss Super League, Taça de Portugal, Turkish Super Lig, UEFA Super Cup, Ukrainian Premier League, Welsh Premier League
 Calibration: 16 legs logged, mean CLV -2.62%
 DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ sportybet cache warm: 303 fixtures across 75 league(s) ready for the booking bridge
   ⚠ Champions League: no results available for grading — legs stay PENDING, not guessed
   ⚠ graded 0 of 2 pending leg(s)
   ⚠ Automated CLV grading: 0 leg(s) settled
@@ -23,7 +24,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Armenian Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
   ⚠ Armenian Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Armenian Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
   ⚠ Armenian Premier League: fixtures via SportyBet cache (1 — primary sources failed)
-  ⚠ Armenian Premier League: 2 team name(s) in the fixtures feed not found in the fitted data — FC Alashkert Yerevan, FC Noah Yerevan. Suggestions: FC Alashkert Yerevan -> Alashkert (0.62); FC Noah Yerevan -> FC Noah (0.64). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Armenian Premier League: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Noah v Alashkert
   ⚠ Austrian Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'Austrian Bundesliga' (looked up as name='Austrian Bundesliga', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
   ⚠ Austrian Bundesliga: fixtures via SportyBet cache (3 — primary sources failed)
   ⚠ Austrian Bundesliga: 2 team name(s) in the fixtures feed not found in the fitted data — Austria Lustenau, Grazer AK 1902. Suggestions: Austria Lustenau -> Austria Vienna (0.73); Grazer AK 1902 -> Grazer AK (0.78). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
@@ -376,71 +377,77 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Welsh Premier League: 1 fixture(s) skipped (not full-time or incomplete)
   ⚠ Welsh Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
   ⚠ Welsh Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Welsh Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
-  ⚠ Welsh Premier League: fixtures via SportyBet cache (66 — primary sources failed)
-  ⚠ Welsh Premier League: 23 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Everton v Crystal Palace, Brentford v Tottenham, Brighton v Aston Villa, Man City v Bournemouth, Newcastle v Liverpool, Fulham v Chelsea, Fenerbahce v Lyon, Dinamo Zagreb v Viking FK, Nijmegen v Bodo/Glimt, Slovan Bratislava v Celje, Rayo Vallecano v Alaves, Valencia v Celta, Espanyol v Real Madrid, Elche CF v Barcelona, Osasuna v Levante, Mainz v Paderborn, Augsburg v Schalke, Inter v Monza, Genoa v Napoli, Frosinone v Juventus, Atalanta v Sassuolo, FC Torino v AC Milan, Bologna v Lazio
-  ⚠ Welsh Premier League: 75 team name(s) in the fixtures feed not found in the fitted data — 1 FC Kaiserslautern, 1 FC Nuremberg, 1. FC Saarbrucken, AEK Athens, Arsenal, Athletic Bilbao, Atletico Madrid, Barnsley FC, Bayer Leverkusen, Bayern Munich, Betis, Blackburn Rovers, Blackpool FC, Borussia M´gladbach, Cagliari, Cambridge United, Cardiff City, Celtic, Cologne, Como 1907, Coventry City, Crewe Alexandra, Doncaster Rovers, Dortmund, Eintracht Frankfurt, Eintracht Trier, Energie Cottbus, Erzgebirge Aue, FC Viktoria Cologne, Fleetwood Town, Freiburg, Getafe, Hamburger SV, Hansa Rostock, Hapoel Be'er Sheva, Hertha, Hoffenheim, Hull City, Ipswich Town, Karlsruher SC, LASK Linz, Leeds United, Leicester, Levski Sofia, Lincoln City, MSV Duisburg, Malaga CF, Man Utd, Middlesbrough FC, Millwall, Norwich, Nottingham Forest, Parma Calcio, Plymouth Argyle, RB Leipzig, Racing Santander, Real Sociedad, SC Preussen 06 Munster, SV 07 Elversberg, SV Waldhof Mannheim 07, SV Wehen Wiesbaden, Sabah Baku, Sevilla, Sheffield Utd, Sheffield Wednesday, Shrewsbury Town, Stuttgart, Sunderland AFC, US Lecce, Udinese, Union Berlin, Venezia FC, Villarreal, Werder Bremen, Wolves. Suggestions: 1 FC Kaiserslautern -> no close match in the model pool; 1 FC Nuremberg -> no close match in the model pool; 1. FC Saarbrucken -> no close match in the model pool; AEK Athens -> no close match in the model pool; Arsenal -> no close match in the model pool; Athletic Bilbao -> no close match in the model pool; Atletico Madrid -> no close match in the model pool; Barnsley FC -> no close match in the model pool; Bayer Leverkusen -> no close match in the model pool; Bayern Munich -> no close match in the model pool; Betis -> no close match in the model pool; Blackburn Rovers -> no close match in the model pool; Blackpool FC -> no close match in the model pool; Borussia M´gladbach -> no close match in the model pool; Cagliari -> no close match in the model pool; Cambridge United -> no close match in the model pool; Cardiff City -> Cardiff MET (0.78); Celtic -> no close match in the model pool; Cologne -> no close match in the model pool; Como 1907 -> no close match in the model pool; Coventry City -> no close match in the model pool; Crewe Alexandra -> no close match in the model pool; Doncaster Rovers -> no close match in the model pool; Dortmund -> no close match in the model pool; Eintracht Frankfurt -> no close match in the model pool; Eintracht Trier -> no close match in the model pool; Energie Cottbus -> no close match in the model pool; Erzgebirge Aue -> no close match in the model pool; FC Viktoria Cologne -> no close match in the model pool; Fleetwood Town -> no close match in the model pool; Freiburg -> no close match in the model pool; Getafe -> no close match in the model pool; Hamburger SV -> no close match in the model pool; Hansa Rostock -> no close match in the model pool; Hapoel Be'er Sheva -> no close match in the model pool; Hertha -> no close match in the model pool; Hoffenheim -> no close match in the model pool; Hull City -> no close match in the model pool; Ipswich Town -> no close match in the model pool; Karlsruher SC -> no close match in the model pool; LASK Linz -> no close match in the model pool; Leeds United -> no close match in the model pool; Leicester -> no close match in the model pool; Levski Sofia -> no close match in the model pool; Lincoln City -> no close match in the model pool; MSV Duisburg -> no close match in the model pool; Malaga CF -> no close match in the model pool; Man Utd -> no close match in the model pool; Middlesbrough FC -> no close match in the model pool; Millwall -> no close match in the model pool; Norwich -> no close match in the model pool; Nottingham Forest -> no close match in the model pool; Parma Calcio -> no close match in the model pool; Plymouth Argyle -> no close match in the model pool; RB Leipzig -> no close match in the model pool; Racing Santander -> no close match in the model pool; Real Sociedad -> no close match in the model pool; SC Preussen 06 Munster -> no close match in the model pool; SV 07 Elversberg -> no close match in the model pool; SV Waldhof Mannheim 07 -> no close match in the model pool; SV Wehen Wiesbaden -> no close match in the model pool; Sabah Baku -> no close match in the model pool; Sevilla -> no close match in the model pool; Sheffield Utd -> no close match in the model pool; Sheffield Wednesday -> no close match in the model pool; Shrewsbury Town -> Barry Town (0.64); Stuttgart -> no close match in the model pool; Sunderland AFC -> no close match in the model pool; US Lecce -> no close match in the model pool; Udinese -> no close match in the model pool; Union Berlin -> no close match in the model pool; Venezia FC -> no close match in the model pool; Villarreal -> no close match in the model pool; Werder Bremen -> no close match in the model pool; Wolves -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
-  ⚠ day-scoped to 2026-08-17: kept 7 of 327 scanned fixture(s) — adjacent-day matches dropped
-  ⚠ VERIFY GATE: 0 verified, 7 kept-unverified, 0 dropped (FlashScore on, SportyBet on)
+  ⚠ day-scoped to 2026-08-18: kept 5 of 261 scanned fixture(s) — adjacent-day matches dropped
+  ⚠ VERIFY GATE: 0 verified, 5 kept-unverified, 0 dropped (FlashScore on, SportyBet on)
   ⚠ ⚠ source circuit OPEN (paused): api_football_fixtures, espn, football_data
-  ⚠ Coppa Italia: odds fetch failed (odds_Coppa Italia: all 3 sources exhausted. Last error: odds_api(eu): no odds for Coppa Italia) — NO DATA — PENDING
+  ⚠ Champions League: odds served via multi-source layer
   ⚠ SHADOW calibration (below gate, NOT applied): 1X2_DRAW -0.9%, 1X2_HOME -1.3% — visible only; inert until MIN_LEGS legs settle
   ⚠ ENSEMBLE WEIGHTS ACTIVE — consensus w=0.926, dc w=0.926, elo w=0.926 (CLV-gated, bounded, consensus display only)
-  ⚠ SC Pisa v Empoli: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Sassuolo v Cesena FC: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ production bets: 1 leg(s) in Acca A, 0 split acca(s), 0 single(s) on today's slate
+  ⚠ Fenerbahce v Lyon: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Dinamo Zagreb v Viking FK: no live price found — NO DATA — PENDING, leg not logged
   ⚠ logged 0 new paper leg(s) with a live entry price (agreement_band=0.04)
   ⚠ Phase 3 gate: 16 of 30 legs with logged CLV; mean CLV -2.621
-  ⚠ booking codes skipped — existing capture acca_2026-08-17_codes.json preserved (codes-fix)
+  ⚠ SportyBet booking codes: 1/1 slip(s) booked — acca_2026-08-18_codes.json
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.
 
 PART 2 — COMPACT (fast-scan)
 Fixture | Selected Pick | Booking Code
-FC Noah Yerevan v FC Alashkert Yerevan (Armenian Premier League) | NO DATA — PENDING | NO DATA — PENDING
-SC Pisa v Empoli (Coppa Italia) | SC Pisa to win | NO DATA — PENDING
-Sassuolo v Cesena FC (Coppa Italia) | Sassuolo to win | NO DATA — PENDING
-US Cremonese v Sampdoria Genoa (Coppa Italia) | NO DATA — PENDING | NO DATA — PENDING
-Palermo FC v US Lecce (Coppa Italia) | NO DATA — PENDING | NO DATA — PENDING
-Birkirkara FC v Gzira United FC (Maltese Premier League) | NO DATA — PENDING | NO DATA — PENDING
-Hamrun Spartans FC v Mosta FC (Maltese Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Fenerbahçe v Lyon (Champions League) | Both teams to score — yes | NO DATA — PENDING
+Dinamo Zagreb v Viking (Champions League) | Viking to win | NO DATA — PENDING
+Levski Sofia v AEK Athens (Champions League) | NO DATA — PENDING | NO DATA — PENDING
+Fenerbahce v Lyon (Champions League) | Lyon to win | NO DATA — PENDING
+Dinamo Zagreb v Viking FK (Champions League) | Dinamo Zagreb to win | NO DATA — PENDING
 
 PART 2 — THE SCAN
 Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
-FC Noah Yerevan v FC Alashkert Yerevan (Armenian Premier League) | NO DATA — PENDING | — | — | ○
-SC Pisa v Empoli (Coppa Italia) | SC Pisa·50% | NO DATA — PENDING / NO DATA — PENDING | 1X78 / — | ○
-Sassuolo v Cesena FC (Coppa Italia) | Sassuolo·77% | NO DATA — PENDING / NO DATA — PENDING | 1X96 / — | ○
-US Cremonese v Sampdoria Genoa (Coppa Italia) | NO DATA — PENDING | — | — | ○
-Palermo FC v US Lecce (Coppa Italia) | NO DATA — PENDING | — | — | ○
-Birkirkara FC v Gzira United FC (Maltese Premier League) | NO DATA — PENDING | — | — | ○
-Hamrun Spartans FC v Mosta FC (Maltese Premier League) | NO DATA — PENDING | — | — | ○
+Fenerbahçe v Lyon (Champions League) | Lyon·39% | O80 / O56 | 1274 / Y60 | ○
+Dinamo Zagreb v Viking (Champions League) | Dinamo Zag·36% | NO DATA — PENDING / NO DATA — PENDING | 1268 / — | ○
+Levski Sofia v AEK Athens (Champions League) | NO DATA — PENDING | — | — | ○
+Fenerbahce v Lyon (Champions League) | Lyon·36% | NO DATA — PENDING / NO DATA — PENDING | 1268 / — | ○
+Dinamo Zagreb v Viking FK (Champions League) | Dinamo Zag·36% | NO DATA — PENDING / NO DATA — PENDING | 1268 / — | ○
 
-PART 1 — THE CALL — today's fixtures only
-NO DEPLOY-ELIGIBLE CALL this session — no deployable fixture kicks off today (a valid, honest result).
+PART 1 — THE CALL (full detail) — today's fixtures only
+4 deploy-eligible fixture(s) kicking off today (unified pool — all whitelisted leagues, no cap).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+Fixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A | Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes
+Fenerbahçe v Lyon (Champions League) | 35 | 26 | 39 | O80 | O56 | Y60 | 31/31/38 | — | 47/26/26 | Lyon 2/3 | Both teams to score — yes | 1.67 | -0.35% | 1.26+ | ○ | NEG EV
+Dinamo Zagreb v Viking (Champions League) | 36 | 32 | 33 | — | — | — | — | — | 54/23/23 | Dinamo Zag 2/2 | Viking to win | 4.00 | +11.32% | 2.81+ | ○ | CLUBELO STRETCH
+Fenerbahce v Lyon (Champions League) | 33 | 32 | 36 | — | — | — | — | — | — | — | — | SB | +26.96% | 2.80+ | ○ | CLUBELO STRETCH
+Dinamo Zagreb v Viking FK (Champions League) | 36 | 32 | 33 | — | — | — | — | — | — | — | — | SB | +47.08% | 2.81+ | ○ | CLUBELO STRETCH
 
 PART 3 — REJECTED / WATCHLIST
-FC Noah Yerevan v FC Alashkert Yerevan (Armenian Premier League): NO DATA — PENDING: 'FC Noah Yerevan' is likely 'FC Noah' (name similarity 0.64) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'FC Alashkert Yerevan' is likely 'Alashkert' (name similarity 0.62) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
-US Cremonese v Sampdoria Genoa (Coppa Italia): NO DATA — PENDING: 'US Cremonese' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Sampdoria Genoa' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
-Palermo FC v US Lecce (Coppa Italia): NO DATA — PENDING: 'Palermo FC' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'US Lecce' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
-Birkirkara FC v Gzira United FC (Maltese Premier League): NO DATA — PENDING: 'Birkirkara FC' is likely 'Birkirkara' (name similarity 0.87) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Gzira United FC' is likely 'Gzira United' (name similarity 0.89) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
-Hamrun Spartans FC v Mosta FC (Maltese Premier League): NO DATA — PENDING: 'Hamrun Spartans FC' is likely 'Hamrun Spartans' (name similarity 0.91) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Mosta FC' is likely 'Mosta' (name similarity 0.77) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Levski Sofia v AEK Athens (Champions League): NO DATA — PENDING: 'Levski Sofia' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'AEK Athens' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
 
 PART 4 — DATA INTEGRITY (ID403 counts)
 VERIFIED: 0
-SINGLE-SOURCE: 7
+SINGLE-SOURCE: 5
 CONFLICT: 0
 NO-DATA: 0
 DERIVED: 0
 
-📋 SCAN RECORD — today's rated fixtures — 2026-08-17 (paper, ID415)
-2 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+📋 SCAN RECORD — today's rated fixtures — 2026-08-18 (paper, ID415)
+4 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
 
-1. SC Pisa v Empoli (Coppa Italia)
-   Pick: SC Pisa to win (50%)
-2. Sassuolo v Cesena FC (Coppa Italia)
-   Pick: Sassuolo to win (77%)
+1. Fenerbahçe v Lyon (Champions League)
+   Pick: Lyon to win (39%)
+   Best market: Both teams to score — yes at 1.67 — -0.35% EV
+2. Dinamo Zagreb v Viking (Champions League)
+   Pick: Dinamo Zagreb to win (36%)
+   Best market: Viking to win at 4.00 — +11.32% EV
+3. Fenerbahce v Lyon (Champions League)
+   Pick: Lyon to win (36%)
+4. Dinamo Zagreb v Viking FK (Champions League)
+   Pick: Dinamo Zagreb to win (36%)
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
 
 🎯 PRODUCTION BETS — 2026-08-18 (today's fixtures only)
 
-NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
+★ Acca A — HEADLINE, 1 legs
+    Fenerbahçe v Lyon (Champions League) — Both teams to score — yes @ 1.67 [⚠ SportyBet]
+    Combined 1.67 Booking code: QGVJ2A
+    Booking code: QGVJ2A
 
 PART 5 — HARD RULES + SIGN-OFF
 

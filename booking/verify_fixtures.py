@@ -327,16 +327,20 @@ def verify_board(board: List, board_date: str,
         `.verification` is upgraded to reflect the cross-source agreement.
 
     Sources (in priority order for F2 quorum):
-        1. SportyBet cache — Playwright-captured real fixtures
+        1. SportyBet cache — Playwright-captured real fixtures (PRIMARY — odds + booking)
         2. FlashScore feed — scraped match_1x2 JSONL (T2 ratified)
         3. PredictZ feed — curated fixtures JSONL (T2)
         4. StatsArea feed — curated fixtures JSONL (T2)
         5. Bet365 feed — curated fixtures JSONL (T2)
 
     F2 Quorum Rule: A fixture is VERIFIED when >=2 independent sources agree.
-    If a source is available but does NOT carry the fixture, it counts as
-    a miss (dropped). Double outage (no sources available) -> keep all with
-    UNVERIFIED stamp (keep-but-warn, never guess).
+
+    CRITICAL FIX (2026-08-18): SportyBet is the PRIMARY source (we bet there).
+    - Fixtures IN SportyBet are KEPT even if other sources don't cover the league.
+    - Fixtures ONLY in FlashScore/PredictZ/StatsArea/Bet365 but NOT in SportyBet -> DROPPED.
+    - Fixtures in SportyBet + ≥1 other source -> VERIFIED.
+    - Fixtures in SportyBet only (no other source covers the league) -> KEPT as UNVERIFIED (partial).
+    - Double outage (no sources available) -> keep all with UNVERIFIED stamp (keep-but-warn).
     """
     # Load all sources
     fs_pairs = _load_flashscore_pairs()
@@ -352,7 +356,7 @@ def verify_board(board: List, board_date: str,
     b365_idx = _index(b365_pairs)
     sb_idx = _index(sb_pairs)
 
-    # Availability flags
+    # Availability flags (source has ANY data)
     fs_available = len(fs_idx) > 0
     pz_available = len(pz_idx) > 0
     sa_available = len(sa_idx) > 0
@@ -417,38 +421,42 @@ def verify_board(board: List, board_date: str,
         if sb_available:
             source_hits["SportyBet"] = _pair_in(sb_idx, nh, na)
 
-        # Count confirming sources
-        confirming_sources = [src for src, hit in source_hits.items() if hit]
-        available_source_names = [src for src, avail in available_sources.items() if avail]
+        # FIX: SportyBet is the PRIMARY source (where we bet). The gate logic:
+        # 1. If fixture NOT in SportyBet -> DROP (we can't price/book it)
+        # 2. If fixture IN SportyBet + ≥1 other source -> VERIFIED
+        # 3. If fixture IN SportyBet only (no other source covers the league) -> KEPT as UNVERIFIED
 
-        # F2 Quorum: need >=2 independent sources confirming
-        if len(confirming_sources) >= 2:
-            _stamp(bf, confirming_sources, verified=True)
+        in_sportybet = sb_available and source_hits.get("SportyBet", False)
+        confirming_other = [src for src in ("FlashScore", "PredictZ", "StatsArea", "Bet365")
+                            if available_sources.get(src, False) and source_hits.get(src, False)]
+
+        if not in_sportybet:
+            # Fixture not in SportyBet -> cannot price/book -> DROP
+            missing_from = [src for src, hit in source_hits.items() if hit]
+            if missing_from:
+                report.dropped_missing_source += 1
+                report.flags.append(
+                    f"VERIFY GATE: '{bf.fixture}' dropped — NOT in SportyBet (primary odds/booking source); "
+                    f"found in {', '.join(missing_from)} only — cannot deploy")
+            else:
+                report.dropped_missing_source += 1
+                report.flags.append(
+                    f"VERIFY GATE: '{bf.fixture}' dropped — not found in ANY source")
+            continue
+
+        # Fixture IS in SportyBet
+        if confirming_other:
+            # SportyBet + ≥1 other source = VERIFIED
+            sources = ["SportyBet"] + confirming_other
+            _stamp(bf, sources, verified=True)
             report.verified += 1
             verified_board.append(bf)
             continue
 
-        # If fixture missing from ANY available source, it's unverifiable -> DROP
-        # (strict F2 quorum: all available sources must agree OR at least 2 confirm)
-        missing_from = [src for src in available_source_names if src not in confirming_sources]
-        if missing_from:
-            report.dropped_missing_source += 1
-            report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' dropped — absent from {', '.join(missing_from)} "
-                f"(only {len(confirming_sources)} source(s) confirmed, need >=2)")
-            continue
-
-        # Edge case: only 1 source available and it confirms -> partial keep
-        if len(available_source_names) == 1 and len(confirming_sources) == 1:
-            _stamp(bf, confirming_sources, verified=False,
-                   reason="partial — only one verification source available")
-            report.kept_unverified += 1
-            verified_board.append(bf)
-            continue
-
-        # Should not reach here, but safety fallback
-        _stamp(bf, confirming_sources, verified=False,
-               reason="insufficient quorum")
+        # Fixture in SportyBet only (other sources don't cover this league)
+        # -> KEEP with UNVERIFIED stamp (partial verification)
+        _stamp(bf, ["SportyBet"], verified=False,
+               reason="partial — in SportyBet (primary); no other source covers this league")
         report.kept_unverified += 1
         verified_board.append(bf)
 

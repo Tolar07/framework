@@ -135,19 +135,19 @@ class ESPNFixturesSource(DataSource):
 def build_fixtures_multi_source() -> MultiSource:
     """Build the fixtures multi-source with automatic failover.
 
-    Order: TheSportsDB (its fetch already tries season feed then eventsday
-    internally) -> ESPN scoreboard (key-free; covers continental + no-ID
-    leagues) -> odds-derived fixtures -> API-Football (paid-plan fallback).
+    Order: API-Football (paid Pro primary; current season, widest window) ->
+    TheSportsDB (season feed + eventsday fallback) -> ESPN scoreboard
+    (key-free; covers continental + no-ID leagues) -> odds-derived fixtures.
     Each source's fetch is kwargs-tolerant so the shared MultiSource.fetch
     kwargs (league, season/fixtures_season, days_ahead) work for all of them.
     """
     return build_multi_source(
         "fixtures",
         [
-            (TheSportsDBFixturesSource().fetch, "thesportsdb", 10),
-            (ESPNFixturesSource().fetch, "espn", 15),
-            (OddsAPIFixturesSource().fetch, "odds_api_fixtures", 20),
-            (APIFootballFixturesSource().fetch, "api_football_fixtures", 30),
+            (APIFootballFixturesSource().fetch, "api_football_fixtures", 10),
+            (TheSportsDBFixturesSource().fetch, "thesportsdb", 15),
+            (ESPNFixturesSource().fetch, "espn", 20),
+            (OddsAPIFixturesSource().fetch, "odds_api_fixtures", 30),
         ],
         max_retries_per_source=1,
     )

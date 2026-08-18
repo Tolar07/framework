@@ -350,6 +350,8 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Shirak Gyumri": "Shirak",
         "Ararat Yerevan": "Ararat",
         "Noah": "FC Noah",
+        "FC Noah Yerevan": "Noah",
+        "FC Alashkert Yerevan": "Alashkert",
     },
     "Bulgarian First League": {
         "Cherno More": "Cherno More Varna",
@@ -393,6 +395,13 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Valletta": "Valletta",
         "Birkirkara": "Birkirkara",
         "Mosta": "Mosta",
+        "Birkirkara FC": "Birkirkara",
+        "Gzira United FC": "Gzira United",
+        "Hamrun Spartans FC": "Hamrun Spartans",
+        "Mosta FC": "Mosta",
+        # Plain ASCII feed spellings (2026-08-18 scan flags)
+        "Gzira United": "Gzira United",
+        "Hamrun Spartans": "Hamrun Spartans",
     },
     "Romanian Liga I": {
         "Petrolul Ploiești": "Petrolul Ploiesti",

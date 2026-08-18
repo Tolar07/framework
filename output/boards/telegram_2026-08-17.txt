@@ -1,18 +1,50 @@
 OLP XDV — DAILY BOARD
 2026-08-18  |  Phase 3 — live capital (Architect-deployed)
-Leagues: 72 · 0 with fixtures
+Leagues: 72 · 3 with fixtures
 Calibration: 16 legs logged, mean CLV -2.62%
 
-⚠ 392 data flag(s) — see /board or the saved board for full detail
+⚠ 389 data flag(s) — see /board or the saved board for full detail
 
-📋 SCAN RECORD — today's rated fixtures (paper, ID415)
-No rated fixtures today — no bet recorded. A valid, honest result (ID415).
+📋 SCAN RECORD — today's rated fixtures — 2026-08-17 (paper, ID415)
+2 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
 
+1. SC Pisa v Empoli (Coppa Italia)
+   Pick: SC Pisa to win (50%)
+   Best market: SC Pisa to win at 1.91 — -4.71% EV
+2. Sassuolo v Cesena FC (Coppa Italia)
+   Pick: Sassuolo to win (77%)
 
+```
+ARMENIAN PREMIER LEAGUE
+· FC Noah Yerevan v FC Alashkert Yerevan
+  NO DATA — PENDING
+```
+```
+COPPA ITALIA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ SC Pisa v Empoli
+    AI pick: SC Pisa (50%)
+  ★ Sassuolo v Cesena FC
+    AI pick: Sassuolo (77%)
+· US Cremonese v Sampdoria Genoa
+  NO DATA — PENDING
+· Palermo FC v US Lecce
+  NO DATA — PENDING
+```
+```
+MALTESE PREMIER LEAGUE
+· Birkirkara FC v Gzira United FC
+  NO DATA — PENDING
+· Hamrun Spartans FC v Mosta FC
+  NO DATA — PENDING
+```
 
 🎯 PRODUCTION BETS — 2026-08-18 (today's fixtures only)
 
-NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
+★ Acca A — HEADLINE, 1 legs
+    SC Pisa v Empoli (Coppa Italia) — SC Pisa to win @ 1.91 [⚠ SportyBet]
+    Combined 1.91 Booking code: NO DATA — PENDING
+    Booking code: NO DATA — PENDING
 
 YESTERDAY — GRADED
 No settled predictions to grade yet.

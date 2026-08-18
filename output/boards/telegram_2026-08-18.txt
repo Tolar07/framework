@@ -1,0 +1,55 @@
+OLP XDV — DAILY BOARD
+2026-08-18  |  Phase 3 — live capital (Architect-deployed)
+Leagues: 72 · 1 with fixtures
+Calibration: 16 legs logged, mean CLV -2.62%
+
+⚠ 386 data flag(s) — see /board or the saved board for full detail
+
+📋 SCAN RECORD — today's rated fixtures — 2026-08-18 (paper, ID415)
+4 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+
+1. Fenerbahçe v Lyon (Champions League)
+   Pick: Lyon to win (39%)
+   Best market: Both teams to score — yes at 1.67 — -0.35% EV
+2. Dinamo Zagreb v Viking (Champions League)
+   Pick: Dinamo Zagreb to win (36%)
+   Best market: Viking to win at 4.00 — +11.32% EV
+3. Fenerbahce v Lyon (Champions League)
+   Pick: Lyon to win (36%)
+4. Dinamo Zagreb v Viking FK (Champions League)
+   Pick: Dinamo Zagreb to win (36%)
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
+```
+CHAMPIONS LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Fenerbahçe v Lyon
+    AI pick: Lyon (39%)
+  ★ Dinamo Zagreb v Viking
+    AI pick: Dinamo Zagreb (36%)
+  ★ Fenerbahce v Lyon
+    AI pick: Lyon (36%)
+  ★ Dinamo Zagreb v Viking FK
+    AI pick: Dinamo Zagreb (36%)
+· Levski Sofia v AEK Athens
+  NO DATA — PENDING
+```
+
+🎯 PRODUCTION BETS — 2026-08-18 (today's fixtures only)
+
+★ Acca A — HEADLINE, 1 legs
+    Fenerbahçe v Lyon (Champions League) — Both teams to score — yes @ 1.67 [⚠ SportyBet]
+    Combined 1.67 Booking code: QGVJ2A
+    Booking code: QGVJ2A
+
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive); away was historically measured negative — the brain learns from live legs
+
+YESTERDAY — GRADED
+No settled predictions to grade yet.
+
+7-DAY ROLLING
+no settled predictions in 7d
+2 legs logged · 2 with CLV (avg CLV +0.00%) · gate 2/30 legs
+
+HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

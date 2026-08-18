@@ -409,12 +409,9 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
             ".tournament-name:visible, .tournament-list-item:visible",
             has_text=league).first
         if league_loc.count() == 0:
-            # Fallback: try the old global match (for backward compatibility
-            # if the scoped selector fails due to DOM structure)
-            league_loc = page.locator(
-                f"text={league} >> visible=true").first
-        if league_loc.count() == 0:
-            print(f"  x League '{league}' not found in sidebar for {country}")
+            # NO FALLBACK — global match caused catastrophic cross-contamination
+            # (Welsh Premier League getting English PL fixtures, Bosnian getting England's, etc.)
+            print(f"  x League '{league}' not found in sidebar for {country} (scoped search only; no global fallback per HR35)")
             return False
 
         try:

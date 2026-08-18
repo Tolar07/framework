@@ -14,13 +14,14 @@
 const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
 
 const ROOT = process.env.OLP_XDV_ROOT
   || 'c:/Users/Motunrayo/omniroute test/olp_xdv_agent/olp_xdv';
 
-const VAULT_ROOT = 'C:/Users/Motunrayo/Documents/OLP_XDV_Vault';
-const VAULT_API_KEY = '32f3dcf8f4b514ce5b6fce5dfd04dc7f0f9d4d01636834b792e33b7803cd1143';
+// Canonical vault = git-tracked repo copy (Architect 2026-08-16). The
+// Documents/OLP_XDV_Vault mirror is DEPRECATED and must not be read. Filesystem
+// read (no REST API dependency) so context loads even when Obsidian is closed.
+const VAULT_ROOT = path.join(ROOT, 'docs', 'obsidian-vault');
 
 // Team briefing files (mandatory for all agents)
 const BRIEFING_FILES = [
@@ -158,8 +159,9 @@ function checkPermissions() {
   }
 }
 
-// Read vault files via local REST API
-async function readVaultContext() {
+// Read vault files from the canonical git-tracked repo copy (filesystem, no
+// REST API). The deprecated Documents/OLP_XDV_Vault mirror is NOT read.
+function readVaultContext() {
   const keyFiles = [
     'OLP XDV.md',
     'Rules.md',
@@ -170,11 +172,11 @@ async function readVaultContext() {
     'Agents.md'
   ];
 
-  log('📚 Reading Obsidian vault context...');
+  log('📚 Reading canonical vault context (repo docs/obsidian-vault/)...');
 
   for (const file of keyFiles) {
     try {
-      const content = await readVaultFile(file);
+      const content = readVaultFile(file);
       if (content) {
         const lines = content.split('\n').length;
         const preview = content.slice(0, 200).replace(/\n/g, ' ');
@@ -189,38 +191,12 @@ async function readVaultContext() {
 }
 
 function readVaultFile(filename) {
-  return new Promise((resolve, reject) => {
-    const encoded = encodeURIComponent(filename);
-    const options = {
-      hostname: 'localhost',
-      port: 27124,
-      path: `/vault/${encoded}`,
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${VAULT_API_KEY}`,
-        'Accept': 'text/markdown'
-      },
-      rejectUnauthorized: false // self-signed cert
-    };
-
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode === 200) {
-          resolve(data);
-        } else if (res.statusCode === 404) {
-          resolve(null);
-        } else {
-          reject(new Error(`HTTP ${res.statusCode}: ${data}`));
-        }
-      });
-    });
-
-    req.on('error', reject);
-    req.setTimeout(10000, () => req.destroy(new Error('Timeout')));
-    req.end();
-  });
+  const fullPath = path.join(VAULT_ROOT, filename);
+  try {
+    return fs.readFileSync(fullPath, 'utf8');
+  } catch {
+    return null;
+  }
 }
 
 // Also check vault sync status

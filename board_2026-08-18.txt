@@ -1,0 +1,55 @@
+PART 0 — HEADER
+Date: 2026-08-18 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: EPL
+Calibration: 35 legs logged, mean CLV +1.20%
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.
+
+PART 2 — COMPACT (fast-scan)
+Fixture | Selected Pick | Booking Code
+A v B (EPL) | A to win | NO DATA — PENDING
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+A v B (EPL) | A·50% | NO DATA — PENDING / NO DATA — PENDING | 1X75 / — | —
+
+PART 1 — THE CALL (full detail) — today's fixtures only
+1 deploy-eligible fixture(s) kicking off today (unified pool — all whitelisted leagues, no cap).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+Fixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A | Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes
+A v B (EPL) | 50 | 25 | 25 | — | — | — | — | — | — | — | — | — | — | — | — | 
+
+PART 3 — REJECTED / WATCHLIST
+None.
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 0
+CONFLICT: 0
+NO-DATA: 1
+DERIVED: 0
+
+📋 SCAN RECORD — today's rated fixtures — 2026-08-18 (paper, ID415)
+3 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+
+1. Fenerbahçe v Lyon (Champions League)
+   Pick: Lyon to win (39%)
+   Best market: Both teams to score — yes at 1.62 — -3.34% EV
+2. Dinamo Zagreb v Viking (Champions League)
+   Pick: Dinamo Zagreb to win (36%)
+   Best market: Viking to win at 4.20 — +10.43% EV
+3. Fenerbahce v Lyon (Champions League)
+   Pick: Lyon to win (36%)
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
+🎯 PRODUCTION BETS — 2026-08-18 (today's fixtures only)
+
+NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+

@@ -133,6 +133,16 @@
           }
         ],
         "description": "HR58 Part2 enforced memory continuity \u2014 inject canonical vault content to stdout"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/scripts/hooks/sync-status.js\""
+          }
+        ],
+        "description": "Sync health dashboard \u2014 vault\u2194memory\u2194mirror status"
       }
     ],
     "PostToolUse": [
@@ -225,6 +235,16 @@
         "hooks": [
           {
             "type": "command",
+            "command": "node \".claude/scripts/hooks/audit-conversation.js\""
+          }
+        ],
+        "description": "Pre-archive fabrication audit — blocks on CRITICAL findings"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
             "command": "node \".claude/scripts/hooks/archive-conversation.js\""
           }
         ],
@@ -239,6 +259,16 @@
           }
         ],
         "description": "HR54 mandatory memory check-out \u2014 verify memory writes before session close"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/scripts/hooks/vault-memory-sync.js\" reconcile"
+          }
+        ],
+        "description": "Bidirectional vault\u2194memory sync with conflict resolution"
       }
     ]
   },
@@ -471,7 +501,6 @@
       "Bash(ls \"C:\\\\Users\\\\Motunrayo\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\omniroute\" 2>/dev/null)"
     ],
     "additionalDirectories": [
-      "C:\\Users\\Motunrayo\\Documents\\OLP_XDV_Vault",
       "C:\\Users\\Motunrayo\\AppData\\Roaming\\Claude",
       "c:\\Users\\Motunrayo\\omniroute test\\olp_xdv_agent\\olp_xdv",
       "C:\\Users\\Motunrayo\\omniroute test\\olp_xdv_agent\\olp_xdv\\data\\cache\\sportybet\\fixtures"

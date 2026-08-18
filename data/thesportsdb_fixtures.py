@@ -268,6 +268,8 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Union Saint-Gilloise": "St. Gilloise",
         "LASK": "Lask Linz",
         "AGF Aarhus": "Aarhus",
+        # 2026-08-18: TheSportsDB feed spells as "Viking FK"; cross-model pool key is "Viking".
+        "Viking FK": "Viking",
     },
     "Conference League": {
         # Same verification rule as CL/EL: feed spelling -> cross-model pool key,

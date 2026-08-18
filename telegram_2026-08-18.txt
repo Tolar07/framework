@@ -1,9 +1,7 @@
 OLP XDV — DAILY BOARD
 2026-08-18  |  Phase 3 — live capital (Architect-deployed)
 Leagues: 1 · 1 with fixtures
-Calibration: 16 legs logged, mean CLV -2.62%
-
-⚠ 26 data flag(s) — see /board or the saved board for full detail
+Calibration: 35 legs logged, mean CLV +1.20%
 
 📋 SCAN RECORD — today's rated fixtures — 2026-08-18 (paper, ID415)
 3 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
@@ -19,35 +17,21 @@ Calibration: 16 legs logged, mean CLV -2.62%
 Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
 
 ```
-CHAMPIONS LEAGUE
+EPL
   ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
-  ★ Fenerbahçe v Lyon
-    AI pick: Lyon (39%)
-  ★ Dinamo Zagreb v Viking
-    AI pick: Dinamo Zagreb (36%)
-  ★ Fenerbahce v Lyon
-    AI pick: Lyon (36%)
-· Levski Sofia v AEK Athens FC
-  NO DATA — PENDING
-· Levski Sofia v AEK Athens
-  NO DATA — PENDING
+  ★ A v B
+    AI pick: A (50%)
 ```
 
 🎯 PRODUCTION BETS — 2026-08-18 (today's fixtures only)
 
-★ Acca A — HEADLINE, 1 legs
-    Fenerbahçe v Lyon (Champions League) — Both teams to score — yes @ 1.62 [⚠ SportyBet]
-    Combined 1.62 Booking code: QGVJ2A
-    Booking code: QGVJ2A
-
-Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive); away was historically measured negative — the brain learns from live legs
+NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
 
 YESTERDAY — GRADED
 No settled predictions to grade yet.
 
 7-DAY ROLLING
-no settled predictions in 7d
-2 legs logged · 2 with CLV (avg CLV +0.00%) · gate 2/30 legs
+No run history yet.
 
 HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
 Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

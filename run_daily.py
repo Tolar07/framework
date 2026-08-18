@@ -52,6 +52,7 @@ from output import email_deliver
 import bets.produced_bet as produced_bet
 import orchestrator
 import pipeline.odds as odds_mod
+from data.multi_source_concrete import get_odds as multi_get_odds
 
 # Pipeline Agent Bus - write stage outputs to Obsidian vault for inter-agent handoff
 try:
@@ -672,23 +673,20 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- fixtures today (a quiet midweek) needs no price pull either — the old
     # --- order fetched all 6 deploy leagues before the scan, and today wasted
     # --- ~10s doing so. Fixture LISTS are already cached (6h) inside the scan.
+    # --- NOW using multi-source odds layer (API-Football paid primary + Odds API backup)
     def _league_of(bf) -> str:
         return bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture \
             else "—"
     # Unified pool: every rated fixture across all whitelisted leagues is
-    # deploy-eligible, so pull prices for all of them. check_quota below still
-    # self-limits spending (price pulls blocked <40).
+    # deploy-eligible, so pull prices for all of them.
     odds_leagues = {_league_of(bf) for bf in board if bf.probs is not None}
     odds_index: dict = {}
     for lg in sorted(odds_leagues):
         try:
-            # Retry a transient network blip once before degrading to NO DATA.
-            fixtures, oflags = _retry_transient(
-                lambda lg=lg: odds_mod.fetch_odds(lg), f"{lg} live odds", runlog)
+            # Multi-source odds with automatic failover: API-Football paid (primary) -> Odds API UK -> Odds API EU
+            fixtures = multi_get_odds(lg)
             odds_index.update(odds_mod.index_by_fixture(fixtures))
-            all_flags += oflags
-        except odds_mod.QuotaExhausted as e:
-            all_flags.append(f"{lg}: {e}")
+            all_flags.append(f"{lg}: odds served via multi-source layer")
         except Exception as e:
             all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
 

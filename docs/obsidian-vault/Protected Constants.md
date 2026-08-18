@@ -43,6 +43,12 @@
 - **`.env` credentials** — `ODDS_API_KEY` (primary) / `ODDS_API_KEY_BACKUP` (backup), `THESPORTSDB_KEY`, `TELEGRAM_BOT_TOKEN`. Re-enabling a killed channel (e.g. WhatsApp) requires Architect approval per the standing order.
 - **`config.PHASE` is not the only gate** — even at Phase 3, the CLV gate (item 2) governs what is published; the two are independent.
 
+## 6. **ALL FIXTURES ELIGIBLE — PERMANENT RULE (2026-08-18 Architect Directive)**
+- **What:** Every fixture from every whitelisted league is scan-eligible AND deploy-eligible. No softness tiers, no deploy caps, no scan-only classes, no "Tier A/B" restrictions. The whitelist (61 leagues, `config/leagues.json`) IS the eligibility boundary — inside it, every fixture is equal.
+- **Why protected:** This codifies the 2026-08-11 cancellation of ID402 (softness tiers fully removed) and the 2026-08-16 consolidation to 61 leagues as a permanent, non-regressible rule. No agent may re-introduce tiering, caps, or partial-eligibility without an explicit, named Architect instruction.
+- **Implements:** `engine/leagues.py` (`is_deploy_eligible()` = whitelist membership only), `engine/league_registry.py` (loads `config/leagues.json`), `config/leagues.json` (authoritative).
+- **Linked:** [[Decisions Log.md]] 2026-08-11 ID402 FULLY REMOVED; [[Rules.md]] HR34, ID401, ID402.
+
 ---
 
 ## How to treat this list

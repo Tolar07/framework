@@ -307,16 +307,33 @@ class APIFootballOddsSource(DataSource):
 
 
 def build_odds_multi_source(league: str) -> MultiSource:
-    """Build odds multi-source for a specific league."""
-    # UK + EU regions for redundancy, API-Football free plan as the last resort
-    # when the monthly Odds API quota is exhausted.
-    return build_multi_source(
-        f"odds_{league}",
-        [
+    """Build odds multi-source for a specific league.
+
+    Priority order:
+    - If API-Football is on a PAID plan: API-Football (primary) -> Odds API UK -> Odds API EU
+    - If API-Football is FREE: Odds API UK -> Odds API EU -> API-Football free (fallback)
+    """
+    from data import api_football_plan
+    paid = api_football_plan.is_paid_plan()
+
+    if paid:
+        # PAID API-Football is primary (current season, wider date window, same bookmakers)
+        sources = [
+            (APIFootballOddsSource().fetch, "api_football_odds", 10),
+            (OddsAPISource(regions="uk", markets="h2h,totals").fetch, "odds_api_uk", 15),
+            (OddsAPISource(regions="eu", markets="h2h,totals").fetch, "odds_api_eu", 20),
+        ]
+    else:
+        # FREE API-Football is last resort (today±1 window, 100 req/day)
+        sources = [
             (OddsAPISource(regions="uk", markets="h2h,totals").fetch, "odds_api_uk", 10),
             (OddsAPISource(regions="eu", markets="h2h,totals").fetch, "odds_api_eu", 15),
             (APIFootballOddsSource().fetch, "api_football_odds", 20),
-        ],
+        ]
+
+    return build_multi_source(
+        f"odds_{league}",
+        sources,
         max_retries_per_source=1,
     )
 

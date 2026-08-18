@@ -1,23 +1,28 @@
 PART 0 — HEADER
 Date: 2026-08-18 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
-Leagues scanned: EPL
-Calibration: 35 legs logged, mean CLV +1.20%
+Leagues scanned: EFL Cup
+Calibration: 16 legs logged, mean CLV -2.62%
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ Champions League: no results available for grading
+  ⚠ Automated CLV grading: 0 leg(s) settled
+  ⚠ produced-bet verified 2026-08-17: 0 won / 0 lost / 2 pending
+  ⚠ VERIFY GATE: 0 verified, 0 kept-unverified, 1 dropped (FlashScore on, SportyBet on)
+  ⚠ VERIFY GATE: 'Bristol City v Walsall (EFL Cup)' dropped — not found in ANY source
+  ⚠ SHADOW calibration (below gate, NOT applied): 1X2_DRAW -0.9%, 1X2_HOME -1.3% — visible only; inert until MIN_LEGS legs settle
+  ⚠ ensemble weights: no engine has enough settled evidence (cal >= 15 settled predictions and clv >= 5 legs-with-CLV) — consensus unweighted
+  ⚠ logged 0 new paper leg(s) with a live entry price (agreement_band=0.04)
+  ⚠ Phase 3 gate: 16 of 30 legs with logged CLV; mean CLV -2.621
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.
 
 PART 2 — COMPACT (fast-scan)
 Fixture | Selected Pick | Booking Code
-A v B (EPL) | A to win | NO DATA — PENDING
 
 PART 2 — THE SCAN
 Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
-A v B (EPL) | A·50% | NO DATA — PENDING / NO DATA — PENDING | 1X75 / — | —
 
-PART 1 — THE CALL (full detail) — today's fixtures only
-1 deploy-eligible fixture(s) kicking off today (unified pool — all whitelisted leagues, no cap).
-MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
-Fixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A | Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes
-A v B (EPL) | 50 | 25 | 25 | — | — | — | — | — | — | — | — | — | — | — | — | 
+PART 1 — THE CALL — today's fixtures only
+NO DEPLOY-ELIGIBLE CALL this session — no deployable fixture kicks off today (a valid, honest result).
 
 PART 3 — REJECTED / WATCHLIST
 None.
@@ -26,21 +31,11 @@ PART 4 — DATA INTEGRITY (ID403 counts)
 VERIFIED: 0
 SINGLE-SOURCE: 0
 CONFLICT: 0
-NO-DATA: 1
+NO-DATA: 0
 DERIVED: 0
 
-📋 SCAN RECORD — today's rated fixtures — 2026-08-18 (paper, ID415)
-3 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
-
-1. Fenerbahçe v Lyon (Champions League)
-   Pick: Lyon to win (39%)
-   Best market: Both teams to score — yes at 1.62 — -3.34% EV
-2. Dinamo Zagreb v Viking (Champions League)
-   Pick: Dinamo Zagreb to win (36%)
-   Best market: Viking to win at 4.20 — +10.43% EV
-3. Fenerbahce v Lyon (Champions League)
-   Pick: Lyon to win (36%)
-Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+📋 SCAN RECORD — today's rated fixtures (paper, ID415)
+No rated fixtures today — no bet recorded. A valid, honest result (ID415).
 
 🎯 PRODUCTION BETS — 2026-08-18 (today's fixtures only)
 
@@ -53,3 +48,14 @@ Capital authority: THE ARCHITECT. Nothing here is live until the Architect deplo
 
 ============================================================
 
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
+Champions League: no results available for grading | NO DATA — PENDING |  |  |  | 
+Automated CLV grading: 0 leg(s) settled | NO DATA — PENDING |  |  |  | 
+produced-bet verified 2026-08-17: 0 won / 0 lost / 2 pending | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 0 verified, 0 kept-unverified, 1 dropped (FlashScore on, SportyBet on) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Bristol City v Walsall (EFL Cup)' dropped — not found in ANY source | NO DATA — PENDING |  |  |  | 
+SHADOW calibration (below gate, NOT applied): 1X2_DRAW -0.9%, 1X2_HOME -1.3% — visible only; inert until MIN_LEGS legs settle | NO DATA — PENDING |  |  |  | 
+ensemble weights: no engine has enough settled evidence (cal >= 15 settled predictions and clv >= 5 legs-with-CLV) — consensus unweighted | NO DATA — PENDING |  |  |  | 
+logged 0 new paper leg(s) with a live entry price (agreement_band=0.04) | NO DATA — PENDING |  |  |  | 
+Phase 3 gate: 16 of 30 legs with logged CLV; mean CLV -2.621 | NO DATA — PENDING |  |  |  | 

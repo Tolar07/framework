@@ -9,20 +9,19 @@ const VAULT_ROOT = 'c:/Users/Motunrayo/omniroute test/olp_xdv_agent/olp_xdv/docs
 const MEMORY_ROOT = 'c:/Users/Motunrayo/.claude/projects/C--Users-Motunrayo-omniroute-test/memory';
 const BACKUP_DIR = path.join(MEMORY_ROOT, 'sync-backups');
 const COMPLIANCE_LOG = path.join(MEMORY_ROOT, 'memory_compliance.log');
+const CONFIG_PATH = path.join(__dirname, '..', '..', '..', '.claude', 'config', 'vault-memory-mappings.json');
 
-const FILE_MAPPINGS = [
-  { vault: 'Agents.md', memory: 'olp-xdv-agent.md', direction: 'bidirectional' },
-  { vault: 'Architecture.md', memory: null, direction: 'vault-to-memory' },
-  { vault: 'Decisions Log.md', memory: null, direction: 'vault-to-memory' },
-  { vault: 'Open Questions.md', memory: 'open-questions.md', direction: 'bidirectional' },
-  { vault: 'Protected Constants.md', memory: null, direction: 'vault-to-memory' },
-  { vault: 'Rules.md', memory: 'rules.md', direction: 'bidirectional' },
-  { vault: 'Loops.md', memory: 'loops.md', direction: 'vault-to-memory' },
-  { vault: 'README.md', memory: 'readme.md', direction: 'vault-to-memory' },
-  { vault: 'Vault-Memory-Index.md', memory: 'MEMORY.md', direction: 'bidirectional' },
-  { vault: 'OLP_XDV_Framework_Index.md', memory: 'framework-index.md', direction: 'vault-to-memory' },
-  { vault: 'Audit Reports.md', memory: 'conversations/', direction: 'memory-to-vault-append' },
-];
+function loadMappings() {
+  try {
+    const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+    return config.FILE_MAPPINGS;
+  } catch (e) {
+    console.error(`[vault-memory-sync] Failed to load mappings from ${CONFIG_PATH}: ${e.message}`);
+    process.exit(1);
+  }
+}
+
+const FILE_MAPPINGS = loadMappings();
 
 function log(msg) { console.error(`[vault-memory-sync] ${msg}`); }
 function fileHash(filepath) {

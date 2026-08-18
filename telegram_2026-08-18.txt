@@ -1,27 +1,14 @@
 OLP XDV — DAILY BOARD
 2026-08-18  |  Phase 3 — live capital (Architect-deployed)
-Leagues: 1 · 1 with fixtures
-Calibration: 35 legs logged, mean CLV +1.20%
+Leagues: 1 · 0 with fixtures
+Calibration: 16 legs logged, mean CLV -2.62%
 
-📋 SCAN RECORD — today's rated fixtures — 2026-08-18 (paper, ID415)
-3 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+⚠ 9 data flag(s) — see /board or the saved board for full detail
 
-1. Fenerbahçe v Lyon (Champions League)
-   Pick: Lyon to win (39%)
-   Best market: Both teams to score — yes at 1.62 — -3.34% EV
-2. Dinamo Zagreb v Viking (Champions League)
-   Pick: Dinamo Zagreb to win (36%)
-   Best market: Viking to win at 4.20 — +10.43% EV
-3. Fenerbahce v Lyon (Champions League)
-   Pick: Lyon to win (36%)
-Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+📋 SCAN RECORD — today's rated fixtures (paper, ID415)
+No rated fixtures today — no bet recorded. A valid, honest result (ID415).
 
-```
-EPL
-  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
-  ★ A v B
-    AI pick: A (50%)
-```
+
 
 🎯 PRODUCTION BETS — 2026-08-18 (today's fixtures only)
 
@@ -31,7 +18,8 @@ YESTERDAY — GRADED
 No settled predictions to grade yet.
 
 7-DAY ROLLING
-No run history yet.
+no settled predictions in 7d
+2 legs logged · 2 with CLV (avg CLV +0.00%) · gate 2/30 legs
 
 HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
 Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

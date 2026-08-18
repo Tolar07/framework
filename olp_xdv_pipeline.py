@@ -1382,7 +1382,7 @@ def main() -> None:
         except Exception:
             pass
 
-    state = run_pipeline(args.season, args.fixtures_season, args.dry_run, args.only)
+    state = _run_pipeline_internal(season=args.season, fixtures_season=args.fixtures_season, dry_run=args.dry_run, only=args.only)
 
     final = state.payloads.get(args.only or 10, {})
     if args.json:

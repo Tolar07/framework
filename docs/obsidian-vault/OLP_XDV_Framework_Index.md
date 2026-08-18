@@ -20,7 +20,7 @@ All paths below point at the real repo.
 | **Engine: Leagues** | `…/olp_xdv_agent/olp_xdv/engine/leagues.py` | Dynamic league registry (ID401, from `config/leagues.json`) |
 | **Tests** | `…/olp_xdv_agent/tests/` | Parity test: `webapp_feed_parity_test.py` |
 | **Data / CSV** | `…/olp_xdv_agent/olp_xdv/data/` | Season CSVs (2526 completed, 2627 live) |
-| **Design Reference** | `…/olp_xdv_agent/olp_xdv/design-reference/` | Mockup + proto.css (pitch-night palette) |
+| **Design Reference** | `…/olp_xdv_agent/olp_xdv/design-reference/` | Mockup + pitch-night palette (proto.css) |
 
 ---
 
@@ -69,7 +69,7 @@ docs/obsidian-vault/
 
 **Retired Mirror (Documents/OLP_XDV_Vault/):**
 - Marked read-only, `DEPRECATED_NOTICE.md` in root
-- No longer in `additionalDirectories` (to be removed from settings.json)
+- No longer in `additionalDirectories` (removed from settings.json)
 - Historical `Pipeline Runs/` preserved for reference only
 
 ---

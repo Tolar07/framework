@@ -121,6 +121,14 @@
 
 ---
 
+## 10. Viking @4.00 — MAX_ODDS_CAP ruling (2026-08-18)
+- **Context:** The board for 2026-08-18 shows **Dinamo Zagreb v Viking (Champions League)** with "Viking to win" at **@4.00** carrying **+11.32% EV** (the fixture's best market by edge). This leg is **rejected by the MAX_ODDS_CAP = 2.00** hard cap in `engine/acca.py:73` (the FL-bias guardrail).
+- **Architect ruling (2026-08-18, chat):** "max odds is 2.00 odds adhere to the rules" — **NO override.** The cap is a deployment policy and stays at 2.00. The Viking @4.00 leg remains rejected; Acca A carries only the Fenerbahçe v Lyon BTTS @1.67 leg. A high-EV long-odds leg is exactly the FL-bias bucket the cap exists to exclude.
+- **Impact:** this is a **Protected Constant** ([[Protected Constants.md]] item 5) — the Architect confirmed adherence, so no code change and no sign-off request. Recorded for the audit trail only.
+- **Linked:** [[Protected Constants.md]] item 5 (MAX_ODDS_CAP / engine/acca.py guardrail), [[Decisions Log.md]] 2026-08-11 ID405 override precedent (away-win exclusion removed by Architect directive — distinct from this cap).
+
+---
+
 ## How to use this file
 - **If you are an agent and something here blocks you:** surface the question
   again rather than picking an answer yourself (HR35 — no fabrication, no

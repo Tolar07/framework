@@ -212,6 +212,10 @@ def fetch_flashscore(today: str) -> List[Dict]:
     regex is buggy); only team identity + date are consumed here, for the
     verification gate.
 
+    CRITICAL FIX (2026-08-17): Fixtures for a given match day are scraped the
+    NIGHT BEFORE. The most recent file (files[0]) contains the NEXT day's fixtures.
+    We must search ALL feed files and filter by resolved kickoff date.
+
     Only fixtures matching the requested `today` date are returned.
 
     If the feed is absent (not yet scraped, or cleaned), returns [] — the
@@ -226,38 +230,46 @@ def fetch_flashscore(today: str) -> List[Dict]:
     if not files:
         return rows
     seen: set = set()
-    for line in files[0].read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
-            continue
+    # Search ALL feed files, not just the most recent one.
+    # Fixtures for a match day are scraped the night before, so the target
+    # date's fixtures may be in an older file.
+    for fpath in files:
         try:
-            d = json.loads(line)
+            content = fpath.read_text(encoding="utf-8")
         except Exception:
             continue
-        if d.get("type") != "match_1x2":
-            continue
-        home = (d.get("home_team") or "").strip()
-        away = (d.get("away_team") or "").strip()
-        if not home or not away:
-            continue
-        kickoff = _flashscore_line_to_date(d.get("match_datetime"), target_date=today)
-        if kickoff != today:
-            continue  # filter to requested date
-        key = f"{home}|{away}|{kickoff}"
-        if key in seen:
-            continue
-        seen.add(key)
-        rows.append({
-            "league": "FlashScore",
-            "home": home,
-            "away": away,
-            "kickoff": kickoff[11:16] if kickoff else "TBD",
-            "odds_1": None,
-            "odds_x": None,
-            "odds_2": None,
-            "source": "FlashScore",
-            "kickoff_date": kickoff,
-        })
+        for line in content.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
+            if d.get("type") != "match_1x2":
+                continue
+            home = (d.get("home_team") or "").strip()
+            away = (d.get("away_team") or "").strip()
+            if not home or not away:
+                continue
+            kickoff = _flashscore_line_to_date(d.get("match_datetime"), target_date=today)
+            if kickoff != today:
+                continue  # filter to requested date
+            key = f"{home}|{away}|{kickoff}"
+            if key in seen:
+                continue
+            seen.add(key)
+            rows.append({
+                "league": "FlashScore",
+                "home": home,
+                "away": away,
+                "kickoff": kickoff[11:16] if kickoff else "TBD",
+                "odds_1": None,
+                "odds_x": None,
+                "odds_2": None,
+                "source": "FlashScore",
+                "kickoff_date": kickoff,
+            })
     return rows
 
 

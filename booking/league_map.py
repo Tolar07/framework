@@ -117,7 +117,7 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Slovak Super Liga":          BookmakerLeague("Slovakia", "Super Liga"),
     "Slovenian PrvaLiga":         BookmakerLeague("Slovenia", "PrvaLiga"),
     "UEFA Super Cup":             BookmakerLeague("International Clubs", "UEFA Super Cup"),
-    "Welsh Premier League":       BookmakerLeague("Wales", "Premier League"),
+    "Welsh Premier League":       BookmakerLeague("Wales", "Cymru Premier"),
 }
 
 # --- Bet365 mapping ---

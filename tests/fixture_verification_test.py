@@ -97,9 +97,9 @@ def test_verify_board_dropped_when_in_no_available_source():
         assert any("dropped" in f for f in report.flags)
 
 
-def test_verify_board_dropped_when_only_in_one_of_two_available():
-    """Both sources available; fixture appears in only FlashScore (SportyBet
-    has data for other pairings but not this one) -> DROPPED (no F2 quorum)."""
+def test_verify_board_dropped_when_only_in_flashscore():
+    """Both sources available; fixture appears in ONLY FlashScore (not SportyBet)
+    -> DROPPED (SportyBet is primary)."""
     bf1 = MagicMock()
     bf1.fixture = "Arsenal v Coventry (Premier League)"
     bf1.kickoff_date = "2026-08-21"
@@ -118,7 +118,7 @@ def test_verify_board_dropped_when_only_in_one_of_two_available():
 
         assert len(verified) == 0
         assert report.dropped_missing_source == 1
-        assert any("absent from SportyBet" in f for f in report.flags)
+        assert any("NOT in SportyBet" in f for f in report.flags)
 
 
 def test_verify_board_double_outage_keep_unverified():

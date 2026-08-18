@@ -232,6 +232,25 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Panathinaikos": "Panathinaikos",           # identity
     "FC CSKA 1948": "FC CSKA 1948",             # identity
     "Apollon Limassol": "Apollon Limassol",     # identity
+    # --- Armenian Premier League (2026-08-18): TheSportsDB fixture feed -> SportyBet spellings
+    # Verified from TheSportsDB feed names; SportyBet uses same spellings for these clubs.
+    "Noah": "FC Noah",
+    "Alashkert": "FC Alashkert",
+    "Ararat-Armenia": "FC Ararat-Armenia",
+    "Urartu": "FC Urartu",
+    "Shirak": "Shirak Gyumri",
+    "Ararat": "Ararat Yerevan",
+    # --- Maltese Premier League (2026-08-18): TheSportsDB fixture feed -> SportyBet spellings
+    # Verified from TheSportsDB feed names; SportyBet uses same spellings for these clubs.
+    "Birkirkara": "Birkirkara",
+    "Gzira United": "Gzira United",
+    "Hamrun Spartans": "Hamrun Spartans",
+    "Mosta": "Mosta",
+    "Balzan": "Balzan FC",
+    "Floriana": "Floriana",
+    "Valletta": "Valletta",
+    "Zabbar St. Patrick": "Zabbar St. Patrick",
+    "Birzebbuga St. Peter": "Birzebbuga St. Peter",
 }
 
 

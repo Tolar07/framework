@@ -53,6 +53,7 @@
 | **Ranking by confidence** — legs ranked by model probability (was EV) | **SUPERSEDED 2026-08-11 by Multi-market selection (EDGE = model_prob × price − 1)**; the "ranking by confidence" directive in this log is overridden by the EDGE-ranking directive of the same date | `engine/acca.py` `_best_deployable_leg()` (EDGE), [[Decisions Log.md]] 15-Aug reconciliation |
 | **Architect publish override** — `ARCHITECT_SIGNOFF=1` bypasses the statistical client-publish gate; override is never silent (stamped in `publish_audit.jsonl`, honest-edge statement stays on the client view) | Active | `webapp/schema.py` |
 | **Multi-market selection** — every fixture evaluated across ALL markets (1X2, O/U1.5, O/U2.5, BTTS, Double Chance); picks its own single best market by highest **EDGE = model_prob × price − 1**, tiebreak prob, then canonical order | Active | `engine/acca.py` `_best_deployable_leg()` |
+| **ALL FIXTURES ELIGIBLE** — Every fixture from every whitelisted league is scan-eligible AND deploy-eligible. No softness tiers, no deploy caps, no scan-only classes, no "Tier A/B" restrictions. The whitelist (61 leagues, `config/leagues.json`) IS the eligibility boundary — inside it, every fixture is equal. | Active (2026-08-18 Architect Directive) | `engine/leagues.py` (`is_deploy_eligible()` = whitelist membership only), `engine/league_registry.py`, `config/leagues.json` |
 
 ---
 

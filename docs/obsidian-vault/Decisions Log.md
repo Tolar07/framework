@@ -73,3 +73,27 @@
 **Committed & saved:** this session will commit the four doc changes above. The 61 whitelist was already committed in `config/leagues.json`.
 
 **Discrepancy found & resolved:** the undocumented 61 expansion (`811eefb`) + two drifting vaults + stale doc numbers (18/25/61) — all resolved by this reconciliation per HR56 r7.
+
+---
+
+## 2026-08-18 · ALL FIXTURES ELIGIBLE — Permanent Rule (Architect Directive)
+
+**Directive (chat, 2026-08-18):**
+"new rule all fixtures are eligible never forget"
+
+**Effect:**
+1. **Codified as permanent rule** in [[Protected Constants.md]] §6 and [[Rules.md]] Standing Rules: every fixture from every whitelisted league (61 leagues, `config/leagues.json`) is scan-eligible AND deploy-eligible. No softness tiers, no deploy caps, no scan-only classes, no "Tier A/B" restrictions. The whitelist IS the eligibility boundary — inside it, every fixture is equal.
+2. **Non-regressible** — no agent may re-introduce tiering, caps, or partial-eligibility without an explicit, named Architect instruction.
+3. **Retroactively ratifies** the 2026-08-11 ID402 cancellation (softness tiers fully removed) and 2026-08-16 consolidation to 61 leagues as permanent governance.
+
+**Implemented in docs (this commit):**
+- [[Protected Constants.md]] — Added §6 "ALL FIXTURES ELIGIBLE — PERMANENT RULE" with cross-links to ID402 removal, HR34, ID401.
+- [[Rules.md]] — Added "ALL FIXTURES ELIGIBLE" standing rule with implementing code references.
+
+**Already implemented in code (verified):**
+- `engine/leagues.py` — `is_deploy_eligible()` = whitelist membership only (no tiering logic remains)
+- `engine/league_registry.py` — loads `config/leagues.json` (61 leagues, all `deploy_eligible=true`)
+- `config/leagues.json` — authoritative source, all 61 leagues marked `deploy_eligible=true`
+- `run_daily.py` — unified pool: "every rated fixture across all whitelisted leagues is deploy-eligible, so pull prices for all of them" (line ~680)
+
+**Committed & saved:** this session will commit the doc changes above. The code implementation was already in place from 2026-08-11/16.

@@ -12,10 +12,21 @@ const { spawnSync } = require('child_process');
 
 const REPO_ROOT = process.env.OLP_XDV_ROOT
   || 'c:/Users/Motunrayo/omniroute test/olp_xdv_agent/olp_xdv';
-const MEMORY_ROOT = path.join(process.env.USERPROFILE || process.env.HOME || '', '.claude', 'projects', 'C--Users-Motunrayo-omniroute-test');
+const MEMORY_ROOT = path.join(process.env.USERPROFILE || process.env.HOME || '', '.claude', 'projects', 'C--Users-Motunrayo-omniroute-test', 'memory');
 const VAULT_ROOT = path.join(REPO_ROOT, 'docs', 'obsidian-vault');
 const AUDIT_DIR = path.join(MEMORY_ROOT, 'audit');
 const COMPLIANCE_LOG = path.join(MEMORY_ROOT, 'memory_compliance.log');
+const CONFIG_PATH = path.join(__dirname, '..', '..', '..', '.claude', 'config', 'vault-memory-mappings.json');
+
+function loadMappings() {
+  try {
+    const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+    return config.FILE_MAPPINGS;
+  } catch (e) {
+    console.error(`[sync-status] Failed to load mappings from ${CONFIG_PATH}: ${e.message}`);
+    process.exit(1);
+  }
+}
 
 function fileHash(filepath) {
   try {
@@ -32,19 +43,7 @@ function fileHash(filepath) {
 }
 
 function getSyncStatus() {
-  const FILE_MAPPINGS = [
-    { vault: 'Agents.md', memory: 'olp-xdv-agent.md', direction: 'bidirectional' },
-    { vault: 'Architecture.md', memory: null, direction: 'vault-to-memory' },
-    { vault: 'Decisions Log.md', memory: null, direction: 'vault-to-memory' },
-    { vault: 'Open Questions.md', memory: 'open-questions.md', direction: 'bidirectional' },
-    { vault: 'Protected Constants.md', memory: null, direction: 'vault-to-memory' },
-    { vault: 'Rules.md', memory: 'rules.md', direction: 'bidirectional' },
-    { vault: 'Loops.md', memory: 'loops.md', direction: 'vault-to-memory' },
-    { vault: 'README.md', memory: 'readme.md', direction: 'vault-to-memory' },
-    { vault: 'Vault-Memory-Index.md', memory: 'MEMORY.md', direction: 'bidirectional' },
-    { vault: 'OLP_XDV_Framework_Index.md', memory: 'framework-index.md', direction: 'vault-to-memory' },
-    { vault: 'Audit Reports.md', memory: 'conversations/', direction: 'memory-to-vault-append' },
-  ];
+  const FILE_MAPPINGS = loadMappings();
 
   let inSync = 0, diverged = 0, missingVault = 0, missingMemory = 0;
   const details = [];

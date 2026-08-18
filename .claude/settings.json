@@ -265,10 +265,30 @@
         "hooks": [
           {
             "type": "command",
+            "command": "node \".claude/scripts/hooks/vault-memory-sync.js\" backup"
+          }
+        ],
+        "description": "Backup vault and memory files before reconciliation"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
             "command": "node \".claude/scripts/hooks/vault-memory-sync.js\" reconcile"
           }
         ],
         "description": "Bidirectional vault\u2194memory sync with conflict resolution"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \".claude/scripts/hooks/vault-memory-sync.js\" push"
+          }
+        ],
+        "description": "Push bidirectional memory changes to canonical vault"
       }
     ]
   },
@@ -515,7 +535,7 @@
         "run",
         "@af/mcp-obsidian",
         "--config",
-        "{\"vaultPath\":\"C:\\Users\\Motunrayo\\Documents\\OLP_XDV_Vault\"}"
+        "{\"vaultPath\":\"c:/Users/Motunrayo/omniroute test/olp_xdv_agent/olp_xdv/docs/obsidian-vault\"}"
       ],
       "env": {}
     }

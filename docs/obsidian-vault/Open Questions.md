@@ -59,11 +59,12 @@
   added).
 - **Open:** confirm the key exists before trusting HNL odds (HR35).
 
-## 7. EVENTSDAY fallback (ID410) — exact implementation location
+## 7. EVENTSDAY fallback (ID410) — exact implementation location — **ANSWERED 2026-08-18**
 - **Context:** only `tests/eventsday_fallback_test.py` references the name; the
   code function has a different name. Verified present in the data/fixtures path.
 - **Open:** pin the exact function so the rule table ([[Rules.md]]) points at the
   right line.
+- **Answer (2026-08-18, HR58 Order 1):** Pinned at `data/thesportsdb_fixtures.py:fetch_today()` (lines 851–884). Wired via `TheSportsDBFixturesSource.fetch` in `data/multi_source_concrete.py`. Verified HR35-compliant (skips missing team/date, excludes played, never reconstructs). See [[Rules.md]] HR35 Fixture Fabrication Audit section.
 
 ## 8. security-reviewer retirement is convention, not deletion
 - **Context:** `security-reviewer` is "retired in favor of `security-auditor`"
@@ -71,12 +72,13 @@
 - **Open:** should the dead one be deleted, or kept for reference? Affects
   [[Agents.md]] accuracy and which reviewer an agent actually invokes.
 
-## 9. Two vault copies — which is canonical? (2026-08-16)
+## 9. Two vault copies — which is canonical? (2026-08-16) — **ANSWERED 2026-08-18 (HR58 Order 3)**
 - **Context:** the governance vault exists in two places:
   - **Canonical (git-tracked):** `olp_xdv_agent/olp_xdv/docs/obsidian-vault/` — committed, part of repo history.
   - **Drifted mirror (non-git):** `Documents/OLP_XDV_Vault/` — NOT a git repo, has more lines (e.g. `Decisions Log.md` 125 vs 50, `Rules.md` 73 vs 63) and stale numbers (still says "25 leagues").
 - **Architect 2026-08-16 ruled:** the git-tracked repo copy is authoritative; the `Documents` mirror is deprecated and must not be treated as source of truth.
 - **Open:** retire the `Documents/OLP_XDV_Vault` mirror (delete or symlink to repo copy)? Or establish a one-way sync (repo → mirror only)? Until resolved, **all agents must read/write the repo copy only**.
+- **Answer (2026-08-18, HR58 Order 3):** Canonical = repo `docs/obsidian-vault/`. All hooks (`session-init.js`, `memory-check.js`, `session-vault-inject.js`) now read/write the **git-tracked repo copy only** via filesystem (no REST API). The `Documents/OLP_XDV_Vault` mirror is deprecated — agents MUST NOT read from it. SessionStart injection hook (`session-vault-inject.js`) prints vault digest to stdout for cross-session continuity.
 
 ---
 

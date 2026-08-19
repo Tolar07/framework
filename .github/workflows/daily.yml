@@ -3,8 +3,8 @@ name: OLP XDV daily board
 # 07:00 Africa/Lagos == 06:00 UTC (Nigeria is UTC+1 year-round, no DST).
 # GitHub cron is always UTC.
 on:
-  schedule:
-    - cron: "0 6 * * *"
+  # schedule:
+  #   - cron: "0 6 * * *"   # DISABLED per Architect request 2026-08-19
   workflow_dispatch:        # manual trigger, for testing without waiting a day
 
 # Needed so the run can commit the CLV log back — without persistence the

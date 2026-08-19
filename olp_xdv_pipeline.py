@@ -1005,10 +1005,11 @@ def agent_10_ceo(state: PipelineState) -> dict:
         rejections.append({"code": "KELLY_CAP_BREACH",
                            "detail": "A leg exceeds 5% Kelly cap"})
     g = inp["publish_gate"]
-    if g.get("clv_legs", 0) < CLV_GATE_LEGS or not (g.get("clv_mean") or 0) > 0:
+    # Respect Agent 9's publish gate decision including ARCHITECT_SIGNOFF override
+    if g.get("result") == "PUBLISH_BLOCKED":
         rejections.append({"code": "FRAMEWORK_NOT_PROFITABLE",
                            "detail": f"CLV gate not met (legs {g.get('clv_legs')}, "
-                                     f"mean {g.get('clv_mean')})"})
+                                     f"mean {g.get('clv_mean')}) — override={g.get('override', False)}"})
     if inp["risk_flags"]:
         rejections.extend([{"code": "TEAM_LEAD_RISK", "detail": f} for f in inp["risk_flags"]])
 

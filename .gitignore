@@ -1,7 +1,19 @@
 # Secrets — never committed. Keys live here locally and as encrypted repo
 # secrets in GitHub Actions (Settings -> Secrets and variables -> Actions).
 .env
+.env.*
+.env.local
 *.key
+credentials.json
+service_account.json
+*.pem
+
+# Session state / conversation logs / data dumps — contain live secrets
+memory/conversations/
+*.jsonl
+!backtest/results/metrics_history.jsonl
+!output/boards/feed_audit.jsonl
+!feed_audit.jsonl
 
 # Cached source data — re-fetchable, and large
 data/cache/
@@ -28,6 +40,23 @@ tests/tmp_*.json
 logs/poller.log
 logs/web.jsonl
 logs/web_server.log
+
+# Runtime state / data dumps — never commit
+data/live_odds/
+logs/*.log
+logs/*.jsonl
+clv/clv_log*.json
+debrief/
+config/league_groups.json
+config/leagues.json
+data/fs_leagues.json
+data/fs_suggest.json
+.claude/settings.local.json
+memory/telegram_offset.json
+monitoring/
+output/league_coverage_state.json
+acca_*.json
+test_conversation.jsonl
 
 # Brain database — derived, re-buildable from clv_log.json + model history
 brain/*.db

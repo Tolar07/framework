@@ -71,6 +71,8 @@ ACCA_A_MAX = 5          # the headline acca holds the top 4-5 confidence legs
 HEADLINE_MIN_LEGS = 4   # below this, Acca A is a shortened acca, never padded
 SPLIT_GROUP_TARGET = 5  # remainder splits into ~4-5 leg groups, never one giant acca
 MAX_ODDS_CAP = 2.00     # hard cap — any leg with price > 2.00 is rejected (FL-bias guardrail)
+MIN_ODDS_FLOOR = 1.20   # hard floor — any leg with price < 1.20 is rejected (no value in heavy favourites)
+PREFERRED_ODDS_CEILING = 1.50  # sweet spot ceiling — 1.20–1.50 is the "safe" deployment zone (Architect 2026-08-19)
 
 
 @dataclass
@@ -166,7 +168,9 @@ def _market_implied(market_key: str, fx, price) -> Optional[float]:
 
 def _best_deployable_leg(bf, odds_index: Optional[dict],
                          agreement_band: Optional[float] = None,
-                         max_odds_cap: float = MAX_ODDS_CAP) -> Optional[AccaLeg]:
+                         max_odds_cap: float = MAX_ODDS_CAP,
+                         min_odds_floor: float = MIN_ODDS_FLOOR,
+                         preferred_ceiling: float = PREFERRED_ODDS_CEILING) -> Optional[AccaLeg]:
     """The best CAPITAL-CLEARED market for one fixture, priced on the live line.
 
     Multi-market selection (Architect 2026-08-11): every fixture is evaluated
@@ -185,6 +189,17 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
     best leg ONLY inside that trusted zone. Disabled (None) = today's shipped
     EV-ranking behaviour, untouched.
 
+    ODDS DEPLOYMENT POLICY (Architect 2026-08-19):
+    - HARD FLOOR: reject any market priced below min_odds_floor (1.20) — no
+      value in heavy favourites where book overround is hidden and edge is
+      negligible even when model agrees.
+    - HARD CEILING: reject any market priced above max_odds_cap (2.00) — long
+      odds are where the model is least reliable (FL-bias guardrail).
+    - PREFERRED ZONE: 1.20–1.50 is the "safe" deployment sweet spot. Legs in
+      this zone are prioritised; legs in 1.50–2.00 are admitted only when no
+      preferred-zone leg exists for the fixture. This mirrors personal risk
+      tolerance: accas built from short-priced legs with compounded value.
+
     A market enters only when it carries a REAL bookmaker price (SportyBet 1X2
     attrs, or the odds index — api-football fills O1.5/BTTS/DC, the Odds API
     free tier fills the rest). Returns None when the fixture has no model probs,
@@ -196,6 +211,7 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
     fx = odds_index.get((home, away)) if odds_index is not None else None
 
     best: Optional[AccaLeg] = None
+    best_in_preferred: Optional[AccaLeg] = None  # tracks best leg in 1.20-1.50 zone
     for market in mkt.EDGE_MARKETS:
         prob = mkt.model_prob(market, bf.probs)
         if prob is None:
@@ -225,11 +241,13 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
             prob = bf.best_model_prob if bf.best_model_prob is not None else prob
         if price is None:
             continue
+        # HARD ODDS FLOOR (Architect 2026-08-19): reject below 1.20 — no edge
+        # in heavy favourites where overround swallows any perceived value.
+        if price < min_odds_floor:
+            continue
         # HARD ODDS CAP (FL-bias guardrail): reject any market priced above
         # max_odds_cap — long odds are where the bookmaker's overround is
-        # thickest and the model is least reliable. This is a deployment policy,
-        # not a calibration change; it keeps Acca A in the favourite/short-price
-        # zone where CLV has been positive.
+        # thickest and the model is least reliable.
         if price > max_odds_cap:
             continue
         # AGREEMENT GATE (gambler move #2, opt-in): skip any market where the
@@ -249,20 +267,36 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
         # calibration stays inert (no feedback loop).
         prob_ev = blend_toward_market(prob, book_p) if book_p is not None else prob
         ev = (prob_ev * price - 1.0) if price else None
-        # Highest EDGE wins (strictly better only — EDGE_MARKETS order is the
-        # deterministic final tiebreak). Probability breaks an EV tie.
-        if (best is None or (ev is not None and (best.ev is None or ev > best.ev))
-                or (ev == best.ev and prob > best.prob)):
-            best = AccaLeg(
-                fixture=bf.fixture.split(" (")[0],
-                league=_league_of(bf.fixture),
-                market_key=market,
-                market_name=mkt.display(market, bf.probs.home_team, bf.probs.away_team),
-                price=price,
-                prob=prob,
-                ev=ev,
-            )
-    return best
+        in_preferred = min_odds_floor <= price <= preferred_ceiling
+        # Selection: prefer legs in preferred zone (1.20-1.50). If none exists
+        # for this fixture, fall back to best in 1.50-2.00 zone.
+        if in_preferred:
+            if (best_in_preferred is None or (ev is not None and (best_in_preferred.ev is None or ev > best_in_preferred.ev))
+                    or (ev == best_in_preferred.ev and prob > best_in_preferred.prob)):
+                best_in_preferred = AccaLeg(
+                    fixture=bf.fixture.split(" (")[0],
+                    league=_league_of(bf.fixture),
+                    market_key=market,
+                    market_name=mkt.display(market, bf.probs.home_team, bf.probs.away_team),
+                    price=price,
+                    prob=prob,
+                    ev=ev,
+                )
+        else:
+            # Outside preferred zone (1.50-2.00) — only considered if no preferred-zone leg
+            if (best is None or (ev is not None and (best.ev is None or ev > best.ev))
+                    or (ev == best.ev and prob > best.prob)):
+                best = AccaLeg(
+                    fixture=bf.fixture.split(" (")[0],
+                    league=_league_of(bf.fixture),
+                    market_key=market,
+                    market_name=mkt.display(market, bf.probs.home_team, bf.probs.away_team),
+                    price=price,
+                    prob=prob,
+                    ev=ev,
+                )
+    # Return preferred-zone best if any, else fallback best
+    return best_in_preferred or best
 
 
 def _make_acca(label: str, leg_list: List[AccaLeg]) -> Acca:
@@ -318,6 +352,8 @@ def build_production_bets(
     acca_a_max: int = ACCA_A_MAX,
     agreement_band: Optional[float] = None,
     max_odds_cap: Optional[float] = MAX_ODDS_CAP,
+    min_odds_floor: Optional[float] = MIN_ODDS_FLOOR,
+    preferred_ceiling: Optional[float] = PREFERRED_ODDS_CEILING,
 ) -> ProductionBets:
     """Build the day's production output: Acca A + split accas + singles.
 
@@ -339,6 +375,12 @@ def build_production_bets(
     measured CLV says is losing is excluded. None = shipped EV-ranking (no
     gate). This is an experiment flag; it does NOT touch any protected constant.
 
+    ODDS DEPLOYMENT POLICY (Architect 2026-08-19):
+      - `min_odds_floor` (default 1.20): hard floor — reject below this.
+      - `preferred_ceiling` (default 1.50): preferred zone ceiling — legs in
+        1.20–1.50 are prioritised; 1.50–2.00 admitted only as fallback.
+      - `max_odds_cap` (default 2.00): absolute hard cap — reject above this.
+
     Write-back: each leg's pick is written onto the BoardFixture
     (best_market_key/best_market/best_price/best_model_prob/best_mes_ev) so the
     CALL cards, produced-bet record and scan show the SAME market the acca and
@@ -346,12 +388,18 @@ def build_production_bets(
     """
     today = today or date.today().isoformat()
     cap = MAX_ODDS_CAP if max_odds_cap is None else max_odds_cap
+    floor = MIN_ODDS_FLOOR if min_odds_floor is None else min_odds_floor
+    preferred = PREFERRED_ODDS_CEILING if preferred_ceiling is None else preferred_ceiling
 
     pairs: List[tuple[Any, AccaLeg]] = []
     for bf in board:
         if bf.kickoff_date != today:
             continue  # standing rule: today's fixtures only
-        leg = _best_deployable_leg(bf, odds_index, agreement_band=agreement_band, max_odds_cap=cap)
+        leg = _best_deployable_leg(bf, odds_index,
+                                   agreement_band=agreement_band,
+                                   max_odds_cap=cap,
+                                   min_odds_floor=floor,
+                                   preferred_ceiling=preferred)
         if leg is None:
             continue
         # Write-back (see docstring) — run before produced_bet.record so every
@@ -386,14 +434,18 @@ def build_production_bets(
 def build_accas(board, today: Optional[str] = None,
                 odds_index: Optional[dict] = None,
                 agreement_band: Optional[float] = None,
-                max_odds_cap: Optional[float] = MAX_ODDS_CAP) -> List[Acca]:
+                max_odds_cap: Optional[float] = MAX_ODDS_CAP,
+                min_odds_floor: Optional[float] = MIN_ODDS_FLOOR,
+                preferred_ceiling: Optional[float] = PREFERRED_ODDS_CEILING) -> List[Acca]:
     """LEGACY — the acca set only (Acca A + split accas, no singles).
 
     Kept for callers that want just the accumulator set; the production flow
     should use `build_production_bets`."""
     bets = build_production_bets(board, today=today, odds_index=odds_index,
                                 agreement_band=agreement_band,
-                                max_odds_cap=max_odds_cap)
+                                max_odds_cap=max_odds_cap,
+                                min_odds_floor=min_odds_floor,
+                                preferred_ceiling=preferred_ceiling)
     return ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
 
 

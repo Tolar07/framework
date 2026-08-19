@@ -133,3 +133,26 @@
 - `config.py` — paper-only gate (`assert_paper_only()`)
 
 **Committed & saved:** this session will commit the doc changes above. The code implementation was already in place from 2026-08-11 (EDGE-ranking directive) and 2026-08-10 (production intent).
+
+---
+
+## 2026-08-19 · ODDS DEPLOYMENT POLICY — 1.20 floor, 1.50 preferred sweet spot, 2.00 cap (Architect Directive)
+
+**Directive (chat, 2026-08-19):**
+"the framework or logic must all negative EV ODDS from 1.20 to 1.50 odds is acceptable. but 1.50 to 2.00 which is the max is 50/50 if i will make a bet personally i bet between 1.20 to 1.50 to be safe and add them as an acca to get the best value dependant on the amount of fixtures available"
+
+**Effect (deployment filter — NOT a calibration change):**
+1. **Hard floor `MIN_ODDS_FLOOR = 1.20`** — any market priced below 1.20 is rejected (heavy favourites: overround swallows any perceived edge, negligible EV even when model agrees).
+2. **Preferred zone `PREFERRED_ODDS_CEILING = 1.50`** — the "safe" deployment sweet spot. A fixture's best leg is chosen from the 1.20–1.50 zone FIRST; a 1.50–2.00 leg is admitted only when no preferred-zone market exists for that fixture. Mirrors the Architect's personal risk tolerance: accas built from short-priced legs with compounded value.
+3. **Hard ceiling unchanged `MAX_ODDS_CAP = 2.00`** — (FL-bias guardrail) reject any market priced above 2.00. The 1.50–2.00 band is the fallback band, not the primary target.
+4. **Acca composition** — Acca A / split accas / singles draw only from admitted legs (1.20–2.00, preferred 1.20–1.50); the number of fixtures available determines how many legs compound.
+
+**Is this a protected-constant change?** No. This is a deployment filter consistent with the existing `max_odds_cap` pattern — it does NOT touch ARCHITECT_SIGNOFF, the CLV/legs gate, capital deployment, ID405 scope, or calibration (probabilities are untouched; only which priced legs get bet). HR58's protected components (1–10) are unchanged in structure; the odds window is an additional admission filter inside `_best_deployable_leg()`.
+
+**Implemented in code (this commit):**
+- `engine/acca.py` — new constants `MIN_ODDS_FLOOR = 1.20`, `PREFERRED_ODDS_CEILING = 1.50`; `_best_deployable_leg()` gains `min_odds_floor` / `preferred_ceiling` params + floor check + preferred-zone tracking (`best_in_preferred or best`); `build_production_bets()` / `build_accas()` thread the two params (defaults active everywhere — callers unchanged).
+
+**Tests (this commit):**
+- `tests/acca_builder_test.py` — REAL TICKET regression updated: 12/14 admitted (Belgium 2.05 above cap, South Africa 1.16 below floor), every admitted leg in [1.20, 2.00]; new PREFERRED ZONE block asserts a 1.45 leg beats a 1.55 leg on the same fixture, and a 2.10 leg is rejected leaving only the 1.80 fallback.
+
+**Committed & saved:** this session will commit `engine/acca.py` + `tests/acca_builder_test.py` + this log entry.

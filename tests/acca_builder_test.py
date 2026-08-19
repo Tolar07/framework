@@ -577,7 +577,7 @@ ticket_odds = {
 }
 
 bets_ticket = build_production_bets(ticket_board, today=TODAY, odds_index=ticket_odds,
-                                     max_odds_cap=2.00)
+                                     max_odds_cap=2.00, min_odds_floor=1.20)
 
 # Collect all legs from Acca A, split accas, and singles
 ticket_legs = {}
@@ -590,20 +590,60 @@ for acca in bets_ticket.split_accas:
 for l in bets_ticket.singles:
     ticket_legs[l.fixture] = (l.market_name, l.price)
 
-_check("REAL TICKET: 13 of 14 fixtures admitted (only 2.05 leg filtered by 2.00 cap)",
-       len(ticket_legs) == 13, f"got {len(ticket_legs)} legs: {list(ticket_legs.keys())}")
-_check("REAL TICKET: every admitted leg price <= 2.00 (ceiling respected)",
-       all(price <= 2.00 for _, price in ticket_legs.values()),
+_check("REAL TICKET: 12 of 14 fixtures admitted (Belgium 2.05 above cap, South Africa 1.16 below floor)",
+       len(ticket_legs) == 12, f"got {len(ticket_legs)} legs: {list(ticket_legs.keys())}")
+_check("REAL TICKET: every admitted leg price in [1.20, 2.00] (floor + ceiling respected)",
+       all(1.20 <= price <= 2.00 for _, price in ticket_legs.values()),
        f"got prices: {[(f, p) for f, (_, p) in ticket_legs.items()]}")
 _check("REAL TICKET: Belgium v Senegal at 2.05 correctly filtered (above 2.00 ceiling)",
        "Belgium v Senegal" not in ticket_legs,
        f"got {ticket_legs.get('Belgium v Senegal')}")
-_check("REAL TICKET: Acca A combined odds is product of top 5 edge legs (not all 14)",
+_check("REAL TICKET: South Africa v Canada at 1.16 correctly filtered (below 1.20 floor)",
+       "South Africa v Canada" not in ticket_legs,
+       f"got {ticket_legs.get('South Africa v Canada')}")
+_check("REAL TICKET: Acca A combined odds is product of top 5 edge legs (not all 12)",
        bets_ticket.acca_a is not None
-       and abs(bets_ticket.acca_a.combined_odds - 6.50) < 0.1,
+       and abs(bets_ticket.acca_a.combined_odds - 7.569) < 0.01,
        f"Acca A combined odds = {bets_ticket.acca_a.combined_odds if bets_ticket.acca_a else 'N/A'}")
-_check("REAL TICKET: the 2.00 ceiling works as designed — filters longshot bias, admits short prices",
-       True, "")  # validated by the 13 admitted / 1 filtered checks above
+_check("REAL TICKET: the 1.20-2.00 deployment window works — filters below-floor and above-cap legs",
+       True, "")  # validated by the 12 admitted / 2 filtered checks above
+
+# --- 15b. PREFERRED ZONE (1.20-1.50) — Architect 2026-08-19 deployment policy:
+# build accas from short-priced "safe" legs (1.20-1.50); only fall back to a
+# 1.50-2.00 leg on a fixture when NO preferred-zone market exists for it.
+pref_board = [
+    # Home @ 1.55 (1.50-2.00) AND Over 2.5 @ 1.45 (preferred 1.20-1.50) both exist
+    _bf("Pref v Fallback (Eredivisie)",
+        _probs(h=0.62, d=0.24, a=0.14, over25=0.58, home="Pref", away="Fallback"), TODAY),
+    # Home @ 1.80 (1.50-2.00) is the only sub-cap market; Over 2.5 @ 2.10 is over cap
+    _bf("OnlyFallback v X (Eredivisie)",
+        _probs(h=0.45, d=0.28, a=0.27, over25=0.50, home="OnlyFallback", away="X"), TODAY),
+]
+pref_odds = {
+    ("Pref", "Fallback"): _fx_ticket("Pref", "Fallback", home=1.55, over25=1.45),
+    ("OnlyFallback", "X"): _fx_ticket("OnlyFallback", "X", home=1.80, over25=2.10),
+}
+bets_pref = build_production_bets(pref_board, today=TODAY, odds_index=pref_odds)
+pref_legs = {}
+if bets_pref.acca_a:
+    for l in bets_pref.acca_a.legs:
+        pref_legs[l.fixture] = (l.market_name, l.price)
+for a in bets_pref.split_accas:
+    for l in a.legs:
+        pref_legs[l.fixture] = (l.market_name, l.price)
+for l in bets_pref.singles:
+    pref_legs[l.fixture] = (l.market_name, l.price)
+
+_check("PREFERRED ZONE: fixture with a 1.45 preferred leg picks it over a 1.55 leg",
+       pref_legs.get("Pref v Fallback", (None, None))[1] == 1.45,
+       f"got {pref_legs.get('Pref v Fallback')}")
+_check("PREFERRED ZONE: fixture with only a 1.80 leg (2.10 over cap) still admitted",
+       "OnlyFallback v X" in pref_legs
+       and pref_legs["OnlyFallback v X"][1] == 1.80,
+       f"got {pref_legs.get('OnlyFallback v X')}")
+_check("PREFERRED ZONE: the 2.10 Over 2.5 leg rejected (above cap), only 1.80 survives",
+       pref_legs.get("OnlyFallback v X", (None, None))[1] == 1.80,
+       f"got {pref_legs.get('OnlyFallback v X')}")
 
 # --- 16. PART 1 (THE CALL) renders as a FULL DETAIL TABLE (ID409 + HR53) -----
 # Every today's fixture is ONE row; all probability/opinion/edge columns inline.

@@ -46,14 +46,16 @@ class TheSportsDBFixturesSource(DataSource):
             dates = {(f.home_team, f.away_team): f.date for f in fixtures}
             return {"fixtures": pairs, "dates": dates, "skipped": skipped, "source": "thesportsdb_season"}
 
-        # If today-only and season feed empty, try eventsday
-        if days_ahead == 0:
-            day = str(date.today())
-            day_fixtures = tsdb.fetch_today(league, day)
-            if day_fixtures:
-                pairs = tsdb.as_pairs(day_fixtures)
-                dates = {(f.home_team, f.away_team): f.date for f in day_fixtures}
-                return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "thesportsdb_eventsday"}
+        # If today is within the window and season feed is empty/lagging,
+        # try eventsday for continental qualifiers (season feed lags weeks behind).
+        # This catches CL/EL/ConfL qualifiers that the season feed hasn't indexed yet.
+        from datetime import date
+        today = str(date.today())
+        day_fixtures = tsdb.fetch_today(league, today)
+        if day_fixtures:
+            pairs = tsdb.as_pairs(day_fixtures)
+            dates = {(f.home_team, f.away_team): f.date for f in day_fixtures}
+            return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "thesportsdb_eventsday"}
 
         # A legitimately-empty window is a valid answer for this league — fall
         # through to the next source WITHOUT tripping the shared circuit breaker.

@@ -49,6 +49,23 @@
 - **Implements:** `engine/leagues.py` (`is_deploy_eligible()` = whitelist membership only), `engine/league_registry.py` (loads `config/leagues.json`), `config/leagues.json` (authoritative).
 - **Linked:** [[Decisions Log.md]] 2026-08-11 ID402 FULLY REMOVED; [[Rules.md]] HR34, ID401, ID402.
 
+## 7. **Bet Production Logic — HARD RULE (Architect 2026-08-18)**
+- **What:** The production bet pipeline in `engine/acca.py` (`build_production_bets`, `_best_deployable_leg`, `_make_acca`, `_chunk_remainder`, `render_production_block`) is PROTECTED. Any change requires explicit Architect ratification in RATIFICATIONS.md.
+- **Components protected:**
+  1. **Eligibility**: kickoff_date == today (HR35 standing rule), `on_deploy_shortlist` true, at least one capital-cleared market (`DEPLOYABLE`) with a live price
+  2. **Multi-market selection**: every eligible fixture evaluated across ALL `EDGE_MARKETS` (1X2 Home/Draw/Away, Over/Under 1.5/2.5, BTTS, Double Chance) via `_best_deployable_leg()`; each fixture picks its OWN single best market by highest **EDGE = model_prob × price − 1**, tiebreak model_prob, then canonical market order — probability stays visible as information
+  3. **Hard odds cap**: any market priced > 2.00 rejected (FL-bias guardrail, `MAX_ODDS_CAP = 2.00`)
+  4. **Agreement gate (opt-in)**: when `agreement_band` set, only markets where model and book implied prob agree within band (calibrated zone) are admitted; default None = shipped EV-ranking
+  5. **Acca A construction**: top 4–5 highest-EDGE legs (shortened acca if fewer, never padded)
+  6. **Split accas**: remainder split into ~4–5 leg groups (never one giant acca), deterministic chunking
+  7. **Singles**: every remaining fixture's natural best market as a standalone slip, EACH with its own booking code
+  8. **No fixture in two bets** — once in Acca A, removed from pool
+  9. **Write-back**: each leg's pick written onto BoardFixture (best_market_key, best_market, best_price, best_model_prob, best_mes_ev) so CALL, produced-bet record, and scan show the SAME market
+  10. **Verification stamp**: every leg carries its `verification_stamp` from the gate (✓ SportyBet ✓ FlashScore or ⚠ unverified) through to Telegram and web — byte-faithful per webapp_feed_parity_test
+- **Why protected:** This IS the production intent (OLP_XDV_PRODUCTION_INTENT1.md, 2026-08-10) + the EDGE-ranking directive (2026-08-11) codified as a single immutable unit. The framework's entire client-facing output depends on this logic being stable and auditable.
+- **Implements:** `engine/acca.py`, `engine/markets.py` (`EDGE_MARKETS`, `BLOCKED`, `DEPLOYABLE`, `model_prob`, `blend_toward_market`), `config.py` (paper-only gate)
+- **Linked:** [[Rules.md]] HR58 (new), [[Decisions Log.md]] 2026-08-18.
+
 ---
 
 ## How to treat this list

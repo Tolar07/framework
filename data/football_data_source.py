@@ -211,6 +211,17 @@ BOOK_PREFERENCE_OU25 = [
 # statistics across books, so their open->close movement tracks which book
 # happened to be extreme rather than consensus line movement — it would look
 # like CLV without being it.
+
+# HISTORICAL CLOSING ODDS (football-data.co.uk CSV columns):
+# "pinnacle" here means the PSCH/PSCD/PSCA columns from football-data.co.uk —
+# NOT a live Pinnacle API key. There is NO live Pinnacle API integration in
+# this repo. Live odds pipeline (data/multi_source_concrete.py) uses:
+#   1. The Odds API (ODDS_API_KEY paid primary) — provides Pinnacle among many books
+#   2. ODDS_API_KEY_BACKUP (free tier, monthly reset)
+#   3. ODDS_API_KEY_TERTIARY (free tier, monthly reset)
+#   4. api-football fallback (free, today±1, 100 req/day)
+# This 4-source chain is the live odds fallback. The "pinnacle" preference
+# below only applies to HISTORICAL closing prices for CLV backtest.
 DEFAULT_BOOK_PREFERENCE = ("market_avg", "pinnacle", "b365")
 
 

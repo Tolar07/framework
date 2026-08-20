@@ -355,14 +355,9 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
                 best_watchlist = leg
     # Return preferred-zone capital leg if any, else fallback capital leg, and watchlist leg
     capital_leg = best_capital_preferred or best_capital
-    # HARD RULE (Architect 2026-08-19): ALL fixtures with live odds must produce
-    # a bet. If no capital-zone leg exists (all odds > 2.00), fall back to the
-    # best watchlist leg reclassified as capital — never drop a fixture from bet
-    # production. The architect still reviews the watchlist separately.
-    if capital_leg is None and best_watchlist is not None:
-        best_watchlist.status = "capital"
-        capital_leg = best_watchlist
-        best_watchlist = None
+    # HARD RULE (Architect 2026-08-19): MAX_ODDS_CAP is a hard ceiling — legs with
+    # odds > 2.00 go to WATCHLIST (ID420), never to capital. No fallback reclassifies
+    # watchlist legs as capital; the watchlist is for Architect review only.
     return (capital_leg, best_watchlist)
 
 
@@ -448,6 +443,12 @@ def build_production_bets(
         1.20–1.50 are prioritised; 1.50–2.00 admitted only as fallback.
       - `max_odds_cap` (default 2.00): absolute hard cap — reject above this.
 
+    ACCA A STRICT ODDS POLICY:
+      Acca A (headline) ONLY uses legs in the capital zone (odds <= max_odds_cap).
+      No fallback rule reclassifies watchlist legs as capital — the MAX_ODDS_CAP
+      (2.00) is a hard ceiling. Legs with odds > 2.00 go to WATCHLIST (ID420)
+      for Architect review only and never enter Acca A, split accas, or singles.
+
     Write-back: each leg's pick is written onto the BoardFixture
     (best_market_key/best_market/best_price/best_model_prob/best_mes_ev) so the
     CALL cards, produced-bet record and scan show the SAME market the acca and
@@ -494,12 +495,19 @@ def build_production_bets(
                               p[1].fixture),
                 reverse=True)
 
-    legs = [leg for _, leg in pairs]
-    acca_a = _make_acca("Acca A", legs[:acca_a_max]) if legs else None
-    remainder = legs[acca_a_max:]
+    # Acca A: STRICT — only legs with odds <= max_odds_cap (2.00)
+    # This respects the preferred zone (1.20-1.50) and 50/50 zone (1.50-2.00)
+    # but NEVER allows odds > 2.00 into the headline acca
+    eligible_for_acca_a = [leg for _, leg in pairs if leg.price <= cap]
+    acca_a = _make_acca("Acca A", eligible_for_acca_a[:acca_a_max]) if eligible_for_acca_a else None
+
+    # Remainder for split accas: all capital legs not in Acca A
+    acca_a_fixtures = {leg.fixture for leg in (acca_a.legs if acca_a else [])}
+    remainder_legs = [leg for _, leg in pairs if leg.fixture not in acca_a_fixtures]
+
     split_accas = [_make_acca(label, chunk)
-                   for label, chunk in zip(_split_labels(), _chunk_remainder(remainder))]
-    return ProductionBets(acca_a=acca_a, split_accas=split_accas, singles=remainder, watchlist=watchlist_legs)
+                   for label, chunk in zip(_split_labels(), _chunk_remainder(remainder_legs))]
+    return ProductionBets(acca_a=acca_a, split_accas=split_accas, singles=remainder_legs, watchlist=watchlist_legs)
 
 
 def build_accas(board, today: Optional[str] = None,

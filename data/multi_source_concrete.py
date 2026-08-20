@@ -311,9 +311,21 @@ class APIFootballOddsSource(DataSource):
 def build_odds_multi_source(league: str) -> MultiSource:
     """Build odds multi-source for a specific league.
 
-    Priority order:
-    - If API-Football is on a PAID plan: API-Football (primary) -> Odds API UK -> Odds API EU
-    - If API-Football is FREE: Odds API UK -> Odds API EU -> API-Football free (fallback)
+    LIVE ODDS 4-SOURCE FALLBACK CHAIN (2026-08-20 documented):
+    - NO live Pinnacle API key exists in this repo. "Pinnacle" in DEFAULT_BOOK_PREFERENCE
+      (football_data_source.py) refers to HISTORICAL PSCH/PSCD/PSCA columns only.
+
+    1. The Odds API PRIMARY (ODDS_API_KEY) — paid key, 500 credits/mo.
+       Provides Pinnacle + many other books. Regions: UK+EU, Markets: h2h,totals.
+    2. The Odds API BACKUP (ODDS_API_KEY_BACKUP) — free tier, 500 credits/mo per key.
+       Same regions/markets. Monthly reset restores quota.
+    3. The Odds API TERTIARY (ODDS_API_KEY_TERTIARY) — free tier, 500 credits/mo.
+       Same regions/markets. Third key in chain.
+    4. api-football fallback (today±1 window, 100 req/day, free).
+       Includes O/U 1.5, BTTS, DC markets that Odds API free tier lacks.
+
+    Note: OddsAPISource internally walks ODDS_API_KEY → BACKUP → TERTIARY
+    via _resolve_key() before falling to api-football.
     """
     from data import api_football_plan
     paid = api_football_plan.is_paid_plan()

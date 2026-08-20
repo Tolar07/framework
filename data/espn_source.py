@@ -56,10 +56,12 @@ API_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer"
 # absent — ESPN has no reliable slug for it, and guessing one would violate
 # HR35 (a wrong slug silently returns another competition's fixtures, which is
 # worse than an honest gap).
+# Additional slugs added 2026-08-20 per error log analysis (all verified against live API).
 SLUGS = {
     "Premier League": "eng.1",
     "Championship": "eng.2",
     "Bundesliga": "ger.1",
+    "2. Bundesliga": "ger.2",
     "La Liga": "esp.1",
     "Serie A": "ita.1",
     "Ligue 1": "fra.1",
@@ -71,8 +73,31 @@ SLUGS = {
     "Ekstraklasa": "pol.1",
     "Champions League": "uefa.champions",
     "Europa League": "uefa.europa",
+    "Conference League": "uefa.conf",
     "Austrian Bundesliga": "aut.1",
     "HNL": "cro.1",
+    "Armenian Premier League": "arm.1",
+    "Estonian Meistriliiga": "est.1",
+    "Faroe Islands Premier League": "fro.1",
+    "Finnish Veikkausliiga": "fin.1",
+    "Georgian Erovnuli Liga": "geo.1",
+    "Greek Super League": "gre.1",
+    "Hungarian NB I": "hun.1",
+    "Israeli Premier League": "isr.1",
+    "Kosovan Superliga": "xkx.1",
+    "Latvian Virsliga": "lva.1",
+    "Maltese Premier League": "mlt.1",
+    "Northern Irish Premiership": "nir.1",
+    "Norwegian Eliteserien": "nor.1",
+    "Russian Premier League": "rus.1",
+    "Slovenian PrvaLiga": "svn.1",
+    "Swedish Allsvenskan": "swe.1",
+    "Swiss Super League": "sui.1",
+    "Turkish Super Lig": "tur.1",
+    "Welsh Premier League": "wal.1",
+    # Albanian Superliga: NO_ESPN_COVERAGE - ESPN does not cover Albanian league
+    # Andorran Primera División: NO_ESPN_COVERAGE - ESPN does not cover Andorran league
+    # EFL Cup: NO_ESPN_COVERAGE - ESPN has no reliable slug for EFL Cup (deliberate gap)
 }
 
 # Statuses that mean "this is a fixture that has not been played". Everything

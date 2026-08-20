@@ -73,6 +73,7 @@ LEAGUE_IDS = {
 # there, under country Denmark). Mapping to (api_name, country) lets
 # resolve_league_id() ask for the exact record instead of fuzzy-searching —
 # each pair below returns exactly one league from API-Football's directory.
+# Extended 2026-08-20 with all whitelisted leagues per error log analysis.
 LEAGUE_SEARCH = {
     "Danish Superliga": ("Superliga", "Denmark"),
     "Ekstraklasa": ("Ekstraklasa", "Poland"),
@@ -80,6 +81,30 @@ LEAGUE_SEARCH = {
     "Primeira Liga": ("Primeira Liga", "Portugal"),
     "Champions League": ("UEFA Champions League", None),
     "Europa League": ("UEFA Europa League", None),
+    "Conference League": ("UEFA Europa Conference League", None),
+    "Austrian Bundesliga": ("Bundesliga", "Austria"),
+    "Armenian Premier League": ("Premier League", "Armenia"),
+    "Estonian Meistriliiga": ("Meistriliiga", "Estonia"),
+    "Faroe Islands Premier League": ("Premier League", "Faroe Islands"),
+    "Finnish Veikkausliiga": ("Veikkausliiga", "Finland"),
+    "Georgian Erovnuli Liga": ("Erovnuli Liga", "Georgia"),
+    "Greek Super League": ("Super League", "Greece"),
+    "Hungarian NB I": ("NB I", "Hungary"),
+    "Israeli Premier League": ("Premier League", "Israel"),
+    "Kosovan Superliga": ("Superleague", "Kosovo"),
+    "Latvian Virsliga": ("Virsliga", "Latvia"),
+    "Maltese Premier League": ("Premier League", "Malta"),
+    "Northern Irish Premiership": ("Premiership", "Northern Ireland"),
+    "Norwegian Eliteserien": ("Eliteserien", "Norway"),
+    "Russian Premier League": ("Premier League", "Russia"),
+    "Slovenian PrvaLiga": ("PrvaLiga", "Slovenia"),
+    "Swedish Allsvenskan": ("Allsvenskan", "Sweden"),
+    "Swiss Super League": ("Super League", "Switzerland"),
+    "Turkish Super Lig": ("Süper Lig", "Turkey"),
+    "Welsh Premier League": ("Premier League", "Wales"),
+    "Albanian Superliga": ("Superliga", "Albania"),
+    "Andorran Primera División": ("Primera Divisió", "Andorra"),
+    "EFL Cup": ("League Cup", "England"),
 }
 
 _resolved_cache: dict[str, int] = {}

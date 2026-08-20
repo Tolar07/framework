@@ -314,33 +314,15 @@ def verify_board(board: List, board_date: str,
                  leagues: List[str]) -> Tuple[List, "VerifierReport"]:
     """Gate a scanned board against independent fixture sources.
 
-    Args:
-        board: list of BoardFixture (fixture="Home v Away (League)",
-               .kickoff_date, plus any pre-existing .verification).
-        board_date: ISO date the production is pinned to.
-        leagues: the leagues that were scanned (used to scope the SportyBet read).
+    NEW HARD RULE (Architect 2026-08-19): NEVER drop any fixture.
+    All fixtures pass through with appropriate verification stamps:
+    - VERIFIED: found in SportyBet + ≥1 other source
+    - UNVERIFIED (SportyBet only): found in SportyBet only (primary source where we bet)
+    - UNVERIFIED (single source): found in other source but NOT SportyBet
+    - UNVERIFIED (no source): not found in any source (HR35 - honest gap, never fabricated)
 
-    Returns:
-        (verified_board, report). The returned board is a NEW list; fixtures that
-        fail the gate are EXCLUDED. Each surviving fixture gains a
-        `verified_sources` attribute (list of confirming sources) and its
-        `.verification` is upgraded to reflect the cross-source agreement.
-
-    Sources (in priority order for F2 quorum):
-        1. SportyBet cache — Playwright-captured real fixtures (PRIMARY — odds + booking)
-        2. FlashScore feed — scraped match_1x2 JSONL (T2 ratified)
-        3. PredictZ feed — curated fixtures JSONL (T2)
-        4. StatsArea feed — curated fixtures JSONL (T2)
-        5. Bet365 feed — curated fixtures JSONL (T2)
-
-    F2 Quorum Rule: A fixture is VERIFIED when >=2 independent sources agree.
-
-    CRITICAL FIX (2026-08-18): SportyBet is the PRIMARY source (we bet there).
-    - Fixtures IN SportyBet are KEPT even if other sources don't cover the league.
-    - Fixtures ONLY in FlashScore/PredictZ/StatsArea/Bet365 but NOT in SportyBet -> DROPPED.
-    - Fixtures in SportyBet + ≥1 other source -> VERIFIED.
-    - Fixtures in SportyBet only (no other source covers the league) -> KEPT as UNVERIFIED (partial).
-    - Double outage (no sources available) -> keep all with UNVERIFIED stamp (keep-but-warn).
+    All fixtures are KEPT. The verification stamp informs downstream (booking, board)
+    but never excludes a fixture from production.
     """
     # Load all sources
     fs_pairs = _load_flashscore_pairs()
@@ -402,10 +384,12 @@ def verify_board(board: List, board_date: str,
         home, away = _split_fixture(bf.fixture)
         nh, na = _norm(home), _norm(away)
         if not nh or not na:
-            report.dropped_missing_source += 1
+            # Unparseable fixture name - keep but mark as no source
+            _stamp(bf, [], verified=False, reason="unparseable fixture name")
+            report.kept_unverified += 1
             report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' dropped — unparseable fixture "
-                f"name (cannot verify)")
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED — unparseable fixture name")
+            verified_board.append(bf)
             continue
 
         # Check each available source
@@ -421,43 +405,40 @@ def verify_board(board: List, board_date: str,
         if sb_available:
             source_hits["SportyBet"] = _pair_in(sb_idx, nh, na)
 
-        # FIX: SportyBet is the PRIMARY source (where we bet). The gate logic:
-        # 1. If fixture NOT in SportyBet -> DROP (we can't price/book it)
-        # 2. If fixture IN SportyBet + ≥1 other source -> VERIFIED
-        # 3. If fixture IN SportyBet only (no other source covers the league) -> KEPT as UNVERIFIED
-
+        # NEW LOGIC: Never drop any fixture. Stamp based on what sources confirm.
         in_sportybet = sb_available and source_hits.get("SportyBet", False)
         confirming_other = [src for src in ("FlashScore", "PredictZ", "StatsArea", "Bet365")
                             if available_sources.get(src, False) and source_hits.get(src, False)]
 
-        if not in_sportybet:
-            # Fixture not in SportyBet -> cannot price/book -> DROP
-            missing_from = [src for src, hit in source_hits.items() if hit]
-            if missing_from:
-                report.dropped_missing_source += 1
-                report.flags.append(
-                    f"VERIFY GATE: '{bf.fixture}' dropped — NOT in SportyBet (primary odds/booking source); "
-                    f"found in {', '.join(missing_from)} only — cannot deploy")
-            else:
-                report.dropped_missing_source += 1
-                report.flags.append(
-                    f"VERIFY GATE: '{bf.fixture}' dropped — not found in ANY source")
-            continue
-
-        # Fixture IS in SportyBet
-        if confirming_other:
-            # SportyBet + ≥1 other source = VERIFIED
+        if in_sportybet and confirming_other:
+            # VERIFIED: SportyBet + at least one other source
             sources = ["SportyBet"] + confirming_other
             _stamp(bf, sources, verified=True)
             report.verified += 1
-            verified_board.append(bf)
-            continue
+            report.flags.append(
+                f"VERIFY GATE: '{bf.fixture}' VERIFIED (SportyBet + {', '.join(confirming_other)})")
+        elif in_sportybet:
+            # UNVERIFIED but primary source: SportyBet only (where we actually bet)
+            sources = ["SportyBet"]
+            _stamp(bf, sources, verified=False)
+            report.kept_unverified += 1
+            report.flags.append(
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (SportyBet only — primary odds/booking source)")
+        elif confirming_other:
+            # UNVERIFIED: found in other source(s) but NOT SportyBet
+            sources = confirming_other
+            _stamp(bf, sources, verified=False)
+            report.kept_unverified += 1
+            report.flags.append(
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (found in {', '.join(confirming_other)} but NOT SportyBet — cannot price/book)")
+        else:
+            # UNVERIFIED: not found in ANY source (honest gap, HR35)
+            sources = []
+            _stamp(bf, sources, verified=False, reason="not found in any source")
+            report.kept_unverified += 1
+            report.flags.append(
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED — not found in ANY source (honest gap, HR35)")
 
-        # Fixture in SportyBet only (other sources don't cover this league)
-        # -> KEEP with UNVERIFIED stamp (partial verification)
-        _stamp(bf, ["SportyBet"], verified=False,
-               reason="partial — in SportyBet (primary); no other source covers this league")
-        report.kept_unverified += 1
         verified_board.append(bf)
 
     return verified_board, report

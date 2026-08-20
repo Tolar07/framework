@@ -1,0 +1,730 @@
+OLP XDV — DAILY BOARD
+2026-08-20  |  Phase 3 — live capital (Architect-deployed)
+Leagues: 37 · 37 with fixtures
+Calibration: 17 legs logged, mean CLV -2.47%
+
+⚠ 3021 data flag(s) — see /board or the saved board for full detail
+
+📋 SCAN RECORD — today's rated fixtures — 2026-08-20 (paper, ID415)
+15 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+
+1. Nordsjaelland v FC ST. Gallen (Conference League)
+   Pick: Nordsjaelland to win (82%)
+   Best market: Nordsjaelland to win at 1.53 — +3.08% EV
+2. PAOK v SK Brann (Conference League)
+   Pick: PAOK to win (57%)
+   Best market: Draw at 4.13 — +6.65% EV
+3. Twente v Qarabag (Conference League)
+   Pick: Twente to win (82%)
+   Best market: Twente to win at 1.55 — +3.50% EV
+4. Gornik Zabrze v Monaco (Conference League)
+   Pick: Monaco to win (40%)
+   Best market: Monaco to win at 1.75 — -6.79% EV
+5. Vikingur Reykjavik v Borac Banja Luka (Conference League)
+   Pick: Vikingur Reykjavik to win (41%)
+   Best market: Vikingur Reykjavik to win at 1.61 — -8.10% EV
+6. FC Sion v Ajax (Conference League)
+   Pick: Ajax to win (47%)
+   Best market: FC Sion to win at 4.24 — +4.06% EV
+7. Gent v Hibernian (Conference League)
+   Pick: Hibernian to win (39%)
+   Best market: Draw at 3.92 — +4.92% EV
+8. Motherwell v Freiburg (Conference League)
+   Pick: Freiburg to win (43%)
+   Best market: Draw at 4.24 — +10.39% EV
+9. Panathinaikos v FC Hradec Kralove (Conference League)
+   Pick: Panathinaikos to win (60%)
+   Best market: Draw at 4.35 — +8.27% EV
+10. Rangers v FK Jablonec (Conference League)
+   Pick: Rangers to win (56%)
+   Best market: Rangers to win at 1.38 — -6.96% EV
+11. Benfica v AGF Aarhus (Europa League)
+   Pick: Benfica to win (75%)
+   Best market: AGF Aarhus to win at 16.72 — -22.36% EV
+12. Egnatia v Lillestrøm (Europa League)
+   Pick: Lillestrøm to win (56%)
+   Best market: Draw at 3.62 — -6.25% EV
+13. FK Crvena Zvezda v Viktoria Plzen (Europa League)
+   Pick: FK Crvena Zvezda to win (49%)
+   Best market: FK Crvena Zvezda to win at 1.90 — -6.13% EV
+14. St Truiden v Omonia Nicosia (Europa League)
+   Pick: Omonia Nicosia to win (42%)
+   Best market: Draw at 3.59 — -8.47% EV
+15. Vallecano v Alaves (La Liga)
+   Pick: Vallecano to win (49%)
+   Best market: Vallecano or Draw (double chance) at 1.28 — -0.85% EV
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
+```
+ARMENIAN PREMIER LEAGUE
+· Ararat v FC Pyunik Yerevan
+  NO DATA — PENDING
+· Alashkert v Gandzasar Kapan FC
+  NO DATA — PENDING
+· Shirak v FC Urartu Yerevan
+  NO DATA — PENDING
+· Ararat-Armenia v Sardarapat FC
+  NO DATA — PENDING
+```
+```
+AUSTRIAN BUNDESLIGA
+· Ried v Grazer AK 1902
+  NO DATA — PENDING
+· Altach v Hartberg
+  NO DATA — PENDING
+· Sturm Graz v Austria Lustenau
+  NO DATA — PENDING
+```
+```
+BELGIAN PRO LEAGUE
+· Standard v RAAL La Louviere
+  NO DATA — PENDING
+· Waregem v Beveren
+  NO DATA — PENDING
+· Charleroi v Mechelen
+  NO DATA — PENDING
+· Antwerp v Genk
+  NO DATA — PENDING
+· Lommel v Westerlo
+  NO DATA — PENDING
+· Club Brugge v Cercle Brugge
+  NO DATA — PENDING
+```
+```
+BUNDESLIGA
+· Bayern Munich v Stuttgart
+  NO DATA — PENDING
+· Cologne v Hoffenheim
+  NO DATA — PENDING
+· Mainz v Paderborn
+  NO DATA — PENDING
+· RB Leipzig v Borussia M´gladbach
+  NO DATA — PENDING
+· SV 07 Elversberg v Leverkusen
+  NO DATA — PENDING
+· Union Berlin v Ein Frankfurt
+  NO DATA — PENDING
+· Dortmund v Hamburg
+  NO DATA — PENDING
+· Freiburg v Werder Bremen
+  NO DATA — PENDING
+· Augsburg v Schalke
+  NO DATA — PENDING
+```
+```
+CHAMPIONS LEAGUE
+· Sabah Baku v Hapoel Beer Sheva
+  NO DATA — PENDING
+· Bodo/Glimt v Nijmegen
+  NO DATA — PENDING
+· Lask Linz v Celtic
+  NO DATA — PENDING
+· AEK Athens v Levski Sofia
+  NO DATA — PENDING
+· Lyon v Fenerbahce
+  NO DATA — PENDING
+· Celje v Slovan Bratislava
+  NO DATA — PENDING
+· Viking v Dinamo Zagreb
+  NO DATA — PENDING
+```
+```
+CHAMPIONSHIP
+· Birmingham v Bristol City
+  NO DATA — PENDING
+· Lincoln City v Portsmouth
+  NO DATA — PENDING
+· Millwall v Norwich
+  NO DATA — PENDING
+· Blackburn v Middlesbrough
+  NO DATA — PENDING
+· Derby v Cardiff City
+  NO DATA — PENDING
+· Preston v Wolves
+  NO DATA — PENDING
+· QPR v Bolton
+  NO DATA — PENDING
+· Southampton v Stoke
+  NO DATA — PENDING
+· Swansea v Sheffield United
+  NO DATA — PENDING
+· West Ham v Charlton
+  NO DATA — PENDING
+· Wrexham v Watford
+  NO DATA — PENDING
+· West Brom v Burnley
+  NO DATA — PENDING
+```
+```
+CONFERENCE LEAGUE
+· FC Inter Turku v FC Copenhagen
+  NO DATA — PENDING
+· Lincoln Red Imps v Larne
+  NO DATA — PENDING
+· Midtjylland v HNK Rijeka
+  NO DATA — PENDING
+· Nordsjaelland v FC ST. Gallen
+  NO DATA — PENDING
+· Tromsoe IL v Brighton
+  NO DATA — PENDING
+· KI Klaksvik v Rīgas FS
+  NO DATA — PENDING
+· PAOK v SK Brann
+  NO DATA — PENDING
+· FC Drita v Inter Club de Escaldes
+  NO DATA — PENDING
+· Twente v Qarabag
+  NO DATA — PENDING
+· Gornik Zabrze v Monaco
+  NO DATA — PENDING
+· Vikingur Reykjavik v Borac Banja Luka
+  NO DATA — PENDING
+· FC Sion v Ajax
+  NO DATA — PENDING
+· Atalanta v Hapoel Tel Aviv FC
+  NO DATA — PENDING
+· Gent v Hibernian
+  NO DATA — PENDING
+· FC Lugano v Maccabi Tel Aviv FC
+  NO DATA — PENDING
+· Motherwell v Freiburg
+  NO DATA — PENDING
+· Panathinaikos v FC Hradec Kralove
+  NO DATA — PENDING
+· Hearts v SK Rapid
+  NO DATA — PENDING
+· Rangers v FK Jablonec
+  NO DATA — PENDING
+· Sp Braga v FK Austria Wien
+  NO DATA — PENDING
+· FC Dinamo City v Pafos FC
+  NO DATA — PENDING
+· Getafe v FK Partizan Belgrade
+  NO DATA — PENDING
+· HNK Hajduk Split v Rakow
+  NO DATA — PENDING
+· Shamrock Rovers v Kuopion Palloseura
+  NO DATA — PENDING
+```
+```
+DANISH SUPERLIGA
+· Sonderjyske v Nordsjaelland
+  NO DATA — PENDING
+· Aarhus v Odense
+  NO DATA — PENDING
+· Midtjylland v Randers FC
+  NO DATA — PENDING
+· AC Horsens v Lyngby
+  NO DATA — PENDING
+· Viborg v FC Copenhagen
+  NO DATA — PENDING
+· Brondby v Silkeborg
+  NO DATA — PENDING
+```
+```
+EFL CUP
+· Cardiff City v Norwich
+  NO DATA — PENDING
+· Doncaster Rovers v Middlesbrough FC
+  NO DATA — PENDING
+· Barnsley FC v Crewe Alexandra
+  NO DATA — PENDING
+· Blackburn Rovers v Sheffield Utd
+  NO DATA — PENDING
+· Blackpool FC v Lincoln City
+  NO DATA — PENDING
+· Cambridge United v Millwall
+  NO DATA — PENDING
+· Fleetwood Town v Shrewsbury Town
+  NO DATA — PENDING
+· Ipswich Town v Leicester
+  NO DATA — PENDING
+· Plymouth Argyle v Coventry City
+  NO DATA — PENDING
+· Sheffield Wednesday v Wolves
+  NO DATA — PENDING
+· Southampton v West Ham
+  NO DATA — PENDING
+· Stevenage FC v Reading FC
+  NO DATA — PENDING
+· Stoke City v Hull City
+  NO DATA — PENDING
+· Walsall FC v Leyton Orient London
+  NO DATA — PENDING
+· Watford v Peterborough United
+  NO DATA — PENDING
+· Birmingham City v Brentford
+  NO DATA — PENDING
+· Nottingham Forest v Leeds United
+  NO DATA — PENDING
+· Bradford City FC v Burnley
+  NO DATA — PENDING
+· Newcastle v West Bromwich Albion
+  NO DATA — PENDING
+· Tottenham v Charlton Athletic
+  NO DATA — PENDING
+· Preston North End v Everton
+  NO DATA — PENDING
+· Chelsea v Luton
+  NO DATA — PENDING
+· Fulham v AFC Wimbledon
+  NO DATA — PENDING
+```
+```
+EKSTRAKLASA
+· Cracovia v Wieczysta Krakow
+  NO DATA — PENDING
+· Korona Kielce v Motor Lublin
+  NO DATA — PENDING
+· Piast Gliwice v Legia
+  NO DATA — PENDING
+· WKS Slask Wroclaw v Widzew Lodz
+  NO DATA — PENDING
+· Radomiak Radom v Zaglebie
+  NO DATA — PENDING
+· GKS Katowice v Wisla Plock
+  NO DATA — PENDING
+· Pogon Szczecin v Wisla Krakow
+  NO DATA — PENDING
+```
+```
+EREDIVISIE
+· For Sittard v AZ Alkmaar
+  NO DATA — PENDING
+· Sparta Rotterdam v Utrecht
+  NO DATA — PENDING
+· Heerenveen v Zwolle
+  NO DATA — PENDING
+· Go Ahead Eagles v ADO Den Haag
+  NO DATA — PENDING
+· PSV Eindhoven v Groningen
+  NO DATA — PENDING
+· SC Cambuur v Feyenoord
+  NO DATA — PENDING
+```
+```
+ESTONIAN MEISTRILIIGA
+· Tallinna FC Flora v Saku Sporting
+  NO DATA — PENDING
+· Viimsi JK v Harju JK Laagri
+  NO DATA — PENDING
+```
+```
+EUROPA LEAGUE
+· FK Crvena Zvezda v Viktoria Plzen
+  NO DATA — PENDING
+· Benfica v AGF Aarhus
+  NO DATA — PENDING
+· Jagiellonia v Iberia 1999
+  NO DATA — PENDING
+· Beşiktaş v Kauno Žalgiris
+  NO DATA — PENDING
+· Universitatea Craiova v Ararat-Armenia
+  NO DATA — PENDING
+· Kairat Almaty v Anderlecht
+  NO DATA — PENDING
+· Sint-Truiden v Omonia Nicosia
+  NO DATA — PENDING
+· Trabzonspor v Ferencvarosi TC
+  NO DATA — PENDING
+· OFI v CSKA Sofia
+  NO DATA — PENDING
+· Mjällby v Red Bull Salzburg
+  NO DATA — PENDING
+· Egnatia v Lillestroem
+  NO DATA — PENDING
+· Lech Poznan v Thun
+  NO DATA — PENDING
+· Mjällby v Salzburg
+  NO DATA — PENDING
+· Besiktas Istanbul v Kauno Žalgiris
+  NO DATA — PENDING
+· CS Universitatea Craiova v Ararat-Armenia
+  NO DATA — PENDING
+· Lech Poznan v FC Thun
+  NO DATA — PENDING
+· OFI Crete v PFC CSKA Sofia
+  NO DATA — PENDING
+· St Truiden v Omonia Nicosia
+  NO DATA — PENDING
+```
+```
+FAROE ISLANDS PREMIER LEAGUE
+· Vikingur Gota v B36 Torshavn
+  NO DATA — PENDING
+· Eb/Streymur v AB Argir
+  NO DATA — PENDING
+· HB Torshavn v 07 Vestur Sorvagur
+  NO DATA — PENDING
+· KI Klaksvik v NSI Runavik
+  NO DATA — PENDING
+· Tofta Itrottarfelag B68 v Skala IF
+  NO DATA — PENDING
+```
+```
+FINNISH VEIKKAUSLIIGA
+· Seinajoen JK v FC Lahti
+  NO DATA — PENDING
+· FF Jaro v AC Oulu
+  NO DATA — PENDING
+· Tampereen Ilves v Vaasan Palloseura
+  NO DATA — PENDING
+· HJK Helsinki v IF Gnistan
+  NO DATA — PENDING
+· Kuopion Palloseura v IFK Mariehamn
+  NO DATA — PENDING
+· Turun Palloseura v FC Inter Turku
+  NO DATA — PENDING
+```
+```
+GEORGIAN EROVNULI LIGA
+· FC Dila Gori v FC Torpedo Kutaisi
+  NO DATA — PENDING
+· Iberia 1999 v FC Dinamo Tbilisi
+  NO DATA — PENDING
+```
+```
+GREEK SUPER LEAGUE
+· AEK Athens FC v POT Iraklis
+  NO DATA — PENDING
+· PAE PS Kalamata v Aris Thessaloniki
+  NO DATA — PENDING
+· Olympiakos Piraeus v Atromitos Athinon
+  NO DATA — PENDING
+· OFI Crete v Volos NPS
+  NO DATA — PENDING
+· PAOK v APO Levadiakos FC
+  NO DATA — PENDING
+· Panaitolikos Agrinio v Asteras Tripolis
+  NO DATA — PENDING
+```
+```
+HNL
+· NK Rudes Zagreb v NK Lokomotiva Zagreb
+  NO DATA — PENDING
+· NK Slaven Belupo v HNK Gorica
+  NO DATA — PENDING
+· Dinamo Zagreb v NK Varazdin
+  NO DATA — PENDING
+· HNK Rijeka v Istra 1961
+  NO DATA — PENDING
+· HNK Hajduk Split v NK Osijek
+  NO DATA — PENDING
+```
+```
+HUNGARIAN NB I
+· Paksi FC v Ujpest FC Budapest
+  NO DATA — PENDING
+· Vasas FC v Puskas Akademia FC Felcsut
+  NO DATA — PENDING
+· MTK Budapest v Nyiregyhaza Spartacus FC
+  NO DATA — PENDING
+· Kisvarda FC v Debreceni VSC
+  NO DATA — PENDING
+· WKW ETO FC Gyor v Zalaegerszeg TE
+  NO DATA — PENDING
+```
+```
+ISRAELI PREMIER LEAGUE
+· Ironi Tiberias v Hapoel Petah Tikva FC
+  NO DATA — PENDING
+· Hapoel Jerusalem FC v Maccabi Tel Aviv FC
+  NO DATA — PENDING
+· Maccabi Netanya FC v Bnei Sakhnin FC
+  NO DATA — PENDING
+```
+```
+KOSOVAN SUPERLIGA
+· KF Malisheva v KF Drenica Skenderaj
+  NO DATA — PENDING
+```
+```
+LA LIGA
+· Vallecano v Alaves
+  NO DATA — PENDING
+· Betis v Sociedad
+  NO DATA — PENDING
+· Ath Bilbao v Sevilla
+  NO DATA — PENDING
+· Valencia v Celta
+  NO DATA — PENDING
+· Espanol v Real Madrid
+  NO DATA — PENDING
+· Ath Madrid v Villarreal
+  NO DATA — PENDING
+· Getafe v Racing Santander
+  NO DATA — PENDING
+· Elche v Barcelona
+  NO DATA — PENDING
+· Osasuna v Levante
+  NO DATA — PENDING
+· Malaga v RC Deportivo De La Coruna
+  NO DATA — PENDING
+· Valencia v Betis
+  NO DATA — PENDING
+· Real Madrid v Sociedad
+  NO DATA — PENDING
+· Celta v Osasuna
+  NO DATA — PENDING
+· Barcelona v Ath Bilbao
+  NO DATA — PENDING
+```
+```
+LATVIAN VIRSLIGA
+· FK Auda Riga v FK Liepaja
+  NO DATA — PENDING
+· FK Liepaja v Grobinas SC/LFS
+  NO DATA — PENDING
+· SK Super Nova v BFC Daugavpils
+  NO DATA — PENDING
+· Ogre United v FS Jelgava
+  NO DATA — PENDING
+· FC RFS v Rīgas FS
+  NO DATA — PENDING
+```
+```
+LIGUE 1
+· Marseille v Strasbourg
+  NO DATA — PENDING
+· Lens v Auxerre
+  NO DATA — PENDING
+· Le Mans FC v Brest
+  NO DATA — PENDING
+· Nice v Lorient
+  NO DATA — PENDING
+· Toulouse v Lyon
+  NO DATA — PENDING
+· Troyes v Paris FC
+  NO DATA — PENDING
+· Angers v Lille
+  NO DATA — PENDING
+· Le Havre v Monaco
+  NO DATA — PENDING
+· Rennes v PSG
+  NO DATA — PENDING
+```
+```
+MALTESE PREMIER LEAGUE
+· Floriana v Sliema Wanderers
+  NO DATA — PENDING
+· Marsaxlokk FC v Hibernians FC Paola
+  NO DATA — PENDING
+```
+```
+NORTHERN IRISH PREMIERSHIP
+· Ballymena United v Glentoran FC
+  NO DATA — PENDING
+· Linfield FC v Cliftonville FC
+  NO DATA — PENDING
+· Carrick Rangers v Coleraine FC
+  NO DATA — PENDING
+· Dungannon Swifts v Bangor FC
+  NO DATA — PENDING
+· Larne v Limavady United FC
+  NO DATA — PENDING
+· Crusaders FC v Portadown FC
+  NO DATA — PENDING
+```
+```
+NORWEGIAN ELITESERIEN
+· Vaalerenga IF v Molde
+  NO DATA — PENDING
+· Viking v Aalesunds FK
+  NO DATA — PENDING
+· Bodo/Glimt v Rosenborg
+  NO DATA — PENDING
+· HamKam v Kristiansund BK
+  NO DATA — PENDING
+· IK Start v KFUM
+  NO DATA — PENDING
+· Sandefjord v SK Brann
+  NO DATA — PENDING
+· Tromsoe IL v Sarpsborg 08
+  NO DATA — PENDING
+· Lillestroem v Fredrikstad
+  NO DATA — PENDING
+```
+```
+PREMIER LEAGUE
+· Arsenal v Coventry City
+  NO DATA — PENDING
+· Hull City v Man United
+  NO DATA — PENDING
+· Everton v Crystal Palace
+  NO DATA — PENDING
+· Ipswich Town v Sunderland AFC
+  NO DATA — PENDING
+· Nott'm Forest v Leeds
+  NO DATA — PENDING
+· Brentford v Tottenham
+  NO DATA — PENDING
+· Brighton v Aston Villa
+  NO DATA — PENDING
+· Man City v Bournemouth
+  NO DATA — PENDING
+· Newcastle v Liverpool
+  NO DATA — PENDING
+· Fulham v Chelsea
+  NO DATA — PENDING
+```
+```
+PRIMEIRA LIGA
+· Maritimo Madeira v Academico de Viseu FC
+  NO DATA — PENDING
+· Estoril v Rio Ave
+  NO DATA — PENDING
+· Sporting v Alverca
+  NO DATA — PENDING
+· Vitoria SC Guimaraes v Nacional da Madeira
+  NO DATA — PENDING
+· Santa Clara Azores v Famalicao
+  NO DATA — PENDING
+· Porto v Arouca
+  NO DATA — PENDING
+· Gil Vicente Barcelos v Casa Pia Lisbon
+  NO DATA — PENDING
+```
+```
+RUSSIAN PREMIER LEAGUE
+· FC Fakel Voronezh v FC Orenburg
+  NO DATA — PENDING
+· RFK Akhmat Grozny v FK Rostov
+  NO DATA — PENDING
+· CSKA Moscow v Lokomotiv
+  NO DATA — PENDING
+· FK Akron Tolyatti v PFK Krylia Sovetov Samara
+  NO DATA — PENDING
+· FK Dinamo Moscow v Rodina Moscow
+  NO DATA — PENDING
+· FC Fakel Voronezh v FK Zenit Saint Petersburg
+  NO DATA — PENDING
+· Spartak Moskva v Zenit St.Petersburg
+  NO DATA — PENDING
+· FK Akron Tolyatti v CSKA Moscow
+  NO DATA — PENDING
+· FK Krasnodar v FK Rostov
+  NO DATA — PENDING
+· Lokomotiv v FK Dinamo Moscow
+  NO DATA — PENDING
+· RFK Akhmat Grozny v PFK Krylia Sovetov Samara
+  NO DATA — PENDING
+· Rodina Moscow v FC Baltika Kaliningrad
+  NO DATA — PENDING
+· FK Rubin Kazan v FC Dynamo-Makhachkala
+  NO DATA — PENDING
+```
+```
+SCOTTISH PREMIERSHIP
+· Dundee United v Dundee
+  NO DATA — PENDING
+```
+```
+SERIE A
+· Inter v Monza
+  NO DATA — PENDING
+· Udinese v Como 1907
+  NO DATA — PENDING
+· Genoa v Napoli
+  NO DATA — PENDING
+· Parma Calcio v Cagliari
+  NO DATA — PENDING
+· Frosinone v Juventus
+  NO DATA — PENDING
+· Venezia FC v Lecce
+  NO DATA — PENDING
+· Atalanta v Sassuolo
+  NO DATA — PENDING
+· Torino v Milan
+  NO DATA — PENDING
+· Bologna v Lazio
+  NO DATA — PENDING
+· Roma v Fiorentina
+  NO DATA — PENDING
+```
+```
+SLOVENIAN PRVALIGA
+· Aluminij Kidricevo v NK Brinje Grosuplje
+  NO DATA — PENDING
+· Olimpija Ljubljana v Nafta 1903 Lendava
+  NO DATA — PENDING
+· Mura Murska Sobota v FC Koper
+  NO DATA — PENDING
+· NK Maribor v Bravo Ljubljana
+  NO DATA — PENDING
+```
+```
+SWEDISH ALLSVENSKAN
+· Malmo FF v Hammarby
+  NO DATA — PENDING
+· Djurgardens IF DFF v Brommapojkarna
+  NO DATA — PENDING
+· Eskilstuna United DFF v Vaxjo DFF
+  NO DATA — PENDING
+· Kristianstads DFF v FC Rosengaard Malmo
+  NO DATA — PENDING
+· Hacken Gothenburg W v AIK DFF
+  NO DATA — PENDING
+· Piteaa IF DFF v IK Uppsala Fotboll
+  NO DATA — PENDING
+· Vittsjo GIK v IFK Norrkoping DFK
+  NO DATA — PENDING
+```
+```
+SWISS SUPER LEAGUE
+· Young Boys Bern v Servette Geneva W
+  NO DATA — PENDING
+```
+```
+TURKISH SUPER LIG
+· Erzurumspor FK v Galatasaray Istanbul
+  NO DATA — PENDING
+· Caykur Rizespor v Samsunspor
+  NO DATA — PENDING
+· Corum FK v Kasimpasa Istanbul
+  NO DATA — PENDING
+· Fenerbahce v Konyaspor
+  NO DATA — PENDING
+· Eyupspor v Gaziantep FK
+  NO DATA — PENDING
+· Trabzonspor v Istanbul BB
+  NO DATA — PENDING
+· Alanyaspor v Besiktas Istanbul
+  NO DATA — PENDING
+· Goztepe Izmir v Genclerbirligi SK
+  NO DATA — PENDING
+· Kayserispor v Amed Sportif Faaliyetler
+  NO DATA — PENDING
+```
+```
+WELSH PREMIER LEAGUE
+· Cardiff Metropolitan University FC v The New Saints FC
+  NO DATA — PENDING
+· Colwyn Bay v Airbus UK
+  NO DATA — PENDING
+· Flint Town v Briton Ferry
+  NO DATA — PENDING
+· Haverfordwest County AFC v Cambrian United
+  NO DATA — PENDING
+· Holywell Town v Barry Town United FC
+  NO DATA — PENDING
+· Pen-y-Bont FC v Llandudno FC
+  NO DATA — PENDING
+· Trefelin BGC v Caernarfon Town FC
+  NO DATA — PENDING
+· Ammanford v Connah`s Quay Nomads FC
+  NO DATA — PENDING
+```
+
+🎯 PRODUCTION BETS — 2026-08-20 (today's fixtures only)
+
+NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
+
+YESTERDAY — GRADED
+No settled predictions to grade yet.
+
+7-DAY ROLLING
+no settled predictions in 7d
+1 legs logged · 1 with CLV (avg CLV +0.00%) · gate 1/30 legs
+
+HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

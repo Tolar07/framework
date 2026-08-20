@@ -691,31 +691,36 @@ def scan_one_league(league: str, season: str,
         # bookmaker name differs from the model key.
         sb_odds = None
         sb_mes = None
-        if probs is not None:
-            for market_key, prob_attr in [("1X2_HOME", "p_home"), ("1X2_DRAW", "p_draw"), ("1X2_AWAY", "p_away")]:
-                market_prob = getattr(probs, prob_attr)
-                if market_prob:
-                    sb_price = get_sportybet_odds_for_leg(home, away, league, market_key)
-                    if sb_price:
+        # HARD RULE (Architect 2026-08-19): fetch SportyBet odds for ALL fixtures,
+        # not just rated ones — newly promoted teams (probs is None) still have live
+        # prices; those prices are what let them produce a bet via market-implied
+        # probability fallback.
+        for market_key, prob_attr in [("1X2_HOME", "p_home"), ("1X2_DRAW", "p_draw"), ("1X2_AWAY", "p_away")]:
+            sb_price = get_sportybet_odds_for_leg(home, away, league, market_key)
+            if sb_price:
+                if probs is not None:
+                    market_prob = getattr(probs, prob_attr)
+                    if market_prob:
                         sb_mes_val = mes_numeric(market_prob, sb_price)
                         if sb_mes is None or (sb_mes_val is not None and sb_mes_val > sb_mes):
                             sb_mes = sb_mes_val
-                        if sb_odds is None:
-                            sb_odds = {"home": None, "draw": None, "away": None}
-                        if market_key == "1X2_HOME":
-                            sb_odds["home"] = sb_price
-                        elif market_key == "1X2_DRAW":
-                            sb_odds["draw"] = sb_price
-                        elif market_key == "1X2_AWAY":
-                            sb_odds["away"] = sb_price
+                if sb_odds is None:
+                    sb_odds = {"home": None, "draw": None, "away": None}
+                if market_key == "1X2_HOME":
+                    sb_odds["home"] = sb_price
+                elif market_key == "1X2_DRAW":
+                    sb_odds["draw"] = sb_price
+                elif market_key == "1X2_AWAY":
+                    sb_odds["away"] = sb_price
 
         board.append(BoardFixture(
             fixture=f"{home} v {away} ({league})",
             probs=probs,
             verification=v,
             model_engine="cross" if cross_model is not None else "dc",
-            on_deploy_shortlist=(probs is not None and is_deploy_eligible(league)
-                                  and v.tier not in (Tier.CONFLICT, Tier.NO_DATA)),
+            on_deploy_shortlist=(is_deploy_eligible(league)
+                                  and v.tier not in (Tier.CONFLICT, Tier.NO_DATA)
+                                  and (probs is not None or sb_odds is not None or mes is not None)),
             mes_trigger_price=mes,
             kickoff_date=fixture_dates.get((home, away)),
             elo_probs=elo_p,

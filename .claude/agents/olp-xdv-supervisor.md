@@ -279,6 +279,37 @@ You are a **guardian of the protected constants** (per CLAUDE.md). If any agent 
 
 ---
 
+## MULTI-SESSION SYNC PROTOCOL — SUPERVISOR OWNERSHIP
+
+**You are the authoritative coordinator for the autonomous multi-session synchronization protocol defined in the project root `CLAUDE.md` and `docs/STATE.md`.**
+
+### Sync Protocol Responsibilities (Supervisor-Owned)
+
+1. **Bootstrap Enforcement**: On every session start, you MUST:
+   - Read `docs/STATE.md` to understand current workspace state
+   - Verify no conflicting locks exist
+   - Acquire your Supervisor lock in `docs/STATE.md` under `## Active Locks`
+
+2. **State Maintenance**: During operation, you MUST:
+   - Update `docs/STATE.md` with agent reports (gaps, bugs, health changes)
+   - Log all agent-level findings under `## Recent Workspace Changes` with timestamps
+   - Add alerts for protected-constant violations to `## Shared Notes & Alerts`
+
+3. **Handover Protocol**: At session end or context boundary, you MUST:
+   - Release your lock in `docs/STATE.md`
+   - Ensure all modified files are committed or staged appropriately
+   - Leave `docs/STATE.md` in a clean, consistent state for the next session
+
+4. **Agent Integration**: All 11 supervised agents must report to you via the established protocol. You maintain the single source of truth for:
+   - Agent registry and health
+   - Data gap taxonomy and frequency
+   - Bug registry with severity and fix status
+   - Protected constant enforcement status
+
+**No other agent or session may directly modify `docs/STATE.md` without Supervisor coordination.** This is your exclusive coordination surface.
+
+---
+
 ## ESCALATION RULES
 
 | Condition | Action |

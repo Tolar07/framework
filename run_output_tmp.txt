@@ -1,0 +1,998 @@
+fixtures: espn FAILED after 2 attempts: '2. Bundesliga' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+historical_results: football_data FAILED after 2 attempts: 404 Client Error: Not Found for url: https://www.football-data.co.uk/mmz4281/2627/BL2.csv
+fixtures: api_football_fixtures FAILED after 2 attempts: API-Football has no league matching 'Albanian Superliga' (looked up as name='Albanian Superliga', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+fixtures: espn FAILED after 2 attempts: 'Albanian Superliga' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+fixtures: api_football_fixtures FAILED after 2 attempts: API-Football has no league matching 'Andorran Primera Divisió' (looked up as name='Andorran Primera Divisió', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+Circuit breaker OPENED for espn after 3 consecutive failures
+fixtures: espn FAILED after 2 attempts: 'Andorran Primera Divisió' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+Circuit breaker OPENED for api_football_fixtures after 3 consecutive failures
+fixtures: api_football_fixtures FAILED after 2 attempts: API-Football has no league matching 'Armenian Premier League' (looked up as name='Armenian Premier League', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+historical_results: football_data FAILED after 2 attempts: football-data.co.uk (Bundesliga) header is missing required column(s): HomeTeam, AwayTeam, FTHG, FTAG, Date — schema changed or file truncated
+Circuit breaker OPENED for football_data after 3 consecutive failures
+historical_results: football_data FAILED after 2 attempts: 'KNVB Beker' is not covered by football-data.co.uk — this source has no continental competitions and doesn't include Croatia. Needs a different T1 source before it can be scanned with real historical data (NOT a guess — genuinely unavailable here).
+Circuit breaker OPENED for api_football_fixtures after 4 consecutive failures
+fixtures: api_football_fixtures FAILED after 2 attempts: API-Football has no league matching 'Republic of Ireland Premier Division' (looked up as name='Republic of Ireland Premier Division', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+Circuit breaker OPENED for espn after 4 consecutive failures
+fixtures: espn FAILED after 2 attempts: 'Republic of Ireland Premier Division' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+Circuit breaker OPENED for football_data after 4 consecutive failures
+historical_results: football_data FAILED after 2 attempts: football-data.co.uk (Serie A) header is missing required column(s): HomeTeam, AwayTeam, FTHG, FTAG, Date — schema changed or file truncated
+odds_Armenian Premier League: api_football_odds FAILED after 2 attempts: API-Football has no league matching 'Armenian Premier League' (looked up as name='Armenian Premier League', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+odds_Conference League: api_football_odds FAILED after 2 attempts: API-Football has no league matching 'Conference League' (looked up as name='Conference League', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+odds_Estonian Meistriliiga: api_football_odds FAILED after 2 attempts: API-Football has no league matching 'Estonian Meistriliiga' (looked up as name='Estonian Meistriliiga', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+Circuit breaker OPENED for espn after 5 consecutive failures
+fixtures: espn FAILED after 2 attempts: '2. Bundesliga' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+Circuit breaker OPENED for api_football_fixtures after 5 consecutive failures
+fixtures: api_football_fixtures FAILED after 2 attempts: API-Football has no league matching 'Albanian Superliga' (looked up as name='Albanian Superliga', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+OLP XDV daily run — 2026-08-20 — Phase 3 — live capital (Architect-deployed)
+-> Building cache for Netherlands / Eredivisie (Eredivisie)...
+  - Cache fresh (6 fixtures), skipping
+-> Building cache for Denmark / Superliga (Danish Superliga)...
+  - Cache fresh (6 fixtures), skipping
+-> Building cache for Belgium / Pro League (Belgian Pro League)...
+  - Cache fresh (6 fixtures), skipping
+-> Building cache for Scotland / Premiership (Scottish Premiership)...
+  - Cache fresh (1 fixtures), skipping
+-> Building cache for Poland / Ekstraklasa (Ekstraklasa)...
+  - Cache fresh (7 fixtures), skipping
+-> Building cache for Croatia / HNL (HNL)...
+  - Cache fresh (5 fixtures), skipping
+-> Building cache for England / Championship (Championship)...
+  - Cache fresh (12 fixtures), skipping
+-> Building cache for Italy / Serie A (Serie A)...
+  - Cache fresh (10 fixtures), skipping
+-> Building cache for Germany / Bundesliga (Bundesliga)...
+  - Cache fresh (9 fixtures), skipping
+-> Building cache for France / Ligue 1 (Ligue 1)...
+  - Cache fresh (9 fixtures), skipping
+-> Building cache for International Clubs / UEFA Europa League (Europa League)...
+  - Cache fresh (12 fixtures), skipping
+-> Building cache for International Clubs / UEFA Conference League (Conference League)...
+  - Cache fresh (24 fixtures), skipping
+-> Building cache for Portugal / Liga Portugal (Primeira Liga)...
+  - Cache fresh (7 fixtures), skipping
+-> Building cache for England / Premier League (Premier League)...
+  - Cache fresh (10 fixtures), skipping
+-> Building cache for Spain / LaLiga (La Liga)...
+  - Cache fresh (14 fixtures), skipping
+-> Building cache for International Clubs / UEFA Champions League (Champions League)...
+  - Cache fresh (7 fixtures), skipping
+-> Building cache for Austria / Bundesliga (Austrian Bundesliga)...
+  - Cache fresh (3 fixtures), skipping
+-> Building cache for England / EFL Cup (EFL Cup)...
+  - Cache fresh (23 fixtures), skipping
+-> Building cache for England / FA Cup (FA Cup)...
+  x Fixtures did not render for England/FA Cup
+  x Failed to load page
+-> Building cache for England / Community Shield (Community Shield)...
+  x League 'Community Shield' not found in sidebar for England (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for England / EFL Trophy (EFL Trophy)...
+  x League 'EFL Trophy' not found in sidebar for England (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Spain / Copa del Rey (Copa del Rey)...
+  x Fixtures did not render for Spain/Copa del Rey
+  x Failed to load page
+-> Building cache for Italy / Coppa Italia (Coppa Italia)...
+  x Fixtures did not render for Italy/Coppa Italia
+  x Failed to load page
+-> Building cache for Germany / DFB Pokal (DFB Pokal)...
+  - Cache fresh (26 fixtures), skipping
+-> Building cache for Germany / Super Cup (German Super Cup)...
+  - Cache fresh (1 fixtures), skipping
+-> Building cache for France / Coupe de France (Coupe de France)...
+  x Fixtures did not render for France/Coupe de France
+  x Failed to load page
+-> Building cache for Netherlands / KNVB beker (KNVB Beker)...
+  x Fixtures did not render for Netherlands/KNVB beker
+  x Failed to load page
+-> Building cache for Austria / OFB Cup (OFB Cup)...
+  x Fixtures did not render for Austria/OFB Cup
+  x Failed to load page
+-> Building cache for Scotland / League Cup (Scottish League Cup)...
+  x Fixtures did not render for Scotland/League Cup
+  x Failed to load page
+-> Building cache for Turkiye / Super Lig (Süper Lig)...
+  - Cache fresh (9 fixtures), skipping
+-> Building cache for Greece / Super League (Super League Greece)...
+  - Cache fresh (6 fixtures), skipping
+-> Building cache for Switzerland / Super League (Swiss Super League)...
+  - Cache fresh (4 fixtures), skipping
+-> Building cache for Norway / Eliteserien (Eliteserien)...
+  - Cache fresh (8 fixtures), skipping
+-> Building cache for Sweden / Allsvenskan (Allsvenskan)...
+  - Cache fresh (7 fixtures), skipping
+-> Building cache for Czech Republic / First League (Czech First League)...
+  x Country 'Czech Republic' not found in sidebar
+  x Failed to load page
+-> Building cache for Norway / Eliteserien (Norwegian Eliteserien)...
+  - Cache fresh (8 fixtures), skipping
+-> Building cache for Turkiye / Super Lig (Turkish Super Lig)...
+  - Cache fresh (9 fixtures), skipping
+-> Building cache for Greece / Super League (Greek Super League)...
+  - Cache fresh (6 fixtures), skipping
+-> Building cache for Sweden / Allsvenskan (Swedish Allsvenskan)...
+  - Cache fresh (7 fixtures), skipping
+-> Building cache for Albania / Superliga (Albanian Superliga)...
+  x Country 'Albania' not found in sidebar
+  x Failed to load page
+-> Building cache for Andorra / Primera Divisió (Andorran Primera Divisió)...
+  x Country 'Andorra' not found in sidebar
+  x Failed to load page
+-> Building cache for Armenia / Premier League (Armenian Premier League)...
+  - Cache fresh (4 fixtures), skipping
+-> Building cache for Azerbaijan / Premyer Liqa (Azerbaijani Premyer Liqa)...
+  x Country 'Azerbaijan' not found in sidebar
+  x Failed to load page
+-> Building cache for Belarus / Premier League (Belarusian Premier League)...
+  x League 'Premier League' not found in sidebar for Belarus (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Bosnia / Premier League (Bosnian Premier League)...
+  x League 'Premier League' not found in sidebar for Bosnia (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Bulgaria / First League (Bulgarian First League)...
+  x League 'First League' not found in sidebar for Bulgaria (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Cyprus / First Division (Cypriot First Division)...
+  x League 'First Division' not found in sidebar for Cyprus (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Estonia / Meistriliiga (Estonian Meistriliiga)...
+  - Cache fresh (2 fixtures), skipping
+-> Building cache for Faroe Islands / Premier League (Faroe Islands Premier League)...
+  - Cache fresh (2 fixtures), skipping
+-> Building cache for Finland / Veikkausliiga (Finnish Veikkausliiga)...
+  - Cache fresh (6 fixtures), skipping
+-> Building cache for Georgia / Erovnuli Liga (Georgian Erovnuli Liga)...
+  - Cache fresh (2 fixtures), skipping
+-> Building cache for Gibraltar / National League (Gibraltarian National League)...
+  x Country 'Gibraltar' not found in sidebar
+  x Failed to load page
+-> Building cache for Hungary / NB I (Hungarian NB I)...
+  - Cache fresh (5 fixtures), skipping
+-> Building cache for Iceland / Urvalsdeild (Icelandic Urvalsdeild)...
+  x League 'Urvalsdeild' not found in sidebar for Iceland (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Israel / Premier League (Israeli Premier League)...
+  - Cache fresh (3 fixtures), skipping
+-> Building cache for Kazakhstan / Premier League (Kazakhstani Premier League)...
+  - Cache fresh (7 fixtures), skipping
+-> Building cache for Kosovo / Superliga (Kosovan Superliga)...
+  x Country 'Kosovo' not found in sidebar
+  x Failed to load page
+-> Building cache for Latvia / Virsliga (Latvian Virsliga)...
+  - Cache fresh (6 fixtures), skipping
+-> Building cache for Liechtenstein / Cup (Liechtensteiner Cup)...
+  x Country 'Liechtenstein' not found in sidebar
+  x Failed to load page
+-> Building cache for Lithuania / A Lyga (Lithuanian A Lyga)...
+  x League 'A Lyga' not found in sidebar for Lithuania (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Luxembourg / National Division (Luxembourg National Division)...
+  x Country 'Luxembourg' not found in sidebar
+  x Failed to load page
+-> Building cache for Malta / Premier League (Maltese Premier League)...
+  x Country 'Malta' not found in sidebar
+  x Failed to load page
+-> Building cache for Moldova / Super Liga (Moldovan Super Liga)...
+  x Country 'Moldova' not found in sidebar
+  x Failed to load page
+-> Building cache for Montenegro / First League (Montenegrin First League)...
+  x Country 'Montenegro' not found in sidebar
+  x Failed to load page
+-> Building cache for North Macedonia / First League (North Macedonian First League)...
+  x Country 'North Macedonia' not found in sidebar
+  x Failed to load page
+-> Building cache for Northern Ireland / Premiership (Northern Irish Premiership)...
+  - Cache fresh (6 fixtures), skipping
+-> Building cache for Republic of Ireland / Premier Division (Republic of Ireland Premier Division)...
+  x Country 'Republic of Ireland' not found in sidebar
+  x Failed to load page
+-> Building cache for Romania / Liga I (Romanian Liga I)...
+  x League 'Liga I' not found in sidebar for Romania (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Russia / Premier League (Russian Premier League)...
+  - Cache fresh (16 fixtures), skipping
+-> Building cache for San Marino / Campionato (Sanmarinese Campionato)...
+  x Country 'San Marino' not found in sidebar
+  x Failed to load page
+-> Building cache for Serbia / Super Liga (Serbian Super Liga)...
+  x League 'Super Liga' not found in sidebar for Serbia (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Slovakia / Super Liga (Slovak Super Liga)...
+  x League 'Super Liga' not found in sidebar for Slovakia (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Slovenia / PrvaLiga (Slovenian PrvaLiga)...
+  - Cache fresh (4 fixtures), skipping
+-> Building cache for International Clubs / UEFA Super Cup (UEFA Super Cup)...
+  x League 'UEFA Super Cup' not found in sidebar for International Clubs (scoped search only; no global fallback per HR35)
+  x Failed to load page
+-> Building cache for Wales / Cymru Premier (Welsh Premier League)...
+  - Cache fresh (8 fixtures), skipping
+  board saved to C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\output\boards\board_2026-08-20.txt (delivery skipped)
+
+PART 0 — HEADER
+Date: 2026-08-20 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: 2. Bundesliga, Albanian Superliga, Andorran Primera Divisió, Armenian Premier League, Austrian Bundesliga, Azerbaijani Premyer Liqa, Belarusian Premier League, Belgian Pro League, Bosnian Premier League, Bulgarian First League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey, Coppa Italia, Coupe de France, Cypriot First Division, Czech First League, DFB-Pokal, Danish Superliga, EFL Cup, Ekstraklasa, Eredivisie, Estonian Meistriliiga, Europa League, FA Cup, Faroe Islands Premier League, Finnish Veikkausliiga, Georgian Erovnuli Liga, Gibraltarian National League, Greek Super League, HNL, Hungarian NB I, Icelandic Urvalsdeild, Israeli Premier League, KNVB Beker, Kazakhstan Premier League, Kosovan Superliga, La Liga, La Liga 2, Latvian Virsliga, Liechtensteiner Cup, Ligue 1, Ligue 2, Lithuanian A Lyga, Luxembourg National Division, Maltese Premier League, Moldovan Super Liga, Montenegrin First League, North Macedonian First League, Northern Irish Premiership, Norwegian Eliteserien, Premier League, Primeira Liga, Republic of Ireland Premier Division, Romanian Liga I, Russian Premier League, Sanmarinese Campionato, Scottish Premiership, Serbian Super Liga, Serie A, Serie B, Slovak Super Liga, Slovenian PrvaLiga, Swedish Allsvenskan, Swiss Super League, Taça de Portugal, Turkish Super Lig, UEFA Super Cup, Ukrainian Premier League, Welsh Premier League
+Calibration: 17 legs logged, mean CLV -2.47%
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ? sportybet cache warm: 333 fixtures across 75 league(s) ready for the booking bridge
+  ? Champions League: no results available for grading — legs stay PENDING, not guessed
+  ? graded 0 of 3 pending leg(s)
+  ? Automated CLV grading: 0 leg(s) settled
+  ? 2. Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga) — NO DATA — PENDING
+  ? 2. Bundesliga: history via multi-source (thesportsdb.com)
+  ? 2. Bundesliga: insufficient match history (18 results) — NO DATA — PENDING rather than a thin fit
+  ? Albanian Superliga: history served from cache
+  ? Albanian Superliga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Albanian Superliga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Albanian Superliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Albanian Superliga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Andorran Primera Divisió: history served from cache
+  ? Andorran Primera Divisió: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Andorran Primera Divisió: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Andorran Primera Divisió: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Andorran Primera Divisió' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Armenian Premier League: history served from cache
+  ? Armenian Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Armenian Premier League: 4 fixture(s) skipped (not full-time or incomplete)
+  ? Armenian Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Armenian Premier League: fixtures via thesportsdb_season
+  ? Armenian Premier League: +4 fixture(s) merged from SportyBet cache (primary: thesportsdb_season)
+  ? Armenian Premier League: 6 team name(s) in the fixtures feed not found in the fitted data — FC Pyunik Yerevan, FC Syunik, FC Van Charentsavan, Gandzasar Kapan FC, Sardarapat FC, Syunik. Suggestions: FC Pyunik Yerevan -> Pyunik Yerevan (0.90); FC Syunik -> no close match in the model pool; FC Van Charentsavan -> no close match in the model pool; Gandzasar Kapan FC -> Gandzasar (0.67); Sardarapat FC -> no close match in the model pool; Syunik -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Austrian Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'Austrian Bundesliga' (looked up as name='Austrian Bundesliga', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Austrian Bundesliga: fixtures via SportyBet cache (3 — primary sources failed)
+  ? Austrian Bundesliga: insufficient match history (18 results) — NO DATA — PENDING rather than a thin fit
+  ? Azerbaijani Premyer Liqa: history served from cache
+  ? Azerbaijani Premyer Liqa: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Azerbaijani Premyer Liqa: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Azerbaijani Premyer Liqa: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Azerbaijani Premyer Liqa' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Belarusian Premier League: history served from cache
+  ? Belarusian Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Belarusian Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Belarusian Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Belarusian Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Belgian Pro League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League) — NO DATA — PENDING
+  ? Belgian Pro League: fixtures via SportyBet cache (6 — primary sources failed)
+  ? Belgian Pro League: insufficient match history (18 results) — NO DATA — PENDING rather than a thin fit
+  ? Bosnian Premier League: history served from cache
+  ? Bosnian Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Bosnian Premier League: 2 fixture(s) skipped (not full-time or incomplete)
+  ? Bosnian Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Bosnian Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Bosnian Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Bulgarian First League: history served from cache
+  ? Bulgarian First League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Bulgarian First League: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Bulgarian First League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Bulgarian First League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Bulgarian First League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga) — NO DATA — PENDING
+  ? Bundesliga: fixtures via SportyBet cache (9 — primary sources failed)
+  ? Bundesliga: results fetch failed (football-data.co.uk (Bundesliga) header is missing required column(s): HomeTeam, AwayTeam, FTHG, FTAG, Date — schema changed or file truncated) — NO DATA — PENDING
+  ? alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ? Champions League: history served from cache
+  ? Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ? Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ? Champions League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League) — NO DATA — PENDING
+  ? Champions League: fixtures via SportyBet cache (7 — primary sources failed)
+  ? Champions League: Elo continental blend w=2.5 (cached)
+  ? Champions League: 2 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Lyon v Fenerbahce, Viking v Dinamo Zagreb
+  ? Champions League: 4 team name(s) in the fixtures feed not found in the fitted data — AEK Athens, Hapoel Beer Sheva, Levski Sofia, Sabah Baku. Suggestions: AEK Athens -> no close match in the model pool; Hapoel Beer Sheva -> no close match in the model pool; Levski Sofia -> no close match in the model pool; Sabah Baku -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Championship: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship) — NO DATA — PENDING
+  ? Championship: fixtures via SportyBet cache (12 — primary sources failed)
+  ? Championship: +12 current-season results from football-data.org (promoted-club fix)
+  ? Championship: 6 fixture(s) rated on the previous season's carry-over model (promoted clubs): Birmingham v Bristol City, Millwall v Norwich, Blackburn v Middlesbrough, Southampton v Stoke, Swansea v Sheffield United, Wrexham v Watford
+  ? Championship: 3 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Preston v Wolves, West Ham v Charlton, West Brom v Burnley
+  ? Championship: 6 team name(s) in the fixtures feed not found in the fitted data — Bolton, Cardiff City, Derby, Lincoln City, Portsmouth, QPR. Suggestions: Bolton -> no close match in the model pool; Cardiff City -> no close match in the model pool; Derby -> no close match in the model pool; Lincoln City -> no close match in the model pool; Portsmouth -> no close match in the model pool; QPR -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ? Conference League: history served from cache
+  ? Conference League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Conference League: 301 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ? Conference League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Conference League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ? Conference League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Conference League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Conference League: fixtures via SportyBet cache (24 — primary sources failed)
+  ? Conference League: Elo continental blend w=2.5 (cached)
+  ? Conference League: 4 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): PAOK v SK Brann, FC Sion v Ajax, Panathinaikos v FC Hradec Kralove, Rangers v FK Jablonec
+  ? Conference League: 16 team name(s) in the fixtures feed not found in the fitted data — FC Dinamo City, FC Drita, FC Inter Turku, FK Austria Wien, FK Partizan Belgrade, HNK Hajduk Split, HNK Rijeka, Hapoel Tel Aviv FC, Inter Club de Escaldes, KI Klaksvik, Kuopion Palloseura, Lincoln Red Imps, Maccabi Tel Aviv FC, Pafos FC, SK Rapid, Tromsoe IL. Suggestions: FC Dinamo City -> Dinamo Minsk (0.61); FC Drita -> no close match in the model pool; FC Inter Turku -> no close match in the model pool; FK Austria Wien -> no close match in the model pool; FK Partizan Belgrade -> no close match in the model pool; HNK Hajduk Split -> no close match in the model pool; HNK Rijeka -> no close match in the model pool; Hapoel Tel Aviv FC -> no close match in the model pool; Inter Club de Escaldes -> no close match in the model pool; KI Klaksvik -> no close match in the model pool; Kuopion Palloseura -> no close match in the model pool; Lincoln Red Imps -> no close match in the model pool; Maccabi Tel Aviv FC -> Maccabi Tel Aviv (0.91); Pafos FC -> Pafos (0.77); SK Rapid -> no close match in the model pool; Tromsoe IL -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Copa del Rey: history served from cache
+  ? Copa del Rey: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Copa del Rey: 14 fixture(s) skipped (not full-time or incomplete)
+  ? Copa del Rey: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Copa del Rey: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey) — NO DATA — PENDING
+  ? Coppa Italia: history served from cache
+  ? Coppa Italia: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Coppa Italia: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Coppa Italia: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia) — NO DATA — PENDING
+  ? Coupe de France: history served from cache
+  ? Coupe de France: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Coupe de France: 26 fixture(s) skipped (not full-time or incomplete)
+  ? Coupe de France: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Coupe de France: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France) — NO DATA — PENDING
+  ? Cypriot First Division: history served from cache
+  ? Cypriot First Division: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Cypriot First Division: 5 fixture(s) skipped (not full-time or incomplete)
+  ? Cypriot First Division: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Cypriot First Division: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Cypriot First Division' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Czech First League: history served from cache
+  ? Czech First League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Czech First League: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Czech First League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Czech First League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Czech First League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? DFB-Pokal: history served from cache
+  ? DFB-Pokal: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? DFB-Pokal: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? DFB-Pokal: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Danish Superliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Danish Superliga) — NO DATA — PENDING
+  ? Danish Superliga: fixtures via SportyBet cache (6 — primary sources failed)
+  ? Danish Superliga: 4 fixture(s) rated on the previous season's carry-over model (promoted clubs): Sonderjyske v Nordsjaelland, Aarhus v Odense, Midtjylland v Randers FC, Viborg v FC Copenhagen
+  ? Danish Superliga: 1 team name(s) in the fixtures feed not found in the fitted data — AC Horsens. Suggestions: AC Horsens -> Horsens (0.82). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? EFL Cup: history served from cache
+  ? EFL Cup: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? EFL Cup: 15 fixture(s) skipped (not full-time or incomplete)
+  ? EFL Cup: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? EFL Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'EFL Cup' (looked up as name='EFL Cup', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? EFL Cup: fixtures via SportyBet cache (23 — primary sources failed)
+  ? EFL Cup: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Southampton v West Ham
+  ? EFL Cup: 42 team name(s) in the fixtures feed not found in the fitted data — AFC Wimbledon, Barnsley FC, Birmingham City, Blackburn Rovers, Blackpool FC, Bradford City FC, Brentford, Burnley, Cambridge United, Cardiff City, Charlton Athletic, Chelsea, Coventry City, Crewe Alexandra, Doncaster Rovers, Everton, Fleetwood Town, Fulham, Hull City, Ipswich Town, Leeds United, Leicester, Leyton Orient London, Lincoln City, Luton, Middlesbrough FC, Millwall, Norwich, Nottingham Forest, Peterborough United, Plymouth Argyle, Preston North End, Reading FC, Sheffield Utd, Sheffield Wednesday, Shrewsbury Town, Stevenage FC, Stoke City, Walsall FC, Watford, West Bromwich Albion, Wolves. Suggestions: AFC Wimbledon -> no close match in the model pool; Barnsley FC -> no close match in the model pool; Birmingham City -> no close match in the model pool; Blackburn Rovers -> no close match in the model pool; Blackpool FC -> no close match in the model pool; Bradford City FC -> no close match in the model pool; Brentford -> no close match in the model pool; Burnley -> no close match in the model pool; Cambridge United -> no close match in the model pool; Cardiff City -> no close match in the model pool; Charlton Athletic -> no close match in the model pool; Chelsea -> no close match in the model pool; Coventry City -> no close match in the model pool; Crewe Alexandra -> no close match in the model pool; Doncaster Rovers -> no close match in the model pool; Everton -> no close match in the model pool; Fleetwood Town -> no close match in the model pool; Fulham -> no close match in the model pool; Hull City -> no close match in the model pool; Ipswich Town -> no close match in the model pool; Leeds United -> no close match in the model pool; Leicester -> no close match in the model pool; Leyton Orient London -> no close match in the model pool; Lincoln City -> no close match in the model pool; Luton -> no close match in the model pool; Middlesbrough FC -> no close match in the model pool; Millwall -> no close match in the model pool; Norwich -> no close match in the model pool; Nottingham Forest -> no close match in the model pool; Peterborough United -> no close match in the model pool; Plymouth Argyle -> no close match in the model pool; Preston North End -> no close match in the model pool; Reading FC -> no close match in the model pool; Sheffield Utd -> no close match in the model pool; Sheffield Wednesday -> no close match in the model pool; Shrewsbury Town -> no close match in the model pool; Stevenage FC -> no close match in the model pool; Stoke City -> no close match in the model pool; Walsall FC -> no close match in the model pool; Watford -> no close match in the model pool; West Bromwich Albion -> no close match in the model pool; Wolves -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Ekstraklasa: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ekstraklasa) — NO DATA — PENDING
+  ? Ekstraklasa: fixtures via SportyBet cache (7 — primary sources failed)
+  ? Ekstraklasa: 3 fixture(s) rated on the previous season's carry-over model (promoted clubs): Korona Kielce v Motor Lublin, Radomiak Radom v Zaglebie, GKS Katowice v Wisla Plock
+  ? Ekstraklasa: 4 team name(s) in the fixtures feed not found in the fitted data — Pogon Szczecin, WKS Slask Wroclaw, Wieczysta Krakow, Wisla Krakow. Suggestions: Pogon Szczecin -> no close match in the model pool; WKS Slask Wroclaw -> Slask Wroclaw (0.87); Wieczysta Krakow -> no close match in the model pool; Wisla Krakow -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Eredivisie: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie) — NO DATA — PENDING
+  ? Eredivisie: fixtures via SportyBet cache (6 — primary sources failed)
+  ? Eredivisie: +2 current-season results from football-data.org (promoted-club fix)
+  ? Eredivisie: 4 fixture(s) rated on the previous season's carry-over model (promoted clubs): For Sittard v AZ Alkmaar, Sparta Rotterdam v Utrecht, Heerenveen v Zwolle, PSV Eindhoven v Groningen
+  ? Eredivisie: 4 team name(s) in the fixtures feed not found in the fitted data — ADO Den Haag, Feyenoord, Go Ahead Eagles, SC Cambuur. Suggestions: ADO Den Haag -> no close match in the model pool; Feyenoord -> no close match in the model pool; Go Ahead Eagles -> no close match in the model pool; SC Cambuur -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Estonian Meistriliiga: history served from cache
+  ? Estonian Meistriliiga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Estonian Meistriliiga: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Estonian Meistriliiga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Estonian Meistriliiga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Estonian Meistriliiga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Estonian Meistriliiga: fixtures via SportyBet cache (2 — primary sources failed)
+  ? Estonian Meistriliiga: 4 team name(s) in the fixtures feed not found in the fitted data — Harju JK Laagri, Saku Sporting, Tallinna FC Flora, Viimsi JK. Suggestions: Harju JK Laagri -> no close match in the model pool; Saku Sporting -> no close match in the model pool; Tallinna FC Flora -> Tallinna Kalev (0.65); Viimsi JK -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ? Europa League: history served from cache
+  ? Europa League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ? Europa League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ? Europa League: fixtures via thesportsdb_season
+  ? Europa League: +8 fixture(s) merged from SportyBet cache (primary: thesportsdb_season)
+  ? Europa League: Elo continental blend w=2.5 (cached)
+  ? Europa League: 3 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Benfica v AGF Aarhus, Egnatia v Lillestrøm, FK Crvena Zvezda v Viktoria Plzen
+  ? Europa League: 20 team name(s) in the fixtures feed not found in the fitted data — Ararat-Armenia, Besiktas Istanbul, CS Universitatea Craiova, CSKA Sofia, FC Thun, Iberia 1999, KF Egnatia Rrogozhine, Kairat Almaty, Kauno Žalgiris, Lillestroem SK, Mjällby, OFI, OFI Crete, PFC CSKA Sofia, Salzburg, Sint-Truiden, Thun, Trabzonspor, Universitatea Craiova, Viktoria Plze?. Suggestions: Ararat-Armenia -> no close match in the model pool; Besiktas Istanbul -> Be?ikta? (0.64); CS Universitatea Craiova -> no close match in the model pool; CSKA Sofia -> Casa Pia (0.67); FC Thun -> FC Lugano (0.62); Iberia 1999 -> Hibernian (0.60); KF Egnatia Rrogozhine -> no close match in the model pool; Kairat Almaty -> no close match in the model pool; Kauno Žalgiris -> no close match in the model pool; Lillestroem SK -> no close match in the model pool; Mjällby -> no close match in the model pool; OFI -> no close match in the model pool; OFI Crete -> Gil Vicente (0.60); PFC CSKA Sofia -> no close match in the model pool; Salzburg -> Strasbourg (0.67); Sint-Truiden -> St Truiden (0.82); Thun -> no close match in the model pool; Trabzonspor -> no close match in the model pool; Universitatea Craiova -> no close match in the model pool; Viktoria Plze? -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? FA Cup: history served from cache
+  ? FA Cup: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? FA Cup: 61 fixture(s) skipped (not full-time or incomplete)
+  ? FA Cup: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? FA Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Faroe Islands Premier League: history served from cache
+  ? Faroe Islands Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Faroe Islands Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Faroe Islands Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Faroe Islands Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Faroe Islands Premier League: fixtures via SportyBet cache (2 — primary sources failed)
+  ? Faroe Islands Premier League: 4 team name(s) in the fixtures feed not found in the fitted data — B36 Torshavn, KI Klaksvik, NSI Runavik, Vikingur Gota. Suggestions: B36 Torshavn -> no close match in the model pool; KI Klaksvik -> no close match in the model pool; NSI Runavik -> no close match in the model pool; Vikingur Gota -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Finnish Veikkausliiga: history served from cache
+  ? Finnish Veikkausliiga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Finnish Veikkausliiga: 2 fixture(s) skipped (not full-time or incomplete)
+  ? Finnish Veikkausliiga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Finnish Veikkausliiga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'Finnish Veikkausliiga' (looked up as name='Finnish Veikkausliiga', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Finnish Veikkausliiga: fixtures via SportyBet cache (6 — primary sources failed)
+  ? Finnish Veikkausliiga: 10 team name(s) in the fixtures feed not found in the fitted data — FC Inter Turku, FC Lahti, FF Jaro, IF Gnistan, IFK Mariehamn, Kuopion Palloseura, Seinajoen JK, Tampereen Ilves, Turun Palloseura, Vaasan Palloseura. Suggestions: FC Inter Turku -> Inter Turku (0.88); FC Lahti -> Lahti (0.77); FF Jaro -> no close match in the model pool; IF Gnistan -> Gnistan (0.82); IFK Mariehamn -> Mariehamn (0.82); Kuopion Palloseura -> no close match in the model pool; Seinajoen JK -> no close match in the model pool; Tampereen Ilves -> no close match in the model pool; Turun Palloseura -> no close match in the model pool; Vaasan Palloseura -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Georgian Erovnuli Liga: history served from cache
+  ? Georgian Erovnuli Liga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Georgian Erovnuli Liga: 2 fixture(s) skipped (not full-time or incomplete)
+  ? Georgian Erovnuli Liga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Georgian Erovnuli Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Georgian Erovnuli Liga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Georgian Erovnuli Liga: fixtures via SportyBet cache (2 — primary sources failed)
+  ? Georgian Erovnuli Liga: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): FC Dila Gori v FC Torpedo Kutaisi
+  ? Georgian Erovnuli Liga: 2 team name(s) in the fixtures feed not found in the fitted data — FC Dinamo Tbilisi, Iberia 1999. Suggestions: FC Dinamo Tbilisi -> Dinamo Tbilisi (0.90); Iberia 1999 -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Gibraltarian National League: history served from cache
+  ? Gibraltarian National League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Gibraltarian National League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Gibraltarian National League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Gibraltarian National League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Greek Super League: history served from cache
+  ? Greek Super League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Greek Super League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Greek Super League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'Greek Super League' (looked up as name='Greek Super League', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Greek Super League: fixtures via SportyBet cache (6 — primary sources failed)
+  ? Greek Super League: 8 team name(s) in the fixtures feed not found in the fitted data — APO Levadiakos FC, Aris Thessaloniki, Atromitos Athinon, OFI Crete, PAE PS Kalamata, POT Iraklis, Panaitolikos Agrinio, Volos NPS. Suggestions: APO Levadiakos FC -> Levadiakos (0.74); Aris Thessaloniki -> Aris Thessalonikis (0.97); Atromitos Athinon -> Atromitos (0.69); OFI Crete -> no close match in the model pool; PAE PS Kalamata -> no close match in the model pool; POT Iraklis -> no close match in the model pool; Panaitolikos Agrinio -> Panetolikos (0.65); Volos NPS -> Volos NFC (0.78). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? HNL: history served from cache
+  ? HNL: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? HNL: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? HNL: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for HNL) — NO DATA — PENDING
+  ? HNL: fixtures via SportyBet cache (5 — primary sources failed)
+  ? HNL: 1 team name(s) in the fixtures feed not found in the fitted data — NK Rudes Zagreb. Suggestions: NK Rudes Zagreb -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Hungarian NB I: history served from cache
+  ? Hungarian NB I: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Hungarian NB I: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Hungarian NB I: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Hungarian NB I' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Hungarian NB I: fixtures via SportyBet cache (5 — primary sources failed)
+  ? Hungarian NB I: 8 team name(s) in the fixtures feed not found in the fitted data — Kisvarda FC, Nyiregyhaza Spartacus FC, Paksi FC, Puskas Akademia FC Felcsut, Ujpest FC Budapest, Vasas FC, WKW ETO FC Gyor, Zalaegerszeg TE. Suggestions: Kisvarda FC -> no close match in the model pool; Nyiregyhaza Spartacus FC -> Nyiregyhaza (0.63); Paksi FC -> Paks (0.67); Puskas Akademia FC Felcsut -> Puskas Academy (0.60); Ujpest FC Budapest -> MTK Budapest (0.67); Vasas FC -> no close match in the model pool; WKW ETO FC Gyor -> no close match in the model pool; Zalaegerszeg TE -> Zalaegerszegi TE (0.97). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Icelandic Urvalsdeild: history served from cache
+  ? Icelandic Urvalsdeild: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Icelandic Urvalsdeild: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Icelandic Urvalsdeild: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Icelandic Urvalsdeild' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Israeli Premier League: history served from cache
+  ? Israeli Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Israeli Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Israeli Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Israeli Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Israeli Premier League: fixtures via SportyBet cache (3 — primary sources failed)
+  ? Israeli Premier League: 5 team name(s) in the fixtures feed not found in the fitted data — Bnei Sakhnin FC, Hapoel Jerusalem FC, Hapoel Petah Tikva FC, Maccabi Netanya FC, Maccabi Tel Aviv FC. Suggestions: Bnei Sakhnin FC -> Bnei Sakhnin (0.89); Hapoel Jerusalem FC -> Beitar Jerusalem (0.63); Hapoel Petah Tikva FC -> Maccabi Petah Tikva (0.65); Maccabi Netanya FC -> Maccabi Netanya (0.91); Maccabi Tel Aviv FC -> Maccabi Tel Aviv (0.91). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? KNVB Beker: history served from cache
+  ? KNVB Beker: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? KNVB Beker: 1 fixture(s) skipped (not full-time or incomplete)
+  ? KNVB Beker: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? KNVB Beker: fallback history too thin (6) — NO DATA — PENDING
+  ? KNVB Beker: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker) — NO DATA — PENDING
+  ? KNVB Beker: results fetch failed ('KNVB Beker' is not covered by football-data.co.uk — this source has no continental competitions and doesn't include Croatia. Needs a different T1 source before it can be scanned with real historical data (NOT a guess — genuinely unavailable here).) — NO DATA — PENDING
+  ? Kazakhstan Premier League: history served from cache
+  ? Kazakhstan Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Kazakhstan Premier League: 26 fixture(s) skipped (not full-time or incomplete)
+  ? Kazakhstan Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Kazakhstan Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Kazakhstan Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Kosovan Superliga: history served from cache
+  ? Kosovan Superliga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Kosovan Superliga: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Kosovan Superliga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Kosovan Superliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Kosovan Superliga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? La Liga: fixtures via thesportsdb_season
+  ? La Liga: +13 fixture(s) merged from SportyBet cache (primary: thesportsdb_season)
+  ? La Liga: +6 current-season results from football-data.org (promoted-club fix)
+  ? La Liga: insufficient match history (11 results) — NO DATA — PENDING rather than a thin fit
+  ? La Liga 2: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'La Liga 2' (looked up as name='La Liga 2', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? La Liga 2: insufficient match history (11 results) — NO DATA — PENDING rather than a thin fit
+  ? Latvian Virsliga: history served from cache
+  ? Latvian Virsliga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Latvian Virsliga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Latvian Virsliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Latvian Virsliga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Latvian Virsliga: fixtures via SportyBet cache (6 — primary sources failed)
+  ? Latvian Virsliga: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): FC RFS v Riga FC
+  ? Latvian Virsliga: 5 team name(s) in the fixtures feed not found in the fitted data — FK Auda Riga, FK Tukums 2000/TSS, Grobinas SC/LFS, Ogre United, SK Super Nova. Suggestions: FK Auda Riga -> no close match in the model pool; FK Tukums 2000/TSS -> no close match in the model pool; Grobinas SC/LFS -> Grobi?a (0.64); Ogre United -> no close match in the model pool; SK Super Nova -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Liechtensteiner Cup: history served from cache
+  ? Liechtensteiner Cup: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Liechtensteiner Cup: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Liechtensteiner Cup: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Liechtensteiner Cup: fallback history too thin (0) — NO DATA — PENDING
+  ? Liechtensteiner Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Liechtensteiner Cup' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Liechtensteiner Cup: results fetch failed ('Liechtensteiner Cup' is not covered by football-data.co.uk — this source has no continental competitions and doesn't include Croatia. Needs a different T1 source before it can be scanned with real historical data (NOT a guess — genuinely unavailable here).) — NO DATA — PENDING
+  ? Ligue 1: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1) — NO DATA — PENDING
+  ? Ligue 1: fixtures via SportyBet cache (9 — primary sources failed)
+  ? Ligue 1: results fetch failed (football-data.co.uk (Ligue 1) header is missing required column(s): HomeTeam, AwayTeam, FTHG, FTAG, Date — schema changed or file truncated) — NO DATA — PENDING
+  ? Ligue 2: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'Ligue 2': ['Ligue 2 (France)', 'Ligue 2 (Algeria)', 'Ligue 2 (Tunisia)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Ligue 2: insufficient match history (18 results) — NO DATA — PENDING rather than a thin fit
+  ? Lithuanian A Lyga: history served from cache
+  ? Lithuanian A Lyga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Lithuanian A Lyga: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Lithuanian A Lyga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Lithuanian A Lyga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Lithuanian A Lyga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Luxembourg National Division: history served from cache
+  ? Luxembourg National Division: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Luxembourg National Division: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Luxembourg National Division: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Luxembourg National Division: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Luxembourg National Division' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Maltese Premier League: history served from cache
+  ? Maltese Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Maltese Premier League: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Maltese Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Maltese Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Maltese Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Moldovan Super Liga: history served from cache
+  ? Moldovan Super Liga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Moldovan Super Liga: 2 fixture(s) skipped (not full-time or incomplete)
+  ? Moldovan Super Liga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Moldovan Super Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Moldovan Super Liga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Montenegrin First League: history served from cache
+  ? Montenegrin First League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Montenegrin First League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Montenegrin First League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Montenegrin First League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? North Macedonian First League: history served from cache
+  ? North Macedonian First League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? North Macedonian First League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? North Macedonian First League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'North Macedonian First League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Northern Irish Premiership: history served from cache
+  ? Northern Irish Premiership: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Northern Irish Premiership: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Northern Irish Premiership: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Northern Irish Premiership' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Northern Irish Premiership: fixtures via SportyBet cache (6 — primary sources failed)
+  ? Northern Irish Premiership: 12 team name(s) in the fixtures feed not found in the fitted data — Ballymena United, Bangor FC, Carrick Rangers, Cliftonville FC, Coleraine FC, Crusaders FC, Dungannon Swifts, Glentoran FC, Larne, Limavady United FC, Linfield FC, Portadown FC. Suggestions: Ballymena United -> no close match in the model pool; Bangor FC -> no close match in the model pool; Carrick Rangers -> no close match in the model pool; Cliftonville FC -> no close match in the model pool; Coleraine FC -> no close match in the model pool; Crusaders FC -> no close match in the model pool; Dungannon Swifts -> no close match in the model pool; Glentoran FC -> no close match in the model pool; Larne -> no close match in the model pool; Limavady United FC -> no close match in the model pool; Linfield FC -> no close match in the model pool; Portadown FC -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Norwegian Eliteserien: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'Norwegian Eliteserien' (looked up as name='Norwegian Eliteserien', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Norwegian Eliteserien: fixtures via SportyBet cache (8 — primary sources failed)
+  ? Norwegian Eliteserien: insufficient match history (0 results) — NO DATA — PENDING rather than a thin fit
+  ? Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League) — NO DATA — PENDING
+  ? Premier League: fixtures via SportyBet cache (10 — primary sources failed)
+  ? Premier League: results fetch failed (football-data.co.uk (Premier League) header is missing required column(s): HomeTeam, AwayTeam, FTHG, FTAG, Date — schema changed or file truncated) — NO DATA — PENDING
+  ? Primeira Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga) — NO DATA — PENDING
+  ? Primeira Liga: fixtures via SportyBet cache (7 — primary sources failed)
+  ? Primeira Liga: +17 current-season results from football-data.org (promoted-club fix)
+  ? Primeira Liga: 2 fixture(s) rated on the previous season's carry-over model (promoted clubs): Estoril v Rio Ave, Porto v Arouca
+  ? Primeira Liga: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Sporting v Alverca
+  ? Primeira Liga: 8 team name(s) in the fixtures feed not found in the fitted data — Academico de Viseu FC, Casa Pia Lisbon, Famalicao, Gil Vicente Barcelos, Maritimo Madeira, Nacional da Madeira, Santa Clara Azores, Vitoria SC Guimaraes. Suggestions: Academico de Viseu FC -> no close match in the model pool; Casa Pia Lisbon -> no close match in the model pool; Famalicao -> no close match in the model pool; Gil Vicente Barcelos -> no close match in the model pool; Maritimo Madeira -> no close match in the model pool; Nacional da Madeira -> no close match in the model pool; Santa Clara Azores -> no close match in the model pool; Vitoria SC Guimaraes -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Republic of Ireland Premier Division: history served from cache
+  ? Republic of Ireland Premier Division: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Republic of Ireland Premier Division: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Republic of Ireland Premier Division: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Republic of Ireland Premier Division' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Romanian Liga I: history served from cache
+  ? Romanian Liga I: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Romanian Liga I: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Romanian Liga I: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Romanian Liga I: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Romanian Liga I' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Russian Premier League: history served from cache
+  ? Russian Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Russian Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Russian Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'Russian Premier League' (looked up as name='Russian Premier League', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Russian Premier League: fixtures via SportyBet cache (16 — primary sources failed)
+  ? Russian Premier League: 3 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): FC Dynamo-Makhachkala v FK Krasnodar, FK Krasnodar v FK Rostov, FK Rubin Kazan v FC Dynamo-Makhachkala
+  ? Russian Premier League: 11 team name(s) in the fixtures feed not found in the fitted data — FC Baltika Kaliningrad, FC Fakel Voronezh, FK Akron Tolyatti, FK Dinamo Moscow, FK Spartak Moscow, FK Zenit Saint Petersburg, PFK Krylia Sovetov Samara, RFK Akhmat Grozny, Rodina Moscow, Spartak Moskva, Zenit St.Petersburg. Suggestions: FC Baltika Kaliningrad -> no close match in the model pool; FC Fakel Voronezh -> no close match in the model pool; FK Akron Tolyatti -> no close match in the model pool; FK Dinamo Moscow -> CSKA Moscow (0.67); FK Spartak Moscow -> Spartak Moscow (0.90); FK Zenit Saint Petersburg -> no close match in the model pool; PFK Krylia Sovetov Samara -> Krylia Sovetov (0.72); RFK Akhmat Grozny -> no close match in the model pool; Rodina Moscow -> CSKA Moscow (0.67); Spartak Moskva -> Spartak Moscow (0.79); Zenit St.Petersburg -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Sanmarinese Campionato: history served from cache
+  ? Sanmarinese Campionato: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Sanmarinese Campionato: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Sanmarinese Campionato: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Sanmarinese Campionato: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Sanmarinese Campionato' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Scottish Premiership: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership) — NO DATA — PENDING
+  ? Scottish Premiership: fixtures via SportyBet cache (1 — primary sources failed)
+  ? Scottish Premiership: insufficient match history (12 results) — NO DATA — PENDING rather than a thin fit
+  ? Serbian Super Liga: history served from cache
+  ? Serbian Super Liga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Serbian Super Liga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Serbian Super Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Serbian Super Liga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Serie A: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A) — NO DATA — PENDING
+  ? Serie A: fixtures via SportyBet cache (10 — primary sources failed)
+  ? Serie A: results fetch failed (football-data.co.uk (Serie A) header is missing required column(s): HomeTeam, AwayTeam, FTHG, FTAG, Date — schema changed or file truncated) — NO DATA — PENDING
+  ? Serie B: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'Serie B': ['Serie B (Brazil)', 'Serie B (Italy)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Serie B: results fetch failed (football-data.co.uk (Serie B) header is missing required column(s): HomeTeam, AwayTeam, FTHG, FTAG, Date — schema changed or file truncated) — NO DATA — PENDING
+  ? Slovak Super Liga: history served from cache
+  ? Slovak Super Liga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Slovak Super Liga: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Slovak Super Liga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Slovak Super Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Slovak Super Liga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Slovenian PrvaLiga: history served from cache
+  ? Slovenian PrvaLiga: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Slovenian PrvaLiga: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Slovenian PrvaLiga: fallback history too thin (0) — NO DATA — PENDING
+  ? Slovenian PrvaLiga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Slovenian PrvaLiga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Slovenian PrvaLiga: fixtures via SportyBet cache (4 — primary sources failed)
+  ? Slovenian PrvaLiga: history via multi-source (thesportsdb.com)
+  ? Slovenian PrvaLiga: 8 team name(s) in the fixtures feed not found in the fitted data — Aluminij Kidricevo, Bravo Ljubljana, FC Koper, Mura Murska Sobota, NK Brinje Grosuplje, NK Maribor, Nafta 1903 Lendava, Olimpija Ljubljana. Suggestions: Aluminij Kidricevo -> no close match in the model pool; Bravo Ljubljana -> no close match in the model pool; FC Koper -> no close match in the model pool; Mura Murska Sobota -> no close match in the model pool; NK Brinje Grosuplje -> no close match in the model pool; NK Maribor -> no close match in the model pool; Nafta 1903 Lendava -> no close match in the model pool; Olimpija Ljubljana -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Swedish Allsvenskan: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'Swedish Allsvenskan' (looked up as name='Swedish Allsvenskan', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Swedish Allsvenskan: fixtures via SportyBet cache (7 — primary sources failed)
+  ? Swedish Allsvenskan: insufficient match history (0 results) — NO DATA — PENDING rather than a thin fit
+  ? Swiss Super League: history served from cache
+  ? Swiss Super League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Swiss Super League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Swiss Super League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Swiss Super League: fixtures via SportyBet cache (4 — primary sources failed)
+  ? Swiss Super League: 8 team name(s) in the fixtures feed not found in the fitted data — Basel, FC Thun, FC Vaduz, FC Zurich, Lausanne-Sport, Luzern, Servette Geneva, Young Boys Bern. Suggestions: Basel -> no close match in the model pool; FC Thun -> no close match in the model pool; FC Vaduz -> no close match in the model pool; FC Zurich -> no close match in the model pool; Lausanne-Sport -> no close match in the model pool; Luzern -> no close match in the model pool; Servette Geneva -> no close match in the model pool; Young Boys Bern -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Taça de Portugal: history served from cache
+  ? Taça de Portugal: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Taça de Portugal: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Taça de Portugal: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Taça de Portugal: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal) — NO DATA — PENDING
+  ? Turkish Super Lig: history served from cache
+  ? Turkish Super Lig: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Turkish Super Lig: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Turkish Super Lig: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'Turkish Super Lig' (looked up as name='Turkish Super Lig', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ? Turkish Super Lig: fixtures via SportyBet cache (9 — primary sources failed)
+  ? Turkish Super Lig: 2 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Fenerbahce v Konyaspor, Eyupspor v Gaziantep FK
+  ? Turkish Super Lig: 10 team name(s) in the fixtures feed not found in the fitted data — Amed Sportif Faaliyetler, Besiktas Istanbul, Caykur Rizespor, Corum FK, Erzurumspor FK, Galatasaray Istanbul, Genclerbirligi SK, Goztepe Izmir, Istanbul BB, Kasimpasa Istanbul. Suggestions: Amed Sportif Faaliyetler -> no close match in the model pool; Besiktas Istanbul -> Be?ikta? (0.64); Caykur Rizespor -> Rizespor (0.70); Corum FK -> Bodrum FK (0.82); Erzurumspor FK -> no close match in the model pool; Galatasaray Istanbul -> Galatasaray (0.71); Genclerbirligi SK -> no close match in the model pool; Goztepe Izmir -> Göztepe (0.70); Istanbul BB -> no close match in the model pool; Kasimpasa Istanbul -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ? UEFA Super Cup: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ? UEFA Super Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? UEFA Super Cup: Elo continental blend w=2.5 (cached)
+  ? Ukrainian Premier League: history served from cache
+  ? Ukrainian Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Ukrainian Premier League: 3 fixture(s) skipped (not full-time or incomplete)
+  ? Ukrainian Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Ukrainian Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Ukrainian Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Welsh Premier League: history served from cache
+  ? Welsh Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Welsh Premier League: 1 fixture(s) skipped (not full-time or incomplete)
+  ? Welsh Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Welsh Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Welsh Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Welsh Premier League: fixtures via SportyBet cache (8 — primary sources failed)
+  ? Welsh Premier League: 14 team name(s) in the fixtures feed not found in the fitted data — Airbus UK, Ammanford, Barry Town United FC, Caernarfon Town FC, Cambrian United, Cardiff Metropolitan University FC, Colwyn Bay, Connah`s Quay Nomads FC, Flint Town, Holywell Town, Llandudno FC, Pen-y-Bont FC, The New Saints FC, Trefelin BGC. Suggestions: Airbus UK -> no close match in the model pool; Ammanford -> no close match in the model pool; Barry Town United FC -> Barry Town (0.67); Caernarfon Town FC -> Caernarfon Town (0.91); Cambrian United -> no close match in the model pool; Cardiff Metropolitan University FC -> no close match in the model pool; Colwyn Bay -> no close match in the model pool; Connah`s Quay Nomads FC -> GAP Connah S Quay FC (0.70); Flint Town -> Flint Town United (0.74); Holywell Town -> no close match in the model pool; Llandudno FC -> no close match in the model pool; Pen-y-Bont FC -> Penybont (0.76); The New Saints FC -> The New Saints (0.90); Trefelin BGC -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? day-scoped to 2026-08-20: kept 49 of 278 scanned fixture(s) — adjacent-day matches dropped
+  ? VERIFY GATE: 0 verified, 49 kept-unverified, 0 dropped (FlashScore on, SportyBet on)
+  ? VERIFY GATE: 'Syunik v Van (Armenian Premier League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'FC Van Charentsavan v FC Syunik (Armenian Premier League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'FC Inter Turku v FC Copenhagen (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Lincoln Red Imps v Larne (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Midtjylland v HNK Rijeka (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Nordsjaelland v FC ST. Gallen (Conference League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Tromsoe IL v Brighton (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'KI Klaksvik v R?gas FS (Conference League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'PAOK v SK Brann (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'FC Drita v Inter Club de Escaldes (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Twente v Qarabag (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Gornik Zabrze v Monaco (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Vikingur Reykjavik v Borac Banja Luka (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'FC Sion v Ajax (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Atalanta v Hapoel Tel Aviv FC (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Gent v Hibernian (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'FC Lugano v Maccabi Tel Aviv FC (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Motherwell v Freiburg (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Panathinaikos v FC Hradec Kralove (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Hearts v SK Rapid (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Rangers v FK Jablonec (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Sp Braga v FK Austria Wien (Conference League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'FC Dinamo City v Pafos FC (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Getafe v FK Partizan Belgrade (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'HNK Hajduk Split v Rakow (Conference League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Shamrock Rovers v Kuopion Palloseura (Conference League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Viimsi JK v Harju JK Laagri (Estonian Meistriliiga)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'FK Crvena Zvezda v Viktoria Plze? (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Benfica v AGF Aarhus (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Jagiellonia v Iberia 1999 (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Be?ikta? v Kauno Žalgiris (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Universitatea Craiova v Ararat-Armenia (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Kairat Almaty v Anderlecht (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Sint-Truiden v Omonia Nicosia (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Trabzonspor v Ferencvarosi TC (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'OFI v CSKA Sofia (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Mjällby v Red Bull Salzburg (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Egnatia v Lillestrøm (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Lech Poznan v Thun (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Mjällby v Salzburg (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Besiktas Istanbul v Kauno Žalgiris (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'CS Universitatea Craiova v Ararat-Armenia (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'KF Egnatia Rrogozhine v Lillestroem SK (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Lech Poznan v FC Thun (Europa League)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'FK Crvena Zvezda v Viktoria Plzen (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'OFI Crete v PFC CSKA Sofia (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'St Truiden v Omonia Nicosia (Europa League)' kept UNVERIFIED (SportyBet only — primary odds/booking source)
+  ? VERIFY GATE: 'Vallecano v Alaves (La Liga)' kept UNVERIFIED — not found in ANY source (honest gap, HR35)
+  ? DEPLOY SHORTLIST RECALCULATED: 35 of 49 fixtures on deploy shortlist (verify gate stamps preserved)
+  ? ? source circuit OPEN (paused): api_football_fixtures, espn, football_data
+  ? Armenian Premier League: odds fetch failed (odds_Armenian Premier League: all 3 sources exhausted. Last error: 'Armenian Premier League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Conference League: odds fetch failed (odds_Conference League: all 3 sources exhausted. Last error: 'Conference League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Estonian Meistriliiga: odds fetch failed (odds_Estonian Meistriliiga: all 3 sources exhausted. Last error: 'Estonian Meistriliiga' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Europa League: odds served via multi-source layer
+  ? SportyBet cache merged: 41 fixture(s) with 1X2 odds added to odds_index
+  ? SHADOW calibration (below gate, NOT applied): 1X2_DRAW -0.9%, 1X2_HOME -1.3% — visible only; inert until MIN_LEGS legs settle
+  ? ENSEMBLE WEIGHTS ACTIVE — consensus w=0.926, dc w=0.926, elo w=0.926 (CLV-gated, bounded, consensus display only)
+  ? production bets: 5 leg(s) in Acca A, 4 split acca(s), 21 single(s) on today's slate
+  ? Nordsjaelland v FC ST. Gallen: no live price found — NO DATA — PENDING, leg not logged
+  ? Vikingur Reykjavik v Borac Banja Luka: no live price found — NO DATA — PENDING, leg not logged
+  ? Egnatia v Lillestrøm: no live price found — NO DATA — PENDING, leg not logged
+  ? St Truiden v Omonia Nicosia: no live price found — NO DATA — PENDING, leg not logged
+  ? logged 0 new paper leg(s) with a live entry price (agreement_band=0.04)
+  ? Phase 3 gate: 17 of 30 legs with logged CLV; mean CLV -2.467
+  ? SportyBet booking codes: 26/26 slip(s) booked — acca_2026-08-20_codes.json
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) ? Call(PART 1) ? Acca Route ? THE PICK.
+
+PART 2 — COMPACT (fast-scan)
+Fixture | Selected Pick | Booking Code
+Syunik v Van (Armenian Premier League) | NO DATA — PENDING | NO DATA — PENDING
+FC Van Charentsavan v FC Syunik (Armenian Premier League) | NO DATA — PENDING | NO DATA — PENDING
+FC Inter Turku v FC Copenhagen (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Lincoln Red Imps v Larne (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Midtjylland v HNK Rijeka (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Nordsjaelland v FC ST. Gallen (Conference League) | Nordsjaelland to win | NO DATA — PENDING
+Tromsoe IL v Brighton (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+KI Klaksvik v R?gas FS (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+PAOK v SK Brann (Conference League) | PAOK to win | NO DATA — PENDING
+FC Drita v Inter Club de Escaldes (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Twente v Qarabag (Conference League) | Twente to win | NO DATA — PENDING
+Gornik Zabrze v Monaco (Conference League) | Monaco to win | NO DATA — PENDING
+Vikingur Reykjavik v Borac Banja Luka (Conference League) | Vikingur Reykjavik to win | NO DATA — PENDING
+FC Sion v Ajax (Conference League) | FC Sion to win | NO DATA — PENDING
+Atalanta v Hapoel Tel Aviv FC (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Gent v Hibernian (Conference League) | Draw | NO DATA — PENDING
+FC Lugano v Maccabi Tel Aviv FC (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Motherwell v Freiburg (Conference League) | Freiburg to win | NO DATA — PENDING
+Panathinaikos v FC Hradec Kralove (Conference League) | Draw | NO DATA — PENDING
+Hearts v SK Rapid (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Rangers v FK Jablonec (Conference League) | Rangers to win | NO DATA — PENDING
+Sp Braga v FK Austria Wien (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+FC Dinamo City v Pafos FC (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Getafe v FK Partizan Belgrade (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+HNK Hajduk Split v Rakow (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Shamrock Rovers v Kuopion Palloseura (Conference League) | NO DATA — PENDING | NO DATA — PENDING
+Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga) | NO DATA — PENDING | NO DATA — PENDING
+Viimsi JK v Harju JK Laagri (Estonian Meistriliiga) | NO DATA — PENDING | NO DATA — PENDING
+FK Crvena Zvezda v Viktoria Plze? (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Benfica v AGF Aarhus (Europa League) | AGF Aarhus to win | NO DATA — PENDING
+Jagiellonia v Iberia 1999 (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Be?ikta? v Kauno Žalgiris (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Universitatea Craiova v Ararat-Armenia (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Kairat Almaty v Anderlecht (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Sint-Truiden v Omonia Nicosia (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Trabzonspor v Ferencvarosi TC (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+OFI v CSKA Sofia (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Mjällby v Red Bull Salzburg (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Egnatia v Lillestrøm (Europa League) | Lillestrøm to win | NO DATA — PENDING
+Lech Poznan v Thun (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Mjällby v Salzburg (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Besiktas Istanbul v Kauno Žalgiris (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+CS Universitatea Craiova v Ararat-Armenia (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+KF Egnatia Rrogozhine v Lillestroem SK (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Lech Poznan v FC Thun (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+FK Crvena Zvezda v Viktoria Plzen (Europa League) | Viktoria Plzen to win | NO DATA — PENDING
+OFI Crete v PFC CSKA Sofia (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+St Truiden v Omonia Nicosia (Europa League) | Draw | NO DATA — PENDING
+Vallecano v Alaves (La Liga) | NO DATA — PENDING | NO DATA — PENDING
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+Syunik v Van (Armenian Premier League) | NO DATA — PENDING | — | — | ?
+FC Van Charentsavan v FC Syunik (Armenian Premier League) | NO DATA — PENDING | — | — | ?
+FC Inter Turku v FC Copenhagen (Conference League) | NO DATA — PENDING | — | — | ?
+Lincoln Red Imps v Larne (Conference League) | NO DATA — PENDING | — | — | ?
+Midtjylland v HNK Rijeka (Conference League) | NO DATA — PENDING | — | — | ?
+Nordsjaelland v FC ST. Gallen (Conference League) | Nordsjaell·82% | O99 / O95 | 1X91 / Y82 | ?
+Tromsoe IL v Brighton (Conference League) | NO DATA — PENDING | — | — | ?
+KI Klaksvik v R?gas FS (Conference League) | NO DATA — PENDING | — | — | ?
+PAOK v SK Brann (Conference League) | PAOK·57% | NO DATA — PENDING / NO DATA — PENDING | 1X82 / — | ?
+FC Drita v Inter Club de Escaldes (Conference League) | NO DATA — PENDING | — | — | ?
+Twente v Qarabag (Conference League) | Twente·82% | O89 / O72 | 1X94 / Y50 | ?
+Gornik Zabrze v Monaco (Conference League) | Monaco·40% | O72 / U54 | 1272 / Y51 | ?
+Vikingur Reykjavik v Borac Banja Luka (Conference League) | Vikingur R·41% | O55 / U73 | 1X74 / N65 | ?
+FC Sion v Ajax (Conference League) | Ajax·47% | NO DATA — PENDING / NO DATA — PENDING | X275 / — | ?
+Atalanta v Hapoel Tel Aviv FC (Conference League) | NO DATA — PENDING | — | — | ?
+Gent v Hibernian (Conference League) | Hibernian·39% | O76 / O51 | 1273 / Y56 | ?
+FC Lugano v Maccabi Tel Aviv FC (Conference League) | NO DATA — PENDING | — | — | ?
+Motherwell v Freiburg (Conference League) | Freiburg·43% | O78 / O53 | 1274 / Y57 | ?
+Panathinaikos v FC Hradec Kralove (Conference League) | Panathinai·60% | NO DATA — PENDING / NO DATA — PENDING | 1X85 / — | ?
+Hearts v SK Rapid (Conference League) | NO DATA — PENDING | — | — | ?
+Rangers v FK Jablonec (Conference League) | Rangers·56% | NO DATA — PENDING / NO DATA — PENDING | 1X82 / — | ?
+Sp Braga v FK Austria Wien (Conference League) | NO DATA — PENDING | — | — | ?
+FC Dinamo City v Pafos FC (Conference League) | NO DATA — PENDING | — | — | ?
+Getafe v FK Partizan Belgrade (Conference League) | NO DATA — PENDING | — | — | ?
+HNK Hajduk Split v Rakow (Conference League) | NO DATA — PENDING | — | — | ?
+Shamrock Rovers v Kuopion Palloseura (Conference League) | NO DATA — PENDING | — | — | ?
+Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga) | NO DATA — PENDING | — | — | ?
+Viimsi JK v Harju JK Laagri (Estonian Meistriliiga) | NO DATA — PENDING | — | — | ?
+FK Crvena Zvezda v Viktoria Plze? (Europa League) | NO DATA — PENDING | — | — | ?
+Benfica v AGF Aarhus (Europa League) | Benfica·75% | NO DATA — PENDING / NO DATA — PENDING | 1X95 / — | ?
+Jagiellonia v Iberia 1999 (Europa League) | NO DATA — PENDING | — | — | ?
+Be?ikta? v Kauno Žalgiris (Europa League) | NO DATA — PENDING | — | — | ?
+Universitatea Craiova v Ararat-Armenia (Europa League) | NO DATA — PENDING | — | — | ?
+Kairat Almaty v Anderlecht (Europa League) | NO DATA — PENDING | — | — | ?
+Sint-Truiden v Omonia Nicosia (Europa League) | NO DATA — PENDING | — | — | ?
+Trabzonspor v Ferencvarosi TC (Europa League) | NO DATA — PENDING | — | — | ?
+OFI v CSKA Sofia (Europa League) | NO DATA — PENDING | — | — | ?
+Mjällby v Red Bull Salzburg (Europa League) | NO DATA — PENDING | — | — | ?
+Egnatia v Lillestrøm (Europa League) | Lillestrøm·56% | NO DATA — PENDING / NO DATA — PENDING | X282 / — | ?
+Lech Poznan v Thun (Europa League) | NO DATA — PENDING | — | — | ?
+Mjällby v Salzburg (Europa League) | NO DATA — PENDING | — | — | ?
+Besiktas Istanbul v Kauno Žalgiris (Europa League) | NO DATA — PENDING | — | — | ?
+CS Universitatea Craiova v Ararat-Armenia (Europa League) | NO DATA — PENDING | — | — | ?
+KF Egnatia Rrogozhine v Lillestroem SK (Europa League) | NO DATA — PENDING | — | — | ?
+Lech Poznan v FC Thun (Europa League) | NO DATA — PENDING | — | — | ?
+FK Crvena Zvezda v Viktoria Plzen (Europa League) | FK Crvena ·49% | NO DATA — PENDING / NO DATA — PENDING | 1X77 / — | ?
+OFI Crete v PFC CSKA Sofia (Europa League) | NO DATA — PENDING | — | — | ?
+St Truiden v Omonia Nicosia (Europa League) | Omonia Nic·42% | O80 / O56 | 1275 / Y59 | ?
+Vallecano v Alaves (La Liga) | NO DATA — PENDING | — | — | ?
+
+PART 1 — THE CALL (full detail) — today's fixtures only
+35 deploy-eligible fixture(s) kicking off today (unified pool — all whitelisted leagues, no cap).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+Fixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A | Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes
+FC Van Charentsavan v FC Syunik (Armenian Premier League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'FC Van Charentsavan' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'FC Syunik' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+FC Inter Turku v FC Copenhagen (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'FC Inter Turku' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Lincoln Red Imps v Larne (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Lincoln Red Imps' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Midtjylland v HNK Rijeka (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'HNK Rijeka' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Nordsjaelland v FC ST. Gallen (Conference League) | 82 | 9 | 9 | O99 | O95 | Y82 | 69/22/9 | — | — | Nordsjaell 2/2 | — | — | — | 1.01+ | ? | ELO DIV
+Tromsoe IL v Brighton (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Tromsoe IL' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+PAOK v SK Brann (Conference League) | 57 | 26 | 18 | — | — | — | — | — | 56/25/19 | PAOK 2/2 | PAOK to win | 1.72 | -2.81% | 1.77+ | ? | NEG EV CLUBELO STRETCH
+FC Drita v Inter Club de Escaldes (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'FC Drita' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Inter Club de Escaldes' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Twente v Qarabag (Conference League) | 82 | 12 | 6 | O89 | O72 | Y50 | 82/16/1 | — | 58/24/18 | Twente 3/3 | Twente to win | 1.66 | +4.81% | 1.12+ | ? | 
+Gornik Zabrze v Monaco (Conference League) | 32 | 28 | 40 | O72 | U54 | Y51 | 23/28/48 | — | 17/22/62 | Monaco 3/3 | Monaco to win | 1.56 | -9.13% | 1.39+ | ? | NEG EV
+Vikingur Reykjavik v Borac Banja Luka (Conference League) | 41 | 34 | 26 | O55 | U73 | N65 | 46/29/25 | — | — | Vikingur R 2/2 | — | SB | +10.13% | 1.83+ | ? | 
+FC Sion v Ajax (Conference League) | 25 | 28 | 47 | — | — | — | — | — | 23/23/54 | Ajax 2/2 | FC Sion to win | 4.11 | +0.87% | 2.13+ | ? | CLUBELO STRETCH
+Atalanta v Hapoel Tel Aviv FC (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Hapoel Tel Aviv FC' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Gent v Hibernian (Conference League) | 35 | 27 | 39 | O76 | O51 | Y56 | 21/27/51 | — | 60/23/16 | Hibernian 2/3 | Draw | 4.10 | +9.74% | 1.31+ | ? | ELO DIV
+FC Lugano v Maccabi Tel Aviv FC (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Maccabi Tel Aviv FC' is likely 'Maccabi Tel Aviv' (name similarity 0.91) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Motherwell v Freiburg (Conference League) | 31 | 26 | 43 | O78 | O53 | Y57 | 25/29/46 | — | 15/20/66 | Freiburg 3/3 | Freiburg to win | 1.46 | -9.44% | 1.29+ | ? | NEG EV
+Panathinaikos v FC Hradec Kralove (Conference League) | 60 | 25 | 15 | — | — | — | — | — | 64/22/14 | Panathinai 2/2 | Draw | 4.35 | +8.27% | 1.67+ | ? | CLUBELO STRETCH
+Hearts v SK Rapid (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'SK Rapid' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Rangers v FK Jablonec (Conference League) | 56 | 26 | 18 | — | — | — | — | — | 70/19/12 | Rangers 2/2 | Rangers to win | 1.38 | -7.01% | 1.79+ | ? | NEG EV CLUBELO STRETCH
+FC Dinamo City v Pafos FC (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'FC Dinamo City' is likely 'Dinamo Minsk' (name similarity 0.61) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Pafos FC' is likely 'Pafos' (name similarity 0.77) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Getafe v FK Partizan Belgrade (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'FK Partizan Belgrade' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Shamrock Rovers v Kuopion Palloseura (Conference League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Kuopion Palloseura' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Tallinna FC Flora' is likely 'Tallinna Kalev' (name similarity 0.65) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Saku Sporting' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Viimsi JK v Harju JK Laagri (Estonian Meistriliiga) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Viimsi JK' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Harju JK Laagri' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Benfica v AGF Aarhus (Europa League) | 75 | 20 | 5 | — | — | — | — | — | 81/12/7 | Benfica 2/2 | AGF Aarhus to win | 14.27 | -33.74% | 1.33+ | ? | NEG EV CLUBELO STRETCH
+Jagiellonia v Iberia 1999 (Europa League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Iberia 1999' is likely 'Hibernian' (name similarity 0.60) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Kairat Almaty v Anderlecht (Europa League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Kairat Almaty' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Egnatia v Lillestrøm (Europa League) | 18 | 26 | 56 | — | — | — | — | — | — | — | — | — | — | 1.78+ | ? | CLUBELO STRETCH
+Mjällby v Salzburg (Europa League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Mjällby' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Salzburg' is likely 'Strasbourg' (name similarity 0.67) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Besiktas Istanbul v Kauno Žalgiris (Europa League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'Besiktas Istanbul' is likely 'Be?ikta?' (name similarity 0.64) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Kauno Žalgiris' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+CS Universitatea Craiova v Ararat-Armenia (Europa League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'CS Universitatea Craiova' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Ararat-Armenia' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+KF Egnatia Rrogozhine v Lillestroem SK (Europa League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'KF Egnatia Rrogozhine' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Lillestroem SK' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+FK Crvena Zvezda v Viktoria Plzen (Europa League) | 49 | 28 | 23 | — | — | — | — | — | 55/24/22 | FK Crvena  2/2 | Viktoria Plzen to win | 4.51 | +2.79% | 2.02+ | ? | CLUBELO STRETCH
+OFI Crete v PFC CSKA Sofia (Europa League) | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING | — | — | — | ? | NO DATA — PENDING: 'OFI Crete' is likely 'Gil Vicente' (name similarity 0.60) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'PFC CSKA Sofia' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+St Truiden v Omonia Nicosia (Europa League) | 33 | 25 | 42 | O80 | O56 | Y59 | 33/32/35 | — | — | Omonia Nic 2/2 | Draw | 3.67 | -6.43% | 1.26+ | ? | NEG EV
+
+PART 3 — REJECTED / WATCHLIST
+Syunik v Van (Armenian Premier League): NO DATA — PENDING: 'Syunik' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+FC Van Charentsavan v FC Syunik (Armenian Premier League): NO DATA — PENDING: 'FC Van Charentsavan' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'FC Syunik' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+FC Inter Turku v FC Copenhagen (Conference League): NO DATA — PENDING: 'FC Inter Turku' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Lincoln Red Imps v Larne (Conference League): NO DATA — PENDING: 'Lincoln Red Imps' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Midtjylland v HNK Rijeka (Conference League): NO DATA — PENDING: 'HNK Rijeka' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Tromsoe IL v Brighton (Conference League): NO DATA — PENDING: 'Tromsoe IL' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+KI Klaksvik v R?gas FS (Conference League): NO DATA — PENDING: 'KI Klaksvik' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+FC Drita v Inter Club de Escaldes (Conference League): NO DATA — PENDING: 'FC Drita' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Inter Club de Escaldes' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Atalanta v Hapoel Tel Aviv FC (Conference League): NO DATA — PENDING: 'Hapoel Tel Aviv FC' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+FC Lugano v Maccabi Tel Aviv FC (Conference League): NO DATA — PENDING: 'Maccabi Tel Aviv FC' is likely 'Maccabi Tel Aviv' (name similarity 0.91) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Hearts v SK Rapid (Conference League): NO DATA — PENDING: 'SK Rapid' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Sp Braga v FK Austria Wien (Conference League): NO DATA — PENDING: 'FK Austria Wien' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+FC Dinamo City v Pafos FC (Conference League): NO DATA — PENDING: 'FC Dinamo City' is likely 'Dinamo Minsk' (name similarity 0.61) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Pafos FC' is likely 'Pafos' (name similarity 0.77) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Getafe v FK Partizan Belgrade (Conference League): NO DATA — PENDING: 'FK Partizan Belgrade' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+HNK Hajduk Split v Rakow (Conference League): NO DATA — PENDING: 'HNK Hajduk Split' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Shamrock Rovers v Kuopion Palloseura (Conference League): NO DATA — PENDING: 'Kuopion Palloseura' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga): NO DATA — PENDING: 'Tallinna FC Flora' is likely 'Tallinna Kalev' (name similarity 0.65) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Saku Sporting' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Viimsi JK v Harju JK Laagri (Estonian Meistriliiga): NO DATA — PENDING: 'Viimsi JK' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Harju JK Laagri' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+FK Crvena Zvezda v Viktoria Plze? (Europa League): NO DATA — PENDING: 'Viktoria Plze?' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Jagiellonia v Iberia 1999 (Europa League): NO DATA — PENDING: 'Iberia 1999' is likely 'Hibernian' (name similarity 0.60) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Be?ikta? v Kauno Žalgiris (Europa League): NO DATA — PENDING: 'Kauno Žalgiris' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Universitatea Craiova v Ararat-Armenia (Europa League): NO DATA — PENDING: 'Universitatea Craiova' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Ararat-Armenia' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Kairat Almaty v Anderlecht (Europa League): NO DATA — PENDING: 'Kairat Almaty' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Sint-Truiden v Omonia Nicosia (Europa League): NO DATA — PENDING: 'Sint-Truiden' is likely 'St Truiden' (name similarity 0.82) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Trabzonspor v Ferencvarosi TC (Europa League): NO DATA — PENDING: 'Trabzonspor' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+OFI v CSKA Sofia (Europa League): NO DATA — PENDING: 'OFI' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'CSKA Sofia' is likely 'Casa Pia' (name similarity 0.67) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Mjällby v Red Bull Salzburg (Europa League): NO DATA — PENDING: 'Mjällby' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Lech Poznan v Thun (Europa League): NO DATA — PENDING: 'Thun' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Mjällby v Salzburg (Europa League): NO DATA — PENDING: 'Mjällby' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Salzburg' is likely 'Strasbourg' (name similarity 0.67) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+Besiktas Istanbul v Kauno Žalgiris (Europa League): NO DATA — PENDING: 'Besiktas Istanbul' is likely 'Be?ikta?' (name similarity 0.64) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'Kauno Žalgiris' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+CS Universitatea Craiova v Ararat-Armenia (Europa League): NO DATA — PENDING: 'CS Universitatea Craiova' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Ararat-Armenia' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+KF Egnatia Rrogozhine v Lillestroem SK (Europa League): NO DATA — PENDING: 'KF Egnatia Rrogozhine' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches; 'Lillestroem SK' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Lech Poznan v FC Thun (Europa League): NO DATA — PENDING: 'FC Thun' is likely 'FC Lugano' (name similarity 0.62) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py
+OFI Crete v PFC CSKA Sofia (Europa League): NO DATA — PENDING: 'OFI Crete' is likely 'Gil Vicente' (name similarity 0.60) — a fixtures/results name-mapping gap. Verify and add to TEAM_ALIASES in data/thesportsdb_fixtures.py; 'PFC CSKA Sofia' is newly promoted with no top-flight history in the fit window — no alias can rate it. It becomes rateable once it has played enough top-flight matches
+Vallecano v Alaves (La Liga): NO DATA — PENDING: no fitted history for this league — fixture listed, not rated
+
+  ? WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only
+    Midtjylland v HNK Rijeka (Conference League) — HNK Rijeka to win @ 5.42  edge -0.70%  [? SportyBet]
+    Tromsoe IL v Brighton (Conference League) — Tromsoe IL to win @ 5.67  edge -0.70%  [? SportyBet]
+    PAOK v SK Brann (Conference League) — Draw @ 3.89  edge +0.12%  [? SportyBet]
+    FC Drita v Inter Club de Escaldes (Conference League) — Inter Club de Escaldes to win @ 5.19  edge -0.77%  [? SportyBet]
+    FC Dinamo City v Pafos FC (Conference League) — FC Dinamo City to win @ 3.99  edge -0.94%  [? SportyBet]
+    Getafe v FK Partizan Belgrade (Conference League) — FK Partizan Belgrade to win @ 9.88  edge -0.40%  [? SportyBet]
+    Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga) — Saku Sporting to win @ 5.30  edge -2.18%  [? SportyBet]
+    Jagiellonia v Iberia 1999 (Europa League) — Iberia 1999 to win @ 8.54  edge -0.34%  [? SportyBet]
+    Kairat Almaty v Anderlecht (Europa League) — Kairat Almaty to win @ 3.49  edge -0.64%  [? SportyBet]
+    Mjällby v Salzburg (Europa League) — Mjällby to win @ 4.25  edge -0.70%  [? SportyBet]
+    CS Universitatea Craiova v Ararat-Armenia (Europa League) — Ararat-Armenia to win @ 7.64  edge -0.38%  [? SportyBet]
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 49
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+? SCAN RECORD — today's rated fixtures — 2026-08-20 (paper, ID415)
+14 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+
+1. Nordsjaelland v FC ST. Gallen (Conference League)
+   Pick: Nordsjaelland to win (82%)
+2. PAOK v SK Brann (Conference League)
+   Pick: PAOK to win (57%)
+   Best market: PAOK to win at 1.72 — -2.81% EV
+3. Twente v Qarabag (Conference League)
+   Pick: Twente to win (82%)
+   Best market: Twente to win at 1.66 — +4.81% EV
+4. Gornik Zabrze v Monaco (Conference League)
+   Pick: Monaco to win (40%)
+   Best market: Monaco to win at 1.56 — -9.13% EV
+5. Vikingur Reykjavik v Borac Banja Luka (Conference League)
+   Pick: Vikingur Reykjavik to win (41%)
+6. FC Sion v Ajax (Conference League)
+   Pick: Ajax to win (47%)
+   Best market: FC Sion to win at 4.11 — +0.87% EV
+7. Gent v Hibernian (Conference League)
+   Pick: Hibernian to win (39%)
+   Best market: Draw at 4.10 — +9.74% EV
+8. Motherwell v Freiburg (Conference League)
+   Pick: Freiburg to win (43%)
+   Best market: Freiburg to win at 1.46 — -9.44% EV
+9. Panathinaikos v FC Hradec Kralove (Conference League)
+   Pick: Panathinaikos to win (60%)
+   Best market: Draw at 4.35 — +8.27% EV
+10. Rangers v FK Jablonec (Conference League)
+   Pick: Rangers to win (56%)
+   Best market: Rangers to win at 1.38 — -7.01% EV
+11. Benfica v AGF Aarhus (Europa League)
+   Pick: Benfica to win (75%)
+   Best market: AGF Aarhus to win at 14.27 — -33.74% EV
+12. Egnatia v Lillestrøm (Europa League)
+   Pick: Lillestrøm to win (56%)
+13. FK Crvena Zvezda v Viktoria Plzen (Europa League)
+   Pick: FK Crvena Zvezda to win (49%)
+   Best market: Viktoria Plzen to win at 4.51 — +2.79% EV
+14. St Truiden v Omonia Nicosia (Europa League)
+   Pick: Omonia Nicosia to win (42%)
+   Best market: Draw at 3.67 — -6.43% EV
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
+? PRODUCTION BETS — 2026-08-20 (today's fixtures only)
+
+? Acca A — HEADLINE, 5 legs
+    Gent v Hibernian (Conference League) — Draw @ 4.10 [? SportyBet]
+    Panathinaikos v FC Hradec Kralove (Conference League) — Draw @ 4.35 [? SportyBet]
+    FK Crvena Zvezda v Viktoria Plzen (Europa League) — Viktoria Plzen to win @ 4.51 [? SportyBet]
+    FC Sion v Ajax (Conference League) — FC Sion to win @ 4.11 [? SportyBet]
+    Besiktas Istanbul v Kauno Žalgiris (Europa League) — Kauno Žalgiris to win @ 22.88 [? SportyBet]
+    Combined 7563.93 Booking code: KZ9VHQ
+    Combined prob 0.0% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+? Acca B  5 legs
+Atalanta v Hapoel Tel Aviv FC (Conference League) — Hapoel Tel Aviv FC to win @ 15.36 [? SportyBet]
+KF Egnatia Rrogozhine v Lillestroem SK (Europa League) — Draw @ 3.62 [? SportyBet]
+OFI Crete v PFC CSKA Sofia (Europa League) — Draw @ 3.34 [? SportyBet]
+Lincoln Red Imps v Larne (Conference League) — Larne to win @ 3.75 [? SportyBet]
+Shamrock Rovers v Kuopion Palloseura (Conference League) — Kuopion Palloseura to win @ 3.65 [? SportyBet]
+    Combined 2541.97 Booking code: L1R31Z
+    Combined prob 0.0% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+? Acca C  5 legs
+Hearts v SK Rapid (Conference League) — Draw @ 3.58 [? SportyBet]
+Viimsi JK v Harju JK Laagri (Estonian Meistriliiga) — Harju JK Laagri to win @ 10.00 [? SportyBet]
+Mjällby v Salzburg (Europa League) — Salzburg to win @ 1.83 [? SportyBet]
+PAOK v SK Brann (Conference League) — PAOK to win @ 1.72 [? SportyBet]
+St Truiden v Omonia Nicosia (Europa League) — Draw @ 3.67 [? SportyBet]
+    Combined 413.55 Booking code: LSU3EJ
+    Combined prob 0.2% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+? Acca D  5 legs
+FC Dinamo City v Pafos FC (Conference League) — Pafos FC to win @ 1.98 [? SportyBet]
+CS Universitatea Craiova v Ararat-Armenia (Europa League) — CS Universitatea Craiova to win @ 1.44 [? SportyBet]
+Jagiellonia v Iberia 1999 (Europa League) — Jagiellonia to win @ 1.39 [? SportyBet]
+FC Van Charentsavan v FC Syunik (Armenian Premier League) — Draw @ 3.30 [? SportyBet]
+Midtjylland v HNK Rijeka (Conference League) — Midtjylland to win @ 1.61 [? SportyBet]
+    Combined 21.06 Booking code: LRLGNE
+    Combined prob 3.9% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+? Acca E  6 legs
+Benfica v AGF Aarhus (Europa League) — AGF Aarhus to win @ 14.27 [? SportyBet]
+FC Drita v Inter Club de Escaldes (Conference League) — FC Drita to win @ 1.65 [? SportyBet]
+Tromsoe IL v Brighton (Conference League) — Brighton to win @ 1.58 [? SportyBet]
+Kairat Almaty v Anderlecht (Europa League) — Over 2.5 goals @ 1.95 [? SportyBet]
+Getafe v FK Partizan Belgrade (Conference League) — Getafe to win @ 1.36 [? SportyBet]
+Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga) — Tallinna FC Flora to win @ 1.38 [? SportyBet]
+    Combined 136.15 Booking code: LMAV2E
+    Combined prob 0.4% (product of 6 legs — compounding is arithmetic, not a weakness)
+
+  SINGLES — one standalone slip each, own booking code
+    Atalanta v Hapoel Tel Aviv FC (Conference League) — Hapoel Tel Aviv FC to win @ 15.36  Booking code: LF6TB0 [? SportyBet]
+    KF Egnatia Rrogozhine v Lillestroem SK (Europa League) — Draw @ 3.62  Booking code: LWGXPQ [? SportyBet]
+    OFI Crete v PFC CSKA Sofia (Europa League) — Draw @ 3.34  Booking code: LTMRG5 [? SportyBet]
+    Lincoln Red Imps v Larne (Conference League) — Larne to win @ 3.75  Booking code: MLCBK4 [? SportyBet]
+    Shamrock Rovers v Kuopion Palloseura (Conference League) — Kuopion Palloseura to win @ 3.65  Booking code: MLCBK5 [? SportyBet]
+    Hearts v SK Rapid (Conference League) — Draw @ 3.58  Booking code: M0ZE5J [? SportyBet]
+    Viimsi JK v Harju JK Laagri (Estonian Meistriliiga) — Harju JK Laagri to win @ 10.00  Booking code: M8B2T8 [? SportyBet]
+    Mjällby v Salzburg (Europa League) — Salzburg to win @ 1.83  Booking code: M69TS7 [? SportyBet]
+    PAOK v SK Brann (Conference League) — PAOK to win @ 1.72  Booking code: LH17FP [? SportyBet]
+    St Truiden v Omonia Nicosia (Europa League) — Draw @ 3.67  Booking code: MD0NZ4 [? SportyBet]
+    FC Dinamo City v Pafos FC (Conference League) — Pafos FC to win @ 1.98  Booking code: M3UL8C [? SportyBet]
+    CS Universitatea Craiova v Ararat-Armenia (Europa League) — CS Universitatea Craiova to win @ 1.44  Booking code: ME89QT [? SportyBet]
+    Jagiellonia v Iberia 1999 (Europa League) — Jagiellonia to win @ 1.39  Booking code: MVJEFD [? SportyBet]
+    FC Van Charentsavan v FC Syunik (Armenian Premier League) — Draw @ 3.30  Booking code: LU1Q7M [? SportyBet]
+    Midtjylland v HNK Rijeka (Conference League) — Midtjylland to win @ 1.61  Booking code: M8B2TQ [? SportyBet]
+    Benfica v AGF Aarhus (Europa League) — AGF Aarhus to win @ 14.27  Booking code: MBT286 [? SportyBet]
+    FC Drita v Inter Club de Escaldes (Conference League) — FC Drita to win @ 1.65  Booking code: MHX40Y [? SportyBet]
+    Tromsoe IL v Brighton (Conference League) — Brighton to win @ 1.58  Booking code: MT36WT [? SportyBet]
+    Kairat Almaty v Anderlecht (Europa League) — Over 2.5 goals @ 1.95  Booking code: LPS2M4 [? SportyBet]
+    Getafe v FK Partizan Belgrade (Conference League) — Getafe to win @ 1.36  Booking code: MSGDH9 [? SportyBet]
+    Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga) — Tallinna FC Flora to win @ 1.38  Booking code: KZ9VHQ [? SportyBet]
+
+  ? WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only
+    Midtjylland v HNK Rijeka (Conference League) — HNK Rijeka to win @ 5.42  edge -0.70%  [? SportyBet]
+    Tromsoe IL v Brighton (Conference League) — Tromsoe IL to win @ 5.67  edge -0.70%  [? SportyBet]
+    PAOK v SK Brann (Conference League) — Draw @ 3.89  edge +0.12%  [? SportyBet]
+    FC Drita v Inter Club de Escaldes (Conference League) — Inter Club de Escaldes to win @ 5.19  edge -0.77%  [? SportyBet]
+    FC Dinamo City v Pafos FC (Conference League) — FC Dinamo City to win @ 3.99  edge -0.94%  [? SportyBet]
+    Getafe v FK Partizan Belgrade (Conference League) — FK Partizan Belgrade to win @ 9.88  edge -0.40%  [? SportyBet]
+    Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga) — Saku Sporting to win @ 5.30  edge -2.18%  [? SportyBet]
+    Jagiellonia v Iberia 1999 (Europa League) — Iberia 1999 to win @ 8.54  edge -0.34%  [? SportyBet]
+    Kairat Almaty v Anderlecht (Europa League) — Kairat Almaty to win @ 3.49  edge -0.64%  [? SportyBet]
+    Mjällby v Salzburg (Europa League) — Mjällby to win @ 4.25  edge -0.70%  [? SportyBet]
+    CS Universitatea Craiova v Ararat-Armenia (Europa League) — Ararat-Armenia to win @ 7.64  edge -0.38%  [? SportyBet]
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

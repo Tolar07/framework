@@ -27,7 +27,7 @@ from data.football_data_source import load_league, MatchResult
 from engine.dixon_coles import fit, predict
 from engine import markets as mkt
 from engine.leagues import WHITELISTED_LEAGUES, is_deploy_eligible, build_deploy_shortlist
-from engine.mes import mes_numeric
+from engine.mes import edge_diff
 
 # Mirrors run_daily.MIN_MES_FLOOR (2026-08-14, gambler move #3): the default EV
 # floor to log a paper leg. Defined locally to avoid importing the daily runner.
@@ -158,10 +158,9 @@ def _best_leg_for_fixture(result: MatchResult, probs, fx: MockFixtureOdds,
         if abs(prob - book_p) > agreement_band:
             continue  # disagreement bucket — exclude
 
-        # EV and MES
-        ev = prob * entry_price - 1.0
-        mes = mes_numeric(prob, entry_price)
-        if mes is None or mes < MIN_MES_FLOOR:
+        # Edge (canonical: model_prob - implied_prob)
+        edge = edge_diff(prob, entry_price)
+        if edge is None or edge < MIN_MES_FLOOR:
             continue
 
         # Closing price for CLV

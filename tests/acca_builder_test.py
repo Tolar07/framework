@@ -33,7 +33,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from output.produce_bet import BoardFixture, render_produce_bet
 from engine.acca import (build_accas, build_production_bets, build_single_accas,
-                         render_production_block, ACCA_A_MAX, HEADLINE_MIN_LEGS)
+                         render_production_block, ACCA_A_MAX, HEADLINE_MIN_LEGS,
+                         MAX_ODDS_CAP)
 from engine import markets as mkt
 from pipeline.odds import FixtureOdds, MarketQuote
 from verification.id403 import verify
@@ -153,11 +154,12 @@ _check("best market: each leg is the fixture's highest-probability market",
 _check("best market: leg prob is the model prob of that market",
        abs(leg3["HighOver v LowUnder"].prob - 0.85) < 1e-9
        and abs(leg3["UnderKing v OverQueen"].prob - 0.90) < 1e-9)
-_check("edge ranking: Acca A legs sorted by EV desc",
-       [round(l.ev, 2) for l in bets3.acca_a.legs] == [0.33, 0.17, 0.15, 0.13],
-       f"got {[round(l.ev, 2) for l in bets3.acca_a.legs]}")
+_check("edge ranking: Acca A legs sorted by canonical edge (prob gap) desc",
+       [round(l.edge, 2) for l in bets3.acca_a.legs] == [0.09, 0.09, 0.08, 0.06],
+       f"got edge={[round(l.edge, 2) for l in bets3.acca_a.legs]}")
 _check("EV stays on the leg as information (prob*price-1)",
-       all(l.ev is not None for l in bets3.acca_a.legs))
+       [round(l.ev, 2) for l in bets3.acca_a.legs] == [1.17, 0.70, 0.62, 0.50],
+       f"got ev={[round(l.ev, 2) for l in bets3.acca_a.legs]}")
 
 # --- 4. write-back: the CALL/scan pick now equals the booked leg ------------
 bf_a = best_board[0]  # HighOver v LowUnder -> OVER_25
@@ -368,14 +370,15 @@ agree_index = {
     ("Tier FC", "Mid FC"): _fx_home("Tier FC", "Mid FC", 1.95, 3.30, 4.20),
     ("Big FC", "Small FC"): _fx_home("Big FC", "Small FC", 1.70, 3.60, 5.50),
 }
-# Baseline (no gate): blended EV (ID414) ranks legs. Big v Small away
-# (modest 4.8pp disagreement, long odds) has higher blended EV than
-# Dog v Fav away (massive 17pp disagreement — blended down hard).
+# Baseline (no gate): canonical edge (prob gap) ranks legs (Architect 2026-08-19).
+# Dog v Fav away: model 45% vs book implied 27.8% -> edge = 17.2pp (HIGHEST)
+# Tier v Mid home: model 52% vs book implied 51.3% -> edge = 0.7pp
+# Big v Small home: model 55% vs book implied 58.8% -> edge = -3.8pp (negative!)
 bets_base = build_production_bets(agree_board, today=TODAY, odds_index=agree_index, max_odds_cap=float('inf'))
-_check("agreement gate: without band, blended EV determines ranking (ID414)",
+_check("agreement gate: without band, canonical edge determines ranking (ID414)",
        bets_base.acca_a is not None
-       and bets_base.acca_a.legs[0].fixture == "Big v Small"
-       and "Small" in bets_base.acca_a.legs[0].market_name,
+       and bets_base.acca_a.legs[0].fixture == "Dog v Fav"
+       and "Fav" in bets_base.acca_a.legs[0].market_name,
        f"got {bets_base.acca_a.legs[0].fixture if bets_base.acca_a else 'no acca'} "
        f"market={bets_base.acca_a.legs[0].market_name if bets_base.acca_a else '?'}")
 # With band=0.04: the DISAGREEING away market on Dog v Fav (17pp gap) is
@@ -447,12 +450,22 @@ _check("MAX_ODDS_CAP: fixture with odds <= 2.00 admitted",
 _check("MAX_ODDS_CAP: fixture with odds > 2.00 rejected",
        "FavB v DogB" not in cap_fixtures, f"got {cap_fixtures}")
 
-# --- 16. REAL TICKET REGRESSION: 2026-08-15 World Cup ticket with 15 legs ---
-# Every leg sits between 1.16 and 2.05 — the 2.00 ceiling should NOT filter any
-# of these legitimate short-price legs. This validates the ceiling is correctly
-# positioned to exclude only longshot bias, not compounding short prices.
-# Total odds = 1.16 × 1.29 × 1.48 × 1.96 × 1.74 × 1.52 × 1.28 × 2.05 × 1.35 ×
-#              1.32 × 1.32 × 1.44 × 1.51 × 1.61 ≈ 344.07 (one leg void)
+# --- 15b. ID420 WATCHLIST: legs with odds > 2.00 are captured in watchlist, not dropped ---
+# The watchlist is separate from capital-eligible legs. Legs > 2.00 should NOT be
+# in accas/singles but SHOULD appear in production.watchlist.
+_check("ID420: watchlist captures leg with odds > 2.00",
+       hasattr(bets_cap, 'watchlist')
+       and len(bets_cap.watchlist) == 1
+       and bets_cap.watchlist[0].fixture == "FavB v DogB"
+       and bets_cap.watchlist[0].price == 3.50
+       and bets_cap.watchlist[0].status == "watchlist",
+       f"got watchlist: {[(l.fixture, l.price, l.status) for l in getattr(bets_cap, 'watchlist', [])]}")
+_check("ID420: watchlist leg NOT in capital accas/singles",
+       "FavB v DogB" not in cap_fixtures, f"capital fixtures: {cap_fixtures}")
+_check("ID420: capital leg still admitted (FavA v DogA @ 1.50)",
+       "FavA v DogA" in cap_fixtures, f"got {cap_fixtures}")
+
+# Helper to build full FixtureOdds (used by 15c and 16)
 def _fx_ticket(home_team, away_team, **prices):
     """Full market prices for the real ticket fixtures."""
     def q(key):
@@ -465,6 +478,43 @@ def _fx_ticket(home_team, away_team, **prices):
         btts_yes=q("btts_yes"), btts_no=q("btts_no"),
         dc_1x=q("dc_1x"), dc_x2=q("dc_x2"), dc_12=q("dc_12"),
         source="test", source_tier="T1")
+
+# --- 15c. WATCHLIST: fixture with BOTH a capital-eligible leg AND a watchlist leg ---
+# The fixture should get its capital-eligible leg in the bets, and the watchlist
+# leg should be in the watchlist for review.
+mixed_board = [
+    # Fixture with Home @ 1.80 (capital) AND Draw @ 3.20 (watchlist)
+    _bf("Mixed v Case (Eredivisie)",
+        _probs(h=0.45, d=0.28, a=0.27, over25=0.45, home="Mixed", away="Case"), TODAY),
+]
+
+mixed_odds = {
+    ("Mixed", "Case"): _fx_ticket("Mixed", "Case", home=1.80, draw=3.20),
+}
+bets_mixed = build_production_bets(mixed_board, today=TODAY, odds_index=mixed_odds)
+mixed_cap_fixtures = set()
+if bets_mixed.acca_a:
+    mixed_cap_fixtures |= {l.fixture for l in bets_mixed.acca_a.legs}
+mixed_cap_fixtures |= {l.fixture for a in bets_mixed.split_accas for l in a.legs}
+mixed_cap_fixtures |= {l.fixture for l in bets_mixed.singles}
+
+_check("ID420: mixed fixture - capital leg admitted (Home @ 1.80)",
+       "Mixed v Case" in mixed_cap_fixtures, f"got {mixed_cap_fixtures}")
+_check("ID420: mixed fixture - watchlist leg captured (Draw @ 3.20)",
+       hasattr(bets_mixed, 'watchlist')
+       and len(bets_mixed.watchlist) == 1
+       and bets_mixed.watchlist[0].fixture == "Mixed v Case"
+       and bets_mixed.watchlist[0].price == 3.20
+       and bets_mixed.watchlist[0].status == "watchlist"
+       and bets_mixed.watchlist[0].market_key == mkt.DRAW,
+       f"got watchlist: {[(l.fixture, l.price, l.market_key, l.status) for l in getattr(bets_mixed, 'watchlist', [])]}")
+
+# --- 16. REAL TICKET REGRESSION: 2026-08-15 World Cup ticket with 15 legs ---
+# Every leg sits between 1.16 and 2.05 — the 2.00 ceiling should NOT filter any
+# of these legitimate short-price legs. This validates the ceiling is correctly
+# positioned to exclude only longshot bias, not compounding short prices.
+# Total odds = 1.16 × 1.29 × 1.48 × 1.96 × 1.74 × 1.52 × 1.28 × 2.05 × 1.35 ×
+#              1.32 × 1.32 × 1.44 × 1.51 × 1.61 ≈ 344.07 (one leg void)
 
 # All 15 legs from the real ticket — odds all in [1.16, 2.05]
 # Note: the framework doesn't have Over/Under 3.5 markets, so we use 2.5 equivalents

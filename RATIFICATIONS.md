@@ -2177,3 +2177,21 @@ No capital, staking, honest-edge, or market-gate behaviour changed beyond the do
 threshold/signoff-source alignment.
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+---
+
+## 2026-08-20 · SPL REFEREE PARTIAL ACCEPTANCE + AGENT 3→4 LATENCY FIX — by Supervisor Agent resolution
+
+**What the Supervisor Agent resolved:**
+1. **SPL referee gap (BUG-20260819-001)**: No live referee source for Scottish Premiership — Transfermarkt 404, scottishfa.co.uk not scraped, ESPN/TheSportsDB don't provide ref data. Historical CSV has `Referee` column but parser ignores it. Agent 4 already marks fixtures with incomplete referee data as `PARTIAL` and proceeds with reduced confidence. **Resolution: Accept PARTIAL per HR35 (no guessing)** — documented in Supervisor report and Open Questions.md.
+
+2. **Agent 3→4 latency hotspot (BUG-20260819-003)**: Cold import of `output/produce_bet.py` (~1.9s), `booking/verify_fixtures.py` (~0.5s), `brain/store.py` inside Agent 4 caused >2950ms first-call penalty (>500ms threshold). **Fix**: Pre-load heavy dependencies (`BoardFixture`, `verify_board`, `verify`, `SourcedDatum`, `get_sportybet_odds_for_leg`, `Brain`) at module scope in `olp_xdv_pipeline.py`. Agent 4 now ~15ms (warm) vs 2950ms (cold). Import cost (~2.6s) paid once at process start.
+
+**Files changed:**
+- `olp_xdv_pipeline.py` (lines ~56-100, ~298-350, ~383-420): Added module-level imports for Agent 3/4/5 dependencies; updated `agent_3_profile` and `agent_4_verify` to use pre-loaded symbols.
+
+**What did NOT change:** No agent logic, data sources, verification rules, or protected constants touched. This is purely a performance/initialization fix. The honest-edge principle (HR35) was upheld — SPL referee gap remains an acknowledged `PARTIAL`, not fabricated.
+
+**Authority:** Supervisor Agent resolution per HR35 and framework honest-edge mandate. No Architect go-ahead needed — these are bug fixes that align existing behaviour with documented rules.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

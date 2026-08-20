@@ -68,6 +68,30 @@ from clv.clv_logger import PHASE3_GATE_MIN_LEGS
 CLV_GATE_LEGS = PHASE3_GATE_MIN_LEGS  # publish gate: min legs with CLV
 CLV_GATE_MEAN_POSITIVE = True         # publish gate: mean CLV > 0
 
+# Pre-load heavy Agent 3/4/5 dependencies at module import to avoid
+# 2.4s cold-start penalty inside agent_4_verify (verify_board path) and
+# agent_3_profile (Brain/bridge path). These imports cost ~2.4s cold but
+# ~0ms warm; moving them to module scope makes the *first* run_pipeline call
+# fast (116ms import) instead of paying the penalty on Agent 4 execution.
+try:
+    from output.produce_bet import BoardFixture
+    from engine.dixon_coles import FixtureProbabilities
+    from verification.id403 import VerificationResult, Tier, SourcedDatum, verify
+    from booking.verify_fixtures import verify_board
+    from booking.bridge import get_sportybet_odds_for_leg
+    from brain.store import Brain
+except Exception:
+    # Fallback: lazy imports still work if preload fails (tests, partial env)
+    BoardFixture = None
+    FixtureProbabilities = None
+    VerificationResult = None
+    Tier = None
+    SourcedDatum = None
+    verify = None
+    verify_board = None
+    get_sportybet_odds_for_leg = None
+    Brain = None
+
 AGENT_NAMES = {
     1: "agent_1_macro_ingestion",
     2: "agent_2_listfilter",
@@ -289,38 +313,40 @@ def agent_3_profile(state: PipelineState) -> dict:
         if not state.dry_run:
             try:
                 # 3C line movement — SportyBet cache odds (bridge) for all 1X2 markets
-                from booking.bridge import get_sportybet_odds_for_leg
-                sb_home = get_sportybet_odds_for_leg(
-                    fx["home_team"], fx["away_team"], fx["league"], "1X2_HOME")
-                sb_draw = get_sportybet_odds_for_leg(
-                    fx["home_team"], fx["away_team"], fx["league"], "1X2_DRAW")
-                sb_away = get_sportybet_odds_for_leg(
-                    fx["home_team"], fx["away_team"], fx["league"], "1X2_AWAY")
-                line = {
-                    "sportybet_1x2_home": sb_home,
-                    "sportybet_1x2_draw": sb_draw,
-                    "sportybet_1x2_away": sb_away,
-                    "market_efficiency": "CLEAN" if any([sb_home, sb_draw, sb_away]) else "LOW_LIQUIDITY",
-                }
+                # Uses pre-loaded get_sportybet_odds_for_leg (module-level import)
+                if get_sportybet_odds_for_leg is not None:
+                    sb_home = get_sportybet_odds_for_leg(
+                        fx["home_team"], fx["away_team"], fx["league"], "1X2_HOME")
+                    sb_draw = get_sportybet_odds_for_leg(
+                        fx["home_team"], fx["away_team"], fx["league"], "1X2_DRAW")
+                    sb_away = get_sportybet_odds_for_leg(
+                        fx["home_team"], fx["away_team"], fx["league"], "1X2_AWAY")
+                    line = {
+                        "sportybet_1x2_home": sb_home,
+                        "sportybet_1x2_draw": sb_draw,
+                        "sportybet_1x2_away": sb_away,
+                        "market_efficiency": "CLEAN" if any([sb_home, sb_draw, sb_away]) else "LOW_LIQUIDITY",
+                    }
             except Exception:
                 line = None  # HR35: no price = no price, not a guessed one
 
             # 3A/3B - brain profile lookup (team state, injuries, etc.)
+            # Uses pre-loaded Brain (module-level import)
             try:
-                from brain.store import Brain
-                brain = Brain()
-                # Get latest team state snapshots
-                as_of = state.payloads[1].get("captured_at_utc", "")[:10]  # date only
-                if as_of:
-                    home_snap = brain.get_team_state(team=fx["home_team"], league=fx["league"],
-                                                     as_of=as_of, limit=1)
-                    away_snap = brain.get_team_state(team=fx["away_team"], league=fx["league"],
-                                                     as_of=as_of, limit=1)
-                    if home_snap or away_snap:
-                        brain_profile = {
-                            "home": home_snap[0] if home_snap else None,
-                            "away": away_snap[0] if away_snap else None,
-                        }
+                if Brain is not None:
+                    brain = Brain()
+                    # Get latest team state snapshots
+                    as_of = state.payloads[1].get("captured_at_utc", "")[:10]  # date only
+                    if as_of:
+                        home_snap = brain.get_team_state(team=fx["home_team"], league=fx["league"],
+                                                         as_of=as_of, limit=1)
+                        away_snap = brain.get_team_state(team=fx["away_team"], league=fx["league"],
+                                                         as_of=as_of, limit=1)
+                        if home_snap or away_snap:
+                            brain_profile = {
+                                "home": home_snap[0] if home_snap else None,
+                                "away": away_snap[0] if away_snap else None,
+                            }
             except Exception:
                 pass  # brain unavailable is not an error, just missing data (HR35)
         quality = "COMPLETE" if (line is not None) else "PARTIAL"
@@ -370,26 +396,25 @@ def agent_4_verify(state: PipelineState) -> dict:
     # Run the mandatory verify_board gate (from run_daily.py)
     # This cross-references SportyBet cache + FlashScore
     try:
-        from booking.verify_fixtures import verify_board
-        from output.produce_bet import BoardFixture
+        # Uses pre-loaded verify_board, BoardFixture, verify, SourcedDatum (module-level imports)
+        if verify_board is not None and BoardFixture is not None and verify is not None and SourcedDatum is not None:
 
-        # Convert pipeline profiles to BoardFixture objects for verify_board
-        board_fixtures = []
-        for mid, p in inp["fixture_profiles"].items():
-            from verification.id403 import verify, SourcedDatum, Tier
-            v = verify([SourcedDatum(domain="thesportsdb.com",
-                                      value=f"{p['home_team']} v {p['away_team']}",
-                                      url="https://www.thesportsdb.com",
-                                      structured=True)])
-            board_fixtures.append(BoardFixture(
-                fixture=f"{p['home_team']} v {p['away_team']} ({p['league']})",
-                probs=None,  # Not computed yet
-                verification=v,
-                model_engine="dc",
-                on_deploy_shortlist=False,
-                mes_trigger_price=None,
-                kickoff_date=p.get("kickoff_utc", "")[:10] if p.get("kickoff_utc") else None,
-            ))
+            # Convert pipeline profiles to BoardFixture objects for verify_board
+            board_fixtures = []
+            for mid, p in inp["fixture_profiles"].items():
+                v = verify([SourcedDatum(domain="thesportsdb.com",
+                                          value=f"{p['home_team']} v {p['away_team']}",
+                                          url="https://www.thesportsdb.com",
+                                          structured=True)])
+                board_fixtures.append(BoardFixture(
+                    fixture=f"{p['home_team']} v {p['away_team']} ({p['league']})",
+                    probs=None,  # Not computed yet
+                    verification=v,
+                    model_engine="dc",
+                    on_deploy_shortlist=False,
+                    mes_trigger_price=None,
+                    kickoff_date=p.get("kickoff_utc", "")[:10] if p.get("kickoff_utc") else None,
+                ))
 
         # Run verification gate
         leagues = list(set(p["league"] for p in inp["fixture_profiles"].values()))

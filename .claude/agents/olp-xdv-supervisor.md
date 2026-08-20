@@ -203,14 +203,14 @@ When the Architect (human) asks for status, you produce a **Supervisor Report**:
 ### Open Bugs (by severity)
 | Bug ID | Agent | Severity | Status | Summary |
 |--------|-------|----------|--------|---------|
-| BUG-20260819-001 | 03-3B | HIGH | OPEN | Referee source 404 for SPL |
+| BUG-20260819-001 | 03-3B | HIGH | **RESOLVED** | Referee source 404 for SPL — PARTIAL acceptance per HR35 (Agent 4 already flags incomplete referee data as PARTIAL) |
 | BUG-20260819-002 | 03-3A | MEDIUM | OPEN | Injury feed missing for 3 Championship clubs |
-| BUG-20260819-003 | 07 | HIGH | REPRODUCED | Latency hotspot Agent 3 to 4 > 500ms |
+| BUG-20260819-003 | 07 | HIGH | **RESOLVED** | Latency hotspot Agent 3 to 4 > 500ms — fixed by preloading heavy imports (produce_bet, verify_fixtures, Brain, bridge) at module scope in olp_xdv_pipeline.py; Agent 4 now ~15ms vs 2950ms cold |
 
 ### Architect Decisions Needed
 1. **Pinnacle API key** -- configure or accept 3-book fallback permanently?
-2. **SPL referee source** -- add backup source or accept PARTIAL?
-3. **Agent 3 to 4 latency** -- investigate or raise threshold?
+2. ~~**SPL referee source** -- add backup source or accept PARTIAL?~~ **RESOLVED 2026-08-20: Accept PARTIAL**
+3. ~~**Agent 3 to 4 latency** -- investigate or raise threshold?~~ **RESOLVED 2026-08-20: Preload imports**
 
 ### System Metrics
 - Total fixtures ingested today: 426

@@ -519,7 +519,7 @@ def agent_5_core(state: PipelineState) -> dict:
         from engine.dixon_coles import (fit, predict, predict_adjusted,
                                          unrated_reason, FIT_VERSION,
                                          FixtureProbabilities)
-        from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload)
+        from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload, dc_from_payload)
         from engine import markets as mkt
         from engine.mes import mes_numeric
     except Exception as e:
@@ -694,19 +694,19 @@ def _build_selections_from_probs(probs, fx, rating_source, brain, league, data_f
             if model_prob is None:
                 continue
 
-            # EV and MES
-            ev = mes_numeric(model_prob, implied)
+            # Edge (canonical: model_prob - implied_prob)
+            edge = edge_diff(model_prob, implied)
 
-            if ev is None or ev <= 0:
-                continue  # Only +EV selections
+            if edge is None or edge <= 0:
+                continue  # Only positive-edge selections
 
             selections.append({
                 "market": market_key,
                 "selection": mkt.display(market_key, probs.home_team, probs.away_team),
                 "model_prob": model_prob,
                 "implied_prob": 1 / implied if implied > 0 else 0,
-                "ev": ev,
-                "mes": ev,  # MES = EV in this context
+                "edge": edge,
+                "mes": edge,  # canonical MES = edge (probability gap)
                 "odds": implied,
             })
     except Exception as e:
@@ -1168,9 +1168,21 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         total_stake_fraction = sum(getattr(s, "stake_fraction", 0) for s in acca_list)
         paper_bankroll = PAPER_BANKROLL_NGN
 
-        agent10 = state.payloads.get(10, {}) if state else {}
-        feed_audit_decision = agent10.get("decision", "UNKNOWN")
-        feed_audit_authorized = agent10.get("publish_authorization", {}).get("authorized", False) if agent10 else False
+        # Wired mode: compute CEO decision from gate data passed in by run_daily
+        # (avoids fragile re-run of agents 1-10 which can halt and leave agent10 empty)
+        gate_req = 30  # Phase 3 gate requirement
+        clv_legs = calibration_count or 0
+        clv_mean = mean_clv
+        gate_met = (clv_legs >= gate_req) and (clv_mean is not None and clv_mean > 0)
+        signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower()
+        signed_off = signoff in ("1", "true", "yes")
+        override = (not gate_met) and signed_off
+        if gate_met or override:
+            feed_audit_decision = "CEO_APPROVE"
+            feed_audit_authorized = True
+        else:
+            feed_audit_decision = "CEO_REJECT"
+            feed_audit_authorized = False
         skipped_count = 0
 
     # --- Pipeline mode (standalone pipeline run) -------------------------------

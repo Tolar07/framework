@@ -489,7 +489,7 @@ def get_sportybet_odds_for_leg(
     home_team: str,
     away_team: str,
     olp_league: str,
-    market: str,  # "1X2_HOME", "1X2_DRAW", "1X2_AWAY", "OVER_2_5", "UNDER_2_5"
+    market: str,  # "1X2_HOME", "1X2_DRAW", "1X2_AWAY", "OVER_2_5", "UNDER_2_5", etc.
     client: Optional[SportyBetClient] = None,
 ) -> Optional[float]:
     """Get SportyBet odds for a specific leg/market.
@@ -515,14 +515,94 @@ def get_sportybet_odds_for_leg(
     fixtures = load_sportybet_fixtures(olp_league, days_ahead=45)
 
     def _price(fx) -> Optional[float]:
+        # 1X2
         if market == "1X2_HOME":
             return fx.home_odds
         if market == "1X2_DRAW":
             return fx.draw_odds
         if market == "1X2_AWAY":
             return fx.away_odds
-        # Totals markets are NOT captured from the league page (the line is a
-        # variable selector, not fixed 2.5) — honest None.
+        # Totals
+        if market == "OVER_1_5":
+            return fx.over15_odds
+        if market == "UNDER_1_5":
+            return fx.under15_odds
+        if market == "OVER_2_5":
+            return fx.over25_odds
+        if market == "UNDER_2_5":
+            return fx.under25_odds
+        if market == "OVER_3_5":
+            return fx.over35_odds
+        if market == "UNDER_3_5":
+            return fx.under35_odds
+        if market == "OVER_0_5":
+            return fx.over05_odds
+        if market == "UNDER_0_5":
+            return fx.under05_odds
+        # BTTS
+        if market == "BTTS_YES":
+            return fx.btts_yes_odds
+        if market == "BTTS_NO":
+            return fx.btts_no_odds
+        # Double Chance
+        if market == "DC_1X":
+            return fx.dc_1x_odds
+        if market == "DC_X2":
+            return fx.dc_x2_odds
+        if market == "DC_12":
+            return fx.dc_12_odds
+        # Draw No Bet
+        if market == "DNB_HOME":
+            return fx.dnb_home_odds
+        if market == "DNB_AWAY":
+            return fx.dnb_away_odds
+        # HT/FT
+        if market == "HT_FT_11":
+            return fx.htft_11_odds
+        if market == "HT_FT_1X":
+            return fx.htft_1x_odds
+        if market == "HT_FT_12":
+            return fx.htft_12_odds
+        if market == "HT_FT_X1":
+            return fx.htft_x1_odds
+        if market == "HT_FT_XX":
+            return fx.htft_xx_odds
+        if market == "HT_FT_X2":
+            return fx.htft_x2_odds
+        if market == "HT_FT_21":
+            return fx.htft_21_odds
+        if market == "HT_FT_2X":
+            return fx.htft_2x_odds
+        if market == "HT_FT_22":
+            return fx.htft_22_odds
+        # Correct Score
+        if market == "CS_10":
+            return fx.cs_10_odds
+        if market == "CS_01":
+            return fx.cs_01_odds
+        if market == "CS_11":
+            return fx.cs_11_odds
+        if market == "CS_20":
+            return fx.cs_20_odds
+        if market == "CS_02":
+            return fx.cs_02_odds
+        if market == "CS_21":
+            return fx.cs_21_odds
+        if market == "CS_12":
+            return fx.cs_12_odds
+        if market == "CS_22":
+            return fx.cs_22_odds
+        if market == "CS_00":
+            return fx.cs_00_odds
+        if market == "CS_30":
+            return fx.cs_30_odds
+        if market == "CS_03":
+            return fx.cs_03_odds
+        if market == "CS_31":
+            return fx.cs_31_odds
+        if market == "CS_13":
+            return fx.cs_13_odds
+        # Unknown market
         return None
 
     # 1. Exact model-key match.

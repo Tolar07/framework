@@ -46,6 +46,30 @@
 | **claude-code-guide** | Answers about Claude Code / Claude Agent SDK itself |
 | **statusline-setup** | Configures the Claude Code status line |
 
+---
+
+## 2026-08-20 — Daily Retrospective Audit Summary (Fixtures 2026-08-05 to 2026-08-09)
+
+### Key Metrics
+- **23 settled legs** across 10 fixtures
+- **Overall hit rate**: 34.8% (8/23)
+- **Mean CLV**: -2.467% (17 legs with CLV captured)
+- **Phase 3 gate**: 17/30 legs, mean CLV negative → **NOT MET** (Architect signoff active)
+
+### Critical Findings
+1. **Calibration failure at extremes**: 0.2–0.3 bin (−6.2pp), 0.8–0.9 bin (−85pp)
+2. **Eredivisie & Scottish Premiership**: 100% miss rate (13 legs, 0 hits) → quarantine recommended
+3. **Draw markets broken**: 1X2_DRAW 16.7%, Double Chance Draw 0%
+4. **Negative CLV**: No live edge materializing at closing line
+
+### Deployment Adjustments (Per HR58 Protected Logic)
+- Quarantine Eredivisie & Scottish Premiership from Acca A → singles only
+- Draw markets: exclude from Acca A until recalibrated
+- Rebalance ensemble toward elo (60% hit rate on small sample)
+
+### Full Audit Detail
+See [[STATE.md]] in canonical vault (`olp_xdv_agent/olp_xdv/docs/obsidian-vault/STATE.md`) for complete analysis, miss patterns by league/market/engine, and recommended actions.
+
 ## Project skills (for context)
 
 `.claude/skills/` carries the OLP XDV skills (notably the read-only **`olp-xdv`** query surface for the brain/CLV/board/league-audit), plus design/motion/data skills. The plugin also adds commands, rules, hooks, contexts, and scripts under `.claude/plugins/`. Agents should consult [[Rules.md]] and [[Protected Constants.md]] before acting.

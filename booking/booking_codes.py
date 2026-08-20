@@ -676,9 +676,57 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 else:
                     current_league_on_page = None
                     entry["reason"] = "league page did not load"
+            elif leg.get("market_key") in ("DNB_HOME", "DNB_AWAY"):
+                # Draw No Bet — handle on league page via match-page navigation fallback
+                if current_league_on_page != league:
+                    mapping = SPORTYBET_LEAGUES.get(league)
+                    nav_ok = bool(mapping) and _navigate_to_league(
+                        page, mapping.country, mapping.league)
+                    if nav_ok:
+                        current_league_on_page = league
+                    else:
+                        current_league_on_page = None
+                if current_league_on_page == league:
+                    ok = _click_market_on_match_page(page, leg["market_key"])
+                    if not ok:
+                        entry["reason"] = f"DNB selection could not be driven for {leg['market_key']}"
+                else:
+                    entry["reason"] = "league page did not load"
+            elif leg.get("market_key", "").startswith("HT_FT_"):
+                # HT/FT markets — handle via match page
+                if current_league_on_page != league:
+                    mapping = SPORTYBET_LEAGUES.get(league)
+                    nav_ok = bool(mapping) and _navigate_to_league(
+                        page, mapping.country, mapping.league)
+                    if nav_ok:
+                        current_league_on_page = league
+                    else:
+                        current_league_on_page = None
+                if current_league_on_page == league:
+                    ok = _click_market_on_match_page(page, leg["market_key"])
+                    if not ok:
+                        entry["reason"] = f"HT/FT selection could not be driven for {leg['market_key']}"
+                else:
+                    entry["reason"] = "league page did not load"
+            elif leg.get("market_key", "").startswith("CS_"):
+                # Correct Score markets — handle via match page
+                if current_league_on_page != league:
+                    mapping = SPORTYBET_LEAGUES.get(league)
+                    nav_ok = bool(mapping) and _navigate_to_league(
+                        page, mapping.country, mapping.league)
+                    if nav_ok:
+                        current_league_on_page = league
+                    else:
+                        current_league_on_page = None
+                if current_league_on_page == league:
+                    ok = _click_market_on_match_page(page, leg["market_key"])
+                    if not ok:
+                        entry["reason"] = f"Correct Score selection could not be driven for {leg['market_key']}"
+                else:
+                    entry["reason"] = "league page did not load"
             elif leg.get("market_key") in _MARKET_UI_MAP:
                 # Defensive MANUAL. Every market in _MARKET_UI_MAP (totals +
-                # BTTS) is already handled by the league-page branches above,
+                # BTTS, DNB, HT/FT, CS) is already handled by the league-page branches above,
                 # so reaching here means an unhandled variant. Deliberately do
                 # NOT fall back to the match page: direct /match navigation
                 # times out on SportyBet NG and leaves the session on a dead

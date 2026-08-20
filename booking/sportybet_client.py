@@ -357,9 +357,11 @@ class SportyBetClient:
                     if price:
                         outcomes[name] = float(price)
                 if outcomes:
+                    # Normalize market key to OLP XDV canonical keys
+                    canonical_key = self._normalize_market_key(market_key)
                     markets.append(MarketOdds(
                         fixture_id=fixture_id,
-                        market=market_key,
+                        market=canonical_key,
                         outcomes=outcomes,
                         captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                     ))
@@ -372,8 +374,8 @@ class SportyBetClient:
         markets = []
         # Market tabs/sections
         for market_section in soup.select(".market-group, .odds-market, [data-market]"):
-            market_name = market_section.get("data-market") or market_section.select_one(".market-name, .tab-title")
-            market_name = market_name.get_text(strip=True) if market_name else "unknown"
+            market_name_elem = market_section.get("data-market") or market_section.select_one(".market-name, .tab-title")
+            market_name = market_name_elem.get_text(strip=True) if market_name_elem else "unknown"
 
             outcomes = {}
             for outcome_elem in market_section.select(".outcome, .odds-item, [data-outcome]"):
@@ -389,9 +391,113 @@ class SportyBetClient:
                         continue
 
             if outcomes:
+                # Normalize market key
+                canonical_key = self._normalize_market_key(market_name)
                 markets.append(MarketOdds(
                     fixture_id=fixture_id,
-                    market=market_name,
+                    market=canonical_key,
+                    outcomes=outcomes,
+                    captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                ))
+        return markets
+
+    def _normalize_market_key(self, sportybet_key: str) -> str:
+        """Map SportyBet market key to OLP XDV canonical key."""
+        mapping = {
+            # 1X2
+            "1X2": "1X2_HOME",  # will be distinguished by outcome names
+            "match_winner": "1X2_HOME",
+            "full_time_result": "1X2_HOME",
+            # Double Chance
+            "double_chance": "DC_1X",
+            "dc": "DC_1X",
+            "1x": "DC_1X",
+            "x2": "DC_1X",
+            "12": "DC_1X",
+            # Totals
+            "over_under_1_5": "OVER_1_5",
+            "over_under_2_5": "OVER_2_5",
+            "over_under_3_5": "OVER_3_5",
+            "over_under_0_5": "OVER_0_5",
+            "totals": "OVER_2_5",
+            "over_1_5": "OVER_1_5",
+            "under_1_5": "OVER_1_5",
+            "over_2_5": "OVER_2_5",
+            "under_2_5": "OVER_2_5",
+            "over_3_5": "OVER_3_5",
+            "under_3_5": "OVER_3_5",
+            "over_0_5": "OVER_0_5",
+            "under_0_5": "OVER_0_5",
+            # BTTS
+            "both_teams_to_score": "BTTS_YES",
+            "btts": "BTTS_YES",
+            "gg_ng": "BTTS_YES",
+            "gg": "BTTS_YES",
+            "ng": "BTTS_YES",
+            # Draw No Bet
+            "draw_no_bet": "DNB_HOME",
+            "dnb": "DNB_HOME",
+            "dnb_home": "DNB_HOME",
+            "dnb_away": "DNB_HOME",
+            # HT/FT
+            "half_time_full_time": "HT_FT_11",
+            "ht_ft": "HT_FT_11",
+            "htft": "HT_FT_11",
+            "1/1": "HT_FT_11",
+            "1/x": "HT_FT_11",
+            "1/2": "HT_FT_11",
+            "x/1": "HT_FT_11",
+            "x/x": "HT_FT_11",
+            "x/2": "HT_FT_11",
+            "2/1": "HT_FT_11",
+            "2/x": "HT_FT_11",
+            "2/2": "HT_FT_11",
+            # Correct Score
+            "correct_score": "CS_10",
+            "exact_score": "CS_10",
+            "1:0": "CS_10",
+            "0:1": "CS_10",
+            "1:1": "CS_10",
+            "2:0": "CS_10",
+            "0:2": "CS_10",
+            "2:1": "CS_10",
+            "1:2": "CS_10",
+            "2:2": "CS_10",
+            "0:0": "CS_10",
+            "3:0": "CS_10",
+            "0:3": "CS_10",
+            "3:1": "CS_10",
+            "1:3": "CS_10",
+        }
+        return mapping.get(sportybet_key.lower().replace(" ", "_"), sportybet_key)
+
+    def _parse_odds_from_dom(self, soup: BeautifulSoup, fixture_id: str) -> List[MarketOdds]:
+        """Parse odds from DOM elements."""
+        markets = []
+        # Market tabs/sections
+        for market_section in soup.select(".market-group, .odds-market, [data-market]"):
+            market_name_elem = market_section.get("data-market") or market_section.select_one(".market-name, .tab-title")
+            market_name = market_name_elem.get_text(strip=True) if market_name_elem else "unknown"
+
+            outcomes = {}
+            for outcome_elem in market_section.select(".outcome, .odds-item, [data-outcome]"):
+                name = outcome_elem.get("data-outcome") or outcome_elem.select_one(".outcome-name, .name")
+                price_elem = outcome_elem.select_one(".odds-value, .price, [data-price]")
+                if name and price_elem:
+                    name = name.get_text(strip=True) if hasattr(name, "get_text") else str(name)
+                    price_text = price_elem.get("data-price") or price_elem.get_text(strip=True)
+                    try:
+                        price = float(price_text)
+                        outcomes[name] = price
+                    except ValueError:
+                        continue
+
+            if outcomes:
+                # Normalize market key
+                canonical_key = self._normalize_market_key(market_name)
+                markets.append(MarketOdds(
+                    fixture_id=fixture_id,
+                    market=canonical_key,
                     outcomes=outcomes,
                     captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                 ))

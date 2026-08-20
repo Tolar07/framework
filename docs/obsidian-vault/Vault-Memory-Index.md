@@ -19,6 +19,7 @@
 - `[[API Keys.md]]` — Credential reference (sanitized, real values in .env only)
 - `[[OLP_XDV_Framework_Index.md]]` — Navigation index with repo paths
 - `[[Vault-Memory-Index.md]]` — This file
+- `[[STATE.md]]` — Daily retrospective audit: fixture verification, outcome audit, knowledge integration
 
 ## Agent Memory System (Persistent Across Sessions)
 **Location:** `.claude/projects/C--Users-Motunrayo-omniroute-test/memory/`

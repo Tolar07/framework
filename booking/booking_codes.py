@@ -544,34 +544,57 @@ def _read_betslip_combined_odds(page: Page) -> Optional[float]:
     decimal-odds token (a number > 1.00 with up to 2 decimals) and return the
     one that represents the whole slip. Best-effort: returns None when the panel
     is not readable (the caller treats a None as "cannot verify", not as a pass).
+
+    ROBUSTNESS (2026-08-20): Handles catastrophic UI bugs like the "6 odds ->
+    6,000,000 odds" display glitch by accepting both decimal and integer forms,
+    comma-separated numbers, and prioritising values near "Total"/"Combined"/
+    "Odds" labels.
     """
     # Candidate betslip containers (the open slip on the right rail).
     panels = page.query_selector_all(
         ".betslip, .bet-slip, .slip, [class*='betslip'], [class*='slip'], "
         ".es-betslip, .cart, [class*='cart']")
     candidates: List[float] = []
-    # Pattern: a decimal number >= 1.01 with an optional leading digit and a
-    # decimal point, e.g. "5.00", "1.95", "10.25". Excludes integers like
-    # leg counts and stake inputs.
-    pat = re.compile(r"(?<!\d)(\d+\.\d{2})(?!\d)")
+    # Pattern 1: decimals with exactly 2 places (standard odds display)
+    # Pattern 2: integers >= 100 (catches catastrophic display like 6000000)
+    # Pattern 3: comma-separated numbers (6,000,000.00)
+    # All patterns use negative lookbehind/lookahead to avoid partial matches.
+    pat_decimal = re.compile(r"(?<!\d)(\d+\.\d{2})(?!\d)")
+    pat_int_large = re.compile(r"(?<!\d)(\d{3,})(?!\d)")
+    pat_comma = re.compile(r"(?<!\d)(\d{1,3}(?:,\d{3})+(?:\.\d{2})?)(?!\d)")
     for panel in (panels or []):
         try:
             txt = panel.inner_text() or ""
         except Exception:
             continue
-        for m in pat.finditer(txt):
-            try:
-                val = float(m.group(1))
-            except ValueError:
-                continue
-            if val >= 1.01:
-                candidates.append(val)
+        # First pass: find numbers near "Total"/"Combined"/"Odds" labels
+        # (the combined odds is usually next to such text)
+        lines = txt.split("\n")
+        for line in lines:
+            line_lower = line.lower()
+            is_combined_line = any(kw in line_lower for kw in
+                                   ("total", "combined", "odds", "potential"))
+            for pat in (pat_decimal, pat_comma, pat_int_large):
+                for m in pat.finditer(line):
+                    raw = m.group(1).replace(",", "")
+                    try:
+                        val = float(raw)
+                    except ValueError:
+                        continue
+                    if val < 1.01:
+                        continue
+                    # Boost combined-line candidates (they're more likely correct)
+                    if is_combined_line:
+                        candidates.append((val, True))
+                    else:
+                        candidates.append((val, False))
     if not candidates:
         return None
-    # The combined odds is the LARGEST decimal in the slip (leg prices are all
-    # <= 2.00 under the cap, so the accumulated product dominates every leg
-    # price). For a single it is the only candidate.
-    return round(max(candidates), 2)
+    # Sort by: (1) on combined line first, (2) value descending (largest wins)
+    # Leg prices are all <= 2.00 under the cap, so the accumulated product
+    # dominates every leg price. For a single it is the only candidate.
+    candidates.sort(key=lambda x: (not x[1], -x[0]))
+    return round(candidates[0][0], 2)
 
 
 def _odds_within_tolerance(a: Optional[float], b: Optional[float],
@@ -599,6 +622,7 @@ def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
     the off-chance a revision renders one. Returns None when no code can be
     read (the per-leg statuses already tell the Architect what to add
     manually — HR35)."""
+    try:
         # Let the betslip settle from the last click BEFORE pressing Book Bet —
         # a selection clicked a few ms earlier may not be in the slip yet, and
         # pressing too soon can race the betslip update (verified: the working

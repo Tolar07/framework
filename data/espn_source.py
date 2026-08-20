@@ -97,6 +97,9 @@ SLUGS = {
     "Welsh Premier League": "wal.1",
     # Albanian Superliga: NO_ESPN_COVERAGE - ESPN does not cover Albanian league
     # Andorran Primera División: NO_ESPN_COVERAGE - ESPN does not cover Andorran league
+    # Azerbaijani Premyer Liqa: NO_ESPN_COVERAGE - ESPN does not cover Azerbaijani league
+    # Belarusian Premier League: NO_ESPN_COVERAGE - ESPN does not cover Belarusian league
+    # Bosnian Premier League: NO_ESPN_COVERAGE - ESPN does not cover Bosnian league
     # EFL Cup: NO_ESPN_COVERAGE - ESPN has no reliable slug for EFL Cup (deliberate gap)
 }
 

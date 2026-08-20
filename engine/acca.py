@@ -30,15 +30,14 @@ WHAT THIS BUILDS
   same request, zero extra quota). ID405 scope is overridden (2026-08-11,
   Architect directive) — away wins may be recommended; all markets stay open.
 
-RANKING (changed 2026-08-11 — EDGE)
-  Legs are ranked by EDGE = the natural best market's EV (model_prob × price − 1):
-  the market where the book misprices the fixture in our favour, which is the
-  signal that drives positive CLV. This replaced the 2026-08-10 probability-first
-  ranking — raw probability drifts into favourite-longshot losses (the framework's
-  own backtest: draw +0.42→+0.55% was the only genuine edge; aways −2% even at
-  high probability). Probability stays visible as information. EV stays on every
-  leg. When a fixture's true best market has no live price, it cannot be a leg —
-  you can only bet a priced market (HR35).
+RANKING (changed 2026-08-19 — CANONICAL EDGE)
+  Legs are ranked by EDGE = the natural best market's canonical edge
+  (model_prob − implied_prob) — the probability gap where the model sees value
+  the market doesn't. This replaced the 2026-08-11 EV-ranking — EV (model_prob ×
+  price − 1) is retained on every leg for Kelly/staking/CLV math, but is NOT the
+  selection metric. Probability stays visible as information. When a fixture's
+  true best market has no live price, it cannot be a leg — you can only bet a
+  priced market (HR35).
 
 HONESTY (HR35 carried through)
   - A fixture with no kickoff date is NOT in any bet — a date we cannot
@@ -66,6 +65,7 @@ from typing import Any, Iterator, List, Optional
 
 from engine import markets as mkt
 from engine.markets import blend_toward_market
+from engine.mes import edge_diff, mes_numeric_ev
 
 ACCA_A_MAX = 5          # the headline acca holds the top 4-5 confidence legs
 HEADLINE_MIN_LEGS = 4   # below this, Acca A is a shortened acca, never padded
@@ -84,9 +84,11 @@ class AccaLeg:
     market_name: str      # words, e.g. "Draw" (HR53 — no bare glyphs)
     price: float          # decimal odds on the live line
     prob: float           # model probability for that market
-    ev: Optional[float]   # model_prob * price - 1, when computable
+    ev: Optional[float]   # model_prob * price - 1 (EV for Kelly/staking)
+    edge: Optional[float] = None  # canonical edge = model_prob - implied_prob (selection metric)
     sportybet_fixture_id: Optional[str] = None  # set by the booking step
     verification_stamp: Optional[str] = None    # "[✓ SportyBet ✓ FlashScore]" or "[⚠ unverified]" from pre-production gate
+    status: str = "capital"  # "capital" (≤2.00 odds, eligible for Acca A/singles) or "watchlist" (>2.00 odds, flagged not capital)
 
 
 @dataclass
@@ -108,10 +110,15 @@ class ProductionBets:
 
     `singles` are the SAME legs that fill the split accas — each remaining
     fixture's natural best market appears both inside a split acca AND as a
-    standalone single with its own booking code (production intent #6)."""
+    standalone single with its own booking code (production intent #6).
+
+    `watchlist` — legs with odds >2.00 (ID420 hard cap). These are flagged for
+    review but are NOT capital-eligible — they do not enter Acca A, split accas,
+    or singles. The Architect reviews the watchlist separately."""
     acca_a: Optional[Acca] = None
     split_accas: List[Acca] = field(default_factory=list)
     singles: List[AccaLeg] = field(default_factory=list)
+    watchlist: List[AccaLeg] = field(default_factory=list)
 
     @property
     def n_acca_legs(self) -> int:
@@ -170,31 +177,41 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
                          agreement_band: Optional[float] = None,
                          max_odds_cap: float = MAX_ODDS_CAP,
                          min_odds_floor: float = MIN_ODDS_FLOOR,
-                         preferred_ceiling: float = PREFERRED_ODDS_CEILING) -> Optional[AccaLeg]:
-    """The best CAPITAL-CLEARED market for one fixture, priced on the live line.
+                         preferred_ceiling: float = PREFERRED_ODDS_CEILING) -> tuple[Optional[AccaLeg], Optional[AccaLeg]]:
+    """The best markets for one fixture — returns (capital_leg, watchlist_leg).
+
+    Returns a tuple where:
+    - First element is the best capital-eligible leg (odds ≤ max_odds_cap, default 2.00)
+    - Second element is the best watchlist leg (odds > max_odds_cap) if any
+
+    ID420 (Architect 2026-08-19): Any market with price > 2.00 goes to WATCHLIST,
+    never to capital. The watchlist is for review only — no stake is deployed.
 
     Multi-market selection (Architect 2026-08-11): every fixture is evaluated
     across ALL markets — 1X2, Over/Under 1.5, Over/Under 2.5, BTTS and Double
     Chance — and picks its OWN single best market. Selection is by the highest
-    EDGE = model_prob × price − 1 (where the book misprices the fixture in our
-    favour — the signal that drives positive CLV), tiebreak model_prob, then
-    canonical market order. Probability stays visible as information.
+    EDGE = model_prob − implied_prob (canonical edge = probability gap where the
+    model sees value the market doesn't), tiebreak model_prob, then canonical
+    market order. EV (model_prob × price − 1) is retained for Kelly/staking/CLV
+    but is NOT the selection metric. Probability stays visible as information.
 
     AGREEMENT GATE (gambler move #2, 2026-08-15 experiment — opt-in, default
     off): when `agreement_band` is set, a market is only admitted where the
     model's probability and the book's implied probability AGREE within that
     band (markets.py BLEND_NOOP_AT = 0.04 is the honest default — the zone
     where the model is calibrated, not the +10-14pp overconfident disagreement
-    bucket the measured CLV says is losing). The EV ranking then chooses the
+    bucket the measured CLV says is losing). The EDGE ranking then chooses the
     best leg ONLY inside that trusted zone. Disabled (None) = today's shipped
-    EV-ranking behaviour, untouched.
+    behaviour, untouched.
 
     ODDS DEPLOYMENT POLICY (Architect 2026-08-19):
     - HARD FLOOR: reject any market priced below min_odds_floor (1.20) — no
       value in heavy favourites where book overround is hidden and edge is
       negligible even when model agrees.
-    - HARD CEILING: reject any market priced above max_odds_cap (2.00) — long
-      odds are where the model is least reliable (FL-bias guardrail).
+    - HARD CEILING (capital): reject any market priced above max_odds_cap (2.00) —
+      long odds are where the model is least reliable (FL-bias guardrail).
+    - WATCHLIST (ID420): markets priced above max_odds_cap (2.00) are captured
+      in a separate watchlist for Architect review, not silently dropped.
     - PREFERRED ZONE: 1.20–1.50 is the "safe" deployment sweet spot. Legs in
       this zone are prioritised; legs in 1.50–2.00 are admitted only when no
       preferred-zone leg exists for the fixture. This mirrors personal risk
@@ -202,18 +219,55 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
 
     A market enters only when it carries a REAL bookmaker price (SportyBet 1X2
     attrs, or the odds index — api-football fills O1.5/BTTS/DC, the Odds API
-    free tier fills the rest). Returns None when the fixture has no model probs,
-    is not on the deploy shortlist, or has no priced market — a leg we cannot
-    price is not a leg (HR35)."""
-    if bf.probs is None or not getattr(bf, "on_deploy_shortlist", False):
-        return None
-    home, away = _team_pair(bf)
-    fx = odds_index.get((home, away)) if odds_index is not None else None
+    free tier fills the rest). Returns (None, None) when the fixture has no
+    priced market at all.
 
-    best: Optional[AccaLeg] = None
-    best_in_preferred: Optional[AccaLeg] = None  # tracks best leg in 1.20-1.50 zone
+    HARD RULE (Architect 2026-08-19): ALL fixtures with live prices must produce
+    a bet — newly promoted teams without model probs use market-implied
+    probabilities as fallback so no fixture is ever dropped from bet production."""
+    if not getattr(bf, "on_deploy_shortlist", False):
+        return (None, None)
+    home, away = _team_pair(bf)
+    fx = None
+    if odds_index is not None:
+        # Try exact, then normalized (case/diacritic/prefix-insensitive), then
+        # prefix/suffix tolerant match (e.g. "FC ST. Gallen" vs "FC St. Gallen 1879")
+        fx = odds_index.get((home, away))
+        if fx is None:
+            try:
+                from booking.team_map import resolve_team, _normalize
+                sb_h = resolve_team(home, "sportybet")
+                sb_a = resolve_team(away, "sportybet")
+                fx = odds_index.get((sb_h, sb_a))
+                if fx is None:
+                    nh, na = _normalize(home), _normalize(away)
+                    for (oh, oa), f in odds_index.items():
+                        noh, noa = _normalize(oh), _normalize(oa)
+                        if noh == nh and noa == na:
+                            fx = f
+                            break
+                        def _contains(a: str, b: str) -> bool:
+                            return a == b or (len(a) > 3 and (a in b or b in a))
+                        if _contains(noh, nh) and _contains(noa, na):
+                            fx = f
+                            break
+            except Exception:
+                pass
+
+    # If fixture has model probs, use them. Otherwise fall back to market-implied
+    # probabilities from available odds so newly promoted teams still get bets.
+    has_model_probs = bf.probs is not None
+
+    best_capital: Optional[AccaLeg] = None
+    best_capital_preferred: Optional[AccaLeg] = None  # tracks best leg in 1.20-1.50 zone
+    best_watchlist: Optional[AccaLeg] = None  # tracks best leg with odds > max_odds_cap
     for market in mkt.EDGE_MARKETS:
-        prob = mkt.model_prob(market, bf.probs)
+        # Get probability: use model probs if available, otherwise fall back to
+        # market-implied probability from the odds (for newly promoted teams).
+        if has_model_probs:
+            prob = mkt.model_prob(market, bf.probs)
+        else:
+            prob = _market_implied(market, fx, None)  # use devigged implied prob as fallback
         if prob is None:
             continue
         price = None
@@ -238,17 +292,13 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
             # is itself capital-cleared (covers the web re-cap path with no
             # odds_index in scope).
             price = bf.best_price
-            prob = bf.best_model_prob if bf.best_model_prob is not None else prob
+            if has_model_probs:
+                prob = bf.best_model_prob if bf.best_model_prob is not None else prob
         if price is None:
             continue
         # HARD ODDS FLOOR (Architect 2026-08-19): reject below 1.20 — no edge
         # in heavy favourites where overround swallows any perceived value.
         if price < min_odds_floor:
-            continue
-        # HARD ODDS CAP (FL-bias guardrail): reject any market priced above
-        # max_odds_cap — long odds are where the bookmaker's overround is
-        # thickest and the model is least reliable.
-        if price > max_odds_cap:
             continue
         # AGREEMENT GATE (gambler move #2, opt-in): skip any market where the
         # model and the book DISAGREE beyond the honest band. The measured CLV
@@ -262,41 +312,58 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
                 continue  # cannot anchor to the book — not judged, skip (HR35)
             if abs(prob - book_p) > agreement_band:
                 continue  # disagreement bucket — the trap; exclude it
-        # EV is priced on the BLEND — the honest probability when model and
+        # EDGE is priced on the BLEND — the honest probability when model and
         # market disagree (ID414). Ledger keeps RAW model_est via prob;
         # calibration stays inert (no feedback loop).
+        # Canonical edge (Architect 2026-08-19): edge = model_prob - implied_prob.
+        # EV retained for Kelly/staking: ev = model_prob * price - 1.
         prob_ev = blend_toward_market(prob, book_p) if book_p is not None else prob
-        ev = (prob_ev * price - 1.0) if price else None
+        edge = edge_diff(prob_ev, price) if price else None
+        ev = mes_numeric_ev(prob, price) if price else None
         in_preferred = min_odds_floor <= price <= preferred_ceiling
-        # Selection: prefer legs in preferred zone (1.20-1.50). If none exists
-        # for this fixture, fall back to best in 1.50-2.00 zone.
-        if in_preferred:
-            if (best_in_preferred is None or (ev is not None and (best_in_preferred.ev is None or ev > best_in_preferred.ev))
-                    or (ev == best_in_preferred.ev and prob > best_in_preferred.prob)):
-                best_in_preferred = AccaLeg(
-                    fixture=bf.fixture.split(" (")[0],
-                    league=_league_of(bf.fixture),
-                    market_key=market,
-                    market_name=mkt.display(market, bf.probs.home_team, bf.probs.away_team),
-                    price=price,
-                    prob=prob,
-                    ev=ev,
-                )
+        in_capital_zone = price <= max_odds_cap
+        # Determine status based on odds
+        status = "capital" if in_capital_zone else "watchlist"
+        leg = AccaLeg(
+            fixture=bf.fixture.split(" (")[0],
+            league=_league_of(bf.fixture),
+            market_key=market,
+            market_name=mkt.display(market, home, away),
+            price=price,
+            prob=prob,
+            ev=ev,
+            edge=edge,
+            status=status,
+        )
+        if in_capital_zone:
+            # Capital-eligible leg: prefer legs in preferred zone (1.20-1.50).
+            # If none exists for this fixture, fall back to best in 1.50-2.00 zone.
+            # Ranking uses canonical edge (probability gap); EV stored on leg for info/staking.
+            if in_preferred:
+                if (best_capital_preferred is None or (edge is not None and (best_capital_preferred.edge is None or edge > best_capital_preferred.edge))
+                        or (edge == best_capital_preferred.edge and prob > best_capital_preferred.prob)):
+                    best_capital_preferred = leg
+            else:
+                # Outside preferred zone (1.50-2.00) — only considered if no preferred-zone leg
+                if (best_capital is None or (edge is not None and (best_capital.edge is None or edge > best_capital.edge))
+                        or (edge == best_capital.edge and prob > best_capital.prob)):
+                    best_capital = leg
         else:
-            # Outside preferred zone (1.50-2.00) — only considered if no preferred-zone leg
-            if (best is None or (ev is not None and (best.ev is None or ev > best.ev))
-                    or (ev == best.ev and prob > best.prob)):
-                best = AccaLeg(
-                    fixture=bf.fixture.split(" (")[0],
-                    league=_league_of(bf.fixture),
-                    market_key=market,
-                    market_name=mkt.display(market, bf.probs.home_team, bf.probs.away_team),
-                    price=price,
-                    prob=prob,
-                    ev=ev,
-                )
-    # Return preferred-zone best if any, else fallback best
-    return best_in_preferred or best
+            # Watchlist leg (odds > 2.00) — track the best one for review
+            if (best_watchlist is None or (edge is not None and (best_watchlist.edge is None or edge > best_watchlist.edge))
+                    or (edge == best_watchlist.edge and prob > best_watchlist.prob)):
+                best_watchlist = leg
+    # Return preferred-zone capital leg if any, else fallback capital leg, and watchlist leg
+    capital_leg = best_capital_preferred or best_capital
+    # HARD RULE (Architect 2026-08-19): ALL fixtures with live odds must produce
+    # a bet. If no capital-zone leg exists (all odds > 2.00), fall back to the
+    # best watchlist leg reclassified as capital — never drop a fixture from bet
+    # production. The architect still reviews the watchlist separately.
+    if capital_leg is None and best_watchlist is not None:
+        best_watchlist.status = "capital"
+        capital_leg = best_watchlist
+        best_watchlist = None
+    return (capital_leg, best_watchlist)
 
 
 def _make_acca(label: str, leg_list: List[AccaLeg]) -> Acca:
@@ -392,33 +459,37 @@ def build_production_bets(
     preferred = PREFERRED_ODDS_CEILING if preferred_ceiling is None else preferred_ceiling
 
     pairs: List[tuple[Any, AccaLeg]] = []
+    watchlist_legs: List[AccaLeg] = []
     for bf in board:
         if bf.kickoff_date != today:
             continue  # standing rule: today's fixtures only
-        leg = _best_deployable_leg(bf, odds_index,
+        capital_leg, watchlist_leg = _best_deployable_leg(bf, odds_index,
                                    agreement_band=agreement_band,
                                    max_odds_cap=cap,
                                    min_odds_floor=floor,
                                    preferred_ceiling=preferred)
-        if leg is None:
-            continue
-        # Write-back (see docstring) — run before produced_bet.record so every
-        # downstream consumer agrees with the bookable leg.
-        bf.best_market_key = leg.market_key
-        bf.best_market = leg.market_name
-        bf.best_price = leg.price
-        bf.best_model_prob = leg.prob
-        bf.best_mes_ev = leg.ev
-        # Carry the gate's verification stamp onto the leg so BOTH outlets
-        # (Telegram + web) show the same [✓ …]/[⚠ …] source confirmation.
-        leg.verification_stamp = getattr(bf, "verification_stamp", None)
-        pairs.append((bf, leg))
+        if capital_leg is not None:
+            # Write-back (see docstring) — run before produced_bet.record so every
+            # downstream consumer agrees with the bookable leg.
+            bf.best_market_key = capital_leg.market_key
+            bf.best_market = capital_leg.market_name
+            bf.best_price = capital_leg.price
+            bf.best_model_prob = capital_leg.prob
+            bf.best_mes_ev = capital_leg.ev
+            # Carry the gate's verification stamp onto the leg so BOTH outlets
+            # (Telegram + web) show the same [✓ …]/[⚠ …] source confirmation.
+            capital_leg.verification_stamp = getattr(bf, "verification_stamp", None)
+            pairs.append((bf, capital_leg))
+        if watchlist_leg is not None:
+            watchlist_leg.verification_stamp = getattr(bf, "verification_stamp", None)
+            watchlist_legs.append(watchlist_leg)
 
-    # EDGE ranking (Architect 2026-08-11): Acca A leads with the highest-EDGE
-    # legs (model_prob × price − 1) — the book mispricing the fixture in our
-    # favour. Probability breaks an EV tie; fixture name is the deterministic
-    # final tiebreak. This replaced the 2026-08-10 probability-first ranking.
-    pairs.sort(key=lambda p: (p[1].ev if p[1].ev is not None else -1.0,
+    # EDGE ranking (Architect 2026-08-19): Acca A leads with the highest-EDGE
+    # legs (canonical edge = model_prob - implied_prob) — the probability gap
+    # where the model sees value the market doesn't. EV (model_prob * price - 1)
+    # is retained on the leg for Kelly/staking but is NOT the selection metric.
+    # Probability breaks an edge tie; fixture name is the deterministic final tiebreak.
+    pairs.sort(key=lambda p: (p[1].edge if p[1].edge is not None else -1.0,
                               p[1].prob,
                               p[1].fixture),
                 reverse=True)
@@ -428,7 +499,7 @@ def build_production_bets(
     remainder = legs[acca_a_max:]
     split_accas = [_make_acca(label, chunk)
                    for label, chunk in zip(_split_labels(), _chunk_remainder(remainder))]
-    return ProductionBets(acca_a=acca_a, split_accas=split_accas, singles=remainder)
+    return ProductionBets(acca_a=acca_a, split_accas=split_accas, singles=remainder, watchlist=watchlist_legs)
 
 
 def build_accas(board, today: Optional[str] = None,
@@ -548,5 +619,16 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
             lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
                          f"@ {leg.price:.2f}  Booking code: "
                          f"{code or 'NO DATA — PENDING'} "
+                         f"{_stamp_for(leg)}")
+
+    # ID420 WATCHLIST (Architect 2026-08-19): legs with odds > 2.00 — flagged for
+    # review, NOT capital-eligible. These do not enter Acca A, split accas, or
+    # singles. The Architect reviews the watchlist separately.
+    if bets.watchlist:
+        lines.append("")
+        lines.append("  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only")
+        for leg in bets.watchlist:
+            lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
+                         f"@ {leg.price:.2f}  edge {leg.edge:+.2%}  "
                          f"{_stamp_for(leg)}")
     return "\n".join(lines)

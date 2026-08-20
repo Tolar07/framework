@@ -131,20 +131,32 @@ def _resolve_fixture(leg: dict, cache) -> Optional[dict]:
         except Exception:
             return (s or "").lower().strip()
 
-    # Exact model-key match first.
+    # Exact model-key match first. Match BOTH orderings: the acca leg's
+    # "Home v Away" is the MODEL's fixture order, but SportyBet's cached
+    # fixture is stored in the BOOK's page order (which can be reversed, e.g.
+    # model "Celtic v LASK Linz" vs cache "LASK Linz v Celtic"). A one-sided
+    # match silently no-matched every reversed-team leg (fixed 2026-08-20).
     for fx in cache:
         if fx.get("model_home") == home and fx.get("model_away") == away:
+            return fx
+        if fx.get("model_home") == away and fx.get("model_away") == home:
             return fx
         if (fx.get("sportybet_home") or "").strip() == home \
                 and (fx.get("sportybet_away") or "").strip() == away:
             return fx
+        if (fx.get("sportybet_home") or "").strip() == away \
+                and (fx.get("sportybet_away") or "").strip() == home:
+            return fx
 
     # Normalized model-key match: the cache's model keys are the reverse-
     # resolved football-data names, which can still differ from the acca leg by
-    # a diacritic or prefix ("Fenerbahce" vs "Fenerbahçe").
+    # a diacritic or prefix ("Fenerbahce" vs "Fenerbahçe"). Same both-orderings
+    # guard as the exact block.
     nh, na = _norm(home), _norm(away)
     for fx in cache:
         if _norm(fx.get("model_home")) == nh and _norm(fx.get("model_away")) == na:
+            return fx
+        if _norm(fx.get("model_home")) == na and _norm(fx.get("model_away")) == nh:
             return fx
 
     # resolve_team fallback: map the OLP names to SportyBet spellings, then

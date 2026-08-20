@@ -51,15 +51,15 @@ from output.produce_bet import render_verify_results, render_telegram_board, ren
 from output import whatsapp_deliver
 from output import email_deliver
 import bets.produced_bet as produced_bet
-import orchestrator
+from orchestrator_DEPRECATED import next_season_code, scan_one_league
 import pipeline.odds as odds_mod
 from data.multi_source_concrete import get_odds as multi_get_odds
-from engine.acca import MAX_ODDS_CAP, build_production_bets, build_single_accas, render_production_block
+from engine.acca import MAX_ODDS_CAP, build_production_bets, build_single_accas, render_production_block, _team_pair
 from engine.leagues import WHITELISTED_LEAGUES, build_deploy_shortlist
 import engine.recalibration as recal
 import engine.markets as mkt
 from engine.consensus import compute_consensus
-from engine.mes import mes_numeric
+from engine.mes import mes_numeric, edge_diff
 
 # Pipeline Agent Bus - write stage outputs to Obsidian vault for inter-agent handoff
 try:
@@ -229,11 +229,11 @@ def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
     results_by_league: dict[str, dict] = {}
     for lg in {l.league for l in pending}:
         table: dict = {}
-        for s in {season, orchestrator.next_season_code(season)}:
+        for s in {season, next_season_code(season)}:
             try:
                 res, _ = load_league(lg, s)
                 table.update({(r.home_team, r.away_team, r.date): r for r in res})
-            except Exception:
+            except (ValueError, OSError, RuntimeError):
                 continue  # that season simply isn't published yet
         if table:
             results_by_league[lg] = table
@@ -346,8 +346,8 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
                 book_p = _market_implied(market, fx, quote.price)
                 if book_p is None or abs(model_p - book_p) > agreement_band:
                     continue
-            mes = mes_numeric(model_p, quote.price)
-            if mes is None or mes < min_mes:
+            edge = edge_diff(model_p, quote.price)
+            if edge is None or edge < min_mes:
                 continue
             if (fixture_name, market) in already:
                 continue
@@ -471,7 +471,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 error_tracker.record_error(
                     exc, context="run_daily.run",
                     tags=["daily-run", "unhandled"])
-            except Exception:
+            except (RuntimeError, ValueError, AttributeError):
                 pass  # error tracking must never break the run further
         raise
     finally:
@@ -577,7 +577,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     fixture_sources: set[str] = set()
     for lg in leagues:
         st: dict = {}
-        slice_, flags = orchestrator.scan_one_league(
+        slice_, flags = scan_one_league(
             lg, season, fixtures_season=fixtures_season,
             days_ahead=scan_window,
             brain=brain, stats=st)
@@ -627,6 +627,26 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     if _verify_report.outage:
         all_flags.append(f"⚠ VERIFY GATE OUTAGE: {_verify_report.outage_reason}")
 
+    # ===== RECALCULATE on_deploy_shortlist AFTER VERIFICATION (Architect 2026-08-19)
+    # ===== Hard rule: verify gate NEVER drops any fixture. All fixtures with
+    # ===== live prices (probs or SportyBet odds or MES) must reach production.
+    # ===== The verification stamp informs downstream but does NOT gate deployment.
+    from engine.leagues import is_deploy_eligible
+    from verification.id403 import Tier
+    for bf in board:
+        # Extract league inline since _league_of is defined later
+        league = bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture else "—"
+        has_probs = bf.probs is not None
+        has_sb_odds = any(getattr(bf, attr, None) is not None
+                          for attr in ("sb_home_odds", "sb_draw_odds", "sb_away_odds"))
+        has_mes = bf.mes_trigger_price is not None
+        bf.on_deploy_shortlist = (is_deploy_eligible(league)
+                                   and bf.verification.tier != Tier.CONFLICT
+                                   and (has_probs or has_sb_odds or has_mes))
+    # Count how many fixtures are now deploy-eligible
+    deployable_count = sum(1 for bf in board if bf.on_deploy_shortlist)
+    all_flags.append(f"DEPLOY SHORTLIST RECALCULATED: {deployable_count} of {len(board)} fixtures on deploy shortlist (verify gate stamps preserved)")
+
     if verify_only:
         # Pre-flight / audit mode: print the verification report and stop before
         # any odds pull, engine scoring, production, or booking.
@@ -674,19 +694,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         except Exception as e:
             all_flags.append(f"pipeline bus stage 2 handoff failed ({e})")
 
-    # --- live entry prices, pulled ONLY for leagues that actually produced a
-    # --- rated fixture today. Scan-only leagues' prices can never be deployed,
-    # --- so pulling them burns quota for nothing; and a deploy league with no
-    # --- fixtures today (a quiet midweek) needs no price pull either — the old
-    # --- order fetched all 6 deploy leagues before the scan, and today wasted
-    # --- ~10s doing so. Fixture LISTS are already cached (6h) inside the scan.
-    # --- NOW using multi-source odds layer (API-Football paid primary + Odds API backup)
+    # --- live entry prices, pulled for ALL deploy-eligible fixtures.
+    # --- Hard rule (Architect 2026-08-19): ALL fixtures with live prices must
+    # --- produce a bet — newly promoted teams without model probs use
+    # --- market-implied probabilities as fallback so no fixture is ever dropped.
+    # --- We pull odds for ALL leagues with deploy-shortlist fixtures, not just
+    # --- those with model probs.
     def _league_of(bf) -> str:
         return bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture \
             else "—"
-    # Unified pool: every rated fixture across all whitelisted leagues is
-    # deploy-eligible, so pull prices for all of them.
-    odds_leagues = {_league_of(bf) for bf in board if bf.probs is not None}
+    # Pull odds for all leagues that have ANY deploy-shortlist fixture
+    odds_leagues = {_league_of(bf) for bf in board if getattr(bf, "on_deploy_shortlist", False)}
     odds_index: dict = {}
     for lg in sorted(odds_leagues):
         try:
@@ -696,6 +714,51 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             all_flags.append(f"{lg}: odds served via multi-source layer")
         except Exception as e:
             all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
+
+    # --- Merge SportyBet cache odds for leagues with SportyBet data but no multi-source odds ---
+    # This ensures fixtures like Champions League (SportyBet-only) get priced for paper legs
+    try:
+        from booking.bridge import load_all_sportybet_fixtures
+        sb_fixtures_by_league = load_all_sportybet_fixtures(days_ahead=3, leagues=list(odds_leagues))
+        sb_odds_count = 0
+        for lg, sb_fixtures in sb_fixtures_by_league.items():
+            for sb_fx in sb_fixtures:
+                if sb_fx.home_odds and sb_fx.draw_odds and sb_fx.away_odds:
+                    key = (sb_fx.home_team, sb_fx.away_team)
+                    if key not in odds_index:
+                        # Create FixtureOdds from SportyBet cache
+                        sb_odds = odds_mod.FixtureOdds(
+                            league=lg,
+                            home_team=sb_fx.home_team,
+                            away_team=sb_fx.away_team,
+                            kickoff_utc=sb_fx.kickoff_utc,
+                            home=odds_mod.MarketQuote(
+                                price=sb_fx.home_odds,
+                                bookmaker="SportyBet Nigeria",
+                                n_books=1,
+                                captured_at=sb_fx.kickoff_utc
+                            ),
+                            draw=odds_mod.MarketQuote(
+                                price=sb_fx.draw_odds,
+                                bookmaker="SportyBet Nigeria",
+                                n_books=1,
+                                captured_at=sb_fx.kickoff_utc
+                            ),
+                            away=odds_mod.MarketQuote(
+                                price=sb_fx.away_odds,
+                                bookmaker="SportyBet Nigeria",
+                                n_books=1,
+                                captured_at=sb_fx.kickoff_utc
+                            ),
+                            source="sportybet-cache",
+                            source_tier="T2"
+                        )
+                        odds_index[key] = sb_odds
+                        sb_odds_count += 1
+        if sb_odds_count:
+            all_flags.append(f"SportyBet cache merged: {sb_odds_count} fixture(s) with 1X2 odds added to odds_index")
+    except Exception as e:
+        all_flags.append(f"SportyBet cache merge failed ({e})")
 
     # CLV-gated recalibration: the engine's probabilities for THE CALL's EV are
     # nudged by settled-leg evidence ONLY where a market has enough logged CLV
@@ -801,10 +864,45 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             return 1.0 / price
         return None
 
+    # Helper: try to find odds in index with normalized/alias matching
+    def _find_odds(board_home: str, board_away: str) -> Optional[Any]:
+        """Find fixture odds trying multiple key strategies."""
+        # 1. Exact match
+        fx = odds_index.get((board_home, board_away))
+        if fx is not None:
+            return fx
+        # 2. Try resolve_team (OLP model key -> SportyBet name) for both sides
+        try:
+            from booking.team_map import resolve_team
+            sb_home = resolve_team(board_home, "sportybet")
+            sb_away = resolve_team(board_away, "sportybet")
+            fx = odds_index.get((sb_home, sb_away))
+            if fx is not None:
+                return fx
+        except (AttributeError, TypeError, KeyError):
+            pass
+        # 3. Normalized match (case/diacritic/prefix-insensitive)
+        try:
+            from booking.team_map import _normalize
+            nh, na = _normalize(board_home), _normalize(board_away)
+            for (oh, oa), f in odds_index.items():
+                noh, noa = _normalize(oh), _normalize(oa)
+                if noh == nh and noa == na:
+                    return f
+                # 3b. Prefix/suffix tolerant: one name contains the other
+                # (e.g. "FC ST. Gallen" vs "FC St. Gallen 1879")
+                def _contains(a: str, b: str) -> bool:
+                    return a == b or (len(a) > 3 and (a in b or b in a))
+                if _contains(noh, nh) and _contains(noa, na):
+                    return f
+        except (AttributeError, TypeError, KeyError):
+            pass
+        return None
+
     for bf in board:
-        if bf.probs is None:
-            continue
-        fx = odds_index.get((bf.probs.home_team, bf.probs.away_team))
+        # Get fixture key for odds lookup
+        home, away = _team_pair(bf)
+        fx = _find_odds(home, away)
         if fx is None:
             continue
         p = bf.probs
@@ -812,12 +910,12 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         # BOOKMAKER (ID413) + MARKET-ANCHORED PROBABILITY (ID414): compute
         # the devigged implied 1X2 and the blend before the EV loop so both
         # are available for every market decision.
-        bf.market_probs = mkt.implied_1x2(fx)
-        if bf.market_probs is not None:
-            bf.consensus = compute_consensus(
-                bf.probs, bf.elo_probs, bf.xg_probs, bf.market_probs,
-                engine_weights=engine_weights)
-            if bf.probs is not None:
+        if p is not None:
+            bf.market_probs = mkt.implied_1x2(fx)
+            if bf.market_probs is not None:
+                bf.consensus = compute_consensus(
+                    bf.probs, bf.elo_probs, bf.xg_probs, bf.market_probs,
+                    engine_weights=engine_weights)
                 mh, md, ma = bf.market_probs
                 bp = (mkt.blend_toward_market(p.p_home, mh),
                       mkt.blend_toward_market(p.p_draw, md),
@@ -829,7 +927,11 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         best = None
         for market in mkt.EDGE_MARKETS:
             quote = mkt.quote(market, fx)
-            raw_p = mkt.model_prob(market, p)
+            if p is not None:
+                raw_p = mkt.model_prob(market, p)
+            else:
+                # Use market-implied probability as fallback for newly promoted teams
+                raw_p = _market_implied(market, fx)
             if quote is None or not quote.available or raw_p is None:
                 continue
             # HARD ODDS CAP (FL-bias guardrail, mirrors engine.acca._best_deployable_leg):
@@ -850,15 +952,21 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             p_model = recal.apply(model_p_in, cal.get(market))
             p_model = recal.apply_platt(p_model, platt.get(market))
             p_ev = mkt.blend_toward_market(p_model, mp)
-            ev = mes_numeric(p_ev, quote.price)
-            if ev is not None and (best is None or ev > best[0]):
-                best = (ev, market, raw_p, quote, p_model)
+            edge = edge_diff(p_ev, quote.price)
+            if edge is not None and (best is None or edge > best[0]):
+                best = (edge, market, raw_p, quote, p_model)
         if best:
-            ev, market, raw_p, quote, p_model = best
-            bf.best_market = mkt.display(market, p.home_team, p.away_team)
+            edge, market, raw_p, quote, p_model = best
+            # Use fixture name for display when no model probs
+            if p is not None:
+                best_market_display = mkt.display(market, p.home_team, p.away_team)
+            else:
+                # Use fixture name directly
+                best_market_display = mkt.display(market, home, away)
+            bf.best_market = best_market_display
             bf.best_price = quote.price
             bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
-            bf.best_mes_ev = ev  # priced on the blend; raw prob on the ledger
+            bf.best_mes_ev = edge  # canonical edge (prob gap) on the blend; raw prob on the ledger
             bf.best_model_prob = raw_p  # ledger keeps the RAW model estimate
             bf.best_market_key = market  # canonical key for the brain's ledger
             bf.cal_adjustment = round(p_model - raw_p, 4)

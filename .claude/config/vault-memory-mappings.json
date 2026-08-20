@@ -10,6 +10,10 @@
     { "vault": "README.md", "memory": "readme.md", "direction": "vault-to-memory" },
     { "vault": "Vault-Memory-Index.md", "memory": "MEMORY.md", "direction": "bidirectional" },
     { "vault": "OLP_XDV_Framework_Index.md", "memory": "framework-index.md", "direction": "vault-to-memory" },
-    { "vault": "Audit Reports.md", "memory": "conversations/", "direction": "memory-to-vault-append" }
+    { "vault": "Audit Reports.md", "memory": "conversations/", "direction": "memory-to-vault-append" },
+    { "vault": "STATE.md", "memory": "state.md", "direction": "bidirectional" },
+    { "vault": "OLP XDV.md", "memory": "olp-xdv.md", "direction": "vault-to-memory" },
+    { "vault": "API Keys.md", "memory": "api-keys.md", "direction": "vault-to-memory" },
+    { "vault": "Viking Match Analysis 2026-08-18.md", "memory": "viking-match-analysis.md", "direction": "vault-to-memory" }
   ]
 }

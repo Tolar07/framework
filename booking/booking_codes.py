@@ -515,6 +515,79 @@ def _click_btts_on_league_page(page: Page, fixture_id: str, market_key: str) -> 
         return False
 
 
+def _expected_combined_odds(legs: list) -> Optional[float]:
+    """The odds a SportyBet booking code MUST encode for this slip.
+
+    HARD RULE (Architect 2026-08-20): the code's odds == the product of its
+    legs' prices. For a 1-leg slip (a SINGLE) that is the leg's own price; for
+    a multi-leg acca it is the compounded combined odds. "50 odds" in the
+    Architect's wording == 5.0 decimal odds — the code is only worth pasting
+    when its encoded combined odds equal this figure (within float tolerance)."""
+    prod = 1.0
+    n = 0
+    for leg in legs or []:
+        price = leg.get("price")
+        if not price or price <= 1.0:
+            continue
+        prod *= float(price)
+        n += 1
+    if n == 0:
+        return None
+    return round(prod, 2)
+
+
+def _read_betslip_combined_odds(page: Page) -> Optional[float]:
+    """Read the betslip's displayed COMBINED (total) odds.
+
+    SportyBet's betslip renders a single "Total Odds" / "Combined Odds" figure
+    after at least one selection is in the slip. We scan the betslip panel for a
+    decimal-odds token (a number > 1.00 with up to 2 decimals) and return the
+    one that represents the whole slip. Best-effort: returns None when the panel
+    is not readable (the caller treats a None as "cannot verify", not as a pass).
+    """
+    # Candidate betslip containers (the open slip on the right rail).
+    panels = page.query_selector_all(
+        ".betslip, .bet-slip, .slip, [class*='betslip'], [class*='slip'], "
+        ".es-betslip, .cart, [class*='cart']")
+    candidates: List[float] = []
+    # Pattern: a decimal number >= 1.01 with an optional leading digit and a
+    # decimal point, e.g. "5.00", "1.95", "10.25". Excludes integers like
+    # leg counts and stake inputs.
+    pat = re.compile(r"(?<!\d)(\d+\.\d{2})(?!\d)")
+    for panel in (panels or []):
+        try:
+            txt = panel.inner_text() or ""
+        except Exception:
+            continue
+        for m in pat.finditer(txt):
+            try:
+                val = float(m.group(1))
+            except ValueError:
+                continue
+            if val >= 1.01:
+                candidates.append(val)
+    if not candidates:
+        return None
+    # The combined odds is the LARGEST decimal in the slip (leg prices are all
+    # <= 2.00 under the cap, so the accumulated product dominates every leg
+    # price). For a single it is the only candidate.
+    return round(max(candidates), 2)
+
+
+def _odds_within_tolerance(a: Optional[float], b: Optional[float],
+                           rel: float = 0.02) -> bool:
+    """True when two odds figures agree within `rel` relative tolerance.
+
+    Used by the hard-rule check: the betslip's combined odds must equal the
+    expected combined odds. A 2% band absorbs minor rounding/SPA re-render
+    lag without letting a wrong slip pass."""
+    if a is None or b is None:
+        return False
+    if a <= 0 or b <= 0:
+        return False
+    return abs(a - b) / max(a, b) <= rel
+
+
 def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
     """Read the booking code once all legs are in the betslip.
 
@@ -526,7 +599,6 @@ def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
     the off-chance a revision renders one. Returns None when no code can be
     read (the per-leg statuses already tell the Architect what to add
     manually — HR35)."""
-    try:
         # Let the betslip settle from the last click BEFORE pressing Book Bet —
         # a selection clicked a few ms earlier may not be in the slip yet, and
         # pressing too soon can race the betslip update (verified: the working
@@ -742,14 +814,41 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
         per_leg.append(entry)
 
     code = _read_booking_code(page, len(acca.get("legs") or [])) if added else None
+
+    # --- HARD RULE (Architect 2026-08-20): the booking code's odds MUST equal
+    # --- the expected combined odds. For a 1-leg slip (SINGLE) that is the leg's
+    # --- own price (e.g. 5.0 == "50 odds"); for a multi-leg acca it is the
+    # --- product of all leg prices. We read the betslip's combined odds and
+    # --- compare. A mismatch means the slip is wrong (a leg dropped, a wrong
+    # --- market clicked) — we DO NOT accept the code; it is flagged so the
+    # --- Architect adds the slip by hand (HR35, never guessed).
+    odds_check: Optional[dict] = None
+    if code and added:
+        expected = _expected_combined_odds(acca.get("legs") or [])
+        betslip_odds = _read_betslip_combined_odds(page)
+        ok_odds = _odds_within_tolerance(expected, betslip_odds)
+        odds_check = {
+            "expected": expected,
+            "betslip": betslip_odds,
+            "match": ok_odds,
+        }
+        if not ok_odds:
+            # The code was generated but its odds are wrong — reject it so it
+            # never reaches production as a "BOOKED" slip with bad numbers.
+            code = None
+
+    status = ("BOOKED" if code
+              else ("SLIP READY" if added else "MANUAL — nothing added"))
+    if code is None and added and odds_check and not odds_check.get("match"):
+        status = "ODDS MISMATCH — code rejected"
     return {
         "label": acca.get("label", "Acca"),
         "code": code,
-        "status": ("BOOKED" if code else
-                   ("SLIP READY" if added else "MANUAL — nothing added")),
+        "status": status,
         "n_legs": len(acca.get("legs") or []),
         "n_added": added,
         "per_leg": per_leg,
+        "odds_check": odds_check,
     }
 
 
@@ -823,6 +922,15 @@ def render_codes(result: dict) -> str:
     for r in result["results"]:
         out.append(f"  {r['label']}: {r['status']}"
                    + (f" — CODE {r['code']}" if r.get("code") else ""))
+        # HARD RULE (2026-08-20): show odds verification when available
+        oc = r.get("odds_check")
+        if oc:
+            exp = oc.get("expected")
+            bs = oc.get("betslip")
+            if oc.get("match"):
+                out.append(f"    ✓ ODDS CHECK PASS: expected {exp:.2f} == betslip {bs:.2f}")
+            else:
+                out.append(f"    ✗ ODDS MISMATCH: expected {exp:.2f} vs betslip {bs:.2f} — code REJECTED")
         for leg in r.get("per_leg", []):
             status = "✓" if leg.get("status") == "BOOKED" else "✗ MANUAL"
             out.append(f"    {status} {leg['fixture']} — {leg['market_name']}"

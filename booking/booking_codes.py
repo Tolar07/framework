@@ -79,6 +79,8 @@ TOTALS_INDEX = {
     "UNDER_2_5": ("2.5", 1),
     "OVER_3_5": ("3.5", 0),
     "UNDER_3_5": ("3.5", 1),
+    "OVER_0_5": ("0.5", 0),
+    "UNDER_0_5": ("0.5", 1),
 }
 
 
@@ -262,6 +264,10 @@ _MARKET_UI_MAP = {
     "UNDER_2_5":    {"tab": "Over/Under",    "outcome": "Under 2.5"},
     "OVER_1_5":     {"tab": "Over/Under",    "outcome": "Over 1.5"},
     "UNDER_1_5":    {"tab": "Over/Under",    "outcome": "Under 1.5"},
+    "OVER_3_5":     {"tab": "Over/Under",    "outcome": "Over 3.5"},
+    "UNDER_3_5":    {"tab": "Over/Under",    "outcome": "Under 3.5"},
+    "OVER_0_5":     {"tab": "Over/Under",    "outcome": "Over 0.5"},
+    "UNDER_0_5":    {"tab": "Over/Under",    "outcome": "Under 0.5"},
     "BTTS_YES":     {"tab": "Both Teams to Score", "outcome": "Yes"},
     "BTTS_NO":      {"tab": "Both Teams to Score", "outcome": "No"},
     # Double Chance (DC) markets — added 2026-08-11 (Architect multi-market
@@ -269,6 +275,33 @@ _MARKET_UI_MAP = {
     "DC_1X":        {"tab": "Double Chance", "outcome": "1X"},
     "DC_X2":        {"tab": "Double Chance", "outcome": "X2"},
     "DC_12":        {"tab": "Double Chance", "outcome": "12"},
+    # Draw No Bet — SportyBet renders under "Draw No Bet" tab
+    "DNB_HOME":     {"tab": "Draw No Bet",   "outcome": "1"},
+    "DNB_AWAY":     {"tab": "Draw No Bet",   "outcome": "2"},
+    # HT/FT — SportyBet renders under "Half Time / Full Time" tab
+    "HT_FT_11":     {"tab": "Half Time / Full Time", "outcome": "1/1"},
+    "HT_FT_1X":     {"tab": "Half Time / Full Time", "outcome": "1/X"},
+    "HT_FT_12":     {"tab": "Half Time / Full Time", "outcome": "1/2"},
+    "HT_FT_X1":     {"tab": "Half Time / Full Time", "outcome": "X/1"},
+    "HT_FT_XX":     {"tab": "Half Time / Full Time", "outcome": "X/X"},
+    "HT_FT_X2":     {"tab": "Half Time / Full Time", "outcome": "X/2"},
+    "HT_FT_21":     {"tab": "Half Time / Full Time", "outcome": "2/1"},
+    "HT_FT_2X":     {"tab": "Half Time / Full Time", "outcome": "2/X"},
+    "HT_FT_22":     {"tab": "Half Time / Full Time", "outcome": "2/2"},
+    # Correct Score — SportyBet renders under "Correct Score" tab
+    "CS_10":        {"tab": "Correct Score", "outcome": "1:0"},
+    "CS_01":        {"tab": "Correct Score", "outcome": "0:1"},
+    "CS_11":        {"tab": "Correct Score", "outcome": "1:1"},
+    "CS_20":        {"tab": "Correct Score", "outcome": "2:0"},
+    "CS_02":        {"tab": "Correct Score", "outcome": "0:2"},
+    "CS_21":        {"tab": "Correct Score", "outcome": "2:1"},
+    "CS_12":        {"tab": "Correct Score", "outcome": "1:2"},
+    "CS_22":        {"tab": "Correct Score", "outcome": "2:2"},
+    "CS_00":        {"tab": "Correct Score", "outcome": "0:0"},
+    "CS_30":        {"tab": "Correct Score", "outcome": "3:0"},
+    "CS_03":        {"tab": "Correct Score", "outcome": "0:3"},
+    "CS_31":        {"tab": "Correct Score", "outcome": "3:1"},
+    "CS_13":        {"tab": "Correct Score", "outcome": "1:3"},
     # Alternative tab names SportyBet sometimes uses
     "BTTS_YES_ALT": {"tab": "BTTS",          "outcome": "Yes"},
     "BTTS_NO_ALT":  {"tab": "BTTS",          "outcome": "No"},

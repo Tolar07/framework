@@ -86,6 +86,46 @@ class FixtureOdds:
     # Totals
     over25_odds: Optional[float] = None
     under25_odds: Optional[float] = None
+    over15_odds: Optional[float] = None
+    under15_odds: Optional[float] = None
+    over35_odds: Optional[float] = None
+    under35_odds: Optional[float] = None
+    over05_odds: Optional[float] = None
+    under05_odds: Optional[float] = None
+    # BTTS
+    btts_yes_odds: Optional[float] = None
+    btts_no_odds: Optional[float] = None
+    # Double Chance
+    dc_1x_odds: Optional[float] = None
+    dc_x2_odds: Optional[float] = None
+    dc_12_odds: Optional[float] = None
+    # Draw No Bet
+    dnb_home_odds: Optional[float] = None
+    dnb_away_odds: Optional[float] = None
+    # HT/FT
+    htft_11_odds: Optional[float] = None
+    htft_1x_odds: Optional[float] = None
+    htft_12_odds: Optional[float] = None
+    htft_x1_odds: Optional[float] = None
+    htft_xx_odds: Optional[float] = None
+    htft_x2_odds: Optional[float] = None
+    htft_21_odds: Optional[float] = None
+    htft_2x_odds: Optional[float] = None
+    htft_22_odds: Optional[float] = None
+    # Correct Score
+    cs_10_odds: Optional[float] = None
+    cs_01_odds: Optional[float] = None
+    cs_11_odds: Optional[float] = None
+    cs_20_odds: Optional[float] = None
+    cs_02_odds: Optional[float] = None
+    cs_21_odds: Optional[float] = None
+    cs_12_odds: Optional[float] = None
+    cs_22_odds: Optional[float] = None
+    cs_00_odds: Optional[float] = None
+    cs_30_odds: Optional[float] = None
+    cs_03_odds: Optional[float] = None
+    cs_31_odds: Optional[float] = None
+    cs_13_odds: Optional[float] = None
     # Metadata
     source: str = "sportybet"
     captured_at: Optional[str] = None
@@ -291,13 +331,69 @@ def _get_fixture_odds(
     )
 
     for market in markets:
-        if market.market in ("1X2", "match_winner", "full_time_result"):
-            odds.home_odds = market.outcomes.get("1") or market.outcomes.get("Home")
-            odds.draw_odds = market.outcomes.get("X") or market.outcomes.get("Draw")
-            odds.away_odds = market.outcomes.get("2") or market.outcomes.get("Away")
-        elif market.market in ("OVER_UNDER_2.5", "totals_2.5", "over_under_2.5"):
-            odds.over25_odds = market.outcomes.get("Over") or market.outcomes.get("Over 2.5")
-            odds.under25_odds = market.outcomes.get("Under") or market.outcomes.get("Under 2.5")
+        mk = market.market
+        outcomes = market.outcomes
+
+        # 1X2
+        if mk in ("1X2", "match_winner", "full_time_result", "1X2_HOME"):
+            odds.home_odds = outcomes.get("1") or outcomes.get("Home") or outcomes.get("Home Win")
+            odds.draw_odds = outcomes.get("X") or outcomes.get("Draw")
+            odds.away_odds = outcomes.get("2") or outcomes.get("Away") or outcomes.get("Away Win")
+        # Totals 1.5
+        elif mk in ("OVER_1_5", "over_under_1_5", "OVER_UNDER_1.5"):
+            odds.over15_odds = outcomes.get("Over") or outcomes.get("Over 1.5")
+            odds.under15_odds = outcomes.get("Under") or outcomes.get("Under 1.5")
+        # Totals 2.5
+        elif mk in ("OVER_2_5", "over_under_2_5", "OVER_UNDER_2.5", "totals_2.5"):
+            odds.over25_odds = outcomes.get("Over") or outcomes.get("Over 2.5")
+            odds.under25_odds = outcomes.get("Under") or outcomes.get("Under 2.5")
+        # Totals 3.5
+        elif mk in ("OVER_3_5", "over_under_3_5", "OVER_UNDER_3.5"):
+            odds.over35_odds = outcomes.get("Over") or outcomes.get("Over 3.5")
+            odds.under35_odds = outcomes.get("Under") or outcomes.get("Under 3.5")
+        # Totals 0.5
+        elif mk in ("OVER_0_5", "over_under_0_5", "OVER_UNDER_0.5"):
+            odds.over05_odds = outcomes.get("Over") or outcomes.get("Over 0.5")
+            odds.under05_odds = outcomes.get("Under") or outcomes.get("Under 0.5")
+        # BTTS
+        elif mk in ("BTTS_YES", "both_teams_to_score", "btts", "gg_ng"):
+            odds.btts_yes_odds = outcomes.get("Yes") or outcomes.get("GG") or outcomes.get("Both Teams To Score")
+            odds.btts_no_odds = outcomes.get("No") or outcomes.get("NG") or outcomes.get("No Goal")
+        # Double Chance
+        elif mk in ("DC_1X", "double_chance"):
+            odds.dc_1x_odds = outcomes.get("1X") or outcomes.get("Home or Draw")
+            odds.dc_x2_odds = outcomes.get("X2") or outcomes.get("Draw or Away")
+            odds.dc_12_odds = outcomes.get("12") or outcomes.get("Home or Away")
+        # Draw No Bet
+        elif mk in ("DNB_HOME", "draw_no_bet", "dnb"):
+            odds.dnb_home_odds = outcomes.get("1") or outcomes.get("Home") or outcomes.get("Home DNB")
+            odds.dnb_away_odds = outcomes.get("2") or outcomes.get("Away") or outcomes.get("Away DNB")
+        # HT/FT
+        elif mk in ("HT_FT_11", "half_time_full_time", "ht_ft"):
+            odds.htft_11_odds = outcomes.get("1/1") or outcomes.get("Home/Home")
+            odds.htft_1x_odds = outcomes.get("1/X") or outcomes.get("Home/Draw")
+            odds.htft_12_odds = outcomes.get("1/2") or outcomes.get("Home/Away")
+            odds.htft_x1_odds = outcomes.get("X/1") or outcomes.get("Draw/Home")
+            odds.htft_xx_odds = outcomes.get("X/X") or outcomes.get("Draw/Draw")
+            odds.htft_x2_odds = outcomes.get("X/2") or outcomes.get("Draw/Away")
+            odds.htft_21_odds = outcomes.get("2/1") or outcomes.get("Away/Home")
+            odds.htft_2x_odds = outcomes.get("2/X") or outcomes.get("Away/Draw")
+            odds.htft_22_odds = outcomes.get("2/2") or outcomes.get("Away/Away")
+        # Correct Score
+        elif mk in ("CS_10", "correct_score", "exact_score"):
+            odds.cs_10_odds = outcomes.get("1:0") or outcomes.get("1-0")
+            odds.cs_01_odds = outcomes.get("0:1") or outcomes.get("0-1")
+            odds.cs_11_odds = outcomes.get("1:1") or outcomes.get("1-1")
+            odds.cs_20_odds = outcomes.get("2:0") or outcomes.get("2-0")
+            odds.cs_02_odds = outcomes.get("0:2") or outcomes.get("0-2")
+            odds.cs_21_odds = outcomes.get("2:1") or outcomes.get("2-1")
+            odds.cs_12_odds = outcomes.get("1:2") or outcomes.get("1-2")
+            odds.cs_22_odds = outcomes.get("2:2") or outcomes.get("2-2")
+            odds.cs_00_odds = outcomes.get("0:0") or outcomes.get("0-0")
+            odds.cs_30_odds = outcomes.get("3:0") or outcomes.get("3-0")
+            odds.cs_03_odds = outcomes.get("0:3") or outcomes.get("0-3")
+            odds.cs_31_odds = outcomes.get("3:1") or outcomes.get("3-1")
+            odds.cs_13_odds = outcomes.get("1:3") or outcomes.get("1-3")
 
     # Write cache
     ODDS_CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -305,8 +401,43 @@ def _get_fixture_odds(
         "home_odds": odds.home_odds,
         "draw_odds": odds.draw_odds,
         "away_odds": odds.away_odds,
+        "over15_odds": odds.over15_odds,
+        "under15_odds": odds.under15_odds,
         "over25_odds": odds.over25_odds,
         "under25_odds": odds.under25_odds,
+        "over35_odds": odds.over35_odds,
+        "under35_odds": odds.under35_odds,
+        "over05_odds": odds.over05_odds,
+        "under05_odds": odds.under05_odds,
+        "btts_yes_odds": odds.btts_yes_odds,
+        "btts_no_odds": odds.btts_no_odds,
+        "dc_1x_odds": odds.dc_1x_odds,
+        "dc_x2_odds": odds.dc_x2_odds,
+        "dc_12_odds": odds.dc_12_odds,
+        "dnb_home_odds": odds.dnb_home_odds,
+        "dnb_away_odds": odds.dnb_away_odds,
+        "htft_11_odds": odds.htft_11_odds,
+        "htft_1x_odds": odds.htft_1x_odds,
+        "htft_12_odds": odds.htft_12_odds,
+        "htft_x1_odds": odds.htft_x1_odds,
+        "htft_xx_odds": odds.htft_xx_odds,
+        "htft_x2_odds": odds.htft_x2_odds,
+        "htft_21_odds": odds.htft_21_odds,
+        "htft_2x_odds": odds.htft_2x_odds,
+        "htft_22_odds": odds.htft_22_odds,
+        "cs_10_odds": odds.cs_10_odds,
+        "cs_01_odds": odds.cs_01_odds,
+        "cs_11_odds": odds.cs_11_odds,
+        "cs_20_odds": odds.cs_20_odds,
+        "cs_02_odds": odds.cs_02_odds,
+        "cs_21_odds": odds.cs_21_odds,
+        "cs_12_odds": odds.cs_12_odds,
+        "cs_22_odds": odds.cs_22_odds,
+        "cs_00_odds": odds.cs_00_odds,
+        "cs_30_odds": odds.cs_30_odds,
+        "cs_03_odds": odds.cs_03_odds,
+        "cs_31_odds": odds.cs_31_odds,
+        "cs_13_odds": odds.cs_13_odds,
         "source": odds.source,
         "captured_at": odds.captured_at,
         "bookmaker": odds.bookmaker,

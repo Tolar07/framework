@@ -104,6 +104,9 @@ LEAGUE_SEARCH = {
     "Welsh Premier League": ("Premier League", "Wales"),
     "Albanian Superliga": ("Superliga", "Albania"),
     "Andorran Primera División": ("Primera Divisió", "Andorra"),
+    "Azerbaijani Premyer Liqa": ("Premyer Liqa", "Azerbaijan"),
+    "Belarusian Premier League": ("Premier League", "Belarus"),
+    "Bosnian Premier League": ("Premier League", "Bosnia and Herzegovina"),
     "EFL Cup": ("League Cup", "England"),
 }
 

@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine.leagues import WHITELISTED_LEAGUES, build_deploy_shortlist, is_deploy_eligible
-from engine.mes import mes_numeric, trigger_price
+from engine.mes import mes_numeric_ev, mes_numeric, edge_diff, trigger_price
 
 # --- Unified pool: every whitelisted league is deploy-eligible ---
 for lg in WHITELISTED_LEAGUES:
@@ -48,9 +48,20 @@ assert trigger_price(None) is None
 assert trigger_price(1.5) is None  # invalid probability > 1
 print("Trigger price refuses invalid probabilities (never fabricates): OK")
 
-mes_val = mes_numeric(0.60, 1.80)
-assert abs(mes_val - 0.08) < 0.001, f"EV at 60% and 1.80 odds should be +8%, got {mes_val}"
-assert mes_numeric(0.60, None) is None, "MES must be None (not 0 or a guess) when odds aren't ARCHITECT-FED yet"
-print(f"MES numeric (60% @ 1.80): {mes_val:+.2%} EV OK")
+# Canonical edge (probability gap)
+edge_val = edge_diff(0.60, 1.80)
+assert abs(edge_val - (0.60 - 1/1.80)) < 0.001, f"edge at 60% and 1.80 odds should be +4.44%, got {edge_val}"
+assert edge_diff(0.60, None) is None, "edge must be None when odds aren't available"
+print(f"Canonical edge (60% @ 1.80): {edge_val:+.2%} (prob gap) OK")
+
+# EV retained for Kelly/staking
+ev_val = mes_numeric_ev(0.60, 1.80)
+assert abs(ev_val - 0.08) < 0.001, f"EV at 60% and 1.80 odds should be +8%, got {ev_val}"
+assert mes_numeric_ev(0.60, None) is None, "EV must be None when odds aren't available"
+print(f"EV numeric (60% @ 1.80): {ev_val:+.2%} OK")
+
+# Backward compat alias returns canonical edge
+assert mes_numeric(0.60, 1.80) == edge_val, "mes_numeric backward compat returns canonical edge"
+print("mes_numeric backward compat -> canonical edge: OK")
 
 print("\n=== ALL LEAGUES/MES TESTS PASSED ===")

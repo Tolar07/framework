@@ -21,7 +21,7 @@
 | TheSportsDB | `<REDACTED>` | `5558126822` | Registered free key. Fallback public test key `123` is rate-limited and truncates the league list. |
 | Telegram Bot | `<REDACTED>` | `<REDACTED>` | `@BotFather` → `/newbot`. Daily board delivery + command responses. |
 | Telegram chat | `<REDACTED>` | `8074295061` | Found by messaging the bot once, then reading `getUpdates`. |
-| API-Football | `<REDACTED>` | `<REDACTED>` | **FREE plan** (verified 2026-08-12 via `/status` → `"plan":"Free"`, end 2027-08-03). Free serves seasons **2022–2024 only** — promoted clubs and post-2024 teams fall to NO DATA. Paste a PAID Standard/Pro key here to load current-season ratings (code auto-enables, plan-gated, `data/api_football_plan.py`, fails closed). |
+| API-Football | `<REDACTED>` | `<REDACTED>` | **PAID Standard/Pro plan** (confirmed 2026-08-19). Current-season history loads, odds date-window widens, plan-gated features auto-enable (`data/api_football_plan.py`, fails closed). |
 | Admin dashboard | `<REDACTED>` | `architect` | HTTP Basic auth on `/admin`, `/stats`, `/why`, `/api/admin/*`, `POST /api/trigger-board`. |
 | Admin dashboard | `<REDACTED>` | `j6!SUy%4T&PSVz%bcKin9GTE` | **Strong generated 2026-08-12** — 24 chars, ~140 bits entropy. Stored in `scripts/generate_admin_pass.py` for future rotation. Rotate yearly or on any leak. |
 | Anthropic | `<REDACTED>` | *(blank — not yet set)* | Optional webapp AI Analyst chat (`/api/analyst`). Leave blank to keep the panel honestly "unavailable" rather than degrade silently. Requires the `anthropic` package (in `requirements.txt`). |

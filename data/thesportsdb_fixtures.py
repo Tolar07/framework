@@ -201,6 +201,9 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         # 2026-08-11 board flags — same club, real pool keys.
         "Atletico Madrid": "Ath Madrid",
         "Elche CF": "Elche",
+        "Malaga": "Malaga",
+        "Malaga CF": "Malaga",
+        "M\xe1laga": "Malaga",
     },
     "Serie A": {
         "AC Milan": "Milan",
@@ -263,13 +266,21 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Bodø/Glimt": "Bodo/Glimt",
         "Crvena Zvezda": "FK Crvena Zvezda",
         "NEC Nijmegen": "Nijmegen",
+        "Nijmegen": "Nijmegen",
         "Sparta Prague": "Sparta Praha",
         "Olympiacos": "Olympiakos Piraeus",
         "Union Saint-Gilloise": "St. Gilloise",
         "LASK": "Lask Linz",
+        "LASK Linz": "Lask Linz",
+        "Lask Linz": "Lask Linz",
         "AGF Aarhus": "Aarhus",
         # 2026-08-18: TheSportsDB feed spells as "Viking FK"; cross-model pool key is "Viking".
         "Viking FK": "Viking",
+        "Hapoel Beer Sheva": "Hapoel Beer Sheva",
+        "Hapoel Be'er Sheva": "Hapoel Beer Sheva",
+        "Sabah FA": "Sabah Baku",
+        "Sabah Baku": "Sabah Baku",
+        "Sabah Masazir": "Sabah Baku",
     },
     "Conference League": {
         # Same verification rule as CL/EL: feed spelling -> cross-model pool key,
@@ -504,6 +515,7 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
     # Israeli Premier League — verified 2026-08-13 from scan flags
     "Israeli Premier League": {
         "Hapoel Be'er Sheva": "Hapoel Beer Sheva",
+        "Hapoel Beer Sheva": "Hapoel Beer Sheva",
         "Hapoel Ramat Gan": "Hapoel Katamon",
         "Hapoel Jerusalem": "Hapoel Hadera",
         "Hapoel Ironi Kiryat Shmona": "Ironi Kiryat Shmona",

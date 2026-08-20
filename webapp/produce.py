@@ -165,7 +165,7 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
                 if odds_index:
                     from engine import markets as mkt
                     from engine.consensus import compute_consensus
-                    from engine.mes import mes_numeric
+                    from engine.mes import edge_diff
                     from engine import recalibration as recal
 
                     cal = {}
@@ -214,15 +214,15 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
                             mp = _market_implied(market, fx)
                             p_ev = mkt.blend_toward_market(
                                 recal.apply(raw_p, cal.get(market)), mp)
-                            ev = mes_numeric(p_ev, quote.price)
-                            if ev is not None and (best is None or ev > best[0]):
-                                best = (ev, market, raw_p, quote)
+                            edge = edge_diff(p_ev, quote.price)
+                            if edge is not None and (best is None or edge > best[0]):
+                                best = (edge, market, raw_p, quote)
                         if best:
-                            ev, market, raw_p, quote = best
+                            edge, market, raw_p, quote = best
                             bf.best_market = mkt.display(market, p.home_team, p.away_team)
                             bf.best_price = quote.price
                             bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
-                            bf.best_mes_ev = ev
+                            bf.best_mes_ev = edge
                             bf.best_model_prob = raw_p
                             bf.best_market_key = market
                             bf.cal_adjustment = cal.get(market, 0.0)

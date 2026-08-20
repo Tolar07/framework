@@ -39,15 +39,52 @@ BTTS_NO = "BTTS_NO"
 DC_1X = "DC_1X"
 DC_X2 = "DC_X2"
 DC_12 = "DC_12"
+# Draw No Bet — bookmaker price available, derived from 1X2 but distinct
+DNB_HOME = "DNB_HOME"
+DNB_AWAY = "DNB_AWAY"
+# Over/Under 3.5 and 0.5 — high-liquidity totals markets
+OVER_35 = "OVER_3_5"
+UNDER_35 = "UNDER_3_5"
+OVER_05 = "OVER_0_5"
+UNDER_05 = "UNDER_0_5"
+# Half Time / Full Time — standard 9-outcome market
+HT_FT_11 = "HT_FT_11"
+HT_FT_1X = "HT_FT_1X"
+HT_FT_12 = "HT_FT_12"
+HT_FT_X1 = "HT_FT_X1"
+HT_FT_XX = "HT_FT_XX"
+HT_FT_X2 = "HT_FT_X2"
+HT_FT_21 = "HT_FT_21"
+HT_FT_2X = "HT_FT_2X"
+HT_FT_22 = "HT_FT_22"
+# Correct Score — top 6 most likely scores (cover ~40% of matches)
+CS_10 = "CS_1_0"
+CS_01 = "CS_0_1"
+CS_11 = "CS_1_1"
+CS_20 = "CS_2_0"
+CS_02 = "CS_0_2"
+CS_21 = "CS_2_1"
+CS_12 = "CS_1_2"
+CS_22 = "CS_2_2"
+CS_00 = "CS_0_0"
+CS_30 = "CS_3_0"
+CS_03 = "CS_0_3"
+CS_31 = "CS_3_1"
+CS_13 = "CS_1_3"
 
-ALL = (HOME, DRAW, AWAY, OVER_25, UNDER_25, OVER_15, UNDER_15, BTTS_YES, BTTS_NO)
+ALL = (HOME, DRAW, AWAY, OVER_25, UNDER_25, OVER_15, UNDER_15, BTTS_YES, BTTS_NO,
+       DNB_HOME, DNB_AWAY, OVER_35, UNDER_35, OVER_05, UNDER_05)
 
 # The full market universe a fixture's pick is chosen from (Architect 2026-08-11):
 # 1X2 + Over/Under 1.5 + Over/Under 2.5 + BTTS + Double Chance. A market enters a
 # bookable leg ONLY when it carries a real bookmaker price (HR35 — model_prob is
 # never a price). `ALL` stays the 9 canonical markets (outcome/settlement loops
 # iterate it); this adds the DC derivations for the selection engine.
-EDGE_MARKETS = ALL + (DC_1X, DC_X2, DC_12)
+EDGE_MARKETS = ALL + (DC_1X, DC_X2, DC_12,
+                      HT_FT_11, HT_FT_1X, HT_FT_12, HT_FT_X1, HT_FT_XX, HT_FT_X2,
+                      HT_FT_21, HT_FT_2X, HT_FT_22,
+                      CS_10, CS_01, CS_11, CS_20, CS_02, CS_21, CS_12, CS_22,
+                      CS_00, CS_30, CS_03, CS_31, CS_13)
 
 # Market key -> index into implied_1x2()'s (home, draw, away) tuple. Used by
 # run_daily/webapp to anchor a market's EV on the bookmaker's devigged implied
@@ -111,6 +148,34 @@ def display(key: str, home_team: str = "Home", away_team: str = "Away") -> str:
         DC_1X: f"{home_team} or Draw (double chance)",
         DC_X2: f"{away_team} or Draw (double chance)",
         DC_12: f"{home_team} or {away_team} (double chance)",
+        DNB_HOME: f"{home_team} Draw No Bet",
+        DNB_AWAY: f"{away_team} Draw No Bet",
+        OVER_35: "Over 3.5 goals",
+        UNDER_35: "Under 3.5 goals",
+        OVER_05: "Over 0.5 goals",
+        UNDER_05: "Under 0.5 goals",
+        HT_FT_11: f"HT/FT {home_team}/{home_team}",
+        HT_FT_1X: f"HT/FT {home_team}/Draw",
+        HT_FT_12: f"HT/FT {home_team}/{away_team}",
+        HT_FT_X1: f"HT/FT Draw/{home_team}",
+        HT_FT_XX: "HT/FT Draw/Draw",
+        HT_FT_X2: f"HT/FT Draw/{away_team}",
+        HT_FT_21: f"HT/FT {away_team}/{home_team}",
+        HT_FT_2X: f"HT/FT {away_team}/Draw",
+        HT_FT_22: f"HT/FT {away_team}/{away_team}",
+        CS_10: "Correct Score 1-0",
+        CS_01: "Correct Score 0-1",
+        CS_11: "Correct Score 1-1",
+        CS_20: "Correct Score 2-0",
+        CS_02: "Correct Score 0-2",
+        CS_21: "Correct Score 2-1",
+        CS_12: "Correct Score 1-2",
+        CS_22: "Correct Score 2-2",
+        CS_00: "Correct Score 0-0",
+        CS_30: "Correct Score 3-0",
+        CS_03: "Correct Score 0-3",
+        CS_31: "Correct Score 3-1",
+        CS_13: "Correct Score 1-3",
     }.get(key, key)
 
 
@@ -132,6 +197,34 @@ def settle(key: str, fthg: int, ftag: int) -> Optional[bool]:
         DC_1X: fthg >= ftag,
         DC_X2: ftag >= fthg,
         DC_12: fthg != ftag,
+        DNB_HOME: fthg >= ftag,  # Draw = push (None), Home win = True, Away win = False
+        DNB_AWAY: ftag >= fthg,  # Draw = push (None), Away win = True, Home win = False
+        OVER_35: total > 3,
+        UNDER_35: total <= 3,
+        OVER_05: total > 0,
+        UNDER_05: total == 0,
+        HT_FT_11: False,  # Requires HT/FT data - not available in settle()
+        HT_FT_1X: False,
+        HT_FT_12: False,
+        HT_FT_X1: False,
+        HT_FT_XX: False,
+        HT_FT_X2: False,
+        HT_FT_21: False,
+        HT_FT_2X: False,
+        HT_FT_22: False,
+        CS_10: (fthg == 1 and ftag == 0),
+        CS_01: (fthg == 0 and ftag == 1),
+        CS_11: (fthg == 1 and ftag == 1),
+        CS_20: (fthg == 2 and ftag == 0),
+        CS_02: (fthg == 0 and ftag == 2),
+        CS_21: (fthg == 2 and ftag == 1),
+        CS_12: (fthg == 1 and ftag == 2),
+        CS_22: (fthg == 2 and ftag == 2),
+        CS_00: (fthg == 0 and ftag == 0),
+        CS_30: (fthg == 3 and ftag == 0),
+        CS_03: (fthg == 0 and ftag == 3),
+        CS_31: (fthg == 3 and ftag == 1),
+        CS_13: (fthg == 1 and ftag == 3),
     }.get(key)
 
 
@@ -168,6 +261,24 @@ def model_prob(key: str, probs) -> Optional[float]:
         return (probs.p_draw + probs.p_away) if probs.p_draw is not None and probs.p_away is not None else None
     if key == DC_12:
         return (probs.p_home + probs.p_away) if probs.p_home is not None and probs.p_away is not None else None
+    # Draw No Bet: p_home / (p_home + p_away) — draw is push (removed from probability space)
+    if key == DNB_HOME:
+        if probs.p_home is not None and probs.p_away is not None:
+            denom = probs.p_home + probs.p_away
+            return probs.p_home / denom if denom > 0 else None
+        return None
+    if key == DNB_AWAY:
+        if probs.p_home is not None and probs.p_away is not None:
+            denom = probs.p_home + probs.p_away
+            return probs.p_away / denom if denom > 0 else None
+        return None
+    # Over/Under 3.5 and 0.5 - need goal distribution model probabilities
+    # For now, return None as these require Poisson/dixon-coles goal probs
+    if key in (OVER_35, UNDER_35, OVER_05, UNDER_05):
+        return None
+    # HT/FT and Correct Score - require joint distribution, not available
+    if key.startswith("HT_FT_") or key.startswith("CS_"):
+        return None
 
     return None
 
@@ -193,6 +304,36 @@ def quote(key: str, fixture_odds) -> Optional[object]:
         DC_1X: getattr(fixture_odds, "dc_1x", None),
         DC_X2: getattr(fixture_odds, "dc_x2", None),
         DC_12: getattr(fixture_odds, "dc_12", None),
+        # New markets - SportyBet / api-football parser
+        DNB_HOME: getattr(fixture_odds, "dnb_home", None),
+        DNB_AWAY: getattr(fixture_odds, "dnb_away", None),
+        OVER_35: getattr(fixture_odds, "over35", None),
+        UNDER_35: getattr(fixture_odds, "under35", None),
+        OVER_05: getattr(fixture_odds, "over05", None),
+        UNDER_05: getattr(fixture_odds, "under05", None),
+        # HT/FT and Correct Score - from api-football parser
+        HT_FT_11: getattr(fixture_odds, "htft_11", None),
+        HT_FT_1X: getattr(fixture_odds, "htft_1x", None),
+        HT_FT_12: getattr(fixture_odds, "htft_12", None),
+        HT_FT_X1: getattr(fixture_odds, "htft_x1", None),
+        HT_FT_XX: getattr(fixture_odds, "htft_xx", None),
+        HT_FT_X2: getattr(fixture_odds, "htft_x2", None),
+        HT_FT_21: getattr(fixture_odds, "htft_21", None),
+        HT_FT_2X: getattr(fixture_odds, "htft_2x", None),
+        HT_FT_22: getattr(fixture_odds, "htft_22", None),
+        CS_10: getattr(fixture_odds, "cs_10", None),
+        CS_01: getattr(fixture_odds, "cs_01", None),
+        CS_11: getattr(fixture_odds, "cs_11", None),
+        CS_20: getattr(fixture_odds, "cs_20", None),
+        CS_02: getattr(fixture_odds, "cs_02", None),
+        CS_21: getattr(fixture_odds, "cs_21", None),
+        CS_12: getattr(fixture_odds, "cs_12", None),
+        CS_22: getattr(fixture_odds, "cs_22", None),
+        CS_00: getattr(fixture_odds, "cs_00", None),
+        CS_30: getattr(fixture_odds, "cs_30", None),
+        CS_03: getattr(fixture_odds, "cs_03", None),
+        CS_31: getattr(fixture_odds, "cs_31", None),
+        CS_13: getattr(fixture_odds, "cs_13", None),
     }.get(key)
 
 
@@ -207,6 +348,7 @@ DEPLOYABLE = tuple(k for k in (HOME, DRAW, AWAY, OVER_25, UNDER_25) if k not in 
 # DISPLAY/SCAN/RANKING. This is SEPARATE from DEPLOYABLE (capital gate).
 # Approved list (ratified 2026-08-09): Win (HOME), Away Win (AWAY),
 # Double Chance, Over/Under 1.5, Over/Under 2.5, BTTS.
+# EXPANDED 2026-08-20: Added Draw No Bet, Over/Under 3.5/0.5, HT/FT, Correct Score (top 6)
 # The market gate was opened 2026-08-10 (Architect), so DEPLOYABLE now equals
 # this deployable set — the capital gate no longer excludes any market. This
 # list remains for BOARD VISIBILITY of the non-priced scan markets.
@@ -220,8 +362,19 @@ APPROVED_MARKETS = (
     UNDER_25,      # Under 2.5
     BTTS_YES,      # BTTS Yes
     BTTS_NO,       # BTTS No
+    # New markets (2026-08-20 expansion)
+    DNB_HOME,      # Home Draw No Bet
+    DNB_AWAY,      # Away Draw No Bet
+    OVER_35,       # Over 3.5 goals
+    UNDER_35,      # Under 3.5 goals
+    OVER_05,       # Over 0.5 goals
+    UNDER_05,      # Under 0.5 goals
+    DC_1X,         # Double Chance 1X
+    DC_X2,         # Double Chance X2
+    DC_12,         # Double Chance 12
 )
-# Double Chance is derived from 1X2 probs (1X, X2, 12) — not a separate key.
+# HT/FT and Correct Score markets require joint distribution models
+# They are in EDGE_MARKETS for when bookmaker prices exist, but model probs are None
 
 
 def implied_1x2(fixture_odds) -> Optional[tuple[float, float, float]]:

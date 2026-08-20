@@ -493,6 +493,82 @@ def agent_4_verify(state: PipelineState) -> dict:
 
 
 # =============================================================================
+# Build odds_index for ALL leagues with deploy-shortlist fixtures
+# Mirrors run_daily.py logic - MUST run BEFORE Agent 5 so selections have prices
+# =============================================================================
+def _build_odds_index_for_pipeline(state: PipelineState) -> dict:
+    """Build odds_index before Agent 5 runs, so Agent 5 can price selections.
+
+    Mirrors run_daily.py lines 707-761 exactly.
+    """
+    from data.multi_source_concrete import get_odds as multi_get_odds
+    import pipeline.odds as odds_mod
+    from booking.bridge import load_all_sportybet_fixtures
+
+    odds_index: dict = {}
+    # Get leagues from Agent 1's fixtures that are on deploy shortlist
+    agent1 = state.payloads.get(1, {})
+    if not agent1.get("fixtures"):
+        return odds_index
+
+    # We need to know which fixtures will be on deploy shortlist.
+    # Since Agent 4 (verify) hasn't run yet, we use Agent 1's fixtures as proxy.
+    odds_leagues = set(fx["league"] for fx in agent1.get("fixtures", []))
+
+    for lg in sorted(odds_leagues):
+        try:
+            fixtures = multi_get_odds(lg)
+            odds_index.update(odds_mod.index_by_fixture(fixtures))
+            state.payloads.setdefault(0, {}).setdefault("data_flags", []).append(f"{lg}: odds served via multi-source layer")
+        except Exception as e:
+            state.payloads.setdefault(0, {}).setdefault("data_flags", []).append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
+
+    # Merge SportyBet cache odds for leagues with SportyBet data but no multi-source odds
+    try:
+        sb_fixtures_by_league = load_all_sportybet_fixtures(days_ahead=3, leagues=list(odds_leagues))
+        sb_odds_count = 0
+        for lg, sb_fixtures in sb_fixtures_by_league.items():
+            for sb_fx in sb_fixtures:
+                if sb_fx.home_odds and sb_fx.draw_odds and sb_fx.away_odds:
+                    key = (sb_fx.home_team, sb_fx.away_team)
+                    if key not in odds_index:
+                        sb_odds = odds_mod.FixtureOdds(
+                            league=lg,
+                            home_team=sb_fx.home_team,
+                            away_team=sb_fx.away_team,
+                            kickoff_utc=sb_fx.kickoff_utc,
+                            home=odds_mod.MarketQuote(
+                                price=sb_fx.home_odds,
+                                bookmaker="SportyBet Nigeria",
+                                n_books=1,
+                                captured_at=sb_fx.kickoff_utc
+                            ),
+                            draw=odds_mod.MarketQuote(
+                                price=sb_fx.draw_odds,
+                                bookmaker="SportyBet Nigeria",
+                                n_books=1,
+                                captured_at=sb_fx.kickoff_utc
+                            ),
+                            away=odds_mod.MarketQuote(
+                                price=sb_fx.away_odds,
+                                bookmaker="SportyBet Nigeria",
+                                n_books=1,
+                                captured_at=sb_fx.kickoff_utc
+                            ),
+                            source="sportybet-cache",
+                            source_tier="T2"
+                        )
+                        odds_index[key] = sb_odds
+                        sb_odds_count += 1
+        if sb_odds_count:
+            state.payloads.setdefault(0, {}).setdefault("data_flags", []).append(f"SportyBet cache merged: {sb_odds_count} fixture(s) with 1X2 odds added to odds_index")
+    except Exception as e:
+        state.payloads.setdefault(0, {}).setdefault("data_flags", []).append(f"SportyBet cache merge failed ({e})")
+
+    return odds_index
+
+
+# =============================================================================
 # AGENT 5 — XDV Logic Core (math stack + Red/Blue adversarial simulation)
 # Uses the real engines: Dixon-Coles, Elo, xG, consensus, MES. Red/Blue runs
 # until consensus (max 5 rounds). Surviving +EV picks only.
@@ -533,6 +609,9 @@ def agent_5_core(state: PipelineState) -> dict:
             "data_flags": data_flags,
         }
 
+    # Build odds_index BEFORE Agent 5 processing (must run before Agent 5)
+    odds_index = _build_odds_index_for_pipeline(state)
+
     # Full math stack implementation
     try:
         from data.football_data_source import load_league
@@ -544,7 +623,7 @@ def agent_5_core(state: PipelineState) -> dict:
         from engine.dixon_coles import (fit, predict, predict_adjusted,
                                          unrated_reason, FIT_VERSION,
                                          FixtureProbabilities)
-        from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload, dc_from_payload)
+        from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload, dc_from_payload, dc_to_payload)
         from engine import markets as mkt
         from engine.mes import mes_numeric
     except Exception as e:
@@ -657,13 +736,22 @@ def agent_5_core(state: PipelineState) -> dict:
 
             if probs is None:
                 # HR35: still list as NO DATA — PENDING
+                # Get unrated reason from the model that was attempted (primary or carry-over)
+                check_model = model if model is not None else carry_model
+                reasons = []
+                if check_model is not None:
+                    for team in (home, away):
+                        r = unrated_reason(check_model, team)
+                        if r is not None:
+                            reasons.append(r)
+                unrated_reason_str = "; ".join(reasons) if reasons else "Unrated (model unavailable)"
                 reports[mid] = {
                     "match_id": mid, "sport": fx["sport"], "league": fx["league"],
                     "home_team": home, "away_team": away,
                     "kickoff_utc": fx["kickoff_utc"],
                     "selections": [],
                     "rating_source": "NO DATA — PENDING",
-                    "unrated_reason": unrated_reason(home, away, results, cl_h, cl_a),
+                    "unrated_reason": unrated_reason_str,
                 }
                 continue
 
@@ -674,9 +762,9 @@ def agent_5_core(state: PipelineState) -> dict:
             except Exception:
                 pass  # tactical data missing = no adjustment (HR35)
 
-            # Build selections from probabilities + market odds
+            # Build selections from probabilities + market odds (pass odds_index)
             selections = _build_selections_from_probs(
-                probs, fx, rating_source, brain, league, data_flags)
+                probs, fx, rating_source, brain, league, data_flags, odds_index)
 
             reports[mid] = {
                 "match_id": mid, "sport": fx["sport"], "league": fx["league"],
@@ -698,21 +786,98 @@ def agent_5_core(state: PipelineState) -> dict:
     }
 
 
-def _build_selections_from_probs(probs, fx, rating_source, brain, league, data_flags):
-    """Build market selections from fixture probabilities (from run_daily.py logic)."""
+def _build_selections_from_probs(probs, fx, rating_source, brain, league, data_flags, odds_index=None):
+    """Build market selections from fixture probabilities (from run_daily.py logic).
+
+    Uses pre-built odds_index for multi-market odds (O/U 1.5, O/U 2.5, BTTS, DC)
+    instead of per-fixture get_odds calls.
+    """
     selections = []
     try:
         from engine import markets as mkt
-        from engine.mes import mes_numeric
+        from engine.mes import mes_numeric, edge_diff
 
-        # Multi-source odds pull for this fixture
-        from data.multi_source_concrete import get_odds
-        odds_data = get_odds(fx["league"], fx["home_team"], fx["away_team"])
+        # Find fixture odds in the pre-built odds_index
+        home, away = probs.home_team, probs.away_team
+        fx_odds = None
+        if odds_index is not None:
+            # Try exact, then normalized match
+            fx_odds = odds_index.get((home, away))
+            if fx_odds is None:
+                try:
+                    from booking.team_map import resolve_team, _normalize
+                    sb_h = resolve_team(home, "sportybet")
+                    sb_a = resolve_team(away, "sportybet")
+                    fx_odds = odds_index.get((sb_h, sb_a))
+                    if fx_odds is None:
+                        nh, na = _normalize(home), _normalize(away)
+                        for (oh, oa), f in odds_index.items():
+                            noh, noa = _normalize(oh), _normalize(oa)
+                            if noh == nh and noa == na:
+                                fx_odds = f
+                                break
+                            def _contains(a: str, b: str) -> bool:
+                                return a == b or (len(a) > 3 and (a in b or b in a))
+                            if _contains(noh, nh) and _contains(noa, na):
+                                fx_odds = f
+                                break
+                except Exception:
+                    pass
 
-        for market_key in mkt.DEPLOYABLE:  # Use DEPLOYABLE markets from run_daily.py
-            implied = odds_data.get(market_key) if odds_data else None
-            if implied is None:
+        # Multi-market selection: evaluate ALL deployable markets
+        # 1X2, Over/Under 1.5, Over/Under 2.5, BTTS, Double Chance
+        for market_key in mkt.DEPLOYABLE:
+            # Get price from odds_index
+            price = None
+            if fx_odds is not None:
+                q = mkt.quote(market_key, fx_odds)
+                if q is not None and q.available:
+                    price = q.price
+
+            if price is None:
                 continue  # HR35: no price = no edge, not a guess
+
+            # Get implied probability (devigged)
+            implied = None
+            if fx_odds is not None:
+                if market_key in mkt.MARKETS_1X2:
+                    p1x2 = mkt.implied_1x2(fx_odds)
+                    if p1x2 is not None:
+                        implied = p1x2[mkt.MARKETS_1X2[market_key]]
+                elif market_key == mkt.OVER_25 and fx_odds.over25.price and fx_odds.under25.price:
+                    s = 1.0 / fx_odds.over25.price + 1.0 / fx_odds.under25.price
+                    if s > 1.0:
+                        implied = (1.0 / fx_odds.over25.price) / s
+                elif market_key == mkt.UNDER_25 and fx_odds.over25.price and fx_odds.under25.price:
+                    s = 1.0 / fx_odds.over25.price + 1.0 / fx_odds.under25.price
+                    if s > 1.0:
+                        implied = (1.0 / fx_odds.under25.price) / s
+                elif market_key == mkt.OVER_15 and fx_odds.over15.price and fx_odds.under15.price:
+                    s = 1.0 / fx_odds.over15.price + 1.0 / fx_odds.under15.price
+                    if s > 1.0:
+                        implied = (1.0 / fx_odds.over15.price) / s
+                elif market_key == mkt.UNDER_15 and fx_odds.over15.price and fx_odds.under15.price:
+                    s = 1.0 / fx_odds.over15.price + 1.0 / fx_odds.under15.price
+                    if s > 1.0:
+                        implied = (1.0 / fx_odds.under15.price) / s
+                elif market_key == mkt.BTTS_YES and fx_odds.btts_yes.price and fx_odds.btts_no.price:
+                    s = 1.0 / fx_odds.btts_yes.price + 1.0 / fx_odds.btts_no.price
+                    if s > 1.0:
+                        implied = (1.0 / fx_odds.btts_yes.price) / s
+                elif market_key == mkt.BTTS_NO and fx_odds.btts_yes.price and fx_odds.btts_no.price:
+                    s = 1.0 / fx_odds.btts_yes.price + 1.0 / fx_odds.btts_no.price
+                    if s > 1.0:
+                        implied = (1.0 / fx_odds.btts_no.price) / s
+                elif market_key == mkt.DC_1X and fx_odds.dc_1x.price and fx_odds.dc_x2.price and fx_odds.dc_12.price:
+                    # DC markets are trickier - use simple 1/price for now
+                    implied = 1.0 / fx_odds.dc_1x.price
+                elif market_key == mkt.DC_X2 and fx_odds.dc_1x.price and fx_odds.dc_x2.price and fx_odds.dc_12.price:
+                    implied = 1.0 / fx_odds.dc_x2.price
+                elif market_key == mkt.DC_12 and fx_odds.dc_1x.price and fx_odds.dc_x2.price and fx_odds.dc_12.price:
+                    implied = 1.0 / fx_odds.dc_12.price
+
+            if implied is None:
+                implied = 1.0 / price  # raw as fallback
 
             # Calculate model probability for this market
             model_prob = mkt.model_prob(market_key, probs)
@@ -729,10 +894,10 @@ def _build_selections_from_probs(probs, fx, rating_source, brain, league, data_f
                 "market": market_key,
                 "selection": mkt.display(market_key, probs.home_team, probs.away_team),
                 "model_prob": model_prob,
-                "implied_prob": 1 / implied if implied > 0 else 0,
+                "implied_prob": implied,
                 "edge": edge,
                 "mes": edge,  # canonical MES = edge (probability gap)
-                "odds": implied,
+                "odds": price,
             })
     except Exception as e:
         data_flags.append(f"{fx['match_id']}: selection build failed: {e}")
@@ -1245,6 +1410,25 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         for agent_id in range(1, 11):
             all_data_flags.extend(state.payloads.get(agent_id, {}).get("data_flags", []))
 
+        # Run verification gate (mirrors run_daily.py logic)
+        from booking.verify_fixtures import verify_board
+        from datetime import date
+        board_date = date.today().isoformat()
+        try:
+            verified_board, verify_report = verify_board(board, board_date, leagues_scanned)
+            board = verified_board
+            all_data_flags.append(
+                f"VERIFY GATE: {verify_report.verified} verified, "
+                f"{verify_report.kept_unverified} kept-unverified, "
+                f"{verify_report.dropped_missing_source} dropped "
+                f"(FlashScore {'on' if verify_report.flashscore_available else 'OFF'}, "
+                f"SportyBet {'on' if verify_report.sportybet_available else 'OFF'})")
+            all_data_flags += verify_report.flags
+            if verify_report.outage:
+                all_data_flags.append(f"⚠ VERIFY GATE OUTAGE: {verify_report.outage_reason}")
+        except Exception as e:
+            all_data_flags.append(f"verify_board gate failed ({e}) — verification stamps unavailable")
+
         brain = Brain()
         log = CLVLog()
         status = log.phase2_status()
@@ -1255,7 +1439,67 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         rolling_7d = brain.rolling_7d()
         produced_record = produced_bet_mod.load_produced_bet(date_str)
 
-        production = build_production_bets(board, today=date_str, odds_index={})
+        # Build odds_index for production betting (mirrors run_daily.py logic)
+        import pipeline.odds as odds_mod
+        from data.multi_source_concrete import get_odds as multi_get_odds
+        from booking.bridge import load_all_sportybet_fixtures
+        from engine.leagues import build_deploy_shortlist
+        odds_index: dict = {}
+        try:
+            # Pull odds for all leagues that have ANY deploy-shortlist fixture
+            odds_leagues = {_league_of(bf) for bf in board if getattr(bf, "on_deploy_shortlist", False)}
+            for lg in sorted(odds_leagues):
+                try:
+                    fixtures = multi_get_odds(lg)
+                    odds_index.update(odds_mod.index_by_fixture(fixtures))
+                    all_data_flags.append(f"{lg}: odds served via multi-source layer")
+                except Exception as e:
+                    all_data_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
+            # Merge SportyBet cache odds
+            try:
+                sb_fixtures_by_league = load_all_sportybet_fixtures(days_ahead=3, leagues=list(odds_leagues))
+                sb_odds_count = 0
+                for lg, sb_fixtures in sb_fixtures_by_league.items():
+                    for sb_fx in sb_fixtures:
+                        if sb_fx.home_odds and sb_fx.draw_odds and sb_fx.away_odds:
+                            key = (sb_fx.home_team, sb_fx.away_team)
+                            if key not in odds_index:
+                                sb_odds = odds_mod.FixtureOdds(
+                                    league=lg,
+                                    home_team=sb_fx.home_team,
+                                    away_team=sb_fx.away_team,
+                                    kickoff_utc=sb_fx.kickoff_utc,
+                                    home=odds_mod.MarketQuote(
+                                        price=sb_fx.home_odds,
+                                        bookmaker="SportyBet Nigeria",
+                                        n_books=1,
+                                        captured_at=sb_fx.kickoff_utc
+                                    ),
+                                    draw=odds_mod.MarketQuote(
+                                        price=sb_fx.draw_odds,
+                                        bookmaker="SportyBet Nigeria",
+                                        n_books=1,
+                                        captured_at=sb_fx.kickoff_utc
+                                    ),
+                                    away=odds_mod.MarketQuote(
+                                        price=sb_fx.away_odds,
+                                        bookmaker="SportyBet Nigeria",
+                                        n_books=1,
+                                        captured_at=sb_fx.kickoff_utc
+                                    ),
+                                    source="sportybet-cache",
+                                    source_tier="T2"
+                                )
+                                odds_index[key] = sb_odds
+                                sb_odds_count += 1
+                if sb_odds_count:
+                    all_data_flags.append(f"SportyBet cache merged: {sb_odds_count} fixture(s) with 1X2 odds added to odds_index")
+            except Exception as e:
+                all_data_flags.append(f"SportyBet cache merge failed ({e})")
+        except Exception as e:
+            all_data_flags.append(f"odds_index build failed: {e}")
+
+        production = build_production_bets(board, today=date_str, odds_index=odds_index)
         acca_list = []
         if production.acca_a is not None:
             acca_list.append(production.acca_a)
@@ -1438,6 +1682,10 @@ def main() -> None:
             print(f"Errors: {len(state.errors)}")
             for e in state.errors[:5]:
                 print(f"  - agent {e['agent']}: {e['error']}")
+
+        # Generate board artifacts (telegram, feed_audit, acca codes)
+        if args.only is None or args.only == 10:
+            render_board_from_pipeline(state=state)
 
 
 if __name__ == "__main__":

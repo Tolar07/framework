@@ -16,6 +16,7 @@ from typing import Optional
 from engine.dixon_coles import FixtureProbabilities
 from engine.consensus import Consensus
 from engine.acca import build_production_bets, render_production_block
+from engine.mes import edge_diff, mes_numeric_ev, trigger_price
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 from bets.produced_bet import render_produced_bet as render_produced_bet_block
@@ -375,22 +376,24 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
                  f"SportyBet/Bet365 before acting — Architect deploys, not this system.")
     elif bf.sb_home_odds is not None or bf.sb_draw_odds is not None or bf.sb_away_odds is not None:
         # SportyBet odds are available (Phase 2 CLV / Phase 3 live)
-        from engine.mes import mes_numeric
         L.append(f"   SportyBet Nigeria odds (real-money bookmaker, margin included):")
         if bf.sb_home_odds is not None:
-            ev = mes_numeric(p.p_home, bf.sb_home_odds)
-            L.append(f"      {p.home_team} to win ....... {bf.sb_home_odds:.2f}  ->  EV {ev:+.2%}" if ev is not None
-                     else f"      {p.home_team} to win ....... {bf.sb_home_odds:.2f}  ->  EV NO DATA")
+            edge = edge_diff(p.p_home, bf.sb_home_odds)
+            ev = mes_numeric_ev(p.p_home, bf.sb_home_odds)
+            L.append(f"      {p.home_team} to win ....... {bf.sb_home_odds:.2f}  ->  edge {edge:+.2%} | EV {ev:+.2%}" if edge is not None
+                     else f"      {p.home_team} to win ....... {bf.sb_home_odds:.2f}  ->  edge NO DATA")
         if bf.sb_draw_odds is not None:
-            ev = mes_numeric(p.p_draw, bf.sb_draw_odds)
-            L.append(f"      Draw ..................... {bf.sb_draw_odds:.2f}  ->  EV {ev:+.2%}" if ev is not None
-                     else f"      Draw ..................... {bf.sb_draw_odds:.2f}  ->  EV NO DATA")
+            edge = edge_diff(p.p_draw, bf.sb_draw_odds)
+            ev = mes_numeric_ev(p.p_draw, bf.sb_draw_odds)
+            L.append(f"      Draw ..................... {bf.sb_draw_odds:.2f}  ->  edge {edge:+.2%} | EV {ev:+.2%}" if edge is not None
+                     else f"      Draw ..................... {bf.sb_draw_odds:.2f}  ->  edge NO DATA")
         if bf.sb_away_odds is not None:
-            ev = mes_numeric(p.p_away, bf.sb_away_odds)
-            L.append(f"      {p.away_team} to win ....... {bf.sb_away_odds:.2f}  ->  EV {ev:+.2%}" if ev is not None
-                     else f"      {p.away_team} to win ....... {bf.sb_away_odds:.2f}  ->  EV NO DATA")
+            edge = edge_diff(p.p_away, bf.sb_away_odds)
+            ev = mes_numeric_ev(p.p_away, bf.sb_away_odds)
+            L.append(f"      {p.away_team} to win ....... {bf.sb_away_odds:.2f}  ->  edge {edge:+.2%} | EV {ev:+.2%}" if edge is not None
+                     else f"      {p.away_team} to win ....... {bf.sb_away_odds:.2f}  ->  edge NO DATA")
         if bf.sb_mes_ev is not None:
-            L.append(f"      Best SportyBet MES ......... {bf.sb_mes_ev:+.2%} per unit staked")
+            L.append(f"      Best SportyBet edge ......... {bf.sb_mes_ev:+.2%} per unit staked")
         if bf.mes_trigger_price:
             L.append(f"      Breakeven trigger price .... {bf.mes_trigger_price:.2f} or longer")
     elif bf.mes_trigger_price:
@@ -607,13 +610,26 @@ def render_part2_compact(board: list[BoardFixture],
     return "\n".join(rows)
 
 
-def render_part3_rejected(board: list[BoardFixture]) -> str:
+def render_part3_rejected(board: list[BoardFixture],
+                          production: Optional[object] = None) -> str:
+    """Render rejected fixtures + ID420 watchlist (odds > 2.00)."""
     rejected = [bf for bf in board if bf.rejection_reason]
-    if not rejected:
-        return "PART 3 — REJECTED / WATCHLIST\nNone."
     rows = ["PART 3 — REJECTED / WATCHLIST"]
-    for bf in rejected:
-        rows.append(f"{bf.fixture}: {bf.rejection_reason}")
+    if not rejected:
+        rows.append("None.")
+    else:
+        for bf in rejected:
+            rows.append(f"{bf.fixture}: {bf.rejection_reason}")
+
+    # ID420 watchlist: legs with odds > 2.00 (not capital-eligible)
+    if production is not None and hasattr(production, 'watchlist') and production.watchlist:
+        if rejected:
+            rows.append("")  # blank line separator
+        rows.append("  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only")
+        for leg in production.watchlist:
+            rows.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
+                        f"@ {leg.price:.2f}  edge {leg.edge:+.2%}  "
+                        f"{getattr(leg, 'verification_stamp', '') or ''}")
     return "\n".join(rows)
 
 
@@ -687,7 +703,7 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
         "",
         part1,
         "",
-        render_part3_rejected(board),
+        render_part3_rejected(board, production=production),
         "",
         render_part4_data_integrity(board),
     ]

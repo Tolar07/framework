@@ -53,7 +53,7 @@ from scipy.stats import poisson
 
 from data.football_data_source import load_league, MatchResult, DEFAULT_BOOK_PREFERENCE
 from engine.dixon_coles import fit, predict, DixonColesModel, TeamStrength, FIT_VERSION
-from engine.mes import mes_numeric
+from engine.mes import mes_numeric_ev
 from engine.recalibration import apply as cal_apply
 from engine.markets import blend_toward_market
 from clv.clv_logger import LoggedLeg, CLVLog, compute_clv, BACKTEST_PHASE, DEFAULT_LOG_PATH
@@ -454,7 +454,7 @@ def candidate_legs(match: MatchResult, probs, cfg: BacktestConfig,
             # FACTOR (1 + margin). or_mkt is a margin, so add 1 back.
             market_p = (1.0 / price.open) / (1.0 + or_mkt)
             p_for_ev = blend_toward_market(p_for_ev, market_p)
-        mes = mes_numeric(p_for_ev, price.open)
+        mes = mes_numeric_ev(p_for_ev, price.open)
         if not _select(cfg, market, mes, price, o, rng):
             continue
 

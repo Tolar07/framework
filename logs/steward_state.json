@@ -1,0 +1,42 @@
+{
+  "pass": "2026-08-15T23:37:16+00:00",
+  "duration_s": 568.0,
+  "fixtures_season": "2627",
+  "sources": {
+    "sportybet": {
+      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "ok": false,
+      "detail": "61 league(s) cached, 0 fixture(s) \u2014 Albanian Superliga, Andorran Primera Divisi\u00f3, Armenian Premier League, Austrian Bundesliga, Azerbaijani Premyer Liqa, Belarusian Premier League\u2026"
+    },
+    "odds": {
+      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "ok": false,
+      "detail": "Odds API quota spent (1 left, floor 40) \u2014 primary down, fallback must serve"
+    },
+    "af_odds": {
+      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "ok": false,
+      "detail": "quota probe failed ('list' object has no attribute 'get') \u2014 not warming"
+    },
+    "tsdb": {
+      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "ok": true,
+      "detail": "41 league(s) with upcoming fixtures, 9 not carried (Andorran Primera Divisi\u00f3, Azerbaijani Premyer Liqa, Belarusian Premier League, Bosnian Premier League)"
+    },
+    "espn": {
+      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "ok": true,
+      "detail": "16 league(s) covered, 45 no ESPN slug (Albanian Superliga, Andorran Primera Divisi\u00f3, Armenian Premier League, Azerbaijani Premyer Liqa)"
+    },
+    "clubelo": {
+      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "ok": true,
+      "detail": "594 club(s) in the 2026-08-11 snapshot"
+    },
+    "fdc": {
+      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "ok": true,
+      "detail": "3 live-season file(s): Austrian_Bundesliga_all.csv, Danish_Superliga_all.csv, Ekstraklasa_all.csv"
+    }
+  }
+}

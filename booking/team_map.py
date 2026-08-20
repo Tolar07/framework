@@ -130,6 +130,7 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Real Madrid": "Real Madrid",
     "Barcelona": "Barcelona",
     "Atletico Madrid": "Atletico Madrid",
+    "Ath Madrid": "Atletico Madrid",          # common short form -> canonical
     "Alaves": "Alaves",
     "Getafe": "Getafe",
     "Sevilla": "Sevilla",
@@ -148,6 +149,13 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Girona": "Girona",
     "Las Palmas": "Las Palmas",
     "Leganes": "Leganes",
+    # Newly promoted 2026/27 - identity mappings (HR35: never guess across clubs)
+    "Malaga CF": "Malaga CF",
+    "Malaga": "Malaga CF",
+    "Levante": "Levante",
+    "Racing Santander": "Racing Santander",
+    "Elche CF": "Elche CF",
+    "Elche": "Elche CF",
     # Serie A
     "Inter": "Inter Milan",
     "AC Milan": "AC Milan",
@@ -218,9 +226,11 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Ararat-Armenia": "FC Ararat-Armenia",
     "Hapoel Be'er Sheva": "Hapoel Be`er Sheva FC",  # SportyBet spells it with a backtick
     "Mjällby": "Mjallby AIF",
+    "Mjallby": "Mjallby AIF",
     "Kairat Almaty": "FC Kairat Almaty",
     "Levski Sofia": "PFC Levski Sofia",
     "Kauno Žalgiris": "FK Kauno Zalgiris",
+    "Kauno Zalgiris": "FK Kauno Zalgiris",
     "Dinamo Zagreb": "GNK Dinamo Zagreb",
     "Sabah Baku": "Sabah Masazir",      # SportyBet's spelling of the Baku club (Masazir)
     "Aarhus": "AGF Aarhus",             # CL-qualifier board key; AGF's Danish pool key is "Aarhus"
@@ -232,6 +242,28 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Panathinaikos": "Panathinaikos",           # identity
     "FC CSKA 1948": "FC CSKA 1948",             # identity
     "Apollon Limassol": "Apollon Limassol",     # identity
+    # Champions League qualifiers - LASK Linz mapping
+    "LASK Linz": "LASK Linz",              # SportyBet spelling (uppercase)
+    "Lask Linz": "LASK Linz",              # board key (capitalized) -> SportyBet
+    "Linz": "LASK Linz",                   # short form
+    # Conference/Europa League qualifiers - ensure board model keys resolve to
+    # SportyBet cache names so odds lookup succeeds (no cross-club guessing;
+    # each target is the verified same club).
+    "FC ST. Gallen": "FC St. Gallen 1879",  # board model key -> SportyBet cache name
+    "FC St. Gallen": "FC St. Gallen 1879",  # normalized variant
+    "Borac Banja Luka": "FK Borac Banja Luka",  # board model key -> SportyBet (FK prefix)
+    "Egnatia": "KF Egnatia Rrogozhine",     # board model key -> SportyBet cache name
+    "Lillestroem": "Lillestroem SK",        # board model key -> SportyBet cache name
+    "Lillestrøm": "Lillestroem SK",         # diacritic variant
+    "Lillestrom": "Lillestroem SK",         # normalized variant (board key)
+    "Omonia Nicosia": "AC Omonia Nicosia",  # board model key -> SportyBet cache name
+    "Vikingur Reykjavik": "Vikingur Reykjavik",  # already matches; identity for clarity
+    "St Truiden": "St. Truidense VV",       # board model key -> SportyBet cache name
+    # Additional Conference/Europa League name variants found in cache
+    "Sp Braga": "Braga",                     # board model key -> SportyBet cache name
+    "Rīgas FS": "Riga FC",                   # board diacritic variant -> SportyBet cache name
+    "Rigas FS": "Rigas FS",                   # normalized variant (SportyBet cache uses "Rigas FS")
+    "Rakow": "Rakow Czestochowa",            # board model key -> SportyBet cache name
     # --- Armenian Premier League (2026-08-18): TheSportsDB fixture feed -> SportyBet spellings
     # Verified from TheSportsDB feed names; SportyBet uses same spellings for these clubs.
     "Noah": "FC Noah",
@@ -283,7 +315,11 @@ def _normalize(name: str) -> str:
     # "Fenerbahce", so the leg silently no-matches.
     replacements = {"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u",
                     "ä": "a", "ö": "o", "ü": "u", "ñ": "n", "ø": "o",
-                    "æ": "ae", "ß": "ss", "ç": "c"}
+                    "æ": "ae", "ß": "ss", "ç": "c", "ž": "z", "ī": "i",
+                    "ș": "s", "ț": "t", "ğ": "g", "ş": "s", "ü": "u",
+                    "ő": "o", "ű": "u", "ğ": "g", "ö": "o", "ş": "s",
+                    "č": "c", "š": "s", "ř": "r", "ď": "d", "ť": "t",
+                    "ń": "n", "ľ": "l"}
     for old, new in replacements.items():
         name = name.replace(old, new)
     return name.strip()

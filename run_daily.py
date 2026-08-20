@@ -1351,6 +1351,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- it still counts as a missing code and is flagged, not hidden.
     if codes_result and acca_list:
         _missing: list[str] = []
+        _odds_bad: list[str] = []
         for r in codes_result.get("results", []):
             for leg in r.get("per_leg", []):
                 if leg.get("status") != "BOOKED":
@@ -1358,12 +1359,27 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                         f"{r.get('label','?')}: {leg.get('fixture','?')} "
                         f"({leg.get('market_name','?')}) — "
                         f"{leg.get('reason', leg.get('status', 'no code'))}")
+            # HARD RULE (Architect 2026-08-20): code odds must equal expected
+            # combined odds. A mismatch means the slip is wrong — flag it so the
+            # Architect never places a slip with bad numbers.
+            oc = r.get("odds_check")
+            if oc and not oc.get("match"):
+                exp = oc.get("expected")
+                bs = oc.get("betslip")
+                _odds_bad.append(
+                    f"{r.get('label','?')}: expected {exp:.2f} vs betslip {bs:.2f}")
         if _missing:
             all_flags.append(
                 f"⚠ BOOKING COVERAGE GAP — {len(_missing)} leg(s) WITHOUT a "
                 f"booked code: " + "; ".join(_missing[:12])
                 + (" …" if len(_missing) > 12 else "")
                 + " (Architect must add manually before placing)")
+        if _odds_bad:
+            all_flags.append(
+                f"⚠ BOOKING ODDS MISMATCH — {len(_odds_bad)} slip(s) with WRONG "
+                f"odds (code rejected): " + "; ".join(_odds_bad[:12])
+                + (" …" if len(_odds_bad) > 12 else "")
+                + " (Architect must verify the slip by hand before placing)")
 
     # The production block (Acca A -> split accas -> singles) with codes inline;
     # the same block feeds the saved acca txt, the Telegram push and the wide

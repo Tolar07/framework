@@ -760,6 +760,143 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     except Exception as e:
         all_flags.append(f"SportyBet cache merge failed ({e})")
 
+    # --- Merge Bet365 odds feed (bet365_odds_*.jsonl) for ALL canonical markets ---
+    # This feed carries 1X2 + Totals 0.5/1.5/2.5/3.5 + BTTS + DC + DNB + HT/FT + Correct Score
+    # Each market odds is zoned (SAFE/5050/WATCH/FLOOR/NONE) per MAX_ODDS_CAP/PREFERRED_ODDS_CEILING/MIN_ODDS_FLOOR
+    try:
+        from pathlib import Path
+        live_odds_dir = Path(__file__).parent.parent / "data" / "live_odds"
+        bet365_odds_files = sorted(live_odds_dir.glob("bet365_odds_*.jsonl"), reverse=True)
+        if bet365_odds_files:
+            latest_bet365_odds = bet365_odds_files[0]
+            b365_odds_count = 0
+            b365_markets_count = 0
+            import json
+            for line in latest_bet365_odds.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    entry = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if entry.get("type") != "match_odds":
+                    continue
+                home_team = entry.get("home_team", "")
+                away_team = entry.get("away_team", "")
+                if not home_team or not away_team:
+                    continue
+                key = (home_team, away_team)
+                markets = entry.get("markets", {})
+                if not markets:
+                    continue
+                # Build FixtureOdds with all available markets from Bet365
+                fx = odds_mod.FixtureOdds(
+                    league=entry.get("league", ""),
+                    home_team=home_team,
+                    away_team=away_team,
+                    kickoff_utc=entry.get("match_datetime", ""),
+                    source="bet365-odds",
+                    source_tier="T1"
+                )
+                for mkt_key, mkt_data in markets.items():
+                    price = mkt_data.get("price")
+                    if price is None:
+                        continue
+                    zone = mkt_data.get("zone", "NONE")
+                    # Only add markets that are within MAX_ODDS_CAP for capital deployment
+                    # (the engine's _best_deployable_leg will apply the hard ceiling anyway,
+                    # but we keep all zoned markets visible for transparency)
+                    # Map canonical keys to FixtureOdds attributes
+                    if mkt_key == "1X2_HOME":
+                        fx.home = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "1X2_DRAW":
+                        fx.draw = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "1X2_AWAY":
+                        fx.away = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "OVER_0_5":
+                        fx.over05 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "UNDER_0_5":
+                        fx.under05 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "OVER_1_5":
+                        fx.over15 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "UNDER_1_5":
+                        fx.under15 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "OVER_2_5":
+                        fx.over25 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "UNDER_2_5":
+                        fx.under25 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "OVER_3_5":
+                        fx.over35 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "UNDER_3_5":
+                        fx.under35 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "BTTS_YES":
+                        fx.btts_yes = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "BTTS_NO":
+                        fx.btts_no = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "DC_1X":
+                        fx.dc_1x = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "DC_X2":
+                        fx.dc_x2 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "DC_12":
+                        fx.dc_12 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "DNB_HOME":
+                        fx.dnb_home = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "DNB_AWAY":
+                        fx.dnb_away = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "HT_FT_11":
+                        fx.htft_11 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "HT_FT_1X":
+                        fx.htft_1x = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "HT_FT_12":
+                        fx.htft_12 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "HT_FT_X1":
+                        fx.htft_x1 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "HT_FT_XX":
+                        fx.htft_xx = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "HT_FT_X2":
+                        fx.htft_x2 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "HT_FT_21":
+                        fx.htft_21 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "HT_FT_2X":
+                        fx.htft_2x = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "HT_FT_22":
+                        fx.htft_22 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_1_0":
+                        fx.cs_10 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_0_1":
+                        fx.cs_01 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_1_1":
+                        fx.cs_11 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_2_0":
+                        fx.cs_20 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_0_2":
+                        fx.cs_02 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_2_1":
+                        fx.cs_21 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_1_2":
+                        fx.cs_12 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_2_2":
+                        fx.cs_22 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_0_0":
+                        fx.cs_00 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_3_0":
+                        fx.cs_30 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_0_3":
+                        fx.cs_03 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_3_1":
+                        fx.cs_31 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    elif mkt_key == "CS_1_3":
+                        fx.cs_13 = odds_mod.MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                    b365_markets_count += 1
+                if key not in odds_index:
+                    odds_index[key] = fx
+                    b365_odds_count += 1
+            if b365_odds_count:
+                all_flags.append(f"Bet365 odds merged: {b365_odds_count} fixture(s), {b365_markets_count} market-odds added to odds_index")
+    except Exception as e:
+        all_flags.append(f"Bet365 odds merge failed ({e})")
+
     # CLV-gated recalibration: the engine's probabilities for THE CALL's EV are
     # nudged by settled-leg evidence ONLY where a market has enough logged CLV
     # legs (engine/recalibration.py). Inert until that evidence exists — right

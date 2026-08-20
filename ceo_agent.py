@@ -122,7 +122,7 @@ class CEOAgent:
             tc = _import_telegram_commands()
             Reply = tc.Reply
             _keyboard = tc._keyboard
-        except Exception:
+        except ImportError:
             # Fallback if telegram_commands not available
             class Reply(str):
                 keyboard: dict | None = None
@@ -608,7 +608,8 @@ class CEOAgent:
                 result = probe_fn()
                 if result.level == "ok":
                     passed += 1
-            except Exception:
+            except (RuntimeError, ValueError, KeyError, AttributeError):
+                # Health probes may raise these if a subsystem is down
                 pass
         total = len(probes)
         return f"🏥 **Health**: {passed}/{total} probes OK"
@@ -706,8 +707,9 @@ class CEOAgent:
                         gid,
                         f"active ({league_count} leagues, agents: {', '.join(agents_list)})"
                     ))
-        except Exception:
-            pass  # Silently skip if config not available
+        except (FileNotFoundError, json.JSONDecodeError, KeyError):
+            # Silently skip if config not available or malformed
+            pass
 
         return agents
 
@@ -783,7 +785,8 @@ class CEOAgent:
                     lost = sum(1 for g in graded if g.get("hit") is False)
                     pending = sum(1 for g in graded if g.get("hit") is None)
                     parts.append(f"\n📈 **Yesterday ({yesterday})**: {won}W / {lost}L / {pending}P")
-        except Exception:
+        except (RuntimeError, ValueError, KeyError, AttributeError):
+            # Brain may raise these if DB is unavailable or data malformed
             pass
 
         return "\n".join(parts)

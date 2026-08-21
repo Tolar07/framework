@@ -562,6 +562,68 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         except Exception as e:
             all_flags.append(f"pipeline bus stage 1 handoff failed ({e})")
 
+    # ===== STAGE A ARTIFACT LOADING (4am fixture extraction output) =====
+    # If a Stage A artifact exists for today's board date, load it instead of
+    # re-running the full fixture scan. The artifact is produced by the 04:00
+    # GitHub Actions workflow (fixture-extraction.yml) and contains the complete
+    # fixture universe with ID403 verification already applied.
+    from pipeline.fixture_extraction import StageAOutput, VerifiedFixture
+    from pathlib import Path
+    stage_a_path = Path(__file__).parent / "data" / "stage_a_output" / f"fixtures_{board_date}_{fixtures_season or season}.json"
+    board: list = []
+    fixture_sources: set[str] = set()
+    fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0,
+                 "xg_leagues": 0}
+    stage_a_loaded = False
+
+    if stage_a_path.exists():
+        try:
+            stage_a = StageAOutput.load(stage_a_path)
+            # Convert VerifiedFixture objects to the board fixture format
+            # expected by the rest of the pipeline (scan_one_league output)
+            from orchestrator_DEPRECATED import FixtureRow
+            for vf in stage_a.fixtures:
+                if vf.kickoff_date == board_date:
+                    fixture_sources.add(vf.source or "stage_a")
+                    # Build a minimal FixtureRow-compatible object
+                    # The pipeline expects objects with fixture, kickoff_date, league attrs
+                    bf = type('BoardFixture', (), {
+                        'fixture': f"{vf.home_team} v {vf.away_team} ({vf.league})",
+                        'home_team': vf.home_team,
+                        'away_team': vf.away_team,
+                        'league': vf.league,
+                        'kickoff_utc': vf.kickoff_utc,
+                        'kickoff_date': vf.kickoff_date,
+                        'verification_tier': vf.verification_tier,
+                        'verification_note': vf.verification_note,
+                        'verification_factors': vf.verification_factors,
+                        'source': vf.source,
+                        'source_tier': vf.source_tier,
+                        'status': vf.status,
+                        'flags': vf.flags,
+                        'probs': None,  # Will be filled by engine later
+                        'elo_probs': None,
+                        'xg_probs': None,
+                        'on_deploy_shortlist': False,
+                        'best_market': None,
+                        'best_price': None,
+                        'best_bookmaker': None,
+                        'best_n_books': None,
+                        'best_mes_ev': None,
+                        'best_model_prob': None,
+                        'best_market_key': None,
+                        'cal_adjustment': None,
+                    })()
+                    board.append(bf)
+            stage_a_loaded = True
+            all_flags.append(f"Stage A artifact loaded: {len(board)} fixtures for {board_date} from {stage_a_path.name}")
+            fit_stats["leagues_scanned"] = len(stage_a.leagues_scanned)
+            fit_stats["leagues_with_fixtures"] = stage_a.stats.get("leagues_with_fixtures", 0)
+        except Exception as e:
+            all_flags.append(f"Stage A artifact load failed ({e}) — falling back to live scan")
+            board = []
+            fixture_sources = set()
+
     # --- scan every league into one board (ID402 wide eyes). The board is for
     # --- ONE day (Architect 2026-08-10, reversing the 2026-08-07 3-day rolling
     # --- window): the automated daily run produces today's matches only, and a
@@ -571,22 +633,28 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- quiet day is an honest quiet board, never a wider net.
     # --- Each league reports its fit outcome (reused vs refit, seeded vs cold)
     # --- so the run row proves the brain's speed win rather than assuming it.
-    fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0,
-                 "xg_leagues": 0}
-    board: list = []
-    fixture_sources: set[str] = set()
-    for lg in leagues:
-        st: dict = {}
-        slice_, flags = scan_one_league(
-            lg, season, fixtures_season=fixtures_season,
-            days_ahead=scan_window,
-            brain=brain, stats=st)
-        board += slice_
-        all_flags += flags
-        for k in fit_stats:
-            fit_stats[k] += int(st.get(k, False))
-        if st.get("fixture_source"):
-            fixture_sources.add(st["fixture_source"])
+    if not stage_a_loaded:
+        for lg in leagues:
+            st: dict = {}
+            slice_, flags = scan_one_league(
+                lg, season, fixtures_season=fixtures_season,
+                days_ahead=scan_window,
+                brain=brain, stats=st)
+            board += slice_
+            all_flags += flags
+            for k in fit_stats:
+                fit_stats[k] += int(st.get(k, False))
+            if st.get("fixture_source"):
+                fixture_sources.add(st["fixture_source"])
+            # Strict-day pacing (today-only runs only): a league with no today
+            # fixture in its cached season feed falls back to TheSportsDB's
+            # eventsday endpoint. The free key rate-limits at ~1 req/s, so a
+            # back-to-back per-league burst can 429 a league that DOES have today's
+            # fixtures into a false NO DATA — PENDING. Pacing the per-league calls
+            # keeps that from happening. Future-target runs use the cached season
+            # feed and need no throttle (inert there).
+            if scan_window == 0:
+                time.sleep(1.1)
         # Strict-day pacing (today-only runs only): a league with no today
         # fixture in its cached season feed falls back to TheSportsDB's
         # eventsday endpoint. The free key rate-limits at ~1 req/s, so a

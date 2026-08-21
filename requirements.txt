@@ -3,3 +3,4 @@ scipy>=1.11
 requests>=2.31
 anthropic>=0.40
 playwright>=1.40
+tweepy>=4.14

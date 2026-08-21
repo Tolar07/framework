@@ -49,6 +49,15 @@ HONEST_CAVEAT = (
 )
 
 
+# Board delivery gate — set TELEGRAM_BOARD_DELIVERY_ENABLED=0 to disable the
+# 07:00 daily board push while keeping command responses (/code, /help, etc.)
+# working. Command responses use send_telegram() directly, not deliver().
+TELEGRAM_BOARD_DELIVERY_ENABLED = (
+    os.environ.get("TELEGRAM_BOARD_DELIVERY_ENABLED", "1").lower()
+    not in ("0", "false", "no", "off")
+)
+
+
 def _stamp(body: str) -> str:
     """Architect banner (2026-08-11) + the caveat that never comes off."""
     banner = "##########OLP XDV#########"
@@ -174,11 +183,21 @@ def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]
     Disk first, deliberately: a failed send must never lose the board. The
     boolean matters — the caller previously discarded it and logged "run
     completed OK" even when three message parts had failed, which is the same
-    silent-success failure the scheduler itself suffered from."""
+    silent-success failure the scheduler itself suffered from.
+
+    Board delivery can be gated OFF via TELEGRAM_BOARD_DELIVERY_ENABLED=0.
+    When disabled, the board is still written to disk but NOT sent to Telegram.
+    Command responses (/code, /help, etc.) use send_telegram() directly and
+    are NOT affected by this gate."""
     notes: list[str] = []
     if save_to:
         save_to.parent.mkdir(parents=True, exist_ok=True)
         save_to.write_text(_stamp(body), encoding="utf-8")
         notes.append(f"board saved to {save_to}")
+
+    if not TELEGRAM_BOARD_DELIVERY_ENABLED:
+        notes.append("TELEGRAM_BOARD_DELIVERY_ENABLED=0 — board NOT sent to Telegram")
+        return False, notes
+
     ok, send_notes = send_telegram(body)
     return ok, notes + send_notes

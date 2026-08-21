@@ -308,7 +308,7 @@ _MARKET_UI_MAP = {
 }
 
 
-def _click_market_on_match_page(page: Page, market_key: str) -> bool:
+def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = None) -> bool:
     """Drive a market selection on a match page, best-effort.
 
     Generic clicker for markets that require navigating the match page tabs.
@@ -316,12 +316,20 @@ def _click_market_on_match_page(page: Page, market_key: str) -> bool:
     MANUAL (HR35) rather than guessed.
 
     NOTE: direct `/match/{id}` navigation TIMES OUT on SportyBet NG (verified
-    live 2026-08-09) — the SPA won't render it standalone. This path is a
-    fallback only; the league-page expand path (see
-    `_click_btts_on_league_page`) is what actually works."""
+    live 2026-08-09) — the SPA won't render it standalone. However, for DC,
+    DNB, HT/FT, CS markets these are ONLY on the match page, so we must try.
+    We navigate to the match page first, then click the tab and outcome."""
     mapping = _MARKET_UI_MAP.get(market_key)
     if not mapping:
         return False
+
+    # Navigate to match page first (if fixture_id provided)
+    if fixture_id:
+        try:
+            page.goto(f"https://www.sportybet.com/ng/match/{fixture_id}", wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_timeout(3500)
+        except Exception:
+            return False
 
     tab_label = mapping["tab"]
     outcome_label = mapping["outcome"]
@@ -366,7 +374,7 @@ def _click_market_on_match_page(page: Page, market_key: str) -> bool:
     # Strategy 3: Fallback for alternative tab names (BTTS)
     if market_key in ("BTTS_YES", "BTTS_NO"):
         alt_key = market_key + "_ALT"
-        return _click_market_on_match_page(page, alt_key)
+        return _click_market_on_match_page(page, alt_key, fixture_id)
 
     return False
 
@@ -597,10 +605,23 @@ def read_betslip_combined_odds(page: Page) -> Optional[float]:
                         candidates.append((val, False))
     if not candidates:
         return None
-    # Sort by: (1) on combined line first, (2) value descending (largest wins)
-    # Leg prices are all <= 2.00 under the cap, so the accumulated product
-    # dominates every leg price. For a single it is the only candidate.
-    candidates.sort(key=lambda x: (not x[1], -x[0]))
+    # Sort by: (1) on combined line first, (2) value CLOSEST to expected range
+    # The combined odds should be in a reasonable range (1.01 - 100 typically).
+    # Catastrophic UI bugs show payouts (stake * odds) like 534740, 6000000.
+    # Filter out absurdly large values that are clearly payouts, not odds.
+    filtered = [(v, on_line) for v, on_line in candidates if v <= 200.0]
+    if filtered:
+        # Among reasonable values, prefer those on combined line, then largest
+        filtered.sort(key=lambda x: (not x[1], -x[0]))
+        return round(filtered[0][0], 2)
+    # Fallback: if ALL candidates are > 200, take the one on combined line
+    # that's closest to a plausible odds value (smallest of the large ones)
+    on_line = [(v, on_line) for v, on_line in candidates if on_line]
+    if on_line:
+        on_line.sort(key=lambda x: x[0])  # smallest first
+        return round(on_line[0][0], 2)
+    # Last resort: smallest overall
+    candidates.sort(key=lambda x: x[0])
     return round(candidates[0][0], 2)
 
 
@@ -795,8 +816,11 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 else:
                     current_league_on_page = None
                     entry["reason"] = "league page did not load"
-            elif leg.get("market_key") in ("DNB_HOME", "DNB_AWAY"):
-                # Draw No Bet — handle on league page via match-page navigation fallback
+            elif leg.get("market_key") in ("DC_1X", "DC_X2", "DC_12"):
+                # Double Chance — handle on match page (SportyBet renders DC under
+                # "Double Chance" tab on the match page). The league page only
+                # shows 1X2 and Totals markets. Navigate to match page and click
+                # the DC tab.
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
                     nav_ok = bool(mapping) and _navigate_to_league(
@@ -806,7 +830,24 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                     else:
                         current_league_on_page = None
                 if current_league_on_page == league:
-                    ok = _click_market_on_match_page(page, leg["market_key"])
+                    ok = _click_market_on_match_page(page, leg["market_key"], fx["fixture_id"])
+                    if not ok:
+                        entry["reason"] = f"DC selection could not be driven for {leg['market_key']}"
+                else:
+                    entry["reason"] = "league page did not load"
+            elif leg.get("market_key") in ("DNB_HOME", "DNB_AWAY"):
+                # Draw No Bet — handle on match page (SportyBet renders DNB under
+                # "Draw No Bet" tab on the match page).
+                if current_league_on_page != league:
+                    mapping = SPORTYBET_LEAGUES.get(league)
+                    nav_ok = bool(mapping) and _navigate_to_league(
+                        page, mapping.country, mapping.league)
+                    if nav_ok:
+                        current_league_on_page = league
+                    else:
+                        current_league_on_page = None
+                if current_league_on_page == league:
+                    ok = _click_market_on_match_page(page, leg["market_key"], fx["fixture_id"])
                     if not ok:
                         entry["reason"] = f"DNB selection could not be driven for {leg['market_key']}"
                 else:
@@ -822,7 +863,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                     else:
                         current_league_on_page = None
                 if current_league_on_page == league:
-                    ok = _click_market_on_match_page(page, leg["market_key"])
+                    ok = _click_market_on_match_page(page, leg["market_key"], fx["fixture_id"])
                     if not ok:
                         entry["reason"] = f"HT/FT selection could not be driven for {leg['market_key']}"
                 else:
@@ -838,7 +879,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                     else:
                         current_league_on_page = None
                 if current_league_on_page == league:
-                    ok = _click_market_on_match_page(page, leg["market_key"])
+                    ok = _click_market_on_match_page(page, leg["market_key"], fx["fixture_id"])
                     if not ok:
                         entry["reason"] = f"Correct Score selection could not be driven for {leg['market_key']}"
                 else:

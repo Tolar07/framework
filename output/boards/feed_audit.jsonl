@@ -31,3 +31,4 @@
 {"ts": "2026-08-20T22:19:36.387465+00:00", "date": "2026-08-20", "gate": {"legs_with_clv": 17, "gate_requirement": 30, "mean_clv_pct": -2.467, "gate_met": false, "architect_signed_off": true, "override": true}}
 {"ts": "2026-08-21T12:33:57.059686+00:00", "date": "2026-08-21", "gate": {"legs_with_clv": 17, "gate_requirement": 30, "mean_clv_pct": -2.467, "gate_met": false, "architect_signed_off": true, "override": true}}
 {"ts": "2026-08-21T15:22:55.689525+00:00", "date": "2026-08-21", "gate": {"legs_with_clv": 17, "gate_requirement": 0, "mean_clv_pct": -2.467, "gate_met": false, "architect_signed_off": true, "override": true}}
+{"ts": "2026-08-21T16:35:05.236623+00:00", "date": "2026-08-21", "gate": {"legs_with_clv": 17, "gate_requirement": 0, "mean_clv_pct": -2.467, "gate_met": false, "architect_signed_off": true, "override": true}}

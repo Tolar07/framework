@@ -659,61 +659,78 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
                         produced_bet: Optional[dict] = None,
                         production: Optional[object] = None,
                         codes: Optional[dict] = None) -> str:
-    """`stacked=True` renders the HR53-preferred per-fixture blocks for PART 1
-    (the decision-first section you actually act on) while PART 2 keeps the
-    frozen wide table as the reference board. Set stacked=False for the
-    original all-tables v303.11 layout. Optional produced_bet is the day's
-    produced-bet record (ID415) for the saved board block.
+    """FOUR-TABLE OUTPUT STRUCTURE (Architect 2026-08-21):
 
-    THE CALL is TODAY'S fixtures only (standing rule 2026-08-09) — the wider
-    scan stays the 3-day reference, the call is today's slate. `production`
-    (the day's ProductionBets: Acca A + split accas + singles) renders the
-    production block before sign-off; `codes` is the SportyBet booking-code
-    result dict (None renders honest NO DATA — PENDING per item). Computed from
-    `board` when `production` is not provided."""
+    TABLE 1 — LAYER 2 FULL GRID: Every fixture × every market probability with
+    Selected Pick column, one shared booking code for the entire layer.
+
+    TABLE 2 — LAYER 1 COMPACT: One row per fixture with its own booking code.
+
+    TABLE 3 — ACCA ROUTE: Only capital-eligible fixtures grouped into accas,
+    each acca with its own booking code.
+
+    TABLE 4 — THE PICK: Final recommendation after all three tables.
+
+    All markets considered (ID405 gate open per Architect 2026-08-11).
+    Alternative markets (BTTS, Double Chance, Over/Under 1.5, Over/Under 2.5,
+    Draw No Bet, Over/Under 3.5, Over/Under 0.5, HT/FT, Correct Score) are
+    evaluated for every fixture and the best-EV market is selected per fixture."""
     today = date.today().isoformat()
     shortlist = [bf for bf in board
                  if bf.on_deploy_shortlist and bf.kickoff_date == today]
     if production is None:
         production = build_production_bets(board)
 
-    if stacked:
-        # ID409 + HR53: PART 1 THE CALL renders as a FULL DETAIL TABLE (one row
-        # per today's fixture, all probability/opinion/edge columns inline), not
-        # stacked prose blocks. The stacked fixture-block form is retained in
-        # render_fixture_block for callers that want it (e.g. /why), but the
-        # shipped board uses the table.
-        part1 = render_part1_the_call(shortlist)
-    else:
-        part1 = render_part1_the_call(shortlist)
+    # Build odds index for market pricing (same as Agent 5)
+    odds_index = None
+    try:
+        from data.multi_source_concrete import get_odds as multi_get_odds
+        import pipeline.odds as odds_mod
+        from booking.bridge import load_all_sportybet_fixtures
+        odds_index = {}
+        odds_leagues = set(fx["league"] for fx in board if hasattr(fx, "fixture"))
+        for lg in sorted(odds_leagues):
+            try:
+                fixtures = multi_get_odds(lg)
+                odds_index.update(odds_mod.index_by_fixture(fixtures))
+            except Exception:
+                pass
+        # Merge SportyBet cache odds
+        sb_fixtures_by_league = load_all_sportybet_fixtures(days_ahead=3, leagues=list(odds_leagues))
+        for lg, sb_fixtures in sb_fixtures_by_league.items():
+            for sb_fx in sb_fixtures:
+                if sb_fx.home_odds and sb_fx.draw_odds and sb_fx.away_odds:
+                    key = (sb_fx.home_team, sb_fx.away_team)
+                    if key not in odds_index:
+                        sb_odds = odds_mod.FixtureOdds(
+                            league=lg, home_team=sb_fx.home_team, away_team=sb_fx.away_team,
+                            kickoff_utc=sb_fx.kickoff_utc,
+                            home=odds_mod.MarketQuote(price=sb_fx.home_odds, bookmaker="SportyBet Nigeria", n_books=1, captured_at=sb_fx.kickoff_utc),
+                            draw=odds_mod.MarketQuote(price=sb_fx.draw_odds, bookmaker="SportyBet Nigeria", n_books=1, captured_at=sb_fx.kickoff_utc),
+                            away=odds_mod.MarketQuote(price=sb_fx.away_odds, bookmaker="SportyBet Nigeria", n_books=1, captured_at=sb_fx.kickoff_utc),
+                            source="sportybet-cache", source_tier="T2"
+                        )
+                        odds_index[key] = sb_odds
+    except Exception:
+        odds_index = None
 
     parts = [
         render_part0(mode, phase, leagues_scanned, calibration_count, mean_clv, data_flags),
         "",
-        # HR57 (proposed 2026-08-15): compact Layer 2 fast-scan ABOVE full grid.
-        # Same booking code across the whole Layer 2 (ID409).
-        render_part2_compact(board, codes=codes),
+        # TABLE 1: LAYER 2 FULL GRID
+        render_layer2_full_grid(board, codes=codes, odds_index=odds_index),
         "",
-        # ID409 RATIFIED 2026-08-15 (Architect sign-off — frozen-contract
-        # supersession): Detail(PART 2, THE SCAN — Layer 2 grid) → Call
-        # (PART 1, THE CALL — Layer 1 summary + pick) → Acca Route
-        # (PRODUCTION BETS) → THE PICK (sign-off). Previously v303.11 froze
-        # Part 1 before Part 2; this explicit reverse is now the shipped order.
-        render_part2_the_scan(board),
+        # TABLE 2: LAYER 1 COMPACT
+        render_layer1_compact(board, codes=codes, odds_index=odds_index),
         "",
-        part1,
+        # TABLE 3: ACCA ROUTE
+        render_acca_route(board, production, codes=codes, odds_index=odds_index),
         "",
-        render_part3_rejected(board, production=production),
+        # TABLE 4: THE PICK
+        render_the_pick(board, production, shortlist, codes=codes),
         "",
-        render_part4_data_integrity(board),
+        render_part5_signoff(),
     ]
-    if produced_bet is not None:
-        parts += ["", render_produced_bet_block(produced_bet)]
-    # The production block — Acca A (headline) -> split accas -> singles, each
-    # with its booking code (production intent 2026-08-10). Before the sign-off
-    # so the sign-off stays the final word.
-    parts += ["", render_production_block(production, codes=codes, today=today)]
-    parts += ["", render_part5_signoff()]
     return "\n".join(parts)
 
 

@@ -327,7 +327,7 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
     if fixture_id:
         try:
             page.goto(f"https://www.sportybet.com/ng/match/{fixture_id}", wait_until="domcontentloaded", timeout=30000)
-            page.wait_for_timeout(3500)
+            page.wait_for_timeout(5000)  # Increased wait for full render
         except Exception:
             return False
 
@@ -340,6 +340,8 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
         f"[role='tab']:has-text('{tab_label}') >> visible=true",
         f".tab:has-text('{tab_label}') >> visible=true",
         f"div.tab:has-text('{tab_label}') >> visible=true",
+        f"span:has-text('{tab_label}') >> visible=true",
+        f"button:has-text('{tab_label}') >> visible=true",
     ]
 
     outcome_locators = [
@@ -348,6 +350,8 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
         f".m-outcome:has-text('{outcome_label}') >> visible=true",
         f"[data-outcome='{outcome_label}'] >> visible=true",
         f".outcome:has-text('{outcome_label}') >> visible=true",
+        f"span:has-text('{outcome_label}') >> visible=true",
+        f"button:has-text('{outcome_label}') >> visible=true",
     ]
 
     # Strategy 1: Click tab first, then outcome
@@ -355,9 +359,9 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
         for out_loc in outcome_locators:
             try:
                 page.locator(tab_loc).first.click()
-                page.wait_for_timeout(1500)
+                page.wait_for_timeout(2000)  # Increased wait
                 page.locator(out_loc).first.click()
-                page.wait_for_timeout(800)
+                page.wait_for_timeout(1500)
                 return True
             except Exception:
                 continue
@@ -366,7 +370,7 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
     for out_loc in outcome_locators:
         try:
             page.locator(out_loc).first.click()
-            page.wait_for_timeout(800)
+            page.wait_for_timeout(1500)
             return True
         except Exception:
             continue
@@ -583,10 +587,13 @@ def read_betslip_combined_odds(page: Page) -> Optional[float]:
         except Exception:
             continue
         # First pass: find numbers near "Total"/"Combined"/"Odds" labels
-        # (the combined odds is usually next to such text)
+        # (the combined odds is usually next to such text).
+        # IMPROVEMENT: Ignore values near "Payout" or "Stake".
         lines = txt.split("\n")
         for line in lines:
             line_lower = line.lower()
+            if any(kw in line_lower for kw in ("payout", "stake")):
+                continue
             is_combined_line = any(kw in line_lower for kw in
                                    ("total", "combined", "odds", "potential"))
             for pat in (pat_decimal, pat_comma, pat_int_large):
@@ -606,23 +613,32 @@ def read_betslip_combined_odds(page: Page) -> Optional[float]:
     if not candidates:
         return None
     # Sort by: (1) on combined line first, (2) value CLOSEST to expected range
-    # The combined odds should be in a reasonable range (1.01 - 100 typically).
-    # Catastrophic UI bugs show payouts (stake * odds) like 534740, 6000000.
-    # Filter out absurdly large values that are clearly payouts, not odds.
-    filtered = [(v, on_line) for v, on_line in candidates if v <= 200.0]
+    # The combined odds should be in a reasonable range (1.01 - 50 typically for
+    # production slips). Catastrophic UI bugs show payouts (stake * odds) like
+    # 534740, 6000000. Also filter out values that are clearly payouts (often
+    # ending in .00 or .50, very large round numbers).
+    # Threshold: typical max combined odds ~50, so 200 is already very generous.
+    # But 123 is still a payout. Lower threshold to 100.
+    filtered = [(v, on_line) for v, on_line in candidates if v <= 100.0]
     if filtered:
         # Among reasonable values, prefer those on combined line, then largest
         filtered.sort(key=lambda x: (not x[1], -x[0]))
         return round(filtered[0][0], 2)
-    # Fallback: if ALL candidates are > 200, take the one on combined line
-    # that's closest to a plausible odds value (smallest of the large ones)
+    # Fallback: if ALL candidates are > 100, they are likely payouts.
+    # Log and return None - this slip cannot be verified.
     on_line = [(v, on_line) for v, on_line in candidates if on_line]
     if on_line:
+        # Check if the smallest on-line value is a plausible odds
         on_line.sort(key=lambda x: x[0])  # smallest first
-        return round(on_line[0][0], 2)
+        smallest = on_line[0][0]
+        if smallest <= 100.0:
+            return round(smallest, 2)
     # Last resort: smallest overall
     candidates.sort(key=lambda x: x[0])
-    return round(candidates[0][0], 2)
+    smallest = candidates[0][0]
+    if smallest <= 100.0:
+        return round(smallest, 2)
+    return None  # All candidates are payouts, cannot verify
 
 
 # Private alias for internal use

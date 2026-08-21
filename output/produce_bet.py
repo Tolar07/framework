@@ -734,6 +734,360 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
     return "\n".join(parts)
 
 
+def _get_fixture_best_market(bf: BoardFixture, odds_index: Optional[dict]) -> tuple[str, Optional[float], Optional[float], Optional[str]]:
+    """Get the best market for a fixture based on EV (model_prob * price - 1).
+    Returns (market_name, model_prob, price, bookmaker) or (NO DATA, None, None, None)."""
+    if bf.probs is None:
+        return ("NO DATA — PENDING", None, None, None)
+
+    p = bf.probs
+    best_ev = None
+    best_market = None
+    best_price = None
+    best_bookmaker = None
+    best_model_prob = None
+
+    # Get fixture odds from index
+    fixture_key = None
+    if odds_index:
+        # Find matching fixture in odds index
+        for key, fx_odds in odds_index.items():
+            if key[0] == p.home_team and key[1] == p.away_team:
+                fixture_key = key
+                break
+
+    if not fixture_key:
+        # Fall back to stored best_market on BoardFixture
+        if bf.best_market and bf.best_price is not None:
+            return (bf.best_market, bf.best_model_prob, bf.best_price, bf.best_bookmaker)
+        # Fall back to SportyBet odds
+        if bf.sb_home_odds is not None or bf.sb_draw_odds is not None or bf.sb_away_odds is not None:
+            # Find best EV among SportyBet 1X2
+            if bf.sb_home_odds:
+                ev = mes_numeric_ev(p.p_home, bf.sb_home_odds)
+                if best_ev is None or (ev is not None and ev > best_ev):
+                    best_ev = ev
+                    best_market = f"{p.home_team} to win"
+                    best_price = bf.sb_home_odds
+                    best_bookmaker = "SportyBet Nigeria"
+                    best_model_prob = p.p_home
+            if bf.sb_draw_odds:
+                ev = mes_numeric_ev(p.p_draw, bf.sb_draw_odds)
+                if best_ev is None or (ev is not None and ev > best_ev):
+                    best_ev = ev
+                    best_market = "Draw"
+                    best_price = bf.sb_draw_odds
+                    best_bookmaker = "SportyBet Nigeria"
+                    best_model_prob = p.p_draw
+            if bf.sb_away_odds:
+                ev = mes_numeric_ev(p.p_away, bf.sb_away_odds)
+                if best_ev is None or (ev is not None and ev > best_ev):
+                    best_ev = ev
+                    best_market = f"{p.away_team} to win"
+                    best_price = bf.sb_away_odds
+                    best_bookmaker = "SportyBet Nigeria"
+                    best_model_prob = p.p_away
+            if best_market:
+                return (best_market, best_model_prob, best_price, best_bookmaker)
+        return ("NO DATA — PENDING", None, None, None)
+
+    fx_odds = odds_index[fixture_key]
+
+    # Check ALL EDGE_MARKETS for best EV
+    for key in mkt.EDGE_MARKETS:
+        model_p = mkt.model_prob(key, p)
+        if model_p is None:
+            continue
+        quote_obj = mkt.quote(key, fx_odds)
+        if quote_obj is None or quote_obj.price is None:
+            continue
+        price = quote_obj.price
+        ev = model_p * price - 1
+        if best_ev is None or ev > best_ev:
+            best_ev = ev
+            best_market = mkt.display(key, p.home_team, p.away_team)
+            best_price = price
+            best_bookmaker = quote_obj.bookmaker
+            best_model_prob = model_p
+
+    if best_market:
+        return (best_market, best_model_prob, best_price, best_bookmaker)
+    return ("NO DATA — PENDING", None, None, None)
+
+
+def _get_all_market_probs(bf: BoardFixture, odds_index: Optional[dict]) -> dict[str, tuple[Optional[float], Optional[float], Optional[str]]]:
+    """Get all market probabilities, prices, and bookmakers for a fixture.
+    Returns dict: market_key -> (model_prob, price, bookmaker)."""
+    if bf.probs is None:
+        return {}
+
+    p = bf.probs
+    result = {}
+
+    fixture_key = None
+    if odds_index:
+        for key, fx_odds in odds_index.items():
+            if key[0] == p.home_team and key[1] == p.away_team:
+                fixture_key = key
+                break
+
+    if not fixture_key:
+        return {}
+
+    fx_odds = odds_index[fixture_key]
+
+    for key in mkt.EDGE_MARKETS:
+        model_p = mkt.model_prob(key, p)
+        quote_obj = mkt.quote(key, fx_odds)
+        price = quote_obj.price if quote_obj else None
+        bookmaker = quote_obj.bookmaker if quote_obj else None
+        result[key] = (model_p, price, bookmaker)
+
+    return result
+
+
+def _format_prob_cell(prob: Optional[float]) -> str:
+    """Format a probability as percentage or '—' if None."""
+    if prob is None:
+        return "—"
+    return f"{round(prob * 100)}%"
+
+
+def _format_price_cell(price: Optional[float]) -> str:
+    """Format a price or '—' if None."""
+    if price is None:
+        return "—"
+    return f"{price:.2f}"
+
+
+def render_layer2_full_grid(board: list[BoardFixture],
+                             codes: Optional[dict] = None,
+                             odds_index: Optional[dict] = None) -> str:
+    """TABLE 1 — LAYER 2 FULL GRID: Every fixture × every market probability
+    with Selected Pick column, one shared booking code for the entire layer."""
+
+    L2_CODE_LABEL = "Layer 2"
+    layer_code = None
+    if codes:
+        for r in codes.get("results") or []:
+            if r.get("label") == L2_CODE_LABEL and r.get("code"):
+                layer_code = r["code"]
+                break
+    code_cell = layer_code or "NO DATA — PENDING"
+
+    # Build header with all EDGE_MARKETS
+    market_headers = [mkt.display(k, "Home", "Away") for k in mkt.EDGE_MARKETS]
+    header_cols = ["Fixture", "Selected Pick"] + market_headers + ["Booking Code"]
+
+    rows = ["TABLE 1 — LAYER 2 FULL GRID",
+            " | ".join(header_cols)]
+
+    for bf in board:
+        if bf.probs is None:
+            row = [bf.fixture, "NO DATA — PENDING"] + ["—"] * len(mkt.EDGE_MARKETS) + [code_cell]
+            rows.append(" | ".join(row))
+            continue
+
+        p = bf.probs
+        # Get best market for Selected Pick
+        best_market_name, _, _, _ = _get_fixture_best_market(bf, odds_index)
+
+        # Get all market probabilities
+        market_probs = _get_all_market_probs(bf, odds_index)
+
+        # Build row: Fixture | Selected Pick | market1_prob | market2_prob | ... | Booking Code
+        prob_cells = []
+        for key in mkt.EDGE_MARKETS:
+            model_p, price, bookmaker = market_probs.get(key, (None, None, None))
+            # Show probability if available, else price if available, else —
+            if model_p is not None:
+                prob_cells.append(_format_prob_cell(model_p))
+            elif price is not None:
+                prob_cells.append(f"@{_format_price_cell(price)}")
+            else:
+                prob_cells.append("—")
+
+        row = [bf.fixture, best_market_name] + prob_cells + [code_cell]
+        rows.append(" | ".join(row))
+
+    return "\n".join(rows)
+
+
+def render_layer1_compact(board: list[BoardFixture],
+                           codes: Optional[dict] = None,
+                           odds_index: Optional[dict] = None) -> str:
+    """TABLE 2 — LAYER 1 COMPACT: One row per fixture with its own booking code.
+    Only deploy-eligible fixtures (on_deploy_shortlist)."""
+
+    shortlist = [bf for bf in board if bf.on_deploy_shortlist]
+    if not shortlist:
+        return ("TABLE 2 — LAYER 1 COMPACT\n"
+                "No deploy-eligible fixtures (empty shortlist).")
+
+    rows = ["TABLE 2 — LAYER 1 COMPACT",
+            "Fixture | Selected Pick | Model Prob | Price | Bookmaker | EV | Booking Code"]
+
+    for bf in shortlist:
+        if bf.probs is None:
+            rows.append(f"{bf.fixture} | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING")
+            continue
+
+        p = bf.probs
+        best_market_name, model_prob, price, bookmaker = _get_fixture_best_market(bf, odds_index)
+
+        # Calculate EV
+        ev_str = "—"
+        if model_prob is not None and price is not None:
+            ev = model_prob * price - 1
+            ev_str = f"{ev:+.2%}"
+
+        # Get fixture-specific booking code
+        fixture_code = "NO DATA — PENDING"
+        if codes and codes.get("results"):
+            for r in codes["results"]:
+                # Try to match by fixture name in label
+                if bf.fixture in r.get("label", "") and r.get("code"):
+                    fixture_code = r["code"]
+                    break
+
+        prob_str = _format_prob_cell(model_prob)
+        price_str = _format_price_cell(price)
+        bookmaker_str = bookmaker or "—"
+
+        rows.append(f"{bf.fixture} | {best_market_name} | {prob_str} | {price_str} | {bookmaker_str} | {ev_str} | {fixture_code}")
+
+    return "\n".join(rows)
+
+
+def render_acca_route(board: list[BoardFixture],
+                       production: Optional[object] = None,
+                       codes: Optional[dict] = None,
+                       odds_index: Optional[dict] = None) -> str:
+    """TABLE 3 — ACCA ROUTE: Only capital-eligible fixtures grouped into accas,
+    each acca with its own booking code."""
+
+    if production is None:
+        from engine.acca import build_production_bets
+        production = build_production_bets(board)
+
+    rows = ["TABLE 3 — ACCA ROUTE"]
+
+    if not hasattr(production, 'accas') or not production.accas:
+        rows.append("No capital-eligible accas generated.")
+        return "\n".join(rows)
+
+    for acca in production.accas:
+        label = acca.get("label", "Acca")
+        combined_odds = acca.get("combined_odds", 0)
+        combined_prob = acca.get("combined_prob", 0)
+        n_legs = acca.get("n_legs", 0)
+        legs = acca.get("legs", [])
+
+        # Get acca-specific booking code
+        acca_code = "NO DATA — PENDING"
+        if codes and codes.get("results"):
+            for r in codes["results"]:
+                if label in r.get("label", "") and r.get("code"):
+                    acca_code = r["code"]
+                    break
+
+        rows.append(f"")
+        rows.append(f"{label} — Combined Odds: {combined_odds:.2f} | Combined Prob: {combined_prob:.2%} | Legs: {n_legs} | Booking Code: {acca_code}")
+        rows.append("Fixture | Market | Price | Model Prob | EV | Verification")
+
+        for leg in legs:
+            fixture = leg.get("fixture", "?")
+            market_name = leg.get("market_name", "?")
+            price = leg.get("price", 0)
+            prob = leg.get("prob", 0)
+            ev = leg.get("ev", 0)
+            verification = leg.get("verification_stamp", "")
+
+            rows.append(f"{fixture} | {market_name} | {price:.2f} | {prob:.2%} | {ev:+.2%} | {verification}")
+
+    return "\n".join(rows)
+
+
+def render_the_pick(board: list[BoardFixture],
+                     production: Optional[object] = None,
+                     shortlist: Optional[list[BoardFixture]] = None,
+                     codes: Optional[dict] = None) -> str:
+    """TABLE 4 — THE PICK: Final recommendation after all three tables."""
+
+    rows = ["TABLE 4 — THE PICK"]
+
+    if shortlist is None:
+        today = date.today().isoformat()
+        shortlist = [bf for bf in board if bf.on_deploy_shortlist and bf.kickoff_date == today]
+
+    if not shortlist:
+        rows.append("No deploy-eligible fixtures kicking off today — no pick.")
+        return "\n".join(rows)
+
+    # Primary recommendation: highest EV single from shortlist
+    best_single = None
+    best_ev = None
+
+    for bf in shortlist:
+        if bf.probs is None or bf.best_mes_ev is None:
+            continue
+        if best_ev is None or bf.best_mes_ev > best_ev:
+            best_ev = bf.best_mes_ev
+            best_single = bf
+
+    if best_single:
+        p = best_single.probs
+        rows.append(f"PRIMARY SINGLE: {best_single.fixture}")
+        rows.append(f"  Market: {best_single.best_market}")
+        rows.append(f"  Price: {best_single.best_price:.2f} ({best_single.best_bookmaker})")
+        rows.append(f"  Model Prob: {round((best_single.best_model_prob or 0)*100)}%")
+        rows.append(f"  MES EV: {best_single.best_mes_ev:+.2%}")
+        rows.append(f"  Verification: {stamp(best_single.verification)}")
+        if best_single.engine_divergence:
+            rows.append(f"  ⚠ Elo divergence: {best_single.engine_divergence}")
+        if best_single.goals_divergence:
+            rows.append(f"  ⚠ xG goals divergence: {best_single.goals_divergence}")
+
+        # Get booking code for this pick
+        pick_code = "NO DATA — PENDING"
+        if codes and codes.get("results"):
+            for r in codes["results"]:
+                if best_single.fixture in r.get("label", "") and r.get("code"):
+                    pick_code = r["code"]
+                    break
+        rows.append(f"  Booking Code: {pick_code}")
+
+    # Acca recommendation if available
+    if production and hasattr(production, 'accas') and production.accas:
+        acca = production.accas[0]  # Acca A is the headline
+        label = acca.get("label", "Acca A")
+        combined_odds = acca.get("combined_odds", 0)
+        combined_prob = acca.get("combined_prob", 0)
+        n_legs = acca.get("n_legs", 0)
+
+        acca_code = "NO DATA — PENDING"
+        if codes and codes.get("results"):
+            for r in codes["results"]:
+                if label in r.get("label", "") and r.get("code"):
+                    acca_code = r["code"]
+                    break
+
+        rows.append(f"")
+        rows.append(f"ACCA RECOMMENDATION: {label} ({n_legs} legs)")
+        rows.append(f"  Combined Odds: {combined_odds:.2f} | Combined Prob: {combined_prob:.2%}")
+        rows.append(f"  Booking Code: {acca_code}")
+        rows.append(f"  Legs:")
+        for leg in acca.get("legs", []):
+            rows.append(f"    · {leg.get('fixture','?')} — {leg.get('market_name','?')} @ {leg.get('price',0):.2f} (EV {leg.get('ev',0):+.2%})")
+
+    # Honest edge disclaimer
+    rows.append("")
+    rows.append("HONEST EDGE: This is an excellent informed process but NOT a demonstrated profitable edge.")
+    rows.append("Capital authority: THE ARCHITECT. Nothing here is live until deployed.")
+
+    return "\n".join(rows)
+
+
 def render_verify_results(rows: list[dict]) -> str:
     """VERIFY RESULTS frozen table. Each row dict:
     {fixture, ft, market_hits: {market: (pick, result, hit_bool)}, tally}

@@ -15,6 +15,10 @@ Checks (HR35 throughout — a finding states what was observed, never a guess):
                        season is a coverage gap: its fixtures render
                        NO DATA — PENDING forever, and the Phase 3 gate cannot
                        fill itself.
+  4. CALIBRATION DRIFT — per-probability-bin calibration tracking (P0 from
+                       STATE.md 2026-08-21): tracks hit rate vs model probability
+                       per bin to surface miscalibration at extremes (0.2-0.3,
+                       0.8-0.9 bins flagged in audit).
 
 Never raises: the monitor must never crash its own schedule. A cache dir that
 is unreadable is itself a finding, not a crash.
@@ -33,14 +37,22 @@ import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
+from collections import defaultdict
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 from data import football_data_source as fds  # noqa: E402
 from engine.leagues import WHITELISTED_LEAGUES  # noqa: E402
+from brain.store import Brain  # noqa: E402
 
 CACHE_DIR = fds.DEFAULT_CACHE_DIR
+
+# Calibration bins for probability tracking
+CALIBRATION_BINS = [
+    (0.0, 0.1), (0.1, 0.2), (0.2, 0.3), (0.3, 0.4), (0.4, 0.5),
+    (0.5, 0.6), (0.6, 0.7), (0.7, 0.8), (0.8, 0.9), (0.9, 1.0)
+]
 
 
 @dataclass
@@ -96,6 +108,66 @@ def _scan_duplicates(path: Path, season: str) -> list[str]:
             dupes.append(f"{date_} {h} v {a}")
         seen.add(key)
     return dupes
+
+
+def _check_calibration() -> list[DataFinding]:
+    """Check per-probability-bin calibration using settled predictions from the Brain.
+
+    Returns findings for bins with significant calibration error (>5pp absolute).
+    """
+    findings: list[DataFinding] = []
+    try:
+        with Brain(read_only=True) as brain:
+            # Query settled predictions directly - don't rely on predictions_for
+            # which returns most recent by predicted_at (unsettled recent runs).
+            # We need ALL settled predictions regardless of when they were predicted.
+            rows = brain.query("""
+                SELECT model_prob, hit, market, model_engine
+                FROM predictions
+                WHERE hit IS NOT NULL AND model_prob IS NOT NULL
+                ORDER BY id ASC
+            """)
+            preds = [{"model_prob": r["model_prob"], "hit": r["hit"],
+                      "market": r["market"], "model_engine": r["model_engine"]}
+                     for r in rows]
+
+        # Aggregate by probability bin
+        bin_data = defaultdict(lambda: {"n": 0, "hits": 0, "sum_prob": 0.0})
+
+        for p in preds:
+            prob = p["model_prob"]
+            hit = p["hit"]
+
+            for lo, hi in CALIBRATION_BINS:
+                if lo <= prob < hi:
+                    bin_data[(lo, hi)]["n"] += 1
+                    bin_data[(lo, hi)]["hits"] += hit
+                    bin_data[(lo, hi)]["sum_prob"] += prob
+                    break
+
+        # Check each bin for calibration error
+        for (lo, hi) in CALIBRATION_BINS:
+            data = bin_data[(lo, hi)]
+            if data["n"] < 5:  # Need minimum sample
+                continue
+
+            hit_rate = data["hits"] / data["n"]
+            avg_prob = data["sum_prob"] / data["n"]
+            err_pp = (hit_rate - avg_prob) * 100
+
+            # Flag bins with >5pp absolute calibration error
+            if abs(err_pp) > 5.0:
+                level = "error" if abs(err_pp) > 20.0 else "warn"
+                findings.append(DataFinding(
+                    level, "CALIBRATION",
+                    f"Bin {lo:.1f}-{hi:.1f}: n={data['n']}, hit_rate={hit_rate:.1%}, "
+                    f"avg_prob={avg_prob:.1%}, err={err_pp:+.1f}pp"))
+
+    except Exception as e:
+        findings.append(DataFinding("warn", "CALIBRATION",
+            f"Calibration check failed: {e}"))
+
+    return findings
 
 
 def check(season: str | None = None) -> list[DataFinding]:
@@ -165,6 +237,9 @@ def check(season: str | None = None) -> list[DataFinding]:
                 "error", league,
                 f"{len(dupes)} duplicate row(s): " + "; ".join(dupes[:3]) +
                 ("; …" if len(dupes) > 3 else "")))
+
+    # 4. Calibration drift check (P0 from STATE.md)
+    findings.extend(_check_calibration())
 
     return findings
 

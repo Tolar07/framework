@@ -565,3 +565,100 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Zhetysu Taldykorgan": "Zhetysu Taldykorgan",
     "Zwolle": "PEC Zwolle",
 }
+
+
+# Reverse table: SportyBet league-page spelling -> OLP XDV model key. Built
+# once from SPORTYBET_TEAMS (model key -> SportyBet name). First-wins on
+# collisions preserves the canonical key — the table is ordered canonical-
+# before-alias, e.g. "AZ Alkmaar" before "Alkmaar" (reverse("Alkmaar") ->
+# "AZ Alkmaar") and "Sheffield Utd" before "Sheffield United" (reverse
+# ("Sheffield United") -> "Sheffield Utd").
+_MODEL_BY_SPORTYBET: dict[str, str] = {}
+for _olp_key, _sb_name in SPORTYBET_TEAMS.items():
+    _MODEL_BY_SPORTYBET.setdefault(_sb_name, _olp_key)
+
+
+def _normalize(name: str) -> str:
+    """Normalize a team name for comparison."""
+    name = name.lower().strip()
+    # Remove common prefixes/suffixes
+    for prefix in ("fc ", "sc ", "ac ", "cd ", "cf ", "rk ", "ss "):
+        if name.startswith(prefix):
+            name = name[len(prefix):]
+    for suffix in (" fc", " sc", " ac", " cf", " if", " bk", " fk", " sk"):
+        if name.endswith(suffix):
+            name = name[:-len(suffix)]
+    # Remove diacritics (basic)
+    replacements = {"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u",
+                    "ä": "a", "ö": "o", "ü": "u", "ñ": "n", "ø": "o",
+                    "æ": "ae", "ß": "ss"}
+    for old, new in replacements.items():
+        name = name.replace(old, new)
+    return name.strip()
+
+
+def resolve_team(olp_name: str, bookmaker: str = "sportybet") -> str:
+    """Resolve an OLP XDV team name to a bookmaker's official name.
+
+    Strategy:
+    1. Exact match in SPORTYBET_TEAMS / BET365_TEAMS dict
+    2. Fuzzy match using normalized names and SequenceMatcher
+    3. Return original name if no match found (best effort)
+
+    Returns the bookmaker's official name, or the original OLP name as fallback.
+    """
+    # 1. Exact match
+    if bookmaker == "sportybet":
+        if olp_name in SPORTYBET_TEAMS:
+            return SPORTYBET_TEAMS[olp_name]
+    # (Bet365 teams TBD)
+
+    # 2. Fuzzy match
+    target = _normalize(olp_name)
+    best_match = None
+    best_score = 0.0
+
+    from difflib import SequenceMatcher
+    source = SPORTYBET_TEAMS if bookmaker == "sportybet" else {}
+    for olp_key, bm_name in source.items():
+        bm_norm = _normalize(bm_name)
+        # Prefix match (one contains the other)
+        if target in bm_norm or bm_norm in target:
+            score = 0.9
+        else:
+            score = SequenceMatcher(None, target, bm_norm).ratio()
+        if score > best_score:
+            best_score = score
+            best_match = bm_name
+
+    if best_score >= 0.6:
+        return best_match
+
+    # 3. Fallback: return original
+    return olp_name
+
+
+def resolve_team_to_model(sportybet_name: str) -> str:
+    """SportyBet league-page name -> OLP XDV model key (football-data short name).
+
+    The REVERSE of resolve_team, used by the SportyBet cache builder so
+    model_home/model_away hold REAL model keys, not SportyBet spellings. The
+    old code called resolve_team backwards (SportyBet name -> table of
+    SportyBet VALUES), which fuzzy-matched one club against another and could
+    return a DIFFERENT team entirely — e.g. "Millwall FC" -> "AC Milan",
+    "Club Brugge" -> "Cercle Brugge", "Excelsior Rotterdam" ->
+    "Sparta Rotterdam". That attached one club's real price to the wrong model
+    team.
+
+    EXACT + NORMALIZED-EXACT ONLY — deliberately NO fuzzy pass (HR35). A name
+    that isn't in the reverse table returns UNCHANGED so the caller reports
+    NO DATA — PENDING. Attaching a real price to the wrong team is worse than
+    an honest gap, so we never guess across clubs.
+    """
+    if sportybet_name in _MODEL_BY_SPORTYBET:
+        return _MODEL_BY_SPORTYBET[sportybet_name]
+    target = _normalize(sportybet_name)
+    for sb_name, model_key in _MODEL_BY_SPORTYBET.items():
+        if _normalize(sb_name) == target:
+            return model_key
+    return sportybet_name

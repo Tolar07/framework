@@ -1,0 +1,67 @@
+name: OLP XDV fixture extraction (Stage A)
+
+# 04:00 UTC daily — runs Stage A fixture extraction + ID403 verification
+# Produces immutable artifact at data/stage_a_output/fixtures_<date>_<season>.json
+# The 07:00 daily board run loads this artifact instead of re-extracting.
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:  # manual trigger for testing
+
+# Commit the Stage A artifact + CLV log back so the 07:00 run sees it
+permissions:
+  contents: write
+
+concurrency:
+  group: olp-xdv-fixture-extraction
+  cancel-in-progress: false  # never kill mid-write of the artifact
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Restore data cache (football-data CSVs, fitted models) — same pattern as daily.yml
+      - name: Restore data cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/cache
+            backtest/cache
+          key: olp-xdv-data-${{ runner.os }}-${{ github.run_number }}-${{ github.event.schedule || 'manual' }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            olp-xdv-data-${{ runner.os }}-${{ github.run_number }}-${{ github.event.schedule || 'manual' }}-${{ github.ref_name }}-
+            olp-xdv-data-${{ runner.os }}-${{ github.run_number }}-${{ github.event.schedule || 'manual' }}-
+            olp-xdv-data-
+
+      - name: Run Stage A fixture extraction
+        env:
+          ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
+          THESPORTSDB_KEY:    ${{ secrets.THESPORTSDB_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          ARCHITECT_SIGNOFF:  ${{ secrets.ARCHITECT_SIGNOFF }}
+          PYTHONIOENCODING:   utf-8
+        run: |
+          python -m pipeline.fixture_extraction
+
+      # Commit the Stage A artifact + any CLV log updates back to the repo
+      - name: Persist Stage A artifact and CLV log
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add data/stage_a_output/ clv/clv_log.json || true
+          git diff --staged --quiet || git commit -m "fixture extraction $(date -u +%Y-%m-%dT%H:%M) [skip ci]"
+          git pull --rebase --autostash || true
+          git push || echo "nothing to push"

@@ -515,14 +515,16 @@ def _click_btts_on_league_page(page: Page, fixture_id: str, market_key: str) -> 
         return False
 
 
-def _expected_combined_odds(legs: list) -> Optional[float]:
+def expected_combined_odds(legs: list) -> Optional[float]:
     """The odds a SportyBet booking code MUST encode for this slip.
 
     HARD RULE (Architect 2026-08-20): the code's odds == the product of its
     legs' prices. For a 1-leg slip (a SINGLE) that is the leg's own price; for
     a multi-leg acca it is the compounded combined odds. "50 odds" in the
     Architect's wording == 5.0 decimal odds — the code is only worth pasting
-    when its encoded combined odds equal this figure (within float tolerance)."""
+    when its encoded combined odds equal this figure (within float tolerance).
+
+    Public alias for external verification (e.g., X/Twitter code fetcher)."""
     prod = 1.0
     n = 0
     for leg in legs or []:
@@ -536,7 +538,11 @@ def _expected_combined_odds(legs: list) -> Optional[float]:
     return round(prod, 2)
 
 
-def _read_betslip_combined_odds(page: Page) -> Optional[float]:
+# Private alias for internal use
+_expected_combined_odds = expected_combined_odds
+
+
+def read_betslip_combined_odds(page: Page) -> Optional[float]:
     """Read the betslip's displayed COMBINED (total) odds.
 
     SportyBet's betslip renders a single "Total Odds" / "Combined Odds" figure
@@ -549,7 +555,8 @@ def _read_betslip_combined_odds(page: Page) -> Optional[float]:
     6,000,000 odds" display glitch by accepting both decimal and integer forms,
     comma-separated numbers, and prioritising values near "Total"/"Combined"/
     "Odds" labels.
-    """
+
+    Public alias for external verification (e.g., X/Twitter code fetcher)."""
     # Candidate betslip containers (the open slip on the right rail).
     panels = page.query_selector_all(
         ".betslip, .bet-slip, .slip, [class*='betslip'], [class*='slip'], "
@@ -597,13 +604,19 @@ def _read_betslip_combined_odds(page: Page) -> Optional[float]:
     return round(candidates[0][0], 2)
 
 
-def _odds_within_tolerance(a: Optional[float], b: Optional[float],
-                           rel: float = 0.02) -> bool:
+# Private alias for internal use
+_read_betslip_combined_odds = read_betslip_combined_odds
+
+
+def odds_within_tolerance(a: Optional[float], b: Optional[float],
+                          rel: float = 0.02) -> bool:
     """True when two odds figures agree within `rel` relative tolerance.
 
     Used by the hard-rule check: the betslip's combined odds must equal the
     expected combined odds. A 2% band absorbs minor rounding/SPA re-render
-    lag without letting a wrong slip pass."""
+    lag without letting a wrong slip pass.
+
+    Public alias for external verification (e.g., X/Twitter code fetcher)."""
     if a is None or b is None:
         return False
     if a <= 0 or b <= 0:
@@ -611,7 +624,11 @@ def _odds_within_tolerance(a: Optional[float], b: Optional[float],
     return abs(a - b) / max(a, b) <= rel
 
 
-def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
+# Private alias for internal use
+_odds_within_tolerance = odds_within_tolerance
+
+
+def read_booking_code(page: Page, n_legs: int) -> Optional[str]:
     """Read the booking code once all legs are in the betslip.
 
     Verified live 2026-08-09: clicking the betslip's "Book Bet" opens a modal
@@ -621,7 +638,9 @@ def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
     after the "Booking Code" label. Falls back to any input-field locators on
     the off-chance a revision renders one. Returns None when no code can be
     read (the per-leg statuses already tell the Architect what to add
-    manually — HR35)."""
+    manually — HR35).
+
+    Public alias for external verification (e.g., X/Twitter code fetcher)."""
     try:
         # Let the betslip settle from the last click BEFORE pressing Book Bet —
         # a selection clicked a few ms earlier may not be in the slip yet, and
@@ -675,6 +694,10 @@ def _read_booking_code(page: Page, n_legs: int) -> Optional[str]:
         except Exception:
             continue
     return None
+
+
+# Private alias for internal use
+_read_booking_code = read_booking_code
 
 
 def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:

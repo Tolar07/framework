@@ -74,6 +74,13 @@ MAX_ODDS_CAP = 2.00     # hard cap — any leg with price > 2.00 is rejected (FL
 MIN_ODDS_FLOOR = 1.20   # hard floor — any leg with price < 1.20 is rejected (no value in heavy favourites)
 PREFERRED_ODDS_CEILING = 1.50  # sweet spot ceiling — 1.20–1.50 is the "safe" deployment zone (Architect 2026-08-19)
 
+# QUARANTINE (Audit 2026-08-20, HR58): Leagues with 100% miss rate excluded from Acca A
+# These leagues are still eligible for singles/split accas but NOT for the headline acca.
+ACCA_A_QUARANTINE_LEAGUES = frozenset({
+    "Eredivisie",
+    "Scottish Premiership",
+})
+
 
 @dataclass
 class AccaLeg:
@@ -497,8 +504,13 @@ def build_production_bets(
 
     # Acca A: STRICT — only legs with odds <= max_odds_cap (2.00)
     # This respects the preferred zone (1.20-1.50) and 50/50 zone (1.50-2.00)
-    # but NEVER allows odds > 2.00 into the headline acca
-    eligible_for_acca_a = [leg for _, leg in pairs if leg.price <= cap]
+    # but NEVER allows odds > 2.00 into the headline acca.
+    # QUARANTINE (Audit 2026-08-20, HR58): Exclude Eredivisie & Scottish Premiership
+    # from the headline acca — these leagues had 100% miss rate in the audit window.
+    eligible_for_acca_a = [
+        leg for _, leg in pairs
+        if leg.price <= cap and leg.league not in ACCA_A_QUARANTINE_LEAGUES
+    ]
     acca_a = _make_acca("Acca A", eligible_for_acca_a[:acca_a_max]) if eligible_for_acca_a else None
 
     # Remainder for split accas: all capital legs not in Acca A
@@ -639,4 +651,11 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
             lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
                          f"@ {leg.price:.2f}  edge {leg.edge:+.2%}  "
                          f"{_stamp_for(leg)}")
+
+    # QUARANTINE DISCLOSURE (Audit 2026-08-20): Leagues excluded from Acca A
+    if ACCA_A_QUARANTINE_LEAGUES:
+        lines.append("")
+        lines.append("  ⚠ QUARANTINE (Audit 2026-08-20) — Excluded from Acca A:")
+        for lg in sorted(ACCA_A_QUARANTINE_LEAGUES):
+            lines.append(f"    {lg} (100% miss rate in audit window)")
     return "\n".join(lines)

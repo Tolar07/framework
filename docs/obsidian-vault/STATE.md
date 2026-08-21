@@ -5,6 +5,34 @@
 
 ---
 
+## 2026-08-21 — Session Work: Four-Table Output Structure Implementation
+
+### Implementation Completed
+- **File modified**: `output/produce_bet.py`
+- **Four new render functions added**:
+  1. `render_layer2_full_grid()` — TABLE 1: Every fixture × every market probability with Selected Pick column, one shared booking code for entire Layer 2
+  2. `render_layer1_compact()` — TABLE 2: One row per deploy-eligible fixture with its own booking code (Layer 1 compact)
+  3. `render_acca_route()` — TABLE 3: Capital-eligible fixtures grouped into accas, each acca with its own booking code
+  4. `render_the_pick()` — TABLE 4: Final recommendation after all three tables (primary single + Acca A recommendation)
+
+### Key Features
+- All `EDGE_MARKETS` evaluated (1X2, Double Chance, Over/Under 0.5/1.5/2.5/3.5, BTTS, Draw No Bet, HT/FT, Correct Score top 6) — ID405 gate open per Architect 2026-08-11 override
+- Booking code consistency: Layer 2 = one shared code; Layer 1 = per-fixture codes; Acca Route = per-acca codes
+- EV-based market selection (`model_prob × price − 1`) per fixture for "Selected Pick" column
+- Falls back to stored `best_market` / SportyBet odds when odds index unavailable
+- Honest-edge compliance: NO DATA — PENDING preserved throughout (HR35)
+- Architecture integration: called from `render_produce_bet()` in order Table 1 → 2 → 3 → 4
+
+### Testing
+- Syntax verified: `python -m py_compile output/produce_bet.py` — clean
+
+### Next Steps
+- Run full pipeline to generate board with new four-table structure
+- Verify booking code generation for all three layers
+- Confirm SportyBet bridge integration produces codes for each layer
+
+---
+
 ## 2026-08-20 — Daily Retrospective Audit (Fixtures 2026-08-05 to 2026-08-09)
 
 ### Fixtures Audited

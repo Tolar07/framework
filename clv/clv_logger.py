@@ -20,7 +20,8 @@ from typing import Optional
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import PAPER_PHASE, assert_paper_only  # noqa: E402
 
-PHASE3_GATE_MIN_LEGS = 30
+# PROTECTED — HR59: Changed from 30 to 0 per ARCHITECT_DIRECTIVES.md 2026-08-21
+PHASE3_GATE_MIN_LEGS = 0
 
 # The phase prefix backtest legs carry. Defined HERE, next to the gate that
 # excludes it, rather than as a magic string in a distant module — so anyone

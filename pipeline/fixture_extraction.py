@@ -16,7 +16,7 @@ from __future__ import annotations
 import json
 import logging
 from dataclasses import dataclass, field, asdict
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Optional
 
@@ -29,6 +29,17 @@ log = logging.getLogger("pipeline.fixture_extraction")
 # Output path for the immutable fixture list (written once per run)
 STAGE_A_OUTPUT_DIR = Path(__file__).parent.parent / "data" / "stage_a_output"
 STAGE_A_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _has_kicked_off(kickoff_utc: str | None) -> bool:
+    """Check if a fixture has already kicked off (kickoff time is in the past)."""
+    if not kickoff_utc:
+        return False
+    try:
+        kickoff = datetime.fromisoformat(kickoff_utc.replace('Z', '+00:00'))
+        return datetime.now(timezone.utc) >= kickoff
+    except (ValueError, AttributeError, TypeError):
+        return False
 
 
 @dataclass
@@ -45,6 +56,7 @@ class VerifiedFixture:
     source: str | None = None          # which source produced this fixture
     source_tier: str | None = None     # T1/T2/T3/REJECTED of the source
     status: str = "pending"            # "pending" | "verified" | "no_data"
+    kicked_off: bool = False           # True if fixture has already started
     flags: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
@@ -183,6 +195,7 @@ def extract_fixtures_for_league(
         for home, away in mapped_fixtures:
             kickoff_utc = dates.get((home, away))
             kickoff_date = _resolve_kickoff_date(kickoff_utc)
+            kicked_off = _has_kicked_off(kickoff_utc)
 
             tier, note, factors = _verify_fixture(
                 league, home, away, src, "T2" if src == "thesportsdb" else "T1", kickoff_utc
@@ -202,6 +215,7 @@ def extract_fixtures_for_league(
                 source=src,
                 source_tier="T2" if src == "thesportsdb" else "T1",
                 status=status,
+                kicked_off=kicked_off,
             )
             verified.append(vf)
 
@@ -235,6 +249,7 @@ def extract_fixtures_for_league(
                             kickoff_utc = kd + "T00:00:00Z"
                             break
                     kickoff_date = _resolve_kickoff_date(kickoff_utc)
+                    kicked_off = _has_kicked_off(kickoff_utc)
 
                     tier, note, factors = _verify_fixture(
                         league, home, away, "sportybet_cache", "T2", kickoff_utc
@@ -254,6 +269,7 @@ def extract_fixtures_for_league(
                         source="sportybet_cache",
                         source_tier="T2",
                         status=status,
+                        kicked_off=kicked_off,
                     )
                     verified.append(vf)
 
@@ -305,6 +321,8 @@ def run_stage_a(
         "conflict": 0,
         "no_data": 0,
         "with_kickoff": 0,
+        "kicked_off": 0,
+        "upcoming": 0,
         "leagues_scanned": len(leagues),
         "leagues_with_fixtures": 0,
     }
@@ -333,6 +351,10 @@ def run_stage_a(
                     stats["no_data"] += 1
                 if f.kickoff_utc:
                     stats["with_kickoff"] += 1
+                if f.kicked_off:
+                    stats["kicked_off"] += 1
+                else:
+                    stats["upcoming"] += 1
 
     output = StageAOutput(
         run_date=run_date,
@@ -347,6 +369,7 @@ def run_stage_a(
     saved_path = output.save()
     log.info(f"Stage A complete: {stats['total_fixtures']} fixtures across "
              f"{stats['leagues_with_fixtures']}/{stats['leagues_scanned']} leagues. "
+             f"Kicked off: {stats['kicked_off']}, Upcoming: {stats['upcoming']}. "
              f"Saved to {saved_path}")
 
     return output
@@ -364,6 +387,8 @@ if __name__ == "__main__":
     ap.add_argument("--days-ahead", type=int, default=14, help="Fixture window in days")
     ap.add_argument("--api-football-season", type=int, default=None, help="API-Football season year")
     ap.add_argument("--output", default=None, help="Output JSON path (default: data/stage_a_output/)")
+    ap.add_argument("--filter-upcoming", action="store_true",
+                    help="Filter out kicked-off fixtures, only keep upcoming (for hourly watcher)")
 
     args = ap.parse_args()
 
@@ -375,13 +400,23 @@ if __name__ == "__main__":
         api_football_season=args.api_football_season,
     )
 
+    if args.filter_upcoming:
+        # Filter out kicked-off fixtures for hourly watcher
+        upcoming_fixtures = [f for f in output.fixtures if not f.kicked_off]
+        output.fixtures = upcoming_fixtures
+        output.stats["total_fixtures"] = len(upcoming_fixtures)
+        output.stats["upcoming"] = len(upcoming_fixtures)
+        output.stats["kicked_off"] = 0
+        log.info(f"Filtered to {len(upcoming_fixtures)} upcoming fixtures (removed kicked-off)")
+
     if args.output:
         output.save(Path(args.output))
     else:
         output.save()
 
-    print(f"✓ Stage A complete: {output.stats['total_fixtures']} fixtures extracted")
+    print(f"[OK] Stage A complete: {output.stats['total_fixtures']} fixtures extracted")
     print(f"  Verified: {output.stats['verified']}, Single-Source: {output.stats['single_source']}")
     print(f"  Conflict: {output.stats['conflict']}, No-Data: {output.stats['no_data']}")
     print(f"  With kickoff: {output.stats['with_kickoff']}")
+    print(f"  Kicked off: {output.stats['kicked_off']}, Upcoming: {output.stats['upcoming']}")
     print(f"  Leagues scanned: {output.stats['leagues_scanned']}, with fixtures: {output.stats['leagues_with_fixtures']}")

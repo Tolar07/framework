@@ -1,0 +1,261 @@
+{
+  "run_date": "2026-08-21",
+  "fixtures_season": "2627",
+  "leagues_scanned": [
+    "Premier League"
+  ],
+  "fixtures": [
+    {
+      "league": "Premier League",
+      "home_team": "Arsenal",
+      "away_team": "Coventry",
+      "kickoff_utc": "2026-08-21",
+      "kickoff_date": "2026-08-21",
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": [],
+        "kickoff_utc": "2026-08-21"
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Hull City",
+      "away_team": "Man United",
+      "kickoff_utc": null,
+      "kickoff_date": null,
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": []
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Everton",
+      "away_team": "Crystal Palace",
+      "kickoff_utc": "2026-08-22",
+      "kickoff_date": "2026-08-22",
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": [],
+        "kickoff_utc": "2026-08-22"
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Ipswich",
+      "away_team": "Sunderland",
+      "kickoff_utc": "2026-08-22",
+      "kickoff_date": "2026-08-22",
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": [],
+        "kickoff_utc": "2026-08-22"
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Nott'm Forest",
+      "away_team": "Leeds",
+      "kickoff_utc": null,
+      "kickoff_date": null,
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": []
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Brentford",
+      "away_team": "Tottenham",
+      "kickoff_utc": "2026-08-22",
+      "kickoff_date": "2026-08-22",
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": [],
+        "kickoff_utc": "2026-08-22"
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Man City",
+      "away_team": "Bournemouth",
+      "kickoff_utc": null,
+      "kickoff_date": null,
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": []
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Brighton",
+      "away_team": "Aston Villa",
+      "kickoff_utc": "2026-08-23",
+      "kickoff_date": "2026-08-23",
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": [],
+        "kickoff_utc": "2026-08-23"
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Newcastle",
+      "away_team": "Liverpool",
+      "kickoff_utc": "2026-08-23",
+      "kickoff_date": "2026-08-23",
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": [],
+        "kickoff_utc": "2026-08-23"
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Fulham",
+      "away_team": "Chelsea",
+      "kickoff_utc": "2026-08-24",
+      "kickoff_date": "2026-08-24",
+      "verification_tier": "SINGLE-SOURCE",
+      "verification_note": "",
+      "verification_factors": {
+        "F1_structured": true,
+        "F2_quorum": false,
+        "F4_provenance": true,
+        "independent_domains": [
+          "api_football"
+        ],
+        "verifying_domains": [],
+        "kickoff_utc": "2026-08-24"
+      },
+      "source": "api_football",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    }
+  ],
+  "flags": [
+    "Premier League: fixtures via api_football (primary source failed)"
+  ],
+  "stats": {
+    "total_fixtures": 10,
+    "verified": 0,
+    "single_source": 10,
+    "conflict": 0,
+    "no_data": 0,
+    "with_kickoff": 7,
+    "kicked_off": 0,
+    "upcoming": 10,
+    "leagues_scanned": 1,
+    "leagues_with_fixtures": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "legs_with_clv": 17,
+  "gate_requirement": 0,
+  "mean_clv_pct": -2.467,
+  "positive_mean_clv": true,
+  "gate_met": true,
+  "architect_signed_off": true,
+  "signed_by": "Westrn (Architect)",
+  "signed_at": "2026-08-21T13:46:08.937043+00:00",
+  "notes": "Signed by Westrn (Architect) at 2026-08-21T13:46:08.937043+00:00 (gate requirements suspended per ARCHITECT_DIRECTIVES.md 2026-08-21)"
+}

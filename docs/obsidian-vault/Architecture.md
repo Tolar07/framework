@@ -17,7 +17,8 @@ booking code into money.
 
 ## Trigger
 - `run_daily.py` — the daily 07:00 pipeline (Task Scheduler task "OLP XDV Daily Board"). Also runnable manually / via `monitor/run_monitor.py`.
-- `orchestrator.py` — coordinates the run stages.
+- `scripts/hourly-fixture-check.js` — **hourly fixture refresh** (Task Scheduler task "OLP XDV Hourly Fixture Check"). Runs every hour: checks for upcoming fixtures not yet kicked off; if no board for today, triggers full `run_daily.py`; if board exists, runs lightweight pipeline (agents 1-4) for odds/fixture refresh. See [[Loops.md]].
+- `orchestrator.py` — coordinates the run stages (deprecated, replaced by `olp_xdv_pipeline.py`).
 
 ## Stage 1 — SCAN (data → probabilities)
 | Step | Code | Notes |

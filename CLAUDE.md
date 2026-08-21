@@ -126,9 +126,9 @@ stake**: `config.assert_paper_only()` hard-fails below Phase 3 and the booking
 module never clicks Place Bet, so capital authority stays with the Architect.
 
 **Daemon inventory (Task Scheduler + resident):** see `olp-xdv-agent` memory note
-for the full list — Daily Board (07:00), Health Monitor (2h), Run Watchdog (post-07:00),
+for the full list — Daily Board (07:00), **Hourly Fixture Check (every hour)**, Health Monitor (2h), Run Watchdog (post-07:00),
 Dead Man's Switch (nightly), **Data Steward (06:00 + 15:00)**, Telegram poller (resident),
-Web dashboard (resident), Cup training monitor (ad-hoc), Continental outcome monitor (ad-hoc).
+Web dashboard (resident), Cup training monitor (ad-hoc), Continental outcome monitor (ad-hoc), **Hourly Match Analysis (every hour)**.
 
 ## everything-claude-code integration
 

@@ -583,7 +583,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             # expected by the rest of the pipeline (scan_one_league output)
             from orchestrator_DEPRECATED import FixtureRow
             for vf in stage_a.fixtures:
-                if vf.kickoff_date == board_date:
+                # Only include fixtures for the board date that haven't kicked off yet
+                if vf.kickoff_date == board_date and not vf.kicked_off:
                     fixture_sources.add(vf.source or "stage_a")
                     # Build a minimal FixtureRow-compatible object
                     # The pipeline expects objects with fixture, kickoff_date, league attrs
@@ -601,6 +602,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                         'source_tier': vf.source_tier,
                         'status': vf.status,
                         'flags': vf.flags,
+                        'kicked_off': vf.kicked_off,
                         'probs': None,  # Will be filled by engine later
                         'elo_probs': None,
                         'xg_probs': None,
@@ -616,7 +618,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                     })()
                     board.append(bf)
             stage_a_loaded = True
-            all_flags.append(f"Stage A artifact loaded: {len(board)} fixtures for {board_date} from {stage_a_path.name}")
+            all_flags.append(f"Stage A artifact loaded: {len(board)} upcoming fixtures for {board_date} from {stage_a_path.name}")
             fit_stats["leagues_scanned"] = len(stage_a.leagues_scanned)
             fit_stats["leagues_with_fixtures"] = stage_a.stats.get("leagues_with_fixtures", 0)
         except Exception as e:
@@ -839,7 +841,6 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             latest_bet365_odds = bet365_odds_files[0]
             b365_odds_count = 0
             b365_markets_count = 0
-            import json
             for line in latest_bet365_odds.read_text(encoding="utf-8").splitlines():
                 line = line.strip()
                 if not line:

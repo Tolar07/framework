@@ -38,7 +38,7 @@ function log(msg) {
 
 function runCmd(cmd, cwd = REPO_ROOT) {
   try {
-    const output = execSync(cmd, { cwd, encoding: 'utf8', stdio: 'pipe', timeout: 120000 });
+    const output = execSync(cmd, { cwd, encoding: 'utf8', stdio: 'pipe', timeout: 600000 });
     return { success: true, output: output.trim() };
   } catch (e) {
     return { success: false, output: e.stdout?.toString() || e.message, error: e.stderr?.toString() };
@@ -143,17 +143,53 @@ async function getLatestBoard() {
   if (!fs.existsSync(boardDir)) return null;
 
   const files = fs.readdirSync(boardDir)
-    .filter(f => f.startsWith('board_') && f.endsWith('.json'))
+    .filter(f => (f.startsWith('board_') || f.startsWith('produced_')) && (f.endsWith('.json') || f.endsWith('.txt')))
     .sort()
     .reverse();
 
   if (files.length === 0) return null;
 
   try {
-    const latestBoard = JSON.parse(fs.readFileSync(path.join(boardDir, files[0]), 'utf8'));
-    // The board uses 'date' field, not 'board_date'
-    const boardDate = latestBoard.date || latestBoard.board_date;
-    return { file: files[0], data: latestBoard, boardDate };
+    // Try to find a board with today's date in content
+    const today = new Date().toISOString().split('T')[0];
+    
+    for (const fileName of files) {
+      let boardDate = null;
+      let data = { fixtures: [] };
+
+      if (fileName.endsWith('.json')) {
+        const content = JSON.parse(fs.readFileSync(path.join(boardDir, fileName), 'utf8'));
+        boardDate = content.date || content.board_date;
+        data = content;
+      } else {
+        // Parse txt file header for date
+        const content = fs.readFileSync(path.join(boardDir, fileName), 'utf8');
+        const match = content.match(/Date: (\d{4}-\d{2}-\d{2})/);
+        if (match) {
+          boardDate = match[1];
+        }
+      }
+      
+      // If we found a board for today, return it immediately
+      if (boardDate === today) {
+        return { file: fileName, data: data, boardDate };
+      }
+    }
+    
+    // Fallback: return the latest one found
+    const fileName = files[0];
+    let boardDate = null;
+    let data = { fixtures: [] };
+    if (fileName.endsWith('.json')) {
+      const content = JSON.parse(fs.readFileSync(path.join(boardDir, fileName), 'utf8'));
+      boardDate = content.date || content.board_date;
+      data = content;
+    } else {
+      const content = fs.readFileSync(path.join(boardDir, fileName), 'utf8');
+      const match = content.match(/Date: (\d{4}-\d{2}-\d{2})/);
+      if (match) boardDate = match[1];
+    }
+    return { file: fileName, data: data, boardDate };
   } catch (e) {
     log(`❌ Failed to read latest board: ${e.message}`);
     return null;
@@ -165,7 +201,7 @@ async function runLightweightPipeline() {
   // This avoids the heavy math/odds/execution agents for hourly refresh
   log('🔄 Running lightweight pipeline (agents 1-4) for upcoming fixtures...');
 
-  const cmd = `cd "${path.join(REPO_ROOT, 'olp_xdv_agent', 'olp_xdv')}" && python olp_xdv_pipeline.py --only 1-4 --dry-run 2>&1`;
+  const cmd = `cd "${path.join(REPO_ROOT, 'olp_xdv_agent', 'olp_xdv')}" && python olp_xdv_pipeline.py --only 4 --dry-run 2>&1`;
   const result = runCmd(cmd);
 
   if (!result.success) {

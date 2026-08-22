@@ -69,8 +69,51 @@ def _norm(s: Optional[str]) -> str:
             .replace("ú", "u").replace("ñ", "n").replace("ç", "c")
             .replace("ä", "a").replace("ö", "o").replace("ü", "u"))
     # drop common prefixes/suffixes that differ between sources
+    # Note: 'athletic' and 'inter' removed from strip list - they are club names (Athletic Bilbao, Inter Milan)
+    # 'atletico' kept as it's a prefix (Atletico Madrid -> Madrid)
     s = re.sub(r"\b(fc|sk|ac|as|cf|sc|real|club|cfc|afc|fk|utd|united|"
-               r"city|town|athletic|atletico|inter|fc)\b", "", s)
+               r"city|town|atletico|fc)\b", "", s)
+    # Also handle common abbreviations: manchester -> man, man utd -> man utd (already handled)
+    # The key insight: normalize "manchester" to "man" to match "man utd" -> "man"
+    # but only for known club abbreviations, not all words
+    s = re.sub(r"\bmanchester\b", "man", s)
+    s = re.sub(r"\bwolverhampton\b", "wolves", s)
+    s = re.sub(r"\bnewcastle\b", "newcastle", s)  # keep as-is
+    s = re.sub(r"\bwest ham\b", "west ham", s)  # keep as-is
+    s = re.sub(r"\baston villa\b", "aston villa", s)  # keep as-is
+    # Handle "nottingham forest" -> "nottingham" (forest not in strip list)
+    s = re.sub(r"\bforest\b", "", s)
+    s = re.sub(r"\bafc\b", "", s)  # already handled but ensure
+
+    # Additional club name normalizations for cross-source matching
+    # La Liga
+    s = re.sub(r"\bathletic club\b", "athletic bilbao", s)
+    s = re.sub(r"\bath bilbao\b", "athletic bilbao", s)
+    s = re.sub(r"\batletico madrid\b", "atletico", s)
+    s = re.sub(r"\bathletic bilbao\b", "athletic bilbao", s)
+    # "Athletic" alone is ambiguous, convert to Athletic Bilbao for La Liga context
+    # This happens after "club" is stripped from "Athletic Club" (leaves "athletic")
+    s = re.sub(r"^athletic\s*$", "athletic bilbao", s)
+    # Serie A
+    s = re.sub(r"\binter milan\b", "inter", s)
+    s = re.sub(r"\bac milan\b", "milan", s)
+    # Bundesliga
+    s = re.sub(r"\bborussia dortmund\b", "dortmund", s)
+    s = re.sub(r"\bbayer leverkusen\b", "leverkusen", s)
+    s = re.sub(r"\bborussia monchengladbach\b", "moenchengladbach", s)
+    s = re.sub(r"\beintracht frankfurt\b", "frankfurt", s)
+    s = re.sub(r"\bvfb stuttgart\b", "stuttgart", s)
+    s = re.sub(r"\bvfl wolfsburg\b", "wolfsburg", s)
+    s = re.sub(r"\bmainz 05\b", "mainz", s)
+    # Ligue 1
+    s = re.sub(r"\bolympique marseille\b", "marseille", s)
+    s = re.sub(r"\bolympique lyonnais\b", "lyon", s)
+    s = re.sub(r"\blille osc\b", "lille", s)
+    s = re.sub(r"\bstade rennais\b", "rennes", s)
+    s = re.sub(r"\bas monaco\b", "monaco", s)
+    # Championship
+    s = re.sub(r"\bsheffield united\b", "sheffield", s)
+
     s = re.sub(r"[^a-z0-9 ]", " ", s)
     return " ".join(s.split())
 
@@ -135,20 +178,28 @@ def _load_feed_pairs(pattern: str, datetime_parser: callable) -> List[Dict]:
 
 
 def _parse_flashscore_datetime(match_datetime: str) -> str:
-    """Parse FlashScore '21.08. 20:00' to ISO date."""
-    m = re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime or "")
-    if not m:
+    """Parse FlashScore '21.08. 20:00' or '12:30' (time only = today) to ISO date."""
+    if not match_datetime:
         return ""
-    day, mon, hh, mm = (int(x) for x in m.groups())
-    from datetime import datetime as _dt
-    now = _dt.now()
-    for year in (now.year, now.year + 1):
-        try:
-            cand = _dt(year, mon, day)
-        except ValueError:
-            continue
-        if 0 <= (cand - now).days <= 400:
-            return cand.strftime("%Y-%m-%d")
+    # Try DD.MM. HH:MM format first
+    m = re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime)
+    if m:
+        day, mon, hh, mm = (int(x) for x in m.groups())
+        from datetime import datetime as _dt
+        now = _dt.now()
+        for year in (now.year, now.year + 1):
+            try:
+                cand = _dt(year, mon, day)
+            except ValueError:
+                continue
+            if 0 <= (cand - now).days <= 400:
+                return cand.strftime("%Y-%m-%d")
+    # Try HH:MM only (matches for today)
+    m = re.match(r"^(\d{1,2}):(\d{2})$", match_datetime.strip())
+    if m:
+        from datetime import datetime as _dt
+        now = _dt.now()
+        return now.strftime("%Y-%m-%d")
     return ""
 
 

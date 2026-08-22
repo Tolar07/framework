@@ -59,7 +59,7 @@ from booking.league_map import SPORTYBET_LEAGUES
 from booking.bridge import load_sportybet_fixtures
 from booking.sportybet_fixtures import _navigate_to_league
 
-BASE_URL = "https://www.sportybet.com/ng"
+BASE_URL = "https://www.sportybet.com"
 BOARD_DIR = Path(__file__).parent.parent / "output" / "boards"
 
 # 1X2 click index inside the league-page row's first market cell.
@@ -221,7 +221,7 @@ def _click_1x2(row, market_key: str) -> bool:
 def _open_match_page(page: Page, fixture_id: str) -> bool:
     """Open a SportyBet match page and wait for markets."""
     try:
-        page.goto(f"{BASE_URL}/match/{fixture_id}", wait_until="domcontentloaded",
+        page.goto(f"{BASE_URL}/ng/match/{fixture_id}", wait_until="domcontentloaded",
                   timeout=30000)
         page.wait_for_timeout(3500)
         return True
@@ -326,7 +326,7 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
     # Navigate to match page first (if fixture_id provided)
     if fixture_id:
         try:
-            page.goto(f"https://www.sportybet.com/ng/match/{fixture_id}", wait_until="domcontentloaded", timeout=30000)
+            page.goto(f"{BASE_URL}/ng/match/{fixture_id}", wait_until="domcontentloaded", timeout=30000)
             page.wait_for_timeout(5000)  # Increased wait for full render
         except Exception:
             return False
@@ -989,7 +989,11 @@ def book_accas(payload: dict, headless: bool = True) -> dict:
 
     results: List[dict] = []
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=headless, slow_mo=0)
+        browser = p.chromium.launch(
+            headless=headless,
+            slow_mo=0,
+            args=["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]
+        )
         context = browser.new_context(
             user_agent=("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                         "AppleWebKit/537.36 (KHTML, like Gecko) "

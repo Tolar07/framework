@@ -43,7 +43,7 @@ except ImportError:
     BeautifulSoup = None
 
 # --- Constants ---
-BASE_URL = "https://www.sportybet.com/ng"
+BASE_URL = "https://www.sportybet.com"
 DEFAULT_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -176,8 +176,8 @@ class SportyBetClient:
         return f"{path}_{query}.html" if query else f"{path}.html"
 
     def get_countries(self) -> List[Dict[str, str]]:
-        """Get list of countries from the SportyBet sidebar."""
-        html = self._get(f"{BASE_URL}/sport/football")
+        """Get list of countries from the SportyBet sidebar (Nigeria site)."""
+        html = self._get(f"{BASE_URL}/ng/sport/football")
         soup = BeautifulSoup(html, "html.parser")
 
         countries = []

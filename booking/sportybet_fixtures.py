@@ -57,7 +57,7 @@ from booking.team_map import resolve_team, resolve_team_to_model
 
 # --- Configuration ---
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
-BASE_URL = "https://www.sportybet.com/ng"
+BASE_URL = "https://www.sportybet.com"
 
 # Maximum wait for page loads (ms)
 PAGE_LOAD_TIMEOUT = 30000
@@ -359,8 +359,8 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
         # a corrupted DOM, so force a clean home reload whenever the URL is a
         # deep /sr: link (verified live 2026-08-09: second leg after a BTTS leg
         # failed until the hard reload was added).
-        if "/sr:" in page.url or "/sport/football" not in page.url:
-            page.goto(f"{BASE_URL}/sport/football", wait_until="domcontentloaded",
+        if "/sr:" in page.url or "/ng/sport/football" not in page.url:
+            page.goto(f"{BASE_URL}/ng/sport/football", wait_until="domcontentloaded",
                       timeout=PAGE_LOAD_TIMEOUT)
             page.wait_for_timeout(1500)
 

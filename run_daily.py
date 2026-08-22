@@ -581,7 +581,6 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             stage_a = StageAOutput.load(stage_a_path)
             # Convert VerifiedFixture objects to the board fixture format
             # expected by the rest of the pipeline (scan_one_league output)
-            from orchestrator_DEPRECATED import FixtureRow
             for vf in stage_a.fixtures:
                 # Only include fixtures for the board date that haven't kicked off yet
                 if vf.kickoff_date == board_date and not vf.kicked_off:
@@ -615,6 +614,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                         'best_model_prob': None,
                         'best_market_key': None,
                         'cal_adjustment': None,
+                        'mes_trigger_price': None,
                     })()
                     board.append(bf)
             stage_a_loaded = True
@@ -1660,15 +1660,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             all_flags.append(f"pipeline bus stage 8 handoff failed ({e})")
 
     _mark(runlog, "run completed OK")
+    # Remove leagues_with_fixtures - not a column in runs table
+    fit_stats_for_update = {k: v for k, v in fit_stats.items() if k != "leagues_with_fixtures"}
     brain.update_run(
         run_id, status="ok",
         finished_at=datetime.now(timezone.utc).isoformat(),
-        leagues_scanned=len(leagues), fixtures_seen=len(board),
+        fixtures_seen=len(board),
         predictions_logged=n_preds,
         legs_logged=status["legs_logged_total"],
         fit_seconds=round(time.time() - t0, 1),
         warnings=json.dumps(all_flags),
-        **fit_stats)
+        **fit_stats_for_update)
 
     # ===== PIPELINE BUS: Stage 9 (team_lead) output -> Stage 10 (ceo) =====
     if PIPELINE_BUS_AVAILABLE:

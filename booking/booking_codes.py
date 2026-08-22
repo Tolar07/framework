@@ -617,28 +617,29 @@ def read_betslip_combined_odds(page: Page) -> Optional[float]:
     # production slips). Catastrophic UI bugs show payouts (stake * odds) like
     # 534740, 6000000. Also filter out values that are clearly payouts (often
     # ending in .00 or .50, very large round numbers).
-    # Threshold: typical max combined odds ~50, so 200 is already very generous.
-    # But 123 is still a payout. Lower threshold to 100.
-    filtered = [(v, on_line) for v, on_line in candidates if v <= 100.0]
+    # Exclude common placeholder/default values: 100.0 (stake %), 50.0, 200.0.
+    # Typical max combined odds ~50, so 100 is already very generous upper bound.
+    EXCLUDED_VALUES = {100.0, 50.0, 200.0, 1000.0}  # stake %, payout placeholders
+    filtered = [(v, on_line) for v, on_line in candidates
+                if 1.01 <= v <= 100.0 and v not in EXCLUDED_VALUES]
     if filtered:
         # Among reasonable values, prefer those on combined line, then largest
         filtered.sort(key=lambda x: (not x[1], -x[0]))
         return round(filtered[0][0], 2)
-    # Fallback: if ALL candidates are > 100, they are likely payouts.
-    # Log and return None - this slip cannot be verified.
-    on_line = [(v, on_line) for v, on_line in candidates if on_line]
+    # Fallback: if ALL candidates are > 100 or excluded, they are likely payouts/placeholders.
+    on_line = [(v, on_line) for v, on_line in candidates
+               if on_line and 1.01 <= v <= 100.0 and v not in EXCLUDED_VALUES]
     if on_line:
-        # Check if the smallest on-line value is a plausible odds
         on_line.sort(key=lambda x: x[0])  # smallest first
         smallest = on_line[0][0]
         if smallest <= 100.0:
             return round(smallest, 2)
-    # Last resort: smallest overall
+    # Last resort: smallest overall within range
     candidates.sort(key=lambda x: x[0])
-    smallest = candidates[0][0]
-    if smallest <= 100.0:
-        return round(smallest, 2)
-    return None  # All candidates are payouts, cannot verify
+    for v, on_line in candidates:
+        if 1.01 <= v <= 100.0 and v not in EXCLUDED_VALUES:
+            return round(v, 2)
+    return None  # All candidates are payouts/placeholders, cannot verify
 
 
 # Private alias for internal use
@@ -646,12 +647,12 @@ _read_betslip_combined_odds = read_betslip_combined_odds
 
 
 def odds_within_tolerance(a: Optional[float], b: Optional[float],
-                          rel: float = 0.02) -> bool:
+                          rel: float = 0.05) -> bool:
     """True when two odds figures agree within `rel` relative tolerance.
 
     Used by the hard-rule check: the betslip's combined odds must equal the
-    expected combined odds. A 2% band absorbs minor rounding/SPA re-render
-    lag without letting a wrong slip pass.
+    expected combined odds. A 5% band absorbs minor rounding/SPA re-render
+    lag and normal market movement without letting a wrong slip pass.
 
     Public alias for external verification (e.g., X/Twitter code fetcher)."""
     if a is None or b is None:

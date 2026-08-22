@@ -7,9 +7,10 @@ the real price he could get on SportyBet/Bet365, and plain-English corrections
 when the framework gets something wrong.
 
 SECURITY MODEL — read this before extending it
-  1. CHAT WHITELIST. Only ALLOWED_CHAT_IDS is answered. Anyone else who finds
-     the bot gets silence, and the attempt is logged. A bot token is a
-     bearer credential; assume it can leak.
+  1. CHAT WHITELIST. Set TELEGRAM_CHAT_IDS as a comma-separated list of chat IDs.
+     Only whitelisted chats are answered. Anyone else who finds the bot gets
+     silence, and the attempt is logged. A bot token is a bearer credential;
+     assume it can leak. Fallback: single TELEGRAM_CHAT_ID still works.
   2. NOTHING HERE TOUCHES CAPITAL. Every command is read-only or append-only.
      config.assert_paper_only() still guards the write path underneath, so
      even a bug in this file cannot record a stake.
@@ -76,10 +77,15 @@ BOARD_DIR = Path(__file__).parent / "boards"
 # Per-fixture model blocks a phone should read in one /produce search reply.
 PRODUCE_SEARCH_MAX = 6
 
-# Only this chat is answered. Set TELEGRAM_CHAT_ID; anything else is ignored.
+# Only whitelisted chats are answered. Set TELEGRAM_CHAT_IDS as a comma-separated
+# list of chat IDs; anything else is ignored.
 def _allowed() -> set[str]:
-    cid = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
-    return {cid} if cid else set()
+    raw = os.environ.get("TELEGRAM_CHAT_IDS", "").strip()
+    if not raw:
+        # Fallback to single TELEGRAM_CHAT_ID for backwards compatibility
+        cid = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+        return {cid} if cid else set()
+    return {c.strip() for c in raw.split(",") if c.strip()}
 
 
 # Phrases that would move a bright line. Refused with an explanation — the

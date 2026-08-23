@@ -541,6 +541,25 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags.append(f"produced-bet verification failed ({e}) — "
                          f"legs stay PENDING")
 
+    # --- booking tracker settle: grade YESTERDAY's produced legs against
+    # --- football-data + ESPN results. This is the thin settlement wrapper
+    # --- that mirrors produced_bet verification but writes the tracker's
+    # --- per-leg status/ft_result/hit into produced_<date>.json. ---
+    try:
+        from bets.booking_tracker import settle as _tracker_settle
+        _yesterday = (date.today() - timedelta(days=1)).isoformat()
+        _set = _tracker_settle(target_date=_yesterday)
+        if _set.get("settled") or _set.get("pending"):
+            all_flags.append(
+                f"booking tracker settled {_yesterday}: "
+                f"{_set.get('settled',0)} graded ({_set.get('wins',0)}W/{_set.get('losses',0)}L), "
+                f"{_set.get('pending',0)} pending")
+            for _err in _set.get("errors", [])[:3]:
+                all_flags.append(f"  tracker settle: {_err}")
+    except Exception as e:
+        # tracker.settle is additive — a fault must never kill the board
+        all_flags.append(f"booking tracker settle skipped ({type(e).__name__}: {str(e)[:80]})")
+
     # ===== PIPELINE BUS: Stage 1 (macro_ingestion) -> Stage 2 (list_filter) =====
     if PIPELINE_BUS_AVAILABLE:
         try:
@@ -1284,6 +1303,28 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         # a produced-bet record fault must never kill the daily board — the
         # rest of the run continues; the missing record is visible via the flag.
         all_flags.append(f"produced-bet record failed ({e})")
+
+    # --- booking tracker: wire the produced accas into tracker.place() so
+    # --- produced_<date>.json is written with full per-leg detail (status,
+    # --- ft_result, hit) ready for next-day settlement. This is the thin
+    # --- tracking layer that mirrors what produced_bet writes, but adds the
+    # --- acca-level structure the tracker's settle()/status() consume.
+    # --- HR35: no fabrication — the tracker writes what the board produced,
+    # --- never invents legs or results.
+    try:
+        from bets.booking_tracker import place as _tracker_place
+        if acca_list:
+            _place_payload = [dataclasses.asdict(a) for a in acca_list]
+            _place_result = _tracker_place(_place_payload, target_date=board_date)
+            n_placed = _place_result.get("placed", 0)
+            n_skipped = _place_result.get("skipped", 0)
+            if n_placed or n_skipped:
+                all_flags.append(
+                    f"booking tracker: {n_placed} acca(s) placed, "
+                    f"{n_skipped} skipped")
+    except Exception as e:
+        # tracker.place is additive — a fault must never kill the board
+        all_flags.append(f"booking tracker place skipped ({type(e).__name__}: {str(e)[:80]})")
 
     # --- log the paper legs (the point of Phase 2) ---
     _, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes,

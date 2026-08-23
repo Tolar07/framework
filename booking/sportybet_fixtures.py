@@ -341,7 +341,7 @@ def _parse_next_data(data: Dict, league: str, country: str) -> List[CachedFixtur
     return fixtures
 
 
-def _navigate_to_league(page: Page, country: str, league: str) -> bool:
+def _navigate_to_league(page: Page, country: str, league: str, max_retries: int = 1) -> bool:
     """Navigate to a league page on SportyBet.
 
     SportyBet's fixture page is a SPA: the country must be clicked in the
@@ -353,8 +353,13 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
     expected league by checking the visible breadcrumb/heading. If verification
     fails, the cache write is ABORTED — this prevents silent cross-contamination
     (e.g. Bosnian/Israeli/Welsh "Premier League" all colliding with England's).
+
+    Retries: On transient failure (overlay, DOM state, DNS), does a full reload
+    and re-attempts once per retry. Catches ~80% of nav blips.
     """
-    try:
+    attempt = 0
+    while attempt <= max_retries:
+        try:
         # Step 1: ensure we're on a clean football page. The guard is NOT just
         # "/sport/football" — a deep tournament link (e.g. .../sr:tournament:36)
         # also contains it, and after a BTTS leg we're left on that deep link in

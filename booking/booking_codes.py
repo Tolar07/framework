@@ -781,13 +781,10 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
 
     Returns {label, code, status, per_leg: [...]} where each leg is
     {fixture, market_name, status} and status is BOOKED or MANUAL."""
-    # Local import fallback — avoids stale bytecode cache issues where the
-    # module-level import of _navigate_to_league fails at runtime (observed
-    # 2026-08-23: NameError inside _book_one_acca despite import at top).
-    try:
-        _navigate_to_league_local = _navigate_to_league
-    except NameError:
-        from booking.sportybet_fixtures import _navigate_to_league as _navigate_to_league_local
+    # Import inside function — bypasses ALL bytecode/stale-cache issues.
+    # The module-level import at line 60 works in REPL but fails at runtime
+    # when run_daily spawns the booking flow (observed 2026-08-23).
+    from booking.sportybet_fixtures import _navigate_to_league as _navigate_to_league_local
 
     per_leg: List[dict] = []
     added = 0

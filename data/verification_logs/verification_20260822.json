@@ -1,15 +1,15 @@
 {
-  "verification_date": "2026-08-23T05:09:43.689598+00:00",
+  "verification_date": "2026-08-23T07:57:13.915086+00:00",
   "accas": [
     {
       "label": "Acca A",
-      "combined_odds": 4.9231728,
-      "combined_prob": 0.25289840510887435,
+      "combined_odds": 4.2796208,
+      "combined_prob": 0.28747949521519467,
       "n_legs": 5,
-      "wins": 4,
+      "wins": 3,
       "losses": 1,
-      "pending": 0,
-      "acca_result": "LOSS",
+      "pending": 1,
+      "acca_result": "PENDING",
       "legs": [
         {
           "fixture": "Athletic Club v Sevilla",
@@ -35,9 +35,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686728+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912100+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.686671+00:00"
+          "verification_time": "2026-08-23T07:57:13.911982+00:00"
         },
         {
           "fixture": "Metz v Laval",
@@ -50,22 +50,18 @@
           "edge": 0.0327,
           "verification_stamp": "[⚠ FlashScore]",
           "status": "capital",
-          "result": "DRAW",
-          "home_score": 1,
-          "away_score": 1,
-          "settled": true,
-          "hit": false,
+          "result": "PENDING",
+          "home_score": null,
+          "away_score": null,
+          "settled": false,
+          "hit": null,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": "CL-ARCHIVE",
-          "match_date": "2026-08-22",
+          "closing_capture_path": null,
+          "match_date": null,
           "event_id": null,
-          "provenance": {
-            "source": "manual_verification",
-            "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686775+00:00Z"
-          },
-          "verification_time": "2026-08-23T05:09:43.686743+00:00"
+          "provenance": null,
+          "verification_time": "2026-08-23T07:57:13.912136+00:00"
         },
         {
           "fixture": "Estoril v Rio Ave",
@@ -91,37 +87,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686803+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912238+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.686784+00:00"
-        },
-        {
-          "fixture": "Parma v Cagliari",
-          "league": "Serie A",
-          "market_key": "DC_X2",
-          "market_name": "Cagliari or Draw (double chance)",
-          "price": 1.53,
-          "prob": 0.6856228974366065,
-          "ev": 0.049,
-          "edge": 0.032,
-          "verification_stamp": "[⚠ FlashScore]",
-          "status": "capital",
-          "result": "AWAY_WIN",
-          "home_score": 0,
-          "away_score": 1,
-          "settled": true,
-          "hit": true,
-          "clv_pct": null,
-          "closing_odds": null,
-          "closing_capture_path": "CL-ARCHIVE",
-          "match_date": "2026-08-22",
-          "event_id": null,
-          "provenance": {
-            "source": "manual_verification",
-            "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686825+00:00Z"
-          },
-          "verification_time": "2026-08-23T05:09:43.686810+00:00"
+          "verification_time": "2026-08-23T07:57:13.912173+00:00"
         },
         {
           "fixture": "FC Luzern v Lausanne",
@@ -147,22 +115,10 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686848+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912302+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.686831+00:00"
-        }
-      ]
-    },
-    {
-      "label": "Acca B",
-      "combined_odds": 5.349153600000001,
-      "combined_prob": 0.21619268854987841,
-      "n_legs": 5,
-      "wins": 4,
-      "losses": 1,
-      "pending": 0,
-      "acca_result": "LOSS",
-      "legs": [
+          "verification_time": "2026-08-23T07:57:13.912257+00:00"
+        },
         {
           "fixture": "Nice v Lorient",
           "league": "Ligue 1",
@@ -187,9 +143,49 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686888+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912358+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.686871+00:00"
+          "verification_time": "2026-08-23T07:57:13.912318+00:00"
+        }
+      ]
+    },
+    {
+      "label": "Acca B",
+      "combined_odds": 6.7568256,
+      "combined_prob": 0.17213046430836018,
+      "n_legs": 5,
+      "wins": 5,
+      "losses": 0,
+      "pending": 0,
+      "acca_result": "WIN",
+      "legs": [
+        {
+          "fixture": "Millwall v Norwich",
+          "league": "Championship",
+          "market_key": "DC_1X",
+          "market_name": "Millwall or Draw (double chance)",
+          "price": 1.4,
+          "prob": 0.7390018032847048,
+          "ev": 0.0346,
+          "edge": 0.0247,
+          "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
+          "status": "capital",
+          "result": "HOME_WIN",
+          "home_score": 3,
+          "away_score": 0,
+          "settled": true,
+          "hit": true,
+          "clv_pct": null,
+          "closing_odds": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
+          "event_id": null,
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.912453+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.912409+00:00"
         },
         {
           "fixture": "Brentford v Tottenham",
@@ -215,9 +211,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686910+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912503+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.686895+00:00"
+          "verification_time": "2026-08-23T07:57:13.912469+00:00"
         },
         {
           "fixture": "Akhmat v FC Rostov",
@@ -243,9 +239,37 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686930+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912550+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.686916+00:00"
+          "verification_time": "2026-08-23T07:57:13.912517+00:00"
+        },
+        {
+          "fixture": "Parma v Cagliari",
+          "league": "Serie A",
+          "market_key": "DC_X2",
+          "market_name": "Cagliari or Draw (double chance)",
+          "price": 1.5,
+          "prob": 0.6856228974366065,
+          "ev": 0.0284,
+          "edge": 0.019,
+          "verification_stamp": "[⚠ FlashScore]",
+          "status": "capital",
+          "result": "AWAY_WIN",
+          "home_score": 0,
+          "away_score": 1,
+          "settled": true,
+          "hit": true,
+          "clv_pct": null,
+          "closing_odds": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
+          "event_id": null,
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.912600+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.912565+00:00"
         },
         {
           "fixture": "Wrexham v Watford",
@@ -271,10 +295,22 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686950+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912649+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.686936+00:00"
-        },
+          "verification_time": "2026-08-23T07:57:13.912613+00:00"
+        }
+      ]
+    },
+    {
+      "label": "Acca C",
+      "combined_odds": 5.063552000000001,
+      "combined_prob": 0.2165117808168128,
+      "n_legs": 5,
+      "wins": 4,
+      "losses": 1,
+      "pending": 0,
+      "acca_result": "LOSS",
+      "legs": [
         {
           "fixture": "Preston v Wolves",
           "league": "Championship",
@@ -299,22 +335,10 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.686970+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912726+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.686956+00:00"
-        }
-      ]
-    },
-    {
-      "label": "Acca C",
-      "combined_odds": 3.972993024000001,
-      "combined_prob": 0.271461194668703,
-      "n_legs": 5,
-      "wins": 4,
-      "losses": 1,
-      "pending": 0,
-      "acca_result": "LOSS",
-      "legs": [
+          "verification_time": "2026-08-23T07:57:13.912689+00:00"
+        },
         {
           "fixture": "Genoa v Napoli",
           "league": "Serie A",
@@ -339,9 +363,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687004+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912778+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.686988+00:00"
+          "verification_time": "2026-08-23T07:57:13.912741+00:00"
         },
         {
           "fixture": "Carrarese v Mantova",
@@ -367,9 +391,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687025+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912827+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687009+00:00"
+          "verification_time": "2026-08-23T07:57:13.912792+00:00"
         },
         {
           "fixture": "Blackburn v Middlesbrough",
@@ -395,10 +419,50 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687046+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912876+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687031+00:00"
+          "verification_time": "2026-08-23T07:57:13.912842+00:00"
         },
+        {
+          "fixture": "Charleroi v KV Mechelen",
+          "league": "Belgian Pro League",
+          "market_key": "1X2_HOME",
+          "market_name": "Charleroi to win",
+          "price": 1.79,
+          "prob": 0.5694760820045558,
+          "ev": 0.0194,
+          "edge": 0.0108,
+          "verification_stamp": "[⚠ FlashScore]",
+          "status": "capital",
+          "result": "HOME_WIN",
+          "home_score": 2,
+          "away_score": 0,
+          "settled": true,
+          "hit": true,
+          "clv_pct": null,
+          "closing_odds": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
+          "event_id": null,
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.912924+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.912890+00:00"
+        }
+      ]
+    },
+    {
+      "label": "Acca D",
+      "combined_odds": 6.685324800000001,
+      "combined_prob": 0.1530682917514647,
+      "n_legs": 5,
+      "wins": 2,
+      "losses": 2,
+      "pending": 1,
+      "acca_result": "PENDING",
+      "legs": [
         {
           "fixture": "Fenerbahce v Konyaspor",
           "league": "Turkish Super Lig",
@@ -411,8 +475,8 @@
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
           "result": "HOME_WIN",
-          "home_score": 3,
-          "away_score": 0,
+          "home_score": 4,
+          "away_score": 2,
           "settled": true,
           "hit": true,
           "clv_pct": null,
@@ -423,9 +487,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687065+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.912986+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687051+00:00"
+          "verification_time": "2026-08-23T07:57:13.912952+00:00"
         },
         {
           "fixture": "Everton v Crystal Palace",
@@ -451,49 +515,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687084+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913032+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687070+00:00"
-        }
-      ]
-    },
-    {
-      "label": "Acca D",
-      "combined_odds": 9.270195200000002,
-      "combined_prob": 0.10819435849979563,
-      "n_legs": 5,
-      "wins": 2,
-      "losses": 2,
-      "pending": 1,
-      "acca_result": "PENDING",
-      "legs": [
-        {
-          "fixture": "Millwall v Norwich",
-          "league": "Championship",
-          "market_key": "DC_1X",
-          "market_name": "Millwall or Draw (double chance)",
-          "price": 1.36,
-          "prob": 0.7390018032847048,
-          "ev": 0.005,
-          "edge": 0.0037,
-          "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
-          "status": "capital",
-          "result": "HOME_WIN",
-          "home_score": 3,
-          "away_score": 0,
-          "settled": true,
-          "hit": true,
-          "clv_pct": null,
-          "closing_odds": null,
-          "closing_capture_path": "CL-ARCHIVE",
-          "match_date": "2026-08-22",
-          "event_id": null,
-          "provenance": {
-            "source": "manual_verification",
-            "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687112+00:00Z"
-          },
-          "verification_time": "2026-08-23T05:09:43.687097+00:00"
+          "verification_time": "2026-08-23T07:57:13.913000+00:00"
         },
         {
           "fixture": "Birmingham v Bristol City",
@@ -506,9 +530,9 @@
           "edge": 0.0025,
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
-          "result": "HOME_WIN",
+          "result": "DRAW",
           "home_score": 2,
-          "away_score": 1,
+          "away_score": 2,
           "settled": true,
           "hit": false,
           "clv_pct": null,
@@ -519,37 +543,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687131+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913079+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687117+00:00"
-        },
-        {
-          "fixture": "Charleroi v KV Mechelen",
-          "league": "Belgian Pro League",
-          "market_key": "1X2_HOME",
-          "market_name": "Charleroi to win",
-          "price": 1.79,
-          "prob": 0.5576267153168875,
-          "ev": -0.0018,
-          "edge": -0.001,
-          "verification_stamp": "[⚠ FlashScore]",
-          "status": "capital",
-          "result": "HOME_WIN",
-          "home_score": 2,
-          "away_score": 0,
-          "settled": true,
-          "hit": true,
-          "clv_pct": null,
-          "closing_odds": null,
-          "closing_capture_path": "CL-ARCHIVE",
-          "match_date": "2026-08-22",
-          "event_id": null,
-          "provenance": {
-            "source": "manual_verification",
-            "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687150+00:00Z"
-          },
-          "verification_time": "2026-08-23T05:09:43.687137+00:00"
+          "verification_time": "2026-08-23T07:57:13.913045+00:00"
         },
         {
           "fixture": "Empoli v Cremonese",
@@ -575,9 +571,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687169+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913125+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687156+00:00"
+          "verification_time": "2026-08-23T07:57:13.913092+00:00"
         },
         {
           "fixture": "Eldense v Cadiz",
@@ -601,7 +597,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687175+00:00"
+          "verification_time": "2026-08-23T07:57:13.913138+00:00"
         }
       ]
     },
@@ -610,9 +606,9 @@
       "combined_odds": 4.62231,
       "combined_prob": 0.19975752429359456,
       "n_legs": 5,
-      "wins": 1,
-      "losses": 1,
-      "pending": 3,
+      "wins": 2,
+      "losses": 2,
+      "pending": 1,
       "acca_result": "PENDING",
       "legs": [
         {
@@ -639,9 +635,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687206+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913205+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687191+00:00"
+          "verification_time": "2026-08-23T07:57:13.913171+00:00"
         },
         {
           "fixture": "Fenerbahçe v Konyaspor",
@@ -665,7 +661,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687211+00:00"
+          "verification_time": "2026-08-23T07:57:13.913219+00:00"
         },
         {
           "fixture": "Hull City v Man United",
@@ -691,9 +687,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687233+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913270+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687219+00:00"
+          "verification_time": "2026-08-23T07:57:13.913237+00:00"
         },
         {
           "fixture": "Espanyol v Real Madrid",
@@ -706,18 +702,22 @@
           "edge": -0.0143,
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "AWAY_WIN",
+          "home_score": 1,
+          "away_score": 2,
+          "settled": true,
+          "hit": true,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687238+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.913315+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913283+00:00"
         },
         {
           "fixture": "Ipswich v Sunderland",
@@ -730,18 +730,22 @@
           "edge": -0.0164,
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "HOME_WIN",
+          "home_score": 2,
+          "away_score": 1,
+          "settled": true,
+          "hit": false,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687246+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.913361+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913329+00:00"
         }
       ]
     },
@@ -750,9 +754,9 @@
       "combined_odds": 11.382071999999999,
       "combined_prob": 0.07323866952113815,
       "n_legs": 5,
-      "wins": 0,
+      "wins": 1,
       "losses": 3,
-      "pending": 2,
+      "pending": 1,
       "acca_result": "PENDING",
       "legs": [
         {
@@ -777,7 +781,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687260+00:00"
+          "verification_time": "2026-08-23T07:57:13.913388+00:00"
         },
         {
           "fixture": "Udinese v Como",
@@ -803,9 +807,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687283+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913444+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687268+00:00"
+          "verification_time": "2026-08-23T07:57:13.913408+00:00"
         },
         {
           "fixture": "Sudtirol v Virtus Entella",
@@ -831,9 +835,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687303+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913490+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687289+00:00"
+          "verification_time": "2026-08-23T07:57:13.913457+00:00"
         },
         {
           "fixture": "Swansea v Sheffield Utd",
@@ -859,9 +863,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687321+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913536+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687308+00:00"
+          "verification_time": "2026-08-23T07:57:13.913503+00:00"
         },
         {
           "fixture": "Le Mans v Stade Brestois 29",
@@ -874,18 +878,22 @@
           "edge": -0.0236,
           "verification_stamp": "[⚠ unverified]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "DRAW",
+          "home_score": 2,
+          "away_score": 2,
+          "settled": true,
+          "hit": true,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687326+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.913581+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913549+00:00"
         }
       ]
     },
@@ -894,10 +902,10 @@
       "combined_odds": 10.9318815045,
       "combined_prob": 0.0729882984645925,
       "n_legs": 5,
-      "wins": 1,
-      "losses": 0,
-      "pending": 4,
-      "acca_result": "PENDING",
+      "wins": 3,
+      "losses": 2,
+      "pending": 0,
+      "acca_result": "LOSS",
       "legs": [
         {
           "fixture": "Fakel v FC Orenburg",
@@ -923,9 +931,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687360+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913642+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687340+00:00"
+          "verification_time": "2026-08-23T07:57:13.913606+00:00"
         },
         {
           "fixture": "Southampton v Stoke City",
@@ -938,18 +946,22 @@
           "edge": -0.0247,
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "HOME_WIN",
+          "home_score": 3,
+          "away_score": 1,
+          "settled": true,
+          "hit": true,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687366+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.913690+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913657+00:00"
         },
         {
           "fixture": "Inter v Monza",
@@ -962,18 +974,22 @@
           "edge": -0.0278,
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "HOME_WIN",
+          "home_score": 4,
+          "away_score": 1,
+          "settled": true,
+          "hit": false,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687373+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.913735+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913703+00:00"
         },
         {
           "fixture": "Nottingham Forest v Leeds",
@@ -986,18 +1002,22 @@
           "edge": -0.0297,
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "AWAY_WIN",
+          "home_score": 0,
+          "away_score": 1,
+          "settled": true,
+          "hit": true,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687380+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.913781+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913748+00:00"
         },
         {
           "fixture": "Estac Troyes v Paris FC",
@@ -1010,29 +1030,33 @@
           "edge": -0.0297,
           "verification_stamp": "[⚠ unverified]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "DRAW",
+          "home_score": 0,
+          "away_score": 0,
+          "settled": true,
+          "hit": false,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687387+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.913827+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913795+00:00"
         }
       ]
     },
     {
       "label": "Acca H",
-      "combined_odds": 8.180328,
-      "combined_prob": 0.09365913654137728,
+      "combined_odds": 10.7025958,
+      "combined_prob": 0.07047501140949289,
       "n_legs": 5,
-      "wins": 1,
-      "losses": 0,
-      "pending": 4,
+      "wins": 3,
+      "losses": 1,
+      "pending": 1,
       "acca_result": "PENDING",
       "legs": [
         {
@@ -1046,18 +1070,22 @@
           "edge": -0.0303,
           "verification_stamp": "[⚠ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "DRAW",
+          "home_score": 0,
+          "away_score": 0,
+          "settled": true,
+          "hit": true,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687400+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.913886+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913853+00:00"
         },
         {
           "fixture": "Luzern v Lausanne-Sport",
@@ -1083,9 +1111,9 @@
           "provenance": {
             "source": "manual_verification",
             "source_tier": "T3",
-            "fetched_at": "2026-08-23T05:09:43.687422+00:00Z"
+            "fetched_at": "2026-08-23T07:57:13.913932+00:00Z"
           },
-          "verification_time": "2026-08-23T05:09:43.687408+00:00"
+          "verification_time": "2026-08-23T07:57:13.913900+00:00"
         },
         {
           "fixture": "Toulouse v Lyon",
@@ -1098,42 +1126,22 @@
           "edge": -0.0337,
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "AWAY_WIN",
+          "home_score": 0,
+          "away_score": 2,
+          "settled": true,
+          "hit": true,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687428+00:00"
-        },
-        {
-          "fixture": "ST Johnstone v Celtic",
-          "league": "Scottish Premiership",
-          "market_key": "DC_12",
-          "market_name": "ST Johnstone or Celtic (double chance)",
-          "price": 1.2,
-          "prob": 0.7967036191712873,
-          "ev": -0.044,
-          "edge": -0.0366,
-          "verification_stamp": "[⚠ FlashScore]",
-          "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
-          "clv_pct": null,
-          "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
-          "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687436+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.913978+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913945+00:00"
         },
         {
           "fixture": "Maritimo v Academico Viseu",
@@ -1146,31 +1154,23 @@
           "edge": -0.0375,
           "verification_stamp": "[⚠ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "DRAW",
+          "home_score": 2,
+          "away_score": 2,
+          "settled": true,
+          "hit": false,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687443+00:00"
-        }
-      ]
-    },
-    {
-      "label": "Acca I",
-      "combined_odds": 2.826,
-      "combined_prob": 0.2882812995867741,
-      "n_legs": 4,
-      "wins": 0,
-      "losses": 0,
-      "pending": 4,
-      "acca_result": "PENDING",
-      "legs": [
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.914022+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.913990+00:00"
+        },
         {
           "fixture": "FC Zurich v FC Basel 1893",
           "league": "Swiss Super League",
@@ -1193,8 +1193,20 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687457+00:00"
-        },
+          "verification_time": "2026-08-23T07:57:13.914034+00:00"
+        }
+      ]
+    },
+    {
+      "label": "Acca I",
+      "combined_odds": 6.83397,
+      "combined_prob": 0.0959619632818994,
+      "n_legs": 6,
+      "wins": 3,
+      "losses": 0,
+      "pending": 3,
+      "acca_result": "PENDING",
+      "legs": [
         {
           "fixture": "Lens v Auxerre",
           "league": "Ligue 1",
@@ -1206,18 +1218,22 @@
           "edge": -0.0381,
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "HOME_WIN",
+          "home_score": 5,
+          "away_score": 2,
+          "settled": true,
+          "hit": true,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687465+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.914098+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.914064+00:00"
         },
         {
           "fixture": "Rizespor v Samsunspor",
@@ -1230,18 +1246,22 @@
           "edge": -0.0388,
           "verification_stamp": "[⚠ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "AWAY_WIN",
+          "home_score": 0,
+          "away_score": 2,
+          "settled": true,
+          "hit": true,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687472+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.914144+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.914111+00:00"
         },
         {
           "fixture": "Nantes v Rodez",
@@ -1265,20 +1285,8 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687478+00:00"
-        }
-      ]
-    },
-    {
-      "label": "Acca J",
-      "combined_odds": 3.7966499999999996,
-      "combined_prob": 0.1995558430819251,
-      "n_legs": 3,
-      "wins": 0,
-      "losses": 0,
-      "pending": 3,
-      "acca_result": "PENDING",
-      "legs": [
+          "verification_time": "2026-08-23T07:57:13.914157+00:00"
+        },
         {
           "fixture": "Southampton v Stoke",
           "league": "Championship",
@@ -1290,18 +1298,22 @@
           "edge": -0.0509,
           "verification_stamp": "[✓ SportyBet ✓ FlashScore]",
           "status": "capital",
-          "result": "PENDING",
-          "home_score": null,
-          "away_score": null,
-          "settled": false,
-          "hit": null,
+          "result": "HOME_WIN",
+          "home_score": 3,
+          "away_score": 1,
+          "settled": true,
+          "hit": true,
           "clv_pct": null,
           "closing_odds": null,
-          "closing_capture_path": null,
-          "match_date": null,
+          "closing_capture_path": "CL-ARCHIVE",
+          "match_date": "2026-08-22",
           "event_id": null,
-          "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687491+00:00"
+          "provenance": {
+            "source": "manual_verification",
+            "source_tier": "T3",
+            "fetched_at": "2026-08-23T07:57:13.914206+00:00Z"
+          },
+          "verification_time": "2026-08-23T07:57:13.914174+00:00"
         },
         {
           "fixture": "Feyenoord Rotterdam v AZ Alkmaar",
@@ -1325,7 +1337,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687499+00:00"
+          "verification_time": "2026-08-23T07:57:13.914218+00:00"
         },
         {
           "fixture": "Ajax Amsterdam v Zwolle",
@@ -1349,7 +1361,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-23T05:09:43.687506+00:00"
+          "verification_time": "2026-08-23T07:57:13.914236+00:00"
         }
       ]
     }

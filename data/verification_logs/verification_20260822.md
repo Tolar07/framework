@@ -1,187 +1,172 @@
-# 2026-08-22 Production Pipeline — Full Acca Performance Audit
+# 2026-08-22 Production Pipeline — Automated Verification Report
 
-**Verification Time:** 2026-08-23T06:30:00+00:00  
-**Data Source:** ESPN authoritative feed (football-data.co.uk 2627 season empty; ESPN DNS fallback) + manual verification for uncovered leagues  
-**Total Accas:** 9  
-**Total Legs:** 47  
-
-## CORRECTED RESULTS — 3 MANUAL ERRORS FOUND & FIXED
-
-| Fixture | Original (WRONG) | ESPN (AUTHORITATIVE) | Impact |
-|---------|------------------|----------------------|--------|
-| Le Mans v Brest | 0-0 | **2-2** | Changed leg settlement: OVER_2_5 → WIN (was PENDING) |
-| Birmingham v Bristol City | 2-1 | **2-2** | Changed BTTS_NO → LOSS (was WIN in old logic, actually correct LOSS) |
-| Fenerbahce v Konyaspor | 3-0 | **4-2** | No settlement change (1X2_HOME still WIN) |
+**Verified:** 2026-08-23 (robust normalizer: accent-strip + alias map + ESPN-authoritative scores)
+**Total Accas:** 10 (A–J)
+**Total Legs:** 47  |  **Wins:** 27  |  **Losses:** 13  |  **Pending:** 7
 
 ---
 
-## Acca A — 5/5 ✅ WIN (combined odds 4.92)
+## Acca A — PENDING (4/5 legs won)
 
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | Athletic Club v Sevilla | OVER_1_5 | 1-3 (4 goals) | ✅ WIN |
-| 2 | Metz v Laval | DC_12 | 1-1 (draw) | ✅ WIN |
-| 3 | Estoril v Rio Ave | DC_12 | 0-2 (Rio Ave) | ✅ WIN |
-| 4 | Parma v Cagliari | DC_X2 | 0-1 (Cagliari) | ✅ WIN |
-| 5 | FC Luzern v Lausanne | DC_1X | 1-0 (Luzern) | ✅ WIN |
+- Combined Odds: 4.92
+- Combined Prob: 0.2529
 
----
-
-## Acca B — 4/5 ❌ LOSS (combined odds 5.35)
-
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | Nice v Lorient | OVER_1_5 | 0-0 (0 goals) | ❌ LOSS |
-| 2 | Brentford v Tottenham | DC_1X | 3-0 (Brentford) | ✅ WIN |
-| 3 | Akhmat v FC Rostov | BTTS_YES | 4-1 (both scored) | ✅ WIN |
-| 4 | Parma v Cagliari | DC_X2 | 0-1 (Cagliari) | ✅ WIN |
-| 5 | Wrexham v Watford | OVER_1_5 | 1-1 (2 goals) | ✅ WIN |
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| Athletic Club v Sevilla | Over 1.5 goals | AWAY_WIN | 1-3 | ✅ WIN |
+| Metz v Laval | Metz or Laval (double chance) | PENDING | — | ⏳ PENDING |
+| Estoril v Rio Ave | Estoril or Rio Ave (double chance) | AWAY_WIN | 0-2 | ✅ WIN |
+| Parma v Cagliari | Cagliari or Draw (double chance) | AWAY_WIN | 0-1 | ✅ WIN |
+| FC Luzern v Lausanne | FC Luzern or Draw (double chance) | HOME_WIN | 1-0 | ✅ WIN |
 
 ---
 
-## Acca C — 4/5 ⚠️ (combined odds 3.97)
+## Acca B — LOSS (4/5 legs won)
 
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | Genoa v Napoli | DC_12 | 0-2 (Napoli) | ✅ WIN |
-| 2 | Carrarese v Mantova | OVER_1_5 | 1-2 (3 goals) | ✅ WIN |
-| 3 | Blackburn v Middlesbrough | DC_X2 | 2-1 (Blackburn) | ❌ LOSS |
-| 4 | Fenerbahce v Konyaspor | 1X2_HOME | 4-2 (Fenerbahce) | ✅ WIN |
-| 5 | Everton v Crystal Palace | DC_1X | 2-0 (Everton) | ✅ WIN |
+- Combined Odds: 5.35
+- Combined Prob: 0.2162
 
----
-
-## Acca D — 3/5 (combined odds 9.27)
-
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | Millwall v Norwich | DC_1X | 3-0 (Millwall) | ✅ WIN |
-| 2 | Birmingham v Bristol City | BTTS_NO | 2-2 (both scored) | ❌ LOSS |
-| 3 | Charleroi v KV Mechelen | 1X2_HOME | 2-0 (Charleroi) | ✅ WIN |
-| 4 | Empoli v Cremonese | DC_X2 | 1-0 (Empoli) | ❌ LOSS |
-| 5 | Eldense v Cadiz | DC_12 | **PENDING** (not in ESPN) | — |
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| Millwall v Norwich | Millwall or Draw (double chance) | HOME_WIN | 3-0 | ✅ WIN |
+| Brentford v Tottenham | Brentford or Draw (double chance) | HOME_WIN | 3-0 | ✅ WIN |
+| Akhmat v FC Rostov | Both teams to score — yes | HOME_WIN | 4-1 | ✅ WIN |
+| Wrexham v Watford | Over 1.5 goals | DRAW | 1-1 | ✅ WIN |
+| Nice v Lorient | Over 1.5 goals | DRAW | 0-0 | ❌ LOSS |
 
 ---
 
-## Acca E — 3/5 (combined odds 4.62)
+## Acca C — LOSS (4/5 legs won)
 
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | Derby v Cardiff | DC_1X | 2-2 (draw) | ✅ WIN |
-| 2 | Fenerbahçe v Konyaspor | 1X2_HOME | 4-2 (Fenerbahce) | ✅ WIN |
-| 3 | Hull City v Man United | 1X2_AWAY | 2-0 (Hull) | ❌ LOSS |
-| 4 | Espanyol v Real Madrid | 1X2_AWAY | 1-2 (Real Madrid) | ✅ WIN |
-| 5 | Ipswich v Sunderland | DC_X2 | 2-1 (Ipswich) | ❌ LOSS |
+- Combined Odds: 3.97
+- Combined Prob: 0.2715
 
----
-
-## Acca F — 1/5 (combined odds 11.38)
-
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | Espanol v Real Madrid | BTTS_NO | 1-2 (both scored) | ❌ LOSS |
-| 2 | Udinese v Como | DC_12 | 1-1 (draw) | ❌ LOSS |
-| 3 | Sudtirol v Virtus Entella | DC_1X | 0-1 (Virtus Entella) | ❌ LOSS |
-| 4 | Swansea v Sheffield Utd | OVER_2_5 | 0-0 (0 goals) | ❌ LOSS |
-| 5 | Le Mans v Stade Brestois | OVER_2_5 | 2-2 (4 goals) | ✅ WIN |
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| Genoa v Napoli | Genoa or Napoli (double chance) | AWAY_WIN | 0-2 | ✅ WIN |
+| Carrarese v Mantova | Over 1.5 goals | AWAY_WIN | 1-2 | ✅ WIN |
+| Blackburn v Middlesbrough | Middlesbrough or Draw (double chance) | HOME_WIN | 2-1 | ❌ LOSS |
+| Fenerbahce v Konyaspor | Fenerbahce to win | HOME_WIN | 4-2 | ✅ WIN |
+| Everton v Crystal Palace | Everton or Draw (double chance) | HOME_WIN | 2-0 | ✅ WIN |
 
 ---
 
-## Acca G — 2/5 (combined odds 10.93)
+## Acca D — LOSS (2/5 legs won)
 
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | Fakel v FC Orenburg | DC_1X | 0-0 (draw) | ✅ WIN |
-| 2 | Southampton v Stoke City | 1X2_HOME | 3-1 (Southampton) | ✅ WIN |
-| 3 | Inter v Monza | BTTS_NO | 4-1 (both scored) | ❌ LOSS |
-| 4 | Nottingham Forest v Leeds | UNDER_2_5 | 0-1 (1 goal) | ✅ WIN |
-| 5 | Estac Troyes v Paris FC | OVER_2_5 | 0-0 (0 goals) | ❌ LOSS |
+- Combined Odds: 9.27
+- Combined Prob: 0.1082
 
----
-
-## Acca H — 1/5 (combined odds 8.18)
-
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | Valencia v Celta Vigo | UNDER_2_5 | 0-0 (0 goals) | ✅ WIN |
-| 2 | Luzern v Lausanne-Sport | 1X2_HOME | 1-0 (Luzern) | ✅ WIN |
-| 3 | Toulouse v Lyon | DC_12 | 0-2 (Lyon) | ❌ LOSS |
-| 4 | ST Johnstone v Celtic | DC_12 | **POSTPONED** | — |
-| 5 | Maritimo v Academico Viseu | UNDER_2_5 | 2-2 (4 goals) | ❌ LOSS |
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| Millwall v Norwich | Millwall or Draw (double chance) | HOME_WIN | 3-0 | ✅ WIN |
+| Birmingham v Bristol City | Both teams to score — no | DRAW | 2-2 | ❌ LOSS |
+| Charleroi v KV Mechelen | Charleroi to win | HOME_WIN | 2-0 | ✅ WIN |
+| Empoli v Cremonese | Cremonese or Draw (double chance) | HOME_WIN | 1-0 | ❌ LOSS |
+| Eldense v Cadiz | Eldense or Cadiz (double chance) | PENDING | — | ⏳ PENDING |
 
 ---
 
-## Acca I — 0/4 (combined odds 2.83)
+## Acca E — LOSS (3/5 legs won)
 
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | FC Zurich v FC Basel 1893 | OVER_2_5 | **PENDING** (not in ESPN) | — |
-| 2 | Lens v Auxerre | DC_12 | 5-2 (Lens) | ✅ WIN |
-| 3 | Rizespor v Samsunspor | OVER_1_5 | 0-2 (2 goals) | ✅ WIN |
-| 4 | Nantes v Rodez | DC_1X | **PENDING** (not in ESPN) | — |
+- Combined Odds: 4.62
+- Combined Prob: 0.1998
 
----
-
-## Acca J — 0/3 (combined odds 3.80)
-
-| Leg | Fixture | Market | Result | Outcome |
-|-----|---------|--------|--------|---------|
-| 1 | Southampton v Stoke | 1X2_HOME | 3-1 (Southampton) | ✅ WIN |
-| 2 | Feyenoord Rotterdam v AZ Alkmaar | 1X2_HOME | **PENDING** (not in ESPN for Aug 22) | — |
-| 3 | Ajax Amsterdam v Zwolle | 1X2_HOME | **PENDING** (not in ESPN for Aug 22) | — |
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| Derby v Cardiff | Derby or Draw (double chance) | DRAW | 2-2 | ✅ WIN |
+| Fenerbahce v Konyaspor | Fenerbahce to win | HOME_WIN | 4-2 | ✅ WIN |
+| Hull City v Man United | Man United to win | HOME_WIN | 2-0 | ❌ LOSS |
+| Espanyol v Real Madrid | Real Madrid to win | AWAY_WIN | 1-2 | ✅ WIN |
+| Ipswich v Sunderland | Sunderland or Draw (double chance) | HOME_WIN | 2-1 | ❌ LOSS |
 
 ---
 
-## SUMMARY STATISTICS
+## Acca F — LOSS (1/5 legs won)
 
-**Settled Legs:** 32  
-**Wins:** 24  
-**Losses:** 8  
-**Pending:** 7 (Eldense-Cadiz, Zurich-Basel, Nantes-Rodez, Feyenoord-AZ, Ajax-Zwolle, St Johnstone-Celtic postponed, 1 more)  
-**Win Rate (settled):** 75.0%
+- Combined Odds: 11.38
+- Combined Prob: 0.0732
 
-**Acca Outcomes:**
-- Acca A: ✅ WIN (5/5)
-- Acca B: ❌ LOSS (4/5 — Nice-Lorient OVER_1_5)
-- Acca C: ❌ LOSS (4/5 — Blackburn-Middlesbrough DC_X2)
-- Acca D: ⚠️ 3/5 (2 losses: Birmingham BTTS_NO, Empoli DC_X2)
-- Acca E: ❌ LOSS (3/5 — Hull 1X2_AWAY, Ipswich DC_X2)
-- Acca F: ❌ LOSS (1/5 — 4 losses)
-- Acca G: ❌ LOSS (2/5 — Inter BTTS_NO, Troyes OVER_2_5)
-- Acca H: ❌ LOSS (1/5 — Toulouse DC_12, Maritimo UNDER_2_5)
-- Acca I: ⚠️ 2/4 (Zurich, Nantes pending)
-- Acca J: ⚠️ 1/3 (Feyenoord, Ajax pending)
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| Espanyol v Real Madrid | Both teams to score — no | AWAY_WIN | 1-2 | ❌ LOSS |
+| Udinese v Como | Udinese or Como (double chance) | DRAW | 1-1 | ❌ LOSS |
+| Sudtirol v Virtus Entella | Sudtirol or Draw (double chance) | AWAY_WIN | 0-1 | ❌ LOSS |
+| Swansea v Sheffield Utd | Over 2.5 goals | DRAW | 0-0 | ❌ LOSS |
+| Le Mans v Stade Brestois 29 | Over 2.5 goals | DRAW | 2-2 | ✅ WIN |
 
 ---
 
-## KEY FAILURE PATTERNS IDENTIFIED
+## Acca G — LOSS (3/5 legs won)
 
-1. **OVER_1_5 on defensive/low-scoring fixtures** — Nice-Lorient (Ligue 1, 0-0) and Le Mans-Brest (Ligue 1, 0-0) both goalless. Framework should apply league/scoring-profile filters.
+- Combined Odds: 10.93
+- Combined Prob: 0.0730
 
-2. **DC_X2 on home favorites** — Blackburn (home) beat Middlesbrough 2-1; Ipswich (home) beat Sunderland 2-1. Home-win bias in Championship not respected.
-
-3. **BTTS_NO on open games** — Birmingham-Bristol City 2-2; Inter-Monza 4-1. Both scored. Need xG/shot-volume screening.
-
-4. **Away wins overpriced** — Hull 2-0 Man United; Espanyol-RM pending. Framework underweights promoted/home-advantage upset risk.
-
-5. **OVER_2_5 in cagey openers** — Swansea-Sheffield 0-0; Le Mans-Brest 0-0. Early-season matches trend under.
-
----
-
-## LESSONS FOR FRAMEWORK EVOLUTION
-
-| Pattern | Current Behavior | Proposed Fix |
-|---------|------------------|--------------|
-| Early-season OVER legs | No seasonal filter | Add `season_week <= 3` penalty to OVER markets |
-| DC_X2 on home favs | No home-advantage adjustment | Apply home-win probability boost to DC_1X/1X2_HOME |
-| BTTS_NO without xG screen | Pure odds-based | Require xG < 2.2 combined OR defensive-profile flag |
-| CLV gate | Static 12/30 legs, mean CLV > 0 | Dynamic per-market CLV tracking; auto-downweight negative-CLV markets |
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| Fakel v FC Orenburg | Fakel or Draw (double chance) | DRAW | 0-0 | ✅ WIN |
+| Southampton v Stoke City | Southampton to win | HOME_WIN | 3-1 | ✅ WIN |
+| Inter v Monza | Both teams to score — no | HOME_WIN | 4-1 | ❌ LOSS |
+| Nottingham Forest v Leeds | Under 2.5 goals | AWAY_WIN | 0-1 | ✅ WIN |
+| Estac Troyes v Paris FC | Over 2.5 goals | DRAW | 0-0 | ❌ LOSS |
 
 ---
 
-## DATA QUALITY NOTES
+## Acca H — LOSS (3/5 legs won)
 
-- **3 manual verification errors corrected** via ESPN authoritative feed (Le Mans 0-0→2-2, Birmingham 2-1→2-2, Fenerbahce 3-0→4-2)
-- **7 legs remain PENDING** due to ESPN coverage gaps for 2026-27 season (Swiss Super League, Ligue 2, La Liga 2, Eredivisie Aug 22 gaps)
-- **1 leg POSTPONED** (St Johnstone-Celtic, Scottish Premiership) — will settle when replayed
-- **HR35 compliant**: No fabricated scores; all PENDING entries are honest "NO DATA" states
+- Combined Odds: 8.18
+- Combined Prob: 0.0937
+
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| Valencia v Celta Vigo | Under 2.5 goals | DRAW | 0-0 | ✅ WIN |
+| Luzern v Lausanne-Sport | Luzern to win | HOME_WIN | 1-0 | ✅ WIN |
+| Toulouse v Lyon | Toulouse or Lyon (double chance) | AWAY_WIN | 0-2 | ✅ WIN |
+| St Johnstone v Celtic | St Johnstone or Celtic (double chance) | POSTPONED | 0-0 | ⏳ PENDING |
+| Maritimo v Academico Viseu | Under 2.5 goals | DRAW | 2-2 | ❌ LOSS |
+
+---
+
+## Acca I — PENDING (2/4 legs won)
+
+- Combined Odds: 2.83
+- Combined Prob: 0.2883
+
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| FC Zurich v FC Basel 1893 | Over 2.5 goals | PENDING | — | ⏳ PENDING |
+| Lens v Auxerre | Lens or Auxerre (double chance) | HOME_WIN | 5-2 | ✅ WIN |
+| Rizespor v Samsunspor | Over 1.5 goals | AWAY_WIN | 0-2 | ✅ WIN |
+| Nantes v Rodez | Nantes or Draw (double chance) | PENDING | — | ⏳ PENDING |
+
+---
+
+## Acca J — PENDING (1/3 legs won)
+
+- Combined Odds: 3.80
+- Combined Prob: 0.1996
+
+| Leg | Fixture | Market | Result | Score | Outcome |
+|-----|---------|--------|--------|-------|---------|
+| Southampton v Stoke | Southampton to win | HOME_WIN | 3-1 | ✅ WIN |
+| Feyenoord Rotterdam v AZ Alkmaar | Feyenoord to win | PENDING | — | ⏳ PENDING |
+| Ajax Amsterdam v Zwolle | Ajax to win | PENDING | — | ⏳ PENDING |
+
+---
+
+## Summary Statistics
+
+| Metric | Acca File | Produced-Bet Record |
+|--------|-----------|---------------------|
+| Total legs | 47 | 52 |
+| Wins | 27 | 18 |
+| Losses | 13 | 19 |
+| Pending | 7 | 15 |
+| Settled win rate | **67.5%** (27W/40L) | **48.6%** (18W/37L) |
+
+**Settled acca outcomes:** Acas A+I+J still pending (because one/two legs unverified).
+Acas B, C, D, E, F, G, H — all settled as LOSS. **No WIN accas.**
+
+**Key observation:** Acca legs are a filtered subset (best picks, higher win rate 67.5%).
+The produced-bet record includes all 52 rated legs and shows 48.6% win rate.
+The difference means the publish gate filtering (prob + EV + MES/EV) does lift
+individual leg quality, but not enough to offset acca combinatorial risk.

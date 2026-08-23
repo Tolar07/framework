@@ -39,8 +39,8 @@ current_league = None
 for m in mappings:
     if m["league"] != current_league:
         current_league = m["league"]
-        print(f"\n=== {current_league} ===")
-    print(f'"{m["sportybet_name"]}": "{m["model_key"]}",  # {m["league"]}')
+        # Write to file instead of printing to avoid encoding issues
+    # We'll just write to file
 
 # Also write to a file for easy reference
 with open(r"C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\all_268_mappings.txt", "w", encoding="utf-8") as f:

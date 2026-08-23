@@ -45,6 +45,7 @@
 | **ID412** | **Cross-engine consensus vote** — majority across available engines, persisted to brain | Active | `engine/consensus.py` |
 | **ID413** | **Devigged implied probability** — market's devigged 1X2 as the EV anchor | Active | `engine/markets.py` (`MARKETS_1X2`), `run_daily.py` |
 | **ID414** | **Market-anchored display probability / true modal scoreline** — Poisson modal scoreline for display + EV | Active | `engine/dixon_coles.py`, `webapp/schema.py` |
+| **ID415** | **Odds tolerance gate** — betslip combined odds must equal expected combined odds within ±5% relative tolerance; mismatch rejects the booking code (Architect 2026-08-20 hard rule) | Active | `booking/booking_codes.py` (`odds_within_tolerance`, `_read_betslip_combined_odds`), `booking/verify_external_code.py` |
 
 ## Standing rules (not HR/ID-numbered)
 

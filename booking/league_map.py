@@ -40,12 +40,19 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Europa League":       BookmakerLeague("International Clubs", "UEFA Europa League"),
     "Conference League":   BookmakerLeague("International Clubs", "UEFA Conference League"),
     "Primeira Liga":       BookmakerLeague("Portugal", "Liga Portugal"),
+    "Liga Portugal":       BookmakerLeague("Portugal", "Liga Portugal"),   # acca payload alias
     "Premier League":      BookmakerLeague("England", "Premier League"),
     "La Liga":             BookmakerLeague("Spain", "LaLiga"),
+    "LaLiga":              BookmakerLeague("Spain", "LaLiga"),   # acca payload alias
     "La Liga 2":           BookmakerLeague("Spain", "LaLiga2"),
     "Champions League":    BookmakerLeague("International Clubs", "UEFA Champions League"),
     "Austrian Bundesliga": BookmakerLeague("Austria", "Bundesliga"),
     "EFL Cup":             BookmakerLeague("England", "EFL Cup"),
+    # --- Missing leagues from acca payload (2026-08-23) ---
+    "Russian Premier League": BookmakerLeague("Russia", "Premier League"),
+    "Swiss Super League":     BookmakerLeague("Switzerland", "Super League"),
+    "Super League":           BookmakerLeague("Switzerland", "Super League"),  # acca payload alias
+    "Turkish Super Lig":      BookmakerLeague("Turkiye", "Super Lig"),
     # --- Domestic cups & secondary comps (PENDING live SportyBet sidebar
     # --- verification — HR35). The 06/11 below were originally committed with a
     # --- false "verified live 2026-08-16" label; a live browser check on
@@ -70,7 +77,7 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     # These mappings are PENDING live verification — wrong sub-item = silent wrong data
     "Süper Lig":           BookmakerLeague("Turkiye", "Super Lig"),
     "Super League Greece": BookmakerLeague("Greece", "Super League"),
-    "Swiss Super League":  BookmakerLeague("Switzerland", "Super League"),
+    # NOTE: "Swiss Super League" duplicate removed — correct mapping is on line 51 (Country: Switzerland, League: Super League)
     "Eliteserien":         BookmakerLeague("Norway", "Eliteserien"),
     "Allsvenskan":         BookmakerLeague("Sweden", "Allsvenskan"),
     "Czech First League":  BookmakerLeague("Czech Republic", "First League"),
@@ -83,6 +90,12 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Greek Super League":    BookmakerLeague("Greece", "Super League"),
     # Swedish Allsvenskan (OLP) == Allsvenskan (SportyBet)
     "Swedish Allsvenskan":   BookmakerLeague("Sweden", "Allsvenskan"),
+    # --- ACCA PAYLOAD ALIASES (2026-08-23): keys used in acca_<date>.json payload ---
+    # These map directly to SportyBet sidebar names (verified live from SportyBet JSON)
+    "LaLiga":                BookmakerLeague("Spain", "LaLiga"),
+    "Pro League":            BookmakerLeague("Belgium", "Pro League"),
+    "Liga Portugal":         BookmakerLeague("Portugal", "Liga Portugal"),
+    "Super League":          BookmakerLeague("Switzerland", "Super League"),
     # --- NEW 2026-08-14: 33 missing whitelisted leagues — HR35 pending live sidebar verification ---
     # These mappings are PENDING live verification — wrong sub-item = silent wrong data
     "Albanian Superliga":         BookmakerLeague("Albania", "Superliga"),
@@ -114,7 +127,7 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Northern Irish Premiership": BookmakerLeague("Northern Ireland", "Premiership"),
     "Republic of Ireland Premier Division": BookmakerLeague("Republic of Ireland", "Premier Division"),
     "Romanian Liga I":            BookmakerLeague("Romania", "Liga I"),
-    "Russian Premier League":     BookmakerLeague("Russia", "Premier League"),
+    # NOTE: "Russian Premier League" duplicate removed — correct mapping is on line 50 (Country: Russia, League: Premier League)
     "Sanmarinese Campionato":     BookmakerLeague("San Marino", "Campionato"),
     "Serbian Super Liga":         BookmakerLeague("Serbia", "Super Liga"),
     "Slovak Super Liga":          BookmakerLeague("Slovakia", "Super Liga"),

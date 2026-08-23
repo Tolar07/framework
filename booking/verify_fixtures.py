@@ -1,7 +1,7 @@
 """
-Fixture verification gate — mandatory pre-production cross-check.
+Fixture verification gate -- mandatory pre-production cross-check.
 
-WHY THIS EXISTS (Architect directive 2026-08-16 — STOP FABRICATION)
+WHY THIS EXISTS (Architect directive 2026-08-16 -- STOP FABRICATION)
   The daily pipeline used to build ACCAs / singles from fixtures that had NO
   independent corroboration. A wrong fixture (a typo'd pair, a mis-mapped
   league, a stale date) would propagate straight through scan -> engine ->
@@ -10,22 +10,22 @@ WHY THIS EXISTS (Architect directive 2026-08-16 — STOP FABRICATION)
   priced, scored, or booked.
 
 THE VERIFICATION SOURCES (expanded 2026-08-23)
-  1. SportyBet cache — Playwright-captured real fixtures
+  1. SportyBet cache -- Playwright-captured real fixtures
      (booking/bridge.load_sportybet_fixtures). Provenance: the cache file is
      built by an actual browser walk of the SportyBet league pages.
-  2. FlashScore fixture feed — the scraped match_1x2 JSONL
+  2. FlashScore fixture feed -- the scraped match_1x2 JSONL
      (data/live_odds/flashscore_odds_*.jsonl, read by fixtures_agent.fetch_flashscore).
      RATIFIED T2 in verification/id403.py. Only team identity + date are used
-     here (the feed's odds are NOT trusted — the scraper's odds regex is buggy).
-  3. ESPN schedules — live fixture lists from ESPN API (multi-source concrete layer).
+     here (the feed's odds are NOT trusted -- the scraper's odds regex is buggy).
+  3. ESPN schedules -- live fixture lists from ESPN API (multi-source concrete layer).
      RATIFIED T1 in verification/id403.py. Authoritative for upcoming fixtures.
-  4. football-data.co.uk — completed fixture results (CSV). RATIFIED T1.
+  4. football-data.co.uk -- completed fixture results (CSV). RATIFIED T1.
      Only usable for fixtures that have already kicked off.
 
 F2 QUORUM RULE (ID403/403.1)
   A fixture is VERIFIED when:
     a) SportyBet + ≥1 other source agree, OR
-    b) A SINGLE T1 source (ESPN, football-data) carries it — T1 authority
+    b) A SINGLE T1 source (ESPN, football-data) carries it -- T1 authority
        is sufficient on its own per ID403 T1 trust tier.
 
 OUTAGE SEMANTICS (the Architect's "find the data" rule)
@@ -437,7 +437,7 @@ def verify_board(board: List, board_date: str,
                  leagues: List[str]) -> Tuple[List, "VerifierReport"]:
     """Gate a scanned board against independent fixture sources.
 
-    NEW HARD RULE (Architect 2026-08-19): NEVER drop any fixture.
+    NEW HARD RULE (Architect "2026-08-19"): NEVER drop any fixture.
     All fixtures pass through with appropriate verification stamps:
 
     T1 SOURCES (ESPN, FootballData.co.uk): Single confirmation = VERIFIED.
@@ -450,7 +450,7 @@ def verify_board(board: List, board_date: str,
     T3 SOURCES (manual): Not auto-loaded, only used as override.
 
     Stamps:
-    - VERIFIED: found in ESPN or FootballData (T1) OR SportyBet + ≥1 other
+    - VERIFIED: found in ESPN or FootballData (T1) OR SportyBet + >=1 other
     - UNVERIFIED (SportyBet only): found in SportyBet only (primary odds/booking)
     - UNVERIFIED (T2 only): found in FlashScore/PredictZ/StatsArea/Bet365 but
       NOT SportyBet, NOT T1
@@ -519,7 +519,7 @@ def verify_board(board: List, board_date: str,
         report.outage = True
         report.outage_reason = (
             "no verification sources available (SportyBet, FlashScore, PredictZ, "
-            "StatsArea, Bet365, ESPN, FootballData all unavailable) — verification gate could not run; "
+            "StatsArea, Bet365, ESPN, FootballData all unavailable) -- verification gate could not run; "
             "all fixtures KEPT but stamped UNVERIFIED (keep-but-warn, never guess)")
         for bf in board:
             _stamp(bf, [], verified=False, reason=report.outage_reason)
@@ -535,7 +535,7 @@ def verify_board(board: List, board_date: str,
             _stamp(bf, [], verified=False, reason="unparseable fixture name")
             report.kept_unverified += 1
             report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED — unparseable fixture name")
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED -- unparseable fixture name")
             verified_board.append(bf)
             continue
 
@@ -587,21 +587,21 @@ def verify_board(board: List, board_date: str,
             _stamp(bf, sources, verified=False)
             report.kept_unverified += 1
             report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (SportyBet only — primary odds/booking source)")
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (SportyBet only -- primary odds/booking source)")
         elif confirming_other:
             # UNVERIFIED: found in other source(s) but NOT SportyBet/T1
             sources = confirming_other
             _stamp(bf, sources, verified=False)
             report.kept_unverified += 1
             report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (found in {', '.join(confirming_other)} but NOT SportyBet/T1 — cannot price/book)")
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (found in {', '.join(confirming_other)} but NOT SportyBet/T1 -- cannot price/book)")
         else:
             # UNVERIFIED: not found in ANY source (honest gap, HR35)
             sources = []
             _stamp(bf, sources, verified=False, reason="not found in any source")
             report.kept_unverified += 1
             report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED — not found in ANY source (honest gap, HR35)")
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)")
 
         verified_board.append(bf)
 
@@ -609,7 +609,7 @@ def verify_board(board: List, board_date: str,
 
 
 def _pair_in(idx: Dict[Tuple[str, str], set], nh: str, na: str) -> bool:
-    """Exact normalized pair match (both directions — home/away order can differ
+    """Exact normalized pair match (both directions -- home/away order can differ
     between sources)."""
     return (nh, na) in idx or (na, nh) in idx
 
@@ -625,7 +625,7 @@ def _split_fixture(fixture: str) -> Tuple[str, str]:
 
 def _stamp(bf, sources: List[str], verified: bool, reason: str = "") -> None:
     """Attach verification metadata to a BoardFixture (does not mutate the input
-    list, only the object's attributes — the gate already builds a new list)."""
+    list, only the object's attributes -- the gate already builds a new list)."""
     bf.verified_sources = list(sources)
     bf.verified = verified
     bf.verification_note = reason
@@ -678,7 +678,7 @@ class VerifierReport:
     def summary(self) -> str:
         lines = [
             "=" * 60,
-            f"FIXTURE VERIFICATION GATE — {self.board_date}",
+            f"FIXTURE VERIFICATION GATE -- {self.board_date}",
             "=" * 60,
             f"  FlashScore feed : {'AVAILABLE' if self.flashscore_available else 'UNAVAILABLE'}"
             f" ({self.flashscore_count} pairs)",

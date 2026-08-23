@@ -93,13 +93,14 @@ def _check(name, cond, detail=""):
 
 
 # --- 1. same-day rule: tomorrow's fixtures never enter any bet ---------------
+# Use a non-quarantined league (Eredivisie is quarantined per Audit 2026-08-20)
 board = [
-    _bf("Alpha v Beta (Eredivisie)", _probs(d=0.30), TODAY, sb_draw=1.80),
-    _bf("Gamma v Delta (Eredivisie)", _probs(d=0.28), TOMORROW, sb_draw=1.90),
-    _bf("Epsilon v Zeta (Eredivisie)", _probs(d=0.26), TODAY, sb_draw=1.95),
-    _bf("Eta v Theta (Eredivisie)", _probs(d=0.24), TOMORROW, sb_draw=1.85),
-    _bf("Iota v Kappa (Eredivisie)", _probs(d=0.22), TODAY, sb_draw=1.92),
-    _bf("Lambda v Mu (Eredivisie)", _probs(d=0.20), TODAY, sb_draw=1.88),
+    _bf("Alpha v Beta (Test League)", _probs(d=0.30), TODAY, sb_draw=1.80),
+    _bf("Gamma v Delta (Test League)", _probs(d=0.28), TOMORROW, sb_draw=1.90),
+    _bf("Epsilon v Zeta (Test League)", _probs(d=0.26), TODAY, sb_draw=1.95),
+    _bf("Eta v Theta (Test League)", _probs(d=0.24), TOMORROW, sb_draw=1.85),
+    _bf("Iota v Kappa (Test League)", _probs(d=0.22), TODAY, sb_draw=1.92),
+    _bf("Lambda v Mu (Test League)", _probs(d=0.20), TODAY, sb_draw=1.88),
 ]
 bets1 = build_production_bets(board, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
 accas1 = ([bets1.acca_a] if bets1.acca_a else []) + bets1.split_accas
@@ -115,7 +116,7 @@ _check("legacy build_accas returns the same acca set, no singles",
        [a.label for a in build_accas(board, today=TODAY, max_odds_cap=float('inf'))] == ["Acca A"])
 
 # --- 2. HR35: a fixture with no kickoff date is never assumed to be today ----
-board_no_date = board + [_bf("Undated v Ghost (Eredivisie)", _probs(d=0.40),
+board_no_date = board + [_bf("Undated v Ghost (Test League)", _probs(d=0.40),
                              None, sb_draw=2.50)]
 bets2 = build_production_bets(board_no_date, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
 legs2 = {l.fixture for a in
@@ -127,13 +128,13 @@ _check("HR35: no-date fixture excluded", "Undated v Ghost" not in legs2, f"got {
 # Four fixtures, four distinct natural best markets (all five priced via the
 # odds index). Selection must follow model probability, not EV or market order.
 best_board = [
-    _bf("HighOver v LowUnder (Eredivisie)", _probs(h=0.30, d=0.20, a=0.30, over25=0.85),
+    _bf("HighOver v LowUnder (Test League)", _probs(h=0.30, d=0.20, a=0.30, over25=0.85),
         TODAY),                                  # OVER_25 @ 0.85
-    _bf("DrawLord v DrawLady (Eredivisie)", _probs(h=0.18, d=0.62, a=0.20, over25=0.40),
+    _bf("DrawLord v DrawLady (Test League)", _probs(h=0.18, d=0.62, a=0.20, over25=0.40),
         TODAY),                                  # DRAW @ 0.62
-    _bf("HomeTitan v AwayMouse (Eredivisie)", _probs(h=0.75, d=0.12, a=0.13, over25=0.30),
+    _bf("HomeTitan v AwayMouse (Test League)", _probs(h=0.75, d=0.12, a=0.13, over25=0.30),
         TODAY),                                  # HOME @ 0.75
-    _bf("UnderKing v OverQueen (Eredivisie)", _probs(h=0.20, d=0.20, a=0.20, over25=0.10),
+    _bf("UnderKing v OverQueen (Test League)", _probs(h=0.20, d=0.20, a=0.20, over25=0.10),
         TODAY),                                  # UNDER_25 @ 0.90
 ]
 odds_index = {("Home FC", "Away FC"): _fx_full("Home FC", "Away FC",
@@ -175,7 +176,7 @@ _check("write-back: best_market_key/best_market/best_price/best_model_prob/best_
 # --- 5. Acca A = top 5 by confidence; no fixture in two different bets ------
 def _conf_board(n, start=0.31):
     # Use short odds (<2.00) so they pass the MAX_ODDS_CAP
-    return [_bf(f"F{i} v G{i} (Eredivisie)", _probs(d=start - i * 0.01),
+    return [_bf(f"F{i} v G{i} (Test League)", _probs(d=start - i * 0.01),
                 TODAY, sb_draw=1.70 + i * 0.02) for i in range(n)]
 
 board_rich = _conf_board(12)
@@ -247,7 +248,7 @@ _check("single's combined odds/prob equal the leg's own price/prob",
        and abs(singles[0].combined_prob - singles[0].legs[0].prob) < 1e-9)
 
 # --- 9. fewer than HEADLINE_MIN_LEGS -> shortened acca, honestly -------------
-board_short = [_bf("Only v One (Eredivisie)", _probs(d=0.30), TODAY, sb_draw=3.30)]
+board_short = [_bf("Only v One (Test League)", _probs(d=0.30), TODAY, sb_draw=3.30)]
 bets9 = build_production_bets(board_short, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
 _check("shortened acca (never padded with a non-today fixture)",
        bets9.acca_a is not None and bets9.acca_a.n_legs == 1
@@ -256,7 +257,7 @@ _check("shortened acca (never padded with a non-today fixture)",
 txt9 = render_production_block(bets9, today=TODAY)
 _check("shortened acca renders lean (no prob/EV on the leg)",
        "★ Acca A — HEADLINE, 1 legs" in txt9
-       and "Only v One (Eredivisie) — Draw @ 3.30" in txt9
+       and "Only v One (Test League) — Draw @ 3.30" in txt9
        and "30%" not in txt9, txt9)
 
 # --- 10. empty today -> honest NO production pick (HR35) --------------------
@@ -307,7 +308,7 @@ _check("block is lean — honest/capital lines moved to the notify envelope",
 
 # --- 12. SportyBet price preferred for Draw over the Odds API ----------------
 board_sb = [
-    _bf("Alpha v Beta (Eredivisie)", _probs(d=0.30), TODAY,
+    _bf("Alpha v Beta (Test League)", _probs(d=0.30), TODAY,
         sb_draw=1.80, market_key=mkt.DRAW, price=1.90),
 ]
 odds_index12 = {("Alpha v Beta", "Away FC"): _fx("Alpha v Beta", "Away FC", draw=1.90)}
@@ -320,7 +321,7 @@ _check("SportyBet price wins for Draw when present",
 # ID409 (PROPOSED, pending ratification): Detail (PART 2) → Call (PART 1) order.
 # Pass a pre-built production object (uncapped) so the render function doesn't
 # re-build with the default MAX_ODDS_CAP (which filters the >2.00 draw odds).
-call_board = board + [_bf("Tomorrow v Only (Eredivisie)", _probs(d=0.45),
+call_board = board + [_bf("Tomorrow v Only (Test League)", _probs(d=0.45),
                           TOMORROW, sb_draw=2.20, shortlist=True)]
 call_production = build_production_bets(call_board, today=TODAY, odds_index=None,
                                         max_odds_cap=float('inf'))
@@ -355,14 +356,14 @@ def _fx_home(home, away, h, d, a):
 
 agree_board = [
     # DISAGREEMENT: model away 45% vs book away @3.60 (implied ~27.8%) — EV +62%
-    _bf("Dog v Fav (Eredivisie)", _probs(h=0.40, d=0.15, a=0.45,
+    _bf("Dog v Fav (Test League)", _probs(h=0.40, d=0.15, a=0.45,
                                          home="Dog FC", away="Fav FC"), TODAY),
     # AGREEMENT, positive EV: model home 52% vs book home @1.95 (implied ~51.3%)
-    _bf("Tier v Mid (Eredivisie)", _probs(h=0.52, d=0.24, a=0.24,
+    _bf("Tier v Mid (Test League)", _probs(h=0.52, d=0.24, a=0.24,
                                          home="Tier FC", away="Mid FC"), TODAY),
     # AGREEMENT, NEGATIVE EV: model home 55% vs book home @1.70 (implied ~58.8%)
     # i.e. book SHORTENS the favourite below true value — inside band, but no edge
-    _bf("Big v Small (Eredivisie)", _probs(h=0.55, d=0.22, a=0.23,
+    _bf("Big v Small (Test League)", _probs(h=0.55, d=0.22, a=0.23,
                                           home="Big FC", away="Small FC"), TODAY),
 ]
 agree_index = {
@@ -432,10 +433,10 @@ _check("agreement gate: agreement_band=None == no-gate (shipped behaviour)",
 
 # --- 15. MAX_ODDS_CAP: legs priced above the cap are rejected (FL guardrail) ---
 cap_board = [
-    _bf("FavA v DogA (Eredivisie)", _probs(h=0.55, d=0.25, a=0.20,
+    _bf("FavA v DogA (Test League)", _probs(h=0.55, d=0.25, a=0.20,
                                            home="FavA", away="DogA"), TODAY,
         sb_draw=1.50),  # Draw @ 1.50 -> under cap, admitted
-    _bf("FavB v DogB (Eredivisie)", _probs(h=0.50, d=0.25, a=0.25,
+    _bf("FavB v DogB (Test League)", _probs(h=0.50, d=0.25, a=0.25,
                                            home="FavB", away="DogB"), TODAY,
         sb_draw=3.50),  # Draw @ 3.50 -> over cap, rejected
 ]
@@ -484,7 +485,7 @@ def _fx_ticket(home_team, away_team, **prices):
 # leg should be in the watchlist for review.
 mixed_board = [
     # Fixture with Home @ 1.80 (capital) AND Draw @ 3.20 (watchlist)
-    _bf("Mixed v Case (Eredivisie)",
+    _bf("Mixed v Case (Test League)",
         _probs(h=0.45, d=0.28, a=0.27, over25=0.45, home="Mixed", away="Case"), TODAY),
 ]
 
@@ -663,10 +664,10 @@ _check("REAL TICKET: the 1.20-2.00 deployment window works — filters below-flo
 # 1.50-2.00 leg on a fixture when NO preferred-zone market exists for it.
 pref_board = [
     # Home @ 1.55 (1.50-2.00) AND Over 2.5 @ 1.45 (preferred 1.20-1.50) both exist
-    _bf("Pref v Fallback (Eredivisie)",
+    _bf("Pref v Fallback (Test League)",
         _probs(h=0.62, d=0.24, a=0.14, over25=0.58, home="Pref", away="Fallback"), TODAY),
     # Home @ 1.80 (1.50-2.00) is the only sub-cap market; Over 2.5 @ 2.10 is over cap
-    _bf("OnlyFallback v X (Eredivisie)",
+    _bf("OnlyFallback v X (Test League)",
         _probs(h=0.45, d=0.28, a=0.27, over25=0.50, home="OnlyFallback", away="X"), TODAY),
 ]
 pref_odds = {
@@ -700,7 +701,7 @@ _check("PREFERRED ZONE: the 2.10 Over 2.5 leg rejected (above cap), only 1.80 su
 # No stacked prose blocks. Regression guard so a future edit cannot silently
 # revert the table back to per-fixture text blocks.
 from output.produce_bet import render_part1_the_call, stamp
-_t1 = _bf("TableTest v Row (Eredivisie)",
+_t1 = _bf("TableTest v Row (Test League)",
           _probs(home="TableTest", away="Row", h=0.42, d=0.32, a=0.26,
                  over15=0.61, over25=0.33, btts=0.41),
           TODAY)
@@ -721,7 +722,7 @@ _check("PART 1 table carries the frozen column names (Fixture, H%, D%, A%, O1.5,
        "Fixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A | Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes" in t1_out,
        "frozen header missing")
 _check("PART 1 table row renders all numeric cells inline (no stacked prose)",
-       "TableTest v Row (Eredivisie) | 42 | 32 | 26 | O61 | U67 | N59 | 48/26/26" in t1_out
+       "TableTest v Row (Test League) | 42 | 32 | 26 | O61 | U67 | N59 | 48/26/26" in t1_out
        and "Draw | 3.25 | +4.52% | 1.63+" in t1_out,
        "detail cells not inline in one row")
 _check("PART 1 has NO stacked fixture-block markers (no 'Second opinion' prose)",

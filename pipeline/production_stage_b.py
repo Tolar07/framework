@@ -213,7 +213,7 @@ def _enrich_fixtures_with_models(
     from engine.consensus import compute_consensus
     from engine.dixon_coles import fit, predict, predict_adjusted, FixtureProbabilities
     from brain.store import Brain, content_hash, elo_to_payload, elo_from_payload, dc_to_payload, dc_from_payload
-    from engine.leagues import UNCOVERED_LEAGUES
+    from data.football_data_source import UNCOVERED_LEAGUES
     from booking.bridge import get_sportybet_odds_for_leg
     from data.thesportsdb_fixtures import map_team
     from verification.id403 import verify, SourcedDatum, Tier
@@ -470,6 +470,7 @@ def _enrich_fixtures_with_models(
             best_mes_ev = None
             best_bookmaker = "SportyBet"
             best_n_books = 1
+            mes_trigger = None
 
             for market_key, prob_attr in [("1X2_HOME", "p_home"), ("1X2_DRAW", "p_draw"), ("1X2_AWAY", "p_away")]:
                 sb_price = get_sportybet_odds_for_leg(home, away, league, market_key)
@@ -827,6 +828,8 @@ def _code_for(codes: Optional[dict], label: str) -> Optional[str]:
 
 if __name__ == "__main__":
     import argparse
+    import sys
+    sys.stdout.reconfigure(encoding='utf-8')
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 

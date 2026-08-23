@@ -1,338 +1,616 @@
 OLP XDV — DAILY BOARD
 2026-08-22  |  Phase 3 — live capital (Architect-deployed)
-Leagues: 20 · 39 with fixtures
+Leagues: 20 · 15 with fixtures
 Calibration: 17 legs logged, mean CLV -2.47%
 
-⚠ 118 data flag(s) — see /board or the saved board for full detail
+⚠ 241 data flag(s) — see /board or the saved board for full detail
 
-📋 SCAN RECORD — today's rated fixtures (paper, ID415)
-No rated fixtures today — no bet recorded. A valid, honest result (ID415).
+📋 SCAN RECORD — today's rated fixtures — 2026-08-22 (paper, ID415)
+52 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
 
-```
-PREMIER LEAGUE
-· Everton v Crystal Palace
-  NO DATA — PENDING
-· Ipswich v Sunderland
-  NO DATA — PENDING
-· Brentford v Tottenham
-  NO DATA — PENDING
-```
-```
-LA LIGA
-· Athletic Club v Sevilla
-  NO DATA — PENDING
-```
-```
-SERIE A
-· Udinese v Como
-  NO DATA — PENDING
-· Inter v Monza
-  NO DATA — PENDING
-· Genoa v Napoli
-  NO DATA — PENDING
-· Parma v Cagliari
-  NO DATA — PENDING
-```
-```
-LIGUE 1
-· Lens v Auxerre
-  NO DATA — PENDING
-· Nice v Lorient
-  NO DATA — PENDING
-· Toulouse v Lyon
-  NO DATA — PENDING
-· Estac Troyes v Paris FC
-  NO DATA — PENDING
-· Le Mans v Stade Brestois 29
-  NO DATA — PENDING
-```
-```
-SCOTTISH PREMIERSHIP
-· Hibernian v Kilmarnock
-  NO DATA — PENDING
-· Motherwell v Aberdeen
-  NO DATA — PENDING
-· Rangers v ST Mirren
-  NO DATA — PENDING
-· ST Johnstone v Celtic
-  NO DATA — PENDING
-· Falkirk v Heart Of Midlothian
-  NO DATA — PENDING
-· Dundee Utd v Dundee
-  NO DATA — PENDING
-```
+1. Antwerp v Genk (Belgian Pro League)
+   Pick: Genk to win (36%)
+   Best market: Antwerp or Draw (double chance) at 1.73 — +5.00% EV
+2. Charleroi v Mechelen (Belgian Pro League)
+   Pick: Charleroi to win (43%)
+   Best market: Charleroi or Draw (double chance) at 1.20 — -3.63% EV
+3. Birmingham v Bristol City (Championship)
+   Pick: Birmingham to win (40%)
+   Best market: Both teams to score — no at 2.00 — +0.50% EV
+4. Millwall v Norwich (Championship)
+   Pick: Millwall to win (44%)
+   Best market: Millwall or Draw (double chance) at 1.36 — +0.50% EV
+5. Lincoln v Portsmouth (Championship)
+   Pick: Portsmouth to win (80%)
+   Best market: Portsmouth or Draw (double chance) at 1.57 — +10.42% EV
+6. West Ham v Charlton (Championship)
+   Pick: West Ham to win (81%)
+   Best market: West Ham or Draw (double chance) at 1.10 — +5.20% EV
+7. Preston v Wolves (Championship)
+   Pick: Wolves to win (56%)
+   Best market: Wolves or Draw (double chance) at 1.25 — +2.07% EV
+8. Blackburn v Middlesbrough (Championship)
+   Pick: Middlesbrough to win (48%)
+   Best market: Middlesbrough or Draw (double chance) at 1.28 — +1.47% EV
+9. Derby v Cardiff (Championship)
+   Pick: Derby to win (54%)
+   Best market: Derby or Draw (double chance) at 1.25 — -0.63% EV
+10. Wrexham v Watford (Championship)
+   Pick: Wrexham to win (50%)
+   Best market: Over 1.5 goals at 1.28 — +2.38% EV
+11. Southampton v Stoke (Championship)
+   Pick: Southampton to win (56%)
+   Best market: Southampton to win at 1.65 — -8.40% EV
+12. Swansea v Sheffield United (Championship)
+   Pick: Swansea to win (40%)
+13. Sparta Rotterdam v Utrecht (Eredivisie)
+   Pick: Utrecht to win (45%)
+   Best market: Utrecht or Draw (double chance) at 1.44 — +4.67% EV
+14. PSV Eindhoven v Utrecht (Eredivisie)
+   Pick: PSV Eindhoven to win (65%)
+   Best market: PSV Eindhoven to win at 1.15 — -11.93% EV
+15. Athletic Club v Sevilla (La Liga)
+   Pick: Athletic Club to win (47%)
+   Best market: Over 1.5 goals at 1.40 — +5.19% EV
+16. Espanyol v Real Madrid (La Liga)
+   Pick: Real Madrid to win (68%)
+   Best market: Real Madrid to win at 1.45 — -2.07% EV
+17. Ath Bilbao v Sevilla (La Liga)
+   Pick: Ath Bilbao to win (47%)
+   Best market: Ath Bilbao to win at 1.77 — -6.20% EV
+18. Valencia v Celta (La Liga)
+   Pick: Valencia to win (39%)
+19. Espanol v Real Madrid (La Liga)
+   Pick: Real Madrid to win (57%)
+   Best market: Both teams to score — no at 1.95 — -3.40% EV
+20. Eldense v Cadiz (La Liga 2)
+   Pick: Cadiz to win (39%)
+   Best market: Eldense or Cadiz (double chance) at 1.36 — -0.35% EV
+21. Lens v Auxerre (Ligue 1)
+   Pick: Lens to win (68%)
+   Best market: Lens or Auxerre (double chance) at 1.20 — -4.57% EV
+22. Nice v Lorient (Ligue 1)
+   Pick: Lorient to win (43%)
+   Best market: Over 1.5 goals at 1.33 — +3.66% EV
+23. Toulouse v Lyon (Ligue 1)
+   Pick: Lyon to win (37%)
+   Best market: Toulouse or Lyon (double chance) at 1.30 — -4.38% EV
+24. Le Mans FC v Brest (Ligue 1)
+   Pick: Brest to win (44%)
+25. Troyes v Paris FC (Ligue 1)
+   Pick: Paris FC to win (41%)
+26. Nantes v Rodez (Ligue 2)
+   Pick: Nantes to win (52%)
+   Best market: Nantes or Draw (double chance) at 1.20 — -4.67% EV
+27. Metz v Laval (Ligue 2)
+   Pick: Metz to win (63%)
+   Best market: Metz or Laval (double chance) at 1.30 — +4.25% EV
+28. Saint Etienne v Grenoble (Ligue 2)
+   Pick: Saint Etienne to win (60%)
+   Best market: Saint Etienne or Grenoble (double chance) at 1.20 — -5.19% EV
+29. Everton v Crystal Palace (Premier League)
+   Pick: Everton to win (44%)
+   Best market: Everton or Draw (double chance) at 1.33 — +1.10% EV
+30. Ipswich v Sunderland (Premier League)
+   Pick: Sunderland to win (39%)
+   Best market: Sunderland or Draw (double chance) at 1.40 — -2.30% EV
+31. Brentford v Tottenham (Premier League)
+   Pick: Brentford to win (50%)
+   Best market: Brentford or Draw (double chance) at 1.33 — +2.90% EV
+32. Nott'm Forest v Leeds (Premier League)
+   Pick: Nott'm Forest to win (43%)
+33. Estoril v Rio Ave (Primeira Liga)
+   Pick: Estoril to win (61%)
+   Best market: Estoril or Rio Ave (double chance) at 1.30 — +4.23% EV
+34. Sporting v Alverca (Primeira Liga)
+   Pick: Sporting to win (84%)
+   Best market: Sporting to win at 1.25 — +2.69% EV
+35. Fakel v FC Orenburg (Russian Premier League)
+   Pick: Draw (43%)
+   Best market: Fakel or Draw (double chance) at 1.41 — -3.34% EV
+36. Akhmat v FC Rostov (Russian Premier League)
+   Pick: FC Rostov to win (40%)
+   Best market: Both teams to score — yes at 1.89 — +3.76% EV
+37. CSKA Moscow v Lokomotiv (Russian Premier League)
+   Pick: CSKA Moscow to win (56%)
+   Best market: CSKA Moscow or Draw (double chance) at 1.29 — +5.11% EV
+38. Rangers v ST Mirren (Scottish Premiership)
+   Pick: Rangers to win (78%)
+   Best market: Rangers or Draw (double chance) at 1.04 — +0.91% EV
+39. ST Johnstone v Celtic (Scottish Premiership)
+   Pick: Celtic to win (74%)
+   Best market: ST Johnstone or Celtic (double chance) at 1.20 — -4.40% EV
+40. Dundee United v Dundee (Scottish Premiership)
+   Pick: Dundee United to win (50%)
+41. Udinese v Como (Serie A)
+   Pick: Como to win (58%)
+   Best market: Udinese or Como (double chance) at 1.28 — -2.71% EV
+42. Inter v Monza (Serie A)
+   Pick: Inter to win (86%)
+   Best market: Both teams to score — no at 1.57 — -4.37% EV
+43. Genoa v Napoli (Serie A)
+   Pick: Napoli to win (53%)
+   Best market: Genoa or Napoli (double chance) at 1.36 — +2.00% EV
+44. Parma v Cagliari (Serie A)
+   Pick: Cagliari to win (37%)
+   Best market: Cagliari or Draw (double chance) at 1.53 — +4.90% EV
+45. Udinese v Como 1907 (Serie A)
+   Pick: Como 1907 to win (58%)
+   Best market: Como 1907 to win at 1.88 — +3.80% EV
+46. Sudtirol v Virtus Entella (Serie B)
+   Pick: Sudtirol to win (43%)
+   Best market: Sudtirol or Draw (double chance) at 1.25 — -2.75% EV
+47. Carrarese v Mantova (Serie B)
+   Pick: Carrarese to win (51%)
+   Best market: Over 1.5 goals at 1.30 — +1.80% EV
+48. Empoli v Cremonese (Serie B)
+   Pick: Cremonese to win (41%)
+   Best market: Cremonese or Draw (double chance) at 1.40 — -0.17% EV
+49. FC Luzern v Lausanne (Swiss Super League)
+   Pick: FC Luzern to win (48%)
+   Best market: FC Luzern or Draw (double chance) at 1.36 — +3.84% EV
+50. Rizespor v Samsunspor (Turkish Super Lig)
+   Pick: Samsunspor to win (40%)
+   Best market: Over 1.5 goals at 1.25 — -4.85% EV
+51. Fenerbahçe v Konyaspor (Turkish Super Lig)
+   Pick: Fenerbahçe to win (75%)
+   Best market: Fenerbahçe to win at 1.32 — -1.07% EV
+52. Fenerbahce v Konyaspor (Turkish Super Lig)
+   Pick: Fenerbahce to win (77%)
+   Best market: Fenerbahce to win at 1.32 — +1.24% EV
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
 ```
 BELGIAN PRO LEAGUE
-· Charleroi v KV Mechelen
-  NO DATA — PENDING
-· Antwerp v Genk
-  NO DATA — PENDING
-```
-```
-EREDIVISIE
-· Sparta Rotterdam v Utrecht
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  · Charleroi v KV Mechelen
+    NO DATA — PENDING
+  ★ Antwerp v Genk
+    AI pick: Genk (36%)
+  · Waregem v Beveren
+    NO DATA — PENDING
+  ★ Charleroi v Mechelen
+    AI pick: Charleroi (43%)
+· Zulte Waregem v SK Beveren
   NO DATA — PENDING
 ```
 ```
 CHAMPIONSHIP
-· Birmingham v Bristol City
-  NO DATA — PENDING
-· Millwall v Norwich
-  NO DATA — PENDING
-· Lincoln v Portsmouth
-  NO DATA — PENDING
-· West Ham v Charlton
-  NO DATA — PENDING
-· Preston v Wolves
-  NO DATA — PENDING
-· Blackburn v Middlesbrough
-  NO DATA — PENDING
-· Derby v Cardiff
-  NO DATA — PENDING
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Birmingham v Bristol City
+    AI pick: Birmingham (40%)
+  ★ Millwall v Norwich
+    AI pick: Millwall (44%)
+  ★ Lincoln v Portsmouth
+    AI pick: Portsmouth (80%)
+  · Southampton v Stoke City
+    NO DATA — PENDING
+  ★ West Ham v Charlton
+    AI pick: West Ham (81%)
+  ★ Preston v Wolves
+    AI pick: Wolves (56%)
+  ★ Blackburn v Middlesbrough
+    AI pick: Middlesbrough (48%)
+  ★ Derby v Cardiff
+    AI pick: Derby (54%)
+  · Swansea v Sheffield Utd
+    NO DATA — PENDING
+  ★ Wrexham v Watford
+    AI pick: Wrexham (50%)
+  · Lincoln City v Portsmouth
+    NO DATA — PENDING
+  · Derby v Cardiff City
+    NO DATA — PENDING
+  ★ Southampton v Stoke
+    AI pick: Southampton (56%)
+  ★ Swansea v Sheffield United
+    AI pick: Swansea (40%)
 · QPR v Bolton
   NO DATA — PENDING
-· Wrexham v Watford
+```
+```
+EREDIVISIE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Sparta Rotterdam v Utrecht
+    AI pick: Utrecht (45%)
+  ★ PSV Eindhoven v Utrecht
+    AI pick: PSV Eindhoven (65%)
+  · Ajax Amsterdam v Zwolle
+    NO DATA — PENDING
+  · Feyenoord Rotterdam v AZ Alkmaar
+    NO DATA — PENDING
+· NEC Nijmegen v Excelsior
   NO DATA — PENDING
+· Fortuna Sittard v AZ Alkmaar
+  NO DATA — PENDING
+· Heerenveen v PEC Zwolle
+  NO DATA — PENDING
+```
+```
+LA LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Athletic Club v Sevilla
+    AI pick: Athletic Club (47%)
+  · Valencia v Celta Vigo
+    NO DATA — PENDING
+  ★ Espanyol v Real Madrid
+    AI pick: Real Madrid (68%)
+  ★ Ath Bilbao v Sevilla
+    AI pick: Ath Bilbao (47%)
+  ★ Valencia v Celta
+    AI pick: Valencia (39%)
+  ★ Espanol v Real Madrid
+    AI pick: Real Madrid (57%)
 ```
 ```
 LA LIGA 2
-· Real Oviedo v Leganés
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Eldense v Cadiz
+    AI pick: Cadiz (39%)
+· Oviedo v Leganes
   NO DATA — PENDING
-· Albacete v Real Sociedad B
+· Albacete v Real Sociedad II
   NO DATA — PENDING
-· Eldense v Cádiz
+· AD Ceuta FC v Las Palmas
   NO DATA — PENDING
-· Ceuta v Las Palmas
-  NO DATA — PENDING
+```
+```
+LIGUE 1
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Lens v Auxerre
+    AI pick: Lens (68%)
+  ★ Nice v Lorient
+    AI pick: Lorient (43%)
+  ★ Toulouse v Lyon
+    AI pick: Lyon (37%)
+  · Estac Troyes v Paris FC
+    NO DATA — PENDING
+  · Le Mans v Stade Brestois 29
+    NO DATA — PENDING
+  ★ Le Mans FC v Brest
+    AI pick: Brest (44%)
+  ★ Troyes v Paris FC
+    AI pick: Paris FC (41%)
 ```
 ```
 LIGUE 2
-· Nantes v Rodez
-  NO DATA — PENDING
-· Metz v Laval
-  NO DATA — PENDING
-· Saint-Étienne v Grenoble
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Nantes v Rodez
+    AI pick: Nantes (52%)
+  ★ Metz v Laval
+    AI pick: Metz (63%)
+  ★ Saint Etienne v Grenoble
+    AI pick: Saint Etienne (60%)
+```
+```
+PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Everton v Crystal Palace
+    AI pick: Everton (44%)
+  ★ Ipswich v Sunderland
+    AI pick: Sunderland (39%)
+  · Nottingham Forest v Leeds
+    NO DATA — PENDING
+  ★ Brentford v Tottenham
+    AI pick: Brentford (50%)
+  · Hull City v Man United
+    NO DATA — PENDING
+  · Ipswich Town v Sunderland AFC
+    NO DATA — PENDING
+  ★ Nott'm Forest v Leeds
+    AI pick: Nott'm Forest (43%)
+· Hull City v Manchester United
   NO DATA — PENDING
 ```
 ```
 PRIMEIRA LIGA
-· Maritimo v Academico Viseu
-  NO DATA — PENDING
-· Estoril v Rio Ave
-  NO DATA — PENDING
-```
-```
-EKSTRAKLASA
-· Korona Kielce v Motor Lublin
-  NO DATA — PENDING
-· Piast Gliwice v Legia Warszawa
-  NO DATA — PENDING
-```
-```
-HNL
-· NK Slaven Belupo v HNK Gorica
-  NO DATA — PENDING
-· Dinamo Zagreb v NK Varazdin
-  NO DATA — PENDING
-```
-```
-AUSTRIAN BUNDESLIGA
-· Sturm Graz v Austria Lustenau
-  NO DATA — PENDING
-```
-```
-TURKISH SUPER LIG
-· Rizespor v Samsunspor
-  NO DATA — PENDING
-· Çorum FK v Kasımpaşa
-  NO DATA — PENDING
-· Fenerbahçe v Konyaspor
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  · Maritimo v Academico Viseu
+    NO DATA — PENDING
+  ★ Estoril v Rio Ave
+    AI pick: Estoril (61%)
+  · Maritimo Madeira v Academico de Viseu FC
+    NO DATA — PENDING
+  ★ Sporting v Alverca
+    AI pick: Sporting (84%)
+· Sporting CP v Alverca
   NO DATA — PENDING
 ```
 ```
 RUSSIAN PREMIER LEAGUE
-· Fakel v FC Orenburg
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Fakel v FC Orenburg
+    AI pick: Draw (43%)
+  ★ Akhmat v FC Rostov
+    AI pick: FC Rostov (40%)
+  ★ CSKA Moscow v Lokomotiv
+    AI pick: CSKA Moscow (56%)
+  · FC Fakel Voronezh v FC Orenburg
+    NO DATA — PENDING
+  · RFK Akhmat Grozny v FK Rostov
+    NO DATA — PENDING
+```
+```
+SCOTTISH PREMIERSHIP
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Rangers v ST Mirren
+    AI pick: Rangers (78%)
+  ★ ST Johnstone v Celtic
+    AI pick: Celtic (74%)
+  ★ Dundee United v Dundee
+    AI pick: Dundee United (50%)
+· Dundee Utd v Dundee
   NO DATA — PENDING
-· Akhmat v FC Rostov
+```
+```
+SERIE A
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Udinese v Como
+    AI pick: Como (58%)
+  ★ Inter v Monza
+    AI pick: Inter (86%)
+  ★ Genoa v Napoli
+    AI pick: Napoli (53%)
+  ★ Parma v Cagliari
+    AI pick: Cagliari (37%)
+  ★ Udinese v Como 1907
+    AI pick: Como 1907 (58%)
+  · Parma Calcio v Cagliari
+    NO DATA — PENDING
+```
+```
+SERIE B
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Sudtirol v Virtus Entella
+    AI pick: Sudtirol (43%)
+  ★ Carrarese v Mantova
+    AI pick: Carrarese (51%)
+  ★ Empoli v Cremonese
+    AI pick: Cremonese (41%)
+· Benevento v Modena
   NO DATA — PENDING
-· CSKA Moscow v Lokomotiv
+· Avellino v Arezzo
   NO DATA — PENDING
 ```
 ```
 SWISS SUPER LEAGUE
-· FC Zurich v FC Basel 1893
-  NO DATA — PENDING
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ FC Luzern v Lausanne
+    AI pick: FC Luzern (48%)
+  · FC Zurich v FC Basel 1893
+    NO DATA — PENDING
+  · Luzern v Lausanne-Sport
+    NO DATA — PENDING
+  · FC Zurich v Basel
+    NO DATA — PENDING
 ```
 ```
-GREEK SUPER LEAGUE
-· Olympiakos Piraeus v Atromitos
-  NO DATA — PENDING
-· AEK Athens FC v Iraklis
-  NO DATA — PENDING
-· Kalamata v Aris
-  NO DATA — PENDING
-```
-```
-CZECH FIRST LEAGUE
-· Slavia Praha v Bohemians 1905
-  NO DATA — PENDING
-· Zlín v Slovan Liberec
-  NO DATA — PENDING
-· Mladá Boleslav v Slovácko
-  NO DATA — PENDING
-· Artis Brno v Sparta Praha
-  NO DATA — PENDING
-```
-```
-ROMANIAN LIGA I
-· Dinamo Bucuresti v Universitatea Cluj
-  NO DATA — PENDING
-· Uta Arad v Corvinul Hunedoara
-  NO DATA — PENDING
-```
-```
-SERBIAN SUPER LIGA
-· OFK Beograd v Zemun
-  NO DATA — PENDING
-· Macva Sabac v Radnicki NIS
-  NO DATA — PENDING
-· Radnicki 1923 v IMT Novi Beograd
-  NO DATA — PENDING
-```
-```
-SWEDISH ALLSVENSKAN
-· Orgryte IS v Halmstad
-  NO DATA — PENDING
-```
-```
-FINNISH VEIKKAUSLIIGA
-· Ilves v VPS
-  NO DATA — PENDING
-· FF Jaro v AC Oulu
-  NO DATA — PENDING
-```
-```
-HUNGARIAN NB I
-· Vasas v Puskas Academy
-  NO DATA — PENDING
-· MTK Budapest v Nyiregyhaza
-  NO DATA — PENDING
-```
-```
-SLOVAK SUPER LIGA
-· Dunajska Streda v Podbrezová
-  NO DATA — PENDING
-· Ružomberok v Dukla Banská Bystrica
-  NO DATA — PENDING
-· Zemplín Michalovce v Skalica
-  NO DATA — PENDING
-· FK Košice v Slovan Bratislava
-  NO DATA — PENDING
-```
-```
-BULGARIAN FIRST LEAGUE
-· Ludogorets v Slavia Sofia
-  NO DATA — PENDING
-· Levski Sofia v Spartak Varna
-  NO DATA — PENDING
-```
-```
-ISRAELI PREMIER LEAGUE
-· Maccabi Haifa v Hapoel Katamon
-  NO DATA — PENDING
-· Maccabi Petah Tikva v Ironi Kiryat Shmona
-  NO DATA — PENDING
-· Ironi Tiberias v Maccabi Petah Tikva
-  NO DATA — PENDING
-```
-```
-ALBANIAN SUPERLIGA
-· Partizani v Teuta Durrës
-  NO DATA — PENDING
-· Laci v AF Elbasani
-  NO DATA — PENDING
-```
-```
-ARMENIAN PREMIER LEAGUE
-· Shirak v FC Urartu
-  NO DATA — PENDING
-```
-```
-LATVIAN VIRSLIGA
-· SK Super Nova v BFC Daugavpils
-  NO DATA — PENDING
-· Ogre United v FS Jelgava
-  NO DATA — PENDING
-```
-```
-LUXEMBOURG NATIONAL DIVISION
-· Progres Niederkorn v UNA Strassen
-  NO DATA — PENDING
-```
-```
-MALTESE PREMIER LEAGUE
-· Birkirkara v Hamrun Spartans
-  NO DATA — PENDING
-· Zabbar St. Patrick v Birzebbuga St. Peter
-  NO DATA — PENDING
-```
-```
-MOLDOVAN SUPER LIGA
-· CSF Bălți v Zimbru Chisinau
-  NO DATA — PENDING
-· Milsami v Petrocub
-  NO DATA — PENDING
-```
-```
-MONTENEGRIN FIRST LEAGUE
-· Jezero v Sutjeska
-  NO DATA — PENDING
-· Mladost Donja Gorica v Petrovac
-  NO DATA — PENDING
-```
-```
-GEORGIAN EROVNULI LIGA
-· FC Dila Gori v FC Torpedo Kutaisi
-  NO DATA — PENDING
-· FC Spaeri v FC Samgurali Tskaltubo
-  NO DATA — PENDING
-· FC Rustavi v FC Gagra
-  NO DATA — PENDING
-```
-```
-NORTHERN IRISH PREMIERSHIP
-· Crusaders v Portadown
-  NO DATA — PENDING
-· Carrick Rangers v Coleraine
-  NO DATA — PENDING
-· Dungannon Swifts v Bangor
-  NO DATA — PENDING
-· Larne v Limavady United
-  NO DATA — PENDING
-```
-```
-WELSH PREMIER LEAGUE
-· Ammanford v GAP Connah S Quay FC
-  NO DATA — PENDING
-```
-```
-NORTH MACEDONIAN FIRST LEAGUE
-· Shkëndija Haraçinë v Arsimi
-  NO DATA — PENDING
-```
-```
-GIBRALTARIAN NATIONAL LEAGUE
-· Shabab Al-Ahli Dubai v Al Dhafra
-  NO DATA — PENDING
-· Ajman v Hatta
-  NO DATA — PENDING
-· Al Ain v Khorfakkan
+TURKISH SUPER LIG
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Rizespor v Samsunspor
+    AI pick: Samsunspor (40%)
+  ★ Fenerbahçe v Konyaspor
+    AI pick: Fenerbahçe (75%)
+  · Caykur Rizespor v Samsunspor
+    NO DATA — PENDING
+  · Corum FK v Kasimpasa Istanbul
+    NO DATA — PENDING
+  ★ Fenerbahce v Konyaspor
+    AI pick: Fenerbahce (77%)
+· Çorum FK v Kasımpaşa
   NO DATA — PENDING
 ```
 
 🎯 PRODUCTION BETS — 2026-08-22 (today's fixtures only)
 
-NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
+★ Acca A — HEADLINE, 5 legs
+    Athletic Club v Sevilla (La Liga) — Over 1.5 goals @ 1.40 [✓ SportyBet ✓ FlashScore]
+    Metz v Laval (Ligue 2) — Metz or Laval (double chance) @ 1.30 [⚠ FlashScore]
+    Estoril v Rio Ave (Primeira Liga) — Estoril or Rio Ave (double chance) @ 1.30 [⚠ FlashScore]
+    Parma v Cagliari (Serie A) — Cagliari or Draw (double chance) @ 1.53 [⚠ FlashScore]
+    FC Luzern v Lausanne (Swiss Super League) — FC Luzern or Draw (double chance) @ 1.36 [⚠ FlashScore]
+    Combined 4.92 Booking code: NO DATA — PENDING
+    Combined prob 25.3% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca B  5 legs
+Nice v Lorient (Ligue 1) — Over 1.5 goals @ 1.33 [✓ SportyBet ✓ FlashScore]
+Brentford v Tottenham (Premier League) — Brentford or Draw (double chance) @ 1.33 [✓ SportyBet ✓ FlashScore]
+Akhmat v FC Rostov (Russian Premier League) — Both teams to score — yes @ 1.89 [⚠ unverified]
+Wrexham v Watford (Championship) — Over 1.5 goals @ 1.28 [✓ SportyBet ✓ FlashScore]
+Preston v Wolves (Championship) — Wolves or Draw (double chance) @ 1.25 [⚠ FlashScore]
+    Combined 5.35 Booking code: NO DATA — PENDING
+    Combined prob 21.6% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca C  5 legs
+Genoa v Napoli (Serie A) — Genoa or Napoli (double chance) @ 1.36 [✓ SportyBet ✓ FlashScore]
+Carrarese v Mantova (Serie B) — Over 1.5 goals @ 1.30 [⚠ FlashScore]
+Blackburn v Middlesbrough (Championship) — Middlesbrough or Draw (double chance) @ 1.28 [⚠ FlashScore]
+Fenerbahce v Konyaspor (Turkish Super Lig) — Fenerbahce to win @ 1.32 [✓ SportyBet ✓ FlashScore]
+Everton v Crystal Palace (Premier League) — Everton or Draw (double chance) @ 1.33 [✓ SportyBet ✓ FlashScore]
+    Combined 3.97 Booking code: NO DATA — PENDING
+    Combined prob 27.1% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca D  5 legs
+Millwall v Norwich (Championship) — Millwall or Draw (double chance) @ 1.36 [✓ SportyBet ✓ FlashScore]
+Birmingham v Bristol City (Championship) — Both teams to score — no @ 2.00 [✓ SportyBet ✓ FlashScore]
+Charleroi v KV Mechelen (Belgian Pro League) — Charleroi to win @ 1.79 [⚠ FlashScore]
+Empoli v Cremonese (Serie B) — Cremonese or Draw (double chance) @ 1.40 [⚠ FlashScore]
+Eldense v Cadiz (La Liga 2) — Eldense or Cadiz (double chance) @ 1.36 [⚠ FlashScore]
+    Combined 9.27 Booking code: NO DATA — PENDING
+    Combined prob 10.8% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca E  5 legs
+Derby v Cardiff (Championship) — Derby or Draw (double chance) @ 1.25 [⚠ FlashScore]
+Fenerbahçe v Konyaspor (Turkish Super Lig) — Fenerbahçe to win @ 1.32 [✓ SportyBet ✓ FlashScore]
+Hull City v Man United (Premier League) — Man United to win @ 1.38 [✓ SportyBet ✓ FlashScore]
+Espanyol v Real Madrid (La Liga) — Real Madrid to win @ 1.45 [✓ SportyBet ✓ FlashScore]
+Ipswich v Sunderland (Premier League) — Sunderland or Draw (double chance) @ 1.40 [✓ SportyBet ✓ FlashScore]
+    Combined 4.62 Booking code: NO DATA — PENDING
+    Combined prob 20.0% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca F  5 legs
+Espanol v Real Madrid (La Liga) — Both teams to score — no @ 1.95 [⚠ unverified]
+Udinese v Como (Serie A) — Udinese or Como (double chance) @ 1.28 [⚠ FlashScore]
+Sudtirol v Virtus Entella (Serie B) — Sudtirol or Draw (double chance) @ 1.25 [⚠ unverified]
+Swansea v Sheffield Utd (Championship) — Over 2.5 goals @ 1.91 [✓ SportyBet ✓ FlashScore]
+Le Mans v Stade Brestois 29 (Ligue 1) — Over 2.5 goals @ 1.91 [⚠ unverified]
+    Combined 11.38 Booking code: NO DATA — PENDING
+    Combined prob 7.3% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca G  5 legs
+Fakel v FC Orenburg (Russian Premier League) — Fakel or Draw (double chance) @ 1.41 [⚠ unverified]
+Southampton v Stoke City (Championship) — Southampton to win @ 1.65 [✓ SportyBet ✓ FlashScore]
+Inter v Monza (Serie A) — Both teams to score — no @ 1.57 [✓ SportyBet ✓ FlashScore]
+Nottingham Forest v Leeds (Premier League) — Under 2.5 goals @ 1.73 [✓ SportyBet ✓ FlashScore]
+Estac Troyes v Paris FC (Ligue 1) — Over 2.5 goals @ 1.73 [⚠ unverified]
+    Combined 10.93 Booking code: NO DATA — PENDING
+    Combined prob 7.3% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca H  5 legs
+Valencia v Celta Vigo (La Liga) — Under 2.5 goals @ 1.67 [⚠ FlashScore]
+Luzern v Lausanne-Sport (Swiss Super League) — Luzern to win @ 2.00 [⚠ SportyBet]
+Toulouse v Lyon (Ligue 1) — Toulouse or Lyon (double chance) @ 1.30 [✓ SportyBet ✓ FlashScore]
+ST Johnstone v Celtic (Scottish Premiership) — ST Johnstone or Celtic (double chance) @ 1.20 [⚠ FlashScore]
+Maritimo v Academico Viseu (Primeira Liga) — Under 2.5 goals @ 1.57 [⚠ FlashScore]
+    Combined 8.18 Booking code: NO DATA — PENDING
+    Combined prob 9.4% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca I  4 legs
+FC Zurich v FC Basel 1893 (Swiss Super League) — Over 2.5 goals @ 1.57 [⚠ unverified]
+Lens v Auxerre (Ligue 1) — Lens or Auxerre (double chance) @ 1.20 [✓ SportyBet ✓ FlashScore]
+Rizespor v Samsunspor (Turkish Super Lig) — Over 1.5 goals @ 1.25 [⚠ FlashScore]
+Nantes v Rodez (Ligue 2) — Nantes or Draw (double chance) @ 1.20 [⚠ FlashScore]
+    Combined 2.83 Booking code: NO DATA — PENDING
+    Combined prob 28.8% (product of 4 legs — compounding is arithmetic, not a weakness)
+
+★ Acca J  3 legs
+Southampton v Stoke (Championship) — Southampton to win @ 1.65 [✓ SportyBet ✓ FlashScore]
+Feyenoord Rotterdam v AZ Alkmaar (Eredivisie) — Feyenoord Rotterdam to win @ 1.77 [⚠ SportyBet]
+Ajax Amsterdam v Zwolle (Eredivisie) — Ajax Amsterdam to win @ 1.30 [⚠ SportyBet]
+    Combined 3.80 Booking code: NO DATA — PENDING
+    Combined prob 20.0% (product of 3 legs — compounding is arithmetic, not a weakness)
+
+  SINGLES — one standalone slip each, own booking code
+    Nice v Lorient (Ligue 1) — Over 1.5 goals @ 1.33  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Brentford v Tottenham (Premier League) — Brentford or Draw (double chance) @ 1.33  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Akhmat v FC Rostov (Russian Premier League) — Both teams to score — yes @ 1.89  Booking code: NO DATA — PENDING [⚠ unverified]
+    Wrexham v Watford (Championship) — Over 1.5 goals @ 1.28  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Preston v Wolves (Championship) — Wolves or Draw (double chance) @ 1.25  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Genoa v Napoli (Serie A) — Genoa or Napoli (double chance) @ 1.36  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Carrarese v Mantova (Serie B) — Over 1.5 goals @ 1.30  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Blackburn v Middlesbrough (Championship) — Middlesbrough or Draw (double chance) @ 1.28  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Fenerbahce v Konyaspor (Turkish Super Lig) — Fenerbahce to win @ 1.32  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Everton v Crystal Palace (Premier League) — Everton or Draw (double chance) @ 1.33  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Millwall v Norwich (Championship) — Millwall or Draw (double chance) @ 1.36  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Birmingham v Bristol City (Championship) — Both teams to score — no @ 2.00  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Charleroi v KV Mechelen (Belgian Pro League) — Charleroi to win @ 1.79  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Empoli v Cremonese (Serie B) — Cremonese or Draw (double chance) @ 1.40  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Eldense v Cadiz (La Liga 2) — Eldense or Cadiz (double chance) @ 1.36  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Derby v Cardiff (Championship) — Derby or Draw (double chance) @ 1.25  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Fenerbahçe v Konyaspor (Turkish Super Lig) — Fenerbahçe to win @ 1.32  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Hull City v Man United (Premier League) — Man United to win @ 1.38  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Espanyol v Real Madrid (La Liga) — Real Madrid to win @ 1.45  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Ipswich v Sunderland (Premier League) — Sunderland or Draw (double chance) @ 1.40  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Espanol v Real Madrid (La Liga) — Both teams to score — no @ 1.95  Booking code: NO DATA — PENDING [⚠ unverified]
+    Udinese v Como (Serie A) — Udinese or Como (double chance) @ 1.28  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Sudtirol v Virtus Entella (Serie B) — Sudtirol or Draw (double chance) @ 1.25  Booking code: NO DATA — PENDING [⚠ unverified]
+    Swansea v Sheffield Utd (Championship) — Over 2.5 goals @ 1.91  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Le Mans v Stade Brestois 29 (Ligue 1) — Over 2.5 goals @ 1.91  Booking code: NO DATA — PENDING [⚠ unverified]
+    Fakel v FC Orenburg (Russian Premier League) — Fakel or Draw (double chance) @ 1.41  Booking code: NO DATA — PENDING [⚠ unverified]
+    Southampton v Stoke City (Championship) — Southampton to win @ 1.65  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Inter v Monza (Serie A) — Both teams to score — no @ 1.57  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Nottingham Forest v Leeds (Premier League) — Under 2.5 goals @ 1.73  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Estac Troyes v Paris FC (Ligue 1) — Over 2.5 goals @ 1.73  Booking code: NO DATA — PENDING [⚠ unverified]
+    Valencia v Celta Vigo (La Liga) — Under 2.5 goals @ 1.67  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Luzern v Lausanne-Sport (Swiss Super League) — Luzern to win @ 2.00  Booking code: NO DATA — PENDING [⚠ SportyBet]
+    Toulouse v Lyon (Ligue 1) — Toulouse or Lyon (double chance) @ 1.30  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    ST Johnstone v Celtic (Scottish Premiership) — ST Johnstone or Celtic (double chance) @ 1.20  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Maritimo v Academico Viseu (Primeira Liga) — Under 2.5 goals @ 1.57  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    FC Zurich v FC Basel 1893 (Swiss Super League) — Over 2.5 goals @ 1.57  Booking code: NO DATA — PENDING [⚠ unverified]
+    Lens v Auxerre (Ligue 1) — Lens or Auxerre (double chance) @ 1.20  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Rizespor v Samsunspor (Turkish Super Lig) — Over 1.5 goals @ 1.25  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Nantes v Rodez (Ligue 2) — Nantes or Draw (double chance) @ 1.20  Booking code: NO DATA — PENDING [⚠ FlashScore]
+    Southampton v Stoke (Championship) — Southampton to win @ 1.65  Booking code: NO DATA — PENDING [✓ SportyBet ✓ FlashScore]
+    Feyenoord Rotterdam v AZ Alkmaar (Eredivisie) — Feyenoord Rotterdam to win @ 1.77  Booking code: NO DATA — PENDING [⚠ SportyBet]
+    Ajax Amsterdam v Zwolle (Eredivisie) — Ajax Amsterdam to win @ 1.30  Booking code: NO DATA — PENDING [⚠ SportyBet]
+
+  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only
+    Charleroi v KV Mechelen (Belgian Pro League) — Draw @ 3.80  edge -1.45%  [⚠ FlashScore]
+    Antwerp v Genk (Belgian Pro League) — Both teams to score — no @ 2.10  edge +3.15%  [✓ SportyBet ✓ FlashScore]
+    Waregem v Beveren (Belgian Pro League) — Draw @ 3.57  edge -1.09%  [✓ SportyBet ✓ FlashScore]
+    Charleroi v Mechelen (Belgian Pro League) — Under 1.5 goals @ 4.00  edge +2.72%  [⚠ SportyBet]
+    Millwall v Norwich (Championship) — Under 1.5 goals @ 3.50  edge +0.63%  [✓ SportyBet ✓ FlashScore]
+    Southampton v Stoke City (Championship) — Draw @ 4.28  edge -0.11%  [✓ SportyBet ✓ FlashScore]
+    West Ham v Charlton (Championship) — Draw @ 5.05  edge -1.97%  [⚠ FlashScore]
+    Preston v Wolves (Championship) — Draw @ 3.55  edge -2.08%  [⚠ FlashScore]
+    Blackburn v Middlesbrough (Championship) — Middlesbrough to win @ 2.13  edge +1.11%  [⚠ FlashScore]
+    Derby v Cardiff (Championship) — Under 1.5 goals @ 3.75  edge +3.17%  [⚠ FlashScore]
+    Swansea v Sheffield Utd (Championship) — Sheffield Utd to win @ 2.92  edge -0.54%  [✓ SportyBet ✓ FlashScore]
+    Wrexham v Watford (Championship) — Watford to win @ 4.00  edge -0.99%  [✓ SportyBet ✓ FlashScore]
+    Lincoln City v Portsmouth (Championship) — Draw @ 3.44  edge -0.86%  [✓ SportyBet ✓ FlashScore]
+    Derby v Cardiff City (Championship) — Cardiff City to win @ 3.75  edge -0.79%  [⚠ FlashScore]
+    Southampton v Stoke (Championship) — Draw @ 4.28  edge +1.99%  [✓ SportyBet ✓ FlashScore]
+    Swansea v Sheffield United (Championship) — Swansea to win @ 2.51  edge +0.41%  [✓ SportyBet ✓ FlashScore]
+    Sparta Rotterdam v Utrecht (Eredivisie) — Draw @ 3.40  edge -0.16%  [⚠ FlashScore]
+    Ajax Amsterdam v Zwolle (Eredivisie) — Zwolle to win @ 7.90  edge -1.15%  [⚠ SportyBet]
+    Feyenoord Rotterdam v AZ Alkmaar (Eredivisie) — AZ Alkmaar to win @ 3.90  edge -2.31%  [⚠ SportyBet]
+    Athletic Club v Sevilla (La Liga) — Draw @ 3.71  edge -1.43%  [✓ SportyBet ✓ FlashScore]
+    Valencia v Celta Vigo (La Liga) — Valencia to win @ 2.61  edge +0.41%  [⚠ FlashScore]
+    Espanyol v Real Madrid (La Liga) — Draw @ 5.13  edge +3.10%  [✓ SportyBet ✓ FlashScore]
+    Ath Bilbao v Sevilla (La Liga) — Draw @ 3.71  edge -1.43%  [✓ SportyBet ✓ FlashScore]
+    Valencia v Celta (La Liga) — Celta to win @ 3.02  edge +1.20%  [⚠ SportyBet]
+    Espanol v Real Madrid (La Liga) — Draw @ 5.13  edge +4.04%  [⚠ unverified]
+    Eldense v Cadiz (La Liga 2) — Over 2.5 goals @ 2.15  edge -0.24%  [⚠ FlashScore]
+    Lens v Auxerre (Ligue 1) — Draw @ 4.77  edge -0.49%  [✓ SportyBet ✓ FlashScore]
+    Nice v Lorient (Ligue 1) — Draw @ 3.46  edge -4.05%  [✓ SportyBet ✓ FlashScore]
+    Toulouse v Lyon (Ligue 1) — Under 1.5 goals @ 3.75  edge +0.01%  [✓ SportyBet ✓ FlashScore]
+    Estac Troyes v Paris FC (Ligue 1) — Draw @ 3.60  edge -0.09%  [⚠ unverified]
+    Le Mans v Stade Brestois 29 (Ligue 1) — Le Mans to win @ 2.60  edge +0.43%  [⚠ unverified]
+    Le Mans FC v Brest (Ligue 1) — Draw @ 3.47  edge +0.37%  [✓ SportyBet ✓ FlashScore]
+    Troyes v Paris FC (Ligue 1) — Draw @ 3.60  edge +2.34%  [✓ SportyBet ✓ FlashScore]
+    Nantes v Rodez (Ligue 2) — Draw @ 3.50  edge -1.63%  [⚠ FlashScore]
+    Saint Etienne v Grenoble (Ligue 2) — Grenoble or Draw (double chance) @ 2.75  edge +3.71%  [⚠ unverified]
+    Everton v Crystal Palace (Premier League) — Under 1.5 goals @ 3.50  edge +3.78%  [✓ SportyBet ✓ FlashScore]
+    Ipswich v Sunderland (Premier League) — Sunderland to win @ 2.74  edge +2.60%  [✓ SportyBet ✓ FlashScore]
+    Nottingham Forest v Leeds (Premier League) — Leeds to win @ 3.21  edge -0.46%  [✓ SportyBet ✓ FlashScore]
+    Brentford v Tottenham (Premier League) — Draw @ 3.83  edge +1.00%  [✓ SportyBet ✓ FlashScore]
+    Hull City v Man United (Premier League) — Hull City to win @ 8.52  edge -0.22%  [✓ SportyBet ✓ FlashScore]
+    Ipswich Town v Sunderland AFC (Premier League) — Draw @ 3.31  edge -0.61%  [✓ SportyBet ✓ FlashScore]
+    Maritimo v Academico Viseu (Primeira Liga) — Maritimo to win @ 2.11  edge -0.20%  [⚠ FlashScore]
+    Maritimo Madeira v Academico de Viseu FC (Primeira Liga) — Academico de Viseu FC to win @ 3.85  edge -0.75%  [⚠ SportyBet]
+    Sporting v Alverca (Primeira Liga) — Draw @ 6.89  edge +0.64%  [⚠ unverified]
+    Fakel v FC Orenburg (Russian Premier League) — FC Orenburg to win @ 2.90  edge -3.04%  [⚠ unverified]
+    Akhmat v FC Rostov (Russian Premier League) — Draw @ 3.10  edge +1.04%  [⚠ unverified]
+    CSKA Moscow v Lokomotiv (Russian Premier League) — Under 1.5 goals @ 4.27  edge +3.26%  [⚠ unverified]
+    FC Fakel Voronezh v FC Orenburg (Russian Premier League) — Draw @ 3.25  edge -1.54%  [✓ SportyBet ✓ FlashScore]
+    RFK Akhmat Grozny v FK Rostov (Russian Premier League) — Draw @ 3.10  edge -1.71%  [⚠ SportyBet]
+    Rangers v ST Mirren (Scottish Premiership) — Draw @ 5.10  edge -0.56%  [⚠ FlashScore]
+    ST Johnstone v Celtic (Scottish Premiership) — Draw @ 4.54  edge -1.70%  [⚠ FlashScore]
+    Dundee United v Dundee (Scottish Premiership) — Draw @ 3.40  edge -2.62%  [✓ SportyBet ✓ FlashScore]
+    Udinese v Como (Serie A) — Under 1.5 goals @ 3.40  edge +0.20%  [⚠ FlashScore]
+    Inter v Monza (Serie A) — Draw @ 7.86  edge -1.83%  [✓ SportyBet ✓ FlashScore]
+    Genoa v Napoli (Serie A) — Genoa to win @ 4.28  edge -1.60%  [✓ SportyBet ✓ FlashScore]
+    Parma v Cagliari (Serie A) — Draw @ 3.13  edge -0.21%  [⚠ FlashScore]
+    Udinese v Como 1907 (Serie A) — Udinese to win @ 4.67  edge -3.31%  [⚠ SportyBet]
+    Parma Calcio v Cagliari (Serie A) — Draw @ 3.13  edge -0.65%  [⚠ SportyBet]
+    Sudtirol v Virtus Entella (Serie B) — Draw @ 3.10  edge +2.05%  [⚠ unverified]
+    Carrarese v Mantova (Serie B) — Draw @ 3.25  edge -3.40%  [⚠ FlashScore]
+    Empoli v Cremonese (Serie B) — Cremonese to win @ 2.50  edge +1.21%  [⚠ FlashScore]
+    FC Luzern v Lausanne (Swiss Super League) — Draw @ 3.80  edge +1.82%  [⚠ FlashScore]
+    FC Zurich v FC Basel 1893 (Swiss Super League) — FC Zurich to win @ 3.40  edge +0.86%  [⚠ unverified]
+    Luzern v Lausanne-Sport (Swiss Super League) — Draw @ 3.80  edge -1.63%  [⚠ SportyBet]
+    FC Zurich v Basel (Swiss Super League) — Draw @ 3.70  edge -1.34%  [✓ SportyBet ✓ FlashScore]
+    Rizespor v Samsunspor (Turkish Super Lig) — Draw @ 3.51  edge -0.96%  [⚠ FlashScore]
+    Fenerbahçe v Konyaspor (Turkish Super Lig) — Draw @ 5.98  edge -0.74%  [✓ SportyBet ✓ FlashScore]
+    Caykur Rizespor v Samsunspor (Turkish Super Lig) — Samsunspor to win @ 3.60  edge -0.81%  [⚠ SportyBet]
+    Corum FK v Kasimpasa Istanbul (Turkish Super Lig) — Draw @ 3.57  edge -0.78%  [⚠ SportyBet]
+    Fenerbahce v Konyaspor (Turkish Super Lig) — Draw @ 5.98  edge +2.82%  [✓ SportyBet ✓ FlashScore]
+
+  ⚠ QUARANTINE (Audit 2026-08-20) — Excluded from Acca A:
+    Eredivisie (100% miss rate in audit window)
+    Scottish Premiership (100% miss rate in audit window)
+
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive); away was historically measured negative — the brain learns from live legs
 
 YESTERDAY — GRADED
 No settled predictions to grade yet.

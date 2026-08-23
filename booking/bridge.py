@@ -141,6 +141,9 @@ SPORTYBET_CACHE_ALIASES: dict[str, str] = {
     "Turkish Super Lig":     "Süper Lig",
     "Greek Super League":    "Super League Greece",
     "Swedish Allsvenskan":   "Allsvenskan",
+    "Serie B":               "Serie B",
+    "Ligue 2":               "Ligue 2",
+    "La Liga 2":             "La Liga 2",
 }
 
 

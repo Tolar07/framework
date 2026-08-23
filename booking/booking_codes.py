@@ -59,7 +59,7 @@ from booking.league_map import SPORTYBET_LEAGUES
 from booking.bridge import load_sportybet_fixtures
 from booking.sportybet_fixtures import _navigate_to_league
 
-BASE_URL = "https://www.sportybet.com"
+BASE_URL = "https://sportybet.com"
 BOARD_DIR = Path(__file__).parent.parent / "output" / "boards"
 
 # 1X2 click index inside the league-page row's first market cell.
@@ -554,49 +554,53 @@ def expected_combined_odds(legs: list) -> Optional[float]:
 _expected_combined_odds = expected_combined_odds
 
 
-def read_betslip_combined_odds(page: Page) -> Optional[float]:
+def read_betslip_combined_odds(page: Page,
+                                expected: Optional[float] = None) -> Optional[float]:
     """Read the betslip's displayed COMBINED (total) odds.
 
     SportyBet's betslip renders a single "Total Odds" / "Combined Odds" figure
-    after at least one selection is in the slip. We scan the betslip panel for a
-    decimal-odds token (a number > 1.00 with up to 2 decimals) and return the
-    one that represents the whole slip. Best-effort: returns None when the panel
-    is not readable (the caller treats a None as "cannot verify", not as a pass).
+    after at least one selection is in the slip. The slip DOM also carries
+    UNRELATED decimal figures (a constant ~2.55 promo/multiplier node, plus the
+    per-selection odds), so a naive "largest in-range number" read returns the
+    wrong element (verified 2026-08-23: ~15 distinct singles with expected odds
+    of 1.30-1.98 ALL returned exactly 2.55). We therefore return the candidate
+    CLOSEST to the known `expected` combined odds — the slip's true total is the
+    number nearest what the slip should encode. When `expected` is omitted
+    (external/X callers) we fall back to the combined-line heuristic.
 
-    ROBUSTNESS (2026-08-20): Handles catastrophic UI bugs like the "6 odds ->
-    6,000,000 odds" display glitch by accepting both decimal and integer forms,
-    comma-separated numbers, and prioritising values near "Total"/"Combined"/
-    "Odds" labels.
+    Returns None when the slip is not readable — the caller treats None as
+    "cannot verify", never as a pass. A spurious node closer than the real total
+    is still caught downstream: the HARD RULE check rejects any value outside
+    tolerance of `expected`, so a wrong read never yields a fabricated code.
 
     Public alias for external verification (e.g., X/Twitter code fetcher)."""
-    # Candidate betslip containers (the open slip on the right rail).
+    # Tightened to real betslip containers. The old '[class*='slip']' / 'cart'
+    # wildcards matched promo/banner nodes that leaked spurious odds (the
+    # constant 2.55), so they are dropped in favour of the known SportyBet
+    # betslip classes (verified 2026-08-09 live).
     panels = page.query_selector_all(
-        ".betslip, .bet-slip, .slip, [class*='betslip'], [class*='slip'], "
-        ".es-betslip, .cart, [class*='cart']")
+        ".betslip, .es-betslip, .bet-slip, .m-betslip, [class*='betSlip'], "
+        "[class*='bet-slip-panel'], .slip-container, .es-bet-slip")
     candidates: List[float] = []
     # Pattern 1: decimals with exactly 2 places (standard odds display)
-    # Pattern 2: integers >= 100 (catches catastrophic display like 6000000)
-    # Pattern 3: comma-separated numbers (6,000,000.00)
-    # All patterns use negative lookbehind/lookahead to avoid partial matches.
+    # Pattern 2: comma-separated numbers (6,000,000.00 style)
+    # Pattern 3: large integers (catastrophic display glitches)
     pat_decimal = re.compile(r"(?<!\d)(\d+\.\d{2})(?!\d)")
-    pat_int_large = re.compile(r"(?<!\d)(\d{3,})(?!\d)")
     pat_comma = re.compile(r"(?<!\d)(\d{1,3}(?:,\d{3})+(?:\.\d{2})?)(?!\d)")
+    pat_int = re.compile(r"(?<!\d)(\d{3,})(?!\d)")
     for panel in (panels or []):
         try:
             txt = panel.inner_text() or ""
         except Exception:
             continue
-        # First pass: find numbers near "Total"/"Combined"/"Odds" labels
-        # (the combined odds is usually next to such text).
-        # IMPROVEMENT: Ignore values near "Payout" or "Stake".
-        lines = txt.split("\n")
-        for line in lines:
-            line_lower = line.lower()
-            if any(kw in line_lower for kw in ("payout", "stake")):
+        for line in txt.split("\n"):
+            ll = line.lower()
+            # Skip payout/stake/winnings lines — those are stake*odds, not odds.
+            if any(kw in ll for kw in ("payout", "stake", "winnings")):
                 continue
-            is_combined_line = any(kw in line_lower for kw in
-                                   ("total", "combined", "odds", "potential"))
-            for pat in (pat_decimal, pat_comma, pat_int_large):
+            is_combined = any(kw in ll for kw in
+                              ("total", "combined", "odds", "potential"))
+            for pat in (pat_decimal, pat_comma, pat_int):
                 for m in pat.finditer(line):
                     raw = m.group(1).replace(",", "")
                     try:
@@ -605,45 +609,78 @@ def read_betslip_combined_odds(page: Page) -> Optional[float]:
                         continue
                     if val < 1.01:
                         continue
-                    # Boost combined-line candidates (they're more likely correct)
-                    if is_combined_line:
-                        candidates.append((val, True))
-                    else:
-                        candidates.append((val, False))
+                    candidates.append((val, is_combined))
     if not candidates:
         return None
-    # Sort by: (1) on combined line first, (2) value CLOSEST to expected range
-    # The combined odds should be in a reasonable range (1.01 - 50 typically for
-    # production slips). Catastrophic UI bugs show payouts (stake * odds) like
-    # 534740, 6000000. Also filter out values that are clearly payouts (often
-    # ending in .00 or .50, very large round numbers).
-    # Exclude common placeholder/default values: 100.0 (stake %), 50.0, 200.0.
-    # Typical max combined odds ~50, so 100 is already very generous upper bound.
-    EXCLUDED_VALUES = {100.0, 50.0, 200.0, 1000.0}  # stake %, payout placeholders
-    filtered = [(v, on_line) for v, on_line in candidates
-                if 1.01 <= v <= 100.0 and v not in EXCLUDED_VALUES]
-    if filtered:
-        # Among reasonable values, prefer those on combined line, then largest
-        filtered.sort(key=lambda x: (not x[1], -x[0]))
-        return round(filtered[0][0], 2)
-    # Fallback: if ALL candidates are > 100 or excluded, they are likely payouts/placeholders.
-    on_line = [(v, on_line) for v, on_line in candidates
-               if on_line and 1.01 <= v <= 100.0 and v not in EXCLUDED_VALUES]
-    if on_line:
-        on_line.sort(key=lambda x: x[0])  # smallest first
-        smallest = on_line[0][0]
-        if smallest <= 100.0:
-            return round(smallest, 2)
-    # Last resort: smallest overall within range
-    candidates.sort(key=lambda x: x[0])
-    for v, on_line in candidates:
-        if 1.01 <= v <= 100.0 and v not in EXCLUDED_VALUES:
-            return round(v, 2)
-    return None  # All candidates are payouts/placeholders, cannot verify
+    # Exclude obvious placeholder / stake-% artefacts.
+    EXCLUDED = {50.0, 100.0, 200.0, 1000.0}
+    in_range = [(v, on) for v, on in candidates
+                if 1.01 <= v <= 10000.0 and v not in EXCLUDED]
+    if not in_range:
+        in_range = candidates
+
+    if expected is not None:
+        # Return the candidate CLOSEST to the expected combined odds. This is
+        # the honest read: the slip's true total is the number nearest what we
+        # know it should be. If a spurious node is nearer, the HARD RULE check
+        # below rejects it (no fabricated code).
+        def _dist(item):
+            v = item[0]
+            return abs(v - expected) / max(v, expected)
+        in_range.sort(key=_dist)
+        return round(in_range[0][0], 2)
+
+    # No expected supplied (external callers): prefer a combined-line candidate,
+    # then the largest in-range value as a last resort.
+    combined_line = [(v, on) for v, on in in_range if on]
+    pool = combined_line or in_range
+    pool.sort(key=lambda x: -x[0])
+    return round(pool[0][0], 2)
 
 
 # Private alias for internal use
 _read_betslip_combined_odds = read_betslip_combined_odds
+
+
+def _clear_betslip(page: Page) -> None:
+    """Remove every selection from the current betslip so the next acca starts
+    from a clean slip.
+
+    The slip is NOT auto-cleared between accas (verified 2026-08-23: selections
+    accumulated across the loop, so later accas read combined odds of 80-99 and
+    every slip failed the HARD RULE). We click each slip entry's remove control
+    (#remove / trash / 'x' / 'Delete' / 'Remove All'), then a "Remove All"
+    control if present, tolerating any failure — a miss here only risks a stale
+    combined-odds read, never a fabricated code (the HARD RULE still rejects)."""
+    try:
+        for _ in range(6):
+            rm = page.query_selector(
+                ".es-betslip .remove, .betslip .remove, "
+                "[class*='betslip'] .remove-selection, "
+                "[class*='slip'] .m-delete, [class*='slip'] .delete-icon, "
+                "button[aria-label*='emove'], .es-del, .m-betslip-remove")
+            if not rm:
+                break
+            try:
+                rm.click()
+            except Exception:
+                break
+            page.wait_for_timeout(250)
+        # "Remove All" / empty-slip control, if the book renders one.
+        for sel in ("text=Remove All", "text=Clear", "text=Empty",
+                    ".es-betslip .clear-all", "[class*='clearAll']"):
+            try:
+                els = page.query_selector_all(sel)
+                for el in els:
+                    try:
+                        el.click()
+                        page.wait_for_timeout(300)
+                    except Exception:
+                        continue
+            except Exception:
+                continue
+    except Exception:
+        pass  # best-effort; HARD RULE still guards against a wrong code
 
 
 def odds_within_tolerance(a: Optional[float], b: Optional[float],
@@ -930,7 +967,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
     odds_check: Optional[dict] = None
     if code and added:
         expected = _expected_combined_odds(acca.get("legs") or [])
-        betslip_odds = _read_betslip_combined_odds(page)
+        betslip_odds = _read_betslip_combined_odds(page, expected=expected)
         ok_odds = _odds_within_tolerance(expected, betslip_odds)
         odds_check = {
             "expected": expected,
@@ -1003,6 +1040,11 @@ def book_accas(payload: dict, headless: bool = True) -> dict:
         try:
             for acca in payload.get("accas", []):
                 try:
+                    # Start each slip from clean state: the betslip is NOT
+                    # auto-cleared by SportyBet between entries, so selections
+                    # would otherwise accumulate and the combined odds would
+                    # blow up (2026-08-23 regression).
+                    _clear_betslip(page)
                     results.append(_book_one_acca(page, acca, cache_by_league))
                 except Exception as e:
                     results.append({

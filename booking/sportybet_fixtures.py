@@ -57,7 +57,13 @@ from booking.team_map import resolve_team, resolve_team_to_model
 
 # --- Configuration ---
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
-BASE_URL = "https://www.sportybet.com"
+BASE_URL = "https://sportybet.com"
+# SportyBet's bare apex DNS is intermittently unresolvable (verified 2026-08-23:
+# net::ERR_NAME_NOT_RESOLVED for both www. and bare apex while .ng resolved).
+# The app is served identically on the .ng host, so the initial page load falls
+# back to it when the apex fails to resolve. This only affects the FIRST goto;
+# once the SPA is loaded the page is host-agnostic.
+FALLBACK_HOSTS = ["https://sportybet.com.ng"]
 
 # Maximum wait for page loads (ms)
 PAGE_LOAD_TIMEOUT = 30000
@@ -360,8 +366,21 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
         # deep /sr: link (verified live 2026-08-09: second leg after a BTTS leg
         # failed until the hard reload was added).
         if "/sr:" in page.url or "/ng/sport/football" not in page.url:
-            page.goto(f"{BASE_URL}/ng/sport/football", wait_until="domcontentloaded",
-                      timeout=PAGE_LOAD_TIMEOUT)
+            # Resilient first load: try the apex, fall back to .ng host on
+            # DNS/name-resolution failure (SportyBet apex DNS is flaky).
+            loaded = False
+            for host in [BASE_URL] + list(FALLBACK_HOSTS):
+                try:
+                    page.goto(f"{host}/ng/sport/football", wait_until="domcontentloaded",
+                              timeout=PAGE_LOAD_TIMEOUT)
+                    loaded = True
+                    break
+                except Exception:
+                    continue
+            if not loaded:
+                # Last resort: let Playwright report the original failure.
+                page.goto(f"{BASE_URL}/ng/sport/football", wait_until="domcontentloaded",
+                          timeout=PAGE_LOAD_TIMEOUT)
             page.wait_for_timeout(1500)
 
         # Handle any modal dialogs that might block clicks

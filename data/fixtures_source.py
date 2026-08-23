@@ -66,6 +66,9 @@ LEAGUE_IDS = {
     "Serie A": 135,
     "Bundesliga": 78,
     "Ligue 1": 61,
+    "La Liga 2": 141,
+    "Serie B": 136,
+    "Ligue 2": 62,
 }
 
 # Leagues whose ID401 name differs from API-Football's own name, so a plain
@@ -108,6 +111,9 @@ LEAGUE_SEARCH = {
     "Belarusian Premier League": ("Premier League", "Belarus"),
     "Bosnian Premier League": ("Premier League", "Bosnia and Herzegovina"),
     "EFL Cup": ("League Cup", "England"),
+    "La Liga 2": ("Segunda División", "Spain"),
+    "Ligue 2": ("Ligue 2", "France"),
+    "Serie B": ("Serie B", "Italy"),
 }
 
 _resolved_cache: dict[str, int] = {}

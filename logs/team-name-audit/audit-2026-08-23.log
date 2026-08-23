@@ -1,0 +1,28 @@
+[2026-08-23T04:00:02.063Z] ═══════════════════════════════════════════════════════════
+[2026-08-23T04:00:02.080Z] 🔍 TEAM NAME AUDIT STARTED
+[2026-08-23T04:00:02.083Z] ═══════════════════════════════════════════════════════════
+[2026-08-23T04:00:02.084Z] 
+📦 Loading source data...
+[2026-08-23T04:00:02.086Z] 📥 Extracting team names...
+[2026-08-23T04:00:02.089Z]    TSDB leagues: 39
+[2026-08-23T04:00:02.092Z]    SportyBet mapped: 652
+[2026-08-23T04:00:02.136Z]    SportyBet cached leagues: 50
+[2026-08-23T04:00:02.137Z] 
+🔍 Analyzing discrepancies...
+[2026-08-23T04:00:07.881Z] 
+📊 Generating report...
+[2026-08-23T04:00:07.886Z]    JSON report: c:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\data\team-name-audit\report-2026-08-23.json
+[2026-08-23T04:00:07.889Z]    Markdown report: c:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\data\team-name-audit\report-2026-08-23.md
+[2026-08-23T04:00:07.890Z] 
+🔧 Applying safe auto-fixes...
+[2026-08-23T04:00:07.895Z] Auto-applied 25 identity mappings to team_map.py
+[2026-08-23T04:00:07.896Z]    Applied: 25
+[2026-08-23T04:00:07.897Z] 
+═══════════════════════════════════════════════════════════
+[2026-08-23T04:00:07.897Z] ✅ TEAM NAME AUDIT COMPLETE
+[2026-08-23T04:00:07.898Z]    Additions needed: 268
+[2026-08-23T04:00:07.899Z]    Collisions: 560
+[2026-08-23T04:00:07.900Z]    Warnings: 67
+[2026-08-23T04:00:07.900Z]    Auto-applied: 25
+[2026-08-23T04:00:07.901Z] ═══════════════════════════════════════════════════════════
+

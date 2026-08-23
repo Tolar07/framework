@@ -57,12 +57,9 @@ from booking.team_map import resolve_team, resolve_team_to_model
 
 # --- Configuration ---
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
-BASE_URL = "https://sportybet.com"
-# SportyBet's bare apex DNS is intermittently unresolvable (verified 2026-08-23:
-# net::ERR_NAME_NOT_RESOLVED for both www. and bare apex while .ng resolved).
-# The app is served identically on the .ng host, so the initial page load falls
-# back to it when the apex fails to resolve. This only affects the FIRST goto;
-# once the SPA is loaded the page is host-agnostic.
+BASE_URL = "https://www.sportybet.com"
+# www.sportybet.com DNS resolves reliably (Cloudflare 104.21.10.148).
+# The .ng host redirects through CloudFront but www. is the stable entry point.
 FALLBACK_HOSTS = ["https://sportybet.com.ng"]
 
 # Maximum wait for page loads (ms)

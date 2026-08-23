@@ -617,7 +617,8 @@ def read_betslip_combined_odds(page: Page,
     in_range = [(v, on) for v, on in candidates
                 if 1.01 <= v <= 10000.0 and v not in EXCLUDED]
     if not in_range:
-        in_range = candidates
+        # All candidates were excluded (placeholder/artefact values like 50/100/200)
+        return None
 
     if expected is not None:
         # Return the candidate CLOSEST to the expected combined odds. This is
@@ -780,6 +781,14 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
 
     Returns {label, code, status, per_leg: [...]} where each leg is
     {fixture, market_name, status} and status is BOOKED or MANUAL."""
+    # Local import fallback — avoids stale bytecode cache issues where the
+    # module-level import of _navigate_to_league fails at runtime (observed
+    # 2026-08-23: NameError inside _book_one_acca despite import at top).
+    try:
+        _navigate_to_league_local = _navigate_to_league
+    except NameError:
+        from booking.sportybet_fixtures import _navigate_to_league as _navigate_to_league_local
+
     per_leg: List[dict] = []
     added = 0
     current_league_on_page: Optional[str] = None  # track which league page we're on
@@ -799,7 +808,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 # Navigate if we're not already on this league's page
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
-                    nav_ok = bool(mapping) and _navigate_to_league(
+                    nav_ok = bool(mapping) and _navigate_to_league_local(
                         page, mapping.country, mapping.league)
                     if nav_ok:
                         current_league_on_page = league
@@ -820,7 +829,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 # leg. A line mismatch flags MANUAL rather than navigates.
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
-                    nav_ok = bool(mapping) and _navigate_to_league(
+                    nav_ok = bool(mapping) and _navigate_to_league_local(
                         page, mapping.country, mapping.league)
                     if nav_ok:
                         current_league_on_page = league
@@ -837,7 +846,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 # Totals markets available on the league page (fixed line per row)
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
-                    nav_ok = bool(mapping) and _navigate_to_league(
+                    nav_ok = bool(mapping) and _navigate_to_league_local(
                         page, mapping.country, mapping.league)
                     if nav_ok:
                         current_league_on_page = league
@@ -860,7 +869,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 # now hard-reloads for deep /sr: links so each BTTS leg starts
                 # from a clean league page.
                 mapping = SPORTYBET_LEAGUES.get(league)
-                nav_ok = bool(mapping) and _navigate_to_league(
+                nav_ok = bool(mapping) and _navigate_to_league_local(
                     page, mapping.country, mapping.league)
                 if nav_ok:
                     current_league_on_page = league
@@ -877,7 +886,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 # the DC tab.
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
-                    nav_ok = bool(mapping) and _navigate_to_league(
+                    nav_ok = bool(mapping) and _navigate_to_league_local(
                         page, mapping.country, mapping.league)
                     if nav_ok:
                         current_league_on_page = league
@@ -894,7 +903,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 # "Draw No Bet" tab on the match page).
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
-                    nav_ok = bool(mapping) and _navigate_to_league(
+                    nav_ok = bool(mapping) and _navigate_to_league_local(
                         page, mapping.country, mapping.league)
                     if nav_ok:
                         current_league_on_page = league
@@ -910,7 +919,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 # HT/FT markets — handle via match page
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
-                    nav_ok = bool(mapping) and _navigate_to_league(
+                    nav_ok = bool(mapping) and _navigate_to_league_local(
                         page, mapping.country, mapping.league)
                     if nav_ok:
                         current_league_on_page = league
@@ -926,7 +935,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 # Correct Score markets — handle via match page
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
-                    nav_ok = bool(mapping) and _navigate_to_league(
+                    nav_ok = bool(mapping) and _navigate_to_league_local(
                         page, mapping.country, mapping.league)
                     if nav_ok:
                         current_league_on_page = league
@@ -1078,7 +1087,9 @@ def render_codes(result: dict) -> str:
         if oc:
             exp = oc.get("expected")
             bs = oc.get("betslip")
-            if oc.get("match"):
+            if exp is None or bs is None:
+                out.append("    ODDS CHECK: data missing (betSlip not captured); code retained")
+            elif oc.get("match"):
                 out.append(f"    ✓ ODDS CHECK PASS: expected {exp:.2f} == betslip {bs:.2f}")
             else:
                 out.append(f"    ✗ ODDS MISMATCH: expected {exp:.2f} vs betslip {bs:.2f} — code REJECTED")

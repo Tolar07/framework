@@ -827,6 +827,31 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                         sb_odds_count += 1
         if sb_odds_count:
             all_flags.append(f"SportyBet cache merged: {sb_odds_count} fixture(s) with 1X2 odds added to odds_index")
+
+        # --- Attach SportyBet fixture IDs to board fixtures for booking code generation ---
+        # The booking code generator needs sportybet_fixture_id on each board fixture
+        # to find the fixture in the SportyBet cache. We use the same sb_fixtures_by_league
+        # that we just loaded for odds merging.
+        try:
+            attached_count = 0
+            for bf in board:
+                if bf.kickoff_date != board_date:
+                    continue
+                league = _league_of(bf)
+                if league not in sb_fixtures_by_league:
+                    continue
+                home, away = _team_pair(bf)
+                for sb_fx in sb_fixtures_by_league[league]:
+                    # Match on model keys (same as odds_index lookup)
+                    if sb_fx.home_team == home and sb_fx.away_team == away:
+                        bf.sportybet_fixture_id = sb_fx.sportybet_fixture_id
+                        attached_count += 1
+                        break
+            if attached_count:
+                all_flags.append(f"SportyBet fixture IDs attached: {attached_count} board fixture(s) tagged for booking")
+        except Exception as e:
+            all_flags.append(f"SportyBet fixture ID attach failed ({e})")
+
     except Exception as e:
         all_flags.append(f"SportyBet cache merge failed ({e})")
 

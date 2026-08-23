@@ -1,0 +1,283 @@
+{
+  "date": "2026-08-22",
+  "source": "ESPN_authoritative + manual_verification",
+  "source_priority": "ESPN first | manual fallback for uncovered_leagues",
+  "note": "All results sourced from ESPN authoritative feed (football-data.co.uk 2627 season empty). Missing leagues (Ligue 2, La Liga 2, Swiss Super League, Eredivisie Aug 22 fixture gaps) marked PENDING.",
+  "results": [
+    {
+      "fixture": "Eldense v Cadiz",
+      "league": "La Liga 2",
+      "home_score": null,
+      "away_score": null,
+      "status": "pending",
+      "note": "Not in ESPN schedule - Spanish Segunda Division not covered by ESPN API for 2026-27 season"
+    },
+    {
+      "fixture": "Espanyol v Real Madrid",
+      "league": "La Liga",
+      "home_score": 1,
+      "away_score": 2,
+      "status": "completed"
+    },
+    {
+      "fixture": "Ipswich Town v Sunderland",
+      "league": "Premier League",
+      "home_score": 2,
+      "away_score": 1,
+      "status": "completed"
+    },
+    {
+      "fixture": "Southampton v Stoke City",
+      "league": "Championship",
+      "home_score": 3,
+      "away_score": 1,
+      "status": "completed"
+    },
+    {
+      "fixture": "Nottingham Forest v Leeds United",
+      "league": "Championship",
+      "home_score": 0,
+      "away_score": 1,
+      "status": "completed"
+    },
+    {
+      "fixture": "Valencia v Celta Vigo",
+      "league": "La Liga",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "completed"
+    },
+    {
+      "fixture": "Toulouse v Lyon",
+      "league": "Ligue 1",
+      "home_score": 0,
+      "away_score": 2,
+      "status": "completed"
+    },
+    {
+      "fixture": "St Johnstone v Celtic",
+      "league": "Scottish Premiership",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "postponed",
+      "note": "Postponed - Scottish fixtures rescheduled due to weather/other reasons"
+    },
+    {
+      "fixture": "Maritimo v Academico de Viseu",
+      "league": "Primeira Liga",
+      "home_score": 2,
+      "away_score": 2,
+      "status": "completed"
+    },
+    {
+      "fixture": "FC Zurich v FC Basel",
+      "league": "Swiss Super League",
+      "home_score": null,
+      "away_score": null,
+      "status": "pending",
+      "note": "Not in ESPN schedule - Swiss Super League not fully covered by ESPN API for 2026-27 season"
+    },
+    {
+      "fixture": "Lens v AJ Auxerre",
+      "league": "Ligue 1",
+      "home_score": 5,
+      "away_score": 2,
+      "status": "completed"
+    },
+    {
+      "fixture": "Caykur Rizespor v Samsunspor",
+      "league": "Turkish Super Lig",
+      "home_score": 0,
+      "away_score": 2,
+      "status": "completed"
+    },
+    {
+      "fixture": "Nantes v Rodez",
+      "league": "Ligue 2",
+      "home_score": null,
+      "away_score": null,
+      "status": "pending",
+      "note": "Not in ESPN schedule - Ligue 2 not covered by ESPN API for 2026-27 season"
+    },
+    {
+      "fixture": "Southampton v Stoke",
+      "league": "Championship",
+      "home_score": 3,
+      "away_score": 1,
+      "status": "completed"
+    },
+    {
+      "fixture": "Feyenoord v AZ Alkmaar",
+      "league": "Eredivisie",
+      "home_score": null,
+      "away_score": null,
+      "status": "pending",
+      "note": "Not in ESPN schedule for Aug 22 2026 - Feyenoord played Aug 9/Sparta and Aug 16, AZ played Aug 22 vs Fortuna Sittard (0-2). Fixture may have been moved."
+    },
+    {
+      "fixture": "Ajax v Zwolle",
+      "league": "Eredivisie",
+      "home_score": null,
+      "away_score": null,
+      "status": "pending",
+      "note": "Not in ESPN schedule for Aug 22 2026 - Ajax played Aug 9 vs Zwolle (2-0 win), Aug 16 vs Heerenveen (2-2 draw). PEC Zwolle played Aug 22 vs Heerenveen (0-2). Fixture may have been moved."
+    },
+    {
+      "fixture": "Athletic Club v Sevilla",
+      "league": "La Liga",
+      "home_score": 1,
+      "away_score": 3,
+      "status": "completed"
+    },
+    {
+      "fixture": "FC Luzern v Lausanne",
+      "league": "Swiss Super League",
+      "home_score": 1,
+      "away_score": 0,
+      "status": "completed"
+    },
+    {
+      "fixture": "Nice v Lorient",
+      "league": "Ligue 1",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "completed"
+    },
+    {
+      "fixture": "Akhmat v FC Rostov",
+      "league": "Russian Premier League",
+      "home_score": 4,
+      "away_score": 1,
+      "status": "completed"
+    },
+    {
+      "fixture": "Wrexham v Watford",
+      "league": "Championship",
+      "home_score": 1,
+      "away_score": 1,
+      "status": "completed"
+    },
+    {
+      "fixture": "Preston v Wolverhampton",
+      "league": "Championship",
+      "home_score": 1,
+      "away_score": 3,
+      "status": "completed"
+    },
+    {
+      "fixture": "Genoa v Napoli",
+      "league": "Serie A",
+      "home_score": 0,
+      "away_score": 2,
+      "status": "completed"
+    },
+    {
+      "fixture": "Carrarese v Mantova",
+      "league": "Serie B",
+      "home_score": 1,
+      "away_score": 2,
+      "status": "completed"
+    },
+    {
+      "fixture": "Blackburn Rovers v Middlesbrough",
+      "league": "Championship",
+      "home_score": 2,
+      "away_score": 1,
+      "status": "completed"
+    },
+    {
+      "fixture": "Fenerbahce v Konyaspor",
+      "league": "Turkish Super Lig",
+      "home_score": 4,
+      "away_score": 2,
+      "status": "completed",
+      "note": "Corrected 2026-08-23: ESPN authoritative feed shows 4-2, manual snippet in original version was wrong"
+    },
+    {
+      "fixture": "Everton v Crystal Palace",
+      "league": "Premier League",
+      "home_score": 2,
+      "away_score": 0,
+      "status": "completed"
+    },
+    {
+      "fixture": "Millwall v Norwich City",
+      "league": "Championship",
+      "home_score": 3,
+      "away_score": 0,
+      "status": "completed"
+    },
+    {
+      "fixture": "Birmingham City v Bristol City",
+      "league": "Championship",
+      "home_score": 2,
+      "away_score": 2,
+      "status": "completed",
+      "note": "Corrected 2026-08-23: ESPN authoritative feed shows 2-2, manual version had wrong 2-1"
+    },
+    {
+      "fixture": "Royal Charleroi SC v KV Mechelen",
+      "league": "Belgian Pro League",
+      "home_score": 2,
+      "away_score": 0,
+      "status": "completed"
+    },
+    {
+      "fixture": "Empoli v Cremonese",
+      "league": "Serie B",
+      "home_score": 1,
+      "away_score": 0,
+      "status": "completed"
+    },
+    {
+      "fixture": "Derby County v Cardiff City",
+      "league": "Championship",
+      "home_score": 2,
+      "away_score": 2,
+      "status": "completed"
+    },
+    {
+      "fixture": "Hull City v Manchester United",
+      "league": "Premier League",
+      "home_score": 2,
+      "away_score": 0,
+      "status": "completed"
+    },
+    {
+      "fixture": "Udinese v Como",
+      "league": "Serie A",
+      "home_score": 1,
+      "away_score": 1,
+      "status": "completed"
+    },
+    {
+      "fixture": "Sudtirol v Virtus Entella",
+      "league": "Serie B",
+      "home_score": 0,
+      "away_score": 1,
+      "status": "completed"
+    },
+    {
+      "fixture": "Swansea v Sheffield Utd",
+      "league": "Championship",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "completed"
+    },
+    {
+      "fixture": "Le Mans v Stade Brestois",
+      "league": "Ligue 1",
+      "home_score": 2,
+      "away_score": 2,
+      "status": "completed",
+      "note": "Corrected 2026-08-23: ESPN authoritative feed shows 2-2 draw, not 0-0 (manual entry was wrong)"
+    },
+    {
+      "fixture": "Fakel Voronezh v Gazovik Orenburg",
+      "league": "Russian Premier League",
+      "home_score": 0,
+      "away_score": 0,
+      "status": "completed"
+    }
+  ]
+}

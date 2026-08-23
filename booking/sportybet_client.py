@@ -1,15 +1,15 @@
 """
 SportyBet Nigeria client — Phase 2 (paper only, zero capital).
 
-This module provides a requests-based client for SportyBet's public website.
+This module provides an API-based client for SportyBet's public endpoints.
 It reads fixture lists and live odds from the Nigeria site (sportybet.com/ng)
-without authentication. All functions are idempotent and cache-friendly.
+using their internal API. All functions are idempotent and cache-friendly.
 
 WHY THIS EXISTS
   The booking pipeline needs SportyBet fixture/odds data for the daily board
   and the paper-leg logger. SportyBet does not have a public API; this client
-  scrapes the public web pages the same way a browser would, but without
-  JavaScript execution (uses requests + BeautifulSoup).
+  uses their internal factsCenter API the same way the browser does, but without
+  JavaScript execution (uses requests + direct API calls).
 
 QUOTA / RATE LIMITS
   No official limits. This client defaults to 2s polite delay between requests.
@@ -37,25 +37,24 @@ from urllib.parse import urljoin, urlparse, parse_qs
 
 try:
     import requests
-    from bs4 import BeautifulSoup
 except ImportError:
     requests = None
-    BeautifulSoup = None
 
 # --- Constants ---
-BASE_URL = "https://www.sportybet.com"
+BASE_URL = "https://sportybet.com"
+API_BASE = "https://www.sportybet.com/api/ng/factsCenter"
+
 DEFAULT_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept": "application/json, text/plain, */*",
     "Accept-Language": "en-US,en;q=0.9",
     "Accept-Encoding": "gzip, deflate, br",
     "Connection": "keep-alive",
-    "Upgrade-Insecure-Requests": "1",
-    "Sec-Fetch-Dest": "document",
-    "Sec-Fetch-Mode": "navigate",
-    "Sec-Fetch-Site": "none",
-    "Sec-Fetch-User": "?1",
-    "Cache-Control": "max-age=0",
+    "Referer": "https://www.sportybet.com/ng/sport/football",
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-origin",
+    "Cache-Control": "no-cache",
 }
 
 # Polite delay between requests (seconds)
@@ -108,7 +107,7 @@ class SportyBetRateLimited(SportyBetError):
 
 
 class SportyBetClient:
-    """Client for reading fixtures and odds from SportyBet Nigeria."""
+    """Client for reading fixtures and odds from SportyBet Nigeria via API."""
 
     def __init__(
         self,
@@ -118,8 +117,6 @@ class SportyBetClient:
     ):
         if requests is None:
             raise RuntimeError("requests not installed — pip install requests")
-        if BeautifulSoup is None:
-            raise RuntimeError("beautifulsoup4 not installed — pip install beautifulsoup4")
 
         self.delay = delay
         self.cache_dir = cache_dir or CACHE_DIR
@@ -127,6 +124,9 @@ class SportyBetClient:
         self._last_request = 0.0
         self.session = requests.Session()
         self.session.headers.update(DEFAULT_HEADERS)
+
+        # Cache for tournament mapping (country -> tournament name -> id)
+        self._tournament_cache: Optional[Dict] = None
 
     def _wait(self) -> None:
         """Enforce polite delay between requests."""
@@ -173,239 +173,208 @@ class SportyBetClient:
         parsed = urlparse(url)
         path = parsed.path.strip("/").replace("/", "_") or "index"
         query = parsed.query.replace("&", "_").replace("=", "-")
-        return f"{path}_{query}.html" if query else f"{path}.html"
+        return f"{path}_{query}.json" if query else f"{path}.json"
+
+    def _get_api(self, endpoint: str, params: Dict = None, cache_ttl: int = FIXTURES_CACHE_TTL) -> Dict:
+        """Call SportyBet API endpoint with caching."""
+        # Build URL with timestamp parameter
+        import urllib.parse
+        ts = int(time.time() * 1000)
+        base_params = {"_t": ts}
+        if params:
+            base_params.update(params)
+        query = urllib.parse.urlencode(base_params)
+        url = f"{API_BASE}/{endpoint}?{query}"
+        response_text = self._get(url, cache_ttl=cache_ttl)
+        return json.loads(response_text)
+
+    def _load_tournament_map(self) -> Dict:
+        """Load the tournament mapping from the API (cached)."""
+        if self._tournament_cache is not None:
+            return self._tournament_cache
+
+        # Get the popularAndSportList which has full country/tournament hierarchy
+        data = self._get_api("popularAndSportList", {
+            "sportId": "sr:sport:1",
+            "timeline": "",
+            "productId": "3"
+        })
+
+        sport_list = data.get("data", {}).get("sportList", [])
+        tournament_map = {}
+
+        if sport_list:
+            for country in sport_list[0].get("categories", []):
+                country_name = country["name"]
+                tournament_map[country_name] = {}
+                for tournament in country.get("tournaments", []):
+                    tournament_map[country_name][tournament["name"]] = {
+                        "id": tournament["id"],
+                        "eventSize": tournament["eventSize"]
+                    }
+
+        self._tournament_cache = tournament_map
+        return tournament_map
 
     def get_countries(self) -> List[Dict[str, str]]:
-        """Get list of countries from the SportyBet sidebar (Nigeria site)."""
-        html = self._get(f"{BASE_URL}/ng/sport/football")
-        soup = BeautifulSoup(html, "html.parser")
-
+        """Get list of countries from SportyBet API."""
+        tournament_map = self._load_tournament_map()
         countries = []
-        # SportyBet sidebar: country links have data-country attribute
-        for link in soup.select("a[data-country]"):
-            country_name = link.get("data-country") or link.get_text(strip=True)
-            href = link.get("href", "")
-            if href:
-                countries.append({"name": country_name, "url": urljoin(BASE_URL, href)})
+        for country_name, tournaments in tournament_map.items():
+            if tournaments:
+                countries.append({
+                    "name": country_name,
+                    "url": f"{BASE_URL}/ng/sport/football/{country_name.replace(' ', '-').lower()}"
+                })
         return countries
 
-    def get_leagues(self, country_url: str) -> List[Dict[str, str]]:
-        """Get leagues for a given country page."""
-        html = self._get(country_url)
-        soup = BeautifulSoup(html, "html.parser")
-
+    def get_leagues(self, country: str) -> List[Dict[str, str]]:
+        """Get leagues for a given country."""
+        tournament_map = self._load_tournament_map()
         leagues = []
-        # League links typically in a sub-menu or accordion
-        for link in soup.select("a[data-league], a[href*='/sport/football/']"):
-            league_name = link.get("data-league") or link.get_text(strip=True)
-            href = link.get("href", "")
-            if href and "/sport/football/" in href:
-                leagues.append({"name": league_name, "url": urljoin(BASE_URL, href)})
+        if country in tournament_map:
+            for league_name, info in tournament_map[country].items():
+                leagues.append({
+                    "name": league_name,
+                    "id": info["id"],
+                    "eventSize": info["eventSize"],
+                    "url": f"{BASE_URL}/ng/sport/football/{country.replace(' ', '-').lower()}/{league_name.replace(' ', '-').lower()}"
+                })
         return leagues
 
-    def get_fixtures(self, league_url: str, days_ahead: int = 3) -> List[Fixture]:
-        """Get fixtures for a league page within days_ahead."""
-        html = self._get(league_url)
-        soup = BeautifulSoup(html, "html.parser")
+    def get_fixtures(self, country: str, league: str, days_ahead: int = 3) -> List[Fixture]:
+        """Get fixtures for a league within days_ahead using the upcoming events API."""
+        tournament_map = self._load_tournament_map()
+
+        # Find tournament ID
+        tournament_id = None
+        if country in tournament_map and league in tournament_map[country]:
+            tournament_id = tournament_map[country][league]["id"]
+
+        if not tournament_id:
+            # Try to find by searching all tournaments
+            for c, leagues in tournament_map.items():
+                if league in leagues:
+                    tournament_id = leagues[league]["id"]
+                    country = c
+                    break
+
+        if not tournament_id:
+            return []
+
+        # Call the upcoming events API with tournamentId filter
+        data = self._get_api("pcUpcomingEvents", {
+            "sportId": "sr:sport:1",
+            "marketId": "1,18,10,29,11,26,36,14,60100",
+            "pageSize": "100",
+            "pageNum": "1",
+            "option": "1",
+            "tournamentId": tournament_id
+        })
 
         fixtures = []
-        # Fixture rows — SportyBet uses various structures, try multiple selectors
-        for row in soup.select(".match-row, .fixture-row, [data-match-id], .event-row"):
-            fixture = self._parse_fixture_row(row, league_url)
-            if fixture:
-                fixtures.append(fixture)
-
-        # Fallback: look for JSON data embedded in the page
-        if not fixtures:
-            fixtures = self._extract_fixtures_from_json(html, league_url)
+        for tournament_data in data.get("data", {}).get("tournaments", []):
+            if tournament_data.get("id") == tournament_id:
+                for event in tournament_data.get("events", []):
+                    fixture = self._parse_api_event(event, country, league, tournament_id)
+                    if fixture:
+                        # Filter by days_ahead
+                        from datetime import datetime, timezone
+                        kickoff = datetime.fromisoformat(fixture.kickoff_utc.replace("Z", "+00:00"))
+                        now = datetime.now(timezone.utc)
+                        days_diff = (kickoff - now).days
+                        if 0 <= days_diff <= days_ahead:
+                            fixtures.append(fixture)
+                break
 
         return fixtures
 
-    def _parse_fixture_row(self, row: BeautifulSoup, league_url: str) -> Optional[Fixture]:
-        """Parse a fixture from a DOM row element."""
+    def _parse_api_event(self, event: Dict, country: str, league: str, tournament_id: str) -> Optional[Fixture]:
+        """Parse a fixture from the API event structure."""
         try:
-            # Match ID
-            fixture_id = (
-                row.get("data-match-id")
-                or row.get("data-fixture-id")
-                or row.get("data-event-id")
-            )
-            if not fixture_id:
-                # Try to extract from a link
-                link = row.select_one("a[href*='/match/'], a[href*='/event/']")
-                if link:
-                    href = link.get("href", "")
-                    match = re.search(r"/(match|event)/(\d+)", href)
-                    if match:
-                        fixture_id = match.group(2)
-
+            fixture_id = event.get("gameId") or event.get("eventId")
             if not fixture_id:
                 return None
 
-            # Team names
-            home_elem = row.select_one(".home-team, .team-home, [data-home-team], .team-name:first-child")
-            away_elem = row.select_one(".away-team, .team-away, [data-away-team], .team-name:last-child")
-            home_team = home_elem.get_text(strip=True) if home_elem else ""
-            away_team = away_elem.get_text(strip=True) if away_elem else ""
+            home_team = event.get("homeTeamName", "")
+            away_team = event.get("awayTeamName", "")
 
             if not home_team or not away_team:
-                # Try alternative: both teams in one element
-                teams_elem = row.select_one(".teams, .match-teams, .event-teams")
-                if teams_elem:
-                    text = teams_elem.get_text(strip=True)
-                    parts = re.split(r"\s+[–v]\s+", text, maxsplit=1)
-                    if len(parts) == 2:
-                        home_team, away_team = parts
+                return None
 
-            # Kickoff time
-            kickoff_utc = ""
-            time_elem = row.select_one(".match-time, .kickoff-time, [data-kickoff], .time")
-            if time_elem:
-                # Could be data attribute or text
-                kickoff_utc = time_elem.get("data-kickoff") or time_elem.get_text(strip=True)
-
-            # League/Country from URL
-            parsed = urlparse(league_url)
-            path_parts = [p for p in parsed.path.split("/") if p]
-            country = path_parts[1] if len(path_parts) > 1 else ""
-            league = path_parts[2] if len(path_parts) > 2 else ""
+            # Convert timestamp to ISO format
+            estimate_start = event.get("estimateStartTime")
+            if estimate_start:
+                kickoff_utc = datetime.fromtimestamp(estimate_start / 1000, tz=timezone.utc).isoformat().replace("+00:00", "Z")
+            else:
+                kickoff_utc = ""
 
             return Fixture(
-                fixture_id=fixture_id,
+                fixture_id=str(fixture_id),
                 home_team=home_team,
                 away_team=away_team,
                 kickoff_utc=kickoff_utc,
                 league=league,
                 country=country,
-                raw={"html": str(row)[:500]},
+                raw={
+                    "eventId": event.get("eventId"),
+                    "tournamentId": tournament_id,
+                    "matchStatus": event.get("matchStatus"),
+                    "totalMarketSize": event.get("totalMarketSize"),
+                }
             )
         except Exception:
             return None
 
-    def _extract_fixtures_from_json(self, html: str, league_url: str) -> List[Fixture]:
-        """Extract fixtures from embedded JSON in the page."""
-        fixtures = []
-        # Look for __NEXT_DATA__ or similar
-        for script in BeautifulSoup(html, "html.parser").select("script[type='application/json'], script#__NEXT_DATA__"):
-            try:
-                data = json.loads(script.string)
-                fixtures.extend(self._parse_next_data(data, league_url))
-            except (json.JSONDecodeError, AttributeError):
-                continue
-        return fixtures
-
-    def _parse_next_data(self, data: Dict, league_url: str) -> List[Fixture]:
-        """Parse fixtures from Next.js __NEXT_DATA__."""
-        fixtures = []
-        # Navigate to pageProps -> initialState -> matches or similar
-        try:
-            page_props = data.get("props", {}).get("pageProps", {})
-            initial_state = page_props.get("initialState", {})
-            matches = initial_state.get("matches", {}).get("data", {}) or initial_state.get("fixtures", {})
-
-            for match_id, match in matches.items():
-                if isinstance(match, dict):
-                    fixtures.append(Fixture(
-                        fixture_id=str(match_id),
-                        home_team=match.get("homeTeam", {}).get("name", ""),
-                        away_team=match.get("awayTeam", {}).get("name", ""),
-                        kickoff_utc=match.get("startTime", ""),
-                        league=match.get("tournament", {}).get("name", ""),
-                        country=match.get("tournament", {}).get("category", {}).get("name", ""),
-                        raw=match,
-                    ))
-        except Exception:
-            pass
-        return fixtures
-
     def get_odds(self, fixture_id: str) -> List[MarketOdds]:
-        """Get odds for a specific fixture."""
-        # Fixture detail page
-        url = f"{BASE_URL}/match/{fixture_id}"
-        html = self._get(url, cache_ttl=ODDS_CACHE_TTL)
-        soup = BeautifulSoup(html, "html.parser")
+        """Get odds for a specific fixture from the API."""
+        # The pcUpcomingEvents API already includes odds in the markets array
+        # We need to find the event in the API response
+        # pageSize=200 returns 422, so use 100
+        data = self._get_api("pcUpcomingEvents", {
+            "sportId": "sr:sport:1",
+            "marketId": "1,18,10,29,11,26,36,14,60100",
+            "pageSize": "100",
+            "pageNum": "1",
+            "option": "1"
+        }, cache_ttl=ODDS_CACHE_TTL)
 
         markets = []
+        for tournament_data in data.get("data", {}).get("tournaments", []):
+            for event in tournament_data.get("events", []):
+                if str(event.get("gameId")) == str(fixture_id) or str(event.get("eventId")) == str(fixture_id):
+                    for market in event.get("markets", []):
+                        outcomes = {}
+                        for outcome in market.get("outcomes", []):
+                            name = outcome.get("desc", "")
+                            odds_str = outcome.get("odds", "")
+                            if name and odds_str:
+                                try:
+                                    outcomes[name] = float(odds_str)
+                                except ValueError:
+                                    pass
 
-        # Try to extract from embedded JSON first
-        for script in soup.select("script[type='application/json'], script#__NEXT_DATA__"):
-            try:
-                data = json.loads(script.string)
-                markets.extend(self._parse_odds_from_json(data, fixture_id))
-            except (json.JSONDecodeError, AttributeError):
-                continue
-
-        # Fallback: parse from DOM
-        if not markets:
-            markets = self._parse_odds_from_dom(soup, fixture_id)
+                        if outcomes:
+                            canonical_key = self._normalize_market_key(market.get("name", ""), market.get("desc", ""))
+                            markets.append(MarketOdds(
+                                fixture_id=fixture_id,
+                                market=canonical_key,
+                                outcomes=outcomes,
+                                captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                            ))
+                    break
+            if markets:
+                break
 
         return markets
 
-    def _parse_odds_from_json(self, data: Dict, fixture_id: str) -> List[MarketOdds]:
-        """Parse odds from embedded JSON."""
-        markets = []
-        try:
-            page_props = data.get("props", {}).get("pageProps", {})
-            initial_state = page_props.get("initialState", {})
-            match_odds = initial_state.get("matchOdds", {}).get("data", {}).get(fixture_id, {})
-
-            for market_key, market_data in match_odds.items():
-                outcomes = {}
-                for outcome in market_data.get("outcomes", []):
-                    name = outcome.get("name", "")
-                    price = outcome.get("price")
-                    if price:
-                        outcomes[name] = float(price)
-                if outcomes:
-                    # Normalize market key to OLP XDV canonical keys
-                    canonical_key = self._normalize_market_key(market_key)
-                    markets.append(MarketOdds(
-                        fixture_id=fixture_id,
-                        market=canonical_key,
-                        outcomes=outcomes,
-                        captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                    ))
-        except Exception:
-            pass
-        return markets
-
-    def _parse_odds_from_dom(self, soup: BeautifulSoup, fixture_id: str) -> List[MarketOdds]:
-        """Parse odds from DOM elements."""
-        markets = []
-        # Market tabs/sections
-        for market_section in soup.select(".market-group, .odds-market, [data-market]"):
-            market_name_elem = market_section.get("data-market") or market_section.select_one(".market-name, .tab-title")
-            market_name = market_name_elem.get_text(strip=True) if market_name_elem else "unknown"
-
-            outcomes = {}
-            for outcome_elem in market_section.select(".outcome, .odds-item, [data-outcome]"):
-                name = outcome_elem.get("data-outcome") or outcome_elem.select_one(".outcome-name, .name")
-                price_elem = outcome_elem.select_one(".odds-value, .price, [data-price]")
-                if name and price_elem:
-                    name = name.get_text(strip=True) if hasattr(name, "get_text") else str(name)
-                    price_text = price_elem.get("data-price") or price_elem.get_text(strip=True)
-                    try:
-                        price = float(price_text)
-                        outcomes[name] = price
-                    except ValueError:
-                        continue
-
-            if outcomes:
-                # Normalize market key
-                canonical_key = self._normalize_market_key(market_name)
-                markets.append(MarketOdds(
-                    fixture_id=fixture_id,
-                    market=canonical_key,
-                    outcomes=outcomes,
-                    captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                ))
-        return markets
-
-    def _normalize_market_key(self, sportybet_key: str) -> str:
+    def _normalize_market_key(self, market_name: str, market_desc: str = "") -> str:
         """Map SportyBet market key to OLP XDV canonical key."""
+        combined = (market_name + " " + market_desc).lower().replace(" ", "_")
+
         mapping = {
             # 1X2
-            "1X2": "1X2_HOME",  # will be distinguished by outcome names
+            "1x2": "1X2_HOME",
             "match_winner": "1X2_HOME",
             "full_time_result": "1X2_HOME",
             # Double Chance
@@ -469,39 +438,7 @@ class SportyBetClient:
             "3:1": "CS_10",
             "1:3": "CS_10",
         }
-        return mapping.get(sportybet_key.lower().replace(" ", "_"), sportybet_key)
-
-    def _parse_odds_from_dom(self, soup: BeautifulSoup, fixture_id: str) -> List[MarketOdds]:
-        """Parse odds from DOM elements."""
-        markets = []
-        # Market tabs/sections
-        for market_section in soup.select(".market-group, .odds-market, [data-market]"):
-            market_name_elem = market_section.get("data-market") or market_section.select_one(".market-name, .tab-title")
-            market_name = market_name_elem.get_text(strip=True) if market_name_elem else "unknown"
-
-            outcomes = {}
-            for outcome_elem in market_section.select(".outcome, .odds-item, [data-outcome]"):
-                name = outcome_elem.get("data-outcome") or outcome_elem.select_one(".outcome-name, .name")
-                price_elem = outcome_elem.select_one(".odds-value, .price, [data-price]")
-                if name and price_elem:
-                    name = name.get_text(strip=True) if hasattr(name, "get_text") else str(name)
-                    price_text = price_elem.get("data-price") or price_elem.get_text(strip=True)
-                    try:
-                        price = float(price_text)
-                        outcomes[name] = price
-                    except ValueError:
-                        continue
-
-            if outcomes:
-                # Normalize market key
-                canonical_key = self._normalize_market_key(market_name)
-                markets.append(MarketOdds(
-                    fixture_id=fixture_id,
-                    market=canonical_key,
-                    outcomes=outcomes,
-                    captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                ))
-        return markets
+        return mapping.get(combined, market_name.upper())
 
     def close(self) -> None:
         """Close the session."""
@@ -512,3 +449,7 @@ class SportyBetClient:
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:
         self.close()
+
+
+# Need to import datetime/timezone for the fixture parsing
+from datetime import datetime, timezone

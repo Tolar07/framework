@@ -57,7 +57,7 @@ from booking.team_map import resolve_team, resolve_team_to_model
 
 # --- Configuration ---
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
-BASE_URL = "https://www.sportybet.com"
+BASE_URL = "https://sportybet.com"
 # www.sportybet.com DNS resolves reliably (Cloudflare 104.21.10.148).
 # The .ng host redirects through CloudFront but www. is the stable entry point.
 FALLBACK_HOSTS = ["https://sportybet.com.ng"]
@@ -419,21 +419,26 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
         # After clicking the country, only that country's tournaments are visible.
         # Match the tournament-name INSIDE the expanded country section, NOT
         # globally — this prevents "Premier League" colliding across countries.
-        league_loc = page.locator(
-            ".category-list-item:visible").filter(
-            has=page.locator(f"text={country}")).first.locator(
-            ".tournament-name:visible, .tournament-list-item:visible",
-            has_text=league).first
+        # Fixed 2026-08-23: use evaluate() click on visible tournament-list-item.
+        expanded = page.locator(".category-list-item:visible").filter(has=page.locator(f"text={country}")).first
+        league_loc = expanded.locator(".tournament-list-item:visible, .tournament-name:visible").filter(has_text=league).first
         if league_loc.count() == 0:
             # NO FALLBACK — global match caused catastrophic cross-contamination
             # (Welsh Premier League getting English PL fixtures, Bosnian getting England's, etc.)
             print(f"  x League '{league}' not found in sidebar for {country} (scoped search only; no global fallback per HR35)")
             return False
 
+        # Use evaluate() click which worked in debug; scroll into view first
         try:
-            league_loc.click(force=True)
-        except Exception:
-            league_loc.dispatch_event("click")
+            league_loc.scroll_into_view_if_needed()
+            page.wait_for_timeout(200)
+            league_loc.evaluate("el => el.click()")
+        except Exception as e:
+            print(f"  x League click failed: {e}")
+            try:
+                league_loc.click(force=True)
+            except Exception:
+                league_loc.dispatch_event("click")
 
         # Step 4: wait for fixtures to render
         page.wait_for_timeout(3000)

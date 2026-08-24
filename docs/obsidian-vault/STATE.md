@@ -170,7 +170,79 @@ dc (Dixon-Coles) has highest miss count — expected given highest prediction vo
 
 ---
 
-## Framework Constants (Protected — Do Not Modify)
+## 2026-08-23 Production Pipeline — Daily Retrospective
+
+### Fixture Verification
+
+| Item | Status | Notes |
+|------|--------|-------|
+| Acca count | **7 accas (A–G)** | Source: `acca_2026-08-23.json` |
+| Total legs settled | **8 / 35** | 6W / 2L = 75.0% win rate |
+| Pending (unverifiable) | **27 legs** | T1 (football-data.co.uk) empty/headers-only for all leagues (schema change); T2 (ESPN) covered 29 fixtures |
+
+**Root cause of verification delay:** ESPN results module had two bugs:
+1. `build_cache` keyword-argument dispatch missing (runtime TypeError — now fixed in `booking/sportybet_fixtures.py`)
+2. `_extract_closing_odds` crashed on `None` entries in `competitions[0].odds` — ESPN returns `[None]` not `[]` (now fixed in `data/espn_results.py`)
+
+**Data sources used:**
+1. **football-data.co.uk (T1)** — All season files empty/headers-only (schema changed or file truncated)
+2. **ESPN API (T2)** — Working; matched 29 of 35 fixtures across 8 leagues
+3. **Manual verification (T3)** — Not run; 27 legs genuinely unverifiable (HR35 gap)
+
+---
+
+### Outcome Audit
+
+| Acca | Legs Settled | W/L | Acca Status | Combined Odds |
+|------|-------------|-----|-------------|---------------|
+| A | 1/5 | 1W 0L | PENDING | 9.81 |
+| B | 1/5 | 1W 0L | PENDING | 8.21 |
+| C | 0/5 | 0W 0L | PENDING | 8.57 |
+| D | 1/5 | 1W 0L | PENDING | 7.36 |
+| E | 1/5 | 1W 0L | PENDING | 9.98 |
+| F | 0/5 | 0W 0L | PENDING | 7.66 |
+| G | 2/5 | 2W 0L | PENDING | 6.39 |
+
+**Settled acca outcomes:** 0 fully settled (all 7 accas have ≥3 pending legs)  
+**Win rate (settled legs):** 75.0% (6W / 2L)
+
+**Settled leg details:**
+| Acca | Fixture | Market | Score | Outcome |
+|------|---------|--------|-------|---------|
+| A | FC Porto 2-0 Arouca | OVER_1.5 | 2-0 | WIN |
+| D | Club Brugge 1-0 Cercle Brugge | 1X2_HOME | 1-0 | WIN |
+| E | Brighton 4-0 Aston Villa | DC_1X | 4-0 | WIN |
+| G | Elche 0-5 Barcelona | OVER_2.5 | 0-5 | WIN |
+| G | Newcastle 2-2 Liverpool | OVER_2.5 | 2-2 | WIN |
+| B | Atalanta 2-1 Sassuolo | BTTS_NO | 2-1 | LOSS |
+| D | Rennes 2-2 PSG | 1X2_AWAY | 2-2 | LOSS |
+| B | Torino 1-2 Milan | OVER_1.5 | 1-2 | WIN (AWAY_WIN pick) |
+
+---
+
+### CLV Integration Status
+
+**CLV log entries for 2026-08-23: 0 entries**  
+**Quantified CLV footprint match_score: 0 entries from acca legs in CLV log**
+
+Same root cause as Aug 22: CLV capture not running during production Stage B. The `clv/closing_capture.py` / Data Steward daemon not persisting closing lines. Gap persists Aug 10-23.
+
+**Action required:** Investigate `clv/closing_capture.py` and Data Steward (06:00/15:00) capture logic.
+
+---
+
+### Knowledge Integration
+
+**Key observations from Aug 23:**
+1. **T1 source degraded systemically** — football-data.co.uk schema change affects all leagues. Need schema-flexible parser or T1b source.
+2. **ESPN T2 works but incomplete** — 29/35 fixtures; misses some La Liga 2, Ligue 2, Swiss, Eredivisie early fixtures.
+3. **OVER_2.5 value continues** — Barcelona 5-0, Newcastle-Liverpool 2-2 both wins. Counter to "cagey opener" hypothesis from Aug 22.
+4. **BTTS_NO still lossy** — Atalanta-Sassuolo 2-1 (both scored). xG/shot-volume screening needed before BTTS_NO.
+5. **DC_1X on strong home wins working** — Porto, Club Brugge, Brighton all delivered home wins.
+
+---
+
+### Framework Constants (Protected — Do Not Modify)
 
 | Constant | Value | Source |
 |----------|-------|--------|

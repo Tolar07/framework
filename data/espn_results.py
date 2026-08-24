@@ -35,7 +35,7 @@ try:
 except ImportError:
     requests = None  # type: ignore
 
-from data.espn_source import SLUGS as LEAGUE_MAP
+from data.espn_source import SLUGS
 
 # Season year fallback (current season start year)
 _SEASON_YEAR = 2025
@@ -73,6 +73,25 @@ CACHE_DIR.mkdir(parents=True, exist_ok=True)
 # Cache TTL: 6h for live season, 30d for completed
 LIVE_SEASON_TTL = 6 * 3600
 COMPLETED_SEASON_TTL = 30 * 24 * 3600
+
+
+# ESPN final-status enum values. ESPN reports finished matches as
+# STATUS_FULL_TIME (not STATUS_FINAL / STATUS_COMPLETED as older code assumed),
+# so the result filter must accept it — otherwise every completed match is
+# silently dropped and the verification loop can never settle (HR35 gap).
+FINAL_STATUS_NAMES = {
+    "STATUS_FINAL", "STATUS_COMPLETED", "STATUS_FULL_TIME",
+    "Final", "Completed",
+}
+
+
+def _is_completed(event: Dict[str, Any]) -> bool:
+    """True if an ESPN event is a finished match (honest settlement signal)."""
+    status_obj = (event.get("status") or {}).get("type") or {}
+    # Canonical completion flag ESPN sets on final results.
+    if status_obj.get("completed") is True:
+        return True
+    return status_obj.get("name", "") in FINAL_STATUS_NAMES
 
 
 def _is_season_completed(league: str, match_date: str) -> bool:
@@ -134,7 +153,7 @@ def _extract_closing_odds(competition: Dict[str, Any]) -> tuple[Optional[float],
     Priority: DraftKings (primary) > Bet365 (secondary)
     Returns (home_odds, draw_odds, away_odds, source)
     """
-    odds = competition.get("odds", [])
+    odds = [o for o in competition.get("odds", []) if o]
     if not odds:
         return None, None, None, ""
 
@@ -231,7 +250,7 @@ def fetch_results_for_date(target_date: str, league: Optional[str] = None) -> Li
     leagues_to_query = [league] if league else list(LEAGUE_MAP.keys())
 
     for lg in leagues_to_query:
-        espn_league = LEAGUE_MAP.get(lg)
+        espn_league = SLUGS.get(lg)
         if not espn_league:
             continue
 
@@ -251,9 +270,9 @@ def fetch_results_for_date(target_date: str, league: Optional[str] = None) -> Li
         events = data.get("events", [])
         for event in events:
             try:
+                completed_check = _is_completed(event)
                 # Only process completed matches
-                status = event.get("status", {}).get("type", {}).get("name", "")
-                if status not in ("STATUS_FINAL", "STATUS_COMPLETED", "Final", "Completed"):
+                if not completed_check:
                     continue
 
                 competitions = event.get("competitions", [])
@@ -308,11 +327,11 @@ def fetch_results_for_date(target_date: str, league: Optional[str] = None) -> Li
                         "endpoint": "scoreboard",
                         "fetched_at": datetime.utcnow().isoformat() + "Z",
                         "skipped_malformed": skipped,
-                    }
+                    },
                 )
                 results.append(result)
 
-            except Exception as e:
+            except Exception as exc:
                 skipped += 1
                 continue
 

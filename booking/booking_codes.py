@@ -1087,11 +1087,11 @@ def render_codes(result: dict) -> str:
             if exp is None or bs is None:
                 out.append("    ODDS CHECK: data missing (betSlip not captured); code retained")
             elif oc.get("match"):
-                out.append(f"    ✓ ODDS CHECK PASS: expected {exp:.2f} == betslip {bs:.2f}")
+                out.append(f"    [OK] ODDS CHECK PASS: expected {exp:.2f} == betslip {bs:.2f}")
             else:
-                out.append(f"    ✗ ODDS MISMATCH: expected {exp:.2f} vs betslip {bs:.2f} — code REJECTED")
+                out.append(f"    [FAIL] ODDS MISMATCH: expected {exp:.2f} vs betslip {bs:.2f} — code REJECTED")
         for leg in r.get("per_leg", []):
-            status = "✓" if leg.get("status") == "BOOKED" else "✗ MANUAL"
+            status = "[OK]" if leg.get("status") == "BOOKED" else "[FAIL] MANUAL"
             out.append(f"    {status} {leg['fixture']} — {leg['market_name']}"
                        + (f" ({leg.get('reason')})" if leg.get("reason") else ""))
     out.append("  Codes pre-fill the slip when pasted into SportyBet. A MANUAL leg "

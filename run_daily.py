@@ -31,6 +31,7 @@ import sys
 import time
 import uuid
 from typing import Optional
+import dataclasses
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -114,8 +115,10 @@ def _refresh_sportybet_cache(runlog: Path, days_ahead: int = 30) -> str | None:
 
     Returns a data-flag line (or None when skipped/disabled)."""
     try:
+        import asyncio
         from booking.sportybet_fixtures import build_cache
-        results = build_cache(days_ahead=days_ahead, headless=True)
+        # SportyBet sidebar requires headless=False for proper rendering (debug_nav.py confirmed)
+        results = asyncio.run(build_cache(days_ahead=days_ahead, headless=False))
     except Exception as e:
         msg = f"sportybet cache refresh skipped ({type(e).__name__}: {str(e)[:80]})"
         _mark(runlog, msg)

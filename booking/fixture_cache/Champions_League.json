@@ -1,0 +1,95 @@
+{
+  "fetched_at": 1787600754.55746,
+  "league": "Champions League",
+  "country": "International Clubs",
+  "fixtures": [
+    {
+      "id": "45886",
+      "home": "CSDC Alianza Universidad",
+      "away": "Bentin Tacna Heroica",
+      "kickoff": "21:00",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Fulham",
+      "away": "Chelsea",
+      "kickoff": "44:25",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Malaga CF",
+      "away": "RC Deportivo De La Coruna",
+      "kickoff": "14:01",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "Champions League-3",
+      "home": "Roma",
+      "away": "Fiorentina",
+      "kickoff": "45:00",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "Champions League-4",
+      "home": "Hallescher FC",
+      "away": "Schalke",
+      "kickoff": "45:00",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Gil Vicente Barcelos",
+      "away": "Casa Pia Lisbon",
+      "kickoff": "29:38",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Granada",
+      "away": "Mallorca",
+      "kickoff": "14:06",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "Champions League-7",
+      "home": "Reims",
+      "away": "FC Annecy",
+      "kickoff": "45:00",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Kocaelispor",
+      "away": "Amed Sportif Faaliyetler",
+      "kickoff": "53:35",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Ittihad Club",
+      "away": "Al-Hazm",
+      "kickoff": "83:31",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "ASC Otelul Galati",
+      "away": "ACS Champions FC Arges",
+      "kickoff": "51:12",
+      "league": "Champions League",
+      "raw_market": {}
+    }
+  ]
+}

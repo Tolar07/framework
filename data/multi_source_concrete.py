@@ -275,6 +275,38 @@ def build_results_multi_source() -> MultiSource:
 
 
 # =============================================================================
+# CURRENT-SEASON RESULTS MULTI-SOURCE (T3 fallback for lower tiers)
+# =============================================================================
+
+class FlashScoreResultsSource(DataSource):
+    """FlashScore completed match results — current-season coverage for 92 leagues.
+
+    Scrapes FlashScore league results pages for completed matches.
+    Provides T2 redundancy for current-season fixtures where T1/T2 sources
+    (football-data.co.uk, ESPN) lack coverage. Priority 18 — runs after
+    historical sources but before manual T3.
+    """
+
+    def __init__(self):
+        super().__init__("flashscore_results", priority=18, timeout=45.0)
+
+    def fetch(self, **kwargs) -> list:
+        league = kwargs["league"]
+        target_date = kwargs.get("target_date") or kwargs.get("date")
+        if not target_date:
+            raise SourceNoData(f"flashscore_results: target_date required for {league}")
+
+        # Import the sync wrapper
+        from data.flashscore_results import fetch_flashscore_results_sync
+
+        results = fetch_flashscore_results_sync(league, target_date)
+        if not results:
+            raise SourceNoData(f"flashscore_results: no results for {league} {target_date}")
+
+        return {"results": results, "source": "flashscore_results", "source_tier": "T2"}
+
+
+# =============================================================================
 # ODDS MULTI-SOURCE (multi-region, multi-market)
 # =============================================================================
 

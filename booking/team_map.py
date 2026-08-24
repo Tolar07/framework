@@ -858,7 +858,19 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Újpest": "Ujpest",
     "Čukarički": "Cukaricki",
     "İstanbul Başakşehir": "Başakşehir",
-    "Železiarne Podbrezová": "Podbrezová",
+    "Železiarne Podbrezová": "Podbrezová",    "BK Hacken": "BK Hacken",
+    "Degerfors IF": "Degerfors IF",
+    "Djurgardens IF": "Djurgardens IF",
+    "Orgryte IS": "Orgryte IS",
+    "Vasteraas SK": "Vasteraas SK",
+    "Hapoel Be`er Sheva FC": "Hapoel Be`er Sheva FC",
+    "PEC Zwolle": "PEC Zwolle",
+    "BK Hacken": "BK Hacken",
+    "Degerfors IF": "Degerfors IF",
+    "Djurgardens IF": "Djurgardens IF",
+    "Orgryte IS": "Orgryte IS",
+    "Vasteraas SK": "Vasteraas SK",
+
 }
 
 

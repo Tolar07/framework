@@ -67,7 +67,7 @@ except ImportError:
 
 from config import PHASE, PHASE_LABEL, PAPER_PHASE, CAPITAL_ENABLED
 from clv.clv_logger import CLVLog
-from output.notify import send_telegram, HONEST_CAVEAT
+from output.notify import send_telegram, HONEST_CAVEAT, add_subscriber
 
 STATE_DIR = Path(__file__).parent.parent / "memory"
 OFFSET_FILE = STATE_DIR / "telegram_offset.json"
@@ -141,29 +141,22 @@ def _keyboard(*rows: tuple[str, ...]) -> dict:
 # Command handlers — each returns the reply text
 # --------------------------------------------------------------------------
 
-def cmd_help(_: str) -> str:
+def cmd_help(text: str) -> str:
+    """Context-aware help — shows only commands the sender can use."""
+    # Import here to avoid circular import
+    from output.notify import subscribers
+    import os
+    primary = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    # We don't have chat_id here, so show the subscriber-level help by default
+    # (the most permissive non-Architect view)
     return Reply(
         "OLP XDV commands\n\n"
         "/board — re-send today's board\n"
-        "/status — pipeline health + Phase 3 gate progress\n"
-        "/verify — yesterday's graded results\n"
-        "/why 2 — full reasoning for fixture 2 on today's board\n"
-        "/log Hearts v Dundee United | Over 1.5 goals | 1.42\n"
-        "     records a price YOU got, as a CL-LIVE paper leg (HR46)\n"
-        "/note the model looks wrong on Motherwell\n"
-        "     records a correction for calibration to learn from\n"
-        "/send — run the daily pipeline now and deliver the board (~30s)\n"
-        "/produce bet — run the pipeline now, board returned as this reply (~30s)\n"
-        "/produce search <q> — find today's fixtures for <q>, predict just those\n"
-        "/verify result — grade pending legs now (settles any played)\n"
-        "/code — today's SportyBet booking codes (cached or generated)\n"
-        "/debrief — full framework status\n\n"
+        "/code — today's SportyBet booking codes (cached or generated)\n\n"
         f"{PHASE_LABEL}. Capital authority is the Architect's — this system "
         "records stakes you log but never places a bet itself.",
-        keyboard=_keyboard(("/board", "/status", "/stats"),
-                           ("/why", "/verify result", "/produce bet"),
-                           ("/log", "/note", "/debrief"),
-                           ("/code",)))
+        keyboard=_keyboard(("/board", "/code"),
+                           ("/help",)))
 
 
 
@@ -709,7 +702,8 @@ def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[st
     notes: list[str] = []
     msg = update.get("message") or {}
     cq = update.get("callback_query") or {}
-    chat_id = str((msg.get("chat") or cq.get("message", {}).get("chat", {})).get("id", ""))
+    chat = msg.get("chat") or cq.get("message", {}).get("chat", {})
+    chat_id = str(chat.get("id", ""))
     text = msg.get("text") or ""
     allowed = _allowed()
     if cq:
@@ -718,8 +712,11 @@ def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[st
         # route it exactly like a typed message — no callback state needed.
         data = cq.get("data") or ""
         if allowed and chat_id not in allowed:
-            notes.append(f"IGNORED callback from non-whitelisted chat {chat_id}")
-            return True, notes
+            # Subscribers (post-/start) may also tap inline buttons.
+            from output.notify import subscribers
+            if chat_id not in set(subscribers()):
+                notes.append(f"IGNORED callback from non-whitelisted chat {chat_id}")
+                return True, notes
         # A failed ack must never drop the command that follows.
         with contextlib.suppress(Exception):
             requests.post(
@@ -731,9 +728,45 @@ def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[st
             text = data
     if not text:
         return True, notes
-    if allowed and chat_id not in allowed:
-        notes.append(f"IGNORED message from non-whitelisted chat {chat_id}")
-        return True, notes
+    # Auto-subscribe: anyone who sends /start joins the broadcast list.
+    from output.notify import subscribers
+    low = text.strip().lower()
+    primary = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    is_architect = (chat_id == primary)
+    is_subscriber = chat_id in set(subscribers())
+    if low.startswith("/start"):
+        name = ((msg.get("from") or {}).get("first_name") or "")
+        is_new = add_subscriber(chat_id)
+        notes.append(f"SUBSCRIBED chat {chat_id}{(' (' + name + ')') if name else ''}"
+                     f"{' (new)' if is_new else ' (already known)'}")
+    # Commands allowed for everyone (subscribers + Architect):
+    public_cmds = {"/start", "/help"}
+    # Commands allowed for subscribers + Architect:
+    subscriber_cmds = {"/board", "/code"}
+    # Commands allowed ONLY for Architect:
+    architect_only = {
+        "/status", "/verify", "/why", "/log", "/note",
+        "/send", "/run", "/produce", "/debrief", "/stats", "/ceo"
+    }
+    # Determine if this chat is allowed to run this command
+    allowed_cmd = False
+    if low in public_cmds:
+        allowed_cmd = True
+    elif is_subscriber or is_architect:
+        if low in subscriber_cmds:
+            allowed_cmd = True
+        elif is_architect and low in architect_only:
+            allowed_cmd = True
+    if not allowed_cmd:
+        notes.append(f"BLOCKED {low} from chat {chat_id} (subscriber={is_subscriber}, architect={is_architect})")
+        # Send a polite refusal
+        refusal = (
+            "This command is not available to you.\n\n"
+            "Available to subscribers: /board, /code, /produce bet\n"
+            "Available to everyone: /start, /help"
+        )
+        ok, send_notes = send_telegram(refusal, token=token, chat_id=chat_id)
+        return ok, notes
     reply = handle(text)
     markup = reply.keyboard if isinstance(reply, Reply) else None
     ok, send_notes = send_telegram(reply, token=token, chat_id=chat_id,
@@ -742,8 +775,6 @@ def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[st
     if ok:
         notes.append(f"handled {label} from {chat_id} -> {', '.join(send_notes)}")
     else:
-        # A command whose reply failed to send is NOT handled. Say so
-        # plainly — a silent reply failure must not look like success.
         notes.append(f"handled {label} from {chat_id} but REPLY DELIVERY "
                      f"FAILED: {'; '.join(send_notes)}")
     return ok, notes

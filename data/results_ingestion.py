@@ -205,6 +205,38 @@ def fetch_results_for_fixtures(
             except Exception as e:
                 print(f"[results_ingestion] ESPN fallback error for {league}: {e}")
 
+        # 2.5. Fallback: FlashScore for lower-tier leagues not covered by ESPN
+        still_missing_after_espn = [(h, a) for h, a in pairs
+                                     if f"{league}|{h} v {a}" not in results_by_key]
+        if still_missing_after_espn:
+            try:
+                from data.flashscore_results import fetch_flashscore_results_sync
+                flashscore_results = fetch_flashscore_results_sync(league, target_date)
+                for result in flashscore_results:
+                    key = f"{result.league}|{result.home_team} v {result.away_team}"
+                    if key not in results_by_key:
+                        fd_result = FDMatchResult(
+                            league=result.league,
+                            date=result.date,
+                            home_team=result.home_team,
+                            away_team=result.away_team,
+                            fthg=result.fthg,
+                            ftag=result.ftag,
+                            ftr=result.ftr,
+                            closing_home_odds=None,
+                            closing_draw_odds=None,
+                            closing_away_odds=None,
+                            source=result.source,
+                            source_tier=result.source_tier,
+                            odds=None,
+                            kickoff_time=None,
+                        )
+                        results_by_key[key] = fd_result
+                if any(f"{league}|{h} v {a}" in results_by_key for h, a in still_missing_after_espn):
+                    print(f"[results_ingestion] FlashScore: matched fixtures for {league}")
+            except Exception as e:
+                print(f"[results_ingestion] FlashScore fallback error for {league}: {e}")
+
         # 3. Last Resort: Manual verification data
         still_missing = [(h, a) for h, a in pairs
                          if f"{league}|{h} v {a}" not in results_by_key]

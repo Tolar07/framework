@@ -1,5 +1,5 @@
 {
-  "verification_date": "2026-08-24T18:15:33.089277+00:00",
+  "verification_date": "2026-08-24T19:43:01.748981+00:00",
   "accas": [
     {
       "label": "Acca A",
@@ -33,7 +33,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.068987+00:00"
+          "verification_time": "2026-08-24T19:43:01.747865+00:00"
         },
         {
           "fixture": "Cesena v Sampdoria",
@@ -57,7 +57,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069035+00:00"
+          "verification_time": "2026-08-24T19:43:01.747921+00:00"
         },
         {
           "fixture": "FC Porto v Arouca",
@@ -83,9 +83,9 @@
           "provenance": {
             "source": "ESPN",
             "source_tier": "T3",
-            "fetched_at": "2026-08-24T18:15:33.069106+00:00Z"
+            "fetched_at": "2026-08-24T19:43:01.747989+00:00Z"
           },
-          "verification_time": "2026-08-24T18:15:33.069059+00:00"
+          "verification_time": "2026-08-24T19:43:01.747942+00:00"
         },
         {
           "fixture": "Porto v Arouca",
@@ -109,7 +109,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069119+00:00"
+          "verification_time": "2026-08-24T19:43:01.748002+00:00"
         },
         {
           "fixture": "Alanyaspor v Beşiktaş",
@@ -133,7 +133,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069135+00:00"
+          "verification_time": "2026-08-24T19:43:01.748016+00:00"
         }
       ]
     },
@@ -171,9 +171,9 @@
           "provenance": {
             "source": "ESPN",
             "source_tier": "T3",
-            "fetched_at": "2026-08-24T18:15:33.069218+00:00Z"
+            "fetched_at": "2026-08-24T19:43:01.748089+00:00Z"
           },
-          "verification_time": "2026-08-24T18:15:33.069175+00:00"
+          "verification_time": "2026-08-24T19:43:01.748054+00:00"
         },
         {
           "fixture": "Palermo v Juve Stabia",
@@ -197,7 +197,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069232+00:00"
+          "verification_time": "2026-08-24T19:43:01.748098+00:00"
         },
         {
           "fixture": "Torino v AC Milan",
@@ -221,7 +221,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069247+00:00"
+          "verification_time": "2026-08-24T19:43:01.748109+00:00"
         },
         {
           "fixture": "Torino v Milan",
@@ -247,9 +247,9 @@
           "provenance": {
             "source": "ESPN",
             "source_tier": "T3",
-            "fetched_at": "2026-08-24T18:15:33.069291+00:00Z"
+            "fetched_at": "2026-08-24T19:43:01.748145+00:00Z"
           },
-          "verification_time": "2026-08-24T18:15:33.069261+00:00"
+          "verification_time": "2026-08-24T19:43:01.748120+00:00"
         },
         {
           "fixture": "Tenerife v Almeria",
@@ -273,7 +273,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069302+00:00"
+          "verification_time": "2026-08-24T19:43:01.748155+00:00"
         }
       ]
     },
@@ -309,7 +309,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069336+00:00"
+          "verification_time": "2026-08-24T19:43:01.748184+00:00"
         },
         {
           "fixture": "Atletico Madrid v Villarreal",
@@ -333,7 +333,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069351+00:00"
+          "verification_time": "2026-08-24T19:43:01.748197+00:00"
         },
         {
           "fixture": "Eibar v Valladolid",
@@ -357,7 +357,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069366+00:00"
+          "verification_time": "2026-08-24T19:43:01.748210+00:00"
         },
         {
           "fixture": "Spartak Moscow v Zenit",
@@ -381,7 +381,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069380+00:00"
+          "verification_time": "2026-08-24T19:43:01.748221+00:00"
         },
         {
           "fixture": "Trabzonspor v Başakşehir",
@@ -405,7 +405,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069393+00:00"
+          "verification_time": "2026-08-24T19:43:01.748232+00:00"
         }
       ]
     },
@@ -441,7 +441,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069419+00:00"
+          "verification_time": "2026-08-24T19:43:01.748261+00:00"
         },
         {
           "fixture": "Club Brugge v Cercle Brugge",
@@ -467,9 +467,9 @@
           "provenance": {
             "source": "ESPN",
             "source_tier": "T3",
-            "fetched_at": "2026-08-24T18:15:33.069465+00:00Z"
+            "fetched_at": "2026-08-24T19:43:01.748293+00:00Z"
           },
-          "verification_time": "2026-08-24T18:15:33.069434+00:00"
+          "verification_time": "2026-08-24T19:43:01.748272+00:00"
         },
         {
           "fixture": "Venezia FC v Lecce",
@@ -493,7 +493,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069478+00:00"
+          "verification_time": "2026-08-24T19:43:01.748302+00:00"
         },
         {
           "fixture": "Rennes v PSG",
@@ -519,9 +519,9 @@
           "provenance": {
             "source": "ESPN",
             "source_tier": "T3",
-            "fetched_at": "2026-08-24T18:15:33.069521+00:00Z"
+            "fetched_at": "2026-08-24T19:43:01.748331+00:00Z"
           },
-          "verification_time": "2026-08-24T18:15:33.069492+00:00"
+          "verification_time": "2026-08-24T19:43:01.748312+00:00"
         },
         {
           "fixture": "Goztepe Izmir v Genclerbirligi SK",
@@ -545,7 +545,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069533+00:00"
+          "verification_time": "2026-08-24T19:43:01.748339+00:00"
         }
       ]
     },
@@ -581,7 +581,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069562+00:00"
+          "verification_time": "2026-08-24T19:43:01.748356+00:00"
         },
         {
           "fixture": "Hellas Verona v Ascoli",
@@ -605,7 +605,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069576+00:00"
+          "verification_time": "2026-08-24T19:43:01.748365+00:00"
         },
         {
           "fixture": "Akron v Krylia Sovetov",
@@ -629,7 +629,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069589+00:00"
+          "verification_time": "2026-08-24T19:43:01.748374+00:00"
         },
         {
           "fixture": "Brighton v Aston Villa",
@@ -655,9 +655,9 @@
           "provenance": {
             "source": "ESPN",
             "source_tier": "T3",
-            "fetched_at": "2026-08-24T18:15:33.069630+00:00Z"
+            "fetched_at": "2026-08-24T19:43:01.748401+00:00Z"
           },
-          "verification_time": "2026-08-24T18:15:33.069602+00:00"
+          "verification_time": "2026-08-24T19:43:01.748384+00:00"
         },
         {
           "fixture": "Göztepe v Gençlerbirliği S.K.",
@@ -681,7 +681,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069642+00:00"
+          "verification_time": "2026-08-24T19:43:01.748409+00:00"
         }
       ]
     },
@@ -717,7 +717,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069667+00:00"
+          "verification_time": "2026-08-24T19:43:01.748426+00:00"
         },
         {
           "fixture": "Getafe v Racing Santander",
@@ -741,7 +741,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069682+00:00"
+          "verification_time": "2026-08-24T19:43:01.748435+00:00"
         },
         {
           "fixture": "Pisa v Padova",
@@ -765,7 +765,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069696+00:00"
+          "verification_time": "2026-08-24T19:43:01.748445+00:00"
         },
         {
           "fixture": "Verona v Ascoli Calcio 1898",
@@ -789,7 +789,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069709+00:00"
+          "verification_time": "2026-08-24T19:43:01.748453+00:00"
         },
         {
           "fixture": "SC Pisa v Calcio Padova",
@@ -813,7 +813,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069722+00:00"
+          "verification_time": "2026-08-24T19:43:01.748461+00:00"
         }
       ]
     },
@@ -851,9 +851,9 @@
           "provenance": {
             "source": "ESPN",
             "source_tier": "T3",
-            "fetched_at": "2026-08-24T18:15:33.069775+00:00Z"
+            "fetched_at": "2026-08-24T19:43:01.748502+00:00Z"
           },
-          "verification_time": "2026-08-24T18:15:33.069746+00:00"
+          "verification_time": "2026-08-24T19:43:01.748481+00:00"
         },
         {
           "fixture": "Club Brugge KV v Cercle Brugge",
@@ -877,7 +877,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069785+00:00"
+          "verification_time": "2026-08-24T19:43:01.748511+00:00"
         },
         {
           "fixture": "Newcastle v Liverpool",
@@ -903,9 +903,9 @@
           "provenance": {
             "source": "ESPN",
             "source_tier": "T3",
-            "fetched_at": "2026-08-24T18:15:33.069826+00:00Z"
+            "fetched_at": "2026-08-24T19:43:01.748535+00:00Z"
           },
-          "verification_time": "2026-08-24T18:15:33.069799+00:00"
+          "verification_time": "2026-08-24T19:43:01.748518+00:00"
         },
         {
           "fixture": "Santa Clara Azores v Famalicao",
@@ -929,7 +929,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069837+00:00"
+          "verification_time": "2026-08-24T19:43:01.748542+00:00"
         },
         {
           "fixture": "Palermo FC v Juve Stabia",
@@ -953,7 +953,7 @@
           "match_date": null,
           "event_id": null,
           "provenance": null,
-          "verification_time": "2026-08-24T18:15:33.069850+00:00"
+          "verification_time": "2026-08-24T19:43:01.748550+00:00"
         }
       ]
     }

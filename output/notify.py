@@ -38,6 +38,62 @@ except ImportError:
 import config  # noqa: F401
 
 
+# Multi-recipient support (2026-08-24): the daily board is broadcast to the
+# Architect's primary chat PLUS every chat that has sent /start (auto-
+# subscribed). Command replies still go to the single sender via send_telegram.
+SUBSCRIBERS_FILE = Path(__file__).parent.parent / "memory" / "telegram_subscribers.txt"
+
+
+def subscribers() -> list[str]:
+    """Chat IDs that have auto-subscribed via /start, in file order, deduped."""
+    if not SUBSCRIBERS_FILE.exists():
+        return []
+    seen, out = set(), []
+    for line in SUBSCRIBERS_FILE.read_text(encoding="utf-8").splitlines():
+        cid = line.strip()
+        if cid and cid not in seen:
+            seen.add(cid)
+            out.append(cid)
+    return out
+
+
+def add_subscriber(chat_id: str) -> bool:
+    """Persist a chat_id so the daily board reaches it. Returns True if newly
+    added (was not already present)."""
+    if not chat_id:
+        return False
+    chat_id = str(chat_id)
+    if chat_id in set(subscribers()):
+        return False
+    SUBSCRIBERS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with SUBSCRIBERS_FILE.open("a", encoding="utf-8") as fh:
+        fh.write(chat_id + "\n")
+    return True
+
+
+def broadcast(body: str, token: Optional[str] = None,
+              reply_markup: Optional[dict] = None) -> tuple[bool, list[str]]:
+    """Send the board to the primary TELEGRAM_CHAT_ID AND every subscriber.
+    Returns (all_ok, notes). Each recipient gets the full stamped, chunked
+    board via send_telegram; the keyboard (if any) rides on each recipient's
+    final chunk."""
+    primaries = [os.environ.get("TELEGRAM_CHAT_ID", "").strip()]
+    targets: list[str] = []
+    for cid in primaries + subscribers():
+        if cid and cid not in targets:
+            targets.append(cid)
+    if not targets:
+        return False, ["no TELEGRAM_CHAT_ID or subscribers — board not delivered"]
+    all_ok = True
+    notes: list[str] = []
+    for cid in targets:
+        ok, n = send_telegram(body, token=token, chat_id=cid,
+                              reply_markup=reply_markup)
+        all_ok = all_ok and ok
+        notes.extend(n)
+    return all_ok, notes
+
+
 TELEGRAM_API = "https://api.telegram.org/bot{token}"
 
 # Telegram hard-limits a message to 4096 characters. The board is longer than
@@ -199,5 +255,5 @@ def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]
         notes.append("TELEGRAM_BOARD_DELIVERY_ENABLED=0 — board NOT sent to Telegram")
         return False, notes
 
-    ok, send_notes = send_telegram(body)
+    ok, send_notes = broadcast(body)
     return ok, notes + send_notes

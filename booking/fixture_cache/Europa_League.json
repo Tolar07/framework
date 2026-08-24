@@ -1,0 +1,95 @@
+{
+  "fetched_at": 1787603650.9596355,
+  "league": "Europa League",
+  "country": "International Clubs",
+  "fixtures": [
+    {
+      "id": "13411",
+      "home": "12 de Junio de Villa Hayes",
+      "away": "Paraguari AC",
+      "kickoff": "22:30  \nID: 13411",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Fulham",
+      "away": "Chelsea",
+      "kickoff": "74:20\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "Europa League-2",
+      "home": "Malaga CF",
+      "away": "RC Deportivo De La Coruna",
+      "kickoff": "45:00\nHT",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Roma",
+      "away": "Fiorentina",
+      "kickoff": "88:27\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Hallescher FC",
+      "away": "Schalke",
+      "kickoff": "90:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Gil Vicente Barcelos",
+      "away": "Casa Pia Lisbon",
+      "kickoff": "55:34\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "Europa League-6",
+      "home": "Granada",
+      "away": "Mallorca",
+      "kickoff": "45:00\nHT",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Reims",
+      "away": "FC Annecy",
+      "kickoff": "92:01\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "US Folgore Caratese",
+      "away": "Dolomiti Bellunesi",
+      "kickoff": "75:53\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Tigres FC",
+      "away": "Union Magdalena",
+      "kickoff": "33:39\nH1",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "CD Real Santander",
+      "away": "Independiente Valle Del Cauca",
+      "kickoff": "03:32\nH1",
+      "league": "Europa League",
+      "raw_market": {}
+    }
+  ]
+}

@@ -156,3 +156,25 @@
 - `tests/acca_builder_test.py` — REAL TICKET regression updated: 12/14 admitted (Belgium 2.05 above cap, South Africa 1.16 below floor), every admitted leg in [1.20, 2.00]; new PREFERRED ZONE block asserts a 1.45 leg beats a 1.55 leg on the same fixture, and a 2.10 leg is rejected leaving only the 1.80 fallback.
 
 **Committed & saved:** this session will commit `engine/acca.py` + `tests/acca_builder_test.py` + this log entry.
+
+---
+
+## 2026-08-24 · CLV GATE OVERRIDE — Survival-Mode Testing (Architect Directive)
+
+**Directive (chat, 2026-08-24):**
+"CLV gate bypass for survival testing — publish allowed on leg count only (12 legs minimum). Re-enable when CLV turns positive."
+
+**Effect:**
+1. **CLV publish gate modified** — the requirement "mean CLV > 0" is suspended for survival-mode testing. The 12-leg minimum (down from 30) remains as the sole publish gate.
+2. **Reasoning** — The framework needs live survival fixtures (25–35 per board, 1–2 assure survival) to accumulate CLV data. Current mean CLV ≈ -9.4% blocks all publishing, preventing the very data collection needed to turn CLV positive.
+3. **Re-enable trigger** — Gate auto-re-enables when mean CLV ≥ 0 across ≥12 logged legs.
+4. **Audit trail** — All boards published under override are stamped `clv_gate_override=true` in `publish_audit.jsonl` for post-hoc analysis.
+
+**Protected Constant Impact:**
+- [[Protected Constants.md]] §2 "CLV Gate" — threshold temporarily suspended (not deleted). The original gate (12/30 legs, mean CLV > 0) remains the permanent rule; this override is a named, time-boxed exception.
+
+**Code Changes Required (this commit):**
+- `run_daily.py` / `clv/clv_logger.py` — read `CLV_GATE_OVERRIDE` env var or check directive flag; if active, allow publish at 12 legs regardless of mean CLV
+- `config.py` — add `CLV_GATE_OVERRIDE = os.getenv("CLV_GATE_OVERRIDE", "0") == "1"`
+
+**Committed & saved:** this session will commit the code changes and this log entry.

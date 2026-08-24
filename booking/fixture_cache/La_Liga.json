@@ -1,0 +1,95 @@
+{
+  "fetched_at": 1787600682.553551,
+  "league": "La Liga",
+  "country": "Spain",
+  "fixtures": [
+    {
+      "id": "45886",
+      "home": "CSDC Alianza Universidad",
+      "away": "Bentin Tacna Heroica",
+      "kickoff": "21:00",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Fulham",
+      "away": "Chelsea",
+      "kickoff": "43:34",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Malaga CF",
+      "away": "RC Deportivo De La Coruna",
+      "kickoff": "12:30",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "La Liga-3",
+      "home": "Roma",
+      "away": "Fiorentina",
+      "kickoff": "45:00",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "La Liga-4",
+      "home": "Hallescher FC",
+      "away": "Schalke",
+      "kickoff": "45:00",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Gil Vicente Barcelos",
+      "away": "Casa Pia Lisbon",
+      "kickoff": "28:23",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Granada",
+      "away": "Mallorca",
+      "kickoff": "13:06",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "La Liga-7",
+      "home": "Reims",
+      "away": "FC Annecy",
+      "kickoff": "45:00",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Kocaelispor",
+      "away": "Amed Sportif Faaliyetler",
+      "kickoff": "52:22",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Ittihad Club",
+      "away": "Al-Hazm",
+      "kickoff": "82:27",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "ASC Otelul Galati",
+      "away": "ACS Champions FC Arges",
+      "kickoff": "50:22",
+      "league": "La Liga",
+      "raw_market": {}
+    }
+  ]
+}

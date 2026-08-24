@@ -36,12 +36,7 @@ OUTAGE SEMANTICS (the Architect's "find the data" rule)
     silently empty the day's board (a different failure), it KEEPS all fixtures
     but stamps them UNVERIFIED and raises one warning flag. This is the
     double-outage path: keep-but-warn, never guess.
-
-IMMUTABLE (coding-style rule): returns a new list + report; never mutates input.
-"""but-warn, never guess.
-
-IMMUTABLE (coding-style rule): returns a new list + report; never mutates input.
-"""
+    """
 from __future__ import annotations
 
 import json
@@ -360,8 +355,10 @@ def _load_espn_pairs(board_date: str, leagues: List[str]) -> List[Dict]:
     """Read (home, away, date) pairs from ESPN schedules for the leagues.
 
     ESPN is a T1 source (verification/id403.py SOURCE_TRUST). Uses the multi-source
-    concrete layer which caches ESPN fixture data. Returns empty list if ESPN
-    unavailable for any reason (HR35: absence = unavailable, not fabricated)."""
+    concrete layer (data.multi_source_concrete.get_fixtures) which returns
+    `pairs` as a list of (home, away) TUPLES plus a separate `dates` map keyed by
+    (home, away). Returns empty list if ESPN is unavailable for any reason
+    (HR35: absence = unavailable, not fabricated)."""
     pairs: List[Dict] = []
     try:
         from data.multi_source_concrete import get_fixtures as ms_get_fixtures
@@ -377,15 +374,33 @@ def _load_espn_pairs(board_date: str, leagues: List[str]) -> List[Dict]:
             )
         except Exception:
             continue
-        fixtures = result.get("fixtures") or []
-        for fx in fixtures:
-            # Filter to board_date only
-            fx_date = (fx.get("kickoff_utc") or "")[:10]
-            if fx_date != board_date:
+        fx_list = result.get("fixtures") or []
+        dates_map = result.get("dates") or {}
+        # Normalize the dates map into a fast (home, away) -> yyyy-mm-dd lookup
+        # (both orderings, since some callers join on either key).
+        date_lookup: Dict = {}
+        for dk, dv in dates_map.items():
+            if isinstance(dk, (tuple, list)) and len(dk) >= 2:
+                h, a = str(dk[0]).strip(), str(dk[1]).strip()
+                date_lookup[(h, a)] = str(dv)[:10]
+                date_lookup[(a, h)] = str(dv)[:10]
+        for fx in fx_list:
+            # Shape 1 (current): (home, away) tuple from as_pairs().
+            if isinstance(fx, (tuple, list)):
+                home = str(fx[0]).strip()
+                away = str(fx[-1]).strip()
+                fx_date = date_lookup.get((home, away), "")
+            # Shape 2 (defensive): dict with kickoff_utc / home_team / away_team.
+            elif isinstance(fx, dict):
+                fx_date = (fx.get("kickoff_utc") or fx.get("date") or "")[:10]
+                home = str(fx.get("home_team") or fx.get("home") or "").strip()
+                away = str(fx.get("away_team") or fx.get("away") or "").strip()
+            else:
                 continue
-            home = (fx.get("home_team") or "").strip()
-            away = (fx.get("away_team") or "").strip()
             if not home or not away:
+                continue
+            # Filter to board_date when a date is known.
+            if fx_date and board_date and fx_date != board_date:
                 continue
             pairs.append({"home": home, "away": away, "date": fx_date})
     return pairs
@@ -625,7 +640,7 @@ def _split_fixture(fixture: str) -> Tuple[str, str]:
 
 def _stamp(bf, sources: List[str], verified: bool, reason: str = "") -> None:
     """Attach verification metadata to a BoardFixture (does not mutate the input
-    list, only the object's attributes -- the gate already builds a new list)."""
+    list, only the object attributes -- the gate already builds a new list)."""
     bf.verified_sources = list(sources)
     bf.verified = verified
     bf.verification_note = reason

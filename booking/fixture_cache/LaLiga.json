@@ -1,0 +1,95 @@
+{
+  "fetched_at": 1787600708.6709807,
+  "league": "LaLiga",
+  "country": "Spain",
+  "fixtures": [
+    {
+      "id": "45886",
+      "home": "CSDC Alianza Universidad",
+      "away": "Bentin Tacna Heroica",
+      "kickoff": "21:00",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Fulham",
+      "away": "Chelsea",
+      "kickoff": "43:51",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Malaga CF",
+      "away": "RC Deportivo De La Coruna",
+      "kickoff": "13:16",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "LaLiga-3",
+      "home": "Roma",
+      "away": "Fiorentina",
+      "kickoff": "45:00",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "LaLiga-4",
+      "home": "Hallescher FC",
+      "away": "Schalke",
+      "kickoff": "45:00",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Gil Vicente Barcelos",
+      "away": "Casa Pia Lisbon",
+      "kickoff": "28:51",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Granada",
+      "away": "Mallorca",
+      "kickoff": "13:36",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "LaLiga-7",
+      "home": "Reims",
+      "away": "FC Annecy",
+      "kickoff": "45:00",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Kocaelispor",
+      "away": "Amed Sportif Faaliyetler",
+      "kickoff": "52:42",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Ittihad Club",
+      "away": "Al-Hazm",
+      "kickoff": "82:42",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "ASC Otelul Galati",
+      "away": "ACS Champions FC Arges",
+      "kickoff": "50:51",
+      "league": "LaLiga",
+      "raw_market": {}
+    }
+  ]
+}

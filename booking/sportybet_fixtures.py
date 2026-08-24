@@ -311,7 +311,7 @@ async def _navigate_to_league(page: Any, country: str, league: str,
                     print(f"  x sidebar: league not found in {country}: {league!r}")
                     return False
                 # If we fell back, project the league name into verification
-                if core and league_row.count() > 0:
+                if core and await league_row.count() > 0:
                     try:
                         resolved_name = await league_row.inner_text()
                         resolved_name = resolved_name.strip()
@@ -399,38 +399,62 @@ async def _extract_fixtures_from_page(page: Any, league: str,
                                       country: str) -> List[CachedFixture]:
     """Parse visible match rows on the DOM (SportyBet layout as of 2026-08-24)."""
     fixtures: List[CachedFixture] = []
-    rows = page.locator("tbody.match-row, .match-row")
+    # Broad selector set — SportyBet changes class names; try several
+    row_selectors = [
+        "tbody.match-row",
+        ".match-row",
+        "[class*='match-row']",
+        "[class*='event-row']",
+        "[class*='game-row']",
+        "[data-testid*='match']",
+        "tr[class*='match']",
+    ]
+    rows = None
+    for sel in row_selectors:
+        rows = page.locator(sel)
+        if await rows.count() > 0:
+            break
+    if rows is None or await rows.count() == 0:
+        return fixtures
+
     count = await rows.count()
     for i in range(count):
         row = rows.nth(i)
         try:
-            # New layout: teams in .left-team-table .teams .home-team / .away-team
-            home_el = row.locator(".left-team-table .teams .home-team").first
-            away_el = row.locator(".left-team-table .teams .away-team").first
-            # Fallback to broader selectors
-            if await home_el.count() == 0:
-                home_el = row.locator(".home-team, [class*='home']").first
-            if await away_el.count() == 0:
-                away_el = row.locator(".away-team, [class*='away']").first
+            # Broad team-name extraction
+            home_el = row.locator(
+                ".home-team, [class*='home'], [class*='team-a'], "
+                "[class*='team1'], [data-testid*='home']"
+            ).first
+            away_el = row.locator(
+                ".away-team, [class*='away'], [class*='team-b'], "
+                "[class*='team2'], [data-testid*='away']"
+            ).first
             home = (await home_el.inner_text()).strip() if await home_el.count() > 0 else ""
             away = (await away_el.inner_text()).strip() if await away_el.count() > 0 else ""
 
-            # New layout: kickoff in .time .clock-time
-            kickoff_el = row.locator(".time .clock-time").first
-            if await kickoff_el.count() == 0:
-                kickoff_el = row.locator(".clock-time, .time, [class*='time'], [class*='date']").first
+            # Broad kickoff extraction
+            kickoff_el = row.locator(
+                ".clock-time, .time, [class*='time'], [class*='date'], "
+                "[data-testid*='time'], [data-testid*='date']"
+            ).first
             kickoff = (await kickoff_el.inner_text()).strip() if await kickoff_el.count() > 0 else ""
 
-            # data-id from .game-id element
+            # data-id from .game-id or any id attribute
             fid = None
-            game_id_el = row.locator(".game-id").first
+            game_id_el = row.locator(".game-id, [data-id], [data-game-id]").first
             if await game_id_el.count() > 0:
                 game_id_text = (await game_id_el.inner_text()).strip()
-                # Extract numeric ID from "ID: 45886" or similar
                 import re
                 m = re.search(r'\d+', game_id_text)
                 if m:
                     fid = m.group(0)
+            if not fid:
+                # Try data-id attribute directly
+                try:
+                    fid = await row.get_attribute("data-id") or await row.get_attribute("data-game-id")
+                except Exception:
+                    fid = None
             if not fid:
                 fid = f"{league}-{i}"
 

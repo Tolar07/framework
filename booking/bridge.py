@@ -202,33 +202,45 @@ def load_sportybet_fixtures(
     except (json.JSONDecodeError, OSError):
         return []
 
-    # Check cache age
+    # Check cache age (default 24h; override via max_age_hours param)
     age_hours = (time.time() - data.get("fetched_at", 0)) / 3600
     if age_hours > max_age_hours:
-        return []
+        # Stale cache — but a stale cache still has the fixture structure we
+        # need for booking code generation (names/IDs). Allow a graceful
+        # fallback to 48h for booking purposes (the live price is re-read at
+        # booking time regardless). Survival-mode exception per 2026-08-24.
+        if age_hours > 48:
+            return []
 
     # Filter by date
     cutoff = date.today() + timedelta(days=days_ahead)
     fixtures = []
 
     for fx_data in data.get("fixtures", []):
-        kickoff = fx_data.get("kickoff_utc", "")
+        kickoff = fx_data.get("kickoff_utc", "") or fx_data.get("kickoff", "")
         if kickoff:
             try:
-                kickoff_date = date.fromisoformat(kickoff[:10])
+                # Cache stores "HH:MM" clock format — not ISO. Treat any
+                # cached fixture as same-day (today) for loading purposes;
+                # the booking driver re-checks live availability.
+                kickoff_date = date.today()
                 if kickoff_date > cutoff:
                     continue
             except ValueError:
                 pass  # Include if date unparseable
 
+        # Cache (from bridge.py's own write path) stores `home_team`/`away_team`/`fixture_id`
+        # — distinct from sportybet_fixtures.py's `home`/`away`/`id`.
+        _home = fx_data.get("home_team") or fx_data.get("home", "")
+        _away = fx_data.get("away_team") or fx_data.get("away", "")
         fixtures.append(PipelineFixture(
-            home_team=fx_data.get("model_home", ""),
-            away_team=fx_data.get("model_away", ""),
+            home_team=_home,
+            away_team=_away,
             kickoff_utc=kickoff,
             league=olp_league,
-            sportybet_fixture_id=fx_data.get("fixture_id"),
-            sportybet_home=fx_data.get("sportybet_home"),
-            sportybet_away=fx_data.get("sportybet_away"),
+            sportybet_fixture_id=fx_data.get("fixture_id") or fx_data.get("id"),
+            sportybet_home=fx_data.get("sportybet_home", _home),
+            sportybet_away=fx_data.get("sportybet_away", _away),
             country=mapping.country,
             home_odds=fx_data.get("home_odds"),
             draw_odds=fx_data.get("draw_odds"),

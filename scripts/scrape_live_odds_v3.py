@@ -18,6 +18,12 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 from playwright.async_api import async_playwright
 
+try:
+    from playwright_stealth import Stealth
+    _STEALTH = Stealth()
+except ImportError:  # graceful: scrape still runs without stealth if not installed
+    _STEALTH = None
+
 # Import the ratified FlashScore league mapping.
 # NOTE: repo root also has a config.py module that SHADOWS the config/ package,
 # so `from config.flashscore_leagues import` can fail. Load the file directly
@@ -78,6 +84,12 @@ class FlashScoreFixturesScraper:
             )
         )
         self.page = await context.new_page()
+        # Evade FlashScore bot detection: patch navigator/webdriver fingerprints.
+        if _STEALTH is not None:
+            try:
+                await _STEALTH.apply_stealth_async(self.page)
+            except Exception as exc:  # never let stealth break the scrape
+                print(f"[stealth] skipped: {exc}", file=sys.stderr)
         return self
 
     async def __aexit__(self, *args):

@@ -1,0 +1,95 @@
+{
+  "fetched_at": 1787603609.474546,
+  "league": "Ligue 1",
+  "country": "France",
+  "fixtures": [
+    {
+      "id": "13411",
+      "home": "12 de Junio de Villa Hayes",
+      "away": "Paraguari AC",
+      "kickoff": "22:30  \nID: 13411",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Fulham",
+      "away": "Chelsea",
+      "kickoff": "74:05\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "Ligue 1-2",
+      "home": "Malaga CF",
+      "away": "RC Deportivo De La Coruna",
+      "kickoff": "45:00\nHT",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Roma",
+      "away": "Fiorentina",
+      "kickoff": "87:48\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Hallescher FC",
+      "away": "Schalke",
+      "kickoff": "90:00\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Gil Vicente Barcelos",
+      "away": "Casa Pia Lisbon",
+      "kickoff": "54:51\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "Ligue 1-6",
+      "home": "Granada",
+      "away": "Mallorca",
+      "kickoff": "45:00\nHT",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Reims",
+      "away": "FC Annecy",
+      "kickoff": "91:37\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "US Folgore Caratese",
+      "away": "Dolomiti Bellunesi",
+      "kickoff": "74:58\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Tigres FC",
+      "away": "Union Magdalena",
+      "kickoff": "33:18\nH1",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "CD Real Santander",
+      "away": "Independiente Valle Del Cauca",
+      "kickoff": "02:54\nH1",
+      "league": "Ligue 1",
+      "raw_market": {}
+    }
+  ]
+}

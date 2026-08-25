@@ -1,93 +1,53 @@
 {
-  "fetched_at": 1787603650.9596355,
+  "fetched_at": 1787649790.8130276,
   "league": "Europa League",
   "country": "International Clubs",
   "fixtures": [
     {
-      "id": "13411",
-      "home": "12 de Junio de Villa Hayes",
-      "away": "Paraguari AC",
-      "kickoff": "22:30  \nID: 13411",
+      "id": "42454",
+      "home": "Measurers Club",
+      "away": "Mohammedan SC Reserves",
+      "kickoff": "10:30  \nID: 42454",
       "league": "Europa League",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Fulham",
-      "away": "Chelsea",
-      "kickoff": "74:20\nH2",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "Europa League-2",
-      "home": "Malaga CF",
-      "away": "RC Deportivo De La Coruna",
-      "kickoff": "45:00\nHT",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Roma",
-      "away": "Fiorentina",
-      "kickoff": "88:27\nH2",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Hallescher FC",
-      "away": "Schalke",
-      "kickoff": "90:00\nH2",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Gil Vicente Barcelos",
-      "away": "Casa Pia Lisbon",
-      "kickoff": "55:34\nH2",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "Europa League-6",
-      "home": "Granada",
-      "away": "Mallorca",
-      "kickoff": "45:00\nHT",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Reims",
-      "away": "FC Annecy",
-      "kickoff": "92:01\nH2",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "US Folgore Caratese",
-      "away": "Dolomiti Bellunesi",
-      "kickoff": "75:53\nH2",
+      "id": "42793",
+      "home": "United Sports Club",
+      "away": "Police AC",
+      "kickoff": "10:30  \nID: 42793",
       "league": "Europa League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Tigres FC",
-      "away": "Union Magdalena",
-      "kickoff": "33:39\nH1",
+      "home": "Salkia FDS Asson",
+      "away": "Mohammedan AC",
+      "kickoff": "19:14\nH1",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Valencia SRL",
+      "away": "Betis SRL",
+      "kickoff": "63:23\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "Europa League-4",
+      "home": "Preah Sihanouk Province",
+      "away": "Kampot Province",
+      "kickoff": "45:00\nHT",
       "league": "Europa League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "CD Real Santander",
-      "away": "Independiente Valle Del Cauca",
-      "kickoff": "03:32\nH1",
+      "home": "Brotherhood FC",
+      "away": "Gangtok Himalayan SC",
+      "kickoff": "04:23\nH1",
       "league": "Europa League",
       "raw_market": {}
     }

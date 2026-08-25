@@ -15,7 +15,7 @@ import re
 import sys
 import time
 from dataclasses import dataclass, asdict
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 
@@ -132,6 +132,13 @@ class FlashScoreResultsSource:
 
     async def _select_first_leaf(self, parent) -> Optional[str]:
         """Get textContent of the first leaf element whose class contains *name*."""
+        # FlashScore uses wcl-name_* classes
+        children = await parent.query_selector_all("[class*='wcl-name_']")
+        for c in children:
+            txt = (await c.text_content() or "").strip()
+            if txt:
+                return txt
+        # fallback: also try generic 'name' class
         children = await parent.query_selector_all("[class*='name']")
         for c in children:
             txt = (await c.text_content() or "").strip()
@@ -142,21 +149,19 @@ class FlashScoreResultsSource:
 
     async def _parse_match_element(self, el, target_date: str) -> Optional[MatchResult]:
         """Parse a single match row from FlashScore results page."""
-        # The container class carries event__homeParticipant / event__awayParticipant.
-        # Inside each, a leaf span[class*=name] holds the team name.
-        home_el = await el.query_selector("[class*='event__homeParticipant']")
-        away_el = await el.query_selector("[class*='event__awayParticipant']")
-        if not home_el or not away_el:
+        # Team names: FlashScore uses wcl-name_* class on leaf elements inside the match row
+        # Find all name elements in the match row
+        name_els = await el.query_selector_all("[class*='wcl-name_']")
+        if len(name_els) < 2:
             return None
-
-        home_team = await self._select_first_leaf(home_el)
-        away_team = await self._select_first_leaf(away_el)
+        home_team = (await name_els[0].text_content() or "").strip()
+        away_team = (await name_els[1].text_content() or "").strip()
         if not home_team or not away_team:
             return None
 
-        # Score: leaf element with class containing 'score' and either '--home' or '--away'
-        home_score_el = await el.query_selector("[class*='event__score'][class*='--home'], [class*='event__score'][class*='home']")
-        away_score_el = await el.query_selector("[class*='event__score'][class*='--away'], [class*='event__score'][class*='away']")
+        # Score: FlashScore uses event__score event__score--home / event__score--away
+        home_score_el = await el.query_selector("[class*='event__score'][class*='--home']")
+        away_score_el = await el.query_selector("[class*='event__score'][class*='--away']")
         if not home_score_el or not away_score_el:
             return None
         try:
@@ -165,19 +170,13 @@ class FlashScoreResultsSource:
         except ValueError:
             return None
 
-        # Date: dateContent or stageTime class
-        time_el = await el.query_selector("[class*='dateContent'], [class*='stageTime']")
+        # Date: FlashScore uses wcl-dateContent_* or wcl-stageTime_*
+        time_el = await el.query_selector("[class*='wcl-dateContent_'], [class*='wcl-stageTime_']")
         match_raw_date = (await time_el.text_content() or "").strip() if time_el else ""
 
-        if match_raw_date:
-            parsed_date = self._parse_flashscore_date(match_raw_date, target_date)
-            if parsed_date != target_date:
-                return None  # Not the target date
-
-        # Parse date
-        match_date = self._parse_flashscore_date((await time_el.text_content() or "").strip(), target_date)
-        if match_date != target_date:
-            return None
+        match_date = self._parse_flashscore_date(match_raw_date, target_date)
+        if not self._date_matches_target(match_date, target_date):
+            return None  # Not the target date (or next-day late match)
 
         # Normalize team names to football-data.co.uk canonical
         from booking.verify_fixtures import _norm
@@ -201,15 +200,27 @@ class FlashScoreResultsSource:
         if not match_datetime:
             return target_date
 
+        # Use target_date year as primary reference (current season context)
+        try:
+            target_year = int(target_date.split("-")[0])
+        except (ValueError, IndexError):
+            target_year = datetime.now().year
+
         now = datetime.now()
 
         # Try DD.MM. HH:MM
         m = re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime)
         if m:
             day, mon, hh, mm = (int(x) for x in m.groups())
-            for year in (now.year, now.year + 1):
+            # Try target year first, then target year + 1, then current year
+            for year in (target_year, target_year + 1, now.year, now.year + 1):
                 try:
                     cand = datetime(year, mon, day)
+                    # Must be within reasonable range of target date
+                    target_dt = datetime.strptime(target_date, "%Y-%m-%d")
+                    if abs((cand - target_dt).days) <= 5:
+                        return cand.strftime("%Y-%m-%d")
+                    # Fallback: within 400 days of now
                     if 0 <= (cand - now).days <= 400:
                         return cand.strftime("%Y-%m-%d")
                 except ValueError:

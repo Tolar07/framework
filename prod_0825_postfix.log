@@ -1,0 +1,470 @@
+historical_results: football_data FAILED after 2 attempts: 404 Client Error: Not Found for url: https://www.football-data.co.uk/mmz4281/2526/BL2.csv
+fixtures: espn FAILED after 2 attempts: 'La Liga 2' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+fixtures: espn FAILED after 2 attempts: 'Ligue 2' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+Circuit breaker OPENED for espn after 3 consecutive failures
+fixtures: espn FAILED after 2 attempts: 'Serie B' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+fixtures: thesportsdb FAILED after 2 attempts: object of type 'NoneType' has no len()
+fixtures: thesportsdb FAILED after 2 attempts: object of type 'NoneType' has no len()
+Circuit breaker OPENED for thesportsdb after 3 consecutive failures
+fixtures: thesportsdb FAILED after 2 attempts: object of type 'NoneType' has no len()
+OLP XDV daily run — 2026-08-25 — Phase 3 — live capital (Architect-deployed)
+  x league link not found in popular-list: 'Eredivisie' — falling back to sidebar
+  x sidebar: country not found: 'Netherlands'
+  x could not reach Netherlands/Eredivisie
+  x league link not found in popular-list: 'Danish Superliga' — falling back to sidebar
+  x sidebar: country not found: 'Denmark'
+  x could not reach Denmark/Danish Superliga
+  x league link not found in popular-list: 'Belgian Pro League' — falling back to sidebar
+  x sidebar: country not found: 'Belgium'
+  x could not reach Belgium/Belgian Pro League
+  x league link not found in popular-list: 'Scottish Premiership' — falling back to sidebar
+  x sidebar: country not found: 'Scotland'
+  x could not reach Scotland/Scottish Premiership
+  x league link not found in popular-list: 'Ekstraklasa' — falling back to sidebar
+  x sidebar: country not found: 'Poland'
+  x could not reach Poland/Ekstraklasa
+  x league link not found in popular-list: 'HNL' — falling back to sidebar
+  x sidebar: country not found: 'Croatia'
+  x could not reach Croatia/HNL
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:1/sr:tournament:17?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected England/Championship — falling back to sidebar
+  x league link not found in popular-list: 'Championship' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/Championship
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:30/sr:tournament:35?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: Italy/Serie A
+  [OK] Italy/Serie A: 3 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:30/sr:tournament:35?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected Italy/Serie B — falling back to sidebar
+  x league link not found in popular-list: 'Serie B' — falling back to sidebar
+  x sidebar: country not found: 'Italy'
+  x could not reach Italy/Serie B
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:7/sr:tournament:34?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: Germany/Bundesliga
+  [OK] Germany/Bundesliga: 3 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:7/sr:tournament:34?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: France/Ligue 1
+  [OK] France/Ligue 1: 3 fixtures cached
+  x league link not found in popular-list: 'Ligue 2' — falling back to sidebar
+  x sidebar: country not found: 'France'
+  x could not reach France/Ligue 2
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:393/sr:tournament:679?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: International Clubs/Europa League
+  [OK] International Clubs/Europa League: 3 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:393/sr:tournament:34480?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: International Clubs/Conference League
+  [OK] International Clubs/Conference League: 3 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:32/sr:tournament:8?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected Portugal/Primeira Liga — falling back to sidebar
+  x league link not found in popular-list: 'Primeira Liga' — falling back to sidebar
+  x sidebar: country not found: 'Portugal'
+  x could not reach Portugal/Primeira Liga
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:32/sr:tournament:8?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected Portugal/Liga Portugal — falling back to sidebar
+  x league link not found in popular-list: 'Liga Portugal' — falling back to sidebar
+  x sidebar: country not found: 'Portugal'
+  x could not reach Portugal/Liga Portugal
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:32/sr:tournament:8?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: England/Premier League
+  [OK] England/Premier League: 3 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:31/sr:tournament:23?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: Spain/La Liga
+  [OK] Spain/La Liga: 3 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:31/sr:tournament:23?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: Spain/LaLiga
+  [OK] Spain/LaLiga: 3 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:31/sr:tournament:8?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected Spain/La Liga 2 — falling back to sidebar
+  x league link not found in popular-list: 'La Liga 2' — falling back to sidebar
+  x sidebar: country not found: 'Spain'
+  x could not reach Spain/La Liga 2
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:393/sr:tournament:7?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: International Clubs/Champions League
+  [OK] International Clubs/Champions League: 3 fixtures cached
+  x league link not found in popular-list: 'Austrian Bundesliga' — falling back to sidebar
+  x sidebar: country not found: 'Austria'
+  x could not reach Austria/Austrian Bundesliga
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:1/sr:tournament:17?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected England/EFL Cup — falling back to sidebar
+  x league link not found in popular-list: 'EFL Cup' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/EFL Cup
+  x league link not found in popular-list: 'Russian Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Russia'
+  x could not reach Russia/Russian Premier League
+  x league link not found in popular-list: 'Swiss Super League' — falling back to sidebar
+  x sidebar: country not found: 'Switzerland'
+  x could not reach Switzerland/Swiss Super League
+  x league link not found in popular-list: 'Super League' — falling back to sidebar
+  x sidebar: country not found: 'Switzerland'
+  x could not reach Switzerland/Super League
+  x league link not found in popular-list: 'Turkish Super Lig' — falling back to sidebar
+  x sidebar: country not found: 'Turkiye'
+  x could not reach Turkiye/Turkish Super Lig
+  x league link not found in popular-list: 'FA Cup' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/FA Cup
+  x league link not found in popular-list: 'Community Shield' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/Community Shield
+  x league link not found in popular-list: 'EFL Trophy' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/EFL Trophy
+  x league link not found in popular-list: 'Copa del Rey' — falling back to sidebar
+  x sidebar: country not found: 'Spain'
+  x could not reach Spain/Copa del Rey
+  x league link not found in popular-list: 'Coppa Italia' — falling back to sidebar
+  x sidebar: country not found: 'Italy'
+  x could not reach Italy/Coppa Italia
+  x league link not found in popular-list: 'DFB Pokal' — falling back to sidebar
+  x sidebar: country not found: 'Germany'
+  x could not reach Germany/DFB Pokal
+  x league link not found in popular-list: 'German Super Cup' — falling back to sidebar
+  x sidebar: country not found: 'Germany'
+  x could not reach Germany/German Super Cup
+  x league link not found in popular-list: 'Coupe de France' — falling back to sidebar
+  x sidebar: country not found: 'France'
+  x could not reach France/Coupe de France
+  x league link not found in popular-list: 'KNVB Beker' — falling back to sidebar
+  x sidebar: country not found: 'Netherlands'
+  x could not reach Netherlands/KNVB Beker
+  x league link not found in popular-list: 'OFB Cup' — falling back to sidebar
+  x sidebar: country not found: 'Austria'
+  x could not reach Austria/OFB Cup
+  x league link not found in popular-list: 'Scottish League Cup' — falling back to sidebar
+  x sidebar: country not found: 'Scotland'
+  x could not reach Scotland/Scottish League Cup
+  x league link not found in popular-list: 'Süper Lig' — falling back to sidebar
+  x sidebar: country not found: 'Turkiye'
+  x could not reach Turkiye/Süper Lig
+  x league link not found in popular-list: 'Super League Greece' — falling back to sidebar
+  x sidebar: country not found: 'Greece'
+  x could not reach Greece/Super League Greece
+  x league link not found in popular-list: 'Eliteserien' — falling back to sidebar
+  x sidebar: country not found: 'Norway'
+  x could not reach Norway/Eliteserien
+  x league link not found in popular-list: 'Allsvenskan' — falling back to sidebar
+  x sidebar: country not found: 'Sweden'
+  x could not reach Sweden/Allsvenskan
+  x league link not found in popular-list: 'Czech First League' — falling back to sidebar
+  x sidebar: country not found: 'Czech Republic'
+  x could not reach Czech Republic/Czech First League
+  x league link not found in popular-list: 'Norwegian Eliteserien' — falling back to sidebar
+  x sidebar: country not found: 'Norway'
+  x could not reach Norway/Norwegian Eliteserien
+  x league link not found in popular-list: 'Greek Super League' — falling back to sidebar
+  x sidebar: country not found: 'Greece'
+  x could not reach Greece/Greek Super League
+  x league link not found in popular-list: 'Swedish Allsvenskan' — falling back to sidebar
+  x sidebar: country not found: 'Sweden'
+  x could not reach Sweden/Swedish Allsvenskan
+  x league link not found in popular-list: 'Pro League' — falling back to sidebar
+  x sidebar: country not found: 'Belgium'
+  x could not reach Belgium/Pro League
+  x league link not found in popular-list: 'Albanian Superliga' — falling back to sidebar
+  x sidebar: country not found: 'Albania'
+  x could not reach Albania/Albanian Superliga
+  x league link not found in popular-list: 'Andorran Primera Divisió' — falling back to sidebar
+  x sidebar: country not found: 'Andorra'
+  x could not reach Andorra/Andorran Primera Divisió
+  x league link not found in popular-list: 'Armenian Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Armenia'
+  x could not reach Armenia/Armenian Premier League
+  x league link not found in popular-list: 'Azerbaijani Premyer Liqa' — falling back to sidebar
+  x sidebar: country not found: 'Azerbaijan'
+  x could not reach Azerbaijan/Azerbaijani Premyer Liqa
+  x league link not found in popular-list: 'Belarusian Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Belarus'
+  x could not reach Belarus/Belarusian Premier League
+  x league link not found in popular-list: 'Bosnian Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Bosnia'
+  x could not reach Bosnia/Bosnian Premier League
+  x league link not found in popular-list: 'Bulgarian First League' — falling back to sidebar
+  x sidebar: country not found: 'Bulgaria'
+  x could not reach Bulgaria/Bulgarian First League
+  x league link not found in popular-list: 'Cypriot First Division' — falling back to sidebar
+  x sidebar: country not found: 'Cyprus'
+  x could not reach Cyprus/Cypriot First Division
+  x league link not found in popular-list: 'Estonian Meistriliiga' — falling back to sidebar
+  x sidebar: country not found: 'Estonia'
+  x could not reach Estonia/Estonian Meistriliiga
+  x league link not found in popular-list: 'Faroe Islands Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Faroe Islands'
+  x could not reach Faroe Islands/Faroe Islands Premier League
+  x league link not found in popular-list: 'Finnish Veikkausliiga' — falling back to sidebar
+  x sidebar: country not found: 'Finland'
+  x could not reach Finland/Finnish Veikkausliiga
+  x league link not found in popular-list: 'Georgian Erovnuli Liga' — falling back to sidebar
+  x sidebar: country not found: 'Georgia'
+  x could not reach Georgia/Georgian Erovnuli Liga
+  x league link not found in popular-list: 'Gibraltarian National League' — falling back to sidebar
+  x sidebar: country not found: 'Gibraltar'
+  x could not reach Gibraltar/Gibraltarian National League
+  x league link not found in popular-list: 'Hungarian NB I' — falling back to sidebar
+  x sidebar: country not found: 'Hungary'
+  x could not reach Hungary/Hungarian NB I
+  x league link not found in popular-list: 'Icelandic Urvalsdeild' — falling back to sidebar
+  x sidebar: country not found: 'Iceland'
+  x could not reach Iceland/Icelandic Urvalsdeild
+  x league link not found in popular-list: 'Israeli Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Israel'
+  x could not reach Israel/Israeli Premier League
+  x league link not found in popular-list: 'Kazakhstani Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Kazakhstan'
+  x could not reach Kazakhstan/Kazakhstani Premier League
+  x league link not found in popular-list: 'Kosovan Superliga' — falling back to sidebar
+  x sidebar: country not found: 'Kosovo'
+  x could not reach Kosovo/Kosovan Superliga
+  x league link not found in popular-list: 'Latvian Virsliga' — falling back to sidebar
+  x sidebar: country not found: 'Latvia'
+  x could not reach Latvia/Latvian Virsliga
+  x league link not found in popular-list: 'Liechtensteiner Cup' — falling back to sidebar
+  x sidebar: country not found: 'Liechtenstein'
+  x could not reach Liechtenstein/Liechtensteiner Cup
+  x league link not found in popular-list: 'Lithuanian A Lyga' — falling back to sidebar
+  x sidebar: country not found: 'Lithuania'
+  x could not reach Lithuania/Lithuanian A Lyga
+  x league link not found in popular-list: 'Luxembourg National Division' — falling back to sidebar
+  x sidebar: country not found: 'Luxembourg'
+  x could not reach Luxembourg/Luxembourg National Division
+  x league link not found in popular-list: 'Maltese Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Malta'
+  x could not reach Malta/Maltese Premier League
+  x league link not found in popular-list: 'Moldovan Super Liga' — falling back to sidebar
+  x sidebar: country not found: 'Moldova'
+  x could not reach Moldova/Moldovan Super Liga
+  x league link not found in popular-list: 'Montenegrin First League' — falling back to sidebar
+  x sidebar: country not found: 'Montenegro'
+  x could not reach Montenegro/Montenegrin First League
+  x league link not found in popular-list: 'North Macedonian First League' — falling back to sidebar
+  x sidebar: country not found: 'North Macedonia'
+  x could not reach North Macedonia/North Macedonian First League
+  x league link not found in popular-list: 'Northern Irish Premiership' — falling back to sidebar
+  x sidebar: country not found: 'Northern Ireland'
+  x could not reach Northern Ireland/Northern Irish Premiership
+  x league link not found in popular-list: 'Republic of Ireland Premier Division' — falling back to sidebar
+  x sidebar: country not found: 'Republic of Ireland'
+  x could not reach Republic of Ireland/Republic of Ireland Premier Division
+  x league link not found in popular-list: 'Romanian Liga I' — falling back to sidebar
+  x sidebar: country not found: 'Romania'
+  x could not reach Romania/Romanian Liga I
+  x league link not found in popular-list: 'Sanmarinese Campionato' — falling back to sidebar
+  x sidebar: country not found: 'San Marino'
+  x could not reach San Marino/Sanmarinese Campionato
+  x league link not found in popular-list: 'Serbian Super Liga' — falling back to sidebar
+  x sidebar: country not found: 'Serbia'
+  x could not reach Serbia/Serbian Super Liga
+  x league link not found in popular-list: 'Slovak Super Liga' — falling back to sidebar
+  x sidebar: country not found: 'Slovakia'
+  x could not reach Slovakia/Slovak Super Liga
+  x league link not found in popular-list: 'Slovenian PrvaLiga' — falling back to sidebar
+  x sidebar: country not found: 'Slovenia'
+  x could not reach Slovenia/Slovenian PrvaLiga
+  x league link not found in popular-list: 'UEFA Super Cup' — falling back to sidebar
+  x sidebar: country not found: 'International Clubs'
+  x could not reach International Clubs/UEFA Super Cup
+  x league link not found in popular-list: 'Welsh Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Wales'
+  x could not reach Wales/Welsh Premier League
+  x league link not found in popular-list: 'UEFA Champions League'
+  x league link not found in popular-list: 'UEFA Champions League'
+  board saved to C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\output\boards\board_2026-08-25.txt (delivery skipped)
+
+PART 0 — HEADER
+Date: 2026-08-25 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: 2. Bundesliga, Belgian Pro League, Bundesliga, Champions League, Championship, Conference League, Eredivisie, Europa League, La Liga, La Liga 2, Ligue 1, Ligue 2, Premier League, Primeira Liga, Russian Premier League, Scottish Premiership, Serie A, Serie B, Swiss Super League, Turkish Super Lig
+Calibration: 42 legs logged, mean CLV -10.21%
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ? sportybet cache warm: 27 fixtures across 82 league(s) ready for the booking bridge
+  ? Champions League: no results available for grading — legs stay PENDING, not guessed
+  ? Russian Premier League: no results available for grading — legs stay PENDING, not guessed
+  ? Swiss Super League: no results available for grading — legs stay PENDING, not guessed
+  ? Turkish Super Lig: no results available for grading — legs stay PENDING, not guessed
+  ? graded 0 of 17 pending leg(s)
+  ? Automated CLV grading: 0 leg(s) settled
+  ? produced-bet verified 2026-08-24: 0 won / 0 lost / 6 pending
+  ? 2. Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga) — NO DATA — PENDING
+  ? 2. Bundesliga: history via multi-source (thesportsdb.com)
+  ? Belgian Pro League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League) — NO DATA — PENDING
+  ? Belgian Pro League: fixtures via SportyBet cache (4 — primary sources failed)
+  ? Belgian Pro League: 4 team name(s) in the fixtures feed not found in the fitted data — Royal Antwerp FC, St. Truidense VV, Standard Liege, Yellow-Red KV Mechelen. Suggestions: Royal Antwerp FC -> Antwerp (0.61); St. Truidense VV -> St Truiden (0.77); Standard Liege -> Standard (0.73); Yellow-Red KV Mechelen -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Bundesliga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga) — NO DATA — PENDING
+  ? Bundesliga: fixtures via SportyBet cache (18 — primary sources failed)
+  ? Bundesliga: +306 current-season results from football-data.org (promoted-club fix)
+  ? Bundesliga: 4 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Mainz v Paderborn, Elversberg v Leverkusen, Augsburg v Schalke, Paderborn v Freiburg
+  ? Bundesliga: 1 team name(s) in the fixtures feed not found in the fitted data — Borussia M´gladbach. Suggestions: Borussia M´gladbach -> Borussia Mönchengladbach (0.84). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ? Champions League: history served from cache
+  ? Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ? Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ? Champions League: fixtures via api_football
+  ? Champions League: +6 fixture(s) merged from SportyBet cache (primary: api_football)
+  ? Champions League: Elo continental blend w=2.5 (cached)
+  ? Champions League: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Bodoe/Glimt v Nijmegen
+  ? Champions League: 11 team name(s) in the fixtures feed not found in the fitted data — AEK Athens, Fenerbahce Istanbul, GNK Dinamo Zagreb, Hapoel Be`er Sheva FC, Hapoel Beer Sheva, NEC Nijmegen, NK Celje, PFC Levski Sofia, Sabah Baku, Sabah FA, Viking. Suggestions: AEK Athens -> no close match in the model pool; Fenerbahce Istanbul -> Fenerbahçe (0.69); GNK Dinamo Zagreb -> Dinamo Zagreb (0.87); Hapoel Be`er Sheva FC -> no close match in the model pool; Hapoel Beer Sheva -> no close match in the model pool; NEC Nijmegen -> Nijmegen (0.80); NK Celje -> Celje (0.77); PFC Levski Sofia -> no close match in the model pool; Sabah Baku -> no close match in the model pool; Sabah FA -> no close match in the model pool; Viking -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Championship: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship) — NO DATA — PENDING
+  ? Championship: fixtures via SportyBet cache (12 — primary sources failed)
+  ? Championship: +557 current-season results from football-data.org (promoted-club fix)
+  ? Championship: 1 fixture(s) rated on the previous season's carry-over model (promoted clubs): Norwich v Burnley
+  ? Championship: 2 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Wolves v Stoke, Watford v West Ham
+  ? Championship: 3 team name(s) in the fixtures feed not found in the fitted data — Bolton, Cardiff City, Lincoln City. Suggestions: Bolton -> no close match in the model pool; Cardiff City -> no close match in the model pool; Lincoln City -> Bristol City (0.67). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ? Conference League: history served from cache
+  ? Conference League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Conference League: 301 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ? Conference League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Conference League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ? Conference League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Conference League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Conference League: fixtures via SportyBet cache (24 — primary sources failed)
+  ? Conference League: Elo continental blend w=2.5 (cached)
+  ? Conference League: 6 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): FK Jablonec v Rangers, Freiburg v Motherwell FC, FC Hradec Kralove v Panathinaikos, SK Brann v PAOK, Ajax v FC Sion, Hibernian FC v Gent
+  ? Conference League: 19 team name(s) in the fixtures feed not found in the fitted data — FC Dinamo City, FC Drita, FC Inter Turku, FC Twente Enschede, FK Austria Wien, FK Partizan Belgrade, HNK Hajduk Split, HNK Rijeka, Hapoel Tel Aviv FC, Heart of Midlothian FC, Inter Club de Escaldes, KI Klaksvik, Kuopion Palloseura, Larne FC, Lincoln Red Imps, Maccabi Tel Aviv FC, Pafos FC, SK Rapid, Tromsoe IL. Suggestions: FC Dinamo City -> Dinamo Minsk (0.61); FC Drita -> no close match in the model pool; FC Inter Turku -> no close match in the model pool; FC Twente Enschede -> no close match in the model pool; FK Austria Wien -> no close match in the model pool; FK Partizan Belgrade -> no close match in the model pool; HNK Hajduk Split -> no close match in the model pool; HNK Rijeka -> no close match in the model pool; Hapoel Tel Aviv FC -> no close match in the model pool; Heart of Midlothian FC -> Heart Of Midlothian (0.93); Inter Club de Escaldes -> no close match in the model pool; KI Klaksvik -> no close match in the model pool; Kuopion Palloseura -> no close match in the model pool; Larne FC -> Larne (0.77); Lincoln Red Imps -> no close match in the model pool; Maccabi Tel Aviv FC -> Maccabi Tel Aviv (0.91); Pafos FC -> Pafos (0.77); SK Rapid -> no close match in the model pool; Tromsoe IL -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Eredivisie: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie) — NO DATA — PENDING
+  ? Eredivisie: fixtures via SportyBet cache (7 — primary sources failed)
+  ? Eredivisie: +67 current-season results from football-data.org (promoted-club fix)
+  ? Eredivisie: 2 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Alkmaar v Go Ahead Eagles, SC Telstar v Ajax
+  ? Eredivisie: 5 team name(s) in the fixtures feed not found in the fitted data — Excelsior Rotterdam, FC Groningen, FC Twente Enschede, FC Utrecht, SC Cambuur. Suggestions: Excelsior Rotterdam -> Sparta Rotterdam (0.69); FC Groningen -> Groningen (0.86); FC Twente Enschede -> no close match in the model pool; FC Utrecht -> Utrecht (0.82); SC Cambuur -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ? Europa League: history served from cache
+  ? Europa League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ? Europa League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ? Europa League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Europa League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Europa League: fixtures via SportyBet cache (12 — primary sources failed)
+  ? Europa League: Elo continental blend w=2.5 (cached)
+  ? Europa League: 2 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Viktoria Plzen v FK Crvena Zvezda, AGF Aarhus v Benfica
+  ? Europa League: 17 team name(s) in the fixtures feed not found in the fitted data — Besiktas Istanbul, CS Universitatea Craiova, FC Ararat-Armenia, FC Iberia 1999, FC Kairat Almaty, FC Thun, FK Kauno Zalgiris, Jagiellonia Bialystok, KF Egnatia Rrogozhine, Lillestroem SK, Mjallby AIF, OFI Crete, PFC CSKA Sofia, RSC Anderlecht, Salzburg, St. Truidense VV, Trabzonspor. Suggestions: Besiktas Istanbul -> Be?ikta? (0.64); CS Universitatea Craiova -> no close match in the model pool; FC Ararat-Armenia -> FC Astana (0.46); FC Iberia 1999 -> no close match in the model pool; FC Kairat Almaty -> no close match in the model pool; FC Thun -> FC Lugano (0.62); FK Kauno Zalgiris -> no close match in the model pool; Jagiellonia Bialystok -> Jagiellonia (0.69); KF Egnatia Rrogozhine -> no close match in the model pool; Lillestroem SK -> no close match in the model pool; Mjallby AIF -> no close match in the model pool; OFI Crete -> Gil Vicente (0.60); PFC CSKA Sofia -> no close match in the model pool; RSC Anderlecht -> Anderlecht (0.83); Salzburg -> Strasbourg (0.67); St. Truidense VV -> St Truiden (0.77); Trabzonspor -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? La Liga: fixtures via api_football
+  ? La Liga: +19 fixture(s) merged from SportyBet cache (primary: api_football)
+  ? La Liga: +380 current-season results from football-data.org (promoted-club fix)
+  ? La Liga: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Real Madrid v Malaga
+  ? La Liga: 3 team name(s) in the fixtures feed not found in the fitted data — RC Deportivo De La Coruna, Racing Santander, Real Betis. Suggestions: RC Deportivo De La Coruna -> no close match in the model pool; Racing Santander -> no close match in the model pool; Real Betis -> Real Betis Balompié (0.69). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? La Liga 2: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2) — NO DATA — PENDING
+  ? Ligue 1: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1) — NO DATA — PENDING
+  ? Ligue 1: fixtures via SportyBet cache (9 — primary sources failed)
+  ? Ligue 1: +305 current-season results from football-data.org (promoted-club fix)
+  ? Ligue 1: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Lorient v Troyes
+  ? Ligue 1: 2 team name(s) in the fixtures feed not found in the fitted data — PSG, RC Lens. Suggestions: PSG -> no close match in the model pool; RC Lens -> Lens (0.73). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Ligue 2: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2) — NO DATA — PENDING
+  ? Ligue 2: fixtures via SportyBet cache (5 — primary sources failed)
+  ? Ligue 2: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Reims v FC Annecy
+  ? Ligue 2: 6 team name(s) in the fixtures feed not found in the fitted data — Grenoble Foot, Nancy-Lorraine, Rodez Aveyron Football, Stade Lavallois MFC, US Boulogne, USL Dunkerque. Suggestions: Grenoble Foot -> Grenoble (0.76); Nancy-Lorraine -> no close match in the model pool; Rodez Aveyron Football -> no close match in the model pool; Stade Lavallois MFC -> no close match in the model pool; US Boulogne -> Boulogne (0.84); USL Dunkerque -> Dunkerque (0.82). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League) — NO DATA — PENDING
+  ? Premier League: fixtures via SportyBet cache (22 — primary sources failed)
+  ? Premier League: +380 current-season results from football-data.org (promoted-club fix)
+  ? Premier League: 3 team name(s) in the fixtures feed not found in the fitted data — Coventry City, Hull City, Ipswich Town. Suggestions: Coventry City -> no close match in the model pool; Hull City -> no close match in the model pool; Ipswich Town -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Primeira Liga: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga) — NO DATA — PENDING
+  ? Primeira Liga: fixtures via SportyBet cache (4 — primary sources failed)
+  ? Primeira Liga: +306 current-season results from football-data.org (promoted-club fix)
+  ? Primeira Liga: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Rio Ave v Sporting
+  ? Primeira Liga: 3 team name(s) in the fixtures feed not found in the fitted data — Casa Pia Lisbon, Gil Vicente Barcelos, Santa Clara Azores. Suggestions: Casa Pia Lisbon -> Sp Lisbon (0.75); Gil Vicente Barcelos -> Gil Vicente FC (0.77); Santa Clara Azores -> Santa Clara (0.76). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Russian Premier League: history served from cache
+  ? Russian Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Russian Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Russian Premier League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League) — NO DATA — PENDING
+  ? Russian Premier League: fixtures via SportyBet cache (10 — primary sources failed)
+  ? Russian Premier League: 2 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): FK Krasnodar v FK Rostov, FK Rubin Kazan v FC Dynamo-Makhachkala
+  ? Russian Premier League: 9 team name(s) in the fixtures feed not found in the fitted data — FC Baltika Kaliningrad, FC Fakel Voronezh, FK Akron Tolyatti, FK Dinamo Moscow, FK Spartak Moscow, FK Zenit Saint Petersburg, PFK Krylia Sovetov Samara, RFK Akhmat Grozny, Rodina Moscow. Suggestions: FC Baltika Kaliningrad -> no close match in the model pool; FC Fakel Voronezh -> no close match in the model pool; FK Akron Tolyatti -> no close match in the model pool; FK Dinamo Moscow -> CSKA Moscow (0.67); FK Spartak Moscow -> Spartak Moscow (0.90); FK Zenit Saint Petersburg -> no close match in the model pool; PFK Krylia Sovetov Samara -> Krylia Sovetov (0.72); RFK Akhmat Grozny -> no close match in the model pool; Rodina Moscow -> CSKA Moscow (0.67). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Scottish Premiership: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership) — NO DATA — PENDING
+  ? Scottish Premiership: fixtures via SportyBet cache (12 — primary sources failed)
+  ? Scottish Premiership: 8 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Celtic v Falkirk FC, Kilmarnock FC v Dundee United, Dundee FC v Hibernian FC, St Mirren FC v Motherwell FC, Dundee FC v St. Johnstone FC, Kilmarnock FC v St Mirren FC, Motherwell FC v Dundee United, Falkirk FC v Rangers
+  ? Scottish Premiership: 1 team name(s) in the fixtures feed not found in the fitted data — Heart of Midlothian FC. Suggestions: Heart of Midlothian FC -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Serie A: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A) — NO DATA — PENDING
+  ? Serie A: fixtures via SportyBet cache (16 — primary sources failed)
+  ? Serie A: +380 current-season results from football-data.org (promoted-club fix)
+  ? Serie A: 1 fixture(s) rated on the previous season's carry-over model (promoted clubs): Monza v Udinese
+  ? Serie A: 4 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Frosinone v Juventus, Venezia FC v Lecce, Milan v Venezia FC, Fiorentina v Frosinone
+  ? Serie A: 1 team name(s) in the fixtures feed not found in the fitted data — Parma Calcio. Suggestions: Parma Calcio -> Parma Calcio 1913 (0.83). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Serie B: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B) — NO DATA — PENDING
+  ? Serie B: fixtures via SportyBet cache (4 — primary sources failed)
+  ? Serie B: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Palermo FC v Juve Stabia
+  ? Serie B: 6 team name(s) in the fixtures feed not found in the fitted data — Ascoli Calcio 1898, Calcio Padova, Cesena FC, SC Pisa, Sampdoria Genoa, Verona. Suggestions: Ascoli Calcio 1898 -> no close match in the model pool; Calcio Padova -> Padova (0.63); Cesena FC -> Cesena (0.80); SC Pisa -> Spezia (0.61); Sampdoria Genoa -> Sampdoria (0.75); Verona -> Venezia (0.61). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Swiss Super League: history served from cache
+  ? Swiss Super League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Swiss Super League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Swiss Super League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ? Swiss Super League: fixtures via SportyBet cache (4 — primary sources failed)
+  ? Swiss Super League: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Sion v Lugano
+  ? Swiss Super League: 6 team name(s) in the fixtures feed not found in the fitted data — Basel, FC Zurich, Lausanne-Sport, Luzern, Servette Geneva, Young Boys Bern. Suggestions: Basel -> no close match in the model pool; FC Zurich -> no close match in the model pool; Lausanne-Sport -> no close match in the model pool; Luzern -> no close match in the model pool; Servette Geneva -> no close match in the model pool; Young Boys Bern -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? Turkish Super Lig: history served from cache
+  ? Turkish Super Lig: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ? Turkish Super Lig: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ? Turkish Super Lig: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig) — NO DATA — PENDING
+  ? Turkish Super Lig: fixtures via SportyBet cache (9 — primary sources failed)
+  ? Turkish Super Lig: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Eyupspor v Gaziantep FK
+  ? Turkish Super Lig: 8 team name(s) in the fixtures feed not found in the fitted data — Amed Sportif Faaliyetler, Besiktas Istanbul, Caykur Rizespor, Erzurumspor FK, Galatasaray Istanbul, Genclerbirligi SK, Goztepe Izmir, Istanbul BB. Suggestions: Amed Sportif Faaliyetler -> no close match in the model pool; Besiktas Istanbul -> Be?ikta? (0.64); Caykur Rizespor -> Rizespor (0.70); Erzurumspor FK -> no close match in the model pool; Galatasaray Istanbul -> Galatasaray (0.71); Genclerbirligi SK -> no close match in the model pool; Goztepe Izmir -> Göztepe (0.70); Istanbul BB -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ? day-scoped to 2026-08-25: kept 7 of 201 scanned fixture(s) — adjacent-day matches dropped
+  ? VERIFY GATE: 3 verified, 4 kept-unverified, 0 dropped (FlashScore on, SportyBet on)
+  ? VERIFY GATE: 'Sabah FA v Hapoel Beer Sheva (Champions League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Bodo/Glimt v NEC Nijmegen (Champions League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Lask Linz v Celtic (Champions League)' VERIFIED (T1 source: ESPN)
+  ? VERIFY GATE: 'Sabah Baku v Hapoel Be`er Sheva FC (Champions League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Bodoe/Glimt v Nijmegen (Champions League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ? VERIFY GATE: 'Valencia v Real Betis (La Liga)' VERIFIED (T1 source: ESPN)
+  ? VERIFY GATE: 'Valencia v Betis (La Liga)' VERIFIED (T1 source: ESPN)
+  ? DEPLOY SHORTLIST RECALCULATED: 5 of 7 fixtures on deploy shortlist (verify gate stamps preserved)
+  ? ? source circuit OPEN (paused): espn
+  ? Champions League: odds served via multi-source layer
+  ? La Liga: odds served via multi-source layer
+  ? SportyBet cache merged: 24 fixture(s) with 1X2 odds added to odds_index
+  ? SportyBet fixture IDs attached: 1 board fixture(s) tagged for booking
+  ? SHADOW calibration (below gate, NOT applied): 1X2_AWAY +0.7%, 1X2_DRAW -0.9% — visible only; inert until MIN_LEGS legs settle
+  ? PLATT calibration active: 1X2_AWAY n=72 a=+5.33 b=6.04, BTTS_YES n=69 a=-0.30 b=7.33, OVER_1_5 n=69 a=-4.05 b=4.36, OVER_2_5 n=69 a=+0.87 b=5.12 (curve on settled predictions, shrunk to identity)
+  ? SHADOW PLATT (below gate, NOT applied): 1X2_DRAW n=72, 1X2_HOME n=72 — visible only; inert until PLATT_MIN_LEGS settle
+  ? ENSEMBLE WEIGHTS ACTIVE — bookmaker w=0.85, consensus w=0.85, dc w=0.848, elo w=0.85, xg w=0.781 (CLV-gated, bounded, consensus display only)
+  ? production bets: 2 leg(s) in Acca A, 0 split acca(s), 0 single(s) on today's slate
+  ? booking tracker place skipped (UnboundLocalError: cannot access local variable 'dataclasses' where it is not associated with a val)
+  ? Bodoe/Glimt v Nijmegen: no live price found — NO DATA — PENDING, leg not logged
+  ? logged 0 new paper leg(s) with a live entry price (agreement_band=0.04)
+  ? Phase 3 gate: 42 of 0 legs with logged CLV; mean CLV -10.215
+  ? SportyBet booking codes: 0/1 slip(s) booked — acca_2026-08-25_codes.json
+  ? ? BOOKING COVERAGE GAP — 2 leg(s) WITHOUT a booked code: Acca A: Sabah Baku v Hapoel Be`er Sheva FC (Sabah Baku to win) — league page did not load; Acca A: Bodo/Glimt v NEC Nijmegen (Over 2.5 goals) — league page did not load (Architect must add manually before placing)
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) ? Call(PART 1) ? Acca Route ? THE PICK.
+
+TABLE 1 — LAYER 2 FULL GRID
+Fixture | Selected Pick | Home to win | Draw | Away to win | Over 2.5 goals | Under 2.5 goals | Over 1.5 goals | Under 1.5 goals | Both teams to score — yes | Both teams to score — no | Home Draw No Bet | Away Draw No Bet | Over 3.5 goals | Under 3.5 goals | Over 0.5 goals | Under 0.5 goals | Home or Draw (double chance) | Away or Draw (double chance) | Home or Away (double chance) | HT/FT Home/Home | HT/FT Home/Draw | HT/FT Home/Away | HT/FT Draw/Home | HT/FT Draw/Draw | HT/FT Draw/Away | HT/FT Away/Home | HT/FT Away/Draw | HT/FT Away/Away | Correct Score 1-0 | Correct Score 0-1 | Correct Score 1-1 | Correct Score 2-0 | Correct Score 0-2 | Correct Score 2-1 | Correct Score 1-2 | Correct Score 2-2 | Correct Score 0-0 | Correct Score 3-0 | Correct Score 0-3 | Correct Score 3-1 | Correct Score 1-3 | Booking Code
+Sabah FA v Hapoel Beer Sheva (Champions League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Bodo/Glimt v NEC Nijmegen (Champions League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Lask Linz v Celtic (Champions League) | Celtic or Draw (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Sabah Baku v Hapoel Be`er Sheva FC (Champions League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Bodoe/Glimt v Nijmegen (Champions League) | Bodoe/Glimt to win | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Valencia v Real Betis (La Liga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Valencia v Betis (La Liga) | Betis to win | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+
+TABLE 2 — LAYER 1 COMPACT
+Fixture | Selected Pick | Model Prob | Price | Bookmaker | EV | Booking Code
+Bodo/Glimt v NEC Nijmegen (Champions League) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Lask Linz v Celtic (Champions League) | Celtic or Draw (double chance) | 98% | 1.73 | Bet365 | +69.48% | NO DATA — PENDING
+Sabah Baku v Hapoel Be`er Sheva FC (Champions League) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Bodoe/Glimt v Nijmegen (Champions League) | Bodoe/Glimt to win | 69% | 1.51 | SportyBet Nigeria | +4.30% | NO DATA — PENDING
+Valencia v Betis (La Liga) | Betis to win | 38% | 2.73 | SportyBet Nigeria | +3.25% | NO DATA — PENDING
+
+TABLE 3 — ACCA ROUTE
+No capital-eligible accas generated.
+
+TABLE 4 — THE PICK
+PRIMARY SINGLE: Lask Linz v Celtic (Champions League)
+  Market: Celtic or Draw (double chance)
+  Price: 1.73 (Bet365)
+  Model Prob: 98%
+  MES EV: +12.05%
+  Verification: ?
+  ? Elo divergence: ENGINE DIVERGENCE: Elo and Dixon-Coles differ by -15pp on away win (Elo 4%/19%/77% vs Dixon-Coles 2%/6%/92%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
+  Booking Code: NO DATA — PENDING
+
+HONEST EDGE: This is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until deployed.
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

@@ -1,0 +1,143 @@
+{
+  "fetched_at": 1787608162.5151505,
+  "league": "Serie B",
+  "country": "Italy",
+  "fixtures": [
+    {
+      "id": "34937",
+      "home": "CA Tigre",
+      "away": "CA Central Cordoba SE",
+      "kickoff": "23:00  \nID: 34937",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "36385",
+      "home": "CA Lanus",
+      "away": "Argentinos Juniors",
+      "kickoff": "01:15  \nID: 36385",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "36366",
+      "home": "CA Talleres de Cordoba",
+      "away": "CA Rosario Central",
+      "kickoff": "01:15  \nID: 36366",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "26930",
+      "home": "Union de Santa Fe",
+      "away": "CA Sarmiento Junin",
+      "kickoff": "23:00  \nID: 26930",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "27126",
+      "home": "Boca Juniors",
+      "away": "CA Lanus",
+      "kickoff": "01:30  \nID: 27126",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "21390",
+      "home": "Deportivo Riestra AFBC",
+      "away": "Velez Sarsfield",
+      "kickoff": "18:45  \nID: 21390",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "28254",
+      "home": "CA Rosario Central",
+      "away": "Gimnasia y Esgrima La Plata",
+      "kickoff": "21:00  \nID: 28254",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "13079",
+      "home": "CA Huracan",
+      "away": "Estudiantes Rio Cuarto",
+      "kickoff": "23:00  \nID: 13079",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "15610",
+      "home": "Atletico Tucuman",
+      "away": "CA Belgrano de Cordoba",
+      "kickoff": "01:30  \nID: 15610",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "28269",
+      "home": "CA Talleres de Cordoba",
+      "away": "CA Central Cordoba SE",
+      "kickoff": "01:30  \nID: 28269",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Tigres FC",
+      "away": "Union Magdalena",
+      "kickoff": "90:33\nH2",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "CD Real Santander",
+      "away": "Independiente Valle Del Cauca",
+      "kickoff": "59:02\nH2",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "CSDC Alianza Universidad",
+      "away": "Bentin Tacna Heroica",
+      "kickoff": "82:53\nH2",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Libertad Asuncion",
+      "away": "Sportivo San Lorenzo",
+      "kickoff": "18:39\nH1",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "12 de Junio de Villa Hayes",
+      "away": "Paraguari AC",
+      "kickoff": "19:16\nH1",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Atlante FC",
+      "away": "Deportivo Toluca FC",
+      "kickoff": "01:58\nH1",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "CD Cortulua",
+      "away": "CA Nacional Sa",
+      "kickoff": "18:26\nH1",
+      "league": "Serie B",
+      "raw_market": {}
+    }
+  ]
+}

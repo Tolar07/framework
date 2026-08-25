@@ -310,7 +310,7 @@ SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
     "Serie B": (30, 35),
     "Bundesliga": (7, 34),
     "Ligue 1": (7, 34),
-    "Ligue 2": (0, 0),  # no direct URL — use dropdown from Ligue 1 page
+    "Ligue 2": (7, 34),  # France cat, Ligue 1 tournament — opens FR dropdown to reach Ligue 2
     "Champions League": (393, 7),
     "Europa League": (393, 679),
     "Conference League": (393, 34480),

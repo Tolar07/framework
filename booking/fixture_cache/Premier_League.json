@@ -1,133 +1,53 @@
 {
-  "fetched_at": 1787602464.1712213,
+  "fetched_at": 1787649882.6075175,
   "league": "Premier League",
   "country": "England",
   "fixtures": [
     {
-      "id": "33816",
-      "home": "CD Real Santander",
-      "away": "Independiente Valle Del Cauca",
-      "kickoff": "21:30  \nID: 33816",
+      "id": "42454",
+      "home": "Measurers Club",
+      "away": "Mohammedan SC Reserves",
+      "kickoff": "10:30  \nID: 42454",
       "league": "Premier League",
       "raw_market": {}
     },
     {
-      "id": "34016",
-      "home": "Itagui Leones FC",
-      "away": "Real Cartagena FC",
-      "kickoff": "23:00  \nID: 34016",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "33913",
-      "home": "Orsomarso SC",
-      "away": "Real Cundinamarca",
-      "kickoff": "23:00  \nID: 33913",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "39971",
-      "home": "Boyaca Patriotas",
-      "away": "Atletico FC Cali",
-      "kickoff": "23:30  \nID: 39971",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "17579",
-      "home": "Internacional de Palmira",
-      "away": "Barranquilla FC",
-      "kickoff": "01:45  \nID: 17579",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "37833",
-      "home": "Boca Juniors de Cali",
-      "away": "Bogota FC",
-      "kickoff": "21:30  \nID: 37833",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Fulham",
-      "away": "Chelsea",
-      "kickoff": "55:00\nH2",
+      "id": "42793",
+      "home": "United Sports Club",
+      "away": "Police AC",
+      "kickoff": "10:30  \nID: 42793",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Malaga CF",
-      "away": "RC Deportivo De La Coruna",
-      "kickoff": "42:38\nH1",
+      "home": "Salkia FDS Asson",
+      "away": "Mohammedan AC",
+      "kickoff": "20:44\nH1",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Roma",
-      "away": "Fiorentina",
-      "kickoff": "68:23\nH2",
+      "home": "Valencia SRL",
+      "away": "Betis SRL",
+      "kickoff": "64:53\nH2",
       "league": "Premier League",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Hallescher FC",
-      "away": "Schalke",
-      "kickoff": "70:58\nH2",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "Premier League-10",
-      "home": "Gil Vicente Barcelos",
-      "away": "Casa Pia Lisbon",
+      "id": "Premier League-4",
+      "home": "Preah Sihanouk Province",
+      "away": "Kampot Province",
       "kickoff": "45:00\nHT",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Granada",
-      "away": "Mallorca",
-      "kickoff": "43:12\nH1",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Reims",
-      "away": "FC Annecy",
-      "kickoff": "72:23\nH2",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Kocaelispor",
-      "away": "Amed Sportif Faaliyetler",
-      "kickoff": "81:45\nH2",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "ASC Otelul Galati",
-      "away": "ACS Champions FC Arges",
-      "kickoff": "79:56\nH2",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "US Folgore Caratese",
-      "away": "Dolomiti Bellunesi",
-      "kickoff": "55:56\nH2",
+      "home": "Brotherhood FC",
+      "away": "Gangtok Himalayan SC",
+      "kickoff": "05:54\nH1",
       "league": "Premier League",
       "raw_market": {}
     }

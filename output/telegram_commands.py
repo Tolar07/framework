@@ -68,6 +68,9 @@ except ImportError:
 from config import PHASE, PHASE_LABEL, PAPER_PHASE, CAPITAL_ENABLED
 from clv.clv_logger import CLVLog
 from output.notify import send_telegram, HONEST_CAVEAT, add_subscriber
+from output.render_fixture_list import render_fixture_list
+from output.produce_bet import BoardFixture, VerificationResult
+from engine.dixon_coles import FixtureProbabilities
 
 STATE_DIR = Path(__file__).parent.parent / "memory"
 OFFSET_FILE = STATE_DIR / "telegram_offset.json"
@@ -591,6 +594,86 @@ def cmd_code(arg: str) -> str:
                  keyboard=_keyboard(("/board", "/status"), ("/produce bet",)))
 
 
+def cmd_fixtures(_: str) -> str:
+    """Show today's fixture list with model picks including alt markets.
+
+    Reads today's board (output/boards/board_YYYY-MM-DD.json) and renders a
+    simple date-ordered list of teams grouped by league with:
+    - PICK (home/draw/away with win %)
+    - Alt markets: Over 1.5, Over 2.5, Over 3.5, BTTS — all with probabilities
+
+    No scipy/orchestrator imports — reads the cached board that the pipeline
+    already produced. Falls back to yesterday's board if today's isn't ready.
+    """
+    import json as json_mod
+
+    today = date.today().isoformat()
+    board_path = BOARD_DIR / f"board_{today}.json"
+
+    if not board_path.exists():
+        # Fall back to most recent board
+        boards = sorted(BOARD_DIR.glob("board_*.json"))
+        if not boards:
+            return "No board available yet. Run the pipeline first (/produce bet)."
+        board_path = boards[-1]
+        day_label = board_path.stem.replace("board_", "")
+    else:
+        day_label = today
+
+    try:
+        raw = json_mod.loads(board_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        return f"Cannot read board for {day_label}: {e}"
+
+    # Build BoardFixture objects from JSON
+    board_objs = []
+    for entry in raw.get("board", []):
+        probs = None
+        p_data = entry.get("probs")
+        if p_data:
+            try:
+                probs = FixtureProbabilities(
+                    home_team=p_data.get("home_team", ""),
+                    away_team=p_data.get("away_team", ""),
+                    lambda_home=p_data.get("lambda_home", 0.0),
+                    lambda_away=p_data.get("lambda_away", 0.0),
+                    p_home=p_data.get("p_home", 0.0),
+                    p_draw=p_data.get("p_draw", 0.0),
+                    p_away=p_data.get("p_away", 0.0),
+                    modal_scoreline=tuple(p_data.get("modal_scoreline", [0, 0])),
+                    p_over_15=p_data.get("p_over_15"),
+                    p_over_25=p_data.get("p_over_25"),
+                    p_over_35=p_data.get("p_over_35"),
+                    p_btts_yes=p_data.get("p_btts_yes"),
+                )
+            except Exception:
+                pass  # skip malformed probs
+
+        v = entry.get("verification") or {}
+        try:
+            verification = VerificationResult(
+                tier=v.get("tier", "UNKNOWN"),
+                value=None,
+                factors=None,
+                note=v.get("note", ""),
+            )
+        except Exception:
+            verification = None  # type: ignore
+
+        board_objs.append(BoardFixture(
+            fixture=entry.get("fixture", ""),
+            probs=probs,
+            verification=verification,  # type: ignore
+            best_market=entry.get("best_market"),
+            best_price=entry.get("best_price"),
+            kickoff_utc=entry.get("kickoff_utc"),
+            kickoff_date=entry.get("kickoff_date"),
+        ))
+
+    rendered = render_fixture_list(board=board_objs)
+    return Reply(rendered, keyboard=_keyboard(("/board", "/code"), ("/produce bet",)))
+
+
 HANDLERS = {
     "/help": cmd_help, "/start": cmd_help,
     "/status": cmd_status, "/board": cmd_board, "/verify": cmd_verify,
@@ -601,6 +684,7 @@ HANDLERS = {
     "/stats": cmd_stats,
     "/ceo": cmd_ceo,
     "/code": cmd_code,
+    "/fixtures": cmd_fixtures,
 }
 
 
@@ -711,12 +795,14 @@ def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[st
         # (e.g. "/status"), so answer the tap (clears the clock spinner) and
         # route it exactly like a typed message — no callback state needed.
         data = cq.get("data") or ""
-        if allowed and chat_id not in allowed:
-            # Subscribers (post-/start) may also tap inline buttons.
-            from output.notify import subscribers
-            if chat_id not in set(subscribers()):
-                notes.append(f"IGNORED callback from non-whitelisted chat {chat_id}")
-                return True, notes
+        # Inline buttons must respect subscriber gating too.
+        from output.notify import subscribers
+        primary = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+        is_architect = (chat_id == primary)
+        is_subscriber = str(chat_id) in set(subscribers())
+        if not (is_architect or is_subscriber):
+            notes.append(f"IGNORED callback from non-whitelisted chat {chat_id}")
+            return True, notes
         # A failed ack must never drop the command that follows.
         with contextlib.suppress(Exception):
             requests.post(
@@ -728,13 +814,19 @@ def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[st
             text = data
     if not text:
         return True, notes
-    # Auto-subscribe: anyone who sends /start joins the broadcast list.
+    # Auto-subscribe: anyone who sends /start joins the broadcast list (once).
     from output.notify import subscribers
     low = text.strip().lower()
     primary = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
     is_architect = (chat_id == primary)
-    is_subscriber = chat_id in set(subscribers())
+    is_subscriber = str(chat_id) in set(subscribers())
+    # Block repeated /start — only the first one subscribes
     if low.startswith("/start"):
+        if is_subscriber and not is_architect:
+            notes.append(f"BLOCKED /start from already-subscribed chat {chat_id}")
+            refusal = "You're already subscribed. Use /board or /code."
+            ok, send_notes = send_telegram(refusal, token=token, chat_id=chat_id)
+            return ok, notes
         name = ((msg.get("from") or {}).get("first_name") or "")
         is_new = add_subscriber(chat_id)
         notes.append(f"SUBSCRIBED chat {chat_id}{(' (' + name + ')') if name else ''}"
@@ -742,7 +834,7 @@ def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[st
     # Commands allowed for everyone (subscribers + Architect):
     public_cmds = {"/start", "/help"}
     # Commands allowed for subscribers + Architect:
-    subscriber_cmds = {"/board", "/code"}
+    subscriber_cmds = {"/board", "/code", "/fixtures"}
     # Commands allowed ONLY for Architect:
     architect_only = {
         "/status", "/verify", "/why", "/log", "/note",
@@ -762,7 +854,7 @@ def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[st
         # Send a polite refusal
         refusal = (
             "This command is not available to you.\n\n"
-            "Available to subscribers: /board, /code, /produce bet\n"
+            "Available to subscribers: /board, /code, /fixtures\n"
             "Available to everyone: /start, /help"
         )
         ok, send_notes = send_telegram(refusal, token=token, chat_id=chat_id)

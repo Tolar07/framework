@@ -49,6 +49,7 @@ from clv.clv_logger import CLVLog, compute_clv, ensemble_weights
 from clv.closing_capture import capture_closing_lines
 from output import notify
 from output.produce_bet import render_verify_results, render_telegram_board, render_produce_bet
+from output.render_fixture_list import render_fixture_list
 from output import whatsapp_deliver
 from output import email_deliver
 import bets.produced_bet as produced_bet
@@ -1410,7 +1411,6 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # read. Always written (even an empty acca set), so downstream consumers
     # never guess at a missing file. Carries Acca A, the split accas AND the
     # singles as 1-leg slips (production intent #6 — every single its own code).
-    import dataclasses
     acca_payload = {
         "date": board_date,
         "n_accas": len(acca_list),
@@ -1525,13 +1525,13 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     acca_text = render_production_block(production, codes=codes_result,
                                         today=board_date, board=board)
 
-    telegram_text = render_telegram_board(
-        mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
-        calibration_count=status["legs_with_clv"],
-        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
-        yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
-        produced_bet=produced_record, production=production,
-        codes=codes_result)
+    # Telegram board uses the compact fixture-list format (Architect 2026-08-25):
+    # date-ordered teams grouped by league with pick + win% + alt markets. This
+    # is the board the phone receives AND what telegram_<date>.txt persists for
+    # the web feed, so the two can never disagree. The wide probability/CLV
+    # artifact is still written to board_<date>.txt via render_produce_bet below
+    # and served by the /board command.
+    telegram_text = render_fixture_list(board=board)
 
     # The FEED text — one render, two outlets (Architect 2026-08-11). This
     # exact string is BOTH what the phone receives (notify.deliver below) AND

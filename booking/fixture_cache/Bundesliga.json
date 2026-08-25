@@ -1,93 +1,53 @@
 {
-  "fetched_at": 1787603590.7122188,
+  "fetched_at": 1787649728.1183076,
   "league": "Bundesliga",
   "country": "Germany",
   "fixtures": [
     {
-      "id": "13411",
-      "home": "12 de Junio de Villa Hayes",
-      "away": "Paraguari AC",
-      "kickoff": "22:30  \nID: 13411",
+      "id": "42454",
+      "home": "Measurers Club",
+      "away": "Mohammedan SC Reserves",
+      "kickoff": "10:30  \nID: 42454",
       "league": "Bundesliga",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Fulham",
-      "away": "Chelsea",
-      "kickoff": "73:48\nH2",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "Bundesliga-2",
-      "home": "Malaga CF",
-      "away": "RC Deportivo De La Coruna",
-      "kickoff": "45:00\nHT",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Roma",
-      "away": "Fiorentina",
-      "kickoff": "87:20\nH2",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Hallescher FC",
-      "away": "Schalke",
-      "kickoff": "90:00\nH2",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Gil Vicente Barcelos",
-      "away": "Casa Pia Lisbon",
-      "kickoff": "54:35\nH2",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "Bundesliga-6",
-      "home": "Granada",
-      "away": "Mallorca",
-      "kickoff": "45:00\nHT",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Reims",
-      "away": "FC Annecy",
-      "kickoff": "91:21\nH2",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "US Folgore Caratese",
-      "away": "Dolomiti Bellunesi",
-      "kickoff": "74:58\nH2",
+      "id": "42793",
+      "home": "United Sports Club",
+      "away": "Police AC",
+      "kickoff": "10:30  \nID: 42793",
       "league": "Bundesliga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Tigres FC",
-      "away": "Union Magdalena",
-      "kickoff": "32:46\nH1",
+      "home": "Salkia FDS Asson",
+      "away": "Mohammedan AC",
+      "kickoff": "18:14\nH1",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Valencia SRL",
+      "away": "Betis SRL",
+      "kickoff": "62:23\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "Bundesliga-4",
+      "home": "Preah Sihanouk Province",
+      "away": "Kampot Province",
+      "kickoff": "45:00\nHT",
       "league": "Bundesliga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "CD Real Santander",
-      "away": "Independiente Valle Del Cauca",
-      "kickoff": "01:57\nH1",
+      "home": "Brotherhood FC",
+      "away": "Gangtok Himalayan SC",
+      "kickoff": "03:23\nH1",
       "league": "Bundesliga",
       "raw_market": {}
     }

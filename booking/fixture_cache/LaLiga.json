@@ -1,93 +1,53 @@
 {
-  "fetched_at": 1787600708.6709807,
+  "fetched_at": 1787649926.1351712,
   "league": "LaLiga",
   "country": "Spain",
   "fixtures": [
     {
-      "id": "45886",
-      "home": "CSDC Alianza Universidad",
-      "away": "Bentin Tacna Heroica",
-      "kickoff": "21:00",
+      "id": "42454",
+      "home": "Measurers Club",
+      "away": "Mohammedan SC Reserves",
+      "kickoff": "10:30  \nID: 42454",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "42793",
+      "home": "United Sports Club",
+      "away": "Police AC",
+      "kickoff": "10:30  \nID: 42793",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Fulham",
-      "away": "Chelsea",
-      "kickoff": "43:51",
+      "home": "Salkia FDS Asson",
+      "away": "Mohammedan AC",
+      "kickoff": "21:14\nH1",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Malaga CF",
-      "away": "RC Deportivo De La Coruna",
-      "kickoff": "13:16",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "LaLiga-3",
-      "home": "Roma",
-      "away": "Fiorentina",
-      "kickoff": "45:00",
+      "id": "2",
+      "home": "Valencia SRL",
+      "away": "Betis SRL",
+      "kickoff": "65:53\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "LaLiga-4",
-      "home": "Hallescher FC",
-      "away": "Schalke",
-      "kickoff": "45:00",
+      "home": "Preah Sihanouk Province",
+      "away": "Kampot Province",
+      "kickoff": "45:00\nHT",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Gil Vicente Barcelos",
-      "away": "Casa Pia Lisbon",
-      "kickoff": "28:51",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Granada",
-      "away": "Mallorca",
-      "kickoff": "13:36",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "LaLiga-7",
-      "home": "Reims",
-      "away": "FC Annecy",
-      "kickoff": "45:00",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Kocaelispor",
-      "away": "Amed Sportif Faaliyetler",
-      "kickoff": "52:42",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Al-Ittihad Club",
-      "away": "Al-Hazm",
-      "kickoff": "82:42",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "ASC Otelul Galati",
-      "away": "ACS Champions FC Arges",
-      "kickoff": "50:51",
+      "home": "Brotherhood FC",
+      "away": "Gangtok Himalayan SC",
+      "kickoff": "06:41\nH1",
       "league": "LaLiga",
       "raw_market": {}
     }

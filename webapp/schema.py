@@ -122,6 +122,7 @@ def fixture_to_dict(bf: BoardFixture) -> dict:
         "best_model_prob": _opt(bf.best_model_prob),
         "cal_adjustment": _opt(bf.cal_adjustment),
         "kickoff_date": _opt(bf.kickoff_date),
+        "kickoff_utc": _opt(bf.kickoff_utc),
         "elo_probs": list(bf.elo_probs) if bf.elo_probs else None,
         "engine_divergence": _opt(bf.engine_divergence),
         "xg_probs": list(bf.xg_probs) if bf.xg_probs else None,
@@ -240,6 +241,8 @@ CLIENT_FIXTURE_KEYS = frozenset({
     "mes_trigger_price", "rejection_reason",
     "kickoff_date",  # factual datum (not a model internal); needed for the
                      # today-only call filter (standing rule 2026-08-09)
+    "kickoff_utc",  # factual datum (not a model internal): the kickoff TIME;
+                   # the /fixtures renderer reads this before any cache fallback
     "rating_source",  # provenance label ("clubelo"/"carry"/None) — a factual
                       # tag, not a model internal; the board labels stretch/
                       # carry ratings so they are never mistaken for a fit

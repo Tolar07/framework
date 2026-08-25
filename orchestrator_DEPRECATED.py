@@ -116,7 +116,8 @@ def _unrated_detail(model, home: str, away: str) -> str:
 
 def _render_unrated_fixtures(league: str,
                              upcoming_fixtures: list[tuple[str, str]],
-                             fixture_dates: dict) -> list[BoardFixture]:
+                             fixture_dates: dict,
+                             fixture_utc: dict | None = None) -> list[BoardFixture]:
     """Fixtures for a league with NO usable history, shown as NO DATA rows.
 
     The wide-eyes board lists every fixture it finds (HR35: missing data reads
@@ -139,6 +140,7 @@ def _render_unrated_fixtures(league: str,
             on_deploy_shortlist=False,
             mes_trigger_price=None,
             kickoff_date=fixture_dates.get((home, away)),
+            kickoff_utc=(fixture_utc or {}).get((home, away)),
             elo_probs=None,
             xg_probs=None,
             engine_divergence=None,
@@ -169,6 +171,12 @@ def scan_one_league(league: str, season: str,
     14-day default."""
     flags: list[str] = []
     fixture_dates: dict[tuple[str, str], str] = {}
+    # Full ISO kickoff timestamps (when a source carries the TIME, not just the
+    # date) — keyed the same as fixture_dates. The SportyBet cache is the one
+    # genuine source of kickoff TIMES here; multi-source only yields dates. The
+    # /fixtures renderer reads this first so it never fuzzy-matches the cache
+    # for a time (HR35 — never guess a time across polluted league labels).
+    fixture_utc: dict[tuple[str, str], str] = {}
     # as_of for team-state lookups (today). The daily board runs on today's
     # snapshots; a fixture without a snapshot simply gets no tactical nudge.
     as_of_str = date.today().isoformat()
@@ -309,13 +317,14 @@ def scan_one_league(league: str, season: str,
                         upcoming_fixtures.append((h, a))
                         existing.add((h, a))
                         merged += 1
-                # Merge kickoff dates from SportyBet cache
+                # Merge kickoff dates (and full UTC timestamps) from SportyBet cache
                 for f in load_sportybet_fixtures(
                         league, days_ahead=45, max_age_hours=48):
                     if f.kickoff_utc:
                         mh = map_team(league, f.home_team)
                         ma = map_team(league, f.away_team)
                         fixture_dates[(mh, ma)] = f.kickoff_utc[:10]
+                        fixture_utc[(mh, ma)] = f.kickoff_utc
                 if merged:
                     if primary_had_fixtures:
                         flags.append(
@@ -353,7 +362,7 @@ def scan_one_league(league: str, season: str,
                 # on the board as NO DATA rows (HR35 wide-eyes) — never silently
                 # dropped.
                 return _render_unrated_fixtures(
-                    league, upcoming_fixtures, fixture_dates), flags
+                    league, upcoming_fixtures, fixture_dates, fixture_utc), flags
 
         # Merge current-season results from football-data.org when the primary
         # CSV lacks them (promoted clubs). The CSV carries last season's data;
@@ -393,7 +402,7 @@ def scan_one_league(league: str, season: str,
         # No history to fit on — fixtures still belong on the board as NO DATA
         # rows (HR35 wide-eyes), never silently dropped.
         return _render_unrated_fixtures(
-            league, upcoming_fixtures, fixture_dates), flags
+            league, upcoming_fixtures, fixture_dates, fixture_utc), flags
 
     # Dixon-Coles: reuse the brain's cached fit ONLY when the training rows are
     # provably identical (same content hash + same fit config). Otherwise refit.
@@ -723,6 +732,7 @@ def scan_one_league(league: str, season: str,
                                   and (probs is not None or sb_odds is not None or mes is not None)),
             mes_trigger_price=mes,
             kickoff_date=fixture_dates.get((home, away)),
+            kickoff_utc=fixture_utc.get((home, away)),
             elo_probs=elo_p,
             xg_probs=xg_t,
             # Phase 3.4: xG goals read + DC-vs-xG goals divergence (display

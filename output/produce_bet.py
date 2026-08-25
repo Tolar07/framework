@@ -67,6 +67,12 @@ class BoardFixture:
     # settled against the right match rather than a same-pairing meeting from
     # an earlier season.
     kickoff_date: Optional[str] = None
+    # Kickoff UTC timestamp (ISO, e.g. "2026-08-24T19:00:00Z") of THIS fixture,
+    # when the source provided it. Carries the TIME, not just the date — the
+    # /fixtures renderer reads this first so it never has to fuzzy-match the
+    # cross-contaminated SportyBet cache for a kickoff time. None when no
+    # source supplied a time (HR35 — never fabricated).
+    kickoff_utc: Optional[str] = None
     # Second opinion from the Elo engine (ID82, ratified 2026-08-04) and the
     # flag raised when the two engines disagree materially. Elo is independent
     # of Dixon-Coles — different inputs, different mathematics, different
@@ -1312,7 +1318,7 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
     scan_txt, any_away = render_scan_tables(board)
     leagues_with_fixtures = len({_league_of(bf) for bf in board})
     parts = [
-        f"OLP XDV — DAILY BOARD\n{date.today().isoformat()}  |  {phase}\n"
+        f"OLP XDV — DAILY BOARD  [HEARTBEAT {date.today().isoformat()}]\n{date.today().isoformat()}  |  {phase}\n"
         f"Leagues: {len(leagues_scanned)} · {leagues_with_fixtures} with "
         f"fixtures\n"
         f"Calibration: {calibration_count} legs logged, {clv}",

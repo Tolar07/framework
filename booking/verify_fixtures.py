@@ -181,7 +181,11 @@ def _load_feed_pairs(pattern: str, datetime_parser: callable) -> List[Dict]:
 
 
 def _parse_flashscore_datetime(match_datetime: str) -> str:
-    """Parse FlashScore '21.08. 20:00' or '12:30' (time only = today) to ISO date."""
+    """Parse FlashScore '21.08. 20:00' or '12:30' (time only = today) to ISO UTC timestamp.
+
+    Returns full ISO format (e.g., '2026-08-28T20:00:00Z') when time is available,
+    otherwise just the date (e.g., '2026-08-28'). HR35: never fabricate time.
+    """
     if not match_datetime:
         return ""
     # Try DD.MM. HH:MM format first
@@ -192,22 +196,31 @@ def _parse_flashscore_datetime(match_datetime: str) -> str:
         now = _dt.now()
         for year in (now.year, now.year + 1):
             try:
-                cand = _dt(year, mon, day)
+                cand = _dt(year, mon, day, hh, mm)
             except ValueError:
                 continue
             if 0 <= (cand - now).days <= 400:
-                return cand.strftime("%Y-%m-%d")
+                # FlashScore shows local times (typically CET/CEST). We store as UTC
+                # with Z suffix since we lack timezone info. The renderer will
+                # display the time portion as-is (HR35: don't fake conversion).
+                return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
     # Try HH:MM only (matches for today)
     m = re.match(r"^(\d{1,2}):(\d{2})$", match_datetime.strip())
     if m:
         from datetime import datetime as _dt
         now = _dt.now()
-        return now.strftime("%Y-%m-%d")
+        hh, mm = (int(x) for x in m.groups())
+        cand = _dt(now.year, now.month, now.day, hh, mm)
+        return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
     return ""
 
 
 def _parse_predictz_datetime(match_datetime: str) -> str:
-    """Parse PredictZ '21/08/2026 20:00' or '21/08/2026' to ISO date."""
+    """Parse PredictZ '21/08/2026 20:00' or '21/08/2026' to ISO UTC timestamp.
+
+    Returns full ISO format (e.g., '2026-08-28T20:00:00Z') when time is available,
+    otherwise just the date (e.g., '2026-08-28'). HR35: never fabricate time.
+    """
     if not match_datetime:
         return ""
     # Try with time
@@ -216,8 +229,8 @@ def _parse_predictz_datetime(match_datetime: str) -> str:
         day, mon, year, hh, mm = (int(x) for x in m.groups())
         try:
             from datetime import datetime as _dt
-            cand = _dt(year, mon, day)
-            return cand.strftime("%Y-%m-%d")
+            cand = _dt(year, mon, day, hh, mm)
+            return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
         except ValueError:
             pass
     # Try date only
@@ -234,7 +247,11 @@ def _parse_predictz_datetime(match_datetime: str) -> str:
 
 
 def _parse_statsarea_datetime(match_datetime: str) -> str:
-    """Parse StatsArea '21.08.2026 20:00' or '21/08/2026' to ISO date."""
+    """Parse StatsArea '21.08.2026 20:00' or '21/08/2026' to ISO UTC timestamp.
+
+    Returns full ISO format (e.g., '2026-08-28T20:00:00Z') when time is available,
+    otherwise just the date (e.g., '2026-08-28'). HR35: never fabricate time.
+    """
     if not match_datetime:
         return ""
     # Try DD.MM.YYYY HH:MM
@@ -243,8 +260,8 @@ def _parse_statsarea_datetime(match_datetime: str) -> str:
         day, mon, year, hh, mm = (int(x) for x in m.groups())
         try:
             from datetime import datetime as _dt
-            cand = _dt(year, mon, day)
-            return cand.strftime("%Y-%m-%d")
+            cand = _dt(year, mon, day, hh, mm)
+            return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
         except ValueError:
             pass
     # Try DD/MM/YYYY
@@ -265,16 +282,20 @@ def _parse_statsarea_datetime(match_datetime: str) -> str:
         now = _dt.now()
         for year in (now.year, now.year + 1):
             try:
-                cand = _dt(year, mon, day)
+                cand = _dt(year, mon, day, hh, mm)
             except ValueError:
                 continue
             if 0 <= (cand - now).days <= 400:
-                return cand.strftime("%Y-%m-%d")
+                return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
     return ""
 
 
 def _parse_bet365_datetime(match_datetime: str) -> str:
-    """Parse Bet365 '21 Aug 20:00' or '21/08/2026 20:00' to ISO date."""
+    """Parse Bet365 '21 Aug 20:00' or '21/08/2026 20:00' to ISO UTC timestamp.
+
+    Returns full ISO format (e.g., '2026-08-28T20:00:00Z') when time is available,
+    otherwise just the date (e.g., '2026-08-28'). HR35: never fabricate time.
+    """
     if not match_datetime:
         return ""
     # Try '21 Aug 20:00'
@@ -295,19 +316,21 @@ def _parse_bet365_datetime(match_datetime: str) -> str:
             now = _dt.now()
             for year in (now.year, now.year + 1):
                 try:
-                    cand = _dt(year, mon, day)
+                    cand = _dt(year, mon, day, hh, mm)
                 except ValueError:
                     continue
                 if 0 <= (cand - now).days <= 400:
-                    return cand.strftime("%Y-%m-%d")
+                    return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
     # Try DD/MM/YYYY HH:MM
     m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})\s+(\d{1,2}):(\d{2})", match_datetime)
     if m:
         day, mon, year, hh, mm = (int(x) for x in m.groups())
         try:
             from datetime import datetime as _dt
-            cand = _dt(year, mon, day)
-            return cand.strftime("%Y-%m-%d")
+            cand = _dt(year, mon, day, hh, mm)
+            return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
+        except ValueError:
+            pass
         except ValueError:
             pass
     return ""

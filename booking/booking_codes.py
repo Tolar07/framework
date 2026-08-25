@@ -57,7 +57,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from booking.league_map import SPORTYBET_LEAGUES
 from booking.bridge import load_sportybet_fixtures
-from booking.sportybet_fixtures import _navigate_to_league
+from booking.sportybet_fixtures import _navigate_to_league_sync as _navigate_to_league
 
 BASE_URL = "https://sportybet.com"
 BOARD_DIR = Path(__file__).parent.parent / "output" / "boards"
@@ -784,7 +784,7 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
     # Import inside function — bypasses ALL bytecode/stale-cache issues.
     # The module-level import at line 60 works in REPL but fails at runtime
     # when run_daily spawns the booking flow (observed 2026-08-23).
-    from booking.sportybet_fixtures import _navigate_to_league as _navigate_to_league_local
+    from booking.sportybet_fixtures import _navigate_to_league_sync as _navigate_to_league_local
 
     per_leg: List[dict] = []
     added = 0

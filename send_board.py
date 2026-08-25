@@ -11,9 +11,14 @@ import sys
 import requests
 from pathlib import Path
 from datetime import date
+from dotenv import load_dotenv
 
-TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '8695416676:AAHqF-YEv2tqzFu5M8dxjk5RCzV-eADIBeQ')
-CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '8074295061')
+load_dotenv()
+
+TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
+CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
+if not TOKEN or not CHAT_ID:
+    raise SystemExit("TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be set in .env")
 TELEGRAM_API = f"https://api.telegram.org/bot{TOKEN}"
 TELEGRAM_MAX = 3900
 

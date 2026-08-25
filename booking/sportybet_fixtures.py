@@ -80,9 +80,66 @@ def _write_cache(league: str, country: str, fixtures: List[Any],
     }
     p.write_text(json.dumps(payload, ensure_ascii=False, indent=2), "utf-8")
 
+# ── page helpers (sync + async variants) ───────────────────────────────────────────────────────────────────────────────
+# Sync versions are used by booking_codes.py (sync_playwright).
+# Async versions below are used by build_cache / _scrape_one_league.
 
-# ── page helpers ───────────────────────────────────────────────────────────
-async def _wait_for_fixtures(page: Any, timeout: int = 15_000) -> bool:
+def _wait_for_fixtures(page: Any, timeout: int = 15_000) -> bool:
+    """Sync: wait for match rows to appear on the page."""
+    try:
+        page.wait_for_selector("tbody.match-row, .match-row", timeout=timeout)
+        return True
+    except Exception:
+        return False
+
+
+def _scroll_to_bottom(page: Any, max_scrolls: int = 8) -> None:
+    """Sync: scroll to bottom to trigger lazy-loaded fixtures."""
+    for _ in range(max_scrolls):
+        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        page.wait_for_timeout(600)
+
+
+def _reload_football(page: Any) -> bool:
+    """Sync: hard-reload to the football homepage."""
+    for host in [BASE_URL] + list(FALLBACK_HOSTS):
+        try:
+            page.goto(f"{host}/ng/sport/football",
+                      wait_until="domcontentloaded",
+                      timeout=PAGE_LOAD_TIMEOUT)
+            page.wait_for_timeout(1500)
+            return True
+        except Exception:
+            continue
+    return False
+
+
+def _dismiss_overlays(page: Any) -> None:
+    """Sync: dismiss any age-gate / promo overlays."""
+    for sel in (
+        ".es-dialog-wrap, .es-dialog.m-dialog",
+        "button:has-text('×')",
+        "button:has-text('Close')",
+        "[class*='age-gate']",
+        "[class*='modal']",
+    ):
+        try:
+            el = page.query_selector(sel)
+            if el:
+                el.click()
+                page.wait_for_timeout(400)
+        except Exception:
+            pass
+            pass
+
+
+# ── async variants ───────────────────────────────────────────────────────────
+# These mirror the sync helpers above but await Playwright's coroutine methods.
+# The async navigation path (_navigate_to_league / _scrape_one_league) must use
+# these — calling the sync helpers from an async page yields "coroutine never
+# awaited" warnings and the navigation silently does nothing.
+async def _async_wait_for_fixtures(page: Any, timeout: int = 15_000) -> bool:
+    """Async: wait for match rows to appear on the page."""
     try:
         await page.wait_for_selector("tbody.match-row, .match-row", timeout=timeout)
         return True
@@ -90,15 +147,15 @@ async def _wait_for_fixtures(page: Any, timeout: int = 15_000) -> bool:
         return False
 
 
-async def _scroll_to_bottom(page: Any, max_scrolls: int = 8) -> None:
-    """Scroll to bottom to trigger lazy-loaded fixtures."""
+async def _async_scroll_to_bottom(page: Any, max_scrolls: int = 8) -> None:
+    """Async: scroll to bottom to trigger lazy-loaded fixtures."""
     for _ in range(max_scrolls):
         await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
         await page.wait_for_timeout(600)
 
 
-async def _reload_football(page: Any) -> bool:
-    """Hard-reload to the football homepage. Returns True if any host responded."""
+async def _async_reload_football(page: Any) -> bool:
+    """Async: hard-reload to the football homepage."""
     for host in [BASE_URL] + list(FALLBACK_HOSTS):
         try:
             await page.goto(f"{host}/ng/sport/football",
@@ -111,8 +168,8 @@ async def _reload_football(page: Any) -> bool:
     return False
 
 
-async def _dismiss_overlays(page: Any) -> None:
-    """Dismiss any age-gate / promo overlays that sit above the sidebar."""
+async def _async_dismiss_overlays(page: Any) -> None:
+    """Async: dismiss any age-gate / promo overlays."""
     for sel in (
         ".es-dialog-wrap, .es-dialog.m-dialog",
         "button:has-text('×')",
@@ -129,6 +186,117 @@ async def _dismiss_overlays(page: Any) -> None:
             pass
 
 
+def _js_click(page: Any, selector: str, timeout: int = 5_000) -> bool:
+    """Sync: click an element via JavaScript (works for hidden/off-screen items)."""
+    try:
+        result = page.evaluate(f"""() => {{
+            const el = document.querySelector('{selector}');
+            if (el) {{ el.click(); return true; }}
+            return false;
+        }}""")
+        if result:
+            page.wait_for_timeout(1500)
+        return result
+    except Exception:
+        return False
+
+
+def _js_find_and_click(page: Any, selector_filter: str, click_filter: str = "") -> bool:
+    """Sync: find element(s) by selector, filter by text, click via JS.
+
+    selector_filter: CSS selector for elements to search.
+    click_filter: JS expression to filter elements (e.g. "el.textContent.includes('Ligue 2')).
+    """
+    js_code = f"""
+        () => {{
+            const elements = document.querySelectorAll('{selector_filter}');
+            for (const el of elements) {{
+                if ({click_filter}) {{
+                    el.click();
+                    return 'clicked: ' + el.textContent.trim();
+                }}
+            }}
+            return 'not found';
+        }}
+    """
+    try:
+        result = page.evaluate(js_code)
+        if result and 'clicked' in result:
+            page.wait_for_timeout(2000)
+            return True
+        return False
+    except Exception:
+        return False
+
+
+def _navigate_via_dropdown(page: Any, country: str, league: str) -> bool:
+    """Sync: navigate using SportyBet's new tournament dropdown flow.
+
+    Steps: go to Ligue 1 page (country=same → same dropdown) → click dropdown
+    trigger → click target league.  Worked for France/Ligue 2 (2026-08-25).
+
+    Returns True if the dropdown click put us on the target page.
+    """
+    # Find the same-country popular league (any tournament under this country
+    # exposes a dropdown with all other tournaments in the same country)
+    cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
+    if not cat_tour or cat_tour[0] == 0:
+        return False
+
+    cat_id, known_tour = cat_tour
+    indirect_url = f"{BASE_URL}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{known_tour}?source=home&time=all&sort=2"
+
+    try:
+        page.goto(indirect_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+        page.wait_for_timeout(3000)
+        _dismiss_overlays(page)
+    except Exception:
+        return False
+
+    # Verify the page loaded — check we have the tournament-name elements
+    try:
+        has_dropdown = page.evaluate(
+            "() => document.querySelectorAll('.tournament-name').length > 0"
+        )
+    except Exception:
+        has_dropdown = False
+
+    if not has_dropdown:
+        return False
+
+    # Click the .tournament-name element that matches any known league for this
+    # country (this opens the dropdown)
+    # We match the first .tournament-name that is visible
+    clicked_trigger = _js_find_and_click(
+        page,
+        ".tournament-name",
+        "el.offsetParent !== null && el.textContent.trim().length > 0",
+    )
+    if not clicked_trigger:
+        # Fallback: click first .tournament-name regardless
+        clicked_trigger = _js_find_and_click(page, ".tournament-name")
+
+    if not clicked_trigger:
+        return False
+
+    # Now click the target league name in the expanded dropdown
+    # The dropdown renders .tournament-name for each option
+    target_clicked = _js_find_and_click(
+        page,
+        ".tournament-name",
+        f"el.textContent.trim() === '{league}' || el.textContent.trim().includes('{league}')",
+    )
+    if not target_clicked:
+        return False
+
+    # Wait for page to settle and check fixtures
+    _dismiss_overlays(page)
+    if _wait_for_fixtures(page):
+        return True
+
+    return False
+
+
 # ── core navigation ────────────────────────────────────────────────────────
 # SportyBet category/tournament ID mapping for direct URL navigation
 # These were extracted from the live page HTML (top-link hrefs)
@@ -142,7 +310,7 @@ SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
     "Serie B": (30, 35),
     "Bundesliga": (7, 34),
     "Ligue 1": (7, 34),
-    "Ligue 2": (7, 34),
+    "Ligue 2": (0, 0),  # no direct URL — use dropdown from Ligue 1 page
     "Champions League": (393, 7),
     "Europa League": (393, 679),
     "Conference League": (393, 34480),
@@ -199,10 +367,10 @@ async def _navigate_to_league(page: Any, country: str, league: str,
                 await page.wait_for_timeout(3000)
 
                 # Dismiss overlays
-                await _dismiss_overlays(page)
+                await _async_dismiss_overlays(page)
 
                 # Wait for fixtures
-                if await _wait_for_fixtures(page):
+                if await _async_wait_for_fixtures(page):
                     # Verify we're on the right league
                     if await _verify_league_page(page, country, league):
                         print(f"  [OK] Direct navigation succeeded: {country}/{league}")
@@ -229,7 +397,7 @@ async def _navigate_to_league(page: Any, country: str, league: str,
                 await page.goto(f"{BASE_URL}/ng/sport/football", wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
                 await page.wait_for_timeout(2000)
 
-            await _dismiss_overlays(page)
+            await _async_dismiss_overlays(page)
 
             # Find the top-link for this league
             # The league name is in .top-link-item span inside .top-link
@@ -252,7 +420,7 @@ async def _navigate_to_league(page: Any, country: str, league: str,
             await page.wait_for_timeout(3000)
 
             # Wait for fixtures
-            if await _wait_for_fixtures(page):
+            if await _async_wait_for_fixtures(page):
                 if await _verify_league_page(page, country, league):
                     print(f"  [OK] Click navigation succeeded: {country}/{league}")
                     return True
@@ -266,7 +434,7 @@ async def _navigate_to_league(page: Any, country: str, league: str,
             print(f"  x click nav error attempt={attempt+1}: {exc}")
             if attempt < max_retries:
                 await asyncio.sleep(2)
-                await _reload_football(page)
+                await _async_reload_football(page)
 
     # Fallback 3: sidebar navigation (click country → click league)
     # This works for all leagues with country mappings, per debug_nav.py
@@ -277,7 +445,7 @@ async def _navigate_to_league(page: Any, country: str, league: str,
                 await page.goto(f"{BASE_URL}/ng/sport/football", wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
                 await page.wait_for_timeout(2000)
 
-            await _dismiss_overlays(page)
+            await _async_dismiss_overlays(page)
 
             # Find the country in sidebar (category-list-item with country text)
             # NOTE: no :visible filter — sidebar items may be offscreen until scrolled
@@ -334,7 +502,7 @@ async def _navigate_to_league(page: Any, country: str, league: str,
             await page.wait_for_timeout(3000)
 
             # Wait for fixtures
-            if await _wait_for_fixtures(page):
+            if await _async_wait_for_fixtures(page):
                 if await _verify_league_page(page, country, league_for_verify):
                     print(f"  [OK] Sidebar navigation succeeded: {country}/{league}")
                     return True
@@ -348,23 +516,33 @@ async def _navigate_to_league(page: Any, country: str, league: str,
             print(f"  x sidebar nav error attempt={attempt+1}: {exc}")
             if attempt < max_retries:
                 await asyncio.sleep(2)
-                await _reload_football(page)
+                await _async_reload_football(page)
 
     return False
 
 
 async def _verify_league_page(page: Any, expected_country: str,
                               expected_league: str) -> bool:
-    """Return True if the visible breadcrumb/page title contains the league."""
+    """Return True if the visible page contains the league name."""
+    text_sources = []
+
+    # New SportyBet layout (2026-08-25): .tournament-name elements
+    try:
+        for el in await page.locator(".tournament-name").all():
+            t = (await el.inner_text()).strip()
+            if t:
+                text_sources.append(t)
+    except Exception:
+        pass
+
     candidates = [
         ".breadcrumb:visible",
         ".tournament-header:visible",
         "[class*='breadcrumb']:visible",
-        ".popular-list:visible",        # New layout: popular-list contains league links
-        ".top-link:visible",            # New layout: top-link elements
-        ".m-nav-bar:visible",           # Nav bar may show active league
+        ".popular-list:visible",
+        ".top-link:visible",
+        ".m-nav-bar:visible",
     ]
-    text_sources = []
     for sel in candidates:
         try:
             for el in await page.locator(sel).all():
@@ -507,7 +685,7 @@ async def _scrape_one_league(
                 await browser.close()
                 return []
 
-            await _scroll_to_bottom(page)
+            await _async_scroll_to_bottom(page)
             fixtures = await _extract_fixtures_from_page(page, league, country)
             if not fixtures:
                 fixtures = await _extract_fixtures_from_json(page, league, country)
@@ -652,6 +830,187 @@ def main() -> None:
     for lg, ct in zip(leagues, countries + [""] * len(leagues)):
         asyncio.run(build_cache(lg, ct))
 
+
+def _verify_league_page_sync(page, expected_country, expected_league):
+    """Sync version: check breadcrumb / page title for the league.
+
+    For the new SportyBet layout (2026-08-25), we check:
+    - .tournament-name elements (the dropdown items)
+    - .popular-list .top-link (the active tournament)
+    - page title
+    - body text as fallback
+    """
+    text_sources = []
+
+    # Check for .tournament-name elements (dropdown items)
+    try:
+        tournament_names = page.locator(".tournament-name").all()
+        for el in tournament_names:
+            t = (el.inner_text() or "").strip()
+            if t:
+                text_sources.append(t)
+    except Exception:
+        pass
+
+    # Check .popular-list .top-link (active tournament indicator)
+    try:
+        active_links = page.locator(".popular-list .top-link").all()
+        for el in active_links:
+            t = (el.inner_text() or "").strip()
+            if t:
+                text_sources.append(t)
+    except Exception:
+        pass
+
+    # Check breadcrumb and other traditional sources
+    candidates = [
+        ".breadcrumb:visible",
+        ".tournament-header:visible",
+        "[class*='breadcrumb']:visible",
+        ".m-nav-bar:visible",
+    ]
+    for sel in candidates:
+        try:
+            for el in page.locator(sel).all():
+                t = (el.inner_text() or "").strip()
+                if t:
+                    text_sources.append(t)
+        except Exception:
+            pass
+
+    try:
+        title = page.title() or ""
+        if title:
+            text_sources.append(title)
+    except Exception:
+        pass
+
+    try:
+        body_text = (page.inner_text('body') or "").strip()
+        if body_text:
+            text_sources.append(body_text)
+    except Exception:
+        pass
+
+    expected_lower = expected_league.lower()
+    for src in text_sources:
+        if expected_lower in src.lower():
+            return True
+    return False
+
+
+def _navigate_to_league_sync(page, country, league,
+                              max_retries=MAX_LEAGUE_RETRIES) -> bool:
+    """Sync version of _navigate_to_league for booking_codes.py.
+
+    Pure sync — no await, no asyncio.run, no ThreadPoolExecutor.
+    Uses the sync helpers defined above (_wait_for_fixtures, _reload_football,
+    _dismiss_overlays). Import time is on the module level.
+    """
+    assert max_retries >= 0, "max_retries must be non-negative"
+
+    # Try direct URL navigation first
+    cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
+    if cat_tour and cat_tour[0] != 0:
+        cat_id, tour_id = cat_tour
+        direct_url = f"{BASE_URL}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{tour_id}?source=sport_menu&sort=2"
+
+        for attempt in range(1 + max_retries):
+            try:
+                print(f"  -> Direct URL: {direct_url}")
+                page.goto(direct_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+                page.wait_for_timeout(5000)
+
+                _dismiss_overlays(page)
+
+                if _wait_for_fixtures(page):
+                    if _verify_league_page_sync(page, country, league):
+                        print(f"  [OK] Direct navigation succeeded: {country}/{league}")
+                        return True
+                    else:
+                        print(f"  [FAIL] PAGE VERIFICATION FAILED: {country}/{league} — sidebar fallback")
+                        break
+                else:
+                    print(f"  x fixtures did not render for {country}/{league}")
+
+            except Exception as exc:
+                print(f"  x direct nav error attempt {attempt+1}: {exc}")
+                if attempt < max_retries:
+                    time.sleep(2)
+
+    # Fallback: click .top-link in .popular-list
+    for attempt in range(1 + max_retries):
+        try:
+            if "/sr:" in page.url or "/ng/sport/football" not in page.url:
+                page.goto(f"{BASE_URL}/ng/sport/football",
+                          wait_until="domcontentloaded",
+                          timeout=PAGE_LOAD_TIMEOUT)
+                page.wait_for_timeout(2000)
+
+            _dismiss_overlays(page)
+
+            league_link = page.locator(
+                f'.popular-list .top-link:has(.top-link-item:text-is("{league}"))'
+            ).first
+
+            if league_link.count() == 0:
+                league_link = page.locator(
+                    f'.popular-list .top-link:has(.top-link-item:has-text("{league}"))'
+                ).first
+
+            if league_link.count() == 0:
+                league_link = page.locator(
+                    f'.popular-list .top-link:has(.top-link-item:text-matches("{league}", "i"))'
+                ).first
+
+            if league_link.count() == 0:
+                print(f"  x league link not found in popular-list: {league!r}")
+                break
+
+            print(f"  -> Clicking top-link for {league}")
+            league_link.click()
+            page.wait_for_timeout(3000)
+
+            if _wait_for_fixtures(page):
+                if _verify_league_page_sync(page, country, league):
+                    print(f"  [OK] Click navigation succeeded: {country}/{league}")
+                    return True
+                else:
+                    print(f"  x PAGE VERIFICATION FAILED: {country}/{league}")
+                    return False
+            else:
+                print(f"  x fixtures did not render for {country}/{league}")
+
+        except Exception as exc:
+            print(f"  x click nav error attempt {attempt+1}: {exc}")
+            if attempt < max_retries:
+                time.sleep(2)
+                _reload_football(page)
+
+    # Fallback 3 (2026-08-25): tournament dropdown navigation
+    # SportyBet no longer has .category-list-item sidebar; leagues are accessed
+    # via a dropdown triggered from .tournament-name elements.
+    for attempt in range(1 + max_retries):
+        try:
+            ok = _navigate_via_dropdown(page, country, league)
+            if not ok and attempt < max_retries:
+                time.sleep(2)
+                _reload_football(page)
+                continue
+
+            if ok and _verify_league_page_sync(page, country, league):
+                print(f"  [OK] Dropdown navigation succeeded: {country}/{league}")
+                return True
+            if ok:
+                print(f"  x PAGE VERIFICATION FAILED: {country}/{league} (dropdown)")
+
+        except Exception as exc:
+            print(f"  x dropdown nav error attempt {attempt+1}: {exc}")
+            if attempt < max_retries:
+                time.sleep(2)
+                _reload_football(page)
+
+    return False
 
 if __name__ == "__main__":
     main()

@@ -1,14 +1,14 @@
 {
-  "fetched_at": 1787690905.4846861,
-  "league": "Bundesliga",
-  "country": "Germany",
+  "fetched_at": 1787691185.3360066,
+  "league": "EFL Cup",
+  "country": "England",
   "fixtures": [
     {
       "id": "42051",
       "home": "CS 2 de Mayo",
       "away": "Club Guarani Asuncion",
       "kickoff": "22:30  \nID: 42051",
-      "league": "Bundesliga",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
@@ -16,7 +16,7 @@
       "home": "Sportivo Luqueno",
       "away": "Rubio Nu",
       "kickoff": "20:00  \nID: 47086",
-      "league": "Bundesliga",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
@@ -24,7 +24,7 @@
       "home": "Sportivo San Lorenzo",
       "away": "Nacional Asuncion",
       "kickoff": "22:30  \nID: 20432",
-      "league": "Bundesliga",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
@@ -32,7 +32,7 @@
       "home": "Recoleta FC",
       "away": "Club Olimpia",
       "kickoff": "22:30  \nID: 29794",
-      "league": "Bundesliga",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
@@ -40,15 +40,7 @@
       "home": "Cerro Porteno",
       "away": "Libertad Asuncion",
       "kickoff": "20:00  \nID: 33855",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Bodoe/Glimt",
-      "away": "NEC Nijmegen",
-      "kickoff": "87:06\nH2",
-      "league": "Bundesliga",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
@@ -56,71 +48,79 @@
       "home": "LASK Linz",
       "away": "Celtic",
       "kickoff": "90:00\nH2",
-      "league": "Bundesliga",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
-      "id": "Bundesliga-7",
-      "home": "Stoke City",
-      "away": "Hull City",
-      "kickoff": "120:00\nPenalty",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "Bundesliga-8",
+      "id": "EFL Cup-6",
       "home": "Walsall FC",
       "away": "Leyton Orient London",
       "kickoff": "120:00\nPenalty",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Birmingham City",
-      "away": "Brentford",
-      "kickoff": "89:57\nH2",
-      "league": "Bundesliga",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
       "id": "2",
       "home": "Nottingham Forest",
       "away": "Leeds United",
-      "kickoff": "91:13\nH2",
-      "league": "Bundesliga",
+      "kickoff": "95:47\nH2",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
       "id": "2",
       "home": "Valencia",
       "away": "Betis",
-      "kickoff": "85:47\nH2",
-      "league": "Bundesliga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Kelty Hearts FC",
-      "away": "Clydebank FC",
-      "kickoff": "89:47\nH2",
-      "league": "Bundesliga",
+      "kickoff": "90:00\nH2",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
       "id": "1",
       "home": "Boca Juniors de Cali",
       "away": "Bogota FC",
-      "kickoff": "17:31\nH1",
-      "league": "Bundesliga",
+      "kickoff": "22:22\nH1",
+      "league": "EFL Cup",
       "raw_market": {}
     },
     {
       "id": "2",
       "home": "Club General Caballero JLM",
       "away": "Rubio Nu",
-      "kickoff": "89:18\nH2",
-      "league": "Bundesliga",
+      "kickoff": "90:00\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "GV Club Deportivo San Jose de Oruro",
+      "away": "Oriente Petrolero",
+      "kickoff": "88:22\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Afturelding",
+      "away": "Grotta",
+      "kickoff": "76:55\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Sporting CP",
+      "away": "SL Benfica",
+      "kickoff": "90:00\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Alianza Atletico",
+      "away": "UTC de Cajamarca",
+      "kickoff": "45:00\nH1",
+      "league": "EFL Cup",
       "raw_market": {}
     }
   ]

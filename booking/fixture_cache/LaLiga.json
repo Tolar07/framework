@@ -1,53 +1,125 @@
 {
-  "fetched_at": 1787649926.1351712,
+  "fetched_at": 1787691111.432513,
   "league": "LaLiga",
   "country": "Spain",
   "fixtures": [
     {
-      "id": "42454",
-      "home": "Measurers Club",
-      "away": "Mohammedan SC Reserves",
-      "kickoff": "10:30  \nID: 42454",
+      "id": "42051",
+      "home": "CS 2 de Mayo",
+      "away": "Club Guarani Asuncion",
+      "kickoff": "22:30  \nID: 42051",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
-      "id": "42793",
-      "home": "United Sports Club",
-      "away": "Police AC",
-      "kickoff": "10:30  \nID: 42793",
+      "id": "47086",
+      "home": "Sportivo Luqueno",
+      "away": "Rubio Nu",
+      "kickoff": "20:00  \nID: 47086",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Salkia FDS Asson",
-      "away": "Mohammedan AC",
-      "kickoff": "21:14\nH1",
+      "id": "20432",
+      "home": "Sportivo San Lorenzo",
+      "away": "Nacional Asuncion",
+      "kickoff": "22:30  \nID: 20432",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "29794",
+      "home": "Recoleta FC",
+      "away": "Club Olimpia",
+      "kickoff": "22:30  \nID: 29794",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "33855",
+      "home": "Cerro Porteno",
+      "away": "Libertad Asuncion",
+      "kickoff": "20:00  \nID: 33855",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Valencia SRL",
-      "away": "Betis SRL",
-      "kickoff": "65:53\nH2",
+      "home": "LASK Linz",
+      "away": "Celtic",
+      "kickoff": "90:00\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
-      "id": "LaLiga-4",
-      "home": "Preah Sihanouk Province",
-      "away": "Kampot Province",
-      "kickoff": "45:00\nHT",
+      "id": "LaLiga-6",
+      "home": "Stoke City",
+      "away": "Hull City",
+      "kickoff": "120:00\nPenalty",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "LaLiga-7",
+      "home": "Walsall FC",
+      "away": "Leyton Orient London",
+      "kickoff": "120:00\nPenalty",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Nottingham Forest",
+      "away": "Leeds United",
+      "kickoff": "94:36\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Valencia",
+      "away": "Betis",
+      "kickoff": "89:04\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Brotherhood FC",
-      "away": "Gangtok Himalayan SC",
-      "kickoff": "06:41\nH1",
+      "home": "Boca Juniors de Cali",
+      "away": "Bogota FC",
+      "kickoff": "21:03\nH1",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Club General Caballero JLM",
+      "away": "Rubio Nu",
+      "kickoff": "90:00\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "GV Club Deportivo San Jose de Oruro",
+      "away": "Oriente Petrolero",
+      "kickoff": "87:24\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Afturelding",
+      "away": "Grotta",
+      "kickoff": "75:46\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Sporting CP",
+      "away": "SL Benfica",
+      "kickoff": "90:00\nH2",
       "league": "LaLiga",
       "raw_market": {}
     }

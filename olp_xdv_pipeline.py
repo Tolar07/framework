@@ -1522,7 +1522,7 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         feed_audit_authorized = agent10.get("publish_authorization", {}).get("authorized", False)
         skipped_count = len(agent8.get("skipped_positions", []))
 
-    # Render telegram board using the exact same function signature as run_daily.py
+    # Render telegram board in compact heartbeat format (Architect-approved)
     telegram_content = render_telegram_board(
         mode="Mode A",
         phase=PHASE_LABEL,
@@ -1535,7 +1535,8 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         rolling_7d=rolling_7d,
         produced_bet=produced_record,
         production=production,
-        codes=codes_result
+        codes=codes_result,
+        compact=True
     )
 
     # Write telegram file

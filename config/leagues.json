@@ -1,0 +1,1446 @@
+{
+  "schema_version": 1,
+  "description": "Dynamic league registry — single source of truth for league eligibility and per-source IDs. Add a league here to expand coverage (no code edits). Seeded with ALL UEFA top-flight club leagues (aggressive European expansion, Architect 2026-08-12). Sources: thesportsdb (fixtures), odds_api (The Odds API), api_football (history fallback, paid plan unlocks current season), football_data (football-data.co.uk, European top flights only). Null = source does not cover this league (honest NO DATA — PENDING).",
+  "leagues": [
+    {
+      "name": "Premier League",
+      "country": "England",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4328,
+        "odds_api": "soccer_epl",
+        "api_football": 39,
+        "football_data": "E0"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "La Liga",
+      "country": "Spain",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4335,
+        "odds_api": "soccer_spain_la_liga",
+        "api_football": 140,
+        "football_data": "SP1"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Serie A",
+      "country": "Italy",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4332,
+        "odds_api": "soccer_italy_serie_a",
+        "api_football": 135,
+        "football_data": "I1"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Coppa Italia",
+      "country": "Italy",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": "soccer_italy_coppa_italia",
+        "api_football": 152,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Copa del Rey",
+      "country": "Spain",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": "soccer_spain_copa_del_rey",
+        "api_football": 154,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "DFB-Pokal",
+      "country": "Germany",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": "soccer_germany_dfb_pokal",
+        "api_football": 151,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Coupe de France",
+      "country": "France",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": "soccer_france_coupe_de_france",
+        "api_football": 66,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "FA Cup",
+      "country": "England",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": "soccer_england_fa_cup",
+        "api_football": 45,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "KNVB Beker",
+      "country": "Netherlands",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": "soccer_netherlands_knvb_beker",
+        "api_football": 97,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Taça de Portugal",
+      "country": "Portugal",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": "soccer_portugal_taca_de_portugal",
+        "api_football": 114,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Bundesliga",
+      "country": "Germany",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4331,
+        "odds_api": "soccer_germany_bundesliga",
+        "api_football": 78,
+        "football_data": "D1"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Ligue 1",
+      "country": "France",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4334,
+        "odds_api": "soccer_france_ligue_one",
+        "api_football": 61,
+        "football_data": "F1"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Champions League",
+      "country": "Europe",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "odds_api",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4480,
+        "odds_api": "soccer_uefa_champs_league_qualification",
+        "api_football": 2,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Europa League",
+      "country": "Europe",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4481,
+        "odds_api": null,
+        "api_football": 3,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Conference League",
+      "country": "Europe",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": null,
+        "api_football": 848,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "UEFA Super Cup",
+      "country": "World",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4512,
+        "odds_api": null,
+        "api_football": 529,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Scottish Premiership",
+      "country": "Scotland",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4330,
+        "odds_api": "soccer_spl",
+        "api_football": 179,
+        "football_data": "SC0"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Belgian Pro League",
+      "country": "Belgium",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_�primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4338,
+        "odds_api": "soccer_belgium_first_div",
+        "api_football": 144,
+        "football_data": "B1"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Eredivisie",
+      "country": "Netherlands",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4337,
+        "odds_api": "soccer_netherlands_eredivisie",
+        "api_football": 88,
+        "football_data": "N1"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Championship",
+      "country": "England",
+      "tier": 2,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "odds_api",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4329,
+        "odds_api": "soccer_efl_champ",
+        "api_football": 40,
+        "football_data": "E1"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "La Liga 2",
+      "country": "Spain",
+      "tier": 2,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4400,
+        "odds_api": "soccer_spain_segunda_division",
+        "api_football": 141,
+        "football_data": "SP2"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Serie B",
+      "country": "Italy",
+      "tier": 2,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "api_football",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": "soccer_italy_serie_b",
+        "api_football": 136,
+        "football_data": "I2"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "2. Bundesliga",
+      "country": "Germany",
+      "tier": 2,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4399,
+        "odds_api": "soccer_germany_bundesliga2",
+        "api_football": 79,
+        "football_data": "BL2"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Ligue 2",
+      "country": "France",
+      "tier": 2,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4401,
+        "odds_api": "soccer_france_ligue_two",
+        "api_football": 62,
+        "football_data": "F2"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Primeira Liga",
+      "country": "Portugal",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4344,
+        "odds_api": "soccer_portugal_primeira_liga",
+        "api_football": 94,
+        "football_data": "P1"
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Danish Superliga",
+      "country": "Denmark",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data_extra",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4340,
+        "odds_api": "soccer_denmark_superliga",
+        "api_football": 119,
+        "football_data": "DNK"
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Ekstraklasa",
+      "country": "Poland",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data_extra",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4422,
+        "odds_api": "soccer_poland_ekstraklasa",
+        "api_football": 106,
+        "football_data": "POL"
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "HNL",
+      "country": "Croatia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4629,
+        "odds_api": "soccer_croatia_hnl",
+        "api_football": 210,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Austrian Bundesliga",
+      "country": "Austria",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "football_data_extra",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4621,
+        "odds_api": "soccer_austria_bundesliga",
+        "api_football": 145,
+        "football_data": "AUT"
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "EFL Cup",
+      "country": "England",
+      "tier": 2,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "odds_api",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": "soccer_england_efl_cup",
+        "api_football": 48,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Turkish Super Lig",
+      "country": "Turkey",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4339,
+        "odds_api": "soccer_turkey_super_league",
+        "api_football": 203,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Russian Premier League",
+      "country": "Russia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4355,
+        "odds_api": "soccer_russia_premier_league",
+        "api_football": 235,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Swiss Super League",
+      "country": "Switzerland",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4675,
+        "odds_api": null,
+        "api_football": 207,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "Greek Super League",
+      "country": "Greece",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4336,
+        "odds_api": "soccer_greece_super_league",
+        "api_football": 197,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Czech First League",
+      "country": "Czech Republic",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4631,
+        "odds_api": null,
+        "api_football": 326,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Romanian Liga I",
+      "country": "Romania",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4691,
+        "odds_api": null,
+        "api_football": 283,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Ukrainian Premier League",
+      "country": "Ukraine",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4354,
+        "odds_api": null,
+        "api_football": 333,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Serbian Super Liga",
+      "country": "Serbia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4671,
+        "odds_api": null,
+        "api_football": 286,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Norwegian Eliteserien",
+      "country": "Norway",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4358,
+        "odds_api": "soccer_norway_eliteserien",
+        "api_football": 103,
+        "football_data": "NOR"
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Swedish Allsvenskan",
+      "country": "Sweden",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4347,
+        "odds_api": "soccer_sweden_allsvenskan",
+        "api_football": 113,
+        "football_data": "SWE"
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Finnish Veikkausliiga",
+      "country": "Finland",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4636,
+        "odds_api": "soccer_finland_veikkausliiga",
+        "api_football": 244,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Hungarian NB I",
+      "country": "Hungary",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4690,
+        "odds_api": null,
+        "api_football": 271,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Slovak Super Liga",
+      "country": "Slovakia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4672,
+        "odds_api": null,
+        "api_football": 332,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Slovenian PrvaLiga",
+      "country": "Slovenia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4677,
+        "odds_api": null,
+        "api_football": 360,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Bulgarian First League",
+      "country": "Bulgaria",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4626,
+        "odds_api": null,
+        "api_football": 172,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Israeli Premier League",
+      "country": "Israel",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4644,
+        "odds_api": null,
+        "api_football": 383,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Cypriot First Division",
+      "country": "Cyprus",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4630,
+        "odds_api": null,
+        "api_football": 339,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Albanian Superliga",
+      "country": "Albania",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4617,
+        "odds_api": null,
+        "api_football": 310,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Armenian Premier League",
+      "country": "Armenia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4619,
+        "odds_api": null,
+        "api_football": 342,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Azerbaijani Premyer Liqa",
+      "country": "Azerbaijan",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": null,
+        "api_football": 419,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Belarusian Premier League",
+      "country": "Belarus",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": null,
+        "api_football": 116,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Kazakhstan Premier League",
+      "country": "Kazakhstan",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4649,
+        "odds_api": null,
+        "api_football": 389,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Kosovan Superliga",
+      "country": "Kosovo",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": null,
+        "api_football": 664,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Latvian Virsliga",
+      "country": "Latvia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4650,
+        "odds_api": null,
+        "api_football": 365,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Lithuanian A Lyga",
+      "country": "Lithuania",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4651,
+        "odds_api": null,
+        "api_football": 362,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Luxembourg National Division",
+      "country": "Luxembourg",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4694,
+        "odds_api": null,
+        "api_football": 261,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Maltese Premier League",
+      "country": "Malta",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4653,
+        "odds_api": null,
+        "api_football": 393,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Moldovan Super Liga",
+      "country": "Moldova",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4655,
+        "odds_api": null,
+        "api_football": 394,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Montenegrin First League",
+      "country": "Montenegro",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4656,
+        "odds_api": null,
+        "api_football": 355,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Estonian Meistriliiga",
+      "country": "Estonia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4634,
+        "odds_api": null,
+        "api_football": 329,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Georgian Erovnuli Liga",
+      "country": "Georgia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4638,
+        "odds_api": null,
+        "api_football": 327,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Northern Irish Premiership",
+      "country": "Northern Ireland",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4659,
+        "odds_api": null,
+        "api_football": 513,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Welsh Premier League",
+      "country": "Wales",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4472,
+        "odds_api": null,
+        "api_football": 110,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Republic of Ireland Premier Division",
+      "country": "Republic of Ireland",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": null,
+        "api_football": 439,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Icelandic Urvalsdeild",
+      "country": "Iceland",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4642,
+        "odds_api": null,
+        "api_football": 221,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Faroe Islands Premier League",
+      "country": "Faroe Islands",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4635,
+        "odds_api": null,
+        "api_football": 433,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "North Macedonian First League",
+      "country": "North Macedonia",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4652,
+        "odds_api": null,
+        "api_football": 306,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Bosnian Premier League",
+      "country": "Bosnia and Herzegovina",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": null,
+        "api_football": 314,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Gibraltarian National League",
+      "country": "Gibraltar",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4678,
+        "odds_api": null,
+        "api_football": 520,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Andorran Primera Divisió",
+      "country": "Andorra",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": null,
+        "api_football": 319,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Sanmarinese Campionato",
+      "country": "San Marino",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4667,
+        "odds_api": null,
+        "api_football": 323,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    },
+    {
+      "name": "Liechtensteiner Cup",
+      "country": "Liechtenstein",
+      "tier": 1,
+      "type": "club",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": null,
+        "odds_api": null,
+        "api_football": 528,
+        "football_data": null
+      },
+      "deploy_eligible": false
+    }
+  ]
+}

@@ -1,53 +1,125 @@
 {
-  "fetched_at": 1787649973.6449893,
+  "fetched_at": 1787691149.5648,
   "league": "Champions League",
   "country": "International Clubs",
   "fixtures": [
     {
-      "id": "42454",
-      "home": "Measurers Club",
-      "away": "Mohammedan SC Reserves",
-      "kickoff": "10:30  \nID: 42454",
+      "id": "42051",
+      "home": "CS 2 de Mayo",
+      "away": "Club Guarani Asuncion",
+      "kickoff": "22:30  \nID: 42051",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "42793",
-      "home": "United Sports Club",
-      "away": "Police AC",
-      "kickoff": "10:30  \nID: 42793",
+      "id": "47086",
+      "home": "Sportivo Luqueno",
+      "away": "Rubio Nu",
+      "kickoff": "20:00  \nID: 47086",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Salkia FDS Asson",
-      "away": "Mohammedan AC",
-      "kickoff": "22:14\nH1",
+      "id": "20432",
+      "home": "Sportivo San Lorenzo",
+      "away": "Nacional Asuncion",
+      "kickoff": "22:30  \nID: 20432",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "29794",
+      "home": "Recoleta FC",
+      "away": "Club Olimpia",
+      "kickoff": "22:30  \nID: 29794",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "33855",
+      "home": "Cerro Porteno",
+      "away": "Libertad Asuncion",
+      "kickoff": "20:00  \nID: 33855",
       "league": "Champions League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Valencia SRL",
-      "away": "Betis SRL",
-      "kickoff": "66:23\nH2",
+      "home": "LASK Linz",
+      "away": "Celtic",
+      "kickoff": "90:00\nH2",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "Champions League-4",
-      "home": "Preah Sihanouk Province",
-      "away": "Kampot Province",
-      "kickoff": "45:00\nHT",
+      "id": "Champions League-6",
+      "home": "Walsall FC",
+      "away": "Leyton Orient London",
+      "kickoff": "120:00\nPenalty",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Nottingham Forest",
+      "away": "Leeds United",
+      "kickoff": "94:51\nH2",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Valencia",
+      "away": "Betis",
+      "kickoff": "90:00\nH2",
       "league": "Champions League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Brotherhood FC",
-      "away": "Gangtok Himalayan SC",
-      "kickoff": "07:30\nH1",
+      "home": "Boca Juniors de Cali",
+      "away": "Bogota FC",
+      "kickoff": "21:39\nH1",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Club General Caballero JLM",
+      "away": "Rubio Nu",
+      "kickoff": "90:00\nH2",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "GV Club Deportivo San Jose de Oruro",
+      "away": "Oriente Petrolero",
+      "kickoff": "88:22\nH2",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Afturelding",
+      "away": "Grotta",
+      "kickoff": "76:07\nH2",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Sporting CP",
+      "away": "SL Benfica",
+      "kickoff": "90:00\nH2",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Alianza Atletico",
+      "away": "UTC de Cajamarca",
+      "kickoff": "45:00\nH1",
       "league": "Champions League",
       "raw_market": {}
     }

@@ -1147,6 +1147,107 @@ def _league_of(bf: BoardFixture) -> str:
     return bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture else "—"
 
 
+def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None) -> str:
+    """Compact heartbeat format for Telegram — minimal, kickoff + pick + alt markets.
+
+    Matches the Architect's preferred compact format:
+    ##########OLP XDV#########
+    ==================================
+
+    📅  Tue 25 Aug 2026   (PICK · win %  ·  alt markets)
+
+    ⚽  Champions League
+       20:00   Sabah FA v Hapoel Beer Sheva
+       ??:??   Bodo/Glimt v NEC Nijmegen
+       ??:??   Lask Linz v Celtic
+               O1.5 94%  ·  O2.5 83%  ·  O3.5 66%  ·  BTTS 43%
+               🔁 Celtic 92%
+       ??:??   Bodoe/Glimt v Nijmegen
+               ➡ Bodoe/Glimt 69%
+
+    ⚽  La Liga
+       ??:??   Valencia v Betis
+               O1.5 76%  ·  O2.5 51%  ·  O3.5 29%  ·  BTTS 55%
+               🔁 Betis 38%
+
+    ==================================
+    """
+    from collections import defaultdict
+    import re
+
+    if target_date is None:
+        target_date = date.today().isoformat()
+
+    y, m, d = map(int, target_date.split('-'))
+    dt = date(y, m, d)
+    _WEEKDAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+    _MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    date_label = f'{_WEEKDAYS[dt.weekday()]} {dt.day:02d} {_MONTHS[dt.month-1]} {dt.year}'
+
+    # Group by league
+    leagues: dict[str, list[BoardFixture]] = defaultdict(list)
+    for bf in board:
+        fx = getattr(bf, "fixture", "")
+        if "(" not in fx:
+            continue
+        league = fx.rsplit('(', 1)[-1].rstrip(')')
+        leagues[league].append(bf)
+
+    lines: list[str] = []
+    lines.append("##########OLP XDV#########")
+    lines.append("==================================")
+    lines.append("")
+    lines.append(f"📅  {date_label}   (PICK · win %  ·  alt markets)")
+    lines.append("")
+
+    for league in sorted(leagues.keys()):
+        entries = leagues[league]
+        lines.append(f"⚽  {league}")
+
+        for bf in entries:
+            fx = getattr(bf, "fixture", "")
+            match = fx.rsplit('(', 1)[0].strip()
+
+            p = getattr(bf, "probs", None)
+            if p:
+                # Best 1X2 pick
+                probs = [(p.p_home, 'home'), (p.p_draw, 'draw'), (p.p_away, 'away')]
+                prob, side = max(probs, key=lambda x: x[0])
+                label = {'home': 'home', 'draw': 'Draw', 'away': 'away'}[side]
+                arrow = "➡" if label == 'home' else ("⚪" if label == 'Draw' else "🔁")
+
+                # Alt markets
+                alt = []
+                if p.p_over_15 is not None: alt.append(f"O1.5 {round(p.p_over_15*100)}%")
+                if p.p_over_25 is not None: alt.append(f"O2.5 {round(p.p_over_25*100)}%")
+                if p.p_over_35 is not None: alt.append(f"O3.5 {round(p.p_over_35*100)}%")
+                if p.p_btts_yes is not None: alt.append(f"BTTS {round(p.p_btts_yes*100)}%")
+
+                kickoff = getattr(bf, "kickoff_utc", None)
+                if kickoff and 'T' in kickoff:
+                    m_ko = re.match(r'\d{4}-\d{2}-\d{2}T(\d{2}:\d{2})', kickoff)
+                    ko = m_ko.group(1) if m_ko else '??:??'
+                else:
+                    ko = '??:??'
+
+                lines.append(f"   {ko}   {match}")
+                if alt:
+                    lines.append(f"       {'  ·  '.join(alt)}")
+                lines.append(f"       {arrow} {label} {round(prob*100)}%")
+            else:
+                kickoff = getattr(bf, "kickoff_utc", None)
+                if kickoff and 'T' in kickoff:
+                    m_ko = re.match(r'\d{4}-\d{2}-\d{2}T(\d{2}:\d{2})', kickoff)
+                    ko = m_ko.group(1) if m_ko else '??:??'
+                else:
+                    ko = '??:??'
+                lines.append(f"   {ko}   {match}")
+
+    lines.append("")
+    lines.append("==================================")
+    return '\n'.join(lines)
+
+
 def _result_pick(bf: BoardFixture) -> tuple[str, float, bool]:
     """The model's predicted RESULT for this fixture (Architect 2026-08-05:
     'the prediction without the markets'). Returns (name, probability,
@@ -1302,18 +1403,21 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                            rolling_7d: Optional[dict] = None,
                            produced_bet: Optional[dict] = None,
                            production: Optional[object] = None,
-                           codes: Optional[dict] = None) -> str:
-    """The Telegram push — ScoreGPT format (ID414). Header, one-line flag count,
-    the FULL scan board (league-grouped cards), then the production block —
-    Acca A (headline) -> split accas -> singles, each with its SportyBet
-    booking code — then 'Yesterday — graded' and the 7-day rolling bar. The
-    ⭐ TODAY'S PICKS parlay is retired (2026-08-10): Acca A is the headline.
-    Output order per production intent #7: full board -> Acca A -> split accas
-    -> singles, with codes. Optional yesterday_graded / rolling_7d come from
-    the brain (ID414); produced_bet is the day's produced-bet record (ID415);
-    `production` is the day's ProductionBets (computed from the board when not
-    provided); `codes` is the SportyBet booking-code result dict (None renders
-    honest NO DATA — PENDING per item, HR35)."""
+                           codes: Optional[dict] = None,
+                           compact: bool = False,
+                           target_date: str = None) -> str:
+    """The Telegram push. Two modes:
+
+    compact=True  →  render_compact_heartbeat: minimal kickoff+pick+altmarkets
+                     (Architect-approved heartbeat format, 2026-08-25).
+    compact=False →  full ScoreGPT board (ID414): header, flag count, full scan
+                     table, production block, yesterday graded, rolling bar.
+
+    All other parameters are passed through for the full-format path but
+    ignored when compact=True (only board + target_date matter there)."""
+    if compact:
+        return render_compact_heartbeat(board, target_date=target_date)
+
     clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
     scan_txt, any_away = render_scan_tables(board)
     leagues_with_fixtures = len({_league_of(bf) for bf in board})
@@ -1332,9 +1436,6 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
         production = build_production_bets(board)
     parts.append(render_production_block(production, codes=codes))
     if any_away:
-        # ID405 scope overridden 2026-08-11 (Architect directive): away wins may
-        # now be RECOMMENDED, not just shown. The historical measurement (away
-        # was a proven-negative market) stays as honest context, not an exclusion.
         parts.append("Away picks may now be recommended (ID405 overridden "
                      "2026-08-11, Architect directive); away was historically "
                      "measured negative — the brain learns from live legs")

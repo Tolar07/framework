@@ -50,6 +50,7 @@ from clv.closing_capture import capture_closing_lines
 from output import notify
 from output.produce_bet import render_verify_results, render_telegram_board, render_produce_bet
 from output.render_fixture_list import render_fixture_list
+from booking.verify_fixtures import _parse_bet365_datetime
 from output import whatsapp_deliver
 from output import email_deliver
 import bets.produced_bet as produced_bet
@@ -908,11 +909,12 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                 if not markets:
                     continue
                 # Build FixtureOdds with all available markets from Bet365
+                raw_dt = entry.get("match_datetime", "")
                 fx = odds_mod.FixtureOdds(
                     league=entry.get("league", ""),
                     home_team=home_team,
                     away_team=away_team,
-                    kickoff_utc=entry.get("match_datetime", ""),
+                    kickoff_utc=_parse_bet365_datetime(raw_dt),
                     source="bet365-odds",
                     source_tier="T1"
                 )
@@ -1531,7 +1533,11 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # the web feed, so the two can never disagree. The wide probability/CLV
     # artifact is still written to board_<date>.txt via render_produce_bet below
     # and served by the /board command.
-    telegram_text = render_fixture_list(board=board)
+    telegram_text = render_telegram_board(
+            mode="Mode A", phase=PHASE_LABEL,
+            leagues_scanned=leagues, calibration_count=status["legs_with_clv"],
+            mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
+            compact=True)
 
     # The FEED text — one render, two outlets (Architect 2026-08-11). This
     # exact string is BOTH what the phone receives (notify.deliver below) AND
@@ -1669,22 +1675,34 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             all_flags.append(f"pipeline bus stage 7 handoff failed ({e})")
 
     if send:
-        # The delivered body IS feed_text — the same string persisted to
-        # telegram_<date>.txt above, so the phone and the web feed are one
-        # render, two outlets (Architect 2026-08-11). BOARD_URL (set once the
-        # dashboard is hosted) rides inside feed_text.
-        delivered, notes = notify.deliver(feed_text, save_to=None)
+        # Suppress phone push for empty/paper-only boards (no deployable call).
+        # The board is still written to disk for the web feed, but we don't
+        # wake the phone for "NO DEPLOY-ELIGIBLE CALL this session" results.
+        has_deployable = (
+            (production.acca_a is not None)
+            or production.split_accas
+            or production.singles
+        )
+        if not has_deployable:
+            _mark(runlog, "Telegram push suppressed — no deployable call (empty/paper-only board)")
+        else:
+            # The delivered body IS feed_text — the same string persisted to
+            # telegram_<date>.txt above, so the phone and the web feed are one
+            # render, two outlets (Architect 2026-08-11). BOARD_URL (set once the
+            # dashboard is hosted) rides inside feed_text.
+            delivered, notes = notify.deliver(feed_text, save_to=None)
+            for n in notes:
+                print(f"  {n}")
+                _mark(runlog, n)
+            if not delivered:
+                # A run that failed to reach the phone is NOT a completed run.
+                # Reporting OK here is what let three failed message parts pass as
+                # success — the launcher then exits 0 and no alert fires.
+                _mark(runlog, "RUN FAILED — board built but delivery incomplete")
+                raise RuntimeError("Telegram delivery incomplete — see log")
+        # Always persist the full artifact for web feed / audit
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
-        for n in notes:
-            print(f"  {n}")
-            _mark(runlog, n)
-        if not delivered:
-            # A run that failed to reach the phone is NOT a completed run.
-            # Reporting OK here is what let three failed message parts pass as
-            # success — the launcher then exits 0 and no alert fires.
-            _mark(runlog, "RUN FAILED — board built but delivery incomplete")
-            raise RuntimeError("Telegram delivery incomplete — see log")
         # WhatsApp is the COPY channel, not the source of truth: a failure here
         # is logged loudly but never fails the run — Telegram already reached
         # the phone. RETIRED BY DEFAULT (ID412): the web dashboard replaced it

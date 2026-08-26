@@ -230,71 +230,79 @@ def _js_find_and_click(page: Any, selector_filter: str, click_filter: str = "") 
 
 
 def _navigate_via_dropdown(page: Any, country: str, league: str) -> bool:
-    """Sync: navigate using SportyBet's new tournament dropdown flow.
+    """Sync: navigate via the .popular-list top-links on the football homepage.
 
-    Steps: go to Ligue 1 page (country=same → same dropdown) → click dropdown
-    trigger → click target league.  Worked for France/Ligue 2 (2026-08-25).
+    SportyBet's current (2026-08-25) homepage has a `.popular-list` section
+    with direct `.top-link` anchors for every major league (Premier League,
+    Champions League, etc.).  The hrefs are browser-relative links like
+    `sport/football/sr:category:393/sr:tournament:7?source=sport_menu&sort=2`
+    — they work when followed via the browser (SPA router handles them) even
+    though the same URL typed directly as `page.goto()` produces a blank page.
 
-    Returns True if the dropdown click put us on the target page.
+    Strategy:
+    1. Go to the football homepage (`.top-link` anchors are only there).
+    2. Find a `.top-link` whose `.top-link-item` text matches the league name
+       (case-insensitive, partial match).
+    3. Click it — the browser SPA router navigates correctly.
+    4. Verify fixtures loaded on the resulting page.
     """
-    # Find the same-country popular league (any tournament under this country
-    # exposes a dropdown with all other tournaments in the same country)
-    cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
-    if not cat_tour or cat_tour[0] == 0:
+    # Step 1: ensure we're on the football homepage where .popular-list lives
+    try:
+        if "/ng/sport/football" not in page.url:
+            page.goto(f"{BASE_URL}/ng/sport/football",
+                      wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+            page.wait_for_timeout(2000)
+            _dismiss_overlays(page)
+    except Exception as exc:
+        print(f"  x could not reach football homepage: {exc}")
         return False
 
-    cat_id, known_tour = cat_tour
-    indirect_url = f"{BASE_URL}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{known_tour}?source=home&time=all&sort=2"
-
+    # Step 2: find the .top-link for this league in .popular-list
     try:
-        page.goto(indirect_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
-        page.wait_for_timeout(3000)
+        league_link = page.locator(
+            f".popular-list .top-link .top-link-item:text-is('{league}')"
+        ).first
+
+        if league_link.count() == 0:
+            # Try partial case-insensitive match
+            all_top_links = page.locator(".popular-list .top-link .top-link-item")
+            found_league = None
+            cnt = all_top_links.count()
+            league_lower = league.lower().strip()
+            for i in range(cnt):
+                item = all_top_links.nth(i)
+                txt = (item.inner_text() or "").lower().strip()
+                if league_lower in txt or txt in league_lower:
+                    found_league = item
+                    break
+
+            if found_league is None:
+                print(f"  x league not found in popular-list: {league!r}")
+                return False
+
+            # Navigate via the parent .top-link <a> element
+            link_el = found_league.locator("xpath=..")
+            link_el.scroll_into_view_if_needed()
+            page.wait_for_timeout(300)
+            link_el.click()
+        else:
+            league_link.locator("xpath=..").click()
+
+        # Wait for SPA navigation to complete
+        page.wait_for_timeout(4000)
         _dismiss_overlays(page)
-    except Exception:
+
+    except Exception as exc:
+        print(f"  x click-nav error: {exc}")
         return False
 
-    # Verify the page loaded — check we have the tournament-name elements
-    try:
-        has_dropdown = page.evaluate(
-            "() => document.querySelectorAll('.tournament-name').length > 0"
-        )
-    except Exception:
-        has_dropdown = False
-
-    if not has_dropdown:
-        return False
-
-    # Click the .tournament-name element that matches any known league for this
-    # country (this opens the dropdown)
-    # We match the first .tournament-name that is visible
-    clicked_trigger = _js_find_and_click(
-        page,
-        ".tournament-name",
-        "el.offsetParent !== null && el.textContent.trim().length > 0",
-    )
-    if not clicked_trigger:
-        # Fallback: click first .tournament-name regardless
-        clicked_trigger = _js_find_and_click(page, ".tournament-name")
-
-    if not clicked_trigger:
-        return False
-
-    # Now click the target league name in the expanded dropdown
-    # The dropdown renders .tournament-name for each option
-    target_clicked = _js_find_and_click(
-        page,
-        ".tournament-name",
-        f"el.textContent.trim() === '{league}' || el.textContent.trim().includes('{league}')",
-    )
-    if not target_clicked:
-        return False
-
-    # Wait for page to settle and check fixtures
-    _dismiss_overlays(page)
+    # Step 3: check that fixtures loaded
     if _wait_for_fixtures(page):
+        print(f"  [OK] Popular-list navigation succeeded: {country}/{league}")
         return True
-
-    return False
+    else:
+        print(f"  x fixtures did not render after popular-list click for {country}/{league}")
+        return False
 
 
 # ── core navigation ────────────────────────────────────────────────────────

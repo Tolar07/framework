@@ -1,0 +1,127 @@
+{
+  "fetched_at": 1787691185.3360066,
+  "league": "EFL Cup",
+  "country": "England",
+  "fixtures": [
+    {
+      "id": "42051",
+      "home": "CS 2 de Mayo",
+      "away": "Club Guarani Asuncion",
+      "kickoff": "22:30  \nID: 42051",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "47086",
+      "home": "Sportivo Luqueno",
+      "away": "Rubio Nu",
+      "kickoff": "20:00  \nID: 47086",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "20432",
+      "home": "Sportivo San Lorenzo",
+      "away": "Nacional Asuncion",
+      "kickoff": "22:30  \nID: 20432",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "29794",
+      "home": "Recoleta FC",
+      "away": "Club Olimpia",
+      "kickoff": "22:30  \nID: 29794",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "33855",
+      "home": "Cerro Porteno",
+      "away": "Libertad Asuncion",
+      "kickoff": "20:00  \nID: 33855",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "LASK Linz",
+      "away": "Celtic",
+      "kickoff": "90:00\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "EFL Cup-6",
+      "home": "Walsall FC",
+      "away": "Leyton Orient London",
+      "kickoff": "120:00\nPenalty",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Nottingham Forest",
+      "away": "Leeds United",
+      "kickoff": "95:47\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Valencia",
+      "away": "Betis",
+      "kickoff": "90:00\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Boca Juniors de Cali",
+      "away": "Bogota FC",
+      "kickoff": "22:22\nH1",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Club General Caballero JLM",
+      "away": "Rubio Nu",
+      "kickoff": "90:00\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "GV Club Deportivo San Jose de Oruro",
+      "away": "Oriente Petrolero",
+      "kickoff": "88:22\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Afturelding",
+      "away": "Grotta",
+      "kickoff": "76:55\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Sporting CP",
+      "away": "SL Benfica",
+      "kickoff": "90:00\nH2",
+      "league": "EFL Cup",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Alianza Atletico",
+      "away": "UTC de Cajamarca",
+      "kickoff": "45:00\nH1",
+      "league": "EFL Cup",
+      "raw_market": {}
+    }
+  ]
+}

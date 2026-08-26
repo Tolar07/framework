@@ -144,22 +144,61 @@ def _keyboard(*rows: tuple[str, ...]) -> dict:
 # Command handlers — each returns the reply text
 # --------------------------------------------------------------------------
 
-def cmd_help(text: str) -> str:
+def _unsubscribe(chat_id: str) -> bool:
+    """Remove a chat_id from the subscribers file. Returns True if removed."""
+    chat_id = str(chat_id)
+    if not SUBSCRIBERS_FILE.exists():
+        return False
+    lines = SUBSCRIBERS_FILE.read_text(encoding="utf-8").splitlines()
+    new_lines = [l for l in lines if l.strip() != chat_id]
+    if len(new_lines) == len(lines):
+        return False
+    SUBSCRIBERS_FILE.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
+    return True
+
+
+def cmd_help(text: str, is_architect: bool = False) -> str:
     """Context-aware help — shows only commands the sender can use."""
-    # Import here to avoid circular import
-    from output.notify import subscribers
-    import os
-    primary = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
-    # We don't have chat_id here, so show the subscriber-level help by default
-    # (the most permissive non-Architect view)
-    return Reply(
-        "OLP XDV commands\n\n"
-        "/board — re-send today's board\n"
-        "/code — today's SportyBet booking codes (cached or generated)\n\n"
-        f"{PHASE_LABEL}. Capital authority is the Architect's — this system "
-        "records stakes you log but never places a bet itself.",
-        keyboard=_keyboard(("/board", "/code"),
-                           ("/help",)))
+    if is_architect:
+        return Reply(
+            "OLP XDV commands (Architect)\n\n"
+            "/board       — re-send today's board\n"
+            "/status      — Phase 3 gate progress\n"
+            "/verify      — yesterday's graded results\n"
+            "/verify result — grade pending legs NOW\n"
+            "/why <n>     — full reasoning for fixture n on today's board\n"
+            "/log         — log entry price for CL-LIVE paper leg\n"
+            "/note        — log correction for review\n"
+            "/send        — run daily pipeline NOW and deliver board\n"
+            "/produce bet — run pipeline NOW, return board as reply\n"
+            "/produce search <q> — search fixtures & produce predictions\n"
+            "/debrief     — full framework status\n"
+            "/stats       — brain's plain-language stats\n"
+            "/code        — today's SportyBet booking codes\n"
+            "/fixtures    — today's fixture list with model picks\n"
+            "/ceo         — CEO orchestrator commands\n"
+            "/help        — this list\n\n"
+            f"{PHASE_LABEL}. Capital authority is the Architect's.",
+            keyboard=_keyboard(("/board", "/status", "/send"),
+                               ("/verify result", "/produce bet", "/debrief"),
+                               ("/stats", "/code", "/help")))
+    else:
+        # Subscriber / non-Architect: only /start and /stop are available
+        return Reply(
+            "OLP XDV — Subscriber access\n\n"
+            "This bot only accepts /start and /stop.\n"
+            "For anything else, this isn't the right channel.\n\n"
+            "/start — subscribe to daily board broadcasts\n"
+            "/stop  — unsubscribe from daily board broadcasts",
+            keyboard=_keyboard(("/start", "/stop")))
+
+
+def cmd_stop(_: str) -> str:
+    """/stop — unsubscribe from the daily board broadcast.
+
+    This is idempotent and can be called by any subscriber. The Architect
+    cannot be unsubscribed (their chat is the primary TELEGRAM_CHAT_ID)."""
+    return "Use /stop in chat to unsubscribe from the daily board."
 
 
 
@@ -247,6 +286,18 @@ def cmd_board(_: str) -> str:
         p = boards[-1]
     return Reply(p.read_text(encoding="utf-8"),
                  keyboard=_keyboard(("/status", "/why"), ("/verify result", "/produce bet")))
+
+
+def cmd_heartbeat(_: str) -> str:
+    """Show today's single heartbeat fixture (best pick of the day)."""
+    p = BOARD_DIR / f"heartbeat_{date.today().isoformat()}.txt"
+    if not p.exists():
+        heartbeats = sorted(BOARD_DIR.glob("heartbeat_*.txt"))
+        if not heartbeats:
+            return "No heartbeat available yet. Heartbeat is generated with the daily board."
+        p = heartbeats[-1]
+    return Reply(p.read_text(encoding="utf-8"),
+                 keyboard=_keyboard(("/board", "/status"), ("/verify result", "/produce bet")))
 
 
 def cmd_verify(arg: str) -> str:
@@ -675,7 +726,7 @@ def cmd_fixtures(_: str) -> str:
 
 
 HANDLERS = {
-    "/help": cmd_help, "/start": cmd_help,
+    "/help": cmd_help, "/start": cmd_help, "/stop": cmd_stop,
     "/status": cmd_status, "/board": cmd_board, "/verify": cmd_verify,
     "/why": cmd_why, "/log": cmd_log, "/note": cmd_note,
     "/send": cmd_send, "/run": cmd_send,
@@ -814,51 +865,55 @@ def handle_update(update: dict, token: str | None = None) -> tuple[bool, list[st
             text = data
     if not text:
         return True, notes
-    # Auto-subscribe: anyone who sends /start joins the broadcast list (once).
-    from output.notify import subscribers
+    # Subscriber management: /start subscribes, /stop unsubscribes.
+    from output.notify import subscribers as _subscribers_fn
     low = text.strip().lower()
     primary = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
     is_architect = (chat_id == primary)
-    is_subscriber = str(chat_id) in set(subscribers())
-    # Block repeated /start — only the first one subscribes
+    is_subscriber = str(chat_id) in set(_subscribers_fn())
+
+    # /start — idempotent subscribe (first time only per session, but we allow
+    # repeat sends for feedback; add_subscriber itself is idempotent on disk).
     if low.startswith("/start"):
-        if is_subscriber and not is_architect:
-            notes.append(f"BLOCKED /start from already-subscribed chat {chat_id}")
-            refusal = "You're already subscribed. Use /board or /code."
-            ok, send_notes = send_telegram(refusal, token=token, chat_id=chat_id)
-            return ok, notes
         name = ((msg.get("from") or {}).get("first_name") or "")
         is_new = add_subscriber(chat_id)
-        notes.append(f"SUBSCRIBED chat {chat_id}{(' (' + name + ')') if name else ''}"
-                     f"{' (new)' if is_new else ' (already known)'}")
-    # Commands allowed for everyone (subscribers + Architect):
-    public_cmds = {"/start", "/help"}
-    # Commands allowed for subscribers + Architect:
-    subscriber_cmds = {"/board", "/code", "/fixtures"}
-    # Commands allowed ONLY for Architect:
-    architect_only = {
-        "/status", "/verify", "/why", "/log", "/note",
-        "/send", "/run", "/produce", "/debrief", "/stats", "/ceo"
-    }
-    # Determine if this chat is allowed to run this command
-    allowed_cmd = False
-    if low in public_cmds:
-        allowed_cmd = True
-    elif is_subscriber or is_architect:
-        if low in subscriber_cmds:
-            allowed_cmd = True
-        elif is_architect and low in architect_only:
-            allowed_cmd = True
-    if not allowed_cmd:
-        notes.append(f"BLOCKED {low} from chat {chat_id} (subscriber={is_subscriber}, architect={is_architect})")
-        # Send a polite refusal
+        if is_new:
+            notes.append(f"SUBSCRIBED chat {chat_id}{(' (' + name + ')') if name else ''}")
+        else:
+            notes.append(f"/start from already-subscribed chat {chat_id}")
+        # Always confirm subscription with appropriate help
+        reply = cmd_help("", is_architect=is_architect)
+        if isinstance(reply, Reply):
+            markup = reply.keyboard
+            reply = str(reply)
+        else:
+            markup = None
+        ok, send_notes = send_telegram(reply, token=token, chat_id=chat_id,
+                                       reply_markup=markup)
+        return ok, notes
+
+    # /stop — idempotent unsubscribe.
+    if low.startswith("/stop"):
+        _unsubscribe(chat_id)
+        notes.append(f"UNSUBSCRIBED chat {chat_id}")
+        reply = "You have been unsubscribed. The daily board will no longer be sent here.\nSend /start to re-subscribe."
+        ok, send_notes = send_telegram(reply, token=token, chat_id=chat_id)
+        return ok, notes
+
+    # Access control: only the Architect has command authority.
+    # Subscribers (non-Architect) are limited to /start and /stop only.
+    # All other input from subscribers is dead-ended with a static reply.
+    if not is_architect:
+        # Subscribers get nothing but /start and /stop — anything else is dead-ended.
+        notes.append(f"BLOCKED non-command input from chat {chat_id} (not Architect)")
         refusal = (
-            "This command is not available to you.\n\n"
-            "Available to subscribers: /board, /code, /fixtures\n"
-            "Available to everyone: /start, /help"
+            "This bot only accepts /start and /stop.\n"
+            "For anything else, this isn't the right channel."
         )
         ok, send_notes = send_telegram(refusal, token=token, chat_id=chat_id)
         return ok, notes
+
+    # Architect path: route commands normally (all handlers available).
     reply = handle(text)
     markup = reply.keyboard if isinstance(reply, Reply) else None
     ok, send_notes = send_telegram(reply, token=token, chat_id=chat_id,

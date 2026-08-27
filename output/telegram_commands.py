@@ -23,14 +23,15 @@ SECURITY MODEL — read this before extending it
      the same reasoning that put the phase gate in code rather than in prose.
 
 COMMANDS
-  /board     re-send today's board
-  /status    Phase 3 gate progress
-  /verify    yesterday's graded results
-  /why <n>   full reasoning for fixture n on today's board
-  /log       Home v Away | Market | price      -> CL-LIVE paper leg (HR46)
-  /note      free text                          -> corrections log (blueprint 2.7)
-  /send        run the daily pipeline NOW and deliver the board (alias /run)
-  /produce bet run the pipeline NOW, return the board as this reply (~30s)
+  /board        re-send today's board
+  /status       Phase 3 gate progress
+  /verify       yesterday's graded results
+  /heartbeat    today's single best fixture (trackable, compounding)
+  /why <n>      full reasoning for fixture n on today's board
+  /log          Home v Away | Market | price      -> CL-LIVE paper leg (HR46)
+  /note         free text                          -> corrections log (blueprint 2.7)
+  /send         run the daily pipeline NOW and deliver the board (alias /run)
+  /produce bet  run the pipeline NOW, return the board as this reply (~30s)
   /produce search <q>  search today's fixtures for <q>, produce predictions
                        for just those matches (~30s, preview only — nothing
                        is written; the daily run owns the ledger)
@@ -736,6 +737,7 @@ HANDLERS = {
     "/ceo": cmd_ceo,
     "/code": cmd_code,
     "/fixtures": cmd_fixtures,
+    "/heartbeat": cmd_heartbeat,
 }
 
 

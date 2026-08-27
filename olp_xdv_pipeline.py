@@ -75,6 +75,7 @@ CLV_GATE_MEAN_POSITIVE = True         # publish gate: mean CLV > 0
 # fast (116ms import) instead of paying the penalty on Agent 4 execution.
 try:
     from output.produce_bet import BoardFixture
+    from output.heartbeat import select_heartbeat_fixture, render_heartbeat_telegram, save_heartbeat_record
     from engine.dixon_coles import FixtureProbabilities
     from verification.id403 import VerificationResult, Tier, SourcedDatum, verify
     from booking.verify_fixtures import verify_board
@@ -192,7 +193,12 @@ def agent_1_ingest(state: PipelineState) -> dict:
                 try:
                     fx = get_fixtures(league, state.fixtures_season, days_ahead=0,
                                       api_football_season=None)
-                    upcoming_fixtures = fx.get("fixtures") or []
+                    # Apply TEAM_ALIASES resolution (map_team) to ALL primary fixture sources
+                    # (thesportsdb, api_football, espn, odds_api) so team names are
+                    # canonicalized before they hit the model engine.
+                    raw_fixtures = fx.get("fixtures") or []
+                    upcoming_fixtures = [(map_team(league, h), map_team(league, a))
+                                         for h, a in raw_fixtures]
                     fixture_dates.update(fx.get("dates") or {})
                     src = fx.get("source", "?")
                     if fx.get("skipped"):
@@ -701,8 +707,9 @@ def agent_5_core(state: PipelineState) -> dict:
 
         # Process each fixture in this league
         for mid, fx in fixtures:
-            home = fx["home_team"]
-            away = fx["away_team"]
+            # Apply team alias mapping so fixture feed names match fitted model roster
+            home = map_team(league, fx["home_team"])
+            away = map_team(league, fx["away_team"])
             probs = None
             rating_source = None
 
@@ -1326,6 +1333,11 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
 
     date_compact = date_str.replace("-", "")
 
+    # Heartbeat text is assigned inside the wired-mode try block below; init it
+    # here so the render section never sees an UnboundLocalError if that try
+    # raises (e.g. build_production_bets faults) before reaching the assignment.
+    telegram_heartbeat = None
+
     # --- Wired mode (run_daily.py supplies the board) --------------------------
     if board is not None:
         if leagues_scanned is None:
@@ -1506,6 +1518,14 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         acca_list += production.split_accas
         acca_list += build_single_accas(production.singles)
 
+        # SELECT HEARTBEAT: Single best fixture of the day
+        heartbeat_fixture = select_heartbeat_fixture(board, target_date=date_str, odds_index=odds_index)
+        telegram_heartbeat = None
+        if heartbeat_fixture:
+            telegram_heartbeat = render_heartbeat_telegram(heartbeat_fixture)
+            # Save heartbeat selection for tracking
+            save_heartbeat_record(heartbeat_fixture)
+
         codes_result = None
         if agent8.get("singles"):
             codes_result = {
@@ -1543,6 +1563,12 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
     telegram_file = f"telegram_{date_str}.txt"
     with open(telegram_file, "w", encoding="utf-8") as f:
         f.write(telegram_content)
+
+    # Write heartbeat file (single best fixture of the day)
+    if telegram_heartbeat:
+        heartbeat_file = f"heartbeat_{date_str}.txt"
+        with open(heartbeat_file, "w", encoding="utf-8") as f:
+            f.write(telegram_heartbeat)
 
     # Write feed_audit.jsonl
     feed_audit = {

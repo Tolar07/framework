@@ -380,9 +380,9 @@ def _enrich_fixtures_with_models(
 
         # --- Enrich each fixture ---
         for bf in league_fixtures:
-            home, away = bf.fixture.split(" (")[0].split(" v ")
-            home = home.strip()
-            away = away.strip()
+            # Apply team alias mapping so fixture feed names match fitted model roster
+            home = map_team(league, bf.fixture.split(" (")[0].split(" v ")[0].strip())
+            away = map_team(league, bf.fixture.split(" (")[0].split(" v ")[1].strip())
 
             probs = predict(model, home, away)
             carry_rated = False

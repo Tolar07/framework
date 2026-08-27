@@ -256,6 +256,36 @@ def compute_survival_tier_from_variants(variants_data: Dict[str, Any]) -> str:
         return "critical"
 
 # ---------------------------------------------------------------------------
+# MOTIVATION LOGIC — Fitness-based selection pressure for variant evolution
+# ---------------------------------------------------------------------------
+
+# Import here to avoid circular dependency
+from daily_analysis_agent import (
+    compute_motivation_signals,
+    apply_motivation_signals,
+    MotivationSignal,
+)
+
+# Re-export for external use
+__all__ = [
+    "load_variant_ledger",
+    "save_variant_ledger",
+    "compute_variant_metrics",
+    "get_variant_population_status",
+    "add_variant",
+    "update_variant_status",
+    "get_variant_population_status_bridge",
+    "compute_survival_tier_from_variants",
+    "load_config",
+    "apply_config",
+    # Motivation logic exports
+    "compute_motivation_signals",
+    "apply_motivation_signals",
+    "MotivationSignal",
+]
+
+
+# ---------------------------------------------------------------------------
 # CONFIGURATION MANAGEMENT
 # ---------------------------------------------------------------------------
 

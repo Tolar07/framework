@@ -39,3 +39,7 @@
 {"ts": "2026-08-24T20:52:37.228864+00:00", "date": "2026-08-24", "gate": {"legs_with_clv": 26, "gate_requirement": 0, "mean_clv_pct": -9.364, "gate_met": false, "architect_signed_off": true, "override": true}}
 {"ts": "2026-08-24T20:52:37.399117+00:00", "date": "2026-08-24", "gate": {"legs_with_clv": 26, "gate_requirement": 0, "mean_clv_pct": -9.364, "gate_met": false, "architect_signed_off": true, "override": true}}
 {"ts": "2026-08-25T06:26:44.612543+00:00", "date": "2026-08-25", "gate": {"legs_with_clv": 42, "gate_requirement": 0, "mean_clv_pct": -10.215, "gate_met": false, "architect_signed_off": true, "override": true}}
+{"ts": "2026-08-26T06:21:43.518425+00:00", "date": "2026-08-26", "gate": {"legs_with_clv": 42, "gate_requirement": 0, "mean_clv_pct": -10.215, "gate_met": false, "architect_signed_off": true, "override": true}}
+{"ts": "2026-08-26T10:17:42.728453+00:00", "date": "2026-08-26", "gate": {"legs_with_clv": 42, "gate_requirement": 0, "mean_clv_pct": -10.215, "gate_met": false, "architect_signed_off": true, "override": true}}
+{"ts": "2026-08-27T00:24:47.376538+00:00", "date": "2026-08-27", "gate": {"legs_with_clv": 42, "gate_requirement": 0, "mean_clv_pct": -10.215, "gate_met": false, "architect_signed_off": true, "override": true}}
+{"ts": "2026-08-27T07:03:00.650665+00:00", "date": "2026-08-27", "gate": {"legs_with_clv": 42, "gate_requirement": 0, "mean_clv_pct": -10.215, "gate_met": false, "architect_signed_off": true, "override": true}}

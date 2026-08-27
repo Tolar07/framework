@@ -1,125 +1,101 @@
 {
-  "fetched_at": 1787690974.9990232,
+  "fetched_at": 1787812927.5597215,
   "league": "Europa League",
   "country": "International Clubs",
   "fixtures": [
     {
-      "id": "42051",
-      "home": "CS 2 de Mayo",
-      "away": "Club Guarani Asuncion",
-      "kickoff": "22:30  \nID: 42051",
+      "id": "45918",
+      "home": "Barcelona SRL",
+      "away": "Athletic Bilbao SRL",
+      "kickoff": "09:00  \nID: 45918",
       "league": "Europa League",
       "raw_market": {}
     },
     {
-      "id": "47086",
-      "home": "Sportivo Luqueno",
-      "away": "Rubio Nu",
-      "kickoff": "20:00  \nID: 47086",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "20432",
-      "home": "Sportivo San Lorenzo",
-      "away": "Nacional Asuncion",
-      "kickoff": "22:30  \nID: 20432",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "29794",
-      "home": "Recoleta FC",
-      "away": "Club Olimpia",
-      "kickoff": "22:30  \nID: 29794",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "33855",
-      "home": "Cerro Porteno",
-      "away": "Libertad Asuncion",
-      "kickoff": "20:00  \nID: 33855",
+      "id": "45917",
+      "home": "Celta SRL",
+      "away": "Osasuna SRL",
+      "kickoff": "09:00  \nID: 45917",
       "league": "Europa League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Bodoe/Glimt",
-      "away": "NEC Nijmegen",
-      "kickoff": "88:03\nH2",
+      "home": "BHA",
+      "away": "EVE",
+      "kickoff": "63:00\nH2",
       "league": "Europa League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "LASK Linz",
-      "away": "Celtic",
-      "kickoff": "90:00\nH2",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "Europa League-7",
-      "home": "Stoke City",
-      "away": "Hull City",
-      "kickoff": "120:00\nPenalty",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "Europa League-8",
-      "home": "Walsall FC",
-      "away": "Leyton Orient London",
-      "kickoff": "120:00\nPenalty",
+      "home": "COV",
+      "away": "NEW",
+      "kickoff": "63:00\nH2",
       "league": "Europa League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Nottingham Forest",
-      "away": "Leeds United",
-      "kickoff": "92:14\nH2",
+      "home": "CRY",
+      "away": "NFO",
+      "kickoff": "63:00\nH2",
       "league": "Europa League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Valencia",
-      "away": "Betis",
-      "kickoff": "86:35\nH2",
-      "league": "Europa League",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Boca Juniors de Cali",
-      "away": "Bogota FC",
-      "kickoff": "18:49\nH1",
+      "home": "FUL",
+      "away": "AST",
+      "kickoff": "63:00\nH2",
       "league": "Europa League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Club General Caballero JLM",
-      "away": "Rubio Nu",
-      "kickoff": "90:00\nH2",
+      "home": "HUL",
+      "away": "CHE",
+      "kickoff": "63:00\nH2",
       "league": "Europa League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "GV Club Deportivo San Jose de Oruro",
-      "away": "Oriente Petrolero",
-      "kickoff": "85:08\nH2",
+      "home": "LEE",
+      "away": "IPS",
+      "kickoff": "62:00\nH2",
       "league": "Europa League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Afturelding",
-      "away": "Grotta",
-      "kickoff": "73:18\nH2",
+      "home": "LIV",
+      "away": "MUN",
+      "kickoff": "62:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "MCI",
+      "away": "BRE",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "SUN",
+      "away": "ARS",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "TOT",
+      "away": "BOU",
+      "kickoff": "63:00\nH2",
       "league": "Europa League",
       "raw_market": {}
     }

@@ -109,7 +109,7 @@ HONEST_CAVEAT = (
 # 07:00 daily board push while keeping command responses (/code, /help, etc.)
 # working. Command responses use send_telegram() directly, not deliver().
 TELEGRAM_BOARD_DELIVERY_ENABLED = (
-    os.environ.get("TELEGRAM_BOARD_DELIVERY_ENABLED", "1").lower()
+    os.environ.get("TELEGRAM_BOARD_DELIVERY_ENABLED", "0").lower()
     not in ("0", "false", "no", "off")
 )
 

@@ -53,6 +53,9 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
+          # Board delivery is OFF by default (local .env); enforce here so CI
+          # runs cannot push a board even if the local flag is flipped.
+          TELEGRAM_BOARD_DELIVERY_ENABLED: 0
         run: |
           set -euo pipefail
           for attempt in 1 2 3; do

@@ -60,9 +60,10 @@ def select_heartbeat_fixture(
         target_date = date.today().isoformat()
 
     # Filter to today's fixtures only (production intent rule)
+    # BoardFixture has kickoff_date (not match_date)
     today_fixtures = []
     for bf in board:
-        if getattr(bf, 'match_date', None) == target_date:
+        if getattr(bf, 'kickoff_date', None) == target_date:
             today_fixtures.append(bf)
 
     if not today_fixtures:

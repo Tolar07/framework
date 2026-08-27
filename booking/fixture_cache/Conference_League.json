@@ -1,125 +1,101 @@
 {
-  "fetched_at": 1787691006.0046065,
+  "fetched_at": 1787812947.877087,
   "league": "Conference League",
   "country": "International Clubs",
   "fixtures": [
     {
-      "id": "42051",
-      "home": "CS 2 de Mayo",
-      "away": "Club Guarani Asuncion",
-      "kickoff": "22:30  \nID: 42051",
+      "id": "45918",
+      "home": "Barcelona SRL",
+      "away": "Athletic Bilbao SRL",
+      "kickoff": "09:00  \nID: 45918",
       "league": "Conference League",
       "raw_market": {}
     },
     {
-      "id": "47086",
-      "home": "Sportivo Luqueno",
-      "away": "Rubio Nu",
-      "kickoff": "20:00  \nID: 47086",
-      "league": "Conference League",
-      "raw_market": {}
-    },
-    {
-      "id": "20432",
-      "home": "Sportivo San Lorenzo",
-      "away": "Nacional Asuncion",
-      "kickoff": "22:30  \nID: 20432",
-      "league": "Conference League",
-      "raw_market": {}
-    },
-    {
-      "id": "29794",
-      "home": "Recoleta FC",
-      "away": "Club Olimpia",
-      "kickoff": "22:30  \nID: 29794",
-      "league": "Conference League",
-      "raw_market": {}
-    },
-    {
-      "id": "33855",
-      "home": "Cerro Porteno",
-      "away": "Libertad Asuncion",
-      "kickoff": "20:00  \nID: 33855",
+      "id": "45917",
+      "home": "Celta SRL",
+      "away": "Osasuna SRL",
+      "kickoff": "09:00  \nID: 45917",
       "league": "Conference League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Bodoe/Glimt",
-      "away": "NEC Nijmegen",
-      "kickoff": "88:33\nH2",
+      "home": "BHA",
+      "away": "EVE",
+      "kickoff": "64:00\nH2",
       "league": "Conference League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "LASK Linz",
-      "away": "Celtic",
-      "kickoff": "90:00\nH2",
-      "league": "Conference League",
-      "raw_market": {}
-    },
-    {
-      "id": "Conference League-7",
-      "home": "Stoke City",
-      "away": "Hull City",
-      "kickoff": "120:00\nPenalty",
-      "league": "Conference League",
-      "raw_market": {}
-    },
-    {
-      "id": "Conference League-8",
-      "home": "Walsall FC",
-      "away": "Leyton Orient London",
-      "kickoff": "120:00\nPenalty",
+      "home": "COV",
+      "away": "NEW",
+      "kickoff": "64:00\nH2",
       "league": "Conference League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Nottingham Forest",
-      "away": "Leeds United",
-      "kickoff": "92:41\nH2",
+      "home": "CRY",
+      "away": "NFO",
+      "kickoff": "64:00\nH2",
       "league": "Conference League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Valencia",
-      "away": "Betis",
-      "kickoff": "87:41\nH2",
-      "league": "Conference League",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Boca Juniors de Cali",
-      "away": "Bogota FC",
-      "kickoff": "19:16\nH1",
+      "home": "FUL",
+      "away": "AST",
+      "kickoff": "64:00\nH2",
       "league": "Conference League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Club General Caballero JLM",
-      "away": "Rubio Nu",
-      "kickoff": "90:00\nH2",
+      "home": "HUL",
+      "away": "CHE",
+      "kickoff": "64:00\nH2",
       "league": "Conference League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "GV Club Deportivo San Jose de Oruro",
-      "away": "Oriente Petrolero",
-      "kickoff": "85:41\nH2",
+      "home": "LEE",
+      "away": "IPS",
+      "kickoff": "64:00\nH2",
       "league": "Conference League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Afturelding",
-      "away": "Grotta",
-      "kickoff": "73:34\nH2",
+      "home": "LIV",
+      "away": "MUN",
+      "kickoff": "64:00\nH2",
+      "league": "Conference League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "MCI",
+      "away": "BRE",
+      "kickoff": "64:00\nH2",
+      "league": "Conference League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "SUN",
+      "away": "ARS",
+      "kickoff": "64:00\nH2",
+      "league": "Conference League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "TOT",
+      "away": "BOU",
+      "kickoff": "64:00\nH2",
       "league": "Conference League",
       "raw_market": {}
     }

@@ -1,125 +1,101 @@
 {
-  "fetched_at": 1787691111.432513,
+  "fetched_at": 1787813022.304585,
   "league": "LaLiga",
   "country": "Spain",
   "fixtures": [
     {
-      "id": "42051",
-      "home": "CS 2 de Mayo",
-      "away": "Club Guarani Asuncion",
-      "kickoff": "22:30  \nID: 42051",
+      "id": "45918",
+      "home": "Barcelona SRL",
+      "away": "Athletic Bilbao SRL",
+      "kickoff": "09:00  \nID: 45918",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
-      "id": "47086",
-      "home": "Sportivo Luqueno",
-      "away": "Rubio Nu",
-      "kickoff": "20:00  \nID: 47086",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "20432",
-      "home": "Sportivo San Lorenzo",
-      "away": "Nacional Asuncion",
-      "kickoff": "22:30  \nID: 20432",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "29794",
-      "home": "Recoleta FC",
-      "away": "Club Olimpia",
-      "kickoff": "22:30  \nID: 29794",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "33855",
-      "home": "Cerro Porteno",
-      "away": "Libertad Asuncion",
-      "kickoff": "20:00  \nID: 33855",
+      "id": "45917",
+      "home": "Celta SRL",
+      "away": "Osasuna SRL",
+      "kickoff": "09:00  \nID: 45917",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "LASK Linz",
-      "away": "Celtic",
-      "kickoff": "90:00\nH2",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "LaLiga-6",
-      "home": "Stoke City",
-      "away": "Hull City",
-      "kickoff": "120:00\nPenalty",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "LaLiga-7",
-      "home": "Walsall FC",
-      "away": "Leyton Orient London",
-      "kickoff": "120:00\nPenalty",
+      "home": "BHA",
+      "away": "EVE",
+      "kickoff": "68:00\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Nottingham Forest",
-      "away": "Leeds United",
-      "kickoff": "94:36\nH2",
+      "home": "COV",
+      "away": "NEW",
+      "kickoff": "68:00\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Valencia",
-      "away": "Betis",
-      "kickoff": "89:04\nH2",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Boca Juniors de Cali",
-      "away": "Bogota FC",
-      "kickoff": "21:03\nH1",
+      "home": "CRY",
+      "away": "NFO",
+      "kickoff": "68:00\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Club General Caballero JLM",
-      "away": "Rubio Nu",
-      "kickoff": "90:00\nH2",
+      "home": "FUL",
+      "away": "AST",
+      "kickoff": "68:00\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "GV Club Deportivo San Jose de Oruro",
-      "away": "Oriente Petrolero",
-      "kickoff": "87:24\nH2",
+      "home": "HUL",
+      "away": "CHE",
+      "kickoff": "68:00\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Afturelding",
-      "away": "Grotta",
-      "kickoff": "75:46\nH2",
+      "home": "LEE",
+      "away": "IPS",
+      "kickoff": "68:00\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Sporting CP",
-      "away": "SL Benfica",
-      "kickoff": "90:00\nH2",
+      "home": "LIV",
+      "away": "MUN",
+      "kickoff": "68:00\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "MCI",
+      "away": "BRE",
+      "kickoff": "68:00\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "SUN",
+      "away": "ARS",
+      "kickoff": "68:00\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "TOT",
+      "away": "BOU",
+      "kickoff": "68:00\nH2",
       "league": "LaLiga",
       "raw_market": {}
     }

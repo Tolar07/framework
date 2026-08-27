@@ -1,125 +1,165 @@
 {
-  "fetched_at": 1787691149.5648,
+  "fetched_at": 1787737334.6278229,
   "league": "Champions League",
   "country": "International Clubs",
   "fixtures": [
     {
-      "id": "42051",
-      "home": "CS 2 de Mayo",
-      "away": "Club Guarani Asuncion",
-      "kickoff": "22:30  \nID: 42051",
+      "id": "45758",
+      "home": "Avispa Fukuoka",
+      "away": "Verspah Oita",
+      "kickoff": "11:00  \nID: 45758",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "47086",
-      "home": "Sportivo Luqueno",
-      "away": "Rubio Nu",
-      "kickoff": "20:00  \nID: 47086",
+      "id": "37175",
+      "home": "Fagiano Okayama",
+      "away": "Belugarosso Iwami",
+      "kickoff": "11:00  \nID: 37175",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "20432",
-      "home": "Sportivo San Lorenzo",
-      "away": "Nacional Asuncion",
-      "kickoff": "22:30  \nID: 20432",
+      "id": "13771",
+      "home": "FC Imabari",
+      "away": "Blaublitz Akita",
+      "kickoff": "11:00  \nID: 13771",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "29794",
-      "home": "Recoleta FC",
-      "away": "Club Olimpia",
-      "kickoff": "22:30  \nID: 29794",
+      "id": "42663",
+      "home": "FC Tokyo",
+      "away": "AC Nagano Parceiro",
+      "kickoff": "11:00  \nID: 42663",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "33855",
-      "home": "Cerro Porteno",
-      "away": "Libertad Asuncion",
-      "kickoff": "20:00  \nID: 33855",
+      "id": "45763",
+      "home": "Gamba Osaka",
+      "away": "Mio Biwako Shiga",
+      "kickoff": "11:00  \nID: 45763",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "LASK Linz",
-      "away": "Celtic",
-      "kickoff": "90:00\nH2",
+      "id": "49679",
+      "home": "Hokkaido Consadole Sapporo",
+      "away": "Ventforet Kofu",
+      "kickoff": "11:00  \nID: 49679",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "Champions League-6",
-      "home": "Walsall FC",
-      "away": "Leyton Orient London",
-      "kickoff": "120:00\nPenalty",
+      "id": "13595",
+      "home": "Iwaki FC",
+      "away": "Oita Trinita",
+      "kickoff": "11:00  \nID: 13595",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Nottingham Forest",
-      "away": "Leeds United",
-      "kickoff": "94:51\nH2",
+      "id": "32206",
+      "home": "Jubilo Iwata",
+      "away": "Tegevajaro Miyazaki",
+      "kickoff": "11:00  \nID: 32206",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Valencia",
-      "away": "Betis",
-      "kickoff": "90:00\nH2",
+      "id": "50152",
+      "home": "Kashima Antlers",
+      "away": "Atletico Suzuka Club",
+      "kickoff": "11:00  \nID: 50152",
       "league": "Champions League",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Boca Juniors de Cali",
-      "away": "Bogota FC",
-      "kickoff": "21:39\nH1",
-      "league": "Champions League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Club General Caballero JLM",
-      "away": "Rubio Nu",
-      "kickoff": "90:00\nH2",
-      "league": "Champions League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "GV Club Deportivo San Jose de Oruro",
-      "away": "Oriente Petrolero",
-      "kickoff": "88:22\nH2",
-      "league": "Champions League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Afturelding",
-      "away": "Grotta",
-      "kickoff": "76:07\nH2",
-      "league": "Champions League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Sporting CP",
-      "away": "SL Benfica",
-      "kickoff": "90:00\nH2",
+      "id": "43321",
+      "home": "Kawasaki Frontale",
+      "away": "Tochigi SC",
+      "kickoff": "11:00  \nID: 43321",
       "league": "Champions League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Alianza Atletico",
-      "away": "UTC de Cajamarca",
-      "kickoff": "45:00\nH1",
+      "home": "Cerezo Osaka",
+      "away": "FC Gifu",
+      "kickoff": "8:12\nH1",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Machida Zelvia",
+      "away": "Iwate Grulla Morioka",
+      "kickoff": "11:34\nH1",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Sanfrecce Hiroshima",
+      "away": "Okinawa SV",
+      "kickoff": "10:09\nH1",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Tokushima Vortis",
+      "away": "FC Tokushima",
+      "kickoff": "11:23\nH1",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Tokyo Verdy",
+      "away": "Thespa Gunma",
+      "kickoff": "11:46\nH1",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Borneo Samarinda",
+      "away": "Madura United",
+      "kickoff": "57:40\nH2",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Preston Lions FC",
+      "away": "South Melbourne FC",
+      "kickoff": "10:41\nH1",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Bidhannagar Msa",
+      "away": "Bhawanipore FC",
+      "kickoff": "11:20\nH1",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "Champions League-18",
+      "home": "Calcutta Customs",
+      "away": "United Kolkata SC",
+      "kickoff": "Upcoming",
+      "league": "Champions League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Patha Chakra",
+      "away": "Bss Sporting Club",
+      "kickoff": "11:20\nH1",
       "league": "Champions League",
       "raw_market": {}
     }

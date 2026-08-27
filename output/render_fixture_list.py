@@ -115,6 +115,9 @@ def _pick_for(board: Optional[list], home: str, away: str) -> Optional[dict]:
     """Return dict with pick + all alt-market probabilities for a Home v Away
     pair from the BoardFixture list, or None if not found / no probs.
 
+    PREFERS the best positive-EV alt market (best_market / best_mes_ev from
+    BoardFixture) over the plain 1X2 result pick.
+
     Returned dict: {
         "label": str, "pct": int, "arrow": str,
         "p_home": float, "p_draw": float, "p_away": float,
@@ -130,11 +133,34 @@ def _pick_for(board: Optional[list], home: str, away: str) -> Optional[dict]:
             continue
         if (getattr(p, "home_team", "") == home
                 and getattr(p, "away_team", "") == away):
-            prob, side = max(
-                (p.p_home, "1"), (p.p_draw, "X"), (p.p_away, "2"),
-                key=lambda t: t[0])
-            label = {"1": home, "X": "Draw", "2": away}[side]
-            arrow = "➡" if label == home else ("⚪" if label == "Draw" else "🔁")
+            # Prefer the priced best market if it has positive EV
+            best_market = getattr(bf, "best_market", None)
+            best_mes_ev = getattr(bf, "best_mes_ev", None)
+            best_model_prob = getattr(bf, "best_model_prob", None)
+
+            if best_market and best_mes_ev is not None and best_mes_ev > 0:
+                # Positive EV alt market available - use it
+                label = best_market
+                prob = best_model_prob or max(p.p_home, p.p_draw, p.p_away)
+                # Arrow for alt markets
+                if "win" in label.lower() or label == p.home_team:
+                    arrow = "➡"
+                elif "draw" in label.lower():
+                    arrow = "⚪"
+                elif "away" in label.lower() or label == p.away_team:
+                    arrow = "🔁"
+                elif "both teams" in label.lower() or "btts" in label.lower():
+                    arrow = "🤝"
+                else:
+                    arrow = "📈"
+            else:
+                # Fallback: 1X2 result pick
+                prob, side = max(
+                    (p.p_home, "1"), (p.p_draw, "X"), (p.p_away, "2"),
+                    key=lambda t: t[0])
+                label = {"1": home, "X": "Draw", "2": away}[side]
+                arrow = "➡" if label == home else ("⚪" if label == "Draw" else "🔁")
+
             return {
                 "label": label,
                 "pct": round(prob * 100),

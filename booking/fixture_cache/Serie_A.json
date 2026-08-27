@@ -1,125 +1,101 @@
 {
-  "fetched_at": 1787690865.8930151,
+  "fetched_at": 1787812822.0760274,
   "league": "Serie A",
   "country": "Italy",
   "fixtures": [
     {
-      "id": "42051",
-      "home": "CS 2 de Mayo",
-      "away": "Club Guarani Asuncion",
-      "kickoff": "22:30  \nID: 42051",
+      "id": "45918",
+      "home": "Barcelona SRL",
+      "away": "Athletic Bilbao SRL",
+      "kickoff": "09:00  \nID: 45918",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "47086",
-      "home": "Sportivo Luqueno",
-      "away": "Rubio Nu",
-      "kickoff": "20:00  \nID: 47086",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "20432",
-      "home": "Sportivo San Lorenzo",
-      "away": "Nacional Asuncion",
-      "kickoff": "22:30  \nID: 20432",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "29794",
-      "home": "Recoleta FC",
-      "away": "Club Olimpia",
-      "kickoff": "22:30  \nID: 29794",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "33855",
-      "home": "Cerro Porteno",
-      "away": "Libertad Asuncion",
-      "kickoff": "20:00  \nID: 33855",
+      "id": "45917",
+      "home": "Celta SRL",
+      "away": "Osasuna SRL",
+      "kickoff": "09:00  \nID: 45917",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Bodoe/Glimt",
-      "away": "NEC Nijmegen",
-      "kickoff": "86:33\nH2",
+      "home": "BHA",
+      "away": "EVE",
+      "kickoff": "58:00\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "LASK Linz",
-      "away": "Celtic",
-      "kickoff": "90:00\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "Serie A-7",
-      "home": "Stoke City",
-      "away": "Hull City",
-      "kickoff": "120:00\nPenalty",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "Serie A-8",
-      "home": "Walsall FC",
-      "away": "Leyton Orient London",
-      "kickoff": "120:00\nPenalty",
+      "home": "COV",
+      "away": "NEW",
+      "kickoff": "58:00\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Birmingham City",
-      "away": "Brentford",
-      "kickoff": "88:57\nH2",
+      "home": "CRY",
+      "away": "NFO",
+      "kickoff": "58:00\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Nottingham Forest",
-      "away": "Leeds United",
-      "kickoff": "90:21\nH2",
+      "home": "FUL",
+      "away": "AST",
+      "kickoff": "58:00\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Valencia",
-      "away": "Betis",
-      "kickoff": "85:03\nH2",
+      "home": "HUL",
+      "away": "CHE",
+      "kickoff": "58:00\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Kelty Hearts FC",
-      "away": "Clydebank FC",
-      "kickoff": "89:08\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Boca Juniors de Cali",
-      "away": "Bogota FC",
-      "kickoff": "16:56\nH1",
+      "home": "LEE",
+      "away": "IPS",
+      "kickoff": "58:00\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Club General Caballero JLM",
-      "away": "Rubio Nu",
-      "kickoff": "88:30\nH2",
+      "home": "LIV",
+      "away": "MUN",
+      "kickoff": "58:00\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "MCI",
+      "away": "BRE",
+      "kickoff": "58:00\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "SUN",
+      "away": "ARS",
+      "kickoff": "58:00\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "TOT",
+      "away": "BOU",
+      "kickoff": "58:00\nH2",
       "league": "Serie A",
       "raw_market": {}
     }

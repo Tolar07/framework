@@ -11,6 +11,9 @@ A missing datum renders as "NO DATA — PENDING", never filled to look complete.
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
+from pathlib import Path
+import json
+import re
 from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
@@ -20,6 +23,81 @@ from engine.mes import edge_diff, mes_numeric_ev, trigger_price
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 from bets.produced_bet import render_produced_bet as render_produced_bet_block
+
+
+# The authoritative SportyBet Playwright cache the orchestrator reads
+# (booking/bridge.py _cache_path). Carries real ISO `kickoff_utc`.
+CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
+
+
+def _hhmm_from_utc(utc: Optional[str]) -> Optional[str]:
+    """Extract 'HH:MM' from an ISO timestamp; None if absent/garbled."""
+    if not utc or len(utc) < 16:
+        return None
+    m = re.match(r"\d{4}-\d{2}-\d{2}T(\d{2}:\d{2})", utc)
+    return m.group(1) if m else None
+
+
+def _load_cache(path: Path) -> dict:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def _normalize_name(name: str) -> str:
+    """Lowercase, strip SRL/fc/fc suffixes and non-alphanum for matching."""
+    n = name.lower()
+    n = re.sub(r'\b(srl|fc|afc|cf|sc|ac)\b', '', n)
+    return re.sub(r'[^a-z0-9]', '', n)
+
+
+def _cache_kickoff(board_home: str, board_away: str) -> Optional[str]:
+    """FALLBACK: find a kickoff TIME by matching home/away names ACROSS all
+    cache files (league label ignored). Returns 'HH:MM' or None. Only used when
+    the board fixture's own `kickoff_utc` is missing.
+
+    Reads the real SportyBet Playwright cache (`data/cache/sportybet/fixtures/`),
+    which stores `home_team`/`away_team` and a real ISO `kickoff_utc`
+    (e.g. "2026-08-28T19:30:00Z"). Matches by name across every file; the time
+    is the only thing taken — never the (unreliable) league label."""
+    norm_h = _normalize_name(board_home)
+    norm_a = _normalize_name(board_away)
+    if not norm_h or not norm_a:
+        return None
+    for p in CACHE_DIR.glob("*.json"):
+        data = _load_cache(p)
+        for fx in data.get("fixtures", []):
+            # Cache keys are home_team/away_team (bridge.py write path).
+            ch = _normalize_name(fx.get("home_team", "") or fx.get("home", ""))
+            ca = _normalize_name(fx.get("away_team", "") or fx.get("away", ""))
+            # Direct match or cross-match (handles home/away swapped)
+            if (ch == norm_h and ca == norm_a) or \
+               (ch == norm_a and ca == norm_h):
+                ko = _hhmm_from_utc(fx.get("kickoff_utc", "") or fx.get("kickoff", ""))
+                if ko:
+                    return ko
+            # Containment: one name contains the other both ways
+            h_contains = (norm_h in ch or ch in norm_h)
+            a_contains = (norm_a in ca or ca in norm_a)
+            if h_contains and a_contains:
+                ko = _hhmm_from_utc(fx.get("kickoff_utc", "") or fx.get("kickoff", ""))
+                if ko:
+                    return ko
+    return None
+
+
+def _kickoff_for(bf, board_home: str, board_away: str) -> str:
+    """Resolve a kickoff time for a fixture.
+
+    1. PREFERRED: the board fixture's own `kickoff_utc` (resolved at scan time).
+    2. FALLBACK: cross-cache name match for the time only.
+    3. DEFAULT: '??:??' (HR35 — never fabricate a time)."""
+    utc = getattr(bf, "kickoff_utc", None)
+    hhmm = _hhmm_from_utc(utc)
+    if hhmm:
+        return hhmm
+    return _cache_kickoff(board_home, board_away) or "??:??"
 
 
 def _lean(p_over: Optional[float], line_label: str) -> str:
@@ -1200,6 +1278,53 @@ def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None)
     lines.append(f"📅  {date_label}   (PICK · win %  ·  alt markets)")
     lines.append("")
 
+    def _best_ev_pick(p, bf, odds_index=None) -> tuple[str, float, str]:
+        """Return (market_label, prob, arrow) for the best positive-EV market.
+        Falls back to 1X2 result pick if no positive-EV alt market exists.
+        """
+        # Check if BoardFixture already has a priced best_market
+        if getattr(bf, "best_market", None) and getattr(bf, "best_mes_ev", None) is not None:
+            if bf.best_mes_ev > 0:
+                # Positive EV - use the priced best market
+                label = bf.best_market
+                prob = bf.best_model_prob or 0
+                # Determine arrow based on market type
+                if "win" in label.lower() or label == p.home_team:
+                    arrow = "➡"
+                elif "draw" in label.lower():
+                    arrow = "⚪"
+                elif "away" in label.lower() or label == p.away_team:
+                    arrow = "🔁"
+                elif "both teams" in label.lower() or "btts" in label.lower():
+                    arrow = "🤝"
+                else:
+                    arrow = "📈"
+                return label, prob, arrow
+
+        # Fallback: find best EV among all model probabilities using available odds
+        # If we don't have odds_index, use best_market from board fixture
+        if getattr(bf, "best_market", None):
+            label = bf.best_market
+            prob = bf.best_model_prob or max(p.p_home, p.p_draw, p.p_away)
+            if "win" in label.lower() or label == p.home_team:
+                arrow = "➡"
+            elif "draw" in label.lower():
+                arrow = "⚪"
+            elif "away" in label.lower() or label == p.away_team:
+                arrow = "🔁"
+            elif "both teams" in label.lower() or "btts" in label.lower():
+                arrow = "🤝"
+            else:
+                arrow = "📈"
+            return label, prob, arrow
+
+        # Final fallback: 1X2 result pick
+        probs = [(p.p_home, 'home'), (p.p_draw, 'draw'), (p.p_away, 'away')]
+        prob, side = max(probs, key=lambda x: x[0])
+        label = {'home': p.home_team, 'draw': 'Draw', 'away': p.away_team}[side]
+        arrow = "➡" if label == p.home_team else ("⚪" if label == 'Draw' else "🔁")
+        return label, prob, arrow
+
     for league in sorted(leagues.keys()):
         entries = leagues[league]
         lines.append(f"⚽  {league}")
@@ -1209,12 +1334,13 @@ def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None)
             match = fx.rsplit('(', 1)[0].strip()
 
             p = getattr(bf, "probs", None)
+            best_market = getattr(bf, "best_market", None)
+            best_mes_ev = getattr(bf, "best_mes_ev", None)
+            best_model_prob = getattr(bf, "best_model_prob", None)
+
             if p:
-                # Best 1X2 pick
-                probs = [(p.p_home, 'home'), (p.p_draw, 'draw'), (p.p_away, 'away')]
-                prob, side = max(probs, key=lambda x: x[0])
-                label = {'home': 'home', 'draw': 'Draw', 'away': 'away'}[side]
-                arrow = "➡" if label == 'home' else ("⚪" if label == 'Draw' else "🔁")
+                # Best positive-EV market pick (not just 1X2)
+                label, prob, arrow = _best_ev_pick(p, bf)
 
                 # Alt markets
                 alt = []
@@ -1223,24 +1349,49 @@ def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None)
                 if p.p_over_35 is not None: alt.append(f"O3.5 {round(p.p_over_35*100)}%")
                 if p.p_btts_yes is not None: alt.append(f"BTTS {round(p.p_btts_yes*100)}%")
 
-                kickoff = getattr(bf, "kickoff_utc", None)
-                if kickoff and 'T' in kickoff:
-                    m_ko = re.match(r'\d{4}-\d{2}-\d{2}T(\d{2}:\d{2})', kickoff)
-                    ko = m_ko.group(1) if m_ko else '??:??'
-                else:
-                    ko = '??:??'
+                # Resolve kickoff time with cache fallback
+                home_team = getattr(p, "home_team", "")
+                away_team = getattr(p, "away_team", "")
+                ko = _kickoff_for(bf, home_team, away_team)
 
                 lines.append(f"   {ko}   {match}")
                 if alt:
                     lines.append(f"       {'  ·  '.join(alt)}")
                 lines.append(f"       {arrow} {label} {round(prob*100)}%")
-            else:
-                kickoff = getattr(bf, "kickoff_utc", None)
-                if kickoff and 'T' in kickoff:
-                    m_ko = re.match(r'\d{4}-\d{2}-\d{2}T(\d{2}:\d{2})', kickoff)
-                    ko = m_ko.group(1) if m_ko else '??:??'
+            elif best_market and best_mes_ev is not None and best_model_prob is not None:
+                # No probs but we have a priced best_market pick (e.g., Bradford BTTS)
+                # Determine arrow from market type
+                label = best_market
+                prob = best_model_prob
+                if "win" in label.lower() or label == "home":
+                    arrow = "➡"
+                elif "draw" in label.lower():
+                    arrow = "⚪"
+                elif "away" in label.lower():
+                    arrow = "🔁"
+                elif "both teams" in label.lower() or "btts" in label.lower():
+                    arrow = "🤝"
                 else:
-                    ko = '??:??'
+                    arrow = "📈"
+
+                # Resolve kickoff time with cache fallback
+                home_team, away_team = "", ""
+                if " v " in match:
+                    home_team, away_team = match.split(" v ", 1)
+                    home_team = home_team.strip()
+                    away_team = away_team.strip()
+                ko = _kickoff_for(bf, home_team, away_team)
+
+                lines.append(f"   {ko}   {match}")
+                lines.append(f"       {arrow} {label} {round(prob*100)}%")
+            else:
+                # Resolve kickoff time with cache fallback even for no-probs fixtures
+                home_team, away_team = "", ""
+                if " v " in match:
+                    home_team, away_team = match.split(" v ", 1)
+                    home_team = home_team.strip()
+                    away_team = away_team.strip()
+                ko = _kickoff_for(bf, home_team, away_team)
                 lines.append(f"   {ko}   {match}")
 
     lines.append("")

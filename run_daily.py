@@ -102,6 +102,20 @@ def _mark(log: Path, message: str) -> None:
         f.write(f"[{datetime.now(timezone.utc).isoformat()}] {message}\n")
 
 
+def _board_fixture_for_leg(board: list, leg) -> "Optional[BoardFixture]":
+    """Find the BoardFixture that produced this AccaLeg by matching fixture name."""
+    from typing import Optional
+    from output.produce_bet import BoardFixture
+    _target = getattr(leg, "fixture", None) or leg.get("fixture") if isinstance(leg, dict) else None
+    if not _target:
+        return None
+    for bf in board:
+        bf_name = getattr(bf, "fixture", "") or getattr(bf, "fixture_name", "")
+        if bf_name == _target or bf_name.startswith(_target):
+            return bf
+    return None
+
+
 def _refresh_sportybet_cache(runlog: Path, days_ahead: int = 30) -> str | None:
     """Best-effort SportyBet fixture-cache refresh ahead of the run.
 
@@ -1413,16 +1427,46 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # read. Always written (even an empty acca set), so downstream consumers
     # never guess at a missing file. Carries Acca A, the split accas AND the
     # singles as 1-leg slips (production intent #6 — every single its own code).
+    # --- KICKOFF-TIME FILTER (2026-08-26): drop legs whose kickoff date
+    # --- is not today. Prevents the SportyBet booking-code generator from
+    # --- wasting a browser session on expired fixtures (e.g. Lyon v Fenerbahce
+    # --- which was a midweek UCL tie not in today's cache). Only live legs
+    # --- are navigated to, speeding up booking and eliminating MANUAL noise.
+    _expired_legs = []
+    _filtered_payload_accas = []
+    for a in acca_list:
+        _live_legs = []
+        for l in a.legs:
+            _bf = _board_fixture_for_leg(board, l)
+            if _bf is not None and _bf.kickoff_date != board_date:
+                _expired_legs.append(
+                    f"{l.fixture} ({l.league}) — kickoff {_bf.kickoff_date}")
+                continue
+            _live_legs.append(l)
+        if _live_legs:
+            _filtered_a = type(a)(
+                label=a.label, legs=_live_legs,
+                combined_odds=a.combined_odds,
+                combined_prob=a.combined_prob)
+            _filtered_payload_accas.append(_filtered_a)
+    if _expired_legs:
+        all_flags.append(
+            f"kickoff filter: dropped {len(_expired_legs)} expired leg(s) "
+            f"from booking payload")
+        _mark(runlog,
+              f"kickoff filter: {len(_expired_legs)} expired leg(s) "
+              f"skipped for SportyBet booking")
+
     acca_payload = {
         "date": board_date,
-        "n_accas": len(acca_list),
+        "n_accas": len(_filtered_payload_accas),
         "accas": [{
             "label": a.label,
             "combined_odds": a.combined_odds,
             "combined_prob": a.combined_prob,
             "n_legs": a.n_legs,
             "legs": [dataclasses.asdict(l) for l in a.legs],
-        } for a in acca_list],
+        } for a in _filtered_payload_accas],
     }
 
     # --- SPORTYBET BOOKING CODES (Phase 2 — codes only, NO stake placed).
@@ -1436,7 +1480,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # --- is preserved (the file is date-scoped, so it can never surface as
     # --- another day's) — see the codes-fix note below.
     codes_result = None
-    if booking_codes and acca_list:
+    if booking_codes and _filtered_payload_accas:
         try:
             _mark(runlog, "generating SportyBet booking codes...")
             from booking.booking_codes import book_accas, render_codes

@@ -623,6 +623,7 @@ def agent_5_core(state: PipelineState) -> dict:
         from data.football_data_source import load_league
         from data import xg_source
         from data import clubelo_source
+        from data.thesportsdb_fixtures import map_team
         from engine import cross_league as xleague
         from engine import elo as elo_engine
         from engine.consensus import compute_consensus
@@ -1518,13 +1519,17 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         acca_list += production.split_accas
         acca_list += build_single_accas(production.singles)
 
-        # SELECT HEARTBEAT: Single best fixture of the day
-        heartbeat_fixture = select_heartbeat_fixture(board, target_date=date_str, odds_index=odds_index)
+        # SELECT HEARTBEAT: Single best fixture of the day (wrapped in try so a
+        # selection failure never kills the board render)
         telegram_heartbeat = None
-        if heartbeat_fixture:
-            telegram_heartbeat = render_heartbeat_telegram(heartbeat_fixture)
-            # Save heartbeat selection for tracking
-            save_heartbeat_record(heartbeat_fixture)
+        try:
+            heartbeat_fixture = select_heartbeat_fixture(board, target_date=date_str, odds_index=odds_index)
+            if heartbeat_fixture:
+                telegram_heartbeat = render_heartbeat_telegram(heartbeat_fixture)
+                # Save heartbeat selection for tracking
+                save_heartbeat_record(heartbeat_fixture)
+        except Exception as e:
+            all_data_flags.append(f"heartbeat selection failed ({type(e).__name__}: {e})")
 
         codes_result = None
         if agent8.get("singles"):

@@ -48,7 +48,7 @@ from data.football_data_source import load_league
 from clv.clv_logger import CLVLog, compute_clv, ensemble_weights
 from clv.closing_capture import capture_closing_lines
 from output import notify
-from output.produce_bet import render_verify_results, render_telegram_board, render_produce_bet
+from output.produce_bet import render_verify_results, render_produce_bet
 from output.render_fixture_list import render_fixture_list
 from booking.verify_fixtures import _parse_bet365_datetime
 from output import whatsapp_deliver
@@ -1575,13 +1575,19 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # date-ordered teams grouped by league with pick + win% + alt markets. This
     # is the board the phone receives AND what telegram_<date>.txt persists for
     # the web feed, so the two can never disagree. The wide probability/CLV
-    # artifact is still written to board_<date>.txt via render_produce_bet below
-    # and served by the /board command.
-    telegram_text = render_telegram_board(
+    # Telegram push now carries the BLENDED 4-TABLE board (Architect 2026-08-27,
+    # per the Blended Telegram Output Design): TABLE 1 LAYER 2 FULL GRID,
+    # TABLE 2 LAYER 1 COMPACT, TABLE 3 ACCA ROUTE, TABLE 4 THE PICK — the same
+    # 4-table render the web /board command serves. The phone and web are now one
+    # render (Architect 2026-08-11: web == Telegram structurally). The old compact
+    # heartbeat is preserved as render_telegram_board(compact=True) for any caller
+    # that still wants the lean push (e.g. a future --compact-telegram flag).
+    telegram_text = render_produce_bet(
             mode="Mode A", phase=PHASE_LABEL,
             leagues_scanned=leagues, calibration_count=status["legs_with_clv"],
             mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
-            compact=True)
+            produced_bet=produced_record, production=production,
+            codes=codes_result)
 
     # The FEED text — one render, two outlets (Architect 2026-08-11). This
     # exact string is BOTH what the phone receives (notify.deliver below) AND

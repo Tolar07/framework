@@ -1,37 +1,93 @@
 {
-  "fetched_at": 1787899475.7801867,
+  "fetched_at": 1787939132.3778865,
   "league": "LaLiga",
   "country": "Spain",
   "fixtures": [
     {
-      "id": "38913",
-      "home": "Genclerbirligi SRL",
-      "away": "Buyuksehir Belediye Erzurumspor SRL",
-      "kickoff": "08:00  \nID: 38913",
+      "id": "50623",
+      "home": "Damac FC",
+      "away": "Al-Orobah",
+      "kickoff": "18:50  \nID: 50623",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Racing Santander",
+      "away": "Elche CF",
+      "kickoff": "44:29\nH1",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Dalian Young Boy FC SRL",
-      "away": "Beijing Guoan FC SRL",
-      "kickoff": "87:00\nH2",
+      "home": "Bochum",
+      "away": "VfL 1899 Osnabruck",
+      "kickoff": "54:12\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Shanghai Shenhua SRL",
-      "away": "Shandong Luneng SRL",
-      "kickoff": "83:29\nH2",
+      "home": "Eintracht Braunschweig",
+      "away": "Hertha",
+      "kickoff": "55:52\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "AC Horsens",
+      "away": "Viborg FF",
+      "kickoff": "43:55\nH1",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Shenzhen Peng City Srl",
-      "away": "Shanghai Sipg SRL",
-      "kickoff": "81:13\nH2",
+      "home": "Club Portugalete",
+      "away": "RS Gimnastica de Torrelavega",
+      "kickoff": "55:33\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Yeclano Deportivo",
+      "away": "CD Alcoyano",
+      "kickoff": "12:51\nH1",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Al Ittihad Al Sakandary",
+      "away": "Ceramica Cleopatra",
+      "kickoff": "44:01\nH1",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Zed FC",
+      "away": "AL Ahly SC (EGY)",
+      "kickoff": "42:44\nH1",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Riyadh SC",
+      "away": "Neom SC",
+      "kickoff": "94:28\nH2",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Fayha FC",
+      "away": "Abha Club",
+      "kickoff": "81:50\nH2",
       "league": "LaLiga",
       "raw_market": {}
     }

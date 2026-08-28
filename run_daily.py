@@ -1587,7 +1587,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             leagues_scanned=leagues, calibration_count=status["legs_with_clv"],
             mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
             produced_bet=produced_record, production=production,
-            codes=codes_result)
+            codes=codes_result,
+            include_data_flags=False, only_rated=True)
 
     # The FEED text — one render, two outlets (Architect 2026-08-11). This
     # exact string is BOTH what the phone receives (notify.deliver below) AND

@@ -211,7 +211,8 @@ class BoardFixture:
 
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],
                   calibration_count: int, mean_clv: Optional[float],
-                  data_flags: list[str]) -> str:
+                  data_flags: list[str],
+                  include_data_flags: bool = True) -> str:
     lines = [
         f"PART 0 — HEADER",
         f"Date: {date.today().isoformat()} | Mode: {mode} | Phase: {phase}",
@@ -220,7 +221,7 @@ def render_part0(mode: str, phase: str, leagues_scanned: list[str],
         f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None
         else f"Calibration: {calibration_count} legs logged, CLV logged: ZERO",
     ]
-    if data_flags:
+    if include_data_flags and data_flags:
         lines.append("DATA FLAGS (surfaced first, per HR53/ID403):")
         lines.extend(f"  ⚠ {flag}" for flag in data_flags)
     lines.append("HONEST EDGE LINE: this is an excellent informed process but "
@@ -742,7 +743,9 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
                         stacked: bool = True,
                         produced_bet: Optional[dict] = None,
                         production: Optional[object] = None,
-                        codes: Optional[dict] = None) -> str:
+                        codes: Optional[dict] = None,
+                        include_data_flags: bool = True,
+                        only_rated: bool = False) -> str:
     """FOUR-TABLE OUTPUT STRUCTURE (Architect 2026-08-21):
 
     TABLE 1 — LAYER 2 FULL GRID: Every fixture × every market probability with
@@ -758,8 +761,17 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
     All markets considered (ID405 gate open per Architect 2026-08-11).
     Alternative markets (BTTS, Double Chance, Over/Under 1.5, Over/Under 2.5,
     Draw No Bet, Over/Under 3.5, Over/Under 0.5, HT/FT, Correct Score) are
-    evaluated for every fixture and the best-EV market is selected per fixture."""
+    evaluated for every fixture and the best-EV market is selected per fixture.
+
+    include_data_flags=False omits the DATA FLAGS section from the output
+    (Architect 2026-08-28: flags live on disk/web, not in the phone message).
+    only_rated=True drops unrated fixtures (those rendering as NO DATA — PENDING)
+    from the phone push so the message shows only priced, scored fixtures;
+    the on-disk board keeps the full scan for audit."""
     today = date.today().isoformat()
+    # only_rated: phone push shows priced fixtures only; unrated rows stay on disk
+    if only_rated:
+        board = [bf for bf in board if bf.probs is not None]
     shortlist = [bf for bf in board
                  if bf.on_deploy_shortlist and bf.kickoff_date == today]
     if production is None:
@@ -799,7 +811,7 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
         odds_index = None
 
     parts = [
-        render_part0(mode, phase, leagues_scanned, calibration_count, mean_clv, data_flags),
+        render_part0(mode, phase, leagues_scanned, calibration_count, mean_clv, data_flags, include_data_flags=include_data_flags),
         "",
         # TABLE 1: LAYER 2 FULL GRID
         render_layer2_full_grid(board, codes=codes, odds_index=odds_index),
@@ -1578,9 +1590,8 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
         f"fixtures\n"
         f"Calibration: {calibration_count} legs logged, {clv}",
     ]
-    if data_flags:
-        parts.append(f"⚠ {len(data_flags)} data flag(s) — see /board or the "
-                     f"saved board for full detail")
+    # data_flags intentionally omitted from Telegram push per Architect request
+    # (2026-08-28): flags live on disk/web, not in the phone message
     parts.append(render_produced_bet_block(produced_bet))
     parts.append(scan_txt)
     if production is None:

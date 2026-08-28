@@ -182,7 +182,7 @@ def get_variant_population_status() -> Dict[str, Any]:
             'deathsThisWindow': metrics.deaths_this_window,
             'replicationsThisWindow': metrics.replications_this_window,
         }
-    )
+    }
 
 def add_variant(variant_id: str, variant_type: str, odds_band: str, fitness: float) -> bool:
     """Add a new variant to the ledger."""
@@ -256,33 +256,17 @@ def compute_survival_tier_from_variants(variants_data: Dict[str, Any]) -> str:
         return "critical"
 
 # ---------------------------------------------------------------------------
-# MOTIVATION LOGIC — Fitness-based selection pressure for variant evolution
+# REPLICATION / CULL LOGIC (mirrors TypeScript bridge)
 # ---------------------------------------------------------------------------
 
-# Import here to avoid circular dependency
-from daily_analysis_agent import (
-    compute_motivation_signals,
-    apply_motivation_signals,
-    MotivationSignal,
-)
+def should_replicate(metrics: VariantMetrics) -> bool:
+    """Check if variant population should trigger replication (new variant spawn)."""
+    return metrics.mean_fitness > 0.55 and metrics.alive_variants >= 3 and metrics.total_variants < 20
 
-# Re-export for external use
-__all__ = [
-    "load_variant_ledger",
-    "save_variant_ledger",
-    "compute_variant_metrics",
-    "get_variant_population_status",
-    "add_variant",
-    "update_variant_status",
-    "get_variant_population_status_bridge",
-    "compute_survival_tier_from_variants",
-    "load_config",
-    "apply_config",
-    # Motivation logic exports
-    "compute_motivation_signals",
-    "apply_motivation_signals",
-    "MotivationSignal",
-]
+
+def should_cull(metrics: VariantMetrics) -> bool:
+    """Check if variant population should trigger death (cull worst variants)."""
+    return metrics.mean_fitness < 0.45 and metrics.total_variants > 5 and metrics.deaths_this_window >= 2
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,234 @@
+PART 0 — HEADER
+Date: 2026-08-28 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: 2. Bundesliga, Belgian Pro League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey, Coppa Italia, Coupe de France, DFB-Pokal, EFL Cup, Eredivisie, Europa League, FA Cup, KNVB Beker, La Liga, La Liga 2, Ligue 1, Ligue 2, Premier League, Primeira Liga, Russian Premier League, Scottish Premiership, Serie A, Serie B, Swiss Super League, Taça de Portugal, Turkish Super Lig, UEFA Super Cup
+Calibration: 42 legs logged, mean CLV -10.21%
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ sportybet cache warm: 24 fixtures across 82 league(s) ready for the booking bridge
+  ⚠ Russian Premier League: no results available for grading — legs stay PENDING, not guessed
+  ⚠ Champions League: no results available for grading — legs stay PENDING, not guessed
+  ⚠ Turkish Super Lig: no results available for grading — legs stay PENDING, not guessed
+  ⚠ Swiss Super League: no results available for grading — legs stay PENDING, not guessed
+  ⚠ graded 0 of 17 pending leg(s)
+  ⚠ Automated CLV grading: 0 leg(s) settled
+  ⚠ booking tracker settle skipped (NameError: name 'LEAGUE_MAP' is not defined)
+  ⚠ 2. Bundesliga: fixtures via api_football
+  ⚠ 2. Bundesliga: history via multi-source (thesportsdb.com)
+  ⚠ 2. Bundesliga: 3 team name(s) in the fixtures feed not found in the fitted data — Hertha BSC, VfL Bochum, VfL Osnabrück. Suggestions: Hertha BSC -> Hertha (0.75); VfL Bochum -> Bochum (0.75); VfL Osnabrück -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Belgian Pro League: fixtures via api_football
+  ⚠ Belgian Pro League: 1 team name(s) in the fixtures feed not found in the fitted data — SK Beveren. Suggestions: SK Beveren -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Bundesliga: fixtures via api_football
+  ⚠ Bundesliga: +306 current-season results from football-data.org (promoted-club fix)
+  ⚠ Bundesliga: 1 team name(s) in the fixtures feed not found in the fitted data — Bayern München. Suggestions: Bayern München -> FC Bayern München (0.90). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ⚠ Champions League: history served from cache
+  ⚠ Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Champions League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League) — NO DATA — PENDING
+  ⚠ Champions League: Elo continental blend w=2.5 (cached)
+  ⚠ Championship: fixtures via api_football
+  ⚠ Championship: +557 current-season results from football-data.org (promoted-club fix)
+  ⚠ alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ⚠ Conference League: history served from cache
+  ⚠ Conference League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Conference League: 301 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Conference League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Conference League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Conference League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Conference League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ⚠ Conference League: Elo continental blend w=2.5 (cached)
+  ⚠ Copa del Rey: history served from cache
+  ⚠ Copa del Rey: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Copa del Rey: 14 fixture(s) skipped (not full-time or incomplete)
+  ⚠ Copa del Rey: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Copa del Rey: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey) — NO DATA — PENDING
+  ⚠ Coppa Italia: history served from cache
+  ⚠ Coppa Italia: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Coppa Italia: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Coppa Italia: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia) — NO DATA — PENDING
+  ⚠ Coupe de France: history served from cache
+  ⚠ Coupe de France: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Coupe de France: 26 fixture(s) skipped (not full-time or incomplete)
+  ⚠ Coupe de France: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Coupe de France: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France) — NO DATA — PENDING
+  ⚠ DFB-Pokal: history served from cache
+  ⚠ DFB-Pokal: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ DFB-Pokal: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ DFB-Pokal: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ⚠ EFL Cup: history served from cache
+  ⚠ EFL Cup: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ EFL Cup: 15 fixture(s) skipped (not full-time or incomplete)
+  ⚠ EFL Cup: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ EFL Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for EFL Cup) — NO DATA — PENDING
+  ⚠ Eredivisie: fixtures via api_football
+  ⚠ Eredivisie: +67 current-season results from football-data.org (promoted-club fix)
+  ⚠ Eredivisie: 1 team name(s) in the fixtures feed not found in the fitted data — Fortuna Sittard. Suggestions: Fortuna Sittard -> For Sittard (0.85). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ⚠ Europa League: history served from cache
+  ⚠ Europa League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Europa League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Europa League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Europa League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ⚠ Europa League: Elo continental blend w=2.5 (cached)
+  ⚠ FA Cup: history served from cache
+  ⚠ FA Cup: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ FA Cup: 61 fixture(s) skipped (not full-time or incomplete)
+  ⚠ FA Cup: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ FA Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (HTTPSConnectionPool(host='v3.football.api-sports.io', port=443): Max retries exceeded with url: /status (Caused by NameResolutionError("HTTPSConnection(host='v3.football.api-sports.io', port=443): Failed to resolve 'v3.football.api-sports.io' ([Errno 11001] getaddrinfo failed)"))). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ⚠ KNVB Beker: history served from cache
+  ⚠ KNVB Beker: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ KNVB Beker: 1 fixture(s) skipped (not full-time or incomplete)
+  ⚠ KNVB Beker: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ KNVB Beker: fallback history too thin (6) — NO DATA — PENDING
+  ⚠ KNVB Beker: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker) — NO DATA — PENDING
+  ⚠ KNVB Beker: results fetch failed ('KNVB Beker' is not covered by football-data.co.uk — this source has no continental competitions and doesn't include Croatia. Needs a different T1 source before it can be scanned with real historical data (NOT a guess — genuinely unavailable here).) — NO DATA — PENDING
+  ⚠ La Liga: fixtures via api_football
+  ⚠ La Liga: +380 current-season results from football-data.org (promoted-club fix)
+  ⚠ La Liga: 1 team name(s) in the fixtures feed not found in the fitted data — Racing Santander. Suggestions: Racing Santander -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ La Liga 2: fixtures via api_football
+  ⚠ La Liga 2: 2 team name(s) in the fixtures feed not found in the fitted data — Sporting Gijon, Tenerife. Suggestions: Sporting Gijon -> Sp Gijon (0.73); Tenerife -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Ligue 1: fixtures via api_football
+  ⚠ Ligue 1: +305 current-season results from football-data.org (promoted-club fix)
+  ⚠ Ligue 1: 1 team name(s) in the fixtures feed not found in the fitted data — Paris Saint Germain. Suggestions: Paris Saint Germain -> Paris Saint-Germain FC (0.88). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Ligue 2: fixtures via api_football
+  ⚠ Ligue 2: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Rodez v PAU
+  ⚠ Ligue 2: 2 team name(s) in the fixtures feed not found in the fitted data — Clermont Foot, Sochaux. Suggestions: Clermont Foot -> Clermont (0.76); Sochaux -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Premier League: fixtures via api_football
+  ⚠ Premier League: +380 current-season results from football-data.org (promoted-club fix)
+  ⚠ Premier League: 1 team name(s) in the fixtures feed not found in the fitted data — Manchester City. Suggestions: Manchester City -> Manchester City FC (0.91). If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Primeira Liga: fixtures via api_football
+  ⚠ Primeira Liga: +306 current-season results from football-data.org (promoted-club fix)
+  ⚠ Primeira Liga: 1 team name(s) in the fixtures feed not found in the fitted data — Sporting CP. Suggestions: Sporting CP -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Russian Premier League: history served from cache
+  ⚠ Russian Premier League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Russian Premier League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Russian Premier League: fixtures via api_football
+  ⚠ Scottish Premiership: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership) — NO DATA — PENDING
+  ⚠ Serie A: fixtures via api_football
+  ⚠ Serie A: +380 current-season results from football-data.org (promoted-club fix)
+  ⚠ Serie A: 1 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): AC Milan v Venezia
+  ⚠ Serie B: fixtures via api_football
+  ⚠ Serie B: 1 fixture(s) rated on the previous season's carry-over model (promoted clubs): Cremonese v Modena
+  ⚠ Swiss Super League: history served from cache
+  ⚠ Swiss Super League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Swiss Super League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Swiss Super League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key.) — NO DATA — PENDING
+  ⚠ Taça de Portugal: history served from cache
+  ⚠ Taça de Portugal: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Taça de Portugal: 1 fixture(s) skipped (not full-time or incomplete)
+  ⚠ Taça de Portugal: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Taça de Portugal: fixtures via api_football
+  ⚠ Taça de Portugal: 2 team name(s) in the fixtures feed not found in the fitted data — Beira-Mar, União Lamas. Suggestions: Beira-Mar -> no close match in the model pool; União Lamas -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ Turkish Super Lig: history served from cache
+  ⚠ Turkish Super Lig: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Turkish Super Lig: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Turkish Super Lig: fixtures via api_football
+  ⚠ Turkish Super Lig: 2 team name(s) in the fixtures feed not found in the fitted data — Erzurumspor FK, Gençlerbirliği S.K.. Suggestions: Erzurumspor FK -> no close match in the model pool; Gençlerbirliği S.K. -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ⚠ UEFA Super Cup: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ UEFA Super Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.) — NO DATA — PENDING
+  ⚠ UEFA Super Cup: Elo continental blend w=2.5 (cached)
+  ⚠ VERIFY GATE: 18 verified, 4 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
+  ⚠ VERIFY GATE: 'VfL Bochum v VfL Osnabrück (2. Bundesliga)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Eintracht Braunschweig v Hertha BSC (2. Bundesliga)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Genk v SK Beveren (Belgian Pro League)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Bayern München v VfB Stuttgart (Bundesliga)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Wrexham v Birmingham (Championship)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Groningen v Fortuna Sittard (Eredivisie)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Racing Santander v Elche (La Liga)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Alaves v Villarreal (La Liga)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Tenerife v Sporting Gijon (La Liga 2)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Lille v Paris Saint Germain (Ligue 1)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Montpellier v Boulogne (Ligue 2)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Clermont Foot v Sochaux (Ligue 2)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Nancy v Dunkerque (Ligue 2)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Laval v Grenoble (Ligue 2)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Rodez v PAU (Ligue 2)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Crystal Palace v Manchester City (Premier League)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  ⚠ VERIFY GATE: 'Rio Ave v Sporting CP (Primeira Liga)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  ⚠ VERIFY GATE: 'Akron v CSKA Moscow (Russian Premier League)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'AC Milan v Venezia (Serie A)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  ⚠ VERIFY GATE: 'Cremonese v Modena (Serie B)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Beira-Mar v União Lamas (Taça de Portugal)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Gençlerbirliği S.K. v Erzurumspor FK (Turkish Super Lig)' VERIFIED (T1 source: ESPN)
+  ⚠ DEPLOY SHORTLIST RECALCULATED: 9 of 22 fixtures on deploy shortlist (verify gate stamps preserved)
+  ⚠ ⚠ source circuit OPEN (paused): thesportsdb, espn
+  ⚠ Championship: odds fetch failed (odds_Championship: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
+  ⚠ La Liga: odds fetch failed (odds_La Liga: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
+  ⚠ Ligue 2: odds fetch failed (odds_Ligue 2: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
+  ⚠ Russian Premier League: odds fetch failed (odds_Russian Premier League: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
+  ⚠ Serie A: odds fetch failed (odds_Serie A: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
+  ⚠ Serie B: odds fetch failed (odds_Serie B: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
+  ⚠ SHADOW calibration (below gate, NOT applied): 1X2_AWAY +0.7%, 1X2_DRAW -0.9% — visible only; inert until MIN_LEGS legs settle
+  ⚠ PLATT calibration active: 1X2_AWAY n=72 a=+5.33 b=6.04, BTTS_YES n=69 a=-0.30 b=7.33, OVER_1_5 n=69 a=-4.05 b=4.36, OVER_2_5 n=69 a=+0.87 b=5.12 (curve on settled predictions, shrunk to identity)
+  ⚠ SHADOW PLATT (below gate, NOT applied): 1X2_DRAW n=72, 1X2_HOME n=72 — visible only; inert until PLATT_MIN_LEGS settle
+  ⚠ ENSEMBLE WEIGHTS ACTIVE — bookmaker w=0.85, consensus w=0.85, dc w=0.848, elo w=0.85, xg w=0.781 (CLV-gated, bounded, consensus display only)
+  ⚠ Wrexham v Birmingham: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Alaves v Villarreal: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Montpellier v Boulogne: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Nancy v Dunkerque: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Laval v Grenoble: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Rodez v PAU: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Akron v CSKA Moscow: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ AC Milan v Venezia: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ Cremonese v Modena: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ logged 0 new paper leg(s) with a live entry price (agreement_band=0.04)
+  ⚠ Phase 3 gate: 42 of 0 legs with logged CLV; mean CLV -10.215
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.
+
+TABLE 1 — LAYER 2 FULL GRID
+Fixture | Selected Pick | Home to win | Draw | Away to win | Over 2.5 goals | Under 2.5 goals | Over 1.5 goals | Under 1.5 goals | Both teams to score — yes | Both teams to score — no | Home Draw No Bet | Away Draw No Bet | Over 3.5 goals | Under 3.5 goals | Over 0.5 goals | Under 0.5 goals | Home or Draw (double chance) | Away or Draw (double chance) | Home or Away (double chance) | HT/FT Home/Home | HT/FT Home/Draw | HT/FT Home/Away | HT/FT Draw/Home | HT/FT Draw/Draw | HT/FT Draw/Away | HT/FT Away/Home | HT/FT Away/Draw | HT/FT Away/Away | Correct Score 1-0 | Correct Score 0-1 | Correct Score 1-1 | Correct Score 2-0 | Correct Score 0-2 | Correct Score 2-1 | Correct Score 1-2 | Correct Score 2-2 | Correct Score 0-0 | Correct Score 3-0 | Correct Score 0-3 | Correct Score 3-1 | Correct Score 1-3 | Booking Code
+VfL Bochum v VfL Osnabrück (2. Bundesliga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Eintracht Braunschweig v Hertha BSC (2. Bundesliga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Genk v SK Beveren (Belgian Pro League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Bayern München v VfB Stuttgart (Bundesliga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Wrexham v Birmingham (Championship) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Groningen v Fortuna Sittard (Eredivisie) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Racing Santander v Elche (La Liga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Alaves v Villarreal (La Liga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Tenerife v Sporting Gijon (La Liga 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Lille v Paris Saint Germain (Ligue 1) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Montpellier v Boulogne (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Clermont Foot v Sochaux (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Nancy v Dunkerque (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Laval v Grenoble (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Rodez v PAU (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Crystal Palace v Manchester City (Premier League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Rio Ave v Sporting CP (Primeira Liga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Akron v CSKA Moscow (Russian Premier League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+AC Milan v Venezia (Serie A) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Cremonese v Modena (Serie B) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Beira-Mar v União Lamas (Taça de Portugal) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Gençlerbirliği S.K. v Erzurumspor FK (Turkish Super Lig) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+
+TABLE 2 — LAYER 1 COMPACT
+Fixture | Selected Pick | Model Prob | Price | Bookmaker | EV | Booking Code
+Wrexham v Birmingham (Championship) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Alaves v Villarreal (La Liga) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Montpellier v Boulogne (Ligue 2) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Nancy v Dunkerque (Ligue 2) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Laval v Grenoble (Ligue 2) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Rodez v PAU (Ligue 2) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Akron v CSKA Moscow (Russian Premier League) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+AC Milan v Venezia (Serie A) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Cremonese v Modena (Serie B) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+
+TABLE 3 — ACCA ROUTE
+No capital-eligible accas generated.
+
+TABLE 4 — THE PICK
+
+HONEST EDGE: This is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until deployed.
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

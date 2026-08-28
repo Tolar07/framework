@@ -37,12 +37,12 @@ from output.heartbeat import get_heartbeat_stats, save_heartbeat_record
 from bets.booking_tracker import status as booking_status, settle as booking_settle
 from bets.produced_bet import load_produced_bet, verify_produced_bet
 from clv.clv_logger import CLVLog, PHASE3_GATE_MIN_LEGS
-from clv.phase3_gate import evaluate_gate, load_gate_status
+from clv.phase3_gate import evaluate_gate, evaluate_gate_from_stats
 from variant_selection import (
     get_variant_population_status,
     compute_survival_tier_from_variants,
-    shouldReplicate,
-    shouldCull,
+    should_replicate,
+    should_cull,
 )
 from brain.store import Brain
 from config import PAPER_PHASE, assert_paper_only
@@ -415,7 +415,7 @@ def run_verification_analysis(target_date: str) -> list[AnalysisResult]:
         ))
 
     # Phase 3 gate status
-    gate_status = load_gate_status()
+    gate_status = evaluate_gate().to_dict()
     if not gate_status.get("gate_met", False):
         findings.append(AnalysisResult(
             category="verification",
@@ -535,7 +535,7 @@ def run_performance_analysis(target_date: str) -> list[AnalysisResult]:
                 ))
 
     # 4. Survival Tier Analysis
-    survival_tier = compute_survival_tier_from_variants(summary)
+    survival_tier = compute_survival_tier_from_variants(variant_status)
     tier_emoji = {"normal": "🟢", "low_compute": "🟡", "critical": "🟠", "dead": "🔴"}[survival_tier]
 
     findings.append(AnalysisResult(
@@ -743,7 +743,7 @@ def compute_motivation_signals() -> list[MotivationSignal]:
 
         # MOTIVATION LOGIC RULES:
 
-        # 1. STRONG POSITIVE: High win rate + positive CLV → REPLICATE
+        # 1. STRONG POSITIVE: High win rate + positive CLV -> REPLICATE
         if win_rate >= 0.6 and mean_clv > 1.0 and n_legs >= 5:
             signals.append(MotivationSignal(
                 variant_id=vid,
@@ -758,7 +758,7 @@ def compute_motivation_signals() -> list[MotivationSignal]:
                 },
             ))
 
-        # 2. POSITIVE CLV but moderate win rate → PROMOTE (increase fitness)
+        # 2. POSITIVE CLV but moderate win rate -> PROMOTE (increase fitness)
         elif mean_clv > 0.5 and n_legs >= 3:
             signals.append(MotivationSignal(
                 variant_id=vid,
@@ -774,7 +774,7 @@ def compute_motivation_signals() -> list[MotivationSignal]:
                 },
             ))
 
-        # 3. NEGATIVE CLV consistently → CULL
+        # 3. NEGATIVE CLV consistently -> CULL
         elif mean_clv < -1.0 and n_legs >= 5:
             signals.append(MotivationSignal(
                 variant_id=vid,
@@ -789,7 +789,7 @@ def compute_motivation_signals() -> list[MotivationSignal]:
                 },
             ))
 
-        # 4. LOW WIN RATE + negative/neutral CLV → DEMOTE
+        # 4. LOW WIN RATE + negative/neutral CLV -> DEMOTE
         elif win_rate < 0.4 and mean_clv <= 0 and n_legs >= 5:
             signals.append(MotivationSignal(
                 variant_id=vid,
@@ -805,7 +805,7 @@ def compute_motivation_signals() -> list[MotivationSignal]:
                 },
             ))
 
-        # 5. INSUFFICIENT EVIDENCE → MAINTAIN
+        # 5. INSUFFICIENT EVIDENCE -> MAINTAIN
         else:
             signals.append(MotivationSignal(
                 variant_id=vid,
@@ -981,22 +981,22 @@ def run_daily_analysis(target_date: Optional[str] = None, apply_motivation: bool
     print(f"[DAILY ANALYSIS] Running for {target_date}...")
 
     # Run all three analysis types
-    print("  → Functional analysis...")
+    print("  -> Functional analysis...")
     functional = run_functional_analysis(target_date)
 
-    print("  → Verification analysis...")
+    print("  -> Verification analysis...")
     verification = run_verification_analysis(target_date)
 
-    print("  → Performance insight...")
+    print("  -> Performance insight...")
     performance = run_performance_analysis(target_date)
 
-    print("  → Motivation logic...")
+    print("  -> Motivation logic...")
     motivation = run_motivation_analysis(target_date)
 
     # Apply motivation signals if requested
     motivation_actions = {}
     if apply_motivation:
-        print("  → Applying motivation signals...")
+        print("  -> Applying motivation signals...")
         signals = compute_motivation_signals()
         motivation_actions = apply_motivation_signals(signals)
 

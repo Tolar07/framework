@@ -1,101 +1,37 @@
 {
-  "fetched_at": 1787812890.5924942,
+  "fetched_at": 1787899299.2420068,
   "league": "Ligue 1",
   "country": "France",
   "fixtures": [
     {
-      "id": "45918",
-      "home": "Barcelona SRL",
-      "away": "Athletic Bilbao SRL",
-      "kickoff": "09:00  \nID: 45918",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "45917",
-      "home": "Celta SRL",
-      "away": "Osasuna SRL",
-      "kickoff": "09:00  \nID: 45917",
+      "id": "38913",
+      "home": "Genclerbirligi SRL",
+      "away": "Buyuksehir Belediye Erzurumspor SRL",
+      "kickoff": "08:00  \nID: 38913",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "BHA",
-      "away": "EVE",
-      "kickoff": "61:00\nH2",
+      "home": "Dalian Young Boy FC SRL",
+      "away": "Beijing Guoan FC SRL",
+      "kickoff": "84:00\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "COV",
-      "away": "NEW",
-      "kickoff": "61:00\nH2",
+      "home": "Shanghai Shenhua SRL",
+      "away": "Shandong Luneng SRL",
+      "kickoff": "80:29\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "CRY",
-      "away": "NFO",
-      "kickoff": "61:00\nH2",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "FUL",
-      "away": "AST",
-      "kickoff": "61:00\nH2",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "HUL",
-      "away": "CHE",
-      "kickoff": "61:00\nH2",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "LEE",
-      "away": "IPS",
-      "kickoff": "61:00\nH2",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "LIV",
-      "away": "MUN",
-      "kickoff": "61:00\nH2",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "MCI",
-      "away": "BRE",
-      "kickoff": "61:00\nH2",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "SUN",
-      "away": "ARS",
-      "kickoff": "61:00\nH2",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "TOT",
-      "away": "BOU",
-      "kickoff": "60:00\nH2",
+      "home": "Shenzhen Peng City Srl",
+      "away": "Shanghai Sipg SRL",
+      "kickoff": "78:13\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     }

@@ -1,0 +1,50 @@
+historical_results: football_data FAILED after 2 attempts: 404 Client Error: Not Found for url: https://www.football-data.co.uk/mmz4281/2526/BL2.csv
+fixtures: espn FAILED after 2 attempts: 'Copa del Rey' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+fixtures: espn FAILED after 2 attempts: 'Coppa Italia' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+Circuit breaker OPENED for espn after 3 consecutive failures
+fixtures: espn FAILED after 2 attempts: 'Coupe de France' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+fixtures: api_football_fixtures FAILED after 2 attempts: API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+fixtures: api_football_fixtures FAILED after 2 attempts: Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.
+historical_results: football_data FAILED after 2 attempts: 'KNVB Beker' is not covered by football-data.co.uk — this source has no continental competitions and doesn't include Croatia. Needs a different T1 source before it can be scanned with real historical data (NOT a guess — genuinely unavailable here).
+fixtures: api_football_fixtures FAILED after 2 attempts: API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues
+fixtures: api_football_fixtures FAILED after 2 attempts: Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.
+Circuit breaker OPENED for espn after 4 consecutive failures
+fixtures: espn FAILED after 2 attempts: 'UEFA Super Cup' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+OLP XDV daily run — 2026-08-28 — Phase 3 — live capital (Architect-deployed)
+
+============================================================
+FIXTURE VERIFICATION GATE -- 2026-08-28
+============================================================
+  FlashScore feed : AVAILABLE (1550 pairs)
+  SportyBet cache : UNAVAILABLE (0 pairs)
+  PredictZ feed   : UNAVAILABLE (0 pairs)
+  StatsArea feed  : UNAVAILABLE (0 pairs)
+  Bet365 feed     : UNAVAILABLE (0 pairs)
+  ESPN (T1)       : AVAILABLE (22 pairs)
+  FootballData (T1): UNAVAILABLE (0 pairs)
+  VERIFIED      : 11
+  KEPT UNVERIFIED: 11
+  DROPPED       : 0
+  - VERIFY GATE: 'VfL Bochum v VfL Osnabrück (2. Bundesliga)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  - VERIFY GATE: 'Eintracht Braunschweig v Hertha BSC (2. Bundesliga)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  - VERIFY GATE: 'Genk v SK Beveren (Belgian Pro League)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Bayern München v VfB Stuttgart (Bundesliga)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  - VERIFY GATE: 'Wrexham v Birmingham (Championship)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Groningen v Fortuna Sittard (Eredivisie)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  - VERIFY GATE: 'Racing Santander v Elche (La Liga)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  - VERIFY GATE: 'Alaves v Villarreal (La Liga)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Tenerife v Sporting Gijon (La Liga 2)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  - VERIFY GATE: 'Lille v Paris Saint Germain (Ligue 1)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  - VERIFY GATE: 'Montpellier v Boulogne (Ligue 2)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Clermont Foot v Sochaux (Ligue 2)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Nancy v Dunkerque (Ligue 2)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  - VERIFY GATE: 'Laval v Grenoble (Ligue 2)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Rodez v PAU (Ligue 2)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Crystal Palace v Manchester City (Premier League)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Rio Ave v Sporting CP (Primeira Liga)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  - VERIFY GATE: 'Akron v CSKA Moscow (Russian Premier League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  - VERIFY GATE: 'AC Milan v Venezia (Serie A)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Cremonese v Modena (Serie B)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Beira-Mar v União Lamas (Taça de Portugal)' VERIFIED (T1 source: ESPN)
+  - VERIFY GATE: 'Gençlerbirli?i S.K. v Erzurumspor FK (Turkish Super Lig)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+============================================================

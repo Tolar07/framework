@@ -1,101 +1,37 @@
 {
-  "fetched_at": 1787812822.0760274,
+  "fetched_at": 1787899204.941741,
   "league": "Serie A",
   "country": "Italy",
   "fixtures": [
     {
-      "id": "45918",
-      "home": "Barcelona SRL",
-      "away": "Athletic Bilbao SRL",
-      "kickoff": "09:00  \nID: 45918",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "45917",
-      "home": "Celta SRL",
-      "away": "Osasuna SRL",
-      "kickoff": "09:00  \nID: 45917",
+      "id": "38913",
+      "home": "Genclerbirligi SRL",
+      "away": "Buyuksehir Belediye Erzurumspor SRL",
+      "kickoff": "08:00  \nID: 38913",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "BHA",
-      "away": "EVE",
-      "kickoff": "58:00\nH2",
+      "home": "Dalian Young Boy FC SRL",
+      "away": "Beijing Guoan FC SRL",
+      "kickoff": "82:30\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "COV",
-      "away": "NEW",
-      "kickoff": "58:00\nH2",
+      "home": "Shanghai Shenhua SRL",
+      "away": "Shandong Luneng SRL",
+      "kickoff": "78:59\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "CRY",
-      "away": "NFO",
-      "kickoff": "58:00\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "FUL",
-      "away": "AST",
-      "kickoff": "58:00\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "HUL",
-      "away": "CHE",
-      "kickoff": "58:00\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "LEE",
-      "away": "IPS",
-      "kickoff": "58:00\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "LIV",
-      "away": "MUN",
-      "kickoff": "58:00\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "MCI",
-      "away": "BRE",
-      "kickoff": "58:00\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "SUN",
-      "away": "ARS",
-      "kickoff": "58:00\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "TOT",
-      "away": "BOU",
-      "kickoff": "58:00\nH2",
+      "home": "Shenzhen Peng City Srl",
+      "away": "Shanghai Sipg SRL",
+      "kickoff": "76:43\nH2",
       "league": "Serie A",
       "raw_market": {}
     }

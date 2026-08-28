@@ -178,3 +178,20 @@
 - `config.py` — add `CLV_GATE_OVERRIDE = os.getenv("CLV_GATE_OVERRIDE", "0") == "1"`
 
 **Committed & saved:** this session will commit the code changes and this log entry.
+
+---
+
+## 2026-08-28 · ARCHITECT SIGNOFF REAFFIRMED — Proceed Past Negative CLV + Heartbeat Dispatched
+
+**Directive (chat, 2026-08-28):**
+"Architect sign-off: Required but blocked by negative CLV proceed" + "send the heartbeat to telegram"
+
+**Effect:**
+1. **Sign-off reaffirmed** — the Architect explicitly authorizes proceeding despite negative mean CLV (currently ≈ -10.21% across 42 legs). This reaffirms the 2026-08-21 HR59 gate-suspension (gate already `gate_met=True`), so it is NOT a protected-constant change — only a named Architect instruction on the record. Capital authority remains Architect-only; `config.assert_paper_only()` still enforces no real stake routed by code.
+2. **Heartbeat dispatched to Telegram** — `output/heartbeat_2026-08-28.txt` (Racing Santander v Elche, BTTS yes, 60%, +10.0% edge, Bet365 1.67) delivered via `notify.deliver()` (primary chat + subscribers). A copy was placed in `output/boards/` so the `/heartbeat` command serves it on request.
+
+**Status at directive:**
+- Legs with logged CLV: 42/30 required (gate passed on count)
+- Mean CLV: -10.21% (negative — gate met only under HR59 waiver)
+- Gate status: MET (waived by Architect directive, signed off)
+- Architect sign-off: REQUIRED & AFFIRMED this session (Architect-only capital authority intact)

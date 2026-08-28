@@ -1,37 +1,141 @@
 {
-  "fetched_at": 1787899299.2420068,
+  "fetched_at": 1787938882.6799095,
   "league": "Ligue 1",
   "country": "France",
   "fixtures": [
     {
-      "id": "38913",
-      "home": "Genclerbirligi SRL",
-      "away": "Buyuksehir Belediye Erzurumspor SRL",
-      "kickoff": "08:00  \nID: 38913",
+      "id": "26975",
+      "home": "Treowen Stars",
+      "away": "Cardiff Draconians",
+      "kickoff": "18:45  \nID: 26975",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "40717",
+      "home": "Baglan Dragons",
+      "away": "Caerau Ely FC",
+      "kickoff": "19:30  \nID: 40717",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "50469",
+      "home": "Llanelli Town",
+      "away": "Carmarthen Town",
+      "kickoff": "19:30  \nID: 50469",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "40833",
+      "home": "Newport City FC",
+      "away": "Ynyshir Albions",
+      "kickoff": "19:30  \nID: 40833",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "24377",
+      "home": "Swansea University",
+      "away": "Pontypridd Town",
+      "kickoff": "19:30  \nID: 24377",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "41259",
+      "home": "Aberystwyth Town FC",
+      "away": "Pontardawe Town FC",
+      "kickoff": "19:45  \nID: 41259",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "40957",
+      "home": "Trethomas Bluebirds",
+      "away": "Afan Lido",
+      "kickoff": "19:45  \nID: 40957",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Racing Santander",
+      "away": "Elche CF",
+      "kickoff": "40:06\nH1",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Dalian Young Boy FC SRL",
-      "away": "Beijing Guoan FC SRL",
-      "kickoff": "84:00\nH2",
+      "home": "Bochum",
+      "away": "VfL 1899 Osnabruck",
+      "kickoff": "50:42\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Shanghai Shenhua SRL",
-      "away": "Shandong Luneng SRL",
-      "kickoff": "80:29\nH2",
+      "home": "Eintracht Braunschweig",
+      "away": "Hertha",
+      "kickoff": "51:45\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "AC Horsens",
+      "away": "Viborg FF",
+      "kickoff": "39:57\nH1",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Shenzhen Peng City Srl",
-      "away": "Shanghai Sipg SRL",
-      "kickoff": "78:13\nH2",
+      "home": "Club Portugalete",
+      "away": "RS Gimnastica de Torrelavega",
+      "kickoff": "51:03\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Yeclano Deportivo",
+      "away": "CD Alcoyano",
+      "kickoff": "8:51\nH1",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Al Ittihad Al Sakandary",
+      "away": "Ceramica Cleopatra",
+      "kickoff": "39:02\nH1",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Zed FC",
+      "away": "AL Ahly SC (EGY)",
+      "kickoff": "38:14\nH1",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Riyadh SC",
+      "away": "Neom SC",
+      "kickoff": "90:43\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Fayha FC",
+      "away": "Abha Club",
+      "kickoff": "77:49\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     }

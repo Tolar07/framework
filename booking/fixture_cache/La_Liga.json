@@ -1,37 +1,141 @@
 {
-  "fetched_at": 1787899457.7818332,
+  "fetched_at": 1787939103.7698064,
   "league": "La Liga",
   "country": "Spain",
   "fixtures": [
     {
-      "id": "38913",
-      "home": "Genclerbirligi SRL",
-      "away": "Buyuksehir Belediye Erzurumspor SRL",
-      "kickoff": "08:00  \nID: 38913",
+      "id": "26975",
+      "home": "Treowen Stars",
+      "away": "Cardiff Draconians",
+      "kickoff": "18:45  \nID: 26975",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "40717",
+      "home": "Baglan Dragons",
+      "away": "Caerau Ely FC",
+      "kickoff": "19:30  \nID: 40717",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "50469",
+      "home": "Llanelli Town",
+      "away": "Carmarthen Town",
+      "kickoff": "19:30  \nID: 50469",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "40833",
+      "home": "Newport City FC",
+      "away": "Ynyshir Albions",
+      "kickoff": "19:30  \nID: 40833",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "24377",
+      "home": "Swansea University",
+      "away": "Pontypridd Town",
+      "kickoff": "19:30  \nID: 24377",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "41259",
+      "home": "Aberystwyth Town FC",
+      "away": "Pontardawe Town FC",
+      "kickoff": "19:45  \nID: 41259",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "40957",
+      "home": "Trethomas Bluebirds",
+      "away": "Afan Lido",
+      "kickoff": "19:45  \nID: 40957",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Racing Santander",
+      "away": "Elche CF",
+      "kickoff": "43:59\nH1",
       "league": "La Liga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Dalian Young Boy FC SRL",
-      "away": "Beijing Guoan FC SRL",
-      "kickoff": "87:00\nH2",
+      "home": "Bochum",
+      "away": "VfL 1899 Osnabruck",
+      "kickoff": "54:12\nH2",
       "league": "La Liga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Shanghai Shenhua SRL",
-      "away": "Shandong Luneng SRL",
-      "kickoff": "82:59\nH2",
+      "home": "Eintracht Braunschweig",
+      "away": "Hertha",
+      "kickoff": "55:16\nH2",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "AC Horsens",
+      "away": "Viborg FF",
+      "kickoff": "43:36\nH1",
       "league": "La Liga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Shenzhen Peng City Srl",
-      "away": "Shanghai Sipg SRL",
-      "kickoff": "80:43\nH2",
+      "home": "Club Portugalete",
+      "away": "RS Gimnastica de Torrelavega",
+      "kickoff": "55:03\nH2",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Yeclano Deportivo",
+      "away": "CD Alcoyano",
+      "kickoff": "11:51\nH1",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Al Ittihad Al Sakandary",
+      "away": "Ceramica Cleopatra",
+      "kickoff": "43:01\nH1",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Zed FC",
+      "away": "AL Ahly SC (EGY)",
+      "kickoff": "42:18\nH1",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Riyadh SC",
+      "away": "Neom SC",
+      "kickoff": "94:21\nH2",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Fayha FC",
+      "away": "Abha Club",
+      "kickoff": "81:20\nH2",
       "league": "La Liga",
       "raw_market": {}
     }

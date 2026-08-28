@@ -1,3 +1,35 @@
 🎯 PRODUCTION BETS — 2026-08-28 (today's fixtures only)
 
-NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
+★ Acca A — HEADLINE, 5 legs
+    Wrexham v Birmingham (Championship) — Over 1.5 goals @ 1.36 [✓ ESPN]
+    Rodez v PAU (Ligue 2) — Rodez or Draw (double chance) @ 1.20 [✓ ESPN]
+    Cremonese v Modena (Serie B) — Cremonese or Modena (double chance) @ 1.36 [✓ ESPN]
+    Nancy v Dunkerque (Ligue 2) — Nancy or Dunkerque (double chance) @ 1.33 [✓ ESPN]
+    Alaves v Villarreal (La Liga) — Over 1.5 goals @ 1.25 [✓ ESPN]
+    Combined 3.69 Booking code: NO DATA — PENDING
+    Combined prob 30.4% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca B  3 legs
+Akron v CSKA Moscow (Russian Premier League) — CSKA Moscow to win @ 1.70 [✓ ESPN]
+AC Milan v Venezia (Serie A) — AC Milan to win @ 1.48 [✓ ESPN]
+Montpellier v Boulogne (Ligue 2) — Montpellier to win @ 1.70 [✓ ESPN]
+    Combined 4.28 Booking code: NO DATA — PENDING
+    Combined prob 20.2% (product of 3 legs — compounding is arithmetic, not a weakness)
+
+  SINGLES — one standalone slip each, own booking code
+    Akron v CSKA Moscow (Russian Premier League) — CSKA Moscow to win @ 1.70  Booking code: NO DATA — PENDING [✓ ESPN]
+    AC Milan v Venezia (Serie A) — AC Milan to win @ 1.48  Booking code: NO DATA — PENDING [✓ ESPN]
+    Montpellier v Boulogne (Ligue 2) — Montpellier to win @ 1.70  Booking code: NO DATA — PENDING [✓ ESPN]
+
+  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only
+    Wrexham v Birmingham (Championship) — Birmingham to win @ 3.40  edge +0.47%  [✓ ESPN]
+    Alaves v Villarreal (La Liga) — Alaves to win @ 3.20  edge -3.36%  [✓ ESPN]
+    Montpellier v Boulogne (Ligue 2) — Boulogne or Draw (double chance) @ 2.20  edge +1.69%  [✓ ESPN]
+    Laval v Grenoble (Ligue 2) — Draw @ 3.00  edge -0.33%  [✓ ESPN]
+    Rodez v PAU (Ligue 2) — Draw @ 3.60  edge -3.61%  [✓ ESPN]
+    Akron v CSKA Moscow (Russian Premier League) — Under 1.5 goals @ 4.52  edge +2.56%  [✓ ESPN]
+    AC Milan v Venezia (Serie A) — Draw @ 4.50  edge +0.81%  [✓ ESPN]
+
+  ⚠ QUARANTINE (Audit 2026-08-20) — Excluded from Acca A:
+    Eredivisie (100% miss rate in audit window)
+    Scottish Premiership (100% miss rate in audit window)

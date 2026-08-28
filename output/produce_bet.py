@@ -737,6 +737,24 @@ def render_part5_signoff(hard_rules_note: str = "") -> str:
             "the Architect deploys it.")
 
 
+def _sanitize_phone_output(text: str) -> str:
+    """Post-process the rendered board for Telegram/phone delivery.
+
+    Strips debug-heavy markers that belong on-disk for audit, not on the phone:
+    - "NO DATA — PENDING" → "—"
+    - "PENDING" (standalone) → "—"
+    - "NO DATA" (standalone) → "—"
+
+    This runs ONLY when only_rated=True (phone mode). The on-disk file
+    retains all markers for audit/debug per HR35."""
+    # Replace the verbose debug markers with clean dashes
+    # Order matters: longest patterns first to avoid partial overlaps
+    text = text.replace("NO DATA — PENDING", "—")
+    text = text.replace("NO DATA", "—")
+    text = text.replace("PENDING", "—")
+    return text
+
+
 def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
                         calibration_count: int, mean_clv: Optional[float],
                         data_flags: list[str], board: list[BoardFixture],
@@ -767,7 +785,11 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
     (Architect 2026-08-28: flags live on disk/web, not in the phone message).
     only_rated=True drops unrated fixtures (those rendering as NO DATA — PENDING)
     from the phone push so the message shows only priced, scored fixtures;
-    the on-disk board keeps the full scan for audit."""
+    the on-disk board keeps the full scan for audit.
+
+    When only_rated=True (phone mode), the output is post-processed to strip
+    debug markers ("NO DATA — PENDING", "PENDING", "NO DATA") for a clean
+    mobile message. The on-disk board retains full markers for audit."""
     today = date.today().isoformat()
     # only_rated: phone push shows priced fixtures only; unrated rows stay on disk
     if only_rated:
@@ -827,7 +849,13 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
         "",
         render_part5_signoff(),
     ]
-    return "\n".join(parts)
+    full_text = "\n".join(parts)
+
+    # Post-process for phone delivery: strip debug markers
+    if only_rated:
+        full_text = _sanitize_phone_output(full_text)
+
+    return full_text
 
 
 def _get_fixture_best_market(bf: BoardFixture, odds_index: Optional[dict]) -> tuple[str, Optional[float], Optional[float], Optional[str]]:

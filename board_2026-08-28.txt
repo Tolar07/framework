@@ -3,11 +3,11 @@ Date: 2026-08-28 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-dep
 Leagues scanned: 2. Bundesliga, Belgian Pro League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey, Coppa Italia, Coupe de France, DFB-Pokal, EFL Cup, Eredivisie, Europa League, FA Cup, KNVB Beker, La Liga, La Liga 2, Ligue 1, Ligue 2, Premier League, Primeira Liga, Russian Premier League, Scottish Premiership, Serie A, Serie B, Swiss Super League, Taça de Portugal, Turkish Super Lig, UEFA Super Cup
 Calibration: 42 legs logged, mean CLV -10.21%
 DATA FLAGS (surfaced first, per HR53/ID403):
-  ⚠ sportybet cache warm: 24 fixtures across 82 league(s) ready for the booking bridge
-  ⚠ Russian Premier League: no results available for grading — legs stay PENDING, not guessed
-  ⚠ Champions League: no results available for grading — legs stay PENDING, not guessed
-  ⚠ Turkish Super Lig: no results available for grading — legs stay PENDING, not guessed
+  ⚠ sportybet cache warm: 96 fixtures across 82 league(s) ready for the booking bridge
   ⚠ Swiss Super League: no results available for grading — legs stay PENDING, not guessed
+  ⚠ Champions League: no results available for grading — legs stay PENDING, not guessed
+  ⚠ Russian Premier League: no results available for grading — legs stay PENDING, not guessed
+  ⚠ Turkish Super Lig: no results available for grading — legs stay PENDING, not guessed
   ⚠ graded 0 of 17 pending leg(s)
   ⚠ Automated CLV grading: 0 leg(s) settled
   ⚠ booking tracker settle skipped (NameError: name 'LEAGUE_MAP' is not defined)
@@ -75,7 +75,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ FA Cup: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
   ⚠ FA Cup: 61 fixture(s) skipped (not full-time or incomplete)
   ⚠ FA Cup: NO ODDS available from this source — it can be modelled but never CLV-backtested.
-  ⚠ FA Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (HTTPSConnectionPool(host='v3.football.api-sports.io', port=443): Max retries exceeded with url: /status (Caused by NameResolutionError("HTTPSConnection(host='v3.football.api-sports.io', port=443): Failed to resolve 'v3.football.api-sports.io' ([Errno 11001] getaddrinfo failed)"))). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
+  ⚠ FA Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING
   ⚠ KNVB Beker: history served from cache
   ⚠ KNVB Beker: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
   ⚠ KNVB Beker: 1 fixture(s) skipped (not full-time or incomplete)
@@ -129,52 +129,47 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ UEFA Super Cup: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
   ⚠ UEFA Super Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.) — NO DATA — PENDING
   ⚠ UEFA Super Cup: Elo continental blend w=2.5 (cached)
-  ⚠ VERIFY GATE: 18 verified, 4 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
+  ⚠ VERIFY GATE: 15 verified, 7 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
   ⚠ VERIFY GATE: 'VfL Bochum v VfL Osnabrück (2. Bundesliga)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Eintracht Braunschweig v Hertha BSC (2. Bundesliga)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Genk v SK Beveren (Belgian Pro League)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'Bayern München v VfB Stuttgart (Bundesliga)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Bayern München v VfB Stuttgart (Bundesliga)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
   ⚠ VERIFY GATE: 'Wrexham v Birmingham (Championship)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Groningen v Fortuna Sittard (Eredivisie)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
-  ⚠ VERIFY GATE: 'Racing Santander v Elche (La Liga)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Racing Santander v Elche (La Liga)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
   ⚠ VERIFY GATE: 'Alaves v Villarreal (La Liga)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'Tenerife v Sporting Gijon (La Liga 2)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'Lille v Paris Saint Germain (Ligue 1)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Tenerife v Sporting Gijon (La Liga 2)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Lille v Paris Saint Germain (Ligue 1)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
   ⚠ VERIFY GATE: 'Montpellier v Boulogne (Ligue 2)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Clermont Foot v Sochaux (Ligue 2)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Nancy v Dunkerque (Ligue 2)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Laval v Grenoble (Ligue 2)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Rodez v PAU (Ligue 2)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'Crystal Palace v Manchester City (Premier League)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  ⚠ VERIFY GATE: 'Crystal Palace v Manchester City (Premier League)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Rio Ave v Sporting CP (Primeira Liga)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
   ⚠ VERIFY GATE: 'Akron v CSKA Moscow (Russian Premier League)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'AC Milan v Venezia (Serie A)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  ⚠ VERIFY GATE: 'AC Milan v Venezia (Serie A)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Cremonese v Modena (Serie B)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Beira-Mar v União Lamas (Taça de Portugal)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'Gençlerbirliği S.K. v Erzurumspor FK (Turkish Super Lig)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Gençlerbirliği S.K. v Erzurumspor FK (Turkish Super Lig)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
   ⚠ DEPLOY SHORTLIST RECALCULATED: 9 of 22 fixtures on deploy shortlist (verify gate stamps preserved)
-  ⚠ ⚠ source circuit OPEN (paused): thesportsdb, espn
-  ⚠ Championship: odds fetch failed (odds_Championship: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
-  ⚠ La Liga: odds fetch failed (odds_La Liga: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
-  ⚠ Ligue 2: odds fetch failed (odds_Ligue 2: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
-  ⚠ Russian Premier League: odds fetch failed (odds_Russian Premier League: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
-  ⚠ Serie A: odds fetch failed (odds_Serie A: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
-  ⚠ Serie B: odds fetch failed (odds_Serie B: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING
+  ⚠ ⚠ source circuit OPEN (paused): espn
+  ⚠ Championship: odds served via multi-source layer
+  ⚠ La Liga: odds served via multi-source layer
+  ⚠ Ligue 2: odds served via multi-source layer
+  ⚠ Russian Premier League: odds served via multi-source layer
+  ⚠ Serie A: odds served via multi-source layer
+  ⚠ Serie B: odds served via multi-source layer
   ⚠ SHADOW calibration (below gate, NOT applied): 1X2_AWAY +0.7%, 1X2_DRAW -0.9% — visible only; inert until MIN_LEGS legs settle
   ⚠ PLATT calibration active: 1X2_AWAY n=72 a=+5.33 b=6.04, BTTS_YES n=69 a=-0.30 b=7.33, OVER_1_5 n=69 a=-4.05 b=4.36, OVER_2_5 n=69 a=+0.87 b=5.12 (curve on settled predictions, shrunk to identity)
   ⚠ SHADOW PLATT (below gate, NOT applied): 1X2_DRAW n=72, 1X2_HOME n=72 — visible only; inert until PLATT_MIN_LEGS settle
   ⚠ ENSEMBLE WEIGHTS ACTIVE — bookmaker w=0.85, consensus w=0.85, dc w=0.848, elo w=0.85, xg w=0.781 (CLV-gated, bounded, consensus display only)
-  ⚠ Wrexham v Birmingham: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Alaves v Villarreal: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Montpellier v Boulogne: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Nancy v Dunkerque: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Laval v Grenoble: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Rodez v PAU: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Akron v CSKA Moscow: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ AC Milan v Venezia: no live price found — NO DATA — PENDING, leg not logged
-  ⚠ Cremonese v Modena: no live price found — NO DATA — PENDING, leg not logged
+  ⚠ production bets: 5 leg(s) in Acca A, 1 split acca(s), 3 single(s) on today's slate
+  ⚠ booking tracker: 5 acca(s) placed, 0 skipped
   ⚠ logged 0 new paper leg(s) with a live entry price (agreement_band=0.04)
   ⚠ Phase 3 gate: 42 of 0 legs with logged CLV; mean CLV -10.215
+  ⚠ SportyBet booking codes: 0/5 slip(s) booked — acca_2026-08-28_codes.json
+  ⚠ ⚠ BOOKING COVERAGE GAP — 11 leg(s) WITHOUT a booked code: Acca A: Wrexham v Birmingham (Over 1.5 goals) — fixture not found in SportyBet cache; Acca A: Rodez v PAU (Rodez or Draw (double chance)) — fixture not found in SportyBet cache; Acca A: Cremonese v Modena (Cremonese or Modena (double chance)) — fixture not found in SportyBet cache; Acca A: Nancy v Dunkerque (Nancy or Dunkerque (double chance)) — fixture not found in SportyBet cache; Acca A: Alaves v Villarreal (Over 1.5 goals) — fixture not found in SportyBet cache; Acca B: Akron v CSKA Moscow (CSKA Moscow to win) — fixture not found in SportyBet cache; Acca B: AC Milan v Venezia (AC Milan to win) — fixture not found in SportyBet cache; Acca B: Montpellier v Boulogne (Montpellier to win) — fixture not found in SportyBet cache; SINGLE — Akron v CSKA Moscow: Akron v CSKA Moscow (CSKA Moscow to win) — fixture not found in SportyBet cache; SINGLE — AC Milan v Venezia: AC Milan v Venezia (AC Milan to win) — fixture not found in SportyBet cache; SINGLE — Montpellier v Boulogne: Montpellier v Boulogne (Montpellier to win) — fixture not found in SportyBet cache (Architect must add manually before placing)
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.
 
@@ -184,41 +179,48 @@ VfL Bochum v VfL Osnabrück (2. Bundesliga) | NO DATA — PENDING | — | — | 
 Eintracht Braunschweig v Hertha BSC (2. Bundesliga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Genk v SK Beveren (Belgian Pro League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Bayern München v VfB Stuttgart (Bundesliga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-Wrexham v Birmingham (Championship) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Wrexham v Birmingham (Championship) | Over 1.5 goals | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Groningen v Fortuna Sittard (Eredivisie) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Racing Santander v Elche (La Liga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-Alaves v Villarreal (La Liga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Alaves v Villarreal (La Liga) | Over 1.5 goals | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Tenerife v Sporting Gijon (La Liga 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Lille v Paris Saint Germain (Ligue 1) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-Montpellier v Boulogne (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Montpellier v Boulogne (Ligue 2) | Montpellier to win | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Clermont Foot v Sochaux (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-Nancy v Dunkerque (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-Laval v Grenoble (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-Rodez v PAU (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Nancy v Dunkerque (Ligue 2) | Nancy or Dunkerque (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Laval v Grenoble (Ligue 2) | Both teams to score — no | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Rodez v PAU (Ligue 2) | Rodez or Draw (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Crystal Palace v Manchester City (Premier League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Rio Ave v Sporting CP (Primeira Liga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-Akron v CSKA Moscow (Russian Premier League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-AC Milan v Venezia (Serie A) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-Cremonese v Modena (Serie B) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Akron v CSKA Moscow (Russian Premier League) | CSKA Moscow to win | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+AC Milan v Venezia (Serie A) | AC Milan to win | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Cremonese v Modena (Serie B) | Cremonese or Modena (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Beira-Mar v União Lamas (Taça de Portugal) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Gençlerbirliği S.K. v Erzurumspor FK (Turkish Super Lig) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 
 TABLE 2 — LAYER 1 COMPACT
 Fixture | Selected Pick | Model Prob | Price | Bookmaker | EV | Booking Code
-Wrexham v Birmingham (Championship) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
-Alaves v Villarreal (La Liga) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
-Montpellier v Boulogne (Ligue 2) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
-Nancy v Dunkerque (Ligue 2) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
-Laval v Grenoble (Ligue 2) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
-Rodez v PAU (Ligue 2) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
-Akron v CSKA Moscow (Russian Premier League) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
-AC Milan v Venezia (Serie A) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
-Cremonese v Modena (Serie B) | NO DATA — PENDING | — | — | — | — | NO DATA — PENDING
+Wrexham v Birmingham (Championship) | Over 1.5 goals | 77% | 1.36 | Bet365 | +4.91% | NO DATA — PENDING
+Alaves v Villarreal (La Liga) | Over 1.5 goals | 79% | 1.25 | Bet365 | -0.64% | NO DATA — PENDING
+Montpellier v Boulogne (Ligue 2) | Montpellier to win | 53% | 1.70 | Bet365 | -10.15% | NO DATA — PENDING
+Nancy v Dunkerque (Ligue 2) | Nancy or Dunkerque (double chance) | 76% | 1.33 | Bet365 | +1.24% | NO DATA — PENDING
+Laval v Grenoble (Ligue 2) | Both teams to score — no | 64% | 1.83 | Bet365 | +16.57% | NO DATA — PENDING
+Rodez v PAU (Ligue 2) | Rodez or Draw (double chance) | 86% | 1.20 | Bet365 | +3.75% | NO DATA — PENDING
+Akron v CSKA Moscow (Russian Premier League) | CSKA Moscow to win | 58% | 1.70 | Pinnacle | -1.60% | NO DATA — PENDING
+AC Milan v Venezia (Serie A) | AC Milan to win | 66% | 1.48 | Bet365 | -2.14% | NO DATA — PENDING
+Cremonese v Modena (Serie B) | Cremonese or Modena (double chance) | 75% | 1.36 | Bet365 | +2.50% | NO DATA — PENDING
 
 TABLE 3 — ACCA ROUTE
 No capital-eligible accas generated.
 
 TABLE 4 — THE PICK
+PRIMARY SINGLE: Laval v Grenoble (Ligue 2)
+  Market: Both teams to score — no
+  Price: 1.83 (Bet365)
+  Model Prob: 64%
+  MES EV: +5.05%
+  Verification: ✓
+  Booking Code: NO DATA — PENDING
 
 HONEST EDGE: This is an excellent informed process but NOT a demonstrated profitable edge.
 Capital authority: THE ARCHITECT. Nothing here is live until deployed.
@@ -232,11 +234,11 @@ Capital authority: THE ARCHITECT. Nothing here is live until the Architect deplo
 
 VERIFY RESULTS
 Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
-sportybet cache warm: 24 fixtures across 82 league(s) ready for the booking bridge | NO DATA — PENDING |  |  |  | 
-Russian Premier League: no results available for grading — legs stay PENDING, not guessed | NO DATA — PENDING |  |  |  | 
-Champions League: no results available for grading — legs stay PENDING, not guessed | NO DATA — PENDING |  |  |  | 
-Turkish Super Lig: no results available for grading — legs stay PENDING, not guessed | NO DATA — PENDING |  |  |  | 
+sportybet cache warm: 96 fixtures across 82 league(s) ready for the booking bridge | NO DATA — PENDING |  |  |  | 
 Swiss Super League: no results available for grading — legs stay PENDING, not guessed | NO DATA — PENDING |  |  |  | 
+Champions League: no results available for grading — legs stay PENDING, not guessed | NO DATA — PENDING |  |  |  | 
+Russian Premier League: no results available for grading — legs stay PENDING, not guessed | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: no results available for grading — legs stay PENDING, not guessed | NO DATA — PENDING |  |  |  | 
 graded 0 of 17 pending leg(s) | NO DATA — PENDING |  |  |  | 
 Automated CLV grading: 0 leg(s) settled | NO DATA — PENDING |  |  |  | 
 booking tracker settle skipped (NameError: name 'LEAGUE_MAP' is not defined) | NO DATA — PENDING |  |  |  | 
@@ -304,7 +306,7 @@ FA Cup: history served from cache | NO DATA — PENDING |  |  |  |
 FA Cup: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2). | NO DATA — PENDING |  |  |  | 
 FA Cup: 61 fixture(s) skipped (not full-time or incomplete) | NO DATA — PENDING |  |  |  | 
 FA Cup: NO ODDS available from this source — it can be modelled but never CLV-backtested. | NO DATA — PENDING |  |  |  | 
-FA Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (HTTPSConnectionPool(host='v3.football.api-sports.io', port=443): Max retries exceeded with url: /status (Caused by NameResolutionError("HTTPSConnection(host='v3.football.api-sports.io', port=443): Failed to resolve 'v3.football.api-sports.io' ([Errno 11001] getaddrinfo failed)"))). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+FA Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
 KNVB Beker: history served from cache | NO DATA — PENDING |  |  |  | 
 KNVB Beker: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2). | NO DATA — PENDING |  |  |  | 
 KNVB Beker: 1 fixture(s) skipped (not full-time or incomplete) | NO DATA — PENDING |  |  |  | 
@@ -358,49 +360,44 @@ alias targets not found in the domestic pool (these clubs stay unanchored): Lask
 UEFA Super Cup: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor. | NO DATA — PENDING |  |  |  | 
 UEFA Super Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
 UEFA Super Cup: Elo continental blend w=2.5 (cached) | NO DATA — PENDING |  |  |  | 
-VERIFY GATE: 18 verified, 4 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 15 verified, 7 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'VfL Bochum v VfL Osnabrück (2. Bundesliga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Eintracht Braunschweig v Hertha BSC (2. Bundesliga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Genk v SK Beveren (Belgian Pro League)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
-VERIFY GATE: 'Bayern München v VfB Stuttgart (Bundesliga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Bayern München v VfB Stuttgart (Bundesliga)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Wrexham v Birmingham (Championship)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Groningen v Fortuna Sittard (Eredivisie)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
-VERIFY GATE: 'Racing Santander v Elche (La Liga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Racing Santander v Elche (La Liga)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Alaves v Villarreal (La Liga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
-VERIFY GATE: 'Tenerife v Sporting Gijon (La Liga 2)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
-VERIFY GATE: 'Lille v Paris Saint Germain (Ligue 1)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Tenerife v Sporting Gijon (La Liga 2)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Lille v Paris Saint Germain (Ligue 1)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Montpellier v Boulogne (Ligue 2)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Clermont Foot v Sochaux (Ligue 2)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Nancy v Dunkerque (Ligue 2)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Laval v Grenoble (Ligue 2)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Rodez v PAU (Ligue 2)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
-VERIFY GATE: 'Crystal Palace v Manchester City (Premier League)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Crystal Palace v Manchester City (Premier League)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Rio Ave v Sporting CP (Primeira Liga)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Akron v CSKA Moscow (Russian Premier League)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
-VERIFY GATE: 'AC Milan v Venezia (Serie A)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'AC Milan v Venezia (Serie A)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Cremonese v Modena (Serie B)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
 VERIFY GATE: 'Beira-Mar v União Lamas (Taça de Portugal)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
-VERIFY GATE: 'Gençlerbirliği S.K. v Erzurumspor FK (Turkish Super Lig)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Gençlerbirliği S.K. v Erzurumspor FK (Turkish Super Lig)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
 DEPLOY SHORTLIST RECALCULATED: 9 of 22 fixtures on deploy shortlist (verify gate stamps preserved) | NO DATA — PENDING |  |  |  | 
-⚠ source circuit OPEN (paused): thesportsdb, espn | NO DATA — PENDING |  |  |  | 
-Championship: odds fetch failed (odds_Championship: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
-La Liga: odds fetch failed (odds_La Liga: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
-Ligue 2: odds fetch failed (odds_Ligue 2: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
-Russian Premier League: odds fetch failed (odds_Russian Premier League: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
-Serie A: odds fetch failed (odds_Serie A: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
-Serie B: odds fetch failed (odds_Serie B: all 3 sources exhausted. Last error: circuit breaker 'the_odds_api' OPEN — refusing request to https://api.the-odds-api.com/v4/sports (degrade to NO DATA — PENDING)) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+⚠ source circuit OPEN (paused): espn | NO DATA — PENDING |  |  |  | 
+Championship: odds served via multi-source layer | NO DATA — PENDING |  |  |  | 
+La Liga: odds served via multi-source layer | NO DATA — PENDING |  |  |  | 
+Ligue 2: odds served via multi-source layer | NO DATA — PENDING |  |  |  | 
+Russian Premier League: odds served via multi-source layer | NO DATA — PENDING |  |  |  | 
+Serie A: odds served via multi-source layer | NO DATA — PENDING |  |  |  | 
+Serie B: odds served via multi-source layer | NO DATA — PENDING |  |  |  | 
 SHADOW calibration (below gate, NOT applied): 1X2_AWAY +0.7%, 1X2_DRAW -0.9% — visible only; inert until MIN_LEGS legs settle | NO DATA — PENDING |  |  |  | 
 PLATT calibration active: 1X2_AWAY n=72 a=+5.33 b=6.04, BTTS_YES n=69 a=-0.30 b=7.33, OVER_1_5 n=69 a=-4.05 b=4.36, OVER_2_5 n=69 a=+0.87 b=5.12 (curve on settled predictions, shrunk to identity) | NO DATA — PENDING |  |  |  | 
 SHADOW PLATT (below gate, NOT applied): 1X2_DRAW n=72, 1X2_HOME n=72 — visible only; inert until PLATT_MIN_LEGS settle | NO DATA — PENDING |  |  |  | 
 ENSEMBLE WEIGHTS ACTIVE — bookmaker w=0.85, consensus w=0.85, dc w=0.848, elo w=0.85, xg w=0.781 (CLV-gated, bounded, consensus display only) | NO DATA — PENDING |  |  |  | 
-Wrexham v Birmingham: no live price found — NO DATA — PENDING, leg not logged | NO DATA — PENDING |  |  |  | 
-Alaves v Villarreal: no live price found — NO DATA — PENDING, leg not logged | NO DATA — PENDING |  |  |  | 
-Montpellier v Boulogne: no live price found — NO DATA — PENDING, leg not logged | NO DATA — PENDING |  |  |  | 
-Nancy v Dunkerque: no live price found — NO DATA — PENDING, leg not logged | NO DATA — PENDING |  |  |  | 
-Laval v Grenoble: no live price found — NO DATA — PENDING, leg not logged | NO DATA — PENDING |  |  |  | 
-Rodez v PAU: no live price found — NO DATA — PENDING, leg not logged | NO DATA — PENDING |  |  |  | 
-Akron v CSKA Moscow: no live price found — NO DATA — PENDING, leg not logged | NO DATA — PENDING |  |  |  | 
-AC Milan v Venezia: no live price found — NO DATA — PENDING, leg not logged | NO DATA — PENDING |  |  |  | 
-Cremonese v Modena: no live price found — NO DATA — PENDING, leg not logged | NO DATA — PENDING |  |  |  | 
+production bets: 5 leg(s) in Acca A, 1 split acca(s), 3 single(s) on today's slate | NO DATA — PENDING |  |  |  | 
+booking tracker: 5 acca(s) placed, 0 skipped | NO DATA — PENDING |  |  |  | 
 logged 0 new paper leg(s) with a live entry price (agreement_band=0.04) | NO DATA — PENDING |  |  |  | 
 Phase 3 gate: 42 of 0 legs with logged CLV; mean CLV -10.215 | NO DATA — PENDING |  |  |  | 
+SportyBet booking codes: 0/5 slip(s) booked — acca_2026-08-28_codes.json | NO DATA — PENDING |  |  |  | 
+⚠ BOOKING COVERAGE GAP — 11 leg(s) WITHOUT a booked code: Acca A: Wrexham v Birmingham (Over 1.5 goals) — fixture not found in SportyBet cache; Acca A: Rodez v PAU (Rodez or Draw (double chance)) — fixture not found in SportyBet cache; Acca A: Cremonese v Modena (Cremonese or Modena (double chance)) — fixture not found in SportyBet cache; Acca A: Nancy v Dunkerque (Nancy or Dunkerque (double chance)) — fixture not found in SportyBet cache; Acca A: Alaves v Villarreal (Over 1.5 goals) — fixture not found in SportyBet cache; Acca B: Akron v CSKA Moscow (CSKA Moscow to win) — fixture not found in SportyBet cache; Acca B: AC Milan v Venezia (AC Milan to win) — fixture not found in SportyBet cache; Acca B: Montpellier v Boulogne (Montpellier to win) — fixture not found in SportyBet cache; SINGLE — Akron v CSKA Moscow: Akron v CSKA Moscow (CSKA Moscow to win) — fixture not found in SportyBet cache; SINGLE — AC Milan v Venezia: AC Milan v Venezia (AC Milan to win) — fixture not found in SportyBet cache; SINGLE — Montpellier v Boulogne: Montpellier v Boulogne (Montpellier to win) — fixture not found in SportyBet cache (Architect must add manually before placing) | NO DATA — PENDING |  |  |  | 

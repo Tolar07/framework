@@ -1,141 +1,141 @@
 {
-  "fetched_at": 1787608093.8198895,
+  "fetched_at": 1787938791.8375204,
   "league": "Championship",
   "country": "England",
   "fixtures": [
     {
-      "id": "34937",
-      "home": "CA Tigre",
-      "away": "CA Central Cordoba SE",
-      "kickoff": "23:00  \nID: 34937",
+      "id": "26975",
+      "home": "Treowen Stars",
+      "away": "Cardiff Draconians",
+      "kickoff": "18:45  \nID: 26975",
       "league": "Championship",
       "raw_market": {}
     },
     {
-      "id": "36385",
-      "home": "CA Lanus",
-      "away": "Argentinos Juniors",
-      "kickoff": "01:15  \nID: 36385",
+      "id": "40717",
+      "home": "Baglan Dragons",
+      "away": "Caerau Ely FC",
+      "kickoff": "19:30  \nID: 40717",
       "league": "Championship",
       "raw_market": {}
     },
     {
-      "id": "36366",
-      "home": "CA Talleres de Cordoba",
-      "away": "CA Rosario Central",
-      "kickoff": "01:15  \nID: 36366",
+      "id": "50469",
+      "home": "Llanelli Town",
+      "away": "Carmarthen Town",
+      "kickoff": "19:30  \nID: 50469",
       "league": "Championship",
       "raw_market": {}
     },
     {
-      "id": "26930",
-      "home": "Union de Santa Fe",
-      "away": "CA Sarmiento Junin",
-      "kickoff": "23:00  \nID: 26930",
+      "id": "40833",
+      "home": "Newport City FC",
+      "away": "Ynyshir Albions",
+      "kickoff": "19:30  \nID: 40833",
       "league": "Championship",
       "raw_market": {}
     },
     {
-      "id": "27126",
-      "home": "Boca Juniors",
-      "away": "CA Lanus",
-      "kickoff": "01:30  \nID: 27126",
+      "id": "24377",
+      "home": "Swansea University",
+      "away": "Pontypridd Town",
+      "kickoff": "19:30  \nID: 24377",
       "league": "Championship",
       "raw_market": {}
     },
     {
-      "id": "21390",
-      "home": "Deportivo Riestra AFBC",
-      "away": "Velez Sarsfield",
-      "kickoff": "18:45  \nID: 21390",
+      "id": "41259",
+      "home": "Aberystwyth Town FC",
+      "away": "Pontardawe Town FC",
+      "kickoff": "19:45  \nID: 41259",
       "league": "Championship",
       "raw_market": {}
     },
     {
-      "id": "28254",
-      "home": "CA Rosario Central",
-      "away": "Gimnasia y Esgrima La Plata",
-      "kickoff": "21:00  \nID: 28254",
+      "id": "40957",
+      "home": "Trethomas Bluebirds",
+      "away": "Afan Lido",
+      "kickoff": "19:45  \nID: 40957",
       "league": "Championship",
       "raw_market": {}
     },
     {
-      "id": "13079",
-      "home": "CA Huracan",
-      "away": "Estudiantes Rio Cuarto",
-      "kickoff": "23:00  \nID: 13079",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "15610",
-      "home": "Atletico Tucuman",
-      "away": "CA Belgrano de Cordoba",
-      "kickoff": "01:30  \nID: 15610",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "28269",
-      "home": "CA Talleres de Cordoba",
-      "away": "CA Central Cordoba SE",
-      "kickoff": "01:30  \nID: 28269",
+      "id": "1",
+      "home": "Racing Santander",
+      "away": "Elche CF",
+      "kickoff": "38:35\nH1",
       "league": "Championship",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Tigres FC",
-      "away": "Union Magdalena",
-      "kickoff": "89:02\nH2",
+      "home": "Bochum",
+      "away": "VfL 1899 Osnabruck",
+      "kickoff": "49:11\nH2",
       "league": "Championship",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "CD Real Santander",
-      "away": "Independiente Valle Del Cauca",
-      "kickoff": "57:53\nH2",
+      "home": "Eintracht Braunschweig",
+      "away": "Hertha",
+      "kickoff": "50:14\nH2",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "AC Horsens",
+      "away": "Viborg FF",
+      "kickoff": "38:24\nH1",
       "league": "Championship",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "CSDC Alianza Universidad",
-      "away": "Bentin Tacna Heroica",
-      "kickoff": "81:23\nH2",
+      "home": "Club Portugalete",
+      "away": "RS Gimnastica de Torrelavega",
+      "kickoff": "49:41\nH2",
       "league": "Championship",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Libertad Asuncion",
-      "away": "Sportivo San Lorenzo",
-      "kickoff": "17:39\nH1",
+      "home": "Yeclano Deportivo",
+      "away": "CD Alcoyano",
+      "kickoff": "6:51\nH1",
       "league": "Championship",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "12 de Junio de Villa Hayes",
-      "away": "Paraguari AC",
-      "kickoff": "18:03\nH1",
+      "home": "Al Ittihad Al Sakandary",
+      "away": "Ceramica Cleopatra",
+      "kickoff": "38:00\nH1",
       "league": "Championship",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Atlante FC",
-      "away": "Deportivo Toluca FC",
-      "kickoff": "00:46\nH1",
+      "home": "Zed FC",
+      "away": "AL Ahly SC (EGY)",
+      "kickoff": "36:44\nH1",
       "league": "Championship",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "CD Cortulua",
-      "away": "CA Nacional Sa",
-      "kickoff": "16:56\nH1",
+      "id": "2",
+      "home": "Al-Riyadh SC",
+      "away": "Neom SC",
+      "kickoff": "88:09\nH2",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Al-Fayha FC",
+      "away": "Abha Club",
+      "kickoff": "76:31\nH2",
       "league": "Championship",
       "raw_market": {}
     }

@@ -290,15 +290,26 @@ def cmd_board(_: str) -> str:
 
 
 def cmd_heartbeat(_: str) -> str:
-    """Show today's single heartbeat fixture (best pick of the day)."""
+    """Show today's single heartbeat fixture (best pick of the day) + staking state."""
     p = BOARD_DIR / f"heartbeat_{date.today().isoformat()}.txt"
     if not p.exists():
         heartbeats = sorted(BOARD_DIR.glob("heartbeat_*.txt"))
         if not heartbeats:
             return "No heartbeat available yet. Heartbeat is generated with the daily board."
         p = heartbeats[-1]
-    return Reply(p.read_text(encoding="utf-8"),
-                 keyboard=_keyboard(("/board", "/status"), ("/verify result", "/produce bet")))
+
+    heartbeat_text = p.read_text(encoding="utf-8")
+
+    # Append staking report
+    try:
+        from engine.heartbeat_staking import get_stake_state, render_stake_report
+        state = get_stake_state()
+        stake_report = render_stake_report(state)
+        return Reply(f"{heartbeat_text}\n\n{stake_report}",
+                     keyboard=_keyboard(("/board", "/status"), ("/verify result", "/produce bet")))
+    except Exception:
+        return Reply(heartbeat_text,
+                     keyboard=_keyboard(("/board", "/status"), ("/verify result", "/produce bet")))
 
 
 def cmd_verify(arg: str) -> str:

@@ -22,11 +22,20 @@ from __future__ import annotations
 
 import json
 import sys
+import io
 from dataclasses import dataclass, field, asdict
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Optional
 from collections import defaultdict
+
+# Ensure UTF-8 output (Windows console defaults to cp1252)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+else:  # pragma: no cover
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
 # Ensure repo root on path
 REPO_ROOT = Path(__file__).parent
@@ -37,7 +46,7 @@ from output.heartbeat import get_heartbeat_stats, save_heartbeat_record
 from bets.booking_tracker import status as booking_status, settle as booking_settle
 from bets.produced_bet import load_produced_bet, verify_produced_bet
 from clv.clv_logger import CLVLog, PHASE3_GATE_MIN_LEGS
-from clv.phase3_gate import evaluate_gate, evaluate_gate_from_stats
+from clv.phase3_gate import evaluate_gate
 from variant_selection import (
     get_variant_population_status,
     compute_survival_tier_from_variants,
@@ -554,7 +563,7 @@ def run_performance_analysis(target_date: str) -> list[AnalysisResult]:
     ))
 
     # 5. Replication/Cull Signals
-    if shouldReplicate(summary):
+    if should_replicate(summary):
         findings.append(AnalysisResult(
             category="performance",
             severity="info",
@@ -564,7 +573,7 @@ def run_performance_analysis(target_date: str) -> list[AnalysisResult]:
             recommendation="Spawn new variants from best performers. Use variant_selection.add_variant().",
         ))
 
-    if shouldCull(summary):
+    if should_cull(summary):
         findings.append(AnalysisResult(
             category="performance",
             severity="warning",

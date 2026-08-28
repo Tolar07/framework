@@ -259,14 +259,30 @@ def compute_survival_tier_from_variants(variants_data: Dict[str, Any]) -> str:
 # REPLICATION / CULL LOGIC (mirrors TypeScript bridge)
 # ---------------------------------------------------------------------------
 
-def should_replicate(metrics: VariantMetrics) -> bool:
+def should_replicate(metrics: Any) -> bool:
     """Check if variant population should trigger replication (new variant spawn)."""
-    return metrics.mean_fitness > 0.55 and metrics.alive_variants >= 3 and metrics.total_variants < 20
+    if isinstance(metrics, dict):
+        mean_fitness = metrics.get("meanFitness", 0.0)
+        alive = metrics.get("aliveVariants", 0)
+        total = metrics.get("totalVariants", 0)
+    else:
+        mean_fitness = metrics.mean_fitness
+        alive = metrics.alive_variants
+        total = metrics.total_variants
+    return mean_fitness > 0.55 and alive >= 3 and total < 20
 
 
-def should_cull(metrics: VariantMetrics) -> bool:
+def should_cull(metrics: Any) -> bool:
     """Check if variant population should trigger death (cull worst variants)."""
-    return metrics.mean_fitness < 0.45 and metrics.total_variants > 5 and metrics.deaths_this_window >= 2
+    if isinstance(metrics, dict):
+        mean_fitness = metrics.get("meanFitness", 0.0)
+        total = metrics.get("totalVariants", 0)
+        deaths = metrics.get("deathsThisWindow", 0)
+    else:
+        mean_fitness = metrics.mean_fitness
+        total = metrics.total_variants
+        deaths = metrics.deaths_this_window
+    return mean_fitness < 0.45 and total > 5 and deaths >= 2
 
 
 # ---------------------------------------------------------------------------

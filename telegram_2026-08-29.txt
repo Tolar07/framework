@@ -5,3 +5,111 @@
 
 
 ==================================
+=== OLP XDV DAILY PRODUCTION - 2026-08-29 ===
+Date: 2026-08-29
+Total accas generated: 37
+
+=== MULTI-LEG ACCAS (Acca A-G) ===
+Count: 7 accas (35 legs total)
+
+Acca A (5 legs):
+  Combined odds: 5.0179
+  Combined probability: 0.2444
+    Leg 1: Juventus v Parma (Serie A) - Both teams to score â€” no @ 1.57
+    Leg 2: Galatasaray v GÃ¶ztepe (Turkish Super Lig) - Over 1.5 goals @ 1.2
+    Leg 3: Bristol City v Portsmouth (Championship) - Bristol City or Draw (double chance) @ 1.36
+    Leg 4: Gaziantep FK v Rizespor (Turkish Super Lig) - Gaziantep FK or Draw (double chance) @ 1.44
+    Leg 5: Guingamp v Nantes (Ligue 2) - Nantes or Draw (double chance) @ 1.36
+
+Acca B (5 legs):
+  Combined odds: 4.8226
+  Combined probability: 0.2368
+    Leg 1: Union Berlin v Eintracht Frankfurt (Bundesliga) - Over 1.5 goals @ 1.2
+    Leg 2: FC Krasnodar v FC Rostov (Russian Premier League) - FC Krasnodar or FC Rostov (double chance) @ 1.29
+    Leg 3: Charlton v Preston (Championship) - Both teams to score â€” no @ 1.83
+    Leg 4: Konyaspor v Kocaelispor (Turkish Super Lig) - Konyaspor or Draw (double chance) @ 1.28
+    Leg 5: Sassuolo v Torino (Serie A) - Sassuolo or Torino (double chance) @ 1.33
+
+Acca C (5 legs):
+  Combined odds: 5.6678
+  Combined probability: 0.1882
+    Leg 1: Annecy v Metz (Ligue 2) - Annecy or Metz (double chance) @ 1.33
+    Leg 2: Derby v Swansea (Championship) - Over 1.5 goals @ 1.36
+    Leg 3: Albacete v Oviedo (La Liga 2) - Over 1.5 goals @ 1.44
+    Leg 4: Sampdoria v Juve Stabia (Serie B) - Both teams to score â€” no @ 1.7
+    Leg 5: Bournemouth v Everton (Premier League) - Over 1.5 goals @ 1.28
+
+Acca D (5 legs):
+  Combined odds: 6.6757
+  Combined probability: 0.1445
+    Leg 1: Arouca v Maritimo (Primeira Liga) - Arouca or Maritimo (double chance) @ 1.33
+    Leg 2: Fiorentina v Frosinone (Serie A) - Fiorentina to win @ 1.65
+    Leg 3: Akhmat v Krylia Sovetov (Russian Premier League) - Over 1.5 goals @ 1.3
+    Leg 4: Auxerre v Angers (Ligue 1) - Angers or Draw (double chance) @ 1.8
+    Leg 5: Stade Brestois 29 v Toulouse (Ligue 1) - Over 1.5 goals @ 1.3
+
+Acca E (5 legs):
+  Combined odds: 6.0480
+  Combined probability: 0.1497
+    Leg 1: RB Leipzig v Borussia MÃ¶nchengladbach (Bundesliga) - RB Leipzig to win @ 1.6
+    Leg 2: Middlesbrough v West Brom (Championship) - Middlesbrough to win @ 1.75
+    Leg 3: Alverca v Santa Clara (Primeira Liga) - Alverca or Draw (double chance) @ 1.44
+    Leg 4: Strasbourg v Lens (Ligue 1) - Over 1.5 goals @ 1.2
+    Leg 5: Southampton v Millwall (Championship) - Over 1.5 goals @ 1.25
+
+Acca F (5 legs):
+  Combined odds: 4.3008
+  Combined probability: 0.1989
+    Leg 1: Servette FC v FC Luzern (Swiss Super League) - Servette FC or Draw (double chance) @ 1.28
+    Leg 2: Watford v West Ham (Championship) - Watford or West Ham (double chance) @ 1.25
+    Leg 3: Monza v Udinese (Serie A) - Over 1.5 goals @ 1.4
+    Leg 4: Blackburn v QPR (Championship) - QPR or Draw (double chance) @ 1.5
+    Leg 5: Fakel v Zenit (Russian Premier League) - Fakel or Zenit (double chance) @ 1.28
+
+Acca G (5 legs):
+  Combined odds: 3.6118
+  Combined probability: 0.2014
+    Leg 1: Virtus Entella v Cesena (Serie B) - Virtus Entella or Draw (double chance) @ 1.33
+    Leg 2: Kortrijk v Charleroi (Belgian Pro League) - Charleroi or Draw (double chance) @ 1.28
+    Leg 3: Tottenham v Newcastle (Premier League) - Over 1.5 goals @ 1.2
+    Leg 4: Borussia Dortmund v Hamburger SV (Bundesliga) - Borussia Dortmund to win @ 1.3
+    Leg 5: Celtic v Falkirk (Scottish Premiership) - Over 2.5 goals @ 1.36
+
+=== SINGLE LEG SLIPS ===
+Count: 30 accas (30 legs total)
+
+ 1. SINGLE â€” Union Berlin v Eintracht Frankfurt: Union Berlin v Eintracht Frankfurt (Bundesliga) - Over 1.5 goals @ 1.2
+ 2. SINGLE â€” FC Krasnodar v FC Rostov: FC Krasnodar v FC Rostov (Russian Premier League) - FC Krasnodar or FC Rostov (double chance) @ 1.29
+ 3. SINGLE â€” Charlton v Preston: Charlton v Preston (Championship) - Both teams to score â€” no @ 1.83
+ 4. SINGLE â€” Konyaspor v Kocaelispor: Konyaspor v Kocaelispor (Turkish Super Lig) - Konyaspor or Draw (double chance) @ 1.28
+ 5. SINGLE â€” Sassuolo v Torino: Sassuolo v Torino (Serie A) - Sassuolo or Torino (double chance) @ 1.33
+ 6. SINGLE â€” Annecy v Metz: Annecy v Metz (Ligue 2) - Annecy or Metz (double chance) @ 1.33
+ 7. SINGLE â€” Derby v Swansea: Derby v Swansea (Championship) - Over 1.5 goals @ 1.36
+ 8. SINGLE â€” Albacete v Oviedo: Albacete v Oviedo (La Liga 2) - Over 1.5 goals @ 1.44
+ 9. SINGLE â€” Sampdoria v Juve Stabia: Sampdoria v Juve Stabia (Serie B) - Both teams to score â€” no @ 1.7
+10. SINGLE â€” Bournemouth v Everton: Bournemouth v Everton (Premier League) - Over 1.5 goals @ 1.28
+11. SINGLE â€” Arouca v Maritimo: Arouca v Maritimo (Primeira Liga) - Arouca or Maritimo (double chance) @ 1.33
+12. SINGLE â€” Fiorentina v Frosinone: Fiorentina v Frosinone (Serie A) - Fiorentina to win @ 1.65
+13. SINGLE â€” Akhmat v Krylia Sovetov: Akhmat v Krylia Sovetov (Russian Premier League) - Over 1.5 goals @ 1.3
+14. SINGLE â€” Auxerre v Angers: Auxerre v Angers (Ligue 1) - Angers or Draw (double chance) @ 1.8
+15. SINGLE â€” Stade Brestois 29 v Toulouse: Stade Brestois 29 v Toulouse (Ligue 1) - Over 1.5 goals @ 1.3
+16. SINGLE â€” RB Leipzig v Borussia MÃ¶nchengladbach: RB Leipzig v Borussia MÃ¶nchengladbach (Bundesliga) - RB Leipzig to win @ 1.6
+17. SINGLE â€” Middlesbrough v West Brom: Middlesbrough v West Brom (Championship) - Middlesbrough to win @ 1.75
+18. SINGLE â€” Alverca v Santa Clara: Alverca v Santa Clara (Primeira Liga) - Alverca or Draw (double chance) @ 1.44
+19. SINGLE â€” Strasbourg v Lens: Strasbourg v Lens (Ligue 1) - Over 1.5 goals @ 1.2
+20. SINGLE â€” Southampton v Millwall: Southampton v Millwall (Championship) - Over 1.5 goals @ 1.25
+21. SINGLE â€” Servette FC v FC Luzern: Servette FC v FC Luzern (Swiss Super League) - Servette FC or Draw (double chance) @ 1.28
+22. SINGLE â€” Watford v West Ham: Watford v West Ham (Championship) - Watford or West Ham (double chance) @ 1.25
+23. SINGLE â€” Monza v Udinese: Monza v Udinese (Serie A) - Over 1.5 goals @ 1.4
+24. SINGLE â€” Blackburn v QPR: Blackburn v QPR (Championship) - QPR or Draw (double chance) @ 1.5
+25. SINGLE â€” Fakel v Zenit: Fakel v Zenit (Russian Premier League) - Fakel or Zenit (double chance) @ 1.28
+26. SINGLE â€” Virtus Entella v Cesena: Virtus Entella v Cesena (Serie B) - Virtus Entella or Draw (double chance) @ 1.33
+27. SINGLE â€” Kortrijk v Charleroi: Kortrijk v Charleroi (Belgian Pro League) - Charleroi or Draw (double chance) @ 1.28
+28. SINGLE â€” Tottenham v Newcastle: Tottenham v Newcastle (Premier League) - Over 1.5 goals @ 1.2
+29. SINGLE â€” Borussia Dortmund v Hamburger SV: Borussia Dortmund v Hamburger SV (Bundesliga) - Borussia Dortmund to win @ 1.3
+30. SINGLE â€” Celtic v Falkirk: Celtic v Falkirk (Scottish Premiership) - Over 2.5 goals @ 1.36
+
+=== SUMMARY ===
+Multi-leg acca legs (Acca A-G): 35
+Single leg slips: 30
+GRAND TOTAL FIXTURES: 65

@@ -1,117 +1,101 @@
 {
-  "fetched_at": 1787996039.7195525,
+  "fetched_at": 1788035452.8649833,
   "league": "Serie A",
   "country": "Italy",
   "fixtures": [
     {
-      "id": "37193",
-      "home": "AJ Auxerre SRL",
-      "away": "Angers SRL",
-      "kickoff": "11:00  \nID: 37193",
+      "id": "42927",
+      "home": "AFF Guatemala",
+      "away": "CD Mictlan",
+      "kickoff": "22:00  \nID: 42927",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "40024",
-      "home": "Brest SRL",
-      "away": "Toulouse SRL",
-      "kickoff": "11:00  \nID: 40024",
+      "id": "43516",
+      "home": "Deportivo Achuapa",
+      "away": "Csd Chiquimulilla",
+      "kickoff": "22:00  \nID: 43516",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "43313",
-      "home": "FC Lorient SRL",
-      "away": "Estac Troyes SRL",
-      "kickoff": "11:00  \nID: 43313",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "43314",
-      "home": "Lyon SRL",
-      "away": "Le Havre AC Srl",
-      "kickoff": "11:00  \nID: 43314",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "43296",
-      "home": "Strasbourg SRL",
-      "away": "RC Lens SRL",
-      "kickoff": "11:00  \nID: 43296",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Gamba Osaka",
-      "away": "Sanfrecce Hiroshima",
-      "kickoff": "29:59\nH1",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Mito Hollyhock",
-      "away": "Machida Zelvia",
-      "kickoff": "30:28\nH1",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Shimizu S-Pulse",
-      "away": "Kashiwa Reysol",
-      "kickoff": "0:40\nH1",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Qingdao Hainiu FC",
-      "away": "Wuhan Three Towns FC",
-      "kickoff": "33:15\nH1",
+      "id": "Serie A-2",
+      "home": "Sevilla",
+      "away": "Atletico Madrid",
+      "kickoff": "45:00\nHT",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Cadiz CF Mirandilla",
-      "away": "Club Atletico Central",
-      "kickoff": "69:12\nH2",
+      "home": "Juventus",
+      "away": "Parma Calcio",
+      "kickoff": "82:21\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "CD Aurrera de Vitoria",
-      "away": "SD Amorebieta",
-      "kickoff": "28:49\nH1",
+      "id": "2",
+      "home": "Lyon",
+      "away": "Le Havre",
+      "kickoff": "88:49\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "CD Illescas",
-      "away": "CF Pozuelo de Alarcon",
-      "kickoff": "31:51\nH1",
+      "id": "2",
+      "home": "AJ Auxerre",
+      "away": "Angers",
+      "kickoff": "86:15\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "CP Mijas-Las Lagunas",
-      "away": "UD Melilla",
-      "kickoff": "31:02\nH1",
+      "id": "2",
+      "home": "Brest",
+      "away": "Toulouse",
+      "kickoff": "86:20\nH2",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Gimnastica Segoviana CF",
-      "away": "Real Madrid C",
-      "kickoff": "32:15\nH1",
+      "id": "2",
+      "home": "Lorient",
+      "away": "Troyes",
+      "kickoff": "86:58\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "PEC Zwolle",
+      "away": "NEC Nijmegen",
+      "kickoff": "70:28\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "FC Pacos Ferreira",
+      "away": "AD Fafe",
+      "kickoff": "68:00\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "Serie A-10",
+      "home": "Girona",
+      "away": "Las Palmas",
+      "kickoff": "45:00\nHT",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Ascoli Calcio 1898",
+      "away": "Carrarese Calcio",
+      "kickoff": "69:19\nH2",
       "league": "Serie A",
       "raw_market": {}
     }

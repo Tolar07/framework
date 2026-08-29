@@ -1408,7 +1408,7 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
             selections = report.get("selections", [])
             bf = BoardFixture(
                 fixture=f"{fx['home_team']} v {fx['away_team']} ({fx['league']})",
-                probs=None,
+                probs=report.get("probs"),
                 verification=None,
                 model_engine="dc" if rating_source == "dc" else ("carry" if rating_source == "carry" else "clubelo"),
                 on_deploy_shortlist=len(selections) > 0,
@@ -1547,25 +1547,29 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         feed_audit_authorized = agent10.get("publish_authorization", {}).get("authorized", False)
         skipped_count = len(agent8.get("skipped_positions", []))
 
-    # Telegram board uses the BLENDED 4-TABLE format (Architect 2026-08-28):
-    # TABLE 1 LAYER 2 FULL GRID, TABLE 2 LAYER 1 COMPACT, TABLE 3 ACCA ROUTE,
-    # TABLE 4 THE PICK — the same 4-table render the web /board command serves.
-    # The phone and web are now one render (Architect 2026-08-11: web == Telegram
-    # structurally). The old compact heartbeat is preserved as
-    # render_telegram_board(compact=True) for any caller that still wants the
-    # lean push (e.g. a future --compact-telegram flag).
-    telegram_content = render_produce_bet(
+    # Telegram board uses the CLEAN COMPACT HEARTBEAT format (Architect 2026-08-29):
+    # ONLY fixtures with model probabilities, league-grouped with kickoff time,
+    # alt markets (O1.5/O2.5/O3.5/BTTS), and AI pick with probability.
+    # No "NO DATA — PENDING" entries. This overrides all other output.
+    # The compact heartbeat is the single authoritative Telegram format.
+    telegram_content = render_telegram_board(
         mode="Mode A", phase=PHASE_LABEL,
         leagues_scanned=leagues_scanned, calibration_count=calibration_count,
         mean_clv=mean_clv, data_flags=all_data_flags, board=board,
+        yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
         produced_bet=produced_record, production=production,
         codes=codes_result,
-        include_data_flags=False, only_rated=False, compact=False)
+        compact=True, target_date=date_str)
 
     # Write telegram file
     telegram_file = f"telegram_{date_str}.txt"
     with open(telegram_file, "w", encoding="utf-8") as f:
         f.write(telegram_content)
+
+    # Send all components via Telegram (Architect redesign: all three formats)
+    if TELEGRAM_BOARD_DELIVERY_ENABLED:
+        from output import notify
+        notify.broadcast_all_components(date_str)
 
     # Write heartbeat file (single best fixture of the day)
     if telegram_heartbeat:

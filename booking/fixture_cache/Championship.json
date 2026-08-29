@@ -1,117 +1,101 @@
 {
-  "fetched_at": 1787950385.7507021,
+  "fetched_at": 1788003226.406512,
   "league": "Championship",
   "country": "England",
   "fixtures": [
     {
-      "id": "45960",
-      "home": "AD Carmelita",
-      "away": "Aserri FC",
-      "kickoff": "22:00  \nID: 45960",
+      "id": "40189",
+      "home": "Chengdu Rongcheng",
+      "away": "Liaoning Tieren FC",
+      "kickoff": "12:35  \nID: 40189",
       "league": "Championship",
       "raw_market": {}
     },
     {
-      "id": "47417",
-      "home": "AD Cariari Pococi",
-      "away": "Guadalupe FC",
-      "kickoff": "20:00  \nID: 47417",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "46074",
-      "home": "CS Uruguay de Coronado",
-      "away": "Futbol Consultants Desamparados",
-      "kickoff": "21:00  \nID: 46074",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "17441",
-      "home": "Municipal Grecia",
-      "away": "AD Sarchi",
-      "kickoff": "01:00  \nID: 17441",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Crystal Palace",
-      "away": "Man City",
-      "kickoff": "94:32\nH2",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Alaves",
-      "away": "Villarreal",
-      "kickoff": "65:44\nH2",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Lille",
-      "away": "PSG",
-      "kickoff": "94:27\nH2",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Wrexham AFC",
-      "away": "Birmingham City",
-      "kickoff": "92:16\nH2",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Rio Ave FC",
-      "away": "Sporting",
-      "kickoff": "76:16\nH2",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "SC Beira Mar",
-      "away": "CF Uniao de Lamas",
-      "kickoff": "88:58\nH2",
-      "league": "Championship",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Real Union de Tenerife Santa Cruz",
-      "away": "CD San Miguel",
-      "kickoff": "87:49\nH2",
+      "id": "27129",
+      "home": "Henan",
+      "away": "Chongqing Tonglianglong FC",
+      "kickoff": "13:00  \nID: 27129",
       "league": "Championship",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Independiente Valle Del Cauca",
-      "away": "Itagui Leones FC",
-      "kickoff": "22:52\nH1",
+      "home": "Liverpool",
+      "away": "Nottingham Forest",
+      "kickoff": "02:07\nH1",
       "league": "Championship",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Comerciantes Unidos",
-      "away": "FC Cajamarca",
-      "kickoff": "23:33\nH1",
+      "home": "Middlesbrough FC",
+      "away": "West Bromwich Albion",
+      "kickoff": "02:49\nH1",
       "league": "Championship",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Mushuc Runa SC",
-      "away": "Delfin SC",
-      "kickoff": "22:11\nH1",
+      "home": "Derby County",
+      "away": "Swansea City",
+      "kickoff": "03:37\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Wolves",
+      "away": "Stoke City",
+      "kickoff": "02:57\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "UD Oliveirense",
+      "away": "Penalva Do Castelo",
+      "kickoff": "72:51\nH2",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Energie Cottbus",
+      "away": "Greuther Furth",
+      "kickoff": "33:32\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Heidenheim",
+      "away": "Dynamo Dresden",
+      "kickoff": "33:00\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Karlsruher SC",
+      "away": "Wolfsburg",
+      "kickoff": "33:43\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Tokyo Verdy",
+      "away": "Kashima Antlers",
+      "kickoff": "68:45\nH2",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Kawasaki Frontale",
+      "away": "JEF United Chiba",
+      "kickoff": "69:18\nH2",
       "league": "Championship",
       "raw_market": {}
     }

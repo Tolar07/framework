@@ -94,6 +94,57 @@ def broadcast(body: str, token: Optional[str] = None,
     return all_ok, notes
 
 
+def broadcast_all_components(board_date: str, token: Optional[str] = None) -> tuple[bool, list[str]]:
+    """Send all three components (telegram, board, acca) as separate Telegram messages.
+    Returns (all_ok, notes) where all_ok is True only if all sends succeeded."""
+    board_dir = Path(__file__).parent.parent / "output" / "boards"
+
+    # Define file paths
+    telegram_path = board_dir / f"telegram_{board_date}.txt"
+    board_path = board_dir / f"board_{board_date}.txt"
+    acca_path = board_dir / f"acca_{board_date}.txt"
+
+    # Read file contents with fallback messages
+    telegram_content = telegram_path.read_text(encoding="utf-8") if telegram_path.exists() else "TELEGRAM FILE NOT FOUND"
+    board_content = board_path.read_text(encoding="utf-8") if board_path.exists() else "BOARD FILE NOT FOUND"
+    acca_content = acca_path.read_text(encoding="utf-8") if acca_path.exists() else "ACCA FILE NOT FOUND"
+
+    # Get target chat IDs (same as broadcast)
+    primaries = [os.environ.get("TELEGRAM_CHAT_ID", "").strip()]
+    targets: list[str] = []
+    for cid in primaries + subscribers():
+        if cid and cid not in targets:
+            targets.append(cid)
+    if not targets:
+        return False, ["no TELEGRAM_CHAT_ID or subscribers — components not delivered"]
+
+    # Track overall success
+    all_ok = True
+    all_notes: list[str] = []
+
+    # Send each component as a separate message
+    components = [
+        ("TELEGRAM COMPACT FORMAT", telegram_content),
+        ("FULL BOARD FORMAT", board_content),
+        ("ACCUMULATOR CODES", acca_content)
+    ]
+
+    for component_name, content in components:
+        # Format each message with banner and honest-edge caveat
+        stamped_content = _stamp(
+            f"📅 {board_date} ({component_name})\n\n{content}"
+        )
+
+        # Send to all targets
+        for cid in targets:
+            ok, n = send_telegram(stamped_content, token=token, chat_id=cid)
+            all_ok = all_ok and ok
+            # Prefix notes with component name for clarity
+            all_notes.extend([f"{component_name}: {note}" for note in n])
+
+    return all_ok, all_notes
+
+
 TELEGRAM_API = "https://api.telegram.org/bot{token}"
 
 # Telegram hard-limits a message to 4096 characters. The board is longer than

@@ -437,7 +437,9 @@ def get_heartbeat_stats() -> dict:
     import json
     from pathlib import Path
 
-    history_file = Path("data/heartbeat/history.jsonl")
+    # Use the canonical repo-rooted history file
+    repo_root = Path(__file__).parent.parent
+    history_file = repo_root / "data" / "heartbeat" / "history.jsonl"
     if not history_file.exists():
         return {"wins": 0, "losses": 0, "total": 0, "win_rate": 0.0}
 

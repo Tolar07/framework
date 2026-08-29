@@ -760,7 +760,8 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
                            data_flags: list[str], board: list[BoardFixture],
                            production: Optional[object] = None,
                            codes: Optional[dict] = None,
-                           odds_index: Optional[dict] = None) -> str:
+                           odds_index: Optional[dict] = None,
+                           only_rated: bool = False) -> str:
     """BLENDED TELEGRAM OUTPUT (compact=False) — Architect 2026-08-28 design.
 
     Four-table structure with AI Pick per fixture in TABLE 1:
@@ -778,12 +779,20 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
 
     Booking codes marked PENDING throughout — placeholder structure maintained
     so nothing needs re-laying-out once read_betslip_combined_odds is fixed.
+
+    only_rated=True drops unrated fixtures and strips debug markers
+    ("NO DATA — PENDING", "PENDING", "NO DATA") for clean phone delivery.
+    The on-disk board retains full markers for audit.
     """
     from collections import defaultdict
     today = date.today().isoformat()
 
     if production is None:
         production = build_production_bets(board)
+
+    # Filter to only fixtures with probabilities when only_rated=True (phone mode)
+    if only_rated:
+        board = [bf for bf in board if bf.probs is not None]
 
     # Get Layer 2 booking code (shared across all fixtures)
     L2_CODE_LABEL = "Layer 2"
@@ -797,20 +806,22 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
     lines = [
         "##########OLP XDV#########",
         "==================================",
-        f"📅 {date.today().strftime('%a %d %b %Y')} — FULL PIPELINE BOARD",
+        "",
+        f"📅  {date.today().strftime('%a %d %b %Y')}   (PICK · win %  ·  alt markets)",
         "",
     ]
+
+    # Filter board to only fixtures with probs (rated fixtures only)
+    rated_board = [bf for bf in board if bf.probs is not None]
 
     # ========== TABLE 1: LAYER 2 FULL GRID WITH AI PICK ==========
     lines.append("──────────────────────────────────")
     lines.append("TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK")
-    lines.append("(every fixture × every scored market, shared board code,")
-    lines.append(" AI's own highest-probability pick shown per fixture)")
     lines.append("──────────────────────────────────")
 
     # Group by league
     by_league: dict[str, list[BoardFixture]] = defaultdict(list)
-    for bf in board:
+    for bf in rated_board:
         league = _league_of(bf)
         by_league[league].append(bf)
 
@@ -830,11 +841,6 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
 
             lines.append(f"   {ko}   {fx_name}")
 
-            if bf.probs is None:
-                lines.append("       NO DATA — PENDING")
-                lines.append("       🤖 AI Pick: NO DATA — PENDING")
-                continue
-
             p = bf.probs
             # Show all market probabilities
             alt = []
@@ -847,28 +853,17 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
             if p.p_btts_yes is not None:
                 alt.append(f"BTTS {round(p.p_btts_yes*100)}%")
 
-            # 1X2 probabilities
-            one_x_two = []
-            if p.p_home is not None:
-                one_x_two.append(f"1X2 {p.home_team} {round(p.p_home*100)}%")
-            if p.p_draw is not None:
-                one_x_two.append(f"Draw {round(p.p_draw*100)}%")
-            if p.p_away is not None:
-                one_x_two.append(f"{p.away_team} {round(p.p_away*100)}%")
-
             if alt:
                 lines.append(f"       {'  ·  '.join(alt)}")
-            if one_x_two:
-                lines.append(f"       {'  ·  '.join(one_x_two)}")
 
             # AI Pick: highest-probability market for this fixture
             best_market_name, model_prob, _, _ = _get_fixture_best_market(bf, odds_index)
             if best_market_name != "NO DATA — PENDING" and model_prob is not None:
-                lines.append(f"       🤖 AI Pick: {best_market_name} — {round(model_prob*100)}%")
+                lines.append(f"       AI pick = {best_market_name} {round(model_prob*100)}%")
             else:
                 # Fallback to 1X2 result pick
                 name, prob, _ = _result_pick(bf)
-                lines.append(f"       🤖 AI Pick: {name} — {round(prob*100)}%")
+                lines.append(f"       AI pick = {name} {round(prob*100)}%")
 
     lines.append("")
     lines.append(f"Board code: {layer2_code} (booking-code read postponed — technical issue,")
@@ -881,16 +876,12 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
     lines.append("(fixtures that clear the deploy threshold, one row each, own code)")
     lines.append("──────────────────────────────────")
 
-    shortlist = [bf for bf in board if bf.on_deploy_shortlist and bf.kickoff_date == today]
+    shortlist = [bf for bf in board if bf.on_deploy_shortlist and bf.kickoff_date == today and bf.probs is not None]
     if not shortlist:
         lines.append("No deploy-eligible fixtures kicking off today.")
     else:
         for bf in shortlist:
             fx_name = _short_fixture(bf)
-            if bf.probs is None:
-                lines.append(f"📈 {fx_name} — NO DATA — PENDING")
-                lines.append(f"    Code: NO DATA — PENDING")
-                continue
 
             best_market_name, model_prob, price, bookmaker = _get_fixture_best_market(bf, odds_index)
             if best_market_name != "NO DATA — PENDING" and model_prob is not None:
@@ -1006,7 +997,13 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
     lines.append("tracking resumes once read_betslip_combined_odds is fixed.")
     lines.append("==================================")
 
-    return "\n".join(lines)
+    full_text = "\n".join(lines)
+
+    # Post-process for phone delivery: strip debug markers
+    if only_rated:
+        full_text = _sanitize_phone_output(full_text)
+
+    return full_text
 
 
 def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
@@ -1085,7 +1082,7 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
             odds_index = None
 
         return render_blended_output(mode, phase, leagues_scanned, calibration_count,
-                                      mean_clv, data_flags, board, production, codes, odds_index)
+                                      mean_clv, data_flags, board, production, codes, odds_index, only_rated)
 
     # compact=True: original four-table output
     today = date.today().isoformat()
@@ -1339,12 +1336,13 @@ def render_layer1_compact(board: list[BoardFixture],
                            codes: Optional[dict] = None,
                            odds_index: Optional[dict] = None) -> str:
     """TABLE 2 — LAYER 1 COMPACT: One row per fixture with its own booking code.
-    Only deploy-eligible fixtures (on_deploy_shortlist)."""
+    Only deploy-eligible fixtures (on_deploy_shortlist) kicking off TODAY."""
 
-    shortlist = [bf for bf in board if bf.on_deploy_shortlist]
+    today = date.today().isoformat()
+    shortlist = [bf for bf in board if bf.on_deploy_shortlist and bf.kickoff_date == today]
     if not shortlist:
         return ("TABLE 2 — LAYER 1 COMPACT\n"
-                "No deploy-eligible fixtures (empty shortlist).")
+                "No deploy-eligible fixtures kicking off today.")
 
     rows = ["TABLE 2 — LAYER 1 COMPACT",
             "Fixture | Selected Pick | Model Prob | Price | Bookmaker | EV | Booking Code"]
@@ -1564,27 +1562,31 @@ def _league_of(bf: BoardFixture) -> str:
 
 
 def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None) -> str:
-    """Compact heartbeat format for Telegram — minimal, kickoff + pick + alt markets.
+    """Compact heartbeat format for Telegram — clean, kickoff + pick + alt markets.
 
-    Matches the Architect's preferred compact format:
+    CLEAN FORMAT (Architect 2026-08-29 directive):
+    - ONLY fixtures with model probabilities (bf.probs is not None)
+    - NO "NO DATA — PENDING" entries ever
+    - League grouped with kickoff time
+    - Alt markets line: O1.5 86%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 58%
+    - AI Pick line: AI pick = [market] [pct]%
+    - Double Chance format: "Team A or Team B (double chance) 82%"
+
     ##########OLP XDV#########
     ==================================
 
-    📅  Tue 25 Aug 2026   (PICK · win %  ·  alt markets)
+    📅  Thu 27 Aug 2026   (PICK · win %  ·  alt markets)
 
-    ⚽  Champions League
-       20:00   Sabah FA v Hapoel Beer Sheva
-       ??:??   Bodo/Glimt v NEC Nijmegen
-       ??:??   Lask Linz v Celtic
-               O1.5 94%  ·  O2.5 83%  ·  O3.5 66%  ·  BTTS 43%
-               🔁 Celtic 92%
-       ??:??   Bodoe/Glimt v Nijmegen
-               ➡ Bodoe/Glimt 69%
-
-    ⚽  La Liga
-       ??:??   Valencia v Betis
-               O1.5 76%  ·  O2.5 51%  ·  O3.5 29%  ·  BTTS 55%
-               🔁 Betis 38%
+    ⚽  Conference League
+       17:00   Maccabi Tel Aviv v FC Lugano
+           O1.5 86%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 58%
+           AI pick = Maccabi Tel Aviv or FC Lugano (double chance) 82%
+       17:00   Qarabag v Twente
+           O1.5 85%  ·  O2.5 65%  ·  O3.5 43%  ·  BTTS 56%
+           AI pick = Qarabag or Twente (double chance) 82%
+       17:45   Monaco v Gornik Zabrze
+           O1.5 74%  ·  O2.5 48%  ·  O3.5 26%  ·  BTTS 50%
+           AI pick = Over 2.5 goals 48%
 
     ==================================
     """
@@ -1600,11 +1602,14 @@ def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None)
     _MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
     date_label = f'{_WEEKDAYS[dt.weekday()]} {dt.day:02d} {_MONTHS[dt.month-1]} {dt.year}'
 
-    # Group by league
+    # Group by league - ONLY fixtures with model probabilities
     leagues: dict[str, list[BoardFixture]] = defaultdict(list)
     for bf in board:
         fx = getattr(bf, "fixture", "")
         if "(" not in fx:
+            continue
+        # ONLY include fixtures that have model probabilities
+        if getattr(bf, "probs", None) is None:
             continue
         league = fx.rsplit('(', 1)[-1].rstrip(')')
         leagues[league].append(bf)
@@ -1616,55 +1621,57 @@ def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None)
     lines.append(f"📅  {date_label}   (PICK · win %  ·  alt markets)")
     lines.append("")
 
-    def _best_ev_pick(p, bf, odds_index=None) -> tuple[str, float, str]:
-        """Return (market_label, prob, arrow) for the best positive-EV market.
-        Falls back to 1X2 result pick if no positive-EV alt market exists.
+    def _best_ev_pick(p, bf) -> tuple[str, float]:
+        """Return (market_label, prob) for the best market for this fixture.
+        Uses the board fixture's best_market if available, otherwise falls back
+        to the highest-probability market from the model's probabilities.
         """
-        # Check if BoardFixture already has a priced best_market
+        # Check if BoardFixture already has a priced best_market with positive EV
         if getattr(bf, "best_market", None) and getattr(bf, "best_mes_ev", None) is not None:
             if bf.best_mes_ev > 0:
-                # Positive EV - use the priced best market
                 label = bf.best_market
                 prob = bf.best_model_prob or 0
-                # Determine arrow based on market type
-                if "win" in label.lower() or label == p.home_team:
-                    arrow = "➡"
-                elif "draw" in label.lower():
-                    arrow = "⚪"
-                elif "away" in label.lower() or label == p.away_team:
-                    arrow = "🔁"
-                elif "both teams" in label.lower() or "btts" in label.lower():
-                    arrow = "🤝"
-                else:
-                    arrow = "📈"
-                return label, prob, arrow
+                return label, prob
 
-        # Fallback: find best EV among all model probabilities using available odds
-        # If we don't have odds_index, use best_market from board fixture
+        # Fallback: use best_market from board fixture if available
         if getattr(bf, "best_market", None):
             label = bf.best_market
             prob = bf.best_model_prob or max(p.p_home, p.p_draw, p.p_away)
-            if "win" in label.lower() or label == p.home_team:
-                arrow = "➡"
-            elif "draw" in label.lower():
-                arrow = "⚪"
-            elif "away" in label.lower() or label == p.away_team:
-                arrow = "🔁"
-            elif "both teams" in label.lower() or "btts" in label.lower():
-                arrow = "🤝"
-            else:
-                arrow = "📈"
-            return label, prob, arrow
+            return label, prob
 
-        # Final fallback: 1X2 result pick
-        probs = [(p.p_home, 'home'), (p.p_draw, 'draw'), (p.p_away, 'away')]
-        prob, side = max(probs, key=lambda x: x[0])
-        label = {'home': p.home_team, 'draw': 'Draw', 'away': p.away_team}[side]
-        arrow = "➡" if label == p.home_team else ("⚪" if label == 'Draw' else "🔁")
-        return label, prob, arrow
+        # Final fallback: find highest probability across ALL model markets
+        # Check goals markets
+        markets = []
+        if p.p_over_15 is not None:
+            markets.append((f"Over 1.5 goals", p.p_over_15))
+        if p.p_over_25 is not None:
+            markets.append((f"Over 2.5 goals", p.p_over_25))
+        if p.p_over_35 is not None:
+            markets.append((f"Over 3.5 goals", p.p_over_35))
+        if p.p_btts_yes is not None:
+            markets.append((f"BTTS Yes", p.p_btts_yes))
+        # Check 1X2
+        markets.append((f"{p.home_team} to win", p.p_home))
+        markets.append(("Draw", p.p_draw))
+        markets.append((f"{p.away_team} to win", p.p_away))
+        # Check Double Chance - format as "Team A or Team B (double chance)"
+        dc_1x = p.p_home + p.p_draw
+        dc_x2 = p.p_draw + p.p_away
+        dc_12 = p.p_home + p.p_away
+        markets.append((f"{p.home_team} or {p.away_team} (double chance)", dc_1x))
+        markets.append((f"Draw or {p.away_team} (double chance)", dc_x2))
+        markets.append((f"{p.home_team} or Draw (double chance)", dc_12))
+
+        if markets:
+            label, prob = max(markets, key=lambda x: x[1])
+            return label, prob
+
+        return "No pick", 0.0
 
     for league in sorted(leagues.keys()):
         entries = leagues[league]
+        if not entries:
+            continue
         lines.append(f"⚽  {league}")
 
         for bf in entries:
@@ -1672,65 +1679,28 @@ def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None)
             match = fx.rsplit('(', 1)[0].strip()
 
             p = getattr(bf, "probs", None)
-            best_market = getattr(bf, "best_market", None)
-            best_mes_ev = getattr(bf, "best_mes_ev", None)
-            best_model_prob = getattr(bf, "best_model_prob", None)
+            if not p:
+                continue  # Skip fixtures without probabilities
 
-            if p:
-                # Best positive-EV market pick (not just 1X2)
-                label, prob, arrow = _best_ev_pick(p, bf)
+            # Get AI pick
+            label, prob = _best_ev_pick(p, bf)
 
-                # Alt markets
-                alt = []
-                if p.p_over_15 is not None: alt.append(f"O1.5 {round(p.p_over_15*100)}%")
-                if p.p_over_25 is not None: alt.append(f"O2.5 {round(p.p_over_25*100)}%")
-                if p.p_over_35 is not None: alt.append(f"O3.5 {round(p.p_over_35*100)}%")
-                if p.p_btts_yes is not None: alt.append(f"BTTS {round(p.p_btts_yes*100)}%")
+            # Alt markets - always show all available
+            alt = []
+            if p.p_over_15 is not None: alt.append(f"O1.5 {round(p.p_over_15*100)}%")
+            if p.p_over_25 is not None: alt.append(f"O2.5 {round(p.p_over_25*100)}%")
+            if p.p_over_35 is not None: alt.append(f"O3.5 {round(p.p_over_35*100)}%")
+            if p.p_btts_yes is not None: alt.append(f"BTTS {round(p.p_btts_yes*100)}%")
 
-                # Resolve kickoff time with cache fallback
-                home_team = getattr(p, "home_team", "")
-                away_team = getattr(p, "away_team", "")
-                ko = _kickoff_for(bf, home_team, away_team)
+            # Resolve kickoff time with cache fallback
+            home_team = getattr(p, "home_team", "")
+            away_team = getattr(p, "away_team", "")
+            ko = _kickoff_for(bf, home_team, away_team)
 
-                lines.append(f"   {ko}   {match}")
-                if alt:
-                    lines.append(f"       {'  ·  '.join(alt)}")
-                lines.append(f"       {arrow} {label} {round(prob*100)}%")
-            elif best_market and best_mes_ev is not None and best_model_prob is not None:
-                # No probs but we have a priced best_market pick (e.g., Bradford BTTS)
-                # Determine arrow from market type
-                label = best_market
-                prob = best_model_prob
-                if "win" in label.lower() or label == "home":
-                    arrow = "➡"
-                elif "draw" in label.lower():
-                    arrow = "⚪"
-                elif "away" in label.lower():
-                    arrow = "🔁"
-                elif "both teams" in label.lower() or "btts" in label.lower():
-                    arrow = "🤝"
-                else:
-                    arrow = "📈"
-
-                # Resolve kickoff time with cache fallback
-                home_team, away_team = "", ""
-                if " v " in match:
-                    home_team, away_team = match.split(" v ", 1)
-                    home_team = home_team.strip()
-                    away_team = away_team.strip()
-                ko = _kickoff_for(bf, home_team, away_team)
-
-                lines.append(f"   {ko}   {match}")
-                lines.append(f"       {arrow} {label} {round(prob*100)}%")
-            else:
-                # Resolve kickoff time with cache fallback even for no-probs fixtures
-                home_team, away_team = "", ""
-                if " v " in match:
-                    home_team, away_team = match.split(" v ", 1)
-                    home_team = home_team.strip()
-                    away_team = away_team.strip()
-                ko = _kickoff_for(bf, home_team, away_team)
-                lines.append(f"   {ko}   {match}")
+            lines.append(f"   {ko}   {match}")
+            if alt:
+                lines.append(f"       {'  ·  '.join(alt)}")
+            lines.append(f"       AI pick = {label} {round(prob*100)}%")
 
     lines.append("")
     lines.append("==================================")

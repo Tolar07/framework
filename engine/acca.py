@@ -61,7 +61,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date
 from itertools import count
-from typing import Any, Iterator, List, Optional
+from typing import Any, Callable, Iterator, List, Optional
 
 from engine import markets as mkt
 from engine.markets import blend_toward_market
@@ -184,7 +184,8 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
                          agreement_band: Optional[float] = None,
                          max_odds_cap: float = MAX_ODDS_CAP,
                          min_odds_floor: float = MIN_ODDS_FLOOR,
-                         preferred_ceiling: float = PREFERRED_ODDS_CEILING) -> tuple[Optional[AccaLeg], Optional[AccaLeg]]:
+                         preferred_ceiling: float = PREFERRED_ODDS_CEILING,
+                         clv_logger: Optional[Callable[[str, str, float, float, float, float], None]] = None) -> tuple[Optional[AccaLeg], Optional[AccaLeg]]:
     """The best markets for one fixture — returns (capital_leg, watchlist_leg).
 
     Returns a tuple where:
@@ -365,6 +366,22 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
     # HARD RULE (Architect 2026-08-19): MAX_ODDS_CAP is a hard ceiling — legs with
     # odds > 2.00 go to WATCHLIST (ID420), never to capital. No fallback reclassifies
     # watchlist legs as capital; the watchlist is for Architect review only.
+
+    # CLV logging: record projected CLV at selection time (if logger provided)
+    # This lets us track projected CLV vs actual CLV post-settlement
+    if clv_logger is not None and capital_leg is not None:
+        implied_prob = _market_implied(capital_leg.market_key, None, capital_leg.price)
+        if implied_prob is not None:
+            projected_clv_pct = (capital_leg.prob / implied_prob - 1) * 100
+            clv_logger(
+                fixture=capital_leg.fixture,
+                market_key=capital_leg.market_key,
+                entry_odds=capital_leg.price,
+                model_prob=capital_leg.prob,
+                implied_prob=implied_prob,
+                projected_clv_pct=projected_clv_pct,
+            )
+
     return (capital_leg, best_watchlist)
 
 
@@ -423,6 +440,7 @@ def build_production_bets(
     max_odds_cap: Optional[float] = MAX_ODDS_CAP,
     min_odds_floor: Optional[float] = MIN_ODDS_FLOOR,
     preferred_ceiling: Optional[float] = PREFERRED_ODDS_CEILING,
+    clv_logger: Optional[Callable[[str, str, float, float, float, float], None]] = None,
 ) -> ProductionBets:
     """Build the day's production output: Acca A + split accas + singles.
 
@@ -475,7 +493,8 @@ def build_production_bets(
                                    agreement_band=agreement_band,
                                    max_odds_cap=cap,
                                    min_odds_floor=floor,
-                                   preferred_ceiling=preferred)
+                                   preferred_ceiling=preferred,
+                                   clv_logger=clv_logger)
         if capital_leg is not None:
             # Write-back (see docstring) — run before produced_bet.record so every
             # downstream consumer agrees with the bookable leg.

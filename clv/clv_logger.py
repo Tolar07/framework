@@ -124,6 +124,26 @@ class CLVLog:
         self._save()
         return leg
 
+    def log_projected_clv(self, fixture: str, market_key: str, entry_odds: float,
+                          model_prob: float, implied_prob: float,
+                          projected_clv_pct: float) -> None:
+        """Log a projected CLV entry at selection time (before the match kicks off).
+
+        This is distinct from log_entry — it records the projected CLV based on
+        current market odds and model probability, allowing comparison of
+        projected vs actual CLV post-settlement. No leg is created; this is
+        an informational record for analysis.
+        """
+        from clv.projected_clv import log_projected_clv as _log_projected
+        _log_projected(
+            fixture=fixture,
+            market_key=market_key,
+            entry_odds=entry_odds,
+            model_prob=model_prob,
+            implied_prob=implied_prob,
+            projected_clv_pct=projected_clv_pct,
+        )
+
     def log_close(self, leg_id: str, closing_odds: float,
                   closing_capture_path: str = "CL-ARCHIVE") -> LoggedLeg:
         for leg in self.legs:

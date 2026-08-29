@@ -133,8 +133,15 @@ def _refresh_sportybet_cache(runlog: Path, days_ahead: int = 30) -> str | None:
     try:
         import asyncio
         from booking.sportybet_fixtures import build_cache
+        # Write into the booker's authoritative cache dir so the booking-code
+        # driver (bridge.load_sportybet_fixtures) reads the fresh fixtures.
+        # (2026-08-29 fix: without this the refresh landed in a different dir and
+        # the booker read a 149h-stale cache.)
+        from booking.bridge import CACHE_DIR as BOOKER_CACHE_DIR
         # SportyBet sidebar requires headless=False for proper rendering (debug_nav.py confirmed)
-        results = asyncio.run(build_cache(days_ahead=days_ahead, headless=False))
+        results = asyncio.run(build_cache(
+            days_ahead=days_ahead, headless=False,
+            cache_dir=str(BOOKER_CACHE_DIR)))
     except Exception as e:
         msg = f"sportybet cache refresh skipped ({type(e).__name__}: {str(e)[:80]})"
         _mark(runlog, msg)

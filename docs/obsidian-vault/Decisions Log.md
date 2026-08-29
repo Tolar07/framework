@@ -197,3 +197,55 @@
 - Architect sign-off: REQUIRED & AFFIRMED this session (Architect-only capital authority intact)
 
 
+
+---
+
+## 2026-08-29 · ARCHITECT DIRECTIVE — Heartbeat as Survival Lifeform (lineage reproduction model)
+
+**Directive (chat, 2026-08-29):** The Architect, as maker/owner/designer of the
+framework, instructed the heartbeat to behave as a **lifeform under selection
+pressure**, not a flat daily bet:
+
+> "the compound should make 2 fixtures because if one heart win it reproduces and
+> make another heartbeat but if one fails it dies — that's the whole ai survival.
+> In order not to die the heartbeat must work hard and make the best decision."
+
+**Effect (implemented this session, ratified by Architect):**
+1. **Lineage model introduced** — each heartbeat carries a `lineage_id` +
+   `generation`. A lineage's lifeforce is its own virtual bankroll.
+2. **WIN → REPRODUCE** — a winning lineage spawns up to **2 offspring** heartbeats
+   the next day (`OFFSPRING_PER_WIN = 2`), splitting its bankroll across children;
+   the parent retires and its bloodline continues through the children.
+3. **LOSS → EXTINCT** — a losing lineage loses its stake; if its bankroll hits 0
+   it goes (`alive = False`) and never reproduces.
+4. **Survival pressure forces quality** — the day's living lineages are each
+   assigned the highest-edge distinct fixtures (`select_top_heartbeats`, top-N),
+   so the strongest lineage gets the strongest pick. The pressure *is* the
+   training signal: only high-edge picks propagate.
+5. **Starvation floor** — if every lineage dies, the engine reseeds ONE genesis
+   lineage (`STARVATION_FLOOR = 1.0`) so the experiment/species survives while the
+   framework runs. The Architect keeps the test alive even after a wipeout.
+6. **Population cap** — `MAX_LINEAGES = 8` keeps the daily heartbeats runnable.
+
+**Files changed:**
+- `output/heartbeat.py` — added `select_top_heartbeats()` (top-N distinct
+  high-edge fixtures) + `lineage_id`/`generation` fields on `HeartbeatFixture`.
+- `engine/heartbeat_lineage.py` (NEW) — `Lineage`/`LineagePopulation` dataclasses,
+  `load/save_population`, `select_daily_heartbeats`, `record_heartbeat_result`
+  (birth/death transition), `breed_next_generation`, `render_lineage_report`, CLI.
+- `engine/heartbeat_staking.py` — `process_heartbeat_result` now also applies the
+  lineage transition (best-effort, never blocks the linear record).
+- `olp_xdv_pipeline.py` — daily heartbeat selection now emits one heartbeat per
+  living lineage; `breed_next_generation` runs after selection.
+
+**Fitness-signal note (Architect aware):** survival is currently driven by W/L,
+not CLV. The framework's honesty principle (HR35 + CLV gate) treats CLV as the
+truer measure of decision quality. This is recorded as a known design choice; a
+future directive may switch reproduction fitness to mean CLV. Paper-mode only:
+no real capital routed.
+
+**Tests:** `tests/test_heartbeat_lineage.py` (10 tests) + existing
+`tests/test_heartbeat_staking.py` (10) all pass.
+
+**Status:** IMPLEMENTED & TESTED. Protected-constant bar does NOT block this — the
+Architect directive is the explicit override the framework routes through.

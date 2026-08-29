@@ -1519,17 +1519,25 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         acca_list += production.split_accas
         acca_list += build_single_accas(production.singles)
 
-        # SELECT HEARTBEAT: Single best fixture of the day (wrapped in try so a
-        # selection failure never kills the board render)
+        # SELECT HEARTBEAT(S): Architect 2026-08-29 lineage model.
+        # Each LIVING lineage gets one heartbeat (the day's top high-edge
+        # fixtures); a WIN lineage reproduces into two offspring next day, a
+        # LOSS lineage goes extinct. Wrapped in try so a failure never kills board.
         telegram_heartbeat = None
+        heartbeat_fixtures_today: list = []
         try:
-            heartbeat_fixture = select_heartbeat_fixture(board, target_date=date_str, odds_index=odds_index)
-            if heartbeat_fixture:
-                telegram_heartbeat = render_heartbeat_telegram(heartbeat_fixture)
-                # Save heartbeat selection for tracking
-                save_heartbeat_record(heartbeat_fixture)
+            from engine.heartbeat_lineage import select_daily_heartbeats
+            heartbeat_fixtures_today = select_daily_heartbeats(
+                board, target_date=date_str, odds_index=odds_index
+            )
+            if heartbeat_fixtures_today:
+                telegram_heartbeat = "\n\n".join(
+                    render_heartbeat_telegram(hb) for hb in heartbeat_fixtures_today
+                )
+                for hb in heartbeat_fixtures_today:
+                    save_heartbeat_record(hb)
         except Exception as e:
-            all_data_flags.append(f"heartbeat selection failed ({type(e).__name__}: {e})")
+            all_data_flags.append(f"heartbeat lineage selection failed ({type(e).__name__}: {e})")
 
         codes_result = None
         if agent8.get("singles"):
@@ -1576,6 +1584,14 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         heartbeat_file = f"heartbeat_{date_str}.txt"
         with open(heartbeat_file, "w", encoding="utf-8") as f:
             f.write(telegram_heartbeat)
+
+        # Architect 2026-08-29: breed next generation from today's living lineages
+        # (WIN lineages reproduce into offspring for tomorrow; LOSS go extinct).
+        try:
+            from engine.heartbeat_lineage import breed_next_generation
+            breed_next_generation(board, target_date=date_str, odds_index=odds_index)
+        except Exception as e:
+            all_data_flags.append(f"heartbeat lineage breed failed ({type(e).__name__}: {e})")
 
     # Write feed_audit.jsonl
     feed_audit = {

@@ -33,6 +33,9 @@ class HeartbeatFixture:
     bookmaker: Optional[str] = None  # e.g. "SportyBet Nigeria"
     price: Optional[float] = None    # decimal odds if priced
     verification_passed: bool = False  # ID403 verification status
+    # Lineage fields (Architect 2026-08-29 survival/reproduction model)
+    lineage_id: Optional[str] = None  # owning heartbeat lineage
+    generation: int = 0              # lineage generation (0 = genesis)
 
 
 def select_heartbeat_fixture(
@@ -105,6 +108,83 @@ def select_heartbeat_fixture(
 
     # Build HeartbeatFixture from selected board fixture
     return _build_heartbeat_fixture(best_bf, best_pick_info, odds_index)
+
+
+def select_top_heartbeats(
+    board: list[BoardFixture],
+    target_date: str = None,
+    odds_index: Optional[dict] = None,
+    top_n: int = 5,
+    min_edge: float = 0.0
+) -> list[HeartbeatFixture]:
+    """
+    Architect 2026-08-29 — lineage reproduction model.
+
+    Return the N strongest, DISTINCT heartbeat candidates for the day, ranked by
+    model edge. The heartbeat is modelled as a lifeform under selection pressure:
+    a surviving lineage (WIN) spawns up to two offspring heartbeats the next day;
+    a dead lineage (LOSS) goes extinct. To keep the species alive, the day's
+    *living* lineages each reproduce — so we need the top-N highest-edge fixtures
+    as reproduction candidates, not just one.
+
+    Distinctness rule: one heartbeat per fixture (no duplicate fixture in the
+    candidate pool) — each lineage seeds from a different match.
+
+    Args:
+        board: List of BoardFixture from the daily pipeline.
+        target_date: Date string for filtering (defaults to today).
+        odds_index: Optional odds index for market data lookup.
+        top_n: Max number of candidate heartbeats to return (offspring pool size).
+        min_edge: Minimum edge score to qualify (0.0 = any positive signal).
+
+    Returns:
+        List of HeartbeatFixture, highest-edge first, length <= top_n.
+    """
+    if target_date is None:
+        target_date = date.today().isoformat()
+
+    today_fixtures = [
+        bf for bf in board
+        if getattr(bf, 'kickoff_date', None) == target_date
+    ]
+
+    if not today_fixtures:
+        return []
+
+    scored: list[tuple[float, BoardFixture, Optional[tuple]]] = []
+    seen_fixtures: set[str] = set()
+
+    for bf in today_fixtures:
+        fixture_str = getattr(bf, 'fixture', 'Unknown v Unknown')
+        # Distinctness: one heart per fixture
+        if fixture_str in seen_fixtures:
+            continue
+
+        verification_obj = getattr(bf, 'verification', None)
+        verification_status = str(getattr(verification_obj, 'tier', 'UNKNOWN'))
+        if verification_status in ['FAILED', 'REJECTED']:
+            continue
+
+        pick_info = _get_best_pick_info(bf, odds_index)
+        edge_score = 0.0
+        if pick_info:
+            _, probability, edge_value = pick_info
+            edge_score = edge_value
+            if edge_score == 0.0 and probability > 0:
+                edge_score = probability
+
+        if edge_score > min_edge:
+            scored.append((edge_score, bf, pick_info))
+            seen_fixtures.add(fixture_str)
+
+    if not scored:
+        return []
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return [
+        _build_heartbeat_fixture(bf, pick_info, odds_index)
+        for _, bf, pick_info in scored[:top_n]
+    ]
 
 
 def _get_best_pick_info(bf: BoardFixture, odds_index: Optional[dict]) -> Optional[tuple[str, float, float]]:

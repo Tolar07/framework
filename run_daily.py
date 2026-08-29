@@ -1572,19 +1572,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                                         today=board_date, board=board)
 
     # Telegram board uses the BLENDED 4-TABLE format (Architect 2026-08-28):
-    # TABLE 1 LAYER 2 FULL GRID, TABLE 2 LAYER 1 COMPACT, TABLE 3 ACCA ROUTE,
-    # TABLE 4 THE PICK — the same 4-table render the web /board command serves.
-    # The phone and web are now one render (Architect 2026-08-11: web == Telegram
-    # structurally). The old compact heartbeat is preserved as
-    # render_telegram_board(compact=True) for any caller that still wants the
-    # lean push (e.g. a future --compact-telegram flag).
-    telegram_text = render_produce_bet(
-            mode="Mode A", phase=PHASE_LABEL,
-            leagues_scanned=leagues, calibration_count=status["legs_with_clv"],
-            mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
-            produced_bet=produced_record, production=production,
-            codes=codes_result,
-            include_data_flags=False, only_rated=False, compact=False)
+    # CLEAN TELEGRAM OUTPUT — compact heartbeat format (Architect 2026-08-28 directive)
+    # Shows ONLY fixtures with model probabilities, league-grouped with kickoff time,
+    # alt markets, and AI pick. No "NO DATA — PENDING" entries.
+    telegram_text = render_telegram_board(
+        mode="Mode A", phase=PHASE_LABEL,
+        leagues_scanned=leagues, calibration_count=status["legs_with_clv"],
+        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
+        yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
+        produced_bet=produced_record, production=production,
+        codes=codes_result,
+        compact=True, target_date=board_date)
 
     # The FEED text — one render, two outlets (Architect 2026-08-11). This
     # exact string is BOTH what the phone receives (notify.deliver below) AND

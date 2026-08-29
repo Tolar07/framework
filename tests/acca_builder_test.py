@@ -89,7 +89,7 @@ def _fx_full(home, away, h, d, a, over25, under25):
 
 def _check(name, cond, detail=""):
     assert cond, f"{name} FAILED {detail}"
-    print(f"  ✓ {name}")
+    print(f"  OK {name}")
 
 
 # --- 1. same-day rule: tomorrow's fixtures never enter any bet ---------------
@@ -317,8 +317,8 @@ _check("SportyBet price wins for Draw when present",
        bets12.acca_a is not None and abs(bets12.acca_a.legs[0].price - 1.80) < 1e-9,
        f"got {bets12.acca_a.legs[0].price if bets12.acca_a else 'no acca'}")
 
-# --- 13. THE CALL in render_produce_bet is today-only + production block -----
-# ID409 (PROPOSED, pending ratification): Detail (PART 2) → Call (PART 1) order.
+# --- 13. render_produce_bet (compact four-table) is today-only + production block -----
+# ID409: Detail (PART 2) → Call (PART 1) order. New four-table format (2026-08-21).
 # Pass a pre-built production object (uncapped) so the render function doesn't
 # re-build with the default MAX_ODDS_CAP (which filters the >2.00 draw odds).
 call_board = board + [_bf("Tomorrow v Only (Test League)", _probs(d=0.45),
@@ -328,15 +328,19 @@ call_production = build_production_bets(call_board, today=TODAY, odds_index=None
 out13 = render_produce_bet(mode="M", phase="P", leagues_scanned=["Eredivisie"],
                            calibration_count=0, mean_clv=None, data_flags=[],
                            board=call_board, production=call_production, codes=None)
-_check("THE CALL says today's fixtures only", "today's fixtures only" in out13)
-_check("PART 2 (THE SCAN) now prints FIRST, then PART 1 (THE CALL) — ID409",
-       "PART 2" in out13 and "PART 1" in out13 and out13.index("PART 2") < out13.index("PART 1"),
-       "ID409 reorder not applied: PART 2 must precede PART 1")
-_check("THE CALL still excludes tomorrow fixture (today-only rule)",
-       "Tomorrow v Only" not in out13.split("PART 1")[-1],
-       "tomorrow fixture leaked into the CALL section")
-_check("render_produce_bet carries the production block (Acca A headline)",
-       "PRODUCTION BETS" in out13 and "★ Acca A" in out13, out13[-500:])
+_check("Four-table format: TABLE 1 (LAYER 2 FULL GRID) present",
+       "TABLE 1" in out13 and "LAYER 2 FULL GRID" in out13)
+_check("Four-table format: TABLE 2 (LAYER 1 COMPACT) present",
+       "TABLE 2" in out13 and "LAYER 1 COMPACT" in out13)
+_check("Four-table format: TABLE 3 (ACCA ROUTE) present",
+       "TABLE 3" in out13 and "ACCA ROUTE" in out13)
+_check("Four-table format: TABLE 4 (THE PICK) present",
+       "TABLE 4" in out13 and "THE PICK" in out13)
+_check("TABLE 2 (LAYER 1 COMPACT) excludes tomorrow fixture (today-only rule)",
+       "Tomorrow v Only" not in out13.split("TABLE 2")[-1].split("TABLE 3")[0],
+       "tomorrow fixture leaked into TABLE 2")
+_check("render_produce_bet carries the production block (Acca A headline in TABLE 4)",
+       "THE PICK" in out13 and "PRIMARY SINGLE" in out13, out13[-500:])
 
 # --- 14. agreement gate (gambler move #2, 2026-08-15 experiment) -------------
 # A fixture where the model and the book DISAGREE hard (the measured-losing
@@ -729,4 +733,4 @@ _check("PART 1 has NO stacked fixture-block markers (no 'Second opinion' prose)"
        "Second opinion" not in t1_out and "Expected goals (model)" not in t1_out,
        "PART 1 reverted to prose blocks")
 
-print("\n✅ ALL ACCA + PRODUCTION INTENT TESTS PASSED")
+print("\nALL ACCA + PRODUCTION INTENT TESTS PASSED")

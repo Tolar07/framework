@@ -1,0 +1,288 @@
+##########OLP XDV#########
+==================================
+📅 Sat 29 Aug 2026 — FULL PIPELINE BOARD
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+(every fixture × every scored market, shared board code,
+ AI's own highest-probability pick shown per fixture)
+──────────────────────────────────
+⚽ Belgian Pro League
+   ??:??   Kortrijk v Charleroi
+       O1.5 72%  ·  O2.5 44%  ·  O3.5 23%  ·  BTTS 50%
+       1X2 Kortrijk 26%  ·  Draw 30%  ·  Charleroi 45%
+       🤖 AI Pick: Charleroi or Draw (double chance) — 74%
+⚽ Bundesliga
+   ??:??   RB Leipzig v Borussia Mönchengladbach
+       O1.5 80%  ·  O2.5 57%  ·  O3.5 35%  ·  BTTS 54%
+       1X2 RB Leipzig 62%  ·  Draw 21%  ·  Borussia Mönchengladbach 17%
+       🤖 AI Pick: RB Leipzig to win — 62%
+   14:30   Union Berlin v Eintracht Frankfurt
+       O1.5 86%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 67%
+       1X2 Union Berlin 38%  ·  Draw 23%  ·  Eintracht Frankfurt 39%
+       🤖 AI Pick: Over 1.5 goals — 86%
+   17:30   Borussia Dortmund v Hamburger SV
+       O1.5 77%  ·  O2.5 53%  ·  O3.5 31%  ·  BTTS 43%
+       1X2 Borussia Dortmund 71%  ·  Draw 19%  ·  Hamburger SV 10%
+       🤖 AI Pick: Borussia Dortmund to win — 71%
+⚽ Championship
+   12:30   Derby v Swansea
+       O1.5 75%  ·  O2.5 49%  ·  O3.5 27%  ·  BTTS 54%
+       1X2 Derby 45%  ·  Draw 28%  ·  Swansea 26%
+       🤖 AI Pick: Over 1.5 goals — 75%
+   12:30   Middlesbrough v West Brom
+       O1.5 69%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 44%
+       1X2 Middlesbrough 56%  ·  Draw 27%  ·  West Brom 17%
+       🤖 AI Pick: Middlesbrough to win — 56%
+   15:00   Watford v West Ham
+       1X2 Watford 9%  ·  Draw 22%  ·  West Ham 69%
+       🤖 AI Pick: Watford or West Ham (double chance) — 78%
+   15:00   Southampton v Millwall
+       O1.5 78%  ·  O2.5 53%  ·  O3.5 31%  ·  BTTS 57%
+       1X2 Southampton 44%  ·  Draw 27%  ·  Millwall 28%
+       🤖 AI Pick: Over 1.5 goals — 78%
+   15:00   Bristol City v Portsmouth
+       O1.5 71%  ·  O2.5 43%  ·  O3.5 22%  ·  BTTS 49%
+       1X2 Bristol City 47%  ·  Draw 29%  ·  Portsmouth 24%
+       🤖 AI Pick: Bristol City or Draw (double chance) — 76%
+   ??:??   Blackburn v QPR
+       O1.5 69%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 49%
+       1X2 Blackburn 36%  ·  Draw 31%  ·  QPR 34%
+       🤖 AI Pick: QPR or Draw (double chance) — 64%
+   15:00   Norwich v Burnley
+       O1.5 60%  ·  O2.5 32%  ·  O3.5 14%  ·  BTTS 32%
+       1X2 Norwich 13%  ·  Draw 27%  ·  Burnley 61%
+       🤖 AI Pick: Burnley or Draw (double chance) — 87%
+   15:00   Charlton v Preston
+       O1.5 63%  ·  O2.5 35%  ·  O3.5 16%  ·  BTTS 43%
+       1X2 Charlton 34%  ·  Draw 33%  ·  Preston 33%
+       🤖 AI Pick: Both teams to score — no — 57%
+⚽ Eredivisie
+   15:30   Excelsior v Sparta Rotterdam
+       O1.5 73%  ·  O2.5 47%  ·  O3.5 25%  ·  BTTS 51%
+       1X2 Excelsior 48%  ·  Draw 29%  ·  Sparta Rotterdam 24%
+       🤖 AI Pick: Excelsior or Draw (double chance) — 76%
+   17:45   AZ Alkmaar v GO Ahead Eagles
+       1X2 AZ Alkmaar 59%  ·  Draw 25%  ·  GO Ahead Eagles 16%
+       🤖 AI Pick: AZ Alkmaar or GO Ahead Eagles (double chance) — 75%
+⚽ La Liga 2
+   ??:??   Albacete v Oviedo
+       O1.5 70%  ·  O2.5 44%  ·  O3.5 23%  ·  BTTS 50%
+       1X2 Albacete 37%  ·  Draw 27%  ·  Oviedo 36%
+       🤖 AI Pick: Over 1.5 goals — 70%
+⚽ Ligue 1
+   16:15   Strasbourg v Lens
+       O1.5 82%  ·  O2.5 60%  ·  O3.5 38%  ·  BTTS 62%
+       1X2 Strasbourg 33%  ·  Draw 24%  ·  Lens 43%
+       🤖 AI Pick: Over 1.5 goals — 82%
+   19:45   Lyon v Le Havre
+       O1.5 66%  ·  O2.5 39%  ·  O3.5 19%  ·  BTTS 39%
+       1X2 Lyon 58%  ·  Draw 25%  ·  Le Havre 16%
+       🤖 AI Pick: Both teams to score — no — 61%
+   19:45   Stade Brestois 29 v Toulouse
+       O1.5 76%  ·  O2.5 52%  ·  O3.5 30%  ·  BTTS 56%
+       1X2 Stade Brestois 29 37%  ·  Draw 26%  ·  Toulouse 37%
+       🤖 AI Pick: Over 1.5 goals — 76%
+   19:45   Auxerre v Angers
+       O1.5 53%  ·  O2.5 26%  ·  O3.5 10%  ·  BTTS 33%
+       1X2 Auxerre 45%  ·  Draw 32%  ·  Angers 23%
+       🤖 AI Pick: Angers or Draw (double chance) — 55%
+⚽ Ligue 2
+   ??:??   Annecy v Metz
+       O1.5 72%  ·  O2.5 49%  ·  O3.5 27%  ·  BTTS 51%
+       1X2 Annecy 30%  ·  Draw 23%  ·  Metz 47%
+       🤖 AI Pick: Annecy or Metz (double chance) — 77%
+   ??:??   Guingamp v Nantes
+       1X2 Guingamp 24%  ·  Draw 28%  ·  Nantes 48%
+       🤖 AI Pick: Nantes or Draw (double chance) — 76%
+⚽ Premier League
+   15:00   Bournemouth v Everton
+       O1.5 78%  ·  O2.5 52%  ·  O3.5 30%  ·  BTTS 57%
+       1X2 Bournemouth 46%  ·  Draw 28%  ·  Everton 25%
+       🤖 AI Pick: Over 1.5 goals — 78%
+   17:30   Tottenham v Newcastle
+       O1.5 79%  ·  O2.5 54%  ·  O3.5 32%  ·  BTTS 59%
+       1X2 Tottenham 38%  ·  Draw 29%  ·  Newcastle 33%
+       🤖 AI Pick: Over 1.5 goals — 79%
+⚽ Primeira Liga
+   ??:??   Arouca v Maritimo
+       1X2 Arouca 60%  ·  Draw 25%  ·  Maritimo 15%
+       🤖 AI Pick: Arouca or Maritimo (double chance) — 75%
+   ??:??   Alverca v Santa Clara
+       O1.5 58%  ·  O2.5 31%  ·  O3.5 14%  ·  BTTS 39%
+       1X2 Alverca 37%  ·  Draw 31%  ·  Santa Clara 32%
+       🤖 AI Pick: Alverca or Draw (double chance) — 68%
+⚽ Russian Premier League
+   13:00   Fakel v Zenit
+       O1.5 58%  ·  O2.5 29%  ·  O3.5 12%  ·  BTTS 18%
+       1X2 Fakel 3%  ·  Draw 25%  ·  Zenit 72%
+       🤖 AI Pick: Fakel or Zenit (double chance) — 75%
+   15:30   FC Krasnodar v FC Rostov
+       O1.5 83%  ·  O2.5 58%  ·  O3.5 36%  ·  BTTS 47%
+       1X2 FC Krasnodar 73%  ·  Draw 21%  ·  FC Rostov 7%
+       🤖 AI Pick: FC Krasnodar or FC Rostov (double chance) — 79%
+   ??:??   Lokomotiv v Dynamo
+       O1.5 88%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 70%
+       1X2 Lokomotiv 35%  ·  Draw 28%  ·  Dynamo 37%
+       🤖 AI Pick: Over 2.5 goals — 66%
+   18:00   Akhmat v Krylia Sovetov
+       O1.5 76%  ·  O2.5 48%  ·  O3.5 26%  ·  BTTS 56%
+       1X2 Akhmat 35%  ·  Draw 33%  ·  Krylia Sovetov 31%
+       🤖 AI Pick: Over 1.5 goals — 76%
+⚽ Scottish Premiership
+   15:00   Celtic v Falkirk
+       O1.5 86%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 56%
+       1X2 Celtic 71%  ·  Draw 18%  ·  Falkirk 11%
+       🤖 AI Pick: Over 2.5 goals — 66%
+⚽ Serie A
+   17:30   Sassuolo v Torino
+       O1.5 79%  ·  O2.5 57%  ·  O3.5 35%  ·  BTTS 58%
+       1X2 Sassuolo 50%  ·  Draw 23%  ·  Torino 27%
+       🤖 AI Pick: Sassuolo or Torino (double chance) — 77%
+   17:30   Fiorentina v Frosinone
+       1X2 Fiorentina 60%  ·  Draw 25%  ·  Frosinone 15%
+       🤖 AI Pick: Fiorentina to win — 60%
+   17:30   Monza v Udinese
+       O1.5 69%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 47%
+       1X2 Monza 22%  ·  Draw 29%  ·  Udinese 49%
+       🤖 AI Pick: Over 1.5 goals — 69%
+   19:45   Juventus v Parma
+       O1.5 63%  ·  O2.5 37%  ·  O3.5 17%  ·  BTTS 33%
+       1X2 Juventus 65%  ·  Draw 24%  ·  Parma 12%
+       🤖 AI Pick: Both teams to score — no — 67%
+⚽ Serie B
+   ??:??   Sampdoria v Juve Stabia
+       O1.5 60%  ·  O2.5 31%  ·  O3.5 13%  ·  BTTS 40%
+       1X2 Sampdoria 33%  ·  Draw 36%  ·  Juve Stabia 31%
+       🤖 AI Pick: Both teams to score — no — 60%
+   ??:??   Virtus Entella v Cesena
+       O1.5 68%  ·  O2.5 40%  ·  O3.5 20%  ·  BTTS 48%
+       1X2 Virtus Entella 40%  ·  Draw 32%  ·  Cesena 28%
+       🤖 AI Pick: Virtus Entella or Draw (double chance) — 72%
+⚽ Swiss Super League
+   17:00   Servette FC v FC Luzern
+       1X2 Servette FC 48%  ·  Draw 28%  ·  FC Luzern 24%
+       🤖 AI Pick: Servette FC or Draw (double chance) — 76%
+⚽ Turkish Super Lig
+   17:00   Konyaspor v Kocaelispor
+       1X2 Konyaspor 53%  ·  Draw 27%  ·  Kocaelispor 20%
+       🤖 AI Pick: Konyaspor or Draw (double chance) — 80%
+   ??:??   Galatasaray v Göztepe
+       O1.5 87%  ·  O2.5 68%  ·  O3.5 46%  ·  BTTS 54%
+       1X2 Galatasaray 75%  ·  Draw 16%  ·  Göztepe 9%
+       🤖 AI Pick: Over 1.5 goals — 87%
+   19:30   Gaziantep FK v Rizespor
+       O1.5 76%  ·  O2.5 51%  ·  O3.5 29%  ·  BTTS 55%
+       1X2 Gaziantep FK 45%  ·  Draw 27%  ·  Rizespor 28%
+       🤖 AI Pick: Gaziantep FK or Draw (double chance) — 72%
+
+Board code: — (booking-code read postponed — technical issue,
+tracked internally, not blocking pipeline output)
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+📈 Kortrijk v Charleroi — Charleroi or Draw (double chance) — 74%
+    Code: —
+📈 RB Leipzig v Borussia Mönchengladbach — RB Leipzig to win — 62%
+    Code: —
+📈 Union Berlin v Eintracht Frankfurt — Over 1.5 goals — 86%
+    Code: —
+📈 Borussia Dortmund v Hamburger SV — Borussia Dortmund to win — 71%
+    Code: —
+📈 Derby v Swansea — Over 1.5 goals — 75%
+    Code: —
+📈 Middlesbrough v West Brom — Middlesbrough to win — 56%
+    Code: —
+📈 Watford v West Ham — Watford or West Ham (double chance) — 78%
+    Code: —
+📈 Southampton v Millwall — Over 1.5 goals — 78%
+    Code: —
+📈 Bristol City v Portsmouth — Bristol City or Draw (double chance) — 76%
+    Code: —
+📈 Blackburn v QPR — QPR or Draw (double chance) — 64%
+    Code: —
+📈 Norwich v Burnley — Burnley or Draw (double chance) — 87%
+    Code: —
+📈 Charlton v Preston — Both teams to score — no — 57%
+    Code: —
+📈 Excelsior v Sparta Rotterdam — Excelsior or Draw (double chance) — 76%
+    Code: —
+📈 AZ Alkmaar v GO Ahead Eagles — AZ Alkmaar or GO Ahead Eagles (double chance) — 75%
+    Code: —
+📈 Albacete v Oviedo — Over 1.5 goals — 70%
+    Code: —
+📈 Strasbourg v Lens — Over 1.5 goals — 82%
+    Code: —
+📈 Lyon v Le Havre — Both teams to score — no — 61%
+    Code: —
+📈 Stade Brestois 29 v Toulouse — Over 1.5 goals — 76%
+    Code: —
+📈 Auxerre v Angers — Angers or Draw (double chance) — 55%
+    Code: —
+📈 Annecy v Metz — Annecy or Metz (double chance) — 77%
+    Code: —
+📈 Guingamp v Nantes — Nantes or Draw (double chance) — 76%
+    Code: —
+📈 Bournemouth v Everton — Over 1.5 goals — 78%
+    Code: —
+📈 Tottenham v Newcastle — Over 1.5 goals — 79%
+    Code: —
+📈 Arouca v Maritimo — Arouca or Maritimo (double chance) — 75%
+    Code: —
+📈 Alverca v Santa Clara — Alverca or Draw (double chance) — 68%
+    Code: —
+📈 Fakel v Zenit — Fakel or Zenit (double chance) — 75%
+    Code: —
+📈 FC Krasnodar v FC Rostov — FC Krasnodar or FC Rostov (double chance) — 79%
+    Code: —
+📈 Lokomotiv v Dynamo — Over 2.5 goals — 66%
+    Code: —
+📈 Akhmat v Krylia Sovetov — Over 1.5 goals — 76%
+    Code: —
+📈 Celtic v Falkirk — Over 2.5 goals — 66%
+    Code: —
+📈 Sassuolo v Torino — Sassuolo or Torino (double chance) — 77%
+    Code: —
+📈 Fiorentina v Frosinone — Fiorentina to win — 60%
+    Code: —
+📈 Monza v Udinese — Over 1.5 goals — 69%
+    Code: —
+📈 Juventus v Parma — Both teams to score — no — 67%
+    Code: —
+📈 Sampdoria v Juve Stabia — Both teams to score — no — 60%
+    Code: —
+📈 Virtus Entella v Cesena — Virtus Entella or Draw (double chance) — 72%
+    Code: —
+📈 Servette FC v FC Luzern — Servette FC or Draw (double chance) — 76%
+    Code: —
+📈 Konyaspor v Kocaelispor — Konyaspor or Draw (double chance) — 80%
+    Code: —
+📈 Galatasaray v Göztepe — Over 1.5 goals — 87%
+    Code: —
+📈 Gaziantep FK v Rizespor — Gaziantep FK or Draw (double chance) — 72%
+    Code: —
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+──────────────────────────────────
+No capital-eligible accas generated.
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+🎯 Primary single: Lokomotiv v Dynamo (Russian Premier League)
+  Market: Over 2.5 goals
+  Price: 1.67 (Pinnacle)
+  Model Prob: 66%
+  MES EV: +9.85%
+  Verification: ○
+  Code: —
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Booking codes: — pipeline-wide — technical issue under repair,
+tracking resumes once read_betslip_combined_odds is fixed.
+==================================

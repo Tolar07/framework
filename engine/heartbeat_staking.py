@@ -102,7 +102,7 @@ def get_stake_state() -> StakeState:
     """
     Get current staking state from heartbeat history.
 
-    Reconstructs bankroll by replaying all historical results.
+    Reconstructs bankroll by replaying all historical results with proper compounding.
     """
     stats = get_heartbeat_stats()
 
@@ -120,6 +120,7 @@ def get_stake_state() -> StakeState:
         )
 
     bankroll = DEFAULT_STARTING_BANKROLL
+    current_stake = DEFAULT_STARTING_STAKE
     last_result = None
     last_price = 0.0
     last_edge = 0.0
@@ -137,16 +138,18 @@ def get_stake_state() -> StakeState:
             prob = record.get("probability") or 0.0
 
             if result in ("WIN", "LOSS"):
-                bankroll, _ = update_stake_on_result(bankroll, DEFAULT_STARTING_STAKE, result, price)
+                # Use the stake that was calculated for THIS bet
+                bankroll, current_stake = update_stake_on_result(bankroll, current_stake, result, price)
                 last_result = result
                 last_price = price
                 last_edge = edge
                 last_prob = prob
 
     # Next stake would be calculated from current bankroll + next heartbeat's edge/prob/price
-    current_stake = calculate_next_stake(
-        bankroll, DEFAULT_STARTING_STAKE, last_edge, last_prob, last_price
-    ) if last_price > 0 else DEFAULT_STARTING_STAKE
+    if last_price > 0:
+        current_stake = calculate_next_stake(
+            bankroll, current_stake, last_edge, last_prob, last_price
+        )
 
     return StakeState(
         current_stake=current_stake,

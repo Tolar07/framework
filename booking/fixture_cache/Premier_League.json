@@ -1,141 +1,125 @@
 {
-  "fetched_at": 1787951134.0815656,
+  "fetched_at": 1787996482.8810065,
   "league": "Premier League",
   "country": "England",
   "fixtures": [
     {
-      "id": "24918",
-      "home": "Club General Caballero JLM",
-      "away": "Deportivo Capiata",
-      "kickoff": "22:30  \nID: 24918",
+      "id": "37193",
+      "home": "AJ Auxerre SRL",
+      "away": "Angers SRL",
+      "kickoff": "11:00  \nID: 37193",
       "league": "Premier League",
       "raw_market": {}
     },
     {
-      "id": "24678",
-      "home": "Club Fernando de La Mora",
-      "away": "Tacuary Asuncion",
-      "kickoff": "14:00  \nID: 24678",
+      "id": "40024",
+      "home": "Brest SRL",
+      "away": "Toulouse SRL",
+      "kickoff": "11:00  \nID: 40024",
       "league": "Premier League",
       "raw_market": {}
     },
     {
-      "id": "30811",
-      "home": "Deportivo Santani",
-      "away": "CA Tembetary Ypane",
-      "kickoff": "14:00  \nID: 30811",
+      "id": "43313",
+      "home": "FC Lorient SRL",
+      "away": "Estac Troyes SRL",
+      "kickoff": "11:00  \nID: 43313",
       "league": "Premier League",
       "raw_market": {}
     },
     {
-      "id": "27949",
-      "home": "12 de Junio de Villa Hayes",
-      "away": "Carapegua",
-      "kickoff": "14:00  \nID: 27949",
+      "id": "43314",
+      "home": "Lyon SRL",
+      "away": "Le Havre AC Srl",
+      "kickoff": "11:00  \nID: 43314",
       "league": "Premier League",
       "raw_market": {}
     },
     {
-      "id": "26864",
-      "home": "Guairena FC",
-      "away": "Sol de America Villa Elisa",
-      "kickoff": "14:00  \nID: 26864",
+      "id": "43296",
+      "home": "Strasbourg SRL",
+      "away": "RC Lens SRL",
+      "kickoff": "11:00  \nID: 43296",
       "league": "Premier League",
       "raw_market": {}
     },
     {
-      "id": "27987",
-      "home": "Paraguari AC",
-      "away": "Resistencia SC",
-      "kickoff": "20:00  \nID: 27987",
+      "id": "1",
+      "home": "Gamba Osaka",
+      "away": "Sanfrecce Hiroshima",
+      "kickoff": "37:30\nH1",
       "league": "Premier League",
       "raw_market": {}
     },
     {
-      "id": "20179",
-      "home": "Encarnacion FC",
-      "away": "Club Dr Benjamin Aceval",
-      "kickoff": "22:30  \nID: 20179",
+      "id": "1",
+      "home": "V-Varen Nagasaki",
+      "away": "FC Tokyo",
+      "kickoff": "7:03\nH1",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Mito Hollyhock",
+      "away": "Machida Zelvia",
+      "kickoff": "37:58\nH1",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Shimizu S-Pulse",
+      "away": "Kashiwa Reysol",
+      "kickoff": "7:54\nH1",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Qingdao Hainiu FC",
+      "away": "Wuhan Three Towns FC",
+      "kickoff": "40:50\nH1",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Alaves",
-      "away": "Villarreal",
-      "kickoff": "78:49\nH2",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Rio Ave FC",
-      "away": "Sporting",
-      "kickoff": "88:26\nH2",
+      "home": "Cadiz CF Mirandilla",
+      "away": "Club Atletico Central",
+      "kickoff": "76:16\nH2",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "SC Beira Mar",
-      "away": "CF Uniao de Lamas",
-      "kickoff": "90:00\n1st extra",
+      "home": "CD Aurrera de Vitoria",
+      "away": "SD Amorebieta",
+      "kickoff": "35:53\nH1",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Independiente Valle Del Cauca",
-      "away": "Itagui Leones FC",
-      "kickoff": "35:15\nH1",
+      "home": "CD Illescas",
+      "away": "CF Pozuelo de Alarcon",
+      "kickoff": "39:22\nH1",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Comerciantes Unidos",
-      "away": "FC Cajamarca",
-      "kickoff": "35:37\nH1",
+      "home": "CP Mijas-Las Lagunas",
+      "away": "UD Melilla",
+      "kickoff": "39:02\nH1",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Mushuc Runa SC",
-      "away": "Delfin SC",
-      "kickoff": "34:47\nH1",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "CP Cacereno SAD",
-      "away": "CD Mirandes",
-      "kickoff": "88:28\nH2",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "AD Carmelita",
-      "away": "Aserri FC",
-      "kickoff": "4:05\nH1",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Fylkir Reykjavik",
-      "away": "Grotta",
-      "kickoff": "91:21\nH2",
-      "league": "Premier League",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "CR Vasco da Gama RJ",
-      "away": "SE Palmeiras SP",
-      "kickoff": "3:59\nH1",
+      "home": "Gimnastica Segoviana CF",
+      "away": "Real Madrid C",
+      "kickoff": "39:46\nH1",
       "league": "Premier League",
       "raw_market": {}
     }

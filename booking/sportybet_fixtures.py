@@ -7,10 +7,11 @@ from __future__ import annotations
 import asyncio
 import json
 import re
+import shutil
 import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import os
 
@@ -19,6 +20,28 @@ BASE_URL: str = "https://www.sportybet.com.ng"
 FALLBACK_HOSTS: tuple = ("https://www.sportybet.com.", "https://www.sportybet.com.ng")
 PAGE_LOAD_TIMEOUT: int = 20_000   # ms  – broadened for slow DC handsets
 MAX_LEAGUE_RETRIES: int = 1       # how many times to re-try _navigate_to_league
+
+# Authoritative cache directory the BOOKER (booking_codes.py via bridge) reads.
+# The builder's own default (booking/fixture_cache/) is kept for backward
+# compatibility, but every write is mirrored here so the two never drift
+# (the 2026-08-29 bug: refreshes landed here while the booker read elsewhere,
+# leaving a 149h-stale cache and 37 MANUAL codes).
+BOOKER_CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
+
+# Content-validation thresholds (HR35: never cache junk / never book wrong).
+# A league page that returns < this many distinct fixtures is treated as a
+# failed scrape (SportyBet NG often serves a wrong/mismatched page).
+MIN_FIXTURES: int = 3
+# If > this fraction of parsed fixtures are exact duplicates of one another,
+# the page is almost certainly corrupted/looped content.
+MAX_DUPLICATE_FRACTION: float = 0.5
+# Cross-league corruption guard: when SportyBet NG serves a WRONG page, the same
+# fixture set often gets cached under MANY league names (observed 2026-08-29:
+# "Premier League", "Bundesliga", "Serie A" all returned identical Guatemala/
+# Spain/Netherlands teams). If a fresh scrape's team-set overlaps an ALREADY
+# CACHED league by more than this fraction AND they aren't the same league, both
+# are corrupt — refuse to write (keep prior good cache).
+CROSS_LEAGUE_OVERLAP_MAX: float = 0.8
 
 
 # ── cache model ────────────────────────────────────────────────────────────
@@ -68,6 +91,86 @@ def _read_cache(league: str, max_age_seconds: int = 6 * 3600,
         return None
 
 
+def _validate_fixtures(league: str, fixtures: List[Any]) -> Tuple[bool, str]:
+    """HR35 content gate: reject pages that don't actually contain this league.
+
+    Returns (ok, reason). A page passes only if it yielded enough DISTINCT
+    fixtures. A wrong/mismatched page (SportyBet NG sometimes serves Guatemala
+    teams under a "Premier League" label) tends to return few or heavily
+    duplicated rows — caught here so it is never cached as real data.
+    """
+    if not fixtures:
+        return False, "no fixtures parsed from page"
+    if len(fixtures) < MIN_FIXTURES:
+        return False, f"only {len(fixtures)} fixtures (< {MIN_FIXTURES} distinct)"
+    # Duplicate-fraction check: count distinct (home, away) pairs.
+    pairs = {(getattr(f, "home", ""), getattr(f, "away", "")) for f in fixtures}
+    dup_fraction = 1.0 - (len(pairs) / len(fixtures))
+    if dup_fraction > MAX_DUPLICATE_FRACTION:
+        return False, (f"too many duplicate rows ({dup_fraction:.0%}); "
+                       f"likely wrong/mismatched league page")
+    return True, ""
+
+
+def _cached_team_sets(cache_dir: str = "") -> Dict[str, set]:
+    """Map league -> set of (home, away) pairs already on disk (for cross-league
+    corruption detection). Reads every cache file in the effective dir."""
+    base = Path(cache_dir) if cache_dir else Path(_cache_path("", cache_dir)).parent
+    out: Dict[str, set] = {}
+    if not base.exists():
+        return out
+    for f in base.glob("*.json"):
+        try:
+            data = json.loads(f.read_text("utf-8"))
+        except Exception:
+            continue
+        pairs = {(fx.get("home"), fx.get("away")) for fx in data.get("fixtures", [])}
+        pairs.discard((None, None))
+        pairs.discard(("", ""))
+        if pairs:
+            out[data.get("league", f.stem)] = pairs
+    return out
+
+
+def _cross_league_ok(league: str, fixtures: List[Any], cache_dir: str = "") -> Tuple[bool, str]:
+    """Reject a scrape whose team-set is near-identical to a DIFFERENT league's
+    cache — the signature of a single wrong page cached under many names."""
+    pairs = {(getattr(f, "home", ""), getattr(f, "away", "")) for f in fixtures}
+    pairs.discard((None, None)); pairs.discard(("", ""))
+    if not pairs:
+        return True, ""
+    existing = _cached_team_sets(cache_dir)
+    for other_league, other_pairs in existing.items():
+        if other_league == league:
+            continue
+        if not other_pairs:
+            continue
+        overlap = len(pairs & other_pairs) / max(1, len(pairs))
+        if overlap > CROSS_LEAGUE_OVERLAP_MAX:
+            return False, (f"team-set {overlap:.0%} matches cached '{other_league}' "
+                           f"— likely the same wrong page under two names")
+    return True, ""
+
+
+def _mirror_to_booker_cache(cache_dir: str, league: str) -> None:
+    """Mirror a freshly written cache file into the booker's authoritative dir.
+
+    The builder's default dir (booking/fixture_cache/) and the booker's read
+    dir (data/cache/sportybet/fixtures/) are kept both live; this keeps them in
+    sync so a refresh is visible to the booking-code driver. No-op when the
+    source file is absent."""
+    if cache_dir and Path(cache_dir) == BOOKER_CACHE_DIR:
+        return  # already writing into the booker dir
+    src = _cache_path(league, cache_dir)
+    if not src.exists():
+        return
+    try:
+        BOOKER_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, BOOKER_CACHE_DIR / src.name)
+    except Exception:
+        pass  # mirroring is best-effort; the source cache is the source of truth
+
+
 def _write_cache(league: str, country: str, fixtures: List[Any],
                  cache_dir: str = "") -> None:
     p = _cache_path(league, cache_dir)
@@ -79,6 +182,8 @@ def _write_cache(league: str, country: str, fixtures: List[Any],
         "fixtures": [asdict(f) for f in fixtures],
     }
     p.write_text(json.dumps(payload, ensure_ascii=False, indent=2), "utf-8")
+    # Keep the booker's directory in sync (2026-08-29 cache-drift fix).
+    _mirror_to_booker_cache(cache_dir, league)
 
 # ── page helpers (sync + async variants) ───────────────────────────────────────────────────────────────────────────────
 # Sync versions are used by booking_codes.py (sync_playwright).
@@ -531,15 +636,18 @@ async def _navigate_to_league(page: Any, country: str, league: str,
 
 async def _verify_league_page(page: Any, expected_country: str,
                               expected_league: str) -> bool:
-    """Return True if the visible page contains the league name."""
-    text_sources = []
+    """Return True if the visible page is actually this league's page.
 
-    # New SportyBet layout (2026-08-25): .tournament-name elements
+    Scoped to the tournament header / breadcrumb / active top-link so we do NOT
+    false-positive on the popular-list sidebar (which lists every league). A
+    broad body-text match is only a last-resort tie-breaker."""
+    # Strong signals first: the tournament header that names the active league.
+    strong_sources = []
     try:
         for el in await page.locator(".tournament-name").all():
             t = (await el.inner_text()).strip()
             if t:
-                text_sources.append(t)
+                strong_sources.append(t)
     except Exception:
         pass
 
@@ -547,7 +655,6 @@ async def _verify_league_page(page: Any, expected_country: str,
         ".breadcrumb:visible",
         ".tournament-header:visible",
         "[class*='breadcrumb']:visible",
-        ".popular-list:visible",
         ".top-link:visible",
         ".m-nav-bar:visible",
     ]
@@ -556,27 +663,22 @@ async def _verify_league_page(page: Any, expected_country: str,
             for el in await page.locator(sel).all():
                 t = (await el.inner_text()).strip()
                 if t:
-                    text_sources.append(t)
+                    strong_sources.append(t)
         except Exception:
             pass
 
-    try:
-        text_sources.append(await page.title())
-    except Exception:
-        pass
-
-    # Also check body text as last resort
-    try:
-        body_text = await page.inner_text('body')
-        if body_text:
-            text_sources.append(body_text)
-    except Exception:
-        pass
-
     expected_lower = expected_league.lower()
-    for src in text_sources:
+    for src in strong_sources:
         if expected_lower in src.lower():
             return True
+
+    # Last resort: body text (weak — can match the popular-list sidebar).
+    try:
+        body_text = await page.inner_text('body')
+        if body_text and expected_lower in body_text.lower():
+            return True
+    except Exception:
+        pass
     return False
 
 
@@ -697,6 +799,36 @@ async def _scrape_one_league(
             fixtures = await _extract_fixtures_from_page(page, league, country)
             if not fixtures:
                 fixtures = await _extract_fixtures_from_json(page, league, country)
+
+            # HR35 content gate: never cache a wrong/mismatched league page.
+            # If the scrape is junk, KEEP the prior cache (don't overwrite a
+            # good snapshot with garbage) and report honestly.
+            valid, reason = _validate_fixtures(league, fixtures)
+            if not valid:
+                prior = _read_cache(league, max_age_seconds=10**9, cache_dir=cache_dir)
+                if prior and prior.fixtures:
+                    print(f"  [SKIP] content validation failed for {country}/{league}: "
+                          f"{reason} — kept prior {len(prior.fixtures)} fixtures")
+                else:
+                    print(f"  [SKIP] content validation failed for {country}/{league}: "
+                          f"{reason} — no prior cache to keep")
+                await browser.close()
+                return prior.fixtures if prior else []
+
+            # Cross-league corruption guard: a single wrong page often gets cached
+            # under many league names (observed 2026-08-29). If this scrape's team-set
+            # near-matches a DIFFERENT league's cache, it's the same bad page — keep prior.
+            cross_ok, cross_reason = _cross_league_ok(league, fixtures, cache_dir)
+            if not cross_ok:
+                prior = _read_cache(league, max_age_seconds=10**9, cache_dir=cache_dir)
+                if prior and prior.fixtures:
+                    print(f"  [SKIP] cross-league validation failed for {country}/{league}: "
+                          f"{cross_reason} — kept prior {len(prior.fixtures)} fixtures")
+                else:
+                    print(f"  [SKIP] cross-league validation failed for {country}/{league}: "
+                          f"{cross_reason} — no prior cache to keep")
+                await browser.close()
+                return prior.fixtures if prior else []
 
             _write_cache(league, country, fixtures, cache_dir)
             print(f"  [OK] {country}/{league}: {len(fixtures)} fixtures cached")

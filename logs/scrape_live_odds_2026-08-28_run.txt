@@ -1,0 +1,214 @@
+  [2026-08-29T02:42:55.956177] Premier League: fetching https://www.flashscore.com/football/england/premier-league/
+  [2026-08-29T02:43:03.570829] Premier League: found 27 match rows
+  [2026-08-29T02:43:08.176526] Premier League: parsed 27 fixtures
+  [2026-08-29T02:43:08.176552] La Liga: fetching https://www.flashscore.com/football/spain/laliga/
+  [2026-08-29T02:43:14.185897] La Liga: found 24 match rows
+  [2026-08-29T02:43:16.223421] La Liga: parsed 24 fixtures
+  [2026-08-29T02:43:16.223452] Serie A: fetching https://www.flashscore.com/football/italy/serie-a/
+  [2026-08-29T02:43:22.128693] Serie A: found 28 match rows
+  [2026-08-29T02:43:24.526301] Serie A: parsed 28 fixtures
+  [2026-08-29T02:43:24.526330] Bundesliga: fetching https://www.flashscore.com/football/germany/bundesliga/
+  [2026-08-29T02:43:31.132178] Bundesliga: found 18 match rows
+  [2026-08-29T02:43:32.651369] Bundesliga: parsed 18 fixtures
+  [2026-08-29T02:43:32.651397] Ligue 1: fetching https://www.flashscore.com/football/france/ligue-1/
+  [2026-08-29T02:43:39.683939] Ligue 1: found 24 match rows
+  [2026-08-29T02:43:41.474845] Ligue 1: parsed 24 fixtures
+  [2026-08-29T02:43:41.474864] Champions League: fetching https://www.flashscore.com/football/europe/champions-league/
+  [2026-08-29T02:43:48.108222] Champions League: found 155 match rows
+  [2026-08-29T02:43:56.609978] Champions League: parsed 50 fixtures
+  [2026-08-29T02:43:56.610008] Europa League: fetching https://www.flashscore.com/football/europe/europa-league/
+  [2026-08-29T02:44:03.004500] Europa League: found 156 match rows
+  [2026-08-29T02:44:07.753852] Europa League: parsed 50 fixtures
+  [2026-08-29T02:44:07.753880] Conference League: fetching https://www.flashscore.com/football/europe/conference-league/
+  [2026-08-29T02:44:13.492711] Conference League: found 131 match rows
+  [2026-08-29T02:44:17.740518] Conference League: parsed 50 fixtures
+  [2026-08-29T02:44:17.740545] UEFA Super Cup: fetching https://www.flashscore.com/football/europe/uefa-super-cup/
+  [2026-08-29T02:44:23.321056] UEFA Super Cup: found 1 match rows
+  [2026-08-29T02:44:23.418657] UEFA Super Cup: parsed 1 fixtures
+  [2026-08-29T02:44:23.418683] Scottish Premiership: fetching https://www.flashscore.com/football/scotland/premiership/
+  [2026-08-29T02:44:29.006238] Scottish Premiership: found 26 match rows
+  [2026-08-29T02:44:31.670392] Scottish Premiership: parsed 26 fixtures
+  [2026-08-29T02:44:31.670421] Belgian Pro League: fetching https://www.flashscore.com/football/belgium/jupiler-pro-league/
+  [2026-08-29T02:44:37.698185] Belgian Pro League: found 27 match rows
+  [2026-08-29T02:44:40.684346] Belgian Pro League: parsed 27 fixtures
+  [2026-08-29T02:44:40.684371] Eredivisie: fetching https://www.flashscore.com/football/netherlands/eredivisie/
+  [2026-08-29T02:44:46.417087] Eredivisie: found 24 match rows
+  [2026-08-29T02:44:49.355051] Eredivisie: parsed 24 fixtures
+  [2026-08-29T02:44:49.355085] Championship: fetching https://www.flashscore.com/football/england/championship/
+  [2026-08-29T02:44:55.186733] Championship: found 32 match rows
+  [2026-08-29T02:44:58.236425] Championship: parsed 32 fixtures
+  [2026-08-29T02:44:58.236445] La Liga 2: fetching https://www.flashscore.com/football/spain/laliga2/
+  [2026-08-29T02:45:03.817741] La Liga 2: found 27 match rows
+  [2026-08-29T02:45:06.311775] La Liga 2: parsed 27 fixtures
+  [2026-08-29T02:45:06.311806] Serie B: fetching https://www.flashscore.com/football/italy/serie-b/
+  [2026-08-29T02:45:12.249760] Serie B: found 28 match rows
+  [2026-08-29T02:45:14.789514] Serie B: parsed 28 fixtures
+  [2026-08-29T02:45:14.789530] 2. Bundesliga: fetching https://www.flashscore.com/football/germany/2-bundesliga/
+  [2026-08-29T02:45:20.918649] 2. Bundesliga: found 27 match rows
+  [2026-08-29T02:45:24.265503] 2. Bundesliga: parsed 27 fixtures
+  [2026-08-29T02:45:24.265530] Ligue 2: fetching https://www.flashscore.com/football/france/ligue-2/
+  [2026-08-29T02:45:30.062238] Ligue 2: found 27 match rows
+  [2026-08-29T02:45:32.903767] Ligue 2: parsed 27 fixtures
+  [2026-08-29T02:45:32.903795] Primeira Liga: fetching https://www.flashscore.com/football/portugal/liga-portugal/
+  [2026-08-29T02:45:38.492217] Primeira Liga: found 25 match rows
+  [2026-08-29T02:45:40.314604] Primeira Liga: parsed 25 fixtures
+  [2026-08-29T02:45:40.314627] Danish Superliga: fetching https://www.flashscore.com/football/denmark/superliga/
+  [2026-08-29T02:45:45.896916] Danish Superliga: found 24 match rows
+  [2026-08-29T02:45:48.037861] Danish Superliga: parsed 24 fixtures
+  [2026-08-29T02:45:48.037889] Ekstraklasa: fetching https://www.flashscore.com/football/poland/ekstraklasa/
+  [2026-08-29T02:45:53.636426] Ekstraklasa: found 28 match rows
+  [2026-08-29T02:45:55.921528] Ekstraklasa: parsed 28 fixtures
+  [2026-08-29T02:45:55.921560] HNL: fetching https://www.flashscore.com/football/croatia/hnl/
+  [2026-08-29T02:46:01.702615] HNL: found 22 match rows
+  [2026-08-29T02:46:03.410003] HNL: parsed 22 fixtures
+  [2026-08-29T02:46:03.410021] Austrian Bundesliga: fetching https://www.flashscore.com/football/austria/bundesliga/
+  [2026-08-29T02:46:08.993044] Austrian Bundesliga: found 24 match rows
+  [2026-08-29T02:46:11.150099] Austrian Bundesliga: parsed 24 fixtures
+  [2026-08-29T02:46:11.150121] EFL Cup: fetching https://www.flashscore.com/football/england/efl-cup/
+  [2026-08-29T02:46:16.736900] EFL Cup: found 34 match rows
+  [2026-08-29T02:46:19.171574] EFL Cup: parsed 34 fixtures
+  [2026-08-29T02:46:19.171599] Copa del Rey: fetching https://www.flashscore.com/football/spain/copa-del-rey/
+  [2026-08-29T02:46:25.321941] Copa del Rey: found 11 match rows
+  [2026-08-29T02:46:26.283947] Copa del Rey: parsed 11 fixtures
+  [2026-08-29T02:46:26.283971] DFB-Pokal: fetching https://www.flashscore.com/football/germany/dfb-pokal/
+  [2026-08-29T02:46:32.133911] DFB-Pokal: found 17 match rows
+  [2026-08-29T02:46:33.902645] DFB-Pokal: parsed 17 fixtures
+  [2026-08-29T02:46:33.902664] Coupe de France: fetching https://www.flashscore.com/football/france/coupe-de-france/
+  [2026-08-29T02:46:39.750060] Coupe de France: found 13 match rows
+  [2026-08-29T02:46:41.892903] Coupe de France: parsed 13 fixtures
+  [2026-08-29T02:46:41.892927] FA Cup: fetching https://www.flashscore.com/football/england/fa-cup/
+  [2026-08-29T02:46:47.788523] FA Cup: found 112 match rows
+  [2026-08-29T02:46:52.560921] FA Cup: parsed 50 fixtures
+  [2026-08-29T02:46:52.560953] KNVB Beker: fetching https://www.flashscore.com/football/netherlands/knvb-beker/
+  [2026-08-29T02:46:58.377364] KNVB Beker: found 12 match rows
+  [2026-08-29T02:46:59.421815] KNVB Beker: parsed 12 fixtures
+  [2026-08-29T02:46:59.421840] Taça de Portugal: fetching https://www.flashscore.com/football/portugal/taca-de-portugal/
+  [2026-08-29T02:47:05.290959] Taça de Portugal: found 45 match rows
+  [2026-08-29T02:47:09.114548] Taça de Portugal: parsed 45 fixtures
+  [2026-08-29T02:47:09.114578] Turkish Super Lig: fetching https://www.flashscore.com/football/turkey/super-lig/
+  [2026-08-29T02:47:14.722019] Turkish Super Lig: found 25 match rows
+  [2026-08-29T02:47:17.080348] Turkish Super Lig: parsed 25 fixtures
+  [2026-08-29T02:47:17.080372] Russian Premier League: fetching https://www.flashscore.com/football/russia/premier-league/
+  [2026-08-29T02:47:22.730200] Russian Premier League: found 26 match rows
+  [2026-08-29T02:47:24.588089] Russian Premier League: parsed 26 fixtures
+  [2026-08-29T02:47:24.588121] Swiss Super League: fetching https://www.flashscore.com/football/switzerland/super-league/
+  [2026-08-29T02:47:30.195266] Swiss Super League: found 27 match rows
+  [2026-08-29T02:47:32.259851] Swiss Super League: parsed 27 fixtures
+  [2026-08-29T02:47:32.259877] Greek Super League: fetching https://www.flashscore.com/football/greece/super-league/
+  [2026-08-29T02:47:37.924508] Greek Super League: found 19 match rows
+  [2026-08-29T02:47:39.509286] Greek Super League: parsed 19 fixtures
+  [2026-08-29T02:47:39.509313] Czech First League: fetching https://www.flashscore.com/football/czech-republic/chance-liga/
+  [2026-08-29T02:47:45.067273] Czech First League: found 26 match rows
+  [2026-08-29T02:47:47.176162] Czech First League: parsed 26 fixtures
+  [2026-08-29T02:47:47.176188] Romanian Liga I: fetching https://www.flashscore.com/football/romania/superliga/
+  [2026-08-29T02:47:52.832214] Romanian Liga I: found 24 match rows
+  [2026-08-29T02:47:54.909072] Romanian Liga I: parsed 24 fixtures
+  [2026-08-29T02:47:54.909097] Ukrainian Premier League: fetching https://www.flashscore.com/football/ukraine/premier-league/
+  [2026-08-29T02:48:00.580884] Ukrainian Premier League: found 26 match rows
+  [2026-08-29T02:48:02.781207] Ukrainian Premier League: parsed 26 fixtures
+  [2026-08-29T02:48:02.781235] Serbian Super Liga: fetching https://www.flashscore.com/football/serbia/mozzart-bet-super-liga/
+  [2026-08-29T02:48:08.494742] Serbian Super Liga: found 24 match rows
+  [2026-08-29T02:48:12.236758] Serbian Super Liga: parsed 24 fixtures
+  [2026-08-29T02:48:12.236782] Norwegian Eliteserien: fetching https://www.flashscore.com/football/norway/eliteserien/
+  [2026-08-29T02:48:17.848252] Norwegian Eliteserien: found 21 match rows
+  [2026-08-29T02:48:19.490038] Norwegian Eliteserien: parsed 21 fixtures
+  [2026-08-29T02:48:19.490055] Swedish Allsvenskan: fetching https://www.flashscore.com/football/sweden/allsvenskan/
+  [2026-08-29T02:48:25.170097] Swedish Allsvenskan: found 27 match rows
+  [2026-08-29T02:48:27.112025] Swedish Allsvenskan: parsed 27 fixtures
+  [2026-08-29T02:48:27.112051] Finnish Veikkausliiga: fetching https://www.flashscore.com/football/finland/veikkausliiga/
+  [2026-08-29T02:48:32.858530] Finnish Veikkausliiga: found 16 match rows
+  [2026-08-29T02:48:36.163793] Finnish Veikkausliiga: parsed 16 fixtures
+  [2026-08-29T02:48:36.163819] Hungarian NB I: fetching https://www.flashscore.com/football/hungary/nb-i/
+  [2026-08-29T02:48:42.250254] Hungarian NB I: found 29 match rows
+  [2026-08-29T02:48:45.637912] Hungarian NB I: parsed 29 fixtures
+  [2026-08-29T02:48:45.637939] Slovak Super Liga: fetching https://www.flashscore.com/football/slovakia/nike-liga/
+  [2026-08-29T02:48:51.206031] Slovak Super Liga: found 28 match rows
+  [2026-08-29T02:48:53.539669] Slovak Super Liga: parsed 28 fixtures
+  [2026-08-29T02:48:53.539710] Slovenian PrvaLiga: fetching https://www.flashscore.com/football/slovenia/prva-liga/
+  [2026-08-29T02:48:59.277099] Slovenian PrvaLiga: found 23 match rows
+  [2026-08-29T02:49:01.444725] Slovenian PrvaLiga: parsed 23 fixtures
+  [2026-08-29T02:49:01.444750] Bulgarian First League: fetching https://www.flashscore.com/football/bulgaria/efbet-league/
+  [2026-08-29T02:49:07.139271] Bulgarian First League: found 20 match rows
+  [2026-08-29T02:49:08.586717] Bulgarian First League: parsed 20 fixtures
+  [2026-08-29T02:49:08.586738] Israeli Premier League: fetching https://www.flashscore.com/football/israel/ligat-ha-al/
+  [2026-08-29T02:49:14.235366] Israeli Premier League: found 21 match rows
+  [2026-08-29T02:49:15.950196] Israeli Premier League: parsed 21 fixtures
+  [2026-08-29T02:49:15.950213] Cypriot First Division: fetching https://www.flashscore.com/football/cyprus/cyprus-league/
+  [2026-08-29T02:49:21.595692] Cypriot First Division: found 14 match rows
+  [2026-08-29T02:49:22.924069] Cypriot First Division: parsed 14 fixtures
+  [2026-08-29T02:49:22.924093] Albanian Superliga: fetching https://www.flashscore.com/football/albania/abissnet-superiore/
+  [2026-08-29T02:49:28.929394] Albanian Superliga: found 18 match rows
+  [2026-08-29T02:49:31.310752] Albanian Superliga: parsed 18 fixtures
+  [2026-08-29T02:49:31.310776] Armenian Premier League: fetching https://www.flashscore.com/football/armenia/premier-league/
+  [2026-08-29T02:49:37.214563] Armenian Premier League: found 21 match rows
+  [2026-08-29T02:49:39.381819] Armenian Premier League: parsed 21 fixtures
+  [2026-08-29T02:49:39.381841] Azerbaijani Premyer Liqa: fetching https://www.flashscore.com/football/azerbaijan/premier-league/
+  [2026-08-29T02:49:44.988852] Azerbaijani Premyer Liqa: found 22 match rows
+  [2026-08-29T02:49:46.868695] Azerbaijani Premyer Liqa: parsed 22 fixtures
+  [2026-08-29T02:49:46.868714] Belarusian Premier League: fetching https://www.flashscore.com/football/belarus/premier-league/
+  [2026-08-29T02:49:52.275561] Belarusian Premier League: found 0 match rows
+  [2026-08-29T02:49:52.275577] Belarusian Premier League: parsed 0 fixtures
+  [2026-08-29T02:49:52.275588] Kazakhstan Premier League: fetching https://www.flashscore.com/football/kazakhstan/premier-league/
+  [2026-08-29T02:49:58.504564] Kazakhstan Premier League: found 28 match rows
+  [2026-08-29T02:50:02.450772] Kazakhstan Premier League: parsed 28 fixtures
+  [2026-08-29T02:50:02.450803] Kosovan Superliga: fetching https://www.flashscore.com/football/kosovo/superliga/
+  [2026-08-29T02:50:08.042512] Kosovan Superliga: found 14 match rows
+  [2026-08-29T02:50:09.340841] Kosovan Superliga: parsed 14 fixtures
+  [2026-08-29T02:50:09.340864] Latvian Virsliga: fetching https://www.flashscore.com/football/latvia/virsliga/
+  [2026-08-29T02:50:15.651017] Latvian Virsliga: found 23 match rows
+  [2026-08-29T02:50:17.953139] Latvian Virsliga: parsed 23 fixtures
+  [2026-08-29T02:50:17.953170] Lithuanian A Lyga: fetching https://www.flashscore.com/football/lithuania/toplyga/
+  [2026-08-29T02:50:24.843672] Lithuanian A Lyga: found 21 match rows
+  [2026-08-29T02:50:27.377111] Lithuanian A Lyga: parsed 21 fixtures
+  [2026-08-29T02:50:27.377135] Luxembourg National Division: fetching https://www.flashscore.com/football/luxembourg/bgl-ligue/
+  [2026-08-29T02:50:33.637126] Luxembourg National Division: found 31 match rows
+  [2026-08-29T02:50:36.147677] Luxembourg National Division: parsed 31 fixtures
+  [2026-08-29T02:50:36.147707] Maltese Premier League: fetching https://www.flashscore.com/football/malta/premier-league/
+  [2026-08-29T02:50:41.757092] Maltese Premier League: found 23 match rows
+  [2026-08-29T02:50:43.477936] Maltese Premier League: parsed 23 fixtures
+  [2026-08-29T02:50:43.477964] Moldovan Super Liga: fetching https://www.flashscore.com/football/moldova/super-liga/
+  [2026-08-29T02:50:49.032736] Moldovan Super Liga: found 22 match rows
+  [2026-08-29T02:50:50.805436] Moldovan Super Liga: parsed 22 fixtures
+  [2026-08-29T02:50:50.805466] Montenegrin First League: fetching https://www.flashscore.com/football/montenegro/prva-crnogorska-liga/
+  [2026-08-29T02:50:56.390639] Montenegrin First League: found 21 match rows
+  [2026-08-29T02:50:58.186092] Montenegrin First League: parsed 21 fixtures
+  [2026-08-29T02:50:58.186110] Estonian Meistriliiga: fetching https://www.flashscore.com/football/estonia/meistriliiga/
+  [2026-08-29T02:51:03.882793] Estonian Meistriliiga: found 23 match rows
+  [2026-08-29T02:51:05.753226] Estonian Meistriliiga: parsed 23 fixtures
+  [2026-08-29T02:51:05.753255] Georgian Erovnuli Liga: fetching https://www.flashscore.com/football/georgia/crystalbet-erovnuli-liga/
+  [2026-08-29T02:51:11.411091] Georgian Erovnuli Liga: found 21 match rows
+  [2026-08-29T02:51:14.018106] Georgian Erovnuli Liga: parsed 21 fixtures
+  [2026-08-29T02:51:14.018126] Northern Irish Premiership: fetching https://www.flashscore.com/football/northern-ireland/nifl-premiership/
+  [2026-08-29T02:51:19.690773] Northern Irish Premiership: found 30 match rows
+  [2026-08-29T02:51:22.510762] Northern Irish Premiership: parsed 30 fixtures
+  [2026-08-29T02:51:22.510781] Welsh Premier League: fetching https://www.flashscore.com/football/wales/cymru-premier/
+  [2026-08-29T02:51:28.451361] Welsh Premier League: found 30 match rows
+  [2026-08-29T02:51:32.120513] Welsh Premier League: parsed 30 fixtures
+  [2026-08-29T02:51:32.120538] Republic of Ireland Premier Division: fetching https://www.flashscore.com/football/ireland/premier-division/
+  [2026-08-29T02:51:37.714681] Republic of Ireland Premier Division: found 20 match rows
+  [2026-08-29T02:51:39.349109] Republic of Ireland Premier Division: parsed 20 fixtures
+  [2026-08-29T02:51:39.349126] Icelandic Urvalsdeild: fetching https://www.flashscore.com/football/iceland/besta-deild-karla/
+  [2026-08-29T02:51:45.718006] Icelandic Urvalsdeild: found 23 match rows
+  [2026-08-29T02:51:47.831606] Icelandic Urvalsdeild: parsed 23 fixtures
+  [2026-08-29T02:51:47.831690] Faroe Islands Premier League: fetching https://www.flashscore.com/football/faroe-islands/premier-league/
+  [2026-08-29T02:51:53.617254] Faroe Islands Premier League: found 22 match rows
+  [2026-08-29T02:51:55.533648] Faroe Islands Premier League: parsed 22 fixtures
+  [2026-08-29T02:51:55.533666] North Macedonian First League: fetching https://www.flashscore.com/football/north-macedonia/1-mfl/
+  [2026-08-29T02:52:01.565415] North Macedonian First League: found 24 match rows
+  [2026-08-29T02:52:03.310900] North Macedonian First League: parsed 24 fixtures
+  [2026-08-29T02:52:03.310924] Bosnian Premier League: fetching https://www.flashscore.com/football/bosnia-and-herzegovina/wwin-liga-bih/
+  [2026-08-29T02:52:08.859061] Bosnian Premier League: found 25 match rows
+  [2026-08-29T02:52:10.663831] Bosnian Premier League: parsed 25 fixtures
+  [2026-08-29T02:52:10.663875] Gibraltarian National League: fetching https://www.flashscore.com/football/gibraltar/national-league/
+  [2026-08-29T02:52:16.222961] Gibraltarian National League: found 17 match rows
+  [2026-08-29T02:52:17.909233] Gibraltarian National League: parsed 17 fixtures
+  [2026-08-29T02:52:17.909256] Andorran Primera Divisió: fetching https://www.flashscore.com/football/andorra/primera-divisio/
+  [2026-08-29T02:52:23.974708] Andorran Primera Divisió: found 10 match rows
+  [2026-08-29T02:52:25.144479] Andorran Primera Divisió: parsed 10 fixtures
+  [2026-08-29T02:52:25.144498] Sanmarinese Campionato: fetching https://www.flashscore.com/football/san-marino/campionato-sammarinese/
+  [2026-08-29T02:52:31.017443] Sanmarinese Campionato: found 16 match rows
+  [2026-08-29T02:52:33.292718] Sanmarinese Campionato: parsed 16 fixtures
+  [2026-08-29T02:52:33.292747] Liechtensteiner Cup: fetching https://www.flashscore.com/football/liechtenstein/liechtenstein-cup/
+  [2026-08-29T02:52:38.916300] Liechtensteiner Cup: found 9 match rows
+  [2026-08-29T02:52:39.608156] Liechtensteiner Cup: parsed 9 fixtures
+[2026-08-29T02:52:39.621829] Saved 1705 entries to C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\data\live_odds\flashscore_odds_20260829_025239.jsonl

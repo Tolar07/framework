@@ -69,6 +69,13 @@ LEAGUE_IDS = {
     "La Liga 2": 141,
     "Serie B": 136,
     "Ligue 2": 62,
+    "DFB-Pokal": 151,
+    "Copa del Rey": 154,
+    "Coppa Italia": 152,
+    "Coupe de France": 66,
+    "FA Cup": 45,
+    "KNVB Beker": 97,
+    "EFL Cup": 48,
 }
 
 # Leagues whose ID401 name differs from API-Football's own name, so a plain

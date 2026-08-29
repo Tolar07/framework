@@ -1,141 +1,149 @@
 {
-  "fetched_at": 1787938814.915562,
+  "fetched_at": 1787952952.3203068,
   "league": "Serie A",
   "country": "Italy",
   "fixtures": [
     {
-      "id": "26975",
-      "home": "Treowen Stars",
-      "away": "Cardiff Draconians",
-      "kickoff": "18:45  \nID: 26975",
+      "id": "38058",
+      "home": "Montevideo Wanderers",
+      "away": "Central Espanol FC",
+      "kickoff": "23:00  \nID: 38058",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "40717",
-      "home": "Baglan Dragons",
-      "away": "Caerau Ely FC",
-      "kickoff": "19:30  \nID: 40717",
+      "id": "38299",
+      "home": "CA Progreso",
+      "away": "Danubio FC",
+      "kickoff": "15:00  \nID: 38299",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "50469",
-      "home": "Llanelli Town",
-      "away": "Carmarthen Town",
-      "kickoff": "19:30  \nID: 50469",
+      "id": "44729",
+      "home": "CA Boston River",
+      "away": "CA Cerro",
+      "kickoff": "18:00  \nID: 44729",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "40833",
-      "home": "Newport City FC",
-      "away": "Ynyshir Albions",
-      "kickoff": "19:30  \nID: 40833",
+      "id": "17354",
+      "home": "CA Juventud de Las Piedras",
+      "away": "Deportivo Maldonado",
+      "kickoff": "18:00  \nID: 17354",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "24377",
-      "home": "Swansea University",
-      "away": "Pontypridd Town",
-      "kickoff": "19:30  \nID: 24377",
+      "id": "38169",
+      "home": "Defensor Sporting",
+      "away": "Montevideo City Torque",
+      "kickoff": "21:00  \nID: 38169",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "41259",
-      "home": "Aberystwyth Town FC",
-      "away": "Pontardawe Town FC",
-      "kickoff": "19:45  \nID: 41259",
+      "id": "38689",
+      "home": "CA Penarol Montevideo",
+      "away": "Club Nacional de Football",
+      "kickoff": "19:30  \nID: 38689",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "40957",
-      "home": "Trethomas Bluebirds",
-      "away": "Afan Lido",
-      "kickoff": "19:45  \nID: 40957",
+      "id": "38836",
+      "home": "Cerro Largo FC",
+      "away": "Liverpool Montevideo",
+      "kickoff": "23:00  \nID: 38836",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Racing Santander",
-      "away": "Elche CF",
-      "kickoff": "38:58\nH1",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Bochum",
-      "away": "VfL 1899 Osnabruck",
-      "kickoff": "49:41\nH2",
+      "id": "23498",
+      "home": "Racing Club Montevideo",
+      "away": "Albion FC",
+      "kickoff": "19:30  \nID: 23498",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Eintracht Braunschweig",
-      "away": "Hertha",
-      "kickoff": "50:14\nH2",
-      "league": "Serie A",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "AC Horsens",
-      "away": "Viborg FF",
-      "kickoff": "38:32\nH1",
+      "home": "SC Beira Mar",
+      "away": "CF Uniao de Lamas",
+      "kickoff": "117:17\n2nd extra",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Club Portugalete",
-      "away": "RS Gimnastica de Torrelavega",
-      "kickoff": "50:10\nH2",
+      "home": "Independiente Valle Del Cauca",
+      "away": "Itagui Leones FC",
+      "kickoff": "45:16\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "Serie A-10",
+      "home": "Comerciantes Unidos",
+      "away": "FC Cajamarca",
+      "kickoff": "45:00\nHT",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "Serie A-11",
+      "home": "Mushuc Runa SC",
+      "away": "Delfin SC",
+      "kickoff": "45:00\nHT",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Yeclano Deportivo",
-      "away": "CD Alcoyano",
-      "kickoff": "7:21\nH1",
+      "home": "Sportivo San Lorenzo",
+      "away": "Nacional Asuncion",
+      "kickoff": "05:22\nH1",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Al Ittihad Al Sakandary",
-      "away": "Ceramica Cleopatra",
-      "kickoff": "38:00\nH1",
+      "home": "AD Carmelita",
+      "away": "Aserri FC",
+      "kickoff": "33:55\nH1",
       "league": "Serie A",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Zed FC",
-      "away": "AL Ahly SC (EGY)",
-      "kickoff": "37:14\nH1",
+      "home": "Club General Caballero JLM",
+      "away": "Deportivo Capiata",
+      "kickoff": "05:41\nH1",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Al-Riyadh SC",
-      "away": "Neom SC",
-      "kickoff": "89:32\nH2",
+      "id": "1",
+      "home": "CR Vasco da Gama RJ",
+      "away": "SE Palmeiras SP",
+      "kickoff": "34:16\nH1",
       "league": "Serie A",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Al-Fayha FC",
-      "away": "Abha Club",
-      "kickoff": "76:49\nH2",
+      "id": "1",
+      "home": "Santa Fe FC",
+      "away": "Umecit FC",
+      "kickoff": "35:59\nH1",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "CD Origen Women",
+      "away": "Tevi Cocle FC Women",
+      "kickoff": "35:36\nH1",
       "league": "Serie A",
       "raw_market": {}
     }

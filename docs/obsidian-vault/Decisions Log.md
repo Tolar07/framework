@@ -195,3 +195,5 @@
 - Mean CLV: -10.21% (negative — gate met only under HR59 waiver)
 - Gate status: MET (waived by Architect directive, signed off)
 - Architect sign-off: REQUIRED & AFFIRMED this session (Architect-only capital authority intact)
+
+

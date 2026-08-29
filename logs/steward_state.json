@@ -1,42 +1,42 @@
 {
-  "pass": "2026-08-15T23:37:16+00:00",
-  "duration_s": 568.0,
+  "pass": "2026-08-28T21:10:03+00:00",
+  "duration_s": 724.2,
   "fixtures_season": "2627",
   "sources": {
     "sportybet": {
-      "fetched_at": "2026-08-15T23:27:48+00:00",
-      "ok": false,
-      "detail": "61 league(s) cached, 0 fixture(s) \u2014 Albanian Superliga, Andorran Primera Divisi\u00f3, Armenian Premier League, Austrian Bundesliga, Azerbaijani Premyer Liqa, Belarusian Premier League\u2026"
+      "fetched_at": "2026-08-28T20:57:59+00:00",
+      "ok": true,
+      "detail": "26 league(s) cached, 82 fixture(s) \u2014 Belgian Pro League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey\u2026"
     },
     "odds": {
-      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "fetched_at": "2026-08-28T20:57:59+00:00",
       "ok": false,
-      "detail": "Odds API quota spent (1 left, floor 40) \u2014 primary down, fallback must serve"
+      "detail": "Odds API quota spent (0 left, floor 40) \u2014 primary down, fallback must serve"
     },
     "af_odds": {
-      "fetched_at": "2026-08-15T23:27:48+00:00",
-      "ok": false,
-      "detail": "quota probe failed ('list' object has no attribute 'get') \u2014 not warming"
+      "fetched_at": "2026-08-28T20:57:59+00:00",
+      "ok": true,
+      "detail": "warmed 4 of 10 attempted league(s) (6 had nothing in window)"
     },
     "tsdb": {
-      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "fetched_at": "2026-08-28T20:57:59+00:00",
       "ok": true,
-      "detail": "41 league(s) with upcoming fixtures, 9 not carried (Andorran Primera Divisi\u00f3, Azerbaijani Premyer Liqa, Belarusian Premier League, Bosnian Premier League)"
+      "detail": "17 league(s) with upcoming fixtures, 10 not carried (Conference League, Copa del Rey, Coppa Italia, Coupe de France)"
     },
     "espn": {
-      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "fetched_at": "2026-08-28T20:57:59+00:00",
       "ok": true,
-      "detail": "16 league(s) covered, 45 no ESPN slug (Albanian Superliga, Andorran Primera Divisi\u00f3, Armenian Premier League, Azerbaijani Premyer Liqa)"
+      "detail": "17 league(s) covered, 12 no ESPN slug (Copa del Rey, Coppa Italia, Coupe de France, DFB-Pokal)"
     },
     "clubelo": {
-      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "fetched_at": "2026-08-28T20:57:59+00:00",
       "ok": true,
       "detail": "594 club(s) in the 2026-08-11 snapshot"
     },
     "fdc": {
-      "fetched_at": "2026-08-15T23:27:48+00:00",
+      "fetched_at": "2026-08-28T20:57:59+00:00",
       "ok": true,
-      "detail": "3 live-season file(s): Austrian_Bundesliga_all.csv, Danish_Superliga_all.csv, Ekstraklasa_all.csv"
+      "detail": "5 live-season file(s): Austrian_Bundesliga_all.csv, Danish_Superliga_all.csv, Ekstraklasa_all.csv, Norwegian_Eliteserien_all.csv\u2026"
     }
   }
 }

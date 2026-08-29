@@ -35,7 +35,7 @@ try:
 except ImportError:
     requests = None  # type: ignore
 
-from data.espn_source import SLUGS
+from data.espn_source import SLUGS, SLUGS as LEAGUE_MAP
 
 # Season year fallback (current season start year)
 _SEASON_YEAR = 2025

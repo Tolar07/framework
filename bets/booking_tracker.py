@@ -42,6 +42,7 @@ from typing import Any
 import bets.produced_bet as produced_bet
 from engine import markets as mkt
 from brain.store import Brain
+from data.espn_source import SLUGS as LEAGUE_MAP
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -249,9 +250,9 @@ def settle(target_date: str | date | None = None) -> dict[str, Any]:
         try:
             for r in (fetch_results_for_date(target_date) or []):
                 results_map[(r.league, r.home_team, r.away_team)] = {
-                    "fthg": r.fthg,
-                    "ftag": r.ftag,
-                    "date": getattr(r, "date", target_date),
+                    "fthg": r.home_score,
+                    "ftag": r.away_score,
+                    "date": getattr(r, "match_date", target_date),
                 }
         except (OSError, TypeError):
             pass

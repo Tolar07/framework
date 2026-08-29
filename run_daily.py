@@ -1571,24 +1571,20 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     acca_text = render_production_block(production, codes=codes_result,
                                         today=board_date, board=board)
 
-    # Telegram board uses the compact fixture-list format (Architect 2026-08-25):
-    # date-ordered teams grouped by league with pick + win% + alt markets. This
-    # is the board the phone receives AND what telegram_<date>.txt persists for
-    # the web feed, so the two can never disagree. The wide probability/CLV
-    # Telegram push now carries the BLENDED 4-TABLE board (Architect 2026-08-27,
-    # per the Blended Telegram Output Design): TABLE 1 LAYER 2 FULL GRID,
-    # TABLE 2 LAYER 1 COMPACT, TABLE 3 ACCA ROUTE, TABLE 4 THE PICK — the same
-    # 4-table render the web /board command serves. The phone and web are now one
-    # render (Architect 2026-08-11: web == Telegram structurally). The old compact
-    # heartbeat is preserved as render_telegram_board(compact=True) for any caller
-    # that still wants the lean push (e.g. a future --compact-telegram flag).
+    # Telegram board uses the BLENDED 4-TABLE format (Architect 2026-08-28):
+    # TABLE 1 LAYER 2 FULL GRID, TABLE 2 LAYER 1 COMPACT, TABLE 3 ACCA ROUTE,
+    # TABLE 4 THE PICK — the same 4-table render the web /board command serves.
+    # The phone and web are now one render (Architect 2026-08-11: web == Telegram
+    # structurally). The old compact heartbeat is preserved as
+    # render_telegram_board(compact=True) for any caller that still wants the
+    # lean push (e.g. a future --compact-telegram flag).
     telegram_text = render_produce_bet(
             mode="Mode A", phase=PHASE_LABEL,
             leagues_scanned=leagues, calibration_count=status["legs_with_clv"],
             mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
             produced_bet=produced_record, production=production,
             codes=codes_result,
-            include_data_flags=False, only_rated=True)
+            include_data_flags=False, only_rated=False, compact=False)
 
     # The FEED text — one render, two outlets (Architect 2026-08-11). This
     # exact string is BOTH what the phone receives (notify.deliver below) AND
@@ -1605,7 +1601,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
         produced_bet=produced_record, production=production,
-        codes=codes_result)
+        codes=codes_result,
+        include_data_flags=True, only_rated=False, compact=False)
 
     full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
     path = BOARD_DIR / f"board_{board_date}.txt"

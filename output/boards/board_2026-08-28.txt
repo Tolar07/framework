@@ -3,11 +3,11 @@ Date: 2026-08-28 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-dep
 Leagues scanned: 2. Bundesliga, Belgian Pro League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey, Coppa Italia, Coupe de France, DFB-Pokal, EFL Cup, Eredivisie, Europa League, FA Cup, KNVB Beker, La Liga, La Liga 2, Ligue 1, Ligue 2, Premier League, Primeira Liga, Russian Premier League, Scottish Premiership, Serie A, Serie B, Swiss Super League, Taça de Portugal, Turkish Super Lig, UEFA Super Cup
 Calibration: 42 legs logged, mean CLV -10.21%
 DATA FLAGS (surfaced first, per HR53/ID403):
-  ⚠ sportybet cache warm: 96 fixtures across 82 league(s) ready for the booking bridge
-  ⚠ Swiss Super League: no results available for grading — legs stay PENDING, not guessed
+  ⚠ sportybet cache warm: 157 fixtures across 82 league(s) ready for the booking bridge
   ⚠ Champions League: no results available for grading — legs stay PENDING, not guessed
   ⚠ Russian Premier League: no results available for grading — legs stay PENDING, not guessed
   ⚠ Turkish Super Lig: no results available for grading — legs stay PENDING, not guessed
+  ⚠ Swiss Super League: no results available for grading — legs stay PENDING, not guessed
   ⚠ graded 0 of 17 pending leg(s)
   ⚠ Automated CLV grading: 0 leg(s) settled
   ⚠ booking tracker settle skipped (NameError: name 'LEAGUE_MAP' is not defined)
@@ -129,29 +129,29 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ UEFA Super Cup: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
   ⚠ UEFA Super Cup: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.) — NO DATA — PENDING
   ⚠ UEFA Super Cup: Elo continental blend w=2.5 (cached)
-  ⚠ VERIFY GATE: 15 verified, 7 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
+  ⚠ VERIFY GATE: 21 verified, 1 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
   ⚠ VERIFY GATE: 'VfL Bochum v VfL Osnabrück (2. Bundesliga)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Eintracht Braunschweig v Hertha BSC (2. Bundesliga)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Genk v SK Beveren (Belgian Pro League)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'Bayern München v VfB Stuttgart (Bundesliga)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Bayern München v VfB Stuttgart (Bundesliga)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Wrexham v Birmingham (Championship)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Groningen v Fortuna Sittard (Eredivisie)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
-  ⚠ VERIFY GATE: 'Racing Santander v Elche (La Liga)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  ⚠ VERIFY GATE: 'Racing Santander v Elche (La Liga)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Alaves v Villarreal (La Liga)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'Tenerife v Sporting Gijon (La Liga 2)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
-  ⚠ VERIFY GATE: 'Lille v Paris Saint Germain (Ligue 1)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Tenerife v Sporting Gijon (La Liga 2)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Lille v Paris Saint Germain (Ligue 1)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Montpellier v Boulogne (Ligue 2)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Clermont Foot v Sochaux (Ligue 2)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Nancy v Dunkerque (Ligue 2)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Laval v Grenoble (Ligue 2)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Rodez v PAU (Ligue 2)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Crystal Palace v Manchester City (Premier League)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'Rio Ave v Sporting CP (Primeira Liga)' kept UNVERIFIED (found in FlashScore but NOT SportyBet/T1 -- cannot price/book)
+  ⚠ VERIFY GATE: 'Rio Ave v Sporting CP (Primeira Liga)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Akron v CSKA Moscow (Russian Premier League)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'AC Milan v Venezia (Serie A)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Cremonese v Modena (Serie B)' VERIFIED (T1 source: ESPN)
   ⚠ VERIFY GATE: 'Beira-Mar v União Lamas (Taça de Portugal)' VERIFIED (T1 source: ESPN)
-  ⚠ VERIFY GATE: 'Gençlerbirliği S.K. v Erzurumspor FK (Turkish Super Lig)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Gençlerbirliği S.K. v Erzurumspor FK (Turkish Super Lig)' VERIFIED (T1 source: ESPN)
   ⚠ DEPLOY SHORTLIST RECALCULATED: 9 of 22 fixtures on deploy shortlist (verify gate stamps preserved)
   ⚠ ⚠ source circuit OPEN (paused): espn
   ⚠ Championship: odds served via multi-source layer
@@ -169,7 +169,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ logged 0 new paper leg(s) with a live entry price (agreement_band=0.04)
   ⚠ Phase 3 gate: 42 of 0 legs with logged CLV; mean CLV -10.215
   ⚠ SportyBet booking codes: 0/5 slip(s) booked — acca_2026-08-28_codes.json
-  ⚠ ⚠ BOOKING COVERAGE GAP — 11 leg(s) WITHOUT a booked code: Acca A: Wrexham v Birmingham (Over 1.5 goals) — fixture not found in SportyBet cache; Acca A: Rodez v PAU (Rodez or Draw (double chance)) — fixture not found in SportyBet cache; Acca A: Cremonese v Modena (Cremonese or Modena (double chance)) — fixture not found in SportyBet cache; Acca A: Nancy v Dunkerque (Nancy or Dunkerque (double chance)) — fixture not found in SportyBet cache; Acca A: Alaves v Villarreal (Over 1.5 goals) — fixture not found in SportyBet cache; Acca B: Akron v CSKA Moscow (CSKA Moscow to win) — fixture not found in SportyBet cache; Acca B: AC Milan v Venezia (AC Milan to win) — fixture not found in SportyBet cache; Acca B: Montpellier v Boulogne (Montpellier to win) — fixture not found in SportyBet cache; SINGLE — Akron v CSKA Moscow: Akron v CSKA Moscow (CSKA Moscow to win) — fixture not found in SportyBet cache; SINGLE — AC Milan v Venezia: AC Milan v Venezia (AC Milan to win) — fixture not found in SportyBet cache; SINGLE — Montpellier v Boulogne: Montpellier v Boulogne (Montpellier to win) — fixture not found in SportyBet cache (Architect must add manually before placing)
+  ⚠ ⚠ BOOKING COVERAGE GAP — 11 leg(s) WITHOUT a booked code: Acca A: Wrexham v Birmingham (Over 1.5 goals) — fixture not found in SportyBet cache; Acca A: Rodez v PAU (Rodez or Draw (double chance)) — fixture not found in SportyBet cache; Acca A: Cremonese v Modena (Cremonese or Modena (double chance)) — fixture not found in SportyBet cache; Acca A: Nancy v Dunkerque (Nancy or Dunkerque (double chance)) — fixture not found in SportyBet cache; Acca A: Alaves v Villarreal (Over 1.5 goals) — fixture not found in SportyBet cache; Acca B: Akron v CSKA Moscow (CSKA Moscow to win) — fixture not found in SportyBet cache; Acca B: AC Milan v Venezia (AC Milan to win) — fixture not found in SportyBet cache; Acca B: Montpellier v Boulogne (Montpellier or Boulogne (double chance)) — fixture not found in SportyBet cache; SINGLE — Akron v CSKA Moscow: Akron v CSKA Moscow (CSKA Moscow to win) — fixture not found in SportyBet cache; SINGLE — AC Milan v Venezia: AC Milan v Venezia (AC Milan to win) — fixture not found in SportyBet cache; SINGLE — Montpellier v Boulogne: Montpellier v Boulogne (Montpellier or Boulogne (double chance)) — fixture not found in SportyBet cache (Architect must add manually before placing)
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.
 
@@ -185,7 +185,7 @@ Racing Santander v Elche (La Liga) | NO DATA — PENDING | — | — | — | —
 Alaves v Villarreal (La Liga) | Over 1.5 goals | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Tenerife v Sporting Gijon (La Liga 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Lille v Paris Saint Germain (Ligue 1) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
-Montpellier v Boulogne (Ligue 2) | Montpellier to win | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Montpellier v Boulogne (Ligue 2) | Montpellier or Boulogne (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Clermont Foot v Sochaux (Ligue 2) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Nancy v Dunkerque (Ligue 2) | Nancy or Dunkerque (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
 Laval v Grenoble (Ligue 2) | Both teams to score — no | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
@@ -202,12 +202,12 @@ TABLE 2 — LAYER 1 COMPACT
 Fixture | Selected Pick | Model Prob | Price | Bookmaker | EV | Booking Code
 Wrexham v Birmingham (Championship) | Over 1.5 goals | 77% | 1.36 | Bet365 | +4.91% | NO DATA — PENDING
 Alaves v Villarreal (La Liga) | Over 1.5 goals | 79% | 1.25 | Bet365 | -0.64% | NO DATA — PENDING
-Montpellier v Boulogne (Ligue 2) | Montpellier to win | 53% | 1.70 | Bet365 | -10.15% | NO DATA — PENDING
+Montpellier v Boulogne (Ligue 2) | Montpellier or Boulogne (double chance) | 71% | 1.33 | Bet365 | -5.09% | NO DATA — PENDING
 Nancy v Dunkerque (Ligue 2) | Nancy or Dunkerque (double chance) | 76% | 1.33 | Bet365 | +1.24% | NO DATA — PENDING
 Laval v Grenoble (Ligue 2) | Both teams to score — no | 64% | 1.83 | Bet365 | +16.57% | NO DATA — PENDING
 Rodez v PAU (Ligue 2) | Rodez or Draw (double chance) | 86% | 1.20 | Bet365 | +3.75% | NO DATA — PENDING
 Akron v CSKA Moscow (Russian Premier League) | CSKA Moscow to win | 58% | 1.70 | Pinnacle | -1.60% | NO DATA — PENDING
-AC Milan v Venezia (Serie A) | AC Milan to win | 66% | 1.48 | Bet365 | -2.14% | NO DATA — PENDING
+AC Milan v Venezia (Serie A) | AC Milan to win | 66% | 1.45 | Bet365 | -4.13% | NO DATA — PENDING
 Cremonese v Modena (Serie B) | Cremonese or Modena (double chance) | 75% | 1.36 | Bet365 | +2.50% | NO DATA — PENDING
 
 TABLE 3 — ACCA ROUTE

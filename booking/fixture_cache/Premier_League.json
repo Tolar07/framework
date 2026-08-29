@@ -1,37 +1,141 @@
 {
-  "fetched_at": 1787899441.2802334,
+  "fetched_at": 1787951134.0815656,
   "league": "Premier League",
   "country": "England",
   "fixtures": [
     {
-      "id": "38913",
-      "home": "Genclerbirligi SRL",
-      "away": "Buyuksehir Belediye Erzurumspor SRL",
-      "kickoff": "08:00  \nID: 38913",
+      "id": "24918",
+      "home": "Club General Caballero JLM",
+      "away": "Deportivo Capiata",
+      "kickoff": "22:30  \nID: 24918",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "24678",
+      "home": "Club Fernando de La Mora",
+      "away": "Tacuary Asuncion",
+      "kickoff": "14:00  \nID: 24678",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "30811",
+      "home": "Deportivo Santani",
+      "away": "CA Tembetary Ypane",
+      "kickoff": "14:00  \nID: 30811",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "27949",
+      "home": "12 de Junio de Villa Hayes",
+      "away": "Carapegua",
+      "kickoff": "14:00  \nID: 27949",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "26864",
+      "home": "Guairena FC",
+      "away": "Sol de America Villa Elisa",
+      "kickoff": "14:00  \nID: 26864",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "27987",
+      "home": "Paraguari AC",
+      "away": "Resistencia SC",
+      "kickoff": "20:00  \nID: 27987",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "20179",
+      "home": "Encarnacion FC",
+      "away": "Club Dr Benjamin Aceval",
+      "kickoff": "22:30  \nID: 20179",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Dalian Young Boy FC SRL",
-      "away": "Beijing Guoan FC SRL",
-      "kickoff": "86:09\nH2",
+      "home": "Alaves",
+      "away": "Villarreal",
+      "kickoff": "78:49\nH2",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Shanghai Shenhua SRL",
-      "away": "Shandong Luneng SRL",
-      "kickoff": "82:29\nH2",
+      "home": "Rio Ave FC",
+      "away": "Sporting",
+      "kickoff": "88:26\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "SC Beira Mar",
+      "away": "CF Uniao de Lamas",
+      "kickoff": "90:00\n1st extra",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Independiente Valle Del Cauca",
+      "away": "Itagui Leones FC",
+      "kickoff": "35:15\nH1",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Comerciantes Unidos",
+      "away": "FC Cajamarca",
+      "kickoff": "35:37\nH1",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Mushuc Runa SC",
+      "away": "Delfin SC",
+      "kickoff": "34:47\nH1",
       "league": "Premier League",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Shenzhen Peng City Srl",
-      "away": "Shanghai Sipg SRL",
-      "kickoff": "80:43\nH2",
+      "home": "CP Cacereno SAD",
+      "away": "CD Mirandes",
+      "kickoff": "88:28\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "AD Carmelita",
+      "away": "Aserri FC",
+      "kickoff": "4:05\nH1",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Fylkir Reykjavik",
+      "away": "Grotta",
+      "kickoff": "91:21\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "CR Vasco da Gama RJ",
+      "away": "SE Palmeiras SP",
+      "kickoff": "3:59\nH1",
       "league": "Premier League",
       "raw_market": {}
     }

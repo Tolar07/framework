@@ -447,10 +447,9 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
             # The Odds API monthly quota is spent on every key. Before
             # degrading to NO DATA, try the free API-Football fallback (same
             # bookmakers, 1X2 + totals, 100 requests/day).
-            # For fixture_capture: also try the fallback, since the fixture LIST
-            # is what we need (and api-football provides fixture IDs via /fixtures).
-            # The import is lazy to avoid a circular import (api_football_odds
-            # imports our MarketQuote/FixtureOdds contract).
+            # This applies to BOTH fixture_capture and regular price pulls —
+            # the fallback serves 1X2 + totals markets which is sufficient
+            # for Phase 2 paper calibration.
             try:
                 from data import api_football_odds as _af_fallback
                 fixtures, afl = _af_fallback.fetch_odds(league)

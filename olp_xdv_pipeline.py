@@ -1547,22 +1547,20 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         feed_audit_authorized = agent10.get("publish_authorization", {}).get("authorized", False)
         skipped_count = len(agent8.get("skipped_positions", []))
 
-    # Render telegram board in compact heartbeat format (Architect-approved)
-    telegram_content = render_telegram_board(
-        mode="Mode A",
-        phase=PHASE_LABEL,
-        leagues_scanned=leagues_scanned,
-        calibration_count=calibration_count,
-        mean_clv=mean_clv,
-        data_flags=all_data_flags,
-        board=board,
-        yesterday_graded=yesterday_graded,
-        rolling_7d=rolling_7d,
-        produced_bet=produced_record,
-        production=production,
+    # Telegram board uses the BLENDED 4-TABLE format (Architect 2026-08-28):
+    # TABLE 1 LAYER 2 FULL GRID, TABLE 2 LAYER 1 COMPACT, TABLE 3 ACCA ROUTE,
+    # TABLE 4 THE PICK — the same 4-table render the web /board command serves.
+    # The phone and web are now one render (Architect 2026-08-11: web == Telegram
+    # structurally). The old compact heartbeat is preserved as
+    # render_telegram_board(compact=True) for any caller that still wants the
+    # lean push (e.g. a future --compact-telegram flag).
+    telegram_content = render_produce_bet(
+        mode="Mode A", phase=PHASE_LABEL,
+        leagues_scanned=leagues_scanned, calibration_count=calibration_count,
+        mean_clv=mean_clv, data_flags=all_data_flags, board=board,
+        produced_bet=produced_record, production=production,
         codes=codes_result,
-        compact=True
-    )
+        include_data_flags=False, only_rated=False, compact=False)
 
     # Write telegram file
     telegram_file = f"telegram_{date_str}.txt"
@@ -1602,7 +1600,7 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
     with open(acca_file, "w", encoding="utf-8") as f:
         json.dump(acca_codes, f, indent=2, default=str)
 
-    # Also write the full board file (board_<date>.txt)
+    # Also write the full board file (board_<date>.txt) using blended format
     board_text = render_produce_bet(
         mode="Mode A",
         phase=PHASE_LABEL,
@@ -1613,7 +1611,8 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         board=board,
         produced_bet=produced_record,
         production=production,
-        codes=codes_result
+        codes=codes_result,
+        include_data_flags=True, only_rated=False, compact=False
     )
 
     verify_block = ""

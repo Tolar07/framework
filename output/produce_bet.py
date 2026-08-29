@@ -755,6 +755,260 @@ def _sanitize_phone_output(text: str) -> str:
     return text
 
 
+def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
+                           calibration_count: int, mean_clv: Optional[float],
+                           data_flags: list[str], board: list[BoardFixture],
+                           production: Optional[object] = None,
+                           codes: Optional[dict] = None,
+                           odds_index: Optional[dict] = None) -> str:
+    """BLENDED TELEGRAM OUTPUT (compact=False) — Architect 2026-08-28 design.
+
+    Four-table structure with AI Pick per fixture in TABLE 1:
+    TABLE 1 — LAYER 2 FULL GRID: Every fixture × every market probability
+    with Selected Pick column and AI Pick shown directly under each fixture.
+    One shared booking code for the entire layer.
+
+    TABLE 2 — LAYER 1 COMPACT: Deploy-eligible singles (on_deploy_shortlist),
+    one row each with its own booking code.
+
+    TABLE 3 — ACCA ROUTE: Capital-eligible fixtures grouped into accas,
+    each acca with its own booking code.
+
+    TABLE 4 — THE PICK: Primary single + Acca A recommendation.
+
+    Booking codes marked PENDING throughout — placeholder structure maintained
+    so nothing needs re-laying-out once read_betslip_combined_odds is fixed.
+    """
+    from collections import defaultdict
+    today = date.today().isoformat()
+
+    if production is None:
+        production = build_production_bets(board)
+
+    # Get Layer 2 booking code (shared across all fixtures)
+    L2_CODE_LABEL = "Layer 2"
+    layer2_code = "NO DATA — PENDING"
+    if codes and codes.get("results"):
+        for r in codes["results"]:
+            if r.get("label") == L2_CODE_LABEL and r.get("code"):
+                layer2_code = r["code"]
+                break
+
+    lines = [
+        "##########OLP XDV#########",
+        "==================================",
+        f"📅 {date.today().strftime('%a %d %b %Y')} — FULL PIPELINE BOARD",
+        "",
+    ]
+
+    # ========== TABLE 1: LAYER 2 FULL GRID WITH AI PICK ==========
+    lines.append("──────────────────────────────────")
+    lines.append("TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK")
+    lines.append("(every fixture × every scored market, shared board code,")
+    lines.append(" AI's own highest-probability pick shown per fixture)")
+    lines.append("──────────────────────────────────")
+
+    # Group by league
+    by_league: dict[str, list[BoardFixture]] = defaultdict(list)
+    for bf in board:
+        league = _league_of(bf)
+        by_league[league].append(bf)
+
+    for league in sorted(by_league.keys()):
+        fixtures = by_league[league]
+        lines.append(f"⚽ {league}")
+        for bf in fixtures:
+            fx_name = _short_fixture(bf)
+            # Resolve kickoff time
+            home_team = ""
+            away_team = ""
+            if " v " in fx_name:
+                home_team, away_team = fx_name.split(" v ", 1)
+                home_team = home_team.strip()
+                away_team = away_team.strip()
+            ko = _kickoff_for(bf, home_team, away_team)
+
+            lines.append(f"   {ko}   {fx_name}")
+
+            if bf.probs is None:
+                lines.append("       NO DATA — PENDING")
+                lines.append("       🤖 AI Pick: NO DATA — PENDING")
+                continue
+
+            p = bf.probs
+            # Show all market probabilities
+            alt = []
+            if p.p_over_15 is not None:
+                alt.append(f"O1.5 {round(p.p_over_15*100)}%")
+            if p.p_over_25 is not None:
+                alt.append(f"O2.5 {round(p.p_over_25*100)}%")
+            if p.p_over_35 is not None:
+                alt.append(f"O3.5 {round(p.p_over_35*100)}%")
+            if p.p_btts_yes is not None:
+                alt.append(f"BTTS {round(p.p_btts_yes*100)}%")
+
+            # 1X2 probabilities
+            one_x_two = []
+            if p.p_home is not None:
+                one_x_two.append(f"1X2 {p.home_team} {round(p.p_home*100)}%")
+            if p.p_draw is not None:
+                one_x_two.append(f"Draw {round(p.p_draw*100)}%")
+            if p.p_away is not None:
+                one_x_two.append(f"{p.away_team} {round(p.p_away*100)}%")
+
+            if alt:
+                lines.append(f"       {'  ·  '.join(alt)}")
+            if one_x_two:
+                lines.append(f"       {'  ·  '.join(one_x_two)}")
+
+            # AI Pick: highest-probability market for this fixture
+            best_market_name, model_prob, _, _ = _get_fixture_best_market(bf, odds_index)
+            if best_market_name != "NO DATA — PENDING" and model_prob is not None:
+                lines.append(f"       🤖 AI Pick: {best_market_name} — {round(model_prob*100)}%")
+            else:
+                # Fallback to 1X2 result pick
+                name, prob, _ = _result_pick(bf)
+                lines.append(f"       🤖 AI Pick: {name} — {round(prob*100)}%")
+
+    lines.append("")
+    lines.append(f"Board code: {layer2_code} (booking-code read postponed — technical issue,")
+    lines.append("tracked internally, not blocking pipeline output)")
+    lines.append("")
+
+    # ========== TABLE 2: LAYER 1 COMPACT ==========
+    lines.append("──────────────────────────────────")
+    lines.append("TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES")
+    lines.append("(fixtures that clear the deploy threshold, one row each, own code)")
+    lines.append("──────────────────────────────────")
+
+    shortlist = [bf for bf in board if bf.on_deploy_shortlist and bf.kickoff_date == today]
+    if not shortlist:
+        lines.append("No deploy-eligible fixtures kicking off today.")
+    else:
+        for bf in shortlist:
+            fx_name = _short_fixture(bf)
+            if bf.probs is None:
+                lines.append(f"📈 {fx_name} — NO DATA — PENDING")
+                lines.append(f"    Code: NO DATA — PENDING")
+                continue
+
+            best_market_name, model_prob, price, bookmaker = _get_fixture_best_market(bf, odds_index)
+            if best_market_name != "NO DATA — PENDING" and model_prob is not None:
+                lines.append(f"📈 {fx_name} — {best_market_name} — {round(model_prob*100)}%")
+            else:
+                name, prob, _ = _result_pick(bf)
+                lines.append(f"📈 {fx_name} — {name} — {round(prob*100)}%")
+
+            # Get fixture-specific booking code
+            fixture_code = "NO DATA — PENDING"
+            if codes and codes.get("results"):
+                for r in codes["results"]:
+                    if bf.fixture in r.get("label", "") and r.get("code"):
+                        fixture_code = r["code"]
+                        break
+            lines.append(f"    Code: {fixture_code}")
+
+    lines.append("")
+
+    # ========== TABLE 3: ACCA ROUTE ==========
+    lines.append("──────────────────────────────────")
+    lines.append("TABLE 3 · ACCA ROUTE")
+    lines.append("(capital-eligible grouped accumulators, own code per acca)")
+    lines.append("──────────────────────────────────")
+
+    if not hasattr(production, 'accas') or not production.accas:
+        lines.append("No capital-eligible accas generated.")
+    else:
+        for acca in production.accas:
+            label = acca.get("label", "Acca")
+            combined_odds = acca.get("combined_odds", 0)
+            combined_prob = acca.get("combined_prob", 0)
+            n_legs = acca.get("n_legs", 0)
+            legs = acca.get("legs", [])
+
+            # Get acca-specific booking code
+            acca_code = "NO DATA — PENDING"
+            if codes and codes.get("results"):
+                for r in codes["results"]:
+                    if label in r.get("label", "") and r.get("code"):
+                        acca_code = r["code"]
+                        break
+
+            lines.append(f"{label} ({n_legs}-fold):")
+            for i, leg in enumerate(legs, 1):
+                fixture = leg.get("fixture", "?")
+                market_name = leg.get("market_name", "?")
+                prob = leg.get("prob", 0)
+                lines.append(f"  {i}. {fixture} — {market_name} — {prob:.2%}")
+
+            lines.append(f"  Combined odds: {combined_odds:.2f}")
+            lines.append(f"  Code: {acca_code}")
+            lines.append("")
+
+    # ========== TABLE 4: THE PICK ==========
+    lines.append("──────────────────────────────────")
+    lines.append("TABLE 4 · THE PICK")
+    lines.append("(primary single + Acca A recommendation)")
+    lines.append("──────────────────────────────────")
+
+    if shortlist:
+        # Primary single: highest EV from shortlist
+        best_single = None
+        best_ev = None
+        for bf in shortlist:
+            if bf.probs is None or bf.best_mes_ev is None:
+                continue
+            if best_ev is None or bf.best_mes_ev > best_ev:
+                best_ev = bf.best_mes_ev
+                best_single = bf
+
+        if best_single:
+            p = best_single.probs
+            lines.append(f"🎯 Primary single: {best_single.fixture}")
+            lines.append(f"  Market: {best_single.best_market}")
+            lines.append(f"  Price: {best_single.best_price:.2f} ({best_single.best_bookmaker})")
+            lines.append(f"  Model Prob: {round((best_single.best_model_prob or 0)*100)}%")
+            lines.append(f"  MES EV: {best_single.best_mes_ev:+.2%}")
+            lines.append(f"  Verification: {stamp(best_single.verification)}")
+            # Get booking code for this pick
+            pick_code = "NO DATA — PENDING"
+            if codes and codes.get("results"):
+                for r in codes["results"]:
+                    if best_single.fixture in r.get("label", "") and r.get("code"):
+                        pick_code = r["code"]
+                        break
+            lines.append(f"  Code: {pick_code}")
+
+    # Acca recommendation
+    if production and hasattr(production, 'accas') and production.accas:
+        acca = production.accas[0]  # Acca A is the headline
+        label = acca.get("label", "Acca A")
+        combined_odds = acca.get("combined_odds", 0)
+        combined_prob = acca.get("combined_prob", 0)
+        n_legs = acca.get("n_legs", 0)
+
+        acca_code = "NO DATA — PENDING"
+        if codes and codes.get("results"):
+            for r in codes["results"]:
+                if label in r.get("label", "") and r.get("code"):
+                    acca_code = r["code"]
+                    break
+
+        lines.append("")
+        lines.append(f"🎯 Acca {label} recommendation: {n_legs} legs")
+        lines.append(f"  Combined Odds: {combined_odds:.2f} | Combined Prob: {combined_prob:.2%}")
+        lines.append(f"  Code: {acca_code}")
+
+    lines.append("")
+    lines.append("==================================")
+    lines.append("Honest edge: not a demonstrated edge · Capital: Architect only.")
+    lines.append("Booking codes: PENDING pipeline-wide — technical issue under repair,")
+    lines.append("tracking resumes once read_betslip_combined_odds is fixed.")
+    lines.append("==================================")
+
+    return "\n".join(lines)
+
+
 def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
                         calibration_count: int, mean_clv: Optional[float],
                         data_flags: list[str], board: list[BoardFixture],
@@ -763,7 +1017,8 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
                         production: Optional[object] = None,
                         codes: Optional[dict] = None,
                         include_data_flags: bool = True,
-                        only_rated: bool = False) -> str:
+                        only_rated: bool = False,
+                        compact: bool = True) -> str:
     """FOUR-TABLE OUTPUT STRUCTURE (Architect 2026-08-21):
 
     TABLE 1 — LAYER 2 FULL GRID: Every fixture × every market probability with
@@ -789,7 +1044,50 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
 
     When only_rated=True (phone mode), the output is post-processed to strip
     debug markers ("NO DATA — PENDING", "PENDING", "NO DATA") for a clean
-    mobile message. The on-disk board retains full markers for audit."""
+    mobile message. The on-disk board retains full markers for audit.
+
+    compact=False (new, 2026-08-28): Uses the blended Telegram output design
+    with AI Pick per fixture shown directly in TABLE 1, matching the mockup
+    format requested by the Architect."""
+    # compact=False: use the new blended output design
+    if not compact:
+        # Build odds index for market pricing
+        odds_index = None
+        try:
+            from data.multi_source_concrete import get_odds as multi_get_odds
+            import pipeline.odds as odds_mod
+            from booking.bridge import load_all_sportybet_fixtures
+            odds_index = {}
+            odds_leagues = set(fx["league"] for fx in board if hasattr(fx, "fixture"))
+            for lg in sorted(odds_leagues):
+                try:
+                    fixtures = multi_get_odds(lg)
+                    odds_index.update(odds_mod.index_by_fixture(fixtures))
+                except Exception:
+                    pass
+            # Merge SportyBet cache odds
+            sb_fixtures_by_league = load_all_sportybet_fixtures(days_ahead=3, leagues=list(odds_leagues))
+            for lg, sb_fixtures in sb_fixtures_by_league.items():
+                for sb_fx in sb_fixtures:
+                    if sb_fx.home_odds and sb_fx.draw_odds and sb_fx.away_odds:
+                        key = (sb_fx.home_team, sb_fx.away_team)
+                        if key not in odds_index:
+                            sb_odds = odds_mod.FixtureOdds(
+                                league=lg, home_team=sb_fx.home_team, away_team=sb_fx.away_team,
+                                kickoff_utc=sb_fx.kickoff_utc,
+                                home=odds_mod.MarketQuote(price=sb_fx.home_odds, bookmaker="SportyBet Nigeria", n_books=1, captured_at=sb_fx.kickoff_utc),
+                                draw=odds_mod.MarketQuote(price=sb_fx.draw_odds, bookmaker="SportyBet Nigeria", n_books=1, captured_at=sb_fx.kickoff_utc),
+                                away=odds_mod.MarketQuote(price=sb_fx.away_odds, bookmaker="SportyBet Nigeria", n_books=1, captured_at=sb_fx.kickoff_utc),
+                                source="sportybet-cache", source_tier="T2"
+                            )
+                            odds_index[key] = sb_odds
+        except Exception:
+            odds_index = None
+
+        return render_blended_output(mode, phase, leagues_scanned, calibration_count,
+                                      mean_clv, data_flags, board, production, codes, odds_index)
+
+    # compact=True: original four-table output
     today = date.today().isoformat()
     # only_rated: phone push shows priced fixtures only; unrated rows stay on disk
     if only_rated:

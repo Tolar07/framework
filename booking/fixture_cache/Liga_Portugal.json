@@ -1,93 +1,149 @@
 {
-  "fetched_at": 1787605422.3645225,
+  "fetched_at": 1787944607.3573155,
   "league": "Liga Portugal",
   "country": "Portugal",
   "fixtures": [
     {
-      "id": "13411",
-      "home": "12 de Junio de Villa Hayes",
-      "away": "Paraguari AC",
-      "kickoff": "22:30  \nID: 13411",
+      "id": "15802",
+      "home": "Alaves",
+      "away": "Villarreal",
+      "kickoff": "20:30  \nID: 15802",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Malaga CF",
-      "away": "RC Deportivo De La Coruna",
-      "kickoff": "73:41\nH2",
+      "id": "31945",
+      "home": "Levante",
+      "away": "Betis",
+      "kickoff": "16:00  \nID: 31945",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Hallescher FC",
-      "away": "Schalke",
-      "kickoff": "109:23\n2nd extra",
+      "id": "15823",
+      "home": "Real Sociedad",
+      "away": "Espanyol",
+      "kickoff": "18:00  \nID: 15823",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Gil Vicente Barcelos",
-      "away": "Casa Pia Lisbon",
-      "kickoff": "85:06\nH2",
+      "id": "15734",
+      "home": "Sevilla",
+      "away": "Atletico Madrid",
+      "kickoff": "20:30  \nID: 15734",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Granada",
-      "away": "Mallorca",
-      "kickoff": "73:35\nH2",
+      "id": "15879",
+      "home": "Real Madrid",
+      "away": "Malaga CF",
+      "kickoff": "16:00  \nID: 15879",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
-      "id": "Liga Portugal-5",
-      "home": "Tigres FC",
-      "away": "Union Magdalena",
-      "kickoff": "45:00\nHT",
+      "id": "49269",
+      "home": "RC Deportivo De La Coruna",
+      "away": "Valencia",
+      "kickoff": "18:30  \nID: 49269",
+      "league": "Liga Portugal",
+      "raw_market": {}
+    },
+    {
+      "id": "18545",
+      "home": "Celta",
+      "away": "Athletic Bilbao",
+      "kickoff": "20:30  \nID: 18545",
+      "league": "Liga Portugal",
+      "raw_market": {}
+    },
+    {
+      "id": "16941",
+      "home": "Osasuna",
+      "away": "Getafe",
+      "kickoff": "18:30  \nID: 16941",
+      "league": "Liga Portugal",
+      "raw_market": {}
+    },
+    {
+      "id": "17567",
+      "home": "Barcelona",
+      "away": "Rayo Vallecano",
+      "kickoff": "20:30  \nID: 17567",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "CD Real Santander",
-      "away": "Independiente Valle Del Cauca",
-      "kickoff": "33:10\nH1",
+      "home": "Crystal Palace",
+      "away": "Man City",
+      "kickoff": "14:56\nH1",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
-      "id": "Liga Portugal-7",
-      "home": "CSDC Alianza Universidad",
-      "away": "Bentin Tacna Heroica",
-      "kickoff": "45:00\nHT",
+      "id": "1",
+      "home": "Bayern Munich",
+      "away": "Stuttgart",
+      "kickoff": "43:42\nH1",
+      "league": "Liga Portugal",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "AC Milan",
+      "away": "Venezia FC",
+      "kickoff": "26:37\nH1",
+      "league": "Liga Portugal",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Lille",
+      "away": "PSG",
+      "kickoff": "16:20\nH1",
+      "league": "Liga Portugal",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Wrexham AFC",
+      "away": "Birmingham City",
+      "kickoff": "15:07\nH1",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "CD Feirense",
-      "away": "FC Porto B",
-      "kickoff": "89:35\nH2",
+      "home": "FC Groningen",
+      "away": "Fortuna Sittard",
+      "kickoff": "57:17\nH2",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Breidablik",
-      "away": "Fram Reykjavik",
-      "kickoff": "92:44\nH2",
+      "id": "1",
+      "home": "SC Beira Mar",
+      "away": "CF Uniao de Lamas",
+      "kickoff": "14:07\nH1",
       "league": "Liga Portugal",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Turkiye Mediterranean Team",
-      "away": "North Macedonia Mediterranean Team",
-      "kickoff": "90:00\nH2",
+      "id": "1",
+      "home": "Tenerife CD",
+      "away": "Sporting Gijon",
+      "kickoff": "16:05\nH1",
+      "league": "Liga Portugal",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "US Cremonese",
+      "away": "Modena FC",
+      "kickoff": "43:31\nH1",
       "league": "Liga Portugal",
       "raw_market": {}
     }

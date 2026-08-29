@@ -7,8 +7,8 @@ TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
 (every fixture × every scored market, shared board code,
  AI's own highest-probability pick shown per fixture)
 ──────────────────────────────────
-⚽ Scottish Premiership
-   ??:??   Celtic v Dundee
+⚽ Championship
+   20:00   Wrexham v Birmingham
        NO DATA — PENDING
        🤖 AI Pick: NO DATA — PENDING
 
@@ -19,7 +19,8 @@ tracked internally, not blocking pipeline output)
 TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
 (fixtures that clear the deploy threshold, one row each, own code)
 ──────────────────────────────────
-No deploy-eligible fixtures kicking off today.
+📈 Wrexham v Birmingham — NO DATA — PENDING
+    Code: NO DATA — PENDING
 
 ──────────────────────────────────
 TABLE 3 · ACCA ROUTE

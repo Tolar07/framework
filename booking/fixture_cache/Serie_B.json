@@ -1,125 +1,149 @@
 {
-  "fetched_at": 1787690886.007577,
+  "fetched_at": 1787952970.3918183,
   "league": "Serie B",
   "country": "Italy",
   "fixtures": [
     {
-      "id": "42051",
-      "home": "CS 2 de Mayo",
-      "away": "Club Guarani Asuncion",
-      "kickoff": "22:30  \nID: 42051",
+      "id": "38058",
+      "home": "Montevideo Wanderers",
+      "away": "Central Espanol FC",
+      "kickoff": "23:00  \nID: 38058",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "47086",
-      "home": "Sportivo Luqueno",
-      "away": "Rubio Nu",
-      "kickoff": "20:00  \nID: 47086",
+      "id": "38299",
+      "home": "CA Progreso",
+      "away": "Danubio FC",
+      "kickoff": "15:00  \nID: 38299",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "20432",
-      "home": "Sportivo San Lorenzo",
-      "away": "Nacional Asuncion",
-      "kickoff": "22:30  \nID: 20432",
+      "id": "44729",
+      "home": "CA Boston River",
+      "away": "CA Cerro",
+      "kickoff": "18:00  \nID: 44729",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "29794",
-      "home": "Recoleta FC",
-      "away": "Club Olimpia",
-      "kickoff": "22:30  \nID: 29794",
+      "id": "17354",
+      "home": "CA Juventud de Las Piedras",
+      "away": "Deportivo Maldonado",
+      "kickoff": "18:00  \nID: 17354",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "33855",
-      "home": "Cerro Porteno",
-      "away": "Libertad Asuncion",
-      "kickoff": "20:00  \nID: 33855",
+      "id": "38169",
+      "home": "Defensor Sporting",
+      "away": "Montevideo City Torque",
+      "kickoff": "21:00  \nID: 38169",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Bodoe/Glimt",
-      "away": "NEC Nijmegen",
-      "kickoff": "87:00\nH2",
+      "id": "38689",
+      "home": "CA Penarol Montevideo",
+      "away": "Club Nacional de Football",
+      "kickoff": "19:30  \nID: 38689",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "LASK Linz",
-      "away": "Celtic",
-      "kickoff": "90:00\nH2",
+      "id": "38836",
+      "home": "Cerro Largo FC",
+      "away": "Liverpool Montevideo",
+      "kickoff": "23:00  \nID: 38836",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "Serie B-7",
-      "home": "Stoke City",
-      "away": "Hull City",
-      "kickoff": "120:00\nPenalty",
-      "league": "Serie B",
-      "raw_market": {}
-    },
-    {
-      "id": "Serie B-8",
-      "home": "Walsall FC",
-      "away": "Leyton Orient London",
-      "kickoff": "120:00\nPenalty",
+      "id": "23498",
+      "home": "Racing Club Montevideo",
+      "away": "Albion FC",
+      "kickoff": "19:30  \nID: 23498",
       "league": "Serie B",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Birmingham City",
-      "away": "Brentford",
-      "kickoff": "89:30\nH2",
+      "home": "SC Beira Mar",
+      "away": "CF Uniao de Lamas",
+      "kickoff": "118:00\n2nd extra",
       "league": "Serie B",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Nottingham Forest",
-      "away": "Leeds United",
-      "kickoff": "90:47\nH2",
+      "home": "Independiente Valle Del Cauca",
+      "away": "Itagui Leones FC",
+      "kickoff": "45:40\nH2",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Valencia",
-      "away": "Betis",
-      "kickoff": "85:42\nH2",
+      "id": "Serie B-10",
+      "home": "Comerciantes Unidos",
+      "away": "FC Cajamarca",
+      "kickoff": "45:00\nHT",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Kelty Hearts FC",
-      "away": "Clydebank FC",
-      "kickoff": "89:20\nH2",
+      "id": "Serie B-11",
+      "home": "Mushuc Runa SC",
+      "away": "Delfin SC",
+      "kickoff": "45:00\nHT",
       "league": "Serie B",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Boca Juniors de Cali",
-      "away": "Bogota FC",
-      "kickoff": "17:17\nH1",
+      "home": "Sportivo San Lorenzo",
+      "away": "Nacional Asuncion",
+      "kickoff": "05:35\nH1",
       "league": "Serie B",
       "raw_market": {}
     },
     {
-      "id": "2",
+      "id": "1",
+      "home": "AD Carmelita",
+      "away": "Aserri FC",
+      "kickoff": "33:55\nH1",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
       "home": "Club General Caballero JLM",
-      "away": "Rubio Nu",
-      "kickoff": "89:18\nH2",
+      "away": "Deportivo Capiata",
+      "kickoff": "05:52\nH1",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "CR Vasco da Gama RJ",
+      "away": "SE Palmeiras SP",
+      "kickoff": "34:16\nH1",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Santa Fe FC",
+      "away": "Umecit FC",
+      "kickoff": "36:15\nH1",
+      "league": "Serie B",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "CD Origen Women",
+      "away": "Tevi Cocle FC Women",
+      "kickoff": "35:58\nH1",
       "league": "Serie B",
       "raw_market": {}
     }

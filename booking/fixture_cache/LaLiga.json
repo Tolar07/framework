@@ -1,93 +1,149 @@
 {
-  "fetched_at": 1787939132.3778865,
+  "fetched_at": 1787944679.8771758,
   "league": "LaLiga",
   "country": "Spain",
   "fixtures": [
     {
-      "id": "50623",
-      "home": "Damac FC",
-      "away": "Al-Orobah",
-      "kickoff": "18:50  \nID: 50623",
+      "id": "15802",
+      "home": "Alaves",
+      "away": "Villarreal",
+      "kickoff": "20:30  \nID: 15802",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "31945",
+      "home": "Levante",
+      "away": "Betis",
+      "kickoff": "16:00  \nID: 31945",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "15823",
+      "home": "Real Sociedad",
+      "away": "Espanyol",
+      "kickoff": "18:00  \nID: 15823",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "15734",
+      "home": "Sevilla",
+      "away": "Atletico Madrid",
+      "kickoff": "20:30  \nID: 15734",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "15879",
+      "home": "Real Madrid",
+      "away": "Malaga CF",
+      "kickoff": "16:00  \nID: 15879",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "49269",
+      "home": "RC Deportivo De La Coruna",
+      "away": "Valencia",
+      "kickoff": "18:30  \nID: 49269",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "18545",
+      "home": "Celta",
+      "away": "Athletic Bilbao",
+      "kickoff": "20:30  \nID: 18545",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "16941",
+      "home": "Osasuna",
+      "away": "Getafe",
+      "kickoff": "18:30  \nID: 16941",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "17567",
+      "home": "Barcelona",
+      "away": "Rayo Vallecano",
+      "kickoff": "20:30  \nID: 17567",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Racing Santander",
-      "away": "Elche CF",
-      "kickoff": "44:29\nH1",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Bochum",
-      "away": "VfL 1899 Osnabruck",
-      "kickoff": "54:12\nH2",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Eintracht Braunschweig",
-      "away": "Hertha",
-      "kickoff": "55:52\nH2",
+      "home": "Crystal Palace",
+      "away": "Man City",
+      "kickoff": "16:43\nH1",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "AC Horsens",
-      "away": "Viborg FF",
-      "kickoff": "43:55\nH1",
-      "league": "LaLiga",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Club Portugalete",
-      "away": "RS Gimnastica de Torrelavega",
-      "kickoff": "55:33\nH2",
+      "home": "Bayern Munich",
+      "away": "Stuttgart",
+      "kickoff": "45:00\nH1",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Yeclano Deportivo",
-      "away": "CD Alcoyano",
-      "kickoff": "12:51\nH1",
+      "home": "AC Milan",
+      "away": "Venezia FC",
+      "kickoff": "28:13\nH1",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Al Ittihad Al Sakandary",
-      "away": "Ceramica Cleopatra",
-      "kickoff": "44:01\nH1",
+      "home": "Lille",
+      "away": "PSG",
+      "kickoff": "17:24\nH1",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Zed FC",
-      "away": "AL Ahly SC (EGY)",
-      "kickoff": "42:44\nH1",
+      "home": "Wrexham AFC",
+      "away": "Birmingham City",
+      "kickoff": "17:15\nH1",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Al-Riyadh SC",
-      "away": "Neom SC",
-      "kickoff": "94:28\nH2",
+      "home": "FC Groningen",
+      "away": "Fortuna Sittard",
+      "kickoff": "58:42\nH2",
       "league": "LaLiga",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Al-Fayha FC",
-      "away": "Abha Club",
-      "kickoff": "81:50\nH2",
+      "id": "1",
+      "home": "SC Beira Mar",
+      "away": "CF Uniao de Lamas",
+      "kickoff": "15:38\nH1",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Tenerife CD",
+      "away": "Sporting Gijon",
+      "kickoff": "17:36\nH1",
+      "league": "LaLiga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "US Cremonese",
+      "away": "Modena FC",
+      "kickoff": "44:58\nH1",
       "league": "LaLiga",
       "raw_market": {}
     }

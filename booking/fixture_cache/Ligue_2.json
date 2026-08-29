@@ -1,93 +1,117 @@
 {
-  "fetched_at": 1787603630.0018258,
+  "fetched_at": 1787944466.8302855,
   "league": "Ligue 2",
   "country": "France",
   "fixtures": [
     {
-      "id": "13411",
-      "home": "12 de Junio de Villa Hayes",
-      "away": "Paraguari AC",
-      "kickoff": "22:30  \nID: 13411",
+      "id": "19137",
+      "home": "AC Juvenes/Dogana",
+      "away": "SC Faetano",
+      "kickoff": "20:15  \nID: 19137",
       "league": "Ligue 2",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Fulham",
-      "away": "Chelsea",
-      "kickoff": "74:20\nH2",
+      "id": "29266",
+      "home": "San Marino Academy",
+      "away": "FC Fiorentino",
+      "kickoff": "20:15  \nID: 29266",
       "league": "Ligue 2",
       "raw_market": {}
     },
     {
-      "id": "Ligue 2-2",
-      "home": "Malaga CF",
-      "away": "RC Deportivo De La Coruna",
-      "kickoff": "45:00\nHT",
+      "id": "43867",
+      "home": "SP Cailungo",
+      "away": "FC Domagnano",
+      "kickoff": "20:15  \nID: 43867",
       "league": "Ligue 2",
       "raw_market": {}
     },
     {
-      "id": "2",
-      "home": "Roma",
-      "away": "Fiorentina",
-      "kickoff": "88:06\nH2",
-      "league": "Ligue 2",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Hallescher FC",
-      "away": "Schalke",
-      "kickoff": "90:00\nH2",
-      "league": "Ligue 2",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Gil Vicente Barcelos",
-      "away": "Casa Pia Lisbon",
-      "kickoff": "54:51\nH2",
-      "league": "Ligue 2",
-      "raw_market": {}
-    },
-    {
-      "id": "Ligue 2-6",
-      "home": "Granada",
-      "away": "Mallorca",
-      "kickoff": "45:00\nHT",
-      "league": "Ligue 2",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "Reims",
-      "away": "FC Annecy",
-      "kickoff": "91:37\nH2",
-      "league": "Ligue 2",
-      "raw_market": {}
-    },
-    {
-      "id": "2",
-      "home": "US Folgore Caratese",
-      "away": "Dolomiti Bellunesi",
-      "kickoff": "75:28\nH2",
+      "id": "29622",
+      "home": "SS Folgore Falciano Calcio",
+      "away": "SS Murata",
+      "kickoff": "20:15  \nID: 29622",
       "league": "Ligue 2",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "Tigres FC",
-      "away": "Union Magdalena",
-      "kickoff": "33:39\nH1",
+      "home": "Crystal Palace",
+      "away": "Man City",
+      "kickoff": "13:19\nH1",
       "league": "Ligue 2",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "CD Real Santander",
-      "away": "Independiente Valle Del Cauca",
-      "kickoff": "03:14\nH1",
+      "home": "Bayern Munich",
+      "away": "Stuttgart",
+      "kickoff": "41:42\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "AC Milan",
+      "away": "Venezia FC",
+      "kickoff": "24:38\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Lille",
+      "away": "PSG",
+      "kickoff": "14:11\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Wrexham AFC",
+      "away": "Birmingham City",
+      "kickoff": "13:44\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "FC Groningen",
+      "away": "Fortuna Sittard",
+      "kickoff": "55:19\nH2",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "SC Beira Mar",
+      "away": "CF Uniao de Lamas",
+      "kickoff": "12:07\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Tenerife CD",
+      "away": "Sporting Gijon",
+      "kickoff": "14:05\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "US Cremonese",
+      "away": "Modena FC",
+      "kickoff": "41:40\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Clermont Foot",
+      "away": "Sochaux-Montbeliard",
+      "kickoff": "56:45\nH2",
       "league": "Ligue 2",
       "raw_market": {}
     }

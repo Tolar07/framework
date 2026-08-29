@@ -787,6 +787,58 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
     from collections import defaultdict
     today = date.today().isoformat()
 
+    # League to country mapping for display
+    LEAGUE_COUNTRY = {
+        "Premier League": "England",
+        "Championship": "England",
+        "League One": "England",
+        "League Two": "England",
+        "FA Cup": "England",
+        "EFL Cup": "England",
+        "La Liga": "Spain",
+        "La Liga 2": "Spain",
+        "Copa del Rey": "Spain",
+        "Serie A": "Italy",
+        "Serie B": "Italy",
+        "Coppa Italia": "Italy",
+        "Bundesliga": "Germany",
+        "2. Bundesliga": "Germany",
+        "DFB-Pokal": "Germany",
+        "Ligue 1": "France",
+        "Ligue 2": "France",
+        "Coupe de France": "France",
+        "Eredivisie": "Netherlands",
+        "KNVB Beker": "Netherlands",
+        "Primeira Liga": "Portugal",
+        "Belgian Pro League": "Belgium",
+        "Scottish Premiership": "Scotland",
+        "Turkish Super Lig": "Turkey",
+        "Russian Premier League": "Russia",
+        "Swiss Super League": "Switzerland",
+        "Austrian Bundesliga": "Austria",
+        "Danish Superliga": "Denmark",
+        "Norwegian Eliteserien": "Norway",
+        "Swedish Allsvenskan": "Sweden",
+        "Polish Ekstraklasa": "Poland",
+        "Greek Super League": "Greece",
+        "Ukrainian Premier League": "Ukraine",
+        "Croatian HNL": "Croatia",
+        "Romanian Liga 1": "Romania",
+        "Czech First League": "Czech Republic",
+        "Slovak Super Liga": "Slovakia",
+        "Slovenian PrvaLiga": "Slovenia",
+        "Hungarian NB I": "Hungary",
+        "Bulgarian First League": "Bulgaria",
+        "Serbian SuperLiga": "Serbia",
+        "Finnish Veikkausliiga": "Finland",
+        "Estonian Meistriliiga": "Estonia",
+        "Latvian Virsliga": "Latvia",
+        "Lithuanian A Lyga": "Lithuania",
+        "Champions League": "Europe",
+        "Europa League": "Europe",
+        "Conference League": "Europe",
+    }
+
     if production is None:
         production = build_production_bets(board)
 
@@ -827,7 +879,9 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
 
     for league in sorted(by_league.keys()):
         fixtures = by_league[league]
-        lines.append(f"⚽ {league}")
+        country = LEAGUE_COUNTRY.get(league, "")
+        header = f"⚽ {league}" + (f" ({country})" if country else "")
+        lines.append(header)
         for bf in fixtures:
             fx_name = _short_fixture(bf)
             # Resolve kickoff time
@@ -1602,6 +1656,58 @@ def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None)
     _MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
     date_label = f'{_WEEKDAYS[dt.weekday()]} {dt.day:02d} {_MONTHS[dt.month-1]} {dt.year}'
 
+    # League to country mapping for display
+    LEAGUE_COUNTRY = {
+        "Premier League": "England",
+        "Championship": "England",
+        "League One": "England",
+        "League Two": "England",
+        "FA Cup": "England",
+        "EFL Cup": "England",
+        "La Liga": "Spain",
+        "La Liga 2": "Spain",
+        "Copa del Rey": "Spain",
+        "Serie A": "Italy",
+        "Serie B": "Italy",
+        "Coppa Italia": "Italy",
+        "Bundesliga": "Germany",
+        "2. Bundesliga": "Germany",
+        "DFB-Pokal": "Germany",
+        "Ligue 1": "France",
+        "Ligue 2": "France",
+        "Coupe de France": "France",
+        "Eredivisie": "Netherlands",
+        "KNVB Beker": "Netherlands",
+        "Primeira Liga": "Portugal",
+        "Belgian Pro League": "Belgium",
+        "Scottish Premiership": "Scotland",
+        "Turkish Super Lig": "Turkey",
+        "Russian Premier League": "Russia",
+        "Swiss Super League": "Switzerland",
+        "Austrian Bundesliga": "Austria",
+        "Danish Superliga": "Denmark",
+        "Norwegian Eliteserien": "Norway",
+        "Swedish Allsvenskan": "Sweden",
+        "Polish Ekstraklasa": "Poland",
+        "Greek Super League": "Greece",
+        "Ukrainian Premier League": "Ukraine",
+        "Croatian HNL": "Croatia",
+        "Romanian Liga 1": "Romania",
+        "Czech First League": "Czech Republic",
+        "Slovak Super Liga": "Slovakia",
+        "Slovenian PrvaLiga": "Slovenia",
+        "Hungarian NB I": "Hungary",
+        "Bulgarian First League": "Bulgaria",
+        "Serbian SuperLiga": "Serbia",
+        "Finnish Veikkausliiga": "Finland",
+        "Estonian Meistriliiga": "Estonia",
+        "Latvian Virsliga": "Latvia",
+        "Lithuanian A Lyga": "Lithuania",
+        "Champions League": "Europe",
+        "Europa League": "Europe",
+        "Conference League": "Europe",
+    }
+
     # Group by league - ONLY fixtures with model probabilities
     leagues: dict[str, list[BoardFixture]] = defaultdict(list)
     for bf in board:
@@ -1672,7 +1778,9 @@ def render_compact_heartbeat(board: list[BoardFixture], target_date: str = None)
         entries = leagues[league]
         if not entries:
             continue
-        lines.append(f"⚽  {league}")
+        country = LEAGUE_COUNTRY.get(league, "")
+        header = f"⚽  {league}" + (f" ({country})" if country else "")
+        lines.append(header)
 
         for bf in entries:
             fx = getattr(bf, "fixture", "")

@@ -227,11 +227,21 @@ def process_heartbeat_result(
     Process a heartbeat result and return updated stake state.
 
     This should be called after the match result is known.
+
+    Architect 2026-08-29: also applies the lineage birth/death transition so the
+    survival/reproduction model stays in sync with the linear compounding record.
     """
     from output.heartbeat import save_heartbeat_record
 
     # Record result in history
     save_heartbeat_record(heartbeat, result=result)
+
+    # Lineage transition (WIN -> reproduce next gen, LOSS -> extinct)
+    try:
+        from engine.heartbeat_lineage import record_heartbeat_result
+        record_heartbeat_result(heartbeat, result)
+    except Exception:
+        pass  # Lineage is best-effort; never block the core record
 
     # Get updated state
     state = get_stake_state()

@@ -1,0 +1,6279 @@
+{
+  "status": true,
+  "data": {
+    "date": "2026-08-29",
+    "events": [
+      {
+        "id": "401879314",
+        "status": "closed",
+        "start_time": "2026-08-29T11:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "premier-league",
+          "name": "Premier League"
+        },
+        "season": {
+          "id": "premier-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "192",
+          "name": "Anfield",
+          "city": "Liverpool",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "364",
+              "name": "Liverpool",
+              "short_name": "Liverpool",
+              "abbreviation": "LIV"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "393",
+              "name": "Nottingham Forest",
+              "short_name": "Nottm Forest",
+              "abbreviation": "NFO"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879296",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "premier-league",
+          "name": "Premier League"
+        },
+        "season": {
+          "id": "premier-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "6020",
+          "name": "Vitality Stadium",
+          "city": "Bournemouth",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "349",
+              "name": "AFC Bournemouth",
+              "short_name": "Bournemouth",
+              "abbreviation": "BOU"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "368",
+              "name": "Everton",
+              "short_name": "Everton",
+              "abbreviation": "EVE"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879316",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "premier-league",
+          "name": "Premier League"
+        },
+        "season": {
+          "id": "premier-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "1680",
+          "name": "Coventry Building Society Arena",
+          "city": "Coventry",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "388",
+              "name": "Coventry City",
+              "short_name": "Coventry",
+              "abbreviation": "COV"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "306",
+              "name": "Hull City",
+              "short_name": "Hull",
+              "abbreviation": "HUL"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879312",
+        "status": "closed",
+        "start_time": "2026-08-29T16:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "premier-league",
+          "name": "Premier League"
+        },
+        "season": {
+          "id": "premier-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "7827",
+          "name": "Tottenham Hotspur Stadium",
+          "city": "London",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "367",
+              "name": "Tottenham Hotspur",
+              "short_name": "Spurs",
+              "abbreviation": "TOT"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "361",
+              "name": "Newcastle United",
+              "short_name": "Newcastle",
+              "abbreviation": "NEW"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401882902",
+        "status": "closed",
+        "start_time": "2026-08-29T15:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "la-liga",
+          "name": "La Liga"
+        },
+        "season": {
+          "id": "la-liga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10018",
+          "name": "Estadi Ciutat de València",
+          "city": "Manises",
+          "country": "Spain"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "1538",
+              "name": "Levante",
+              "short_name": "Levante",
+              "abbreviation": "LEV"
+            },
+            "qualifier": "home",
+            "score": 5
+          },
+          {
+            "team": {
+              "id": "244",
+              "name": "Real Betis",
+              "short_name": "Betis",
+              "abbreviation": "BET"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 5,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401882898",
+        "status": "closed",
+        "start_time": "2026-08-29T17:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "la-liga",
+          "name": "La Liga"
+        },
+        "season": {
+          "id": "la-liga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10631",
+          "name": "Reale Arena",
+          "city": "San Sebastian",
+          "country": "Spain"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "89",
+              "name": "Real Sociedad",
+              "short_name": "Real Sociedad",
+              "abbreviation": "RSO"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "88",
+              "name": "Espanyol",
+              "short_name": "Espanyol",
+              "abbreviation": "ESP"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401882897",
+        "status": "halftime",
+        "start_time": "2026-08-29T19:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "la-liga",
+          "name": "La Liga"
+        },
+        "season": {
+          "id": "la-liga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10628",
+          "name": "Ramón Sánchez Pizjuán Stadium",
+          "city": "Sevilla",
+          "country": "Spain"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "243",
+              "name": "Sevilla",
+              "short_name": "Sevilla",
+              "abbreviation": "SEV"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "1068",
+              "name": "Atlético Madrid",
+              "short_name": "Atlético",
+              "abbreviation": "ATM"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 3
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "ATM -105",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+310",
+            "away": "-105",
+            "draw": "+245"
+          },
+          "spread_line": {
+            "home": {
+              "line": "+0.5",
+              "odds": "-120"
+            },
+            "away": {
+              "line": "-0.5",
+              "odds": "-115"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "+105"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "-135"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+250",
+              "away": "+105",
+              "draw": "+245"
+            },
+            "spread": {
+              "home": "+0.5",
+              "away": "-0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401884811",
+        "status": "closed",
+        "start_time": "2026-08-29T13:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "bundesliga",
+          "name": "Bundesliga"
+        },
+        "season": {
+          "id": "bundesliga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4305",
+          "name": "Stadion An der Alten Försterei",
+          "city": "Berlin",
+          "country": "Germany"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "598",
+              "name": "1. FC Union Berlin",
+              "short_name": "Union Berlin",
+              "abbreviation": "FCU"
+            },
+            "qualifier": "home",
+            "score": 3
+          },
+          {
+            "team": {
+              "id": "125",
+              "name": "Eintracht Frankfurt",
+              "short_name": "Frankfurt",
+              "abbreviation": "SGE"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 3,
+          "away": 3
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401884810",
+        "status": "closed",
+        "start_time": "2026-08-29T13:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "bundesliga",
+          "name": "Bundesliga"
+        },
+        "season": {
+          "id": "bundesliga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "3857",
+          "name": "RheinEnergieStadion",
+          "city": "Cologne",
+          "country": "Germany"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "122",
+              "name": "FC Cologne",
+              "short_name": "Cologne",
+              "abbreviation": "KOE"
+            },
+            "qualifier": "home",
+            "score": 3
+          },
+          {
+            "team": {
+              "id": "7911",
+              "name": "TSG Hoffenheim",
+              "short_name": "Hoffenheim",
+              "abbreviation": "TSG"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 3,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401884812",
+        "status": "closed",
+        "start_time": "2026-08-29T13:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "bundesliga",
+          "name": "Bundesliga"
+        },
+        "season": {
+          "id": "bundesliga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4450",
+          "name": "MEWA ARENA",
+          "city": "Mainz",
+          "country": "Germany"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "2950",
+              "name": "Mainz",
+              "short_name": "Mainz",
+              "abbreviation": "M05"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "3307",
+              "name": "SC Paderborn 07",
+              "short_name": "Paderborn",
+              "abbreviation": "SCP"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401884815",
+        "status": "closed",
+        "start_time": "2026-08-29T13:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "bundesliga",
+          "name": "Bundesliga"
+        },
+        "season": {
+          "id": "bundesliga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4237",
+          "name": "Red Bull Arena",
+          "city": "Leipzig",
+          "country": "Germany"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "11420",
+              "name": "RB Leipzig",
+              "short_name": "RB Leipzig",
+              "abbreviation": "RBL"
+            },
+            "qualifier": "home",
+            "score": 3
+          },
+          {
+            "team": {
+              "id": "268",
+              "name": "Borussia Mönchengladbach",
+              "short_name": "Gladbach",
+              "abbreviation": "BMG"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 3,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401884809",
+        "status": "closed",
+        "start_time": "2026-08-29T13:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "bundesliga",
+          "name": "Bundesliga"
+        },
+        "season": {
+          "id": "bundesliga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "3826",
+          "name": "URSAPHARM-Arena an der Kaiserlinde",
+          "city": "Spiesen-Elversberg",
+          "country": "Germany"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "10388",
+              "name": "SV Elversberg",
+              "short_name": "Elversberg",
+              "abbreviation": "ELV"
+            },
+            "qualifier": "home",
+            "score": 3
+          },
+          {
+            "team": {
+              "id": "131",
+              "name": "Bayer Leverkusen",
+              "short_name": "Leverkusen",
+              "abbreviation": "B04"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 3,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401884816",
+        "status": "closed",
+        "start_time": "2026-08-29T16:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "bundesliga",
+          "name": "Bundesliga"
+        },
+        "season": {
+          "id": "bundesliga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10344",
+          "name": "Signal Iduna Park",
+          "city": "Aue",
+          "country": "Germany"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "124",
+              "name": "Borussia Dortmund",
+              "short_name": "Dortmund",
+              "abbreviation": "DOR"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "127",
+              "name": "Hamburg SV",
+              "short_name": "Hamburg",
+              "abbreviation": "HSV"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401874942",
+        "status": "closed",
+        "start_time": "2026-08-29T16:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "serie-a",
+          "name": "Serie A"
+        },
+        "season": {
+          "id": "serie-a-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10720",
+          "name": "Stadio Artemio Franchi",
+          "city": "Firenze",
+          "country": "Italy"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "109",
+              "name": "Fiorentina",
+              "short_name": "Fiorentina",
+              "abbreviation": "FIO"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "4057",
+              "name": "Frosinone",
+              "short_name": "Frosinone",
+              "abbreviation": "FRO"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 3
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401874749",
+        "status": "closed",
+        "start_time": "2026-08-29T16:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "serie-a",
+          "name": "Serie A"
+        },
+        "season": {
+          "id": "serie-a-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "2470",
+          "name": "U-Power Stadium",
+          "city": "Monza",
+          "country": "Italy"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "4007",
+              "name": "Monza",
+              "short_name": "Monza",
+              "abbreviation": "MON"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "118",
+              "name": "Udinese",
+              "short_name": "Udinese",
+              "abbreviation": "UDI"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 3
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401874743",
+        "status": "closed",
+        "start_time": "2026-08-29T16:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "serie-a",
+          "name": "Serie A"
+        },
+        "season": {
+          "id": "serie-a-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "5275",
+          "name": "Mapei Stadium",
+          "city": "Reggio Emilia",
+          "country": "Italy"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "3997",
+              "name": "Sassuolo",
+              "short_name": "Sassuolo",
+              "abbreviation": "SAS"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "239",
+              "name": "Torino",
+              "short_name": "Torino",
+              "abbreviation": "TOR"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401874746",
+        "status": "2nd_half",
+        "start_time": "2026-08-29T18:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "serie-a",
+          "name": "Serie A"
+        },
+        "season": {
+          "id": "serie-a-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4600",
+          "name": "Allianz Stadium",
+          "city": "Torino",
+          "country": "Italy"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "111",
+              "name": "Juventus",
+              "short_name": "Juventus",
+              "abbreviation": "JUV"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "115",
+              "name": "Parma",
+              "short_name": "Parma",
+              "abbreviation": "PAR"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "JUV -500",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-500",
+            "away": "+1200",
+            "draw": "+500"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-1.5",
+              "odds": "-165"
+            },
+            "away": {
+              "line": "+1.5",
+              "odds": "+120"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-150"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+120"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-525",
+              "away": "+1000",
+              "draw": "+500"
+            },
+            "spread": {
+              "home": "-1.5",
+              "away": "+1.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401876477",
+        "status": "closed",
+        "start_time": "2026-08-29T15:15Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "ligue-1",
+          "name": "Ligue 1"
+        },
+        "season": {
+          "id": "ligue-1-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "2980",
+          "name": "Stade de la Meinau",
+          "city": "Strasbourg",
+          "country": "France"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "180",
+              "name": "Strasbourg",
+              "short_name": "Strasbourg",
+              "abbreviation": "STR"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "175",
+              "name": "Lens",
+              "short_name": "Lens",
+              "abbreviation": "RCL"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401876484",
+        "status": "2nd_half",
+        "start_time": "2026-08-29T18:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "ligue-1",
+          "name": "Ligue 1"
+        },
+        "season": {
+          "id": "ligue-1-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4617",
+          "name": "Stade de l'Abbé-Deschamps",
+          "city": "Auxerre",
+          "country": "France"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "172",
+              "name": "AJ Auxerre",
+              "short_name": "Auxerre",
+              "abbreviation": "AUX"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "7868",
+              "name": "Angers",
+              "short_name": "Angers",
+              "abbreviation": "ANG"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 3
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "AUX +120",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+120",
+            "away": "+240",
+            "draw": "+230"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "+110"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-155"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "+105"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "-135"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-120",
+              "away": "+330",
+              "draw": "+250"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401876483",
+        "status": "2nd_half",
+        "start_time": "2026-08-29T18:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "ligue-1",
+          "name": "Ligue 1"
+        },
+        "season": {
+          "id": "ligue-1-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4618",
+          "name": "Stade Francis-Le Blé",
+          "city": "Brest",
+          "country": "France"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "6997",
+              "name": "Brest",
+              "short_name": "Brest",
+              "abbreviation": "BRE"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "179",
+              "name": "Toulouse",
+              "short_name": "Toulouse",
+              "abbreviation": "TOU"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 2
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "BRE +150",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+150",
+            "away": "+190",
+            "draw": "+235"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "+130"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-185"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-110"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "-115"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+155",
+              "away": "+170",
+              "draw": "+230"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401876482",
+        "status": "2nd_half",
+        "start_time": "2026-08-29T18:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "ligue-1",
+          "name": "Ligue 1"
+        },
+        "season": {
+          "id": "ligue-1-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "2332",
+          "name": "Stade du Moustoir - Yves Allainmat",
+          "city": "Lorient",
+          "country": "France"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "273",
+              "name": "Lorient",
+              "short_name": "Lorient",
+              "abbreviation": "LOR"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "170",
+              "name": "Troyes",
+              "short_name": "Troyes",
+              "abbreviation": "TRY"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 2
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "LOR -105",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-105",
+            "away": "+310",
+            "draw": "+240"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-115"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-120"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "+120"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "-155"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-115",
+              "away": "+310",
+              "draw": "+245"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401876481",
+        "status": "2nd_half",
+        "start_time": "2026-08-29T18:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "ligue-1",
+          "name": "Ligue 1"
+        },
+        "season": {
+          "id": "ligue-1-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "6499",
+          "name": "Groupama Stadium",
+          "city": "Lyon",
+          "country": "France"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "167",
+              "name": "Lyon",
+              "short_name": "Lyon",
+              "abbreviation": "LYON"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "3236",
+              "name": "Le Havre AC",
+              "short_name": "Le Havre AC",
+              "abbreviation": "HAC"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 1
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "LYON -235",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-235",
+            "away": "+650",
+            "draw": "+370"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-1.5",
+              "odds": "+105"
+            },
+            "away": {
+              "line": "+1.5",
+              "odds": "-150"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-150"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+120"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-210",
+              "away": "+500",
+              "draw": "+330"
+            },
+            "spread": {
+              "home": "-1.5",
+              "away": "+1.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401880311",
+        "status": "closed",
+        "start_time": "2026-08-29T11:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10334",
+          "name": "Pride Park",
+          "city": "Derby",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "374",
+              "name": "Derby County",
+              "short_name": "Derby",
+              "abbreviation": "DER"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "318",
+              "name": "Swansea City",
+              "short_name": "Swansea",
+              "abbreviation": "SWA"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 3
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880310",
+        "status": "closed",
+        "start_time": "2026-08-29T11:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10332",
+          "name": "Riverside Stadium",
+          "city": "Middlesbrough",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "369",
+              "name": "Middlesbrough",
+              "short_name": "Boro",
+              "abbreviation": "MID"
+            },
+            "qualifier": "home",
+            "score": 3
+          },
+          {
+            "team": {
+              "id": "383",
+              "name": "West Bromwich Albion",
+              "short_name": "West Brom",
+              "abbreviation": "WBA"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 3,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880306",
+        "status": "closed",
+        "start_time": "2026-08-29T11:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "136",
+          "name": "Molineux Stadium",
+          "city": "Wolverhampton",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "380",
+              "name": "Wolverhampton Wanderers",
+              "short_name": "Wolves",
+              "abbreviation": "WOL"
+            },
+            "qualifier": "home",
+            "score": 4
+          },
+          {
+            "team": {
+              "id": "336",
+              "name": "Stoke City",
+              "short_name": "Stoke",
+              "abbreviation": "STK"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 4,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880316",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "280",
+          "name": "Ewood Park",
+          "city": "Blackburn",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "365",
+              "name": "Blackburn Rovers",
+              "short_name": "Blackburn",
+              "abbreviation": "BLK"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "334",
+              "name": "Queens Park Rangers",
+              "short_name": "QPR",
+              "abbreviation": "QPR"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880315",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "256",
+          "name": "Toughsheet Community Stadium",
+          "city": "Manchester",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "358",
+              "name": "Bolton Wanderers",
+              "short_name": "Bolton",
+              "abbreviation": "BOL"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "314",
+              "name": "Lincoln City",
+              "short_name": "Lincoln City",
+              "abbreviation": "LCN"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880314",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "208",
+          "name": "Ashton Gate",
+          "city": "Bristol",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "333",
+              "name": "Bristol City",
+              "short_name": "Bristol City",
+              "abbreviation": "BRC"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "385",
+              "name": "Portsmouth",
+              "short_name": "Portsmouth",
+              "abbreviation": "POR"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880313",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "3893",
+          "name": "Cardiff City Stadium",
+          "city": "Cardiff",
+          "country": "Wales"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "347",
+              "name": "Cardiff City",
+              "short_name": "Cardiff",
+              "abbreviation": "CAR"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "398",
+              "name": "Sheffield United",
+              "short_name": "Sheffield Utd",
+              "abbreviation": "SHU"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880312",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10331",
+          "name": "The Valley",
+          "city": "London",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "372",
+              "name": "Charlton Athletic",
+              "short_name": "Charlton",
+              "abbreviation": "CHA"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "394",
+              "name": "Preston North End",
+              "short_name": "Preston",
+              "abbreviation": "PNE"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880309",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "199",
+          "name": "Carrow Road",
+          "city": "Norwich",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "381",
+              "name": "Norwich City",
+              "short_name": "Norwich City",
+              "abbreviation": "NOR"
+            },
+            "qualifier": "home",
+            "score": 4
+          },
+          {
+            "team": {
+              "id": "379",
+              "name": "Burnley",
+              "short_name": "Burnley",
+              "abbreviation": "BUR"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 4,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880308",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10019",
+          "name": "St. Mary's Stadium",
+          "city": "Southampton",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "376",
+              "name": "Southampton",
+              "short_name": "Southampton",
+              "abbreviation": "SOU"
+            },
+            "qualifier": "home",
+            "score": 5
+          },
+          {
+            "team": {
+              "id": "391",
+              "name": "Millwall",
+              "short_name": "Millwall",
+              "abbreviation": "MIL"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 5,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401880307",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "championship",
+          "name": "Championship"
+        },
+        "season": {
+          "id": "championship-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "203",
+          "name": "Vicarage Road",
+          "city": "Watford",
+          "country": "England"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "395",
+              "name": "Watford",
+              "short_name": "Watford",
+              "abbreviation": "WAT"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "371",
+              "name": "West Ham United",
+              "short_name": "West Ham",
+              "abbreviation": "WHU"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401875629",
+        "status": "closed",
+        "start_time": "2026-08-29T14:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "eredivisie",
+          "name": "Eredivisie"
+        },
+        "season": {
+          "id": "eredivisie-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4377",
+          "name": "Stadion Woudestein",
+          "city": "Rotterdam",
+          "country": "Netherlands"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "2566",
+              "name": "Excelsior",
+              "short_name": "Excelsior",
+              "abbreviation": "EXC"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "151",
+              "name": "Sparta Rotterdam",
+              "short_name": "Sparta",
+              "abbreviation": "SPA"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401875628",
+        "status": "closed",
+        "start_time": "2026-08-29T16:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "eredivisie",
+          "name": "Eredivisie"
+        },
+        "season": {
+          "id": "eredivisie-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4449",
+          "name": "AFAS Stadion",
+          "city": "Alkmaar",
+          "country": "Netherlands"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "140",
+              "name": "AZ Alkmaar",
+              "short_name": "AZ Alkmaar",
+              "abbreviation": "AZ"
+            },
+            "qualifier": "home",
+            "score": 5
+          },
+          {
+            "team": {
+              "id": "3706",
+              "name": "Go Ahead Eagles",
+              "short_name": "Go Ahead Eagles",
+              "abbreviation": "GAE"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 5,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401875627",
+        "status": "2nd_half",
+        "start_time": "2026-08-29T19:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "eredivisie",
+          "name": "Eredivisie"
+        },
+        "season": {
+          "id": "eredivisie-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4998",
+          "name": "MAC³PARK Stadion",
+          "city": "Zwolle",
+          "country": "Netherlands"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "2565",
+              "name": "PEC Zwolle",
+              "short_name": "PEC Zwolle",
+              "abbreviation": "PEC"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "147",
+              "name": "NEC Nijmegen",
+              "short_name": "NEC",
+              "abbreviation": "NEC"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 2
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "NEC +100",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+220",
+            "away": "+100",
+            "draw": "+300"
+          },
+          "spread_line": {
+            "home": {
+              "line": "+0.5",
+              "odds": "-130"
+            },
+            "away": {
+              "line": "-0.5",
+              "odds": "-110"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "-110"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-120"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+380",
+              "away": "-190",
+              "draw": "+360"
+            },
+            "spread": {
+              "home": "+1.5",
+              "away": "-1.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401885464",
+        "status": "closed",
+        "start_time": "2026-08-29T14:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "primeira-liga",
+          "name": "Primeira Liga"
+        },
+        "season": {
+          "id": "primeira-liga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "9220",
+          "name": "Complexo Desportivo FC Alverca",
+          "city": "Alverca do Ribatejo",
+          "country": "Portugal"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "21613",
+              "name": "Alverca",
+              "short_name": "Alverca",
+              "abbreviation": "ALV"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "12215",
+              "name": "Santa Clara",
+              "short_name": "Santa Clara",
+              "abbreviation": "CDSC"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401885463",
+        "status": "closed",
+        "start_time": "2026-08-29T14:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "primeira-liga",
+          "name": "Primeira Liga"
+        },
+        "season": {
+          "id": "primeira-liga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "5246",
+          "name": "Estádio Municipal de Arouca",
+          "city": "Arouca",
+          "country": "Portugal"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "15784",
+              "name": "Arouca",
+              "short_name": "Arouca",
+              "abbreviation": "FCA"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "552",
+              "name": "Maritimo",
+              "short_name": "Maritimo",
+              "abbreviation": "MAR"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401885465",
+        "status": "closed",
+        "start_time": "2026-08-29T17:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "primeira-liga",
+          "name": "Primeira Liga"
+        },
+        "season": {
+          "id": "primeira-liga-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10836",
+          "name": "Estádio do Fontelo",
+          "city": "Viseu",
+          "country": "Portugal"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "21607",
+              "name": "Académico de Viseu",
+              "short_name": "Académico",
+              "abbreviation": "ACV"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "437",
+              "name": "FC Porto",
+              "short_name": "FC Porto",
+              "abbreviation": "FCP"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 3
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401841216",
+        "status": "not_started",
+        "start_time": "2026-08-29T21:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "serie-a-brazil",
+          "name": "Serie A Brazil"
+        },
+        "season": {
+          "id": "serie-a-brazil-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "9663",
+          "name": "Arena MRV",
+          "city": "Belo Horizonte",
+          "country": "Brazil"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "7632",
+              "name": "Atlético-MG",
+              "short_name": "Atlético-MG",
+              "abbreviation": "CAM"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "3457",
+              "name": "Vitória",
+              "short_name": "Vitória",
+              "abbreviation": "VIT"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401841209",
+        "status": "not_started",
+        "start_time": "2026-08-29T23:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "serie-a-brazil",
+          "name": "Serie A Brazil"
+        },
+        "season": {
+          "id": "serie-a-brazil-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10647",
+          "name": "Estádio Cícero Pompeu de Toledo",
+          "city": "Sao Paulo",
+          "country": "Brazil"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "2026",
+              "name": "São Paulo",
+              "short_name": "São Paulo",
+              "abbreviation": "SAO"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "6079",
+              "name": "Red Bull Bragantino",
+              "short_name": "Bragantino",
+              "abbreviation": "BRA"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401841212",
+        "status": "not_started",
+        "start_time": "2026-08-30T00:20Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "serie-a-brazil",
+          "name": "Serie A Brazil"
+        },
+        "season": {
+          "id": "serie-a-brazil-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "5151",
+          "name": "Estádio São Januário",
+          "city": "Rio de Janeiro",
+          "country": "Brazil"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "3454",
+              "name": "Vasco da Gama",
+              "short_name": "Vasco",
+              "abbreviation": "VAS"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "2022",
+              "name": "Cruzeiro",
+              "short_name": "Cruzeiro",
+              "abbreviation": "CRU"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "VAS +100",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+100",
+            "away": "+280",
+            "draw": "+235"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-105"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-130"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "+100"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "-135"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+140",
+              "away": "+190",
+              "draw": "+215"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761755",
+        "status": "not_started",
+        "start_time": "2026-08-29T20:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4485",
+          "name": "Lumen Field",
+          "city": "Seattle, Washington",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "9726",
+              "name": "Seattle Sounders FC",
+              "short_name": "Seattle",
+              "abbreviation": "SEA"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "182",
+              "name": "Chicago Fire FC",
+              "short_name": "Chicago",
+              "abbreviation": "CHI"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "Bet 365",
+          "details": "",
+          "spread": "",
+          "over_under": "",
+          "favorite": null
+        },
+        "referees": []
+      },
+      {
+        "id": "761759",
+        "status": "not_started",
+        "start_time": "2026-08-29T23:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "7485",
+          "name": "Mercedes-Benz Stadium",
+          "city": "Atlanta, Georgia",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "18418",
+              "name": "Atlanta United FC",
+              "short_name": "Atlanta",
+              "abbreviation": "ATL"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "21300",
+              "name": "Charlotte FC",
+              "short_name": "Charlotte",
+              "abbreviation": "CLT"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "ATL +145",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+145",
+            "away": "+155",
+            "draw": "+260"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "+135"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-190"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "+135"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-170"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+130",
+              "away": "+170",
+              "draw": "+245"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761756",
+        "status": "not_started",
+        "start_time": "2026-08-29T23:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "7604",
+          "name": "Audi Field",
+          "city": "Washington, District of Columbia",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "193",
+              "name": "D.C. United",
+              "short_name": "D.C. United",
+              "abbreviation": "DC"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "18966",
+              "name": "LAFC",
+              "short_name": "LAFC",
+              "abbreviation": "LAFC"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "LAFC -115",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+265",
+            "away": "-115",
+            "draw": "+260"
+          },
+          "spread_line": {
+            "home": {
+              "line": "+0.5",
+              "odds": "-120"
+            },
+            "away": {
+              "line": "-0.5",
+              "odds": "-115"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-145"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+115"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+230",
+              "away": "+100",
+              "draw": "+245"
+            },
+            "spread": {
+              "home": "+0.5",
+              "away": "-0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761757",
+        "status": "not_started",
+        "start_time": "2026-08-29T23:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10661",
+          "name": "Nu Stadium",
+          "city": "Miami, Florida",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "20232",
+              "name": "Inter Miami CF",
+              "short_name": "Miami",
+              "abbreviation": "MIA"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "9720",
+              "name": "CF Montréal",
+              "short_name": "CF Montréal",
+              "abbreviation": "MTL"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "MIA -255",
+          "spread": "",
+          "over_under": 4.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-255",
+            "away": "+475",
+            "draw": "+450"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-1.5",
+              "odds": "-110"
+            },
+            "away": {
+              "line": "+1.5",
+              "odds": "-125"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o4.5",
+              "odds": "+130"
+            },
+            "under": {
+              "line": "u4.5",
+              "odds": "-165"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-240",
+              "away": "+425",
+              "draw": "+400"
+            },
+            "spread": {
+              "home": "-1.5",
+              "away": "+1.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761761",
+        "status": "not_started",
+        "start_time": "2026-08-29T23:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "9606",
+          "name": "Red Bull Arena",
+          "city": "Harrison, New Jersey",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "190",
+              "name": "Red Bull New York",
+              "short_name": "Red Bull NY",
+              "abbreviation": "RBNY"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "10739",
+              "name": "Philadelphia Union",
+              "short_name": "Philadelphia",
+              "abbreviation": "PHI"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "PHI +110",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+190",
+            "away": "+110",
+            "draw": "+285"
+          },
+          "spread_line": {
+            "home": {
+              "line": "+0.5",
+              "odds": "-145"
+            },
+            "away": {
+              "line": "-0.5",
+              "odds": "+105"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "+100"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-130"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+185",
+              "away": "+110",
+              "draw": "+280"
+            },
+            "spread": {
+              "home": "+0.5",
+              "away": "-0.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761760",
+        "status": "not_started",
+        "start_time": "2026-08-29T23:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10143",
+          "name": "BMO Field",
+          "city": "Toronto",
+          "country": "Canada"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "7318",
+              "name": "Toronto FC",
+              "short_name": "Toronto",
+              "abbreviation": "TOR"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "17606",
+              "name": "New York City FC",
+              "short_name": "NYCFC",
+              "abbreviation": "NYC"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "TOR +140",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+140",
+            "away": "+160",
+            "draw": "+250"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "+135"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-190"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-155"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+125"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+140",
+              "away": "+155",
+              "draw": "+245"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761765",
+        "status": "not_started",
+        "start_time": "2026-08-30T00:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4791",
+          "name": "Shell Energy Stadium",
+          "city": "Houston, Texas",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "6077",
+              "name": "Houston Dynamo FC",
+              "short_name": "Houston",
+              "abbreviation": "HOU"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "191",
+              "name": "San Jose Earthquakes",
+              "short_name": "San Jose",
+              "abbreviation": "SJ"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "HOU -170",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-170",
+            "away": "+380",
+            "draw": "+310"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-180"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "+130"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "+120"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-150"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-145",
+              "away": "+330",
+              "draw": "+270"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761763",
+        "status": "not_started",
+        "start_time": "2026-08-30T00:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "6538",
+          "name": "Allianz Field",
+          "city": "Saint Paul, Minnesota",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "17362",
+              "name": "Minnesota United FC",
+              "short_name": "Minnesota",
+              "abbreviation": "MIN"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "12011",
+              "name": "Orlando City SC",
+              "short_name": "Orlando",
+              "abbreviation": "ORL"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "MIN -130",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-130",
+            "away": "+275",
+            "draw": "+300"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-135"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-105"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "+115"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-145"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-140",
+              "away": "+285",
+              "draw": "+295"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761764",
+        "status": "not_started",
+        "start_time": "2026-08-30T00:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "8993",
+          "name": "GEODIS Park",
+          "city": "Nashville, Tennessee",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "18986",
+              "name": "Nashville SC",
+              "short_name": "Nashville",
+              "abbreviation": "NSH"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "18267",
+              "name": "FC Cincinnati",
+              "short_name": "Cincinnati",
+              "abbreviation": "CIN"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "NSH -130",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-130",
+            "away": "+270",
+            "draw": "+300"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-130"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-105"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "+115"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-145"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-130",
+              "away": "+265",
+              "draw": "+295"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761762",
+        "status": "not_started",
+        "start_time": "2026-08-30T00:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "6587",
+          "name": "Sporting Park",
+          "city": "Kansas City, Kansas",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "186",
+              "name": "Sporting Kansas City",
+              "short_name": "Kansas City",
+              "abbreviation": "SKC"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "9727",
+              "name": "Vancouver Whitecaps",
+              "short_name": "Vancouver",
+              "abbreviation": "VAN"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "VAN -260",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+550",
+            "away": "-260",
+            "draw": "+400"
+          },
+          "spread_line": {
+            "home": {
+              "line": "+1.5",
+              "odds": "-130"
+            },
+            "away": {
+              "line": "-1.5",
+              "odds": "-105"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "+105"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-135"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+500",
+              "away": "-260",
+              "draw": "+400"
+            },
+            "spread": {
+              "home": "+1.5",
+              "away": "-1.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761766",
+        "status": "not_started",
+        "start_time": "2026-08-30T01:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "2731",
+          "name": "Dick's Sporting Goods Park",
+          "city": "Commerce City, Colorado",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "184",
+              "name": "Colorado Rapids",
+              "short_name": "Colorado",
+              "abbreviation": "COL"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "4771",
+              "name": "Real Salt Lake",
+              "short_name": "Salt Lake",
+              "abbreviation": "RSL"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "COL -110",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-110",
+            "away": "+245",
+            "draw": "+270"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-115"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-120"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-155"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+120"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+105",
+              "away": "+215",
+              "draw": "+250"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761768",
+        "status": "not_started",
+        "start_time": "2026-08-30T02:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4383",
+          "name": "Providence Park",
+          "city": "Portland, Oregon",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "9723",
+              "name": "Portland Timbers",
+              "short_name": "Portland",
+              "abbreviation": "POR"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "20906",
+              "name": "Austin FC",
+              "short_name": "Austin",
+              "abbreviation": "ATX"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "POR -180",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-180",
+            "away": "+380",
+            "draw": "+340"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-180"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "+130"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "+120"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-155"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-180",
+              "away": "+370",
+              "draw": "+330"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "761767",
+        "status": "not_started",
+        "start_time": "2026-08-30T02:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "mls",
+          "name": "MLS"
+        },
+        "season": {
+          "id": "mls-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "9195",
+          "name": "Snapdragon Stadium",
+          "city": "San Diego, California",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "22529",
+              "name": "San Diego FC",
+              "short_name": "San Diego",
+              "abbreviation": "SD"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "187",
+              "name": "LA Galaxy",
+              "short_name": "LA Galaxy",
+              "abbreviation": "LA"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "SD -145",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-145",
+            "away": "+290",
+            "draw": "+320"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-150"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "+105"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "+100"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-130"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-120",
+              "away": "+245",
+              "draw": "+285"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401876997",
+        "status": "not_started",
+        "start_time": "2026-08-29T23:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-mx",
+          "name": "Liga MX"
+        },
+        "season": {
+          "id": "liga-mx-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "8445",
+          "name": "Estadio Jalisco",
+          "city": "Guadalajara",
+          "country": "Mexico"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "216",
+              "name": "Atlas",
+              "short_name": "Atlas",
+              "abbreviation": "ATS"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "222",
+              "name": "Querétaro",
+              "short_name": "Queretaro",
+              "abbreviation": "QRO"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "ATS +120",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+120",
+            "away": "+250",
+            "draw": "+220"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "+110"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-150"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-120"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "-115"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+125",
+              "away": "+235",
+              "draw": "+195"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401876996",
+        "status": "not_started",
+        "start_time": "2026-08-29T23:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-mx",
+          "name": "Liga MX"
+        },
+        "season": {
+          "id": "liga-mx-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10645",
+          "name": "Estadio Hidalgo",
+          "city": "Pachuca",
+          "country": "Mexico"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "234",
+              "name": "Pachuca",
+              "short_name": "Pachuca",
+              "abbreviation": "PAC"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "219",
+              "name": "Guadalajara",
+              "short_name": "Guadalajara",
+              "abbreviation": "GDL"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "GDL +125",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+205",
+            "away": "+125",
+            "draw": "+250"
+          },
+          "spread_line": {
+            "home": {
+              "line": "+0.5",
+              "odds": "-160"
+            },
+            "away": {
+              "line": "-0.5",
+              "odds": "+115"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-150"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+110"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+200",
+              "away": "+125",
+              "draw": "+230"
+            },
+            "spread": {
+              "home": "+0.5",
+              "away": "-0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401876995",
+        "status": "not_started",
+        "start_time": "2026-08-30T01:05Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-mx",
+          "name": "Liga MX"
+        },
+        "season": {
+          "id": "liga-mx-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "1672",
+          "name": "Estadio Banorte",
+          "city": "Mexico City",
+          "country": "Mexico"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "227",
+              "name": "América",
+              "short_name": "América",
+              "abbreviation": "AME"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "231",
+              "name": "Puebla",
+              "short_name": "Puebla",
+              "abbreviation": "PUE"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "AME -195",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-195",
+            "away": "+475",
+            "draw": "+340"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-1.5",
+              "odds": "+140"
+            },
+            "away": {
+              "line": "+1.5",
+              "odds": "-195"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-155"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+115"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-320",
+              "away": "+700",
+              "draw": "+400"
+            },
+            "spread": {
+              "home": "-1.5",
+              "away": "+1.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401876994",
+        "status": "not_started",
+        "start_time": "2026-08-30T03:10Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-mx",
+          "name": "Liga MX"
+        },
+        "season": {
+          "id": "liga-mx-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "1266",
+          "name": "Estadio Corona",
+          "city": "Torreón",
+          "country": "Mexico"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "225",
+              "name": "Santos",
+              "short_name": "Santos",
+              "abbreviation": "SAN"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "232",
+              "name": "Tigres UANL",
+              "short_name": "Tigres",
+              "abbreviation": "UANL"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "UANL -130",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+320",
+            "away": "-130",
+            "draw": "+295"
+          },
+          "spread_line": {
+            "home": {
+              "line": "+0.5",
+              "odds": "+100"
+            },
+            "away": {
+              "line": "-0.5",
+              "odds": "-140"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-145"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+110"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+320",
+              "away": "-140",
+              "draw": "+290"
+            },
+            "spread": {
+              "home": "+0.5",
+              "away": "-0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401841529",
+        "status": "closed",
+        "start_time": "2026-08-29T17:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-argentina",
+          "name": "Liga Profesional Argentina"
+        },
+        "season": {
+          "id": "liga-argentina-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10787",
+          "name": "Guillermo Laza",
+          "city": "Buenos Aires",
+          "country": "Argentina"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "17702",
+              "name": "Deportivo Riestra",
+              "short_name": "Riestra",
+              "abbreviation": "RIE"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "21",
+              "name": "Vélez Sarsfield",
+              "short_name": "Vélez ",
+              "abbreviation": "VEL"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401841535",
+        "status": "1st_half",
+        "start_time": "2026-08-29T20:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-argentina",
+          "name": "Liga Profesional Argentina"
+        },
+        "season": {
+          "id": "liga-argentina-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10775",
+          "name": "Gigante de Arroyito",
+          "city": "Rosario",
+          "country": "Argentina"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "17",
+              "name": "Rosario Central",
+              "short_name": "Rosario Central",
+              "abbreviation": "ROS"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "9",
+              "name": "Gimnasia La Plata",
+              "short_name": "Gimnasia LP",
+              "abbreviation": "GLP"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "ROS -165",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-165",
+            "away": "+475",
+            "draw": "+280"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-175"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "+125"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "+110"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "-145"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-120",
+              "away": "+340",
+              "draw": "+225"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401841531",
+        "status": "not_started",
+        "start_time": "2026-08-29T22:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-argentina",
+          "name": "Liga Profesional Argentina"
+        },
+        "season": {
+          "id": "liga-argentina-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10783",
+          "name": "Estadio Tomás Adolfo Ducó",
+          "city": "Buenos Aires",
+          "country": "Argentina"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "10",
+              "name": "Huracán",
+              "short_name": "Huracán ",
+              "abbreviation": "HUR"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "19685",
+              "name": "Estudiantes de Río Cuarto",
+              "short_name": "Estudiantes RC",
+              "abbreviation": "AAE"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "HUR -160",
+          "spread": "",
+          "over_under": 1.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-160",
+            "away": "+550",
+            "draw": "+235"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-170"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "+120"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o1.5",
+              "odds": "-150"
+            },
+            "under": {
+              "line": "u1.5",
+              "odds": "+115"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-165",
+              "away": "+500",
+              "draw": "+235"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o1.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401841538",
+        "status": "not_started",
+        "start_time": "2026-08-30T00:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-argentina",
+          "name": "Liga Profesional Argentina"
+        },
+        "season": {
+          "id": "liga-argentina-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "5558",
+          "name": "Monumental Presidente José Fierro",
+          "city": "Tucuman",
+          "country": "Argentina"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "9785",
+              "name": "Atlético Tucumán",
+              "short_name": "Atl Tucumán",
+              "abbreviation": "CAT"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "4",
+              "name": "Belgrano (Córdoba)",
+              "short_name": "Belgrano ",
+              "abbreviation": "BEL"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "CAT +155",
+          "spread": "",
+          "over_under": 1.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+155",
+            "away": "+220",
+            "draw": "+180"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "+140"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-200"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o1.5",
+              "odds": "-170"
+            },
+            "under": {
+              "line": "u1.5",
+              "odds": "+130"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+165",
+              "away": "+200",
+              "draw": "+170"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o1.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401841536",
+        "status": "not_started",
+        "start_time": "2026-08-30T00:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-argentina",
+          "name": "Liga Profesional Argentina"
+        },
+        "season": {
+          "id": "liga-argentina-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10782",
+          "name": "Mario Alberto Kempes",
+          "city": "Córdoba",
+          "country": "Argentina"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "19",
+              "name": "Talleres (Córdoba)",
+              "short_name": "Talleres ",
+              "abbreviation": "TALL"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "11989",
+              "name": "Central Córdoba (Santiago del Estero)",
+              "short_name": "C. Córdoba (SE)",
+              "abbreviation": "CTR"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "TALL -135",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-135",
+            "away": "+425",
+            "draw": "+245"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-145"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "+105"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "+130"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "-175"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-145",
+              "away": "+425",
+              "draw": "+235"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401878397",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "scottish-premiership",
+          "name": "Scottish Premiership"
+        },
+        "season": {
+          "id": "scottish-premiership-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "161",
+          "name": "Celtic Park",
+          "city": "Glasgow",
+          "country": "Scotland"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "256",
+              "name": "Celtic",
+              "short_name": "Celtic",
+              "abbreviation": "CEL"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "254",
+              "name": "Falkirk",
+              "short_name": "Falkirk",
+              "abbreviation": "FALK"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401878395",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "scottish-premiership",
+          "name": "Scottish Premiership"
+        },
+        "season": {
+          "id": "scottish-premiership-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "236",
+          "name": "Tynecastle Park",
+          "city": "Edinburgh",
+          "country": "Scotland"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "262",
+              "name": "Heart of Midlothian",
+              "short_name": "Hearts",
+              "abbreviation": "HOM"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "267",
+              "name": "St Johnstone",
+              "short_name": "St Johnstone",
+              "abbreviation": "STJ"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401878394",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "scottish-premiership",
+          "name": "Scottish Premiership"
+        },
+        "season": {
+          "id": "scottish-premiership-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "6306",
+          "name": "The BBSP Stadium",
+          "city": "Kilmarnock",
+          "country": "Scotland"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "260",
+              "name": "Kilmarnock",
+              "short_name": "Kilmarnock",
+              "abbreviation": "KIL"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "264",
+              "name": "Dundee United",
+              "short_name": "Dundee Utd",
+              "abbreviation": "DUN"
+            },
+            "qualifier": "away",
+            "score": 4
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 4
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879014",
+        "status": "closed",
+        "start_time": "2026-08-29T14:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "belgian-pro-league",
+          "name": "Belgian Pro League"
+        },
+        "season": {
+          "id": "belgian-pro-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10326",
+          "name": "Easi Arena",
+          "city": "La Louvière",
+          "country": "Belgium"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "131235",
+              "name": "RAAL La Louvière",
+              "short_name": "La Louvière",
+              "abbreviation": "RLL"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "7879",
+              "name": "KV Mechelen",
+              "short_name": "KV Mechelen",
+              "abbreviation": "KVM"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879013",
+        "status": "closed",
+        "start_time": "2026-08-29T16:15Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "belgian-pro-league",
+          "name": "Belgian Pro League"
+        },
+        "season": {
+          "id": "belgian-pro-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "6655",
+          "name": "Guldensporenstadion",
+          "city": "Kortrijk",
+          "country": "Belgium"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "5786",
+              "name": "KV Kortrijk",
+              "short_name": "KV Kortrijk",
+              "abbreviation": "KVK"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "3616",
+              "name": "Royal Charleroi SC",
+              "short_name": "Royal Charleroi",
+              "abbreviation": "CHA"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 3
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879012",
+        "status": "2nd_half",
+        "start_time": "2026-08-29T18:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "belgian-pro-league",
+          "name": "Belgian Pro League"
+        },
+        "season": {
+          "id": "belgian-pro-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "600",
+          "name": "Jan Breydel Stadium",
+          "city": "Brugge",
+          "country": "Belgium"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "3610",
+              "name": "Cercle Brugge KSV",
+              "short_name": "Cercle Brugge",
+              "abbreviation": "CBK"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "22269",
+              "name": "Lommel SK",
+              "short_name": "Lommel SK",
+              "abbreviation": "LOM"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 1
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "CBK -170",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-170",
+            "away": "+400",
+            "draw": "+340"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-185"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "+130"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "-110"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-120"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-205",
+              "away": "+425",
+              "draw": "+350"
+            },
+            "spread": {
+              "home": "-1.5",
+              "away": "+1.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401879011",
+        "status": "2nd_half",
+        "start_time": "2026-08-29T18:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "belgian-pro-league",
+          "name": "Belgian Pro League"
+        },
+        "season": {
+          "id": "belgian-pro-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4704",
+          "name": "King Power at Den Dreef Stadion",
+          "city": "Leuven",
+          "country": "Belgium"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "5579",
+              "name": "OH Leuven",
+              "short_name": "OH Leuven",
+              "abbreviation": "OHL"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "559",
+              "name": "Standard Liege",
+              "short_name": "Standard Liege",
+              "abbreviation": "STL"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 2
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "OHL +160",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+160",
+            "away": "+160",
+            "draw": "+245"
+          },
+          "spread_line": {
+            "home": {
+              "line": "+0.5",
+              "odds": "-200"
+            },
+            "away": {
+              "line": "-0.5",
+              "odds": "+140"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-130"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+100"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+190",
+              "away": "+130",
+              "draw": "+235"
+            },
+            "spread": {
+              "home": "+0.5",
+              "away": "-0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401888308",
+        "status": "closed",
+        "start_time": "2026-08-29T16:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "super-lig",
+          "name": "Turkish Super Lig"
+        },
+        "season": {
+          "id": "super-lig-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "6726",
+          "name": "Medas Konya Büyüksehir Stadyumu",
+          "city": "Konya",
+          "country": "Türkiye"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "7648",
+              "name": "Konyaspor",
+              "short_name": "Konyaspor",
+              "abbreviation": "KNY"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "995",
+              "name": "Kocaelispor",
+              "short_name": "Kocaelispor",
+              "abbreviation": "KOC"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401888307",
+        "status": "closed",
+        "start_time": "2026-08-29T18:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "super-lig",
+          "name": "Turkish Super Lig"
+        },
+        "season": {
+          "id": "super-lig-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4987",
+          "name": "RAMS Park",
+          "city": "Istanbul",
+          "country": "Türkiye"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "432",
+              "name": "Galatasaray",
+              "short_name": "Galatasaray",
+              "abbreviation": "GAL"
+            },
+            "qualifier": "home",
+            "score": 3
+          },
+          {
+            "team": {
+              "id": "789",
+              "name": "Goztepe",
+              "short_name": "Goztepe",
+              "abbreviation": "GOZ"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 3,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401888312",
+        "status": "closed",
+        "start_time": "2026-08-29T18:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "super-lig",
+          "name": "Turkish Super Lig"
+        },
+        "season": {
+          "id": "super-lig-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10733",
+          "name": "Gaziantep Stadium",
+          "city": "Gaziantep",
+          "country": "Türkiye"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "20070",
+              "name": "Gaziantep FK",
+              "short_name": "Gaziantep",
+              "abbreviation": "GAZ"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "7656",
+              "name": "Caykur Rizespor",
+              "short_name": "Caykur Rizespor",
+              "abbreviation": "CAY"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879872",
+        "status": "closed",
+        "start_time": "2026-08-29T12:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "russian-premier-league",
+          "name": "Russian Premier League"
+        },
+        "season": {
+          "id": "russian-premier-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10038",
+          "name": "Stadion Fakel",
+          "city": "Voronezh",
+          "country": "Russia"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "21539",
+              "name": "Fakel Voronezh",
+              "short_name": "Voronezh",
+              "abbreviation": "VOR"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "2533",
+              "name": "Zenit St Petersburg",
+              "short_name": "Zenit",
+              "abbreviation": "ZEN"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879877",
+        "status": "closed",
+        "start_time": "2026-08-29T14:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "russian-premier-league",
+          "name": "Russian Premier League"
+        },
+        "season": {
+          "id": "russian-premier-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10347",
+          "name": "Krasnodar Stadium",
+          "city": "Krasnodar",
+          "country": "Russia"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "11336",
+              "name": "Krasnodar",
+              "short_name": "Krasnodar",
+              "abbreviation": "FCK"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "3852",
+              "name": "Rostov",
+              "short_name": "Rostov",
+              "abbreviation": "ROS"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879876",
+        "status": "closed",
+        "start_time": "2026-08-29T17:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "russian-premier-league",
+          "name": "Russian Premier League"
+        },
+        "season": {
+          "id": "russian-premier-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "4414",
+          "name": "Akhmat-Arena",
+          "city": "Grozny",
+          "country": "Russia"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "2991",
+              "name": "Akhmat Grozny",
+              "short_name": "Akhmat Grozny",
+              "abbreviation": "GRZ"
+            },
+            "qualifier": "home",
+            "score": 3
+          },
+          {
+            "team": {
+              "id": "3850",
+              "name": "Krylia Sovetov",
+              "short_name": "Krylia",
+              "abbreviation": "KSS"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 3,
+          "away": 3
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401879878",
+        "status": "closed",
+        "start_time": "2026-08-29T17:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "russian-premier-league",
+          "name": "Russian Premier League"
+        },
+        "season": {
+          "id": "russian-premier-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "5771",
+          "name": "RZD Arena",
+          "city": "Moscow",
+          "country": "Russia"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "442",
+              "name": "Lokomotiv Moscow",
+              "short_name": "Lokomotiv",
+              "abbreviation": "LMO"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "596",
+              "name": "Dinamo Moscow",
+              "short_name": "Dinamo Moscow",
+              "abbreviation": "DMO"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877637",
+        "status": "closed",
+        "start_time": "2026-08-29T09:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10470",
+          "name": "Suita City Football Stadium",
+          "city": "Osaka",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "7102",
+              "name": "Gamba Osaka",
+              "short_name": "Gamba Osaka",
+              "abbreviation": "GAM"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "7114",
+              "name": "Sanfrecce Hiroshima",
+              "short_name": "Sanfreece",
+              "abbreviation": "SAN"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877663",
+        "status": "closed",
+        "start_time": "2026-08-29T09:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "11611",
+          "name": "Kasamatsu Stadium",
+          "city": "",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "131701",
+              "name": "Mito Hollyhock",
+              "short_name": "Mito Hollyhock",
+              "abbreviation": "MITO"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "22167",
+              "name": "Machida Zelvia",
+              "short_name": "Machida Zelvia",
+              "abbreviation": "ZEL"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877660",
+        "status": "closed",
+        "start_time": "2026-08-29T09:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "7007",
+          "name": "IAI Stadium Nihondaira",
+          "city": "Shimzu",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "7104",
+              "name": "Shimizu S-Pulse",
+              "short_name": "Shimizu",
+              "abbreviation": "SHI"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "7476",
+              "name": "Kashiwa Reysol",
+              "short_name": "Kashiwa",
+              "abbreviation": "KRE"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877653",
+        "status": "closed",
+        "start_time": "2026-08-29T09:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10436",
+          "name": "PEACE STADIUM Connected by SoftBank",
+          "city": "Nagasaki",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "19001",
+              "name": "V-Varen Nagasaki",
+              "short_name": "V-Varen",
+              "abbreviation": "VVN"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "3384",
+              "name": "FC Tokyo",
+              "short_name": "Tokyo",
+              "abbreviation": "TOK"
+            },
+            "qualifier": "away",
+            "score": 3
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 3
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877661",
+        "status": "closed",
+        "start_time": "2026-08-29T10:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "6684",
+          "name": "Uvance Todoroki Stadium by Fujitsu",
+          "city": "Kawasaki",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "7112",
+              "name": "Kawasaki Frontale",
+              "short_name": "Kawasaki",
+              "abbreviation": "KAW"
+            },
+            "qualifier": "home",
+            "score": 4
+          },
+          {
+            "team": {
+              "id": "7111",
+              "name": "JEF United Ichihara-Chiba",
+              "short_name": "JEF Utd Chiba",
+              "abbreviation": "JEF"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 4,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877658",
+        "status": "closed",
+        "start_time": "2026-08-29T10:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "8750",
+          "name": "Sanga Stadium by Kyocera",
+          "city": "Kyoto",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "21361",
+              "name": "Kyoto Sanga",
+              "short_name": "Kyoto Sanga",
+              "abbreviation": "KYO"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "7107",
+              "name": "Avispa Fukuoka",
+              "short_name": "A Fukuoka",
+              "abbreviation": "AVF"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877659",
+        "status": "closed",
+        "start_time": "2026-08-29T10:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10588",
+          "name": "Toyota Stadium (Japan)",
+          "city": "Toyota",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "7108",
+              "name": "Nagoya Grampus",
+              "short_name": "Nagoya",
+              "abbreviation": "NAG"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "22522",
+              "name": "Fagiano Okayama",
+              "short_name": "Okayama",
+              "abbreviation": "OKA"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877655",
+        "status": "closed",
+        "start_time": "2026-08-29T10:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "5730",
+          "name": "Tokyo Stadium",
+          "city": "Tokyo",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "3393",
+              "name": "Tokyo Verdy 1969",
+              "short_name": "Tokyo Verdy",
+              "abbreviation": "TYKV"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "7115",
+              "name": "Kashima Antlers",
+              "short_name": "Kashima",
+              "abbreviation": "KAN"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877662",
+        "status": "closed",
+        "start_time": "2026-08-29T10:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10896",
+          "name": "Saitama Stadium 2002",
+          "city": "Saitama",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "3385",
+              "name": "Urawa Red Diamonds",
+              "short_name": "Urawa Reds",
+              "abbreviation": "URA"
+            },
+            "qualifier": "home",
+            "score": 3
+          },
+          {
+            "team": {
+              "id": "7116",
+              "name": "Yokohama F. Marinos",
+              "short_name": "Yokohama FM",
+              "abbreviation": "YOK"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 3,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401877654",
+        "status": "closed",
+        "start_time": "2026-08-29T10:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "j-league",
+          "name": "J.League"
+        },
+        "season": {
+          "id": "j-league-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "1271",
+          "name": "Kobe Wing Stadium",
+          "city": "Kobe",
+          "country": "Japan"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "7477",
+              "name": "Vissel Kobe",
+              "short_name": "Vissel Kobe",
+              "abbreviation": "VIS"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "7109",
+              "name": "Cerezo Osaka",
+              "short_name": "Cerezo Osaka",
+              "abbreviation": "CER"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401853986",
+        "status": "not_started",
+        "start_time": "2026-08-29T22:30Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "nwsl",
+          "name": "NWSL"
+        },
+        "season": {
+          "id": "nwsl-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "9895",
+          "name": "CPKC Stadium",
+          "city": "Kansas City, Missouri",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "20907",
+              "name": "Kansas City Current",
+              "short_name": "Kansas City",
+              "abbreviation": "KC"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "15366",
+              "name": "North Carolina Courage",
+              "short_name": "North Carolina",
+              "abbreviation": "NC"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "KC -120",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-120",
+            "away": "+250",
+            "draw": "+310"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-0.5",
+              "odds": "-125"
+            },
+            "away": {
+              "line": "+0.5",
+              "odds": "-110"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-180"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+130"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+100",
+              "away": "+195",
+              "draw": "+280"
+            },
+            "spread": {
+              "home": "-0.5",
+              "away": "+0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401853987",
+        "status": "not_started",
+        "start_time": "2026-08-29T23:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "nwsl",
+          "name": "NWSL"
+        },
+        "season": {
+          "id": "nwsl-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "6971",
+          "name": "Inter&Co Stadium",
+          "city": "Orlando, Florida",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "18206",
+              "name": "Orlando Pride",
+              "short_name": "Orlando",
+              "abbreviation": "ORL"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "19141",
+              "name": "Utah Royals",
+              "short_name": "Utah",
+              "abbreviation": "UTA"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "ORL +155",
+          "spread": "",
+          "over_under": 2.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "+155",
+            "away": "+155",
+            "draw": "+235"
+          },
+          "spread_line": {
+            "home": {
+              "line": "+0.5",
+              "odds": "-205"
+            },
+            "away": {
+              "line": "-0.5",
+              "odds": "+145"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o2.5",
+              "odds": "-140"
+            },
+            "under": {
+              "line": "u2.5",
+              "odds": "+100"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "+170",
+              "away": "+125",
+              "draw": "+235"
+            },
+            "spread": {
+              "home": "+0.5",
+              "away": "-0.5"
+            },
+            "total": "o2.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401854078",
+        "status": "not_started",
+        "start_time": "2026-08-30T00:45Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "nwsl",
+          "name": "NWSL"
+        },
+        "season": {
+          "id": "nwsl-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "11017",
+          "name": "Centennial Stadium",
+          "city": "Centennial",
+          "country": "USA"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "131563",
+              "name": "Denver Summit FC",
+              "short_name": "Denver",
+              "abbreviation": "DEN"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "15360",
+              "name": "Chicago Stars FC",
+              "short_name": "Chicago",
+              "abbreviation": "CHI"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 0
+        },
+        "odds": {
+          "provider": "DraftKings",
+          "details": "DEN -425",
+          "spread": "",
+          "over_under": 3.5,
+          "favorite": null,
+          "moneyline": {
+            "home": "-425",
+            "away": "+800",
+            "draw": "+475"
+          },
+          "spread_line": {
+            "home": {
+              "line": "-1.5",
+              "odds": "-155"
+            },
+            "away": {
+              "line": "+1.5",
+              "odds": "+105"
+            }
+          },
+          "total": {
+            "over": {
+              "line": "o3.5",
+              "odds": "+105"
+            },
+            "under": {
+              "line": "u3.5",
+              "odds": "-155"
+            }
+          },
+          "open": {
+            "moneyline": {
+              "home": "-475",
+              "away": "+750",
+              "draw": "+475"
+            },
+            "spread": {
+              "home": "-1.5",
+              "away": "+1.5"
+            },
+            "total": "o3.5"
+          }
+        },
+        "referees": []
+      },
+      {
+        "id": "401882538",
+        "status": "closed",
+        "start_time": "2026-08-29T10:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-f",
+          "name": "Liga F"
+        },
+        "season": {
+          "id": "liga-f-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10626",
+          "name": "Riazor",
+          "city": "La Coruña",
+          "country": "Spain"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "21145",
+              "name": "Deportivo",
+              "short_name": "Deportivo",
+              "abbreviation": "DEP"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "21424",
+              "name": "Sevilla",
+              "short_name": "Sevilla",
+              "abbreviation": "SEV"
+            },
+            "qualifier": "away",
+            "score": 1
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 1
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401882533",
+        "status": "closed",
+        "start_time": "2026-08-29T10:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-f",
+          "name": "Liga F"
+        },
+        "season": {
+          "id": "liga-f-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "8700",
+          "name": "Instalaciones de Zubieta",
+          "city": "San Sebastian",
+          "country": "Spain"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "21428",
+              "name": "Real Sociedad",
+              "short_name": "Real Sociedad",
+              "abbreviation": "RSO"
+            },
+            "qualifier": "home",
+            "score": 0
+          },
+          {
+            "team": {
+              "id": "21175",
+              "name": "Dux Logroño",
+              "short_name": " Dux Logroño",
+              "abbreviation": "DUX"
+            },
+            "qualifier": "away",
+            "score": 2
+          }
+        ],
+        "scores": {
+          "home": 0,
+          "away": 2
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401882537",
+        "status": "closed",
+        "start_time": "2026-08-29T15:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-f",
+          "name": "Liga F"
+        },
+        "season": {
+          "id": "liga-f-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "10637",
+          "name": "Ipurua",
+          "city": "Eibar",
+          "country": "Spain"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "21376",
+              "name": "Eibar",
+              "short_name": "Eibar",
+              "abbreviation": "EIB"
+            },
+            "qualifier": "home",
+            "score": 1
+          },
+          {
+            "team": {
+              "id": "21154",
+              "name": "Espanyol",
+              "short_name": "Espanyol",
+              "abbreviation": "ESP"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 1,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      },
+      {
+        "id": "401882535",
+        "status": "2nd_half",
+        "start_time": "2026-08-29T19:00Z",
+        "matchday": null,
+        "round": "",
+        "round_name": "",
+        "competition": {
+          "id": "liga-f",
+          "name": "Liga F"
+        },
+        "season": {
+          "id": "liga-f-2026",
+          "name": "2026",
+          "year": "2026"
+        },
+        "venue": {
+          "id": "7254",
+          "name": "Estadio Fernando Torres",
+          "city": "Fuenlabrada",
+          "country": "Spain"
+        },
+        "competitors": [
+          {
+            "team": {
+              "id": "21425",
+              "name": "Madrid CFF",
+              "short_name": "Madrid CFF",
+              "abbreviation": "MCF"
+            },
+            "qualifier": "home",
+            "score": 2
+          },
+          {
+            "team": {
+              "id": "21140",
+              "name": "Granada",
+              "short_name": "Granada",
+              "abbreviation": "GRA"
+            },
+            "qualifier": "away",
+            "score": 0
+          }
+        ],
+        "scores": {
+          "home": 2,
+          "away": 0
+        },
+        "odds": null,
+        "referees": []
+      }
+    ]
+  },
+  "message": ""
+}

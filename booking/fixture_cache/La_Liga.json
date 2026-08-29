@@ -1,125 +1,165 @@
 {
-  "fetched_at": 1787996546.6679966,
+  "fetched_at": 1788002621.0085387,
   "league": "La Liga",
   "country": "Spain",
   "fixtures": [
     {
-      "id": "37193",
-      "home": "AJ Auxerre SRL",
-      "away": "Angers SRL",
-      "kickoff": "11:00  \nID: 37193",
+      "id": "17612",
+      "home": "Barnet FC",
+      "away": "Cheltenham Town",
+      "kickoff": "12:30  \nID: 17612",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "40024",
-      "home": "Brest SRL",
-      "away": "Toulouse SRL",
-      "kickoff": "11:00  \nID: 40024",
+      "id": "19527",
+      "home": "Port Vale",
+      "away": "Crewe Alexandra",
+      "kickoff": "12:30  \nID: 19527",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "43313",
-      "home": "FC Lorient SRL",
-      "away": "Estac Troyes SRL",
-      "kickoff": "11:00  \nID: 43313",
+      "id": "26515",
+      "home": "Rotherham United",
+      "away": "Chesterfield FC",
+      "kickoff": "13:00  \nID: 26515",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "43314",
-      "home": "Lyon SRL",
-      "away": "Le Havre AC Srl",
-      "kickoff": "11:00  \nID: 43314",
+      "id": "26591",
+      "home": "Colchester United",
+      "away": "Rochdale AFC",
+      "kickoff": "15:00  \nID: 26591",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "43296",
-      "home": "Strasbourg SRL",
-      "away": "RC Lens SRL",
-      "kickoff": "11:00  \nID: 43296",
+      "id": "20725",
+      "home": "Crawley Town",
+      "away": "Bristol Rovers",
+      "kickoff": "15:00  \nID: 20725",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Gamba Osaka",
-      "away": "Sanfrecce Hiroshima",
-      "kickoff": "38:23\nH1",
+      "id": "26792",
+      "home": "Gillingham FC",
+      "away": "Northampton Town",
+      "kickoff": "15:00  \nID: 26792",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "V-Varen Nagasaki",
-      "away": "FC Tokyo",
-      "kickoff": "7:33\nH1",
+      "id": "20903",
+      "home": "Grimsby Town",
+      "away": "Fleetwood Town",
+      "kickoff": "15:00  \nID: 20903",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Mito Hollyhock",
-      "away": "Machida Zelvia",
-      "kickoff": "38:58\nH1",
+      "id": "22898",
+      "home": "Newport County",
+      "away": "Tranmere Rovers FC",
+      "kickoff": "15:00  \nID: 22898",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Shimizu S-Pulse",
-      "away": "Kashiwa Reysol",
-      "kickoff": "8:54\nH1",
+      "id": "23269",
+      "home": "Oldham Athletic",
+      "away": "Swindon Town",
+      "kickoff": "15:00  \nID: 23269",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Qingdao Hainiu FC",
-      "away": "Wuhan Three Towns FC",
-      "kickoff": "41:38\nH1",
+      "id": "19456",
+      "home": "Shrewsbury Town",
+      "away": "Salford City",
+      "kickoff": "15:00  \nID: 19456",
       "league": "La Liga",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Cadiz CF Mirandilla",
-      "away": "Club Atletico Central",
-      "kickoff": "77:10\nH2",
+      "home": "UD Oliveirense",
+      "away": "Penalva Do Castelo",
+      "kickoff": "62:51\nH2",
       "league": "La Liga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "CD Aurrera de Vitoria",
-      "away": "SD Amorebieta",
-      "kickoff": "36:53\nH1",
+      "home": "Energie Cottbus",
+      "away": "Greuther Furth",
+      "kickoff": "23:30\nH1",
       "league": "La Liga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "CD Illescas",
-      "away": "CF Pozuelo de Alarcon",
-      "kickoff": "40:22\nH1",
+      "home": "Heidenheim",
+      "away": "Dynamo Dresden",
+      "kickoff": "23:28\nH1",
       "league": "La Liga",
       "raw_market": {}
     },
     {
       "id": "1",
-      "home": "CP Mijas-Las Lagunas",
-      "away": "UD Melilla",
-      "kickoff": "40:02\nH1",
+      "home": "Karlsruher SC",
+      "away": "Wolfsburg",
+      "kickoff": "23:34\nH1",
       "league": "La Liga",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Gimnastica Segoviana CF",
-      "away": "Real Madrid C",
-      "kickoff": "40:46\nH1",
+      "id": "2",
+      "home": "Tokyo Verdy",
+      "away": "Kashima Antlers",
+      "kickoff": "58:23\nH2",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Kawasaki Frontale",
+      "away": "JEF United Chiba",
+      "kickoff": "59:26\nH2",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "V-Varen Nagasaki",
+      "away": "FC Tokyo",
+      "kickoff": "83:59\nH2",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Shimizu S-Pulse",
+      "away": "Kashiwa Reysol",
+      "kickoff": "89:12\nH2",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Kyoto Sanga FC",
+      "away": "Avispa Fukuoka",
+      "kickoff": "61:35\nH2",
+      "league": "La Liga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Nagoya Grampus",
+      "away": "Fagiano Okayama",
+      "kickoff": "60:33\nH2",
       "league": "La Liga",
       "raw_market": {}
     }

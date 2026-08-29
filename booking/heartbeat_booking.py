@@ -1,5 +1,5 @@
 """
-HEARTBEAT BOOKING CODE — generate SportyBet booking code for the daily heartbeat.
+HEARTBEAT BOOKING CODE - generate SportyBet booking code for the daily heartbeat.
 
 Converts the single HeartbeatFixture into the acca payload format expected by
 booking.booking_codes, runs the Playwright driver, and returns the booking code
@@ -27,13 +27,13 @@ def heartbeat_to_acca_payload(heartbeat: HeartbeatFixture, target_date: str = No
         "date": "2026-08-29",
         "accas": [
             {
-                "label": "SINGLE — Racing Santander v Elche",
+                "label": "SINGLE - Racing Santander v Elche",
                 "legs": [
                     {
                         "fixture": "Racing Santander v Elche",
                         "league": "La Liga",
                         "market_key": "BTTS_YES",
-                        "market_name": "Both teams to score — yes",
+                        "market_name": "Both teams to score - yes",
                         "pick": "BTTS Yes",
                         "price": 1.67,
                         "prob": 0.60,
@@ -68,8 +68,8 @@ def heartbeat_to_acca_payload(heartbeat: HeartbeatFixture, target_date: str = No
         "verification_stamp": "BOOKED" if heartbeat.verification_passed else "PENDING",
     }
 
-    # Label follows production intent: "SINGLE — <fixture>"
-    label = f"SINGLE — {heartbeat.fixture}"
+    # Label follows production intent: "SINGLE - <fixture>"
+    label = f"SINGLE - {heartbeat.fixture}"
 
     return {
         "date": target_date,
@@ -137,20 +137,20 @@ def _map_pick_to_market_key(pick: str, market_type: str) -> str:
 def _format_market_name(pick: str, market_type: str) -> str:
     """Format market name for display on SportyBet."""
     if market_type == "BTTS":
-        return "Both Teams to Score — Yes" if "yes" in pick.lower() else "Both Teams to Score — No"
+        return "Both Teams to Score - Yes" if "yes" in pick.lower() else "Both Teams to Score - No"
     elif market_type == "O/U":
         if "over" in pick.lower():
             return pick.replace("Over", "Over").replace("goals", "goals")
         else:
             return pick.replace("Under", "Under").replace("goals", "goals")
     elif market_type == "DC":
-        return f"Double Chance — {pick.upper()}"
+        return f"Double Chance - {pick.upper()}"
     elif market_type == "DNB":
-        return f"Draw No Bet — {pick}"
+        return f"Draw No Bet - {pick}"
     elif market_type == "HT/FT":
-        return f"Half Time / Full Time — {pick}"
+        return f"Half Time / Full Time - {pick}"
     elif market_type == "CS":
-        return f"Correct Score — {pick}"
+        return f"Correct Score - {pick}"
     else:
         return pick
 
@@ -216,7 +216,7 @@ def generate_heartbeat_booking_code(
 
     return {
         "code": None,
-        "status": "MANUAL — no result returned",
+        "status": "MANUAL - no result returned",
         "payload": payload,
         "result": result,
         "error": "No acca result in booking response",
@@ -225,11 +225,11 @@ def generate_heartbeat_booking_code(
 
 def render_heartbeat_booking_report(booking_result: dict) -> str:
     """Render a human-readable report for the heartbeat booking code."""
-    out = ["SPORTYBET HEARTBEAT BOOKING CODE — Phase 3 (code only, NO stake placed)"]
+    out = ["SPORTYBET HEARTBEAT BOOKING CODE - Phase 3 (code only, NO stake placed)"]
 
     if booking_result.get("error"):
         out.append(f"  ERROR: {booking_result['error']}")
-        out.append("  No code generated — add manually on SportyBet.")
+        out.append("  No code generated - add manually on SportyBet.")
         return "\n".join(out)
 
     code = booking_result.get("code")
@@ -240,7 +240,7 @@ def render_heartbeat_booking_report(booking_result: dict) -> str:
         out.append(f"  CODE: {code}")
         out.append("  Paste this code into SportyBet to pre-fill the slip.")
     else:
-        out.append("  No code captured — slip must be built manually.")
+        out.append("  No code captured - slip must be built manually.")
 
     # Show the leg details
     payload = booking_result.get("payload", {})
@@ -249,7 +249,7 @@ def render_heartbeat_booking_report(booking_result: dict) -> str:
             out.append(f"    {leg['fixture']} ({leg['league']})")
             out.append(f"      {leg['market_name']} @ {leg['price']}")
 
-    out.append("\n  YOU approve and stake — this system never does.")
+    out.append("\n  YOU approve and stake - this system never does.")
     return "\n".join(out)
 
 
@@ -282,7 +282,7 @@ def main():
     import re
     content = heartbeat_file.read_text(encoding="utf-8")
 
-    # Simple parser for the rendered heartbeat format
+    # Simple parser for the rendered heartbeat format (handles emojis)
     lines = content.split("\n")
     fixture = ""
     league = ""
@@ -293,13 +293,14 @@ def main():
     bookmaker = "Bet365"
 
     for line in lines:
+        # Match emoji characters by their Unicode codepoints
         if "⚽" in line and "League" in line:
             league = line.replace("⚽", "").strip()
         elif "🕐" in line and "v" in line:
             fixture = line.replace("🕐", "").strip().split("   ")[-1]
         elif "💡" in line and "Pick:" in line:
-            # Pick: 🤝 Both teams to score -- yes (60%)
-            pick_match = re.search(r"Pick:\s*[\w\s]+\s*([^(]+)\s*\((\d+)%\)", line)
+            # Pick: 📈 Over 2.5 goals (66%)
+            pick_match = re.search(r"Pick:\s*[\w\s]*\s*([^(]+)\s*\((\d+)%\)", line)
             if pick_match:
                 pick = pick_match.group(1).strip()
                 prob = int(pick_match.group(2)) / 100.0
@@ -329,7 +330,7 @@ def main():
         verification_passed=False,
     )
 
-    print(f"Generating booking code for: {heartbeat.fixture} — {heartbeat.pick} @ {heartbeat.price}")
+    print(f"Generating booking code for: {heartbeat.fixture} - {heartbeat.pick} @ {heartbeat.price}".encode('ascii', 'replace').decode('ascii'))
     result = generate_heartbeat_booking_code(heartbeat, target_date, headless=not args.headed)
     print(render_heartbeat_booking_report(result))
 

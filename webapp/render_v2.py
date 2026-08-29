@@ -208,12 +208,13 @@ def _hero(payload: dict) -> str:
 
 
 def _feed_flags(payload: dict) -> str:
-    """Data flags — the honest ⚠ line, absent when clean."""
-    flags = payload.get("data_flags") or []
-    if not flags:
-        return ""
-    chips = "".join(f'<span class="flag">{html.escape(f)}</span>' for f in flags)
-    return f'<div class="data-flags"><span class="flag-head">⚠ {len(flags)} data flag(s)</span>{chips}</div>'
+    """Data flags — ARCHITECT 2026-08-29: never surfaced in delivered output.
+
+    Flags remain in the agent payloads / logs for audit but are intentionally
+    NOT rendered to the dashboard, board, or Telegram push. A produced board
+    must show only verified, booked selections. Returns empty so the slot is
+    gone; kept as a function so schema callers don't change."""
+    return ""
 
 
 def _feed_gate_callout(payload: dict) -> str:

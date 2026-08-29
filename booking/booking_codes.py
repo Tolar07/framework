@@ -1112,12 +1112,10 @@ def main() -> None:
         pass
 
     parser = argparse.ArgumentParser(
-        description="Generate SportyBet booking codes for the day's accas. "
+        description="Generate SportyBet booking codes for the day's board fixtures. "
                     "READ-ONLY — never places a bet, never stakes.")
     parser.add_argument("--date", default=None,
-                        help="Acca date as YYYY-MM-DD (default: today)")
-    parser.add_argument("--accas", default=None,
-                        help="Explicit acca payload path (overrides --date)")
+                        help="Board date as YYYY-MM-DD (default: today)")
     parser.add_argument("--headed", action="store_true",
                         help="Run the browser visibly (debugging)")
     args = parser.parse_args()
@@ -1125,20 +1123,18 @@ def main() -> None:
     from datetime import date
     day = args.date or date.today().isoformat()
     try:
-        if args.accas:
-            payload = json.loads(Path(args.accas).read_text(encoding="utf-8"))
-            day = payload.get("date", day)
-        else:
-            payload = _load_acca_payload(day)
+        # Load board payload from board_<day>.json
+        board_path = Path("output/boards") / f"board_{day}.json"
+        payload = json.loads(board_path.read_text(encoding="utf-8"))
     except Exception as e:
         print(f"ERROR: {e}")
         sys.exit(1)
 
-    result = book_accas(payload, headless=not args.headed)
+    result = book_board_fixtures(payload, headless=not args.headed)
     print(render_codes(result))
-    # Also persist the codes next to the acca payload.
+    # Also persist the codes next to the board payload.
     try:
-        out_path = BOARD_DIR / f"acca_{day}_codes.json"
+        out_path = BOARD_DIR / f"board_{day}_codes.json"
         out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2),
                             encoding="utf-8")
         print(f"\n  codes written to {out_path}")

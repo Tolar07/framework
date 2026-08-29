@@ -14,6 +14,10 @@ from typing import Optional
 
 from output.heartbeat import get_heartbeat_stats, HeartbeatFixture
 
+# Absolute path to the canonical history file (repo-rooted)
+REPO_ROOT = Path(__file__).parent.parent
+HISTORY_FILE = REPO_ROOT / "data" / "heartbeat" / "history.jsonl"
+
 
 @dataclass
 class StakeState:
@@ -107,8 +111,7 @@ def get_stake_state() -> StakeState:
     stats = get_heartbeat_stats()
 
     # Replay history to get current bankroll
-    history_file = Path("data/heartbeat/history.jsonl")
-    if not history_file.exists():
+    if not HISTORY_FILE.exists():
         return StakeState(
             current_stake=DEFAULT_STARTING_STAKE,
             bankroll=DEFAULT_STARTING_BANKROLL,
@@ -127,7 +130,7 @@ def get_stake_state() -> StakeState:
     last_prob = 0.0
 
     import json
-    with history_file.open("r", encoding="utf-8") as f:
+    with HISTORY_FILE.open("r", encoding="utf-8") as f:
         for line in f:
             if not line.strip():
                 continue

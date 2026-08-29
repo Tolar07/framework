@@ -1,125 +1,109 @@
 {
-  "fetched_at": 1787996179.9802392,
+  "fetched_at": 1788035319.346599,
   "league": "Ligue 1",
   "country": "France",
   "fixtures": [
     {
-      "id": "37193",
-      "home": "AJ Auxerre SRL",
-      "away": "Angers SRL",
-      "kickoff": "11:00  \nID: 37193",
+      "id": "13320",
+      "home": "Atletico FC Cali",
+      "away": "Bogota FC",
+      "kickoff": "21:30  \nID: 13320",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
-      "id": "40024",
-      "home": "Brest SRL",
-      "away": "Toulouse SRL",
-      "kickoff": "11:00  \nID: 40024",
+      "id": "26152",
+      "home": "CD Real Santander",
+      "away": "Internacional de Palmira",
+      "kickoff": "21:30  \nID: 26152",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
-      "id": "43313",
-      "home": "FC Lorient SRL",
-      "away": "Estac Troyes SRL",
-      "kickoff": "11:00  \nID: 43313",
+      "id": "31649",
+      "home": "Real Cartagena FC",
+      "away": "Tigres FC",
+      "kickoff": "23:30  \nID: 31649",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
-      "id": "43314",
-      "home": "Lyon SRL",
-      "away": "Le Havre AC Srl",
-      "kickoff": "11:00  \nID: 43314",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "43296",
-      "home": "Strasbourg SRL",
-      "away": "RC Lens SRL",
-      "kickoff": "11:00  \nID: 43296",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Gamba Osaka",
-      "away": "Sanfrecce Hiroshima",
-      "kickoff": "32:45\nH1",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "V-Varen Nagasaki",
-      "away": "FC Tokyo",
-      "kickoff": "1:32\nH1",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Mito Hollyhock",
-      "away": "Machida Zelvia",
-      "kickoff": "33:05\nH1",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Shimizu S-Pulse",
-      "away": "Kashiwa Reysol",
-      "kickoff": "2:53\nH1",
-      "league": "Ligue 1",
-      "raw_market": {}
-    },
-    {
-      "id": "1",
-      "home": "Qingdao Hainiu FC",
-      "away": "Wuhan Three Towns FC",
-      "kickoff": "35:42\nH1",
+      "id": "Ligue 1-3",
+      "home": "Sevilla",
+      "away": "Atletico Madrid",
+      "kickoff": "45:00\nHT",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
       "id": "2",
-      "home": "Cadiz CF Mirandilla",
-      "away": "Club Atletico Central",
-      "kickoff": "71:16\nH2",
+      "home": "Juventus",
+      "away": "Parma Calcio",
+      "kickoff": "80:13\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "CD Aurrera de Vitoria",
-      "away": "SD Amorebieta",
-      "kickoff": "30:52\nH1",
+      "id": "2",
+      "home": "Lyon",
+      "away": "Le Havre",
+      "kickoff": "86:25\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "CD Illescas",
-      "away": "CF Pozuelo de Alarcon",
-      "kickoff": "34:21\nH1",
+      "id": "2",
+      "home": "AJ Auxerre",
+      "away": "Angers",
+      "kickoff": "83:58\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "CP Mijas-Las Lagunas",
-      "away": "UD Melilla",
-      "kickoff": "34:02\nH1",
+      "id": "2",
+      "home": "Brest",
+      "away": "Toulouse",
+      "kickoff": "84:12\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     },
     {
-      "id": "1",
-      "home": "Gimnastica Segoviana CF",
-      "away": "Real Madrid C",
-      "kickoff": "34:45\nH1",
+      "id": "2",
+      "home": "Lorient",
+      "away": "Troyes",
+      "kickoff": "84:46\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "PEC Zwolle",
+      "away": "NEC Nijmegen",
+      "kickoff": "68:15\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "FC Pacos Ferreira",
+      "away": "AD Fafe",
+      "kickoff": "65:30\nH2",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "Ligue 1-11",
+      "home": "Girona",
+      "away": "Las Palmas",
+      "kickoff": "45:00\nHT",
+      "league": "Ligue 1",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Ascoli Calcio 1898",
+      "away": "Carrarese Calcio",
+      "kickoff": "67:22\nH2",
       "league": "Ligue 1",
       "raw_market": {}
     }

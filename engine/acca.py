@@ -235,6 +235,17 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
     probabilities as fallback so no fixture is ever dropped from bet production."""
     if not getattr(bf, "on_deploy_shortlist", False):
         return (None, None)
+    # ARCHITECT 2026-08-29: every leg must be cross-source VERIFIED before it
+    # can be priced, scored or booked. verify_board stamps bf.verified as a bool
+    # on EVERY board fixture (True = confirmed by ESPN/FootballData OR SportyBet
+    # + a second source). An unverified fixture (single-source only, or not
+    # found in any source) is never admitted to Acca A, the split accas or the
+    # singles — exactly the "all data verified before it is produced" rule. The
+    # stamp stays on the board/web for audit; it simply cannot produce a bet.
+    # (A missing stamp can only occur outside the live gate, so we skip ONLY the
+    # explicit False — never guess, HR35.)
+    if getattr(bf, "verified", None) is False:
+        return (None, None)
     home, away = _team_pair(bf)
     fx = None
     if odds_index is not None:
@@ -348,18 +359,18 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
             # If none exists for this fixture, fall back to best in 1.50-2.00 zone.
             # Ranking uses canonical edge (probability gap); EV stored on leg for info/staking.
             if in_preferred:
-                if (best_capital_preferred is None or (edge is not None and (best_capital_preferred.edge is None or edge > best_capital_preferred.edge))
-                        or (edge == best_capital_preferred.edge and prob > best_capital_preferred.prob)):
+                if (best_capital_preferred is None or (ev is not None and (best_capital_preferred.ev is None or ev > best_capital_preferred.ev))
+                        or (ev == best_capital_preferred.ev and prob > best_capital_preferred.prob)):
                     best_capital_preferred = leg
             else:
                 # Outside preferred zone (1.50-2.00) — only considered if no preferred-zone leg
-                if (best_capital is None or (edge is not None and (best_capital.edge is None or edge > best_capital.edge))
-                        or (edge == best_capital.edge and prob > best_capital.prob)):
+                if (best_capital is None or (ev is not None and (best_capital.ev is None or ev > best_capital.ev))
+                        or (ev == best_capital.ev and prob > best_capital.prob)):
                     best_capital = leg
         else:
             # Watchlist leg (odds > 2.00) — track the best one for review
-            if (best_watchlist is None or (edge is not None and (best_watchlist.edge is None or edge > best_watchlist.edge))
-                    or (edge == best_watchlist.edge and prob > best_watchlist.prob)):
+            if (best_watchlist is None or (ev is not None and (best_watchlist.ev is None or ev > best_watchlist.ev))
+                    or (ev == best_watchlist.ev and prob > best_watchlist.prob)):
                 best_watchlist = leg
     # Return preferred-zone capital leg if any, else fallback capital leg, and watchlist leg
     capital_leg = best_capital_preferred or best_capital

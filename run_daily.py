@@ -1222,9 +1222,15 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             p_model = recal.apply(model_p_in, cal.get(market))
             p_model = recal.apply_platt(p_model, platt.get(market))
             p_ev = mkt.blend_toward_market(p_model, mp)
-            edge = edge_diff(p_ev, quote.price)
-            if edge is not None and (best is None or edge > best[0]):
-                best = (edge, market, raw_p, quote, p_model)
+            # ARCHITECT 2026-08-29: THE CALL headlines the BEST EV market across
+            # the whole EDGE_MARKETS universe (1X2 + O1.5/O2.5/O3.5 + BTTS +
+            # Double Chance). EV = model_prob × price − 1 (MES), not the
+            # probability-gap edge — the model's own calibrated currency of
+            # expected value per unit staked. Every market carries its own live
+            # price (HR35), so alt markets compete on equal footing.
+            ev = p_ev * quote.price - 1 if quote.price else None
+            if ev is not None and (best is None or ev > best[0]):
+                best = (ev, market, raw_p, quote, p_model)
         if best:
             edge, market, raw_p, quote, p_model = best
             # Use fixture name for display when no model probs

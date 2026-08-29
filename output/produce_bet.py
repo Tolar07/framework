@@ -213,6 +213,11 @@ def render_part0(mode: str, phase: str, leagues_scanned: list[str],
                   calibration_count: int, mean_clv: Optional[float],
                   data_flags: list[str],
                   include_data_flags: bool = True) -> str:
+    # ARCHITECT 2026-08-29: data flags are NEVER surfaced in delivered output.
+    # They remain in memory (agent payloads / logs) for audit, but the board,
+    # Telegram and web push show only verified, produced selections. Setting
+    # include_data_flags=True is now a no-op — the section is intentionally
+    # gone so a produced board can never carry an unreviewed gap flag.
     lines = [
         f"PART 0 — HEADER",
         f"Date: {date.today().isoformat()} | Mode: {mode} | Phase: {phase}",
@@ -221,9 +226,6 @@ def render_part0(mode: str, phase: str, leagues_scanned: list[str],
         f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None
         else f"Calibration: {calibration_count} legs logged, CLV logged: ZERO",
     ]
-    if include_data_flags and data_flags:
-        lines.append("DATA FLAGS (surfaced first, per HR53/ID403):")
-        lines.extend(f"  ⚠ {flag}" for flag in data_flags)
     lines.append("HONEST EDGE LINE: this is an excellent informed process but "
                   "NOT a demonstrated profitable edge.")
     # ID409 frozen-contract supersession — RATIFIED 2026-08-15 (Architect

@@ -24,7 +24,6 @@ except ImportError:
     sync_playwright = None
 
 from booking.league_map import SPORTYBET_LEAGUES
-from booking.sportybet_fixtures import _navigate_to_league_sync as _navigate
 
 BASE_URL = "https://sportybet.com"
 CLOCK_RE = re.compile(r"^\d{1,2}:\d{2}$")  # pre-match kickoff, not HT/H2/Ended
@@ -35,16 +34,86 @@ CLOCK_RE = re.compile(r"^\d{1,2}:\d{2}$")  # pre-match kickoff, not HT/H2/Ended
 # the browser does not depend on its own resolver.
 import socket
 
+# Known Cloudflare IPs for sportybet.com (resolved externally, hardcoded here
+# because DNS resolution may fail in this sandbox)
+SPORTYBET_COM_IPS = ["104.21.10.148", "172.67.163.154"]
+
 
 def _resolver_rule(host: str) -> str:
+    if host == "sportybet.com":
+        rules = []
+        for ip in SPORTYBET_COM_IPS:
+            rules.append(f"MAP {host}:443 {ip}")
+        return ",".join(rules) if rules else ""
     rules = []
-    for fam, _, _, _, sockaddr in socket.getaddrinfo(host, None):
+    for fam, _, _, _, sockaddr in socket.getaddrinfo(host, 443):
         ip = sockaddr[0]
         if ":" in ip:  # IPv6 — bracket it for the rule
-            rules.append(f"MAP {host} [{ip}]")
+            rules.append(f"MAP {host}:443 [{ip}]")
         else:
-            rules.append(f"MAP {host} {ip}")
+            rules.append(f"MAP {host}:443 {ip}")
     return ",".join(rules) if rules else ""
+
+
+def _navigate_to_league(page: Page, country: str, league: str) -> bool:
+    """Direct navigation (bypasses sportybet_fixtures helper which ignores DNS pin).
+    Uses the direct deep-link pattern from _navigate_to_league_sync."""
+    # Use the same direct-URL mapping as the builder, but try with IP if DNS fails
+    from booking.sportybet_fixtures import SPORTYBET_CATEGORY_TOURNAMENT
+    cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
+    if cat_tour and cat_tour[0] != 0:
+        cat_id, tour_id = cat_tour
+        host = "sportybet.com"
+        # Try to resolve the host to an IP to use in URL as fallback
+        try:
+            ip = socket.gethostbyname(host)
+        except Exception:
+            ip = None
+        # First try the domain name (with resolver rule in effect)
+        direct_url = f"https://{host}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{tour_id}?source=sport_menu&sort=2"
+        try:
+            print(f"  -> Direct URL (domain): {direct_url}")
+            page.goto(direct_url, wait_until="domcontentloaded", timeout=45000)
+            page.wait_for_timeout(5000)
+            # Verify we're on the right page by checking for fixture rows
+            rows = page.query_selector_all(".m-table-row.match-row")
+            if rows:
+                return True
+        except Exception as e:
+            print(f"  x direct nav error (domain): {e}")
+        # If that failed and we have an IP, try the IP directly
+        if ip:
+            direct_url_ip = f"https://{ip}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{tour_id}?source=sport_menu&sort=2"
+            try:
+                print(f"  -> Direct URL (IP): {direct_url_ip}")
+                page.goto(direct_url_ip, wait_until="domcontentloaded", timeout=45000)
+                page.wait_for_timeout(5000)
+                rows = page.query_selector_all(".m-table-row.match-row")
+                if rows:
+                    return True
+            except Exception as e:
+                print(f"  x direct nav error (IP): {e}")
+    # Fallback: go to football homepage (try domain then IP) and click via sidebar
+    for base in [f"https://{host}/ng/sport/football", f"https://{ip}/ng/sport/football" if ip else None]:
+        if base is None:
+            continue
+        try:
+            print(f"  -> Fallback to homepage: {base}")
+            page.goto(base, wait_until="domcontentloaded", timeout=45000)
+            page.wait_for_timeout(3000)
+            # Try to click the league link in popular-list
+            league_link = page.locator(
+                f'.popular-list .top-link:has(.top-link-item:has-text("{league}"))'
+            ).first
+            if league_link.count():
+                league_link.click()
+                page.wait_for_timeout(4000)
+                rows = page.query_selector_all(".m-table-row.match-row")
+                if rows:
+                    return True
+        except Exception as e:
+            print(f"  x click nav error: {e}")
+    return False
 
 
 def _find_upcoming_row(page: Page):
@@ -111,13 +180,19 @@ def main() -> None:
         print(f"League {args.league!r} not in SPORTYBET_LEAGUES")
         sys.exit(1)
 
-    resolver_rule = _resolver_rule("www.sportybet.com.ng")
+    resolver_rule = _resolver_rule("sportybet.com")
     launch_args = ["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]
     if resolver_rule:
         launch_args.append(f"--host-resolver-rules={resolver_rule}")
+    print(f"Launch args: {launch_args}")
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=not args.headed, args=launch_args)
+        # Verify the resolver rule is active
+        try:
+            print(f"Browser process PID: {browser.process.pid if hasattr(browser, 'process') else 'N/A'}")
+        except:
+            pass
         ctx = browser.new_context(
             user_agent=("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                         "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -126,7 +201,7 @@ def main() -> None:
         page = ctx.new_page()
         try:
             print(f"Navigating to {mapping.country}/{mapping.league} ...")
-            ok = _navigate(page, mapping.country, mapping.league)
+            ok = _navigate_to_league(page, mapping.country, mapping.league)
             if not ok:
                 print("NAV FAILED — could not open league page")
                 sys.exit(1)

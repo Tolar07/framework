@@ -42,6 +42,7 @@ $Tasks = @(
     @{ Name = "OLP XDV Dead Man's Switch";  Bat = "dead_mans_switch.bat";  Trigger = "Daily 08:00" }
     @{ Name = "OLP XDV Telegram Poller";    Bat = "telegram_poller.bat";   Trigger = "At logon (resident)" }
     @{ Name = "OLP XDV Fixture Watcher";    Bat = "fixture_watcher.bat";   Trigger = "Every 1h" }
+    @{ Name = "OLP XDV MCP Watchdog";       Bat = "mcp_watchdog.bat";     Trigger = "Every 30 min" }
 )
 
 foreach ($t in $Tasks) {
@@ -55,7 +56,7 @@ foreach ($t in $Tasks) {
 
     $existing = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
     if (-not $existing) {
-        Write-Host "TASK MISSING: '$taskName' — run the matching setup_*.ps1 first."
+        Write-Host "TASK MISSING: '$taskName' -- run the matching setup_*.ps1 first."
         continue
     }
 
@@ -66,37 +67,23 @@ foreach ($t in $Tasks) {
         continue
     }
 
-    # Re-apply the action (cmd.exe /c "full path") — same space-safe form as setup_*.ps1
-    $action = New-ScheduledTaskAction `
-        -Execute "C:\Windows\System32\cmd.exe" `
-        -Argument ('/c ""' + $bat + '""') `
-        -WorkingDirectory $proj
+    # Re-apply the action (cmd.exe /c "full path") -- same space-safe form as setup_*.ps1
+    $action = New-ScheduledTaskAction -Execute "C:\Windows\System32\cmd.exe" -Argument ('/c ""' + $bat + '""') -WorkingDirectory $proj
 
     # Hardened settings: reboot-survival + restart-on-failure
-    $settings = New-ScheduledTaskSettingsSet `
-        -AllowStartIfOnBatteries `
-        -DontStopIfGoingOnBatteries `
-        -StartWhenAvailable `
-        -RestartCount 3 `
-        -RestartInterval (New-TimeSpan -Minutes 5) `
-        -ExecutionTimeLimit (New-TimeSpan -Hours 0) `   # 0 = no limit
-        -MultipleInstances IgnoreNew `
-        -Priority 7
+    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 5) -ExecutionTimeLimit (New-TimeSpan -Hours 0) -MultipleInstances IgnoreNew -Priority 7
 
     # Principal: keep interactive + highest (matches existing security model)
-    $principal = New-ScheduledTaskPrincipal `
-        -UserId "$env:USERDOMAIN\$env:USERNAME" `
-        -LogonType Interactive `
-        -RunLevel Highest
+    $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType Interactive -RunLevel Highest
 
     try {
         Set-ScheduledTask -TaskName $taskName -Action $action -Settings $settings -Principal $principal
-        Write-Host "  OK — hardened. RestartCount=3, RestartInterval=5m, StartWhenAvailable=on"
+        Write-Host "  OK -- hardened. RestartCount=3, RestartInterval=5m, StartWhenAvailable=on"
     } catch {
         Write-Error "FAILED to harden '$taskName': $_"
     }
 }
 
 Write-Host "`nAll tasks processed. Verify with:"
-Write-Host "  Get-ScheduledTask | Where-Object { `$_.TaskName -like 'OLP XDV*' } | Format-List TaskName, State"
+Write-Host "  Get-ScheduledTask | Where-Object { $_.TaskName -like 'OLP XDV*' } | Format-List TaskName, State"
 Write-Host "  Get-ScheduledTask -TaskName 'OLP XDV Daily Board' | Select-Object -ExpandProperty Settings"

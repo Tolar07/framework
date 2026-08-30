@@ -42,7 +42,7 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Primeira Liga":       BookmakerLeague("Portugal", "Liga Portugal"),
     "Liga Portugal":       BookmakerLeague("Portugal", "Liga Portugal"),   # acca payload alias
     "Premier League":      BookmakerLeague("England", "Premier League"),
-    "La Liga":             BookmakerLeague("Spain", "LaLiga"),
+    "La Liga":             BookmakerLeague("Spain", "La Liga"),
     "LaLiga":              BookmakerLeague("Spain", "LaLiga"),   # acca payload alias
     "La Liga 2":           BookmakerLeague("Spain", "LaLiga2"),
     "Champions League":    BookmakerLeague("International Clubs", "UEFA Champions League"),

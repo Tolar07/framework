@@ -48,6 +48,7 @@ from data.football_data_source import load_league
 from clv.clv_logger import CLVLog, compute_clv, ensemble_weights
 from clv.closing_capture import capture_closing_lines
 from output import notify
+from output.produce_bet import render_telegram_board
 from output.produce_bet import render_verify_results, render_produce_bet
 from output.render_fixture_list import render_fixture_list
 from booking.verify_fixtures import _parse_bet365_datetime

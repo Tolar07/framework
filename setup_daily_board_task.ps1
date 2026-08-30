@@ -17,7 +17,7 @@ if (-not $isElevated) {
 $proj   = Split-Path -Parent $MyInvocation.MyCommand.Path
 $bat    = Join-Path $proj "run_daily.bat"
 $task   = "OLP XDV Daily Board"
-$time   = "07:00"
+$time   = "22:00"
 
 if (-not (Test-Path $bat)) { Write-Error "run_daily.bat not found at $bat"; exit 1 }
 

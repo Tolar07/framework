@@ -43,6 +43,7 @@ $Tasks = @(
     @{ Name = "OLP XDV Telegram Poller";    Bat = "telegram_poller.bat";   Trigger = "At logon (resident)" }
     @{ Name = "OLP XDV Fixture Watcher";    Bat = "fixture_watcher.bat";   Trigger = "Every 1h" }
     @{ Name = "OLP XDV MCP Watchdog";       Bat = "mcp_watchdog.bat";     Trigger = "Every 30 min" }
+    @{ Name = "OLP XDV FlashScore Scraper"; Bat = "scrape_flashscore_daily.bat"; Trigger = "Daily 03:00" }
 )
 
 foreach ($t in $Tasks) {

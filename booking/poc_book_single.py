@@ -25,7 +25,7 @@ except ImportError:
 
 from booking.league_map import SPORTYBET_LEAGUES
 
-BASE_URL = "https://sportybet.com"
+BASE_URL = "https://sportybet.com.ng"
 CLOCK_RE = re.compile(r"^\d{1,2}:\d{2}$")  # pre-match kickoff, not HT/H2/Ended
 
 # Chromium in some sandboxes has a broken internal DNS resolver (curl/python
@@ -34,15 +34,16 @@ CLOCK_RE = re.compile(r"^\d{1,2}:\d{2}$")  # pre-match kickoff, not HT/H2/Ended
 # the browser does not depend on its own resolver.
 import socket
 
-# Known Cloudflare IPs for sportybet.com (resolved externally, hardcoded here
-# because DNS resolution may fail in this sandbox)
-SPORTYBET_COM_IPS = ["104.21.10.148", "172.67.163.154"]
+# Known Cloudflare IPs for sportybet.com.ng (resolved externally, hardcoded here
+# because DNS resolution may fail in this sandbox). sportybet.com.ng resolves
+# and serves the Nigeria site; sportybet.com does not resolve in this env.
+SPORTYBET_COM_NG_IPS = ["104.21.10.148", "172.67.163.154"]
 
 
 def _resolver_rule(host: str) -> str:
-    if host == "sportybet.com":
+    if host == "sportybet.com.ng":
         rules = []
-        for ip in SPORTYBET_COM_IPS:
+        for ip in SPORTYBET_COM_NG_IPS:
             rules.append(f"MAP {host}:443 {ip}")
         return ",".join(rules) if rules else ""
     rules = []
@@ -63,7 +64,7 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
     cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
     if cat_tour and cat_tour[0] != 0:
         cat_id, tour_id = cat_tour
-        host = "sportybet.com"
+        host = "sportybet.com.ng"
         # Try to resolve the host to an IP to use in URL as fallback
         try:
             ip = socket.gethostbyname(host)
@@ -180,7 +181,7 @@ def main() -> None:
         print(f"League {args.league!r} not in SPORTYBET_LEAGUES")
         sys.exit(1)
 
-    resolver_rule = _resolver_rule("sportybet.com")
+    resolver_rule = _resolver_rule("sportybet.com.ng")
     launch_args = ["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]
     if resolver_rule:
         launch_args.append(f"--host-resolver-rules={resolver_rule}")

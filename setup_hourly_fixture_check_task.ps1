@@ -18,7 +18,7 @@ $script = Join-Path $scriptsDir "hourly-fixture-check.js"
 $logsDir = Join-Path $proj "logs"
 $hourlyLogsDir = Join-Path $logsDir "hourly-fixture-check"
 $wrapperLog = Join-Path $hourlyLogsDir "scheduler-wrapper.log"
-$task   = "OLP XDV Hourly Fixture Check"
+$task   = "OLP XDV Daily Result Verification"
 
 if (-not (Test-Path $script)) { Write-Error "hourly-fixture-check.js not found at $script"; exit 1 }
 
@@ -29,9 +29,8 @@ $action  = New-ScheduledTaskAction `
     -Argument ('/c "node "' + $script + '" 2>&1 >> "' + $wrapperLog + '"') `
     -WorkingDirectory $proj
 
-# Run every hour, starting at the top of the next hour
-# Use 1 year as max duration (Windows Task Scheduler limit)
-$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddHours(1).ToString("HH:mm") -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Days 365)
+# Run daily at 22:00
+$trigger = New-ScheduledTaskTrigger -Daily -At "22:00"
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
 $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType Interactive -RunLevel Highest
 

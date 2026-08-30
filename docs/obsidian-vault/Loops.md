@@ -24,20 +24,23 @@
 
 ---
 
-## 2. Hourly Fixture Check (Every Hour) — `scripts/hourly-fixture-check.js`
+## 2. Daily Result Verification (22:00) — `scripts/hourly-fixture-check.js`
 
 | Field | Value |
 |-------|-------|
 | **Owner** | `scripts/hourly-fixture-check.js` |
-| **Schedule** | Every hour, starting at top of next hour (Task: "OLP XDV Hourly Fixture Check") |
-| **Purpose** | Refresh awareness of upcoming fixtures; run lightweight pipeline (agents 1-4) if board exists; run full pipeline if no board for today |
-| **Scope** | Only fixtures with `match_date >= today` and `hit IS NULL` (not yet kicked off) |
-| **Duration** | ~30-60 seconds (lightweight) / ~2-5 min (full if triggered) |
-| **Failure mode** | Logs to `logs/hourly-fixture-check/hourly-fixture-YYYY-MM-DD.log`; Dead Man's Switch catches prolonged silence |
+| **Schedule** | Daily at 22:00 local (Task: "OLP XDV Daily Result Verification") |
+| **Purpose** | Verify settled results for today's fixtures including heartbeat pick; update heartbeat records with WIN/LOSS |
+| **Scope** | All fixtures with `match_date == today` and `hit IS NULL` (awaiting settlement) |
+| **Duration** | ~2-5 minutes (full verification pipeline) |
+| **Failure mode** | Run Watchdog (post-22:00) detects missing verification, alerts |
 | **Script** | `setup_hourly_fixture_check_task.ps1` |
 
 **Key behaviour:**
-- Queries `predictions` table for fixtures with `hit IS NULL` and `match_date >= date('now')`
+- Queries `predictions` table for fixtures with `hit IS NULL` and `match_date == today`
+- Runs full verification pipeline (agents 1-10) to capture settled outcomes
+- Updates heartbeat history with WIN/LOSS results for compounding
+- Logs to `logs/daily_verification_YYYY-MM-DD.log` `match_date >= date('now')`
 - Filters to matches **not yet kicked off** (by match_date)
 - If no board for today → runs full `run_daily.py`
 - If board exists → runs lightweight `olp_xdv_pipeline.py --only 1-4 --dry-run`

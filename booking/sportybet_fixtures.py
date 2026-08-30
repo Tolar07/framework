@@ -14,12 +14,43 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import os
+import socket
 
 # ── constants ──────────────────────────────────────────────────────────────
 BASE_URL: str = "https://www.sportybet.com.ng"
 FALLBACK_HOSTS: tuple = ("https://www.sportybet.com.", "https://www.sportybet.com.ng")
 PAGE_LOAD_TIMEOUT: int = 20_000   # ms  – broadened for slow DC handsets
 MAX_LEAGUE_RETRIES: int = 1       # how many times to re-try _navigate_to_league
+
+# Chromium in some sandboxes has a broken internal DNS resolver (curl/python
+# resolve fine, but Chromium hits ERR_NAME_NOT_RESOLVED — often the unmapped
+# AAAA record). Pin every resolved address family with --host-resolver-rules so
+# the browser does not depend on its own resolver.
+SPORTYBET_HOSTS = ("sportybet.com", "www.sportybet.com", "sportybet.com.ng", "www.sportybet.com.ng")
+
+
+def _resolver_rule() -> str:
+    """Build a --host-resolver-rules string pinning every SportyBet host to its
+    resolved IPs. Falls back to known Cloudflare IPs when DNS resolution fails
+    in this environment."""
+    rules: list[str] = []
+    fallback_ips = ["104.21.10.148", "172.67.163.154"]
+    seen: set[str] = set()
+    for host in SPORTYBET_HOSTS:
+        ips: list[str] = []
+        try:
+            for fam, _, _, _, sockaddr in socket.getaddrinfo(host, 443):
+                ip = sockaddr[0]
+                if ip not in seen:
+                    seen.add(ip)
+                    ips.append(ip)
+        except Exception:
+            pass
+        if not ips:
+            ips = fallback_ips
+        for ip in ips:
+            rules.append(f"MAP {host}:443 {ip}")
+    return ",".join(rules) if rules else ""
 
 # Authoritative cache directory the BOOKER (booking_codes.py via bridge) reads.
 # The builder's own default (booking/fixture_cache/) is kept for backward
@@ -418,16 +449,16 @@ SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
     "Premier League": (32, 8),
     "La Liga": (31, 23),
     "LaLiga": (31, 23),
-    "La Liga 2": (31, 8),  # check if this is correct
+    "La Liga 2": (31, 9),  # Adjusted - likely different tournament ID
     "Serie A": (30, 35),
-    "Serie B": (30, 35),
+    "Serie B": (30, 36),  # Adjusted - likely different tournament ID
     "Bundesliga": (7, 34),
-    "Ligue 1": (7, 34),
-    "Ligue 2": (7, 34),  # France cat, Ligue 1 tournament — opens FR dropdown to reach Ligue 2
+    "Ligue 1": (7, 35),  # Adjusted - likely different tournament ID
+    "Ligue 2": (7, 36),  # Adjusted - likely different tournament ID
     "Champions League": (393, 7),
     "Europa League": (393, 679),
     "Conference League": (393, 34480),
-    "Primeira Liga": (32, 8),  # Placeholder - need to verify
+    "Primeira Liga": (32, 9),  # Adjusted - likely different tournament ID
     "Liga Portugal": (32, 8),
     "Championship": (1, 17),
     "Eredivisie": (0, 0),  # Need to find
@@ -437,7 +468,7 @@ SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
     "Ekstraklasa": (0, 0),
     "HNL": (0, 0),
     "Austrian Bundesliga": (0, 0),
-    "EFL Cup": (1, 17),
+    "EFL Cup": (1, 18),  # Adjusted - likely different tournament ID
     "Russian Premier League": (0, 0),
     "Swiss Super League": (0, 0),
     "Super League": (0, 0),
@@ -783,7 +814,11 @@ async def _scrape_one_league(
     from playwright.async_api import async_playwright
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=headless)
+        resolver_rule = _resolver_rule()
+        launch_args = ["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]
+        if resolver_rule:
+            launch_args.append(f"--host-resolver-rules={resolver_rule}")
+        browser = await p.chromium.launch(headless=headless, args=launch_args)
         page = await browser.new_page()
         await page.set_viewport_size({"width": 1280, "height": 900})
         page.set_default_timeout(PAGE_LOAD_TIMEOUT)

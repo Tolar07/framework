@@ -488,28 +488,35 @@ def _enrich_fixtures_with_models(
                     elif market_key == "1X2_AWAY":
                         sb_odds["away"] = sb_price
 
-            # Determine best market for this fixture
+            # Determine best market for this fixture - use same logic as ACCA builder
             if probs is not None:
-                candidates = []
-                for mk in mkt.EDGE_MARKETS:
-                    prob = mkt.model_prob(mk, probs)
-                    if prob is None:
-                        continue
-                    price = None
-                    if mk in mkt.MARKETS_1X2:
-                        price = sb_odds.get(mkt.MARKETS_1X2[mk])
-                    # Could also check odds_index here for other markets
-                    if price and price > 1.0:
-                        edge = edge_diff(prob, price)
-                        ev = mes_numeric_ev(prob, price)
-                        candidates.append((edge, prob, price, mk, ev))
-                if candidates:
-                    candidates.sort(key=lambda x: (x[0] if x[0] is not None else -1, x[1]), reverse=True)
-                    best_edge, best_prob, best_price, best_mk, best_ev = candidates[0]
-                    best_market = mkt.display(best_mk, home, away)
-                    best_model_prob = best_prob
-                    best_mes_ev = best_ev
-                    mes_trigger = trigger_price(best_prob)
+                # Create a temporary BoardFixture-like object for _best_deployable_leg
+                class TempBF:
+                    def __init__(self, bf, sb_odds_dict):
+                        self.on_deploy_shortlist = bf.on_deploy_shortlist
+                        self.probs = bf.probs
+                        self.sb_home_odds = sb_odds_dict.get("home")
+                        self.sb_draw_odds = sb_odds_dict.get("draw")
+                        self.sb_away_odds = sb_odds_dict.get("away")
+                        self.best_market_key = getattr(bf, "best_market_key", None)
+                        self.best_price = getattr(bf, "best_price", None)
+
+                temp_bf = TempBF(bf, sb_odds)
+                capital_leg, _ = _best_deployable_leg(
+                    temp_bf,
+                    odds_index=None,  # We don't have odds_index here, but we can work without it
+                    agreement_band=None,
+                    max_odds_cap=MAX_ODDS_CAP,
+                    min_odds_floor=MIN_ODDS_FLOOR,
+                    preferred_ceiling=PREFERRED_ODDS_CEILING
+                )
+
+                if capital_leg is not None:
+                    best_market = capital_leg.market_name
+                    best_model_prob = capital_leg.prob
+                    best_price = capital_leg.price
+                    best_mes_ev = capital_leg.ev
+                    mes_trigger = trigger_price(capital_leg.prob) if capital_leg.prob else None
 
             # Consensus
             consensus = compute_consensus(probs, elo_p, xg_t) if probs else None

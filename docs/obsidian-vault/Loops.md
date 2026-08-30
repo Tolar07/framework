@@ -4,12 +4,12 @@
 
 ---
 
-## 1. Daily Board (07:00) — `run_daily.py`
+## 1. Daily Board (22:00) — `run_daily.py`
 
 | Field | Value |
 |-------|-------|
 | **Owner** | `run_daily.py` → `olp_xdv_pipeline.py` (10-agent pipeline) |
-| **Schedule** | Daily at 07:00 local (Task: "OLP XDV Daily Board") |
+| **Schedule** | Daily at 22:00 local (Task: "OLP XDV Daily Board") |
 | **Purpose** | Full production cycle: SCAN → ingest → odds → engine → verify → board → log → notify |
 | **Scope** | All whitelisted leagues, all markets, full CLV logging |
 | **Duration** | ~2-5 minutes |

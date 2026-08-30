@@ -39,14 +39,14 @@ $action  = New-ScheduledTaskAction `
     -WorkingDirectory $proj
 $trigger = New-ScheduledTaskTrigger -Daily -At $time
 # Hardened settings (matches the other daily tasks): reboot-survival +
-# restart-on-failure, never killed for running long.
+# restart-on-failure, never killed for running long. ExecutionTimeLimit 0 = no limit.
 $settings = New-ScheduledTaskSettingsSet `
     -AllowStartIfOnBatteries `
     -DontStopIfGoingOnBatteries `
     -StartWhenAvailable `
     -RestartCount 3 `
     -RestartInterval (New-TimeSpan -Minutes 5) `
-    -ExecutionTimeLimit (New-TimeSpan -Hours 0) `   # 0 = no limit
+    -ExecutionTimeLimit (New-TimeSpan -Hours 0) `
     -MultipleInstances IgnoreNew `
     -Priority 7
 $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType Interactive -RunLevel Highest

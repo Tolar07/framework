@@ -39,6 +39,7 @@
 - `[[awesome-design-md.md]]` — Design-token library (73 brands); pitch-night palette in proto.css
 - `[[sports-data-skills.md]]` — machina-sports skills (4 skills in .claude/skills/)
 - `[[claude-code-action.md]]` — anthropics/claude-code-action cloned at workspace root
+- `[[always-check-date.md]]` — Always verify the real current date at session start / before date-sensitive work
 
 ## Retired Mirror (Deprecated 2026-08-18)
 **Location:** `Documents/OLP_XDV_Vault/` — **NOT authoritative, non-git, READ-ONLY**

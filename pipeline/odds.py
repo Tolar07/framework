@@ -420,12 +420,22 @@ def _write_cache(league: str, events: list[dict]) -> None:
         json.dumps({"fetched_at": time.time(), "events": events}), encoding="utf-8")
 
 
-def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
+def fetch_odds(league: str, regions: str = None, markets: str = None,
                 use_cache: bool = True,
                 fixture_capture: bool = False) -> tuple[list[FixtureOdds], list[str]]:
+    # Default regions/markets from env, fallback to hardcoded for backward compatibility
+    if regions is None:
+        regions = os.environ.get("ODDS_REGIONS", "uk")
+    if markets is None:
+        markets = os.environ.get("ODDS_MARKETS", "h2h,totals")
+
+    # Support multiple regions (comma-separated) for line shopping
+    region_list = [r.strip() for r in regions.split(",")] if isinstance(regions, str) else [regions]
+    market_list = [m.strip() for m in markets.split(",")] if isinstance(markets, str) else [markets]
+
     """Live prices for one league. Returns (fixtures, flags).
 
-    Cost is len(regions) * len(markets) credits — the defaults are 1 x 2 = 2.
+    Cost is len(region_list) * len(market_list) credits — the defaults are 1 x 2 = 2.
     Raises QuotaExhausted rather than quietly returning nothing.
 
     `fixture_capture=True` relaxes the quota floor from QUOTA_FLOOR down to
@@ -438,18 +448,41 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
     if league not in SPORT_KEYS:
         raise SourceNoData(f"'{league}' has no verified Odds API sport key.")
 
-    events = _read_cache(league) if use_cache else None
-    if events is None:
-        floor = QUOTA_HARD_FLOOR if fixture_capture else QUOTA_FLOOR
+    # Multi-region fetch with aggregation: we need to fetch from each region
+    # and combine prices per fixture per market. For quota efficiency, we check
+    # total cost against quota floor ONCE, then fetch all combos.
+    total_credits = len(region_list) * len(market_list)
+    floor = QUOTA_HARD_FLOOR if fixture_capture else QUOTA_FLOOR
+    if total_credits > 1 and not fixture_capture:
+        # For multi-region pulls, we still apply the standard floor to the primary key
+        floor = max(floor, total_credits)
+
+    events_by_region: dict[str, list[dict]] = {}
+    total_cost = 0
+
+    if use_cache:
+        # Try cache first (cached events are from whatever regions were used when cached)
+        cached = _read_cache(league)
+        if cached is not None:
+            events_by_region["cached"] = cached
+            flags.append(f"{league}: odds served from cache (under the 60-minute "
+                         f"V2 recency cap)")
+
+    # If cache miss or multi-region requested without cache, fetch live
+    need_live = not events_by_region or (total_credits > 1 and not fixture_capture)
+    if need_live:
         try:
             key, used, remaining = _resolve_key(floor)
         except QuotaExhausted as qe:
             # The Odds API monthly quota is spent on every key. Before
             # degrading to NO DATA, try the free API-Football fallback (same
             # bookmakers, 1X2 + totals, 100 requests/day).
-            # This applies to BOTH fixture_capture and regular price pulls —
-            # the fallback serves 1X2 + totals markets which is sufficient
-            # for Phase 2 paper calibration.
+            # This applies ONLY to regular price pulls — fixture_capture
+            # must NOT fall back to the price feed (fixture list has its
+            # own 6h cache discipline; fixture capture keeps its cache
+            # discipline per the test contract).
+            if fixture_capture:
+                raise
             try:
                 from data import api_football_odds as _af_fallback
                 fixtures, afl = _af_fallback.fetch_odds(league)
@@ -463,34 +496,94 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
                     f"Odds API quota spent across all keys; api-football "
                     f"fallback failed ({e}). Refusing to spend the month — "
                     f"entry prices are NO DATA — PENDING.") from e
-        r = get_protected(f"{API_BASE}/sports/{SPORT_KEYS[league]}/odds",
-                          breaker_name="the_odds_api",
-                          params={"apiKey": key, "regions": regions,
-                                  "markets": markets, "oddsFormat": "decimal"},
-                          timeout=30)
-        events = r.json()
-        _write_cache(league, events)
-        flags.append(f"{league}: odds pulled live "
-                     f"({r.headers.get('x-requests-remaining')} API credits left)")
-    else:
-        flags.append(f"{league}: odds served from cache (under the 60-minute "
-                     f"V2 recency cap)")
 
+        # Fetch from each region, aggregate events
+        for region in region_list:
+            try:
+                r = get_protected(f"{API_BASE}/sports/{SPORT_KEYS[league]}/odds",
+                                  breaker_name="the_odds_api",
+                                  params={"apiKey": key, "regions": region,
+                                          "markets": markets, "oddsFormat": "decimal"},
+                                  timeout=30)
+                events_by_region[region] = r.json()
+                remaining = r.headers.get('x-requests-remaining', '?')
+                total_cost += len(market_list)
+                flags.append(f"{league}: odds pulled live from {region} "
+                             f"({remaining} API credits left)")
+            except Exception as e:
+                flags.append(f"{league}: region {region} failed ({e})")
+                continue
+
+        # Write cache from the first successful region (or combined)
+        if events_by_region:
+            # Prefer primary region "uk" if present, else first
+            primary_events = events_by_region.get("uk") or next(iter(events_by_region.values()))
+            _write_cache(league, primary_events)
+
+    # Aggregate prices across all regions: build price lists per fixture per market
+    # Key: (home_raw, away_raw, kickoff_utc) -> {market_key: {outcome: [prices]}}
+    from collections import defaultdict
+    fixture_price_aggregator: dict[tuple, dict] = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+
+    for region_name, events in events_by_region.items():
+        for e in events:
+            home_raw = e.get("home_team")
+            away_raw = e.get("away_team")
+            kickoff = e.get("commence_time", "")
+            if not home_raw or not away_raw:
+                continue
+            fix_key = (home_raw, away_raw, kickoff)
+            for bm in e.get("bookmakers", []):
+                for m in bm.get("markets", []):
+                    market_key = m.get("key")
+                    if market_key not in market_list:
+                        continue
+                    for o in m.get("outcomes", []):
+                        price = o.get("price")
+                        if price is not None:
+                            outcome = o.get("name")
+                            point = o.get("point")
+                            fixture_price_aggregator[fix_key][market_key][(outcome, point)].append(price)
+
+    # Now build FixtureOdds using median prices across regions
     out: list[FixtureOdds] = []
-    for e in events:
-        home_raw, away_raw = e.get("home_team"), e.get("away_team")
-        if not home_raw or not away_raw:
-            continue  # HR35 — incomplete record, skipped not guessed
+    for fix_key, market_data in fixture_price_aggregator.items():
+        home_raw, away_raw, kickoff = fix_key
+        home_team = map_team(league, home_raw)
+        away_team = map_team(league, away_raw)
+
+        # Helper to get median price for a market outcome
+        def median_price(market_key: str, outcome_name: str, point: float = None) -> MarketQuote:
+            prices = market_data.get(market_key, {}).get((outcome_name, point), [])
+            if not prices:
+                return MarketQuote()
+            # Use median for robustness against outliers
+            sorted_prices = sorted(prices)
+            mid = len(sorted_prices) // 2
+            median = sorted_prices[mid] if len(sorted_prices) % 2 == 1 else (sorted_prices[mid-1] + sorted_prices[mid]) / 2
+            # Count how many regions contributed
+            n_regions = sum(1 for r in events_by_region.values()
+                           for e in r if e.get("home_team") == home_raw
+                           and e.get("away_team") == away_raw
+                           and e.get("commence_time", "") == kickoff
+                           for bm in e.get("bookmakers", [])
+                           for m in bm.get("markets", []) if m.get("key") == market_key
+                           for o in m.get("outcomes", []) if o.get("name") == outcome_name
+                           and o.get("price") is not None
+                           and (point is None or o.get("point") == point))
+            return MarketQuote(price=median, bookmaker="median", n_books=n_regions,
+                              captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+
         fx = FixtureOdds(
             league=league,
-            home_team=map_team(league, home_raw),
-            away_team=map_team(league, away_raw),
-            kickoff_utc=e.get("commence_time", ""),
-            home=_best_price(e, "h2h", home_raw),
-            draw=_best_price(e, "h2h", "Draw"),
-            away=_best_price(e, "h2h", away_raw),
-            over25=_best_price(e, "totals", "Over", 2.5),
-            under25=_best_price(e, "totals", "Under", 2.5),
+            home_team=home_team,
+            away_team=away_team,
+            kickoff_utc=kickoff,
+            home=median_price("h2h", home_raw),
+            draw=median_price("h2h", "Draw"),
+            away=median_price("h2h", away_raw),
+            over25=median_price("totals", "Over", 2.5),
+            under25=median_price("totals", "Under", 2.5),
         )
         if not fx.over25.available:
             fx.notes.append("Over/Under 2.5 not quoted — NO DATA — PENDING")

@@ -59,7 +59,7 @@ from booking.league_map import SPORTYBET_LEAGUES
 from booking.bridge import load_sportybet_fixtures
 from booking.sportybet_fixtures import _navigate_to_league_sync as _navigate_to_league
 
-BASE_URL = "https://sportybet.com"
+BASE_URL = "https://www.sportybet.com.ng"
 BOARD_DIR = Path(__file__).parent.parent / "output" / "boards"
 
 # 1X2 click index inside the league-page row's first market cell.
@@ -1112,10 +1112,10 @@ def main() -> None:
         pass
 
     parser = argparse.ArgumentParser(
-        description="Generate SportyBet booking codes for the day's board fixtures. "
+        description="Generate SportyBet booking codes for the day's accas and singles. "
                     "READ-ONLY — never places a bet, never stakes.")
     parser.add_argument("--date", default=None,
-                        help="Board date as YYYY-MM-DD (default: today)")
+                        help="Acca date as YYYY-MM-DD (default: today)")
     parser.add_argument("--headed", action="store_true",
                         help="Run the browser visibly (debugging)")
     args = parser.parse_args()
@@ -1123,18 +1123,18 @@ def main() -> None:
     from datetime import date
     day = args.date or date.today().isoformat()
     try:
-        # Load board payload from board_<day>.json
-        board_path = Path("output/boards") / f"board_{day}.json"
-        payload = json.loads(board_path.read_text(encoding="utf-8"))
+        # Load acca payload from acca_<day>.json
+        acca_path = Path("output/boards") / f"acca_{day}.json"
+        payload = json.loads(acca_path.read_text(encoding="utf-8"))
     except Exception as e:
         print(f"ERROR: {e}")
         sys.exit(1)
 
-    result = book_board_fixtures(payload, headless=not args.headed)
+    result = book_accas(payload, headless=not args.headed)
     print(render_codes(result))
-    # Also persist the codes next to the board payload.
+    # Also persist the codes next to the acca payload.
     try:
-        out_path = BOARD_DIR / f"board_{day}_codes.json"
+        out_path = BOARD_DIR / f"acca_{day}_codes.json"
         out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2),
                             encoding="utf-8")
         print(f"\n  codes written to {out_path}")

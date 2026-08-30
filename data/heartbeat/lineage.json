@@ -1,0 +1,22 @@
+{
+  "lineages": [
+    {
+      "lineage_id": "ln_d6474491b6",
+      "parent_id": null,
+      "generation": 0,
+      "bankroll": 100.0,
+      "current_stake": 1.0,
+      "wins": 0,
+      "losses": 0,
+      "alive": true,
+      "born_date": "2026-08-29",
+      "last_result": null,
+      "fixture": null,
+      "pick": null,
+      "price": null,
+      "edge": 0.0,
+      "probability": 0.0
+    }
+  ],
+  "last_bred_date": null
+}

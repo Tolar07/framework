@@ -64,6 +64,42 @@ from monitor import alert_dispatcher  # noqa: E402
 # later probe can hit the half-loaded state.
 from data.multi_source import SourceNoData  # noqa: E402,F401  (force full load)
 
+# MCP connectivity sentinel (best-effort, non-blocking)
+def probe_mcp() -> ProbeResult:
+    """10. MCP connectivity — are configured MCP servers reachable/authenticated?
+
+    Best-effort probe that shells out to monitor/mcp_health.py summary.
+    Only warns on failures; never critical since MCP servers are stdio-based
+    and reconnect per-session. The dedicated MCP Watchdog task (every 30 min)
+    is the primary alerting path."""
+    import subprocess
+    import sys
+    try:
+        # Run the MCP sentinel in no-alert mode and capture summary
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "monitor" / "mcp_health.py"), "--no-alert"],
+            capture_output=True, text=True, timeout=60, cwd=str(ROOT)
+        )
+        if result.returncode == 0:
+            # Parse the summary line: "MCP SENTINEL: X/Y servers OK"
+            import re
+            match = re.search(r'MCP SENTINEL: (\d+)/(\d+) servers OK', result.stdout)
+            if match:
+                ok, total = int(match.group(1)), int(match.group(2))
+                if ok == total:
+                    return _ok("mcp", f"All {total} MCP servers OK")
+                elif ok == 0:
+                    return _warn("mcp", f"All {total} MCP servers unreachable — check dedicated watchdog")
+                else:
+                    return _warn("mcp", f"{ok}/{total} MCP servers OK — check dedicated watchdog")
+            return _warn("mcp", f"MCP sentinel ran but output unexpected: {result.stdout.strip()}")
+        else:
+            return _warn("mcp", f"MCP sentinel failed (rc={result.returncode}): {result.stderr.strip()[:200]}")
+    except subprocess.TimeoutExpired:
+        return _warn("mcp", "MCP sentinel timed out")
+    except Exception as e:
+        return _warn("mcp", f"MCP probe error: {e}")
+
 # State file: remembers what was last reported so alerts only fire on CHANGE.
 DEFAULT_STATE = ROOT / "logs" / "health_state.json"
 
@@ -411,6 +447,7 @@ ALL_PROBES = (
     ("last_run", probe_last_run),
     ("dashboard", probe_dashboard),
     ("circuits", probe_circuits),
+    ("mcp", probe_mcp),
 )
 
 

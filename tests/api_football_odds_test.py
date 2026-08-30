@@ -256,13 +256,19 @@ assert fx_full.dc_x2.price == 1.85, \
     f"DC X2 must price from 'Draw/Away': {fx_full.dc_x2.price}"
 assert fx_full.dc_12.price == 1.30, \
     f"DC 12 must price from 'Home/Away': {fx_full.dc_12.price}"
-# every one of the 11 selection markets must be priceable off this payload
-_quoted = [mk for mk in mkt.EDGE_MARKETS
+# every one of the 12 selection markets must be priceable off this payload
+# Selection markets (Architect 2026-08-11): 1X2 + O/U 1.5 + O/U 2.5 + BTTS + DC
+_SELECTION_MARKETS = (mkt.HOME, mkt.DRAW, mkt.AWAY,
+                       mkt.OVER_15, mkt.UNDER_15,
+                       mkt.OVER_25, mkt.UNDER_25,
+                       mkt.BTTS_YES, mkt.BTTS_NO,
+                       mkt.DC_1X, mkt.DC_X2, mkt.DC_12)
+_quoted = [mk for mk in _SELECTION_MARKETS
            if (q := mkt.quote(mk, fx_full)) is not None and q.available]
-assert set(_quoted) == set(mkt.EDGE_MARKETS), \
-    f"multi-market parse must price all 11 selection markets, got {_quoted}"
-print("8b. full multi-market parse prices all 11 selection markets "
+assert set(_quoted) == set(_SELECTION_MARKETS), \
+    f"multi-market parse must price all 12 selection markets, got {_quoted}"
+print("8b. full multi-market parse prices all 12 selection markets "
       "(real api-football DC value names): OK")
 
 print()
-print("✅ ALL API-FOOTBALL ODDS FALLBACK TESTS PASSED")
+print("ALL API-FOOTBALL ODDS FALLBACK TESTS PASSED")

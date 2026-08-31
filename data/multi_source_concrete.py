@@ -22,6 +22,14 @@ from data import xg_source
 from data import live_scores as ls
 from pipeline.odds import fetch_odds as odds_fetch_odds, fixtures_from_odds as odds_fixtures_from_odds
 
+# SportyBet imports for odds source
+try:
+    from booking.sportybet_client import SportyBetClient
+    from booking.bridge import get_sportybet_odds_for_leg, load_sportybet_fixtures
+    SPORTYBET_AVAILABLE = True
+except ImportError:
+    SPORTYBET_AVAILABLE = False
+
 log = logging.getLogger("multi_source.concrete")
 
 # =============================================================================
@@ -340,32 +348,476 @@ class APIFootballOddsSource(DataSource):
         return {"fixtures": fixtures, "flags": flags, "source": "api_football_odds"}
 
 
+class SportyBetOddsSource(DataSource):
+    """SportyBet Nigeria odds via internal factsCenter API.
+
+    This is the Architect's primary betting venue (Nigeria). SportyBet provides
+    1X2, Over/Under 0.5/1.5/2.5/3.5, BTTS, Double Chance, Draw No Bet,
+    HT/FT, and Correct Score markets. Odds are cached for 60 seconds
+    (configurable) to respect rate limits while maintaining freshness.
+
+    The SportyBet client uses their internal API (factsCenter) the same way
+    the browser does, without JavaScript execution. It provides direct access
+    to the odds the Architect actually bets into.
+
+    Markets supported (mapped to OLP XDV canonical keys):
+    - 1X2: Home/Draw/Away
+    - Over/Under: 0.5, 1.5, 2.5, 3.5
+    - BTTS: Yes/No
+    - Double Chance: 1X, X2, 12
+    - Draw No Bet: Home, Away
+    - HT/FT: 1/1, 1/X, 1/2, X/1, X/X, X/2, 2/1, 2/X, 2/2
+    - Correct Score: 1:0, 0:1, 1:1, 2:0, 0:2, 2:1, 1:2, 2:2, 0:0, 3:0, 0:3, 3:1, 1:3
+
+    Architecture: SportyBet is the PRIMARY odds source per Architect directive
+    2026-08-31 — it's where the Architect actually places bets, so its prices
+    are the ground truth for CLV calculation. The Odds API and API-Football
+    are fallbacks for leagues/markets SportyBet doesn't cover.
+    """
+
+    def __init__(self):
+        super().__init__("sportybet_odds", priority=10, timeout=30.0)
+
+    def _normalize_str(self, s: str) -> str:
+        """Normalize string for mapping: lower case, replace spaces/hyphens with underscores."""
+        if not s:
+            return ""
+        return s.lower().replace(" ", "_").replace("-", "_")
+
+    def _map_market_outcome_to_attribute(self, market_name: str, market_desc: str, outcome_name: str) -> Optional[str]:
+        """
+        Map SportyBet market name/desc and outcome name to OLP XDV FixtureOdds attribute.
+        Returns attribute name (e.g., 'home', 'over15') or None if not mapped.
+        """
+        m_norm = self._normalize_str(market_name)
+        d_norm = self._normalize_str(market_desc)
+        o_norm = self._normalize_str(outcome_name)
+
+        # Combine market and desc for lookup; some markets have info in desc
+        market_key = f"{m_norm}_{d_norm}" if d_norm else m_norm
+        # Also try without underscore if desc empty
+        lookup_key = (market_key, o_norm)
+
+        # Mapping: (market_key, outcome_name) -> attribute
+        MAP = {
+            # 1X2
+            ("1x2", "home"): "home",
+            ("1x2", "draw"): "draw",
+            ("1x2", "away"): "away",
+            ("match_winner", "home"): "home",
+            ("match_winner", "draw"): "draw",
+            ("match_winner", "away"): "away",
+            ("full_time_result", "home"): "home",
+            ("full_time_result", "draw"): "draw",
+            ("full_time_result", "away"): "away",
+            # Over/Under
+            ("over_under_0_5", "over"): "over05",
+            ("over_under_0_5", "under"): "under05",
+            ("over_under_1_5", "over"): "over15",
+            ("over_under_1_5", "under"): "under15",
+            ("over_under_2_5", "over"): "over25",
+            ("over_under_2_5", "under"): "under25",
+            ("over_under_3_5", "over"): "over35",
+            ("over_under_3_5", "under"): "under35",
+            ("over_0_5", "over"): "over05",
+            ("over_0_5", "under"): "under05",
+            ("over_1_5", "over"): "over15",
+            ("over_1_5", "under"): "under15",
+            ("over_2_5", "over"): "over25",
+            ("over_2_5", "under"): "under25",
+            ("over_3_5", "over"): "over35",
+            ("over_3_5", "under"): "under35",
+            ("under_0_5", "over"): "over05",  # inverse
+            ("under_0_5", "under"): "under05",
+            ("under_1_5", "over"): "over15",
+            ("under_1_5", "under"): "under15",
+            ("under_2_5", "over"): "over25",
+            ("under_2_5", "under"): "under25",
+            ("under_3_5", "over"): "over35",
+            ("under_3_5", "under"): "under35",
+            # BTTS
+            ("both_teams_to_score", "yes"): "btts_yes",
+            ("both_teams_to_score", "no"): "btts_no",
+            ("btts", "yes"): "btts_yes",
+            ("btts", "no"): "btts_no",
+            ("gg_ng", "gg"): "btts_yes",  # GG = Both Teams To Score Yes
+            ("gg_ng", "ng"): "btts_no",    # NG = Both Teams To Score No
+            ("gg", "gg"): "btts_yes",
+            ("ng", "ng"): "btts_no",
+            # Double Chance
+            ("double_chance", "1x"): "dc_1x",
+            ("double_chance", "x2"): "dc_x2",
+            ("double_chance", "12"): "dc_12",
+            ("dc", "1x"): "dc_1x",
+            ("dc", "x2"): "dc_x2",
+            ("dc", "12"): "dc_12",
+            ("1x", "1x"): "dc_1x",  # fallback
+            ("x2", "x2"): "dc_x2",
+            ("12", "12"): "dc_12",
+            # Draw No Bet
+            ("draw_no_bet", "home"): "dnb_home",
+            ("draw_no_bet", "away"): "dnb_away",
+            ("dnb", "home"): "dnb_home",
+            ("dnb", "away"): "dnb_away",
+            ("dnb_home", "home"): "dnb_home",
+            ("dnb_away", "away"): "dnb_away",
+            # HT/FT
+            ("half_time_full_time", "11"): "htft_11",
+            ("half_time_full_time", "1x"): "htft_1x",
+            ("half_time_full_time", "12"): "htft_12",
+            ("half_time_full_time", "x1"): "htft_x1",
+            ("half_time_full_time", "xx"): "htft_xx",
+            ("half_time_full_time", "x2"): "htft_x2",
+            ("half_time_full_time", "21"): "htft_21",
+            ("half_time_full_time", "2x"): "htft_2x",
+            ("half_time_full_time", "22"): "htft_22",
+            ("ht_ft", "11"): "htft_11",
+            ("ht_ft", "1x"): "htft_1x",
+            ("ht_ft", "12"): "htft_12",
+            ("ht_ft", "x1"): "htft_x1",
+            ("ht_ft", "xx"): "htft_xx",
+            ("ht_ft", "x2"): "htft_x2",
+            ("ht_ft", "21"): "htft_21",
+            ("ht_ft", "2x"): "htft_2x",
+            ("ht_ft", "22"): "htft_22",
+            ("htft", "11"): "htft_11",
+            ("htft", "1x"): "htft_1x",
+            ("htft", "12"): "htft_12",
+            ("htft", "x1"): "htft_x1",
+            ("htft", "xx"): "htft_xx",
+            ("htft", "x2"): "htft_x2",
+            ("htft", "21"): "htft_21",
+            ("htft", "2x"): "htft_2x",
+            ("htft", "22"): "htft_22",
+            # Correct Score - we'll handle generically below
+        }
+
+        if lookup_key in MAP:
+            return MAP[lookup_key]
+
+        # Try market_key alone (if outcome name is empty or generic)
+        lookup_key2 = (market_key, "")
+        if lookup_key2 in MAP:
+            return MAP[lookup_key2]
+
+        # Try without desc
+        lookup_key3 = (m_norm, o_norm)
+        if lookup_key3 in MAP:
+            return MAP[lookup_key3]
+
+        # Handle Correct Score generically: outcome_name like "1:0", market_name might be "Correct Score"
+        if m_norm in ("correct_score", "exact_score") and re.match(r'^\d+:\d+$', outcome_name):
+            # Convert "1:0" to "cs_10"
+            return f"cs_{outcome_name.replace(':', '_')}"
+
+        # Also try if market_desc contains the score
+        if d_norm and re.match(r'^\d+:\d+$', d_norm):
+            return f"cs_{d_norm.replace(':', '_')}"
+
+        return None
+
+    def fetch(self, league: str) -> list:
+        if not SPORTYBET_AVAILABLE:
+            raise SourceNoData("sportybet: client not available (booking module not importable)")
+
+        # Load SportyBet fixtures for this league
+        fixtures = load_sportybet_fixtures(league, days_ahead=3)
+        if not fixtures:
+            raise SourceNoData(f"sportybet: no fixtures for {league}")
+
+        # Build FixtureOdds from SportyBet live API
+        from pipeline.odds import MarketQuote, FixtureOdds
+        from datetime import datetime, timezone
+        import re
+
+        client = SportyBetClient()
+        out = []
+
+        try:
+            for fx in fixtures:
+                fixture_id = fx.sportybet_fixture_id
+                if not fixture_id:
+                    continue
+
+                # Get odds for all markets from live API
+                try:
+                    live_markets = client.get_odds(fixture_id)
+                except Exception as e:
+                    log.warning(f"Failed to get live odds for fixture {fixture_id}: {e}")
+                    continue
+
+                odds = FixtureOdds(
+                    league=league,
+                    home_team=fx.home_team,
+                    away_team=fx.away_team,
+                    kickoff_utc=fx.kickoff_utc,
+                    source="sportybet.com/ng",
+                    source_tier="T1",
+                )
+
+                # Process each market
+                for market in live_markets:
+                    market_key = market.market  # already normalized by client? but we'll use raw from market outcomes
+                    # Actually, market.market is the normalized key from client._normalize_market_key
+                    # We need the original market name and desc from the API, but we lost them.
+                    # So we have to work with what we have: market.market and market.outcomes
+                    # The market.market is something like "1X2_HOME" etc. (from client's mapping)
+                    # We can reverse-engineer: if market.market ends with _HOME, _DRAW, etc.
+                    # But easier: we can use the client's mapping in reverse? Not reliable.
+                    # Instead, we will iterate over outcomes and use the outcome name to guess.
+                    # Since we lost the market context, we'll rely on the outcome name and the market key prefix.
+
+                    # For each outcome in this market
+                    for outcome_name, price in market.outcomes.items():
+                        if not outcome_name or not price:
+                            continue
+                        # Try to map using market.market and outcome_name
+                        attr = self._map_market_outcome_to_attribute(market_key, "", outcome_name)
+                        if attr is None:
+                            # Try splitting market_key to get base market and outcome suffix
+                            # e.g., "1X2_HOME" -> base="1x2", outcome="home"
+                            if "_" in market_key:
+                                parts = market_key.split("_")
+                                if len(parts) >= 2:
+                                    possible_outcome = parts[-1]
+                                    base_market = "_".join(parts[:-1])
+                                    attr = self._map_market_outcome_to_attribute(base_market, "", possible_outcome)
+                        if attr:
+                            quote = MarketQuote(
+                                price=price,
+                                bookmaker="SportyBet Nigeria",
+                                n_books=1,
+                                captured_at=datetime.now(timezone.utc).isoformat()
+                            )
+                            setattr(odds, attr, quote)
+
+                out.append(odds)
+
+            if not out:
+                raise SourceNoData(f"sportybet: no priced fixtures for {league}")
+
+            return {"fixtures": out, "flags": [f"{league}: {len(out)} fixtures priced from SportyBet Nigeria"], "source": "sportybet_odds"}
+
+        finally:
+            client.close()
+
+
+class Bet365CachedOddsSource(DataSource):
+    """Bet365 odds from daily cached JSONL feed (bet365_odds_*.jsonl).
+
+    The daily scraper writes bet365_odds_YYYYMMDD_HHMMSS.jsonl to data/live_odds/
+    with ALL canonical markets (1X2, O/U 0.5/1.5/2.5/3.5, BTTS, DC, DNB, HT/FT, CS).
+    This source reads the latest cached file — zero quota cost, zero latency.
+
+    Priority: 12 (between SportyBet and API-Football). This is the Architect's
+    primary bookmaker (Bet365), so its cached prices are ground truth alongside
+    SportyBet. The Odds API is removed from the default chain entirely.
+    """
+
+    def __init__(self):
+        super().__init__("bet365_cached", priority=12, timeout=10.0)
+
+    def fetch(self, league: str) -> list:
+        from pathlib import Path
+        import json
+        from pipeline.odds import FixtureOdds, MarketQuote
+
+        live_odds_dir = Path(__file__).parent.parent / "data" / "live_odds"
+        bet365_odds_files = sorted(live_odds_dir.glob("bet365_odds_*.jsonl"), reverse=True)
+        if not bet365_odds_files:
+            raise SourceNoData("bet365_cached: no bet365_odds_*.jsonl files found")
+
+        latest = bet365_odds_files[0]
+        out = []
+
+        for line in latest.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if entry.get("type") != "match_odds":
+                continue
+            if entry.get("league") != league:
+                continue
+            home_team = entry.get("home_team", "")
+            away_team = entry.get("away_team", "")
+            if not home_team or not away_team:
+                continue
+
+            markets = entry.get("markets", {})
+            if not markets:
+                continue
+
+            # Parse kickoff
+            raw_dt = entry.get("match_datetime", "")
+            kickoff_utc = self._parse_bet365_datetime(raw_dt)
+
+            fx = FixtureOdds(
+                league=league,
+                home_team=home_team,
+                away_team=away_team,
+                kickoff_utc=kickoff_utc,
+                source="bet365-cached",
+                source_tier="T1"
+            )
+
+            # Map all available markets from the cached feed
+            for mkt_key, mkt_data in markets.items():
+                price = mkt_data.get("price")
+                if price is None:
+                    continue
+                # Map canonical keys to FixtureOdds attributes
+                if mkt_key == "1X2_HOME":
+                    fx.home = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "1X2_DRAW":
+                    fx.draw = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "1X2_AWAY":
+                    fx.away = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "OVER_0_5":
+                    fx.over05 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "UNDER_0_5":
+                    fx.under05 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "OVER_1_5":
+                    fx.over15 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "UNDER_1_5":
+                    fx.under15 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "OVER_2_5":
+                    fx.over25 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "UNDER_2_5":
+                    fx.under25 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "OVER_3_5":
+                    fx.over35 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "UNDER_3_5":
+                    fx.under35 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "BTTS_YES":
+                    fx.btts_yes = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "BTTS_NO":
+                    fx.btts_no = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "DC_1X":
+                    fx.dc_1x = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "DC_X2":
+                    fx.dc_x2 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "DC_12":
+                    fx.dc_12 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "DNB_HOME":
+                    fx.dnb_home = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "DNB_AWAY":
+                    fx.dnb_away = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "HT_FT_11":
+                    fx.htft_11 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "HT_FT_1X":
+                    fx.htft_1x = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "HT_FT_12":
+                    fx.htft_12 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "HT_FT_X1":
+                    fx.htft_x1 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "HT_FT_XX":
+                    fx.htft_xx = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "HT_FT_X2":
+                    fx.htft_x2 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "HT_FT_21":
+                    fx.htft_21 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "HT_FT_2X":
+                    fx.htft_2x = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "HT_FT_22":
+                    fx.htft_22 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_1_0":
+                    fx.cs_10 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_0_1":
+                    fx.cs_01 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_1_1":
+                    fx.cs_11 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_2_0":
+                    fx.cs_20 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_0_2":
+                    fx.cs_02 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_2_1":
+                    fx.cs_21 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_1_2":
+                    fx.cs_12 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_2_2":
+                    fx.cs_22 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_0_0":
+                    fx.cs_00 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_3_0":
+                    fx.cs_30 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_0_3":
+                    fx.cs_03 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_3_1":
+                    fx.cs_31 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+                elif mkt_key == "CS_1_3":
+                    fx.cs_13 = MarketQuote(price=price, bookmaker="Bet365", n_books=1, captured_at=entry.get("timestamp", ""))
+
+            out.append(fx)
+
+        if not out:
+            raise SourceNoData(f"bet365_cached: no fixtures for {league} in {latest.name}")
+
+        return {"fixtures": out, "flags": [f"{league}: {len(out)} fixtures from Bet365 cached feed ({latest.name})"], "source": "bet365_cached"}
+
+    def _parse_bet365_datetime(self, raw_dt: str) -> str:
+        """Parse Bet365 datetime string to UTC ISO format."""
+        if not raw_dt:
+            return ""
+        try:
+            from datetime import datetime, timezone
+            # Bet365 format: "2026-08-31T14:30:00Z" or similar
+            if raw_dt.endswith("Z"):
+                return raw_dt
+            # Try parsing as ISO with timezone
+            dt = datetime.fromisoformat(raw_dt.replace("Z", "+00:00"))
+            return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+        except Exception:
+            return raw_dt
+
+
+class OddsAPISource(DataSource):
+    """The-Odds-API live prices — LAST RESORT ONLY (quota-limited).
+
+    This source is kept available but REMOVED from the default fallback chain.
+    The Odds API has a hard monthly quota (500 free credits) that exhausts
+    mid-month. It should only be invoked explicitly (e.g., for specific leagues
+    or manual validation), never as an automatic fallback.
+    """
+
+    def __init__(self, regions: str = "uk", markets: str = "h2h,totals"):
+        super().__init__(f"odds_api_{regions}_{markets}", priority=50, timeout=30.0)
+        self.regions = regions
+        self.markets = markets
+
+    def fetch(self, league: str) -> list:
+        fixtures, flags = odds_fetch_odds(league, regions=self.regions, markets=self.markets)
+        if not fixtures:
+            raise SourceNoData(f"odds_api({self.regions}): no odds for {league}")
+        return {"fixtures": fixtures, "flags": flags, "source": f"odds_api_{self.regions}"}
+
+
 def build_odds_multi_source(league: str) -> MultiSource:
     """Build odds multi-source for a specific league.
 
-    LIVE ODDS 4-SOURCE FALLBACK CHAIN (2026-08-20 documented, updated 2026-08-31):
-    - Architect directive 2026-08-31: API-Football is ALWAYS the primary odds source
-      (priority 10), regardless of plan type. The Odds API is fallback.
+    LIVE ODDS 3-SOURCE FALLBACK CHAIN (2026-08-31 Architect directive — updated):
+    - SportyBet Nigeria (priority 10) — PRIMARY. The Architect's betting venue,
+      so its prices are ground truth for CLV. Full market coverage (1X2, O/U
+      0.5/1.5/2.5/3.5, BTTS, DC, DNB, HT/FT, CS).
+    - Bet365 cached feed (priority 12) — SECONDARY. The Architect's primary
+      bookmaker; cached JSONL has ALL markets, zero quota, zero latency.
+    - API-Football free (priority 15) — FALLBACK. Same bookmakers, wider market
+      coverage on free tier (includes O/U 1.5, BTTS, DC). 100 req/day.
 
-    1. API-Football (API_FOOTBALL_KEY) — primary, always first.
-       Free: today±1 window, 100 req/day, includes O/U 1.5, BTTS, DC markets.
-       Paid: current season, wider date window, same bookmakers.
-    2. The Odds API PRIMARY (ODDS_API_KEY) — paid key, 500 credits/mo.
-       Provides Pinnacle + many other books. Regions: UK+EU, Markets: h2h,totals.
-    3. The Odds API BACKUP (ODDS_API_KEY_BACKUP) — free tier, 500 credits/mo per key.
-       Same regions/markets. Monthly reset restores quota.
-    4. The Odds API TERTIARY (ODDS_API_KEY_TERTIARY) — free tier, 500 credits/mo.
-       Same regions/markets. Third key in chain.
-
-    Note: OddsAPISource internally walks ODDS_API_KEY → BACKUP → TERTIARY
-    via _resolve_key() before falling to api-football.
+    The Odds API (The-Odds-API.com) is REMOVED from the default chain. Its
+    monthly quota (500 credits) exhausts predictably and kills the chain. It
+    remains available as OddsAPISource for explicit/opt-in use only.
     """
-    # API-Football is ALWAYS primary (priority 10) per Architect directive 2026-08-31
-    # The Odds API sources are fallback (priority 15, 20)
+    # SportyBet is PRIMARY (priority 10) — ground truth for CLV
+    # Bet365 cached is SECONDARY (priority 12) — full markets, zero quota
+    # API-Football is FALLBACK (priority 15) — wider free-tier coverage
     sources = [
-        (APIFootballOddsSource().fetch, "api_football_odds", 10),
-        (OddsAPISource(regions="uk", markets="h2h,totals").fetch, "odds_api_uk", 15),
-        (OddsAPISource(regions="eu", markets="h2h,totals").fetch, "odds_api_eu", 20),
+        (SportyBetOddsSource().fetch, "sportybet_odds", 10),
+        (Bet365CachedOddsSource().fetch, "bet365_cached", 12),
+        (APIFootballOddsSource().fetch, "api_football_odds", 15),
     ]
 
     return build_multi_source(

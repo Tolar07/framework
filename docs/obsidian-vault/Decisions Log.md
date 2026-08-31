@@ -249,3 +249,28 @@ no real capital routed.
 
 **Status:** IMPLEMENTED & TESTED. Protected-constant bar does NOT block this — the
 Architect directive is the explicit override the framework routes through.
+
+---
+
+## 2026-08-31 · ODDS SOURCE PRIORITY CHAIN — Bet365 Cached Feed as Secondary (Architect Directive)
+
+**Directive (chat, 2026-08-31):**
+The Odds API quota exhausted mid-month (predictable 500 credits/month). The Architect's actual betting venues are SportyBet Nigeria (primary) and Bet365 (primary bookmaker). Bet365 odds are scraped daily to `data/live_odds/bet365_odds_YYYYMMDD_HHMMSS.jsonl` with ALL canonical markets. This cached feed is zero-quota, zero-latency, and ground truth for CLV.
+
+**Effect:**
+1. **New priority chain** (replacing 4-source chain with quota-exhausted Odds API):
+   - **Priority 10 (PRIMARY)**: SportyBet Nigeria — Architect's betting venue, full market coverage (1X2, O/U 0.5/1.5/2.5/3.5, BTTS, DC, DNB, HT/FT, CS), prices are CLV ground truth
+   - **Priority 12 (SECONDARY)**: Bet365 cached feed — Architect's primary bookmaker; daily JSONL has ALL markets, zero quota, zero latency
+   - **Priority 15 (FALLBACK)**: API-Football free tier — same bookmakers, wider market coverage on free tier (includes O/U 1.5, BTTS, DC). 100 req/day
+   - **Priority 50 (LAST RESORT ONLY)**: The Odds API (The-Odds-API.com) — monthly quota (500 credits) exhausts predictably and kills the chain. Remains available as `OddsAPISource` for explicit/opt-in use only, NEVER in automatic fallback
+
+2. **Code changes** (this commit):
+   - `data/multi_source_concrete.py` — Added `Bet365CachedOddsSource` class reading `bet365_odds_*.jsonl`; added `SportyBetOddsSource` class using live factsCenter API; removed OddsAPI sources from `build_odds_multi_source()` default chain; kept `OddsAPISource` at priority 50 for opt-in
+   - `run_daily.py` — Updated comments reflecting new priority chain
+
+3. **Protected Constant Impact:** NONE. This changes data SOURCE priority ordering, not the CLV gate, ARCHITECT_SIGNOFF, capital deployment, ID405 scope, or calibration. The odds multi-source architecture is designed for exactly this: swapping/adding sources without touching protected logic.
+
+**Tests:**
+- `build_odds_multi_source('English Premier League')` returns chain: sportybet_odds (10) → bet365_cached (12) → api_football_odds (15)
+
+**Committed:** `2f786c9` — fix(odds): replace quota-exhausted odds API with Bet365 cached feed as secondary source

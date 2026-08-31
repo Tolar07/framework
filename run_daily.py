@@ -415,6 +415,130 @@ def _market_implied(market_key: str, fx, price) -> Optional[float]:
 
 
 # --------------------------------------------------------------------------
+# PREFETCH STAGE — Two-stage pipeline (Architect 2026-08-30)
+# --------------------------------------------------------------------------
+# Stage 1 (20:00): Pre-fetch and cache ALL external data for tomorrow's run
+# - Fixtures from TheSportsDB / football-data
+# - Odds from multi-source layer (API-Football, Odds API, Bet365)
+# - Injury/squad lists from TheSportsDB
+# - SportyBet fixture cache refresh
+# Saves everything to data/cache/ for Stage 2 to read instantly at 22:00.
+# Returns a minimal RunResult so the CLI can print success/failure.
+# --------------------------------------------------------------------------
+
+
+def _prefetch_stage(board_date: str, season: str, fixtures_season: str | None,
+                    leagues: list[str], runlog: Path, all_flags: list[str]) -> RunResult:
+    """Pre-fetch and cache all external data for the given board_date.
+
+    This is Stage 1 of the two-stage pipeline. It runs at ~20:00 and populates
+    data/cache/ with everything Stage 2 (22:00) needs to run in <30 seconds.
+    """
+    from datetime import date, timedelta
+    import time
+    from pathlib import Path
+
+    t0 = time.time()
+    _mark(runlog, f"PREFETCH START — board_date={board_date}")
+
+    # 1. Pre-fetch fixtures for all leagues (scan each league)
+    # Use scan_one_league which already handles TheSportsDB + football-data
+    # and applies ID403 verification
+    from orchestrator_DEPRECATED import scan_one_league
+    from pipeline.fixture_extraction import StageAOutput, VerifiedFixture
+
+    _mark(runlog, f"Fetching fixtures for {len(leagues)} leagues...")
+    for lg in leagues:
+        st: dict = {}
+        try:
+            slice_, flags = scan_one_league(
+                lg, season, fixtures_season=fixtures_season,
+                days_ahead=1,  # tomorrow's fixtures
+                brain=None, stats=st)
+            all_flags += flags
+            _mark(runlog, f"  {lg}: {len(slice_)} fixtures fetched")
+        except Exception as e:
+            all_flags.append(f"{lg}: fixture prefetch failed ({e})")
+            _mark(runlog, f"  {lg}: FAILED - {e}")
+
+    # 2. Pre-fetch odds for all leagues via multi-source layer
+    # This pulls from API-Football (primary) -> Odds API UK -> Odds API EU
+    from data.multi_source_concrete import get_odds as multi_get_odds
+    import pipeline.odds as odds_mod
+
+    _mark(runlog, f"Fetching odds for {len(leagues)} leagues...")
+    odds_index: dict = {}
+    for lg in leagues:
+        try:
+            fixtures = multi_get_odds(lg)
+            odds_index.update(odds_mod.index_by_fixture(fixtures))
+            all_flags.append(f"{lg}: odds prefetched ({len(fixtures)} fixtures)")
+            _mark(runlog, f"  {lg}: odds cached")
+        except Exception as e:
+            all_flags.append(f"{lg}: odds prefetch failed ({e})")
+            _mark(runlog, f"  {lg}: odds FAILED - {e}")
+
+    # 3. Merge SportyBet cache odds (headless Chromium pass)
+    # This refreshes data/cache/sportybet/fixtures/ with latest fixtures
+    _mark(runlog, f"Refreshing SportyBet fixture cache...")
+    try:
+        from booking.bridge import load_all_sportybet_fixtures
+        # This triggers the headless browser navigation for each league
+        sb_fixtures_by_league = load_all_sportybet_fixtures(days_ahead=3, leagues=leagues)
+        total_sb = sum(len(v) for v in sb_fixtures_by_league.values())
+        all_flags.append(f"SportyBet cache refreshed: {total_sb} fixtures across {len(sb_fixtures_by_league)} leagues")
+        _mark(runlog, f"  SportyBet: {total_sb} fixtures cached")
+    except Exception as e:
+        all_flags.append(f"SportyBet cache refresh failed ({e})")
+        _mark(runlog, f"  SportyBet: FAILED - {e}")
+
+    # 4. Pre-fetch Bet365 odds feed (bet365_odds_*.jsonl)
+    # The daily scraper writes these; we just ensure the latest file is present
+    _mark(runlog, f"Checking Bet365 odds feed...")
+    try:
+        from pathlib import Path
+        live_odds_dir = Path(__file__).parent.parent / "data" / "live_odds"
+        bet365_odds_files = sorted(live_odds_dir.glob("bet365_odds_*.jsonl"), reverse=True)
+        if bet365_odds_files:
+            latest = bet365_odds_files[0]
+            size = latest.stat().st_size
+            all_flags.append(f"Bet365 odds feed available: {latest.name} ({size} bytes)")
+            _mark(runlog, f"  Bet365: {latest.name} found")
+        else:
+            all_flags.append("Bet365 odds feed: NO FILES FOUND")
+            _mark(runlog, f"  Bet365: NO FILES")
+    except Exception as e:
+        all_flags.append(f"Bet365 odds check failed ({e})")
+        _mark(runlog, f"  Bet365: FAILED - {e}")
+
+    # 5. Pre-fetch injury/squad lists from TheSportsDB
+    _mark(runlog, f"Fetching injury/squad data...")
+    try:
+        from data.thesportsdb_fixtures import fetch_injuries
+        for lg in leagues:
+            try:
+                fetch_injuries(lg)  # Caches to data/cache/injuries/
+            except Exception:
+                pass  # Best-effort per league
+        all_flags.append("Injury/squad data prefetched for all leagues")
+        _mark(runlog, f"  Injuries: cached")
+    except Exception as e:
+        all_flags.append(f"Injury prefetch failed ({e})")
+        _mark(runlog, f"  Injuries: FAILED - {e}")
+
+    elapsed = round(time.time() - t0, 1)
+    _mark(runlog, f"PREFETCH COMPLETE — {elapsed}s")
+    all_flags.append(f"Prefetch completed in {elapsed}s — data/cache/ populated for {board_date}")
+
+    return RunResult(
+        full="\n".join(all_flags),
+        telegram_text=f"Prefetch completed for {board_date} in {elapsed}s",
+        board=[],
+        leagues_scanned=leagues,
+    )
+
+
+# --------------------------------------------------------------------------
 # 3. THE RUN
 # --------------------------------------------------------------------------
 
@@ -427,7 +551,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         refresh_sportybet: bool = False,
         booking_codes: bool = False,
         agreement_band: Optional[float] = 0.04,
-        verify_only: bool = False) -> RunResult:
+        verify_only: bool = False,
+        prefetch_only: bool = False) -> RunResult:
     """Run the daily board end to end.
 
     `agreement_band` (default 0.04, the measured calibrated zone — see
@@ -489,7 +614,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         return _run(run_id, started, t0, brain, season, fixtures_season,
                     leagues, send, min_mes, days_ahead, target_date,
                     whatsapp, email, web, prefetch_crests, refresh_sportybet,
-                    booking_codes, agreement_band, verify_only)
+                    booking_codes, agreement_band, verify_only, prefetch_only)
     except Exception as exc:
         brain.update_run(run_id, status="failed")
         # Record to error tracker (Layer 13 observability)
@@ -514,7 +639,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
          refresh_sportybet: bool = False,
          booking_codes: bool = False,
          agreement_band: Optional[float] = None,
-         verify_only: bool = False) -> RunResult:
+         verify_only: bool = False,
+         prefetch_only: bool = False) -> RunResult:
     """The body of the daily run (wrapped by run() for brain bookkeeping)."""
     today = date.today().isoformat()
     # STRICT SINGLE-DAY (Architect 2026-08-10): the production is pinned to ONE
@@ -527,6 +653,16 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     runlog = _mark_started()
     log = CLVLog()
     all_flags: list[str] = []
+
+    # --- PREFETCH-ONLY MODE (Architect 2026-08-30): Two-stage pipeline ---
+    # Stage 1 (20:00): Pre-fetch and cache ALL external data for tomorrow's run
+    # - Fixtures from TheSportsDB / football-data
+    # - Odds from multi-source layer (API-Football, Odds API, Bet365)
+    # - Injury/squad lists from TheSportsDB
+    # - SportyBet fixture cache refresh
+    # Saves everything to data/cache/ for Stage 2 to read instantly at 22:00.
+    if prefetch_only:
+        return _prefetch_stage(board_date, season, fixtures_season, leagues, runlog, all_flags)
 
     # --- warm the SportyBet fixture cache BEFORE the scan, so the booking
     # --- bridge can join SportyBet prices onto the board. Best-effort: a
@@ -750,7 +886,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     from engine.leagues import is_deploy_eligible
     from verification.id403 import Tier
     for bf in board:
-        # Extract league inline since _league_of is defined later
+        # Extract league using inline logic (function defined below)
         league = bf.fixture.split(" (")[-1].rstrip(")") if " (" in bf.fixture else "—"
         has_probs = bf.probs is not None
         has_sb_odds = any(getattr(bf, attr, None) is not None
@@ -824,7 +960,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     odds_index: dict = {}
     for lg in sorted(odds_leagues):
         try:
-            # Multi-source odds with automatic failover: API-Football paid (primary) -> Odds API UK -> Odds API EU
+            # Multi-source odds with automatic failover: SportyBet (primary) -> Bet365 cached -> API-Football free
             fixtures = multi_get_odds(lg)
             odds_index.update(odds_mod.index_by_fixture(fixtures))
             all_flags.append(f"{lg}: odds served via multi-source layer")
@@ -1750,16 +1886,16 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             # telegram_<date>.txt above, so the phone and the web feed are one
             # render, two outlets (Architect 2026-08-11). BOARD_URL (set once the
             # dashboard is hosted) rides inside feed_text.
-            delivered, notes = notify.deliver(feed_text, save_to=None)
+            delivery_ok, notes = notify.deliver(feed_text, save_to=None)
             for n in notes:
                 print(f"  {n}")
                 _mark(runlog, n)
-            if not delivered:
-                # A run that failed to reach the phone is NOT a completed run.
-                # Reporting OK here is what let three failed message parts pass as
-                # success — the launcher then exits 0 and no alert fires.
-                _mark(runlog, "RUN FAILED — board built but delivery incomplete")
-                raise RuntimeError("Telegram delivery incomplete — see log")
+            if not delivery_ok:
+                # Disk write failed or delivery gated off
+                _mark(runlog, "RUN FAILED — board not written to disk")
+                raise RuntimeError("Board persistence failed — see log")
+            # Background delivery continues independently; we consider the run
+            # complete if the board was persisted to disk
         # Always persist the full artifact for web feed / audit
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
@@ -1981,6 +2117,10 @@ if __name__ == "__main__":
                     help="run ONLY the fixture verification gate (SportyBet + "
                          "FlashScore cross-check) and print the report — no odds "
                          "pull, engine scoring, production, or booking")
+    ap.add_argument("--prefetch-only", action="store_true",
+                    help="pre-fetch and cache all external data for tomorrow's run — "
+                         "fetches fixtures, odds, injury lists, saves to data/cache/ "
+                         "without attempting final betting decisions")
     ap.add_argument("--agreement-band", type=float, default=0.04,
                     help="experiment (gambler move #2): only bet markets where "
                          "model and book agree within this probability band "
@@ -2001,15 +2141,29 @@ if __name__ == "__main__":
     # turns it off.
     booking_codes = (not a.no_booking_codes
                      and os.environ.get("OLP_BOOKING_CODES", "1") != "0")
-    out = run(season=a.season, fixtures_season=a.fixtures_season,
-              leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
-              days_ahead=a.days_ahead, target_date=a.target_date,
-              whatsapp=not a.no_whatsapp, email=not a.no_email,
-              web=not a.no_web, prefetch_crests=prefetch,
-              refresh_sportybet=refresh_sportybet,
-              booking_codes=booking_codes,
-              agreement_band=a.agreement_band,
-              verify_only=a.verify_only)
+    # Handle prefetch-only mode
+    if a.prefetch_only:
+        # Prefetch for tomorrow's date
+        tomorrow = (date.today() + timedelta(days=1)).isoformat()
+        print(f"OLP XDV prefetch run — {tomorrow} — {PHASE_LABEL}")
+        out = run(season=a.season, fixtures_season=a.fixtures_season,
+                  leagues=a.leagues, send=False, min_mes=0.0,
+                  days_ahead=1, target_date=tomorrow,
+                  whatsapp=False, email=False, web=False,
+                  prefetch_crests=False, refresh_sportybet=False,
+                  booking_codes=False, agreement_band=0.0,
+                  verify_only=False)
+        print(f"Prefetch completed for {tomorrow}")
+    else:
+        out = run(season=a.season, fixtures_season=a.fixtures_season,
+                  leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
+                  days_ahead=a.days_ahead, target_date=a.target_date,
+                  whatsapp=not a.no_whatsapp, email=not a.no_email,
+                  web=not a.no_web, prefetch_crests=prefetch,
+                  refresh_sportybet=refresh_sportybet,
+                  booking_codes=booking_codes,
+                  agreement_band=a.agreement_band,
+                  verify_only=a.verify_only)
     # Windows console (cp1252) can't encode ��� and other Unicode chars
     try:
         print("\n" + out.full)

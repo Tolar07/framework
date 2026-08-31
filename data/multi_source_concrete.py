@@ -343,39 +343,30 @@ class APIFootballOddsSource(DataSource):
 def build_odds_multi_source(league: str) -> MultiSource:
     """Build odds multi-source for a specific league.
 
-    LIVE ODDS 4-SOURCE FALLBACK CHAIN (2026-08-20 documented):
-    - NO live Pinnacle API key exists in this repo. "Pinnacle" in DEFAULT_BOOK_PREFERENCE
-      (football_data_source.py) refers to HISTORICAL PSCH/PSCD/PSCA columns only.
+    LIVE ODDS 4-SOURCE FALLBACK CHAIN (2026-08-20 documented, updated 2026-08-31):
+    - Architect directive 2026-08-31: API-Football is ALWAYS the primary odds source
+      (priority 10), regardless of plan type. The Odds API is fallback.
 
-    1. The Odds API PRIMARY (ODDS_API_KEY) — paid key, 500 credits/mo.
+    1. API-Football (API_FOOTBALL_KEY) — primary, always first.
+       Free: today±1 window, 100 req/day, includes O/U 1.5, BTTS, DC markets.
+       Paid: current season, wider date window, same bookmakers.
+    2. The Odds API PRIMARY (ODDS_API_KEY) — paid key, 500 credits/mo.
        Provides Pinnacle + many other books. Regions: UK+EU, Markets: h2h,totals.
-    2. The Odds API BACKUP (ODDS_API_KEY_BACKUP) — free tier, 500 credits/mo per key.
+    3. The Odds API BACKUP (ODDS_API_KEY_BACKUP) — free tier, 500 credits/mo per key.
        Same regions/markets. Monthly reset restores quota.
-    3. The Odds API TERTIARY (ODDS_API_KEY_TERTIARY) — free tier, 500 credits/mo.
+    4. The Odds API TERTIARY (ODDS_API_KEY_TERTIARY) — free tier, 500 credits/mo.
        Same regions/markets. Third key in chain.
-    4. api-football fallback (today±1 window, 100 req/day, free).
-       Includes O/U 1.5, BTTS, DC markets that Odds API free tier lacks.
 
     Note: OddsAPISource internally walks ODDS_API_KEY → BACKUP → TERTIARY
     via _resolve_key() before falling to api-football.
     """
-    from data import api_football_plan
-    paid = api_football_plan.is_paid_plan()
-
-    if paid:
-        # PAID API-Football is primary (current season, wider date window, same bookmakers)
-        sources = [
-            (APIFootballOddsSource().fetch, "api_football_odds", 10),
-            (OddsAPISource(regions="uk", markets="h2h,totals").fetch, "odds_api_uk", 15),
-            (OddsAPISource(regions="eu", markets="h2h,totals").fetch, "odds_api_eu", 20),
-        ]
-    else:
-        # FREE API-Football is last resort (today±1 window, 100 req/day)
-        sources = [
-            (OddsAPISource(regions="uk", markets="h2h,totals").fetch, "odds_api_uk", 10),
-            (OddsAPISource(regions="eu", markets="h2h,totals").fetch, "odds_api_eu", 15),
-            (APIFootballOddsSource().fetch, "api_football_odds", 20),
-        ]
+    # API-Football is ALWAYS primary (priority 10) per Architect directive 2026-08-31
+    # The Odds API sources are fallback (priority 15, 20)
+    sources = [
+        (APIFootballOddsSource().fetch, "api_football_odds", 10),
+        (OddsAPISource(regions="uk", markets="h2h,totals").fetch, "odds_api_uk", 15),
+        (OddsAPISource(regions="eu", markets="h2h,totals").fetch, "odds_api_eu", 20),
+    ]
 
     return build_multi_source(
         f"odds_{league}",

@@ -46,7 +46,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from booking.league_map import SPORTYBET_LEAGUES, BookmakerLeague, resolve_bookmaker
-from booking.team_map import resolve_team
+from booking.team_map import resolve_team, _normalize as team_normalize
 from booking.sportybet_client import SportyBetClient, Fixture as SBFixture, MarketOdds
 
 
@@ -620,33 +620,116 @@ def get_sportybet_odds_for_leg(
         # Unknown market
         return None
 
-    # 1. Exact model-key match.
-    for fx in fixtures:
-        if fx.home_team == home_team and fx.away_team == away_team:
-            return _price(fx)
+    if client is None:
+        client = SportyBetClient()
 
-    # 2. Normalized model-key match.
     try:
-        from booking.team_map import _normalize
-        nh, na = _normalize(home_team), _normalize(away_team)
         for fx in fixtures:
-            if (_normalize(fx.home_team) == nh
-                    and _normalize(fx.away_team) == na):
-                return _price(fx)
-    except Exception:
-        pass
+            # Matching logic (all EXACT / normalized-exact only — HR35, never a fuzzy guess across clubs)
+            # 1. Exact model-key match
+            if fx.home_team == home_team and fx.away_team == away_team:
+                # Fetch live odds for this fixture
+                if fx.sportybet_fixture_id:
+                    fixture_markets = client.get_odds(fx.sportybet_fixture_id)
+                    return _extract_odds_from_markets(fixture_markets, market)
+            # 2. Normalized model-key match
+            if team_normalize(fx.home_team) == team_normalize(home_team) and \
+               team_normalize(fx.away_team) == team_normalize(away_team):
+                # Fetch live odds for this fixture
+                if fx.sportybet_fixture_id:
+                    fixture_markets = client.get_odds(fx.sportybet_fixture_id)
+                    return _extract_odds_from_markets(fixture_markets, market)
+            # 3. SportyBet-name match
+            if fx.sportybet_home == resolve_team(home_team) and fx.sportybet_away == resolve_team(away_team):
+                # Fetch live odds for this fixture
+                if fx.sportybet_fixture_id:
+                    fixture_markets = client.get_odds(fx.sportybet_fixture_id)
+                    return _extract_odds_from_markets(fixture_markets, market)
+    finally:
+        client.close()
 
-    # 3. SportyBet-name match (raw cache names).
-    try:
-        from booking.team_map import resolve_team, _normalize
-        sh = _normalize(resolve_team(home_team, "sportybet"))
-        sa = _normalize(resolve_team(away_team, "sportybet"))
-        for fx in fixtures:
-            if (_normalize(fx.sportybet_home or "") == sh
-                    and _normalize(fx.sportybet_away or "") == sa):
-                return _price(fx)
-    except Exception:
-        pass
+    return None
+
+
+def _extract_odds_from_markets(markets, market: str) -> Optional[float]:
+    """Extract odds for a specific market from SportyBet market data."""
+    # Handle 1X2 markets
+    if market == "1X2_HOME":
+        for m in markets:
+            if m.market == "1X2_HOME" or (m.market in ["1X2", "match_winner", "full_time_result"] and "home" in m.outcomes):
+                return float(list(m.outcomes.values())[0])  # home odds
+    elif market == "1X2_DRAW":
+        for m in markets:
+            if m.market == "1X2_DRAW" or (m.market in ["1X2", "match_winner", "full_time_result"] and "draw" in m.outcomes):
+                return float(list(m.outcomes.values())[1])  # draw odds (second outcome)
+    elif market == "1X2_AWAY":
+        for m in markets:
+            if m.market == "1X2_AWAY" or (m.market in ["1X2", "match_winner", "full_time_result"] and "away" in m.outcomes):
+                return float(list(m.outcomes.values())[2])  # away odds (third outcome)
+
+    # Handle Over/Under markets
+    elif market in ["OVER_1_5", "OVER_2_5", "OVER_3_5", "OVER_0_5"]:
+        for m in markets:
+            if m.market in ["OVER_1_5", "OVER_2_5", "OVER_3_5", "OVER_0_5"]:
+                return float(list(m.outcomes.values())[0])  # over odds
+    elif market in ["UNDER_1_5", "UNDER_2_5", "UNDER_3_5", "UNDER_0_5"]:
+        for m in markets:
+            if m.market in ["UNDER_1_5", "UNDER_2_5", "UNDER_3_5", "UNDER_0_5"]:
+                return float(list(m.outcomes.values())[0])  # under odds
+
+    # Handle BTTS markets
+    elif market == "BTTS_YES":
+        for m in markets:
+            if m.market == "BTTS_YES" or m.market in ["BTTS", "both_teams_to_score", "gg"]:
+                return float(list(m.outcomes.values())[0])  # yes odds
+    elif market == "BTTS_NO":
+        for m in markets:
+            if m.market == "BTTS_NO" or m.market in ["BTTS", "both_teams_to_score", "ng"]:
+                return float(list(m.outcomes.values())[0])  # no odds
+
+    # Handle Double Chance
+    elif market == "DC_1X":
+        for m in markets:
+            if m.market == "DC_1X" or m.market in ["DC", "double_chance", "1x"]:
+                return float(list(m.outcomes.values())[0])  # 1x odds
+    elif market == "DC_X2":
+        for m in markets:
+            if m.market == "DC_X2" or m.market in ["DC", "double_chance", "x2"]:
+                return float(list(m.outcomes.values())[1])  # x2 odds (second outcome)
+    elif market == "DC_12":
+        for m in markets:
+            if m.market == "DC_12" or m.market in ["DC", "double_chance", "12"]:
+                return float(list(m.outcomes.values())[2])  # 12 odds (third outcome)
+
+    # Handle Draw No Bet
+    elif market == "DNB_HOME":
+        for m in markets:
+            if m.market == "DNB_HOME" or m.market in ["dnb", "draw_no_bet", "dnb_home"]:
+                return float(list(m.outcomes.values())[0])  # home odds
+    elif market == "DNB_AWAY":
+        for m in markets:
+            if m.market == "DNB_AWAY" or m.market in ["dnb", "draw_no_bet", "dnb_away"]:
+                return float(list(m.outcomes.values())[1])  # away odds (second outcome)
+
+    # Handle HT/FT markets
+    elif market in ["HT_FT_11", "HT_FT_1X", "HT_FT_12", "HT_FT_X1", "HT_FT_XX", "HT_FT_21", "HT_FT_2X", "HT_FT_22"]:
+        # Extract the combo part (e.g., "11" from "HT_FT_11")
+        combo = market.replace("HT_FT_", "")
+        for m in markets:
+            if m.market in ["HT_FT_11", "HT_FT_1X", "HT_FT_12", "HT_FT_X1", "HT_FT_XX", "HT_FT_21", "HT_FT_2X", "HT_FT_22"]:
+                # Check if this market matches our combo
+                if combo in m.market:
+                    return float(list(m.outcomes.values())[0])  # typically first outcome
+
+    # Handle Correct Score
+    elif market in ["CS_10", "CS_01", "CS_11"]:
+        # Extract the score part (e.g., "10" from "CS_10")
+        score_part = market.replace("CS_", "")
+        for m in markets:
+            if m.market in ["CS_10", "CS_01", "CS_11"]:
+                # Check if this market matches our score
+                if score_part in m.market:
+                    return float(list(m.outcomes.values())[0])  # first outcome
 
     return None
 

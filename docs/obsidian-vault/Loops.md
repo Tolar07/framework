@@ -103,7 +103,28 @@
 
 ---
 
-## 7. Hourly Match Analysis (Every Hour) — `scripts/hourly-match-analysis.js`
+## 7. API-Football Verification (22:00 Daily) — `scripts/api_football_verification.py`
+
+| Field | Value |
+|-------|-------|
+| **Owner** | `scripts/api_football_verification.py` |
+| **Schedule** | Daily at 22:00 local (Task: "OLP XDV API-Football Verification") |
+| **Purpose** | Automated fixture result verification via API-Football; fetch settled scores, statistics (xG, shots, possession), and events for CLV/matrix calibration |
+| **Scope** | All finished fixtures (status=FT) for target date; optionally filtered by league |
+| **Duration** | ~30-60 seconds (quota-aware) |
+| **Failure mode** | Logs to `logs/api_football_verification/`; graceful quota degradation |
+
+**Key behaviour:**
+- Queries API-Football `/fixtures?date={date}` for finished matches (status=FT)
+- Enhances with `/fixtures/statistics` (xG, shots, possession, corners) and `/fixtures/events` (goals, cards)
+- Outputs normalized JSON for pipeline consumption (Result Verification / CLV / Matrix Engine)
+- Built-in rate limiting (6s between requests, 10/min burst) and daily quota floor (reserves 20 requests)
+- Environment: `API_FOOTBALL_KEY` required in `.env`
+- **Script**: `setup_verification_task.ps1`
+
+---
+
+## 8. Hourly Match Analysis (Every Hour) — `scripts/hourly-match-analysis.js`
 
 | Field | Value |
 |-------|-------|

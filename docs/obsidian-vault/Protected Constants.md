@@ -54,7 +54,7 @@
 - **Components protected:**
   1. **Eligibility**: kickoff_date == today (HR35 standing rule), `on_deploy_shortlist` true, at least one capital-cleared market (`DEPLOYABLE`) with a live price
   2. **Multi-market selection**: every eligible fixture evaluated across ALL `EDGE_MARKETS` (1X2 Home/Draw/Away, Over/Under 1.5/2.5, BTTS, Double Chance) via `_best_deployable_leg()`; each fixture picks its OWN single best market by highest **EDGE = model_prob × price − 1**, tiebreak model_prob, then canonical market order — probability stays visible as information
-  3. **Hard odds cap**: any market priced > 2.00 rejected (FL-bias guardrail, `MAX_ODDS_CAP = 2.00`)
+  3. **Hard odds cap**: any market priced > 1.50 rejected (FL-bias guardrail, `MAX_ODDS_CAP = 1.50`)
   4. **Agreement gate (opt-in)**: when `agreement_band` set, only markets where model and book implied prob agree within band (calibrated zone) are admitted; default None = shipped EV-ranking
   5. **Acca A construction**: top 4–5 highest-EDGE legs (shortened acca if fewer, never padded)
   6. **Split accas**: remainder split into ~4–5 leg groups (never one giant acca), deterministic chunking

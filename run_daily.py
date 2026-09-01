@@ -48,6 +48,9 @@ from data.football_data_source import load_league
 from clv.clv_logger import CLVLog, compute_clv, ensemble_weights
 from clv.closing_capture import capture_closing_lines
 from output import notify
+
+# Import for calibration tracking
+from calibration_tracker import GradedPick, record_outcome
 from output.produce_bet import render_telegram_board
 from output.produce_bet import render_verify_results, render_produce_bet
 from output.board_validator import filter_board_for_telegram
@@ -682,6 +685,26 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # grade_all_pending is the canonical automated path shared with the CLI.
     verify_block, gflags = grade_open_legs(log, season)
     all_flags += gflags
+
+    # --- Calibration tracking: record outcomes for all settled legs ---
+    # After verification, log each graded leg's predicted probability and actual
+    # outcome to the calibration log for Brier score / reliability reporting.
+    calibration_log_path = Path("calibration_log.jsonl")
+    recorded_count = 0
+    for leg in log.legs:
+        if leg.hit is not None and leg.model_prob is not None:
+            pick = GradedPick(
+                fixture=leg.fixture,
+                market=leg.market,
+                predicted_prob=leg.model_prob,
+                outcome_hit=leg.hit,
+                date=leg.date_logged
+            )
+            record_outcome(calibration_log_path, pick)
+            recorded_count += 1
+    if recorded_count:
+        all_flags.append(f"calibration tracker: recorded {recorded_count} graded leg outcome(s)")
+
     try:
         auto_summary, auto_flags = log.grade_all_pending(season)
         all_flags += [f for f in auto_flags

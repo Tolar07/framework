@@ -35,6 +35,7 @@ from data.football_data_source import load_league, MatchResult as FDMatchResult
 from data.espn_results import fetch_results_for_date
 from clv.clv_logger import CLVLog, LoggedLeg, compute_clv, DEFAULT_LOG_PATH
 from brain.store import Brain
+from data.calibration_tracker import record_outcome, GradedPick
 
 
 # =============================================================================
@@ -425,7 +426,7 @@ def grade_predictions(legs: List[PredictionLeg], fd_results: Dict[str, FDMatchRe
             # Only primary source available - still grade but note single source
             status = "HIT" if hit else "MISS"
 
-        graded.append(GradedLeg(
+        graded_leg = GradedLeg(
             fixture=leg.fixture,
             league=leg.league,
             market=leg.market,
@@ -444,7 +445,21 @@ def grade_predictions(legs: List[PredictionLeg], fd_results: Dict[str, FDMatchRe
             primary_source="football-data.co.uk",
             f2_sources=f2_sources,
             f2_agreed=f2_agreed
-        ))
+        )
+        graded.append(graded_leg)
+
+        # Record outcome for calibration tracking (only for confirmed results)
+        # The calibration tracker expects market in human-readable format
+        if status in ("HIT", "MISS"):
+            calibration_pick = GradedPick(
+                fixture=leg.fixture,
+                market=leg.market_display,
+                predicted_prob=leg.model_prob,
+                outcome_hit=hit,
+                date=leg.match_date
+            )
+            calibration_log_path = Path(__file__).parent / "calibration_log.jsonl"
+            record_outcome(calibration_log_path, calibration_pick)
 
     return graded
 

@@ -113,7 +113,7 @@
 **Components Protected (from `engine/acca.py` and `engine/markets.py`):**
 1. **Eligibility**: kickoff_date == today (HR35), `on_deploy_shortlist`, DEPLOYABLE market with live price
 2. **Multi-market selection**: ALL `EDGE_MARKETS` (1X2, O/U 1.5, O/U 2.5, BTTS, Double Chance) via `_best_deployable_leg()`; each fixture picks its OWN best market by highest **EDGE = model_prob × price − 1**, tiebreak model_prob, then canonical order
-3. **Hard odds cap**: MAX_ODDS_CAP = 2.00 (FL-bias guardrail) — reject any market priced > 2.00
+3. **Hard odds cap**: MAX_ODDS_CAP = 1.50 (FL-bias guardrail) — reject any market priced > 1.50 (Architect 2026-09-01)
 4. **Agreement gate (opt-in)**: when `agreement_band` set, only markets where model and book implied prob agree within band; default None = shipped EV-ranking
 5. **Acca A**: top 4–5 highest-EDGE legs (shortened if fewer, never padded)
 6. **Split accas**: remainder split into ~4–5 leg groups (never one giant acca), deterministic chunking

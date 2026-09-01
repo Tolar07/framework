@@ -20,19 +20,19 @@ $bat    = Join-Path $proj "grade_results.bat"
 
 if (-not (Test-Path $bat)) { Write-Error "grade_results.bat not found at $bat"; exit 1 }
 
-# ===== TASK: RESULTS VERIFICATION (22:00) =====
+# ===== TASK: RESULTS VERIFICATION (Dynamic timing) =====
 $taskName  = "OLP XDV Results Verification"
-$time      = "22:00"
-$args      = '/c ""' + $bat + '""'
+$dynamicWrapper = Join-Path $proj "run_verification_dynamic.py"
+$args      = "/c ""python """ + $dynamicWrapper + """"""
 
-if (-not (Test-Path $bat)) { Write-Error "grade_results.bat not found at $bat"; exit 1 }
+if (-not (Test-Path $dynamicWrapper)) { Write-Error "run_verification_dynamic.py not found at $dynamicWrapper"; exit 1 }
 
 # CRITICAL: the project folder contains a space ("omniroute test"). Passing the
-# .bat path straight to -Execute makes Task Scheduler split it at the space, so
+# script path straight to -Execute makes Task Scheduler split it at the space, so
 # the task tries to run "C:\...\omniroute" and fails 0x80070002 (file not found)
 # every morning. The robust form runs cmd.exe and passes the full path as ONE
 # double-quoted argument, plus a WorkingDirectory so relative
-# paths in the .bat file work.
+# paths in the script work.
 $action  = New-ScheduledTaskAction -Execute "cmd.exe" -Argument $args -WorkingDirectory $proj
 
 # Run whether user is logged on or not, with highest privileges

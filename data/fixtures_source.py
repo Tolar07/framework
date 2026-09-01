@@ -316,3 +316,34 @@ def _parse_items(league: str, items: list[dict]) -> list[UpcomingFixture]:
 def as_pairs(fixtures: list[UpcomingFixture]) -> list[tuple[str, str]]:
     """Convenience adapter for orchestrator.run()'s upcoming_fixtures argument."""
     return [(f.home_team, f.away_team) for f in fixtures]
+
+
+def get_latest_kickoff_today(leagues: list[str], season: int) -> Optional[datetime]:
+    """
+    Find the latest kickoff time (UTC) for today's fixtures across all given leagues.
+
+    Uses API-Football fixture source.
+
+    Returns None if no fixtures found for today.
+    """
+    today = date.today().isoformat()
+    latest_kickoff: Optional[datetime] = None
+
+    for league in leagues:
+        try:
+            fixtures = fetch_upcoming(league, season, days_ahead=0)
+            for fx in fixtures:
+                # Only consider fixtures for today
+                if fx.date == today:
+                    # Parse kickoff_utc - it's a full ISO datetime from API-Football
+                    try:
+                        kickoff_dt = datetime.fromisoformat(fx.kickoff_utc.replace('Z', '+00:00'))
+                        if latest_kickoff is None or kickoff_dt > latest_kickoff:
+                            latest_kickoff = kickoff_dt
+                    except ValueError:
+                        pass
+        except Exception:
+            # SourceNoData or other error - skip this league
+            continue
+
+    return latest_kickoff

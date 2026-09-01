@@ -1000,3 +1000,36 @@ def load_results(league: str, season: str) -> tuple[list[MatchResult], list[dict
 def as_pairs(fixtures: list[UpcomingFixture]) -> list[tuple[str, str]]:
     """Adapter for orchestrator.scan_one_league()'s upcoming_fixtures argument."""
     return [(f.home_team, f.away_team) for f in fixtures]
+
+
+def get_latest_kickoff_today(leagues: list[str], fixtures_season: str) -> Optional[datetime]:
+    """
+    Find the latest kickoff time (UTC) for today's fixtures across all given leagues.
+
+    Uses the same multi-source fixture fetching as the daily pipeline to ensure
+    we're looking at the same fixture universe that the board was built from.
+
+    Returns None if no fixtures found for today.
+    """
+    today = date.today().isoformat()
+    latest_kickoff: Optional[datetime] = None
+
+    for league in leagues:
+        try:
+            fixtures, _ = fetch_upcoming(league, fixtures_season, days_ahead=0)
+            for fx in fixtures:
+                # Only consider fixtures for today
+                if fx.date == today:
+                    # Parse kickoff_utc - it could be just date or full datetime
+                    if 'T' in fx.kickoff_utc:
+                        try:
+                            kickoff_dt = datetime.fromisoformat(fx.kickoff_utc.replace('Z', '+00:00'))
+                            if latest_kickoff is None or kickoff_dt > latest_kickoff:
+                                latest_kickoff = kickoff_dt
+                        except ValueError:
+                            pass
+        except Exception:
+            # SourceNoData or other error - skip this league
+            continue
+
+    return latest_kickoff

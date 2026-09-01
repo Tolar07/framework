@@ -1128,6 +1128,49 @@ def initialize_multi_sources():
 
 # Convenience accessors for orchestrator integration
 
+def get_latest_kickoff_today(leagues: list[str], fixtures_season: str) -> Optional[datetime]:
+    """
+    Find the latest kickoff time (UTC) for today's fixtures across all given leagues.
+
+    Uses the multi-source fixtures failover (TheSportsDB -> ESPN -> API-Football -> Odds-derived)
+    to match the exact fixture universe the daily pipeline uses.
+
+    Returns None if no fixtures found for today.
+    """
+    from datetime import date, datetime
+    today = date.today().isoformat()
+    latest_kickoff: Optional[datetime] = None
+
+    for league in leagues:
+        try:
+            result = get_fixtures(league, fixtures_season, days_ahead=0)
+            # Get today's fixtures from the dates dict
+            dates = result.get("dates", {})
+            for (home_team, away_team), fixture_date in dates.items():
+                if fixture_date == today:
+                    # Find the actual fixture object to get kickoff_utc
+                    fixtures = result.get("fixtures", [])
+                    for fixture in fixtures:
+                        # fixture format: [home_team, away_team, kickoff_utc_str, ...]
+                        if len(fixture) >= 3 and fixture[0] == home_team and fixture[1] == away_team:
+                            kickoff_str = fixture[2]  # kickoff_utc is at index 2
+                            if kickoff_str:
+                                try:
+                                    # Parse ISO datetime string
+                                    kickoff_dt = datetime.fromisoformat(kickoff_str.replace('Z', '+00:00'))
+                                    if latest_kickoff is None or kickoff_dt > latest_kickoff:
+                                        latest_kickoff = kickoff_dt
+                                except ValueError:
+                                    # If parsing fails, skip this fixture
+                                    pass
+                            break
+        except Exception:
+            # Skip league if source fails - will try other leagues
+            continue
+
+    return latest_kickoff
+
+
 def get_fixtures(league: str, fixtures_season: str, days_ahead: int = 14,
                  api_football_season: int | None = None) -> dict:
     """Fetch fixtures with automatic failover."""

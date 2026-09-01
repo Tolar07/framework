@@ -69,7 +69,7 @@ def _bf(fixture, home, away, probs, day=TODAY):
 
 def _check(name, cond, detail=""):
     assert cond, f"{name} FAILED {detail}"
-    print(f"  ✓ {name}")
+    print(f"  [OK] {name}")
 
 
 # --- 1. Over 1.5 is the pick when it carries the highest EDGE -----------------
@@ -80,14 +80,14 @@ fx_a = _mk("O15Lord", "UnderGod", {
     "dc_1x": 1.55, "dc_x2": 1.35, "dc_12": 1.30,
 })
 probs_a = _probs("O15Lord", "UnderGod", 0.30, 0.25, 0.45, 0.88, 0.55, 0.60)
-leg_a = _best_deployable_leg(
+capital_a, _ = _best_deployable_leg(
     _bf("O15Lord v UnderGod (Eredivisie)", "O15Lord", "UnderGod", probs_a),
     {("O15Lord", "UnderGod"): fx_a})
 _check("Over1.5 is the pick when it is the highest-EDGE market",
-       leg_a is not None and leg_a.market_key == mkt.OVER_15,
-       f"got {leg_a.market_key if leg_a else None} (EV {leg_a.ev if leg_a else None})")
+       capital_a is not None and capital_a.market_key == mkt.OVER_15,
+       f"got {capital_a.market_key if capital_a else None} (EV {capital_a.ev if capital_a else None})")
 _check("Over1.5 leg EV = blended prob*price-1 (ID414)",
-       abs(leg_a.ev - 0.0828) < 1e-4)
+       abs(capital_a.ev - 0.0828) < 1e-4)
 
 # --- 2. BTTS is the pick for a DIFFERENT fixture -------------------------------
 fx_b = _mk("BTTSKing", "BTTSQueen", {
@@ -97,14 +97,14 @@ fx_b = _mk("BTTSKing", "BTTSQueen", {
     "dc_1x": 1.6, "dc_x2": 1.3, "dc_12": 1.35,
 })
 probs_b = _probs("BTTSKing", "BTTSQueen", 0.28, 0.28, 0.44, 0.75, 0.50, 0.72)
-leg_b = _best_deployable_leg(
+capital_b, _ = _best_deployable_leg(
     _bf("BTTSKing v BTTSQueen (Eredivisie)", "BTTSKing", "BTTSQueen", probs_b),
     {("BTTSKing", "BTTSQueen"): fx_b})
 _check("BTTS is the pick for a different fixture (no forced diversity)",
-       leg_b is not None and leg_b.market_key == mkt.BTTS_YES,
-       f"got {leg_b.market_key if leg_b else None}")
+       capital_b is not None and capital_b.market_key == mkt.BTTS_YES,
+       f"got {capital_b.market_key if capital_b else None}")
 _check("BTTS leg EV = blended prob*price-1 (ID414)",
-       abs(leg_b.ev - 0.0751) < 1e-4)
+       abs(capital_b.ev - 0.0751) < 1e-4)
 
 # --- 3. EDGE beats PROBABILITY: Over1.5 at 0.92 prob but negative EV loses ---
 fx_e = _mk("ProbTrap", "EdgeWin", {
@@ -114,13 +114,13 @@ fx_e = _mk("ProbTrap", "EdgeWin", {
     "dc_1x": 1.4, "dc_x2": 1.6, "dc_12": 1.45,
 })
 probs_e = _probs("ProbTrap", "EdgeWin", 0.40, 0.31, 0.29, 0.92, 0.50, 0.55)
-leg_e = _best_deployable_leg(
+capital_e, _ = _best_deployable_leg(
     _bf("ProbTrap v EdgeWin (Eredivisie)", "ProbTrap", "EdgeWin", probs_e),
     {("ProbTrap", "EdgeWin"): fx_e})
 _check("EDGE beats probability: DC_12 (0.69 prob) beats 0.92-prob Over1.5 (blended EV)",
-       leg_e is not None and leg_e.market_key == mkt.DC_12
-       and leg_e.prob < probs_e.p_over_15,
-       f"got {leg_e.market_key if leg_e else None} (prob {leg_e.prob if leg_e else None})")
+       capital_e is not None and capital_e.market_key == mkt.DC_12
+       and capital_e.prob < probs_e.p_over_15,
+       f"got {capital_e.market_key if capital_e else None} (prob {capital_e.prob if capital_e else None})")
 _check("the Over1.5 'highest-probability' market had NEGATIVE EV here (blended)",
        True)  # Over1.5 EV is -0.0064 with blend
 
@@ -132,23 +132,23 @@ fx_d = _mk("DCFavourite", "DCDraw", {
     "dc_1x": 1.35, "dc_x2": 1.55, "dc_12": 1.50,
 })
 probs_d = _probs("DCFavourite", "DCDraw", 0.40, 0.30, 0.30, 0.75, 0.42, 0.52)
-leg_d = _best_deployable_leg(
+capital_d, _ = _best_deployable_leg(
     _bf("DCFavourite v DCDraw (Eredivisie)", "DCFavourite", "DCDraw", probs_d),
     {("DCFavourite", "DCDraw"): fx_d})
 _check("Double Chance 12 is the pick (DC_1X prob = p_home+p_draw)",
-       leg_d is not None and leg_d.market_key == mkt.DC_12,
-       f"got {leg_d.market_key if leg_d else None}")
+       capital_d is not None and capital_d.market_key == mkt.DC_12,
+       f"got {capital_d.market_key if capital_d else None}")
 _check("DC_12 model prob is the derived sum p_home+p_away",
-       abs(leg_d.prob - (0.40 + 0.30)) < 1e-9)
+       abs(capital_d.prob - (0.40 + 0.30)) < 1e-9)
 
 # --- 5. HR35: no price -> never a leg ----------------------------------------
 fx_none = _mk("NoPrice", "Ghost", {})  # zero prices anywhere
 probs_n = _probs("NoPrice", "Ghost", 0.60, 0.25, 0.15, 0.85, 0.55, 0.50)
-leg_n = _best_deployable_leg(
+capital_n, _ = _best_deployable_leg(
     _bf("NoPrice v Ghost (Eredivisie)", "NoPrice", "Ghost", probs_n),
     {("NoPrice", "Ghost"): fx_none})
 _check("unpriced fixture -> no leg (HR35, never a fabricated price)",
-       leg_n is None)
+       capital_n is None)
 
 # --- 6. same-day + no-date rules still hold with the wider universe ----------
 board6 = [
@@ -168,11 +168,11 @@ _check("same-day rule holds: tomorrow/undated fixtures never in any bet",
        legs6 == {"O15Lord v UnderGod", "BTTSKing v BTTSQueen"}, f"got {legs6}")
 
 # --- 7. Acca A ranks by EV desc; write-back matches the booked leg ------------
-board7 = [_bf(f"{f} v {g} (Eredivisie)", f, g, p)
-         for f, g, p in (("O15Lord", "UnderGod", probs_a),
+board7 = [_bf(f"{f} v {g} ({'Premier League' if i == 0 else 'Eredivisie'})", f, g, p)
+         for i, (f, g, p) in enumerate((("O15Lord", "UnderGod", probs_a),
                          ("ProbTrap", "EdgeWin", probs_e),
                          ("BTTSKing", "BTTSQueen", probs_b),
-                         ("DCFavourite", "DCDraw", probs_d))]
+                         ("DCFavourite", "DCDraw", probs_d)))]
 odds7 = {("O15Lord", "UnderGod"): fx_a, ("ProbTrap", "EdgeWin"): fx_e,
          ("BTTSKing", "BTTSQueen"): fx_b, ("DCFavourite", "DCDraw"): fx_d}
 bets7 = build_production_bets(board7, today=TODAY, odds_index=odds7, max_odds_cap=float('inf'))

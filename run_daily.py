@@ -50,6 +50,7 @@ from clv.closing_capture import capture_closing_lines
 from output import notify
 from output.produce_bet import render_telegram_board
 from output.produce_bet import render_verify_results, render_produce_bet
+from output.board_validator import filter_board_for_telegram
 from output.render_fixture_list import render_fixture_list
 from booking.verify_fixtures import _parse_bet365_datetime
 from output import whatsapp_deliver
@@ -1725,10 +1726,12 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     # CLEAN TELEGRAM OUTPUT — compact heartbeat format (Architect 2026-08-28 directive)
     # Shows ONLY fixtures with model probabilities, league-grouped with kickoff time,
     # alt markets, and AI pick. No "NO DATA — PENDING" entries.
+    # Apply "wide eyes, narrow hands" filter for compact Telegram output
+    telegram_board = filter_board_for_telegram(board, board_date)
     telegram_text = render_telegram_board(
         mode="Mode A", phase=PHASE_LABEL,
         leagues_scanned=leagues, calibration_count=status["legs_with_clv"],
-        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
+        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=telegram_board,
         yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
         produced_bet=produced_record, production=production,
         codes=codes_result,

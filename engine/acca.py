@@ -70,7 +70,7 @@ from engine.mes import edge_diff, mes_numeric_ev
 ACCA_A_MAX = 5          # the headline acca holds the top 4-5 confidence legs
 HEADLINE_MIN_LEGS = 4   # below this, Acca A is a shortened acca, never padded
 SPLIT_GROUP_TARGET = 5  # remainder splits into ~4-5 leg groups, never one giant acca
-MAX_ODDS_CAP = 2.00     # hard cap — any leg with price > 2.00 is rejected (FL-bias guardrail)
+MAX_ODDS_CAP = 1.50     # hard cap — any leg with price > 1.50 is rejected (Architect 2026-09-01)
 MIN_ODDS_FLOOR = 1.20   # hard floor — any leg with price < 1.20 is rejected (no value in heavy favourites)
 PREFERRED_ODDS_CEILING = 1.50  # sweet spot ceiling — 1.20–1.50 is the "safe" deployment zone (Architect 2026-08-19)
 
@@ -335,10 +335,10 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
         # market disagree (ID414). Ledger keeps RAW model_est via prob;
         # calibration stays inert (no feedback loop).
         # Canonical edge (Architect 2026-08-19): edge = model_prob - implied_prob.
-        # EV retained for Kelly/staking: ev = model_prob * price - 1.
+        # EV retained for Kelly/staking: ev = blended_prob * price - 1 (ID414).
         prob_ev = blend_toward_market(prob, book_p) if book_p is not None else prob
         edge = edge_diff(prob_ev, price) if price else None
-        ev = mes_numeric_ev(prob, price) if price else None
+        ev = mes_numeric_ev(prob_ev, price) if price else None
         in_preferred = min_odds_floor <= price <= preferred_ceiling
         in_capital_zone = price <= max_odds_cap
         # Determine status based on odds
@@ -355,24 +355,17 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
             status=status,
         )
         if in_capital_zone:
-            # Capital-eligible leg: prefer legs in preferred zone (1.20-1.50).
-            # If none exists for this fixture, fall back to best in 1.50-2.00 zone.
-            # Ranking uses canonical edge (probability gap); EV stored on leg for info/staking.
-            if in_preferred:
-                if (best_capital_preferred is None or (ev is not None and (best_capital_preferred.ev is None or ev > best_capital_preferred.ev))
-                        or (ev == best_capital_preferred.ev and prob > best_capital_preferred.prob)):
-                    best_capital_preferred = leg
-            else:
-                # Outside preferred zone (1.50-2.00) — only considered if no preferred-zone leg
-                if (best_capital is None or (ev is not None and (best_capital.ev is None or ev > best_capital.ev))
-                        or (ev == best_capital.ev and prob > best_capital.prob)):
-                    best_capital = leg
+            # Capital-eligible leg: consider all legs in this zone regardless of price zone
+            # Selection is based solely on edge (probability gap), with probability as tiebreaker
+            if (best_capital_preferred is None or (edge is not None and (best_capital_preferred.edge is None or edge > best_capital_preferred.edge))
+                    or (edge == best_capital_preferred.edge and prob > best_capital_preferred.prob)):
+                best_capital_preferred = leg
         else:
             # Watchlist leg (odds > 2.00) — track the best one for review
-            if (best_watchlist is None or (ev is not None and (best_watchlist.ev is None or ev > best_watchlist.ev))
-                    or (ev == best_watchlist.ev and prob > best_watchlist.prob)):
+            if (best_watchlist is None or (edge is not None and (best_watchlist.edge is None or edge > best_watchlist.edge))
+                    or (edge == best_watchlist.edge and prob > best_watchlist.prob)):
                 best_watchlist = leg
-    # Return preferred-zone capital leg if any, else fallback capital leg, and watchlist leg
+    # Return the best capital leg (preferred zone or fallback) and watchlist leg
     capital_leg = best_capital_preferred or best_capital
     # HARD RULE (Architect 2026-08-19): MAX_ODDS_CAP is a hard ceiling — legs with
     # odds > 2.00 go to WATCHLIST (ID420), never to capital. No fallback reclassifies

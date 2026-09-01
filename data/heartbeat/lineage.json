@@ -1,15 +1,49 @@
 {
   "lineages": [
     {
-      "lineage_id": "ln_d6474491b6",
-      "parent_id": null,
-      "generation": 0,
-      "bankroll": 100.0,
+      "lineage_id": "ln_4e9e110ae2",
+      "parent_id": "ln_d6474491b6",
+      "generation": 1,
+      "bankroll": 49.37,
+      "current_stake": 1.0,
+      "wins": 0,
+      "losses": 1,
+      "alive": true,
+      "born_date": "2026-08-31",
+      "last_result": "LOSS",
+      "fixture": "SC Braga v Vit\u00f3ria SC (Primeira Liga)",
+      "pick": "Both teams to score \u2014 yes",
+      "price": 1.91,
+      "edge": 0.0993,
+      "probability": 0.5236
+    },
+    {
+      "lineage_id": "ln_e2fabdec9b",
+      "parent_id": "ln_c07d4ea496",
+      "generation": 2,
+      "bankroll": 25.45,
       "current_stake": 1.0,
       "wins": 0,
       "losses": 0,
       "alive": true,
-      "born_date": "2026-08-29",
+      "born_date": "2026-09-01",
+      "last_result": null,
+      "fixture": null,
+      "pick": null,
+      "price": null,
+      "edge": 0.0,
+      "probability": 0.0
+    },
+    {
+      "lineage_id": "ln_792f75b033",
+      "parent_id": "ln_c07d4ea496",
+      "generation": 2,
+      "bankroll": 25.45,
+      "current_stake": 1.0,
+      "wins": 0,
+      "losses": 0,
+      "alive": true,
+      "born_date": "2026-09-01",
       "last_result": null,
       "fixture": null,
       "pick": null,
@@ -18,5 +52,5 @@
       "probability": 0.0
     }
   ],
-  "last_bred_date": null
+  "last_bred_date": "2026-09-01"
 }

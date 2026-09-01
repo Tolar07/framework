@@ -1,0 +1,267 @@
+{
+  "date": "2026-08-31",
+  "analysis_timestamp": "2026-08-31T07:28:28.367780",
+  "functional": [
+    {
+      "category": "functional",
+      "severity": "warning",
+      "title": "No Heartbeat Produced Today",
+      "description": "No heartbeat record found for 2026-08-31. Heartbeat should be generated daily at 07:00.",
+      "evidence": {
+        "date": "2026-08-31",
+        "history_count": 1
+      },
+      "recommendation": "Check daily pipeline run (run_daily.py) completed successfully. Verify Agent 10 (CEO) sign-off.",
+      "timestamp": "2026-08-31T07:28:28.334613"
+    },
+    {
+      "category": "functional",
+      "severity": "info",
+      "title": "No Rated Fixtures Today",
+      "description": "Daily pipeline ran but no rated fixtures kicked off today. Valid empty record.",
+      "evidence": {
+        "date": "2026-08-31",
+        "n_legs": 0
+      },
+      "recommendation": "No action needed — this is a valid outcome (ID415).",
+      "timestamp": "2026-08-31T07:28:28.336654"
+    },
+    {
+      "category": "functional",
+      "severity": "warning",
+      "title": "No Booking Codes Generated",
+      "description": "Produced bet exists but no booking codes were generated for SportyBet.",
+      "evidence": {
+        "date": "2026-08-31",
+        "produced_bet": 0
+      },
+      "recommendation": "Check booking.booking_codes module. Verify odds availability on SportyBet.",
+      "timestamp": "2026-08-31T07:28:28.337265"
+    },
+    {
+      "category": "functional",
+      "severity": "info",
+      "title": "No CLV Entries Logged Today",
+      "description": "No legs had entry odds captured today (CL-LIVE capture path).",
+      "evidence": {
+        "date": "2026-08-31",
+        "total_legs": 76
+      },
+      "recommendation": "Expected if no priced markets available. Verify odds_index in pipeline.",
+      "timestamp": "2026-08-31T07:28:28.340101"
+    },
+    {
+      "category": "functional",
+      "severity": "critical",
+      "title": "Variant Population Extinct",
+      "description": "No alive variants in population. Survival tier will be 'dead'.",
+      "evidence": {
+        "totalVariants": 0,
+        "aliveVariants": 0,
+        "deadVariants": 0,
+        "meanFitness": 0.0,
+        "bestFitness": 0.0,
+        "worstFitness": 0.0,
+        "windowSize": 100,
+        "deathsThisWindow": 0,
+        "replicationsThisWindow": 0
+      },
+      "recommendation": "Trigger variant replication from config or re-seed population. Check variant_selection.add_variant().",
+      "timestamp": "2026-08-31T07:28:28.340345"
+    },
+    {
+      "category": "functional",
+      "severity": "warning",
+      "title": "Missing Pipeline Stages: ingestion",
+      "description": "Board log may be incomplete — some pipeline stages not represented.",
+      "evidence": {
+        "available_keys": [
+          "schema_version",
+          "date",
+          "phase",
+          "leagues_scanned",
+          "n_leagues",
+          "data_flags",
+          "gate",
+          "telemetry",
+          "calibration_count",
+          "mean_clv",
+          "recommendation",
+          "board",
+          "yesterday_graded",
+          "rolling_7d",
+          "produced_bet",
+          "accas"
+        ]
+      },
+      "recommendation": "Verify each agent in olp_xdv_pipeline.py executed and stamped payload.",
+      "timestamp": "2026-08-31T07:28:28.356998"
+    }
+  ],
+  "verification": [
+    {
+      "category": "verification",
+      "severity": "warning",
+      "title": "30 Produced Legs Still Pending Settlement",
+      "description": "Legs from yesterday's produced bet have not been settled yet.",
+      "evidence": {
+        "produced_pending": 30,
+        "booking_pending": 0,
+        "date": "2026-08-30"
+      },
+      "recommendation": "Run booking_tracker.settle() for yesterday. Check football-data.co.uk results availability.",
+      "timestamp": "2026-08-31T07:28:28.359415"
+    },
+    {
+      "category": "verification",
+      "severity": "warning",
+      "title": "17 Phase 2 Legs Missing CLV",
+      "description": "Legs have been settled but closing line not captured (CL-ARCHIVE).",
+      "evidence": {
+        "legs_with_clv": 42,
+        "legs_without_clv": 17,
+        "clv_capture_rate": "71.2%"
+      },
+      "recommendation": "Run clv_logger.grade_all_pending() to capture CL-ARCHIVE closes. Check Data Steward schedule.",
+      "timestamp": "2026-08-31T07:28:28.362056"
+    },
+    {
+      "category": "verification",
+      "severity": "info",
+      "title": "Phase 3 Gate MET — Awaiting Architect Sign-off",
+      "description": "CLV gate requirements satisfied. Capital deployment requires ARCHITECT_SIGNOFF.",
+      "evidence": {
+        "legs_with_clv": 42,
+        "gate_requirement": 0,
+        "mean_clv_pct": -10.215,
+        "positive_mean_clv": true,
+        "gate_met": true,
+        "architect_signed_off": true,
+        "signed_by": "Westrn (Architect)",
+        "signed_at": "2026-08-21T00:00:00+00:00",
+        "notes": "Gate requirements suspended per ARCHITECT_DIRECTIVES.md 2026-08-21"
+      },
+      "recommendation": "Architect must explicitly approve capital deployment via ARCHITECT_SIGNOFF=1.",
+      "timestamp": "2026-08-31T07:28:28.364084"
+    }
+  ],
+  "performance": [
+    {
+      "category": "performance",
+      "severity": "warning",
+      "title": "Negative CLV Drift: 1X2_HOME",
+      "description": "Market 1X2_HOME shows mean CLV of -9.38% across 20 legs — consistently getting worse prices than close.",
+      "evidence": {
+        "market": "1X2_HOME",
+        "mean_clv_pct": -9.3839,
+        "n_legs": 20
+      },
+      "recommendation": "Review model probability calibration for this market. Check odds source freshness.",
+      "timestamp": "2026-08-31T07:28:28.365845"
+    },
+    {
+      "category": "performance",
+      "severity": "warning",
+      "title": "Negative CLV Drift: 1X2_DRAW",
+      "description": "Market 1X2_DRAW shows mean CLV of -2.27% across 6 legs — consistently getting worse prices than close.",
+      "evidence": {
+        "market": "1X2_DRAW",
+        "mean_clv_pct": -2.27,
+        "n_legs": 6
+      },
+      "recommendation": "Review model probability calibration for this market. Check odds source freshness.",
+      "timestamp": "2026-08-31T07:28:28.365864"
+    },
+    {
+      "category": "performance",
+      "severity": "warning",
+      "title": "Negative CLV Drift: 1X2_AWAY",
+      "description": "Market 1X2_AWAY shows mean CLV of -20.24% across 11 legs — consistently getting worse prices than close.",
+      "evidence": {
+        "market": "1X2_AWAY",
+        "mean_clv_pct": -20.236363636363635,
+        "n_legs": 11
+      },
+      "recommendation": "Review model probability calibration for this market. Check odds source freshness.",
+      "timestamp": "2026-08-31T07:28:28.365874"
+    },
+    {
+      "category": "performance",
+      "severity": "warning",
+      "title": "League Underperforming: Scottish Premiership",
+      "description": "League Scottish Premiership mean CLV -4.77% — market consistently sharper than model.",
+      "evidence": {
+        "league": "Scottish Premiership",
+        "mean_clv_pct": -4.773,
+        "n_legs": 3
+      },
+      "recommendation": "Consider league-specific recalibration or exclusion from production.",
+      "timestamp": "2026-08-31T07:28:28.365896"
+    },
+    {
+      "category": "performance",
+      "severity": "warning",
+      "title": "League Underperforming: Premier League",
+      "description": "League Premier League mean CLV -17.80% — market consistently sharper than model.",
+      "evidence": {
+        "league": "Premier League",
+        "mean_clv_pct": -17.799,
+        "n_legs": 3
+      },
+      "recommendation": "Consider league-specific recalibration or exclusion from production.",
+      "timestamp": "2026-08-31T07:28:28.365905"
+    },
+    {
+      "category": "performance",
+      "severity": "warning",
+      "title": "League Underperforming: Serie A",
+      "description": "League Serie A mean CLV -11.75% — market consistently sharper than model.",
+      "evidence": {
+        "league": "Serie A",
+        "mean_clv_pct": -11.747,
+        "n_legs": 4
+      },
+      "recommendation": "Consider league-specific recalibration or exclusion from production.",
+      "timestamp": "2026-08-31T07:28:28.365912"
+    },
+    {
+      "category": "performance",
+      "severity": "warning",
+      "title": "League Underperforming: Serie B",
+      "description": "League Serie B mean CLV -9.24% — market consistently sharper than model.",
+      "evidence": {
+        "league": "Serie B",
+        "mean_clv_pct": -9.245,
+        "n_legs": 3
+      },
+      "recommendation": "Consider league-specific recalibration or exclusion from production.",
+      "timestamp": "2026-08-31T07:28:28.365918"
+    },
+    {
+      "category": "performance",
+      "severity": "critical",
+      "title": "Survival Tier: 🟠 CRITICAL",
+      "description": "Mean fitness: 0.000, Alive: 0/0",
+      "evidence": {
+        "tier": "critical",
+        "mean_fitness": 0.0,
+        "alive_variants": 0,
+        "total_variants": 0
+      },
+      "recommendation": "Losing population. Cull worst variants, reduce compute, investigate model drift.",
+      "timestamp": "2026-08-31T07:28:28.365932"
+    }
+  ],
+  "motivation": [],
+  "summary": {
+    "date": "2026-08-31",
+    "functional_findings": 6,
+    "verification_findings": 3,
+    "performance_findings": 8,
+    "motivation_signals": 0,
+    "critical_count": 2,
+    "warning_count": 12,
+    "info_count": 3,
+    "motivation_actions": {}
+  }
+}

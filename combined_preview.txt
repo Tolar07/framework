@@ -1,0 +1,84 @@
+##########OLP XDV#########
+==================================
+
+📅  Mon 31 Aug 2026   (PICK · win %  ·  alt markets)
+
+⚽  La Liga (Spain)
+   ??:??   Osasuna v Getafe
+       O1.5 49%  ·  O2.5 23%  ·  O3.5 9%  ·  BTTS 31%
+       AI pick = Both teams to score — no 69%
+   ??:??   Barcelona v Rayo Vallecano
+       AI pick = Barcelona or Draw (double chance) 96%
+⚽  Premier League (England)
+   ??:??   Aston Villa v Arsenal
+       O1.5 70%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 46%
+       AI pick = Both teams to score — no 54%
+⚽  Primeira Liga (Portugal)
+   ??:??   Benfica v Estoril
+       O1.5 89%  ·  O2.5 73%  ·  O3.5 53%  ·  BTTS 53%
+       AI pick = Over 2.5 goals 73%
+⚽  Serie A (Italy)
+   ??:??   Lecce v AS Roma
+       O1.5 61%  ·  O2.5 34%  ·  O3.5 16%  ·  BTTS 32%
+       AI pick = AS Roma to win 62%
+
+==================================
+
+🎯 OLP XDV HEARTBEAT
+📅  Mon 31 Aug 2026
+
+⚽  Primeira Liga
+🕐  ??:??   SC Braga v VitÃ³ria SC (Primeira Liga)
+💡  Pick: 🤝 Both teams to score â€” yes (52%)
+📈  Edge: +9.9%
+💷  Bet365: 1.91
+⚠️  Verification: Pending Review
+
+🎯 OLP XDV HEARTBEAT
+📅  Mon 31 Aug 2026
+
+⚽  La Liga
+🕐  ??:??   Osasuna v Getafe (La Liga)
+💡  Pick: 🚫 Both teams to score â€” no (69%)
+📈  Edge: +6.1%
+💷  Bet365: 1.53
+⚠️  Verification: Pending Review
+
+##########OLP XDV#########
+==================================
+
+📅  Mon 31 Aug 2026   (PICK · win %  ·  alt markets)
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+Board code: NO DATA — PENDING (booking-code read postponed — technical issue,
+tracked internally, not blocking pipeline output)
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+No deploy-eligible fixtures kicking off today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+──────────────────────────────────
+No capital-eligible accas generated.
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Booking codes: PENDING pipeline-wide — technical issue under repair,
+tracking resumes once read_betslip_combined_odds is fixed.
+==================================
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

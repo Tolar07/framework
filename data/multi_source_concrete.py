@@ -540,8 +540,13 @@ class SportyBetOddsSource(DataSource):
                     continue
 
                 # Get odds for all markets from live API
+                # Get tournament ID for this league
+                from booking.league_map import SPORTYBET_LEAGUES
+                mapping = SPORTYBET_LEAGUES.get(league)
+                tournament_id = getattr(mapping, 'id', None) if mapping else None
+
                 try:
-                    live_markets = client.get_odds(fixture_id)
+                    live_markets = client.get_odds(fixture_id, tournament_id=tournament_id)
                 except Exception as e:
                     log.warning(f"Failed to get live odds for fixture {fixture_id}: {e}")
                     continue
@@ -555,33 +560,19 @@ class SportyBetOddsSource(DataSource):
                     source_tier="T1",
                 )
 
-                # Process each market
+                # Process each market from SportyBet API
+                # The client.get_odds() returns MarketOdds with:
+                # - market: normalized canonical key (e.g., "1X2_HOME", "OVER_1_5", "BTTS_YES")
+                # - outcomes: dict of outcome_name -> price (e.g., {"Home": 1.5, "Draw": 3.5, "Away": 6.0})
                 for market in live_markets:
-                    market_key = market.market  # already normalized by client? but we'll use raw from market outcomes
-                    # Actually, market.market is the normalized key from client._normalize_market_key
-                    # We need the original market name and desc from the API, but we lost them.
-                    # So we have to work with what we have: market.market and market.outcomes
-                    # The market.market is something like "1X2_HOME" etc. (from client's mapping)
-                    # We can reverse-engineer: if market.market ends with _HOME, _DRAW, etc.
-                    # But easier: we can use the client's mapping in reverse? Not reliable.
-                    # Instead, we will iterate over outcomes and use the outcome name to guess.
-                    # Since we lost the market context, we'll rely on the outcome name and the market key prefix.
+                    market_key = market.market  # normalized canonical key from client
+                    outcomes = market.outcomes   # dict: outcome_name -> price
 
-                    # For each outcome in this market
-                    for outcome_name, price in market.outcomes.items():
+                    # Map the SportyBet normalized market + outcome to FixtureOdds attributes
+                    for outcome_name, price in outcomes.items():
                         if not outcome_name or not price:
                             continue
-                        # Try to map using market.market and outcome_name
-                        attr = self._map_market_outcome_to_attribute(market_key, "", outcome_name)
-                        if attr is None:
-                            # Try splitting market_key to get base market and outcome suffix
-                            # e.g., "1X2_HOME" -> base="1x2", outcome="home"
-                            if "_" in market_key:
-                                parts = market_key.split("_")
-                                if len(parts) >= 2:
-                                    possible_outcome = parts[-1]
-                                    base_market = "_".join(parts[:-1])
-                                    attr = self._map_market_outcome_to_attribute(base_market, "", possible_outcome)
+                        attr = self._map_sportybet_normalized_market(market_key, outcome_name)
                         if attr:
                             quote = MarketQuote(
                                 price=price,
@@ -600,6 +591,173 @@ class SportyBetOddsSource(DataSource):
 
         finally:
             client.close()
+
+    def _map_sportybet_normalized_market(self, market_key: str, outcome_name: str) -> Optional[str]:
+        """
+        Map SportyBet's normalized market key + outcome name to FixtureOdds attribute.
+
+        The SportyBetClient._normalize_market_key() produces keys like:
+        - "1X2_HOME", "1X2_DRAW", "1X2_AWAY"
+        - "OVER_0_5", "OVER_1_5", "OVER_2_5", "OVER_3_5", "OVER_0_5" (for under too, mapped to OVER)
+        - "BTTS_YES", "BTTS_NO"
+        - "DC_1X", "DC_X2", "DC_12"
+        - "DNB_HOME", "DNB_AWAY"
+        - "HT_FT_11", "HT_FT_1X", etc.
+        - "CS_10", "CS_01", etc.
+
+        The outcome_name from the API is the raw display name (e.g., "Home", "Draw", "Away",
+        "Over", "Under", "Yes", "No", "1X", "X2", "12", "1/1", "1/X", etc.)
+        """
+        o_norm = outcome_name.lower().replace(" ", "_").replace("-", "_").replace("/", "_")
+
+        # Mapping: (market_key_lower, outcome_normalized) -> attribute
+        # All keys are lowercase for consistent lookup
+        MAP = {
+            # 1X2 markets - client normalizes "1x2", "match_winner", "full_time_result" to "1X2_HOME"
+            # The outcomes dict will have keys like "Home", "Draw", "Away"
+            ("1x2_home", "home"): "home",
+            ("1x2_home", "draw"): "draw",
+            ("1x2_home", "away"): "away",
+            ("1x2_draw", "home"): "home",
+            ("1x2_draw", "draw"): "draw",
+            ("1x2_draw", "away"): "away",
+            ("1x2_away", "home"): "home",
+            ("1x2_away", "draw"): "draw",
+            ("1x2_away", "away"): "away",
+            # Generic 1X2 fallbacks
+            ("1x2", "home"): "home",
+            ("1x2", "draw"): "draw",
+            ("1x2", "away"): "away",
+            ("match_winner", "home"): "home",
+            ("match_winner", "draw"): "draw",
+            ("match_winner", "away"): "away",
+            ("full_time_result", "home"): "home",
+            ("full_time_result", "draw"): "draw",
+            ("full_time_result", "away"): "away",
+
+            # Over/Under - client normalizes to OVER_X_X keys
+            ("over_0_5", "over"): "over05",
+            ("over_0_5", "under"): "under05",
+            ("over_1_5", "over"): "over15",
+            ("over_1_5", "under"): "under15",
+            ("over_2_5", "over"): "over25",
+            ("over_2_5", "under"): "under25",
+            ("over_3_5", "over"): "over35",
+            ("over_3_5", "under"): "under35",
+            # Handle inverse naming
+            ("under_0_5", "over"): "over05",
+            ("under_0_5", "under"): "under05",
+            ("under_1_5", "over"): "over15",
+            ("under_1_5", "under"): "under15",
+            ("under_2_5", "over"): "over25",
+            ("under_2_5", "under"): "under25",
+            ("under_3_5", "over"): "over35",
+            ("under_3_5", "under"): "under35",
+
+            # BTTS
+            ("btts_yes", "yes"): "btts_yes",
+            ("btts_no", "no"): "btts_no",
+            ("both_teams_to_score", "yes"): "btts_yes",
+            ("both_teams_to_score", "no"): "btts_no",
+            ("btts", "yes"): "btts_yes",
+            ("btts", "no"): "btts_no",
+            ("gg_ng", "gg"): "btts_yes",
+            ("gg_ng", "ng"): "btts_no",
+            ("gg", "gg"): "btts_yes",
+            ("ng", "ng"): "btts_no",
+
+            # Double Chance - client normalizes to DC_1X, DC_X2, DC_12
+            ("dc_1x", "1x"): "dc_1x",
+            ("dc_x2", "x2"): "dc_x2",
+            ("dc_12", "12"): "dc_12",
+            ("double_chance", "1x"): "dc_1x",
+            ("double_chance", "x2"): "dc_x2",
+            ("double_chance", "12"): "dc_12",
+            ("1x", "1x"): "dc_1x",
+            ("x2", "x2"): "dc_x2",
+            ("12", "12"): "dc_12",
+
+            # Draw No Bet
+            ("dnb_home", "home"): "dnb_home",
+            ("dnb_away", "away"): "dnb_away",
+            ("draw_no_bet", "home"): "dnb_home",
+            ("draw_no_bet", "away"): "dnb_away",
+            ("dnb", "home"): "dnb_home",
+            ("dnb", "away"): "dnb_away",
+            ("dnb_home", "home"): "dnb_home",
+            ("dnb_away", "away"): "dnb_away",
+
+            # HT/FT
+            ("ht_ft_11", "11"): "htft_11",
+            ("ht_ft_1x", "1x"): "htft_1x",
+            ("ht_ft_12", "12"): "htft_12",
+            ("ht_ft_x1", "x1"): "htft_x1",
+            ("ht_ft_xx", "xx"): "htft_xx",
+            ("ht_ft_x2", "x2"): "htft_x2",
+            ("ht_ft_21", "21"): "htft_21",
+            ("ht_ft_2x", "2x"): "htft_2x",
+            ("ht_ft_22", "22"): "htft_22",
+            ("half_time_full_time", "11"): "htft_11",
+            ("half_time_full_time", "1x"): "htft_1x",
+            ("half_time_full_time", "12"): "htft_12",
+            ("half_time_full_time", "x1"): "htft_x1",
+            ("half_time_full_time", "xx"): "htft_xx",
+            ("half_time_full_time", "x2"): "htft_x2",
+            ("half_time_full_time", "21"): "htft_21",
+            ("half_time_full_time", "2x"): "htft_2x",
+            ("half_time_full_time", "22"): "htft_22",
+            ("htft", "11"): "htft_11",
+            ("htft", "1x"): "htft_1x",
+            ("htft", "12"): "htft_12",
+            ("htft", "x1"): "htft_x1",
+            ("htft", "xx"): "htft_xx",
+            ("htft", "x2"): "htft_x2",
+            ("htft", "21"): "htft_21",
+            ("htft", "2x"): "htft_2x",
+            ("htft", "22"): "htft_22",
+        }
+
+        # Direct lookup with market_key and outcome (both lowercase)
+        key = (market_key.lower(), o_norm)
+        if key in MAP:
+            return MAP[key]
+
+        # Try with just the market_key (since some are already outcome-specific)
+        # e.g., "1X2_HOME" already implies home
+        if market_key.endswith("_HOME") or market_key.endswith("_home"):
+            return "home"
+        if market_key.endswith("_DRAW") or market_key.endswith("_draw"):
+            return "draw"
+        if market_key.endswith("_AWAY") or market_key.endswith("_away"):
+            return "away"
+        if market_key.endswith("_YES") or market_key.endswith("_yes"):
+            return "btts_yes"
+        if market_key.endswith("_NO") or market_key.endswith("_no"):
+            return "btts_no"
+        if market_key.endswith("_1X") or market_key.endswith("_1x"):
+            return "dc_1x"
+        if market_key.endswith("_X2") or market_key.endswith("_x2"):
+            return "dc_x2"
+        if market_key.endswith("_12"):
+            return "dc_12"
+        if market_key.endswith("_HOME") and "dnb" in market_key.lower():
+            return "dnb_home"
+        if market_key.endswith("_AWAY") and "dnb" in market_key.lower():
+            return "dnb_away"
+
+        # Handle HT/FT patterns like "HT_FT_11", "HT_FT_1X"
+        if market_key.startswith("ht_ft_") or market_key.startswith("HT_FT_"):
+            suffix = market_key.split("_")[-1].lower()
+            if suffix in ["11", "1x", "12", "x1", "xx", "x2", "21", "2x", "22"]:
+                return f"htft_{suffix}"
+
+        # Handle Correct Score: market_key like "CS_10", "CS_01", etc.
+        if market_key.startswith("cs_") or market_key.startswith("CS_"):
+            # Extract the score part
+            score_part = market_key[3:].replace("_", ":")
+            return f"cs_{score_part.replace(':', '_')}"
+
+        return None
 
 
 class Bet365CachedOddsSource(DataSource):

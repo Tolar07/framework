@@ -42,11 +42,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 import re
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Callable
 
 try:
     from playwright.sync_api import sync_playwright, Page
@@ -54,6 +55,100 @@ except ImportError:
     sync_playwright = None
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# --- Retry & Resilience Configuration ---
+MAX_CLICK_RETRIES = 3
+BASE_CLICK_DELAY = 1.0
+MAX_CLICK_DELAY = 10.0
+NAVIGATION_TIMEOUT = 30000
+ELEMENT_WAIT_TIMEOUT = 10000
+
+# Error classification
+class TransientError(Exception):
+    """Transient error that may succeed on retry (network, timeout, rate limit)."""
+    pass
+
+class PermanentError(Exception):
+    """Permanent error that won't succeed on retry (element not found, wrong page)."""
+    pass
+
+class RateLimitedError(TransientError):
+    """Rate limit error (429) - should back off."""
+    pass
+
+def _is_transient_error(e: Exception) -> bool:
+    """Classify if an error is transient (retryable)."""
+    if isinstance(e, TransientError):
+        return True
+    error_msg = str(e).lower()
+    # Network/timeout errors
+    if any(kw in error_msg for kw in ["timeout", "connection", "network", "dns", "resolve"]):
+        return True
+    # Rate limiting
+    if "429" in error_msg or "rate limit" in error_msg:
+        return True
+    # 5xx server errors
+    if any(code in error_msg for code in ["500", "502", "503", "504"]):
+        return True
+    return False
+
+def _sleep_backoff(attempt: int, base: float = BASE_CLICK_DELAY, cap: float = MAX_CLICK_DELAY) -> None:
+    """Sleep with exponential backoff and jitter."""
+    delay = min(base * (2 ** attempt), cap)
+    time.sleep(delay + random.uniform(0, 0.5))
+
+def safe_click(locator, max_retries: int = MAX_CLICK_RETRIES,
+               base_delay: float = BASE_CLICK_DELAY,
+               wait_timeout: int = ELEMENT_WAIT_TIMEOUT) -> bool:
+    """
+    Click a locator with retry logic and exponential backoff.
+    Returns True on success, False on permanent failure after retries.
+    """
+    for attempt in range(max_retries):
+        try:
+            # Wait for element to be ready
+            locator.wait_for(state="visible", timeout=wait_timeout)
+            locator.click()
+            # Brief verification delay
+            time.sleep(0.5)
+            return True
+        except Exception as e:
+            if attempt == max_retries - 1:
+                if _is_transient_error(e):
+                    print(f"  [CLICK RETRY EXHAUSTED] {locator}: {e}")
+                else:
+                    print(f"  [CLICK PERMANENT FAILURE] {locator}: {e}")
+                return False
+            # Transient error - retry with backoff
+            if _is_transient_error(e):
+                _sleep_backoff(attempt, base_delay)
+            else:
+                # Permanent error - don't retry
+                print(f"  [CLICK PERMANENT FAILURE] {locator}: {e}")
+                return False
+    return False
+
+def safe_navigate(page, url: str, max_retries: int = 2,
+                  wait_timeout: int = NAVIGATION_TIMEOUT) -> bool:
+    """
+    Navigate to a URL with retry logic.
+    Returns True on success, False on failure after retries.
+    """
+    for attempt in range(max_retries):
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=wait_timeout)
+            page.wait_for_load_state("networkidle", timeout=10000)
+            return True
+        except Exception as e:
+            if attempt == max_retries - 1:
+                print(f"  [NAVIGATE FAILED] {url}: {e}")
+                return False
+            if _is_transient_error(e):
+                _sleep_backoff(attempt)
+            else:
+                print(f"  [NAVIGATE PERMANENT FAILURE] {url}: {e}")
+                return False
+    return False
 
 from booking.league_map import SPORTYBET_LEAGUES
 from booking.bridge import load_sportybet_fixtures
@@ -203,8 +298,7 @@ def _find_match_row(page: Page, fixture_id: str,
 
 
 def _click_1x2(row, market_key: str) -> bool:
-    """Click a 1X2 outcome on a league-page match row. Returns True when the
-    click was issued (betslip state is checked by the caller)."""
+    """Click a 1X2 outcome on a league-page match row with retry logic."""
     idx = _1X2_INDEX.get(market_key)
     if idx is None:
         return False
@@ -214,45 +308,44 @@ def _click_1x2(row, market_key: str) -> bool:
     cells = market.query_selector_all(".m-outcome-odds")
     if len(cells) <= idx:
         return False
-    cells[idx].click()
-    return True
+    # Use safe_click with retry logic
+    return safe_click(cells[idx])
 
 
 def _open_match_page(page: Page, fixture_id: str) -> bool:
-    """Open a SportyBet match page and wait for markets."""
-    try:
-        page.goto(f"{BASE_URL}/ng/match/{fixture_id}", wait_until="domcontentloaded",
-                  timeout=30000)
-        page.wait_for_timeout(3500)
-        return True
-    except Exception:
-        return False
+    """Open a SportyBet match page and wait for markets with retry logic."""
+    return safe_navigate(page, f"{BASE_URL}/ng/match/{fixture_id}")
 
 
 def _click_under25(page: Page) -> bool:
-    """Drive a totals (Under 2.5) selection on a match page, best-effort.
+    """Drive a totals (Under 2.5) selection on a match page with retry logic.
 
     SportyBet's totals market is behind a tab and its DOM varies by
-    match/section. Multiple locator strategies are tried; a miss returns False
-    so the leg is flagged MANUAL (HR35) rather than guessed."""
+    match/section. Multiple locator strategies are tried with retries;
+    a miss returns False so the leg is flagged MANUAL (HR35) rather than guessed."""
     tries = [
-        lambda: page.locator("text=Under 2.5 >> visible=true").first.click(),
-        lambda: page.locator("div.outcome:has-text('Under 2.5') >> visible=true").first.click(),
-        lambda: page.locator(".m-outcome:has-text('Under 2.5') >> visible=true").first.click(),
-        lambda: page.locator("text=Over/Under >> visible=true").first.click()
-                .then(page.wait_for_timeout(1500))
-                .then(lambda: page.locator("text=Under 2.5 >> visible=true").first.click()),
+        lambda: page.locator("text=Under 2.5 >> visible=true").first,
+        lambda: page.locator("div.outcome:has-text('Under 2.5') >> visible=true").first,
+        lambda: page.locator(".m-outcome:has-text('Under 2.5') >> visible=true").first,
     ]
-    for attempt in tries:
+    for locator_fn in tries:
         try:
-            attempt()
-            page.wait_for_timeout(800)
-            # A click that actually added to the betslip usually pops a
-            # betslip badge; absence is not proof of failure, so accept the
-            # click as issued and let the betslip read decide.
-            return True
+            locator = locator_fn()
+            if safe_click(locator):
+                page.wait_for_timeout(800)
+                return True
         except Exception:
             continue
+    # Fallback: click Over/Under tab first, then Under 2.5
+    try:
+        tab_locator = page.locator("text=Over/Under >> visible=true").first
+        if safe_click(tab_locator):
+            page.wait_for_timeout(1500)
+            outcome_locator = page.locator("text=Under 2.5 >> visible=true").first
+            if safe_click(outcome_locator):
+                return True
+    except Exception:
+        pass
     return False
 
 
@@ -309,10 +402,10 @@ _MARKET_UI_MAP = {
 
 
 def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = None) -> bool:
-    """Drive a market selection on a match page, best-effort.
+    """Drive a market selection on a match page with retry logic.
 
     Generic clicker for markets that require navigating the match page tabs.
-    Tries multiple locator strategies; returns False so the leg is flagged
+    Tries multiple locator strategies with retries; returns False so the leg is flagged
     MANUAL (HR35) rather than guessed.
 
     NOTE: direct `/match/{id}` navigation TIMES OUT on SportyBet NG (verified
@@ -325,10 +418,7 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
 
     # Navigate to match page first (if fixture_id provided)
     if fixture_id:
-        try:
-            page.goto(f"{BASE_URL}/ng/match/{fixture_id}", wait_until="domcontentloaded", timeout=30000)
-            page.wait_for_timeout(5000)  # Increased wait for full render
-        except Exception:
+        if not safe_navigate(page, f"{BASE_URL}/ng/match/{fixture_id}"):
             return False
 
     tab_label = mapping["tab"]
@@ -354,26 +444,21 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
         f"button:has-text('{outcome_label}') >> visible=true",
     ]
 
-    # Strategy 1: Click tab first, then outcome
+    # Strategy 1: Click tab first, then outcome (with retries)
     for tab_loc in tab_locators:
-        for out_loc in outcome_locators:
-            try:
-                page.locator(tab_loc).first.click()
-                page.wait_for_timeout(2000)  # Increased wait
-                page.locator(out_loc).first.click()
-                page.wait_for_timeout(1500)
-                return True
-            except Exception:
-                continue
+        tab_locator = page.locator(tab_loc).first
+        if safe_click(tab_locator):
+            page.wait_for_timeout(1000)
+            for out_loc in outcome_locators:
+                outcome_locator = page.locator(out_loc).first
+                if safe_click(outcome_locator):
+                    return True
 
     # Strategy 2: Direct outcome click (tab might already be open)
     for out_loc in outcome_locators:
-        try:
-            page.locator(out_loc).first.click()
-            page.wait_for_timeout(1500)
+        outcome_locator = page.locator(out_loc).first
+        if safe_click(outcome_locator):
             return True
-        except Exception:
-            continue
 
     # Strategy 3: Fallback for alternative tab names (BTTS)
     if market_key in ("BTTS_YES", "BTTS_NO"):
@@ -384,7 +469,7 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
 
 
 def _click_totals_on_league_page(page: Page, row, market_key: str) -> bool:
-    """Click an Over/Under outcome on a league-page match row.
+    """Click an Over/Under outcome on a league-page match row with retry logic.
 
     The league page's second market cell (.market-cell .market) is the totals
     market. It has a line selector (.af-select-input showing the fixed line,
@@ -392,8 +477,8 @@ def _click_totals_on_league_page(page: Page, row, market_key: str) -> bool:
 
     This function:
     1. Reads the displayed line
-    2. If it doesn't match the target line, clicks the dropdown and selects the target line
-    3. Clicks the corresponding outcome (Over/Under)
+    2. If it doesn't match the target line, clicks the dropdown and selects the target line (with retries)
+    3. Clicks the corresponding outcome (Over/Under) (with retries)
 
     Returns True on success."""
     info = TOTALS_INDEX.get(market_key)
@@ -411,11 +496,13 @@ def _click_totals_on_league_page(page: Page, row, market_key: str) -> bool:
         return False
     displayed = (line_elem.inner_text() or "").strip()
 
-    # If the line doesn't match, click the dropdown and select the target line
+    # If the line doesn't match, click the dropdown and select the target line (with retries)
     if displayed != target_line:
         try:
-            # Click the line selector dropdown to open it
-            line_elem.click()
+            # Click the line selector dropdown to open it (with retry)
+            line_locator = totals.locator(".af-select-input")
+            if not safe_click(line_locator):
+                return False
             page.wait_for_timeout(1000)  # wait for dropdown to render
 
             # Find and click the target line option.
@@ -460,22 +547,21 @@ def _click_totals_on_league_page(page: Page, row, market_key: str) -> bool:
         except Exception:
             return False
 
-    # Click the correct outcome (0=Over, 1=Under)
+    # Click the correct outcome (0=Over, 1=Under) (with retry)
     cells = totals.query_selector_all(".m-outcome-odds")
     if len(cells) <= outcome_idx:
         return False
-    cells[outcome_idx].click()
-    return True
+    return safe_click(cells[outcome_idx])
 
 
 def _click_btts_on_league_page(page: Page, fixture_id: str, market_key: str) -> bool:
-    """Drive a BTTS (GG/NG) selection on a league page, best-effort.
+    """Drive a BTTS (GG/NG) selection on a league page with retry logic.
 
     VERIFIED LIVE 2026-08-09: direct `/match/{id}` navigation TIMES OUT on
     SportyBet NG, but clicking the match ROW expands an inline market selector
     on the league page. That selector exposes category tabs (Main | Goals |
     Half | ...) and, under the "Goals" tab, market-items including GG/NG. Clicking
-    GG/NG re-renders the table with two outcome columns: GG = Both Teams To
+    GG/NG re-renders the table with GG/NG as outcome columns: GG = Both Teams To
     Score Yes (index 0), NG = No Goal (index 1).
 
     Flow:
@@ -493,21 +579,24 @@ def _click_btts_on_league_page(page: Page, fixture_id: str, market_key: str) -> 
         row = _find_match_row(page, fixture_id)
         if row is None:
             return False
-        row.click()
-        page.wait_for_timeout(3000)
+        if not safe_click(row):
+            return False
+        page.wait_for_timeout(2000)
 
         # 2. Click the "Goals" category tab.
         goals = page.locator("text=Goals >> visible=true").first
         if goals.count() == 0:
             return False
-        goals.click()
+        if not safe_click(goals):
+            return False
         page.wait_for_timeout(1500)
 
         # 3. Click the "GG/NG" market-item; the table re-renders to GG/NG.
         ggng = page.locator(".market-item:has-text('GG/NG') >> visible=true").first
         if ggng.count() == 0:
             return False
-        ggng.click()
+        if not safe_click(ggng):
+            return False
         page.wait_for_timeout(1500)
 
         # 4. Re-locate the row (now showing GG/NG columns) and click GG/NG.
@@ -519,7 +608,8 @@ def _click_btts_on_league_page(page: Page, fixture_id: str, market_key: str) -> 
                 cells = r.query_selector_all(
                     f".m-outcome[data-op='desktop-outcome_{outcome_idx}']")
                 if cells:
-                    cells[0].click()
+                    if not safe_click(cells[0]):
+                        return False
                     page.wait_for_timeout(800)
                     return True
         return False

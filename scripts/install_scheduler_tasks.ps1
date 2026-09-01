@@ -36,7 +36,7 @@ if (-not $isElevated) {
 $proj = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 $Tasks = @(
-    @{ Name = "OLP XDV Daily Board";        Bat = "run_daily.bat";        Trigger = "Daily 07:00" }
+    @{ Name = "OLP XDV Daily Board";        Bat = "run_daily.bat";        Trigger = "Daily 22:00" }
     @{ Name = "OLP XDV Data Steward";       Bat = "steward.bat";          Trigger = "Daily 06:00, 15:00" }
     @{ Name = "OLP XDV Health Monitor";     Bat = "health_monitor.bat";   Trigger = "Every 2h" }
     @{ Name = "OLP XDV Dead Man's Switch";  Bat = "dead_mans_switch.bat";  Trigger = "Daily 08:00" }

@@ -1,10 +1,12 @@
 name: OLP XDV daily board
 
-# 07:00 Africa/Lagos == 06:00 UTC (Nigeria is UTC+1 year-round, no DST).
+# 22:00 Africa/Lagos == 21:00 UTC (Nigeria is UTC+1 year-round, no DST).
 # GitHub cron is always UTC.
+# Nightly production by 22:00 for next day's deployment (Architect 2026-08-30).
+# Change window: 07:00-22:00 the night before deployment.
 on:
-  # schedule:
-  #   - cron: "0 6 * * *"   # DISABLED per Architect request 2026-08-19
+  schedule:
+    - cron: "0 21 * * *"   # 21:00 UTC = 22:00 Africa/Lagos — nightly production
   workflow_dispatch:        # manual trigger, for testing without waiting a day
 
 # Needed so the run can commit the CLV log back — without persistence the

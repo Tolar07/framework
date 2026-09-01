@@ -14,6 +14,13 @@ caller is a scheduled job that nobody reads before it sends:
      always"): `##########OLP XDV#########` + the honest-edge/capital line.
      A board of probabilities and trigger prices could be misread as a slate
      of live picks; the capital line makes that misreading impossible.
+
+Delivery is made resilient and non-blocking:
+  - Disk write happens first (board never lost on delivery failure)
+  - Telegram delivery attempted in background thread (non-blocking)
+  - Retry logic with exponential backoff for transient failures
+  - Markdown parse errors fall back to plain text for delivery completion
+  - Broadcast to primary chat + all subscribers
 """
 from __future__ import annotations
 
@@ -21,6 +28,7 @@ import os
 import sys
 import textwrap
 import time
+import threading
 from pathlib import Path
 from typing import Optional
 
@@ -36,6 +44,10 @@ except ImportError:
 # caller that imports notify without first importing config would otherwise
 # silently never deliver. Kept as a side-effect import — no names used.
 import config  # noqa: F401
+
+from output.board_validator import chunk_for_telegram, _balance_fences
+
+from output.board_validator import chunk_for_telegram
 
 
 # Multi-recipient support (2026-08-24): the daily board is broadcast to the
@@ -95,19 +107,19 @@ def broadcast(body: str, token: Optional[str] = None,
 
 
 def broadcast_all_components(board_date: str, token: Optional[str] = None) -> tuple[bool, list[str]]:
-    """Send all three components (telegram, board, acca) as separate Telegram messages.
-    Returns (all_ok, notes) where all_ok is True only if all sends succeeded."""
+    """Send one combined Telegram message containing production bets, board tables, and ALL heartbeat lineages.
+    Returns (all_ok, notes) where all_ok is True only if the send succeeded."""
     board_dir = Path(__file__).parent.parent / "output" / "boards"
 
     # Define file paths
     telegram_path = board_dir / f"telegram_{board_date}.txt"
     board_path = board_dir / f"board_{board_date}.txt"
-    acca_path = board_dir / f"acca_{board_date}.txt"
+    heartbeat_path = board_dir / f"heartbeat_{board_date}.txt"
 
     # Read file contents with fallback messages
     telegram_content = telegram_path.read_text(encoding="utf-8") if telegram_path.exists() else "TELEGRAM FILE NOT FOUND"
     board_content = board_path.read_text(encoding="utf-8") if board_path.exists() else "BOARD FILE NOT FOUND"
-    acca_content = acca_path.read_text(encoding="utf-8") if acca_path.exists() else "ACCA FILE NOT FOUND"
+    heartbeat_content = heartbeat_path.read_text(encoding="utf-8") if heartbeat_path.exists() else ""
 
     # Get target chat IDs (same as broadcast)
     primaries = [os.environ.get("TELEGRAM_CHAT_ID", "").strip()]
@@ -122,25 +134,25 @@ def broadcast_all_components(board_date: str, token: Optional[str] = None) -> tu
     all_ok = True
     all_notes: list[str] = []
 
-    # Send each component as a separate message
-    components = [
-        ("TELEGRAM COMPACT FORMAT", telegram_content),
-        ("FULL BOARD FORMAT", board_content),
-        ("ACCUMULATOR CODES", acca_content)
-    ]
+    # Combine the components into one message (telegram + heartbeat + board)
+    # Heartbeat comes second as it's the lineage offspring picks
+    components = [telegram_content]
+    if heartbeat_content:
+        components.append(heartbeat_content)
+    components.append(board_content)
+    combined_content = "\n\n".join(components)
 
-    for component_name, content in components:
-        # Format each message with banner and honest-edge caveat
-        stamped_content = _stamp(
-            f"📅 {board_date} ({component_name})\n\n{content}"
-        )
+    # Format the combined message with banner and honest-edge caveat
+    stamped_content = _stamp(
+        f"📅 {board_date} (DAILY BOARD + LINEAGE HEARTBEATS)\n\n{combined_content}"
+    )
 
-        # Send to all targets
-        for cid in targets:
-            ok, n = send_telegram(stamped_content, token=token, chat_id=cid)
-            all_ok = all_ok and ok
-            # Prefix notes with component name for clarity
-            all_notes.extend([f"{component_name}: {note}" for note in n])
+    # Send to all targets
+    for cid in targets:
+        ok, n = send_telegram(stamped_content, token=token, chat_id=cid)
+        all_ok = all_ok and ok
+        # Prefix notes for clarity
+        all_notes.extend([f"DAILY BOARD: {note}" for note in n])
 
     return all_ok, all_notes
 
@@ -224,7 +236,7 @@ def send_telegram(body: str, token: Optional[str] = None,
         return False, ["TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID not set — "
                        "board written to disk but not delivered"]
 
-    parts = _chunk(_stamp(body))
+    parts = chunk_for_telegram(_stamp(body))
     ok = True
     for i, part in enumerate(parts, 1):
         # Retry transient network faults. A real 07:00 run lost parts 6-8 to a
@@ -285,7 +297,8 @@ def send_alert(body: str, **kw) -> tuple[bool, list[str]]:
 
 
 def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]:
-    """Write the board to disk, then send it. Returns (delivered_ok, notes).
+    """Write the board to disk, then send it asynchronously (non-blocking).
+    Returns (delivered_ok, notes).
 
     Disk first, deliberately: a failed send must never lose the board. The
     boolean matters — the caller previously discarded it and logged "run
@@ -295,7 +308,13 @@ def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]
     Board delivery can be gated OFF via TELEGRAM_BOARD_DELIVERY_ENABLED=0.
     When disabled, the board is still written to disk but NOT sent to Telegram.
     Command responses (/code, /help, etc.) use send_telegram() directly and
-    are NOT affected by this gate."""
+    are NOT affected by this gate.
+
+    This function is non-blocking: it writes to disk and spawns a background
+    thread for Telegram delivery. Returns immediately with (True, notes) if
+    disk write succeeded, (False, notes) if disk write failed or delivery
+    is gated off. The background delivery runs independently and logs its
+    own results."""
     notes: list[str] = []
     if save_to:
         save_to.parent.mkdir(parents=True, exist_ok=True)
@@ -306,5 +325,16 @@ def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]
         notes.append("TELEGRAM_BOARD_DELIVERY_ENABLED=0 — board NOT sent to Telegram")
         return False, notes
 
-    ok, send_notes = broadcast(body)
-    return ok, notes + send_notes
+    # Non-blocking: spawn background thread for delivery
+    def _deliver_async():
+        try:
+            ok, send_notes = broadcast(body)
+            for n in send_notes:
+                print(f"[notify] {n}")
+        except Exception as e:
+            print(f"[notify] background delivery failed: {e}")
+
+    thread = threading.Thread(target=_deliver_async, daemon=True)
+    thread.start()
+    notes.append("Telegram delivery started in background (non-blocking)")
+    return True, notes

@@ -171,7 +171,7 @@ def agent_1_ingest(state: PipelineState) -> dict:
              "home_team": "Celtic", "away_team": "Dundee",
              "kickoff_utc": "2026-08-14T18:45:00Z",
              "source_endpoints": ["flashscore.com", "sportybet-cache"]},
-            {"match_id": "FX-26001", "sport": "football", "league": "English Premier League",
+            {"match_id": "FX-26001", "sport": "football", "league": "Premier League",
              "home_team": "Arsenal", "away_team": "Leeds",
              "kickoff_utc": "2026-08-14T20:00:00Z",
              "source_endpoints": ["flashscore.com", "thesportsdb.com"]},
@@ -1575,13 +1575,14 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         f.write(telegram_content)
 
     # Send all components via Telegram (Architect redesign: all three formats)
+    from output.notify import TELEGRAM_BOARD_DELIVERY_ENABLED
     if TELEGRAM_BOARD_DELIVERY_ENABLED:
         from output import notify
         notify.broadcast_all_components(date_str)
 
-    # Write heartbeat file (single best fixture of the day)
+    # Write heartbeat file (ALL living lineages' heartbeats)
     if telegram_heartbeat:
-        heartbeat_file = f"heartbeat_{date_str}.txt"
+        heartbeat_file = f"output/boards/heartbeat_{date_str}.txt"
         with open(heartbeat_file, "w", encoding="utf-8") as f:
             f.write(telegram_heartbeat)
 

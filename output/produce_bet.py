@@ -23,6 +23,7 @@ from engine.mes import edge_diff, mes_numeric_ev, trigger_price
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 from bets.produced_bet import render_produced_bet as render_produced_bet_block
+from output.board_validator import validate_the_call
 
 
 # The authoritative SportyBet Playwright cache the orchestrator reads
@@ -459,11 +460,9 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
         div = _divergence(bf)
         if div:
             L.append(f"      {div}")
-        L.append(f"      Price captured from the-odds-api.com. Confirm on "
-                 f"SportyBet/Bet365 before acting — Architect deploys, not this system.")
-    elif bf.sb_home_odds is not None or bf.sb_draw_odds is not None or bf.sb_away_odds is not None:
         # SportyBet odds are available (Phase 2 CLV / Phase 3 live)
-        L.append(f"   SportyBet Nigeria odds (real-money bookmaker, margin included):")
+        if bf.sb_home_odds is not None or bf.sb_draw_odds is not None or bf.sb_away_odds is not None:
+            L.append(f"   SportyBet Nigeria odds (real-money bookmaker, margin included):")
         if bf.sb_home_odds is not None:
             edge = edge_diff(p.p_home, bf.sb_home_odds)
             ev = mes_numeric_ev(p.p_home, bf.sb_home_odds)
@@ -535,6 +534,8 @@ def render_part1_the_call(shortlist: list[BoardFixture]) -> str:
     Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes"""
     today = date.today().isoformat()
     shortlist = [bf for bf in shortlist if bf.kickoff_date == today]
+    # Apply "wide eyes, narrow hands" filter — only positive-EV, non-divergence picks
+    shortlist = validate_the_call(shortlist)
     if not shortlist:
         return ("PART 1 — THE CALL — today's fixtures only\n"
                 "NO DEPLOY-ELIGIBLE CALL this session — no deployable fixture "
@@ -999,15 +1000,20 @@ def render_blended_output(mode: str, phase: str, leagues_scanned: list[str],
     lines.append("──────────────────────────────────")
 
     if shortlist:
-        # Primary single: highest EV from shortlist
-        best_single = None
-        best_ev = None
-        for bf in shortlist:
-            if bf.probs is None or bf.best_mes_ev is None:
-                continue
-            if best_ev is None or bf.best_mes_ev > best_ev:
-                best_ev = bf.best_mes_ev
-                best_single = bf
+        # Apply "wide eyes, narrow hands" filter for THE PICK as well
+        validated_shortlist = validate_the_call(shortlist)
+        if not validated_shortlist:
+            lines.append("NO VALIDATED PICK — all fixtures fail EV>0 or divergence gates")
+        else:
+            # Primary single: highest EV from validated shortlist
+            best_single = None
+            best_ev = None
+            for bf in validated_shortlist:
+                if bf.probs is None or bf.best_mes_ev is None:
+                    continue
+                if best_ev is None or bf.best_mes_ev > best_ev:
+                    best_ev = bf.best_mes_ev
+                    best_single = bf
 
         if best_single:
             p = best_single.probs
@@ -1469,6 +1475,9 @@ def render_acca_route(board: list[BoardFixture],
 
         rows.append(f"")
         rows.append(f"{label} — Combined Odds: {combined_odds:.2f} | Combined Prob: {combined_prob:.2%} | Legs: {n_legs} | Booking Code: {acca_code}")
+        # ID407 — acca compounding disclosure
+        if n_legs > 1:
+            rows.append(f"  Combined prob {combined_prob:.1%} (product of {n_legs} legs — compounding is arithmetic, not a weakness)")
         rows.append("Fixture | Market | Price | Model Prob | EV | Verification")
 
         for leg in legs:
@@ -1552,15 +1561,14 @@ def render_the_pick(board: list[BoardFixture],
         rows.append(f"ACCA RECOMMENDATION: {label} ({n_legs} legs)")
         rows.append(f"  Combined Odds: {combined_odds:.2f} | Combined Prob: {combined_prob:.2%}")
         rows.append(f"  Booking Code: {acca_code}")
+        # ID407 — acca compounding disclosure
+        if n_legs > 1:
+            rows.append(f"  Combined prob {combined_prob:.1%} (product of {n_legs} legs — compounding is arithmetic, not a weakness)")
         rows.append(f"  Legs:")
         for leg in acca.get("legs", []):
             rows.append(f"    · {leg.get('fixture','?')} — {leg.get('market_name','?')} @ {leg.get('price',0):.2f} (EV {leg.get('ev',0):+.2%})")
 
-    # Honest edge disclaimer
-    rows.append("")
-    rows.append("HONEST EDGE: This is an excellent informed process but NOT a demonstrated profitable edge.")
-    rows.append("Capital authority: THE ARCHITECT. Nothing here is live until deployed.")
-
+    
     return "\n".join(rows)
 
 
@@ -2009,7 +2017,6 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                      "measured negative — the brain learns from live legs")
     parts.append(_render_yesterday_graded(yesterday_graded))
     parts.append(_render_rolling_7d(rolling_7d))
-    parts.append("HONEST EDGE LINE: an excellent informed process but NOT a "
-                 "demonstrated profitable edge.\nCapital authority: THE "
-                 "ARCHITECT. Nothing here is live until you deploy it.")
+    # Honest edge / capital authority removed from Telegram per Architect 2026-08-31
+    # The on-disk board retains the full sign-off for audit.
     return "\n\n".join(parts)

@@ -45,8 +45,10 @@ from datetime import date, timedelta
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from booking.league_map import SPORTYBET_LEAGUES
 from booking.team_map import resolve_team, _normalize as team_normalize
 from booking.sportybet_client import SportyBetClient, Fixture as SBFixture, MarketOdds
+from data import api_football_odds
 
 
 # --- Cache paths ---
@@ -486,10 +488,22 @@ def verify_fixture_on_sportybet(
         # Map model names to SportyBet names for comparison
         sb_home = resolve_team(home_team, "sportybet")
         sb_away = resolve_team(away_team, "sportybet")
+        norm_home = team_normalize(home_team)
+        norm_away = team_normalize(away_team)
 
         for fx in fixtures:
-            if (fx.model_home == home_team and fx.model_away == away_team) or \
-               (fx.sportybet_home == sb_home and fx.sportybet_away == sb_away):
+            # 1. Exact model-key match
+            if fx.home_team == home_team and fx.away_team == away_team:
+                return True
+            # 2. Normalized model-key match (case/diacritics/prefix insensitive)
+            if team_normalize(fx.home_team) == norm_home and team_normalize(fx.away_team) == norm_away:
+                return True
+            # 3. SportyBet-name match
+            if fx.sportybet_home == sb_home and fx.sportybet_away == sb_away:
+                return True
+            # 4. Normalized SportyBet-name match (additional leniency)
+            if team_normalize(fx.sportybet_home) == team_normalize(sb_home) and \
+               team_normalize(fx.sportybet_away) == team_normalize(sb_away):
                 return True
         return False
     finally:
@@ -523,6 +537,10 @@ def get_sportybet_odds_for_leg(
       3. SportyBet-name match — the board key resolved to its SportyBet
          spelling (resolve_team) compared against the cache's RAW
          sportybet_home/away, the most trustworthy name in the cache.
+
+    FALLBACK: If SportyBet cache has no odds for the requested market, falls
+    back to API-Football free plan (100 req/day) for the same fixture.
+    API-Football covers 1X2, Over/Under 1.5/2.5, BTTS, and Double Chance.
     """
     fixtures = load_sportybet_fixtures(olp_league, days_ahead=45)
 
@@ -617,6 +635,75 @@ def get_sportybet_odds_for_leg(
         # Unknown market
         return None
 
+    def _try_api_football_fallback(fixture: PipelineFixture, market: str) -> Optional[float]:
+        """Try to get odds from API-Football as fallback for markets SportyBet doesn't cover."""
+        try:
+            # API-Football only supports deploy leagues
+            from engine.leagues import WHITELISTED_LEAGUES
+            if olp_league not in WHITELISTED_LEAGUES:
+                return None
+
+            # Map our market names to API-Football market names
+            api_market_map = {
+                "1X2_HOME": ("Match Winner", "Home"),
+                "1X2_DRAW": ("Match Winner", "Draw"),
+                "1X2_AWAY": ("Match Winner", "Away"),
+                "OVER_1_5": ("Goals Over/Under", "Over 1.5"),
+                "UNDER_1_5": ("Goals Over/Under", "Under 1.5"),
+                "OVER_2_5": ("Goals Over/Under", "Over 2.5"),
+                "UNDER_2_5": ("Goals Over/Under", "Under 2.5"),
+                "BTTS_YES": ("Both Teams Score", "Yes"),
+                "BTTS_NO": ("Both Teams Score", "No"),
+                "DC_1X": ("Double Chance", "1X"),
+                "DC_X2": ("Double Chance", "X2"),
+                "DC_12": ("Double Chance", "12"),
+            }
+
+            if market not in api_market_map:
+                return None  # API-Football doesn't cover this market
+
+            api_market, api_outcome = api_market_map[market]
+
+            # Fetch odds from API-Football for this league
+            # We need to find the fixture by team names and date
+            fixtures_list, flags = api_football_odds.fetch_odds(olp_league, days_ahead=7, use_cache=True)
+
+            # Match by team names (already mapped to model keys by api_football_odds)
+            for api_fx in fixtures_list:
+                if api_fx.home_team == fixture.home_team and api_fx.away_team == fixture.away_team:
+                    # Get the requested market
+                    market_quote = getattr(api_fx, market.lower().replace("_", ""), None)
+                    if market_quote is None:
+                        # Try direct attribute access with different naming
+                        attr_map = {
+                            "1X2_HOME": "home",
+                            "1X2_DRAW": "draw",
+                            "1X2_AWAY": "away",
+                            "OVER_1_5": "over15",
+                            "UNDER_1_5": "under15",
+                            "OVER_2_5": "over25",
+                            "UNDER_2_5": "under25",
+                            "BTTS_YES": "btts_yes",
+                            "BTTS_NO": "btts_no",
+                            "DC_1X": "dc_1x",
+                            "DC_X2": "dc_x2",
+                            "DC_12": "dc_12",
+                        }
+                        attr = attr_map.get(market)
+                        if attr:
+                            market_quote = getattr(api_fx, attr, None)
+
+                    if market_quote and market_quote.available:
+                        return market_quote.price
+
+        except api_football_odds.QuotaExhausted:
+            # API-Football quota exhausted - silently continue, return None
+            pass
+        except Exception:
+            # Any other error - silently continue, return None
+            pass
+        return None
+
     if client is None:
         client = SportyBetClient()
 
@@ -628,20 +715,38 @@ def get_sportybet_odds_for_leg(
                 # Fetch live odds for this fixture
                 if fx.sportybet_fixture_id:
                     fixture_markets = client.get_odds(fx.sportybet_fixture_id)
-                    return _extract_odds_from_markets(fixture_markets, market)
+                    odds = _extract_odds_from_markets(fixture_markets, market)
+                    if odds is not None:
+                        return odds
+                # SportyBet has no odds for this market — try API-Football fallback
+                fallback = _try_api_football_fallback(fx, market)
+                if fallback is not None:
+                    return fallback
             # 2. Normalized model-key match
             if team_normalize(fx.home_team) == team_normalize(home_team) and \
                team_normalize(fx.away_team) == team_normalize(away_team):
                 # Fetch live odds for this fixture
                 if fx.sportybet_fixture_id:
                     fixture_markets = client.get_odds(fx.sportybet_fixture_id)
-                    return _extract_odds_from_markets(fixture_markets, market)
+                    odds = _extract_odds_from_markets(fixture_markets, market)
+                    if odds is not None:
+                        return odds
+                # SportyBet has no odds for this market — try API-Football fallback
+                fallback = _try_api_football_fallback(fx, market)
+                if fallback is not None:
+                    return fallback
             # 3. SportyBet-name match
             if fx.sportybet_home == resolve_team(home_team) and fx.sportybet_away == resolve_team(away_team):
                 # Fetch live odds for this fixture
                 if fx.sportybet_fixture_id:
                     fixture_markets = client.get_odds(fx.sportybet_fixture_id)
-                    return _extract_odds_from_markets(fixture_markets, market)
+                    odds = _extract_odds_from_markets(fixture_markets, market)
+                    if odds is not None:
+                        return odds
+                # SportyBet has no odds for this market — try API-Football fallback
+                fallback = _try_api_football_fallback(fx, market)
+                if fallback is not None:
+                    return fallback
     finally:
         client.close()
 

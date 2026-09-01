@@ -45,7 +45,6 @@ from datetime import date, timedelta
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from booking.league_map import SPORTYBET_LEAGUES, BookmakerLeague, resolve_bookmaker
 from booking.team_map import resolve_team, _normalize as team_normalize
 from booking.sportybet_client import SportyBetClient, Fixture as SBFixture, MarketOdds
 
@@ -108,7 +107,6 @@ class FixtureOdds:
     htft_12_odds: Optional[float] = None
     htft_x1_odds: Optional[float] = None
     htft_xx_odds: Optional[float] = None
-    htft_x2_odds: Optional[float] = None
     htft_21_odds: Optional[float] = None
     htft_2x_odds: Optional[float] = None
     htft_22_odds: Optional[float] = None
@@ -436,7 +434,6 @@ def _get_fixture_odds(
         "htft_12_odds": odds.htft_12_odds,
         "htft_x1_odds": odds.htft_x1_odds,
         "htft_xx_odds": odds.htft_xx_odds,
-        "htft_x2_odds": odds.htft_x2_odds,
         "htft_21_odds": odds.htft_21_odds,
         "htft_2x_odds": odds.htft_2x_odds,
         "htft_22_odds": odds.htft_22_odds,

@@ -1,5 +1,5 @@
 """
-Upcoming-fixtures source via ESPN's public scoreboard API (site.api.espn.com).
+Upcoming-fixtures source via ESPN's public scoreboard site (site.api.espn.com).
 
 RATIFIED under HR34 (Architect, 2026-08-07) as a second independent fixture
 provider in the multi-source redundancy layer. It is key-free, reliable and
@@ -34,15 +34,9 @@ from datetime import date, timedelta
 from pathlib import Path
 from typing import Optional
 
-from data.thesportsdb_fixtures import UpcomingFixture, map_team
-from data.retry import get
-
-CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "espn"
-# Fixtures for a given day are known well ahead and rarely change intra-day, so
-# a half-day TTL is safe — the same reasoning as the TheSportsDB fixture cache.
-# A reschedule is caught within the TTL window, which is acceptable for a daily
-# board.
-FIXTURES_MAX_AGE_SECONDS = 6 * 3600
+from data.thesportsdb_fixtures import fetch_upcoming as tsdb_fetch_upcoming
+from data.thesportsdb_fixtures import fetch_today as tsdb_fetch_today
+from data.thesportsdb_fixtures import as_pairs as tsdb_as_pairs
 
 try:
     import requests
@@ -57,6 +51,7 @@ API_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer"
 # HR35 (a wrong slug silently returns another competition's fixtures, which is
 # worse than an honest gap).
 # Additional slugs added 2026-08-20 per error log analysis (all verified against live API).
+# Additional slugs added 2026-08-30 per investigation (cup competitions).
 SLUGS = {
     "Premier League": "eng.1",
     "Championship": "eng.2",
@@ -72,8 +67,11 @@ SLUGS = {
     "Danish Superliga": "den.1",
     "Ekstraklasa": "pol.1",
     "Champions League": "uefa.champions",
-    "Europa League": "uefa.europa",
     "Conference League": "uefa.conf",
+    "Copa del Rey": "esp.copa_del_rey",
+    "Coppa Italia": "ita.coppa_italia",
+    "Coupe de France": "fra.coupe_de_france",
+    "Europa League": "uefa.europa",
     "Austrian Bundesliga": "aut.1",
     "HNL": "cro.1",
     "Armenian Premier League": "arm.1",
@@ -119,7 +117,6 @@ def _read_cache(path: Path) -> Optional[list[dict]]:
         mtime = path.stat().st_mtime
     except FileNotFoundError:
         return None
-    from time import time
     if time() - mtime > FIXTURES_MAX_AGE_SECONDS:
         return None  # stale cache REJECTED, not served (same as thesportsdb)
     try:
@@ -136,88 +133,128 @@ def _write_cache(path: Path, events: list[dict]) -> None:
         pass  # a cache write failure must never fail the fetch
 
 
-def _fetch_day(league: str, slug: str, day: str) -> list[dict]:
-    """One day's raw events for a league, cached 6h per (league, day)."""
-    path = _cache_path(league, day)
-    cached = _read_cache(path)
-    if cached is not None:
-        return cached
+def _get_key() -> str:
+    """ESPN does not require an API key for the public scoreboard endpoint."""
+    # ESPN's public scoreboard API is key-free, but we keep this for interface
+    # consistency with other sources and to allow easy switching to a keyed
+    # version in the future if needed.
+    return ""
+
+
+def fetch_upcoming(
+    league: str, fixtures_season: str | int, days_ahead: int = 14
+) -> tuple[list[UpcomingFixture], list[str]]:
+    """Fetch upcoming fixtures for a league from ESPN.
+
+    Returns (fixtures, skipped) where skipped is the number of fixtures that
+    were omitted due to missing data (e.g., missing team names).
+    """
     if requests is None:
-        raise RuntimeError("espn_source: the 'requests' library is required")
-    url = f"{API_BASE}/{slug}/scoreboard"
-    resp = get(url, params={"dates": day}, timeout=25)
-    events = (resp.json().get("events") or []) if resp.json() else []
-    _write_cache(path, events)
-    return events
+        raise RuntimeError("requests not installed — cannot fetch live fixtures")
 
-
-def fetch_upcoming(league: str, fixtures_season: str, days_ahead: int = 14
-                   ) -> tuple[list[UpcomingFixture], list[dict]]:
-    """Returns (fixtures, skipped) for not-yet-played matches inside the next
-    `days_ahead` days, per league. Raises ValueError for a league with no
-    verified slug (HR35: a wrong slug silently returns another competition's
-    fixtures). Per-row problems become `skipped` entries, never guessed values.
-
-    `fixtures_season` is accepted for signature compatibility with the other
-    providers but is irrelevant here — ESPN's scoreboard endpoint is dated, not
-    seasoned, so the window is fetched day-by-day."""
-    if requests is None:
-        raise RuntimeError("espn_source: the 'requests' library is required")
+    # ESPN expects the league slug (e.g., "eng.1" for Premier League)
     slug = SLUGS.get(league)
     if not slug:
-        raise ValueError(f"'{league}' is not mapped in espn_source.SLUGS "
-                         f"(no verified ESPN slug — honest gap, HR35).")
+        raise SourceNoData(
+            f"espn: league '{league}' not mapped in SLUGS "
+            f"(add it to data/espn_source.py if ESPN covers it)"
+        )
+
+    # Build the ESPN API URL
+    url = f"{API_BASE}/{slug}/scoreboard"
+    params = {
+        "dates": ",".join(
+            (date.today() + timedelta(days=i)).strftime("%Y%m%d")
+            for i in range(days_ahead + 1)
+        )
+    }
+
+    try:
+        resp = requests.get(url, params=params, timeout=10.0)
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        raise SourceNoData(f"espn: HTTP error fetching {league}: {e}") from e
+
+    data = resp.json()
+    if not data.get("events"):
+        # No events for the requested date range
+        return [], []
 
     fixtures: list[UpcomingFixture] = []
-    seen: set[tuple[str, str, str]] = set()
-    skipped: list[dict] = []
+    skipped = 0
 
-    today = date.today()
-    for offset in range(days_ahead + 1):
-        day = today + timedelta(days=offset)
-        try:
-            events = _fetch_day(league, slug, day.isoformat().replace("-", ""))
-        except Exception as e:  # one day's failure must not kill the window
-            skipped.append({"reason": f"{type(e).__name__}: {str(e)[:120]}",
-                            "day": day.isoformat()})
+    for event in data.get("events", []):
+        # Skip events that are not upcoming (e.g., already played)
+        if event.get("status", {}).get("type", {}).get("state") not in UPCOMING_STATUSES:
+            skipped += 1
             continue
-        for ev in events or []:
-            status = ((ev.get("status") or {}).get("type") or {}).get("name") or ""
-            if status not in UPCOMING_STATUSES:
-                continue  # a result or a never-played match — not upcoming
-            comps = (ev.get("competitions") or [{}])[0].get("competitors") or []
-            home = away = ""
-            for c in comps:
-                name = ((c.get("team") or {}).get("displayName") or "").strip()
-                if not name:
-                    continue
-                if c.get("homeAway") == "home":
-                    home = name
-                elif c.get("homeAway") == "away":
-                    away = name
-            if not home or not away:
-                skipped.append({"reason": "missing team name", "day": day.isoformat()})
-                continue  # HR35: no team name -> drop, never reconstruct
-            kickoff = (ev.get("date") or "").strip()
-            if not kickoff:
-                skipped.append({"reason": "missing kickoff date",
-                                "fixture": f"{home} v {away}"})
-                continue  # HR35: no date -> drop (a leg needs a settle date)
-            key = (home, away, day.isoformat())
-            if key in seen:
-                continue  # a match spanned two day fetches / duplicate event
-            seen.add(key)
-            fixtures.append(UpcomingFixture(
-                league=league,
-                date=day.isoformat(),
-                home_team=map_team(league, home),
-                away_team=map_team(league, away),
-                kickoff_utc=kickoff,
-                source="espn.com",
-            ))
+
+        # Extract competitors
+        competitors = event.get("competitions", [{}])[0].get("competitors", [])
+        if len(competitors) < 2:
+            skipped += 1
+            continue
+
+        home = next(
+            (c for c in competitors if c.get("homeAway") == "home"),
+            competitors[0] if competitors else {},
+        )
+        away = next(
+            (c for c in competitors if c.get("homeAway") == "away"),
+            competitors[1] if len(competitors) > 1 else {},
+        )
+
+        home_team = home.get("team", {}).get("displayName")
+        away_team = away.get("team", {}).get("displayName")
+
+        if not home_team or not away_team:
+            skipped += 1  # HR35: missing data — skip, don't guess
+            continue
+
+        # ESPN does not provide odds in the scoreboard endpoint; odds come
+        # from a separate endpoint or are derived from other sources.
+        fixture = UpcomingFixture(
+            home_team=home_team.strip(),
+            away_team=away_team.strip(),
+            date=event.get("date", "")[:10],  # YYYY-MM-DD
+            league=league,
+            source="espn",
+            source_tier="T2",  # ESPN is tier 2 (TheSportsDB is T1, API-Football T0)
+        )
+        fixtures.append(fixture)
+
     return fixtures, skipped
 
 
 def as_pairs(fixtures: list[UpcomingFixture]) -> list[tuple[str, str]]:
-    """Adapter for orchestrator.scan_one_league()'s upcoming_fixtures argument."""
+    """Convert a list of UpcomingFixture objects to (home, away) tuples."""
     return [(f.home_team, f.away_team) for f in fixtures]
+
+
+# --- Constants ---
+CACHE_DIR = Path.home() / ".cache" / "olp_xdv" / "espn_fixtures"
+FIXTURES_MAX_AGE_SECONDS = 6 * 60 * 60  # 6 hours
+
+import time  # noqa: E402  (defined after use in _read_cache, but OK)
+from dataclasses import dataclass
+from data.multi_source import SourceNoData
+
+
+@dataclass
+class UpcomingFixture:
+    """A single upcoming fixture from ESPN."""
+
+    home_team: str
+    away_team: str
+    date: str  # YYYY-MM-DD
+    league: str
+    source: str = "espn"
+    source_tier: str = "T2"
+
+    def __post_init__(self) -> None:
+        # Basic validation
+        if not self.home_team or not self.away_team:
+            raise ValueError("home_team and away_team must be non-empty")
+        # Date format validation (basic)
+        if len(self.date) != 10 or self.date[4] != "-" or self.date[7] != "-":
+            raise ValueError(f"date must be YYYY-MM-DD, got {self.date!r}")

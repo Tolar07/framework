@@ -12,8 +12,8 @@ WHY THIS EXISTS
   JavaScript execution (uses requests + direct API calls).
 
 QUOTA / RATE LIMITS
-  No official limits. This client defaults to 2s polite delay between requests.
-  If SportyBet returns 429, the caller should back off exponentially.
+  No official limits. This client implements exponential backoff with circuit breaker
+  to handle 429/5xx gracefully. Retries are capped to avoid quota exhaustion.
 
 USAGE
   from booking.sportybet_client import SportyBetClient
@@ -30,6 +30,8 @@ from __future__ import annotations
 import time
 import re
 import json
+import random
+import threading
 from dataclasses import dataclass, field
 from typing import Optional, List, Dict, Any
 from pathlib import Path
@@ -57,15 +59,197 @@ DEFAULT_HEADERS = {
     "Cache-Control": "no-cache",
 }
 
-# Polite delay between requests (seconds)
-DEFAULT_DELAY = 2.0
-
 # Cache TTL for fixture lists (6 hours)
 FIXTURES_CACHE_TTL = 6 * 3600
 # Cache TTL for odds (1 minute - odds change rapidly)
 ODDS_CACHE_TTL = 60
 
+# Default delay between requests (seconds) - polite rate limiting
+DEFAULT_DELAY = 1.0
+
 CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet"
+
+# --- Circuit Breaker & Retry Configuration ---
+# Circuit breaker: opens after 5 consecutive failures, cooldown 60s
+CB_FAILURE_THRESHOLD = 5
+CB_COOLDOWN_SECONDS = 60.0
+
+# Retry: max 3 retries, exponential backoff starting at 2s, max 30s
+MAX_RETRIES = 3
+BASE_BACKOFF = 2.0
+MAX_BACKOFF = 30.0
+
+# Per-endpoint circuit breakers
+_BREAKERS: dict[str, "CircuitBreaker"] = {}
+_BREAKER_LOCK = threading.Lock()
+
+# --- Failure Rate Tracking ---
+# Track failure rates per endpoint for monitoring/alerting
+_FAILURE_STATS: dict[str, dict] = {}
+_FAILURE_STATS_LOCK = threading.Lock()
+
+# Alert threshold: if failure rate exceeds this in the last hour, trigger alert
+FAILURE_RATE_ALERT_THRESHOLD = 0.20  # 20% failure rate
+FAILURE_COUNT_ALERT_THRESHOLD = 10   # At least 10 attempts before alerting
+
+
+def _record_failure_stat(endpoint: str, success: bool) -> None:
+    """Record a request outcome for failure rate tracking."""
+    with _FAILURE_STATS_LOCK:
+        if endpoint not in _FAILURE_STATS:
+            _FAILURE_STATS[endpoint] = {
+                "total": 0,
+                "failures": 0,
+                "successes": 0,
+                "window_start": time.time(),
+                "last_failure": None,
+                "consecutive_failures": 0,
+            }
+        stats = _FAILURE_STATS[endpoint]
+        stats["total"] += 1
+        if success:
+            stats["successes"] += 1
+            stats["consecutive_failures"] = 0
+        else:
+            stats["failures"] += 1
+            stats["last_failure"] = time.time()
+            stats["consecutive_failures"] += 1
+        # Reset window after 1 hour
+        if time.time() - stats["window_start"] > 3600:
+            stats["total"] = 1
+            stats["failures"] = 0 if success else 1
+            stats["successes"] = 1 if success else 0
+            stats["window_start"] = time.time()
+            stats["consecutive_failures"] = 0 if success else 1
+
+
+def get_failure_stats(endpoint: str = None) -> dict:
+    """Get failure statistics for monitoring/alerting.
+
+    Args:
+        endpoint: Specific endpoint to get stats for, or None for all.
+
+    Returns:
+        Dict with failure statistics including rate, counts, and alert status.
+    """
+    with _FAILURE_STATS_LOCK:
+        if endpoint:
+            stats = _FAILURE_STATS.get(endpoint, {})
+            if not stats:
+                return {"endpoint": endpoint, "total": 0, "failures": 0, "rate": 0.0, "alert": False}
+            rate = stats["failures"] / stats["total"] if stats["total"] > 0 else 0.0
+            alert = (
+                stats["total"] >= FAILURE_COUNT_ALERT_THRESHOLD and
+                rate >= FAILURE_RATE_ALERT_THRESHOLD
+            )
+            return {
+                "endpoint": endpoint,
+                "total": stats["total"],
+                "failures": stats["failures"],
+                "successes": stats["successes"],
+                "rate": rate,
+                "consecutive_failures": stats.get("consecutive_failures", 0),
+                "last_failure": stats.get("last_failure"),
+                "alert": alert,
+            }
+        # Return all endpoints
+        result = {}
+        for ep, stats in _FAILURE_STATS.items():
+            rate = stats["failures"] / stats["total"] if stats["total"] > 0 else 0.0
+            alert = (
+                stats["total"] >= FAILURE_COUNT_ALERT_THRESHOLD and
+                rate >= FAILURE_RATE_ALERT_THRESHOLD
+            )
+            result[ep] = {
+                "total": stats["total"],
+                "failures": stats["failures"],
+                "successes": stats["successes"],
+                "rate": rate,
+                "consecutive_failures": stats.get("consecutive_failures", 0),
+                "last_failure": stats.get("last_failure"),
+                "alert": alert,
+            }
+        return result
+
+
+def reset_failure_stats(endpoint: str = None) -> None:
+    """Reset failure statistics (for testing or after remediation)."""
+    with _FAILURE_STATS_LOCK:
+        if endpoint:
+            if endpoint in _FAILURE_STATS:
+                del _FAILURE_STATS[endpoint]
+        else:
+            _FAILURE_STATS.clear()
+
+
+class CircuitBreaker:
+    """Simple per-endpoint circuit breaker.
+
+    States: CLOSED (normal) -> OPEN (refusing, after failures) -> HALF_OPEN
+    (probing) -> CLOSED (recovered) or OPEN again.
+    """
+
+    def __init__(self, failure_threshold: int = CB_FAILURE_THRESHOLD,
+                 cooldown_seconds: float = CB_COOLDOWN_SECONDS):
+        self.failure_threshold = failure_threshold
+        self.cooldown_seconds = cooldown_seconds
+        self._failures = 0
+        self._state = "CLOSED"          # CLOSED | OPEN | HALF_OPEN
+        self._opened_at: Optional[float] = None
+        self._lock = threading.Lock()
+
+    @property
+    def state(self) -> str:
+        with self._lock:
+            if self._state == "OPEN" and self._opened_at is not None and \
+                    time.monotonic() - self._opened_at >= self.cooldown_seconds:
+                self._state = "HALF_OPEN"
+            return self._state
+
+    def allow_request(self) -> bool:
+        return self.state != "OPEN"
+
+    def record_success(self) -> None:
+        with self._lock:
+            self._failures = 0
+            if self._state in ("OPEN", "HALF_OPEN"):
+                self._state = "CLOSED"
+                self._opened_at = None
+
+    def record_failure(self) -> None:
+        with self._lock:
+            if self._state == "HALF_OPEN":
+                # Probe failed — straight back to OPEN for a full cooldown.
+                self._state = "OPEN"
+                self._opened_at = time.monotonic()
+                self._failures = 0
+                return
+            self._failures += 1
+            if self._failures >= self.failure_threshold:
+                self._state = "OPEN"
+                self._opened_at = time.monotonic()
+                self._failures = 0
+
+    def __repr__(self) -> str:
+        return f"<CircuitBreaker state={self.state} failures={self._failures}>"
+
+
+def _get_breaker(name: str) -> CircuitBreaker:
+    with _BREAKER_LOCK:
+        if name not in _BREAKERS:
+            _BREAKERS[name] = CircuitBreaker()
+        return _BREAKERS[name]
+
+
+def _is_transient(status_code: Optional[int]) -> bool:
+    if status_code is None:
+        return True  # network-level exception
+    return status_code == 429 or status_code >= 500
+
+
+def _sleep_backoff(attempt: int, base: float = BASE_BACKOFF, cap: float = MAX_BACKOFF) -> None:
+    backoff = min(base * (2 ** (attempt - 1)), cap)
+    time.sleep(backoff + random.uniform(0, 0.5))  # jitter: avoid thundering herd
 
 
 @dataclass
@@ -135,7 +319,7 @@ class SportyBetClient:
             time.sleep(self.delay - elapsed)
 
     def _get(self, url: str, use_cache: bool = True, cache_ttl: int = FIXTURES_CACHE_TTL) -> str:
-        """GET a URL with caching and polite delay."""
+        """GET a URL with caching, circuit breaker, and exponential backoff."""
         self._wait()
 
         # Check cache first
@@ -146,27 +330,61 @@ class SportyBetClient:
             if age < cache_ttl:
                 return cache_path.read_text(encoding="utf-8")
 
-        # Fetch live
-        resp = self.session.get(url, timeout=self.timeout)
-        self._last_request = time.time()
+        # Fetch live with circuit breaker and retries
+        breaker = _get_breaker("sportybet_api")
+        attempts = 0
+        while True:
+            if not breaker.allow_request():
+                raise RuntimeError(
+                    f"Circuit breaker 'sportybet_api' OPEN — refusing request to {url} "
+                    f"(degrade to NO DATA — PENDING)")
 
-        if resp.status_code == 429:
-            retry_after = None
-            if "Retry-After" in resp.headers:
-                try:
-                    retry_after = int(resp.headers["Retry-After"])
-                except ValueError:
-                    pass
-            raise SportyBetRateLimited(retry_after)
+            attempts += 1
+            try:
+                resp = self.session.get(url, timeout=self.timeout)
+            except (requests.RequestException, OSError) as e:
+                # Network-level failure (no HTTP response at all) -> transient.
+                breaker.record_failure()
+                _record_failure_stat(url, success=False)
+                if attempts >= MAX_RETRIES:
+                    raise
+                _sleep_backoff(attempts)
+                continue
 
-        resp.raise_for_status()
-        html = resp.text
+            self._last_request = time.time()
 
-        # Write cache
-        self.cache_dir.mkdir(parents=True, exist_ok=True)
-        cache_path.write_text(html, encoding="utf-8")
+            if _is_transient(resp.status_code):
+                breaker.record_failure()
+                _record_failure_stat(url, success=False)
+                if resp.status_code == 429:
+                    retry_after = None
+                    if "Retry-After" in resp.headers:
+                        try:
+                            retry_after = int(resp.headers["Retry-After"])
+                        except ValueError:
+                            pass
+                    if attempts >= MAX_RETRIES:
+                        raise SportyBetRateLimited(retry_after)
+                if attempts >= MAX_RETRIES:
+                    resp.raise_for_status()  # raise the last 429/5xx
+                _sleep_backoff(attempts)
+                continue
 
-        return html
+            # Deterministic 4xx -> record + raise NOW, never retry (wastes quota).
+            if resp.status_code >= 400:
+                breaker.record_failure()
+                _record_failure_stat(url, success=False)
+                resp.raise_for_status()
+
+            breaker.record_success()
+            _record_failure_stat(url, success=True)
+            html = resp.text
+
+            # Write cache
+            self.cache_dir.mkdir(parents=True, exist_ok=True)
+            cache_path.write_text(html, encoding="utf-8")
+
+            return html
 
     def _cache_key(self, url: str) -> str:
         """Generate a filesystem-safe cache key from a URL."""
@@ -176,7 +394,7 @@ class SportyBetClient:
         return f"{path}_{query}.json" if query else f"{path}.json"
 
     def _get_api(self, endpoint: str, params: Dict = None, cache_ttl: int = FIXTURES_CACHE_TTL) -> Dict:
-        """Call SportyBet API endpoint with caching."""
+        """Call SportyBet API endpoint with caching and circuit breaker."""
         # Build URL with timestamp parameter
         import urllib.parse
         ts = int(time.time() * 1000)
@@ -326,18 +544,25 @@ class SportyBetClient:
         except Exception:
             return None
 
-    def get_odds(self, fixture_id: str) -> List[MarketOdds]:
-        """Get odds for a specific fixture from the API."""
-        # The pcUpcomingEvents API already includes odds in the markets array
-        # We need to find the event in the API response
-        # pageSize=200 returns 422, so use 100
-        data = self._get_api("pcUpcomingEvents", {
+    def get_odds(self, fixture_id: str, tournament_id: str = None) -> List[MarketOdds]:
+        """Get odds for a specific fixture from the API.
+
+        Args:
+            fixture_id: The SportyBet fixture ID
+            tournament_id: Optional tournament ID (e.g., "sr:tournament:17" for Premier League).
+                           If not provided, queries all tournaments (may miss fixtures on later pages).
+        """
+        params = {
             "sportId": "sr:sport:1",
             "marketId": "1,18,10,29,11,26,36,14,60100",
             "pageSize": "100",
             "pageNum": "1",
             "option": "1"
-        }, cache_ttl=ODDS_CACHE_TTL)
+        }
+        if tournament_id:
+            params["tournamentId"] = tournament_id
+
+        data = self._get_api("pcUpcomingEvents", params, cache_ttl=ODDS_CACHE_TTL)
 
         markets = []
         for tournament_data in data.get("data", {}).get("tournaments", []):

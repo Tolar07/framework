@@ -30,7 +30,10 @@ REM inside the model's calibrated zone — only bet markets where model and book
 REM agree within 0.04 probability. This is the Phase-2 experiment we are
 REM backfilling; it MUST be on for the scheduled run or the CLV ledger diverges
 REM from the experiment we are measuring.
-"%PY%" run_daily.py --agreement-band 0.04 >> "logs\launcher.log" 2>&1
+REM Nightly production for next day's deployment - target tomorrow's date
+REM Calculate tomorrow's date in yyyy-MM-dd format using PowerShell (handles month/year rollover)
+for /f %%i in ('powershell -NoProfile -Command "& {Get-Date -Format yyyy-MM-dd -Date (Get-Date).AddDays(1)}"') do set "tomorrow=%%i"
+"%PY%" run_daily.py --agreement-band 0.04 --date %tomorrow% >> "logs\launcher.log" 2>&1
 set "RC=%ERRORLEVEL%"
 echo [%date% %time%] python exited with %RC% >> "logs\launcher.log"
 

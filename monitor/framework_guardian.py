@@ -60,6 +60,13 @@ from monitor import alert_dispatcher  # noqa: E402
 from pipeline.odds import QUOTA_FLOOR, QUOTA_HARD_FLOOR  # noqa: E402
 from engine.leagues import WHITELISTED_LEAGUES  # noqa: E402
 
+# SportyBet failure rate monitoring
+try:
+    from booking.sportybet_client import get_failure_stats, FAILURE_RATE_ALERT_THRESHOLD, FAILURE_COUNT_ALERT_THRESHOLD
+    _HAS_SPORTYBET_STATS = True
+except ImportError:
+    _HAS_SPORTYBET_STATS = False
+
 DEFAULT_STATE = ROOT / "logs" / "guardian_state.json"
 DEFAULT_LOOP_SECONDS = 30 * 60  # 30 minutes
 
@@ -403,6 +410,75 @@ def remediate_sportybet(state: SystemState) -> list[RemediationAction]:
     return actions
 
 
+def remediate_sportybet_failure_rates(state: SystemState) -> list[RemediationAction]:
+    """SportyBet API failure rate monitoring and alerting."""
+    actions = []
+
+    if not _HAS_SPORTYBET_STATS:
+        actions.append(RemediationAction(
+            "sportybet_stats_unavailable",
+            "SportyBet failure stats not available (module not importable)",
+            False,
+            "Ensure booking.sportybet_client is importable"
+        ))
+        return actions
+
+    stats = get_failure_stats()
+
+    if not stats:
+        actions.append(RemediationAction(
+            "sportybet_no_stats",
+            "No SportyBet failure stats collected yet",
+            True,
+            "Will monitor on next check"
+        ))
+        return actions
+
+    # Check each endpoint
+    for endpoint, ep_stats in stats.items():
+        rate = ep_stats.get("rate", 0.0)
+        total = ep_stats.get("total", 0)
+        failures = ep_stats.get("failures", 0)
+        consecutive = ep_stats.get("consecutive_failures", 0)
+        alert = ep_stats.get("alert", False)
+
+        if total >= FAILURE_COUNT_ALERT_THRESHOLD and rate >= FAILURE_RATE_ALERT_THRESHOLD:
+            actions.append(RemediationAction(
+                "sportybet_high_failure_rate",
+                f"SportyBet endpoint {endpoint}: {rate:.0%} failure rate ({failures}/{total})",
+                False,
+                f"Consecutive failures: {consecutive}. Check network/API status. "
+                f"Circuit breaker may open if failures continue."
+            ))
+        elif total >= FAILURE_COUNT_ALERT_THRESHOLD and rate > 0.05:
+            # Warning threshold (5%)
+            actions.append(RemediationAction(
+                "sportybet_elevated_failure_rate",
+                f"SportyBet endpoint {endpoint}: {rate:.0%} failure rate ({failures}/{total})",
+                True,
+                f"Consecutive failures: {consecutive}. Monitor closely. "
+                f"Alert threshold: {FAILURE_RATE_ALERT_THRESHOLD:.0%}"
+            ))
+        elif consecutive >= 3:
+            # Even if rate is low, consecutive failures are concerning
+            actions.append(RemediationAction(
+                "sportybet_consecutive_failures",
+                f"SportyBet endpoint {endpoint}: {consecutive} consecutive failures",
+                True,
+                f"Overall rate: {rate:.0%} ({failures}/{total}). "
+                f"May indicate transient network issue."
+            ))
+        else:
+            actions.append(RemediationAction(
+                "sportybet_healthy",
+                f"SportyBet endpoint {endpoint}: {rate:.0%} failure rate ({failures}/{total})",
+                True,
+                f"Consecutive failures: {consecutive}"
+            ))
+
+    return actions
+
+
 def remediate_delivery(state: SystemState) -> list[RemediationAction]:
     """Telegram delivery verification."""
     actions = []
@@ -445,6 +521,7 @@ def run_remediation(state: SystemState) -> list[RemediationAction]:
     all_actions.extend(remediate_caches(state))
     all_actions.extend(remediate_calibration(state))
     all_actions.extend(remediate_sportybet(state))
+    all_actions.extend(remediate_sportybet_failure_rates(state))
     all_actions.extend(remediate_delivery(state))
 
     return all_actions

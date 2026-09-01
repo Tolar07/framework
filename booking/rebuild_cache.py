@@ -102,11 +102,27 @@ class CachedFixture:
 
 
 def _resolver_rule() -> str:
-    """Match PoC: only pin sportybet.com.ng with fallback IPs."""
-    host = "sportybet.com.ng"
-    rules = []
-    for ip in FALLBACK_IPS:
-        rules.append(f"MAP {host}:443 {ip}")
+    """Build a --host-resolver-rules string pinning every SportyBet host to its
+    resolved IPs. Falls back to known Cloudflare IPs when DNS resolution fails
+    in this environment."""
+    rules: list[str] = []
+    fallback_ips = ["104.21.10.148", "172.67.163.154"]
+    seen: set[str] = set()
+    hosts = ("sportybet.com", "www.sportybet.com", "sportybet.com.ng", "www.sportybet.com.ng")
+    for host in hosts:
+        ips: list[str] = []
+        try:
+            for fam, _, _, _, sockaddr in socket.getaddrinfo(host, 443):
+                ip = sockaddr[0]
+                if ip not in seen:
+                    seen.add(ip)
+                    ips.append(ip)
+        except Exception:
+            pass
+        if not ips:
+            ips = fallback_ips
+        for ip in ips:
+            rules.append(f"MAP {host}:443 {ip}")
     return ",".join(rules) if rules else ""
 
 
@@ -142,6 +158,52 @@ async def _wait_for_fixtures(page: Page, timeout: int = 15_000) -> bool:
         return True
     except Exception:
         return False
+
+
+async def _verify_league_page(page: Page, expected_league: str) -> bool:
+    """Return True if the visible page is actually this league's page.
+
+    Scoped to the tournament header / breadcrumb / active top-link so we do NOT
+    false-positive on the popular-list sidebar (which lists every league)."""
+    # Strong signals first: the tournament header that names the active league.
+    strong_sources = []
+    try:
+        for el in await page.locator(".tournament-name").all():
+            t = (await el.inner_text()).strip()
+            if t:
+                strong_sources.append(t)
+    except Exception:
+        pass
+
+    candidates = [
+        ".breadcrumb:visible",
+        ".tournament-header:visible",
+        "[class*='breadcrumb']:visible",
+        ".top-link:visible",
+        ".m-nav-bar:visible",
+    ]
+    for sel in candidates:
+        try:
+            for el in await page.locator(sel).all():
+                t = (await el.inner_text()).strip()
+                if t:
+                    strong_sources.append(t)
+        except Exception:
+            pass
+
+    expected_lower = expected_league.lower()
+    for src in strong_sources:
+        if expected_lower in src.lower():
+            return True
+
+    # Last resort: body text (weak — can match the popular-list sidebar).
+    try:
+        body_text = await page.inner_text('body')
+        if body_text and expected_lower in body_text.lower():
+            return True
+    except Exception:
+        pass
+    return False
 
 
 async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
@@ -183,11 +245,10 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
 
 
 async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFixture]:
-    """Scrape a single league using direct URL when available, fallback to sidebar nav."""
+    """Scrape a single league using direct URL when available, fallback to popular-list nav."""
     host = "sportybet.com.ng"
 
-    # Try direct URL if available in SPORTYBET_CATEGORY_TOURNAMENT
-    from booking.sportybet_fixtures import SPORTYBET_CATEGORY_TOURNAMENT
+    # Try direct URL if available in SPORTYBET_CATEGORY_TOURNAMENT (local definition)
     cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
     direct_url_attempted = False
 
@@ -195,26 +256,45 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         direct_url_attempted = True
         cat_id, tour_id = cat_tour
 
+        # Try multiple approaches: domain with resolver, then IP fallback
+        urls_to_try = []
+
         # First try the domain name (with resolver rule in effect)
-        direct_url = f"https://{host}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{tour_id}?source=sport_menu&sort=2"
+        urls_to_try.append(("domain", f"https://{host}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{tour_id}?source=sport_menu&sort=2"))
+
+        # Then try IP-based URLs as fallback (bypassing DNS entirely)
         try:
-            safe_print(f"  -> Direct URL (domain): {direct_url}")
-            await page.goto(direct_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
-            await page.wait_for_timeout(5000)
-            # Verify we're on the right page by checking for fixture rows
-            rows = await page.query_selector_all(".m-table-row.match-row")
-            if rows:
-                safe_print(f"  [OK] {league}: direct URL worked, found {len(rows)} rows")
-                fixtures = await _extract_fixtures(page, league)
-                if fixtures:
-                    safe_print(f"  [OK] {league}: extracted {len(fixtures)} fixtures")
-                    return fixtures
+            ip = socket.gethostbyname(host)
+            for ip_addr in FALLBACK_IPS:
+                urls_to_try.append((f"ip-{ip_addr}", f"https://{ip_addr}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{tour_id}?source=sport_menu&sort=2"))
+        except Exception:
+            pass  # If we can't resolve host, skip IP fallback
+
+        for url_type, direct_url in urls_to_try:
+            try:
+                safe_print(f"  -> Direct URL ({url_type}): {direct_url}")
+                await page.goto(direct_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+                await page.wait_for_timeout(5000)
+                await _dismiss_overlays(page)
+
+                # Verify we're on the right page by checking for fixture rows
+                rows = await page.query_selector_all(".m-table-row.match-row")
+                if rows:
+                    # Additional verification: check we're on the correct league page
+                    if await _verify_league_page(page, league):
+                        safe_print(f"  [OK] {league}: direct URL ({url_type}) worked, found {len(rows)} rows")
+                        fixtures = await _extract_fixtures(page, league)
+                        if fixtures:
+                            safe_print(f"  [OK] {league}: extracted {len(fixtures)} fixtures")
+                            return fixtures
+                        else:
+                            safe_print(f"  [WARN] {league}: direct URL worked but no fixtures extracted")
+                    else:
+                        safe_print(f"  [WARN] {league}: direct URL loaded but wrong league page (got {await page.title()})")
                 else:
-                    safe_print(f"  [WARN] {league}: direct URL worked but no fixtures extracted")
-            else:
-                safe_print(f"  [WARN] {league}: direct URL loaded but no fixture rows found")
-        except Exception as e:
-            safe_print(f"  [ERROR] direct nav error (domain): {str(e)[:100]}")
+                    safe_print(f"  [WARN] {league}: direct URL ({url_type}) loaded but no fixture rows found")
+            except Exception as e:
+                safe_print(f"  [ERROR] direct nav error ({url_type}): {str(e)[:100]}")
 
     # Fallback: go to football homepage and try popular-list first (like PoC does)
     safe_print(f"  [RETRY] Trying popular-list navigation for {league}")
@@ -225,22 +305,37 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         await page.wait_for_timeout(3000)
         await _dismiss_overlays(page)
 
-        # Try to click the league link in popular-list using "{Country} {League}" format
-        popular_list_text = f"{country} {league}"
+        # Try to click the league link in popular-list using exact league name first (like PoC)
         league_link = page.locator(
-            f'.popular-list .top-link:has(.top-link-item:has-text("{popular_list_text}"))'
+            f'.popular-list .top-link:has(.top-link-item:text-is("{league}"))'
         ).first
+        if await league_link.count() == 0:
+            # Try case-insensitive match
+            league_link = page.locator(
+                f'.popular-list .top-link:has(.top-link-item:text-matches("{league}", "i"))'
+            ).first
+        if await league_link.count() == 0:
+            # Try partial match
+            league_link = page.locator(
+                f'.popular-list .top-link:has(.top-link-item:has-text("{league}"))'
+            ).first
+
         if await league_link.count():
-            safe_print(f"  Clicking popular-list item: {popular_list_text}")
+            safe_print(f"  Clicking popular-list item: {league}")
             await league_link.click()
             await page.wait_for_timeout(4000)
+            await _dismiss_overlays(page)
 
             # Wait for fixtures to load
             if await _wait_for_fixtures(page):
                 fixtures = await _extract_fixtures(page, league)
                 if fixtures:
-                    safe_print(f"  [OK] {league}: popular-list nav worked, extracted {len(fixtures)} fixtures")
-                    return fixtures
+                    # Verify we're on the correct league page after navigation
+                    if await _verify_league_page(page, league):
+                        safe_print(f"  [OK] {league}: popular-list nav worked, extracted {len(fixtures)} fixtures")
+                        return fixtures
+                    else:
+                        safe_print(f"  [WARN] {league}: popular-list nav worked but wrong league page")
                 else:
                     safe_print(f"  [WARN] {league}: popular-list nav worked but no fixtures extracted")
             else:
@@ -382,8 +477,12 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
 
             fixtures = await _extract_fixtures(page, league)
             if fixtures:
-                safe_print(f"  [OK] {league}: sidebar expand worked, extracted {len(fixtures)} fixtures")
-                return fixtures
+                # Final verification: check we got fixtures for the correct league
+                if await _verify_league_page(page, league):
+                    safe_print(f"  [OK] {league}: sidebar expand worked, extracted {len(fixtures)} fixtures")
+                    return fixtures
+                else:
+                    safe_print(f"  [WARN] {league}: sidebar expand worked but wrong league page")
             else:
                 safe_print(f"  [WARN] {league}: sidebar expand worked but no fixtures extracted")
         else:

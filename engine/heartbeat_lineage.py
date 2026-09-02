@@ -340,6 +340,18 @@ def breed_next_generation(board: list, target_date: str = None,
 # ----------------------------------------------------------------------------
 # Reporting
 # ----------------------------------------------------------------------------
+def _safe_render(text: str) -> str:
+    """Replace emoji with ASCII for Windows compatibility."""
+    return (text
+        .replace('🧬', '[DNA]')
+        .replace('🌿', '[ALIVE]')
+        .replace('💀', '[EXTINCT]')
+        .replace('💰', '[$]')
+        .replace('💵', '[$]')
+        .replace('🎯', '[S]')
+    )
+
+
 def render_lineage_report(pop: Optional[LineagePopulation] = None) -> str:
     """Render a lineage survival report for Telegram / logging."""
     pop = pop or load_population()
@@ -348,17 +360,19 @@ def render_lineage_report(pop: Optional[LineagePopulation] = None) -> str:
     total_bankroll = sum(ln.bankroll for ln in living)
 
     lines = [
-        "🧬 HEARTBEAT LINEAGE REPORT",
-        f"🌿 Living lineages: {len(living)}   💀 Extinct: {len(extinct)}",
-        f"💰 Total lifeforce (bankroll): {total_bankroll:.2f}",
+        _safe_render("🧬 HEARTBEAT LINEAGE REPORT"),
+        _safe_render(f"🌿 Living lineages: {len(living)}   💀 Extinct: {len(extinct)}"),
+        _safe_render(f"💰 Total lifeforce (bankroll): {total_bankroll:.2f}"),
     ]
     for ln in sorted(living, key=lambda x: x.bankroll, reverse=True):
         tag = f"G{ln.generation}"
-        par = f"←{ln.parent_id[:6]}" if ln.parent_id else "GENESIS"
+        par = f"<-{ln.parent_id[:6]}" if ln.parent_id else "GENESIS"
         lines.append(
-            f"  {ln.lineage_id[:8]} {tag} {par} | 💵{ln.bankroll:.2f} "
-            f"🎯{ln.current_stake:.2f} | {ln.wins}W-{ln.losses}L"
-            + (f" | {ln.fixture} — {ln.pick}" if ln.fixture else "")
+            _safe_render(
+                f"  {ln.lineage_id[:8]} {tag} {par} | [$]{ln.bankroll:.2f} "
+                f"[S]{ln.current_stake:.2f} | {ln.wins}W-{ln.losses}L"
+                + (f" | {ln.fixture} - {ln.pick}" if ln.fixture else "")
+            )
         )
     return "\n".join(lines)
 

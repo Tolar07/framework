@@ -1,22 +1,4 @@
 {
-  "lineages": [
-    {
-      "lineage_id": "ln_3957fdd415",
-      "parent_id": null,
-      "generation": 0,
-      "bankroll": 110.0,
-      "current_stake": 1.0,
-      "wins": 0,
-      "losses": 0,
-      "alive": true,
-      "born_date": "2026-09-03",
-      "last_result": "WIN",
-      "fixture": null,
-      "pick": null,
-      "price": null,
-      "edge": 0.0,
-      "probability": 0.0
-    }
-  ],
+  "lineages": [],
   "last_bred_date": "2026-09-03"
 }

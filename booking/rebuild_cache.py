@@ -180,8 +180,49 @@ async def _verify_league_page(page: Page, expected_league: str) -> bool:
 async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
     fixtures: List[CachedFixture] = []
     try:
-        rows = await page.query_selector_all(".m-table-row.match-row")
-        for row in rows:
+        # First, get all date headers and their associated rows
+        # SportyBet pages typically have date headers like "Today", "Tomorrow", or specific dates
+        # We'll find all elements and build a map of row -> date
+
+        # Get the page content to understand structure
+        all_rows = await page.query_selector_all(".m-table-row.match-row")
+
+        # Try to find date headers - they might be in elements like .date-header, .match-date, etc.
+        date_headers = await page.query_selector_all(".m-table-date, .match-date, .date-header, [class*='date']")
+        date_map = {}  # Maps row index to date string
+
+        # If we have date headers, try to associate them with rows
+        # Strategy: date headers appear before the rows they apply to
+        if date_headers:
+            # Get all relevant elements in order
+            all_elements = await page.query_selector_all(".m-table-date, .match-date, .date-header, [class*='date'], .m-table-row.match-row")
+
+            current_date = None
+            row_index = 0
+            for el in all_elements:
+                class_attr = await el.get_attribute("class") or ""
+                is_date_header = any(cls in class_attr for cls in ["date", "Date"])
+                is_match_row = "m-table-row" in class_attr and "match-row" in class_attr
+
+                if is_date_header:
+                    text = (await el.inner_text()).strip()
+                    if text:
+                        current_date = _parse_sportybet_date(text)
+                elif is_match_row:
+                    if current_date:
+                        date_map[row_index] = current_date
+                    row_index += 1
+
+        # If no date headers found, try to infer from page URL or default to today
+        if not date_map:
+            # Try to get date from URL or page content
+            url = page.url
+            current_date = _infer_date_from_page(page, url)
+            for i in range(len(all_rows)):
+                date_map[i] = current_date
+
+        # Now extract fixtures with dates
+        for i, row in enumerate(all_rows):
             try:
                 gid_el = await row.query_selector(".game-id")
                 gid = (await gid_el.inner_text()) if gid_el else ""
@@ -191,14 +232,126 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
                 home = (await home_el.inner_text()).strip() if home_el else ""
                 away = (await away_el.inner_text()).strip() if away_el else ""
                 clock_el = await row.query_selector(".clock-time")
-                kickoff = (await clock_el.inner_text()).strip() if clock_el else ""
-                if home and away:
-                    fixtures.append(CachedFixture(id=gid or str(len(fixtures)), home=home, away=away, kickoff=kickoff, league=league, raw_market={}))
+                kickoff_time = (await clock_el.inner_text()).strip() if clock_el else ""
+
+                if home and away and kickoff_time:
+                    # Combine date with time to create ISO datetime
+                    fixture_date = date_map.get(i)
+                    if fixture_date:
+                        kickoff_iso = _combine_date_time(fixture_date, kickoff_time)
+                    else:
+                        # Fallback: use today's date
+                        from datetime import date
+                        kickoff_iso = _combine_date_time(date.today().isoformat(), kickoff_time)
+
+                    fixtures.append(CachedFixture(
+                        id=gid or str(len(fixtures)),
+                        home=home,
+                        away=away,
+                        kickoff=kickoff_iso,  # Now stores full ISO datetime
+                        league=league,
+                        raw_market={}
+                    ))
             except Exception:
                 continue
     except Exception as e:
         safe_print(f"  x extraction error: {e}")
     return fixtures
+
+
+def _parse_sportybet_date(text: str) -> str:
+    """Parse SportyBet date header text to ISO date (YYYY-MM-DD)."""
+    from datetime import date, timedelta
+    text_lower = text.lower().strip()
+
+    today = date.today()
+
+    if "today" in text_lower:
+        return today.isoformat()
+    elif "tomorrow" in text_lower:
+        return (today + timedelta(days=1)).isoformat()
+    elif "yesterday" in text_lower:
+        return (today - timedelta(days=1)).isoformat()
+
+    # Try to parse specific date formats like "Sep 3", "03 Sep", "2026-09-03", etc.
+    import re
+    # Pattern for "Sep 3", "Sep 03", "3 Sep", "03 Sep"
+    month_pattern = r'(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{1,2})'
+    match = re.search(month_pattern, text_lower)
+    if match:
+        month_str = match.group(1)[:3]
+        day = int(match.group(2))
+        month_map = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
+                     'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12}
+        month = month_map.get(month_str, today.month)
+        try:
+            return date(today.year, month, day).isoformat()
+        except ValueError:
+            pass
+
+    # Pattern for "2026-09-03" or "03/09/2026"
+    iso_pattern = r'(\d{4})-(\d{2})-(\d{2})'
+    match = re.search(iso_pattern, text)
+    if match:
+        return f"{match.group(1)}-{match.group(2)}-{match.group(3)}"
+
+    # Default to today
+    return today.isoformat()
+
+
+def _infer_date_from_page(page: Page, url: str) -> str:
+    """Infer the date from page URL or content."""
+    from datetime import date, timedelta
+
+    # Check URL for date parameters
+    import re
+    # Patterns like ?date=2026-09-03 or &dates=20260903
+    date_match = re.search(r'[?&]date=(\d{4}-\d{2}-\d{2})', url)
+    if date_match:
+        return date_match.group(1)
+
+    date_match = re.search(r'[?&]dates=(\d{8})', url)
+    if date_match:
+        d = date_match.group(1)
+        return f"{d[:4]}-{d[4:6]}-{d[6:8]}"
+
+    # Check if page has "today" or "tomorrow" in title or body
+    try:
+        title = page.title()
+        if "tomorrow" in title.lower():
+            return (date.today() + timedelta(days=1)).isoformat()
+        if "today" in title.lower():
+            return date.today().isoformat()
+    except Exception:
+        pass
+
+    # Default to today
+    return date.today().isoformat()
+
+
+def _combine_date_time(date_str: str, time_str: str) -> str:
+    """Combine date (YYYY-MM-DD) and time (HH:MM) into ISO datetime string."""
+    # Clean time string - remove any trailing garbage
+    time_str = time_str.strip()
+    if "\n" in time_str:
+        time_str = time_str.split("\n")[0]
+
+    # Validate time format HH:MM
+    import re
+    if not re.match(r'^\d{1,2}:\d{2}$', time_str):
+        # Invalid time format, return date with 00:00
+        return f"{date_str}T00:00:00"
+
+    hour, minute = time_str.split(":")
+    hour = int(hour)
+    minute = int(minute)
+
+    # Validate hour/minute
+    if hour >= 24 or minute >= 60:
+        # Malformed time, return date with 00:00
+        return f"{date_str}T00:00:00"
+
+    return f"{date_str}T{hour:02d}:{minute:02d}:00"
 
 
 async def _wait_for_fixtures(page: Page, timeout: int = 10000) -> bool:

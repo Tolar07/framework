@@ -8,10 +8,14 @@ from __future__ import annotations
 import logging
 from collections import Counter
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from typing import List, Tuple
 
 logger = logging.getLogger("fixture_date_gate")
+
+# Tolerance for kickoff time matching (±12 hours = half a day)
+# This allows fixtures that cross midnight UTC but are still "today" locally
+KICKOFF_TOLERANCE = timedelta(hours=12)
 
 
 @dataclass
@@ -31,28 +35,31 @@ def validate_fixture_dates(
     """
     Returns (fixtures_actually_on_target_date, rejection_reasons).
 
-    The check is deliberately simple and deliberately strict: does this
-    fixture's own kickoff timestamp fall on the target date? If the
-    source feed says 5 September and the board is for 2 September, the
-    fixture is REJECTED — no tolerance window, no "close enough."
-
-    A tolerance window is what lets a 3-day-ahead matchday leak in.
+    The check allows fixtures within ±12 hours of the target date to accommodate
+    kickoff times that cross midnight UTC but are still considered "today's" fixtures.
+    Fixtures from completely different matchdays (delta_days ≠ 0) are still rejected.
     """
     kept, rejected = [], []
 
     for f in fixtures:
         fixture_date = f.kickoff_utc.date()
-        if fixture_date != target_date:
-            delta_days = (fixture_date - target_date).days
-            reason = (
-                f"REJECTED {f.home} v {f.away} ({f.league}) — kickoff is "
-                f"{fixture_date.isoformat()} ({delta_days:+d} days from target "
-                f"{target_date.isoformat()}). This is a different matchday, not today's."
-            )
-            logger.warning(reason)
-            rejected.append(reason)
+        delta_days = (fixture_date - target_date).days
+
+        # Allow fixtures within ±12 hours tolerance (half a day)
+        # This handles cases where kickoff crosses midnight UTC but is still "today"
+        if abs(delta_days) < 1 or (abs(delta_days) == 1 and abs((f.kickoff_utc - datetime.combine(target_date, datetime.min.time())).total_seconds()) <= KICKOFF_TOLERANCE.total_seconds()):
+            kept.append(f)
             continue
-        kept.append(f)
+
+        # Still reject if completely different day (more than 1 day difference)
+        reason = (
+            f"REJECTED {f.home} v {f.away} ({f.league}) — kickoff is "
+            f"{fixture_date.isoformat()} ({delta_days:+d} days from target "
+            f"{target_date.isoformat()}). This is a different matchday, not today's."
+        )
+        logger.warning(reason)
+        rejected.append(reason)
+        continue
 
     if fixtures and not kept:
         logger.warning(

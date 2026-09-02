@@ -21,6 +21,7 @@ downstream should ever see a fixture this function didn't approve.
 """
 from __future__ import annotations
 
+import json
 import logging
 from dataclasses import dataclass
 from datetime import date
@@ -92,6 +93,106 @@ def extract_league(
             "league lookup miss for %s (season=%s)", fixture_key, season
         )
     return result
+
+
+def _create_kickoff_lookup_from_cache_dir(cache_dir: Path) -> Callable[[str, str], Optional[str]]:
+    """
+    Creates a kickoff lookup function that searches SportyBet cache files
+    by home/away team name matching (same logic as existing _cache_kickoff).
+    """
+    def kickoff_lookup(season: str, fixture_key: str) -> Optional[str]:
+        # fixture_key format: "Home Team v Away Team"
+        if " v " not in fixture_key:
+            return None
+
+        home_team, away_team = fixture_key.split(" v ", 1)
+        home_team = home_team.strip()
+        away_team = away_team.strip()
+
+        if not home_team or not away_team:
+            return None
+
+        # Normalize team names for matching (same as existing _cache_kickoff)
+        def _normalize_name(name: str) -> str:
+            import re
+            return re.sub(r'[^\w\s]', '', name.lower()).strip()
+
+        norm_h = _normalize_name(home_team)
+        norm_a = _normalize_name(away_team)
+        if not norm_h or not norm_a:
+            return None
+
+        # Search all cache files in the directory
+        for p in cache_dir.glob("*.json"):
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+                for fx in data.get("fixtures", []):
+                    # Cache keys are home_team/away_team (bridge.py write path).
+                    ch = _normalize_name(fx.get("home_team", "") or fx.get("home", ""))
+                    ca = _normalize_name(fx.get("away_team", "") or fx.get("away", ""))
+                    # Direct match or cross-match (handles home/away swapped)
+                    if (ch == norm_h and ca == norm_a) or \
+                       (ch == norm_a and ca == norm_h):
+                        ko = fx.get("kickoff", "")
+                        if ko:
+                            # Extract HH:MM from various formats
+                            import re
+                            match = re.search(r'(\d{2}):(\d{2})', ko)
+                            if match:
+                                return f"{match.group(1)}:{match.group(2)}"
+            except (json.JSONDecodeError, OSError):
+                continue
+        return None
+
+    return kickoff_lookup
+
+
+def _create_league_lookup_from_cache_dir(cache_dir: Path) -> Callable[[str, str], Optional[str]]:
+    """
+    Creates a league lookup function that searches SportyBet cache files
+    by home/away team name matching and returns the league from the cache.
+    """
+    def league_lookup(season: str, fixture_key: str) -> Optional[str]:
+        # fixture_key format: "Home Team v Away Team"
+        if " v " not in fixture_key:
+            return None
+
+        home_team, away_team = fixture_key.split(" v ", 1)
+        home_team = home_team.strip()
+        away_team = away_team.strip()
+
+        if not home_team or not away_team:
+            return None
+
+        # Normalize team names for matching (same as existing _cache_kickoff)
+        def _normalize_name(name: str) -> str:
+            import re
+            return re.sub(r'[^\w\s]', '', name.lower()).strip()
+
+        norm_h = _normalize_name(home_team)
+        norm_a = _normalize_name(away_team)
+        if not norm_h or not norm_a:
+            return None
+
+        # Search all cache files in the directory
+        for p in cache_dir.glob("*.json"):
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+                for fx in data.get("fixtures", []):
+                    # Cache keys are home_team/away_team (bridge.py write path).
+                    ch = _normalize_name(fx.get("home_team", "") or fx.get("home", ""))
+                    ca = _normalize_name(fx.get("away_team", "") or fx.get("away", ""))
+                    # Direct match or cross-match (handles home/away swapped)
+                    if (ch == norm_h and ca == norm_a) or \
+                       (ch == norm_a and ca == norm_h):
+                        league = fx.get("league", "")
+                        if league:
+                            return league
+            except (json.JSONDecodeError, OSError):
+                continue
+        return None
+
+    return league_lookup
 
 
 @dataclass

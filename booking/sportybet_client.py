@@ -403,8 +403,51 @@ class SportyBetClient:
             base_params.update(params)
         query = urllib.parse.urlencode(base_params)
         url = f"{API_BASE}/{endpoint}?{query}"
-        response_text = self._get(url, cache_ttl=cache_ttl)
-        return json.loads(response_text)
+
+        # Fetch with retries for transient failures (including JSON decode errors)
+        breaker = _get_breaker("sportybet_api")
+        attempts = 0
+        while True:
+            if not breaker.allow_request():
+                raise RuntimeError(
+                    f"Circuit breaker 'sportybet_api' OPEN — refusing request to {url} "
+                    f"(degrade to NO DATA — PENDING)")
+
+            attempts += 1
+            try:
+                response_text = self._get(url, cache_ttl=cache_ttl)
+            except (RuntimeError, SportyBetRateLimited) as e:
+                # _get may raise RuntimeError for empty responses or SportyBetRateLimited for 429
+                # These are already handled as transient failures in _get, so we can retry
+                breaker.record_failure()
+                _record_failure_stat(url, success=False)
+                if attempts >= MAX_RETRIES:
+                    raise
+                _sleep_backoff(attempts)
+                continue
+
+            # Guard against empty or whitespace-only responses (treat as transient failure)
+            if not response_text or not response_text.strip():
+                breaker.record_failure()
+                _record_failure_stat(url, success=False)
+                if attempts >= MAX_RETRIES:
+                    raise RuntimeError(f"Empty response from SportyBet API endpoint '{endpoint}' after {attempts} attempts")
+                _sleep_backoff(attempts)
+                continue
+
+            try:
+                data = json.loads(response_text)
+                breaker.record_success()
+                _record_failure_stat(url, success=True)
+                return data
+            except json.JSONDecodeError as e:
+                # Invalid JSON (e.g., HTML error page) — treat as transient failure
+                breaker.record_failure()
+                _record_failure_stat(url, success=False)
+                if attempts >= MAX_RETRIES:
+                    raise RuntimeError(f"Invalid JSON from SportyBet API endpoint '{endpoint}' after {attempts} attempts: {e}")
+                _sleep_backoff(attempts)
+                continue
 
     def _load_tournament_map(self) -> Dict:
         """Load the tournament mapping from the API (cached)."""

@@ -14,7 +14,7 @@ load_dotenv()
 from output.notify import broadcast
 
 # Read today's heartbeat
-heartbeat_path = os.path.join(os.path.dirname(__file__), 'output', 'boards', 'heartbeat_2026-08-31.txt')
+heartbeat_path = os.path.join(os.path.dirname(__file__), 'output', 'boards', 'heartbeat_2026-09-02.txt')
 
 with open(heartbeat_path, 'r', encoding='utf-8') as f:
     content = f.read()

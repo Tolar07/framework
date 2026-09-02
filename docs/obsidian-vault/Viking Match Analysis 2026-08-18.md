@@ -55,8 +55,8 @@
 
 *Book prices for other markets estimated from 1X2 + DC_1X = 1.22
 
-### Step 3: Hard Odds Cap (MAX_ODDS_CAP = 2.00) — **CRITICAL FILTER**
-- Viking to win (AWAY) at 4.20 → **REJECTED** (price > 2.00)
+### Step 3: Hard Odds Cap (MAX_ODDS_CAP = 1.50) — **CRITICAL FILTER**
+- Viking to win (AWAY) at 4.20 → **REJECTED** (price > 1.50)
 - Draw at ~3.40 → **REJECTED** (price > 2.00)
 
 ### Step 4: Agreement Gate

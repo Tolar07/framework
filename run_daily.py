@@ -448,7 +448,8 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                 leagues=leagues,
                 min_mes=min_mes,
                 agreement_band=agreement_band,
-                verify_only=verify_only
+                verify_only=verify_only,
+                dry_run=False
             )
             board = pipeline_result.board
             fixture_sources = pipeline_result.fixture_sources

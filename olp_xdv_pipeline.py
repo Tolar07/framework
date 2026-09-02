@@ -68,6 +68,9 @@ from clv.clv_logger import PHASE3_GATE_MIN_LEGS
 CLV_GATE_LEGS = PHASE3_GATE_MIN_LEGS  # publish gate: min legs with CLV
 CLV_GATE_MEAN_POSITIVE = True         # publish gate: mean CLV > 0
 
+# Fixture date gate imports
+from fixture_date_gate import validate_fixture_dates, check_kickoff_time_diversity, run_full_date_check, DatedFixture
+
 # Enrichment imports for hard gate enforcement
 from output.enrichment import _create_kickoff_lookup_from_cache_dir, _create_league_lookup_from_cache_dir, enrich_fixture
 
@@ -265,6 +268,62 @@ def agent_1_ingest(state: PipelineState) -> dict:
 
         except Exception as e:
             state.stop(f"ingestion failed: {e}", "INGEST_FAILURE")
+
+    # Apply fixture date validation gate - reject fixtures not matching target date
+    try:
+        from datetime import date
+        target_date = date.today()
+
+        # Convert pipeline fixtures to DatedFixture objects for validation
+        dated_fixtures = []
+        for fx in fixtures:
+            if fx.get("kickoff_utc"):
+                try:
+                    kickoff_dt = datetime.fromisoformat(fx["kickoff_utc"].replace("Z", "+00:00"))
+                    dated_fixtures.append(DatedFixture(
+                        fixture_id=fx["match_id"],
+                        home=fx["home_team"],
+                        away=fx["away_team"],
+                        league=fx["league"],
+                        kickoff_utc=kickoff_dt
+                    ))
+                except (ValueError, AttributeError):
+                    # If kickoff parsing fails, keep fixture but flag it
+                    data_flags.append(f"{fx['match_id']}: invalid kickoff format")
+                    dated_fixtures.append(DatedFixture(
+                        fixture_id=fx["match_id"],
+                        home=fx["home_team"],
+                        away=fx["away_team"],
+                        league=fx["league"],
+                        kickoff_utc=datetime.now()  # fallback to now
+                    ))
+            else:
+                # No kickoff time - keep but flag
+                data_flags.append(f"{fx['match_id']}: missing kickoff time")
+
+        # Run validation
+        validated_fixtures, rejection_reasons = run_full_date_check(dated_fixtures, target_date)
+
+        # Convert back to pipeline fixture format
+        validated_fixture_dicts = []
+        for vf in validated_fixtures:
+            # Find original fixture by match_id
+            original_fx = next((f for f in fixtures if f["match_id"] == vf.fixture_id), None)
+            if original_fx:
+                validated_fixture_dicts.append(original_fx)
+
+        fixtures = validated_fixture_dicts
+
+        # Add rejection reasons to data_flags
+        data_flags.extend(rejection_reasons)
+
+        if rejection_reasons:
+            logging.warning(f"Fixture date gate rejected {len(rejection_reasons)} fixtures for {target_date.isoformat()}")
+
+    except Exception as e:
+        # If date validation fails, log but don't halt pipeline
+        data_flags.append(f"fixture date gate failed: {e}")
+        logging.warning(f"Fixture date gate error: {e}")
 
     return {
         "agent": AGENT_NAMES[1],

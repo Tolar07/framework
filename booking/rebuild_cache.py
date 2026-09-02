@@ -251,7 +251,18 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
     try:
         base_url = f"https://{host}/ng/sport/football"
         safe_print(f"  -> Fallback to homepage: {base_url}")
-        await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+        try:
+            await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+        except Exception as e:
+            error_str = str(e)
+            if "net::ERR_TOO_MANY_REDIRECTS" in error_str or "interrupted by another navigation" in error_str:
+                safe_print(f"  [INFO] Redirect/interrupt error detected, trying base domain for {league}")
+                # Try without the /ng/sport/football path
+                base_url = f"https://{host}"
+                safe_print(f"  -> Trying base domain: {base_url}")
+                await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+            else:
+                raise  # Re-raise if it's not a redirect error
         await page.wait_for_timeout(3000)
         await _dismiss_overlays(page)
 
@@ -283,7 +294,17 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
     try:
         base_url = f"https://{host}/ng/sport/football"
         safe_print(f"  -> Fallback to homepage: {base_url}")
-        await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+        try:
+            await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+        except Exception as e:
+            error_str = str(e)
+            if "net::ERR_TOO_MANY_REDIRECTS" in error_str or "interrupted by another navigation" in error_str:
+                safe_print(f"  [INFO] Redirect/interrupt error detected, trying base domain for {league}")
+                base_url = f"https://{host}"
+                safe_print(f"  -> Trying base domain: {base_url}")
+                await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+            else:
+                raise
         await page.wait_for_timeout(3000)
         await _dismiss_overlays(page)
 

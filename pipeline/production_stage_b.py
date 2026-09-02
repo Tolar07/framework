@@ -33,6 +33,7 @@ from engine import markets as mkt
 from output.produce_bet import BoardFixture, render_part2_compact, render_part2_the_scan, render_part5_signoff
 from pipeline.fixture_extraction import StageAOutput, VerifiedFixture
 from verification.id403 import VerificationResult, Tier, stamp
+from output.enrichment import current_season_string, _create_kickoff_lookup_from_cache_dir, _create_league_lookup_from_cache_dir, EnrichedFixture, enrich_fixture
 
 log = logging.getLogger("pipeline.production_stage_b")
 
@@ -139,8 +140,12 @@ class StageBOutput:
         return path
 
 
-def _verified_fixture_to_board_fixture(vf: VerifiedFixture, today: str) -> BoardFixture:
-    """Convert a VerifiedFixture from Stage A to a BoardFixture for production."""
+def _verified_fixture_to_board_fixture(vf: VerifiedFixture, today: str) -> Optional[BoardFixture]:
+    """Convert a VerifiedFixture from Stage A to a BoardFixture for production.
+
+    Returns None if enrichment fails (missing kickoff/league data), enforcing
+    Hard Gates 1 & 2 from OFFICIAL_PIPELINE_OUTPUT_SPEC.md.
+    """
     # Build verification result - VerificationResult requires a value argument
     tier = Tier(vf.verification_tier) if vf.verification_tier in [t.value for t in Tier] else Tier.NO_DATA
     verification = VerificationResult(
@@ -172,8 +177,48 @@ def _verified_fixture_to_board_fixture(vf: VerifiedFixture, today: str) -> Board
     elif vf.status == "pending":
         rejection_reason = f"CONFLICT — Architect must adjudicate: {vf.verification_note}"
 
+    # Create enrichment lookup functions using the cache directory
+    cache_dir = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
+
+    if not cache_dir.exists():
+        log.warning("SportyBet cache directory not found: %s", cache_dir)
+        # Fall back to original behavior if cache directory missing
+        return BoardFixture(
+            fixture=f"{vf.home_team} v {vf.away_team} ({vf.league})",
+            probs=probs,
+            verification=verification,
+            on_deploy_shortlist=on_shortlist,
+            mes_trigger_price=mes_trigger,
+            kickoff_date=vf.kickoff_date,
+            rejection_reason=rejection_reason,
+            rating_source=rating_source,
+            model_engine=vf.source_tier or "unknown",
+        )
+
+    # Create lookup functions
+    kickoff_lookup_fn = _create_kickoff_lookup_from_cache_dir(cache_dir)
+    league_lookup_fn = _create_league_lookup_from_cache_dir(cache_dir)
+
+    # Create fixture key for enrichment
+    fixture_key = f"{vf.home_team} v {vf.away_team}"
+
+    # Apply enrichment gate - this is the HARD GATE that drops fixtures with missing data
+    enriched = enrich_fixture(
+        fixture_key=fixture_key,
+        home=vf.home_team,
+        away=vf.away_team,
+        kickoff_lookup_fn=kickoff_lookup_fn,
+        league_lookup_fn=league_lookup_fn
+    )
+
+    # If enrichment fails (missing kickoff or league data), return None to drop the fixture
+    if enriched is None:
+        log.debug("Dropping fixture %s due to missing enrichment data", fixture_key)
+        return None
+
+    # Enrichment succeeded - create BoardFixture with validated data
     return BoardFixture(
-        fixture=f"{vf.home_team} v {vf.away_team} ({vf.league})",
+        fixture=f"{vf.home_team} v {vf.away_team} ({enriched.league})",
         probs=probs,
         verification=verification,
         on_deploy_shortlist=on_shortlist,
@@ -637,11 +682,20 @@ def run_stage_b(
     log.info(f"Stage B: reading Stage A from {stage_a_path}")
     log.info(f"  Stage A run_date: {stage_a.run_date}, fixtures: {len(stage_a.fixtures)}")
 
-    # Convert ALL Stage A fixtures to BoardFixtures (NO silent drops - HR35)
+    # Convert Stage A fixtures to BoardFixtures, applying enrichment gate
+    # Fixtures that fail enrichment (missing kickoff/league data) are dropped
+    # to enforce Hard Gates 1 & 2 from OFFICIAL_PIPELINE_OUTPUT_SPEC.md
     board: list[BoardFixture] = []
+    dropped_count = 0
     for vf in stage_a.fixtures:
         bf = _verified_fixture_to_board_fixture(vf, today)
-        board.append(bf)
+        if bf is not None:
+            board.append(bf)
+        else:
+            dropped_count += 1
+
+    if dropped_count > 0:
+        log.info("Stage B: dropped %d fixtures due to missing kickoff/league data (enrichment gate)", dropped_count)
 
     # Enrich with model probabilities
     board, enrich_flags = _enrich_fixtures_with_models(

@@ -1,0 +1,592 @@
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\booking\rebuild_cache.py", line 353, in _scrape_league
+    await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\async_api\_generated.py", line 9869, in goto
+    await self._impl_obj.goto(
+    ...<4 lines>...
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_page.py", line 560, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_frame.py", line 156, in goto
+    await self._channel.send(
+        "goto", self._navigation_timeout, locals_to_params(locals())
+    )
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Motunrayo\AppData\Roaming\Python\Python314\site-packages\playwright\_impl\_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - navigating to "https://sportybet.com.ng/ng/sport/football", waiting until "domcontentloaded"
+
+OLP XDV daily run — 2026-09-02 — Phase 3 — live capital (Architect-deployed)
+Launch args: ['--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage', '--host-resolver-rules=MAP sportybet.com:443 64:ff9b::12f4:b372,MAP sportybet.com:443 64:ff9b::12f4:b375,MAP sportybet.com:443 64:ff9b::12f4:b35b,MAP sportybet.com:443 64:ff9b::12f4:b37c,MAP sportybet.com:443 18.244.179.91,MAP sportybet.com:443 18.244.179.124,MAP sportybet.com:443 18.244.179.114,MAP sportybet.com:443 18.244.179.117,MAP www.sportybet.com:443 104.21.10.148,MAP www.sportybet.com:443 172.67.163.154,MAP sportybet.com.ng:443 2606:4700:3035::6815:a94,MAP sportybet.com.ng:443 2606:4700:3035::ac43:a39a,MAP sportybet.com.ng:443 104.21.10.148,MAP sportybet.com.ng:443 172.67.163.154,MAP www.sportybet.com.ng:443 104.21.10.148,MAP www.sportybet.com.ng:443 172.67.163.154']
+  [RETRY] Trying popular-list navigation for Belgian Pro League
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Belgian Pro League
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [WARN] Belgian Pro League: no direct URL mapping and sidebar nav failed
+  -> Direct URL (domain): https://sportybet.com.ng/ng/sport/football/sr:category:7/sr:tournament:34?source=sport_menu&sort=2
+  [ERROR] direct nav error (domain): Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football/sr:category:7/s
+  -> Direct URL (ip-104.21.10.148): https://104.21.10.148/ng/sport/football/sr:category:7/sr:tournament:34?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-104.21.10.148): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://104.21.10.148/ng/sport/football/sr:cat
+  -> Direct URL (ip-172.67.163.154): https://172.67.163.154/ng/sport/football/sr:category:7/sr:tournament:34?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-172.67.163.154): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://172.67.163.154/ng/sport/football/sr:ca
+  [RETRY] Trying popular-list navigation for Bundesliga
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Bundesliga
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [FAIL] Bundesliga: all methods failed
+  -> Direct URL (domain): https://sportybet.com.ng/ng/sport/football/sr:category:1/sr:tournament:17?source=sport_menu&sort=2
+  [ERROR] direct nav error (domain): Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football/sr:category:1/s
+  -> Direct URL (ip-104.21.10.148): https://104.21.10.148/ng/sport/football/sr:category:1/sr:tournament:17?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-104.21.10.148): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://104.21.10.148/ng/sport/football/sr:cat
+  -> Direct URL (ip-172.67.163.154): https://172.67.163.154/ng/sport/football/sr:category:1/sr:tournament:17?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-172.67.163.154): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://172.67.163.154/ng/sport/football/sr:ca
+  [RETRY] Trying popular-list navigation for Championship
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Championship
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [FAIL] Championship: all methods failed
+  -> Direct URL (domain): https://sportybet.com.ng/ng/sport/football/sr:category:31/sr:tournament:9?source=sport_menu&sort=2
+  [ERROR] direct nav error (domain): Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football/sr:category:31/
+  -> Direct URL (ip-104.21.10.148): https://104.21.10.148/ng/sport/football/sr:category:31/sr:tournament:9?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-104.21.10.148): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://104.21.10.148/ng/sport/football/sr:cat
+  -> Direct URL (ip-172.67.163.154): https://172.67.163.154/ng/sport/football/sr:category:31/sr:tournament:9?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-172.67.163.154): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://172.67.163.154/ng/sport/football/sr:ca
+  [RETRY] Trying popular-list navigation for La Liga 2
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for La Liga 2
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [FAIL] La Liga 2: all methods failed
+  -> Direct URL (domain): https://sportybet.com.ng/ng/sport/football/sr:category:7/sr:tournament:35?source=sport_menu&sort=2
+  [ERROR] direct nav error (domain): Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football/sr:category:7/s
+  -> Direct URL (ip-104.21.10.148): https://104.21.10.148/ng/sport/football/sr:category:7/sr:tournament:35?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-104.21.10.148): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://104.21.10.148/ng/sport/football/sr:cat
+  -> Direct URL (ip-172.67.163.154): https://172.67.163.154/ng/sport/football/sr:category:7/sr:tournament:35?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-172.67.163.154): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://172.67.163.154/ng/sport/football/sr:ca
+  [RETRY] Trying popular-list navigation for Ligue 1
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Ligue 1
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [FAIL] Ligue 1: all methods failed
+  -> Direct URL (domain): https://sportybet.com.ng/ng/sport/football/sr:category:7/sr:tournament:36?source=sport_menu&sort=2
+  [ERROR] direct nav error (domain): Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football/sr:category:7/s
+  -> Direct URL (ip-104.21.10.148): https://104.21.10.148/ng/sport/football/sr:category:7/sr:tournament:36?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-104.21.10.148): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://104.21.10.148/ng/sport/football/sr:cat
+  -> Direct URL (ip-172.67.163.154): https://172.67.163.154/ng/sport/football/sr:category:7/sr:tournament:36?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-172.67.163.154): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://172.67.163.154/ng/sport/football/sr:ca
+  [RETRY] Trying popular-list navigation for Ligue 2
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Ligue 2
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [FAIL] Ligue 2: all methods failed
+  -> Direct URL (domain): https://sportybet.com.ng/ng/sport/football/sr:category:32/sr:tournament:8?source=sport_menu&sort=2
+  [ERROR] direct nav error (domain): Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football/sr:category:32/
+  -> Direct URL (ip-104.21.10.148): https://104.21.10.148/ng/sport/football/sr:category:32/sr:tournament:8?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-104.21.10.148): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://104.21.10.148/ng/sport/football/sr:cat
+  -> Direct URL (ip-172.67.163.154): https://172.67.163.154/ng/sport/football/sr:category:32/sr:tournament:8?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-172.67.163.154): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://172.67.163.154/ng/sport/football/sr:ca
+  [RETRY] Trying popular-list navigation for Premier League
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Premier League
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [FAIL] Premier League: all methods failed
+  -> Direct URL (domain): https://sportybet.com.ng/ng/sport/football/sr:category:32/sr:tournament:9?source=sport_menu&sort=2
+  [ERROR] direct nav error (domain): Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football/sr:category:32/
+  -> Direct URL (ip-104.21.10.148): https://104.21.10.148/ng/sport/football/sr:category:32/sr:tournament:9?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-104.21.10.148): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://104.21.10.148/ng/sport/football/sr:cat
+  -> Direct URL (ip-172.67.163.154): https://172.67.163.154/ng/sport/football/sr:category:32/sr:tournament:9?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-172.67.163.154): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://172.67.163.154/ng/sport/football/sr:ca
+  [RETRY] Trying popular-list navigation for Primeira Liga
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Primeira Liga
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [FAIL] Primeira Liga: all methods failed
+  [RETRY] Trying popular-list navigation for Russian Premier League
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Russian Premier League
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [WARN] Russian Premier League: no direct URL mapping and sidebar nav failed
+  [RETRY] Trying popular-list navigation for Scottish Premiership
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Scottish Premiership
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [WARN] Scottish Premiership: no direct URL mapping and sidebar nav failed
+  -> Direct URL (domain): https://sportybet.com.ng/ng/sport/football/sr:category:30/sr:tournament:35?source=sport_menu&sort=2
+  [ERROR] direct nav error (domain): Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football/sr:category:30/
+  -> Direct URL (ip-104.21.10.148): https://104.21.10.148/ng/sport/football/sr:category:30/sr:tournament:35?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-104.21.10.148): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://104.21.10.148/ng/sport/football/sr:cat
+  -> Direct URL (ip-172.67.163.154): https://172.67.163.154/ng/sport/football/sr:category:30/sr:tournament:35?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-172.67.163.154): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://172.67.163.154/ng/sport/football/sr:ca
+  [RETRY] Trying popular-list navigation for Serie A
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Serie A
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [FAIL] Serie A: all methods failed
+  -> Direct URL (domain): https://sportybet.com.ng/ng/sport/football/sr:category:30/sr:tournament:36?source=sport_menu&sort=2
+  [ERROR] direct nav error (domain): Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football/sr:category:30/
+  -> Direct URL (ip-104.21.10.148): https://104.21.10.148/ng/sport/football/sr:category:30/sr:tournament:36?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-104.21.10.148): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://104.21.10.148/ng/sport/football/sr:cat
+  -> Direct URL (ip-172.67.163.154): https://172.67.163.154/ng/sport/football/sr:category:30/sr:tournament:36?source=sport_menu&sort=2
+  [ERROR] direct nav error (ip-172.67.163.154): Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://172.67.163.154/ng/sport/football/sr:ca
+  [RETRY] Trying popular-list navigation for Serie B
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Serie B
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [FAIL] Serie B: all methods failed
+  [RETRY] Trying popular-list navigation for Swiss Super League
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Swiss Super League
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [WARN] Swiss Super League: no direct URL mapping and sidebar nav failed
+  [RETRY] Trying popular-list navigation for Turkish Super Lig
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] popular-list nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [RETRY] Trying sidebar expand navigation for Turkish Super Lig
+  -> Fallback to homepage: https://sportybet.com.ng/ng/sport/football
+  [ERROR] sidebar nav error: Page.goto: net::ERR_TOO_MANY_REDIRECTS at https://sportybet.com.ng/ng/sport/football
+Call log:
+  - n
+  [WARN] Turkish Super Lig: no direct URL mapping and sidebar nav failed
+
+=== DONE: 0 total fixtures cached ===
+Traceback (most recent call last):
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\run_daily.py", line 2184, in <module>
+    out = run(season=a.season, fixtures_season=a.fixtures_season,
+              leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
+    ...<5 lines>...
+              agreement_band=a.agreement_band,
+              verify_only=a.verify_only)
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\run_daily.py", line 618, in run
+    return _run(run_id, started, t0, brain, season, fixtures_season,
+                leagues, send, min_mes, days_ahead, target_date,
+                whatsapp, email, web, prefetch_crests, refresh_sportybet,
+                booking_codes, agreement_band, verify_only, prefetch_only)
+  File "C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\run_daily.py", line 692, in _run
+    calibration_log_path = Path("calibration_log.jsonl")
+                           ^^^^
+UnboundLocalError: cannot access local variable 'Path' where it is not associated with a value

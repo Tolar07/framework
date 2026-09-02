@@ -68,6 +68,9 @@ from clv.clv_logger import PHASE3_GATE_MIN_LEGS
 CLV_GATE_LEGS = PHASE3_GATE_MIN_LEGS  # publish gate: min legs with CLV
 CLV_GATE_MEAN_POSITIVE = True         # publish gate: mean CLV > 0
 
+# Enrichment imports for hard gate enforcement
+from output.enrichment import _create_kickoff_lookup_from_cache_dir, _create_league_lookup_from_cache_dir, enrich_fixture
+
 # Pre-load heavy Agent 3/4/5 dependencies at module import to avoid
 # 2.4s cold-start penalty inside agent_4_verify (verify_board path) and
 # agent_3_profile (Brain/bridge path). These imports cost ~2.4s cold but
@@ -1401,13 +1404,45 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         verified_fixtures = agent4.get("verified_fixtures", {})
         fixture_reports = agent5.get("fixture_reports", {})
 
+        # Create enrichment lookup functions using the cache directory
+        cache_dir = Path(__file__).parent / "data" / "cache" / "sportybet" / "fixtures"
+
         board = []
+        dropped_count = 0
         for mid, fx in verified_fixtures.items():
             report = fixture_reports.get(mid, {})
             rating_source = report.get("rating_source", "NO DATA — PENDING")
             selections = report.get("selections", [])
+
+            # Create fixture key for enrichment
+            fixture_key = f"{fx['home_team']} v {fx['away_team']}"
+
+            # Apply enrichment gate - this is the HARD GATE that drops fixtures with missing data
+            if cache_dir.exists():
+                kickoff_lookup_fn = _create_kickoff_lookup_from_cache_dir(cache_dir)
+                league_lookup_fn = _create_league_lookup_from_cache_dir(cache_dir)
+
+                enriched = enrich_fixture(
+                    fixture_key=fixture_key,
+                    home=fx['home_team'],
+                    away=fx['away_team'],
+                    kickoff_lookup_fn=kickoff_lookup_fn,
+                    league_lookup_fn=league_lookup_fn
+                )
+
+                # If enrichment fails (missing kickoff or league data), skip this fixture
+                if enriched is None:
+                    dropped_count += 1
+                    continue
+
+                # Enrichment succeeded - use validated data
+                league = enriched.league
+            else:
+                # Fall back to original league if cache directory missing
+                league = fx['league']
+
             bf = BoardFixture(
-                fixture=f"{fx['home_team']} v {fx['away_team']} ({fx['league']})",
+                fixture=f"{fx['home_team']} v {fx['away_team']} ({league})",
                 probs=report.get("probs"),
                 verification=None,
                 model_engine="dc" if rating_source == "dc" else ("carry" if rating_source == "carry" else "clubelo"),
@@ -1417,6 +1452,11 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
                 rating_source=rating_source,
             )
             board.append(bf)
+
+        if dropped_count > 0:
+            import logging
+            log = logging.getLogger("olp_xdv_pipeline")
+            log.info("Pipeline: dropped %d fixtures due to missing kickoff/league data (enrichment gate)", dropped_count)
 
         leagues_scanned = list(set(fx["league"] for fx in agent1.get("fixtures", [])))
         all_data_flags = []

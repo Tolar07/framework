@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """
 OLP XDV — 10-Agent Production Pipeline Orchestrator
 ==================================================
@@ -37,7 +38,7 @@ Claude sessions; combine states, never overwrite.
 
 HR35: any gap is reported as NO DATA — PENDING, never guessed or fabricated.
 """
-from __future__ import annotations
+import logging
 
 import argparse
 import json

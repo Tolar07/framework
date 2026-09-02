@@ -259,8 +259,10 @@ def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
     """Grade open legs and return verification block and flags."""
     flags = []
     try:
-        verify_block = log.verify_pending(season)
-        flags.append("CLV verification completed")
+        # Use grade_all_pending which is the actual method name in CLVLog
+        summary, gflags = log.grade_all_pending(season)
+        flags.extend(gflags)
+        verify_block = f"Automated CLV grading: {summary.get('graded', 0)} leg(s) settled"
         return verify_block, flags
     except Exception as e:
         flags.append(f"CLV verification failed ({e})")

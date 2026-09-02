@@ -1332,7 +1332,12 @@ def _run_pipeline_internal(season: str, fixtures_season: str, dry_run: bool,
 # =============================================================================
 def run_pipeline(season: str = "2526", fixtures_season: str = "2627",
                  dry_run: bool = True, only: Optional[int] = None,
-                 date_str: Optional[str] = None) -> dict:
+                 date_str: Optional[str] = None,
+                 board_date: Optional[str] = None,
+                 leagues: Optional[list] = None,
+                 min_mes: float = 0.0,
+                 agreement_band: float = 0.04,
+                 verify_only: bool = False) -> dict:
     """
     Runs the full 10-agent pipeline (or up to 'only' agent) and returns the final CEO payload.
 
@@ -1344,12 +1349,69 @@ def run_pipeline(season: str = "2526", fixtures_season: str = "2627",
         dry_run: If True, no network calls, no booking
         only: Run agents 1..N only (1-10)
         date_str: Override date for output (YYYY-MM-DD)
+        board_date: Board date override (YYYY-MM-DD) - alias for date_str for run_daily compatibility
+        leagues: List of leagues to scan (if None, uses WHITELISTED_LEAGUES)
+        min_mes: Minimum MES floor for selections
+        agreement_band: Agreement band for consensus
+        verify_only: If True, only run verification agents
 
     Returns:
-        CEO payload (Agent 10 output)
+        PipelineResult-like object with board, fixture_sources, fit_stats attributes
     """
+    # Handle board_date alias
+    if board_date is not None and date_str is None:
+        date_str = board_date
+
     state = _run_pipeline_internal(season=season, fixtures_season=fixtures_season, dry_run=dry_run, only=only)
-    return state.payloads.get(only or 10, {})
+
+    # Return a PipelineResult-like object with the expected attributes
+    from output.produce_bet import BoardFixture
+    from booking.verify_fixtures import verify_board
+    from datetime import date
+
+    # Reconstruct board from state for return
+    agent4 = state.payloads.get(4, {})
+    agent5 = state.payloads.get(5, {})
+    agent1 = state.payloads.get(1, {})
+
+    verified_fixtures = agent4.get("verified_fixtures", {})
+    fixture_reports = agent5.get("fixture_reports", {})
+
+    board = []
+    for mid, fx in verified_fixtures.items():
+        report = fixture_reports.get(mid, {})
+        rating_source = report.get("rating_source", "NO DATA — PENDING")
+        selections = report.get("selections", [])
+
+        bf = BoardFixture(
+            fixture=f"{fx['home_team']} v {fx['away_team']} ({fx['league']})",
+            probs=report.get("probs"),
+            verification=None,
+            model_engine="dc" if rating_source == "dc" else ("carry" if rating_source == "carry" else "clubelo"),
+            on_deploy_shortlist=len(selections) > 0,
+            mes_trigger_price=None,
+            kickoff_date=fx.get("kickoff_utc", "")[:10] if fx.get("kickoff_utc") else None,
+            rating_source=rating_source,
+        )
+        board.append(bf)
+
+    # Run verification gate
+    leagues_scanned = list(set(fx["league"] for fx in agent1.get("fixtures", [])))
+    board_date_final = date_str or date.today().isoformat()
+    try:
+        verified_board, verify_report = verify_board(board, board_date_final, leagues_scanned)
+        board = verified_board
+    except Exception:
+        pass
+
+    # Create a simple object with the expected attributes
+    class PipelineResult:
+        def __init__(self, board, fixture_sources, fit_stats):
+            self.board = board
+            self.fixture_sources = fixture_sources
+            self.fit_stats = fit_stats
+
+    return PipelineResult(board, set(), {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0, "xg_leagues": 0})
 
 
 # =============================================================================

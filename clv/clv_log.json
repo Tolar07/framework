@@ -150,5 +150,24 @@
     "stake": null,
     "phase": "phase2_paper",
     "notes": ""
+  },
+  {
+    "leg_id": "Rakow_v_Gornik_Zabrze_1X2_HOME_1788430899",
+    "date_logged": "2026-09-03T10:21:38.628689+00:00",
+    "league": "Ekstraklasa",
+    "fixture": "Rakow v Gornik Zabrze",
+    "market": "1X2_HOME",
+    "model_prob": 0.43916994756290684,
+    "match_date": "2026-09-03",
+    "entry_odds": 2.6,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
   }
 ]

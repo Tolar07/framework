@@ -1,0 +1,185 @@
+PART 0 — HEADER
+Date: 2026-09-03 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa
+Calibration: 0 legs logged, CLV logged: ZERO
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ graded 0 of 8 pending leg(s)
+  ⚠ Eredivisie: odds pulled live (242 API credits left)
+  ⚠ Danish Superliga: odds pulled live (240 API credits left)
+  ⚠ Belgian Pro League: odds pulled live (238 API credits left)
+  ⚠ Scottish Premiership: odds pulled live (236 API credits left)
+  ⚠ Ekstraklasa: odds pulled live (234 API credits left)
+  ⚠ Eredivisie: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Danish Superliga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Belgian Pro League: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Scottish Premiership: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Ekstraklasa: odds served from cache (under the 60-minute V2 recency cap)
+  ⚠ Ekstraklasa: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Ekstraklasa: 5 team name(s) in the fixtures feed not found in the fitted data — Cracovia Kraków, Wieczysta Kraków, Wisła Kraków, Wisła Płock, Śląsk Wrocław. Model knows: Arka Gdynia, Cracovia, GKS Katowice, Gornik Zabrze, Jagiellonia, Korona Kielce, Lech Poznan, Lechia Gdansk, Legia, Motor Lublin, Piast Gliwice, Pogon Szczecin, Radomiak Radom, Rakow, Termalica B-B., Widzew Lodz, Wisla Plock, Zaglebie. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
+  ⚠ logged 1 new paper leg(s) with a live entry price
+  ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+6 deploy-eligible fixture(s), softness A/B only, capped at 6 (ID402).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+
+1. Rakow v Gornik Zabrze (Ekstraklasa)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Rakow to win .......... 44%
+      Draw ......................... 29%
+      Gornik Zabrze to win .......... 27%
+   Goals: Over 1.5 goals 71% (model) | Under 2.5 goals 55% (model)
+   Both teams to score YES 50% (model)
+   Expected goals (model): Rakow 1.403, Gornik Zabrze 1.055
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Rakow to win 48% · Draw 26% · Gornik Zabrze to win 26%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Under 2.5 goals
+      Model probability .......... 55%
+      Best quoted price .......... 2.18 decimal (matchbook (not a priority book), best of 3 books)
+      Breakeven trigger price .... 1.40 or longer
+      HR30 numerical MES ......... +20.93% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 55%, this price implies 46% — an implausible +21% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+2. Lech Poznan v Jagiellonia (Ekstraklasa)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Lech Poznan to win .......... 49%
+      Draw ......................... 24%
+      Jagiellonia to win .......... 27%
+   Goals: Over 1.5 goals 85% (model) | Over 2.5 goals 64% (model)
+   Both teams to score YES 64% (model)
+   Expected goals (model): Lech Poznan 1.895, Jagiellonia 1.378
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Lech Poznan to win 54% · Draw 22% · Jagiellonia to win 25%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Draw
+      Model probability .......... 24%
+      Best quoted price .......... 4.60 decimal (betfair_ex_uk, best of 19 books)
+      Breakeven trigger price .... 1.18 or longer
+      HR30 numerical MES ......... +10.14% expected value per unit staked — POSITIVE expected value against this price
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+3. Piast Gliwice v GKS Katowice (Ekstraklasa)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Piast Gliwice to win .......... 39%
+      Draw ......................... 28%
+      GKS Katowice to win .......... 33%
+   Goals: Over 1.5 goals 75% (model) | Under 2.5 goals 51% (model)
+   Both teams to score YES 54% (model)
+   Expected goals (model): Piast Gliwice 1.382, GKS Katowice 1.243
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Piast Gliwice to win 27% · Draw 37% · GKS Katowice to win 36%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Draw
+      Model probability .......... 28%
+      Best quoted price .......... 3.60 decimal (betfair_ex_uk, best of 18 books)
+      Breakeven trigger price .... 1.34 or longer
+      HR30 numerical MES ......... +1.41% expected value per unit staked — POSITIVE expected value against this price
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+4. Widzew Lodz v Radomiak Radom (Ekstraklasa)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Widzew Lodz to win .......... 46%
+      Draw ......................... 27%
+      Radomiak Radom to win .......... 27%
+   Goals: Over 1.5 goals 77% (model) | Over 2.5 goals 51% (model)
+   Both teams to score YES 55% (model)
+   Expected goals (model): Widzew Lodz 1.576, Radomiak Radom 1.149
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Widzew Lodz to win 46% · Draw 28% · Radomiak Radom to win 26%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Draw
+      Model probability .......... 27%
+      Best quoted price .......... 3.95 decimal (betfair_ex_uk, best of 18 books)
+      Breakeven trigger price .... 1.31 or longer
+      HR30 numerical MES ......... +6.31% expected value per unit staked — POSITIVE expected value against this price
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+5. Motor Lublin v Legia (Ekstraklasa)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Motor Lublin to win .......... 37%
+      Draw ......................... 30%
+      Legia to win .......... 34%
+   Goals: Over 1.5 goals 71% (model) | Under 2.5 goals 56% (model)
+   Both teams to score YES 50% (model)
+   Expected goals (model): Motor Lublin 1.239, Legia 1.18
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Motor Lublin to win 28% · Draw 40% · Legia to win 32%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Motor Lublin to win
+      Model probability .......... 37%
+      Best quoted price .......... 3.90 decimal (betfair_ex_uk, best of 18 books)
+      Breakeven trigger price .... 1.42 or longer
+      HR30 numerical MES ......... +42.82% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 37%, this price implies 26% — an implausible +43% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+6. Lech Poznan v Rakow (Ekstraklasa)
+   Softness tier B — deploy-eligible
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Match result (model probabilities):
+      Lech Poznan to win .......... 50%
+      Draw ......................... 25%
+      Rakow to win .......... 25%
+   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 59% (model)
+   Both teams to score YES 60% (model)
+   Expected goals (model): Lech Poznan 1.814, Rakow 1.241
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Lech Poznan to win 57% · Draw 19% · Rakow to win 24%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Under 2.5 goals
+      Model probability .......... 41%
+      Best quoted price .......... 2.10 decimal (casumo (not a priority book), best of 2 books)
+      Breakeven trigger price .... 1.22 or longer
+      HR30 numerical MES ......... -13.71% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+Rakow v Gornik Zabrze (Ekstraklasa) | Rakow·44% | O71 / U55 | 1X73 / Y50 | ○
+Lech Poznan v Jagiellonia (Ekstraklasa) | Lech Pozna·49% | O85 / O64 | 1276 / Y64 | ○
+Piast Gliwice v GKS Katowice (Ekstraklasa) | Piast Gliw·39% | O75 / U51 | 1272 / Y54 | ○
+Widzew Lodz v Radomiak Radom (Ekstraklasa) | Widzew Lod·46% | O77 / O51 | 1X73 / Y55 | ○
+Korona Kielce v Wisła Kraków (Ekstraklasa) | NO DATA — PENDING | — | — | ○
+Motor Lublin v Legia (Ekstraklasa) | Motor Lubl·37% | O71 / U56 | 1270 / Y50 | ○
+Cracovia Kraków v Gornik Zabrze (Ekstraklasa) | NO DATA — PENDING | — | — | ○
+Lech Poznan v Rakow (Ekstraklasa) | Lech Pozna·50% | O82 / O59 | 1275 / Y60 | ○
+Jagiellonia v Śląsk Wrocław (Ekstraklasa) | NO DATA — PENDING | — | — | ○
+Wieczysta Kraków v Zaglebie (Ekstraklasa) | NO DATA — PENDING | — | — | ○
+Pogon Szczecin v Wisła Płock (Ekstraklasa) | NO DATA — PENDING | — | — | ○
+
+PART 3 — REJECTED / WATCHLIST
+Korona Kielce v Wisła Kraków (Ekstraklasa): NO DATA — PENDING: 'Wisła Kraków' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
+Cracovia Kraków v Gornik Zabrze (Ekstraklasa): NO DATA — PENDING: 'Cracovia Kraków' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
+Jagiellonia v Śląsk Wrocław (Ekstraklasa): NO DATA — PENDING: 'Śląsk Wrocław' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
+Wieczysta Kraków v Zaglebie (Ekstraklasa): NO DATA — PENDING: 'Wieczysta Kraków' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
+Pogon Szczecin v Wisła Płock (Ekstraklasa): NO DATA — PENDING: 'Wisła Płock' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 11
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

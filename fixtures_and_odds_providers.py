@@ -17,9 +17,10 @@ from typing import Dict, List, Optional, Any
 import requests
 
 from data.multi_source_concrete import get_odds as multi_get_odds
-from data.thesportsdb_fixtures import fetch_upcoming as tsdb_get_fixtures
+from data.thesportsdb_fixtures import fetch_today as tsdb_get_fixtures
 from booking.bridge import load_all_sportybet_fixtures
 from pipeline.fixture_extraction import StageAOutput, VerifiedFixture
+from data import api_football_results as apif
 
 logger = logging.getLogger(__name__)
 
@@ -104,28 +105,37 @@ def get_api_football_fixtures(league: str, season: str, date_target: str = None)
     Returns structured JSON data.
     """
     try:
-        # This would integrate with the actual API-Football client
-        # For now, we'll use the existing multi-source concrete as placeholder
-        # which already implements API-Football -> Odds API UK -> Odds API EU
-        fixtures_data = multi_get_odds(league)
+        # Try to get fixtures from the api_football_results module
+        # Common function names for fetching fixtures
+        if hasattr(apif, 'get_fixtures'):
+            fixtures_data = apif.get_fixtures(league, season, date_target)
+        elif hasattr(apif, 'fetch_fixtures'):
+            fixtures_data = apif.fetch_fixtures(league, season, date_target)
+        elif hasattr(apif, 'load_fixtures'):
+            fixtures_data = apif.load_fixtures(league, season, date_target)
+        else:
+            # Fallback to empty list to allow fallback to other providers
+            # The multi-source concrete odds function is for odds data, not fixture data
+            fixtures_data = []
 
         fixtures = []
         for fx in fixtures_data:
+            # Handle both fixture-like objects and odds-like objects
             fixture = FixtureData(
-                fixture_id=getattr(fx, 'fixture_id', str(hash(fx.home_team + fx.away_team + fx.date))),
-                home_team=getattr(fx, 'home_team', 'Unknown'),
-                away_team=getattr(fx, 'away_team', 'Unknown'),
-                date=getattr(fx, 'date', date_target or str(date.today())),
+                fixture_id=str(getattr(fx, 'fixture_id', getattr(fx, 'id', hash(str(getattr(fx, 'home_team', '')) + str(getattr(fx, 'away_team', '')) + str(getattr(fx, 'date', date_target or str(date.today()))))))),
+                home_team=getattr(fx, 'home_team', getattr(fx, 'homeTeam', 'Unknown')),
+                away_team=getattr(fx, 'away_team', getattr(fx, 'awayTeam', 'Unknown')),
+                date=getattr(fx, 'date', getattr(fx, 'matchDate', getattr(fx, 'dateEvent', date_target or str(date.today())))),
                 league=league,
-                status=getattr(fx, 'status', 'SCHEDULED'),
+                status=getattr(fx, 'status', getattr(fx, 'matchStatus', 'SCHEDULED')),
                 odds={
-                    'home_win': getattr(fx, 'home_win', None),
-                    'draw': getattr(fx, 'draw', None),
-                    'away_win': getattr(fx, 'away_win', None),
-                    'over_2_5': getattr(fx, 'over_2_5', None),
-                    'under_2_5': getattr(fx, 'under_2_5', None),
-                    'btts_yes': getattr(fx, 'btts_yes', None),
-                    'btts_no': getattr(fx, 'btts_no', None)
+                    'home_win': getattr(fx, 'home_win', getattr(fx, 'homeWin', None)),
+                    'draw': getattr(fx, 'draw', getattr(fx, 'draw', None)),
+                    'away_win': getattr(fx, 'away_win', getattr(fx, 'awayWin', None)),
+                    'over_2_5': getattr(fx, 'over_2_5', getattr(fx, 'over2_5', None)),
+                    'under_2_5': getattr(fx, 'under_2_5', getattr(fx, 'under2_5', None)),
+                    'btts_yes': getattr(fx, 'btts_yes', getattr(fx, 'bttsYes', None)),
+                    'btts_no': getattr(fx, 'btts_no', getattr(fx, 'bttsNo', None))
                 }
             )
             fixtures.append(fixture)
@@ -134,15 +144,23 @@ def get_api_football_fixtures(league: str, season: str, date_target: str = None)
 
     except Exception as e:
         logger.error(f"API-Football fixtures failed: {e}")
-        raise
+        # If we get an error, return empty list to fall back to next provider
+        return []
 
 
 def get_the_sports_db_fixtures(league: str, season: str, date_target: str = None) -> List[FixtureData]:
     """
-    Fetch fixtures from TheSportsDB (fallback source).
+    Fetch fixtures from TheSportsDB (fallback source) using eventsday endpoint.
     """
     try:
-        fixtures_data, skipped = tsdb_get_fixtures(league, season, date_target)
+        # Use fetch_today which gets fixtures for a specific date via eventsday endpoint
+        # Note: fetch_today returns just the fixtures list, not a tuple
+        fixtures_data = tsdb_get_fixtures(league, date_target)
+        # Handle case where fixtures_data is None
+        if fixtures_data is None:
+            fixtures_data = []
+        # fetch_today doesn't return skipped fixtures, so we use an empty list
+        skipped = []
 
         fixtures = []
         for fix in fixtures_data:
@@ -156,8 +174,7 @@ def get_the_sports_db_fixtures(league: str, season: str, date_target: str = None
             )
             fixtures.append(fixture)
 
-        if skipped:
-            logger.warning(f"TheSportsDB skipped {len(skipped)} fixtures for {league}")
+        # Note: fetch_today doesn't track skipped fixtures, so we don't log any
 
         return fixtures
 

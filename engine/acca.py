@@ -337,7 +337,7 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
         # Canonical edge (Architect 2026-08-19): edge = model_prob - implied_prob.
         # EV retained for Kelly/staking: ev = blended_prob * price - 1 (ID414).
         prob_ev = blend_toward_market(prob, book_p) if book_p is not None else prob
-        edge = edge_diff(prob_ev, price) if price else None
+        edge = edge_diff(prob, price) if price else None
         ev = mes_numeric_ev(prob_ev, price) if price else None
         in_preferred = min_odds_floor <= price <= preferred_ceiling
         in_capital_zone = price <= max_odds_cap

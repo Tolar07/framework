@@ -362,10 +362,35 @@ async def _wait_for_fixtures(page: Page, timeout: int = 10000) -> bool:
         return False
 
 
+class RedirectLoop(RuntimeError):
+    pass
+
+def _guard_redirects(page, limit=3):
+    hops = {}
+    def _on_response(resp):
+        if 300 <= resp.status < 400:
+            hops[resp.url] = hops.get(resp.url, 0) + 1
+            if hops[resp.url] > limit:
+                raise RedirectLoop(f"redirect loop: {resp.url}")
+    page.on("response", _on_response)
+    return hops
+
 async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFixture]:
     host = "sportybet.com.ng"
     cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
     direct_url_attempted = False
+
+    # Start from a clean jar and set proper locale/headers
+    try:
+        await page.context.clear_cookies()
+    except Exception:
+        pass  # Continue even if clear_cookies fails
+
+    # Set locale and headers to match target
+    try:
+        await page.set_extra_http_headers({"Accept-Language": "en-NG,en;q=0.9"})
+    except Exception:
+        pass  # Continue even if setting headers fails
 
     if cat_tour and cat_tour[0] != 0 and cat_tour[1] != 0:
         direct_url_attempted = True
@@ -381,6 +406,8 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         for url_type, direct_url in urls_to_try:
             try:
                 safe_print(f"  -> Direct URL ({url_type}): {direct_url}")
+                # Apply redirect guard
+                _guard_redirects(page)
                 await page.goto(direct_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
                 await page.wait_for_timeout(5000)
                 await _dismiss_overlays(page)
@@ -397,6 +424,9 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                         safe_print(f"  [WARN] {league}: direct URL loaded but wrong league page (got {await page.title()})")
                 else:
                     safe_print(f"  [WARN] {league}: direct URL ({url_type}) loaded but no fixture rows found")
+            except RedirectLoop:
+                safe_print(f"  [INFO] Redirect loop detected on {url_type}, trying next approach")
+                continue
             except Exception as e:
                 safe_print(f"  [ERROR] direct nav error ({url_type}): {str(e)[:100]}")
 
@@ -405,6 +435,8 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         base_url = f"https://{host}/ng/sport/football"
         safe_print(f"  -> Fallback to homepage: {base_url}")
         try:
+            # Apply redirect guard
+            _guard_redirects(page)
             await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
         except Exception as e:
             error_str = str(e)
@@ -413,6 +445,8 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                 # Try without the /ng/sport/football path
                 base_url = f"https://{host}"
                 safe_print(f"  -> Trying base domain: {base_url}")
+                # Apply redirect guard
+                _guard_redirects(page)
                 await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
             else:
                 raise  # Re-raise if it's not a redirect error

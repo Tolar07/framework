@@ -252,7 +252,8 @@ def _refresh_sportybet_cache(runlog: Path) -> Optional[str]:
         return f"SportyBet cache refreshed: {total} fixtures across {len(sb_fixtures_by_league)} leagues"
     except Exception as e:
         _mark(runlog, f"SportyBet cache refresh failed: {e}")
-        return f"SportyBet cache refresh failed ({e})"
+        # Return degraded status instead of letting it bubble up and crash the run
+        return f"SportyBet cache refresh degraded: {e}"
 
 
 def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
@@ -344,7 +345,6 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     all_flags += gflags
 
     # --- Calibration tracking: record outcomes for all settled legs ---
-    # FIX: Use Path directly from pathlib import to avoid UnboundLocalError
     calibration_log_path = Path("calibration_log.jsonl")
     recorded_count = 0
     for leg in log.legs:

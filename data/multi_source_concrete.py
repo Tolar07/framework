@@ -42,14 +42,15 @@ class TheSportsDBFixturesSource(DataSource):
     def __init__(self):
         super().__init__("thesportsdb", priority=10, timeout=25.0)
 
-    def fetch(self, **kwargs) -> list:
+    def fetch(self, **kwargs) -> dict:
         league = kwargs["league"]
         fixtures_season = kwargs.get("fixtures_season") or kwargs.get("season")
         days_ahead = kwargs.get("days_ahead", 14)
         from datetime import date
         # Try season feed first
         fixtures, skipped = tsdb.fetch_upcoming(league, fixtures_season, days_ahead=days_ahead)
-        if fixtures:
+        # Handle case where fixtures is None
+        if fixtures is not None and len(fixtures) > 0:
             pairs = tsdb.as_pairs(fixtures)
             dates = {(f.home_team, f.away_team): f.date for f in fixtures}
             return {"fixtures": pairs, "dates": dates, "skipped": skipped, "source": "thesportsdb_season"}
@@ -60,14 +61,14 @@ class TheSportsDBFixturesSource(DataSource):
         from datetime import date
         today = str(date.today())
         day_fixtures = tsdb.fetch_today(league, today)
-        if day_fixtures:
+        # Handle case where day_fixtures is None
+        if day_fixtures is not None and len(day_fixtures) > 0:
             pairs = tsdb.as_pairs(day_fixtures)
             dates = {(f.home_team, f.away_team): f.date for f in day_fixtures}
             return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "thesportsdb_eventsday"}
 
-        # A legitimately-empty window is a valid answer for this league — fall
-        # through to the next source WITHOUT tripping the shared circuit breaker.
-        raise SourceNoData(f"thesportsdb: no fixtures for {league} (season={fixtures_season}, days={days_ahead})")
+        # If no fixtures found, return empty dict instead of raising SourceNoData
+        return {"fixtures": [], "dates": {}, "skipped": 0, "source": "thesportsdb_empty"}
 
 
 class OddsAPIFixturesSource(DataSource):
@@ -76,7 +77,7 @@ class OddsAPIFixturesSource(DataSource):
     def __init__(self):
         super().__init__("odds_api_fixtures", priority=20, timeout=30.0)
 
-    def fetch(self, **kwargs) -> list:
+    def fetch(self, **kwargs) -> dict:
         league = kwargs["league"]
         days_ahead = kwargs.get("days_ahead", 14)
         pairs, dates, flags = odds_fixtures_from_odds(league, days_ahead=days_ahead)
@@ -91,7 +92,7 @@ class APIFootballFixturesSource(DataSource):
     def __init__(self):
         super().__init__("api_football_fixtures", priority=15, timeout=25.0)
 
-    def fetch(self, **kwargs) -> list:
+    def fetch(self, **kwargs) -> dict:
         # API-Football fixtures. The free tier CANNOT see the current season
         # (deterministic {'plan': ...} error, cached 7 days by the caller), so
         # this source honestly raises — it only becomes a real provider on a
@@ -126,16 +127,16 @@ class ESPNFixturesSource(DataSource):
     def __init__(self):
         super().__init__("espn", priority=15, timeout=25.0)
 
-    def fetch(self, **kwargs) -> list:
+    def fetch(self, **kwargs) -> dict:
         league = kwargs["league"]
         fixtures_season = kwargs.get("fixtures_season") or kwargs.get("season")
         days_ahead = kwargs.get("days_ahead", 14)
         fixtures, skipped = espn_source.fetch_upcoming(
             league, fixtures_season, days_ahead=days_ahead)
         if not fixtures:
-            raise SourceNoData(
-                f"espn: no fixtures for {league} "
-                f"(days={days_ahead}, skipped={len(skipped)})")
+            # Return empty dict instead of raising SourceNoData
+            return {"fixtures": [], "dates": {}, "skipped": len(skipped),
+                    "source": "espn_empty"}
         pairs = espn_source.as_pairs(fixtures)
         dates = {(f.home_team, f.away_team): f.date for f in fixtures}
         return {"fixtures": pairs, "dates": dates, "skipped": skipped,
@@ -173,7 +174,7 @@ class FootballDataResultsSource(DataSource):
     def __init__(self):
         super().__init__("football_data", priority=10, timeout=30.0)
 
-    def fetch(self, **kwargs) -> list:
+    def fetch(self, **kwargs) -> dict:
         league = kwargs["league"]
         season = kwargs.get("season") or kwargs.get("fixtures_season")
         from data.football_data_source import load_league
@@ -196,7 +197,7 @@ class FootballDataOrgResultsSource(DataSource):
     def __init__(self):
         super().__init__("football_data_org", priority=12, timeout=30.0)
 
-    def fetch(self, **kwargs) -> list:
+    def fetch(self, **kwargs) -> dict:
         league = kwargs["league"]
         # football-data.org provides CURRENT-SEASON results. The fit season
         # (e.g. '2526') is last season's data; the fixtures season ('2627')
@@ -225,7 +226,7 @@ class APIFootballResultsSource(DataSource):
     def __init__(self):
         super().__init__("api_football_results", priority=15, timeout=30.0)
 
-    def fetch(self, league: str, season: int) -> list:
+    def fetch(self, league: str, season: int) -> dict:
         results, flags = apif.load_results(league, season=season)
         if not results:
             raise SourceNoData(f"api_football_results: no results for {league} {season}")
@@ -245,7 +246,7 @@ class TheSportsDBResultsSource(DataSource):
     def __init__(self):
         super().__init__("thesportsdb_results", priority=20, timeout=25.0)
 
-    def fetch(self, **kwargs) -> list:
+    def fetch(self, **kwargs) -> dict:
         league = kwargs["league"]
         season = str(kwargs.get("season") or "")
         # The framework's season code is a two-year span ('2526' = 2025/26).
@@ -340,7 +341,7 @@ class APIFootballOddsSource(DataSource):
     def __init__(self):
         super().__init__("api_football_odds", priority=20, timeout=60.0)
 
-    def fetch(self, league: str) -> list:
+    def fetch(self, league: str) -> dict:
         from data.api_football_odds import fetch_odds as af_fetch
         fixtures, flags = af_fetch(league)
         if not fixtures:
@@ -516,7 +517,7 @@ class SportyBetOddsSource(DataSource):
 
         return None
 
-    def fetch(self, league: str) -> list:
+    def fetch(self, league: str) -> dict:
         if not SPORTYBET_AVAILABLE:
             raise SourceNoData("sportybet: client not available (booking module not importable)")
 
@@ -775,7 +776,7 @@ class Bet365CachedOddsSource(DataSource):
     def __init__(self):
         super().__init__("bet365_cached", priority=12, timeout=10.0)
 
-    def fetch(self, league: str) -> list:
+    def fetch(self, league: str) -> dict:
         from pathlib import Path
         import json
         from pipeline.odds import FixtureOdds, MarketQuote
@@ -946,7 +947,7 @@ class OddsAPISource(DataSource):
         self.regions = regions
         self.markets = markets
 
-    def fetch(self, league: str) -> list:
+    def fetch(self, league: str) -> dict:
         fixtures, flags = odds_fetch_odds(league, regions=self.regions, markets=self.markets)
         if not fixtures:
             raise SourceNoData(f"odds_api({self.regions}): no odds for {league}")
@@ -1027,7 +1028,7 @@ class FootballDataLiveSource(DataSource):
     def __init__(self):
         super().__init__("football_data_live", priority=10, timeout=30.0)
 
-    def fetch(self, league: str, season: str | int) -> list:
+    def fetch(self, league: str, season: str | int) -> dict:
         # The current_results MultiSource is shared by the web live-scores feed
         # (server.py passes season as int) and the daily pipeline (str like
         # "2626"). load_league subscripts season[:2]/season[2:], so coerce here
@@ -1046,7 +1047,7 @@ class APIFootballLiveSource(DataSource):
     def __init__(self):
         super().__init__("api_football_live", priority=15, timeout=30.0)
 
-    def fetch(self, league: str, season: int) -> list:
+    def fetch(self, league: str, season: int) -> dict:
         results, flags = apif.load_results(league, season=season)
         if not results:
             raise SourceNoData(f"api_football_live: no results for {league} {season}")

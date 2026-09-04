@@ -40,6 +40,9 @@ HR35: any gap is reported as NO DATA — PENDING, never guessed or fabricated.
 """
 import logging
 
+# Enable debug logging for troubleshooting
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 import argparse
 import json
 import os

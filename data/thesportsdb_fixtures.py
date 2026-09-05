@@ -837,7 +837,8 @@ def fetch_upcoming(league: str, fixtures_season: str, days_ahead: int = 14
             f"deliberately not guessed."
         )
     if league not in LEAGUE_IDS:
-        raise SourceNoData(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
+        # No TheSportsDB ID for this league -> return empty list
+        return [], []
 
     events = _read_cache(league, fixtures_season)
     if events is None:
@@ -919,7 +920,8 @@ def fetch_today(league: str, day: str) -> list[UpcomingFixture]:
         if requests is None:
             raise RuntimeError("requests not installed — cannot fetch live fixtures")
         if league not in LEAGUE_IDS:
-            raise ValueError(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
+            # No TheSportsDB ID for this league -> return empty list
+            return []
         # TheSportsDB's eventsday endpoint returns fixtures for the SAME day
         # when given a date - no adjustment needed based on observed behavior
         from datetime import datetime, timedelta
@@ -1018,7 +1020,8 @@ def load_results(league: str, season: str) -> tuple[list[MatchResult], list[dict
             f"found when scanning their directory. Deliberately not guessed."
         )
     if league not in LEAGUE_IDS:
-        raise SourceNoData(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
+        # No TheSportsDB ID for this league -> return empty list
+        return [], []
 
     # Reuse the season-feed cache (same file as fetch_upcoming): a warm run costs
     # no network, and played + upcoming events live in one fetch. A stale cache

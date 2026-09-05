@@ -89,6 +89,7 @@ FLASHSCORE_LEAGUES: Dict[str, str] = {
     "Andorran Primera Divisió": "andorra/primera-divisio",
     "Sanmarinese Campionato": "san-marino/campionato-sammarinese",
     "Liechtensteiner Cup": "liechtenstein/liechtenstein-cup",
+    "Coppa Italia": "italy/coppa-italia",
 }
 
 BASE_URL = "https://www.flashscore.co.uk/football/{slug}/"

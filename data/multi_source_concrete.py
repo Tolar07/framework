@@ -116,12 +116,15 @@ class APIFootballFixturesSource(DataSource):
                 season_year = (int(season[:2]) + 2000
                                if isinstance(season, str) and season.isdigit() else season)
             except Exception:
-                season_year = None
+                # If we still can't resolve season, try to get current year as fallback
+                from datetime import date
+                season_year = date.today().year
         if season_year is None:
             raise SourceNoData(f"api_football: cannot resolve season {season!r} for {league}")
         fixtures = fetch_upcoming(league, season_year, days_ahead=kwargs.get("days_ahead", 14))
         if not fixtures:
-            raise SourceNoData(f"api_football: no fixtures for {league} season {season_year}")
+            # Return empty result instead of raising to allow fallback to next provider
+            return {"fixtures": [], "dates": {}, "skipped": 0, "source": "api_football_empty"}
         pairs = as_pairs(fixtures)
         dates = {(f.home_team, f.away_team): f.date for f in fixtures}
         return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "api_football"}

@@ -148,6 +148,9 @@ def fetch_upcoming(
 
     Returns (fixtures, skipped) where skipped is the number of fixtures that
     were omitted due to missing data (e.g., missing team names).
+
+    NOTE: ESPN's scoreboard API only accepts a single date per request.
+    We iterate over each day and aggregate results.
     """
     if requests is None:
         raise RuntimeError("requests not installed — cannot fetch live fixtures")
@@ -162,68 +165,71 @@ def fetch_upcoming(
 
     # Build the ESPN API URL
     url = f"{API_BASE}/{slug}/scoreboard"
-    params = {
-        "dates": ",".join(
-            (date.today() + timedelta(days=i)).strftime("%Y%m%d")
-            for i in range(days_ahead + 1)
-        )
-    }
 
-    try:
-        resp = requests.get(url, params=params, timeout=10.0)
-        resp.raise_for_status()
-    except requests.RequestException as e:
-        raise SourceNoData(f"espn: HTTP error fetching {league}: {e}") from e
+    all_fixtures: list[UpcomingFixture] = []
+    total_skipped = 0
 
-    data = resp.json()
-    if not data.get("events"):
-        # No events for the requested date range
-        return [], []
+    # ESPN only accepts one date per request; iterate over each day
+    for i in range(days_ahead + 1):
+        target_date = (date.today() + timedelta(days=i)).strftime("%Y%m%d")
+        params = {"dates": target_date}
 
-    fixtures: list[UpcomingFixture] = []
-    skipped = 0
-
-    for event in data.get("events", []):
-        # Skip events that are not upcoming (e.g., already played)
-        if event.get("status", {}).get("type", {}).get("state") not in UPCOMING_STATUSES:
-            skipped += 1
+        try:
+            resp = requests.get(url, params=params, timeout=10.0)
+            resp.raise_for_status()
+        except requests.RequestException as e:
+            # Log the error but continue to next day (don't fail entire fetch)
+            total_skipped += 1
             continue
 
-        # Extract competitors
-        competitors = event.get("competitions", [{}])[0].get("competitors", [])
-        if len(competitors) < 2:
-            skipped += 1
+        data = resp.json()
+        if not data.get("events"):
             continue
 
-        home = next(
-            (c for c in competitors if c.get("homeAway") == "home"),
-            competitors[0] if competitors else {},
-        )
-        away = next(
-            (c for c in competitors if c.get("homeAway") == "away"),
-            competitors[1] if len(competitors) > 1 else {},
-        )
+        for event in data.get("events", []):
+            # Skip events that are not upcoming (e.g., already played)
+            # The status.type.name contains values like "STATUS_SCHEDULED"
+            # while status.type.state contains "pre", "in", "post"
+            status_name = event.get("status", {}).get("type", {}).get("name", "")
+            if status_name not in UPCOMING_STATUSES:
+                total_skipped += 1
+                continue
 
-        home_team = home.get("team", {}).get("displayName")
-        away_team = away.get("team", {}).get("displayName")
+            # Extract competitors
+            competitors = event.get("competitions", [{}])[0].get("competitors", [])
+            if len(competitors) < 2:
+                total_skipped += 1
+                continue
 
-        if not home_team or not away_team:
-            skipped += 1  # HR35: missing data — skip, don't guess
-            continue
+            home = next(
+                (c for c in competitors if c.get("homeAway") == "home"),
+                competitors[0] if competitors else {},
+            )
+            away = next(
+                (c for c in competitors if c.get("homeAway") == "away"),
+                competitors[1] if len(competitors) > 1 else {},
+            )
 
-        # ESPN does not provide odds in the scoreboard endpoint; odds come
-        # from a separate endpoint or are derived from other sources.
-        fixture = UpcomingFixture(
-            home_team=home_team.strip(),
-            away_team=away_team.strip(),
-            date=event.get("date", "")[:10],  # YYYY-MM-DD
-            league=league,
-            source="espn",
-            source_tier="T2",  # ESPN is tier 2 (TheSportsDB is T1, API-Football T0)
-        )
-        fixtures.append(fixture)
+            home_team = home.get("team", {}).get("displayName")
+            away_team = away.get("team", {}).get("displayName")
 
-    return fixtures, skipped
+            if not home_team or not away_team:
+                total_skipped += 1  # HR35: missing data — skip, don't guess
+                continue
+
+            # ESPN does not provide odds in the scoreboard endpoint; odds come
+            # from a separate endpoint or are derived from other sources.
+            fixture = UpcomingFixture(
+                home_team=home_team.strip(),
+                away_team=away_team.strip(),
+                date=event.get("date", "")[:10],  # YYYY-MM-DD
+                league=league,
+                source="espn",
+                source_tier="T2",  # ESPN is tier 2 (TheSportsDB is T1, API-Football T0)
+            )
+            all_fixtures.append(fixture)
+
+    return all_fixtures, total_skipped
 
 
 def as_pairs(fixtures: list[UpcomingFixture]) -> list[tuple[str, str]]:

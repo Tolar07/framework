@@ -214,20 +214,10 @@ def _prefetch_stage(board_date: str, season: str, fixtures_season: str | None,
         all_flags.append(f"Bet365 odds check failed ({e})")
         _mark(runlog, f"  Bet365: FAILED - {e}")
 
-    # 5. Pre-fetch injury/squad lists from TheSportsDB
+    # 5. Pre-fetch injury/squad lists from TheSportsDB - SKIPPED due to missing function
     _mark(runlog, f"Fetching injury/squad data...")
-    try:
-        from data.thesportsdb_fixtures import fetch_injuries
-        for lg in leagues:
-            try:
-                fetch_injuries(lg)
-            except Exception:
-                pass
-        all_flags.append("Injury/squad data prefetched for all leagues")
-        _mark(runlog, f"  Injuries: cached")
-    except Exception as e:
-        all_flags.append(f"Injury prefetch failed ({e})")
-        _mark(runlog, f"  Injuries: FAILED - {e}")
+    all_flags.append("Injury/squad data prefetch skipped (function not implemented)")
+    _mark(runlog, f"  Injuries: SKIPPED")
 
     elapsed = round(time.time() - t0, 1)
     _mark(runlog, f"PREFETCH COMPLETE — {elapsed}s")
@@ -461,8 +451,12 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
 
     # Render board
     if board:
-        board_text = render_board_from_pipeline(board, board_date, season)
-        telegram_text = render_telegram_board(board, board_date, season)
+        board_artifacts = render_board_from_pipeline(
+            board=board,
+            date_str=board_date
+        )
+        board_text = board_artifacts.get(f"board_{board_date}.txt", "")
+        telegram_text = board_artifacts.get(f"telegram_{board_date}.txt", "")
 
         # Write board files
         BOARD_DIR.mkdir(parents=True, exist_ok=True)

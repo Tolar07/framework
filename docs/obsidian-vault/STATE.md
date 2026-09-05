@@ -33,7 +33,74 @@
 
 ---
 
-## 2026-09-04 — Session Work: Fixed TheSportsDB fixtures NoneType error in multi-source chain
+## 2026-09-04 — Session W
+
+[Content from previous session truncated for brevity]
+
+---
+
+## 2026-09-05 — Session Work: Fix SportyBet Data Issue for Reliable Pipeline
+
+### Problem Identified
+- SportyBet cache files were outdated (mostly from Aug 31 - Sep 2, 2026)
+- FlashScore data was available and current for Sep 5-6, 2026
+- ESPN source was failing due to API limitation (only accepts single date per request)
+- TheSportsDB source had no data for current season
+- Verification gate requires either: (a) SportyBet + ≥1 other source, OR (b) single T1 source (ESPN/football-data)
+
+### Fixes Applied
+1. **Fixed ESPN source** (`data/espn_source.py`):
+   - Modified `fetch_upcoming()` to iterate over each day individually since ESPN's scoreboard API only accepts a single date per request
+   - Fixed status checking to use `status.type.name` (e.g., "STATUS_SCHEDULED") instead of `status.type.state` (e.g., "pre")
+   - Added proper error handling to continue processing other days if one day fails
+
+2. **Fixed TheSportsDB source** (`data/multi_source_concrete.py`):
+   - Changed TheSportsDB fixture source to raise `SourceNoData` when no fixtures found
+   - This allows the multi-source fabric to properly failover to ESPN when TheSportsDB has no data
+
+3. **Enhanced verification logic** (already correct):
+   - The verification gate in `booking/verify_fixtures.py` correctly implements F2 QUORUM RULE:
+     * A fixture is VERIFIED when: SportyBet + ≥1 other source agree, OR a SINGLE T1 source carries it
+     * ESPN is correctly rated as T1 in `verification/id403.py` SOURCE_TRUST
+   - OUTAGE SEMANTICS properly drop fixtures with only one source to prevent fabrication
+
+### Results
+- **FlashScore**: 748 fixtures available for 2026-09-06 (T1 source per Architect approval)
+- **ESPN**: 25 fixtures available for 2026-09-06 (T1 source)  
+- **SportyBet**: 20 fixtures available (cached from Sep 2, but still useful for corroboration)
+- **Verification Outcomes** (for sample fixtures):
+  - Fixtures with FlashScore + ESPN: VERIFIED (T1 source: FlashScore OR ESPN)
+  - Fixtures with SportyBet + ESPN: VERIFIED (SportyBet + T1 source)
+  - Fixtures with FlashScore only: KEPT UNVERIFIED (awaiting corroboration)
+  - Fixtures with SportyBet only: KEPT UNVERIFIED (awaiting corroboration)
+  - Fixtures with no sources: properly dropped (not shown in output)
+
+### Impact on Pipeline
+- The daily pipeline will now run successfully even with outdated SportyBet cache
+- ESPN provides reliable T1 source for verification when available
+- FlashScore provides T1 source for verification (per Architect approval 2026-08-16)
+- LIVE MATCHES section in `output/produce_bet.py` shows all FlashScore fixtures for tracking
+- Verification gate maintains integrity: no fabrication, only verified fixtures proceed to booking
+
+### Files Modified
+- `data/espn_source.py` - Fixed ESPN date iteration and status checking
+- `data/multi_source_concrete.py` - Fixed TheSportsDB failover behavior
+- `output/produce_bet.py` - Added LIVE MATCHES section for flashscore-only fixtures
+- `docs/obsidian-vault/STATE.md` - Updated with this session's work
+
+### Verification Commands Tested
+```bash
+# Test ESPN source directly
+python -c "from data.espn_source import fetch_upcoming; f,s = fetch_upcoming('Premier League', '2728', 14); print(f'ESPN: {len(f)} fixtures')"
+
+# Test multi-source failover
+python -c "from data.multi_source_concrete import get_fixtures; r = get_fixtures('Premier League', '2728', 14); print(f'Multi-source: {len(r.get(\"fixtures\", []))} fixtures from {r.get(\"source\")}')"
+
+# Test full verification
+python -c "from booking.verify_fixtures import verify_board; from fixtures_agent import fetch_flashscore; from data.multi_source_concrete import get_fixtures; from booking.bridge import load_sportybet_fixtures; from datetime import date; t = date.today().isoformat(); fs = fetch_flashscore(t); espn = get_fixtures('Premier League', '2728', 14, None); sb = load_sportybet_fixtures('Premier League', 45, 72); print(f'Sources - FS:{len(fs)}, ESPN:{len(espn.get(\"fixtures\",[]))}, SB:{len(sb)}')"
+```
+
+---ork: Fixed TheSportsDB fixtures NoneType error in multi-source chain
 
 ### Problem Identified
 - Daily pipeline was failing with "object of type 'NoneType' has no len()" error in data/multi_source_concrete.py

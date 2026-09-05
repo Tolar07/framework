@@ -145,12 +145,13 @@ def _find_feed_dir(pattern: str) -> Optional[Path]:
     return None
 
 
-def _load_feed_pairs(pattern: str, datetime_parser: callable) -> List[Dict]:
+def _load_feed_pairs(pattern: str, datetime_parser: callable, target_date: str | None = None) -> List[Dict]:
     """Generic loader for structured fixture feeds.
 
     Args:
         pattern: glob pattern for the feed files (e.g., "flashscore_odds_*.jsonl")
-        datetime_parser: function(match_datetime: str) -> ISO date string
+        datetime_parser: function(match_datetime: str, target_date: str | None) -> ISO date string
+        target_date: ISO date string (YYYY-MM-DD) for resolving time-only formats
 
     Returns [] if the feed is absent entirely. Absence is NOT a list of empty
     fixtures (HR35: a missing source is 'unavailable', not 'no fixtures')."""
@@ -175,16 +176,18 @@ def _load_feed_pairs(pattern: str, datetime_parser: callable) -> List[Dict]:
         away = (d.get("away_team") or "").strip()
         if not home or not away:
             continue
-        kickoff = datetime_parser(d.get("match_datetime"))
+        kickoff = datetime_parser(d.get("match_datetime"), target_date)
         pairs.append({"home": home, "away": away, "date": kickoff})
     return pairs
 
 
-def _parse_flashscore_datetime(match_datetime: str) -> str:
-    """Parse FlashScore '21.08. 20:00' or '12:30' (time only = today) to ISO UTC timestamp.
+def _parse_flashscore_datetime(match_datetime: str, target_date: str | None = None) -> str:
+    """Parse FlashScore '21.08. 20:00' or '12:30' (time only = target_date) to ISO UTC timestamp.
 
     Returns full ISO format (e.g., '2026-08-28T20:00:00Z') when time is available,
     otherwise just the date (e.g., '2026-08-28'). HR35: never fabricate time.
+
+    If target_date is provided (YYYY-MM-DD), time-only formats resolve to that date.
     """
     if not match_datetime:
         return ""
@@ -200,16 +203,21 @@ def _parse_flashscore_datetime(match_datetime: str) -> str:
             except ValueError:
                 continue
             if 0 <= (cand - now).days <= 400:
-                # FlashScore shows local times (typically CET/CEST). We store as UTC
-                # with Z suffix since we lack timezone info. The renderer will
-                # display the time portion as-is (HR35: don't fake conversion).
                 return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
-    # Try HH:MM only (matches for today)
+    # Try HH:MM only (matches for target_date if provided, else today)
     m = re.match(r"^(\d{1,2}):(\d{2})$", match_datetime.strip())
     if m:
         from datetime import datetime as _dt
-        now = _dt.now()
         hh, mm = (int(x) for x in m.groups())
+        if target_date:
+            try:
+                cand = _dt.fromisoformat(target_date)
+                cand = cand.replace(hour=hh, minute=mm)
+                return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
+            except ValueError:
+                pass
+        # Fallback: today
+        now = _dt.now()
         cand = _dt(now.year, now.month, now.day, hh, mm)
         return cand.strftime("%Y-%m-%dT%H:%M:%SZ")
     return ""
@@ -336,9 +344,9 @@ def _parse_bet365_datetime(match_datetime: str) -> str:
     return ""
 
 
-def _load_flashscore_pairs() -> List[Dict]:
+def _load_flashscore_pairs(board_date: str | None = None) -> List[Dict]:
     """Read (home, away, date) pairs from the latest FlashScore match_1x2 feed."""
-    return _load_feed_pairs("flashscore_odds_*.jsonl", _parse_flashscore_datetime)
+    return _load_feed_pairs("flashscore_odds_*.jsonl", _parse_flashscore_datetime, board_date)
 
 
 def _load_predictz_pairs() -> List[Dict]:
@@ -498,13 +506,17 @@ def verify_board(board: List, board_date: str,
     board) but never excludes a fixture from production.
     """
     # Load all sources
-    fs_pairs = _load_flashscore_pairs()
+    fs_pairs = _load_flashscore_pairs(board_date)
     pz_pairs = _load_predictz_pairs()
     sa_pairs = _load_statsarea_pairs()
     b365_pairs = _load_bet365_pairs()
     sb_pairs = _load_sportybet_pairs(leagues)
     espn_pairs = _load_espn_pairs(board_date, leagues)
     fd_pairs = _load_football_data_pairs(board_date, leagues)
+    print(f"DEBUG: Loaded {len(fs_pairs)} FlashScore pairs", flush=True)
+    print(f"DEBUG: Loaded {len(sb_pairs)} SportyBet pairs", flush=True)
+    print(f"DEBUG: Loaded {len(espn_pairs)} ESPN pairs", flush=True)
+    print(f"DEBUG: Loaded {len(fd_pairs)} FootballData pairs", flush=True)
 
     # Index all sources
     fs_idx = _index(fs_pairs)
@@ -594,52 +606,69 @@ def verify_board(board: List, board_date: str,
         if fd_available:
             source_hits["FootballData"] = _pair_in(fd_idx, nh, na)
 
-        # T1 sources: single confirmation is sufficient for VERIFIED
-        t1_sources = {"ESPN", "FootballData"}
-        # Check for T1 confirmation
-        t1_confirming = [src for src in t1_sources
-                         if available_sources.get(src, False) and source_hits.get(src, False)]
-        # Confirming sources: FlashScore, PredictZ, StatsArea, Bet365 (non-SportyBet/T1)
-        confirming_other = [src for src in ("FlashScore", "PredictZ", "StatsArea", "Bet365", "ESPN", "FootballData")
-                            if available_sources.get(src, False) and source_hits.get(src, False)]
+        # Mapping for T1 check
+        SOURCE_TO_DOMAIN = {
+            "FlashScore": "flashscore_fixtures",
+            "PredictZ": "predictz_fixtures",
+            "StatsArea": "statsarea_fixtures",
+            "Bet365": "bet365_fixtures",
+            "SportyBet": None,
+            "ESPN": "espn.com",
+            "FootballData": "football-data.co.uk",
+        }
 
-        in_sportybet = sb_available and source_hits.get("SportyBet", False)
+        def _is_t1_source(source_name: str) -> bool:
+            if source_name == "SportyBet":
+                return False
+            domain_key = SOURCE_TO_DOMAIN.get(source_name)
+            if domain_key is None:
+                return False
+            return SOURCE_TRUST.get(domain_key) == "T1"
 
-        # Priority 1: T1 source (ESPN or FootballData) alone is sufficient for VERIFIED
-        if t1_confirming:
-            sources = t1_confirming
+        # Determine T1 hits and SportyBet hit
+        t1_hits = [src for src, present in source_hits.items() if present and _is_t1_source(src)]
+        sportybet_hit = sb_available and source_hits.get("SportyBet", False)
+
+        # Determine any other hit (non-SportyBet) for the SportyBet + other condition
+        other_hits = [src for src, present in source_hits.items() if present and src != "SportyBet"]
+
+        if t1_hits:
+            # Any T1 source alone is sufficient -> VERIFIED
+            sources = t1_hits
             _stamp(bf, sources, verified=True)
             report.verified += 1
             report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' VERIFIED (T1 source: {', '.join(t1_confirming)})")
-        elif in_sportybet and confirming_other:
-            # VERIFIED: SportyBet + at least one other source
-            sources = ["SportyBet"] + confirming_other
-            _stamp(bf, sources, verified=True)
-            report.verified += 1
-            report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' VERIFIED (SportyBet + {', '.join(confirming_other)})")
-        elif in_sportybet:
-            # UNVERIFIED but primary source: SportyBet only (where we actually bet)
-            sources = ["SportyBet"]
-            _stamp(bf, sources, verified=False)
-            report.kept_unverified += 1
-            report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (SportyBet only -- primary odds/booking source)")
-        elif confirming_other:
-            # UNVERIFIED: found in other source(s) but NOT SportyBet/T1
-            sources = confirming_other
-            _stamp(bf, sources, verified=False)
-            report.kept_unverified += 1
-            report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (found in {', '.join(confirming_other)} but NOT SportyBet/T1 -- cannot price/book)")
+                f"VERIFY GATE: '{bf.fixture}' VERIFIED (T1 source: {', '.join(t1_hits)})")
+        elif sportybet_hit:
+            if other_hits:
+                # VERIFIED: SportyBet + at least one other source
+                sources = ["SportyBet"] + other_hits
+                _stamp(bf, sources, verified=True)
+                report.verified += 1
+                report.flags.append(
+                    f"VERIFY GATE: '{bf.fixture}' VERIFIED (SportyBet + {', '.join(other_hits)})")
+            else:
+                # UNVERIFIED but primary source: SportyBet only
+                sources = ["SportyBet"]
+                _stamp(bf, sources, verified=False)
+                report.kept_unverified += 1
+                report.flags.append(
+                    f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (SportyBet only -- primary odds/booking source)")
         else:
-            # UNVERIFIED: not found in ANY source (honest gap, HR35)
-            sources = []
-            _stamp(bf, sources, verified=False, reason="not found in any source")
-            report.kept_unverified += 1
-            report.flags.append(
-                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)")
+            if other_hits:
+                # UNVERIFIED: found in other source(s) but NOT SportyBet/T1
+                sources = other_hits
+                _stamp(bf, sources, verified=False)
+                report.kept_unverified += 1
+                report.flags.append(
+                    f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (found in {', '.join(other_hits)} but NOT SportyBet/T1 -- cannot price/book)")
+            else:
+                # UNVERIFIED: not found in ANY source (honest gap, HR35)
+                sources = []
+                _stamp(bf, sources, verified=False, reason="not found in any source")
+                report.kept_unverified += 1
+                report.flags.append(
+                    f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)")
 
         verified_board.append(bf)
 

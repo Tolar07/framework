@@ -401,7 +401,7 @@ class FlashScoreFixturesSource(DataSource):
         from datetime import datetime
 
         async def _scrape_fixtures():
-            scraper = FlashScoreFixturesScraper(headless=True, max_matches=50)
+            scraper = FlashScoreFixturesScraper(headless=True, max_matches_per_league=50)
             async with scraper:
                 # Navigate to the specific league
                 slug = self.FLASHSCORE_LEAGUES[normalized_league]
@@ -509,6 +509,33 @@ class FlashScoreOddsSource(DataSource):
         super().__init__("flashscore_odds", priority=11, timeout=30.0)
         if not FLASHSCORE_SCRAPER_AVAILABLE:
             raise ImportError("FlashScore scraper modules not available")
+        # Load FlashScore mapping to avoid config.py shadowing issues
+        self.FLASHSCORE_LEAGUES, self.BASE_URL = self._load_flashscore_map()
+
+    @staticmethod
+    def _load_flashscore_map():
+        """Load FlashScore league mapping, avoiding config.py shadowing."""
+        import sys
+        from pathlib import Path
+        import importlib.util
+
+        fallback = ({"Premier League": "england/premier-league"},
+                    "https://www.flashscore.com/football/{slug}/")
+        try:
+            from config.flashscore_leagues import FLASHSCORE_LEAGUES, BASE_URL
+            return FLASHSCORE_LEAGUES, BASE_URL
+        except ImportError:
+            pass
+        # Direct file load (collision-safe)
+        _REPO_ROOT = Path(__file__).parent.parent
+        sys.path.insert(0, str(_REPO_ROOT))
+        _p = _REPO_ROOT / "config" / "flashscore_leagues.py"
+        if not _p.exists():
+            return fallback
+        _spec = importlib.util.spec_from_file_location("flashscore_leagues", _p)
+        _mod = importlib.util.module_from_spec(_spec)
+        _spec.loader.exec_module(_mod)
+        return _mod.FLASHSCORE_LEAGUES, _mod.BASE_URL
 
     def _normalize_league_name(self, league: str) -> str:
         """Normalize league name for FlashScore mapping."""
@@ -530,10 +557,9 @@ class FlashScoreOddsSource(DataSource):
         normalized_league = self._normalize_league_name(league)
 
         # Check if league is mapped in FlashScore
-        from config.flashscore_leagues import FLASHSCORE_LEAGUES
-        if normalized_league not in FLASHSCORE_LEAGUES:
+        if normalized_league not in self.FLASHSCORE_LEAGUES:
             # Also try original league name
-            if league not in FLASHSCORE_LEAGUES:
+            if league not in self.FLASHSCORE_LEAGUES:
                 raise SourceNoData(f"flashscore: league {league!r} not mapped")
             normalized_league = league
 
@@ -545,9 +571,8 @@ class FlashScoreOddsSource(DataSource):
             scraper = _FlashScoreOddsScraperBase(headless=True, max_matches=30)
             async with scraper:
                 # Navigate to the specific league
-                slug = FLASHSCORE_LEAGUES[normalized_league]
-                from config.flashscore_leagues import BASE_URL
-                url = BASE_URL.format(slug=slug)
+                slug = self.FLASHSCORE_LEAGUES[normalized_league]
+                url = self.BASE_URL.format(slug=slug)
 
                 try:
                     await scraper.page.goto(url, wait_until="domcontentloaded", timeout=60000)

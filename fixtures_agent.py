@@ -145,38 +145,48 @@ def fetch_sportybet_cache(today: str) -> List[Dict]:
 
 def _flashscore_line_to_date(match_datetime: str, target_date: str | None = None) -> str:
     """FlashScore match_1x2 `match_datetime` is '21.08. 20:00' (D.MM. HH:MM, no
-    year). Resolve to an ISO date.
+    year) OR just '20:00' (HH:MM only for today's matches). Resolve to an ISO date.
 
     If `target_date` is provided (YYYY-MM-DD), resolve the year to match that
     date's month/day. Otherwise fall back to the current/next year within 400 days.
     """
     import re as _re
+    from datetime import datetime as _dt
+
+    # First try full date format: "21.08. 20:00"
     m = _re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime or "")
-    if not m:
+    if m:
+        day, mon, hh, mm = (int(x) for x in m.groups())
+
+        # If target_date given, use its year (and validate month/day match)
+        if target_date:
+            try:
+                tgt = _dt.fromisoformat(target_date)
+                # Ensure the day/month in match_datetime matches target_date
+                if tgt.month == mon and tgt.day == day:
+                    return target_date
+                # If month/day don't match target_date, we can't resolve — return empty
+                return ""
+            except ValueError:
+                pass  # fall through to fallback
+
+        # Fallback: prefer a date in the current or next year, within ~12 months.
+        now = _dt.now()
+        for year in (now.year, now.year + 1):
+            try:
+                d = _dt(year, mon, day)
+            except ValueError:
+                continue
+            if 0 <= (d - now).days <= 400:
+                return d.strftime("%Y-%m-%d")
         return ""
-    day, mon, hh, mm = (int(x) for x in m.groups())
 
-    # If target_date given, use its year (and validate month/day match)
-    if target_date:
-        try:
-            tgt = datetime.fromisoformat(target_date)
-            # Ensure the day/month in match_datetime matches target_date
-            if tgt.month == mon and tgt.day == day:
-                return target_date
-            # If month/day don't match target_date, we can't resolve — return empty
-            return ""
-        except ValueError:
-            pass  # fall through to fallback
+    # Try HH:MM only format (e.g., "20:00" for today's matches)
+    m = _re.match(r"^(\d{1,2}):(\d{2})$", match_datetime or "")
+    if m and target_date:
+        # When only time is given, assume it's for the target_date
+        return target_date
 
-    # Fallback: prefer a date in the current or next year, within ~12 months.
-    now = datetime.now()
-    for year in (now.year, now.year + 1):
-        try:
-            d = datetime(year, mon, day)
-        except ValueError:
-            continue
-        if 0 <= (d - now).days <= 400:
-            return d.strftime("%Y-%m-%d")
     return ""
 
 
@@ -192,10 +202,12 @@ def _find_flashscore_feed() -> Optional[Path]:
     for candidate in [here, *here.parents]:
         feed = candidate / "data" / "live_odds"
         if feed.is_dir() and any(feed.glob("flashscore_odds_*.jsonl")):
+            print(f"[DEBUG] Found flashscore feed at {feed}")
             return feed
     ws = here.parents[2] if len(here.parents) >= 3 else here.parent
     fallback = ws / "data" / "live_odds"
     if fallback.is_dir() and any(fallback.glob("flashscore_odds_*.jsonl")):
+        print(f"[DEBUG] Found flashscore feed at {fallback}")
         return fallback
     return None
 
@@ -259,8 +271,10 @@ def fetch_flashscore(today: str) -> List[Dict]:
             if key in seen:
                 continue
             seen.add(key)
+            # Use league from scraped data if available, fallback to "FlashScore" for safety
+            league = d.get("league", "FlashScore")
             rows.append({
-                "league": "FlashScore",
+                "league": league,
                 "home": home,
                 "away": away,
                 "kickoff": kickoff[11:16] if kickoff else "TBD",

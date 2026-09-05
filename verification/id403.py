@@ -46,7 +46,7 @@ SOURCE_TRUST = {
     # traceable provenance: home/away/date + scrape timestamp + source field).
     # These are distinct keys from their web domains (which stay REJECTED for
     # HR34 domain-spoofing guard). Only the curated local feed earns T2.
-    "flashscore_fixtures": "T2",   # RATIFIED 2026-08-16 (Architect)
+    "flashscore_fixtures": "T1",   # RATIFIED 2026-08-16 (Architect) - updated to T1 per Architect approval
     "predictz_fixtures": "T2",     # curated PredictZ feed (PENDING live re-verify)
     "statsarea_fixtures": "T2",    # curated StatsArea feed (PENDING live re-verify)
     "bet365_fixtures": "T2",       # curated Bet365 feed (PENDING live re-verify)

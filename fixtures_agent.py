@@ -143,15 +143,18 @@ def fetch_sportybet_cache(today: str) -> List[Dict]:
     return rows
 
 
-def _flashscore_line_to_date(match_datetime: str, target_date: str | None = None) -> str:
+def _flashscore_line_to_date(match_datetime: str, target_date: str | None = None, scrape_timestamp: str | None = None) -> str:
     """FlashScore match_1x2 `match_datetime` is '21.08. 20:00' (D.MM. HH:MM, no
     year) OR just '20:00' (HH:MM only for today's matches). Resolve to an ISO date.
 
     If `target_date` is provided (YYYY-MM-DD), resolve the year to match that
     date's month/day. Otherwise fall back to the current/next year within 400 days.
+
+    For HH:MM only format, if scrape_timestamp is provided, use it to determine
+    the correct date (assuming fixtures are scraped night before for next day's matches).
     """
     import re as _re
-    from datetime import datetime as _dt
+    from datetime import datetime as _dt, timedelta
 
     # First try full date format: "21.08. 20:00"
     m = _re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime or "")
@@ -183,9 +186,27 @@ def _flashscore_line_to_date(match_datetime: str, target_date: str | None = None
 
     # Try HH:MM only format (e.g., "20:00" for today's matches)
     m = _re.match(r"^(\d{1,2}):(\d{2})$", match_datetime or "")
-    if m and target_date:
-        # When only time is given, assume it's for the target_date
-        return target_date
+    if m:
+        # When only time is given, we need to determine the date
+        if scrape_timestamp:
+            # Use the scrape timestamp to determine the correct date
+            # Fixtures are typically scraped the night before for next day's matches
+            try:
+                scrape_dt = _dt.fromisoformat(scrape_timestamp.replace('Z', '+00:00'))
+                scrape_date = scrape_dt.date()
+                # For HH:MM format, assume it's for the next day (scraped night before)
+                match_date = scrape_date + timedelta(days=1)
+                return match_date.strftime("%Y-%m-%d")
+            except ValueError:
+                # Fall back to target_date if scrape timestamp parsing fails
+                if target_date:
+                    return target_date
+                return ""
+        elif target_date:
+            # Legacy behavior: assume it's for the target_date
+            return target_date
+        # If we have neither scrape timestamp nor target_date, we can't determine the date
+        return ""
 
     return ""
 
@@ -264,7 +285,7 @@ def fetch_flashscore(today: str) -> List[Dict]:
             away = (d.get("away_team") or "").strip()
             if not home or not away:
                 continue
-            kickoff = _flashscore_line_to_date(d.get("match_datetime"), target_date=today)
+            kickoff = _flashscore_line_to_date(d.get("match_datetime"), target_date=today, scrape_timestamp=d.get("timestamp"))
             if kickoff != today:
                 continue  # filter to requested date
             key = f"{home}|{away}|{kickoff}"
@@ -362,6 +383,159 @@ def fetch_sportinglife(today: str) -> List[Dict]:
                 if league_name.lower() in text.lower() and len(text) < 60:
                     current_league = league_name
                     break
+    except Exception:
+        pass
+    return rows
+
+
+def fetch_bbc(today: str) -> List[Dict]:
+    """Scrape BBC Sport for today's fixtures."""
+    rows: List[Dict] = []
+    try:
+        import requests
+        from bs4 import BeautifulSoup
+        from datetime import datetime
+
+        # Parse the date to try different BBC URL formats
+        dt = datetime.strptime(today, "%Y-%m-%d")
+        year, month, day = dt.strftime("%Y"), dt.strftime("%m"), dt.strftime("%d")
+
+        # Try multiple BBC URL formats that are known to work
+        urls_to_try = [
+            f"https://www.bbc.com/sport/football/scores-fixtures/{year}/{month}/{day}",  # BBC standard date format
+            f"https://www.bbc.com/sport/football/scores-fixtures/{today}",  # ISO format
+            f"https://www.bbc.com/sport/football/scores-fixtures/date/{today}",  # With date/ prefix
+            f"https://www.bbc.com/sport/football/fixtures/{today}",  # Alternative path
+            f"https://www.bbc.com/sport/football/scores-fixtures",  # General fixtures page (might show today's)
+        ]
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                          "AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+
+        for url in urls_to_try:
+            try:
+                resp = requests.get(url, headers=headers, timeout=10)
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, "html.parser")
+
+                    # Look for match containers using BBC-specific selectors observed on the page
+                    match_containers = soup.find_all("div", class_=re.compile(r"ssrcss-.*-MatchProgressContainer"))
+
+                    # BBC structure: team elements are PREVIOUS SIBLINGS of MatchProgressContainer
+                    # Order: [away_team, scores/time, home_team] then MatchProgressContainer
+                    for match_container in match_containers:
+                        try:
+                            # Find team elements among previous siblings
+                            home_team = None
+                            away_team = None
+                            kickoff_time = "TBD"
+
+                            # Iterate through previous siblings
+                            for sib in match_container.previous_siblings:
+                                if not hasattr(sib, 'get'):
+                                    continue
+                                classes = sib.get('class', [])
+                                class_str = ' '.join(classes)
+
+                                # Check for home team (TeamHome)
+                                if 'TeamHome' in class_str and not home_team:
+                                    home_team = sib.get_text(strip=True)
+                                # Check for away team (TeamAway)
+                                elif 'TeamAway' in class_str and not away_team:
+                                    away_team = sib.get_text(strip=True)
+                                # Check for time/scores
+                                elif 'Scores' in class_str and kickoff_time == "TBD":
+                                    score_text = sib.get_text(strip=True)
+                                    # Extract time like "14:00" from "14:0014:00plays"
+                                    time_match = re.search(r'(\d{1,2}:\d{2})', score_text)
+                                    if time_match:
+                                        kickoff_time = time_match.group(1)
+
+                            # Clean team names - they may have repeated text like "EvertonEvertonEverton"
+                            # or concatenated forms like "Man UtdManchester UnitedManchester United"
+                            def clean_team(name: str) -> str:
+                                if not name:
+                                    return ""
+                                # First try splitting by spaces
+                                words = name.split()
+                                if len(words) >= 3:
+                                    # If it looks like "Everton Everton Everton" take first unique
+                                    if words[0] == words[1] == words[2]:
+                                        return words[0]
+                                # If no spaces, try to find repeated patterns
+                                # Look for 3x repetition of same substring
+                                for length in range(1, len(name) // 3 + 1):
+                                    chunk = name[:length]
+                                    if chunk * 3 == name:
+                                        return chunk
+                                # Handle concatenated short+long forms like "Man UtdManchester UnitedManchester United"
+                                # Try to find common football team abbreviations
+                                known_teams = {
+                                    "Man Utd": ["Manchester United", "Man United"],
+                                    "Man City": ["Manchester City"],
+                                    "Spurs": ["Tottenham Hotspur", "Tottenham"],
+                                    "N Forest": ["Nottingham Forest"],
+                                    "Wolves": ["Wolverhampton Wanderers"],
+                                    "Leicester": ["Leicester City"],
+                                    "Sheff Utd": ["Sheffield United"],
+                                    "Sheff Wed": ["Sheffield Wednesday"],
+                                    "QPR": ["Queens Park Rangers"],
+                                    "West Ham": ["West Ham United"],
+                                    "Brighton": ["Brighton & Hove Albion", "Brighton and Hove Albion"],
+                                    "Newcastle": ["Newcastle United"],
+                                    "Villa": ["Aston Villa"],
+                                    "Palace": ["Crystal Palace"],
+                                    "Bournemouth": ["AFC Bournemouth"],
+                                    "Brentford": [],
+                                    "Fulham": [],
+                                    "Southampton": [],
+                                    "Ipswich": ["Ipswich Town"],
+                                    "Leeds": ["Leeds United"],
+                                    "Everton": [],
+                                    "Arsenal": [],
+                                    "Chelsea": [],
+                                    "Liverpool": [],
+                                }
+                                # Check if name contains a known team abbreviation + full name
+                                for short, longs in known_teams.items():
+                                    if name.startswith(short):
+                                        # Check if the rest matches a long form
+                                        remainder = name[len(short):]
+                                        for long_form in longs:
+                                            if remainder.startswith(long_form):
+                                                return short
+                                        # Also check if remainder is the same short form repeated
+                                        if remainder == short * 2 or remainder == short:
+                                            return short
+                                return name
+
+                            home = clean_team(home_team) if home_team else ""
+                            away = clean_team(away_team) if away_team else ""
+
+                            # Filter valid team names
+                            if home and away and len(home) > 1 and len(away) > 1 and home != away and home.lower() != away.lower():
+                                rows.append({
+                                    "league": "BBC Sport",
+                                    "home": home,
+                                    "away": away,
+                                    "kickoff": kickoff_time,
+                                    "odds_1": None,
+                                    "odds_x": None,
+                                    "odds_2": None,
+                                    "source": "BBC Sport",
+                                })
+                        except Exception:
+                            continue  # Skip this match and continue with next
+
+                    # If we found matches with this URL, break
+                    if rows:
+                        break
+            except Exception:
+                continue  # Try next URL
     except Exception:
         pass
     return rows
@@ -493,7 +667,7 @@ def main(target_date: Optional[str] = None, verify_only: bool = False):
     fetch_time = datetime.utcnow().isoformat() + "Z"
 
     # 1. FlashScore (PRIMARY - always first per Architect directive)
-    print("  [1/3] FlashScore...")
+    print("  [1/4] FlashScore...")
     fs_rows = fetch_flashscore(today)
     for r in fs_rows:
         r["fetched_at"] = fetch_time
@@ -501,15 +675,31 @@ def main(target_date: Optional[str] = None, verify_only: bool = False):
     all_rows.extend(fs_rows)
 
     # 2. LiveScore
-    print("  [2/3] LiveScore...")
+    print("  [2/4] LiveScore...")
     ls_rows = fetch_livescore(today)
     for r in ls_rows:
         r["fetched_at"] = fetch_time
     print(f"       {len(ls_rows)} fixtures found")
     all_rows.extend(ls_rows)
 
-    # 3. OLP XDV SportyBet cache (odds-enhanced)
-    print("  [3/3] SportyBet cache (odds)...")
+    # 3. BBC Sport
+    print("  [3/4] BBC Sport...")
+    bbc_rows = fetch_bbc(today)
+    for r in bbc_rows:
+        r["fetched_at"] = fetch_time
+    print(f"       {len(bbc_rows)} fixtures found")
+    all_rows.extend(bbc_rows)
+
+    # 4. Sporting Life
+    print("  [4/5] Sporting Life...")
+    sl_rows = fetch_sportinglife(today)
+    for r in sl_rows:
+        r["fetched_at"] = fetch_time
+    print(f"       {len(sl_rows)} fixtures found")
+    all_rows.extend(sl_rows)
+
+    # 5. OLP XDV SportyBet cache (odds-enhanced)
+    print("  [5/5] SportyBet cache (odds)...")
     sb_rows = fetch_sportybet_cache(today)
     for r in sb_rows:
         r["fetched_at"] = fetch_time

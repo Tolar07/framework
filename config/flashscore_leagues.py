@@ -91,4 +91,4 @@ FLASHSCORE_LEAGUES: Dict[str, str] = {
     "Liechtensteiner Cup": "liechtenstein/liechtenstein-cup",
 }
 
-BASE_URL = "https://www.flashscore.com/football/{slug}/"
+BASE_URL = "https://www.flashscore.co.uk/football/{slug}/"

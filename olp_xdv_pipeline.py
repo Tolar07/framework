@@ -38,13 +38,20 @@ Claude sessions; combine states, never overwrite.
 
 HR35: any gap is reported as NO DATA — PENDING, never guessed or fabricated.
 """
+import json
 import logging
+from pathlib import Path
+from typing import Dict, Any
+
+# Import league verifier for pre-pipeline validation
+from engine.league_verifier import LeagueVerifier, run_daily_league_verification
+
+logger = logging.getLogger(__name__)
 
 # Enable debug logging for troubleshooting
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 import argparse
-import json
 import os
 import sys
 import time
@@ -1880,6 +1887,34 @@ def main() -> None:
                                  capture_output=True, text=True).stdout)
         except Exception:
             pass
+
+    # League Verification: Check today's fixtures against whitelisted leagues
+    if not args.dry_run:  # Only run verification in live mode
+        try:
+            flashscore_file = "flashscore_leagues_sep4.json"
+            flashscore_path = Path(flashscore_file)
+            if flashscore_path.exists():
+                logger.info("Running daily league verification...")
+                verification_report = run_daily_league_verification(str(flashscore_path))
+
+                # Log verification results
+                logger.info(f"League Verification Status: {verification_report['status']}")
+                logger.info(f"Coverage: {verification_report['covered_count']}/{verification_report['whitelisted_count']} leagues "
+                          f"({verification_report['coverage_percentage']}%)")
+
+                # Determine if we should adjust scanning based on coverage
+                verifier = LeagueVerifier()
+                if verifier.should_enter_passive_mode(verification_report['coverage_percentage']):
+                    logger.warning("LOW COVERAGE: Entering passive monitoring mode")
+                elif verifier.should_reduce_scanning_frequency(verification_report['coverage_percentage']):
+                    logger.info("REDUCED COVERAGE: Consider reducing scanning frequency")
+                else:
+                    logger.info("NORMAL COVERAGE: Proceeding with standard scanning")
+            else:
+                logger.warning(f"Flashscore file not found: {flashscore_file}. Skipping league verification.")
+        except Exception as e:
+            logger.error(f"League verification failed: {e}")
+            # Don't halt the pipeline for verification failures
 
     state = _run_pipeline_internal(season=args.season, fixtures_season=args.fixtures_season, dry_run=args.dry_run, only=args.only)
 

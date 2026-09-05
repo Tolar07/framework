@@ -915,80 +915,84 @@ def fetch_today(league: str, day: str) -> list[UpcomingFixture]:
     fallback — the same source the monitor already uses to watch these
     matches. Raises only for a genuinely unusable request; per-row problems
     are skipped, never guessed (HR35)."""
-    if requests is None:
-        raise RuntimeError("requests not installed — cannot fetch live fixtures")
-    if league not in LEAGUE_IDS:
-        raise ValueError(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
-    # TheSportsDB's eventsday endpoint returns fixtures for the SAME day
-    # when given a date - no adjustment needed based on observed behavior
-    from datetime import datetime, timedelta
     try:
-        day_obj = datetime.strptime(day, "%Y-%m-%d")
-        adjusted_day = day_obj.strftime("%Y-%m-%d")
-    except ValueError:
-        # If date parsing fails, use the original day
-        adjusted_day = day
-    url = f"{API_BASE}/{_get_key()}/eventsday.php?d={adjusted_day}"
-    resp = get(url, timeout=25)
-    # Ensure we have a list to iterate over - handle cases where API returns non-list
-    events_data = resp.json().get("events")
-    if not isinstance(events_data, list):
-        events_data = []
-
-    # Debug: Show what we received from the API
-    logging.debug(f"TheSportsDB {league}: URL = {url}")
-    logging.debug(f"TheSportsDB {league}: Number of events received = {len(events_data)}")
-    if events_data and len(events_data) > 0:
-        # Show first few events for debugging
-        for j, sample_ev in enumerate(events_data[:3]):
-            logging.debug(f"TheSportsDB {league}: Sample event {j}: idLeague={sample_ev.get('idLeague')}, dateEvent={sample_ev.get('dateEvent')}, strTime={sample_ev.get('strTime')}, strHomeTeam={sample_ev.get('strHomeTeam')}, strAwayTeam={sample_ev.get('strAwayTeam')}")
-        # Log unique league IDs in the events
-        unique_league_ids = set(ev.get('idLeague') for ev in events_data if ev.get('idLeague') is not None)
-        logging.debug(f"TheSportsDB {league}: Unique league IDs in events: {unique_league_ids}")
-
-    fixtures: list[UpcomingFixture] = []
-    for i, ev in enumerate(events_data):
-        # Filter by league ID since eventsday endpoint doesn't support league filtering
-        if str(ev.get("idLeague")) != str(LEAGUE_IDS[league]):
-            continue
-        home = (ev.get("strHomeTeam") or "").strip()
-        away = (ev.get("strAwayTeam") or "").strip()
-        if not home or not away:
-            continue  # HR35: no team name -> drop, never reconstruct
-        # Skip only if both scores are present AND at least one is not zero (definitely played)
-        home_score = ev.get("intHomeScore")
-        away_score = ev.get("intAwayScore")
-        if home_score not in (None, "") and away_score not in (None, ""):
-            try:
-                home_int = int(home_score)
-                away_int = int(away_score)
-                if home_int != 0 or away_int != 0:
-                    continue  # definitely played - not upcoming
-            except ValueError:
-                # If scores aren't integers, treat as not played (upcoming)
-                pass
-        time_str = (ev.get("strTime") or "").strip()
-        # Parse the date from the API response to ensure accuracy
+        if requests is None:
+            raise RuntimeError("requests not installed — cannot fetch live fixtures")
+        if league not in LEAGUE_IDS:
+            raise ValueError(f"'{league}' is not mapped in LEAGUE_IDS for TheSportsDB.")
+        # TheSportsDB's eventsday endpoint returns fixtures for the SAME day
+        # when given a date - no adjustment needed based on observed behavior
+        from datetime import datetime, timedelta
         try:
-            kickoff_day = datetime.strptime(ev.get("dateEvent", ""), "%Y-%m-%d").date()
+            day_obj = datetime.strptime(day, "%Y-%m-%d")
+            adjusted_day = day_obj.strftime("%Y-%m-%d")
         except ValueError:
-            # If we can't parse the date, skip this fixture (HR35)
-            continue
-        # Only include fixtures that match the target day
-        if kickoff_day != datetime.strptime(day, "%Y-%m-%d").date():
-            continue
-        # Debug logging for successfully matched fixtures
-        logging.debug(f"TheSportsDB {league}: ADDING FIXTURE - {home} vs {away} on {kickoff_day}")
-        fixtures.append(UpcomingFixture(
-            league=league,
-            date=ev.get("dateEvent", ""),
-            home_team=map_team(league, home),
-            away_team=map_team(league, away),
-            kickoff_utc=f"{ev.get('dateEvent', '')}T{time_str}" if time_str else ev.get("dateEvent", ""),
-        ))
-    # Log summary of what we found
-    logging.debug(f"TheSportsDB {league}: Found {len(fixtures)} fixtures for {day}")
-    return fixtures
+            # If date parsing fails, use the original day
+            adjusted_day = day
+        url = f"{API_BASE}/{_get_key()}/eventsday.php?d={adjusted_day}"
+        resp = get(url, timeout=25)
+        # Ensure we have a list to iterate over - handle cases where API returns non-list
+        events_data = resp.json().get("events")
+        if not isinstance(events_data, list):
+            events_data = []
+
+        # Debug: Show what we received from the API
+        logging.debug(f"TheSportsDB {league}: URL = {url}")
+        logging.debug(f"TheSportsDB {league}: Number of events received = {len(events_data)}")
+        if events_data and len(events_data) > 0:
+            # Show first few events for debugging
+            for j, sample_ev in enumerate(events_data[:3]):
+                logging.debug(f"TheSportsDB {league}: Sample event {j}: idLeague={sample_ev.get('idLeague')}, dateEvent={sample_ev.get('dateEvent')}, strTime={sample_ev.get('strTime')}, strHomeTeam={sample_ev.get('strHomeTeam')}, strAwayTeam={sample_ev.get('strAwayTeam')}")
+            # Log unique league IDs in the events
+            unique_league_ids = set(ev.get('idLeague') for ev in events_data if ev.get('idLeague') is not None)
+            logging.debug(f"TheSportsDB {league}: Unique league IDs in events: {unique_league_ids}")
+
+        fixtures: list[UpcomingFixture] = []
+        for i, ev in enumerate(events_data):
+            # Filter by league ID since eventsday endpoint doesn't support league filtering
+            if str(ev.get("idLeague")) != str(LEAGUE_IDS[league]):
+                continue
+            home = (ev.get("strHomeTeam") or "").strip()
+            away = (ev.get("strAwayTeam") or "").strip()
+            if not home or not away:
+                continue  # HR35: no team name -> drop, never reconstruct
+            # Skip only if both scores are present AND at least one is not zero (definitely played)
+            home_score = ev.get("intHomeScore")
+            away_score = ev.get("intAwayScore")
+            if home_score not in (None, "") and away_score not in (None, ""):
+                try:
+                    home_int = int(home_score)
+                    away_int = int(away_score)
+                    if home_int != 0 or away_int != 0:
+                        continue  # definitely played - not upcoming
+                except ValueError:
+                    # If scores aren't integers, treat as not played (upcoming)
+                    pass
+            time_str = (ev.get("strTime") or "").strip()
+            # Parse the date from the API response to ensure accuracy
+            try:
+                kickoff_day = datetime.strptime(ev.get("dateEvent", ""), "%Y-%m-%d").date()
+            except ValueError:
+                # If we can't parse the date, skip this fixture (HR35)
+                continue
+            # Only include fixtures that match the target day
+            if kickoff_day != datetime.strptime(day, "%Y-%m-%d").date():
+                continue
+            # Debug logging for successfully matched fixtures
+            logging.debug(f"TheSportsDB {league}: ADDING FIXTURE - {home} vs {away} on {kickoff_day}")
+            fixtures.append(UpcomingFixture(
+                league=league,
+                date=ev.get("dateEvent", ""),
+                home_team=map_team(league, home),
+                away_team=map_team(league, away),
+                kickoff_utc=f"{ev.get('dateEvent', '')}T{time_str}" if time_str else ev.get("dateEvent", ""),
+            ))
+        # Log summary of what we found
+        logging.debug(f"TheSportsDB {league}: Found {len(fixtures)} fixtures for {day}")
+        return fixtures
+    except Exception as e:
+        log.error(f"Unexpected error in fetch_today for {league} on {day}: {e}")
+        return []
 
 
 def load_results(league: str, season: str) -> tuple[list[MatchResult], list[dict]]:

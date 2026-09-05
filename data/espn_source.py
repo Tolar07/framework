@@ -183,7 +183,14 @@ def fetch_upcoming(
             continue
 
         data = resp.json()
-        if not data.get("events"):
+        events = data.get("events")
+        if not events:
+            continue
+
+        # Guard against ESPN returning non-list data for events
+        if not isinstance(events, list):
+            logger.warning(f"ESPN returned non-list events data: {type(events)} - skipping")
+            total_skipped += 1
             continue
 
         for event in data.get("events", []):

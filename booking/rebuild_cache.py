@@ -84,8 +84,15 @@ def safe_print(msg: str) -> None:
 
 
 def _build_resolver_rule() -> str:
+    """Build host-resolver-rules for Playwright to bypass DNS for non-Cloudflare IPs.
+
+    Only creates resolver rules for IPs that are NOT the known Cloudflare IPs.
+    If DNS lookup fails or only returns Cloudflare IPs, no resolver rules are created
+    (empty string), letting Playwright use normal DNS resolution.
+    """
     rules: list[str] = []
     seen: set[str] = set()
+    cloudflare_ips = {"104.21.10.148", "172.67.163.154"}
     hosts = ("sportybet.com", "www.sportybet.com", "sportybet.com.ng", "www.sportybet.com.ng")
     for host in hosts:
         ips: list[str] = []
@@ -96,11 +103,13 @@ def _build_resolver_rule() -> str:
                     seen.add(ip)
                     ips.append(ip)
         except Exception:
+            # DNS lookup failed - don't create resolver rules for this host
+            # Let Playwright use normal DNS resolution
             pass
-        if not ips:
-            ips = FALLBACK_IPS
-        ips = [ip for ip in ips if ip not in ["104.21.10.148", "172.67.163.154"]]
-        for ip in ips:
+        # Filter out known Cloudflare IPs - we don't want resolver rules for these
+        # as they won't help us bypass anything (they're just the CDN)
+        non_cloudflare_ips = [ip for ip in ips if ip not in cloudflare_ips]
+        for ip in non_cloudflare_ips:
             rules.append(f"MAP {host}:443 {ip}")
     return ",".join(rules) if rules else ""
 
@@ -255,7 +264,23 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
             except Exception:
                 continue
     except Exception as e:
-        safe_print(f"  x extraction error: {e}")
+        safe_print(f"  x extraction error: {type(e).__name__}: {e}")
+        # Log a sample of the page content for debugging if we have rows but extracted no fixtures
+        if 'all_rows' in locals() and len(all_rows) > 0 and len(fixtures) == 0:
+            safe_print(f"  DEBUG: Found {len(all_rows)} rows but extracted 0 fixtures")
+            # Try to debug first few rows
+            for i in range(min(3, len(all_rows))):
+                try:
+                    row = all_rows[i]
+                    home_el = await row.query_selector(".teams .home-team")
+                    away_el = await row.query_selector(".teams .away-team")
+                    time_el = await row.query_selector(".match-time")
+                    home = await home_el.inner_text() if home_el else "NULL"
+                    away = await away_el.inner_text() if away_el else "NULL"
+                    time_text = await time_el.inner_text() if time_el else "NULL"
+                    safe_print(f"  DEBUG Row {i}: home='{home}', away='{away}', time='{time_text}'")
+                except Exception as debug_e:
+                    safe_print(f"  DEBUG Row {i} error: {debug_e}")
     return fixtures
 
 
@@ -366,17 +391,32 @@ class RedirectLoop(RuntimeError):
     pass
 
 def _guard_redirects(page, limit=3):
+    """Attach a redirect guard to the page. Returns a cleanup function.
+
+    Does not raise exceptions in the event handler - instead tracks redirect
+    loops and the caller can check the hops dict after navigation.
+    """
     hops = {}
+    loop_detected = {"url": None}
+
     def _on_response(resp):
         if 300 <= resp.status < 400:
             hops[resp.url] = hops.get(resp.url, 0) + 1
             if hops[resp.url] > limit:
-                raise RedirectLoop(f"redirect loop: {resp.url}")
-    page.on("response", _on_response)
-    return hops
+                loop_detected["url"] = resp.url
+
+    # page.on returns a cleanup function
+    cleanup = page.on("response", _on_response)
+
+    def combined_cleanup():
+        cleanup()  # This removes the listener
+        if loop_detected["url"]:
+            raise RedirectLoop(f"redirect loop: {loop_detected['url']}")
+
+    return combined_cleanup
 
 async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFixture]:
-    host = "sportybet.com.ng"
+    host = "www.sportybet.com"
     cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
     direct_url_attempted = False
 
@@ -397,21 +437,30 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         urls_to_try = []
         urls_to_try.append(("domain", f"https://{host}/ng/sport/football/sr:category:{cat_tour[0]}/sr:tournament:{cat_tour[1]}?source=sport_menu&sort=2"))
         try:
-            ip = socket.gethostbyname(host)
+            resolved_ip = socket.gethostbyname(host)
+            # Try the resolved IP first
+            urls_to_try.append((f"ip-resolved-{resolved_ip}", f"https://{resolved_ip}/ng/sport/football/sr:category:{cat_tour[0]}/sr:tournament:{cat_tour[1]}?source=sport_menu&sort=2"))
+            # Also try fallback IPs as last resort
             for ip_addr in FALLBACK_IPS:
-                urls_to_try.append((f"ip-{ip_addr}", f"https://{ip_addr}/ng/sport/football/sr:category:{cat_tour[0]}/sr:tournament:{cat_tour[1]}?source=sport_menu&sort=2"))
+                if ip_addr != resolved_ip:  # Avoid duplicate if resolved IP is one of fallbacks
+                    urls_to_try.append((f"ip-{ip_addr}", f"https://{ip_addr}/ng/sport/football/sr:category:{cat_tour[0]}/sr:tournament:{cat_tour[1]}?source=sport_menu&sort=2"))
         except Exception:
-            pass
+            pass  # DNS lookup failed, we'll just try the domain URL and popular-list/sidebar approaches
 
         for url_type, direct_url in urls_to_try:
             try:
                 safe_print(f"  -> Direct URL ({url_type}): {direct_url}")
                 # Apply redirect guard
-                _guard_redirects(page)
-                await page.goto(direct_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
-                await page.wait_for_timeout(5000)
+                cleanup_redirects = _guard_redirects(page)
+                await page.goto(direct_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
+                cleanup_redirects()
                 await _dismiss_overlays(page)
-                rows = await page.query_selector_all(".m-table-row.match-row")
+                # Wait for fixtures to load
+                if not await _wait_for_fixtures(page):
+                    safe_print(f"  [WARN] {league}: no fixture rows found after waiting")
+                    rows = []
+                else:
+                    rows = await page.query_selector_all(".m-table-row.match-row")
                 if rows:
                     if await _verify_league_page(page, league):
                         safe_print(f"  [OK] {league}: direct URL ({url_type}) worked, found {len(rows)} rows")
@@ -437,7 +486,7 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         try:
             # Apply redirect guard
             _guard_redirects(page)
-            await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+            await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
         except Exception as e:
             error_str = str(e)
             if "net::ERR_TOO_MANY_REDIRECTS" in error_str or "interrupted by another navigation" in error_str:
@@ -446,8 +495,9 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                 base_url = f"https://{host}"
                 safe_print(f"  -> Trying base domain: {base_url}")
                 # Apply redirect guard
-                _guard_redirects(page)
-                await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+                cleanup_redirects = _guard_redirects(page)
+                await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
+                cleanup_redirects()
             else:
                 raise  # Re-raise if it's not a redirect error
         await page.wait_for_timeout(3000)
@@ -482,14 +532,14 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         base_url = f"https://{host}/ng/sport/football"
         safe_print(f"  -> Fallback to homepage: {base_url}")
         try:
-            await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+            await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
         except Exception as e:
             error_str = str(e)
             if "net::ERR_TOO_MANY_REDIRECTS" in error_str or "interrupted by another navigation" in error_str:
                 safe_print(f"  [INFO] Redirect/interrupt error detected, trying base domain for {league}")
                 base_url = f"https://{host}"
                 safe_print(f"  -> Trying base domain: {base_url}")
-                await page.goto(base_url, wait_until="domcontentloaded", timeout=PAGE_LOAD_TIMEOUT)
+                await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
             else:
                 raise
         await page.wait_for_timeout(3000)

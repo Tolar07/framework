@@ -47,13 +47,18 @@ class TheSportsDBFixturesSource(DataSource):
         fixtures_season = kwargs.get("fixtures_season") or kwargs.get("season")
         days_ahead = kwargs.get("days_ahead", 14)
         from datetime import date
+        from data.multi_source import SourceNoData
         # Try season feed first
         fixtures, skipped = tsdb.fetch_upcoming(league, fixtures_season, days_ahead=days_ahead)
-        # Handle case where fixtures is None
-        if fixtures is not None and len(fixtures) > 0:
-            pairs = tsdb.as_pairs(fixtures)
-            dates = {(f.home_team, f.away_team): f.date for f in fixtures}
-            return {"fixtures": pairs, "dates": dates, "skipped": skipped, "source": "thesportsdb_season"}
+        # Handle case where fixtures is None or not a list
+        if fixtures is not None and isinstance(fixtures, list) and len(fixtures) > 0:
+            try:
+                pairs = tsdb.as_pairs(fixtures)
+                dates = {(f.home_team, f.away_team): f.date for f in fixtures}
+                return {"fixtures": pairs, "dates": dates, "skipped": skipped, "source": "thesportsdb_season"}
+            except Exception as e:
+                # If there is an error in processing, fall through to the next source
+                pass
 
         # If today is within the window and season feed is empty/lagging,
         # try eventsday for continental qualifiers (season feed lags weeks behind).
@@ -61,14 +66,17 @@ class TheSportsDBFixturesSource(DataSource):
         from datetime import date
         today = str(date.today())
         day_fixtures = tsdb.fetch_today(league, today)
-        # Handle case where day_fixtures is None
-        if day_fixtures is not None and len(day_fixtures) > 0:
-            pairs = tsdb.as_pairs(day_fixtures)
-            dates = {(f.home_team, f.away_team): f.date for f in day_fixtures}
-            return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "thesportsdb_eventsday"}
+        # Handle case where day_fixtures is None or not a list
+        if day_fixtures is not None and isinstance(day_fixtures, list) and len(day_fixtures) > 0:
+            try:
+                pairs = tsdb.as_pairs(day_fixtures)
+                dates = {(f.home_team, f.away_team): f.date for f in day_fixtures}
+                return {"fixtures": pairs, "dates": dates, "skipped": 0, "source": "thesportsdb_eventsday"}
+            except Exception as e:
+                pass
 
-        # If no fixtures found, return empty dict instead of raising SourceNoData
-        return {"fixtures": [], "dates": {}, "skipped": 0, "source": "thesportsdb_empty"}
+        # If no fixtures found, raise SourceNoData so the multi-source tries the next provider (ESPN)
+        raise SourceNoData(f"thesportsdb: no fixtures for {league}")
 
 
 class OddsAPIFixturesSource(DataSource):
@@ -146,20 +154,26 @@ class ESPNFixturesSource(DataSource):
 def build_fixtures_multi_source() -> MultiSource:
     """Build the fixtures multi-source with automatic failover.
 
-    Order: API-Football (paid Pro primary; current season, widest window) ->
+    Order: FlashScore (priority 9) -> API-Football (paid Pro primary; current season, widest window) ->
     TheSportsDB (season feed + eventsday fallback) -> ESPN scoreboard
     (key-free; covers continental + no-ID leagues) -> odds-derived fixtures.
     Each source's fetch is kwargs-tolerant so the shared MultiSource.fetch
     kwargs (league, season/fixtures_season, days_ahead) work for all of them.
     """
+    # FlashScore is PRIORITY 9 (user-requested over REST APIs) — fast fixtures scraper
+    sources = []
+    if FLASHSCORE_SCRAPER_AVAILABLE:
+        sources.append((FlashScoreFixturesSource().fetch, "flashscore_fixtures", 9))
+    sources.extend([
+        (APIFootballFixturesSource().fetch, "api_football_fixtures", 10),
+        (TheSportsDBFixturesSource().fetch, "thesportsdb", 15),
+        (ESPNFixturesSource().fetch, "espn", 20),
+        (OddsAPIFixturesSource().fetch, "odds_api_fixtures", 30),
+    ])
+
     return build_multi_source(
         "fixtures",
-        [
-            (APIFootballFixturesSource().fetch, "api_football_fixtures", 10),
-            (TheSportsDBFixturesSource().fetch, "thesportsdb", 15),
-            (ESPNFixturesSource().fetch, "espn", 20),
-            (OddsAPIFixturesSource().fetch, "odds_api_fixtures", 30),
-        ],
+        sources,
         max_retries_per_source=1,
     )
 
@@ -313,6 +327,349 @@ class FlashScoreResultsSource(DataSource):
             raise SourceNoData(f"flashscore_results: no results for {league} {target_date}")
 
         return {"results": results, "source": "flashscore_results", "source_tier": "T2"}
+
+
+class FlashScoreFixturesSource(DataSource):
+    """FlashScore live fixtures — fast, key-free scraper for all mapped leagues.
+
+    Scrapes FlashScore for live fixtures (home/away/datetime) across all mapped leagues.
+    Priority 9 — placed before API-Football (10) per user request to prioritize
+    FlashScore over REST APIs for faster fixture collection.
+    """
+
+    def __init__(self):
+        super().__init__("flashscore_fixtures", priority=9, timeout=30.0)
+        if not FLASHSCORE_SCRAPER_AVAILABLE:
+            raise ImportError("FlashScore scraper modules not available")
+        # Load FlashScore mapping to avoid config.py shadowing issues
+        self.FLASHSCORE_LEAGUES, self.BASE_URL = self._load_flashscore_map()
+
+    @staticmethod
+    def _load_flashscore_map():
+        """Load FlashScore league mapping, avoiding config.py shadowing."""
+        import sys
+        from pathlib import Path
+        import importlib.util
+
+        fallback = ({"Premier League": "england/premier-league"},
+                    "https://www.flashscore.com/football/{slug}/")
+        try:
+            from config.flashscore_leagues import FLASHSCORE_LEAGUES, BASE_URL
+            return FLASHSCORE_LEAGUES, BASE_URL
+        except ImportError:
+            pass
+        # Direct file load (collision-safe)
+        _REPO_ROOT = Path(__file__).parent.parent
+        sys.path.insert(0, str(_REPO_ROOT))
+        _p = _REPO_ROOT / "config" / "flashscore_leagues.py"
+        if not _p.exists():
+            return fallback
+        _spec = importlib.util.spec_from_file_location("flashscore_leagues", _p)
+        _mod = importlib.util.module_from_spec(_spec)
+        _spec.loader.exec_module(_mod)
+        return _mod.FLASHSCORE_LEAGUES, _mod.BASE_URL
+
+    def _normalize_league_name(self, league: str) -> str:
+        """Normalize league name for FlashScore mapping."""
+        # Handle common variations
+        league_map = {
+            "English Premier League": "Premier League",
+            "Spain La Liga": "La Liga",
+            "Italy Serie A": "Serie A",
+            "Germany Bundesliga": "Bundesliga",
+            "France Ligue 1": "Ligue 1",
+        }
+        return league_map.get(league, league)
+
+    def fetch(self, **kwargs) -> dict:
+        if not FLASHSCORE_SCRAPER_AVAILABLE:
+            raise SourceNoData("flashscore: scraper not available")
+
+        league = kwargs["league"]
+        # Normalize league name for mapping
+        normalized_league = self._normalize_league_name(league)
+
+        # Check if league is mapped in FlashScore
+        if normalized_league not in self.FLASHSCORE_LEAGUES:
+            # Also try original league name
+            if league not in self.FLASHSCORE_LEAGUES:
+                raise SourceNoData(f"flashscore: league {league!r} not mapped")
+            normalized_league = league
+
+        # Run the async scraper synchronously
+        import asyncio
+        from datetime import datetime
+
+        async def _scrape_fixtures():
+            scraper = FlashScoreFixturesScraper(headless=True, max_matches=50)
+            async with scraper:
+                # Navigate to the specific league
+                slug = self.FLASHSCORE_LEAGUES[normalized_league]
+                url = self.BASE_URL.format(slug=slug)
+
+                try:
+                    await scraper.page.goto(url, wait_until="domcontentloaded", timeout=60000)
+                    await scraper.page.wait_for_timeout(5000)
+                except Exception as e:
+                    raise SourceNoData(f"flashscore: navigation failed for {league}: {e}")
+
+                # Find match rows
+                match_elements = await scraper.page.query_selector_all("[class*='event__match']")
+
+                results = []
+                for idx, el in enumerate(match_elements):
+                    try:
+                        # Extract home/away from specific participant elements
+                        home_el = await el.query_selector(".event__homeParticipant")
+                        away_el = await el.query_selector(".event__awayParticipant")
+                        time_el = await el.query_selector(".event__time, .event__stageTime")
+
+                        if not home_el or not away_el:
+                            continue
+
+                        home_team = (await home_el.text_content() or "").strip()
+                        away_team = (await away_el.text_content() or "").strip()
+                        match_time = (await time_el.text_content() or "").strip() if time_el else ""
+
+                        # Get team name from image alt if available (more reliable)
+                        img_h = await home_el.query_selector("img")
+                        if img_h:
+                            home_team = await img_h.get_attribute("alt") or home_team
+                        img_a = await away_el.query_selector("img")
+                        if img_a:
+                            away_team = await img_a.get_attribute("alt") or away_team
+
+                        if home_team and away_team:
+                            results.append({
+                                "home_team": home_team,
+                                "away_team": away_team,
+                                "datetime": match_time,
+                            })
+                    except Exception as e:
+                        log.warning(f"FlashScore fixtures scrape error for match {idx}: {e}")
+                        continue
+
+                if not results:
+                    raise SourceNoData(f"flashscore: no fixtures found for {league}")
+
+                return results
+
+        try:
+            fixtures_list = asyncio.run(_scrape_fixtures())
+            if not fixtures_list:
+                raise SourceNoData(f"flashscore: no fixtures for {league}")
+
+            # Convert to pairs format expected by MultiSource
+            pairs = []
+            dates = {}
+            for f in fixtures_list:
+                home = f["home_team"]
+                away = f["away_team"]
+                pairs.append((home, away))
+                # Store datetime if available
+                if f.get("datetime"):
+                    dates[(home, away)] = f["datetime"]
+
+            return {
+                "fixtures": pairs,
+                "dates": dates,
+                "skipped": [],  # FlashScore doesn't provide skipped info easily
+                "source": "flashscore_fixtures"
+            }
+        except Exception as e:
+            log.error(f"FlashScore fixtures fetch failed for {league}: {e}")
+            raise SourceNoData(f"flashscore: {e}")
+
+
+# FlashScore odds source - prioritized for speed over REST APIs
+try:
+    from scripts.scrape_live_odds_v3 import FlashScoreFixturesScraper
+    from scripts.scrape_live_odds_v2 import FlashScoreOddsScraper as _FlashScoreOddsScraperBase
+    FLASHSCORE_SCRAPER_AVAILABLE = True
+except ImportError:
+    FLASHSCORE_SCRAPER_AVAILABLE = False
+    _FlashScoreOddsScraperBase = None
+
+log = logging.getLogger("multi_source.concrete")
+
+
+class FlashScoreOddsSource(DataSource):
+    """FlashScore live odds — fast, key-free scraper for 1X2 markets.
+
+    Scrapes FlashScore for live 1X2 odds (home/draw/away) across all mapped leagues.
+    Provides T1-equivalent speed with zero API quota consumption. Priority 11 —
+    placed between SportyBet (10) and Bet365 cached (12) per user request to
+    prioritize FlashScore over REST APIs for faster odds collection.
+
+    Note: Currently only provides 1X2 markets. Other markets (O/U, BTTS, etc.)
+    fall through to SportyBet/Bet365/API-Football sources.
+    """
+
+    def __init__(self):
+        super().__init__("flashscore_odds", priority=11, timeout=30.0)
+        if not FLASHSCORE_SCRAPER_AVAILABLE:
+            raise ImportError("FlashScore scraper modules not available")
+
+    def _normalize_league_name(self, league: str) -> str:
+        """Normalize league name for FlashScore mapping."""
+        # Handle common variations
+        league_map = {
+            "English Premier League": "Premier League",
+            "Spain La Liga": "La Liga",
+            "Italy Serie A": "Serie A",
+            "Germany Bundesliga": "Bundesliga",
+            "France Ligue 1": "Ligue 1",
+        }
+        return league_map.get(league, league)
+
+    def fetch(self, league: str) -> dict:
+        if not FLASHSCORE_SCRAPER_AVAILABLE:
+            raise SourceNoData("flashscore: scraper not available")
+
+        # Normalize league name for mapping
+        normalized_league = self._normalize_league_name(league)
+
+        # Check if league is mapped in FlashScore
+        from config.flashscore_leagues import FLASHSCORE_LEAGUES
+        if normalized_league not in FLASHSCORE_LEAGUES:
+            # Also try original league name
+            if league not in FLASHSCORE_LEAGUES:
+                raise SourceNoData(f"flashscore: league {league!r} not mapped")
+            normalized_league = league
+
+        # Run the async scraper synchronously
+        import asyncio
+        from datetime import datetime
+
+        async def _scrape_odds():
+            scraper = _FlashScoreOddsScraperBase(headless=True, max_matches=30)
+            async with scraper:
+                # Navigate to the specific league
+                slug = FLASHSCORE_LEAGUES[normalized_league]
+                from config.flashscore_leagues import BASE_URL
+                url = BASE_URL.format(slug=slug)
+
+                try:
+                    await scraper.page.goto(url, wait_until="domcontentloaded", timeout=60000)
+                    await scraper.page.wait_for_timeout(5000)
+
+                    # Get match elements
+                    match_elements = await scraper.page.query_selector_all("[class*='event__match']")
+
+                    results = []
+                    for idx, el in enumerate(match_elements[:scraper.max_matches]):
+                        try:
+                            # Extract teams
+                            home_el = await el.query_selector(".event__homeParticipant")
+                            away_el = await el.query_selector(".event__awayParticipant")
+
+                            if not home_el or not away_el:
+                                continue
+
+                            home_team = (await home_el.text_content() or "").strip()
+                            away_team = (await away_el.text_content() or "").strip()
+
+                            # Get team names from images if available
+                            img_h = await home_el.query_selector("img")
+                            if img_h:
+                                home_team = await img_h.get_attribute("alt") or home_team
+
+                            img_a = await away_el.query_selector("img")
+                            if img_a:
+                                away_team = await img_a.get_attribute("alt") or away_team
+
+                            if not home_team or not away_team:
+                                continue
+
+                            # Click match to get odds
+                            await el.click()
+                            await scraper.page.wait_for_timeout(5000)
+
+                            # Extract odds using the pattern from v2
+                            odds_elements = await scraper.page.query_selector_all("[class*='odd'], [class*='Odd']")
+                            all_odds_text = ""
+                            for el in odds_elements:
+                                text = await el.text_content()
+                                if text:
+                                    all_odds_text += text + " "
+
+                            # Parse 1X2 odds (pattern: three consecutive decimal odds)
+                            import re
+                            pattern = re.compile(r'(\d\.\d{2})(\d\.\d{2})(\d\.\d{2})')
+                            matches = pattern.findall(all_odds_text)
+
+                            if matches:
+                                # Take the first valid odds set
+                                for home_str, draw_str, away_str in matches:
+                                    try:
+                                        home_odds = float(home_str)
+                                        draw_odds = float(draw_str)
+                                        away_odds = float(away_str)
+
+                                        # Basic sanity check
+                                        if 1.01 <= home_odds <= 50 and 1.01 <= draw_odds <= 50 and 1.01 <= away_odds <= 50:
+                                            from pipeline.odds import MarketQuote, FixtureOdds
+
+                                            fx = FixtureOdds(
+                                                league=league,
+                                                home_team=home_team,
+                                                away_team=away_team,
+                                                kickoff_utc="",  # FlashScore doesn't provide kickoff in odds context
+                                                source="flashscore.co.uk",
+                                                source_tier="T1",
+                                            )
+
+                                            fx.home = MarketQuote(
+                                                price=home_odds,
+                                                bookmaker="FlashScore",
+                                                n_books=1,
+                                                captured_at=datetime.now().isoformat()
+                                            )
+                                            fx.draw = MarketQuote(
+                                                price=draw_odds,
+                                                bookmaker="FlashScore",
+                                                n_books=1,
+                                                captured_at=datetime.now().isoformat()
+                                            )
+                                            fx.away = MarketQuote(
+                                                price=away_odds,
+                                                bookmaker="FlashScore",
+                                                n_books=1,
+                                                captured_at=datetime.now().isoformat()
+                                            )
+
+                                            results.append(fx)
+                                            break  # Only take first valid set per match
+                                    except ValueError:
+                                        continue
+
+                            # Go back to league page for next match
+                            await scraper.page.go_back()
+                            await scraper.page.wait_for_timeout(2000)
+
+                        except Exception as e:
+                            log.warning(f"FlashScore odds scrape error for match {idx}: {e}")
+                            continue
+
+                    return results
+
+                except Exception as e:
+                    log.error(f"FlashScore navigation failed for {league}: {e}")
+                    return []
+
+        try:
+            fixtures = asyncio.run(_scrape_odds())
+            if not fixtures:
+                raise SourceNoData(f"flashscore: no odds fixtures for {league}")
+
+            return {
+                "fixtures": fixtures,
+                "flags": [f"{league}: {len(fixtures)} fixtures from FlashScore live odds"],
+                "source": "flashscore_odds"
+            }
+        except Exception as e:
+            log.error(f"FlashScore odds fetch failed for {league}: {e}")
+            raise SourceNoData(f"flashscore: {e}")
 
 
 # =============================================================================
@@ -957,10 +1314,12 @@ class OddsAPISource(DataSource):
 def build_odds_multi_source(league: str) -> MultiSource:
     """Build odds multi-source for a specific league.
 
-    LIVE ODDS 3-SOURCE FALLBACK CHAIN (2026-08-31 Architect directive — updated):
+    LIVE ODDS 4-SOURCE FALLBACK CHAIN (2026-09-05 Updated per user request):
     - SportyBet Nigeria (priority 10) — PRIMARY. The Architect's betting venue,
       so its prices are ground truth for CLV. Full market coverage (1X2, O/U
       0.5/1.5/2.5/3.5, BTTS, DC, DNB, HT/FT, CS).
+    - FlashScore live odds (priority 11) — FAST SCRAPER. Zero API quota,
+      provides 1X2 odds for all mapped leagues (user-requested priority over REST APIs).
     - Bet365 cached feed (priority 12) — SECONDARY. The Architect's primary
       bookmaker; cached JSONL has ALL markets, zero quota, zero latency.
     - API-Football free (priority 15) — FALLBACK. Same bookmakers, wider market
@@ -971,13 +1330,21 @@ def build_odds_multi_source(league: str) -> MultiSource:
     remains available as OddsAPISource for explicit/opt-in use only.
     """
     # SportyBet is PRIMARY (priority 10) — ground truth for CLV
+    # FlashScore is PRIORITY 11 (user-requested over REST APIs) — fast 1X2 scraper
     # Bet365 cached is SECONDARY (priority 12) — full markets, zero quota
     # API-Football is FALLBACK (priority 15) — wider free-tier coverage
     sources = [
         (SportyBetOddsSource().fetch, "sportybet_odds", 10),
+    ]
+
+    # Add FlashScore source if available
+    if FLASHSCORE_SCRAPER_AVAILABLE:
+        sources.append((FlashScoreOddsSource().fetch, "flashscore_odds", 11))
+
+    sources.extend([
         (Bet365CachedOddsSource().fetch, "bet365_cached", 12),
         (APIFootballOddsSource().fetch, "api_football_odds", 15),
-    ]
+    ])
 
     return build_multi_source(
         f"odds_{league}",

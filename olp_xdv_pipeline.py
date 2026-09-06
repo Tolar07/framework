@@ -149,6 +149,7 @@ class PipelineState:
     season: str
     fixtures_season: str
     dry_run: bool
+    date_str: Optional[str] = None
     payloads: dict[int, dict] = field(default_factory=dict)   # agent_id -> output
     errors: list[dict] = field(default_factory=list)
     halted: bool = False
@@ -282,8 +283,12 @@ def agent_1_ingest(state: PipelineState) -> dict:
 
     # Apply fixture date validation gate - reject fixtures not matching target date
     try:
-        from datetime import date
-        target_date = date.today()
+        # Get board date from captured_at_utc or use today (same logic as agent_4_verify)
+        board_date = state.payloads.get(1, {}).get("captured_at_utc", "")[:10]
+        if not board_date:
+            from datetime import date
+            board_date = date.today().isoformat()
+        target_date = datetime.fromisoformat(board_date).date()
 
         # Convert pipeline fixtures to DatedFixture objects for validation
         dated_fixtures = []
@@ -329,7 +334,7 @@ def agent_1_ingest(state: PipelineState) -> dict:
         data_flags.extend(rejection_reasons)
 
         if rejection_reasons:
-            logging.warning(f"Fixture date gate rejected {len(rejection_reasons)} fixtures for {target_date.isoformat()}")
+            logging.warning(f"Fixture date gate rejected {len(rejection_reasons)} fixtures for {board_date}")
 
     except Exception as e:
         # If date validation fails, log but don't halt pipeline
@@ -1318,9 +1323,10 @@ AGENT_FUNCS = {
 
 
 def _run_pipeline_internal(season: str, fixtures_season: str, dry_run: bool,
-                           only: Optional[int] = None) -> PipelineState:
+                           only: Optional[int] = None,
+                           date_str: Optional[str] = None) -> PipelineState:
     """Internal pipeline runner - does not handle CLI args."""
-    state = PipelineState(season=season, fixtures_season=fixtures_season, dry_run=dry_run)
+    state = PipelineState(season=season, fixtures_season=fixtures_season, dry_run=dry_run, date_str=date_str)
     last = only or 10
     for agent_id in range(1, last + 1):
         try:

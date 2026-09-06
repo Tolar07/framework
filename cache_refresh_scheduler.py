@@ -23,14 +23,12 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Add the olp_xdv directory to the path so we can import from olp_xdv_reliability
 sys.path.insert(0, str(Path(__file__).parent))
-from provider_fallback import ProviderChain  # noqa: E402
+from olp_xdv_reliability.providers import ProviderChain, fetch_sportybet_page  # noqa: E402
 
-# Mock fetch_sportybet_page function for now - in reality this would come from sportybet_client
-def fetch_sportybet_page(url: str):
-    """Mock function - replace with actual implementation from sportybet_client"""
-    # This is a placeholder - in production this would be implemented properly
-    raise NotImplementedError("fetch_sportybet_page needs to be implemented from sportybet_client")
+CACHE_PATH = Path(__file__).resolve().parent / "cache" / "sportybet_cache.json"
+DEFAULT_MAX_AGE_MINUTES = 60  # matches the existing "60-minute V2 recency cap" already in use
 
 
 def refresh_cache(url: str, fallback_fns: list[tuple[str, callable]] | None = None) -> bool:

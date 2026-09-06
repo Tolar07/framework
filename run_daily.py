@@ -59,7 +59,6 @@ from booking.verify_fixtures import _parse_bet365_datetime
 from output import whatsapp_deliver
 from output import email_deliver
 import bets.produced_bet as produced_bet
-from orchestrator_DEPRECATED import next_season_code, scan_one_league
 import pipeline.odds as odds_mod
 from data.multi_source_concrete import get_odds as multi_get_odds
 from engine.acca import MAX_ODDS_CAP, build_production_bets, build_single_accas, render_production_block, _team_pair
@@ -159,6 +158,7 @@ def _prefetch_stage(board_date: str, season: str, fixtures_season: str | None,
 
     t0 = time.time()
     _mark(runlog, f"PREFETCH START — board_date={board_date}")
+    _mark(runlog, f"DEBUG: board_date in _prefetch_stage = {board_date}")
 
     # 1. Pre-fetch fixtures for all leagues using provider fallback chain
     _mark(runlog, f"Fetching fixtures for {len(leagues)} leagues (using provider fallback)...")

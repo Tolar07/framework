@@ -50,6 +50,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from booking.bridge import load_sportybet_fixtures
+from cache_refresh_scheduler import cache_age_minutes, is_cache_fresh
 from verification.id403 import SOURCE_TRUST  # noqa: E402
 
 
@@ -517,6 +518,12 @@ def verify_board(board: List, board_date: str,
     print(f"DEBUG: Loaded {len(sb_pairs)} SportyBet pairs", flush=True)
     print(f"DEBUG: Loaded {len(espn_pairs)} ESPN pairs", flush=True)
     print(f"DEBUG: Loaded {len(fd_pairs)} FootballData pairs", flush=True)
+
+    # Check SportyBet cache freshness - if stale, treat as unavailable for verification
+    # This prevents using stale cache data that could lead to verification-gate failures
+    if sb_pairs and not is_cache_fresh():
+        print("WARNING: SportyBet cache is stale - treating as unavailable for verification", flush=True)
+        sb_pairs = []  # Clear the pairs to treat as unavailable
 
     # Index all sources
     fs_idx = _index(fs_pairs)

@@ -108,7 +108,9 @@ def _st_sportybet() -> tuple[bool, str]:
     """Playwright cache rebuild for every whitelisted league. The builder
     skips caches <6h old, so repeated passes are incremental."""
     from booking.bridge import refresh_sportybet_cache
-    counts = refresh_sportybet_cache(leagues=list(WHITELISTED_LEAGUES))
+    import asyncio
+    # Run the async function in a new event loop
+    counts = asyncio.run(refresh_sportybet_cache(leagues=list(WHITELISTED_LEAGUES)))
     total = sum(counts.values()) if counts else 0
     return (total > 0,
             f"{len(counts)} league(s) cached, {total} fixture(s) — "

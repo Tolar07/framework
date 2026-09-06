@@ -849,27 +849,13 @@ def sportybet_fixtures_to_pairs(
     return [(fx.home_team, fx.away_team) for fx in fixtures if fx.home_team and fx.away_team]
 
 
-def refresh_sportybet_cache(
+async def refresh_sportybet_cache(
     leagues: Optional[List[str]] = None,
     days_ahead: int = 7,
 ) -> Dict[str, int]:
-    """Trigger a cache refresh using the Playwright cache builder.
-
-    This is a convenience wrapper that calls the cache builder module.
-    """
-    import asyncio
+    """Refresh SportyBet fixture cache - fully async-native."""
     from booking.sportybet_fixtures import build_cache
-
-    # Always run in a fresh event loop in a separate thread to avoid
-    # conflicts with any running loop in the calling context
-    import concurrent.futures
-
-    def run_in_new_loop():
-        return asyncio.run(build_cache(leagues=leagues, days_ahead=days_ahead))
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-        future = executor.submit(run_in_new_loop)
-        return future.result()
+    return await build_cache(leagues=leagues, days_ahead=days_ahead)
 
 
 # --- Integration helpers for run_daily.py ---

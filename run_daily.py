@@ -234,12 +234,14 @@ def _prefetch_stage(board_date: str, season: str, fixtures_season: str | None,
 def _refresh_sportybet_cache(runlog: Path) -> Optional[str]:
     """Refresh SportyBet fixture cache with headless browser."""
     try:
-        from booking.bridge import load_all_sportybet_fixtures
+        from booking.bridge import refresh_sportybet_cache
         _mark(runlog, "Refreshing SportyBet cache...")
-        sb_fixtures_by_league = load_all_sportybet_fixtures(days_ahead=3, leagues=SCAN_LEAGUES)
-        total = sum(len(v) for v in sb_fixtures_by_league.values())
+        import asyncio
+        # Run the async function in a new event loop
+        result = asyncio.run(refresh_sportybet_cache(leagues=SCAN_LEAGUES, days_ahead=3))
+        total = sum(result.values()) if result else 0
         _mark(runlog, f"SportyBet cache refreshed: {total} fixtures")
-        return f"SportyBet cache refreshed: {total} fixtures across {len(sb_fixtures_by_league)} leagues"
+        return f"SportyBet cache refreshed: {total} fixtures across {len(result)} leagues"
     except Exception as e:
         _mark(runlog, f"SportyBet cache refresh failed: {e}")
         # Return degraded status instead of letting it bubble up and crash the run

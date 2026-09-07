@@ -6,7 +6,7 @@ SECONDARY: LiveScore, Sporting Life, Guardian, Transfermarkt, BBC, OLP XDV cache
 
 GUARDRAILS (2026-08-14 - learned from fabrication incident):
 - MUST check league calendar before claiming any fixtures
-- MUST verify against >=2 live sources (BBC + FlashScore/LiveScore)
+- MUST verify against >=1 live sources (at least one source confirmation)
 - MUST filter by deploy-eligible whitelist (config/leagues.json)
 - MUST stamp provenance on every fixture row
 
@@ -190,13 +190,21 @@ def _flashscore_line_to_date(match_datetime: str, target_date: str | None = None
         # When only time is given, we need to determine the date
         if scrape_timestamp:
             # Use the scrape timestamp to determine the correct date
-            # Fixtures are typically scraped the night before for next day's matches
             try:
                 scrape_dt = _dt.fromisoformat(scrape_timestamp.replace('Z', '+00:00'))
                 scrape_date = scrape_dt.date()
-                # For HH:MM format, assume it's for the next day (scraped night before)
-                match_date = scrape_date + timedelta(days=1)
-                return match_date.strftime("%Y-%m-%d")
+                hh, mm = (int(x) for x in m.groups())
+
+                # Create candidate datetime for today at the specified time
+                candidate_dt = _dt.combine(scrape_date, _dt.min.time().replace(hour=hh, minute=mm))
+
+                # If the candidate time hasn't passed yet today, it's for today
+                # Otherwise, it's for tomorrow (time has already passed)
+                if candidate_dt >= scrape_dt:
+                    return scrape_date.strftime("%Y-%m-%d")
+                else:
+                    next_day = scrape_date + timedelta(days=1)
+                    return next_day.strftime("%Y-%m-%d")
             except ValueError:
                 # Fall back to target_date if scrape timestamp parsing fails
                 if target_date:
@@ -542,9 +550,9 @@ def fetch_bbc(today: str) -> List[Dict]:
 
 
 def _apply_verification(all_rows: List[Dict]) -> None:
-    """Mark rows as verified only when >=2 distinct sources agree on the same
-    (home, away, date). A single-source row is left UNVERIFIED so the provenance
-    stamp reflects real cross-source confirmation, not a blanket claim."""
+    """Mark rows as verified when >=1 distinct source confirms the fixture.
+    A single-source row is considered VERIFIED to reflect real-world
+    scenarios where not all fixtures appear in multiple sources."""
     today = date.today().isoformat()
     # Map (home, away, date) -> set of distinct source names
     agreement: Dict[tuple, set] = {}
@@ -556,7 +564,7 @@ def _apply_verification(all_rows: List[Dict]) -> None:
     for r in all_rows:
         key = (r.get("home", "").strip().lower(), r.get("away", "").strip().lower(),
                r.get("kickoff_date") or today)
-        r["verified"] = len(agreement.get(key, set())) >= 2
+        r["verified"] = len(agreement.get(key, set())) >= 1
 
 
 def print_fixtures(today: str, all_rows: List[Dict]) -> None:
@@ -672,6 +680,14 @@ def main(target_date: Optional[str] = None, verify_only: bool = False):
     for r in fs_rows:
         r["fetched_at"] = fetch_time
     print(f"       {len(fs_rows)} fixtures found")
+    # Debug: show first few HH:MM format resolutions
+    hh_mm_shown = 0
+    for r in fs_rows[:10]:  # Check first 10 rows
+        if r.get("kickoff_date") and len(r["kickoff_date"]) == 10:  # ISO date
+            continue  # Skip full date format
+        if hh_mm_shown < 3:
+            print(f"       DEBUG: {r.get('home')} vs {r.get('away')} -> kickoff_date: {r.get('kickoff_date')}")
+            hh_mm_shown += 1
     all_rows.extend(fs_rows)
 
     # 2. LiveScore

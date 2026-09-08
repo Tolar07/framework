@@ -41,7 +41,7 @@ SOURCE_TRUST = {
     # so fixtures stamp ○ SINGLE-SOURCE until a second independent source
     # (e.g. football-data.org) provides F2 quorum.
     "thesportsdb.com": "T2",
-    "bbc.co.uk": "T2", "skysports.com": "T2", "espn.com": "T2",
+    "bbc.co.uk": "T2", "skysports.com": "T2", "espn.com": "T1",
     # T2 — curated local fixture feeds (Playwright-scraped, structured JSONL,
     # traceable provenance: home/away/date + scrape timestamp + source field).
     # These are distinct keys from their web domains (which stay REJECTED for
@@ -50,6 +50,9 @@ SOURCE_TRUST = {
     "predictz_fixtures": "T2",     # curated PredictZ feed (PENDING live re-verify)
     "statsarea_fixtures": "T2",    # curated StatsArea feed (PENDING live re-verify)
     "bet365_fixtures": "T2",       # curated Bet365 feed (PENDING live re-verify)
+    "livescore_fixtures": "T2",    # curated LiveScore feed (PENDING live re-verify)
+    "bbc_sport_fixtures": "T2",    # curated BBC Sport feed (PENDING live re-verify)
+    "sporting_life_fixtures": "T2", # curated Sporting Life feed (PENDING live re-verify)
     # T3 — aggregators, lead-only, never verifying alone
     "predictz.com": "T3", "betinf.com": "T3", "fctables.com": "T3",
     # Rejected / JS-locked — never usable even as a lead

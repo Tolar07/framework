@@ -152,7 +152,7 @@ def safe_navigate(page, url: str, max_retries: int = 2,
 
 from booking.league_map import SPORTYBET_LEAGUES
 from booking.bridge import load_sportybet_fixtures
-from booking.sportybet_fixtures import _navigate_to_league_sync as _navigate_to_league
+from booking.sportybet_fixtures import _navigate_to_league as _navigate_to_league
 
 BASE_URL = "https://www.sportybet.com.ng"
 BOARD_DIR = Path(__file__).parent.parent / "output" / "boards"

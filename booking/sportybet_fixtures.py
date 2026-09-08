@@ -16,6 +16,8 @@ async def build_cache(
     from pathlib import Path
     import sys
 
+    from .sportybet_cache import CachedFixture
+
     sys.path.insert(0, str(Path(__file__).parent.parent))
 
     # Import the rebuild logic

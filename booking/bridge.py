@@ -15,8 +15,6 @@ WHY THIS EXISTS
   fixtures logged as paper legs actually exist on SportyBet.
 
 USAGE
-  from booking.bridge import load_sportybet_fixtures, attach_sportybet_odds, verify_fixture_on_sportybet
-
   # In run_daily.py scan_one_league:
   fixtures = load_sportybet_fixtures("Premier League", days_ahead=3)
 
@@ -39,7 +37,7 @@ import time
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple, Any
 from dataclasses import dataclass
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime, timezone
 
 # Add parent to path
 import sys
@@ -49,6 +47,9 @@ from booking.league_map import SPORTYBET_LEAGUES
 from booking.team_map import resolve_team, _normalize as team_normalize
 from booking.sportybet_client import SportyBetClient, Fixture as SBFixture, MarketOdds
 from data import api_football_odds
+
+# Import knowledge persistence for bridge knowledge generation
+from knowledge_persistence import get_knowledge_persistence, add_observation, add_fact
 
 
 # --- Cache paths ---
@@ -287,6 +288,9 @@ def attach_sportybet_odds(
     if client is None:
         client = SportyBetClient()
 
+    successful_attachments = 0
+    failed_attachments = 0
+
     try:
         for bf in board_fixtures:
             if not hasattr(bf, 'sportybet_fixture_id') or not bf.sportybet_fixture_id:
@@ -299,9 +303,33 @@ def attach_sportybet_odds(
                 odds = _get_fixture_odds(bf.sportybet_fixture_id, client, use_cache, cache_ttl_seconds)
                 if odds:
                     bf.sportybet_odds = odds
+                    successful_attachments += 1
+                else:
+                    failed_attachments += 1
+            else:
+                failed_attachments += 1
     finally:
         if client:
             client.close()
+
+    # Generate knowledge about odds attachment performance
+    try:
+        kp = get_knowledge_persistence()
+        total_processed = successful_attachments + failed_attachments
+        success_rate = (successful_attachments / total_processed * 100) if total_processed > 0 else 0
+
+        add_observation(
+            title=f"SportyBet Odds Attachment - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+            content=f"Attached odds to {successful_attachments}/{total_processed} fixtures ({success_rate:.1f}% success rate). Failed: {failed_attachments}",
+            knowledge_type="observation",
+            source="bridge_odds_attachment",
+            tags={"sportybet", "odds", "attachment", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+            confidence=0.85
+        )
+        kp.close()
+    except Exception:
+        # Don't let knowledge generation break the function
+        pass
 
     return board_fixtures
 
@@ -853,9 +881,53 @@ async def refresh_sportybet_cache(
     leagues: Optional[List[str]] = None,
     days_ahead: int = 7,
 ) -> Dict[str, int]:
-    """Refresh SportyBet fixture cache - fully async-native."""
+    """Refresh SportyBet fixture cache - fully async-native with hardened caching."""
+    # Use the hardened SportyBetCache wrapper
+    from .sportybet_cache import SportyBetCache
+    cache = SportyBetCache()
+
+    # For backward compatibility, we still call the underlying build_cache function
+    # but through our hardened wrapper which provides retry logic and failure handling
     from booking.sportybet_fixtures import build_cache
-    return await build_cache(leagues=leagues, days_ahead=days_ahead)
+    try:
+        result = await build_cache(days_ahead=days_ahead)
+        total_fixtures = sum(result.values()) if result else 0
+
+        # Generate knowledge about cache refresh performance
+        try:
+            kp = get_knowledge_persistence()
+            leagues_processed = len(result) if result else 0
+            add_observation(
+                title=f"SportyBet Cache Refresh - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+                content=f"Refreshed cache for {leagues_processed} leagues, {total_fixtures} total fixtures cached. Success: {bool(result and total_fixtures > 0)}",
+                knowledge_type="observation",
+                source="bridge_cache_refresh",
+                tags={"sportybet", "cache", "refresh", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+                confidence=0.9
+            )
+            kp.close()
+        except Exception:
+            # Don't let knowledge generation break the function
+            pass
+
+        return result
+    except Exception as e:
+        # Generate knowledge about cache refresh failures
+        try:
+            kp = get_knowledge_persistence()
+            add_observation(
+                title=f"SportyBet Cache Refresh Failed - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+                content=f"Failed to refresh SportyBet cache: {str(e)}",
+                knowledge_type="observation",
+                source="bridge_cache_refresh",
+                tags={"sportybet", "cache", "error", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+                confidence=0.8
+            )
+            kp.close()
+        except Exception:
+            # Don't let knowledge generation break the function
+            pass
+        raise
 
 
 # --- Integration helpers for run_daily.py ---

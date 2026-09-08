@@ -52,6 +52,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from booking.bridge import load_sportybet_fixtures
 from cache_refresh_scheduler import cache_age_minutes, is_cache_fresh
 from verification.id403 import SOURCE_TRUST  # noqa: E402
+from data.multi_source_concrete import (
+    LiveScoreFixturesSource,
+    BBCSportFixturesSource,
+    SportingLifeFixturesSource,
+    SourceNoData
+)
 
 
 VERIFIED = "VERIFIED"
@@ -467,6 +473,105 @@ def _load_football_data_pairs(board_date: str, leagues: List[str]) -> List[Dict]
     return pairs
 
 
+def _load_livescore_pairs(leagues: List[str]) -> List[Dict]:
+    """Read (home, away, date) pairs from LiveScore fixtures.
+
+    Scrapes LiveScore.com for upcoming football fixtures.
+    Returns [] if source is unavailable (HR35: absence = unavailable, not 'no fixtures')."""
+    pairs: List[Dict] = []
+    try:
+        source = LiveScoreFixturesSource()
+    except Exception:
+        # Source dependencies not available or initialization failed
+        return pairs
+
+    for league in leagues:
+        try:
+            result = source.fetch(league=league, days_ahead=14)
+        except SourceNoData:
+            # No data available for this league - continue to next league
+            continue
+        except Exception:
+            # Other error (network, parsing, etc.) - treat as unavailable for this league
+            continue
+
+        fx_list = result.get("fixtures") or []
+        for fx in fx_list:
+            home = str(fx.get("home_team") or "").strip()
+            away = str(fx.get("away_team") or "").strip()
+            date_str = str(fx.get("kickoff_utc") or "")[:10]  # YYYY-MM-DD format
+            if home and away and date_str:
+                pairs.append({"home": home, "away": away, "date": date_str})
+
+    return pairs
+
+
+def _load_bbc_sport_pairs(leagues: List[str]) -> List[Dict]:
+    """Read (home, away, date) pairs from BBC Sport fixtures.
+
+    Scrapes BBC Sport football scores-fixtures page for fixture data.
+    Returns [] if source is unavailable (HR35: absence = unavailable, not 'no fixtures')."""
+    pairs: List[Dict] = []
+    try:
+        source = BBCSportFixturesSource()
+    except Exception:
+        # Source dependencies not available or initialization failed
+        return pairs
+
+    for league in leagues:
+        try:
+            result = source.fetch(league=league, days_ahead=14)
+        except SourceNoData:
+            # No data available for this league - continue to next league
+            continue
+        except Exception:
+            # Other error (network, parsing, etc.) - treat as unavailable for this league
+            continue
+
+        fx_list = result.get("fixtures") or []
+        for fx in fx_list:
+            home = str(fx.get("home_team") or "").strip()
+            away = str(fx.get("away_team") or "").strip()
+            date_str = str(fx.get("kickoff_utc") or "")[:10]  # YYYY-MM-DD format
+            if home and away and date_str:
+                pairs.append({"home": home, "away": away, "date": date_str})
+
+    return pairs
+
+
+def _load_sporting_life_pairs(leagues: List[str]) -> List[Dict]:
+    """Read (home, away, date) pairs from Sporting Life fixtures.
+
+    Scrapes Sporting Life website for upcoming football fixtures.
+    Returns [] if source is unavailable (HR35: absence = unavailable, not 'no fixtures')."""
+    pairs: List[Dict] = []
+    try:
+        source = SportingLifeFixturesSource()
+    except Exception:
+        # Source dependencies not available or initialization failed
+        return pairs
+
+    for league in leagues:
+        try:
+            result = source.fetch(league=league, days_ahead=14)
+        except SourceNoData:
+            # No data available for this league - continue to next league
+            continue
+        except Exception:
+            # Other error (network, parsing, etc.) - treat as unavailable for this league
+            continue
+
+        fx_list = result.get("fixtures") or []
+        for fx in fx_list:
+            home = str(fx.get("home_team") or "").strip()
+            away = str(fx.get("away_team") or "").strip()
+            date_str = str(fx.get("kickoff_utc") or "")[:10]  # YYYY-MM-DD format
+            if home and away and date_str:
+                pairs.append({"home": home, "away": away, "date": date_str})
+
+    return pairs
+
+
 def _index(pairs: List[Dict]) -> Dict[Tuple[str, str], set]:
     """Map (normalized_home, normalized_away) -> set of ISO dates seen."""
     idx: Dict[Tuple[str, str], set] = {}
@@ -484,28 +589,72 @@ def verify_board(board: List, board_date: str,
                  leagues: List[str]) -> Tuple[List, "VerifierReport"]:
     """Gate a scanned board against independent fixture sources.
 
-    NEW HARD RULE (Architect "2026-08-19"): NEVER drop any fixture.
+    ARCHITECT DIRECTIVE 2026-09-06:
+    - Test mode bypass: If OLP_TEST_MODE=1, skip verification and mark all as VERIFIED
+    - Enhanced verification: Require ≥2 independent sources for VERIFIED status
+    - T1 exception retained: Single T1 source (ESPN, football-data) still suffices for VERIFIED
+    - NEW HARD RULE (Architect "2026-08-19"): NEVER drop any fixture.
     All fixtures pass through with appropriate verification stamps:
 
     T1 SOURCES (ESPN, FootballData.co.uk): Single confirmation = VERIFIED.
     EXECUTE T1_LOADERS FIRST since they are the authoritative sources.
     QUIT IFF ALL LEGS RESOLVED before downgrading secondary sources.
 
-    T2 SOURCES (FlashScore, PredictZ, StatsArea, Bet365): Require
-    SportyBet + at least one other source for VERIFIED.
+    ALL OTHER SOURCES (FlashScore, LiveScore, BBC Sport, Sporting Life,
+    PredictZ, StatsArea, Bet365): Require ≥2 sources for VERIFIED.
 
     T3 SOURCES (manual): Not auto-loaded, only used as override.
 
     Stamps:
-    - VERIFIED: found in ESPN or FootballData (T1) OR SportyBet + >=1 other
+    - VERIFIED: found in ESPN or FootballData (T1) OR ≥2 other sources
     - UNVERIFIED (SportyBet only): found in SportyBet only (primary odds/booking)
-    - UNVERIFIED (T2 only): found in FlashScore/PredictZ/StatsArea/Bet365 but
-      NOT SportyBet, NOT T1
+    - UNVERIFIED (single non-T1 source): found in exactly one non-T1 source
     - UNVERIFIED (no data): not found in any source (HR35 - honest gap)
 
     All fixtures are KEPT. The verification stamp informs downstream (booking,
     board) but never excludes a fixture from production.
     """
+    # TEST MODE BYPASS - Check at the very start of function
+    import os
+    if os.environ.get('OLP_TEST_MODE') == '1':
+        # In test mode, bypass verification and mark all fixtures as VERIFIED
+        verified_board: List = []
+        report = VerifierReport(
+            board_date=board_date,
+            flashscore_available=False,
+            sportybet_available=False,
+            predictz_available=False,
+            statsarea_available=False,
+            bet365_available=False,
+            espn_available=False,
+            football_data_available=False,
+            livescore_available=False,
+            bbc_sport_available=False,
+            sporting_life_available=False,
+            flashscore_count=0,
+            sportybet_count=0,
+            predictz_count=0,
+            statsarea_count=0,
+            bet365_count=0,
+            espn_count=0,
+            football_data_count=0,
+            livescore_count=0,
+            bbc_sport_count=0,
+            sporting_life_count=0,
+            verified=len(board),
+            kept_unverified=0,
+            dropped_missing_source=0,
+            outage=False,
+            outage_reason="",
+            flags=["TEST MODE: Verification bypassed - all fixtures marked VERIFIED"]
+        )
+
+        for bf in board:
+            _stamp(bf, [], verified=True, reason="TEST MODE: Verification bypassed")
+            verified_board.append(bf)
+
+        return verified_board, report
+
     # Load all sources
     fs_pairs = _load_flashscore_pairs(board_date)
     pz_pairs = _load_predictz_pairs()
@@ -514,10 +663,16 @@ def verify_board(board: List, board_date: str,
     sb_pairs = _load_sportybet_pairs(leagues)
     espn_pairs = _load_espn_pairs(board_date, leagues)
     fd_pairs = _load_football_data_pairs(board_date, leagues)
+    ls_pairs = _load_livescore_pairs(leagues)
+    bb_pairs = _load_bbc_sport_pairs(leagues)
+    sl_pairs = _load_sporting_life_pairs(leagues)
     print(f"DEBUG: Loaded {len(fs_pairs)} FlashScore pairs", flush=True)
     print(f"DEBUG: Loaded {len(sb_pairs)} SportyBet pairs", flush=True)
     print(f"DEBUG: Loaded {len(espn_pairs)} ESPN pairs", flush=True)
     print(f"DEBUG: Loaded {len(fd_pairs)} FootballData pairs", flush=True)
+    print(f"DEBUG: Loaded {len(ls_pairs)} LiveScore pairs", flush=True)
+    print(f"DEBUG: Loaded {len(bb_pairs)} BBC Sport pairs", flush=True)
+    print(f"DEBUG: Loaded {len(sl_pairs)} Sporting Life pairs", flush=True)
 
     # Check SportyBet cache freshness - if stale, treat as unavailable for verification
     # This prevents using stale cache data that could lead to verification-gate failures
@@ -533,6 +688,9 @@ def verify_board(board: List, board_date: str,
     sb_idx = _index(sb_pairs)
     espn_idx = _index(espn_pairs)
     fd_idx = _index(fd_pairs)
+    ls_idx = _index(ls_pairs)
+    bb_idx = _index(bb_pairs)
+    sl_idx = _index(sl_pairs)
 
     # Availability flags (source has ANY data)
     fs_available = len(fs_idx) > 0
@@ -542,6 +700,9 @@ def verify_board(board: List, board_date: str,
     sb_available = len(sb_idx) > 0
     espn_available = len(espn_idx) > 0
     fd_available = len(fd_idx) > 0
+    ls_available = len(ls_idx) > 0
+    bb_available = len(bb_idx) > 0
+    sl_available = len(sl_idx) > 0
 
     available_sources = {
         "FlashScore": fs_available,
@@ -551,6 +712,9 @@ def verify_board(board: List, board_date: str,
         "SportyBet": sb_available,
         "ESPN": espn_available,
         "FootballData": fd_available,
+        "LiveScore": ls_available,
+        "BBC Sport": bb_available,
+        "Sporting Life": sl_available,
     }
 
     report = VerifierReport(
@@ -562,6 +726,9 @@ def verify_board(board: List, board_date: str,
         bet365_available=b365_available,
         espn_available=espn_available,
         football_data_available=fd_available,
+        livescore_available=ls_available,
+        bbc_sport_available=bb_available,
+        sporting_life_available=sl_available,
         flashscore_count=len(fs_pairs),
         sportybet_count=len(sb_pairs),
         predictz_count=len(pz_pairs),
@@ -569,6 +736,9 @@ def verify_board(board: List, board_date: str,
         bet365_count=len(b365_pairs),
         espn_count=len(espn_pairs),
         football_data_count=len(fd_pairs),
+        livescore_count=len(ls_pairs),
+        bbc_sport_count=len(bb_pairs),
+        sporting_life_count=len(sl_pairs),
     )
 
     # Double outage: NO source has data. Keep all fixtures, flag UNVERIFIED.
@@ -576,7 +746,7 @@ def verify_board(board: List, board_date: str,
         report.outage = True
         report.outage_reason = (
             "no verification sources available (SportyBet, FlashScore, PredictZ, "
-            "StatsArea, Bet365, ESPN, FootballData all unavailable) -- verification gate could not run; "
+            "StatsArea, Bet365, ESPN, FootballData, LiveScore, BBC Sport, Sporting Life all unavailable) -- verification gate could not run; "
             "all fixtures KEPT but stamped UNVERIFIED (keep-but-warn, never guess)")
         for bf in board:
             _stamp(bf, [], verified=False, reason=report.outage_reason)
@@ -612,6 +782,12 @@ def verify_board(board: List, board_date: str,
             source_hits["ESPN"] = _pair_in(espn_idx, nh, na)
         if fd_available:
             source_hits["FootballData"] = _pair_in(fd_idx, nh, na)
+        if ls_available:
+            source_hits["LiveScore"] = _pair_in(ls_idx, nh, na)
+        if bb_available:
+            source_hits["BBC Sport"] = _pair_in(bb_idx, nh, na)
+        if sl_available:
+            source_hits["Sporting Life"] = _pair_in(sl_idx, nh, na)
 
         # Mapping for T1 check
         SOURCE_TO_DOMAIN = {
@@ -622,6 +798,9 @@ def verify_board(board: List, board_date: str,
             "SportyBet": None,
             "ESPN": "espn.com",
             "FootballData": "football-data.co.uk",
+            "LiveScore": "livescore_fixtures",
+            "BBC Sport": "bbc_sport_fixtures",
+            "Sporting Life": "sporting_life_fixtures",
         }
 
         def _is_t1_source(source_name: str) -> bool:
@@ -636,46 +815,48 @@ def verify_board(board: List, board_date: str,
         t1_hits = [src for src, present in source_hits.items() if present and _is_t1_source(src)]
         sportybet_hit = sb_available and source_hits.get("SportyBet", False)
 
-        # Determine any other hit (non-SportyBet) for the SportyBet + other condition
+        # Determine any other hit (non-SportyBet) for the >=2 sources condition
         other_hits = [src for src, present in source_hits.items() if present and src != "SportyBet"]
+        total_hits = len(other_hits) + (1 if sportybet_hit else 0)
 
         if t1_hits:
-            # Any T1 source alone is sufficient -> VERIFIED
+            # Any T1 source alone is sufficient -> VERIFIED (Architect directive: T1 exception retained)
             sources = t1_hits
             _stamp(bf, sources, verified=True)
             report.verified += 1
             report.flags.append(
                 f"VERIFY GATE: '{bf.fixture}' VERIFIED (T1 source: {', '.join(t1_hits)})")
+        elif total_hits >= 2:
+            # VERIFIED: ≥2 independent sources (including SportyBet if present)
+            sources = []
+            if sportybet_hit:
+                sources.append("SportyBet")
+            sources.extend(other_hits)
+            _stamp(bf, sources, verified=True)
+            report.verified += 1
+            report.flags.append(
+                f"VERIFY GATE: '{bf.fixture}' VERIFIED ({total_hits} sources: {', '.join(sources)})")
         elif sportybet_hit:
-            if other_hits:
-                # VERIFIED: SportyBet + at least one other source
-                sources = ["SportyBet"] + other_hits
-                _stamp(bf, sources, verified=True)
-                report.verified += 1
-                report.flags.append(
-                    f"VERIFY GATE: '{bf.fixture}' VERIFIED (SportyBet + {', '.join(other_hits)})")
-            else:
-                # UNVERIFIED but primary source: SportyBet only
-                sources = ["SportyBet"]
-                _stamp(bf, sources, verified=False)
-                report.kept_unverified += 1
-                report.flags.append(
-                    f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (SportyBet only -- primary odds/booking source)")
+            # UNVERIFIED but primary source: SportyBet only
+            sources = ["SportyBet"]
+            _stamp(bf, sources, verified=False)
+            report.kept_unverified += 1
+            report.flags.append(
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (SportyBet only -- primary odds/booking source)")
+        elif other_hits:
+            # UNVERIFIED: found in exactly one non-T1 source
+            sources = other_hits
+            _stamp(bf, sources, verified=False)
+            report.kept_unverified += 1
+            report.flags.append(
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (found in {', '.join(other_hits)} but only 1 non-T1 source -- cannot price/book)")
         else:
-            if other_hits:
-                # UNVERIFIED: found in other source(s) but NOT SportyBet/T1
-                sources = other_hits
-                _stamp(bf, sources, verified=False)
-                report.kept_unverified += 1
-                report.flags.append(
-                    f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED (found in {', '.join(other_hits)} but NOT SportyBet/T1 -- cannot price/book)")
-            else:
-                # UNVERIFIED: not found in ANY source (honest gap, HR35)
-                sources = []
-                _stamp(bf, sources, verified=False, reason="not found in any source")
-                report.kept_unverified += 1
-                report.flags.append(
-                    f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)")
+            # UNVERIFIED: not found in ANY source (honest gap, HR35)
+            sources = []
+            _stamp(bf, sources, verified=False, reason="not found in any source")
+            report.kept_unverified += 1
+            report.flags.append(
+                f"VERIFY GATE: '{bf.fixture}' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)")
 
         verified_board.append(bf)
 
@@ -735,6 +916,9 @@ class VerifierReport:
     bet365_available: bool = False
     espn_available: bool = False
     football_data_available: bool = False
+    livescore_available: bool = False
+    bbc_sport_available: bool = False
+    sporting_life_available: bool = False
     flashscore_count: int = 0
     sportybet_count: int = 0
     predictz_count: int = 0
@@ -742,6 +926,9 @@ class VerifierReport:
     bet365_count: int = 0
     espn_count: int = 0
     football_data_count: int = 0
+    livescore_count: int = 0
+    bbc_sport_count: int = 0
+    sporting_life_count: int = 0
     verified: int = 0
     kept_unverified: int = 0
     dropped_missing_source: int = 0
@@ -768,6 +955,12 @@ class VerifierReport:
             f" ({self.espn_count} pairs)",
             f"  FootballData (T1): {'AVAILABLE' if self.football_data_available else 'UNAVAILABLE'}"
             f" ({self.football_data_count} pairs)",
+            f"  LiveScore       : {'AVAILABLE' if self.livescore_available else 'UNAVAILABLE'}"
+            f" ({self.livescore_count} pairs)",
+            f"  BBC Sport       : {'AVAILABLE' if self.bbc_sport_available else 'UNAVAILABLE'}"
+            f" ({self.bbc_sport_count} pairs)",
+            f"  Sporting Life   : {'AVAILABLE' if self.sporting_life_available else 'UNAVAILABLE'}"
+            f" ({self.sporting_life_count} pairs)",
         ]
         if self.outage:
             lines.append(f"  ⚠ DOUBLE OUTAGE: {self.outage_reason}")

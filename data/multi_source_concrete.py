@@ -157,21 +157,42 @@ class ESPNFixturesSource(DataSource):
 def build_fixtures_multi_source() -> MultiSource:
     """Build the fixtures multi-source with automatic failover.
 
-    Order: FlashScore (priority 9) -> API-Football (paid Pro primary; current season, widest window) ->
+    Order: FlashScore (priority 8) -> LiveScore (priority 9) -> BBC Sport (priority 10) ->
+    Sporting Life (priority 11) -> API-Football (paid Pro primary; current season, widest window) ->
     TheSportsDB (season feed + eventsday fallback) -> ESPN scoreboard
     (key-free; covers continental + no-ID leagues) -> odds-derived fixtures.
     Each source's fetch is kwargs-tolerant so the shared MultiSource.fetch
     kwargs (league, season/fixtures_season, days_ahead) work for all of them.
     """
-    # FlashScore is PRIORITY 9 (user-requested over REST APIs) — fast fixtures scraper
     sources = []
+
+    # Add new sources as per Architect directive 2026-09-06
     if FLASHSCORE_SCRAPER_AVAILABLE:
-        sources.append((FlashScoreFixturesSource().fetch, "flashscore_fixtures", 9))
+        sources.append((FlashScoreFixturesSource().fetch, "flashscore_fixtures", 8))
+
+    try:
+        sources.append((LiveScoreFixturesSource().fetch, "livescore_fixtures", 9))
+    except ImportError:
+        # LiveScore dependencies not available - skip
+        pass
+
+    try:
+        sources.append((BBCSportFixturesSource().fetch, "bbc_sport_fixtures", 10))
+    except ImportError:
+        # BBC Sport dependencies not available - skip
+        pass
+
+    try:
+        sources.append((SportingLifeFixturesSource().fetch, "sporting_life_fixtures", 11))
+    except ImportError:
+        # Sporting Life dependencies not available - skip
+        pass
+
     sources.extend([
-        (APIFootballFixturesSource().fetch, "api_football_fixtures", 10),
-        (TheSportsDBFixturesSource().fetch, "thesportsdb", 15),
-        (ESPNFixturesSource().fetch, "espn", 20),
-        (OddsAPIFixturesSource().fetch, "odds_api_fixtures", 30),
+        (APIFootballFixturesSource().fetch, "api_football_fixtures", 12),
+        (TheSportsDBFixturesSource().fetch, "thesportsdb", 17),
+        (ESPNFixturesSource().fetch, "espn", 22),
+        (OddsAPIFixturesSource().fetch, "odds_api_fixtures", 32),
     ])
 
     return build_multi_source(
@@ -1628,3 +1649,465 @@ def get_live_scores(league: str, day: str | None = None) -> dict:
 def get_all_health() -> dict:
     """Get health report for all registered sources."""
     return registry.get_health_report()
+
+
+# =============================================================================
+# NEW FIXTURE SOURCES (Architect directive 2026-09-06)
+# =============================================================================
+
+class FlashScoreFixturesSource(DataSource):
+    """FlashScore fixtures — reads from existing JSONL scraper output.
+
+    Reuses the existing FlashScore scraper output files (flashscore_odds_*.jsonl)
+    to extract fixture pairs. This is a key-free, fast source for upcoming fixtures.
+    Priority 8 — higher than TheSportsDB to make it primary as requested.
+    """
+
+    def __init__(self):
+        super().__init__("flashscore_fixtures", priority=8, timeout=30.0)
+        # Reuse the existing FlashScore scraper mapping
+        self.FLASHSCORE_LEAGUES, self.BASE_URL = self._load_flashscore_map()
+
+    @staticmethod
+    def _load_flashscore_map():
+        """Load FlashScore league mapping, avoiding config.py shadowing."""
+        import sys
+        from pathlib import Path
+        import importlib.util
+
+        fallback = ({"Premier League": "england/premier-league"},
+                    "https://www.flashscore.com/football/{slug}/")
+        try:
+            from config.flashscore_leagues import FLASHSCORE_LEAGUES, BASE_URL
+            return FLASHSCORE_LEAGUES, BASE_URL
+        except ImportError:
+            pass
+        # Direct file load (collision-safe)
+        _REPO_ROOT = Path(__file__).parent.parent
+        sys.path.insert(0, str(_REPO_ROOT))
+        _p = _REPO_ROOT / "config" / "flashscore_leagues.py"
+        if not _p.exists():
+            return fallback
+        _spec = importlib.util.spec_from_file_location("flashscore_leagues", _p)
+        _mod = importlib.util.module_from_spec(_spec)
+        _spec.loader.exec_module(_mod)
+        return _mod.FLASHSCORE_LEAGUES, _mod.BASE_URL
+
+    def fetch(self, **kwargs) -> dict:
+        league = kwargs["league"]
+        fixtures_season = kwargs.get("fixtures_season") or kwargs.get("season")
+        days_ahead = kwargs.get("days_ahead", 14)
+        from datetime import date, timedelta
+        from data.multi_source import SourceNoData
+
+        # Map OLP league to FlashScore slug
+        slug = self.FLASHSCORE_LEAGUES.get(league)
+        if not slug:
+            raise SourceNoData(f"flashscore_fixtures: no mapping for {league}")
+
+        # Look for today's flashscore odds file (most recent)
+        import glob
+        import os
+        from pathlib import Path
+
+        # Find the most recent flashscore odds file
+        pattern = str(Path(__file__).parents[2] / "data" / "live_odds" / "flashscore_odds_*.jsonl")
+        files = glob.glob(pattern)
+        if not files:
+            raise SourceNoData("flashscore_fixtures: no flashscore odds files found")
+
+        # Sort by modification time (newest first)
+        files.sort(key=os.path.getmtime, reverse=True)
+        latest_file = files[0]
+
+        # Parse the JSONL file for fixtures
+        fixtures = []
+        try:
+            with open(latest_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        import json
+                        data = json.loads(line)
+                        # Extract home/away teams and date
+                        home_team = data.get('home_team') or data.get('home')
+                        away_team = data.get('away_team') or data.get('away')
+                        match_date = data.get('match_date') or data.get('date') or data.get('kickoff')
+
+                        if home_team and away_team:
+                            # Normalize team names using existing mapping if available
+                            from data.thesportsdb_fixtures import map_team
+                            norm_home = map_team(league, home_team)
+                            norm_away = map_team(league, away_team)
+
+                            fixtures.append({
+                                "home_team": norm_home,
+                                "away_team": norm_away,
+                                "kickoff_utc": match_date[:10] if match_date else "",
+                                "league": league
+                            })
+                    except (json.JSONDecodeError, KeyError):
+                        continue  # Skip malformed lines
+        except Exception as e:
+            raise SourceNoData(f"flashscore_fixtures: failed to parse {latest_file}: {e}")
+
+        if not fixtures:
+            raise SourceNoData(f"flashscore_fixtures: no fixtures found for {league}")
+
+        return {"fixtures": fixtures, "source": "flashscore_fixtures"}
+
+
+class LiveScoreFixturesSource(DataSource):
+    """LiveScore fixtures — HTTP scrapes LiveScore for fixture data.
+
+    Scrapes LiveScore.com for upcoming football fixtures across mapped leagues.
+    Implements HR35: returns SourceNoData if data cannot be reliably extracted.
+    Priority 9 — secondary to FlashScore.
+    """
+
+    def __init__(self):
+        super().__init__("livescore_fixtures", priority=9, timeout=15.0)
+        self.BASE_URL = "https://www.livescore.com"
+        # League mapping would normally come from config, but we'll use a fallback
+        self.LEAGUE_MAPPING = {
+            "Premier League": "england/premier-league",
+            "La Liga": "spain/la-liga",
+            "Serie A": "italy/serie-a",
+            "Bundesliga": "germany/bundesliga",
+            "Ligue 1": "france/ligue-1",
+            "Eredivisie": "netherlands/eredivisie",
+            "Primeira Liga": "portugal/primeira-liga",
+            "Championship": "england/championship",
+        }
+
+    def fetch(self, **kwargs) -> dict:
+        league = kwargs["league"]
+        fixtures_season = kwargs.get("fixtures_season") or kwargs.get("season")
+        days_ahead = kwargs.get("days_ahead", 14)
+        from datetime import date, timedelta
+        from data.multi_source import SourceNoData
+
+        # Check if we can handle this league
+        if league not in self.LEAGUE_MAPPING:
+            # For now, only support major European leagues
+            raise SourceNoData(f"livescore_fixtures: league {league} not supported")
+
+        try:
+            import requests
+            from bs4 import BeautifulSoup
+            import re
+        except ImportError:
+            raise SourceNoData("livescore_fixtures: required packages (requests, beautifulsoup4) not available")
+
+        # Build URL for the league's fixtures page
+        league_slug = self.LEAGUE_MAPPING[league]
+        url = f"{self.BASE_URL}/{league_slug}/fixtures/"
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+
+        try:
+            resp = requests.get(url, headers=headers, timeout=self.timeout)
+            resp.raise_for_status()
+        except Exception as e:
+            raise SourceNoData(f"livescore_fixtures: failed to fetch {url}: {e}")
+
+        # Parse HTML for fixtures
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        fixtures = []
+
+        # Look for match containers - LiveScore uses specific classes
+        # This selector may need adjustment based on actual HTML structure
+        match_elements = soup.find_all('div', class_=re.compile(r'match|fixture|game'))
+
+        for elem in match_elements:
+            try:
+                # Extract team names and date from the element
+                # This is a simplified extractor - real implementation would be more robust
+                team_elements = elem.find_all(['span', 'div'], class_=re.compile(r'team|name'))
+                if len(team_elements) >= 2:
+                    home_team = team_elements[0].get_text(strip=True)
+                    away_team = team_elements[1].get_text(strip=True)
+
+                    # Look for date/time
+                    date_elem = elem.find(['span', 'div'], class_=re.compile(r'date|time'))
+                    match_date = date_elem.get_text(strip=True) if date_elem else ""
+
+                    if home_team and away_team:
+                        # Basic validation - skip if looks like advertising or navigation
+                        if len(home_team) > 2 and len(away_team) > 2 and \
+                           not any(skip in home_team.lower() for skip in ['vs', 'v', 'live', 'score']) and \
+                           not any(skip in away_team.lower() for skip in ['vs', 'v', 'live', 'score']):
+
+                            from data.thesportsdb_fixtures import map_team
+                            norm_home = map_team(league, home_team)
+                            norm_away = map_team(league, away_team)
+
+                            fixtures.append({
+                                "home_team": norm_home,
+                                "away_team": norm_away,
+                                "kickoff_utc": match_date[:10] if match_date else "",
+                                "league": league
+                            })
+            except Exception:
+                continue  # Skip malformed elements
+
+        if not fixtures:
+            raise SourceNoData(f"livescore_fixtures: no fixtures found for {league}")
+
+        return {"fixtures": fixtures, "source": "livescore_fixtures"}
+
+
+class BBCSportFixturesSource(DataSource):
+    """BBC Sport fixtures — HTTP scrapes BBC Sport with sibling traversal fix.
+
+    Scrapes BBC Sport football scores-fixtures page for fixture data.
+    Implements the sibling traversal fix observed in debug_bbc.py to correctly
+    extract team names from the HTML structure.
+    Priority 10 — tertiary source.
+    """
+
+    def __init__(self):
+        super().__init__("bbc_sport_fixtures", priority=10, timeout=15.0)
+        self.BASE_URL = "https://www.bbc.com/sport/football/scores-fixtures"
+
+    def fetch(self, **kwargs) -> dict:
+        league = kwargs["league"]
+        fixtures_season = kwargs.get("fixtures_season") or kwargs.get("season")
+        days_ahead = kwargs.get("days_ahead", 14)
+        from datetime import date, datetime, timedelta
+        from data.multi_source import SourceNoData
+
+        try:
+            import requests
+            from bs4 import BeautifulSoup
+            import re
+        except ImportError:
+            raise SourceNoData("bbc_sport_fixtures: required packages (requests, beautifulsoup4) not available")
+
+        # Format date for BBC URL (they use YYYY/MM/DD format)
+        target_date = date.today() + timedelta(days=days_ahead)
+        date_str = target_date.strftime("%Y/%m/%d")
+        url = f"{self.BASE_URL}/{date_str}/"
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+
+        try:
+            resp = requests.get(url, headers=headers, timeout=self.timeout)
+            resp.raise_for_status()
+        except Exception as e:
+            # Try without specific date (general fixtures page)
+            try:
+                url = f"{self.BASE_URL}/"
+                resp = requests.get(url, headers=headers, timeout=self.timeout)
+                resp.raise_for_status()
+            except Exception as e2:
+                raise SourceNoData(f"bbc_sport_fixtures: failed to fetch BBC Sport: {e} / {e2}")
+
+        # Parse HTML for fixtures using the sibling traversal technique from debug_bbc.py
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        fixtures = []
+
+        # Look for match containers using BBC-specific selector
+        match_containers = soup.find_all("div", class_=re.compile(r"ssrcss-.*-MatchProgressContainer"))
+
+        for container in match_containers:
+            try:
+                # Use the sibling traversal fix: look for team names as previous siblings
+                # of the MatchProgressContainer
+                team_elements = container.find_previous_siblings(
+                    ["span", "div", "h2", "h3"],
+                    limit=4,  # Look at a few previous siblings
+                    string=re.compile(r".+")  # Non-empty text
+                )
+
+                # Extract text from team elements
+                team_texts = [elem.get_text(strip=True) for elem in team_elements if elem.get_text(strip=True)]
+
+                # Look for two team names (typically the last two meaningful text elements)
+                if len(team_texts) >= 2:
+                    # Take the last two non-empty, non-numeric-looking texts as teams
+                    potential_teams = [t for t in team_texts if not t.isdigit() and len(t) > 1 and
+                                     not any(skip in t.lower() for skip in ['vs', 'v', 'live', 'score', 'ft', 'ht'])]
+
+                    if len(potential_teams) >= 2:
+                        home_team = potential_teams[-2]  # Second to last
+                        away_team = potential_teams[-1]   # Last
+
+                        # Additional validation
+                        if len(home_team) > 1 and len(away_team) > 1:
+                            from data.thesportsdb_fixtures import map_team
+                            norm_home = map_team(league, home_team)
+                            norm_away = map_team(league, away_team)
+
+                            # Extract date if possible
+                            date_elem = container.find_previous_sibling(
+                                ["span", "div", "time"],
+                                string=re.compile(r"\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4}|\w{3} \d{1,2},? \d{4}")
+                            )
+                            match_date = date_elem.get_text(strip=True) if date_elem else target_date.isoformat()
+
+                            fixtures.append({
+                                "home_team": norm_home,
+                                "away_team": norm_away,
+                                "kickoff_utc": match_date[:10] if match_date else target_date.isoformat()[:10],
+                                "league": league
+                            })
+            except Exception:
+                continue  # Skip malformed containers
+
+        # If no fixtures found with the above method, try a fallback approach
+        if not fixtures:
+            # Fallback: look for any elements with team-like text near match containers
+            all_text = soup.get_text()
+            lines = [line.strip() for line in all_text.split('\n') if line.strip()]
+
+            # Look for lines that look like "Team A - Team B" or "Team A v Team B"
+            for line in lines:
+                if (' - ' in line or ' v ' in line or ' VS ' in line.upper()) and len(line) < 100:
+                    parts = re.split(r'\s[-v]\s|\sVS\s', line, flags=re.IGNORECASE)
+                    if len(parts) == 2:
+                        home_team, away_team = parts[0].strip(), parts[1].strip()
+                        if len(home_team) > 1 and len(away_team) > 1 and \
+                           not any(skip in home_team.lower() for skip in ['date', 'time', 'live', 'score']) and \
+                           not any(skip in away_team.lower() for skip in ['date', 'time', 'live', 'score']):
+                            from data.thesportsdb_fixtures import map_team
+                            norm_home = map_team(league, home_team)
+                            norm_away = map_team(league, away_team)
+
+                            fixtures.append({
+                                "home_team": norm_home,
+                                "away_team": norm_away,
+                                "kickoff_utc": target_date.isoformat()[:10],
+                                "league": league
+                            })
+
+        if not fixtures:
+            raise SourceNoData(f"bbc_sport_fixtures: no fixtures found for {league}")
+
+        return {"fixtures": fixtures, "source": "bbc_sport_fixtures"}
+
+
+class SportingLifeFixturesSource(DataSource):
+    """Sporting Life fixtures — HTTP scrapes Sporting Life for fixture data.
+
+    Scrapes Sporting Life website for upcoming football fixtures.
+    Implements HR35: returns SourceNoData if data cannot be reliably extracted.
+    Priority 11 — lower priority source.
+    """
+
+    def __init__(self):
+        super().__init__("sporting_life_fixtures", priority=11, timeout=15.0)
+        self.BASE_URL = "https://www.sportinglife.com"
+        self.LEAGUE_PATHS = {
+            "Premier League": "/football/premier-league/fixtures",
+            "La Liga": "/football/la-liga/fixtures",
+            "Serie A": "/football/serie-a/fixtures",
+            "Bundesliga": "/football/bundesliga/fixtures",
+            "Ligue 1": "/football/ligue-1/fixtures",
+        }
+
+    def fetch(self, **kwargs) -> dict:
+        league = kwargs["league"]
+        fixtures_season = kwargs.get("fixtures_season") or kwargs.get("season")
+        days_ahead = kwargs.get("days_ahead", 14)
+        from datetime import date, timedelta
+        from data.multi_source import SourceNoData
+
+        # Check if we support this league
+        if league not in self.LEAGUE_PATHS:
+            raise SourceNoData(f"sporting_life_fixtures: league {league} not supported")
+
+        try:
+            import requests
+            from bs4 import BeautifulSoup
+            import re
+        except ImportError:
+            raise SourceNoData("sporting_life_fixtures: required packages (requests, beautifulsoup4) not available")
+
+        # Build URL for the league's fixtures page
+        url = f"{self.BASE_URL}{self.LEAGUE_PATHS[league]}"
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+
+        try:
+            resp = requests.get(url, headers=headers, timeout=self.timeout)
+            resp.raise_for_status()
+        except Exception as e:
+            raise SourceNoData(f"sporting_life_fixtures: failed to fetch {url}: {e}")
+
+        # Parse HTML for fixtures
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        fixtures = []
+
+        # Look for match containers - common patterns
+        match_selectors = [
+            'div[class*="match"]',
+            'div[class*="fixture"]',
+            'tr[class*="match"]',
+            'tr[class*="fixture"]',
+            'li[class*="match"]',
+            'li[class*="fixture"]'
+        ]
+
+        match_elements = []
+        for selector in match_selectors:
+            elements = soup.select(selector)
+            match_elements.extend(elements)
+
+        for elem in match_elements:
+            try:
+                # Extract text content and look for team patterns
+                text_content = elem.get_text(separator=' ', strip=True)
+
+                # Look for patterns like "Team A vs Team B" or "Team A - Team B"
+                match_patterns = [
+                    r'([^-\n]+?)\s+vs\s+([^-\n]+)',
+                    r'([^-\n]+?)\s+-\s+([^-\n]+)',
+                    r'([^-\n]+?)\s+v\s+([^-\n]+)'
+                ]
+
+                for pattern in match_patterns:
+                    match = re.search(pattern, text_content, re.IGNORECASE)
+                    if match:
+                        home_team = match.group(1).strip()
+                        away_team = match.group(2).strip()
+
+                        # Validate team names
+                        if len(home_team) > 1 and len(away_team) > 1 and \
+                           not any(skip in home_team.lower() for skip in ['vs', 'v', 'live', 'score', 'date', 'time']) and \
+                           not any(skip in away_team.lower() for skip in ['vs', 'v', 'live', 'score', 'date', 'time']):
+
+                            from data.thesportsdb_fixtures import map_team
+                            norm_home = map_team(league, home_team)
+                            norm_away = map_team(league, away_team)
+
+                            # Try to extract date from nearby elements
+                            date_elem = elem.find_previous_sibling(['span', 'div', 'time'],
+                                                                   string=re.compile(r'\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4}|\w{3} \d{1,2}'))
+                            match_date = date_elem.get_text(strip=True) if date_elem else date.today().isoformat()
+
+                            fixtures.append({
+                                "home_team": norm_home,
+                                "away_team": norm_away,
+                                "kickoff_utc": match_date[:10] if match_date else date.today().isoformat()[:10],
+                                "league": league
+                            })
+                        break  # Found a match, no need to check other patterns
+            except Exception:
+                continue  # Skip malformed elements
+
+        if not fixtures:
+            raise SourceNoData(f"sporting_life_fixtures: no fixtures found for {league}")
+
+        return {"fixtures": fixtures, "source": "sporting_life_fixtures"}

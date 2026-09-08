@@ -64,6 +64,13 @@ from monitor import alert_dispatcher  # noqa: E402
 # later probe can hit the half-loaded state.
 from data.multi_source import SourceNoData  # noqa: E402,F401  (force full load)
 
+# Import knowledge persistence for monitoring integration
+try:
+    from knowledge_persistence import get_knowledge_persistence
+    KNOWLEDGE_PERSISTENCE_AVAILABLE = True
+except ImportError:
+    KNOWLEDGE_PERSISTENCE_AVAILABLE = False
+
 # MCP connectivity sentinel (best-effort, non-blocking)
 def probe_mcp() -> ProbeResult:
     """10. MCP connectivity — are configured MCP servers reachable/authenticated?
@@ -543,6 +550,49 @@ def run_check(state_path: Path = DEFAULT_STATE, alert: bool = True,
         state[f"{r.name}_at"] = int(prev_at) if (prev == key and prev_at) else int(now)
 
     _save_state(state_path, state)
+
+    # Generate knowledge about health check results
+    if KNOWLEDGE_PERSISTENCE_AVAILABLE:
+        try:
+            kp = get_knowledge_persistence()
+            ok_count = len([r for r in results if r.is_fine()])
+            total_count = len(results)
+            health_percentage = (ok_count / total_count * 100) if total_count > 0 else 0
+
+            # Determine overall health status
+            if ok_count == total_count:
+                health_status = "HEALTHY"
+            elif ok_count >= total_count * 0.8:
+                health_status = "WARNING"
+            else:
+                health_status = "CRITICAL"
+
+            # Add observation about health check
+            add_observation(
+                title=f"Health Monitor Check - {datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M')}",
+                content=f"Health monitor check completed: {ok_count}/{total_count} probes OK ({health_percentage:.1f}%). Status: {health_status}. Changes detected: {len(changed)}.",
+                knowledge_type="observation",
+                source="health_monitor",
+                tags={"health", "monitor", "check", datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')},
+                confidence=0.9
+            )
+
+            # Add facts for any critical or warning probes
+            for r in results:
+                if r.level in ["crit", "warn"]:
+                    add_fact(
+                        title=f"Health Alert: {r.name} - {r.level.upper()}",
+                        content=f"Health monitor detected {r.level} issue in {r.name}: {r.message}",
+                        knowledge_type="fact",
+                        source="health_monitor_alert",
+                        tags={"health", "alert", r.name, r.level, datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')},
+                        confidence=0.85
+                    )
+
+            kp.close()
+        except Exception:
+            # Don't let knowledge generation break the health monitor
+            pass
 
     alerted = False
     if changed and alert:

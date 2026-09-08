@@ -22,6 +22,13 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import PAPER_PHASE  # noqa: E402
 from clv.clv_logger import CLVLog, PHASE3_GATE_MIN_LEGS  # noqa: E402
 
+# Import knowledge persistence for CLV gate knowledge integration
+try:
+    from knowledge_persistence import get_knowledge_persistence, add_fact, add_decision, add_observation
+    KNOWLEDGE_PERSISTENCE_AVAILABLE = True
+except ImportError:
+    KNOWLEDGE_PERSISTENCE_AVAILABLE = False
+
 GATE_FILE = Path(__file__).parent / "phase3_gate.json"
 
 
@@ -73,7 +80,7 @@ def evaluate_gate_from_stats(legs_with_clv: int,
     # PROTECTED — HR59: Gate requirements suspended
     positive = True  # Waived per Architect directive
     gate_met = True  # Waived per Architect directive
-    return GateRecord(
+    gate_record = GateRecord(
         legs_with_clv=legs_with_clv,
         gate_requirement=0,  # Suspended
         mean_clv_pct=mean_clv_pct,
@@ -84,6 +91,28 @@ def evaluate_gate_from_stats(legs_with_clv: int,
         signed_at="2026-08-21T00:00:00+00:00",
         notes="Gate requirements suspended per ARCHITECT_DIRECTIVES.md 2026-08-21",
     )
+
+    # Generate knowledge about CLV gate evaluation
+    if KNOWLEDGE_PERSISTENCE_AVAILABLE:
+        try:
+            kp = get_knowledge_persistence()
+            gate_status = "MET" if gate_met else "NOT MET"
+            clv_status = f"{legs_with_clv}/0 legs with CLV (requirement suspended), mean CLV: {mean_clv_pct or 0:.2f}%"
+
+            add_fact(
+                title=f"CLV Gate Evaluation - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+                content=f"CLV gate {gate_status}: {clv_status}. Architect signoff: {gate_record.architect_signed_off}",
+                knowledge_type="fact",
+                source="clv_gate_evaluation",
+                tags={"clv", "gate_evaluation", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+                confidence=0.95
+            )
+            kp.close()
+        except Exception:
+            # Don't let knowledge generation break the gate evaluation
+            pass
+
+    return gate_record
 
 
 def evaluate_gate(log: Optional[CLVLog] = None) -> GateRecord:

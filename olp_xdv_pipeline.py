@@ -52,6 +52,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 import argparse
+from knowledge_persistence import get_knowledge_persistence, add_observation, add_decision, add_fact, add_process
 import os
 import sys
 import time
@@ -1322,6 +1323,129 @@ AGENT_FUNCS = {
 }
 
 
+def _capture_scan_knowledge(state: PipelineState, payload: dict) -> None:
+    """Capture knowledge after SCAN stage (Agent 1 completion)."""
+    try:
+        kp = get_knowledge_persistence()
+        raw_count = payload.get("raw_count", 0)
+        data_flags = payload.get("data_flags", [])
+
+        # Extract leagues from fixtures if available
+        leagues = set()
+        if "fixtures" in payload:
+            leagues = {fx.get("league", "unknown") for fx in payload["fixtures"] if fx.get("league")}
+
+        league_list = ", ".join(sorted(leagues)) if leagues else "unknown"
+        flag_summary = "; ".join(data_flags[:3]) if data_flags else "no issues"
+
+        add_observation(
+            title=f"SCAN Results - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+            content=f"Scanned {len(leagues)} leagues ({league_list}), found {raw_count} fixtures. Data flags: {flag_summary}",
+            knowledge_type="observation",
+            source="pipeline_scan",
+            tags={"scan", "daily_pipeline", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+            confidence=0.9
+        )
+        kp.close()
+    except Exception as e:
+        # Don't let knowledge capture break the pipeline
+        logging.debug(f"Failed to capture SCAN knowledge: {e}")
+
+
+def _capture_trigger_knowledge(state: PipelineState, payload: dict) -> None:
+    """Capture knowledge after TRIGGER stage (Agent 5 completion - bet composition)."""
+    try:
+        kp = get_knowledge_persistence()
+        computed_count = payload.get("computed_count", 0)
+        deadlocked = payload.get("deadlocked_fixtures", [])
+        data_flags = payload.get("data_flags", [])
+
+        # Count selections by type
+        acca_a_count = 0
+        split_accas_count = 0
+        single_count = 0
+
+        if "fixture_reports" in payload:
+            for report in payload["fixture_reports"].values():
+                selections = report.get("selections", [])
+                acca_a_count += len([s for s in selections if s.get("rating_source") not in ["dry_run", "manual"] and s.get("market") in ["Match Odds", "1X2"]])
+                split_accas_count += len([s for s in selections if s.get("rating_source") not in ["dry_run", "manual"] and s.get("market") not in ["Match Odds", "1X2"]])
+                single_count += len([s for s in selections if s.get("rating_source") in ["dry_run", "manual"]])
+
+        flag_summary = "; ".join(data_flags[:3]) if data_flags else "no issues"
+        deadlock_info = f", {len(deadlocked)} deadlocked" if deadlocked else ""
+
+        add_decision(
+            title=f"Bet Composition Decision - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+            content=f"Selected {acca_a_count} Acca A legs, {split_accas_count} split accas, {single_count} singles from {computed_count} computed fixtures{deadlock_info}. Data flags: {flag_summary}",
+            knowledge_type="decision",
+            source="pipeline_trigger",
+            tags={"trigger", "bet_decision", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+            confidence=0.85
+        )
+        kp.close()
+    except Exception as e:
+        # Don't let knowledge capture break the pipeline
+        logging.debug(f"Failed to capture TRIGGER knowledge: {e}")
+
+
+def _capture_clv_gate_knowledge(state: PipelineState, payload: dict) -> None:
+    """Capture knowledge after CLV GATE evaluation (Agent 7 completion)."""
+    try:
+        kp = get_knowledge_persistence()
+        compliance_inp = state.payloads.get(7, {}) if state.payloads else {}
+        gate_data = compliance_inp.get("clv_gate", {}) if compliance_inp else {}
+
+        gate_met = gate_data.get("gate_met", False)
+        legs_with_clv = gate_data.get("legs_with_clv", 0)
+        mean_clv_pct = gate_data.get("mean_clv_pct", 0.0)
+        architect_signoff = gate_data.get("architect_signoff", 0)
+
+        gate_status = "MET" if gate_met else "NOT MET"
+        override_used = bool((not gate_met) and architect_signoff)
+
+        add_fact(
+            title=f"CLV Gate Evaluation - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+            content=f"CLV gate {gate_status}: {legs_with_clv}/30 legs with CLV, mean CLV: {mean_clv_pct:.2f}%. Architect signoff: {architect_signoff}, override used: {override_used}",
+            knowledge_type="fact",
+            source="pipeline_clv_gate",
+            tags={"clv", "gate_evaluation", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+            confidence=0.95
+        )
+        kp.close()
+    except Exception as e:
+        # Don't let knowledge capture break the pipeline
+        logging.debug(f"Failed to capture CLV GATE knowledge: {e}")
+
+
+def _capture_publish_knowledge(state: PipelineState, payload: dict) -> None:
+    """Capture knowledge after PUBLISH stage (Agent 10 completion)."""
+    try:
+        kp = get_knowledge_persistence()
+        executive_summary = payload.get("executive_summary", {}) if payload else {}
+        publish_gate = payload.get("publish_gate", {}) if payload else {}
+        risk_summary = payload.get("risk_summary", {}) if payload else {}
+
+        fixtures_scanned = executive_summary.get("fixtures_scanned", 0)
+        fixtures_approved = executive_summary.get("fixtures_approved", 0)
+        dockets_generated = executive_summary.get("dockets_generated", 0)
+        publish_status = publish_gate.get("result", "UNKNOWN")
+        total_stake = risk_summary.get("total_stake_fraction", 0.0)
+
+        add_process(
+            title=f"Publication Process - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+            content=f"Pipeline processed {fixtures_scanned} fixtures, approved {fixtures_approved}, generated {dockets_generated} dockets. Publish status: {publish_status}. Total stake: {total_stake:.2%}",
+            knowledge_type="process",
+            source="pipeline_publish",
+            tags={"publish", "daily_pipeline", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+            confidence=0.9
+        )
+        kp.close()
+    except Exception as e:
+        # Don't let knowledge capture break the pipeline
+        logging.debug(f"Failed to capture PUBLISH knowledge: {e}")
+
+
 def _run_pipeline_internal(season: str, fixtures_season: str, dry_run: bool,
                            only: Optional[int] = None,
                            date_str: Optional[str] = None) -> PipelineState:
@@ -1332,6 +1456,17 @@ def _run_pipeline_internal(season: str, fixtures_season: str, dry_run: bool,
         try:
             payload = AGENT_FUNCS[agent_id](state)
             state.stamp(agent_id, payload)
+
+            # Capture knowledge after key pipeline stages
+            if agent_id == 1:  # After SCAN (Agent 1)
+                _capture_scan_knowledge(state, payload)
+            elif agent_id == 5:  # After TRIGGER (Agent 5 - bet composition)
+                _capture_trigger_knowledge(state, payload)
+            elif agent_id == 7:  # After CLV GATE (Agent 7)
+                _capture_clv_gate_knowledge(state, payload)
+            elif agent_id == 10:  # After PUBLISH (Agent 10)
+                _capture_publish_knowledge(state, payload)
+
             # Halts: Agent 7 slow-data / Agent 1 ingest failure stop the chain.
             if agent_id == 1 and state.halted:
                 break

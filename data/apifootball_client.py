@@ -29,7 +29,7 @@ from typing import Optional
 import requests
 
 API_FOOTBALL_BASE = "https://v3.football.api-sports.io"
-API_KEY_ENV_VAR = "APIFOOTBALL_KEY"  # set in environment; never hardcode the key
+API_KEY_ENV_VAR = "API__API_FOOTBALL_KEY"  # set in environment; never hardcode the key
 API_KEY_ENV_VAR_ALT = "API_FOOTBALL_KEY"  # alternative name used in some .env files
 
 # Fill these in once you've confirmed the real IDs against your own key --
@@ -164,6 +164,125 @@ class APIFootballClient:
         data = self._get("/odds", {"fixture": fixture_id})
         response = data.get("response", [])
         return response[0] if response else None
+
+    def get_odds_all(self, fixture_id: str) -> list:
+        """Return all bookmakers' odds for a fixture as a list.
+        Returns empty list if no odds are available."""
+        data = self._get("/odds", {"fixture": fixture_id})
+        return data.get("response", [])
+
+    def get_odds_for_date(self, date: str, league_id: Optional[int] = None, limit: Optional[int] = None) -> List[Dict]:
+        """Get odds for all fixtures on a given date.
+
+        Args:
+            date: 'YYYY-MM-DD' format
+            league_id: Optional league ID to filter by (if None, gets fixtures for all leagues)
+            limit: Optional maximum number of fixtures to process (for rate limiting)
+
+        Returns:
+            List of dictionaries containing fixture and odds data
+        """
+        # Get fixtures for the date
+        # Note: API-Football allows getting fixtures by date alone (without league_id and season)
+        fixtures = self.get_fixtures(date=date)
+
+        # Apply limit if specified
+        if limit is not None:
+            fixtures = fixtures[:limit]
+
+        odds_data = []
+        for i, fixture in enumerate(fixtures):
+            # Add a delay between requests to avoid rate limiting
+            # (except for the first fixture)
+            if i > 0:
+                time.sleep(1)  # 1 second delay between odds requests
+
+            # Get odds for each fixture
+            odds_list = self.get_odds_all(fixture.fixture_id)
+
+            if odds_list:
+                # Process each bookmaker's odds
+                for bookmaker_odds in odds_list:
+                    # Extract relevant odds information
+                    # API-Football odds structure varies by market type
+                    # Common markets: Match Winner (1X2), Over/Under, BTTS, etc.
+
+                    # For simplicity, we'll extract the main match odds (1X2 market)
+                    # In a full implementation, you'd parse all available markets
+
+                    odds_record = {
+                        'fixture_id': fixture.fixture_id,
+                        'home_team': fixture.home,
+                        'away_team': fixture.away,
+                        'match_date': fixture.kickoff_utc.split('T')[0] if 'T' in fixture.kickoff_utc else fixture.kickoff_utc,
+                        'market_type': '1X2',  # Default to match winner
+                        'bookmaker': bookmaker_odds.get('bookmakers', [{}])[0].get('name', 'Unknown') if bookmaker_odds.get('bookmakers') else 'API-Football',
+                        'odds_value': self._extract_main_odds(bookmaker_odds),
+                        'odds_type': 'decimal',
+                        'league': fixture.league,
+                        'fixture': f"{fixture.home} vs {fixture.away}"
+                    }
+
+                    if odds_record['odds_value'] is not None:
+                        odds_data.append(odds_record)
+
+        return odds_data
+
+    def _extract_main_odds(self, odds_data: dict) -> Optional[float]:
+        """Extract main match odds (1X2) from API-Football odds response.
+
+        This is a simplified extraction - in production you'd want to handle
+        all market types properly.
+        """
+        try:
+            # API-Football odds structure:
+            # {
+            #   "bookmakers": [
+            #     {
+            #       "id": 3,
+            #       "name": "Bet365",
+            #       "bets": [
+            #         {
+            #           "id": 1,
+            #           "name": "Match Winner",
+            #           "values": [
+            #             {"value": "2.10"},  # Home win
+            #             {"value": "3.40"},  # Draw
+            #             {"value": "3.50"}   # Away win
+            #           ]
+            #         }
+            #       ]
+            #     }
+            #   ]
+            # }
+
+            bookmakers = odds_data.get('bookmakers', [])
+            if not bookmakers:
+                return None
+
+            # Use first bookmaker for simplicity
+            first_bookmaker = bookmakers[0]
+            bets = first_bookmaker.get('bets', [])
+
+            # Look for Match Winner bet (usually ID 1)
+            for bet in bets:
+                if bet.get('name') == 'Match Winner' or bet.get('id') == 1:
+                    values = bet.get('values', [])
+                    if len(values) >= 3:
+                        # Return home win odds as representative value
+                        # In practice, you might want to store all three
+                        return float(values[0].get('value', 0)) if values[0].get('value') else None
+
+            # If no Match Winner found, try first available bet
+            if bets:
+                values = bets[0].get('values', [])
+                if values:
+                    return float(values[0].get('value', 0)) if values[0].get('value') else None
+
+        except (ValueError, TypeError, KeyError, IndexError):
+            pass
+
+        return None
 
     def get_live_odds(self, fixture_id: str) -> Optional[dict]:
         data = self._get("/odds/live", {"fixture": fixture_id})

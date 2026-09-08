@@ -181,6 +181,97 @@ class Brain:
         self._create_tables()
         self._migrate()
 
+    def store_odds_snapshot(self, fixture_key: tuple, market_type: str, bookmaker: str,
+                           odds_value: float, odds_type: str, source: str,
+                           timestamp: Optional[str] = None) -> None:
+        """Store an odds snapshot for continuous availability.
+
+        Args:
+            fixture_key: Tuple of (normalized_home, normalized_away, date)
+            market_type: Type of market (e.g., '1X2', 'OverUnder2.5')
+            bookmaker: Bookmaker name
+            odds_value: Odds value (decimal format)
+            odds_type: Type of odds ('decimal', 'american', 'fractional')
+            source: Data source identifier
+            timestamp: ISO timestamp when odds were captured (defaults to now)
+        """
+        if timestamp is None:
+            timestamp = _now()
+
+        retrieved_at = _now()
+
+        # Create fixture key string for storage
+        fixture_key_str = f"{fixture_key[0]}|{fixture_key[1]}|{fixture_key[2]}"
+
+        with self._conn:
+            self._conn.execute(
+                """INSERT OR REPLACE INTO odds_history
+                   (fixture_key, market_type, bookmaker, odds_value, odds_type,
+                    source, timestamp, retrieved_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                (fixture_key_str, market_type, bookmaker, odds_value,
+                 odds_type, source, timestamp, retrieved_at)
+            )
+
+    def get_latest_odds(self, fixture_key: tuple, market_type: str = None,
+                       bookmaker: str = None) -> Optional[Dict]:
+        """Get the latest odds for a fixture.
+
+        Args:
+            fixture_key: Tuple of (normalized_home, normalized_away, date)
+            market_type: Filter by market type (optional)
+            bookmaker: Filter by bookmaker (optional)
+
+        Returns:
+            Dictionary with odds data or None if not found
+        """
+        fixture_key_str = f"{fixture_key[0]}|{fixture_key[1]}|{fixture_key[2]}"
+
+        sql = """SELECT * FROM odds_history
+                 WHERE fixture_key = ?"""
+        params = [fixture_key_str]
+
+        if market_type:
+            sql += " AND market_type = ?"
+            params.append(market_type)
+
+        if bookmaker:
+            sql += " AND bookmaker = ?"
+            params.append(bookmaker)
+
+        sql += " ORDER BY timestamp DESC LIMIT 1"
+
+        row = self._conn.execute(sql, params).fetchone()
+        return dict(row) if row else None
+
+    def get_odds_history(self, fixture_key: tuple, market_type: str = None,
+                        limit: int = 100) -> List[Dict]:
+        """Get historical odds for a fixture.
+
+        Args:
+            fixture_key: Tuple of (normalized_home, normalized_away, date)
+            market_type: Filter by market type (optional)
+            limit: Maximum number of records to return
+
+        Returns:
+            List of dictionaries with odds data
+        """
+        fixture_key_str = f"{fixture_key[0]}|{fixture_key[1]}|{fixture_key[2]}"
+
+        sql = """SELECT * FROM odds_history
+                 WHERE fixture_key = ?"""
+        params = [fixture_key_str]
+
+        if market_type:
+            sql += " AND market_type = ?"
+            params.append(market_type)
+
+        sql += " ORDER BY timestamp DESC LIMIT ?"
+        params.append(limit)
+
+        rows = self._conn.execute(sql, params).fetchall()
+        return [dict(r) for r in rows]
+
     def close(self) -> None:
         self._conn.close()
 
@@ -233,6 +324,46 @@ class Brain:
                 " closing_capture_path TEXT, clv_pct REAL, ft_result TEXT, "
                 " hit INTEGER, stake REAL, phase TEXT NOT NULL, notes TEXT, "
                 " source_file TEXT NOT NULL, synced_at TEXT NOT NULL)")
+
+            # Create odds storage table for continuous odds collection
+            self._conn.execute("DROP TABLE IF EXISTS odds_history")
+            self._conn.execute(
+                "CREATE TABLE IF NOT EXISTS odds_history ("
+                " id INTEGER PRIMARY KEY, "
+                " fixture_key TEXT NOT NULL, "  # fixture identifier (home|away|date) "
+                " market_type TEXT NOT NULL, "  # market type (e.g., '1X2', 'OverUnder2.5') "
+                " outcome TEXT NOT NULL, "      # e.g., 'Home', 'Draw', 'Away', 'Over 2.5', 'Under 2.5'
+                " bookmaker TEXT NOT NULL, "  # bookmaker name "
+                " odds_value REAL NOT NULL, "  # decimal odds value "
+                " odds_type TEXT NOT NULL, "  # 'decimal', 'american', 'fractional' "
+                " source TEXT NOT NULL, "  # data source identifier "
+                " timestamp TEXT NOT NULL, "  # capture timestamp "
+                " retrieved_at TEXT NOT NULL "  # storage timestamp "
+                ")")
+
+            # Create indexes for better query performance
+            self._conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_odds_fixture_key "
+                "ON odds_history(fixture_key)")
+            self._conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_odds_timestamp "
+                "ON odds_history(timestamp)")
+            self._conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_odds_retrieved_at "
+                "ON odds_history(retrieved_at)")
+            self._conn.execute(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_odds_unique "
+                "ON odds_history(fixture_key, market_type, outcome, bookmaker, odds_type, timestamp)")
+
+            self._conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_odds_fixture_key "
+                "ON odds_history(fixture_key)")
+            self._conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_odds_timestamp "
+                "ON odds_history(timestamp)")
+            self._conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_odds_retrieved_at "
+                "ON odds_history(retrieved_at)")
             self._conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_legs_league ON legs(league)")
             self._conn.execute(

@@ -21,7 +21,7 @@ import sys
 import json
 import re
 import argparse
-from datetime import date, datetime
+from datetime import date, datetime, UTC
 from pathlib import Path
 from typing import List, Dict, Optional
 
@@ -624,7 +624,7 @@ def print_fixtures(today: str, all_rows: List[Dict]) -> None:
                 odds = f"  | 1X2: {r['odds_1']}/{r['odds_x']}/{r['odds_2']}"
             # Provenance stamp
             src = r.get("source", "?")
-            fetch_time = r.get("fetched_at", datetime.utcnow().isoformat() + "Z")
+            fetch_time = r.get("fetched_at", datetime.now(UTC).isoformat() + "Z")
             verified = "verified" if r.get("verified", False) else "UNVERIFIED"
             prov = f"  [{src} | {fetch_time[:19]} | {verified}]"
             print(f"    {kickoff}  {home} vs {away}{odds}{prov}")
@@ -672,7 +672,7 @@ def main(target_date: Optional[str] = None, verify_only: bool = False):
     print()
 
     all_rows: List[Dict] = []
-    fetch_time = datetime.utcnow().isoformat() + "Z"
+    fetch_time = datetime.now(UTC).isoformat() + "Z"
 
     # 1. FlashScore (PRIMARY - always first per Architect directive)
     print("  [1/4] FlashScore...")

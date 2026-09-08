@@ -681,6 +681,167 @@ class KnowledgePersistence:
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(report, f, indent=2, default=str)
 
+    def sync_knowledge_to_brain(self, knowledge_item: KnowledgeItem) -> None:
+        """Sync a knowledge item to Brain storage if it's model-related.
+
+        This creates a bidirectional link between the knowledge persistence
+        system and the Brain for model state synchronization.
+        """
+        # Only sync items that are likely to be useful for model state
+        model_related_tags = {'model_performance', 'dixon_coles', 'elo', 'xg',
+                             'clv', 'grading', 'prediction', 'forecast'}
+
+        if not knowledge_item.tags.intersection(model_related_tags):
+            return  # Not model-related, skip Brain sync
+
+        # Create a model key based on the knowledge item
+        tags_sorted = sorted(knowledge_item.tags)
+        model_key = f"knowledge_{knowledge_item.knowledge_type}_{'_'.join(tags_sorted[:3])}"
+
+        # Prepare payload for Brain storage
+        payload = {
+            'title': knowledge_item.title,
+            'content': knowledge_item.content,
+            'knowledge_type': knowledge_item.knowledge_type,
+            'source': knowledge_item.source,
+            'tags': list(knowledge_item.tags),
+            'created_at': knowledge_item.created_at.isoformat(),
+            'updated_at': knowledge_item.updated_at.isoformat(),
+            'confidence': knowledge_item.confidence,
+            'relevance_score': knowledge_item.relevance_score
+        }
+
+        # Store in Brain (upsert by model_key)
+        try:
+            self.brain.save_model_state(
+                model_key=model_key,
+                kind="knowledge_item",
+                version=1,
+                content_hash=hashlib.sha256(knowledge_item.content.encode()).hexdigest()[:16],
+                n_matches=1,  # Knowledge items aren't match-based, so use 1
+                last_date=knowledge_item.updated_at.date().isoformat(),
+                first_date=knowledge_item.created_at.date().isoformat(),
+                payload=payload
+            )
+        except Exception:
+            # Silently fail - Brain sync is best-effort
+            pass
+
+    def sync_brain_to_knowledge(self, model_key: str) -> Optional[KnowledgeItem]:
+        """Retrieve a model state from Brain and convert it to a knowledge item.
+
+        Args:
+            model_key: The Brain model key to retrieve
+
+        Returns:
+            KnowledgeItem if found and valid, None otherwise
+        """
+        try:
+            model_state = self.brain.load_model_state(model_key)
+            if not model_state:
+                return None
+
+            # Only convert if it's actually a knowledge item stored in Brain
+            if model_state.get('kind') != "knowledge_item":
+                return None
+
+            payload = model_state.get('payload', {})
+            if not payload:
+                return None
+
+            # Reconstruct knowledge item from Brain payload
+            tags = set(payload.get('tags', []))
+
+            knowledge_item = KnowledgeItem(
+                id=hashlib.sha256(f"{model_key}:{payload.get('title', '')}".encode()).hexdigest()[:16],
+                title=payload.get('title', 'Unknown Knowledge Item'),
+                content=payload.get('content', ''),
+                knowledge_type=payload.get('knowledge_type', 'fact'),
+                source=payload.get('source', 'brain_sync'),
+                tags=tags,
+                confidence=payload.get('confidence', 0.8),
+                relevance_score=payload.get('relevance_score', 0.5),
+                created_at=datetime.fromisoformat(payload.get('created_at', datetime.now().isoformat())),
+                updated_at=datetime.fromisoformat(payload.get('updated_at', datetime.now().isoformat()))
+            )
+
+            return knowledge_item
+        except Exception:
+            # Silently fail - Brain sync is best-effort
+            return None
+
+    def auto_sync_model_knowledge(self, model_key: str, kind: str, payload: dict) -> str:
+        """Automatically create and sync knowledge item when storing model state in Brain.
+
+        This is meant to be called from Brain.save_model_state to create
+        a corresponding knowledge item for broader accessibility.
+
+        Args:
+            model_key: The Brain model key
+            kind: The type of model (dixon_coles, elo, etc.)
+            payload: The model payload data
+
+        Returns:
+            The ID of the created knowledge item
+        """
+        # Extract useful information from payload to create a knowledge item
+        title_parts = [model_key.replace('_', ' ').title()]
+        if 'accuracy' in payload:
+            title_parts.append(f"Accuracy: {payload['accuracy']:.1%}")
+        if 'clv_correlation' in payload:
+            title_parts.append(f"CLV Correlation: {payload['clv_correlation']:.2f}")
+        if 'sample_size' in payload:
+            title_parts.append(f"Sample Size: {payload['sample_size']} matches")
+
+        title = " - ".join(title_parts)
+
+        content_parts = [
+            f"Model: {kind}",
+            f"Key: {model_key}",
+            f"Version: 1"
+        ]
+
+        if 'accuracy' in payload:
+            content_parts.append(f"- Accuracy: {payload['accuracy']:.1%}")
+        if 'clv_correlation' in payload:
+            content_parts.append(f"- CLV Correlation: {payload['clv_correlation']:.2f}")
+        if 'sample_size' in payload:
+            content_parts.append(f"- Sample Size: {payload['sample_size']} matches")
+        if 'period' in payload:
+            content_parts.append(f"- Period: {payload['period']}")
+
+        content = "\n".join(content_parts)
+
+        # Determine knowledge type based on content
+        if 'accuracy' in payload or 'performance' in str(payload).lower():
+            knowledge_type = "observation"
+        else:
+            knowledge_type = "fact"
+
+        # Create tags
+        tags = {kind, "model_performance", "brain_sync"}
+        if 'accuracy' in payload:
+            tags.add("model_accuracy")
+        if 'clv_correlation' in payload:
+            tags.add("clv_correlation")
+
+        # Add the knowledge item
+        knowledge_item = self.add_knowledge_item(
+            title=title,
+            content=content,
+            knowledge_type=knowledge_type,
+            source="brain_sync",
+            tags=tags,
+            confidence=0.8  # Brain-derived knowledge has good confidence
+        )
+
+        # Also sync it back to Brain to create the bidirectional link
+        # (but avoid infinite recursion by checking if it's already from brain)
+        if knowledge_item.source != "brain_sync":
+            self.sync_knowledge_to_brain(knowledge_item)
+
+        return knowledge_item.id
+
     def close(self) -> None:
         """Close database connections."""
         # SQLite connections are closed automatically when using context manager

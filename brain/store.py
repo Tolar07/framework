@@ -203,14 +203,18 @@ class Brain:
         # Create fixture key string for storage
         fixture_key_str = f"{fixture_key[0]}|{fixture_key[1]}|{fixture_key[2]}"
 
+        # Determine outcome - for odds collection, we'll use 'Pending' as default
+        # In a full implementation, this would be determined from match results
+        outcome = 'Pending'
+
         with self._conn:
             self._conn.execute(
                 """INSERT OR REPLACE INTO odds_history
                    (fixture_key, market_type, bookmaker, odds_value, odds_type,
-                    source, timestamp, retrieved_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                    source, timestamp, retrieved_at, outcome)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 (fixture_key_str, market_type, bookmaker, odds_value,
-                 odds_type, source, timestamp, retrieved_at)
+                 odds_type, source, timestamp, retrieved_at, outcome)
             )
 
     def get_latest_odds(self, fixture_key: tuple, market_type: str = None,

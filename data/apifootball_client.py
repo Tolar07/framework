@@ -246,9 +246,9 @@ class APIFootballClient:
             #           "id": 1,
             #           "name": "Match Winner",
             #           "values": [
-            #             {"value": "2.10"},  # Home win
-            #             {"value": "3.40"},  # Draw
-            #             {"value": "3.50"}   # Away win
+            #             {"value": "Home", "odd": "2.10"},  # Home win
+            #             {"value": "Draw", "odd": "3.40"},  # Draw
+            #             {"value": "Away", "odd": "3.50"}   # Away win
             #           ]
             #         }
             #       ]
@@ -271,13 +271,15 @@ class APIFootballClient:
                     if len(values) >= 3:
                         # Return home win odds as representative value
                         # In practice, you might want to store all three
-                        return float(values[0].get('value', 0)) if values[0].get('value') else None
+                        odd_value = values[0].get('odd')
+                        return float(odd_value) if odd_value is not None else None
 
             # If no Match Winner found, try first available bet
             if bets:
                 values = bets[0].get('values', [])
                 if values:
-                    return float(values[0].get('value', 0)) if values[0].get('value') else None
+                    odd_value = values[0].get('odd')
+                    return float(odd_value) if odd_value is not None else None
 
         except (ValueError, TypeError, KeyError, IndexError):
             pass

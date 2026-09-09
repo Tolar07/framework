@@ -6,7 +6,7 @@ import sys
 import time
 from dataclasses import dataclass, asdict
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -17,6 +17,7 @@ except ImportError:
     sys.exit(1)
 
 from booking.league_map import SPORTYBET_LEAGUES
+from resilient_pipeline_stage import rebuild_sportybet_cache_non_blocking
 
 PAGE_LOAD_TIMEOUT = 45_000
 BOOKER_CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
@@ -491,16 +492,31 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
             error_str = str(e)
             if "net::ERR_TOO_MANY_REDIRECTS" in error_str or "interrupted by another navigation" in error_str:
                 safe_print(f"  [INFO] Redirect/interrupt error detected, trying base domain for {league}")
-                # Try without the /ng/sport/football path
                 base_url = f"https://{host}"
                 safe_print(f"  -> Trying base domain: {base_url}")
                 # Apply redirect guard
                 cleanup_redirects = _guard_redirects(page)
-                await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
-                cleanup_redirects()
+                try:
+                    await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
+                    cleanup_redirects()
+                except Exception as e2:
+                    error_str2 = str(e2)
+                    if "net::ERR_TOO_MANY_REDIRECTS" in error_str2 or "interrupted by another navigation" in error_str2:
+                        safe_print(f"  [WARN] Base domain also had redirect/interrupt error for {league}, skipping")
+                        return []  # Return empty fixtures for this league
+                    else:
+                        raise
             else:
                 raise  # Re-raise if it's not a redirect error
-        await page.wait_for_timeout(3000)
+        try:
+            await page.wait_for_timeout(3000)
+        except Exception as e:
+            error_str = str(e)
+            if "Page.wait_for_timeout: Page crashed" in error_str or "TargetClosedError" in error_str:
+                safe_print(f"  [WARN] Page crashed during wait for {league}, skipping")
+                return []  # Return empty fixtures for this league
+            else:
+                raise
         await _dismiss_overlays(page)
 
         league_link = page.locator(f'.popular-list .top-link:has(.top-link-item:text-is("{league}"))').first
@@ -510,7 +526,15 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         if await league_link.count():
             safe_print(f"  Clicking popular-list item: {league}")
             await league_link.click()
-            await page.wait_for_timeout(4000)
+            try:
+                await page.wait_for_timeout(4000)
+            except Exception as e:
+                error_str = str(e)
+                if "Page.wait_for_timeout: Page crashed" in error_str or "TargetClosedError" in error_str:
+                    safe_print(f"  [WARN] Page crashed during wait after click for {league}, skipping")
+                    return []  # Return empty fixtures for this league
+                else:
+                    raise
             await _dismiss_overlays(page)
             if await _wait_for_fixtures(page):
                 fixtures = await _extract_fixtures(page, league)
@@ -539,10 +563,26 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                 safe_print(f"  [INFO] Redirect/interrupt error detected, trying base domain for {league}")
                 base_url = f"https://{host}"
                 safe_print(f"  -> Trying base domain: {base_url}")
-                await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
+                try:
+                    await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
+                except Exception as e2:
+                    error_str2 = str(e2)
+                    if "net::ERR_TOO_MANY_REDIRECTS" in error_str2 or "interrupted by another navigation" in error_str2:
+                        safe_print(f"  [WARN] Base domain also had redirect/interrupt error for {league}, skipping")
+                        return []  # Return empty fixtures for this league
+                    else:
+                        raise
             else:
                 raise
-        await page.wait_for_timeout(3000)
+        try:
+            await page.wait_for_timeout(3000)
+        except Exception as e:
+            error_str = str(e)
+            if "Page.wait_for_timeout: Page crashed" in error_str or "TargetClosedError" in error_str:
+                safe_print(f"  [WARN] Page crashed during wait for {league} (sidebar expand), skipping")
+                return []  # Return empty fixtures for this league
+            else:
+                raise
         await _dismiss_overlays(page)
 
         country_found = False
@@ -558,7 +598,15 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                             safe_print(f"  Found country '{country}' in element with selector '{selector}'")
                             await element.click()
                             country_found = True
-                            await page.wait_for_timeout(2000)
+                            try:
+                                await page.wait_for_timeout(2000)
+                            except Exception as e:
+                                error_str = str(e)
+                                if "Page.wait_for_timeout: Page crashed" in error_str or "TargetClosedError" in error_str:
+                                    safe_print(f"  [WARN] Page crashed during wait after country click for {league}, skipping")
+                                    return []  # Return empty fixtures for this league
+                                else:
+                                    raise
                             break
                     except Exception:
                         continue
@@ -574,7 +622,15 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                 if await country_locator.count() > 0:
                     await country_locator.click()
                     country_found = True
-                    await page.wait_for_timeout(2000)
+                    try:
+                        await page.wait_for_timeout(2000)
+                    except Exception as e:
+                        error_str = str(e)
+                        if "Page.wait_for_timeout: Page crashed" in error_str or "TargetClosedError" in error_str:
+                            safe_print(f"  [WARN] Page crashed during wait after direct country click for {league}, skipping")
+                            return []  # Return empty fixtures for this league
+                        else:
+                            raise
                     safe_print(f"  Clicked country via direct text: {country}")
                 else:
                     safe_print(f"  Country '{country}' not found via direct text search")
@@ -598,7 +654,15 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                             safe_print(f"  Found league '{league}' in element with selector '{selector}'")
                             await element.click()
                             league_found = True
-                            await page.wait_for_timeout(4000)
+                            try:
+                                await page.wait_for_timeout(4000)
+                            except Exception as e:
+                                error_str = str(e)
+                                if "Page.wait_for_timeout: Page crashed" in error_str or "TargetClosedError" in error_str:
+                                    safe_print(f"  [WARN] Page crashed during wait after league click for {league}, skipping")
+                                    return []  # Return empty fixtures for this league
+                                else:
+                                    raise
                             break
                     except Exception:
                         continue
@@ -614,7 +678,15 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                 if await league_locator.count() > 0:
                     await league_locator.click()
                     league_found = True
-                    await page.wait_for_timeout(4000)
+                    try:
+                        await page.wait_for_timeout(4000)
+                    except Exception as e:
+                        error_str = str(e)
+                        if "Page.wait_for_timeout: Page crashed" in error_str or "TargetClosedError" in error_str:
+                            safe_print(f"  [WARN] Page crashed during wait after direct league click for {league}, skipping")
+                            return []  # Return empty fixtures for this league
+                        else:
+                            raise
                     safe_print(f"  Clicked league via direct text: {league}")
                 else:
                     safe_print(f"  League '{league}' not found via direct text search")
@@ -698,10 +770,29 @@ async def main():
             if not mapping:
                 safe_print(f"  [WARN] {lg} not in SPORTYBET_LEAGUES")
                 continue
-            fixtures = await _scrape_league(page, lg, mapping.country)
-            if fixtures:
-                _write_cache(lg, mapping.country, fixtures)
-                total += len(fixtures)
+
+            # Create a closure that captures the league and country for the scrape function
+            async def scrape_league_closure():
+                return await _scrape_league(page, lg, mapping.country)
+
+            # Use non-blocking wrapper with fallback to previous cache
+            cache_file = BOOKER_CACHE_DIR / f"{lg.replace(' ', '_').replace('/', '_')}.json"
+            result = await rebuild_sportybet_cache_non_blocking(
+                scrape_func=scrape_league_closure,
+                fallback_cache_path=str(cache_file) if cache_file.exists() else None
+            )
+
+            if result.success:
+                fixtures = result.data
+                if fixtures:
+                    _write_cache(lg, mapping.country, fixtures)
+                    total += len(fixtures)
+                    if result.error:  # Indicates fallback was used
+                        safe_print(f"  [INFO] {lg}: used fallback cache ({result.error})")
+                else:
+                    safe_print(f"  [WARN] {lg}: no fixtures available (scraping failed and no fallback)")
+            else:
+                safe_print(f"  [ERROR] {lg}: failed to get fixtures: {result.error}")
 
         await browser.close()
         safe_print(f"\n=== DONE: {total} total fixtures cached ===")

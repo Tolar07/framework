@@ -115,6 +115,7 @@ class BoardFixture:
     fixture: str  # "Home v Away"
     probs: Optional[FixtureProbabilities]
     verification: VerificationResult
+    league_id: Optional[str] = None
     on_deploy_shortlist: bool = False
     mes_trigger_price: Optional[float] = None
     rejection_reason: Optional[str] = None
@@ -208,6 +209,8 @@ class BoardFixture:
     # never mistaken for a pure fitted rating (HR35: honest provenance). The
     # adjustment is a small, conservative nudge — never a re-rating.
     tactical_provenance: Optional[str] = None
+    # League identifier (e.g., "ENG_PREMIER_LEAGUE") for dynamic weighting lookup
+    league_id: Optional[str] = None
 
 
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],

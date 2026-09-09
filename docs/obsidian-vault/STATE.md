@@ -33,9 +33,33 @@
 
 ---
 
-## 2026-09-04 — Session W
+## 2026-09-08 — Session Work: Database schema fix and odds parsing improvement
 
-[Content from previous session truncated for brevity]
+### Implementation Completed
+- **File modified**: `brain/store.py`
+  - Added `outcome` column to `odds_history` table schema
+  - Set default outcome to 'Pending' for odds collection
+- **File modified**: `data/apifootball_client.py`
+  - Fixed odds parsing to handle structured format with "value" and "odd" fields
+  - Updated comment examples to show correct structure: {"value": "Home", "odd": "2.10"}
+- **File modified**: `feed_audit.jsonl`
+  - Appended today's feed audit entries from pipeline run
+
+### Key Features
+- Database schema enhancement to track bet outcomes for future CLV calculations
+- Corrected API Football client to properly parse structured odds data
+- Maintains audit trail of pipeline executions
+
+### Testing
+- Syntax verified: `python -m py_compile brain/store.py` — clean
+- Syntax verified: `python -m py_compile data/apifootball_client.py` — clean
+
+### Next Steps
+- Continue monitoring feed accuracy and odds collection
+- Prepare for outcome tracking implementation when match results become available
+- Verify CLV calculation foundation is solid
+
+---
 
 ---
 

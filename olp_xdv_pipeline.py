@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from __future__ import annotations
 """
 OLP XDV — 10-Agent Production Pipeline Orchestrator
 ==================================================
@@ -38,21 +37,10 @@ Claude sessions; combine states, never overwrite.
 
 HR35: any gap is reported as NO DATA — PENDING, never guessed or fabricated.
 """
-import json
-import logging
-from pathlib import Path
-from typing import Dict, Any
-
-# Import league verifier for pre-pipeline validation
-from engine.league_verifier import LeagueVerifier, run_daily_league_verification
-
-logger = logging.getLogger(__name__)
-
-# Enable debug logging for troubleshooting
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+from __future__ import annotations
 
 import argparse
-from knowledge_persistence import get_knowledge_persistence, add_observation, add_decision, add_fact, add_process
+import json
 import os
 import sys
 import time
@@ -79,37 +67,6 @@ PAPER_BANKROLL_NGN = 50_000   # Phase 3 paper bankroll
 from clv.clv_logger import PHASE3_GATE_MIN_LEGS
 CLV_GATE_LEGS = PHASE3_GATE_MIN_LEGS  # publish gate: min legs with CLV
 CLV_GATE_MEAN_POSITIVE = True         # publish gate: mean CLV > 0
-
-# Fixture date gate imports
-from fixture_date_gate import validate_fixture_dates, check_kickoff_time_diversity, run_full_date_check, DatedFixture
-
-# Enrichment imports for hard gate enforcement
-from output.enrichment import _create_kickoff_lookup_from_cache_dir, _create_league_lookup_from_cache_dir, enrich_fixture
-
-# Pre-load heavy Agent 3/4/5 dependencies at module import to avoid
-# 2.4s cold-start penalty inside agent_4_verify (verify_board path) and
-# agent_3_profile (Brain/bridge path). These imports cost ~2.4s cold but
-# ~0ms warm; moving them to module scope makes the *first* run_pipeline call
-# fast (116ms import) instead of paying the penalty on Agent 4 execution.
-try:
-    from output.produce_bet import BoardFixture
-    from output.heartbeat import select_heartbeat_fixture, render_heartbeat_telegram, save_heartbeat_record
-    from engine.dixon_coles import FixtureProbabilities
-    from verification.id403 import VerificationResult, Tier, SourcedDatum, verify
-    from booking.verify_fixtures import verify_board
-    from booking.bridge import get_sportybet_odds_for_leg
-    from brain.store import Brain
-except Exception:
-    # Fallback: lazy imports still work if preload fails (tests, partial env)
-    BoardFixture = None
-    FixtureProbabilities = None
-    VerificationResult = None
-    Tier = None
-    SourcedDatum = None
-    verify = None
-    verify_board = None
-    get_sportybet_odds_for_leg = None
-    Brain = None
 
 AGENT_NAMES = {
     1: "agent_1_macro_ingestion",
@@ -150,7 +107,6 @@ class PipelineState:
     season: str
     fixtures_season: str
     dry_run: bool
-    date_str: Optional[str] = None
     payloads: dict[int, dict] = field(default_factory=dict)   # agent_id -> output
     errors: list[dict] = field(default_factory=list)
     halted: bool = False
@@ -190,7 +146,7 @@ def agent_1_ingest(state: PipelineState) -> dict:
              "home_team": "Celtic", "away_team": "Dundee",
              "kickoff_utc": "2026-08-14T18:45:00Z",
              "source_endpoints": ["flashscore.com", "sportybet-cache"]},
-            {"match_id": "FX-26001", "sport": "football", "league": "Premier League",
+            {"match_id": "FX-26001", "sport": "football", "league": "English Premier League",
              "home_team": "Arsenal", "away_team": "Leeds",
              "kickoff_utc": "2026-08-14T20:00:00Z",
              "source_endpoints": ["flashscore.com", "thesportsdb.com"]},
@@ -212,12 +168,7 @@ def agent_1_ingest(state: PipelineState) -> dict:
                 try:
                     fx = get_fixtures(league, state.fixtures_season, days_ahead=0,
                                       api_football_season=None)
-                    # Apply TEAM_ALIASES resolution (map_team) to ALL primary fixture sources
-                    # (thesportsdb, api_football, espn, odds_api) so team names are
-                    # canonicalized before they hit the model engine.
-                    raw_fixtures = fx.get("fixtures") or []
-                    upcoming_fixtures = [(map_team(league, h), map_team(league, a))
-                                         for h, a in raw_fixtures]
+                    upcoming_fixtures = fx.get("fixtures") or []
                     fixture_dates.update(fx.get("dates") or {})
                     src = fx.get("source", "?")
                     if fx.get("skipped"):
@@ -282,66 +233,6 @@ def agent_1_ingest(state: PipelineState) -> dict:
         except Exception as e:
             state.stop(f"ingestion failed: {e}", "INGEST_FAILURE")
 
-    # Apply fixture date validation gate - reject fixtures not matching target date
-    try:
-        # Get board date from captured_at_utc or use today (same logic as agent_4_verify)
-        board_date = state.payloads.get(1, {}).get("captured_at_utc", "")[:10]
-        if not board_date:
-            from datetime import date
-            board_date = date.today().isoformat()
-        target_date = datetime.fromisoformat(board_date).date()
-
-        # Convert pipeline fixtures to DatedFixture objects for validation
-        dated_fixtures = []
-        for fx in fixtures:
-            if fx.get("kickoff_utc"):
-                try:
-                    kickoff_dt = datetime.fromisoformat(fx["kickoff_utc"].replace("Z", "+00:00"))
-                    dated_fixtures.append(DatedFixture(
-                        fixture_id=fx["match_id"],
-                        home=fx["home_team"],
-                        away=fx["away_team"],
-                        league=fx["league"],
-                        kickoff_utc=kickoff_dt
-                    ))
-                except (ValueError, AttributeError):
-                    # If kickoff parsing fails, keep fixture but flag it
-                    data_flags.append(f"{fx['match_id']}: invalid kickoff format")
-                    dated_fixtures.append(DatedFixture(
-                        fixture_id=fx["match_id"],
-                        home=fx["home_team"],
-                        away=fx["away_team"],
-                        league=fx["league"],
-                        kickoff_utc=datetime.now()  # fallback to now
-                    ))
-            else:
-                # No kickoff time - keep but flag
-                data_flags.append(f"{fx['match_id']}: missing kickoff time")
-
-        # Run validation
-        validated_fixtures, rejection_reasons = run_full_date_check(dated_fixtures, target_date)
-
-        # Convert back to pipeline fixture format
-        validated_fixture_dicts = []
-        for vf in validated_fixtures:
-            # Find original fixture by match_id
-            original_fx = next((f for f in fixtures if f["match_id"] == vf.fixture_id), None)
-            if original_fx:
-                validated_fixture_dicts.append(original_fx)
-
-        fixtures = validated_fixture_dicts
-
-        # Add rejection reasons to data_flags
-        data_flags.extend(rejection_reasons)
-
-        if rejection_reasons:
-            logging.warning(f"Fixture date gate rejected {len(rejection_reasons)} fixtures for {board_date}")
-
-    except Exception as e:
-        # If date validation fails, log but don't halt pipeline
-        data_flags.append(f"fixture date gate failed: {e}")
-        logging.warning(f"Fixture date gate error: {e}")
-
     return {
         "agent": AGENT_NAMES[1],
         "captured_at_utc": captured_at,
@@ -398,40 +289,38 @@ def agent_3_profile(state: PipelineState) -> dict:
         if not state.dry_run:
             try:
                 # 3C line movement — SportyBet cache odds (bridge) for all 1X2 markets
-                # Uses pre-loaded get_sportybet_odds_for_leg (module-level import)
-                if get_sportybet_odds_for_leg is not None:
-                    sb_home = get_sportybet_odds_for_leg(
-                        fx["home_team"], fx["away_team"], fx["league"], "1X2_HOME")
-                    sb_draw = get_sportybet_odds_for_leg(
-                        fx["home_team"], fx["away_team"], fx["league"], "1X2_DRAW")
-                    sb_away = get_sportybet_odds_for_leg(
-                        fx["home_team"], fx["away_team"], fx["league"], "1X2_AWAY")
-                    line = {
-                        "sportybet_1x2_home": sb_home,
-                        "sportybet_1x2_draw": sb_draw,
-                        "sportybet_1x2_away": sb_away,
-                        "market_efficiency": "CLEAN" if any([sb_home, sb_draw, sb_away]) else "LOW_LIQUIDITY",
-                    }
+                from booking.bridge import get_sportybet_odds_for_leg
+                sb_home = get_sportybet_odds_for_leg(
+                    fx["home_team"], fx["away_team"], fx["league"], "1X2_HOME")
+                sb_draw = get_sportybet_odds_for_leg(
+                    fx["home_team"], fx["away_team"], fx["league"], "1X2_DRAW")
+                sb_away = get_sportybet_odds_for_leg(
+                    fx["home_team"], fx["away_team"], fx["league"], "1X2_AWAY")
+                line = {
+                    "sportybet_1x2_home": sb_home,
+                    "sportybet_1x2_draw": sb_draw,
+                    "sportybet_1x2_away": sb_away,
+                    "market_efficiency": "CLEAN" if any([sb_home, sb_draw, sb_away]) else "LOW_LIQUIDITY",
+                }
             except Exception:
                 line = None  # HR35: no price = no price, not a guessed one
 
             # 3A/3B - brain profile lookup (team state, injuries, etc.)
-            # Uses pre-loaded Brain (module-level import)
             try:
-                if Brain is not None:
-                    brain = Brain()
-                    # Get latest team state snapshots
-                    as_of = state.payloads[1].get("captured_at_utc", "")[:10]  # date only
-                    if as_of:
-                        home_snap = brain.get_team_state(team=fx["home_team"], league=fx["league"],
-                                                         as_of=as_of, limit=1)
-                        away_snap = brain.get_team_state(team=fx["away_team"], league=fx["league"],
-                                                         as_of=as_of, limit=1)
-                        if home_snap or away_snap:
-                            brain_profile = {
-                                "home": home_snap[0] if home_snap else None,
-                                "away": away_snap[0] if away_snap else None,
-                            }
+                from brain.store import Brain
+                brain = Brain()
+                # Get latest team state snapshots
+                as_of = state.payloads[1].get("captured_at_utc", "")[:10]  # date only
+                if as_of:
+                    home_snap = brain.get_team_state(team=fx["home_team"], league=fx["league"],
+                                                     as_of=as_of, limit=1)
+                    away_snap = brain.get_team_state(team=fx["away_team"], league=fx["league"],
+                                                     as_of=as_of, limit=1)
+                    if home_snap or away_snap:
+                        brain_profile = {
+                            "home": home_snap[0] if home_snap else None,
+                            "away": away_snap[0] if away_snap else None,
+                        }
             except Exception:
                 pass  # brain unavailable is not an error, just missing data (HR35)
         quality = "COMPLETE" if (line is not None) else "PARTIAL"
@@ -481,25 +370,26 @@ def agent_4_verify(state: PipelineState) -> dict:
     # Run the mandatory verify_board gate (from run_daily.py)
     # This cross-references SportyBet cache + FlashScore
     try:
-        # Uses pre-loaded verify_board, BoardFixture, verify, SourcedDatum (module-level imports)
-        if verify_board is not None and BoardFixture is not None and verify is not None and SourcedDatum is not None:
+        from booking.verify_fixtures import verify_board
+        from output.produce_bet import BoardFixture
 
-            # Convert pipeline profiles to BoardFixture objects for verify_board
-            board_fixtures = []
-            for mid, p in inp["fixture_profiles"].items():
-                v = verify([SourcedDatum(domain="thesportsdb.com",
-                                          value=f"{p['home_team']} v {p['away_team']}",
-                                          url="https://www.thesportsdb.com",
-                                          structured=True)])
-                board_fixtures.append(BoardFixture(
-                    fixture=f"{p['home_team']} v {p['away_team']} ({p['league']})",
-                    probs=None,  # Not computed yet
-                    verification=v,
-                    model_engine="dc",
-                    on_deploy_shortlist=False,
-                    mes_trigger_price=None,
-                    kickoff_date=p.get("kickoff_utc", "")[:10] if p.get("kickoff_utc") else None,
-                ))
+        # Convert pipeline profiles to BoardFixture objects for verify_board
+        board_fixtures = []
+        for mid, p in inp["fixture_profiles"].items():
+            from verification.id403 import verify, SourcedDatum, Tier
+            v = verify([SourcedDatum(domain="thesportsdb.com",
+                                      value=f"{p['home_team']} v {p['away_team']}",
+                                      url="https://www.thesportsdb.com",
+                                      structured=True)])
+            board_fixtures.append(BoardFixture(
+                fixture=f"{p['home_team']} v {p['away_team']} ({p['league']})",
+                probs=None,  # Not computed yet
+                verification=v,
+                model_engine="dc",
+                on_deploy_shortlist=False,
+                mes_trigger_price=None,
+                kickoff_date=p.get("kickoff_utc", "")[:10] if p.get("kickoff_utc") else None,
+            ))
 
         # Run verification gate
         leagues = list(set(p["league"] for p in inp["fixture_profiles"].values()))
@@ -578,82 +468,6 @@ def agent_4_verify(state: PipelineState) -> dict:
 
 
 # =============================================================================
-# Build odds_index for ALL leagues with deploy-shortlist fixtures
-# Mirrors run_daily.py logic - MUST run BEFORE Agent 5 so selections have prices
-# =============================================================================
-def _build_odds_index_for_pipeline(state: PipelineState) -> dict:
-    """Build odds_index before Agent 5 runs, so Agent 5 can price selections.
-
-    Mirrors run_daily.py lines 707-761 exactly.
-    """
-    from data.multi_source_concrete import get_odds as multi_get_odds
-    import pipeline.odds as odds_mod
-    from booking.bridge import load_all_sportybet_fixtures
-
-    odds_index: dict = {}
-    # Get leagues from Agent 1's fixtures that are on deploy shortlist
-    agent1 = state.payloads.get(1, {})
-    if not agent1.get("fixtures"):
-        return odds_index
-
-    # We need to know which fixtures will be on deploy shortlist.
-    # Since Agent 4 (verify) hasn't run yet, we use Agent 1's fixtures as proxy.
-    odds_leagues = set(fx["league"] for fx in agent1.get("fixtures", []))
-
-    for lg in sorted(odds_leagues):
-        try:
-            fixtures = multi_get_odds(lg)
-            odds_index.update(odds_mod.index_by_fixture(fixtures))
-            state.payloads.setdefault(0, {}).setdefault("data_flags", []).append(f"{lg}: odds served via multi-source layer")
-        except Exception as e:
-            state.payloads.setdefault(0, {}).setdefault("data_flags", []).append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
-
-    # Merge SportyBet cache odds for leagues with SportyBet data but no multi-source odds
-    try:
-        sb_fixtures_by_league = load_all_sportybet_fixtures(days_ahead=3, leagues=list(odds_leagues))
-        sb_odds_count = 0
-        for lg, sb_fixtures in sb_fixtures_by_league.items():
-            for sb_fx in sb_fixtures:
-                if sb_fx.home_odds and sb_fx.draw_odds and sb_fx.away_odds:
-                    key = (sb_fx.home_team, sb_fx.away_team)
-                    if key not in odds_index:
-                        sb_odds = odds_mod.FixtureOdds(
-                            league=lg,
-                            home_team=sb_fx.home_team,
-                            away_team=sb_fx.away_team,
-                            kickoff_utc=sb_fx.kickoff_utc,
-                            home=odds_mod.MarketQuote(
-                                price=sb_fx.home_odds,
-                                bookmaker="SportyBet Nigeria",
-                                n_books=1,
-                                captured_at=sb_fx.kickoff_utc
-                            ),
-                            draw=odds_mod.MarketQuote(
-                                price=sb_fx.draw_odds,
-                                bookmaker="SportyBet Nigeria",
-                                n_books=1,
-                                captured_at=sb_fx.kickoff_utc
-                            ),
-                            away=odds_mod.MarketQuote(
-                                price=sb_fx.away_odds,
-                                bookmaker="SportyBet Nigeria",
-                                n_books=1,
-                                captured_at=sb_fx.kickoff_utc
-                            ),
-                            source="sportybet-cache",
-                            source_tier="T2"
-                        )
-                        odds_index[key] = sb_odds
-                        sb_odds_count += 1
-        if sb_odds_count:
-            state.payloads.setdefault(0, {}).setdefault("data_flags", []).append(f"SportyBet cache merged: {sb_odds_count} fixture(s) with 1X2 odds added to odds_index")
-    except Exception as e:
-        state.payloads.setdefault(0, {}).setdefault("data_flags", []).append(f"SportyBet cache merge failed ({e})")
-
-    return odds_index
-
-
-# =============================================================================
 # AGENT 5 — XDV Logic Core (math stack + Red/Blue adversarial simulation)
 # Uses the real engines: Dixon-Coles, Elo, xG, consensus, MES. Red/Blue runs
 # until consensus (max 5 rounds). Surviving +EV picks only.
@@ -694,22 +508,18 @@ def agent_5_core(state: PipelineState) -> dict:
             "data_flags": data_flags,
         }
 
-    # Build odds_index BEFORE Agent 5 processing (must run before Agent 5)
-    odds_index = _build_odds_index_for_pipeline(state)
-
     # Full math stack implementation
     try:
         from data.football_data_source import load_league
         from data import xg_source
         from data import clubelo_source
-        from data.thesportsdb_fixtures import map_team
         from engine import cross_league as xleague
         from engine import elo as elo_engine
         from engine.consensus import compute_consensus
         from engine.dixon_coles import (fit, predict, predict_adjusted,
                                          unrated_reason, FIT_VERSION,
                                          FixtureProbabilities)
-        from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload, dc_from_payload, dc_to_payload)
+        from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload)
         from engine import markets as mkt
         from engine.mes import mes_numeric
     except Exception as e:
@@ -787,9 +597,8 @@ def agent_5_core(state: PipelineState) -> dict:
 
         # Process each fixture in this league
         for mid, fx in fixtures:
-            # Apply team alias mapping so fixture feed names match fitted model roster
-            home = map_team(league, fx["home_team"])
-            away = map_team(league, fx["away_team"])
+            home = fx["home_team"]
+            away = fx["away_team"]
             probs = None
             rating_source = None
 
@@ -823,22 +632,13 @@ def agent_5_core(state: PipelineState) -> dict:
 
             if probs is None:
                 # HR35: still list as NO DATA — PENDING
-                # Get unrated reason from the model that was attempted (primary or carry-over)
-                check_model = model if model is not None else carry_model
-                reasons = []
-                if check_model is not None:
-                    for team in (home, away):
-                        r = unrated_reason(check_model, team)
-                        if r is not None:
-                            reasons.append(r)
-                unrated_reason_str = "; ".join(reasons) if reasons else "Unrated (model unavailable)"
                 reports[mid] = {
                     "match_id": mid, "sport": fx["sport"], "league": fx["league"],
                     "home_team": home, "away_team": away,
                     "kickoff_utc": fx["kickoff_utc"],
                     "selections": [],
                     "rating_source": "NO DATA — PENDING",
-                    "unrated_reason": unrated_reason_str,
+                    "unrated_reason": unrated_reason(home, away, results, cl_h, cl_a),
                 }
                 continue
 
@@ -849,9 +649,9 @@ def agent_5_core(state: PipelineState) -> dict:
             except Exception:
                 pass  # tactical data missing = no adjustment (HR35)
 
-            # Build selections from probabilities + market odds (pass odds_index)
+            # Build selections from probabilities + market odds
             selections = _build_selections_from_probs(
-                probs, fx, rating_source, brain, league, data_flags, odds_index)
+                probs, fx, rating_source, brain, league, data_flags)
 
             reports[mid] = {
                 "match_id": mid, "sport": fx["sport"], "league": fx["league"],
@@ -873,118 +673,41 @@ def agent_5_core(state: PipelineState) -> dict:
     }
 
 
-def _build_selections_from_probs(probs, fx, rating_source, brain, league, data_flags, odds_index=None):
-    """Build market selections from fixture probabilities (from run_daily.py logic).
-
-    Uses pre-built odds_index for multi-market odds (O/U 1.5, O/U 2.5, BTTS, DC)
-    instead of per-fixture get_odds calls.
-    """
+def _build_selections_from_probs(probs, fx, rating_source, brain, league, data_flags):
+    """Build market selections from fixture probabilities (from run_daily.py logic)."""
     selections = []
     try:
         from engine import markets as mkt
-        from engine.mes import mes_numeric, edge_diff
+        from engine.mes import mes_numeric
 
-        # Find fixture odds in the pre-built odds_index
-        home, away = probs.home_team, probs.away_team
-        fx_odds = None
-        if odds_index is not None:
-            # Try exact, then normalized match
-            fx_odds = odds_index.get((home, away))
-            if fx_odds is None:
-                try:
-                    from booking.team_map import resolve_team, _normalize
-                    sb_h = resolve_team(home, "sportybet")
-                    sb_a = resolve_team(away, "sportybet")
-                    fx_odds = odds_index.get((sb_h, sb_a))
-                    if fx_odds is None:
-                        nh, na = _normalize(home), _normalize(away)
-                        for (oh, oa), f in odds_index.items():
-                            noh, noa = _normalize(oh), _normalize(oa)
-                            if noh == nh and noa == na:
-                                fx_odds = f
-                                break
-                            def _contains(a: str, b: str) -> bool:
-                                return a == b or (len(a) > 3 and (a in b or b in a))
-                            if _contains(noh, nh) and _contains(noa, na):
-                                fx_odds = f
-                                break
-                except Exception:
-                    pass
+        # Multi-source odds pull for this fixture
+        from data.multi_source_concrete import get_odds
+        odds_data = get_odds(fx["league"], fx["home_team"], fx["away_team"])
 
-        # Multi-market selection: evaluate ALL deployable markets
-        # 1X2, Over/Under 1.5, Over/Under 2.5, BTTS, Double Chance
-        for market_key in mkt.DEPLOYABLE:
-            # Get price from odds_index
-            price = None
-            if fx_odds is not None:
-                q = mkt.quote(market_key, fx_odds)
-                if q is not None and q.available:
-                    price = q.price
-
-            if price is None:
-                continue  # HR35: no price = no edge, not a guess
-
-            # Get implied probability (devigged)
-            implied = None
-            if fx_odds is not None:
-                if market_key in mkt.MARKETS_1X2:
-                    p1x2 = mkt.implied_1x2(fx_odds)
-                    if p1x2 is not None:
-                        implied = p1x2[mkt.MARKETS_1X2[market_key]]
-                elif market_key == mkt.OVER_25 and fx_odds.over25.price and fx_odds.under25.price:
-                    s = 1.0 / fx_odds.over25.price + 1.0 / fx_odds.under25.price
-                    if s > 1.0:
-                        implied = (1.0 / fx_odds.over25.price) / s
-                elif market_key == mkt.UNDER_25 and fx_odds.over25.price and fx_odds.under25.price:
-                    s = 1.0 / fx_odds.over25.price + 1.0 / fx_odds.under25.price
-                    if s > 1.0:
-                        implied = (1.0 / fx_odds.under25.price) / s
-                elif market_key == mkt.OVER_15 and fx_odds.over15.price and fx_odds.under15.price:
-                    s = 1.0 / fx_odds.over15.price + 1.0 / fx_odds.under15.price
-                    if s > 1.0:
-                        implied = (1.0 / fx_odds.over15.price) / s
-                elif market_key == mkt.UNDER_15 and fx_odds.over15.price and fx_odds.under15.price:
-                    s = 1.0 / fx_odds.over15.price + 1.0 / fx_odds.under15.price
-                    if s > 1.0:
-                        implied = (1.0 / fx_odds.under15.price) / s
-                elif market_key == mkt.BTTS_YES and fx_odds.btts_yes.price and fx_odds.btts_no.price:
-                    s = 1.0 / fx_odds.btts_yes.price + 1.0 / fx_odds.btts_no.price
-                    if s > 1.0:
-                        implied = (1.0 / fx_odds.btts_yes.price) / s
-                elif market_key == mkt.BTTS_NO and fx_odds.btts_yes.price and fx_odds.btts_no.price:
-                    s = 1.0 / fx_odds.btts_yes.price + 1.0 / fx_odds.btts_no.price
-                    if s > 1.0:
-                        implied = (1.0 / fx_odds.btts_no.price) / s
-                elif market_key == mkt.DC_1X and fx_odds.dc_1x.price and fx_odds.dc_x2.price and fx_odds.dc_12.price:
-                    # DC markets are trickier - use simple 1/price for now
-                    implied = 1.0 / fx_odds.dc_1x.price
-                elif market_key == mkt.DC_X2 and fx_odds.dc_1x.price and fx_odds.dc_x2.price and fx_odds.dc_12.price:
-                    implied = 1.0 / fx_odds.dc_x2.price
-                elif market_key == mkt.DC_12 and fx_odds.dc_1x.price and fx_odds.dc_x2.price and fx_odds.dc_12.price:
-                    implied = 1.0 / fx_odds.dc_12.price
-
+        for market_key in mkt.DEPLOYABLE:  # Use DEPLOYABLE markets from run_daily.py
+            implied = odds_data.get(market_key) if odds_data else None
             if implied is None:
-                implied = 1.0 / price  # raw as fallback
+                continue  # HR35: no price = no edge, not a guess
 
             # Calculate model probability for this market
             model_prob = mkt.model_prob(market_key, probs)
             if model_prob is None:
                 continue
 
-            # Edge (canonical: model_prob - implied_prob)
-            edge = edge_diff(model_prob, implied)
+            # EV and MES
+            ev = mes_numeric(model_prob, implied)
 
-            if edge is None or edge <= 0:
-                continue  # Only positive-edge selections
+            if ev is None or ev <= 0:
+                continue  # Only +EV selections
 
             selections.append({
                 "market": market_key,
                 "selection": mkt.display(market_key, probs.home_team, probs.away_team),
                 "model_prob": model_prob,
-                "implied_prob": implied,
-                "edge": edge,
-                "mes": edge,  # canonical MES = edge (probability gap)
-                "odds": price,
+                "implied_prob": 1 / implied if implied > 0 else 0,
+                "ev": ev,
+                "mes": ev,  # MES = EV in this context
+                "odds": implied,
             })
     except Exception as e:
         data_flags.append(f"{fx['match_id']}: selection build failed: {e}")
@@ -1282,11 +1005,10 @@ def agent_10_ceo(state: PipelineState) -> dict:
         rejections.append({"code": "KELLY_CAP_BREACH",
                            "detail": "A leg exceeds 5% Kelly cap"})
     g = inp["publish_gate"]
-    # Respect Agent 9's publish gate decision including ARCHITECT_SIGNOFF override
-    if g.get("result") == "PUBLISH_BLOCKED":
+    if g.get("clv_legs", 0) < CLV_GATE_LEGS or not (g.get("clv_mean") or 0) > 0:
         rejections.append({"code": "FRAMEWORK_NOT_PROFITABLE",
                            "detail": f"CLV gate not met (legs {g.get('clv_legs')}, "
-                                     f"mean {g.get('clv_mean')}) — override={g.get('override', False)}"})
+                                     f"mean {g.get('clv_mean')})"})
     if inp["risk_flags"]:
         rejections.extend([{"code": "TEAM_LEAD_RISK", "detail": f} for f in inp["risk_flags"]])
 
@@ -1323,150 +1045,15 @@ AGENT_FUNCS = {
 }
 
 
-def _capture_scan_knowledge(state: PipelineState, payload: dict) -> None:
-    """Capture knowledge after SCAN stage (Agent 1 completion)."""
-    try:
-        kp = get_knowledge_persistence()
-        raw_count = payload.get("raw_count", 0)
-        data_flags = payload.get("data_flags", [])
-
-        # Extract leagues from fixtures if available
-        leagues = set()
-        if "fixtures" in payload:
-            leagues = {fx.get("league", "unknown") for fx in payload["fixtures"] if fx.get("league")}
-
-        league_list = ", ".join(sorted(leagues)) if leagues else "unknown"
-        flag_summary = "; ".join(data_flags[:3]) if data_flags else "no issues"
-
-        add_observation(
-            title=f"SCAN Results - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
-            content=f"Scanned {len(leagues)} leagues ({league_list}), found {raw_count} fixtures. Data flags: {flag_summary}",
-            knowledge_type="observation",
-            source="pipeline_scan",
-            tags={"scan", "daily_pipeline", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
-            confidence=0.9
-        )
-        kp.close()
-    except Exception as e:
-        # Don't let knowledge capture break the pipeline
-        logging.debug(f"Failed to capture SCAN knowledge: {e}")
-
-
-def _capture_trigger_knowledge(state: PipelineState, payload: dict) -> None:
-    """Capture knowledge after TRIGGER stage (Agent 5 completion - bet composition)."""
-    try:
-        kp = get_knowledge_persistence()
-        computed_count = payload.get("computed_count", 0)
-        deadlocked = payload.get("deadlocked_fixtures", [])
-        data_flags = payload.get("data_flags", [])
-
-        # Count selections by type
-        acca_a_count = 0
-        split_accas_count = 0
-        single_count = 0
-
-        if "fixture_reports" in payload:
-            for report in payload["fixture_reports"].values():
-                selections = report.get("selections", [])
-                acca_a_count += len([s for s in selections if s.get("rating_source") not in ["dry_run", "manual"] and s.get("market") in ["Match Odds", "1X2"]])
-                split_accas_count += len([s for s in selections if s.get("rating_source") not in ["dry_run", "manual"] and s.get("market") not in ["Match Odds", "1X2"]])
-                single_count += len([s for s in selections if s.get("rating_source") in ["dry_run", "manual"]])
-
-        flag_summary = "; ".join(data_flags[:3]) if data_flags else "no issues"
-        deadlock_info = f", {len(deadlocked)} deadlocked" if deadlocked else ""
-
-        add_decision(
-            title=f"Bet Composition Decision - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
-            content=f"Selected {acca_a_count} Acca A legs, {split_accas_count} split accas, {single_count} singles from {computed_count} computed fixtures{deadlock_info}. Data flags: {flag_summary}",
-            knowledge_type="decision",
-            source="pipeline_trigger",
-            tags={"trigger", "bet_decision", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
-            confidence=0.85
-        )
-        kp.close()
-    except Exception as e:
-        # Don't let knowledge capture break the pipeline
-        logging.debug(f"Failed to capture TRIGGER knowledge: {e}")
-
-
-def _capture_clv_gate_knowledge(state: PipelineState, payload: dict) -> None:
-    """Capture knowledge after CLV GATE evaluation (Agent 7 completion)."""
-    try:
-        kp = get_knowledge_persistence()
-        compliance_inp = state.payloads.get(7, {}) if state.payloads else {}
-        gate_data = compliance_inp.get("clv_gate", {}) if compliance_inp else {}
-
-        gate_met = gate_data.get("gate_met", False)
-        legs_with_clv = gate_data.get("legs_with_clv", 0)
-        mean_clv_pct = gate_data.get("mean_clv_pct", 0.0)
-        architect_signoff = gate_data.get("architect_signoff", 0)
-
-        gate_status = "MET" if gate_met else "NOT MET"
-        override_used = bool((not gate_met) and architect_signoff)
-
-        add_fact(
-            title=f"CLV Gate Evaluation - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
-            content=f"CLV gate {gate_status}: {legs_with_clv}/30 legs with CLV, mean CLV: {mean_clv_pct:.2f}%. Architect signoff: {architect_signoff}, override used: {override_used}",
-            knowledge_type="fact",
-            source="pipeline_clv_gate",
-            tags={"clv", "gate_evaluation", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
-            confidence=0.95
-        )
-        kp.close()
-    except Exception as e:
-        # Don't let knowledge capture break the pipeline
-        logging.debug(f"Failed to capture CLV GATE knowledge: {e}")
-
-
-def _capture_publish_knowledge(state: PipelineState, payload: dict) -> None:
-    """Capture knowledge after PUBLISH stage (Agent 10 completion)."""
-    try:
-        kp = get_knowledge_persistence()
-        executive_summary = payload.get("executive_summary", {}) if payload else {}
-        publish_gate = payload.get("publish_gate", {}) if payload else {}
-        risk_summary = payload.get("risk_summary", {}) if payload else {}
-
-        fixtures_scanned = executive_summary.get("fixtures_scanned", 0)
-        fixtures_approved = executive_summary.get("fixtures_approved", 0)
-        dockets_generated = executive_summary.get("dockets_generated", 0)
-        publish_status = publish_gate.get("result", "UNKNOWN")
-        total_stake = risk_summary.get("total_stake_fraction", 0.0)
-
-        add_process(
-            title=f"Publication Process - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
-            content=f"Pipeline processed {fixtures_scanned} fixtures, approved {fixtures_approved}, generated {dockets_generated} dockets. Publish status: {publish_status}. Total stake: {total_stake:.2%}",
-            knowledge_type="process",
-            source="pipeline_publish",
-            tags={"publish", "daily_pipeline", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
-            confidence=0.9
-        )
-        kp.close()
-    except Exception as e:
-        # Don't let knowledge capture break the pipeline
-        logging.debug(f"Failed to capture PUBLISH knowledge: {e}")
-
-
 def _run_pipeline_internal(season: str, fixtures_season: str, dry_run: bool,
-                           only: Optional[int] = None,
-                           date_str: Optional[str] = None) -> PipelineState:
+                           only: Optional[int] = None) -> PipelineState:
     """Internal pipeline runner - does not handle CLI args."""
-    state = PipelineState(season=season, fixtures_season=fixtures_season, dry_run=dry_run, date_str=date_str)
+    state = PipelineState(season=season, fixtures_season=fixtures_season, dry_run=dry_run)
     last = only or 10
     for agent_id in range(1, last + 1):
         try:
             payload = AGENT_FUNCS[agent_id](state)
             state.stamp(agent_id, payload)
-
-            # Capture knowledge after key pipeline stages
-            if agent_id == 1:  # After SCAN (Agent 1)
-                _capture_scan_knowledge(state, payload)
-            elif agent_id == 5:  # After TRIGGER (Agent 5 - bet composition)
-                _capture_trigger_knowledge(state, payload)
-            elif agent_id == 7:  # After CLV GATE (Agent 7)
-                _capture_clv_gate_knowledge(state, payload)
-            elif agent_id == 10:  # After PUBLISH (Agent 10)
-                _capture_publish_knowledge(state, payload)
-
             # Halts: Agent 7 slow-data / Agent 1 ingest failure stop the chain.
             if agent_id == 1 and state.halted:
                 break
@@ -1483,12 +1070,7 @@ def _run_pipeline_internal(season: str, fixtures_season: str, dry_run: bool,
 # =============================================================================
 def run_pipeline(season: str = "2526", fixtures_season: str = "2627",
                  dry_run: bool = True, only: Optional[int] = None,
-                 date_str: Optional[str] = None,
-                 board_date: Optional[str] = None,
-                 leagues: Optional[list] = None,
-                 min_mes: float = 0.0,
-                 agreement_band: float = 0.04,
-                 verify_only: bool = False) -> dict:
+                 date_str: Optional[str] = None) -> dict:
     """
     Runs the full 10-agent pipeline (or up to 'only' agent) and returns the final CEO payload.
 
@@ -1500,69 +1082,12 @@ def run_pipeline(season: str = "2526", fixtures_season: str = "2627",
         dry_run: If True, no network calls, no booking
         only: Run agents 1..N only (1-10)
         date_str: Override date for output (YYYY-MM-DD)
-        board_date: Board date override (YYYY-MM-DD) - alias for date_str for run_daily compatibility
-        leagues: List of leagues to scan (if None, uses WHITELISTED_LEAGUES)
-        min_mes: Minimum MES floor for selections
-        agreement_band: Agreement band for consensus
-        verify_only: If True, only run verification agents
 
     Returns:
-        PipelineResult-like object with board, fixture_sources, fit_stats attributes
+        CEO payload (Agent 10 output)
     """
-    # Handle board_date alias
-    if board_date is not None and date_str is None:
-        date_str = board_date
-
     state = _run_pipeline_internal(season=season, fixtures_season=fixtures_season, dry_run=dry_run, only=only)
-
-    # Return a PipelineResult-like object with the expected attributes
-    from output.produce_bet import BoardFixture
-    from booking.verify_fixtures import verify_board
-    from datetime import date
-
-    # Reconstruct board from state for return
-    agent4 = state.payloads.get(4, {})
-    agent5 = state.payloads.get(5, {})
-    agent1 = state.payloads.get(1, {})
-
-    verified_fixtures = agent4.get("verified_fixtures", {})
-    fixture_reports = agent5.get("fixture_reports", {})
-
-    board = []
-    for mid, fx in verified_fixtures.items():
-        report = fixture_reports.get(mid, {})
-        rating_source = report.get("rating_source", "NO DATA — PENDING")
-        selections = report.get("selections", [])
-
-        bf = BoardFixture(
-            fixture=f"{fx['home_team']} v {fx['away_team']} ({fx['league']})",
-            probs=report.get("probs"),
-            verification=None,
-            model_engine="dc" if rating_source == "dc" else ("carry" if rating_source == "carry" else "clubelo"),
-            on_deploy_shortlist=len(selections) > 0,
-            mes_trigger_price=None,
-            kickoff_date=fx.get("kickoff_utc", "")[:10] if fx.get("kickoff_utc") else None,
-            rating_source=rating_source,
-        )
-        board.append(bf)
-
-    # Run verification gate
-    leagues_scanned = list(set(fx["league"] for fx in agent1.get("fixtures", [])))
-    board_date_final = date_str or date.today().isoformat()
-    try:
-        verified_board, verify_report = verify_board(board, board_date_final, leagues_scanned)
-        board = verified_board
-    except Exception:
-        pass
-
-    # Create a simple object with the expected attributes
-    class PipelineResult:
-        def __init__(self, board, fixture_sources, fit_stats):
-            self.board = board
-            self.fixture_sources = fixture_sources
-            self.fit_stats = fit_stats
-
-    return PipelineResult(board, set(), {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0, "xg_leagues": 0})
+    return state.payloads.get(only or 10, {})
 
 
 # =============================================================================
@@ -1610,11 +1135,6 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
 
     date_compact = date_str.replace("-", "")
 
-    # Heartbeat text is assigned inside the wired-mode try block below; init it
-    # here so the render section never sees an UnboundLocalError if that try
-    # raises (e.g. build_production_bets faults) before reaching the assignment.
-    telegram_heartbeat = None
-
     # --- Wired mode (run_daily.py supplies the board) --------------------------
     if board is not None:
         if leagues_scanned is None:
@@ -1647,21 +1167,9 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         total_stake_fraction = sum(getattr(s, "stake_fraction", 0) for s in acca_list)
         paper_bankroll = PAPER_BANKROLL_NGN
 
-        # Wired mode: compute CEO decision from gate data passed in by run_daily
-        # (avoids fragile re-run of agents 1-10 which can halt and leave agent10 empty)
-        gate_req = 30  # Phase 3 gate requirement
-        clv_legs = calibration_count or 0
-        clv_mean = mean_clv
-        gate_met = (clv_legs >= gate_req) and (clv_mean is not None and clv_mean > 0)
-        signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower()
-        signed_off = signoff in ("1", "true", "yes")
-        override = (not gate_met) and signed_off
-        if gate_met or override:
-            feed_audit_decision = "CEO_APPROVE"
-            feed_audit_authorized = True
-        else:
-            feed_audit_decision = "CEO_REJECT"
-            feed_audit_authorized = False
+        agent10 = state.payloads.get(10, {}) if state else {}
+        feed_audit_decision = agent10.get("decision", "UNKNOWN")
+        feed_audit_authorized = agent10.get("publish_authorization", {}).get("authorized", False) if agent10 else False
         skipped_count = 0
 
     # --- Pipeline mode (standalone pipeline run) -------------------------------
@@ -1677,46 +1185,14 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         verified_fixtures = agent4.get("verified_fixtures", {})
         fixture_reports = agent5.get("fixture_reports", {})
 
-        # Create enrichment lookup functions using the cache directory
-        cache_dir = Path(__file__).parent / "data" / "cache" / "sportybet" / "fixtures"
-
         board = []
-        dropped_count = 0
         for mid, fx in verified_fixtures.items():
             report = fixture_reports.get(mid, {})
             rating_source = report.get("rating_source", "NO DATA — PENDING")
             selections = report.get("selections", [])
-
-            # Create fixture key for enrichment
-            fixture_key = f"{fx['home_team']} v {fx['away_team']}"
-
-            # Apply enrichment gate - this is the HARD GATE that drops fixtures with missing data
-            if cache_dir.exists():
-                kickoff_lookup_fn = _create_kickoff_lookup_from_cache_dir(cache_dir)
-                league_lookup_fn = _create_league_lookup_from_cache_dir(cache_dir)
-
-                enriched = enrich_fixture(
-                    fixture_key=fixture_key,
-                    home=fx['home_team'],
-                    away=fx['away_team'],
-                    kickoff_lookup_fn=kickoff_lookup_fn,
-                    league_lookup_fn=league_lookup_fn
-                )
-
-                # If enrichment fails (missing kickoff or league data), skip this fixture
-                if enriched is None:
-                    dropped_count += 1
-                    continue
-
-                # Enrichment succeeded - use validated data
-                league = enriched.league
-            else:
-                # Fall back to original league if cache directory missing
-                league = fx['league']
-
             bf = BoardFixture(
-                fixture=f"{fx['home_team']} v {fx['away_team']} ({league})",
-                probs=report.get("probs"),
+                fixture=f"{fx['home_team']} v {fx['away_team']} ({fx['league']})",
+                probs=None,
                 verification=None,
                 model_engine="dc" if rating_source == "dc" else ("carry" if rating_source == "carry" else "clubelo"),
                 on_deploy_shortlist=len(selections) > 0,
@@ -1726,34 +1202,10 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
             )
             board.append(bf)
 
-        if dropped_count > 0:
-            import logging
-            log = logging.getLogger("olp_xdv_pipeline")
-            log.info("Pipeline: dropped %d fixtures due to missing kickoff/league data (enrichment gate)", dropped_count)
-
         leagues_scanned = list(set(fx["league"] for fx in agent1.get("fixtures", [])))
         all_data_flags = []
         for agent_id in range(1, 11):
             all_data_flags.extend(state.payloads.get(agent_id, {}).get("data_flags", []))
-
-        # Run verification gate (mirrors run_daily.py logic)
-        from booking.verify_fixtures import verify_board
-        from datetime import date
-        board_date = date.today().isoformat()
-        try:
-            verified_board, verify_report = verify_board(board, board_date, leagues_scanned)
-            board = verified_board
-            all_data_flags.append(
-                f"VERIFY GATE: {verify_report.verified} verified, "
-                f"{verify_report.kept_unverified} kept-unverified, "
-                f"{verify_report.dropped_missing_source} dropped "
-                f"(FlashScore {'on' if verify_report.flashscore_available else 'OFF'}, "
-                f"SportyBet {'on' if verify_report.sportybet_available else 'OFF'})")
-            all_data_flags += verify_report.flags
-            if verify_report.outage:
-                all_data_flags.append(f"⚠ VERIFY GATE OUTAGE: {verify_report.outage_reason}")
-        except Exception as e:
-            all_data_flags.append(f"verify_board gate failed ({e}) — verification stamps unavailable")
 
         brain = Brain()
         log = CLVLog()
@@ -1765,92 +1217,12 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         rolling_7d = brain.rolling_7d()
         produced_record = produced_bet_mod.load_produced_bet(date_str)
 
-        # Build odds_index for production betting (mirrors run_daily.py logic)
-        import pipeline.odds as odds_mod
-        from data.multi_source_concrete import get_odds as multi_get_odds
-        from booking.bridge import load_all_sportybet_fixtures
-        from engine.leagues import build_deploy_shortlist
-        odds_index: dict = {}
-        try:
-            # Pull odds for all leagues that have ANY deploy-shortlist fixture
-            odds_leagues = {_league_of(bf) for bf in board if getattr(bf, "on_deploy_shortlist", False)}
-            for lg in sorted(odds_leagues):
-                try:
-                    fixtures = multi_get_odds(lg)
-                    odds_index.update(odds_mod.index_by_fixture(fixtures))
-                    all_data_flags.append(f"{lg}: odds served via multi-source layer")
-                except Exception as e:
-                    all_data_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
-            # Merge SportyBet cache odds
-            try:
-                sb_fixtures_by_league = load_all_sportybet_fixtures(days_ahead=3, leagues=list(odds_leagues))
-                sb_odds_count = 0
-                for lg, sb_fixtures in sb_fixtures_by_league.items():
-                    for sb_fx in sb_fixtures:
-                        if sb_fx.home_odds and sb_fx.draw_odds and sb_fx.away_odds:
-                            key = (sb_fx.home_team, sb_fx.away_team)
-                            if key not in odds_index:
-                                sb_odds = odds_mod.FixtureOdds(
-                                    league=lg,
-                                    home_team=sb_fx.home_team,
-                                    away_team=sb_fx.away_team,
-                                    kickoff_utc=sb_fx.kickoff_utc,
-                                    home=odds_mod.MarketQuote(
-                                        price=sb_fx.home_odds,
-                                        bookmaker="SportyBet Nigeria",
-                                        n_books=1,
-                                        captured_at=sb_fx.kickoff_utc
-                                    ),
-                                    draw=odds_mod.MarketQuote(
-                                        price=sb_fx.draw_odds,
-                                        bookmaker="SportyBet Nigeria",
-                                        n_books=1,
-                                        captured_at=sb_fx.kickoff_utc
-                                    ),
-                                    away=odds_mod.MarketQuote(
-                                        price=sb_fx.away_odds,
-                                        bookmaker="SportyBet Nigeria",
-                                        n_books=1,
-                                        captured_at=sb_fx.kickoff_utc
-                                    ),
-                                    source="sportybet-cache",
-                                    source_tier="T2"
-                                )
-                                odds_index[key] = sb_odds
-                                sb_odds_count += 1
-                if sb_odds_count:
-                    all_data_flags.append(f"SportyBet cache merged: {sb_odds_count} fixture(s) with 1X2 odds added to odds_index")
-            except Exception as e:
-                all_data_flags.append(f"SportyBet cache merge failed ({e})")
-        except Exception as e:
-            all_data_flags.append(f"odds_index build failed: {e}")
-
-        production = build_production_bets(board, today=date_str, odds_index=odds_index)
+        production = build_production_bets(board, today=date_str, odds_index={})
         acca_list = []
         if production.acca_a is not None:
             acca_list.append(production.acca_a)
         acca_list += production.split_accas
         acca_list += build_single_accas(production.singles)
-
-        # SELECT HEARTBEAT(S): Architect 2026-08-29 lineage model.
-        # Each LIVING lineage gets one heartbeat (the day's top high-edge
-        # fixtures); a WIN lineage reproduces into two offspring next day, a
-        # LOSS lineage goes extinct. Wrapped in try so a failure never kills board.
-        telegram_heartbeat = None
-        heartbeat_fixtures_today: list = []
-        try:
-            from engine.heartbeat_lineage import select_daily_heartbeats
-            heartbeat_fixtures_today = select_daily_heartbeats(
-                board, target_date=date_str, odds_index=odds_index
-            )
-            if heartbeat_fixtures_today:
-                telegram_heartbeat = "\n\n".join(
-                    render_heartbeat_telegram(hb) for hb in heartbeat_fixtures_today
-                )
-                for hb in heartbeat_fixtures_today:
-                    save_heartbeat_record(hb)
-        except Exception as e:
-            all_data_flags.append(f"heartbeat lineage selection failed ({type(e).__name__}: {e})")
 
         codes_result = None
         if agent8.get("singles"):
@@ -1868,44 +1240,26 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         feed_audit_authorized = agent10.get("publish_authorization", {}).get("authorized", False)
         skipped_count = len(agent8.get("skipped_positions", []))
 
-    # Telegram board uses the CLEAN COMPACT HEARTBEAT format (Architect 2026-08-29):
-    # ONLY fixtures with model probabilities, league-grouped with kickoff time,
-    # alt markets (O1.5/O2.5/O3.5/BTTS), and AI pick with probability.
-    # No "NO DATA — PENDING" entries. This overrides all other output.
-    # The compact heartbeat is the single authoritative Telegram format.
+    # Render telegram board using the exact same function signature as run_daily.py
     telegram_content = render_telegram_board(
-        mode="Mode A", phase=PHASE_LABEL,
-        leagues_scanned=leagues_scanned, calibration_count=calibration_count,
-        mean_clv=mean_clv, data_flags=all_data_flags, board=board,
-        yesterday_graded=yesterday_graded, rolling_7d=rolling_7d,
-        produced_bet=produced_record, production=production,
-        codes=codes_result,
-        compact=True, target_date=date_str)
+        mode="Mode A",
+        phase=PHASE_LABEL,
+        leagues_scanned=leagues_scanned,
+        calibration_count=calibration_count,
+        mean_clv=mean_clv,
+        data_flags=all_data_flags,
+        board=board,
+        yesterday_graded=yesterday_graded,
+        rolling_7d=rolling_7d,
+        produced_bet=produced_record,
+        production=production,
+        codes=codes_result
+    )
 
     # Write telegram file
     telegram_file = f"telegram_{date_str}.txt"
     with open(telegram_file, "w", encoding="utf-8") as f:
         f.write(telegram_content)
-
-    # Send all components via Telegram (Architect redesign: all three formats)
-    from output.notify import TELEGRAM_BOARD_DELIVERY_ENABLED
-    if TELEGRAM_BOARD_DELIVERY_ENABLED:
-        from output import notify
-        notify.broadcast_all_components(date_str)
-
-    # Write heartbeat file (ALL living lineages' heartbeats)
-    if telegram_heartbeat:
-        heartbeat_file = f"output/boards/heartbeat_{date_str}.txt"
-        with open(heartbeat_file, "w", encoding="utf-8") as f:
-            f.write(telegram_heartbeat)
-
-        # Architect 2026-08-29: breed next generation from today's living lineages
-        # (WIN lineages reproduce into offspring for tomorrow; LOSS go extinct).
-        try:
-            from engine.heartbeat_lineage import breed_next_generation
-            breed_next_generation(board, target_date=date_str, odds_index=odds_index)
-        except Exception as e:
-            all_data_flags.append(f"heartbeat lineage breed failed ({type(e).__name__}: {e})")
 
     # Write feed_audit.jsonl
     feed_audit = {
@@ -1934,7 +1288,7 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
     with open(acca_file, "w", encoding="utf-8") as f:
         json.dump(acca_codes, f, indent=2, default=str)
 
-    # Also write the full board file (board_<date>.txt) using blended format
+    # Also write the full board file (board_<date>.txt)
     board_text = render_produce_bet(
         mode="Mode A",
         phase=PHASE_LABEL,
@@ -1945,8 +1299,7 @@ def render_board_from_pipeline(state: Optional[PipelineState] = None,
         board=board,
         produced_bet=produced_record,
         production=production,
-        codes=codes_result,
-        include_data_flags=True, only_rated=False, compact=False
+        codes=codes_result
     )
 
     verify_block = ""
@@ -2029,35 +1382,7 @@ def main() -> None:
         except Exception:
             pass
 
-    # League Verification: Check today's fixtures against whitelisted leagues
-    if not args.dry_run:  # Only run verification in live mode
-        try:
-            flashscore_file = "flashscore_leagues_sep4.json"
-            flashscore_path = Path(flashscore_file)
-            if flashscore_path.exists():
-                logger.info("Running daily league verification...")
-                verification_report = run_daily_league_verification(str(flashscore_path))
-
-                # Log verification results
-                logger.info(f"League Verification Status: {verification_report['status']}")
-                logger.info(f"Coverage: {verification_report['covered_count']}/{verification_report['whitelisted_count']} leagues "
-                          f"({verification_report['coverage_percentage']}%)")
-
-                # Determine if we should adjust scanning based on coverage
-                verifier = LeagueVerifier()
-                if verifier.should_enter_passive_mode(verification_report['coverage_percentage']):
-                    logger.warning("LOW COVERAGE: Entering passive monitoring mode")
-                elif verifier.should_reduce_scanning_frequency(verification_report['coverage_percentage']):
-                    logger.info("REDUCED COVERAGE: Consider reducing scanning frequency")
-                else:
-                    logger.info("NORMAL COVERAGE: Proceeding with standard scanning")
-            else:
-                logger.warning(f"Flashscore file not found: {flashscore_file}. Skipping league verification.")
-        except Exception as e:
-            logger.error(f"League verification failed: {e}")
-            # Don't halt the pipeline for verification failures
-
-    state = _run_pipeline_internal(season=args.season, fixtures_season=args.fixtures_season, dry_run=args.dry_run, only=args.only)
+    state = run_pipeline(args.season, args.fixtures_season, args.dry_run, args.only)
 
     final = state.payloads.get(args.only or 10, {})
     if args.json:
@@ -2075,10 +1400,6 @@ def main() -> None:
             print(f"Errors: {len(state.errors)}")
             for e in state.errors[:5]:
                 print(f"  - agent {e['agent']}: {e['error']}")
-
-        # Generate board artifacts (telegram, feed_audit, acca codes)
-        if args.only is None or args.only == 10:
-            render_board_from_pipeline(state=state)
 
 
 if __name__ == "__main__":

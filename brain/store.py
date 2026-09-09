@@ -399,6 +399,16 @@ class Brain:
                 " elo_seeded INTEGER NOT NULL DEFAULT 0, "
                 " pool_built INTEGER NOT NULL DEFAULT 0, "
                 " fit_seconds REAL, warnings TEXT)")
+            # Model performance tracking for dynamic weighting
+            self._conn.execute(
+                "CREATE TABLE IF NOT EXISTS model_performance ("
+                " league_id TEXT NOT NULL,"
+                " market_type TEXT NOT NULL,"
+                " fixture_date TEXT NOT NULL,"
+                " engine TEXT NOT NULL,"
+                " clv REAL NOT NULL,"
+                " sample_size INTEGER NOT NULL DEFAULT 1,"
+                " PRIMARY KEY (league_id, market_type, fixture_date, engine))")
         with self._conn:
             self._conn.execute(
                 "INSERT OR IGNORE INTO meta(key, value) VALUES('schema_version', ?)",

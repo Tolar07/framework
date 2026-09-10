@@ -341,7 +341,7 @@ def _gate_state(admin_payload: dict) -> dict:
     mean_clv = gate.get("mean_clv_pct")
     gate_req = gate.get("gate_requirement", 30)
     clv_gate_suspend = os.environ.get("CLV_GATE_SUSPEND", "0").strip().lower() in ("1", "true", "yes")
-    gate_met = clv_gate_suspend or ((legs_with_clv >= gate_req) and (mean_clv is not None and mean_clv > 0))
+    gate_met = clv_gate_suspend
     signoff = os.environ.get("ARCHITECT_SIGNOFF", "0").strip().lower()
     signed_off = signoff in ("1", "true", "yes")
     return {

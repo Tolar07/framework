@@ -1,0 +1,46 @@
+PART 0 — HEADER
+Date: 2026-09-11 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa
+Calibration: 0 legs logged, CLV logged: ZERO
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ graded 0 of 13 pending leg(s)
+  ⚠ Eredivisie: Odds API quota down to 0 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Danish Superliga: Odds API quota down to 0 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Belgian Pro League: Odds API quota down to 0 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Scottish Premiership: Odds API quota down to 0 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Ekstraklasa: Odds API quota down to 0 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month.
+  ⚠ Eredivisie: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Danish Superliga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Belgian Pro League: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Scottish Premiership: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Ekstraklasa: no upcoming fixtures (thesportsdb: 'Ekstraklasa' has no VERIFIED TheSportsDB league ID yet — it wasn't found when scanning their directory on the public test key. Resolve it with a personal key and add it to LEAGUE_IDS; it is deliberately not guessed. | odds-derived fixtures: Odds API quota down to 0 (floor 40). Refusing to spend it on a routine pull — today's entry prices are NO DATA — PENDING rather than exhausting the month. | api-football: API_FOOTBALL_KEY environment variable not set. Sign up free at https://dashboard.api-football.com/register, grab your key from the dashboard, and set it as an environment variable before running this.) — NO DATA — PENDING
+  ⚠ logged 0 new paper leg(s) with a live entry price
+  ⚠ Phase 3 gate: 0 of 30 legs with logged CLV; mean CLV NO DATA — PENDING
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+NO DEPLOY-ELIGIBLE CALL this session.
+That is a valid, honest result — the framework's value is disciplined filtering, and near-zero approvals is correct behaviour, not failure.
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+
+PART 3 — REJECTED / WATCHLIST
+None.
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 0
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

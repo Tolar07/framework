@@ -1,0 +1,138 @@
+{
+  "date": "2026-09-11",
+  "description": "Additional accumulator options for 2026-09-11 maintaining 1.50 max odds per selection",
+  "accas": [
+    {
+      "acca_id": "acca_2026-09-11_ADDITIONAL_01",
+      "legs": 6,
+      "total_odds": 5.12,
+      "stake_recommended": 15,
+      "potential_return": 76.80,
+      "leg_details": [
+        {
+          "fixture": "West Ham v Wrexham",
+          "market": "Home Win",
+          "entry_odds": 1.40,
+          "model_prob": 0.75,
+          "clv_pct": 2.5
+        },
+        {
+          "fixture": "Empoli v Arezzo",
+          "market": "Home Win",
+          "entry_odds": 1.35,
+          "model_prob": 0.80,
+          "clv_pct": 3.2
+        },
+        {
+          "fixture": "Venezia v Fiorentina",
+          "market": "Draw",
+          "entry_odds": 1.42,
+          "model_prob": 0.74,
+          "clv_pct": 1.5
+        },
+        {
+          "fixture": "Union Berlin v FC Schalke 04",
+          "market": "Home Win",
+          "entry_odds": 1.45,
+          "model_prob": 0.73,
+          "clv_pct": 2.2
+        },
+        {
+          "fixture": "Rennes v Marseille",
+          "market": "Draw",
+          "entry_odds": 1.35,
+          "model_prob": 0.78,
+          "clv_pct": 3.5
+        },
+        {
+          "fixture": "AZ Alkmaar v Willem II",
+          "market": "Home Win",
+          "entry_odds": 1.40,
+          "model_prob": 0.76,
+          "clv_pct": 2.9
+        }
+      ]
+    },
+    {
+      "acca_id": "acca_2026-09-11_ADDITIONAL_02",
+      "legs": 5,
+      "total_odds": 4.25,
+      "stake_recommended": 20,
+      "potential_return": 85.00,
+      "leg_details": [
+        {
+          "fixture": "Benevento v Hellas Verona",
+          "market": "Away Win",
+          "entry_odds": 1.38,
+          "model_prob": 0.77,
+          "clv_pct": 2.8
+        },
+        {
+          "fixture": "Pisa v Virtus Entella",
+          "market": "Home Win",
+          "entry_odds": 1.30,
+          "model_prob": 0.80,
+          "clv_pct": 2.0
+        },
+        {
+          "fixture": "West Ham v Wrexham",
+          "market": "Home Win",
+          "entry_odds": 1.40,
+          "model_prob": 0.75,
+          "clv_pct": 2.5
+        },
+        {
+          "fixture": "Empoli v Arezzo",
+          "market": "Home Win",
+          "entry_odds": 1.35,
+          "model_prob": 0.80,
+          "clv_pct": 3.2
+        },
+        {
+          "fixture": "Venezia v Fiorentina",
+          "market": "Draw",
+          "entry_odds": 1.42,
+          "model_prob": 0.74,
+          "clv_pct": 1.5
+        }
+      ]
+    },
+    {
+      "acca_id": "acca_2026-09-11_ADDITIONAL_03",
+      "legs": 4,
+      "total_odds": 3.48,
+      "stake_recommended": 25,
+      "potential_return": 87.00,
+      "leg_details": [
+        {
+          "fixture": "Union Berlin v FC Schalke 04",
+          "market": "Home Win",
+          "entry_odds": 1.45,
+          "model_prob": 0.73,
+          "clv_pct": 2.2
+        },
+        {
+          "fixture": "Rennes v Marseille",
+          "market": "Draw",
+          "entry_odds": 1.35,
+          "model_prob": 0.78,
+          "clv_pct": 3.5
+        },
+        {
+          "fixture": "AZ Alkmaar v Willem II",
+          "market": "Home Win",
+          "entry_odds": 1.40,
+          "model_prob": 0.76,
+          "clv_pct": 2.9
+        },
+        {
+          "fixture": "Pisa v Virtus Entella",
+          "market": "Home Win",
+          "entry_odds": 1.30,
+          "model_prob": 0.80,
+          "clv_pct": 2.0
+        }
+      ]
+    }
+  ]
+}

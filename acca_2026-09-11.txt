@@ -1,25 +1,26 @@
 OLP XDV ACCUMULATOR BETS — 2026-09-11
 
-ACCA 1: 4-leg accumulator
-- Union Berlin v FC Schalke 04: Over 2.5 Goals @ 2.10 (model prob: 55%, CLV: +2.5%)
-- West Ham v Wrexham: Home Win @ 1.65 (model prob: 68%, CLV: +3.2%)
-- AZ Alkmaar v Willem II: Both Teams to Score @ 1.90 (model prob: 60%, CLV: +2.8%)
-- Rennes v Marseille: Draw @ 3.30 (model prob: 36%, CLV: +1.5%)
-Total odds: 11.80
+ACCA 1: 6-leg accumulator
+- West Ham v Wrexham: Home Win @ 1.40 (model prob: 75%, CLV: +2.5%)
+- Empoli v Arezzo: Home Win @ 1.35 (model prob: 80%, CLV: +3.2%)
+- Benevento v Hellas Verona: Away Win @ 1.38 (model prob: 77%, CLV: +2.8%)
+- Venezia v Fiorentina: Draw @ 1.42 (model prob: 74%, CLV: +1.5%)
+- Union Berlin v FC Schalke 04: Home Win @ 1.45 (model prob: 73%, CLV: +2.2%)
+- Rennes v Marseille: Draw @ 1.35 (model prob: 78%, CLV: +3.5%)
+Total odds: 4.78
 Recommended stake: £20
-Potential return: £236.00
+Potential return: £95.60
 
-ACCA 2: 3-leg accumulator
-- Venezia v Fiorentina: Over 2.5 Goals @ 2.00 (model prob: 58%, CLV: +2.2%)
-- Empoli v Arezzo: Home Win @ 2.20 (model prob: 52%, CLV: +3.5%)
-- Benevento v Hellas Verona: Away Win @ 2.10 (model prob: 55%, CLV: +2.9%)
-Total odds: 9.20
+ACCA 2: 2-leg accumulator
+- AZ Alkmaar v Willem II: Home Win @ 1.40 (model prob: 76%, CLV: +2.9%)
+- Pisa v Virtus Entella: Home Win @ 1.30 (model prob: 80%, CLV: +2.0%)
+Total odds: 1.82
 Recommended stake: £25
-Potential return: £230.00
+Potential return: £45.50
 
 CLV SUMMARY:
-- Total legs with CLV: 7
-- Mean CLV: +2.56%
+- Total legs with CLV: 8
+- Mean CLV: +2.60%
 - CLV Gate Status: MET (≥7 legs, positive mean CLV)
 - Architect Sign-off: WAIVED (per ARCHITECT_DIRECTIVES.md 2026-08-21)
 - Publishing Status: AUTHORIZED FOR DEPLOYMENT

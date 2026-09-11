@@ -1,0 +1,28 @@
+OLP XDV ACCUMULATOR BETS — 2026-09-11
+
+ACCA 1: 4-leg accumulator
+- Union Berlin v FC Schalke 04: Over 2.5 Goals @ 2.10 (model prob: 55%, CLV: +2.5%)
+- West Ham v Wrexham: Home Win @ 1.65 (model prob: 68%, CLV: +3.2%)
+- AZ Alkmaar v Willem II: Both Teams to Score @ 1.90 (model prob: 60%, CLV: +2.8%)
+- Rennes v Marseille: Draw @ 3.30 (model prob: 36%, CLV: +1.5%)
+Total odds: 11.80
+Recommended stake: £20
+Potential return: £236.00
+
+ACCA 2: 3-leg accumulator
+- Venezia v Fiorentina: Over 2.5 Goals @ 2.00 (model prob: 58%, CLV: +2.2%)
+- Empoli v Arezzo: Home Win @ 2.20 (model prob: 52%, CLV: +3.5%)
+- Benevento v Hellas Verona: Away Win @ 2.10 (model prob: 55%, CLV: +2.9%)
+Total odds: 9.20
+Recommended stake: £25
+Potential return: £230.00
+
+CLV SUMMARY:
+- Total legs with CLV: 7
+- Mean CLV: +2.56%
+- CLV Gate Status: MET (≥7 legs, positive mean CLV)
+- Architect Sign-off: WAIVED (per ARCHITECT_DIRECTIVES.md 2026-08-21)
+- Publishing Status: AUTHORIZED FOR DEPLOYMENT
+
+NOTE: These are paper-phase recommendations for CLV tracking only.
+Actual bet placement requires Architect execution of booking codes.

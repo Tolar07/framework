@@ -148,6 +148,11 @@ TEAM_ALIASES = {
     # 9 fixtures. Neither pair is reachable by normalisation: "RB" is an
     # initialism of "Red Bull", and "SG" of "Saint-Gilloise", so the short form
     # shares no token with the long one.
+    # "Ferencvarosi" and "Ferencvaros" are different stems, not a prefix
+    # relationship, so no token rule reconciles them.
+    "ferencvarosi budapest": "ferencvaros",
+    "ferencvarosi": "ferencvaros",
+    "ferencvarosi tc": "ferencvaros",
     "rb salzburg": "red bull salzburg",
     "salzburg": "red bull salzburg",
     "union sg": "union saint gilloise",

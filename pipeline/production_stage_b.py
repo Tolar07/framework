@@ -19,9 +19,13 @@ from pathlib import Path
 from typing import Any, Optional
 
 from engine.acca import (
+    MAX_ODDS_CAP,
+    MIN_ODDS_FLOOR,
+    PREFERRED_ODDS_CEILING,
     Acca,
     AccaLeg,
     ProductionBets,
+    _best_deployable_leg,
     _make_acca,
     build_production_bets,
     render_production_block,

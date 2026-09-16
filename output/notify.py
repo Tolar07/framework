@@ -45,8 +45,8 @@ except ImportError:
 # silently never deliver. Kept as a side-effect import — no names used.
 import config  # noqa: F401
 
-from output.board_validator import chunk_for_telegram, _balance_fences
-
+# _balance_fences is deliberately NOT imported: this module defines its own
+# identical copy below, which shadowed the imported one anyway.
 from output.board_validator import chunk_for_telegram
 
 

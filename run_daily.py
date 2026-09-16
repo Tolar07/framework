@@ -91,6 +91,12 @@ except ImportError:
     error_tracker = None
 
 BOARD_DIR = Path(__file__).parent / "output" / "boards"
+
+# Booking drives Playwright against SportyBet, which has hung for 10+ minutes in
+# practice. Bounded so a stuck browser cannot hold the run open indefinitely --
+# the board is already written by the time booking starts, so a timeout costs
+# the codes, not the board.
+BOOKING_TIMEOUT_S = 600
 LOG_DIR = Path(__file__).parent / "logs"
 
 
@@ -101,6 +107,73 @@ def _mark_started() -> Path:
     with open(runlog, "w", encoding="utf-8", errors="replace") as f:
         f.write(f"Run started at {datetime.now(timezone.utc).isoformat()}\n")
     return runlog
+
+
+def _acca_to_dict(acca) -> dict:
+    """One Acca as the shape booking_codes._load_acca_payload expects.
+
+    Contract taken from a known-good payload (acca_2026-08-09.json) rather than
+    invented: label / combined_odds / combined_prob / n_legs / legs[], with each
+    leg carrying fixture, league, market_key, market_name, price, prob, ev and
+    sportybet_fixture_id.
+    """
+    legs = []
+    for lg in (getattr(acca, "legs", None) or []):
+        legs.append({
+            "fixture": lg.fixture,
+            "league": lg.league,
+            "market_key": lg.market_key,
+            "market_name": lg.market_name,
+            "price": lg.price,
+            "prob": lg.prob,
+            "ev": lg.ev,
+            # Carried through so the booker can skip resolution when the
+            # pre-production gate already identified the SportyBet fixture.
+            "sportybet_fixture_id": getattr(lg, "sportybet_fixture_id", None),
+        })
+    return {
+        "label": getattr(acca, "label", "Acca"),
+        "combined_odds": getattr(acca, "combined_odds", None),
+        "combined_prob": getattr(acca, "combined_prob", None),
+        "n_legs": len(legs),
+        "legs": legs,
+    }
+
+
+def _write_acca_payload(board_date: str, stage_b) -> Optional[Path]:
+    """Write output/boards/acca_<date>.json from Stage B's acca route.
+
+    Returns the path, or None when there is nothing capital-eligible to book --
+    in which case no file is written at all. An empty payload would be worse
+    than none: booking would read it, find no legs, and report a clean "nothing
+    added" that is indistinguishable from a successful run with no selections.
+    """
+    route = getattr(stage_b, "acca_route", None)
+    if route is None:
+        return None
+
+    accas = [a for a in (getattr(route, "acca_a", None), getattr(route, "acca_b", None))
+             if a is not None and (getattr(a, "legs", None) or [])]
+
+    # The single best standalone leg rides along as its own one-leg acca, the
+    # same way the booker treats singles.
+    slv = getattr(route, "slv", None)
+    if slv is not None:
+        from engine.acca import Acca as _Acca
+        accas.append(_Acca(label=f"SINGLE — {slv.fixture}", legs=[slv]))
+
+    if not accas:
+        return None
+
+    payload = {
+        "date": board_date,
+        "n_accas": len(accas),
+        "accas": [_acca_to_dict(a) for a in accas],
+    }
+    BOARD_DIR.mkdir(parents=True, exist_ok=True)
+    path = BOARD_DIR / f"acca_{board_date}.json"
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    return path
 
 
 def _mark(runlog: Path, message: str) -> None:
@@ -477,6 +550,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                 board_text = stage_b_text
                 telegram_text = stage_b_text
             n_rows = len(getattr(getattr(stage_b, "layer2", None), "rows", []) or [])
+
+            # Persist the acca payload booking reads. Nothing wrote
+            # acca_<date>.json -- only readers existed -- so booking_codes
+            # always raised FileNotFoundError on today's date and fell back to
+            # whatever stale file was on disk (the newest was 2026-08-31).
+            try:
+                _acca_path = _write_acca_payload(board_date, stage_b)
+                if _acca_path:
+                    all_flags.append(f"acca payload written: {_acca_path.name}")
+            except Exception as e:
+                all_flags.append(f"acca payload write failed ({type(e).__name__}: {e})")
             fixture_sources.update(
                 s for vf in stage_a.fixtures for s in (vf.source or "").split("+") if s
             )
@@ -594,6 +678,58 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         board_file = BOARD_DIR / f"board_{board_date}.txt"
         with open(board_file, "w", encoding="utf-8") as f:
             f.write(board_text)
+
+        # ===== BOOKING CODES =====
+        # The `booking_codes` flag was declared in run(), passed to _run(),
+        # declared again in its signature and read NOWHERE, so codes were never
+        # generated no matter how the flag was set. Wired up here.
+        #
+        # Gated on `not fallback_is_unpublishable` for the same reason delivery
+        # is: a booking code is a REAL, placeable artefact. Generating one from
+        # the demonstration fallback's hardcoded probabilities would be worse
+        # than publishing that board, because a code can be acted on directly.
+        if booking_codes and not fallback_is_unpublishable:
+            acca_file = BOARD_DIR / f"acca_{board_date}.json"
+            if not acca_file.exists():
+                all_flags.append(
+                    "booking codes skipped — no capital-eligible acca for "
+                    f"{board_date} (nothing to book, not a failure)")
+            else:
+                try:
+                    import subprocess
+                    # Run as a subprocess: booking drives Playwright and can
+                    # hang on SportyBet, and a stuck browser must not take the
+                    # board down after it has already been written to disk.
+                    proc = subprocess.run(
+                        [sys.executable, "-m", "booking.booking_codes",
+                         "--date", board_date],
+                        cwd=str(Path(__file__).parent),
+                        capture_output=True, text=True, timeout=BOOKING_TIMEOUT_S,
+                    )
+                    codes_file = BOARD_DIR / f"acca_{board_date}_codes.json"
+                    if codes_file.exists():
+                        got = json.loads(codes_file.read_text(encoding="utf-8"))
+                        n_ok = sum(1 for r in (got.get("results") or [])
+                                   if r.get("code"))
+                        n_tot = len(got.get("results") or [])
+                        all_flags.append(
+                            f"booking codes: {n_ok}/{n_tot} generated")
+                    else:
+                        all_flags.append(
+                            "booking codes: produced no codes file "
+                            f"(exit {proc.returncode})")
+                except subprocess.TimeoutExpired:
+                    all_flags.append(
+                        f"booking codes: timed out after {BOOKING_TIMEOUT_S}s — "
+                        "board is unaffected, codes read NO DATA — PENDING")
+                except Exception as e:
+                    all_flags.append(
+                        f"booking codes failed ({type(e).__name__}: {e})")
+        elif booking_codes and fallback_is_unpublishable:
+            all_flags.append(
+                "booking codes SUPPRESSED — board came from the demonstration "
+                "fallback; a code must never be generated from fabricated "
+                "probabilities (HR35)")
 
         # Send notifications if enabled.
         # `not fallback_is_unpublishable` enforces the HR35 guard above: a board

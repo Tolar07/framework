@@ -808,12 +808,28 @@ async def main():
     launch_args = _build_launch_args()
     safe_print(f"Launch args: {launch_args}")
 
-    target_leagues = [
-        "Belgian Pro League", "Bundesliga", "Championship", "La Liga 2",
-        "Ligue 1", "Ligue 2", "Premier League", "Primeira Liga",
-        "Russian Premier League", "Scottish Premiership", "Serie A",
-        "Serie B", "Swiss Super League", "Turkish Super Lig",
-    ]
+    # Derived, not hardcoded. This used to be a fixed list of 14 domestic
+    # leagues that excluded EVERY continental competition and EVERY cup --
+    # no Champions League, Europa League, Conference League, EFL Cup, FA Cup,
+    # Copa del Rey, DFB-Pokal. It also listed "La Liga 2" but not "La Liga".
+    #
+    # So the cache could never hold odds for a cup or continental fixture, and
+    # a board made of those (2026-09-17 is 11 Europa League ties and an EFL Cup
+    # tie) got no prices at all -- which meant no EV, no capital-eligible leg,
+    # no acca payload and therefore no booking code. The board reported
+    # "no capital-eligible pick today", which is indistinguishable from a
+    # genuinely quiet day.
+    #
+    # Scrape what production can actually deploy on: every competition with a
+    # resolved SportyBet tournament id that the booker also knows how to
+    # navigate. Adding a league to the registry now reaches the cache
+    # automatically instead of needing this list edited too.
+    target_leagues = sorted(
+        lg for lg, ids in SPORTYBET_CATEGORY_TOURNAMENT.items()
+        if ids != (0, 0) and lg in SPORTYBET_LEAGUES
+    )
+    safe_print(f"Cache targets: {len(target_leagues)} competitions "
+               f"(derived from resolved tournament ids)")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=launch_args)

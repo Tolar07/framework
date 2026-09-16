@@ -30,43 +30,114 @@ MIN_LEAGUE_PURITY = 0.60
 BOOKER_CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
 FALLBACK_IPS = ["104.21.10.148", "172.67.163.154"]
 
+# Direct-URL targets: (sr:category, sr:tournament) per OLP league.
+#
+# DERIVED, NOT HAND-WRITTEN. Rebuilt 2026-09-16 from SportyBet's own
+# authoritative tournament tree:
+#     GET https://www.sportybet.com/api/ng/factsCenter/sportList
+# which returns every sr:category and its sr:tournament children by name.
+# Regenerate from that endpoint rather than editing entries by hand.
+#
+# The previous table had 11 of its 14 populated entries pointing at the WRONG
+# competition -- the values were shifted by one row, so each league carried its
+# neighbour's ids:
+#     Premier League (32,8)  was Spain/LaLiga        -> correct (1,17)
+#     La Liga        (31,23) was Italy/Serie A       -> correct (32,8)
+#     Serie A        (30,35) was Germany/Bundesliga  -> correct (31,23)
+#     Bundesliga     (7,34)  was France/Ligue 1      -> correct (30,35)
+#     Championship   (1,17)  was Premier League      -> correct (1,18)
+#     EFL Cup        (1,18)  was Championship        -> correct (1,21)
+# Only the three UEFA entries were right. Confirmed live before landing:
+#     (32,8)  -> Atletico Madrid v Osasuna, Deportivo v Sevilla   (Spanish)
+#     (31,23) -> Monza v Sassuolo, Bologna v Torino               (Italian)
+#     (1,17)  -> Brentford v Chelsea, Tottenham v Aston Villa     (English)
+#     (30,35) -> Bayern Munich v Union Berlin, Gladbach v Mainz   (German)
+#
+# (0, 0) means SportyBet lists no such tournament; those leagues fall back to
+# sidebar navigation, which _fixtures_match_league() still verifies by team.
 SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
-    "Allsvenskan": (0, 0),
-    "Austrian Bundesliga": (0, 0),
-    "Belgian Pro League": (0, 0),
-    "Bundesliga": (7, 34),
-    "Champions League": (393, 7),
-    "Championship": (1, 17),
-    "Conference League": (393, 34480),
-    "Czech First League": (0, 0),
-    "Danish Superliga": (0, 0),
-    "EFL Cup": (1, 18),
-    "Ekstraklasa": (0, 0),
-    "Eliteserien": (0, 0),
-    "Eredivisie": (0, 0),
-    "Europa League": (393, 679),
-    "Greek Super League": (0, 0),
-    "HNL": (0, 0),
-    "La Liga": (31, 23),
-    "La Liga 2": (31, 9),
-    "LaLiga": (31, 23),
-    "Liga Portugal": (32, 8),
-    "Ligue 1": (7, 35),
-    "Ligue 2": (7, 36),
-    "Norwegian Eliteserien": (0, 0),
-    "Premier League": (32, 8),
-    "Primeira Liga": (32, 9),
-    "Pro League": (0, 0),
-    "Russian Premier League": (0, 0),
-    "Scottish Premiership": (0, 0),
-    "Serie A": (30, 35),
-    "Serie B": (30, 36),
-    "Super League": (0, 0),
-    "Super League Greece": (0, 0),
-    "Swedish Allsvenskan": (0, 0),
-    "Swiss Super League": (0, 0),
-    "Süper Lig": (0, 0),
-    "Turkish Super Lig": (0, 0),
+    "Albanian Superliga":              (0, 0),         # not listed on SportyBet
+    "Allsvenskan":                     (9, 40),        # Sweden / Allsvenskan
+    "Andorran Primera Divisi\u00f3":   (0, 0),         # not listed on SportyBet
+    "Armenian Premier League":         (296, 671),     # Armenia / Premier League
+    "Austrian Bundesliga":             (17, 45),       # Austria / Bundesliga
+    "Azerbaijani Premyer Liqa":        (0, 0),         # not listed on SportyBet
+    "Belarusian Premier League":       (0, 0),         # not listed on SportyBet
+    "Belgian Pro League":              (33, 38),       # Belgium / Pro League
+    "Bosnian Premier League":          (0, 0),         # not listed on SportyBet
+    "Bulgarian First League":          (0, 0),         # not listed on SportyBet
+    "Bundesliga":                      (30, 35),       # Germany / Bundesliga
+    "Champions League":                (393, 7),       # International Clubs / UEFA Champions League
+    "Championship":                    (1, 18),        # England / Championship
+    "Community Shield":                (0, 0),         # not listed on SportyBet
+    "Conference League":               (393, 34480),   # International Clubs / UEFA Conference League
+    "Copa del Rey":                    (0, 0),         # not listed on SportyBet
+    "Coppa Italia":                    (0, 0),         # not listed on SportyBet
+    "Coupe de France":                 (0, 0),         # not listed on SportyBet
+    "Cypriot First Division":          (0, 0),         # not listed on SportyBet
+    "Czech First League":              (0, 0),         # not listed on SportyBet
+    "DFB Pokal":                       (30, 217),      # Germany / DFB Pokal
+    "Danish Superliga":                (8, 39),        # Denmark / Superliga
+    "EFL Cup":                         (1, 21),        # England / EFL Cup
+    "EFL Trophy":                      (0, 0),         # not listed on SportyBet
+    "Ekstraklasa":                     (47, 202),      # Poland / Ekstraklasa
+    "Eliteserien":                     (5, 20),        # Norway / Eliteserien
+    "Eredivisie":                      (35, 37),       # Netherlands / Eredivisie
+    "Estonian Meistriliiga":           (0, 0),         # not listed on SportyBet
+    "Europa League":                   (393, 679),     # International Clubs / UEFA Europa League
+    "FA Cup":                          (0, 0),         # not listed on SportyBet
+    "Faroe Islands Premier League":    (201, 673),     # Faroe Islands / Premier League
+    "Finnish Veikkausliiga":           (19, 41),       # Finland / Veikkausliiga
+    "Georgian Erovnuli Liga":          (270, 704),     # Georgia / Erovnuli Liga
+    "German Super Cup":                (0, 0),         # not listed on SportyBet
+    "Gibraltarian National League":    (0, 0),         # not listed on SportyBet
+    "Greek Super League":              (67, 185),      # Greece / Super League
+    "HNL":                             (14, 170),      # Croatia / HNL
+    "Hungarian NB I":                  (11, 187),      # Hungary / NB I
+    "Icelandic Urvalsdeild":           (0, 0),         # not listed on SportyBet
+    "Israeli Premier League":          (66, 266),      # Israel / Premier League
+    "KNVB Beker":                      (0, 0),         # not listed on SportyBet
+    "Kazakhstani Premier League":      (278, 682),     # Kazakhstan / Premier League
+    "Kosovan Superliga":               (0, 0),         # not listed on SportyBet
+    "La Liga":                         (32, 8),        # Spain / LaLiga
+    "La Liga 2":                       (32, 54),       # Spain / LALIGA HYPERMOTION
+    "LaLiga":                          (32, 8),        # Spain / LaLiga
+    "Latvian Virsliga":                (163, 197),     # Latvia / Virsliga
+    "Liechtensteiner Cup":             (0, 0),         # not listed on SportyBet
+    "Liga Portugal":                   (0, 0),         # not listed on SportyBet
+    "Ligue 1":                         (7, 34),        # France / Ligue 1
+    "Ligue 2":                         (7, 182),       # France / Ligue 2
+    "Lithuanian A Lyga":               (0, 0),         # not listed on SportyBet
+    "Luxembourg National Division":    (0, 0),         # not listed on SportyBet
+    "Maltese Premier League":          (134, 629),     # Malta / Premier League
+    "Moldovan Super Liga":             (0, 0),         # not listed on SportyBet
+    "Montenegrin First League":        (0, 0),         # not listed on SportyBet
+    "North Macedonian First League":   (0, 0),         # not listed on SportyBet
+    "Northern Irish Premiership":      (130, 200),     # Northern Ireland / Premiership
+    "Norwegian Eliteserien":           (5, 20),        # Norway / Eliteserien
+    "OFB Cup":                         (0, 0),         # not listed on SportyBet
+    "Premier League":                  (1, 17),        # England / Premier League
+    "Primeira Liga":                   (0, 0),         # not listed on SportyBet
+    "Pro League":                      (33, 38),       # Belgium / Pro League
+    "Republic of Ireland Premier Division": (0, 0),         # not listed on SportyBet
+    "Romanian Liga I":                 (0, 0),         # not listed on SportyBet
+    "Russian Premier League":          (21, 203),      # Russia / Premier League
+    "Sanmarinese Campionato":          (0, 0),         # not listed on SportyBet
+    "Scottish League Cup":             (0, 0),         # not listed on SportyBet
+    "Scottish Premiership":            (22, 36),       # Scotland / Premiership
+    "Serbian Super Liga":              (152, 210),     # Serbia / Superliga
+    "Serie A":                         (31, 23),       # Italy / Serie A
+    "Serie B":                         (31, 53),       # Italy / Serie B
+    "Slovak Super Liga":               (23, 211),      # Slovakia / Superliga
+    "Slovenian PrvaLiga":              (24, 212),      # Slovenia / PrvaLiga
+    "Super League":                    (25, 215),      # Switzerland / Super League
+    "Super League Greece":             (67, 185),      # Greece / Super League
+    "Swedish Allsvenskan":             (9, 40),        # Sweden / Allsvenskan
+    "Swiss Super League":              (25, 215),      # Switzerland / Super League
+    "S\u00fcper Lig":                  (46, 52),       # Turkiye / Super Lig
+    "Turkish Super Lig":               (46, 52),       # Turkiye / Super Lig
+    "UEFA Super Cup":                  (0, 0),         # not listed on SportyBet
+    "Welsh Premier League":            (131, 254),     # Wales / Cymru Premier
 }
 
 def _competition_key(olp_name: str) -> tuple[str, str] | None:
@@ -285,12 +356,14 @@ async def _verify_league_page(
     # 'Coppa Italia 26/27' from that selector. The authoritative check is
     # _fixtures_match_league() below, which looks at the TEAMS that came back.
     strong_sources: list[str] = []
+    # .m-nav-bar is deliberately NOT here: it is the site's sport switcher
+    # ("Home Football Basketball Tennis ...") and never names a competition, so
+    # including it made this function reject correct pages.
     for sel in (
         ".tournament-name",
         ".breadcrumb:visible",
         ".tournament-header:visible",
         "[class*='breadcrumb']:visible",
-        ".m-nav-bar:visible",
     ):
         try:
             for el in await page.locator(sel).all():
@@ -531,6 +604,35 @@ def _parse_sportybet_date(text: str) -> str:
     if match:
         return f"{match.group(1)}-{match.group(2)}-{match.group(3)}"
 
+    # "18/09 Friday" / "19/09 Saturday" -- SportyBet's ACTUAL header format,
+    # and the one this parser used to miss entirely. Every unmatched header
+    # fell through to today's date below, so a whole board of future fixtures
+    # was stamped with the day the scrape ran: Brentford v Chelsea (18/09) and
+    # Tottenham v Aston Villa (19/09) were both cached as 2026-09-16.
+    #
+    # DD/MM, not MM/DD. The weekday name in the header proves it and is used
+    # as a checksum: 18/09/2026 is a Friday, and the header says Friday. If the
+    # two disagree the header is not what we think it is, so we decline to
+    # guess (HR35) rather than emit a date that is confidently wrong.
+    dm = re.search(r'\b(\d{1,2})\s*/\s*(\d{1,2})\b', text)
+    if dm:
+        day, month = int(dm.group(1)), int(dm.group(2))
+        for year in (today.year, today.year + 1, today.year - 1):
+            try:
+                cand = date(year, month, day)
+            except ValueError:
+                continue
+            # Fixture lists run forwards; treat a date far in the past as next
+            # year's (a December board read in January).
+            if (today - cand).days > 180:
+                continue
+            named = re.search(
+                r'\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b',
+                text_lower)
+            if named and cand.strftime("%A").lower() != named.group(1):
+                continue  # weekday checksum failed for this year
+            return cand.isoformat()
+
     # Default to today
     return today.isoformat()
 
@@ -702,19 +804,22 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                 else:
                     rows = await page.query_selector_all(".m-table-row.match-row")
                 if rows:
-                    if await _verify_league_page(page, league, cat_tour):
-                        safe_print(f"  [OK] {league}: direct URL ({url_type}) worked, found {len(rows)} rows")
-                        fixtures = await _extract_fixtures(page, league)
-                        if fixtures:
-                            ok, why = _fixtures_match_league(league, fixtures)
-                            if not ok:
-                                safe_print(f"  [REJECT] {league}: {why}")
-                                continue
-                            safe_print(f"  [OK] {league}: extracted {len(fixtures)} fixtures")
-                            return fixtures
-                        safe_print(f"  [WARN] {league}: direct URL worked but no fixtures extracted")
-                    else:
-                        safe_print(f"  [WARN] {league}: direct URL loaded but wrong league page (got {await page.title()})")
+                    # Gate on the TEAMS, not on page chrome. _verify_league_page
+                    # is unreliable in both directions here: it passes a wrong
+                    # page because the sidebar names every competition, and it
+                    # REJECTS a correct page when the only element it can find
+                    # is the site nav bar ("HomeFootballBasketballTennis...").
+                    # _fixtures_match_league looks at what actually came back.
+                    fixtures = await _extract_fixtures(page, league)
+                    if fixtures:
+                        ok, why = _fixtures_match_league(league, fixtures)
+                        if not ok:
+                            safe_print(f"  [REJECT] {league}: {why}")
+                            continue
+                        safe_print(f"  [OK] {league}: direct URL ({url_type}) "
+                                   f"extracted {len(fixtures)} verified fixtures")
+                        return fixtures
+                    safe_print(f"  [WARN] {league}: direct URL worked but no fixtures extracted")
                 else:
                     safe_print(f"  [WARN] {league}: direct URL ({url_type}) loaded but no fixture rows found")
             except RedirectLoop:

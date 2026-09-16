@@ -5,6 +5,138 @@
 
 ---
 
+# CURRENT STATE — as of 2026-09-16
+
+> `CLAUDE.md` tells every session to read this file first because it holds
+> current phase, suspension status, live defects and which documents are
+> canonical. Until 2026-09-16 it held none of those — it was a reverse-
+> chronological work journal — so sessions read it, found nothing, and
+> proceeded on inference. This block exists to satisfy that contract. Keep it
+> at the top and keep it current; append session entries below it.
+
+| Field | Value | Source |
+|-------|-------|--------|
+| Phase | 3 (live capital, Architect-deployed 2026-08-11) | `config/__init__.py` |
+| CAPITAL_ENABLED | True (derived, `PHASE >= 3`) | `config/__init__.py` |
+| ARCHITECT_SIGNOFF | 1 (override active) | `.env` |
+| CLV gate | 30 legs + positive mean CLV | `clv/phase3_gate.py` |
+| Gate status | NOT MET (17/30 legs, mean CLV −2.467%) | Board 2026-08-19 |
+| Publishing | Suspended by this session pending defect review | see below |
+
+**Canonical documents:** this file (state), `Rules.md` (HR/ID register),
+`Decisions Log.md` (Architect directives), `Protected Constants.md`.
+`TELEGRAM_BLEND_DESIGN.md` is SUPERSEDED — do not read.
+
+## Live defects (open)
+
+| # | Defect | Status |
+|---|--------|--------|
+| 1 | SportyBet cache stale; league mapping wrong (Chelsea v Bournemouth filed under Ligue 2, Türkiye v France under Serie A) | OPEN |
+| 2 | SportyBet Playwright cache warm hangs (killed at 11 min) | OPEN |
+| 3 | Pipeline exits 0 on failure — Task Scheduler recorded success daily through a two-week outage | OPEN |
+| 4 | Two implementations of the core stage; the live path returns empty (4.8 s) while the real work (91.5 s) is discarded. Third copy at `olp_xdv_pipeline_fixed.py` | OPEN |
+| 5 | ESPN tier contradicts itself: `verification/id403.py` says T1, `data/espn_source.py:239` hardcodes T2, `CLAUDE.md` says T1 | OPEN |
+| 6 | `fixtures_agent.py` never queries ESPN — the one working T1 source is not wired into the fixture agent | OPEN |
+| 7 | Sync memory→vault still 0 files: matches memory slug names (`protected-constants.md`) against vault title names (`Protected Constants.md`), no mapping | OPEN |
+| 8 | `grade_results.py:251` is an acknowledged stub | OPEN |
+| 9 | ~30 zero-byte shell-redirect artefacts untracked in repo root (`1`, `2`, `cd`, `git`, `List[Dict]`, `}`) | OPEN |
+| 10 | `dry_run=True` passed to `run_pipeline` is inert — stored in state, never read | OPEN |
+
+**Stale guidance corrected 2026-09-16:** `CLAUDE.md` warns that
+`fixtures_agent.py` is stubbed with hardcoded Premier League fixtures. That is
+no longer true — it has five real fetchers. Treat that warning as historical.
+
+---
+
+## 2026-09-16 — Session Work: Root-caused session memory loss and a two-week pipeline outage
+
+### The reported symptom
+"At the beginning of every session the framework looks like it has forgotten
+what it's supposed to do." That had a specific, mechanical cause.
+
+### Root cause of the memory loss
+`scripts/vault-memory-sync.js` set `MEMORY_ROOT` to
+`path.join(__dirname, '..', '.claude', 'projects', 'c--Users-Motunrayo-omniroute-test', 'memory')`
+— a path **inside the repo** (note the lowercase `c--`), not
+`~/.claude/projects/C--Users-Motunrayo-omniroute-test/memory`, which is the
+store Claude Code actually loads at session start. That in-repo directory
+exists, so every run reported *"success — 0 files synchronized"* while the real
+memory was never read or written. **HR54 was nominally enforced and actually a
+no-op.** In-repo copy held 22 stale files; the real store holds 30.
+Fixed: resolves from `os.homedir()`, and exits non-zero if the root is missing.
+Verified: 16 files vault→memory, previously 0.
+
+### Root cause of the pipeline outage (no successful run since 2026-09-02)
+Four defects in one chain, each masking the next:
+
+1. **Credentials never loaded.** `config/__init__.py` built its dotenv path as
+   `Path(__file__) / ".env"` — joining a filename onto the module *file*,
+   giving `.../config/__init__.py/.env`, which can never exist. All 14
+   credentials sat unread; runs still exited 0 logging "0 fixtures across 0
+   leagues". Now 5/5 critical keys present.
+2. **PyYAML imported but never declared** (`run_daily` → `verify_fixtures` →
+   `bridge` → `knowledge_persistence` → `yaml`). Killed the run at import on
+   any fresh venv or CI runner. Added to `requirements.txt`.
+3. **The error handler crashed the run.** `_mark()` opened the runlog with no
+   encoding, taking Windows cp1252. It is the function the failure paths call,
+   so logging a *recoverable* error whose text contained box-drawing characters
+   (Playwright's "please run playwright install" notice) raised
+   `UnicodeEncodeError` inside the except block and killed the pipeline.
+4. **A status string discarded the board.** The fallback branch rendered the
+   board, then built a flag via `state['payloads'].get(5, ...)` —
+   `run_pipeline` defines `payloads` as a **list**, not a dict keyed by agent.
+   The except branch then reset `board_text = ""`, throwing away a board that
+   had already rendered. **This is why `board_2026-09-05/06/08/09.txt` are 0
+   bytes.** Counting moved to an `else` branch.
+
+### Fixture fabrication — three compounding defects
+The fixture agent reported **163 fixtures** for 2026-09-16, every row stamped
+`verified`, when ESPN (T1) carried **13**.
+
+1. `fetch_flashscore` unioned **all 40** scrape files. FlashScore's
+   `match_datetime` carries no year, so any historical scrape holding that
+   day/month lands on the target date. One corrupt scrape from 2026-08-29 had
+   stamped Celje's entire Europa League league-phase schedule with the same
+   `16.09. 20:00`. Now bounded to the week before the match day.
+2. Dedup keyed on raw `home|away|date`, but names drift between scrapes
+   ("Leverkusen"/"Bayer Leverkusen"), so one match survived once per spelling.
+   **29 teams played more than once on a single day**; Celje and AZ Alkmaar
+   appeared 7 times each. Dedup now normalises names.
+3. **The F2 quorum gate enforced nothing** — `_apply_verification` tested for
+   at least ONE source, trivially true for every row. Everything was stamped
+   verified unconditionally. Now: two or more distinct sources, or one T1
+   source, with tiers resolved through `verification/id403.SOURCE_TRUST`.
+
+**Verified after fix:** flashscore rows 88 → 38; duplicate teams 29 → **0**;
+Celje 7 → 1 matching ESPN; Europa League slate 9, matching ESPN's 9
+one-for-one; La Liga 4 in both; 422 stale cache rows now correctly UNVERIFIED.
+
+### Today's fixtures (HR59: `run_id=2c9306436136`, `fetched_at=2026-09-16T15:51:52Z`, ESPN T1)
+**La Liga (4)** — Atlético Madrid v Osasuna · Deportivo v Sevilla · Barcelona v
+Racing Santander · Levante v Athletic Club
+**Europa League (9)** — Ararat-Armenia v Sparta Prague · Omonia Nicosia v Celta
+Vigo · AC Milan v Benfica · Anderlecht v Lyon · Bayer Leverkusen v NK Celje ·
+Hapoel Be'er v Dinamo Zagreb · Olympiacos v Jagiellonia Białystok · SK Sturm
+Graz v Stade Rennais · Sunderland v AZ Alkmaar
+
+No Premier League, Serie A, Bundesliga or Ligue 1 today; next PL fixtures 18–19 Sep.
+
+### Bets — NOT PRODUCED
+Agent 5 generated 8 acca legs and 3 singles from the pre-fix fixture set, i.e.
+from data in which teams played seven matches a day. Those legs were **not**
+published and should not be used. Publishing stays suspended until defects 1–4
+above are closed. All runs this session used `--no-send --no-whatsapp
+--no-email`; nothing reached Telegram.
+
+### Commits
+`23b8e6b` config/env · `03ca729` pipeline · `0090e8f` fixtures · `4f1fa651` sync (root)
+
+### Not done
+278 files remain uncommitted in the submodule (other sessions' in-flight work
+plus defect 9's junk). Not swept into a commit deliberately.
+
+---
+
 ## 2026-08-21 — Session Work: Four-Table Output Structure Implementation
 
 ### Implementation Completed

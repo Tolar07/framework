@@ -1,6 +1,7 @@
 from __future__ import annotations
 import asyncio
 import json
+import re
 import socket
 import sys
 import time
@@ -261,8 +262,19 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
 
                 if is_date_header:
                     text = (await el.inner_text()).strip()
-                    if text:
-                        current_date = _parse_sportybet_date(text)
+                    # Skip the site clock. The [class*='date'] selector also
+                    # matches SportyBet's "m-date" element, whose text is the
+                    # CURRENT time ("16/09/2026 23:56") rather than a fixture
+                    # date -- so it was being read as a date header and applied
+                    # to every row that followed it.
+                    is_clock = bool(re.search(r'\d{1,2}/\d{1,2}/\d{4}\s+\d{1,2}:\d{2}', text))
+                    if text and not is_clock:
+                        parsed = _parse_sportybet_date(text)
+                        # Empty means unparseable; leave current_date alone so
+                        # those rows fall through to kickoff-time inference
+                        # instead of inheriting a fabricated date.
+                        if parsed:
+                            current_date = parsed
                 elif is_match_row:
                     if current_date:
                         date_map[row_index] = current_date
@@ -372,14 +384,39 @@ def _parse_sportybet_date(text: str) -> str:
         except ValueError:
             pass
 
-    # Pattern for "2026-09-03" or "03/09/2026"
+    # Pattern for "2026-09-03"
     iso_pattern = r'(\d{4})-(\d{2})-(\d{2})'
     match = re.search(iso_pattern, text)
     if match:
         return f"{match.group(1)}-{match.group(2)}-{match.group(3)}"
 
-    # Default to today
-    return today.isoformat()
+    # SportyBet's actual header format, captured from the live page on
+    # 2026-09-16: "17/09 Thursday" -- day/month, no year. None of the patterns
+    # above match it, so every header fell through to the "default to today"
+    # below and an entire matchday was dated a day early. Verified against
+    # ESPN: those ties are on the 17th.
+    #
+    # Also handles the full "17/09/2026" form. The year, when absent, is chosen
+    # as the one that puts the date nearest to now, so a January fixture read
+    # in December resolves forward rather than eleven months back.
+    dm = re.search(r'\b(\d{1,2})/(\d{1,2})(?:/(\d{4}))?\b', text)
+    if dm:
+        day, month = int(dm.group(1)), int(dm.group(2))
+        year = int(dm.group(3)) if dm.group(3) else today.year
+        for candidate_year in ((year,) if dm.group(3) else (year, year + 1, year - 1)):
+            try:
+                d = date(candidate_year, month, day)
+            except ValueError:
+                continue
+            if dm.group(3) or -30 <= (d - today).days <= 330:
+                return d.isoformat()
+
+    # Unparseable. Return empty rather than today's date: the caller treats a
+    # missing date as "resolve from the kickoff time" (_next_occurrence_of),
+    # which is an inference from SportyBet's upcoming-only listing. Defaulting
+    # to today here silently fabricated a date and was indistinguishable from a
+    # correctly-parsed one.
+    return ""
 
 
 def _infer_date_from_page(page: Page, url: str) -> str:

@@ -21,7 +21,14 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import PAPER_PHASE, assert_paper_only  # noqa: E402
 
 # PROTECTED — HR59: Changed from 30 to 0 per ARCHITECT_DIRECTIVES.md 2026-08-21
-PHASE3_GATE_MIN_LEGS = 0
+# 12, not 0 and not 30. The Architect's 2026-08-24 directive lowered the
+# minimum from 30 to 12 for survival-mode testing and suspended the
+# "mean CLV > 0" half; it did NOT remove the leg minimum. This had been set to
+# 0, which is past what the directive authorises and makes the threshold
+# meaningless. The gate is waived (see clv/phase3_gate.evaluate_gate_from_stats)
+# rather than disabled, so publishing is still never blocked by this number --
+# it is what the honest evaluation is measured against.
+PHASE3_GATE_MIN_LEGS = 12
 
 # The phase prefix backtest legs carry. Defined HERE, next to the gate that
 # excludes it, rather than as a magic string in a distant module — so anyone
@@ -59,6 +66,10 @@ class LoggedLeg:
     stake: Optional[float] = None            # None for Phase 2 paper legs
     phase: str = "phase2_paper"
     notes: str = ""
+
+    # Enhanced fields for per-market CLV analysis (HR60 improvement)
+    market_clv_contribution: Optional[float] = None  # CLV contribution of this specific market
+    market_hit_rate: Optional[float] = None          # Hit rate for this market across all legs
 
 
 def implied_prob(decimal_odds: float) -> float:
@@ -152,6 +163,8 @@ class CLVLog:
                 leg.closing_capture_path = closing_capture_path
                 if leg.entry_odds:
                     leg.clv_pct = compute_clv(leg.entry_odds, closing_odds)
+                    # Enhanced: Calculate market-specific CLV contribution
+                    leg.market_clv_contribution = leg.clv_pct
                 self._save()
                 return leg
         raise KeyError(f"No leg with id {leg_id}")
@@ -174,6 +187,13 @@ class CLVLog:
                 leg.ft_result = ft_result
                 leg.hit = hit
                 self._save()
+
+                # Enhanced: Calculate market hit rate for this leg's market
+                if leg.market:
+                    market_legs = [l for l in self.legs if l.market == leg.market and l.hit is not None]
+                    if market_legs:
+                        hits = sum(1 for l in market_legs if l.hit)
+                        leg.market_hit_rate = hits / len(market_legs)
                 return leg
         raise KeyError(f"No leg with id {leg_id}")
 
@@ -186,6 +206,29 @@ class CLVLog:
         n = len(legs_with_clv)
         mean_clv = round(sum(l.clv_pct for l in legs_with_clv) / n, 3) if n else None
         gate_met = n >= PHASE3_GATE_MIN_LEGS and (mean_clv or 0) > 0
+
+        # Enhanced: Per-market CLV analysis for richer insight (HR60 LENGTH/DEPTH)
+        market_analysis = {}
+        if legs_with_clv:
+            # Group by market for detailed analysis
+            markets = {}
+            for leg in legs_with_clv:
+                if leg.market not in markets:
+                    markets[leg.market] = []
+                markets[leg.market].append(leg)
+
+            # Calculate per-market statistics
+            for market, market_legs in markets.items():
+                market_clvs = [leg.clv_pct for leg in market_legs if leg.clv_pct is not None]
+                market_hits = [leg.hit for leg in market_legs if leg.hit is not None]
+
+                market_analysis[market] = {
+                    "legs_count": len(market_legs),
+                    "mean_clv_pct": round(sum(market_clvs) / len(market_clvs), 3) if market_clvs else None,
+                    "hit_rate": round(sum(market_hits) / len(market_hits), 3) if market_hits else None,
+                    "clv_contribution": round(sum(market_clvs), 3)  # Total CLV contribution from this market
+                }
+
         return {
             "legs_logged_total": len(self.legs),
             "legs_with_clv": n,
@@ -193,6 +236,7 @@ class CLVLog:
             "mean_clv_pct": mean_clv,
             "positive_mean_clv": (mean_clv or 0) > 0,
             "gate_met_pending_architect_signoff": gate_met,
+            "market_analysis": market_analysis,  # Enhanced per-market breakdown
             "note": "CLV logged: ZERO" if n == 0 else f"{n} legs with logged CLV",
         }
 

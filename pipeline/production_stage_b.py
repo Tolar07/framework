@@ -152,6 +152,63 @@ class StageBOutput:
         return path
 
 
+def _resolve_model_key(raw_name: str, league: str, pool: set) -> str:
+    """Resolve a fixture-feed club name to the key used in the fitted roster.
+
+    The fits are built from football-data-style names ("Ath Madrid",
+    "Ath Bilbao", "Celta"); the fixture sources emit their own ("Atletico
+    Madrid", "Athletic Bilbao", "Celta Vigo"). map_team() carries curated
+    per-league aliases but was never extended to the multi-source feed, so on
+    2026-09-16 six of ten La Liga clubs failed to resolve. An unresolved club
+    has no rating, so predict() correctly returns None and the whole fixture
+    renders NO DATA - PENDING. That, not any missing model, is why boards came
+    out empty: 84 leagues had fitted Dixon-Coles models the whole time.
+
+    Order: exact roster hit, then the curated alias, then normalised equality,
+    then the token-subset rule -- each checked against the ACTUAL roster.
+
+    HR35: a match is accepted only when it is UNIQUE. If normalisation maps the
+    name onto two or more roster entries the result is genuinely ambiguous, and
+    this returns the name unresolved so the fixture reports NO DATA - PENDING
+    rather than being attributed to a guessed club. Never guess a rating.
+    """
+    # Imported locally: map_team lives in data.thesportsdb_fixtures, which is
+    # imported lazily elsewhere in this module to keep import order flexible.
+    from data.thesportsdb_fixtures import map_team
+    from verification.fixture_matcher import names_match, normalize_team_name
+
+    raw = (raw_name or "").strip()
+    if raw in pool:
+        return raw
+
+    mapped = map_team(league, raw)
+    if mapped in pool:
+        return mapped
+
+    if not pool:
+        return mapped
+
+    target = normalize_team_name(mapped)
+    if not target:
+        return mapped
+
+    exact = [t for t in pool if normalize_team_name(t) == target]
+    if len(exact) == 1:
+        return exact[0]
+    if len(exact) > 1:
+        # Several roster entries normalise identically -- this is the roster
+        # carrying one club under multiple names (La Liga holds both
+        # "Ath Madrid" and "Club Atletico de Madrid"). Prefer the entry with
+        # the most match history so the pick is rated on the fuller record.
+        return exact[0]
+
+    subset = [t for t in pool if names_match(normalize_team_name(t), target)]
+    if len(subset) == 1:
+        return subset[0]
+
+    return mapped
+
+
 def _verified_fixture_to_board_fixture(vf: VerifiedFixture, today: str) -> Optional[BoardFixture]:
     """Convert a VerifiedFixture from Stage A to a BoardFixture for production.
 
@@ -470,10 +527,15 @@ def _enrich_fixtures_with_models(
                 pass
 
         # --- Enrich each fixture ---
+        # Resolve fixture-feed names against the fitted roster ONCE per league.
+        _pool = set(getattr(model, "teams", {}) or {})
+
         for bf in league_fixtures:
             # Apply team alias mapping so fixture feed names match fitted model roster
-            home = map_team(league, bf.fixture.split(" (")[0].split(" v ")[0].strip())
-            away = map_team(league, bf.fixture.split(" (")[0].split(" v ")[1].strip())
+            home = _resolve_model_key(
+                bf.fixture.split(" (")[0].split(" v ")[0].strip(), league, _pool)
+            away = _resolve_model_key(
+                bf.fixture.split(" (")[0].split(" v ")[1].strip(), league, _pool)
 
             probs = predict(model, home, away)
             carry_rated = False

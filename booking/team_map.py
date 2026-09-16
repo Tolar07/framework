@@ -934,7 +934,47 @@ SPORTYBET_TEAMS: dict[str, str] = {
 # before-alias, e.g. "AZ Alkmaar" before "Alkmaar" (reverse("Alkmaar") ->
 # "AZ Alkmaar") and "Sheffield Utd" before "Sheffield United" (reverse
 # ("Sheffield United") -> "Sheffield Utd").
+# Extra reverse aliases: FEED SPELLING -> model key.
+#
+# SPORTYBET_TEAMS is model_key -> name, so one model key can hold exactly ONE
+# source spelling. That is fine while SportyBet is the only feed naming clubs,
+# and it breaks the moment a second one does. FlashScore is the PRIMARY
+# fixtures source (priority 9) and spells them differently: "Ath. Bilbao" with
+# a period, "A Coruna" without the "La", "Atl. Madrid", "Nottm Forest". Adding
+# those to SPORTYBET_TEAMS silently OVERWRITES the SportyBet spelling for the
+# same key, which is what happened on the first attempt at this -- "Athletic
+# Bilbao" stopped resolving the moment "Ath. Bilbao" was added beside it.
+#
+# So the second family lives here instead, merged into the reverse index
+# BEFORE the derived entries so it wins, and never touching the forward map.
+#
+# Measured 2026-09-16 across La Liga, the Premier League and Serie A: 11 of 60
+# FlashScore names did not resolve into their own league's model, so those
+# fixtures reached the board rated NO DATA — PENDING. Every target below was
+# read back out of the loaded football-data season, not assumed.
+EXTRA_REVERSE_ALIASES: dict[str, str] = {
+    # FlashScore, La Liga
+    "A Coruna":       "La Coruna",
+    "Ath. Bilbao":    "Ath Bilbao",
+    "Atl. Madrid":    "Ath Madrid",
+    "Celta Vigo":     "Celta",
+    "Rayo Vallecano": "Vallecano",
+    "Real Sociedad":  "Sociedad",
+    # FlashScore, Premier League
+    "Nottm Forest":   "Nott'm Forest",
+    # FlashScore, Serie A. The last three are the same inversion already fixed
+    # twice: the table mapped Lecce -> "US Lecce", Torino -> "FC Torino",
+    # Venezia -> "Venezia FC", when football-data's keys are the bare names.
+    "AS Roma":        "Roma",
+    "Lecce":          "Lecce",
+    "Torino":         "Torino",
+    "Venezia":        "Venezia",
+}
+
 _MODEL_BY_SPORTYBET: dict[str, str] = {}
+# Explicit aliases first: setdefault means first-wins, and these are the ones
+# that must not be displaced by a derived entry.
+_MODEL_BY_SPORTYBET.update(EXTRA_REVERSE_ALIASES)
 for _olp_key, _sb_name in SPORTYBET_TEAMS.items():
     _MODEL_BY_SPORTYBET.setdefault(_sb_name, _olp_key)
 

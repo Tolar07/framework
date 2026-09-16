@@ -82,7 +82,21 @@ class FlashScoreResultsSource:
             raise SourceNoData(f"flashscore_results: league {league!r} not mapped")
 
     async def fetch_results_for_date(self, target_date: str) -> List[MatchResult]:
-        """Fetch completed matches for a specific date."""
+        """Completed matches for one date, harvesting the whole page while there.
+
+        The page this loads is the league's SEASON results page: every
+        completed match of the season is already in the DOM. It used to be
+        parsed, filtered down to `target_date`, and the rest thrown away --
+        so reconstructing a season's history meant ~200 loads of the same
+        page at ~25s each (60s navigation timeout plus a 15s settle), which
+        is what made FlashScore unusable as a history source and left
+        Russia, Switzerland and the continental competitions with no model
+        unless a PAID API-Football key was present.
+
+        Now one load caches every date it saw, so the second date onwards is
+        free. `target_date` still decides what is RETURNED, so every existing
+        caller behaves exactly as before.
+        """
         if async_playwright is None:
             raise RuntimeError("playwright not installed")
 
@@ -90,6 +104,25 @@ class FlashScoreResultsSource:
         cached = self._load_cache(target_date)
         if cached is not None:
             return cached
+
+        by_date = await self.fetch_season_results(reference_date=target_date)
+        return by_date.get(target_date, [])
+
+    async def fetch_season_results(
+        self, reference_date: Optional[str] = None
+    ) -> dict:
+        """Every completed match on the season results page, grouped by date.
+
+        One page load. Each date found is written to that date's cache file,
+        so a later fetch_results_for_date for any of them is a file read.
+
+        `reference_date` only supplies the year used to resolve FlashScore's
+        year-less "DD.MM." dates; it does not filter anything.
+        """
+        if async_playwright is None:
+            raise RuntimeError("playwright not installed")
+
+        reference_date = reference_date or datetime.now().strftime("%Y-%m-%d")
 
         # FlashScore results page: /football/{country}/{slug}/results/
         base_url = BASE_URL.format(slug=self.slug).rstrip("/")
@@ -112,20 +145,27 @@ class FlashScoreResultsSource:
                 # Fall back to broad selector if the above returns nothing unexpectedly
                 if not match_elements:
                     match_elements = await page.query_selector_all("[class*='event__match']")
-                results = []
+                by_date: dict[str, List[MatchResult]] = {}
 
                 for el in match_elements:
                     try:
-                        match = await self._parse_match_element(el, target_date)
-                        if match:
-                            results.append(match)
+                        match = await self._parse_match_element(el, reference_date)
                     except Exception:
                         continue
+                    if match:
+                        by_date.setdefault(match.date, []).append(match)
 
-                if results:
-                    self._save_cache(target_date, results)
+                # Cache each date separately so any single-date caller gets a
+                # file read rather than another page load.
+                for day, day_results in by_date.items():
+                    try:
+                        self._save_cache(day, day_results)
+                    except Exception:
+                        # A cache write failure must not lose the data we
+                        # already have in hand.
+                        continue
 
-                return results
+                return by_date
 
             finally:
                 await browser.close()
@@ -175,8 +215,10 @@ class FlashScoreResultsSource:
         match_raw_date = (await time_el.text_content() or "").strip() if time_el else ""
 
         match_date = self._parse_flashscore_date(match_raw_date, target_date)
-        if not self._date_matches_target(match_date, target_date):
-            return None  # Not the target date (or next-day late match)
+        # NB: no date filter here any more. The caller decides what to keep --
+        # see fetch_season_results. `target_date` is still passed because
+        # _parse_flashscore_date needs a year to resolve FlashScore's
+        # year-less "DD.MM. HH:MM" format against.
 
         # Normalize team names to football-data.co.uk canonical
         from booking.verify_fixtures import _norm
@@ -212,19 +254,45 @@ class FlashScoreResultsSource:
         m = re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime)
         if m:
             day, mon, hh, mm = (int(x) for x in m.groups())
-            # Try target year first, then target year + 1, then current year
-            for year in (target_year, target_year + 1, now.year, now.year + 1):
+            try:
+                target_dt = datetime.strptime(target_date, "%Y-%m-%d")
+            except ValueError:
+                target_dt = now
+
+            # FlashScore omits the year, so the year has to be inferred. These
+            # are COMPLETED matches, which means they are in the PAST -- and
+            # that is what the previous rule got backwards. Its fallback was
+            #     0 <= (cand - now).days <= 400
+            # which accepts only FUTURE dates, so a result from 25 July 2026
+            # read on 16 September 2026 failed the 2026 candidate (negative
+            # delta) and matched 2027 instead. Every result older than the
+            # +/-5 day window came back stamped a year late.
+            #
+            # It stayed invisible while the caller filtered each page down to a
+            # single date and discarded the rest; harvesting the whole season
+            # exposes it on every row.
+            candidates = []
+            for year in (target_year, target_year - 1, now.year, now.year - 1):
                 try:
                     cand = datetime(year, mon, day)
-                    # Must be within reasonable range of target date
-                    target_dt = datetime.strptime(target_date, "%Y-%m-%d")
-                    if abs((cand - target_dt).days) <= 5:
-                        return cand.strftime("%Y-%m-%d")
-                    # Fallback: within 400 days of now
-                    if 0 <= (cand - now).days <= 400:
-                        return cand.strftime("%Y-%m-%d")
                 except ValueError:
-                    continue
+                    continue          # 29 Feb in a non-leap year
+                if cand not in candidates:
+                    candidates.append(cand)
+
+            # An exact hit near the requested date wins outright: that is the
+            # single-date caller asking for a day it already knows about.
+            for cand in candidates:
+                if abs((cand - target_dt).days) <= 5:
+                    return cand.strftime("%Y-%m-%d")
+
+            # Otherwise take the most recent date that has actually happened.
+            # A completed match cannot be in the future; allowing one lets a
+            # finished result masquerade as an upcoming fixture and skews any
+            # time-decay weighting that reads it.
+            past = [c for c in candidates if c <= now]
+            if past:
+                return max(past).strftime("%Y-%m-%d")
 
         # Try HH:MM only (today)
         m = re.match(r"^(\d{1,2}):(\d{2})$", match_datetime.strip())
@@ -295,6 +363,19 @@ async def fetch_flashscore_results(league: str, target_date: str) -> List[MatchR
 def fetch_flashscore_results_sync(league: str, target_date: str) -> List[MatchResult]:
     """Sync wrapper for multi-source fabric integration."""
     return asyncio.run(fetch_flashscore_results(league, target_date))
+
+
+async def fetch_flashscore_season(league: str,
+                                  reference_date: Optional[str] = None) -> dict:
+    """Every completed match of the season, grouped by date. One page load."""
+    return await FlashScoreResultsSource(league).fetch_season_results(
+        reference_date=reference_date)
+
+
+def fetch_flashscore_season_sync(league: str,
+                                 reference_date: Optional[str] = None) -> dict:
+    """Sync wrapper around fetch_flashscore_season."""
+    return asyncio.run(fetch_flashscore_season(league, reference_date))
 
 
 if __name__ == "__main__":

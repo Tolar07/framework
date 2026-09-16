@@ -1026,16 +1026,48 @@ def _write_cache(league: str, country: str, fixtures: List[CachedFixture]) -> No
     safe_print(f"  → wrote {path.name} ({len(fixtures)} fixtures)")
 
 
-async def main():
+# The list rebuild_cache used to walk unconditionally. Kept only as the
+# fallback for --legacy-list; on any given day most of it is dark and the
+# competitions that ARE on are missing from it. See main().
+LEGACY_TARGET_LEAGUES = [
+    "Belgian Pro League", "Bundesliga", "Championship", "La Liga 2",
+    "Ligue 1", "Ligue 2", "Premier League", "Primeira Liga",
+    "Russian Premier League", "Scottish Premiership", "Serie A",
+    "Serie B", "Swiss Super League", "Turkish Super Lig",
+]
+
+
+async def _run_discovery(days: int, write: bool) -> int:
+    """Availability-first path: ask what is on, then cache exactly that.
+
+    This is the default because the league list is the wrong question. On
+    2026-09-16 LEGACY_TARGET_LEAGUES would have scraped fourteen league pages
+    for a combined six fixtures, while the four EFL Cup ties and nine Europa
+    League ties that were actually on that evening are not in the list at all.
+
+    The feed labels every event with its own competition, so this path does not
+    need _verify_league_page or _fixtures_match_league: there is no page whose
+    identity has to be inferred, and no way for one competition's rows to end
+    up under another's name.
+    """
+    from booking.sportybet_discovery import discover, format_report, write_caches
+
+    comps = await discover(days=days)
+    safe_print(format_report(comps))
+
+    if not write:
+        return 0
+    written = write_caches(comps)
+    for league, count in sorted(written.items(), key=lambda kv: -kv[1]):
+        safe_print(f"  cached {league}: {count}")
+    return sum(written.values())
+
+
+async def _run_legacy_list() -> int:
     launch_args = _build_launch_args()
     safe_print(f"Launch args: {launch_args}")
 
-    target_leagues = [
-        "Belgian Pro League", "Bundesliga", "Championship", "La Liga 2",
-        "Ligue 1", "Ligue 2", "Premier League", "Primeira Liga",
-        "Russian Premier League", "Scottish Premiership", "Serie A",
-        "Serie B", "Swiss Super League", "Turkish Super Lig",
-    ]
+    target_leagues = LEGACY_TARGET_LEAGUES
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=launch_args)
@@ -1058,8 +1090,32 @@ async def main():
                 total += len(fixtures)
 
         await browser.close()
-        safe_print(f"\n=== DONE: {total} total fixtures cached ===")
+        return total
+
+
+async def main(argv: list[str] | None = None) -> int:
+    import argparse
+
+    ap = argparse.ArgumentParser(
+        description="Rebuild the SportyBet fixture cache. By default it asks "
+                    "SportyBet which competitions are on and caches those."
+    )
+    ap.add_argument("--days", type=int, default=1,
+                    help="window in whole days starting today (default 1)")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="report what is on without writing any cache file")
+    ap.add_argument("--legacy-list", action="store_true",
+                    help="scrape the old fixed league list via the DOM instead")
+    args = ap.parse_args(argv)
+
+    if args.legacy_list:
+        total = await _run_legacy_list()
+    else:
+        total = await _run_discovery(days=args.days, write=not args.dry_run)
+
+    safe_print(f"\n=== DONE: {total} total fixtures cached ===")
+    return 0
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    raise SystemExit(asyncio.run(main()))

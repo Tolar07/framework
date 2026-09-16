@@ -60,7 +60,12 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
     """Direct navigation (bypasses sportybet_fixtures helper which ignores DNS pin).
     Uses the direct deep-link pattern from _navigate_to_league_sync."""
     # Use the same direct-URL mapping as the builder, but try with IP if DNS fails
-    from booking.sportybet_fixtures import SPORTYBET_CATEGORY_TOURNAMENT
+    # Defined in rebuild_cache, not sportybet_fixtures. The old import raised
+    # ImportError inside the booking driver, which surfaced per leg as
+    # "driver error: cannot import name 'SPORTYBET_CATEGORY_TOURNAMENT'" and
+    # left every leg MANUAL with no code. Same wrong-module import as
+    # _navigate_to_league had in booking_codes.
+    from booking.rebuild_cache import SPORTYBET_CATEGORY_TOURNAMENT
     cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
     if cat_tour and cat_tour[0] != 0:
         cat_id, tour_id = cat_tour

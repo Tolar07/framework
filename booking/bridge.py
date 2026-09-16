@@ -777,6 +777,44 @@ def get_sportybet_odds_for_leg(
     if client is None:
         client = SportyBetClient()
 
+    def _matches(fx) -> bool:
+        """Does this cached fixture denote the requested tie?
+
+        Exact, then normalized-exact, then the shared cross-source matcher.
+        The cache stores SportyBet's spellings ("Ferencvarosi Budapest",
+        "Besiktas Istanbul") while the board passes the model/source spelling
+        ("Ferencvaros", "Besiktas"), so the first two passes miss on most
+        continental ties and the leg goes unpriced. names_match applies the same
+        reconciliation used for cross-source fixture verification, and only
+        accepts a unique, non-generic token relationship -- still HR35-safe, and
+        BOTH teams must agree before a price is taken.
+        """
+        if fx.home_team == home_team and fx.away_team == away_team:
+            return True
+        if (team_normalize(fx.home_team) == team_normalize(home_team)
+                and team_normalize(fx.away_team) == team_normalize(away_team)):
+            return True
+        try:
+            from verification.fixture_matcher import names_match, normalize_team_name
+            return (names_match(normalize_team_name(fx.home_team),
+                                normalize_team_name(home_team))
+                    and names_match(normalize_team_name(fx.away_team),
+                                    normalize_team_name(away_team)))
+        except Exception:
+            return False
+
+    # Cached price first. _price() reads the home_odds/draw_odds/away_odds the
+    # scraper now captures off the fixture row -- it was defined here and NEVER
+    # CALLED, so every lookup skipped the cache and went straight to a live
+    # SportyBet API call. That call is what the cache exists to avoid, and when
+    # it fails the leg ends up unpriced even though the price is sitting on
+    # disk.
+    for fx in fixtures:
+        if _matches(fx):
+            cached = _price(fx)
+            if cached is not None:
+                return cached
+
     try:
         for fx in fixtures:
             # Matching logic (all EXACT / normalized-exact only — HR35, never a fuzzy guess across clubs)

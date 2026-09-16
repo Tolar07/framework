@@ -444,11 +444,11 @@ def cmd_pipeline_status(args) -> int:
 
 def cmd_vault_status(args) -> int:
     """Show Obsidian vault sync status and recent pipeline writes."""
-    import os
-    from pathlib import Path
     from datetime import datetime, timezone
 
-    VAULT_ROOT = Path(os.environ.get("OLP_XDV_VAULT", r"C:\Users\Motunrayo\Documents\OLP_XDV_Vault"))
+    # One resolver, so `vault-status` reports the directory the bus actually
+    # writes to. These were two copies of the same literal and could drift.
+    from pipeline_agent_bus import VAULT_ROOT
     HANDOFFS_DIR = VAULT_ROOT / "Pipeline Runs" / "Handoffs"
     STAGE_DIR = VAULT_ROOT / "Pipeline Runs" / "Stages"
 

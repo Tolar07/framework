@@ -26,8 +26,29 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+def _default_vault_root() -> Path:
+    """Where the Obsidian vault lives when OLP_XDV_VAULT is not set.
+
+    The default was the Architect's own absolute Windows path. That is right on
+    that machine and meaningless anywhere else -- and because Linux and macOS
+    accept backslashes as ordinary filename characters, it did not fail. It
+    created a directory literally named `C:\\Users\\Motunrayo\\Documents\\OLP_XDV_Vault`
+    in the working directory and wrote handoffs and stage records into it, where
+    nothing looks for them and no vault sync will ever see them (HR54).
+
+    So the Windows default is kept for Windows, and elsewhere the vault lands
+    next to the repo unless OLP_XDV_VAULT says otherwise.
+    """
+    configured = os.environ.get("OLP_XDV_VAULT")
+    if configured:
+        return Path(configured)
+    if os.name == "nt":
+        return Path(r"C:\Users\Motunrayo\Documents\OLP_XDV_Vault")
+    return Path(__file__).resolve().parent / "data" / "vault"
+
+
 # Vault configuration
-VAULT_ROOT = Path(os.environ.get("OLP_XDV_VAULT", r"C:\Users\Motunrayo\Documents\OLP_XDV_Vault"))
+VAULT_ROOT = _default_vault_root()
 HANDOFFS_DIR = VAULT_ROOT / "Pipeline Runs" / "Handoffs"
 STAGE_DIR = VAULT_ROOT / "Pipeline Runs" / "Stages"
 

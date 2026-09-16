@@ -14,6 +14,10 @@ does not lie about its own thresholds. Both were broken before:
     tightened to 1.50, so the board captured legs above 1.50 and told the
     reader the line was 2.00.
 
+All team and league names are placeholders, matching the convention in
+acca_builder_test.py. Real club names are deliberately avoided so no club can
+appear under the wrong league -- see the note above ROWS.
+
 Run directly:  PYTHONIOENCODING=utf-8 py -3.12 tests/production_smoke_test.py
 """
 from __future__ import annotations
@@ -61,34 +65,67 @@ def _bf(fixture, p, price):
 
 def _fx(home, away, price):
     return FixtureOdds(
-        league="Premier League", home_team=home, away_team=away, kickoff_utc="",
+        league=LEAGUE, home_team=home, away_team=away, kickoff_utc="",
         home=MarketQuote(price=price), draw=MarketQuote(price=5.5),
         away=MarketQuote(price=11.0),
         over25=MarketQuote(price=1.72), under25=MarketQuote(price=2.10),
         over15=MarketQuote(price=1.22))
 
 
+# Placeholder club and league names, matching the convention in
+# acca_builder_test.py ("Alpha v Beta (Test League)").
+#
+# Real club names are deliberately NOT used. An earlier draft of this file put
+# Bayern Munich, Real Madrid, PSG and Inter in a fixture labelled
+# "Premier League" -- reproducing, inside the test suite, the exact
+# wrong-league contamination this branch exists to fix. A reader skimming the
+# test would have had no way to tell invented data from corrupted data. With
+# placeholder names there is no real club to mislabel and nothing here can be
+# mistaken for a real fixture list.
+#
+# LEAGUE must stay out of ACCA_A_QUARANTINE_LEAGUES (Eredivisie, Scottish
+# Premiership) or every leg would be filtered out of Acca A and this test
+# would pass for the wrong reason. It is used for BOTH the display string and
+# FixtureOdds.league so the two can never disagree.
+LEAGUE = "Test League"
+
 # Six same-day fixtures priced inside the capital zone, each with the model
 # above the implied probability by more than the MES floor.
 ROWS = [
-    ("Man City v Burnley", 0.82, 1.28),
-    ("Bayern Munich v Augsburg", 0.80, 1.30),
-    ("Real Madrid v Getafe", 0.84, 1.25),
-    ("PSG v Le Havre", 0.81, 1.29),
-    ("Inter v Empoli", 0.79, 1.32),
-    ("Liverpool v Sheffield United", 0.83, 1.26),
+    ("Alpha United v Beta Rovers", 0.82, 1.28),
+    ("Gamma City v Delta Town", 0.80, 1.30),
+    ("Epsilon FC v Zeta Athletic", 0.84, 1.25),
+    ("Eta Wanderers v Theta County", 0.81, 1.29),
+    ("Iota Albion v Kappa Palace", 0.79, 1.32),
+    ("Lambda Rangers v Mu Orient", 0.83, 1.26),
 ]
 
 board, odds_rows = [], []
 for fixture, p_home, price in ROWS:
     home, away = fixture.split(" v ")
     p = _probs(home, away, p_home)
-    board.append(_bf(f"{fixture} (Premier League)", p, price))
+    board.append(_bf(f"{fixture} ({LEAGUE})", p, price))
     odds_rows.append(_fx(home, away, price))
 
 odds_index = {(r.home_team, r.away_team): r for r in odds_rows}
 
-print("1. production path runs end to end")
+print("0. test data is self-consistent")
+from engine.acca import ACCA_A_QUARANTINE_LEAGUES
+_check("LEAGUE is not quarantined out of Acca A",
+       LEAGUE not in ACCA_A_QUARANTINE_LEAGUES,
+       f"{LEAGUE} is quarantined -- Acca A would be empty for the wrong reason")
+_check("display league matches FixtureOdds.league",
+       all(f"({LEAGUE})" in b.fixture for b in board)
+       and all(r.league == LEAGUE for r in odds_rows))
+# Guard against re-introducing real club names. A fixture labelled with one
+# league while naming clubs from another is the contamination bug this branch
+# fixes; it must never be modelled in the test data.
+_REAL_CLUBS = ("man city", "bayern", "real madrid", "psg", "inter", "liverpool",
+               "arsenal", "chelsea", "tottenham", "barcelona", "juventus")
+_check("no real club names in synthetic fixtures",
+       not any(c in f.lower() for f, _, _ in ROWS for c in _REAL_CLUBS))
+
+print("\n1. production path runs end to end")
 bets = build_production_bets(board, today=TODAY, odds_index=odds_index)
 _check("build_production_bets returned", bets is not None)
 _check("Acca A was built", bets.acca_a is not None)

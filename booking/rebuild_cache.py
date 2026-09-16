@@ -4,6 +4,7 @@ import json
 import socket
 import sys
 import time
+from contextlib import contextmanager
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any, Dict, List
@@ -16,7 +17,7 @@ except ImportError:
     print("ERROR: playwright not installed")
     sys.exit(1)
 
-from booking.league_map import SPORTYBET_LEAGUES
+from booking.league_map import SPORTYBET_LEAGUES  # noqa: E402  (after sys.path setup)
 
 PAGE_LOAD_TIMEOUT = 45_000
 BOOKER_CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
@@ -60,6 +61,93 @@ SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
     "Süper Lig": (0, 0),
     "Turkish Super Lig": (0, 0),
 }
+
+def _competition_key(olp_name: str) -> tuple[str, str] | None:
+    """Identify the real competition behind an OLP league name.
+
+    SPORTYBET_LEAGUES carries several spelling aliases for one competition
+    ("La Liga"/"LaLiga", "Primeira Liga"/"Liga Portugal"). Normalising the
+    country + league name lets alias pairs be told apart from two genuinely
+    different competitions that have been pointed at the same URL.
+    """
+    mapping = SPORTYBET_LEAGUES.get(olp_name)
+    if mapping is None:
+        return None
+    return (
+        mapping.country.strip().lower(),
+        mapping.league.replace(" ", "").strip().lower(),
+    )
+
+
+def _resolve_direct_targets() -> dict[str, tuple[int, int]]:
+    """Return the direct-URL map with genuinely-colliding entries disabled.
+
+    Two DIFFERENT competitions sharing a category/tournament pair means one of
+    them silently navigates to — and caches — the other's fixtures. As
+    shipped, "Liga Portugal" (Portugal) and "Premier League" (England) both
+    pointed at sr:category:32/sr:tournament:8.
+
+    Spelling aliases for the SAME competition sharing a target are correct and
+    are left alone ("La Liga"/"LaLiga" -> sr:category:31/sr:tournament:23).
+
+    HR35 says never guess, so rather than pick a winner this drops every
+    genuinely-colliding entry to (0, 0). Those leagues then go through sidebar
+    navigation, which verifies the landed page before caching. Both the
+    collision and any same-competition target disagreement are reported so
+    they can be resolved against the live sidebar.
+    """
+    resolved = dict(SPORTYBET_CATEGORY_TOURNAMENT)
+
+    # 1. One target claimed by two different competitions -> contamination.
+    by_target: dict[tuple[int, int], list[str]] = {}
+    for name, target in SPORTYBET_CATEGORY_TOURNAMENT.items():
+        if all(target):
+            by_target.setdefault(target, []).append(name)
+
+    for target, names in by_target.items():
+        if len(names) < 2:
+            continue
+        keys = {_competition_key(n) for n in names}
+        if len(keys) < 2 and None not in keys:
+            continue  # all aliases of one competition — correct as-is
+        safe_print(
+            f"  [COLLISION] {', '.join(sorted(names))} are different competitions "
+            f"but all map to sr:category:{target[0]}/sr:tournament:{target[1]} — "
+            f"direct URL disabled for these; falling back to verified sidebar nav. "
+            f"Resolve against the live SportyBet sidebar (HR35)."
+        )
+        for n in names:
+            resolved[n] = (0, 0)
+
+    # 2. One competition claimed by two targets -> at least one is wrong.
+    by_competition: dict[tuple[str, str], dict[str, tuple[int, int]]] = {}
+    for name, target in SPORTYBET_CATEGORY_TOURNAMENT.items():
+        if not all(target):
+            continue
+        key = _competition_key(name)
+        if key is None:
+            continue
+        by_competition.setdefault(key, {})[name] = target
+
+    for key, named_targets in by_competition.items():
+        distinct = set(named_targets.values())
+        if len(distinct) < 2:
+            continue
+        detail = ", ".join(
+            f"{n} -> sr:category:{t[0]}/sr:tournament:{t[1]}"
+            for n, t in sorted(named_targets.items())
+        )
+        safe_print(
+            f"  [CONFLICT] {key[0]}/{key[1]} is one competition but has "
+            f"disagreeing direct URLs ({detail}) — direct URL disabled for these; "
+            f"falling back to verified sidebar nav. Resolve against the live "
+            f"SportyBet sidebar (HR35)."
+        )
+        for n in named_targets:
+            resolved[n] = (0, 0)
+
+    return resolved
+
 
 @dataclass
 class CachedFixture:
@@ -158,80 +246,133 @@ async def _dismiss_overlays(page: Page) -> None:
         pass
 
 
-async def _verify_league_page(page: Page, expected_league: str) -> bool:
-    strong_sources = []
-    try:
-        for el in await page.locator(".tournament-name").all():
-            t = (await el.inner_text()).strip()
-            if t: strong_sources.append(t)
-    except Exception:
-        pass
-    for sel in [".breadcrumb:visible", ".tournament-header:visible", "[class*='breadcrumb']:visible", ".top-link:visible", ".m-nav-bar:visible"]:
+async def _verify_league_page(
+    page: Page,
+    expected_league: str,
+    expected_cat_tour: tuple[int, int] | None = None,
+) -> bool:
+    """Confirm the loaded page really is the expected league's page.
+
+    HR35 — never guess. Returns True only on positive evidence from the URL's
+    own category/tournament ids or from a header/breadcrumb element.
+
+    It deliberately does NOT fall back to searching the whole page body, and
+    does not treat `.top-link` as evidence. SportyBet renders a sidebar and a
+    popular-list that name *every* competition, so the body text (and the
+    top-link set) of ANY league page contains EVERY league name. The old
+    whole-body fallback therefore returned True unconditionally, which is how
+    Premier League fixtures ended up written into Bundesliga.json with
+    league="Bundesliga".
+    """
+    # Strongest signal: we navigated by direct URL and the ids survived any
+    # redirect, so the page is the one we asked for.
+    if expected_cat_tour and all(expected_cat_tour):
+        cat, tour = expected_cat_tour
+        if f"sr:category:{cat}" in page.url and f"sr:tournament:{tour}" in page.url:
+            return True
+
+    strong_sources: list[str] = []
+    for sel in (
+        ".tournament-name",
+        ".breadcrumb:visible",
+        ".tournament-header:visible",
+        "[class*='breadcrumb']:visible",
+        ".m-nav-bar:visible",
+    ):
         try:
             for el in await page.locator(sel).all():
                 t = (await el.inner_text()).strip()
-                if t: strong_sources.append(t)
+                if t:
+                    strong_sources.append(t)
         except Exception:
-            pass
+            continue
+
+    if not strong_sources:
+        safe_print(
+            f"  [VERIFY] {expected_league}: no tournament header or breadcrumb on page "
+            f"— cannot confirm league, refusing to cache"
+        )
+        return False
+
     expected_lower = expected_league.lower()
-    for src in strong_sources:
-        if expected_lower in src.lower():
-            return True
-    try:
-        body_text = await page.inner_text('body')
-        if body_text and expected_lower in body_text.lower():
-            return True
-    except Exception:
-        pass
+    if any(expected_lower in src.lower() for src in strong_sources):
+        return True
+
+    safe_print(
+        f"  [VERIFY] {expected_league}: page headers say {strong_sources[:3]} "
+        f"— wrong league, refusing to cache"
+    )
     return False
+
+
+async def _extract_row_odds(row) -> Dict[str, Any]:
+    """Read the 1X2 prices from a match row's first market cell.
+
+    SportyBet renders each row's first `.market` cell as three
+    `.m-outcome-odds` values in Home / Draw / Away order.
+
+    Returns {} when the cell is missing or any price is unparseable. An empty
+    raw_market is the honest "NO DATA — PENDING" signal the pipeline already
+    understands (HR35); a fabricated or zero price would look like a real
+    quote and could be staked against.
+    """
+    try:
+        market_cell = await row.query_selector(".market")
+        if not market_cell:
+            return {}
+        odds_els = await market_cell.query_selector_all(".m-outcome-odds")
+        if len(odds_els) < 3:
+            return {}
+        prices: List[float] = []
+        for el in odds_els[:3]:
+            raw = (await el.inner_text()).strip()
+            try:
+                prices.append(float(raw))
+            except ValueError:
+                return {}
+        # Decimal odds are strictly > 1.0; anything at or below is a
+        # placeholder/suspended marker, not a price.
+        if not all(p > 1.0 for p in prices):
+            return {}
+        home, draw, away = prices
+        return {"1x2": {"home": home, "draw": draw, "away": away}}
+    except Exception:
+        return {}
 
 
 async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
     fixtures: List[CachedFixture] = []
     try:
-        # First, get all date headers and their associated rows
-        # SportyBet pages typically have date headers like "Today", "Tomorrow", or specific dates
-        # We'll find all elements and build a map of row -> date
+        # ONE ordered pass over date headers AND match rows.
+        #
+        # Previously the rows were indexed from one query and the headers from
+        # a second, then zipped by position. Any element matching both
+        # selectors (or any ordering difference between the two queries)
+        # shifted every subsequent date onto the wrong fixture. Walking a
+        # single ordered result set makes that desync impossible.
+        #
+        # `is_match_row` is also tested BEFORE the header test now: a row whose
+        # class happens to contain "date" used to be swallowed as a header,
+        # dropping the fixture and shifting the rest.
+        ordered = await page.query_selector_all(
+            ".m-table-date, .match-date, .date-header, [class*='date'], .m-table-row.match-row"
+        )
+        default_date = await _infer_date_from_page(page, page.url)
 
-        # Get the page content to understand structure
-        all_rows = await page.query_selector_all(".m-table-row.match-row")
+        current_date: str | None = None
+        rows_with_dates: List[tuple[Any, str]] = []
+        for el in ordered:
+            class_attr = await el.get_attribute("class") or ""
+            if "m-table-row" in class_attr and "match-row" in class_attr:
+                rows_with_dates.append((el, current_date or default_date))
+                continue
+            text = (await el.inner_text()).strip()
+            if text:
+                current_date = _parse_sportybet_date(text)
 
-        # Try to find date headers - they might be in elements like .date-header, .match-date, etc.
-        date_headers = await page.query_selector_all(".m-table-date, .match-date, .date-header, [class*='date']")
-        date_map = {}  # Maps row index to date string
+        all_rows = [r for r, _ in rows_with_dates]
 
-        # If we have date headers, try to associate them with rows
-        # Strategy: date headers appear before the rows they apply to
-        if date_headers:
-            # Get all relevant elements in order
-            all_elements = await page.query_selector_all(".m-table-date, .match-date, .date-header, [class*='date'], .m-table-row.match-row")
-
-            current_date = None
-            row_index = 0
-            for el in all_elements:
-                class_attr = await el.get_attribute("class") or ""
-                is_date_header = any(cls in class_attr for cls in ["date", "Date"])
-                is_match_row = "m-table-row" in class_attr and "match-row" in class_attr
-
-                if is_date_header:
-                    text = (await el.inner_text()).strip()
-                    if text:
-                        current_date = _parse_sportybet_date(text)
-                elif is_match_row:
-                    if current_date:
-                        date_map[row_index] = current_date
-                    row_index += 1
-
-        # If no date headers found, try to infer from page URL or default to today
-        if not date_map:
-            # Try to get date from URL or page content
-            url = page.url
-            current_date = _infer_date_from_page(page, url)
-            for i in range(len(all_rows)):
-                date_map[i] = current_date
-
-        # Now extract fixtures with dates
-        for i, row in enumerate(all_rows):
+        for row, fixture_date in rows_with_dates:
             try:
                 gid_el = await row.query_selector(".game-id")
                 gid = (await gid_el.inner_text()) if gid_el else ""
@@ -244,25 +385,24 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
                 kickoff_time = (await clock_el.inner_text()).strip() if clock_el else ""
 
                 if home and away and kickoff_time:
-                    # Combine date with time to create ISO datetime
-                    fixture_date = date_map.get(i)
-                    if fixture_date:
-                        kickoff_iso = _combine_date_time(fixture_date, kickoff_time)
-                    else:
-                        # Fallback: use today's date
-                        from datetime import date
-                        kickoff_iso = _combine_date_time(date.today().isoformat(), kickoff_time)
-
+                    kickoff_iso = _combine_date_time(fixture_date, kickoff_time)
                     fixtures.append(CachedFixture(
                         id=gid or str(len(fixtures)),
                         home=home,
                         away=away,
-                        kickoff=kickoff_iso,  # Now stores full ISO datetime
+                        kickoff=kickoff_iso,  # full ISO datetime
                         league=league,
-                        raw_market={}
+                        raw_market=await _extract_row_odds(row),
                     ))
             except Exception:
                 continue
+
+        priced = sum(1 for f in fixtures if f.raw_market)
+        if fixtures and not priced:
+            safe_print(
+                f"  [WARN] {league}: {len(fixtures)} fixtures but 0 carry odds "
+                f"— '.market .m-outcome-odds' matched nothing, check the row markup"
+            )
     except Exception as e:
         safe_print(f"  x extraction error: {type(e).__name__}: {e}")
         # Log a sample of the page content for debugging if we have rows but extracted no fixtures
@@ -324,8 +464,15 @@ def _parse_sportybet_date(text: str) -> str:
     return today.isoformat()
 
 
-def _infer_date_from_page(page: Page, url: str) -> str:
-    """Infer the date from page URL or content."""
+async def _infer_date_from_page(page: Page, url: str) -> str:
+    """Infer the date from page URL or content.
+
+    Async because `page.title()` is a coroutine on the async Playwright API.
+    The previous sync version called it without awaiting, so `.lower()` ran
+    against a coroutine object, raised AttributeError, and was swallowed by
+    the surrounding except — meaning the title check could never fire and
+    every undated fixture silently got today's date.
+    """
     from datetime import date, timedelta
 
     # Check URL for date parameters
@@ -340,9 +487,9 @@ def _infer_date_from_page(page: Page, url: str) -> str:
         d = date_match.group(1)
         return f"{d[:4]}-{d[4:6]}-{d[6:8]}"
 
-    # Check if page has "today" or "tomorrow" in title or body
+    # Check if page has "today" or "tomorrow" in the title
     try:
-        title = page.title()
+        title = (await page.title()) or ""
         if "tomorrow" in title.lower():
             return (date.today() + timedelta(days=1)).isoformat()
         if "today" in title.lower():
@@ -390,14 +537,25 @@ async def _wait_for_fixtures(page: Page, timeout: int = 10000) -> bool:
 class RedirectLoop(RuntimeError):
     pass
 
+@contextmanager
 def _guard_redirects(page, limit=3):
-    """Attach a redirect guard to the page. Returns a cleanup function.
+    """Watch for redirect loops across a navigation.
 
-    Does not raise exceptions in the event handler - instead tracks redirect
-    loops and the caller can check the hops dict after navigation.
+    Used as `with _guard_redirects(page): await page.goto(...)`. The listener
+    is detached on every exit path, and RedirectLoop is raised afterwards only
+    when the body itself succeeded — a loop report must not mask a real
+    navigation error.
+
+    This replaces a callable-cleanup version that was broken two ways:
+    `page.on()` does NOT return an unsubscribe callable (Playwright's emitter
+    returns the handler itself), so calling it invoked the handler with no
+    arguments and raised TypeError on EVERY direct-URL attempt — silently
+    downgrading the scraper to fuzzy popular-list/sidebar navigation for every
+    league. And where the return value was discarded, the listener leaked,
+    accumulating one handler per league scraped.
     """
-    hops = {}
-    loop_detected = {"url": None}
+    hops: dict[str, int] = {}
+    loop_detected: dict[str, str | None] = {"url": None}
 
     def _on_response(resp):
         if 300 <= resp.status < 400:
@@ -405,19 +563,32 @@ def _guard_redirects(page, limit=3):
             if hops[resp.url] > limit:
                 loop_detected["url"] = resp.url
 
-    # page.on returns a cleanup function
-    cleanup = page.on("response", _on_response)
+    page.on("response", _on_response)
+    try:
+        yield
+    finally:
+        try:
+            page.remove_listener("response", _on_response)
+        except Exception:
+            pass
 
-    def combined_cleanup():
-        cleanup()  # This removes the listener
-        if loop_detected["url"]:
-            raise RedirectLoop(f"redirect loop: {loop_detected['url']}")
+    if loop_detected["url"]:
+        raise RedirectLoop(f"redirect loop: {loop_detected['url']}")
 
-    return combined_cleanup
+_DIRECT_TARGETS: dict[str, tuple[int, int]] | None = None
+
+
+def _direct_targets() -> dict[str, tuple[int, int]]:
+    """Collision-resolved direct-URL map, computed once per process."""
+    global _DIRECT_TARGETS
+    if _DIRECT_TARGETS is None:
+        _DIRECT_TARGETS = _resolve_direct_targets()
+    return _DIRECT_TARGETS
+
 
 async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFixture]:
     host = "www.sportybet.com"
-    cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
+    cat_tour = _direct_targets().get(league)
     direct_url_attempted = False
 
     # Start from a clean jar and set proper locale/headers
@@ -450,10 +621,8 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         for url_type, direct_url in urls_to_try:
             try:
                 safe_print(f"  -> Direct URL ({url_type}): {direct_url}")
-                # Apply redirect guard
-                cleanup_redirects = _guard_redirects(page)
-                await page.goto(direct_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
-                cleanup_redirects()
+                with _guard_redirects(page):
+                    await page.goto(direct_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
                 await _dismiss_overlays(page)
                 # Wait for fixtures to load
                 if not await _wait_for_fixtures(page):
@@ -462,7 +631,7 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                 else:
                     rows = await page.query_selector_all(".m-table-row.match-row")
                 if rows:
-                    if await _verify_league_page(page, league):
+                    if await _verify_league_page(page, league, cat_tour):
                         safe_print(f"  [OK] {league}: direct URL ({url_type}) worked, found {len(rows)} rows")
                         fixtures = await _extract_fixtures(page, league)
                         if fixtures:
@@ -484,9 +653,8 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
         base_url = f"https://{host}/ng/sport/football"
         safe_print(f"  -> Fallback to homepage: {base_url}")
         try:
-            # Apply redirect guard
-            _guard_redirects(page)
-            await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
+            with _guard_redirects(page):
+                await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
         except Exception as e:
             error_str = str(e)
             if "net::ERR_TOO_MANY_REDIRECTS" in error_str or "interrupted by another navigation" in error_str:
@@ -494,10 +662,8 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                 # Try without the /ng/sport/football path
                 base_url = f"https://{host}"
                 safe_print(f"  -> Trying base domain: {base_url}")
-                # Apply redirect guard
-                cleanup_redirects = _guard_redirects(page)
-                await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
-                cleanup_redirects()
+                with _guard_redirects(page):
+                    await page.goto(base_url, wait_until="commit", timeout=PAGE_LOAD_TIMEOUT)
             else:
                 raise  # Re-raise if it's not a redirect error
         await page.wait_for_timeout(3000)

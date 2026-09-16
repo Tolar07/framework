@@ -139,6 +139,21 @@ def score_matrix(lam_h: float, lam_a: float, rho: float) -> np.ndarray:
     return matrix
 
 
+# The floor the PRODUCTION board fits at, as opposed to the function default
+# below. Four is too low to estimate a club's attack and defence: on
+# 2026-09-16 a La Liga fit pooled over two seasons rated La Coruna and
+# Santander on FIVE matches each, cleared the 4-match floor, reported
+# thin_teams EMPTY, and made La Coruna a 0.665 home favourite against Sevilla
+# where the market said 0.373 -- an apparent +0.78 EV that was entirely a
+# small-sample artifact. At a floor of 10 both clubs drop out and the board
+# says NO DATA — PENDING, which is the honest answer.
+#
+# The function default stays at 4 deliberately. Backtests and the calibration
+# history were produced with it, and moving a default silently re-baselines
+# every one of them. Production opts in explicitly instead.
+PRODUCTION_MIN_MATCHES_PER_TEAM = 10
+
+
 def fit(results: list, min_matches_per_team: int = 4,
         x0_teams: Optional[dict] = None, x0_globals: Optional[tuple] = None,
         return_raw_x: bool = False, half_life_days: Optional[float] = None,

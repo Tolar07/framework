@@ -716,11 +716,13 @@ def agent_5_core(state: PipelineState) -> dict:
         from data import clubelo_source
         from data.thesportsdb_fixtures import map_team
         from engine import cross_league as xleague
+        from engine import domestic_cup as dcup
         from engine import elo as elo_engine
         from engine.consensus import compute_consensus
         from engine.dixon_coles import (fit, predict, predict_adjusted,
                                          unrated_reason, FIT_VERSION,
-                                         FixtureProbabilities)
+                                         FixtureProbabilities,
+                                         PRODUCTION_MIN_MATCHES_PER_TEAM)
         from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload, dc_from_payload, dc_to_payload)
         from engine import markets as mkt
         from engine.mes import mes_numeric
@@ -754,10 +756,31 @@ def agent_5_core(state: PipelineState) -> dict:
         except Exception as e:
             flags.append(f"{league}: football-data load failed ({str(e)[:70]})")
 
+        # Domestic cups are not leagues: their entrants play in several
+        # divisions, so football-data has no single table that rates them all
+        # and load_league above returned nothing. Fit them from the pooled
+        # league tiers that feed the cup instead -- see engine/domestic_cup.py.
+        # This runs BEFORE the cross-league branch because a domestic cup is
+        # not a continental one and must not be routed into the European pool.
+        cup_model = None
+        if dcup.is_domestic_cup(league):
+            try:
+                cup_model, cup_info, cup_flags = dcup.fit_domestic_cup(league)
+                flags += cup_flags
+                if cup_model is not None:
+                    flags.append(
+                        f"{league}: fitted from {cup_info['n_matches']} pooled "
+                        f"matches across {len(cup_info['tiers'])} tiers, "
+                        f"{cup_info['n_rated']} clubs rated"
+                    )
+            except Exception as e:
+                flags.append(f"{league}: domestic-cup fit failed "
+                             f"({type(e).__name__}: {str(e)[:70]})")
+
         # Cross-league fallback if primary history is thin
         cross_model = None
         pool_hash = None
-        if results is not None and len(results) < 20:
+        if cup_model is None and results is not None and len(results) < 20:
             try:
                 cross_model, pool_info, fit_flags = xleague.fit_cross_league(
                     league, pool=None)
@@ -769,7 +792,9 @@ def agent_5_core(state: PipelineState) -> dict:
 
         # Dixon-Coles model fitting
         model = None
-        if cross_model is not None:
+        if cup_model is not None:
+            model = cup_model
+        elif cross_model is not None:
             model = cross_model
         else:
             if results is not None and len(results) >= 20:
@@ -778,7 +803,10 @@ def agent_5_core(state: PipelineState) -> dict:
                 if row is not None and row["content_hash"] == dc_hash:
                     model = dc_from_payload(row["payload"])
                 else:
-                    model = fit(results)
+                    model = fit(
+                        results,
+                        min_matches_per_team=PRODUCTION_MIN_MATCHES_PER_TEAM,
+                    )
                     if brain:
                         brain.save_model_state(
                             f"dc:{league}", "dc", FIT_VERSION, dc_hash,

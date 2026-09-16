@@ -30,9 +30,12 @@ board) rather than being silently bent onto the nearest-looking team.
 """
 from __future__ import annotations
 import json
+import logging
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Optional
+
+logger = logging.getLogger("data.espn_source")
 
 from data.thesportsdb_fixtures import fetch_upcoming as tsdb_fetch_upcoming
 from data.thesportsdb_fixtures import fetch_today as tsdb_fetch_today
@@ -143,7 +146,7 @@ def _get_key() -> str:
 
 def fetch_upcoming(
     league: str, fixtures_season: str | int, days_ahead: int = 14
-) -> tuple[list[UpcomingFixture], list[str]]:
+) -> tuple[list[UpcomingFixture], int]:
     """Fetch upcoming fixtures for a league from ESPN.
 
     Returns (fixtures, skipped) where skipped is the number of fixtures that

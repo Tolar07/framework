@@ -1973,6 +1973,26 @@ def _render_rolling_7d(rolling: Optional[dict]) -> str:
             f"{legs} legs logged · {with_clv} with CLV ({clv_txt}){gate_txt}")
 
 
+def _has_flashscore_provenance(bf: BoardFixture) -> bool:
+    """True when this fixture's ID403 verification cites the FlashScore feed.
+
+    BoardFixture.verification is a single VerificationResult, not a list, and
+    VerificationResult has no `.source` attribute -- its fields are tier,
+    value, factors and note. Source provenance lives in
+    factors["independent_domains"], the domain roots id403.verify() collected.
+
+    Matches the trusted feed key "flashscore_fixtures" (T1, ratified
+    2026-08-16), NOT the bare "flashscore.com" domain, which SOURCE_TRUST
+    marks REJECTED -- scraping the public site is not provenance.
+    """
+    v = getattr(bf, "verification", None)
+    if v is None:
+        return False
+    factors = getattr(v, "factors", None) or {}
+    domains = factors.get("independent_domains") or []
+    return any("flashscore_fixtures" in str(d).lower() for d in domains)
+
+
 def render_live_matches_section(board: list[BoardFixture]) -> str:
     """Render the LIVE MATCHES section showing all FlashScore fixtures for live tracking.
 
@@ -1981,21 +2001,7 @@ def render_live_matches_section(board: list[BoardFixture]) -> str:
     is running late. Fixtures without SportyBet odds appear as 'kept UNVERIFIED'.
     """
     # Find fixtures that have FlashScore provenance
-    live_matches = []
-    for bf in board:
-        # Check if this fixture has FlashScore as a source
-        if bf.verification:
-            for vr in bf.verification:
-                if vr.source == "FlashScore":
-                    live_matches.append(bf)
-                    break
-        # Also check verification_raw if available
-        if not live_matches or live_matches[-1] != bf:
-            if hasattr(bf, 'verification_raw') and bf.verification_raw:
-                for vr in bf.verification_raw:
-                    if vr.source == "FlashScore":
-                        live_matches.append(bf)
-                        break
+    live_matches = [bf for bf in board if _has_flashscore_provenance(bf)]
 
     if not live_matches:
         return "LIVE MATCHES (FlashScore)\nNo FlashScore fixtures available for live tracking."
@@ -2020,12 +2026,15 @@ def render_live_matches_section(board: list[BoardFixture]) -> str:
             away_team = bf.probs.away_team if bf.probs else ""
             ko = _kickoff_for(bf, home_team, away_team)
 
-            # Determine verification status
-            status = "kept UNVERIFIED"
-            for vr in (bf.verification or []):
-                if vr.source == "FlashScore" and vr.tier == Tier.T2:
-                    status = "kept UNVERIFIED"
-                    break
+            # Determine verification status from the fixture's actual ID403
+            # tier. The previous loop iterated bf.verification (a single
+            # VerificationResult, not a list -> TypeError) and compared
+            # vr.source (no such attribute) against Tier.T2 (no such member);
+            # both of its branches assigned the same string, so it could only
+            # ever have been a no-op or a crash.
+            v = getattr(bf, "verification", None)
+            tier = getattr(v, "tier", None) if v is not None else None
+            status = "VERIFIED" if tier is Tier.VERIFIED else "kept UNVERIFIED"
 
             lines.append(f"    {ko}  {_short_fixture(bf)}  [{status}]")
         lines.append("")

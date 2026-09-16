@@ -268,12 +268,25 @@ def get_fixtures_for_run_daily(leagues: List[str], season: str, fixtures_season:
     """
     Get fixtures for multiple leagues, used by run_daily.py
     Returns dictionary mapping league -> fixtures list
+
+    `fixtures_season` wins over `season` when supplied. The two are
+    deliberately different: results and model fitting run on the COMPLETED
+    season (`--season`, default "2526") while FIXTURES must come from the LIVE
+    one (`--fixtures-season`, 2627 at time of writing). This function accepted
+    fixtures_season and then passed `season` to the provider chain, silently
+    discarding it -- so the daily board fetched fixtures for a season that had
+    already finished, no matter what --fixtures-season was set to. That is a
+    direct cause of wrong fixtures on the board.
     """
     all_fixtures = {}
+    effective_season = fixtures_season or season
+    if fixtures_season and fixtures_season != season:
+        logger.info(
+            f"fixtures season={fixtures_season} (results/model season={season})")
 
     for league in leagues:
         try:
-            fixtures = get_fixtures_with_fallback(league, season, date_target)
+            fixtures = get_fixtures_with_fallback(league, effective_season, date_target)
             all_fixtures[league] = fixtures
             logger.info(f"League {league}: {len(fixtures)} fixtures obtained")
         except Exception as e:

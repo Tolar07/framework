@@ -785,9 +785,36 @@ def _season_label(fixtures_season: str) -> str:
 
 
 def map_team(league: str, name: str) -> str:
-    """TheSportsDB name -> model key. Unknown names pass through unchanged so
-    the engine reports NO DATA — PENDING instead of guessing a match."""
-    return TEAM_ALIASES.get(league, {}).get(name, name)
+    """Feed name -> model key. Unknown names pass through unchanged so
+    the engine reports NO DATA — PENDING instead of guessing a match.
+
+    TEAM_ALIASES is keyed by league and was built for TheSportsDB. The pipeline
+    now also ingests fixtures from FlashScore, which is the PRIMARY fixtures
+    source (priority 9) and spells clubs differently -- "Ath. Bilbao" with a
+    period, "A Coruna" without the "La", "Atl. Madrid". Those spellings are not
+    in TEAM_ALIASES, so they passed straight through and the fixture reached
+    the board rated NO DATA — PENDING.
+
+    booking.team_map.resolve_team_to_model already knows that family (it is the
+    exact + normalized-exact reverse resolver, deliberately with no fuzzy pass).
+    Rather than keep a second copy of those pairs here, fall through to it when
+    the league table has no entry -- so one table stays the source of truth for
+    each feed and they cannot drift apart.
+
+    Order matters: TEAM_ALIASES is consulted FIRST, so a league-specific
+    mapping always beats the global reverse table. The fallback only ever fires
+    where the current behaviour was to return the name unchanged, which means
+    it can turn a NO DATA into a rating but can never change an existing one.
+    """
+    mapped = TEAM_ALIASES.get(league, {}).get(name)
+    if mapped is not None:
+        return mapped
+
+    try:
+        from booking.team_map import resolve_team_to_model
+    except Exception:
+        return name          # booking package unavailable — unchanged, as before
+    return resolve_team_to_model(name)
 
 
 def _cache_path(league: str, fixtures_season: str) -> Path:
@@ -931,7 +958,22 @@ def fetch_today(league: str, day: str) -> list[UpcomingFixture]:
         except ValueError:
             # If date parsing fails, use the original day
             adjusted_day = day
-        url = f"{API_BASE}/{_get_key()}/eventsday.php?d={adjusted_day}"
+        # Filter server-side by league id. This query previously passed only
+        # ?d=<date>, pulling EVERY sport worldwide and relying on the client-side
+        # idLeague check below to discard the rest.
+        #
+        # Verified live 2026-09-16: unfiltered returned 3 events, ALL Pacific
+        # Coast League baseball, so this league got nothing. The same date with
+        # &l=4328 (Premier League) returns the real EPL card. Any cap or
+        # truncation on the unfiltered response drops real fixtures before the
+        # client-side filter can ever see them -- a silent missing-fixtures bug.
+        #
+        # The old comment below claimed "eventsday endpoint doesn't support
+        # league filtering". It does: monitor/run_monitor.py and sandbox/live.py
+        # have both been passing &l= all along. The client-side check is kept as
+        # a belt-and-braces guard, not as the primary filter.
+        url = (f"{API_BASE}/{_get_key()}/eventsday.php"
+               f"?d={adjusted_day}&l={LEAGUE_IDS[league]}")
         resp = get(url, timeout=25)
         # Ensure we have a list to iterate over - handle cases where API returns non-list
         events_data = resp.json().get("events")
@@ -951,7 +993,9 @@ def fetch_today(league: str, day: str) -> list[UpcomingFixture]:
 
         fixtures: list[UpcomingFixture] = []
         for i, ev in enumerate(events_data):
-            # Filter by league ID since eventsday endpoint doesn't support league filtering
+            # Belt-and-braces: the query above already filters by league id
+            # server-side, so this should never drop anything. Kept so a change
+            # to the URL cannot silently let another competition through.
             if str(ev.get("idLeague")) != str(LEAGUE_IDS[league]):
                 continue
             home = (ev.get("strHomeTeam") or "").strip()

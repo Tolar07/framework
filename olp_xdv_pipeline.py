@@ -43,8 +43,26 @@ import logging
 from pathlib import Path
 from typing import Dict, Any
 
-# Import league verifier for pre-pipeline validation
-from engine.league_verifier import LeagueVerifier, run_daily_league_verification
+# Import league verifier for pre-pipeline validation.
+#
+# engine/league_verifier.py has never been committed to this repository -- no
+# commit in history adds it, and it is not gitignored. It exists only as an
+# untracked file on whichever machine wrote these call sites. A hard import
+# therefore made this module, and with it run_daily.py, impossible to import
+# from a clean clone: the entire daily pipeline was unrunnable anywhere but
+# that one laptop.
+#
+# The only consumer of these names (see "League Verification" below) is
+# already wrapped in try/except and documented "Don't halt the pipeline for
+# verification failures" -- it logs league coverage and nothing more; it gates
+# no bet, no leg and no publish. So a missing verifier is degraded to a loud
+# warning at the call site rather than a dead import. HR35: the gap is
+# reported, never silently treated as "verification passed".
+try:
+    from engine.league_verifier import LeagueVerifier, run_daily_league_verification
+except ModuleNotFoundError:
+    LeagueVerifier = None
+    run_daily_league_verification = None
 
 logger = logging.getLogger(__name__)
 
@@ -149,6 +167,10 @@ class PipelineState:
     season: str
     fixtures_season: str
     dry_run: bool
+    # Which leagues this run is restricted to. None means the full whitelist.
+    # Without this field run_pipeline's `leagues` argument had nowhere to go,
+    # so agent_1_ingest always swept every whitelisted league -- see below.
+    leagues: Optional[list] = None
     payloads: dict[int, dict] = field(default_factory=dict)   # agent_id -> output
     errors: list[dict] = field(default_factory=list)
     halted: bool = False
@@ -201,7 +223,26 @@ def agent_1_ingest(state: PipelineState) -> dict:
             from data.thesportsdb_fixtures import map_team
             from booking.bridge import load_sportybet_fixtures, sportybet_fixtures_to_pairs
 
-            for league in WHITELISTED_LEAGUES:
+            # run_pipeline takes a `leagues` argument and run_daily.py passes
+            # --leagues straight into it, but this loop read WHITELISTED_LEAGUES
+            # directly, so the selection was accepted and then dropped -- the
+            # same shape of bug as get_fixtures_for_run_daily discarding
+            # fixtures_season (48d241c). Every run paid for all 29 whitelisted
+            # leagues at roughly 10-20s of FlashScore each whatever was asked
+            # for, which is most of why a scan took the better part of ten
+            # minutes.
+            scan_leagues = [
+                lg for lg in WHITELISTED_LEAGUES
+                if not state.leagues or lg in state.leagues
+            ]
+            if state.leagues:
+                missing = sorted(set(state.leagues) - set(WHITELISTED_LEAGUES))
+                if missing:
+                    data_flags.append(
+                        f"requested league(s) not in the deploy whitelist, "
+                        f"skipped: {', '.join(missing)}"
+                    )
+            for league in scan_leagues:
                 upcoming_fixtures: list[tuple[str, str]] = []
                 fixture_dates: dict[tuple[str, str], str] = {}
                 primary_had_fixtures = False
@@ -698,11 +739,13 @@ def agent_5_core(state: PipelineState) -> dict:
         from data import clubelo_source
         from data.thesportsdb_fixtures import map_team
         from engine import cross_league as xleague
+        from engine import domestic_cup as dcup
         from engine import elo as elo_engine
         from engine.consensus import compute_consensus
         from engine.dixon_coles import (fit, predict, predict_adjusted,
                                          unrated_reason, FIT_VERSION,
-                                         FixtureProbabilities)
+                                         FixtureProbabilities,
+                                         PRODUCTION_MIN_MATCHES_PER_TEAM)
         from brain.store import (Brain, content_hash, elo_to_payload, elo_from_payload, dc_from_payload, dc_to_payload)
         from engine import markets as mkt
         from engine.mes import mes_numeric
@@ -736,10 +779,31 @@ def agent_5_core(state: PipelineState) -> dict:
         except Exception as e:
             flags.append(f"{league}: football-data load failed ({str(e)[:70]})")
 
+        # Domestic cups are not leagues: their entrants play in several
+        # divisions, so football-data has no single table that rates them all
+        # and load_league above returned nothing. Fit them from the pooled
+        # league tiers that feed the cup instead -- see engine/domestic_cup.py.
+        # This runs BEFORE the cross-league branch because a domestic cup is
+        # not a continental one and must not be routed into the European pool.
+        cup_model = None
+        if dcup.is_domestic_cup(league):
+            try:
+                cup_model, cup_info, cup_flags = dcup.fit_domestic_cup(league)
+                flags += cup_flags
+                if cup_model is not None:
+                    flags.append(
+                        f"{league}: fitted from {cup_info['n_matches']} pooled "
+                        f"matches across {len(cup_info['tiers'])} tiers, "
+                        f"{cup_info['n_rated']} clubs rated"
+                    )
+            except Exception as e:
+                flags.append(f"{league}: domestic-cup fit failed "
+                             f"({type(e).__name__}: {str(e)[:70]})")
+
         # Cross-league fallback if primary history is thin
         cross_model = None
         pool_hash = None
-        if results is not None and len(results) < 20:
+        if cup_model is None and results is not None and len(results) < 20:
             try:
                 cross_model, pool_info, fit_flags = xleague.fit_cross_league(
                     league, pool=None)
@@ -751,7 +815,9 @@ def agent_5_core(state: PipelineState) -> dict:
 
         # Dixon-Coles model fitting
         model = None
-        if cross_model is not None:
+        if cup_model is not None:
+            model = cup_model
+        elif cross_model is not None:
             model = cross_model
         else:
             if results is not None and len(results) >= 20:
@@ -760,7 +826,10 @@ def agent_5_core(state: PipelineState) -> dict:
                 if row is not None and row["content_hash"] == dc_hash:
                     model = dc_from_payload(row["payload"])
                 else:
-                    model = fit(results)
+                    model = fit(
+                        results,
+                        min_matches_per_team=PRODUCTION_MIN_MATCHES_PER_TEAM,
+                    )
                     if brain:
                         brain.save_model_state(
                             f"dc:{league}", "dc", FIT_VERSION, dc_hash,
@@ -1318,9 +1387,11 @@ AGENT_FUNCS = {
 
 
 def _run_pipeline_internal(season: str, fixtures_season: str, dry_run: bool,
-                           only: Optional[int] = None) -> PipelineState:
+                           only: Optional[int] = None,
+                           leagues: Optional[list] = None) -> PipelineState:
     """Internal pipeline runner - does not handle CLI args."""
-    state = PipelineState(season=season, fixtures_season=fixtures_season, dry_run=dry_run)
+    state = PipelineState(season=season, fixtures_season=fixtures_season,
+                          dry_run=dry_run, leagues=leagues)
     last = only or 10
     for agent_id in range(1, last + 1):
         try:
@@ -1372,7 +1443,8 @@ def run_pipeline(season: str = "2526", fixtures_season: str = "2627",
     if board_date is not None and date_str is None:
         date_str = board_date
 
-    state = _run_pipeline_internal(season=season, fixtures_season=fixtures_season, dry_run=dry_run, only=only)
+    state = _run_pipeline_internal(season=season, fixtures_season=fixtures_season,
+                                   dry_run=dry_run, only=only, leagues=leagues)
 
     # Return a PipelineResult-like object with the expected attributes
     from output.produce_bet import BoardFixture
@@ -1874,6 +1946,9 @@ def main() -> None:
     ap.add_argument("--only", type=int, default=None,
                     help="run agents 1..N then stop (1-10)")
     ap.add_argument("--json", action="store_true", help="emit final payload as JSON")
+    ap.add_argument("--leagues", nargs="+", default=None,
+                    help="restrict the scan to these leagues (default: the "
+                         "whole deploy whitelist)")
     args = ap.parse_args()
 
     # Safe-Move: surface git state before doing anything in this two-session tree.
@@ -1893,7 +1968,14 @@ def main() -> None:
         try:
             flashscore_file = "flashscore_leagues_sep4.json"
             flashscore_path = Path(flashscore_file)
-            if flashscore_path.exists():
+            if run_daily_league_verification is None or LeagueVerifier is None:
+                logger.warning(
+                    "League verification UNAVAILABLE: engine/league_verifier.py "
+                    "is not present in this checkout (it has never been committed). "
+                    "Proceeding WITHOUT league-coverage verification -- coverage is "
+                    "NOT confirmed, it is simply unmeasured."
+                )
+            elif flashscore_path.exists():
                 logger.info("Running daily league verification...")
                 verification_report = run_daily_league_verification(str(flashscore_path))
 
@@ -1916,7 +1998,10 @@ def main() -> None:
             logger.error(f"League verification failed: {e}")
             # Don't halt the pipeline for verification failures
 
-    state = _run_pipeline_internal(season=args.season, fixtures_season=args.fixtures_season, dry_run=args.dry_run, only=args.only)
+    state = _run_pipeline_internal(season=args.season,
+                                   fixtures_season=args.fixtures_season,
+                                   dry_run=args.dry_run, only=args.only,
+                                   leagues=args.leagues)
 
     final = state.payloads.get(args.only or 10, {})
     if args.json:

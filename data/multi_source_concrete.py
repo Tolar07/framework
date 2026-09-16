@@ -6,7 +6,8 @@ Each data type gets multiple redundant providers with automatic failover.
 from __future__ import annotations
 
 import logging
-from datetime import date
+import re
+from datetime import date, datetime
 from typing import Any, Optional
 
 from data.multi_source import (
@@ -31,6 +32,46 @@ except ImportError:
     SPORTYBET_AVAILABLE = False
 
 log = logging.getLogger("multi_source.concrete")
+
+
+def _season_start_year(season) -> Optional[int]:
+    """Season code -> the calendar year the season STARTS in, or None.
+
+    Accepts the repo's 4-digit span codes ("2526" -> 2025, "2627" -> 2026),
+    a plain 4-digit calendar year ("2026" -> 2026), and an int.
+
+    Two bugs this replaces, both of which produced wrong fixtures silently:
+
+    - "2026" was read as a span code: int("2026"[:2]) + 2000 == 2020. A
+      four-digit calendar year became a season SIX YEARS earlier, and
+      api-football duly returned real fixtures from the wrong season.
+    - The None case claimed a fallback to the current year, but that
+      fallback lived in an `except` while the expression it guarded could
+      not raise on None -- the ternary simply returned None. So the
+      fallback was dead code in precisely the case it was written for.
+
+    None is still returned (and the caller still raises SourceNoData) when
+    the season genuinely cannot be resolved. HR35: an unknown season is
+    reported, never guessed at -- guessing is what put another season's
+    fixtures on the board in the first place.
+    """
+    if isinstance(season, int):
+        return season
+    if not isinstance(season, str) or not season.isdigit():
+        return None
+    if len(season) == 4:
+        # "2526"/"2627" are span codes; "2026"/"1998" are calendar years.
+        # A span code's two halves are consecutive; a year's are not.
+        first, second = int(season[:2]), int(season[2:])
+        if second == first + 1:
+            return 2000 + first          # "2627" -> 2026
+        if 1900 <= int(season) <= 2100:
+            return int(season)           # "2026" -> 2026
+        return None
+    if len(season) == 2:
+        return 2000 + int(season)        # "26" -> 2026
+    return None
+
 
 # =============================================================================
 # FIXTURES MULTI-SOURCE
@@ -112,13 +153,7 @@ class APIFootballFixturesSource(DataSource):
         season_year = kwargs.get("season_year") or kwargs.get("api_football_season")
         from data.fixtures_source import fetch_upcoming, as_pairs
         if season_year is None:
-            try:
-                season_year = (int(season[:2]) + 2000
-                               if isinstance(season, str) and season.isdigit() else season)
-            except Exception:
-                # If we still can't resolve season, try to get current year as fallback
-                from datetime import date
-                season_year = date.today().year
+            season_year = _season_start_year(season)
         if season_year is None:
             raise SourceNoData(f"api_football: cannot resolve season {season!r} for {league}")
         fixtures = fetch_upcoming(league, season_year, days_ahead=kwargs.get("days_ahead", 14))
@@ -145,8 +180,14 @@ class ESPNFixturesSource(DataSource):
         fixtures, skipped = espn_source.fetch_upcoming(
             league, fixtures_season, days_ahead=days_ahead)
         if not fixtures:
-            # Return empty dict instead of raising SourceNoData
-            return {"fixtures": [], "dates": {}, "skipped": len(skipped),
+            # `skipped` is already a COUNT (espn_source.fetch_upcoming returns
+            # total_skipped, an int). len() on it raised TypeError on every
+            # empty result -- so the one branch whose whole job is to report
+            # "no data, try the next source" was the branch that crashed, and
+            # ESPN could never act as a fallback. Seen 2026-09-16 on Copa del
+            # Rey: "object of type 'int' has no len()", twice, then the chain
+            # gave up.
+            return {"fixtures": [], "dates": {}, "skipped": skipped,
                     "source": "espn_empty"}
         pairs = espn_source.as_pairs(fixtures)
         dates = {(f.home_team, f.away_team): f.date for f in fixtures}
@@ -332,6 +373,61 @@ class FlashScoreResultsSource(DataSource):
         return {"results": results, "source": "flashscore_results", "source_tier": "T2"}
 
 
+def _flashscore_kickoff_to_iso(raw: str, now: "datetime | None" = None) -> "str | None":
+    """FlashScore's displayed kickoff -> ISO 8601, or None if unreadable.
+
+    The page shows "13.09. 14:15" for another day and "14:15" for today, and
+    the adapter stored that string verbatim as the fixture's kickoff_utc. So
+    9 of 13 La Liga fixtures reached the board with a kickoff of "13.09. 14:15"
+    — which no date filter can read, so "today's fixtures only" could not
+    identify them, and settlement had no timestamp to work from.
+
+    The year is not shown, so it is inferred as the candidate nearest to now;
+    that handles a fixture a few days out and one a few days back without
+    breaking across a New Year.
+
+    TIMEZONE: this is FlashScore's displayed local time, which is the browser's
+    timezone. It is returned NAIVE rather than stamped with a Z, because
+    labelling an unverified local time as UTC is how a kickoff silently moves
+    by an hour. Callers that need a date use the first 10 characters, which is
+    unaffected.
+    """
+    from datetime import datetime as _dt, timedelta as _td
+
+    if not raw:
+        return None
+    raw = raw.strip()
+    now = now or _dt.now()
+
+    # "13.09. 14:15" — day and month given, year inferred.
+    m = re.match(r"^(\d{1,2})\.(\d{1,2})\.?\s+(\d{1,2}):(\d{2})", raw)
+    if m:
+        day, mon, hh, mm = (int(x) for x in m.groups())
+        best = None
+        for year in (now.year - 1, now.year, now.year + 1):
+            try:
+                cand = _dt(year, mon, day, hh, mm)
+            except ValueError:
+                continue          # 29 Feb in a non-leap year
+            if best is None or abs((cand - now).total_seconds()) < abs((best - now).total_seconds()):
+                best = cand
+        return best.strftime("%Y-%m-%dT%H:%M:00") if best else None
+
+    # "14:15" — today.
+    m = re.match(r"^(\d{1,2}):(\d{2})$", raw)
+    if m:
+        hh, mm = (int(x) for x in m.groups())
+        if hh > 23 or mm > 59:
+            return None
+        return now.replace(hour=hh, minute=mm, second=0,
+                           microsecond=0).strftime("%Y-%m-%dT%H:%M:00")
+
+    # Anything else — a status like "Pen", "Postponed", "FRO" — is not a
+    # kickoff. Returning None leaves the field absent rather than poisoning it
+    # with a string nothing can parse (HR35).
+    return None
+
+
 class FlashScoreFixturesSource(DataSource):
     """FlashScore live fixtures — fast, key-free scraper for all mapped leagues.
 
@@ -430,17 +526,26 @@ class FlashScoreFixturesSource(DataSource):
                         if not home_el or not away_el:
                             continue
 
-                        home_team = (await home_el.text_content() or "").strip()
-                        away_team = (await away_el.text_content() or "").strip()
+                        # Shares the sanitizer with scrape_live_odds_v3 rather
+                        # than keeping a second copy of the rule. This block is
+                        # a duplicate of that scraper's extraction, which is how
+                        # the annotation bug survived being fixed there: the
+                        # fix never reached the path the pipeline actually runs.
+                        from scripts.scrape_live_odds_v3 import clean_flashscore_team
+
+                        home_team = clean_flashscore_team(await home_el.text_content() or "")
+                        away_team = clean_flashscore_team(await away_el.text_content() or "")
                         match_time = (await time_el.text_content() or "").strip() if time_el else ""
 
                         # Get team name from image alt if available (more reliable)
                         img_h = await home_el.query_selector("img")
                         if img_h:
-                            home_team = await img_h.get_attribute("alt") or home_team
+                            alt_h = clean_flashscore_team(await img_h.get_attribute("alt") or "")
+                            home_team = alt_h or home_team
                         img_a = await away_el.query_selector("img")
                         if img_a:
-                            away_team = await img_a.get_attribute("alt") or away_team
+                            alt_a = clean_flashscore_team(await img_a.get_attribute("alt") or "")
+                            away_team = alt_a or away_team
 
                         if home_team and away_team:
                             results.append({
@@ -469,9 +574,13 @@ class FlashScoreFixturesSource(DataSource):
                 home = f["home_team"]
                 away = f["away_team"]
                 pairs.append((home, away))
-                # Store datetime if available
-                if f.get("datetime"):
-                    dates[(home, away)] = f["datetime"]
+                # Store datetime if available, normalised to ISO. Storing the
+                # raw display string here is what put "13.09. 14:15" into
+                # kickoff_utc; an unparseable value is dropped rather than
+                # carried forward.
+                iso = _flashscore_kickoff_to_iso(f.get("datetime") or "")
+                if iso:
+                    dates[(home, away)] = iso
 
             return {
                 "fixtures": pairs,
@@ -931,11 +1040,38 @@ class SportyBetOddsSource(DataSource):
                 mapping = SPORTYBET_LEAGUES.get(league)
                 tournament_id = getattr(mapping, 'id', None) if mapping else None
 
+                live_markets = []
                 try:
                     live_markets = client.get_odds(fixture_id, tournament_id=tournament_id)
                 except Exception as e:
-                    log.warning(f"Failed to get live odds for fixture {fixture_id}: {e}")
-                    continue
+                    # Do NOT drop the fixture here. load_sportybet_fixtures
+                    # already returned the 1X2 snapshot captured when the cache
+                    # was built, and this branch was throwing it away -- so a
+                    # fixture we had a real price for arrived at the board with
+                    # no price at all.
+                    #
+                    # That is not hypothetical: on 2026-09-16 every live call
+                    # returned SportyBet's 202 bot check, and fixture 22928
+                    # (Fleetwood Town v Sheffield United) was dropped despite
+                    # its cached price of 4.99 / 4.24 / 1.71 sitting in
+                    # EFL_Cup.json.
+                    #
+                    # The cached snapshot is same-day and its own docstring
+                    # calls it a legitimate reference: the booking driver
+                    # re-reads the live price at booking time and CLV grades on
+                    # the closing line. Marked source_tier T2 rather than T1 so
+                    # nothing downstream mistakes a snapshot for a live quote.
+                    if fx.home_odds and fx.draw_odds and fx.away_odds:
+                        log.info(
+                            f"live odds unavailable for fixture {fixture_id} "
+                            f"({e}) — using the cached 1X2 snapshot"
+                        )
+                    else:
+                        log.warning(
+                            f"Failed to get live odds for fixture {fixture_id}: "
+                            f"{e} (and no cached 1X2 snapshot to fall back on)"
+                        )
+                        continue
 
                 odds = FixtureOdds(
                     league=league,
@@ -943,8 +1079,23 @@ class SportyBetOddsSource(DataSource):
                     away_team=fx.away_team,
                     kickoff_utc=fx.kickoff_utc,
                     source="sportybet.com/ng",
-                    source_tier="T1",
+                    source_tier="T1" if live_markets else "T2",
                 )
+
+                # Seed 1X2 from the cached snapshot. Any live market parsed
+                # below overwrites these, so a live quote always wins; this
+                # only fills what the live call could not supply.
+                if fx.home_odds and fx.draw_odds and fx.away_odds:
+                    snap_at = datetime.now(timezone.utc).isoformat()
+                    for attr, price in (("home", fx.home_odds),
+                                        ("draw", fx.draw_odds),
+                                        ("away", fx.away_odds)):
+                        setattr(odds, attr, MarketQuote(
+                            price=price,
+                            bookmaker="SportyBet Nigeria (cached snapshot)",
+                            n_books=1,
+                            captured_at=snap_at,
+                        ))
 
                 # Process each market from SportyBet API
                 # The client.get_odds() returns MarketOdds with:

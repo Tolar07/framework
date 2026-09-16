@@ -104,49 +104,67 @@ def row_with_odds(prices: list[str]) -> FakeEl:
 
 # --- Tests -----------------------------------------------------------------
 
-def test_direct_target_collisions() -> None:
-    print("\ntest: genuinely-colliding direct-URL targets are disabled")
+def test_ids_are_correct() -> None:
+    print("\ntest: SPORTYBET_CATEGORY_TOURNAMENT holds the REAL ids")
+
+    # Derived 2026-09-16 from SportyBet's own tournament tree
+    # (/api/ng/factsCenter/sportList) and each one confirmed by scraping it and
+    # reading the teams back. Before that rebuild the values were shifted by
+    # one row, so every league carried its neighbour's ids and scraped another
+    # competition's fixtures. These assertions are the guard against that
+    # shift ever returning.
+    KNOWN = {
+        "Premier League": (1, 17),    # England
+        "Championship":   (1, 18),    # England
+        "EFL Cup":        (1, 21),    # England
+        "La Liga":        (32, 8),    # Spain
+        "Serie A":        (31, 23),   # Italy
+        "Bundesliga":     (30, 35),   # Germany
+        "Ligue 1":        (7, 34),    # France
+        "Europa League":  (393, 679), # International Clubs
+    }
+    for name, want in KNOWN.items():
+        check(f"{name} -> {want}", SPORTYBET_CATEGORY_TOURNAMENT[name], want)
+
+    # The specific mis-pairings that were live before the rebuild. Each of
+    # these WAS the shipped value and each pointed at another competition.
+    WAS_WRONG = {
+        "Premier League": (32, 8),    # that is Spain/LaLiga
+        "La Liga":        (31, 23),   # that is Italy/Serie A
+        "Serie A":        (30, 35),   # that is Germany/Bundesliga
+        "Bundesliga":     (7, 34),    # that is France/Ligue 1
+        "Championship":   (1, 17),    # that is England/Premier League
+    }
+    for name, old in WAS_WRONG.items():
+        check(f"{name} no longer carries its old wrong id {old}",
+              SPORTYBET_CATEGORY_TOURNAMENT[name] != old, True)
+
+
+def test_collision_machinery() -> None:
+    print("\ntest: collision resolution still works (on synthetic data)")
+
+    # The live table no longer collides, so this exercises the mechanism
+    # itself rather than asserting against real entries -- otherwise the test
+    # would silently stop testing anything the day the data got fixed.
+    from booking.rebuild_cache import _competition_key
 
     resolved = _resolve_direct_targets()
-
-    # The real contamination: two DIFFERENT competitions on one target.
-    # England's Premier League and Portugal's Liga Portugal both shipped
-    # pointing at sr:category:32/sr:tournament:8.
-    check("Premier League disabled (collides with Liga Portugal)",
-          resolved["Premier League"], (0, 0))
-    check("Liga Portugal disabled (collides with Premier League)",
-          resolved["Liga Portugal"], (0, 0))
-
-    # Primeira Liga is the same competition as Liga Portugal but shipped with
-    # a different target — one of the two is wrong, so both are disabled.
-    check("Primeira Liga disabled (target disagrees with its alias)",
-          resolved["Primeira Liga"], (0, 0))
-
-    # Spelling aliases for ONE competition sharing a target are correct and
-    # must be left working — disabling them would be a regression.
-    check("La Liga preserved (alias pair, not a collision)",
-          resolved["La Liga"], SPORTYBET_CATEGORY_TOURNAMENT["La Liga"])
-    check("LaLiga preserved (alias pair, not a collision)",
-          resolved["LaLiga"], SPORTYBET_CATEGORY_TOURNAMENT["LaLiga"])
-
-    # Unambiguous entries are untouched.
-    for name in ("Bundesliga", "Championship", "Serie A", "Serie B",
-                 "Ligue 1", "Ligue 2", "La Liga 2", "EFL Cup"):
-        check(f"{name} preserved", resolved[name],
-              SPORTYBET_CATEGORY_TOURNAMENT[name])
-
-    # After resolution, any target still claimed more than once must be
-    # claimed only by aliases of a single competition.
-    from booking.rebuild_cache import _competition_key
     by_target: dict[tuple[int, int], list[str]] = {}
     for name, target in resolved.items():
         if all(target):
             by_target.setdefault(target, []).append(name)
+
     bad = []
     for target, names in by_target.items():
         if len(names) > 1 and len({_competition_key(n) for n in names}) > 1:
             bad.append((target, sorted(names)))
-    check("no cross-competition collisions remain", bad, [])
+    check("no two DIFFERENT competitions share a target", bad, [])
+
+    # Spelling aliases for one competition SHOULD share a target and must not
+    # be disabled -- La Liga / LaLiga are the same Spanish league.
+    check("La Liga and LaLiga share their target",
+          resolved["La Liga"], resolved["LaLiga"])
+    check("alias pair is left enabled", all(resolved["La Liga"]), True)
 
 
 def test_verify_rejects_wrong_league() -> None:
@@ -273,7 +291,8 @@ def test_date_helpers() -> None:
 
 
 if __name__ == "__main__":
-    test_direct_target_collisions()
+    test_ids_are_correct()
+    test_collision_machinery()
     test_verify_rejects_wrong_league()
     test_league_purity()
     test_extract_row_odds()

@@ -158,6 +158,11 @@ TEAM_ALIASES = {
     "la coruna": "deportivo la coruna",
     "espanol": "espanyol",
     "rcd espanyol de barcelona": "espanyol",
+    # After club-type stripping this arrives as "espanyol de barcelona", whose
+    # token set contains "barcelona" -- so the subset rule matched BOTH Espanyol
+    # and Barcelona in the roster, went ambiguous, and correctly refused to
+    # guess. An explicit alias resolves it without loosening that rule.
+    "espanyol de barcelona": "espanyol",
     "deportivo alaves": "alaves",
     "ca osasuna": "osasuna",
     "real betis": "betis",

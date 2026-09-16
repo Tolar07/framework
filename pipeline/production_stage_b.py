@@ -441,6 +441,33 @@ def _enrich_fixtures_with_models(
             fdo_result = fdo.fetch(league=league, season=season, fixtures_season=fixtures_season)
             fdo_results = fdo_result.get("results", [])
             if fdo_results and fallback_history:
+                # Two sources, two naming schemes: football-data.co.uk supplies
+                # the base history as "Ath Madrid", football-data.org supplies
+                # current-season results as "Club Atletico de Madrid". This
+                # merge deduped on the RAW names, so the same club arrived under
+                # both spellings, no row ever collided, and fit() saw one club as
+                # two -- La Liga ended up with 40 entries for a 20-team league
+                # and every affected club's history was split across both,
+                # weakening the fit.
+                #
+                # Normalise incoming names onto the roster the base history
+                # already uses, BEFORE deduping, so identity is stable across
+                # sources. _resolve_model_key only accepts unique matches, so an
+                # unrecognised club (a genuine promotion) keeps its own name and
+                # is fitted separately rather than being merged into a guess.
+                roster = {r.home_team for r in fallback_history} | {
+                    r.away_team for r in fallback_history}
+                renamed = 0
+                for r in fdo_results:
+                    h = _resolve_model_key(r.home_team, league, roster)
+                    a = _resolve_model_key(r.away_team, league, roster)
+                    if h != r.home_team:
+                        r.home_team = h
+                        renamed += 1
+                    if a != r.away_team:
+                        r.away_team = a
+                        renamed += 1
+
                 existing = {(r.date, r.home_team, r.away_team) for r in fallback_history}
                 added = 0
                 for r in fdo_results:
@@ -451,6 +478,10 @@ def _enrich_fixtures_with_models(
                         added += 1
                 if added:
                     flags.append(f"{league}: +{added} current-season results from football-data.org")
+                if renamed:
+                    flags.append(
+                        f"{league}: normalised {renamed} club name(s) from "
+                        f"football-data.org onto the base roster before merging")
         except Exception:
             pass
 

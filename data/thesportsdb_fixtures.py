@@ -931,7 +931,22 @@ def fetch_today(league: str, day: str) -> list[UpcomingFixture]:
         except ValueError:
             # If date parsing fails, use the original day
             adjusted_day = day
-        url = f"{API_BASE}/{_get_key()}/eventsday.php?d={adjusted_day}"
+        # Filter server-side by league id. This query previously passed only
+        # ?d=<date>, pulling EVERY sport worldwide and relying on the client-side
+        # idLeague check below to discard the rest.
+        #
+        # Verified live 2026-09-16: unfiltered returned 3 events, ALL Pacific
+        # Coast League baseball, so this league got nothing. The same date with
+        # &l=4328 (Premier League) returns the real EPL card. Any cap or
+        # truncation on the unfiltered response drops real fixtures before the
+        # client-side filter can ever see them -- a silent missing-fixtures bug.
+        #
+        # The old comment below claimed "eventsday endpoint doesn't support
+        # league filtering". It does: monitor/run_monitor.py and sandbox/live.py
+        # have both been passing &l= all along. The client-side check is kept as
+        # a belt-and-braces guard, not as the primary filter.
+        url = (f"{API_BASE}/{_get_key()}/eventsday.php"
+               f"?d={adjusted_day}&l={LEAGUE_IDS[league]}")
         resp = get(url, timeout=25)
         # Ensure we have a list to iterate over - handle cases where API returns non-list
         events_data = resp.json().get("events")
@@ -951,7 +966,9 @@ def fetch_today(league: str, day: str) -> list[UpcomingFixture]:
 
         fixtures: list[UpcomingFixture] = []
         for i, ev in enumerate(events_data):
-            # Filter by league ID since eventsday endpoint doesn't support league filtering
+            # Belt-and-braces: the query above already filters by league id
+            # server-side, so this should never drop anything. Kept so a change
+            # to the URL cannot silently let another competition through.
             if str(ev.get("idLeague")) != str(LEAGUE_IDS[league]):
                 continue
             home = (ev.get("strHomeTeam") or "").strip()

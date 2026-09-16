@@ -72,6 +72,25 @@ SLUGS = {
     "Coppa Italia": "ita.coppa_italia",
     "Coupe de France": "fra.coupe_de_france",
     "Europa League": "uefa.europa",
+    # Added 2026-09-16. These are deploy-eligible in config/leagues.json but had
+    # no slug, so fetch_upcoming raised SourceNoData for them and ESPN -- the T1
+    # source -- covered only 20 of the 29 whitelisted competitions. The nine
+    # gaps were all the domestic cups and the second tiers, which meant EFL Cup
+    # fixtures reached the board on FlashScore alone with nothing to cross-check
+    # them against. Each slug below was verified live against the scoreboard
+    # endpoint for 2026-09-16 (HTTP 200); eng.league_cup returned 4 events,
+    # matching FlashScore's EFL Cup slate exactly.
+    "EFL Cup": "eng.league_cup",
+    "FA Cup": "eng.fa",
+    "DFB-Pokal": "ger.dfb_pokal",
+    "KNVB Beker": "ned.cup",
+    "UEFA Super Cup": "uefa.super_cup",
+    "La Liga 2": "esp.2",
+    "Serie B": "ita.2",
+    "Ligue 2": "fra.2",
+    # Taça de Portugal deliberately left unmapped: por.taca_de_portugal returns
+    # HTTP 400, and guessing a slug that 404s would turn a clear "not mapped"
+    # error into a silent empty result.
     "Austrian Bundesliga": "aut.1",
     "HNL": "cro.1",
     "Armenian Premier League": "arm.1",
@@ -143,7 +162,7 @@ def _get_key() -> str:
 
 def fetch_upcoming(
     league: str, fixtures_season: str | int, days_ahead: int = 14
-) -> tuple[list[UpcomingFixture], list[str]]:
+) -> tuple[list[UpcomingFixture], int]:
     """Fetch upcoming fixtures for a league from ESPN.
 
     Returns (fixtures, skipped) where skipped is the number of fixtures that
@@ -193,7 +212,7 @@ def fetch_upcoming(
             total_skipped += 1
             continue
 
-        for event in data.get("events", []):
+        for event in events:
             # Skip events that are not upcoming (e.g., already played)
             # The status.type.name contains values like "STATUS_SCHEDULED"
             # while status.type.state contains "pre", "in", "post"
@@ -203,7 +222,11 @@ def fetch_upcoming(
                 continue
 
             # Extract competitors
-            competitors = event.get("competitions", [{}])[0].get("competitors", [])
+            competitors_raw = event.get("competitions", [{}])[0].get("competitors", [])
+            if not isinstance(competitors_raw, list):
+                competitors = []
+            else:
+                competitors = competitors_raw
             if len(competitors) < 2:
                 total_skipped += 1
                 continue

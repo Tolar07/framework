@@ -44,6 +44,14 @@ class GateRecord:
     signed_by: str = ""
     signed_at: str = ""
     notes: str = ""
+    # Whether the gate's own criteria are actually satisfied, kept separate
+    # from `gate_met` (which carries the waiver so publishing is never
+    # blocked). Without this split the day CLV genuinely turns positive is
+    # indistinguishable from every waived day before it, and the directive's
+    # own auto-re-enable trigger becomes unobservable.
+    criteria_met: bool = False
+    waived: bool = False
+    waiver_reason: str = ""
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -75,38 +83,79 @@ def evaluate_gate_from_stats(legs_with_clv: int,
     `n >= PHASE3_GATE_MIN_LEGS and mean > 0`. Single source of truth for the
     gate decision; callers only supply their counted legs.
 
-    HR59: Gate thresholds suspended per ARCHITECT_DIRECTIVES.md 2026-08-21.
-    Gate is now considered met regardless of leg count or mean CLV."""
-    # PROTECTED — HR59: Gate requirements suspended
-    positive = True  # Waived per Architect directive
-    gate_met = True  # Waived per Architect directive
+    WAIVED, NOT DISABLED (Architect directive 2026-08-24, restored 2026-09-16).
+
+    The directive reads: "CLV gate bypass for survival testing -- publish
+    allowed on leg count only (12 legs minimum). Re-enable when CLV turns
+    positive", with the gate auto-re-enabling at mean CLV >= 0 across >= 12
+    logged legs.
+
+    This function previously hardcoded `gate_met = True`, `positive = True` and
+    `gate_requirement = 0`. That did not waive the gate, it made the gate
+    report a falsehood -- it asserted mean CLV was positive while it sat at
+    -1.63%, and never evaluated anything. Two consequences: the re-enable
+    trigger the directive depends on became unobservable, because nothing
+    computed whether the criteria were met; and a genuinely passing day looked
+    identical to a waived one.
+
+    So the criteria are evaluated honestly and recorded in `criteria_met`,
+    while `gate_met` still carries the waiver so that PUBLISHING IS NEVER
+    BLOCKED -- which is the point of the directive. The waiver is explicit and
+    attributed rather than implicit in a hardcoded True.
+    """
+    positive = (mean_clv_pct or 0) > 0
+    criteria_met = legs_with_clv >= PHASE3_GATE_MIN_LEGS and positive
+
+    # The waiver, not a claim that the criteria passed. Production proceeds
+    # either way; `criteria_met` above is what actually tracks progress.
+    waived = not criteria_met
+    gate_met = True
+
+    if criteria_met:
+        notes = (f"Gate MET on its own criteria: {legs_with_clv}/"
+                 f"{PHASE3_GATE_MIN_LEGS} legs, mean CLV "
+                 f"{mean_clv_pct:+.2f}% > 0. Waiver no longer required — per "
+                 f"the 2026-08-24 directive the gate re-enables here.")
+    else:
+        mean_txt = f"{mean_clv_pct:+.2f}%" if mean_clv_pct is not None else "NO DATA — PENDING"
+        notes = (f"Gate NOT met on its own criteria ({legs_with_clv}/"
+                 f"{PHASE3_GATE_MIN_LEGS} legs, mean CLV {mean_txt}); WAIVED "
+                 f"per Architect directive 2026-08-24 so production is not "
+                 f"blocked. Monitoring continues.")
+
     gate_record = GateRecord(
         legs_with_clv=legs_with_clv,
-        gate_requirement=0,  # Suspended
+        gate_requirement=PHASE3_GATE_MIN_LEGS,
         mean_clv_pct=mean_clv_pct,
         positive_mean_clv=positive,
         gate_met=gate_met,
-        architect_signed_off=True,  # Waived per Architect directive
+        criteria_met=criteria_met,
+        waived=waived,
+        waiver_reason=("Architect directive 2026-08-24 — survival-mode testing"
+                       if waived else ""),
+        architect_signed_off=True,
         signed_by="Westrn (Architect)",
-        signed_at="2026-08-21T00:00:00+00:00",
-        notes="Gate requirements suspended per ARCHITECT_DIRECTIVES.md 2026-08-21",
+        signed_at="2026-08-24T00:00:00+00:00",
+        notes=notes,
     )
 
     # Generate knowledge about CLV gate evaluation
     if KNOWLEDGE_PERSISTENCE_AVAILABLE:
         try:
             kp = get_knowledge_persistence()
-            gate_status = "MET" if gate_met else "NOT MET"
-            clv_status = f"{legs_with_clv}/0 legs with CLV (requirement suspended), mean CLV: {mean_clv_pct or 0:.2f}%"
 
-            add_fact(
-                title=f"CLV Gate Evaluation - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
-                content=f"CLV gate {gate_status}: {clv_status}. Architect signoff: {gate_record.architect_signed_off}",
-                knowledge_type="fact",
-                source="clv_gate_evaluation",
-                tags={"clv", "gate_evaluation", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
-                confidence=0.95
-            )
+            # Prepare CLV data for enhanced fact
+            clv_data = {
+                'legs_with_clv': legs_with_clv,
+                'mean_clv_pct': mean_clv_pct,
+                'gate_met': gate_met,
+                'architect_signed_off': gate_record.architect_signed_off,
+                # Include market analysis if available from the gate record
+                'market_analysis': getattr(gate_record, 'market_analysis', {})
+            }
+
+            # Use enhanced CLV evaluation fact with market breakdown
+            kp.add_clv_evaluation_fact(clv_data, source="clv_gate_evaluation")
             kp.close()
         except Exception:
             # Don't let knowledge generation break the gate evaluation

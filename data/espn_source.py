@@ -146,7 +146,7 @@ def _get_key() -> str:
 
 def fetch_upcoming(
     league: str, fixtures_season: str | int, days_ahead: int = 14
-) -> tuple[list[UpcomingFixture], list[str]]:
+) -> tuple[list[UpcomingFixture], int]:
     """Fetch upcoming fixtures for a league from ESPN.
 
     Returns (fixtures, skipped) where skipped is the number of fixtures that

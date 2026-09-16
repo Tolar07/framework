@@ -423,6 +423,12 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     from pipeline.fixture_extraction import StageAOutput, VerifiedFixture
     stage_a_path = Path(__file__).parent / "data" / "stage_a_output" / f"fixtures_{board_date}_{fixtures_season or season}.json"
     board: list = []
+    # Initialised up front: both the Stage A/Stage B branch and the fallback
+    # assign these conditionally, and the render block below now tests them, so
+    # leaving them undefined until one branch happens to run risks a NameError
+    # on the path where Stage B loads but returns no text.
+    board_text: str = ""
+    telegram_text: str = ""
     fixture_sources: set[str] = set()
     fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0,
                  "xg_leagues": 0}
@@ -431,13 +437,45 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     if stage_a_path.exists():
         try:
             stage_a = StageAOutput.load(stage_a_path)
-            for vf in stage_a.fixtures:
-                # Convert VerifiedFixture to board format
-                pass
+
+            # This loop used to be a bare `pass` with the comment "Convert
+            # VerifiedFixture to board format" -- the conversion was never
+            # implemented. It walked every fixture, did nothing, and then set
+            # stage_a_loaded = True, which ALSO suppressed the fallback below.
+            # So both paths produced nothing: with an artifact the board stayed
+            # empty, without one run_pipeline returned an empty structure. That
+            # is why no board had been written since 2026-08-21, the date of the
+            # last Stage A artifact on disk.
+            #
+            # pipeline.production_stage_b.run_stage_b already implements the
+            # whole of Stage B -- enrichment, the acca route, the pick and the
+            # four-table render. It simply was never called from here.
+            from pipeline.production_stage_b import run_stage_b, render_stage_b_output
+
+            stage_b = run_stage_b(
+                stage_a_path=stage_a_path,
+                season=season,
+                fixtures_season=fixtures_season,
+            )
+            # StageBOutput exposes layer2/layer1/acca_route/the_pick, not a
+            # `board` list -- the rendered text IS the deliverable here.
+            stage_b_text = render_stage_b_output(stage_b)
+            if stage_b_text:
+                board_text = stage_b_text
+                telegram_text = stage_b_text
+            n_rows = len(getattr(getattr(stage_b, "layer2", None), "rows", []) or [])
+            fixture_sources.update(
+                s for vf in stage_a.fixtures for s in (vf.source or "").split("+") if s
+            )
             stage_a_loaded = True
-            all_flags.append(f"Stage A artifact loaded: {len(stage_a.fixtures)} fixtures")
+            all_flags.append(
+                f"Stage A artifact loaded: {len(stage_a.fixtures)} fixtures; "
+                f"Stage B rendered {len(stage_b_text)} chars, {n_rows} grid row(s)"
+            )
         except Exception as e:
-            all_flags.append(f"Stage A artifact load failed ({e})")
+            # Stage A existing but Stage B failing must not silently fall
+            # through to the empty fallback and look like a normal quiet day.
+            all_flags.append(f"Stage A artifact load failed ({type(e).__name__}: {e})")
 
     # ===== FALLBACK: RUN FULL PIPELINE if no Stage A artifact =====
     if not stage_a_loaded:
@@ -486,14 +524,30 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             except Exception as e:
                 all_flags.append(f"Pipeline completed (fixture count unavailable: {e})")
 
-    # Render board
-    if board:
+    # Render board.
+    #
+    # Condition includes board_text so the Stage B path reaches the write and
+    # notify steps below. Stage B returns its output as rendered text rather
+    # than as a `board` list, so gating purely on `board` meant a successful
+    # Stage B run produced a full four-table board in memory and then wrote
+    # nothing to disk and sent nothing -- indistinguishable, from the outside,
+    # from the pipeline not running at all.
+    if board or board_text:
         board_artifacts = render_board_from_pipeline(
             board=board,
             date_str=board_date
-        )
-        board_text = board_artifacts.get(f"board_{board_date}.txt", "")
-        telegram_text = board_artifacts.get(f"telegram_{board_date}.txt", "")
+        ) if board else {}
+        # Only take this renderer's output if Stage B did not already produce
+        # the board. Stage B emits the full four-table structure (market grid,
+        # layer-1 compact, acca route, the pick); this renderer emits the
+        # thinner summary. Overwriting unconditionally would silently discard
+        # the richer board whenever both ran.
+        rendered_board = board_artifacts.get(f"board_{board_date}.txt", "")
+        rendered_telegram = board_artifacts.get(f"telegram_{board_date}.txt", "")
+        if not board_text:
+            board_text = rendered_board
+        if not telegram_text:
+            telegram_text = rendered_telegram
 
         # Write board files
         BOARD_DIR.mkdir(parents=True, exist_ok=True)

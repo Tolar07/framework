@@ -233,3 +233,66 @@ def gather(target_date: str, leagues: Optional[list] = None,
             fx.tier = VerificationTier.VERIFIED
 
     return Slate(date=target_date, fixtures=matched, reports=reports, flags=flags)
+
+
+def _display_name(matched_fixture, side: str) -> str:
+    """Longest raw name any source gave for this side.
+
+    MatchedFixture carries the NORMALISED key ("bayer leverkusen"), which is a
+    comparison artefact and must never reach output -- HR53 wants full club
+    names, and the models are keyed on real names too. The longest raw form is
+    the most specific one the sources offered.
+    """
+    names = [getattr(sf, side, "") or "" for sf in matched_fixture.sources.values()]
+    return max(names, key=len) if names else getattr(matched_fixture, side, "")
+
+
+def to_stage_a(slate: Slate, fixtures_season: str = "2627",
+               verified_only: bool = True):
+    """Convert a collaborative Slate into the Stage A artifact Stage B consumes.
+
+    This is the link that had been missing. run_daily looks for
+    data/stage_a_output/fixtures_<date>_<season>.json and, finding none, falls
+    back to run_pipeline() -- which returns an empty structure, so no board is
+    written. The last Stage A artifact on disk was dated 2026-08-21, which is
+    when full production actually stopped: every run since then has taken the
+    fallback and produced nothing.
+
+    With the artifact present, run_stage_b() enriches the fixtures with model
+    probabilities, builds the acca route and renders the four-table board --
+    the full market grid plus the selected pick.
+    """
+    from pipeline.fixture_extraction import StageAOutput, VerifiedFixture
+
+    source_of = lambda fx: "+".join(sorted(fx.sources))
+
+    chosen = slate.verified if verified_only else slate.fixtures
+    vfs = []
+    for fx in chosen:
+        vfs.append(VerifiedFixture(
+            league=fx.league,
+            home_team=_display_name(fx, "home"),
+            away_team=_display_name(fx, "away"),
+            kickoff_utc=fx.kickoff_utc.isoformat() if fx.kickoff_utc else None,
+            kickoff_date=slate.date,
+            verification_tier=fx.tier,
+            verification_note=f"{len(fx.sources)} source(s): {source_of(fx)}",
+            verification_factors={"sources": sorted(fx.sources)},
+            source=source_of(fx),
+            source_tier="T1" if any(_tier_of(s) == "T1" for s in fx.sources) else "T2",
+            status="verified" if fx.tier == VerificationTier.VERIFIED else "pending",
+        ))
+
+    return StageAOutput(
+        run_date=slate.date,
+        fixtures_season=fixtures_season,
+        leagues_scanned=sorted({f.league for f in slate.fixtures if f.league}),
+        fixtures=vfs,
+        flags=list(slate.flags),
+        stats={
+            "sources": {r.name: r.fixtures for r in slate.reports},
+            "merged": len(slate.fixtures),
+            "verified": len(slate.verified),
+            "single_source": len(slate.single_source),
+        },
+    )

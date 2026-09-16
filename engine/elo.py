@@ -237,6 +237,42 @@ class EloModel:
         return p_home / total, p_draw / total, p_away / total
 
 
+def get_elo_rating(team: str, league: str, date: str) -> Optional[float]:
+    """
+    Get ELO rating for a team in a specific league on a specific date.
+
+    NOTE (2026-09-16): this module-level function had been pasted INTO the
+    EloModel class body, immediately after `rating()`. Being at module
+    indentation it terminated the class, so every method defined below it --
+    `expected`, `update` and `probabilities` -- stopped being methods of
+    EloModel and became unreachable code inside this function, sitting after
+    its `return`. The file still imported cleanly and EloModel still
+    constructed, so nothing failed until something actually called one of the
+    lost methods, at which point it surfaced as
+    "'EloModel' object has no attribute 'probabilities'" from deep inside
+    Stage B enrichment. `update` was lost too, meaning ratings could not be
+    computed at all. Moved here, after the class, where it belongs.
+
+    Args:
+        team: Team name
+        league: League name
+        date: Date in YYYY-MM-DD format
+
+    Returns:
+        ELO rating as float, or None if not found
+    """
+    try:
+        # Load the ELO model for the specific league/date context
+        # In a full implementation, this would load a time-specific model
+        # For now, we'll use the current model and return the team's rating
+        model = EloModel.load()  # Load the persisted model
+        rating = model.rating(team)
+        return rating if rating != BASE_RATING else None
+    except Exception:
+        # If we can't load the model or find the rating, return None
+        return None
+
+
 def _fit_draw_curve(model: EloModel, samples: list[tuple[float, bool]]) -> None:
     """P(draw) = a * exp(-b * gap), fitted by least squares on binned data.
 

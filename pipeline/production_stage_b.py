@@ -22,9 +22,21 @@ from engine.acca import (
     Acca,
     AccaLeg,
     ProductionBets,
+    # Called at _enrich_fixtures_with_models but never imported, so Stage B
+    # died with "NameError: name '_best_deployable_leg' is not defined" the
+    # moment enrichment reached a fixture with usable model output. Nothing
+    # caught it earlier because Stage B itself was never invoked.
+    _best_deployable_leg,
     _make_acca,
     build_production_bets,
     render_production_block,
+    # The three odds bounds are likewise used but never imported. They are the
+    # ID420 cap and the deployable band -- imported from engine.acca rather
+    # than restated here so Stage B can never drift from the values the acca
+    # builder actually enforces.
+    MAX_ODDS_CAP,
+    MIN_ODDS_FLOOR,
+    PREFERRED_ODDS_CEILING,
 )
 from engine.dixon_coles import FixtureProbabilities
 from engine.leagues import is_deploy_eligible
@@ -196,9 +208,41 @@ def _verified_fixture_to_board_fixture(vf: VerifiedFixture, today: str) -> Optio
             model_engine=vf.source_tier or "unknown",
         )
 
-    # Create lookup functions
-    kickoff_lookup_fn = _create_kickoff_lookup_from_cache_dir(cache_dir)
-    league_lookup_fn = _create_league_lookup_from_cache_dir(cache_dir)
+    # Create lookup functions.
+    #
+    # PRECEDENCE (corrected 2026-09-16). These lookups consult the SportyBet
+    # fixtures cache. Stage A already carries a league and a date agreed by the
+    # multi-source verification slate, and the gate was discarding both in
+    # favour of that cache -- which is stale and whose league mapping is known
+    # wrong (it files Chelsea v Bournemouth under Ligue 2). The result was two
+    # failures at once: fixtures absent from the cache were dropped despite
+    # being verified by three independent sources, and fixtures present in it
+    # were relabelled with the cache's wrong league, so an entire verified
+    # slate rendered as "(Bundesliga)".
+    #
+    # So: the league Stage A verified WINS over the cache. The kickoff still
+    # prefers the cache, because that is the one field the cache supplies more
+    # precisely (an actual clock time rather than a date), and falls back to
+    # Stage A's date when the cache has nothing.
+    _cache_kickoff_fn = _create_kickoff_lookup_from_cache_dir(cache_dir)
+    _cache_league_fn = _create_league_lookup_from_cache_dir(cache_dir)
+
+    # enrichment.py calls these with keyword arguments (season=, fixture_key=),
+    # so the wrappers accept **kwargs and forward verbatim.
+    def kickoff_lookup_fn(*args, **kwargs) -> Optional[str]:
+        try:
+            cached = _cache_kickoff_fn(*args, **kwargs)
+        except Exception:
+            cached = None
+        return cached or vf.kickoff_utc or vf.kickoff_date
+
+    def league_lookup_fn(*args, **kwargs) -> Optional[str]:
+        if vf.league:
+            return vf.league
+        try:
+            return _cache_league_fn(*args, **kwargs)
+        except Exception:
+            return None
 
     # Create fixture key for enrichment
     fixture_key = f"{vf.home_team} v {vf.away_team}"
@@ -539,14 +583,28 @@ def _enrich_fixtures_with_models(
             if probs is not None:
                 # Create a temporary BoardFixture-like object for _best_deployable_leg
                 class TempBF:
+                    """Stand-in carrying every attribute _best_deployable_leg reads.
+
+                    The original shim omitted `fixture`, `verified` and
+                    `best_model_prob`, so the first call raised
+                    "'TempBF' object has no attribute 'fixture'" from
+                    engine.acca._team_pair. A partial duck-type is a latent
+                    break: it stays invisible until the consumer reaches an
+                    attribute the shim forgot, which is why this only surfaced
+                    once Stage B was actually wired up and run.
+                    """
                     def __init__(self, bf, sb_odds_dict):
+                        self.fixture = bf.fixture
+                        self.verified = getattr(bf, "verified", None)
                         self.on_deploy_shortlist = bf.on_deploy_shortlist
                         self.probs = bf.probs
                         self.sb_home_odds = sb_odds_dict.get("home")
                         self.sb_draw_odds = sb_odds_dict.get("draw")
                         self.sb_away_odds = sb_odds_dict.get("away")
                         self.best_market_key = getattr(bf, "best_market_key", None)
+                        self.best_market = getattr(bf, "best_market", None)
                         self.best_price = getattr(bf, "best_price", None)
+                        self.best_model_prob = getattr(bf, "best_model_prob", None)
 
                 temp_bf = TempBF(bf, sb_odds)
                 capital_leg, _ = _best_deployable_leg(

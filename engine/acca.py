@@ -623,9 +623,30 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
     lines = [f"🎯 PRODUCTION BETS — {today} (today's fixtures only)", ""]
     accas = ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
     if not accas and not bets.singles:
-        lines.append("NO production pick today — no deploy-eligible fixture "
-                     "with a live price kicks off today. A valid, honest "
-                     "result (HR35).")
+        # State the reason we can actually establish. This used to assert one
+        # cause -- "no deploy-eligible fixture with a live price kicks off
+        # today" -- whatever had happened, which on 2026-09-16 was wrong in the
+        # way that matters: 37 fixtures reached the board and 8 carried a
+        # SportyBet price. What there was not, was a leg inside the odds band
+        # with an edge. Telling the Architect the prices were missing when they
+        # were present points the next hour of debugging at the wrong system.
+        #
+        # bets.watchlist is exactly the evidence: legs that WERE priced and sat
+        # outside the cap.
+        if bets.watchlist:
+            lines.append(
+                f"NO production pick today — {len(bets.watchlist)} priced "
+                f"leg(s) were read, but none sits inside the deploy band "
+                f"(≤ {MAX_ODDS_CAP:.2f}) with an edge. The prices were "
+                f"available; the opportunities were not. A valid, honest "
+                f"result (HR35)."
+            )
+        else:
+            lines.append(
+                "NO production pick today — no deploy-eligible fixture "
+                "reached production with a usable price. A valid, honest "
+                "result (HR35)."
+            )
         return "\n".join(lines)
 
     for i, acca in enumerate(accas):

@@ -406,11 +406,29 @@ def _guard_redirects(page, limit=3):
             if hops[resp.url] > limit:
                 loop_detected["url"] = resp.url
 
-    # page.on returns a cleanup function
-    cleanup = page.on("response", _on_response)
+    # page.on() registers a listener and returns None -- it does NOT return a
+    # cleanup callable, despite the comment that used to sit here. So `cleanup`
+    # was None and combined_cleanup() raised "'NoneType' object is not callable"
+    # on the line right after every page.goto.
+    #
+    # That exception was swallowed by the broad `except Exception` in
+    # _scrape_league and reported as "direct nav error", which reads like a
+    # network problem. It is not: EVERY direct-URL navigation failed here before
+    # a page was ever inspected, for every league, on every run. The IP-based
+    # fallbacks then failed on TLS (SNI mismatch when connecting by address), so
+    # the scrape returned 0 fixtures across 0 leagues while taking 5+ minutes.
+    # That empty cache is why booking codes report "fixture not found in
+    # SportyBet cache" and never produce a code.
+    page.on("response", _on_response)
 
     def combined_cleanup():
-        cleanup()  # This removes the listener
+        # Playwright removes listeners via remove_listener(event, handler).
+        try:
+            page.remove_listener("response", _on_response)
+        except Exception:
+            # Detaching is best-effort: the page may already be closed, and
+            # failing to unhook a listener must not mask the navigation result.
+            pass
         if loop_detected["url"]:
             raise RedirectLoop(f"redirect loop: {loop_detected['url']}")
 

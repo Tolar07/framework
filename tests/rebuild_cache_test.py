@@ -172,7 +172,12 @@ def test_verify_rejects_wrong_league() -> None:
     got = asyncio.run(_verify_league_page(bare, "Bundesliga"))
     check_false("refused when no header/breadcrumb present", got)
 
-    # Direct-URL ids in the URL are accepted as proof on their own.
+    # Matching sr:category/sr:tournament ids in the URL must NOT be accepted as
+    # proof. It is circular -- it confirms we navigated where
+    # SPORTYBET_CATEGORY_TOURNAMENT pointed, not that the entry is right.
+    # Caught live 2026-09-16: "La Liga" -> sr:category:31/sr:tournament:23
+    # served Serie A, the URL-id check passed it, and 10 Italian fixtures were
+    # written into La_Liga.json.
     got = asyncio.run(_verify_league_page(bare, "Bundesliga", (7, 34)))
     check_false("absent ids in URL do not prove the league", got)
 
@@ -180,7 +185,51 @@ def test_verify_rejects_wrong_league() -> None:
         url="https://www.sportybet.com/ng/sport/football/sr:category:7/sr:tournament:34?sort=2",
     )
     got = asyncio.run(_verify_league_page(id_page, "Bundesliga", (7, 34)))
-    check_true("matching ids in URL prove the league", got)
+    check_false("matching ids in URL do NOT prove the league (circular)", got)
+
+
+def test_league_purity() -> None:
+    print("\ntest: scraped TEAMS must belong to the requested league")
+    from booking.rebuild_cache import _fixtures_match_league, MIN_LEAGUE_PURITY
+
+    class _CF:
+        def __init__(self, h, a): self.home, self.away = h, a
+
+    def mk(pairs):
+        return [_CF(h, a) for h, a in pairs]
+
+    # The live failure: "La Liga" served a page of Serie A clubs. Both the
+    # URL-id check and `.tournament-name` passed it; only the team check fails.
+    serie_a = mk([("Monza", "Sassuolo"), ("Bologna", "Torino"),
+                  ("Udinese", "Cagliari"), ("Roma", "Inter"),
+                  ("Fiorentina", "Napoli")])
+    ok, why = _fixtures_match_league("La Liga", serie_a)
+    check_false("Serie A clubs rejected when La Liga was requested", ok)
+    check_true("rejection explains itself", "La Liga teams" in why)
+
+    # The second live failure: an "all football" page with 64 rows. The
+    # requested league WAS the best-scoring one, so a best-match check passed
+    # it. Purity is what catches it.
+    mixed = mk([("Brentford", "Chelsea"), ("Tottenham", "Aston Villa"),
+                ("Brighton", "Arsenal"), ("Everton", "Ipswich"),
+                ("Inter", "Roma")])
+    ok, _ = _fixtures_match_league("Serie A", mixed)
+    check_false("mixed all-football page rejected for Serie A", ok)
+
+    # A genuinely correct page passes.
+    ok, why = _fixtures_match_league("Serie A", serie_a)
+    check_true("real Serie A page accepted", ok)
+
+    # Leagues with no squad list (continental cups) are passed through
+    # unjudged rather than guessed at.
+    ok, _ = _fixtures_match_league("Europa League", serie_a)
+    check_true("league with no squad list is not judged", ok)
+
+    # Empty input is not evidence of anything.
+    ok, _ = _fixtures_match_league("Serie A", [])
+    check_true("no fixtures -> no verdict", ok)
+
+    check_true("purity bar is a real threshold", 0.0 < MIN_LEAGUE_PURITY <= 1.0)
 
 
 def test_extract_row_odds() -> None:
@@ -226,6 +275,7 @@ def test_date_helpers() -> None:
 if __name__ == "__main__":
     test_direct_target_collisions()
     test_verify_rejects_wrong_league()
+    test_league_purity()
     test_extract_row_odds()
     test_date_helpers()
 

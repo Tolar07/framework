@@ -20,6 +20,13 @@ except ImportError:
 from booking.league_map import SPORTYBET_LEAGUES  # noqa: E402  (after sys.path setup)
 
 PAGE_LOAD_TIMEOUT = 45_000
+
+# Minimum fraction of scraped rows whose teams must belong to the requested
+# league before the scrape may be cached. A correct league page is ~100%; a
+# wrong page is near 0%, and an "all football" page that merely CONTAINS the
+# league sits well below this. Squad lists lag transfers and promotions, so the
+# bar is set for "clearly this league", not perfection.
+MIN_LEAGUE_PURITY = 0.60
 BOOKER_CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
 FALLBACK_IPS = ["104.21.10.148", "172.67.163.154"]
 
@@ -264,13 +271,19 @@ async def _verify_league_page(
     Premier League fixtures ended up written into Bundesliga.json with
     league="Bundesliga".
     """
-    # Strongest signal: we navigated by direct URL and the ids survived any
-    # redirect, so the page is the one we asked for.
-    if expected_cat_tour and all(expected_cat_tour):
-        cat, tour = expected_cat_tour
-        if f"sr:category:{cat}" in page.url and f"sr:tournament:{tour}" in page.url:
-            return True
-
+    # NOTE: matching sr:category/sr:tournament ids in the URL is NOT accepted as
+    # proof, though an earlier version of this function did exactly that. It is
+    # circular: it confirms we navigated where SPORTYBET_CATEGORY_TOURNAMENT
+    # told us to, not that the entry is correct. Caught live on 2026-09-16 --
+    # "La Liga" -> sr:category:31/sr:tournament:23 loaded a page of Monza,
+    # Sassuolo, Roma, Inter, Fiorentina (all SERIE A), the URL-id check passed
+    # it, and 10 Italian fixtures were written into La_Liga.json.
+    #
+    # Nor is this function sufficient on its own: SportyBet renders sidebar and
+    # popular-list entries that also match `.tournament-name`, so the same URL
+    # above yields 'Premier League', 'UEFA Champions League' and
+    # 'Coppa Italia 26/27' from that selector. The authoritative check is
+    # _fixtures_match_league() below, which looks at the TEAMS that came back.
     strong_sources: list[str] = []
     for sel in (
         ".tournament-name",
@@ -303,6 +316,64 @@ async def _verify_league_page(
         f"— wrong league, refusing to cache"
     )
     return False
+
+
+def _fixtures_match_league(league: str, fixtures: List["CachedFixture"]) -> tuple[bool, str]:
+    """Confirm the SCRAPED TEAMS actually belong to the requested league.
+
+    This is the authoritative wrong-league check, and the only one that holds
+    when SPORTYBET_CATEGORY_TOURNAMENT itself is wrong. Navigation-based checks
+    cannot catch that:
+
+      - matching sr:category/sr:tournament ids in the URL only proves we went
+        where the (possibly wrong) table pointed;
+      - `.tournament-name` also matches sidebar and popular-list entries, so a
+        Serie A page happily reports 'Premier League' among them.
+
+    Scores the returned team names against every league's known squad list and
+    refuses to cache when some OTHER league is the clear best match. Caught on
+    2026-09-16: a "La Liga" scrape returned Monza, Sassuolo, Roma, Inter,
+    Fiorentina, Bologna, Torino, Udinese -- Serie A, every one.
+
+    Returns (ok, reason). Leagues with no squad list (continental cups, whose
+    entrants change yearly) are passed through unjudged rather than guessed at.
+    """
+    try:
+        from discover_mappings import LEAGUE_TEAMS
+    except Exception:
+        return True, ""  # scoring data unavailable — do not fabricate a verdict
+
+    if league not in LEAGUE_TEAMS or not fixtures:
+        return True, ""
+
+    own = [t.lower() for t in LEAGUE_TEAMS[league]]
+
+    def _is_ours(fx) -> bool:
+        pair = f"{fx.home} {fx.away}".lower()
+        return any(t in pair for t in own)
+
+    matched = sum(1 for f in fixtures if _is_ours(f))
+    purity = matched / len(fixtures)
+
+    # PURITY, not best-match. An earlier version scored every league and
+    # accepted the page when the requested league scored highest; that let a
+    # 64-row "all football" page through as Serie A, because a page containing
+    # everything naturally contains plenty of Serie A too. What matters is what
+    # fraction of the rows are ACTUALLY this league.
+    if purity < MIN_LEAGUE_PURITY:
+        names = " ".join(f"{f.home} {f.away}" for f in fixtures).lower()
+        scores = {
+            lg: sum(1 for t in teams if t.lower() in names)
+            for lg, teams in LEAGUE_TEAMS.items()
+        }
+        best = max(scores, key=lambda k: scores[k])
+        sample = ", ".join(f"{f.home} v {f.away}" for f in fixtures[:3])
+        return False, (
+            f"only {matched}/{len(fixtures)} rows ({purity:.0%}) are {league} "
+            f"teams (need {MIN_LEAGUE_PURITY:.0%}); closest match '{best}'. "
+            f"Sample: {sample}"
+        )
+    return True, ""
 
 
 async def _extract_row_odds(row) -> Dict[str, Any]:
@@ -635,6 +706,10 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
                         safe_print(f"  [OK] {league}: direct URL ({url_type}) worked, found {len(rows)} rows")
                         fixtures = await _extract_fixtures(page, league)
                         if fixtures:
+                            ok, why = _fixtures_match_league(league, fixtures)
+                            if not ok:
+                                safe_print(f"  [REJECT] {league}: {why}")
+                                continue
                             safe_print(f"  [OK] {league}: extracted {len(fixtures)} fixtures")
                             return fixtures
                         safe_print(f"  [WARN] {league}: direct URL worked but no fixtures extracted")
@@ -681,10 +756,14 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
             if await _wait_for_fixtures(page):
                 fixtures = await _extract_fixtures(page, league)
                 if fixtures:
-                    if await _verify_league_page(page, league):
+                    ok, why = _fixtures_match_league(league, fixtures)
+                    if not ok:
+                        safe_print(f"  [REJECT] {league}: {why}")
+                    elif await _verify_league_page(page, league):
                         safe_print(f"  [OK] {league}: popular-list nav worked, extracted {len(fixtures)} fixtures")
                         return fixtures
-                    safe_print(f"  [WARN] {league}: popular-list nav worked but wrong league page")
+                    else:
+                        safe_print(f"  [WARN] {league}: popular-list nav worked but wrong league page")
                 else:
                     safe_print(f"  [WARN] {league}: popular-list nav worked but no fixtures extracted")
         else:
@@ -808,10 +887,14 @@ async def _scrape_league(page: Page, league: str, country: str) -> List[CachedFi
 
             fixtures = await _extract_fixtures(page, league)
             if fixtures:
-                if await _verify_league_page(page, league):
+                ok, why = _fixtures_match_league(league, fixtures)
+                if not ok:
+                    safe_print(f"  [REJECT] {league}: {why}")
+                elif await _verify_league_page(page, league):
                     safe_print(f"  [OK] {league}: sidebar expand worked, extracted {len(fixtures)} fixtures")
                     return fixtures
-                safe_print(f"  [WARN] {league}: sidebar expand worked but wrong league page")
+                else:
+                    safe_print(f"  [WARN] {league}: sidebar expand worked but wrong league page")
             else:
                 safe_print(f"  [WARN] {league}: sidebar expand worked but no fixtures extracted")
         else:

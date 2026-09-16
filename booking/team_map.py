@@ -1,4 +1,37 @@
 SPORTYBET_TEAMS: dict[str, str] = {
+    # --- reverse-precedence block (model key -> SportyBet name) -------------
+    # _MODEL_BY_SPORTYBET is built with setdefault, so for any SportyBet name
+    # the FIRST entry wins the reverse lookup. These four sit at the top
+    # because a later entry claims the same SportyBet spelling for a key that
+    # is not a football-data model key, which made resolve_team_to_model hand
+    # back a name the Dixon-Coles fit had never heard of. Same canonical-
+    # before-alias rule as "AZ Alkmaar" before "Alkmaar" (see the note above
+    # _MODEL_BY_SPORTYBET); these are listed here rather than in alphabetical
+    # position because that is what makes them first.
+    #
+    # Found 2026-09-16: of the four La Liga fixtures on that evening, three
+    # could not be priced at all. Every club involved WAS rated by the model.
+    # The gap was entirely in this table.
+    #
+    #   "Athletic Bilbao"          -> "Athletic Club"   (phantom key, line ~59:
+    #                                 the real football-data key is "Ath Bilbao";
+    #                                 "Athletic Club" is an upstream FEED
+    #                                 spelling, so that entry stays, it just
+    #                                 must not win the reverse)
+    #   "RC Deportivo de A Coruna" -> unresolved        (table had the
+    #                                 "De La Coruna" spelling, SportyBet says
+    #                                 "de A Coruna")
+    #   "Racing Santander"         -> "Racing Santander" (identity; the model
+    #                                 key is "Santander")
+    #
+    # An unresolved name returns UNCHANGED and the fixture is reported
+    # NO DATA — PENDING, so this never mispriced anything. It just silently
+    # dropped three of four fixtures.
+    "Ath Bilbao":  "Athletic Bilbao",
+    "Ath Madrid":  "Atletico Madrid",
+    "La Coruna":   "RC Deportivo de A Coruna",
+    "Santander":   "Racing Santander",
+    # --- end reverse-precedence block ---------------------------------------
     "07 Vestur Sorvagur": "07 Vestur Sorvagur",
     "1 FC Kaiserslautern": "1 FC Kaiserslautern",
     "1 FC Nuremberg": "1 FC Nuremberg",
@@ -858,7 +891,8 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Újpest": "Ujpest",
     "Čukarički": "Cukaricki",
     "İstanbul Başakşehir": "Başakşehir",
-    "Železiarne Podbrezová": "Podbrezová",    "BK Hacken": "BK Hacken",
+    "Železiarne Podbrezová": "Podbrezová",
+    "BK Hacken": "BK Hacken",
     "Degerfors IF": "Degerfors IF",
     "Djurgardens IF": "Djurgardens IF",
     "Orgryte IS": "Orgryte IS",

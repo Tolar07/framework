@@ -1,26 +1,15 @@
 """
-Framework-wide operating constants and the capital bright line.
-
-HR51 / master v303.15 Section 8: the framework is at **Phase 3 — live capital,
-Architect-deployed** (PHASE moved 2 -> 3 on 2026-08-11). Phase 3 is gated on
->=30 paper legs with logged CLV AND positive mean CLV AND the Architect's V7
-sign-off. The capital bright line still holds: `assert_paper_only()` hard-fails
-below Phase 3 and the booking module never clicks Place Bet, so no code routes
-a real stake — capital authority stays with the Architect.
-
-Before this module existed the phase was a display string only — nothing
-branched on it, and `CLVLog.log_entry(phase="live", stake=250.0)` would have
-been accepted and written to disk without a single check. The blueprint
-requires the bright line to be enforced in code as a hard fail, not a warning,
-so a pipeline bug can never quietly stake money.
-
-Nothing here decides whether a bet is good. It only decides whether the code
-is permitted to record a stake at all — and in Phase 2 it never is.
+Configuration package for OLP XDV
 """
 from __future__ import annotations
 
 import os
 from pathlib import Path
+
+from .manager import ConfigManager, get_config, init_config
+from .betting_config import BettingConfig
+from .api_config import APIConfig
+from .logging_config import LoggingConfig
 
 
 def load_dotenv(path: Path | None = None) -> list[str]:
@@ -37,19 +26,32 @@ def load_dotenv(path: Path | None = None) -> list[str]:
     An existing environment variable always wins, so GitHub Actions secrets are
     never overwritten by a stray local .env.
     """
-    path = path or (Path(__file__).parent / ".env")
-    loaded: list[str] = []
+    # `Path(__file__)` is this FILE (config/__init__.py), so the old
+    # `Path(__file__) / ".env"` built `.../config/__init__.py/.env`, which can
+    # never exist. `.exists()` returned False on every call, load_dotenv()
+    # returned [] silently, and no entry point ever saw API_FOOTBALL_KEY,
+    # ODDS_API_KEY, THESPORTSDB_KEY, TELEGRAM_BOT_TOKEN or ARCHITECT_SIGNOFF.
+    # The package root (parent of config/) is where .env actually lives.
+    path = path or (Path(__file__).resolve().parent.parent / ".env")
     if not path.exists():
-        return loaded
-    for raw in path.read_text(encoding="utf-8").splitlines():
-        line = raw.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, _, value = line.partition("=")
-        key, value = key.strip(), value.strip().strip('"').strip("'")
-        if key and key not in os.environ:
-            os.environ[key] = value
-            loaded.append(key)
+        return []
+
+    loaded: list[str] = []
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip()
+            if key and key not in os.environ:
+                os.environ[key] = value
+                loaded.append(key)
+    except Exception:
+        pass
     return loaded
 
 
@@ -92,9 +94,7 @@ class CapitalGateError(RuntimeError):
 def assert_paper_only(stake: float | None, phase: str | None = None) -> None:
     """Hard fail if a stake is recorded while the framework is pre-Phase-3.
 
-    A stake of None is what a paper leg carries and is always allowed. Any
-    numeric stake — including 0.0, which would otherwise slip through a
-    truthiness check — is a capital action and is refused below Phase 3.
+    A stake of None is what a paper leg
     """
     if stake is not None and not CAPITAL_ENABLED:
         raise CapitalGateError(
@@ -106,3 +106,17 @@ def assert_paper_only(stake: float | None, phase: str | None = None) -> None:
         raise CapitalGateError(
             f"Refusing to write a leg with phase={phase!r} at PHASE={PHASE}."
         )
+
+
+__all__ = [
+    "ConfigManager",
+    "get_config",
+    "init_config",
+    "BettingConfig",
+    "APIConfig",
+    "LoggingConfig",
+    "PHASE_LABEL",
+    "PAPER_PHASE",
+    "CAPITAL_ENABLED",
+    "assert_paper_only",
+]

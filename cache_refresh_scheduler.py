@@ -25,7 +25,18 @@ from pathlib import Path
 
 # Add the olp_xdv directory to the path so we can import from olp_xdv_reliability
 sys.path.insert(0, str(Path(__file__).parent))
-from olp_xdv_reliability.providers import ProviderChain, fetch_sportybet_page  # noqa: E402
+
+# NOTE: olp_xdv_reliability has never been committed to this repository -- no
+# commit in history adds it, and it is not gitignored, so it exists only as an
+# untracked directory on whichever machine wrote refresh_cache(). Its two names
+# are used ONLY inside refresh_cache(); the staleness helpers below
+# (cache_age_minutes / is_cache_fresh) do not touch them.
+#
+# Importing it at module scope therefore broke an unrelated consumer:
+# booking/verify_fixtures.py imports only cache_age_minutes and is_cache_fresh
+# from here, and was dying on an import it never needed. The import now lives
+# in refresh_cache(), which genuinely cannot work without it and says so
+# plainly when it is absent.
 
 CACHE_PATH = Path(__file__).resolve().parent / "cache" / "sportybet_cache.json"
 DEFAULT_MAX_AGE_MINUTES = 60  # matches the existing "60-minute V2 recency cap" already in use
@@ -41,6 +52,17 @@ def refresh_cache(url: str, fallback_fns: list[tuple[str, callable]] | None = No
     the piece that was missing. A cache with no recorded fetch time
     can't be checked for staleness; it can only be trusted or not.
     """
+    try:
+        from olp_xdv_reliability.providers import ProviderChain, fetch_sportybet_page
+    except ModuleNotFoundError as exc:
+        print(
+            "cache_refresh: olp_xdv_reliability is not installed in this "
+            f"checkout ({exc}); the cache was NOT refreshed. Its age is "
+            "whatever it already was -- do not read this as 'fresh'.",
+            file=sys.stderr,
+        )
+        return False
+
     chain_providers = [("sportybet", lambda: fetch_sportybet_page(url))]
     if fallback_fns:
         chain_providers.extend(fallback_fns)

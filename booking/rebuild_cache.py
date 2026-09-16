@@ -23,43 +23,85 @@ PAGE_LOAD_TIMEOUT = 45_000
 BOOKER_CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
 FALLBACK_IPS = ["104.21.10.148", "172.67.163.154"]
 
+# (sr:category, sr:tournament) per league, used to build the direct SportyBet URL.
+#
+# REBUILT 2026-09-16 from SportyBet's own factsCenter/popularAndSportList API
+# (91 categories with live tournament ids and names), NOT from recall. The
+# previous table was systematically wrong -- entries carried a neighbouring
+# league's ids, so every scrape silently returned the wrong competition while
+# reporting success:
+#
+#   "Premier League": (32, 8)  -> (32, 8) is Spain/LaLiga, so Premier_League.json
+#                                 filled with "Betis v Getafe"
+#   "Serie A":        (30, 35) -> (30, 35) is Germany/Bundesliga, so Serie_A.json
+#                                 filled with "Bayern Munich v Union Berlin"
+#   "Bundesliga":     (7, 34)  -> (7, 34) is France/Ligue 1  -> "Monaco v Lens"
+#   "Championship":   (1, 17)  -> (1, 17) is England/Premier League
+#   "Premier League" and "Liga Portugal" held the IDENTICAL pair (32, 8)
+#
+# _verify_league_page did not catch any of it. A booking code built on that
+# cache would attach to a real fixture in the WRONG competition, which is worse
+# than no code at all.
+#
+# Entries left as (0, 0) are leagues SportyBet did not list at capture time;
+# they are deliberately not guessed -- a wrong id produces confident wrong data,
+# a zero produces an honest miss.
 SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
-    "Allsvenskan": (0, 0),
-    "Austrian Bundesliga": (0, 0),
-    "Belgian Pro League": (0, 0),
-    "Bundesliga": (7, 34),
+    # England (cat 1)
+    "Premier League": (1, 17),
+    "Championship": (1, 18),
+    "EFL Cup": (1, 21),
+    "FA Cup": (1, 19),
+    # Spain (cat 32)
+    "La Liga": (32, 8),
+    "LaLiga": (32, 8),
+    "La Liga 2": (32, 54),          # LALIGA HYPERMOTION
+    "Copa del Rey": (32, 329),
+    # Italy (cat 31)
+    "Serie A": (31, 23),
+    "Serie B": (31, 53),
+    "Coppa Italia": (31, 328),
+    # Germany (cat 30)
+    "Bundesliga": (30, 35),
+    "2. Bundesliga": (30, 44),
+    "DFB-Pokal": (30, 217),
+    # France (cat 7)
+    "Ligue 1": (7, 34),
+    "Ligue 2": (7, 182),
+    "Coupe de France": (7, 335),
+    # Netherlands (cat 35)
+    "Eredivisie": (35, 37),
+    "KNVB Beker": (35, 330),
+    # Portugal (cat 44)
+    "Primeira Liga": (44, 238),
+    "Liga Portugal": (44, 238),
+    # Others
+    "Scottish Premiership": (22, 36),
+    "Belgian Pro League": (33, 38),
+    "Pro League": (33, 38),
+    "Russian Premier League": (21, 203),
+    "Swiss Super League": (25, 215),
+    "Super League": (25, 215),
+    "Turkish Super Lig": (46, 52),
+    "Süper Lig": (46, 52),
+    # International clubs (cat 393) — these were already correct
     "Champions League": (393, 7),
-    "Championship": (1, 17),
+    "Europa League": (393, 679),
     "Conference League": (393, 34480),
+    # Not listed by SportyBet at capture time — left unresolved on purpose.
+    "Taça de Portugal": (0, 0),
+    "UEFA Super Cup": (0, 0),
+    "Allsvenskan": (0, 0),
+    "Swedish Allsvenskan": (0, 0),
+    "Austrian Bundesliga": (0, 0),
     "Czech First League": (0, 0),
     "Danish Superliga": (0, 0),
-    "EFL Cup": (1, 18),
     "Ekstraklasa": (0, 0),
     "Eliteserien": (0, 0),
-    "Eredivisie": (0, 0),
-    "Europa League": (393, 679),
-    "Greek Super League": (0, 0),
-    "HNL": (0, 0),
-    "La Liga": (31, 23),
-    "La Liga 2": (31, 9),
-    "LaLiga": (31, 23),
-    "Liga Portugal": (32, 8),
-    "Ligue 1": (7, 35),
-    "Ligue 2": (7, 36),
     "Norwegian Eliteserien": (0, 0),
-    "Premier League": (32, 8),
-    "Primeira Liga": (32, 9),
-    "Pro League": (0, 0),
-    "Russian Premier League": (0, 0),
-    "Scottish Premiership": (0, 0),
-    "Serie A": (30, 35),
-    "Serie B": (30, 36),
-    "Super League": (0, 0),
+    "Greek Super League": (0, 0),
     "Super League Greece": (0, 0),
-    "Swedish Allsvenskan": (0, 0),
-    "Swiss Super League": (0, 0),
-    "Süper Lig": (0, 0),
-    "Turkish Super Lig": (0, 0),
+    "HNL": (0, 0),
 }
 
 @dataclass

@@ -18,6 +18,7 @@
 - `[[README.md]]` — Vault overview
 - `[[API Keys.md]]` — Credential reference (sanitized, real values in .env only)
 - `[[OLP_XDV_Framework_Index.md]]` — Navigation index with repo paths
+- `[[Fixture Gathering Method.md]]` — **CONFIRMED method** (2026-09-16): all sources collaborate on one slate; verification by agreement
 - `[[Vault-Memory-Index.md]]` — This file
 - `[[STATE.md]]` — Daily retrospective audit: fixture verification, outcome audit, knowledge integration
 
@@ -40,6 +41,7 @@
 - `[[sports-data-skills.md]]` — machina-sports skills (4 skills in .claude/skills/)
 - `[[claude-code-action.md]]` — anthropics/claude-code-action cloned at workspace root
 - `[[always-check-date.md]]` — Always verify the real current date at session start / before date-sensitive work
+- `[[session-sync-2026-09-13.md]]` — Ran vault-memory sync on 2026-09-13; observed uncommitted changes
 
 ## Retired Mirror (Deprecated 2026-08-18)
 **Location:** `Documents/OLP_XDV_Vault/` — **NOT authoritative, non-git, READ-ONLY**

@@ -8,3 +8,5 @@ PyYAML>=6.0
 anthropic>=0.40
 playwright>=1.40
 tweepy>=4.14
+# used by the test suite; was undeclared until 2026-09-16
+pytest>=8.0

@@ -144,6 +144,15 @@ TEAM_ALIASES = {
     "h beer sheva": "hapoel beer sheva",         # FlashScore "H. Beer Sheva"
     "omonia nicosia": "omonia",
     "olympiacos piraeus": "olympiacos",
+    # Observed splitting the 2026-09-17 Europa League slate into 11 records for
+    # 9 fixtures. Neither pair is reachable by normalisation: "RB" is an
+    # initialism of "Red Bull", and "SG" of "Saint-Gilloise", so the short form
+    # shares no token with the long one.
+    "rb salzburg": "red bull salzburg",
+    "salzburg": "red bull salzburg",
+    "union sg": "union saint gilloise",
+    "union st gilloise": "union saint gilloise",
+    "royale union sg": "union saint gilloise",
     # --- football-data.co.uk roster names -------------------------------
     # The Dixon-Coles fits are built from football-data's abbreviations, so
     # these map the fitted roster onto the same canonical form the fixture

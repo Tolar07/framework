@@ -292,9 +292,21 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
                     if fixture_date:
                         kickoff_iso = _combine_date_time(fixture_date, kickoff_time)
                     else:
-                        # Fallback: use today's date
-                        from datetime import date
-                        kickoff_iso = _combine_date_time(date.today().isoformat(), kickoff_time)
+                        # No date header parsed for this row. This used to stamp
+                        # date.today() onto the fixture, which is a fabricated
+                        # date, not a missing one -- on 2026-09-16 at 23:40 it
+                        # dated nine Europa League ties "2026-09-16T17:45",
+                        # i.e. six hours in the past, while three independent
+                        # sources placed them on the 17th. Anything filtering
+                        # the cache by date then found nothing for the real
+                        # match day.
+                        #
+                        # SportyBet lists UPCOMING fixtures only, so a bare
+                        # clock time is the next FUTURE occurrence of that time:
+                        # today if it has not passed, otherwise tomorrow. That
+                        # is an inference from the source's own semantics rather
+                        # than an assumption that everything is today.
+                        kickoff_iso = _next_occurrence_of(kickoff_time)
 
                     fixtures.append(CachedFixture(
                         id=gid or str(len(fixtures)),
@@ -395,6 +407,34 @@ def _infer_date_from_page(page: Page, url: str) -> str:
 
     # Default to today
     return date.today().isoformat()
+
+
+def _next_occurrence_of(time_str: str) -> str:
+    """Resolve a bare 'HH:MM' to the next FUTURE datetime with that clock time.
+
+    Used when a fixture row carries a kickoff time but no date header.
+    SportyBet's fixture list is upcoming-only, so a bare time necessarily
+    refers to the next occurrence: today if it has not passed yet, otherwise
+    tomorrow. A small grace window keeps a match that kicked off minutes ago
+    on today's date rather than flipping it a day forward.
+
+    The previous behaviour -- stamping date.today() unconditionally -- produced
+    kickoffs in the past and silently mis-dated an entire matchday.
+    """
+    from datetime import date, datetime, timedelta
+    import re as _re
+
+    t = (time_str or "").strip().split("\n")[0]
+    if not _re.match(r"^\d{1,2}:\d{2}$", t):
+        return f"{date.today().isoformat()}T00:00:00"
+
+    hh, mm = (int(x) for x in t.split(":"))
+    now = datetime.now()
+    candidate = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
+    # 3h grace: a fixture that started recently is still "today", not tomorrow.
+    if candidate < now - timedelta(hours=3):
+        candidate += timedelta(days=1)
+    return candidate.strftime("%Y-%m-%dT%H:%M:%S")
 
 
 def _combine_date_time(date_str: str, time_str: str) -> str:

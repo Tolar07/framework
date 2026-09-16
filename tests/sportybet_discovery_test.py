@@ -16,7 +16,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from booking.sportybet_discovery import (  # noqa: E402
     Competition,
-    DiscoveredEvent,
     _collect,
     _parse_1x2,
     _parse_event,

@@ -972,11 +972,38 @@ class SportyBetOddsSource(DataSource):
                 mapping = SPORTYBET_LEAGUES.get(league)
                 tournament_id = getattr(mapping, 'id', None) if mapping else None
 
+                live_markets = []
                 try:
                     live_markets = client.get_odds(fixture_id, tournament_id=tournament_id)
                 except Exception as e:
-                    log.warning(f"Failed to get live odds for fixture {fixture_id}: {e}")
-                    continue
+                    # Do NOT drop the fixture here. load_sportybet_fixtures
+                    # already returned the 1X2 snapshot captured when the cache
+                    # was built, and this branch was throwing it away -- so a
+                    # fixture we had a real price for arrived at the board with
+                    # no price at all.
+                    #
+                    # That is not hypothetical: on 2026-09-16 every live call
+                    # returned SportyBet's 202 bot check, and fixture 22928
+                    # (Fleetwood Town v Sheffield United) was dropped despite
+                    # its cached price of 4.99 / 4.24 / 1.71 sitting in
+                    # EFL_Cup.json.
+                    #
+                    # The cached snapshot is same-day and its own docstring
+                    # calls it a legitimate reference: the booking driver
+                    # re-reads the live price at booking time and CLV grades on
+                    # the closing line. Marked source_tier T2 rather than T1 so
+                    # nothing downstream mistakes a snapshot for a live quote.
+                    if fx.home_odds and fx.draw_odds and fx.away_odds:
+                        log.info(
+                            f"live odds unavailable for fixture {fixture_id} "
+                            f"({e}) — using the cached 1X2 snapshot"
+                        )
+                    else:
+                        log.warning(
+                            f"Failed to get live odds for fixture {fixture_id}: "
+                            f"{e} (and no cached 1X2 snapshot to fall back on)"
+                        )
+                        continue
 
                 odds = FixtureOdds(
                     league=league,
@@ -984,8 +1011,23 @@ class SportyBetOddsSource(DataSource):
                     away_team=fx.away_team,
                     kickoff_utc=fx.kickoff_utc,
                     source="sportybet.com/ng",
-                    source_tier="T1",
+                    source_tier="T1" if live_markets else "T2",
                 )
+
+                # Seed 1X2 from the cached snapshot. Any live market parsed
+                # below overwrites these, so a live quote always wins; this
+                # only fills what the live call could not supply.
+                if fx.home_odds and fx.draw_odds and fx.away_odds:
+                    snap_at = datetime.now(timezone.utc).isoformat()
+                    for attr, price in (("home", fx.home_odds),
+                                        ("draw", fx.draw_odds),
+                                        ("away", fx.away_odds)):
+                        setattr(odds, attr, MarketQuote(
+                            price=price,
+                            bookmaker="SportyBet Nigeria (cached snapshot)",
+                            n_books=1,
+                            captured_at=snap_at,
+                        ))
 
                 # Process each market from SportyBet API
                 # The client.get_odds() returns MarketOdds with:

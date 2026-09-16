@@ -233,6 +233,19 @@ def load_sportybet_fixtures(
         # — distinct from sportybet_fixtures.py's `home`/`away`/`id`.
         _home = fx_data.get("home_team") or fx_data.get("home", "")
         _away = fx_data.get("away_team") or fx_data.get("away", "")
+
+        # Two cache schemas reach this loader, exactly as with the team-name
+        # keys above. bridge.py's own write path stores flat home_odds /
+        # draw_odds / away_odds; rebuild_cache.py and sportybet_discovery.py
+        # store the same prices under raw_market["1x2"]. Only the flat form was
+        # read, so every fixture written by the cache BUILDER arrived priceless
+        # even though its odds were sitting in the file -- and the odds source
+        # then dropped the fixture for having no price.
+        _1x2 = (fx_data.get("raw_market") or {}).get("1x2") or {}
+        _home_odds = fx_data.get("home_odds", _1x2.get("home"))
+        _draw_odds = fx_data.get("draw_odds", _1x2.get("draw"))
+        _away_odds = fx_data.get("away_odds", _1x2.get("away"))
+
         fixtures.append(PipelineFixture(
             home_team=_home,
             away_team=_away,
@@ -242,9 +255,9 @@ def load_sportybet_fixtures(
             sportybet_home=fx_data.get("sportybet_home", _home),
             sportybet_away=fx_data.get("sportybet_away", _away),
             country=mapping.country,
-            home_odds=fx_data.get("home_odds"),
-            draw_odds=fx_data.get("draw_odds"),
-            away_odds=fx_data.get("away_odds"),
+            home_odds=_home_odds,
+            draw_odds=_draw_odds,
+            away_odds=_away_odds,
         ))
 
     return fixtures

@@ -241,6 +241,25 @@ def _get_breaker(name: str) -> CircuitBreaker:
         return _BREAKERS[name]
 
 
+class SportyBetEmptyResponse(RuntimeError):
+    """A 2xx carrying no body -- SportyBet's bot check, not real no-data.
+
+    Separate from SportyBetRateLimited so a caller can tell "they are throttling
+    us" from "they will not talk to a plain HTTP client at all"; only the second
+    is fixed by going through a browser.
+    """
+
+    def __init__(self, url: str, status_code: int):
+        self.url = url
+        self.status_code = status_code
+        super().__init__(
+            f"SportyBet returned HTTP {status_code} with an empty body for "
+            f"{url} — this is their bot check. A plain HTTP client cannot read "
+            f"this endpoint; booking/sportybet_discovery.py reaches it through "
+            f"a real browser session. Not caching the empty body."
+        )
+
+
 def _is_transient(status_code: Optional[int]) -> bool:
     if status_code is None:
         return True  # network-level exception
@@ -376,11 +395,34 @@ class SportyBetClient:
                 _record_failure_stat(url, success=False)
                 resp.raise_for_status()
 
-            breaker.record_success()
-            _record_failure_stat(url, success=True)
             html = resp.text
 
-            # Write cache
+            # A 2xx with an EMPTY body is not a success. SportyBet answers this
+            # endpoint with `202 ACCEPTED` and zero bytes when it wants a real
+            # browser -- it is their bot check, not a queue. 202 is neither
+            # transient (_is_transient covers 429 and 5xx) nor >= 400, so it
+            # fell straight through to here: recorded as a success, cached as
+            # an empty body, and served from that cache for the next
+            # FIXTURES_CACHE_TTL. The caller then parsed "" and reported no
+            # odds, with nothing in the log to say why.
+            #
+            # Observed 2026-09-16 during a board run: every pcUpcomingEvents
+            # call returned 202/0 bytes, and the poisoned cache would have made
+            # the next six hours of runs look identically empty.
+            #
+            # booking/sportybet_discovery.py reaches the same endpoint through
+            # Playwright's request context on a page holding sportybet.com
+            # cookies, which is what gets a 200. This client is plain requests,
+            # so the honest outcome here is a loud failure.
+            if not html.strip():
+                breaker.record_failure()
+                _record_failure_stat(url, success=False)
+                raise SportyBetEmptyResponse(url, resp.status_code)
+
+            breaker.record_success()
+            _record_failure_stat(url, success=True)
+
+            # Write cache -- only ever a non-empty body, checked above.
             self.cache_dir.mkdir(parents=True, exist_ok=True)
             cache_path.write_text(html, encoding="utf-8")
 

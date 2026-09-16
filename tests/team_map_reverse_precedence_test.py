@@ -71,6 +71,60 @@ def test_precedence_block_is_first() -> None:
               keys.index("Ath Bilbao") < keys.index("Athletic Club"), True)
 
 
+def test_flashscore_spellings_resolve_too() -> None:
+    print("\ntest: the FlashScore spelling family resolves as well")
+
+    # FlashScore is the PRIMARY fixtures source (priority 9) and names clubs
+    # differently from SportyBet. SPORTYBET_TEAMS is model_key -> name, so one
+    # model key holds exactly ONE spelling; adding these there OVERWRITES the
+    # SportyBet one (it did, on the first attempt -- "Athletic Bilbao" stopped
+    # resolving the moment "Ath. Bilbao" was added beside it). They live in
+    # EXTRA_REVERSE_ALIASES instead.
+    CASES = [
+        ("A Coruna",       "La Coruna"),
+        ("Ath. Bilbao",    "Ath Bilbao"),
+        ("Atl. Madrid",    "Ath Madrid"),
+        ("Celta Vigo",     "Celta"),
+        ("Rayo Vallecano", "Vallecano"),
+        ("Real Sociedad",  "Sociedad"),
+        ("Nottm Forest",   "Nott'm Forest"),
+        ("AS Roma",        "Roma"),
+        ("Lecce",          "Lecce"),
+        ("Torino",         "Torino"),
+        ("Venezia",        "Venezia"),
+    ]
+    for feed_name, model_key in CASES:
+        check(f"{feed_name} -> {model_key}",
+              resolve_team_to_model(feed_name), model_key)
+
+
+def test_both_spelling_families_coexist() -> None:
+    print("\ntest: adding one feed's spellings does not displace the other's")
+
+    # This is the regression that the separate table exists to prevent: both
+    # names for the SAME club must resolve to the SAME model key.
+    PAIRS = [
+        ("Athletic Bilbao",          "Ath. Bilbao", "Ath Bilbao"),
+        ("Atletico Madrid",          "Atl. Madrid", "Ath Madrid"),
+        ("RC Deportivo de A Coruna", "A Coruna",    "La Coruna"),
+    ]
+    for sportybet, flashscore, model_key in PAIRS:
+        check(f"SportyBet {sportybet!r}", resolve_team_to_model(sportybet), model_key)
+        check(f"FlashScore {flashscore!r}", resolve_team_to_model(flashscore), model_key)
+
+
+def test_aliases_win_the_reverse_lookup() -> None:
+    print("\ntest: the explicit alias table beats a derived entry")
+
+    from booking.team_map import EXTRA_REVERSE_ALIASES, _MODEL_BY_SPORTYBET
+
+    # Merged before the derived entries precisely so a stale derived mapping
+    # cannot displace a verified one -- "Lecce" derived to "US Lecce" before.
+    for feed_name, model_key in EXTRA_REVERSE_ALIASES.items():
+        check(f"{feed_name!r} kept its alias",
+              _MODEL_BY_SPORTYBET.get(feed_name), model_key)
+
+
 def test_unknown_names_are_unchanged() -> None:
     print("\ntest: an unmapped name is returned unchanged, never guessed")
 
@@ -84,6 +138,9 @@ def test_unknown_names_are_unchanged() -> None:
 if __name__ == "__main__":
     test_reverse_resolves_to_football_data_keys()
     test_precedence_block_is_first()
+    test_flashscore_spellings_resolve_too()
+    test_both_spelling_families_coexist()
+    test_aliases_win_the_reverse_lookup()
     test_unknown_names_are_unchanged()
 
     print()

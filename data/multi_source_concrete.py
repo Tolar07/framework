@@ -373,6 +373,61 @@ class FlashScoreResultsSource(DataSource):
         return {"results": results, "source": "flashscore_results", "source_tier": "T2"}
 
 
+def _flashscore_kickoff_to_iso(raw: str, now: "datetime | None" = None) -> "str | None":
+    """FlashScore's displayed kickoff -> ISO 8601, or None if unreadable.
+
+    The page shows "13.09. 14:15" for another day and "14:15" for today, and
+    the adapter stored that string verbatim as the fixture's kickoff_utc. So
+    9 of 13 La Liga fixtures reached the board with a kickoff of "13.09. 14:15"
+    — which no date filter can read, so "today's fixtures only" could not
+    identify them, and settlement had no timestamp to work from.
+
+    The year is not shown, so it is inferred as the candidate nearest to now;
+    that handles a fixture a few days out and one a few days back without
+    breaking across a New Year.
+
+    TIMEZONE: this is FlashScore's displayed local time, which is the browser's
+    timezone. It is returned NAIVE rather than stamped with a Z, because
+    labelling an unverified local time as UTC is how a kickoff silently moves
+    by an hour. Callers that need a date use the first 10 characters, which is
+    unaffected.
+    """
+    from datetime import datetime as _dt, timedelta as _td
+
+    if not raw:
+        return None
+    raw = raw.strip()
+    now = now or _dt.now()
+
+    # "13.09. 14:15" — day and month given, year inferred.
+    m = re.match(r"^(\d{1,2})\.(\d{1,2})\.?\s+(\d{1,2}):(\d{2})", raw)
+    if m:
+        day, mon, hh, mm = (int(x) for x in m.groups())
+        best = None
+        for year in (now.year - 1, now.year, now.year + 1):
+            try:
+                cand = _dt(year, mon, day, hh, mm)
+            except ValueError:
+                continue          # 29 Feb in a non-leap year
+            if best is None or abs((cand - now).total_seconds()) < abs((best - now).total_seconds()):
+                best = cand
+        return best.strftime("%Y-%m-%dT%H:%M:00") if best else None
+
+    # "14:15" — today.
+    m = re.match(r"^(\d{1,2}):(\d{2})$", raw)
+    if m:
+        hh, mm = (int(x) for x in m.groups())
+        if hh > 23 or mm > 59:
+            return None
+        return now.replace(hour=hh, minute=mm, second=0,
+                           microsecond=0).strftime("%Y-%m-%dT%H:%M:00")
+
+    # Anything else — a status like "Pen", "Postponed", "FRO" — is not a
+    # kickoff. Returning None leaves the field absent rather than poisoning it
+    # with a string nothing can parse (HR35).
+    return None
+
+
 class FlashScoreFixturesSource(DataSource):
     """FlashScore live fixtures — fast, key-free scraper for all mapped leagues.
 
@@ -519,9 +574,13 @@ class FlashScoreFixturesSource(DataSource):
                 home = f["home_team"]
                 away = f["away_team"]
                 pairs.append((home, away))
-                # Store datetime if available
-                if f.get("datetime"):
-                    dates[(home, away)] = f["datetime"]
+                # Store datetime if available, normalised to ISO. Storing the
+                # raw display string here is what put "13.09. 14:15" into
+                # kickoff_utc; an unparseable value is dropped rather than
+                # carried forward.
+                iso = _flashscore_kickoff_to_iso(f.get("datetime") or "")
+                if iso:
+                    dates[(home, away)] = iso
 
             return {
                 "fixtures": pairs,

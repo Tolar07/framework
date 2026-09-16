@@ -2,9 +2,18 @@
 """Parse the team name audit report and extract all 268 mappings to add to team_map.py"""
 
 import re
+from pathlib import Path
+
+# Repo-relative. These paths were hardcoded to
+# C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\..., which resolves on
+# one machine only -- and because the open() runs at module scope, merely
+# IMPORTING this file raised FileNotFoundError everywhere else.
+REPO_ROOT = Path(__file__).resolve().parent
+REPORT = REPO_ROOT / "data" / "team-name-audit" / "report-2026-08-23.md"
+OUTPUT = REPO_ROOT / "all_268_mappings.txt"
 
 # Read the audit report
-with open(r"C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\data\team-name-audit\report-2026-08-23.md", "r", encoding="utf-8") as f:
+with open(REPORT, "r", encoding="utf-8") as f:
     content = f.read()
 
 # Find the "Additions to team_map.py" table
@@ -43,7 +52,7 @@ for m in mappings:
     # We'll just write to file
 
 # Also write to a file for easy reference
-with open(r"C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\all_268_mappings.txt", "w", encoding="utf-8") as f:
+with open(OUTPUT, "w", encoding="utf-8") as f:
     for m in mappings:
         f.write(f'"{m["sportybet_name"]}": "{m["model_key"]}",  # {m["league"]}\n')
 

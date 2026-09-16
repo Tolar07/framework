@@ -280,6 +280,39 @@ def _resolve_fixture(leg: dict, cache) -> Optional[dict]:
                 return fx
     except Exception:
         pass
+
+    # Cross-source name reconciliation, same rule the verification slate and the
+    # odds lookup use. The cache holds SportyBet's spellings ("Ferencvarosi
+    # Budapest", "NEC Nijmegen") while the acca leg carries the model/source
+    # spelling ("Ferencvaros", "Nijmegen"), so none of the exact or
+    # normalized-exact passes above match and the leg reports "fixture not found
+    # in SportyBet cache" despite the fixture being present and priced. This is
+    # the fourth boundary the same naming problem appears at.
+    #
+    # names_match only accepts a unique, non-generic token relationship and BOTH
+    # teams must agree, so this stays within HR35 -- it never guesses across
+    # clubs. Both orderings are tried, as above, because the book's page order
+    # can be reversed relative to the model's.
+    try:
+        from verification.fixture_matcher import names_match, normalize_team_name as _n
+        nh2, na2 = _n(home), _n(away)
+
+        def _pair_matches(fx_home, fx_away) -> bool:
+            if not fx_home or not fx_away:
+                return False
+            return names_match(_n(fx_home), nh2) and names_match(_n(fx_away), na2)
+
+        for fx in cache:
+            for hk, ak in (("model_home", "model_away"),
+                           ("sportybet_home", "sportybet_away")):
+                if _pair_matches(fx.get(hk), fx.get(ak)):
+                    return fx
+                # reversed ordering
+                if _pair_matches(fx.get(ak), fx.get(hk)):
+                    return fx
+    except Exception:
+        pass
+
     return None
 
 

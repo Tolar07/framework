@@ -54,6 +54,9 @@ from output import notify
 from data.calibration_tracker import GradedPick, record_outcome
 from output.produce_bet import render_telegram_board
 from output.produce_bet import render_verify_results, render_produce_bet
+# Derives the fixtures season from the fit season ('2526' -> '2627'); needed by
+# the Stage A artifact path, which previously reused the fit season by mistake.
+from orchestrator_DEPRECATED import next_season_code
 from output.board_validator import filter_board_for_telegram
 from output.render_fixture_list import render_fixture_list
 from booking.verify_fixtures import _parse_bet365_datetime
@@ -421,7 +424,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
 
     # ===== STAGE A ARTIFACT LOADING (4am fixture extraction output) =====
     from pipeline.fixture_extraction import StageAOutput, VerifiedFixture
-    stage_a_path = Path(__file__).parent / "data" / "stage_a_output" / f"fixtures_{board_date}_{fixtures_season or season}.json"
+    # `season` is the season the MODEL is fit on (the last COMPLETED one);
+    # fixtures come from the season now being played. This path used
+    # `fixtures_season or season`, and fixtures_season is None unless
+    # --fixtures-season is passed explicitly, so it looked for
+    # fixtures_<date>_2526.json while Stage A writes fixtures_<date>_2627.json.
+    # The artifact was therefore never found on a default invocation, the run
+    # logged "No Stage A artifact" and fell through to the demonstration
+    # fallback in olp_xdv_pipeline -- which publishes hardcoded probabilities.
+    # Derive it properly instead of silently reusing the fit season.
+    _fixtures_season = fixtures_season or next_season_code(season)
+    stage_a_path = Path(__file__).parent / "data" / "stage_a_output" / f"fixtures_{board_date}_{_fixtures_season}.json"
     board: list = []
     # Initialised up front: both the Stage A/Stage B branch and the fallback
     # assign these conditionally, and the render block below now tests them, so
@@ -478,8 +491,35 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             all_flags.append(f"Stage A artifact load failed ({type(e).__name__}: {e})")
 
     # ===== FALLBACK: RUN FULL PIPELINE if no Stage A artifact =====
+    #
+    # HR35/HR59 GUARD (2026-09-16). This branch calls olp_xdv_pipeline.run_pipeline,
+    # whose Agent 5 does NOT run the engines. It assigns a hardcoded table of
+    # (market, probability, odds) tuples -- its own comments read "sample
+    # positive EV selections for demonstration", "In a real implementation,
+    # this would come from the engine/models" and "Ensure we always have some
+    # positive EV selections for testing" -- onto whatever real fixture names
+    # it holds.
+    #
+    # On 2026-09-16 a default `python run_daily.py` took this branch (the Stage
+    # A path above was looking for the wrong season) and BROADCAST the result to
+    # Telegram: eleven legs carrying probabilities of exactly 85.0/80.0/75.0/70.0
+    # percent, six of them priced "@ 0.00", the same fixture listed twice under
+    # two different leagues, stamped "Decision: CEO_APPROVE".
+    #
+    # Fabricated output reaching a delivery channel is the exact failure HR35
+    # and HR59 exist to prevent, so this branch is now barred from publishing.
+    # It may still run and write a board for inspection, but it cannot send.
+    # Remove this guard only when Agent 5 computes probabilities from the
+    # engines rather than from a literal table.
+    fallback_is_unpublishable = False
     if not stage_a_loaded:
+        fallback_is_unpublishable = True
         all_flags.append("No Stage A artifact — running full pipeline")
+        all_flags.append(
+            "HR35 GUARD: fallback pipeline uses hardcoded demonstration "
+            "probabilities, not engine output — delivery suppressed, board is "
+            "NOT a real call"
+        )
         try:
             # Use unified pipeline
             state = run_pipeline(
@@ -555,8 +595,16 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         with open(board_file, "w", encoding="utf-8") as f:
             f.write(board_text)
 
-        # Send notifications if enabled
-        if send and telegram_text:
+        # Send notifications if enabled.
+        # `not fallback_is_unpublishable` enforces the HR35 guard above: a board
+        # built from the fallback's hardcoded demonstration probabilities is
+        # written to disk for inspection but never delivered.
+        if fallback_is_unpublishable and send:
+            all_flags.append(
+                "Telegram/WhatsApp/email delivery SUPPRESSED — board came from "
+                "the demonstration fallback, not the engines (HR35)"
+            )
+        if send and telegram_text and not fallback_is_unpublishable:
             # NEW: Use idempotency guard for Telegram sends
             if should_send_telegram(telegram_text):
                 try:
@@ -567,14 +615,16 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             else:
                 all_flags.append("Telegram broadcast skipped (duplicate content detected)")
 
-        if whatsapp:
+        # Both channels carry the same HR35 guard as Telegram — suppressing one
+        # delivery path while leaving two others open would not be a guard.
+        if whatsapp and not fallback_is_unpublishable:
             try:
                 whatsapp_deliver.send(telegram_text)
                 all_flags.append("WhatsApp sent")
             except Exception as e:
                 all_flags.append(f"WhatsApp failed: {e}")
 
-        if email:
+        if email and not fallback_is_unpublishable:
             try:
                 email_deliver.send(board_text, subject=f"OLP XDV Board {board_date}")
                 all_flags.append("Email sent")

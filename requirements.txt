@@ -1,6 +1,10 @@
 numpy>=1.26
 scipy>=1.11
 requests>=2.31
+# knowledge_persistence.py imports yaml, which run_daily reaches via
+# booking.verify_fixtures -> booking.bridge. It was never declared, so a fresh
+# venv or CI runner failed the whole pipeline at import time.
+PyYAML>=6.0
 anthropic>=0.40
 playwright>=1.40
 tweepy>=4.14

@@ -28,6 +28,7 @@ import argparse
 import json
 import os
 import sys
+import traceback
 import time
 import uuid
 from typing import Optional
@@ -94,14 +95,23 @@ def _mark_started() -> Path:
     """Mark the start of a run by creating a runlog file."""
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     runlog = LOG_DIR / f"run_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}.log"
-    with open(runlog, "w") as f:
+    with open(runlog, "w", encoding="utf-8", errors="replace") as f:
         f.write(f"Run started at {datetime.now(timezone.utc).isoformat()}\n")
     return runlog
 
 
 def _mark(runlog: Path, message: str) -> None:
-    """Append a message to the runlog."""
-    with open(runlog, "a") as f:
+    """Append a message to the runlog.
+
+    Encoding is pinned to UTF-8 with a replacement fallback because this is the
+    function the failure paths call. Without it, open() takes the Windows
+    default (cp1252), and a message carrying characters cp1252 cannot encode
+    raises UnicodeEncodeError *inside the except block* that was handling a
+    recoverable error -- turning "SportyBet cache refresh failed, continue" into
+    a fatal pipeline crash. Playwright's own "please run playwright install"
+    notice is drawn with box characters, so it triggered exactly that.
+    """
+    with open(runlog, "a", encoding="utf-8", errors="replace") as f:
         f.write(f"[{datetime.now(timezone.utc).isoformat()}] {message}\n")
 
 
@@ -244,6 +254,7 @@ def _refresh_sportybet_cache(runlog: Path) -> Optional[str]:
         return f"SportyBet cache refreshed: {total} fixtures across {len(result)} leagues"
     except Exception as e:
         _mark(runlog, f"SportyBet cache refresh failed: {e}")
+        _mark(runlog, f"Full traceback: {traceback.format_exc()}")
         # Return degraded status instead of letting it bubble up and crash the run
         return f"SportyBet cache refresh degraded: {e}"
 
@@ -433,23 +444,47 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         all_flags.append("No Stage A artifact — running full pipeline")
         try:
             # Use unified pipeline
-            pipeline_result = run_pipeline(
-                board_date=board_date,
+            state = run_pipeline(
                 season=season,
                 fixtures_season=fixtures_season,
-                leagues=leagues,
-                min_mes=min_mes,
-                agreement_band=agreement_band,
-                verify_only=verify_only,
-                dry_run=False
+                # NOTE: this flag is currently INERT. run_pipeline() stores it
+                # in state["dry_run"] and no agent ever reads it, so it does not
+                # actually suppress network calls -- the previous comment here
+                # ("use dry-run to avoid network calls for testing") describes
+                # behaviour that does not exist and reads like production is in
+                # test mode. Left as-is pending an Architect decision on whether
+                # dry-run should be wired up or the parameter removed.
+                dry_run=True
             )
-            board = pipeline_result.board
-            fixture_sources = pipeline_result.fixture_sources
-            fit_stats = pipeline_result.fit_stats
-            all_flags.append(f"Pipeline completed: {len(board)} fixtures on board")
+            # Render board and telegram from pipeline state
+            board_text = render_board_from_pipeline(state)
+            telegram_text = board_text
         except Exception as e:
             all_flags.append(f"Pipeline failed ({e})")
             # Don't fail the run, just log the error
+            board_text = ""
+            telegram_text = ""
+        else:
+            # Counting fixtures is reporting, not production. It used to sit
+            # inside the try above, where it crashed with "'list' object has no
+            # attribute 'get'" -- run_pipeline() defines state["payloads"] as a
+            # LIST of per-agent dicts, but this line indexed it like a dict
+            # keyed by agent number. The except branch then reset board_text to
+            # "", discarding the board render on the line above, which had
+            # already succeeded. That is why boards were written as 0 bytes on
+            # 2026-09-05/06/08/09: the board was built correctly, then thrown
+            # away because a status-string failed to format. Counting now runs
+            # in `else` so it can never discard a good board.
+            try:
+                agent5 = next(
+                    (p for p in reversed(state.get("payloads", []))
+                     if isinstance(p, dict) and p.get("agent") == 5),
+                    {},
+                )
+                n_fixtures = len(agent5.get("fixture_reports", {}))
+                all_flags.append(f"Pipeline completed: {n_fixtures} fixtures processed")
+            except Exception as e:
+                all_flags.append(f"Pipeline completed (fixture count unavailable: {e})")
 
     # Render board
     if board:

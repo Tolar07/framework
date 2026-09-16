@@ -471,17 +471,26 @@ class FlashScoreFixturesSource(DataSource):
                         if not home_el or not away_el:
                             continue
 
-                        home_team = (await home_el.text_content() or "").strip()
-                        away_team = (await away_el.text_content() or "").strip()
+                        # Shares the sanitizer with scrape_live_odds_v3 rather
+                        # than keeping a second copy of the rule. This block is
+                        # a duplicate of that scraper's extraction, which is how
+                        # the annotation bug survived being fixed there: the
+                        # fix never reached the path the pipeline actually runs.
+                        from scripts.scrape_live_odds_v3 import clean_flashscore_team
+
+                        home_team = clean_flashscore_team(await home_el.text_content() or "")
+                        away_team = clean_flashscore_team(await away_el.text_content() or "")
                         match_time = (await time_el.text_content() or "").strip() if time_el else ""
 
                         # Get team name from image alt if available (more reliable)
                         img_h = await home_el.query_selector("img")
                         if img_h:
-                            home_team = await img_h.get_attribute("alt") or home_team
+                            alt_h = clean_flashscore_team(await img_h.get_attribute("alt") or "")
+                            home_team = alt_h or home_team
                         img_a = await away_el.query_selector("img")
                         if img_a:
-                            away_team = await img_a.get_attribute("alt") or away_team
+                            alt_a = clean_flashscore_team(await img_a.get_attribute("alt") or "")
+                            away_team = alt_a or away_team
 
                         if home_team and away_team:
                             results.append({

@@ -18,6 +18,41 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 from playwright.async_api import async_playwright
 
+# FlashScore nests progress annotations INSIDE the participant element, and
+# text_content() returns the whole subtree concatenated. On a cup tie that
+# yields "ArsenalAdvancing to next round: Arsenal" as the team name, which
+# matches no model key, so the fixture is rated NO DATA — PENDING and silently
+# leaves the board.
+#
+# Seen 2026-09-16 on the EFL Cup: 34 of 37 fixtures came back unrated for this
+# reason alone, while the model behind them rated 92 clubs perfectly well.
+#
+# Cut at the annotation rather than trying to enumerate team names.
+FLASHSCORE_NAME_ANNOTATIONS = (
+    "Advancing to next round",
+    "Advances to next round",
+    "Qualified for",
+    "Winner:",
+)
+
+
+def clean_flashscore_team(name: str) -> str:
+    """Strip FlashScore's progress annotations off a participant name.
+
+    Returns "" for a name that is nothing but an annotation, so the caller's
+    existing empty check drops the row instead of inventing a team.
+    """
+    if not name:
+        return ""
+    out = name.strip()
+    for marker in FLASHSCORE_NAME_ANNOTATIONS:
+        idx = out.find(marker)
+        if idx != -1:
+            out = out[:idx]
+    # Collapse the whitespace the concatenation leaves behind.
+    return re.sub(r"\s+", " ", out).strip()
+
+
 try:
     from playwright_stealth import Stealth
     _STEALTH = Stealth()
@@ -130,17 +165,22 @@ class FlashScoreFixturesScraper:
                 if not home_el or not away_el:
                     continue
 
-                home_team = (await home_el.text_content() or "").strip()
-                away_team = (await away_el.text_content() or "").strip()
+                home_team = clean_flashscore_team(await home_el.text_content() or "")
+                away_team = clean_flashscore_team(await away_el.text_content() or "")
 
-                # Get team name from image alt if available (more reliable)
+                # Get team name from image alt if available (more reliable).
+                # Cleaned too: the alt text carries the same annotation on some
+                # cup rows, and an alt that is nothing but an annotation must
+                # not overwrite a good name taken from the text.
                 img_h = await home_el.query_selector("img")
                 if img_h:
-                    home_team = await img_h.get_attribute("alt") or home_team
+                    alt_h = clean_flashscore_team(await img_h.get_attribute("alt") or "")
+                    home_team = alt_h or home_team
 
                 img_a = await away_el.query_selector("img")
                 if img_a:
-                    away_team = await img_a.get_attribute("alt") or away_team
+                    alt_a = clean_flashscore_team(await img_a.get_attribute("alt") or "")
+                    away_team = alt_a or away_team
 
                 match_datetime = (await time_el.text_content() or "").strip() if time_el else ""
 

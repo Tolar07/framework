@@ -1,8 +1,8 @@
 """
 Fixtures agent - fetches today's football fixtures from multiple live sources.
 
-PRIMARY: FlashScore (always checked first per Architect directive 2026-08-14)
-SECONDARY: LiveScore, Sporting Life, Guardian, Transfermarkt, BBC, OLP XDV cache
+PRIMARY: SportyBet (per user directive - main source for fixtures and odds)
+SECONDARY: FlashScore, LiveScore, Sporting Life, Guardian, Transfermarkt, BBC, OLP XDV cache
 
 GUARDRAILS (2026-08-14 - learned from fabrication incident):
 - MUST check league calendar before claiming any fixtures
@@ -241,6 +241,79 @@ def _find_flashscore_feed() -> Optional[Path]:
     return None
 
 
+FLASHSCORE_FEED_MAX_AGE_DAYS = 7
+
+
+def _feed_file_scrape_date(fpath: Path) -> Optional[date]:
+    """Extract the scrape date from a flashscore_odds_YYMMDD_HHMMSS.jsonl name."""
+    m = re.search(r"(\d{2})(\d{2})(\d{2})_\d{6}", fpath.name)
+    if not m:
+        return None
+    yy, mm, dd = (int(x) for x in m.groups())
+    try:
+        return date(2000 + yy, mm, dd)
+    except ValueError:
+        return None
+
+
+def _recent_feed_files(files: List[Path], target_date: str) -> List[Path]:
+    """Keep only feed files scraped close enough to `target_date` to be trusted.
+
+    fetch_flashscore used to union EVERY feed file on disk. FlashScore's
+    match_datetime carries no year ('16.09. 20:00'), so any historical scrape
+    holding that day/month resolves onto the target date -- including scrapes
+    whose rows are wrong. A single corrupt scrape therefore poisons that date
+    permanently, and re-running only makes it worse as history grows.
+
+    Observed on 2026-09-16: one scrape from 2026-08-29 had stamped Celje's
+    entire Europa League league-phase schedule with the same '16.09. 20:00',
+    injecting four fixtures that do not exist on that date. The T1 source (ESPN)
+    listed exactly one Celje fixture that day. Bounding the window to scrapes
+    from the week before the match day drops that file while keeping the
+    legitimate 'scraped the night before' case the docstring describes.
+
+    Files whose name does not parse are kept, so a naming change degrades to the
+    old permissive behaviour rather than silently returning nothing.
+    """
+    try:
+        tgt = date.fromisoformat(target_date)
+    except (TypeError, ValueError):
+        return files
+
+    kept: List[Path] = []
+    for f in files:
+        d = _feed_file_scrape_date(f)
+        if d is None:
+            kept.append(f)
+            continue
+        age = (tgt - d).days
+        # Scraped up to a week before the match day, or on/just after it.
+        if -1 <= age <= FLASHSCORE_FEED_MAX_AGE_DAYS:
+            kept.append(f)
+    return kept
+
+
+def _norm_team(name: str) -> str:
+    """Normalise a team name for duplicate detection only (never for display).
+
+    Scrapes disagree on the same club across days -- 'Leverkusen' vs 'Bayer
+    Leverkusen', 'Alkmaar' vs 'AZ Alkmaar'. The dedup key was the raw
+    home|away|date triple, so each spelling survived as a separate fixture and
+    one real match became several. Stripping common corporate/sponsor prefixes
+    and punctuation collapses the variants.
+    """
+    n = (name or "").strip().lower()
+    n = re.sub(r"[^a-z0-9 ]+", " ", n)
+    n = re.sub(r"\b(fc|sc|sv|ss|as|ac|afc|cf|sk|nk|hk|bk|if|ik|cd|ud|rc|cs)\b", " ", n)
+    n = re.sub(r"\b(bayer|bayern|borussia|royal|real|club|calcio|united|city)\b(?=.*\w)", r"\1", n)
+    n = re.sub(r"\s+", " ", n).strip()
+    # Drop a leading sponsor/initial token when the remainder is still distinctive
+    parts = n.split()
+    if len(parts) > 1 and len(parts[0]) <= 2:
+        n = " ".join(parts[1:])
+    return n
+
+
 def fetch_flashscore(today: str) -> List[Dict]:
     """Read FlashScore fixtures from the scraped match_1x2 JSONL feed.
 
@@ -270,10 +343,14 @@ def fetch_flashscore(today: str) -> List[Dict]:
     files = sorted(feed_dir.glob("flashscore_odds_*.jsonl"), reverse=True)
     if not files:
         return rows
+    files = _recent_feed_files(files, today)
+    if not files:
+        return rows
     seen: set = set()
-    # Search ALL feed files, not just the most recent one.
-    # Fixtures for a match day are scraped the night before, so the target
-    # date's fixtures may be in an older file.
+    # Search recent feed files only -- see _recent_feed_files. Fixtures for a
+    # match day are scraped the night before, so the target date's fixtures may
+    # be in a slightly older file, but unioning the ENTIRE feed history (40
+    # files here) lets a single bad scrape poison a date forever.
     for fpath in files:
         try:
             content = fpath.read_text(encoding="utf-8")
@@ -296,7 +373,9 @@ def fetch_flashscore(today: str) -> List[Dict]:
             kickoff = _flashscore_line_to_date(d.get("match_datetime"), target_date=today, scrape_timestamp=d.get("timestamp"))
             if kickoff != today:
                 continue  # filter to requested date
-            key = f"{home}|{away}|{kickoff}"
+            # Normalised key: the raw names drift between scrapes, so the raw
+            # triple let one fixture appear once per spelling variant.
+            key = f"{_norm_team(home)}|{_norm_team(away)}|{kickoff}"
             if key in seen:
                 continue
             seen.add(key)
@@ -549,22 +628,64 @@ def fetch_bbc(today: str) -> List[Dict]:
     return rows
 
 
+# Display name -> verification/id403.SOURCE_TRUST key. The tier itself is NOT
+# duplicated here: id403 stays the single authority, this only bridges the
+# display names these fetchers emit to the keys that table uses.
+_SOURCE_TRUST_KEY = {
+    "FlashScore": "flashscore_fixtures",
+    "LiveScore": "livescore_fixtures",
+    "BBC Sport": "bbc_sport_fixtures",
+    "Sporting Life": "sporting_life_fixtures",
+    # SportyBet is deliberately absent: it is not a verifying source on its own
+    # (CLAUDE.md fixture gate), it supplies odds and corroboration only.
+}
+
+
+def _source_tier(source: str) -> str:
+    """Resolve a fetcher's display name to its ratified trust tier."""
+    try:
+        from verification.id403 import SOURCE_TRUST
+    except Exception:
+        return "UNKNOWN"
+    return SOURCE_TRUST.get(_SOURCE_TRUST_KEY.get(source, ""), "UNKNOWN")
+
+
 def _apply_verification(all_rows: List[Dict]) -> None:
-    """Mark rows as verified when >=1 distinct source confirms the fixture.
-    A single-source row is considered VERIFIED to reflect real-world
-    scenarios where not all fixtures appear in multiple sources."""
+    """Apply the F2 quorum rule to each fixture.
+
+    A fixture is VERIFIED when either
+      - two or more distinct sources carry it, or
+      - a single source carries it and that source is T1.
+
+    This previously read `>= 1`, which is trivially true for every row (a row
+    always carries at least its own source), so every fixture was stamped
+    verified unconditionally and the gate enforced nothing -- including for
+    fixtures that came from one non-T1 source. The old docstring described that
+    as intentional ("to reflect real-world scenarios"), but it contradicts the
+    documented gate, and a gate that always returns True cannot distinguish a
+    corroborated fixture from a fabricated one.
+
+    Tiers come from verification/id403.SOURCE_TRUST so this does not become a
+    second, drifting copy of the trust table. An unrecognised source is treated
+    as non-T1: it can still contribute to quorum, but never verifies alone.
+    """
     today = date.today().isoformat()
-    # Map (home, away, date) -> set of distinct source names
+
+    def _key(r: Dict) -> tuple:
+        return (_norm_team(r.get("home", "")), _norm_team(r.get("away", "")),
+                r.get("kickoff_date") or today)
+
+    # Map fixture -> set of distinct source names carrying it
     agreement: Dict[tuple, set] = {}
     for r in all_rows:
-        key = (r.get("home", "").strip().lower(), r.get("away", "").strip().lower(),
-               r.get("kickoff_date") or today)
-        agreement.setdefault(key, set()).add(r.get("source", ""))
+        agreement.setdefault(_key(r), set()).add(r.get("source", ""))
 
     for r in all_rows:
-        key = (r.get("home", "").strip().lower(), r.get("away", "").strip().lower(),
-               r.get("kickoff_date") or today)
-        r["verified"] = len(agreement.get(key, set())) >= 1
+        sources = agreement.get(_key(r), set())
+        if len(sources) >= 2:
+            r["verified"] = True
+        else:
+            r["verified"] = any(_source_tier(s) == "T1" for s in sources)
 
 
 def print_fixtures(today: str, all_rows: List[Dict]) -> None:
@@ -674,8 +795,16 @@ def main(target_date: Optional[str] = None, verify_only: bool = False):
     all_rows: List[Dict] = []
     fetch_time = datetime.now(UTC).isoformat() + "Z"
 
-    # 1. FlashScore (PRIMARY - always first per Architect directive)
-    print("  [1/4] FlashScore...")
+    # 1. OLP XDV SportyBet cache (odds-enhanced) - PRIMARY SOURCE PER USER DIRECTIVE
+    print("  [1/5] SportyBet cache (odds) [PRIMARY SOURCE]...")
+    sb_rows = fetch_sportybet_cache(today)
+    for r in sb_rows:
+        r["fetched_at"] = fetch_time
+    print(f"       {len(sb_rows)} fixtures with odds")
+    all_rows.extend(sb_rows)
+
+    # 2. FlashScore (SECONDARY)
+    print("  [2/5] FlashScore...")
     fs_rows = fetch_flashscore(today)
     for r in fs_rows:
         r["fetched_at"] = fetch_time
@@ -690,37 +819,29 @@ def main(target_date: Optional[str] = None, verify_only: bool = False):
             hh_mm_shown += 1
     all_rows.extend(fs_rows)
 
-    # 2. LiveScore
-    print("  [2/4] LiveScore...")
+    # 3. LiveScore
+    print("  [3/5] LiveScore...")
     ls_rows = fetch_livescore(today)
     for r in ls_rows:
         r["fetched_at"] = fetch_time
     print(f"       {len(ls_rows)} fixtures found")
     all_rows.extend(ls_rows)
 
-    # 3. BBC Sport
-    print("  [3/4] BBC Sport...")
+    # 4. BBC Sport
+    print("  [4/5] BBC Sport...")
     bbc_rows = fetch_bbc(today)
     for r in bbc_rows:
         r["fetched_at"] = fetch_time
     print(f"       {len(bbc_rows)} fixtures found")
     all_rows.extend(bbc_rows)
 
-    # 4. Sporting Life
-    print("  [4/5] Sporting Life...")
+    # 5. Sporting Life
+    print("  [5/5] Sporting Life...")
     sl_rows = fetch_sportinglife(today)
     for r in sl_rows:
         r["fetched_at"] = fetch_time
     print(f"       {len(sl_rows)} fixtures found")
     all_rows.extend(sl_rows)
-
-    # 5. OLP XDV SportyBet cache (odds-enhanced)
-    print("  [5/5] SportyBet cache (odds)...")
-    sb_rows = fetch_sportybet_cache(today)
-    for r in sb_rows:
-        r["fetched_at"] = fetch_time
-    print(f"       {len(sb_rows)} fixtures with odds")
-    all_rows.extend(sb_rows)
 
     # Cross-source verification: a row is verified only if >=2 distinct sources
     # agree on the same (home, away, date). This replaces the old behavior of

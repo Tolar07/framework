@@ -33,6 +33,46 @@ except ImportError:
 
 log = logging.getLogger("multi_source.concrete")
 
+
+def _season_start_year(season) -> Optional[int]:
+    """Season code -> the calendar year the season STARTS in, or None.
+
+    Accepts the repo's 4-digit span codes ("2526" -> 2025, "2627" -> 2026),
+    a plain 4-digit calendar year ("2026" -> 2026), and an int.
+
+    Two bugs this replaces, both of which produced wrong fixtures silently:
+
+    - "2026" was read as a span code: int("2026"[:2]) + 2000 == 2020. A
+      four-digit calendar year became a season SIX YEARS earlier, and
+      api-football duly returned real fixtures from the wrong season.
+    - The None case claimed a fallback to the current year, but that
+      fallback lived in an `except` while the expression it guarded could
+      not raise on None -- the ternary simply returned None. So the
+      fallback was dead code in precisely the case it was written for.
+
+    None is still returned (and the caller still raises SourceNoData) when
+    the season genuinely cannot be resolved. HR35: an unknown season is
+    reported, never guessed at -- guessing is what put another season's
+    fixtures on the board in the first place.
+    """
+    if isinstance(season, int):
+        return season
+    if not isinstance(season, str) or not season.isdigit():
+        return None
+    if len(season) == 4:
+        # "2526"/"2627" are span codes; "2026"/"1998" are calendar years.
+        # A span code's two halves are consecutive; a year's are not.
+        first, second = int(season[:2]), int(season[2:])
+        if second == first + 1:
+            return 2000 + first          # "2627" -> 2026
+        if 1900 <= int(season) <= 2100:
+            return int(season)           # "2026" -> 2026
+        return None
+    if len(season) == 2:
+        return 2000 + int(season)        # "26" -> 2026
+    return None
+
+
 # =============================================================================
 # FIXTURES MULTI-SOURCE
 # =============================================================================
@@ -113,13 +153,7 @@ class APIFootballFixturesSource(DataSource):
         season_year = kwargs.get("season_year") or kwargs.get("api_football_season")
         from data.fixtures_source import fetch_upcoming, as_pairs
         if season_year is None:
-            try:
-                season_year = (int(season[:2]) + 2000
-                               if isinstance(season, str) and season.isdigit() else season)
-            except Exception:
-                # If we still can't resolve season, try to get current year as fallback
-                from datetime import date
-                season_year = date.today().year
+            season_year = _season_start_year(season)
         if season_year is None:
             raise SourceNoData(f"api_football: cannot resolve season {season!r} for {league}")
         fixtures = fetch_upcoming(league, season_year, days_ahead=kwargs.get("days_ahead", 14))

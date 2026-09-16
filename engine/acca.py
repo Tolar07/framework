@@ -664,12 +664,20 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
                          f"{code or 'NO DATA — PENDING'} "
                          f"{_stamp_for(leg)}")
 
-    # ID420 WATCHLIST (Architect 2026-08-19): legs with odds > 2.00 — flagged for
-    # review, NOT capital-eligible. These do not enter Acca A, split accas, or
-    # singles. The Architect reviews the watchlist separately.
+    # ID420 WATCHLIST: legs priced above MAX_ODDS_CAP — flagged for review, NOT
+    # capital-eligible. These do not enter Acca A, split accas, or singles. The
+    # Architect reviews the watchlist separately.
+    #
+    # The threshold is interpolated from MAX_ODDS_CAP, not hardcoded. It was
+    # written as a literal "2.00" (the Architect 2026-08-19 value) and did not
+    # follow the cap when it was tightened to 1.50 on 2026-09-01 -- so the board
+    # captured legs above 1.50 while telling the reader the line was 2.00. On a
+    # board whose purpose includes showing WHY a leg was excluded, a stale
+    # threshold is a wrong answer, not a cosmetic one.
     if bets.watchlist:
         lines.append("")
-        lines.append("  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only")
+        lines.append(f"  ⚠ WATCHLIST (ID420 — odds > {MAX_ODDS_CAP:.2f}) "
+                     f"— NOT CAPITAL, review only")
         for leg in bets.watchlist:
             lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
                          f"@ {leg.price:.2f}  edge {leg.edge:+.2%}  "

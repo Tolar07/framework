@@ -152,7 +152,16 @@ def safe_navigate(page, url: str, max_retries: int = 2,
 
 from booking.league_map import SPORTYBET_LEAGUES
 from booking.bridge import load_sportybet_fixtures
-from booking.sportybet_fixtures import _navigate_to_league as _navigate_to_league
+# _navigate_to_league lives in poc_book_single, NOT sportybet_fixtures. The old
+# import raised ImportError at module load, so this entire module -- and the
+# four that depend on it (book_subset, full_board_booking_codes,
+# heartbeat_booking, and the run_daily booking flow) -- could not be imported at
+# all. That is why every board row rendered "Booking Code: NO DATA — PENDING".
+# sportybet_fixtures itself calls _navigate_to_league at line 79 without
+# defining or importing it, so no name of that form has existed there for some
+# time; the earlier fix attempt only swapped one absent name for another.
+# Fixed 2026-09-16 on explicit Architect approval (protected file).
+from booking.poc_book_single import _navigate_to_league as _navigate_to_league
 
 BASE_URL = "https://www.sportybet.com.ng"
 BOARD_DIR = Path(__file__).parent.parent / "output" / "boards"
@@ -702,12 +711,12 @@ def read_betslip_combined_odds(page: Page,
                     candidates.append((val, is_combined))
     if not candidates:
         return None
-    # Exclude obvious placeholder / stake-% artefacts.
+    # Exclude obvious stake-% artefacts.
     EXCLUDED = {50.0, 100.0, 200.0, 1000.0}
     in_range = [(v, on) for v, on in candidates
                 if 1.01 <= v <= 10000.0 and v not in EXCLUDED]
     if not in_range:
-        # All candidates were excluded (placeholder/artefact values like 50/100/200)
+        # All candidates were excluded (stake-% artefact values like 50/100/200)
         return None
 
     if expected is not None:
@@ -874,7 +883,12 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
     # Import inside function — bypasses ALL bytecode/stale-cache issues.
     # The module-level import at line 60 works in REPL but fails at runtime
     # when run_daily spawns the booking flow (observed 2026-08-23).
-    from booking.sportybet_fixtures import _navigate_to_league_sync as _navigate_to_league_local
+    # Same correction as the module-level import above: the function is in
+    # poc_book_single. _navigate_to_league_sync no longer exists anywhere in
+    # the tree -- poc_book_single's docstring still refers to it, but the only
+    # surviving implementation is the sync _navigate_to_league, which is what
+    # all nine call sites below expect (they call it without await).
+    from booking.poc_book_single import _navigate_to_league as _navigate_to_league_local
 
     per_leg: List[dict] = []
     added = 0

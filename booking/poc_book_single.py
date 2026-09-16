@@ -66,15 +66,21 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
     # left every leg MANUAL with no code. Same wrong-module import as
     # _navigate_to_league had in booking_codes.
     from booking.rebuild_cache import SPORTYBET_CATEGORY_TOURNAMENT
+    # host/ip are bound unconditionally: the popular-list fallback further down
+    # references both, but they used to be assigned ONLY inside the
+    # `if cat_tour...` branch below. Any league without a resolved tournament id
+    # therefore raised UnboundLocalError ("cannot access local variable 'host'")
+    # from inside the booking driver, which surfaced per leg as
+    # "MANUAL - driver error" and produced no code.
+    host = "sportybet.com.ng"
+    try:
+        ip = socket.gethostbyname(host)
+    except Exception:
+        ip = None
+
     cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
     if cat_tour and cat_tour[0] != 0:
         cat_id, tour_id = cat_tour
-        host = "sportybet.com.ng"
-        # Try to resolve the host to an IP to use in URL as fallback
-        try:
-            ip = socket.gethostbyname(host)
-        except Exception:
-            ip = None
         # First try the domain name (with resolver rule in effect)
         direct_url = f"https://{host}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{tour_id}?source=sport_menu&sort=2"
         try:

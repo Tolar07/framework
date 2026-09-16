@@ -260,7 +260,9 @@ def _enrich_fixtures_with_models(
     from engine import cross_league as xleague
     from engine import elo as elo_engine
     from engine.consensus import compute_consensus
-    from engine.dixon_coles import fit, predict, predict_adjusted, FixtureProbabilities
+    from engine.dixon_coles import (fit, predict, predict_adjusted,
+                                    FixtureProbabilities,
+                                    PRODUCTION_MIN_MATCHES_PER_TEAM)
     from brain.store import Brain, content_hash, elo_to_payload, elo_from_payload, dc_to_payload, dc_from_payload
     from data.football_data_source import UNCOVERED_LEAGUES
     from booking.bridge import get_sportybet_odds_for_leg
@@ -392,7 +394,10 @@ def _enrich_fixtures_with_models(
                 if row is not None and row["content_hash"] == carry_hash:
                     carry_model = dc_from_payload(row["payload"])
                 else:
-                    carry_model = fit(carry_results)
+                    carry_model = fit(
+                        carry_results,
+                        min_matches_per_team=PRODUCTION_MIN_MATCHES_PER_TEAM,
+                    )
                     if brain:
                         brain.save_model_state(
                             f"dc:{league}:carry", "dc", 1, carry_hash,

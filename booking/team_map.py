@@ -31,6 +31,26 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Ath Madrid":  "Atletico Madrid",
     "La Coruna":   "RC Deportivo de A Coruna",
     "Santander":   "Racing Santander",
+    #
+    # Second sweep, 2026-09-16: ran every club in the day's cache through
+    # resolve_team_to_model and checked the result against the model keys the
+    # loaded tiers actually provide. Five more in COVERED leagues failed the
+    # same way -- the pair stored backwards, or as an identity:
+    #
+    #   "AC Milan": "Milan"                  reverse gave Milan -> AC Milan
+    #   "Bayer Leverkusen": "Leverkusen"     reverse gave Leverkusen -> Bayer...
+    #   "Nottingham Forest": "Nott'm Forest" reverse gave Nott'm Forest -> ...
+    #   "Coventry City": "Coventry City"     identity; model key is "Coventry"
+    #   "Hull City": "Hull City"             identity; model key is "Hull"
+    #
+    # Each is the SportyBet spelling on the left of the original entry where it
+    # should have been on the right, so the reverse lookup handed back a name
+    # the fit has never seen. Left as-is below for forward lookups.
+    "Milan":         "AC Milan",
+    "Leverkusen":    "Bayer Leverkusen",
+    "Nott'm Forest": "Nottingham Forest",
+    "Coventry":      "Coventry City",
+    "Hull":          "Hull City",
     # --- end reverse-precedence block ---------------------------------------
     "07 Vestur Sorvagur": "07 Vestur Sorvagur",
     "1 FC Kaiserslautern": "1 FC Kaiserslautern",

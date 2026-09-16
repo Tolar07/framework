@@ -180,8 +180,14 @@ class ESPNFixturesSource(DataSource):
         fixtures, skipped = espn_source.fetch_upcoming(
             league, fixtures_season, days_ahead=days_ahead)
         if not fixtures:
-            # Return empty dict instead of raising SourceNoData
-            return {"fixtures": [], "dates": {}, "skipped": len(skipped),
+            # `skipped` is already a COUNT (espn_source.fetch_upcoming returns
+            # total_skipped, an int). len() on it raised TypeError on every
+            # empty result -- so the one branch whose whole job is to report
+            # "no data, try the next source" was the branch that crashed, and
+            # ESPN could never act as a fallback. Seen 2026-09-16 on Copa del
+            # Rey: "object of type 'int' has no len()", twice, then the chain
+            # gave up.
+            return {"fixtures": [], "dates": {}, "skipped": skipped,
                     "source": "espn_empty"}
         pairs = espn_source.as_pairs(fixtures)
         dates = {(f.home_team, f.away_team): f.date for f in fixtures}

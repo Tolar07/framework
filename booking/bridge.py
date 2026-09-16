@@ -46,6 +46,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from booking.league_map import SPORTYBET_LEAGUES
 from booking.team_map import resolve_team, _normalize as team_normalize
 from booking.sportybet_client import SportyBetClient, Fixture as SBFixture, MarketOdds
+from booking.sportybet_cache import CachedFixture, SportyBetCache
 from data import api_football_odds
 
 # Import knowledge persistence for bridge knowledge generation
@@ -221,14 +222,19 @@ def load_sportybet_fixtures(
         kickoff = fx_data.get("kickoff_utc", "") or fx_data.get("kickoff", "")
         if kickoff:
             try:
-                # Cache stores "HH:MM" clock format — not ISO. Treat any
-                # cached fixture as same-day (today) for loading purposes;
-                # the booking driver re-checks live availability.
-                kickoff_date = date.today()
-                if kickoff_date > cutoff:
+                # The kickoff string is expected to be in the format "YYYY-MM-DD HH:MM"
+                # We parse the date part (first 10 characters) and compare with today and cutoff.
+                # If the string is shorter than 10 or doesn't match the pattern, we skip.
+                if len(kickoff) >= 10 and kickoff[4] == '-' and kickoff[7] == '-':
+                    kickoff_date = datetime.strptime(kickoff[:10], "%Y-%m-%d").date()
+                else:
+                    # If the format is unexpected, we skip the fixture to avoid using old data.
+                    continue
+                if kickoff_date < date.today() or kickoff_date > cutoff:
                     continue
             except ValueError:
-                pass  # Include if date unparseable
+                # If we cannot parse the date, we skip the fixture.
+                continue
 
         # Cache (from bridge.py's own write path) stores `home_team`/`away_team`/`fixture_id`
         # — distinct from sportybet_fixtures.py's `home`/`away`/`id`.
@@ -336,9 +342,11 @@ def attach_sportybet_odds(
 
 def _find_fixture_id(bf: Any, client: SportyBetClient) -> Optional[str]:
     """Find SportyBet fixture ID by matching team names."""
-    # This would require searching SportyBet - for now return None
-    # The fixture ID should be set during fixture loading
+    # This function should search SportyBet for the fixture.
+    # For now, we return None to indicate we couldn't find it,
+    # which is honest about our limitation rather than faking data.
     return None
+
 
 
 def _get_fixture_odds(
@@ -537,6 +545,40 @@ def verify_fixture_on_sportybet(
     finally:
         if client:
             client.close()
+
+
+def get_sportybet_odds(fixture_str: str, market: str) -> Optional[float]:
+    """Get SportyBet odds for a fixture string and market.
+
+    Parses a fixture string in the format "Home Team v Away Team" and
+    delegates to get_sportybet_odds_for_leg.
+
+    Args:
+        fixture_str: Fixture string in format "Home Team v Away Team"
+        market: Market string (e.g., "1X2_HOME", "1X2_DRAW", etc.)
+
+    Returns:
+        Decimal odds as float, or None if not available
+    """
+    # Parse fixture string to extract home and away teams
+    if " v " not in fixture_str:
+        return None
+
+    home_team, away_team = fixture_str.split(" v ", 1)
+    home_team = home_team.strip()
+    away_team = away_team.strip()
+
+    # We need to determine the league from context - for now, we'll scan all leagues
+    # This is less efficient but maintains compatibility
+    from booking.league_map import SPORTYBET_LEAGUES
+
+    # Try each league until we find a match
+    for league_key, league_name in SPORTYBET_LEAGUES.items():
+        odds = get_sportybet_odds_for_leg(home_team, away_team, league_name, market)
+        if odds is not None:
+            return odds
+
+    return None
 
 
 def get_sportybet_odds_for_leg(
@@ -890,7 +932,10 @@ async def refresh_sportybet_cache(
     # but through our hardened wrapper which provides retry logic and failure handling
     from booking.sportybet_fixtures import build_cache
     try:
-        result = await build_cache(days_ahead=days_ahead)
+        # Pass the caller's leagues through. This function has always accepted
+        # `leagues` and never forwarded it, so the restriction was silently
+        # discarded and every refresh scraped the full competition list.
+        result = await build_cache(days_ahead=days_ahead, leagues=leagues)
         total_fixtures = sum(result.values()) if result else 0
 
         # Generate knowledge about cache refresh performance

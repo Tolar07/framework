@@ -27,7 +27,8 @@ from data.football_data_source import load_league, MatchResult
 from engine.dixon_coles import fit, predict
 from engine import markets as mkt
 from engine.leagues import WHITELISTED_LEAGUES, is_deploy_eligible, build_deploy_shortlist
-from engine.mes import edge_diff
+from engine.mes import edge_diff, mes_numeric_ev
+from engine.markets import blend_toward_market
 
 # Mirrors run_daily.MIN_MES_FLOOR (2026-08-14, gambler move #3): the default EV
 # floor to log a paper leg. Defined locally to avoid importing the daily runner.
@@ -161,6 +162,22 @@ def _best_leg_for_fixture(result: MatchResult, probs, fx: MockFixtureOdds,
         # Edge (canonical: model_prob - implied_prob)
         edge = edge_diff(prob, entry_price)
         if edge is None or edge < MIN_MES_FLOOR:
+            continue
+
+        # `ev` and `mes` were referenced by the candidate dict below but never
+        # computed -- this function raised NameError on its first candidate.
+        # Reinstated by mirroring engine/acca.py:339-341, which this block's
+        # own comment says it copies ("EXACT logic from acca.py"):
+        #     prob_ev = blend_toward_market(prob, book_p) if book_p is not None else prob
+        #     edge    = edge_diff(prob, price)              # canonical edge
+        #     ev      = mes_numeric_ev(prob_ev, price)      # blended EV (ID414)
+        # ARCHITECT: confirm `mes` is meant to be the canonical edge here. The
+        # two keys must differ (both are in the dict), and `edge` is the value
+        # this loop already gates on, so that is the reading taken.
+        prob_ev = blend_toward_market(prob, book_p) if book_p is not None else prob
+        ev = mes_numeric_ev(prob_ev, entry_price)
+        mes = edge
+        if ev is None:
             continue
 
         # Closing price for CLV

@@ -68,7 +68,7 @@ except ImportError:
 
 from config import PHASE, PHASE_LABEL, PAPER_PHASE, CAPITAL_ENABLED
 from clv.clv_logger import CLVLog
-from output.notify import send_telegram, HONEST_CAVEAT, add_subscriber
+from output.notify import send_telegram, HONEST_CAVEAT, add_subscriber, SUBSCRIBERS_FILE
 from output.render_fixture_list import render_fixture_list
 from output.produce_bet import BoardFixture, VerificationResult
 from engine.dixon_coles import FixtureProbabilities

@@ -18,7 +18,15 @@ This module provides:
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Optional, List, Tuple
+from typing import TYPE_CHECKING, Optional, List, Tuple
+
+if TYPE_CHECKING:
+    # Circular at import time: output.produce_bet imports validate_the_call
+    # from this module, so BoardFixture can only be referenced as an
+    # annotation. `from __future__ import annotations` keeps these lazy at
+    # runtime; this guarded import is what makes them resolvable to a type
+    # checker and to typing.get_type_hints().
+    from output.produce_bet import BoardFixture
 
 
 def validate_the_call(board: List[BoardFixture]) -> List[BoardFixture]:

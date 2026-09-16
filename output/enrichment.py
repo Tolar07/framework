@@ -25,6 +25,7 @@ import json
 import logging
 from dataclasses import dataclass
 from datetime import date
+from pathlib import Path
 from typing import Callable, Optional
 
 logger = logging.getLogger("enrichment")

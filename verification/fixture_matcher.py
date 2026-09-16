@@ -144,6 +144,27 @@ TEAM_ALIASES = {
     "h beer sheva": "hapoel beer sheva",         # FlashScore "H. Beer Sheva"
     "omonia nicosia": "omonia",
     "olympiacos piraeus": "olympiacos",
+    # --- football-data.co.uk roster names -------------------------------
+    # The Dixon-Coles fits are built from football-data's abbreviations, so
+    # these map the fitted roster onto the same canonical form the fixture
+    # sources normalise to. Without them a club is rated in the model but
+    # unreachable from the board, and the fixture renders NO DATA - PENDING.
+    "ath madrid": "atletico madrid",
+    "club atletico de madrid": "atletico madrid",
+    "ath bilbao": "athletic bilbao",
+    "celta": "celta vigo",
+    "rc celta de vigo": "celta vigo",
+    "rc deportivo la coruna": "deportivo la coruna",
+    "la coruna": "deportivo la coruna",
+    "espanol": "espanyol",
+    "rcd espanyol de barcelona": "espanyol",
+    "deportivo alaves": "alaves",
+    "ca osasuna": "osasuna",
+    "real betis": "betis",
+    "sp moscow": "spartak moscow",
+    "lok moscow": "lokomotiv moscow",
+    "lokomotiv": "lokomotiv moscow",
+    "zenit st petersburg": "zenit saint petersburg",
     "zenit": "zenit saint petersburg",
     "spartak moscow": "spartak moscow",
 }
@@ -165,7 +186,10 @@ _TOKEN_EXPANSIONS = {
     "utd": "united",
     "sheff": "sheffield",
     "atl": "atletico",
-    "ath": "athletic",
+    # "ath" is deliberately NOT expanded. In football-data naming it is
+    # ambiguous: "Ath Madrid" is Atletico Madrid while "Ath Bilbao" is Athletic
+    # Bilbao, so a blanket ath->athletic would silently rewrite Atletico into
+    # Athletic. Both forms are handled by explicit aliases below instead.
     "din": "dinamo",
     "dyn": "dinamo",
     "lok": "lokomotiv",

@@ -23,6 +23,9 @@ PAGE_LOAD_TIMEOUT = 45_000
 BOOKER_CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
 FALLBACK_IPS = ["104.21.10.148", "172.67.163.154"]
 
+# Pause between competitions so a multi-league pass is not refused part-way.
+INTER_LEAGUE_DELAY_S = 4.0
+
 # (sr:category, sr:tournament) per league, used to build the direct SportyBet URL.
 #
 # REBUILT 2026-09-16 from SportyBet's own factsCenter/popularAndSportList API
@@ -844,7 +847,17 @@ def _write_cache(league: str, country: str, fixtures: List[CachedFixture]) -> No
     safe_print(f"  → wrote {path.name} ({len(fixtures)} fixtures)")
 
 
-async def main():
+async def main(leagues: Optional[List[str]] = None) -> Dict[str, int]:
+    """Rebuild the SportyBet fixture cache.
+
+    `leagues` restricts the scrape to the competitions the caller actually
+    needs. That matters for more than speed: SportyBet throttles, and scraping
+    30 competitions to serve a board that references 4 is what gets the whole
+    run refused. Callers should pass the board's own leagues.
+
+    Returns {league: fixture_count}, so the caller can report what was actually
+    cached rather than guessing.
+    """
     launch_args = _build_launch_args()
     safe_print(f"Launch args: {launch_args}")
 
@@ -864,12 +877,21 @@ async def main():
     # resolved SportyBet tournament id that the booker also knows how to
     # navigate. Adding a league to the registry now reaches the cache
     # automatically instead of needing this list edited too.
-    target_leagues = sorted(
-        lg for lg, ids in SPORTYBET_CATEGORY_TOURNAMENT.items()
-        if ids != (0, 0) and lg in SPORTYBET_LEAGUES
-    )
-    safe_print(f"Cache targets: {len(target_leagues)} competitions "
-               f"(derived from resolved tournament ids)")
+    bookable = {lg for lg, ids in SPORTYBET_CATEGORY_TOURNAMENT.items()
+                if ids != (0, 0) and lg in SPORTYBET_LEAGUES}
+
+    if leagues:
+        # Only what the caller asked for, intersected with what is actually
+        # bookable. Keeps the request count proportional to the board.
+        target_leagues = sorted(set(leagues) & bookable)
+        skipped = sorted(set(leagues) - bookable)
+        if skipped:
+            safe_print(f"  [INFO] not bookable, skipped: {', '.join(skipped[:8])}")
+    else:
+        target_leagues = sorted(bookable)
+
+    safe_print(f"Cache targets: {len(target_leagues)} competitions"
+               f"{' (caller-restricted)' if leagues else ' (all bookable)'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=launch_args)
@@ -881,11 +903,20 @@ async def main():
         page = await ctx.new_page()
 
         total = 0
-        for lg in target_leagues:
+        per_league: Dict[str, int] = {}
+        for idx, lg in enumerate(target_leagues):
             mapping = SPORTYBET_LEAGUES.get(lg)
             if not mapping:
                 safe_print(f"  [WARN] {lg} not in SPORTYBET_LEAGUES")
                 continue
+
+            # Space the requests out. Scraping competitions back to back is what
+            # gets the run refused part-way through -- once SportyBet starts
+            # throttling, every remaining league returns nothing and the cache
+            # ends up partially populated with no indication why. A short pause
+            # costs seconds and keeps the whole pass usable.
+            if idx:
+                await asyncio.sleep(INTER_LEAGUE_DELAY_S)
 
             # Create a closure that captures the league and country for the scrape function
             async def scrape_league_closure():
@@ -903,6 +934,7 @@ async def main():
                 if fixtures:
                     _write_cache(lg, mapping.country, fixtures)
                     total += len(fixtures)
+                    per_league[lg] = len(fixtures)
                     if result.error:  # Indicates fallback was used
                         safe_print(f"  [INFO] {lg}: used fallback cache ({result.error})")
                 else:
@@ -911,7 +943,14 @@ async def main():
                 safe_print(f"  [ERROR] {lg}: failed to get fixtures: {result.error}")
 
         await browser.close()
-        safe_print(f"\n=== DONE: {total} total fixtures cached ===")
+        safe_print(f"\n=== DONE: {total} total fixtures cached "
+                   f"across {len(per_league)} competition(s) ===")
+        # Returned so callers report what was really cached. build_cache used to
+        # `return {}` with a note that counts were "logged during rebuild", so
+        # every run announced "0 fixtures across 0 leagues" no matter what was
+        # scraped -- a false alarm that masked both real failures and real
+        # successes for weeks.
+        return per_league
 
 
 if __name__ == "__main__":

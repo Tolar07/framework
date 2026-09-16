@@ -1,7 +1,8 @@
 async def build_cache(
     days_ahead: int = 3,
     headless: bool = True,
-    cache_dir: str = ""
+    cache_dir: str = "",
+    leagues: list[str] | None = None,
 ) -> dict[str, int]:
     """Build SportyBet fixture cache for all leagues needed by today's acca.
 
@@ -23,12 +24,11 @@ async def build_cache(
     # Import the rebuild logic
     from booking.rebuild_cache import main as _rebuild_main
 
-    # Run the rebuild
-    await _rebuild_main()
-
-    # Return fixture counts for each league checked
-    # For now return empty dict - the actual counts are logged during rebuild
-    return {}
+    # Run the rebuild, restricted to the competitions the caller needs.
+    # `leagues` was previously accepted by refresh_sportybet_cache and dropped
+    # here, so every refresh scraped the full list regardless of what the board
+    # actually referenced -- more requests, more throttling, same result.
+    return await _rebuild_main(leagues=leagues) or {}
 
 
 def _fixture_changed(prior: CachedFixture, current: CachedFixture) -> bool:

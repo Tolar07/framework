@@ -317,14 +317,22 @@ def _prefetch_stage(board_date: str, season: str, fixtures_season: str | None,
     )
 
 
-def _refresh_sportybet_cache(runlog: Path) -> Optional[str]:
-    """Refresh SportyBet fixture cache with headless browser."""
+def _refresh_sportybet_cache(runlog: Path, leagues: Optional[list] = None) -> Optional[str]:
+    """Refresh SportyBet fixture cache with headless browser.
+
+    `leagues` should be the competitions the board actually references. The
+    cache exists to price THIS board, and SportyBet throttles: scraping 30
+    competitions to serve a board that names 4 is what gets a pass refused
+    part-way, leaving the cache half-filled with no indication why. Falls back
+    to SCAN_LEAGUES when the caller has nothing more specific.
+    """
     try:
         from booking.bridge import refresh_sportybet_cache
-        _mark(runlog, "Refreshing SportyBet cache...")
+        targets = list(leagues) if leagues else SCAN_LEAGUES
+        _mark(runlog, f"Refreshing SportyBet cache ({len(targets)} competitions)...")
         import asyncio
         # Run the async function in a new event loop
-        result = asyncio.run(refresh_sportybet_cache(leagues=SCAN_LEAGUES, days_ahead=3))
+        result = asyncio.run(refresh_sportybet_cache(leagues=targets, days_ahead=3))
         total = sum(result.values()) if result else 0
         _mark(runlog, f"SportyBet cache refreshed: {total} fixtures")
         return f"SportyBet cache refreshed: {total} fixtures across {len(result)} leagues"
@@ -415,7 +423,24 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
 
     # --- warm the SportyBet fixture cache BEFORE the scan ---
     if refresh_sportybet:
-        flag = _refresh_sportybet_cache(runlog)
+        # Scrape only the competitions this board references. The Stage A
+        # artifact already knows them -- it is the verified slate for this
+        # date -- so read the leagues off it rather than scraping everything.
+        _cache_leagues = None
+        try:
+            _sa = Path(__file__).parent / "data" / "stage_a_output" / \
+                f"fixtures_{board_date}_{fixtures_season or next_season_code(season)}.json"
+            if _sa.exists():
+                _cache_leagues = sorted({
+                    f.get("league") for f in json.loads(
+                        _sa.read_text(encoding="utf-8")).get("fixtures", [])
+                    if f.get("league")
+                })
+        except Exception:
+            # Falling back to the full list is safe; it is only slower.
+            _cache_leagues = None
+
+        flag = _refresh_sportybet_cache(runlog, leagues=_cache_leagues)
         if flag:
             all_flags.append(flag)
 

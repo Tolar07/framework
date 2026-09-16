@@ -4,3 +4,7 @@ requests>=2.31
 anthropic>=0.40
 playwright>=1.40
 tweepy>=4.14
+# Imported by send_board.py, send_heartbeat.py, check_plan.py and test_plan.py
+# but never declared. Those modules raised ModuleNotFoundError on any machine
+# that had not installed it by hand -- including CI.
+python-dotenv>=1.0

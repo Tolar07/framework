@@ -115,6 +115,16 @@ class CachedFixture:
     away: str
     kickoff: str
     league: str
+    # 1X2 prices read off the fixture row. These are the field names
+    # booking.bridge builds PipelineFixture from (`fx_data.get("home_odds")`),
+    # so they must be top-level -- the writer only ever emitted `raw_market`,
+    # which nothing reads, and the odds were never captured at all. Every
+    # cached fixture carried raw_market: {} and therefore no price, so no leg
+    # could ever be priced from SportyBet. None means not readable (HR35),
+    # never a guessed number.
+    home_odds: Optional[float] = None
+    draw_odds: Optional[float] = None
+    away_odds: Optional[float] = None
     raw_market: Dict[str, Any] = None
 
     def __post_init__(self):
@@ -301,6 +311,34 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
                 clock_el = await row.query_selector(".clock-time")
                 kickoff_time = (await clock_el.inner_text()).strip() if clock_el else ""
 
+                # 1X2 prices. The row renders them as .m-outcome-odds in
+                # home/draw/away order, followed by the goals markets --
+                # verified on the live Europa League page, where OFI Crete v
+                # Hoffenheim read ['7.58', '5.38', '1.42', '1.84', '2.00'].
+                # These were never read: every cached fixture had raw_market: {}
+                # and no price, so nothing downstream could price a leg from
+                # SportyBet even when the cache was otherwise correct.
+                h_odds = d_odds = a_odds = None
+                try:
+                    odds_els = await row.query_selector_all(".m-outcome-odds")
+                    vals = []
+                    for oe in odds_els[:3]:
+                        raw = (await oe.inner_text()).strip()
+                        try:
+                            v = float(raw)
+                        except (TypeError, ValueError):
+                            v = None
+                        # A decimal price is > 1.0 by definition; anything else
+                        # is a handicap line or placeholder, not a price.
+                        vals.append(v if (v is not None and v > 1.0) else None)
+                    while len(vals) < 3:
+                        vals.append(None)
+                    h_odds, d_odds, a_odds = vals[0], vals[1], vals[2]
+                except Exception:
+                    # Unreadable odds leave the fixture priceless rather than
+                    # dropping it -- identity is still useful for booking.
+                    pass
+
                 if home and away and kickoff_time:
                     # Combine date with time to create ISO datetime
                     fixture_date = date_map.get(i)
@@ -329,6 +367,9 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
                         away=away,
                         kickoff=kickoff_iso,  # Now stores full ISO datetime
                         league=league,
+                        home_odds=h_odds,
+                        draw_odds=d_odds,
+                        away_odds=a_odds,
                         raw_market={}
                     ))
             except Exception:

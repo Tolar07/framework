@@ -43,8 +43,26 @@ import logging
 from pathlib import Path
 from typing import Dict, Any
 
-# Import league verifier for pre-pipeline validation
-from engine.league_verifier import LeagueVerifier, run_daily_league_verification
+# Import league verifier for pre-pipeline validation.
+#
+# engine/league_verifier.py has never been committed to this repository -- no
+# commit in history adds it, and it is not gitignored. It exists only as an
+# untracked file on whichever machine wrote these call sites. A hard import
+# therefore made this module, and with it run_daily.py, impossible to import
+# from a clean clone: the entire daily pipeline was unrunnable anywhere but
+# that one laptop.
+#
+# The only consumer of these names (see "League Verification" below) is
+# already wrapped in try/except and documented "Don't halt the pipeline for
+# verification failures" -- it logs league coverage and nothing more; it gates
+# no bet, no leg and no publish. So a missing verifier is degraded to a loud
+# warning at the call site rather than a dead import. HR35: the gap is
+# reported, never silently treated as "verification passed".
+try:
+    from engine.league_verifier import LeagueVerifier, run_daily_league_verification
+except ModuleNotFoundError:
+    LeagueVerifier = None
+    run_daily_league_verification = None
 
 logger = logging.getLogger(__name__)
 
@@ -1893,7 +1911,14 @@ def main() -> None:
         try:
             flashscore_file = "flashscore_leagues_sep4.json"
             flashscore_path = Path(flashscore_file)
-            if flashscore_path.exists():
+            if run_daily_league_verification is None or LeagueVerifier is None:
+                logger.warning(
+                    "League verification UNAVAILABLE: engine/league_verifier.py "
+                    "is not present in this checkout (it has never been committed). "
+                    "Proceeding WITHOUT league-coverage verification -- coverage is "
+                    "NOT confirmed, it is simply unmeasured."
+                )
+            elif flashscore_path.exists():
                 logger.info("Running daily league verification...")
                 verification_report = run_daily_league_verification(str(flashscore_path))
 

@@ -152,8 +152,15 @@ def _write_acca_payload(board_date: str, stage_b) -> Optional[Path]:
     if route is None:
         return None
 
-    accas = [a for a in (getattr(route, "acca_a", None), getattr(route, "acca_b", None))
+    # Read the full list. Taking acca_a/acca_b only would cap the BOOKING
+    # payload at two regardless of how many the route carries, so accas C and D
+    # would render on the board and then never reach booking_codes — visible to
+    # the Architect, silently unbookable.
+    accas = [a for a in (getattr(route, "accas", None) or [])
              if a is not None and (getattr(a, "legs", None) or [])]
+    if not accas:
+        accas = [a for a in (getattr(route, "acca_a", None), getattr(route, "acca_b", None))
+                 if a is not None and (getattr(a, "legs", None) or [])]
 
     # The single best standalone leg rides along as its own one-leg acca, the
     # same way the booker treats singles.

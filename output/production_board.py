@@ -340,15 +340,18 @@ def _no_data_footer(unresolved: list[str], run_id: str) -> str:
 # ---------------------------------------------------------------------------
 # §4.2 formation constants. The Architect specified 5 legs per acca.
 LEGS_PER_ACCA = 5
-# §4.3 UNRESOLVED DIRECTIVE CONFLICT — left at 2 deliberately.
+# §4.3 CONFLICT RESOLVED — Architect ruling 2026-09-17: FOUR accas.
 #
-# The Architect described (17 Sep) 16 picks -> accas of 5 legs, 20+ picks ->
-# more accas, which implies 3-4 accas per session. The standing rule is 2 accas
-# + 1 SLV, explicitly reaffirmed 14-15 Aug when raising it to 4-5 was rejected.
-# HR56 makes both binding until a LATER explicit directive resolves them, so
-# this stays at 2 and the board PRINTS that it is capped. Changing it is a
-# one-line config edit once the Architect rules.
-MAX_ACCAS = 2
+# The spec recorded a genuine clash: the Architect's 17 Sep description (16
+# picks -> accas of 5 legs; 20+ picks -> more) implied 3-4, while the standing
+# rule reaffirmed 14-15 Aug was 2 accas + 1 SLV. HR56 makes both binding until a
+# LATER explicit directive resolves them; that directive is the 2026-09-17
+# ruling and this is it. Left at 2 until then, and the board printed that it was
+# capped, rather than either number being assumed.
+#
+# Must stay equal to pipeline.production_stage_b.VEHICLE_ACCA_MAX — that is
+# where the route is actually truncated. This constant only labels the board.
+MAX_ACCAS = 4
 MIN_SHORT_ACCA = 3          # §4.2 remainder threshold
 ACCA_ODDS_CEILING = 1.50    # §4.1(3) ID420 per-leg ceiling
 
@@ -415,8 +418,14 @@ def render_acca_route(route, n_scanned: int) -> str:
     if route is None:
         return ""
 
-    accas = [a for a in (getattr(route, "acca_a", None), getattr(route, "acca_b", None))
+    # Prefer the full list. Reading acca_a/acca_b only would silently cap the
+    # BOARD at two however many the route actually carries — the same
+    # shape-enforced limit that used to live in _build_acca_route.
+    accas = [a for a in (getattr(route, "accas", None) or [])
              if a is not None and (getattr(a, "legs", None) or [])]
+    if not accas:
+        accas = [a for a in (getattr(route, "acca_a", None), getattr(route, "acca_b", None))
+                 if a is not None and (getattr(a, "legs", None) or [])]
     slv = getattr(route, "slv", None)
     watchlist = list(getattr(route, "watchlist", None) or [])
 
@@ -463,7 +472,7 @@ def render_acca_route(route, n_scanned: int) -> str:
         f"Formed: {len(accas)} acca(s) ({formed})"
         + (f" · Surplus: {len(surplus)} pick(s) → singles" if surplus else "")
     )
-    lines.append(f"(MAX_ACCAS = {MAX_ACCAS} — standing rule, see spec §4.3)")
+    lines.append(f"(MAX_ACCAS = {MAX_ACCAS} — Architect ruling 2026-09-17, spec §4.3 resolved)")
     lines.append("")
 
     rank = 1

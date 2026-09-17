@@ -227,7 +227,27 @@ async function runFullPipelineIfNeeded(lastState) {
   if (!lastBoardDate || lastBoardDate !== today) {
     log('📅 No board for today yet — running full pipeline...');
 
-    const cmd = `cd "${path.join(REPO_ROOT, 'olp_xdv_agent', 'olp_xdv')}" && python run_daily.py --season 2526 --fixtures-season 2627 2>&1`;
+    // --no-send/--no-whatsapp/--no-email ARE THE POINT OF THIS LINE.
+    //
+    // This is an HOURLY FIXTURE CHECK. It used to invoke run_daily.py with
+    // delivery ENABLED, so every run BROADCAST A BOARD TO TELEGRAM. Worse, the
+    // guard above is `lastBoardDate !== today` and the task exits rc=1, so
+    // lastBoardDate never advanced — the pipeline re-ran and re-sent EVERY
+    // HOUR, all day. That is the unsolicited "Phase 2 — paper calibration"
+    // board the Architect reported receiving repeatedly on 2026-09-17 and had
+    // tried several times to stop.
+    //
+    // It also explains the stale FORMAT and PHASE in those messages: with no
+    // --date it looks for a Stage A artifact it does not find, falls back to
+    // the legacy olp_xdv_pipeline path, and emits the old
+    // render_telegram_board output (the five-league "DATA FLAGS /
+    // RECOMMENDED — THE CALL" layout) rather than the ratified production
+    // board.
+    //
+    // This script refreshes fixture state. Refreshing state must never
+    // publish. The daily board has its own scheduled task; delivery belongs
+    // there, not here.
+    const cmd = `cd "${path.join(REPO_ROOT, 'olp_xdv_agent', 'olp_xdv')}" && python run_daily.py --season 2526 --fixtures-season 2627 --no-send --no-whatsapp --no-email 2>&1`;
     const result = runCmd(cmd);
 
     if (!result.success) {

@@ -143,6 +143,28 @@ def fetch_sportybet_cache(today: str) -> List[Dict]:
     return rows
 
 
+def _flashscore_line_to_time(match_datetime: str) -> str:
+    """The HH:MM in a FlashScore `match_datetime`, or "" if it carries none.
+
+    `_flashscore_line_to_date` below parses the hour and minute out of
+    '21.08. 20:00' and then returns only the DATE, so the kickoff time was
+    extracted and thrown away on every row. FlashScore fixtures consequently
+    reached the board with no time at all, and the ratified Telegram spec
+    (§2: real confirmed kickoff, never ??:??) could not be met from this source.
+
+    Returns "" rather than a default, so a row with no parseable time stays
+    honestly timeless instead of acquiring a fabricated one (HR35).
+    """
+    import re as _re
+    s = match_datetime or ""
+    m = _re.match(r"\d{1,2}\.\d{1,2}\.\s*(\d{1,2}):(\d{2})", s)
+    if not m:
+        m = _re.match(r"^(\d{1,2}):(\d{2})$", s.strip())
+    if not m:
+        return ""
+    return f"{int(m.group(1)):02d}:{m.group(2)}"
+
+
 def _flashscore_line_to_date(match_datetime: str, target_date: str | None = None, scrape_timestamp: str | None = None) -> str:
     """FlashScore match_1x2 `match_datetime` is '21.08. 20:00' (D.MM. HH:MM, no
     year) OR just '20:00' (HH:MM only for today's matches). Resolve to an ISO date.
@@ -385,7 +407,10 @@ def fetch_flashscore(today: str) -> List[Dict]:
                 "league": league,
                 "home": home,
                 "away": away,
-                "kickoff": kickoff[11:16] if kickoff else "TBD",
+                # kickoff is a DATE ("2026-09-17"), so kickoff[11:16] was always
+                # "" and every FlashScore row carried no time. The time lives in
+                # the raw match_datetime ("17.09. 20:00") and is read from there.
+                "kickoff": _flashscore_line_to_time(d.get("match_datetime")) or "TBD",
                 "odds_1": None,
                 "odds_x": None,
                 "odds_2": None,

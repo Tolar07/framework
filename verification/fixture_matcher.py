@@ -345,6 +345,32 @@ def _parse_kickoff(value: str) -> Optional[datetime]:
     return dt
 
 
+def _kickoff_claim(value: str) -> Optional[datetime]:
+    """The kickoff TIME a source is actually claiming, or None if it claims none.
+
+    A date-only value ("2026-09-17") is not a kickoff claim -- it says which DAY
+    the fixture falls on and nothing about the time. _parse_kickoff would turn
+    it into midnight, which the clustering below cannot tell apart from a source
+    genuinely asserting a 00:00 kickoff.
+
+    That distinction became load-bearing once the adapters started carrying real
+    times (2026-09-17). A source reporting 19:00 and a source reporting only the
+    date would sit ~19 hours apart -- far outside the 90-minute tolerance -- and
+    the fixture would be tagged CONFLICT on a disagreement that does not exist.
+    Before, every source produced midnight, so everything "agreed" and the bug
+    was invisible.
+
+    Returning None routes date-only sources into the `unknown` branch, where
+    they attach to the sole time cluster if there is one and are never counted
+    as contradicting it.
+    """
+    if not value:
+        return None
+    if "T" not in str(value):
+        return None
+    return _parse_kickoff(value)
+
+
 def normalize_kickoff(value: str) -> Optional[str]:
     """Normalize a kickoff string to the format 'YYYY-MM-DDTHH:MM:SS' (without timezone) or None if invalid."""
     dt = _parse_kickoff(value)
@@ -427,7 +453,7 @@ def match_fixtures(
             h = normalize_team_name(fx.home)
             a = normalize_team_name(fx.away)
             league_key = (fx.league or "").strip().lower()
-            kickoff = _parse_kickoff(fx.kickoff_utc)
+            kickoff = _kickoff_claim(fx.kickoff_utc)
             buckets.setdefault((h, a, league_key), []).append((source_name, fx, kickoff))
 
     # Exact-key bucketing alone leaves one fixture split across several keys

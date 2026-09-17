@@ -24,22 +24,39 @@ from engine.heartbeat_staking import (
     MAX_STAKE_PCT,
 )
 from output.heartbeat import HeartbeatFixture, save_heartbeat_record, get_heartbeat_stats
+# Imported as modules too, so the autouse fixture can redirect their
+# HISTORY_FILE constants at a tmp_path instead of production state.
+import engine.heartbeat_staking as heartbeat_staking
+import output.heartbeat as H
 
 
 class TestHeartbeatStaking:
     """Tests for heartbeat compounding staking logic."""
 
-    def setup_method(self):
-        """Ensure clean history file for each test."""
-        history_file = Path("data/heartbeat/history.jsonl")
-        if history_file.exists():
-            history_file.unlink()
-
-    def teardown_method(self):
-        """Clean up after tests."""
-        history_file = Path("data/heartbeat/history.jsonl")
-        if history_file.exists():
-            history_file.unlink()
+    # DESTRUCTIVE-TEST FIX (2026-09-17).
+    #
+    # These hooks used to build Path("data/heartbeat/history.jsonl") -- relative
+    # to the CURRENT WORKING DIRECTORY -- and unlink() it in BOTH setup and
+    # teardown. pytest runs from the repo root, so that path resolved to the
+    # REAL PRODUCTION heartbeat history, and simply running the test suite
+    # permanently deleted it. That is exactly what happened on 2026-09-17: nine
+    # graded results going back to 2026-08-27 were destroyed by a routine
+    # `pytest` run, with no error and nothing to indicate a loss.
+    #
+    # It is the same CWD-relative defect as the one fixed in output/heartbeat.py
+    # and lineage_ledger.py, but with teeth: there the consequence was a file
+    # written to the wrong place, here it was deletion of live state.
+    #
+    # Tests now redirect the module's own HISTORY_FILE at a per-test tmp_path.
+    # A test must never be able to reach production data.
+    @pytest.fixture(autouse=True)
+    def _isolate_history(self, tmp_path, monkeypatch):
+        history_file = tmp_path / "history.jsonl"
+        monkeypatch.setattr(heartbeat_staking, "HISTORY_FILE", history_file)
+        monkeypatch.setattr(H, "HISTORY_FILE", history_file)
+        monkeypatch.setattr(H, "HEARTBEAT_DIR", tmp_path)
+        self.history_file = history_file
+        yield
 
     def test_calculate_next_stake_positive_edge(self):
         """Test Kelly calculation with positive edge."""
@@ -154,10 +171,10 @@ class TestHeartbeatStaking:
 
     def test_get_stake_state_empty_history(self):
         """Test stake state with no history returns defaults."""
-        # Ensure no history file
-        history_file = Path("data/heartbeat/history.jsonl")
-        if history_file.exists():
-            history_file.unlink()
+        # The autouse _isolate_history fixture already points HISTORY_FILE at an
+        # empty tmp_path, so there is nothing to delete -- and nothing that
+        # could reach production state if there were.
+        assert not self.history_file.exists()
 
         state = get_stake_state()
         assert state.bankroll == DEFAULT_STARTING_BANKROLL

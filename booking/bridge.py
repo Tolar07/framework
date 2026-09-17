@@ -73,6 +73,13 @@ class PipelineFixture:
     home_odds: Optional[float] = None
     draw_odds: Optional[float] = None
     away_odds: Optional[float] = None
+    # Totals as SportyBet renders them: ONE line per fixture, and it varies
+    # (2.5 / 3 / 3.5 on the same matchday). The line is carried so a quote is
+    # never filed under the wrong market — an "Over" price means nothing until
+    # you know which line it belongs to.
+    goals_line: Optional[float] = None
+    over_odds: Optional[float] = None
+    under_odds: Optional[float] = None
 
 
 @dataclass
@@ -252,6 +259,9 @@ def load_sportybet_fixtures(
             home_odds=fx_data.get("home_odds"),
             draw_odds=fx_data.get("draw_odds"),
             away_odds=fx_data.get("away_odds"),
+            goals_line=fx_data.get("goals_line"),
+            over_odds=fx_data.get("over_odds"),
+            under_odds=fx_data.get("under_odds"),
         ))
 
     return fixtures
@@ -625,6 +635,27 @@ def get_sportybet_odds_for_leg(
         # None, not an error.
         def _g(attr):
             return getattr(fx, attr, None)
+
+        # Totals from the cached list page. SportyBet shows ONE goals line per
+        # fixture and it varies across the same matchday (2.5 / 3 / 3.5 were all
+        # present on 2026-09-17), so the quote is only returned when the cached
+        # line IS the requested market's line.
+        #
+        # A line of 3 maps to NOTHING here on purpose: EDGE_MARKETS carries
+        # 0.5/1.5/2.5/3.5 and has no whole-number "Over 3", which behaves
+        # differently anyway (a 3-3 draw pushes rather than losing). Filing an
+        # Over 3 quote under Over 2.5 or Over 3.5 would misprice it, so it is
+        # reported as no price instead.
+        _line = _g("goals_line")
+        if _line is not None:
+            _totals = {
+                (0.5, "OVER_0_5"): _g("over_odds"), (0.5, "UNDER_0_5"): _g("under_odds"),
+                (1.5, "OVER_1_5"): _g("over_odds"), (1.5, "UNDER_1_5"): _g("under_odds"),
+                (2.5, "OVER_2_5"): _g("over_odds"), (2.5, "UNDER_2_5"): _g("under_odds"),
+                (3.5, "OVER_3_5"): _g("over_odds"), (3.5, "UNDER_3_5"): _g("under_odds"),
+            }
+            if (_line, market) in _totals:
+                return _totals[(_line, market)]
         # 1X2
         if market == "1X2_HOME":
             return _g("home_odds")

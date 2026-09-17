@@ -138,6 +138,13 @@ class BoardFixture:
     sb_home_odds: Optional[float] = None
     sb_draw_odds: Optional[float] = None
     sb_away_odds: Optional[float] = None
+    # Totals from SportyBet's list page. One goals line per fixture, and it
+    # varies across a matchday (2.5 / 3 / 3.5 all appeared on 2026-09-17), so
+    # the line is carried with the prices -- an "Over" quote is unusable until
+    # you know which line it belongs to.
+    sb_goals_line: Optional[float] = None
+    sb_over_odds: Optional[float] = None
+    sb_under_odds: Optional[float] = None
     sb_mes_ev: Optional[float] = None        # best EV across 1X2 markets on SportyBet
     # CLV-gated recalibration delta actually applied to this pick's EV
     # probability (0.0 = no evidence). The ledger still records the RAW
@@ -1238,6 +1245,22 @@ def _sportybet_price_for(bf: BoardFixture, market_key: str) -> Optional[float]:
         return bf.sb_draw_odds
     if market_key == mkt.AWAY:
         return bf.sb_away_odds
+
+    # Totals. SportyBet shows ONE goals line per fixture and it varies across a
+    # matchday, so a quote is only valid for the market whose line MATCHES.
+    # A cached line of 3 maps to nothing: EDGE_MARKETS has 0.5/1.5/2.5/3.5 and
+    # no whole-number "Over 3", which behaves differently anyway (3-3 pushes).
+    # Filing it under 2.5 or 3.5 would misprice it, so it reports no price.
+    line = getattr(bf, "sb_goals_line", None)
+    if line is not None:
+        totals = {
+            (0.5, mkt.OVER_05): bf.sb_over_odds, (0.5, mkt.UNDER_05): bf.sb_under_odds,
+            (1.5, mkt.OVER_15): bf.sb_over_odds, (1.5, mkt.UNDER_15): bf.sb_under_odds,
+            (2.5, mkt.OVER_25): bf.sb_over_odds, (2.5, mkt.UNDER_25): bf.sb_under_odds,
+            (3.5, mkt.OVER_35): bf.sb_over_odds, (3.5, mkt.UNDER_35): bf.sb_under_odds,
+        }
+        if (line, market_key) in totals:
+            return totals[(line, market_key)]
     return None
 
 

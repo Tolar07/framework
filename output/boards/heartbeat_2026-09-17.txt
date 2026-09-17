@@ -1,0 +1,41 @@
+🎯 OLP XDV HEARTBEAT
+📅  Thu 17 Sep 2026
+
+⚽  Europa League
+🕐  19:00   Celtic v Ferencvarosi Budapest
+💡  Pick: ⚪ Celtic Draw No Bet (91%)
+📈  Edge: +18.9%
+💷  SportyBet: 1.39
+⚠️  Verification: Pending Review
+
+🎯 OLP XDV HEARTBEAT
+📅  Thu 17 Sep 2026
+
+⚽  Europa League
+🕐  19:00   Real Sociedad v AFC Bournemouth
+💡  Pick: 🔗 Bournemouth or Draw (double chance) (78%)
+📈  Edge: +8.7%
+💷  SportyBet: 1.45
+⚠️  Verification: Pending Review
+
+🎯 OLP XDV HEARTBEAT
+📅  Thu 17 Sep 2026
+
+⚽  Kazakhstan Premier League
+🕐  14:00   FC Astana v Kairat Almaty
+💡  Pick: 🔗 FC Astana or Draw (double chance) (73%)
+📈  Edge: +5.2%
+💷  SportyBet: 1.48
+⚠️  Verification: Pending Review
+
+[DNA] HEARTBEAT LINEAGE REPORT
+[ALIVE] Living lineages: 8   [EXTINCT] Extinct: 0
+[$] Total lifeforce (bankroll): 101.98
+  ln_4abf6 G3 <-ln_7d9 | [$]12.94 [S]1.00 | 0W-0L | Celtic v Ferencvarosi Budapest - Celtic Draw No Bet
+  ln_d6ef3 G3 <-ln_7d9 | [$]12.94 [S]1.00 | 0W-0L | Real Sociedad v AFC Bournemouth - Bournemouth or Draw (double chance)
+  ln_a6e76 G3 <-ln_b69 | [$]12.77 [S]1.00 | 0W-0L | FC Astana v Kairat Almaty - FC Astana or Draw (double chance)
+  ln_0e44d G3 <-ln_b69 | [$]12.77 [S]1.00 | 0W-0L
+  ln_de107 G3 <-ln_f8d | [$]12.77 [S]1.00 | 0W-0L
+  ln_d5458 G3 <-ln_f8d | [$]12.77 [S]1.00 | 0W-0L
+  ln_05fdf G3 <-ln_bcf | [$]12.51 [S]1.00 | 0W-0L
+  ln_6f4c0 G3 <-ln_bcf | [$]12.51 [S]1.00 | 0W-0L

@@ -1,0 +1,329 @@
+OLP XDV — PRODUCTION OUTPUT — 2026-09-17
+Stage A: 2026-09-17 | Fixtures Season: 2627
+Total Fixtures: 22 (Today: 22, Deploy-Eligible: 22, NO DATA: 0)
+
+============================================================
+LAYER 2 — FULL GRID (Complete Scan Table)
+============================================================
+PART 2 — COMPACT (fast-scan)
+Fixture | Selected Pick | Booking Code
+Viktoria Plzen v Union St.-Gilloise (Europa League) | St. Gilloise to win | NO DATA — PENDING
+PFC Levski Sofia v Red Bull Salzburg (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Crystal Palace v KKS Lech Poznan (Europa League) | Lech Poznan to win | NO DATA — PENDING
+Dinamo Makhachkala v CSKA Moscow (Russian Premier League) | CSKA Moscow to win | NO DATA — PENDING
+Manchester City v Norwich City (EFL Cup) | NO DATA — PENDING | NO DATA — PENDING
+Besiktas Istanbul v Marseille (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Zeleznicar Pancevo v Red Star (Serbian Super Liga) | Red Star to win | NO DATA — PENDING
+Real Sociedad v AFC Bournemouth (Europa League) | Bournemouth or Draw (double chance) | NO DATA — PENDING
+Atyrau v Ordabasy Shymkent (Kazakhstan Premier League) | Atyrau to win | NO DATA — PENDING
+OFI Crete v TSG Hoffenheim (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Juventus v NEC Nijmegen (Europa League) | Juventus to win | NO DATA — PENDING
+FC Astana v Kairat Almaty (Kazakhstan Premier League) | FC Astana or Draw (double chance) | NO DATA — PENDING
+Lillestrøm v Torreense (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+FC Rostov v Dynamo Moscow (Russian Premier League) | Dynamo to win | NO DATA — PENDING
+Ruggell C v Balzers B (Liechtensteiner Cup) | NO DATA — PENDING | NO DATA — PENDING
+Tobol v Yelimay Semey (Kazakhstan Premier League) | FK Tobol Kostanay to win | NO DATA — PENDING
+Celtic v Ferencvarosi Budapest (Europa League) | Celtic Draw No Bet | NO DATA — PENDING
+Gazovik Orenburg v FC Krasnodar (Russian Premier League) | FC Krasnodar to win | NO DATA — PENDING
+Malaga v Villarreal (La Liga) | Villarreal to win | NO DATA — PENDING
+Real Betis v Getafe (La Liga) | Betis to win | NO DATA — PENDING
+Levadia v Tammeka (Estonian Meistriliiga) | FC Levadia Tallinn to win | NO DATA — PENDING
+Akron Togliatti v Akhmat Grozny (Russian Premier League) | Akron to win | NO DATA — PENDING
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+Viktoria Plzen v Union St.-Gilloise (Europa League) | St. Gilloi·55% | O76 / O52 | X279 / Y53 | ✓
+PFC Levski Sofia v Red Bull Salzburg (Europa League) | NO DATA — PENDING | — | — | ✓
+Crystal Palace v KKS Lech Poznan (Europa League) | Lech Pozna·39% | O73 / U53 | 1272 / Y52 | ✓
+Dinamo Makhachkala v CSKA Moscow (Russian Premier League) | CSKA Mosco·48% | O51 / U78 | X286 / N70 | ✓
+Manchester City v Norwich City (EFL Cup) | NO DATA — PENDING | — | — | ✓
+Besiktas Istanbul v Marseille (Europa League) | NO DATA — PENDING | — | — | ✓
+Zeleznicar Pancevo v Red Star (Serbian Super Liga) | Red Star·56% | NO DATA — PENDING / NO DATA — PENDING | X282 / — | ✓
+Real Sociedad v AFC Bournemouth (Europa League) | Bournemout·49% | O65 / U62 | X278 / N57 | ✓
+Atyrau v Ordabasy Shymkent (Kazakhstan Premier League) | Atyrau·42% | O59 / U67 | 1272 / N61 | ✓
+OFI Crete v TSG Hoffenheim (Europa League) | NO DATA — PENDING | — | — | ✓
+Juventus v NEC Nijmegen (Europa League) | Juventus·64% | O73 / U52 | 1X87 / N56 | ✓
+FC Astana v Kairat Almaty (Kazakhstan Premier League) | FC Astana·48% | O67 / U58 | 1275 / N54 | ✓
+Lillestrøm v Torreense (Europa League) | NO DATA — PENDING | — | — | ✓
+FC Rostov v Dynamo Moscow (Russian Premier League) | Dynamo·47% | O86 / O63 | X275 / Y66 | ✓
+Ruggell C v Balzers B (Liechtensteiner Cup) | NO DATA — PENDING | — | — | ✓
+Tobol v Yelimay Semey (Kazakhstan Premier League) | FK Tobol K·56% | O77 / O54 | 1279 / Y53 | ✓
+Celtic v Ferencvarosi Budapest (Europa League) | Celtic·80% | O94 / O82 | 1X92 / Y64 | ✓
+Gazovik Orenburg v FC Krasnodar (Russian Premier League) | FC Krasnod·74% | O81 / O56 | X294 / N57 | ✓
+Malaga v Villarreal (La Liga) | Villarreal·62% | O58 / U69 | X289 / N71 | ✓
+Real Betis v Getafe (La Liga) | Betis·54% | O57 / U70 | 1X83 / N67 | ✓
+Levadia v Tammeka (Estonian Meistriliiga) | FC Levadia·76% | O75 / U50 | 1X94 / N66 | ✓
+Akron Togliatti v Akhmat Grozny (Russian Premier League) | Akron·51% | O82 / O55 | 1X80 / Y59 | ✓
+
+============================================================
+THE BLEND — all markets + AI pick, per fixture
+============================================================
+THE BLEND — every market, then the pick
+
+Viktoria Plzen v Union St.-Gilloise (Europa League)
+   Union St.-Gilloise or Draw (do  79.1%   no price
+   Over 1.5 goals                  76.5%   no price
+   Viktoria Plzen or Union St.-Gi  75.5%   no price
+   Union St.-Gilloise Draw No Bet  72.3%   no price
+   Under 3.5 goals                 70.4%   no price
+   Union St.-Gilloise to win       54.6%   no price
+   Both teams to score — yes       52.6%   no price
+   Over 2.5 goals                  51.8%   no price
+   Under 2.5 goals                 48.2%   no price
+   Both teams to score — no        47.4%   no price
+   Viktoria Plzen or Draw (double  45.4%   no price
+   Over 3.5 goals                  29.6%   no price
+   Viktoria Plzen Draw No Bet      27.7%   no price
+   Draw                            24.5%   no price
+   Under 1.5 goals                 23.5%   no price
+   Viktoria Plzen to win           20.9%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+Crystal Palace v KKS Lech Poznan (Europa League)
+   KKS Lech Poznan to win          38.9%  @7.79   edge +26.07%  EV +203.11%
+   Draw                            27.8%  @5.38   edge  +9.18%  EV +49.37%
+   Crystal Palace to win           33.3%  @1.42   edge -37.10%  EV -52.68%
+   Under 3.5 goals                 74.6%   no price
+   Over 1.5 goals                  72.9%   no price
+   Crystal Palace or KKS Lech Poz  72.2%   no price
+   KKS Lech Poznan or Draw (doubl  66.7%   no price
+   Crystal Palace or Draw (double  61.1%   no price
+   KKS Lech Poznan Draw No Bet     53.9%   no price
+   Under 2.5 goals                 53.0%   no price
+   Both teams to score — yes       52.5%   no price
+   Both teams to score — no        47.5%   no price
+   Over 2.5 goals                  47.0%   no price
+   Crystal Palace Draw No Bet      46.1%   no price
+   Under 1.5 goals                 27.1%   no price
+   Over 3.5 goals                  25.4%   no price
+   -> AI PICK: Lech Poznan to win @ 7.79 (38.9%, edge +26.07%, EV +203.11%)
+
+Dinamo Makhachkala v CSKA Moscow (Russian Premier League)
+   Under 3.5 goals                 91.8%   no price
+   CSKA Moscow or Draw (double ch  86.3%   no price
+   Under 2.5 goals                 77.8%   no price
+   CSKA Moscow Draw No Bet         77.7%   no price
+   Both teams to score — no        70.2%   no price
+   Dinamo Makhachkala or CSKA Mos  61.2%   no price
+   Dinamo Makhachkala or Draw (do  52.5%   no price
+   Over 1.5 goals                  51.2%   no price
+   Under 1.5 goals                 48.8%   no price
+   CSKA Moscow to win              47.5%   no price
+   Draw                            38.8%   no price
+   Both teams to score — yes       29.8%   no price
+   Dinamo Makhachkala Draw No Bet  22.3%   no price
+   Over 2.5 goals                  22.2%   no price
+   Dinamo Makhachkala to win       13.7%   no price
+   Over 3.5 goals                   8.2%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+Zeleznicar Pancevo v Red Star (Serbian Super Liga)
+   Red Star or Draw (double chanc  81.6%   no price
+   Red Star Draw No Bet            75.1%   no price
+   Zeleznicar Pancevo or Red Star  73.9%   no price
+   Red Star to win                 55.5%   no price
+   Zeleznicar Pancevo or Draw (do  44.5%   no price
+   Draw                            26.1%   no price
+   Zeleznicar Pancevo Draw No Bet  24.9%   no price
+   Zeleznicar Pancevo to win       18.4%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+Real Sociedad v AFC Bournemouth (Europa League)
+   AFC Bournemouth to win          48.7%  @2.40   edge  +7.06%  EV +16.93%
+   Draw                            28.8%  @3.67   edge  +1.60%  EV  +5.88%
+   Real Sociedad to win            22.4%  @3.03   edge -10.58%  EV -32.04%
+   Under 3.5 goals                 81.7%   no price
+   AFC Bournemouth or Draw (doubl  77.6%   no price
+   Real Sociedad or AFC Bournemou  71.2%   no price
+   AFC Bournemouth Draw No Bet     68.5%   no price
+   Over 1.5 goals                  65.4%   no price
+   Under 2.5 goals                 61.9%   no price
+   Both teams to score — no        57.0%   no price
+   Real Sociedad or Draw (double   51.3%   no price
+   Both teams to score — yes       43.0%   no price
+   Over 2.5 goals                  38.1%   no price
+   Under 1.5 goals                 34.6%   no price
+   Real Sociedad Draw No Bet       31.5%   no price
+   Over 3.5 goals                  18.3%   no price
+   -> AI PICK: Bournemouth to win @ 2.40 (48.7%, edge +7.06%, EV +16.93%)
+
+Atyrau v Ordabasy Shymkent (Kazakhstan Premier League)
+   Atyrau to win                   42.1%  @6.00   edge +25.45%  EV +152.68%
+   Under 2.5 goals                 66.7%  @1.87   edge +13.22%  EV +24.72%
+   Draw                            27.9%  @4.00   edge  +2.94%  EV +11.78%
+   Over 2.5 goals                  33.3%  @1.87   edge -20.17%  EV -37.72%
+   Ordabasy Shymkent to win        29.9%  @1.50   edge -36.73%  EV -55.09%
+   Under 3.5 goals                 85.1%   no price
+   Atyrau or Ordabasy Shymkent (d  72.1%   no price
+   Atyrau or Draw (double chance)  70.1%   no price
+   Both teams to score — no        60.8%   no price
+   Over 1.5 goals                  59.2%   no price
+   Atyrau Draw No Bet              58.4%   no price
+   Ordabasy Shymkent or Draw (dou  57.9%   no price
+   Ordabasy Shymkent Draw No Bet   41.6%   no price
+   Under 1.5 goals                 40.8%   no price
+   Both teams to score — yes       39.2%   no price
+   Over 3.5 goals                  14.9%   no price
+   -> AI PICK: Atyrau to win @ 6.00 (42.1%, edge +25.45%, EV +152.68%)
+
+Juventus v NEC Nijmegen (Europa League)
+   Under 3.5 goals                 73.9%  @1.84   edge +19.57%  EV +36.02%
+   Draw                            22.5%  @7.82   edge  +9.76%  EV +76.34%
+   NEC Nijmegen to win             13.3%  @14.05  edge  +6.20%  EV +87.13%
+   Juventus to win                 64.1%  @1.22   edge -17.84%  EV -21.76%
+   Over 3.5 goals                  26.1%  @2.00   edge -23.92%  EV -47.84%
+   Juventus or Draw (double chanc  86.7%   no price
+   Juventus Draw No Bet            82.8%   no price
+   Juventus or NEC Nijmegen (doub  77.5%   no price
+   Over 1.5 goals                  73.4%   no price
+   Both teams to score — no        56.1%   no price
+   Under 2.5 goals                 52.2%   no price
+   Over 2.5 goals                  47.8%   no price
+   Both teams to score — yes       43.9%   no price
+   NEC Nijmegen or Draw (double c  35.9%   no price
+   Under 1.5 goals                 26.6%   no price
+   NEC Nijmegen Draw No Bet        17.2%   no price
+   -> AI PICK: Under 3.5 goals @ 1.84 (73.9%, edge +19.57%, EV +36.02%)
+
+FC Astana v Kairat Almaty (Kazakhstan Premier League)
+   FC Astana to win                48.1%  @2.65   edge +10.40%  EV +27.56%
+   Under 2.5 goals                 57.7%  @1.85   edge  +3.65%  EV  +6.75%
+   Draw                            24.9%  @3.33   edge  -5.18%  EV -17.25%
+   Over 2.5 goals                  42.3%  @1.89   edge -10.61%  EV -20.06%
+   Kairat Almaty to win            27.0%  @2.45   edge -13.80%  EV -33.81%
+   Under 3.5 goals                 78.5%   no price
+   FC Astana or Kairat Almaty (do  75.1%   no price
+   FC Astana or Draw (double chan  73.0%   no price
+   Over 1.5 goals                  67.5%   no price
+   FC Astana Draw No Bet           64.1%   no price
+   Both teams to score — no        54.3%   no price
+   Kairat Almaty or Draw (double   51.9%   no price
+   Both teams to score — yes       45.7%   no price
+   Kairat Almaty Draw No Bet       35.9%   no price
+   Under 1.5 goals                 32.5%   no price
+   Over 3.5 goals                  21.5%   no price
+   -> AI PICK: FC Astana to win @ 2.65 (48.1%, edge +10.40%, EV +27.56%)
+
+FC Rostov v Dynamo Moscow (Russian Premier League)
+   Over 1.5 goals                  86.1%   no price
+   Dynamo Moscow or Draw (double   75.2%   no price
+   FC Rostov or Dynamo Moscow (do  72.0%   no price
+   Dynamo Moscow Draw No Bet       65.6%   no price
+   Both teams to score — yes       65.5%   no price
+   Over 2.5 goals                  62.7%   no price
+   Under 3.5 goals                 59.5%   no price
+   FC Rostov or Draw (double chan  52.7%   no price
+   Dynamo Moscow to win            47.3%   no price
+   Over 3.5 goals                  40.5%   no price
+   Under 2.5 goals                 37.3%   no price
+   Both teams to score — no        34.5%   no price
+   FC Rostov Draw No Bet           34.4%   no price
+   Draw                            28.0%   no price
+   FC Rostov to win                24.8%   no price
+   Under 1.5 goals                 13.9%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+Tobol v Yelimay Semey (Kazakhstan Premier League)
+   Tobol or Yelimay Semey (double  78.7%   no price
+   Tobol or Draw (double chance)   76.9%   no price
+   Over 1.5 goals                  76.7%   no price
+   Tobol Draw No Bet               70.6%   no price
+   Under 3.5 goals                 68.2%   no price
+   Tobol to win                    55.5%   no price
+   Over 2.5 goals                  54.1%   no price
+   Both teams to score — yes       53.3%   no price
+   Both teams to score — no        46.7%   no price
+   Under 2.5 goals                 45.9%   no price
+   Yelimay Semey or Draw (double   44.5%   no price
+   Over 3.5 goals                  31.8%   no price
+   Yelimay Semey Draw No Bet       29.4%   no price
+   Under 1.5 goals                 23.3%   no price
+   Yelimay Semey to win            23.1%   no price
+   Draw                            21.3%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+Celtic v Ferencvarosi Budapest (Europa League)
+   Celtic to win                   80.0%  @1.78   edge +23.86%  EV +42.47%
+   Draw                            11.8%  @4.18   edge -12.11%  EV -50.60%
+   Ferencvarosi Budapest to win     8.1%  @4.55   edge -13.83%  EV -62.95%
+   Over 1.5 goals                  93.7%   no price
+   Celtic or Draw (double chance)  91.9%   no price
+   Celtic Draw No Bet              90.8%   no price
+   Celtic or Ferencvarosi Budapes  88.2%   no price
+   Over 2.5 goals                  81.8%   no price
+   Over 3.5 goals                  64.5%   no price
+   Both teams to score — yes       64.0%   no price
+   Both teams to score — no        36.0%   no price
+   Under 3.5 goals                 35.5%   no price
+   Ferencvarosi Budapest or Draw   20.0%   no price
+   Under 2.5 goals                 18.2%   no price
+   Ferencvarosi Budapest Draw No    9.2%   no price
+   Under 1.5 goals                  6.3%   no price
+   -> AI PICK: Celtic to win @ 1.78 (80.0%, edge +23.86%, EV +42.47%)
+
+Gazovik Orenburg v FC Krasnodar (Russian Premier League)
+   FC Krasnodar or Draw (double c  94.0%   no price
+   FC Krasnodar Draw No Bet        92.5%   no price
+   Over 1.5 goals                  81.0%   no price
+   Gazovik Orenburg or FC Krasnod  79.8%   no price
+   FC Krasnodar to win             73.8%   no price
+   Under 3.5 goals                 66.4%   no price
+   Both teams to score — no        56.8%   no price
+   Over 2.5 goals                  55.9%   no price
+   Under 2.5 goals                 44.1%   no price
+   Both teams to score — yes       43.2%   no price
+   Over 3.5 goals                  33.6%   no price
+   Gazovik Orenburg or Draw (doub  26.2%   no price
+   Draw                            20.2%   no price
+   Under 1.5 goals                 19.0%   no price
+   Gazovik Orenburg Draw No Bet     7.5%   no price
+   Gazovik Orenburg to win          6.0%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+… 10 further fixture(s) omitted for length.
+
+============================================================
+LAYER 1 — COMPACT (Today's Deploy-Eligible + Pick + Booking Code)
+============================================================
+PART 1 — THE CALL (full detail) — today's fixtures only
+3 deploy-eligible fixture(s) kicking off today (unified pool — all whitelisted leagues, no cap).
+Phase 3 — live capital (Architect-deployed) — capital ENABLED. Capital authority is the Architect's; this board never places a bet.
+Fixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A | Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes
+Real Sociedad v AFC Bournemouth (Europa League) | 22 | 29 | 49 | O65 | U62 | N57 | 22/28/50 | — | — | Bournemout 2/2 | Bournemouth or Draw (double chance) | 1.45 | +7.44% | — | ✓ | 
+FC Astana v Kairat Almaty (Kazakhstan Premier League) | 48 | 25 | 27 | O67 | U58 | N54 | 47/29/25 | — | — | FC Astana 2/2 | FC Astana or Draw (double chance) | 1.48 | +6.88% | — | ✓ | 
+Celtic v Ferencvarosi Budapest (Europa League) | 80 | 12 | 8 | O94 | O82 | Y64 | 77/20/4 | — | — | Celtic 2/2 | Celtic Draw No Bet | 1.39 | +7.88% | — | ✓ | 
+
+============================================================
+ACCA ROUTE — Capital-Eligible (2 Accas + 1 SLV)
+============================================================
+★ Acca A — HEADLINE (3 legs)
+    Celtic v Ferencvarosi Budapest (Europa League) — Celtic Draw No Bet @ 1.39
+    Real Sociedad v AFC Bournemouth (Europa League) — Bournemouth or Draw (double chance) @ 1.45
+    FC Astana v Kairat Almaty (Kazakhstan Premier League) — FC Astana or Draw (double chance) @ 1.48
+    Combined odds: 2.98 | Combined prob: 51.4% | Booking code: NO DATA — PENDING
+Acca B: No second acca formed (insufficient remainder legs)
+SLV: No standalone single available
+
+  ⚠ WATCHLIST (ID420 — odds above 1.5) — NOT CAPITAL, review only
+    Crystal Palace v KKS Lech Poznan (Europa League) — Lech Poznan Draw No Bet @ 6.49  edge +38.45%
+    Real Sociedad v AFC Bournemouth (Europa League) — Bournemouth Draw No Bet @ 1.79  edge +12.68%
+    Atyrau v Ordabasy Shymkent (Kazakhstan Premier League) — Atyrau Draw No Bet @ 5.00  edge +38.45%
+    Juventus v NEC Nijmegen (Europa League) — Under 3.5 goals @ 1.84  edge +19.57%
+    FC Astana v Kairat Almaty (Kazakhstan Premier League) — FC Astana Draw No Bet @ 2.08  edge +16.01%
+    Celtic v Ferencvarosi Budapest (Europa League) — Celtic to win @ 1.78  edge +23.86%
+
+============================================================
+THE PICK — Final Sign-Off
+============================================================
+Fixture: Celtic v Ferencvarosi Budapest (Europa League)
+Market: Celtic Draw No Bet
+Price: 1.39
+Model Prob: 90.8%
+Canonical Edge: +18.89%
+EV (Kelly): +7.88%
+Rationale: Top leg of headline Acca A (highest canonical edge)
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.

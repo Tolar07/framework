@@ -70,17 +70,12 @@ _RULE = "─" * 34
 # Small helpers
 # ---------------------------------------------------------------------------
 def _country_of(league: str) -> Optional[str]:
-    # engine.leagues exposes league_registry(), not load_registry — the wrong
-    # name meant this branch always raised ImportError and silently fell through
-    # to the JSON read below. Harmless (flags still resolved) but it made the
-    # fast path dead code.
-    try:
-        from engine.leagues import league_registry
-        for entry in league_registry():
-            if getattr(entry, "name", None) == league:
-                return getattr(entry, "country", None)
-    except Exception:
-        pass
+    # NOTE: there is no league_registry() in engine.leagues either — an earlier
+    # fix here swapped one non-existent name (load_registry) for another, and
+    # the try/except hid it by falling through to the JSON read below. The
+    # module's real API is WHITELISTED_LEAGUES + is_deploy_eligible, neither of
+    # which carries a country, so the JSON read IS the correct path and the
+    # dead fast-path is simply removed rather than repaired.
     try:
         import json
         from pathlib import Path

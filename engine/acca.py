@@ -107,6 +107,12 @@ class AccaLeg:
     prob: float           # model probability for that market
     ev: Optional[float]   # model_prob * price - 1 (EV for Kelly/staking)
     edge: Optional[float] = None  # canonical edge = model_prob - implied_prob (selection metric)
+    # How this leg's price was obtained. "quoted" = a real bookmaker price.
+    # "derived" = computed from the book's own 1X2 line (double chance, draw no
+    # bet). A derived price must never be presented as a quote: the Architect
+    # confirms the real price at the book before anything is placed, which is
+    # what spec §2's "Deploy at <trigger>" line exists for.
+    price_basis: str = "quoted"
     sportybet_fixture_id: Optional[str] = None  # set by the booking step
     verification_stamp: Optional[str] = None    # "[✓ SportyBet ✓ FlashScore]" or "[⚠ unverified]" from pre-production gate
     status: str = "capital"  # "capital" (at/under MAX_ODDS_CAP, eligible for Acca A/singles) or "watchlist" (above it, not capital)
@@ -192,6 +198,81 @@ def _market_implied(market_key: str, fx, price) -> Optional[float]:
                     return (1.0 / o) / s
     if price and price > 1.0:
         return 1.0 / price
+    return None
+
+
+def _sb_totals_price(bf, market: str) -> Optional[float]:
+    """Over/Under price from SportyBet's cached goals line, or None.
+
+    The cache holds ONE line per fixture and it varies by match, so the stored
+    over/under prices only apply to the market matching that line -- quoting
+    them against any other line would be a different bet at the wrong price.
+    """
+    line = getattr(bf, "sb_goals_line", None)
+    if line is None:
+        return None
+    over = getattr(bf, "sb_over_odds", None)
+    under = getattr(bf, "sb_under_odds", None)
+    table = {
+        (0.5, mkt.OVER_05): over, (0.5, mkt.UNDER_05): under,
+        (1.5, mkt.OVER_15): over, (1.5, mkt.UNDER_15): under,
+        (2.5, mkt.OVER_25): over, (2.5, mkt.UNDER_25): under,
+        (3.5, mkt.OVER_35): over, (3.5, mkt.UNDER_35): under,
+    }
+    try:
+        return table.get((float(line), market))
+    except (TypeError, ValueError):
+        return None
+
+
+def _derived_1x2_price(bf, market: str) -> Optional[float]:
+    """Double-chance / draw-no-bet price implied by the book's own 1X2 line.
+
+    DC and DNB are deterministic combinations of the three 1X2 outcomes, so the
+    book's quoted H/D/A prices already contain the information. Working in the
+    book's RAW implied probabilities (1/price, overround included) keeps its
+    margin in the result rather than handing ourselves a de-vigged fair price:
+
+        DC 1X   = 1 / (qH + qD)        DNB home = (qH + qA) / qH
+        DC X2   = 1 / (qD + qA)        DNB away = (qH + qA) / qA
+        DC 12   = 1 / (qH + qA)
+
+    HONEST LIMIT, and the reason these are tagged price_basis="derived":
+    bookmakers usually load MORE margin onto combination markets than onto
+    1X2, so the real SportyBet double chance will typically be a little SHORTER
+    than this. A derived price is therefore mildly OPTIMISTIC and overstates
+    edge. It is fit for SELECTION -- choosing which market on a fixture is worth
+    looking at -- and must not be treated as a confirmed quote. Spec §2 already
+    handles the rest: the framework outputs the trigger price and the Architect
+    enters the real price at the book, so a derived price that does not survive
+    contact with the actual line simply fails the trigger and is not deployed.
+    """
+    h = getattr(bf, "sb_home_odds", None)
+    d = getattr(bf, "sb_draw_odds", None)
+    a = getattr(bf, "sb_away_odds", None)
+    if not h or not d or not a:
+        return None
+    try:
+        qh, qd, qa = 1.0 / h, 1.0 / d, 1.0 / a
+    except ZeroDivisionError:
+        return None
+
+    combos = {
+        mkt.DC_1X: qh + qd,
+        mkt.DC_X2: qd + qa,
+        mkt.DC_12: qh + qa,
+    }
+    if market in combos:
+        total = combos[market]
+        return (1.0 / total) if total > 0 else None
+
+    if market in (mkt.DNB_HOME, mkt.DNB_AWAY):
+        two_way = qh + qa
+        if two_way <= 0:
+            return None
+        share = qh if market == mkt.DNB_HOME else qa
+        return (two_way / share) if share > 0 else None
+
     return None
 
 
@@ -316,6 +397,29 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
                    mkt.AWAY: "sb_away_odds"}.get(market)
         if sb_attr:
             price = getattr(bf, sb_attr, None)
+
+        # SportyBet's cached TOTALS. The cache stores one goals line per fixture
+        # (it varies: 2.5, 3, 3.5) with its over/under prices, and nothing here
+        # read them -- so every Over/Under market was unpriced and skipped.
+        if price is None:
+            price = _sb_totals_price(bf, market)
+
+        # DOUBLE CHANCE and DRAW NO BET, derived from the book's own 1X2 line.
+        #
+        # Architect 2026-09-17: "if the max odd is 1.5 you explore other markets
+        # ... double chance, draw no bet ... I opened the entire betting market
+        # so you have an option to pick." That was impossible while 1X2 was the
+        # only priced market: a fixture whose 1X2 sat above the 1.50 cap had no
+        # alternative to fall back to and simply produced nothing. On
+        # 2026-09-17 that left 22 verified fixtures yielding zero acca legs.
+        #
+        # DC and DNB are deterministic COMBINATIONS of the 1X2 outcomes, so
+        # these are arithmetic on real quoted prices, not invented numbers --
+        # but they are not quotes either, and are tagged price_basis="derived".
+        if price is None:
+            price, basis = _derived_1x2_price(bf, market), "derived"
+        else:
+            basis = "quoted"
         if price is None and odds_index is not None:
             if fx is not None:
                 q = mkt.quote(market, fx)
@@ -404,6 +508,7 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
             ev=ev,
             edge=edge,
             status=status,
+            price_basis=basis,
         )
         if in_capital_zone:
             # Capital-eligible leg: consider all legs in this zone regardless of price zone

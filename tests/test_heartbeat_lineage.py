@@ -162,6 +162,10 @@ class TestResultProcessing:
         same = next(x for x in pop2.lineages if x.lineage_id == ln.lineage_id)
         assert same.bankroll == pytest.approx(99.0, abs=0.05)
         assert same.losses == 1
+        # The bankroll is still debited BEFORE death, so the ledger records
+        # what the branch was worth when it ended rather than a lineage
+        # vanishing with its capital unaccounted for.
+        assert not same.alive, "one loss ends the bloodline (Architect 2026-09-17)"
 
     def test_record_loss_zero_bankroll_extinct(self, clean_lineage):
         pop = L.load_population()
@@ -433,3 +437,71 @@ def test_board_and_booking_payload_see_all_four_accas():
     payload = [_acca_to_dict(a) for a in (getattr(route, "accas", None) or [])]
     assert len(payload) == 4, "booking payload must carry every formed acca"
     assert sum(len(a["legs"]) for a in payload) == 20
+
+
+def test_one_loss_is_extinction_not_a_drained_bankroll(clean_lineage):
+    """A single LOSS ends the lineage, whatever the bankroll (Architect 2026-09-17).
+
+    This resolves a doc-vs-code disagreement. The module docstring said
+    "LOSS -> the lineage goes EXTINCT"; the code only killed a lineage once its
+    bankroll hit zero. At the default 100 bankroll and a stake of 1 that meant
+    surviving ONE HUNDRED consecutive losses.
+
+    The gap mattered because the model's whole premise is that death is real:
+    "the selector must take the highest-edge fixture available or the lineage
+    dies off. The survival pressure IS the training signal." A lineage that
+    cannot die applies no pressure, so the code was not a lenient variant of
+    the model — it removed the mechanism the model runs on.
+
+    NOTHING PREVIOUSLY PINNED THIS. test_record_loss_shrinks_bankroll asserted
+    the bankroll and the loss count but never the alive flag, so it passed
+    under both rules; that is why this change broke no existing test.
+    """
+    pop = L.load_population()
+    ln = pop.living()[0]
+    ln.bankroll = 100.0      # nowhere near zero
+    ln.current_stake = 1.0
+    L.save_population(pop)
+
+    hb = HeartbeatFixture(
+        fixture="X v Y", kickoff_time="18:00", league="L", pick="Over 2.5",
+        probability=0.6, edge=0.1, market_type="O/U", price=1.67,
+        lineage_id=ln.lineage_id,
+    )
+    pop2 = L.record_heartbeat_result(hb, "LOSS")
+    dead = next(x for x in pop2.lineages if x.lineage_id == ln.lineage_id)
+
+    assert dead.alive is False, "one loss is extinction regardless of bankroll"
+    assert dead.losses == 1
+    assert dead.bankroll == pytest.approx(99.0, abs=0.05), (
+        "capital is still debited before death, so the branch's final value is "
+        "recorded rather than lost silently"
+    )
+
+
+def test_species_survives_total_wipeout_via_starvation_floor(clean_lineage):
+    """Per-lineage death must not end the experiment.
+
+    With one loss now fatal, a bad day can kill EVERY living lineage at once.
+    The starvation floor is what keeps the species running, and it matters far
+    more under this rule than under the old one.
+    """
+    ln = L.Lineage(
+        lineage_id="ln_last", parent_id=None, generation=0, bankroll=100.0,
+        current_stake=1.0, wins=0, losses=0, alive=True,
+        born_date=date.today().isoformat(),
+    )
+    L.save_population(L.LineagePopulation(lineages=[ln]))
+
+    hb = HeartbeatFixture(
+        fixture="X v Y", kickoff_time="18:00", league="L", pick="Over 2.5",
+        probability=0.6, edge=0.1, market_type="O/U", price=1.67,
+    )
+    hb.lineage_id = "ln_last"
+    pop = L.record_heartbeat_result(hb, "LOSS")
+    assert pop.living() == [], "the only lineage should now be extinct"
+
+    # Breeding the next day must reseed rather than leave the species dead.
+    bred = L.breed_next_generation([], target_date="2026-09-18")
+    assert len(bred.living()) == 1, "starvation floor must reseed one lineage"
+    assert bred.living()[0].bankroll == L.STARVATION_FLOOR

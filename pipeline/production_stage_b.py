@@ -42,7 +42,7 @@ from engine.dixon_coles import FixtureProbabilities
 from engine.leagues import is_deploy_eligible
 from engine.mes import edge_diff, mes_numeric_ev, trigger_price
 from engine import markets as mkt
-from output.produce_bet import BoardFixture, render_part2_compact, render_part2_the_scan, render_part5_signoff
+from output.produce_bet import BoardFixture, render_part2_compact, render_part2_the_scan, render_part5_signoff, render_telegram_blend
 from pipeline.fixture_extraction import StageAOutput, VerifiedFixture
 from verification.id403 import VerificationResult, Tier, stamp
 from output.enrichment import current_season_string, _create_kickoff_lookup_from_cache_dir, _create_league_lookup_from_cache_dir, EnrichedFixture, enrich_fixture
@@ -968,6 +968,16 @@ def render_stage_b_output(output: StageBOutput, codes: Optional[dict] = None) ->
         output.layer2.compact,
         "",
         output.layer2.full_scan,
+        "",
+        # THE BLEND. This section was labelled "FULL GRID" while rendering only
+        # the compact and scan tables -- the per-market picture was computed and
+        # never emitted, which is why the Architect had never seen it. The
+        # 42-column render_layer2_full_grid is the same data but unreadable on a
+        # phone, so the vertical per-fixture form goes to Telegram instead.
+        "=" * 60,
+        "THE BLEND — all markets + AI pick, per fixture",
+        "=" * 60,
+        render_telegram_blend(output.layer2.fixtures),
         "",
         "=" * 60,
         "LAYER 1 — COMPACT (Today's Deploy-Eligible + Pick + Booking Code)",

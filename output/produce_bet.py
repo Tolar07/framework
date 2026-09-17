@@ -741,6 +741,89 @@ def render_part4_data_integrity(board: list[BoardFixture]) -> str:
     return "\n".join(rows)
 
 
+def render_telegram_blend(board: list[BoardFixture],
+                          odds_index: Optional[dict] = None,
+                          max_fixtures: int = 12) -> str:
+    """THE BLEND — per fixture: every scored market, then the AI pick.
+
+    render_layer2_full_grid puts all 40 EDGE_MARKETS on ONE row per fixture.
+    That is the complete picture and it is unreadable on a phone: 42
+    pipe-separated columns wrap into a wall. The Architect's requirement is to
+    see the market picture and then the pick, per fixture, without it being
+    confusing in Telegram -- so this lays the same data out vertically.
+
+    Markets are ordered by canonical edge, so the strongest value is at the top
+    of each fixture rather than buried mid-row. Unpriced markets still show
+    their model probability: the model's view is information even where no
+    price exists to bet it (and with the Odds API exhausted that is most of
+    them). Only the priced ones can carry an edge, and only those can be a pick.
+    """
+    if not board:
+        return "THE BLEND — no fixtures to show."
+
+    out: list[str] = ["THE BLEND — every market, then the pick"]
+    shown = 0
+    for bf in board:
+        if bf.probs is None:
+            continue
+        if shown >= max_fixtures:
+            out.append(f"\n… {len(board) - shown} further fixture(s) omitted for length.")
+            break
+
+        probs = _get_all_market_probs(bf, odds_index)
+        rows = []
+        for key in mkt.EDGE_MARKETS:
+            model_p, price, _bk = probs.get(key, (None, None, None))
+            if model_p is None:
+                continue
+            if price is None:
+                price = _sportybet_price_for(bf, key)
+            edge = (model_p - 1.0 / price) if price else None
+            rows.append((edge, key, model_p, price))
+
+        if not rows:
+            continue
+
+        # Priced markets first (ranked by edge), then unpriced by probability.
+        priced = sorted([r for r in rows if r[0] is not None], key=lambda r: -r[0])
+        unpriced = sorted([r for r in rows if r[0] is None], key=lambda r: -r[2])
+
+        # Real club names, not empty strings. mkt.display() interpolates the
+        # teams into the market label ("Celtic to win", "Celtic or Draw"), so
+        # passing "" renders headless rows -- " to win", " or Draw (double
+        # chance)" -- which is unreadable and, worse, ambiguous about WHICH
+        # side the market refers to.
+        _name = bf.fixture.split(" (")[0]
+        if " v " in _name:
+            _home, _away = [s.strip() for s in _name.split(" v ", 1)]
+        else:
+            _home = _away = ""
+
+        out.append("")
+        out.append(bf.fixture)
+        for edge, key, model_p, price in priced:
+            ev = model_p * price - 1
+            out.append(f"   {mkt.display(key, _home, _away)[:30]:31} "
+                       f"{model_p:5.1%}  @{price:<6.2f} edge {edge:+7.2%}  EV {ev:+7.2%}")
+        for _e, key, model_p, _p in unpriced:
+            out.append(f"   {mkt.display(key, _home, _away)[:30]:31} "
+                       f"{model_p:5.1%}  {'no price':>9}")
+
+        best_market, best_prob, best_price, _ = _get_fixture_best_market(bf, odds_index)
+        if best_price and best_prob:
+            b_edge = best_prob - 1.0 / best_price
+            b_ev = best_prob * best_price - 1
+            out.append(f"   -> AI PICK: {best_market} @ {best_price:.2f} "
+                       f"({best_prob:.1%}, edge {b_edge:+.2%}, EV {b_ev:+.2%})")
+        else:
+            out.append("   -> AI PICK: NO DATA — PENDING (no priced market)")
+        shown += 1
+
+    if shown == 0:
+        return "THE BLEND — no fixture carried a scored market."
+    return "\n".join(out)
+
+
 def render_part5_signoff(hard_rules_note: str = "") -> str:
     return ("PART 5 — HARD RULES + SIGN-OFF\n"
             f"{hard_rules_note}\n"

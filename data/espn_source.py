@@ -80,6 +80,13 @@ SLUGS = {
     # them against. Each slug below was verified live against the scoreboard
     # endpoint for 2026-09-16 (HTTP 200); eng.league_cup returned 4 events,
     # matching FlashScore's EFL Cup slate exactly.
+    # International competitions, added 2026-09-17 with the registry entries.
+    # Both slugs verified live against the scoreboard endpoint (HTTP 200); they
+    # return no events outside a tournament window, which is correct rather than
+    # a failure — the World Cup finished in July 2026 and Euro 2028 has not
+    # begun.
+    "FIFA World Cup": "fifa.world",
+    "European Championship": "uefa.euro",
     "EFL Cup": "eng.league_cup",
     "FA Cup": "eng.fa",
     "DFB-Pokal": "ger.dfb_pokal",

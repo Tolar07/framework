@@ -180,6 +180,21 @@ TEAM_ALIASES = {
     "deportivo alaves": "alaves",
     "ca osasuna": "osasuna",
     "real betis": "betis",
+    # --- Russian transliteration variants ---------------------------------
+    # Sources romanise Cyrillic differently and the results are different
+    # TOKENS, not prefixes, so no normalisation rule reconciles them. On
+    # 2026-09-17 "Akron Togliatti" and "Akron Tolyatti" survived as two
+    # separate fixtures against the same opponent, both carrying an identical
+    # 51% pick -- one match counted twice on the board.
+    "akron togliatti": "akron",
+    "akron tolyatti": "akron",
+    "togliatti": "akron",
+    "tolyatti": "akron",
+    "akhmat grozny": "akhmat",
+    "gazovik orenburg": "orenburg",
+    "dynamo makhachkala": "dinamo makhachkala",
+    "dinamo moscow": "dynamo moscow",
+    "krylya sovetov": "krylia sovetov samara",
     "sp moscow": "spartak moscow",
     "lok moscow": "lokomotiv moscow",
     "lokomotiv": "lokomotiv moscow",

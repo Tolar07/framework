@@ -818,7 +818,17 @@ def run_stage_b(
     season: str = "2526",
     fixtures_season: str | None = None,
     days_ahead: int = 14,
-    max_odds_cap: float = 2.00,
+    # MAX_ODDS_CAP, not a literal. This was hardcoded 2.00, which OVERRODE the
+    # ratified config: betting_config.json holds 1.50, and the Decisions Log
+    # records "Hard odds cap: MAX_ODDS_CAP = 1.50 (FL-bias guardrail) — reject
+    # any market priced > 1.50 (Architect 2026-09-01)". That directive
+    # supersedes the 2026-08-19 ID420 value of 2.00 which the literal preserved.
+    #
+    # Consequence of the old value: production deployed legs priced between
+    # 1.50 and 2.00 that the Architect had excluded. On 2026-09-17 that put
+    # Celtic @ 1.75 into Acca A. Reading the constant means the cap now follows
+    # the config wherever it is set, instead of a stale number in a signature.
+    max_odds_cap: float = MAX_ODDS_CAP,
     min_odds_floor: float = 1.20,
     preferred_ceiling: float = 1.50,
 ) -> StageBOutput:
@@ -1011,7 +1021,7 @@ def render_stage_b_output(output: StageBOutput, codes: Optional[dict] = None) ->
     # Watchlist
     if output.acca_route.watchlist:
         lines.append("")
-        lines.append("  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only")
+        lines.append(f"  ⚠ WATCHLIST (ID420 — odds above {MAX_ODDS_CAP:g}) — NOT CAPITAL, review only")
         for leg in output.acca_route.watchlist:
             lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
                          f"@ {leg.price:.2f}  edge {leg.edge:+.2%}")

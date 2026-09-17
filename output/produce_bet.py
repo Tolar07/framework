@@ -553,7 +553,7 @@ def render_part1_the_call(shortlist: list[BoardFixture]) -> str:
     header = ("PART 1 — THE CALL (full detail) — today's fixtures only\n"
               f"{len(shortlist)} deploy-eligible fixture(s) kicking off today "
               "(unified pool — all whitelisted leagues, no cap).\n"
-              "MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.\n")
+              f"{_phase_banner()}\n")
     cols = ["Fixture", "H%", "D%", "A%", "O1.5", "O2.5", "BTTS",
             "Elo H/D/A", "xG H/D/A", "Mkt H/D/A", "Cons",
             "BestMkt", "Price", "MES EV", "Trig", "Src", "Notes"]
@@ -723,7 +723,7 @@ def render_part3_rejected(board: list[BoardFixture],
     if production is not None and hasattr(production, 'watchlist') and production.watchlist:
         if rejected:
             rows.append("")  # blank line separator
-        rows.append("  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only")
+        rows.append(f"  ⚠ WATCHLIST (ID420 — odds above {_max_odds_cap():g}) — NOT CAPITAL, review only")
         for leg in production.watchlist:
             rows.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
                         f"@ {leg.price:.2f}  edge {leg.edge:+.2%}  "
@@ -1223,6 +1223,48 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
         full_text = _sanitize_phone_output(full_text)
 
     return full_text
+
+
+def _max_odds_cap() -> float:
+    """The ratified hard odds cap, read from config rather than restated.
+
+    The label here said "odds > 2.00" while the configured cap was 1.50, so the
+    board told the reader a different boundary than the one it enforced.
+    """
+    try:
+        from engine.acca import MAX_ODDS_CAP
+        return float(MAX_ODDS_CAP)
+    except Exception:
+        return 1.50
+
+
+def _phase_banner() -> str:
+    """The capital-state line for the board header, derived from config.
+
+    This was the literal string "MARKED PAPER — Phase 2, zero capital. Nothing
+    here is a live bet." while config.PHASE was 3 and CAPITAL_ENABLED was True.
+    The one line on the board that states the capital position was contradicting
+    the setting that governs it — and because it was hardcoded, it would have
+    gone on saying Phase 2 through any future phase change too.
+
+    Derived now, so it cannot drift again. The honest-edge and
+    capital-authority statements elsewhere in the board are unchanged: nothing
+    here places a bet regardless of phase.
+    """
+    try:
+        import config as _cfg
+        phase = getattr(_cfg, "PHASE", None)
+        label = getattr(_cfg, "PHASE_LABEL", None)
+        if isinstance(label, dict):
+            label = label.get(phase)
+        if phase is None:
+            return "PHASE UNKNOWN — capital state unverified (NO DATA — PENDING)."
+        if getattr(_cfg, "CAPITAL_ENABLED", False):
+            return (f"{label or f'Phase {phase}'} — capital ENABLED. "
+                    "Capital authority is the Architect's; this board never places a bet.")
+        return f"MARKED PAPER — {label or f'Phase {phase}'}, zero capital. Nothing here is a live bet."
+    except Exception:
+        return "PHASE UNKNOWN — capital state unverified (NO DATA — PENDING)."
 
 
 def _sportybet_price_for(bf: BoardFixture, market_key: str) -> Optional[float]:

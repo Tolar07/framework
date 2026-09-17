@@ -850,6 +850,22 @@ def read_betslip_combined_odds(page: Page,
     # the caller correctly treats as "cannot verify" and rejects the code. So a
     # run could book all 11 legs and still emit nothing, reported as
     # "ODDS MISMATCH", when the real fault was that the slip was never read.
+    # AN EMPTY SLIP HAS NO COMBINED ODDS. Say so, before reading anything.
+    #
+    # Without this the text scan below runs over an empty slip's chrome and
+    # returns whatever decimal it can find -- on 2026-09-17 that was 2026.0,
+    # lifted from the "Sharing Code 17/09/2026" footer, after a click failed
+    # because the match had kicked off. None is the honest answer and the
+    # caller already handles it correctly by refusing to emit a code.
+    try:
+        _cnt_el = page.query_selector("[class*='m-bet-count']")
+        if _cnt_el is not None:
+            _cnt_txt = (_cnt_el.inner_text() or "").strip()
+            if not _cnt_txt or _cnt_txt == "0":
+                return None
+    except Exception:
+        pass  # count unreadable -> fall through and try the text read
+
     panels = page.query_selector_all(
         ".betslip, .es-betslip, .bet-slip, .m-betslip, [class*='m-betslip'], "
         "[class*='betSlip'], [class*='bet-slip-panel'], .slip-container, "
@@ -924,8 +940,23 @@ def read_betslip_combined_odds(page: Page,
         return None
     # Exclude obvious stake-% artefacts.
     EXCLUDED = {50.0, 100.0, 200.0, 1000.0}
+
+    def _is_year_like(v: float) -> bool:
+        """A 4-digit year is not a price.
+
+        The slip footer carries "Sharing Code  17/09/2026", and the loose
+        integer pattern above happily reads 2026 out of it. With an EMPTY slip
+        that was the only candidate, so this function returned 2026.0 as the
+        combined odds (observed 2026-09-17 when a click failed because the
+        match had kicked off). The value is absurd enough that the tolerance
+        check rejects it, so no wrong code was ever emitted -- but reporting a
+        year as odds hides the real fault, which is that the slip was empty.
+        """
+        return float(v).is_integer() and 1900 <= v <= 2100
+
     in_range = [(v, on) for v, on in candidates
-                if 1.01 <= v <= 10000.0 and v not in EXCLUDED]
+                if 1.01 <= v <= 10000.0 and v not in EXCLUDED
+                and not _is_year_like(v)]
     if not in_range:
         # All candidates were excluded (stake-% artefact values like 50/100/200)
         return None

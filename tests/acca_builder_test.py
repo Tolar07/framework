@@ -94,13 +94,26 @@ def _check(name, cond, detail=""):
 
 # --- 1. same-day rule: tomorrow's fixtures never enter any bet ---------------
 # Use a non-quarantined league (Eredivisie is quarantined per Audit 2026-08-20)
+# Prices give every fixture a POSITIVE canonical edge (prob > 1/price).
+#
+# They were 1.80-1.95 against draw probabilities of 0.20-0.30, i.e. implied
+# ~0.51-0.56 against a model saying ~0.25 -- edge of roughly -0.25 on every
+# leg. That data only produced legs because _best_deployable_leg ranked by edge
+# without requiring it to be positive; once capital requires edge > 0 (which is
+# this engine's own definition of edge: "the probability gap where the model
+# sees value the market doesn't"), none of them are bets and the board is
+# empty.
+#
+# This test is about the SAME-DAY rule, not about edge, so the fixtures are
+# repriced to be genuinely deployable while preserving the edge ORDER the
+# ranking assertions below depend on: Alpha > Epsilon > Iota > Lambda.
 board = [
-    _bf("Alpha v Beta (Test League)", _probs(d=0.30), TODAY, sb_draw=1.80),
-    _bf("Gamma v Delta (Test League)", _probs(d=0.28), TOMORROW, sb_draw=1.90),
-    _bf("Epsilon v Zeta (Test League)", _probs(d=0.26), TODAY, sb_draw=1.95),
-    _bf("Eta v Theta (Test League)", _probs(d=0.24), TOMORROW, sb_draw=1.85),
-    _bf("Iota v Kappa (Test League)", _probs(d=0.22), TODAY, sb_draw=1.92),
-    _bf("Lambda v Mu (Test League)", _probs(d=0.20), TODAY, sb_draw=1.88),
+    _bf("Alpha v Beta (Test League)", _probs(d=0.30), TODAY, sb_draw=5.00),      # edge +0.100
+    _bf("Gamma v Delta (Test League)", _probs(d=0.28), TOMORROW, sb_draw=5.00),  # edge +0.080
+    _bf("Epsilon v Zeta (Test League)", _probs(d=0.26), TODAY, sb_draw=5.00),    # edge +0.060
+    _bf("Eta v Theta (Test League)", _probs(d=0.24), TOMORROW, sb_draw=5.00),    # edge +0.040
+    _bf("Iota v Kappa (Test League)", _probs(d=0.22), TODAY, sb_draw=5.00),      # edge +0.020
+    _bf("Lambda v Mu (Test League)", _probs(d=0.20), TODAY, sb_draw=5.50),       # edge +0.018
 ]
 bets1 = build_production_bets(board, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
 accas1 = ([bets1.acca_a] if bets1.acca_a else []) + bets1.split_accas

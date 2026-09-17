@@ -70,9 +70,23 @@ from engine.mes import edge_diff, mes_numeric_ev
 ACCA_A_MAX = 5          # the headline acca holds the top 4-5 confidence legs
 HEADLINE_MIN_LEGS = 4   # below this, Acca A is a shortened acca, never padded
 SPLIT_GROUP_TARGET = 5  # remainder splits into ~4-5 leg groups, never one giant acca
-MAX_ODDS_CAP = 1.50     # hard cap — any leg with price > 1.50 is rejected (Architect 2026-09-01)
-MIN_ODDS_FLOOR = 1.20   # hard floor — any leg with price < 1.20 is rejected (no value in heavy favourites)
-PREFERRED_ODDS_CEILING = 1.50  # sweet spot ceiling — 1.20–1.50 is the "safe" deployment zone (Architect 2026-08-19)
+# ODDS LIMITS (now loaded from configuration)
+import sys
+from pathlib import Path
+
+# Add the config directory to the path so we can import from it
+config_dir = Path(__file__).parent.parent / "config"
+if str(config_dir) not in sys.path:
+    sys.path.insert(0, str(config_dir))
+
+from config.manager import get_config
+
+# Get configuration instance
+_config = get_config()
+
+MAX_ODDS_CAP = _config.get_betting_config().max_odds_cap     # hard cap — any leg with price > 1.50 is rejected (Architect 2026-09-01)
+MIN_ODDS_FLOOR = _config.get_betting_config().min_odds_floor   # hard floor — any leg with price < 1.20 is rejected (no value in heavy favourites)
+PREFERRED_ODDS_CEILING = _config.get_betting_config().preferred_odds_ceiling  # sweet spot ceiling — 1.20–1.50 is the "safe" deployment zone (Architect 2026-08-19)
 
 # QUARANTINE (Audit 2026-08-20, HR58): Leagues with 100% miss rate excluded from Acca A
 # These leagues are still eligible for singles/split accas but NOT for the headline acca.
@@ -340,9 +354,44 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
         edge = edge_diff(prob, price) if price else None
         ev = mes_numeric_ev(prob_ev, price) if price else None
         in_preferred = min_odds_floor <= price <= preferred_ceiling
-        in_capital_zone = price <= max_odds_cap
-        # Determine status based on odds
+        # POSITIVE-EDGE GATE. Capital requires edge > 0, i.e. the model's
+        # probability exceeds the market's implied one.
+        #
+        # Selection ranks by highest edge but never required the winner to be
+        # POSITIVE, so a fixture whose markets all show negative edge still
+        # contributed its least-bad market as a capital leg. On 2026-09-17 that
+        # put three negative-edge legs into Acca A:
+        #
+        #   Juventus v Nijmegen        prob 0.641 vs implied 0.820   edge -0.178
+        #   Besiktas v Marseille       prob 0.184 vs implied 0.535   edge -0.351
+        #   Crystal Palace v Poznan    prob 0.333 vs implied 0.709   edge -0.376
+        #
+        # The model rated Besiktas at 18% where the market implied 53% -- it saw
+        # the price as badly wrong in the BOOK's favour, and the leg was backed
+        # anyway. That is the opposite of this function's own definition of edge:
+        # "the probability gap where the model sees value the market doesn't".
+        #
+        # Equivalent to requiring positive EV on the raw probability, since
+        # edge > 0  <=>  prob > 1/price  <=>  prob * price > 1  <=>  ev > 0.
+        # A fixture with no positive-edge market now yields no capital leg,
+        # which reports as "no capital-eligible pick" -- the honest result.
+        has_positive_edge = edge is not None and edge > 0
+        within_cap = price <= max_odds_cap
+        in_capital_zone = within_cap and has_positive_edge
+        # Status still reflects ODDS, per ID420: "watchlist" means price > 2.00
+        # and is for Architect review. A negative-edge leg inside the cap is
+        # neither -- it is simply not a bet, and is dropped below rather than
+        # relabelled, so the watchlist keeps meaning what ID420 says it means.
         status = "capital" if in_capital_zone else "watchlist"
+        # Skip leg if probability or price is not available (needed for Acca calculation)
+        if prob is None or price is None:
+            continue
+        if within_cap and not has_positive_edge:
+            # Inside the odds cap but the market prices it better than the model
+            # does -- no value, so it is not a candidate for capital OR for the
+            # watchlist. Dropping it is what stops the "best of a bad set"
+            # behaviour that put three negative-edge legs into Acca A.
+            continue
         leg = AccaLeg(
             fixture=bf.fixture.split(" (")[0],
             league=_league_of(bf.fixture),

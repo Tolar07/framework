@@ -520,7 +520,7 @@
         "api_football": 119,
         "football_data": "DNK"
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Ekstraklasa",
@@ -540,7 +540,7 @@
         "api_football": 106,
         "football_data": "POL"
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "HNL",
@@ -560,7 +560,7 @@
         "api_football": 210,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Austrian Bundesliga",
@@ -580,7 +580,7 @@
         "api_football": 145,
         "football_data": "AUT"
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "EFL Cup",
@@ -680,7 +680,7 @@
         "api_football": 197,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Czech First League",
@@ -700,7 +700,7 @@
         "api_football": 326,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Romanian Liga I",
@@ -720,7 +720,7 @@
         "api_football": 283,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Ukrainian Premier League",
@@ -740,7 +740,7 @@
         "api_football": 333,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Serbian Super Liga",
@@ -760,7 +760,7 @@
         "api_football": 286,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Norwegian Eliteserien",
@@ -780,7 +780,7 @@
         "api_football": 103,
         "football_data": "NOR"
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Swedish Allsvenskan",
@@ -800,7 +800,7 @@
         "api_football": 113,
         "football_data": "SWE"
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Finnish Veikkausliiga",
@@ -820,7 +820,7 @@
         "api_football": 244,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Hungarian NB I",
@@ -840,7 +840,7 @@
         "api_football": 271,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Slovak Super Liga",
@@ -860,7 +860,7 @@
         "api_football": 332,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Slovenian PrvaLiga",
@@ -880,7 +880,7 @@
         "api_football": 360,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Bulgarian First League",
@@ -900,7 +900,7 @@
         "api_football": 172,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Israeli Premier League",
@@ -920,7 +920,7 @@
         "api_football": 383,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Cypriot First Division",
@@ -940,7 +940,7 @@
         "api_football": 339,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Albanian Superliga",
@@ -960,7 +960,7 @@
         "api_football": 310,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Armenian Premier League",
@@ -980,7 +980,7 @@
         "api_football": 342,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Azerbaijani Premyer Liqa",
@@ -1000,7 +1000,7 @@
         "api_football": 419,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Belarusian Premier League",
@@ -1020,7 +1020,7 @@
         "api_football": 116,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Kazakhstan Premier League",
@@ -1040,7 +1040,7 @@
         "api_football": 389,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Kosovan Superliga",
@@ -1060,7 +1060,7 @@
         "api_football": 664,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Latvian Virsliga",
@@ -1080,7 +1080,7 @@
         "api_football": 365,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Lithuanian A Lyga",
@@ -1100,7 +1100,7 @@
         "api_football": 362,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Luxembourg National Division",
@@ -1120,7 +1120,7 @@
         "api_football": 261,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Maltese Premier League",
@@ -1140,7 +1140,7 @@
         "api_football": 393,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Moldovan Super Liga",
@@ -1160,7 +1160,7 @@
         "api_football": 394,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Montenegrin First League",
@@ -1180,7 +1180,7 @@
         "api_football": 355,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Estonian Meistriliiga",
@@ -1200,7 +1200,7 @@
         "api_football": 329,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Georgian Erovnuli Liga",
@@ -1220,7 +1220,7 @@
         "api_football": 327,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Northern Irish Premiership",
@@ -1240,7 +1240,7 @@
         "api_football": 513,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Welsh Premier League",
@@ -1260,7 +1260,7 @@
         "api_football": 110,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Republic of Ireland Premier Division",
@@ -1280,7 +1280,7 @@
         "api_football": 439,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Icelandic Urvalsdeild",
@@ -1300,7 +1300,7 @@
         "api_football": 221,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Faroe Islands Premier League",
@@ -1320,7 +1320,7 @@
         "api_football": 433,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "North Macedonian First League",
@@ -1340,7 +1340,7 @@
         "api_football": 306,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Bosnian Premier League",
@@ -1360,7 +1360,7 @@
         "api_football": 314,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Gibraltarian National League",
@@ -1380,7 +1380,7 @@
         "api_football": 520,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Andorran Primera Divisió",
@@ -1400,7 +1400,7 @@
         "api_football": 319,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Sanmarinese Campionato",
@@ -1420,7 +1420,7 @@
         "api_football": 323,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     },
     {
       "name": "Liechtensteiner Cup",
@@ -1440,7 +1440,7 @@
         "api_football": 528,
         "football_data": null
       },
-      "deploy_eligible": false
+      "deploy_eligible": true
     }
   ]
 }

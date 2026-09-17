@@ -1122,8 +1122,21 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
             # never reaches production as a "BOOKED" slip with bad numbers.
             code = None
 
-    status = ("BOOKED" if code
-              else ("SLIP READY" if added else "MANUAL — nothing added"))
+    # "SLIP READY" claimed readiness whenever ANY leg went on, so a 2-of-5 slip
+    # with code=null reported "SLIP READY" — which reads as "this acca is done"
+    # when it is neither complete nor codeable. On 2026-09-17 Acca A showed
+    # exactly that: 2 legs added, 3 MANUAL, no code. A partial slip presented as
+    # ready is the kind of silent-completeness HR35 exists to stop, and here it
+    # could put a 2-leg bet where a 5-leg acca was intended.
+    n_want = len(acca.get("legs") or [])
+    if code:
+        status = "BOOKED"
+    elif not added:
+        status = "MANUAL — nothing added"
+    elif added < n_want:
+        status = f"INCOMPLETE — {added}/{n_want} legs on slip, NO code"
+    else:
+        status = "SLIP READY — all legs added, no code returned"
     if code is None and added and odds_check and not odds_check.get("match"):
         status = "ODDS MISMATCH — code rejected"
     return {

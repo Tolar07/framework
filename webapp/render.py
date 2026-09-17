@@ -152,6 +152,31 @@ def html_shell(title: str, body: str, script: str = "", asset_base: str = "/stat
 # Shared helpers
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _phase_chip() -> str:
+    """The phase chip shown in the page brand, derived from config.
+
+    Was hardcoded "PHASE 2 · PAPER" (admin) / "PAPER · PHASE 2" (client) while
+    config.PHASE has been 3 since 28 Aug, so both web surfaces asserted a phase
+    the framework had left — the same class of bug the ratified Telegram spec
+    calls out in §6 (phase label must read from the deployment flag, never be
+    restated or re-derived).
+
+    This chip is a STATUS LABEL ONLY. It carries no authority: the capital gate
+    is config.assert_paper_only() and the honest-edge / capital-authority
+    statements elsewhere on the page are unaffected by what this renders.
+    """
+    try:
+        import config
+        phase = getattr(config, "PHASE", None)
+        if phase == 3:
+            return "PHASE 3 · LIVE"
+        if phase is not None:
+            return f"PHASE {phase} · PAPER"
+    except Exception:
+        pass
+    return "PHASE PENDING"
+
+
 def _pct(x) -> str:
     return "NO DATA — PENDING" if x is None else f"{round(x * 100)}%"
 
@@ -849,7 +874,7 @@ def _board_header(payload: dict, admin: bool = False) -> str:
         calib = f"{n}/{req}" if (n is not None and req) else "—"
         brand_right = ('<div style="margin-left:auto;display:flex;gap:6px;">'
                        '<span class="phase mono">ADMIN</span>'
-                       '<span class="phase mono">PHASE 2 · PAPER</span></div>')
+                       f'<span class="phase mono">{_phase_chip()}</span></div>')
         meta = (f'<span>{date_txt} · <b>07:00</b></span>'
                 f'<span>{n_leagues} leagues scanned</span>'
                 f'<span>Calibration: <b>{calib}</b> legs</span>')
@@ -857,7 +882,7 @@ def _board_header(payload: dict, admin: bool = False) -> str:
         # Client brand keeps a quiet phase note — the honest-edge statement and
         # full capital authority stay on /admin (Architect's explicit choice),
         # but the public view is never presented as a live product.
-        brand_right = '<span class="phase client">PAPER · PHASE 2</span>'
+        brand_right = f'<span class="phase client">{_phase_chip()}</span>'
         meta = f'<span>{date_txt}</span><span><b>07:00</b></span>'
     base = "/admin" if admin else "/dashboard"
     crumbs = _crumbs(base, d, admin)
@@ -1005,9 +1030,13 @@ def _produced_bet_block(record: Optional[dict], admin: bool) -> str:
             f'<span>{html.escape(label)} — {html.escape(detail)}</span></div>')
     head = (f'📋 SCAN RECORD — today\'s rated fixtures — {date} (paper, ID415)'
             if date else '📋 SCAN RECORD — today\'s rated fixtures (paper, ID415)')
-    tail = ('This is the scan\'s paper record, NOT a recommendation — the '
-            'production pick (if any) is in PRODUCTION BETS. MARKED PAPER — '
-            'Phase 2, zero capital.' if admin
+    # "MARKED PAPER — Phase 2, zero capital" removed 2026-09-17 (Architect
+    # directive): it asserted Phase 2 while config.PHASE is 3. The zero-capital
+    # substance is kept and now derives from config rather than being restated.
+    tail = ('This is the scan\'s record, NOT a recommendation — the '
+            f'production pick (if any) is in PRODUCTION BETS. {_phase_chip()} — '
+            'the scan itself never carries a stake; capital is the '
+            'Architect\'s.' if admin
             else 'Predictions only — verified WON/LOST next day.')
     return ('<div class="flags" style="padding:6px 16px;">'
             f'<div class="flag-line">{head} — {record.get("n_legs", 0)} leg(s). '

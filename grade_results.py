@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import sys
 from dataclasses import dataclass, asdict, field
 from datetime import datetime, date, timedelta, timezone
@@ -652,18 +653,43 @@ def load_historical_graded() -> List[GradedLeg]:
 # Notification
 # =============================================================================
 
+# Architect directive 2026-09-17 (FINAL TELEGRAM OUTPUT SPEC §0):
+# "we're going to be using finally a cleaner version in order to stop any other
+# form of outputs coming from Telegram".
+#
+# The ratified spec names render_production_board() + render_acca_route() as the
+# ONLY Telegram render path. This grading report was a second, independent
+# autonomous sender -- it went out on its own schedule, in its own format, with
+# no run_id, and so could never satisfy the spec's §1 send gate.
+#
+# Set GRADE_RESULTS_TELEGRAM=1 to re-enable for a one-off debug run. Default OFF
+# is the directive; the env var exists so re-enabling is a deliberate, visible
+# act rather than an edit that quietly reopens a second channel.
+GRADE_RESULTS_TELEGRAM_ENABLED = (
+    os.environ.get("GRADE_RESULTS_TELEGRAM", "0").strip().lower()
+    not in ("0", "false", "no", "off", "")
+)
+
+
 def send_notification(report_text: str):
-    """Send verification report via Telegram (default) / email / desktop."""
-    # Import notify module
-    from output import notify
+    """Print the verification report. Telegram delivery is OFF by directive.
 
-    try:
-        notify.send_telegram(report_text)
-        print("[OK] Telegram notification sent")
-    except Exception as e:
-        print(f"[WARN] Telegram notification failed: {e}")
+    The report itself is NOT suppressed -- it still prints to stdout, so the
+    scheduled task, the run log and any cron/email capture keep receiving it in
+    full. Only the separate Telegram push is stopped.
+    """
+    if GRADE_RESULTS_TELEGRAM_ENABLED:
+        from output import notify
+        try:
+            notify.send_telegram(report_text)
+            print("[OK] Telegram notification sent (GRADE_RESULTS_TELEGRAM=1)")
+        except Exception as e:
+            print(f"[WARN] Telegram notification failed: {e}")
+    else:
+        print("[INFO] Telegram send SUPPRESSED — Architect directive 2026-09-17, "
+              "single Telegram render path. Report follows on stdout.")
 
-    # Also print to stdout for cron/email capture
+    # Always print to stdout for cron/email capture.
     print(report_text)
 
 

@@ -17,6 +17,8 @@ from __future__ import annotations
 import time
 from typing import Optional
 
+import config
+
 
 def search_fixtures(league: Optional[str] = None, query: str = "",
                     days: int = 7, date: str = "") -> dict:
@@ -270,7 +272,10 @@ def produce_selection(groups: list[dict], season: str = "2526") -> dict:
                 "elapsed_s": round(time.time() - t0, 1),
                 "n_rated": sum(1 for b in board if b.probs is not None),
                 "n_deploy": sum(1 for b in board if b.on_deploy_shortlist),
-                "phase": "PHASE 2 · PAPER — preview only, zero capital; "
+                # Was hardcoded "PHASE 2 · PAPER" while config.PHASE is 3.
+                # The preview-only/zero-capital statement is the substance and
+                # stays; only the stale phase number is now derived.
+                "phase": f"{config.PHASE_LABEL} — preview only, zero capital; "
                          "the daily run owns the board"
             }
         finally:

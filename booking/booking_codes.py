@@ -963,33 +963,72 @@ def _clear_betslip(page: Page) -> None:
     (#remove / trash / 'x' / 'Delete' / 'Remove All'), then a "Remove All"
     control if present, tolerating any failure — a miss here only risks a stale
     combined-odds read, never a fabricated code (the HARD RULE still rejects)."""
+    # REWRITTEN 2026-09-17. The previous implementation did NOTHING on the live
+    # site — verified directly: two selections in, _clear_betslip(), still two
+    # selections (m-bet-count unchanged at 2). Its selectors were the same
+    # stale family that also broke the combined-odds read (".es-betslip",
+    # ".betslip", "[class*='slip']"); the real container is "m-betslips".
+    #
+    # The consequence was not a no-op, it was WRONG NUMBERS. Selections
+    # accumulated across accas, so each acca's combined odds were read off a
+    # growing slip: Acca A expected 4.43 read 1.81, the 1-leg SINGLE expected
+    # 1.33 read 3.08. Every acca then failed the odds check and every code was
+    # rejected — a booking run that added all 11 legs correctly and still
+    # produced nothing.
+    #
+    # The critical change is VERIFICATION: this now reads the selection count
+    # and keeps going until it reaches zero, instead of clicking hopefully and
+    # returning. A clear that silently fails is what caused the bug.
+    def _count() -> int:
+        try:
+            el = page.query_selector("[class*='m-bet-count']")
+            if not el:
+                return 0
+            txt = (el.inner_text() or "").strip()
+            return int(txt) if txt.isdigit() else 0
+        except Exception:
+            return 0
+
     try:
-        for _ in range(6):
-            rm = page.query_selector(
-                ".es-betslip .remove, .betslip .remove, "
-                "[class*='betslip'] .remove-selection, "
-                "[class*='slip'] .m-delete, [class*='slip'] .delete-icon, "
-                "button[aria-label*='emove'], .es-del, .m-betslip-remove")
-            if not rm:
-                break
-            try:
-                rm.click()
-            except Exception:
-                break
-            page.wait_for_timeout(250)
-        # "Remove All" / empty-slip control, if the book renders one.
-        for sel in ("text=Remove All", "text=Clear", "text=Empty",
-                    ".es-betslip .clear-all", "[class*='clearAll']"):
-            try:
-                els = page.query_selector_all(sel)
-                for el in els:
+        for _ in range(4):
+            if _count() == 0:
+                return
+            clicked = False
+            # "Remove All" inside the betslip, matched on its own text. Scoped
+            # to the slip so a same-named control elsewhere cannot be hit.
+            for sel in ("[class*='m-betslip'] >> text=Remove All",
+                        "text=Remove All",
+                        "[class*='m-betslip'] >> text=Clear All"):
+                try:
+                    loc = page.locator(sel).first
+                    if loc.count():
+                        loc.click(timeout=5000)
+                        page.wait_for_timeout(700)
+                        clicked = True
+                        break
+                except Exception:
+                    continue
+            if not clicked:
+                # Per-selection remove controls as a fallback.
+                for sel in ("[class*='m-betslip'] [class*='remove']",
+                            "[class*='m-betslip'] [class*='delete']",
+                            "[class*='m-betslip'] [class*='close']"):
                     try:
-                        el.click()
-                        page.wait_for_timeout(300)
+                        loc = page.locator(sel).first
+                        if loc.count():
+                            loc.click(timeout=4000)
+                            page.wait_for_timeout(500)
+                            clicked = True
+                            break
                     except Exception:
                         continue
-            except Exception:
-                continue
+            if not clicked:
+                break
+        if _count() != 0:
+            # Say so. A stale slip silently poisons the NEXT acca's odds, and
+            # the caller can no longer trust the combined-odds check.
+            print(f"  [WARN] betslip not cleared — {_count()} selection(s) "
+                  f"remain; the next acca's odds read will be wrong")
     except Exception:
         pass  # best-effort; HARD RULE still guards against a wrong code
 
@@ -1382,19 +1421,46 @@ def book_accas(payload: dict, headless: bool = True) -> dict:
             slow_mo=0,
             args=["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"]
         )
-        context = browser.new_context(
+        _ctx_args = dict(
             user_agent=("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                         "AppleWebKit/537.36 (KHTML, like Gecko) "
                         "Chrome/120.0.0.0 Safari/537.36"),
             viewport={"width": 1280, "height": 720})
-        page = context.new_page()
+        context = None
+        page = None
         try:
             for acca in payload.get("accas", []):
                 try:
-                    # Start each slip from clean state: the betslip is NOT
-                    # auto-cleared by SportyBet between entries, so selections
-                    # would otherwise accumulate and the combined odds would
-                    # blow up (2026-08-23 regression).
+                    # A FRESH CONTEXT PER ACCA is what guarantees an empty slip.
+                    #
+                    # The betslip lives in session storage, so one context
+                    # shared across accas carries every previous selection
+                    # forward. _clear_betslip was supposed to handle that and
+                    # DOES NOT WORK on the live site — verified directly: two
+                    # selections in, clear, still two. Its "Remove All" click
+                    # never lands.
+                    #
+                    # The damage was silent and numeric: each acca's combined
+                    # odds were read off a slip still holding the previous
+                    # acca's legs. Acca A expected 4.43 and read 1.81; the
+                    # 1-leg SINGLE expected 1.33 and read 3.08. Every code was
+                    # then rejected for an odds mismatch that was an artefact
+                    # of the slip never being emptied — a run that added all
+                    # 11 legs correctly still produced nothing.
+                    #
+                    # Discarding the context sidesteps the broken control
+                    # entirely: a new session cannot inherit a slip. That is a
+                    # structural guarantee rather than a UI interaction that
+                    # has to be re-verified every time SportyBet reskins.
+                    # _clear_betslip is still called as a cheap belt-and-braces
+                    # and now WARNS when it fails to empty the slip.
+                    if context is not None:
+                        try:
+                            context.close()
+                        except Exception:
+                            pass
+                    context = browser.new_context(**_ctx_args)
+                    page = context.new_page()
                     _clear_betslip(page)
                     results.append(_book_one_acca(page, acca, cache_by_league))
                 except Exception as e:
@@ -1404,7 +1470,13 @@ def book_accas(payload: dict, headless: bool = True) -> dict:
                         "n_legs": len(acca.get("legs") or []), "n_added": 0,
                         "per_leg": [], "error": str(e)[:120]})
         finally:
-            context.close()
+            # context stays None when the payload has no accas, and closing an
+            # already-closed context raises. Neither should mask the results.
+            if context is not None:
+                try:
+                    context.close()
+                except Exception:
+                    pass
             browser.close()
 
     return {"date": day, "results": results,

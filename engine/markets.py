@@ -243,6 +243,13 @@ def model_prob(key: str, probs) -> Optional[float]:
         AWAY: probs.p_away,
         OVER_25: probs.p_over_25,
         OVER_15: probs.p_over_15,
+        # FixtureProbabilities has carried p_over_35 all along -- Dixon-Coles
+        # computes it -- but it was never mapped here, so model_prob(OVER_3_5)
+        # returned None and the 3.5 line could not be judged at all. SportyBet
+        # quotes a 3.5 line on a real share of fixtures (Juventus v Nijmegen on
+        # 2026-09-17), so the price was available and the probability was
+        # computed, and the two were simply never introduced.
+        OVER_35: getattr(probs, "p_over_35", None),
         BTTS_YES: probs.p_btts_yes,
     }
     if key in direct:
@@ -253,6 +260,9 @@ def model_prob(key: str, probs) -> Optional[float]:
         return 1.0 - probs.p_over_25 if probs.p_over_25 is not None else None
     if key == UNDER_15:
         return 1.0 - probs.p_over_15 if probs.p_over_15 is not None else None
+    if key == UNDER_35:
+        _o35 = getattr(probs, "p_over_35", None)
+        return 1.0 - _o35 if _o35 is not None else None
     if key == BTTS_NO:
         return 1.0 - probs.p_btts_yes if probs.p_btts_yes is not None else None
     if key == DC_1X:

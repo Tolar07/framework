@@ -740,6 +740,19 @@ def _enrich_fixtures_with_models(
             bf.sb_home_odds = sb_odds["home"]
             bf.sb_draw_odds = sb_odds["draw"]
             bf.sb_away_odds = sb_odds["away"]
+            # Totals carried through from the cached list page so the renderer
+            # can rank Over/Under on edge without doing any I/O of its own.
+            try:
+                from booking.bridge import load_sportybet_fixtures
+                from verification.fixture_matcher import names_match, normalize_team_name as _nn
+                for _fx in load_sportybet_fixtures(league, days_ahead=45):
+                    if names_match(_nn(_fx.home_team), _nn(home)) and                        names_match(_nn(_fx.away_team), _nn(away)):
+                        bf.sb_goals_line = getattr(_fx, "goals_line", None)
+                        bf.sb_over_odds = getattr(_fx, "over_odds", None)
+                        bf.sb_under_odds = getattr(_fx, "under_odds", None)
+                        break
+            except Exception:
+                pass
             bf.sb_mes_ev = sb_mes
             bf.tactical_provenance = tactical_prov
 

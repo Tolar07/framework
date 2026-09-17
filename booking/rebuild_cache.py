@@ -125,6 +125,15 @@ class CachedFixture:
     home_odds: Optional[float] = None
     draw_odds: Optional[float] = None
     away_odds: Optional[float] = None
+    # Totals, as SportyBet actually renders them. The list page shows ONE goals
+    # line per fixture and it VARIES -- on 2026-09-17 the Europa slate was
+    # mostly 3, with Juventus on 3.5 and Plzen on 2.5. Storing the line
+    # alongside the prices is what stops "Over" being filed under the wrong
+    # market: a 1.84 quote is worth nothing unless you know whether it is
+    # Over 2.5, Over 3 or Over 3.5.
+    goals_line: Optional[float] = None
+    over_odds: Optional[float] = None
+    under_odds: Optional[float] = None
     raw_market: Dict[str, Any] = None
 
     def __post_init__(self):
@@ -318,22 +327,33 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
                 # These were never read: every cached fixture had raw_market: {}
                 # and no price, so nothing downstream could price a leg from
                 # SportyBet even when the cache was otherwise correct.
+                # Row layout, read from the live header: 1 | X | 2 | Goals | Over | Under.
+                # `.m-outcome` yields all six INCLUDING the goals line;
+                # `.m-outcome-odds` yields only the five prices and drops it,
+                # which is why the line has to come from the former.
                 h_odds = d_odds = a_odds = None
+                goals_line = over_odds = under_odds = None
                 try:
-                    odds_els = await row.query_selector_all(".m-outcome-odds")
-                    vals = []
-                    for oe in odds_els[:3]:
-                        raw = (await oe.inner_text()).strip()
+                    cells = await row.query_selector_all(".m-outcome")
+                    raw_vals = [(await c.inner_text()).strip() for c in cells]
+
+                    def _num(s):
                         try:
-                            v = float(raw)
+                            return float(s)
                         except (TypeError, ValueError):
-                            v = None
-                        # A decimal price is > 1.0 by definition; anything else
-                        # is a handicap line or placeholder, not a price.
-                        vals.append(v if (v is not None and v > 1.0) else None)
-                    while len(vals) < 3:
-                        vals.append(None)
-                    h_odds, d_odds, a_odds = vals[0], vals[1], vals[2]
+                            return None
+
+                    nums = [_num(v) for v in raw_vals]
+                    # Prices are > 1.0 by definition; the goals line is not a
+                    # price, so it is read positionally rather than by value.
+                    if len(nums) >= 3:
+                        h_odds, d_odds, a_odds = (
+                            n if (n is not None and n > 1.0) else None for n in nums[:3]
+                        )
+                    if len(nums) >= 6:
+                        goals_line = nums[3]
+                        over_odds = nums[4] if (nums[4] or 0) > 1.0 else None
+                        under_odds = nums[5] if (nums[5] or 0) > 1.0 else None
                 except Exception:
                     # Unreadable odds leave the fixture priceless rather than
                     # dropping it -- identity is still useful for booking.
@@ -370,6 +390,9 @@ async def _extract_fixtures(page: Page, league: str) -> List[CachedFixture]:
                         home_odds=h_odds,
                         draw_odds=d_odds,
                         away_odds=a_odds,
+                        goals_line=goals_line,
+                        over_odds=over_odds,
+                        under_odds=under_odds,
                         raw_market={}
                     ))
             except Exception:

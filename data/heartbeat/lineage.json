@@ -11,13 +11,13 @@
       "alive": true,
       "born_date": "2026-09-01",
       "last_result": null,
-      "fixture": null,
-      "pick": null,
-      "price": null,
-      "edge": 0.0,
-      "probability": 0.0,
+      "fixture": "Malaga v Villarreal",
+      "pick": "Villarreal Draw No Bet",
+      "price": 1.48,
+      "edge": 0.16987266846415816,
+      "probability": 0.8455483441398338,
       "unsettled_wins": 0,
-      "held_date": null
+      "held_date": "2026-09-17"
     },
     {
       "lineage_id": "ln_d6ef3f7604",
@@ -30,13 +30,13 @@
       "alive": true,
       "born_date": "2026-09-01",
       "last_result": null,
-      "fixture": null,
-      "pick": null,
-      "price": null,
-      "edge": 0.0,
-      "probability": 0.0,
+      "fixture": "Celtic v Ferencvarosi Budapest",
+      "pick": "Celtic Draw No Bet",
+      "price": 1.32,
+      "edge": 0.15007831974428487,
+      "probability": 0.9076540773200424,
       "unsettled_wins": 0,
-      "held_date": null
+      "held_date": "2026-09-17"
     },
     {
       "lineage_id": "ln_05fdf10f4c",
@@ -87,13 +87,13 @@
       "alive": true,
       "born_date": "2026-09-17",
       "last_result": null,
-      "fixture": null,
-      "pick": null,
-      "price": null,
-      "edge": 0.0,
-      "probability": 0.0,
+      "fixture": "Real Sociedad v AFC Bournemouth",
+      "pick": "Bournemouth or Draw (double chance)",
+      "price": 1.34,
+      "edge": 0.029451560566106982,
+      "probability": 0.7757202172825248,
       "unsettled_wins": 0,
-      "held_date": null
+      "held_date": "2026-09-17"
     },
     {
       "lineage_id": "ln_0e44d5c47a",

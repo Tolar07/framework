@@ -213,6 +213,9 @@ def select_daily_heartbeats(
         board, target_date=target_date, odds_index=odds_index,
         top_n=max(top_n, len(living)), min_edge=min_edge,
         require_priced=require_priced,
+        # Pre-match only. A lineage must never be committed to a fixture that
+        # has already started — doubly so now that one LOSS is extinction.
+        exclude_started=True,
     )
 
     # Assign candidates to lineages: strongest lineage -> strongest fixture.
@@ -237,7 +240,27 @@ def select_daily_heartbeats(
             lineage.probability = hb.probability
             lineage.held_date = assigned_date
             heartbeats.append(hb)
-        # If fewer candidates than lineages, surviving lineages simply skip a day
+        else:
+            # NO HEARTBEAT FOR THIS LINEAGE TODAY — clear its holding.
+            #
+            # A lineage that gets no candidate skips the day, but its fixture /
+            # pick / price fields kept whatever a PREVIOUS selection wrote, and
+            # render_lineage_report prints them unconditionally. So the report
+            # showed eight lineages holding positions when only three had one,
+            # including two on fixtures that had already kicked off and been
+            # filtered out moments earlier, plus duplicate rows where two
+            # lineages appeared to hold the same pick.
+            #
+            # Same failure shape as the rest of today's: stale state rendered
+            # as current, with nothing in the output to say which is which.
+            # An empty holding is the honest representation of "this lineage is
+            # sitting today out".
+            lineage.fixture = None
+            lineage.pick = None
+            lineage.price = None
+            lineage.edge = 0.0
+            lineage.probability = 0.0
+            lineage.held_date = None
     save_population(pop)
     return heartbeats
 

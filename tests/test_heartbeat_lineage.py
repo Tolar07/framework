@@ -505,3 +505,92 @@ def test_species_survives_total_wipeout_via_starvation_floor(clean_lineage):
     bred = L.breed_next_generation([], target_date="2026-09-18")
     assert len(bred.living()) == 1, "starvation floor must reseed one lineage"
     assert bred.living()[0].bankroll == L.STARVATION_FLOOR
+
+
+def test_kicked_off_fixtures_are_never_heartbeat_candidates():
+    """A heartbeat is a PRE-MATCH bet. Started fixtures must not be selected.
+
+    The selector applied no time filter at all. On 2026-09-17 at 17:43 UTC it
+    ranked "Gazovik Orenburg v FC Krasnodar" FIRST — kicked off at 13:15, four
+    and a half hours earlier — with two more already in play. Handing a lineage
+    a match it could never have backed is bad on its own; it became serious the
+    moment one LOSS meant extinction.
+    """
+    from types import SimpleNamespace
+    from datetime import datetime, timezone
+    from output.heartbeat import select_top_heartbeats, has_kicked_off
+
+    today = "2026-09-17"
+    common = dict(kickoff_date=today, verification=SimpleNamespace(tier="TIER_A"))
+
+    def fx(name, ko, prob, price):
+        return SimpleNamespace(
+            fixture=name, kickoff_utc=ko,
+            probs=SimpleNamespace(p_home=prob, p_draw=0.2, p_away=1 - prob - 0.2),
+            best_market=f"{name} pick", best_price=price, best_edge=0.15,
+            best_mes_ev=0.1, best_model_prob=prob, best_bookmaker="SportyBet",
+            home_team=name.split(" v ")[0], away_team=name.split(" v ")[1],
+            **common)
+
+    started = fx("Orenburg v Krasnodar", f"{today}T13:15:00+00:00", 0.93, 1.35)
+    ahead = fx("Malaga v Villarreal", f"{today}T23:30:00+00:00", 0.85, 1.48)
+
+    picks = select_top_heartbeats([started, ahead], target_date=today, top_n=5)
+    names = [p.fixture for p in picks]
+    assert "Orenburg v Krasnodar" not in names, "a started fixture was selected"
+    assert "Malaga v Villarreal" in names
+
+    # The filter must FAIL SAFE. pipeline.fixture_extraction._has_kicked_off
+    # returns False ("not started") for a NAIVE timestamp, because comparing it
+    # to an aware now() raises TypeError which its except swallows — and naive
+    # stamps are what collaborative_fixtures._kickoff_iso emits for FlashScore
+    # and SportyBet. Unparseable or missing must count as STARTED.
+    now = datetime(2026, 9, 17, 17, 55, tzinfo=timezone.utc)
+    assert has_kicked_off(SimpleNamespace(kickoff_utc="2026-09-17T13:15"), now=now) is True
+    assert has_kicked_off(SimpleNamespace(kickoff_utc="2026-09-17T19:30"), now=now) is False
+    assert has_kicked_off(SimpleNamespace(kickoff_utc=None), now=now) is True
+    assert has_kicked_off(SimpleNamespace(kickoff_utc="not-a-date"), now=now) is True
+
+
+def test_lineage_without_a_heartbeat_holds_nothing(clean_lineage):
+    """A lineage that gets no candidate must not keep showing an old holding.
+
+    With fewer candidates than living lineages the unassigned ones retained
+    whatever a PREVIOUS selection wrote, and render_lineage_report printed it
+    unconditionally. The report showed 8 lineages holding positions when only 3
+    had one — two of them on fixtures that had already kicked off and been
+    filtered out moments earlier, plus duplicate rows.
+    """
+    from types import SimpleNamespace
+
+    pop = L.LineagePopulation(lineages=[
+        L.Lineage(lineage_id=f"ln_{i}", parent_id=None, generation=0,
+                  bankroll=100.0 - i, current_stake=1.0, wins=0, losses=0,
+                  alive=True, born_date="2026-09-17",
+                  fixture="STALE v HOLDING", pick="Stale pick",
+                  price=1.5, edge=0.2, probability=0.9)
+        for i in range(3)
+    ])
+    L.save_population(pop)
+
+    today = "2026-09-17"
+    only_one = SimpleNamespace(
+        fixture="Real v Fake", kickoff_date=today,
+        kickoff_utc=f"{today}T23:30:00+00:00",
+        probs=SimpleNamespace(p_home=0.85, p_draw=0.1, p_away=0.05),
+        best_market="Real to win", best_price=1.48, best_edge=0.15,
+        best_mes_ev=0.1, best_model_prob=0.85, best_bookmaker="SportyBet",
+        home_team="Real", away_team="Fake",
+        verification=SimpleNamespace(tier="TIER_A"))
+
+    hbs = L.select_daily_heartbeats([only_one], target_date=today)
+    assert len(hbs) == 1, "one candidate, so exactly one lineage is fed"
+
+    after = L.load_population()
+    held = [l for l in after.living() if l.fixture]
+    assert len(held) == 1, f"only the fed lineage may hold a position, got {len(held)}"
+    assert held[0].fixture == "Real v Fake"
+    for l in after.living():
+        if l.fixture is None:
+            assert l.pick is None and l.price is None and l.held_date is None, (
+                "an unfed lineage must be fully cleared, not half-cleared")

@@ -99,6 +99,10 @@ def select_heartbeat_fixture(
             if verification_status in ['FAILED', 'REJECTED']:
                 continue
 
+        # A heartbeat is a pre-match bet. See has_kicked_off.
+        if has_kicked_off(bf):
+            continue
+
         # Calculate edge/score for selection. Tuple key for the same reason as
         # select_top_heartbeats: an unpriced fixture's probability must not be
         # compared against a priced fixture's edge as if they were one scale.
@@ -131,6 +135,7 @@ def select_top_heartbeats(
     top_n: int = 5,
     min_edge: float = 0.0,
     require_priced: bool = True,
+    exclude_started: bool = True,
 ) -> list[HeartbeatFixture]:
     """
     Architect 2026-08-29 — lineage reproduction model.
@@ -195,6 +200,10 @@ def select_top_heartbeats(
         if verification_status in ['FAILED', 'REJECTED']:
             continue
 
+        # A heartbeat is a pre-match bet. See has_kicked_off.
+        if exclude_started and has_kicked_off(bf):
+            continue
+
         pick_info = _get_best_pick_info(bf, odds_index)
         if not pick_info:
             continue
@@ -234,6 +243,47 @@ def select_top_heartbeats(
         _build_heartbeat_fixture(bf, pick_info, odds_index)
         for _, bf, pick_info in scored[:top_n]
     ]
+
+
+def has_kicked_off(bf, now=None) -> bool:
+    """True when this fixture has already started, or we cannot prove it has not.
+
+    A heartbeat is a PRE-MATCH bet. The selector previously applied no time
+    filter at all, so on 2026-09-17 at 17:43 UTC it ranked
+    "Gazovik Orenburg v FC Krasnodar" first -- a match that kicked off at 13:15,
+    four and a half hours earlier -- along with two others already in play.
+    Handing a lineage a match it could never have backed is bad on its own; it
+    became serious the moment one LOSS meant extinction, because a bloodline
+    could be ended on a fixture nobody could have staked.
+
+    FAILS SAFE, and deliberately differs from
+    pipeline.fixture_extraction._has_kicked_off. That helper returns False
+    ("not started") when the timestamp cannot be parsed OR when it is NAIVE:
+    comparing a naive datetime against an aware now() raises TypeError, which
+    its except clause swallows into False. Naive timestamps are not exotic here
+    -- collaborative_fixtures._kickoff_iso emits "2026-09-17T18:00" with no zone
+    for FlashScore and SportyBet -- so that default would wave through exactly
+    the fixtures this filter exists to catch.
+
+    Here, a naive stamp is read as UTC (which is what the pipeline stores), and
+    anything genuinely unreadable counts as STARTED, because a heartbeat we
+    cannot confirm is pre-match is not one worth risking a lineage on.
+    """
+    from datetime import datetime, timezone
+
+    now = now or datetime.now(timezone.utc)
+    raw = getattr(bf, "kickoff_utc", None) or getattr(bf, "kickoff_time", None)
+    if not raw:
+        return True  # no kickoff -> cannot confirm pre-match -> treat as gone
+
+    try:
+        ko = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+    except (ValueError, TypeError):
+        return True
+
+    if ko.tzinfo is None:
+        ko = ko.replace(tzinfo=timezone.utc)
+    return now >= ko
 
 
 def _get_best_pick_info(bf: BoardFixture, odds_index: Optional[dict]) -> Optional[tuple[str, float, float]]:

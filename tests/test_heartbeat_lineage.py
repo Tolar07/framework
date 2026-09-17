@@ -308,3 +308,59 @@ def test_lineage_state_survives_a_schema_addition(clean_lineage):
     assert pop.lineages[0].lineage_id == "ln_legacy", "must not reseed genesis"
     assert pop.lineages[0].bankroll == 42.5
     assert pop.lineages[0].unsettled_wins == 0, "new field defaults"
+
+
+# ---------------------------------------------------------------------------
+# Acca sizing — ratified Telegram spec §4.2 (LEGS_PER_ACCA = 5)
+# ---------------------------------------------------------------------------
+def test_acca_sizing_constants_are_not_shadowed():
+    """Stage B must not redefine the engine's acca sizing with a different number.
+
+    pipeline/production_stage_b.py declared its own ACCA_A_MAX = 4 and
+    SPLIT_GROUP_TARGET = 4, shadowing engine.acca's 5s. Because Stage B passes
+    its own values into build_production_bets, the engine's default never
+    applied: calling the builder directly gave 5+5 while calling it through
+    Stage B gave 4+6. A shadowed constant is invisible at the call site.
+    """
+    import engine.acca as A
+    import pipeline.production_stage_b as P
+
+    assert A.ACCA_A_MAX == 5, "spec §4.2: five legs per acca"
+    assert A.SPLIT_GROUP_TARGET == 5
+    assert P.ACCA_A_MAX == A.ACCA_A_MAX, (
+        "Stage B must re-export the engine's constant, never redefine it"
+    )
+    assert P.SPLIT_GROUP_TARGET == A.SPLIT_GROUP_TARGET
+
+
+def test_remainder_chunks_into_exact_fives():
+    """Groups are exactly 5, except a deliberate 3-4 leg short tail.
+
+    The old rule was "~4-5 legs, roughly": it permitted groups of SIX and split
+    7 and 8 into 4+3 and 4+4, so the board printed accas of 4 and 6 against a
+    spec that says 5.
+    """
+    from engine.acca import _chunk_remainder, SPLIT_GROUP_TARGET, MIN_SHORT_ACCA
+
+    mk = lambda n: [object() for _ in range(n)]
+
+    # 1-2 legs is a single, never an acca.
+    assert _chunk_remainder(mk(1)) == []
+    assert _chunk_remainder(mk(2)) == []
+
+    for n in (3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 16):
+        sizes = [len(g) for g in _chunk_remainder(mk(n))]
+        assert all(s <= SPLIT_GROUP_TARGET for s in sizes), (
+            f"remainder {n} produced an oversized group: {sizes}"
+        )
+        assert all(s >= MIN_SHORT_ACCA for s in sizes), (
+            f"remainder {n} produced a sub-minimum group: {sizes}"
+        )
+        # Every group except possibly the last must be a full five.
+        assert all(s == SPLIT_GROUP_TARGET for s in sizes[:-1]), (
+            f"remainder {n} produced a non-full group before the tail: {sizes}"
+        )
+
+    assert [len(g) for g in _chunk_remainder(mk(10))] == [5, 5]
+    assert [len(g) for g in _chunk_remainder(mk(8))] == [5, 3]
+    assert [len(g) for g in _chunk_remainder(mk(15))] == [5, 5, 5]

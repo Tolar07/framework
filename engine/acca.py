@@ -69,7 +69,8 @@ from engine.mes import edge_diff, mes_numeric_ev
 
 ACCA_A_MAX = 5          # the headline acca holds the top 4-5 confidence legs
 HEADLINE_MIN_LEGS = 4   # below this, Acca A is a shortened acca, never padded
-SPLIT_GROUP_TARGET = 5  # remainder splits into ~4-5 leg groups, never one giant acca
+SPLIT_GROUP_TARGET = 5  # legs per acca (ratified Telegram spec §4.2)
+MIN_SHORT_ACCA = 3      # a 3-4 leg tail is a SHORT ACCA; 1-2 legs stay singles
 # ODDS LIMITS (now loaded from configuration)
 import sys
 from pathlib import Path
@@ -572,29 +573,33 @@ def _make_acca(label: str, leg_list: List[AccaLeg]) -> Acca:
 
 
 def _chunk_remainder(legs: List[AccaLeg]) -> List[List[AccaLeg]]:
-    """Split the post-Acca-A remainder into ~4-5 leg groups, never one giant acca.
+    """Split the post-Acca-A remainder into groups of SPLIT_GROUP_TARGET (5).
 
-    Deterministic:
-      <=2  -> []              (a 1-2 leg "acca" is a single, not an acca)
-      <=6  -> one group
-      <=9  -> 4+3 / 4+4 / 5+4
-      else -> take 5, repeat (10->[5,5], 11->[5,6], 13->[5,4,4], 15->[5,5,5])
-    Max group size 6, min 3 — "~4-5 legs each, roughly" per the Architect."""
+    Ratified Telegram spec §4.2, and the Architect 2026-09-17: "fix the acca to
+    5 legs per acca". Chunk sequentially into 5s; the tail is handled per spec:
+
+      remainder >= MIN_SHORT_ACCA (3) -> its own SHORT ACCA
+      remainder 1-2                   -> not an acca; stays a single (SLV)
+
+    The previous rule was "~4-5 legs each, roughly": it allowed groups of SIX
+    and split 7/8 into 4+3 and 4+4, so the board printed accas of 4 and 6 while
+    the spec said 5. Sizes are now exact, and the only group that is not 5 is a
+    deliberate, labelled short tail.
+    """
     n = len(legs)
-    if n <= 2:
+    if n < MIN_SHORT_ACCA:
+        # 1-2 legs is a single, not an accumulator.
         return []
-    if n <= 6:
-        return [legs]
+
     groups: List[List[AccaLeg]] = []
     i = 0
     while i < n:
         remaining = n - i
-        if remaining <= 6:
-            take = remaining
-        elif remaining <= 9:
-            take = remaining // 2 + (remaining % 2)  # 7->4, 8->4, 9->5
-        else:
-            take = SPLIT_GROUP_TARGET
+        if remaining < MIN_SHORT_ACCA:
+            # A 1-2 leg tail is never padded onto a full acca and never emitted
+            # as one; those legs remain available as singles.
+            break
+        take = min(SPLIT_GROUP_TARGET, remaining)
         groups.append(legs[i:i + take])
         i += take
     return groups

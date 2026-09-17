@@ -28,6 +28,9 @@ from engine.acca import (
     # caught it earlier because Stage B itself was never invoked.
     _best_deployable_leg,
     _make_acca,
+    # Single source of truth for acca sizing — see the ACCA_A_MAX block below.
+    ACCA_A_MAX as _ACCA_A_MAX,
+    SPLIT_GROUP_TARGET as _SPLIT_GROUP_TARGET,
     build_production_bets,
     render_production_block,
     # The three odds bounds are likewise used but never imported. They are the
@@ -58,8 +61,22 @@ STAGE_B_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 # Vehicle structure: 2 accas + 1 SLV (single) per session
 VEHICLE_ACCA_MAX = 2      # Headline accas: Acca A + Acca B (was 4-5, reduced per Architect)
 VEHICLE_SLV_COUNT = 1     # Single SLV (was singles per fixture, now 1 best single)
-ACCA_A_MAX = 4            # Acca A holds top 4 legs (was 5)
-SPLIT_GROUP_TARGET = 4    # Remainder splits into ~4 leg groups
+# LEGS PER ACCA = 5 (ratified Telegram spec §4.2, Architect 2026-09-17:
+# "fix the acca to 5 legs per acca").
+#
+# These two constants SHADOWED engine.acca.ACCA_A_MAX (5) and
+# engine.acca.SPLIT_GROUP_TARGET (5) with 4s. Same names, two modules, two
+# values — and because Stage B passes its own into build_production_bets, the
+# engine's 5 never applied. On 2026-09-17 that produced Acca A with 4 legs and
+# Acca B with 6 from ten eligible legs: calling build_production_bets directly
+# gave the correct 5+5, calling it through Stage B gave 4+6. A shadowed
+# constant is invisible at the call site, which is why the board disagreed with
+# the engine's own documented default.
+#
+# Re-exported from engine.acca so there is ONE definition. Changing the number
+# now means changing it in one place, not finding both.
+ACCA_A_MAX = _ACCA_A_MAX          # 5
+SPLIT_GROUP_TARGET = _SPLIT_GROUP_TARGET  # 5
 
 
 @dataclass

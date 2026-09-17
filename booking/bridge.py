@@ -615,93 +615,103 @@ def get_sportybet_odds_for_leg(
     fixtures = load_sportybet_fixtures(olp_league, days_ahead=45)
 
     def _price(fx) -> Optional[float]:
+        # Attribute access is guarded because this helper names markets
+        # (over25_odds, btts_yes_odds, dc_1x_odds, HT/FT, correct score) that
+        # PipelineFixture does not carry -- it only has the 1X2 trio. The
+        # function was dead code until the cached-price path started calling
+        # it, so the mismatch had never been exercised; a request for any
+        # non-1X2 market raised AttributeError instead of reporting "no price".
+        # Missing attribute means no cached price for that market, which is
+        # None, not an error.
+        def _g(attr):
+            return getattr(fx, attr, None)
         # 1X2
         if market == "1X2_HOME":
-            return fx.home_odds
+            return _g("home_odds")
         if market == "1X2_DRAW":
-            return fx.draw_odds
+            return _g("draw_odds")
         if market == "1X2_AWAY":
-            return fx.away_odds
+            return _g("away_odds")
         # Totals
         if market == "OVER_1_5":
-            return fx.over15_odds
+            return _g("over15_odds")
         if market == "UNDER_1_5":
-            return fx.under15_odds
+            return _g("under15_odds")
         if market == "OVER_2_5":
-            return fx.over25_odds
+            return _g("over25_odds")
         if market == "UNDER_2_5":
-            return fx.under25_odds
+            return _g("under25_odds")
         if market == "OVER_3_5":
-            return fx.over35_odds
+            return _g("over35_odds")
         if market == "UNDER_3_5":
-            return fx.under35_odds
+            return _g("under35_odds")
         if market == "OVER_0_5":
-            return fx.over05_odds
+            return _g("over05_odds")
         if market == "UNDER_0_5":
-            return fx.under05_odds
+            return _g("under05_odds")
         # BTTS
         if market == "BTTS_YES":
-            return fx.btts_yes_odds
+            return _g("btts_yes_odds")
         if market == "BTTS_NO":
-            return fx.btts_no_odds
+            return _g("btts_no_odds")
         # Double Chance
         if market == "DC_1X":
-            return fx.dc_1x_odds
+            return _g("dc_1x_odds")
         if market == "DC_X2":
-            return fx.dc_x2_odds
+            return _g("dc_x2_odds")
         if market == "DC_12":
-            return fx.dc_12_odds
+            return _g("dc_12_odds")
         # Draw No Bet
         if market == "DNB_HOME":
-            return fx.dnb_home_odds
+            return _g("dnb_home_odds")
         if market == "DNB_AWAY":
-            return fx.dnb_away_odds
+            return _g("dnb_away_odds")
         # HT/FT
         if market == "HT_FT_11":
-            return fx.htft_11_odds
+            return _g("htft_11_odds")
         if market == "HT_FT_1X":
-            return fx.htft_1x_odds
+            return _g("htft_1x_odds")
         if market == "HT_FT_12":
-            return fx.htft_12_odds
+            return _g("htft_12_odds")
         if market == "HT_FT_X1":
-            return fx.htft_x1_odds
+            return _g("htft_x1_odds")
         if market == "HT_FT_XX":
-            return fx.htft_xx_odds
+            return _g("htft_xx_odds")
         if market == "HT_FT_X2":
-            return fx.htft_x2_odds
+            return _g("htft_x2_odds")
         if market == "HT_FT_21":
-            return fx.htft_21_odds
+            return _g("htft_21_odds")
         if market == "HT_FT_2X":
-            return fx.htft_2x_odds
+            return _g("htft_2x_odds")
         if market == "HT_FT_22":
-            return fx.htft_22_odds
+            return _g("htft_22_odds")
         # Correct Score
         if market == "CS_10":
-            return fx.cs_10_odds
+            return _g("cs_10_odds")
         if market == "CS_01":
-            return fx.cs_01_odds
+            return _g("cs_01_odds")
         if market == "CS_11":
-            return fx.cs_11_odds
+            return _g("cs_11_odds")
         if market == "CS_20":
-            return fx.cs_20_odds
+            return _g("cs_20_odds")
         if market == "CS_02":
-            return fx.cs_02_odds
+            return _g("cs_02_odds")
         if market == "CS_21":
-            return fx.cs_21_odds
+            return _g("cs_21_odds")
         if market == "CS_12":
-            return fx.cs_12_odds
+            return _g("cs_12_odds")
         if market == "CS_22":
-            return fx.cs_22_odds
+            return _g("cs_22_odds")
         if market == "CS_00":
-            return fx.cs_00_odds
+            return _g("cs_00_odds")
         if market == "CS_30":
-            return fx.cs_30_odds
+            return _g("cs_30_odds")
         if market == "CS_03":
-            return fx.cs_03_odds
+            return _g("cs_03_odds")
         if market == "CS_31":
-            return fx.cs_31_odds
+            return _g("cs_31_odds")
         if market == "CS_13":
-            return fx.cs_13_odds
+            return _g("cs_13_odds")
         # Unknown market
         return None
 

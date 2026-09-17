@@ -8,6 +8,11 @@ daily bet. The Architect's concept:
   - WIN  -> the lineage REPRODUCES: it spawns up to TWO offspring heartbeats
             the next day (the species branches). Capital compounds.
   - LOSS -> the lineage goes EXTINCT. That branch terminates; its capital is lost.
+            ONE loss, not a drained bankroll. Implemented in
+            record_heartbeat_result as of the Architect's 2026-09-17 ruling;
+            before that the code only killed a lineage at bankroll <= 0, which
+            let it survive 100 losses and removed the selection pressure this
+            model exists to apply.
   - PRESSURE FORCES QUALITY: because death is real (paper-mode, virtual capital),
     the selector must take the highest-edge fixture available or the lineage dies
     off. The survival pressure IS the training signal.
@@ -293,10 +298,32 @@ def record_heartbeat_result(
             lineage.bankroll = round(lineage.bankroll + profit, 2)
         lineage.wins += 1
     elif result == "LOSS":
+        # LOSS IS EXTINCTION. One loss ends the bloodline.
+        #
+        # Architect ruling 2026-09-17, resolving the doc-vs-code disagreement
+        # flagged earlier: this module's own docstring says "LOSS -> the lineage
+        # goes EXTINCT. That branch terminates; its capital is lost", while the
+        # code only killed a lineage once its bankroll reached zero.
+        #
+        # Those are not close. At DEFAULT_STARTING_BANKROLL 100 and a stake of
+        # 1, a lineage survived ONE HUNDRED consecutive losses. The model's
+        # stated purpose is "PRESSURE FORCES QUALITY ... because death is real,
+        # the selector must take the highest-edge fixture available or the
+        # lineage dies off. The survival pressure IS the training signal."
+        # A lineage that cannot die in under a hundred losses applies no
+        # pressure at all, so the code was not a lenient version of the model —
+        # it silently removed the mechanism the model is built on.
+        #
+        # The bankroll is still debited before death so the ledger records what
+        # the branch was worth when it ended ("its capital is lost"), rather
+        # than a lineage vanishing with its capital unaccounted for.
         lineage.bankroll = round(lineage.bankroll - lineage.current_stake, 2)
         lineage.losses += 1
-        if lineage.bankroll <= 0.0:
-            lineage.alive = False  # EXTINCTION
+        lineage.alive = False  # EXTINCTION — see above
+
+        # The species does not end here: breed_next_generation reseeds a single
+        # genesis lineage at STARVATION_FLOOR when nothing is left alive. Death
+        # is real per lineage; the experiment still continues.
     else:
         # Unknown result — no transition
         lineage.last_result = result

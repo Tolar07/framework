@@ -666,9 +666,54 @@ def save_heartbeat_record(heartbeat: HeartbeatFixture, result: str = None) -> No
         "timestamp": datetime.now().isoformat()
     }
 
-    # Append to history
-    with history_file.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(record) + "\n")
+    # IDEMPOTENT PER (date, lineage_id). Blind append was wrong.
+    #
+    # Selecting the day's heartbeats is not a one-shot event — the pipeline can
+    # legitimately re-run, and it was re-run repeatedly on 2026-09-17 while the
+    # kickoff filter and verification stamp were being fixed. Every call
+    # appended, so the file ended up with 26 records for a day on which exactly
+    # THREE heartbeats were selected: duplicates at different prices, plus
+    # fixtures that later runs correctly filtered out for having kicked off.
+    #
+    # That is not just untidy. A grader walking those records would apply
+    # several results to the same lineage, and with one LOSS now meaning
+    # extinction it would kill bloodlines repeatedly, on fixtures that were
+    # never that day's heartbeat.
+    #
+    # A lineage holds ONE heartbeat per day, so (date, lineage_id) is the
+    # natural key: re-running replaces rather than accumulates. Records with no
+    # lineage_id (legacy/restored rows) are keyed on (date, fixture, pick)
+    # instead of being collapsed together.
+    key = (record["date"], record.get("lineage_id"),
+           None if record.get("lineage_id") else record.get("fixture"),
+           None if record.get("lineage_id") else record.get("pick"))
+
+    existing: list[dict] = []
+    if history_file.exists():
+        for line in history_file.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            try:
+                row = json.loads(line)
+            except ValueError:
+                continue  # keep going; one bad line must not lose the rest
+            row_key = (row.get("date"), row.get("lineage_id"),
+                       None if row.get("lineage_id") else row.get("fixture"),
+                       None if row.get("lineage_id") else row.get("pick"))
+            if row_key == key:
+                # A GRADED result is never overwritten by a fresh selection.
+                # Re-running the pipeline after a match settled must not reset
+                # it to PENDING and hand the lineage a second life.
+                if row.get("result") in ("WIN", "LOSS") and result in (None, "PENDING"):
+                    return
+                continue  # superseded by the record being written now
+            existing.append(row)
+
+    existing.append(record)
+
+    tmp = history_file.with_suffix(".jsonl.tmp")
+    tmp.write_text("".join(json.dumps(r) + "\n" for r in existing), encoding="utf-8")
+    tmp.replace(history_file)
 
 
 def get_heartbeat_stats() -> dict:

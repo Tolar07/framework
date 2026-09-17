@@ -303,6 +303,66 @@
       "deploy_eligible": true
     },
     {
+      "name": "World Cup Qualifiers UEFA",
+      "country": "Europe",
+      "tier": 1,
+      "type": "international",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 5518,
+        "odds_api": "soccer_fifa_world_cup_qualifiers_europe",
+        "api_football": 32,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "European Championship Qualifiers",
+      "country": "Europe",
+      "tier": 1,
+      "type": "international",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 5519,
+        "odds_api": "soccer_uefa_euro_qualification",
+        "api_football": 960,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "UEFA Nations League",
+      "country": "Europe",
+      "tier": 1,
+      "type": "international",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4490,
+        "odds_api": "soccer_uefa_nations_league",
+        "api_football": 5,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
       "name": "Europa League",
       "country": "Europe",
       "tier": 1,

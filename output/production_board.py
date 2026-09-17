@@ -70,9 +70,13 @@ _RULE = "─" * 34
 # Small helpers
 # ---------------------------------------------------------------------------
 def _country_of(league: str) -> Optional[str]:
+    # engine.leagues exposes league_registry(), not load_registry — the wrong
+    # name meant this branch always raised ImportError and silently fell through
+    # to the JSON read below. Harmless (flags still resolved) but it made the
+    # fast path dead code.
     try:
-        from engine.leagues import load_registry
-        for entry in load_registry():
+        from engine.leagues import league_registry
+        for entry in league_registry():
             if getattr(entry, "name", None) == league:
                 return getattr(entry, "country", None)
     except Exception:
@@ -331,6 +335,159 @@ def _no_data_footer(unresolved: list[str], run_id: str) -> str:
     ])
 
 
+# ---------------------------------------------------------------------------
+# §4 ACCA ROUTE
+# ---------------------------------------------------------------------------
+# §4.2 formation constants. The Architect specified 5 legs per acca.
+LEGS_PER_ACCA = 5
+# §4.3 UNRESOLVED DIRECTIVE CONFLICT — left at 2 deliberately.
+#
+# The Architect described (17 Sep) 16 picks -> accas of 5 legs, 20+ picks ->
+# more accas, which implies 3-4 accas per session. The standing rule is 2 accas
+# + 1 SLV, explicitly reaffirmed 14-15 Aug when raising it to 4-5 was rejected.
+# HR56 makes both binding until a LATER explicit directive resolves them, so
+# this stays at 2 and the board PRINTS that it is capped. Changing it is a
+# one-line config edit once the Architect rules.
+MAX_ACCAS = 2
+MIN_SHORT_ACCA = 3          # §4.2 remainder threshold
+ACCA_ODDS_CEILING = 1.50    # §4.1(3) ID420 per-leg ceiling
+
+
+def _leg_line(i: int, leg) -> str:
+    """'1. Lyon v Fenerbahçe — Over 1.5 goals .......... 81% @ 1.24'."""
+    fixture = getattr(leg, "fixture", "?")
+    if fixture.endswith(")") and " (" in fixture:
+        fixture = fixture.rsplit(" (", 1)[0]
+    name = getattr(leg, "market_name", "?")
+    head = f"{i}. {fixture} — {name} "
+    tail = f" {_pct(getattr(leg, 'prob', None))} @ {getattr(leg, 'price', 0.0):.2f}"
+    dots = max(1, 52 - len(head) - len(tail))
+    return f"{head}{'.' * dots}{tail}"
+
+
+def _acca_block(acca, rank_from: int, rank_to: int) -> list[str]:
+    """One acca with its MANDATORY disclosures (§4.5)."""
+    legs = list(getattr(acca, "legs", None) or [])
+    lines = [f"▸ {getattr(acca, 'label', 'ACCA')} — {len(legs)} legs · "
+             f"EV rank {rank_from}–{rank_to}"]
+    lines += [_leg_line(i, lg) for i, lg in enumerate(legs, 1)]
+
+    combined_odds = getattr(acca, "combined_odds", None)
+    if combined_odds is None:
+        combined_odds = 1.0
+        for lg in legs:
+            combined_odds *= (getattr(lg, "price", None) or 1.0)
+
+    combined_prob = getattr(acca, "combined_prob", None)
+    if combined_prob is None:
+        combined_prob = 1.0
+        for lg in legs:
+            combined_prob *= (getattr(lg, "prob", None) or 0.0)
+
+    # §4.5: combined probability and break-even ALWAYS side by side. A five-leg
+    # acca of strong-looking legs reads as high confidence and is not —
+    # combined probability is the PRODUCT of the legs, not an average.
+    break_even = (1.0 / combined_odds) if combined_odds else None
+    # One decimal, matching the spec's own example (25.9% vs 24.9%). Whole
+    # percents round these two onto each other — 26% vs 27% cannot show a
+    # -1.4pp edge — and this pair exists precisely so the reader can compare
+    # them (§4.5).
+    _p1 = lambda x: "PENDING" if x is None else f"{x * 100:.1f}%"
+    lines.append("   " + _RULE)
+    lines.append(f"   Combined odds ............... {combined_odds:.2f}")
+    lines.append(f"   Combined model probability ... {_p1(combined_prob)}")
+    lines.append(f"   Break-even probability ....... {_p1(break_even)}")
+    if break_even is not None:
+        edge_pp = (combined_prob - break_even) * 100
+        flag = "  ⚠ NEGATIVE" if edge_pp < 0 else ""
+        lines.append(f"   Model edge ................... {edge_pp:+.1f}pp{flag}")
+    lines.append("   Booking code: PENDING")
+    return lines
+
+
+def render_acca_route(route, n_scanned: int) -> str:
+    """§4 ACCA ROUTE. Returns "" when the pool supports no acca at all.
+
+    Rendered from the acca route Stage B already built, so the board and the
+    acca cannot disagree about which legs qualified — §6 requires one shared
+    board_data with no surface recalculating.
+    """
+    if route is None:
+        return ""
+
+    accas = [a for a in (getattr(route, "acca_a", None), getattr(route, "acca_b", None))
+             if a is not None and (getattr(a, "legs", None) or [])]
+    slv = getattr(route, "slv", None)
+    watchlist = list(getattr(route, "watchlist", None) or [])
+
+    if not accas and slv is None and not watchlist:
+        return ""
+
+    # §4.1(3): a pick enters the ACCA POOL only if its price is at or under the
+    # ID420 ceiling. Legs above it are NOT eligible, so they must not be counted
+    # in the pool or filed under SURPLUS — surplus means "eligible but beyond
+    # MAX_ACCAS", which is a different thing entirely. Today every qualifying
+    # pick priced 1.78-7.81, so calling them "4 eligible" would have claimed an
+    # acca pool that does not exist.
+    def _over_ceiling(lg) -> bool:
+        px = getattr(lg, "price", None)
+        return px is not None and px > ACCA_ODDS_CEILING
+
+    surplus = [lg for lg in (([slv] if slv else []) + watchlist)
+               if not _over_ceiling(lg)]
+    over_ceiling = [lg for lg in (([slv] if slv else []) + watchlist)
+                    if _over_ceiling(lg)]
+
+    pool = sum(len(a.legs) for a in accas) + len(surplus)
+    formed = " · ".join(
+        f"{len(a.legs)} legs" for a in accas) if accas else "none"
+
+    lines = [_RULE, "🎟️ ACCA ROUTE", _RULE,
+             f"Eligible pool: {pool} of {n_scanned} scanned"]
+
+    lines.append(
+        f"Formed: {len(accas)} acca(s) ({formed})"
+        + (f" · Surplus: {len(surplus)} pick(s) → singles" if surplus else "")
+    )
+    lines.append(f"(MAX_ACCAS = {MAX_ACCAS} — standing rule, see spec §4.3)")
+    lines.append("")
+
+    rank = 1
+    for acca in accas:
+        n = len(acca.legs)
+        lines += _acca_block(acca, rank, rank + n - 1)
+        lines.append("")
+        rank += n
+
+    if surplus:
+        lines.append(f"▸ SURPLUS — {len(surplus)} eligible pick(s), "
+                     f"beyond acca cap, as singles")
+        for lg in surplus:
+            lines.append("   " + _leg_line(0, lg)[3:])
+        lines.append("   Booking codes: PENDING")
+        lines.append("")
+
+    if over_ceiling:
+        # ID420 watchlist. Shown, never silently dropped (§4.2 "visible, never
+        # discarded"), but kept OUT of the eligible pool and clearly marked
+        # not-deployable so it cannot read as a recommendation.
+        lines.append(f"▸ ID420 WATCHLIST — {len(over_ceiling)} pick(s) above the "
+                     f"{ACCA_ODDS_CEILING:.2f} per-leg ceiling")
+        lines.append("   Not acca-eligible and not deployable — shown for review only.")
+        for lg in over_ceiling:
+            px = getattr(lg, "price", None)
+            lines.append("   " + _leg_line(0, lg)[3:]
+                         + (f"  ⚠ {px:.2f} > {ACCA_ODDS_CEILING:.2f}" if px else ""))
+        lines.append("")
+
+    # §4.5 — the accumulator honesty statement, non-optional.
+    lines.append("HONEST EDGE: combined probability is the product of legs, not an")
+    lines.append("average. Five legs at ~75% each land 23.7% of the time. Accumulator")
+    lines.append("returns are not edge evidence — per the Accumulator Honesty Rule,")
+    lines.append("acca outcomes remain quarantined from the calibration log.")
+    return "\n".join(lines)
+
+
 HONEST_EDGE_FOOTER = "\n".join([
     "=" * 34,
     "HONEST EDGE: an excellent informed process, NOT a demonstrated",
@@ -377,6 +534,7 @@ def render_production_board(
     acca_text: str = "",
     strict_kickoff: bool = True,
     odds_index=None,
+    acca_route=None,
 ) -> list[str]:
     """Render the day's board as competition-chunked Telegram messages.
 
@@ -426,6 +584,11 @@ def render_production_board(
             _RULE, f"{_flag(league)} {league.upper()}", _RULE, "", body,
         ]))
 
+    # §4 — rendered from Stage B's own acca route so the board and the acca
+    # cannot disagree about which legs qualified (§6: one shared board_data,
+    # no surface recalculates). An explicit acca_text still wins if given.
+    if not acca_text and acca_route is not None:
+        acca_text = render_acca_route(acca_route, len(today))
     if acca_text:
         sections.append(acca_text)
 

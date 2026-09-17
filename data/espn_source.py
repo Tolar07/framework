@@ -268,6 +268,16 @@ def fetch_upcoming(
                 home_team=home_team.strip(),
                 away_team=away_team.strip(),
                 date=event.get("date", "")[:10],  # YYYY-MM-DD
+                # ESPN's scoreboard returns a FULL ISO timestamp, e.g.
+                # "2026-09-17T19:00Z". Truncating it to [:10] for `date` threw
+                # the kickoff TIME away at the source -- it was never available
+                # anywhere downstream, which is why every fixture reached the
+                # board with a T00:00:00 placeholder and the ratified Telegram
+                # spec (§2: "Real confirmed time only. Never ??:??") could not
+                # be satisfied for a single fixture. `date` keeps its
+                # YYYY-MM-DD contract (validated in __post_init__ and used for
+                # day filtering); the untruncated value is preserved alongside.
+                kickoff_utc=event.get("date", "") or "",
                 league=league,
                 source="espn",
                 source_tier="T2",  # ESPN is tier 2 (TheSportsDB is T1, API-Football T0)
@@ -301,6 +311,11 @@ class UpcomingFixture:
     league: str
     source: str = "espn"
     source_tier: str = "T2"
+    # Full ISO kickoff timestamp as ESPN returned it ("2026-09-17T19:00Z").
+    # Empty when the payload carried no date at all. Never synthesised from
+    # `date` -- a midnight placeholder is worse than an honest blank, because
+    # it looks like a real kickoff (HR35).
+    kickoff_utc: str = ""
 
     def __post_init__(self) -> None:
         # Basic validation

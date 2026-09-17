@@ -646,6 +646,42 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             if stage_b_text:
                 board_text = stage_b_text
                 telegram_text = stage_b_text
+
+            # TELEGRAM: the ratified FINAL TELEGRAM OUTPUT SPEC (§0) names
+            # render_production_board + render_acca_route as the ONLY Telegram
+            # render path and SUSPENDS the four-table blend that
+            # render_stage_b_output emits. stage_b_text stays as board_text --
+            # it is still the on-disk board artifact -- but what goes to
+            # Telegram is the stacked per-fixture format.
+            #
+            # Falls back to stage_b_text if the spec renderer returns nothing,
+            # because an empty Telegram payload would suppress the board
+            # entirely and a suppressed board is worse than an old format.
+            try:
+                from output.production_board import render_production_board
+                _msgs = render_production_board(
+                    list(getattr(getattr(stage_b, "layer2", None), "fixtures", []) or []),
+                    board_date,
+                    run_id,
+                    acca_route=getattr(stage_b, "acca_route", None),
+                )
+                if _msgs:
+                    telegram_text = "\n\n".join(_msgs)
+                    all_flags.append(
+                        f"production board rendered: {len(_msgs)} Telegram "
+                        f"message(s) per ratified spec"
+                    )
+                else:
+                    all_flags.append(
+                        "production board EMPTY — every fixture held off the "
+                        "board (spec §2 requires a confirmed kickoff); "
+                        "falling back to the Stage B render"
+                    )
+            except Exception as e:
+                all_flags.append(
+                    f"production board render failed ({type(e).__name__}: {e}) "
+                    f"— falling back to the Stage B render"
+                )
             n_rows = len(getattr(getattr(stage_b, "layer2", None), "rows", []) or [])
 
             # Persist the acca payload booking reads. Nothing wrote

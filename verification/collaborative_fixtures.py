@@ -116,6 +116,28 @@ def whitelisted_leagues() -> list:
 # SOURCES; nothing else in the pipeline needs to know.
 # --------------------------------------------------------------------------
 
+def _kickoff_iso(date_part: str, time_part: str | None, fallback: str) -> str:
+    """Build YYYY-MM-DDTHH:MM from a date plus an HH:MM, or return the date.
+
+    Every adapter below used to pass a bare DATE as kickoff_utc, so the whole
+    pipeline saw T00:00:00 for every fixture and no kickoff time existed
+    anywhere -- even though FlashScore, SportyBet and TheSportsDB all carry
+    one. This joins them back together.
+
+    A missing or "TBD" time returns the DATE ALONE, never a midnight stamp.
+    Downstream treats a date-only value as "kickoff not confirmed" and holds
+    the fixture off the board (spec §2), which is the honest outcome; inventing
+    00:00 would look like a real kickoff and be indistinguishable from one.
+    """
+    d = (date_part or fallback or "")[:10]
+    t = (time_part or "").strip()
+    if not d:
+        return ""
+    if not t or t.upper() == "TBD" or len(t) < 4:
+        return d
+    return f"{d}T{t[:5]}"
+
+
 def _espn_adapter(target_date: str, leagues: list) -> list:
     from data.espn_source import fetch_upcoming
     out = []
@@ -128,8 +150,10 @@ def _espn_adapter(target_date: str, leagues: list) -> list:
             continue
         for f in fixtures:
             if f.date == target_date:
-                out.append(SourceFixture(home=f.home_team, away=f.away_team,
-                                         league=lg, kickoff_utc=f.date))
+                # Prefer ESPN's full timestamp; f.date is the truncated day.
+                out.append(SourceFixture(
+                    home=f.home_team, away=f.away_team, league=lg,
+                    kickoff_utc=getattr(f, "kickoff_utc", "") or f.date))
     return out
 
 
@@ -138,7 +162,8 @@ def _flashscore_adapter(target_date: str, leagues: list) -> list:
     allowed = set(leagues)
     return [
         SourceFixture(home=r["home"], away=r["away"], league=r.get("league", ""),
-                      kickoff_utc=r.get("kickoff_date") or target_date)
+                      kickoff_utc=_kickoff_iso(r.get("kickoff_date"),
+                                               r.get("kickoff"), target_date))
         for r in fetch_flashscore(target_date)
         if r.get("league") in allowed
     ]
@@ -149,7 +174,8 @@ def _sportybet_adapter(target_date: str, leagues: list) -> list:
     allowed = set(leagues)
     return [
         SourceFixture(home=r["home"], away=r["away"], league=r.get("league", ""),
-                      kickoff_utc=r.get("kickoff_date") or target_date)
+                      kickoff_utc=_kickoff_iso(r.get("kickoff_date"),
+                                               r.get("kickoff"), target_date))
         for r in fetch_sportybet_cache(target_date)
         if r.get("league") in allowed
     ]
@@ -169,8 +195,13 @@ def _thesportsdb_adapter(target_date: str, leagues: list) -> list:
             home = getattr(f, "home_team", None) or getattr(f, "home", None)
             away = getattr(f, "away_team", None) or getattr(f, "away", None)
             if home and away:
-                out.append(SourceFixture(home=home, away=away, league=lg,
-                                         kickoff_utc=getattr(f, "date", target_date)))
+                # fetch_today already assembles "<dateEvent>T<strTime>" into
+                # kickoff_utc when TheSportsDB supplies strTime. Reading .date
+                # instead threw that away and kept only the day.
+                out.append(SourceFixture(
+                    home=home, away=away, league=lg,
+                    kickoff_utc=(getattr(f, "kickoff_utc", "")
+                                 or getattr(f, "date", "") or target_date)))
     return out
 
 

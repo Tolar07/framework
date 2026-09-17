@@ -777,6 +777,36 @@ def _enrich_fixtures_with_models(
                         break
             except Exception:
                 pass
+
+            # FULL market map from SportyBet's API. Fetched once per league and
+            # memoised, so this is one request per competition, not per fixture.
+            #
+            # This is what lifts the acca pool: the cache scrape gave 1X2 plus a
+            # single goals line, so a fixture priced above the odds cap on 1X2
+            # had nothing else to offer. The API quotes double chance, draw no
+            # bet, BTTS and every Over/Under half-line, and reaches competitions
+            # whose league page does not load at all.
+            try:
+                # Imported here rather than relying on the sibling try-block
+                # above: if that one fails before its import line, these names
+                # are unbound and this block dies on NameError instead of doing
+                # its job.
+                from verification.fixture_matcher import (
+                    names_match as _nm, normalize_team_name as _nn2)
+                for _api_fx in _api_markets_for_league(league):
+                    if _nm(_nn2(_api_fx.home), _nn2(home)) and \
+                            _nm(_nn2(_api_fx.away), _nn2(away)):
+                        bf.sb_markets = dict(_api_fx.markets)
+                        # Backfill the 1X2 triple when the cache scrape missed
+                        # this fixture entirely, so existing consumers that read
+                        # sb_*_odds see the API price too.
+                        bf.sb_home_odds = bf.sb_home_odds or _api_fx.markets.get(mkt.HOME)
+                        bf.sb_draw_odds = bf.sb_draw_odds or _api_fx.markets.get(mkt.DRAW)
+                        bf.sb_away_odds = bf.sb_away_odds or _api_fx.markets.get(mkt.AWAY)
+                        break
+            except Exception:
+                pass
+
             bf.sb_mes_ev = sb_mes
             bf.tactical_provenance = tactical_prov
 
@@ -784,6 +814,36 @@ def _enrich_fixtures_with_models(
         flags.append(f"Carry-over rated: {', '.join(carry_flags)}")
 
     return board, flags
+
+
+# Memoised per-league SportyBet API markets. One request per competition per
+# process; a league that returns nothing is cached as empty so a dead
+# competition is not retried once per fixture.
+_API_MARKET_CACHE: dict = {}
+
+
+def _api_markets_for_league(league: str) -> list:
+    """Every API-priced fixture for `league`. [] when unavailable.
+
+    Never raises and never retries within a run: price breadth is a bonus on
+    top of the cached scrape, and a SportyBet outage must not take the board
+    down with it.
+    """
+    if league in _API_MARKET_CACHE:
+        return _API_MARKET_CACHE[league]
+
+    fixtures: list = []
+    try:
+        from booking.sportybet_api import fetch_tournament
+        from booking.rebuild_cache import SPORTYBET_CATEGORY_TOURNAMENT as _IDS
+        ids = _IDS.get(league)
+        if ids and tuple(ids)[:2] != (0, 0):
+            fixtures = fetch_tournament(tuple(ids)[1], league)
+    except Exception:
+        fixtures = []
+
+    _API_MARKET_CACHE[league] = fixtures
+    return fixtures
 
 
 def _build_acca_route(production_bets: ProductionBets) -> ProductionAccaRoute:

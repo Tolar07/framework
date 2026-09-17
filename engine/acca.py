@@ -392,10 +392,17 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
         # The orchestrator attaches sb_home/draw/away_odds from the SportyBet
         # cache; using all three means a leg prices on SportyBet's own line
         # even when the Odds API quota is exhausted (verified 2026-08-11).
+        # FULL SportyBet market map first (booking.sportybet_api). A key is
+        # present only when SportyBet actually quoted that market, so this is a
+        # real price for double chance / draw no bet / BTTS / any O-U half-line
+        # -- the markets that previously had to be derived or went unpriced.
+        sb_markets = getattr(bf, "sb_markets", None) or {}
+        price = sb_markets.get(market)
+
         sb_attr = {mkt.HOME: "sb_home_odds",
                    mkt.DRAW: "sb_draw_odds",
                    mkt.AWAY: "sb_away_odds"}.get(market)
-        if sb_attr:
+        if price is None and sb_attr:
             price = getattr(bf, sb_attr, None)
 
         # SportyBet's cached TOTALS. The cache stores one goals line per fixture

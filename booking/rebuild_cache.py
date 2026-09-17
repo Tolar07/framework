@@ -108,20 +108,79 @@ SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
     # WC and Euro QUALIFIERS are deliberately absent: SportyBet's menu does not
     # list them at all right now, and a guessed id produces confident wrong
     # data. They stay unresolved until they appear.
-    # Not listed by SportyBet at capture time — left unresolved on purpose.
+    # ---------------------------------------------------------------------
+    # Resolved 2026-09-17 from SportyBet's FOOTBALL-ONLY menu, matched on
+    # country. See scripts/discover_sportybet_ids.py, which is re-runnable.
+    #
+    # Price coverage -- not market breadth -- is what caps production: on
+    # 2026-09-17 only 8 of 22 verified fixtures carried any SportyBet price, so
+    # 14 could yield no acca leg at all. Every league below was previously a
+    # (0, 0) placeholder or absent entirely, and every fixture in it reached
+    # the board as NO DATA - PENDING.
+    #
+    # TWO GUARDS, both of which caught real errors during this pass:
+    #   SPORT   the menu spans all sports. Unfiltered, it offered Finland's
+    #           "Liiga" (ICE HOCKEY) for the Estonian Meistriliiga, Slovak
+    #           "Extraliga" (ice hockey), and "ECS Hungary T10" (cricket).
+    #   COUNTRY a name match in the wrong country is a wrong id, not a weak
+    #           one -- the failure that once filled Premier_League.json with
+    #           "Betis v Getafe".
+    #
+    # STATUS IS UNEVEN and worth stating rather than glossing. The menu is
+    # authoritative for ids, but only a scrape proves SportyBet NG actually
+    # serves that tournament's page. Spot-checked 2026-09-17:
+    #
+    #   FIXTURE-VERIFIED (page loaded, real rows extracted):
+    #       Ekstraklasa 9 fixtures · HNL 5 fixtures
+    #   MENU-SOURCED ONLY (page loads but resolves to the generic
+    #   "Sports | SportyBet" landing, i.e. NG does not serve it right now):
+    #       Norwegian Eliteserien · Swedish Allsvenskan · Estonian Meistriliiga
+    #       · Serbian Super Liga
+    #
+    # The unverified ones are still an improvement on (0, 0) -- an id that may
+    # serve later beats none at all -- but they must not be reported as working
+    # coverage. A league whose page does not load yields no fixtures and its
+    # matches stay NO DATA - PENDING, exactly as before.
+    "Ekstraklasa": (47, 202),                    # Poland / Ekstraklasa — VERIFIED
+    "HNL": (14, 170),                            # Croatia / HNL — VERIFIED
+    "Norwegian Eliteserien": (5, 20),            # Norway / Eliteserien — menu only
+    "Eliteserien": (5, 20),
+    "Swedish Allsvenskan": (9, 40),              # Sweden / Allsvenskan — menu only
+    "Allsvenskan": (9, 40),
+    "Romanian Liga I": (77, 152),                # Romania / Superliga (renamed 2022)
+    "Ukrainian Premier League": (86, 218),
+    "Serbian Super Liga": (152, 210),            # Serbia / Superliga
+    "Finnish Veikkausliiga": (19, 41),
+    "Hungarian NB I": (11, 187),
+    "Slovak Super Liga": (23, 211),              # Slovakia / Superliga
+    "Slovenian PrvaLiga": (24, 212),
+    "Bulgarian First League": (78, 247),         # Bulgaria / Parva Liga
+    "Israeli Premier League": (66, 266),
+    "Cypriot First Division": (102, 171),        # Cyprus / 1st Division
+    "Albanian Superliga": (257, 720),            # Albania / Kategoria Superiore
+    "Armenian Premier League": (296, 671),
+    "Azerbaijani Premyer Liqa": (297, 709),
+    "Belarusian Premier League": (91, 169),      # Belarus / Vysshaya Liga
+    "Kazakhstan Premier League": (278, 682),
+    "Latvian Virsliga": (163, 197),
+    "Lithuanian A Lyga": (160, 198),             # Lithuania / TOPLYGA
+    "Maltese Premier League": (134, 629),
+    "Estonian Meistriliiga": (92, 178),          # Estonia / Premium Liiga
+    "Georgian Erovnuli Liga": (270, 704),
+    "Republic of Ireland Premier Division": (51, 192),
+
+    # Not listed by SportyBet's football menu at capture time — left
+    # unresolved on purpose. A guessed id produces confident wrong data.
     "Taça de Portugal": (0, 0),
     "UEFA Super Cup": (0, 0),
-    "Allsvenskan": (0, 0),
-    "Swedish Allsvenskan": (0, 0),
     "Austrian Bundesliga": (0, 0),
     "Czech First League": (0, 0),
     "Danish Superliga": (0, 0),
-    "Ekstraklasa": (0, 0),
-    "Eliteserien": (0, 0),
-    "Norwegian Eliteserien": (0, 0),
     "Greek Super League": (0, 0),
     "Super League Greece": (0, 0),
-    "HNL": (0, 0),
+    # Montenegrin First League stays absent: the football menu lists only
+    # "2. CFL" for Montenegro, which is the SECOND division. Mapping the top
+    # flight onto it would file second-tier fixtures as first-tier.
 }
 
 @dataclass

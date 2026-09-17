@@ -25,6 +25,13 @@ class BookmakerLeague:
 # on the next cache build (HR35: a wrong sidebar sub-item silently returns
 # another competition's fixtures).
 SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
+    # Added 2026-09-17. These four had a resolved SportyBet tournament id but
+    # no entry here, and the cache rebuild's target list is the INTERSECTION of
+    # the two — so an id alone is not enough and they were skipped in silence.
+    "DFB-Pokal":           BookmakerLeague("Germany", "DFB Pokal"),
+    "2. Bundesliga":       BookmakerLeague("Germany", "2. Bundesliga"),
+    "Ukrainian Premier League": BookmakerLeague("Ukraine", "Premier League"),
+    "Kazakhstan Premier League": BookmakerLeague("Kazakhstan", "Premier League"),
     "Eredivisie":          BookmakerLeague("Netherlands", "Eredivisie"),
     "Danish Superliga":    BookmakerLeague("Denmark", "Superliga"),
     "Belgian Pro League":  BookmakerLeague("Belgium", "Pro League"),

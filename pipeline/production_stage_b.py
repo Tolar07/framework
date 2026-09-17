@@ -260,6 +260,11 @@ def _verified_fixture_to_board_fixture(vf: VerifiedFixture, today: str) -> Optio
             on_deploy_shortlist=on_shortlist,
             mes_trigger_price=mes_trigger,
             kickoff_date=vf.kickoff_date,
+            # kickoff_utc was never propagated, so BoardFixture.kickoff_utc was
+            # None for every fixture and no renderer could show a kickoff time.
+            # The ratified Telegram spec §2 requires a real time on every block,
+            # which made this a hard blocker rather than a cosmetic gap.
+            kickoff_utc=getattr(vf, "kickoff_utc", None),
             rejection_reason=rejection_reason,
             rating_source=rating_source,
             model_engine=vf.source_tier or "unknown",
@@ -327,6 +332,8 @@ def _verified_fixture_to_board_fixture(vf: VerifiedFixture, today: str) -> Optio
         on_deploy_shortlist=on_shortlist,
         mes_trigger_price=mes_trigger,
         kickoff_date=vf.kickoff_date,
+        # Same propagation gap as the sibling constructor above.
+        kickoff_utc=getattr(vf, "kickoff_utc", None),
         rejection_reason=rejection_reason,
         rating_source=rating_source,
         model_engine=vf.source_tier or "unknown",
@@ -628,12 +635,26 @@ def _enrich_fixtures_with_models(
                 except Exception:
                     pass
 
-            # Verification (already done in Stage A, but refresh for board)
-            v = verify([SourcedDatum(
-                domain="thesportsdb.com",
-                value=f"{home} v {away}",
-                url="https://www.thesportsdb.com",
-                structured=True)])
+            # Verification: KEEP Stage A's verdict. Do not re-derive it here.
+            #
+            # This used to "refresh for board" by calling verify() with a single
+            # HARDCODED TheSportsDB datum. Two things were wrong with that:
+            #
+            #   1. One datum can only ever yield SINGLE-SOURCE, so every fixture
+            #      Stage A had verified through the real F2 quorum was silently
+            #      DOWNGRADED. On 2026-09-17 Stage A marked all 23 fixtures
+            #      VERIFIED (sources like "espn+flashscore+thesportsdb") and the
+            #      board reported Verified: 0.
+            #   2. It asserted thesportsdb.com as the source for every fixture
+            #      regardless of which sources actually confirmed it — a false
+            #      attribution of exactly the kind HR35 exists to prevent, and
+            #      the same failure as the 3 Sep incident where fabricated
+            #      fixtures carried invented FlashScore/SofaScore provenance.
+            #
+            # Stage A owns verification; it has the real multi-source evidence.
+            # Re-deriving it here from a constant could only ever lose
+            # information or invent it.
+            v = bf.verification
 
             # Second/third/fourth opinions
             elo_p = elo_model.probabilities(home, away) if elo_model else None

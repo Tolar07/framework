@@ -20,6 +20,19 @@ from engine import heartbeat_lineage as L
 from output.heartbeat import HeartbeatFixture
 
 
+
+def _future_kickoff() -> str:
+    """A kickoff safely in the future, as an aware ISO string.
+
+    Fixtures used to hardcode "T18:00:00Z". Once the heartbeat selector gained
+    a pre-match filter those tests passed in the morning and FAILED after 18:00
+    UTC — a clock-dependent suite, which is worse than a failing one because it
+    looks fine until it does not. Anchored to now + 6h instead.
+    """
+    from datetime import datetime, timedelta, timezone
+    return (datetime.now(timezone.utc) + timedelta(hours=6)).isoformat()
+
+
 def _make_board(n=6):
     """Build fake BoardFixture-like objects with positive edge + kickoff_date."""
     from types import SimpleNamespace
@@ -30,7 +43,7 @@ def _make_board(n=6):
             fixture=f"Team{i}A v Team{i}B",
             kickoff_date=date.today().isoformat(),
             kickoff_time="18:00",
-            kickoff_utc=f"{date.today().isoformat()}T18:00:00Z",
+            kickoff_utc=_future_kickoff(),
             league="Test League",
             probs=SimpleNamespace(
                 p_home=0.5 + i * 0.01, p_draw=0.2, p_away=0.3 - i * 0.01,
@@ -234,7 +247,7 @@ def test_priced_candidate_outranks_unpriced_favourite():
     today = date.today().isoformat()
     common = dict(
         kickoff_date=today, kickoff_time="18:00",
-        kickoff_utc=f"{today}T18:00:00Z", league="Test League",
+        kickoff_utc=_future_kickoff(), league="Test League",
         verification=SimpleNamespace(tier="TIER_A"),
     )
     unpriced_favourite = SimpleNamespace(
@@ -594,3 +607,76 @@ def test_lineage_without_a_heartbeat_holds_nothing(clean_lineage):
         if l.fixture is None:
             assert l.pick is None and l.price is None and l.held_date is None, (
                 "an unfed lineage must be fully cleared, not half-cleared")
+
+
+def test_verification_stamp_uses_the_real_tier_vocabulary():
+    """The heartbeat checked tier names that do not exist in this framework.
+
+    heartbeat.py compared against "TIER_A"/"TIER_B" for passing and
+    "FAILED"/"REJECTED" for exclusion. verification.id403.Tier defines
+    VERIFIED / SINGLE-SOURCE / CONFLICT / NO-DATA / DERIVED — none of those
+    four strings occur anywhere. Two silent consequences:
+
+      * verification_passed was ALWAYS False, so every heartbeat rendered
+        "⚠ Verification: Pending Review" no matter how well verified the
+        fixture was. A warning that is always on carries no information.
+      * the exclusion gate looked for FAILED/REJECTED, which never occur, so
+        it excluded nothing — a CONFLICT fixture could become the heartbeat.
+
+    The enum compounds it: str(Tier.VERIFIED) is "Tier.VERIFIED", so even the
+    right vocabulary would not have matched without reading .value.
+    """
+    from types import SimpleNamespace
+    from verification.id403 import Tier
+    from output.heartbeat import tier_of, is_verified, is_excluded
+
+    def bf(tier):
+        return SimpleNamespace(verification=SimpleNamespace(tier=tier))
+
+    # .value is read, not str(enum).
+    assert tier_of(bf(Tier.VERIFIED)) == "VERIFIED"
+    assert str(Tier.VERIFIED) != "VERIFIED", "guard: the trap this test exists for"
+
+    assert is_verified(bf(Tier.VERIFIED)) is True
+    assert is_verified(bf(Tier.SINGLE_SOURCE)) is False
+    assert is_verified(bf(Tier.CONFLICT)) is False
+
+    # CONFLICT: sources disagree on kickoff beyond tolerance, so the framework
+    # does not know when the match starts — it cannot be a pre-match bet.
+    assert is_excluded(bf(Tier.CONFLICT)) is True
+    assert is_excluded(bf(Tier.NO_DATA)) is True
+    assert is_excluded(bf(Tier.VERIFIED)) is False
+    # SINGLE-SOURCE is reported honestly, not excluded.
+    assert is_excluded(bf(Tier.SINGLE_SOURCE)) is False
+
+    assert tier_of(SimpleNamespace(verification=None)) == ""
+
+
+def test_conflict_fixture_cannot_become_a_heartbeat():
+    """A CONFLICT fixture must never be selected, however strong its edge."""
+    from types import SimpleNamespace
+    from verification.id403 import Tier
+    from output.heartbeat import select_top_heartbeats
+
+    today = "2026-09-17"
+
+    def fx(name, tier, prob, price):
+        return SimpleNamespace(
+            fixture=name, kickoff_date=today,
+            kickoff_utc=f"{today}T23:30:00+00:00",
+            probs=SimpleNamespace(p_home=prob, p_draw=0.1, p_away=1 - prob - 0.1),
+            best_market=f"{name} pick", best_price=price, best_edge=0.30,
+            best_mes_ev=0.2, best_model_prob=prob, best_bookmaker="SportyBet",
+            home_team=name.split(" v ")[0], away_team=name.split(" v ")[1],
+            verification=SimpleNamespace(tier=tier))
+
+    # The conflicted one has the BETTER edge, so only the tier can exclude it.
+    conflicted = fx("Conflict v Fixture", Tier.CONFLICT, 0.95, 1.40)
+    clean = fx("Clean v Fixture", Tier.VERIFIED, 0.80, 1.45)
+
+    picks = select_top_heartbeats([conflicted, clean], target_date=today, top_n=5)
+    names = [p.fixture for p in picks]
+    assert "Conflict v Fixture" not in names, "a CONFLICT fixture was selected"
+    assert "Clean v Fixture" in names
+    assert picks[0].verification_passed is True, (
+        "a VERIFIED fixture must not render the pending-review warning")

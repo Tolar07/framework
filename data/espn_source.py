@@ -87,6 +87,14 @@ SLUGS = {
     # begun.
     "FIFA World Cup": "fifa.world",
     "European Championship": "uefa.euro",
+    # The competitions actually played BETWEEN finals. These are what produce
+    # fixtures in an international window — the 2026-09-07/09 window is why
+    # names like "Armenia v Latvia" and "Turkiye v France" sit in the SportyBet
+    # cache. Without these the registry's international coverage would be two
+    # entries dormant for years at a stretch.
+    "World Cup Qualifiers UEFA": "fifa.worldq.uefa",
+    "European Championship Qualifiers": "uefa.euroq",
+    "UEFA Nations League": "uefa.nations",
     "EFL Cup": "eng.league_cup",
     "FA Cup": "eng.fa",
     "DFB-Pokal": "ger.dfb_pokal",

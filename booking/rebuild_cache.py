@@ -92,6 +92,22 @@ SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
     "Champions League": (393, 7),
     "Europa League": (393, 679),
     "Conference League": (393, 34480),
+    # National teams (cat 4, "International" — distinct from 393). Taken from
+    # SportyBet's own factsCenter menu, which lists them as "UEFA Euro 2028",
+    # "World Cup 2030" and "UEFA Nations League": the year is the current
+    # EDITION, the tournament id is the competition.
+    #
+    # Only the Nations League is confirmed against real fixtures — its page
+    # returned 35 rows ("Andorra v Malta"). Euro 2028 and World Cup 2030 load
+    # with zero rows because those tournaments are years out and have no
+    # bookable matches yet, so the ids come from SportyBet's menu but are not
+    # fixture-verified. They will prove out as those tournaments approach.
+    "UEFA Nations League": (4, 23755),
+    "European Championship": (4, 1),
+    "FIFA World Cup": (4, 16),
+    # WC and Euro QUALIFIERS are deliberately absent: SportyBet's menu does not
+    # list them at all right now, and a guessed id produces confident wrong
+    # data. They stay unresolved until they appear.
     # Not listed by SportyBet at capture time — left unresolved on purpose.
     "Taça de Portugal": (0, 0),
     "UEFA Super Cup": (0, 0),

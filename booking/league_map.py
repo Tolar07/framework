@@ -46,6 +46,14 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "LaLiga":              BookmakerLeague("Spain", "LaLiga"),   # acca payload alias
     "La Liga 2":           BookmakerLeague("Spain", "LaLiga2"),
     "Champions League":    BookmakerLeague("International Clubs", "UEFA Champions League"),
+    # National-team competitions. SportyBet files these under the
+    # "International" category (sr:category:4), distinct from the
+    # "International Clubs" category (393) the European club cups sit in.
+    # Without an entry here the cache rebuild skips them entirely — its target
+    # list is the intersection of resolved tournament ids AND this map.
+    "UEFA Nations League":  BookmakerLeague("International", "UEFA Nations League"),
+    "FIFA World Cup":       BookmakerLeague("International", "World Cup"),
+    "European Championship": BookmakerLeague("International", "UEFA Euro"),
     "Austrian Bundesliga": BookmakerLeague("Austria", "Bundesliga"),
     "EFL Cup":             BookmakerLeague("England", "EFL Cup"),
     # --- Missing leagues from acca payload (2026-08-23) ---

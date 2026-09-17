@@ -134,6 +134,14 @@ class BoardFixture:
     best_n_books: int = 0
     best_mes_ev: Optional[float] = None      # model_prob * price - 1
     best_model_prob: Optional[float] = None
+    # Canonical EDGE = model_prob - implied_prob. This is the SELECTION metric;
+    # best_mes_ev above is EV and is for Kelly/staking only. acca._best_deployable_leg
+    # already computes this as AccaLeg.edge, but Stage B used to propagate only
+    # .ev and drop .edge on the floor — so every consumer downstream of the
+    # board (the heartbeat selector in particular) had no canonical edge to
+    # rank on and quietly fell back to raw probability, which ranks the
+    # heaviest favourite first. That is the inverse of the intended pressure.
+    best_edge: Optional[float] = None
     # SportyBet odds (for Phase 2 CLV + Phase 3 live pricing)
     sb_home_odds: Optional[float] = None
     sb_draw_odds: Optional[float] = None

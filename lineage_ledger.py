@@ -25,7 +25,14 @@ from dataclasses import dataclass, field, asdict
 from datetime import date, timedelta
 from pathlib import Path
 
-LEDGER_PATH = Path("lineage_ledger.jsonl")
+# Repo-rooted, NOT relative to the current working directory.
+#
+# This file's whole purpose is "one ledger so every session gets the same
+# answer" — but a bare Path("lineage_ledger.jsonl") resolves against the CWD,
+# so a session started in olp_xdv/ and a session started at the workspace root
+# read and write two DIFFERENT ledgers. The scattering this module was written
+# to end was reproduced by its own path constant.
+LEDGER_PATH = Path(__file__).resolve().parent / "lineage_ledger.jsonl"
 
 
 @dataclass

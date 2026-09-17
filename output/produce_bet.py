@@ -9,7 +9,7 @@ HR35 hard guardrail carried through: completeness never overrides honesty.
 A missing datum renders as "NO DATA — PENDING", never filled to look complete.
 """
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 import json
@@ -154,6 +154,16 @@ class BoardFixture:
     sb_over_odds: Optional[float] = None
     sb_under_odds: Optional[float] = None
     sb_mes_ev: Optional[float] = None        # best EV across 1X2 markets on SportyBet
+    # EVERY SportyBet market we could price, keyed by canonical market key
+    # (engine.markets.*): 1X2, double chance, draw no bet, BTTS and Over/Under
+    # at each half-line. Populated from booking.sportybet_api.
+    #
+    # The three sb_*_odds fields above only ever carried 1X2, and sb_goals_line
+    # carried ONE totals line, so a fixture whose 1X2 sat above the odds cap had
+    # no other market to fall back to and contributed nothing. This is the
+    # general form: a key is present only when a real price exists for it, so
+    # "in sb_markets" means "quoted", never "assumed".
+    sb_markets: dict = field(default_factory=dict)
     # CLV-gated recalibration delta actually applied to this pick's EV
     # probability (0.0 = no evidence). The ledger still records the RAW
     # model_prob above — no feedback loop.

@@ -2,7 +2,7 @@
 ==================================
 FULL PIPELINE BOARD — PRODUCTION
 Thu 17 Sep 2026 · all markets · AI pick
-Run ID: OLPXDV-20260917-1017-acca5 | Phase 3 — LIVE
+Run ID: OLPXDV-20260917-1203-acca5 | Phase 3 — LIVE
 Fixtures scanned: 22 · Verified: 16
 
 ──────────────────────────────────
@@ -118,7 +118,7 @@ O/U   O1.5 57% · O2.5 30% · O3.5 13%
       U1.5 43% · U2.5 70% · U3.5 87%
 BTTS  Yes 33% · No 67%
 🤖 AI PICK: Under 3.5 goals — 87%
-      EV +12.0% (model 87% vs market 75%) · Deploy at 1.15+
+      EV +12.6% (model 87% vs market 75%) · Deploy at 1.15+
       Src ✓ VERIFIED · Booking code: PENDING
 
 19:30  Malaga v Villarreal
@@ -128,7 +128,7 @@ O/U   O1.5 58% · O2.5 31% · O3.5 14%
       U1.5 42% · U2.5 69% · U3.5 86%
 BTTS  Yes 29% · No 71%
 🤖 AI PICK: Villarreal Draw No Bet — 85%
-      EV +16.1% (model 85% vs market 68%) · Deploy at 1.18+
+      EV +16.5% (model 85% vs market 68%) · Deploy at 1.18+
       Src ✓ VERIFIED · Booking code: PENDING
 
 @@@ MESSAGE BREAK @@@
@@ -144,7 +144,7 @@ O/U   O1.5 81% · O2.5 56% · O3.5 34%
       U1.5 19% · U2.5 44% · U3.5 66%
 BTTS  Yes 43% · No 57%
 🤖 AI PICK: FC Krasnodar Draw No Bet — 93%
-      EV +17.3% (model 93% vs market 75%) · Deploy at 1.08+
+      EV +15.6% (model 93% vs market 77%) · Deploy at 1.08+
       Src ✓ VERIFIED · Booking code: PENDING
 
 17:45  Dinamo Makhachkala v CSKA Moscow
@@ -164,7 +164,7 @@ O/U   O1.5 86% · O2.5 63% · O3.5 40%
       U1.5 14% · U2.5 37% · U3.5 60%
 BTTS  Yes 66% · No 34%
 🤖 AI PICK: Over 1.5 goals — 86%
-      EV +7.3% (model 86% vs market 79%) · Deploy at 1.16+
+      EV +8.5% (model 86% vs market 78%) · Deploy at 1.16+
       Src ✓ VERIFIED · Booking code: PENDING
 
 15:30  Akron Togliatti v Akhmat Grozny
@@ -197,44 +197,44 @@ Formed: 2 acca(s) (5 legs · 5 legs)
 (MAX_ACCAS = 2 — standing rule, see spec §4.3)
 
 ▸ Acca A — 5 legs · EV rank 1–5
-1. Gazovik Orenburg v FC Krasnodar — FC Krasnodar Draw No Bet . 93% @ 1.33
+1. Malaga v Villarreal — Villarreal Draw No Bet . 85% @ 1.47
 2. Dinamo Makhachkala v CSKA Moscow — Under 3.5 goals . 92% @ 1.32
-3. Malaga v Villarreal — Villarreal Draw No Bet . 85% @ 1.46
+3. Gazovik Orenburg v FC Krasnodar — FC Krasnodar Draw No Bet . 93% @ 1.30
 4. Celtic v Ferencvarosi Budapest — Celtic Draw No Bet . 91% @ 1.32
-5. Real Betis v Getafe — Under 3.5 goals . 87% @ 1.33
+5. Real Betis v Getafe — Under 3.5 goals . 87% @ 1.34
    ──────────────────────────────────
-   Combined odds ............... 4.50
+   Combined odds ............... 4.46
    Combined model probability ... 56.9%
-   Break-even probability ....... 22.2%
-   Model edge ................... +34.6pp
+   Break-even probability ....... 22.4%
+   Model edge ................... +34.4pp
    Booking code: PENDING
 
 ▸ Acca B — 5 legs · EV rank 6–10
 1. Atyrau v Ordabasy Shymkent — Under 3.5 goals . 85% @ 1.33
-2. FC Rostov v Dynamo Moscow — Over 1.5 goals . 86% @ 1.27
+2. FC Rostov v Dynamo Moscow — Over 1.5 goals . 86% @ 1.29
 3. Real Sociedad v AFC Bournemouth — Bournemouth or Draw (double chance) . 78% @ 1.39
 4. FC Astana v Kairat Almaty — Under 3.5 goals . 78% @ 1.35
 5. Akron Togliatti v Akhmat Grozny — Over 1.5 goals . 82% @ 1.29
    ──────────────────────────────────
-   Combined odds ............... 4.09
+   Combined odds ............... 4.15
    Combined model probability ... 36.3%
-   Break-even probability ....... 24.5%
-   Model edge ................... +11.9pp
+   Break-even probability ....... 24.1%
+   Model edge ................... +12.3pp
    Booking code: PENDING
 
 ▸ ID420 WATCHLIST — 13 pick(s) above the 1.50 per-leg ceiling
    Not acca-eligible and not deployable — shown for review only.
-   Crystal Palace v KKS Lech Poznan — Lech Poznan Draw No Bet . 54% @ 5.75  ⚠ 5.75 > 1.50
+   Crystal Palace v KKS Lech Poznan — Lech Poznan Draw No Bet . 54% @ 5.90  ⚠ 5.90 > 1.50
    Dinamo Makhachkala v CSKA Moscow — Under 2.5 goals . 78% @ 1.84  ⚠ 1.84 > 1.50
-   Real Sociedad v AFC Bournemouth — Under 2.5 goals . 62% @ 2.30  ⚠ 2.30 > 1.50
-   Atyrau v Ordabasy Shymkent — Atyrau Draw No Bet . 58% @ 4.50  ⚠ 4.50 > 1.50
+   Real Sociedad v AFC Bournemouth — Under 2.5 goals . 62% @ 2.35  ⚠ 2.35 > 1.50
+   Atyrau v Ordabasy Shymkent — Atyrau Draw No Bet . 58% @ 4.60  ⚠ 4.60 > 1.50
    Juventus v NEC Nijmegen — Under 3.5 goals . 74% @ 1.87  ⚠ 1.87 > 1.50
    FC Astana v Kairat Almaty — FC Astana Draw No Bet . 64% @ 1.75  ⚠ 1.75 > 1.50
-   FC Rostov v Dynamo Moscow — Over 2.5 goals . 63% @ 1.86  ⚠ 1.86 > 1.50
+   FC Rostov v Dynamo Moscow — Over 2.5 goals . 63% @ 1.92  ⚠ 1.92 > 1.50
    Celtic v Ferencvarosi Budapest — Celtic to win . 80% @ 1.75  ⚠ 1.75 > 1.50
-   Gazovik Orenburg v FC Krasnodar — FC Krasnodar to win . 74% @ 1.77  ⚠ 1.77 > 1.50
+   Gazovik Orenburg v FC Krasnodar — FC Krasnodar to win . 74% @ 1.72  ⚠ 1.72 > 1.50
    Malaga v Villarreal — Both teams to score — no . 71% @ 2.40  ⚠ 2.40 > 1.50
-   Real Betis v Getafe — Under 2.5 goals . 70% @ 1.86  ⚠ 1.86 > 1.50
+   Real Betis v Getafe — Under 2.5 goals . 70% @ 1.87  ⚠ 1.87 > 1.50
    Levadia v Tammeka — Under 3.5 goals .. 72% @ 2.10  ⚠ 2.10 > 1.50
    Akron Togliatti v Akhmat Grozny — Akron Draw No Bet . 71% @ 2.20  ⚠ 2.20 > 1.50
 
@@ -245,7 +245,7 @@ acca outcomes remain quarantined from the calibration log.
 
 ──────────────────────────────────
 6 fixtures unresolved — no market data after 2 retries:
-PFC Levski Sofia v Red Bull Salzburg · Manchester City v Norwich City · Besiktas Istanbul v Marseille · OFI Crete v TSG Hoffenheim · Lillestrøm v Torreense · Ruggell C v Balzers B    (full detail: run log OLPXDV-20260917-1017-acca5)
+PFC Levski Sofia v Red Bull Salzburg · Manchester City v Norwich City · Besiktas Istanbul v Marseille · OFI Crete v TSG Hoffenheim · Lillestrøm v Torreense · Ruggell C v Balzers B    (full detail: run log OLPXDV-20260917-1203-acca5)
 
 ==================================
 HONEST EDGE: an excellent informed process, NOT a demonstrated

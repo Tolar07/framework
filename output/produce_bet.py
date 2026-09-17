@@ -1315,14 +1315,25 @@ def _get_all_market_probs(bf: BoardFixture, odds_index: Optional[dict]) -> dict[
                 fixture_key = key
                 break
 
-    if not fixture_key:
-        return {}
-
-    fx_odds = odds_index[fixture_key]
+    # Model probabilities do NOT depend on the odds index -- mkt.model_prob()
+    # reads them straight off the fixture's own probs object. This used to
+    # `return {}` whenever the fixture was absent from the odds index, which
+    # discarded the ENTIRE probability grid along with the missing prices.
+    #
+    # Since odds_index is None whenever the Odds API quota is exhausted (its
+    # normal state here), every cell of the Layer 2 full grid rendered as "—"
+    # for every fixture, on every board. The grid's 42 market columns were
+    # present and permanently empty -- the market picture was computed and then
+    # thrown away at the last step because a PRICE lookup failed.
+    #
+    # Probabilities are now always returned; price and bookmaker are None when
+    # there is no quote, which the renderer already handles (it falls back to
+    # showing the price cell, then "—").
+    fx_odds = odds_index[fixture_key] if fixture_key else None
 
     for key in mkt.EDGE_MARKETS:
         model_p = mkt.model_prob(key, p)
-        quote_obj = mkt.quote(key, fx_odds)
+        quote_obj = mkt.quote(key, fx_odds) if fx_odds is not None else None
         price = quote_obj.price if quote_obj else None
         bookmaker = quote_obj.bookmaker if quote_obj else None
         result[key] = (model_p, price, bookmaker)

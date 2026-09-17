@@ -844,9 +844,53 @@ def read_betslip_combined_odds(page: Page,
     # wildcards matched promo/banner nodes that leaked spurious odds (the
     # constant 2.55), so they are dropped in favour of the known SportyBet
     # betslip classes (verified 2026-08-09 live).
+    # [class*='m-betslip'] matters: the live container is "m-betslips" (PLURAL),
+    # and the CSS class selector ".m-betslip" does NOT match it. Every listed
+    # selector missed, panels came back empty, and this returned None — which
+    # the caller correctly treats as "cannot verify" and rejects the code. So a
+    # run could book all 11 legs and still emit nothing, reported as
+    # "ODDS MISMATCH", when the real fault was that the slip was never read.
     panels = page.query_selector_all(
-        ".betslip, .es-betslip, .bet-slip, .m-betslip, [class*='betSlip'], "
-        "[class*='bet-slip-panel'], .slip-container, .es-bet-slip")
+        ".betslip, .es-betslip, .bet-slip, .m-betslip, [class*='m-betslip'], "
+        "[class*='betSlip'], [class*='bet-slip-panel'], .slip-container, "
+        ".es-bet-slip")
+
+    # PREFERRED READ: the slip's own arithmetic.
+    #
+    # SportyBet labels the combined figure just "Odds", not "Total Odds" or
+    # "Combined Odds", so the keyword scan below never identified it. The slip
+    # also prints Total Stake and Potential Win, and
+    #     combined = potential_win / total_stake
+    # is exactly what the slip encodes — more precise than the displayed
+    # "Odds", which is rounded to 2dp (a real 2-leg slip showed Odds 1.59 while
+    # 159.30/100.00 = 1.593). Derived from the SLIP's numbers, not ours, so it
+    # is still an independent check of what SportyBet actually holds.
+    for panel in (panels or []):
+        try:
+            flat = " | ".join((panel.inner_text() or "").split("\n"))
+        except Exception:
+            continue
+        m_stake = re.search(r"Total Stake\s*\|?\s*([\d,]+\.\d{2})", flat, re.I)
+        m_win = re.search(r"Potential Win\s*\|?\s*\|?\s*([\d,]+\.\d{2})", flat, re.I)
+        if m_stake and m_win:
+            try:
+                stake = float(m_stake.group(1).replace(",", ""))
+                win = float(m_win.group(1).replace(",", ""))
+                if stake > 0:
+                    combined = win / stake
+                    if combined >= 1.01:
+                        return round(combined, 4)
+            except ValueError:
+                pass
+        # Fallback within the slip: the bare "Odds" label.
+        m_odds = re.search(r"(?<!Total )\bOdds\s*\|\s*(\d+\.\d{2})", flat)
+        if m_odds:
+            try:
+                val = float(m_odds.group(1))
+                if val >= 1.01:
+                    return val
+            except ValueError:
+                pass
     candidates: List[float] = []
     # Pattern 1: decimals with exactly 2 places (standard odds display)
     # Pattern 2: comma-separated numbers (6,000,000.00 style)

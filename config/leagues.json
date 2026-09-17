@@ -263,6 +263,46 @@
       "deploy_eligible": true
     },
     {
+      "name": "FIFA World Cup",
+      "country": "World",
+      "tier": 1,
+      "type": "international",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4429,
+        "odds_api": "soccer_fifa_world_cup",
+        "api_football": 1,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
+      "name": "European Championship",
+      "country": "Europe",
+      "tier": 1,
+      "type": "international",
+      "sources": {
+        "history_primary": "api_football",
+        "history_fallback": "api_football",
+        "fixtures_primary": "thesportsdb",
+        "fixtures_fallback": "espn",
+        "odds_primary": "odds_api"
+      },
+      "ids": {
+        "thesportsdb": 4502,
+        "odds_api": "soccer_uefa_european_championship",
+        "api_football": 4,
+        "football_data": null
+      },
+      "deploy_eligible": true
+    },
+    {
       "name": "Europa League",
       "country": "Europe",
       "tier": 1,

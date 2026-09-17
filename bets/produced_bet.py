@@ -240,9 +240,16 @@ def render_produced_bet(record: Optional[dict]) -> str:
                 "result (ID415).")
     lines = [f"📋 SCAN RECORD — today's rated fixtures — {record.get('date', '')} "
              "(paper, ID415)",
+             # "MARKED PAPER" removed 2026-09-17 (Architect directive). It was
+             # the Phase-2 framing and the framework has been Phase 3 since
+             # 28 Aug, so the label contradicted config.PHASE on every board.
+             #
+             # The SUBSTANCE is untouched and must stay: the scan carries no
+             # stake and capital authority is the Architect's. That is the
+             # capital bright line, not a phase label, and it does not come off.
              f"{record.get('n_legs', 0)} rated fixture(s) today. This is the "
-             "scan's paper record, NOT a recommendation — the production pick "
-             "(if any) is in PRODUCTION BETS below. MARKED PAPER — the scan "
+             "scan's record, NOT a recommendation — the production pick "
+             "(if any) is in PRODUCTION BETS below. The scan "
              "itself never carries a stake (capital is the Architect's).", ""]
     for i, leg in enumerate(record.get("legs") or [], 1):
         L = [f"{i}. {leg.get('fixture', '?')} ({leg.get('league', '?')})"]

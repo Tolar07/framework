@@ -14,6 +14,17 @@ memory/conversations/
 !backtest/results/metrics_history.jsonl
 !output/boards/feed_audit.jsonl
 !feed_audit.jsonl
+# EXCEPTION (2026-09-17): the heartbeat/lineage records ARE tracked.
+#
+# These are append-only ledgers of graded results -- irreplaceable, unlike the
+# derived state they feed. The blanket *.jsonl rule had it backwards: the
+# DERIVED file (data/heartbeat/lineage.json) was tracked while the two SOURCE
+# records were not, so when a CWD-relative test teardown deleted history.jsonl
+# on 2026-09-17 there was nothing in git to restore from and nine graded
+# results had to be reconstructed from a corrupted secondary ledger.
+# Same reasoning as the metrics_history exception above.
+!data/heartbeat/history.jsonl
+!lineage_ledger.jsonl
 
 # Cached source data — re-fetchable, and large
 data/cache/

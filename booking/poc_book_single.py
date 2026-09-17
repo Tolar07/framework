@@ -56,7 +56,28 @@ def _resolver_rule(host: str) -> str:
     return ",".join(rules) if rules else ""
 
 
-def _navigate_to_league(page: Page, country: str, league: str) -> bool:
+def _navigate_to_league(page: Page, country: str, league: str,
+                        registry_league: str | None = None) -> bool:
+    """Navigate to a competition's page. `league` is SportyBet's DISPLAY name.
+
+    registry_league is the OLP registry key ("Russian Premier League") and is
+    what SPORTYBET_CATEGORY_TOURNAMENT is keyed on. It matters enormously:
+
+    SPORTYBET_LEAGUES maps our name to SportyBet's display name, and several
+    collapse onto generic strings. Looking the id up by the DISPLAY name gave:
+
+        Russian Premier League    -> "Premier League" -> (1, 17)   ENGLAND
+        Kazakhstan Premier League -> "Premier League" -> (1, 17)   ENGLAND
+        Europa League             -> "UEFA Europa League" -> None
+        Serbian Super Liga        -> "Super Liga"    -> None
+        Estonian Meistriliiga     -> "Meistriliiga"  -> None
+
+    So booking a Russian or Kazakh leg navigated to the ENGLISH Premier League
+    page, searched it for "Gazovik Orenburg", and reported "match row not found
+    on league page" — pointing at the row when the page itself was wrong. This
+    is the same wrong-competition failure that once filled Premier_League.json
+    with "Betis v Getafe".
+    """
     """Direct navigation (bypasses sportybet_fixtures helper which ignores DNS pin).
     Uses the direct deep-link pattern from _navigate_to_league_sync."""
     # Use the same direct-URL mapping as the builder, but try with IP if DNS fails
@@ -72,59 +93,74 @@ def _navigate_to_league(page: Page, country: str, league: str) -> bool:
     # therefore raised UnboundLocalError ("cannot access local variable 'host'")
     # from inside the booking driver, which surfaced per leg as
     # "MANUAL - driver error" and produced no code.
-    host = "sportybet.com.ng"
-    try:
-        ip = socket.gethostbyname(host)
-    except Exception:
-        ip = None
+    # HOSTS, in order. Both work; www.sportybet.com consistently returns more
+    # rows than sportybet.com.ng for the same tournament (22 vs 17 on La Liga,
+    # 2026-09-17), so it leads.
+    #
+    # THE RAW-IP FALLBACKS ARE GONE. They navigated to https://<cloudflare-ip>/
+    # which CANNOT work: without SNI matching the certificate, Chromium fails
+    # every time with ERR_SSL_VERSION_OR_CIPHER_MISMATCH. Each attempt burned a
+    # 45s timeout AND left the tab sitting on chrome-error://chromewebdata,
+    # which then broke navigation for every subsequent leg in the run — one
+    # unreachable league poisoned the whole slip. Removing them is strictly
+    # better: they never once succeeded.
+    hosts = ["www.sportybet.com", "sportybet.com.ng"]
 
-    cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
+    # Registry key first; display name only as a last resort, and never when it
+    # would silently resolve to another country's competition.
+    cat_tour = None
+    for key in (registry_league, league):
+        if key:
+            cand = SPORTYBET_CATEGORY_TOURNAMENT.get(key)
+            if cand and tuple(cand)[:2] != (0, 0):
+                cat_tour = cand
+                break
     if cat_tour and cat_tour[0] != 0:
         cat_id, tour_id = cat_tour
-        # First try the domain name (with resolver rule in effect)
-        direct_url = f"https://{host}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{tour_id}?source=sport_menu&sort=2"
-        try:
-            print(f"  -> Direct URL (domain): {direct_url}")
-            page.goto(direct_url, wait_until="domcontentloaded", timeout=45000)
-            page.wait_for_timeout(5000)
-            # Verify we're on the right page by checking for fixture rows
-            rows = page.query_selector_all(".m-table-row.match-row")
-            if rows:
-                return True
-        except Exception as e:
-            print(f"  x direct nav error (domain): {e}")
-        # If that failed and we have an IP, try the IP directly
-        if ip:
-            direct_url_ip = f"https://{ip}/ng/sport/football/sr:category:{cat_id}/sr:tournament:{tour_id}?source=sport_menu&sort=2"
+        for host in hosts:
+            direct_url = (f"https://{host}/ng/sport/football/"
+                          f"sr:category:{cat_id}/sr:tournament:{tour_id}"
+                          f"?source=sport_menu&sort=2")
             try:
-                print(f"  -> Direct URL (IP): {direct_url_ip}")
-                page.goto(direct_url_ip, wait_until="domcontentloaded", timeout=45000)
-                page.wait_for_timeout(5000)
+                print(f"  -> Direct URL: {direct_url}")
+                page.goto(direct_url, wait_until="domcontentloaded", timeout=45000)
+                # SportyBet is a client-side SPA: the HTML shell returns 200
+                # instantly and the fixture list is rendered by JS afterwards,
+                # so a fixed sleep either wastes time or samples too early.
+                # Wait for the ROWS themselves.
+                try:
+                    page.wait_for_selector(".m-table-row.match-row", timeout=20000)
+                except Exception:
+                    pass
                 rows = page.query_selector_all(".m-table-row.match-row")
                 if rows:
+                    print(f"     rows: {len(rows)}")
                     return True
+                print("     no rows rendered")
             except Exception as e:
-                print(f"  x direct nav error (IP): {e}")
-    # Fallback: go to football homepage (try domain then IP) and click via sidebar
-    for base in [f"https://{host}/ng/sport/football", f"https://{ip}/ng/sport/football" if ip else None]:
-        if base is None:
-            continue
+                print(f"  x direct nav error ({host}): {str(e)[:90]}")
+
+    # Fallback: football homepage, then click the league in the popular list.
+    for host in hosts:
+        base = f"https://{host}/ng/sport/football"
         try:
             print(f"  -> Fallback to homepage: {base}")
             page.goto(base, wait_until="domcontentloaded", timeout=45000)
             page.wait_for_timeout(3000)
-            # Try to click the league link in popular-list
             league_link = page.locator(
                 f'.popular-list .top-link:has(.top-link-item:has-text("{league}"))'
             ).first
             if league_link.count():
                 league_link.click()
-                page.wait_for_timeout(4000)
+                try:
+                    page.wait_for_selector(".m-table-row.match-row", timeout=20000)
+                except Exception:
+                    pass
                 rows = page.query_selector_all(".m-table-row.match-row")
                 if rows:
                     return True
         except Exception as e:
-            print(f"  x click nav error: {e}")
+            print(f"  x click nav error ({host}): {str(e)[:90]}")
     return False
 
 

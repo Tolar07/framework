@@ -943,7 +943,8 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
                     nav_ok = bool(mapping) and _navigate_to_league_local(
-                        page, mapping.country, mapping.league)
+                        page, mapping.country, mapping.league,
+                        registry_league=league)
                     if nav_ok:
                         current_league_on_page = league
                     else:
@@ -964,7 +965,8 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
                     nav_ok = bool(mapping) and _navigate_to_league_local(
-                        page, mapping.country, mapping.league)
+                        page, mapping.country, mapping.league,
+                        registry_league=league)
                     if nav_ok:
                         current_league_on_page = league
                     else:
@@ -981,7 +983,8 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
                     nav_ok = bool(mapping) and _navigate_to_league_local(
-                        page, mapping.country, mapping.league)
+                        page, mapping.country, mapping.league,
+                        registry_league=league)
                     if nav_ok:
                         current_league_on_page = league
                     else:
@@ -1021,7 +1024,8 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
                     nav_ok = bool(mapping) and _navigate_to_league_local(
-                        page, mapping.country, mapping.league)
+                        page, mapping.country, mapping.league,
+                        registry_league=league)
                     if nav_ok:
                         current_league_on_page = league
                     else:
@@ -1038,7 +1042,8 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
                     nav_ok = bool(mapping) and _navigate_to_league_local(
-                        page, mapping.country, mapping.league)
+                        page, mapping.country, mapping.league,
+                        registry_league=league)
                     if nav_ok:
                         current_league_on_page = league
                     else:
@@ -1054,7 +1059,8 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
                     nav_ok = bool(mapping) and _navigate_to_league_local(
-                        page, mapping.country, mapping.league)
+                        page, mapping.country, mapping.league,
+                        registry_league=league)
                     if nav_ok:
                         current_league_on_page = league
                     else:
@@ -1070,7 +1076,8 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 if current_league_on_page != league:
                     mapping = SPORTYBET_LEAGUES.get(league)
                     nav_ok = bool(mapping) and _navigate_to_league_local(
-                        page, mapping.country, mapping.league)
+                        page, mapping.country, mapping.league,
+                        registry_league=league)
                     if nav_ok:
                         current_league_on_page = league
                     else:

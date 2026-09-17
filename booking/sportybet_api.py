@@ -32,6 +32,7 @@ from __future__ import annotations
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Optional
 
 import engine.markets as mkt
@@ -65,6 +66,11 @@ class ApiFixture:
     league: str
     kickoff_utc: str                      # ISO, from estimateStartTime
     markets: dict = field(default_factory=dict)   # our mkt.* key -> price
+    # SportyBet's short numeric id ("32838"). This is the value the fixture
+    # cache stores as `id` and the booking driver resolves a slip against --
+    # NOT eventId ("sr:match:72221274"). Carrying it is what lets the cache be
+    # rebuilt from the API rather than from a page scrape.
+    game_id: str = ""
 
     # Convenience accessors kept for the existing cache shape.
     @property
@@ -214,8 +220,100 @@ def fetch_tournament(tournament_id: int | str, league: str,
                 event_id=str(ev.get("eventId") or ev.get("gameId") or ""),
                 home=home, away=away, league=league,
                 kickoff_utc=kickoff, markets=markets,
+                game_id=str(ev.get("gameId") or ""),
             ))
     return out
+
+
+# ---------------------------------------------------------------------------
+# Cache writing — so the booking driver can resolve what the board priced
+# ---------------------------------------------------------------------------
+CACHE_DIR = Path(__file__).resolve().parent.parent / "data" / "cache" / "sportybet" / "fixtures"
+
+
+def _goals_line_and_prices(markets: dict) -> tuple:
+    """Pick one representative goals line for the legacy cache fields.
+
+    The cache schema predates the full market map and holds a SINGLE
+    over/under line. 2.5 is preferred because it is the line most consumers
+    assume; otherwise the first available half-line is used. The complete set
+    still travels in `markets`, so nothing is lost -- this only fills the older
+    fields that existing readers still look at.
+    """
+    for line, over_key, under_key in ((2.5, mkt.OVER_25, mkt.UNDER_25),
+                                      (1.5, mkt.OVER_15, mkt.UNDER_15),
+                                      (3.5, mkt.OVER_35, mkt.UNDER_35),
+                                      (0.5, mkt.OVER_05, mkt.UNDER_05)):
+        if over_key in markets or under_key in markets:
+            return line, markets.get(over_key), markets.get(under_key)
+    return None, None, None
+
+
+def write_cache(league: str, fixtures: list, country: str = "") -> Optional[Path]:
+    """Write API fixtures into the SportyBet fixture cache the booking driver reads.
+
+    WHY: the board and the booking driver were reading DIFFERENT sources. Stage
+    B priced fixtures from this API (in memory), while booking_codes resolved
+    slips against the Playwright-scraped cache on disk. So the board could
+    price a fixture the booking driver then reported as "fixture not found in
+    SportyBet cache" -- which is exactly what happened on 2026-09-17: a board
+    with ten priced legs produced ZERO booking codes.
+
+    Writing the API result into the same cache closes that split. The full
+    market map is stored alongside the legacy fields so both old and new
+    readers work.
+
+    Returns the path written, or None when there is nothing to write -- an
+    empty cache file would look like "this league has no fixtures" rather than
+    "we could not fetch it".
+    """
+    import json
+
+    if not fixtures:
+        return None
+
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    path = CACHE_DIR / f"{league.replace(' ', '_').replace('/', '_')}.json"
+
+    rows = []
+    for fx in fixtures:
+        line, over, under = _goals_line_and_prices(fx.markets)
+        rows.append({
+            # `id` must be the SHORT numeric gameId: that is what the booking
+            # driver resolves against. eventId ("sr:match:...") is kept beside
+            # it rather than in its place.
+            "id": fx.game_id or fx.event_id,
+            "event_id": fx.event_id,
+            "home": fx.home,
+            "away": fx.away,
+            "kickoff": fx.kickoff_utc,
+            "league": league,
+            "home_odds": fx.markets.get(mkt.HOME),
+            "draw_odds": fx.markets.get(mkt.DRAW),
+            "away_odds": fx.markets.get(mkt.AWAY),
+            "goals_line": line,
+            "over_odds": over,
+            "under_odds": under,
+            # The complete market map, keyed by canonical market key.
+            "markets": fx.markets,
+            "raw_market": {},
+        })
+
+    path.write_text(json.dumps({
+        # UNIX TIMESTAMP, not ISO. bridge.load_sportybet_fixtures computes
+        # `time.time() - data["fetched_at"]` for the staleness check, so an ISO
+        # string raises TypeError there. That exception is swallowed upstream
+        # and surfaces as "fixture not found in SportyBet cache" -- a message
+        # that points at missing data when the data is present and the cache
+        # header is simply the wrong type. Cost an entire booking run to find.
+        "fetched_at": time.time(),
+        "fetched_at_iso": datetime.now(timezone.utc).isoformat(),  # humans
+        "league": league,
+        "country": country,
+        "source": "factsCenter-api",
+        "fixtures": rows,
+    }, indent=2), encoding="utf-8")
+    return path
 
 
 def fetch_leagues(league_ids: dict[str, tuple], on_progress=None) -> dict:

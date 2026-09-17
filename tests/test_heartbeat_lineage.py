@@ -364,3 +364,72 @@ def test_remainder_chunks_into_exact_fives():
     assert [len(g) for g in _chunk_remainder(mk(10))] == [5, 5]
     assert [len(g) for g in _chunk_remainder(mk(8))] == [5, 3]
     assert [len(g) for g in _chunk_remainder(mk(15))] == [5, 5, 5]
+
+
+def test_acca_route_carries_up_to_four_accas():
+    """MAX_ACCAS = 4 must be enforced by the ROUTE, not by two named fields.
+
+    ProductionAccaRoute exposed only acca_a and acca_b, and _build_acca_route
+    read accas[0]/accas[1] and dropped the rest. The cap was therefore enforced
+    by the SHAPE of the return value, so raising the constant alone would have
+    changed nothing visible. Architect ruling 2026-09-17 set it to 4.
+    """
+    from engine.acca import AccaLeg, Acca
+    from pipeline.production_stage_b import _build_acca_route, VEHICLE_ACCA_MAX
+    from output.production_board import MAX_ACCAS
+
+    assert VEHICLE_ACCA_MAX == 4, "Architect ruling 2026-09-17"
+    assert MAX_ACCAS == VEHICLE_ACCA_MAX, (
+        "the board's label must match the cap the route actually applies"
+    )
+
+    def leg(i):
+        return AccaLeg(fixture=f"H{i} v A{i}", league="La Liga", market_key="X",
+                       market_name=f"Pick {i}", price=1.35, prob=0.80,
+                       ev=0.08, edge=0.06)
+
+    class _PB:
+        acca_a = Acca(label="Acca A", legs=[leg(i) for i in range(5)])
+        # Five more than the cap allows, so truncation is actually exercised.
+        split_accas = [Acca(label=f"Acca {c}", legs=[leg(i) for i in range(5)])
+                       for c in "BCDE"]
+        singles = []
+        watchlist = []
+
+    route = _build_acca_route(_PB())
+    assert len(route.accas) == 4, f"expected 4 accas, got {len(route.accas)}"
+    assert [a.label for a in route.accas] == ["Acca A", "Acca B", "Acca C", "Acca D"]
+    # acca_a/acca_b stay as views for existing readers.
+    assert route.acca_a is route.accas[0]
+    assert route.acca_b is route.accas[1]
+
+
+def test_board_and_booking_payload_see_all_four_accas():
+    """Accas C and D must reach BOTH the board and the booking payload.
+
+    Reading acca_a/acca_b only would render four on the board and hand two to
+    booking — visible to the Architect, silently unbookable.
+    """
+    import re
+    from engine.acca import AccaLeg, Acca
+    from types import SimpleNamespace
+    from output.production_board import render_acca_route
+
+    def leg(i):
+        return AccaLeg(fixture=f"H{i} v A{i}", league="La Liga", market_key="X",
+                       market_name=f"Pick {i}", price=1.35, prob=0.80,
+                       ev=0.08, edge=0.06)
+
+    accas = [Acca(label=f"Acca {c}", legs=[leg(i) for i in range(5)])
+             for c in "ABCD"]
+    route = SimpleNamespace(accas=accas, acca_a=accas[0], acca_b=accas[1],
+                            slv=None, watchlist=[])
+
+    rendered = re.findall(r"▸ (Acca [A-D]) — (\d+) legs", render_acca_route(route, 30))
+    assert rendered == [("Acca A", "5"), ("Acca B", "5"),
+                        ("Acca C", "5"), ("Acca D", "5")], rendered
+
+    from run_daily import _acca_to_dict
+    payload = [_acca_to_dict(a) for a in (getattr(route, "accas", None) or [])]
+    assert len(payload) == 4, "booking payload must carry every formed acca"
+    assert sum(len(a["legs"]) for a in payload) == 20

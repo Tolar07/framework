@@ -59,7 +59,12 @@ STAGE_B_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # Vehicle structure: 2 accas + 1 SLV (single) per session
-VEHICLE_ACCA_MAX = 2      # Headline accas: Acca A + Acca B (was 4-5, reduced per Architect)
+# Architect ruling 2026-09-17: FOUR accas per session. This resolves the
+# conflict recorded in the ratified Telegram spec §4.3 — the Architect's 17 Sep
+# description (16 picks -> accas of 5; 20+ picks -> more) implied 3-4, while the
+# standing rule reaffirmed 14-15 Aug was 2. HR56 makes the LATER explicit
+# directive binding, and this is it.
+VEHICLE_ACCA_MAX = 4      # Acca A..D + 1 SLV
 VEHICLE_SLV_COUNT = 1     # Single SLV (was singles per fixture, now 1 best single)
 # LEGS PER ACCA = 5 (ratified Telegram spec §4.2, Architect 2026-09-17:
 # "fix the acca to 5 legs per acca").
@@ -96,7 +101,15 @@ class ProductionLayer1:
 
 @dataclass
 class ProductionAccaRoute:
-    """Acca Route — Capital-eligible bets only (2 accas + 1 SLV)."""
+    """Acca Route — capital-eligible bets only.
+
+    `accas` is the authoritative list, capped at VEHICLE_ACCA_MAX. The route
+    used to expose ONLY acca_a and acca_b, so raising the cap was not a matter
+    of changing a number: two named fields cannot hold four accumulators, and
+    _build_acca_route discarded accas[2:] silently. acca_a/acca_b remain as
+    views onto the first two entries so existing readers keep working.
+    """
+    accas: list[Acca] = field(default_factory=list)
     acca_a: Optional[Acca] = None
     acca_b: Optional[Acca] = None
     slv: Optional[AccaLeg] = None  # Single best standalone leg
@@ -865,10 +878,15 @@ def _api_markets_for_league(league: str) -> list:
 
 def _build_acca_route(production_bets: ProductionBets) -> ProductionAccaRoute:
     """
-    Build the Acca Route from ProductionBets with vehicle constraint:
-    2 accas (Acca A + Acca B) + 1 SLV.
+    Build the Acca Route from ProductionBets, capped at VEHICLE_ACCA_MAX + 1 SLV.
+
+    This used to read accas[0] and accas[1] and drop the rest on the floor. The
+    cap was therefore enforced by the SHAPE of the return value, not by the
+    constant, so raising VEHICLE_ACCA_MAX alone would have changed nothing
+    visible. Now the full list is carried and the cap applied explicitly.
     """
     accas = ([production_bets.acca_a] if production_bets.acca_a else []) + production_bets.split_accas
+    accas = [a for a in accas if a and (getattr(a, "legs", None) or [])][:VEHICLE_ACCA_MAX]
 
     acca_a = accas[0] if len(accas) > 0 else None
     acca_b = accas[1] if len(accas) > 1 else None
@@ -884,6 +902,7 @@ def _build_acca_route(production_bets: ProductionBets) -> ProductionAccaRoute:
         slv = singles_sorted[0]
 
     return ProductionAccaRoute(
+        accas=accas,
         acca_a=acca_a,
         acca_b=acca_b,
         slv=slv,

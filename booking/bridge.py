@@ -80,6 +80,12 @@ class PipelineFixture:
     goals_line: Optional[float] = None
     over_odds: Optional[float] = None
     under_odds: Optional[float] = None
+    # SportyBet's Sportradar event id ("sr:match:72478570"), written into the
+    # cache by booking.sportybet_api. This is what builds the MATCH-PAGE URL,
+    # which is the only place every Over/Under line is available — the league
+    # page shows one line per fixture. Distinct from sportybet_fixture_id,
+    # which is the short numeric gameId used to find the league-page row.
+    event_id: Optional[str] = None
 
 
 @dataclass
@@ -262,6 +268,7 @@ def load_sportybet_fixtures(
             goals_line=fx_data.get("goals_line"),
             over_odds=fx_data.get("over_odds"),
             under_odds=fx_data.get("under_odds"),
+            event_id=fx_data.get("event_id"),
         ))
 
     return fixtures

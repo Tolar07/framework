@@ -162,6 +162,10 @@ from booking.bridge import load_sportybet_fixtures
 # time; the earlier fix attempt only swapped one absent name for another.
 # Fixed 2026-09-16 on explicit Architect approval (protected file).
 from booking.poc_book_single import _navigate_to_league as _navigate_to_league
+# Needed to build the match-page URL for totals legs (category/tournament ids).
+# Used by _click_totals_on_match_page; without it that function raises NameError
+# on first call — the same unimported-name failure documented just above.
+from booking.rebuild_cache import SPORTYBET_CATEGORY_TOURNAMENT
 
 BASE_URL = "https://www.sportybet.com.ng"
 BOARD_DIR = Path(__file__).parent.parent / "output" / "boards"
@@ -210,6 +214,12 @@ def _cache_entry(f) -> dict:
         "sportybet_away": f.sportybet_away,
         "model_home": f.home_team,
         "model_away": f.away_team,
+        # Needed to build the MATCH-PAGE url for totals legs whose line the
+        # league page does not carry. Omitting these was not hypothetical: the
+        # dict is the only thing _resolve_fixture hands back, so a field absent
+        # here is invisible to every consumer downstream.
+        "event_id": f.event_id,
+        "league": f.league,
     }
 
 
@@ -508,6 +518,130 @@ def _click_market_on_match_page(page: Page, market_key: str, fixture_id: str = N
         return _click_market_on_match_page(page, alt_key, fixture_id)
 
     return False
+
+
+# The match page's FULL-TIME goals market is headed exactly "Over/Under".
+# Matching loosely here would book the wrong bet, silently. On Betis v Getafe
+# the same page carries:
+#     "Over/Under"                Under 3.5 @ 1.34   <- full-time match goals
+#     "Over/Under - Early Goals"  a different market entirely
+#     "Betis Over/Under"          Under 3.5 @ 1.10   <- ONE TEAM's goals
+# All three contain the substring "Over/Under" and all three contain a row
+# reading "Under 3.5". Only an EXACT header match picks the intended market.
+_FT_TOTALS_HEADER = "over/under"
+
+# Accept a quoted price within this fraction of the API price before clicking.
+# Odds drift between the API read and the click; a large gap means we are
+# probably looking at a different market, not a moved line.
+_PRICE_TOLERANCE = 0.25
+
+
+def _click_totals_on_match_page(page: Page, fx: dict, market_key: str,
+                                expected_price: Optional[float] = None) -> bool:
+    """Open the fixture's own match page and click the totals outcome there.
+
+    WHY THIS EXISTS: the league page shows ONE goals line per row, whichever
+    line SportyBet features for that match. Every totals leg whose line differs
+    from that one failed with "line mismatch or outcome click failed" — on
+    2026-09-17 that was 7 of 11 legs, and it was the ONLY remaining failure
+    mode once navigation was fixed. The match page carries every line.
+
+    The previous code deliberately had no match-page fallback, on the grounds
+    that direct /match navigation "TIMES OUT on SportyBet NG". That was
+    re-tested rather than inherited: the match URL returns HTTP 200, renders
+    both teams and lists Over/Under at 1.5, 2.5 and 3.5. The note is stale.
+
+    Returns True only if a selection was actually added.
+    """
+    target = TOTALS_INDEX.get(market_key)
+    if not target:
+        return False
+    line, side_idx = target              # ("3.5", 0=Over / 1=Under)
+    side = "Over" if side_idx == 0 else "Under"
+
+    event_id = (fx.get("event_id") or "").strip()
+    if not event_id.startswith("sr:match:"):
+        # Without the real event id there is no match URL to open. Reporting
+        # that is better than guessing one.
+        return False
+
+    league = fx.get("league") or ""
+    cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
+    if not cat_tour or tuple(cat_tour)[:2] == (0, 0):
+        return False
+    cat_id, tour_id = tuple(cat_tour)[:2]
+
+    url = (f"https://www.sportybet.com/ng/sport/football/"
+           f"sr:category:{cat_id}/sr:tournament:{tour_id}/{event_id}")
+    try:
+        page.goto(url, wait_until="domcontentloaded", timeout=45000)
+        try:
+            page.wait_for_selector("div.m-table-row.m-outcome", timeout=20000)
+        except Exception:
+            pass
+    except Exception:
+        return False
+
+    # Tag the intended cell in the DOM, then let Playwright click it so we get
+    # its visibility/scrolling/actionability handling rather than a raw JS
+    # click that can "succeed" on a hidden element.
+    tagged = page.evaluate(
+        """([line, side]) => {
+            document.querySelectorAll('[data-olp-target]').forEach(
+                e => e.removeAttribute('data-olp-target'));
+            const rows = [...document.querySelectorAll('div.m-table-row.m-outcome')];
+            for (const row of rows) {
+                const txt = row.innerText || '';
+                if (!txt.includes(side + ' ' + line)) continue;
+                // Walk up to this row's market header and require an EXACT match.
+                let p = row, header = null;
+                for (let i = 0; i < 8 && p; i++) {
+                    p = p.parentElement;
+                    if (!p) break;
+                    const h = p.querySelector("[class*='market-title'],[class*='title']");
+                    if (h && h.innerText && h.innerText.trim().length < 70) {
+                        header = h.innerText.trim().split('\\n')[0].trim().toLowerCase();
+                        break;
+                    }
+                }
+                if (header !== 'over/under') continue;
+                // Within the row, the cell whose own text carries the side+line.
+                const cells = [...row.querySelectorAll('*')].filter(c => {
+                    const t = (c.innerText || '').trim();
+                    return t.startsWith(side + ' ' + line) && c.children.length <= 3;
+                });
+                const cell = cells.length ? cells[cells.length - 1] : null;
+                if (!cell) continue;
+                cell.setAttribute('data-olp-target', '1');
+                return {ok: true, text: (row.innerText || '').replace(/\\n/g, ' | ')};
+            }
+            return {ok: false};
+        }""",
+        [line, side],
+    )
+    if not tagged or not tagged.get("ok"):
+        return False
+
+    # Price cross-check. If the visible price is far from what the API quoted,
+    # we are probably on a different market than intended — refuse rather than
+    # book something the board never priced.
+    if expected_price:
+        import re as _re
+        nums = [float(x) for x in _re.findall(r"\d+\.\d+", tagged.get("text", ""))]
+        if nums and not any(abs(n - expected_price) <= _PRICE_TOLERANCE * expected_price
+                            for n in nums):
+            print(f"  [SKIP] {market_key}: no price near {expected_price} in "
+                  f"{tagged.get('text')!r} — refusing to click")
+            return False
+
+    try:
+        loc = page.locator("[data-olp-target='1']").first
+        loc.wait_for(state="visible", timeout=10000)
+        loc.click()
+        page.wait_for_timeout(1200)
+        return True
+    except Exception:
+        return False
 
 
 def _click_totals_on_league_page(page: Page, row, market_key: str) -> bool:
@@ -994,10 +1128,20 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                     ok = bool(row) and _click_totals_on_league_page(page, row, leg["market_key"])
                     if not ok and row is None:
                         entry["reason"] = "match row not found on league page"
-                    elif not ok:
-                        entry["reason"] = f"line mismatch or outcome click failed for {leg['market_key']}"
-                else:
-                    entry["reason"] = "league page did not load"
+                if not ok:
+                    # MATCH-PAGE FALLBACK. The league page carries only ONE
+                    # goals line per row; any leg on a different line cannot be
+                    # clicked there no matter how well navigation works. The
+                    # match page lists every line, so try it before giving up.
+                    ok = _click_totals_on_match_page(
+                        page, fx, leg["market_key"], expected_price=leg.get("price"))
+                    if ok:
+                        # We navigated away from the league page to get here.
+                        current_league_on_page = None
+                    else:
+                        entry["reason"] = (
+                            f"line not available on league or match page "
+                            f"for {leg['market_key']}")
             elif leg.get("market_key") in ("BTTS_YES", "BTTS_NO"):
                 # BTTS = GG/NG. The working path is the league-page inline
                 # market selector (direct /match navigation times out). The

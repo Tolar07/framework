@@ -18,12 +18,12 @@
 | Service | Env var | Value | Plan / notes |
 |---|---|---|---|
 | The Odds API | `<REDACTED>` | `<REDACTED>` | **PRIMARY** — personal paid key, set 2026-08-11 (Architect decision). MES entry price source. Free-tier backups (`ODDS_API_KEY_BACKUP`, `<REDACTED>`) are commented out and currently empty. |
-| TheSportsDB | `<REDACTED>` | `5558126822` | Registered free key. Fallback public test key `123` is rate-limited and truncates the league list. |
+| TheSportsDB | `<REDACTED>` | `<REDACTED — ROTATE>` | Registered free key. Fallback public test key `123` is rate-limited and truncates the league list. |
 | Telegram Bot | `<REDACTED>` | `<REDACTED>` | `@BotFather` → `/newbot`. Daily board delivery + command responses. |
-| Telegram chat | `<REDACTED>` | `8074295061` | Found by messaging the bot once, then reading `getUpdates`. |
+| Telegram chat | `<REDACTED>` | `<REDACTED — ROTATE>` | Found by messaging the bot once, then reading `getUpdates`. |
 | API-Football | `<REDACTED>` | `<REDACTED>` | **PAID Standard/Pro plan** (confirmed 2026-08-19). Current-season history loads, odds date-window widens, plan-gated features auto-enable (`data/api_football_plan.py`, fails closed). |
 | Admin dashboard | `<REDACTED>` | `architect` | HTTP Basic auth on `/admin`, `/stats`, `/why`, `/api/admin/*`, `POST /api/trigger-board`. |
-| Admin dashboard | `<REDACTED>` | `j6!SUy%4T&PSVz%bcKin9GTE` | **Strong generated 2026-08-12** — 24 chars, ~140 bits entropy. Stored in `scripts/generate_admin_pass.py` for future rotation. Rotate yearly or on any leak. |
+| Admin dashboard | `<REDACTED>` | `j6!<REDACTED — ROTATE>` | **Strong generated 2026-08-12** — 24 chars, ~140 bits entropy. Stored in `scripts/generate_admin_pass.py` for future rotation. Rotate yearly or on any leak. |
 | Anthropic | `<REDACTED>` | *(blank — not yet set)* | Optional webapp AI Analyst chat (`/api/analyst`). Leave blank to keep the panel honestly "unavailable" rather than degrade silently. Requires the `anthropic` package (in `requirements.txt`). |
 
 ## MCP Server keys (verified 2026-08-12)

@@ -91,13 +91,9 @@ def select_heartbeat_fixture(
 
     for bf in today_fixtures:
         # Skip if verification failed (quality gate)
-        verification_passed = getattr(bf, 'verification', None)
-        if verification_passed is not None and not getattr(verification_passed, 'tier', None) in ['TIER_A', 'TIER_B']:
-            # TIER_A/B are passing grades; others may need Architect review
-            # For now, accept any verification that isn't explicitly failed
-            verification_status = str(getattr(verification_passed, 'tier', 'UNKNOWN'))
-            if verification_status in ['FAILED', 'REJECTED']:
-                continue
+        # CONFLICT / NO-DATA disqualify the fixture. See is_excluded.
+        if is_excluded(bf):
+            continue
 
         # A heartbeat is a pre-match bet. See has_kicked_off.
         if has_kicked_off(bf):
@@ -195,9 +191,8 @@ def select_top_heartbeats(
         if fixture_str in seen_fixtures:
             continue
 
-        verification_obj = getattr(bf, 'verification', None)
-        verification_status = str(getattr(verification_obj, 'tier', 'UNKNOWN'))
-        if verification_status in ['FAILED', 'REJECTED']:
+        # CONFLICT / NO-DATA disqualify the fixture. See is_excluded.
+        if is_excluded(bf):
             continue
 
         # A heartbeat is a pre-match bet. See has_kicked_off.
@@ -243,6 +238,55 @@ def select_top_heartbeats(
         _build_heartbeat_fixture(bf, pick_info, odds_index)
         for _, bf, pick_info in scored[:top_n]
     ]
+
+
+# ID403 verification tiers as this framework actually defines them
+# (verification.id403.Tier). NONE of the strings heartbeat.py previously
+# checked -- "TIER_A", "TIER_B", "FAILED", "REJECTED" -- exist anywhere in the
+# codebase. They appear to be from an earlier or imagined scheme.
+#
+# Two consequences, both silent:
+#   * verification_passed compared against TIER_A/TIER_B and so was ALWAYS
+#     False, which is why every heartbeat rendered "⚠ Verification: Pending
+#     Review" regardless of how well the fixture was verified. A warning that
+#     is always on carries no information.
+#   * the exclusion gate skipped fixtures whose tier was "FAILED"/"REJECTED",
+#     values that never occur — so it never excluded anything. CONFLICT
+#     fixtures, where sources disagree on kickoff beyond tolerance, were
+#     eligible to become the day's heartbeat.
+#
+# The enum compounds it: str(Tier.VERIFIED) is "Tier.VERIFIED", not "VERIFIED",
+# so even the right vocabulary would not have matched without reading .value.
+_TIER_PASSING = {"VERIFIED", "TIER_A", "TIER_B"}   # TIER_* kept for legacy data
+_TIER_EXCLUDED = {"CONFLICT", "NO-DATA", "NO_DATA", "FAILED", "REJECTED"}
+
+
+def tier_of(bf) -> str:
+    """This fixture's ID403 tier as an UPPERCASE string, or '' when absent.
+
+    Reads .value first because tier is a Tier enum; str() on an enum yields
+    'Tier.VERIFIED' and matches nothing.
+    """
+    v = getattr(bf, "verification", None)
+    raw = getattr(v, "tier", None)
+    if raw is None:
+        return ""
+    return str(getattr(raw, "value", raw) or "").upper()
+
+
+def is_verified(bf) -> bool:
+    """True only when ID403 actually verified this fixture."""
+    return tier_of(bf) in _TIER_PASSING
+
+
+def is_excluded(bf) -> bool:
+    """True when the tier disqualifies the fixture from being a heartbeat.
+
+    CONFLICT means the sources disagree on kickoff beyond tolerance — the
+    framework does not know when the match starts, so it cannot be a pre-match
+    bet. NO-DATA means there is nothing to stand on at all.
+    """
+    return tier_of(bf) in _TIER_EXCLUDED
 
 
 def has_kicked_off(bf, now=None) -> bool:
@@ -398,9 +442,8 @@ def _build_heartbeat_fixture(
     bookmaker = getattr(bf, 'best_bookmaker', None)
     price = getattr(bf, 'best_price', None)
 
-    # Verification status
-    verification_obj = getattr(bf, 'verification', None)
-    verification_passed = verification_obj is not None and str(getattr(verification_obj, 'tier', '')) in ['TIER_A', 'TIER_B']
+    # Verification status (ID403). See is_verified / _TIER_PASSING.
+    verification_passed = is_verified(bf)
 
     return HeartbeatFixture(
         fixture=fixture_str,

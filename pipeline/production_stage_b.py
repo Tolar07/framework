@@ -652,6 +652,7 @@ def _enrich_fixtures_with_models(
             best_market = None
             best_model_prob = None
             best_mes_ev = None
+            best_edge = None
             best_bookmaker = "SportyBet"
             best_n_books = 1
             mes_trigger = None
@@ -714,6 +715,7 @@ def _enrich_fixtures_with_models(
                     best_model_prob = capital_leg.prob
                     best_price = capital_leg.price
                     best_mes_ev = capital_leg.ev
+                    best_edge = capital_leg.edge
                     mes_trigger = trigger_price(capital_leg.prob) if capital_leg.prob else None
 
             # Consensus
@@ -734,6 +736,7 @@ def _enrich_fixtures_with_models(
             bf.best_price = best_price
             bf.best_model_prob = best_model_prob
             bf.best_mes_ev = best_mes_ev
+            bf.best_edge = best_edge
             bf.best_bookmaker = best_bookmaker
             bf.best_n_books = best_n_books
             bf.mes_trigger_price = mes_trigger

@@ -79,13 +79,25 @@ class Lineage:
     price: Optional[float] = None
     edge: float = 0.0
     probability: float = 0.0
+    # Wins that could not be settled because the heartbeat carried no usable
+    # price. Counted, never paid — see record_heartbeat_result.
+    unsettled_wins: int = 0
+    # Date of the heartbeat this lineage is currently holding. Set at SELECTION
+    # time, not at result time, so lineage.json shows what each lineage is on
+    # today instead of nulls until something grades it.
+    held_date: Optional[str] = None
 
     def to_dict(self) -> dict:
         return asdict(self)
 
     @classmethod
     def from_dict(cls, d: dict) -> "Lineage":
-        return cls(**d)
+        # Tolerate state written by older versions (unknown keys dropped,
+        # absent keys defaulted) so a schema addition never bricks the
+        # population file into the "corrupt -> reseed genesis" path, which
+        # would silently wipe the lineage history it is meant to preserve.
+        known = {f for f in cls.__dataclass_fields__}
+        return cls(**{k: v for k, v in d.items() if k in known})
 
 
 @dataclass
@@ -165,6 +177,7 @@ def select_daily_heartbeats(
     odds_index: Optional[dict] = None,
     top_n: int = TOP_N_CANDIDATES,
     min_edge: float = 0.0,
+    require_priced: bool = True,
 ) -> list[HeartbeatFixture]:
     """
     Build the day's heartbeats from the living lineages + top edge candidates.
@@ -194,19 +207,33 @@ def select_daily_heartbeats(
     candidates = select_top_heartbeats(
         board, target_date=target_date, odds_index=odds_index,
         top_n=max(top_n, len(living)), min_edge=min_edge,
+        require_priced=require_priced,
     )
 
     # Assign candidates to lineages: strongest lineage -> strongest fixture.
     living_sorted = sorted(living, key=lambda ln: ln.bankroll, reverse=True)
     heartbeats: list[HeartbeatFixture] = []
+    assigned_date = target_date or date.today().isoformat()
     for i, lineage in enumerate(living_sorted):
         if i < len(candidates):
             hb = candidates[i]
             # Tag lineage onto the fixture so results can be routed back
             hb.lineage_id = lineage.lineage_id  # type: ignore[attr-defined]
             hb.generation = lineage.generation  # type: ignore[attr-defined]
+            # Record the holding on the lineage NOW. Previously these fields
+            # were only written by record_heartbeat_result, so a lineage that
+            # had been selected but not yet graded showed fixture/pick/price
+            # as null — indistinguishable from a lineage doing nothing. That
+            # is what lineage.json has shown since 2026-09-03.
+            lineage.fixture = hb.fixture
+            lineage.pick = hb.pick
+            lineage.price = hb.price
+            lineage.edge = hb.edge
+            lineage.probability = hb.probability
+            lineage.held_date = assigned_date
             heartbeats.append(hb)
         # If fewer candidates than lineages, surviving lineages simply skip a day
+    save_population(pop)
     return heartbeats
 
 
@@ -246,8 +273,24 @@ def record_heartbeat_result(
 
     price = heartbeat.price or 0.0
     if result == "WIN":
-        profit = lineage.current_stake * (price - 1.0)
-        lineage.bankroll = round(lineage.bankroll + profit, 2)
+        # A WIN must never REDUCE the bankroll.
+        #
+        # `price or 0.0` turns an unpriced heartbeat into 0.0, and the payout
+        # below is stake * (price - 1.0), so an unpriced WIN paid
+        # stake * -1.0 — i.e. it debited the lineage exactly as a LOSS would,
+        # while still incrementing `wins`. That is not a rounding quirk, it
+        # inverts the sign of the single most important transition in the
+        # model. data/heartbeat/history.jsonl carries a real instance:
+        # 2026-08-27 "Brighton v Tromso", result WIN, price null.
+        #
+        # An unpriced result cannot be settled, so the lineage holds its
+        # bankroll flat and the win is still counted. Settling is the
+        # grader's job; guessing a price here would be fabrication (HR35).
+        if price <= 1.0:
+            lineage.unsettled_wins += 1
+        else:
+            profit = lineage.current_stake * (price - 1.0)
+            lineage.bankroll = round(lineage.bankroll + profit, 2)
         lineage.wins += 1
     elif result == "LOSS":
         lineage.bankroll = round(lineage.bankroll - lineage.current_stake, 2)

@@ -15,9 +15,23 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
+from pathlib import Path
 from typing import Optional
 
 from .produce_bet import BoardFixture
+
+# Repo-rooted heartbeat state. MUST be shared by the writer and the reader.
+#
+# save_heartbeat_record() used to build its own Path("data/heartbeat") — relative
+# to the CURRENT WORKING DIRECTORY — while get_heartbeat_stats() resolved the
+# same file from __file__. Whenever the pipeline was launched from anywhere other
+# than the repo root the record was appended to a stray data/heartbeat/ beside
+# the caller and the stats reader, looking in the repo, saw nothing. That is the
+# same defect class as the vault-sync path bug: two halves of one feature
+# disagreeing about where the state lives. One constant, both halves.
+REPO_ROOT = Path(__file__).resolve().parent.parent
+HEARTBEAT_DIR = REPO_ROOT / "data" / "heartbeat"
+HISTORY_FILE = HEARTBEAT_DIR / "history.jsonl"
 
 
 @dataclass
@@ -85,20 +99,20 @@ def select_heartbeat_fixture(
             if verification_status in ['FAILED', 'REJECTED']:
                 continue
 
-        # Calculate edge/score for selection
-        edge_score = 0.0
+        # Calculate edge/score for selection. Tuple key for the same reason as
+        # select_top_heartbeats: an unpriced fixture's probability must not be
+        # compared against a priced fixture's edge as if they were one scale.
         pick_info = _get_best_pick_info(bf, odds_index)
+        if not pick_info:
+            continue
 
-        if pick_info:
-            market_label, probability, edge_value = pick_info
-            edge_score = edge_value
+        market_label, probability, edge_value = pick_info
+        has_price = getattr(bf, 'best_price', None) is not None
 
-            # If no edge value available, fall back to pure probability
-            if edge_score == 0.0 and probability > 0:
-                edge_score = probability  # Pure probability fallback
-
-        if edge_score > 0:  # Only consider fixtures with positive signal
-            scored_fixtures.append((edge_score, bf, pick_info))
+        if has_price and edge_value > 0:
+            scored_fixtures.append(((1, edge_value), bf, pick_info))
+        elif not has_price and probability > 0:
+            scored_fixtures.append(((0, probability), bf, pick_info))
 
     if not scored_fixtures:
         return None
@@ -115,7 +129,8 @@ def select_top_heartbeats(
     target_date: str = None,
     odds_index: Optional[dict] = None,
     top_n: int = 5,
-    min_edge: float = 0.0
+    min_edge: float = 0.0,
+    require_priced: bool = True,
 ) -> list[HeartbeatFixture]:
     """
     Architect 2026-08-29 — lineage reproduction model.
@@ -151,7 +166,22 @@ def select_top_heartbeats(
     if not today_fixtures:
         return []
 
-    scored: list[tuple[float, BoardFixture, Optional[tuple]]] = []
+    # Rank key is a TUPLE (priced_rank, score), never a bare float.
+    #
+    # The previous key collapsed two incompatible scales into one number:
+    # a priced fixture scored its EDGE (e.g. 0.08) while an unpriced fixture
+    # fell back to its raw PROBABILITY (e.g. 0.92). Compared as plain floats,
+    # ANY unpriced fixture outranked EVERY genuinely positive-edge one, so the
+    # day's heartbeat was reliably the heaviest unpriced favourite — the exact
+    # opposite of the selection pressure this model exists to apply, and it
+    # cannot be seen in the output because both render as a percentage.
+    #
+    # Priced candidates (priced_rank=1) now sort strictly above unpriced ones
+    # (priced_rank=0), and probability only breaks ties inside the unpriced
+    # group. A heartbeat with no price also cannot be settled (see
+    # heartbeat_lineage.record_heartbeat_result), so preferring priced
+    # candidates keeps the lineage economically meaningful.
+    scored: list[tuple[tuple[int, float], BoardFixture, Optional[tuple]]] = []
     seen_fixtures: set[str] = set()
 
     for bf in today_fixtures:
@@ -166,16 +196,35 @@ def select_top_heartbeats(
             continue
 
         pick_info = _get_best_pick_info(bf, odds_index)
-        edge_score = 0.0
-        if pick_info:
-            _, probability, edge_value = pick_info
-            edge_score = edge_value
-            if edge_score == 0.0 and probability > 0:
-                edge_score = probability
+        if not pick_info:
+            continue
 
-        if edge_score > min_edge:
-            scored.append((edge_score, bf, pick_info))
-            seen_fixtures.add(fixture_str)
+        _, probability, edge_value = pick_info
+        has_price = getattr(bf, 'best_price', None) is not None
+
+        if has_price and edge_value > min_edge:
+            key = (1, edge_value)
+        elif not has_price and probability > 0 and not require_priced:
+            # No price -> no edge can exist, and the result cannot be settled.
+            #
+            # require_priced defaults True so this fallback is OPT-IN. On
+            # 2026-09-17 the board carried 23 fixtures, 8 of them priced, and
+            # every priced one was NEGATIVE edge (e.g. Crystal Palace at 1.41
+            # implies 70.9% against a model 33.3%), so no capital leg existed.
+            # The old scorer answered that by promoting an unpriced 80%
+            # favourite to "the day's heartbeat" — presenting a pick with no
+            # measured edge as though it had won a selection contest, and
+            # feeding the lineage something it could never settle.
+            #
+            # A day with no qualifying candidate is a real result: the species
+            # skips a generation. Reporting the absence is HR35; filling it is
+            # not.
+            key = (0, probability)
+        else:
+            continue
+
+        scored.append((key, bf, pick_info))
+        seen_fixtures.add(fixture_str)
 
     if not scored:
         return []
@@ -194,15 +243,19 @@ def _get_best_pick_info(bf: BoardFixture, odds_index: Optional[dict]) -> Optiona
     Returns:
         Tuple of (market_label, probability, edge_value) or None
     """
-    # Check if BoardFixture already has a priced best_market with EV
-    if getattr(bf, "best_market", None) and getattr(bf, "best_mes_ev", None) is not None:
-        if bf.best_mes_ev is not None:
-            # Use the priced best market with actual EV
-            return (
-                bf.best_market,
-                bf.best_model_prob or 0.0,
-                bf.best_mes_ev
-            )
+    # Priced best market. Rank on CANONICAL EDGE (model_prob - implied_prob),
+    # which is this framework's selection metric; best_mes_ev is EV and is
+    # reserved for Kelly/staking. Where Stage B supplied an edge, use it; fall
+    # back to deriving it from the price rather than substituting EV, because
+    # EV and edge order fixtures differently at long prices.
+    if getattr(bf, "best_market", None):
+        edge = getattr(bf, "best_edge", None)
+        prob = getattr(bf, "best_model_prob", None)
+        price = getattr(bf, "best_price", None)
+        if edge is None and prob is not None and price:
+            edge = prob - (1.0 / price)
+        if edge is not None:
+            return (bf.best_market, prob or 0.0, edge)
 
     # Fallback: try to compute best EV from model probabilities + available odds
     probs = getattr(bf, 'probs', None)
@@ -271,6 +324,14 @@ def _build_heartbeat_fixture(
     fixture_str = getattr(bf, 'fixture', 'Unknown v Unknown')
     kickoff_time = _extract_kickoff_time(bf)
     league = _extract_league(bf)
+    # The board's fixture string carries a "(League)" suffix, and _extract_league
+    # reads the league back out of it. The renderer then prints the league on its
+    # own line AND again inside the fixture:
+    #   ⚽  La Liga
+    #   🕐  19:45   Real Sociedad v Getafe (La Liga)
+    # Drop the suffix now that the league has been extracted from it.
+    if league != "Unknown League" and fixture_str.endswith(f"({league})"):
+        fixture_str = fixture_str[: -len(f"({league})")].strip()
 
     # Extract pick info
     if pick_info:
@@ -367,8 +428,17 @@ def _categorize_market_type(market_label: str) -> str:
     """Categorize market label into type for arrow selection."""
     label_lower = market_label.lower()
 
+    # Double chance must be tested BEFORE 1X2: its labels ("Home or Draw",
+    # "Draw or Away") contain the 1X2 tokens and would otherwise be
+    # misclassified as a straight result pick and drawn with the wrong arrow.
+    if 'double chance' in label_lower or ' or ' in label_lower:
+        return "DC"
+    # "<Club> to win" is the HR53 long-form of a 1X2 result pick. It carries no
+    # home/away/draw token, so it used to fall through to OTHER and render as
+    # "💡  Pick: 💡 Real Sociedad to win" — the generic arrow duplicating the
+    # line's own prefix glyph.
     if any(team in label_lower for team in ['home', 'away', 'draw']) or \
-       'v ' in label_lower or ' vs ' in label_lower:
+       'to win' in label_lower or 'v ' in label_lower or ' vs ' in label_lower:
         return "1X2"
     elif 'over' in label_lower or 'under' in label_lower or 'o1.5' in label_lower or 'o2.5' in label_lower or 'o3.5' in label_lower:
         return "O/U"
@@ -442,13 +512,17 @@ def _get_heartbeat_arrow(market_type: str, pick_label: str) -> str:
     pick_lower = pick_label.lower()
 
     if market_type == "1X2":
-        if 'home' in pick_lower:
-            return "➡"
-        elif 'draw' in pick_lower:
+        # Draw is checked first: "Home or Draw"-style labels are routed to DC
+        # before they reach here, so a remaining 'draw' token means the pick
+        # really is the draw.
+        if 'draw' in pick_lower:
             return "⚪"
+        elif 'home' in pick_lower:
+            return "➡"
         elif 'away' in pick_lower:
             return "🔁"
         else:
+            # Named club, e.g. "Real Sociedad to win" (HR53 long form).
             return "📌"
     elif market_type == "O/U":
         if 'over' in pick_lower:
@@ -475,19 +549,16 @@ def save_heartbeat_record(heartbeat: HeartbeatFixture, result: str = None) -> No
         result: 'WIN', 'LOSS', 'PENDING', or None for just recording selection
     """
     import json
-    from pathlib import Path
     from datetime import datetime
 
-    # Ensure data directory exists
-    data_dir = Path("data/heartbeat")
-    data_dir.mkdir(parents=True, exist_ok=True)
-
-    # History file
-    history_file = data_dir / "history.jsonl"
+    HEARTBEAT_DIR.mkdir(parents=True, exist_ok=True)
+    history_file = HISTORY_FILE
 
     # Today's record
     record = {
         "date": datetime.now().date().isoformat(),
+        "lineage_id": heartbeat.lineage_id,
+        "generation": heartbeat.generation,
         "fixture": heartbeat.fixture,
         "league": heartbeat.league,
         "pick": heartbeat.pick,
@@ -515,11 +586,8 @@ def get_heartbeat_stats() -> dict:
         Dictionary with win/loss/total counts and win rate
     """
     import json
-    from pathlib import Path
 
-    # Use the canonical repo-rooted history file
-    repo_root = Path(__file__).parent.parent
-    history_file = repo_root / "data" / "heartbeat" / "history.jsonl"
+    history_file = HISTORY_FILE
     if not history_file.exists():
         return {"wins": 0, "losses": 0, "total": 0, "win_rate": 0.0}
 

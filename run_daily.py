@@ -619,6 +619,23 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
     board_text: str = ""
     telegram_text: str = ""
     heartbeat_text: str = ""
+    # True only when render_production_board actually produced messages.
+    #
+    # SEND GATE (spec §0/§1, Architect 2026-09-17). The ratified spec names
+    # render_production_board as the ONLY Telegram render path and requires the
+    # send gate to reject anything without a valid run_id — "a code-level gate,
+    # not a review step". Until now the gate was NEGATIVE: it blocked the one
+    # known-bad path (the demonstration fallback) and let everything else
+    # through, so any OTHER degraded path still published. That is how the
+    # legacy five-league "Phase 2 — paper calibration" board kept reaching
+    # Telegram: Stage B falling back to the old renderer is not the fallback
+    # pipeline, so fallback_is_unpublishable stayed False and delivery went
+    # ahead.
+    #
+    # Positive gating is the difference between "block what we know is bad" and
+    # "send only what we know is good". Only the second one holds when a new
+    # failure mode appears.
+    production_board_ok: bool = False
     fixture_sources: set[str] = set()
     fit_stats = {"dc_reused": 0, "dc_refit": 0, "elo_seeded": 0, "pool_built": 0,
                  "xg_leagues": 0}
@@ -674,6 +691,7 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                 )
                 if _msgs:
                     telegram_text = "\n\n".join(_msgs)
+                    production_board_ok = True
                     all_flags.append(
                         f"production board rendered: {len(_msgs)} Telegram "
                         f"message(s) per ratified spec"
@@ -905,7 +923,20 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                 "Telegram/WhatsApp/email delivery SUPPRESSED — board came from "
                 "the demonstration fallback, not the engines (HR35)"
             )
-        if send and telegram_text and not fallback_is_unpublishable:
+
+        # POSITIVE SEND GATE (spec §0/§1). Nothing goes out unless the ratified
+        # production board rendered it. The board is still written to disk for
+        # inspection either way — suppressing DELIVERY is not the same as
+        # losing the run.
+        if send and not production_board_ok and not fallback_is_unpublishable:
+            all_flags.append(
+                "Telegram/WhatsApp/email delivery SUPPRESSED — the ratified "
+                "production board did not render, so the only thing available "
+                "to send was the superseded legacy format (spec §0). Board "
+                "written to disk; nothing delivered."
+            )
+
+        if send and telegram_text and production_board_ok and not fallback_is_unpublishable:
             # NEW: Use idempotency guard for Telegram sends
             if should_send_telegram(telegram_text):
                 try:
@@ -918,14 +949,17 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
 
         # Both channels carry the same HR35 guard as Telegram — suppressing one
         # delivery path while leaving two others open would not be a guard.
-        if whatsapp and not fallback_is_unpublishable:
+        # They now carry the POSITIVE production-board gate for the same reason:
+        # gating Telegram alone would just move the superseded legacy board onto
+        # WhatsApp and email instead of stopping it.
+        if whatsapp and production_board_ok and not fallback_is_unpublishable:
             try:
                 whatsapp_deliver.send(telegram_text)
                 all_flags.append("WhatsApp sent")
             except Exception as e:
                 all_flags.append(f"WhatsApp failed: {e}")
 
-        if email and not fallback_is_unpublishable:
+        if email and production_board_ok and not fallback_is_unpublishable:
             try:
                 email_deliver.send(board_text, subject=f"OLP XDV Board {board_date}")
                 all_flags.append("Email sent")

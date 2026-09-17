@@ -24,7 +24,7 @@ import os
 import sys
 import time
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, List, Dict
 
 import requests
 

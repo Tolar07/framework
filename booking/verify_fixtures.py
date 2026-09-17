@@ -169,22 +169,40 @@ def _load_feed_pairs(pattern: str, datetime_parser: callable, target_date: str |
     if not files:
         return []
     pairs: List[Dict] = []
-    for line in files[0].read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
-            continue
+    target_date_found = False
+    # Search ALL feed files for fixtures matching the target date
+    # This prevents stale-cache bugs where we might return yesterday's fixtures
+    # when today's feed hasn't been scraped yet
+    for fpath in files:
         try:
-            d = json.loads(line)
+            content = fpath.read_text(encoding="utf-8")
         except Exception:
             continue
-        if d.get("type") != "match_1x2":
-            continue
-        home = (d.get("home_team") or "").strip()
-        away = (d.get("away_team") or "").strip()
-        if not home or not away:
-            continue
-        kickoff = datetime_parser(d.get("match_datetime"), target_date)
-        pairs.append({"home": home, "away": away, "date": kickoff})
+        for line in content.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
+            if d.get("type") != "match_1x2":
+                continue
+            home = (d.get("home_team") or "").strip()
+            away = (d.get("away_team") or "").strip()
+            if not home or not away:
+                continue
+            kickoff = datetime_parser(d.get("match_datetime"), target_date)
+            # Verify the fixture actually belongs to the target date
+            # Extract date from kickoff (assuming format YYYY-MM-DDTHH:MM:SSZ)
+            fixture_date = kickoff.split("T")[0] if "T" in kickoff else kickoff
+            if target_date and fixture_date != target_date:
+                continue  # Skip fixtures from other dates
+            target_date_found = True
+            pairs.append({"home": home, "away": away, "date": kickoff})
+    if not target_date_found and target_date:
+        # Log when no fixtures found for target date (helps detect stale-cache issues)
+        print(f"[WARN] No fixtures found for target date {target_date} in feed pattern {pattern}")
     return pairs
 
 
@@ -406,7 +424,7 @@ def _load_espn_pairs(board_date: str, leagues: List[str]) -> List[Dict]:
         try:
             result = ms_get_fixtures(
                 league=lg,
-                fixtures_season="2728",  # 2026/27 season
+                fixtures_season="2627",  # 2026/27 season
                 days_ahead=14,
                 api_football_season=None
             )

@@ -155,7 +155,7 @@ def compute_consensus(probs, elo_probs, xg_probs,
                for i in range(3)]
     else:
         avg = [sum(p[i] for name, p in opinions) / n for i in range(3)]
-    return Consensus(
+    consensus = Consensus(
         result=result,
         votes=votes,
         n_engines=n,
@@ -168,3 +168,74 @@ def compute_consensus(probs, elo_probs, xg_probs,
         weight_used=dict(weights) if weights else None,
         unweighted_result=unweighted_result,
     )
+
+    # Calculate a simple consensus score (0.0 to 1.0) based on agreement strength
+    if n > 0:
+        # Score based on proportion of agreeing engines
+        agreement_ratio = agreeing / n if n > 0 else 0.0
+        # Boost score if weighted consensus is used (indicates proven engines agreeing)
+        weight_bonus = 0.1 if use_weights and agreeing >= 2 else 0.0
+        # Penalize split decisions
+        split_penalty = 0.2 if len(votes) > 1 else 0.0
+        consensus_score = min(1.0, agreement_ratio + weight_bonus - split_penalty)
+        consensus_score = max(0.0, consensus_score)  # Ensure non-negative
+    else:
+        consensus_score = 0.0
+
+    # Attach the score to the consensus object for easy access
+    consensus.score = consensus_score
+
+    return consensus
+
+
+def calculate_consensus_score(fixture: dict) -> float:
+    """
+    Calculate a consensus score for a fixture based on available engine opinions.
+
+    Args:
+        fixture: Dictionary containing fixture data with potential engine opinions
+
+    Returns:
+        Float between 0.0 and 1.0 representing consensus strength
+    """
+    # Import here to avoid circular imports
+    from .consensus import compute_consensus
+    from .dixon_coles import FixtureProbabilities
+
+    # Extract opinions from fixture
+    probs = None
+    elo_probs = None
+    xg_probs = None
+
+    # Try to get Dixon-Coles probabilities
+    if 'dc_prob' in fixture:
+        # Assuming dc_prob is a dict with p_home, p_draw, p_away
+        dc_data = fixture['dc_prob']
+        if isinstance(dc_data, dict) and all(k in dc_data for k in ['p_home', 'p_draw', 'p_away']):
+            probs = type('FixtureProbabilities', (), {
+                'p_home': dc_data['p_home'],
+                'p_draw': dc_data['p_draw'],
+                'p_away': dc_data['p_away']
+            })()
+
+    # Try to get Elo probabilities
+    if 'elo_probs' in fixture:
+        elo_data = fixture['elo_probs']
+        if isinstance(elo_data, (list, tuple)) and len(elo_data) == 3:
+            elo_probs = tuple(elo_data)
+
+    # Try to get xG probabilities
+    if 'xg_probs' in fixture:
+        xg_data = fixture['xg_probs']
+        if isinstance(xg_data, (list, tuple)) and len(xg_data) == 3:
+            xg_probs = tuple(xg_data)
+
+    # Compute consensus and return score
+    try:
+        consensus = compute_consensus(probs, elo_probs, xg_probs)
+        if consensus is not None:
+            return getattr(consensus, 'score', 0.0)
+    except Exception:
+        pass
+
+    return 0.0

@@ -1218,84 +1218,108 @@ def render_produce_bet(mode: str, phase: str, leagues_scanned: list[str],
     return full_text
 
 
+def _sportybet_price_for(bf: BoardFixture, market_key: str) -> Optional[float]:
+    """SportyBet price for one market, read off the BoardFixture. No I/O.
+
+    Deliberately does NOT call booking.bridge.get_sportybet_odds_for_leg. That
+    function loads and parses the league cache per call and, when a market has
+    no cached quote, falls through to a LIVE SportyBet request. Calling it once
+    per market per fixture is 40 x N lookups and mostly live calls -- it hung
+    the renderer outright (a 17-fixture board did not finish in 550s).
+
+    The cache only holds 1X2 anyway: CachedFixture stores home/draw/away odds
+    and nothing else, and BoardFixture mirrors exactly those three. So without
+    the Odds API index, 1X2 is the only thing priceable for free, and asking
+    for more markets buys nothing but latency.
+    """
+    if market_key == mkt.HOME:
+        return bf.sb_home_odds
+    if market_key == mkt.DRAW:
+        return bf.sb_draw_odds
+    if market_key == mkt.AWAY:
+        return bf.sb_away_odds
+    return None
+
+
 def _get_fixture_best_market(bf: BoardFixture, odds_index: Optional[dict]) -> tuple[str, Optional[float], Optional[float], Optional[str]]:
-    """Get the best market for a fixture based on EV (model_prob * price - 1).
-    Returns (market_name, model_prob, price, bookmaker) or (NO DATA, None, None, None)."""
+    """Best market for a fixture, ranked by CANONICAL EDGE (model_prob - implied).
+
+    Returns (market_name, model_prob, price, bookmaker) or (NO DATA, ...).
+
+    Two things were wrong here, and together they made the board's Selected Pick
+    disagree with its own acca:
+
+    1. It ranked by EV (model_prob * price - 1) while engine.acca ranks by EDGE
+       (model_prob - implied_prob) and states outright that "EV is NOT the
+       selection metric". Two selectors, two metrics, one board.
+    2. When odds_index was unavailable -- its normal state, since the Odds API
+       quota is exhausted -- it fell back to the three 1X2 quotes stored on the
+       BoardFixture and ignored the other 37 markets entirely.
+
+    On 2026-09-17 that made Juventus v Nijmegen pick "Nijmegen to win" at
+    13.3% model probability and +6.20% edge, while Under 2.5 sat at +15.85% and
+    Nijmegen-or-Draw at +12.77% -- both invisible to the fallback. A reader
+    would see a 13% outcome recommended over a far better one on the same row.
+
+    Now: every EDGE_MARKET is evaluated, priced from the odds index when present
+    and from the SportyBet cache otherwise, and ranked by edge. Same metric and
+    same market universe as the acca builder, so the grid and the acca agree.
+    """
     if bf.probs is None:
         return ("NO DATA — PENDING", None, None, None)
 
     p = bf.probs
-    best_ev = None
+    best_edge = None
     best_market = None
     best_price = None
     best_bookmaker = None
     best_model_prob = None
 
-    # Get fixture odds from index
-    fixture_key = None
+    fx_odds = None
     if odds_index:
-        # Find matching fixture in odds index
-        for key, fx_odds in odds_index.items():
+        for key, cand in odds_index.items():
             if key[0] == p.home_team and key[1] == p.away_team:
-                fixture_key = key
+                fx_odds = cand
                 break
 
-    if not fixture_key:
-        # Fall back to stored best_market on BoardFixture
-        if bf.best_market and bf.best_price is not None:
-            return (bf.best_market, bf.best_model_prob, bf.best_price, bf.best_bookmaker)
-        # Fall back to SportyBet odds
-        if bf.sb_home_odds is not None or bf.sb_draw_odds is not None or bf.sb_away_odds is not None:
-            # Find best EV among SportyBet 1X2
-            if bf.sb_home_odds:
-                ev = mes_numeric_ev(p.p_home, bf.sb_home_odds)
-                if best_ev is None or (ev is not None and ev > best_ev):
-                    best_ev = ev
-                    best_market = f"{p.home_team} to win"
-                    best_price = bf.sb_home_odds
-                    best_bookmaker = "SportyBet Nigeria"
-                    best_model_prob = p.p_home
-            if bf.sb_draw_odds:
-                ev = mes_numeric_ev(p.p_draw, bf.sb_draw_odds)
-                if best_ev is None or (ev is not None and ev > best_ev):
-                    best_ev = ev
-                    best_market = "Draw"
-                    best_price = bf.sb_draw_odds
-                    best_bookmaker = "SportyBet Nigeria"
-                    best_model_prob = p.p_draw
-            if bf.sb_away_odds:
-                ev = mes_numeric_ev(p.p_away, bf.sb_away_odds)
-                if best_ev is None or (ev is not None and ev > best_ev):
-                    best_ev = ev
-                    best_market = f"{p.away_team} to win"
-                    best_price = bf.sb_away_odds
-                    best_bookmaker = "SportyBet Nigeria"
-                    best_model_prob = p.p_away
-            if best_market:
-                return (best_market, best_model_prob, best_price, best_bookmaker)
-        return ("NO DATA — PENDING", None, None, None)
-
-    fx_odds = odds_index[fixture_key]
-
-    # Check ALL EDGE_MARKETS for best EV
     for key in mkt.EDGE_MARKETS:
         model_p = mkt.model_prob(key, p)
         if model_p is None:
             continue
-        quote_obj = mkt.quote(key, fx_odds)
-        if quote_obj is None or quote_obj.price is None:
+
+        # Price: odds index first (it carries the bookmaker), then the
+        # SportyBet cache, which is the only live source while the Odds API
+        # quota is exhausted.
+        price = None
+        bookmaker = None
+        if fx_odds is not None:
+            quote_obj = mkt.quote(key, fx_odds)
+            if quote_obj is not None and quote_obj.price is not None:
+                price = quote_obj.price
+                bookmaker = quote_obj.bookmaker
+        if price is None:
+            price = _sportybet_price_for(bf, key)
+            if price is not None:
+                bookmaker = "SportyBet Nigeria"
+        if not price or price <= 0:
             continue
-        price = quote_obj.price
-        ev = model_p * price - 1
-        if best_ev is None or ev > best_ev:
-            best_ev = ev
+
+        # Canonical edge — the same metric engine.acca ranks on.
+        edge = model_p - (1.0 / price)
+        if best_edge is None or edge > best_edge:
+            best_edge = edge
             best_market = mkt.display(key, p.home_team, p.away_team)
             best_price = price
-            best_bookmaker = quote_obj.bookmaker
+            best_bookmaker = bookmaker
             best_model_prob = model_p
 
     if best_market:
         return (best_market, best_model_prob, best_price, best_bookmaker)
+
+    # No priced market at all. A stored best_market is the pre-computed pick
+    # from the scan; use it rather than reporting nothing.
+    if bf.best_market and bf.best_price is not None:
+        return (bf.best_market, bf.best_model_prob, bf.best_price, bf.best_bookmaker)
     return ("NO DATA — PENDING", None, None, None)
 
 

@@ -296,6 +296,59 @@ class KnowledgePersistence:
             item.access_count, item.last_accessed
         )
 
+    def add_clv_evaluation_fact(self, clv_data: dict, source: str = "clv_gate_evaluation") -> str:
+        """Add a CLV evaluation fact with enhanced market breakdown (HR60 LENGTH/DEPTH improvement)."""
+        # Extract basic CLV data
+        legs_with_clv = clv_data.get('legs_with_clv', 0)
+        mean_clv = clv_data.get('mean_clv_pct')
+        gate_met = clv_data.get('gate_met', False)
+        architect_signed_off = clv_data.get('architect_signed_off', False)
+
+        # Build enhanced content with market breakdown
+        content_lines = [
+            f"CLV Gate Evaluation:",
+            f"- Legs with CLV: {legs_with_clv}",
+            f"- Mean CLV: {mean_clv:.2f}%" if mean_clv is not None else "- Mean CLV: NO DATA",
+            f"- Gate Met: {gate_met}",
+            f"- Architect Signed Off: {architect_signed_off}",
+        ]
+
+        # Add market breakdown if available (HR60 enhancement)
+        market_analysis = clv_data.get('market_analysis', {})
+        if market_analysis:
+            content_lines.extend([
+                "",
+                "Per-Market Breakdown:",
+            ])
+            for market, stats in market_analysis.items():
+                content_lines.append(
+                    f"- {market}: {stats.get('legs_count', 0)} legs, "
+                    f"CLV: {stats.get('mean_clv_pct', 0):.2f}%, "
+                    f"Hit Rate: {stats.get('hit_rate', 0):.1%}"
+                )
+
+        content = "\n".join(content_lines)
+
+        # Create tags for easy filtering
+        tags = {"clv", "evaluation", "gate"}
+        if legs_with_clv >= 30:
+            tags.add("gate_threshold_met")
+        if mean_clv and mean_clv > 0:
+            tags.add("positive_clv")
+
+        # Generate title
+        mean_clv_str = f"{mean_clv:.2f}%" if mean_clv is not None else "NO DATA"
+        title = f"CLV Gate Evaluation - {legs_with_clv} legs, {mean_clv_str} CLV"
+
+        return self.add_knowledge_item(
+            title=title,
+            content=content,
+            knowledge_type="fact",
+            source=source,
+            tags=tags,
+            confidence=0.95
+        )
+
         # Store in database
         self._store_knowledge_item(item)
 

@@ -845,8 +845,14 @@ def fetch_upcoming(league: str, fixtures_season: str, days_ahead: int = 14
         url = (f"{API_BASE}/{_get_key()}/eventsseason.php"
                f"?id={LEAGUE_IDS[league]}&s={_season_label(fixtures_season)}")
         resp = get(url, timeout=25)
-        events = resp.json().get("events") or []
+        json_data = resp.json()
+        if isinstance(json_data, dict):
+            events = json_data.get("events") or []
+        else:
+            events = []
         _write_cache(league, fixtures_season, events)
+    # DEBUG: Print events info
+    print(f"DEBUG thesportsdb_fixtures: events type={type(events)}, length={len(events) if events is not None else 'None'}")
 
     today = date.today()
     horizon = today + timedelta(days=days_ahead)
@@ -1031,7 +1037,11 @@ def load_results(league: str, season: str) -> tuple[list[MatchResult], list[dict
         url = (f"{API_BASE}/{_get_key()}/eventsseason.php"
                f"?id={LEAGUE_IDS[league]}&s={_season_label(season)}")
         resp = get(url, timeout=25)
-        events = resp.json().get("events") or []
+        json_data = resp.json()
+        if isinstance(json_data, dict):
+            events = json_data.get("events") or []
+        else:
+            events = []
         _write_cache(league, season, events)
 
     results: list[MatchResult] = []

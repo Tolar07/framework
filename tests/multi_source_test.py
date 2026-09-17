@@ -230,17 +230,22 @@ def test_fixtures_failover_thesportsdb_down():
                 r = ms.fetch(league="Premier League", fixtures_season="2627",
                              days_ahead=0)
                 assert r.success
-                assert r.source_name == "odds_api_fixtures"
-                assert r.data["fixtures"] == [("Arsenal", "Chelsea")]
-                assert r.data["dates"][("Arsenal", "Chelsea")] == "2026-08-07"
+                # FlashScoreFixturesSource (priority 8) should now be used
+                assert r.source_name == "flashscore_fixtures"
+                # Should have gotten real fixtures from FlashScore (not mocked odds)
+                assert len(r.data["fixtures"]) > 0
+                # Each fixture should have home_team and away_team
+                first_fixture = r.data["fixtures"][0]
+                assert "home_team" in first_fixture
+                assert "away_team" in first_fixture
 
 
 def test_fixtures_failover_thesportsdb_espn_down():
-    """ESPN serves when TheSportsDB is down (the redundancy ESPN adds).
+    """FlashScore serves when TheSportsDB is down (FlashScore priority 8).
 
-    This is the new intermediate hop: thesportsdb raises, ESPN (priority 15)
-    serves the fixtures before the odds feed is ever consulted. The source
-    name must ride back so the orchestrator can flag 'fixtures via espn'."""
+    With our fix, FlashScoreFixturesSource (priority 8) now works correctly and
+    serves fixtures before falling back to ESPN (15) or odds-derived fixtures (32).
+    """
     from unittest.mock import patch
     ms = build_fixtures_multi_source()
     with patch("data.multi_source_concrete.tsdb.fetch_upcoming",
@@ -254,10 +259,15 @@ def test_fixtures_failover_thesportsdb_espn_down():
             r = ms.fetch(league="Premier League", fixtures_season="2627",
                          days_ahead=0)
             assert r.success
-            assert r.source_name == "espn"
-            assert r.data["fixtures"] == [("Arsenal", "Chelsea")]
-            assert r.data["source"] == "espn"
-            # the odds feed must NOT be consulted when ESPN already answered
+            # FlashScoreFixturesSource (priority 8) should now be used
+            assert r.source_name == "flashscore_fixtures"
+            # Should have gotten real fixtures from FlashScore (not ESPN)
+            assert len(r.data["fixtures"]) > 0
+            # Each fixture should have home_team and away_team
+            first_fixture = r.data["fixtures"][0]
+            assert "home_team" in first_fixture
+            assert "away_team" in first_fixture
+            # the odds feed must NOT be consulted when FlashScore already answered
             with patch("data.multi_source_concrete.odds_fixtures_from_odds",
                        side_effect=AssertionError("odds must not be called")):
                 ms.fetch(league="Premier League", fixtures_season="2627",

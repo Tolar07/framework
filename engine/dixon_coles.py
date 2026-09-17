@@ -431,6 +431,38 @@ def predict(model: DixonColesModel, home: str, away: str) -> Optional[FixturePro
     return _predict_from_lambdas(model, home, away, *lambdas)
 
 
+def calculate_dixon_coles_probability(home_team: str, away_team: str, league: str, date: str) -> Optional[float]:
+    """
+    Calculate Dixon-Coles probability for a home win.
+
+    Args:
+        home_team: Home team name
+        away_team: Away team name
+        league: League name
+        date: Date in YYYY-MM-DD format
+
+    Returns:
+        Probability of home win as float, or None if not available
+    """
+    try:
+        # Load the Dixon-Coles model for the specific league
+        # In a full implementation, this would load a time/league specific model
+        model = DixonColesModel.load(league)  # Load the persisted model for this league
+        if model is None:
+            return None
+
+        # Get the fixture probabilities
+        probs = predict(model, home_team, away_team)
+        if probs is None:
+            return None
+
+        # Return home win probability
+        return probs.p_home
+    except Exception:
+        # If we can't load the model or calculate probability, return None
+        return None
+
+
 def predict_adjusted(model: DixonColesModel, home: str, away: str,
                      scale_home: float = 1.0, scale_away: float = 1.0
                      ) -> Optional[FixtureProbabilities]:

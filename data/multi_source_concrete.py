@@ -51,6 +51,7 @@ class TheSportsDBFixturesSource(DataSource):
         # Try season feed first
         fixtures, skipped = tsdb.fetch_upcoming(league, fixtures_season, days_ahead=days_ahead)
         # Handle case where fixtures is None or not a list
+        print(f"DEBUG thesportsdb: fixtures type={type(fixtures)}, value={fixtures}")
         if fixtures is not None and isinstance(fixtures, list) and len(fixtures) > 0:
             try:
                 pairs = tsdb.as_pairs(fixtures)
@@ -146,7 +147,7 @@ class ESPNFixturesSource(DataSource):
             league, fixtures_season, days_ahead=days_ahead)
         if not fixtures:
             # Return empty dict instead of raising SourceNoData
-            return {"fixtures": [], "dates": {}, "skipped": len(skipped),
+            return {"fixtures": [], "dates": {}, "skipped": skipped,
                     "source": "espn_empty"}
         pairs = espn_source.as_pairs(fixtures)
         dates = {(f.home_team, f.away_team): f.date for f in fixtures}
@@ -1711,7 +1712,7 @@ class FlashScoreFixturesSource(DataSource):
         from pathlib import Path
 
         # Find the most recent flashscore odds file
-        pattern = str(Path(__file__).parents[2] / "data" / "live_odds" / "flashscore_odds_*.jsonl")
+        pattern = str(Path(__file__).parents[3] / "data" / "live_odds" / "flashscore_odds_*.jsonl")
         files = glob.glob(pattern)
         if not files:
             raise SourceNoData("flashscore_fixtures: no flashscore odds files found")

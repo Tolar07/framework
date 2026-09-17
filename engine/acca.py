@@ -109,7 +109,7 @@ class AccaLeg:
     edge: Optional[float] = None  # canonical edge = model_prob - implied_prob (selection metric)
     sportybet_fixture_id: Optional[str] = None  # set by the booking step
     verification_stamp: Optional[str] = None    # "[✓ SportyBet ✓ FlashScore]" or "[⚠ unverified]" from pre-production gate
-    status: str = "capital"  # "capital" (≤2.00 odds, eligible for Acca A/singles) or "watchlist" (>2.00 odds, flagged not capital)
+    status: str = "capital"  # "capital" (at/under MAX_ODDS_CAP, eligible for Acca A/singles) or "watchlist" (above it, not capital)
 
 
 @dataclass
@@ -133,7 +133,8 @@ class ProductionBets:
     fixture's natural best market appears both inside a split acca AND as a
     standalone single with its own booking code (production intent #6).
 
-    `watchlist` — legs with odds >2.00 (ID420 hard cap). These are flagged for
+    `watchlist` — legs priced above MAX_ODDS_CAP (ID420 hard cap, currently
+    1.50 per Architect 2026-09-01). These are flagged for
     review but are NOT capital-eligible — they do not enter Acca A, split accas,
     or singles. The Architect reviews the watchlist separately."""
     acca_a: Optional[Acca] = None
@@ -203,10 +204,11 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
     """The best markets for one fixture — returns (capital_leg, watchlist_leg).
 
     Returns a tuple where:
-    - First element is the best capital-eligible leg (odds ≤ max_odds_cap, default 2.00)
+    - First element is the best capital-eligible leg (odds ≤ max_odds_cap)
     - Second element is the best watchlist leg (odds > max_odds_cap) if any
 
-    ID420 (Architect 2026-08-19): Any market with price > 2.00 goes to WATCHLIST,
+    ID420 (Architect 2026-08-19, cap lowered to 1.50 on 2026-09-01): any market
+    priced above MAX_ODDS_CAP goes to WATCHLIST,
     never to capital. The watchlist is for review only — no stake is deployed.
 
     Multi-market selection (Architect 2026-08-11): every fixture is evaluated
@@ -230,12 +232,12 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
     - HARD FLOOR: reject any market priced below min_odds_floor (1.20) — no
       value in heavy favourites where book overround is hidden and edge is
       negligible even when model agrees.
-    - HARD CEILING (capital): reject any market priced above max_odds_cap (2.00) —
+    - HARD CEILING (capital): reject any market priced above max_odds_cap —
       long odds are where the model is least reliable (FL-bias guardrail).
-    - WATCHLIST (ID420): markets priced above max_odds_cap (2.00) are captured
+    - WATCHLIST (ID420): markets priced above max_odds_cap are captured
       in a separate watchlist for Architect review, not silently dropped.
     - PREFERRED ZONE: 1.20–1.50 is the "safe" deployment sweet spot. Legs in
-      this zone are prioritised; legs in 1.50–2.00 are admitted only when no
+      this zone are prioritised; legs above the preferred ceiling are admitted only when no
       preferred-zone leg exists for the fixture. This mirrors personal risk
       tolerance: accas built from short-priced legs with compounded value.
 
@@ -409,8 +411,16 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
             if (best_capital_preferred is None or (edge is not None and (best_capital_preferred.edge is None or edge > best_capital_preferred.edge))
                     or (edge == best_capital_preferred.edge and prob > best_capital_preferred.prob)):
                 best_capital_preferred = leg
-        else:
-            # Watchlist leg (odds > 2.00) — track the best one for review
+        elif has_positive_edge:
+            # Watchlist leg (price above the cap) — track the best for review.
+            #
+            # Gated on positive edge for the same reason capital is. The
+            # watchlist exists to show the Architect value that the odds cap
+            # excluded, so a leg the model rates WORSE than the market is not a
+            # near-miss, it is noise. On 2026-09-17 the watchlist carried
+            # "Celtic Draw @ 4.25, edge -11.71%" alongside three genuine
+            # positive-edge entries; it cannot be staked, but it is in a list
+            # meant for attention, next to items that deserve it.
             if (best_watchlist is None or (edge is not None and (best_watchlist.edge is None or edge > best_watchlist.edge))
                     or (edge == best_watchlist.edge and prob > best_watchlist.prob)):
                 best_watchlist = leg
@@ -718,7 +728,7 @@ def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
     # singles. The Architect reviews the watchlist separately.
     if bets.watchlist:
         lines.append("")
-        lines.append("  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only")
+        lines.append(f"  ⚠ WATCHLIST (ID420 — odds above {MAX_ODDS_CAP:g}) — NOT CAPITAL, review only")
         for leg in bets.watchlist:
             lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
                          f"@ {leg.price:.2f}  edge {leg.edge:+.2%}  "

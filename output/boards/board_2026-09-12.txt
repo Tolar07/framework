@@ -1,0 +1,37 @@
+OLP XDV DAILY BOARD
+==================================================
+Decision: CEO_APPROVE
+Fixtures processed: 14
+Verified fixtures: 14
+Accumulator legs: 8
+Single bet legs: 3
+
+ACCUMULATOR (Acca A):
+  [acca_leg_0] Bournemouth v Brentford [Premier League] 1X2 Home Favorite @ 1.40 (model: 45.0%, edge: -26.4%)
+  [acca_leg_1] Bournemouth v Brentford [Premier League] 1X2 Away Favorite @ 1.45 (model: 35.0%, edge: -34.0%)
+  [acca_leg_2] Aston Villa v Nottingham Forest [Premier League] Over 0.5 Goals @ 1.15 (model: 20.0%, edge: -67.0%)
+  [acca_leg_3] Aston Villa v Nottingham Forest [Premier League] Under 4.5 Goals @ 1.25 (model: 25.0%, edge: -55.0%)
+  [acca_leg_4] Chelsea v Hull City [Premier League] Double Chance Home/Draw @ 1.35 (model: 30.0%, edge: -44.1%)
+  [acca_leg_5] Chelsea v Hull City [Premier League] Double Chance Away/Draw @ 1.40 (model: 25.0%, edge: -46.4%)
+  [acca_leg_6] Crystal Palace v Ipswich Town [Premier League] Asian Handicap -1.5 Home @ 1.45 (model: 20.0%, edge: -49.0%)
+  [acca_leg_7] Crystal Palace v Ipswich Town [Premier League] 1X2 Home Favorite @ 1.40 (model: 45.0%, edge: -26.4%)
+  Total Odds: 11.20
+  Stake: £1 (paper)
+  Potential Return: £11.20
+
+SINGLE BETS:
+  [single_leg_0] Liverpool v Fulham [Premier League] Under 3.5 Goals @ 1.40 (model: 55.0%, edge: -16.4%)
+  [single_leg_1] Liverpool v Fulham [Premier League] Under 3.5 Goals @ 1.40 (model: 55.0%, edge: -16.4%)
+  [single_leg_2] Tottenham v Everton [Premier League] Under 3.5 Goals @ 1.40 (model: 55.0%, edge: -16.4%)
+
+PAYLOADS SUMMARY:
+  agent_1_ceo: fixtures_count=14, verified_count=14
+  agent_1_ceo: fixtures_count=14, verified_count=14
+  agent_2_ceo: fixtures_count=14
+  agent_3_ceo: fixtures_count=14
+  agent_4_ceo: fixtures_count=14
+  agent_5_ceo: legs_count=11, acca_legs_count=8, single_legs_count=3, verified_fixtures=14
+  agent_6_ceo: legs_count=11
+  agent_7_ceo: legs_count=11
+  agent_8_ceo: legs_count=11
+  agent_9_ceo: legs_count=11

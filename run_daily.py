@@ -641,6 +641,54 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
                  "xg_leagues": 0}
     stage_a_loaded = False
 
+    # GATHER THE SLATE IF IT IS NOT ALREADY ON DISK.
+    #
+    # run_daily only ever LOADED a Stage A artifact. Nothing in the nightly path
+    # CREATED one, so the pipeline could not produce a board for any date unless
+    # somebody had gathered fixtures by hand first. The 22:00 task runs with
+    # --date TOMORROW, no artifact for tomorrow has ever existed, and the run
+    # therefore fell straight through to olp_xdv_pipeline's demonstration
+    # fallback every single night.
+    #
+    # On 2026-09-18 that produced board_2026-09-18.txt containing YESTERDAY's
+    # fixtures at 0.00 odds with probabilities of exactly 85/80/75/70 percent —
+    # the hardcoded table — logged as "Pipeline completed: 0 fixtures
+    # processed". The HR35 guard correctly suppressed delivery, so nothing was
+    # published, but a board that looks real was still written to disk under
+    # tomorrow's filename.
+    #
+    # Gathering here fixes the cause rather than the symptom: the fallback was
+    # never the problem, the missing slate was.
+    if not stage_a_path.exists():
+        try:
+            from verification.collaborative_fixtures import gather, to_stage_a
+            # WHITELISTED_LEAGUES + is_deploy_eligible are the registry's real
+            # API; there is no league_registry() despite the name reading
+            # plausibly (it is also wrong in production_board._country_of, where
+            # a try/except hides it by falling through to a direct JSON read).
+            from engine.leagues import WHITELISTED_LEAGUES, is_deploy_eligible
+
+            _leagues = [l for l in WHITELISTED_LEAGUES if is_deploy_eligible(l)]
+            _mark(runlog, f"No Stage A artifact for {board_date} — gathering "
+                          f"{len(_leagues)} competition(s)...")
+            _slate = gather(board_date, _leagues)
+            _sa = to_stage_a(_slate, _fixtures_season)
+            stage_a_path.parent.mkdir(parents=True, exist_ok=True)
+            stage_a_path.write_text(_sa.to_json(), encoding="utf-8")
+            all_flags.append(
+                f"Stage A gathered for {board_date}: {len(_sa.fixtures)} "
+                f"verified fixture(s) written to {stage_a_path.name}"
+            )
+            _mark(runlog, f"Stage A gathered: {len(_sa.fixtures)} fixtures")
+        except Exception as e:
+            # Report the gap. Do NOT fall through quietly — a failed gather is
+            # exactly when the demonstration fallback used to take over.
+            all_flags.append(
+                f"Stage A gather FAILED for {board_date} "
+                f"({type(e).__name__}: {e}) — no slate, no board"
+            )
+            _mark(runlog, f"Stage A gather FAILED: {type(e).__name__}: {e}")
+
     if stage_a_path.exists():
         try:
             stage_a = StageAOutput.load(stage_a_path)

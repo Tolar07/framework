@@ -11,13 +11,13 @@
       "alive": true,
       "born_date": "2026-09-01",
       "last_result": null,
-      "fixture": "Malaga v Villarreal",
-      "pick": "Villarreal Draw No Bet",
-      "price": 1.47,
-      "edge": 0.16527623529629643,
-      "probability": 0.8455483441398338,
+      "fixture": "FC Gandzasar v FC Urartu",
+      "pick": "FC Urartu Draw No Bet",
+      "price": 1.4,
+      "edge": 0.24490342327110048,
+      "probability": 0.9591891375568148,
       "unsettled_wins": 0,
-      "held_date": "2026-09-17"
+      "held_date": "2026-09-18"
     },
     {
       "lineage_id": "ln_d6ef3f7604",
@@ -30,13 +30,13 @@
       "alive": true,
       "born_date": "2026-09-01",
       "last_result": null,
-      "fixture": "Celtic v Ferencvarosi Budapest",
-      "pick": "Celtic Draw No Bet",
-      "price": 1.32,
-      "edge": 0.15007831974428487,
-      "probability": 0.9076540773200424,
+      "fixture": "Stade de Reims v Montpellier",
+      "pick": "Under 3.5 goals",
+      "price": 1.39,
+      "edge": 0.12065492759243446,
+      "probability": 0.8400793880240892,
       "unsettled_wins": 0,
-      "held_date": "2026-09-17"
+      "held_date": "2026-09-18"
     },
     {
       "lineage_id": "ln_05fdf10f4c",
@@ -49,13 +49,13 @@
       "alive": true,
       "born_date": "2026-09-17",
       "last_result": null,
-      "fixture": null,
-      "pick": null,
-      "price": null,
-      "edge": 0.0,
-      "probability": 0.0,
+      "fixture": "Juve Stabia v Cesena",
+      "pick": "Juve Stabia or Draw (double chance)",
+      "price": 1.33,
+      "edge": 0.04367427945868663,
+      "probability": 0.7955539787068069,
       "unsettled_wins": 0,
-      "held_date": null
+      "held_date": "2026-09-18"
     },
     {
       "lineage_id": "ln_6f4c0c019b",
@@ -68,13 +68,13 @@
       "alive": true,
       "born_date": "2026-09-17",
       "last_result": null,
-      "fixture": null,
-      "pick": null,
-      "price": null,
-      "edge": 0.0,
-      "probability": 0.0,
+      "fixture": "SpVgg Greuther F\u00fcrth v 1. FC Magdeburg",
+      "pick": "Over 2.5 goals",
+      "price": 1.45,
+      "edge": 0.037857876966678305,
+      "probability": 0.7275130493804715,
       "unsettled_wins": 0,
-      "held_date": null
+      "held_date": "2026-09-18"
     },
     {
       "lineage_id": "ln_a6e768c6de",
@@ -87,13 +87,13 @@
       "alive": true,
       "born_date": "2026-09-17",
       "last_result": null,
-      "fixture": "Real Sociedad v AFC Bournemouth",
-      "pick": "Bournemouth or Draw (double chance)",
-      "price": 1.34,
-      "edge": 0.029451560566106982,
-      "probability": 0.7757202172825248,
+      "fixture": "Monza v Sassuolo",
+      "pick": "Over 1.5 goals",
+      "price": 1.23,
+      "edge": 0.10525125115011569,
+      "probability": 0.9182593812314165,
       "unsettled_wins": 0,
-      "held_date": "2026-09-17"
+      "held_date": "2026-09-18"
     },
     {
       "lineage_id": "ln_0e44d5c47a",
@@ -106,13 +106,13 @@
       "alive": true,
       "born_date": "2026-09-17",
       "last_result": null,
-      "fixture": null,
-      "pick": null,
-      "price": null,
-      "edge": 0.0,
-      "probability": 0.0,
+      "fixture": "Pau FC v Dunkerque",
+      "pick": "Over 1.5 goals",
+      "price": 1.26,
+      "edge": 0.09831021425161446,
+      "probability": 0.8919610079024081,
       "unsettled_wins": 0,
-      "held_date": null
+      "held_date": "2026-09-18"
     },
     {
       "lineage_id": "ln_de107b3ab1",
@@ -125,13 +125,13 @@
       "alive": true,
       "born_date": "2026-09-17",
       "last_result": null,
-      "fixture": null,
-      "pick": null,
-      "price": null,
-      "edge": 0.0,
-      "probability": 0.0,
+      "fixture": "Rodez Aveyron v AS Nancy Lorraine",
+      "pick": "Rodez or Draw (double chance)",
+      "price": 1.37,
+      "edge": 0.06485367087871885,
+      "probability": 0.7947806781779889,
       "unsettled_wins": 0,
-      "held_date": null
+      "held_date": "2026-09-18"
     },
     {
       "lineage_id": "ln_d545848fa7",
@@ -144,14 +144,14 @@
       "alive": true,
       "born_date": "2026-09-17",
       "last_result": null,
-      "fixture": null,
-      "pick": null,
-      "price": null,
-      "edge": 0.0,
-      "probability": 0.0,
+      "fixture": "KAA Gent v Standard Liege",
+      "pick": "Under 3.5 goals",
+      "price": 1.33,
+      "edge": 0.047479313905103515,
+      "probability": 0.7993590131532238,
       "unsettled_wins": 0,
-      "held_date": null
+      "held_date": "2026-09-18"
     }
   ],
-  "last_bred_date": "2026-09-17"
+  "last_bred_date": "2026-09-18"
 }

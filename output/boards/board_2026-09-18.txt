@@ -1,0 +1,474 @@
+OLP XDV — PRODUCTION OUTPUT — 2026-09-18
+Stage A: 2026-09-18 | Fixtures Season: 2627
+Total Fixtures: 78 (Today: 78, Deploy-Eligible: 78, NO DATA: 0)
+
+============================================================
+LAYER 2 — FULL GRID (Complete Scan Table)
+============================================================
+PART 2 — COMPACT (fast-scan)
+Fixture | Selected Pick | Booking Code
+Kyzylzhar Petropavl v Kaisar Kyzylorda (Kazakhstan Premier League) | NO DATA — PENDING | NO DATA — PENDING
+H. Tel Aviv v H. Petah Tikva (Israeli Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Haverfordwest County AFC v Holywell Town (Welsh Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Sarpsborg 08 v KFUM-Kameratene Oslo (Norwegian Eliteserien) | Sarpsborg 08 to win | NO DATA — PENDING
+Rapid Vienna v WSG Swarovski Tirol (Austrian Bundesliga) | SK Rapid to win | NO DATA — PENDING
+SpVgg Greuther Fürth v 1. FC Magdeburg (2. Bundesliga) | Over 2.5 goals | NO DATA — PENDING
+Caernarfon Town v Cambrian United (Welsh Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Connah's Q. v Cardiff Metropolitan (Welsh Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Zabbar St. Patrick v Birkirkara (Maltese Premier League) | Birkirkara to win | NO DATA — PENDING
+Puskas Academy v Budapest Honvéd (Hungarian NB I) | NO DATA — PENDING | NO DATA — PENDING
+Wisla Krakow v WKS Slask Wroclaw (Ekstraklasa) | NO DATA — PENDING | NO DATA — PENDING
+FC Altai Oskemen v FC Irtysh Pavlodar (Kazakhstan Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Vllaznia Shkodër v Teuta Durrës (Albanian Superliga) | Vllaznia Shkodër to win | NO DATA — PENDING
+Bayern Munich v 1. FC Union Berlin (Bundesliga) | Bayern Munich to win | NO DATA — PENDING
+Buducnost Podgorica v Petrovac (Montenegrin First League) | Buducnost Podgorica to win | NO DATA — PENDING
+KÍ Klaksvík v Skala Itrottarfelag (Faroe Islands Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Polissya Zhytomyr v Kryvbas KR (Ukrainian Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Rodez Aveyron v AS Nancy Lorraine (Ligue 2) | Rodez or Draw (double chance) | NO DATA — PENDING
+Slavia Sofia v CSKA 1948 Sofia (Bulgarian First League) | CSKA 1948 Sofia to win | NO DATA — PENDING
+Widzew Lodz v Wieczysta Kraków (Ekstraklasa) | NO DATA — PENDING | NO DATA — PENDING
+Omonia 29th May v AEK Larnaca (Cypriot First Division) | NO DATA — PENDING | NO DATA — PENDING
+Hamrun Spartans v Marsaxlokk (Maltese Premier League) | Hamrun Spartans to win | NO DATA — PENDING
+Harju JK Laagri v FC Kuressaare (Estonian Meistriliiga) | NO DATA — PENDING | NO DATA — PENDING
+NK Rudes Zagreb v NK Slaven Belupo (HNL) | NO DATA — PENDING | NO DATA — PENDING
+Stade de Reims v Montpellier (Ligue 2) | Under 3.5 goals | NO DATA — PENDING
+UTA Arad v Sepsi Sf. Gheorghe (Romanian Liga I) | NO DATA — PENDING | NO DATA — PENDING
+Briton Ferry v Trefelin BGC (Welsh Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Lyngby Boldklub v Silkeborg IF (Danish Superliga) | NO DATA — PENDING | NO DATA — PENDING
+Shamrock Rovers v Waterford (Republic of Ireland Premier Division) | NO DATA — PENDING | NO DATA — PENDING
+B36 Tórshavn v NSÍ Runavík (Faroe Islands Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Zeljeznicar v Celik Zenica (Bosnian Premier League) | NO DATA — PENDING | NO DATA — PENDING
+KAA Gent v Standard Liege (Belgian Pro League) | Under 3.5 goals | NO DATA — PENDING
+Grenoble v Clermont Foot (Ligue 2) | Under 3.5 goals | NO DATA — PENDING
+VfL Wolfsburg v SV Darmstadt 98 (2. Bundesliga) | NO DATA — PENDING | NO DATA — PENDING
+Colwyn Bay v Barry Town (Welsh Premier League) | NO DATA — PENDING | NO DATA — PENDING
+FC Rapid Bucuresti v FC Arges (Romanian Liga I) | NO DATA — PENDING | NO DATA — PENDING
+Airbus UK v Flint Town (Welsh Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Altai v Ertis Pavlodar (Kazakhstan Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Bristol City v Watford (Championship) | Under 3.5 goals | NO DATA — PENDING
+College 1975 FC v Magpies (Gibraltarian National League) | NO DATA — PENDING | NO DATA — PENDING
+FC Groningen v PEC Zwolle (Eredivisie) | Groningen Draw No Bet | NO DATA — PENDING
+Yate Town v Chippenham (FA Cup) | NO DATA — PENDING | NO DATA — PENDING
+Zhetysu v Kaspij Aktau (Kazakhstan Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Albacete v Córdoba (La Liga 2) | Albacete or Draw (double chance) | NO DATA — PENDING
+Kasimpasa v Konyaspor (Turkish Super Lig) | Kasimpasa or Draw (double chance) | NO DATA — PENDING
+Stade Laval v Sochaux (Ligue 2) | NO DATA — PENDING | NO DATA — PENDING
+Worcester v Stratford (FA Cup) | NO DATA — PENDING | NO DATA — PENDING
+Ammanford v Penybont (Welsh Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Bohemians v Drogheda (Republic of Ireland Premier Division) | NO DATA — PENDING | NO DATA — PENDING
+Dundalk v Shelbourne (Republic of Ireland Premier Division) | NO DATA — PENDING | NO DATA — PENDING
+Gabala v Neftci Baku (Azerbaijani Premyer Liqa) | NO DATA — PENDING | NO DATA — PENDING
+Juve Stabia v Cesena (Serie B) | Juve Stabia or Draw (double chance) | NO DATA — PENDING
+Pafos v AEL Limassol (Cypriot First Division) | NO DATA — PENDING | NO DATA — PENDING
+Shkëndija v Bashkimi (North Macedonian First League) | NO DATA — PENDING | NO DATA — PENDING
+Brentford v Chelsea (Premier League) | Brentford to win | NO DATA — PENDING
+Derry City v Galway (Republic of Ireland Premier Division) | NO DATA — PENDING | NO DATA — PENDING
+Gjilani v Prishtina (Kosovan Superliga) | Gjilani to win | NO DATA — PENDING
+Qarabag v Safa Baku (Azerbaijani Premyer Liqa) | NO DATA — PENDING | NO DATA — PENDING
+Annecy v Dijon FCO (Ligue 2) | NO DATA — PENDING | NO DATA — PENDING
+FC Gandzasar v FC Urartu (Armenian Premier League) | FC Urartu Draw No Bet | NO DATA — PENDING
+Gent v St. Liege (Belgian Pro League) | NO DATA — PENDING | NO DATA — PENDING
+Libertas v Faetano (Sanmarinese Campionato) | NO DATA — PENDING | NO DATA — PENDING
+FC Okzhetpes v FC Zhenis (Kazakhstan Premier League) | NO DATA — PENDING | NO DATA — PENDING
+AC Oulu v Inter Turku (Finnish Veikkausliiga) | Over 1.5 goals | NO DATA — PENDING
+Tre Fiori v Virtus (Sanmarinese Campionato) | Tre Fiori to win | NO DATA — PENDING
+Ch. Odesa v Obolon (Ukrainian Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Espanyol v Elche CF (La Liga) | Under 3.5 goals | NO DATA — PENDING
+Monza v Sassuolo (Serie A) | Over 1.5 goals | NO DATA — PENDING
+Real SC v Academica (Taça de Portugal) | NO DATA — PENDING | NO DATA — PENDING
+FC Aktobe v Ulytau FC (Kazakhstan Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Murata v Cosmos (Sanmarinese Campionato) | NO DATA — PENDING | NO DATA — PENDING
+Pau FC v Dunkerque (Ligue 2) | Over 1.5 goals | NO DATA — PENDING
+Sileks v Tikves (North Macedonian First League) | NO DATA — PENDING | NO DATA — PENDING
+SJK v Mariehamn (Finnish Veikkausliiga) | SJK to win | NO DATA — PENDING
+Gnistan v HJK (Finnish Veikkausliiga) | NO DATA — PENDING | NO DATA — PENDING
+AS Monaco v Lens (Ligue 1) | Lens to win | NO DATA — PENDING
+Lahti v Jaro (Finnish Veikkausliiga) | NO DATA — PENDING | NO DATA — PENDING
+FC Noah v Van (Armenian Premier League) | FC Noah to win | NO DATA — PENDING
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+Kyzylzhar Petropavl v Kaisar Kyzylorda (Kazakhstan Premier League) | NO DATA — PENDING | — | — | ✓
+H. Tel Aviv v H. Petah Tikva (Israeli Premier League) | NO DATA — PENDING | — | — | ✓
+Haverfordwest County AFC v Holywell Town (Welsh Premier League) | NO DATA — PENDING | — | — | ✓
+Sarpsborg 08 v KFUM-Kameratene Oslo (Norwegian Eliteserien) | Sarpsborg ·57% | O69 / U56 | 1X81 / N56 | ✓
+Rapid Vienna v WSG Swarovski Tirol (Austrian Bundesliga) | SK Rapid·47% | O73 / U53 | 1X74 / Y51 | ✓
+SpVgg Greuther Fürth v 1. FC Magdeburg (2. Bundesliga) | Greuther F·40% | O90 / O73 | 1278 / Y73 | ✓
+Caernarfon Town v Cambrian United (Welsh Premier League) | NO DATA — PENDING | — | — | ✓
+Connah's Q. v Cardiff Metropolitan (Welsh Premier League) | NO DATA — PENDING | — | — | ✓
+Zabbar St. Patrick v Birkirkara (Maltese Premier League) | Birkirkara·67% | O76 / O53 | X286 / N54 | ✓
+Puskas Academy v Budapest Honvéd (Hungarian NB I) | NO DATA — PENDING | — | — | ✓
+Wisla Krakow v WKS Slask Wroclaw (Ekstraklasa) | NO DATA — PENDING | — | — | ✓
+FC Altai Oskemen v FC Irtysh Pavlodar (Kazakhstan Premier League) | NO DATA — PENDING | — | — | ✓
+Vllaznia Shkodër v Teuta Durrës (Albanian Superliga) | Vllaznia S·54% | O75 / U54 | 1X85 / N51 | ✓
+Bayern Munich v 1. FC Union Berlin (Bundesliga) | Bayern Mun·92% | O96 / O88 | 1X97 / Y54 | ✓
+Buducnost Podgorica v Petrovac (Montenegrin First League) | Buducnost ·66% | O82 / O61 | 1X85 / Y54 | ✓
+KÍ Klaksvík v Skala Itrottarfelag (Faroe Islands Premier League) | NO DATA — PENDING | — | — | ✓
+Polissya Zhytomyr v Kryvbas KR (Ukrainian Premier League) | NO DATA — PENDING | — | — | ✓
+Rodez Aveyron v AS Nancy Lorraine (Ligue 2) | Rodez·54% | O72 / U53 | 1X79 / N52 | ✓
+Slavia Sofia v CSKA 1948 Sofia (Bulgarian First League) | CSKA 1948 ·42% | NO DATA — PENDING / NO DATA — PENDING | X272 / — | ✓
+Widzew Lodz v Wieczysta Kraków (Ekstraklasa) | NO DATA — PENDING | — | — | ✓
+Omonia 29th May v AEK Larnaca (Cypriot First Division) | NO DATA — PENDING | — | — | ✓
+Hamrun Spartans v Marsaxlokk (Maltese Premier League) | Hamrun Spa·46% | O68 / U58 | 1275 / N54 | ✓
+Harju JK Laagri v FC Kuressaare (Estonian Meistriliiga) | NO DATA — PENDING | — | — | ✓
+NK Rudes Zagreb v NK Slaven Belupo (HNL) | NO DATA — PENDING | — | — | ✓
+Stade de Reims v Montpellier (Ligue 2) | Reims·40% | O62 / U65 | 1X71 / N58 | ✓
+UTA Arad v Sepsi Sf. Gheorghe (Romanian Liga I) | NO DATA — PENDING | — | — | ✓
+Briton Ferry v Trefelin BGC (Welsh Premier League) | NO DATA — PENDING | — | — | ✓
+Lyngby Boldklub v Silkeborg IF (Danish Superliga) | NO DATA — PENDING | — | — | ✓
+Shamrock Rovers v Waterford (Republic of Ireland Premier Division) | NO DATA — PENDING | — | — | ✓
+B36 Tórshavn v NSÍ Runavík (Faroe Islands Premier League) | NO DATA — PENDING | — | — | ✓
+Zeljeznicar v Celik Zenica (Bosnian Premier League) | NO DATA — PENDING | — | — | ✓
+KAA Gent v Standard Liege (Belgian Pro League) | Gent·42% | O68 / U60 | 1X71 / N53 | ✓
+Grenoble v Clermont Foot (Ligue 2) | Grenoble·36% | O59 / U68 | 1268 / N60 | ✓
+VfL Wolfsburg v SV Darmstadt 98 (2. Bundesliga) | NO DATA — PENDING | — | — | ✓
+Colwyn Bay v Barry Town (Welsh Premier League) | NO DATA — PENDING | — | — | ✓
+FC Rapid Bucuresti v FC Arges (Romanian Liga I) | NO DATA — PENDING | — | — | ✓
+Airbus UK v Flint Town (Welsh Premier League) | NO DATA — PENDING | — | — | ✓
+Altai v Ertis Pavlodar (Kazakhstan Premier League) | NO DATA — PENDING | — | — | ✓
+Bristol City v Watford (Championship) | Bristol Ci·45% | O73 / U54 | 1X74 / Y52 | ✓
+College 1975 FC v Magpies (Gibraltarian National League) | NO DATA — PENDING | — | — | ✓
+FC Groningen v PEC Zwolle (Eredivisie) | Groningen·63% | O84 / O63 | 1X84 / Y58 | ✓
+Yate Town v Chippenham (FA Cup) | NO DATA — PENDING | — | — | ✓
+Zhetysu v Kaspij Aktau (Kazakhstan Premier League) | NO DATA — PENDING | — | — | ✓
+Albacete v Córdoba (La Liga 2) | Albacete·47% | O78 / O54 | 1275 / Y57 | ✓
+Kasimpasa v Konyaspor (Turkish Super Lig) | Kasimpasa·42% | NO DATA — PENDING / NO DATA — PENDING | 1X72 / — | ✓
+Stade Laval v Sochaux (Ligue 2) | NO DATA — PENDING | — | — | ✓
+Worcester v Stratford (FA Cup) | NO DATA — PENDING | — | — | ✓
+Ammanford v Penybont (Welsh Premier League) | NO DATA — PENDING | — | — | ✓
+Bohemians v Drogheda (Republic of Ireland Premier Division) | NO DATA — PENDING | — | — | ✓
+Dundalk v Shelbourne (Republic of Ireland Premier Division) | NO DATA — PENDING | — | — | ✓
+Gabala v Neftci Baku (Azerbaijani Premyer Liqa) | NO DATA — PENDING | — | — | ✓
+Juve Stabia v Cesena (Serie B) | Juve Stabi·50% | O73 / U55 | 1X80 / N51 | ✓
+Pafos v AEL Limassol (Cypriot First Division) | NO DATA — PENDING | — | — | ✓
+Shkëndija v Bashkimi (North Macedonian First League) | NO DATA — PENDING | — | — | ✓
+Brentford v Chelsea (Premier League) | Brentford·42% | O85 / O62 | 1273 / Y65 | ✓
+Derry City v Galway (Republic of Ireland Premier Division) | NO DATA — PENDING | — | — | ✓
+Gjilani v Prishtina (Kosovan Superliga) | Gjilani·41% | O67 / U60 | 1271 / N53 | ✓
+Qarabag v Safa Baku (Azerbaijani Premyer Liqa) | NO DATA — PENDING | — | — | ✓
+Annecy v Dijon FCO (Ligue 2) | NO DATA — PENDING | — | — | ✓
+FC Gandzasar v FC Urartu (Armenian Premier League) | FC Urartu·86% | O82 / O61 | X296 / N69 | ✓
+Gent v St. Liege (Belgian Pro League) | NO DATA — PENDING | — | — | ✓
+Libertas v Faetano (Sanmarinese Campionato) | NO DATA — PENDING | — | — | ✓
+FC Okzhetpes v FC Zhenis (Kazakhstan Premier League) | NO DATA — PENDING | — | — | ✓
+AC Oulu v Inter Turku (Finnish Veikkausliiga) | Inter Turk·44% | O74 / U50 | 1275 / Y53 | ✓
+Tre Fiori v Virtus (Sanmarinese Campionato) | Tre Fiori·40% | NO DATA — PENDING / NO DATA — PENDING | 1X70 / — | ✓
+Ch. Odesa v Obolon (Ukrainian Premier League) | NO DATA — PENDING | — | — | ✓
+Espanyol v Elche CF (La Liga) | Espanol·49% | O76 / O51 | 1275 / Y54 | ✓
+Monza v Sassuolo (Serie A) | Sassuolo·58% | O92 / O79 | 1282 / Y74 | ✓
+Real SC v Academica (Taça de Portugal) | NO DATA — PENDING | — | — | ✓
+FC Aktobe v Ulytau FC (Kazakhstan Premier League) | NO DATA — PENDING | — | — | ✓
+Murata v Cosmos (Sanmarinese Campionato) | NO DATA — PENDING | — | — | ✓
+Pau FC v Dunkerque (Ligue 2) | Dunkerque·51% | O89 / O73 | 1279 / Y71 | ✓
+Sileks v Tikves (North Macedonian First League) | NO DATA — PENDING | — | — | ✓
+SJK v Mariehamn (Finnish Veikkausliiga) | SJK·67% | O83 / O62 | 1X85 / Y54 | ✓
+Gnistan v HJK (Finnish Veikkausliiga) | NO DATA — PENDING | — | — | ✓
+AS Monaco v Lens (Ligue 1) | Lens·43% | O85 / O65 | 1277 / Y66 | ✓
+Lahti v Jaro (Finnish Veikkausliiga) | NO DATA — PENDING | — | — | ✓
+FC Noah v Van (Armenian Premier League) | FC Noah·75% | O84 / O65 | 1X90 / Y50 | ✓
+
+============================================================
+THE BLEND — all markets + AI pick, per fixture
+============================================================
+THE BLEND — every market, then the pick
+
+Sarpsborg 08 v KFUM-Kameratene Oslo (Norwegian Eliteserien)
+   Draw                            23.5%  @4.44   edge  +1.01%  EV  +4.48%
+   KFUM-Kameratene Oslo to win     19.2%  @5.06   edge  -0.54%  EV  -2.71%
+   Sarpsborg 08 to win             57.2%  @1.65   edge  -3.36%  EV  -5.55%
+   Sarpsborg 08 or Draw (double c  80.8%   no price
+   Under 3.5 goals                 77.5%   no price
+   Sarpsborg 08 or KFUM-Kameraten  76.5%   no price
+   Sarpsborg 08 Draw No Bet        74.9%   no price
+   Over 1.5 goals                  68.9%   no price
+   Under 2.5 goals                 56.5%   no price
+   Both teams to score — no        56.3%   no price
+   Both teams to score — yes       43.7%   no price
+   Over 2.5 goals                  43.5%   no price
+   KFUM-Kameratene Oslo or Draw (  42.8%   no price
+   Under 1.5 goals                 31.1%   no price
+   KFUM-Kameratene Oslo Draw No B  25.1%   no price
+   Over 3.5 goals                  22.5%   no price
+   -> AI PICK: Draw @ 4.44 (23.5%, edge +1.01%, EV +4.48%)
+
+Rapid Vienna v WSG Swarovski Tirol (Austrian Bundesliga)
+   Under 3.5 goals                 74.5%   no price
+   Rapid Vienna or Draw (double c  73.8%   no price
+   Rapid Vienna or WSG Swarovski   73.1%   no price
+   Over 1.5 goals                  72.9%   no price
+   Rapid Vienna Draw No Bet        64.1%   no price
+   WSG Swarovski Tirol or Draw (d  53.1%   no price
+   Under 2.5 goals                 52.9%   no price
+   Both teams to score — yes       51.2%   no price
+   Both teams to score — no        48.8%   no price
+   Over 2.5 goals                  47.1%   no price
+   Rapid Vienna to win             46.9%   no price
+   WSG Swarovski Tirol Draw No Be  35.9%   no price
+   Under 1.5 goals                 27.1%   no price
+   Draw                            26.9%   no price
+   WSG Swarovski Tirol to win      26.2%   no price
+   Over 3.5 goals                  25.5%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+SpVgg Greuther Fürth v 1. FC Magdeburg (2. Bundesliga)
+   SpVgg Greuther Fürth to win     40.3%  @2.90   edge  +5.82%  EV +16.87%
+   Draw                            22.4%  @3.80   edge  -3.92%  EV -14.90%
+   1. FC Magdeburg to win          37.3%  @2.25   edge  -7.14%  EV -16.07%
+   Over 1.5 goals                  89.6%   no price
+   SpVgg Greuther Fürth or 1. FC   77.6%   no price
+   Over 2.5 goals                  72.8%   no price
+   Both teams to score — yes       72.5%   no price
+   SpVgg Greuther Fürth or Draw (  62.7%   no price
+   1. FC Magdeburg or Draw (doubl  59.7%   no price
+   Over 3.5 goals                  52.2%   no price
+   SpVgg Greuther Fürth Draw No B  51.9%   no price
+   1. FC Magdeburg Draw No Bet     48.1%   no price
+   Under 3.5 goals                 47.8%   no price
+   Both teams to score — no        27.5%   no price
+   Under 2.5 goals                 27.2%   no price
+   Under 1.5 goals                 10.4%   no price
+   -> AI PICK: Greuther Fürth to win @ 2.90 (40.3%, edge +5.82%, EV +16.87%)
+
+Zabbar St. Patrick v Birkirkara (Maltese Premier League)
+   Birkirkara or Draw (double cha  85.7%   no price
+   Birkirkara Draw No Bet          82.4%   no price
+   Zabbar St. Patrick or Birkirka  81.3%   no price
+   Over 1.5 goals                  75.7%   no price
+   Under 3.5 goals                 69.7%   no price
+   Birkirkara to win               66.9%   no price
+   Both teams to score — no        54.1%   no price
+   Over 2.5 goals                  52.6%   no price
+   Under 2.5 goals                 47.4%   no price
+   Both teams to score — yes       45.9%   no price
+   Zabbar St. Patrick or Draw (do  33.1%   no price
+   Over 3.5 goals                  30.3%   no price
+   Under 1.5 goals                 24.3%   no price
+   Draw                            18.7%   no price
+   Zabbar St. Patrick Draw No Bet  17.6%   no price
+   Zabbar St. Patrick to win       14.3%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+Vllaznia Shkodër v Teuta Durrës (Albanian Superliga)
+   Vllaznia Shkodër or Draw (doub  85.3%   no price
+   Vllaznia Shkodër Draw No Bet    78.7%   no price
+   Under 3.5 goals                 75.8%   no price
+   Over 1.5 goals                  74.7%   no price
+   Vllaznia Shkodër or Teuta Durr  69.1%   no price
+   Under 2.5 goals                 54.4%   no price
+   Vllaznia Shkodër to win         54.4%   no price
+   Both teams to score — no        51.1%   no price
+   Both teams to score — yes       48.9%   no price
+   Teuta Durrës or Draw (double c  45.6%   no price
+   Over 2.5 goals                  45.6%   no price
+   Draw                            30.9%   no price
+   Under 1.5 goals                 25.3%   no price
+   Over 3.5 goals                  24.2%   no price
+   Teuta Durrës Draw No Bet        21.3%   no price
+   Teuta Durrës to win             14.7%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+Bayern Munich v 1. FC Union Berlin (Bundesliga)
+   1. FC Union Berlin to win        2.6%  @33.01  edge  -0.47%  EV -15.43%
+   Draw                             5.5%  @16.57  edge  -0.50%  EV  -8.23%
+   Bayern Munich to win            91.9%  @1.08   edge  -0.69%  EV  -0.75%
+   Bayern Munich or Draw (double   97.4%   no price
+   Bayern Munich Draw No Bet       97.3%   no price
+   Over 1.5 goals                  96.4%   no price
+   Bayern Munich or 1. FC Union B  94.5%   no price
+   Over 2.5 goals                  88.4%   no price
+   Over 3.5 goals                  74.9%   no price
+   Both teams to score — yes       54.4%   no price
+   Both teams to score — no        45.6%   no price
+   Under 3.5 goals                 25.1%   no price
+   Under 2.5 goals                 11.6%   no price
+   1. FC Union Berlin or Draw (do   8.1%   no price
+   Under 1.5 goals                  3.6%   no price
+   1. FC Union Berlin Draw No Bet   2.7%   no price
+   -> AI PICK: Union Berlin to win @ 33.01 (2.6%, edge -0.47%, EV -15.43%)
+
+Buducnost Podgorica v Petrovac (Montenegrin First League)
+   Buducnost Podgorica or Draw (d  85.0%   no price
+   Over 1.5 goals                  82.2%   no price
+   Buducnost Podgorica Draw No Be  81.6%   no price
+   Buducnost Podgorica or Petrova  81.2%   no price
+   Buducnost Podgorica to win      66.2%   no price
+   Over 2.5 goals                  61.2%   no price
+   Under 3.5 goals                 61.2%   no price
+   Both teams to score — yes       54.4%   no price
+   Both teams to score — no        45.6%   no price
+   Over 3.5 goals                  38.8%   no price
+   Under 2.5 goals                 38.8%   no price
+   Petrovac or Draw (double chanc  33.8%   no price
+   Draw                            18.8%   no price
+   Petrovac Draw No Bet            18.4%   no price
+   Under 1.5 goals                 17.8%   no price
+   Petrovac to win                 15.0%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+Rodez Aveyron v AS Nancy Lorraine (Ligue 2)
+   Rodez Aveyron to win            54.1%  @2.35   edge +11.52%  EV +27.08%
+   Draw                            25.4%  @3.40   edge  -4.01%  EV -13.63%
+   AS Nancy Lorraine to win        20.5%  @2.95   edge -13.38%  EV -39.46%
+   Rodez Aveyron or Draw (double   79.5%   no price
+   Under 3.5 goals                 74.9%   no price
+   Rodez Aveyron or AS Nancy Lorr  74.6%   no price
+   Rodez Aveyron Draw No Bet       72.5%   no price
+   Over 1.5 goals                  72.5%   no price
+   Under 2.5 goals                 53.3%   no price
+   Both teams to score — no        51.6%   no price
+   Both teams to score — yes       48.4%   no price
+   Over 2.5 goals                  46.7%   no price
+   AS Nancy Lorraine or Draw (dou  45.9%   no price
+   Under 1.5 goals                 27.5%   no price
+   AS Nancy Lorraine Draw No Bet   27.5%   no price
+   Over 3.5 goals                  25.1%   no price
+   -> AI PICK: Rodez to win @ 2.35 (54.1%, edge +11.52%, EV +27.08%)
+
+Slavia Sofia v CSKA 1948 Sofia (Bulgarian First League)
+   Slavia Sofia to win             28.1%  @4.25   edge  +4.59%  EV +19.50%
+   Draw                            29.9%  @3.40   edge  +0.45%  EV  +1.53%
+   CSKA 1948 Sofia to win          42.0%  @1.85   edge -12.03%  EV -22.26%
+   CSKA 1948 Sofia or Draw (doubl  71.9%   no price
+   Slavia Sofia or CSKA 1948 Sofi  70.1%   no price
+   CSKA 1948 Sofia Draw No Bet     59.9%   no price
+   Slavia Sofia or Draw (double c  58.0%   no price
+   Slavia Sofia Draw No Bet        40.1%   no price
+   -> AI PICK: Slavia Sofia to win @ 4.25 (28.1%, edge +4.59%, EV +19.50%)
+
+Hamrun Spartans v Marsaxlokk (Maltese Premier League)
+   Under 3.5 goals                 78.4%   no price
+   Hamrun Spartans or Marsaxlokk   74.8%   no price
+   Hamrun Spartans or Draw (doubl  71.1%   no price
+   Over 1.5 goals                  67.6%   no price
+   Hamrun Spartans Draw No Bet     61.3%   no price
+   Under 2.5 goals                 57.6%   no price
+   Marsaxlokk or Draw (double cha  54.1%   no price
+   Both teams to score — no        53.7%   no price
+   Both teams to score — yes       46.3%   no price
+   Hamrun Spartans to win          45.9%   no price
+   Over 2.5 goals                  42.4%   no price
+   Marsaxlokk Draw No Bet          38.7%   no price
+   Under 1.5 goals                 32.4%   no price
+   Marsaxlokk to win               28.9%   no price
+   Draw                            25.2%   no price
+   Over 3.5 goals                  21.6%   no price
+   -> AI PICK: NO DATA — PENDING (no priced market)
+
+Stade de Reims v Montpellier (Ligue 2)
+   Montpellier to win              29.2%  @3.90   edge  +3.58%  EV +13.96%
+   Draw                            30.6%  @3.50   edge  +2.06%  EV  +7.20%
+   Stade de Reims to win           40.2%  @1.91   edge -12.20%  EV -23.31%
+   Under 3.5 goals                 84.0%   no price
+   Stade de Reims or Draw (double  70.8%   no price
+   Stade de Reims or Montpellier   69.4%   no price
+   Under 2.5 goals                 65.2%   no price
+   Over 1.5 goals                  62.3%   no price
+   Montpellier or Draw (double ch  59.8%   no price
+   Both teams to score — no        57.9%   no price
+   Stade de Reims Draw No Bet      57.9%   no price
+   Montpellier Draw No Bet         42.1%   no price
+   Both teams to score — yes       42.1%   no price
+   Under 1.5 goals                 37.7%   no price
+   Over 2.5 goals                  34.8%   no price
+   Over 3.5 goals                  16.0%   no price
+   -> AI PICK: Montpellier to win @ 3.90 (29.2%, edge +3.58%, EV +13.96%)
+
+KAA Gent v Standard Liege (Belgian Pro League)
+   Standard Liege to win           28.6%  @4.25   edge  +5.09%  EV +21.65%
+   Draw                            29.7%  @3.58   edge  +1.79%  EV  +6.42%
+   KAA Gent to win                 41.7%  @1.90   edge -10.98%  EV -20.86%
+   Under 3.5 goals                 79.9%   no price
+   KAA Gent or Draw (double chanc  71.4%   no price
+   KAA Gent or Standard Liege (do  70.3%   no price
+   Over 1.5 goals                  67.8%   no price
+   Under 2.5 goals                 59.6%   no price
+   KAA Gent Draw No Bet            59.3%   no price
+   Standard Liege or Draw (double  58.3%   no price
+   Both teams to score — no        53.0%   no price
+   Both teams to score — yes       47.0%   no price
+   Standard Liege Draw No Bet      40.7%   no price
+   Over 2.5 goals                  40.4%   no price
+   Under 1.5 goals                 32.2%   no price
+   Over 3.5 goals                  20.1%   no price
+   -> AI PICK: Standard to win @ 4.25 (28.6%, edge +5.09%, EV +21.65%)
+
+… 66 further fixture(s) omitted for length.
+
+============================================================
+LAYER 1 — COMPACT (Today's Deploy-Eligible + Pick + Booking Code)
+============================================================
+PART 1 — THE CALL (full detail) — today's fixtures only
+11 deploy-eligible fixture(s) kicking off today (unified pool — all whitelisted leagues, no cap).
+Phase 3 — live capital (Architect-deployed) — capital ENABLED. Capital authority is the Architect's; this board never places a bet.
+Fixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A | Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes
+SpVgg Greuther Fürth v 1. FC Magdeburg (2. Bundesliga) | 40 | 22 | 37 | O90 | O73 | Y73 | 39/28/33 | — | — | Greuther F 2/2 | Over 2.5 goals | 1.45 | +5.49% | — | ✓ | 
+Stade de Reims v Montpellier (Ligue 2) | 40 | 31 | 29 | O62 | U65 | N58 | 52/29/19 | — | — | Reims 2/2 | Under 3.5 goals | 1.39 | +5.03% | — | ✓ | 
+KAA Gent v Standard Liege (Belgian Pro League) | 42 | 30 | 29 | O68 | U60 | N53 | 44/24/32 | — | — | Gent 2/2 | Under 3.5 goals | 1.33 | +5.90% | — | ✓ | 
+Bristol City v Watford (Championship) | 45 | 29 | 26 | O73 | U54 | Y52 | 56/29/15 | — | — | Bristol Ci 2/2 | Under 3.5 goals | 1.39 | +4.70% | — | ✓ | 
+FC Groningen v PEC Zwolle (Eredivisie) | 63 | 21 | 16 | O84 | O63 | Y58 | 69/19/11 | — | — | Groningen 2/2 | Groningen Draw No Bet | 1.30 | +3.20% | — | ✓ | 
+Albacete v Córdoba (La Liga 2) | 47 | 25 | 28 | O78 | O54 | Y57 | 52/24/24 | — | — | Albacete 2/2 | Albacete or Draw (double chance) | 1.40 | +0.12% | — | ✓ | 
+Kasimpasa v Konyaspor (Turkish Super Lig) | 42 | 30 | 28 | — | — | — | — | — | — | — | Kasimpasa or Draw (double chance) | 1.39 | +0.09% | — | ✓ | CLUBELO STRETCH
+Juve Stabia v Cesena (Serie B) | 50 | 29 | 20 | O73 | U55 | N51 | 56/29/14 | — | — | Juve Stabi 2/2 | Juve Stabia or Draw (double chance) | 1.33 | +5.62% | — | ✓ | 
+FC Gandzasar v FC Urartu (Armenian Premier League) | 4 | 10 | 86 | O82 | O61 | N69 | 1/15/84 | — | — | FC Urartu 2/2 | FC Urartu Draw No Bet | 1.40 | +10.29% | — | ✓ | 
+AC Oulu v Inter Turku (Finnish Veikkausliiga) | 31 | 25 | 44 | O74 | U50 | Y53 | 23/28/49 | — | — | Inter Turk 2/2 | Over 1.5 goals | 1.35 | +0.35% | — | ✓ | 
+Espanyol v Elche CF (La Liga) | 49 | 25 | 26 | O76 | O51 | Y54 | 45/29/27 | — | — | Espanol 2/2 | Under 3.5 goals | 1.43 | +1.04% | — | ✓ | 
+
+============================================================
+ACCA ROUTE — Capital-Eligible (2 Accas + 1 SLV)
+============================================================
+★ Acca A — HEADLINE (5 legs)
+    FC Gandzasar v FC Urartu (Armenian Premier League) — FC Urartu Draw No Bet @ 1.40
+    Stade de Reims v Montpellier (Ligue 2) — Under 3.5 goals @ 1.39
+    Monza v Sassuolo (Serie A) — Over 1.5 goals @ 1.23
+    Pau FC v Dunkerque (Ligue 2) — Over 1.5 goals @ 1.26
+    Rodez Aveyron v AS Nancy Lorraine (Ligue 2) — Rodez or Draw (double chance) @ 1.37
+    Combined odds: 4.13 | Combined prob: 52.5% | Booking code: NO DATA — PENDING
+
+★ Acca B (5 legs)
+    KAA Gent v Standard Liege (Belgian Pro League) — Under 3.5 goals @ 1.33
+    Juve Stabia v Cesena (Serie B) — Juve Stabia or Draw (double chance) @ 1.33
+    SpVgg Greuther Fürth v 1. FC Magdeburg (2. Bundesliga) — Over 2.5 goals @ 1.45
+    Bristol City v Watford (Championship) — Under 3.5 goals @ 1.39
+    Grenoble v Clermont Foot (Ligue 2) — Under 3.5 goals @ 1.20
+    Combined odds: 4.28 | Combined prob: 30.1% | Booking code: NO DATA — PENDING
+
+★ SLV — Single Best Value
+    KAA Gent v Standard Liege (Belgian Pro League) — Under 3.5 goals @ 1.33
+    Edge: +4.75% | EV: +5.90% | Booking code: NO DATA — PENDING
+
+  ⚠ WATCHLIST (ID420 — odds above 1.5) — NOT CAPITAL, review only
+    Sarpsborg 08 v KFUM-Kameratene Oslo (Norwegian Eliteserien) — Under 2.5 goals @ 2.50  edge +16.46%
+    SpVgg Greuther Fürth v 1. FC Magdeburg (2. Bundesliga) — Greuther Fürth to win @ 2.90  edge +5.82%
+    Rodez Aveyron v AS Nancy Lorraine (Ligue 2) — Rodez Draw No Bet @ 1.67  edge +12.61%
+    Slavia Sofia v CSKA 1948 Sofia (Bulgarian First League) — Slavia Sofia Draw No Bet @ 2.95  edge +6.19%
+    Stade de Reims v Montpellier (Ligue 2) — Under 2.5 goals @ 1.99  edge +14.92%
+    KAA Gent v Standard Liege (Belgian Pro League) — Standard Draw No Bet @ 3.00  edge +7.40%
+    Grenoble v Clermont Foot (Ligue 2) — Under 2.5 goals @ 1.57  edge +4.78%
+    Bristol City v Watford (Championship) — Under 2.5 goals @ 1.99  edge +3.61%
+    FC Groningen v PEC Zwolle (Eredivisie) — Under 3.5 goals @ 1.83  edge +4.98%
+    Albacete v Córdoba (La Liga 2) — Albacete to win @ 2.40  edge +5.17%
+    Kasimpasa v Konyaspor (Turkish Super Lig) — Kasimpasa Draw No Bet @ 1.73  edge +2.31%
+    Juve Stabia v Cesena (Serie B) — Juve Stabia Draw No Bet @ 1.61  edge +9.04%
+    Brentford v Chelsea (Premier League) — Brentford Draw No Bet @ 2.05  edge +9.23%
+    FC Gandzasar v FC Urartu (Armenian Premier League) — FC Urartu to win @ 1.85  edge +31.93%
+    AC Oulu v Inter Turku (Finnish Veikkausliiga) — AC Oulu Draw No Bet @ 2.95  edge +7.08%
+    Espanyol v Elche CF (La Liga) — Elche to win @ 4.47  edge +3.74%
+    Monza v Sassuolo (Serie A) — Over 3.5 goals @ 2.75  edge +23.63%
+    Pau FC v Dunkerque (Ligue 2) — Dunkerque Draw No Bet @ 2.25  edge +19.91%
+    AS Monaco v Lens (Ligue 1) — Lens Draw No Bet @ 2.45  edge +15.28%
+
+============================================================
+THE PICK — Final Sign-Off
+============================================================
+Fixture: FC Gandzasar v FC Urartu (Armenian Premier League)
+Market: FC Urartu Draw No Bet
+Price: 1.40
+Model Prob: 95.9%
+Canonical Edge: +24.49%
+EV (Kelly): +10.29%
+Rationale: Top leg of headline Acca A (highest canonical edge)
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.

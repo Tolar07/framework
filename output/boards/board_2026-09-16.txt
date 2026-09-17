@@ -1,0 +1,81 @@
+OLP XDV — PRODUCTION OUTPUT — 2026-09-16
+Stage A: 2026-09-16 | Fixtures Season: 2627
+Total Fixtures: 23 (Today: 23, Deploy-Eligible: 23, NO DATA: 0)
+
+============================================================
+LAYER 2 — FULL GRID (Complete Scan Table)
+============================================================
+PART 2 — COMPACT (fast-scan)
+Fixture | Selected Pick | Booking Code
+FC Baltika Kaliningrad v Zenit St Petersburg (Russian Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Manchester United v Brighton & Hove Albion (EFL Cup) | NO DATA — PENDING | NO DATA — PENDING
+Lokomotiv Moscow v Krylia Sovetov (Russian Premier League) | Lokomotiv to win | NO DATA — PENDING
+Olympiacos v Jagiellonia Bialystok (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Everton v Wolverhampton Wanderers (EFL Cup) | NO DATA — PENDING | NO DATA — PENDING
+Fleetwood Town v Sheffield United (EFL Cup) | NO DATA — PENDING | NO DATA — PENDING
+Hapoel Be'er Sheva v Dinamo Zagreb (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+Barcelona v Racing de Santander (La Liga) | Barcelona to win | NO DATA — PENDING
+Spartak Moscow v Fakel Voronezh (Russian Premier League) | Spartak Moscow to win | NO DATA — PENDING
+Ararat-Armenia v Sparta Prague (Europa League) | NO DATA — PENDING | NO DATA — PENDING
+A Coruna v Sevilla (La Liga) | RC Deportivo La Coruña to win | NO DATA — PENDING
+Coventry City v Aston Villa (EFL Cup) | NO DATA — PENDING | NO DATA — PENDING
+SK Sturm Graz v Stade Rennais (Europa League) | Rennes to win | NO DATA — PENDING
+Atl. Madrid v Osasuna (La Liga) | Ath Madrid to win | NO DATA — PENDING
+Levante v Athletic Club (La Liga) | Levante to win | NO DATA — PENDING
+Bayer Leverkusen v NK Celje (Europa League) | Leverkusen to win | NO DATA — PENDING
+Lugano v St. Gallen (Swiss Super League) | NO DATA — PENDING | NO DATA — PENDING
+Rodina Moscow v Kazan (Russian Premier League) | NO DATA — PENDING | NO DATA — PENDING
+Sunderland v AZ Alkmaar (Europa League) | Sunderland to win | NO DATA — PENDING
+Omonia Nicosia v Celta Vigo (Europa League) | Omonia Nicosia to win | NO DATA — PENDING
+Anderlecht v Lyon (Europa League) | Anderlecht to win | NO DATA — PENDING
+AC Milan v Benfica (Europa League) | Benfica to win | NO DATA — PENDING
+Thun v Servette (Swiss Super League) | Thun to win | NO DATA — PENDING
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+FC Baltika Kaliningrad v Zenit St Petersburg (Russian Premier League) | NO DATA — PENDING | — | — | ○
+Manchester United v Brighton & Hove Albion (EFL Cup) | NO DATA — PENDING | — | — | ○
+Lokomotiv Moscow v Krylia Sovetov (Russian Premier League) | Lokomotiv·65% | O88 / O67 | 1X88 / Y61 | ○
+Olympiacos v Jagiellonia Bialystok (Europa League) | NO DATA — PENDING | — | — | ○
+Everton v Wolverhampton Wanderers (EFL Cup) | NO DATA — PENDING | — | — | ○
+Fleetwood Town v Sheffield United (EFL Cup) | NO DATA — PENDING | — | — | ○
+Hapoel Be'er Sheva v Dinamo Zagreb (Europa League) | NO DATA — PENDING | — | — | ○
+Barcelona v Racing de Santander (La Liga) | Barcelona·90% | O98 / O92 | 1X96 / Y65 | ○
+Spartak Moscow v Fakel Voronezh (Russian Premier League) | Spartak Mo·80% | O70 / U57 | 1X98 / N78 | ○
+Ararat-Armenia v Sparta Prague (Europa League) | NO DATA — PENDING | — | — | ○
+A Coruna v Sevilla (La Liga) | RC Deporti·67% | O88 / O70 | 1X85 / Y63 | ○
+Coventry City v Aston Villa (EFL Cup) | NO DATA — PENDING | — | — | ○
+SK Sturm Graz v Stade Rennais (Europa League) | Rennes·43% | O62 / U65 | X274 / N58 | ○
+Atl. Madrid v Osasuna (La Liga) | Ath Madrid·63% | O77 / O52 | 1X85 / N51 | ○
+Levante v Athletic Club (La Liga) | Levante·47% | O77 / O52 | 1274 / Y55 | ○
+Bayer Leverkusen v NK Celje (Europa League) | Leverkusen·69% | O96 / O87 | 1285 / Y78 | ○
+Lugano v St. Gallen (Swiss Super League) | NO DATA — PENDING | — | — | ○
+Rodina Moscow v Kazan (Russian Premier League) | NO DATA — PENDING | — | — | ○
+Sunderland v AZ Alkmaar (Europa League) | Sunderland·40% | O67 / U60 | 1270 / N54 | ○
+Omonia Nicosia v Celta Vigo (Europa League) | Omonia Nic·42% | O79 / O55 | 1274 / Y59 | ○
+Anderlecht v Lyon (Europa League) | Anderlecht·47% | O80 / O57 | 1275 / Y60 | ○
+AC Milan v Benfica (Europa League) | Benfica·46% | O82 / O60 | 1276 / Y62 | ○
+Thun v Servette (Swiss Super League) | Thun·52% | NO DATA — PENDING / NO DATA — PENDING | 1X79 / — | ○
+
+============================================================
+LAYER 1 — COMPACT (Today's Deploy-Eligible + Pick + Booking Code)
+============================================================
+PART 1 — THE CALL — today's fixtures only
+NO DEPLOY-ELIGIBLE CALL this session — no deployable fixture kicks off today (a valid, honest result).
+
+============================================================
+ACCA ROUTE — Capital-Eligible (2 Accas + 1 SLV)
+============================================================
+Acca A: No capital-eligible legs for headline acca
+Acca B: No second acca formed (insufficient remainder legs)
+SLV: No standalone single available
+
+============================================================
+THE PICK — Final Sign-Off
+============================================================
+No capital-eligible pick today — valid, honest result (HR35)
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.

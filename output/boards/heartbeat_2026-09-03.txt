@@ -1,0 +1,51 @@
+##########OLP XDV#########
+==================================
+
+[Date]  Thu 03 Sep 2026   (PICK · win %  ·  alt markets)
+
+[League]  NCAA Division 1 Football
+   18:30   Rutgers v UMass
+       O1.5 82%  ·  O2.5 68%  ·  O3.5 40%  ·  BTTS 58%
+   -> Rutgers to win 65% (EV: 2.5%)
+
+[League]  NCAA Division 1 Football
+   18:30   UCF v Bethune-Cookman
+       O1.5 76%  ·  O2.5 62%  ·  O3.5 35%  ·  BTTS 52%
+   -> UCF to win 60% (EV: 1.8%)
+
+[League]  NCAA Division 1 Football
+   18:30   Wake Forest v Akron
+       O1.5 79%  ·  O2.5 58%  ·  O3.5 38%  ·  BTTS 55%
+   -> Wake Forest to win 63% (EV: 2.2%)
+
+[League]  NCAA Division 1 Football
+   18:30   Delaware v Merrimack
+       O1.5 85%  ·  O2.5 65%  ·  O3.5 42%  ·  BTTS 60%
+   -> Delaware to win 68% (EV: 3.0%)
+
+[League]  NCAA Division 1 Football
+   18:30   Buffalo v Albany
+       O1.5 81%  ·  O2.5 61%  ·  O3.5 41%  ·  BTTS 57%
+   -> Buffalo to win 66% (EV: 2.7%)
+
+[League]  Bundesliga
+   17:00   TBV Lemgo v HSG Wetzlar
+       O1.5 78%  ·  O2.5 62%  ·  O3.5 38%  ·  BTTS 53%
+   -> TBV Lemgo to win 62% (EV: 1.5%)
+
+[League]  Bundesliga
+   18:15   SC Magdeburg v F�chse Berlin
+       O1.5 74%  ·  O2.5 59%  ·  O3.5 33%  ·  BTTS 50%
+   -> SC Magdeburg to win 60% (EV: 1.2%)
+
+[League]  Bundesliga
+   18:00   ThSV Eisenach v HBW Balingen-Weilstetten
+       O1.5 80%  ·  O2.5 65%  ·  O3.5 40%  ·  BTTS 55%
+   -> ThSV Eisenach to win 64% (EV: 1.8%)
+
+[League]  Bundesliga
+   17:00   SG BBM Bietigheim v THW Kiel
+       O1.5 72%  ·  O2.5 57%  ·  O3.5 35%  ·  BTTS 51%
+   -> SG BBM Bietigheim to win 58% (EV: 1.0%)
+
+==================================

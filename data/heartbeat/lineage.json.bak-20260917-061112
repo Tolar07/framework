@@ -1,0 +1,24 @@
+{
+  "lineages": [
+    {
+      "lineage_id": "ln_4415ec28ab",
+      "parent_id": null,
+      "generation": 0,
+      "bankroll": 1.0,
+      "current_stake": 1.0,
+      "wins": 0,
+      "losses": 0,
+      "alive": true,
+      "born_date": "2026-09-03",
+      "last_result": null,
+      "fixture": null,
+      "pick": null,
+      "price": null,
+      "edge": 0.0,
+      "probability": 0.0,
+      "unsettled_wins": 0,
+      "held_date": null
+    }
+  ],
+  "last_bred_date": "2026-09-17"
+}

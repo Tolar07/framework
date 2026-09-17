@@ -433,10 +433,24 @@ def render_acca_route(route, n_scanned: int) -> str:
         px = getattr(lg, "price", None)
         return px is not None and px > ACCA_ODDS_CEILING
 
-    surplus = [lg for lg in (([slv] if slv else []) + watchlist)
-               if not _over_ceiling(lg)]
-    over_ceiling = [lg for lg in (([slv] if slv else []) + watchlist)
-                    if _over_ceiling(lg)]
+    # A leg already inside a formed acca must not reappear as a single.
+    #
+    # ProductionAccaRoute.slv is "the single best standalone leg" and is chosen
+    # independently of the accas, so it can BE one of their legs. On 2026-09-17
+    # it was Acca B's first leg, and the board listed "Real Sociedad v AFC
+    # Bournemouth — Under 3.5 goals" twice: once in the acca and again under
+    # SURPLUS, reading as two separate bets on one fixture+market. That also
+    # contradicts §4.1(5), one leg per fixture.
+    in_accas = {(getattr(lg, "fixture", ""), getattr(lg, "market_key", ""))
+                for a in accas for lg in (getattr(a, "legs", None) or [])}
+
+    def _already_in_acca(lg) -> bool:
+        return (getattr(lg, "fixture", ""), getattr(lg, "market_key", "")) in in_accas
+
+    spare = [lg for lg in (([slv] if slv else []) + watchlist)
+             if not _already_in_acca(lg)]
+    surplus = [lg for lg in spare if not _over_ceiling(lg)]
+    over_ceiling = [lg for lg in spare if _over_ceiling(lg)]
 
     pool = sum(len(a.legs) for a in accas) + len(surplus)
     formed = " · ".join(

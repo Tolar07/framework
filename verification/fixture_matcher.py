@@ -16,6 +16,7 @@ fixtures that ARE independently confirmed actually get recognised as such.
 """
 
 import re
+import unicodedata
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, time
 from typing import Optional
@@ -26,6 +27,59 @@ from typing import Optional
 # complete. Log every unmatched-but-should-match pair you find in real runs
 # and add it here. Treat this as a living file, not a one-time fix.
 TEAM_ALIASES = {
+    # --- Cyrillic/Kazakh transliteration variants -------------------------
+    # Sources romanise the same club differently and the normaliser cannot
+    # collapse these: "Zh" vs "J" and "K" vs "C" are different letters, and
+    # "-ii" vs "-iy" is a different ending. Unreconciled, ONE fixture becomes
+    # TWO single-source records and the quorum rule can never fire — the exact
+    # failure this module exists to prevent. Observed 2026-09-18:
+    #     sportybet   "Zhetysu Taldykorgan v Kaspii Aktau"
+    #     thesportsdb "Jetysu Taldykorgan  v Caspiy Aktau"
+    # one Kazakhstan Premier League fixture, reported as two SINGLE-SOURCE rows.
+    #
+    # Written as explicit aliases rather than a general transliteration rule:
+    # a blanket zh->j / k->c fold would reach far beyond these clubs and could
+    # silently merge genuinely distinct teams, which is a worse failure than
+    # the one being fixed.
+    "jetysu taldykorgan": "zhetysu taldykorgan",
+    "jetysu": "zhetysu taldykorgan",
+    "zhetysu": "zhetysu taldykorgan",
+    # THREE romanisations of the same club, one per source:
+    #     sportybet "Kaspii"  thesportsdb "Caspiy"  flashscore "Kaspij"
+    # Adding only the first two left flashscore's spelling as a SEPARATE
+    # fixture that then passed as VERIFIED on its own (flashscore is T1), so
+    # the board carried the SAME match twice, both stamped verified. A split
+    # that survives as two "verified" rows is worse than one that shows as
+    # single-source, because nothing in the output hints at the duplication.
+    "caspiy aktau": "kaspii aktau",
+    "caspiy": "kaspii aktau",
+    "kaspij aktau": "kaspii aktau",
+    "kaspij": "kaspii aktau",
+    "kaspii": "kaspii aktau",
+    "okzhetpes kokshetau": "okzhetpes",
+    "kyzylzhar petropavl": "kyzylzhar",
+    "kaisar kyzylorda": "kaisar",
+    # Same Zh/J split on the AWAY side, with a diacritic on top:
+    #     flashscore + sportybet "Zhenis"   thesportsdb "Jeńis"
+    # Okzhetpes' fixture appeared twice — once VERIFIED on two sources, once
+    # SINGLE-SOURCE — because only the away name differed.
+    "jeńis": "zhenis",
+    "jenis": "zhenis",
+
+    # Observed 2026-09-18 splitting real fixtures. These are NOT diacritic
+    # variants — accent folding already handles those — they differ by a whole
+    # letter or use a different name form, so only an alias reconciles them.
+    "tikvesh": "tikves",          # flashscore "Tikveš" -> tikves, tsdb "Tikvesh"
+    "sepsi osk": "sepsi",         # tsdb "Sepsi OSK" vs flashscore "Sepsi Sf Gheorghe"
+    "sepsi sf gheorghe": "sepsi",
+
+    # HJK Helsinki. names_match requires the shorter name to contribute a
+    # non-generic token of at least FOUR characters, so "hjk" (three) can never
+    # subset-match "hjk helsinki". That guard is correct — it is what stops
+    # "Real Madrid"/"Real Sociedad" collapsing — so the fix is an explicit
+    # alias for this club rather than lowering the threshold for every club.
+    "hjk": "hjk helsinki",
+
     "man utd": "manchester united",
     "man united": "manchester united",
     "man city": "manchester city",
@@ -239,10 +293,43 @@ _TOKEN_EXPANSIONS = {
 
 # Accent/diacritic folding: ESPN emits "Atlético Madrid", FlashScore "Atl.
 # Madrid"; without folding these never meet even after expansion.
-_ACCENTS = str.maketrans(
-    "áàâäãåéèêëíìîïóòôöõúùûüýÿñçšžđø",
-    "aaaaaaeeeeiiiiooooouuuuyyncszdo",
-)
+#
+# THIS USED TO BE A HAND-WRITTEN TABLE of 30 Western European letters, and a
+# hand-written table is always incomplete. It folded "Kraków" but left every
+# Romanian, Turkish, Polish, Czech, Hungarian and Baltic diacritic untouched:
+#
+#     'argeș pitești' -> 'argeș pitești'      (ș, comma-below, U+0219)
+#     'Kasımpaşa'     -> 'kasımpaşa'          (ı dotless, ş cedilla)
+#     'Śląsk Wrocław' -> 'śląsk wrocław'      (Ś, ą, ł)
+#
+# So FlashScore's "Arges" and TheSportsDB's "Argeș Pitești" never met, and one
+# Romanian fixture became two records — one VERIFIED, one SINGLE-SOURCE. Same
+# for Turkish and Polish clubs. That is a whole-league class of missed
+# verification, not a handful of clubs.
+#
+# NFKD decomposition handles every letter that decomposes into base + combining
+# mark, which is nearly all of them, and keeps working for languages nobody has
+# thought about yet. Only letters with NO decomposition need listing.
+_NON_DECOMPOSING = str.maketrans({
+    "ł": "l", "Ł": "l",      # Polish L-stroke
+    "ø": "o", "Ø": "o",      # Danish/Norwegian
+    "đ": "d", "Đ": "d",      # Croatian/Serbian/Vietnamese
+    "ı": "i", "İ": "i",      # Turkish dotless/dotted i
+    "ß": "ss",
+    "æ": "ae", "Æ": "ae",
+    "œ": "oe", "Œ": "oe",
+    "ð": "d", "Ð": "d",      # Icelandic eth
+    "þ": "th", "Þ": "th",    # Icelandic thorn
+    "ħ": "h", "Ħ": "h",      # Maltese
+    "ŀ": "l", "Ŀ": "l",      # Catalan
+})
+
+
+def _fold_accents(text: str) -> str:
+    """Strip diacritics from any Latin script, not a curated subset."""
+    text = text.translate(_NON_DECOMPOSING)
+    decomposed = unicodedata.normalize("NFKD", text)
+    return "".join(c for c in decomposed if not unicodedata.combining(c))
 
 _PUNCT_PATTERN = re.compile(r"[^\w\s]")
 _WHITESPACE_PATTERN = re.compile(r"\s+")
@@ -261,7 +348,7 @@ def normalize_team_name(name: str) -> str:
     """Lowercase, fold accents, strip club-type noise, expand abbreviations,
     then apply the alias table. Comparison-only -- never used for display,
     since HR53 requires full club names in output."""
-    n = name.strip().lower().translate(_ACCENTS)
+    n = _fold_accents(name.strip().lower())
     n = _PUNCT_PATTERN.sub(" ", n)
     n = _SUFFIX_PATTERN.sub(" ", n)
     n = _WHITESPACE_PATTERN.sub(" ", n).strip()

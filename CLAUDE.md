@@ -10,6 +10,37 @@ current phase, suspension status, live defects, and which documents are
 canonical. Do not answer questions about framework state from this file
 or from inference — read STATE.md.
 
+## THE NIGHTLY LOOP IS LIVE — DO NOT BREAK IT (2026-09-19)
+
+The 22:00 automation runs unattended and the Architect relies on the board
+being in Telegram by 07:00. It was repaired on 2026-09-19 after producing
+nothing for weeks while reporting success. **Before touching any of the
+following, read this list and understand why each line exists.**
+
+| Thing | Why it is the way it is |
+|---|---|
+| `run_stage_b(..., today=board_date)` in `run_daily.py` | Without it Stage B evaluates tomorrow's fixtures against today, shortlists ZERO, and reports "no edge". This single argument was the whole outage. |
+| `sys.exit(1)` at the end of `run_daily.py`'s `__main__` | The run used to always exit 0, so a two-week outage logged as fourteen successes. There is no `main()` in that file — use `sys.exit`, not `return`. |
+| Slot allocation in `breed_next_generation` | The old `[:MAX_LINEAGES]` truncation deleted winning lineages and their capital (78.71 → 52.60 per breed). Never reintroduce a slice that can drop a live lineage. |
+| `applied_to_lineage` markers in `history.jsonl` | Grading runs nightly and `record_heartbeat_result` MUTATES bankrolls. Without the marker every night re-pays old results. Superseded records must be marked too, or the next run applies a stale LOSS and kills a live lineage. |
+| `node:sqlite` in `scripts/hourly-fixture-check.js` | The `sqlite3` npm package is NOT installed; the task died on it nightly. Do not "fix" this back to `require('sqlite3')`. |
+| The SportyBet Cache Refresh scheduled task | Its action must quote the path — "omniroute test" contains a space. Unquoted, it fails hourly with ERROR_BAD_EXE_FORMAT and every cache goes stale, which silently breaks booking. |
+
+**Verify, do not assume.** Check the loop is still healthy with:
+
+    powershell -NoProfile -Command "Get-ScheduledTask | ? {$_.TaskName -match 'OLP XDV'} | % { $i=Get-ScheduledTaskInfo $_.TaskName; '{0} | {1} | last={2}' -f $_.TaskName,$_.State,$i.LastTaskResult }"
+
+`LastTaskResult=0` is success. Anything else is a real failure — these tasks
+have a history of failing silently for weeks.
+
+**Do not run `git stash` in this repo.** Multiple Claude sessions share this
+working tree; a stash pop applied another session's WIP on 2026-09-19. Use
+explicit file copies for temporary reverts.
+
+**Do not `git add -A`.** The repo root holds ~30 untracked zero-byte
+shell-redirect artefacts and other sessions may have staged work. Add explicit
+paths only.
+
 ## HARD RULES — these are not suggestions
 
 **HR59 — Traceable output.**

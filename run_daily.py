@@ -707,10 +707,28 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
             # four-table render. It simply was never called from here.
             from pipeline.production_stage_b import run_stage_b, render_stage_b_output
 
+            # `today=board_date` IS THE WHOLE NIGHTLY RUN (fixed 2026-09-19).
+            #
+            # run_daily.bat passes --date <tomorrow>, Stage A correctly gathers
+            # tomorrow's fixtures, and this call then let run_stage_b default
+            # `today` to the REAL today. on_deploy_shortlist gates on
+            # kickoff_date == today, so every one of tomorrow's fixtures failed
+            # it: 241 gathered, 0 shortlisted, no acca, no heartbeat, no
+            # booking code -- and the run still exited 0 and reported success.
+            #
+            # From logs/launcher.log, 2026-09-18 22:00, verbatim:
+            #   Stage B DATE MISMATCH: today=2026-09-18 but none of the 241
+            #   Stage A fixtures kick off then (file dates: 2026-09-19)
+            #   heartbeat: NO QUALIFYING CANDIDATE for 2026-09-19 -- 241
+            #   fixture(s) scanned, none priced with positive edge
+            #   booking codes skipped -- no capital-eligible acca
+            #
+            # None of that was a shortage of edge. It was this argument.
             stage_b = run_stage_b(
                 stage_a_path=stage_a_path,
                 season=season,
                 fixtures_season=fixtures_season,
+                today=board_date,
             )
             # StageBOutput exposes layer2/layer1/acca_route/the_pick, not a
             # `board` list -- the rendered text IS the deliverable here.
@@ -1067,3 +1085,24 @@ if __name__ == "__main__":
     )
 
     print(result.full)
+
+    # EXIT STATUS (fixed 2026-09-19) — STATE.md live defect #3.
+    #
+    # This block runs at module level under `if __name__ == "__main__"` --
+    # there is no main() function -- so it must sys.exit, not return. The
+    # process previously fell off the end and always exited 0. run_daily.bat checks %ERRORLEVEL% and only alerts on
+    # non-zero, so it never alerted: Task Scheduler logged fourteen
+    # consecutive successes through the 2026-09-02..16 outage, and again on
+    # 2026-09-18 when the run produced no acca, no heartbeat and no booking
+    # code. A scheduler that cannot see failure is not monitoring anything.
+    #
+    # "Produced nothing" is the failure worth catching. An empty board is
+    # occasionally legitimate (no fixtures), so the distinction is whether the
+    # run produced a board AND something to deliver.
+    produced_board = bool(result.board)
+    produced_output = bool((result.telegram_text or "").strip())
+    if not produced_board and not produced_output:
+        print("RUN FAILED: no board and no deliverable output — exiting 1 so "
+              "the scheduler and alert_failure.ps1 can see it")
+        sys.exit(1)
+    sys.exit(0)

@@ -29,10 +29,13 @@ Paper-mode only: no real capital is routed. All bankrolls are virtual.
 from __future__ import annotations
 
 import json
+import logging
 import math
 import random
 import uuid
 from dataclasses import dataclass, field, asdict
+
+log = logging.getLogger(__name__)
 from datetime import date, datetime
 from pathlib import Path
 from typing import Optional
@@ -383,15 +386,56 @@ def breed_next_generation(board: list, target_date: str = None,
     if pop.last_bred_date == today:
         return pop  # already bred for today
 
+    # SLOT ALLOCATION BEFORE BREEDING (fixed 2026-09-19).
+    #
+    # The old loop walked lineages in list order, gave each winner
+    # OFFSPRING_PER_WIN children until the cap was reached, and relied on a
+    # `n <= 0` branch to carry a late winner forward alone. The truncation
+    # below — new_lineages[:MAX_LINEAGES] — then deleted exactly those
+    # carried-forward entries, so the guard protected nothing.
+    #
+    # Observed 2026-09-19 on the real population: 6 winners, MAX_LINEAGES 8.
+    # The first four bred into 8 children, winners five and six were appended
+    # by the guard, and the slice removed them. Two lineages that HAD WON were
+    # deleted and 26.11 of bankroll vanished — not lost to a bet, not debited
+    # to a ledger, just gone. The nightly run did this every time it bred.
+    #
+    # Allocation now happens up front and guarantees EVERY survivor a slot:
+    # one each, then spare slots handed out by bankroll (the branch that has
+    # compounded most reproduces most, which is what a survival model means).
+    # Capital is conserved by construction — a lineage can only lose its
+    # bankroll by losing a bet.
+    survivors = [ln for ln in pop.lineages if ln.alive]
+    winners = [ln for ln in survivors if ln.last_result == "WIN"]
+    others = [ln for ln in survivors if ln.last_result != "WIN"]
+
+    slots: dict[str, int] = {ln.lineage_id: 1 for ln in survivors}
+    spare = MAX_LINEAGES - len(survivors)
+    if spare < 0:
+        # More survivors than slots. Nothing may be deleted here either, so
+        # everyone still carries forward and the cap is reported as exceeded
+        # rather than silently enforced by dropping bloodlines.
+        log.warning("Heartbeat population %d exceeds MAX_LINEAGES %d — all "
+                    "survivors carried forward, none dropped",
+                    len(survivors), MAX_LINEAGES)
+        spare = 0
+    for ln in sorted(winners, key=lambda x: x.bankroll, reverse=True):
+        if spare <= 0:
+            break
+        extra = min(OFFSPRING_PER_WIN - 1, spare)
+        slots[ln.lineage_id] += extra
+        spare -= extra
+
     new_lineages: list[Lineage] = []
     for ln in pop.lineages:
         if not ln.alive:
             continue  # extinct lineages do not reproduce
         if ln.last_result == "WIN":
-            # REPRODUCE: split bankroll across offspring
-            n = min(OFFSPRING_PER_WIN, MAX_LINEAGES - len(new_lineages))
-            if n <= 0:
-                # Population cap reached — parent carries forward alone
+            # REPRODUCE: split bankroll across the slots allocated above
+            n = slots.get(ln.lineage_id, 1)
+            if n <= 1:
+                # One slot: the parent carries forward with its bankroll
+                # intact rather than "breeding" into a single identical child.
                 ln.generation += 1
                 new_lineages.append(ln)
                 continue
@@ -412,9 +456,18 @@ def breed_next_generation(board: list, target_date: str = None,
             # LOSS or no-result: carry forward unchanged
             new_lineages.append(ln)
 
-    # Cap population
+    # Cap population.
+    #
+    # This slice is what deleted two winning lineages and 26.11 of bankroll on
+    # 2026-09-19. Slots are now allocated up front so the list cannot exceed
+    # the cap through breeding, and the only way to be over it is to already
+    # have had more survivors than slots — in which case dropping one would
+    # destroy a live bloodline and its capital. So it is reported, never cut.
     if len(new_lineages) > MAX_LINEAGES:
-        new_lineages = new_lineages[:MAX_LINEAGES]
+        log.warning("Heartbeat population %d exceeds MAX_LINEAGES %d after "
+                    "breeding — carried forward in full rather than truncated "
+                    "(truncating deletes live lineages and their capital)",
+                    len(new_lineages), MAX_LINEAGES)
 
     if not new_lineages:
         # STARVATION FLOOR — keep the species alive

@@ -48,13 +48,28 @@ def main() -> int:
     args = ap.parse_args()
 
     rows = [json.loads(l) for l in HISTORY.read_text(encoding="utf-8").splitlines() if l.strip()]
+    # IDEMPOTENCY (fixed 2026-09-19). record_heartbeat_result MUTATES the
+    # lineage — it credits the win's profit and increments wins — so applying
+    # the same result twice pays it twice. This script had no memory of what
+    # it had already applied, and run_daily now calls it EVERY NIGHT: the
+    # first wired run took the population from 78.71 to 80.72 by re-paying
+    # results that had settled that morning. Left alone it would inflate every
+    # bankroll a little more each night. That is fabricated capital (HR35),
+    # and it would corrupt the survival model this exists to drive.
+    #
+    # A record carries `applied_to_lineage` once its result has moved the
+    # population. The marker lives in the history file rather than in memory,
+    # so it survives restarts and holds across parallel runs.
     graded = [r for r in rows
-              if r.get("result") in ("WIN", "LOSS") and r.get("lineage_id")]
+              if r.get("result") in ("WIN", "LOSS")
+              and r.get("lineage_id")
+              and not r.get("applied_to_lineage")]
 
     latest: dict[str, dict] = {}
     for r in sorted(graded, key=lambda x: x["date"]):
         latest[r["lineage_id"]] = r  # later date wins
 
+    applied = 0
     pop = load_population()
     print(f"H| BEFORE: {len(pop.lineages)} lineages, "
           f"{sum(1 for l in pop.lineages if l.alive)} alive, "
@@ -82,10 +97,35 @@ def main() -> int:
                 lineage_id=lid,
             )
             record_heartbeat_result(hb, r["result"], target_date=r["date"])
+            applied += 1
+            # Mark the applied record AND every earlier one for this lineage.
+            # Under the Architect's latest-result-wins ruling a superseded
+            # record is deliberately NOT applied — but it must still be
+            # consumed. Marking only the winner left the superseded 09-17 LOSS
+            # unmarked, so the next run picked it up as "new", applied it, and
+            # extinguished a lineage that had won the following day. Observed
+            # directly: run 2 took 6 alive/80.72 to 5 alive/67.34.
+            for x in rows:
+                if (x.get("lineage_id") == lid
+                        and x.get("result") in ("WIN", "LOSS")
+                        and x.get("date", "") <= r["date"]):
+                    x["applied_to_lineage"] = True
+
+    if not graded:
+        print("H| nothing new to apply — every graded result is already "
+              "reflected in the population")
+        return 0
 
     if not args.apply:
         print("\nH| report only; re-run with --apply")
         return 0
+
+    # Persist the markers so tomorrow's run does not re-pay these results.
+    if applied:
+        HISTORY.write_text(
+            "\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n",
+            encoding="utf-8")
+        print(f"H| marked {applied} record(s) applied_to_lineage")
 
     pop = load_population()
     alive = [l for l in pop.lineages if l.alive]

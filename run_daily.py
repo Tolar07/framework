@@ -218,8 +218,63 @@ def _run_heartbeat_lineage(board_date: str, stage_b) -> tuple[str, list[str]]:
             flags.append("heartbeat: SKIPPED — Stage B produced no board fixtures")
             return "", flags
 
+        # 0. GRADE FIRST (Architect directive 2026-09-19).
+        #
+        # Breeding reads each lineage's last_result, and until today NOTHING
+        # ever set it: record_heartbeat_result had zero callers, so every
+        # lineage sat at last_result=None and "yesterday's winners reproduce,
+        # losers stay dead" resolved to nobody reproducing and nobody dying.
+        # Eleven heartbeats accumulated at PENDING while the population stayed
+        # frozen at 0W-0L across three generations.
+        #
+        # Worse than frozen: a lineage that LOST could stake again the next
+        # day because its loss had never been applied. ln_d6ef3f7604 did
+        # exactly that on 2026-09-18, one day after losing.
+        #
+        # So results are settled against real scores BEFORE the population
+        # transitions. Failure here must not take down the board, but it MUST
+        # stop the breed -- breeding on stale results is how the extinction
+        # rule got bypassed in the first place.
+        graded_ok = True
+        try:
+            from scripts.grade_pending_heartbeats import (
+                main as _grade_main,
+            )
+            import sys as _sys
+            _argv = _sys.argv
+            _sys.argv = ["grade_pending_heartbeats", "--apply"]
+            try:
+                _grade_main()
+            finally:
+                _sys.argv = _argv
+        except Exception as exc:
+            graded_ok = False
+            flags.append(f"heartbeat grading FAILED: {str(exc)[:90]} — "
+                         "breeding skipped so the population cannot advance "
+                         "on stale results")
+
+        if graded_ok:
+            try:
+                from scripts.apply_heartbeat_backlog import main as _apply_main
+                import sys as _sys
+                _argv = _sys.argv
+                _sys.argv = ["apply_heartbeat_backlog", "--apply"]
+                try:
+                    _apply_main()
+                finally:
+                    _sys.argv = _argv
+            except Exception as exc:
+                graded_ok = False
+                flags.append(f"heartbeat result application FAILED: "
+                             f"{str(exc)[:90]} — breeding skipped")
+
         # 1. Breed: yesterday's winners reproduce, losers stay dead.
-        pop = HL.breed_next_generation(board, target_date=board_date)
+        if not graded_ok:
+            pop = HL.load_population()
+            flags.append("heartbeat: population NOT advanced this run "
+                         "(grading did not complete)")
+        else:
+            pop = HL.breed_next_generation(board, target_date=board_date)
 
         # 2. Select: assign today's highest-EDGE priced candidates to the living
         #    lineages. require_priced stays at its default (True) -- an unpriced
@@ -912,6 +967,44 @@ def _run(run_id: str, started: str, t0: float, brain: Brain,
         # own from an otherwise empty/suppressed run.
         if heartbeat_text and telegram_text:
             telegram_text = f"{telegram_text}\n\n{'-' * 32}\n\n{heartbeat_text}"
+
+        # BET365 SECTION (Architect directive 2026-09-19). Same 22:00 message,
+        # own section, so there is one thing to read in the morning.
+        #
+        # SEPARATE PRODUCTION, not a filtered copy of the SportyBet accas.
+        # Filtering them to the Bet365 scope turned 5-leg accas into 2-leg
+        # remnants wearing the same label -- a different, weaker bet. The
+        # builder runs again over the in-scope board instead, which produced a
+        # full 4x5 route from the 2026-09-19 board.
+        #
+        # No booking code is rendered and none is implied: Bet365 has none,
+        # and a "PENDING" line would promise one that is never coming (HR35).
+        try:
+            from output.bet365_board import (
+                build_bet365_accas, render_bet365_section,
+            )
+            _b365_board = list(getattr(getattr(stage_b, "layer2", None),
+                                       "fixtures", []) or [])
+            _b365_accas = build_bet365_accas(_b365_board, board_date)
+            if _b365_accas and telegram_text:
+                _b365_payload = [
+                    {"label": a.label,
+                     "legs": [{"fixture": l.fixture, "league": l.league,
+                               "market_name": l.market_name, "price": l.price,
+                               "kickoff_utc": getattr(l, "kickoff_utc", "")}
+                              for l in a.legs]}
+                    for a in _b365_accas]
+                _b365_text = render_bet365_section(_b365_payload, None, board_date)
+                telegram_text = telegram_text + "\n\n" + _b365_text
+                all_flags.append(f"bet365 board: {len(_b365_accas)} acca(s) from "
+                             f"the top-flight European pool")
+            elif not _b365_accas:
+                all_flags.append("bet365 board: nothing in top-flight European "
+                             "scope for this date")
+        except Exception as exc:
+            # A Bet365 rendering fault must not cost the SportyBet board,
+            # which is the part that carries the booking codes.
+            all_flags.append(f"bet365 board FAILED: {str(exc)[:90]}")
 
         # Write board files
         BOARD_DIR.mkdir(parents=True, exist_ok=True)

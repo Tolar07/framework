@@ -44,6 +44,15 @@ class HeartbeatFixture:
     probability: float    # model probability 0-1
     edge: float           # canonical edge (model_prob - implied_prob) or best_mes_ev
     market_type: str      # "1X2", "O/U", "BTTS", "DC" for arrow selection
+    # CANONICAL market key ("UNDER_3_5", "DNB_AWAY", "DC_1X"). market_type above
+    # is a COARSE bucket chosen for picking a display arrow, and it is not
+    # gradable: it loses the line and the side ("Over 1.5" and "Under 3.5" are
+    # both "O/U"), and _categorize_market_type mislabels Draw No Bet — the three
+    # DNB heartbeats on 2026-09-17/18 were tagged "1X2", "1X2" and "OTHER".
+    # Without the real key a settled fixture cannot be graded from its score, so
+    # 11 heartbeats sat PENDING with the matches long finished. The key is on
+    # the BoardFixture as best_market_key; it was simply never carried through.
+    market_key: Optional[str] = None
     bookmaker: Optional[str] = None  # e.g. "SportyBet Nigeria"
     price: Optional[float] = None    # decimal odds if priced
     verification_passed: bool = False  # ID403 verification status
@@ -437,6 +446,10 @@ def _build_heartbeat_fixture(
 
     # Determine market type for arrow selection
     market_type = _categorize_market_type(pick_label)
+    # The gradable identity, written back onto the fixture by
+    # build_production_bets so the board, the acca and the heartbeat all name
+    # the same market.
+    market_key = getattr(bf, "best_market_key", None)
 
     # Extract bookmaker/price info if available
     bookmaker = getattr(bf, 'best_bookmaker', None)
@@ -453,6 +466,7 @@ def _build_heartbeat_fixture(
         probability=probability,
         edge=edge_value,
         market_type=market_type,
+        market_key=market_key,
         bookmaker=bookmaker,
         price=price,
         verification_passed=verification_passed
@@ -658,6 +672,7 @@ def save_heartbeat_record(heartbeat: HeartbeatFixture, result: str = None) -> No
         "probability": heartbeat.probability,
         "edge": heartbeat.edge,
         "market_type": heartbeat.market_type,
+        "market_key": heartbeat.market_key,
         "bookmaker": heartbeat.bookmaker,
         "price": heartbeat.price,
         "kickoff_time": heartbeat.kickoff_time,

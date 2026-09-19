@@ -94,6 +94,16 @@ def evaluate(market: str, home_goals: int, away_goals: int) -> dict[str, bool]:
 
 
 def main() -> int:
+    # Club names carry diacritics (Başakşehir, Vitória, Fürth) and Windows'
+    # default cp1252 console cannot encode them, so the verifier died with
+    # UnicodeEncodeError partway through the report — after printing enough
+    # lines to look like it was working. Same guard booking_codes.main() uses.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
     records = load_records()
     print(f"Verifying {len(records)} recorded heartbeat(s) against real match results")
     print("=" * 78)

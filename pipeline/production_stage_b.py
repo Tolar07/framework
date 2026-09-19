@@ -951,6 +951,7 @@ def run_stage_b(
     max_odds_cap: float = MAX_ODDS_CAP,
     min_odds_floor: float = 1.20,
     preferred_ceiling: float = 1.50,
+    today: str | None = None,
 ) -> StageBOutput:
     """
     HR58 Stage B — Production reads Stage A output, NO DATA — PENDING rows preserved.
@@ -963,6 +964,12 @@ def run_stage_b(
         max_odds_cap: ID420 hard cap (default 2.00)
         min_odds_floor: Hard floor (default 1.20)
         preferred_ceiling: Preferred zone ceiling (default 1.50)
+        today: The board date, ISO. Defaults to the real today. This is the
+            date `on_deploy_shortlist` is computed against, so it MUST match
+            the Stage A file's fixture dates — a next-day board built with
+            today=None silently shortlists nothing (every fixture fails
+            `kickoff_date == today`) and the run reports "0 accas" as though
+            no bet qualified, rather than as a date mismatch.
 
     Returns:
         StageBOutput with 4-layer production output.
@@ -973,10 +980,25 @@ def run_stage_b(
     stage_a = _load_stage_a_output(stage_a_path)
     run_date = date.today().isoformat()
     fixtures_season = fixtures_season or next_season_code(season)
-    today = date.today().isoformat()
+    today = today or run_date
 
     log.info(f"Stage B: reading Stage A from {stage_a_path}")
     log.info(f"  Stage A run_date: {stage_a.run_date}, fixtures: {len(stage_a.fixtures)}")
+
+    # Date-mismatch guard. `on_deploy_shortlist` is gated on
+    # `kickoff_date == today`, so a Stage A file for a different day produces
+    # an empty shortlist and therefore zero accas — which is indistinguishable,
+    # in the output, from "no fixture met the edge bar". Say so out loud
+    # instead of letting the caller read a date bug as a betting verdict.
+    _on_day = sum(1 for vf in stage_a.fixtures if vf.kickoff_date == today)
+    if stage_a.fixtures and _on_day == 0:
+        _dates = sorted({vf.kickoff_date for vf in stage_a.fixtures if vf.kickoff_date})
+        log.error(
+            "Stage B DATE MISMATCH: today=%s but none of the %d Stage A "
+            "fixtures kick off then (file dates: %s). Nothing can be "
+            "shortlisted; pass today=<file date> to run_stage_b.",
+            today, len(stage_a.fixtures), ", ".join(_dates[:5]) or "none",
+        )
 
     # Convert Stage A fixtures to BoardFixtures, applying enrichment gate
     # Fixtures that fail enrichment (missing kickoff/league data) are dropped

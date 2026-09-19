@@ -1,0 +1,94 @@
+##########OLP XDV#########
+==================================
+ACCA ROUTE + BOOKING — PRODUCTION
+Sat 19 Sep 2026 · all markets · AI pick
+Run ID: OLPXDV-20260918-2133-bet19 | Phase 3 — LIVE
+Fixtures scanned: 241 · Verified: 241
+Prices re-verified 06:15 UTC today — unchanged
+
+==================================
+BOOKED — 1 of 4 accas
+
+----------------------------------
+▸ ACCA D — 5 legs
+  BOOKING CODE: S8L7NF
+  Verified on slip: 5/5 legs
+  Odds check PASS — expected 4.72 = betslip 4.72
+
+1. 14:00  Dundee FC v Motherwell
+      Scotland · Scottish Premiership
+      Under 3.5 goals — 78% @ 1.46
+      Src ✓ VERIFIED
+
+2. 14:00  Birmingham City v Middlesbrough
+      England · Championship
+      Under 3.5 goals — 76% @ 1.50
+      Src ✓ VERIFIED
+
+3. 14:00  Everton v Ipswich Town
+      England · Premier League
+      Over 1.5 goals — 91% @ 1.23
+      Src ✓ VERIFIED
+
+4. 12:45  Korona Kielce v Rakow Czestochowa
+      Poland · Ekstraklasa
+      Under 3.5 goals — 81% @ 1.39
+      Src ✓ VERIFIED
+
+5. 14:30  C.D. Nacional v FC Famalicao
+      Portugal · Primeira Liga
+      Under 3.5 goals — 88% @ 1.26
+      Src ✓ VERIFIED
+
+   Combined odds ............... 4.72
+   Combined model probability ... 39.0%
+   Break-even probability ....... 21.2%
+   Model edge ................... +17.8pp
+
+==================================
+NOT BOOKED — 3 of 4 accas
+
+No code issued. Every missing leg is Draw No Bet
+or Double Chance: the market tab does not open on
+the SportyBet league page, so the selection never
+reaches the slip. Add these by hand or skip the
+acca. Reported, not hidden (HR35).
+
+▸ ACCA A — 2/5 on slip, NO CODE
+   expected 4.95 vs slip 1.85
+   ADD BY HAND:
+   - Venezia v Lazio (Italy · Serie A)
+        Lazio Draw No Bet @ 1.45
+   - FC Nomme United v Paide Linnameeskond
+        (Estonia · Meistriliiga)
+        Paide Draw No Bet @ 1.29
+   - Alashkert v Pyunik Yerevan
+        (Armenia · Premier League)
+        Pyunik Yerevan or Draw @ 1.43
+
+▸ ACCA B — 3/5 on slip, NO CODE
+   expected 5.50 vs slip 3.33
+   ADD BY HAND:
+   - Koper v Nafta (Slovenia · PrvaLiga)
+        Koper Draw No Bet @ 1.26
+   - CFR 1907 Cluj v FC Botosani
+        (Romania · Liga I)
+        CFR 1907 Cluj or Draw @ 1.31
+
+▸ ACCA C — 4/5 on slip, NO CODE
+   expected 6.27 vs slip 4.18
+   ADD BY HAND:
+   - Kaiserslautern v TSV Eintracht Braunschweig
+        (Germany · 2. Bundesliga)
+        Kaiserslautern Draw No Bet @ 1.50
+
+==================================
+The code pre-fills the slip when pasted into
+SportyBet. Nothing is staked. THE ARCHITECT
+approves and places every bet — this system
+never does.
+
+HONEST EDGE: an excellent informed process, NOT a
+demonstrated profitable edge. Model probabilities
+are uncalibrated against outcomes.
+Capital authority: THE ARCHITECT.

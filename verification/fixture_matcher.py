@@ -255,6 +255,24 @@ TEAM_ALIASES = {
     "zenit st petersburg": "zenit saint petersburg",
     "zenit": "zenit saint petersburg",
     "spartak moscow": "spartak moscow",
+
+    # --- Portuguese clubs carrying a region, not a place -----------------
+    # Observed 2026-09-18 booking the 2026-09-19 board: the model keys the
+    # Primeira Liga fixture "C.D. Nacional v FC Famalicao" while SportyBet
+    # stores "Nacional da Madeira v FC Famalicao". The normaliser turns the
+    # initials into tokens ("c d nacional") and leaves the island suffix in
+    # place, so neither side shares a distinguishing token and the leg
+    # reported "fixture not found in SportyBet cache" though it was present
+    # and priced. "Madeira"/"Acores" here name the island the club is from,
+    # the way "Madrid" does — not a club-type word _SUFFIX_PATTERN strips.
+    "c d nacional": "nacional",
+    "cd nacional": "nacional",
+    "nacional da madeira": "nacional",
+    "nacional madeira": "nacional",
+    "maritimo madeira": "maritimo",
+    "maritimo funchal": "maritimo",
+    "santa clara azores": "santa clara",
+    "santa clara acores": "santa clara",
 }
 
 # Club-type tokens that carry no identifying information. Sources disagree on

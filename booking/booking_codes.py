@@ -106,8 +106,19 @@ def safe_click(locator, max_retries: int = MAX_CLICK_RETRIES,
     """
     for attempt in range(max_retries):
         try:
-            # Wait for element to be ready
-            locator.wait_for(state="visible", timeout=wait_timeout)
+            # Wait for element to be ready. Callers pass EITHER a Locator or
+            # an ElementHandle (query_selector returns the latter); only
+            # Locator has .wait_for, so the handle path used to raise
+            # AttributeError, which _is_transient_error correctly classifies
+            # as permanent — the leg went MANUAL with a Python error as its
+            # reason. Observed 2026-09-18 on Hapoel Beer Sheva ("'ElementHandle'
+            # object has no attribute 'wait_for'"). An ElementHandle is already
+            # attached to a live node, so waiting for visibility is the
+            # handle's own wait_for_element_state.
+            if hasattr(locator, "wait_for"):
+                locator.wait_for(state="visible", timeout=wait_timeout)
+            else:
+                locator.wait_for_element_state("visible", timeout=wait_timeout)
             locator.click()
             # Brief verification delay
             time.sleep(0.5)
@@ -886,25 +897,52 @@ def read_betslip_combined_odds(page: Page,
             flat = " | ".join((panel.inner_text() or "").split("\n"))
         except Exception:
             continue
-        m_stake = re.search(r"Total Stake\s*\|?\s*([\d,]+\.\d{2})", flat, re.I)
-        m_win = re.search(r"Potential Win\s*\|?\s*\|?\s*([\d,]+\.\d{2})", flat, re.I)
-        if m_stake and m_win:
-            try:
-                stake = float(m_stake.group(1).replace(",", ""))
-                win = float(m_win.group(1).replace(",", ""))
-                if stake > 0:
-                    combined = win / stake
-                    if combined >= 1.01:
-                        return round(combined, 4)
-            except ValueError:
-                pass
-        # Fallback within the slip: the bare "Odds" label.
+
+        # PREFER THE DISPLAYED "Odds" (2026-09-18). This used to be the
+        # fallback, with potential_win/total_stake preferred as "more
+        # precise". It is not more precise, it is WRONG on any multi:
+        # SportyBet NG adds an accumulator bonus to Potential Win, so the
+        # ratio returns odds * (1 + bonus). Measured on the 2026-09-19 board,
+        # against slips whose legs and prices were verified correct:
+        #     2 legs  true 1.8495  read 1.8828  (+1.8%)
+        #     3 legs  true 3.3300  read 3.4299  (+3.0%)
+        #     4 legs  true 4.1798  read 4.3804  (+4.8%)
+        #     5 legs  true 4.7177  read 5.0574  (+7.2%)
+        # a clean bonus ladder, not drift — Acca D's five live prices were
+        # re-fetched and matched the board exactly. Against a 2% tolerance
+        # this makes EVERY acca of 3+ legs unbookable no matter how correct
+        # the slip is, which is why no code had ever passed the check.
+        #
+        # The displayed "Odds" is the true combined figure. It is rounded to
+        # 2dp (a 2-leg slip showed 1.59 for a true 1.593), but that is ~0.1%
+        # on a 5.00 slip — an order of magnitude inside tolerance, where the
+        # bonus is not.
         m_odds = re.search(r"(?<!Total )\bOdds\s*\|\s*(\d+\.\d{2})", flat)
         if m_odds:
             try:
                 val = float(m_odds.group(1))
                 if val >= 1.01:
                     return val
+            except ValueError:
+                pass
+
+        # Fallback: the slip's own arithmetic, with the bonus removed when the
+        # slip itemises it. Without an explicit Bonus line the ratio cannot be
+        # corrected — it is still returned (the tolerance check downstream is
+        # what rejects a bad value), but it is the second choice, not the first.
+        m_stake = re.search(r"Total Stake\s*\|?\s*([\d,]+\.\d{2})", flat, re.I)
+        m_win = re.search(r"Potential Win\s*\|?\s*\|?\s*([\d,]+\.\d{2})", flat, re.I)
+        if m_stake and m_win:
+            try:
+                stake = float(m_stake.group(1).replace(",", ""))
+                win = float(m_win.group(1).replace(",", ""))
+                m_bonus = re.search(r"\bBonus\s*\|?\s*([\d,]+\.\d{2})", flat, re.I)
+                if m_bonus:
+                    win -= float(m_bonus.group(1).replace(",", ""))
+                if stake > 0:
+                    combined = win / stake
+                    if combined >= 1.01:
+                        return round(combined, 4)
             except ValueError:
                 pass
     candidates: List[float] = []
@@ -984,6 +1022,25 @@ def read_betslip_combined_odds(page: Page,
 _read_betslip_combined_odds = read_betslip_combined_odds
 
 
+def _betslip_count(page: Page) -> int:
+    """How many selections are currently on the betslip.
+
+    The slip's own counter is the only thing that knows whether a click
+    actually became a selection. `safe_click` returning True means a click was
+    DRIVEN, not that SportyBet registered it — the market tab can be open, the
+    row present and the click land on a dead spot, with no error anywhere.
+    Reading this before and after each leg is what separates "clicked" from
+    "on the slip"; see the landing check in `_book_one_acca`."""
+    try:
+        el = page.query_selector("[class*='m-bet-count']")
+        if not el:
+            return 0
+        txt = (el.inner_text() or "").strip()
+        return int(txt) if txt.isdigit() else 0
+    except Exception:
+        return 0
+
+
 def _clear_betslip(page: Page) -> None:
     """Remove every selection from the current betslip so the next acca starts
     from a clean slip.
@@ -1011,14 +1068,9 @@ def _clear_betslip(page: Page) -> None:
     # and keeps going until it reaches zero, instead of clicking hopefully and
     # returning. A clear that silently fails is what caused the bug.
     def _count() -> int:
-        try:
-            el = page.query_selector("[class*='m-bet-count']")
-            if not el:
-                return 0
-            txt = (el.inner_text() or "").strip()
-            return int(txt) if txt.isdigit() else 0
-        except Exception:
-            return 0
+        # Module-level reader — one definition, so the clear loop and the
+        # per-leg landing check can never drift onto different selectors.
+        return _betslip_count(page)
 
     try:
         for _ in range(4):
@@ -1182,6 +1234,9 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                  "market_name": leg.get("market_name") or leg.get("market_key") or "?",
                  "status": "MANUAL"}
         ok = False
+        # Baseline for the landing check below — read before the leg is
+        # driven, so an unchanged counter afterwards proves nothing landed.
+        count_before = _betslip_count(page)
         try:
             if fx is None:
                 entry["status"] = "MANUAL"
@@ -1354,10 +1409,28 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 # times out on SportyBet NG and leaves the session on a dead
                 # page, breaking every later leg.
                 entry["reason"] = f"market {leg['market_key']} not drivable on league page"
+            # LANDING CHECK (2026-09-18). `ok` only means the click was
+            # DRIVEN. On the 2026-09-19 board every leg of Acca A/B/D
+            # reported BOOKED and n_added=5, while the slip held 2, 3 and 5
+            # — the combined-odds guard caught it (4.95 expected vs 1.88
+            # read) but the per-leg report said all five were on. A status
+            # derived from the click instead of from the slip is the same
+            # silent-completeness HR35 exists to stop: it tells the Architect
+            # a leg is on a slip that does not contain it.
+            #
+            # The slip counter is the only authority on what landed. A click
+            # that did not increment it is MANUAL, whatever the click helper
+            # returned.
             if ok:
-                added += 1
-                entry["status"] = "BOOKED"
-            elif "reason" not in entry:
+                landed = _betslip_count(page) > count_before
+                if landed:
+                    added += 1
+                    entry["status"] = "BOOKED"
+                else:
+                    ok = False
+                    entry["reason"] = ("click drove but selection did not "
+                                       "register on the betslip (add manually)")
+            if not ok and "reason" not in entry:
                 entry["reason"] = "selection could not be driven (add manually)"
         except Exception as e:
             entry["reason"] = f"driver error: {str(e)[:80]}"

@@ -31,20 +31,93 @@
 
 | # | Defect | Status |
 |---|--------|--------|
-| 1 | SportyBet cache stale; league mapping wrong (Chelsea v Bournemouth filed under Ligue 2, Türkiye v France under Serie A) | OPEN |
+| 1 | SportyBet cache stale; league mapping wrong (Chelsea v Bournemouth filed under Ligue 2, Türkiye v France under Serie A) | **CLOSED 2026-09-19** — staleness root-caused: the hourly "SportyBet Cache Refresh" task registered its executable as `C:\Users\Motunrayo\omniroute` with `test\...` as arguments (unquoted space), so it failed every hour since 2026-09-06 with ERROR_BAD_EXE_FORMAT. Task repaired, `LastTaskResult=0`. |
 | 2 | SportyBet Playwright cache warm hangs (killed at 11 min) | OPEN |
-| 3 | Pipeline exits 0 on failure — Task Scheduler recorded success daily through a two-week outage | OPEN |
+| 3 | Pipeline exits 0 on failure — Task Scheduler recorded success daily through a two-week outage | **CLOSED 2026-09-19** — `run_daily.py`'s `__main__` block now `sys.exit(1)` when the run produces neither a board nor deliverable output. (No `main()` exists in that file: `return` there is a compile error that `ast.parse` does not catch.) |
 | 4 | Two implementations of the core stage; the live path returns empty (4.8 s) while the real work (91.5 s) is discarded. Third copy at `olp_xdv_pipeline_fixed.py` | OPEN |
 | 5 | ESPN tier contradicts itself: `verification/id403.py` says T1, `data/espn_source.py:239` hardcodes T2, `CLAUDE.md` says T1 | OPEN |
 | 6 | `fixtures_agent.py` never queries ESPN — the one working T1 source is not wired into the fixture agent | OPEN |
 | 7 | Sync memory→vault still 0 files: matches memory slug names (`protected-constants.md`) against vault title names (`Protected Constants.md`), no mapping | OPEN |
-| 8 | `grade_results.py:251` is an acknowledged stub | OPEN |
+| 8 | `grade_results.py:251` is an acknowledged stub | **SUPERSEDED 2026-09-19** — heartbeat grading no longer depends on it. `scripts/grade_pending_heartbeats.py` settles results against real ESPN scores using the canonical `market_key`, now persisted on every heartbeat record. 10 of 11 backlogged heartbeats graded. The stub itself is still there. |
 | 9 | ~30 zero-byte shell-redirect artefacts untracked in repo root (`1`, `2`, `cd`, `git`, `List[Dict]`, `}`) | OPEN |
 | 10 | `dry_run=True` passed to `run_pipeline` is inert — stored in state, never read | OPEN |
 
 **Stale guidance corrected 2026-09-16:** `CLAUDE.md` warns that
 `fixtures_agent.py` is stubbed with hardcoded Premier League fixtures. That is
 no longer true — it has five real fetchers. Treat that warning as historical.
+
+---
+
+## 2026-09-19 — Session Work: the nightly loop was producing nothing, and saying it worked
+
+### What the Architect asked for
+Booking codes for today's board, then full automation: 22:00 grades yesterday
+and produces tomorrow, so Telegram holds everything by 07:00.
+
+### Delivered today (all verified against the live site, not asserted)
+- **13 SportyBet booking codes**, every one passing its own odds check.
+  4 accas (UMZF2F, SN20NH, VNVCAL, S8L7NF), 1 mega 20-leg (VHK4PU @ 836.06),
+  6 heartbeat singles, 1 heartbeat global (ZPXXB4 @ 8.32).
+- **First booking code this framework has ever produced that passed
+  verification.** Root cause of the long-standing failure: the odds reader
+  preferred `potential_win / total_stake`, and SportyBet NG adds an
+  accumulator bonus to Potential Win, so it returned `odds x (1 + bonus)`.
+  Measured ladder on slips whose legs were independently verified: 2 legs
+  +1.8%, 3 legs +3.0%, 4 legs +4.8%, 5 legs +7.2%. The real tolerance is
+  **5%, not the 2% the docstring in `verify_external_code.py` still claims**,
+  so 5-leg accas — every production acca — were unbookable. Fix reads the
+  displayed "Odds" instead. Tolerance untouched.
+- **Draw No Bet and Double Chance never worked**: `_MARKET_UI_MAP` drove them
+  with glyph codes ("1X", "1") that SportyBet renders nowhere. The live match
+  page shows "Home or Draw", "Draw or Away", "Home", "Away". 0/6 driven before,
+  20/20 legs after.
+- **16 competitions unmapped on a name mismatch**, not absence — SportyBet's
+  menu lists every one; the discovery script compared OLP's names to
+  SportyBet's ("Austrian Bundesliga" vs Austria/"Bundesliga"). Cost 51 of 241
+  fixtures, including all 11 Taça de Portugal ties.
+- **Heartbeat grading had never run.** `record_heartbeat_result` had zero
+  callers, so 8 lineages sat at 0W-0L across three generations. 10 of 11
+  backlogged heartbeats now graded (7W-3L); population 8 -> 6 alive, 2 extinct.
+
+### The nightly loop: three silent defects, all now closed
+1. `run_daily.py` never passed the target date to Stage B. 241 fixtures
+   gathered, **0 shortlisted**, logged as "none priced with positive edge".
+   One argument.
+2. The run **always exited 0**, so the scheduler never alerted.
+3. `breed_next_generation` **destroyed capital** at the population cap:
+   `[:MAX_LINEAGES]` sliced off exactly the winners its own guard had carried
+   forward. 78.71 -> 52.60 on every breed.
+
+Plus two dead scheduled tasks nobody was watching: result verification exiting
+1 nightly on a missing `sqlite3` module, and the hourly SportyBet cache
+refresh failing since **2026-09-06** because its action path was unquoted and
+"omniroute test" contains a space. That last one is why every cache was stale
+this morning and booking would have resolved zero legs.
+
+### New this session
+`booking/bookability.py` (gate: competition in registry AND market with a
+proven drive path), `booking/bet365_scope.py` (35 top-flight European
+competitions), `output/bet365_board.py` (separate Bet365 production, no
+codes — Bet365 has none), `engine/context.py` (rest days, congestion,
+competition stage; bounded +/-10%, logged).
+
+### Measured findings worth keeping
+- **Competition prestige predicted no booking failure. Market family predicted
+  all of them.** Totals 13/13 booked including Latvia and Croatia; DNB 0/4
+  including Serie A and 2. Bundesliga.
+- **Under 3.5 dominance is the 1.50 cap, not model preference.** Inside the cap
+  the picks ARE max-EV on 19 of 20 fixtures; a higher-EV market exists above
+  the cap on 19 of 20. Keeping the cap is right while calibration is unproven.
+- **Bet365 adds zero coverage.** Not one competition today is Bet365-reachable
+  and SportyBet-unreachable. Its value is price, not reach.
+- **API-Football is on the FREE plan** (100 req/day), confirmed against the
+  API's own `/status`. `API Keys.md` claimed paid since 2026-08-19 and that
+  stale row has misled several sessions. Injuries stay blocked.
+
+### Open, needing the Architect
+- Breeding slot allocation (6 winners, 8 slots) is my rule, not a ratified one.
+- Team news/injuries need a real paid plan.
+- `verify_external_code.py` still documents a 2% tolerance; the code is 5%.
 
 ---
 

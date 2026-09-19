@@ -115,7 +115,7 @@ board = [
     _bf("Iota v Kappa (Test League)", _probs(d=0.22), TODAY, sb_draw=5.00),      # edge +0.020
     _bf("Lambda v Mu (Test League)", _probs(d=0.20), TODAY, sb_draw=5.50),       # edge +0.018
 ]
-bets1 = build_production_bets(board, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
+bets1 = build_production_bets(board, require_bookable=False, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
 accas1 = ([bets1.acca_a] if bets1.acca_a else []) + bets1.split_accas
 legs1 = {l.fixture for a in accas1 for l in a.legs} | {l.fixture for l in bets1.singles}
 _check("same-day: only today's fixtures in any bet",
@@ -126,12 +126,12 @@ _check("same-day: 4 today fixtures all land in Acca A (acca_a_max=5), no splits/
        and not bets1.split_accas and not bets1.singles,
        f"got {[(a.label, a.n_legs) for a in accas1]} + {len(bets1.singles)} singles")
 _check("legacy build_accas returns the same acca set, no singles",
-       [a.label for a in build_accas(board, today=TODAY, max_odds_cap=float('inf'))] == ["Acca A"])
+       [a.label for a in build_accas(board, require_bookable=False, today=TODAY, max_odds_cap=float('inf'))] == ["Acca A"])
 
 # --- 2. HR35: a fixture with no kickoff date is never assumed to be today ----
 board_no_date = board + [_bf("Undated v Ghost (Test League)", _probs(d=0.40),
                              None, sb_draw=2.50)]
-bets2 = build_production_bets(board_no_date, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
+bets2 = build_production_bets(board_no_date, require_bookable=False, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
 legs2 = {l.fixture for a in
          (([bets2.acca_a] if bets2.acca_a else []) + bets2.split_accas)
          for l in a.legs} | {l.fixture for l in bets2.singles}
@@ -152,7 +152,7 @@ best_board = [
 ]
 odds_index = {("Home FC", "Away FC"): _fx_full("Home FC", "Away FC",
                                                2.0, 3.5, 4.0, 2.0, 1.8)}
-bets3 = build_production_bets(best_board, today=TODAY, odds_index=odds_index, max_odds_cap=float('inf'))
+bets3 = build_production_bets(best_board, require_bookable=False, today=TODAY, odds_index=odds_index, max_odds_cap=float('inf'))
 leg3 = {l.fixture: l for a in
         (([bets3.acca_a] if bets3.acca_a else []) + bets3.split_accas)
         for l in a.legs}
@@ -193,7 +193,7 @@ def _conf_board(n, start=0.31):
                 TODAY, sb_draw=1.70 + i * 0.02) for i in range(n)]
 
 board_rich = _conf_board(12)
-bets5 = build_production_bets(board_rich, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
+bets5 = build_production_bets(board_rich, require_bookable=False, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
 a5 = bets5.acca_a
 # With _conf_board's prob/price schedule (draw prob falls 0.01, draw price
 # rises 0.1 per fixture) EV is monotonic with prob, so the top-5 by EDGE is
@@ -219,7 +219,7 @@ _check("singles == the remainder legs (each is ALSO a standalone slip, intent #6
 # --- 6. chunking: remainder splits into ~4-5 leg groups, never one giant acca
 def _split_sizes(n):
     b = _conf_board(n)
-    pb = build_production_bets(b, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
+    pb = build_production_bets(b, require_bookable=False, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
     return [a.n_legs for a in pb.split_accas], len(pb.singles)
 
 _check("chunk 6 -> Acca A(5) + singles only (rem 1, no split acca)",
@@ -262,7 +262,7 @@ _check("single's combined odds/prob equal the leg's own price/prob",
 
 # --- 9. fewer than HEADLINE_MIN_LEGS -> shortened acca, honestly -------------
 board_short = [_bf("Only v One (Test League)", _probs(d=0.30), TODAY, sb_draw=3.30)]
-bets9 = build_production_bets(board_short, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
+bets9 = build_production_bets(board_short, require_bookable=False, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
 _check("shortened acca (never padded with a non-today fixture)",
        bets9.acca_a is not None and bets9.acca_a.n_legs == 1
        and not bets9.split_accas and not bets9.singles,
@@ -274,7 +274,7 @@ _check("shortened acca renders lean (no prob/EV on the leg)",
        and "30%" not in txt9, txt9)
 
 # --- 10. empty today -> honest NO production pick (HR35) --------------------
-bets10 = build_production_bets([], today=TODAY, odds_index=None, max_odds_cap=float('inf'))
+bets10 = build_production_bets([], require_bookable=False, today=TODAY, odds_index=None, max_odds_cap=float('inf'))
 _check("empty board -> acca_a is None, no splits, no singles",
        bets10.acca_a is None and not bets10.split_accas and not bets10.singles)
 txt10 = render_production_block(bets10, today=TODAY)
@@ -325,7 +325,7 @@ board_sb = [
         sb_draw=1.80, market_key=mkt.DRAW, price=1.90),
 ]
 odds_index12 = {("Alpha v Beta", "Away FC"): _fx("Alpha v Beta", "Away FC", draw=1.90)}
-bets12 = build_production_bets(board_sb, today=TODAY, odds_index=odds_index12, max_odds_cap=float('inf'))
+bets12 = build_production_bets(board_sb, require_bookable=False, today=TODAY, odds_index=odds_index12, max_odds_cap=float('inf'))
 _check("SportyBet price wins for Draw when present",
        bets12.acca_a is not None and abs(bets12.acca_a.legs[0].price - 1.80) < 1e-9,
        f"got {bets12.acca_a.legs[0].price if bets12.acca_a else 'no acca'}")
@@ -336,7 +336,7 @@ _check("SportyBet price wins for Draw when present",
 # re-build with the default MAX_ODDS_CAP (which filters the >2.00 draw odds).
 call_board = board + [_bf("Tomorrow v Only (Test League)", _probs(d=0.45),
                           TOMORROW, sb_draw=2.20, shortlist=True)]
-call_production = build_production_bets(call_board, today=TODAY, odds_index=None,
+call_production = build_production_bets(call_board, require_bookable=False, today=TODAY, odds_index=None,
                                         max_odds_cap=float('inf'))
 out13 = render_produce_bet(mode="M", phase="P", leagues_scanned=["Eredivisie"],
                            calibration_count=0, mean_clv=None, data_flags=[],
@@ -392,7 +392,7 @@ agree_index = {
 # Dog v Fav away: model 45% vs book implied 27.8% -> edge = 17.2pp (HIGHEST)
 # Tier v Mid home: model 52% vs book implied 51.3% -> edge = 0.7pp
 # Big v Small home: model 55% vs book implied 58.8% -> edge = -3.8pp (negative!)
-bets_base = build_production_bets(agree_board, today=TODAY, odds_index=agree_index, max_odds_cap=float('inf'))
+bets_base = build_production_bets(agree_board, require_bookable=False, today=TODAY, odds_index=agree_index, max_odds_cap=float('inf'))
 _check("agreement gate: without band, canonical edge determines ranking (ID414)",
        bets_base.acca_a is not None
        and bets_base.acca_a.legs[0].fixture == "Dog v Fav"
@@ -403,7 +403,7 @@ _check("agreement gate: without band, canonical edge determines ranking (ID414)"
 # excluded — but the fixture may still appear on a DIFFERENT market that agrees.
 # True per-fixture exclusion requires ALL markets to disagree, so we verify
 # per-MARKET instead: the away market must never be selected within the gate.
-bets_gate = build_production_bets(agree_board, today=TODAY,
+bets_gate = build_production_bets(agree_board, require_bookable=False, today=TODAY,
                                  odds_index=agree_index, agreement_band=0.04, max_odds_cap=float('inf'))
 gate_legs = [l for a in
              (([bets_gate.acca_a] if bets_gate.acca_a else [])
@@ -434,7 +434,7 @@ if big_legs:
 else:
     _check("agreement gate: Big v Small excluded entirely (no agreeing +EV market)",
            True, "")
-bets_none = build_production_bets(agree_board, today=TODAY,
+bets_none = build_production_bets(agree_board, require_bookable=False, today=TODAY,
                                  odds_index=agree_index, agreement_band=None, max_odds_cap=float('inf'))
 none_legs = [l for a in
              (([bets_none.acca_a] if bets_none.acca_a else [])
@@ -457,7 +457,7 @@ cap_board = [
                                            home="FavB", away="DogB"), TODAY,
         sb_draw=3.50),  # Draw @ 3.50 -> over cap, rejected
 ]
-bets_cap = build_production_bets(cap_board, today=TODAY, odds_index=None)
+bets_cap = build_production_bets(cap_board, require_bookable=False, today=TODAY, odds_index=None)
 cap_fixtures = set()
 if bets_cap.acca_a:
     cap_fixtures |= {l.fixture for l in bets_cap.acca_a.legs}
@@ -509,7 +509,7 @@ mixed_board = [
 mixed_odds = {
     ("Mixed", "Case"): _fx_ticket("Mixed", "Case", home=1.80, draw=3.20),
 }
-bets_mixed = build_production_bets(mixed_board, today=TODAY, odds_index=mixed_odds)
+bets_mixed = build_production_bets(mixed_board, require_bookable=False, today=TODAY, odds_index=mixed_odds)
 mixed_cap_fixtures = set()
 if bets_mixed.acca_a:
     mixed_cap_fixtures |= {l.fixture for l in bets_mixed.acca_a.legs}
@@ -644,7 +644,7 @@ ticket_odds = {
         home=1.61),
 }
 
-bets_ticket = build_production_bets(ticket_board, today=TODAY, odds_index=ticket_odds,
+bets_ticket = build_production_bets(ticket_board, require_bookable=False, today=TODAY, odds_index=ticket_odds,
                                      max_odds_cap=2.00, min_odds_floor=1.20)
 
 # Collect all legs from Acca A, split accas, and singles
@@ -691,7 +691,7 @@ pref_odds = {
     ("Pref", "Fallback"): _fx_ticket("Pref", "Fallback", home=1.55, over25=1.45),
     ("OnlyFallback", "X"): _fx_ticket("OnlyFallback", "X", home=1.80, over25=2.10),
 }
-bets_pref = build_production_bets(pref_board, today=TODAY, odds_index=pref_odds)
+bets_pref = build_production_bets(pref_board, require_bookable=False, today=TODAY, odds_index=pref_odds)
 pref_legs = {}
 if bets_pref.acca_a:
     for l in bets_pref.acca_a.legs:

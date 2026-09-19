@@ -66,6 +66,10 @@ from typing import Any, Callable, Iterator, List, Optional
 from engine import markets as mkt
 from engine.markets import blend_toward_market
 from engine.mes import edge_diff, mes_numeric_ev
+# Bookability gate (Architect 2026-09-19). Imported from the booking layer
+# because that layer is what knows what it can drive; selection asks rather
+# than keeping a second, drifting opinion.
+from booking.bookability import leg_is_bookable
 
 ACCA_A_MAX = 5          # the headline acca holds the top 4-5 confidence legs
 HEADLINE_MIN_LEGS = 4   # below this, Acca A is a shortened acca, never padded
@@ -116,7 +120,12 @@ class AccaLeg:
     price_basis: str = "quoted"
     sportybet_fixture_id: Optional[str] = None  # set by the booking step
     verification_stamp: Optional[str] = None    # "[✓ SportyBet ✓ FlashScore]" or "[⚠ unverified]" from pre-production gate
-    status: str = "capital"  # "capital" (at/under MAX_ODDS_CAP, eligible for Acca A/singles) or "watchlist" (above it, not capital)
+    status: str = "capital"  # "capital" (at/under MAX_ODDS_CAP, eligible for Acca A/singles), "watchlist" (above it, not capital), or "unbookable" (cleared every bar but the booking driver cannot place it)
+    # Why a leg that cleared the odds cap and the edge bar still cannot be
+    # backed: unmapped competition, or a market with no proven drive path. Empty
+    # for every bookable leg. Carried so the board can report the exclusion
+    # instead of the leg just vanishing (HR35).
+    unbookable_reason: str = ""
 
 
 @dataclass
@@ -282,7 +291,8 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
                          max_odds_cap: float = MAX_ODDS_CAP,
                          min_odds_floor: float = MIN_ODDS_FLOOR,
                          preferred_ceiling: float = PREFERRED_ODDS_CEILING,
-                         clv_logger: Optional[Callable[[str, str, float, float, float, float], None]] = None) -> tuple[Optional[AccaLeg], Optional[AccaLeg]]:
+                         clv_logger: Optional[Callable[[str, str, float, float, float, float], None]] = None,
+                         require_bookable: bool = True) -> tuple[Optional[AccaLeg], Optional[AccaLeg]]:
     """The best markets for one fixture — returns (capital_leg, watchlist_leg).
 
     Returns a tuple where:
@@ -378,6 +388,7 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
     best_capital: Optional[AccaLeg] = None
     best_capital_preferred: Optional[AccaLeg] = None  # tracks best leg in 1.20-1.50 zone
     best_watchlist: Optional[AccaLeg] = None  # tracks best leg with odds > max_odds_cap
+    best_unbookable: Optional[AccaLeg] = None  # cleared every bar, cannot be placed
     for market in mkt.EDGE_MARKETS:
         # Get probability: use model probs if available, otherwise fall back to
         # market-implied probability from the odds (for newly promoted teams).
@@ -491,12 +502,37 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
         # which reports as "no capital-eligible pick" -- the honest result.
         has_positive_edge = edge is not None and edge > 0
         within_cap = price <= max_odds_cap
-        in_capital_zone = within_cap and has_positive_edge
+        # BOOKABILITY GATE (Architect directive 2026-09-19). A leg the booking
+        # driver cannot put on a SportyBet slip is not a bet, however good its
+        # edge. On the 2026-09-19 board 6 of 20 legs could not be driven and 3
+        # of 4 accas produced no code — the edges were spent on selections that
+        # died at the betslip. The gate asks the booking layer (which is what
+        # knows) rather than proxying via competition prestige: measured
+        # bookability, not a guess about which clubs are obscure.
+        if require_bookable:
+            bookable, unbookable_reason = leg_is_bookable(_league_of(bf.fixture), market)
+        else:
+            # Callers testing a DIFFERENT rule (the same-day gate, the odds cap,
+            # the ranking) use synthetic leagues like "Test League" that are not
+            # in the booking registry and never will be. Gating them would make
+            # every such test assert on an empty board and say nothing about the
+            # rule under test. Production never passes False.
+            bookable, unbookable_reason = True, ""
+
+        in_capital_zone = within_cap and has_positive_edge and bookable
         # Status still reflects ODDS, per ID420: "watchlist" means price > 2.00
         # and is for Architect review. A negative-edge leg inside the cap is
         # neither -- it is simply not a bet, and is dropped below rather than
         # relabelled, so the watchlist keeps meaning what ID420 says it means.
-        status = "capital" if in_capital_zone else "watchlist"
+        #
+        # "unbookable" is a THIRD state, deliberately not folded into either:
+        # the leg cleared the odds cap and the edge bar and would have been
+        # capital, and the only thing wrong with it is that we cannot place it.
+        # Calling that "watchlist" would overload ID420 with a different fact.
+        if within_cap and has_positive_edge and not bookable:
+            status = "unbookable"
+        else:
+            status = "capital" if in_capital_zone else "watchlist"
         # Skip leg if probability or price is not available (needed for Acca calculation)
         if prob is None or price is None:
             continue
@@ -517,6 +553,7 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
             edge=edge,
             status=status,
             price_basis=basis,
+            unbookable_reason=unbookable_reason,
         )
         if in_capital_zone:
             # Capital-eligible leg: consider all legs in this zone regardless of price zone
@@ -524,6 +561,13 @@ def _best_deployable_leg(bf, odds_index: Optional[dict],
             if (best_capital_preferred is None or (edge is not None and (best_capital_preferred.edge is None or edge > best_capital_preferred.edge))
                     or (edge == best_capital_preferred.edge and prob > best_capital_preferred.prob)):
                 best_capital_preferred = leg
+        elif has_positive_edge and status == "unbookable":
+            # Cleared every betting bar and cannot be placed. Tracked so the
+            # board can say so — the Architect asked to build from the bookable
+            # pool, not to be told nothing about what the pool excluded (HR35).
+            if (best_unbookable is None or (edge is not None and (best_unbookable.edge is None or edge > best_unbookable.edge))
+                    or (edge == best_unbookable.edge and prob > best_unbookable.prob)):
+                best_unbookable = leg
         elif has_positive_edge:
             # Watchlist leg (price above the cap) — track the best for review.
             #
@@ -621,6 +665,7 @@ def build_production_bets(
     min_odds_floor: Optional[float] = MIN_ODDS_FLOOR,
     preferred_ceiling: Optional[float] = PREFERRED_ODDS_CEILING,
     clv_logger: Optional[Callable[[str, str, float, float, float, float], None]] = None,
+    require_bookable: bool = True,
 ) -> ProductionBets:
     """Build the day's production output: Acca A + split accas + singles.
 
@@ -674,7 +719,8 @@ def build_production_bets(
                                    max_odds_cap=cap,
                                    min_odds_floor=floor,
                                    preferred_ceiling=preferred,
-                                   clv_logger=clv_logger)
+                                   clv_logger=clv_logger,
+                                   require_bookable=require_bookable)
         if capital_leg is not None:
             # Write-back (see docstring) — run before produced_bet.record so every
             # downstream consumer agrees with the bookable leg.
@@ -726,7 +772,8 @@ def build_accas(board, today: Optional[str] = None,
                 agreement_band: Optional[float] = None,
                 max_odds_cap: Optional[float] = MAX_ODDS_CAP,
                 min_odds_floor: Optional[float] = MIN_ODDS_FLOOR,
-                preferred_ceiling: Optional[float] = PREFERRED_ODDS_CEILING) -> List[Acca]:
+                preferred_ceiling: Optional[float] = PREFERRED_ODDS_CEILING,
+                require_bookable: bool = True) -> List[Acca]:
     """LEGACY — the acca set only (Acca A + split accas, no singles).
 
     Kept for callers that want just the accumulator set; the production flow
@@ -735,7 +782,8 @@ def build_accas(board, today: Optional[str] = None,
                                 agreement_band=agreement_band,
                                 max_odds_cap=max_odds_cap,
                                 min_odds_floor=min_odds_floor,
-                                preferred_ceiling=preferred_ceiling)
+                                preferred_ceiling=preferred_ceiling,
+                                require_bookable=require_bookable)
     return ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
 
 

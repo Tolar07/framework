@@ -48,6 +48,11 @@ SPORTYBET_LEAGUES: dict[str, BookmakerLeague] = {
     "Conference League":   BookmakerLeague("International Clubs", "UEFA Conference League"),
     "Primeira Liga":       BookmakerLeague("Portugal", "Liga Portugal"),
     "Liga Portugal":       BookmakerLeague("Portugal", "Liga Portugal"),   # acca payload alias
+    # Added 2026-09-19: the largest competition on that day's board (11
+    # fixtures) and absent from BOTH maps, so no fixture in it could be priced
+    # or booked. SportyBet spells it without the cedilla.
+    "Taça de Portugal":    BookmakerLeague("Portugal", "Taca de Portugal"),
+    "Andorran Primera Divisió": BookmakerLeague("Andorra", "Primera Divisio"),
     "Premier League":      BookmakerLeague("England", "Premier League"),
     "La Liga":             BookmakerLeague("Spain", "La Liga"),
     "LaLiga":              BookmakerLeague("Spain", "LaLiga"),   # acca payload alias

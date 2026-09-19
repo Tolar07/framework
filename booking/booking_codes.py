@@ -655,6 +655,131 @@ def _click_totals_on_match_page(page: Page, fx: dict, market_key: str,
         return False
 
 
+# Match-page market header (EXACT, lowercased) + outcome cell label (EXACT) for
+# the markets that cannot be driven from the league page.
+#
+# The labels here are what SportyBet actually RENDERS, read off the live match
+# page on 2026-09-19 (sr:match:71945284). _MARKET_UI_MAP carried glyph codes
+# instead — DC_1X -> "1X", DNB_HOME -> "1" — and those strings appear nowhere in
+# the DOM, so every Draw No Bet and Double Chance leg searched for text that did
+# not exist and silently never registered. 0/6 driven on the 2026-09-19 board,
+# including Serie A and 2. Bundesliga, while totals went 13/13.
+#
+# The header must match EXACTLY because the page also carries promotional
+# variants at DIFFERENT prices: "1X2 - 1UP", "1X2 - 2UP", "1X2 - Never Down",
+# "Double Chance - 1UP", "1st Half - Draw No Bet", "2nd Half - Draw No Bet".
+# A substring match on "Draw No Bet" or "Double Chance" books the wrong market.
+_MATCH_PAGE_MARKETS: dict[str, tuple[str, str]] = {
+    "DNB_HOME": ("draw no bet", "Home"),
+    "DNB_AWAY": ("draw no bet", "Away"),
+    "DC_1X": ("double chance", "Home or Draw"),
+    "DC_12": ("double chance", "Home or Away"),
+    "DC_X2": ("double chance", "Draw or Away"),
+    "1X2_HOME": ("1x2", "Home"),
+    "1X2_DRAW": ("1x2", "Draw"),
+    "1X2_AWAY": ("1x2", "Away"),
+}
+
+
+def _click_exact_market_on_match_page(page: Page, fx: dict, market_key: str,
+                                     expected_price: Optional[float] = None) -> bool:
+    """Open the fixture's match page and click a DNB / DC / 1X2 outcome there.
+
+    Same shape as _click_totals_on_match_page (which is proven): navigate by
+    category/tournament/event id, tag the intended cell in the DOM under an
+    EXACT market header, cross-check the visible price, then let Playwright do
+    the clicking so we get real actionability handling.
+
+    Returns True only if a selection was actually added — the caller's landing
+    check re-confirms against the slip counter regardless.
+    """
+    target = _MATCH_PAGE_MARKETS.get(market_key)
+    if not target:
+        return False
+    header_want, label_want = target
+
+    event_id = (fx.get("event_id") or "").strip()
+    if not event_id.startswith("sr:match:"):
+        return False
+
+    league = fx.get("league") or ""
+    cat_tour = SPORTYBET_CATEGORY_TOURNAMENT.get(league)
+    if not cat_tour or tuple(cat_tour)[:2] == (0, 0):
+        return False
+    cat_id, tour_id = tuple(cat_tour)[:2]
+
+    url = (f"https://www.sportybet.com/ng/sport/football/"
+           f"sr:category:{cat_id}/sr:tournament:{tour_id}/{event_id}")
+    try:
+        page.goto(url, wait_until="domcontentloaded", timeout=45000)
+        try:
+            page.wait_for_selector("div.m-table-row.m-outcome", timeout=20000)
+        except Exception:
+            pass
+    except Exception:
+        return False
+
+    tagged = page.evaluate(
+        """([headerWant, labelWant]) => {
+            const NL = String.fromCharCode(10);
+            document.querySelectorAll('[data-olp-target]').forEach(
+                e => e.removeAttribute('data-olp-target'));
+            const rows = [...document.querySelectorAll('div.m-table-row.m-outcome')];
+            for (const row of rows) {
+                let p = row, header = null;
+                for (let i = 0; i < 8 && p; i++) {
+                    p = p.parentElement;
+                    if (!p) break;
+                    const h = p.querySelector("[class*='market-title'],[class*='title']");
+                    if (h && h.innerText && h.innerText.trim().length < 70) {
+                        header = h.innerText.trim().split(NL)[0].trim().toLowerCase();
+                        break;
+                    }
+                }
+                // EXACT header only — the 1UP/2UP/half variants are different bets.
+                if (header !== headerWant) continue;
+                // The outcome cell's own text is the bare label ("Home",
+                // "Home or Draw"); require an exact leading match so "Home"
+                // cannot select "Home or Draw", and take the innermost cell.
+                const cells = [...row.querySelectorAll('*')].filter(c => {
+                    const t = (c.innerText || '').trim();
+                    return (t === labelWant || t.startsWith(labelWant + NL))
+                           && c.children.length <= 3;
+                });
+                const cell = cells.length ? cells[cells.length - 1] : null;
+                if (!cell) continue;
+                cell.setAttribute('data-olp-target', '1');
+                return {ok: true, text: (row.innerText || '').split(NL).join(' | ')};
+            }
+            return {ok: false};
+        }""",
+        [header_want, label_want],
+    )
+    if not tagged or not tagged.get("ok"):
+        return False
+
+    # Price cross-check against the API's quote, same rule as totals: if no
+    # visible price is near what the board priced, we are on a different market
+    # than intended — refuse rather than book something never priced.
+    if expected_price:
+        import re as _re
+        nums = [float(x) for x in _re.findall(r"\d+\.\d+", tagged.get("text", ""))]
+        if nums and not any(abs(n - expected_price) <= _PRICE_TOLERANCE * expected_price
+                            for n in nums):
+            print(f"  [SKIP] {market_key}: no price near {expected_price} in "
+                  f"{tagged.get('text')!r} — refusing to click")
+            return False
+
+    try:
+        loc = page.locator("[data-olp-target='1']").first
+        loc.wait_for(state="visible", timeout=10000)
+        loc.click()
+        page.wait_for_timeout(1200)
+        return True
+    except Exception:
+        return False
+
+
 def _click_totals_on_league_page(page: Page, row, market_key: str) -> bool:
     """Click an Over/Under outcome on a league-page match row with retry logic.
 
@@ -1304,10 +1429,13 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                     # match page lists every line, so try it before giving up.
                     ok = _click_totals_on_match_page(
                         page, fx, leg["market_key"], expected_price=leg.get("price"))
-                    if ok:
-                        # We navigated away from the league page to get here.
-                        current_league_on_page = None
-                    else:
+                    # Reset REGARDLESS of outcome: the call navigates to the
+                    # match URL before it can fail, so on failure we were still
+                    # left off the league page while the tracker said we were on
+                    # it — the next leg in the same league then skipped
+                    # navigation and looked for a league row on a match page.
+                    current_league_on_page = None
+                    if not ok:
                         entry["reason"] = (
                             f"line not available on league or match page "
                             f"for {leg['market_key']}")
@@ -1329,44 +1457,31 @@ def _book_one_acca(page: Page, acca: dict, cache_by_league: dict) -> dict:
                 else:
                     current_league_on_page = None
                     entry["reason"] = "league page did not load"
-            elif leg.get("market_key") in ("DC_1X", "DC_X2", "DC_12"):
-                # Double Chance — handle on match page (SportyBet renders DC under
-                # "Double Chance" tab on the match page). The league page only
-                # shows 1X2 and Totals markets. Navigate to match page and click
-                # the DC tab.
-                if current_league_on_page != league:
-                    mapping = SPORTYBET_LEAGUES.get(league)
-                    nav_ok = bool(mapping) and _navigate_to_league_local(
-                        page, mapping.country, mapping.league,
-                        registry_league=league)
-                    if nav_ok:
-                        current_league_on_page = league
-                    else:
-                        current_league_on_page = None
-                if current_league_on_page == league:
-                    ok = _click_market_on_match_page(page, leg["market_key"], fx["fixture_id"])
-                    if not ok:
-                        entry["reason"] = f"DC selection could not be driven for {leg['market_key']}"
-                else:
-                    entry["reason"] = "league page did not load"
-            elif leg.get("market_key") in ("DNB_HOME", "DNB_AWAY"):
-                # Draw No Bet — handle on match page (SportyBet renders DNB under
-                # "Draw No Bet" tab on the match page).
-                if current_league_on_page != league:
-                    mapping = SPORTYBET_LEAGUES.get(league)
-                    nav_ok = bool(mapping) and _navigate_to_league_local(
-                        page, mapping.country, mapping.league,
-                        registry_league=league)
-                    if nav_ok:
-                        current_league_on_page = league
-                    else:
-                        current_league_on_page = None
-                if current_league_on_page == league:
-                    ok = _click_market_on_match_page(page, leg["market_key"], fx["fixture_id"])
-                    if not ok:
-                        entry["reason"] = f"DNB selection could not be driven for {leg['market_key']}"
-                else:
-                    entry["reason"] = "league page did not load"
+            elif leg.get("market_key") in ("DC_1X", "DC_X2", "DC_12",
+                                           "DNB_HOME", "DNB_AWAY"):
+                # Double Chance and Draw No Bet. REWRITTEN 2026-09-19.
+                #
+                # Both branches used to navigate to the LEAGUE page and then
+                # call _click_market_on_match_page, which searches for the
+                # _MARKET_UI_MAP labels — glyph codes ("1X", "X2", "1", "2")
+                # that SportyBet renders nowhere. The live match page reads
+                # "Home or Draw" / "Draw or Away" / "Home" / "Away". So the
+                # driver hunted for text that did not exist, the tab click
+                # exhausted its retries, and the leg was reported BOOKED
+                # anyway (the landing check now catches that part).
+                #
+                # Neither market exists on the league page at all, so the
+                # league navigation was pure cost. Go straight to the match
+                # page, which is the same route that made totals work.
+                ok = _click_exact_market_on_match_page(
+                    page, fx, leg["market_key"], expected_price=leg.get("price"))
+                # The driver navigates before it can fail — see the totals
+                # branch above for why this resets either way.
+                current_league_on_page = None
+                if not ok:
+                    entry["reason"] = (
+                        f"{leg['market_key']} not available on match page "
+                        f"(exact header/outcome not found)")
             elif leg.get("market_key", "").startswith("HT_FT_"):
                 # HT/FT markets — handle via match page
                 if current_league_on_page != league:

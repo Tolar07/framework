@@ -169,18 +169,50 @@ SPORTYBET_CATEGORY_TOURNAMENT: dict[str, tuple[int, int]] = {
     "Georgian Erovnuli Liga": (270, 704),
     "Republic of Ireland Premier Division": (51, 192),
 
-    # Not listed by SportyBet's football menu at capture time — left
-    # unresolved on purpose. A guessed id produces confident wrong data.
-    "Taça de Portugal": (0, 0),
+    # RESOLVED 2026-09-19. These sat at (0, 0) — "not listed by SportyBet's
+    # football menu" — but the menu DOES list every one of them. The discovery
+    # script compares OLP's league name against SportyBet's, and the two
+    # disagree: SportyBet files the Austrian top flight as Austria/"Bundesliga"
+    # (not "Austrian Bundesliga") and the Czech one as Czechia/"1. Liga" (not
+    # "Czech First League"). So the script reported UNMATCHED and the comment
+    # above recorded that as absence. It was a name-matching failure, the same
+    # class of bug as the SportyBet cache lookups.
+    #
+    # Cost: 51 of 241 fixtures on the 2026-09-19 board (21%) were unbookable,
+    # including all 11 Taça de Portugal fixtures — the single largest
+    # competition on that board.
+    #
+    # Each pair below is transcribed from the menu dump
+    # (scripts/discover_sportybet_ids.py --all), country node then tournament,
+    # and verified as the FIRST division where a country has several tiers.
+    "Taça de Portugal": (44, 336),          # Portugal / Taca de Portugal
+    "Austrian Bundesliga": (17, 45),        # Austria / Bundesliga
+    "Czech First League": (18, 172),        # Czechia / 1. Liga (FNL is tier 2)
+    "Danish Superliga": (8, 39),            # Denmark / Superliga
+    "Greek Super League": (67, 185),        # Greece / Super League
+    "Super League Greece": (67, 185),       # same competition, alias spelling
+    "Northern Irish Premiership": (130, 200),   # Northern Ireland / Premiership
+    "Welsh Premier League": (131, 254),     # Wales / Cymru Premier
+    "Bosnian Premier League": (158, 222),   # Bosnia & Herzegovina / Premijer Liga
+    "Icelandic Urvalsdeild": (10, 188),     # Iceland / Besta deild (1. deild is tier 2)
+    "North Macedonian First League": (159, 199),  # North Macedonia / 1. MFL
+    "Moldovan Super Liga": (279, 685),      # Moldova / Super Liga
+    "Kosovan Superliga": (565, 14189),      # Kosovo / Superliga
+    "Faroe Islands Premier League": (201, 673),   # Faroe Islands / Premier League
+    "Andorran Primera Divisió": (376, 742),  # Andorra / Primera Divisio
+    "Sanmarinese Campionato": (387, 738),   # San Marino / Campionato Sammarinese
+    # Montenegro: the earlier note said the menu listed only "2. CFL" (the
+    # second division) and mapping the top flight onto it would file tier-2
+    # fixtures as tier-1. The menu now lists "1. CFL" — the first division —
+    # so this maps to that and NOT to 2. CFL.
+    "Montenegrin First League": (386, 154),  # Montenegro / 1. CFL
+
+    # Still genuinely absent from the menu — checked 2026-09-19, not assumed.
+    # These stay unresolved; a guessed id produces confident wrong data.
     "UEFA Super Cup": (0, 0),
-    "Austrian Bundesliga": (0, 0),
-    "Czech First League": (0, 0),
-    "Danish Superliga": (0, 0),
-    "Greek Super League": (0, 0),
-    "Super League Greece": (0, 0),
-    # Montenegrin First League stays absent: the football menu lists only
-    # "2. CFL" for Montenegro, which is the SECOND division. Mapping the top
-    # flight onto it would file second-tier fixtures as first-tier.
+    "Luxembourg National Division": (0, 0),
+    "Gibraltarian National League": (0, 0),
+    "Liechtensteiner Cup": (0, 0),
 }
 
 @dataclass

@@ -15,7 +15,16 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const sqlite3 = require('sqlite3').verbose();
+// node:sqlite, not the sqlite3 npm package (fixed 2026-09-19).
+//
+// The 'OLP XDV Daily Result Verification' scheduled task had been exiting 1
+// every night on "Cannot find module 'sqlite3'" -- the dependency was never
+// installed. The task reported failure faithfully and nothing was reading it,
+// so result verification had simply not been running.
+//
+// node:sqlite ships with Node (>=22) and needs no native build, so this
+// cannot break again by an npm install being skipped on a fresh machine.
+const { DatabaseSync } = require('node:sqlite');
 
 const REPO_ROOT = 'c:/Users/Motunrayo/omniroute test';
 const DB_PATH = path.join(REPO_ROOT, 'olp_xdv_agent', 'olp_xdv', 'brain', 'olp.db');
@@ -47,14 +56,16 @@ function runCmd(cmd, cwd = REPO_ROOT) {
 
 function runSQL(query) {
   return new Promise((resolve, reject) => {
-    const db = new sqlite3.Database(DB_PATH, sqlite3.OPEN_READONLY, (err) => {
-      if (err) return reject(err);
-    });
-    db.all(query, [], (err, rows) => {
-      db.close();
-      if (err) return reject(err);
+    let db;
+    try {
+      db = new DatabaseSync(DB_PATH, { readOnly: true });
+      const rows = db.prepare(query).all();
       resolve({ success: true, rows });
-    });
+    } catch (err) {
+      reject(err);
+    } finally {
+      if (db) { try { db.close(); } catch (_) { /* already closed */ } }
+    }
   });
 }
 

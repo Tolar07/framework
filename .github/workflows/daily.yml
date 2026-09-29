@@ -50,7 +50,13 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
-        run: python run_daily.py
+        # Paper-calibration board delivery to Telegram is paused at the
+        # Architect's request. --no-send still builds the board, logs the
+        # paper legs, and commits the CLV log back, so the Phase 3 gate keeps
+        # accumulating; it just stops the daily push to the phone. Remove
+        # --no-send to resume delivery. The failure-alert step below is
+        # unaffected and will still fire if a run dies.
+        run: python run_daily.py --no-send
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.

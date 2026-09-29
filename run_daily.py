@@ -244,11 +244,12 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     odds_index: dict = {}
     for lg in leagues:
         try:
-            fixtures, oflags = odds_mod.fetch_odds(lg)
+            # Chained source: the-odds-api first, then football-data fixtures
+            # (free, no quota) so an exhausted metered quota no longer means
+            # zero entry prices — see pipeline.odds.fetch_odds_chained.
+            fixtures, oflags = odds_mod.fetch_odds_chained(lg)
             odds_index.update(odds_mod.index_by_fixture(fixtures))
             all_flags += oflags
-        except odds_mod.QuotaExhausted as e:
-            all_flags.append(f"{lg}: {e}")
         except Exception as e:
             all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
 

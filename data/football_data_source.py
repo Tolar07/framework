@@ -14,6 +14,7 @@ from __future__ import annotations
 import csv
 import io
 import json
+import time
 from dataclasses import dataclass, asdict, field
 from datetime import datetime
 from pathlib import Path
@@ -363,12 +364,26 @@ def parse_csv_text(league: str, csv_text: str, season: Optional[str] = None,
 
 DEFAULT_CACHE_DIR = Path(__file__).parent / "cache"
 
+# A cached CSV is trusted only for this long, then refetched. The file gains
+# rows every matchday while a season is in progress: completed seasons never
+# change, but the in-progress one does, and an all-seasons Extra file mixes both
+# in a single cache entry. Without an age limit an existing cache (or one a CI
+# job restores from a previous run) is read forever, so grade_open_legs() keeps
+# reading a results table frozen before the latest fixtures were published,
+# never settles those legs, and the Phase 3 CLV gate stalls at 0. 12h is
+# comfortably fresh for a once-a-day run while still sparing the source a fetch
+# on repeated same-day runs. football-data.co.uk is a free CSV with no quota, so
+# refetching daily costs nothing (unlike the odds API, which is metered).
+CACHE_MAX_AGE_SECONDS = 12 * 60 * 60
+
 
 def load_league(league: str, season: str, cache_dir: str | Path = DEFAULT_CACHE_DIR,
                  book_preference: tuple[str, ...] = DEFAULT_BOOK_PREFERENCE
                  ) -> tuple[list[MatchResult], list[dict]]:
     """Fetch (or use cache) + parse. Writes a cache file so repeated runs don't
-    hammer the source, and so results survive a sandbox reset."""
+    hammer the source, and so results survive a sandbox reset. A cache older
+    than CACHE_MAX_AGE_SECONDS is refetched so the results table can't freeze in
+    the past (see the constant's note)."""
     Path(cache_dir).mkdir(parents=True, exist_ok=True)
     # Extra-league files contain EVERY season in one download, so they're cached
     # once per league rather than once per league+season (and the season filter
@@ -377,11 +392,24 @@ def load_league(league: str, season: str, cache_dir: str | Path = DEFAULT_CACHE_
     cache_file = (Path(cache_dir) / f"{stem}_all.csv" if league in EXTRA_CODES
                   else Path(cache_dir) / f"{stem}_{season}.csv")
 
-    if cache_file.exists():
+    cache_fresh = (cache_file.exists()
+                   and (time.time() - cache_file.stat().st_mtime) < CACHE_MAX_AGE_SECONDS)
+
+    if cache_fresh:
         csv_text = cache_file.read_text(encoding="utf-8")
     else:
-        csv_text = fetch_csv_text(league, season)
-        cache_file.write_text(csv_text, encoding="utf-8")
+        try:
+            csv_text = fetch_csv_text(league, season)
+            cache_file.write_text(csv_text, encoding="utf-8")
+        except Exception:
+            # Refetch failed (e.g. no network). A stale cache still beats losing
+            # the table entirely — a day-old result set is better than grading
+            # nothing — so fall back to it and let the next run try again. With
+            # no cache at all there is nothing to fall back to, so re-raise.
+            if cache_file.exists():
+                csv_text = cache_file.read_text(encoding="utf-8")
+            else:
+                raise
 
     return parse_csv_text(league, csv_text, season=season,
                            book_preference=book_preference)

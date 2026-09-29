@@ -321,6 +321,47 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
     return out, flags
 
 
+def fetch_odds_chained(league: str) -> tuple[list[FixtureOdds], list[str]]:
+    """Live prices with a fallback source. Tries the-odds-api first; if that is
+    quota-exhausted, has no key for this league, errors, or returns nothing,
+    falls back to football-data.co.uk's fixtures.csv (free, no quota, main
+    leagues only). Returns (fixtures, flags) — the first source that yields any
+    fixtures wins; provenance is recorded on each FixtureOdds and in the flags.
+
+    This is what stops a single metered source going blind from freezing the
+    Phase 2 paper log: when the odds API is exhausted, covered leagues still get
+    a real entry price from the free source instead of NO DATA — PENDING."""
+    flags: list[str] = []
+    try:
+        fixtures, oflags = fetch_odds(league)
+        flags += oflags
+        if fixtures:
+            return fixtures, flags
+        flags.append(f"{league}: the-odds-api returned no fixtures — trying "
+                     f"football-data fixtures")
+    except QuotaExhausted as e:
+        flags.append(f"{league}: {e}")
+        flags.append(f"{league}: falling back to football-data fixtures (no quota there)")
+    except ValueError as e:
+        # No verified odds-api sport key for this league — go straight to fallback.
+        flags.append(f"{league}: {e} Trying football-data fixtures.")
+    except Exception as e:  # network/HTTP — degrade to the free source, don't die
+        flags.append(f"{league}: the-odds-api fetch failed ({e}) — trying "
+                     f"football-data fixtures")
+
+    # Lazy import keeps the module dependency one-way (the fallback imports the
+    # shared FixtureOdds/MarketQuote from here), avoiding an import cycle.
+    from pipeline.odds_footballdata import fetch_odds_footballdata
+    try:
+        fixtures, fflags = fetch_odds_footballdata(league)
+        flags += fflags
+        return fixtures, flags
+    except Exception as e:
+        flags.append(f"{league}: football-data fixtures fallback failed ({e}) "
+                     f"— NO DATA — PENDING")
+        return [], flags
+
+
 def fixtures_from_odds(league: str, days_ahead: int = 14
                         ) -> tuple[list[tuple[str, str]], dict[tuple[str, str], str], list[str]]:
     """Derive the upcoming fixture LIST from the odds feed.
@@ -336,7 +377,7 @@ def fixtures_from_odds(league: str, days_ahead: int = 14
     separate paper legs on one match."""
     from datetime import date as _date, timedelta as _td
     flags: list[str] = []
-    quotes, oflags = fetch_odds(league)
+    quotes, oflags = fetch_odds_chained(league)
     flags += oflags
 
     horizon = _date.today() + _td(days=days_ahead)

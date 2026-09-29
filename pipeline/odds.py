@@ -163,6 +163,11 @@ class FixtureOdds:
     under25: MarketQuote = field(default_factory=MarketQuote)
     source: str = "the-odds-api.com"
     source_tier: str = "T1"
+    # ID403 F2 provenance stamp. Default SINGLE-SOURCE: one source quoted it.
+    # pipeline.odds_verify.cross_verify() upgrades this to VERIFIED when a second
+    # INDEPENDENT T1 source agrees within tolerance, or CONFLICT when they
+    # disagree. Informational only — nothing branches on it for capital.
+    verification: str = "SINGLE-SOURCE"
     notes: list[str] = field(default_factory=list)
 
 

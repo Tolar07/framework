@@ -47,6 +47,12 @@ jobs:
         env:
           ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
           THESPORTSDB_KEY:    ${{ secrets.THESPORTSDB_KEY }}
+          # Fixtures + results fallback. Without this the run reports
+          # "API_FOOTBALL_KEY environment variable not set" and can't fall back
+          # to API-Football when the odds API is exhausted or TheSportsDB lacks
+          # a league. Harmless while the secret is unset — the key is empty and
+          # the code degrades to NO DATA — PENDING exactly as before.
+          API_FOOTBALL_KEY:   ${{ secrets.API_FOOTBALL_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8

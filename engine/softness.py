@@ -127,5 +127,12 @@ def build_deploy_shortlist(candidates: list) -> list:
     higher-conviction fixture in the next league was silently dropped. Tier A
     outranks tier B, then model conviction descending."""
     eligible = [c for c in candidates if c.softness_tier in DEPLOY_ELIGIBLE_TIERS]
-    ranked = sorted(eligible, key=lambda c: (c.softness_tier, -_confidence(c)))
+    # Tier A over B, then model conviction, then recent form as a tie-breaker:
+    # among near-equal picks the one whose recent form backs it ranks higher.
+    # Form is a bounded [-1,1] context signal (engine.form), never a probability
+    # — it can only reorder, never manufacture, conviction.
+    ranked = sorted(
+        eligible,
+        key=lambda c: (c.softness_tier, -_confidence(c),
+                       -(getattr(c, "form_support", None) or 0.0)))
     return ranked[:DEPLOY_POOL_CAP]

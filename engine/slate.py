@@ -61,6 +61,11 @@ WHITELIST_LEAGUES = (
     "Premier League",
     "La Liga",
     "Champions League",
+    # Second tiers — MIDWEEK coverage (football-data history + SportyBet priced).
+    "La Liga 2",
+    "Serie B",
+    "2. Bundesliga",
+    "Ligue 2",
 )
 
 # --- MARKET GATE (ratified 2026-08-04, evidence below) ----------------------

@@ -53,6 +53,20 @@ SPORTYBET_TOURNAMENT_ID = {
     "Scottish Premiership": "sr:tournament:36",
     "Danish Superliga": "sr:tournament:39",
     "Ekstraklasa": "sr:tournament:202",
+    # Added 2026-09-30 for wider + midweek coverage. IDs verified live against the
+    # SportyBet feed by the event's own country/tournament block (not by name —
+    # names collide across countries), so each maps to the right competition.
+    "Premier League": "sr:tournament:17",      # England
+    "Championship": "sr:tournament:18",         # England (2nd tier)
+    "La Liga": "sr:tournament:8",               # Spain
+    "La Liga 2": "sr:tournament:54",            # Spain (LALIGA HYPERMOTION)
+    "Serie A": "sr:tournament:23",              # Italy
+    "Serie B": "sr:tournament:53",              # Italy
+    "Bundesliga": "sr:tournament:35",           # Germany
+    "2. Bundesliga": "sr:tournament:44",        # Germany
+    "Ligue 1": "sr:tournament:34",              # France
+    "Ligue 2": "sr:tournament:182",             # France
+    "Primeira Liga": "sr:tournament:238",       # Portugal (Liga Portugal)
 }
 
 # SportyBet team name -> model (football-data) key. Verified pairs only; exact
@@ -95,6 +109,117 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "RKS Radomiak Radom": "Radomiak Radom", "Rakow Czestochowa": "Rakow",
         "WKS Slask Wroclaw": "Slask Wroclaw", "Wisla Krakow": "Wisla",
         "Zaglebie Lubin": "Zaglebie",
+    },
+    # --- Added 2026-09-30 for wider/midweek coverage. SportyBet name -> model
+    # (football-data) name, verified against the fitted roster. Only TRUE
+    # same-club mappings are listed; a promoted/relegated club not in the model,
+    # or any name I could not confirm, is left unmapped on purpose — it renders
+    # NO DATA and is flagged for review, never mapped to the wrong club (HR35).
+    "Premier League": {
+        "Sunderland AFC": "Sunderland", "Leeds United": "Leeds",
+        "Man Utd": "Man United", "Manchester United": "Man United",
+        "Manchester City": "Man City", "Newcastle United": "Newcastle",
+        "Nottingham Forest": "Nott'm Forest", "Tottenham Hotspur": "Tottenham",
+        "West Ham United": "West Ham", "Wolverhampton Wanderers": "Wolves",
+        "Brighton & Hove Albion": "Brighton", "AFC Bournemouth": "Bournemouth",
+    },
+    "Championship": {
+        "Middlesbrough FC": "Middlesbrough", "Millwall FC": "Millwall",
+        "Portsmouth FC": "Portsmouth", "Wrexham AFC": "Wrexham",
+        "Birmingham City": "Birmingham", "Blackburn Rovers": "Blackburn",
+        "Charlton Athletic": "Charlton", "Coventry City": "Coventry",
+        "Derby County": "Derby", "Hull City": "Hull", "Ipswich Town": "Ipswich",
+        "Preston North End": "Preston", "Queens Park Rangers": "QPR",
+        "Stoke City": "Stoke", "Swansea City": "Swansea",
+        "West Bromwich Albion": "West Brom", "Sheffield Utd": "Sheffield United",
+        "Sheffield Wednesday": "Sheffield Weds", "Bristol City FC": "Bristol City",
+    },
+    "La Liga": {
+        "Elche CF": "Elche", "Espanyol": "Espanol", "Real Sociedad": "Sociedad",
+        "Athletic Bilbao": "Ath Bilbao", "Atletico Madrid": "Ath Madrid",
+        "Rayo Vallecano": "Vallecano", "Real Betis": "Betis",
+        "Celta Vigo": "Celta", "Deportivo Alaves": "Alaves",
+        "Real Oviedo": "Oviedo", "Girona FC": "Girona", "Levante UD": "Levante",
+        "RCD Mallorca": "Mallorca",
+    },
+    "La Liga 2": {
+        "Burgos CF": "Burgos", "CD Castellon": "Castellon", "Cordoba CF": "Cordoba",
+        "FC Andorra": "Andorra", "Malaga CF": "Malaga",
+        "RC Deportivo de A Coruna": "La Coruna", "Racing Santander": "Santander",
+        "Sporting Gijon": "Sp Gijon", "Real Sociedad San Sebastian B": "Sociedad B",
+        "Albacete Balompie": "Albacete", "AD Ceuta": "Ceuta",
+        "SD Huesca": "Huesca", "UD Las Palmas": "Las Palmas",
+        "Real Zaragoza": "Zaragoza", "Real Valladolid": "Valladolid",
+        "CD Leganes": "Leganes", "CD Mirandes": "Mirandes", "SD Eibar": "Eibar",
+        "Cultural Leonesa": "Cultural Leonesa", "UD Almeria": "Almeria",
+        "Granada CF": "Granada", "Cadiz CF": "Cadiz",
+    },
+    "Serie A": {
+        "AC Milan": "Milan", "Parma Calcio": "Parma", "Como 1907": "Como",
+        "Inter Milan": "Inter", "AS Roma": "Roma", "SS Lazio": "Lazio",
+        "SSC Napoli": "Napoli", "US Lecce": "Lecce", "Torino FC": "Torino",
+        "Udinese Calcio": "Udinese", "Bologna FC": "Bologna",
+        "Cagliari Calcio": "Cagliari", "US Sassuolo": "Sassuolo",
+    },
+    "Serie B": {
+        "Cesena FC": "Cesena", "Modena FC": "Modena", "Palermo FC": "Palermo",
+        "US Avellino": "Avellino", "US Catanzaro": "Catanzaro",
+        "Sampdoria Genoa": "Sampdoria", "Calcio Padova": "Padova",
+        "Carrarese Calcio": "Carrarese", "FC Sudtirol Bolzano": "Sudtirol",
+        "Mantova 1911": "Mantova", "Empoli FC": "Empoli", "SSC Bari": "Bari",
+        "Spezia Calcio": "Spezia", "AC Reggiana": "Reggiana",
+        "US Cremonese": "Cremonese", "Pescara Calcio": "Pescara",
+    },
+    "Bundesliga": {
+        "Bayer Leverkusen": "Leverkusen", "Borussia Dortmund": "Dortmund",
+        "Borussia M´gladbach": "M'gladbach", "Borussia Monchengladbach": "M'gladbach",
+        "Cologne": "FC Koln", "1. FC Koln": "FC Koln",
+        "Eintracht Frankfurt": "Ein Frankfurt", "Hamburger SV": "Hamburg",
+        "Bayern Munich": "Bayern Munich", "VfB Stuttgart": "Stuttgart",
+        "SC Freiburg": "Freiburg", "TSG Hoffenheim": "Hoffenheim",
+        "1. FC Union Berlin": "Union Berlin", "FC Augsburg": "Augsburg",
+        "1. FSV Mainz 05": "Mainz", "SV Werder Bremen": "Werder Bremen",
+    },
+    "2. Bundesliga": {
+        "1 FC Kaiserslautern": "Kaiserslautern", "1. FC Magdeburg": "Magdeburg",
+        "Hannover 96": "Hannover", "Karlsruher SC": "Karlsruhe",
+        "1 FC Nuremberg": "Nurnberg", "1. FC Nurnberg": "Nurnberg",
+        "Arminia Bielefeld": "Bielefeld", "Dynamo Dresden": "Dresden",
+        "Eintracht Braunschweig": "Braunschweig", "VfL Bochum": "Bochum",
+        "Hertha BSC": "Hertha", "Holstein Kiel": "Holstein Kiel",
+        "Fortuna Dusseldorf": "Fortuna Dusseldorf", "SV Darmstadt 98": "Darmstadt",
+        "SpVgg Greuther Furth": "Greuther Furth",
+    },
+    "Ligue 1": {
+        "AJ Auxerre": "Auxerre", "PSG": "Paris SG", "Paris Saint Germain": "Paris SG",
+        "Paris Saint-Germain": "Paris SG", "Olympique Marseille": "Marseille",
+        "Olympique Lyon": "Lyon", "Olympique Lyonnais": "Lyon",
+        "AS Monaco": "Monaco", "LOSC Lille": "Lille", "RC Lens": "Lens",
+        "Stade Rennais": "Rennes", "OGC Nice": "Nice", "Stade Brestois": "Brest",
+        "RC Strasbourg": "Strasbourg", "FC Nantes": "Nantes",
+        "Le Havre AC": "Le Havre", "FC Lorient": "Lorient", "FC Metz": "Metz",
+        "Toulouse FC": "Toulouse", "Angers SCO": "Angers",
+    },
+    "Ligue 2": {
+        "EA Guingamp": "Guingamp", "FC Annecy": "Annecy", "Red Star FC": "Red Star",
+        "US Boulogne": "Boulogne", "Clermont Foot": "Clermont",
+        "Grenoble Foot": "Grenoble", "Nancy-Lorraine": "Nancy",
+        "Rodez Aveyron Football": "Rodez", "Saint-Etienne": "St Etienne",
+        "AS Saint-Etienne": "St Etienne", "Stade Lavallois MFC": "Laval",
+        "USL Dunkerque": "Dunkerque", "Stade de Reims": "Reims",
+        "Montpellier HSC": "Montpellier", "SC Bastia": "Bastia",
+        "Amiens SC": "Amiens", "Pau FC": "Pau FC",
+    },
+    "Primeira Liga": {
+        "FC Arouca": "Arouca", "FC Famalicao": "Famalicao",
+        "Moreirense FC": "Moreirense", "Rio Ave FC": "Rio Ave",
+        "Braga": "Sp Braga", "SC Braga": "Sp Braga", "Sporting": "Sp Lisbon",
+        "Sporting CP": "Sp Lisbon", "Vitoria SC Guimaraes": "Guimaraes",
+        "Casa Pia Lisbon": "Casa Pia", "Estoril Praia": "Estoril",
+        "Estrela Amadora": "Estrela", "Gil Vicente Barcelos": "Gil Vicente",
+        "Nacional da Madeira": "Nacional", "Santa Clara Azores": "Santa Clara",
+        "Alverca Futebol": "Alverca", "FC Porto": "Porto", "SL Benfica": "Benfica",
+        "CD Tondela": "Tondela",
     },
 }
 

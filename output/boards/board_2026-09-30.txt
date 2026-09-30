@@ -3,12 +3,8 @@ Date: 2026-09-30 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero cap
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
-  ⚠ Motor Lublin v Legia / UNDER_2_5: no closing price in source — CLV stays NO DATA — PENDING, never estimated
-  ⚠ Rakow v Gornik Zabrze / UNDER_2_5: no closing price in source — CLV stays NO DATA — PENDING, never estimated
-  ⚠ Piast Gliwice v GKS Katowice / UNDER_2_5: no closing price in source — CLV stays NO DATA — PENDING, never estimated
-  ⚠ Widzew Lodz v Radomiak Radom / UNDER_2_5: no closing price in source — CLV stays NO DATA — PENDING, never estimated
-  ⚠ graded 13 of 13 pending leg(s)
-  ⚠ SportyBet events pulled live
+  ⚠ graded 0 of 11 pending leg(s)
+  ⚠ SportyBet events served from cache (<=60min)
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ Danish Superliga: 6 fixture(s) priced from SportyBet
@@ -29,7 +25,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Rakow v GKS Katowice (Ekstraklasa): CAUTION — recent form runs against the model's lean (form — home: P18 3pts, last5 3/15 | away: P9 12pts, last5 9/15)
   ⚠ Cracovia v Zaglebie (Ekstraklasa): CAUTION — recent form runs against the model's lean (form — home: P13 8pts, last5 3/15 | away: P7 15pts, last5 8/15)
   ⚠ Jagiellonia v Gornik Zabrze (Ekstraklasa): CAUTION — recent form runs against the model's lean (form — home: P10 12pts, last5 6/15 | away: P1 22pts, last5 13/15)
-  ⚠ logged 11 new paper leg(s) with a live entry price
+  ⚠ logged 0 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 
@@ -203,16 +199,3 @@ Capital authority: THE ARCHITECT. Nothing here is live until the Architect deplo
 
 VERIFY RESULTS
 Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
-Rakow v Gornik Zabrze | 1-2 | 1X2_DRAW | entry 3.5 / close 3.38 | CLV +3.55% | MISS
-Widzew Lodz v Radomiak Radom | 0-0 | 1X2_DRAW | entry 3.9 / close 3.89 | CLV +0.26% | HIT
-Motor Lublin v Legia | 2-3 | 1X2_HOME | entry 3.7 / close 3.42 | CLV +8.19% | MISS
-Motor Lublin v Legia | 2-3 | 1X2_DRAW | entry 3.7 / close 3.5 | CLV +5.71% | MISS
-Motor Lublin v Legia | 2-3 | UNDER_2_5 | entry 2.17 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Rakow v Gornik Zabrze | 1-2 | UNDER_2_5 | entry 1.85 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Lech Poznan v Jagiellonia | 2-1 | 1X2_DRAW | entry 4.4 / close 4.31 | CLV +2.09% | MISS
-Piast Gliwice v GKS Katowice | 3-0 | 1X2_DRAW | entry 3.65 / close 3.55 | CLV +2.82% | MISS
-Rakow v Gornik Zabrze | 1-2 | 1X2_HOME | entry 2.6 / close 2.61 | CLV -0.38% | MISS
-Piast Gliwice v GKS Katowice | 3-0 | UNDER_2_5 | entry 2.36 / close NO DATA — PENDING | CLV NO DATA — PENDING | MISS
-Widzew Lodz v Radomiak Radom | 0-0 | UNDER_2_5 | entry 2.34 / close NO DATA — PENDING | CLV NO DATA — PENDING | HIT
-Lech Poznan v Rakow | 1-0 | 1X2_DRAW | entry 4.3 / close 4.25 | CLV +1.18% | MISS
-Rakow v Motor Lublin | 2-1 | 1X2_HOME | entry 1.72 / close 1.88 | CLV -8.51% | HIT

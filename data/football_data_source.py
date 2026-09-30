@@ -390,6 +390,13 @@ def load_league(league: str, season: str, cache_dir: str | Path = DEFAULT_CACHE_
     hammer the source, and so results survive a sandbox reset. A cache older
     than CACHE_MAX_AGE_SECONDS is refetched so the results table can't freeze in
     the past (see the constant's note)."""
+    # National-team competitions come from the international results dataset,
+    # not football-data.co.uk (clubs only). Imported lazily: that module imports
+    # MatchResult from here. Season is irrelevant — it's a rolling window.
+    from data import international_source as _intl
+    if league in _intl.INTERNATIONAL_LEAGUES:
+        results, skipped, _flags = _intl.load_results(league)
+        return results, skipped
     Path(cache_dir).mkdir(parents=True, exist_ok=True)
     # Extra-league files contain EVERY season in one download, so they're cached
     # once per league rather than once per league+season (and the season filter

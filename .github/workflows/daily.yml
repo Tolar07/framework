@@ -8,7 +8,12 @@ on:
   schedule:
     - cron: "0 21 * * *"    # 22:00 Africa/Lagos — evening prep run
     - cron: "0 6 * * *"     # 07:00 Africa/Lagos — morning refresh run
-  workflow_dispatch:        # manual trigger, for testing without waiting a day
+  workflow_dispatch:        # manual trigger (e.g. to send a given day's board now)
+    inputs:
+      target_date:
+        description: "Build the board for this day (YYYY-MM-DD). Blank = today."
+        required: false
+        default: ""
 
 # Needed so the run can commit the CLV log back — without persistence the
 # paper log resets every run and the Phase 3 gate can never accumulate.
@@ -59,18 +64,30 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
+          SCHEDULE:           ${{ github.event.schedule }}
+          TARGET_DATE_INPUT:  ${{ github.event.inputs.target_date }}
         # TELEGRAM DELIVERY ON — production board + daily heartbeat (Architect's
         # request 2026-09-30). --only-production sends the canonical board ONLY on
         # days with real picks; --heartbeat sends a short 'system alive' ping
         # EVERY day. The 22:00 Lagos (21:00 UTC) EVENING run targets TOMORROW's
         # fixtures (--next-day); the 07:00 morning run builds today's card. Manual
         # dispatches build today's by default.
+        # Every run is pinned to ONE day's card: the evening run -> tomorrow,
+        # the morning run -> today, a manual dispatch -> its target_date input
+        # (default today). Inputs pass via env and are format-checked, never
+        # interpolated into the shell directly.
         run: |
           ARGS="--only-production --heartbeat"
-          if [ "${{ github.event.schedule }}" = "0 21 * * *" ]; then
+          if [ "$SCHEDULE" = "0 21 * * *" ]; then
             ARGS="$ARGS --next-day"
+          else
+            T="${TARGET_DATE_INPUT:-$(date -u +%F)}"
+            if ! [[ "$T" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+              echo "invalid target_date '$T' (want YYYY-MM-DD)"; exit 1
+            fi
+            ARGS="$ARGS --target-date $T"
           fi
-          echo "schedule='${{ github.event.schedule }}' -> run_daily.py $ARGS"
+          echo "schedule='$SCHEDULE' -> run_daily.py $ARGS"
           python run_daily.py $ARGS
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes

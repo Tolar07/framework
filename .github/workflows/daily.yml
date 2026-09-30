@@ -56,14 +56,11 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
-        # TELEGRAM DELIVERY ON — production-only (Architect's request 2026-09-30,
-        # after the framework was corrected and re-adopted as canonical: softness
-        # removed, canonical ##########OLP XDV######### board, real SportyBet
-        # booking codes). --only-production delivers ONLY when the run produced
-        # picks (a deploy-eligible fixture or a new paper leg); empty paper-
-        # calibration slates are still committed to the repo but NOT sent, so the
-        # phone stays quiet unless there is real production.
-        run: python run_daily.py --only-production
+        # TELEGRAM DELIVERY ON — production board + daily heartbeat (Architect's
+        # request 2026-09-30). --only-production sends the canonical board ONLY on
+        # days with real picks; --heartbeat sends a short 'system alive' ping
+        # EVERY day (even dry days), so silence never looks like a dead system.
+        run: python run_daily.py --only-production --heartbeat
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.

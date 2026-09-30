@@ -35,7 +35,7 @@ from engine import markets as mkt
 from engine.form import compute_table, fixture_form, form_support as _form_support
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import (render_produce_bet, render_verify_results,
-                                render_canonical_board)
+                                render_canonical_board, render_heartbeat)
 from output import notify
 import orchestrator
 import pipeline.odds as odds_mod
@@ -247,7 +247,8 @@ def _has_production(board: list, logged_count: int) -> bool:
 
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
-        min_mes: float = 0.0, only_production: bool = False) -> str:
+        min_mes: float = 0.0, only_production: bool = False,
+        heartbeat: bool = False) -> str:
     leagues = leagues or DEPLOY_LEAGUES
     today = date.today().isoformat()
     runlog = _mark_started()
@@ -465,9 +466,11 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     # deploy-eligible fixtures) while still committing every board to the repo.
     produced = _has_production(board, logged_count)
     deliver_now = send and (produced or not only_production)
+    board_delivered = False
 
     if deliver_now:
         delivered, notes = notify.deliver(telegram_text, save_to=None)
+        board_delivered = delivered
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
         for n in notes:
@@ -489,6 +492,23 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             reason = "delivery skipped (--no-send)"
         print(f"  board saved to {path}; {reason}")
         _mark(runlog, reason)
+
+    # HEARTBEAT — a short 'system alive' ping sent EVERY day (even dry days), so
+    # silence never looks like a dead system. Best-effort: a heartbeat that fails
+    # to send is logged but does NOT fail the run — the board carries the hard
+    # delivery gate; the heartbeat is informational.
+    if heartbeat and send:
+        try:
+            hb = render_heartbeat(PHASE_LABEL, leagues, status["legs_with_clv"],
+                                  status["mean_clv_pct"], board, board_delivered)
+            hb_ok, hb_notes = notify.deliver(hb, save_to=None)
+            for n in hb_notes:
+                _mark(runlog, f"heartbeat: {n}")
+            print("  heartbeat " + ("delivered" if hb_ok else "NOT delivered"))
+            _mark(runlog, "heartbeat delivered" if hb_ok else "heartbeat NOT delivered")
+        except Exception as e:  # noqa: BLE001 — heartbeat is best-effort
+            _mark(runlog, f"heartbeat error ({e})")
+
     _mark(runlog, "run completed OK")
     return full
 
@@ -505,9 +525,12 @@ if __name__ == "__main__":
                      help="deliver to Telegram ONLY when the run produced picks "
                           "(a deploy-eligible fixture or a new paper leg); an empty "
                           "slate is committed but not sent")
+    ap.add_argument("--heartbeat", action="store_true",
+                     help="send a short 'system alive' heartbeat every day, even on "
+                          "dry days (in addition to the board on pick days)")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
-              only_production=a.only_production)
+              only_production=a.only_production, heartbeat=a.heartbeat)
     print("\n" + out)

@@ -21,6 +21,27 @@ from typing import Optional
 
 DEPLOY_POOL_CAP = 6  # ID402 hard cap on THE CALL
 
+# --- DEPLOY ODDS BAND (Architect's standing rule) ---------------------------
+# A single is only deployable when its price sits inside this band:
+#   * DEPLOY_ODDS_MAX = 2.00 — the hard ceiling. Above 2.0 the market is roughly
+#     90/10 in the bookmaker's favour; the Architect treats anything over 2.0 as
+#     a loss and never deploys it.
+#   * DEPLOY_ODDS_MIN = 1.20 — the floor. Below this the return doesn't justify
+#     the stake; 1.20+ is where the "assured outcome" picks live.
+#   * DEPLOY_ODDS_SAFE = 1.50 — the safest target inside the band, used only to
+#     rank/label; it is not a gate.
+# This narrows what can carry capital (like the MARKET GATE); it never widens it.
+DEPLOY_ODDS_MIN = 1.20
+DEPLOY_ODDS_MAX = 2.00
+DEPLOY_ODDS_SAFE = 1.50
+
+
+def in_deploy_band(price: Optional[float]) -> bool:
+    """True when a decimal price is inside the Architect's deploy band
+    [DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX] (inclusive). A missing price is NOT in
+    band — no price, no deploy (HR35: never assume one)."""
+    return price is not None and DEPLOY_ODDS_MIN <= price <= DEPLOY_ODDS_MAX
+
 # ID401 league whitelist. Membership alone decides eligibility now — no tiers.
 # Every league here is scan- AND deploy-eligible; anything not here is refused
 # (HR34 default-ban), never silently scanned.

@@ -93,4 +93,13 @@ assert "0 pick(s)" in hb_dry and "nothing to bet" in hb_dry, \
     "dry-day heartbeat says there are no picks"
 print("Heartbeat: pick-day + dry-day, states gate + pick count: OK")
 
+# --- board_date: the evening run targets another day; the header must show it ---
+dated = render_canonical_board("Mode A", "Phase 2", ["Eredivisie"], 9, 1.66, [],
+                               [], board_date="2026-10-11")
+assert "Sun 11 Oct 2026" in dated, "board header must show the targeted date"
+hb_dated = render_heartbeat("Phase 2", ["Eredivisie"], 9, 1.66, dry, False,
+                            board_date="2026-10-11")
+assert "Sun 11 Oct 2026" in hb_dated
+print("Targeted board/heartbeat date (board_date): OK")
+
 print("\n✅ ALL CANONICAL BOARD TESTS PASSED")

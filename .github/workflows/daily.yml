@@ -56,13 +56,14 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
-        # TELEGRAM DELIVERY KILLED (Architect's request 2026-09-30): this repo is
-        # NOT the Architect's live framework — it still carries the retired
-        # softness tiering and the wrong board format, and was mistakenly
-        # delivering to the Architect's Telegram. --no-send builds/commits the
-        # board but sends NOTHING to Telegram. Do not restore delivery here; the
-        # correct framework is a separate codebase.
-        run: python run_daily.py --no-send
+        # TELEGRAM DELIVERY ON — production-only (Architect's request 2026-09-30,
+        # after the framework was corrected and re-adopted as canonical: softness
+        # removed, canonical ##########OLP XDV######### board, real SportyBet
+        # booking codes). --only-production delivers ONLY when the run produced
+        # picks (a deploy-eligible fixture or a new paper leg); empty paper-
+        # calibration slates are still committed to the repo but NOT sent, so the
+        # phone stays quiet unless there is real production.
+        run: python run_daily.py --only-production
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.
@@ -74,12 +75,12 @@ jobs:
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
           git push || echo "nothing to push"
 
-      # Failure alert DISABLED alongside the delivery kill (2026-09-30): this
-      # repo must not touch the Architect's Telegram at all while it carries the
-      # retired softness tiering / wrong format. Re-enable (if: failure()) only
-      # once this framework is corrected and re-adopted as canonical.
+      # Failure alert RE-ENABLED (2026-09-30) now that this framework is corrected
+      # and re-adopted as canonical. A failed run is an operational alert, not
+      # paper-calibration noise — it fires only on failure() so the phone hears
+      # about a broken run (no board) but nothing else.
       - name: Report failure to Telegram
-        if: false
+        if: failure()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}

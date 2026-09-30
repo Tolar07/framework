@@ -14,7 +14,8 @@ from datetime import date
 from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
-from engine.slate import DEPLOY_POOL_CAP
+from engine.slate import (DEPLOY_POOL_CAP, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
+                          DEPLOY_ODDS_SAFE)
 from engine import markets as mkt
 from verification.id403 import VerificationResult, Tier, stamp
 
@@ -50,6 +51,11 @@ class BoardFixture:
     best_n_books: int = 0
     best_mes_ev: Optional[float] = None      # model_prob * price - 1
     best_model_prob: Optional[float] = None
+    # The mkt.* KEY of the in-band deploy pick (the market actually chosen for
+    # TABLE 2 / the booking code), set by run_daily's band-aware selection. Kept
+    # separate from best_market (the display string) so the booked outcome and
+    # the headlined single are guaranteed the same market.
+    best_market_key: Optional[str] = None
     # Kickoff date (ISO) of THIS fixture. Carried so a logged leg can be
     # settled against the right match rather than a same-pairing meeting from
     # an earlier season.
@@ -300,6 +306,19 @@ def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
     if key is None:
         return ("NO DATA — PENDING", 0.0)
     return (mkt.display(key, p.home_team, p.away_team), prob)
+
+
+def _deploy_pick(bf: "BoardFixture") -> tuple[str, Optional[float]]:
+    """The market a fixture actually DEPLOYS: the in-band pick run_daily chose
+    (best_market/best_model_prob — priced inside the 1.20–2.00 band), when set.
+    Falls back to the model's best deployable market for previews rendered
+    without attached prices (e.g. tests). This is what TABLE 2 / TABLE 4 / the
+    ACCA show, so the single, the booking code and the displayed pick agree."""
+    if bf.best_market and bf.best_model_prob is not None:
+        return bf.best_market, bf.best_model_prob
+    if bf.probs is not None:
+        return _best_market_desc(bf.probs)
+    return ("NO DATA — PENDING", None)
 
 
 def _dc_cell(p: FixtureProbabilities) -> str:
@@ -587,7 +606,7 @@ def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     for bf in shortlist:
         if bf.probs is None:
             continue
-        pick, prob = _best_market_desc(bf.probs)
+        pick, prob = _deploy_pick(bf)
         if prob:
             legs.append((bf, pick, prob))
     if len(legs) < 2:
@@ -662,13 +681,14 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 rows.append([_canon_short(bf.fixture), "NO DATA — PENDING", "—",
                              "—", "PENDING"])
                 continue
-            pick, prob = _best_market_desc(bf.probs)
+            pick, prob = _deploy_pick(bf)
             trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
+            price = f"@{bf.best_price:.2f}" if bf.best_price else "—"
             rows.append([_canon_short(bf.fixture), pick,
-                         f"{round(prob*100)}%" if prob else "—", trig,
+                         f"{round(prob*100)}%" if prob else "—", price,
                          bf.booking_code or "PENDING"])
         out.append(FENCE)
-        out.append(_col(rows, ["Fixture", "Pick", "Model%", "Deploy at", "Code"]))
+        out.append(_col(rows, ["Fixture", "Pick", "Model%", "Odds", "Code"]))
         out.append(FENCE)
     out.append("")
 
@@ -696,10 +716,12 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     if not ranked:
         out.append("No pick today — nothing cleared the deploy threshold.")
     else:
-        top = max(ranked, key=lambda b: _best_market_desc(b.probs)[1] or 0.0)
-        pick, prob = _best_market_desc(top.probs)
+        top = max(ranked, key=lambda b: _deploy_pick(b)[1] or 0.0)
+        pick, prob = _deploy_pick(top)
+        price = f" @{top.best_price:.2f}" if top.best_price else ""
         out.append(f"Primary single: {_canon_short(top.fixture)} — {pick} "
-                   f"({round((prob or 0)*100)}%) · code {top.booking_code or 'PENDING'}")
+                   f"({round((prob or 0)*100)}%){price} · code "
+                   f"{top.booking_code or 'PENDING'}")
         if accas:
             out.append(f"Acca A: {len(accas[0][1])} legs, model "
                        f"{round(accas[0][2]*100)}% · code {acca_code or 'PENDING'}")
@@ -718,6 +740,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                      "SportyBet today (HR35: shown, never fabricated).")
     out += [_CANON_BAR,
             "Honest edge: not a demonstrated edge · Capital: Architect only.",
+            f"Deploy odds band: {DEPLOY_ODDS_MIN:.2f}–{DEPLOY_ODDS_MAX:.2f} "
+            f"(safest ~{DEPLOY_ODDS_SAFE:.2f}); picks above 2.00 are never deployed.",
             f"Calibration: {calibration_count} legs logged, {clv}.",
             code_line,
             _CANON_BAR]

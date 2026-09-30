@@ -28,7 +28,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
-from engine.slate import WHITELIST_LEAGUES, build_deploy_shortlist, market_blocked
+from engine.slate import (WHITELIST_LEAGUES, build_deploy_shortlist, market_blocked,
+                          in_deploy_band, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX)
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine.form import compute_table, fixture_form, form_support as _form_support
@@ -288,21 +289,28 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             continue
         p = bf.probs
         best = None
-        # Only markets that could actually carry capital may headline THE CALL.
-        # Previously the board could headline Over 2.5 (or an away win, which
-        # the string-matched gate missed entirely) while the logger refused to
-        # record it — recommending what the framework would not log.
+        # Only markets that could actually carry capital may headline THE CALL,
+        # AND the price must sit inside the Architect's deploy band
+        # [DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX] (1.20–2.00): above 2.0 the market is
+        # ~90/10 for the bookmaker (treated as a loss), below 1.20 the return
+        # doesn't justify the stake. Among in-band markets pick the most ASSURED
+        # (highest model probability = the safest, shortest-price winnable pick),
+        # with EV as the tie-breaker — "pick the odds that are winnable".
         for market in mkt.DEPLOYABLE:
             quote = mkt.quote(market, fx)
             model_p = mkt.model_prob(market, p)
             if quote is None or not quote.available or model_p is None:
                 continue
+            if not in_deploy_band(quote.price):
+                continue
             ev = mes_numeric(model_p, quote.price)
-            if ev is not None and (best is None or ev > best[0]):
-                best = (ev, market, model_p, quote)
+            rank = (model_p, ev if ev is not None else -1.0)
+            if best is None or rank > best[0]:
+                best = (rank, market, model_p, quote, ev)
         if best:
-            ev, market, model_p, quote = best
+            _, market, model_p, quote, ev = best
             bf.best_market = mkt.display(market, p.home_team, p.away_team)
+            bf.best_market_key = market
             bf.best_price = quote.price
             bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
             bf.best_mes_ev, bf.best_model_prob = ev, model_p
@@ -344,6 +352,28 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     except Exception as e:  # noqa: BLE001 — context is optional, the run is not
         all_flags.append(f"form/standings context unavailable ({e}) — proceeding without it")
 
+    # DEPLOY ODDS BAND gate: a single is deployable only if it found an in-band
+    # pick (best_market_key set by the band-aware selection above). A deploy-
+    # eligible fixture whose only priced markets sit outside 1.20–2.00 — or which
+    # has no live price at all — drops out of THE CALL here, with the reason
+    # surfaced. It still appears in the scan; it just isn't a capital single.
+    band_dropped = 0
+    for b in board:
+        if b.on_deploy_shortlist and b.best_market_key is None:
+            b.on_deploy_shortlist = False
+            band_dropped += 1
+            if b.best_price is not None:
+                b.rejection_reason = (
+                    f"no deploy: best price {b.best_price:.2f} outside the "
+                    f"{DEPLOY_ODDS_MIN:.2f}–{DEPLOY_ODDS_MAX:.2f} odds band")
+            else:
+                b.rejection_reason = (b.rejection_reason
+                    or "no deploy: no live price in the 1.20–2.00 odds band")
+    if band_dropped:
+        all_flags.append(
+            f"deploy odds band {DEPLOY_ODDS_MIN:.2f}–{DEPLOY_ODDS_MAX:.2f}: "
+            f"{band_dropped} fixture(s) dropped from THE CALL (price out of band)")
+
     shortlisted = [b for b in board if b.on_deploy_shortlist]
     capped = {id(b) for b in build_deploy_shortlist(shortlisted)}
     for b in board:
@@ -366,13 +396,14 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     # call, stays PENDING on the board — never a fabricated code (HR35).
     acca_code = board_code = None
     try:
-        from output.produce_bet import _best_market_key, _build_accas
+        from output.produce_bet import _build_accas
         from pipeline import sportybet_booking as sbk
 
         def _leg(b):
+            # Book the SAME in-band market the board deploys (best_market_key),
+            # not the price-agnostic model pick — the code must match the single.
             league = b.fixture.rsplit("(", 1)[-1].rstrip(")").strip()
-            key = _best_market_key(b.probs)[0]
-            return (league, b.probs.home_team, b.probs.away_team, key)
+            return (league, b.probs.home_team, b.probs.away_team, b.best_market_key)
 
         finalists = [b for b in board if b.on_deploy_shortlist and b.probs is not None]
         if finalists:
@@ -395,7 +426,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 if accas:
                     acca_legs = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
                                   bf.probs.home_team, bf.probs.away_team,
-                                  _best_market_key(bf.probs)[0])
+                                  bf.best_market_key)
                                  for bf, _pick, _prob in accas[0][1]]
                     if all(l[3] for l in acca_legs):
                         acca_code, _ = sbk.code_for_legs(sb_index, acca_legs)

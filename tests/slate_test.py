@@ -3,7 +3,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine.slate import (is_whitelisted, is_deploy_eligible, classify,
-                          build_deploy_shortlist, DEPLOY_POOL_CAP, WHITELIST_LEAGUES)
+                          build_deploy_shortlist, DEPLOY_POOL_CAP, WHITELIST_LEAGUES,
+                          in_deploy_band, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX)
 from engine.mes import trigger_price, mes_numeric
 from dataclasses import dataclass
 
@@ -56,5 +57,14 @@ mes_val = mes_numeric(0.60, 1.80)
 assert abs(mes_val - 0.08) < 0.001
 assert mes_numeric(0.60, None) is None
 print("HR30 MES trigger price + numeric: OK")
+
+# --- deploy odds band (Architect: max 2.00, floor 1.20) ---
+assert DEPLOY_ODDS_MIN == 1.20 and DEPLOY_ODDS_MAX == 2.00
+assert in_deploy_band(1.20) and in_deploy_band(1.50) and in_deploy_band(2.00)
+assert not in_deploy_band(1.19), "below the 1.20 floor is out of band"
+assert not in_deploy_band(2.01), "above the 2.00 ceiling is out of band"
+assert not in_deploy_band(2.40) and not in_deploy_band(7.0)
+assert not in_deploy_band(None), "no price is never in band (HR35)"
+print(f"Deploy odds band [{DEPLOY_ODDS_MIN:.2f}, {DEPLOY_ODDS_MAX:.2f}]: OK")
 
 print("\n✅ ALL SLATE/MES TESTS PASSED")

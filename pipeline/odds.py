@@ -322,44 +322,59 @@ def fetch_odds(league: str, regions: str = "uk", markets: str = "h2h,totals",
 
 
 def fetch_odds_chained(league: str) -> tuple[list[FixtureOdds], list[str]]:
-    """Live prices with a fallback source. Tries the-odds-api first; if that is
-    quota-exhausted, has no key for this league, errors, or returns nothing,
-    falls back to football-data.co.uk's fixtures.csv (free, no quota, main
-    leagues only). Returns (fixtures, flags) — the first source that yields any
-    fixtures wins; provenance is recorded on each FixtureOdds and in the flags.
+    """Live prices from a chain of FREE sources first, the metered API last.
 
-    This is what stops a single metered source going blind from freezing the
-    Phase 2 paper log: when the odds API is exhausted, covered leagues still get
-    a real entry price from the free source instead of NO DATA — PENDING."""
+    Order, first that yields fixtures wins (provenance stamped on each quote):
+      1. SportyBet — free, keyless, the book the Architect bets into, covers
+         every deploy league including the Extra ones (Danish, Ekstraklasa).
+      2. football-data.co.uk fixtures.csv — free, no quota, main leagues only.
+      3. the-odds-api — metered; only reached if the free sources yield nothing
+         AND a key is configured. The Architect has ruled out paying for an odds
+         API, so in practice this stays a dormant last resort.
+
+    This removes the dependency that froze the Phase 2 paper log all month: an
+    exhausted metered quota no longer means zero entry prices."""
     flags: list[str] = []
+
+    # Lazy imports keep the module dependency one-way (both free sources import
+    # the shared FixtureOdds/MarketQuote from here), avoiding an import cycle.
+    from pipeline.odds_sportybet import fetch_odds_sportybet
+    from pipeline.odds_footballdata import fetch_odds_footballdata
+
+    # 1) SportyBet (free, primary)
+    try:
+        fixtures, sf = fetch_odds_sportybet(league)
+        flags += sf
+        if fixtures:
+            return fixtures, flags
+    except Exception as e:  # noqa: BLE001 — degrade to the next free source
+        flags.append(f"{league}: SportyBet fetch failed ({e}) — trying football-data")
+
+    # 2) football-data fixtures (free)
+    try:
+        fixtures, ff = fetch_odds_footballdata(league)
+        flags += ff
+        if fixtures:
+            return fixtures, flags
+    except Exception as e:  # noqa: BLE001
+        flags.append(f"{league}: football-data fixtures failed ({e})")
+
+    # 3) the-odds-api (metered, last resort — only if a key is configured)
     try:
         fixtures, oflags = fetch_odds(league)
         flags += oflags
-        if fixtures:
-            return fixtures, flags
-        flags.append(f"{league}: the-odds-api returned no fixtures — trying "
-                     f"football-data fixtures")
+        return fixtures, flags
     except QuotaExhausted as e:
         flags.append(f"{league}: {e}")
-        flags.append(f"{league}: falling back to football-data fixtures (no quota there)")
-    except ValueError as e:
-        # No verified odds-api sport key for this league — go straight to fallback.
-        flags.append(f"{league}: {e} Trying football-data fixtures.")
-    except Exception as e:  # network/HTTP — degrade to the free source, don't die
-        flags.append(f"{league}: the-odds-api fetch failed ({e}) — trying "
-                     f"football-data fixtures")
+    except (ValueError, RuntimeError) as e:
+        # No sport key for this league, or no ODDS_API_KEY set — expected once
+        # the free sources are the norm; not an error worth raising.
+        flags.append(f"{league}: the-odds-api unavailable ({e})")
+    except Exception as e:  # noqa: BLE001
+        flags.append(f"{league}: the-odds-api fetch failed ({e})")
 
-    # Lazy import keeps the module dependency one-way (the fallback imports the
-    # shared FixtureOdds/MarketQuote from here), avoiding an import cycle.
-    from pipeline.odds_footballdata import fetch_odds_footballdata
-    try:
-        fixtures, fflags = fetch_odds_footballdata(league)
-        flags += fflags
-        return fixtures, flags
-    except Exception as e:
-        flags.append(f"{league}: football-data fixtures fallback failed ({e}) "
-                     f"— NO DATA — PENDING")
-        return [], flags
+    flags.append(f"{league}: no source produced prices — NO DATA — PENDING")
+    return [], flags
 
 
 def fixtures_from_odds(league: str, days_ahead: int = 14

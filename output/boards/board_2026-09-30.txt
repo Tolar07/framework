@@ -1,10 +1,88 @@
+##########OLP XDV#########
+==================================
+
+📅  Wed 30 Sep 2026   (PICK · win %  ·  alt markets)
+
+
+⚠ 24 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+Fixture                          AI PICK · win%               O1.5/O2.5  DC/BTTS     Src
+Wieczysta Krakow v Wisla Plock   NO DATA — PENDING            —          —           ○
+Rakow v GKS Katowice             Rakow to win · 50%           O77/O52    1X76 / Y55  ○
+Cracovia v Zaglebie              Under 2.5 goals · 65%        O63/U65    1X69 / N57  ○
+Slask Wroclaw v Lech Poznan      NO DATA — PENDING            —          —           ○
+Jagiellonia v Gornik Zabrze      Under 2.5 goals · 50%        O75/U50    1X74 / Y54  ○
+Piast Gliwice v Widzew Lodz      Under 2.5 goals · 61%        O67/U61    1X72 / N54  ○
+Pogon Szczecin v Korona Kielce   Under 2.5 goals · 57%        O70/U57    1X73 / N51  ○
+Legia v Wisla                    NO DATA — PENDING            —          —           ○
+Radomiak Radom v Motor Lublin    Radomiak Radom to win · 53%  O86/O65    1277 / Y65  ○
+GKS Katowice v Wieczysta Krakow  NO DATA — PENDING            —          —           ○
+```
+
+Board code: NO DATA — PENDING (booking-code bridge not wired into this framework yet — tracked, not blocking board output)
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+Fixture                         Pick                   Model%  Deploy at  Code
+Rakow v GKS Katowice            Rakow to win           50%     1.30+      PENDING
+Cracovia v Zaglebie             Under 2.5 goals        65%     1.59+      PENDING
+Jagiellonia v Gornik Zabrze     Under 2.5 goals        50%     1.33+      PENDING
+Piast Gliwice v Widzew Lodz     Under 2.5 goals        61%     1.50+      PENDING
+Pogon Szczecin v Korona Kielce  Under 2.5 goals        57%     1.43+      PENDING
+Radomiak Radom v Motor Lublin   Radomiak Radom to win  53%     1.17+      PENDING
+```
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+──────────────────────────────────
+
+Acca A  (4 legs · model 12% · code PENDING)
+   • Cracovia v Zaglebie — Under 2.5 goals (65%)
+   • Piast Gliwice v Widzew Lodz — Under 2.5 goals (61%)
+   • Pogon Szczecin v Korona Kielce — Under 2.5 goals (57%)
+   • Radomiak Radom v Motor Lublin — Radomiak Radom to win (53%)
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Cracovia v Zaglebie — Under 2.5 goals (65%)
+Acca A: 4 legs, model 12% (code PENDING)
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Calibration: 9 legs logged, mean CLV +1.66%.
+Booking codes: PENDING pipeline-wide — SportyBet booking-code bridge
+not yet wired into this framework (HR35: shown, never fabricated).
+==================================
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
+
+============================================================
+
+DETAIL — HR53 full per-fixture audit (not sent to Telegram)
+
 PART 0 — HEADER
 Date: 2026-09-30 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ graded 0 of 11 pending leg(s)
-  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ SportyBet events pulled live
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ Danish Superliga: 6 fixture(s) priced from SportyBet
@@ -30,11 +108,10 @@ DATA FLAGS (surfaced first, per HR53/ID403):
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 
 PART 1 — THE CALL
-6 deploy-eligible fixture(s), softness A/B only, capped at 6 (ID402).
+6 deploy-eligible fixture(s), top model conviction, capped at 6 (ID402).
 MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 
 1. Rakow v GKS Katowice (Ekstraklasa)
-   Softness tier B — deploy-eligible
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
    Standings/form — home: P18 3pts, last5 3/15 | away: P9 12pts, last5 9/15  (recent-form tilt -0.40)
    Match result (model probabilities):
@@ -56,7 +133,6 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 2. Cracovia v Zaglebie (Ekstraklasa)
-   Softness tier B — deploy-eligible
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
    Standings/form — home: P13 8pts, last5 3/15 | away: P7 15pts, last5 8/15  (recent-form tilt -0.33)
    Match result (model probabilities):
@@ -78,7 +154,6 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 3. Jagiellonia v Gornik Zabrze (Ekstraklasa)
-   Softness tier B — deploy-eligible
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
    Standings/form — home: P10 12pts, last5 6/15 | away: P1 22pts, last5 13/15  (recent-form tilt -0.47)
    Match result (model probabilities):
@@ -100,7 +175,6 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 4. Piast Gliwice v Widzew Lodz (Ekstraklasa)
-   Softness tier B — deploy-eligible
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
    Standings/form — home: P8 13pts, last5 10/15 | away: P12 9pts, last5 4/15  (recent-form tilt +0.40)
    Match result (model probabilities):
@@ -122,7 +196,6 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 5. Pogon Szczecin v Korona Kielce (Ekstraklasa)
-   Softness tier B — deploy-eligible
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
    Standings/form — home: P5 15pts, last5 9/15 | away: P6 15pts, last5 10/15  (recent-form tilt -0.07)
    Match result (model probabilities):
@@ -143,7 +216,6 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
 
 6. Radomiak Radom v Motor Lublin (Ekstraklasa)
-   Softness tier B — deploy-eligible
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
    Standings/form — home: P14 8pts, last5 5/15 | away: P16 6pts, last5 2/15  (recent-form tilt +0.20)
    Match result (model probabilities):
@@ -194,8 +266,3 @@ PART 5 — HARD RULES + SIGN-OFF
 
 Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
 Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
-
-============================================================
-
-VERIFY RESULTS
-Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

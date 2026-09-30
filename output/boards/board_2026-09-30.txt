@@ -130,7 +130,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Breakeven trigger price .... 1.30 or longer
       HR30 numerical MES ......... +15.97% expected value per unit staked — POSITIVE expected value against this price
       DIVERGENCE FLAG (ID403.1 V5): model says 48%, this price implies 42% — an implausible +16% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
-      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 2. Cracovia v Zaglebie (Ekstraklasa)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
@@ -151,7 +151,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Breakeven trigger price .... 1.59 or longer
       HR30 numerical MES ......... +23.61% expected value per unit staked — POSITIVE expected value against this price
       DIVERGENCE FLAG (ID403.1 V5): model says 65%, this price implies 53% — an implausible +24% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
-      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 3. Jagiellonia v Gornik Zabrze (Ekstraklasa)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
@@ -172,7 +172,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Breakeven trigger price .... 1.33 or longer
       HR30 numerical MES ......... +19.58% expected value per unit staked — POSITIVE expected value against this price
       DIVERGENCE FLAG (ID403.1 V5): model says 47%, this price implies 39% — an implausible +20% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
-      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 4. Piast Gliwice v Widzew Lodz (Ekstraklasa)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
@@ -193,7 +193,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Breakeven trigger price .... 1.50 or longer
       HR30 numerical MES ......... +21.91% expected value per unit staked — POSITIVE expected value against this price
       DIVERGENCE FLAG (ID403.1 V5): model says 61%, this price implies 50% — an implausible +22% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
-      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 5. Pogon Szczecin v Korona Kielce (Ekstraklasa)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
@@ -213,7 +213,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Best quoted price .......... 2.00 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.43 or longer
       HR30 numerical MES ......... +14.54% expected value per unit staked — POSITIVE expected value against this price
-      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 6. Radomiak Radom v Motor Lublin (Ekstraklasa)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
@@ -234,7 +234,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Breakeven trigger price .... 1.17 or longer
       HR30 numerical MES ......... +21.27% expected value per unit staked — POSITIVE expected value against this price
       DIVERGENCE FLAG (ID403.1 V5): model says 53%, this price implies 43% — an implausible +21% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
-      Price captured from the-odds-api.com. Confirm on SportyBet/Bet365 before acting — Architect deploys, not this system.
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 PART 2 — THE SCAN
 Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src

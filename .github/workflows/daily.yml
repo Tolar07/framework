@@ -62,8 +62,16 @@ jobs:
         # TELEGRAM DELIVERY ON — production board + daily heartbeat (Architect's
         # request 2026-09-30). --only-production sends the canonical board ONLY on
         # days with real picks; --heartbeat sends a short 'system alive' ping
-        # EVERY day (even dry days), so silence never looks like a dead system.
-        run: python run_daily.py --only-production --heartbeat
+        # EVERY day. The 22:00 Lagos (21:00 UTC) EVENING run targets TOMORROW's
+        # fixtures (--next-day); the 07:00 morning run builds today's card. Manual
+        # dispatches build today's by default.
+        run: |
+          ARGS="--only-production --heartbeat"
+          if [ "${{ github.event.schedule }}" = "0 21 * * *" ]; then
+            ARGS="$ARGS --next-day"
+          fi
+          echo "schedule='${{ github.event.schedule }}' -> run_daily.py $ARGS"
+          python run_daily.py $ARGS
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.

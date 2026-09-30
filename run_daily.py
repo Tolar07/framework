@@ -360,6 +360,52 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         f"legs with logged CLV; mean CLV "
         f"{status['mean_clv_pct'] if status['mean_clv_pct'] is not None else 'NO DATA — PENDING'}")
 
+    # --- real SportyBet booking codes for the deploy picks ---
+    # A booking code is a shareable slip, NOT a placed bet (no stake, no account).
+    # Anything that can't be resolved on SportyBet's live feed, or fails the share
+    # call, stays PENDING on the board — never a fabricated code (HR35).
+    acca_code = board_code = None
+    try:
+        from output.produce_bet import _best_market_key, _build_accas
+        from pipeline import sportybet_booking as sbk
+
+        def _leg(b):
+            league = b.fixture.rsplit("(", 1)[-1].rstrip(")").strip()
+            key = _best_market_key(b.probs)[0]
+            return (league, b.probs.home_team, b.probs.away_team, key)
+
+        finalists = [b for b in board if b.on_deploy_shortlist and b.probs is not None]
+        if finalists:
+            sb_index = sbk._event_index()
+            if sb_index is None:
+                all_flags.append("SportyBet booking feed unavailable — codes PENDING")
+            else:
+                booked = 0
+                for b in finalists:
+                    leg = _leg(b)
+                    if leg[3] is None:
+                        continue
+                    code, url = sbk.code_for_legs(sb_index, [leg])
+                    if code:
+                        b.booking_code, b.booking_url = code, url
+                        booked += 1
+                board_legs = [l for l in (_leg(b) for b in finalists) if l[3]]
+                board_code, _ = sbk.code_for_legs(sb_index, board_legs)
+                accas = _build_accas([b for b in board if b.on_deploy_shortlist])
+                if accas:
+                    acca_legs = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                                  bf.probs.home_team, bf.probs.away_team,
+                                  _best_market_key(bf.probs)[0])
+                                 for bf, _pick, _prob in accas[0][1]]
+                    if all(l[3] for l in acca_legs):
+                        acca_code, _ = sbk.code_for_legs(sb_index, acca_legs)
+                all_flags.append(
+                    f"SportyBet booking codes: {booked}/{len(finalists)} singles resolved, "
+                    f"board code {'set' if board_code else 'PENDING'}, "
+                    f"Acca A {'set' if acca_code else 'PENDING'}")
+    except Exception as e:  # noqa: BLE001 — codes are optional; the run is not
+        all_flags.append(f"booking-code step skipped ({e}) — codes shown as PENDING")
+
     # The Telegram message is the Architect's canonical ##########OLP XDV#########
     # board (four tables + honest footer). The detailed HR53 per-fixture audit
     # (render_produce_bet) is preserved in the SAVED board as an appendix, so
@@ -368,7 +414,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     telegram_text = render_canonical_board(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
-        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board)
+        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
+        acca_code=acca_code, board_code=board_code)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,

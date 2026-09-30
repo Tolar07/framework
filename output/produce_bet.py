@@ -68,6 +68,12 @@ class BoardFixture:
     # value is surfaced as a caution, never an auto-reject.
     form_summary: Optional[str] = None
     form_support: Optional[float] = None
+    # Real SportyBet booking code for this fixture's headlined pick (a shareable
+    # slip, NOT a placed bet). Populated by run_daily via pipeline.sportybet_booking
+    # when the fixture resolves on the SportyBet feed; stays None (board shows
+    # PENDING) when it can't be resolved — never fabricated (HR35).
+    booking_code: Optional[str] = None
+    booking_url: Optional[str] = None
 
 
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],
@@ -271,20 +277,28 @@ def render_part1_the_call(shortlist: list[BoardFixture]) -> str:
     return "\n".join(rows)
 
 
-def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
-    """Placeholder selection logic for which market to headline — a real deploy
-    decision needs the full ID402/ID389 gating; this just picks the
-    highest-confidence market to make the table renderable end to end."""
-    # Only markets that could actually carry capital may be headlined. Without
-    # this the legacy table could name an away win or an Over 2.5 as THE CALL
-    # while ID405 blocks the logger from ever recording it — the board
-    # recommending precisely what the framework refuses to log.
-    candidates = [(mkt.display(k, p.home_team, p.away_team), mkt.model_prob(k, p))
-                  for k in mkt.DEPLOYABLE]
-    candidates = [(name, prob) for name, prob in candidates if prob is not None]
+def _best_market_key(p: FixtureProbabilities) -> tuple[Optional[str], float]:
+    """The highest-confidence DEPLOYABLE market KEY (mkt.*) for this fixture,
+    with its model probability. (None, 0.0) if nothing is deployable. Booking-
+    code resolution keys on this so the code books exactly what the board
+    headlines — presentation and identity can never drift (see engine.markets)."""
+    candidates = [(k, mkt.model_prob(k, p)) for k in mkt.DEPLOYABLE]
+    candidates = [(k, prob) for k, prob in candidates if prob is not None]
     if not candidates:
-        return ("NO DATA — PENDING", 0.0)
+        return (None, 0.0)
     return max(candidates, key=lambda c: c[1])
+
+
+def _best_market_desc(p: FixtureProbabilities) -> tuple[str, float]:
+    """Plain-language name + probability of the market the board headlines.
+
+    Only markets that could actually carry capital may be headlined (mkt.DEPLOYABLE
+    excludes the ID405-blocked ones). Derived from _best_market_key so the words
+    and the booked outcome are always the same market."""
+    key, prob = _best_market_key(p)
+    if key is None:
+        return ("NO DATA — PENDING", 0.0)
+    return (mkt.display(key, p.home_team, p.away_team), prob)
 
 
 def _dc_cell(p: FixtureProbabilities) -> str:
@@ -586,8 +600,14 @@ def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
 
 def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             calibration_count: int, mean_clv: Optional[float],
-                            data_flags: list[str], board: list[BoardFixture]) -> str:
-    """The ##########OLP XDV######### board the Architect reads on Telegram."""
+                            data_flags: list[str], board: list[BoardFixture],
+                            acca_code: Optional[str] = None,
+                            board_code: Optional[str] = None) -> str:
+    """The ##########OLP XDV######### board the Architect reads on Telegram.
+
+    Booking codes (real SportyBet share codes) are attached upstream by run_daily:
+    per-fixture on BoardFixture.booking_code, plus the whole-board `board_code`
+    and the Acca A `acca_code`. Anything unresolved renders PENDING (HR35)."""
     day = date.today().strftime("%a %d %b %Y")
     out = [_CANON_HEAD, _CANON_BAR, "",
            f"\U0001F4C5  {day}   (PICK · win %  ·  alt markets)", "", ""]
@@ -619,8 +639,12 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         out.append(_col(rows, ["Fixture", "AI PICK · win%", "O1.5/O2.5",
                                "DC/BTTS", "Src"]))
         out.append(FENCE)
-    out += ["", "Board code: NO DATA — PENDING (booking-code bridge not wired into "
-            "this framework yet — tracked, not blocking board output)", ""]
+    if board_code:
+        out += ["", f"Board code (all deploy singles): {board_code}   "
+                f"load ↦ www.sportybet.com/ng/?shareCode={board_code}", ""]
+    else:
+        out += ["", "Board code: PENDING (no deploy-eligible single resolved on "
+                "SportyBet today)", ""]
 
     shortlist = [bf for bf in board if bf.on_deploy_shortlist]
 
@@ -640,7 +664,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             pick, prob = _best_market_desc(bf.probs)
             trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
             rows.append([_canon_short(bf.fixture), pick,
-                         f"{round(prob*100)}%" if prob else "—", trig, "PENDING"])
+                         f"{round(prob*100)}%" if prob else "—", trig,
+                         bf.booking_code or "PENDING"])
         out.append(FENCE)
         out.append(_col(rows, ["Fixture", "Pick", "Model%", "Deploy at", "Code"]))
         out.append(FENCE)
@@ -655,8 +680,9 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         out.append("No capital-eligible accas generated.")
     else:
         for name, legs, combo in accas:
+            code = acca_code or "PENDING"
             out.append(f"{name}  ({len(legs)} legs · model {round(combo*100)}% "
-                       f"· code PENDING)")
+                       f"· code {code})")
             for bf, pick, prob in legs:
                 out.append(f"   • {_canon_short(bf.fixture)} — {pick} "
                            f"({round(prob*100)}%)")
@@ -672,19 +698,27 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         top = max(ranked, key=lambda b: _best_market_desc(b.probs)[1] or 0.0)
         pick, prob = _best_market_desc(top.probs)
         out.append(f"Primary single: {_canon_short(top.fixture)} — {pick} "
-                   f"({round((prob or 0)*100)}%)")
+                   f"({round((prob or 0)*100)}%) · code {top.booking_code or 'PENDING'}")
         if accas:
             out.append(f"Acca A: {len(accas[0][1])} legs, model "
-                       f"{round(accas[0][2]*100)}% (code PENDING)")
+                       f"{round(accas[0][2]*100)}% · code {acca_code or 'PENDING'}")
     out.append("")
 
     # --- footer ---
     clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
+    any_code = bool(board_code or acca_code
+                    or any(bf.booking_code for bf in shortlist))
+    if any_code:
+        code_line = ("Booking codes: live SportyBet share codes — load a code on "
+                     "SportyBet to see the slip. Nothing is placed; the Architect "
+                     "deploys.")
+    else:
+        code_line = ("Booking codes: PENDING — no deploy-eligible pick resolved on "
+                     "SportyBet today (HR35: shown, never fabricated).")
     out += [_CANON_BAR,
             "Honest edge: not a demonstrated edge · Capital: Architect only.",
             f"Calibration: {calibration_count} legs logged, {clv}.",
-            "Booking codes: PENDING pipeline-wide — SportyBet booking-code bridge",
-            "not yet wired into this framework (HR35: shown, never fabricated).",
+            code_line,
             _CANON_BAR]
     return "\n".join(out)
 

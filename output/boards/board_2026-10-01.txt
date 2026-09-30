@@ -1,0 +1,269 @@
+##########OLP XDV#########
+==================================
+
+📅  Thu 01 Oct 2026   (PICK · win %  ·  alt markets)
+
+
+⚠ 75 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+Fixture                        AI PICK · win%           O1.5/O2.5  DC/BTTS     Src
+Azerbaijan v Liechtenstein     Azerbaijan to win · 84%  O67/U60    1X98 / N88  ○
+Denmark v Portugal             Under 2.5 goals · 48%    O76/O52    1275 / Y55  ○
+Germany v Serbia               Germany to win · 66%     O78/O54    1X86 / N51  ○
+Greece v Netherlands           Under 2.5 goals · 46%    O78/O54    1275 / Y57  ○
+Republic of Ireland v Austria  Under 2.5 goals · 64%    O62/U64    X278 / N60  ○
+Israel v Kosovo                Under 2.5 goals · 52%    O73/U52    1274 / Y53  ○
+Malta v Gibraltar              Malta to win · 67%       O63/U64    1X90 / N69  ○
+Wales v Norway                 Under 2.5 goals · 46%    O78/O54    1276 / Y55  ○
+```
+
+Board code (all deploy singles): WQFX0K   load ↦ www.sportybet.com/ng/?shareCode=WQFX0K
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+Fixture                        Pick             Model%  Odds   Code
+Germany v Serbia               Germany to win   66%     @1.24  PX3W2V
+Republic of Ireland v Austria  Under 2.5 goals  64%     @1.70  T10NAM
+Israel v Kosovo                Under 2.5 goals  52%     @1.90  UVEBXZ
+Malta v Gibraltar              Malta to win     67%     @1.32  RTD5YJ
+```
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+──────────────────────────────────
+
+Acca A  (4 legs · model 15% · code WQFX0K)
+   • Malta v Gibraltar — Malta to win (67%)
+   • Germany v Serbia — Germany to win (66%)
+   • Republic of Ireland v Austria — Under 2.5 goals (64%)
+   • Israel v Kosovo — Under 2.5 goals (52%)
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Malta v Gibraltar — Malta to win (67%) @1.32 · code RTD5YJ
+Acca A: 4 legs, model 15% · code WQFX0K
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00 (safest ~1.50); picks above 2.00 are never deployed.
+Calibration: 9 legs logged, mean CLV +1.66%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
+
+============================================================
+
+DETAIL — HR53 full per-fixture audit (not sent to Telegram)
+
+PART 0 — HEADER
+Date: 2026-09-30 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, Championship, Serie A, Bundesliga, Ligue 1, Primeira Liga, Premier League, La Liga, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, UEFA Nations League
+Calibration: 9 legs logged, mean CLV +1.66%
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ graded 0 of 11 pending leg(s)
+  ⚠ SportyBet events pulled live
+  ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Danish Superliga: 6 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Belgian Pro League: 9 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Scottish Premiership: 12 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ekstraklasa: 10 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Championship: 12 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Serie A: 20 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Bundesliga: 18 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ligue 1: 18 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Primeira Liga: 9 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Premier League: 20 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ La Liga: 20 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ La Liga 2: 11 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Serie B: 10 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ 2. Bundesliga: 9 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ligue 2: 9 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ UEFA Nations League: 31 fixture(s) priced from SportyBet
+  ⚠ Eredivisie: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Danish Superliga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Belgian Pro League: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Scottish Premiership: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ekstraklasa: 10 fixture(s) priced from SportyBet
+  ⚠ Ekstraklasa: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Ekstraklasa: 3 team name(s) in the fixtures feed not found in the fitted data — Slask Wroclaw, Wieczysta Krakow, Wisla. Model knows: Arka Gdynia, Cracovia, GKS Katowice, Gornik Zabrze, Jagiellonia, Korona Kielce, Lech Poznan, Lechia Gdansk, Legia, Motor Lublin, Piast Gliwice, Pogon Szczecin, Radomiak Radom, Rakow, Termalica B-B., Widzew Lodz, Wisla Plock, Zaglebie. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
+  ⚠ Championship: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Serie A: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Bundesliga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Ligue 1: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Primeira Liga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Premier League: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ La Liga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ La Liga 2: 11 fixture(s) priced from SportyBet
+  ⚠ La Liga 2: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ La Liga 2: 7 team name(s) in the fixtures feed not found in the fitted data — CE Sabadell FC, Club Deportivo Eldense, Girona, Mallorca, RC Celta Fortuna, Real Oviedo, Tenerife CD. Model knows: Albacete, Almeria, Andorra, Burgos, Cadiz, Castellon, Ceuta, Cordoba, Cultural Leonesa, Eibar, Granada, Huesca, La Coruna, Las Palmas, Leganes, Malaga, Mirandes, Santander, Sociedad B, Sp Gijon, Valladolid, Zaragoza. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Serie B: 10 fixture(s) priced from SportyBet
+  ⚠ Serie B: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Serie B: 7 team name(s) in the fixtures feed not found in the fitted data — Ascoli Calcio 1898, Benevento Calcio, Cremonese, L.R. Vicenza, SC Pisa, SS Arezzo, Verona. Model knows: Avellino, Bari, Carrarese, Catanzaro, Cesena, Empoli, Frosinone, Juve Stabia, Mantova, Modena, Monza, Padova, Palermo, Pescara, Reggiana, Sampdoria, Spezia, Sudtirol, Venezia, Virtus Entella. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ 2. Bundesliga: 9 fixture(s) priced from SportyBet
+  ⚠ 2. Bundesliga: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ 2. Bundesliga: 5 team name(s) in the fixtures feed not found in the fitted data — Energie Cottbus, FC St. Pauli, Heidenheim, VfL 1899 Osnabruck, Wolfsburg. Model knows: Bielefeld, Bochum, Braunschweig, Darmstadt, Dresden, Elversberg, Fortuna Dusseldorf, Greuther Furth, Hannover, Hertha, Holstein Kiel, Kaiserslautern, Karlsruhe, Magdeburg, Nurnberg, Paderborn, PreuÃen MÃ¼nster, Schalke 04. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ligue 2: 9 fixture(s) priced from SportyBet
+  ⚠ Ligue 2: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Ligue 2: 4 team name(s) in the fixtures feed not found in the fitted data — Dijon, Metz, Nantes, Sochaux-Montbeliard. Model knows: Amiens, Annecy, Bastia, Boulogne, Clermont, Dunkerque, Grenoble, Guingamp, Laval, Le Mans, Montpellier, Nancy, Pau FC, Red Star, Reims, Rodez, St Etienne, Troyes. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ UEFA Nations League: 31 fixture(s) priced from SportyBet
+  ⚠ UEFA Nations League: 31 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ UEFA Nations League: national-team history via martj42/international_results — 1005 UEFA home-venue matches since 2022-01-01, 55 UEFA teams, latest result 2026-06-09; no odds in this source, so legs settle but CLV stays NO DATA
+  ⚠ TARGET DAY 2026-10-01: 8 fixture(s) kicking off that day (72 outside the target day excluded)
+  ⚠ deploy odds band 1.20–2.00: 4 fixture(s) dropped from THE CALL (price out of band)
+  ⚠ logged 6 new paper leg(s) with a live entry price
+  ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
+  ⚠ SportyBet booking codes: 4/4 singles resolved, board code set, Acca A set
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+4 deploy-eligible fixture(s), top model conviction, capped at 6 (ID402).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+
+1. Germany v Serbia (UEFA Nations League)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Standings/form — home: P8 74pts, last5 15/15 | away: P23 59pts, last5 6/15  (recent-form tilt +0.60)
+   Match result (model probabilities):
+      Germany to win .......... 66%
+      Draw ......................... 20%
+      Serbia to win .......... 14%
+   Goals: Over 1.5 goals 78% (model) | Over 2.5 goals 54% (model)
+   Both teams to score NO 51% (model)
+   Expected goals (model): Germany 2.046, Serbia 0.815
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Germany to win 67% · Draw 20% · Serbia to win 13%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Germany to win
+      Model probability .......... 66%
+      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.28 or longer
+      HR30 numerical MES ......... -18.15% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      DIVERGENCE FLAG (ID403.1 V5): model says 66%, this price implies 81% — an implausible -18% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+2. Republic of Ireland v Austria (UEFA Nations League)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Standings/form — home: P29 48pts, last5 11/15 | away: P10 72pts, last5 10/15  (recent-form tilt -0.07)
+   Match result (model probabilities):
+      Republic of Ireland to win .......... 22%
+      Draw ......................... 28%
+      Austria to win .......... 50%
+   Goals: Over 1.5 goals 62% (model) | Under 2.5 goals 64% (model)
+   Both teams to score NO 60% (model)
+   Expected goals (model): Republic of Ireland 0.774, Austria 1.344
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Republic of Ireland to win 19% · Draw 26% · Austria to win 55%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Under 2.5 goals
+      Model probability .......... 64%
+      Best quoted price .......... 1.70 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.60 or longer
+      HR30 numerical MES ......... +9.61% expected value per unit staked — POSITIVE expected value against this price
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+3. Israel v Kosovo (UEFA Nations League)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Standings/form — home: P43 35pts, last5 8/15 | away: P21 62pts, last5 7/15  (recent-form tilt +0.07)
+   Match result (model probabilities):
+      Israel to win .......... 39%
+      Draw ......................... 26%
+      Kosovo to win .......... 35%
+   Goals: Over 1.5 goals 73% (model) | Under 2.5 goals 52% (model)
+   Both teams to score YES 53% (model)
+   Expected goals (model): Israel 1.34, Kosovo 1.265
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Israel to win 34% · Draw 37% · Kosovo to win 29%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Under 2.5 goals
+      Model probability .......... 52%
+      Best quoted price .......... 1.90 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.36 or longer
+      HR30 numerical MES ......... -1.75% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+4. Malta v Gibraltar (UEFA Nations League)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Standings/form — home: P40 39pts, last5 3/15 | away: P52 18pts, last5 0/15  (recent-form tilt +0.20)
+   Match result (model probabilities):
+      Malta to win .......... 67%
+      Draw ......................... 23%
+      Gibraltar to win .......... 10%
+   Goals: Over 1.5 goals 63% (model) | Under 2.5 goals 64% (model)
+   Both teams to score NO 69% (model)
+   Expected goals (model): Malta 1.678, Gibraltar 0.471
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Malta to win 75% · Draw 17% · Gibraltar to win 9%
+      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
+   Best available market: Malta to win
+      Model probability .......... 67%
+      Best quoted price .......... 1.32 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.49 or longer
+      HR30 numerical MES ......... -11.28% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+Azerbaijan v Liechtenstein (UEFA Nations League) | Azerbaijan·84% | O67 / U60 | 1X98 / N88 | ○
+Denmark v Portugal (UEFA Nations League) | Portugal·46% | O76 / O52 | 1275 / Y55 | ○
+Germany v Serbia (UEFA Nations League) | Germany·66% | O78 / O54 | 1X86 / N51 | ○
+Greece v Netherlands (UEFA Nations League) | Netherland·41% | O78 / O54 | 1275 / Y57 | ○
+Republic of Ireland v Austria (UEFA Nations League) | Austria·50% | O62 / U64 | X278 / N60 | ○
+Israel v Kosovo (UEFA Nations League) | Israel·39% | O73 / U52 | 1274 / Y53 | ○
+Malta v Gibraltar (UEFA Nations League) | Malta·67% | O63 / U64 | 1X90 / N69 | ○
+Wales v Norway (UEFA Nations League) | Norway·52% | O78 / O54 | 1276 / Y55 | ○
+
+PART 3 — REJECTED / WATCHLIST
+Azerbaijan v Liechtenstein (UEFA Nations League): no deploy: no live price in the 1.20–2.00 odds band
+Denmark v Portugal (UEFA Nations League): no deploy: no live price in the 1.20–2.00 odds band
+Greece v Netherlands (UEFA Nations League): no deploy: no live price in the 1.20–2.00 odds band
+Wales v Norway (UEFA Nations League): no deploy: no live price in the 1.20–2.00 odds band
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 8
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.

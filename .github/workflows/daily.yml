@@ -1,10 +1,13 @@
 name: OLP XDV daily board
 
-# 07:00 Africa/Lagos == 06:00 UTC (Nigeria is UTC+1 year-round, no DST).
-# GitHub cron is always UTC.
+# Nigeria is UTC+1 year-round (no DST), so Africa/Lagos = UTC+1. GitHub cron is
+# always UTC. Two runs a day (Architect's request 2026-09-30):
+#   22:00 Lagos (21:00 UTC) — EVENING: prepare the next match day's board early.
+#   07:00 Lagos (06:00 UTC) — MORNING: refresh with the latest prices/lineups.
 on:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "0 21 * * *"    # 22:00 Africa/Lagos — evening prep run
+    - cron: "0 6 * * *"     # 07:00 Africa/Lagos — morning refresh run
   workflow_dispatch:        # manual trigger, for testing without waiting a day
 
 # Needed so the run can commit the CLV log back — without persistence the
@@ -84,4 +87,4 @@ jobs:
         run: |
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="OLP XDV: the 07:00 run FAILED. No board today — this is a system failure, not a quiet slate. Run log: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            -d text="OLP XDV: a scheduled run FAILED. No board from this run — this is a system failure, not a quiet slate. Run log: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"

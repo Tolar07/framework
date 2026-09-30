@@ -34,7 +34,7 @@ from engine import markets as mkt
 from engine.form import compute_table, fixture_form, form_support as _form_support
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import (render_produce_bet, render_verify_results,
-                                render_telegram_board)
+                                render_canonical_board)
 from output import notify
 import orchestrator
 import pipeline.odds as odds_mod
@@ -360,17 +360,26 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         f"legs with logged CLV; mean CLV "
         f"{status['mean_clv_pct'] if status['mean_clv_pct'] is not None else 'NO DATA — PENDING'}")
 
-    telegram_text = render_telegram_board(
+    # The Telegram message is the Architect's canonical ##########OLP XDV#########
+    # board (four tables + honest footer). The detailed HR53 per-fixture audit
+    # (render_produce_bet) is preserved in the SAVED board as an appendix, so
+    # the repo record keeps the full MES / Elo / divergence trail while the
+    # phone gets the clean canonical board.
+    telegram_text = render_canonical_board(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board)
 
-    board_text = render_produce_bet(
+    detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board)
 
-    full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
+    full = (telegram_text
+            + "\n\n" + "=" * 60 + "\n\n" + verify_block
+            + "\n\n" + "=" * 60 + "\n\n"
+            + "DETAIL — HR53 full per-fixture audit (not sent to Telegram)\n\n"
+            + detail_text)
     path = BOARD_DIR / f"board_{today}.txt"
 
     # --only-production: deliver only when the run actually produced picks. This

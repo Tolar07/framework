@@ -48,6 +48,12 @@ LEAGUE_CODES = {
     "Eredivisie": "N1",
     "Championship": "E1",
     "Primeira Liga": "P1",
+    # Second tiers — added for MIDWEEK coverage (they often play midweek rounds).
+    # All four are on football-data.co.uk's main per-season endpoint.
+    "La Liga 2": "SP2",
+    "Serie B": "I2",
+    "2. Bundesliga": "D2",
+    "Ligue 2": "F2",
     "Danish Superliga": None,   # 'Extra' league, different endpoint (see EXTRA_URL)
     "Ekstraklasa": None,        # 'Extra' league, different endpoint
     "HNL": None,                # NOT COVERED — Croatia isn't in football-data.co.uk's country list

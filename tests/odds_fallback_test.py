@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import pipeline.odds as odds
 import pipeline.odds_footballdata as fdo
+import pipeline.odds_sportybet as sbo
 
 # A minimal fixtures.csv slice: one Eredivisie (N1) row with Bet365 1X2 + O/U,
 # plus a row from another division that must be filtered out.
@@ -43,55 +44,57 @@ def test_covered_league_parses() -> None:
     assert q.source == "football-data.co.uk (fixtures)" and q.source_tier == "T1"
 
 
-def test_chain_falls_back_on_quota() -> None:
-    def boom(_league):
-        raise odds.QuotaExhausted("quota down to 0")
-
-    odds.fetch_odds = boom  # primary exhausted
+def test_chain_falls_back_to_footballdata_when_sportybet_empty() -> None:
+    # SportyBet (primary) yields nothing -> chain drops to football-data.
+    sbo.fetch_odds_sportybet = lambda _lg: ([], ["sportybet empty"])
     fx, flags = odds.fetch_odds_chained("Eredivisie")
     assert len(fx) == 1 and fx[0].source.startswith("football-data"), \
-        "chain must fall back to football-data when the odds API is exhausted"
-    assert any("falling back to football-data" in f for f in flags), flags
+        "chain must fall back to football-data when SportyBet yields nothing"
 
 
-def test_chain_prefers_primary() -> None:
+def test_chain_prefers_sportybet() -> None:
+    # SportyBet is the primary free source: when it yields fixtures, it wins and
+    # neither football-data nor the metered API is consulted.
     sentinel = odds.FixtureOdds(league="Eredivisie", home_team="X", away_team="Y",
-                                kickoff_utc="2026-10-04", source="the-odds-api.com")
+                                kickoff_utc="2026-10-04", source="sportybet.com")
+    called = {"fallback": False, "api": False}
 
-    def primary(_league):
-        return [sentinel], ["primary ok"]
-
-    called = {"fallback": False}
-
-    def fallback(_league):
+    def fb(_lg):
         called["fallback"] = True
         return [], []
 
-    odds.fetch_odds = primary
-    fdo.fetch_odds_footballdata = fallback
+    def api(_lg):
+        called["api"] = True
+        return [], []
+
+    sbo.fetch_odds_sportybet = lambda _lg: ([sentinel], ["sportybet ok"])
+    fdo.fetch_odds_footballdata = fb
+    odds.fetch_odds = api
     fx, flags = odds.fetch_odds_chained("Eredivisie")
-    assert fx == [sentinel], "primary result must win when it yields fixtures"
-    assert called["fallback"] is False, "fallback must not run when primary succeeds"
+    assert fx == [sentinel], "SportyBet result must win when it yields fixtures"
+    assert called["fallback"] is False and called["api"] is False, \
+        "no fallback should run when SportyBet succeeds"
 
 
 def main() -> None:
-    # Preserve and restore the module functions the chain tests monkeypatch.
+    # Preserve and restore every module function the chain tests monkeypatch.
     orig_fetch = odds.fetch_odds
     orig_fallback = fdo.fetch_odds_footballdata
     orig_loader = fdo._load_fixtures_rows
+    orig_sb = sbo.fetch_odds_sportybet
     try:
         fdo._load_fixtures_rows = lambda: (list(SAMPLE_ROWS), ["stubbed rows"])
         test_extra_league_returns_nothing()
         test_covered_league_parses()
-        test_chain_falls_back_on_quota()
-        # restore primary before the "prefers primary" case
-        odds.fetch_odds = orig_fetch
+        test_chain_falls_back_to_footballdata_when_sportybet_empty()
+        # fresh function refs before the "prefers SportyBet" case
         fdo.fetch_odds_footballdata = orig_fallback
-        test_chain_prefers_primary()
+        test_chain_prefers_sportybet()
     finally:
         odds.fetch_odds = orig_fetch
         fdo.fetch_odds_footballdata = orig_fallback
         fdo._load_fixtures_rows = orig_loader
+        sbo.fetch_odds_sportybet = orig_sb
     print("odds_fallback_test: OK")
 
 

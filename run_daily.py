@@ -28,8 +28,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
-from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS,
-                             build_deploy_shortlist, market_blocked)
+from engine.slate import WHITELIST_LEAGUES, build_deploy_shortlist, market_blocked
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine.form import compute_table, fixture_form, form_support as _form_support
@@ -39,6 +38,7 @@ from output.produce_bet import (render_produce_bet, render_verify_results,
 from output import notify
 import orchestrator
 import pipeline.odds as odds_mod
+from pipeline.odds_sportybet import SPORTYBET_TOURNAMENT_ID
 
 BOARD_DIR = Path(__file__).parent / "output" / "boards"
 LOG_DIR = Path(__file__).parent / "logs"
@@ -65,10 +65,13 @@ def _mark(log: Path, message: str) -> None:
         f.write(f"[{datetime.now(timezone.utc).isoformat()}] {message}\n")
 
 
-# Deploy-eligible leagues only for the odds pull — scan-only leagues can never
-# produce a capital pick, so spending API credits on their prices would burn
-# the monthly quota for nothing.
-DEPLOY_LEAGUES = [lg for lg, t in SOFTNESS_TIER.items() if t in DEPLOY_ELIGIBLE_TIERS]
+# Leagues to pull odds for and scan. Softness tiering is retired — every
+# whitelisted league is equally deploy-eligible now. The practical set is simply
+# the leagues a live odds source can actually price today (SportyBet's covered
+# tournaments), so a run doesn't waste a scan on leagues that could only ever
+# come back NO DATA. Add a league here by giving it a SportyBet tournament ID in
+# pipeline/odds_sportybet.py.
+DEPLOY_LEAGUES = [lg for lg in WHITELIST_LEAGUES if lg in SPORTYBET_TOURNAMENT_ID]
 
 
 # --------------------------------------------------------------------------

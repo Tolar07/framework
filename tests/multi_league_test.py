@@ -57,8 +57,8 @@ print("Thin/empty history correctly flagged rather than fit: OK")
 
 # --- test 3: global deploy cap across MULTIPLE leagues combined ---
 results_a, teams_a = make_synthetic_results("Eredivisie")   # tier A
-results_b, teams_b = make_synthetic_results("Scottish Premiership")  # tier B
-results_c, teams_c = make_synthetic_results("Bundesliga")   # tier C — scan only
+results_b, teams_b = make_synthetic_results("Scottish Premiership")
+results_c, teams_c = make_synthetic_results("Bundesliga")   # whitelisted, now deploy-eligible
 
 fixtures_a = [(teams_a[0], teams_a[1]), (teams_a[2], teams_a[3]), (teams_a[4], teams_a[5])]
 fixtures_b = [(teams_b[0], teams_b[1]), (teams_b[2], teams_b[3]), (teams_b[4], teams_b[5])]
@@ -78,15 +78,17 @@ with patch("orchestrator.load_league", side_effect=fake_load_league):
     board_c, _ = orchestrator.scan_one_league("Bundesliga", "2526", upcoming_fixtures=fixtures_c)
 
 combined = board_a + board_b + board_c
-assert all(not b.on_deploy_shortlist for b in board_c), \
-    "Bundesliga (tier C, scan-only) must never appear in the deploy shortlist"
-print(f"Tier C (Bundesliga) fixtures correctly excluded from deploy shortlist: OK "
-      f"({len(board_c)} scanned, 0 deploy-eligible)")
+# Softness tiering RETIRED: every whitelisted league (incl. the former "scan-only"
+# Bundesliga) is now deploy-eligible when it has model probabilities.
+assert any(b.on_deploy_shortlist for b in board_c), \
+    "Bundesliga is whitelisted, so its fixtures with probs must be deploy-eligible now"
+print(f"Whitelisted Bundesliga fixtures are deploy-eligible (no tiering): OK "
+      f"({len(board_c)} scanned)")
 
-# Force more than 6 eligible across A+B combined to test the GLOBAL cap
-from engine.softness import build_deploy_shortlist, DEPLOY_POOL_CAP
+# All three leagues feed one pool; the GLOBAL cap still holds across them.
+from engine.slate import build_deploy_shortlist, DEPLOY_POOL_CAP
 eligible = [b for b in combined if b.on_deploy_shortlist]
-print(f"Deploy-eligible fixtures across Eredivisie+Scottish Premiership combined: {len(eligible)}")
+print(f"Deploy-eligible fixtures across all three leagues combined: {len(eligible)}")
 capped = build_deploy_shortlist(eligible)
 assert len(capped) <= DEPLOY_POOL_CAP
 print(f"Global cap enforced across leagues combined: {len(capped)} <= {DEPLOY_POOL_CAP} OK")

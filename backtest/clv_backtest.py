@@ -54,7 +54,6 @@ from scipy.stats import poisson
 from data.football_data_source import load_league, MatchResult, DEFAULT_BOOK_PREFERENCE
 from engine.dixon_coles import fit, predict, DixonColesModel, TeamStrength
 from engine.mes import mes_numeric
-from engine.softness import softness_tier
 from clv.clv_logger import LoggedLeg, CLVLog, compute_clv, BACKTEST_PHASE, DEFAULT_LOG_PATH
 
 RESULTS_DIR = Path(__file__).parent / "results"
@@ -108,7 +107,6 @@ class PaperLeg:
     date: str
     fixture: str
     market: str
-    softness_tier: str
     model_prob: Optional[float] = None
     entry_odds: Optional[float] = None
     closing_odds: Optional[float] = None
@@ -337,14 +335,13 @@ def candidate_legs(match: MatchResult, probs, cfg: BacktestConfig,
     will find a value that produces a positive headline. It is PRE-DECLARED in
     BacktestConfig, printed in the report, and if it is ever swept the report
     must emit every value tried, not the best one."""
-    tier = softness_tier(match.league)
     fixture = f"{match.home_team} v {match.away_team}"
     o = match.odds
     legs: list[PaperLeg] = []
 
     def base(market: str, **kw) -> PaperLeg:
         return PaperLeg(league=match.league, date=match.date, fixture=fixture,
-                         market=market, softness_tier=tier, fthg=match.fthg,
+                         market=market, fthg=match.fthg,
                          ftag=match.ftag, **kw)
 
     if o is None:

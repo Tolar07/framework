@@ -227,9 +227,22 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 # 3. THE RUN
 # --------------------------------------------------------------------------
 
+def _has_production(board: list, logged_count: int) -> bool:
+    """True when the run produced something worth delivering: at least one
+    fixture on the final deploy shortlist (a real pick), or at least one new
+    paper leg logged this run. An all-'NO DATA — PENDING' board with nothing
+    deploy-eligible and no new leg is a quiet slate, not production — so under
+    --only-production it is built and committed but NOT pushed to Telegram.
+
+    Note: this gates DELIVERY only. The failure-alert path is separate: a run
+    that errors still pages, because a failure is not a quiet slate."""
+    deploy_eligible = any(getattr(b, "on_deploy_shortlist", False) for b in board)
+    return deploy_eligible or logged_count > 0
+
+
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
-        min_mes: float = 0.0) -> str:
+        min_mes: float = 0.0, only_production: bool = False) -> str:
     leagues = leagues or DEPLOY_LEAGUES
     today = date.today().isoformat()
     runlog = _mark_started()
@@ -297,7 +310,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             b.on_deploy_shortlist = False
 
     # --- log the paper legs (the point of Phase 2) ---
-    _, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes)
+    logged_count, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes)
     all_flags += lflags
 
     status = log.phase2_status()
@@ -318,7 +331,14 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 
     full = board_text + "\n\n" + "=" * 60 + "\n\n" + verify_block
     path = BOARD_DIR / f"board_{today}.txt"
-    if send:
+
+    # --only-production: deliver only when the run actually produced picks. This
+    # keeps the phone quiet on the empty paper-calibration slates (no odds, no
+    # deploy-eligible fixtures) while still committing every board to the repo.
+    produced = _has_production(board, logged_count)
+    deliver_now = send and (produced or not only_production)
+
+    if deliver_now:
         delivered, notes = notify.deliver(telegram_text, save_to=None)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
@@ -334,7 +354,13 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     else:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")
-        print(f"  board saved to {path} (delivery skipped)")
+        if send and only_production and not produced:
+            reason = ("no production today (nothing deploy-eligible, no new leg) "
+                      "— board built and committed, not delivered (--only-production)")
+        else:
+            reason = "delivery skipped (--no-send)"
+        print(f"  board saved to {path}; {reason}")
+        _mark(runlog, reason)
     _mark(runlog, "run completed OK")
     return full
 
@@ -347,8 +373,13 @@ if __name__ == "__main__":
     ap.add_argument("--min-mes", type=float, default=0.0,
                      help="minimum EV to log a paper leg (0 = log every priced market)")
     ap.add_argument("--no-send", action="store_true", help="write the board, don't deliver")
+    ap.add_argument("--only-production", action="store_true",
+                     help="deliver to Telegram ONLY when the run produced picks "
+                          "(a deploy-eligible fixture or a new paper leg); an empty "
+                          "slate is committed but not sent")
     a = ap.parse_args()
     print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
-              leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes)
+              leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
+              only_production=a.only_production)
     print("\n" + out)

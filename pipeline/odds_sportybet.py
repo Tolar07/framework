@@ -67,6 +67,7 @@ SPORTYBET_TOURNAMENT_ID = {
     "Ligue 1": "sr:tournament:34",              # France
     "Ligue 2": "sr:tournament:182",             # France
     "Primeira Liga": "sr:tournament:238",       # Portugal (Liga Portugal)
+    "UEFA Nations League": "sr:tournament:23755",  # national teams (verified live)
 }
 
 # SportyBet team name -> model (football-data) key. Verified pairs only; exact
@@ -220,6 +221,16 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Nacional da Madeira": "Nacional", "Santa Clara Azores": "Santa Clara",
         "Alverca Futebol": "Alverca", "FC Porto": "Porto", "SL Benfica": "Benfica",
         "CD Tondela": "Tondela",
+    },
+    # National teams: SportyBet name -> international results dataset name.
+    # 48 of 52 SportyBet UNL names match exactly; these four are the only
+    # renames, each the same national team (NOT fuzzy-matched — the fuzzy
+    # matcher suggested 'Iceland' for 'Ireland', which would be wrong).
+    "UEFA Nations League": {
+        "Bosnia & Herzegovina": "Bosnia and Herzegovina",
+        "Czechia": "Czech Republic",
+        "Ireland": "Republic of Ireland",
+        "Turkiye": "Turkey",
     },
 }
 

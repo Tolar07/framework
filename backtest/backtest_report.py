@@ -16,9 +16,6 @@ import math
 import statistics
 from typing import Optional
 
-from engine.softness import softness_tier, DEPLOY_ELIGIBLE_TIERS
-
-
 def _pct(x: Optional[float], dp: int = 2) -> str:
     return "NO DATA — PENDING" if x is None else f"{x:.{dp}f}%"
 
@@ -123,20 +120,6 @@ def render_report(legs: list, flags: list[str], coverage: dict, cfg,
         A(_row(summarise([l for l in raw if l.market == mkt], f"market: {mkt}")))
     A("")
 
-    ab = [l for l in raw if softness_tier(l.league) in DEPLOY_ELIGIBLE_TIERS]
-    cd = [l for l in raw if softness_tier(l.league) not in DEPLOY_ELIGIBLE_TIERS]
-    A("SOFTNESS THESIS — deploy-eligible (A/B) vs scan-only (C/D) control")
-    A(_row(summarise(ab, "tier A/B (deploy)")))
-    A(_row(summarise(cd, "tier C/D (control)")))
-    s_ab, s_cd = summarise(ab, "ab"), summarise(cd, "cd")
-    if s_ab["mean_clv_pct"] is not None and s_cd["mean_clv_pct"] is not None:
-        diff = s_ab["mean_clv_pct"] - s_cd["mean_clv_pct"]
-        A(f"  difference: {diff:+.3f}pp  "
-          f"(n={s_ab['n_with_clv']} vs {s_cd['n_with_clv']})")
-        if min(s_ab["n_with_clv"], s_cd["n_with_clv"]) < 200:
-            A("  ! Under 200 legs in a bucket, this difference is not evidence of anything.")
-    A("")
-
     if derived:
         A("DERIVED O1.5 CLV  (probability space — NOT comparable to raw-price CLV above)")
         A(_row(summarise(derived, "O1.5 (DERIVED)")))
@@ -187,8 +170,7 @@ def render_report(legs: list, flags: list[str], coverage: dict, cfg,
     A("  2. The archived book is not SportyBet or Bet365 Nigeria. This measures whether")
     A("     the model finds lines that move — not whether the Architect could get that price.")
     A("  3. Danish Superliga and Ekstraklasa carry CLOSING PRICES ONLY in this source, so")
-    A("     entry-vs-close is undefined. Two of five deploy-eligible leagues, including")
-    A("     one of two Tier-A leagues, are unmeasurable here.")
+    A("     entry-vs-close is undefined — two deploy-eligible leagues are unmeasurable here.")
     A("  4. O1.5 is never quoted. ID390's central question is NOT directly answerable")
     A("     with this data.")
     A("  5. BTTS and Over 3.5 have no prices at any point in either schema. Permanently")

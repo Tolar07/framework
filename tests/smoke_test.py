@@ -114,9 +114,9 @@ Path_clv.unlink()
 
 # --- test render_produce_bet doesn't crash and honestly reports NO DATA ---
 board = [
-    BoardFixture(fixture="Team1 v Team2", probs=probs, verification=v_agree, softness_tier="B"),
+    BoardFixture(fixture="Team1 v Team2", probs=probs, verification=v_agree),
     BoardFixture(fixture="Team3 v GhostFC", probs=None,
-                 verification=verify([]), softness_tier="?",
+                 verification=verify([]),
                  rejection_reason="GhostFC unrated — insufficient match history"),
 ]
 output = render_produce_bet(mode="Mode A", phase="Phase 1", leagues_scanned=["Synthetic Test League"],

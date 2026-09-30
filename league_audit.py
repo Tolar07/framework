@@ -27,7 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from engine.softness import SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS
+from engine.slate import WHITELIST_LEAGUES, is_deploy_eligible
 from data.football_data_source import load_league, UNCOVERED_LEAGUES, LEAGUE_CODES
 from data import thesportsdb_fixtures as tsdb
 import pipeline.odds as odds_mod
@@ -37,9 +37,9 @@ MIN_HISTORY = 20     # orchestrator's own floor for attempting a fit
 
 def audit(league: str, fit_season: str, fixtures_season: str,
            check_odds: bool) -> dict:
-    tier = SOFTNESS_TIER.get(league, "?")
-    row = {"league": league, "tier": tier,
-           "deploy_eligible": tier in DEPLOY_ELIGIBLE_TIERS,
+    eligible = is_deploy_eligible(league)
+    row = {"league": league, "tier": "yes" if eligible else "no",
+           "deploy_eligible": eligible,
            "history": "", "fixtures": "", "odds": "", "names": "",
            "blockers": []}
 
@@ -134,15 +134,10 @@ def main() -> None:
     print("-" * 108)
 
     rows = []
-    for league in SOFTNESS_TIER:
+    for league in WHITELIST_LEAGUES:
         r = audit(league, a.fit_season, a.fixtures_season, not a.no_odds)
         rows.append(r)
-        if not r["blockers"]:
-            verdict = "READY"
-        elif r["deploy_eligible"]:
-            verdict = "BLOCKED (deploy league)"
-        else:
-            verdict = "blocked (scan-only)"
+        verdict = "READY" if not r["blockers"] else "BLOCKED"
         print(f"{r['league']:<22}{r['tier']:<4}{r['history']:<14}{r['fixtures']:<14}"
               f"{r['odds']:<22}{r['names']:<14}{verdict}")
 
@@ -150,19 +145,15 @@ def main() -> None:
     print("\nBLOCKERS IN DETAIL\n")
     for r in rows:
         if r["blockers"]:
-            marker = "!!" if r["deploy_eligible"] else "  "
-            print(f"{marker} {r['league']} (tier {r['tier']}):")
+            print(f"!! {r['league']}:")
             for b in r["blockers"]:
                 print(f"     - {b}")
 
     ready = [r for r in rows if not r["blockers"]]
-    deploy_ready = [r for r in ready if r["deploy_eligible"]]
-    deploy_total = [r for r in rows if r["deploy_eligible"]]
     print(f"\nSUMMARY")
-    print(f"  fully ready               : {len(ready)} of {len(rows)}")
-    print(f"  DEPLOY-eligible and ready : {len(deploy_ready)} of {len(deploy_total)}")
-    print(f"  (only softness A/B leagues can ever produce a capital pick — a")
-    print(f"   blocked C/D league costs you reference coverage, not edge)")
+    print(f"  fully ready : {len(ready)} of {len(rows)} whitelisted leagues")
+    print(f"  (softness tiering is retired — every whitelisted league is equally")
+    print(f"   deploy-eligible; a blocked league costs you coverage, not edge)")
 
 
 if __name__ == "__main__":

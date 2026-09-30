@@ -539,6 +539,156 @@ def render_pick_detail(shortlist: list[BoardFixture]) -> str:
     return "\n\n".join(out)
 
 
+# ---------------------------------------------------------------------------
+# CANONICAL BOARD — the Architect's ##########OLP XDV######### layout
+# ---------------------------------------------------------------------------
+# Reconstructed to the saved-artifact spec (board_2026-09-04.txt,
+# telegram_2026-09-08.txt): a four-table board — full market grid + AI pick,
+# deploy-eligible singles, the ACCA route, and THE PICK — under the
+# ##########OLP XDV######### header, with a compact honest footer.
+#
+# HR35 is carried through unchanged: booking codes render PENDING rather than
+# fabricated, because the SportyBet booking-code bridge is not wired into THIS
+# framework yet. A missing datum stays visible; it is never filled to look
+# complete. Everything the model actually computes (picks, win %, alt markets,
+# deploy triggers) is shown for real.
+
+_CANON_HEAD = "##########OLP XDV#########"
+_CANON_BAR = "=" * 34
+_CANON_RULE = "─" * 34
+
+
+def _canon_short(fixture: str) -> str:
+    """'Home v Away (League)' -> 'Home v Away' (league is a grouping detail)."""
+    return fixture.split(" (")[0]
+
+
+def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
+    """Group the deploy-eligible singles into one honest accumulator (Acca A) of
+    the strongest legs. The combined model probability is the PRODUCT of the leg
+    probabilities — an explicit independence assumption, stated on the board, not
+    hidden. Returns [] when fewer than two legs qualify (no acca to route)."""
+    legs = []
+    for bf in shortlist:
+        if bf.probs is None:
+            continue
+        pick, prob = _best_market_desc(bf.probs)
+        if prob:
+            legs.append((bf, pick, prob))
+    if len(legs) < 2:
+        return []
+    legs = sorted(legs, key=lambda t: t[2], reverse=True)[:4]  # cap Acca A at 4 legs
+    combo = 1.0
+    for _, _, prob in legs:
+        combo *= prob
+    return [("Acca A", legs, combo)]
+
+
+def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
+                            calibration_count: int, mean_clv: Optional[float],
+                            data_flags: list[str], board: list[BoardFixture]) -> str:
+    """The ##########OLP XDV######### board the Architect reads on Telegram."""
+    day = date.today().strftime("%a %d %b %Y")
+    out = [_CANON_HEAD, _CANON_BAR, "",
+           f"\U0001F4C5  {day}   (PICK · win %  ·  alt markets)", "", ""]
+
+    if data_flags:
+        out.append(f"⚠ {len(data_flags)} data flag(s) — full detail in the "
+                   f"saved board / VERIFY RESULTS")
+        out.append("")
+
+    # --- TABLE 1 · full market grid + AI pick ---
+    out += [_CANON_RULE, "TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK",
+            _CANON_RULE, ""]
+    if not board:
+        out.append("No fixtures scanned today.")
+    else:
+        rows = []
+        for bf in board:
+            if bf.probs is None:
+                rows.append([_canon_short(bf.fixture), "NO DATA — PENDING", "—",
+                             "—", stamp(bf.verification)])
+                continue
+            p = bf.probs
+            pick, prob = _best_market_desc(p)
+            pick_cell = f"{pick} · {round(prob*100)}%" if prob else pick
+            alt = f"{_lean(p.p_over_15,'1.5')}/{_lean(p.p_over_25,'2.5')}"
+            rows.append([_canon_short(bf.fixture), pick_cell, alt, _dc_cell(p),
+                         stamp(bf.verification)])
+        out.append(FENCE)
+        out.append(_col(rows, ["Fixture", "AI PICK · win%", "O1.5/O2.5",
+                               "DC/BTTS", "Src"]))
+        out.append(FENCE)
+    out += ["", "Board code: NO DATA — PENDING (booking-code bridge not wired into "
+            "this framework yet — tracked, not blocking board output)", ""]
+
+    shortlist = [bf for bf in board if bf.on_deploy_shortlist]
+
+    # --- TABLE 2 · deploy-eligible singles ---
+    out += [_CANON_RULE, "TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES",
+            "(fixtures that clear the deploy threshold, one row each, own code)",
+            _CANON_RULE, ""]
+    if not shortlist:
+        out.append("No deploy-eligible fixtures kicking off today.")
+    else:
+        rows = []
+        for bf in shortlist:
+            if bf.probs is None:
+                rows.append([_canon_short(bf.fixture), "NO DATA — PENDING", "—",
+                             "—", "PENDING"])
+                continue
+            pick, prob = _best_market_desc(bf.probs)
+            trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
+            rows.append([_canon_short(bf.fixture), pick,
+                         f"{round(prob*100)}%" if prob else "—", trig, "PENDING"])
+        out.append(FENCE)
+        out.append(_col(rows, ["Fixture", "Pick", "Model%", "Deploy at", "Code"]))
+        out.append(FENCE)
+    out.append("")
+
+    # --- TABLE 3 · ACCA route ---
+    out += [_CANON_RULE, "TABLE 3 · ACCA ROUTE",
+            "(capital-eligible grouped accumulators, own code per acca)",
+            _CANON_RULE, ""]
+    accas = _build_accas(shortlist)
+    if not accas:
+        out.append("No capital-eligible accas generated.")
+    else:
+        for name, legs, combo in accas:
+            out.append(f"{name}  ({len(legs)} legs · model {round(combo*100)}% "
+                       f"· code PENDING)")
+            for bf, pick, prob in legs:
+                out.append(f"   • {_canon_short(bf.fixture)} — {pick} "
+                           f"({round(prob*100)}%)")
+    out.append("")
+
+    # --- TABLE 4 · the pick ---
+    out += [_CANON_RULE, "TABLE 4 · THE PICK",
+            "(primary single + Acca A recommendation)", _CANON_RULE, ""]
+    ranked = [bf for bf in shortlist if bf.probs is not None]
+    if not ranked:
+        out.append("No pick today — nothing cleared the deploy threshold.")
+    else:
+        top = max(ranked, key=lambda b: _best_market_desc(b.probs)[1] or 0.0)
+        pick, prob = _best_market_desc(top.probs)
+        out.append(f"Primary single: {_canon_short(top.fixture)} — {pick} "
+                   f"({round((prob or 0)*100)}%)")
+        if accas:
+            out.append(f"Acca A: {len(accas[0][1])} legs, model "
+                       f"{round(accas[0][2]*100)}% (code PENDING)")
+    out.append("")
+
+    # --- footer ---
+    clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
+    out += [_CANON_BAR,
+            "Honest edge: not a demonstrated edge · Capital: Architect only.",
+            f"Calibration: {calibration_count} legs logged, {clv}.",
+            "Booking codes: PENDING pipeline-wide — SportyBet booking-code bridge",
+            "not yet wired into this framework (HR35: shown, never fabricated).",
+            _CANON_BAR]
+    return "\n".join(out)
+
+
 def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
                            calibration_count: int, mean_clv: Optional[float],
                            data_flags: list[str], board: list[BoardFixture]) -> str:

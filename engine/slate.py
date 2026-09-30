@@ -66,6 +66,9 @@ WHITELIST_LEAGUES = (
     "Serie B",
     "2. Bundesliga",
     "Ligue 2",
+    # National teams — rated on the international results dataset
+    # (data/international_source.py). Added 2026-09-30 at the Architect's request.
+    "UEFA Nations League",
 )
 
 # --- MARKET GATE (ratified 2026-08-04, evidence below) ----------------------

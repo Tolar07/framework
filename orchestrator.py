@@ -27,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from data.football_data_source import load_league, MatchResult, UNCOVERED_LEAGUES
 from data.fixtures_source import fetch_upcoming, as_pairs
+from data import international_source as intl
 from data import thesportsdb_fixtures as tsdb
 from data import api_football_results as apif
 from engine import cross_league as xleague
@@ -154,7 +155,13 @@ def scan_one_league(league: str, season: str,
         results, skipped = fallback_history, []
     else:
         try:
-            results, skipped = load_league(league, season)
+            if league in intl.INTERNATIONAL_LEAGUES:
+                # National teams: international results dataset (see
+                # data/international_source.py), with its provenance flag.
+                results, skipped, iflags = intl.load_results(league)
+                flags += iflags
+            else:
+                results, skipped = load_league(league, season)
         except Exception as e:
             flags.append(f"{league}: results fetch failed ({e}) — NO DATA — PENDING")
             return [], flags

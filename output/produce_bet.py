@@ -62,6 +62,13 @@ class BoardFixture:
     # a warning. It does NOT gate deployment.
     elo_probs: Optional[tuple] = None
     engine_divergence: Optional[str] = None
+    # Standings + recent-form context (engine.form), derived from the same
+    # results the model is fit on. A ranking/flagging signal only — it never
+    # changes a probability, EV or CLV. form_support is the bounded [-1,1] tilt
+    # of recent form toward the market side the model likes; a clearly negative
+    # value is surfaced as a caution, never an auto-reject.
+    form_summary: Optional[str] = None
+    form_support: Optional[float] = None
 
 
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],
@@ -177,6 +184,10 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
     L.append(head)
     L.append(f"   {_tier_words(bf.softness_tier)}")
     L.append(f"   Data confidence: {_verification_words(bf.verification)}")
+    if bf.form_summary:
+        tilt = ("" if bf.form_support is None
+                else f"  (recent-form tilt {bf.form_support:+.2f})")
+        L.append(f"   Standings/{bf.form_summary}{tilt}")
 
     if bf.probs is None:
         L.append("   Model: NO DATA — PENDING")

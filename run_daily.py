@@ -32,6 +32,7 @@ from engine.softness import (SOFTNESS_TIER, DEPLOY_ELIGIBLE_TIERS,
                              build_deploy_shortlist, market_blocked)
 from engine.mes import mes_numeric
 from engine import markets as mkt
+from engine.form import compute_table, fixture_form, form_support as _form_support
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import (render_produce_bet, render_verify_results,
                                 render_telegram_board)
@@ -302,6 +303,43 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             bf.best_price = quote.price
             bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
             bf.best_mes_ev, bf.best_model_prob = ev, model_p
+
+    # --- form & standings context (engine.form) ---
+    # Derived from the same football-data results the model is fit on, so it
+    # needs no new source. A ranking/flag signal only: it never changes a
+    # probability, EV or CLV. Wrapped so a data hiccup degrades the context,
+    # never the run.
+    try:
+        _tables: dict[str, dict] = {}
+        current = orchestrator.next_season_code(season)
+        for bf in board:
+            if bf.probs is None:
+                continue
+            lg = bf.fixture.split("(")[-1].rstrip(")").strip()
+            if lg not in _tables:
+                tbl: dict = {}
+                for s in (current, season):   # prefer the live (current) table
+                    try:
+                        res, _ = load_league(lg, s)
+                        if res:
+                            tbl = compute_table(res)
+                            break
+                    except Exception:
+                        continue
+                _tables[lg] = tbl
+            table = _tables.get(lg) or {}
+            if not table:
+                continue
+            ff = fixture_form(table, bf.probs.home_team, bf.probs.away_team)
+            bf.form_summary = ff.summary()
+            side = "home" if bf.probs.p_home >= bf.probs.p_away else "away"
+            bf.form_support = _form_support(ff, side)
+            if (bf.on_deploy_shortlist and bf.form_support is not None
+                    and bf.form_support < -0.33):
+                all_flags.append(f"{bf.fixture}: CAUTION — recent form runs against "
+                                 f"the model's lean ({bf.form_summary})")
+    except Exception as e:  # noqa: BLE001 — context is optional, the run is not
+        all_flags.append(f"form/standings context unavailable ({e}) — proceeding without it")
 
     shortlisted = [b for b in board if b.on_deploy_shortlist]
     capped = {id(b) for b in build_deploy_shortlist(shortlisted)}

@@ -5,8 +5,9 @@ correct behaviour, not failure).
 
 ID402 "wide eyes, narrow hands": run_all_leagues() scans every league on the
 ID401 whitelist (15 leagues) into ONE combined board. THE CALL (deploy
-shortlist) still only ever draws from softness A/B and is capped at 6 total
-across ALL leagues combined — scanning wide never widens the deploy pool.
+shortlist) is ranked by model conviction and capped at 6 total across ALL
+leagues combined — scanning wide never widens the deploy pool. (Softness
+tiering was retired 2026-09-30; every whitelisted league is equally eligible.)
 
 Usage:
     python orchestrator.py --all --season 2526          # full 15-league scan
@@ -31,16 +32,16 @@ from data import api_football_results as apif
 from engine import cross_league as xleague
 from engine import elo as elo_engine
 from engine.dixon_coles import fit, predict, unrated_reason
-from engine.softness import (SOFTNESS_TIER, softness_tier, is_deploy_eligible,
-                              build_deploy_shortlist)
+from engine.slate import (WHITELIST_LEAGUES, is_deploy_eligible,
+                          build_deploy_shortlist)
 from engine.mes import trigger_price
 from verification.id403 import verify, SourcedDatum, Tier
 from output.produce_bet import BoardFixture, render_produce_bet
 from clv.clv_logger import CLVLog
 from config import PHASE_LABEL
 
-# The full ID401 whitelist (15 leagues) — same set engine/softness.py tiers.
-FULL_WHITELIST = list(SOFTNESS_TIER.keys())
+# The full ID401 whitelist (15 leagues), all now equally deploy-eligible.
+FULL_WHITELIST = list(WHITELIST_LEAGUES)
 
 
 def next_season_code(season: str) -> str:
@@ -178,7 +179,6 @@ def scan_one_league(league: str, season: str,
     except Exception as e:
         elo_model = None
         flags.append(f"{league}: Elo second opinion unavailable ({str(e)[:60]})")
-    tier = softness_tier(league)
     board: list[BoardFixture] = []
 
     for home, away in upcoming_fixtures:
@@ -201,18 +201,13 @@ def scan_one_league(league: str, season: str,
             fixture=f"{home} v {away} ({league})",
             probs=probs,
             verification=v,
-            softness_tier=tier,
             on_deploy_shortlist=(probs is not None and is_deploy_eligible(league)
                                   and v.tier not in (Tier.CONFLICT, Tier.NO_DATA)),
             mes_trigger_price=mes,
             kickoff_date=fixture_dates.get((home, away)),
             elo_probs=elo_p,
             engine_divergence=elo_engine.divergence(elo_p, probs),
-            rejection_reason=(
-                _unrated_detail(model, home, away) if probs is None
-                else None if is_deploy_eligible(league)
-                else f"softness tier {tier} — scan-only"
-            ),
+            rejection_reason=_unrated_detail(model, home, away) if probs is None else None,
         ))
 
     # Surface unmapped names ONCE per league, with the model's actual roster

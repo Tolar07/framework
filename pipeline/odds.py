@@ -57,13 +57,13 @@ QUOTA_FLOOR = 40
 # Verified live against /v4/sports on 2026-08-03 — every key below returned
 # active=True. Listing sports is free; only odds calls cost credits.
 SPORT_KEYS = {
-    # deploy-eligible (softness A/B)
+    # The leagues this metered fallback can price (used only if the free sources
+    # yield nothing and a key is configured).
     "Eredivisie": "soccer_netherlands_eredivisie",
     "Danish Superliga": "soccer_denmark_superliga",
     "Belgian Pro League": "soccer_belgium_first_div",
     "Scottish Premiership": "soccer_spl",
     "Ekstraklasa": "soccer_poland_ekstraklasa",
-    # scan-only (softness C/D) — never a capital pick, pulled only if asked
     "Championship": "soccer_efl_champ",
     "Serie A": "soccer_italy_serie_a",
     "Bundesliga": "soccer_germany_bundesliga",
@@ -383,9 +383,9 @@ def fixtures_from_odds(league: str, days_ahead: int = 14
 
     A priced event is by definition an upcoming fixture, so where a dedicated
     fixtures source has no verified league ID this recovers the league rather
-    than dropping it. That is what unblocks Ekstraklasa — a tier-B,
-    deploy-eligible league with 306 matches of history and live prices, which
-    was otherwise scanning as NO DATA purely for want of a fixture list.
+    than dropping it. That is what unblocks Ekstraklasa — a deploy-eligible
+    league with 306 matches of history and live prices, which was otherwise
+    scanning as NO DATA purely for want of a fixture list.
 
     Returns (pairs, dates_by_pair, flags). Deduplicated: the feed can return
     the same fixture more than once, and a duplicate would be logged as two

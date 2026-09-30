@@ -240,7 +240,7 @@ _v = _verify([_SD(domain="thesportsdb.com", value="x", url="http://x")])
 # the table as broken plain text.
 _fixtures = [
     BoardFixture(fixture=f"Long Club Name {i} v Another Long Club {i} (Eredivisie)",
-                 probs=_Probs(), verification=_v, softness_tier="A",
+                 probs=_Probs(), verification=_v,
                  on_deploy_shortlist=(i < 3), mes_trigger_price=1.5)
     for i in range(120)
 ]

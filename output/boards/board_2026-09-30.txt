@@ -4,7 +4,7 @@
 📅  Wed 30 Sep 2026   (PICK · win %  ·  alt markets)
 
 
-⚠ 24 data flag(s) — full detail in the saved board / VERIFY RESULTS
+⚠ 25 data flag(s) — full detail in the saved board / VERIFY RESULTS
 
 ──────────────────────────────────
 TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
@@ -24,7 +24,7 @@ Radomiak Radom v Motor Lublin    Radomiak Radom to win · 53%  O86/O65    1277 /
 GKS Katowice v Wieczysta Krakow  NO DATA — PENDING            —          —           ○
 ```
 
-Board code: NO DATA — PENDING (booking-code bridge not wired into this framework yet — tracked, not blocking board output)
+Board code (all deploy singles): TPNGLK   load ↦ www.sportybet.com/ng/?shareCode=TPNGLK
 
 ──────────────────────────────────
 TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
@@ -33,12 +33,12 @@ TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
 
 ```
 Fixture                         Pick                   Model%  Deploy at  Code
-Rakow v GKS Katowice            Rakow to win           50%     1.30+      PENDING
-Cracovia v Zaglebie             Under 2.5 goals        65%     1.59+      PENDING
-Jagiellonia v Gornik Zabrze     Under 2.5 goals        50%     1.33+      PENDING
-Piast Gliwice v Widzew Lodz     Under 2.5 goals        61%     1.50+      PENDING
-Pogon Szczecin v Korona Kielce  Under 2.5 goals        57%     1.43+      PENDING
-Radomiak Radom v Motor Lublin   Radomiak Radom to win  53%     1.17+      PENDING
+Rakow v GKS Katowice            Rakow to win           50%     1.30+      JYV0AP
+Cracovia v Zaglebie             Under 2.5 goals        65%     1.59+      UFZ47J
+Jagiellonia v Gornik Zabrze     Under 2.5 goals        50%     1.33+      TMU2ED
+Piast Gliwice v Widzew Lodz     Under 2.5 goals        61%     1.50+      WC7Q3N
+Pogon Szczecin v Korona Kielce  Under 2.5 goals        57%     1.43+      W95P51
+Radomiak Radom v Motor Lublin   Radomiak Radom to win  53%     1.17+      UAFVQG
 ```
 
 ──────────────────────────────────
@@ -46,7 +46,7 @@ TABLE 3 · ACCA ROUTE
 (capital-eligible grouped accumulators, own code per acca)
 ──────────────────────────────────
 
-Acca A  (4 legs · model 12% · code PENDING)
+Acca A  (4 legs · model 12% · code N5T7XZ)
    • Cracovia v Zaglebie — Under 2.5 goals (65%)
    • Piast Gliwice v Widzew Lodz — Under 2.5 goals (61%)
    • Pogon Szczecin v Korona Kielce — Under 2.5 goals (57%)
@@ -57,14 +57,13 @@ TABLE 4 · THE PICK
 (primary single + Acca A recommendation)
 ──────────────────────────────────
 
-Primary single: Cracovia v Zaglebie — Under 2.5 goals (65%)
-Acca A: 4 legs, model 12% (code PENDING)
+Primary single: Cracovia v Zaglebie — Under 2.5 goals (65%) · code UFZ47J
+Acca A: 4 legs, model 12% · code N5T7XZ
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.
 Calibration: 9 legs logged, mean CLV +1.66%.
-Booking codes: PENDING pipeline-wide — SportyBet booking-code bridge
-not yet wired into this framework (HR35: shown, never fabricated).
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
 ==================================
 
 ============================================================
@@ -82,7 +81,7 @@ Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Prem
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ graded 0 of 11 pending leg(s)
-  ⚠ SportyBet events pulled live
+  ⚠ SportyBet events served from cache (<=60min)
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ Danish Superliga: 6 fixture(s) priced from SportyBet
@@ -105,6 +104,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Jagiellonia v Gornik Zabrze (Ekstraklasa): CAUTION — recent form runs against the model's lean (form — home: P10 12pts, last5 6/15 | away: P1 22pts, last5 13/15)
   ⚠ logged 0 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
+  ⚠ SportyBet booking codes: 6/6 singles resolved, board code set, Acca A set
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 
 PART 1 — THE CALL

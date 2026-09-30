@@ -594,12 +594,14 @@ _CANON_RULE = "─" * 34
 
 def render_heartbeat(phase: str, leagues_scanned: list[str],
                       calibration_count: int, mean_clv: Optional[float],
-                      board: list[BoardFixture], board_delivered: bool) -> str:
+                      board: list[BoardFixture], board_delivered: bool,
+                      board_date: Optional[str] = None) -> str:
     """The daily HEARTBEAT — a short 'system alive' ping sent every day, even on
     dry days. It carries no picks itself (the board does that); it confirms the
     run happened and summarises health, so silence never looks like a dead
     system. All counts are real (HR35)."""
-    day = date.today().strftime("%a %d %b %Y")
+    day = (date.fromisoformat(board_date) if board_date
+           else date.today()).strftime("%a %d %b %Y")
     rated = sum(1 for b in board if b.probs is not None)
     priced = sum(1 for b in board if b.best_price is not None)
     picks = sum(1 for b in board if b.on_deploy_shortlist)
@@ -649,13 +651,17 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             calibration_count: int, mean_clv: Optional[float],
                             data_flags: list[str], board: list[BoardFixture],
                             acca_code: Optional[str] = None,
-                            board_code: Optional[str] = None) -> str:
+                            board_code: Optional[str] = None,
+                            board_date: Optional[str] = None) -> str:
     """The ##########OLP XDV######### board the Architect reads on Telegram.
 
     Booking codes (real SportyBet share codes) are attached upstream by run_daily:
     per-fixture on BoardFixture.booking_code, plus the whole-board `board_code`
-    and the Acca A `acca_code`. Anything unresolved renders PENDING (HR35)."""
-    day = date.today().strftime("%a %d %b %Y")
+    and the Acca A `acca_code`. Anything unresolved renders PENDING (HR35).
+    `board_date` (YYYY-MM-DD) is the day the board is FOR — the evening run passes
+    tomorrow; defaults to today."""
+    day = (date.fromisoformat(board_date) if board_date
+           else date.today()).strftime("%a %d %b %Y")
     out = [_CANON_HEAD, _CANON_BAR, "",
            f"\U0001F4C5  {day}   (PICK · win %  ·  alt markets)", "", ""]
 

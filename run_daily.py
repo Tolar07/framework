@@ -248,9 +248,12 @@ def _has_production(board: list, logged_count: int) -> bool:
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, only_production: bool = False,
-        heartbeat: bool = False) -> str:
+        heartbeat: bool = False, target_date: str | None = None) -> str:
     leagues = leagues or DEPLOY_LEAGUES
     today = date.today().isoformat()
+    # The day the board is FOR. Defaults to today (the morning run); the evening
+    # run passes tomorrow so the 10pm board targets the next day's card.
+    target = target_date or today
     runlog = _mark_started()
     log = CLVLog()
     all_flags: list[str] = []
@@ -279,6 +282,19 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             lg, season, fixtures_season=fixtures_season)
         board += slice_
         all_flags += flags
+
+    # TARGET DAY filter: when a specific day is requested (the evening run targets
+    # tomorrow), keep only fixtures kicking off ON that date. A fixture with no
+    # kickoff date can't be confirmed for the target day, so it's excluded (HR35 —
+    # never assume a date). The morning run passes no target and scans the full
+    # upcoming window as before.
+    if target_date:
+        before = len(board)
+        board = [b for b in board
+                 if b.kickoff_date and b.kickoff_date[:10] == target_date]
+        all_flags.append(
+            f"TARGET DAY {target_date}: {len(board)} fixture(s) kicking off that day "
+            f"({before - len(board)} outside the target day excluded)")
 
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
@@ -447,7 +463,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
-        acca_code=acca_code, board_code=board_code)
+        acca_code=acca_code, board_code=board_code, board_date=target)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
@@ -459,7 +475,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             + "\n\n" + "=" * 60 + "\n\n"
             + "DETAIL — HR53 full per-fixture audit (not sent to Telegram)\n\n"
             + detail_text)
-    path = BOARD_DIR / f"board_{today}.txt"
+    path = BOARD_DIR / f"board_{target}.txt"
 
     # --only-production: deliver only when the run actually produced picks. This
     # keeps the phone quiet on the empty paper-calibration slates (no odds, no
@@ -500,7 +516,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     if heartbeat and send:
         try:
             hb = render_heartbeat(PHASE_LABEL, leagues, status["legs_with_clv"],
-                                  status["mean_clv_pct"], board, board_delivered)
+                                  status["mean_clv_pct"], board, board_delivered,
+                                  board_date=target)
             hb_ok, hb_notes = notify.deliver(hb, save_to=None)
             for n in hb_notes:
                 _mark(runlog, f"heartbeat: {n}")
@@ -528,9 +545,20 @@ if __name__ == "__main__":
     ap.add_argument("--heartbeat", action="store_true",
                      help="send a short 'system alive' heartbeat every day, even on "
                           "dry days (in addition to the board on pick days)")
+    ap.add_argument("--target-date", default=None,
+                     help="build the board for this day only (YYYY-MM-DD): keep only "
+                          "fixtures kicking off on it. Default: full upcoming window.")
+    ap.add_argument("--next-day", action="store_true",
+                     help="target tomorrow's fixtures (the evening run's job); "
+                          "shorthand for --target-date <tomorrow>")
     a = ap.parse_args()
-    print(f"OLP XDV daily run — {date.today().isoformat()} — {PHASE_LABEL}")
+    tgt = a.target_date
+    if a.next_day and not tgt:
+        from datetime import timedelta
+        tgt = (date.today() + timedelta(days=1)).isoformat()
+    print(f"OLP XDV daily run — for {tgt or date.today().isoformat()} — {PHASE_LABEL}")
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
-              only_production=a.only_production, heartbeat=a.heartbeat)
+              only_production=a.only_production, heartbeat=a.heartbeat,
+              target_date=tgt)
     print("\n" + out)

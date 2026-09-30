@@ -592,6 +592,33 @@ _CANON_BAR = "=" * 34
 _CANON_RULE = "─" * 34
 
 
+def render_heartbeat(phase: str, leagues_scanned: list[str],
+                      calibration_count: int, mean_clv: Optional[float],
+                      board: list[BoardFixture], board_delivered: bool) -> str:
+    """The daily HEARTBEAT — a short 'system alive' ping sent every day, even on
+    dry days. It carries no picks itself (the board does that); it confirms the
+    run happened and summarises health, so silence never looks like a dead
+    system. All counts are real (HR35)."""
+    day = date.today().strftime("%a %d %b %Y")
+    rated = sum(1 for b in board if b.probs is not None)
+    priced = sum(1 for b in board if b.best_price is not None)
+    picks = sum(1 for b in board if b.on_deploy_shortlist)
+    clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
+    if picks:
+        tail = ("Board delivered above." if board_delivered
+                else f"{picks} deploy-eligible pick(s) today (see saved board).")
+    else:
+        tail = "No deploy-eligible picks in the 1.20–2.00 band today — nothing to bet."
+    return (
+        f"\U0001FAC0 OLP XDV heartbeat — {day}\n"
+        f"System: ALIVE · {phase}\n"
+        f"Scanned {len(leagues_scanned)} league(s): {rated} fixture(s) rated, "
+        f"{priced} priced.\n"
+        f"Deploy-eligible (odds 1.20–2.00): {picks} pick(s).\n"
+        f"Phase 3 gate: {calibration_count}/30 legs with CLV, {clv}.\n"
+        f"{tail}")
+
+
 def _canon_short(fixture: str) -> str:
     """'Home v Away (League)' -> 'Home v Away' (league is a grouping detail)."""
     return fixture.split(" (")[0]

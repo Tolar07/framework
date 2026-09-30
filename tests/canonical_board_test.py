@@ -10,7 +10,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine.dixon_coles import FixtureProbabilities
 from verification.id403 import VerificationResult, Tier
-from output.produce_bet import render_canonical_board, BoardFixture, _build_accas
+from output.produce_bet import (render_canonical_board, BoardFixture,
+                                _build_accas, render_heartbeat)
 
 
 def _p(h, d, a, home="Home", away="Away"):
@@ -79,5 +80,17 @@ for _, _, prob in legs:
     prod *= prob
 assert abs(combo - prod) < 1e-9, "acca combined prob must be the product of legs"
 print("Acca builder: >=2 legs, product-of-probabilities: OK")
+
+# --- heartbeat: always-on 'system alive' ping, pick day vs dry day ---
+hb_pick = render_heartbeat("Phase 2", ["Eredivisie", "Ekstraklasa"], 9, 1.66,
+                           board, board_delivered=True)
+assert "heartbeat" in hb_pick.lower() and "ALIVE" in hb_pick
+assert "9/30" in hb_pick, "heartbeat states the Phase 3 gate progress"
+assert "Board delivered above." in hb_pick, "pick-day heartbeat points to the board"
+dry = [BoardFixture("X v Y (Ekstraklasa)", None, _nd())]
+hb_dry = render_heartbeat("Phase 2", ["Eredivisie"], 9, 1.66, dry, board_delivered=False)
+assert "0 pick(s)" in hb_dry and "nothing to bet" in hb_dry, \
+    "dry-day heartbeat says there are no picks"
+print("Heartbeat: pick-day + dry-day, states gate + pick count: OK")
 
 print("\n✅ ALL CANONICAL BOARD TESTS PASSED")

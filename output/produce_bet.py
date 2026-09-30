@@ -244,8 +244,9 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
         div = _divergence(bf)
         if div:
             L.append(f"      {div}")
-        L.append(f"      Price captured from the-odds-api.com. Confirm on "
-                 f"SportyBet/Bet365 before acting — Architect deploys, not this system.")
+        src = bf.best_bookmaker or "the odds feed"
+        L.append(f"      Price captured from {src}. Confirm the live price before "
+                 f"acting — the Architect deploys, not this system.")
     elif bf.mes_trigger_price:
         L.append(f"   HR30 MES trigger price: back only at decimal odds "
                  f"{bf.mes_trigger_price:.2f} or longer (breakeven vs the model).")

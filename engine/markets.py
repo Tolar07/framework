@@ -42,14 +42,7 @@ ALL = (HOME, DRAW, AWAY, OVER_25, UNDER_25, OVER_15, UNDER_15, BTTS_YES, BTTS_NO
 #
 # This gate only ever NARROWS what may carry capital. It cannot admit a market
 # that was previously excluded.
-BLOCKED: dict[str, str] = {
-    AWAY: ("1X2 Away: -1.883% mean CLV (t=-4.515) across 606 backtest legs. "
-           "Random selection loses on it too (-1.707%), so this is "
-           "favourite-longshot drift in the market, not a model error to fix."),
-    OVER_25: ("Over 2.5: -0.716% mean CLV (t=-2.783) across 442 legs. The model "
-              "under-predicts goals, so its Overs are taken into lines that "
-              "then move against it."),
-}
+BLOCKED: dict[str, str] = {}   # Architect 2026-08-10: all markets open
 
 
 def blocked(key: str) -> Optional[str]:

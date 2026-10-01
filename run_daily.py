@@ -29,7 +29,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
 from engine.slate import (WHITELIST_LEAGUES, build_deploy_shortlist, market_blocked,
-                          in_deploy_band, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX)
+                          in_deploy_band, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
+                          DEPLOY_MIN_MODEL_PROB)
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine.form import compute_table, fixture_form, form_support as _form_support
@@ -319,6 +320,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             if quote is None or not quote.available or model_p is None:
                 continue
             if not in_deploy_band(quote.price):
+                continue
+            if model_p < DEPLOY_MIN_MODEL_PROB:   # never deploy a pick the model expects to lose
                 continue
             ev = mes_numeric(model_p, quote.price)
             rank = (model_p, ev if ev is not None else -1.0)

@@ -31,10 +31,10 @@ TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
 
 ```
 Fixture                        Pick             Model%  Odds   Code
-Germany v Serbia               Germany to win   66%     @1.24  PX3W2V
+Germany v Serbia               Germany to win   66%     @1.21  PX3W2V
 Republic of Ireland v Austria  Under 2.5 goals  64%     @1.70  T10NAM
-Israel v Kosovo                Under 2.5 goals  52%     @1.90  UVEBXZ
-Malta v Gibraltar              Malta to win     67%     @1.32  RTD5YJ
+Israel v Kosovo                Under 2.5 goals  52%     @1.96  UVEBXZ
+Malta v Gibraltar              Malta to win     67%     @1.30  RTD5YJ
 ```
 
 ──────────────────────────────────
@@ -53,7 +53,7 @@ TABLE 4 · THE PICK
 (primary single + Acca A recommendation)
 ──────────────────────────────────
 
-Primary single: Malta v Gibraltar — Malta to win (67%) @1.32 · code RTD5YJ
+Primary single: Malta v Gibraltar — Malta to win (67%) @1.30 · code RTD5YJ
 Acca A: 4 legs, model 15% · code WQFX0K
 
 ==================================
@@ -73,11 +73,11 @@ Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
 DETAIL — HR53 full per-fixture audit (not sent to Telegram)
 
 PART 0 — HEADER
-Date: 2026-09-30 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Date: 2026-10-01 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, Championship, Serie A, Bundesliga, Ligue 1, Primeira Liga, Premier League, La Liga, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, UEFA Nations League
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
-  ⚠ graded 0 of 11 pending leg(s)
+  ⚠ graded 0 of 23 pending leg(s)
   ⚠ SportyBet events pulled live
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
@@ -111,7 +111,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ Ligue 2: 9 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
-  ⚠ UEFA Nations League: 31 fixture(s) priced from SportyBet
+  ⚠ UEFA Nations League: 40 fixture(s) priced from SportyBet
   ⚠ Eredivisie: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
   ⚠ Danish Superliga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
   ⚠ Belgian Pro League: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
@@ -144,12 +144,12 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Ligue 2: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   ⚠ Ligue 2: 4 team name(s) in the fixtures feed not found in the fitted data — Dijon, Metz, Nantes, Sochaux-Montbeliard. Model knows: Amiens, Annecy, Bastia, Boulogne, Clermont, Dunkerque, Grenoble, Guingamp, Laval, Le Mans, Montpellier, Nancy, Pau FC, Red Star, Reims, Rodez, St Etienne, Troyes. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ SportyBet events served from cache (<=60min)
-  ⚠ UEFA Nations League: 31 fixture(s) priced from SportyBet
-  ⚠ UEFA Nations League: 31 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ UEFA Nations League: 40 fixture(s) priced from SportyBet
+  ⚠ UEFA Nations League: 40 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   ⚠ UEFA Nations League: national-team history via martj42/international_results — 1005 UEFA home-venue matches since 2022-01-01, 55 UEFA teams, latest result 2026-06-09; no odds in this source, so legs settle but CLV stays NO DATA
-  ⚠ TARGET DAY 2026-10-01: 8 fixture(s) kicking off that day (72 outside the target day excluded)
+  ⚠ TARGET DAY 2026-10-01: 8 fixture(s) kicking off that day (81 outside the target day excluded)
   ⚠ deploy odds band 1.20–2.00: 4 fixture(s) dropped from THE CALL (price out of band)
-  ⚠ logged 6 new paper leg(s) with a live entry price
+  ⚠ logged 1 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
   ⚠ SportyBet booking codes: 4/4 singles resolved, board code set, Acca A set
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
@@ -173,10 +173,10 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Germany to win
       Model probability .......... 66%
-      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.28 or longer
-      HR30 numerical MES ......... -18.15% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
-      DIVERGENCE FLAG (ID403.1 V5): model says 66%, this price implies 81% — an implausible -18% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      HR30 numerical MES ......... -20.12% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      DIVERGENCE FLAG (ID403.1 V5): model says 66%, this price implies 83% — a -17pp probability gap and an implausible -20% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 2. Republic of Ireland v Austria (UEFA Nations League)
@@ -214,9 +214,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Under 2.5 goals
       Model probability .......... 52%
-      Best quoted price .......... 1.90 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.96 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.36 or longer
-      HR30 numerical MES ......... -1.75% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... +1.37% expected value per unit staked — POSITIVE expected value against this price
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 4. Malta v Gibraltar (UEFA Nations League)
@@ -234,9 +234,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Malta to win
       Model probability .......... 67%
-      Best quoted price .......... 1.32 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.49 or longer
-      HR30 numerical MES ......... -11.28% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -12.62% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 PART 2 — THE SCAN

@@ -682,5 +682,24 @@
     "stake": null,
     "phase": "phase2_paper",
     "notes": ""
+  },
+  {
+    "leg_id": "Israel_v_Kosovo_UNDER_2_5_1790851641",
+    "date_logged": "2026-10-01T10:47:21.158409+00:00",
+    "league": "UEFA Nations League",
+    "fixture": "Israel v Kosovo",
+    "market": "UNDER_2_5",
+    "model_prob": 0.5171764303592811,
+    "match_date": "2026-10-01",
+    "entry_odds": 1.96,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
   }
 ]

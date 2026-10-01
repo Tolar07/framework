@@ -34,6 +34,11 @@ DEPLOY_POOL_CAP = 6  # ID402 hard cap on THE CALL
 DEPLOY_ODDS_MIN = 1.20
 DEPLOY_ODDS_MAX = 2.00
 DEPLOY_ODDS_SAFE = 1.50
+# A deploy pick must be one the model rates MORE LIKELY TO WIN THAN LOSE.
+# Without this floor, a fixture whose sensible markets sit just outside the
+# band (e.g. 2.02, 2.05) fell back to whatever was left in band — a 37% Under
+# the model expects to lose (2026-10-02 dry run). "Winnable" means >= 50%.
+DEPLOY_MIN_MODEL_PROB = 0.50
 
 
 def in_deploy_band(price: Optional[float]) -> bool:

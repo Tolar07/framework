@@ -85,14 +85,7 @@ WHITELIST_LEAGUES = (
 # only ever NARROWS what can be deployed — it can never admit a market that
 # was previously excluded — so it is a conservative restriction, not a new
 # licence. Capital authority is unchanged and remains the Architect's.
-BLOCKED_DEPLOY_MARKETS = {
-    "away win": "1X2 Away: -1.883% mean CLV (t=-4.515) across 606 backtest legs. "
-                "Random selection loses on it too (-1.707%), so this is "
-                "favourite-longshot drift in the market, not a model error to fix.",
-    "over 2.5 goals": "Over 2.5: -0.716% mean CLV (t=-2.783) across 442 legs. "
-                      "The model under-predicts goals, so its Overs are taken "
-                      "into lines that then move against it.",
-}
+BLOCKED_DEPLOY_MARKETS = {}   # Architect 2026-08-10: all markets open
 
 
 def market_blocked(market_name: str) -> Optional[str]:

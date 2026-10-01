@@ -617,7 +617,7 @@ def render_heartbeat(phase: str, leagues_scanned: list[str],
         f"Scanned {len(leagues_scanned)} league(s): {rated} fixture(s) rated, "
         f"{priced} priced.\n"
         f"Deploy-eligible (odds 1.20–2.00): {picks} pick(s).\n"
-        f"Phase 3 gate: CLV ledger {calibration_count}/ legs with CLV, {clv}.\n"
+        f"Phase 3 gate: CLV ledger {calibration_count}/30 legs with CLV, {clv}.\n"
         f"{tail}")
 
 

@@ -103,7 +103,7 @@ def cmd_help(_: str) -> str:
         "/note the model looks wrong on Motherwell\n"
         "     records a correction for calibration to learn from\n"
         "/debrief — full framework status\n\n"
-        f"{PHASE_LABEL}. Paper only — this system never stakes."
+        f"{PHASE_LABEL}. Live capital is Architect-deployed — this system never stakes."
     )
 
 

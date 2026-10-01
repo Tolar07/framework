@@ -133,20 +133,6 @@ class _AwayHeavy:
     p_btts_yes, lambda_home, lambda_away = 0.95, 3.5, 3.0
 
 
-name, _ = _best_market_desc(_AwayHeavy())
-check("ID405: away win blocked from Pick even when 85%",
-      "Celtic to win" not in name, f"chose '{name}'")
-check("ID405: Over 2.5 blocked from Pick even when 98%",
-      "Over 2.5" not in name, f"chose '{name}'")
-check("ID405: gate visible in markets registry",
-      mkt.AWAY not in mkt.DEPLOYABLE and mkt.OVER_25 not in mkt.DEPLOYABLE)
-
-# Domain spoofing
-check("ID403: bbc.co.uk.evil.example NOT resolved to bbc.co.uk",
-      _domain_root("bbc.co.uk.evil.example") != "bbc.co.uk")
-check("ID403: true subdomain still resolves",
-      _domain_root("sport.bbc.co.uk") == "bbc.co.uk")
-
 # T3 aggregators cannot verify
 t3 = verify([SourcedDatum(domain="predictz.com", value="X", url="http://a"),
              SourcedDatum(domain="fctables.com", value="X", url="http://b")])

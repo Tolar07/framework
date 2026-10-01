@@ -14,10 +14,10 @@ TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
 Fixture                               AI PICK · win%           O1.5/O2.5  DC/BTTS     Src
 Club Deportivo Eldense v Real Oviedo  NO DATA — PENDING        —          —           ○
 Kazakhstan v Moldova                  Kazakhstan to win · 60%  O77/O53    1X82 / Y51  ○
-Cyprus v Armenia                      Cyprus to win · 48%      O82/O61    1277 / Y62  ○
+Cyprus v Armenia                      Over 2.5 goals · 61%     O82/O61    1277 / Y62  ○
 Latvia v Montenegro                   Under 2.5 goals · 62%    O65/U62    1271 / N56  ○
-Belgium v Turkey                      Belgium to win · 65%     O85/O66    1X84 / Y60  ○
-Bosnia and Herzegovina v Sweden       Under 2.5 goals · 42%    O81/O58    1276 / Y60  ○
+Belgium v Turkey                      Over 2.5 goals · 66%     O85/O66    1X84 / Y60  ○
+Bosnia and Herzegovina v Sweden       Over 2.5 goals · 58%     O81/O58    1276 / Y60  ○
 Faroe Islands v Slovakia              Under 2.5 goals · 68%    O59/U68    X282 / N65  ○
 France v Italy                        France to win · 63%      O77/O54    1X84 / N50  ○
 Hungary v Georgia                     Under 2.5 goals · 53%    O72/U53    1274 / Y50  ○
@@ -25,7 +25,7 @@ Poland v Romania                      Under 2.5 goals · 55%    O71/U55    1274 
 Ukraine v Northern Ireland            Ukraine to win · 71%     O83/O63    1X88 / Y53  ○
 ```
 
-Board code (all deploy singles): S7GJT3   load ↦ www.sportybet.com/ng/?shareCode=S7GJT3
+Board code (all deploy singles): PCTKMJ   load ↦ www.sportybet.com/ng/?shareCode=PCTKMJ
 
 ──────────────────────────────────
 TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
@@ -33,13 +33,13 @@ TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
 ──────────────────────────────────
 
 ```
-Fixture                     Pick               Model%  Odds   Code
-Kazakhstan v Moldova        Kazakhstan to win  60%     @1.79  HXCJ55
-Cyprus v Armenia            Under 2.5 goals    39%     @1.80  TZFGUE
-Belgium v Turkey            Belgium to win     65%     @1.53  U3QJ69
-France v Italy              France to win      63%     @1.46  KB3WS5
-Hungary v Georgia           Under 2.5 goals    53%     @1.75  LEF3C6
-Ukraine v Northern Ireland  Ukraine to win     71%     @1.98  WNMA6R
+Fixture                          Pick               Model%  Odds   Code
+Kazakhstan v Moldova             Kazakhstan to win  60%     @1.99  HXCJ55
+Belgium v Turkey                 Over 2.5 goals     66%     @1.44  S370RN
+Bosnia and Herzegovina v Sweden  Over 2.5 goals     58%     @1.68  JKEHU8
+France v Italy                   France to win      63%     @1.47  KB3WS5
+Hungary v Georgia                Under 2.5 goals    53%     @1.75  LEF3C6
+Ukraine v Northern Ireland       Ukraine to win     71%     @1.99  WNMA6R
 ```
 
 ──────────────────────────────────
@@ -47,9 +47,9 @@ TABLE 3 · ACCA ROUTE
 (capital-eligible grouped accumulators, own code per acca)
 ──────────────────────────────────
 
-Acca A  (4 legs · model 18% · code KXXJPM)
+Acca A  (4 legs · model 18% · code XANTBB)
    • Ukraine v Northern Ireland — Ukraine to win (71%)
-   • Belgium v Turkey — Belgium to win (65%)
+   • Belgium v Turkey — Over 2.5 goals (66%)
    • France v Italy — France to win (63%)
    • Kazakhstan v Moldova — Kazakhstan to win (60%)
 
@@ -58,8 +58,8 @@ TABLE 4 · THE PICK
 (primary single + Acca A recommendation)
 ──────────────────────────────────
 
-Primary single: Ukraine v Northern Ireland — Ukraine to win (71%) @1.98 · code WNMA6R
-Acca A: 4 legs, model 18% · code KXXJPM
+Primary single: Ukraine v Northern Ireland — Ukraine to win (71%) @1.99 · code WNMA6R
+Acca A: 4 legs, model 18% · code XANTBB
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.
@@ -78,11 +78,11 @@ Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
 DETAIL — HR53 full per-fixture audit (not sent to Telegram)
 
 PART 0 — HEADER
-Date: 2026-10-01 | Mode: Mode A | Phase: Phase 2 — paper calibration, zero capital
+Date: 2026-10-01 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, Championship, Serie A, Bundesliga, Ligue 1, Primeira Liga, Premier League, La Liga, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, UEFA Nations League
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
-  ⚠ graded 0 of 17 pending leg(s)
+  ⚠ graded 0 of 24 pending leg(s)
   ⚠ SportyBet events pulled live
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
@@ -116,7 +116,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ Ligue 2: 9 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
-  ⚠ UEFA Nations League: 31 fixture(s) priced from SportyBet
+  ⚠ UEFA Nations League: 32 fixture(s) priced from SportyBet
   ⚠ Eredivisie: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
   ⚠ Danish Superliga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
   ⚠ Belgian Pro League: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
@@ -139,7 +139,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ Serie B: 10 fixture(s) priced from SportyBet
   ⚠ Serie B: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
-  ⚠ Serie B: 7 team name(s) in the fixtures feed not found in the fitted data — Ascoli Calcio 1898, Benevento Calcio, Cremonese, L.R. Vicenza, SC Pisa, SS Arezzo, Verona. Model knows: Avellino, Bari, Carrarese, Catanzaro, Cesena, Empoli, Frosinone, Juve Stabia, Mantova, Modena, Monza, Padova, Palermo, Pescara, Reggiana, Sampdoria, Spezia, Sudtirol, Venezia, Virtus Entella. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
+  ⚠ Serie B: 7 team name(s) in the fixtures feed not found in the fitted data — Ascoli Calcio 1898, Benevento Calcio, Cremonese, Hellas Verona, L.R. Vicenza, SC Pisa, SS Arezzo. Model knows: Avellino, Bari, Carrarese, Catanzaro, Cesena, Empoli, Frosinone, Juve Stabia, Mantova, Modena, Monza, Padova, Palermo, Pescara, Reggiana, Sampdoria, Spezia, Sudtirol, Venezia, Virtus Entella. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ 2. Bundesliga: 9 fixture(s) priced from SportyBet
   ⚠ 2. Bundesliga: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
@@ -149,11 +149,11 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Ligue 2: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   ⚠ Ligue 2: 4 team name(s) in the fixtures feed not found in the fitted data — Dijon, Metz, Nantes, Sochaux-Montbeliard. Model knows: Amiens, Annecy, Bastia, Boulogne, Clermont, Dunkerque, Grenoble, Guingamp, Laval, Le Mans, Montpellier, Nancy, Pau FC, Red Star, Reims, Rodez, St Etienne, Troyes. If a name above is the same club under a different spelling, add it to TEAM_ALIASES in data/thesportsdb_fixtures.py; if it is newly promoted, it correctly has no rating yet.
   ⚠ SportyBet events served from cache (<=60min)
-  ⚠ UEFA Nations League: 31 fixture(s) priced from SportyBet
-  ⚠ UEFA Nations League: 31 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ UEFA Nations League: 32 fixture(s) priced from SportyBet
+  ⚠ UEFA Nations League: 32 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   ⚠ UEFA Nations League: national-team history via martj42/international_results — 1005 UEFA home-venue matches since 2022-01-01, 55 UEFA teams, latest result 2026-06-09; no odds in this source, so legs settle but CLV stays NO DATA
-  ⚠ TARGET DAY 2026-10-02: 11 fixture(s) kicking off that day (69 outside the target day excluded)
-  ⚠ deploy odds band 1.20–2.00: 1 fixture(s) dropped from THE CALL (price out of band)
+  ⚠ TARGET DAY 2026-10-02: 11 fixture(s) kicking off that day (70 outside the target day excluded)
+  ⚠ deploy odds band 1.20–2.00: 2 fixture(s) dropped from THE CALL (price out of band)
   ⚠ logged 6 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
   ⚠ SportyBet booking codes: 6/6 singles resolved, board code set, Acca A set
@@ -178,33 +178,13 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Kazakhstan to win
       Model probability .......... 60%
-      Best quoted price .......... 1.79 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.99 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.30 or longer
-      HR30 numerical MES ......... +8.16% expected value per unit staked — POSITIVE expected value against this price
+      HR30 numerical MES ......... +20.25% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 60%, this price implies 50% — an implausible +20% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-2. Cyprus v Armenia (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
-   Standings/form — home: P36 42pts, last5 7/15 | away: P47 32pts, last5 2/15  (recent-form tilt +0.33)
-   Match result (model probabilities):
-      Cyprus to win .......... 48%
-      Draw ......................... 23%
-      Armenia to win .......... 29%
-   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 61% (model)
-   Both teams to score YES 62% (model)
-   Expected goals (model): Cyprus 1.797, Armenia 1.364
-   Second opinion — Elo rating engine (ID82), independent of the goals model:
-      Cyprus to win 44% · Draw 32% · Armenia to win 25%
-      Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Under 2.5 goals
-      Model probability .......... 39%
-      Best quoted price .......... 1.80 decimal (sportybet, best of 1 books)
-      Breakeven trigger price .... 1.21 or longer
-      HR30 numerical MES ......... -30.15% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
-      DIVERGENCE FLAG (ID403.1 V5): model says 39%, this price implies 56% — a -17pp probability gap and an implausible -30% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
-      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
-
-3. Belgium v Turkey (UEFA Nations League)
+2. Belgium v Turkey (UEFA Nations League)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
    Standings/form — home: P13 70pts, last5 11/15 | away: P4 79pts, last5 13/15  (recent-form tilt -0.13)
    Match result (model probabilities):
@@ -217,11 +197,31 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Belgium to win 51% · Draw 28% · Turkey to win 21%
       ENGINE DIVERGENCE: Elo and Dixon-Coles differ by -14pp on home win (Elo 51%/28%/21% vs Dixon-Coles 65%/19%/16%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
-   Best available market: Belgium to win
-      Model probability .......... 65%
-      Best quoted price .......... 1.53 decimal (sportybet, best of 1 books)
+   Best available market: Over 2.5 goals
+      Model probability .......... 66%
+      Best quoted price .......... 1.44 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.17 or longer
-      HR30 numerical MES ......... -0.17% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.76% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+3. Bosnia and Herzegovina v Sweden (UEFA Nations League)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: thesportsdb.com)
+   Standings/form — home: P30 48pts, last5 7/15 | away: P28 51pts, last5 5/15  (recent-form tilt -0.13)
+   Match result (model probabilities):
+      Bosnia and Herzegovina to win .......... 30%
+      Draw ......................... 24%
+      Sweden to win .......... 47%
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 58% (model)
+   Both teams to score YES 60% (model)
+   Expected goals (model): Bosnia and Herzegovina 1.324, Sweden 1.713
+   Second opinion — Elo rating engine (ID82), independent of the goals model:
+      Bosnia and Herzegovina to win 30% · Draw 38% · Sweden to win 32%
+      ENGINE DIVERGENCE: Elo and Dixon-Coles differ by -15pp on away win (Elo 30%/38%/32% vs Dixon-Coles 30%/24%/47%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
+   Best available market: Over 2.5 goals
+      Model probability .......... 58%
+      Best quoted price .......... 1.68 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.24 or longer
+      HR30 numerical MES ......... -1.72% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 4. France v Italy (UEFA Nations League)
@@ -239,9 +239,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: France to win
       Model probability .......... 63%
-      Best quoted price .......... 1.46 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.47 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.29 or longer
-      HR30 numerical MES ......... -8.05% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -7.42% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 5. Hungary v Georgia (UEFA Nations League)
@@ -279,10 +279,10 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Ukraine to win
       Model probability .......... 71%
-      Best quoted price .......... 1.98 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.99 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.20 or longer
-      HR30 numerical MES ......... +39.98% expected value per unit staked — POSITIVE expected value against this price
-      DIVERGENCE FLAG (ID403.1 V5): model says 71%, this price implies 51% — a +20pp probability gap and an implausible +40% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
+      HR30 numerical MES ......... +40.69% expected value per unit staked — POSITIVE expected value against this price
+      DIVERGENCE FLAG (ID403.1 V5): model says 71%, this price implies 50% — a +20pp probability gap and an implausible +41% expected value. Treat as a REVIEW item, NOT an edge. A discrepancy this size is far more often the model being miscalibrated than the market being wrong. Do not deploy without independent corroboration.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 PART 2 — THE SCAN
@@ -301,7 +301,8 @@ Ukraine v Northern Ireland (UEFA Nations League) | Ukraine·71% | O83 / O63 | 1X
 
 PART 3 — REJECTED / WATCHLIST
 Club Deportivo Eldense v Real Oviedo (La Liga 2): NO DATA — PENDING: 'Club Deportivo Eldense' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history; 'Real Oviedo' does not appear in the fitted data at all — either the fixtures source spells it differently from the results source (a name-mapping gap, NOT missing data), or it is newly promoted with no prior-season history
-Bosnia and Herzegovina v Sweden (UEFA Nations League): no deploy: no live price in the 1.20–2.00 odds band
+Cyprus v Armenia (UEFA Nations League): no deploy: no live price in the 1.20–2.00 odds band
+Poland v Romania (UEFA Nations League): no deploy: no live price in the 1.20–2.00 odds band
 
 PART 4 — DATA INTEGRITY (ID403 counts)
 VERIFIED: 0

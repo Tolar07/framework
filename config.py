@@ -1,7 +1,7 @@
 """
 Framework-wide operating constants and the capital bright line.
 
-HR51 / master v303.15 Section 8: the framework is in **Phase 2 — paper only,
+HR51 / master v303.15 Section 8: the framework is in **Phase 3 live capital,
 zero capital**. Phase 3 (live capital) is gated on >=30 paper legs with logged
 CLV AND positive mean CLV AND the Architect's V7 sign-off.
 

@@ -60,7 +60,7 @@ def test_fetch_maps_names_and_prices() -> None:
 
 
 def test_unmapped_league_returns_nothing() -> None:
-    fx, flags = sb.fetch_odds_sportybet("Serie A")  # no tournament ID configured
+    fx, flags = sb.fetch_odds_sportybet("Faroe Islands Premier League")  # no tournament ID configured
     assert fx == []
     assert any("no verified SportyBet tournament ID" in f for f in flags)
 

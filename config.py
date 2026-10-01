@@ -55,7 +55,8 @@ def load_dotenv(path: Path | None = None) -> list[str]:
 load_dotenv()
 
 # HR51 phase. 1 = infrastructure, 2 = paper calibration, 3 = live capital.
-PHASE = 2
+PHASE = 3
+
 
 # Derived, never set by hand — capital is only ever enabled at Phase 3, and
 # even then the Architect deploys it, not this code.

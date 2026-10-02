@@ -77,6 +77,19 @@ def _event_index() -> Optional[dict]:
 def resolve_selection(event: dict, market_key: str) -> Optional[dict]:
     """A share-ready selection for one market on one event, or None if the
     market/outcome isn't in the feed for this event (HR35)."""
+    if market_key and market_key.startswith("SB:"):
+        from engine.full_markets import parse_key
+        pk = parse_key(market_key)
+        if not pk:
+            return None
+        for m in event.get("markets", []):
+            if int(m.get("id") or 0) != pk[0] or (m.get("specifier") or "") != pk[1]:
+                continue
+            for o in m.get("outcomes", []):
+                if o.get("desc") == pk[2] and o.get("id") is not None:
+                    return {"eventId": event.get("eventId"), "marketId": m.get("id"),
+                            "specifier": pk[1], "outcomeId": o.get("id")}
+        return None
     spec = _SB_MARKET.get(market_key)
     if not spec:
         return None

@@ -524,8 +524,10 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     # Anything that can't be resolved on SportyBet's live feed, or fails the share
     # call, stays PENDING on the board — never a fabricated code (HR35).
     acca_code = board_code = None
+    acca_codes: dict = {}
+    mega_codes = None          # dict once the picks are split into mega slips
     try:
-        from output.produce_bet import _build_accas
+        from output.produce_bet import _build_accas, _build_megas
         from pipeline import sportybet_booking as sbk
 
         def _leg(b):
@@ -549,20 +551,32 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                     if code:
                         b.booking_code, b.booking_url = code, url
                         booked += 1
-                board_legs = [l for l in (_leg(b) for b in finalists) if l[3]]
-                board_code, _ = sbk.code_for_legs(sb_index, board_legs)
-                accas = _build_accas([b for b in board if b.on_deploy_shortlist])
-                if accas:
-                    acca_legs = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
-                                  bf.probs.home_team, bf.probs.away_team,
-                                  bf.best_market_key)
-                                 for bf, _pick, _prob in accas[0][1]]
-                    if all(l[3] for l in acca_legs):
-                        acca_code, _ = sbk.code_for_legs(sb_index, acca_legs)
+                deploy = [b for b in board if b.on_deploy_shortlist]
+
+                def _book(groups) -> dict:
+                    out = {}
+                    for name, legs, _combo in groups:
+                        ls = [_leg(bf) for bf, _pick, _prob in legs]
+                        if all(l[3] for l in ls):
+                            code, _ = sbk.code_for_legs(sb_index, ls)
+                            if code:
+                                out[name] = code
+                    return out
+
+                accas = _build_accas(deploy)
+                acca_codes = _book(accas)
+                acca_code = acca_codes.get("Acca A")
+                megas = _build_megas(deploy)
+                if len(megas) > 1:
+                    mega_codes = _book(megas)
+                else:
+                    board_legs = [l for l in (_leg(b) for b in finalists) if l[3]]
+                    board_code, _ = sbk.code_for_legs(sb_index, board_legs)
                 all_flags.append(
-                    f"SportyBet booking codes: {booked}/{len(finalists)} singles resolved, "
-                    f"board code {'set' if board_code else 'PENDING'}, "
-                    f"Acca A {'set' if acca_code else 'PENDING'}")
+                    f"SportyBet booking codes: {booked}/{len(finalists)} singles, "
+                    f"{len(acca_codes)}/{len(accas)} accas, "
+                    + (f"{len(mega_codes)}/{len(megas)} mega slips" if len(megas) > 1
+                       else f"board code {'set' if board_code else 'PENDING'}"))
     except Exception as e:  # noqa: BLE001 — codes are optional; the run is not
         all_flags.append(f"booking-code step skipped ({e}) — codes shown as PENDING")
 
@@ -575,7 +589,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
-        acca_code=acca_code, board_code=board_code, board_date=target)
+        acca_code=acca_code, board_code=board_code, board_date=target,
+        acca_codes=acca_codes, mega_codes=mega_codes)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,

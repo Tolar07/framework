@@ -32,10 +32,12 @@ class FakeCandidate:
     probs: object = None
     form_support: float = 0.0
 
-# 8 eligible candidates should cap at 6 (ID402 hard cap), no tier filtering
+# The shortlist honours whatever cap the Architect sets (2026-10-02: lifted to
+# 1000 — every in-band fixture), with no tier filtering.
 candidates = [FakeCandidate() for _ in range(8)]
 shortlist = build_deploy_shortlist(candidates)
-assert len(shortlist) == DEPLOY_POOL_CAP == 6
+assert len(shortlist) == (len(candidates) if DEPLOY_POOL_CAP is None
+                          else min(len(candidates), DEPLOY_POOL_CAP))
 print(f"ID402 pool cap: {len(candidates)} candidates -> {len(shortlist)} (cap={DEPLOY_POOL_CAP}) OK")
 
 # higher model conviction ranks first

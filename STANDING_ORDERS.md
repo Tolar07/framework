@@ -19,5 +19,6 @@ and not "ratified on backtest evidence".
 | 8 | **Live match monitoring source: Flashscore.co.uk.** | (monitoring) |
 | 9 | **Never fabricate** (HR35): no invented prices, scores or constants. Missing data shows as NO DATA — PENDING. | everywhere |
 | 10 | **Every fixture gets production; nothing dropped** (2026-10-02). Alternative markets are open and bookable: Double Chance, Over/Under 1.5 / 2.5 / 3.5, BTTS. A fixture the model can't rate is priced MARKET-IMPLIED (SportyBet prices, margin removed, marked ᴹ, no edge claimed) instead of NO DATA. Every fixture's row shows its in-band pick, odds and an alternative market. | `engine/markets.py`, `engine/market_implied.py`, `orchestrator.py` |
+| 11 | **Pick the outcome each match is most likely to produce — where the model AND the bookmaker agree.** Each fixture's pick is the in-band market with the highest consensus (model + de-vigged market). ★ BANKER = straight win, both agree ≥70% (backtest: ~82% won, ~+4% over 290 picks, two seasons). ✓ SAFE = both agree. ⚠ SPLIT = they disagree by >7pp — shown, never deployed. Singles and accas rank BANKER first. Evidence: `backtest/SELECTION_STUDY.md`. | `run_daily.py`, `engine/slate.py` |
 
 _Last updated 2026-10-02._

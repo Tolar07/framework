@@ -40,6 +40,21 @@ DEPLOY_ODDS_SAFE = 1.50
 # the model expects to lose (2026-10-02 dry run). "Winnable" means >= 50%.
 DEPLOY_MIN_MODEL_PROB = 0.50
 
+# --- PICK TIERS (selection study, backtest/SELECTION_STUDY.md, 2026-10-02) ---
+# Every fixture's pick is the in-band market with the highest CONSENSUS
+# probability = average of the model and the de-vigged market. Tiers:
+#   BANKER  straight win (1X2 home/away), model and market agree within
+#           AGREE_PP and consensus >= BANKER_MIN. Walk-forward: 82% hit, +4%
+#           ROI over 290 picks in two seasons (2024/25 out-of-sample: 80%, +3%).
+#   SAFE    model and market agree within AGREE_PP (any market) — ~73% hit
+#           but the short prices carry the margin (≈ -6% ROI).
+#   SPLIT   model and market disagree by more than AGREE_PP — shown, never
+#           deployed (model-only Under 2.5 picks hit 55%, -13% ROI).
+#   MARKET  no model history: market-implied only, no edge claimed.
+AGREE_PP = 0.07
+BANKER_MIN = 0.70
+TIER_RANK = {"BANKER": 0, "SAFE": 1, "MARKET": 2, "SPLIT": 3}
+
 
 def in_deploy_band(price: Optional[float]) -> bool:
     """True when a decimal price is inside the Architect's deploy band
@@ -164,7 +179,8 @@ def build_deploy_shortlist(candidates: list) -> list:
 
     ranked = sorted(
         candidates,
-        key=lambda c: (getattr(c, "prob_source", "model") == "market",
+        key=lambda c: (TIER_RANK.get(getattr(c, "tier", None) or "", 1),
+                       getattr(c, "prob_source", "model") == "market",
                        -_pick_conf(c),
                        -(getattr(c, "form_support", None) or 0.0)))
     return ranked[:DEPLOY_POOL_CAP]

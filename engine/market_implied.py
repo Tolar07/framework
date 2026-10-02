@@ -53,3 +53,31 @@ def implied_probs(fx) -> Optional[FixtureProbabilities]:
         p_over_15=p_over_15, p_over_25=p_over_25, p_over_35=p_over_35,
         p_btts_yes=p_btts,
     )
+
+
+def market_prob(key: str, fx) -> Optional[float]:
+    """De-vigged market probability for ONE market key on a FixtureOdds, from
+    that market's own line (1X2 three-way; DC from the 1X2 line; O/U and BTTS
+    two-way). None if the needed prices aren't quoted (HR35)."""
+    from engine import markets as mkt
+    if fx is None:
+        return None
+    h, d, a = (getattr(getattr(fx, k, None), "price", None) for k in ("home", "draw", "away"))
+    three = None
+    if h and d and a:
+        ih, id_, ia = 1 / h, 1 / d, 1 / a
+        t = ih + id_ + ia
+        three = (ih / t, id_ / t, ia / t)
+    pairs = {mkt.OVER_15: ("over15", "under15", 0), mkt.UNDER_15: ("over15", "under15", 1),
+             mkt.OVER_25: ("over25", "under25", 0), mkt.UNDER_25: ("over25", "under25", 1),
+             mkt.OVER_35: ("over35", "under35", 0), mkt.UNDER_35: ("over35", "under35", 1),
+             mkt.BTTS_YES: ("btts_yes", "btts_no", 0), mkt.BTTS_NO: ("btts_yes", "btts_no", 1)}
+    if key in pairs:
+        x, y, side = pairs[key]
+        p = _pair(getattr(fx, x, None), getattr(fx, y, None))
+        return None if p is None else (p if side == 0 else 1 - p)
+    if three is None:
+        return None
+    ph, pd, pa = three
+    return {mkt.HOME: ph, mkt.DRAW: pd, mkt.AWAY: pa,
+            mkt.DC_1X: ph + pd, mkt.DC_X2: pd + pa, mkt.DC_12: ph + pa}.get(key)

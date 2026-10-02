@@ -51,9 +51,13 @@ DEPLOY_MIN_MODEL_PROB = 0.50
 #   SPLIT   model and market disagree by more than AGREE_PP — shown, never
 #           deployed (model-only Under 2.5 picks hit 55%, -13% ROI).
 #   MARKET  no model history: market-implied only, no edge claimed.
+#   BOOK    model and market disagree: follow the BOOKMAKER's strongest
+#           outcome (its pick won 73.1% vs the model's 71.0% in the study), so
+#           every fixture stays in production. SPLIT is then only a fixture
+#           with no in-band outcome the bookmaker rates >= 50%.
 AGREE_PP = 0.07
 BANKER_MIN = 0.70
-TIER_RANK = {"BANKER": 0, "SAFE": 1, "MARKET": 2, "SPLIT": 3}
+TIER_RANK = {"BANKER": 0, "SAFE": 1, "BOOK": 2, "MARKET": 3, "SPLIT": 4}
 
 
 def in_deploy_band(price: Optional[float]) -> bool:

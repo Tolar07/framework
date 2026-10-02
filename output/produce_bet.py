@@ -33,7 +33,7 @@ def _lean(p_over: Optional[float], line_label: str) -> str:
     return f"U{round((1-p_over)*100)}"
 
 
-_TIER_MARK = {"BANKER": "★ ", "SAFE": "✓ ", "SPLIT": "⚠ ", "MARKET": ""}
+_TIER_MARK = {"BANKER": "★ ", "SAFE": "✓ ", "BOOK": "ᴮ ", "SPLIT": "⚠ ", "MARKET": ""}
 
 
 @dataclass
@@ -770,7 +770,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         out.append(FENCE)
         out.append("★ BANKER = straight win, model + market agree ≥70% "
                    "(backtest: 82% won, +4%) · ✓ SAFE = model + market agree · "
-                   "⚠ SPLIT = model and market disagree — shown, never deployed")
+                   "ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is "
+                   "followed · ⚠ SPLIT = no in-band outcome either side backs")
         if any(bf.prob_source == "market" for bf in board):
             out.append("ᴹ = MARKET-IMPLIED: no model history for this fixture — "
                        "priced from SportyBet with the margin removed; no edge claimed.")

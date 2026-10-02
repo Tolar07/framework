@@ -43,8 +43,27 @@ assert "sent_${T}_${SLOT}" in wf, "Order 6: each day's board is sent once per sl
 assert "if: failure()" in wf, "Order 6: failure alert"
 
 # 7. Coverage
-assert len(SPORTYBET_TOURNAMENT_ID) == 17 and "UEFA Nations League" in SPORTYBET_TOURNAMENT_ID, \
-    "Order 7: 16 leagues + UEFA Nations League"
+for lg in ("UEFA Nations League", "League One", "League Two", "National League", "FA Cup"):
+    assert lg in SPORTYBET_TOURNAMENT_ID, f"Order 7: {lg} must be covered"
+assert len(SPORTYBET_TOURNAMENT_ID) >= 21, "Order 7: 16 leagues + UNL + English lower tiers + FA Cup"
+
+# 10. Alternative markets open; nothing dropped (market-implied fallback)
+for k in (mkt.DC_1X, mkt.DC_X2, mkt.DC_12, mkt.OVER_15, mkt.UNDER_15,
+          mkt.OVER_35, mkt.UNDER_35, mkt.BTTS_YES, mkt.BTTS_NO):
+    assert k in mkt.DEPLOYABLE, f"Order 10: {k} must be deployable"
+from engine.market_implied import implied_probs
+from pipeline.odds import FixtureOdds, MarketQuote
+q = lambda x: MarketQuote(price=x)
+fx = FixtureOdds(league="FA Cup", home_team="A", away_team="B", kickoff_utc="",
+                 home=q(2.0), draw=q(3.4), away=q(3.6), over25=q(1.8), under25=q(1.95),
+                 over15=q(1.25), under15=q(3.6), over35=q(3.0), under35=q(1.36),
+                 btts_yes=q(1.7), btts_no=q(2.0))
+ip = implied_probs(fx)
+assert ip is not None and abs(ip.p_home + ip.p_draw + ip.p_away - 1) < 1e-9, \
+    "Order 10: unrated fixtures are priced market-implied, margin removed"
+fx.btts_no = MarketQuote()
+assert implied_probs(fx) is None, "Order 9/10: a missing price is never filled with a guess"
+assert mkt.settle(mkt.DC_1X, 1, 1) and not mkt.settle(mkt.DC_12, 1, 1)
 for lg in SPORTYBET_TOURNAMENT_ID:
     assert slate.is_whitelisted(lg), f"Order 7: {lg} must be whitelisted"
 

@@ -121,4 +121,8 @@ _xr = xg_model.XGRatings([{"date": "2026-09-0%d" % i, "home": h, "away": a, "xh"
 _m = _xr.matrix("A", "B")
 assert _m is not None and abs(_m.sum() - 1) < 1e-9, "Order 19: xG grid is a probability grid"
 
+# 20. Closing-line value capture
+import news_check as _nc
+assert _nc.CLOSE_WINDOW_MIN == 35, "Order 20: closing price within 35 min of kickoff"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

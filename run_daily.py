@@ -416,7 +416,17 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             # The strongest market the model AND the bookmaker both back.
             best, tier = max(agreeing), "SAFE"
         else:
-            best, tier = max(cands), "SPLIT"
+            # Model and bookmaker disagree on every in-band market. Follow the
+            # BOOKMAKER's strongest outcome (Architect 2026-10-02: every
+            # fixture in production). Backtest/SELECTION_STUDY.md: the
+            # bookmaker's pick won 73.1% vs the model's 71.0%.
+            book = [c for c in cands if c[4] is not None and c[4] >= DEPLOY_MIN_MODEL_PROB]
+            if book:
+                best = max(book, key=lambda c: (c[4], c[1]))
+                tier = "BOOK"
+                best = (best[4],) + best[1:]      # show the bookmaker's probability
+            else:
+                best, tier = max(cands), "SPLIT"
         # ALTERNATIVE MARKET: the next-best in-band market from a DIFFERENT
         # family than the pick (a real alternative, not 1.5 vs 2.5 of one line).
         fam = lambda k: k.split("|")[0] if k.startswith("SB:") else k.split("_")[0]

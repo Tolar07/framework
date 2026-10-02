@@ -163,6 +163,10 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "CD Leganes": "Leganes", "CD Mirandes": "Mirandes", "SD Eibar": "Eibar",
         "Cultural Leonesa": "Cultural Leonesa", "UD Almeria": "Almeria",
         "Granada CF": "Granada", "Cadiz CF": "Cadiz",
+        # In the model once the current season is fitted (2026-10-02).
+        "CE Sabadell FC": "Sabadell", "Club Deportivo Eldense": "Eldense",
+        "RC Celta Fortuna": "Celta B", "Real Oviedo": "Oviedo",
+        "Tenerife CD": "Tenerife",
     },
     "Serie A": {
         "AC Milan": "Milan", "Parma Calcio": "Parma", "Como 1907": "Como",

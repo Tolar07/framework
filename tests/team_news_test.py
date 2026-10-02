@@ -48,4 +48,34 @@ with tempfile.TemporaryDirectory() as d:
     assert out["singles"][1]["lineup_check"] is None, "19:00 kickoff is outside the window"
 print("pre-kickoff check: OK")
 
+# --- closing-line value capture (#5) ------------------------------------------
+event = {"eventId": "sr:match:1", "markets": [
+    {"id": "16", "desc": "Asian Handicap", "specifier": "hcp=-1.5",
+     "outcomes": [{"desc": "Away (+1.5)", "odds": "1.30"}]},
+    {"id": "1", "desc": "1X2", "specifier": "",
+     "outcomes": [{"desc": "Home", "odds": "1.40"}]}]}
+assert news_check._price(event, {"id": 16, "desc": None, "spec": "hcp=-1.5",
+                                 "outcome": "Away (+1.5)"}) == 1.30
+assert news_check._price(event, {"id": None, "desc": "1X2", "spec": "",
+                                 "outcome": "Home"}) == 1.40
+import urllib.request as _ur
+
+
+class _Resp:
+    def __init__(self, body): self.body = body
+    def read(self): return self.body
+    def __enter__(self): return self
+    def __exit__(self, *a): return False
+
+
+_ur.urlopen = lambda req, timeout=0: _Resp(json.dumps(
+    {"data": {"tournaments": [{"events": [event]}]}}).encode())
+doc = {"singles": [{"sb_event_id": "sr:match:1", "sb_tid": "sr:tournament:9", "price": 1.50,
+                    "kickoff_utc": "2026-10-03T14:00:00Z", "closing_price": None, "clv": None,
+                    "sb_market": {"id": None, "desc": "1X2", "spec": "", "outcome": "Home"}}]}
+n = news_check.capture_closing(doc, datetime(2026, 10, 3, 13, 40, tzinfo=timezone.utc))
+assert n == 1 and doc["singles"][0]["closing_price"] == 1.40
+assert doc["singles"][0]["clv"] == round((1.50 / 1.40 - 1) * 100, 2), "entry 1.50 into a 1.40 close = +7.14%"
+print("closing-line capture: OK")
+
 print("\n✅ ALL TEAM-NEWS TESTS PASSED")

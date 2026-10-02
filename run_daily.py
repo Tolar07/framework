@@ -679,6 +679,15 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     try:
         from engine import picks_ledger
         from output.produce_bet import _build_accas, _build_megas, _build_safe3
+        for b in board:     # SportyBet identity, for the closing-price capture (#5)
+            if b.probs is None:
+                continue
+            fx = odds_index.get((b.probs.home_team, b.probs.away_team))
+            b.sb_event_id = getattr(fx, "event_id", None) if fx else None
+            if fx and not getattr(b, "kickoff_utc", None):
+                b.kickoff_utc = fx.kickoff_utc
+            b.sb_tid = SPORTYBET_TOURNAMENT_ID.get(
+                b.fixture.rsplit("(", 1)[-1].rstrip(")").strip())
         dep = [b for b in board if b.on_deploy_shortlist]
         megas_l = _build_megas(dep)
         picks_ledger.write_ledger(target, board, _build_accas(dep), _build_safe3(dep),

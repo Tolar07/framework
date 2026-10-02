@@ -105,4 +105,9 @@ assert len(_s3) == 1 and all(l[0].certainty == "HIGH" for l in _s3[0][1]), \
     "Order 15: 50%+ accas use high-certainty legs only and stop below 50%"
 assert _s3[0][2] >= 0.50
 
+# 16-18. Results loop, team news, market anchor
+assert (ROOT / ".github/workflows/news.yml").exists(), "Order 17: pre-kickoff check scheduled"
+assert "output/picks" in wf, "Order 16: picks ledger is persisted"
+assert slate.MODEL_WEIGHT == 0.25, "Order 18: chance = 75% market + 25% model"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

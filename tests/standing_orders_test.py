@@ -110,4 +110,15 @@ assert (ROOT / ".github/workflows/news.yml").exists(), "Order 17: pre-kickoff ch
 assert "output/picks" in wf, "Order 16: picks ledger is persisted"
 assert slate.MODEL_WEIGHT == 0.25, "Order 18: chance = 75% market + 25% model"
 
+# 19. xG blend for the top 5 leagues
+from engine import xg_model
+import numpy as _np
+assert set(xg_model.UNDERSTAT) == {"Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1"}
+_xr = xg_model.XGRatings([{"date": "2026-09-0%d" % i, "home": h, "away": a, "xh": 2.0, "xa": 0.5}
+                          for i, (h, a) in enumerate([("A", "B"), ("B", "A"), ("A", "B"),
+                                                      ("B", "A"), ("A", "B"), ("B", "A")], 1)],
+                         "2026-10-01")
+_m = _xr.matrix("A", "B")
+assert _m is not None and abs(_m.sum() - 1) < 1e-9, "Order 19: xG grid is a probability grid"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

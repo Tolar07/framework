@@ -57,6 +57,12 @@ DEPLOY_MIN_MODEL_PROB = 0.50
 #           with no in-band outcome the bookmaker rates >= 50%.
 AGREE_PP = 0.07
 BANKER_MIN = 0.70
+# MARKET ANCHOR (improvement #4, backtest/ANCHOR_STUDY.md, 2026-10-02): the
+# pick's chance = market + MODEL_WEIGHT x (model - market). The more weight on
+# the model, the more over-confident the stated % (model alone: 4-5 pts too
+# high) and the lower the hit rate; 0.25 keeps the % honest (calibration error
+# <= 1.2 pts) while the model still counts. Agreement checks are unchanged.
+MODEL_WEIGHT = 0.25
 # CERTAINTY (2026-10-02): HIGH when model and bookmaker agree within this;
 # MEDIUM within AGREE_PP; LOW otherwise or when only one source exists.
 CERTAINTY_HIGH_PP = 0.03

@@ -729,6 +729,25 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     except Exception as e:  # noqa: BLE001
         all_flags.append(f"picks ledger not written ({e})")
 
+    # --- AI SURVIVOR: the heartbeat lineage (engine.survivor) ---
+    # Grade the lineages' picks, breed the winners, and give every free living
+    # lineage one of today's board singles. A --no-send (dry) run works on a
+    # throwaway copy so it never changes the real lineage.
+    survivor_text = None
+    try:
+        import shutil
+        import tempfile
+        from engine import survivor
+        sdir = survivor.STATE_DIR
+        if not send:
+            sdir = Path(tempfile.mkdtemp()) / "survivor"
+            if survivor.STATE_DIR.exists():
+                shutil.copytree(survivor.STATE_DIR, sdir)
+        survivor_text, sflags = survivor.daily(board, target, fs_events, state_dir=sdir)
+        all_flags += sflags
+    except Exception as e:  # noqa: BLE001 — the lineage never blocks the board
+        all_flags.append(f"AI Survivor step skipped ({e})")
+
     # The Telegram message is the Architect's canonical ##########OLP XDV#########
     # board (four tables + honest footer). The detailed HR53 per-fixture audit
     # (render_produce_bet) is preserved in the SAVED board as an appendix, so
@@ -795,7 +814,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                                   status["mean_clv_pct"], board, board_delivered,
                                   board_date=target,
                                   scorecard="\n\n".join(x for x in (scorecard_text, staking_line,
-                                                                  learning_line) if x))
+                                                                  learning_line, survivor_text)
+                                                        if x))
             hb_ok, hb_notes = notify.deliver(hb, save_to=None)
             for n in hb_notes:
                 _mark(runlog, f"heartbeat: {n}")

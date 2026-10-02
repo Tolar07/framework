@@ -71,12 +71,16 @@ def _chunk(text: str, limit: int = TELEGRAM_MAX) -> list[str]:
     Line-level rather than paragraph-level because one league's table can
     exceed the limit on its own: splitting between two rows stays readable,
     splitting through one does not."""
-    if len(text) <= limit:
+    if len(text) <= limit and "\nALL CODES\n" not in text:
         return [text]
     chunks, current, in_fence = [], "", False
     for line in text.split("\n"):
         # Leave room for a closing fence when inside one.
         room = limit - (len(FENCE) + 1 if in_fence else 0)
+        # The ALL CODES summary always starts its own (final) message.
+        if line.strip() == "ALL CODES" and current.strip() and not in_fence:
+            chunks.append(_balance_fences(current.rstrip()))
+            current = ""
         if len(current) + len(line) + 1 > room and current:
             chunks.append(_balance_fences(current.rstrip()))
             current = f"{FENCE}\n" if in_fence else ""

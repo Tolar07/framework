@@ -135,4 +135,12 @@ from engine import learning as _lr
 assert (_lr.MIN_N, _lr.SHRINK, _lr.MAX_SHIFT) == (10, 30, 0.10), \
     "Order 22: 10+ results per segment, shrink 30, shift capped at 10 pts"
 
+# 23. AI Survivor lineage
+from engine import survivor as _sv
+assert (_sv.OFFSPRING_PER_WIN, _sv.MAX_LINEAGES, _sv.STAKE) == (2, 8, 1.0), \
+    "Order 23: win -> 2 offspring, max 8 lineages, stake 1"
+_p = {"lineages": [_sv._lineage(bankroll=5)], "last_bred_date": None}
+_sv.apply_result(_p, {"lineage_id": _p["lineages"][0]["lineage_id"], "price": 1.4}, "LOSS")
+assert not _p["lineages"][0]["alive"], "Order 23: one loss is extinction"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

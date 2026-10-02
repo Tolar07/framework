@@ -618,7 +618,8 @@ _CANON_RULE = "─" * 34
 def render_heartbeat(phase: str, leagues_scanned: list[str],
                       calibration_count: int, mean_clv: Optional[float],
                       board: list[BoardFixture], board_delivered: bool,
-                      board_date: Optional[str] = None) -> str:
+                      board_date: Optional[str] = None,
+                      scorecard: Optional[str] = None) -> str:
     """The daily HEARTBEAT — a short 'system alive' ping sent every day, even on
     dry days. It carries no picks itself (the board does that); it confirms the
     run happened and summarises health, so silence never looks like a dead
@@ -641,7 +642,8 @@ def render_heartbeat(phase: str, leagues_scanned: list[str],
         f"{priced} priced.\n"
         f"Deploy-eligible (odds 1.20–2.00): {picks} pick(s).\n"
         f"Phase 3 gate: CLV ledger {calibration_count}/30 legs with CLV, {clv}.\n"
-        f"{tail}")
+        f"{tail}"
+        + (f"\n\n{scorecard}" if scorecard else ""))
 
 
 def _canon_short(fixture: str) -> str:

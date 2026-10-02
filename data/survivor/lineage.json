@@ -43,20 +43,6 @@
    "holding": null
   },
   {
-   "lineage_id": "ln_8db6e0c97b",
-   "parent_id": "ln_4abf6adda1",
-   "generation": 4,
-   "bankroll": 7.35,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-09-19",
-   "last_result": "WIN",
-   "to_breed": true,
-   "holding": null
-  },
-  {
    "lineage_id": "ln_7b593607dd",
    "parent_id": "ln_4abf6adda1",
    "generation": 4,
@@ -86,34 +72,6 @@
    "retired": "2026-09-19"
   },
   {
-   "lineage_id": "ln_05fdf10f4c",
-   "parent_id": "ln_bcfb372c4d",
-   "generation": 4,
-   "bankroll": 13.32,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-09-17",
-   "last_result": "WIN",
-   "to_breed": true,
-   "holding": null
-  },
-  {
-   "lineage_id": "ln_a6e768c6de",
-   "parent_id": "ln_b692a99926",
-   "generation": 4,
-   "bankroll": 13.44,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-09-17",
-   "last_result": "WIN",
-   "to_breed": true,
-   "holding": null
-  },
-  {
    "lineage_id": "ln_c8bbd9fb15",
    "parent_id": "ln_0e44d5c47a",
    "generation": 4,
@@ -125,20 +83,6 @@
    "born_date": "2026-09-19",
    "last_result": "LOSS",
    "to_breed": false,
-   "holding": null
-  },
-  {
-   "lineage_id": "ln_3d6fe17e3f",
-   "parent_id": "ln_0e44d5c47a",
-   "generation": 4,
-   "bankroll": 6.83,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-09-19",
-   "last_result": "WIN",
-   "to_breed": true,
    "holding": null
   },
   {
@@ -157,34 +101,6 @@
    "retired": "2026-09-19"
   },
   {
-   "lineage_id": "ln_f3c552988d",
-   "parent_id": "ln_d545848fa7",
-   "generation": 4,
-   "bankroll": 6.87,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-09-19",
-   "last_result": "WIN",
-   "to_breed": true,
-   "holding": null
-  },
-  {
-   "lineage_id": "ln_bb003255bf",
-   "parent_id": "ln_d545848fa7",
-   "generation": 4,
-   "bankroll": 6.86,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-09-19",
-   "last_result": "WIN",
-   "to_breed": true,
-   "holding": null
-  },
-  {
    "lineage_id": "ln_d545848fa7",
    "parent_id": "ln_f8d466204b",
    "generation": 3,
@@ -198,8 +114,190 @@
    "to_breed": false,
    "holding": null,
    "retired": "2026-09-19"
+  },
+  {
+   "lineage_id": "ln_8db6e0c97b",
+   "parent_id": "ln_4abf6adda1",
+   "generation": 5,
+   "bankroll": 7.35,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-09-19",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-03",
+    "fixture": "Harrogate v Hornchurch",
+    "pick": "Over 1.5 goals",
+    "price": 1.2
+   }
+  },
+  {
+   "lineage_id": "ln_417ce36d31",
+   "parent_id": "ln_05fdf10f4c",
+   "generation": 5,
+   "bankroll": 6.66,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-02",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-03",
+    "fixture": "Leyton Orient v Plymouth",
+    "pick": "Over 1.5 goals",
+    "price": 1.21
+   }
+  },
+  {
+   "lineage_id": "ln_f105f80e4a",
+   "parent_id": "ln_05fdf10f4c",
+   "generation": 5,
+   "bankroll": 6.66,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-02",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-03",
+    "fixture": "North Macedonia v Scotland",
+    "pick": "Scotland Over 0.5 goals",
+    "price": 1.23
+   }
+  },
+  {
+   "lineage_id": "ln_05fdf10f4c",
+   "parent_id": "ln_bcfb372c4d",
+   "generation": 4,
+   "bankroll": 13.32,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-09-17",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-02"
+  },
+  {
+   "lineage_id": "ln_601e69c765",
+   "parent_id": "ln_a6e768c6de",
+   "generation": 5,
+   "bankroll": 6.72,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-02",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-03",
+    "fixture": "Chesterfield v Tranmere",
+    "pick": "Chesterfield (+0.5) Asian handicap",
+    "price": 1.2
+   }
+  },
+  {
+   "lineage_id": "ln_b7c449c1b8",
+   "parent_id": "ln_a6e768c6de",
+   "generation": 5,
+   "bankroll": 6.72,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-02",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-03",
+    "fixture": "Accrington v Cheltenham",
+    "pick": "Cheltenham (+1.5) Asian handicap",
+    "price": 1.2
+   }
+  },
+  {
+   "lineage_id": "ln_a6e768c6de",
+   "parent_id": "ln_b692a99926",
+   "generation": 4,
+   "bankroll": 13.44,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-09-17",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-02"
+  },
+  {
+   "lineage_id": "ln_3d6fe17e3f",
+   "parent_id": "ln_0e44d5c47a",
+   "generation": 5,
+   "bankroll": 6.83,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-09-19",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-03",
+    "fixture": "Reading v Bradford",
+    "pick": "Bradford (+1.5) Asian handicap",
+    "price": 1.2
+   }
+  },
+  {
+   "lineage_id": "ln_f3c552988d",
+   "parent_id": "ln_d545848fa7",
+   "generation": 5,
+   "bankroll": 6.87,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-09-19",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-03",
+    "fixture": "Rochdale v Swindon",
+    "pick": "Swindon (+1.5) Asian handicap",
+    "price": 1.2
+   }
+  },
+  {
+   "lineage_id": "ln_bb003255bf",
+   "parent_id": "ln_d545848fa7",
+   "generation": 5,
+   "bankroll": 6.86,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-09-19",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-03",
+    "fixture": "Iceland v Bulgaria",
+    "pick": "Iceland or Bulgaria",
+    "price": 1.2
+   }
   }
  ],
- "last_bred_date": "2026-09-19",
+ "last_bred_date": "2026-10-02",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

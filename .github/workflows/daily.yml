@@ -134,6 +134,8 @@ jobs:
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           git add clv/clv_log.json output/boards memory/ || true
+          # Picks ledger (what the board recommended + its graded results).
+          git add output/picks 2>/dev/null || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
           # A queued run checks out an older SHA; rebase onto latest main first.
           git pull --rebase -q origin main || true

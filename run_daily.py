@@ -91,7 +91,8 @@ def _settle(market_key: str, fthg: int, ftag: int):
     return mkt.settle(market_key, fthg, ftag)
 
 
-def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
+def grade_open_legs(log: CLVLog, season: str,
+                    fs_events: list | None = None) -> tuple[str, list[str]]:
     """Settle any logged leg whose match has now been played, and capture its
     CLOSING price so CLV can be computed (HR46).
 
@@ -126,12 +127,28 @@ def grade_open_legs(log: CLVLog, season: str) -> tuple[str, list[str]]:
 
     rows, graded = [], 0
     for leg in pending:
-        table = results_by_league.get(leg.league)
-        if not table:
-            continue
+        table = results_by_league.get(leg.league) or {}
         try:
             home, away = [s.strip() for s in leg.fixture.split(" v ", 1)]
         except ValueError:
+            continue
+        # FLASHSCORE FALLBACK (2026-10-02): football-data has no FA Cup / UNL and
+        # publishes days late. Settle from Flashscore's regular-time result; it
+        # carries no closing price, so CLV stays NO DATA for these legs.
+        if leg.match_date and (home, away, leg.match_date) not in table and fs_events:
+            from data.flashscore_results import find_result
+            ev = find_result(fs_events, home, away, leg.match_date)
+            if ev and ev["finished_regular"]:
+                hit = _settle(leg.market, ev["fthg"], ev["ftag"])
+                if hit is not None:
+                    log.log_result(leg.leg_id, ft_result=f'{ev["fthg"]}-{ev["ftag"]}', hit=hit)
+                    graded += 1
+                    rows.append({"fixture": leg.fixture, "ft": f'{ev["fthg"]}-{ev["ftag"]}',
+                                 "onextwo": leg.market, "goals": f"entry {leg.entry_odds}",
+                                 "btts": "CLV NO DATA (Flashscore has no prices)",
+                                 "tally": "HIT" if hit else "MISS"})
+            continue
+        if not table:
             continue
         if not leg.match_date:
             # Pre-fix leg, or one logged without a kickoff date. Grading it
@@ -281,8 +298,23 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     all_flags: list[str] = []
 
     # --- grade yesterday first, so the board reports an up-to-date gate ---
-    verify_block, gflags = grade_open_legs(log, season)
+    # Flashscore results (last 7 days) settle the picks ledger and any CLV leg
+    # football-data can't (FA Cup, UNL, late-published leagues).
+    fs_events: list = []
+    scorecard_text = None
+    try:
+        from data.flashscore_results import results_since
+        fs_events = results_since(7)
+    except Exception as e:  # noqa: BLE001 — grading degrades, the run does not
+        all_flags.append(f"Flashscore results unavailable ({e}) — grading deferred")
+    verify_block, gflags = grade_open_legs(log, season, fs_events)
     all_flags += gflags
+    try:
+        from engine import picks_ledger
+        all_flags += picks_ledger.grade_all(fs_events)
+        scorecard_text = picks_ledger.scorecard(7)
+    except Exception as e:  # noqa: BLE001
+        all_flags.append(f"picks scorecard unavailable ({e})")
 
     # --- live entry prices for the deploy leagues ---
     odds_index: dict = {}
@@ -605,6 +637,18 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     except Exception as e:  # noqa: BLE001 — codes are optional; the run is not
         all_flags.append(f"booking-code step skipped ({e}) — codes shown as PENDING")
 
+    # --- PICKS LEDGER: record exactly what this board recommends, for grading ---
+    try:
+        from engine import picks_ledger
+        from output.produce_bet import _build_accas, _build_megas, _build_safe3
+        dep = [b for b in board if b.on_deploy_shortlist]
+        megas_l = _build_megas(dep)
+        picks_ledger.write_ledger(target, board, _build_accas(dep), _build_safe3(dep),
+                                  megas_l if len(megas_l) > 1 else [],
+                                  acca_codes, safe3_codes, mega_codes)
+    except Exception as e:  # noqa: BLE001
+        all_flags.append(f"picks ledger not written ({e})")
+
     # The Telegram message is the Architect's canonical ##########OLP XDV#########
     # board (four tables + honest footer). The detailed HR53 per-fixture audit
     # (render_produce_bet) is preserved in the SAVED board as an appendix, so
@@ -669,7 +713,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         try:
             hb = render_heartbeat(PHASE_LABEL, leagues, status["legs_with_clv"],
                                   status["mean_clv_pct"], board, board_delivered,
-                                  board_date=target)
+                                  board_date=target, scorecard=scorecard_text)
             hb_ok, hb_notes = notify.deliver(hb, save_to=None)
             for n in hb_notes:
                 _mark(runlog, f"heartbeat: {n}")

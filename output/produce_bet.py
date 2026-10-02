@@ -83,6 +83,9 @@ class BoardFixture:
     fotmob_id: Optional[int] = None
     kickoff_utc: Optional[str] = None
     predicted_xi: Optional[dict] = None
+    # Suggested stake, % of bankroll (engine.staking), and why.
+    stake_pct: Optional[float] = None
+    stake_why: Optional[str] = None
     # Kickoff date (ISO) of THIS fixture. Carried so a logged leg can be
     # settled against the right match rather than a same-pairing meeting from
     # an earlier season.
@@ -849,20 +852,27 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         for bf in shortlist:
             if bf.probs is None:
                 rows.append([_canon_short(bf.fixture), "NO DATA — PENDING", "—",
-                             "—", "—", "PENDING"])
+                             "—", "—", "—", "PENDING"])
                 continue
             pick, prob = _deploy_pick(bf)
             trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
             price = f"@{bf.best_price:.2f}" if bf.best_price else "—"
             rows.append([_canon_short(bf.fixture), _TIER_MARK.get(bf.tier, "") + pick,
                          f"{round(prob*100)}%" if prob else "—", price,
-                         bf.certainty or "—", bf.booking_code or "PENDING"])
+                         bf.certainty or "—",
+                         (f"{bf.stake_pct:g}%" if bf.stake_pct else
+                          ("PAUSED" if bf.stake_pct == 0 else "—")),
+                         bf.booking_code or "PENDING"])
         out.append(FENCE)
-        out.append(_col(rows, ["Fixture", "Pick", "Chance", "Odds", "Certainty", "Code"]))
+        out.append(_col(rows, ["Fixture", "Pick", "Chance", "Odds", "Certainty",
+                               "Stake", "Code"]))
         out.append(FENCE)
         out.append("Certainty = how sure we are the chance % is right: HIGH = model and "
                    "SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree "
                    "or only one source.")
+        out.append("Stake = suggested % of your bankroll per single (bigger only where an "
+                   "edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, "
+                   "megas 0.1%.")
         news = [bf for bf in shortlist if bf.news_level in ("CAUTION", "RISK")]
         if news:
             out += ["", f"⚠ TEAM NEWS — {len(news)} pick(s) hit by injuries/suspensions "
@@ -954,15 +964,16 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         out += ["", "ALL CODES"]
         for name, legs, combo in safe3:
             out.append(f"{name}: {safe3_codes.get(name) or 'PENDING'} "
-                       f"(3 legs · odds {_acca_odds(legs):.2f} · {round(combo*100)}%)")
+                       f"(3 legs · odds {_acca_odds(legs):.2f} · {round(combo*100)}% · "
+                       f"stake 0.5%)")
         megas = _build_megas(shortlist) if mega_codes is not None else []
         for name, legs, combo in megas:
             out.append(f"{name}: {(mega_codes or {}).get(name) or 'PENDING'} "
-                       f"({len(legs)} legs · odds {_acca_odds(legs):,.0f})")
+                       f"({len(legs)} legs · odds {_acca_odds(legs):,.0f} · stake 0.1%)")
         for name, legs, combo in accas:
             out.append(f"{name}: {acca_codes.get(name) or 'PENDING'} "
                        f"({len(legs)} legs · odds {_acca_odds(legs):.2f} · "
-                       f"{round(combo*100)}%)")
+                       f"{round(combo*100)}% · stake 0.25%)")
     return "\n".join(out)
 
 

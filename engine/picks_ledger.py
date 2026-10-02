@@ -46,6 +46,7 @@ def _single(bf) -> dict:
             "sb_tid": getattr(bf, "sb_tid", None),
             "sb_market": _sb_market(bf.best_market_key),
             "closing_price": None, "clv": None,
+            "stake_pct": getattr(bf, "stake_pct", None),
             "result": None, "ft": None}
 
 

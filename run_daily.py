@@ -36,7 +36,8 @@ from engine import market_implied as mi
 from engine import full_markets as fm
 
 UNDER_PREF_PP = 0.03   # see ARCHITECT PREFERENCE in the selection loop
-EV_PREF_PP = 0.04      # see VALUE-AWARE PICK in the selection loop
+EV_PREF_PP = 0.02      # see VALUE-AWARE PICK in the selection loop
+DRIFT_DEMOTE = 0.05    # see PRICE DRIFT (backtest/MARKET_STUDY.md Q2)
 NEWS_SWAP_PP = 0.06    # see TEAM NEWS: a weakened pick swaps to a safe alternative
 from engine.mes import mes_numeric
 from engine import markets as mkt
@@ -462,9 +463,9 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         # VALUE-AWARE PICK (Architect 2026-10-02, "positive EV"): among the
         # outcomes within EV_PREF_PP of the top win probability, take the one
         # with the best expected value (chance x price). Safety stays first —
-        # nothing more than 4 pts less likely is considered — but between
-        # near-equal outcomes the better-priced one wins, so heavy-margin
-        # markets (Multigoals priced ~11 pts under fair) give way.
+        # only near-equal outcomes compete — so heavy-margin markets give way.
+        # Narrowed 4 -> 2 pts after backtest/MARKET_STUDY.md Q3: a 4-pt window
+        # cost ~2 pts of hit rate for no real gain in value.
         def _best(pool):
             top = max(c[0] for c in pool)
             return max((c for c in pool if c[0] >= top - EV_PREF_PP),
@@ -648,6 +649,39 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                          f"{swapped} swapped to an alternative the news doesn't touch")
     except Exception as e:  # noqa: BLE001 — news degrades, the run does not
         all_flags.append(f"team news unavailable ({e})")
+
+    # --- PRICE DRIFT since the previous board for this day (MARKET_STUDY Q2) ---
+    # The 7am refresh re-prices the picks the 10pm board published. A pick
+    # whose price has drifted out DRIFT_DEMOTE+ since then lost -10.9% in the
+    # backtest (shortened 5%+: +2.6%), so it drops to LOW certainty — out of
+    # the 50%+ accas and the AI Survivor's first choices, stake halved.
+    try:
+        from engine.picks_ledger import LEDGER_DIR as _LD2
+        _prev = _LD2 / f"picks_{target}.json"
+        if _prev.exists():
+            import json as _json
+            prior = {(x["fixture"], x["market"]): (x.get("first_price") or x["price"])
+                     for x in _json.loads(_prev.read_text(encoding="utf-8"))["singles"]
+                     if x.get("price")}
+            drifted = steamed = 0
+            for b in board:
+                if not (b.on_deploy_shortlist and b.best_market_key and b.best_price):
+                    continue
+                p0 = prior.get((b.fixture.split(" (")[0], b.best_market_key))
+                if not p0:
+                    continue
+                b.first_price = p0
+                b.drift_pct = round((b.best_price / p0 - 1) * 100, 1)
+                if b.drift_pct >= DRIFT_DEMOTE * 100:
+                    b.certainty = "LOW"
+                    drifted += 1
+                elif b.drift_pct <= -DRIFT_DEMOTE * 100:
+                    steamed += 1
+            all_flags.append(f"price drift since the last board: {drifted} pick(s) drifted "
+                             f"{DRIFT_DEMOTE:.0%}+ (demoted to LOW), {steamed} shortened "
+                             f"{DRIFT_DEMOTE:.0%}+ (market agrees)")
+    except Exception as e:  # noqa: BLE001
+        all_flags.append(f"price-drift check skipped ({e})")
 
     # --- VALUE: how many picks are positive-EV on our own chance ---
     _dep = [b for b in board if b.on_deploy_shortlist and b.best_mes_ev is not None]

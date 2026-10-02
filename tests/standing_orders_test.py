@@ -74,4 +74,12 @@ from engine.market_implied import market_prob
 fx.btts_no = MarketQuote(price=2.0)
 assert abs(market_prob(mkt.DC_1X, fx) - (ip.p_home + ip.p_draw)) < 1e-9
 
+# 12. Full market ladder
+from engine import full_markets as fm
+assert {11, 16, 19, 20, 31, 547, 548} <= set(fm.LADDER_MARKET_IDS), "Order 12: full ladder fetched"
+ah = fm.rule_for(16, "hcp=1", "Home (+1.0)")
+assert (ah(0, 1), ah(0, 2), ah(1, 1)) == ("push", "lose", "win"), "Order 12: AH settles correctly"
+assert fm.settle_key(fm.key(11, "", "Home"), 1, 1) is None, "Order 12: a void is not a win"
+assert fm.LINE_TOLERANCE == 0.08
+
 print("standing_orders_test: OK — all Architect standing orders hold")

@@ -337,6 +337,10 @@ class FixtureProbabilities:
     p_over_25: float
     p_over_35: float
     p_btts_yes: float
+    # Full P(home=i, away=j) scoreline grid behind these numbers, so ANY market
+    # settled on the final score can be priced (engine.full_markets). Optional:
+    # sources without a goals model leave it None.
+    matrix: Optional[np.ndarray] = field(default=None, repr=False, compare=False)
 
 
 def predict(model: DixonColesModel, home: str, away: str) -> Optional[FixtureProbabilities]:
@@ -368,5 +372,5 @@ def predict(model: DixonColesModel, home: str, away: str) -> Optional[FixturePro
         lambda_home=round(lam_h, 3), lambda_away=round(lam_a, 3),
         p_home=p_home, p_draw=p_draw, p_away=p_away,
         p_over_15=p_over(1), p_over_25=p_over(2),
-        p_over_35=p_over(3), p_btts_yes=p_btts_yes,
+        p_over_35=p_over(3), p_btts_yes=p_btts_yes, matrix=m,
     )

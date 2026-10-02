@@ -60,11 +60,18 @@ def blocked(key: str) -> Optional[str]:
     return BLOCKED.get(key)
 
 
+def _ladder():
+    from engine import full_markets
+    return full_markets
+
+
 def display(key: str, home_team: str = "Home", away_team: str = "Away") -> str:
     """Plain-language name for a human (HR53: full club names, market in words).
 
     Derived from the key rather than stored alongside it, so a reworded label
     can never fall out of step with what the gate matches."""
+    if key and key.startswith("SB:"):
+        return _ladder().display_key(key, home_team, away_team)
     return {
         HOME: f"{home_team} to win",
         DRAW: "Draw",
@@ -87,6 +94,8 @@ def settle(key: str, fthg: int, ftag: int) -> Optional[bool]:
     """Did this market win? HR15 90-minute basis.
 
     Returns None for a key with no settlement rule — never a guessed verdict."""
+    if key and key.startswith("SB:"):
+        return _ladder().settle_key(key, fthg, ftag)   # None on a push (void)
     total = fthg + ftag
     return {
         HOME: fthg > ftag,
@@ -131,6 +140,16 @@ def model_prob(key: str, probs) -> Optional[float]:
 def quote(key: str, fixture_odds) -> Optional[object]:
     """The live MarketQuote for this market, from a FixtureOdds."""
     if fixture_odds is None:
+        return None
+    if key and key.startswith("SB:"):
+        pk = _ladder().parse_key(key)
+        for m in getattr(fixture_odds, "raw_markets", []) or []:
+            if pk and int(m.get("id") or 0) == pk[0] and (m.get("specifier") or "") == pk[1]:
+                for o in m.get("outcomes", []):
+                    if o.get("desc") == pk[2] and o.get("odds"):
+                        from pipeline.odds import MarketQuote
+                        return MarketQuote(price=float(o["odds"]), bookmaker="sportybet",
+                                           n_books=1)
         return None
     return {
         HOME: fixture_odds.home,

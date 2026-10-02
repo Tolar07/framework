@@ -41,8 +41,11 @@ from pipeline.odds import FixtureOdds, MarketQuote, CACHE_DIR, ODDS_MAX_AGE_SECO
 
 _UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+from engine.full_markets import LADDER_MARKET_IDS
+# Full-time market ladder (Architect 2026-10-02: "look at the full market").
 _LIST = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
-         "?sportId=sr:sport:1&marketId=1,18,10,29,11,26&pageSize=100&pageNum={page}")
+         "?sportId=sr:sport:1&marketId=" + ",".join(map(str, LADDER_MARKET_IDS)) +
+         "&pageSize=100&pageNum={page}")
 _CACHE = CACHE_DIR / "sportybet_events.json"
 
 # Framework league -> unique Sportradar tournament ID (verified live 2026-09-30
@@ -319,7 +322,7 @@ def parse_markets(event: dict) -> list[dict]:
     future use. {id, desc, specifier, outcomes:[{desc, odds}]}."""
     return [{
         "id": m.get("id"), "desc": m.get("desc"), "specifier": m.get("specifier", ""),
-        "outcomes": [{"desc": o.get("desc"), "odds": o.get("odds")}
+        "outcomes": [{"id": o.get("id"), "desc": o.get("desc"), "odds": o.get("odds")}
                      for o in m.get("outcomes", [])],
     } for m in event.get("markets", [])]
 
@@ -366,6 +369,8 @@ def _to_fixture_odds(event: dict, league: str, now: str) -> FixtureOdds:
         dc_1x=mq(_price(markets, "Double Chance", "Home or Draw")),
         dc_x2=mq(_price(markets, "Double Chance", "Draw or Away")),
         dc_12=mq(_price(markets, "Double Chance", "Home or Away")),
+        raw_markets=markets,
+        event_id=event.get("eventId") or "",
         source="sportybet.com",
         source_tier="T1",
     )

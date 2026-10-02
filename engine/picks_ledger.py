@@ -40,7 +40,27 @@ def _single(bf) -> dict:
             "kickoff_utc": getattr(bf, "kickoff_utc", None),
             "predicted_xi": getattr(bf, "predicted_xi", None),
             "lineup_check": None,
+            # Closing-line value (improvement #5): SportyBet event + market
+            # identity, so news_check.py can read the price just before kickoff.
+            "sb_event_id": getattr(bf, "sb_event_id", None),
+            "sb_tid": getattr(bf, "sb_tid", None),
+            "sb_market": _sb_market(bf.best_market_key),
+            "closing_price": None, "clv": None,
             "result": None, "ft": None}
+
+
+def _sb_market(key: str) -> Optional[dict]:
+    """{id, desc, spec, outcome} identifying the pick's outcome on SportyBet."""
+    if key and key.startswith("SB:"):
+        from engine import full_markets as fm
+        pk = fm.parse_key(key)
+        return {"id": pk[0], "desc": None, "spec": pk[1], "outcome": pk[2]} if pk else None
+    try:
+        from pipeline.sportybet_booking import _SB_MARKET
+    except Exception:  # noqa: BLE001
+        return None
+    spec = _SB_MARKET.get(key)
+    return {"id": None, "desc": spec[0], "spec": spec[1], "outcome": spec[2]} if spec else None
 
 
 def _slip(name, legs, combo, code) -> dict:
@@ -179,6 +199,11 @@ def scorecard(days: int = 7, today: Optional[str] = None) -> str:
         if slips:
             won = sum(x["result"] == "won" for x in slips)
             L.append(f"{label}: {won}/{len(slips)} landed")
+    clvs = [s["clv"] for s in allsing if s.get("clv") is not None]
+    if clvs:
+        beat = sum(c > 0 for c in clvs)
+        L.append(f"Closing-line value: avg {sum(clvs)/len(clvs):+.2f}% over {len(clvs)} picks · "
+                 f"beat the close {beat}/{len(clvs)} (positive = price shortened after we picked)")
     pend = sum(1 for s in allsing if s["result"] is None)
     if pend:
         L.append(f"{pend} single(s) still awaiting a result.")

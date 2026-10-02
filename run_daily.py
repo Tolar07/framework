@@ -31,7 +31,7 @@ from data.football_data_source import load_league
 from engine.slate import (WHITELIST_LEAGUES, build_deploy_shortlist, market_blocked,
                           in_deploy_band, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
                           DEPLOY_MIN_MODEL_PROB, AGREE_PP, BANKER_MIN,
-                          CERTAINTY_HIGH_PP)
+                          CERTAINTY_HIGH_PP, MODEL_WEIGHT)
 from engine import market_implied as mi
 from engine import full_markets as fm
 
@@ -374,7 +374,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             if not in_deploy_band(quote.price):
                 continue
             market_p = mi.market_prob(market, fx)
-            cons = model_p if (market_only or market_p is None) else (model_p + market_p) / 2
+            cons = (model_p if (market_only or market_p is None)
+                    else market_p + MODEL_WEIGHT * (model_p - market_p))
             if cons < DEPLOY_MIN_MODEL_PROB:   # never deploy a pick expected to lose
                 continue
             ev = mes_numeric(cons, quote.price)
@@ -409,7 +410,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 md = fm.evaluate(dgrid, rule) if dgrid is not None else mk
                 if md is None:
                     continue
-                cw, cp = md if mk is None else ((md[0] + mk[0]) / 2, (md[1] + mk[1]) / 2)
+                cw, cp = md if mk is None else (mk[0] + MODEL_WEIGHT * (md[0] - mk[0]),
+                                                mk[1] + MODEL_WEIGHT * (md[1] - mk[1]))
                 win = round(cw, 4)
                 if win < DEPLOY_MIN_MODEL_PROB:
                     continue

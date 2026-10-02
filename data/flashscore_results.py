@@ -17,6 +17,7 @@ import difflib
 import json
 import re
 import time
+import unicodedata
 import urllib.request
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -127,7 +128,9 @@ _SYN = [(r"\bczechia\b", "czech republic"), (r"\bturkiye\b", "turkey"),
 
 
 def norm(name: str) -> str:
-    n = (name or "").lower().replace("&", " and ").replace("utd", "united")
+    # Strip accents first ('Cádiz' -> 'cadiz', 'Leganés' -> 'leganes').
+    n = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode()
+    n = n.lower().replace("&", " and ").replace("utd", "united")
     n = re.sub(r"[^a-z0-9 ]", " ", n)
     n = _DROP.sub(" ", n)
     n = re.sub(r"\s+", " ", n).strip()

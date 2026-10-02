@@ -30,7 +30,8 @@ from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
 from engine.slate import (WHITELIST_LEAGUES, build_deploy_shortlist, market_blocked,
                           in_deploy_band, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
-                          DEPLOY_MIN_MODEL_PROB)
+                          DEPLOY_MIN_MODEL_PROB, AGREE_PP, BANKER_MIN)
+from engine import market_implied as mi
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine.form import compute_table, fixture_form, form_support as _form_support
@@ -306,15 +307,12 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         if fx is None:
             continue
         p = bf.probs
-        best = None
-        in_band: list = []
-        # Only markets that could actually carry capital may headline THE CALL,
-        # AND the price must sit inside the Architect's deploy band
-        # [DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX] (1.20–2.00): above 2.0 the market is
-        # ~90/10 for the bookmaker (treated as a loss), below 1.20 the return
-        # doesn't justify the stake. Among in-band markets pick the most ASSURED
-        # (highest model probability = the safest, shortest-price winnable pick),
-        # with EV as the tie-breaker — "pick the odds that are winnable".
+        market_only = bf.prob_source == "market"
+        # Every in-band market, scored on CONSENSUS = average of the model and
+        # the de-vigged market (engine.slate PICK TIERS; backtest/
+        # SELECTION_STUDY.md). The price must sit inside the Architect's band
+        # 1.20–2.00 and the consensus must be >= 50% ("winnable").
+        cands: list = []   # (cons, ev, market, model_p, market_p, quote)
         for market in mkt.DEPLOYABLE:
             quote = mkt.quote(market, fx)
             model_p = mkt.model_prob(market, p)
@@ -322,30 +320,51 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 continue
             if not in_deploy_band(quote.price):
                 continue
-            if model_p < DEPLOY_MIN_MODEL_PROB:   # never deploy a pick the model expects to lose
+            market_p = mi.market_prob(market, fx)
+            cons = model_p if (market_only or market_p is None) else (model_p + market_p) / 2
+            if cons < DEPLOY_MIN_MODEL_PROB:   # never deploy a pick expected to lose
                 continue
-            ev = mes_numeric(model_p, quote.price)
-            rank = (model_p, ev if ev is not None else -1.0)
-            in_band.append((rank, market, quote.price))
-            if best is None or rank > best[0]:
-                best = (rank, market, model_p, quote, ev)
+            ev = mes_numeric(cons, quote.price)
+            cands.append((cons, ev if ev is not None else -1.0, market, model_p,
+                          market_p, quote))
+        if not cands:
+            continue
+
+        def _agree(c):
+            return c[4] is not None and abs(c[3] - c[4]) <= AGREE_PP
+
+        bankers = [c for c in cands if not market_only and c[2] in (mkt.HOME, mkt.AWAY)
+                   and _agree(c) and c[0] >= BANKER_MIN]
+        agreeing = [c for c in cands if _agree(c)]
+        if bankers:
+            best, tier = max(bankers), "BANKER"
+        elif market_only:
+            best, tier = max(cands), "MARKET"
+        elif agreeing:
+            # The strongest market the model AND the bookmaker both back.
+            best, tier = max(agreeing), "SAFE"
+        else:
+            best, tier = max(cands), "SPLIT"
         # ALTERNATIVE MARKET: the next-best in-band market from a DIFFERENT
-        # family than the pick (so the alt is a real alternative, not 1.5 vs 2.5
-        # of the same line), shown beside the pick on the board.
-        if best and len(in_band) > 1:
-            fam = lambda k: k.split("_")[0]
-            alts = sorted((x for x in in_band if fam(x[1]) != fam(best[1])),
-                          reverse=True)
-            if alts:
-                bf.alt_market = mkt.display(alts[0][1], p.home_team, p.away_team)
-                bf.alt_price = alts[0][2]
-        if best:
-            _, market, model_p, quote, ev = best
-            bf.best_market = mkt.display(market, p.home_team, p.away_team)
-            bf.best_market_key = market
-            bf.best_price = quote.price
-            bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
-            bf.best_mes_ev, bf.best_model_prob = ev, model_p
+        # family than the pick (a real alternative, not 1.5 vs 2.5 of one line).
+        fam = lambda k: k.split("_")[0]
+        alts = sorted((c for c in cands if fam(c[2]) != fam(best[2])), reverse=True)
+        if alts:
+            bf.alt_market = mkt.display(alts[0][2], p.home_team, p.away_team)
+            bf.alt_price = alts[0][5].price
+        cons, ev, market, model_p, market_p, quote = best
+        bf.best_market = mkt.display(market, p.home_team, p.away_team)
+        bf.best_market_key = market
+        bf.best_price = quote.price
+        bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
+        bf.best_mes_ev, bf.best_model_prob = (ev if ev != -1.0 else None), cons
+        bf.tier, bf.pick_model_prob, bf.pick_market_prob = tier, model_p, market_p
+        if tier == "SPLIT":
+            # Model and market disagree: shown on the board, never deployed.
+            bf.on_deploy_shortlist = False
+            bf.rejection_reason = (
+                f"SPLIT: model {model_p:.0%} vs market {market_p:.0%} on "
+                f"{bf.best_market} — disagreement > {AGREE_PP:.0%}, not deployed")
 
     # --- form & standings context (engine.form) ---
     # Derived from the same football-data results the model is fit on, so it

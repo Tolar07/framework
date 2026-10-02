@@ -33,6 +33,9 @@ def _lean(p_over: Optional[float], line_label: str) -> str:
     return f"U{round((1-p_over)*100)}"
 
 
+_TIER_MARK = {"BANKER": "★ ", "SAFE": "✓ ", "SPLIT": "⚠ ", "MARKET": ""}
+
+
 @dataclass
 class BoardFixture:
     fixture: str  # "Home v Away"
@@ -63,6 +66,11 @@ class BoardFixture:
     # Second-best in-band market (the board's alternative pick) and its price.
     alt_market: Optional[str] = None
     alt_price: Optional[float] = None
+    # Pick tier (engine.slate: BANKER / SAFE / SPLIT / MARKET) and the two
+    # probabilities behind the consensus shown as the pick's win %.
+    tier: Optional[str] = None
+    pick_model_prob: Optional[float] = None
+    pick_market_prob: Optional[float] = None
     # Kickoff date (ISO) of THIS fixture. Carried so a logged leg can be
     # settled against the right match rather than a same-pairing meeting from
     # an earlier season.
@@ -695,7 +703,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 continue
             p = bf.probs
             pick, prob = _deploy_pick(bf)
-            pick_cell = f"{pick} · {round(prob*100)}%" if prob else pick
+            pick_cell = (f"{_TIER_MARK.get(bf.tier, '')}{pick} · {round(prob*100)}%"
+                         if prob else pick)
             odds = f"@{bf.best_price:.2f}" if bf.best_market_key and bf.best_price else "—"
             altm = (f"{bf.alt_market} @{bf.alt_price:.2f}" if bf.alt_market
                     else "—")
@@ -707,6 +716,9 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         out.append(_col(rows, ["Fixture", "AI PICK · win%", "Odds", "Alt market",
                                "O1.5/O2.5", "DC/BTTS", "Src"]))
         out.append(FENCE)
+        out.append("★ BANKER = straight win, model + market agree ≥70% "
+                   "(backtest: 82% won, +4%) · ✓ SAFE = model + market agree · "
+                   "⚠ SPLIT = model and market disagree — shown, never deployed")
         if any(bf.prob_source == "market" for bf in board):
             out.append("ᴹ = MARKET-IMPLIED: no model history for this fixture — "
                        "priced from SportyBet with the margin removed; no edge claimed.")
@@ -735,7 +747,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             pick, prob = _deploy_pick(bf)
             trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
             price = f"@{bf.best_price:.2f}" if bf.best_price else "—"
-            rows.append([_canon_short(bf.fixture), pick,
+            rows.append([_canon_short(bf.fixture), _TIER_MARK.get(bf.tier, "") + pick,
                          f"{round(prob*100)}%" if prob else "—", price,
                          bf.booking_code or "PENDING"])
         out.append(FENCE)

@@ -67,4 +67,11 @@ assert mkt.settle(mkt.DC_1X, 1, 1) and not mkt.settle(mkt.DC_12, 1, 1)
 for lg in SPORTYBET_TOURNAMENT_ID:
     assert slate.is_whitelisted(lg), f"Order 7: {lg} must be whitelisted"
 
+# 11. Consensus tiers
+assert (slate.AGREE_PP, slate.BANKER_MIN) == (0.07, 0.70), "Order 11: BANKER = agree within 7pp, >=70%"
+assert slate.TIER_RANK["BANKER"] < slate.TIER_RANK["SAFE"] < slate.TIER_RANK["SPLIT"]
+from engine.market_implied import market_prob
+fx.btts_no = MarketQuote(price=2.0)
+assert abs(market_prob(mkt.DC_1X, fx) - (ip.p_home + ip.p_draw)) < 1e-9
+
 print("standing_orders_test: OK — all Architect standing orders hold")

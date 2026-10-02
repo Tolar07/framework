@@ -645,11 +645,30 @@ def _canon_short(fixture: str) -> str:
     return fixture.split(" (")[0]
 
 
-def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
-    """Group the deploy-eligible singles into one honest accumulator (Acca A) of
-    the strongest legs. The combined model probability is the PRODUCT of the leg
-    probabilities — an explicit independence assumption, stated on the board, not
-    hidden. Returns [] when fewer than two legs qualify (no acca to route)."""
+ACCA_MIN, ACCA_MAX = 4, 5      # Architect 2026-10-02: 4-5 legs per acca
+MEGA_MAX_LEGS = 26             # SportyBet won't take 78 on one slip: split into parts
+
+
+def _split_sizes(n: int, lo: int, hi: int) -> list[int]:
+    """Near-equal sizes summing to n, NEVER above hi (more legs = more risk);
+    as few groups as possible. A group may fall below lo only when n forces it
+    (e.g. 11 -> 4, 4, 3)."""
+    if n < 2:
+        return []
+    k = -(-n // hi)                       # ceil(n / hi) groups
+    base, extra = divmod(n, k)
+    return [base + 1] * extra + [base] * (k - extra)
+
+
+def _acca_name(i: int) -> str:
+    s, i = "", i + 1
+    while i:
+        i, r = divmod(i - 1, 26)
+        s = chr(65 + r) + s
+    return f"Acca {s}"
+
+
+def _ranked_legs(shortlist: list[BoardFixture]) -> list[tuple]:
     legs = []
     for bf in shortlist:
         if bf.probs is None:
@@ -657,13 +676,44 @@ def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
         pick, prob = _deploy_pick(bf)
         if prob:
             legs.append((bf, pick, prob))
+    return sorted(legs, key=lambda t: t[2], reverse=True)
+
+
+def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
+    """EVERY deploy pick grouped into accumulators of 4-5 legs, strongest legs
+    first (Acca A = the top legs, then B, C, ...), each fixture in exactly one
+    acca. Combined model probability = PRODUCT of the legs (an explicit
+    independence assumption, stated on the board). [] if < 2 legs."""
+    legs = _ranked_legs(shortlist)
     if len(legs) < 2:
         return []
-    legs = sorted(legs, key=lambda t: t[2], reverse=True)[:4]  # cap Acca A at 4 legs
-    combo = 1.0
-    for _, _, prob in legs:
-        combo *= prob
-    return [("Acca A", legs, combo)]
+    out, i = [], 0
+    for n, size in enumerate(_split_sizes(len(legs), ACCA_MIN, ACCA_MAX)):
+        g = legs[i:i + size]
+        i += size
+        combo = 1.0
+        for _, _, prob in g:
+            combo *= prob
+        out.append((_acca_name(n), g, combo))
+    return out
+
+
+def _build_megas(shortlist: list[BoardFixture]) -> list[tuple]:
+    """All deploy picks split into as few near-equal slips as SportyBet allows
+    (<= MEGA_MAX_LEGS each), strongest first. [(name, legs, combo), ...]."""
+    legs = _ranked_legs(shortlist)
+    if len(legs) < 2:
+        return []
+    k = -(-len(legs) // MEGA_MAX_LEGS)
+    out, i = [], 0
+    for n, size in enumerate(_split_sizes(len(legs), 2, -(-len(legs) // k))):
+        g = legs[i:i + size]
+        i += size
+        combo = 1.0
+        for _, _, prob in g:
+            combo *= prob
+        out.append((f"Mega {n + 1}", g, combo))
+    return out
 
 
 def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
@@ -671,6 +721,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             data_flags: list[str], board: list[BoardFixture],
                             acca_code: Optional[str] = None,
                             board_code: Optional[str] = None,
+                            acca_codes: Optional[dict] = None,
+                            mega_codes: Optional[dict] = None,
                             board_date: Optional[str] = None) -> str:
     """The ##########OLP XDV######### board the Architect reads on Telegram.
 
@@ -722,7 +774,21 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         if any(bf.prob_source == "market" for bf in board):
             out.append("ᴹ = MARKET-IMPLIED: no model history for this fixture — "
                        "priced from SportyBet with the margin removed; no edge claimed.")
-    if board_code:
+    acca_codes = dict(acca_codes or {})
+    if acca_code and "Acca A" not in acca_codes:
+        acca_codes["Acca A"] = acca_code
+    if mega_codes is not None:
+        out.append("")
+        for name, legs, combo in _build_megas([bf for bf in board if bf.on_deploy_shortlist]):
+            code = mega_codes.get(name) or "PENDING"
+            odds = 1.0
+            for bf, _, _ in legs:
+                odds *= bf.best_price or 1.0
+            out.append(f"{name} ({len(legs)} legs · odds {odds:,.0f} · chance 1 in "
+                       f"{1 / combo:,.0f}): {code}"
+                       + (f"   load ↦ www.sportybet.com/ng/?shareCode={code}" if code != "PENDING" else ""))
+        out.append("")
+    elif board_code:
         out += ["", f"Board code (all deploy singles): {board_code}   "
                 f"load ↦ www.sportybet.com/ng/?shareCode={board_code}", ""]
     else:
@@ -764,7 +830,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         out.append("No capital-eligible accas generated.")
     else:
         for name, legs, combo in accas:
-            code = acca_code or "PENDING"
+            code = acca_codes.get(name) or "PENDING"
             out.append(f"{name}  ({len(legs)} legs · model {round(combo*100)}% "
                        f"· code {code})")
             for bf, pick, prob in legs:
@@ -787,12 +853,12 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                    f"{top.booking_code or 'PENDING'}")
         if accas:
             out.append(f"Acca A: {len(accas[0][1])} legs, model "
-                       f"{round(accas[0][2]*100)}% · code {acca_code or 'PENDING'}")
+                       f"{round(accas[0][2]*100)}% · code {acca_codes.get('Acca A') or 'PENDING'}")
     out.append("")
 
     # --- footer ---
     clv = f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None else "CLV logged: ZERO"
-    any_code = bool(board_code or acca_code
+    any_code = bool(board_code or acca_codes or mega_codes
                     or any(bf.booking_code for bf in shortlist))
     if any_code:
         code_line = ("Booking codes: live SportyBet share codes — load a code on "

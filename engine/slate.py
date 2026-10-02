@@ -57,6 +57,9 @@ DEPLOY_MIN_MODEL_PROB = 0.50
 #           with no in-band outcome the bookmaker rates >= 50%.
 AGREE_PP = 0.07
 BANKER_MIN = 0.70
+# CERTAINTY (2026-10-02): HIGH when model and bookmaker agree within this;
+# MEDIUM within AGREE_PP; LOW otherwise or when only one source exists.
+CERTAINTY_HIGH_PP = 0.03
 TIER_RANK = {"BANKER": 0, "SAFE": 1, "BOOK": 2, "MARKET": 3, "SPLIT": 4}
 
 

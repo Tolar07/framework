@@ -71,6 +71,10 @@ class BoardFixture:
     tier: Optional[str] = None
     pick_model_prob: Optional[float] = None
     pick_market_prob: Optional[float] = None
+    # CERTAINTY — how sure we are that the pick's % is RIGHT (not how likely
+    # the pick is): HIGH = model and bookmaker within 3pp; MEDIUM = within
+    # 7pp; LOW = they disagree, or only one source (market-implied/BOOK).
+    certainty: Optional[str] = None
     # Kickoff date (ISO) of THIS fixture. Carried so a logged leg can be
     # settled against the right match rather than a same-pairing meeting from
     # an earlier season.
@@ -716,6 +720,31 @@ def _build_megas(shortlist: list[BoardFixture]) -> list[tuple]:
     return out
 
 
+SAFE3_LEGS = 3            # Architect 2026-10-02: 3-leg accas at 50%+
+SAFE3_MIN_CHANCE = 0.50
+_CERT_ORDER = {"HIGH": 0, "MEDIUM": 1}
+
+
+def _build_safe3(shortlist: list[BoardFixture]) -> list[tuple]:
+    """3-leg accas with a combined chance of 50%+, built ONLY from
+    high-certainty legs (HIGH first, then MEDIUM — never LOW: a leg whose %
+    we can't trust can't carry a 50%+ promise). Strongest legs first; stops
+    at the first trio below 50%. A fixture appears in at most one."""
+    legs = [l for l in _ranked_legs(shortlist)
+            if l[0].certainty in _CERT_ORDER]
+    legs.sort(key=lambda t: (_CERT_ORDER[t[0].certainty], -t[2]))
+    out = []
+    for i in range(0, len(legs) - SAFE3_LEGS + 1, SAFE3_LEGS):
+        g = sorted(legs[i:i + SAFE3_LEGS], key=lambda t: -t[2])
+        combo = 1.0
+        for _, _, prob in g:
+            combo *= prob
+        if combo < SAFE3_MIN_CHANCE:
+            break
+        out.append((f"50+ #{len(out) + 1}", g, combo))
+    return out
+
+
 def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             calibration_count: int, mean_clv: Optional[float],
                             data_flags: list[str], board: list[BoardFixture],
@@ -723,7 +752,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             board_code: Optional[str] = None,
                             acca_codes: Optional[dict] = None,
                             mega_codes: Optional[dict] = None,
-                            board_date: Optional[str] = None) -> str:
+                            board_date: Optional[str] = None,
+                            safe3_codes: Optional[dict] = None) -> str:
     """The ##########OLP XDV######### board the Architect reads on Telegram.
 
     Booking codes (real SportyBet share codes) are attached upstream by run_daily:
@@ -809,17 +839,38 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         for bf in shortlist:
             if bf.probs is None:
                 rows.append([_canon_short(bf.fixture), "NO DATA — PENDING", "—",
-                             "—", "PENDING"])
+                             "—", "—", "PENDING"])
                 continue
             pick, prob = _deploy_pick(bf)
             trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
             price = f"@{bf.best_price:.2f}" if bf.best_price else "—"
             rows.append([_canon_short(bf.fixture), _TIER_MARK.get(bf.tier, "") + pick,
                          f"{round(prob*100)}%" if prob else "—", price,
-                         bf.booking_code or "PENDING"])
+                         bf.certainty or "—", bf.booking_code or "PENDING"])
         out.append(FENCE)
-        out.append(_col(rows, ["Fixture", "Pick", "Model%", "Odds", "Code"]))
+        out.append(_col(rows, ["Fixture", "Pick", "Chance", "Odds", "Certainty", "Code"]))
         out.append(FENCE)
+        out.append("Certainty = how sure we are the chance % is right: HIGH = model and "
+                   "SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree "
+                   "or only one source.")
+    out.append("")
+
+    # --- TABLE 3A · 50%+ accas (3 legs, high certainty) ---
+    safe3 = _build_safe3(shortlist)
+    safe3_codes = safe3_codes or {}
+    out += [_CANON_RULE, "TABLE 3A · 50%+ ACCAS",
+            "(3 legs each, high-certainty legs only, combined chance 50% or more)",
+            _CANON_RULE, ""]
+    if not safe3:
+        out.append("No 3-leg acca reaches 50% from high-certainty legs today.")
+    else:
+        for name, legs, combo in safe3:
+            out.append(f"{name} · code {safe3_codes.get(name) or 'PENDING'} · odds "
+                       f"{_acca_odds(legs):.2f} · chance {round(combo*100)}%")
+            for bf, pick, prob in legs:
+                price = f" @{bf.best_price:.2f}" if bf.best_price else ""
+                out.append(f"   • {_canon_short(bf.fixture)} — {pick}{price} "
+                           f"({round(prob*100)}%, {bf.certainty})")
     out.append("")
 
     # --- TABLE 3 · ACCA route ---
@@ -883,8 +934,11 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
-    if accas or mega_codes:
+    if accas or mega_codes or safe3:
         out += ["", "ALL CODES"]
+        for name, legs, combo in safe3:
+            out.append(f"{name}: {safe3_codes.get(name) or 'PENDING'} "
+                       f"(3 legs · odds {_acca_odds(legs):.2f} · {round(combo*100)}%)")
         megas = _build_megas(shortlist) if mega_codes is not None else []
         for name, legs, combo in megas:
             out.append(f"{name}: {(mega_codes or {}).get(name) or 'PENDING'} "

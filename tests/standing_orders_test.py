@@ -86,4 +86,9 @@ assert (ah(0, 1), ah(0, 2), ah(1, 1)) == ("push", "lose", "win"), "Order 12: AH 
 assert fm.settle_key(fm.key(11, "", "Home"), 1, 1) is None, "Order 12: a void is not a win"
 assert fm.LINE_TOLERANCE == 0.08
 
+# 13. Recency-weighted domestic models
+import orchestrator
+assert orchestrator.RECENCY_HALF_LIFE_DAYS == 240.0, "Order 13: half-life 240 days"
+assert orchestrator.next_season_code("2526") == "2627"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

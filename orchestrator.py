@@ -21,6 +21,7 @@ output, CLV) has no network dependency and is fully testable here.
 from __future__ import annotations
 import argparse
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -43,6 +44,12 @@ from config import PHASE_LABEL
 
 # The full ID401 whitelist (15 leagues), all now equally deploy-eligible.
 FULL_WHITELIST = list(WHITELIST_LEAGUES)
+
+# Domestic models fit on last season + the current season, exponentially
+# weighted to recent matches (backtest/RECENCY_STUDY.md: 240 days beat 120 and
+# the last-season-only model on accuracy, coverage and market agreement).
+RECENCY_HALF_LIFE_DAYS = 240.0
+RECENCY_MAX_MATCHES = 800
 
 
 def next_season_code(season: str) -> str:
@@ -112,6 +119,7 @@ def scan_one_league(league: str, season: str,
     season after `season`)."""
     flags: list[str] = []
     fixture_dates: dict[tuple[str, str], str] = {}
+    recency_fit = False
 
     if league in MARKET_ONLY_LEAGUES:
         import pipeline.odds as _odds
@@ -208,6 +216,23 @@ def scan_one_league(league: str, season: str,
                 flags += iflags
             else:
                 results, skipped = load_league(league, season)
+                # RECENCY (backtest/RECENCY_STUDY.md, 2026-10-02): also fit on
+                # the season being played now, weighted to recent matches, so
+                # the model sees this season's squads, managers and promoted
+                # clubs instead of last season's. Missing current season
+                # (e.g. before a league starts) just leaves last season.
+                try:
+                    current, cur_skipped = load_league(league, next_season_code(season))
+                except Exception:
+                    current, cur_skipped = [], []
+                if current:
+                    results = sorted(results + current, key=lambda r: r.date)
+                    results = results[-RECENCY_MAX_MATCHES:]
+                    skipped = list(skipped) + list(cur_skipped)
+                    recency_fit = True
+                    flags.append(f"{league}: model fitted on last season + {len(current)} "
+                                 f"match(es) of this season, weighted to recent "
+                                 f"(half-life {RECENCY_HALF_LIFE_DAYS} days)")
         except Exception as e:
             flags.append(f"{league}: results fetch failed ({e}) — NO DATA — PENDING")
             return [], flags
@@ -220,7 +245,13 @@ def scan_one_league(league: str, season: str,
                       f"— NO DATA — PENDING rather than a thin fit")
         return [], flags
 
-    model = cross_model if cross_model is not None else fit(results)
+    if cross_model is not None:
+        model = cross_model
+    elif recency_fit:
+        model = fit(results, half_life_days=RECENCY_HALF_LIFE_DAYS,
+                    ref_date=date.today().isoformat())
+    else:
+        model = fit(results)
 
     # Second engine (ID82 Elo, ratified 2026-08-04). Built from the SAME match
     # history the goals model was fitted on, so the two are reading identical

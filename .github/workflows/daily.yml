@@ -18,6 +18,10 @@ on:
         description: "Build the board for this day (YYYY-MM-DD). Blank = today."
         required: false
         default: ""
+      slot:
+        description: "evening | morning = scheduled slot (sent at most once per day); manual = always send"
+        required: false
+        default: "manual"
 
 # Needed so the run can commit the CLV log back — without persistence the
 # paper log resets every run and the Phase 3 gate can never accumulate.
@@ -70,6 +74,7 @@ jobs:
           PYTHONIOENCODING:   utf-8
           SCHEDULE:           ${{ github.event.schedule }}
           TARGET_DATE_INPUT:  ${{ github.event.inputs.target_date }}
+          SLOT_INPUT:         ${{ github.event.inputs.slot }}
         # TELEGRAM DELIVERY ON — production board + daily heartbeat (Architect's
         # request 2026-09-30). --only-production sends the canonical board ONLY on
         # days with real picks; --heartbeat sends a short 'system alive' ping
@@ -80,26 +85,47 @@ jobs:
         # the morning run -> today, a manual dispatch -> its target_date input
         # (default today). Inputs pass via env and are format-checked, never
         # interpolated into the shell directly.
+        # DUPLICATE GUARD (2026-10-02): the board is started on time by a daily
+        # Routine (workflow_dispatch with slot=evening/morning) AND by the GitHub
+        # crons below as a backup. GitHub fires its crons hours late or not at
+        # all, so whichever arrives second for the same day + slot is skipped:
+        # a marker output/boards/sent_<date>_<slot> is committed after delivery
+        # and checked against the LATEST main (not this run's checkout SHA).
+        # slot=manual (the default for hand dispatches) always sends.
         run: |
-          ARGS="--only-production --heartbeat"
           if [ "$SCHEDULE" = "47 20 * * *" ]; then
+            SLOT=evening
             # Evening run builds TOMORROW's card. If GitHub fired it so late it
             # is already past midnight UTC, "tomorrow" has become today — build
             # today's card instead of jumping a day ahead (2026-10-01 incident).
-            if [ "$(date -u +%H)" -ge 12 ]; then
-              ARGS="$ARGS --next-day"
-            else
-              ARGS="$ARGS --target-date $(date -u +%F)"
-            fi
+            if [ "$(date -u +%H)" -ge 12 ]; then T=$(date -u -d tomorrow +%F); else T=$(date -u +%F); fi
+          elif [ "$SCHEDULE" = "47 5 * * *" ]; then
+            SLOT=morning
+            T=$(date -u +%F)
           else
+            SLOT="${SLOT_INPUT:-manual}"
             T="${TARGET_DATE_INPUT:-$(date -u +%F)}"
-            if ! [[ "$T" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-              echo "invalid target_date '$T' (want YYYY-MM-DD)"; exit 1
-            fi
-            ARGS="$ARGS --target-date $T"
           fi
-          echo "schedule='$SCHEDULE' -> run_daily.py $ARGS"
+          if ! [[ "$T" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "invalid target_date '$T' (want YYYY-MM-DD)"; exit 1
+          fi
+          if ! [[ "$SLOT" =~ ^(evening|morning|manual)$ ]]; then
+            echo "invalid slot '$SLOT' (want evening|morning|manual)"; exit 1
+          fi
+          MARKER="output/boards/sent_${T}_${SLOT}"
+          if [ "$SLOT" != "manual" ]; then
+            git fetch -q origin main
+            if git cat-file -e "origin/main:$MARKER" 2>/dev/null; then
+              echo "SKIP: the $SLOT board for $T was already delivered ($MARKER) — no duplicate send."
+              exit 0
+            fi
+          fi
+          ARGS="--only-production --heartbeat --target-date $T"
+          echo "schedule='$SCHEDULE' slot=$SLOT -> run_daily.py $ARGS"
           python run_daily.py $ARGS
+          if [ "$SLOT" != "manual" ]; then
+            date -u +%FT%TZ > "$MARKER"
+          fi
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.
@@ -109,6 +135,8 @@ jobs:
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           git add clv/clv_log.json output/boards memory/ || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
+          # A queued run checks out an older SHA; rebase onto latest main first.
+          git pull --rebase -q origin main || true
           git push || echo "nothing to push"
 
       # Failure alert RE-ENABLED (2026-09-30) now that this framework is corrected

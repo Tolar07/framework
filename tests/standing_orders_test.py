@@ -91,4 +91,18 @@ import orchestrator
 assert orchestrator.RECENCY_HALF_LIFE_DAYS == 240.0, "Order 13: half-life 240 days"
 assert orchestrator.next_season_code("2526") == "2627"
 
+# 14/15. BOOK tier, certainty and 50%+ accas
+assert "BOOK" in slate.TIER_RANK and slate.CERTAINTY_HIGH_PP == 0.03
+from types import SimpleNamespace as _NS
+from output import produce_bet as pb
+_legs = []
+for i, (p, c) in enumerate([(0.82, "HIGH"), (0.81, "HIGH"), (0.81, "HIGH"),
+                            (0.95, "LOW"), (0.70, "MEDIUM"), (0.70, "MEDIUM"), (0.70, "MEDIUM")]):
+    _legs.append(_NS(probs=object(), certainty=c, best_market=f"m{i}", best_model_prob=p,
+                     fixture=f"T{i} v U{i} (X)"))
+_s3 = pb._build_safe3(_legs)
+assert len(_s3) == 1 and all(l[0].certainty == "HIGH" for l in _s3[0][1]), \
+    "Order 15: 50%+ accas use high-certainty legs only and stop below 50%"
+assert _s3[0][2] >= 0.50
+
 print("standing_orders_test: OK — all Architect standing orders hold")

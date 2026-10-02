@@ -30,7 +30,8 @@ from config import PHASE_LABEL, PAPER_PHASE
 from data.football_data_source import load_league
 from engine.slate import (WHITELIST_LEAGUES, build_deploy_shortlist, market_blocked,
                           in_deploy_band, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
-                          DEPLOY_MIN_MODEL_PROB, AGREE_PP, BANKER_MIN)
+                          DEPLOY_MIN_MODEL_PROB, AGREE_PP, BANKER_MIN,
+                          CERTAINTY_HIGH_PP)
 from engine import market_implied as mi
 from engine import full_markets as fm
 
@@ -441,6 +442,15 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         bf.best_bookmaker, bf.best_n_books = quote.bookmaker, quote.n_books
         bf.best_mes_ev, bf.best_model_prob = (ev if ev != -1.0 else None), cons
         bf.tier, bf.pick_model_prob, bf.pick_market_prob = tier, model_p, market_p
+        # CERTAINTY: how sure we are the % is right — two independent sources
+        # agreeing tightly is the evidence. One source (market-implied) or a
+        # disagreement (BOOK/SPLIT) can't be cross-checked, so it's LOW.
+        if tier in ("BOOK", "SPLIT", "MARKET") or market_only or market_p is None:
+            bf.certainty = "LOW"
+        else:
+            gap = abs(model_p - market_p)
+            bf.certainty = ("HIGH" if gap <= CERTAINTY_HIGH_PP
+                            else "MEDIUM" if gap <= AGREE_PP else "LOW")
         if tier == "SPLIT":
             # Model and market disagree: shown on the board, never deployed.
             bf.on_deploy_shortlist = False
@@ -535,9 +545,10 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     # call, stays PENDING on the board — never a fabricated code (HR35).
     acca_code = board_code = None
     acca_codes: dict = {}
+    safe3_codes: dict = {}
     mega_codes = None          # dict once the picks are split into mega slips
     try:
-        from output.produce_bet import _build_accas, _build_megas
+        from output.produce_bet import _build_accas, _build_megas, _build_safe3
         from pipeline import sportybet_booking as sbk
 
         def _leg(b):
@@ -576,6 +587,10 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 accas = _build_accas(deploy)
                 acca_codes = _book(accas)
                 acca_code = acca_codes.get("Acca A")
+                safe3 = _build_safe3(deploy)
+                safe3_codes = _book(safe3)
+                all_flags.append(f"50%+ accas: {len(safe3_codes)}/{len(safe3)} booked "
+                                 f"(3 legs, high-certainty legs only)")
                 megas = _build_megas(deploy)
                 if len(megas) > 1:
                     mega_codes = _book(megas)
@@ -600,7 +615,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
         acca_code=acca_code, board_code=board_code, board_date=target,
-        acca_codes=acca_codes, mega_codes=mega_codes)
+        acca_codes=acca_codes, mega_codes=mega_codes, safe3_codes=safe3_codes)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,

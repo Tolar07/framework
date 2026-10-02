@@ -353,6 +353,19 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
     ladder_fixtures = ladder_rejected = 0
+    # AUTOMATIC LEARNING (improvement #6, engine.learning): every graded pick
+    # corrects the next board. A market family or league whose picks won less
+    # often than we said gets its chances cut (and can fall below the 50%
+    # floor); one that beat them gets a small lift. Degrades to no correction.
+    try:
+        from engine import learning
+        from engine.picks_ledger import LEDGER_DIR as _LD
+        learned = learning.learn(_LD)
+        learning_line = learning.summary(learned)
+        all_flags.append(learning_line)
+    except Exception as e:  # noqa: BLE001 — learning is optional, the run is not
+        learning, learned, learning_line = None, {}, None
+        all_flags.append(f"learning from results unavailable ({e})")
     for bf in board:
         if bf.probs is None:
             continue
@@ -361,6 +374,9 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             continue
         p = bf.probs
         market_only = bf.prob_source == "market"
+        _lg = bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip()
+        sh = ((lambda k, _lg=_lg: learning.shift(learned, k, _lg)) if learned
+              else (lambda k: 0.0))
         # Every in-band market, scored on CONSENSUS = average of the model and
         # the de-vigged market (engine.slate PICK TIERS; backtest/
         # SELECTION_STUDY.md). The price must sit inside the Architect's band
@@ -375,7 +391,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 continue
             market_p = mi.market_prob(market, fx)
             cons = (model_p if (market_only or market_p is None)
-                    else market_p + MODEL_WEIGHT * (model_p - market_p))
+                    else market_p + MODEL_WEIGHT * (model_p - market_p)) + sh(market)
             if cons < DEPLOY_MIN_MODEL_PROB:   # never deploy a pick expected to lose
                 continue
             ev = mes_numeric(cons, quote.price)
@@ -412,7 +428,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                     continue
                 cw, cp = md if mk is None else (mk[0] + MODEL_WEIGHT * (md[0] - mk[0]),
                                                 mk[1] + MODEL_WEIGHT * (md[1] - mk[1]))
-                win = round(cw, 4)
+                win = round(cw + sh(k), 4)
                 if win < DEPLOY_MIN_MODEL_PROB:
                     continue
                 cands.append((win, cw * price + cp - 1, k, md[0],
@@ -455,11 +471,13 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             # BOOKMAKER's strongest outcome (Architect 2026-10-02: every
             # fixture in production). Backtest/SELECTION_STUDY.md: the
             # bookmaker's pick won 73.1% vs the model's 71.0%.
-            book = [c for c in cands if c[4] is not None and c[4] >= DEPLOY_MIN_MODEL_PROB]
+            book = [c for c in cands if c[4] is not None
+                    and c[4] + sh(c[2]) >= DEPLOY_MIN_MODEL_PROB]
             if book:
-                best = max(book, key=lambda c: (c[4], c[1]))
+                best = max(book, key=lambda c: (c[4] + sh(c[2]), c[1]))
                 tier = "BOOK"
-                best = (best[4],) + best[1:]      # show the bookmaker's probability
+                # show the bookmaker's probability (with the learned correction)
+                best = (round(best[4] + sh(best[2]), 4),) + best[1:]
             else:
                 best, tier = max(cands), "SPLIT"
         # ALTERNATIVE MARKET: the next-best in-band market from a DIFFERENT
@@ -776,7 +794,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             hb = render_heartbeat(PHASE_LABEL, leagues, status["legs_with_clv"],
                                   status["mean_clv_pct"], board, board_delivered,
                                   board_date=target,
-                                  scorecard="\n\n".join(x for x in (scorecard_text, staking_line) if x))
+                                  scorecard="\n\n".join(x for x in (scorecard_text, staking_line,
+                                                                  learning_line) if x))
             hb_ok, hb_notes = notify.deliver(hb, save_to=None)
             for n in hb_notes:
                 _mark(runlog, f"heartbeat: {n}")

@@ -124,7 +124,8 @@ _SYN = [(r"\bczechia\b", "czech republic"), (r"\bturkiye\b", "turkey"),
         (r"\bsp\b", "sporting"), (r"\bath\b", "atletico"), (r"\batl\b", "atletico"),
         (r"\bweds\b", "wednesday"), (r"\bwed\b", "wednesday"), (r"\brvs\b", "rovers"),
         (r"\bcelta b\b", "celta vigo b"), (r"\bpeterboro\b", "peterborough"),
-        (r"\bpa\b", "park avenue")]
+        (r"\bpa\b", "park avenue"), (r"^wolves$", "wolverhampton wanderers"),
+        (r"^spurs$", "tottenham")]
 
 
 def norm(name: str) -> str:

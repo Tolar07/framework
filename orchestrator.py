@@ -294,6 +294,25 @@ def scan_one_league(league: str, season: str,
             rejection_reason=_unrated_detail(model, home, away) if probs is None else None,
         ))
 
+    # xG BLEND (improvement #3, backtest/XG_STUDY.md): for the top-5 leagues the
+    # model's scoreline grid = average of Dixon-Coles and an xG rating (more
+    # accurate than goals alone in both test seasons).
+    try:
+        from engine import xg_model
+        if league in xg_model.UNDERSTAT:
+            xr = xg_model.ratings_for(league, fixtures_season or next_season_code(season))
+            blended = 0
+            for b in board:
+                if b.probs is None or b.prob_source != "model":
+                    continue
+                xm = xr.matrix(b.probs.home_team, b.probs.away_team) if xr else None
+                if xm is not None:
+                    b.probs = xg_model.blend(b.probs, xm)
+                    blended += 1
+            flags.append(f"{league}: {blended} fixture(s) blended with xG ratings (Understat)")
+    except Exception as e:  # noqa: BLE001 — xG is an enhancement, never a blocker
+        flags.append(f"{league}: xG ratings unavailable ({str(e)[:60]}) — goals model only")
+
     # NOTHING DROPPED (Architect 2026-10-02): a fixture the model can't rate is
     # priced MARKET-IMPLIED from SportyBet instead of sitting as NO DATA.
     unrated = [i for i, b in enumerate(board) if b.probs is None]

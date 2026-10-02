@@ -599,6 +599,21 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     except Exception as e:  # noqa: BLE001 — news degrades, the run does not
         all_flags.append(f"team news unavailable ({e})")
 
+    # --- STAKING (improvement #7): % of bankroll tied to each tier's proven edge ---
+    staking_line = None
+    try:
+        from engine import staking
+        from engine.picks_ledger import LEDGER_DIR
+        tstats = staking.tier_stats(LEDGER_DIR)
+        for b in board:
+            if b.on_deploy_shortlist and b.tier:
+                b.stake_pct, b.stake_why = staking.single_stake(
+                    b.tier, b.certainty, b.best_price, tstats)
+        staking_line = staking.summary(tstats)
+        all_flags.append(staking_line)
+    except Exception as e:  # noqa: BLE001 — guidance only; never blocks the run
+        all_flags.append(f"staking guidance unavailable ({e})")
+
     # --- log the paper legs (the point of Phase 2) ---
     logged_count, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes)
     all_flags += lflags
@@ -760,7 +775,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         try:
             hb = render_heartbeat(PHASE_LABEL, leagues, status["legs_with_clv"],
                                   status["mean_clv_pct"], board, board_delivered,
-                                  board_date=target, scorecard=scorecard_text)
+                                  board_date=target,
+                                  scorecard="\n\n".join(x for x in (scorecard_text, staking_line) if x))
             hb_ok, hb_notes = notify.deliver(hb, save_to=None)
             for n in hb_notes:
                 _mark(runlog, f"heartbeat: {n}")

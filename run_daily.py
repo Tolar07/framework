@@ -307,6 +307,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             continue
         p = bf.probs
         best = None
+        in_band: list = []
         # Only markets that could actually carry capital may headline THE CALL,
         # AND the price must sit inside the Architect's deploy band
         # [DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX] (1.20–2.00): above 2.0 the market is
@@ -325,8 +326,19 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 continue
             ev = mes_numeric(model_p, quote.price)
             rank = (model_p, ev if ev is not None else -1.0)
+            in_band.append((rank, market, quote.price))
             if best is None or rank > best[0]:
                 best = (rank, market, model_p, quote, ev)
+        # ALTERNATIVE MARKET: the next-best in-band market from a DIFFERENT
+        # family than the pick (so the alt is a real alternative, not 1.5 vs 2.5
+        # of the same line), shown beside the pick on the board.
+        if best and len(in_band) > 1:
+            fam = lambda k: k.split("_")[0]
+            alts = sorted((x for x in in_band if fam(x[1]) != fam(best[1])),
+                          reverse=True)
+            if alts:
+                bf.alt_market = mkt.display(alts[0][1], p.home_team, p.away_team)
+                bf.alt_price = alts[0][2]
         if best:
             _, market, model_p, quote, ev = best
             bf.best_market = mkt.display(market, p.home_team, p.away_team)

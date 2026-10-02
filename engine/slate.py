@@ -71,6 +71,11 @@ WHITELIST_LEAGUES = (
     "Serie B",
     "2. Bundesliga",
     "Ligue 2",
+    # English lower tiers + FA Cup — added 2026-10-02 (full English Saturday card).
+    "League One",
+    "League Two",
+    "National League",
+    "FA Cup",
     # National teams — rated on the international results dataset
     # (data/international_source.py). Added 2026-09-30 at the Architect's request.
     "UEFA Nations League",
@@ -148,7 +153,18 @@ def build_deploy_shortlist(candidates: list) -> list:
     Candidates are expected to be deploy-eligible already (their league is
     whitelisted); this ranks and caps them. Form can only reorder near-equal
     picks, never manufacture conviction."""
+    # Rank on the DEPLOY PICK's own probability (the in-band market actually
+    # booked), not the fixture's strongest market overall — otherwise a fixture
+    # whose best market is out of band outranks a stronger in-band pick (the
+    # 2026-10-02 Latvia drop). Model-backed picks rank ahead of market-implied
+    # ones (engine.market_implied): the latter carry no model edge by design.
+    def _pick_conf(c) -> float:
+        bp = getattr(c, "best_model_prob", None)
+        return bp if bp is not None else _confidence(c)
+
     ranked = sorted(
         candidates,
-        key=lambda c: (-_confidence(c), -(getattr(c, "form_support", None) or 0.0)))
+        key=lambda c: (getattr(c, "prob_source", "model") == "market",
+                       -_pick_conf(c),
+                       -(getattr(c, "form_support", None) or 0.0)))
     return ranked[:DEPLOY_POOL_CAP]

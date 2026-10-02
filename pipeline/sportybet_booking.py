@@ -41,6 +41,15 @@ _SB_MARKET = {
     mkt.AWAY: ("1X2", "", "Away"),
     mkt.OVER_25: ("Over/Under", "total=2.5", "Over 2.5"),
     mkt.UNDER_25: ("Over/Under", "total=2.5", "Under 2.5"),
+    mkt.OVER_15: ("Over/Under", "total=1.5", "Over 1.5"),
+    mkt.UNDER_15: ("Over/Under", "total=1.5", "Under 1.5"),
+    mkt.OVER_35: ("Over/Under", "total=3.5", "Over 3.5"),
+    mkt.UNDER_35: ("Over/Under", "total=3.5", "Under 3.5"),
+    mkt.BTTS_YES: ("GG/NG", "", "Yes"),
+    mkt.BTTS_NO: ("GG/NG", "", "No"),
+    mkt.DC_1X: ("Double Chance", "", "Home or Draw"),
+    mkt.DC_X2: ("Double Chance", "", "Draw or Away"),
+    mkt.DC_12: ("Double Chance", "", "Home or Away"),
 }
 
 

@@ -15,8 +15,9 @@ and not "ratified on backtest evidence".
 | 4 | **Winnable picks only.** A deploy pick must be one the model rates ≥ 50% to win — never a fallback the model expects to lose. | `engine/slate.py DEPLOY_MIN_MODEL_PROB` |
 | 5 | **Canonical board** `##########OLP XDV#########` — TABLE 1–4 + ACCA route, real SportyBet booking codes, max 6 deploy singles (ID402). | `output/produce_bet.py` |
 | 6 | **Telegram delivery twice daily:** ~10 PM Lagos for the NEXT day's fixtures, ~7 AM Lagos refresh for today. Production board on pick days + a heartbeat EVERY day. Failure alert on a broken run. | `.github/workflows/daily.yml` |
-| 7 | **Coverage:** 16 leagues + UEFA Nations League, all priced from SportyBet. | `pipeline/odds_sportybet.py` |
+| 7 | **Coverage:** 16 leagues + UEFA Nations League + League One, League Two, National League and FA Cup (2026-10-02), all priced from SportyBet. | `pipeline/odds_sportybet.py` |
 | 8 | **Live match monitoring source: Flashscore.co.uk.** | (monitoring) |
 | 9 | **Never fabricate** (HR35): no invented prices, scores or constants. Missing data shows as NO DATA — PENDING. | everywhere |
+| 10 | **Every fixture gets production; nothing dropped** (2026-10-02). Alternative markets are open and bookable: Double Chance, Over/Under 1.5 / 2.5 / 3.5, BTTS. A fixture the model can't rate is priced MARKET-IMPLIED (SportyBet prices, margin removed, marked ᴹ, no edge claimed) instead of NO DATA. Every fixture's row shows its in-band pick, odds and an alternative market. | `engine/markets.py`, `engine/market_implied.py`, `orchestrator.py` |
 
-_Last updated 2026-10-01._
+_Last updated 2026-10-02._

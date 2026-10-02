@@ -56,6 +56,13 @@ class BoardFixture:
     # separate from best_market (the display string) so the booked outcome and
     # the headlined single are guaranteed the same market.
     best_market_key: Optional[str] = None
+    # Where the probabilities came from: "model" (Dixon-Coles) or "market"
+    # (de-vigged SportyBet prices, for a fixture the model has no history on —
+    # engine.market_implied). A market-implied fixture carries no model edge.
+    prob_source: str = "model"
+    # Second-best in-band market (the board's alternative pick) and its price.
+    alt_market: Optional[str] = None
+    alt_price: Optional[float] = None
     # Kickoff date (ISO) of THIS fixture. Carried so a logged leg can be
     # settled against the right match rather than a same-pairing meeting from
     # an earlier season.
@@ -207,8 +214,12 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
     btts = ("Both teams to score YES" if p.p_btts_yes >= 0.5 else "Both teams to score NO")
     btts_p = p.p_btts_yes if p.p_btts_yes >= 0.5 else 1 - p.p_btts_yes
     L.append(f"   {btts} {round(btts_p*100)}% (model)")
-    L.append(f"   Expected goals (model): {p.home_team} {p.lambda_home}, "
-             f"{p.away_team} {p.lambda_away}")
+    if p.lambda_home is None:
+        L.append("   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — "
+                 "the model has no history on this fixture; no model edge is claimed")
+    else:
+        L.append(f"   Expected goals (model): {p.home_team} {p.lambda_home}, "
+                 f"{p.away_team} {p.lambda_away}")
 
     # Second opinion — ID82 Elo, ratified 2026-08-04. Shown beside Dixon-Coles
     # rather than blended into it: two engines that agree is evidence, and an
@@ -680,18 +691,25 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         for bf in board:
             if bf.probs is None:
                 rows.append([_canon_short(bf.fixture), "NO DATA — PENDING", "—",
-                             "—", stamp(bf.verification)])
+                             "—", "—", "—", stamp(bf.verification)])
                 continue
             p = bf.probs
-            pick, prob = _best_market_desc(p)
+            pick, prob = _deploy_pick(bf)
             pick_cell = f"{pick} · {round(prob*100)}%" if prob else pick
+            odds = f"@{bf.best_price:.2f}" if bf.best_market_key and bf.best_price else "—"
+            altm = (f"{bf.alt_market} @{bf.alt_price:.2f}" if bf.alt_market
+                    else "—")
             alt = f"{_lean(p.p_over_15,'1.5')}/{_lean(p.p_over_25,'2.5')}"
-            rows.append([_canon_short(bf.fixture), pick_cell, alt, _dc_cell(p),
-                         stamp(bf.verification)])
+            src = stamp(bf.verification) + ("ᴹ" if bf.prob_source == "market" else "")
+            rows.append([_canon_short(bf.fixture), pick_cell, odds, altm, alt,
+                         _dc_cell(p), src])
         out.append(FENCE)
-        out.append(_col(rows, ["Fixture", "AI PICK · win%", "O1.5/O2.5",
-                               "DC/BTTS", "Src"]))
+        out.append(_col(rows, ["Fixture", "AI PICK · win%", "Odds", "Alt market",
+                               "O1.5/O2.5", "DC/BTTS", "Src"]))
         out.append(FENCE)
+        if any(bf.prob_source == "market" for bf in board):
+            out.append("ᴹ = MARKET-IMPLIED: no model history for this fixture — "
+                       "priced from SportyBet with the margin removed; no edge claimed.")
     if board_code:
         out += ["", f"Board code (all deploy singles): {board_code}   "
                 f"load ↦ www.sportybet.com/ng/?shareCode={board_code}", ""]

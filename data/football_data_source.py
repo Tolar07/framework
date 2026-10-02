@@ -54,6 +54,10 @@ LEAGUE_CODES = {
     "Serie B": "I2",
     "2. Bundesliga": "D2",
     "Ligue 2": "F2",
+    # English lower tiers — added 2026-10-02 (Architect: full English Saturday card).
+    "League One": "E2",
+    "League Two": "E3",
+    "National League": "EC",
     "Danish Superliga": None,   # 'Extra' league, different endpoint (see EXTRA_URL)
     "Ekstraklasa": None,        # 'Extra' league, different endpoint
     "HNL": None,                # NOT COVERED — Croatia isn't in football-data.co.uk's country list

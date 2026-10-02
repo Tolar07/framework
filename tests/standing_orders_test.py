@@ -38,7 +38,8 @@ assert slate.DEPLOY_POOL_CAP == 6, "Order 5: max 6 deploy singles"
 wf = (ROOT / ".github/workflows/daily.yml").read_text(encoding="utf-8")
 assert '"47 20 * * *"' in wf and '"47 5 * * *"' in wf, "Order 6: ~10 PM + ~7 AM Lagos runs"
 assert "--only-production --heartbeat" in wf, "Order 6: production board + daily heartbeat"
-assert "--next-day" in wf, "Order 6: evening run builds the next day's board"
+assert "date -u -d tomorrow" in wf, "Order 6: evening run builds the next day's board"
+assert "sent_${T}_${SLOT}" in wf, "Order 6: each day's board is sent once per slot (no duplicates)"
 assert "if: failure()" in wf, "Order 6: failure alert"
 
 # 7. Coverage

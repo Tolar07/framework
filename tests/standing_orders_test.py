@@ -130,4 +130,9 @@ from engine import staking as _st
 assert (_st.MAX_STAKE, _st.STOP_UNITS) == (2.0, 6.0), "Order 21: stake cap 2%, stop-loss 6 units"
 assert _st.SLIP_STAKES == {"safe3": 0.5, "accas": 0.25, "megas": 0.1}
 
+# 22. Automatic learning from results
+from engine import learning as _lr
+assert (_lr.MIN_N, _lr.SHRINK, _lr.MAX_SHIFT) == (10, 30, 0.10), \
+    "Order 22: 10+ results per segment, shrink 30, shift capped at 10 pts"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

@@ -561,6 +561,42 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         if b.on_deploy_shortlist and id(b) not in capped:
             b.on_deploy_shortlist = False
 
+    # --- TEAM NEWS (improvement #2): injuries / suspensions / lineups ---
+    # FotMob's predicted (later confirmed) XI and unavailable players, weighted
+    # by market value. A pick whose team is missing key players is flagged and
+    # its certainty drops a level; nothing is auto-dropped — the pre-kickoff
+    # check (news_check.py) re-tests every pick once the XI is confirmed.
+    try:
+        from data import fotmob
+        from engine import team_news as tn
+        fm_matches = fotmob.matches_on(target)
+        checked = flagged = 0
+        for b in board:
+            if not b.on_deploy_shortlist or b.probs is None or not b.best_market_key:
+                continue
+            m = fotmob.find_match(fm_matches, b.probs.home_team, b.probs.away_team)
+            if not m:
+                continue
+            b.fotmob_id, b.kickoff_utc = m["id"], m["kickoff_utc"]
+            try:
+                news = fotmob.team_news(m["id"])
+            except Exception:  # noqa: BLE001 — one match's news is optional
+                news = None
+            checked += 1
+            res = tn.assess(b.best_market_key, news)
+            b.news_level, b.news_note = res["level"], res["note"]
+            if news:
+                b.predicted_xi = {"home": news["home"]["xi_value"],
+                                  "away": news["away"]["xi_value"]}
+            if res["level"] in ("CAUTION", "RISK"):
+                flagged += 1
+                b.certainty = ("LOW" if res["level"] == "RISK" or b.certainty != "HIGH"
+                               else "MEDIUM")
+        all_flags.append(f"team news (FotMob): {checked} pick(s) checked, "
+                         f"{flagged} flagged for injuries/suspensions")
+    except Exception as e:  # noqa: BLE001 — news degrades, the run does not
+        all_flags.append(f"team news unavailable ({e})")
+
     # --- log the paper legs (the point of Phase 2) ---
     logged_count, lflags = log_paper_legs(log, board, odds_index, min_mes=min_mes)
     all_flags += lflags

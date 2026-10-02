@@ -47,6 +47,7 @@ def _single(bf) -> dict:
             "sb_market": _sb_market(bf.best_market_key),
             "closing_price": None, "clv": None,
             "stake_pct": getattr(bf, "stake_pct", None),
+            "ev": getattr(bf, "best_mes_ev", None),
             "result": None, "ft": None}
 
 
@@ -200,6 +201,11 @@ def scorecard(days: int = 7, today: Optional[str] = None) -> str:
         if slips:
             won = sum(x["result"] == "won" for x in slips)
             L.append(f"{label}: {won}/{len(slips)} landed")
+    pos = [s for s in allsing if (s.get("ev") or 0) > 0]
+    neg = [s for s in allsing if s.get("ev") is not None and s["ev"] <= 0]
+    if pos or neg:
+        L.append("By value — " + line("+EV", pos).replace("+EV: ", "+EV ") + " · "
+                 + line("-EV", neg).replace("-EV: ", "-EV "))
     clvs = [s["clv"] for s in allsing if s.get("clv") is not None]
     if clvs:
         beat = sum(c > 0 for c in clvs)

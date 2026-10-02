@@ -143,4 +143,9 @@ _p = {"lineages": [_sv._lineage(bankroll=5)], "last_bred_date": None}
 _sv.apply_result(_p, {"lineage_id": _p["lineages"][0]["lineage_id"], "price": 1.4}, "LOSS")
 assert not _p["lineages"][0]["alive"], "Order 23: one loss is extinction"
 
+# 24. Value-aware picks + automatic news swap
+import run_daily as _rd
+assert (_rd.EV_PREF_PP, _rd.NEWS_SWAP_PP) == (0.04, 0.06), \
+    "Order 24: value within 4 pts of the top chance; news swap within 6 pts"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

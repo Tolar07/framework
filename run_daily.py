@@ -36,6 +36,8 @@ from engine import market_implied as mi
 from engine import full_markets as fm
 
 UNDER_PREF_PP = 0.03   # see ARCHITECT PREFERENCE in the selection loop
+EV_PREF_PP = 0.04      # see VALUE-AWARE PICK in the selection loop
+NEWS_SWAP_PP = 0.06    # see TEAM NEWS: a weakened pick swaps to a safe alternative
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine.form import compute_table, fixture_form, form_support as _form_support
@@ -457,15 +459,26 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             near = [c for c in pool if c[0] >= top - UNDER_PREF_PP and not _is_under(c[2])]
             return near or pool
 
+        # VALUE-AWARE PICK (Architect 2026-10-02, "positive EV"): among the
+        # outcomes within EV_PREF_PP of the top win probability, take the one
+        # with the best expected value (chance x price). Safety stays first —
+        # nothing more than 4 pts less likely is considered — but between
+        # near-equal outcomes the better-priced one wins, so heavy-margin
+        # markets (Multigoals priced ~11 pts under fair) give way.
+        def _best(pool):
+            top = max(c[0] for c in pool)
+            return max((c for c in pool if c[0] >= top - EV_PREF_PP),
+                       key=lambda c: (c[1], c[0]))
+
         cands = _prefer_non_under(cands) if len(cands) > 1 else cands
         agreeing = _prefer_non_under([c for c in cands if _agree(c)])
         if bankers:
-            best, tier = max(bankers), "BANKER"
+            best, tier = _best(bankers), "BANKER"
         elif market_only:
-            best, tier = max(cands), "MARKET"
+            best, tier = _best(cands), "MARKET"
         elif agreeing:
             # The strongest market the model AND the bookmaker both back.
-            best, tier = max(agreeing), "SAFE"
+            best, tier = _best(agreeing), "SAFE"
         else:
             # Model and bookmaker disagree on every in-band market. Follow the
             # BOOKMAKER's strongest outcome (Architect 2026-10-02: every
@@ -487,6 +500,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         if alts:
             bf.alt_market = mkt.display(alts[0][2], p.home_team, p.away_team)
             bf.alt_price = alts[0][5].price
+        bf.cand_pool = [c for c in cands if c[0] >= DEPLOY_MIN_MODEL_PROB]
         cons, ev, market, model_p, market_p, quote = best
         bf.best_market = mkt.display(market, p.home_team, p.away_team)
         bf.best_market_key = market
@@ -590,7 +604,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         from data import fotmob
         from engine import team_news as tn
         fm_matches = fotmob.matches_on(target)
-        checked = flagged = 0
+        checked = flagged = swapped = 0
         for b in board:
             if not b.on_deploy_shortlist or b.probs is None or not b.best_market_key:
                 continue
@@ -604,6 +618,23 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 news = None
             checked += 1
             res = tn.assess(b.best_market_key, news)
+            # A pick that depends on a WEAKENED team swaps to the likeliest
+            # alternative the news doesn't touch (within NEWS_SWAP_PP), as
+            # done by hand on 2026-10-02 (Bosnia v Sweden, Ukraine v N. Ireland).
+            if res["level"] in ("CAUTION", "RISK") and news:
+                for c in sorted(getattr(b, "cand_pool", []), reverse=True):
+                    if c[2] == b.best_market_key or c[0] < b.best_model_prob - NEWS_SWAP_PP:
+                        continue
+                    if tn.assess(c[2], news)["level"] == "OK":
+                        old_pick = b.best_market
+                        b.best_market_key, b.best_price = c[2], c[5].price
+                        b.best_market = mkt.display(c[2], b.probs.home_team, b.probs.away_team)
+                        b.best_model_prob = c[0]
+                        b.best_mes_ev = c[1] if c[1] != -1.0 else None
+                        b.pick_model_prob, b.pick_market_prob = c[3], c[4]
+                        swapped += 1
+                        res = {"level": "OK", "note": f"swapped from {old_pick} ({res['note']})"}
+                        break
             b.news_level, b.news_note = res["level"], res["note"]
             if news:
                 b.predicted_xi = {"home": news["home"]["xi_value"],
@@ -613,9 +644,19 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 b.certainty = ("LOW" if res["level"] == "RISK" or b.certainty != "HIGH"
                                else "MEDIUM")
         all_flags.append(f"team news (FotMob): {checked} pick(s) checked, "
-                         f"{flagged} flagged for injuries/suspensions")
+                         f"{flagged} flagged for injuries/suspensions, "
+                         f"{swapped} swapped to an alternative the news doesn't touch")
     except Exception as e:  # noqa: BLE001 — news degrades, the run does not
         all_flags.append(f"team news unavailable ({e})")
+
+    # --- VALUE: how many picks are positive-EV on our own chance ---
+    _dep = [b for b in board if b.on_deploy_shortlist and b.best_mes_ev is not None]
+    if _dep:
+        _pos = sum(b.best_mes_ev > 0 for b in _dep)
+        all_flags.append(
+            f"value: {_pos}/{len(_dep)} picks positive EV on our chance x price "
+            f"(avg EV {100 * sum(b.best_mes_ev for b in _dep) / len(_dep):+.1f}%); "
+            f"the scorecard tracks whether +EV picks really return more")
 
     # --- STAKING (improvement #7): % of bankroll tied to each tier's proven edge ---
     staking_line = None

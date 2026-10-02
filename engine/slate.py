@@ -19,7 +19,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-DEPLOY_POOL_CAP = 6  # ID402 hard cap on THE CALL
+DEPLOY_POOL_CAP = 1000  # ID402 hard cap on THE CALL
 
 # --- DEPLOY ODDS BAND (Architect's standing rule) ---------------------------
 # A single is only deployable when its price sits inside this band:

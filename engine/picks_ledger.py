@@ -34,6 +34,12 @@ def _single(bf) -> dict:
             "kickoff": bf.kickoff_date, "market": bf.best_market_key, "pick": pick,
             "price": bf.best_price, "chance": bf.best_model_prob, "tier": bf.tier,
             "certainty": bf.certainty, "code": bf.booking_code,
+            "news_level": getattr(bf, "news_level", None),
+            "news_note": getattr(bf, "news_note", None),
+            "fotmob_id": getattr(bf, "fotmob_id", None),
+            "kickoff_utc": getattr(bf, "kickoff_utc", None),
+            "predicted_xi": getattr(bf, "predicted_xi", None),
+            "lineup_check": None,
             "result": None, "ft": None}
 
 

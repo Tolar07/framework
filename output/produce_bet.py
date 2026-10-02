@@ -75,6 +75,14 @@ class BoardFixture:
     # the pick is): HIGH = model and bookmaker within 3pp; MEDIUM = within
     # 7pp; LOW = they disagree, or only one source (market-implied/BOOK).
     certainty: Optional[str] = None
+    # TEAM NEWS (engine.team_news): OK / CAUTION / RISK / NO NEWS + reason; the
+    # FotMob match id, kickoff time and predicted XI values for the
+    # pre-kickoff confirmed-lineup check.
+    news_level: Optional[str] = None
+    news_note: Optional[str] = None
+    fotmob_id: Optional[int] = None
+    kickoff_utc: Optional[str] = None
+    predicted_xi: Optional[dict] = None
     # Kickoff date (ISO) of THIS fixture. Carried so a logged leg can be
     # settled against the right match rather than a same-pairing meeting from
     # an earlier season.
@@ -855,6 +863,12 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         out.append("Certainty = how sure we are the chance % is right: HIGH = model and "
                    "SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree "
                    "or only one source.")
+        news = [bf for bf in shortlist if bf.news_level in ("CAUTION", "RISK")]
+        if news:
+            out += ["", f"⚠ TEAM NEWS — {len(news)} pick(s) hit by injuries/suspensions "
+                        f"(certainty lowered; re-checked when lineups are confirmed):"]
+            for bf in news:
+                out.append(f"   • {bf.news_level}: {_canon_short(bf.fixture)} — {bf.news_note}")
     out.append("")
 
     # --- TABLE 3A · 50%+ accas (3 legs, high certainty) ---

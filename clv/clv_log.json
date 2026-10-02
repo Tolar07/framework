@@ -815,5 +815,24 @@
     "stake": null,
     "phase": "phase2_paper",
     "notes": ""
+  },
+  {
+    "leg_id": "Hungary_v_Georgia_1X2_AWAY_1790900072",
+    "date_logged": "2026-10-02T00:14:32.400831+00:00",
+    "league": "UEFA Nations League",
+    "fixture": "Hungary v Georgia",
+    "market": "1X2_AWAY",
+    "model_prob": 0.26033118390600346,
+    "match_date": "2026-10-02",
+    "entry_odds": 3.85,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
   }
 ]

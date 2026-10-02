@@ -27,5 +27,6 @@ and not "ratified on backtest evidence".
 | 16 | **Results loop.** Every board's picks are recorded (`output/picks/`) and graded from Flashscore (regular-time results only); the heartbeat carries a scorecard (W-L, hit %, profit at 1 unit, by tier and certainty; slips landed). | `engine/picks_ledger.py`, `data/flashscore_results.py` |
 | 17 | **Team news.** Injuries/suspensions (FotMob, weighted by market value) flag picks and lower certainty; every 20 min a pre-kickoff check re-tests picks against the confirmed XI and alerts on Telegram when the team a pick depends on is weakened or rotated. Nothing is auto-dropped — the Architect decides. | `engine/team_news.py`, `news_check.py` |
 | 18 | **Market-anchored chance.** A pick's chance = 75% SportyBet (margin removed) + 25% model. The model alone over-states chances by 4-5 pts; leaning on the market keeps the % honest. Evidence: `backtest/ANCHOR_STUDY.md`. | `engine/slate.py`, `run_daily.py` |
+| 19 | **xG in the model (top 5 leagues).** The model's scoreline grid = average of the goals model and an xG rating (Understat, 240-day half-life) — more accurate than goals alone in both test seasons. Squad value stays a team-news weight only (no free history to validate it in the model). Evidence: `backtest/XG_STUDY.md`. | `engine/xg_model.py`, `orchestrator.py` |
 
 _Last updated 2026-10-02._

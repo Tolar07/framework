@@ -32,6 +32,9 @@ from engine.slate import (WHITELIST_LEAGUES, build_deploy_shortlist, market_bloc
                           in_deploy_band, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
                           DEPLOY_MIN_MODEL_PROB, AGREE_PP, BANKER_MIN)
 from engine import market_implied as mi
+from engine import full_markets as fm
+
+UNDER_PREF_PP = 0.03   # see ARCHITECT PREFERENCE in the selection loop
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine.form import compute_table, fixture_form, form_support as _form_support
@@ -226,6 +229,22 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
                            stake=None,   # Phase 2: never a stake
                            match_date=bf.kickoff_date)
             logged += 1
+    # Ladder picks (engine.full_markets keys "SB:...") are logged as the leg the
+    # board actually deploys, with the consensus probability it was chosen on.
+    for bf in board:
+        k = bf.best_market_key
+        if (not bf.on_deploy_shortlist or not k or not k.startswith("SB:")
+                or not bf.best_price or not bf.kickoff_date):
+            continue
+        fixture_name = bf.fixture.split(" (")[0]
+        if (fixture_name, k) in already:
+            continue
+        log.log_entry(league=bf.fixture.split("(")[-1].rstrip(")"),
+                      fixture=fixture_name, market=k,
+                      model_prob=bf.best_model_prob, entry_odds=bf.best_price,
+                      entry_capture_path="CL-LIVE", phase=PAPER_PHASE,
+                      stake=None, match_date=bf.kickoff_date)
+        logged += 1
     flags.append(f"logged {logged} new paper leg(s) with a live entry price")
     return logged, flags
 
@@ -300,6 +319,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
+    ladder_fixtures = ladder_rejected = 0
     for bf in board:
         if bf.probs is None:
             continue
@@ -327,15 +347,67 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             ev = mes_numeric(cons, quote.price)
             cands.append((cons, ev if ev is not None else -1.0, market, model_p,
                           market_p, quote))
+        # FULL MARKET LADDER (engine.full_markets): when SportyBet's whole
+        # ladder is quoted, score EVERY full-time outcome in the band —
+        # handicaps, Draw No Bet, team goals, clean sheets, Multigoals, combos —
+        # on its WIN probability, averaged over the model's scoreline grid and
+        # the bookmaker's (fitted to its 1X2 + O/U 2.5). A void (stake back) is
+        # NOT a win: ranking on "no loss" picked bets that mostly just void
+        # ("Home No Bet: Draw" — 98% no-loss, ~10% to actually win).
+        ladder = fm.ladder(getattr(fx, "raw_markets", None))
+        if ladder:
+            ladder_fixtures += 1
+            mgrid = fm.market_matrix(fx)
+            dgrid = None if market_only else getattr(p, "matrix", None)
+            cands = []
+            for k, price, rule in ladder:
+                if not in_deploy_band(price):
+                    continue
+                mk = fm.evaluate(mgrid, rule) if mgrid is not None else None
+                # LINE CONSISTENCY GUARD: if the bookmaker's own 1X2 + goals
+                # prices make this outcome far likelier than ITS price implies,
+                # the line is mislabeled or stale (2026-10-03: N. Macedonia v
+                # Scotland's -1.5 line mirrored the +1.5 line — "Scotland +1.5"
+                # @1.32 was really ~30% to win). Never pick such a line.
+                if mk is not None and mk[1] < 1:
+                    if mk[0] / (1 - mk[1]) - 1 / price > fm.LINE_TOLERANCE:
+                        ladder_rejected += 1
+                        continue
+                md = fm.evaluate(dgrid, rule) if dgrid is not None else mk
+                if md is None:
+                    continue
+                cw, cp = md if mk is None else ((md[0] + mk[0]) / 2, (md[1] + mk[1]) / 2)
+                win = round(cw, 4)
+                if win < DEPLOY_MIN_MODEL_PROB:
+                    continue
+                cands.append((win, cw * price + cp - 1, k, md[0],
+                              None if (mk is None or market_only) else mk[0],
+                              odds_mod.MarketQuote(price=price, bookmaker="sportybet",
+                                                   n_books=1)))
         if not cands:
             continue
 
         def _agree(c):
             return c[4] is not None and abs(c[3] - c[4]) <= AGREE_PP
 
-        bankers = [c for c in cands if not market_only and c[2] in (mkt.HOME, mkt.AWAY)
+        bankers = [c for c in cands if not market_only
+                   and c[2] in (mkt.HOME, mkt.AWAY, "SB:1||Home", "SB:1||Away")
                    and _agree(c) and c[0] >= BANKER_MIN]
-        agreeing = [c for c in cands if _agree(c)]
+        # ARCHITECT PREFERENCE (2026-10-02): Under-goals picks are disliked —
+        # an early goal or two leaves them exposed. When a non-Under outcome is
+        # within UNDER_PREF_PP of the top win probability, prefer it.
+        def _is_under(k):
+            return "|Under" in k or "& Under" in k or k in (mkt.UNDER_25, mkt.UNDER_15, mkt.UNDER_35)
+
+        def _prefer_non_under(pool):
+            if not pool:
+                return pool
+            top = max(c[0] for c in pool)
+            near = [c for c in pool if c[0] >= top - UNDER_PREF_PP and not _is_under(c[2])]
+            return near or pool
+
+        cands = _prefer_non_under(cands) if len(cands) > 1 else cands
+        agreeing = _prefer_non_under([c for c in cands if _agree(c)])
         if bankers:
             best, tier = max(bankers), "BANKER"
         elif market_only:
@@ -347,7 +419,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             best, tier = max(cands), "SPLIT"
         # ALTERNATIVE MARKET: the next-best in-band market from a DIFFERENT
         # family than the pick (a real alternative, not 1.5 vs 2.5 of one line).
-        fam = lambda k: k.split("_")[0]
+        fam = lambda k: k.split("|")[0] if k.startswith("SB:") else k.split("_")[0]
         alts = sorted((c for c in cands if fam(c[2]) != fam(best[2])), reverse=True)
         if alts:
             bf.alt_market = mkt.display(alts[0][2], p.home_team, p.away_team)
@@ -365,6 +437,12 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             bf.rejection_reason = (
                 f"SPLIT: model {model_p:.0%} vs market {market_p:.0%} on "
                 f"{bf.best_market} — disagreement > {AGREE_PP:.0%}, not deployed")
+
+    if ladder_fixtures:
+        all_flags.append(
+            f"full market ladder: {ladder_fixtures} fixture(s) scored on every "
+            f"full-time SportyBet market; {ladder_rejected} in-band line(s) skipped "
+            f"as inconsistent with the book's own 1X2/goals prices")
 
     # --- form & standings context (engine.form) ---
     # Derived from the same football-data results the model is fit on, so it

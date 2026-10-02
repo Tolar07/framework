@@ -171,6 +171,9 @@ class FixtureOdds:
     dc_1x: MarketQuote = field(default_factory=MarketQuote)
     dc_x2: MarketQuote = field(default_factory=MarketQuote)
     dc_12: MarketQuote = field(default_factory=MarketQuote)
+    # The FULL market ladder as quoted (SportyBet), for engine.full_markets.
+    raw_markets: list = field(default_factory=list, repr=False)
+    event_id: str = ""
     source: str = "the-odds-api.com"
     source_tier: str = "T1"
     notes: list[str] = field(default_factory=list)

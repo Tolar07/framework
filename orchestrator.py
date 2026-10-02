@@ -61,6 +61,42 @@ def _unrated_detail(model, home: str, away: str) -> str:
     return "NO DATA — PENDING: " + "; ".join(reasons)
 
 
+# Competitions with no single-league history to fit (a cup mixing every tier).
+# Every fixture is priced MARKET-IMPLIED from SportyBet (engine.market_implied).
+MARKET_ONLY_LEAGUES = {"FA Cup"}
+
+
+def _odds_by_pair(league: str) -> tuple[dict, list[str]]:
+    """{(home, away): FixtureOdds} from the live odds chain, for market-implied
+    pricing. Empty on any failure (the caller keeps NO DATA, never a guess)."""
+    try:
+        import pipeline.odds as _odds
+        quotes, oflags = _odds.fetch_odds_chained(league)
+        return {(q.home_team, q.away_team): q for q in quotes}, oflags
+    except Exception as e:  # noqa: BLE001
+        return {}, [f"{league}: odds unavailable for market-implied pricing ({e})"]
+
+
+def _market_board(league: str, pairs, dates: dict, odds: dict
+                  ) -> tuple[list[BoardFixture], int]:
+    """BoardFixtures priced market-implied. Returns (board, n_priced)."""
+    from engine.market_implied import implied_probs
+    board, n = [], 0
+    for home, away in pairs:
+        probs = implied_probs(odds.get((home, away)))
+        v = verify([SourcedDatum(domain="sportybet.com", value=f"{home} v {away}",
+                                 url="https://www.sportybet.com", structured=True)])
+        n += probs is not None
+        board.append(BoardFixture(
+            fixture=f"{home} v {away} ({league})", probs=probs, verification=v,
+            on_deploy_shortlist=(probs is not None and is_deploy_eligible(league)),
+            kickoff_date=dates.get((home, away)), prob_source="market",
+            rejection_reason=(None if probs is not None else
+                              "NO DATA — PENDING: core markets not all priced on SportyBet"),
+        ))
+    return board, n
+
+
 def scan_one_league(league: str, season: str,
                      upcoming_fixtures: list[tuple[str, str]] | None = None,
                      api_football_season: int | None = None,
@@ -76,6 +112,16 @@ def scan_one_league(league: str, season: str,
     season after `season`)."""
     flags: list[str] = []
     fixture_dates: dict[tuple[str, str], str] = {}
+
+    if league in MARKET_ONLY_LEAGUES:
+        import pipeline.odds as _odds
+        pairs, dates, oflags = _odds.fixtures_from_odds(league)
+        flags += oflags
+        odds, of2 = _odds_by_pair(league)
+        board, n = _market_board(league, pairs, dates, odds)
+        flags.append(f"{league}: {n}/{len(pairs)} fixture(s) priced MARKET-IMPLIED "
+                     f"(cup across tiers — no single-league model; no edge claimed)")
+        return board, flags
 
     # football-data.co.uk carries no continental competitions and no Croatia.
     # API-Football fills that gap for HISTORY (ratified 2026-08-03), but a
@@ -216,6 +262,28 @@ def scan_one_league(league: str, season: str,
             engine_divergence=elo_engine.divergence(elo_p, probs),
             rejection_reason=_unrated_detail(model, home, away) if probs is None else None,
         ))
+
+    # NOTHING DROPPED (Architect 2026-10-02): a fixture the model can't rate is
+    # priced MARKET-IMPLIED from SportyBet instead of sitting as NO DATA.
+    unrated = [i for i, b in enumerate(board) if b.probs is None]
+    if unrated:
+        odds, _of = _odds_by_pair(league)
+        from engine.market_implied import implied_probs
+        filled = 0
+        for i in unrated:
+            b = board[i]
+            home, away = b.fixture.rsplit(" (", 1)[0].split(" v ", 1)
+            probs = implied_probs(odds.get((home, away)))
+            if probs is None:
+                continue
+            b.probs, b.prob_source, b.rejection_reason = probs, "market", None
+            b.on_deploy_shortlist = (is_deploy_eligible(league)
+                                     and b.verification.tier not in (Tier.CONFLICT, Tier.NO_DATA))
+            b.mes_trigger_price = b.engine_divergence = b.elo_probs = None
+            filled += 1
+        if filled:
+            flags.append(f"{league}: {filled} unrated fixture(s) priced MARKET-IMPLIED "
+                         f"from SportyBet (no model history — no edge claimed)")
 
     # Surface unmapped names ONCE per league, with the model's actual roster
     # beside them. A naming mismatch and a genuinely new club are

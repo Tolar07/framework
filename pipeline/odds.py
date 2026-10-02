@@ -161,6 +161,16 @@ class FixtureOdds:
     away: MarketQuote = field(default_factory=MarketQuote)
     over25: MarketQuote = field(default_factory=MarketQuote)
     under25: MarketQuote = field(default_factory=MarketQuote)
+    # Alternative markets (SportyBet carries them; other sources leave them empty).
+    over15: MarketQuote = field(default_factory=MarketQuote)
+    under15: MarketQuote = field(default_factory=MarketQuote)
+    over35: MarketQuote = field(default_factory=MarketQuote)
+    under35: MarketQuote = field(default_factory=MarketQuote)
+    btts_yes: MarketQuote = field(default_factory=MarketQuote)
+    btts_no: MarketQuote = field(default_factory=MarketQuote)
+    dc_1x: MarketQuote = field(default_factory=MarketQuote)
+    dc_x2: MarketQuote = field(default_factory=MarketQuote)
+    dc_12: MarketQuote = field(default_factory=MarketQuote)
     source: str = "the-odds-api.com"
     source_tier: str = "T1"
     notes: list[str] = field(default_factory=list)

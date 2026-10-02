@@ -68,6 +68,12 @@ SPORTYBET_TOURNAMENT_ID = {
     "Ligue 2": "sr:tournament:182",             # France
     "Primeira Liga": "sr:tournament:238",       # Portugal (Liga Portugal)
     "UEFA Nations League": "sr:tournament:23755",  # national teams (verified live)
+    # English lower tiers + FA Cup — added 2026-10-02 (Architect: full English
+    # Saturday card). IDs verified live by the event's own category (England).
+    "League One": "sr:tournament:24",
+    "League Two": "sr:tournament:25",
+    "National League": "sr:tournament:173",
+    "FA Cup": "sr:tournament:19",
 }
 
 # SportyBet team name -> model (football-data) key. Verified pairs only; exact
@@ -232,6 +238,39 @@ TEAM_ALIASES: dict[str, dict[str, str]] = {
         "Ireland": "Republic of Ireland",
         "Turkiye": "Turkey",
     },
+    # English lower tiers (2026-10-02). Each is the SAME club under SportyBet's
+    # longer name (FC/AFC suffix, Town/United/Athletic) — verified against the
+    # football-data roster; no fuzzy matches.
+    "League One": {
+        "Barnsley FC": "Barnsley", "Bradford City FC": "Bradford",
+        "Burton Albion": "Burton", "Leyton Orient London": "Leyton Orient",
+        "Mansfield Town": "Mansfield", "Plymouth Argyle": "Plymouth",
+        "Reading FC": "Reading", "Wigan Athletic": "Wigan",
+    },
+    "League Two": {
+        "Accrington Stanley": "Accrington", "Bristol Rovers": "Bristol Rvs",
+        "Cheltenham Town": "Cheltenham", "Chesterfield FC": "Chesterfield",
+        "Crewe Alexandra": "Crewe", "Exeter City": "Exeter",
+        "Gillingham FC": "Gillingham", "Grimsby Town": "Grimsby",
+        "Northampton Town": "Northampton", "Oldham Athletic": "Oldham",
+        "Rochdale AFC": "Rochdale", "Rotherham United": "Rotherham",
+        "Salford City": "Salford", "Shrewsbury Town": "Shrewsbury",
+        "Swindon Town": "Swindon", "Tranmere Rovers FC": "Tranmere",
+        "Walsall FC": "Walsall",
+    },
+    "National League": {
+        "AFC Fylde": "Fylde", "AFC Hornchurch": "Hornchurch",
+        "Aldershot Town FC": "Aldershot", "Altrincham FC": "Altrincham",
+        "Barrow AFC": "Barrow", "Boreham Wood FC": "Boreham Wood",
+        "Boston United FC": "Boston Utd", "Carlisle United": "Carlisle",
+        "Eastleigh FC": "Eastleigh", "FC Halifax Town": "Halifax",
+        "Gateshead FC": "Gateshead", "Harrogate Town": "Harrogate",
+        "Hartlepool United": "Hartlepool", "Kidderminster Harriers FC": "Kidderminster",
+        "Solihull Moors FC": "Solihull", "Southend United": "Southend",
+        "Sutton United": "Sutton", "Tamworth FC": "Tamworth",
+        "Wealdstone FC": "Wealdstone", "Woking FC": "Woking",
+        "Worthing FC": "Worthing", "Yeovil Town": "Yeovil",
+    },
 }
 
 
@@ -261,7 +300,7 @@ def _load_all_events() -> tuple[dict[str, list[dict]], list[str]]:
 
     by_tid: dict[str, list[dict]] = {}
     total = None
-    for page in range(1, 16):
+    for page in range(1, 41):   # the full feed runs ~18+ pages on a busy weekend
         data = _get(_LIST.format(page=page)).get("data", {})
         total = data.get("totalNum", total)
         for t in data.get("tournaments", []):
@@ -318,6 +357,15 @@ def _to_fixture_odds(event: dict, league: str, now: str) -> FixtureOdds:
         away=mq(_price(markets, "1X2", "Away")),
         over25=mq(_price(markets, "Over/Under", "Over 2.5", specifier="total=2.5")),
         under25=mq(_price(markets, "Over/Under", "Under 2.5", specifier="total=2.5")),
+        over15=mq(_price(markets, "Over/Under", "Over 1.5", specifier="total=1.5")),
+        under15=mq(_price(markets, "Over/Under", "Under 1.5", specifier="total=1.5")),
+        over35=mq(_price(markets, "Over/Under", "Over 3.5", specifier="total=3.5")),
+        under35=mq(_price(markets, "Over/Under", "Under 3.5", specifier="total=3.5")),
+        btts_yes=mq(_price(markets, "GG/NG", "Yes")),
+        btts_no=mq(_price(markets, "GG/NG", "No")),
+        dc_1x=mq(_price(markets, "Double Chance", "Home or Draw")),
+        dc_x2=mq(_price(markets, "Double Chance", "Draw or Away")),
+        dc_12=mq(_price(markets, "Double Chance", "Home or Away")),
         source="sportybet.com",
         source_tier="T1",
     )

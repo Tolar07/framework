@@ -32,8 +32,14 @@ OVER_15 = "OVER_1_5"
 UNDER_15 = "UNDER_1_5"
 BTTS_YES = "BTTS_YES"
 BTTS_NO = "BTTS_NO"
+OVER_35 = "OVER_3_5"
+UNDER_35 = "UNDER_3_5"
+DC_1X = "DC_1X"        # home or draw
+DC_X2 = "DC_X2"        # draw or away
+DC_12 = "DC_12"        # home or away
 
-ALL = (HOME, DRAW, AWAY, OVER_25, UNDER_25, OVER_15, UNDER_15, BTTS_YES, BTTS_NO)
+ALL = (HOME, DRAW, AWAY, OVER_25, UNDER_25, OVER_15, UNDER_15, BTTS_YES, BTTS_NO,
+       OVER_35, UNDER_35, DC_1X, DC_X2, DC_12)
 
 # --- ID405 MARKET GATE (ratified 2026-08-04) --------------------------------
 # Measured on the 2024/25 walk-forward backtest, 5 leagues, corrected engine.
@@ -69,6 +75,11 @@ def display(key: str, home_team: str = "Home", away_team: str = "Away") -> str:
         UNDER_15: "Under 1.5 goals",
         BTTS_YES: "Both teams to score — yes",
         BTTS_NO: "Both teams to score — no",
+        OVER_35: "Over 3.5 goals",
+        UNDER_35: "Under 3.5 goals",
+        DC_1X: f"{home_team} or draw",
+        DC_X2: f"{away_team} or draw",
+        DC_12: f"{home_team} or {away_team}",
     }.get(key, key)
 
 
@@ -87,6 +98,11 @@ def settle(key: str, fthg: int, ftag: int) -> Optional[bool]:
         UNDER_15: total <= 1,
         BTTS_YES: fthg > 0 and ftag > 0,
         BTTS_NO: not (fthg > 0 and ftag > 0),
+        OVER_35: total > 3,
+        UNDER_35: total <= 3,
+        DC_1X: fthg >= ftag,
+        DC_X2: ftag >= fthg,
+        DC_12: fthg != ftag,
     }.get(key)
 
 
@@ -104,6 +120,11 @@ def model_prob(key: str, probs) -> Optional[float]:
         UNDER_15: 1.0 - probs.p_over_15,
         BTTS_YES: probs.p_btts_yes,
         BTTS_NO: 1.0 - probs.p_btts_yes,
+        OVER_35: probs.p_over_35,
+        UNDER_35: 1.0 - probs.p_over_35,
+        DC_1X: probs.p_home + probs.p_draw,
+        DC_X2: probs.p_draw + probs.p_away,
+        DC_12: probs.p_home + probs.p_away,
     }.get(key)
 
 
@@ -117,10 +138,19 @@ def quote(key: str, fixture_odds) -> Optional[object]:
         AWAY: fixture_odds.away,
         OVER_25: fixture_odds.over25,
         UNDER_25: fixture_odds.under25,
+        OVER_15: getattr(fixture_odds, "over15", None),
+        UNDER_15: getattr(fixture_odds, "under15", None),
+        OVER_35: getattr(fixture_odds, "over35", None),
+        UNDER_35: getattr(fixture_odds, "under35", None),
+        BTTS_YES: getattr(fixture_odds, "btts_yes", None),
+        BTTS_NO: getattr(fixture_odds, "btts_no", None),
+        DC_1X: getattr(fixture_odds, "dc_1x", None),
+        DC_X2: getattr(fixture_odds, "dc_x2", None),
+        DC_12: getattr(fixture_odds, "dc_12", None),
     }.get(key)
 
 
-# Markets that can carry capital: everything with a live price that isn't
-# blocked. Over/Under 1.5 and BTTS have no price source, so they are scan-only
-# by data availability rather than by rule.
-DEPLOYABLE = tuple(k for k in (HOME, DRAW, AWAY, OVER_25, UNDER_25) if k not in BLOCKED)
+# Markets that can carry capital: EVERY market with a live price that isn't
+# blocked (Architect 2026-10-02: alternative markets open — Double Chance,
+# Over/Under 1.5 / 2.5 / 3.5, BTTS — all priced and bookable on SportyBet).
+DEPLOYABLE = tuple(k for k in ALL if k not in BLOCKED)

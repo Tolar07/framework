@@ -48,6 +48,9 @@ def _single(bf) -> dict:
             "closing_price": None, "clv": None,
             "stake_pct": getattr(bf, "stake_pct", None),
             "ev": getattr(bf, "best_mes_ev", None),
+            # price at the FIRST board for this day + the move since (drift guard)
+            "first_price": getattr(bf, "first_price", None) or bf.best_price,
+            "drift_since_board": getattr(bf, "drift_pct", None),
             "result": None, "ft": None}
 
 
@@ -157,6 +160,30 @@ def _pl(s: dict) -> float:
     return 0.0
 
 
+def calibration(singles: list) -> list[str]:
+    """Is the chance we state the chance that happens? Brier score, log loss
+    and a bucket table on won/lost singles (voids excluded)."""
+    import math
+    done = [s for s in singles if s.get("result") in ("won", "lost") and s.get("chance")]
+    if len(done) < 5:
+        return []
+    ys = [(min(max(float(s["chance"]), 0.01), 0.99), 1 if s["result"] == "won" else 0)
+          for s in done]
+    brier = sum((p - y) ** 2 for p, y in ys) / len(ys)
+    logloss = -sum(math.log(p if y else 1 - p) for p, y in ys) / len(ys)
+    out = [f"Calibration ({len(ys)} picks): Brier {brier:.3f} · log loss {logloss:.3f} "
+           f"(lower = better; Brier 0.25 = coin-flip)"]
+    rows = []
+    for lo, hi in ((0.5, 0.6), (0.6, 0.7), (0.7, 0.8), (0.8, 0.9), (0.9, 1.0)):
+        b = [(p, y) for p, y in ys if lo <= p < hi]
+        if b:
+            rows.append(f"said {lo*100:.0f}-{hi*100:.0f}% → won {100*sum(y for _, y in b)/len(b):.0f}% "
+                        f"(n={len(b)})")
+    if rows:
+        out.append("  " + " · ".join(rows))
+    return out
+
+
 def scorecard(days: int = 7, today: Optional[str] = None) -> str:
     """Short text: latest graded day + rolling `days`, singles by tier and
     certainty at 1 unit each, and slips landed."""
@@ -201,6 +228,7 @@ def scorecard(days: int = 7, today: Optional[str] = None) -> str:
         if slips:
             won = sum(x["result"] == "won" for x in slips)
             L.append(f"{label}: {won}/{len(slips)} landed")
+    L.extend(calibration(allsing))
     pos = [s for s in allsing if (s.get("ev") or 0) > 0]
     neg = [s for s in allsing if s.get("ev") is not None and s["ev"] <= 0]
     if pos or neg:

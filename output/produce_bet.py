@@ -829,12 +829,16 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     if not accas:
         out.append("No capital-eligible accas generated.")
     else:
+        out.append(f"{len(accas)} accas cover all {sum(len(l) for _, l, _ in accas)} "
+                   f"deploy picks — every code is also in ALL CODES at the end.")
+        out.append("")
         for name, legs, combo in accas:
             code = acca_codes.get(name) or "PENDING"
-            out.append(f"{name}  ({len(legs)} legs · model {round(combo*100)}% "
-                       f"· code {code})")
+            out.append(f"{name} · code {code} · {len(legs)} legs · odds "
+                       f"{_acca_odds(legs):.2f} · chance {round(combo*100)}%")
             for bf, pick, prob in legs:
-                out.append(f"   • {_canon_short(bf.fixture)} — {pick} "
+                price = f" @{bf.best_price:.2f}" if bf.best_price else ""
+                out.append(f"   • {_canon_short(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%)")
     out.append("")
 
@@ -874,7 +878,28 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             f"Calibration: {calibration_count} legs logged, {clv}.",
             code_line,
             _CANON_BAR]
+
+    # --- ALL CODES: every acca + mega code in one short block, LAST, so it
+    # lands in its own final Telegram message and can't be missed in a long
+    # board (2026-10-02: accas G-O sat in a later message and were missed).
+    if accas or mega_codes:
+        out += ["", "ALL CODES"]
+        megas = _build_megas(shortlist) if mega_codes is not None else []
+        for name, legs, combo in megas:
+            out.append(f"{name}: {(mega_codes or {}).get(name) or 'PENDING'} "
+                       f"({len(legs)} legs · odds {_acca_odds(legs):,.0f})")
+        for name, legs, combo in accas:
+            out.append(f"{name}: {acca_codes.get(name) or 'PENDING'} "
+                       f"({len(legs)} legs · odds {_acca_odds(legs):.2f} · "
+                       f"{round(combo*100)}%)")
     return "\n".join(out)
+
+
+def _acca_odds(legs) -> float:
+    odds = 1.0
+    for bf, _pick, _prob in legs:
+        odds *= bf.best_price or 1.0
+    return odds
 
 
 def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],

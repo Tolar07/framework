@@ -181,92 +181,94 @@ TABLE 3 · ACCA ROUTE
 (capital-eligible grouped accumulators, own code per acca)
 ──────────────────────────────────
 
-Acca A  (5 legs · model 38% · code KJG8NE)
-   • Estonia v Luxembourg — Under 3.5 goals (84%)
-   • Spain v Czech Republic — Czech Republic (+4.5) Asian handicap (83%)
-   • Rochdale v Swindon — Swindon (+1.5) Asian handicap (83%)
-   • Chesterfield v Tranmere — Chesterfield (+0.5) Asian handicap (82%)
-   • Iceland v Bulgaria — Iceland or Bulgaria (82%)
-Acca B  (5 legs · model 36% · code TU5KZS)
-   • Stafford Rangers v Halesowen Town FC — Under 4.5 goals (82%)
-   • Bedford Town Football Club v Wingate & Finchley — Wingate & Finchley (+2.5) Asian handicap (82%)
-   • Thame United FC v Eastbourne Borough — Thame United FC (+2.5) Asian handicap (82%)
-   • Crewe v Bristol Rvs — Bristol Rvs Win to Nil — no (81%)
-   • Leyton Orient v Plymouth — Over 1.5 goals (81%)
-Acca C  (5 legs · model 34% · code RYHSSQ)
-   • Solihull v Halifax — Halifax (+1.5) Asian handicap (81%)
-   • Reading v Bradford — Bradford (+1.5) Asian handicap (81%)
-   • Tonbridge Angels v Torquay United — Under 4.5 goals (81%)
-   • North Macedonia v Scotland — Scotland Over 0.5 goals (81%)
-   • Leiston FC v Coventry United — Under 4.5 goals (81%)
-Acca D  (5 legs · model 34% · code LEFP5X)
-   • Hartlepool v Tamworth — Tamworth (+1.5) Asian handicap (81%)
-   • Truro City v Cirencester Town — Cirencester Town (+3.5) Asian handicap (81%)
-   • Oxford City v Enfield Town — Enfield Town (+2.5) Asian handicap (81%)
-   • Barnsley v Milton Keynes Dons — Barnsley Under 2.5 goals (80%)
-   • Mulbarton Wanderers v Gloucester City — Gloucester City Over 0.5 goals (80%)
-Acca E  (5 legs · model 32% · code TY89R7)
-   • Barrow v Wealdstone — Over 1.5 goals (80%)
-   • Walsall v Crawley Town — Walsall (+0.5) Asian handicap (80%)
-   • Tadley Calleva v Dartford FC — Tadley Calleva Under 1.5 goals (80%)
-   • Accrington v Cheltenham — Cheltenham (+1.5) Asian handicap (80%)
-   • Harrogate v Hornchurch — Harrogate or Hornchurch (80%)
-Acca F  (5 legs · model 32% · code S9BCMW)
-   • Bury Town FC v Spalding United — Spalding United Over 0.5 goals (80%)
-   • Boreham Wood v Altrincham — Boreham Wood Under 3.5 goals (80%)
-   • Gillingham v Newport County — Gillingham Over 0.5 goals (79%)
-   • Plymouth Parkway v Horsham FC — Over 1.5 goals (79%)
-   • Morecambe FC v Darlington FC — Darlington FC Clean Sheet — no (79%)
-Acca G  (5 legs · model 30% · code TBEWKY)
-   • Weymouth FC v South East Dons — South East Dons (+2.5) Asian handicap (79%)
-   • Ebbsfleet United FC v Sholing FC — Sholing FC Under 1.5 goals (79%)
-   • Macclesfield FC v Scarborough Athletic — Macclesfield FC (+0.5) Asian handicap (79%)
-   • Brentwood Town FC v Dagenham and Redbridge FC — Brentwood Town FC or Dagenham and Redbridge FC (79%)
-   • Crowborough Athletic v Wimborne Town — Crowborough Athletic or Wimborne Town (79%)
-Acca H  (5 legs · model 30% · code U98SQQ)
-   • Gainsborough Trinity v Anstey Nomads — Anstey Nomads (+1.5) Asian handicap (79%)
-   • Leatherhead FC v Hanworth Villa — Hanworth Villa (+1.5) Asian handicap (79%)
-   • Guiseley FC v Bradford Park Avenue AFC — Guiseley FC or Bradford Park Avenue AFC (78%)
-   • CE Sabadell FC v Andorra — Andorra (+1.5) Asian handicap (78%)
-   • Kidderminster v Sutton — Under 3.5 goals (78%)
-Acca I  (5 legs · model 29% · code UN3PVG)
-   • Bury FC v Bromsgrove Sporting — Bury FC Win to Nil — no (78%)
-   • Worksop Town v FC United of Manchester — Worksop Town or FC United of Manchester (78%)
-   • Redditch United v Berkhamsted FC — Redditch United Over 0.5 goals (78%)
-   • Aldershot v Carlisle — Carlisle Win to Nil — no (78%)
-   • Eastleigh v Woking — Eastleigh (+1.5) Asian handicap (78%)
-Acca J  (5 legs · model 28% · code K7NKV9)
-   • Cray Wanderers v Chippenham Town — Cray Wanderers or Chippenham Town (78%)
-   • Southend v Fylde — Southend or Fylde (78%)
-   • AFC Rushden And Diamonds v Braintree Town FC — Braintree Town FC (+0.5) Asian handicap (78%)
-   • Sheppey United FC v Chertsey Town — Sheppey United FC or Chertsey Town (78%)
-   • Cambridge City v Alvechurch — Cambridge City or Alvechurch (77%)
-Acca K  (5 legs · model 27% · code Q4HHYH)
-   • Hanwell Town FC v Dover Athletic FC — Hanwell Town FC Over 0.5 goals (77%)
-   • Chesham United v Real Bedford — Real Bedford (+1.5) Asian handicap (77%)
-   • Harborough Town FC v St Albans City — Harborough Town FC or St Albans City (77%)
-   • Buxton FC v South Shields — Buxton FC or South Shields (77%)
-   • Kettering Town v Worcester City — Kettering Town or Worcester City (77%)
-Acca L  (4 legs · model 35% · code UNXFFH)
-   • Barton Town v Chorley FC — Barton Town (+2.5) Asian handicap (77%)
-   • Uxbridge FC v Hungerford Town FC — Uxbridge FC (+0.5) Asian handicap (77%)
-   • Trafford FC v Atherton Collieries — Trafford FC or Atherton Collieries (77%)
-   • Marine FC v Warrington Town — Marine FC (+0.5) Asian handicap (77%)
-Acca M  (4 legs · model 34% · code GE0C5F)
-   • Gateshead v Worthing — Gateshead (+2.5) Asian handicap (77%)
-   • Cadiz v Leganes — Leganes Win to Nil — no (76%)
-   • Spennymoor Town FC v Chester FC — Spennymoor Town FC Clean Sheet — no (76%)
-   • Yeovil v Boston Utd — Yeovil Win to Nil — no (75%)
-Acca N  (4 legs · model 31% · code RF6AE3)
-   • Croatia v England — England Win to Nil — no (75%)
-   • Salford v Fleetwood Town — Salford or Fleetwood Town (75%)
-   • Almeria v Burgos — Almeria or Burgos (74%)
-   • Finland v Albania — Finland Win to Nil — no (74%)
-Acca O  (4 legs · model 24% · code GMC00F)
-   • Brackley Town FC v Chelmsford City — Brackley Town FC or Chelmsford City (73%)
-   • Albacete v Eibar — Eibar Over 0.5 goals (73%)
-   • Northampton v Oldham — Multigoals 1-3 (68%)
-   • Exeter v Rotherham — Multigoals 1-3 (67%)
+15 accas cover all 71 deploy picks — every code is also in ALL CODES at the end.
+
+Acca A · code KJG8NE · 5 legs · odds 2.53 · chance 38%
+   • Estonia v Luxembourg — Under 3.5 goals @1.22 (84%)
+   • Spain v Czech Republic — Czech Republic (+4.5) Asian handicap @1.20 (83%)
+   • Rochdale v Swindon — Swindon (+1.5) Asian handicap @1.20 (83%)
+   • Chesterfield v Tranmere — Chesterfield (+0.5) Asian handicap @1.20 (82%)
+   • Iceland v Bulgaria — Iceland or Bulgaria @1.20 (82%)
+Acca B · code TU5KZS · 5 legs · odds 2.53 · chance 36%
+   • Stafford Rangers v Halesowen Town FC — Under 4.5 goals @1.20 (82%)
+   • Bedford Town Football Club v Wingate & Finchley — Wingate & Finchley (+2.5) Asian handicap @1.20 (82%)
+   • Thame United FC v Eastbourne Borough — Thame United FC (+2.5) Asian handicap @1.20 (82%)
+   • Crewe v Bristol Rvs — Bristol Rvs Win to Nil — no @1.21 (81%)
+   • Leyton Orient v Plymouth — Over 1.5 goals @1.21 (81%)
+Acca C · code RYHSSQ · 5 legs · odds 2.66 · chance 34%
+   • Solihull v Halifax — Halifax (+1.5) Asian handicap @1.23 (81%)
+   • Reading v Bradford — Bradford (+1.5) Asian handicap @1.20 (81%)
+   • Tonbridge Angels v Torquay United — Under 4.5 goals @1.21 (81%)
+   • North Macedonia v Scotland — Scotland Over 0.5 goals @1.23 (81%)
+   • Leiston FC v Coventry United — Under 4.5 goals @1.21 (81%)
+Acca D · code LEFP5X · 5 legs · odds 2.70 · chance 34%
+   • Hartlepool v Tamworth — Tamworth (+1.5) Asian handicap @1.22 (81%)
+   • Truro City v Cirencester Town — Cirencester Town (+3.5) Asian handicap @1.23 (81%)
+   • Oxford City v Enfield Town — Enfield Town (+2.5) Asian handicap @1.21 (81%)
+   • Barnsley v Milton Keynes Dons — Barnsley Under 2.5 goals @1.24 (80%)
+   • Mulbarton Wanderers v Gloucester City — Gloucester City Over 0.5 goals @1.20 (80%)
+Acca E · code TY89R7 · 5 legs · odds 2.57 · chance 32%
+   • Barrow v Wealdstone — Over 1.5 goals @1.20 (80%)
+   • Walsall v Crawley Town — Walsall (+0.5) Asian handicap @1.23 (80%)
+   • Tadley Calleva v Dartford FC — Tadley Calleva Under 1.5 goals @1.20 (80%)
+   • Accrington v Cheltenham — Cheltenham (+1.5) Asian handicap @1.21 (80%)
+   • Harrogate v Hornchurch — Harrogate or Hornchurch @1.20 (80%)
+Acca F · code S9BCMW · 5 legs · odds 2.64 · chance 32%
+   • Bury Town FC v Spalding United — Spalding United Over 0.5 goals @1.20 (80%)
+   • Boreham Wood v Altrincham — Boreham Wood Under 3.5 goals @1.23 (80%)
+   • Gillingham v Newport County — Gillingham Over 0.5 goals @1.23 (79%)
+   • Plymouth Parkway v Horsham FC — Over 1.5 goals @1.20 (79%)
+   • Morecambe FC v Darlington FC — Darlington FC Clean Sheet — no @1.21 (79%)
+Acca G · code TBEWKY · 5 legs · odds 2.70 · chance 30%
+   • Weymouth FC v South East Dons — South East Dons (+2.5) Asian handicap @1.24 (79%)
+   • Ebbsfleet United FC v Sholing FC — Sholing FC Under 1.5 goals @1.21 (79%)
+   • Macclesfield FC v Scarborough Athletic — Macclesfield FC (+0.5) Asian handicap @1.23 (79%)
+   • Brentwood Town FC v Dagenham and Redbridge FC — Brentwood Town FC or Dagenham and Redbridge FC @1.20 (79%)
+   • Crowborough Athletic v Wimborne Town — Crowborough Athletic or Wimborne Town @1.22 (79%)
+Acca H · code U98SQQ · 5 legs · odds 2.84 · chance 30%
+   • Gainsborough Trinity v Anstey Nomads — Anstey Nomads (+1.5) Asian handicap @1.23 (79%)
+   • Leatherhead FC v Hanworth Villa — Hanworth Villa (+1.5) Asian handicap @1.23 (79%)
+   • Guiseley FC v Bradford Park Avenue AFC — Guiseley FC or Bradford Park Avenue AFC @1.22 (78%)
+   • CE Sabadell FC v Andorra — Andorra (+1.5) Asian handicap @1.22 (78%)
+   • Kidderminster v Sutton — Under 3.5 goals @1.26 (78%)
+Acca I · code UN3PVG · 5 legs · odds 2.61 · chance 29%
+   • Bury FC v Bromsgrove Sporting — Bury FC Win to Nil — no @1.20 (78%)
+   • Worksop Town v FC United of Manchester — Worksop Town or FC United of Manchester @1.24 (78%)
+   • Redditch United v Berkhamsted FC — Redditch United Over 0.5 goals @1.21 (78%)
+   • Aldershot v Carlisle — Carlisle Win to Nil — no @1.20 (78%)
+   • Eastleigh v Woking — Eastleigh (+1.5) Asian handicap @1.21 (78%)
+Acca J · code K7NKV9 · 5 legs · odds 2.95 · chance 28%
+   • Cray Wanderers v Chippenham Town — Cray Wanderers or Chippenham Town @1.24 (78%)
+   • Southend v Fylde — Southend or Fylde @1.24 (78%)
+   • AFC Rushden And Diamonds v Braintree Town FC — Braintree Town FC (+0.5) Asian handicap @1.24 (78%)
+   • Sheppey United FC v Chertsey Town — Sheppey United FC or Chertsey Town @1.23 (78%)
+   • Cambridge City v Alvechurch — Cambridge City or Alvechurch @1.26 (77%)
+Acca K · code Q4HHYH · 5 legs · odds 3.15 · chance 27%
+   • Hanwell Town FC v Dover Athletic FC — Hanwell Town FC Over 0.5 goals @1.24 (77%)
+   • Chesham United v Real Bedford — Real Bedford (+1.5) Asian handicap @1.25 (77%)
+   • Harborough Town FC v St Albans City — Harborough Town FC or St Albans City @1.26 (77%)
+   • Buxton FC v South Shields — Buxton FC or South Shields @1.27 (77%)
+   • Kettering Town v Worcester City — Kettering Town or Worcester City @1.27 (77%)
+Acca L · code UNXFFH · 4 legs · odds 2.52 · chance 35%
+   • Barton Town v Chorley FC — Barton Town (+2.5) Asian handicap @1.26 (77%)
+   • Uxbridge FC v Hungerford Town FC — Uxbridge FC (+0.5) Asian handicap @1.26 (77%)
+   • Trafford FC v Atherton Collieries — Trafford FC or Atherton Collieries @1.27 (77%)
+   • Marine FC v Warrington Town — Marine FC (+0.5) Asian handicap @1.25 (77%)
+Acca M · code GE0C5F · 4 legs · odds 2.44 · chance 34%
+   • Gateshead v Worthing — Gateshead (+2.5) Asian handicap @1.25 (77%)
+   • Cadiz v Leganes — Leganes Win to Nil — no @1.22 (76%)
+   • Spennymoor Town FC v Chester FC — Spennymoor Town FC Clean Sheet — no @1.24 (76%)
+   • Yeovil v Boston Utd — Yeovil Win to Nil — no @1.29 (75%)
+Acca N · code RF6AE3 · 4 legs · odds 2.56 · chance 31%
+   • Croatia v England — England Win to Nil — no @1.30 (75%)
+   • Salford v Fleetwood Town — Salford or Fleetwood Town @1.24 (75%)
+   • Almeria v Burgos — Almeria or Burgos @1.24 (74%)
+   • Finland v Albania — Finland Win to Nil — no @1.28 (74%)
+Acca O · code GMC00F · 4 legs · odds 2.62 · chance 24%
+   • Brackley Town FC v Chelmsford City — Brackley Town FC or Chelmsford City @1.31 (73%)
+   • Albacete v Eibar — Eibar Over 0.5 goals @1.28 (73%)
+   • Northampton v Oldham — Multigoals 1-3 @1.24 (68%)
+   • Exeter v Rotherham — Multigoals 1-3 @1.26 (67%)
 
 ──────────────────────────────────
 TABLE 4 · THE PICK
@@ -283,6 +285,26 @@ Calibration: 9 legs logged, mean CLV +1.66%.
 Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
 ==================================
 
+ALL CODES
+Mega 1: KAHT2N (24 legs · odds 99)
+Mega 2: UL99QP (24 legs · odds 121)
+Mega 3: LLKQS0 (23 legs · odds 201)
+Acca A: KJG8NE (5 legs · odds 2.53 · 38%)
+Acca B: TU5KZS (5 legs · odds 2.53 · 36%)
+Acca C: RYHSSQ (5 legs · odds 2.66 · 34%)
+Acca D: LEFP5X (5 legs · odds 2.70 · 34%)
+Acca E: TY89R7 (5 legs · odds 2.57 · 32%)
+Acca F: S9BCMW (5 legs · odds 2.64 · 32%)
+Acca G: TBEWKY (5 legs · odds 2.70 · 30%)
+Acca H: U98SQQ (5 legs · odds 2.84 · 30%)
+Acca I: UN3PVG (5 legs · odds 2.61 · 29%)
+Acca J: K7NKV9 (5 legs · odds 2.95 · 28%)
+Acca K: Q4HHYH (5 legs · odds 3.15 · 27%)
+Acca L: UNXFFH (4 legs · odds 2.52 · 35%)
+Acca M: GE0C5F (4 legs · odds 2.44 · 34%)
+Acca N: RF6AE3 (4 legs · odds 2.56 · 31%)
+Acca O: GMC00F (4 legs · odds 2.62 · 24%)
+
 ============================================================
 
 VERIFY RESULTS
@@ -298,8 +320,8 @@ Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Prem
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ FA Cup: no results available for grading — legs stay PENDING, not guessed
-  ⚠ graded 0 of 206 pending leg(s)
-  ⚠ SportyBet events pulled live
+  ⚠ graded 0 of 274 pending leg(s)
+  ⚠ SportyBet events served from cache (<=60min)
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ Danish Superliga: 6 fixture(s) priced from SportyBet
@@ -417,7 +439,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ full market ladder: 76 fixture(s) scored on every full-time SportyBet market; 1 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
   ⚠ Accrington v Cheltenham (League Two): CAUTION — recent form runs against the model's lean (form — home: P19 7pts, last5 6/15 | away: P2 15pts, last5 11/15)
   ⚠ Hartlepool v Tamworth (National League): CAUTION — recent form runs against the model's lean (form — home: P22 9pts, last5 0/15 | away: P20 11pts, last5 6/15)
-  ⚠ logged 68 new paper leg(s) with a live entry price
+  ⚠ logged 0 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
   ⚠ SportyBet booking codes: 71/71 singles, 15/15 accas, 3/3 mega slips
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.

@@ -125,4 +125,9 @@ assert _m is not None and abs(_m.sum() - 1) < 1e-9, "Order 19: xG grid is a prob
 import news_check as _nc
 assert _nc.CLOSE_WINDOW_MIN == 35, "Order 20: closing price within 35 min of kickoff"
 
+# 21. Staking tied to proven edge
+from engine import staking as _st
+assert (_st.MAX_STAKE, _st.STOP_UNITS) == (2.0, 6.0), "Order 21: stake cap 2%, stop-loss 6 units"
+assert _st.SLIP_STAKES == {"safe3": 0.5, "accas": 0.25, "megas": 0.1}
+
 print("standing_orders_test: OK — all Architect standing orders hold")

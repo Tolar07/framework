@@ -32,7 +32,11 @@ assert slate.in_deploy_band(1.20) and not slate.in_deploy_band(1.19)
 assert slate.DEPLOY_MIN_MODEL_PROB == 0.50, "Order 4: deploy picks must be >= 50% model"
 
 # 5. ID402 cap
-assert slate.DEPLOY_POOL_CAP == 6, "Order 5: max 6 deploy singles"
+assert slate.DEPLOY_POOL_CAP is None or slate.DEPLOY_POOL_CAP >= 100, \
+    "Order 5: every in-band fixture is a deploy single (Architect 2026-10-02)"
+from output.produce_bet import _split_sizes
+assert all(4 <= x <= 5 for x in _split_sizes(78, 4, 5)) and sum(_split_sizes(78, 4, 5)) == 78, \
+    "Order 5: accas are 4-5 legs and cover every pick"
 
 # 6. Delivery schedule
 wf = (ROOT / ".github/workflows/daily.yml").read_text(encoding="utf-8")

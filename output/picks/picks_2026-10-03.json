@@ -38,8 +38,8 @@
    "ev": -0.04250082551895773,
    "first_price": 1.31,
    "drift_since_board": -0.8,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-3"
   },
   {
    "fixture": "Almeria v Burgos",
@@ -81,8 +81,8 @@
    "ev": -0.06745078093131274,
    "first_price": 1.24,
    "drift_since_board": -0.8,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "Cadiz v Leganes",
@@ -120,8 +120,8 @@
    "ev": -0.004381902588939224,
    "first_price": 1.23,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "4-0",
    "drift_price": 1.23,
    "drift_pct": 0.0
   },
@@ -161,7 +161,7 @@
    "ev": -0.04587378324378133,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
+   "result": "no-90min-result",
    "ft": null,
    "drift_price": 1.23,
    "drift_pct": 0.0
@@ -241,8 +241,8 @@
    "ev": -0.010416017078107354,
    "first_price": 1.25,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "1-3"
   },
   {
    "fixture": "Leyton Orient v Plymouth",
@@ -280,8 +280,8 @@
    "ev": -0.05181710134855566,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "0-2"
   },
   {
    "fixture": "Reading v Bradford",
@@ -319,8 +319,8 @@
    "ev": -0.022254639725344694,
    "first_price": 1.2,
    "drift_since_board": 2.5,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-1"
   },
   {
    "fixture": "Wigan v Mansfield",
@@ -355,7 +355,7 @@
    "ev": -0.008019686867776099,
    "first_price": 1.21,
    "drift_since_board": 0.0,
-   "result": null,
+   "result": "no-90min-result",
    "ft": null
   },
   {
@@ -394,8 +394,8 @@
    "ev": -0.031908633169954514,
    "first_price": 1.24,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "4-2"
   },
   {
    "fixture": "Accrington v Cheltenham",
@@ -433,8 +433,8 @@
    "ev": -0.04003843510722804,
    "first_price": 1.2,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "2-0"
   },
   {
    "fixture": "Crewe v Bristol Rvs",
@@ -472,8 +472,8 @@
    "ev": -0.014135098224170584,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-1"
   },
   {
    "fixture": "Exeter v Rotherham",
@@ -511,8 +511,8 @@
    "ev": -0.16180553246812013,
    "first_price": 1.26,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-0"
   },
   {
    "fixture": "Gillingham v Newport County",
@@ -550,8 +550,8 @@
    "ev": -0.03736078969515999,
    "first_price": 1.23,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "0-0"
   },
   {
    "fixture": "Grimsby v Shrewsbury",
@@ -589,8 +589,8 @@
    "ev": -0.029050724413896778,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Rochdale v Swindon",
@@ -628,8 +628,8 @@
    "ev": -0.02233375572224061,
    "first_price": 1.21,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-0"
   },
   {
    "fixture": "Salford v Fleetwood Town",
@@ -667,8 +667,8 @@
    "ev": -0.05763625431467678,
    "first_price": 1.24,
    "drift_since_board": -0.8,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-0"
   },
   {
    "fixture": "Aldershot v Carlisle",
@@ -706,8 +706,8 @@
    "ev": -0.03322794717927102,
    "first_price": 1.25,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-3"
   },
   {
    "fixture": "Barrow v Wealdstone",
@@ -745,8 +745,8 @@
    "ev": -0.03616491919667486,
    "first_price": 1.21,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "Boreham Wood v Altrincham",
@@ -784,8 +784,8 @@
    "ev": -0.010264577745736525,
    "first_price": 1.33,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-1"
   },
   {
    "fixture": "Eastleigh v Woking",
@@ -823,8 +823,8 @@
    "ev": -0.04501941119966857,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-3"
   },
   {
    "fixture": "Gateshead v Worthing",
@@ -862,8 +862,8 @@
    "ev": -0.023370354914729163,
    "first_price": 1.21,
    "drift_since_board": 3.3,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Harrogate v Hornchurch",
@@ -901,8 +901,8 @@
    "ev": -0.022004885752903602,
    "first_price": 1.2,
    "drift_since_board": 0.8,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-0"
   },
   {
    "fixture": "Hartlepool v Tamworth",
@@ -940,8 +940,8 @@
    "ev": -0.030597773167535536,
    "first_price": 1.23,
    "drift_since_board": -0.8,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-1"
   },
   {
    "fixture": "Kidderminster v Sutton",
@@ -979,8 +979,8 @@
    "ev": -0.013188117330264482,
    "first_price": 1.27,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-1"
   },
   {
    "fixture": "Solihull v Halifax",
@@ -1018,8 +1018,8 @@
    "ev": -0.017730042490959552,
    "first_price": 1.24,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-2"
   },
   {
    "fixture": "Southend v Fylde",
@@ -1057,8 +1057,8 @@
    "ev": -0.026849650452139495,
    "first_price": 1.25,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-1"
   },
   {
    "fixture": "Yeovil v Boston Utd",
@@ -1096,8 +1096,8 @@
    "ev": -0.04419142932730402,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "6-0"
   },
   {
    "fixture": "Brentwood Town FC v Dagenham and Redbridge FC",
@@ -1168,8 +1168,8 @@
    "ev": -0.058864379489387164,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "Barton Town v Chorley FC",
@@ -1204,8 +1204,8 @@
    "ev": -0.03266652761707933,
    "first_price": 1.26,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "1-4"
   },
   {
    "fixture": "Bedford Town Football Club v Wingate & Finchley",
@@ -1240,8 +1240,8 @@
    "ev": -0.020587007309010086,
    "first_price": 1.2,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-2"
   },
   {
    "fixture": "Brackley Town FC v Chelmsford City",
@@ -1276,8 +1276,8 @@
    "ev": -0.035945250021859,
    "first_price": 1.2,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "0-2"
   },
   {
    "fixture": "Bury FC v Bromsgrove Sporting",
@@ -1312,8 +1312,8 @@
    "ev": -0.023781540823177072,
    "first_price": 1.25,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "Bury Town FC v Spalding United",
@@ -1348,8 +1348,8 @@
    "ev": -0.044346657725719996,
    "first_price": 1.22,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-1"
   },
   {
    "fixture": "Buxton FC v South Shields",
@@ -1384,8 +1384,8 @@
    "ev": -0.03233575211580775,
    "first_price": 1.27,
    "drift_since_board": -1.6,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-2"
   },
   {
    "fixture": "Cambridge City v Alvechurch",
@@ -1420,8 +1420,8 @@
    "ev": -0.029860089900063724,
    "first_price": 1.26,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Chesham United v Real Bedford",
@@ -1456,8 +1456,8 @@
    "ev": -0.03526627606654609,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "4-3"
   },
   {
    "fixture": "Cray Wanderers v Chippenham Town",
@@ -1492,8 +1492,8 @@
    "ev": -0.032031650943771584,
    "first_price": 1.25,
    "drift_since_board": -0.8,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-0"
   },
   {
    "fixture": "Crowborough Athletic v Wimborne Town",
@@ -1528,8 +1528,8 @@
    "ev": -0.03895896148158995,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Dorking Wanderers v Chatham Town",
@@ -1564,8 +1564,8 @@
    "ev": -0.07013481025702129,
    "first_price": 1.2,
    "drift_since_board": 2.5,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "1-0"
   },
   {
    "fixture": "Ebbsfleet United FC v Sholing FC",
@@ -1600,8 +1600,8 @@
    "ev": -0.031129233334036166,
    "first_price": 1.2,
    "drift_since_board": 2.5,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Gainsborough Trinity v Anstey Nomads",
@@ -1636,8 +1636,8 @@
    "ev": -0.03380984763732131,
    "first_price": 1.23,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-3"
   },
   {
    "fixture": "Guiseley FC v Bradford Park Avenue AFC",
@@ -1672,8 +1672,8 @@
    "ev": -0.033901617009836627,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "1-0"
   },
   {
    "fixture": "Hanwell Town FC v Dover Athletic FC",
@@ -1708,8 +1708,8 @@
    "ev": -0.03171396573863339,
    "first_price": 1.25,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Harborough Town FC v St Albans City",
@@ -1744,8 +1744,8 @@
    "ev": -0.031234943802571635,
    "first_price": 1.27,
    "drift_since_board": -1.6,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-2"
   },
   {
    "fixture": "Kettering Town v Worcester City",
@@ -1780,8 +1780,8 @@
    "ev": -0.023375350385444027,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-3"
   },
   {
    "fixture": "Leatherhead FC v Hanworth Villa",
@@ -1816,8 +1816,8 @@
    "ev": -0.038421396687596254,
    "first_price": 1.23,
    "drift_since_board": -0.8,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-0"
   },
   {
    "fixture": "Leiston FC v Coventry United",
@@ -1852,8 +1852,8 @@
    "ev": -0.03783980811634613,
    "first_price": 1.24,
    "drift_since_board": -0.8,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-1"
   },
   {
    "fixture": "Macclesfield FC v Scarborough Athletic",
@@ -1888,8 +1888,8 @@
    "ev": -0.04053870059706355,
    "first_price": 1.23,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-2"
   },
   {
    "fixture": "Marine FC v Warrington Town",
@@ -1924,8 +1924,8 @@
    "ev": -0.04139826257813117,
    "first_price": 1.29,
    "drift_since_board": -1.6,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-0"
   },
   {
    "fixture": "Morecambe FC v Darlington FC",
@@ -1960,8 +1960,8 @@
    "ev": -0.0391424705057527,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-0"
   },
   {
    "fixture": "Mulbarton Wanderers v Gloucester City",
@@ -1996,8 +1996,8 @@
    "ev": -0.03638342410608808,
    "first_price": 1.23,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Oxford City v Enfield Town",
@@ -2032,8 +2032,8 @@
    "ev": -0.028155620400025727,
    "first_price": 1.21,
    "drift_since_board": -0.8,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "6-1"
   },
   {
    "fixture": "Plymouth Parkway v Horsham FC",
@@ -2068,8 +2068,8 @@
    "ev": -0.0354435540030803,
    "first_price": 1.24,
    "drift_since_board": -2.4,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "Redditch United v Berkhamsted FC",
@@ -2104,8 +2104,8 @@
    "ev": -0.04125000350239427,
    "first_price": 1.22,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-2"
   },
   {
    "fixture": "Salisbury FC v Dulwich Hamlet",
@@ -2140,8 +2140,8 @@
    "ev": -0.046254559246549753,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "5-0"
   },
   {
    "fixture": "Sheppey United FC v Chertsey Town",
@@ -2176,8 +2176,8 @@
    "ev": -0.040178410260011344,
    "first_price": 1.24,
    "drift_since_board": -0.8,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-2"
   },
   {
    "fixture": "Spennymoor Town FC v Chester FC",
@@ -2212,8 +2212,8 @@
    "ev": -0.03740941903699824,
    "first_price": 1.22,
    "drift_since_board": -1.6,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "4-1"
   },
   {
    "fixture": "Stafford Rangers v Halesowen Town FC",
@@ -2248,8 +2248,8 @@
    "ev": -0.04790392458642578,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-1"
   },
   {
    "fixture": "Tadley Calleva v Dartford FC",
@@ -2284,8 +2284,8 @@
    "ev": -0.012226289817002689,
    "first_price": 1.26,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "Thame United FC v Eastbourne Borough",
@@ -2320,8 +2320,8 @@
    "ev": -0.036173189569712716,
    "first_price": 1.23,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-1"
   },
   {
    "fixture": "Tonbridge Angels v Torquay United",
@@ -2356,8 +2356,8 @@
    "ev": -0.03569961056722826,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-1"
   },
   {
    "fixture": "Trafford FC v Atherton Collieries",
@@ -2392,8 +2392,8 @@
    "ev": -0.025636002748946618,
    "first_price": 1.27,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "2-2"
   },
   {
    "fixture": "Truro City v Cirencester Town",
@@ -2428,8 +2428,8 @@
    "ev": -0.006277572393150077,
    "first_price": 1.24,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "4-0"
   },
   {
    "fixture": "Uxbridge FC v Hungerford Town FC",
@@ -2464,8 +2464,8 @@
    "ev": -0.04012176831420522,
    "first_price": 1.25,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-1"
   },
   {
    "fixture": "Weymouth FC v South East Dons",
@@ -2536,8 +2536,8 @@
    "ev": -0.03116819013834571,
    "first_price": 1.25,
    "drift_since_board": -1.6,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-3"
   },
   {
    "fixture": "Finland v Albania",
@@ -2575,8 +2575,8 @@
    "ev": 0.021077532828902346,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "Belarus v San Marino",
@@ -2614,8 +2614,8 @@
    "ev": 0.0015681329815782075,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-0",
    "drift_price": 1.21,
    "drift_pct": -1.6
   },
@@ -2655,8 +2655,8 @@
    "ev": -0.027636764009613235,
    "first_price": 1.33,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-7",
    "drift_price": 1.35,
    "drift_pct": 1.5
   },
@@ -2696,8 +2696,8 @@
    "ev": -0.026587303031764487,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "drift_price": 1.27,
    "drift_pct": 0.0
   },
@@ -2737,8 +2737,8 @@
    "ev": -0.012011431266736095,
    "first_price": 1.25,
    "drift_since_board": 0.8,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-0",
    "drift_price": 1.26,
    "drift_pct": 0.0
   },
@@ -2782,8 +2782,8 @@
    "ev": -0.014373102343579691,
    "first_price": 1.23,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-2"
   },
   {
    "fixture": "Spain v Czech Republic",
@@ -2825,8 +2825,8 @@
    "ev": 0.003153548037727827,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-1"
   },
   {
    "fixture": "Switzerland v Slovenia",
@@ -2868,8 +2868,8 @@
    "ev": -0.04384072287456364,
    "first_price": 1.28,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   }
  ],
  "accas": [
@@ -2885,7 +2885,7 @@
     "Cadiz v Leganes",
     "Harrogate v Hornchurch"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca B",
@@ -2899,7 +2899,7 @@
     "Brackley Town FC v Chelmsford City",
     "Spain v Czech Republic"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca C",
@@ -2913,7 +2913,7 @@
     "North Macedonia v Scotland",
     "Accrington v Cheltenham"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca D",
@@ -2941,7 +2941,7 @@
     "Crewe v Bristol Rvs",
     "Eastleigh v Woking"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca F",
@@ -2969,7 +2969,7 @@
     "Iceland v Bulgaria",
     "Tadley Calleva v Dartford FC"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca H",
@@ -2983,7 +2983,7 @@
     "Bury Town FC v Spalding United",
     "Gillingham v Newport County"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca I",
@@ -2997,7 +2997,7 @@
     "Bury FC v Bromsgrove Sporting",
     "Chesterfield v Tranmere"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca J",
@@ -3011,7 +3011,7 @@
     "Macclesfield FC v Scarborough Athletic",
     "Southend v Fylde"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca K",
@@ -3039,7 +3039,7 @@
     "Chesham United v Real Bedford",
     "Cambridge City v Alvechurch"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca M",
@@ -3052,7 +3052,7 @@
     "Trafford FC v Atherton Collieries",
     "Estonia v Luxembourg"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca N",
@@ -3065,7 +3065,7 @@
     "Almeria v Burgos",
     "Weymouth FC v South East Dons"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca O",
@@ -3078,7 +3078,7 @@
     "Switzerland v Slovenia",
     "Yeovil v Boston Utd"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca P",
@@ -3091,7 +3091,7 @@
     "Croatia v England",
     "Exeter v Rotherham"
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "safe3": [
@@ -3105,7 +3105,7 @@
     "Cadiz v Leganes",
     "North Macedonia v Scotland"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "50+ #2",
@@ -3117,7 +3117,7 @@
     "Barrow v Wealdstone",
     "Reading v Bradford"
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "megas": [
@@ -3154,7 +3154,7 @@
     "Eastleigh v Woking",
     "Barnsley v Milton Keynes Dons"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Mega 2",
@@ -3188,7 +3188,7 @@
     "Southend v Fylde",
     "AFC Rushden And Diamonds v Braintree Town FC"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Mega 3",
@@ -3222,7 +3222,7 @@
     "Croatia v England",
     "Exeter v Rotherham"
    ],
-   "result": null
+   "result": "lost"
   }
  ]
 }

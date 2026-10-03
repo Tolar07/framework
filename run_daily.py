@@ -728,6 +728,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     acca_codes: dict = {}
     safe3_codes: dict = {}
     mega_codes = None          # dict once the picks are split into mega slips
+    extra_codes: dict = {}     # per-table mega codes (Architect 2026-10-03)
+    _sb_index_holder: dict = {"index": None}
     try:
         from output.produce_bet import _build_accas, _build_megas, _build_safe3
         from pipeline import sportybet_booking as sbk
@@ -740,7 +742,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 
         finalists = [b for b in board if b.on_deploy_shortlist and b.probs is not None]
         if finalists:
-            sb_index = sbk._event_index()
+            sb_index = _sb_index_holder["index"] = sbk._event_index()
             if sb_index is None:
                 all_flags.append("SportyBet booking feed unavailable — codes PENDING")
             else:
@@ -770,6 +772,10 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 acca_code = acca_codes.get("Acca A")
                 safe3 = _build_safe3(deploy)
                 safe3_codes = _book(safe3)
+                if len(safe3) > 1:      # Table 3A mega: every 50%+ acca on one slip
+                    _all3 = [(b3, p3, q3) for _n, ls3, _c in safe3 for b3, p3, q3 in ls3]
+                    extra_codes.update({k.replace("ALL", "safe3_mega"): v for k, v in
+                                        _book([("ALL", _all3, 0)]).items()})
                 all_flags.append(f"50%+ accas: {len(safe3_codes)}/{len(safe3)} booked "
                                  f"(3 legs, high-certainty legs only)")
                 megas = _build_megas(deploy)
@@ -823,6 +829,17 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 shutil.copytree(survivor.STATE_DIR, sdir)
         survivor_text, sflags = survivor.daily(board, target, fs_events, state_dir=sdir)
         all_flags += sflags
+        # AI SURVIVOR MEGA CODE: every lineage pick for the day on one slip
+        # (each pick also keeps its own single code).
+        _spop, _shist = survivor.load(sdir)
+        _spicks = [h for h in _shist if h["date"] == target and h.get("result") == "PENDING"]
+        if len(_spicks) > 1 and _sb_index_holder["index"]:
+            from pipeline import sportybet_booking as _sbk
+            _scode, _ = _sbk.code_for_legs(_sb_index_holder["index"],
+                                           [(h["league"], h["home"], h["away"], h["market_key"])
+                                            for h in _spicks])
+            survivor_text += (f"\nAI Survivor mega code (all {len(_spicks)} lineage picks): "
+                              f"{_scode or 'PENDING'}")
     except Exception as e:  # noqa: BLE001 — the lineage never blocks the board
         all_flags.append(f"AI Survivor step skipped ({e})")
 
@@ -836,7 +853,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         calibration_count=status["legs_with_clv"],
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
         acca_code=acca_code, board_code=board_code, board_date=target,
-        acca_codes=acca_codes, mega_codes=mega_codes, safe3_codes=safe3_codes)
+        acca_codes=acca_codes, mega_codes=mega_codes, safe3_codes=safe3_codes,
+        extra_codes=extra_codes)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,

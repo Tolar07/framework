@@ -497,7 +497,7 @@
       "Bash(grep -l \"deepseek-v4-pro\\\\|north-mini-code-free\" \"C:\\\\Users\\\\Motunrayo\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\omniroute\\\\dist\" --include=\"*.js\" --include=\"*.mjs\" --include=\"*.cjs\" -r 2>/dev/null)",
       "Bash(npx firecrawl-mcp *)",
       "Bash(head -50 \"C:\\\\Users\\\\Motunrayo\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\omniroute\\\\dist\\\\server-ws.mjs\" 2>/dev/null)",
-      "Bash(curl -s \"https://www.thesportsdb.com/api/v1/json/5558126822/all_leagues.php\")",
+      "Bash(curl -s \"https://www.thesportsdb.com/api/v1/json/<REDACTED>/all_leagues.php\")",
       "Bash(curl -X POST http://localhost:3000/mcp -H \"Content-Type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/call\",\"params\":{\"name\":\"browser_navigate\",\"arguments\":{\"url\":\"https://www.oddschecker.com/football/english/premier-league\"}}}')",
       "Bash(grep -v \"^\\\\.obsidian$\")",
       "Bash(cat \"C:\\\\Users\\\\Motunrayo\\\\.claude.json\" | python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('projects',{}\\).get\\('c:/Users/Motunrayo/omniroute test',{}\\).get\\('mcpServers',{}\\), indent=2\\)\\)\")",

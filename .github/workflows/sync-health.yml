@@ -1,19 +1,11 @@
 name: Vault-Memory Sync Health Check
 
+# Manual-only since the 2026-10-03 lineage merge. This is a laptop check:
+# vault-memory-sync.js hard-codes c:/Users/Motunrayo/... paths and the agent
+# memory it compares lives outside this repo, and the working-directory below
+# is the omniroute-test workspace layout. It cannot pass on a hosted runner.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'docs/obsidian-vault/**'
-      - '.claude/projects/C--Users-Motunrayo-omniroute-test/memory/**'
-  pull_request:
-    branches: [main]
-    paths:
-      - 'docs/obsidian-vault/**'
-      - '.claude/projects/C--Users-Motunrayo-omniroute-test/memory/**'
-  schedule:
-    # Daily at 06:30 UTC (avoids :00/:30 cache collisions)
-    - cron: '30 6 * * *'
+  workflow_dispatch:
 
 jobs:
   sync-health:

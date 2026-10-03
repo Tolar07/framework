@@ -2763,7 +2763,11 @@
     "home": 20154893,
     "away": 94897605
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Scotland at full strength",
+    "at": "18:01Z"
+   },
    "sb_event_id": "sr:match:68932788",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -2802,7 +2806,11 @@
     "home": 869177784,
     "away": 76727776
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Czechia missing 27% of value (Pavel \u0160ulc, Adam Karabec); support: Spain missing 25%",
+    "at": "18:01Z"
+   },
    "sb_event_id": "sr:match:68931702",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -2841,7 +2849,11 @@
     "home": 193564044,
     "away": 68757502
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:01Z"
+   },
    "sb_event_id": "sr:match:68932790",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {

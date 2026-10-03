@@ -1,6 +1,24 @@
 import sys
-sys.path.insert(0, 'c:/Users/Motunrayo/omniroute test/olp_xdv_agent/olp_xdv')
-from orchestrator import scan_one_league, FULL_WHITELIST, next_season_code
+from pathlib import Path
+
+# This script lives at the repo root, so the repo root is simply its own
+# directory. It previously hardcoded
+# 'c:/Users/Motunrayo/omniroute test/olp_xdv_agent/olp_xdv', which resolves on
+# exactly one machine and nowhere else.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+# ARCHITECT: this imported `orchestrator`, which does not exist -- orchestrator.py
+# was deleted in 41ddf9d ("Fix SportyBet nav + Telegram dotenv") and renamed to
+# orchestrator_DEPRECATED.py, but this consumer was never updated. run_scan.py
+# has raised ModuleNotFoundError on line 3 ever since, so it has not run at all.
+#
+# scan_one_league, FULL_WHITELIST and next_season_code exist ONLY in
+# orchestrator_DEPRECATED.py -- there is no replacement anywhere in the repo --
+# so pointing at it is what restores this script. But the file is named
+# DEPRECATED, which says the intent was to retire it. Decide which you want:
+# either this script should move to whatever superseded the orchestrator, or
+# orchestrator_DEPRECATED.py should lose the suffix because it is still load-bearing.
+from orchestrator_DEPRECATED import scan_one_league, FULL_WHITELIST, next_season_code
 import io
 from contextlib import redirect_stdout
 

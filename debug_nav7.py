@@ -1,5 +1,5 @@
 """Inspect fixture row structure on Serie A page."""
-import asyncio, json
+import asyncio, json, sys
 from playwright.async_api import async_playwright
 
 BASE_URL = "https://www.sportybet.com"

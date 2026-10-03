@@ -1,4 +1,57 @@
 SPORTYBET_TEAMS: dict[str, str] = {
+    # --- reverse-precedence block (model key -> SportyBet name) -------------
+    # _MODEL_BY_SPORTYBET is built with setdefault, so for any SportyBet name
+    # the FIRST entry wins the reverse lookup. These four sit at the top
+    # because a later entry claims the same SportyBet spelling for a key that
+    # is not a football-data model key, which made resolve_team_to_model hand
+    # back a name the Dixon-Coles fit had never heard of. Same canonical-
+    # before-alias rule as "AZ Alkmaar" before "Alkmaar" (see the note above
+    # _MODEL_BY_SPORTYBET); these are listed here rather than in alphabetical
+    # position because that is what makes them first.
+    #
+    # Found 2026-09-16: of the four La Liga fixtures on that evening, three
+    # could not be priced at all. Every club involved WAS rated by the model.
+    # The gap was entirely in this table.
+    #
+    #   "Athletic Bilbao"          -> "Athletic Club"   (phantom key, line ~59:
+    #                                 the real football-data key is "Ath Bilbao";
+    #                                 "Athletic Club" is an upstream FEED
+    #                                 spelling, so that entry stays, it just
+    #                                 must not win the reverse)
+    #   "RC Deportivo de A Coruna" -> unresolved        (table had the
+    #                                 "De La Coruna" spelling, SportyBet says
+    #                                 "de A Coruna")
+    #   "Racing Santander"         -> "Racing Santander" (identity; the model
+    #                                 key is "Santander")
+    #
+    # An unresolved name returns UNCHANGED and the fixture is reported
+    # NO DATA — PENDING, so this never mispriced anything. It just silently
+    # dropped three of four fixtures.
+    "Ath Bilbao":  "Athletic Bilbao",
+    "Ath Madrid":  "Atletico Madrid",
+    "La Coruna":   "RC Deportivo de A Coruna",
+    "Santander":   "Racing Santander",
+    #
+    # Second sweep, 2026-09-16: ran every club in the day's cache through
+    # resolve_team_to_model and checked the result against the model keys the
+    # loaded tiers actually provide. Five more in COVERED leagues failed the
+    # same way -- the pair stored backwards, or as an identity:
+    #
+    #   "AC Milan": "Milan"                  reverse gave Milan -> AC Milan
+    #   "Bayer Leverkusen": "Leverkusen"     reverse gave Leverkusen -> Bayer...
+    #   "Nottingham Forest": "Nott'm Forest" reverse gave Nott'm Forest -> ...
+    #   "Coventry City": "Coventry City"     identity; model key is "Coventry"
+    #   "Hull City": "Hull City"             identity; model key is "Hull"
+    #
+    # Each is the SportyBet spelling on the left of the original entry where it
+    # should have been on the right, so the reverse lookup handed back a name
+    # the fit has never seen. Left as-is below for forward lookups.
+    "Milan":         "AC Milan",
+    "Leverkusen":    "Bayer Leverkusen",
+    "Nott'm Forest": "Nottingham Forest",
+    "Coventry":      "Coventry City",
+    "Hull":          "Hull City",
+    # --- end reverse-precedence block ---------------------------------------
     "07 Vestur Sorvagur": "07 Vestur Sorvagur",
     "1 FC Kaiserslautern": "1 FC Kaiserslautern",
     "1 FC Nuremberg": "1 FC Nuremberg",
@@ -858,7 +911,8 @@ SPORTYBET_TEAMS: dict[str, str] = {
     "Újpest": "Ujpest",
     "Čukarički": "Cukaricki",
     "İstanbul Başakşehir": "Başakşehir",
-    "Železiarne Podbrezová": "Podbrezová",    "BK Hacken": "BK Hacken",
+    "Železiarne Podbrezová": "Podbrezová",
+    "BK Hacken": "BK Hacken",
     "Degerfors IF": "Degerfors IF",
     "Djurgardens IF": "Djurgardens IF",
     "Orgryte IS": "Orgryte IS",
@@ -880,7 +934,47 @@ SPORTYBET_TEAMS: dict[str, str] = {
 # before-alias, e.g. "AZ Alkmaar" before "Alkmaar" (reverse("Alkmaar") ->
 # "AZ Alkmaar") and "Sheffield Utd" before "Sheffield United" (reverse
 # ("Sheffield United") -> "Sheffield Utd").
+# Extra reverse aliases: FEED SPELLING -> model key.
+#
+# SPORTYBET_TEAMS is model_key -> name, so one model key can hold exactly ONE
+# source spelling. That is fine while SportyBet is the only feed naming clubs,
+# and it breaks the moment a second one does. FlashScore is the PRIMARY
+# fixtures source (priority 9) and spells them differently: "Ath. Bilbao" with
+# a period, "A Coruna" without the "La", "Atl. Madrid", "Nottm Forest". Adding
+# those to SPORTYBET_TEAMS silently OVERWRITES the SportyBet spelling for the
+# same key, which is what happened on the first attempt at this -- "Athletic
+# Bilbao" stopped resolving the moment "Ath. Bilbao" was added beside it.
+#
+# So the second family lives here instead, merged into the reverse index
+# BEFORE the derived entries so it wins, and never touching the forward map.
+#
+# Measured 2026-09-16 across La Liga, the Premier League and Serie A: 11 of 60
+# FlashScore names did not resolve into their own league's model, so those
+# fixtures reached the board rated NO DATA — PENDING. Every target below was
+# read back out of the loaded football-data season, not assumed.
+EXTRA_REVERSE_ALIASES: dict[str, str] = {
+    # FlashScore, La Liga
+    "A Coruna":       "La Coruna",
+    "Ath. Bilbao":    "Ath Bilbao",
+    "Atl. Madrid":    "Ath Madrid",
+    "Celta Vigo":     "Celta",
+    "Rayo Vallecano": "Vallecano",
+    "Real Sociedad":  "Sociedad",
+    # FlashScore, Premier League
+    "Nottm Forest":   "Nott'm Forest",
+    # FlashScore, Serie A. The last three are the same inversion already fixed
+    # twice: the table mapped Lecce -> "US Lecce", Torino -> "FC Torino",
+    # Venezia -> "Venezia FC", when football-data's keys are the bare names.
+    "AS Roma":        "Roma",
+    "Lecce":          "Lecce",
+    "Torino":         "Torino",
+    "Venezia":        "Venezia",
+}
+
 _MODEL_BY_SPORTYBET: dict[str, str] = {}
+# Explicit aliases first: setdefault means first-wins, and these are the ones
+# that must not be displaced by a derived entry.
+_MODEL_BY_SPORTYBET.update(EXTRA_REVERSE_ALIASES)
 for _olp_key, _sb_name in SPORTYBET_TEAMS.items():
     _MODEL_BY_SPORTYBET.setdefault(_sb_name, _olp_key)
 

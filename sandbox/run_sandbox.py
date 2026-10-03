@@ -25,6 +25,7 @@ import argparse
 import sys
 import time
 from pathlib import Path
+from typing import Optional
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))

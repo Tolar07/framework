@@ -31,8 +31,8 @@ became one).
 
 | # | Item | Status |
 |---|------|--------|
-| 1 | Fixtures reach `○ SINGLE-SOURCE` only — no T1 fixture source (ESPN / football-data fixtures) is wired into the live path, so no fixture is VERIFIED (ID403) | OPEN — improvement to propose to the Architect |
-| 2 | F2 price quorum (`pipeline/odds_verify.py`, PR #6) merged and tested but not called from the live odds path | OPEN — Architect decision |
+| 1 | Fixtures reach `○ SINGLE-SOURCE` only — no T1 fixture source (ESPN / football-data fixtures) is wired into the live path, so no fixture is VERIFIED (ID403) | **CLOSED 2026-10-03** — every fixture checked against ESPN + football-data (`verification/fixture_check.py`, standing order 27; Ekstraklasa often still one source) |
+| 2 | F2 price quorum (`pipeline/odds_verify.py`, PR #6) merged and tested but not called from the live odds path | **CLOSED 2026-10-03** — switched on (Architect): SportyBet vs bet365 + DraftKings, margin removed, 5 pts; a label only (standing order 27) |
 | 3 | Feed team names not matching the model's history (23 fixtures market-priced on 2026-10-03) | **CLOSED 2026-10-03** — `engine/name_match.py` (#51) |
 | 4 | A SPLIT pick with no market price crashed the whole daily run | **CLOSED 2026-10-03** — #48 |
 | 5 | A dropped GitHub cron was silent (only failures alerted) | **CLOSED 2026-10-03** — missed-run watchdog (#50); it starts the missed run itself, and handles its own cron firing after midnight (#54) |

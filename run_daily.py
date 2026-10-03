@@ -48,6 +48,8 @@ from output.produce_bet import (render_produce_bet, render_verify_results,
 from output import notify
 import orchestrator
 import pipeline.odds as odds_mod
+from pipeline import odds_verify
+from verification import fixture_check
 from pipeline.odds_sportybet import SPORTYBET_TOURNAMENT_ID
 
 BOARD_DIR = Path(__file__).parent / "output" / "boards"
@@ -331,6 +333,15 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             all_flags += oflags
         except Exception as e:
             all_flags.append(f"{lg}: odds fetch failed ({e}) — NO DATA — PENDING")
+            continue
+        # PRICE CHECK (ID403 F2, on since 2026-10-03): each SportyBet price on
+        # the board's day is checked against bet365 (football-data) and
+        # DraftKings (ESPN), margin removed. A label only — nothing branches
+        # on it (pipeline/odds_verify.py SCOPE).
+        try:
+            all_flags += odds_verify.check_prices(lg, fixtures, {target})
+        except Exception as e:  # noqa: BLE001 — a check never blocks the board
+            all_flags.append(f"{lg}: price check unavailable ({e})")
 
     # --- scan every league into one board (ID402 wide eyes) ---
     board: list = []
@@ -352,6 +363,15 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         all_flags.append(
             f"TARGET DAY {target_date}: {len(board)} fixture(s) kicking off that day "
             f"({before - len(board)} outside the target day excluded)")
+
+    # FIXTURE CHECK (ID403 F2): every fixture is looked up in ESPN and
+    # football-data; two independent sources agreeing -> ✓ VERIFIED. A match
+    # another source lists POSTPONED/CANCELLED is a CONFLICT and comes off the
+    # deploy list here, before any pick or booking code is made for it.
+    try:
+        all_flags += fixture_check.check_board(board)
+    except Exception as e:  # noqa: BLE001 — a check never blocks the board
+        all_flags.append(f"fixture check unavailable ({e}) — fixtures stay single-source")
 
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
@@ -375,6 +395,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         fx = odds_index.get((bf.probs.home_team, bf.probs.away_team))
         if fx is None:
             continue
+        bf.price_check = getattr(fx, "verification", "") or None
+        bf.price_note = getattr(fx, "price_note", "") or None
         p = bf.probs
         market_only = bf.prob_source == "market"
         _lg = bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip()

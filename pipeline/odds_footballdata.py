@@ -47,6 +47,14 @@ _FIXTURES_CACHE = CACHE_DIR / "footballdata_fixtures.json"
 
 SOURCE = "football-data.co.uk (fixtures)"
 
+# The Extra-schema leagues (Danish Superliga, Ekstraklasa) are not in
+# fixtures.csv; their upcoming matches are in new_league_fixtures.csv (checked
+# live 2026-10-03: Country, League, Date, Time, Home, Away + 1X2 prices), keyed
+# here by its Country column. Used to corroborate fixtures and prices only.
+NEW_FIXTURES_URL = "https://www.football-data.co.uk/new_league_fixtures.csv"
+_NEW_FIXTURES_CACHE = CACHE_DIR / "footballdata_new_fixtures.json"
+EXTRA_COUNTRY = {"Danish Superliga": "Denmark", "Ekstraklasa": "Poland"}
+
 # 1X2 price columns in reachable-book preference order (name shown, CSV column).
 # Bet365 first (the book the Architect can reach), then Pinnacle, then the
 # market average as a last resort — the average is not a single bettable book,
@@ -100,38 +108,54 @@ def _quote(row: dict, cols: tuple[tuple[str, str], ...], now: str) -> MarketQuot
     return MarketQuote(captured_at=now)
 
 
-def _load_fixtures_rows() -> tuple[list[dict], list[str]]:
-    """Fetch (or reuse cached) fixtures.csv as a list of cleaned rows.
+def _load_rows(url: str, cache: Path, label: str) -> tuple[list[dict], list[str]]:
+    """Fetch (or reuse cached) one football-data CSV as a list of cleaned rows.
 
     Cached once for all leagues under the same 60-minute recency cap the odds
     cache uses: a stale cache is refetched, not served."""
     flags: list[str] = []
     if requests is None:
-        raise RuntimeError("requests not installed — cannot fetch fixtures.csv")
+        raise RuntimeError(f"requests not installed — cannot fetch {label}")
 
     text: Optional[str] = None
-    if _FIXTURES_CACHE.exists():
+    if cache.exists():
         try:
-            blob = json.loads(_FIXTURES_CACHE.read_text(encoding="utf-8"))
+            blob = json.loads(cache.read_text(encoding="utf-8"))
             if time.time() - blob.get("fetched_at", 0) <= ODDS_MAX_AGE_SECONDS:
                 text = blob.get("csv")
         except (json.JSONDecodeError, OSError):
             text = None
 
     if text is None:
-        r = requests.get(FIXTURES_URL, headers={"User-Agent": "OLP-XDV/1.0"}, timeout=30)
+        r = requests.get(url, headers={"User-Agent": "OLP-XDV/1.0"}, timeout=30)
         r.raise_for_status()
-        text = r.text
+        # Decode the BYTES as UTF-8 (BOM stripped). r.text guessed Latin-1 for
+        # text/csv, turning the file's byte-order mark into "ï»¿" so the first
+        # column read "ï»¿Div", no row matched a division, and this source
+        # returned nothing for every league (found 2026-10-03).
+        text = r.content.decode("utf-8-sig", errors="replace")
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
-        _FIXTURES_CACHE.write_text(
-            json.dumps({"fetched_at": time.time(), "csv": text}), encoding="utf-8")
-        flags.append("football-data fixtures.csv pulled live")
+        cache.write_text(json.dumps({"fetched_at": time.time(), "csv": text}),
+                         encoding="utf-8")
+        flags.append(f"football-data {label} pulled live")
     else:
-        flags.append("football-data fixtures.csv served from cache (<=60min)")
+        flags.append(f"football-data {label} served from cache (<=60min)")
 
     reader = csv.DictReader(io.StringIO(text))
-    reader.fieldnames = [f.lstrip("﻿").strip() for f in (reader.fieldnames or [])]
+    # Also clean a header cached before the decode fix ("ï»¿" = a BOM read as Latin-1).
+    reader.fieldnames = [f.replace("ï»¿", "").lstrip("\ufeff").strip()
+                         for f in (reader.fieldnames or [])]
     return list(reader), flags
+
+
+def _load_fixtures_rows() -> tuple[list[dict], list[str]]:
+    """fixtures.csv — the main divisions."""
+    return _load_rows(FIXTURES_URL, _FIXTURES_CACHE, "fixtures.csv")
+
+
+def _load_new_league_rows() -> tuple[list[dict], list[str]]:
+    """new_league_fixtures.csv — the Extra-schema leagues (1X2 prices only)."""
+    return _load_rows(NEW_FIXTURES_URL, _NEW_FIXTURES_CACHE, "new_league_fixtures.csv")
 
 
 def fetch_odds_footballdata(league: str) -> tuple[list[FixtureOdds], list[str]]:
@@ -176,4 +200,31 @@ def fetch_odds_footballdata(league: str) -> tuple[list[FixtureOdds], list[str]]:
         out.append(fx)
 
     flags.append(f"{league}: {len(out)} fixture(s) priced from football-data fixtures.csv")
+    return out, flags
+
+
+def fetch_extra_footballdata(league: str) -> tuple[list[FixtureOdds], list[str]]:
+    """Upcoming matches (1X2 prices) for an Extra-schema league from
+    new_league_fixtures.csv. Empty, with a flag, for any other league or when
+    the file has none for it — never guessed."""
+    country = EXTRA_COUNTRY.get(league)
+    if not country:
+        return [], [f"{league}: not an Extra-schema league — no new_league_fixtures.csv rows"]
+    rows, flags = _load_new_league_rows()
+    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    out: list[FixtureOdds] = []
+    for row in rows:
+        if (row.get("Country") or "").strip() != country:
+            continue
+        home, away = (row.get("Home") or "").strip(), (row.get("Away") or "").strip()
+        iso = _parse_date(row.get("Date", ""))
+        if not home or not away or not iso:
+            continue  # HR35 — incomplete record, skipped not guessed
+        out.append(FixtureOdds(
+            league=league, home_team=home, away_team=away, kickoff_utc=iso,
+            home=_quote(row, _1X2_COLS["home"], now),
+            draw=_quote(row, _1X2_COLS["draw"], now),
+            away=_quote(row, _1X2_COLS["away"], now),
+            source="football-data.co.uk (new leagues)", source_tier="T1"))
+    flags.append(f"{league}: {len(out)} fixture(s) in football-data new_league_fixtures.csv")
     return out, flags

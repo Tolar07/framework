@@ -22,6 +22,8 @@ from __future__ import annotations
 
 import html
 from datetime import date as _date, datetime, timedelta as _timedelta
+from typing import Optional
+
 from engine import markets as mkt
 from engine.leagues import WHITELISTED_LEAGUES
 

@@ -116,6 +116,36 @@
    "retired": "2026-09-19"
   },
   {
+   "lineage_id": "ln_05fdf10f4c",
+   "parent_id": "ln_bcfb372c4d",
+   "generation": 4,
+   "bankroll": 13.32,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-09-17",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-02"
+  },
+  {
+   "lineage_id": "ln_a6e768c6de",
+   "parent_id": "ln_b692a99926",
+   "generation": 4,
+   "bankroll": 13.44,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-09-17",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-02"
+  },
+  {
    "lineage_id": "ln_8db6e0c97b",
    "parent_id": "ln_4abf6adda1",
    "generation": 5,
@@ -173,21 +203,6 @@
    }
   },
   {
-   "lineage_id": "ln_05fdf10f4c",
-   "parent_id": "ln_bcfb372c4d",
-   "generation": 4,
-   "bankroll": 13.32,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-09-17",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-02"
-  },
-  {
    "lineage_id": "ln_601e69c765",
    "parent_id": "ln_a6e768c6de",
    "generation": 5,
@@ -224,21 +239,6 @@
     "pick": "Cheltenham (+1.5) Asian handicap",
     "price": 1.2
    }
-  },
-  {
-   "lineage_id": "ln_a6e768c6de",
-   "parent_id": "ln_b692a99926",
-   "generation": 4,
-   "bankroll": 13.44,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-09-17",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-02"
   },
   {
    "lineage_id": "ln_3d6fe17e3f",
@@ -298,6 +298,6 @@
    }
   }
  ],
- "last_bred_date": "2026-10-02",
+ "last_bred_date": "2026-10-03",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

@@ -46,7 +46,7 @@ HISTORY_FILE = STATE_DIR / "history.jsonl"
 GENESIS_BANKROLL = 100.0
 STAKE = 1.0
 OFFSPRING_PER_WIN = 2
-MAX_LINEAGES = 8
+MAX_LINEAGES = 16          # Architect 2026-10-03: every winner should reproduce (was 8)
 STARVATION_FLOOR = 1.0
 UNGRADED_DAYS = 4
 
@@ -144,16 +144,21 @@ def grade(pop: dict, hist: list[dict], events: list[dict],
 
 
 # ----------------------------------------------------------------- breeding
-def breed(pop: dict, today: str) -> int:
+def breed(pop: dict, today: str, hist: Optional[list] = None) -> int:
     """Reproduce lineages that won since the last breeding. Returns births.
 
     Runs on EVERY daily run (grade -> breed -> select), not once per day: a
     once-per-day guard let the 7am run "use up" the day before any result was
     in, so the evening's winners never reproduced (2026-10-03). Double
-    breeding can't happen — `to_breed` is cleared when a lineage breeds. A
-    winner already holding a pending pick waits until that pick is graded."""
+    breeding can't happen — `to_breed` is cleared when a lineage breeds.
+
+    A winner that already holds a pending pick still splits NOW: its first
+    child inherits that pick (the history record moves to the child), the
+    other child gets a fresh pick at selection. Without `hist` such a
+    winner waits, so a held pick can never be orphaned on a retired parent."""
     survivors = living(pop)
-    winners = [ln for ln in survivors if ln.get("to_breed") and not ln.get("holding")]
+    can = lambda ln: ln.get("to_breed") and (hist is not None or not ln.get("holding"))
+    winners = [ln for ln in survivors if can(ln)]
     slots = {ln["lineage_id"]: 1 for ln in survivors}
     spare = max(0, MAX_LINEAGES - len(survivors))
     for ln in sorted(winners, key=lambda x: -x["bankroll"]):
@@ -165,14 +170,22 @@ def breed(pop: dict, today: str) -> int:
     births = 0
     new = [ln for ln in pop["lineages"] if not ln["alive"]]    # keep the dead on record
     for ln in survivors:
-        if ln.get("to_breed") and not ln.get("holding"):
+        if can(ln):
             ln["to_breed"] = False
             n = slots[ln["lineage_id"]]
             if n > 1:
                 share = ln["bankroll"] / n
-                for _ in range(n):
-                    new.append(_lineage(ln["lineage_id"], ln["generation"] + 1, share, today))
-                    births += 1
+                kids = [_lineage(ln["lineage_id"], ln["generation"] + 1, share, today)
+                        for _ in range(n)]
+                if ln.get("holding"):                         # first child takes the pick
+                    kids[0]["holding"] = ln["holding"]
+                    for r in hist or []:
+                        if r["lineage_id"] == ln["lineage_id"] and r.get("result") == "PENDING":
+                            r["lineage_id"], r["generation"] = kids[0]["lineage_id"], kids[0]["generation"]
+                            r["inherited_from"] = ln["lineage_id"]
+                    ln["holding"] = None
+                new.extend(kids)
+                births += n
                 ln["alive"], ln["retired"] = False, today      # parent retires into children
                 new.append(ln)
                 continue
@@ -292,7 +305,7 @@ def daily(board: list, target: str, events: list[dict], today: Optional[str] = N
     pop, hist = load(state_dir)
     today = today or date.today().isoformat()
     flags = grade(pop, hist, events, today)
-    births = breed(pop, today)
+    births = breed(pop, today, hist)
     if births:
         flags.append(f"AI Survivor: {births} lineage(s) born")
     new = select(pop, hist, board, target)

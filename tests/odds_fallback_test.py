@@ -6,6 +6,8 @@ Offline (network stubbed), plain-script style like the other tests. Guards:
   2. A covered league parses 1X2 + O/U with reachable-book provenance.
   3. The chain falls back to football-data when the-odds-api is quota-exhausted.
   4. The chain keeps the-odds-api result when it yields fixtures (fallback unused).
+  5. The real file's UTF-8 byte-order mark doesn't hide the "Div" column (it
+     did: every league returned nothing until 2026-10-03).
 """
 import sys
 from pathlib import Path
@@ -76,7 +78,40 @@ def test_chain_prefers_sportybet() -> None:
         "no fallback should run when SportyBet succeeds"
 
 
+def test_bom_does_not_hide_the_division_column() -> None:
+    import tempfile
+
+    class _Resp:
+        content = ("\ufeffDiv,Date,Time,HomeTeam,AwayTeam,B365H,B365D,B365A\r\n"
+                   "N1,04/10/2026,13:30,Ajax,Feyenoord,1.80,3.80,4.20\r\n").encode("utf-8")
+
+        # What requests' r.text gives for text/csv with no charset: Latin-1.
+        text = content.decode("latin-1")
+
+        def raise_for_status(self) -> None:
+            pass
+
+    class _Requests:
+        @staticmethod
+        def get(*_a, **_k):
+            return _Resp()
+
+    orig = (fdo.requests, fdo.CACHE_DIR, fdo._FIXTURES_CACHE)
+    with tempfile.TemporaryDirectory() as d:
+        fdo.requests, fdo.CACHE_DIR = _Requests, Path(d)
+        fdo._FIXTURES_CACHE = Path(d) / "fixtures.json"
+        try:
+            fx, flags = fdo.fetch_odds_footballdata("Eredivisie")
+            assert [(f.home_team, f.home.price) for f in fx] == [("Ajax", 1.80)], flags
+            # Served again from the cache: still parses.
+            fx, flags = fdo.fetch_odds_footballdata("Eredivisie")
+            assert len(fx) == 1 and any("cache" in f for f in flags), flags
+        finally:
+            fdo.requests, fdo.CACHE_DIR, fdo._FIXTURES_CACHE = orig
+
+
 def main() -> None:
+    test_bom_does_not_hide_the_division_column()
     # Preserve and restore every module function the chain tests monkeypatch.
     orig_fetch = odds.fetch_odds
     orig_fallback = fdo.fetch_odds_footballdata

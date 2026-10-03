@@ -164,6 +164,9 @@ def scan_one_league(league: str, season: str,
                 flags.append(f"{league}: NO DATA — PENDING (no history source: {e})")
                 return [], flags
 
+    # Which feed the fixture list came from — what ID403 stamps. Only
+    # TheSportsDB/API-Football are T1/T2; an odds-derived list is not.
+    fixture_domain = "thesportsdb.com"
     if upcoming_fixtures is None:
         fx_season = fixtures_season or next_season_code(season)
         # TheSportsDB first (ratified HR34 2026-08-03) — it's the only free
@@ -192,11 +195,13 @@ def scan_one_league(league: str, season: str,
                     upcoming_fixtures = pairs
                     fixture_dates.update(dates)
                     flags += oflags
+                    fixture_domain = "sportybet.com"
             except Exception as e2:
                 errors.append(f"odds-derived fixtures: {e2}")
                 try:
                     season_year = api_football_season or int(f"20{fx_season[:2]}")
                     upcoming_fixtures = as_pairs(fetch_upcoming(league, season_year))
+                    fixture_domain = "api-football.com"
                 except Exception as e3:
                     errors.append(f"api-football: {e3}")
 
@@ -282,12 +287,13 @@ def scan_one_league(league: str, season: str,
         probs = predict(model, m_home, m_away)
         if probs is not None and (m_home, m_away) != (home, away):
             probs.home_team, probs.away_team = home, away
-        # The fixture itself comes from TheSportsDB (ratified T2), so that's
-        # what gets stamped — crediting football-data.co.uk here would claim a
-        # corroboration that didn't happen. One source => ○ SINGLE-SOURCE.
-        v = verify([SourcedDatum(domain="thesportsdb.com",
+        # Stamp the feed the fixture actually came from — one source =>
+        # ○ SINGLE-SOURCE here. run_daily then looks each fixture up in ESPN
+        # and football-data (verification/fixture_check.py); two independent
+        # T1/T2 sources agreeing upgrades it to ✓ VERIFIED.
+        v = verify([SourcedDatum(domain=fixture_domain,
                                   value=f"{home} v {away}",
-                                  url="https://www.thesportsdb.com",
+                                  url=f"https://www.{fixture_domain}",
                                   structured=True)])
         elo_p = elo_model.probabilities(m_home, m_away) if elo_model else None
         mes = None

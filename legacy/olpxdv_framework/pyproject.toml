@@ -1,0 +1,149 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "olpxdv-framework"
+version = "0.1.0"
+description = "OLP XDV-inspired Sports Betting Calibration Framework"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "OLP XDV Team", email = "team@olpxdv.com"}
+]
+keywords = [
+    "sports-betting",
+    "calibration",
+    "clv",
+    "closing-line-value",
+    "kelly-criterion",
+    "telegram-bot",
+    "fastapi"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "httpx>=0.25.0",
+    "sqlalchemy>=2.0.0",
+    "alembic>=1.12.0",
+    "aiosqlite>=0.19.0",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "loguru>=0.7.2",
+    "prometheus-client>=0.19.0",
+    "apscheduler>=3.10.0",
+    "playwright>=1.40.0",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=4.9.0",
+    "pandas>=2.1.0",
+    "numpy>=1.24.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "black>=23.10.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+    "pre-commit>=3.5.0",
+]
+desktop = [
+    "pyinstaller>=6.1.0",
+    "cx-freeze>=7.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/olpxdv/olpxdv-framework"
+Repository = "https://github.com/olpxdv/olpxdv-framework"
+Issues = "https://github.com/olpxdv/olpxdv-framework/issues"
+Documentation = "https://olpxdv-framework.readthedocs.io"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["olpxdv*"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --strict-markers --strict-config"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+]
+format.quote-style = "double"
+format.indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+strict_optional = true
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "src/main.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]

@@ -1,0 +1,51 @@
+# Core Framework Dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+httpx>=0.25.0
+
+# Database & ORM
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+aiosqlite>=0.19.0
+
+# Authentication & Security
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+
+# Logging & Observability
+loguru>=0.7.2
+prometheus-client>=0.19.0
+
+# Scheduling & Async
+apscheduler>=3.10.0
+
+# Web Scraping & Browser Automation
+playwright>=1.40.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Data Processing
+pandas>=2.1.0
+numpy>=1.24.0
+
+# Configuration & Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+
+# Development
+black>=23.10.0
+ruff>=0.1.0
+mypy>=1.7.0
+pre-commit>=3.5.0
+
+# Desktop Packaging
+pyinstaller>=6.1.0
+cx-freeze>=7.0.0

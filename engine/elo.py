@@ -33,11 +33,8 @@ WHAT IT IS NOT
 """
 from __future__ import annotations
 
-import json
 import math
-from collections.abc import Callable
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Optional
 
 # ID82 constants, as specified in DataEngine v277.1:
@@ -83,9 +80,6 @@ def goal_difference_modifier(gd: int) -> float:
     return 1.75 + (gd - 3) / 8.0
 
 
-STATE_VERSION = 1  # bumped whenever the on-disk shape changes
-
-
 @dataclass
 class EloModel:
     ratings: dict[str, float] = field(default_factory=dict)
@@ -96,76 +90,6 @@ class EloModel:
     _draw_a: float = 0.0
     _draw_b: float = 0.0
 
-    # ----- persistence ------------------------------------------------------
-    def to_payload(self) -> dict:
-        """The full on-disk state as a JSON-able dict (the single source of
-        truth for persistence). The brain and save() both use this shape."""
-        return {
-            "version": STATE_VERSION,
-            "n_matches": self.n_matches,
-            "last_date": self.last_date,
-            "draw_a": self._draw_a,
-            "draw_b": self._draw_b,
-            "ratings": self.ratings,
-            "matches_seen": self.matches_seen,
-        }
-
-    @classmethod
-    def from_payload(cls, blob: dict) -> "EloModel":
-        """Restore an EloModel from a to_payload() dict.
-
-        Refuses (rather than adapts) a snapshot from a different STATE_VERSION.
-        HR35: adapting silently would mean guessing what the missing fields
-        used to mean, and a wrong guess would then propagate into every
-        rating computed against it."""
-        if blob.get("version") != STATE_VERSION:
-            raise ValueError(
-                f"Elo snapshot has version {blob.get('version')!r}, this build "
-                f"expects {STATE_VERSION}. Refusing to load rather than guess "
-                f"what the missing fields used to mean.")
-        m = cls()
-        m.ratings = dict(blob["ratings"])
-        m.matches_seen = {k: int(v) for k, v in blob["matches_seen"].items()}
-        m.n_matches = int(blob["n_matches"])
-        m.last_date = blob.get("last_date")
-        m._draw_a = float(blob.get("draw_a", 0.0))
-        m._draw_b = float(blob.get("draw_b", 0.0))
-        return m
-
-    def save(self, path: str | Path) -> None:
-        """Write ratings and draw-curve state to disk as plain JSON.
-
-        Whole file is rewritten; the state is small (a few hundred floats)
-        and doing it atomically-ish beats risking a partial JSON on a crash
-        mid-write. Version stamped so a future change to the on-disk shape
-        can refuse to load an old snapshot instead of silently guessing."""
-        p = Path(path)
-        p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps(self.to_payload(), sort_keys=True, indent=2),
-                     encoding="utf-8")
-
-    @classmethod
-    def load(cls, path: str | Path) -> "EloModel":
-        """Restore an EloModel from a `save()` snapshot (see from_payload)."""
-        return cls.from_payload(json.loads(Path(path).read_text(encoding="utf-8")))
-
-    def export_csv(self, path: str | Path) -> None:
-        """Human-readable rating table, sorted strongest first.
-
-        For the Architect's eyes, not for reloading. `save()` is the round-trip
-        path; this is what you open in Excel to sanity-check the top of the
-        table looks like the world actually is."""
-        import csv
-        p = Path(path)
-        p.parent.mkdir(parents=True, exist_ok=True)
-        with p.open("w", newline="", encoding="utf-8") as f:
-            w = csv.writer(f)
-            w.writerow(["rank", "team", "elo", "matches_seen"])
-            rows = sorted(self.ratings.items(), key=lambda kv: -kv[1])
-            for i, (team, rating) in enumerate(rows, 1):
-                w.writerow([i, team, round(rating, 2),
-                             self.matches_seen.get(team, 0)])
-
     def rating(self, team: str) -> float:
         return self.ratings.get(team, BASE_RATING)
 
@@ -174,19 +98,10 @@ class EloModel:
         gap = self.rating(away) - self.rating(home) - HOME_ADVANTAGE_ELO
         return 1.0 / (1.0 + 10 ** (gap / 400.0))
 
-    def update(self, home: str, away: str, fthg: int, ftag: int,
-               weight: float = 1.0) -> None:
-        """Apply one match's result to both ratings (zero-sum, as Elo is).
-
-        `weight` scales the update — 1.0 is the classic Elo move. A weight > 1
-        makes a match speak louder than its neighbours, which is how the
-        cross-league blend (engine/cross_league.py) lets a club's handful of
-        European matches count more than its dozens of domestic ones when a
-        continental fixture is being priced. The zero-sum property is
-        preserved because the whole delta is scaled, home and away equally."""
+    def update(self, home: str, away: str, fthg: int, ftag: int) -> None:
         e = self.expected(home, away)
         result = 1.0 if fthg > ftag else (0.5 if fthg == ftag else 0.0)
-        delta = K_FACTOR * weight * goal_difference_modifier(fthg - ftag) * (result - e)
+        delta = K_FACTOR * goal_difference_modifier(fthg - ftag) * (result - e)
         self.ratings[home] = self.rating(home) + delta
         self.ratings[away] = self.rating(away) - delta   # zero-sum
         self.matches_seen[home] = self.matches_seen.get(home, 0) + 1
@@ -203,18 +118,12 @@ class EloModel:
         split it we need P(draw), and rather than assume a constant this uses a
         curve FITTED to real results as a function of the rating gap — draws
         genuinely become rarer as a mismatch widens, and a fixed 26% would
-        misprice both ends of the range.
-        After burn-in every club carries a seeded rating, so `matches_seen`
-        counts only the final pass. A club is judged thin on either measure.
-        ID414: a club with a CROSS-LEAGUE seed (rating != BASE_RATING) but fewer
-        than min_matches in THIS division is NOT refused — the seed IS a rating,
-        just from the pooled graph. This widens coverage for promoted/new clubs
-        without fabricating ratings."""
-        home_rated = self.rating(home) != BASE_RATING
-        away_rated = self.rating(away) != BASE_RATING
-        if not home_rated and self.matches_seen.get(home, 0) < min_matches:
+        misprice both ends of the range."""
+        # After burn-in every club carries a seeded rating, so `matches_seen`
+        # counts only the final pass. A club is judged thin on either measure.
+        if self.rating(home) == BASE_RATING and self.matches_seen.get(home, 0) < min_matches:
             return None
-        if not away_rated and self.matches_seen.get(away, 0) < min_matches:
+        if self.rating(away) == BASE_RATING and self.matches_seen.get(away, 0) < min_matches:
             return None
         e = self.expected(home, away)
         gap = abs(self.rating(home) + HOME_ADVANTAGE_ELO - self.rating(away))
@@ -225,52 +134,17 @@ class EloModel:
         a = self._draw_a if self._draw_b else DEFAULT_DRAW_A
         b = self._draw_b if self._draw_b else DEFAULT_DRAW_B
         p_draw = min(max(a * math.exp(-b * gap), 0.05), 0.40)
-        # E = P_home + 0.5 * P_draw  =>  P_home = E - 0.5 * p_draw
+        # E = P_home + 0.5 * P_draw  =>  P_home = E - 0.5 * P_draw
         p_home = e - 0.5 * p_draw
         p_away = 1.0 - p_home - p_draw
         # HR35: never publish a 0% — no football result is impossible. Each
-        # outcome carries a floor, and the set is renormalised.
+        # outcome carries a floor, and the set is renormalised afterwards so it
+        # still sums to 1 (same discipline as BUG2's matrix normalisation).
         p_home = max(p_home, MIN_OUTCOME_PROB)
         p_away = max(p_away, MIN_OUTCOME_PROB)
         p_draw = max(p_draw, MIN_OUTCOME_PROB)
         total = p_home + p_draw + p_away
         return p_home / total, p_draw / total, p_away / total
-
-
-def get_elo_rating(team: str, league: str, date: str) -> Optional[float]:
-    """
-    Get ELO rating for a team in a specific league on a specific date.
-
-    NOTE (2026-09-16): this module-level function had been pasted INTO the
-    EloModel class body, immediately after `rating()`. Being at module
-    indentation it terminated the class, so every method defined below it --
-    `expected`, `update` and `probabilities` -- stopped being methods of
-    EloModel and became unreachable code inside this function, sitting after
-    its `return`. The file still imported cleanly and EloModel still
-    constructed, so nothing failed until something actually called one of the
-    lost methods, at which point it surfaced as
-    "'EloModel' object has no attribute 'probabilities'" from deep inside
-    Stage B enrichment. `update` was lost too, meaning ratings could not be
-    computed at all. Moved here, after the class, where it belongs.
-
-    Args:
-        team: Team name
-        league: League name
-        date: Date in YYYY-MM-DD format
-
-    Returns:
-        ELO rating as float, or None if not found
-    """
-    try:
-        # Load the ELO model for the specific league/date context
-        # In a full implementation, this would load a time-specific model
-        # For now, we'll use the current model and return the team's rating
-        model = EloModel.load()  # Load the persisted model
-        rating = model.rating(team)
-        return rating if rating != BASE_RATING else None
-    except Exception:
-        # If we can't load the model or find the rating, return None
-        return None
 
 
 def _fit_draw_curve(model: EloModel, samples: list[tuple[float, bool]]) -> None:
@@ -309,21 +183,8 @@ BURN_IN_PASSES = 6
 
 def rate_through(results: list, cut_date: Optional[str] = None,
                   fit_draws: bool = True,
-                  burn_in: int = BURN_IN_PASSES,
-                  seed_from: Optional["EloModel | str | Path"] = None,
-                  match_weight: Callable | None = None,
-                  scorer: Callable | None = None) -> EloModel:
+                  burn_in: int = BURN_IN_PASSES) -> EloModel:
     """Process matches in DATE ORDER up to (but excluding) `cut_date`.
-
-    Phase 3.2 additions (both optional, both default to the classic engine):
-      `match_weight` — a callable(match) -> float scaling each update (see
-      EloModel.update). Used by the cross-league blend to let continental
-      matches count `w`-fold in a pooled fit; None means 1.0 everywhere.
-      `scorer` — a callable(model, match) invoked on the final sequential
-      pass, immediately BEFORE the match is applied to the ratings. This is
-      the leak-free out-of-sample hook (a prediction can never see its own
-      result) that the blend-weight optimiser in cross_league.py uses to score
-      each continental match from ratings that existed before it.
 
     Pass results from every competition together — that is the whole point.
     A continental match between clubs from different leagues updates both
@@ -343,66 +204,20 @@ def rate_through(results: list, cut_date: Optional[str] = None,
 
     (Uniform 1/3 guessing scores 0.667.) Burn-in only sets the starting point
     for the final sequential pass — it cannot leak a result into its own
-    prediction, because that pass still walks the fixtures in date order.
+    prediction, because that pass still walks the fixtures in date order."""
+    ordered = sorted((r for r in results if not cut_date or r.date < cut_date),
+                     key=lambda r: r.date)
 
-    Incremental use (opt-in, ratified 2026-08-04):
-      `seed_from` may be an existing EloModel, or a path to one saved with
-      EloModel.save(). Only matches strictly newer than the snapshot's
-      last_date are consumed, and burn-in is skipped — a fresh snapshot has
-      already burned in.
+    seed: dict[str, float] = {}
+    for _ in range(max(0, burn_in - 1)):
+        warm = EloModel()
+        warm.ratings = dict(seed)
+        for r in ordered:
+            warm.update(r.home_team, r.away_team, r.fthg, r.ftag)
+        seed = dict(warm.ratings)
 
-      HONEST LIMIT — the incremental path is NOT identical to a fresh full
-      run over the extended data. Burn-in re-plays the entire history 6 times
-      so league-strength information propagates backwards; splitting the data
-      across a save/load can't reproduce that. Two matched runs on the same
-      final data can differ by tens of Elo points at the strongest clubs.
-      That is expected mathematics, not a bug. What the incremental path
-      buys is CHEAPNESS during the season, not parity with a scratch fit.
-      Do a full cold refit periodically (~every 4 weeks) to reabsorb any
-      drift; running one on demand is a matter of calling this function
-      without seed_from.
-
-      A snapshot passed in and no new matches to consume returns the snapshot
-      unchanged (this IS a guaranteed invariant and is tested)."""
-    # Resolve seed. Accepts a model, a path, or None (cold start).
-    if isinstance(seed_from, (str, Path)):
-        snap: Optional[EloModel] = EloModel.load(seed_from)
-    else:
-        snap = seed_from
-
-    if snap is not None:
-        # Incremental path: skip burn-in (snapshot has already converged) and
-        # only ingest matches strictly after its cut-off. Using strict `>`
-        # avoids double-counting a match played exactly on last_date.
-        cut = snap.last_date
-        ordered = sorted(
-            (r for r in results
-             if (not cut_date or r.date < cut_date)
-             and (cut is None or r.date > cut)),
-            key=lambda r: r.date)
-        model = EloModel()
-        model.ratings = dict(snap.ratings)
-        model.matches_seen = dict(snap.matches_seen)
-        model.n_matches = snap.n_matches
-        model.last_date = snap.last_date
-        model._draw_a, model._draw_b = snap._draw_a, snap._draw_b
-    else:
-        # Cold start: multi-pass burn-in so weak-league dominance doesn't
-        # farm ratings from average-rated opponents.
-        ordered = sorted(
-            (r for r in results if not cut_date or r.date < cut_date),
-            key=lambda r: r.date)
-        seed: dict[str, float] = {}
-        for _ in range(max(0, burn_in - 1)):
-            warm = EloModel()
-            warm.ratings = dict(seed)
-            for r in ordered:
-                _w = match_weight(r) if match_weight else 1.0
-                warm.update(r.home_team, r.away_team, r.fthg, r.ftag, weight=_w)
-            seed = dict(warm.ratings)
-        model = EloModel()
-        model.ratings = dict(seed)
-
+    model = EloModel()
+    model.ratings = dict(seed)
     samples: list[tuple[float, bool]] = []
     for r in ordered:
         # Record the gap BEFORE updating, so the draw curve is fitted on
@@ -412,22 +227,10 @@ def rate_through(results: list, cut_date: Optional[str] = None,
             gap = abs(model.rating(r.home_team) + HOME_ADVANTAGE_ELO
                       - model.rating(r.away_team))
             samples.append((gap, r.fthg == r.ftag))
-        # The leak-free out-of-sample hook (Phase 3.2): same moment as the draw
-        # sample, BEFORE the result touches the ratings.
-        if scorer is not None:
-            scorer(model, r)
-        _w = match_weight(r) if match_weight else 1.0
-        model.update(r.home_team, r.away_team, r.fthg, r.ftag, weight=_w)
+        model.update(r.home_team, r.away_team, r.fthg, r.ftag)
         model.last_date = r.date
-    if fit_draws and samples:
-        # A short incremental slice can be too thin to refit the curve on its
-        # own; only overwrite the inherited curve when the fresh fit succeeds.
-        # If it doesn't, the snapshot's curve stays in place — a stale curve is
-        # far better than reverting to the flat prior.
-        prev_a, prev_b = model._draw_a, model._draw_b
+    if fit_draws:
         _fit_draw_curve(model, samples)
-        if not model._draw_b:
-            model._draw_a, model._draw_b = prev_a, prev_b
     return model
 
 

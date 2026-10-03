@@ -137,8 +137,8 @@ assert (_lr.MIN_N, _lr.SHRINK, _lr.MAX_SHIFT) == (10, 30, 0.10), \
 
 # 23. AI Survivor lineage
 from engine import survivor as _sv
-assert (_sv.OFFSPRING_PER_WIN, _sv.MAX_LINEAGES, _sv.STAKE) == (2, 8, 1.0), \
-    "Order 23: win -> 2 offspring, max 8 lineages, stake 1"
+assert (_sv.OFFSPRING_PER_WIN, _sv.MAX_LINEAGES, _sv.STAKE) == (2, 16, 1.0), \
+    "Order 23: win -> 2 offspring, max 16 lineages, stake 1"
 _p = {"lineages": [_sv._lineage(bankroll=5)], "last_bred_date": None}
 _sv.apply_result(_p, {"lineage_id": _p["lineages"][0]["lineage_id"], "price": 1.4}, "LOSS")
 assert not _p["lineages"][0]["alive"], "Order 23: one loss is extinction"
@@ -153,20 +153,20 @@ import news_check as _nc2
 assert (_rd.DRIFT_DEMOTE, _nc2.DRIFT_ALERT) == (0.05, 0.05), \
     "Order 25: a pick drifting out 5%+ is demoted (refresh) and alerted (pre-kickoff)"
 
-# 26. Free multi-source verification (fixture check + price check)
+# 27. Free multi-source verification (fixture check + price check)
 import inspect as _insp
 from data import espn_fixtures as _espn
 from verification.id403 import SOURCE_TRUST as _trust
 from pipeline import odds_verify as _ov
 _rd_src = _insp.getsource(_rd)
 assert "fixture_check.check_board(board)" in _rd_src, \
-    "Order 26: every board fixture is checked against ESPN + football-data"
+    "Order 27: every board fixture is checked against ESPN + football-data"
 assert "odds_verify.check_prices(" in _rd_src, \
-    "Order 26: every SportyBet price on the board's day gets the price check"
+    "Order 27: every SportyBet price on the board's day gets the price check"
 assert _trust["espn.com"] in ("T1", "T2") and _trust["football-data.co.uk"] in ("T1", "T2"), \
-    "Order 26: ESPN and football-data are trusted (T1/T2) fixture sources"
-assert _ov.PRICE_CHECK_TOLERANCE_PP == 5.0, "Order 26: price check = margin-free, 5 pts"
+    "Order 27: ESPN and football-data are trusted (T1/T2) fixture sources"
+assert _ov.PRICE_CHECK_TOLERANCE_PP == 5.0, "Order 27: price check = margin-free, 5 pts"
 assert "environ" not in _insp.getsource(_espn), \
-    "Order 26: ESPN's public scoreboard needs no key (no paid API)"
+    "Order 27: ESPN's public scoreboard needs no key (no paid API)"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

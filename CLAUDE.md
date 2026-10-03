@@ -42,7 +42,7 @@ What each piece is protecting — read before changing it:
 | `engine/name_match.py` (strict, unique matches; `EXPLICIT` table) | Rates feed spellings ("Blackpool FC") with the model's history ("Blackpool"). Loosening it would put one club's rating on another. |
 | SPLIT rejection text in `run_daily.py` (`market_p` may be None → `PENDING`) | Formatting a missing market price crashed the whole run (fixed 2026-10-03). |
 | Picks ledger (`engine/picks_ledger.py`) | Records every pick AND every rated fixture; graded from Flashscore, regular time only. The scorecard and `engine/learning.py` read it. |
-| Fixture check (`verification/fixture_check.py`) + price check (`pipeline/odds_verify.py`), standing order 26 | Free second sources (ESPN, football-data). A match only CONFLICTs on positive evidence — another source lists it postponed/cancelled on a strong name match; a spelling that won't pair adds nothing, or real fixtures would drop off the deploy list. Prices are compared with margins removed: raw prices of two honest books differ ~4.5%. |
+| Fixture check (`verification/fixture_check.py`) + price check (`pipeline/odds_verify.py`), standing order 27 | Free second sources (ESPN, football-data). A match only CONFLICTs on positive evidence — another source lists it postponed/cancelled on a strong name match; a spelling that won't pair adds nothing, or real fixtures would drop off the deploy list. Prices are compared with margins removed: raw prices of two honest books differ ~4.5%. |
 
 **Verify, do not assume.** Check the loop with the GitHub Actions run list
 for `daily.yml` and `watchdog.yml` (conclusion `success` for each slot), and

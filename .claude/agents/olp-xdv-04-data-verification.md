@@ -23,7 +23,7 @@ completeness) are this stage's whole job.
 
 ## Honest current state (say this, don't paper over it)
 
-Switched on 2026-10-03 (standing order 26, no paid APIs). Limits:
+Switched on 2026-10-03 (standing order 27, no paid APIs). Limits:
 - ESPN has no Polish league, and football-data's new-league file lists
   Ekstraklasa only some weeks, so Ekstraklasa fixtures are often one source.
 - A fixture a second source can't find stays `○ SINGLE-SOURCE` — a spelling

@@ -1,0 +1,537 @@
+OLP XDV — DAILY BOARD
+2026-08-16  |  Phase 3 — live capital (Architect-deployed)
+Leagues: 61 · 36 with fixtures
+Calibration: 16 legs logged, mean CLV -2.62%
+
+⚠ 419 data flag(s) — see /board or the saved board for full detail
+
+📋 SCAN RECORD — today's rated fixtures — 2026-08-16 (paper, ID415)
+54 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+
+1. Hartberg v Austria Vienna (Austrian Bundesliga)
+   Pick: Hartberg to win (43%)
+2. Tirol v Salzburg (Austrian Bundesliga)
+   Pick: Salzburg to win (56%)
+3. SK Rapid v Grazer AK (Austrian Bundesliga)
+   Pick: SK Rapid to win (41%)
+4. Hartberg v FK Austria Wien (Austrian Bundesliga)
+   Pick: Hartberg to win (40%)
+5. RAAL La Louviere v Gent (Belgian Pro League)
+   Pick: Gent to win (42%)
+6. Mechelen v Standard (Belgian Pro League)
+   Pick: Mechelen to win (37%)
+7. CSKA Sofia v Botev Vratsa (Bulgarian First League)
+   Pick: CSKA Sofia to win (80%)
+8. Watford v Southampton (Championship)
+   Pick: Southampton to win (51%)
+9. Slovan Liberec v Slavia Praha (Czech First League)
+   Pick: Slavia Praha to win (59%)
+10. Nordsjaelland v Silkeborg (Danish Superliga)
+   Pick: Nordsjaelland to win (69%)
+11. Lyngby v Midtjylland (Danish Superliga)
+   Pick: Midtjylland to win (59%)
+12. Randers FC v FC Copenhagen (Danish Superliga)
+   Pick: FC Copenhagen to win (53%)
+13. Jagiellonia v Pogon Szczecin (Ekstraklasa)
+   Pick: Jagiellonia to win (58%)
+14. Wisla Plock v Lech Poznan (Ekstraklasa)
+   Pick: Lech Poznan to win (38%)
+15. Cracovia v Rakow (Ekstraklasa)
+   Pick: Cracovia to win (35%)
+16. Motor Lublin v GKS Katowice (Ekstraklasa)
+   Pick: Motor Lublin to win (39%)
+17. Feyenoord v Go Ahead Eagles (Eredivisie)
+   Pick: Feyenoord to win (66%)
+18. Twente v Zwolle (Eredivisie)
+   Pick: Twente to win (76%)
+19. Ajax v Heerenveen (Eredivisie)
+   Pick: Ajax to win (58%)
+20. Flora Tallinn v Kuressaare (Estonian Meistriliiga)
+   Pick: Flora Tallinn to win (66%)
+21. Lahti v KuPS (Finnish Veikkausliiga)
+   Pick: KuPS to win (61%)
+22. AC Oulu v Inter Turku (Finnish Veikkausliiga)
+   Pick: Inter Turku to win (44%)
+23. HNK Gorica v HNK Hajduk Split (HNL)
+   Pick: HNK Hajduk Split to win (48%)
+24. NK Varazdin v HNK Rijeka (HNL)
+   Pick: Draw (46%)
+25. Puskas Academy v Paks (Hungarian NB I)
+   Pick: Puskas Academy to win (51%)
+26. Debreceni VSC v Gyori ETO FC (Hungarian NB I)
+   Pick: Gyori ETO FC to win (41%)
+27. Espanol v Levante (La Liga)
+   Pick: Espanol to win (48%)
+28. Kauno Žalgiris v TransINVEST Vilnius (Lithuanian A Lyga)
+   Pick: Kauno Žalgiris to win (49%)
+29. Racing FC Union Luxembourg v Swift Hesperange (Luxembourg National Division)
+   Pick: Racing FC Union Luxembourg to win (47%)
+30. UNA Strassen v AS Jeunesse Esch (Luxembourg National Division)
+   Pick: UNA Strassen to win (74%)
+31. US Mondorf-les-bains v F91 Dudelange (Luxembourg National Division)
+   Pick: F91 Dudelange to win (45%)
+32. Sliema Wanderers v Hibernians (Maltese Premier League)
+   Pick: Sliema Wanderers to win (47%)
+33. Petrovac v Jezero (Montenegrin First League)
+   Pick: Petrovac to win (53%)
+34. Arsenal Tivat v Buducnost Podgorica (Montenegrin First League)
+   Pick: Buducnost Podgorica to win (74%)
+35. Fredrikstad v Kristiansund (Norwegian Eliteserien)
+   Pick: Fredrikstad to win (47%)
+36. Molde v Tromsø (Norwegian Eliteserien)
+   Pick: Molde to win (40%)
+37. Sarpsborg 08 v Sandefjord (Norwegian Eliteserien)
+   Pick: Sarpsborg 08 to win (56%)
+38. Fredrikstad v Kristiansund BK (Norwegian Eliteserien)
+   Pick: Fredrikstad to win (54%)
+39. Sp Braga v Gil Vicente (Primeira Liga)
+   Pick: Sp Braga to win (55%)
+40. Nacional v Estoril (Primeira Liga)
+   Pick: Nacional to win (41%)
+41. Arouca v Moreirense (Primeira Liga)
+   Pick: Arouca to win (45%)
+42. Famalicao v Marítimo (Primeira Liga)
+   Pick: Famalicao to win (71%)
+43. Oţelul v Universitatea Craiova (Romanian Liga I)
+   Pick: Universitatea Craiova to win (40%)
+44. Krylia Sovetov v Dinamo Makhachkala (Russian Premier League)
+   Pick: Draw (37%)
+45. FK Partizan v Radnicki 1923 (Serbian Super Liga)
+   Pick: FK Partizan to win (57%)
+46. IMT Novi Beograd v Radnicki NIS (Serbian Super Liga)
+   Pick: IMT Novi Beograd to win (47%)
+47. Spartak Trnava v Zemplín Michalovce (Slovak Super Liga)
+   Pick: Spartak Trnava to win (63%)
+48. Komárno v Dunajska Streda (Slovak Super Liga)
+   Pick: Dunajska Streda to win (56%)
+49. Inhulets Petrove v Nyva Ternopil (Slovenian PrvaLiga)
+   Pick: Inhulets Petrove to win (54%)
+50. Kalmar v Hammarby (Swedish Allsvenskan)
+   Pick: Hammarby to win (59%)
+51. Beşiktaş v Eyüpspor (Turkish Super Lig)
+   Pick: Beşiktaş to win (55%)
+52. Başakşehir v Kayserispor (Turkish Super Lig)
+   Pick: Başakşehir to win (57%)
+53. Dynamo Kyiv v Kolos Kovalivka (Ukrainian Premier League)
+   Pick: Dynamo Kyiv to win (64%)
+54. LNZ Cherkasy v Chornomorets (Ukrainian Premier League)
+   Pick: LNZ Cherkasy to win (47%)
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
+```
+ARMENIAN PREMIER LEAGUE
+· Sardarapat v Pyunik Yerevan
+  NO DATA — PENDING
+· Sardarapat FC v FC Pyunik Yerevan
+  NO DATA — PENDING
+```
+```
+AUSTRIAN BUNDESLIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Hartberg v Austria Vienna
+    AI pick: Hartberg (43%)
+  ★ Tirol v Salzburg
+    AI pick: Salzburg (56%)
+  ★ SK Rapid v Grazer AK
+    AI pick: SK Rapid (41%)
+  ★ Hartberg v FK Austria Wien
+    AI pick: Hartberg (40%)
+· SK Rapid v Grazer AK 1902
+  NO DATA — PENDING
+```
+```
+BELGIAN PRO LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ RAAL La Louviere v Gent
+    AI pick: Gent (42%)
+  ★ Mechelen v Standard
+    AI pick: Mechelen (37%)
+· Beveren v Anderlecht
+  NO DATA — PENDING
+· Lommel v Charleroi
+  NO DATA — PENDING
+```
+```
+BULGARIAN FIRST LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ CSKA Sofia v Botev Vratsa
+    AI pick: CSKA Sofia (80%)
+· Lokomotiv Plovdiv v Dunav Ruse
+  NO DATA — PENDING
+```
+```
+CHAMPIONSHIP
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Watford v Southampton
+    AI pick: Southampton (51%)
+· Burnley v West Ham United
+  NO DATA — PENDING
+```
+```
+CZECH FIRST LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Slovan Liberec v Slavia Praha
+    AI pick: Slavia Praha (59%)
+· Baník Ostrava v Artis Brno
+  NO DATA — PENDING
+```
+```
+DANISH SUPERLIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Nordsjaelland v Silkeborg
+    AI pick: Nordsjaelland (69%)
+  ★ Lyngby v Midtjylland
+    AI pick: Midtjylland (59%)
+  ★ Randers FC v FC Copenhagen
+    AI pick: FC Copenhagen (53%)
+· Odense v AC Horsens
+  NO DATA — PENDING
+```
+```
+EKSTRAKLASA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Jagiellonia v Pogon Szczecin
+    AI pick: Jagiellonia (58%)
+  ★ Wisla Plock v Lech Poznan
+    AI pick: Lech Poznan (38%)
+  ★ Cracovia v Rakow
+    AI pick: Cracovia (35%)
+  ★ Motor Lublin v GKS Katowice
+    AI pick: Motor Lublin (39%)
+· Gornik Zabrze v Wisła Kraków
+  NO DATA — PENDING
+· Cracovia v Rakow Czestochowa
+  NO DATA — PENDING
+· Gornik Zabrze v Wisla Krakow
+  NO DATA — PENDING
+```
+```
+EREDIVISIE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Feyenoord v Go Ahead Eagles
+    AI pick: Feyenoord (66%)
+  ★ Twente v Zwolle
+    AI pick: Twente (76%)
+  ★ Ajax v Heerenveen
+    AI pick: Ajax (58%)
+· ADO Den Haag v Groningen
+  NO DATA — PENDING
+```
+```
+ESTONIAN MEISTRILIIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Flora Tallinn v Kuressaare
+    AI pick: Flora Tallinn (66%)
+· Nõmme Kalju v Pärnu Vaprus
+  NO DATA — PENDING
+· Narva Trans v Paide Linnameeskond
+  NO DATA — PENDING
+· Harju Laagri v Levadia Tallinn
+  NO DATA — PENDING
+```
+```
+FAROE ISLANDS PREMIER LEAGUE
+· 07 Vestur v B36 Tórshavn
+  NO DATA — PENDING
+· HB Tórshavn v B68 Toftir
+  NO DATA — PENDING
+· NSÍ Runavík v EB/Streymur
+  NO DATA — PENDING
+· Skála v Víkingur Gøta
+  NO DATA — PENDING
+· HB Torshavn v Tofta Itrottarfelag B68
+  NO DATA — PENDING
+· NSI Runavik v Eb/Streymur
+  NO DATA — PENDING
+· 07 Vestur Sorvagur v B36 Torshavn
+  NO DATA — PENDING
+· Skala IF v Vikingur Gota
+  NO DATA — PENDING
+```
+```
+FINNISH VEIKKAUSLIIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Lahti v KuPS
+    AI pick: KuPS (61%)
+  ★ AC Oulu v Inter Turku
+    AI pick: Inter Turku (44%)
+· HJK Helsinki v Jaro
+  NO DATA — PENDING
+· HJK Helsinki v FF Jaro
+  NO DATA — PENDING
+· AC Oulu v FC Inter Turku
+  NO DATA — PENDING
+· FC Lahti v Kuopion Palloseura
+  NO DATA — PENDING
+```
+```
+GEORGIAN EROVNULI LIGA
+· Dila Gori v Meshakhte Tkibuli
+  NO DATA — PENDING
+· Samgurali Tskhaltubo v Dinamo Batumi
+  NO DATA — PENDING
+```
+```
+GIBRALTARIAN NATIONAL LEAGUE
+· Hatta v Al Jazira
+  NO DATA — PENDING
+· Baniyas v Al Ain
+  NO DATA — PENDING
+```
+```
+HNL
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ HNK Gorica v HNK Hajduk Split
+    AI pick: HNK Hajduk Split (48%)
+  ★ NK Varazdin v HNK Rijeka
+    AI pick: Draw (46%)
+```
+```
+HUNGARIAN NB I
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Puskas Academy v Paks
+    AI pick: Puskas Academy (51%)
+  ★ Debreceni VSC v Gyori ETO FC
+    AI pick: Gyori ETO FC (41%)
+```
+```
+ICELANDIC URVALSDEILD
+· FH Hafnarfjordur v Víkingur Reykjavík
+  NO DATA — PENDING
+· KR Reykjavík v Breiðablik
+  NO DATA — PENDING
+· ÍBV Vestmannaeyjar v ÍA Akranes
+  NO DATA — PENDING
+```
+```
+KAZAKHSTAN PREMIER LEAGUE
+· Atyrau v Okzhetpes Kokshetau
+  NO DATA — PENDING
+· Irtysh Pavlodar v Tobol
+  NO DATA — PENDING
+· Caspiy Aktau v Elimai Semey
+  NO DATA — PENDING
+· Kyzylzhar Petropavl v Astana
+  NO DATA — PENDING
+```
+```
+KOSOVAN SUPERLIGA
+· FC Drita v KF Llapi
+  NO DATA — PENDING
+```
+```
+LA LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Espanol v Levante
+    AI pick: Espanol (48%)
+· Racing de Santander v Villarreal
+  NO DATA — PENDING
+· Racing Santander v Villarreal
+  NO DATA — PENDING
+```
+```
+LITHUANIAN A LYGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Kauno Žalgiris v TransINVEST Vilnius
+    AI pick: Kauno Žalgiris (49%)
+· Žalgiris Vilnius v Banga Gargždai
+  NO DATA — PENDING
+```
+```
+LUXEMBOURG NATIONAL DIVISION
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Racing FC Union Luxembourg v Swift Hesperange
+    AI pick: Racing FC Union Luxembourg (47%)
+  ★ UNA Strassen v AS Jeunesse Esch
+    AI pick: UNA Strassen (74%)
+  ★ US Mondorf-les-bains v F91 Dudelange
+    AI pick: F91 Dudelange (45%)
+· Rumelange v Victoria Rosport
+  NO DATA — PENDING
+· Käerjéng 97 v Résidence Walferdange
+  NO DATA — PENDING
+· US Hostert v Etzella Ettelbruck
+  NO DATA — PENDING
+· Atert Bissen v Progres Niederkorn
+  NO DATA — PENDING
+```
+```
+MALTESE PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Sliema Wanderers v Hibernians
+    AI pick: Sliema Wanderers (47%)
+· Valletta v Zabbar St. Patrick
+  NO DATA — PENDING
+```
+```
+MOLDOVAN SUPER LIGA
+· Zimbru Chisinau v Milsami
+  NO DATA — PENDING
+· Real Sireti v Sheriff Tiraspol
+  NO DATA — PENDING
+```
+```
+MONTENEGRIN FIRST LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Petrovac v Jezero
+    AI pick: Petrovac (53%)
+  ★ Arsenal Tivat v Buducnost Podgorica
+    AI pick: Buducnost Podgorica (74%)
+· Mladost Donja Gorica v Mornar
+  NO DATA — PENDING
+```
+```
+NORTH MACEDONIAN FIRST LEAGUE
+· Shkëndija v Bregalnica Štip
+  NO DATA — PENDING
+· Struga v Vardar
+  NO DATA — PENDING
+```
+```
+NORWEGIAN ELITESERIEN
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Fredrikstad v Kristiansund
+    AI pick: Fredrikstad (47%)
+  ★ Molde v Tromsø
+    AI pick: Molde (40%)
+  ★ Sarpsborg 08 v Sandefjord
+    AI pick: Sarpsborg 08 (56%)
+  ★ Fredrikstad v Kristiansund BK
+    AI pick: Fredrikstad (54%)
+· Aalesund v Vålerenga
+  NO DATA — PENDING
+· Brann v Hamarkameratene
+  NO DATA — PENDING
+· Aalesunds FK v Vaalerenga IF
+  NO DATA — PENDING
+· Molde v Tromsoe IL
+  NO DATA — PENDING
+· SK Brann v HamKam
+  NO DATA — PENDING
+```
+```
+PRIMEIRA LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Sp Braga v Gil Vicente
+    AI pick: Sp Braga (55%)
+  ★ Nacional v Estoril
+    AI pick: Nacional (41%)
+  ★ Arouca v Moreirense
+    AI pick: Arouca (45%)
+  ★ Famalicao v Marítimo
+    AI pick: Famalicao (71%)
+· Nacional da Madeira v Estoril
+  NO DATA — PENDING
+· Sp Braga v Gil Vicente Barcelos
+  NO DATA — PENDING
+· Famalicao v Maritimo Madeira
+  NO DATA — PENDING
+```
+```
+ROMANIAN LIGA I
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Oţelul v Universitatea Craiova
+    AI pick: Universitatea Craiova (40%)
+· Corvinul Hunedoara v CFR 1907 Cluj
+  NO DATA — PENDING
+```
+```
+RUSSIAN PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Krylia Sovetov v Dinamo Makhachkala
+    AI pick: Draw (37%)
+· Zenit St Petersburg v Dynamo Moscow
+  NO DATA — PENDING
+· Baltika Kaliningrad v Spartak Moscow
+  NO DATA — PENDING
+· Zenit St.Petersburg v Dynamo Moscow
+  NO DATA — PENDING
+· Krylia Sovetov v Dynamo Dagestan Makhachkala
+  NO DATA — PENDING
+· FC Baltika Kaliningrad v Spartak Moskva
+  NO DATA — PENDING
+```
+```
+SERBIAN SUPER LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ FK Partizan v Radnicki 1923
+    AI pick: FK Partizan (57%)
+  ★ IMT Novi Beograd v Radnicki NIS
+    AI pick: IMT Novi Beograd (47%)
+· Zemun v Mladost Lucani
+  NO DATA — PENDING
+```
+```
+SLOVAK SUPER LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Spartak Trnava v Zemplín Michalovce
+    AI pick: Spartak Trnava (63%)
+  ★ Komárno v Dunajska Streda
+    AI pick: Dunajska Streda (56%)
+```
+```
+SLOVENIAN PRVALIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Inhulets Petrove v Nyva Ternopil
+    AI pick: Inhulets Petrove (54%)
+· FSC Mariupol v Kolos-2 Kovalivka
+  NO DATA — PENDING
+· NK Radomlje v Aluminij Kidricevo
+  NO DATA — PENDING
+· NK Brinje Grosuplje v Mura Murska Sobota
+  NO DATA — PENDING
+· FC Koper v Bravo Ljubljana
+  NO DATA — PENDING
+```
+```
+SWEDISH ALLSVENSKAN
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Kalmar v Hammarby
+    AI pick: Hammarby (59%)
+· Brommapojkarna v Örgryte
+  NO DATA — PENDING
+· Degerfors v IFK Goteborg
+  NO DATA — PENDING
+· Djurgården v AIK
+  NO DATA — PENDING
+· GAIS v Malmö
+  NO DATA — PENDING
+· IFK Norrkoping DFK v Kristianstads DFF
+  NO DATA — PENDING
+```
+```
+TURKISH SUPER LIG
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Beşiktaş v Eyüpspor
+    AI pick: Beşiktaş (55%)
+  ★ Başakşehir v Kayserispor
+    AI pick: Başakşehir (57%)
+· Amed v Rizespor
+  NO DATA — PENDING
+```
+```
+UKRAINIAN PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Dynamo Kyiv v Kolos Kovalivka
+    AI pick: Dynamo Kyiv (64%)
+  ★ LNZ Cherkasy v Chornomorets
+    AI pick: LNZ Cherkasy (47%)
+· Metalist Kharkiv v Shakhtar Donetsk
+  NO DATA — PENDING
+```
+
+🎯 PRODUCTION BETS — 2026-08-16 (today's fixtures only)
+
+NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
+
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive); away was historically measured negative — the brain learns from live legs
+
+YESTERDAY — GRADED
+No settled predictions to grade yet.
+
+7-DAY ROLLING
+no settled predictions in 7d
+5 legs logged · 5 with CLV (avg CLV -2.86%) · gate 5/30 legs
+
+HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

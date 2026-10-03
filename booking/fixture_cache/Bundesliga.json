@@ -1,0 +1,103 @@
+{
+  "fetched_at": 1788062326.847132,
+  "league": "Bundesliga",
+  "country": "Germany",
+  "fixtures": [
+    {
+      "id": "22193",
+      "home": "Wallsend FC",
+      "away": "Newcastle Croatia FC",
+      "kickoff": "05:00  \nID: 22193",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "37172",
+      "home": "Maitland FC",
+      "away": "Edgeworth FC",
+      "kickoff": "07:00  \nID: 37172",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "San Diego FC",
+      "away": "Los Angeles Galaxy",
+      "kickoff": "61:23\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Portland Timbers",
+      "away": "Austin FC",
+      "kickoff": "62:07\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Club Santos Laguna",
+      "away": "Tigres UANL",
+      "kickoff": "41:04\nH1",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Las Vegas Lights",
+      "away": "Charleston Battery",
+      "kickoff": "63:26\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Phoenix Rising FC",
+      "away": "Indy Eleven",
+      "kickoff": "63:42\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "New Mexico United",
+      "away": "San Antonio FC",
+      "kickoff": "50:39\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Gwangju FC SRL",
+      "away": "FC Seoul SRL",
+      "kickoff": "71:32\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Incheon United FC SRL",
+      "away": "Jeonbuk Hyundai Motors SRL",
+      "kickoff": "72:29\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Jeju United FC SRL",
+      "away": "Daejeon Citizen FC (Srl)",
+      "kickoff": "69:17\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Pohang Steelers SRL",
+      "away": "Gangwon FC SRL",
+      "kickoff": "71:26\nH2",
+      "league": "Bundesliga",
+      "raw_market": {}
+    }
+  ]
+}

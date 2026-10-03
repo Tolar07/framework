@@ -1,0 +1,79 @@
+OLP XDV — DAILY BOARD  [HEARTBEAT 2026-08-25]
+2026-08-25  |  Phase 3 — live capital (Architect-deployed)
+Leagues: 20 · 2 with fixtures
+Calibration: 42 legs logged, mean CLV -10.21%
+
+⚠ 147 data flag(s) — see /board or the saved board for full detail
+
+📋 SCAN RECORD — today's rated fixtures — 2026-08-25 (paper, ID415)
+3 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+
+1. Lask Linz v Celtic (Champions League)
+   Pick: Celtic to win (92%)
+   Best market: Celtic or Draw (double chance) at 1.80 — +12.72% EV
+2. Bodoe/Glimt v Nijmegen (Champions League)
+   Pick: Bodoe/Glimt to win (69%)
+   Best market: Bodoe/Glimt to win at 1.51 — +2.26% EV
+3. Valencia v Betis (La Liga)
+   Pick: Betis to win (38%)
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
+```
+CHAMPIONS LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  · Bodo/Glimt v NEC Nijmegen
+    NO DATA — PENDING
+  ★ Lask Linz v Celtic
+    AI pick: Celtic (92%)
+  · Sabah Baku v Hapoel Be`er Sheva FC
+    NO DATA — PENDING
+  ★ Bodoe/Glimt v Nijmegen
+    AI pick: Bodoe/Glimt (69%)
+· Sabah FA v Hapoel Beer Sheva
+  NO DATA — PENDING
+```
+```
+LA LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Valencia v Betis
+    AI pick: Betis (38%)
+· Valencia v Real Betis
+  NO DATA — PENDING
+```
+
+🎯 PRODUCTION BETS — 2026-08-25 (today's fixtures only)
+
+★ Acca A — HEADLINE, 2 legs
+    Sabah Baku v Hapoel Be`er Sheva FC (Champions League) — Sabah Baku to win @ 1.86 [⚠ unverified]
+    Bodo/Glimt v NEC Nijmegen (Champions League) — Over 2.5 goals @ 1.30 [⚠ unverified]
+    Combined 2.42 Booking code: NO DATA — PENDING
+    Combined prob 37.4% (product of 2 legs — compounding is arithmetic, not a weakness)
+
+  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only
+    Bodo/Glimt v NEC Nijmegen (Champions League) — NEC Nijmegen to win @ 5.53  edge +0.33%  [⚠ unverified]
+    Sabah Baku v Hapoel Be`er Sheva FC (Champions League) — Hapoel Be`er Sheva FC to win @ 3.99  edge -0.98%  [⚠ unverified]
+    Bodoe/Glimt v Nijmegen (Champions League) — Draw @ 5.13  edge +2.63%  [⚠ unverified]
+    Valencia v Betis (La Liga) — Betis to win @ 2.73  edge +1.19%  [✓ ESPN]
+
+  ⚠ QUARANTINE (Audit 2026-08-20) — Excluded from Acca A:
+    Eredivisie (100% miss rate in audit window)
+    Scottish Premiership (100% miss rate in audit window)
+
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive); away was historically measured negative — the brain learns from live legs
+
+YESTERDAY — GRADED
+· Bologna v Lazio — 0-1
+  bookmaker ✗  consensus ✗  dc ✗  elo ✗  xg ✗
+· Fulham v Chelsea — 2-3
+  bookmaker ✗  consensus ✗  dc ✗  elo ✗  xg ✗
+· Osasuna v Levante — 0-0
+  bookmaker ✗  consensus ✗  dc ✗  elo ✗  xg ✗
+· Reims v Annecy — 3-1
+  bookmaker ✓  consensus ✓  dc ✓  elo ✓
+
+7-DAY ROLLING
+dc 41% · elo 33% · xg 35% · bookmaker 33%
+36 legs logged · 10 with CLV (avg CLV -20.15%) · gate 10/30 legs
+
+HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

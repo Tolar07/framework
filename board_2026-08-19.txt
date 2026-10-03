@@ -1,0 +1,101 @@
+PART 0 — HEADER
+Date: 2026-08-20 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: Champions League, La Liga
+Calibration: 17 legs logged, mean CLV -2.47%
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ sportybet cache warm: 333 fixtures across 75 league(s) ready for the booking bridge
+  ⚠ Champions League: no results available for grading — legs stay PENDING, not guessed
+  ⚠ graded 0 of 3 pending leg(s)
+  ⚠ Automated CLV grading: 0 leg(s) settled
+  ⚠ produced-bet verified 2026-08-19: 0 won / 0 lost / 3 pending
+  ⚠ alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking
+  ⚠ Champions League: history served from cache
+  ⚠ Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).
+  ⚠ Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)
+  ⚠ Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested.
+  ⚠ Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.
+  ⚠ Champions League: fitted 267 rated clubs across 4350 matches, home_adv=0.216, rho=-0.046
+  ⚠ Champions League: CROSS-LEAGUE CALIBRATION CAVEAT — a club that dominates a weak domestic league carries that inflated rating into this model, and 8 continental matches cannot fully correct 38 domestic ones. Measured on the 2024 league phase, Celtic fitted a HIGHER attack rating than Manchester City and Real Madrid, which is plainly wrong. Goals markets hold up better (Over 2.5 predicted 65.1% vs 62.5% actual) than 1X2, which depends directly on relative strength. Treat 1X2 here as indicative only. This competition is scan-only under ID402 regardless, so none of it can reach capital.
+  ⚠ Champions League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League) — NO DATA — PENDING
+  ⚠ Champions League: fixtures via SportyBet cache (7 — primary sources failed)
+  ⚠ ELO blend weight w=2.5 applied — continental matches count 2.5x domestic (Brier 0.5033 -> 0.4925 on 396 out-of-sample continental matches, +1.09pp)
+  ⚠ Champions League: 2 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Lyon v Fenerbahce, Viking v Dinamo Zagreb
+  ⚠ Champions League: 4 team name(s) in the fixtures feed not found in the fitted data — AEK Athens, Hapoel Beer Sheva, Levski Sofia, Sabah Baku. Suggestions: AEK Athens -> no close match in the model pool; Hapoel Beer Sheva -> no close match in the model pool; Levski Sofia -> no close match in the model pool; Sabah Baku -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet.
+  ⚠ La Liga: fixtures via api_football
+  ⚠ La Liga: +14 fixture(s) merged from SportyBet cache (primary: api_football)
+  ⚠ La Liga: +5 current-season results from football-data.org (promoted-club fix)
+  ⚠ La Liga: insufficient match history (10 results) — NO DATA — PENDING rather than a thin fit
+  ⚠ day-scoped to 2026-08-19: kept 0 of 22 scanned fixture(s) — adjacent-day matches dropped
+  ⚠ VERIFY GATE: 0 verified, 0 kept-unverified, 0 dropped (FlashScore on, SportyBet on)
+  ⚠ SportyBet cache merged: 229 fixture(s) with 1X2 odds added to odds_index
+  ⚠ SHADOW calibration (below gate, NOT applied): 1X2_DRAW -0.9%, 1X2_HOME -1.3% — visible only; inert until MIN_LEGS legs settle
+  ⚠ ENSEMBLE WEIGHTS ACTIVE — consensus w=0.926, dc w=0.926, elo w=0.926 (CLV-gated, bounded, consensus display only)
+  ⚠ logged 0 new paper leg(s) with a live entry price (agreement_band=0.04)
+  ⚠ Phase 3 gate: 17 of 30 legs with logged CLV; mean CLV -2.467
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.
+
+PART 2 — COMPACT (fast-scan)
+Fixture | Selected Pick | Booking Code
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+
+PART 1 — THE CALL — today's fixtures only
+NO DEPLOY-ELIGIBLE CALL this session — no deployable fixture kicks off today (a valid, honest result).
+
+PART 3 — REJECTED / WATCHLIST
+None.
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 0
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+
+📋 SCAN RECORD — today's rated fixtures (paper, ID415)
+No rated fixtures today — no bet recorded. A valid, honest result (ID415).
+
+🎯 PRODUCTION BETS — 2026-08-20 (today's fixtures only)
+
+NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
+sportybet cache warm: 333 fixtures across 75 league(s) ready for the booking bridge | NO DATA — PENDING |  |  |  | 
+Champions League: no results available for grading — legs stay PENDING, not guessed | NO DATA — PENDING |  |  |  | 
+graded 0 of 3 pending leg(s) | NO DATA — PENDING |  |  |  | 
+Automated CLV grading: 0 leg(s) settled | NO DATA — PENDING |  |  |  | 
+produced-bet verified 2026-08-19: 0 won / 0 lost / 3 pending | NO DATA — PENDING |  |  |  | 
+alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking | NO DATA — PENDING |  |  |  | 
+Champions League: history served from cache | NO DATA — PENDING |  |  |  | 
+Champions League: STALE HISTORY — fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2). | NO DATA — PENDING |  |  |  | 
+Champions League: 135 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population) | NO DATA — PENDING |  |  |  | 
+Champions League: NO ODDS available from this source — it can be modelled but never CLV-backtested. | NO DATA — PENDING |  |  |  | 
+Champions League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor. | NO DATA — PENDING |  |  |  | 
+Champions League: fitted 267 rated clubs across 4350 matches, home_adv=0.216, rho=-0.046 | NO DATA — PENDING |  |  |  | 
+Champions League: CROSS-LEAGUE CALIBRATION CAVEAT — a club that dominates a weak domestic league carries that inflated rating into this model, and 8 continental matches cannot fully correct 38 domestic ones. Measured on the 2024 league phase, Celtic fitted a HIGHER attack rating than Manchester City and Real Madrid, which is plainly wrong. Goals markets hold up better (Over 2.5 predicted 65.1% vs 62.5% actual) than 1X2, which depends directly on relative strength. Treat 1X2 here as indicative only. This competition is scan-only under ID402 regardless, so none of it can reach capital. | NO DATA — PENDING |  |  |  | 
+Champions League: no upcoming fixtures (multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League) — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Champions League: fixtures via SportyBet cache (7 — primary sources failed) | NO DATA — PENDING |  |  |  | 
+ELO blend weight w=2.5 applied — continental matches count 2.5x domestic (Brier 0.5033 -> 0.4925 on 396 out-of-sample continental matches, +1.09pp) | NO DATA — PENDING |  |  |  | 
+Champions League: 2 fixture(s) rated on the ClubElo stretch fallback (keyless current-season Elo): Lyon v Fenerbahce, Viking v Dinamo Zagreb | NO DATA — PENDING |  |  |  | 
+Champions League: 4 team name(s) in the fixtures feed not found in the fitted data — AEK Athens, Hapoel Beer Sheva, Levski Sofia, Sabah Baku. Suggestions: AEK Athens -> no close match in the model pool; Hapoel Beer Sheva -> no close match in the model pool; Levski Sofia -> no close match in the model pool; Sabah Baku -> no close match in the model pool. If a suggestion is right, verify and add it to TEAM_ALIASES in data/thesportsdb_fixtures.py (or CONTINENTAL_ALIASES in engine/cross_league.py); if it is newly promoted, it correctly has no rating yet. | NO DATA — PENDING |  |  |  | 
+La Liga: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+La Liga: +14 fixture(s) merged from SportyBet cache (primary: api_football) | NO DATA — PENDING |  |  |  | 
+La Liga: +5 current-season results from football-data.org (promoted-club fix) | NO DATA — PENDING |  |  |  | 
+La Liga: insufficient match history (10 results) — NO DATA — PENDING rather than a thin fit | NO DATA — PENDING |  |  |  | 
+day-scoped to 2026-08-19: kept 0 of 22 scanned fixture(s) — adjacent-day matches dropped | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 0 verified, 0 kept-unverified, 0 dropped (FlashScore on, SportyBet on) | NO DATA — PENDING |  |  |  | 
+SportyBet cache merged: 229 fixture(s) with 1X2 odds added to odds_index | NO DATA — PENDING |  |  |  | 
+SHADOW calibration (below gate, NOT applied): 1X2_DRAW -0.9%, 1X2_HOME -1.3% — visible only; inert until MIN_LEGS legs settle | NO DATA — PENDING |  |  |  | 
+ENSEMBLE WEIGHTS ACTIVE — consensus w=0.926, dc w=0.926, elo w=0.926 (CLV-gated, bounded, consensus display only) | NO DATA — PENDING |  |  |  | 
+logged 0 new paper leg(s) with a live entry price (agreement_band=0.04) | NO DATA — PENDING |  |  |  | 
+Phase 3 gate: 17 of 30 legs with logged CLV; mean CLV -2.467 | NO DATA — PENDING |  |  |  | 

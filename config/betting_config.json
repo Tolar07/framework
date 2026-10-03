@@ -1,0 +1,15 @@
+{
+  "_comment": "Betting configuration for OLP XDV - odds thresholds, limits, and betting parameters",
+  "max_odds_cap": 1.50,
+  "min_odds_floor": 1.20,
+  "preferred_odds_ceiling": 1.50,
+  "max_accumulator_legs": 5,
+  "min_accumulator_legs": 3,
+  "max_single_bets": 10,
+  "minimum_edge_threshold": 0.01,
+  "kelly_fraction": 0.5,
+  "max_stake_percentage": 0.05,
+  "verify_min_sources": 2,
+  "clv_gate_min_legs": 12,
+  "clv_gate_threshold": 0.0
+}

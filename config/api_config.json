@@ -1,0 +1,39 @@
+{
+  "_comment": "API configuration for OLP XDV - endpoints, timeouts, retry settings",
+  "odds_api": {
+    "base_url": "https://api.the-odds-api.com",
+    "timeout": 30,
+    "max_retries": 3,
+    "retry_backoff_factor": 0.5
+  },
+  "api_football": {
+    "base_url": "https://v3.football.api-sports.io",
+    "timeout": 30,
+    "max_retries": 3,
+    "retry_backoff_factor": 0.5,
+    "rate_limit_per_minute": 100
+  },
+  "the_sports_db": {
+    "base_url": "https://www.thesportsdb.com/api/v1/json",
+    "timeout": 30,
+    "max_retries": 3,
+    "retry_backoff_factor": 0.5
+  },
+  "espn": {
+    "base_url": "https://site.api.espn.com/apis/site/v2/sports",
+    "timeout": 30,
+    "max_retries": 3,
+    "retry_backoff_factor": 0.5
+  },
+  "telegram": {
+    "base_url": "https://api.telegram.org/bot",
+    "timeout": 30,
+    "max_retries": 3,
+    "retry_backoff_factor": 0.5
+  },
+  "global": {
+    "user_agent": "OLP-XDV/1.0",
+    "max_concurrent_requests": 10,
+    "request_timeout": 30
+  }
+}

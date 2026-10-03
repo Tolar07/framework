@@ -1,0 +1,120 @@
+{
+  "timestamp": "2026-08-21T12:00:01.599Z",
+  "runs_analyzed": 3,
+  "engine_weights": {
+    "dc": {
+      "hitRate": "33.3",
+      "avgClv": "0.000",
+      "recommendedWeight": "0.333"
+    },
+    "xg": {
+      "hitRate": "50.0",
+      "avgClv": "0.000",
+      "recommendedWeight": "0.500"
+    },
+    "bookmaker": {
+      "hitRate": "33.3",
+      "avgClv": "0.000",
+      "recommendedWeight": "0.333"
+    },
+    "consensus": {
+      "hitRate": "33.3",
+      "avgClv": "0.000",
+      "recommendedWeight": "0.333"
+    }
+  },
+  "market_weights": {
+    "1X2_AWAY": {
+      "hitRate": "0.0",
+      "total": 12,
+      "recommend": "reduce"
+    },
+    "1X2_DRAW": {
+      "hitRate": "100.0",
+      "total": 12,
+      "recommend": "keep"
+    },
+    "1X2_HOME": {
+      "hitRate": "0.0",
+      "total": 12,
+      "recommend": "reduce"
+    },
+    "BTTS_YES": {
+      "hitRate": "100.0",
+      "total": 3,
+      "recommend": "keep"
+    },
+    "OVER_1_5": {
+      "hitRate": "100.0",
+      "total": 3,
+      "recommend": "keep"
+    },
+    "OVER_2_5": {
+      "hitRate": "0.0",
+      "total": 3,
+      "recommend": "reduce"
+    }
+  },
+  "league_weights": {
+    "La Liga": {
+      "hitRate": "40.0",
+      "total": 45,
+      "recommend": "keep"
+    }
+  },
+  "calibration_curve": {
+    "0.1-0.2": {
+      "predictions": 6,
+      "hitRate": "50.0",
+      "avgProb": "18.9",
+      "error": "31.1"
+    },
+    "0.3-0.4": {
+      "predictions": 9,
+      "hitRate": "33.3",
+      "avgProb": "35.4",
+      "error": "-2.1"
+    },
+    "0.2-0.3": {
+      "predictions": 12,
+      "hitRate": "50.0",
+      "avgProb": "27.2",
+      "error": "22.8"
+    },
+    "0.5-0.6": {
+      "predictions": 3,
+      "hitRate": "0.0",
+      "avgProb": "55.8",
+      "error": "-55.8"
+    },
+    "0.4-0.5": {
+      "predictions": 6,
+      "hitRate": "0.0",
+      "avgProb": "45.8",
+      "error": "-45.8"
+    },
+    "0.7-0.8": {
+      "predictions": 3,
+      "hitRate": "100.0",
+      "avgProb": "79.3",
+      "error": "20.7"
+    },
+    "0.9-1.0": {
+      "predictions": 3,
+      "hitRate": "100.0",
+      "avgProb": "93.6",
+      "error": "6.4"
+    },
+    "0.8-0.9": {
+      "predictions": 3,
+      "hitRate": "0.0",
+      "avgProb": "82.0",
+      "error": "-82.0"
+    }
+  },
+  "summary": {
+    "total_predictions": 45,
+    "overall_hit_rate": "40.0",
+    "overall_clv": "0.000"
+  }
+}

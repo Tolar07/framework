@@ -1,0 +1,22 @@
+{
+  "firecrawl": {
+    "level": "critical",
+    "ts": 1789647431.5495074
+  },
+  "playwright": {
+    "level": "critical",
+    "ts": 1789647431.5573432
+  },
+  "obsidian": {
+    "level": "critical",
+    "ts": 1789647433.601058
+  },
+  "perplexity": {
+    "level": "warn",
+    "ts": 1789647433.6027906
+  },
+  "ide": {
+    "level": "ok",
+    "ts": 1789647433.6051996
+  }
+}

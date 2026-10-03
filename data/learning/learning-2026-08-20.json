@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-08-20T22:16:11.488Z",
+  "runs_analyzed": 35,
+  "engine_weights": {
+    "cross": {
+      "hitRate": "33.3",
+      "avgClv": "0.000",
+      "recommendedWeight": "0.333"
+    },
+    "elo": {
+      "hitRate": "33.3",
+      "avgClv": "0.000",
+      "recommendedWeight": "0.333"
+    }
+  },
+  "market_weights": {
+    "1X2_AWAY": {
+      "hitRate": "0.0",
+      "total": 70,
+      "recommend": "reduce"
+    },
+    "1X2_DRAW": {
+      "hitRate": "0.0",
+      "total": 70,
+      "recommend": "reduce"
+    },
+    "1X2_HOME": {
+      "hitRate": "100.0",
+      "total": 70,
+      "recommend": "keep"
+    },
+    "BTTS_YES": {
+      "hitRate": "0.0",
+      "total": 35,
+      "recommend": "reduce"
+    },
+    "OVER_1_5": {
+      "hitRate": "100.0",
+      "total": 35,
+      "recommend": "keep"
+    },
+    "OVER_2_5": {
+      "hitRate": "0.0",
+      "total": 35,
+      "recommend": "reduce"
+    }
+  },
+  "league_weights": {
+    "Champions League": {
+      "hitRate": "33.3",
+      "total": 315,
+      "recommend": "quarantine"
+    }
+  },
+  "calibration_curve": {
+    "0.1-0.2": {
+      "predictions": 70,
+      "hitRate": "0.0",
+      "avgProb": "15.3",
+      "error": "-15.3"
+    },
+    "0.2-0.3": {
+      "predictions": 70,
+      "hitRate": "0.0",
+      "avgProb": "26.6",
+      "error": "-26.6"
+    },
+    "0.5-0.6": {
+      "predictions": 35,
+      "hitRate": "100.0",
+      "avgProb": "55.7",
+      "error": "44.3"
+    },
+    "0.6-0.7": {
+      "predictions": 70,
+      "hitRate": "100.0",
+      "avgProb": "60.5",
+      "error": "39.5"
+    },
+    "0.3-0.4": {
+      "predictions": 70,
+      "hitRate": "0.0",
+      "avgProb": "34.1",
+      "error": "-34.1"
+    }
+  },
+  "summary": {
+    "total_predictions": 315,
+    "overall_hit_rate": "33.3",
+    "overall_clv": "0.000"
+  }
+}

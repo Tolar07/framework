@@ -1,0 +1,38 @@
+##########OLP XDV#########
+==================================
+📅 Fri 28 Aug 2026 — FULL PIPELINE BOARD
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+(every fixture × every scored market, shared board code,
+ AI's own highest-probability pick shown per fixture)
+──────────────────────────────────
+⚽ Scottish Premiership
+   ??:??   Celtic v Dundee
+       NO DATA — PENDING
+       🤖 AI Pick: NO DATA — PENDING
+
+Board code: NO DATA — PENDING (booking-code read postponed — technical issue,
+tracked internally, not blocking pipeline output)
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+No deploy-eligible fixtures kicking off today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+──────────────────────────────────
+No capital-eligible accas generated.
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Booking codes: PENDING pipeline-wide — technical issue under repair,
+tracking resumes once read_betslip_combined_odds is fixed.
+==================================

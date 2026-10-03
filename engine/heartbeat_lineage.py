@@ -1,0 +1,572 @@
+"""
+HEARTBEAT LINEAGE — Architect 2026-08-29 survival/reproduction model.
+
+The heartbeat is modelled as a LIFEFORM under selection pressure, not a flat
+daily bet. The Architect's concept:
+
+  - A heartbeat carries a single lineage. Its lifeforce is its bankroll.
+  - WIN  -> the lineage REPRODUCES: it spawns up to TWO offspring heartbeats
+            the next day (the species branches). Capital compounds.
+  - LOSS -> the lineage goes EXTINCT. That branch terminates; its capital is lost.
+            ONE loss, not a drained bankroll. Implemented in
+            record_heartbeat_result as of the Architect's 2026-09-17 ruling;
+            before that the code only killed a lineage at bankroll <= 0, which
+            let it survive 100 losses and removed the selection pressure this
+            model exists to apply.
+  - PRESSURE FORCES QUALITY: because death is real (paper-mode, virtual capital),
+    the selector must take the highest-edge fixture available or the lineage dies
+    off. The survival pressure IS the training signal.
+
+This module manages the lineage population:
+  - selection of the day's living heartbeats (from surviving + newly reproduced lineages)
+  - recording results and applying the birth/death transition
+  - a starvation floor so the species can never fully die while the framework runs
+    (the Architect keeps the experiment alive even after a wipeout)
+
+Paper-mode only: no real capital is routed. All bankrolls are virtual.
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+import math
+import random
+import uuid
+from dataclasses import dataclass, field, asdict
+
+log = logging.getLogger(__name__)
+from datetime import date, datetime
+from pathlib import Path
+from typing import Optional
+
+from output.heartbeat import (
+    HeartbeatFixture,
+    select_top_heartbeats,
+    save_heartbeat_record,
+    get_heartbeat_stats,
+)
+
+# Repo-rooted state files for the lineage population
+REPO_ROOT = Path(__file__).parent.parent
+LINEAGE_FILE = REPO_ROOT / "data" / "heartbeat" / "lineage.json"
+
+
+# ----------------------------------------------------------------------------
+# Configuration (Architect tuning knobs — paper-mode constants, not protected)
+# ----------------------------------------------------------------------------
+DEFAULT_STARTING_BANKROLL = 100.0
+DEFAULT_STARTING_STAKE = 1.0
+KELLY_FRACTION = 0.25          # Quarter-Kelly, inherited from heartbeat_staking
+MIN_STAKE = 0.10
+MAX_STAKE_PCT = 0.05
+OFFSPRING_PER_WIN = 2          # WIN -> two offspring heartbeats (Architect concept)
+MAX_LINEAGES = 8              # Hard cap on living lineages to stay runnable
+TOP_N_CANDIDATES = 5          # Distinct high-edge fixtures to draw offspring from
+STARVATION_FLOOR = 1.0        # If every lineage dies, reseed ONE at this bankroll
+
+
+# ----------------------------------------------------------------------------
+# Data model
+# ----------------------------------------------------------------------------
+@dataclass
+class Lineage:
+    """A single heartbeat bloodline with its own bankroll and stake."""
+    lineage_id: str
+    parent_id: Optional[str]
+    generation: int
+    bankroll: float
+    current_stake: float
+    wins: int
+    losses: int
+    alive: bool
+    born_date: str
+    last_result: Optional[str] = None
+    fixture: Optional[str] = None       # last/current fixture this lineage holds
+    pick: Optional[str] = None
+    price: Optional[float] = None
+    edge: float = 0.0
+    probability: float = 0.0
+    # Wins that could not be settled because the heartbeat carried no usable
+    # price. Counted, never paid — see record_heartbeat_result.
+    unsettled_wins: int = 0
+    # Date of the heartbeat this lineage is currently holding. Set at SELECTION
+    # time, not at result time, so lineage.json shows what each lineage is on
+    # today instead of nulls until something grades it.
+    held_date: Optional[str] = None
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, d: dict) -> "Lineage":
+        # Tolerate state written by older versions (unknown keys dropped,
+        # absent keys defaulted) so a schema addition never bricks the
+        # population file into the "corrupt -> reseed genesis" path, which
+        # would silently wipe the lineage history it is meant to preserve.
+        known = {f for f in cls.__dataclass_fields__}
+        return cls(**{k: v for k, v in d.items() if k in known})
+
+
+@dataclass
+class LineagePopulation:
+    """Full lineage state for the framework."""
+    lineages: list[Lineage] = field(default_factory=list)
+    last_bred_date: Optional[str] = None
+
+    def living(self) -> list[Lineage]:
+        return [ln for ln in self.lineages if ln.alive]
+
+    def to_dict(self) -> dict:
+        return {
+            "lineages": [ln.to_dict() for ln in self.lineages],
+            "last_bred_date": self.last_bred_date,
+        }
+
+    @classmethod
+    def from_dict(cls, d: dict) -> "LineagePopulation":
+        return cls(
+            lineages=[Lineage.from_dict(x) for x in d.get("lineages", [])],
+            last_bred_date=d.get("last_bred_date"),
+        )
+
+
+# ----------------------------------------------------------------------------
+# Persistence
+# ----------------------------------------------------------------------------
+def load_population() -> LineagePopulation:
+    """Load lineage population from disk, or seed a genesis lineage."""
+    if not LINEAGE_FILE.exists():
+        genesis = Lineage(
+            lineage_id=_new_id(),
+            parent_id=None,
+            generation=0,
+            bankroll=DEFAULT_STARTING_BANKROLL,
+            current_stake=DEFAULT_STARTING_STAKE,
+            wins=0, losses=0, alive=True,
+            born_date=date.today().isoformat(),
+        )
+        pop = LineagePopulation(lineages=[genesis])
+        save_population(pop)
+        return pop
+    try:
+        data = json.loads(LINEAGE_FILE.read_text(encoding="utf-8"))
+        return LineagePopulation.from_dict(data)
+    except Exception:
+        # Corrupt state -> reseed genesis
+        genesis = Lineage(
+            lineage_id=_new_id(), parent_id=None, generation=0,
+            bankroll=DEFAULT_STARTING_BANKROLL, current_stake=DEFAULT_STARTING_STAKE,
+            wins=0, losses=0, alive=True, born_date=date.today().isoformat(),
+        )
+        pop = LineagePopulation(lineages=[genesis])
+        save_population(pop)
+        return pop
+
+
+def save_population(pop: LineagePopulation) -> None:
+    """Persist lineage population atomically."""
+    LINEAGE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    tmp = LINEAGE_FILE.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(pop.to_dict(), indent=2), encoding="utf-8")
+    tmp.replace(LINEAGE_FILE)
+
+
+def _new_id() -> str:
+    return "ln_" + uuid.uuid4().hex[:10]
+
+
+# ----------------------------------------------------------------------------
+# Daily heartbeat selection for living lineages
+# ----------------------------------------------------------------------------
+def select_daily_heartbeats(
+    board: list,
+    target_date: str = None,
+    odds_index: Optional[dict] = None,
+    top_n: int = TOP_N_CANDIDATES,
+    min_edge: float = 0.0,
+    require_priced: bool = True,
+) -> list[HeartbeatFixture]:
+    """
+    Build the day's heartbeats from the living lineages + top edge candidates.
+
+    Each living lineage gets ONE heartbeat. To maximise survival pressure and
+    diversity, we assign the highest-edge distinct fixtures to the living
+    lineages, preferring to give the strongest lineage the strongest fixture.
+
+    Returns HeartbeatFixture list (one per living lineage), empty if no living
+    lineages (caller should reseed via the starvation floor).
+    """
+    pop = load_population()
+    living = pop.living()
+
+    if not living:
+        # Starvation floor: reseed a single genesis lineage so the species
+        # survives while the framework runs.
+        genesis = Lineage(
+            lineage_id=_new_id(), parent_id=None, generation=0,
+            bankroll=STARVATION_FLOOR, current_stake=DEFAULT_STARTING_STAKE,
+            wins=0, losses=0, alive=True, born_date=date.today().isoformat(),
+        )
+        pop.lineages.append(genesis)
+        save_population(pop)
+        living = [genesis]
+
+    candidates = select_top_heartbeats(
+        board, target_date=target_date, odds_index=odds_index,
+        top_n=max(top_n, len(living)), min_edge=min_edge,
+        require_priced=require_priced,
+        # Pre-match only. A lineage must never be committed to a fixture that
+        # has already started — doubly so now that one LOSS is extinction.
+        exclude_started=True,
+    )
+
+    # Assign candidates to lineages: strongest lineage -> strongest fixture.
+    living_sorted = sorted(living, key=lambda ln: ln.bankroll, reverse=True)
+    heartbeats: list[HeartbeatFixture] = []
+    assigned_date = target_date or date.today().isoformat()
+    for i, lineage in enumerate(living_sorted):
+        if i < len(candidates):
+            hb = candidates[i]
+            # Tag lineage onto the fixture so results can be routed back
+            hb.lineage_id = lineage.lineage_id  # type: ignore[attr-defined]
+            hb.generation = lineage.generation  # type: ignore[attr-defined]
+            # Record the holding on the lineage NOW. Previously these fields
+            # were only written by record_heartbeat_result, so a lineage that
+            # had been selected but not yet graded showed fixture/pick/price
+            # as null — indistinguishable from a lineage doing nothing. That
+            # is what lineage.json has shown since 2026-09-03.
+            lineage.fixture = hb.fixture
+            lineage.pick = hb.pick
+            lineage.price = hb.price
+            lineage.edge = hb.edge
+            lineage.probability = hb.probability
+            lineage.held_date = assigned_date
+            heartbeats.append(hb)
+        else:
+            # NO HEARTBEAT FOR THIS LINEAGE TODAY — clear its holding.
+            #
+            # A lineage that gets no candidate skips the day, but its fixture /
+            # pick / price fields kept whatever a PREVIOUS selection wrote, and
+            # render_lineage_report prints them unconditionally. So the report
+            # showed eight lineages holding positions when only three had one,
+            # including two on fixtures that had already kicked off and been
+            # filtered out moments earlier, plus duplicate rows where two
+            # lineages appeared to hold the same pick.
+            #
+            # Same failure shape as the rest of today's: stale state rendered
+            # as current, with nothing in the output to say which is which.
+            # An empty holding is the honest representation of "this lineage is
+            # sitting today out".
+            lineage.fixture = None
+            lineage.pick = None
+            lineage.price = None
+            lineage.edge = 0.0
+            lineage.probability = 0.0
+            lineage.held_date = None
+    save_population(pop)
+    return heartbeats
+
+
+# ----------------------------------------------------------------------------
+# Result processing — birth / death transition
+# ----------------------------------------------------------------------------
+def record_heartbeat_result(
+    heartbeat: HeartbeatFixture,
+    result: str,  # 'WIN' or 'LOSS'
+    target_date: str = None,
+) -> LineagePopulation:
+    """
+    Apply a heartbeat result to its lineage and run the reproduction/extinction
+    transition.
+
+    WIN  -> lineage bankroll grows (fractional Kelly payout); on the NEXT breeding
+            cycle it will reproduce into up to OFFSPRING_PER_WIN offspring.
+    LOSS -> lineage bankroll loses its stake; if bankroll hits 0 it goes extinct.
+
+    Returns the updated population (also persisted).
+    """
+    pop = load_population()
+    lineage_id = getattr(heartbeat, "lineage_id", None)
+    lineage = next((ln for ln in pop.lineages if ln.lineage_id == lineage_id), None)
+
+    if lineage is None:
+        # Lineage not tracked (e.g. legacy single-heartbeat record). Attach result
+        # to first living lineage or create one.
+        living = pop.living()
+        lineage = living[0] if living else Lineage(
+            lineage_id=_new_id(), parent_id=None, generation=0,
+            bankroll=DEFAULT_STARTING_BANKROLL, current_stake=DEFAULT_STARTING_STAKE,
+            wins=0, losses=0, alive=True, born_date=date.today().isoformat(),
+        )
+        if lineage not in pop.lineages:
+            pop.lineages.append(lineage)
+
+    price = heartbeat.price or 0.0
+    if result == "WIN":
+        # A WIN must never REDUCE the bankroll.
+        #
+        # `price or 0.0` turns an unpriced heartbeat into 0.0, and the payout
+        # below is stake * (price - 1.0), so an unpriced WIN paid
+        # stake * -1.0 — i.e. it debited the lineage exactly as a LOSS would,
+        # while still incrementing `wins`. That is not a rounding quirk, it
+        # inverts the sign of the single most important transition in the
+        # model. data/heartbeat/history.jsonl carries a real instance:
+        # 2026-08-27 "Brighton v Tromso", result WIN, price null.
+        #
+        # An unpriced result cannot be settled, so the lineage holds its
+        # bankroll flat and the win is still counted. Settling is the
+        # grader's job; guessing a price here would be fabrication (HR35).
+        if price <= 1.0:
+            lineage.unsettled_wins += 1
+        else:
+            profit = lineage.current_stake * (price - 1.0)
+            lineage.bankroll = round(lineage.bankroll + profit, 2)
+        lineage.wins += 1
+    elif result == "LOSS":
+        # LOSS IS EXTINCTION. One loss ends the bloodline.
+        #
+        # Architect ruling 2026-09-17, resolving the doc-vs-code disagreement
+        # flagged earlier: this module's own docstring says "LOSS -> the lineage
+        # goes EXTINCT. That branch terminates; its capital is lost", while the
+        # code only killed a lineage once its bankroll reached zero.
+        #
+        # Those are not close. At DEFAULT_STARTING_BANKROLL 100 and a stake of
+        # 1, a lineage survived ONE HUNDRED consecutive losses. The model's
+        # stated purpose is "PRESSURE FORCES QUALITY ... because death is real,
+        # the selector must take the highest-edge fixture available or the
+        # lineage dies off. The survival pressure IS the training signal."
+        # A lineage that cannot die in under a hundred losses applies no
+        # pressure at all, so the code was not a lenient version of the model —
+        # it silently removed the mechanism the model is built on.
+        #
+        # The bankroll is still debited before death so the ledger records what
+        # the branch was worth when it ended ("its capital is lost"), rather
+        # than a lineage vanishing with its capital unaccounted for.
+        lineage.bankroll = round(lineage.bankroll - lineage.current_stake, 2)
+        lineage.losses += 1
+        lineage.alive = False  # EXTINCTION — see above
+
+        # The species does not end here: breed_next_generation reseeds a single
+        # genesis lineage at STARVATION_FLOOR when nothing is left alive. Death
+        # is real per lineage; the experiment still continues.
+    else:
+        # Unknown result — no transition
+        lineage.last_result = result
+        save_population(pop)
+        return pop
+
+    lineage.last_result = result
+    lineage.fixture = heartbeat.fixture
+    lineage.pick = heartbeat.pick
+    lineage.price = price
+    lineage.edge = heartbeat.edge
+    lineage.probability = heartbeat.probability
+
+    save_population(pop)
+    return pop
+
+
+def breed_next_generation(board: list, target_date: str = None,
+                          odds_index: Optional[dict] = None) -> LineagePopulation:
+    """
+    Reproduce living lineages into the next day's population.
+
+    For each living lineage:
+      - WIN last -> spawn up to OFFSPRING_PER_WIN children (split bankroll),
+                    parent retires (its bloodline continues through children).
+      - LOSS last -> already extinct or stays (no spawn).
+      - No result yet -> carries forward as-is (still alive, same bankroll).
+
+    Starvation floor: if no lineages remain alive, reseed one genesis lineage.
+    """
+    pop = load_population()
+    today = target_date or date.today().isoformat()
+
+    if pop.last_bred_date == today:
+        return pop  # already bred for today
+
+    # SLOT ALLOCATION BEFORE BREEDING (fixed 2026-09-19).
+    #
+    # The old loop walked lineages in list order, gave each winner
+    # OFFSPRING_PER_WIN children until the cap was reached, and relied on a
+    # `n <= 0` branch to carry a late winner forward alone. The truncation
+    # below — new_lineages[:MAX_LINEAGES] — then deleted exactly those
+    # carried-forward entries, so the guard protected nothing.
+    #
+    # Observed 2026-09-19 on the real population: 6 winners, MAX_LINEAGES 8.
+    # The first four bred into 8 children, winners five and six were appended
+    # by the guard, and the slice removed them. Two lineages that HAD WON were
+    # deleted and 26.11 of bankroll vanished — not lost to a bet, not debited
+    # to a ledger, just gone. The nightly run did this every time it bred.
+    #
+    # Allocation now happens up front and guarantees EVERY survivor a slot:
+    # one each, then spare slots handed out by bankroll (the branch that has
+    # compounded most reproduces most, which is what a survival model means).
+    # Capital is conserved by construction — a lineage can only lose its
+    # bankroll by losing a bet.
+    survivors = [ln for ln in pop.lineages if ln.alive]
+    winners = [ln for ln in survivors if ln.last_result == "WIN"]
+    others = [ln for ln in survivors if ln.last_result != "WIN"]
+
+    slots: dict[str, int] = {ln.lineage_id: 1 for ln in survivors}
+    spare = MAX_LINEAGES - len(survivors)
+    if spare < 0:
+        # More survivors than slots. Nothing may be deleted here either, so
+        # everyone still carries forward and the cap is reported as exceeded
+        # rather than silently enforced by dropping bloodlines.
+        log.warning("Heartbeat population %d exceeds MAX_LINEAGES %d — all "
+                    "survivors carried forward, none dropped",
+                    len(survivors), MAX_LINEAGES)
+        spare = 0
+    for ln in sorted(winners, key=lambda x: x.bankroll, reverse=True):
+        if spare <= 0:
+            break
+        extra = min(OFFSPRING_PER_WIN - 1, spare)
+        slots[ln.lineage_id] += extra
+        spare -= extra
+
+    new_lineages: list[Lineage] = []
+    for ln in pop.lineages:
+        if not ln.alive:
+            continue  # extinct lineages do not reproduce
+        if ln.last_result == "WIN":
+            # REPRODUCE: split bankroll across the slots allocated above
+            n = slots.get(ln.lineage_id, 1)
+            if n <= 1:
+                # One slot: the parent carries forward with its bankroll
+                # intact rather than "breeding" into a single identical child.
+                ln.generation += 1
+                new_lineages.append(ln)
+                continue
+            share = ln.bankroll / n
+            for _ in range(n):
+                child = Lineage(
+                    lineage_id=_new_id(),
+                    parent_id=ln.lineage_id,
+                    generation=ln.generation + 1,
+                    bankroll=round(share, 2),
+                    current_stake=DEFAULT_STARTING_STAKE,
+                    wins=0, losses=0, alive=True,
+                    born_date=today,
+                )
+                new_lineages.append(child)
+            # Parent retires; bloodline continues via children
+        else:
+            # LOSS or no-result: carry forward unchanged
+            new_lineages.append(ln)
+
+    # Cap population.
+    #
+    # This slice is what deleted two winning lineages and 26.11 of bankroll on
+    # 2026-09-19. Slots are now allocated up front so the list cannot exceed
+    # the cap through breeding, and the only way to be over it is to already
+    # have had more survivors than slots — in which case dropping one would
+    # destroy a live bloodline and its capital. So it is reported, never cut.
+    if len(new_lineages) > MAX_LINEAGES:
+        log.warning("Heartbeat population %d exceeds MAX_LINEAGES %d after "
+                    "breeding — carried forward in full rather than truncated "
+                    "(truncating deletes live lineages and their capital)",
+                    len(new_lineages), MAX_LINEAGES)
+
+    if not new_lineages:
+        # STARVATION FLOOR — keep the species alive
+        new_lineages.append(Lineage(
+            lineage_id=_new_id(), parent_id=None, generation=0,
+            bankroll=STARVATION_FLOOR, current_stake=DEFAULT_STARTING_STAKE,
+            wins=0, losses=0, alive=True, born_date=today,
+        ))
+
+    pop.lineages = new_lineages
+    pop.last_bred_date = today
+    save_population(pop)
+    return pop
+
+
+# ----------------------------------------------------------------------------
+# Reporting
+# ----------------------------------------------------------------------------
+def _safe_render(text: str) -> str:
+    """Replace emoji with ASCII for Windows compatibility."""
+    return (text
+        .replace('🧬', '[DNA]')
+        .replace('🌿', '[ALIVE]')
+        .replace('💀', '[EXTINCT]')
+        .replace('💰', '[$]')
+        .replace('💵', '[$]')
+        .replace('🎯', '[S]')
+    )
+
+
+def render_lineage_report(pop: Optional[LineagePopulation] = None) -> str:
+    """Render a lineage survival report for Telegram / logging."""
+    pop = pop or load_population()
+    living = pop.living()
+    extinct = [ln for ln in pop.lineages if not ln.alive]
+    total_bankroll = sum(ln.bankroll for ln in living)
+
+    lines = [
+        _safe_render("🧬 HEARTBEAT LINEAGE REPORT"),
+        _safe_render(f"🌿 Living lineages: {len(living)}   💀 Extinct: {len(extinct)}"),
+        _safe_render(f"💰 Total lifeforce (bankroll): {total_bankroll:.2f}"),
+    ]
+    for ln in sorted(living, key=lambda x: x.bankroll, reverse=True):
+        tag = f"G{ln.generation}"
+        par = f"<-{ln.parent_id[:6]}" if ln.parent_id else "GENESIS"
+        lines.append(
+            _safe_render(
+                f"  {ln.lineage_id[:8]} {tag} {par} | [$]{ln.bankroll:.2f} "
+                f"[S]{ln.current_stake:.2f} | {ln.wins}W-{ln.losses}L"
+                + (f" | {ln.fixture} - {ln.pick}" if ln.fixture else "")
+            )
+        )
+    return "\n".join(lines)
+
+
+# ----------------------------------------------------------------------------
+# CLI / entrypoint for outcome monitor
+# ----------------------------------------------------------------------------
+def main() -> int:
+    import argparse
+    parser = argparse.ArgumentParser(description="Heartbeat lineage survival engine.")
+    sub = parser.add_subparsers(dest="cmd")
+
+    sub.add_parser("report", help="Print current lineage report")
+    sub.add_parser("breed", help="Breed next generation (reproduce winners)")
+
+    res = sub.add_parser("result", help="Record a heartbeat result")
+    res.add_argument("--fixture", required=True)
+    res.add_argument("--pick", required=True)
+    res.add_argument("--price", type=float, default=0.0)
+    res.add_argument("--edge", type=float, default=0.0)
+    res.add_argument("--prob", type=float, default=0.0)
+    res.add_argument("--lineage", default=None)
+    res.add_argument("--result", choices=["WIN", "LOSS"], required=True)
+
+    args = parser.parse_args()
+
+    if args.cmd == "report":
+        print(render_lineage_report())
+        return 0
+    if args.cmd == "breed":
+        pop = breed_next_generation([])
+        print(render_lineage_report(pop))
+        return 0
+    if args.cmd == "result":
+        hb = HeartbeatFixture(
+            fixture=args.fixture, kickoff_time="??:??", league="Unknown",
+            pick=args.pick, probability=args.prob, edge=args.edge,
+            market_type="OTHER", price=args.price,
+        )
+        if args.lineage:
+            hb.lineage_id = args.lineage  # type: ignore[attr-defined]
+        record_heartbeat_result(hb, args.result)
+        print(render_lineage_report())
+        return 0
+
+    parser.print_help()
+    return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

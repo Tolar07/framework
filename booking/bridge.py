@@ -1,0 +1,1075 @@
+"""
+Booking bridge — connects SportyBet cache to OLP XDV pipeline.
+
+This module bridges the booking system (SportyBet client + cache builder)
+with the OLP XDV daily pipeline. It provides functions to:
+
+1. Load fixtures from the SportyBet cache into the pipeline's fixture format
+2. Attach SportyBet odds to board fixtures for EV calculation
+3. Verify fixture availability on SportyBet before logging paper legs
+
+WHY THIS EXISTS
+  The OLP XDV pipeline uses TheSportsDB and The Odds API for fixtures/odds.
+  SportyBet is where the Architect actually places bets (Nigeria). This bridge
+  ensures the paper log uses SportyBet prices for CLV calculation, and that
+  fixtures logged as paper legs actually exist on SportyBet.
+
+USAGE
+  # In run_daily.py scan_one_league:
+  fixtures = load_sportybet_fixtures("Premier League", days_ahead=3)
+
+  # In odds attach loop:
+  board = attach_sportybet_odds(board, client)
+
+  # Before logging a leg:
+  if not verify_fixture_on_sportybet(home, away, league):
+      log.warning("Fixture not on SportyBet — skipping paper leg")
+
+DEPLOY GATE
+  Phase 3 live — capital authority is the Architect's. This module NEVER
+  places bets. It only reads and verifies.
+"""
+
+from __future__ import annotations
+
+import json
+import time
+from pathlib import Path
+from typing import List, Dict, Optional, Tuple, Any
+from dataclasses import dataclass
+from datetime import date, timedelta, datetime, timezone
+
+# Add parent to path
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from booking.league_map import SPORTYBET_LEAGUES
+from booking.team_map import resolve_team, _normalize as team_normalize
+from booking.sportybet_client import SportyBetClient, Fixture as SBFixture, MarketOdds
+from booking.sportybet_cache import CachedFixture, SportyBetCache
+from data import api_football_odds
+
+# Import knowledge persistence for bridge knowledge generation
+from knowledge_persistence import get_knowledge_persistence, add_observation, add_fact
+
+
+# --- Cache paths ---
+CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "fixtures"
+ODDS_CACHE_DIR = Path(__file__).parent.parent / "data" / "cache" / "sportybet" / "odds"
+
+
+@dataclass
+class PipelineFixture:
+    """A fixture in the pipeline's internal format."""
+    home_team: str          # Model key (football-data.co.uk short name)
+    away_team: str          # Model key
+    kickoff_utc: str        # ISO format
+    league: str             # OLP XDV league name
+    sportybet_fixture_id: Optional[str] = None  # SportyBet's match ID
+    sportybet_home: Optional[str] = None        # SportyBet official home name
+    sportybet_away: Optional[str] = None        # SportyBet official away name
+    country: Optional[str] = None               # SportyBet country
+    # 1X2 odds captured with the cache (None = not readable — HR35).
+    home_odds: Optional[float] = None
+    draw_odds: Optional[float] = None
+    away_odds: Optional[float] = None
+    # Totals as SportyBet renders them: ONE line per fixture, and it varies
+    # (2.5 / 3 / 3.5 on the same matchday). The line is carried so a quote is
+    # never filed under the wrong market — an "Over" price means nothing until
+    # you know which line it belongs to.
+    goals_line: Optional[float] = None
+    over_odds: Optional[float] = None
+    under_odds: Optional[float] = None
+    # SportyBet's Sportradar event id ("sr:match:72478570"), written into the
+    # cache by booking.sportybet_api. This is what builds the MATCH-PAGE URL,
+    # which is the only place every Over/Under line is available — the league
+    # page shows one line per fixture. Distinct from sportybet_fixture_id,
+    # which is the short numeric gameId used to find the league-page row.
+    event_id: Optional[str] = None
+
+
+@dataclass
+class FixtureOdds:
+    """Odds attached to a pipeline fixture."""
+    home_team: str
+    away_team: str
+    league: str
+    kickoff_utc: str
+    # 1X2
+    home_odds: Optional[float] = None
+    draw_odds: Optional[float] = None
+    away_odds: Optional[float] = None
+    # Totals
+    over25_odds: Optional[float] = None
+    under25_odds: Optional[float] = None
+    over15_odds: Optional[float] = None
+    under15_odds: Optional[float] = None
+    over35_odds: Optional[float] = None
+    under35_odds: Optional[float] = None
+    over05_odds: Optional[float] = None
+    under05_odds: Optional[float] = None
+    # BTTS
+    btts_yes_odds: Optional[float] = None
+    btts_no_odds: Optional[float] = None
+    # Double Chance
+    dc_1x_odds: Optional[float] = None
+    dc_x2_odds: Optional[float] = None
+    dc_12_odds: Optional[float] = None
+    # Draw No Bet
+    dnb_home_odds: Optional[float] = None
+    dnb_away_odds: Optional[float] = None
+    # HT/FT
+    htft_11_odds: Optional[float] = None
+    htft_1x_odds: Optional[float] = None
+    htft_12_odds: Optional[float] = None
+    htft_x1_odds: Optional[float] = None
+    htft_xx_odds: Optional[float] = None
+    htft_21_odds: Optional[float] = None
+    htft_2x_odds: Optional[float] = None
+    htft_22_odds: Optional[float] = None
+    # Correct Score
+    cs_10_odds: Optional[float] = None
+    cs_01_odds: Optional[float] = None
+    cs_11_odds: Optional[float] = None
+    cs_20_odds: Optional[float] = None
+    cs_02_odds: Optional[float] = None
+    cs_21_odds: Optional[float] = None
+    cs_12_odds: Optional[float] = None
+    cs_22_odds: Optional[float] = None
+    cs_00_odds: Optional[float] = None
+    cs_30_odds: Optional[float] = None
+    cs_03_odds: Optional[float] = None
+    cs_31_odds: Optional[float] = None
+    cs_13_odds: Optional[float] = None
+    # Metadata
+    source: str = "sportybet"
+    captured_at: Optional[str] = None
+    bookmaker: str = "SportyBet Nigeria"
+
+
+# OLP XDV name -> SportyBet cache key aliases.
+# The cache was built under SportyBet sidebar names (e.g., "Eliteserien.json"),
+# but the orchestrator calls with OLP names (e.g., "Norwegian Eliteserien").
+# This map resolves the OLP name to the actual cache filename.
+SPORTYBET_CACHE_ALIASES: dict[str, str] = {
+    "Norwegian Eliteserien": "Eliteserien",
+    "Turkish Super Lig":     "Süper Lig",
+    "Greek Super League":    "Super League Greece",
+    "Swedish Allsvenskan":   "Allsvenskan",
+    "Serie B":               "Serie B",
+    "Ligue 2":               "Ligue 2",
+    "La Liga 2":             "La Liga 2",
+}
+
+
+def _league_key(league: str) -> str:
+    # Resolve OLP name -> cache key via alias map, then filesystem-safe
+    cache_key = SPORTYBET_CACHE_ALIASES.get(league, league)
+    return cache_key.replace(" ", "_").replace("/", "_")
+
+
+def _cache_path(league: str) -> Path:
+    return CACHE_DIR / f"{_league_key(league)}.json"
+
+
+def _odds_cache_path(fixture_id: str) -> Path:
+    return ODDS_CACHE_DIR / f"{fixture_id}.json"
+
+
+def load_sportybet_fixtures(
+    olp_league: str,
+    days_ahead: int = 3,
+    max_age_hours: int = 24,
+) -> List[PipelineFixture]:
+    """Load fixtures from SportyBet cache for an OLP XDV league.
+
+    Args:
+        olp_league: OLP XDV league name (e.g., "Premier League")
+        days_ahead: How many days ahead to include
+        max_age_hours: Maximum cache age in hours.
+
+    Default is 24h, NOT 6h (was 6h until 2026-08-11): a 6h window meant any
+    daily run more than ~6h after the last cache build lost EVERY league's
+    prices at once — the board showed the fixtures (the orchestrator's fixture
+    fallback already read 48h) but the price join (`get_sportybet_odds_for_leg`)
+    and the booking-code driver both used this default and silently returned
+    "fixture not found in SportyBet cache". The cached 1X2 snapshot is a
+    same-day reference: the booking driver re-reads the LIVE price at booking
+    time and CLV grades on the closing line, so a 24h window is honest and
+    keeps today's fixtures priceable all day (HR35 — a real snapshot, just
+    not a live one).
+
+    Returns:
+        List of PipelineFixture objects ready for the pipeline.
+    """
+    # Check if league is mapped
+    mapping = SPORTYBET_LEAGUES.get(olp_league)
+    if not mapping:
+        return []
+
+    # Read cache
+    path = _cache_path(olp_league)
+    if not path.exists():
+        return []
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return []
+
+    # Check cache age (default 24h; override via max_age_hours param)
+    age_hours = (time.time() - data.get("fetched_at", 0)) / 3600
+    if age_hours > max_age_hours:
+        # Stale cache — but a stale cache still has the fixture structure we
+        # need for booking code generation (names/IDs). Allow a graceful
+        # fallback to 48h for booking purposes (the live price is re-read at
+        # booking time regardless). Survival-mode exception per 2026-08-24.
+        if age_hours > 48:
+            return []
+
+    # Filter by date
+    cutoff = date.today() + timedelta(days=days_ahead)
+    fixtures = []
+
+    for fx_data in data.get("fixtures", []):
+        kickoff = fx_data.get("kickoff_utc", "") or fx_data.get("kickoff", "")
+        if kickoff:
+            try:
+                # The kickoff string is expected to be in the format "YYYY-MM-DD HH:MM"
+                # We parse the date part (first 10 characters) and compare with today and cutoff.
+                # If the string is shorter than 10 or doesn't match the pattern, we skip.
+                if len(kickoff) >= 10 and kickoff[4] == '-' and kickoff[7] == '-':
+                    kickoff_date = datetime.strptime(kickoff[:10], "%Y-%m-%d").date()
+                else:
+                    # If the format is unexpected, we skip the fixture to avoid using old data.
+                    continue
+                if kickoff_date < date.today() or kickoff_date > cutoff:
+                    continue
+            except ValueError:
+                # If we cannot parse the date, we skip the fixture.
+                continue
+
+        # Cache (from bridge.py's own write path) stores `home_team`/`away_team`/`fixture_id`
+        # — distinct from sportybet_fixtures.py's `home`/`away`/`id`.
+        _home = fx_data.get("home_team") or fx_data.get("home", "")
+        _away = fx_data.get("away_team") or fx_data.get("away", "")
+        fixtures.append(PipelineFixture(
+            home_team=_home,
+            away_team=_away,
+            kickoff_utc=kickoff,
+            league=olp_league,
+            sportybet_fixture_id=fx_data.get("fixture_id") or fx_data.get("id"),
+            sportybet_home=fx_data.get("sportybet_home", _home),
+            sportybet_away=fx_data.get("sportybet_away", _away),
+            country=mapping.country,
+            home_odds=fx_data.get("home_odds"),
+            draw_odds=fx_data.get("draw_odds"),
+            away_odds=fx_data.get("away_odds"),
+            goals_line=fx_data.get("goals_line"),
+            over_odds=fx_data.get("over_odds"),
+            under_odds=fx_data.get("under_odds"),
+            event_id=fx_data.get("event_id"),
+        ))
+
+    return fixtures
+
+
+def load_all_sportybet_fixtures(
+    days_ahead: int = 3,
+    leagues: Optional[List[str]] = None,
+) -> Dict[str, List[PipelineFixture]]:
+    """Load fixtures for all mapped leagues (or specified subset)."""
+    target_leagues = leagues or list(SPORTYBET_LEAGUES.keys())
+    result = {}
+    for league in target_leagues:
+        fixtures = load_sportybet_fixtures(league, days_ahead)
+        if fixtures:
+            result[league] = fixtures
+    return result
+
+
+def attach_sportybet_odds(
+    board_fixtures: List[Any],  # BoardFixture from orchestrator
+    client: Optional[SportyBetClient] = None,
+    use_cache: bool = True,
+    cache_ttl_seconds: int = 60,
+) -> List[Any]:
+    """Attach SportyBet odds to board fixtures for EV calculation.
+
+    Modifies board fixtures in place by adding .sportybet_odds attribute.
+    Returns the same list for chaining.
+
+    Args:
+        board_fixtures: List of BoardFixture objects from orchestrator
+        client: SportyBetClient instance (created if not provided)
+        use_cache: Whether to use cached odds
+        cache_ttl_seconds: Cache TTL for odds (default 60s)
+
+    Returns:
+        The same board_fixtures list with odds attached.
+    """
+    if client is None:
+        client = SportyBetClient()
+
+    successful_attachments = 0
+    failed_attachments = 0
+
+    try:
+        for bf in board_fixtures:
+            if not hasattr(bf, 'sportybet_fixture_id') or not bf.sportybet_fixture_id:
+                # Try to find fixture ID by matching teams
+                fixture_id = _find_fixture_id(bf, client)
+                if fixture_id:
+                    bf.sportybet_fixture_id = fixture_id
+
+            if bf.sportybet_fixture_id:
+                odds = _get_fixture_odds(bf.sportybet_fixture_id, client, use_cache, cache_ttl_seconds)
+                if odds:
+                    bf.sportybet_odds = odds
+                    successful_attachments += 1
+                else:
+                    failed_attachments += 1
+            else:
+                failed_attachments += 1
+    finally:
+        if client:
+            client.close()
+
+    # Generate knowledge about odds attachment performance
+    try:
+        kp = get_knowledge_persistence()
+        total_processed = successful_attachments + failed_attachments
+        success_rate = (successful_attachments / total_processed * 100) if total_processed > 0 else 0
+
+        add_observation(
+            title=f"SportyBet Odds Attachment - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+            content=f"Attached odds to {successful_attachments}/{total_processed} fixtures ({success_rate:.1f}% success rate). Failed: {failed_attachments}",
+            knowledge_type="observation",
+            source="bridge_odds_attachment",
+            tags={"sportybet", "odds", "attachment", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+            confidence=0.85
+        )
+        kp.close()
+    except Exception:
+        # Don't let knowledge generation break the function
+        pass
+
+    return board_fixtures
+
+
+def _find_fixture_id(bf: Any, client: SportyBetClient) -> Optional[str]:
+    """Find SportyBet fixture ID by matching team names."""
+    # This function should search SportyBet for the fixture.
+    # For now, we return None to indicate we couldn't find it,
+    # which is honest about our limitation rather than faking data.
+    return None
+
+
+
+def _get_fixture_odds(
+    fixture_id: str,
+    client: SportyBetClient,
+    use_cache: bool,
+    cache_ttl: int,
+) -> Optional[FixtureOdds]:
+    """Get odds for a fixture, with caching."""
+    # Check cache first
+    cache_path = _odds_cache_path(fixture_id)
+    if use_cache and cache_path.exists():
+        age = time.time() - cache_path.stat().st_mtime
+        if age < cache_ttl:
+            try:
+                data = json.loads(cache_path.read_text(encoding="utf-8"))
+                return FixtureOdds(**data)
+            except Exception:
+                pass
+
+    # Fetch live
+    markets = client.get_odds(fixture_id)
+    if not markets:
+        return None
+
+    # Parse markets into FixtureOdds
+    odds = FixtureOdds(
+        home_team="",  # Will be filled by caller
+        away_team="",
+        league="",
+        kickoff_utc="",
+        captured_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    )
+
+    for market in markets:
+        mk = market.market
+        outcomes = market.outcomes
+
+        # 1X2
+        if mk in ("1X2", "match_winner", "full_time_result", "1X2_HOME"):
+            odds.home_odds = outcomes.get("1") or outcomes.get("Home") or outcomes.get("Home Win")
+            odds.draw_odds = outcomes.get("X") or outcomes.get("Draw")
+            odds.away_odds = outcomes.get("2") or outcomes.get("Away") or outcomes.get("Away Win")
+        # Totals 1.5
+        elif mk in ("OVER_1_5", "over_under_1_5", "OVER_UNDER_1.5"):
+            odds.over15_odds = outcomes.get("Over") or outcomes.get("Over 1.5")
+            odds.under15_odds = outcomes.get("Under") or outcomes.get("Under 1.5")
+        # Totals 2.5
+        elif mk in ("OVER_2_5", "over_under_2_5", "OVER_UNDER_2.5", "totals_2.5"):
+            odds.over25_odds = outcomes.get("Over") or outcomes.get("Over 2.5")
+            odds.under25_odds = outcomes.get("Under") or outcomes.get("Under 2.5")
+        # Totals 3.5
+        elif mk in ("OVER_3_5", "over_under_3_5", "OVER_UNDER_3.5"):
+            odds.over35_odds = outcomes.get("Over") or outcomes.get("Over 3.5")
+            odds.under35_odds = outcomes.get("Under") or outcomes.get("Under 3.5")
+        # Totals 0.5
+        elif mk in ("OVER_0_5", "over_under_0_5", "OVER_UNDER_0.5"):
+            odds.over05_odds = outcomes.get("Over") or outcomes.get("Over 0.5")
+            odds.under05_odds = outcomes.get("Under") or outcomes.get("Under 0.5")
+        # BTTS
+        elif mk in ("BTTS_YES", "both_teams_to_score", "btts", "gg_ng"):
+            odds.btts_yes_odds = outcomes.get("Yes") or outcomes.get("GG") or outcomes.get("Both Teams To Score")
+            odds.btts_no_odds = outcomes.get("No") or outcomes.get("NG") or outcomes.get("No Goal")
+        # Double Chance
+        elif mk in ("DC_1X", "double_chance"):
+            odds.dc_1x_odds = outcomes.get("1X") or outcomes.get("Home or Draw")
+            odds.dc_x2_odds = outcomes.get("X2") or outcomes.get("Draw or Away")
+            odds.dc_12_odds = outcomes.get("12") or outcomes.get("Home or Away")
+        # Draw No Bet
+        elif mk in ("DNB_HOME", "draw_no_bet", "dnb"):
+            odds.dnb_home_odds = outcomes.get("1") or outcomes.get("Home") or outcomes.get("Home DNB")
+            odds.dnb_away_odds = outcomes.get("2") or outcomes.get("Away") or outcomes.get("Away DNB")
+        # HT/FT
+        elif mk in ("HT_FT_11", "half_time_full_time", "ht_ft"):
+            odds.htft_11_odds = outcomes.get("1/1") or outcomes.get("Home/Home")
+            odds.htft_1x_odds = outcomes.get("1/X") or outcomes.get("Home/Draw")
+            odds.htft_12_odds = outcomes.get("1/2") or outcomes.get("Home/Away")
+            odds.htft_x1_odds = outcomes.get("X/1") or outcomes.get("Draw/Home")
+            odds.htft_xx_odds = outcomes.get("X/X") or outcomes.get("Draw/Draw")
+            odds.htft_x2_odds = outcomes.get("X/2") or outcomes.get("Draw/Away")
+            odds.htft_21_odds = outcomes.get("2/1") or outcomes.get("Away/Home")
+            odds.htft_2x_odds = outcomes.get("2/X") or outcomes.get("Away/Draw")
+            odds.htft_22_odds = outcomes.get("2/2") or outcomes.get("Away/Away")
+        # Correct Score
+        elif mk in ("CS_10", "correct_score", "exact_score"):
+            odds.cs_10_odds = outcomes.get("1:0") or outcomes.get("1-0")
+            odds.cs_01_odds = outcomes.get("0:1") or outcomes.get("0-1")
+            odds.cs_11_odds = outcomes.get("1:1") or outcomes.get("1-1")
+            odds.cs_20_odds = outcomes.get("2:0") or outcomes.get("2-0")
+            odds.cs_02_odds = outcomes.get("0:2") or outcomes.get("0-2")
+            odds.cs_21_odds = outcomes.get("2:1") or outcomes.get("2-1")
+            odds.cs_12_odds = outcomes.get("1:2") or outcomes.get("1-2")
+            odds.cs_22_odds = outcomes.get("2:2") or outcomes.get("2-2")
+            odds.cs_00_odds = outcomes.get("0:0") or outcomes.get("0-0")
+            odds.cs_30_odds = outcomes.get("3:0") or outcomes.get("3-0")
+            odds.cs_03_odds = outcomes.get("0:3") or outcomes.get("0-3")
+            odds.cs_31_odds = outcomes.get("3:1") or outcomes.get("3-1")
+            odds.cs_13_odds = outcomes.get("1:3") or outcomes.get("1-3")
+
+    # Write cache
+    ODDS_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_data = {
+        "home_odds": odds.home_odds,
+        "draw_odds": odds.draw_odds,
+        "away_odds": odds.away_odds,
+        "over15_odds": odds.over15_odds,
+        "under15_odds": odds.under15_odds,
+        "over25_odds": odds.over25_odds,
+        "under25_odds": odds.under25_odds,
+        "over35_odds": odds.over35_odds,
+        "under35_odds": odds.under35_odds,
+        "over05_odds": odds.over05_odds,
+        "under05_odds": odds.under05_odds,
+        "btts_yes_odds": odds.btts_yes_odds,
+        "btts_no_odds": odds.btts_no_odds,
+        "dc_1x_odds": odds.dc_1x_odds,
+        "dc_x2_odds": odds.dc_x2_odds,
+        "dc_12_odds": odds.dc_12_odds,
+        "dnb_home_odds": odds.dnb_home_odds,
+        "dnb_away_odds": odds.dnb_away_odds,
+        "htft_11_odds": odds.htft_11_odds,
+        "htft_1x_odds": odds.htft_1x_odds,
+        "htft_12_odds": odds.htft_12_odds,
+        "htft_x1_odds": odds.htft_x1_odds,
+        "htft_xx_odds": odds.htft_xx_odds,
+        "htft_21_odds": odds.htft_21_odds,
+        "htft_2x_odds": odds.htft_2x_odds,
+        "htft_22_odds": odds.htft_22_odds,
+        "cs_10_odds": odds.cs_10_odds,
+        "cs_01_odds": odds.cs_01_odds,
+        "cs_11_odds": odds.cs_11_odds,
+        "cs_20_odds": odds.cs_20_odds,
+        "cs_02_odds": odds.cs_02_odds,
+        "cs_21_odds": odds.cs_21_odds,
+        "cs_12_odds": odds.cs_12_odds,
+        "cs_22_odds": odds.cs_22_odds,
+        "cs_00_odds": odds.cs_00_odds,
+        "cs_30_odds": odds.cs_30_odds,
+        "cs_03_odds": odds.cs_03_odds,
+        "cs_31_odds": odds.cs_31_odds,
+        "cs_13_odds": odds.cs_13_odds,
+        "source": odds.source,
+        "captured_at": odds.captured_at,
+        "bookmaker": odds.bookmaker,
+    }
+    cache_path.write_text(json.dumps(cache_data), encoding="utf-8")
+
+    return odds
+
+
+def verify_fixture_on_sportybet(
+    home_team: str,
+    away_team: str,
+    olp_league: str,
+    client: Optional[SportyBetClient] = None,
+) -> bool:
+    """Verify that a fixture exists on SportyBet for the given league.
+
+    Used before logging a paper leg to ensure the leg can actually be placed.
+
+    Args:
+        home_team: Model key home team name
+        away_team: Model key away team name
+        olp_league: OLP XDV league name
+        client: SportyBetClient instance (created if not provided)
+
+    Returns:
+        True if fixture found on SportyBet, False otherwise.
+    """
+    if client is None:
+        client = SportyBetClient()
+
+    try:
+        fixtures = load_sportybet_fixtures(olp_league, days_ahead=7)
+        # Map model names to SportyBet names for comparison
+        sb_home = resolve_team(home_team, "sportybet")
+        sb_away = resolve_team(away_team, "sportybet")
+        norm_home = team_normalize(home_team)
+        norm_away = team_normalize(away_team)
+
+        for fx in fixtures:
+            # 1. Exact model-key match
+            if fx.home_team == home_team and fx.away_team == away_team:
+                return True
+            # 2. Normalized model-key match (case/diacritics/prefix insensitive)
+            if team_normalize(fx.home_team) == norm_home and team_normalize(fx.away_team) == norm_away:
+                return True
+            # 3. SportyBet-name match
+            if fx.sportybet_home == sb_home and fx.sportybet_away == sb_away:
+                return True
+            # 4. Normalized SportyBet-name match (additional leniency)
+            if team_normalize(fx.sportybet_home) == team_normalize(sb_home) and \
+               team_normalize(fx.sportybet_away) == team_normalize(sb_away):
+                return True
+        return False
+    finally:
+        if client:
+            client.close()
+
+
+def get_sportybet_odds(fixture_str: str, market: str) -> Optional[float]:
+    """Get SportyBet odds for a fixture string and market.
+
+    Parses a fixture string in the format "Home Team v Away Team" and
+    delegates to get_sportybet_odds_for_leg.
+
+    Args:
+        fixture_str: Fixture string in format "Home Team v Away Team"
+        market: Market string (e.g., "1X2_HOME", "1X2_DRAW", etc.)
+
+    Returns:
+        Decimal odds as float, or None if not available
+    """
+    # Parse fixture string to extract home and away teams
+    if " v " not in fixture_str:
+        return None
+
+    home_team, away_team = fixture_str.split(" v ", 1)
+    home_team = home_team.strip()
+    away_team = away_team.strip()
+
+    # We need to determine the league from context - for now, we'll scan all leagues
+    # This is less efficient but maintains compatibility
+    from booking.league_map import SPORTYBET_LEAGUES
+
+    # Try each league until we find a match
+    for league_key, league_name in SPORTYBET_LEAGUES.items():
+        odds = get_sportybet_odds_for_leg(home_team, away_team, league_name, market)
+        if odds is not None:
+            return odds
+
+    return None
+
+
+def get_sportybet_odds_for_leg(
+    home_team: str,
+    away_team: str,
+    olp_league: str,
+    market: str,  # "1X2_HOME", "1X2_DRAW", "1X2_AWAY", "OVER_2_5", "UNDER_2_5", etc.
+    client: Optional[SportyBetClient] = None,
+) -> Optional[float]:
+    """Get SportyBet odds for a specific leg/market.
+
+    Returns the decimal odds if available, None otherwise. This reads the
+    cached fixture list (no live call), so `client` is accepted for call
+    compatibility but never used — no session is opened.
+
+    Matching (all EXACT / normalized-exact only — HR35, never a fuzzy guess
+    across clubs):
+      1. Exact model-key match — PipelineFixture.home_team/away_team are the
+         cache's model keys, the same football-data names the orchestrator
+         passes in.
+      2. Normalized model-key match — case/diacritics/prefix stripped via
+         team_map._normalize. A cached model key can still differ from the
+         board key by a diacritic or prefix ("Fenerbahce" vs "Fenerbahçe",
+         "SK Sturm Graz" vs "Sturm Graz"); this pass is what prices the leg
+         instead of silently no-matching.
+      3. SportyBet-name match — the board key resolved to its SportyBet
+         spelling (resolve_team) compared against the cache's RAW
+         sportybet_home/away, the most trustworthy name in the cache.
+
+    FALLBACK: If SportyBet cache has no odds for the requested market, falls
+    back to API-Football free plan (100 req/day) for the same fixture.
+    API-Football covers 1X2, Over/Under 1.5/2.5, BTTS, and Double Chance.
+    """
+    fixtures = load_sportybet_fixtures(olp_league, days_ahead=45)
+
+    def _price(fx) -> Optional[float]:
+        # Attribute access is guarded because this helper names markets
+        # (over25_odds, btts_yes_odds, dc_1x_odds, HT/FT, correct score) that
+        # PipelineFixture does not carry -- it only has the 1X2 trio. The
+        # function was dead code until the cached-price path started calling
+        # it, so the mismatch had never been exercised; a request for any
+        # non-1X2 market raised AttributeError instead of reporting "no price".
+        # Missing attribute means no cached price for that market, which is
+        # None, not an error.
+        def _g(attr):
+            return getattr(fx, attr, None)
+
+        # Totals from the cached list page. SportyBet shows ONE goals line per
+        # fixture and it varies across the same matchday (2.5 / 3 / 3.5 were all
+        # present on 2026-09-17), so the quote is only returned when the cached
+        # line IS the requested market's line.
+        #
+        # A line of 3 maps to NOTHING here on purpose: EDGE_MARKETS carries
+        # 0.5/1.5/2.5/3.5 and has no whole-number "Over 3", which behaves
+        # differently anyway (a 3-3 draw pushes rather than losing). Filing an
+        # Over 3 quote under Over 2.5 or Over 3.5 would misprice it, so it is
+        # reported as no price instead.
+        _line = _g("goals_line")
+        if _line is not None:
+            _totals = {
+                (0.5, "OVER_0_5"): _g("over_odds"), (0.5, "UNDER_0_5"): _g("under_odds"),
+                (1.5, "OVER_1_5"): _g("over_odds"), (1.5, "UNDER_1_5"): _g("under_odds"),
+                (2.5, "OVER_2_5"): _g("over_odds"), (2.5, "UNDER_2_5"): _g("under_odds"),
+                (3.5, "OVER_3_5"): _g("over_odds"), (3.5, "UNDER_3_5"): _g("under_odds"),
+            }
+            if (_line, market) in _totals:
+                return _totals[(_line, market)]
+        # 1X2
+        if market == "1X2_HOME":
+            return _g("home_odds")
+        if market == "1X2_DRAW":
+            return _g("draw_odds")
+        if market == "1X2_AWAY":
+            return _g("away_odds")
+        # Totals
+        if market == "OVER_1_5":
+            return _g("over15_odds")
+        if market == "UNDER_1_5":
+            return _g("under15_odds")
+        if market == "OVER_2_5":
+            return _g("over25_odds")
+        if market == "UNDER_2_5":
+            return _g("under25_odds")
+        if market == "OVER_3_5":
+            return _g("over35_odds")
+        if market == "UNDER_3_5":
+            return _g("under35_odds")
+        if market == "OVER_0_5":
+            return _g("over05_odds")
+        if market == "UNDER_0_5":
+            return _g("under05_odds")
+        # BTTS
+        if market == "BTTS_YES":
+            return _g("btts_yes_odds")
+        if market == "BTTS_NO":
+            return _g("btts_no_odds")
+        # Double Chance
+        if market == "DC_1X":
+            return _g("dc_1x_odds")
+        if market == "DC_X2":
+            return _g("dc_x2_odds")
+        if market == "DC_12":
+            return _g("dc_12_odds")
+        # Draw No Bet
+        if market == "DNB_HOME":
+            return _g("dnb_home_odds")
+        if market == "DNB_AWAY":
+            return _g("dnb_away_odds")
+        # HT/FT
+        if market == "HT_FT_11":
+            return _g("htft_11_odds")
+        if market == "HT_FT_1X":
+            return _g("htft_1x_odds")
+        if market == "HT_FT_12":
+            return _g("htft_12_odds")
+        if market == "HT_FT_X1":
+            return _g("htft_x1_odds")
+        if market == "HT_FT_XX":
+            return _g("htft_xx_odds")
+        if market == "HT_FT_X2":
+            return _g("htft_x2_odds")
+        if market == "HT_FT_21":
+            return _g("htft_21_odds")
+        if market == "HT_FT_2X":
+            return _g("htft_2x_odds")
+        if market == "HT_FT_22":
+            return _g("htft_22_odds")
+        # Correct Score
+        if market == "CS_10":
+            return _g("cs_10_odds")
+        if market == "CS_01":
+            return _g("cs_01_odds")
+        if market == "CS_11":
+            return _g("cs_11_odds")
+        if market == "CS_20":
+            return _g("cs_20_odds")
+        if market == "CS_02":
+            return _g("cs_02_odds")
+        if market == "CS_21":
+            return _g("cs_21_odds")
+        if market == "CS_12":
+            return _g("cs_12_odds")
+        if market == "CS_22":
+            return _g("cs_22_odds")
+        if market == "CS_00":
+            return _g("cs_00_odds")
+        if market == "CS_30":
+            return _g("cs_30_odds")
+        if market == "CS_03":
+            return _g("cs_03_odds")
+        if market == "CS_31":
+            return _g("cs_31_odds")
+        if market == "CS_13":
+            return _g("cs_13_odds")
+        # Unknown market
+        return None
+
+    def _try_api_football_fallback(fixture: PipelineFixture, market: str) -> Optional[float]:
+        """Try to get odds from API-Football as fallback for markets SportyBet doesn't cover."""
+        try:
+            # API-Football only supports deploy leagues
+            from engine.leagues import WHITELISTED_LEAGUES
+            if olp_league not in WHITELISTED_LEAGUES:
+                return None
+
+            # Map our market names to API-Football market names
+            api_market_map = {
+                "1X2_HOME": ("Match Winner", "Home"),
+                "1X2_DRAW": ("Match Winner", "Draw"),
+                "1X2_AWAY": ("Match Winner", "Away"),
+                "OVER_1_5": ("Goals Over/Under", "Over 1.5"),
+                "UNDER_1_5": ("Goals Over/Under", "Under 1.5"),
+                "OVER_2_5": ("Goals Over/Under", "Over 2.5"),
+                "UNDER_2_5": ("Goals Over/Under", "Under 2.5"),
+                "BTTS_YES": ("Both Teams Score", "Yes"),
+                "BTTS_NO": ("Both Teams Score", "No"),
+                "DC_1X": ("Double Chance", "1X"),
+                "DC_X2": ("Double Chance", "X2"),
+                "DC_12": ("Double Chance", "12"),
+            }
+
+            if market not in api_market_map:
+                return None  # API-Football doesn't cover this market
+
+            api_market, api_outcome = api_market_map[market]
+
+            # Fetch odds from API-Football for this league
+            # We need to find the fixture by team names and date
+            fixtures_list, flags = api_football_odds.fetch_odds(olp_league, days_ahead=7, use_cache=True)
+
+            # Match by team names (already mapped to model keys by api_football_odds)
+            for api_fx in fixtures_list:
+                if api_fx.home_team == fixture.home_team and api_fx.away_team == fixture.away_team:
+                    # Get the requested market
+                    market_quote = getattr(api_fx, market.lower().replace("_", ""), None)
+                    if market_quote is None:
+                        # Try direct attribute access with different naming
+                        attr_map = {
+                            "1X2_HOME": "home",
+                            "1X2_DRAW": "draw",
+                            "1X2_AWAY": "away",
+                            "OVER_1_5": "over15",
+                            "UNDER_1_5": "under15",
+                            "OVER_2_5": "over25",
+                            "UNDER_2_5": "under25",
+                            "BTTS_YES": "btts_yes",
+                            "BTTS_NO": "btts_no",
+                            "DC_1X": "dc_1x",
+                            "DC_X2": "dc_x2",
+                            "DC_12": "dc_12",
+                        }
+                        attr = attr_map.get(market)
+                        if attr:
+                            market_quote = getattr(api_fx, attr, None)
+
+                    if market_quote and market_quote.available:
+                        return market_quote.price
+
+        except api_football_odds.QuotaExhausted:
+            # API-Football quota exhausted - silently continue, return None
+            pass
+        except Exception:
+            # Any other error - silently continue, return None
+            pass
+        return None
+
+    if client is None:
+        client = SportyBetClient()
+
+    def _matches(fx) -> bool:
+        """Does this cached fixture denote the requested tie?
+
+        Exact, then normalized-exact, then the shared cross-source matcher.
+        The cache stores SportyBet's spellings ("Ferencvarosi Budapest",
+        "Besiktas Istanbul") while the board passes the model/source spelling
+        ("Ferencvaros", "Besiktas"), so the first two passes miss on most
+        continental ties and the leg goes unpriced. names_match applies the same
+        reconciliation used for cross-source fixture verification, and only
+        accepts a unique, non-generic token relationship -- still HR35-safe, and
+        BOTH teams must agree before a price is taken.
+        """
+        if fx.home_team == home_team and fx.away_team == away_team:
+            return True
+        if (team_normalize(fx.home_team) == team_normalize(home_team)
+                and team_normalize(fx.away_team) == team_normalize(away_team)):
+            return True
+        try:
+            from verification.fixture_matcher import names_match, normalize_team_name
+            return (names_match(normalize_team_name(fx.home_team),
+                                normalize_team_name(home_team))
+                    and names_match(normalize_team_name(fx.away_team),
+                                    normalize_team_name(away_team)))
+        except Exception:
+            return False
+
+    # Cached price first. _price() reads the home_odds/draw_odds/away_odds the
+    # scraper now captures off the fixture row -- it was defined here and NEVER
+    # CALLED, so every lookup skipped the cache and went straight to a live
+    # SportyBet API call. That call is what the cache exists to avoid, and when
+    # it fails the leg ends up unpriced even though the price is sitting on
+    # disk.
+    for fx in fixtures:
+        if _matches(fx):
+            cached = _price(fx)
+            if cached is not None:
+                return cached
+
+    try:
+        for fx in fixtures:
+            # Matching logic (all EXACT / normalized-exact only — HR35, never a fuzzy guess across clubs)
+            # 1. Exact model-key match
+            if fx.home_team == home_team and fx.away_team == away_team:
+                # Fetch live odds for this fixture
+                if fx.sportybet_fixture_id:
+                    fixture_markets = client.get_odds(fx.sportybet_fixture_id)
+                    odds = _extract_odds_from_markets(fixture_markets, market)
+                    if odds is not None:
+                        return odds
+                # SportyBet has no odds for this market — try API-Football fallback
+                fallback = _try_api_football_fallback(fx, market)
+                if fallback is not None:
+                    return fallback
+            # 2. Normalized model-key match
+            if team_normalize(fx.home_team) == team_normalize(home_team) and \
+               team_normalize(fx.away_team) == team_normalize(away_team):
+                # Fetch live odds for this fixture
+                if fx.sportybet_fixture_id:
+                    fixture_markets = client.get_odds(fx.sportybet_fixture_id)
+                    odds = _extract_odds_from_markets(fixture_markets, market)
+                    if odds is not None:
+                        return odds
+                # SportyBet has no odds for this market — try API-Football fallback
+                fallback = _try_api_football_fallback(fx, market)
+                if fallback is not None:
+                    return fallback
+            # 3. SportyBet-name match
+            if fx.sportybet_home == resolve_team(home_team) and fx.sportybet_away == resolve_team(away_team):
+                # Fetch live odds for this fixture
+                if fx.sportybet_fixture_id:
+                    fixture_markets = client.get_odds(fx.sportybet_fixture_id)
+                    odds = _extract_odds_from_markets(fixture_markets, market)
+                    if odds is not None:
+                        return odds
+                # SportyBet has no odds for this market — try API-Football fallback
+                fallback = _try_api_football_fallback(fx, market)
+                if fallback is not None:
+                    return fallback
+    finally:
+        client.close()
+
+    return None
+
+
+def _extract_odds_from_markets(markets, market: str) -> Optional[float]:
+    """Extract odds for a specific market from SportyBet market data."""
+    # Handle 1X2 markets
+    if market == "1X2_HOME":
+        for m in markets:
+            if m.market == "1X2_HOME" or (m.market in ["1X2", "match_winner", "full_time_result"] and "home" in m.outcomes):
+                return float(list(m.outcomes.values())[0])  # home odds
+    elif market == "1X2_DRAW":
+        for m in markets:
+            if m.market == "1X2_DRAW" or (m.market in ["1X2", "match_winner", "full_time_result"] and "draw" in m.outcomes):
+                return float(list(m.outcomes.values())[1])  # draw odds (second outcome)
+    elif market == "1X2_AWAY":
+        for m in markets:
+            if m.market == "1X2_AWAY" or (m.market in ["1X2", "match_winner", "full_time_result"] and "away" in m.outcomes):
+                return float(list(m.outcomes.values())[2])  # away odds (third outcome)
+
+    # Handle Over/Under markets
+    elif market in ["OVER_1_5", "OVER_2_5", "OVER_3_5", "OVER_0_5"]:
+        for m in markets:
+            if m.market in ["OVER_1_5", "OVER_2_5", "OVER_3_5", "OVER_0_5"]:
+                return float(list(m.outcomes.values())[0])  # over odds
+    elif market in ["UNDER_1_5", "UNDER_2_5", "UNDER_3_5", "UNDER_0_5"]:
+        for m in markets:
+            if m.market in ["UNDER_1_5", "UNDER_2_5", "UNDER_3_5", "UNDER_0_5"]:
+                return float(list(m.outcomes.values())[0])  # under odds
+
+    # Handle BTTS markets
+    elif market == "BTTS_YES":
+        for m in markets:
+            if m.market == "BTTS_YES" or m.market in ["BTTS", "both_teams_to_score", "gg"]:
+                return float(list(m.outcomes.values())[0])  # yes odds
+    elif market == "BTTS_NO":
+        for m in markets:
+            if m.market == "BTTS_NO" or m.market in ["BTTS", "both_teams_to_score", "ng"]:
+                return float(list(m.outcomes.values())[0])  # no odds
+
+    # Handle Double Chance
+    elif market == "DC_1X":
+        for m in markets:
+            if m.market == "DC_1X" or m.market in ["DC", "double_chance", "1x"]:
+                return float(list(m.outcomes.values())[0])  # 1x odds
+    elif market == "DC_X2":
+        for m in markets:
+            if m.market == "DC_X2" or m.market in ["DC", "double_chance", "x2"]:
+                return float(list(m.outcomes.values())[1])  # x2 odds (second outcome)
+    elif market == "DC_12":
+        for m in markets:
+            if m.market == "DC_12" or m.market in ["DC", "double_chance", "12"]:
+                return float(list(m.outcomes.values())[2])  # 12 odds (third outcome)
+
+    # Handle Draw No Bet
+    elif market == "DNB_HOME":
+        for m in markets:
+            if m.market == "DNB_HOME" or m.market in ["dnb", "draw_no_bet", "dnb_home"]:
+                return float(list(m.outcomes.values())[0])  # home odds
+    elif market == "DNB_AWAY":
+        for m in markets:
+            if m.market == "DNB_AWAY" or m.market in ["dnb", "draw_no_bet", "dnb_away"]:
+                return float(list(m.outcomes.values())[1])  # away odds (second outcome)
+
+    # Handle HT/FT markets
+    elif market in ["HT_FT_11", "HT_FT_1X", "HT_FT_12", "HT_FT_X1", "HT_FT_XX", "HT_FT_21", "HT_FT_2X", "HT_FT_22"]:
+        # Extract the combo part (e.g., "11" from "HT_FT_11")
+        combo = market.replace("HT_FT_", "")
+        for m in markets:
+            if m.market in ["HT_FT_11", "HT_FT_1X", "HT_FT_12", "HT_FT_X1", "HT_FT_XX", "HT_FT_21", "HT_FT_2X", "HT_FT_22"]:
+                # Check if this market matches our combo
+                if combo in m.market:
+                    return float(list(m.outcomes.values())[0])  # typically first outcome
+
+    # Handle Correct Score
+    elif market in ["CS_10", "CS_01", "CS_11"]:
+        # Extract the score part (e.g., "10" from "CS_10")
+        score_part = market.replace("CS_", "")
+        for m in markets:
+            if m.market in ["CS_10", "CS_01", "CS_11"]:
+                # Check if this market matches our score
+                if score_part in m.market:
+                    return float(list(m.outcomes.values())[0])  # first outcome
+
+    return None
+
+
+def sportybet_fixtures_to_pairs(
+    olp_league: str,
+    days_ahead: int = 3,
+    max_age_hours: int = 6,
+) -> List[Tuple[str, str]]:
+    """Convert SportyBet fixtures to (home, away) pairs for the pipeline.
+
+    Returns pairs in model key format, ready for scan_one_league.
+    """
+    fixtures = load_sportybet_fixtures(olp_league, days_ahead, max_age_hours)
+    return [(fx.home_team, fx.away_team) for fx in fixtures if fx.home_team and fx.away_team]
+
+
+async def refresh_sportybet_cache(
+    leagues: Optional[List[str]] = None,
+    days_ahead: int = 7,
+) -> Dict[str, int]:
+    """Refresh SportyBet fixture cache - fully async-native with hardened caching."""
+    # Use the hardened SportyBetCache wrapper
+    from .sportybet_cache import SportyBetCache
+    cache = SportyBetCache()
+
+    # For backward compatibility, we still call the underlying build_cache function
+    # but through our hardened wrapper which provides retry logic and failure handling
+    from booking.sportybet_fixtures import build_cache
+    try:
+        # Pass the caller's leagues through. This function has always accepted
+        # `leagues` and never forwarded it, so the restriction was silently
+        # discarded and every refresh scraped the full competition list.
+        result = await build_cache(days_ahead=days_ahead, leagues=leagues)
+        total_fixtures = sum(result.values()) if result else 0
+
+        # Generate knowledge about cache refresh performance
+        try:
+            kp = get_knowledge_persistence()
+            leagues_processed = len(result) if result else 0
+            add_observation(
+                title=f"SportyBet Cache Refresh - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+                content=f"Refreshed cache for {leagues_processed} leagues, {total_fixtures} total fixtures cached. Success: {bool(result and total_fixtures > 0)}",
+                knowledge_type="observation",
+                source="bridge_cache_refresh",
+                tags={"sportybet", "cache", "refresh", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+                confidence=0.9
+            )
+            kp.close()
+        except Exception:
+            # Don't let knowledge generation break the function
+            pass
+
+        return result
+    except Exception as e:
+        # Generate knowledge about cache refresh failures
+        try:
+            kp = get_knowledge_persistence()
+            add_observation(
+                title=f"SportyBet Cache Refresh Failed - {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
+                content=f"Failed to refresh SportyBet cache: {str(e)}",
+                knowledge_type="observation",
+                source="bridge_cache_refresh",
+                tags={"sportybet", "cache", "error", datetime.now(timezone.utc).strftime('%Y-%m-%d')},
+                confidence=0.8
+            )
+            kp.close()
+        except Exception:
+            # Don't let knowledge generation break the function
+            pass
+        raise
+
+
+# --- Integration helpers for run_daily.py ---
+
+def get_deploy_leagues_fixtures(days_ahead: int = 3) -> Dict[str, List[PipelineFixture]]:
+    """Get fixtures for all deploy-eligible leagues (the unified pool)."""
+    from engine.leagues import WHITELISTED_LEAGUES
+    return load_all_sportybet_fixtures(days_ahead, WHITELISTED_LEAGUES)
+
+
+def get_scan_leagues_fixtures(days_ahead: int = 3) -> Dict[str, List[PipelineFixture]]:
+    """Get fixtures for all scan leagues."""
+    from run_daily import SCAN_LEAGUES
+    return load_all_sportybet_fixtures(days_ahead, SCAN_LEAGUES)

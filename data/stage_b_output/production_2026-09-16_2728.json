@@ -1,0 +1,61 @@
+{
+  "run_date": "2026-09-16",
+  "fixtures_season": "2728",
+  "stage_a_run_date": "2026-09-16",
+  "layer2": {
+    "compact": "PART 2 \u2014 COMPACT (fast-scan)\nFixture | Selected Pick | Booking Code\nFC Baltika Kaliningrad v Zenit St Petersburg (Russian Premier League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nManchester United v Brighton & Hove Albion (EFL Cup) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nLokomotiv Moscow v Krylia Sovetov (Russian Premier League) | Lokomotiv to win | NO DATA \u2014 PENDING\nOlympiacos v Jagiellonia Bialystok (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nEverton v Wolverhampton Wanderers (EFL Cup) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nFleetwood Town v Sheffield United (EFL Cup) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nHapoel Be'er Sheva v Dinamo Zagreb (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nBarcelona v Racing de Santander (La Liga) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nSpartak Moscow v Fakel Voronezh (Russian Premier League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nArarat-Armenia v Sparta Prague (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nA Coruna v Sevilla (La Liga) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nCoventry City v Aston Villa (EFL Cup) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nSK Sturm Graz v Stade Rennais (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nAtl. Madrid v Osasuna (La Liga) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nLevante v Athletic Club (La Liga) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nBayer Leverkusen v NK Celje (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nLugano v St. Gallen (Swiss Super League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nRodina Moscow v Kazan (Russian Premier League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nSunderland v AZ Alkmaar (Europa League) | Sunderland to win | NO DATA \u2014 PENDING\nOmonia Nicosia v Celta Vigo (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nAnderlecht v Lyon (Europa League) | Anderlecht to win | NO DATA \u2014 PENDING\nAC Milan v Benfica (Europa League) | Benfica to win | NO DATA \u2014 PENDING\nThun v Servette (Swiss Super League) | Thun to win | NO DATA \u2014 PENDING",
+    "full_scan": "PART 2 \u2014 THE SCAN\nFixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src\nFC Baltika Kaliningrad v Zenit St Petersburg (Russian Premier League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nManchester United v Brighton & Hove Albion (EFL Cup) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nLokomotiv Moscow v Krylia Sovetov (Russian Premier League) | Lokomotiv\u00b765% | O88 / O67 | 1X88 / Y61 | \u25cb\nOlympiacos v Jagiellonia Bialystok (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nEverton v Wolverhampton Wanderers (EFL Cup) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nFleetwood Town v Sheffield United (EFL Cup) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nHapoel Be'er Sheva v Dinamo Zagreb (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nBarcelona v Racing de Santander (La Liga) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nSpartak Moscow v Fakel Voronezh (Russian Premier League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nArarat-Armenia v Sparta Prague (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nA Coruna v Sevilla (La Liga) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nCoventry City v Aston Villa (EFL Cup) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nSK Sturm Graz v Stade Rennais (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nAtl. Madrid v Osasuna (La Liga) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nLevante v Athletic Club (La Liga) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nBayer Leverkusen v NK Celje (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nLugano v St. Gallen (Swiss Super League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nRodina Moscow v Kazan (Russian Premier League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nSunderland v AZ Alkmaar (Europa League) | Sunderland\u00b740% | O67 / U60 | 1270 / N54 | \u25cb\nOmonia Nicosia v Celta Vigo (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nAnderlecht v Lyon (Europa League) | Anderlecht\u00b747% | O80 / O57 | 1275 / Y60 | \u25cb\nAC Milan v Benfica (Europa League) | Benfica\u00b735% | NO DATA \u2014 PENDING / NO DATA \u2014 PENDING | 1268 / \u2014 | \u25cb\nThun v Servette (Swiss Super League) | Thun\u00b752% | NO DATA \u2014 PENDING / NO DATA \u2014 PENDING | 1X79 / \u2014 | \u25cb",
+    "fixtures_count": 23
+  },
+  "layer1": {
+    "table": "PART 1 \u2014 THE CALL \u2014 today's fixtures only\nNO DEPLOY-ELIGIBLE CALL this session \u2014 no deployable fixture kicks off today (a valid, honest result).",
+    "today_fixtures_count": 23
+  },
+  "acca_route": {
+    "acca_a": null,
+    "acca_a_legs": 0,
+    "acca_b": null,
+    "acca_b_legs": 0,
+    "slv": null,
+    "watchlist_count": 0
+  },
+  "the_pick": {
+    "fixture": null,
+    "market": null,
+    "price": null,
+    "edge": null,
+    "rationale": "No capital-eligible legs today"
+  },
+  "data_flags": [
+    "Russian Premier League: history served from cache",
+    "Russian Premier League: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Russian Premier League: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "EFL Cup: history served from cache",
+    "EFL Cup: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "EFL Cup: 15 fixture(s) skipped (not full-time or incomplete)",
+    "EFL Cup: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking",
+    "Europa League: history served from cache",
+    "Europa League: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)",
+    "Europa League: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.",
+    "Swiss Super League: history served from cache",
+    "Swiss Super League: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Swiss Super League: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested."
+  ],
+  "stats": {
+    "total_fixtures_stage_a": 23,
+    "total_fixtures_enriched": 23,
+    "today_fixtures": 23,
+    "deploy_eligible_today": 23,
+    "no_data_fixtures": 0,
+    "conflict_fixtures": 0,
+    "verified_fixtures": 0,
+    "single_source_fixtures": 23,
+    "acca_a_legs": 0,
+    "acca_b_legs": 0,
+    "slv": null,
+    "watchlist_count": 0
+  }
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "home": "Osasuna",
+    "away": "Getafe",
+    "league": "La Liga",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "Barcelona",
+    "away": "Rayo Vallecano",
+    "league": "La Liga",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "Burgos",
+    "away": "Real Sociedad II",
+    "league": "La Liga 2",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "Celta de Vigo II",
+    "away": "Castell\u00c3\u00b3n",
+    "league": "La Liga 2",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "Dijon",
+    "away": "Saint Etienne",
+    "league": "Ligue 2",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "Aston Villa",
+    "away": "Arsenal",
+    "league": "Premier League",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "Benfica",
+    "away": "Estoril",
+    "league": "Primeira Liga",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "SC Braga",
+    "away": "Vit\u00c3\u00b3ria SC",
+    "league": "Primeira Liga",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "Lecce",
+    "away": "AS Roma",
+    "league": "Serie A",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "Be\u00c5\u0178ikta\u00c5\u0178",
+    "away": "\u00c3\u2021orum FK",
+    "league": "Turkish Super Lig",
+    "date": "2026-08-31"
+  },
+  {
+    "home": "Amed",
+    "away": "Trabzonspor",
+    "league": "Turkish Super Lig",
+    "date": "2026-08-31"
+  }
+]

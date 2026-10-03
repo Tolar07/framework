@@ -1,0 +1,32 @@
+WHITELIST VERIFICATION FOR 2026-09-02 FIXTURES:
+
+✅ TODAY'S FIXTURES ARE IN THE WHITELIST
+
+All 6 Bundesliga fixtures are part of the ID401 whitelist (15 leagues total) as confirmed by:
+
+1. league.json (C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\config\leagues.json):
+   - Bundesliga is listed as a whitelisted league with "deploy_eligible": true
+
+2. softness_tier() classification (C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\.claude\worktrees\wf_70a2aa84-f81-1\engine\softness.py):
+   - Bundesliga has softness tier "C" (scan-only)
+   - DEPLOY_ELIGIBLE_TIERS = {"A", "B"} only
+   - Therefore: is_deploy_eligible(league) = False for Bundesliga
+
+3. board_2026-09-02.json verification:
+   - All 6 fixtures show "softness_tier": "C"
+   - No fixtures have softness tier A or B (deploy-eligible)
+
+WHISTLE-FILTERED FIXTURES:
+- Stuttgart v FC Koln (Bundesliga) - tier C, scan-only
+- Werder Bremen v RB Leipzig (Bundesliga) - tier C, scan-only
+- M'gladbach v Elversberg (Bundesliga) - tier C, scan-only (no data)
+- Hoffenheim v Dortmund (Bundesliga) - tier C, scan-only
+- Leverkusen v Union Berlin (Bundesliga) - tier C, scan-only
+- Schalke 04 v Bayern Munich (Bundesliga) - tier C, scan-only (no data)
+
+SYSTEM STATUS:
+- All fixtures are in whitelist ✅
+- All fixtures are scan-only (tier C) ✅
+- No deploy-eligible fixtures (A/B) present ❌
+- Therefore: AI survival principles not applicable (no win/loss outcomes possible)
+- System is in observation/scan-only mode only

@@ -1,0 +1,77 @@
+{
+  "run_date": "2026-09-17",
+  "fixtures_season": "2627",
+  "stage_a_run_date": "2026-09-17",
+  "layer2": {
+    "compact": "PART 2 \u2014 COMPACT (fast-scan)\nFixture | Selected Pick | Booking Code\nViktoria Plzen v Union St.-Gilloise (Europa League) | St. Gilloise to win | NO DATA \u2014 PENDING\nPFC Levski Sofia v Red Bull Salzburg (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nCrystal Palace v KKS Lech Poznan (Europa League) | Lech Poznan to win | NO DATA \u2014 PENDING\nDinamo Makhachkala v CSKA Moscow (Russian Premier League) | CSKA Moscow or Draw (double chance) | NO DATA \u2014 PENDING\nManchester City v Norwich City (EFL Cup) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nBesiktas Istanbul v Marseille (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nZeleznicar Pancevo v Red Star (Serbian Super Liga) | Red Star to win | NO DATA \u2014 PENDING\nReal Sociedad v AFC Bournemouth (Europa League) | Bournemouth or Draw (double chance) | NO DATA \u2014 PENDING\nAtyrau v Ordabasy Shymkent (Kazakhstan Premier League) | Atyrau to win | NO DATA \u2014 PENDING\nOFI Crete v TSG Hoffenheim (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nJuventus v NEC Nijmegen (Europa League) | Juventus to win | NO DATA \u2014 PENDING\nFC Astana v Kairat Almaty (Kazakhstan Premier League) | FC Astana or Draw (double chance) | NO DATA \u2014 PENDING\nLillestr\u00f8m v Torreense (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nFC Rostov v Dynamo Moscow (Russian Premier League) | Dynamo or Draw (double chance) | NO DATA \u2014 PENDING\nRuggell C v Balzers B (Liechtensteiner Cup) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nTobol v Yelimay Semey (Kazakhstan Premier League) | FK Tobol Kostanay to win | NO DATA \u2014 PENDING\nCeltic v Ferencvarosi Budapest (Europa League) | Celtic Draw No Bet | NO DATA \u2014 PENDING\nGazovik Orenburg v FC Krasnodar (Russian Premier League) | FC Krasnodar Draw No Bet | NO DATA \u2014 PENDING\nMalaga v Villarreal (La Liga) | Villarreal Draw No Bet | NO DATA \u2014 PENDING\nReal Betis v Getafe (La Liga) | Betis to win | NO DATA \u2014 PENDING\nLevadia v Tammeka (Estonian Meistriliiga) | FC Levadia Tallinn to win | NO DATA \u2014 PENDING\nAkron Togliatti v Akhmat Grozny (Russian Premier League) | Akron to win | NO DATA \u2014 PENDING",
+    "full_scan": "PART 2 \u2014 THE SCAN\nFixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src\nViktoria Plzen v Union St.-Gilloise (Europa League) | St. Gilloi\u00b755% | O76 / O52 | X279 / Y53 | \u2713\nPFC Levski Sofia v Red Bull Salzburg (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u2713\nCrystal Palace v KKS Lech Poznan (Europa League) | Lech Pozna\u00b739% | O73 / U53 | 1272 / Y52 | \u2713\nDinamo Makhachkala v CSKA Moscow (Russian Premier League) | CSKA Mosco\u00b748% | O51 / U78 | X286 / N70 | \u2713\nManchester City v Norwich City (EFL Cup) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u2713\nBesiktas Istanbul v Marseille (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u2713\nZeleznicar Pancevo v Red Star (Serbian Super Liga) | Red Star\u00b756% | NO DATA \u2014 PENDING / NO DATA \u2014 PENDING | X282 / \u2014 | \u2713\nReal Sociedad v AFC Bournemouth (Europa League) | Bournemout\u00b749% | O65 / U62 | X278 / N57 | \u2713\nAtyrau v Ordabasy Shymkent (Kazakhstan Premier League) | Atyrau\u00b742% | O59 / U67 | 1272 / N61 | \u2713\nOFI Crete v TSG Hoffenheim (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u2713\nJuventus v NEC Nijmegen (Europa League) | Juventus\u00b764% | O73 / U52 | 1X87 / N56 | \u2713\nFC Astana v Kairat Almaty (Kazakhstan Premier League) | FC Astana\u00b748% | O67 / U58 | 1275 / N54 | \u2713\nLillestr\u00f8m v Torreense (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u2713\nFC Rostov v Dynamo Moscow (Russian Premier League) | Dynamo\u00b747% | O86 / O63 | X275 / Y66 | \u2713\nRuggell C v Balzers B (Liechtensteiner Cup) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u2713\nTobol v Yelimay Semey (Kazakhstan Premier League) | FK Tobol K\u00b756% | O77 / O54 | 1279 / Y53 | \u2713\nCeltic v Ferencvarosi Budapest (Europa League) | Celtic\u00b780% | O94 / O82 | 1X92 / Y64 | \u2713\nGazovik Orenburg v FC Krasnodar (Russian Premier League) | FC Krasnod\u00b774% | O81 / O56 | X294 / N57 | \u2713\nMalaga v Villarreal (La Liga) | Villarreal\u00b762% | O58 / U69 | X289 / N71 | \u2713\nReal Betis v Getafe (La Liga) | Betis\u00b754% | O57 / U70 | 1X83 / N67 | \u2713\nLevadia v Tammeka (Estonian Meistriliiga) | FC Levadia\u00b776% | O75 / U50 | 1X94 / N66 | \u2713\nAkron Togliatti v Akhmat Grozny (Russian Premier League) | Akron\u00b751% | O82 / O55 | 1X80 / Y59 | \u2713",
+    "fixtures_count": 22
+  },
+  "layer1": {
+    "table": "PART 1 \u2014 THE CALL (full detail) \u2014 today's fixtures only\n5 deploy-eligible fixture(s) kicking off today (unified pool \u2014 all whitelisted leagues, no cap).\nPhase 3 \u2014 live capital (Architect-deployed) \u2014 capital ENABLED. Capital authority is the Architect's; this board never places a bet.\nFixture | H% | D% | A% | O1.5 | O2.5 | BTTS | Elo H/D/A | xG H/D/A | Mkt H/D/A | Cons | BestMkt | Price | MES EV | Trig | Src | Notes\nReal Sociedad v AFC Bournemouth (Europa League) | 22 | 29 | 49 | O65 | U62 | N57 | 22/28/50 | \u2014 | \u2014 | Bournemout 2/2 | Bournemouth or Draw (double chance) | 1.34 | +3.95% | \u2014 | \u2713 | \nFC Astana v Kairat Almaty (Kazakhstan Premier League) | 48 | 25 | 27 | O67 | U58 | N54 | 47/29/25 | \u2014 | \u2014 | FC Astana 2/2 | FC Astana or Draw (double chance) | 1.41 | +2.68% | \u2014 | \u2713 | \nFC Rostov v Dynamo Moscow (Russian Premier League) | 25 | 28 | 47 | O86 | O63 | Y66 | 21/27/52 | \u2014 | \u2014 | Dynamo 2/2 | Dynamo or Draw (double chance) | 1.35 | +1.86% | \u2014 | \u2713 | \nCeltic v Ferencvarosi Budapest (Europa League) | 80 | 12 | 8 | O94 | O82 | Y64 | 77/20/4 | \u2014 | \u2014 | Celtic 2/2 | Celtic Draw No Bet | 1.32 | +5.94% | \u2014 | \u2713 | \nGazovik Orenburg v FC Krasnodar (Russian Premier League) | 6 | 20 | 74 | O81 | O56 | N57 | 1/17/82 | \u2014 | \u2014 | FC Krasnod 2/2 | FC Krasnodar Draw No Bet | 1.35 | +7.52% | \u2014 | \u2713 | ",
+    "today_fixtures_count": 22
+  },
+  "acca_route": {
+    "acca_a": "Acca A",
+    "acca_a_legs": 5,
+    "acca_b": null,
+    "acca_b_legs": 0,
+    "slv": "FC Astana v Kairat Almaty",
+    "watchlist_count": 13
+  },
+  "the_pick": {
+    "fixture": "Gazovik Orenburg v FC Krasnodar",
+    "market": "FC Krasnodar Draw No Bet",
+    "price": 1.3520833333333333,
+    "edge": 0.1855,
+    "rationale": "Top leg of headline Acca A (highest canonical edge)"
+  },
+  "data_flags": [
+    "alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking",
+    "Europa League: history served from cache",
+    "Europa League: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)",
+    "Europa League: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.",
+    "Russian Premier League: history served from cache",
+    "Russian Premier League: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Russian Premier League: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "EFL Cup: history served from cache",
+    "EFL Cup: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "EFL Cup: 15 fixture(s) skipped (not full-time or incomplete)",
+    "EFL Cup: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "Serbian Super Liga: history served from cache",
+    "Serbian Super Liga: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Serbian Super Liga: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "Kazakhstan Premier League: history served from cache",
+    "Kazakhstan Premier League: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Kazakhstan Premier League: 26 fixture(s) skipped (not full-time or incomplete)",
+    "Kazakhstan Premier League: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "Liechtensteiner Cup: history served from cache",
+    "Liechtensteiner Cup: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Liechtensteiner Cup: 1 fixture(s) skipped (not full-time or incomplete)",
+    "Liechtensteiner Cup: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "Liechtensteiner Cup: fallback history too thin",
+    "Liechtensteiner Cup: NO DATA \u2014 PENDING (no history source)",
+    "La Liga: +57 current-season results from football-data.org",
+    "La Liga: normalised 97 club name(s) from football-data.org onto the base roster before merging",
+    "Estonian Meistriliiga: history served from cache",
+    "Estonian Meistriliiga: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Estonian Meistriliiga: 1 fixture(s) skipped (not full-time or incomplete)",
+    "Estonian Meistriliiga: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested."
+  ],
+  "stats": {
+    "total_fixtures_stage_a": 22,
+    "total_fixtures_enriched": 22,
+    "today_fixtures": 22,
+    "deploy_eligible_today": 22,
+    "no_data_fixtures": 0,
+    "conflict_fixtures": 0,
+    "verified_fixtures": 22,
+    "single_source_fixtures": 0,
+    "acca_a_legs": 5,
+    "acca_b_legs": 0,
+    "slv": "FC Astana v Kairat Almaty",
+    "watchlist_count": 13
+  }
+}

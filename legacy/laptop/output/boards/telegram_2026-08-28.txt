@@ -1,0 +1,50 @@
+PART 0 — HEADER
+Date: 2026-08-28 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: 2. Bundesliga, Belgian Pro League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey, Coppa Italia, Coupe de France, DFB-Pokal, EFL Cup, Eredivisie, Europa League, FA Cup, KNVB Beker, La Liga, La Liga 2, Ligue 1, Ligue 2, Premier League, Primeira Liga, Russian Premier League, Scottish Premiership, Serie A, Serie B, Swiss Super League, Taça de Portugal, Turkish Super Lig, UEFA Super Cup
+Calibration: 42 legs logged, mean CLV -10.21%
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.
+
+TABLE 1 — LAYER 2 FULL GRID
+Fixture | Selected Pick | Home to win | Draw | Away to win | Over 2.5 goals | Under 2.5 goals | Over 1.5 goals | Under 1.5 goals | Both teams to score — yes | Both teams to score — no | Home Draw No Bet | Away Draw No Bet | Over 3.5 goals | Under 3.5 goals | Over 0.5 goals | Under 0.5 goals | Home or Draw (double chance) | Away or Draw (double chance) | Home or Away (double chance) | HT/FT Home/Home | HT/FT Home/Draw | HT/FT Home/Away | HT/FT Draw/Home | HT/FT Draw/Draw | HT/FT Draw/Away | HT/FT Away/Home | HT/FT Away/Draw | HT/FT Away/Away | Correct Score 1-0 | Correct Score 0-1 | Correct Score 1-1 | Correct Score 2-0 | Correct Score 0-2 | Correct Score 2-1 | Correct Score 1-2 | Correct Score 2-2 | Correct Score 0-0 | Correct Score 3-0 | Correct Score 0-3 | Correct Score 3-1 | Correct Score 1-3 | Booking Code
+Wrexham v Birmingham (Championship) | Over 1.5 goals | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | —
+Alaves v Villarreal (La Liga) | Over 1.5 goals | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | —
+Montpellier v Boulogne (Ligue 2) | Montpellier or Boulogne (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | —
+Nancy v Dunkerque (Ligue 2) | Nancy or Dunkerque (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | —
+Laval v Grenoble (Ligue 2) | Both teams to score — no | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | —
+Rodez v PAU (Ligue 2) | Rodez or Draw (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | —
+Akron v CSKA Moscow (Russian Premier League) | CSKA Moscow to win | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | —
+AC Milan v Venezia (Serie A) | AC Milan to win | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | —
+Cremonese v Modena (Serie B) | Cremonese or Modena (double chance) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | —
+
+TABLE 2 — LAYER 1 COMPACT
+Fixture | Selected Pick | Model Prob | Price | Bookmaker | EV | Booking Code
+Wrexham v Birmingham (Championship) | Over 1.5 goals | 77% | 1.36 | Bet365 | +4.91% | —
+Alaves v Villarreal (La Liga) | Over 1.5 goals | 79% | 1.25 | Bet365 | -0.64% | —
+Montpellier v Boulogne (Ligue 2) | Montpellier or Boulogne (double chance) | 71% | 1.33 | Bet365 | -5.09% | —
+Nancy v Dunkerque (Ligue 2) | Nancy or Dunkerque (double chance) | 76% | 1.33 | Bet365 | +1.24% | —
+Laval v Grenoble (Ligue 2) | Both teams to score — no | 64% | 1.83 | Bet365 | +16.57% | —
+Rodez v PAU (Ligue 2) | Rodez or Draw (double chance) | 86% | 1.20 | Bet365 | +3.75% | —
+Akron v CSKA Moscow (Russian Premier League) | CSKA Moscow to win | 58% | 1.70 | Pinnacle | -1.60% | —
+AC Milan v Venezia (Serie A) | AC Milan to win | 66% | 1.45 | Bet365 | -4.13% | —
+Cremonese v Modena (Serie B) | Cremonese or Modena (double chance) | 75% | 1.36 | Bet365 | +2.50% | —
+
+TABLE 3 — ACCA ROUTE
+No capital-eligible accas generated.
+
+TABLE 4 — THE PICK
+PRIMARY SINGLE: Laval v Grenoble (Ligue 2)
+  Market: Both teams to score — no
+  Price: 1.83 (Bet365)
+  Model Prob: 64%
+  MES EV: +5.05%
+  Verification: ✓
+  Booking Code: —
+
+HONEST EDGE: This is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until deployed.
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.

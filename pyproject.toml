@@ -48,17 +48,31 @@ explicit_package_bases = true
 # Type-check only the gate files below; imported modules are read for types
 # but their own findings are not reported (most were never typed).
 follow_imports = "silent"
-# Gate scope: the data-hardening closure (retry, validation, loader, and its
-# engine dependency). monitor/data_quality.py left the gate on 2026-10-03: it is
-# laptop-line code written against laptop versions of the data modules. The rest of the repo is a
-# legacy untyped script framework with hundreds of benign `attr-defined`
-# findings; a green gate here catches real regressions in the modules whose
-# correctness is load-bearing without forcing a codebase-wide typing refactor.
+# Gate scope: live modules (the daily board's import graph and the revived
+# brain/monitor features) that already type-check clean. The rest of the
+# live code is untyped scripts with many benign findings; this keeps a green
+# gate that catches regressions in clean modules. Laptop-line code parked in
+# legacy/ (2026-10-03) is out of scope.
 files = [
-    "data/retry.py",
-    "data/validation.py",
     "data/football_data_source.py",
-    "engine/leagues.py",
+    "data/international_source.py",
+    "data/fotmob.py",
+    "engine/elo.py",
+    "engine/markets.py",
+    "engine/mes.py",
+    "engine/picks_ledger.py",
+    "engine/survivor.py",
+    "pipeline/odds_footballdata.py",
+    "pipeline/odds_sportybet.py",
+    "pipeline/sportybet_booking.py",
+    "verification/id403.py",
+    "verification/fixture_matcher.py",
+    "backtest/backtest_report.py",
+    "backtest/metrics_history.py",
+    "brain/report.py",
+    "monitor/run_monitor.py",
+    "monitor/alert_dispatcher.py",
+    "monitor/json_log.py",
 ]
 
 [tool.pytest.ini_options]

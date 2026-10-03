@@ -19,7 +19,7 @@
 
 | # | League | History (T1) | Fixtures (T2) | Live Odds (Sport Key) | xG (Understat) | Live Scores | Booking Map (SportyBet) |
 |---|--------|--------------|---------------|----------------------|----------------|-------------|------------------------|
-| 1 | Premier League | ✅ `E0` | ✅ thesportsdb (5558126822) | ✅ `soccer_epl` | ✅ `EPL` | ✅ | ✅ "England" / "Premier League" |
+| 1 | Premier League | ✅ `E0` | ✅ thesportsdb (key in .env) | ✅ `soccer_epl` | ✅ `EPL` | ✅ | ✅ "England" / "Premier League" |
 | 2 | La Liga | ✅ `SP1` | ✅ thesportsdb | ✅ `soccer_spain_la_liga` | ✅ `La_liga` | ✅ | ✅ "Spain" / "LaLiga" |
 | 3 | Serie A | ✅ `I1` | ✅ thesportsdb | ✅ `soccer_italy_serie_a` | ✅ `Serie_A` | ✅ | ✅ "Italy" / "Serie A" |
 | 4 | Bundesliga | ✅ `D1` | ✅ thesportsdb | ✅ `soccer_germany_bundesliga` | ✅ `Bundesliga` | ✅ | ✅ "Germany" / "Bundesliga" |

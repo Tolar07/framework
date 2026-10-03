@@ -7,7 +7,7 @@
 
 | Data Need | Source | Endpoint / Method | Key Required | Cost | League Coverage | Status | Notes / Recommendation |
 |---|---|---|---|---|---|---|---|
-| Primary fixtures | **TheSportsDB** | `eventsseason.php?id={league_id}&s={season}` | `THESPORTSDB_KEY` (free tier) | Free (shared key rate-limited; personal key 5558126822 in `.env`) | All 20 whitelisted + Champions/Europa/Conference/UEFA Super Cup | ✅ OK — but **season feed lags weeks** for UCL/EL qualifiers (July-only events visible in Aug) |
+| Primary fixtures | **TheSportsDB** | `eventsseason.php?id={league_id}&s={season}` | `THESPORTSDB_KEY` (free tier) | Free (shared key rate-limited; personal key <REDACTED> in `.env`) | All 20 whitelisted + Champions/Europa/Conference/UEFA Super Cup | ✅ OK — but **season feed lags weeks** for UCL/EL qualifiers (July-only events visible in Aug) |
 | Fallback 1 | **ESPN** (keyless) | `site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates=YYYYMMDD` | **None** | Free (unlimited) | All 20 whitelisted + UCL/UEL + AUT/HNL (slugs verified live 2026-08-07) | ✅ OK — T2 single-source, day-by-day fetch, reliable |
 | Fallback 2 | **API-Football** | `/fixtures?league={id}&season={year}&from={date}&to={date}` | `API_FOOTBALL_KEY` | Free: 100 req/day | All whitelisted (IDs resolved live via `/leagues`) | ✅ OK — free plan **only today±1 window**; paid plan widens window |
 | Fallback 3 | **The Odds API** (derived) | `/v4/sports/{sport_key}/odds?regions=uk&markets=h2h` | `ODDS_API_KEY` (paid) | Paid: 500 credits/mo | 15 leagues (SPORT_KEYS in pipeline/odds.py) | ✅ OK — fixture list is a by-product of odds pull; 6h cached |

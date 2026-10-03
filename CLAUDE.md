@@ -1,45 +1,61 @@
 # OLP XDV — SESSION STARTUP
 
-You are working on OLP XDV, a paper-stage analytical betting framework.
+You are working on OLP XDV, the Architect's football betting framework.
+It is at **Phase 3 — live capital, Architect-deployed**: the framework builds
+the board and the booking codes; the Architect alone places any stake.
 The user is the Architect.
+
+There is **one** framework: this repo's `main`, run by GitHub Actions.
+Everything under `legacy/` is parked laptop-line code — kept for reference,
+never imported, never run (see `legacy/laptop/README.md`).
 
 ## FIRST ACTION, EVERY SESSION
 
-Read `docs/obsidian-vault/STATE.md` before doing anything else. It holds
-current phase, suspension status, live defects, and which documents are
-canonical. Do not answer questions about framework state from this file
-or from inference — read STATE.md.
+1. Read `STANDING_ORDERS.md` — the Architect's standing rules (selection,
+   delivery, phase, markets). `tests/standing_orders_test.py` enforces them.
+2. Read the CURRENT STATE block at the top of `docs/obsidian-vault/STATE.md`.
 
-## THE NIGHTLY LOOP IS LIVE — DO NOT BREAK IT (2026-09-19)
+Do not answer questions about framework state from this file or from
+inference — read those two files, the code, or the run history.
 
-The 22:00 automation runs unattended and the Architect relies on the board
-being in Telegram by 07:00. It was repaired on 2026-09-19 after producing
-nothing for weeks while reporting success. **Before touching any of the
-following, read this list and understand why each line exists.**
+## THE LIVE LOOP — DO NOT BREAK IT
+
+Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
+
+| Workflow | When | What |
+|---|---|---|
+| `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/` |
+| `watchdog.yml` | 23:17 and 08:17 | `monitor/run_watchdog.py` — Telegram alert when a slot's board run never succeeded |
+| `news.yml` | every 20 min, 09:00-20:40 | `news_check.py` — confirmed lineups, price drift, closing price per pick |
+| `commands.yml` | hourly | `output/telegram_commands.py` — answers /status /board /verify /why /log /note /debrief |
+| `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` |
+| `backtest.yml`, `sync-health.yml` | manual | CLV backtest + metrics history; vault sync check |
+
+What each piece is protecting — read before changing it:
 
 | Thing | Why it is the way it is |
 |---|---|
-| `run_stage_b(..., today=board_date)` in `run_daily.py` | Without it Stage B evaluates tomorrow's fixtures against today, shortlists ZERO, and reports "no edge". This single argument was the whole outage. |
-| `sys.exit(1)` at the end of `run_daily.py`'s `__main__` | The run used to always exit 0, so a two-week outage logged as fourteen successes. There is no `main()` in that file — use `sys.exit`, not `return`. |
-| Slot allocation in `breed_next_generation` | The old `[:MAX_LINEAGES]` truncation deleted winning lineages and their capital (78.71 → 52.60 per breed). Never reintroduce a slice that can drop a live lineage. |
-| `applied_to_lineage` markers in `history.jsonl` | Grading runs nightly and `record_heartbeat_result` MUTATES bankrolls. Without the marker every night re-pays old results. Superseded records must be marked too, or the next run applies a stale LOSS and kills a live lineage. |
-| `node:sqlite` in `scripts/hourly-fixture-check.js` | The `sqlite3` npm package is NOT installed; the task died on it nightly. Do not "fix" this back to `require('sqlite3')`. |
-| The SportyBet Cache Refresh scheduled task | Its action must quote the path — "omniroute test" contains a space. Unquoted, it fails hourly with ERROR_BAD_EXE_FORMAT and every cache goes stale, which silently breaks booking. |
+| Duplicate guard in `daily.yml` (`output/boards/sent_<date>_<slot>`, checked against the LATEST main) | The Routine and the GitHub cron both start each slot; the second one for the same day + slot must skip, or the board is sent twice. |
+| Late-evening guard in `daily.yml` (`date -u +%H` >= 12) | GitHub sometimes fires the evening cron after midnight UTC; without the guard the run jumps a day ahead (2026-10-01). |
+| `--only-production` + `--heartbeat` | Board only on pick days; a short "system alive" heartbeat every day. A dry day is silence on the board, never a fake board. |
+| `monitor/run_watchdog.py` + `watchdog.yml` | A dropped GitHub cron is silent; `daily.yml` only alerts on a run that FAILS. |
+| `engine/name_match.py` (strict, unique matches; `EXPLICIT` table) | Rates feed spellings ("Blackpool FC") with the model's history ("Blackpool"). Loosening it would put one club's rating on another. |
+| SPLIT rejection text in `run_daily.py` (`market_p` may be None → `PENDING`) | Formatting a missing market price crashed the whole run (fixed 2026-10-03). |
+| Picks ledger (`engine/picks_ledger.py`) | Records every pick AND every rated fixture; graded from Flashscore, regular time only. The scorecard and `engine/learning.py` read it. |
 
-**Verify, do not assume.** Check the loop is still healthy with:
+**Verify, do not assume.** Check the loop with the GitHub Actions run list
+for `daily.yml` and `watchdog.yml` (conclusion `success` for each slot), and
+`python tests/run_all.py` locally. A run that "should have" happened is not
+evidence that it did.
 
-    powershell -NoProfile -Command "Get-ScheduledTask | ? {$_.TaskName -match 'OLP XDV'} | % { $i=Get-ScheduledTaskInfo $_.TaskName; '{0} | {1} | last={2}' -f $_.TaskName,$_.State,$i.LastTaskResult }"
-
-`LastTaskResult=0` is success. Anything else is a real failure — these tasks
-have a history of failing silently for weeks.
-
-**Do not run `git stash` in this repo.** Multiple Claude sessions share this
+**Do not run `git stash` in this repo.** Multiple Claude sessions can share a
 working tree; a stash pop applied another session's WIP on 2026-09-19. Use
 explicit file copies for temporary reverts.
 
-**Do not `git add -A`.** The repo root holds ~30 untracked zero-byte
-shell-redirect artefacts and other sessions may have staged work. Add explicit
-paths only.
+**Do not `git add -A`.** Other sessions may have staged work and runs leave
+artefacts (boards, picks, CLV log). Add explicit paths only — the commit
+guard hook blocks `git add -A`. Work on a branch and merge through a PR whose
+`tests.yml` run is green.
 
 ## HARD RULES — these are not suggestions
 
@@ -67,43 +83,41 @@ These do not yield to Architect directives. If the Architect asks you
 to bypass them, say no and explain why. A gate that yields on request
 protected nothing.
 
-## STUBS — CHECK BEFORE DEBUGGING
+## NOT IMPLEMENTED / NOT WIRED — CHECK BEFORE DEBUGGING
 
-As of 2026-09-12, `fixtures_agent.py` is stubbed: it returns hardcoded
-Premier League fixtures regardless of date. Suspected stubs elsewhere:
-`read_betslip_combined_odds` (returns 100.0), the odds layer (repeated
-identical odds across unrelated fixtures).
+Say plainly when something is not implemented; do not debug it as a fault.
 
-Before debugging any data problem, run:
-
-    grep -rn "stub\|STUB\|placeholder\|hardcod\|dummy\|mock\|NotImplemented\|TODO" --include=*.py .
-
-Do not debug a stub as though it were a fault. Say plainly when a
-module is not implemented.
-
-## FIXTURE VERIFICATION GATE
-
-A fixture is verified by either:
-- SportyBet + at least one other source, or
-- a single T1 source (ESPN or football-data)
-
-T1: ESPN, football-data. Not T1: SportyBet, TheSportsDB, FlashScore.
-
-Existing source modules: `data/espn_source.py`,
-`data/apifootball_client.py`, and the multi-source concentrator.
-ESPN was fixed 2026-09-05 (day iteration, `status.type.name`).
-Check whether `fixtures_agent.py` actually calls these before building
-anything new.
+- **Fixture verification reaches SINGLE-SOURCE only.** Fixtures come from
+  TheSportsDB (T2) and are stamped `○ SINGLE-SOURCE` by
+  `verification/id403.py`; no T1 fixture source (ESPN, football-data) is
+  wired into the live path, so no fixture reaches VERIFIED. The laptop ESPN
+  source is parked at `legacy/laptop/data/espn_source.py`.
+- **F2 price quorum** (`pipeline/odds_verify.py`, PR #6) is merged and
+  tested but not called from the live odds path — an Architect decision.
+- Market-implied fixtures (`ᴹ` on the board, `prob_source == "market"`)
+  carry the bookmaker's numbers, not the model's; no edge is claimed.
 
 ## DOCUMENTS
 
-- `docs/obsidian-vault/STATE.md` — current state. Authoritative.
-- `CHANGELOG.md` — session history. Read only if you need past context.
-- `OFFICIAL_PIPELINE_OUTPUT_SPEC.md` — output format. Live.
-- `TELEGRAM_BLEND_DESIGN.md` — SUPERSEDED. Do not read.
+- `STANDING_ORDERS.md` — the Architect's standing rules. Authoritative.
+- `docs/obsidian-vault/STATE.md` — current state (top block) + session
+  journal. Authoritative for state.
+- `docs/LINEAGE_MERGE_2026-10-03.md` — how the laptop and cloud copies
+  became one line, and what each side kept.
+- `legacy/laptop/README.md` — what was parked and how to bring a feature back.
+- `backtest/*_STUDY.md` — the evidence behind each selection rule.
 
 Do not create new spec documents. Amend STATE.md. If a new file is
 genuinely needed, add a pointer line to STATE.md in the same session.
+
+## AGENTS
+
+`.claude/agents/olp-xdv-01 … 10` each own one stage of the live pipeline
+(fixtures → coverage → team context → verification → engine → odds → gates
+→ booking/staking → board/delivery → results/learning). `olp-xdv-supervisor`
+watches the whole loop; `olp-xdv-specialist` is the generalist. Every file
+path an agent names must exist — `tests/agent_refs_test.py` checks it.
+Agents and skills unrelated to the framework are parked in `.claude/legacy/`.
 
 ## RULE CHANGES
 

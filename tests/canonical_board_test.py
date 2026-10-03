@@ -93,6 +93,14 @@ assert "0 pick(s)" in hb_dry and "nothing to bet" in hb_dry, \
     "dry-day heartbeat says there are no picks"
 print("Heartbeat: pick-day + dry-day, states gate + pick count: OK")
 
+# --- per-table mega codes (Architect 2026-10-03): every table carries one ---
+mc = render_canonical_board("Mode A", "Phase 2", ["Eredivisie", "Ekstraklasa"], 11, 1.66, [],
+                            board, board_code="MEGA01")
+for label in ("TABLE 1 mega code", "TABLE 2 mega code", "TABLE 3 mega code"):
+    assert label in mc and "MEGA01" in mc.split(label)[1].split("\n")[0], label
+assert "Board MEGA: MEGA01" in mc.rsplit("ALL CODES", 1)[1], "board mega listed in ALL CODES"
+print("Per-table mega codes: OK")
+
 # --- board_date: the evening run targets another day; the header must show it ---
 dated = render_canonical_board("Mode A", "Phase 2", ["Eredivisie"], 9, 1.66, [],
                                [], board_date="2026-10-11")

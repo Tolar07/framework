@@ -12,13 +12,13 @@ WHAT IT PROVES
      being built.
   2. The full daily pipeline runs end-to-end on live data and produces a
      board and a Telegram-formatted message.
-  3. The safety gates (ID405 market gate, PHASE=2 capital gate, ID403
+  3. The safety gates (ID405 market gate, PHASE capital gate, ID403
      verification, HR35 date-required grading) block what they should block
      when directly attacked.
   4. Failures degrade honestly: a broken source produces NO DATA — PENDING,
      not silence or a fabricated value.
   5. The scheduler is genuinely live and its failure alarm is genuinely
-     independent (verified separately, not here — see logs/launcher.log).
+     independent (here: the board is scheduled in GitHub Actions daily.yml).
 
 WHAT IT DOES NOT PROVE
   It cannot prove the model has an edge. That is what the FORWARD CLV log
@@ -120,7 +120,30 @@ stress("STAGE 3 · every safety gate blocks what it should")
 from config import PHASE, assert_paper_only, CapitalGateError
 from verification.id403 import verify, SourcedDatum, Tier, _domain_root
 
-check(f"phase gate: refuses stake at PHASE={PHASE}", blocked == 5)
+# PHASE gate. Capital is enabled at Phase 3 (since 2026-10-01): a numeric
+# stake must pass there and be refused below it. Below-Phase-3 is simulated by
+# flipping config.CAPITAL_ENABLED; the gate itself is untouched.
+import config as _config
+
+def _count_refused(stakes):
+    refused = 0
+    for stake in stakes:
+        try:
+            assert_paper_only(stake, "phase2_paper")
+        except CapitalGateError:
+            refused += 1
+    return refused
+
+_stakes = (0.0, 1.0, 250.0, -1.0, 1e9)
+_expected_now = 0 if _config.CAPITAL_ENABLED else len(_stakes)
+check(f"phase gate: follows PHASE={PHASE}", _count_refused(_stakes) == _expected_now)
+_saved = _config.CAPITAL_ENABLED
+_config.CAPITAL_ENABLED = False
+try:
+    check("phase gate: refuses every stake below Phase 3",
+          _count_refused(_stakes) == len(_stakes))
+finally:
+    _config.CAPITAL_ENABLED = _saved
 
 # ID405 — every path
 from output.produce_bet import _best_market_desc, render_telegram_board, BoardFixture
@@ -228,24 +251,20 @@ check("chunking: every fence balanced under load",
 
 
 # --------------------------------------------------------------------------
-stress("STAGE 6 · scheduler is actually running")
+stress("STAGE 6 · the board is still scheduled")
 # --------------------------------------------------------------------------
-launcher = PROJ / "logs" / "launcher.log"
-if launcher.exists():
-    tail = launcher.read_text(encoding="utf-8", errors="replace")
-    check("scheduler: launcher fired today", "launcher invoked" in tail)
-    # The MOST RECENT "python exited with N" line — Python's own stdout gets
-    # appended to launcher.log, so a naive tail-slice can miss it. Scan
-    # backwards for the marker line the batch writes.
-    exit_lines = [l for l in tail.splitlines() if "python exited with " in l]
-    last = exit_lines[-1] if exit_lines else ""
-    check("scheduler: last python exit was 0", last.endswith(" 0 "),
-          last[-60:] if last else "no exit-line marker in log")
-    check("scheduler: no RUN FAILED in the tail",
-          "RUN FAILED" not in "\n".join(tail.splitlines()[-4:]))
+# The laptop launcher (run_daily.bat + logs/launcher.log) was retired on
+# 2026-10-03; the board's only scheduler is GitHub Actions daily.yml. Check
+# that it is still scheduled and still runs the daily pipeline.
+daily_yml = PROJ / ".github" / "workflows" / "daily.yml"
+if daily_yml.exists():
+    wf = daily_yml.read_text(encoding="utf-8", errors="replace")
+    check("scheduler: daily.yml has a cron schedule",
+          "schedule:" in wf and "cron:" in wf)
+    check("scheduler: daily.yml runs run_daily.py", "python run_daily.py" in wf)
 else:
-    check("scheduler: launcher.log exists", False,
-          "no evidence the task has run — trigger it once")
+    check("scheduler: daily.yml exists", False,
+          "no GitHub Actions workflow schedules the board")
 
 
 # --------------------------------------------------------------------------

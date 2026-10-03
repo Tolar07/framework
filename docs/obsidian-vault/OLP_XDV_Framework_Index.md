@@ -1,5 +1,7 @@
 # OLP XDV — Vault Navigation Index
 
+> **HISTORICAL — the laptop line as of 2026-08-19, superseded 2026-10-03.** This note describes the framework before it became one line run by GitHub Actions; much of what it names (the web dashboard, the laptop scheduled tasks, the old agent roster, Acca A production) is parked in `legacy/` or gone. For the live framework read `CLAUDE.md`, `STANDING_ORDERS.md` and the CURRENT STATE block of [[STATE.md]]; where this note disagrees with them, they win. Kept as a record.
+
 **Canonical Vault:** `C:\Users\Motunrayo\omniroute test\olp_xdv_agent\olp_xdv\docs\obsidian-vault\` (git-tracked, authoritative)
 **Repo:** `C:\Users\Motunrayo\omniroute test` (live code — the source of truth)
 **Note:** The deprecated mirror at `Documents/OLP_XDV_Vault/` was retired 2026-08-18. All unique content migrated here.

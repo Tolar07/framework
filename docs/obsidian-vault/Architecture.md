@@ -1,5 +1,7 @@
 # Architecture.md — The Pipeline End to End
 
+> **HISTORICAL — the laptop line as of 2026-09-01, superseded 2026-10-03.** This note describes the framework before it became one line run by GitHub Actions; much of what it names (the web dashboard, the laptop scheduled tasks, the old agent roster, Acca A production) is parked in `legacy/` or gone. For the live framework read `CLAUDE.md`, `STANDING_ORDERS.md` and the CURRENT STATE block of [[STATE.md]]; where this note disagrees with them, they win. Kept as a record.
+
 > How OLP XDV actually works, verified against the code 2026-08-11. This is the
 > SCAN → trigger production → publish flow, plus the CLV loop, the admin
 > dashboard, and the Telegram/client output. Rule and constant references point

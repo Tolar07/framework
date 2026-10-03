@@ -1,5 +1,7 @@
 # Loops — Recurring Pipeline Schedules
 
+> **HISTORICAL — the laptop line as of 2026-08-31, superseded 2026-10-03.** This note describes the framework before it became one line run by GitHub Actions; much of what it names (the web dashboard, the laptop scheduled tasks, the old agent roster, Acca A production) is parked in `legacy/` or gone. For the live framework read `CLAUDE.md`, `STANDING_ORDERS.md` and the CURRENT STATE block of [[STATE.md]]; where this note disagrees with them, they win. Kept as a record.
+
 > Canonical registry of all recurring loops in the OLP XDV framework. Each loop has an owner, schedule, purpose, and failure mode. **This is the single source of truth for Task Scheduler registrations.**
 
 ---

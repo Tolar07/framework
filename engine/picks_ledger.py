@@ -7,6 +7,11 @@ with each single (pick, price, chance, tier, certainty, code) and every acca /
 50%+ acca / mega slip with its legs and code. The latest run for a day
 overwrites it, because the latest board is the one the Architect uses.
 
+Every RATED fixture on the board (not just the picks) is also recorded under
+"rated" with the model's main probabilities, and graded the same way. That
+is the model's report card on far more matches than the picks alone; it is
+read by the scorecard only and never changes how picks are chosen.
+
 Each run then grades every past day from Flashscore results
 (data.flashscore_results) and the heartbeat carries a SCORECARD: how many
 singles won, hit rate and profit at 1 unit per single, split by tier and
@@ -54,6 +59,22 @@ def _single(bf) -> dict:
             "result": None, "ft": None}
 
 
+# Order of the probabilities stored per rated fixture.
+RATED_KEYS = ("home", "draw", "away", "o15", "o25", "o35", "btts")
+RATED_GRADE_DAYS = 14   # older ungraded fixtures are left as they are
+
+
+def _rated(bf) -> dict:
+    p = bf.probs
+    return {"fixture": bf.fixture.split(" (")[0],
+            "league": bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+            "home": p.home_team, "away": p.away_team, "kickoff": bf.kickoff_date,
+            "src": getattr(bf, "prob_source", "model"),
+            "p": [round(float(x), 3) for x in (p.p_home, p.p_draw, p.p_away, p.p_over_15,
+                                                p.p_over_25, p.p_over_35, p.p_btts_yes)],
+            "ft": None}
+
+
 def _sb_market(key: str) -> Optional[dict]:
     """{id, desc, spec, outcome} identifying the pick's outcome on SportyBet."""
     if key and key.startswith("SB:"):
@@ -87,6 +108,7 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
         "accas": [_slip(n, l, c, acca_codes.get(n)) for n, l, c in accas],
         "safe3": [_slip(n, l, c, safe3_codes.get(n)) for n, l, c in safe3],
         "megas": [_slip(n, l, c, (mega_codes or {}).get(n)) for n, l, c in megas],
+        "rated": [_rated(bf) for bf in board if bf.probs is not None],
     }
     LEDGER_DIR.mkdir(parents=True, exist_ok=True)
     path = LEDGER_DIR / f"picks_{target}.json"
@@ -112,6 +134,7 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
     from data.flashscore_results import find_result
     today = today or date.today().isoformat()
     flags = []
+    by_day = _index_by_day(events)
     for path in sorted(LEDGER_DIR.glob("picks_*.json")):
         doc = json.loads(path.read_text(encoding="utf-8"))
         if doc["date"] > today:
@@ -144,12 +167,45 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                 if new != slip["result"]:
                     slip["result"] = new
                     changed += 1
+        rated = doc.get("rated", [])
+        rated_done = 0
+        recent = doc["date"] >= (date.fromisoformat(today)
+                                 - timedelta(days=RATED_GRADE_DAYS)).isoformat()
+        for r in rated:
+            if r["ft"] is None and recent:
+                day = r["kickoff"] or doc["date"]
+                ev = find_result(_events_near(by_day, day), r["home"], r["away"], day)
+                if ev and ev["finished_regular"]:
+                    r["ft"] = f'{ev["fthg"]}-{ev["ftag"]}'
+                    changed += 1
+                elif ev and ev["finished_other"]:
+                    r["ft"] = "no-90min-result"
+                    changed += 1
+            rated_done += r["ft"] is not None
         if changed:
             path.write_text(json.dumps(doc, indent=1), encoding="utf-8")
         if doc["date"] < today:
-            flags.append(f"picks {doc['date']}: {graded} graded, {pending} pending "
-                         f"(Flashscore)")
+            flags.append(f"picks {doc['date']}: {graded} graded, {pending} pending"
+                         + (f"; {rated_done}/{len(rated)} rated fixtures graded" if rated else "")
+                         + " (Flashscore)")
     return flags
+
+
+def _index_by_day(events: list[dict]) -> dict:
+    out: dict = defaultdict(list)
+    for ev in events:
+        out[(ev.get("kickoff_utc") or "")[:10]].append(ev)
+    return out
+
+
+def _events_near(by_day: dict, day: str) -> list[dict]:
+    """Events within a day either side (the window find_result accepts)."""
+    try:
+        d0 = date.fromisoformat(day[:10])
+    except ValueError:
+        return []
+    return [ev for k in (-1, 0, 1)
+            for ev in by_day.get((d0 + timedelta(days=k)).isoformat(), [])]
 
 
 def _pl(s: dict) -> float:
@@ -181,6 +237,45 @@ def calibration(singles: list) -> list[str]:
                         f"(n={len(b)})")
     if rows:
         out.append("  " + " · ".join(rows))
+    return out
+
+
+def _outcomes(ft: str) -> Optional[list[int]]:
+    """0/1 for each RATED_KEYS outcome from a 'h-a' score, None if not a score."""
+    try:
+        hg, ag = (int(x) for x in ft.split("-"))
+    except (AttributeError, ValueError):
+        return None
+    t = hg + ag
+    return [int(hg > ag), int(hg == ag), int(hg < ag), int(t > 1.5), int(t > 2.5),
+            int(t > 3.5), int(hg > 0 and ag > 0)]
+
+
+def model_check(rated: list) -> list[str]:
+    """How well the model's own numbers matched reality on every rated fixture
+    (src 'model'): Brier scores for 1X2, Over 2.5 and BTTS, and how often the
+    model's favourite won by stated chance."""
+    rows = [(r["p"], y) for r in rated
+            if r.get("src") == "model" and (y := _outcomes(r.get("ft"))) is not None]
+    if len(rows) < 10:
+        return []
+    n = len(rows)
+    b1x2 = sum(sum((p[i] - y[i]) ** 2 for i in range(3)) for p, y in rows) / n
+    bo25 = sum((p[4] - y[4]) ** 2 for p, y in rows) / n
+    bbtts = sum((p[6] - y[6]) ** 2 for p, y in rows) / n
+    out = [f"Model check ({n} rated fixtures, not just picks): Brier 1X2 {b1x2:.3f} · "
+           f"Over 2.5 {bo25:.3f} · BTTS {bbtts:.3f} (no skill = 0.667 / 0.250 / 0.250)"]
+    fav = []
+    for p, y in rows:
+        i = max(range(3), key=lambda k: p[k])
+        fav.append((p[i], y[i]))
+    cells = []
+    for lo, hi in ((0.4, 0.5), (0.5, 0.6), (0.6, 0.7), (0.7, 1.0)):
+        b = [won for q, won in fav if lo <= q < hi]
+        if b:
+            cells.append(f"{lo*100:.0f}-{hi*100:.0f}% → {100*sum(b)/len(b):.0f}% (n={len(b)})")
+    if cells:
+        out.append("  Model favourite said → won: " + " · ".join(cells))
     return out
 
 
@@ -229,6 +324,7 @@ def scorecard(days: int = 7, today: Optional[str] = None) -> str:
             won = sum(x["result"] == "won" for x in slips)
             L.append(f"{label}: {won}/{len(slips)} landed")
     L.extend(calibration(allsing))
+    L.extend(model_check([r for d in docs for r in d.get("rated", [])]))
     pos = [s for s in allsing if (s.get("ev") or 0) > 0]
     neg = [s for s in allsing if s.get("ev") is not None and s["ev"] <= 0]
     if pos or neg:

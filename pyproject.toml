@@ -73,6 +73,7 @@ files = [
     "monitor/run_monitor.py",
     "monitor/alert_dispatcher.py",
     "monitor/json_log.py",
+    "engine/name_match.py",
 ]
 
 [tool.pytest.ini_options]

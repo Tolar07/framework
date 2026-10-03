@@ -34,6 +34,7 @@ from data import api_football_results as apif
 from engine import cross_league as xleague
 from engine import elo as elo_engine
 from engine.dixon_coles import fit, predict, unrated_reason
+from engine import name_match
 from engine.slate import (WHITELIST_LEAGUES, is_deploy_eligible,
                           build_deploy_shortlist)
 from engine.mes import trigger_price
@@ -265,8 +266,22 @@ def scan_one_league(league: str, season: str,
         flags.append(f"{league}: Elo second opinion unavailable ({str(e)[:60]})")
     board: list[BoardFixture] = []
 
+    # Feed spellings the model knows under another name ("Blackpool FC" ->
+    # "Blackpool"): rate with the model's name, keep the feed name on the
+    # board so odds/booking lookups are unchanged. Strict, unique matches
+    # only (engine/name_match.py); each one is flagged for checking.
+    feed_names = sorted({t for pair in upcoming_fixtures for t in pair})
+    model_names = sorted(set(model.teams) | set(model.thin_teams))
+    rename = name_match.resolve(feed_names, model_names)
+    if rename:
+        flags.append(f"{league}: {len(rename)} feed name(s) matched to the model's "
+                     f"spelling — " + ", ".join(f"{k} -> {v}" for k, v in sorted(rename.items())))
+
     for home, away in upcoming_fixtures:
-        probs = predict(model, home, away)
+        m_home, m_away = rename.get(home, home), rename.get(away, away)
+        probs = predict(model, m_home, m_away)
+        if probs is not None and (m_home, m_away) != (home, away):
+            probs.home_team, probs.away_team = home, away
         # The fixture itself comes from TheSportsDB (ratified T2), so that's
         # what gets stamped — crediting football-data.co.uk here would claim a
         # corroboration that didn't happen. One source => ○ SINGLE-SOURCE.
@@ -274,7 +289,7 @@ def scan_one_league(league: str, season: str,
                                   value=f"{home} v {away}",
                                   url="https://www.thesportsdb.com",
                                   structured=True)])
-        elo_p = elo_model.probabilities(home, away) if elo_model else None
+        elo_p = elo_model.probabilities(m_home, m_away) if elo_model else None
         mes = None
         if probs is not None:
             best_prob = max(probs.p_home, probs.p_draw, probs.p_away,
@@ -291,7 +306,7 @@ def scan_one_league(league: str, season: str,
             kickoff_date=fixture_dates.get((home, away)),
             elo_probs=elo_p,
             engine_divergence=elo_engine.divergence(elo_p, probs),
-            rejection_reason=_unrated_detail(model, home, away) if probs is None else None,
+            rejection_reason=_unrated_detail(model, m_home, m_away) if probs is None else None,
         ))
 
     # xG BLEND (improvement #3, backtest/XG_STUDY.md): for the top-5 leagues the
@@ -340,7 +355,8 @@ def scan_one_league(league: str, season: str,
     # indistinguishable from inside the model, but obvious to a human the
     # moment the two lists sit next to each other.
     unmapped = sorted({t for h, a in upcoming_fixtures for t in (h, a)
-                       if t not in model.teams and t not in model.thin_teams})
+                       if rename.get(t, t) not in model.teams
+                       and rename.get(t, t) not in model.thin_teams})
     if unmapped:
         flags.append(
             f"{league}: {len(unmapped)} team name(s) in the fixtures feed not found "

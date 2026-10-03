@@ -1,7 +1,12 @@
-"""Monitor: live continental football -> the brain's outcome evidence.
+"""Monitoring for the live framework.
 
-The daily run records predictions; the monitor is the path by which a
-scan-only continental match's RESULT reaches the brain (ft_result + per-market
-hit) so the model's accuracy becomes measurable. Results come from the source
-(The Odds API /scores), never guessed.
+run_watchdog.py   alerts when a scheduled daily board run never happened
+                  (.github/workflows/watchdog.yml).
+mcp_health.py     probes the laptop's MCP servers (laptop task "OLP XDV MCP
+                  Watchdog").
+alert_dispatcher.py, json_log.py  shared alert and structured-log helpers.
+
+The laptop "brain" and its cup monitor were parked in legacy/laptop/ on
+2026-10-03; outcome learning lives in engine/picks_ledger.py (every rated
+fixture is recorded and graded) and engine/learning.py.
 """

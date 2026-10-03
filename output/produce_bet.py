@@ -766,7 +766,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             acca_codes: Optional[dict] = None,
                             mega_codes: Optional[dict] = None,
                             board_date: Optional[str] = None,
-                            safe3_codes: Optional[dict] = None) -> str:
+                            safe3_codes: Optional[dict] = None,
+                            extra_codes: Optional[dict] = None) -> str:
     """The ##########OLP XDV######### board the Architect reads on Telegram.
 
     Booking codes (real SportyBet share codes) are attached upstream by run_daily:
@@ -821,25 +822,29 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     acca_codes = dict(acca_codes or {})
     if acca_code and "Acca A" not in acca_codes:
         acca_codes["Acca A"] = acca_code
-    if mega_codes is not None:
-        out.append("")
-        for name, legs, combo in _build_megas([bf for bf in board if bf.on_deploy_shortlist]):
-            code = mega_codes.get(name) or "PENDING"
-            odds = 1.0
-            for bf, _, _ in legs:
-                odds *= bf.best_price or 1.0
-            out.append(f"{name} ({len(legs)} legs · odds {odds:,.0f} · chance 1 in "
-                       f"{1 / combo:,.0f}): {code}"
-                       + (f"   load ↦ www.sportybet.com/ng/?shareCode={code}" if code != "PENDING" else ""))
-        out.append("")
-    elif board_code:
-        out += ["", f"Board code (all deploy singles): {board_code}   "
-                f"load ↦ www.sportybet.com/ng/?shareCode={board_code}", ""]
-    else:
-        out += ["", "Board code: PENDING (no deploy-eligible single resolved on "
-                "SportyBet today)", ""]
-
     shortlist = [bf for bf in board if bf.on_deploy_shortlist]
+    extra_codes = extra_codes or {}
+
+    # MEGA CODES (Architect 2026-10-03): every table carries a mega booking
+    # code for all of its picks — one slip, or several of <= MEGA_MAX_LEGS
+    # legs when SportyBet can't take them all at once.
+    def _mega_lines(label: str) -> list[str]:
+        if mega_codes is not None:
+            lines = []
+            for name, legs, combo in _build_megas(shortlist):
+                code = mega_codes.get(name) or "PENDING"
+                lines.append(f"{label} {name} ({len(legs)} legs · odds {_acca_odds(legs):,.0f} · "
+                             f"chance 1 in {1 / combo:,.0f}): {code}"
+                             + (f"   load ↦ www.sportybet.com/ng/?shareCode={code}"
+                                if code != "PENDING" else ""))
+            return lines
+        if board_code:
+            return [f"{label} mega code (all {len(shortlist)} deploy singles): {board_code}   "
+                    f"load ↦ www.sportybet.com/ng/?shareCode={board_code}"]
+        return [f"{label} mega code: PENDING (no deploy-eligible single resolved on "
+                "SportyBet today)"]
+
+    out += [""] + _mega_lines("TABLE 1") + [""]
 
     # --- TABLE 2 · deploy-eligible singles ---
     out += [_CANON_RULE, "TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES",
@@ -879,6 +884,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                         f"(certainty lowered; re-checked when lineups are confirmed):"]
             for bf in news:
                 out.append(f"   • {bf.news_level}: {_canon_short(bf.fixture)} — {bf.news_note}")
+        out += [""] + _mega_lines("TABLE 2")
     out.append("")
 
     # --- TABLE 3A · 50%+ accas (3 legs, high certainty) ---
@@ -897,6 +903,11 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
                 out.append(f"   • {_canon_short(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%, {bf.certainty})")
+        if len(safe3) > 1:
+            n = sum(len(l) for _, l, _ in safe3)
+            code = extra_codes.get("safe3_mega") or "PENDING"
+            out += ["", f"TABLE 3A mega code (all {len(safe3)} accas, {n} legs): {code}"
+                    + (f"   load ↦ www.sportybet.com/ng/?shareCode={code}" if code != "PENDING" else "")]
     out.append("")
 
     # --- TABLE 3 · ACCA route ---
@@ -918,6 +929,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
                 out.append(f"   • {_canon_short(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%)")
+        out += ["", "All accas together = every deploy pick, so their mega code is the "
+                "same slip as Table 2's:"] + _mega_lines("TABLE 3")
     out.append("")
 
     # --- TABLE 4 · the pick ---
@@ -960,12 +973,18 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
-    if accas or mega_codes or safe3:
+    if accas or mega_codes or safe3 or board_code:
         out += ["", "ALL CODES"]
         for name, legs, combo in safe3:
             out.append(f"{name}: {safe3_codes.get(name) or 'PENDING'} "
                        f"(3 legs · odds {_acca_odds(legs):.2f} · {round(combo*100)}% · "
                        f"stake 0.5%)")
+        if len(safe3) > 1:
+            out.append(f"50+ MEGA: {extra_codes.get('safe3_mega') or 'PENDING'} "
+                       f"({sum(len(l) for _, l, _ in safe3)} legs · all 50%+ accas · stake 0.1%)")
+        if mega_codes is None and board_code:
+            out.append(f"Board MEGA: {board_code} ({len(shortlist)} legs · every single · "
+                       f"stake 0.1%)")
         megas = _build_megas(shortlist) if mega_codes is not None else []
         for name, legs, combo in megas:
             out.append(f"{name}: {(mega_codes or {}).get(name) or 'PENDING'} "

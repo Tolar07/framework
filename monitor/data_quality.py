@@ -35,16 +35,16 @@ import io
 import json
 import sys
 import time
+from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from collections import defaultdict
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
+from brain.store import Brain  # noqa: E402
 from data import football_data_source as fds  # noqa: E402
 from engine.leagues import WHITELISTED_LEAGUES  # noqa: E402
-from brain.store import Brain  # noqa: E402
 
 CACHE_DIR = fds.DEFAULT_CACHE_DIR
 

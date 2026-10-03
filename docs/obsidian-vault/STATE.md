@@ -5,7 +5,42 @@
 
 ---
 
-# CURRENT STATE — as of 2026-09-16
+# CURRENT STATE — as of 2026-10-03
+
+There is ONE framework: `main` of Tolar07/framework, run by GitHub Actions.
+Laptop-line code is parked in `legacy/laptop/` (never imported, never run);
+the laptop's Windows board task is disabled. Rules: `STANDING_ORDERS.md`.
+
+| Field | Value | Source |
+|-------|-------|--------|
+| Phase | 3 — live capital, Architect-deployed. The framework never places a stake | `config/__init__.py` (`PHASE = 3`) |
+| CAPITAL_ENABLED | True (derived, `PHASE >= 3`) | `config/__init__.py` |
+| Telegram delivery | ON — board on pick days, heartbeat every day | `.github/workflows/daily.yml`, standing order 6 |
+| Board runs | 20:47 UTC (evening, next day's card) and 05:47 UTC (morning refresh); Routine + cron, duplicate-guarded | `.github/workflows/daily.yml` |
+| Missed-run alarm | 23:17 and 08:17 UTC | `.github/workflows/watchdog.yml` |
+| CLV log (2026-10-03) | 388 legs logged, 9 with CLV, mean CLV +1.655% | `clv/clv_log.json` via `python scripts/olp_query.py status` |
+| Phase 3 CLV gate | NOT MET — 9 of 30 legs with CLV (mean positive) | `clv/clv_logger.py` `phase2_status()` |
+| Tests | `python tests/run_all.py` green; `tests.yml` on every push/PR | `.github/workflows/tests.yml` |
+
+**Canonical documents:** `STANDING_ORDERS.md` (rules, test-enforced), this
+file (state), `Rules.md` (HR/ID register), `Decisions Log.md`,
+`Protected Constants.md`, `docs/LINEAGE_MERGE_2026-10-03.md` (how the copies
+became one).
+
+## Open items (2026-10-03)
+
+| # | Item | Status |
+|---|------|--------|
+| 1 | Fixtures reach `○ SINGLE-SOURCE` only — no T1 fixture source (ESPN / football-data fixtures) is wired into the live path, so no fixture is VERIFIED (ID403) | OPEN — improvement to propose to the Architect |
+| 2 | F2 price quorum (`pipeline/odds_verify.py`, PR #6) merged and tested but not called from the live odds path | OPEN — Architect decision |
+| 3 | Feed team names not matching the model's history (23 fixtures market-priced on 2026-10-03) | **CLOSED 2026-10-03** — `engine/name_match.py` (#51) |
+| 4 | A SPLIT pick with no market price crashed the whole daily run | **CLOSED 2026-10-03** — #48 |
+| 5 | A dropped GitHub cron was silent (only failures alerted) | **CLOSED 2026-10-03** — missed-run watchdog (#50) |
+| 6 | Laptop scheduled data tasks still run against laptop-only files (three `.bat` files missing; tasks failing) | OPEN — retiring them on the laptop (Architect decision 2026-10-03) |
+
+---
+
+# Laptop line — last state as of 2026-09-16 (HISTORICAL, superseded 2026-10-03)
 
 > `CLAUDE.md` tells every session to read this file first because it holds
 > current phase, suspension status, live defects and which documents are
@@ -34,7 +69,7 @@
 > and why — including why the laptop `run_daily.bat` loop no longer runs on
 > this code — is in `docs/LINEAGE_MERGE_2026-10-03.md`.
 
-## Live defects (open)
+### Laptop-line defects (historical — most concern code now parked in `legacy/laptop/`)
 
 | # | Defect | Status |
 |---|--------|--------|

@@ -1,49 +1,23 @@
 @echo off
 REM ==========================================================================
-REM OLP XDV - 07:00 daily run, launched by Windows Task Scheduler.
+REM OLP XDV - laptop nightly loop: RETIRED 2026-10-03.
 REM
-REM This file does as little as possible ON PURPOSE. An earlier version parsed
-REM .env with a cmd for-loop and built timestamps; when any of that failed the
-REM script aborted BEFORE writing a log, so a scheduled run left no evidence
-REM while Task Scheduler still reported success. Everything except "run
-REM Python" now lives in Python, where it is testable.
+REM The laptop and cloud lines were merged into one repo with main's code
+REM winning (docs/LINEAGE_MERGE_2026-10-03.md). The daily board, CLV capture
+REM and the Survivor lineage now run only in GitHub Actions
+REM (.github/workflows/daily.yml, 05:47 and 20:47 UTC).
 REM
-REM The first echo is unconditional and comes before all else: if launcher.log
-REM has no new line after a trigger, the batch never ran - a different fault
-REM from Python running and crashing.
+REM This launcher stays so the Windows Task Scheduler entry exits cleanly and
+REM leaves a dated line in logs\launcher.log instead of calling run_daily.py
+REM with the laptop-only flags (--agreement-band, --date) that main's
+REM run_daily.py rejects, which would fail and alert every night. It does NOT
+REM run the pipeline and sends nothing. Disable the scheduled task when
+REM convenient; the laptop line's launcher is at 81ef177:run_daily.bat.
 REM ==========================================================================
 
 cd /d "%~dp0"
 if not exist "logs" mkdir "logs"
 
-REM Rotate .bat-redirected logs before writing new entries (10MB/5 backups)
-set "PY=C:\Users\Motunrayo\AppData\Local\Programs\Python\Python312\python.exe"
-if not exist "%PY%" set "PY=py"
-"%PY%" scripts\rotate_logs.py >> "logs\launcher.log" 2>&1
+echo [%date% %time%] launcher invoked - laptop loop retired 2026-10-03; the board runs in GitHub Actions (daily.yml). Nothing run. >> "logs\launcher.log"
 
-echo [%date% %time%] launcher invoked >> "logs\launcher.log"
-
-set "PYTHONIOENCODING=utf-8"
-
-REM Gambler move #2 (2026-08-14): the agreement gate keeps the daily paper run
-REM inside the model's calibrated zone — only bet markets where model and book
-REM agree within 0.04 probability. This is the Phase-2 experiment we are
-REM backfilling; it MUST be on for the scheduled run or the CLV ledger diverges
-REM from the experiment we are measuring.
-REM Nightly production for next day's deployment - target tomorrow's date
-REM Calculate tomorrow's date in yyyy-MM-dd format using PowerShell (handles month/year rollover)
-for /f %%i in ('powershell -NoProfile -Command "& {Get-Date -Format yyyy-MM-dd -Date (Get-Date).AddDays(1)}"') do set "tomorrow=%%i"
-"%PY%" run_daily.py --agreement-band 0.04 --date %tomorrow% >> "logs\launcher.log" 2>&1
-set "RC=%ERRORLEVEL%"
-echo [%date% %time%] python exited with %RC% >> "logs\launcher.log"
-
-if not "%RC%"=="0" (
-  echo [%date% %time%] RUN FAILED - alerting >> "logs\launcher.log"
-  REM The alert deliberately does NOT use %PY%. When the Python path itself is
-  REM what broke, an alert that needs Python cannot fire - the notifier would
-  REM share a failure mode with the thing it is monitoring. PowerShell ships
-  REM with Windows and is independent of the Python install.
-  powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0alert_failure.ps1" -ExitCode %RC% >> "logs\launcher.log" 2>&1
-)
-
-exit /b %RC%
+exit /b 0

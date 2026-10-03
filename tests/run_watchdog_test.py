@@ -1,73 +1,59 @@
-"""Run watchdog tests.
-
-The watchdog is the instrument that notices when the daily run DIDN'T happen:
-missing log = Python never started, no 'run completed OK' = crashed mid-run,
-no Telegram delivery line = board never reached the phone. All three must
-alert; a complete delivered run must stay silent."""
+"""Missed-run watchdog: alerts only when no daily board run succeeded."""
 import sys
-import tempfile
+from datetime import UTC, datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from monitor.run_watchdog import check_run_log, verify
+from monitor import run_watchdog as wd  # noqa: E402
 
-_tmp = Path(tempfile.mkdtemp(prefix="olp_xdv_watchdog_"))
+START = datetime(2026, 10, 3, 18, 0, tzinfo=UTC)
 
 
-# --- 1. missing log -> Python never started -----------------------------------
-ok, reasons = check_run_log(_tmp / "daily_2026-08-06.log")
-assert ok is False and any("never started" in r for r in reasons), reasons
-print("1. missing log flagged (Python never started): OK")
+def run(created, status="completed", conclusion="success"):
+    return {"created_at": created, "status": status, "conclusion": conclusion}
 
-# --- 2. complete delivered run -> OK ------------------------------------------
-p = _tmp / "daily_2026-08-06.log"
-p.write_text("[x] run_daily.py STARTED\n"
-             "[x] delivered 1 part(s) to Telegram\n"
-             "[x] run completed OK\n", encoding="utf-8")
-ok, reasons = check_run_log(p)
-assert ok is True and not reasons
-print("2. complete + delivered run passes: OK")
 
-# --- 3. started but never completed -> flagged --------------------------------
-p = _tmp / "daily_2026-08-07.log"
-p.write_text("[x] run_daily.py STARTED\n[x] scan Eredivisie\n", encoding="utf-8")
-ok, reasons = check_run_log(p)
-assert ok is False and any("did not finish" in r for r in reasons), reasons
-print("3. crash mid-run flagged: OK")
+def test_success_in_window_is_ok():
+    ok, _ = wd.check_runs([run("2026-10-03T20:48:00Z")], START)
+    assert ok
 
-# --- 4. completed but Telegram not delivered -> flagged -----------------------
-p = _tmp / "daily_2026-08-08.log"
-p.write_text("[x] run completed OK\n[x] WHATSAPP_* not set — skipped\n",
-             encoding="utf-8")
-ok, reasons = check_run_log(p)
-assert ok is False and any("to Telegram" in r for r in reasons), reasons
-print("4. board built but phone not reached -> flagged: OK")
 
-# --- 5. verify() alerts via stub notifier, never raises -----------------------
-# Use a date with NO log (2026-08-09) so the alert path fires.
-sent = {"n": 0}
-def stub(body):
-    sent["n"] += 1
-    assert "did NOT happen" in body and "2026-08-09" in body
-    return True, ["stub delivered"]
+def test_no_runs_alerts():
+    ok, reason = wd.check_runs([], START)
+    assert not ok and "no daily board run" in reason
+    assert wd.alert_needed(ok, reason)
 
-complete, notes = verify("2026-08-09", _tmp, notify_fn=stub)
-assert complete is False and sent["n"] == 1
-assert any("ALERT sent" in n for n in notes), notes
-print("5. verify() sends one alert when run missing: OK")
 
-# --- 6. alert failure never crashes the watchdog ------------------------------
-def fail(body):
-    raise RuntimeError("telegram down")
-complete, notes = verify("2026-08-09", _tmp, notify_fn=fail)
-assert complete is False
-assert any("continues" in n for n in notes), notes
-print("6. alert delivery failure does not crash watchdog: OK")
+def test_success_before_window_does_not_count():
+    ok, reason = wd.check_runs([run("2026-10-03T05:48:00Z")], START)
+    assert not ok and wd.alert_needed(ok, reason)
 
-# --- 7. complete run -> verify() is silent (no alert) -------------------------
-complete, notes = verify("2026-08-06", _tmp, notify_fn=stub)  # complete log from #2
-assert complete is True and sent["n"] == 1, "no extra alert on a good run"
-print("7. good run alerts nothing: OK")
 
-print("\n✅ ALL RUN WATCHDOG TESTS PASSED")
+def test_failure_only_is_not_realerted():
+    ok, reason = wd.check_runs([run("2026-10-03T20:48:00Z", conclusion="failure")], START)
+    assert not ok and not wd.alert_needed(ok, reason)
+
+
+def test_in_progress_alerts():
+    ok, reason = wd.check_runs([run("2026-10-03T22:50:00Z", "in_progress", None)], START)
+    assert not ok and "not finished" in reason and wd.alert_needed(ok, reason)
+
+
+def test_window_start_per_slot():
+    now = datetime(2026, 10, 3, 23, 17, tzinfo=UTC)
+    assert wd.window_start("evening", now).hour == 18
+    assert wd.window_start("morning", now.replace(hour=8)).hour == 3
+
+
+def test_alert_text_names_slot_and_link():
+    t = wd.alert_text("evening", "no daily board run started at all", "Tolar07/framework")
+    assert "evening" in t and "actions/workflows/daily.yml" in t
+
+
+if __name__ == "__main__":
+    for name, fn in sorted(globals().items()):
+        if name.startswith("test_"):
+            fn()
+            print(f"{name}: OK")
+    print("run_watchdog_test: OK")

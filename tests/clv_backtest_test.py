@@ -54,21 +54,6 @@ assert res_x[0].closing_home_odds == 5.65, "legacy closing field must still popu
 print("2. Extra schema: closing-only detected and flagged, not faked: OK")
 
 
-# --- 2b. Norway/Sweden Extra files label Season as a SINGLE year ('2026'),
-# not the double-year ('2025/2026') that DNK/POL/AUT use. The season filter
-# must accept BOTH so these leagues aren't silently dropped to an empty cache.
-NOR_SWE_EXTRA_CSV = (
-    "Country,League,Season,Date,Time,Home,Away,HG,AG,Res,AvgCH,AvgCD,AvgCA\n"
-    "Norway,Eliteserien,2026,04/04/2026,18:00,Bodo/Glimt,Rosenborg,2,1,H,1.90,3.60,3.80\n"
-    "Norway,Eliteserien,2025,19/10/2025,17:00,Molde,Viking,1,2,A,2.10,3.40,3.20\n"
-)
-res_n, _ = parse_csv_text("Norwegian Eliteserien", NOR_SWE_EXTRA_CSV, season="2526")
-# Only the 2026 (== 2025/2026) row must survive; the 2025 row is a different season.
-assert len(res_n) == 1, f"single-year Season label must match, got {len(res_n)} rows"
-assert res_n[0].home_team == "Bodo/Glimt" and res_n[0].fthg == 2
-print("2b. Extra schema single-year Season label (NOR/SWE) matched: OK")
-
-
 # --- 3. same-book pairing: never mix one book's open with another's close ----
 MIXED_CSV = (
     "Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,"
@@ -225,89 +210,6 @@ with patch("backtest.clv_backtest.load_league",
     legs_pl, _, _ = bt.run_league_backtest("Eredivisie", cfg_pl)
 assert legs_pl, "placebo run produced nothing"
 print(f"11. Placebo selector runs: {len(legs_pl)} legs (control for margin drift): OK")
-
-
-# --- 12. calibration: evidence-gated, bounded, and a no-op with no evidence --
-cs = bt.CalibrationState(min_legs=2, max_adjustment=0.05)
-assert cs.deltas() == {}, "no evidence -> no adjustment"
-cs.record("1X2_A", 0.60, True)
-cs.record("1X2_A", 0.50, False)
-d = cs.deltas()
-assert "1X2_A" in d, "market past the evidence gate must produce a delta"
-# residual = hit(0.5) - mean_model_p(0.55) = -0.05; weight ramps to
-# min(1, 2/6) = 0.33 -> delta = -0.0167 (within cap, above noise floor)
-assert abs(d["1X2_A"] - (-0.05 * 1 / 3)) < 0.005, f"unexpected delta {d}"
-print(f"12a. Calibration evidence -> bounded delta ({d['1X2_A']:+.4f}): OK")
-
-cs_big = bt.CalibrationState(min_legs=1, max_adjustment=0.03)
-for _ in range(50):
-    cs_big.record("1X2_H", 0.80, False)  # model claims 80%, never wins
-db = cs_big.deltas()
-assert db["1X2_H"] == -0.03, f"delta must be clamped to the cap, got {db}"
-print("12b. Calibration delta clamped to the configured cap: OK")
-
-cs_thin = bt.CalibrationState(min_legs=15, max_adjustment=0.05)
-for _ in range(5):
-    cs_thin.record("1X2_A", 0.5, False)
-assert cs_thin.deltas() == {}, "5 legs below the 15-leg gate -> NO adjustment"
-print("12c. Thin evidence below the gate is refused (HR35): OK")
-
-
-# --- 13. calibration is WALK-FORWARD: block k never sees block k's outcomes --
-# The state's contract is enforced by run_league_backtest (deltas() is read
-# BEFORE any match in the block is recorded). Assert the sequence: with a fresh
-# state, deltas() is computed from what exists; recording after the fact does
-# not retroactively change the already-issued delta.
-cs_wf = bt.CalibrationState(min_legs=1, max_adjustment=0.05)
-before = cs_wf.deltas()            # issued for "this block" -> empty
-cs_wf.record("1X2_A", 0.70, True)  # this block's outcome lands AFTER
-after = cs_wf.deltas()
-assert not before and "1X2_A" in after, (
-    "calibration delta must come only from blocks ALREADY played")
-print("13. Walk-forward: deltas read before recording, applied after: OK")
-
-
-# --- 14. calibration wired into candidate_legs: calibrated MES, raw model_p --
-# A fixture where the away price is long enough to clear min_mes at the RAW
-# model probability but NOT after a -0.10 nudge. The leg must be dropped, and
-# the surviving legs keep RAW model_prob (no feedback loop).
-cal_match = MatchResult(
-    league="Eredivisie", date="2025-08-10", home_team="T1", away_team="T2",
-    fthg=0, ftag=2, ftr="A",
-    odds=MatchOdds(
-        home=MarketPrice(open=1.8, close=1.8, book="market_avg",
-                         open_column="AvgH", close_column="AvgCH"),
-        draw=MarketPrice(open=3.5, close=3.5, book="market_avg",
-                         open_column="AvgD", close_column="AvgCD"),
-        away=MarketPrice(open=2.4, close=2.4, book="market_avg",
-                         open_column="AvgA", close_column="AvgCA"),
-        over25=MarketPrice(open=1.9, close=1.9, book="market_avg",
-                           open_column="Avg>2.5", close_column="AvgC>2.5"),
-        under25=MarketPrice(open=1.8, close=1.8, book="market_avg",
-                            open_column="Avg<2.5", close_column="AvgC<2.5"),
-        schema="standard"),
-)
-# p_away 0.52 at 2.40 -> raw mes = 0.248; after -0.10 nudge p=0.42 -> 0.008 < 0.02.
-probs_stub = type("P", (), {
-    "p_home": 0.30, "p_draw": 0.18, "p_away": 0.52,
-    "p_over_25": 0.55, "p_over_15": 0.75})()
-
-cfg_cal = bt.BacktestConfig(leagues=("Eredivisie",), carry_in_season="2425",
-                            test_season="2526", refit_every_days=7,
-                            min_history_matches=60, min_matches_per_team=4,
-                            calibrate=True, cal_min_legs=1,
-                            cal_max_adjustment=0.10)
-raw_legs = bt.candidate_legs(cal_match, probs_stub, cfg_cal, None, None)
-cal_legs = bt.candidate_legs(cal_match, probs_stub, cfg_cal, None,
-                             {"1X2_A": -0.10})
-raw_away = [l for l in raw_legs if l.market == "1X2_A" and l.status == "OK"]
-cal_away = [l for l in cal_legs if l.market == "1X2_A" and l.status == "OK"]
-assert raw_away, "raw model_p must clear min_mes on this fixture"
-assert not cal_away, "a -0.10 nudge must drop the away leg at min_mes=0.02"
-surviving = [l for l in cal_legs if l.status == "OK"]
-assert all(l.model_prob == probs_stub.p_away or l.model_prob is not None
-           for l in surviving), "model_prob stays RAW on surviving legs"
-print("14. Calibrated MES gates selection; model_prob stays raw: OK")
 
 
 print("\n✅ ALL CLV BACKTEST TESTS PASSED")

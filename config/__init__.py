@@ -34,7 +34,9 @@ def load_dotenv(path: Path | None = None) -> list[str]:
     An existing environment variable always wins, so GitHub Actions secrets are
     never overwritten by a stray local .env.
     """
-    path = path or (Path(__file__).parent / ".env")
+    # Repo root: this module was config.py until the 2026-10-03 lineage merge
+    # moved it to config/__init__.py.
+    path = path or (Path(__file__).resolve().parent.parent / ".env")
     loaded: list[str] = []
     if not path.exists():
         return loaded

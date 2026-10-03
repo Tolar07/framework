@@ -27,6 +27,13 @@
 `Decisions Log.md` (Architect directives), `Protected Constants.md`.
 `TELEGRAM_BLEND_DESIGN.md` is SUPERSEDED — do not read.
 
+> **2026-10-03 — one repo, one line.** The laptop line (this file's history)
+> and the cloud line (`main`, GitHub Actions daily board) were merged with
+> main's code winning every shared file. The table above is the laptop line's
+> last state; the live board now comes from `main`. What was kept, dropped,
+> and why — including why the laptop `run_daily.bat` loop no longer runs on
+> this code — is in `docs/LINEAGE_MERGE_2026-10-03.md`.
+
 ## Live defects (open)
 
 | # | Defect | Status |

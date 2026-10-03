@@ -1,0 +1,37 @@
+OLP XDV DAILY BOARD
+==================================================
+Decision: CEO_APPROVE
+Fixtures processed: 44
+Verified fixtures: 18
+Accumulator legs: 8
+Single bet legs: 3
+
+ACCUMULATOR (Acca A):
+  [acca_leg_0] Betis v Getafe [La Liga] 1X2_HOME @ 0.00 (model: 85.0%, edge: 1.7%)
+  [acca_leg_1] Malaga v Villarreal [La Liga] OVER_1_5 @ 0.00 (model: 80.0%, edge: 3.1%)
+  [acca_leg_2] OFI Crete v Hoffenheim [Europa League] UNDER_2_5 @ 0.00 (model: 75.0%, edge: 3.6%)
+  [acca_leg_3] Real Sociedad v Bournemouth [Europa League] UNDER_3_5 @ 0.00 (model: 85.0%, edge: 1.7%)
+  [acca_leg_4] Man City v Norwich [EFL Cup] BTTS_YES @ 0.00 (model: 70.0%, edge: 3.3%)
+  [acca_leg_5] Orenburg v Krasnodar [Russian Premier League] DC_1X @ 0.00 (model: 80.0%, edge: 3.1%)
+  [acca_leg_6] Dynamo Makhachkala v CSKA Moscow [Russian Premier League] DC_12 @ 0.00 (model: 85.0%, edge: 1.7%)
+  [acca_leg_7] FC Astana v Kairat Almaty [Kazakhstan Premier League] 1X2_HOME @ 0.00 (model: 85.0%, edge: 1.7%)
+  Total Odds: 1.00
+  Stake: £1 (paper)
+  Potential Return: £1.00
+
+SINGLE BETS:
+  [single_leg_0] Atyrau v Ordabasy [Kazakhstan Premier League] OVER_1_5 @ 0.00 (model: 80.0%, edge: 3.1%)
+  [single_leg_1] Man City v Norwich [EFL Cup] UNDER_2_5 @ 0.00 (model: 75.0%, edge: 3.6%)
+  [single_leg_2] OFI Crete v Hoffenheim [Europa League] UNDER_3_5 @ 0.00 (model: 85.0%, edge: 1.7%)
+
+PAYLOADS SUMMARY:
+  agent_1_ceo: fixtures_count=44, verified_count=18
+  agent_1_ceo: fixtures_count=44, verified_count=18
+  agent_2_ceo: fixtures_count=44
+  agent_3_ceo: fixtures_count=44, verified_fixtures_count=18
+  agent_4_ceo: fixtures_count=44, verified_count=18
+  agent_5_ceo: legs_count=11, acca_legs_count=8, single_legs_count=3, verified_fixtures=18
+  agent_6_ceo: legs_count=11
+  agent_7_ceo: legs_count=11
+  agent_8_ceo: legs_count=11
+  agent_9_ceo: legs_count=11

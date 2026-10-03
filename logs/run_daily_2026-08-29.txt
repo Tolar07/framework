@@ -1,0 +1,708 @@
+historical_results: football_data FAILED after 2 attempts: 404 Client Error: Not Found for url: https://www.football-data.co.uk/mmz4281/2526/BL2.csv
+fixtures: espn FAILED after 2 attempts: 'Copa del Rey' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+fixtures: espn FAILED after 2 attempts: 'Coppa Italia' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+Circuit breaker OPENED for espn after 3 consecutive failures
+fixtures: espn FAILED after 2 attempts: 'Coupe de France' is not mapped in espn_source.SLUGS (no verified ESPN slug — honest gap, HR35).
+historical_results: football_data FAILED after 2 attempts: 'KNVB Beker' is not covered by football-data.co.uk — this source has no continental competitions and doesn't include Croatia. Needs a different T1 source before it can be scanned with real historical data (NOT a guess — genuinely unavailable here).
+fixtures: thesportsdb FAILED after 2 attempts: object of type 'NoneType' has no len()
+fixtures: thesportsdb FAILED after 2 attempts: object of type 'NoneType' has no len()
+Circuit breaker OPENED for thesportsdb after 3 consecutive failures
+fixtures: thesportsdb FAILED after 2 attempts: object of type 'NoneType' has no len()
+OLP XDV daily run — 2026-08-29 — Phase 3 — live capital (Architect-deployed)
+  x league link not found in popular-list: 'Eredivisie' — falling back to sidebar
+  x sidebar: country not found: 'Netherlands'
+  x could not reach Netherlands/Eredivisie
+  x league link not found in popular-list: 'Danish Superliga' — falling back to sidebar
+  x sidebar: country not found: 'Denmark'
+  x could not reach Denmark/Danish Superliga
+  x league link not found in popular-list: 'Belgian Pro League' — falling back to sidebar
+  x sidebar: country not found: 'Belgium'
+  x could not reach Belgium/Belgian Pro League
+  x league link not found in popular-list: 'Scottish Premiership' — falling back to sidebar
+  x sidebar: country not found: 'Scotland'
+  x could not reach Scotland/Scottish Premiership
+  x league link not found in popular-list: 'Ekstraklasa' — falling back to sidebar
+  x sidebar: country not found: 'Poland'
+  x could not reach Poland/Ekstraklasa
+  x league link not found in popular-list: 'HNL' — falling back to sidebar
+  x sidebar: country not found: 'Croatia'
+  x could not reach Croatia/HNL
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:1/sr:tournament:17?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected England/Championship — falling back to sidebar
+  x league link not found in popular-list: 'Championship' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/Championship
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:30/sr:tournament:35?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: Italy/Serie A
+  [OK] Italy/Serie A: 12 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:30/sr:tournament:35?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected Italy/Serie B — falling back to sidebar
+  x league link not found in popular-list: 'Serie B' — falling back to sidebar
+  x sidebar: country not found: 'Italy'
+  x could not reach Italy/Serie B
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:7/sr:tournament:34?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: Germany/Bundesliga
+  [OK] Germany/Bundesliga: 12 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:7/sr:tournament:34?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: France/Ligue 1
+  [OK] France/Ligue 1: 12 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:7/sr:tournament:34?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected France/Ligue 2 — falling back to sidebar
+  x league link not found in popular-list: 'Ligue 2' — falling back to sidebar
+  x sidebar: country not found: 'France'
+  x could not reach France/Ligue 2
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:393/sr:tournament:679?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected International Clubs/Europa League — falling back to sidebar
+  x league link not found in popular-list: 'Europa League' — falling back to sidebar
+  x sidebar: country not found: 'International Clubs'
+  x could not reach International Clubs/Europa League
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:393/sr:tournament:34480?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected International Clubs/Conference League — falling back to sidebar
+  x league link not found in popular-list: 'Conference League' — falling back to sidebar
+  x sidebar: country not found: 'International Clubs'
+  x could not reach International Clubs/Conference League
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:32/sr:tournament:8?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected Portugal/Primeira Liga — falling back to sidebar
+  x league link not found in popular-list: 'Primeira Liga' — falling back to sidebar
+  x sidebar: country not found: 'Portugal'
+  x could not reach Portugal/Primeira Liga
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:32/sr:tournament:8?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected Portugal/Liga Portugal — falling back to sidebar
+  x league link not found in popular-list: 'Liga Portugal' — falling back to sidebar
+  x sidebar: country not found: 'Portugal'
+  x could not reach Portugal/Liga Portugal
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:32/sr:tournament:8?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: England/Premier League
+  [OK] England/Premier League: 12 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:31/sr:tournament:23?source=sport_menu&sort=2
+  [OK] Direct navigation succeeded: Spain/La Liga
+  [OK] Spain/La Liga: 12 fixtures cached
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:31/sr:tournament:23?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected Spain/LaLiga — falling back to sidebar
+  x league link not found in popular-list: 'LaLiga' — falling back to sidebar
+  x sidebar: country not found: 'Spain'
+  x could not reach Spain/LaLiga
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:31/sr:tournament:8?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected Spain/La Liga 2 — falling back to sidebar
+  x league link not found in popular-list: 'La Liga 2' — falling back to sidebar
+  x sidebar: country not found: 'Spain'
+  x could not reach Spain/La Liga 2
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:393/sr:tournament:7?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected International Clubs/Champions League — falling back to sidebar
+  x league link not found in popular-list: 'Champions League' — falling back to sidebar
+  x sidebar: country not found: 'International Clubs'
+  x could not reach International Clubs/Champions League
+  x league link not found in popular-list: 'Austrian Bundesliga' — falling back to sidebar
+  x sidebar: country not found: 'Austria'
+  x could not reach Austria/Austrian Bundesliga
+  -> Direct URL: https://www.sportybet.com.ng/ng/sport/football/sr:category:1/sr:tournament:17?source=sport_menu&sort=2
+  [FAIL] PAGE VERIFICATION FAILED: expected England/EFL Cup — falling back to sidebar
+  x league link not found in popular-list: 'EFL Cup' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/EFL Cup
+  x league link not found in popular-list: 'Russian Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Russia'
+  x could not reach Russia/Russian Premier League
+  x league link not found in popular-list: 'Swiss Super League' — falling back to sidebar
+  x sidebar: country not found: 'Switzerland'
+  x could not reach Switzerland/Swiss Super League
+  x league link not found in popular-list: 'Super League' — falling back to sidebar
+  x sidebar: country not found: 'Switzerland'
+  x could not reach Switzerland/Super League
+  x league link not found in popular-list: 'Turkish Super Lig' — falling back to sidebar
+  x sidebar: country not found: 'Turkiye'
+  x could not reach Turkiye/Turkish Super Lig
+  x league link not found in popular-list: 'FA Cup' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/FA Cup
+  x league link not found in popular-list: 'Community Shield' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/Community Shield
+  x league link not found in popular-list: 'EFL Trophy' — falling back to sidebar
+  x sidebar: country not found: 'England'
+  x could not reach England/EFL Trophy
+  x league link not found in popular-list: 'Copa del Rey' — falling back to sidebar
+  x sidebar: country not found: 'Spain'
+  x could not reach Spain/Copa del Rey
+  x league link not found in popular-list: 'Coppa Italia' — falling back to sidebar
+  x sidebar: country not found: 'Italy'
+  x could not reach Italy/Coppa Italia
+  x league link not found in popular-list: 'DFB Pokal' — falling back to sidebar
+  x sidebar: country not found: 'Germany'
+  x could not reach Germany/DFB Pokal
+  x league link not found in popular-list: 'German Super Cup' — falling back to sidebar
+  x sidebar: country not found: 'Germany'
+  x could not reach Germany/German Super Cup
+  x league link not found in popular-list: 'Coupe de France' — falling back to sidebar
+  x sidebar: country not found: 'France'
+  x could not reach France/Coupe de France
+  x league link not found in popular-list: 'KNVB Beker' — falling back to sidebar
+  x sidebar: country not found: 'Netherlands'
+  x could not reach Netherlands/KNVB Beker
+  x league link not found in popular-list: 'OFB Cup' — falling back to sidebar
+  x sidebar: country not found: 'Austria'
+  x could not reach Austria/OFB Cup
+  x league link not found in popular-list: 'Scottish League Cup' — falling back to sidebar
+  x sidebar: country not found: 'Scotland'
+  x could not reach Scotland/Scottish League Cup
+  x league link not found in popular-list: 'Süper Lig' — falling back to sidebar
+  x sidebar: country not found: 'Turkiye'
+  x could not reach Turkiye/Süper Lig
+  x league link not found in popular-list: 'Super League Greece' — falling back to sidebar
+  x sidebar: country not found: 'Greece'
+  x could not reach Greece/Super League Greece
+  x league link not found in popular-list: 'Eliteserien' — falling back to sidebar
+  x sidebar: country not found: 'Norway'
+  x could not reach Norway/Eliteserien
+  x league link not found in popular-list: 'Allsvenskan' — falling back to sidebar
+  x sidebar: country not found: 'Sweden'
+  x could not reach Sweden/Allsvenskan
+  x league link not found in popular-list: 'Czech First League' — falling back to sidebar
+  x sidebar: country not found: 'Czech Republic'
+  x could not reach Czech Republic/Czech First League
+  x league link not found in popular-list: 'Norwegian Eliteserien' — falling back to sidebar
+  x sidebar: country not found: 'Norway'
+  x could not reach Norway/Norwegian Eliteserien
+  x league link not found in popular-list: 'Greek Super League' — falling back to sidebar
+  x sidebar: country not found: 'Greece'
+  x could not reach Greece/Greek Super League
+  x league link not found in popular-list: 'Swedish Allsvenskan' — falling back to sidebar
+  x sidebar: country not found: 'Sweden'
+  x could not reach Sweden/Swedish Allsvenskan
+  x league link not found in popular-list: 'Pro League' — falling back to sidebar
+  x sidebar: country not found: 'Belgium'
+  x could not reach Belgium/Pro League
+  x league link not found in popular-list: 'Albanian Superliga' — falling back to sidebar
+  x sidebar: country not found: 'Albania'
+  x could not reach Albania/Albanian Superliga
+  x league link not found in popular-list: 'Andorran Primera Divisió' — falling back to sidebar
+  x sidebar: country not found: 'Andorra'
+  x could not reach Andorra/Andorran Primera Divisió
+  x league link not found in popular-list: 'Armenian Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Armenia'
+  x could not reach Armenia/Armenian Premier League
+  x league link not found in popular-list: 'Azerbaijani Premyer Liqa' — falling back to sidebar
+  x sidebar: country not found: 'Azerbaijan'
+  x could not reach Azerbaijan/Azerbaijani Premyer Liqa
+  x league link not found in popular-list: 'Belarusian Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Belarus'
+  x could not reach Belarus/Belarusian Premier League
+  x league link not found in popular-list: 'Bosnian Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Bosnia'
+  x could not reach Bosnia/Bosnian Premier League
+  x league link not found in popular-list: 'Bulgarian First League' — falling back to sidebar
+  x sidebar: country not found: 'Bulgaria'
+  x could not reach Bulgaria/Bulgarian First League
+  x league link not found in popular-list: 'Cypriot First Division' — falling back to sidebar
+  x sidebar: country not found: 'Cyprus'
+  x could not reach Cyprus/Cypriot First Division
+  x league link not found in popular-list: 'Estonian Meistriliiga' — falling back to sidebar
+  x sidebar: country not found: 'Estonia'
+  x could not reach Estonia/Estonian Meistriliiga
+  x league link not found in popular-list: 'Faroe Islands Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Faroe Islands'
+  x could not reach Faroe Islands/Faroe Islands Premier League
+  x league link not found in popular-list: 'Finnish Veikkausliiga' — falling back to sidebar
+  x sidebar: country not found: 'Finland'
+  x could not reach Finland/Finnish Veikkausliiga
+  x league link not found in popular-list: 'Georgian Erovnuli Liga' — falling back to sidebar
+  x sidebar: country not found: 'Georgia'
+  x could not reach Georgia/Georgian Erovnuli Liga
+  x league link not found in popular-list: 'Gibraltarian National League' — falling back to sidebar
+  x sidebar: country not found: 'Gibraltar'
+  x could not reach Gibraltar/Gibraltarian National League
+  x league link not found in popular-list: 'Hungarian NB I' — falling back to sidebar
+  x sidebar: country not found: 'Hungary'
+  x could not reach Hungary/Hungarian NB I
+  x league link not found in popular-list: 'Icelandic Urvalsdeild' — falling back to sidebar
+  x sidebar: country not found: 'Iceland'
+  x could not reach Iceland/Icelandic Urvalsdeild
+  x league link not found in popular-list: 'Israeli Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Israel'
+  x could not reach Israel/Israeli Premier League
+  x league link not found in popular-list: 'Kazakhstani Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Kazakhstan'
+  x could not reach Kazakhstan/Kazakhstani Premier League
+  x league link not found in popular-list: 'Kosovan Superliga' — falling back to sidebar
+  x sidebar: country not found: 'Kosovo'
+  x could not reach Kosovo/Kosovan Superliga
+  x league link not found in popular-list: 'Latvian Virsliga' — falling back to sidebar
+  x sidebar: country not found: 'Latvia'
+  x could not reach Latvia/Latvian Virsliga
+  x league link not found in popular-list: 'Liechtensteiner Cup' — falling back to sidebar
+  x sidebar: country not found: 'Liechtenstein'
+  x could not reach Liechtenstein/Liechtensteiner Cup
+  x league link not found in popular-list: 'Lithuanian A Lyga' — falling back to sidebar
+  x sidebar: country not found: 'Lithuania'
+  x could not reach Lithuania/Lithuanian A Lyga
+  x league link not found in popular-list: 'Luxembourg National Division' — falling back to sidebar
+  x sidebar: country not found: 'Luxembourg'
+  x could not reach Luxembourg/Luxembourg National Division
+  x league link not found in popular-list: 'Maltese Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Malta'
+  x could not reach Malta/Maltese Premier League
+  x league link not found in popular-list: 'Moldovan Super Liga' — falling back to sidebar
+  x sidebar: country not found: 'Moldova'
+  x could not reach Moldova/Moldovan Super Liga
+  x league link not found in popular-list: 'Montenegrin First League' — falling back to sidebar
+  x sidebar: country not found: 'Montenegro'
+  x could not reach Montenegro/Montenegrin First League
+  x league link not found in popular-list: 'North Macedonian First League' — falling back to sidebar
+  x sidebar: country not found: 'North Macedonia'
+  x could not reach North Macedonia/North Macedonian First League
+  x league link not found in popular-list: 'Northern Irish Premiership' — falling back to sidebar
+  x sidebar: country not found: 'Northern Ireland'
+  x could not reach Northern Ireland/Northern Irish Premiership
+  x league link not found in popular-list: 'Republic of Ireland Premier Division' — falling back to sidebar
+  x sidebar: country not found: 'Republic of Ireland'
+  x could not reach Republic of Ireland/Republic of Ireland Premier Division
+  x league link not found in popular-list: 'Romanian Liga I' — falling back to sidebar
+  x sidebar: country not found: 'Romania'
+  x could not reach Romania/Romanian Liga I
+  x league link not found in popular-list: 'Sanmarinese Campionato' — falling back to sidebar
+  x sidebar: country not found: 'San Marino'
+  x could not reach San Marino/Sanmarinese Campionato
+  x league link not found in popular-list: 'Serbian Super Liga' — falling back to sidebar
+  x sidebar: country not found: 'Serbia'
+  x could not reach Serbia/Serbian Super Liga
+  x league link not found in popular-list: 'Slovak Super Liga' — falling back to sidebar
+  x sidebar: country not found: 'Slovakia'
+  x could not reach Slovakia/Slovak Super Liga
+  x league link not found in popular-list: 'Slovenian PrvaLiga' — falling back to sidebar
+  x sidebar: country not found: 'Slovenia'
+  x could not reach Slovenia/Slovenian PrvaLiga
+  x league link not found in popular-list: 'UEFA Super Cup' — falling back to sidebar
+  x sidebar: country not found: 'International Clubs'
+  x could not reach International Clubs/UEFA Super Cup
+  x league link not found in popular-list: 'Welsh Premier League' — falling back to sidebar
+  x sidebar: country not found: 'Wales'
+  x could not reach Wales/Welsh Premier League
+[espn_results] Error fetching Ekstraklasa for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/pol.1/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching Conference League for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.conf/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching HNL for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/cro.1/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching Armenian Premier League for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/arm.1/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching Estonian Meistriliiga for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/est.1/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching Faroe Islands Premier League for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/fro.1/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching Georgian Erovnuli Liga for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/geo.1/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching Hungarian NB I for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/hun.1/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching Kosovan Superliga for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/xkx.1/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching Latvian Virsliga for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/lva.1/scoreboard?dates=20260828&limit=100
+[espn_results] Error fetching Slovenian PrvaLiga for 2026-08-28: 400 Client Error: Bad Request for url: https://site.api.espn.com/apis/site/v2/sports/soccer/svn.1/scoreboard?dates=20260828&limit=100
+  delivered 5 part(s) to Telegram
+  delivered 5 part(s) to Telegram
+  delivered 5 part(s) to Telegram
+  delivered 5 part(s) to Telegram
+
+##########OLP XDV#########
+==================================
+? Sat 29 Aug 2026 — FULL PIPELINE BOARD
+
+??????????????????????????????????
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+(every fixture × every scored market, shared board code,
+ AI's own highest-probability pick shown per fixture)
+??????????????????????????????????
+? 2. Bundesliga
+   ??:??   1. FC Heidenheim v Dynamo Dresden
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Karlsruher SC v VfL Wolfsburg
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Energie Cottbus v SpVgg Greuther Fürth
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   1. FC Nürnberg v Arminia Bielefeld
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? Belgian Pro League
+   ??:??   RAAL La Louvière v KV Mechelen
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Kortrijk v Charleroi
+       O1.5 72%  ·  O2.5 44%  ·  O3.5 23%  ·  BTTS 50%
+       1X2 Kortrijk 26%  ·  Draw 30%  ·  Charleroi 45%
+       ? AI Pick: Charleroi or Draw (double chance) — 74%
+   ??:??   OH Leuven v Standard Liege
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Cercle Brugge v Lommel United
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? Bundesliga
+   14:30   FSV Mainz 05 v SC Paderborn 07
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   RB Leipzig v Borussia Mönchengladbach
+       O1.5 80%  ·  O2.5 57%  ·  O3.5 35%  ·  BTTS 54%
+       1X2 RB Leipzig 62%  ·  Draw 21%  ·  Borussia Mönchengladbach 17%
+       ? AI Pick: RB Leipzig to win — 62%
+   14:30   Union Berlin v Eintracht Frankfurt
+       O1.5 86%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 67%
+       1X2 Union Berlin 38%  ·  Draw 23%  ·  Eintracht Frankfurt 39%
+       ? AI Pick: Over 1.5 goals — 86%
+   ??:??   1. FC Köln v 1899 Hoffenheim
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   SV Elversberg v Bayer Leverkusen
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   17:30   Borussia Dortmund v Hamburger SV
+       O1.5 77%  ·  O2.5 53%  ·  O3.5 31%  ·  BTTS 43%
+       1X2 Borussia Dortmund 71%  ·  Draw 19%  ·  Hamburger SV 10%
+       ? AI Pick: Borussia Dortmund to win — 71%
+? Championship
+   12:30   Wolves v Stoke City
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   12:30   Derby v Swansea
+       O1.5 75%  ·  O2.5 49%  ·  O3.5 27%  ·  BTTS 54%
+       1X2 Derby 45%  ·  Draw 28%  ·  Swansea 26%
+       ? AI Pick: Over 1.5 goals — 75%
+   12:30   Middlesbrough v West Brom
+       O1.5 69%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 44%
+       1X2 Middlesbrough 56%  ·  Draw 27%  ·  West Brom 17%
+       ? AI Pick: Both teams to score — no — 56%
+   15:00   Watford v West Ham
+       1X2 Watford 9%  ·  Draw 22%  ·  West Ham 69%
+       ? AI Pick: Watford or West Ham (double chance) — 78%
+   15:00   Southampton v Millwall
+       O1.5 78%  ·  O2.5 53%  ·  O3.5 31%  ·  BTTS 57%
+       1X2 Southampton 44%  ·  Draw 27%  ·  Millwall 28%
+       ? AI Pick: Over 1.5 goals — 78%
+   ??:??   Cardiff v Sheffield Utd
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   15:00   Bristol City v Portsmouth
+       O1.5 71%  ·  O2.5 43%  ·  O3.5 22%  ·  BTTS 49%
+       1X2 Bristol City 47%  ·  Draw 29%  ·  Portsmouth 24%
+       ? AI Pick: Bristol City or Draw (double chance) — 76%
+   ??:??   Blackburn v QPR
+       O1.5 69%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 49%
+       1X2 Blackburn 36%  ·  Draw 31%  ·  QPR 34%
+       ? AI Pick: QPR or Draw (double chance) — 64%
+   15:00   Bolton v Lincoln
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   15:00   Norwich v Burnley
+       O1.5 60%  ·  O2.5 32%  ·  O3.5 14%  ·  BTTS 32%
+       1X2 Norwich 13%  ·  Draw 27%  ·  Burnley 61%
+       ? AI Pick: Burnley or Draw (double chance) — 87%
+   15:00   Charlton v Preston
+       O1.5 63%  ·  O2.5 35%  ·  O3.5 16%  ·  BTTS 43%
+       1X2 Charlton 34%  ·  Draw 33%  ·  Preston 33%
+       ? AI Pick: Both teams to score — no — 57%
+? Eredivisie
+   15:30   Excelsior v Sparta Rotterdam
+       O1.5 73%  ·  O2.5 47%  ·  O3.5 25%  ·  BTTS 51%
+       1X2 Excelsior 48%  ·  Draw 29%  ·  Sparta Rotterdam 24%
+       ? AI Pick: Excelsior or Draw (double chance) — 76%
+   17:45   AZ Alkmaar v GO Ahead Eagles
+       1X2 AZ Alkmaar 59%  ·  Draw 25%  ·  GO Ahead Eagles 16%
+       ? AI Pick: AZ Alkmaar or GO Ahead Eagles (double chance) — 75%
+   20:00   PEC Zwolle v NEC Nijmegen
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? La Liga
+   16:00   Levante v Real Betis
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   18:00   Real Sociedad v Espanyol
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   20:30   Sevilla v Atletico Madrid
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? La Liga 2
+   ??:??   Sabadell v Almeria
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Leganes v Eldense
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Albacete v Oviedo
+       O1.5 70%  ·  O2.5 44%  ·  O3.5 23%  ·  BTTS 50%
+       1X2 Albacete 37%  ·  Draw 27%  ·  Oviedo 36%
+       ? AI Pick: Over 1.5 goals — 70%
+   ??:??   Girona v Las Palmas
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? Ligue 1
+   16:15   Strasbourg v Lens
+       O1.5 82%  ·  O2.5 60%  ·  O3.5 38%  ·  BTTS 62%
+       1X2 Strasbourg 33%  ·  Draw 24%  ·  Lens 43%
+       ? AI Pick: Over 1.5 goals — 82%
+   19:45   Lyon v Le Havre
+       O1.5 66%  ·  O2.5 39%  ·  O3.5 19%  ·  BTTS 39%
+       1X2 Lyon 58%  ·  Draw 25%  ·  Le Havre 16%
+       ? AI Pick: Both teams to score — no — 61%
+   19:45   Lorient v Estac Troyes
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   19:45   Stade Brestois 29 v Toulouse
+       O1.5 76%  ·  O2.5 52%  ·  O3.5 30%  ·  BTTS 56%
+       1X2 Stade Brestois 29 37%  ·  Draw 26%  ·  Toulouse 37%
+       ? AI Pick: Over 1.5 goals — 76%
+   19:45   Auxerre v Angers
+       O1.5 53%  ·  O2.5 26%  ·  O3.5 10%  ·  BTTS 33%
+       1X2 Auxerre 45%  ·  Draw 32%  ·  Angers 23%
+       ? AI Pick: Angers or Draw (double chance) — 55%
+? Ligue 2
+   ??:??   RED Star FC 93 v Reims
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Annecy v Metz
+       O1.5 72%  ·  O2.5 49%  ·  O3.5 27%  ·  BTTS 51%
+       1X2 Annecy 30%  ·  Draw 23%  ·  Metz 47%
+       ? AI Pick: Annecy or Metz (double chance) — 77%
+   ??:??   Guingamp v Nantes
+       1X2 Guingamp 24%  ·  Draw 28%  ·  Nantes 48%
+       ? AI Pick: Nantes or Draw (double chance) — 76%
+? Premier League
+   12:30   Liverpool v Nottingham Forest
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   15:00   Bournemouth v Everton
+       O1.5 78%  ·  O2.5 52%  ·  O3.5 30%  ·  BTTS 57%
+       1X2 Bournemouth 46%  ·  Draw 28%  ·  Everton 25%
+       ? AI Pick: Over 1.5 goals — 78%
+   15:00   Coventry v Hull City
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   17:30   Tottenham v Newcastle
+       O1.5 79%  ·  O2.5 54%  ·  O3.5 32%  ·  BTTS 59%
+       1X2 Tottenham 38%  ·  Draw 29%  ·  Newcastle 33%
+       ? AI Pick: Over 1.5 goals — 79%
+? Primeira Liga
+   ??:??   Arouca v Maritimo
+       1X2 Arouca 60%  ·  Draw 25%  ·  Maritimo 15%
+       ? AI Pick: Arouca or Maritimo (double chance) — 75%
+   ??:??   Alverca v Santa Clara
+       O1.5 58%  ·  O2.5 31%  ·  O3.5 14%  ·  BTTS 39%
+       1X2 Alverca 37%  ·  Draw 31%  ·  Santa Clara 32%
+       ? AI Pick: Alverca or Draw (double chance) — 68%
+   ??:??   Academico Viseu v FC Porto
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? Russian Premier League
+   13:00   Fakel v Zenit
+       O1.5 58%  ·  O2.5 29%  ·  O3.5 12%  ·  BTTS 18%
+       1X2 Fakel 3%  ·  Draw 25%  ·  Zenit 72%
+       ? AI Pick: Zenit to win — 72%
+   15:30   FC Krasnodar v FC Rostov
+       O1.5 83%  ·  O2.5 58%  ·  O3.5 36%  ·  BTTS 47%
+       1X2 FC Krasnodar 73%  ·  Draw 21%  ·  FC Rostov 7%
+       ? AI Pick: FC Krasnodar or FC Rostov (double chance) — 79%
+   ??:??   Lokomotiv v Dynamo
+       O1.5 88%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 70%
+       1X2 Lokomotiv 35%  ·  Draw 28%  ·  Dynamo 37%
+       ? AI Pick: Both teams to score — yes — 70%
+   18:00   Akhmat v Krylia Sovetov
+       O1.5 76%  ·  O2.5 48%  ·  O3.5 26%  ·  BTTS 56%
+       1X2 Akhmat 35%  ·  Draw 33%  ·  Krylia Sovetov 31%
+       ? AI Pick: Over 1.5 goals — 76%
+? Scottish Premiership
+   15:00   Celtic v Falkirk
+       O1.5 86%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 56%
+       1X2 Celtic 71%  ·  Draw 18%  ·  Falkirk 11%
+       ? AI Pick: Over 2.5 goals — 66%
+   ??:??   Kilmarnock v Dundee Utd
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   15:00   Heart Of Midlothian v ST Johnstone
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? Serie A
+   17:30   Sassuolo v Torino
+       O1.5 79%  ·  O2.5 57%  ·  O3.5 35%  ·  BTTS 58%
+       1X2 Sassuolo 50%  ·  Draw 23%  ·  Torino 27%
+       ? AI Pick: Sassuolo or Torino (double chance) — 77%
+   17:30   Fiorentina v Frosinone
+       1X2 Fiorentina 60%  ·  Draw 25%  ·  Frosinone 15%
+       ? AI Pick: Fiorentina to win — 60%
+   17:30   Monza v Udinese
+       O1.5 69%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 47%
+       1X2 Monza 22%  ·  Draw 29%  ·  Udinese 49%
+       ? AI Pick: Over 1.5 goals — 69%
+   19:45   Juventus v Parma
+       O1.5 63%  ·  O2.5 37%  ·  O3.5 17%  ·  BTTS 33%
+       1X2 Juventus 65%  ·  Draw 24%  ·  Parma 12%
+       ? AI Pick: Both teams to score — no — 67%
+? Serie B
+   ??:??   Sampdoria v Juve Stabia
+       O1.5 60%  ·  O2.5 31%  ·  O3.5 13%  ·  BTTS 40%
+       1X2 Sampdoria 33%  ·  Draw 36%  ·  Juve Stabia 31%
+       ? AI Pick: Both teams to score — no — 60%
+   ??:??   Virtus Entella v Cesena
+       O1.5 68%  ·  O2.5 40%  ·  O3.5 20%  ·  BTTS 48%
+       1X2 Virtus Entella 40%  ·  Draw 32%  ·  Cesena 28%
+       ? AI Pick: Virtus Entella or Draw (double chance) — 72%
+   ??:??   Ascoli v Carrarese
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Avellino v Vicenza Virtus
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Padova v Hellas Verona
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? Swiss Super League
+   17:00   Lausanne v FC Zurich
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   17:00   Servette FC v FC Luzern
+       1X2 Servette FC 48%  ·  Draw 28%  ·  FC Luzern 24%
+       ? AI Pick: Servette FC or Draw (double chance) — 76%
+   ??:??   BSC Young Boys v FC Basel 1893
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? Taça de Portugal
+   ??:??   Oliveirense v Penalva Castelo
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Varzim v Trofense
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Fátima v Benfica Castelo Branco
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Olímpico do Montijo v Atlético CP
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Atlético Malveira v Mafra
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   FC Serpa v O Grandolense
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+   ??:??   Pacos Ferreira v Fafe
+       NO DATA — PENDING
+       ? AI Pick: NO DATA — PENDING
+? Turkish Super Lig
+   17:00   Konyaspor v Kocaelispor
+       1X2 Konyaspor 53%  ·  Draw 27%  ·  Kocaelispor 20%
+       ? AI Pick: Konyaspor or Draw (double chance) — 80%
+   ??:??   Galatasaray v Göztepe
+       O1.5 87%  ·  O2.5 68%  ·  O3.5 46%  ·  BTTS 54%
+       1X2 Galatasaray 75%  ·  Draw 16%  ·  Göztepe 9%
+       ? AI Pick: Over 1.5 goals — 87%
+   19:30   Gaziantep FK v Rizespor
+       O1.5 76%  ·  O2.5 51%  ·  O3.5 29%  ·  BTTS 55%
+       1X2 Gaziantep FK 45%  ·  Draw 27%  ·  Rizespor 28%
+       ? AI Pick: Gaziantep FK or Draw (double chance) — 72%
+
+Board code: NO DATA — PENDING (booking-code read postponed — technical issue,
+tracked internally, not blocking pipeline output)
+
+??????????????????????????????????
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+??????????????????????????????????
+? Kortrijk v Charleroi — Charleroi or Draw (double chance) — 74%
+    Code: NO DATA — PENDING
+? RB Leipzig v Borussia Mönchengladbach — RB Leipzig to win — 62%
+    Code: NO DATA — PENDING
+? Union Berlin v Eintracht Frankfurt — Over 1.5 goals — 86%
+    Code: NO DATA — PENDING
+? Borussia Dortmund v Hamburger SV — Borussia Dortmund to win — 71%
+    Code: NO DATA — PENDING
+? Derby v Swansea — Over 1.5 goals — 75%
+    Code: NO DATA — PENDING
+? Middlesbrough v West Brom — Both teams to score — no — 56%
+    Code: NO DATA — PENDING
+? Watford v West Ham — Watford or West Ham (double chance) — 78%
+    Code: NO DATA — PENDING
+? Southampton v Millwall — Over 1.5 goals — 78%
+    Code: NO DATA — PENDING
+? Bristol City v Portsmouth — Bristol City or Draw (double chance) — 76%
+    Code: NO DATA — PENDING
+? Blackburn v QPR — QPR or Draw (double chance) — 64%
+    Code: NO DATA — PENDING
+? Norwich v Burnley — Burnley or Draw (double chance) — 87%
+    Code: NO DATA — PENDING
+? Charlton v Preston — Both teams to score — no — 57%
+    Code: NO DATA — PENDING
+? Excelsior v Sparta Rotterdam — Excelsior or Draw (double chance) — 76%
+    Code: NO DATA — PENDING
+? AZ Alkmaar v GO Ahead Eagles — AZ Alkmaar or GO Ahead Eagles (double chance) — 75%
+    Code: NO DATA — PENDING
+? Albacete v Oviedo — Over 1.5 goals — 70%
+    Code: NO DATA — PENDING
+? Strasbourg v Lens — Over 1.5 goals — 82%
+    Code: NO DATA — PENDING
+? Lyon v Le Havre — Both teams to score — no — 61%
+    Code: NO DATA — PENDING
+? Stade Brestois 29 v Toulouse — Over 1.5 goals — 76%
+    Code: NO DATA — PENDING
+? Auxerre v Angers — Angers or Draw (double chance) — 55%
+    Code: NO DATA — PENDING
+? Annecy v Metz — Annecy or Metz (double chance) — 77%
+    Code: NO DATA — PENDING
+? Guingamp v Nantes — Nantes or Draw (double chance) — 76%
+    Code: NO DATA — PENDING
+? Bournemouth v Everton — Over 1.5 goals — 78%
+    Code: NO DATA — PENDING
+? Tottenham v Newcastle — Over 1.5 goals — 79%
+    Code: NO DATA — PENDING
+? Arouca v Maritimo — Arouca or Maritimo (double chance) — 75%
+    Code: NO DATA — PENDING
+? Alverca v Santa Clara — Alverca or Draw (double chance) — 68%
+    Code: NO DATA — PENDING
+? Fakel v Zenit — Zenit to win — 72%
+    Code: NO DATA — PENDING
+? FC Krasnodar v FC Rostov — FC Krasnodar or FC Rostov (double chance) — 79%
+    Code: NO DATA — PENDING
+? Lokomotiv v Dynamo — Both teams to score — yes — 70%
+    Code: NO DATA — PENDING
+? Akhmat v Krylia Sovetov — Over 1.5 goals — 76%
+    Code: NO DATA — PENDING
+? Celtic v Falkirk — Over 2.5 goals — 66%
+    Code: NO DATA — PENDING
+? Sassuolo v Torino — Sassuolo or Torino (double chance) — 77%
+    Code: NO DATA — PENDING
+? Fiorentina v Frosinone — Fiorentina to win — 60%
+    Code: NO DATA — PENDING
+? Monza v Udinese — Over 1.5 goals — 69%
+    Code: NO DATA — PENDING
+? Juventus v Parma — Both teams to score — no — 67%
+    Code: NO DATA — PENDING
+? Sampdoria v Juve Stabia — Both teams to score — no — 60%
+    Code: NO DATA — PENDING
+? Virtus Entella v Cesena — Virtus Entella or Draw (double chance) — 72%
+    Code: NO DATA — PENDING
+? Servette FC v FC Luzern — Servette FC or Draw (double chance) — 76%
+    Code: NO DATA — PENDING
+? Konyaspor v Kocaelispor — Konyaspor or Draw (double chance) — 80%
+    Code: NO DATA — PENDING
+? Galatasaray v Göztepe — Over 1.5 goals — 87%
+    Code: NO DATA — PENDING
+? Gaziantep FK v Rizespor — Gaziantep FK or Draw (double chance) — 72%
+    Code: NO DATA — PENDING
+
+??????????????????????????????????
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+??????????????????????????????????
+No capital-eligible accas generated.
+??????????????????????????????????
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+??????????????????????????????????
+? Primary single: Fakel v Zenit (Russian Premier League)
+  Market: Zenit to win
+  Price: 1.52 (Pinnacle)
+  Model Prob: 72%
+  MES EV: +7.70%
+  Verification: ?
+  Code: NO DATA — PENDING
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Booking codes: PENDING pipeline-wide — technical issue under repair,
+tracking resumes once read_betslip_combined_odds is fixed.
+==================================
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

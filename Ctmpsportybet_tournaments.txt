@@ -1,0 +1,286 @@
+Albania|Kategoria Superiore|sr:tournament:720|1
+Angola|Girabola|sr:tournament:2171|1
+Argentina|Primera B|sr:tournament:1347|1
+Argentina|Primera LPF|sr:tournament:155|23
+Argentina|Primera Nacional|sr:tournament:703|16
+Argentina|Torneo Federal A|sr:tournament:30106|14
+Argentina|Primera C|sr:tournament:26174|3
+Argentina|Copa Argentina|sr:tournament:1024|5
+Armenia|Premier League|sr:tournament:671|2
+Australia|A-League 26/27|sr:tournament:136|1
+Australia|U20 NSW NPL|sr:tournament:32353|1
+Australia|NSW League One, Women|sr:tournament:32483|3
+Australia|NSW NPL, Women|sr:tournament:32351|4
+Australia|Western Australia NPL, Women|sr:tournament:32369|2
+Australia|Australia Cup 2026|sr:tournament:1786|1
+Australia|Northern Territory Premier League, Women|sr:tournament:49946|1
+Australia|U20 NSW League One|sr:tournament:33307|1
+Australia|U23 NSW League One, Women|sr:tournament:33315|1
+Australia|U23 NSW NPL, Women|sr:tournament:33313|2
+Austria|Bundesliga|sr:tournament:45|3
+Austria|OFB Cup 26/27|sr:tournament:445|1
+Austria|2. Liga|sr:tournament:135|5
+Austria Amateur|Regionalliga West|sr:tournament:167|3
+Austria Amateur|Salzburger Liga|sr:tournament:1279|1
+Austria Amateur|Bundesliga, Women|sr:tournament:14197|2
+Austria Amateur|Eliteliga Vorarlberg|sr:tournament:29684|1
+Austria Amateur|Burgenlandliga|sr:tournament:43773|1
+Austria Amateur|Karntner Liga|sr:tournament:43781|1
+Austria Amateur|Wiener Stadtliga|sr:tournament:43831|1
+Azerbaijan|Premier League|sr:tournament:709|2
+Belarus|Vysshaya Liga|sr:tournament:169|4
+Belgium|Pro League|sr:tournament:38|4
+Belgium|Challenger Pro League|sr:tournament:9|4
+Belgium|Nationale 1 ACFF|sr:tournament:43373|1
+Bolivia|Division Profesional|sr:tournament:33980|2
+Bosnia & Herzegovina|Premijer Liga|sr:tournament:222|2
+Bosnia & Herzegovina|Prva Liga, Fed BiH|sr:tournament:716|2
+Brazil|Brasileiro Serie A|sr:tournament:325|17
+Brazil|Brasileiro Serie A2, Women|sr:tournament:32039|1
+Brazil|Brasileiro Serie B|sr:tournament:390|8
+Brazil|Copa do Brasil|sr:tournament:373|5
+Brazil|Brasileiro Serie C|sr:tournament:1281|5
+Brazil|Brasileiro Serie D|sr:tournament:15335|1
+Brazil|Gaucho, Serie A2|sr:tournament:35791|6
+Brazil|Amazonense, Serie B|sr:tournament:47121|1
+Brazil|Brasileiro A3, Women|sr:tournament:46945|1
+Brazil|Cearense, Serie C|sr:tournament:40055|1
+Brazil|U20 Carioca, Serie A|sr:tournament:39459|1
+Bulgaria|Super Cup|sr:tournament:510|1
+Bulgaria|Vtora Liga|sr:tournament:1135|7
+Bulgaria|Parva Liga|sr:tournament:247|8
+Canada|Canadian Premier League|sr:tournament:28432|1
+Chile|Primera B|sr:tournament:1240|3
+Chile|Primera Division|sr:tournament:27665|14
+Chile|Primera Division, Women|sr:tournament:42285|1
+Chile|Tercera Division|sr:tournament:48427|3
+China|Chinese Super League|sr:tournament:649|6
+China|China League 1|sr:tournament:782|2
+China|China League 2|sr:tournament:15636|6
+Colombia|Liga DIMAYOR|sr:tournament:27070|8
+Colombia|Torneo DIMAYOR|sr:tournament:1238|1
+Costa Rica|Primera Division|sr:tournament:27092|2
+Costa Rica|Liga de Ascenso|sr:tournament:27767|4
+Croatia|HNL|sr:tournament:170|2
+Croatia|Prva NL|sr:tournament:724|2
+Croatia|U19 Prva NL Juniori|sr:tournament:48060|1
+Cyprus|1st Division|sr:tournament:171|8
+Czechia|1. Liga|sr:tournament:172|8
+Czechia|FNL|sr:tournament:205|2
+Czechia|CFL|sr:tournament:14151|5
+Czechia|MSFL|sr:tournament:14147|4
+Czechia|2. Liga, Women|sr:tournament:47994|1
+Czechia|Divize A|sr:tournament:40727|1
+Czechia|Divize C|sr:tournament:40731|1
+Czechia|Divize E|sr:tournament:40735|3
+Czechia|Divize F|sr:tournament:40737|2
+Denmark|Superliga|sr:tournament:39|11
+Denmark|A Liga, Women|sr:tournament:14193|1
+Denmark|1. Division|sr:tournament:47|1
+Denmark|2nd Division|sr:tournament:65|1
+Denmark Amateur|Danmarksserien|sr:tournament:37195|1
+Dominican Republic|Liga Mayor|sr:tournament:24443|1
+Ecuador|LigaPro Primera A|sr:tournament:240|6
+Egypt|Premier League|sr:tournament:808|6
+El Salvador|Primera Division|sr:tournament:27088|2
+El Salvador|Primera Division, Reserves|sr:tournament:37331|1
+England|Premier League|sr:tournament:17|15
+England|EFL Cup|sr:tournament:21|24
+England|FA Cup 26/27|sr:tournament:19|1
+England|Championship|sr:tournament:18|14
+England|League One|sr:tournament:24|12
+England|League Two|sr:tournament:25|13
+England|National League|sr:tournament:173|13
+England|EFL Trophy|sr:tournament:334|1
+England Amateur|U21 Premier League 2|sr:tournament:1129|2
+England Amateur|U21 Professional Development League|sr:tournament:29842|1
+England Amateur|Super League Women 26/27|sr:tournament:1044|1
+Estonia|Esiliiga|sr:tournament:678|4
+Estonia|Premium Liiga|sr:tournament:178|3
+Estonia|Esiliiga B|sr:tournament:35797|4
+Faroe Islands|Premier League|sr:tournament:673|4
+Finland|Veikkausliiga|sr:tournament:41|3
+Finland|Kansallinen Liiga, Women|sr:tournament:1662|2
+Finland|Ykkosliiga|sr:tournament:55|3
+Finland|Ykkonen|sr:tournament:42291|1
+France|Coupe de France 26/27|sr:tournament:335|1
+France|Ligue 1|sr:tournament:34|4
+France|U19 National|sr:tournament:26276|16
+France|Ligue 2|sr:tournament:182|5
+France|Ligue 3|sr:tournament:183|4
+Germany|Bundesliga|sr:tournament:35|10
+Germany|DFB Pokal|sr:tournament:217|16
+Germany|2. Bundesliga|sr:tournament:44|10
+Germany|3. Liga|sr:tournament:491|11
+Germany Amateur|Regionalliga North|sr:tournament:42|1
+Germany Amateur|Regionalliga West|sr:tournament:493|2
+Germany Amateur|U19 DFB Nachwuchsliga|sr:tournament:24702|2
+Germany Amateur|Women Bundesliga|sr:tournament:232|4
+Greece|Super League|sr:tournament:185|10
+Greece|U19 Super League|sr:tournament:26384|1
+Greece|Greece Cup|sr:tournament:375|2
+Guatemala|Liga Nacional|sr:tournament:27396|3
+Guatemala|Primera Division|sr:tournament:48000|3
+Honduras|Liga Nacional|sr:tournament:27414|2
+Hong Kong, China|Premier League|sr:tournament:947|2
+Hungary|NB I|sr:tournament:187|3
+Hungary|NB II|sr:tournament:1339|2
+Iceland|3. deild|sr:tournament:28879|4
+Iceland|Besta deild|sr:tournament:188|6
+Iceland|1. deild|sr:tournament:675|1
+Iceland|2. deild|sr:tournament:15283|4
+India|Calcutta Premier Div.|sr:tournament:1774|1
+International|UEFA Euro 2028|sr:tournament:1|1
+International|World Cup 2030|sr:tournament:16|1
+International|UEFA Nations League 26/27|sr:tournament:23755|1
+International|ASEAN Championship|sr:tournament:602|1
+International|FIFA World Cup, Women 2027|sr:tournament:290|1
+International|Ballon dor 2026|sr:tournament:26916|1
+International Clubs|UEFA Champions League|sr:tournament:7|8
+International Clubs|Leagues Cup 2026|sr:tournament:29472|1
+International Clubs|UEFA Europa League|sr:tournament:679|12
+International Clubs|UEFA Conference League|sr:tournament:34480|24
+International Clubs|CONMEBOL Libertadores|sr:tournament:384|5
+International Clubs|CONMEBOL Sudamericana|sr:tournament:480|5
+International Clubs|AFC Women's Champions League|sr:tournament:42985|3
+Iran|Pro League|sr:tournament:915|6
+Ireland|Premier Division|sr:tournament:192|5
+Ireland|First Division|sr:tournament:193|5
+Israel|National League|sr:tournament:727|4
+Israel|Premier League|sr:tournament:266|3
+Italy|Coppa Italia 26/27|sr:tournament:328|1
+Italy|Serie A|sr:tournament:23|7
+Italy|Serie C, Group B|sr:tournament:26556|6
+Italy|Serie C, Group C|sr:tournament:26558|5
+Italy|Serie B|sr:tournament:53|4
+Italy|Serie C, Group A|sr:tournament:26554|3
+Italy|Coppa Italia Serie D|sr:tournament:39221|8
+Italy|Primavera 1|sr:tournament:2340|3
+Italy|Serie A Cup, Women|sr:tournament:47660|2
+Japan|J1 League|sr:tournament:196|9
+Japan|WE League, Women|sr:tournament:34590|3
+Japan|J2 League|sr:tournament:402|4
+Japan|J3 League|sr:tournament:2094|2
+Kosovo|Superliga|sr:tournament:14189|1
+Latvia|Virsliga|sr:tournament:197|2
+Latvia|1.Liga|sr:tournament:677|3
+Lithuania|TOPLYGA|sr:tournament:198|4
+Lithuania|1 Lyga|sr:tournament:676|1
+Luxembourg|Division Nationale|sr:tournament:690|6
+Malawi|Super League|sr:tournament:19494|4
+Malaysia|Super League|sr:tournament:1000|1
+Malta|Premier League|sr:tournament:629|2
+Mexico|Liga MX, Women|sr:tournament:28953|3
+Mexico|Liga de Expansion MX|sr:tournament:27382|5
+Mexico|Liga MX|sr:tournament:27464|11
+Mexico|U21 Liga MX|sr:tournament:48056|2
+Moldova|Super Liga|sr:tournament:685|2
+Montenegro|2. CFL|sr:tournament:717|3
+Montenegro|1. CFL|sr:tournament:154|2
+Netherlands|Eredivisie, Women|sr:tournament:2270|2
+Netherlands|Eredivisie|sr:tournament:37|7
+Netherlands|Eerste Divisie|sr:tournament:131|6
+Netherlands|Tweede Divisie|sr:tournament:26278|1
+Netherlands|KNVB beker 26/27|sr:tournament:330|1
+Netherlands|Derde Divisie|sr:tournament:47988|3
+Nicaragua|Primera Division|sr:tournament:19242|3
+North Macedonia|1. MFL|sr:tournament:199|2
+Northern Ireland|Premiership|sr:tournament:200|4
+Norway|Eliteserien|sr:tournament:20|9
+Norway|NM Cup|sr:tournament:29|1
+Norway|1st Division, Women|sr:tournament:19272|5
+Norway|1st Division|sr:tournament:22|7
+Panama|Liga Panamena|sr:tournament:27102|3
+Paraguay|Division de Honor|sr:tournament:27098|4
+Paraguay|Division Intermedia|sr:tournament:1254|4
+Paraguay|Primera Division Reserve, Clausura|sr:tournament:27216|1
+Paraguay|Campeonato Femenino, Women|sr:tournament:46758|2
+Peru|Liga 1|sr:tournament:406|4
+Peru|Liga 2|sr:tournament:15235|3
+Poland|Ekstraklasa|sr:tournament:202|9
+Poland|Puchar Polski 26/27|sr:tournament:281|1
+Poland|1. Liga|sr:tournament:229|5
+Poland|II Liga|sr:tournament:515|4
+Poland|III Liga, Group 1|sr:tournament:25835|6
+Poland|III Liga, Group 2|sr:tournament:25837|4
+Poland|III Liga, Group 3|sr:tournament:25839|1
+Poland|III Liga, Group 4|sr:tournament:25841|3
+Poland|1. Liga, Women|sr:tournament:48233|1
+Portugal|Liga Portugal|sr:tournament:238|5
+Portugal|Campeonato de Portugal|sr:tournament:14758|14
+Portugal|Liga Portugal 2|sr:tournament:239|7
+Portugal|Liga Portugal 3|sr:tournament:34900|4
+Portugal|U19 Campeonato Nacional|sr:tournament:1133|2
+Qatar|Stars League|sr:tournament:825|3
+Republic of Korea|K-League 1|sr:tournament:410|5
+Republic of Korea|K-League 2|sr:tournament:777|6
+Republic of Korea|K3 League|sr:tournament:15123|3
+Republic of Korea|K4 League|sr:tournament:48521|2
+Romania|Superliga|sr:tournament:152|13
+Romania|Liga 2|sr:tournament:562|3
+Russia|Premier League|sr:tournament:203|13
+Russia|Russian Cup|sr:tournament:91|9
+Russia|1. Liga|sr:tournament:204|6
+Russia|2. Liga, Division B, Group 2|sr:tournament:1099|5
+Russia|2. Liga, Division B, Group 3|sr:tournament:1095|1
+Russia|2. Liga, Division B, Group 4|sr:tournament:1097|6
+Russia|2. Liga, Division A|sr:tournament:40305|2
+Saudi Arabia|Saudi Pro League|sr:tournament:955|8
+Saudi Arabia|Division 1|sr:tournament:2298|3
+Scotland|League Cup 26/27|sr:tournament:332|1
+Scotland|Premiership|sr:tournament:36|7
+Scotland|Premier League, Women|sr:tournament:2090|4
+Scotland|Championship|sr:tournament:206|6
+Scotland|League 1|sr:tournament:207|6
+Scotland|Challenge Cup|sr:tournament:331|20
+Scotland|League 2|sr:tournament:209|6
+Serbia|Superliga|sr:tournament:210|4
+Serbia|Prva Liga|sr:tournament:721|6
+Serbia|U19 League|sr:tournament:48291|1
+Simulated Reality League|Premier League SRL|sr:tournament:32215|3
+Simulated Reality League|LaLiga SRL|sr:tournament:32219|3
+Simulated Reality League|Ligue 1 SRL|sr:tournament:32223|3
+Simulated Reality League|Serie A SRL|sr:tournament:32221|4
+Simulated Reality League|Eredivisie SRL|sr:tournament:32377|3
+Simulated Reality League|Turkey Super Lig SRL|sr:tournament:32225|4
+Slovakia|Superliga|sr:tournament:211|3
+Slovakia|U19 1. Liga|sr:tournament:1327|1
+Slovakia|2. Liga|sr:tournament:224|2
+Slovakia|Slovensky Pohar 26/27|sr:tournament:303|1
+Slovakia|3. Liga|sr:tournament:47536|7
+Slovenia|PrvaLiga|sr:tournament:212|2
+Slovenia|2. Liga|sr:tournament:532|2
+Slovenia|3. SNL|sr:tournament:47998|2
+South Africa|Premiership 26/27|sr:tournament:358|1
+South Africa|MTN 8|sr:tournament:1125|1
+Spain|LaLiga|sr:tournament:8|14
+Spain|Copa del Rey 26/27|sr:tournament:329|1
+Spain|LALIGA HYPERMOTION|sr:tournament:54|6
+Sweden|Ettan|sr:tournament:27412|8
+Sweden|Damallsvenskan|sr:tournament:214|3
+Sweden|Allsvenskan|sr:tournament:40|9
+Sweden|Division 2|sr:tournament:20782|11
+Sweden|Superettan|sr:tournament:46|13
+Sweden Amateur|Elitettan, Women|sr:tournament:38941|1
+Switzerland|Super League|sr:tournament:215|4
+Switzerland|Challenge League|sr:tournament:216|2
+Switzerland|Promotion League|sr:tournament:1101|1
+Switzerland|1. Liga Classic|sr:tournament:37051|2
+Tanzania|Premier League|sr:tournament:2436|1
+Tunisia|Ligue 1|sr:tournament:984|4
+Turkiye|Super Lig|sr:tournament:52|9
+Turkiye|1. Lig|sr:tournament:98|5
+Turkiye Amateur|U19 PAF Ligi|sr:tournament:29912|3
+Ukraine|Premier League|sr:tournament:218|4
+United Arab Emirates|Arabian Gulf League|sr:tournament:971|4
+United Arab Emirates|First Division|sr:tournament:19238|2
+Uruguay|Primera Division|sr:tournament:278|5
+Uruguay|Segunda Division|sr:tournament:1908|2
+Uruguay|Copa Uruguay|sr:tournament:37127|8
+USA|MLS|sr:tournament:242|12
+USA|National Womens Soccer League|sr:tournament:1690|4
+USA|USL Championship|sr:tournament:28163|11
+USA|MLS Next Pro|sr:tournament:36479|9
+Uzbekistan|Superliga|sr:tournament:772|1
+Venezuela|Segunda Division|sr:tournament:17302|3
+Zimbabwe|Premier Soccer League|sr:tournament:23479|2

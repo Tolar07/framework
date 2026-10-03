@@ -1,0 +1,1624 @@
+{
+  "run_date": "2026-09-18",
+  "fixtures_season": "2627",
+  "leagues_scanned": [
+    "2. Bundesliga",
+    "Albanian Superliga",
+    "Armenian Premier League",
+    "Austrian Bundesliga",
+    "Azerbaijani Premyer Liqa",
+    "Belgian Pro League",
+    "Bosnian Premier League",
+    "Bulgarian First League",
+    "Bundesliga",
+    "Championship",
+    "Cypriot First Division",
+    "Danish Superliga",
+    "Ekstraklasa",
+    "Eredivisie",
+    "Estonian Meistriliiga",
+    "FA Cup",
+    "Faroe Islands Premier League",
+    "Finnish Veikkausliiga",
+    "Gibraltarian National League",
+    "HNL",
+    "Hungarian NB I",
+    "Israeli Premier League",
+    "Kazakhstan Premier League",
+    "Kosovan Superliga",
+    "La Liga",
+    "La Liga 2",
+    "Ligue 1",
+    "Ligue 2",
+    "Maltese Premier League",
+    "Montenegrin First League",
+    "North Macedonian First League",
+    "Norwegian Eliteserien",
+    "Premier League",
+    "Republic of Ireland Premier Division",
+    "Romanian Liga I",
+    "Sanmarinese Campionato",
+    "Serie A",
+    "Serie B",
+    "Ta\u00e7a de Portugal",
+    "Turkish Super Lig",
+    "Ukrainian Premier League",
+    "Welsh Premier League"
+  ],
+  "fixtures": [
+    {
+      "league": "Kazakhstan Premier League",
+      "home_team": "Kyzylzhar Petropavl",
+      "away_team": "Kaisar Kyzylorda",
+      "kickoff_utc": "2026-09-18T14:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): flashscore+sportybet+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "sportybet",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+sportybet+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Israeli Premier League",
+      "home_team": "H. Tel Aviv",
+      "away_team": "H. Petah Tikva",
+      "kickoff_utc": "2026-09-18T13:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Welsh Premier League",
+      "home_team": "Haverfordwest County AFC",
+      "away_team": "Holywell Town",
+      "kickoff_utc": "2026-09-18T18:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Norwegian Eliteserien",
+      "home_team": "Sarpsborg 08",
+      "away_team": "KFUM-Kameratene Oslo",
+      "kickoff_utc": "2026-09-18T17:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Austrian Bundesliga",
+      "home_team": "Rapid Vienna",
+      "away_team": "WSG Swarovski Tirol",
+      "kickoff_utc": "2026-09-18T17:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "2. Bundesliga",
+      "home_team": "SpVgg Greuther F\u00fcrth",
+      "away_team": "1. FC Magdeburg",
+      "kickoff_utc": "2026-09-18T16:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Welsh Premier League",
+      "home_team": "Caernarfon Town",
+      "away_team": "Cambrian United",
+      "kickoff_utc": "2026-09-18T18:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Welsh Premier League",
+      "home_team": "Connah's Q.",
+      "away_team": "Cardiff Metropolitan",
+      "kickoff_utc": "2026-09-18T19:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Maltese Premier League",
+      "home_team": "Zabbar St. Patrick",
+      "away_team": "Birkirkara",
+      "kickoff_utc": "2026-09-18T16:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Hungarian NB I",
+      "home_team": "Puskas Academy",
+      "away_team": "Budapest Honv\u00e9d",
+      "kickoff_utc": "2026-09-18T17:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ekstraklasa",
+      "home_team": "Wisla Krakow",
+      "away_team": "WKS Slask Wroclaw",
+      "kickoff_utc": "2026-09-18T19:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+sportybet",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "sportybet"
+        ]
+      },
+      "source": "flashscore+sportybet",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Kazakhstan Premier League",
+      "home_team": "FC Altai Oskemen",
+      "away_team": "FC Irtysh Pavlodar",
+      "kickoff_utc": "2026-09-18T12:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): sportybet+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "sportybet",
+          "thesportsdb"
+        ]
+      },
+      "source": "sportybet+thesportsdb",
+      "source_tier": "T2",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Albanian Superliga",
+      "home_team": "Vllaznia Shkod\u00ebr",
+      "away_team": "Teuta Durr\u00ebs",
+      "kickoff_utc": "2026-09-18T16:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Bundesliga",
+      "home_team": "Bayern Munich",
+      "away_team": "1. FC Union Berlin",
+      "kickoff_utc": "2026-09-18T18:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Montenegrin First League",
+      "home_team": "Buducnost Podgorica",
+      "away_team": "Petrovac",
+      "kickoff_utc": "2026-09-18T17:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Faroe Islands Premier League",
+      "home_team": "K\u00cd Klaksv\u00edk",
+      "away_team": "Skala Itrottarfelag",
+      "kickoff_utc": "2026-09-18T17:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ukrainian Premier League",
+      "home_team": "Polissya Zhytomyr",
+      "away_team": "Kryvbas KR",
+      "kickoff_utc": "2026-09-18T12:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ligue 2",
+      "home_team": "Rodez Aveyron",
+      "away_team": "AS Nancy Lorraine",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Bulgarian First League",
+      "home_team": "Slavia Sofia",
+      "away_team": "CSKA 1948 Sofia",
+      "kickoff_utc": "2026-09-18T17:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ekstraklasa",
+      "home_team": "Widzew Lodz",
+      "away_team": "Wieczysta Krak\u00f3w",
+      "kickoff_utc": "2026-09-18T16:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): flashscore+sportybet+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "sportybet",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+sportybet+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Cypriot First Division",
+      "home_team": "Omonia 29th May",
+      "away_team": "AEK Larnaca",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Maltese Premier League",
+      "home_team": "Hamrun Spartans",
+      "away_team": "Marsaxlokk",
+      "kickoff_utc": "2026-09-18T18:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Estonian Meistriliiga",
+      "home_team": "Harju JK Laagri",
+      "away_team": "FC Kuressaare",
+      "kickoff_utc": "2026-09-18T16:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): flashscore+sportybet+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "sportybet",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+sportybet+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "HNL",
+      "home_team": "NK Rudes Zagreb",
+      "away_team": "NK Slaven Belupo",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): flashscore+sportybet+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "sportybet",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+sportybet+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ligue 2",
+      "home_team": "Stade de Reims",
+      "away_team": "Montpellier",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Romanian Liga I",
+      "home_team": "UTA Arad",
+      "away_team": "Sepsi Sf. Gheorghe",
+      "kickoff_utc": "2026-09-18T16:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Welsh Premier League",
+      "home_team": "Briton Ferry",
+      "away_team": "Trefelin BGC",
+      "kickoff_utc": "2026-09-18T18:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Danish Superliga",
+      "home_team": "Lyngby Boldklub",
+      "away_team": "Silkeborg IF",
+      "kickoff_utc": "2026-09-18T17:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Republic of Ireland Premier Division",
+      "home_team": "Shamrock Rovers",
+      "away_team": "Waterford",
+      "kickoff_utc": "2026-09-18T20:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Faroe Islands Premier League",
+      "home_team": "B36 T\u00f3rshavn",
+      "away_team": "NS\u00cd Runav\u00edk",
+      "kickoff_utc": "2026-09-18T17:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Bosnian Premier League",
+      "home_team": "Zeljeznicar",
+      "away_team": "Celik Zenica",
+      "kickoff_utc": "2026-09-18T19:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Belgian Pro League",
+      "home_team": "KAA Gent",
+      "away_team": "Standard Liege",
+      "kickoff_utc": "2026-09-18T18:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): espn+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ligue 2",
+      "home_team": "Grenoble",
+      "away_team": "Clermont Foot",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "2. Bundesliga",
+      "home_team": "VfL Wolfsburg",
+      "away_team": "SV Darmstadt 98",
+      "kickoff_utc": "2026-09-18T16:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Welsh Premier League",
+      "home_team": "Colwyn Bay",
+      "away_team": "Barry Town",
+      "kickoff_utc": "2026-09-18T18:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Romanian Liga I",
+      "home_team": "FC Rapid Bucuresti",
+      "away_team": "FC Arges",
+      "kickoff_utc": "2026-09-18T19:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Welsh Premier League",
+      "home_team": "Airbus UK",
+      "away_team": "Flint Town",
+      "kickoff_utc": "2026-09-18T18:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Kazakhstan Premier League",
+      "home_team": "Altai",
+      "away_team": "Ertis Pavlodar",
+      "kickoff_utc": "2026-09-18T13:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Championship",
+      "home_team": "Bristol City",
+      "away_team": "Watford",
+      "kickoff_utc": "2026-09-18T19:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Gibraltarian National League",
+      "home_team": "College 1975 FC",
+      "away_team": "Magpies",
+      "kickoff_utc": "2026-09-18T20:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Eredivisie",
+      "home_team": "FC Groningen",
+      "away_team": "PEC Zwolle",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "FA Cup",
+      "home_team": "Yate Town",
+      "away_team": "Chippenham",
+      "kickoff_utc": "2026-09-18T19:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Kazakhstan Premier League",
+      "home_team": "Zhetysu",
+      "away_team": "Kaspij Aktau",
+      "kickoff_utc": "2026-09-18T13:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "La Liga 2",
+      "home_team": "Albacete",
+      "away_team": "C\u00f3rdoba",
+      "kickoff_utc": "2026-09-18T18:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Turkish Super Lig",
+      "home_team": "Kasimpasa",
+      "away_team": "Konyaspor",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): espn+flashscore",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore"
+        ]
+      },
+      "source": "espn+flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ligue 2",
+      "home_team": "Stade Laval",
+      "away_team": "Sochaux",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "FA Cup",
+      "home_team": "Worcester",
+      "away_team": "Stratford",
+      "kickoff_utc": "2026-09-18T19:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Welsh Premier League",
+      "home_team": "Ammanford",
+      "away_team": "Penybont",
+      "kickoff_utc": "2026-09-18T18:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Republic of Ireland Premier Division",
+      "home_team": "Bohemians",
+      "away_team": "Drogheda",
+      "kickoff_utc": "2026-09-18T20:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Republic of Ireland Premier Division",
+      "home_team": "Dundalk",
+      "away_team": "Shelbourne",
+      "kickoff_utc": "2026-09-18T19:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Azerbaijani Premyer Liqa",
+      "home_team": "Gabala",
+      "away_team": "Neftci Baku",
+      "kickoff_utc": "2026-09-18T14:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Serie B",
+      "home_team": "Juve Stabia",
+      "away_team": "Cesena",
+      "kickoff_utc": "2026-09-18T19:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): espn+flashscore",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore"
+        ]
+      },
+      "source": "espn+flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Cypriot First Division",
+      "home_team": "Pafos",
+      "away_team": "AEL Limassol",
+      "kickoff_utc": "2026-09-18T17:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "North Macedonian First League",
+      "home_team": "Shk\u00ebndija",
+      "away_team": "Bashkimi",
+      "kickoff_utc": "2026-09-18T14:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Premier League",
+      "home_team": "Brentford",
+      "away_team": "Chelsea",
+      "kickoff_utc": "2026-09-18T19:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "4 source(s): espn+flashscore+sportybet+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "sportybet",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+sportybet+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Republic of Ireland Premier Division",
+      "home_team": "Derry City",
+      "away_team": "Galway",
+      "kickoff_utc": "2026-09-18T19:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Kosovan Superliga",
+      "home_team": "Gjilani",
+      "away_team": "Prishtina",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Azerbaijani Premyer Liqa",
+      "home_team": "Qarabag",
+      "away_team": "Safa Baku",
+      "kickoff_utc": "2026-09-18T16:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ligue 2",
+      "home_team": "Annecy",
+      "away_team": "Dijon FCO",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Armenian Premier League",
+      "home_team": "FC Gandzasar",
+      "away_team": "FC Urartu",
+      "kickoff_utc": "2026-09-18T14:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Belgian Pro League",
+      "home_team": "Gent",
+      "away_team": "St. Liege",
+      "kickoff_utc": "2026-09-18T19:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Sanmarinese Campionato",
+      "home_team": "Libertas",
+      "away_team": "Faetano",
+      "kickoff_utc": "2026-09-18T19:15:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Kazakhstan Premier League",
+      "home_team": "FC Okzhetpes",
+      "away_team": "FC Zhenis",
+      "kickoff_utc": "2026-09-18T11:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+sportybet",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "sportybet"
+        ]
+      },
+      "source": "flashscore+sportybet",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Finnish Veikkausliiga",
+      "home_team": "AC Oulu",
+      "away_team": "Inter Turku",
+      "kickoff_utc": "2026-09-18T16:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Sanmarinese Campionato",
+      "home_team": "Tre Fiori",
+      "away_team": "Virtus",
+      "kickoff_utc": "2026-09-18T19:15:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ukrainian Premier League",
+      "home_team": "Ch. Odesa",
+      "away_team": "Obolon",
+      "kickoff_utc": "2026-09-18T11:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "La Liga",
+      "home_team": "Espanyol",
+      "away_team": "Elche CF",
+      "kickoff_utc": "2026-09-18T19:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "4 source(s): espn+flashscore+sportybet+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "sportybet",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+sportybet+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Serie A",
+      "home_team": "Monza",
+      "away_team": "Sassuolo",
+      "kickoff_utc": "2026-09-18T18:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ta\u00e7a de Portugal",
+      "home_team": "Real SC",
+      "away_team": "Academica",
+      "kickoff_utc": "2026-09-18T20:30:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Kazakhstan Premier League",
+      "home_team": "FC Aktobe",
+      "away_team": "Ulytau FC",
+      "kickoff_utc": "2026-09-18T15:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): flashscore+sportybet+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "sportybet",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+sportybet+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Sanmarinese Campionato",
+      "home_team": "Murata",
+      "away_team": "Cosmos",
+      "kickoff_utc": "2026-09-18T19:15:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ligue 2",
+      "home_team": "Pau FC",
+      "away_team": "Dunkerque",
+      "kickoff_utc": "2026-09-18T18:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "North Macedonian First League",
+      "home_team": "Sileks",
+      "away_team": "Tikves",
+      "kickoff_utc": "2026-09-18T15:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Finnish Veikkausliiga",
+      "home_team": "SJK",
+      "away_team": "Mariehamn",
+      "kickoff_utc": "2026-09-18T16:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Finnish Veikkausliiga",
+      "home_team": "Gnistan",
+      "away_team": "HJK",
+      "kickoff_utc": "2026-09-18T17:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "1 source(s): flashscore",
+      "verification_factors": {
+        "sources": [
+          "flashscore"
+        ]
+      },
+      "source": "flashscore",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Ligue 1",
+      "home_team": "AS Monaco",
+      "away_team": "Lens",
+      "kickoff_utc": "2026-09-18T18:45:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "3 source(s): espn+flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "espn",
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "espn+flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Finnish Veikkausliiga",
+      "home_team": "Lahti",
+      "away_team": "Jaro",
+      "kickoff_utc": "2026-09-18T15:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    },
+    {
+      "league": "Armenian Premier League",
+      "home_team": "FC Noah",
+      "away_team": "Van",
+      "kickoff_utc": "2026-09-18T16:00:00",
+      "kickoff_date": "2026-09-18",
+      "verification_tier": "VERIFIED",
+      "verification_note": "2 source(s): flashscore+thesportsdb",
+      "verification_factors": {
+        "sources": [
+          "flashscore",
+          "thesportsdb"
+        ]
+      },
+      "source": "flashscore+thesportsdb",
+      "source_tier": "T1",
+      "status": "verified",
+      "kicked_off": false,
+      "flags": []
+    }
+  ],
+  "flags": [],
+  "stats": {
+    "sources": {
+      "espn": 22,
+      "flashscore": 76,
+      "sportybet": 11,
+      "thesportsdb": 63
+    },
+    "merged": 92,
+    "verified": 78,
+    "single_source": 14
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "run_date": "2026-09-16",
+  "fixtures_season": "2627",
+  "stage_a_run_date": "2026-09-17",
+  "layer2": {
+    "compact": "PART 2 \u2014 COMPACT (fast-scan)\nFixture | Selected Pick | Booking Code\nViktoria Plzen v Union St.-Gilloise (Europa League) | St. Gilloise to win | NO DATA \u2014 PENDING\nDynamo Makhachkala v CSKA Moscow (Russian Premier League) | CSKA Moscow to win | NO DATA \u2014 PENDING\nLevski Sofia v Red Bull Salzburg (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nAkron Togliatti v Akhmat Grozny (Russian Premier League) | Akron to win | NO DATA \u2014 PENDING\nAkron Tolyatti v Akhmat Grozny (Russian Premier League) | Akron to win | NO DATA \u2014 PENDING\nManchester City v Norwich City (EFL Cup) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nCrystal Palace v Lech Poznan (Europa League) | Lech Poznan to win | NO DATA \u2014 PENDING\nGazovik Orenburg v FC Krasnodar (Russian Premier League) | FC Krasnodar to win | NO DATA \u2014 PENDING\nReal Sociedad v AFC Bournemouth (Europa League) | Bournemouth to win | NO DATA \u2014 PENDING\nLevski Sofia v RB Salzburg (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nOFI Crete v TSG Hoffenheim (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nJuventus v NEC Nijmegen (Europa League) | Juventus to win | NO DATA \u2014 PENDING\nLillestrom v Torreense (Europa League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nFK Rostov v Dinamo Moscow (Russian Premier League) | NO DATA \u2014 PENDING | NO DATA \u2014 PENDING\nBesiktas v Marseille (Europa League) | Marseille to win | NO DATA \u2014 PENDING\nCeltic v Ferencvaros (Europa League) | Celtic to win | NO DATA \u2014 PENDING\nM\u00e1laga v Villarreal (La Liga) | Villarreal to win | NO DATA \u2014 PENDING\nReal Betis v Getafe (La Liga) | Betis to win | NO DATA \u2014 PENDING\nPlzen v Union SG (Europa League) | St. Gilloise to win | NO DATA \u2014 PENDING",
+    "full_scan": "PART 2 \u2014 THE SCAN\nFixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src\nViktoria Plzen v Union St.-Gilloise (Europa League) | St. Gilloi\u00b755% | O76 / O52 | X279 / Y53 | \u25cb\nDynamo Makhachkala v CSKA Moscow (Russian Premier League) | CSKA Mosco\u00b748% | O51 / U78 | X286 / N70 | \u25cb\nLevski Sofia v Red Bull Salzburg (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nAkron Togliatti v Akhmat Grozny (Russian Premier League) | Akron\u00b751% | O82 / O55 | 1X80 / Y59 | \u25cb\nAkron Tolyatti v Akhmat Grozny (Russian Premier League) | Akron\u00b751% | O82 / O55 | 1X80 / Y59 | \u25cb\nManchester City v Norwich City (EFL Cup) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nCrystal Palace v Lech Poznan (Europa League) | Lech Pozna\u00b739% | O73 / U53 | 1272 / Y52 | \u25cb\nGazovik Orenburg v FC Krasnodar (Russian Premier League) | FC Krasnod\u00b774% | O81 / O56 | X294 / N57 | \u25cb\nReal Sociedad v AFC Bournemouth (Europa League) | Bournemout\u00b749% | O65 / U62 | X278 / N57 | \u25cb\nLevski Sofia v RB Salzburg (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nOFI Crete v TSG Hoffenheim (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nJuventus v NEC Nijmegen (Europa League) | Juventus\u00b764% | O73 / U52 | 1X87 / N56 | \u25cb\nLillestrom v Torreense (Europa League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nFK Rostov v Dinamo Moscow (Russian Premier League) | NO DATA \u2014 PENDING | \u2014 | \u2014 | \u25cb\nBesiktas v Marseille (Europa League) | Marseille\u00b756% | NO DATA \u2014 PENDING / NO DATA \u2014 PENDING | X282 / \u2014 | \u25cb\nCeltic v Ferencvaros (Europa League) | Celtic\u00b753% | NO DATA \u2014 PENDING / NO DATA \u2014 PENDING | 1X80 / \u2014 | \u25cb\nM\u00e1laga v Villarreal (La Liga) | Villarreal\u00b761% | O57 / U70 | X288 / N71 | \u25cb\nReal Betis v Getafe (La Liga) | Betis\u00b754% | O57 / U70 | 1X83 / N67 | \u25cb\nPlzen v Union SG (Europa League) | St. Gilloi\u00b755% | O76 / O52 | X279 / Y53 | \u25cb",
+    "fixtures_count": 19
+  },
+  "layer1": {
+    "table": "PART 1 \u2014 THE CALL \u2014 today's fixtures only\nNO DEPLOY-ELIGIBLE CALL this session \u2014 no deployable fixture kicks off today (a valid, honest result).",
+    "today_fixtures_count": 0
+  },
+  "acca_route": {
+    "acca_a": null,
+    "acca_a_legs": 0,
+    "acca_b": null,
+    "acca_b_legs": 0,
+    "slv": null,
+    "watchlist_count": 0
+  },
+  "the_pick": {
+    "fixture": null,
+    "market": null,
+    "price": null,
+    "edge": null,
+    "rationale": "No capital-eligible legs today"
+  },
+  "data_flags": [
+    "sportybet: no fixtures for 2026-09-17 \u2014 NO DATA, not an empty slate",
+    "alias targets not found in the domestic pool (these clubs stay unanchored): Lask Linz, Viking",
+    "Europa League: history served from cache",
+    "Europa League: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Europa League: 125 fixture(s) outside 'League Stage' excluded (qualifiers and knockouts are a different population)",
+    "Europa League: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "Europa League: pooled 3954 domestic + 396 continental matches. 55 of 108 clubs anchored to a domestic league; 53 rely on continental matches alone and are rated only if they clear the data-sufficiency floor.",
+    "Russian Premier League: history served from cache",
+    "Russian Premier League: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "Russian Premier League: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "EFL Cup: history served from cache",
+    "EFL Cup: STALE HISTORY \u2014 fitted on the 2024 season, roughly 1 year(s) old. The free API-Football plan stops at 2024, so squads, managers and promoted clubs have since changed. Usable for reference scanning; NOT calibration-grade (master doc 13.2).",
+    "EFL Cup: 15 fixture(s) skipped (not full-time or incomplete)",
+    "EFL Cup: NO ODDS available from this source \u2014 it can be modelled but never CLV-backtested.",
+    "La Liga: +54 current-season results from football-data.org",
+    "La Liga: normalised 93 club name(s) from football-data.org onto the base roster before merging"
+  ],
+  "stats": {
+    "total_fixtures_stage_a": 19,
+    "total_fixtures_enriched": 19,
+    "today_fixtures": 0,
+    "deploy_eligible_today": 0,
+    "no_data_fixtures": 0,
+    "conflict_fixtures": 0,
+    "verified_fixtures": 0,
+    "single_source_fixtures": 19,
+    "acca_a_legs": 0,
+    "acca_b_legs": 0,
+    "slv": null,
+    "watchlist_count": 0
+  }
+}

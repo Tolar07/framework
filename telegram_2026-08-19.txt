@@ -1,0 +1,25 @@
+OLP XDV — DAILY BOARD
+2026-08-20  |  Phase 3 — live capital (Architect-deployed)
+Leagues: 2 · 0 with fixtures
+Calibration: 17 legs logged, mean CLV -2.47%
+
+⚠ 29 data flag(s) — see /board or the saved board for full detail
+
+📋 SCAN RECORD — today's rated fixtures (paper, ID415)
+No rated fixtures today — no bet recorded. A valid, honest result (ID415).
+
+
+
+🎯 PRODUCTION BETS — 2026-08-20 (today's fixtures only)
+
+NO production pick today — no deploy-eligible fixture with a live price kicks off today. A valid, honest result (HR35).
+
+YESTERDAY — GRADED
+No settled predictions to grade yet.
+
+7-DAY ROLLING
+no settled predictions in 7d
+1 legs logged · 1 with CLV (avg CLV +0.00%) · gate 1/30 legs
+
+HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

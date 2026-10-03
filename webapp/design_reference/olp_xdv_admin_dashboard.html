@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OLP XDV — Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E13;
+    --surface:#131822;
+    --surface-2:#1A2130;
+    --line:#232B3B;
+    --ink:#E7EAF0;
+    --ink-dim:#8B93A6;
+    --ink-faint:#565F72;
+    --amber:#D8A659;
+    --amber-dim:#8C744A;
+    --teal:#4FB894;
+    --coral:#E2634F;
+    --violet:#9089D6;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 0%, #161d2b 0%, transparent 45%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 80px 0;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:0.02em;}
+
+  header.top{
+    max-width:720px;margin:0 auto;padding:28px 20px 18px 20px;
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:baseline;gap:10px;}
+  .brand .mark{
+    width:8px;height:8px;background:var(--amber);border-radius:1px;
+    transform:rotate(45deg);flex:none;
+  }
+  .brand h1{font-size:22px;font-weight:700;margin:0;letter-spacing:0.04em;}
+  .brand .phase{
+    font-size:11px;color:var(--amber);border:1px solid var(--amber-dim);
+    padding:2px 8px;border-radius:20px;margin-left:auto;font-family:'IBM Plex Mono',monospace;
+  }
+  .meta-row{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--ink-dim);flex-wrap:wrap;}
+  .meta-row b{color:var(--ink);font-weight:600;}
+  .paper-strip{
+    max-width:720px;margin:0 auto;padding:9px 20px;background:#1E1710;
+    border-bottom:1px solid #3A2E18;color:#D8A659;font-size:12px;text-align:center;
+    letter-spacing:0.03em;
+  }
+
+  main{max-width:720px;margin:0 auto;padding:0 20px;}
+  section{margin-top:34px;}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
+  .sec-head h2{font-size:20px;margin:0;font-weight:700;letter-spacing:0.01em;}
+  .sec-sub{font-size:12.5px;color:var(--ink-faint);margin:0 0 14px 0;}
+  .cap-pill{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-dim);
+    border:1px solid var(--line);padding:2px 7px;border-radius:20px;
+  }
+
+  /* THE CALL — deploy shortlist cards */
+  .call-card{
+    background:linear-gradient(180deg,#161C29,var(--surface));
+    border:1px solid var(--line);border-left:3px solid var(--amber);
+    border-radius:var(--radius);padding:16px 16px 14px 16px;margin-bottom:12px;
+    cursor:pointer;transition:border-color 0.15s;
+  }
+  .call-card:hover{border-color:var(--amber-dim);}
+  .call-card .expand-hint{
+    font-size:10.5px;color:var(--ink-faint);margin-top:10px;
+    display:flex;align-items:center;gap:5px;
+  }
+  .call-card .expand-hint .chevron{transition:transform 0.2s;}
+  .call-card.open .expand-hint .chevron{transform:rotate(90deg);}
+  .full-analysis{
+    display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+  }
+  .call-card.open .full-analysis{display:block;}
+  .market-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .market-row{
+    display:flex;justify-content:space-between;font-size:12.5px;
+    padding:6px 0;border-bottom:1px solid var(--line);
+  }
+  .market-row .m-name{color:var(--ink-dim);}
+  .market-row .m-val{font-family:'IBM Plex Mono',monospace;color:var(--ink);font-weight:600;}
+  .internals{
+    margin-top:14px;padding:12px;background:#0E1219;border:1px dashed var(--line);
+    border-radius:8px;
+  }
+  .internals .int-head{
+    font-size:10px;color:var(--violet);text-transform:uppercase;letter-spacing:0.06em;
+    margin-bottom:8px;font-family:'IBM Plex Mono',monospace;
+  }
+  .internals .int-row{font-size:12px;color:var(--ink-dim);padding:4px 0;line-height:1.5;}
+  .internals .int-row b{color:var(--ink);}
+  .divergence-warn{color:#E2634F;}
+  @media (max-width:480px){.market-grid{grid-template-columns:1fr;}}
+  .call-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+  .fixture-name{font-size:16px;font-weight:600;}
+  .league-tag{font-size:11px;color:var(--ink-faint);margin-top:2px;}
+  .tier-badge{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--bg);
+    background:var(--amber);padding:3px 8px;border-radius:4px;font-weight:600;flex:none;
+  }
+  .pick-line{
+    margin-top:12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  }
+  .pick-label{font-size:14px;color:var(--ink);}
+  .pick-prob{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-size:14px;font-weight:600;}
+  .trigger{
+    margin-left:auto;text-align:right;font-family:'IBM Plex Mono',monospace;
+  }
+  .trigger .num{color:var(--amber);font-size:15px;font-weight:600;}
+  .trigger .lbl{font-size:9.5px;color:var(--ink-faint);letter-spacing:0.06em;text-transform:uppercase;}
+  .stamp-row{margin-top:10px;display:flex;gap:8px;align-items:center;}
+  .stamp{
+    width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:700;flex:none;
+  }
+  .stamp.verified{background:rgba(79,184,148,0.15);color:var(--teal);border:1px solid var(--teal);}
+  .stamp.single{background:rgba(216,166,89,0.12);color:var(--amber);border:1px solid var(--amber-dim);}
+  .stamp-note{font-size:11px;color:var(--ink-faint);}
+
+  /* THE SCAN — wide table */
+  .scan-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  .scan-table th{
+    text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;
+    color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.05em;
+    padding:0 8px 8px 8px;font-weight:500;border-bottom:1px solid var(--line);
+  }
+  .scan-table td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  .scan-table tr:last-child td{border-bottom:none;}
+  .scan-fixture{font-weight:500;color:var(--ink);}
+  .scan-league{display:block;font-size:10px;color:var(--ink-faint);margin-top:1px;}
+  .scan-num{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);white-space:nowrap;}
+  .scan-num .fav{color:var(--ink);}
+  .nodata{color:var(--ink-faint);font-style:italic;font-size:11.5px;}
+  .src-dot{
+    width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    font-size:9.5px;font-weight:700;
+  }
+  .src-dot.v{background:rgba(79,184,148,0.15);color:var(--teal);}
+  .src-dot.s{background:rgba(216,166,89,0.12);color:var(--amber);}
+  .src-dot.n{background:rgba(86,95,114,0.15);color:var(--ink-faint);}
+  .scan-table tr.clickable{cursor:pointer;transition:background 0.12s;}
+  .scan-table tr.clickable:hover{background:rgba(216,166,89,0.04);}
+  .scan-table .chevron{color:var(--ink-faint);font-size:11px;transition:transform 0.2s;display:inline-block;margin-right:6px;}
+  .scan-table tr.open .chevron{transform:rotate(90deg);}
+  .detail-row td{padding:0;border-bottom:1px solid var(--line);}
+  .detail-row .full-analysis{display:none;padding:14px 8px 16px 8px;}
+  .detail-row.open .full-analysis{display:block;}
+
+  /* graded / verify results */
+  .graded-row{
+    display:flex;align-items:center;gap:12px;padding:10px 0;
+    border-bottom:1px solid var(--line);font-size:13px;
+  }
+  .graded-row:last-child{border-bottom:none;}
+  .hit-tag,.miss-tag,.pend-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+    padding:2px 7px;border-radius:4px;flex:none;
+  }
+  .hit-tag{background:rgba(79,184,148,0.15);color:var(--teal);}
+  .miss-tag{background:rgba(226,99,79,0.15);color:var(--coral);}
+  .pend-tag{background:rgba(86,95,114,0.15);color:var(--ink-faint);}
+  .graded-ft{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);font-size:12px;margin-left:auto;}
+
+  /* data flags */
+  .flags{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;
+  }
+  .flag-line{font-size:12px;color:var(--ink-dim);padding:5px 0;display:flex;gap:8px;}
+  .flag-line .mk{color:var(--amber);flex:none;}
+
+  /* footer honest line */
+  footer{
+    max-width:720px;margin:40px auto 0 auto;padding:18px 20px 0 20px;
+    border-top:1px solid var(--line);
+  }
+  .honest{
+    font-size:12.5px;color:var(--ink-dim);line-height:1.6;text-align:center;
+    padding:14px 10px 4px 10px;
+  }
+  .honest b{color:var(--ink);}
+  .gate{
+    display:flex;justify-content:center;gap:6px;align-items:center;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);margin-top:10px;
+  }
+  .gate .bar{width:90px;height:4px;background:var(--line);border-radius:2px;overflow:hidden;}
+  .gate .fill{height:100%;background:var(--amber-dim);width:0%;}
+
+  @media (max-width:480px){
+    .scan-table{font-size:11.5px;}
+    .scan-table th:nth-child(4), .scan-table td:nth-child(4){display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="mark"></span>
+    <h1>OLP&nbsp;XDV</h1>
+    <div style="margin-left:auto;display:flex;gap:6px;">
+      <span class="phase mono" style="margin-left:0;">ADMIN</span>
+      <span class="phase mono" style="margin-left:0;">PHASE 2 · PAPER</span>
+    </div>
+  </div>
+  <div class="meta-row">
+    <span>Thu, 6 Aug 2026 · <b>07:00</b></span>
+    <span>5 leagues scanned</span>
+    <span>Calibration: <b>0/30</b> legs</span>
+  </div>
+</header>
+
+<div class="paper-strip mono">PAPER ONLY — no stake is placed by this system</div>
+
+<main>
+
+  <!-- THE CALL -->
+  <section>
+    <div class="sec-head">
+      <h2 class="display">The Call</h2>
+      <span class="cap-pill">2 / 6 CAP</span>
+    </div>
+    <p class="sec-sub">Deploy-eligible only — softness A/B, ID402 pool cap</p>
+
+    <div class="call-card" onclick="this.classList.toggle('open')">
+      <div class="call-top">
+        <div>
+          <div class="fixture-name">Nijmegen v Telstar</div>
+          <div class="league-tag">Eredivisie</div>
+        </div>
+        <div class="tier-badge">TIER A</div>
+      </div>
+      <div class="pick-line">
+        <span class="pick-label">Nijmegen to win</span>
+        <span class="pick-prob">66%</span>
+        <div class="trigger">
+          <div class="num">1.52+</div>
+          <div class="lbl">Deploy At</div>
+        </div>
+      </div>
+      <div class="stamp-row">
+        <span class="stamp single">○</span>
+        <span class="stamp-note">SINGLE-SOURCE — thesportsdb.com</span>
+      </div>
+      <div class="expand-hint"><span class="chevron">▸</span> Full analysis + model internals</div>
+      <div class="full-analysis">
+        <div class="market-grid">
+          <div class="market-row"><span class="m-name">Nijmegen to win</span><span class="m-val">66%</span></div>
+          <div class="market-row"><span class="m-name">Draw</span><span class="m-val">21%</span></div>
+          <div class="market-row"><span class="m-name">Telstar to win</span><span class="m-val">13%</span></div>
+          <div class="market-row"><span class="m-name">Over 1.5 goals</span><span class="m-val">88%</span></div>
+          <div class="market-row"><span class="m-name">Over 2.5 goals</span><span class="m-val">61%</span></div>
+          <div class="market-row"><span class="m-name">Over 3.5 goals</span><span class="m-val">34%</span></div>
+          <div class="market-row"><span class="m-name">BTTS Yes</span><span class="m-val">58%</span></div>
+          <div class="market-row"><span class="m-name">BTTS No</span><span class="m-val">42%</span></div>
+          <div class="market-row"><span class="m-name">Double Chance 1X</span><span class="m-val">82%</span></div>
+          <div class="market-row"><span class="m-name">Double Chance 12</span><span class="m-val">79%</span></div>
+        </div>
+        <div class="internals">
+          <div class="int-head">Model Internals — admin only</div>
+          <div class="int-row"><b>Dixon-Coles engine:</b> Nijmegen 66% / Draw 21% / Telstar 13%</div>
+          <div class="int-row"><b>Elo second opinion:</b> Nijmegen 62% / Draw 24% / Telstar 14%</div>
+          <div class="int-row"><b>Engine divergence:</b> 4pp — within tolerance, no flag</div>
+          <div class="int-row"><b>HR30 MES:</b> NO DATA — PENDING (no live price captured this run)</div>
+          <div class="int-row"><b>Verification:</b> SINGLE-SOURCE (thesportsdb.com) — no capital on this alone</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="call-card" onclick="this.classList.toggle('open')">
+      <div class="call-top">
+        <div>
+          <div class="fixture-name">Midtjylland v Vejle</div>
+          <div class="league-tag">Danish Superliga</div>
+        </div>
+        <div class="tier-badge">TIER A</div>
+      </div>
+      <div class="pick-line">
+        <span class="pick-label">Over 1.5 goals</span>
+        <span class="pick-prob">79%</span>
+        <div class="trigger">
+          <div class="num">1.27+</div>
+          <div class="lbl">Deploy At</div>
+        </div>
+      </div>
+      <div class="stamp-row">
+        <span class="stamp verified">✓</span>
+        <span class="stamp-note">VERIFIED — footystats.org + football-data.co.uk</span>
+      </div>
+      <div class="expand-hint"><span class="chevron">▸</span> Full analysis + model internals</div>
+      <div class="full-analysis">
+        <div class="market-grid">
+          <div class="market-row"><span class="m-name">Midtjylland to win</span><span class="m-val">71%</span></div>
+          <div class="market-row"><span class="m-name">Draw</span><span class="m-val">18%</span></div>
+          <div class="market-row"><span class="m-name">Vejle to win</span><span class="m-val">11%</span></div>
+          <div class="market-row"><span class="m-name">Over 1.5 goals</span><span class="m-val">79%</span></div>
+          <div class="market-row"><span class="m-name">Over 2.5 goals</span><span class="m-val">52%</span></div>
+          <div class="market-row"><span class="m-name">Over 3.5 goals</span><span class="m-val">27%</span></div>
+          <div class="market-row"><span class="m-name">BTTS Yes</span><span class="m-val">61%</span></div>
+          <div class="market-row"><span class="m-name">BTTS No</span><span class="m-val">39%</span></div>
+          <div class="market-row"><span class="m-name">Double Chance 1X</span><span class="m-val">89%</span></div>
+          <div class="market-row"><span class="m-name">Double Chance 12</span><span class="m-val">82%</span></div>
+        </div>
+        <div class="internals">
+          <div class="int-head">Model Internals — admin only</div>
+          <div class="int-row"><b>Dixon-Coles engine:</b> Midtjylland 71% / Draw 18% / Vejle 11%</div>
+          <div class="int-row"><b>Elo second opinion:</b> Midtjylland 58% / Draw 23% / Vejle 19%</div>
+          <div class="int-row divergence-warn"><b>⚠ Engine divergence:</b> 13pp on Midtjylland win — approaching V5 threshold (15pp), review before deploying</div>
+          <div class="int-row"><b>HR30 MES:</b> Over 1.5 @ 1.30 (Bet365) — EV +2.7% (POSITIVE)</div>
+          <div class="int-row"><b>Verification:</b> VERIFIED — footystats.org + football-data.co.uk agree</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE SCAN -->
+  <section>
+    <div class="sec-head">
+      <h2 class="display">The Scan</h2>
+    </div>
+    <p class="sec-sub">Every fixture across all 5 open deploy leagues</p>
+
+    <table class="scan-table">
+      <thead>
+        <tr><th>Fixture</th><th>1X2</th><th>O1.5/O2.5</th><th>DC/BTTS</th><th>Src</th></tr>
+      </thead>
+      <tbody>
+        <tr class="clickable" onclick="toggleScanRow('a-scan-1')">
+          <td><span class="chevron">▸</span><span class="scan-fixture">Nijmegen v Telstar</span><span class="scan-league">Eredivisie</span></td>
+          <td class="scan-num"><span class="fav">Nijmegen</span>&nbsp;66%</td>
+          <td class="scan-num">O88 / O61</td>
+          <td class="scan-num">1X82 / Y58</td>
+          <td><span class="src-dot s">○</span></td>
+        </tr>
+        <tr class="detail-row" id="a-scan-1">
+          <td colspan="5">
+            <div class="full-analysis">
+              <div class="market-grid">
+                <div class="market-row"><span class="m-name">Nijmegen to win</span><span class="m-val">66%</span></div>
+                <div class="market-row"><span class="m-name">Draw</span><span class="m-val">21%</span></div>
+                <div class="market-row"><span class="m-name">Telstar to win</span><span class="m-val">13%</span></div>
+                <div class="market-row"><span class="m-name">Over 1.5 goals</span><span class="m-val">88%</span></div>
+                <div class="market-row"><span class="m-name">Over 2.5 goals</span><span class="m-val">61%</span></div>
+                <div class="market-row"><span class="m-name">BTTS Yes</span><span class="m-val">58%</span></div>
+              </div>
+              <div class="internals">
+                <div class="int-head">Model Internals — admin only</div>
+                <div class="int-row"><b>Elo second opinion:</b> Nijmegen 62% / Draw 24% / Telstar 14%</div>
+                <div class="int-row"><b>Engine divergence:</b> 4pp — within tolerance</div>
+                <div class="int-row"><b>HR30 MES:</b> NO DATA — PENDING (no live price)</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="clickable" onclick="toggleScanRow('a-scan-2')">
+          <td><span class="chevron">▸</span><span class="scan-fixture">Midtjylland v Vejle</span><span class="scan-league">Danish Superliga</span></td>
+          <td class="scan-num"><span class="fav">Midtjylland</span>&nbsp;71%</td>
+          <td class="scan-num">O79 / O52</td>
+          <td class="scan-num">1X89 / Y61</td>
+          <td><span class="src-dot v">✓</span></td>
+        </tr>
+        <tr class="detail-row" id="a-scan-2">
+          <td colspan="5">
+            <div class="full-analysis">
+              <div class="market-grid">
+                <div class="market-row"><span class="m-name">Midtjylland to win</span><span class="m-val">71%</span></div>
+                <div class="market-row"><span class="m-name">Draw</span><span class="m-val">18%</span></div>
+                <div class="market-row"><span class="m-name">Vejle to win</span><span class="m-val">11%</span></div>
+                <div class="market-row"><span class="m-name">Over 1.5 goals</span><span class="m-val">79%</span></div>
+                <div class="market-row"><span class="m-name">Over 2.5 goals</span><span class="m-val">52%</span></div>
+                <div class="market-row"><span class="m-name">BTTS Yes</span><span class="m-val">61%</span></div>
+              </div>
+              <div class="internals">
+                <div class="int-head">Model Internals — admin only</div>
+                <div class="int-row"><b>Elo second opinion:</b> Midtjylland 58% / Draw 23% / Vejle 19%</div>
+                <div class="int-row divergence-warn"><b>⚠ Engine divergence:</b> 13pp — approaching V5 threshold</div>
+                <div class="int-row"><b>HR30 MES:</b> Over 1.5 @ 1.30 (Bet365) — EV +2.7%</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="clickable" onclick="toggleScanRow('a-scan-3')">
+          <td><span class="chevron">▸</span><span class="scan-fixture">Anderlecht v Gent</span><span class="scan-league">Belgian Pro League</span></td>
+          <td class="scan-num"><span class="fav">Draw</span>&nbsp;31%</td>
+          <td class="scan-num">U57 / U68</td>
+          <td class="scan-num">1X61 / N54</td>
+          <td><span class="src-dot s">○</span></td>
+        </tr>
+        <tr class="detail-row" id="a-scan-3">
+          <td colspan="5">
+            <div class="full-analysis">
+              <div class="market-grid">
+                <div class="market-row"><span class="m-name">Anderlecht to win</span><span class="m-val">33%</span></div>
+                <div class="market-row"><span class="m-name">Draw</span><span class="m-val">31%</span></div>
+                <div class="market-row"><span class="m-name">Gent to win</span><span class="m-val">36%</span></div>
+                <div class="market-row"><span class="m-name">Over 2.5 goals</span><span class="m-val">43%</span></div>
+                <div class="market-row"><span class="m-name">BTTS Yes</span><span class="m-val">54%</span></div>
+              </div>
+              <div class="internals">
+                <div class="int-head">Model Internals — admin only</div>
+                <div class="int-row"><b>Elo second opinion:</b> Anderlecht 30% / Draw 33% / Gent 37%</div>
+                <div class="int-row"><b>Engine divergence:</b> 3pp — within tolerance</div>
+                <div class="int-row"><b>HR30 MES:</b> NO DATA — PENDING (no live price)</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="clickable" onclick="toggleScanRow('a-scan-4')">
+          <td><span class="chevron">▸</span><span class="scan-fixture">Celtic v Hibernian</span><span class="scan-league">Scottish Premiership</span></td>
+          <td class="scan-num"><span class="fav">Celtic</span>&nbsp;74%</td>
+          <td class="scan-num">O81 / O55</td>
+          <td class="scan-num">1X91 / Y57</td>
+          <td><span class="src-dot v">✓</span></td>
+        </tr>
+        <tr class="detail-row" id="a-scan-4">
+          <td colspan="5">
+            <div class="full-analysis">
+              <div class="market-grid">
+                <div class="market-row"><span class="m-name">Celtic to win</span><span class="m-val">74%</span></div>
+                <div class="market-row"><span class="m-name">Draw</span><span class="m-val">16%</span></div>
+                <div class="market-row"><span class="m-name">Hibernian to win</span><span class="m-val">10%</span></div>
+                <div class="market-row"><span class="m-name">Over 2.5 goals</span><span class="m-val">55%</span></div>
+                <div class="market-row"><span class="m-name">BTTS Yes</span><span class="m-val">57%</span></div>
+              </div>
+              <div class="internals">
+                <div class="int-head">Model Internals — admin only</div>
+                <div class="int-row"><b>Elo second opinion:</b> Celtic 69% / Draw 19% / Hibernian 12%</div>
+                <div class="int-row"><b>Engine divergence:</b> 5pp — within tolerance</div>
+                <div class="int-row"><b>HR30 MES:</b> NO DATA — PENDING (no live price)</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="scan-fixture">Excelsior v PSV Eindhoven</span><span class="scan-league">Eredivisie</span></td>
+          <td class="nodata" colspan="3">NO DATA — PENDING · no live price found</td>
+          <td><span class="src-dot n">—</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- DATA FLAGS -->
+  <section>
+    <div class="sec-head"><h2 class="display">Data Flags</h2></div>
+    <div class="flags">
+      <div class="flag-line"><span class="mk">⚠</span> Eredivisie — 3 team name(s) not found in fitted data: ADO Den Haag, Cambuur, Willem II (newly promoted, correctly unrated)</div>
+      <div class="flag-line"><span class="mk">⚠</span> Ekstraklasa — fixtures derived from odds feed, no dedicated fixtures source for this league</div>
+      <div class="flag-line"><span class="mk">⚠</span> Excelsior v PSV Eindhoven — no live price found, leg not logged</div>
+    </div>
+  </section>
+
+  <!-- VERIFY RESULTS -->
+  <section>
+    <div class="sec-head"><h2 class="display">Verified — Yesterday</h2></div>
+    <p class="sec-sub">Graded against full-time result, 90-min basis (HR15)</p>
+    <div class="flags" style="padding:6px 16px;">
+      <div class="graded-row">
+        <span class="hit-tag mono">✓ HIT</span>
+        <span>Aarhus v Sabah FA — Over 1.5 goals</span>
+        <span class="graded-ft">FT 2–1</span>
+      </div>
+      <div class="graded-row">
+        <span class="miss-tag mono">✗ MISS</span>
+        <span>Rangers v Jagiellonia — Rangers to win</span>
+        <span class="graded-ft">FT 1–2</span>
+      </div>
+      <div class="graded-row">
+        <span class="pend-tag mono">— PENDING</span>
+        <span>Beşiktaş v Hradec Králové — market unrecognised</span>
+        <span class="graded-ft">FT 1–0</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="honest">
+    <b>Honest edge line:</b> an excellent informed process, <b>not</b> a demonstrated profitable edge.<br>
+    Capital authority: <b>THE ARCHITECT</b> — nothing here is live until you deploy it.
+  </div>
+  <div class="gate">
+    <span>PHASE 3 GATE</span>
+    <div class="bar"><div class="fill"></div></div>
+    <span>0 / 30 legs</span>
+  </div>
+</footer>
+
+<script>
+  function toggleScanRow(id){
+    document.getElementById(id).classList.toggle('open');
+    event.currentTarget.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>

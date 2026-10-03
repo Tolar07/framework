@@ -1,0 +1,103 @@
+{
+  "fetched_at": 1787812927.5597215,
+  "league": "Europa League",
+  "country": "International Clubs",
+  "fixtures": [
+    {
+      "id": "45918",
+      "home": "Barcelona SRL",
+      "away": "Athletic Bilbao SRL",
+      "kickoff": "09:00  \nID: 45918",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "45917",
+      "home": "Celta SRL",
+      "away": "Osasuna SRL",
+      "kickoff": "09:00  \nID: 45917",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "BHA",
+      "away": "EVE",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "COV",
+      "away": "NEW",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "CRY",
+      "away": "NFO",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "FUL",
+      "away": "AST",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "HUL",
+      "away": "CHE",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "LEE",
+      "away": "IPS",
+      "kickoff": "62:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "LIV",
+      "away": "MUN",
+      "kickoff": "62:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "MCI",
+      "away": "BRE",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "SUN",
+      "away": "ARS",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "TOT",
+      "away": "BOU",
+      "kickoff": "63:00\nH2",
+      "league": "Europa League",
+      "raw_market": {}
+    }
+  ]
+}

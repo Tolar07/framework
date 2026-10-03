@@ -1,12 +1,39 @@
 # Secrets — never committed. Keys live here locally and as encrypted repo
 # secrets in GitHub Actions (Settings -> Secrets and variables -> Actions).
 .env
+.env.*
+.env.local
 *.key
+credentials.json
+service_account.json
+*.pem
+
+# Session state / conversation logs / data dumps — contain live secrets
+memory/conversations/
+*.jsonl
+!backtest/results/metrics_history.jsonl
+!output/boards/feed_audit.jsonl
+!feed_audit.jsonl
+# EXCEPTION (2026-09-17): the heartbeat/lineage records ARE tracked.
+#
+# These are append-only ledgers of graded results -- irreplaceable, unlike the
+# derived state they feed. The blanket *.jsonl rule had it backwards: the
+# DERIVED file (data/heartbeat/lineage.json) was tracked while the two SOURCE
+# records were not, so when a CWD-relative test teardown deleted history.jsonl
+# on 2026-09-17 there was nothing in git to restore from and nine graded
+# results had to be reconstructed from a corrupted secondary ledger.
+# Same reasoning as the metrics_history exception above.
+!data/heartbeat/history.jsonl
+!lineage_ledger.jsonl
 
 # Cached source data — re-fetchable, and large
 data/cache/
 backtest/cache/
-backtest/results/
+backtest/results/*
+# EXCEPTION (Phase 3.5): the metrics history IS tracked — it is the
+# "metrics over time" record the backtest CI workflow commits back each run.
+# The bulky report .txt and leg-log .json in results/ stay ignored.
+!backtest/results/metrics_history.jsonl
 
 # Python
 __pycache__/
@@ -17,3 +44,61 @@ venv/
 # Scratch
 tests/tmp_*.json
 *.tmp
+# Rendered-output scratch captures (manual test artifacts, e.g. lean_reply.txt)
+*_reply.txt
+
+# Active process logs — always changing
+logs/poller.log
+logs/web.jsonl
+logs/web_server.log
+
+# Runtime state / data dumps — never commit
+data/live_odds/
+logs/*.log
+logs/*.jsonl
+clv/clv_log*.json
+debrief/
+config/league_groups.json
+config/leagues.json
+data/fs_leagues.json
+data/fs_suggest.json
+.claude/settings.local.json
+memory/telegram_offset.json
+monitoring/
+output/league_coverage_state.json
+acca_*.json
+test_conversation.jsonl
+
+# Brain database — derived, re-buildable from clv_log.json + model history
+brain/*.db
+brain/*.db-wal
+brain/*.db-shm
+sandbox/sandbox_log.json
+
+# Web dashboard generated artifacts — regenerated every run / export
+output/boards/*.json
+# Published store — runtime state written by the /admin Approve→Publish action.
+# Like the raw boards, it is regenerated per publish and must not be committed.
+output/boards/published/
+webapp/site/
+
+# Club-crest cache — populated by webapp/crests.prefetch(), runtime state
+webapp/crests_cache.json
+
+# Webapp static scratch — one-off extraction/fetch helpers, not assets
+webapp/static/_crit_tmp.txt
+webapp/static/_fetch_fonts.py
+
+# graphify — knowledge graph (regenerates via `graphify update .`, no API cost)
+graphify-out/
+
+# EXCEPTION (2026-10-03 lineage merge): paths the cloud daily workflow
+# (.github/workflows/daily.yml) commits back each run. The laptop-line rules
+# above (*.jsonl, clv/clv_log*.json, .env.*) would otherwise stop new files
+# here from being committed.
+!.env.example
+!clv/clv_log.json
+!data/survivor/
+!data/survivor/**
+!memory/*.jsonl
+!output/picks/**

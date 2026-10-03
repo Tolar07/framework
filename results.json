@@ -1,0 +1,321 @@
+[
+  {
+    "home": "Osasuna",
+    "away": "Getafe",
+    "league": "La Liga",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 1,
+        "away": 0
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401882900/getafe-osasuna",
+          "domain": "espn.com"
+        },
+        {
+          "url": "https://www.bbc.co.uk/sport/football/live/c8wyzl0d073xt",
+          "domain": "bbc.co.uk"
+        }
+      ],
+      "notes": "Verified match result - Osasuna 1-0 Getafe confirmed by ESPN and BBC"
+    }
+  },
+  {
+    "home": "Barcelona",
+    "away": "Rayo Vallecano",
+    "league": "La Liga",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 5,
+        "away": 2
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401882903/rayo-vallecano-barcelona",
+          "domain": "espn.com"
+        },
+        {
+          "url": "https://www.bbc.co.uk/sport/football/live/c8wyzl0d073xt",
+          "domain": "bbc.co.uk"
+        },
+        {
+          "url": "https://www.skysports.com/football/barcelona-vs-rayo-vallecano/live/564196",
+          "domain": "skysports.com"
+        }
+      ],
+      "notes": "Verified match result - Barcelona 5-2 Rayo Vallecano confirmed by ESPN, BBC, and SkySports"
+    }
+  },
+  {
+    "home": "Burgos",
+    "away": "Real Sociedad II",
+    "league": "La Liga 2",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "SINGLE-SOURCE",
+      "ft_score": {
+        "home": 2,
+        "away": 2
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401882901/burgos-real-sociedad-b",
+          "domain": "espn.com"
+        }
+      ],
+      "notes": "Single source confirmation - Burgos 2-2 Real Sociedad II from ESPN only"
+    }
+  },
+  {
+    "home": "Celta de Vigo II",
+    "away": "Castellón",
+    "league": "La Liga 2",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 1,
+        "away": 2
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401882902/celta-de-vigo-b-castellon",
+          "domain": "espn.com"
+        },
+        {
+          "url": "https://www.sofascore.com/football/match/celta-de-vigo-b-castellon/Zjbsjkb",
+          "domain": "sofascore.com"
+        }
+      ],
+      "notes": "Verified match result - Celta de Vigo II 1-2 Castellón confirmed by ESPN and Sofascore"
+    }
+  },
+  {
+    "home": "Dijon",
+    "away": "Saint Etienne",
+    "league": "Ligue 2",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 2,
+        "away": 3
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401879004/saint-etienne-dijon",
+          "domain": "espn.com"
+        },
+        {
+          "url": "https://www.thesportsdb.com/event/2527747-dijon-vs-saint-etienne",
+          "domain": "thesportsdb.com"
+        }
+      ],
+      "notes": "Verified match result - Dijon 2-3 Saint-Étienne confirmed by ESPN and TheSportsDB"
+    }
+  },
+  {
+    "home": "Aston Villa",
+    "away": "Arsenal",
+    "league": "Premier League",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 0,
+        "away": 1
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.bbc.co.uk/sport/football/live/c1nz3v7e9lxt",
+          "domain": "bbc.co.uk"
+        },
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401874944/arsenal-aston-villa",
+          "domain": "espn.com"
+        },
+        {
+          "url": "https://www.skysports.com/football/aston-villa-vs-arsenal/live/564195",
+          "domain": "skysports.com"
+        }
+      ],
+      "notes": "Verified match result - Aston Villa 0-1 Arsenal confirmed by BBC, ESPN, and SkySports"
+    }
+  },
+  {
+    "home": "Benfica",
+    "away": "Estoril",
+    "league": "Primeira Liga",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 2,
+        "away": 1
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.skysports.com/football/benfica-vs-estoril/live/564192",
+          "domain": "skysports.com"
+        },
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401885457/estoril-benfica",
+          "domain": "espn.com"
+        },
+        {
+          "url": "https://www.bbc.co.uk/sport/football/live/c8wyzl0d073xt",
+          "domain": "bbc.co.uk"
+        },
+        {
+          "url": "https://www.sofascore.com/football/match/estoril-praia-benfica/gkbsaPb",
+          "domain": "sofascore.com"
+        }
+      ],
+      "notes": "Verified match result - Benfica 2-1 Estoril confirmed by SkySports, ESPN, BBC, and Sofascore"
+    }
+  },
+  {
+    "home": "SC Braga",
+    "away": "Vitória SC",
+    "league": "Primeira Liga",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 1,
+        "away": 0
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.skysports.com/football/braga-vs-vitoria-de-guimaraes/live/564197",
+          "domain": "skysports.com"
+        },
+        {
+          "url": "https://www.bbc.co.uk/sport/football/live/cwp80mlvl1e4t",
+          "domain": "bbc.co.uk"
+        },
+        {
+          "url": "https://www.sofascore.com/football/match/vitoria-sc-sporting-braga/Zjbsjkb",
+          "domain": "sofascore.com"
+        },
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401885462/braga-vitoria",
+          "domain": "espn.com"
+        }
+      ],
+      "notes": "Verified match result - SC Braga 1-0 Vitória SC confirmed by SkySports, BBC, Sofascore, and ESPN"
+    }
+  },
+  {
+    "home": "Lecce",
+    "away": "AS Roma",
+    "league": "Serie A",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 0,
+        "away": 4
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401874945/as-roma-lecce",
+          "domain": "espn.com"
+        },
+        {
+          "url": "https://www.sofascore.com/football/match/as-roma-lecce/Odbsceb",
+          "domain": "sofascore.com"
+        },
+        {
+          "url": "https://www.flashscore.com/match/football/as-roma-zVqqL0ma/lecce-G8lYsMgU/",
+          "domain": "flashscore.com"
+        }
+      ],
+      "notes": "Verified match result - Lecce 0-4 AS Roma confirmed by ESPN, Sofascore, and Flashscore"
+    }
+  },
+  {
+    "home": "Beşiktaş",
+    "away": "Çorum FK",
+    "league": "Turkish Super Lig",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 6,
+        "away": 2
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.sofascore.com/football/match/corum-fk-besiktas-jk/albsEcG",
+          "domain": "sofascore.com"
+        },
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401888387/corum-fk-besiktas",
+          "domain": "espn.com"
+        },
+        {
+          "url": "https://www.flashscore.com/match/football/besiktas-IDmErJCR/corum-fk-0vne21BK/",
+          "domain": "flashscore.com"
+        },
+        {
+          "url": "https://www.skysports.com/football/besiktas-vs-corum/565416",
+          "domain": "skysports.com"
+        },
+        {
+          "url": "https://www.bbc.co.uk/sport/football/live/cwp935lylz9pt",
+          "domain": "bbc.co.uk"
+        }
+      ],
+      "notes": "Verified match result - Beşiktaş 6-2 Çorum FK confirmed by Sofascore, ESPN, Flashscore, SkySports, and BBC"
+    }
+  },
+  {
+    "home": "Amed",
+    "away": "Trabzonspor",
+    "league": "Turkish Super Lig",
+    "date": "2026-08-31",
+    "verification": {
+      "status": "VERIFIED",
+      "ft_score": {
+        "home": 2,
+        "away": 1
+      },
+      "conflicting_scores": null,
+      "sources": [
+        {
+          "url": "https://www.sofascore.com/football/match/amed-sportif-faaliyetler-trabzonspor/blbslPHb",
+          "domain": "sofascore.com"
+        },
+        {
+          "url": "https://www.espn.com/soccer/match/_/gameId/401888388/trabzonspor-amed-sfk",
+          "domain": "espn.com"
+        },
+        {
+          "url": "https://www.flashscore.com/match/football/amedspor-EHdgkFvm/trabzonspor-MmsYDc03/",
+          "domain": "flashscore.com"
+        },
+        {
+          "url": "https://www.thesportsdb.com/event/2527748-amed-vs-trabzonspor",
+          "domain": "thesportsdb.com"
+        }
+      ],
+      "notes": "Verified match result - Amed 2-1 Trabzonspor confirmed by Sofascore, ESPN, Flashscore, and TheSportsDB"
+    }
+  }
+]

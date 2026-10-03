@@ -1,0 +1,161 @@
+====================================================================================================
+VERIFY RESULTS — Graded Predictions vs Real Outcomes
+====================================================================================================
+
+Fixture: Akhmat v FC Rostov (Russian Premier League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Antwerp v Genk (Belgian Pro League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Ath Bilbao v Sevilla (La Liga)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Athletic Club v Sevilla (La Liga)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Birmingham v Bristol City (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Blackburn v Middlesbrough (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Brentford v Tottenham (Premier League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: CSKA Moscow v Lokomotiv (Russian Premier League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Ceuta v Las Palmas (La Liga 2)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Charleroi v Mechelen (Belgian Pro League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Derby v Cardiff (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Dundee United v Dundee (Scottish Premiership)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Espanol v Real Madrid (La Liga)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Espanyol v Real Madrid (La Liga)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Estoril v Rio Ave (Primeira Liga)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Everton v Crystal Palace (Premier League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: FC Luzern v Lausanne (Swiss Super League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Fakel v FC Orenburg (Russian Premier League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Fenerbahce v Konyaspor (Turkish Super Lig)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Fenerbahçe v Konyaspor (Turkish Super Lig)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Genoa v Napoli (Serie A)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Inter v Monza (Serie A)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Ipswich v Sunderland (Premier League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Le Mans FC v Brest (Ligue 1)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Lens v Auxerre (Ligue 1)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Lincoln v Portsmouth (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Metz v Laval (Ligue 2)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Millwall v Norwich (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Nantes v Rodez (Ligue 2)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Nice v Lorient (Ligue 1)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Nott'm Forest v Leeds (Premier League)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: PSV Eindhoven v Utrecht (Eredivisie)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Parma v Cagliari (Serie A)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Preston v Wolves (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Rangers v ST Mirren (Scottish Premiership)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Rizespor v Samsunspor (Turkish Super Lig)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: ST Johnstone v Celtic (Scottish Premiership)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Saint-Étienne v Grenoble (Ligue 2)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Southampton v Stoke (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Sparta Rotterdam v Utrecht (Eredivisie)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Sporting v Alverca (Primeira Liga)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Swansea v Sheffield United (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Toulouse v Lyon (Ligue 1)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Troyes v Paris FC (Ligue 1)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Udinese v Como (Serie A)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Udinese v Como 1907 (Serie A)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Valencia v Celta (La Liga)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: West Ham v Charlton (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+Fixture: Wrexham v Watford (Championship)
+  NO DATA — PENDING (insufficient independent confirmation)
+
+====================================================================================================
+RUNNING RECORD — Cumulative Since Inception
+====================================================================================================
+
+OVERALL: 0–0 (0.0% hit rate) | 1036 pending
+Sample size: n=1036 legs
+
+BY MARKET:
+
+BY LEAGUE:

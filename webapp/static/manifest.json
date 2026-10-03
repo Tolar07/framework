@@ -1,0 +1,37 @@
+{
+  "name": "OLP XDV Dashboard",
+  "short_name": "OLP XDV",
+  "description": "Paper-only football betting calibration dashboard",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#0B0E13",
+  "theme_color": "#0B0E13",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/fonts/Inter-normal-400.woff2",
+      "sizes": "any",
+      "type": "font/woff2",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["sports", "utilities"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Today's Board",
+      "short_name": "Board",
+      "description": "View today's paper board",
+      "url": "/dashboard",
+      "icons": []
+    },
+    {
+      "name": "Admin View",
+      "short_name": "Admin",
+      "description": "Full internals (requires auth)",
+      "url": "/admin",
+      "icons": []
+    }
+  ],
+  "prefer_related_applications": false
+}

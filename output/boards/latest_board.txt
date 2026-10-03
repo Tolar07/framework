@@ -1,0 +1,37 @@
+OLP XDV DAILY BOARD
+==================================================
+Decision: CEO_APPROVE
+Fixtures processed: 11
+Verified fixtures: 529
+Accumulator legs: 8
+Single bet legs: 3
+
+ACCUMULATOR (Acca A):
+  [acca_leg_0] Leeds v Newcastle [Premier League] 1X2_HOME @ 2.20 (model: 85.0%, edge: 1.7%)
+  [acca_leg_1] Villarreal v Betis [La Liga] OVER_1_5 @ 1.70 (model: 80.0%, edge: 3.1%)
+  [acca_leg_2] Como v Parma [Serie A] UNDER_2_5 @ 2.30 (model: 75.0%, edge: 3.6%)
+  [acca_leg_3] Torino v AS Roma [Serie A] UNDER_3_5 @ 1.20 (model: 85.0%, edge: 1.7%)
+  [acca_leg_4] Inter v Udinese [Serie A] BTTS_YES @ 2.00 (model: 70.0%, edge: 3.3%)
+  [acca_leg_5] Celta Vigo B v Eibar [La Liga 2] DC_1X @ 1.62 (model: 80.0%, edge: 3.1%)
+  [acca_leg_6] Red Star v Metz [Ligue 2] DC_12 @ 1.20 (model: 85.0%, edge: 1.7%)
+  [acca_leg_7] Rio Ave v Estrela [Primeira Liga] 1X2_HOME @ 2.70 (model: 85.0%, edge: 1.7%)
+  Total Odds: 108.36
+  Stake: £1 (paper)
+  Potential Return: £108.36
+
+SINGLE BETS:
+  [single_leg_0] Moreirense v Maritimo [Primeira Liga] OVER_1_5 @ 1.70 (model: 80.0%, edge: 3.1%)
+  [single_leg_1] Braga v Estoril [Primeira Liga] UNDER_2_5 @ 2.30 (model: 75.0%, edge: 3.6%)
+  [single_leg_2] Gaziantep v Fenerbahce [Turkish Super Lig] UNDER_3_5 @ 1.20 (model: 85.0%, edge: 1.7%)
+
+PAYLOADS SUMMARY:
+  agent_1_ceo: fixtures_count=529, verified_count=529
+  agent_2_ceo: fixtures_count=11
+  agent_3_ceo: fixtures_count=11
+  agent_4_ceo: fixtures_count=11
+  agent_5_ceo: legs_count=11, acca_legs_count=8, single_legs_count=3, verified_fixtures=11
+  agent_6_ceo: legs_count=11
+  agent_7_ceo: legs_count=11
+  agent_8_ceo: legs_count=11
+  agent_9_ceo: legs_count=11
+  agent_10_ceo: legs_count=11

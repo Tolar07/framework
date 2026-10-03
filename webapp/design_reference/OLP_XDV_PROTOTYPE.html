@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OLP XDV — Interactive Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E13; --surface:#131822; --surface-2:#1A2130; --line:#232B3B;
+    --ink:#E7EAF0; --ink-dim:#8B93A6; --ink-faint:#565F72;
+    --amber:#D8A659; --amber-dim:#8C744A; --teal:#4FB894; --coral:#E2634F;
+    --lbg:#FAFAFA; --lsurface:#fff; --lline:#DDDDDD; --link:#1A1A1A; --link-dim:#666;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',sans-serif;background:#0a0a0a;color:#ccc;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.02em;}
+  button{font-family:inherit;cursor:pointer;}
+
+  .toplevel-switch{display:flex;justify-content:center;gap:10px;padding:14px;background:#000;}
+  .toplevel-switch button{background:#1a1a1a;color:#999;border:1px solid #333;border-radius:20px;padding:8px 18px;font-size:12px;font-weight:600;}
+  .toplevel-switch button.active{background:var(--amber);color:#000;border-color:var(--amber);}
+
+  .app-frame{max-width:420px;margin:0 auto;overflow:hidden;}
+  .app-frame.wide{max-width:1200px;}
+
+  /* ========== CLIENT (dark, cards) ========== */
+  #client-app{background:var(--bg);color:var(--ink);min-height:700px;display:none;}
+  #client-app.visible{display:block;}
+  .c-header{padding:20px 16px 12px 16px;border-bottom:1px solid var(--line);}
+  .c-brand{display:flex;align-items:center;gap:8px;}
+  .c-brand .mark{width:8px;height:8px;background:var(--amber);transform:rotate(45deg);}
+  .c-brand h1{font-size:19px;margin:0;font-weight:700;}
+  .c-date{font-size:12px;color:var(--ink-dim);margin-top:6px;}
+
+  .c-tabs{display:flex;border-bottom:1px solid var(--line);}
+  .c-tab{flex:1;text-align:center;padding:12px 0;font-size:12px;font-weight:600;color:var(--ink-faint);border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;}
+  .c-tab.active{color:var(--amber);border-bottom-color:var(--amber);}
+
+  .c-panel{display:none;padding:14px;}
+  .c-panel.active{display:block;}
+
+  .c-datepills{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;}
+  .c-pill{flex:none;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 14px;font-size:11px;text-align:center;color:var(--ink-dim);}
+  .c-pill.today{border-color:var(--amber);color:var(--amber);font-weight:700;}
+  .c-pill.selected{background:var(--surface-2);color:var(--ink);}
+
+  .c-league-group{margin-bottom:8px;}
+  .c-league-head{display:flex;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12px;font-weight:700;}
+  .c-league-head .chev{transition:transform 0.2s;color:var(--ink-faint);}
+  .c-league-head.open .chev{transform:rotate(90deg);}
+  .c-league-body{max-height:0;overflow:hidden;transition:max-height 0.25s ease;}
+  .c-league-body.open{max-height:900px;}
+
+  .c-card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:8px;padding:12px;margin:8px 0;}
+  .c-card-top{display:flex;justify-content:space-between;cursor:pointer;}
+  .c-fixture{font-size:13px;font-weight:600;}
+  .c-pct{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-weight:700;}
+  .c-detail{max-height:0;overflow:hidden;transition:max-height 0.25s ease;}
+  .c-detail.open{max-height:300px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);}
+  .c-mkt-row{display:flex;justify-content:space-between;padding:4px 0;font-size:11.5px;color:var(--ink-dim);}
+  .c-mkt-row b{color:var(--ink);font-weight:600;}
+
+  .c-search{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--ink);font-size:12px;margin-bottom:12px;}
+  .c-search::placeholder{color:var(--ink-faint);}
+
+  .c-quickactions{display:flex;gap:6px;margin-bottom:12px;}
+  .c-qa{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 4px;font-size:10px;color:var(--ink-dim);text-align:center;}
+  .c-chatlog{min-height:200px;padding:6px 0;}
+  .c-msg{max-width:80%;padding:8px 10px;border-radius:10px;font-size:11.5px;margin-bottom:8px;}
+  .c-msg.user{background:var(--amber-dim);color:#fff;margin-left:auto;}
+  .c-msg.bot{background:var(--surface);border:1px solid var(--line);}
+  .c-chatinput{display:flex;gap:6px;position:sticky;bottom:0;background:var(--bg);padding-top:8px;}
+  .c-chatinput input{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:8px 14px;color:var(--ink);font-size:12px;}
+  .c-chatinput button{background:var(--amber);border:none;border-radius:50%;width:34px;height:34px;flex:none;}
+  .c-bookcode{margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);font-size:10px;color:var(--ink-faint);display:flex;align-items:center;gap:8px;}
+  .c-bookcode b{color:var(--amber);font-family:'IBM Plex Mono',monospace;}
+  .c-bookcode button{background:var(--surface-2);border:1px solid var(--line);color:var(--ink-dim);border-radius:4px;padding:3px 8px;font-size:9px;}
+
+  /* ========== ADMIN (light, dense) ========== */
+  #admin-app{background:var(--lbg);color:var(--link);min-height:700px;display:none;}
+  #admin-app.visible{display:block;}
+  .a-topbar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--lline);background:#F5F5F5;}
+  .a-logo{font-weight:700;font-size:14px;letter-spacing:0.02em;}
+  .a-search{flex:1;border:1px solid var(--lline);border-radius:6px;padding:7px 10px;font-size:12px;max-width:400px;}
+
+  .a-actionbar{display:flex;gap:10px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--lline);flex-wrap:wrap;background:#FAFAFA;}
+  #trigger-btn{background:var(--link);color:#fff;border:none;border-radius:6px;padding:9px 16px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px;}
+  #trigger-btn:disabled{opacity:0.6;cursor:not-allowed;}
+  #trigger-btn .spinner{display:none;width:12px;height:12px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite;}
+  #trigger-btn.loading .spinner{display:inline-block;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .a-stat{border:1px solid var(--lline);border-radius:5px;padding:5px 10px;font-size:10px;color:var(--link-dim);}
+  .a-stat b{display:block;font-size:13px;color:var(--link);}
+  #last-run{font-size:10px;color:var(--link-dim);margin-left:auto;}
+
+  .a-filterbar{display:flex;gap:6px;padding:8px 16px;border-bottom:1px solid var(--lline);overflow-x:auto;background:#FAFAFA;}
+  .a-chip{border:1px solid #ccc;background:#fff;border-radius:14px;font-size:10px;padding:5px 10px;flex:none;white-space:nowrap;color:var(--link-dim);}
+  .a-chip.active{background:var(--link);color:#fff;border-color:var(--link);}
+
+  .a-tablewrap{overflow-x:auto;padding:0 16px;}
+  table.a-table{width:100%;border-collapse:collapse;font-size:11px;}
+  .a-table th{text-align:left;padding:8px;font-size:9px;text-transform:uppercase;color:var(--link-dim);border-bottom:2px solid var(--lline);white-space:nowrap;}
+  .a-table td{padding:7px 8px;border-bottom:1px solid #eee;white-space:nowrap;}
+  .a-table tr.hidden{display:none;}
+  .a-table tr.new-row{animation:flash 1.2s ease;}
+  @keyframes flash{0%{background:#FFF4E0;}100%{background:transparent;}}
+  .a-league-sep td{background:#F0F0F0;font-weight:700;padding:5px 8px;}
+  .a-tag{border:1px solid #999;border-radius:3px;padding:1px 5px;font-size:9px;}
+  .a-approve-row{padding:14px 16px;}
+  #approve-btn{background:var(--teal);border:none;color:#fff;border-radius:6px;padding:10px 18px;font-size:12px;font-weight:700;width:100%;}
+  #approve-btn.published{background:#3a7a63;}
+  #publish-status{font-size:10px;color:var(--link-dim);margin-top:6px;text-align:center;}
+
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#1a1a1a;color:#fff;
+    padding:12px 20px;border-radius:8px;font-size:12px;transition:transform 0.3s;z-index:100;max-width:340px;text-align:center;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="toplevel-switch">
+  <button id="btn-client" class="active" onclick="showApp('client')">Client dashboard</button>
+  <button id="btn-admin" onclick="showApp('admin')">Admin dashboard</button>
+</div>
+
+<!-- ============ CLIENT APP ============ -->
+<div class="app-frame">
+<div id="client-app" class="visible">
+  <div class="c-header">
+    <div class="c-brand"><span class="mark"></span><h1>OLP XDV</h1></div>
+    <div class="c-date">Thu, 8 Aug 2026</div>
+  </div>
+  <div class="c-tabs">
+    <button class="c-tab active" onclick="showClientTab('call')">Call</button>
+    <button class="c-tab" onclick="showClientTab('scan')">Scan</button>
+    <button class="c-tab" onclick="showClientTab('analyst')">Analyst</button>
+  </div>
+
+  <div id="panel-call" class="c-panel active">
+    <div style="font-size:10px;color:var(--ink-faint);margin-bottom:10px;">SINGLES — recommended individually</div>
+    <div class="c-card">
+      <div class="c-card-top" onclick="toggleDetail('call-1')">
+        <div><div class="c-fixture">Nijmegen v Telstar</div><div style="font-size:10px;color:var(--ink-faint);">Eredivisie</div></div>
+        <div class="c-pct">66%</div>
+      </div>
+      <div class="c-detail" id="call-1">
+        <div class="c-mkt-row"><span>Nijmegen to win</span><b>66%</b></div>
+        <div class="c-mkt-row"><span>Draw</span><b>21%</b></div>
+        <div class="c-mkt-row"><span>Over 1.5 goals</span><b>88%</b></div>
+        <div class="c-mkt-row"><span>BTTS Yes</span><b>58%</b></div>
+        <div class="c-mkt-row"><span>Deploy at</span><b>1.52+</b></div>
+      </div>
+      <div class="c-bookcode">Booking code: <b>SB-8X4K2P</b> <button onclick="copyCode('SB-8X4K2P')">Copy</button></div>
+    </div>
+    <div class="c-card">
+      <div class="c-card-top" onclick="toggleDetail('call-2')">
+        <div><div class="c-fixture">Hearts v Dundee United</div><div style="font-size:10px;color:var(--ink-faint);">Scottish Premiership</div></div>
+        <div class="c-pct">73%</div>
+      </div>
+      <div class="c-detail" id="call-2">
+        <div class="c-mkt-row"><span>Hearts to win</span><b>73%</b></div>
+        <div class="c-mkt-row"><span>Double Chance 1X</span><b>91%</b></div>
+        <div class="c-mkt-row"><span>Over 1.5 goals</span><b>81%</b></div>
+        <div class="c-mkt-row"><span>Deploy at</span><b>1.37+</b></div>
+      </div>
+      <div class="c-bookcode">Booking code: <b>SB-7N1R9Q</b> <button onclick="copyCode('SB-7N1R9Q')">Copy</button></div>
+    </div>
+
+    <div style="font-size:10px;color:var(--ink-faint);margin:18px 0 10px 0;">THE ACCUMULATOR — all singles combined, one bet</div>
+    <div class="c-card" style="border-left-color:var(--teal);">
+      <div style="font-size:12px;font-weight:700;margin-bottom:6px;">2-leg ACCA</div>
+      <div class="c-mkt-row"><span>Nijmegen to win</span><b>66%</b></div>
+      <div class="c-mkt-row"><span>Hearts to win</span><b>73%</b></div>
+      <div class="c-mkt-row" style="border-top:1px dashed var(--line);padding-top:6px;margin-top:4px;"><span>Combined probability</span><b>48%</b></div>
+      <div class="c-bookcode" style="border-color:var(--teal);">Booking code: <b>SB-ACC-3F8D</b> <button onclick="copyCode('SB-ACC-3F8D')">Copy</button></div>
+    </div>
+  </div>
+
+  <div id="panel-scan" class="c-panel">
+    <div class="c-datepills">
+      <div class="c-pill" onclick="selectDate(this)">Thu</div>
+      <div class="c-pill today selected" onclick="selectDate(this)">Today</div>
+      <div class="c-pill" onclick="selectDate(this)">Sat</div>
+      <div class="c-pill" onclick="selectDate(this)">Sun</div>
+    </div>
+    <input class="c-search" id="scan-search" placeholder="Filter by team or league..." oninput="filterScan()">
+
+    <div class="c-league-group">
+      <div class="c-league-head open" onclick="toggleLeague(this)"><span>Eredivisie (2)</span><span class="chev">▸</span></div>
+      <div class="c-league-body open">
+        <div class="c-card scan-row" data-search="nijmegen telstar eredivisie">
+          <div class="c-card-top" onclick="toggleDetail('scan-1')"><span class="c-fixture">Nijmegen v Telstar<br><span style="font-size:10px;color:var(--ink-faint);font-weight:400;">Nijmegen to win</span></span><span class="c-pct">66%</span></div>
+          <div class="c-detail" id="scan-1">
+            <div class="c-mkt-row"><span>Nijmegen to win</span><b>66%</b></div>
+            <div class="c-mkt-row"><span>Draw</span><b>21%</b></div>
+            <div class="c-mkt-row"><span>Telstar to win</span><b>13%</b></div>
+            <div class="c-mkt-row"><span>Over 1.5 goals</span><b>88%</b></div>
+            <div class="c-mkt-row"><span>BTTS Yes</span><b>58%</b></div>
+          </div>
+        </div>
+        <div class="c-card scan-row" data-search="psv for sittard eredivisie">
+          <div class="c-card-top" onclick="toggleDetail('scan-2')"><span class="c-fixture">PSV v For Sittard<br><span style="font-size:10px;color:var(--ink-faint);font-weight:400;">PSV to win</span></span><span class="c-pct">85%</span></div>
+          <div class="c-detail" id="scan-2">
+            <div class="c-mkt-row"><span>PSV to win</span><b>85%</b></div>
+            <div class="c-mkt-row"><span>Draw</span><b>10%</b></div>
+            <div class="c-mkt-row"><span>For Sittard to win</span><b>5%</b></div>
+            <div class="c-mkt-row"><span>Over 1.5 goals</span><b>91%</b></div>
+            <div class="c-mkt-row"><span>BTTS Yes</span><b>61%</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="c-league-group">
+      <div class="c-league-head" onclick="toggleLeague(this)"><span>Scottish Premiership (2)</span><span class="chev">▸</span></div>
+      <div class="c-league-body">
+        <div class="c-card scan-row" data-search="hearts dundee united scottish premiership">
+          <div class="c-card-top" onclick="toggleDetail('scan-3')"><span class="c-fixture">Hearts v Dundee United<br><span style="font-size:10px;color:var(--ink-faint);font-weight:400;">Hearts to win</span></span><span class="c-pct">73%</span></div>
+          <div class="c-detail" id="scan-3">
+            <div class="c-mkt-row"><span>Hearts to win</span><b>73%</b></div>
+            <div class="c-mkt-row"><span>Double Chance 1X</span><b>91%</b></div>
+            <div class="c-mkt-row"><span>Over 1.5 goals</span><b>81%</b></div>
+          </div>
+        </div>
+        <div class="c-card scan-row" data-search="celtic hibernian scottish premiership">
+          <div class="c-card-top" onclick="toggleDetail('scan-4')"><span class="c-fixture">Celtic v Hibernian<br><span style="font-size:10px;color:var(--ink-faint);font-weight:400;">Celtic to win</span></span><span class="c-pct">60%</span></div>
+          <div class="c-detail" id="scan-4">
+            <div class="c-mkt-row"><span>Celtic to win</span><b>60%</b></div>
+            <div class="c-mkt-row"><span>Draw</span><b>25%</b></div>
+            <div class="c-mkt-row"><span>Hibernian to win</span><b>15%</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="scan-empty" style="display:none;text-align:center;color:var(--ink-faint);font-size:12px;padding:20px;">No fixtures match "<span id="scan-empty-term"></span>"</div>
+  </div>
+
+  <div id="panel-analyst" class="c-panel">
+    <div style="font-size:10px;color:var(--ink-faint);margin-bottom:10px;">READ-ONLY — full chat lives in admin only</div>
+    <div class="c-card">
+      <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Today's board</div>
+      <div style="font-size:11px;color:var(--ink-dim);">2 singles, 1 accumulator, 5 leagues scanned. Full detail above.</div>
+    </div>
+    <div class="c-card">
+      <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Track record</div>
+      <div style="font-size:11px;color:var(--ink-dim);">Phase 2 — paper calibration, 0/30 legs logged. Not yet a demonstrated edge.</div>
+    </div>
+    <div class="c-card">
+      <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Explain a pick</div>
+      <div style="font-size:11px;color:var(--ink-dim);">Tap any fixture in Call or Scan to see the full market breakdown behind it.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ ADMIN APP ============ -->
+<div class="app-frame wide">
+<div id="admin-app">
+  <div class="a-topbar">
+    <div class="a-logo">OLP XDV — ADMIN</div>
+    <input class="a-search" id="admin-search" placeholder="Search fixture, team, league..." oninput="filterAdmin()">
+  </div>
+
+  <div class="a-actionbar">
+    <button id="trigger-btn" onclick="triggerProduction()"><span class="spinner"></span><span id="trigger-label">▶ Trigger Production</span></button>
+    <div class="a-stat"><b id="stat-scanned">127</b>scanned</div>
+    <div class="a-stat"><b id="stat-eligible">6</b>eligible</div>
+    <div class="a-stat"><b>0/30</b>CLV gate</div>
+    <div id="last-run">Last run: 07:00 today</div>
+  </div>
+
+  <div class="a-filterbar">
+    <div class="a-chip active" onclick="setLeagueFilter(this,'all')">All leagues</div>
+    <div class="a-chip" onclick="setLeagueFilter(this,'eredivisie')">Eredivisie</div>
+    <div class="a-chip" onclick="setLeagueFilter(this,'scottish')">Scottish Premiership</div>
+    <div class="a-chip" onclick="setLeagueFilter(this,'belgian')">Belgian Pro League</div>
+  </div>
+
+  <div class="a-tablewrap">
+    <table class="a-table" id="admin-table">
+      <thead><tr><th>Fixture</th><th>1</th><th>X</th><th>2</th><th>O1.5</th><th>Elo</th><th>MES</th><th>Tier</th><th>Src</th></tr></thead>
+      <tbody id="admin-tbody">
+        <tr class="a-league-sep" data-league="eredivisie"><td colspan="9">EREDIVISIE</td></tr>
+        <tr data-league="eredivisie" data-search="nijmegen telstar eredivisie"><td>Nijmegen v Telstar</td><td>66%</td><td>21%</td><td>13%</td><td>88%</td><td>62%</td><td>—</td><td><span class="a-tag">A</span></td><td>○</td></tr>
+        <tr data-league="eredivisie" data-search="psv for sittard eredivisie"><td>PSV v For Sittard</td><td>85%</td><td>10%</td><td>5%</td><td>91%</td><td>90%</td><td>—</td><td><span class="a-tag">A</span></td><td>✓</td></tr>
+        <tr class="a-league-sep" data-league="scottish"><td colspan="9">SCOTTISH PREMIERSHIP</td></tr>
+        <tr data-league="scottish" data-search="hearts dundee united scottish"><td>Hearts v Dundee United</td><td>73%</td><td>18%</td><td>9%</td><td>81%</td><td>79%</td><td>—</td><td><span class="a-tag">B</span></td><td>✓</td></tr>
+        <tr data-league="scottish" data-search="celtic hibernian scottish"><td>Celtic v Hibernian</td><td>60%</td><td>25%</td><td>15%</td><td>—</td><td>63%</td><td>—</td><td><span class="a-tag">B</span></td><td>○</td></tr>
+        <tr class="a-league-sep" data-league="belgian"><td colspan="9">BELGIAN PRO LEAGUE</td></tr>
+        <tr data-league="belgian" data-search="anderlecht gent belgian"><td>Anderlecht v Gent</td><td>46%</td><td>28%</td><td>26%</td><td>—</td><td>50%</td><td>—</td><td><span class="a-tag">C</span></td><td>○</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="a-approve-row">
+    <button id="approve-btn" onclick="approvePublish()">Approve → Publish to Client</button>
+    <div id="publish-status"></div>
+  </div>
+
+  <div style="padding:16px;border-top:1px solid var(--lline);">
+    <div style="font-size:11px;font-weight:700;margin-bottom:8px;">AI Analyst (admin — full chat)</div>
+    <div id="admin-chatlog" style="min-height:100px;background:#fff;border:1px solid var(--lline);border-radius:6px;padding:10px;margin-bottom:8px;font-size:11px;">
+      <div style="color:var(--link-dim);">Ask about today's board, why a pick diverged, or the CLV backtest.</div>
+    </div>
+    <div style="display:flex;gap:6px;">
+      <input id="admin-chat-input" style="flex:1;border:1px solid var(--lline);border-radius:6px;padding:8px;font-size:11px;" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendAdminChat()">
+      <button onclick="sendAdminChat()" style="background:var(--link);color:#fff;border:none;border-radius:6px;padding:8px 14px;font-size:11px;">Send</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function showApp(which){
+  document.getElementById('client-app').classList.toggle('visible', which==='client');
+  document.getElementById('admin-app').classList.toggle('visible', which==='admin');
+  document.getElementById('btn-client').classList.toggle('active', which==='client');
+  document.getElementById('btn-admin').classList.toggle('active', which==='admin');
+}
+
+function showClientTab(name){
+  document.querySelectorAll('.c-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.c-panel').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
+}
+
+function toggleDetail(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+function toggleLeague(el){
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+function selectDate(el){
+  document.querySelectorAll('.c-pill').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+  showToast('Filtering scan to ' + el.textContent);
+}
+
+function filterScan(){
+  const term = document.getElementById('scan-search').value.toLowerCase();
+  let anyVisible = false;
+  document.querySelectorAll('.scan-row').forEach(row=>{
+    const match = row.dataset.search.includes(term);
+    row.style.display = match ? '' : 'none';
+    if(match) anyVisible = true;
+  });
+  document.getElementById('scan-empty').style.display = (term && !anyVisible) ? 'block' : 'none';
+  document.getElementById('scan-empty-term').textContent = term;
+}
+
+function sendQuickChat(text){
+  document.getElementById('chat-input').value = text;
+  sendChat();
+}
+
+function sendChat(){
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if(!text) return;
+  const log = document.getElementById('chatlog');
+  log.innerHTML += `<div class="c-msg user">${text}</div>`;
+  input.value = '';
+  log.scrollTop = log.scrollHeight;
+  setTimeout(()=>{
+    log.innerHTML += `<div class="c-msg bot">[Prototype response] This connects to the same Claude API + status-context as the Telegram bot — real answers come once wired to live board data.</div>`;
+    log.scrollTop = log.scrollHeight;
+  }, 500);
+}
+
+function setLeagueFilter(el, league){
+  document.querySelectorAll('.a-filterbar .a-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('#admin-tbody tr').forEach(row=>{
+    row.classList.toggle('hidden', league!=='all' && row.dataset.league!==league);
+  });
+}
+
+function filterAdmin(){
+  const term = document.getElementById('admin-search').value.toLowerCase();
+  document.querySelectorAll('#admin-tbody tr[data-search]').forEach(row=>{
+    row.classList.toggle('hidden', term && !row.dataset.search.includes(term));
+  });
+}
+
+function sendAdminChat(){
+  const input = document.getElementById('admin-chat-input');
+  const text = input.value.trim();
+  if(!text) return;
+  const log = document.getElementById('admin-chatlog');
+  log.innerHTML += `<div style="text-align:right;color:#333;margin:4px 0;">${text}</div>`;
+  input.value = '';
+  setTimeout(()=>{
+    log.innerHTML += `<div style="color:var(--link-dim);margin:4px 0;">[Prototype response] Full context — model internals, CLV backtest, divergence flags — once wired to live board data.</div>`;
+    log.scrollTop = log.scrollHeight;
+  }, 500);
+}
+
+function copyCode(code){
+  showToast('Copied: ' + code + ' — paste into SportyBet to load selections');
+}
+
+function triggerProduction(){
+  const btn = document.getElementById('trigger-btn');
+  const label = document.getElementById('trigger-label');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  label.textContent = 'Running...';
+  showToast('Producing board for Sat 10 Aug (next scheduled matchday)...');
+
+  setTimeout(()=>{
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    label.textContent = '▶ Trigger Production';
+    document.getElementById('stat-scanned').textContent = '131';
+    document.getElementById('stat-eligible').textContent = '7';
+    const now = new Date();
+    document.getElementById('last-run').textContent = 'Last run: ' + now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')+' (just now)';
+    const newRow = document.createElement('tr');
+    newRow.className = 'new-row';
+    newRow.dataset.league = 'eredivisie';
+    newRow.dataset.search = 'zwolle ajax eredivisie';
+    newRow.innerHTML = '<td>Zwolle v Ajax</td><td>21%</td><td>22%</td><td>57%</td><td>—</td><td>57%</td><td>—</td><td><span class="a-tag">A</span></td><td>✓</td>';
+    document.getElementById('admin-tbody').insertBefore(newRow, document.getElementById('admin-tbody').children[2]);
+    showToast('Sat 10 Aug board ready — 1 new fixture added, prepared 2 days ahead');
+  }, 2200);
+}
+
+function approvePublish(){
+  const btn = document.getElementById('approve-btn');
+  const status = document.getElementById('publish-status');
+  btn.textContent = 'Publishing...';
+  btn.disabled = true;
+  setTimeout(()=>{
+    btn.textContent = '✓ Published to Client';
+    btn.classList.add('published');
+    status.textContent = 'Published ' + new Date().toLocaleTimeString() + ' — visible on client dashboard now';
+    showToast('Board published to client dashboard');
+  }, 1000);
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
+}
+</script>
+
+</body>
+</html>

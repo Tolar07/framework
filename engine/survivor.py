@@ -145,11 +145,15 @@ def grade(pop: dict, hist: list[dict], events: list[dict],
 
 # ----------------------------------------------------------------- breeding
 def breed(pop: dict, today: str) -> int:
-    """Reproduce lineages that won since the last breeding. Returns births."""
-    if pop.get("last_bred_date") == today:
-        return 0
+    """Reproduce lineages that won since the last breeding. Returns births.
+
+    Runs on EVERY daily run (grade -> breed -> select), not once per day: a
+    once-per-day guard let the 7am run "use up" the day before any result was
+    in, so the evening's winners never reproduced (2026-10-03). Double
+    breeding can't happen — `to_breed` is cleared when a lineage breeds. A
+    winner already holding a pending pick waits until that pick is graded."""
     survivors = living(pop)
-    winners = [ln for ln in survivors if ln.get("to_breed")]
+    winners = [ln for ln in survivors if ln.get("to_breed") and not ln.get("holding")]
     slots = {ln["lineage_id"]: 1 for ln in survivors}
     spare = max(0, MAX_LINEAGES - len(survivors))
     for ln in sorted(winners, key=lambda x: -x["bankroll"]):
@@ -161,7 +165,7 @@ def breed(pop: dict, today: str) -> int:
     births = 0
     new = [ln for ln in pop["lineages"] if not ln["alive"]]    # keep the dead on record
     for ln in survivors:
-        if ln.get("to_breed"):
+        if ln.get("to_breed") and not ln.get("holding"):
             ln["to_breed"] = False
             n = slots[ln["lineage_id"]]
             if n > 1:

@@ -40,7 +40,13 @@ births = sv.breed(p, "2026-09-19")
 alive = sv.living(p)
 assert len(alive) == 8 and births == 6, (len(alive), births)
 assert abs(sum(l["bankroll"] for l in alive) - before) < 0.05
-assert sv.breed(p, "2026-09-19") == 0, "breeds once per day"
+assert sv.breed(p, "2026-09-19") == 0, "no second breeding without a new win"
+# A winner holding a pending pick waits; it breeds once that pick is graded.
+p = pop_of(10.0)
+p["lineages"][0]["holding"] = {"date": "2026-10-04"}
+assert sv.breed(p, "2026-10-03") == 0 and p["lineages"][0]["to_breed"]
+p["lineages"][0]["holding"] = None
+assert sv.breed(p, "2026-10-04") == 2, "breeds on the next run, same or later day"
 assert not any(l["to_breed"] for l in alive)
 # 9 survivors over the cap: nobody is deleted.
 p = pop_of(*[5.0] * 9)

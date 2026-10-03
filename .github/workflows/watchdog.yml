@@ -3,7 +3,8 @@ name: OLP XDV missed-run watchdog
 # daily.yml alerts when a board run FAILS. This catches the silent case: a
 # scheduled run GitHub delayed or dropped (2026-09-30: the 06:00 run never
 # fired). ~2.5 h after each board slot it checks that some daily.yml run
-# succeeded in the slot's window and alerts on Telegram if none did.
+# succeeded in the slot's window; if none did (and none failed or is still
+# going) it starts the slot's board itself and says so on Telegram.
 on:
   schedule:
     - cron: "17 23 * * *"   # evening slot (board due 20:47 UTC)
@@ -16,7 +17,7 @@ on:
         default: "evening"
 
 permissions:
-  actions: read
+  actions: write    # read daily.yml's runs; start a missed slot's board
   contents: read
 
 jobs:

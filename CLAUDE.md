@@ -25,7 +25,7 @@ Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
 | Workflow | When | What |
 |---|---|---|
 | `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/` |
-| `watchdog.yml` | 23:17 and 08:17 | `monitor/run_watchdog.py` — Telegram alert when a slot's board run never succeeded |
+| `watchdog.yml` | 23:17 and 08:17 | `monitor/run_watchdog.py` — when a slot's board run never happened, starts it (same day + slot, so the duplicate guard holds) and says so on Telegram |
 | `news.yml` | every 20 min, 09:00-20:40 | `news_check.py` — confirmed lineups, price drift, closing price per pick |
 | `commands.yml` | hourly | `output/telegram_commands.py` — answers /status /board /verify /why /log /note /debrief |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` |

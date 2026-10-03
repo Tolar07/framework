@@ -30,8 +30,8 @@ with green tests.
 ## The checks, in order
 
 1. **Did each slot run?** GitHub Actions runs of `daily.yml` (evening 20:47,
-   morning 05:47 UTC) — conclusion `success`. `watchdog.yml` alerts when one
-   never ran; `daily.yml` alerts when one failed.
+   morning 05:47 UTC) — conclusion `success`. `watchdog.yml` starts one that
+   never ran and says so; `daily.yml` alerts when one failed.
 2. **Are tests green on `main`?** Latest `tests.yml` run; locally
    `python tests/run_all.py`.
 3. **Did the board say anything wrong?** Flags on the latest

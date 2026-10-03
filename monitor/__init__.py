@@ -1,7 +1,7 @@
 """Monitoring for the live framework.
 
-run_watchdog.py   alerts when a scheduled daily board run never happened
-                  (.github/workflows/watchdog.yml).
+run_watchdog.py   starts a scheduled daily board run that never happened and
+                  says so on Telegram (.github/workflows/watchdog.yml).
 mcp_health.py     probes the laptop's MCP servers (laptop task "OLP XDV MCP
                   Watchdog").
 alert_dispatcher.py, json_log.py  shared alert and structured-log helpers.

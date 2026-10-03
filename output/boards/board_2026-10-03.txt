@@ -12,89 +12,89 @@ TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
 
 ```
 Fixture                                          AI PICK · win%                                         Odds   Alt market                                              O1.5/O2.5  DC/BTTS     Src
-Albacete v Eibar                                 ✓ Albacete or Eibar · 73%                              @1.31  Eibar Over 0.5 goals @1.27                              O64/U62    X274 / N57  ○
-Almeria v Burgos                                 ✓ Almeria or Burgos · 76%                              @1.24  —                                                       O67/U59    1272 / N53  ○
+Albacete v Eibar                                 ✓ Albacete or Eibar · 74%                              @1.30  Eibar Over 0.5 goals @1.28                              O64/U62    X274 / N57  ○
+Almeria v Burgos                                 ✓ Almeria or Burgos · 76%                              @1.23  —                                                       O67/U59    1272 / N53  ○
 Cadiz v Leganes                                  ✓ Under 3.5 goals · 81%                                @1.23  Under 3.5 goals @1.23                                   O58/U69    1269 / N61  ○
-Sabadell v Andorra                               ᴮ Sabadell Over 0.5 goals · 78%                        @1.25  Sabadell Over 0.5 goals @1.25                           O74/U51    1X82 / N52  ○
+Sabadell v Andorra                               ✓ Sabadell or draw · 78%                               @1.23  Sabadell Over 0.5 goals @1.25                           O74/U51    1X82 / N52  ○
 Barnsley v Milton Keynes Dons                    ✓ Barnsley Under 2.5 goals · 79%                       @1.24  Milton Keynes Dons Under 2.5 goals @1.23                O74/U51    1274 / Y54  ○
-Burton v Huddersfield                            ✓ Huddersfield Under 2.5 goals · 79%                   @1.25  Over 1.5 goals @1.26                                    O75/O51    1274 / Y55  ○
-Leyton Orient v Plymouth                         ✓ Over 1.5 goals · 80%                                 @1.20  Plymouth Win to Nil — no @1.22                          O83/O62    1276 / Y64  ○
-Reading v Bradford                               ✓ Bradford (+1.5) Asian handicap · 80%                 @1.23  Bradford (0:2) handicap @1.21                           O67/U60    1272 / N54  ○
+Burton v Huddersfield                            ✓ Huddersfield Under 2.5 goals · 79%                   @1.25  Burton (+1.5) Asian handicap @1.31                      O75/O51    1274 / Y55  ○
+Leyton Orient v Plymouth                         ✓ Plymouth Win to Nil — no · 78%                       @1.21  —                                                       O83/O62    1276 / Y64  ○
+Reading v Bradford                               ✓ Bradford (+1.5) Asian handicap · 79%                 @1.23  Bradford (0:2) handicap @1.21                           O67/U60    1272 / N54  ○
 Wigan v Mansfield                                ᴮ Mansfield (+1.5) Asian handicap · 80%                @1.21  —                                                       O65/U61    1271 / N55  ○
 Chesterfield v Tranmere                          ✓ Chesterfield or Tranmere · 78%                       @1.24  Over 1.5 goals @1.21                                    O79/O56    1X85 / Y51  ○
 Accrington v Cheltenham                          ✓ Cheltenham (+1.5) Asian handicap · 80%               @1.20  Accrington Over 0.5 goals @1.23                         O79/O56    1275 / Y59  ○
-Crewe v Bristol Rvs                              ✓ Bristol Rvs Win to Nil — no · 79%                    @1.21  Crewe (+1.5) Asian handicap @1.21                       O73/U53    1273 / Y52  ○
+Crewe v Bristol Rvs                              ᴮ Crewe (+1.5) Asian handicap · 79%                    @1.21  Crewe (2:0) handicap @1.20                              O73/U53    1273 / Y52  ○
 Exeter v Rotherham                               ✓ Multigoals 1-3 · 67%                                 @1.26  Under 3.5 goals @1.33                                   U64/U86    X275 / N78  ○
-Gillingham v Newport County                      ✓ Gillingham Over 0.5 goals · 79%                      @1.23  Newport County Clean Sheet — no @1.21                   O79/O56    1275 / Y58  ○
-Grimsby v Shrewsbury                             ᴮ Grimsby or draw · 79%                                @1.20  Grimsby (+0.5) Asian handicap @1.20                     O76/O52    1X89 / N56  ○
+Gillingham v Newport County                      ✓ Gillingham Over 0.5 goals · 78%                      @1.23  Newport County Clean Sheet — no @1.22                   O79/O56    1275 / Y58  ○
+Grimsby v Shrewsbury                             ✓ Grimsby or Shrewsbury · 78%                          @1.25  Over 1.5 goals @1.25                                    O76/O52    1X89 / N56  ○
 Rochdale v Swindon                               ✓ Swindon (0:2) handicap · 81%                         @1.21  Swindon (+1.5) Asian handicap @1.21                     O76/O51    1274 / Y56  ○
-Salford v Fleetwood Town                         ✓ Salford or Fleetwood Town · 76%                      @1.24  Over 1.5 goals @1.23                                    O66/U61    1X76 / N56  ○
+Salford v Fleetwood Town                         ✓ Salford or Fleetwood Town · 77%                      @1.23  Under 4.5 goals @1.21                                   O66/U61    1X76 / N56  ○
 Aldershot v Carlisle                             ✓ Aldershot or Carlisle · 77%                          @1.25  Carlisle Win to Nil — no @1.21                          O82/O62    1278 / Y62  ○
-Barrow v Wealdstone                              ✓ Over 1.5 goals · 80%                                 @1.21  Barrow or Wealdstone @1.24                              O81/O60    1279 / Y57  ○
-Boreham Wood v Altrincham                        ✓ Boreham Wood or Draw & Over 1.5 · 75%                @1.20  —                                                       O83/O63    1X85 / Y56  ○
-Eastleigh v Woking                               ✓ Eastleigh (+1.5) Asian handicap · 78%                @1.22  Woking Over 0.5 goals @1.20                             O77/O53    1276 / Y56  ○
-Gateshead v Worthing                             ✓ Worthing Under 3.5 goals · 78%                       @1.24  Under 4.5 goals @1.28                                   O85/O65    X285 / Y58  ○
-Harrogate v Hornchurch                           ✓ Over 1.5 goals · 81%                                 @1.20  Harrogate or Hornchurch @1.21                           O85/O65    1280 / Y62  ○
-Hartlepool v Tamworth                            ✓ Tamworth (+1.5) Asian handicap · 79%                 @1.23  Tamworth (0:2) handicap @1.21                           O75/O51    1275 / Y54  ○
-Kidderminster v Sutton                           ✓ Under 3.5 goals · 78%                                @1.27  Kidderminster Over 0.5 goals @1.31                      O66/U61    1X81 / N60  ○
+Barrow v Wealdstone                              ✓ Over 1.5 goals · 80%                                 @1.21  Barrow or Wealdstone @1.25                              O81/O60    1279 / Y57  ○
+Boreham Wood v Altrincham                        ✓ Altrincham (+2.5) Asian handicap · 74%               @1.33  Boreham Wood or Draw & Over 1.5 @1.21                   O83/O63    1X85 / Y56  ○
+Eastleigh v Woking                               ✓ Woking Over 0.5 goals · 79%                          @1.21  Eastleigh (+1.5) Asian handicap @1.21                   O77/O53    1276 / Y56  ○
+Gateshead v Worthing                             ✓ Worthing Under 3.5 goals · 78%                       @1.25  Gateshead Under 1.5 goals @1.23                         O85/O65    X285 / Y58  ○
+Harrogate v Hornchurch                           ✓ Over 1.5 goals · 81%                                 @1.21  Harrogate or Hornchurch @1.21                           O85/O65    1280 / Y62  ○
+Hartlepool v Tamworth                            ✓ Tamworth (+1.5) Asian handicap · 79%                 @1.22  Tamworth (0:2) handicap @1.21                           O75/O51    1275 / Y54  ○
+Kidderminster v Sutton                           ✓ Under 3.5 goals · 78%                                @1.27  Kidderminster Win to Nil — no @1.21                     O66/U61    1X81 / N60  ○
 Solihull v Halifax                               ✓ Halifax (+1.5) Asian handicap · 79%                  @1.24  Halifax (0:2) handicap @1.23                            O81/O60    1277 / Y62  ○
-Southend v Fylde                                 ✓ Southend or Fylde · 78%                              @1.25  Fylde Over 0.5 goals @1.23                              O84/O65    1278 / Y65  ○
-Yeovil v Boston Utd                              ✓ Yeovil or Boston Utd · 76%                           @1.26  Over 1.5 goals @1.24                                    O71/U54    1274 / Y51  ○
+Southend v Fylde                                 ✓ Southend or Fylde · 78%                              @1.25  Fylde Over 0.5 goals @1.25                              O84/O65    1278 / Y65  ○
+Yeovil v Boston Utd                              ✓ Yeovil Win to Nil — no · 75%                         @1.28  Over 1.5 goals @1.22                                    O71/U54    1274 / Y51  ○
 Brentwood Town FC v Dagenham and Redbridge FC    Dagenham and Redbridge FC (+0.5) Asian handicap · 80%  @1.21  Dagenham and Redbridge FC or draw @1.20                 O81/O62    1280 / Y58  ○ᴹ
-AFC Rushden And Diamonds v Braintree Town FC     Braintree Town FC (+0.5) Asian handicap · 76%          @1.27  AFC Rushden And Diamonds or Braintree Town FC @1.21     O80/O61    1279 / Y59  ○ᴹ
+AFC Rushden And Diamonds v Braintree Town FC     AFC Rushden And Diamonds or Braintree Town FC · 78%    @1.21  —                                                       O80/O61    1279 / Y59  ○ᴹ
 Barton Town v Chorley FC                         Barton Town (+2.5) Asian handicap · 77%                @1.26  Barton Town (3:0) handicap @1.24                        O81/O63    X283 / Y56  ○ᴹ
 Bedford Town Football Club v Wingate & Finchley  Wingate & Finchley (+2.5) Asian handicap · 82%         @1.20  Bedford Town Football Club or Wingate & Finchley @1.22  O83/O65    1X80 / Y62  ○ᴹ
 Brackley Town FC v Chelmsford City               Brackley Town FC (+1.5) Asian handicap · 80%           @1.20  Chelmsford City Win to Nil — no @1.21                   O74/O51    1273 / Y55  ○ᴹ
 Bury FC v Bromsgrove Sporting                    Bury FC or Bromsgrove Sporting · 78%                   @1.25  Bury FC (+0.5) Asian handicap @1.25                     O82/O63    1X77 / Y62  ○ᴹ
-Bury Town FC v Spalding United                   Over 1.5 goals · 78%                                   @1.22  Bury Town FC or Spalding United @1.26                   O77/O55    1276 / Y57  ○ᴹ
-Buxton FC v South Shields                        Buxton FC or South Shields · 77%                       @1.28  Buxton FC Over 0.5 goals @1.24                          O82/O63    1275 / Y64  ○ᴹ
+Bury Town FC v Spalding United                   Over 1.5 goals · 78%                                   @1.22  Spalding United Win to Nil — no @1.23                   O77/O55    1275 / Y58  ○ᴹ
+Buxton FC v South Shields                        Buxton FC or South Shields · 77%                       @1.25  Buxton FC Over 0.5 goals @1.21                          O83/O66    1277 / Y66  ○ᴹ
 Cambridge City v Alvechurch                      Cambridge City or Alvechurch · 77%                     @1.26  Alvechurch Win to Nil — no @1.20                        O81/O61    1276 / Y62  ○ᴹ
-Chesham United v Real Bedford                    Chesham United Win to Nil — no · 78%                   @1.21  —                                                       O80/O60    1276 / Y61  ○ᴹ
+Chesham United v Real Bedford                    Chesham United or Real Bedford · 77%                   @1.25  Real Bedford Over 0.5 goals @1.26                       O82/O63    1276 / Y63  ○ᴹ
 Cray Wanderers v Chippenham Town                 Cray Wanderers or Chippenham Town · 78%                @1.24  Cray Wanderers (+0.5) Asian handicap @1.25              O81/O62    1X77 / Y61  ○ᴹ
-Crowborough Athletic v Wimborne Town             Wimborne Town (+0.5) Asian handicap · 78%              @1.23  Crowborough Athletic or Wimborne Town @1.22             O81/O62    X278 / Y60  ○ᴹ
-Dorking Wanderers v Chatham Town                 Dorking Wanderers or Draw & Over 1.5 · 76%             @1.23  —                                                       O83/O64    1X88 / Y53  ○ᴹ
-Ebbsfleet United FC v Sholing FC                 Over 1.5 goals · 81%                                   @1.20  —                                                       O79/O58    1X86 / N50  ○ᴹ
-Gainsborough Trinity v Anstey Nomads             Anstey Nomads (+1.5) Asian handicap · 78%              @1.23  Anstey Nomads (0:2) handicap @1.21                      O81/O62    1276 / Y64  ○ᴹ
-Guiseley FC v Bradford Park Avenue AFC           Under 4.5 goals · 81%                                  @1.21  Guiseley FC or Bradford Park Avenue AFC @1.24           O79/O59    1277 / Y59  ○ᴹ
-Hanwell Town FC v Dover Athletic FC              Hanwell Town FC (+1.5) Asian handicap · 77%            @1.25  Hanwell Town FC Over 0.5 goals @1.24                    O81/O62    1276 / Y63  ○ᴹ
-Harborough Town FC v St Albans City              Harborough Town FC or St Albans City · 77%             @1.27  St Albans City Over 0.5 goals @1.25                     O82/O63    1275 / Y64  ○ᴹ
-Kettering Town v Worcester City                  Kettering Town or Worcester City · 77%                 @1.26  Kettering Town Win to Nil — no @1.20                    O82/O63    1276 / Y63  ○ᴹ
-Leatherhead FC v Hanworth Villa                  Hanworth Villa (+1.5) Asian handicap · 79%             @1.23  Hanworth Villa (0:2) handicap @1.21                     O81/O62    1276 / Y64  ○ᴹ
-Leiston FC v Coventry United                     Leiston FC or Coventry United · 78%                    @1.24  Leiston FC (+0.5) Asian handicap @1.24                  O81/O61    1X78 / Y60  ○ᴹ
+Crowborough Athletic v Wimborne Town             Crowborough Athletic or Wimborne Town · 79%            @1.22  Wimborne Town (+0.5) Asian handicap @1.22               O81/O62    X279 / Y59  ○ᴹ
+Dorking Wanderers v Chatham Town                 Dorking Wanderers or Draw & Over 1.5 · 76%             @1.23  —                                                       O83/O64    1X87 / Y53  ○ᴹ
+Ebbsfleet United FC v Sholing FC                 Over 1.5 goals · 79%                                   @1.23  Sholing FC (+2.5) Asian handicap @1.24                  O76/O55    1X85 / N52  ○ᴹ
+Gainsborough Trinity v Anstey Nomads             Anstey Nomads (+1.5) Asian handicap · 79%              @1.23  Anstey Nomads (0:2) handicap @1.21                      O81/O61    1276 / Y63  ○ᴹ
+Guiseley FC v Bradford Park Avenue AFC           Over 1.5 goals · 76%                                   @1.27  Guiseley FC or Bradford Park Avenue AFC @1.26           O74/O52    1276 / Y54  ○ᴹ
+Hanwell Town FC v Dover Athletic FC              Hanwell Town FC (+1.5) Asian handicap · 77%            @1.25  Hanwell Town FC (2:0) handicap @1.23                    O81/O61    1276 / Y62  ○ᴹ
+Harborough Town FC v St Albans City              Harborough Town FC or St Albans City · 78%             @1.25  Harborough Town FC Win to Nil — no @1.22                O81/O62    1276 / Y62  ○ᴹ
+Kettering Town v Worcester City                  Under 4.5 goals · 81%                                  @1.21  Kettering Town or Worcester City @1.25                  O79/O59    1276 / Y59  ○ᴹ
+Leatherhead FC v Hanworth Villa                  Hanworth Villa (+1.5) Asian handicap · 79%             @1.22  Hanworth Villa (0:2) handicap @1.21                     O81/O61    1276 / Y63  ○ᴹ
+Leiston FC v Coventry United                     Leiston FC or Coventry United · 78%                    @1.23  Leiston FC (+0.5) Asian handicap @1.24                  O81/O62    1X78 / Y60  ○ᴹ
 Macclesfield FC v Scarborough Athletic           Macclesfield FC or draw · 78%                          @1.23  Macclesfield FC (+0.5) Asian handicap @1.23             O71/U52    1X77 / N52  ○ᴹ
-Marine FC v Warrington Town                      Over 1.5 goals · 75%                                   @1.29  Marine FC (+0.5) Asian handicap @1.25                   O73/O50    1X77 / Y52  ○ᴹ
-Morecambe FC v Darlington FC                     Over 1.5 goals · 78%                                   @1.24  Morecambe FC (+0.5) Asian handicap @1.23                O76/O54    1X78 / Y53  ○ᴹ
-Mulbarton Wanderers v Gloucester City            Over 1.5 goals · 78%                                   @1.23  Gloucester City (+0.5) Asian handicap @1.24             O77/O55    X277 / Y55  ○ᴹ
+Marine FC v Warrington Town                      Over 1.5 goals · 75%                                   @1.27  Marine FC (+0.5) Asian handicap @1.25                   O74/O51    1X77 / Y53  ○ᴹ
+Morecambe FC v Darlington FC                     Morecambe FC or Darlington FC · 78%                    @1.23  Morecambe FC (+0.5) Asian handicap @1.23                O80/O61    1X78 / Y59  ○ᴹ
+Mulbarton Wanderers v Gloucester City            Over 1.5 goals · 78%                                   @1.23  Mulbarton Wanderers or Gloucester City @1.24            O77/O55    X277 / Y55  ○ᴹ
 Oxford City v Enfield Town                       Enfield Town (+2.5) Asian handicap · 81%               @1.20  Oxford City or Enfield Town @1.20                       O81/O62    1X81 / Y58  ○ᴹ
-Plymouth Parkway v Horsham FC                    Plymouth Parkway (+1.5) Asian handicap · 78%           @1.24  Over 1.5 goals @1.21                                    O78/O56    1274 / Y59  ○ᴹ
+Plymouth Parkway v Horsham FC                    Plymouth Parkway (+1.5) Asian handicap · 80%           @1.21  Plymouth Parkway (2:0) handicap @1.20                   O77/O56    1274 / Y59  ○ᴹ
 Redditch United v Berkhamsted FC                 Berkhamsted FC (+1.5) Asian handicap · 79%             @1.22  Berkhamsted FC (0:2) handicap @1.21                     O76/O54    1273 / Y58  ○ᴹ
-Salisbury FC v Dulwich Hamlet                    Dulwich Hamlet (+2.5) Asian handicap · 80%             @1.21  Dulwich Hamlet (0:3) handicap @1.20                     O79/O59    1X82 / Y55  ○ᴹ
+Salisbury FC v Dulwich Hamlet                    Salisbury FC or Dulwich Hamlet · 79%                   @1.21  —                                                       O79/O59    1X81 / Y56  ○ᴹ
 Sheppey United FC v Chertsey Town                Sheppey United FC or Chertsey Town · 78%               @1.23  Chertsey Town (+0.5) Asian handicap @1.26               O81/O62    1278 / Y61  ○ᴹ
-Spennymoor Town FC v Chester FC                  Spennymoor Town FC (+1.5) Asian handicap · 80%         @1.22  Spennymoor Town FC (2:0) handicap @1.20                 O75/O53    1273 / Y57  ○ᴹ
-Stafford Rangers v Halesowen Town FC             Under 4.5 goals · 82%                                  @1.20  Halesowen Town FC Win to Nil — no @1.21                 O79/O58    1274 / Y61  ○ᴹ
+Spennymoor Town FC v Chester FC                  Spennymoor Town FC (+1.5) Asian handicap · 80%         @1.20  —                                                       O75/O53    1273 / Y57  ○ᴹ
+Stafford Rangers v Halesowen Town FC             Over 1.5 goals · 78%                                   @1.22  Halesowen Town FC Win to Nil — no @1.22                 O77/O55    1274 / Y58  ○ᴹ
 Tadley Calleva v Dartford FC                     Dartford FC Under 3.5 goals · 78%                      @1.26  Tadley Calleva Under 1.5 goals @1.20                    O82/O62    X290 / Y51  ○ᴹ
-Thame United FC v Eastbourne Borough             Thame United FC or Eastbourne Borough · 78%            @1.23  Eastbourne Borough (+0.5) Asian handicap @1.22          O81/O62    X278 / Y60  ○ᴹ
-Tonbridge Angels v Torquay United                Under 4.5 goals · 81%                                  @1.21  Tonbridge Angels (+1.5) Asian handicap @1.25            O80/O59    1274 / Y62  ○ᴹ
+Thame United FC v Eastbourne Borough             Thame United FC or Eastbourne Borough · 78%            @1.23  Eastbourne Borough (+0.5) Asian handicap @1.24          O81/O62    X278 / Y61  ○ᴹ
+Tonbridge Angels v Torquay United                Tonbridge Angels (+1.5) Asian handicap · 80%           @1.20  Over 1.5 goals @1.21                                    O78/O56    1275 / Y59  ○ᴹ
 Trafford FC v Atherton Collieries                Trafford FC or Atherton Collieries · 77%               @1.27  —                                                       O81/O61    1275 / Y63  ○ᴹ
 Truro City v Cirencester Town                    Cirencester Town (+3.5) Asian handicap · 80%           @1.24  Cirencester Town (0:4) handicap @1.22                   O84/O67    1X93 / N53  ○ᴹ
 Uxbridge FC v Hungerford Town FC                 Over 1.5 goals · 77%                                   @1.25  Uxbridge FC or Hungerford Town FC @1.24                 O76/O53    1X81 / Y52  ○ᴹ
 Weymouth FC v South East Dons                    Weymouth FC Under 3.5 goals · 76%                      @1.31  South East Dons Under 1.5 goals @1.25                   O84/O67    1X90 / Y55  ○ᴹ
 Worksop Town v FC United of Manchester           Worksop Town or FC United of Manchester · 79%          @1.23  Worksop Town (+0.5) Asian handicap @1.24                O83/O65    1278 / Y63  ○ᴹ
-Finland v Albania                                ✓ Finland Win to Nil — no · 74%                        @1.29  Under 3.5 goals @1.23                                   U52/U78    1X71 / N69  ○
-Belarus v San Marino                             ᴮ Belarus (0:1) handicap · 74%                         @1.30  Belarus (-1.5) Asian handicap @1.30                     O90/O75    1X99 / N76  ○
+Finland v Albania                                ✓ Under 3.5 goals · 84%                                @1.21  Under 3.5 goals @1.21                                   U52/U78    1X71 / N69  ○
+Belarus v San Marino                             ᴮ Belarus Over 1.5 goals · 79%                         @1.23  —                                                       O90/O75    1X99 / N76  ○
 Croatia v England                                ✓ England Win to Nil — no · 73%                        @1.33  Under 4.5 goals @1.22                                   O63/U64    1270 / N57  ○
-Estonia v Luxembourg                             ✓ Under 3.5 goals · 82%                                @1.22  Estonia Win to Nil — no @1.20                           O58/U69    1X69 / N62  ○
-Iceland v Bulgaria                               ✓ Over 1.5 goals · 79%                                 @1.25  Iceland or Bulgaria @1.20                               O83/O62    1X88 / Y52  ○
-North Macedonia v Scotland                       ✓ Scotland Over 0.5 goals · 80%                        @1.23  North Macedonia Clean Sheet — no @1.22                  O76/O51    X278 / Y52  ○
-Spain v Czech Republic                           ✓ Czech Republic (0:5) handicap · 82%                  @1.21  Czech Republic (+4.5) Asian handicap @1.21              O88/O71    1X96 / N59  ○
-Switzerland v Slovenia                           ✓ Over 1.5 goals · 75%                                 @1.28  Slovenia (+2.5) Asian handicap @1.34                    O71/U55    1X84 / N56  ○
+Estonia v Luxembourg                             ✓ Luxembourg Win to Nil — no · 77%                     @1.27  Estonia Win to Nil — no @1.22                           O58/U69    1X69 / N62  ○
+Iceland v Bulgaria                               ✓ Over 1.5 goals · 78%                                 @1.26  Iceland or Bulgaria @1.21                               O83/O62    1X88 / Y52  ○
+North Macedonia v Scotland                       ✓ Scotland Over 0.5 goals · 80%                        @1.23  North Macedonia Clean Sheet — no @1.21                  O76/O51    X278 / Y52  ○
+Spain v Czech Republic                           ✓ Czech Republic (+4.5) Asian handicap · 80%           @1.25  Czech Republic (0:5) handicap @1.24                     O88/O71    1X96 / N59  ○
+Switzerland v Slovenia                           ✓ Over 1.5 goals · 75%                                 @1.28  Slovenia (+2.5) Asian handicap @1.33                    O71/U55    1X84 / N56  ○
 ```
 ★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · ⚠ SPLIT = no in-band outcome either side backs
 ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
 
-Mega 1 (26 legs · odds 157 · chance 1 in 292): ZRWPQX   load ↦ www.sportybet.com/ng/?shareCode=ZRWPQX
-Mega 2 (25 legs · odds 193 · chance 1 in 456): ZZ8CGP   load ↦ www.sportybet.com/ng/?shareCode=ZZ8CGP
-Mega 3 (25 legs · odds 362 · chance 1 in 1,124): VARPNB   load ↦ www.sportybet.com/ng/?shareCode=VARPNB
+Mega 1 (26 legs · odds 167 · chance 1 in 314): NZC6QQ   load ↦ www.sportybet.com/ng/?shareCode=NZC6QQ
+Mega 2 (25 legs · odds 181 · chance 1 in 450): NK9P1J   load ↦ www.sportybet.com/ng/?shareCode=NK9P1J
+Mega 3 (25 legs · odds 356 · chance 1 in 1,016): S05GS0   load ↦ www.sportybet.com/ng/?shareCode=S05GS0
 
 ──────────────────────────────────
 TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
@@ -103,87 +103,88 @@ TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
 
 ```
 Fixture                                          Pick                                             Chance  Odds   Certainty  Stake  Code
-Albacete v Eibar                                 ✓ Albacete or Eibar                              73%     @1.31  HIGH       0.25%  WNMX18
-Almeria v Burgos                                 ✓ Almeria or Burgos                              76%     @1.24  MEDIUM     0.25%  WVYDSJ
+Albacete v Eibar                                 ✓ Albacete or Eibar                              74%     @1.30  HIGH       0.25%  WNMX18
+Almeria v Burgos                                 ✓ Almeria or Burgos                              76%     @1.23  MEDIUM     0.25%  WVYDSJ
 Cadiz v Leganes                                  ✓ Under 3.5 goals                                81%     @1.23  HIGH       0.25%  RVVKWD
-Sabadell v Andorra                               ᴮ Sabadell Over 0.5 goals                        78%     @1.25  LOW        0.12%  UW2636
+Sabadell v Andorra                               ✓ Sabadell or draw                               78%     @1.23  MEDIUM     0.25%  JJ7E8V
 Barnsley v Milton Keynes Dons                    ✓ Barnsley Under 2.5 goals                       79%     @1.24  MEDIUM     0.25%  QM1956
 Burton v Huddersfield                            ✓ Huddersfield Under 2.5 goals                   79%     @1.25  MEDIUM     0.25%  RQZ7W3
-Leyton Orient v Plymouth                         ✓ Over 1.5 goals                                 80%     @1.20  MEDIUM     0.25%  NT73SE
-Reading v Bradford                               ✓ Bradford (+1.5) Asian handicap                 80%     @1.23  HIGH       0.25%  LMTB01
+Leyton Orient v Plymouth                         ✓ Plymouth Win to Nil — no                       78%     @1.21  LOW        0.12%  NRDQSB
+Reading v Bradford                               ✓ Bradford (+1.5) Asian handicap                 79%     @1.23  HIGH       0.25%  LMTB01
 Wigan v Mansfield                                ᴮ Mansfield (+1.5) Asian handicap                80%     @1.21  LOW        0.12%  NU1M5X
 Chesterfield v Tranmere                          ✓ Chesterfield or Tranmere                       78%     @1.24  HIGH       0.25%  XDR4XY
 Accrington v Cheltenham                          ✓ Cheltenham (+1.5) Asian handicap               80%     @1.20  HIGH       0.25%  ZM727X
-Crewe v Bristol Rvs                              ✓ Bristol Rvs Win to Nil — no                    79%     @1.21  MEDIUM     0.25%  WFA8SV
+Crewe v Bristol Rvs                              ᴮ Crewe (+1.5) Asian handicap                    79%     @1.21  LOW        0.12%  LJ4N85
 Exeter v Rotherham                               ✓ Multigoals 1-3                                 67%     @1.26  HIGH       0.25%  PDEHCQ
-Gillingham v Newport County                      ✓ Gillingham Over 0.5 goals                      79%     @1.23  MEDIUM     0.25%  WCF607
-Grimsby v Shrewsbury                             ᴮ Grimsby or draw                                79%     @1.20  LOW        0.12%  PCTL1A
+Gillingham v Newport County                      ✓ Gillingham Over 0.5 goals                      78%     @1.23  MEDIUM     0.25%  WCF607
+Grimsby v Shrewsbury                             ✓ Grimsby or Shrewsbury                          78%     @1.25  MEDIUM     0.25%  R0GYRX
 Rochdale v Swindon                               ✓ Swindon (0:2) handicap                         81%     @1.21  MEDIUM     0.25%  TY8G0Q
-Salford v Fleetwood Town                         ✓ Salford or Fleetwood Town                      76%     @1.24  MEDIUM     0.25%  J8EBB2
+Salford v Fleetwood Town                         ✓ Salford or Fleetwood Town                      77%     @1.23  MEDIUM     0.25%  J8EBB2
 Aldershot v Carlisle                             ✓ Aldershot or Carlisle                          77%     @1.25  HIGH       0.25%  URS4JW
 Barrow v Wealdstone                              ✓ Over 1.5 goals                                 80%     @1.21  HIGH       0.25%  ZZ7GQA
-Boreham Wood v Altrincham                        ✓ Boreham Wood or Draw & Over 1.5                75%     @1.20  MEDIUM     0.25%  L6HCPB
-Eastleigh v Woking                               ✓ Eastleigh (+1.5) Asian handicap                78%     @1.22  HIGH       0.25%  MN2DVU
-Gateshead v Worthing                             ✓ Worthing Under 3.5 goals                       78%     @1.24  HIGH       0.25%  W7BTNC
-Harrogate v Hornchurch                           ✓ Over 1.5 goals                                 81%     @1.20  MEDIUM     0.25%  RPR0PM
-Hartlepool v Tamworth                            ✓ Tamworth (+1.5) Asian handicap                 79%     @1.23  MEDIUM     0.25%  UAGD05
+Boreham Wood v Altrincham                        ✓ Altrincham (+2.5) Asian handicap               74%     @1.33  HIGH       0.25%  J8EJTV
+Eastleigh v Woking                               ✓ Woking Over 0.5 goals                          79%     @1.21  HIGH       0.25%  J1PHRS
+Gateshead v Worthing                             ✓ Worthing Under 3.5 goals                       78%     @1.25  HIGH       0.25%  W7BTNC
+Harrogate v Hornchurch                           ✓ Over 1.5 goals                                 81%     @1.21  MEDIUM     0.25%  RPR0PM
+Hartlepool v Tamworth                            ✓ Tamworth (+1.5) Asian handicap                 79%     @1.22  MEDIUM     0.25%  UAGD05
 Kidderminster v Sutton                           ✓ Under 3.5 goals                                78%     @1.27  MEDIUM     0.25%  PAZ9VF
 Solihull v Halifax                               ✓ Halifax (+1.5) Asian handicap                  79%     @1.24  MEDIUM     0.25%  ZG3LEB
 Southend v Fylde                                 ✓ Southend or Fylde                              78%     @1.25  HIGH       0.25%  T112ZR
-Yeovil v Boston Utd                              ✓ Yeovil or Boston Utd                           76%     @1.26  HIGH       0.25%  JSSC3G
+Yeovil v Boston Utd                              ✓ Yeovil Win to Nil — no                         75%     @1.28  MEDIUM     0.25%  ZT440W
 Brentwood Town FC v Dagenham and Redbridge FC    Dagenham and Redbridge FC (+0.5) Asian handicap  80%     @1.21  LOW        0.12%  LASXSV
-AFC Rushden And Diamonds v Braintree Town FC     Braintree Town FC (+0.5) Asian handicap          76%     @1.27  LOW        0.12%  RYHSA1
+AFC Rushden And Diamonds v Braintree Town FC     AFC Rushden And Diamonds or Braintree Town FC    78%     @1.21  LOW        0.12%  M3Q4R9
 Barton Town v Chorley FC                         Barton Town (+2.5) Asian handicap                77%     @1.26  LOW        0.12%  QZ9CC4
 Bedford Town Football Club v Wingate & Finchley  Wingate & Finchley (+2.5) Asian handicap         82%     @1.20  LOW        0.12%  RZJFY5
 Brackley Town FC v Chelmsford City               Brackley Town FC (+1.5) Asian handicap           80%     @1.20  LOW        0.12%  Z9KY2J
 Bury FC v Bromsgrove Sporting                    Bury FC or Bromsgrove Sporting                   78%     @1.25  LOW        0.12%  X3Y1W0
 Bury Town FC v Spalding United                   Over 1.5 goals                                   78%     @1.22  LOW        0.12%  XEBX7Z
-Buxton FC v South Shields                        Buxton FC or South Shields                       77%     @1.28  LOW        0.12%  QUZQPR
+Buxton FC v South Shields                        Buxton FC or South Shields                       77%     @1.25  LOW        0.12%  QUZQPR
 Cambridge City v Alvechurch                      Cambridge City or Alvechurch                     77%     @1.26  LOW        0.12%  SCD9GE
-Chesham United v Real Bedford                    Chesham United Win to Nil — no                   78%     @1.21  LOW        0.12%  LCMFMR
+Chesham United v Real Bedford                    Chesham United or Real Bedford                   77%     @1.25  LOW        0.12%  Y4TVPR
 Cray Wanderers v Chippenham Town                 Cray Wanderers or Chippenham Town                78%     @1.24  LOW        0.12%  Y61GGL
-Crowborough Athletic v Wimborne Town             Wimborne Town (+0.5) Asian handicap              78%     @1.23  LOW        0.12%  TMUNY2
+Crowborough Athletic v Wimborne Town             Crowborough Athletic or Wimborne Town            79%     @1.22  LOW        0.12%  GVX81Y
 Dorking Wanderers v Chatham Town                 Dorking Wanderers or Draw & Over 1.5             76%     @1.23  LOW        0.12%  WADTWB
-Ebbsfleet United FC v Sholing FC                 Over 1.5 goals                                   81%     @1.20  LOW        0.12%  ZM077V
-Gainsborough Trinity v Anstey Nomads             Anstey Nomads (+1.5) Asian handicap              78%     @1.23  LOW        0.12%  JJ76S6
-Guiseley FC v Bradford Park Avenue AFC           Under 4.5 goals                                  81%     @1.21  LOW        0.12%  MRREQ3
+Ebbsfleet United FC v Sholing FC                 Over 1.5 goals                                   79%     @1.23  LOW        0.12%  ZM077V
+Gainsborough Trinity v Anstey Nomads             Anstey Nomads (+1.5) Asian handicap              79%     @1.23  LOW        0.12%  JJ76S6
+Guiseley FC v Bradford Park Avenue AFC           Over 1.5 goals                                   76%     @1.27  LOW        0.12%  J8MBM5
 Hanwell Town FC v Dover Athletic FC              Hanwell Town FC (+1.5) Asian handicap            77%     @1.25  LOW        0.12%  KBRGH3
-Harborough Town FC v St Albans City              Harborough Town FC or St Albans City             77%     @1.27  LOW        0.12%  YH235U
-Kettering Town v Worcester City                  Kettering Town or Worcester City                 77%     @1.26  LOW        0.12%  R3K01R
-Leatherhead FC v Hanworth Villa                  Hanworth Villa (+1.5) Asian handicap             79%     @1.23  LOW        0.12%  X6D9G8
-Leiston FC v Coventry United                     Leiston FC or Coventry United                    78%     @1.24  LOW        0.12%  ZPFG4Z
+Harborough Town FC v St Albans City              Harborough Town FC or St Albans City             78%     @1.25  LOW        0.12%  YH235U
+Kettering Town v Worcester City                  Under 4.5 goals                                  81%     @1.21  LOW        0.12%  GJWZTS
+Leatherhead FC v Hanworth Villa                  Hanworth Villa (+1.5) Asian handicap             79%     @1.22  LOW        0.12%  X6D9G8
+Leiston FC v Coventry United                     Leiston FC or Coventry United                    78%     @1.23  LOW        0.12%  ZPFG4Z
 Macclesfield FC v Scarborough Athletic           Macclesfield FC or draw                          78%     @1.23  LOW        0.12%  M86M2J
-Marine FC v Warrington Town                      Over 1.5 goals                                   75%     @1.29  LOW        0.12%  WT4M5H
-Morecambe FC v Darlington FC                     Over 1.5 goals                                   78%     @1.24  LOW        0.12%  TSY4A4
+Marine FC v Warrington Town                      Over 1.5 goals                                   75%     @1.27  LOW        0.12%  WT4M5H
+Morecambe FC v Darlington FC                     Morecambe FC or Darlington FC                    78%     @1.23  LOW        0.12%  K0R43X
 Mulbarton Wanderers v Gloucester City            Over 1.5 goals                                   78%     @1.23  LOW        0.12%  H1EK7P
 Oxford City v Enfield Town                       Enfield Town (+2.5) Asian handicap               81%     @1.20  LOW        0.12%  UW25DG
-Plymouth Parkway v Horsham FC                    Plymouth Parkway (+1.5) Asian handicap           78%     @1.24  LOW        0.12%  GXRV3B
+Plymouth Parkway v Horsham FC                    Plymouth Parkway (+1.5) Asian handicap           80%     @1.21  LOW        0.12%  GXRV3B
 Redditch United v Berkhamsted FC                 Berkhamsted FC (+1.5) Asian handicap             79%     @1.22  LOW        0.12%  W006RN
-Salisbury FC v Dulwich Hamlet                    Dulwich Hamlet (+2.5) Asian handicap             80%     @1.21  LOW        0.12%  N8VUZN
+Salisbury FC v Dulwich Hamlet                    Salisbury FC or Dulwich Hamlet                   79%     @1.21  LOW        0.12%  Q3A3UK
 Sheppey United FC v Chertsey Town                Sheppey United FC or Chertsey Town               78%     @1.23  LOW        0.12%  R7UMRT
-Spennymoor Town FC v Chester FC                  Spennymoor Town FC (+1.5) Asian handicap         80%     @1.22  LOW        0.12%  GYCNEC
-Stafford Rangers v Halesowen Town FC             Under 4.5 goals                                  82%     @1.20  LOW        0.12%  TJSJSA
+Spennymoor Town FC v Chester FC                  Spennymoor Town FC (+1.5) Asian handicap         80%     @1.20  LOW        0.12%  GYCNEC
+Stafford Rangers v Halesowen Town FC             Over 1.5 goals                                   78%     @1.22  LOW        0.12%  TGYC0Z
 Tadley Calleva v Dartford FC                     Dartford FC Under 3.5 goals                      78%     @1.26  LOW        0.12%  HF30LW
 Thame United FC v Eastbourne Borough             Thame United FC or Eastbourne Borough            78%     @1.23  LOW        0.12%  Q8TC3F
-Tonbridge Angels v Torquay United                Under 4.5 goals                                  81%     @1.21  LOW        0.12%  ZT43KK
+Tonbridge Angels v Torquay United                Tonbridge Angels (+1.5) Asian handicap           80%     @1.20  LOW        0.12%  VS1UUE
 Trafford FC v Atherton Collieries                Trafford FC or Atherton Collieries               77%     @1.27  LOW        0.12%  YAB7UC
 Truro City v Cirencester Town                    Cirencester Town (+3.5) Asian handicap           80%     @1.24  LOW        0.12%  G7WB37
 Uxbridge FC v Hungerford Town FC                 Over 1.5 goals                                   77%     @1.25  LOW        0.12%  KJGF0E
 Weymouth FC v South East Dons                    Weymouth FC Under 3.5 goals                      76%     @1.31  LOW        0.12%  LGA9KH
 Worksop Town v FC United of Manchester           Worksop Town or FC United of Manchester          79%     @1.23  LOW        0.12%  X0970Z
-Finland v Albania                                ✓ Finland Win to Nil — no                        74%     @1.29  HIGH       0.25%  HN7T7Z
-Belarus v San Marino                             ᴮ Belarus (0:1) handicap                         74%     @1.30  LOW        0.12%  GPT7H5
+Finland v Albania                                ✓ Under 3.5 goals                                84%     @1.21  HIGH       0.25%  N2RPZV
+Belarus v San Marino                             ᴮ Belarus Over 1.5 goals                         79%     @1.23  LOW        0.12%  V265SL
 Croatia v England                                ✓ England Win to Nil — no                        73%     @1.33  HIGH       0.25%  RC49GC
-Estonia v Luxembourg                             ✓ Under 3.5 goals                                82%     @1.22  MEDIUM     0.25%  QZW2X5
-Iceland v Bulgaria                               ✓ Over 1.5 goals                                 79%     @1.25  MEDIUM     0.25%  MZ9E05
-North Macedonia v Scotland                       ✓ Scotland Over 0.5 goals                        80%     @1.23  MEDIUM     0.25%  RAWNPZ
-Spain v Czech Republic                           ✓ Czech Republic (0:5) handicap                  82%     @1.21  LOW        0.12%  VPLLPG
+Estonia v Luxembourg                             ✓ Luxembourg Win to Nil — no                     77%     @1.27  MEDIUM     0.25%  NWWZ6E
+Iceland v Bulgaria                               ✓ Over 1.5 goals                                 78%     @1.26  MEDIUM     0.25%  MZ9E05
+North Macedonia v Scotland                       ✓ Scotland Over 0.5 goals                        80%     @1.23  HIGH       0.25%  RAWNPZ
+Spain v Czech Republic                           ✓ Czech Republic (+4.5) Asian handicap           80%     @1.25  LOW        0.12%  RZJFNE
 Switzerland v Slovenia                           ✓ Over 1.5 goals                                 75%     @1.28  MEDIUM     0.25%  RHM5CB
 ```
 Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
 Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
 
-⚠ TEAM NEWS — 1 pick(s) hit by injuries/suspensions (certainty lowered; re-checked when lineups are confirmed):
+⚠ TEAM NEWS — 2 pick(s) hit by injuries/suspensions (certainty lowered; re-checked when lineups are confirmed):
+   • RISK: Leyton Orient v Plymouth — Leyton Orient missing 29% of value (Oliver Nnonyelu Dovin)
    • RISK: Spain v Czech Republic — Czechia missing 26% of value (Pavel Šulc, Adam Karabec); support: Spain missing 16%
 
 ──────────────────────────────────
@@ -191,10 +192,14 @@ TABLE 3A · 50%+ ACCAS
 (3 legs each, high-certainty legs only, combined chance 50% or more)
 ──────────────────────────────────
 
-50+ #1 · code KJP8SN · odds 1.79 · chance 52%
+50+ #1 · code VXS24B · odds 1.83 · chance 55%
+   • Finland v Albania — Under 3.5 goals @1.21 (84%, HIGH)
    • Cadiz v Leganes — Under 3.5 goals @1.23 (81%, HIGH)
+   • North Macedonia v Scotland — Scotland Over 0.5 goals @1.23 (80%, HIGH)
+50+ #2 · code PVBN7B · odds 1.79 · chance 51%
    • Accrington v Cheltenham — Cheltenham (+1.5) Asian handicap @1.20 (80%, HIGH)
    • Barrow v Wealdstone — Over 1.5 goals @1.21 (80%, HIGH)
+   • Reading v Bradford — Bradford (+1.5) Asian handicap @1.23 (79%, HIGH)
 
 ──────────────────────────────────
 TABLE 3 · ACCA ROUTE
@@ -203,96 +208,96 @@ TABLE 3 · ACCA ROUTE
 
 16 accas cover all 76 deploy picks — every code is also in ALL CODES at the end.
 
-Acca A · code NGUF1Y · 5 legs · odds 2.55 · chance 37%
-   • Estonia v Luxembourg — Under 3.5 goals @1.22 (82%)
-   • Spain v Czech Republic — Czech Republic (0:5) handicap @1.21 (82%)
-   • Stafford Rangers v Halesowen Town FC — Under 4.5 goals @1.20 (82%)
+Acca A · code U3RR5X · 5 legs · odds 2.59 · chance 36%
+   • Finland v Albania — Under 3.5 goals @1.21 (84%)
    • Bedford Town Football Club v Wingate & Finchley — Wingate & Finchley (+2.5) Asian handicap @1.20 (82%)
-   • Harrogate v Hornchurch — Over 1.5 goals @1.20 (81%)
-Acca B · code ZB7C6W · 5 legs · odds 2.59 · chance 35%
    • Oxford City v Enfield Town — Enfield Town (+2.5) Asian handicap @1.20 (81%)
    • Cadiz v Leganes — Under 3.5 goals @1.23 (81%)
-   • Tonbridge Angels v Torquay United — Under 4.5 goals @1.21 (81%)
+   • Harrogate v Hornchurch — Over 1.5 goals @1.21 (81%)
+Acca B · code R5DMMQ · 5 legs · odds 2.64 · chance 34%
    • Rochdale v Swindon — Swindon (0:2) handicap @1.21 (81%)
-   • Ebbsfleet United FC v Sholing FC — Over 1.5 goals @1.20 (81%)
-Acca C · code GZL92H · 5 legs · odds 2.55 · chance 34%
-   • Guiseley FC v Bradford Park Avenue AFC — Under 4.5 goals @1.21 (81%)
-   • Salisbury FC v Dulwich Hamlet — Dulwich Hamlet (+2.5) Asian handicap @1.21 (80%)
+   • Kettering Town v Worcester City — Under 4.5 goals @1.21 (81%)
+   • Tonbridge Angels v Torquay United — Tonbridge Angels (+1.5) Asian handicap @1.20 (80%)
    • Brackley Town FC v Chelmsford City — Brackley Town FC (+1.5) Asian handicap @1.20 (80%)
-   • Leyton Orient v Plymouth — Over 1.5 goals @1.20 (80%)
+   • Spain v Czech Republic — Czech Republic (+4.5) Asian handicap @1.25 (80%)
+Acca C · code S7H5EU · 5 legs · odds 2.66 · chance 33%
+   • Spennymoor Town FC v Chester FC — Spennymoor Town FC (+1.5) Asian handicap @1.20 (80%)
    • Brentwood Town FC v Dagenham and Redbridge FC — Dagenham and Redbridge FC (+0.5) Asian handicap @1.21 (80%)
-Acca D · code V9J2WQ · 5 legs · odds 2.72 · chance 32%
    • Truro City v Cirencester Town — Cirencester Town (+3.5) Asian handicap @1.24 (80%)
-   • Accrington v Cheltenham — Cheltenham (+1.5) Asian handicap @1.20 (80%)
    • North Macedonia v Scotland — Scotland Over 0.5 goals @1.23 (80%)
+   • Accrington v Cheltenham — Cheltenham (+1.5) Asian handicap @1.20 (80%)
+Acca D · code R60F0R · 5 legs · odds 2.66 · chance 32%
+   • Plymouth Parkway v Horsham FC — Plymouth Parkway (+1.5) Asian handicap @1.21 (80%)
    • Barrow v Wealdstone — Over 1.5 goals @1.21 (80%)
-   • Reading v Bradford — Bradford (+1.5) Asian handicap @1.23 (80%)
-Acca E · code R60EK8 · 5 legs · odds 2.72 · chance 32%
    • Wigan v Mansfield — Mansfield (+1.5) Asian handicap @1.21 (80%)
-   • Spennymoor Town FC v Chester FC — Spennymoor Town FC (+1.5) Asian handicap @1.22 (80%)
-   • Hartlepool v Tamworth — Tamworth (+1.5) Asian handicap @1.23 (79%)
-   • Crewe v Bristol Rvs — Bristol Rvs Win to Nil — no @1.21 (79%)
+   • Reading v Bradford — Bradford (+1.5) Asian handicap @1.23 (79%)
+   • Hartlepool v Tamworth — Tamworth (+1.5) Asian handicap @1.22 (79%)
+Acca E · code X55W2X · 5 legs · odds 2.79 · chance 31%
+   • Belarus v San Marino — Belarus Over 1.5 goals @1.23 (79%)
    • Solihull v Halifax — Halifax (+1.5) Asian handicap @1.24 (79%)
-Acca F · code M4Y23J · 5 legs · odds 2.86 · chance 30%
-   • Iceland v Bulgaria — Over 1.5 goals @1.25 (79%)
-   • Barnsley v Milton Keynes Dons — Barnsley Under 2.5 goals @1.24 (79%)
    • Burton v Huddersfield — Huddersfield Under 2.5 goals @1.25 (79%)
-   • Grimsby v Shrewsbury — Grimsby or draw @1.20 (79%)
+   • Crewe v Bristol Rvs — Crewe (+1.5) Asian handicap @1.21 (79%)
+   • Eastleigh v Woking — Woking Over 0.5 goals @1.21 (79%)
+Acca F · code VSVLWY · 5 legs · odds 2.75 · chance 30%
+   • Barnsley v Milton Keynes Dons — Barnsley Under 2.5 goals @1.24 (79%)
+   • Leatherhead FC v Hanworth Villa — Hanworth Villa (+1.5) Asian handicap @1.22 (79%)
+   • Salisbury FC v Dulwich Hamlet — Salisbury FC or Dulwich Hamlet @1.21 (79%)
+   • Crowborough Athletic v Wimborne Town — Crowborough Athletic or Wimborne Town @1.22 (79%)
+   • Ebbsfleet United FC v Sholing FC — Over 1.5 goals @1.23 (79%)
+Acca G · code TMUT51 · 5 legs · odds 2.93 · chance 30%
    • Worksop Town v FC United of Manchester — Worksop Town or FC United of Manchester @1.23 (79%)
-Acca G · code VQ7E6U · 5 legs · odds 2.77 · chance 30%
-   • Gillingham v Newport County — Gillingham Over 0.5 goals @1.23 (79%)
    • Redditch United v Berkhamsted FC — Berkhamsted FC (+1.5) Asian handicap @1.22 (79%)
-   • Leatherhead FC v Hanworth Villa — Hanworth Villa (+1.5) Asian handicap @1.23 (79%)
-   • Eastleigh v Woking — Eastleigh (+1.5) Asian handicap @1.22 (78%)
-   • Thame United FC v Eastbourne Borough — Thame United FC or Eastbourne Borough @1.23 (78%)
-Acca H · code VA4W9C · 5 legs · odds 2.88 · chance 30%
-   • Mulbarton Wanderers v Gloucester City — Over 1.5 goals @1.23 (78%)
+   • Gainsborough Trinity v Anstey Nomads — Anstey Nomads (+1.5) Asian handicap @1.23 (79%)
+   • Iceland v Bulgaria — Over 1.5 goals @1.26 (78%)
    • Tadley Calleva v Dartford FC — Dartford FC Under 3.5 goals @1.26 (78%)
+Acca H · code NXHSK3 · 5 legs · odds 2.75 · chance 29%
+   • Leyton Orient v Plymouth — Plymouth Win to Nil — no @1.21 (78%)
+   • Thame United FC v Eastbourne Borough — Thame United FC or Eastbourne Borough @1.23 (78%)
+   • Mulbarton Wanderers v Gloucester City — Over 1.5 goals @1.23 (78%)
    • Bury Town FC v Spalding United — Over 1.5 goals @1.22 (78%)
-   • Gateshead v Worthing — Worthing Under 3.5 goals @1.24 (78%)
-   • Gainsborough Trinity v Anstey Nomads — Anstey Nomads (+1.5) Asian handicap @1.23 (78%)
-Acca I · code M65NUS · 5 legs · odds 2.86 · chance 29%
-   • Chesham United v Real Bedford — Chesham United Win to Nil — no @1.21 (78%)
+   • Gillingham v Newport County — Gillingham Over 0.5 goals @1.23 (78%)
+Acca I · code UZ4DQQ · 5 legs · odds 2.93 · chance 29%
+   • Leiston FC v Coventry United — Leiston FC or Coventry United @1.23 (78%)
+   • Gateshead v Worthing — Worthing Under 3.5 goals @1.25 (78%)
+   • Morecambe FC v Darlington FC — Morecambe FC or Darlington FC @1.23 (78%)
    • Bury FC v Bromsgrove Sporting — Bury FC or Bromsgrove Sporting @1.25 (78%)
    • Chesterfield v Tranmere — Chesterfield or Tranmere @1.24 (78%)
+Acca J · code V7PP6Y · 5 legs · odds 2.86 · chance 29%
    • Cray Wanderers v Chippenham Town — Cray Wanderers or Chippenham Town @1.24 (78%)
-   • Crowborough Athletic v Wimborne Town — Wimborne Town (+0.5) Asian handicap @1.23 (78%)
-Acca J · code UFD12W · 5 legs · odds 2.91 · chance 29%
+   • Stafford Rangers v Halesowen Town FC — Over 1.5 goals @1.22 (78%)
    • Sheppey United FC v Chertsey Town — Sheppey United FC or Chertsey Town @1.23 (78%)
    • Macclesfield FC v Scarborough Athletic — Macclesfield FC or draw @1.23 (78%)
-   • Leiston FC v Coventry United — Leiston FC or Coventry United @1.24 (78%)
    • Southend v Fylde — Southend or Fylde @1.25 (78%)
-   • Plymouth Parkway v Horsham FC — Plymouth Parkway (+1.5) Asian handicap @1.24 (78%)
-Acca K · code R8FN4A · 5 legs · odds 3.10 · chance 28%
+Acca K · code X6DGVR · 5 legs · odds 2.95 · chance 28%
+   • AFC Rushden And Diamonds v Braintree Town FC — AFC Rushden And Diamonds or Braintree Town FC @1.21 (78%)
    • Kidderminster v Sutton — Under 3.5 goals @1.27 (78%)
-   • Morecambe FC v Darlington FC — Over 1.5 goals @1.24 (78%)
-   • Sabadell v Andorra — Sabadell Over 0.5 goals @1.25 (78%)
-   • Kettering Town v Worcester City — Kettering Town or Worcester City @1.26 (77%)
-   • Aldershot v Carlisle — Aldershot or Carlisle @1.25 (77%)
-Acca L · code VLJKVN · 5 legs · odds 3.20 · chance 27%
+   • Grimsby v Shrewsbury — Grimsby or Shrewsbury @1.25 (78%)
+   • Sabadell v Andorra — Sabadell or draw @1.23 (78%)
+   • Harborough Town FC v St Albans City — Harborough Town FC or St Albans City @1.25 (78%)
+Acca L · code NHF8XA · 5 legs · odds 3.08 · chance 28%
    • Hanwell Town FC v Dover Athletic FC — Hanwell Town FC (+1.5) Asian handicap @1.25 (77%)
-   • Harborough Town FC v St Albans City — Harborough Town FC or St Albans City @1.27 (77%)
+   • Buxton FC v South Shields — Buxton FC or South Shields @1.25 (77%)
+   • Aldershot v Carlisle — Aldershot or Carlisle @1.25 (77%)
+   • Chesham United v Real Bedford — Chesham United or Real Bedford @1.25 (77%)
    • Cambridge City v Alvechurch — Cambridge City or Alvechurch @1.26 (77%)
-   • Buxton FC v South Shields — Buxton FC or South Shields @1.28 (77%)
+Acca M · code TEH4GJ · 4 legs · odds 2.54 · chance 35%
    • Uxbridge FC v Hungerford Town FC — Over 1.5 goals @1.25 (77%)
-Acca M · code H0TVPP · 4 legs · odds 2.52 · chance 34%
    • Barton Town v Chorley FC — Barton Town (+2.5) Asian handicap @1.26 (77%)
    • Trafford FC v Atherton Collieries — Trafford FC or Atherton Collieries @1.27 (77%)
-   • AFC Rushden And Diamonds v Braintree Town FC — Braintree Town FC (+0.5) Asian handicap @1.27 (76%)
-   • Salford v Fleetwood Town — Salford or Fleetwood Town @1.24 (76%)
-Acca N · code VUH1YD · 4 legs · odds 2.52 · chance 33%
-   • Dorking Wanderers v Chatham Town — Dorking Wanderers or Draw & Over 1.5 @1.23 (76%)
+   • Estonia v Luxembourg — Luxembourg Win to Nil — no @1.27 (77%)
+Acca N · code NTUYAG · 4 legs · odds 2.52 · chance 33%
+   • Salford v Fleetwood Town — Salford or Fleetwood Town @1.23 (77%)
+   • Guiseley FC v Bradford Park Avenue AFC — Over 1.5 goals @1.27 (76%)
+   • Almeria v Burgos — Almeria or Burgos @1.23 (76%)
    • Weymouth FC v South East Dons — Weymouth FC Under 3.5 goals @1.31 (76%)
-   • Almeria v Burgos — Almeria or Burgos @1.24 (76%)
-   • Yeovil v Boston Utd — Yeovil or Boston Utd @1.26 (76%)
-Acca O · code Y4U68H · 4 legs · odds 2.56 · chance 31%
-   • Boreham Wood v Altrincham — Boreham Wood or Draw & Over 1.5 @1.20 (75%)
-   • Marine FC v Warrington Town — Over 1.5 goals @1.29 (75%)
+Acca O · code SXZCXN · 4 legs · odds 2.56 · chance 32%
+   • Dorking Wanderers v Chatham Town — Dorking Wanderers or Draw & Over 1.5 @1.23 (76%)
+   • Marine FC v Warrington Town — Over 1.5 goals @1.27 (75%)
    • Switzerland v Slovenia — Over 1.5 goals @1.28 (75%)
-   • Finland v Albania — Finland Win to Nil — no @1.29 (74%)
-Acca P · code ZYMK32 · 4 legs · odds 2.85 · chance 26%
-   • Belarus v San Marino — Belarus (0:1) handicap @1.30 (74%)
-   • Albacete v Eibar — Albacete or Eibar @1.31 (73%)
+   • Yeovil v Boston Utd — Yeovil Win to Nil — no @1.28 (75%)
+Acca P · code X7M3N7 · 4 legs · odds 2.90 · chance 27%
+   • Boreham Wood v Altrincham — Altrincham (+2.5) Asian handicap @1.33 (74%)
+   • Albacete v Eibar — Albacete or Eibar @1.30 (74%)
    • Croatia v England — England Win to Nil — no @1.33 (73%)
    • Exeter v Rotherham — Multigoals 1-3 @1.26 (67%)
 
@@ -301,8 +306,8 @@ TABLE 4 · THE PICK
 (primary single + Acca A recommendation)
 ──────────────────────────────────
 
-Primary single: Estonia v Luxembourg — Under 3.5 goals (82%) @1.22 · code QZW2X5
-Acca A: 5 legs, model 37% · code NGUF1Y
+Primary single: Finland v Albania — Under 3.5 goals (84%) @1.21 · code N2RPZV
+Acca A: 5 legs, model 36% · code U3RR5X
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.
@@ -312,45 +317,32 @@ Booking codes: live SportyBet share codes — load a code on SportyBet to see th
 ==================================
 
 ALL CODES
-50+ #1: KJP8SN (3 legs · odds 1.79 · 52% · stake 0.5%)
-Mega 1: ZRWPQX (26 legs · odds 157 · stake 0.1%)
-Mega 2: ZZ8CGP (25 legs · odds 193 · stake 0.1%)
-Mega 3: VARPNB (25 legs · odds 362 · stake 0.1%)
-Acca A: NGUF1Y (5 legs · odds 2.55 · 37% · stake 0.25%)
-Acca B: ZB7C6W (5 legs · odds 2.59 · 35% · stake 0.25%)
-Acca C: GZL92H (5 legs · odds 2.55 · 34% · stake 0.25%)
-Acca D: V9J2WQ (5 legs · odds 2.72 · 32% · stake 0.25%)
-Acca E: R60EK8 (5 legs · odds 2.72 · 32% · stake 0.25%)
-Acca F: M4Y23J (5 legs · odds 2.86 · 30% · stake 0.25%)
-Acca G: VQ7E6U (5 legs · odds 2.77 · 30% · stake 0.25%)
-Acca H: VA4W9C (5 legs · odds 2.88 · 30% · stake 0.25%)
-Acca I: M65NUS (5 legs · odds 2.86 · 29% · stake 0.25%)
-Acca J: UFD12W (5 legs · odds 2.91 · 29% · stake 0.25%)
-Acca K: R8FN4A (5 legs · odds 3.10 · 28% · stake 0.25%)
-Acca L: VLJKVN (5 legs · odds 3.20 · 27% · stake 0.25%)
-Acca M: H0TVPP (4 legs · odds 2.52 · 34% · stake 0.25%)
-Acca N: VUH1YD (4 legs · odds 2.52 · 33% · stake 0.25%)
-Acca O: Y4U68H (4 legs · odds 2.56 · 31% · stake 0.25%)
-Acca P: ZYMK32 (4 legs · odds 2.85 · 26% · stake 0.25%)
+50+ #1: VXS24B (3 legs · odds 1.83 · 55% · stake 0.5%)
+50+ #2: PVBN7B (3 legs · odds 1.79 · 51% · stake 0.5%)
+Mega 1: NZC6QQ (26 legs · odds 167 · stake 0.1%)
+Mega 2: NK9P1J (25 legs · odds 181 · stake 0.1%)
+Mega 3: S05GS0 (25 legs · odds 356 · stake 0.1%)
+Acca A: U3RR5X (5 legs · odds 2.59 · 36% · stake 0.25%)
+Acca B: R5DMMQ (5 legs · odds 2.64 · 34% · stake 0.25%)
+Acca C: S7H5EU (5 legs · odds 2.66 · 33% · stake 0.25%)
+Acca D: R60F0R (5 legs · odds 2.66 · 32% · stake 0.25%)
+Acca E: X55W2X (5 legs · odds 2.79 · 31% · stake 0.25%)
+Acca F: VSVLWY (5 legs · odds 2.75 · 30% · stake 0.25%)
+Acca G: TMUT51 (5 legs · odds 2.93 · 30% · stake 0.25%)
+Acca H: NXHSK3 (5 legs · odds 2.75 · 29% · stake 0.25%)
+Acca I: UZ4DQQ (5 legs · odds 2.93 · 29% · stake 0.25%)
+Acca J: V7PP6Y (5 legs · odds 2.86 · 29% · stake 0.25%)
+Acca K: X6DGVR (5 legs · odds 2.95 · 28% · stake 0.25%)
+Acca L: NHF8XA (5 legs · odds 3.08 · 28% · stake 0.25%)
+Acca M: TEH4GJ (4 legs · odds 2.54 · 35% · stake 0.25%)
+Acca N: NTUYAG (4 legs · odds 2.52 · 33% · stake 0.25%)
+Acca O: SXZCXN (4 legs · odds 2.56 · 32% · stake 0.25%)
+Acca P: X7M3N7 (4 legs · odds 2.90 · 27% · stake 0.25%)
 
 ============================================================
 
 VERIFY RESULTS
 Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
-Cyprus v Armenia | 2-0 | 1X2_HOME | entry 2.36 | CLV NO DATA (Flashscore has no prices) | HIT
-France v Italy | 1-1 | 1X2_DRAW | entry 5.28 | CLV NO DATA (Flashscore has no prices) | HIT
-France v Italy | 1-1 | UNDER_2_5 | entry 2.8 | CLV NO DATA (Flashscore has no prices) | HIT
-Hungary v Georgia | 1-0 | 1X2_HOME | entry 2.2 | CLV NO DATA (Flashscore has no prices) | HIT
-Ukraine v Northern Ireland | 0-3 | 1X2_HOME | entry 1.98 | CLV NO DATA (Flashscore has no prices) | MISS
-Belgium v Turkey | 3-0 | 1X2_HOME | entry 1.56 | CLV NO DATA (Flashscore has no prices) | HIT
-Bosnia and Herzegovina v Sweden | 1-1 | 1X2_AWAY | entry 2.6 | CLV NO DATA (Flashscore has no prices) | MISS
-France v Italy | 1-1 | 1X2_AWAY | entry 6.52 | CLV NO DATA (Flashscore has no prices) | MISS
-Hungary v Georgia | 1-0 | OVER_2_5 | entry 2.15 | CLV NO DATA (Flashscore has no prices) | MISS
-Ukraine v Northern Ireland | 0-3 | OVER_2_5 | entry 2.4 | CLV NO DATA (Flashscore has no prices) | HIT
-Hungary v Georgia | 1-0 | 1X2_AWAY | entry 3.85 | CLV NO DATA (Flashscore has no prices) | MISS
-Latvia v Montenegro | 1-2 | 1X2_HOME | entry 4.89 | CLV NO DATA (Flashscore has no prices) | MISS
-Latvia v Montenegro | 1-2 | 1X2_DRAW | entry 3.66 | CLV NO DATA (Flashscore has no prices) | MISS
-Latvia v Montenegro | 1-2 | UNDER_2_5 | entry 1.67 | CLV NO DATA (Flashscore has no prices) | MISS
 
 ============================================================
 
@@ -362,7 +354,7 @@ Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Prem
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ FA Cup: no results available for grading — legs stay PENDING, not guessed
-  ⚠ graded 14 of 317 pending leg(s)
+  ⚠ graded 0 of 334 pending leg(s)
   ⚠ SportyBet events pulled live
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
@@ -485,13 +477,13 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ full market ladder: 76 fixture(s) scored on every full-time SportyBet market; 1 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
   ⚠ Accrington v Cheltenham (League Two): CAUTION — recent form runs against the model's lean (form — home: P19 7pts, last5 6/15 | away: P2 15pts, last5 11/15)
   ⚠ Hartlepool v Tamworth (National League): CAUTION — recent form runs against the model's lean (form — home: P22 9pts, last5 0/15 | away: P20 11pts, last5 6/15)
-  ⚠ team news (FotMob): 36 pick(s) checked, 1 flagged for injuries/suspensions, 2 swapped to an alternative the news doesn't touch
+  ⚠ team news (FotMob): 36 pick(s) checked, 2 flagged for injuries/suspensions, 2 swapped to an alternative the news doesn't touch
   ⚠ price drift since the last board: 0 pick(s) drifted 5%+ (demoted to LOW), 0 shortened 5%+ (market agrees)
-  ⚠ value: 1/76 picks positive EV on our chance x price (avg EV -3.2%); the scorecard tracks whether +EV picks really return more
+  ⚠ value: 3/76 picks positive EV on our chance x price (avg EV -3.2%); the scorecard tracks whether +EV picks really return more
   ⚠ Staking (% of bankroll): BANKER est +0.7%, no live record yet · SAFE est -6.0%, no live record yet · BOOK est -6.0%, no live record yet · MARKET est -5.0%, no live record yet
-  ⚠ logged 31 new paper leg(s) with a live entry price
+  ⚠ logged 18 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
-  ⚠ 50%+ accas: 1/1 booked (3 legs, high-certainty legs only)
+  ⚠ 50%+ accas: 2/2 booked (3 legs, high-certainty legs only)
   ⚠ SportyBet booking codes: 76/76 singles, 16/16 accas, 3/3 mega slips
   ⚠ AI Survivor: 8 alive, 0 new pick(s) for 2026-10-03
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
@@ -514,10 +506,10 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Albacete to win 23% · Draw 23% · Eibar to win 54%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Albacete or Eibar
-      Model probability .......... 73%
-      Best quoted price .......... 1.31 decimal (sportybet, best of 1 books)
+      Model probability .......... 74%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.55 or longer
-      HR30 numerical MES ......... -3.97% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.25% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 2. Almeria v Burgos (La Liga 2)
@@ -535,9 +527,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Almeria or Burgos
       Model probability .......... 76%
-      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.48 or longer
-      HR30 numerical MES ......... -6.23% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -6.75% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 3. Cadiz v Leganes (La Liga 2)
@@ -573,11 +565,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Sabadell to win 66% · Draw 20% · Andorra to win 14%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Sabadell Over 0.5 goals
+   Best available market: Sabadell or draw
       Model probability .......... 78%
-      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.35 or longer
-      HR30 numerical MES ......... -3.13% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.59% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 5. Barnsley v Milton Keynes Dons (League One)
@@ -617,7 +609,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 79%
       Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.33 or longer
-      HR30 numerical MES ......... -1.46% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.04% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 7. Leyton Orient v Plymouth (League One)
@@ -633,11 +625,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Leyton Orient to win 24% · Draw 29% · Plymouth to win 47%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Over 1.5 goals
-      Model probability .......... 80%
-      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
+   Best available market: Plymouth Win to Nil — no
+      Model probability .......... 78%
+      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.20 or longer
-      HR30 numerical MES ......... -3.61% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -5.18% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 8. Reading v Bradford (League One)
@@ -654,10 +646,10 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Reading to win 35% · Draw 37% · Bradford to win 28%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Bradford (+1.5) Asian handicap
-      Model probability .......... 80%
+      Model probability .......... 79%
       Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.49 or longer
-      HR30 numerical MES ......... -2.17% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.23% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 9. Wigan v Mansfield (League One)
@@ -709,7 +701,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Cheltenham to win .......... 35%
    Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 56% (model)
    Both teams to score YES 59% (model)
-   Expected goals (model): Accrington 1.536, Cheltenham 1.404
+   Expected goals (model): Accrington 1.536, Cheltenham 1.405
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Accrington to win 34% · Draw 26% · Cheltenham to win 39%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
@@ -733,11 +725,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Crewe to win 43% · Draw 26% · Bristol Rvs to win 31%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Bristol Rvs Win to Nil — no
+   Best available market: Crewe (+1.5) Asian handicap
       Model probability .......... 79%
       Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.37 or longer
-      HR30 numerical MES ......... -4.04% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.41% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 13. Exeter v Rotherham (League Two)
@@ -775,10 +767,10 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Gillingham to win 52% · Draw 26% · Newport County to win 22%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Gillingham Over 0.5 goals
-      Model probability .......... 79%
+      Model probability .......... 78%
       Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.26 or longer
-      HR30 numerical MES ......... -3.33% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -3.74% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 15. Grimsby v Shrewsbury (League Two)
@@ -794,11 +786,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Grimsby to win 70% · Draw 26% · Shrewsbury to win 4%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Grimsby or draw
-      Model probability .......... 79%
-      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
+   Best available market: Grimsby or Shrewsbury
+      Model probability .......... 78%
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.32 or longer
-      HR30 numerical MES ......... -2.40% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.91% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 16. Rochdale v Swindon (League Two)
@@ -835,10 +827,10 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Salford to win 59% · Draw 26% · Fleetwood Town to win 15%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Salford or Fleetwood Town
-      Model probability .......... 76%
-      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
+      Model probability .......... 77%
+      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.51 or longer
-      HR30 numerical MES ......... -5.65% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -5.76% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 18. Aldershot v Carlisle (National League)
@@ -878,7 +870,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 80%
       Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.24 or longer
-      HR30 numerical MES ......... -3.54% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -3.62% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 20. Boreham Wood v Altrincham (National League)
@@ -894,11 +886,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Boreham Wood to win 74% · Draw 19% · Altrincham to win 7%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Boreham Wood or Draw & Over 1.5
-      Model probability .......... 75%
-      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
+   Best available market: Altrincham (+2.5) Asian handicap
+      Model probability .......... 74%
+      Best quoted price .......... 1.33 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.20 or longer
-      HR30 numerical MES ......... -10.09% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.03% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 21. Eastleigh v Woking (National League)
@@ -914,11 +906,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Eastleigh to win 32% · Draw 29% · Woking to win 39%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Eastleigh (+1.5) Asian handicap
-      Model probability .......... 78%
-      Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
+   Best available market: Woking Over 0.5 goals
+      Model probability .......... 79%
+      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.31 or longer
-      HR30 numerical MES ......... -4.23% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.50% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 22. Gateshead v Worthing (National League)
@@ -936,9 +928,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Worthing Under 3.5 goals
       Model probability .......... 78%
-      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.18 or longer
-      HR30 numerical MES ......... -2.93% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.34% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 23. Harrogate v Hornchurch (National League)
@@ -956,9 +948,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Over 1.5 goals
       Model probability .......... 81%
-      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.18 or longer
-      HR30 numerical MES ......... -2.37% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.20% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 24. Hartlepool v Tamworth (National League)
@@ -976,9 +968,9 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Tamworth (+1.5) Asian handicap
       Model probability .......... 79%
-      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.34 or longer
-      HR30 numerical MES ......... -2.41% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -3.06% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 25. Kidderminster v Sutton (National League)
@@ -998,7 +990,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 78%
       Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.53 or longer
-      HR30 numerical MES ......... -1.51% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.32% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 26. Solihull v Halifax (National League)
@@ -1038,7 +1030,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 78%
       Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.19 or longer
-      HR30 numerical MES ......... -2.99% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.68% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 28. Yeovil v Boston Utd (National League)
@@ -1054,11 +1046,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Yeovil to win 42% · Draw 28% · Boston Utd to win 30%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Yeovil or Boston Utd
-      Model probability .......... 76%
-      Best quoted price .......... 1.26 decimal (sportybet, best of 1 books)
+   Best available market: Yeovil Win to Nil — no
+      Model probability .......... 75%
+      Best quoted price .......... 1.28 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.40 or longer
-      HR30 numerical MES ......... -4.77% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.42% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 29. Brentwood Town FC v Dagenham and Redbridge FC (FA Cup)
@@ -1080,17 +1072,17 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 30. AFC Rushden And Diamonds v Braintree Town FC (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      AFC Rushden And Diamonds to win .......... 24%
+      AFC Rushden And Diamonds to win .......... 25%
       Draw ......................... 21%
-      Braintree Town FC to win .......... 55%
+      Braintree Town FC to win .......... 54%
    Goals: Over 1.5 goals 80% (model) | Over 2.5 goals 61% (model)
    Both teams to score YES 59% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Braintree Town FC (+0.5) Asian handicap
-      Model probability .......... 76%
-      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.12% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+   Best available market: AFC Rushden And Diamonds or Braintree Town FC
+      Model probability .......... 78%
+      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -5.89% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 31. Barton Town v Chorley FC (FA Cup)
@@ -1160,33 +1152,33 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 35. Bury Town FC v Spalding United (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Bury Town FC to win .......... 27%
-      Draw ......................... 24%
-      Spalding United to win .......... 48%
+      Bury Town FC to win .......... 29%
+      Draw ......................... 25%
+      Spalding United to win .......... 46%
    Goals: Over 1.5 goals 77% (model) | Over 2.5 goals 55% (model)
-   Both teams to score YES 57% (model)
+   Both teams to score YES 58% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Over 1.5 goals
       Model probability .......... 78%
       Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -4.41% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.43% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 36. Buxton FC v South Shields (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Buxton FC to win .......... 31%
-      Draw ......................... 25%
+      Buxton FC to win .......... 33%
+      Draw ......................... 23%
       South Shields to win .......... 44%
-   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 63% (model)
-   Both teams to score YES 64% (model)
+   Goals: Over 1.5 goals 83% (model) | Over 2.5 goals 66% (model)
+   Both teams to score YES 66% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Buxton FC or South Shields
       Model probability .......... 77%
-      Best quoted price .......... 1.28 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -1.58% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.23% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 37. Cambridge City v Alvechurch (FA Cup)
@@ -1211,14 +1203,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Chesham United to win .......... 47%
       Draw ......................... 24%
       Real Bedford to win .......... 29%
-   Goals: Over 1.5 goals 80% (model) | Over 2.5 goals 60% (model)
-   Both teams to score YES 61% (model)
+   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 63% (model)
+   Both teams to score YES 63% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Chesham United Win to Nil — no
-      Model probability .......... 78%
-      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -5.46% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+   Best available market: Chesham United or Real Bedford
+      Model probability .......... 77%
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.53% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 39. Cray Wanderers v Chippenham Town (FA Cup)
@@ -1240,25 +1232,25 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 40. Crowborough Athletic v Wimborne Town (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Crowborough Athletic to win .......... 22%
+      Crowborough Athletic to win .......... 21%
       Draw ......................... 22%
       Wimborne Town to win .......... 57%
    Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 62% (model)
-   Both teams to score YES 60% (model)
+   Both teams to score YES 59% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Wimborne Town (+0.5) Asian handicap
-      Model probability .......... 78%
-      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -4.00% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+   Best available market: Crowborough Athletic or Wimborne Town
+      Model probability .......... 79%
+      Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.90% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 41. Dorking Wanderers v Chatham Town (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Dorking Wanderers to win .......... 72%
+      Dorking Wanderers to win .......... 71%
       Draw ......................... 16%
-      Chatham Town to win .......... 12%
+      Chatham Town to win .......... 13%
    Goals: Over 1.5 goals 83% (model) | Over 2.5 goals 64% (model)
    Both teams to score YES 53% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
@@ -1266,23 +1258,23 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Best available market: Dorking Wanderers or Draw & Over 1.5
       Model probability .......... 76%
       Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -6.55% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -7.01% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 42. Ebbsfleet United FC v Sholing FC (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
       Ebbsfleet United FC to win .......... 68%
-      Draw ......................... 17%
-      Sholing FC to win .......... 14%
-   Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 58% (model)
-   Both teams to score NO 50% (model)
+      Draw ......................... 18%
+      Sholing FC to win .......... 15%
+   Goals: Over 1.5 goals 76% (model) | Over 2.5 goals 55% (model)
+   Both teams to score NO 52% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Over 1.5 goals
-      Model probability .......... 81%
-      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.25% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Model probability .......... 79%
+      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.11% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 43. Gainsborough Trinity v Anstey Nomads (FA Cup)
@@ -1291,30 +1283,30 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Gainsborough Trinity to win .......... 41%
       Draw ......................... 24%
       Anstey Nomads to win .......... 34%
-   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 62% (model)
-   Both teams to score YES 64% (model)
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 61% (model)
+   Both teams to score YES 63% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Anstey Nomads (+1.5) Asian handicap
-      Model probability .......... 78%
+      Model probability .......... 79%
       Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.71% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -3.38% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 44. Guiseley FC v Bradford Park Avenue AFC (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Guiseley FC to win .......... 51%
-      Draw ......................... 23%
-      Bradford Park Avenue AFC to win .......... 25%
-   Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 59% (model)
-   Both teams to score YES 59% (model)
+      Guiseley FC to win .......... 49%
+      Draw ......................... 24%
+      Bradford Park Avenue AFC to win .......... 26%
+   Goals: Over 1.5 goals 74% (model) | Over 2.5 goals 52% (model)
+   Both teams to score YES 54% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Under 4.5 goals
-      Model probability .......... 81%
-      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -2.45% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+   Best available market: Over 1.5 goals
+      Model probability .......... 76%
+      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.39% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 45. Hanwell Town FC v Dover Athletic FC (FA Cup)
@@ -1323,46 +1315,46 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Hanwell Town FC to win .......... 33%
       Draw ......................... 24%
       Dover Athletic FC to win .......... 43%
-   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 62% (model)
-   Both teams to score YES 63% (model)
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 61% (model)
+   Both teams to score YES 62% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Hanwell Town FC (+1.5) Asian handicap
       Model probability .......... 77%
       Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.36% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -3.17% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 46. Harborough Town FC v St Albans City (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Harborough Town FC to win .......... 46%
-      Draw ......................... 25%
-      St Albans City to win .......... 30%
-   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 63% (model)
-   Both teams to score YES 64% (model)
+      Harborough Town FC to win .......... 50%
+      Draw ......................... 24%
+      St Albans City to win .......... 26%
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 62% (model)
+   Both teams to score YES 62% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Harborough Town FC or St Albans City
-      Model probability .......... 77%
-      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -2.17% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Model probability .......... 78%
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.12% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 47. Kettering Town v Worcester City (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Kettering Town to win .......... 48%
+      Kettering Town to win .......... 50%
       Draw ......................... 24%
-      Worcester City to win .......... 27%
-   Goals: Over 1.5 goals 82% (model) | Over 2.5 goals 63% (model)
-   Both teams to score YES 63% (model)
+      Worcester City to win .......... 26%
+   Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 59% (model)
+   Both teams to score YES 59% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Kettering Town or Worcester City
-      Model probability .......... 77%
-      Best quoted price .......... 1.26 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -2.54% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+   Best available market: Under 4.5 goals
+      Model probability .......... 81%
+      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -2.34% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 48. Leatherhead FC v Hanworth Villa (FA Cup)
@@ -1371,30 +1363,30 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Leatherhead FC to win .......... 41%
       Draw ......................... 24%
       Hanworth Villa to win .......... 34%
-   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 62% (model)
-   Both teams to score YES 64% (model)
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 61% (model)
+   Both teams to score YES 63% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Hanworth Villa (+1.5) Asian handicap
       Model probability .......... 79%
-      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.38% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.84% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 49. Leiston FC v Coventry United (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Leiston FC to win .......... 54%
-      Draw ......................... 23%
+      Leiston FC to win .......... 55%
+      Draw ......................... 22%
       Coventry United to win .......... 22%
-   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 61% (model)
+   Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 62% (model)
    Both teams to score YES 60% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Leiston FC or Coventry United
       Model probability .......... 78%
-      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.34% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.78% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 50. Macclesfield FC v Scarborough Athletic (FA Cup)
@@ -1419,30 +1411,30 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Marine FC to win .......... 52%
       Draw ......................... 24%
       Warrington Town to win .......... 23%
-   Goals: Over 1.5 goals 73% (model) | Over 2.5 goals 50% (model)
-   Both teams to score YES 52% (model)
+   Goals: Over 1.5 goals 74% (model) | Over 2.5 goals 51% (model)
+   Both teams to score YES 53% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Over 1.5 goals
       Model probability .......... 75%
-      Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.58% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -4.14% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 52. Morecambe FC v Darlington FC (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
       Morecambe FC to win .......... 55%
-      Draw ......................... 23%
+      Draw ......................... 22%
       Darlington FC to win .......... 22%
-   Goals: Over 1.5 goals 76% (model) | Over 2.5 goals 54% (model)
-   Both teams to score YES 53% (model)
+   Goals: Over 1.5 goals 80% (model) | Over 2.5 goals 61% (model)
+   Both teams to score YES 59% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Over 1.5 goals
+   Best available market: Morecambe FC or Darlington FC
       Model probability .......... 78%
-      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.86% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.91% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 53. Mulbarton Wanderers v Gloucester City (FA Cup)
@@ -1450,7 +1442,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Match result (model probabilities):
       Mulbarton Wanderers to win .......... 23%
       Draw ......................... 23%
-      Gloucester City to win .......... 55%
+      Gloucester City to win .......... 54%
    Goals: Over 1.5 goals 77% (model) | Over 2.5 goals 55% (model)
    Both teams to score YES 55% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
@@ -1458,7 +1450,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Best available market: Over 1.5 goals
       Model probability .......... 78%
       Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.55% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -3.64% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 54. Oxford City v Enfield Town (FA Cup)
@@ -1480,17 +1472,17 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 55. Plymouth Parkway v Horsham FC (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Plymouth Parkway to win .......... 31%
+      Plymouth Parkway to win .......... 34%
       Draw ......................... 26%
-      Horsham FC to win .......... 43%
-   Goals: Over 1.5 goals 78% (model) | Over 2.5 goals 56% (model)
+      Horsham FC to win .......... 41%
+   Goals: Over 1.5 goals 77% (model) | Over 2.5 goals 56% (model)
    Both teams to score YES 59% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Plymouth Parkway (+1.5) Asian handicap
-      Model probability .......... 78%
-      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.80% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Model probability .......... 80%
+      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.54% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 56. Redditch United v Berkhamsted FC (FA Cup)
@@ -1512,17 +1504,17 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 57. Salisbury FC v Dulwich Hamlet (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Salisbury FC to win .......... 62%
-      Draw ......................... 20%
-      Dulwich Hamlet to win .......... 18%
+      Salisbury FC to win .......... 60%
+      Draw ......................... 21%
+      Dulwich Hamlet to win .......... 19%
    Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 59% (model)
-   Both teams to score YES 55% (model)
+   Both teams to score YES 56% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Dulwich Hamlet (+2.5) Asian handicap
-      Model probability .......... 80%
+   Best available market: Salisbury FC or Dulwich Hamlet
+      Model probability .......... 79%
       Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -2.76% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.63% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 58. Sheppey United FC v Chertsey Town (FA Cup)
@@ -1544,17 +1536,17 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 59. Spennymoor Town FC v Chester FC (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Spennymoor Town FC to win .......... 32%
+      Spennymoor Town FC to win .......... 33%
       Draw ......................... 27%
-      Chester FC to win .......... 41%
+      Chester FC to win .......... 40%
    Goals: Over 1.5 goals 75% (model) | Over 2.5 goals 53% (model)
    Both teams to score YES 57% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Spennymoor Town FC (+1.5) Asian handicap
       Model probability .......... 80%
-      Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -2.98% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.74% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 60. Stafford Rangers v Halesowen Town FC (FA Cup)
@@ -1563,14 +1555,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Stafford Rangers to win .......... 28%
       Draw ......................... 26%
       Halesowen Town FC to win .......... 46%
-   Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 58% (model)
-   Both teams to score YES 61% (model)
+   Goals: Over 1.5 goals 77% (model) | Over 2.5 goals 55% (model)
+   Both teams to score YES 58% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Under 4.5 goals
-      Model probability .......... 82%
-      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -1.92% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+   Best available market: Over 1.5 goals
+      Model probability .......... 78%
+      Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -4.79% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 61. Tadley Calleva v Dartford FC (FA Cup)
@@ -1593,32 +1585,32 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
       Thame United FC to win .......... 22%
-      Draw ......................... 23%
-      Eastbourne Borough to win .......... 56%
+      Draw ......................... 22%
+      Eastbourne Borough to win .......... 55%
    Goals: Over 1.5 goals 81% (model) | Over 2.5 goals 62% (model)
-   Both teams to score YES 60% (model)
+   Both teams to score YES 61% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
    Best available market: Thame United FC or Eastbourne Borough
       Model probability .......... 78%
       Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -3.47% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -3.62% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 63. Tonbridge Angels v Torquay United (FA Cup)
    Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
    Match result (model probabilities):
-      Tonbridge Angels to win .......... 32%
-      Draw ......................... 26%
-      Torquay United to win .......... 43%
-   Goals: Over 1.5 goals 80% (model) | Over 2.5 goals 59% (model)
-   Both teams to score YES 62% (model)
+      Tonbridge Angels to win .......... 35%
+      Draw ......................... 25%
+      Torquay United to win .......... 40%
+   Goals: Over 1.5 goals 78% (model) | Over 2.5 goals 56% (model)
+   Both teams to score YES 59% (model)
    Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
    Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
-   Best available market: Under 4.5 goals
-      Model probability .......... 81%
-      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
-      HR30 numerical MES ......... -2.09% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+   Best available market: Tonbridge Angels (+1.5) Asian handicap
+      Model probability .......... 80%
+      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -3.57% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 64. Trafford FC v Atherton Collieries (FA Cup)
@@ -1714,11 +1706,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Finland to win 30% · Draw 39% · Albania to win 31%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Finland Win to Nil — no
-      Model probability .......... 74%
-      Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
+   Best available market: Under 3.5 goals
+      Model probability .......... 84%
+      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.92 or longer
-      HR30 numerical MES ......... -4.70% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... +2.11% expected value per unit staked — POSITIVE expected value against this price
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 70. Belarus v San Marino (UEFA Nations League)
@@ -1730,15 +1722,15 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       San Marino to win .......... 1%
    Goals: Over 1.5 goals 90% (model) | Over 2.5 goals 75% (model)
    Both teams to score NO 76% (model)
-   Expected goals (model): Belarus 3.632, San Marino 0.282
+   Expected goals (model): Belarus 3.631, San Marino 0.282
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Belarus to win 93% · Draw 6% · San Marino to win 1%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Belarus (0:1) handicap
-      Model probability .......... 74%
-      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
+   Best available market: Belarus Over 1.5 goals
+      Model probability .......... 79%
+      Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.06 or longer
-      HR30 numerical MES ......... -1.14% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... +0.16% expected value per unit staked — POSITIVE expected value against this price
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 71. Croatia v England (UEFA Nations League)
@@ -1774,11 +1766,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Estonia to win 36% · Draw 36% · Luxembourg to win 28%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Under 3.5 goals
-      Model probability .......... 82%
-      Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
+   Best available market: Luxembourg Win to Nil — no
+      Model probability .......... 77%
+      Best quoted price .......... 1.27 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.74 or longer
-      HR30 numerical MES ......... +0.63% expected value per unit staked — POSITIVE expected value against this price
+      HR30 numerical MES ......... -2.66% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 73. Iceland v Bulgaria (UEFA Nations League)
@@ -1795,10 +1787,10 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Iceland to win 65% · Draw 21% · Bulgaria to win 14%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Over 1.5 goals
-      Model probability .......... 79%
-      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
+      Model probability .......... 78%
+      Best quoted price .......... 1.26 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.20 or longer
-      HR30 numerical MES ......... -1.31% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.20% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 74. North Macedonia v Scotland (UEFA Nations League)
@@ -1818,7 +1810,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 80%
       Best quoted price .......... 1.23 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.32 or longer
-      HR30 numerical MES ......... -1.94% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.44% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 75. Spain v Czech Republic (UEFA Nations League)
@@ -1834,11 +1826,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Spain to win 87% · Draw 10% · Czech Republic to win 3%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Czech Republic (0:5) handicap
-      Model probability .......... 82%
-      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
+   Best available market: Czech Republic (+4.5) Asian handicap
+      Model probability .......... 80%
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.14 or longer
-      HR30 numerical MES ......... -0.94% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... +0.32% expected value per unit staked — POSITIVE expected value against this price
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 76. Switzerland v Slovenia (UEFA Nations League)
@@ -1858,7 +1850,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 75%
       Best quoted price .......... 1.28 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.41 or longer
-      HR30 numerical MES ......... -4.39% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.38% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 PART 2 — THE SCAN
@@ -1892,40 +1884,40 @@ Solihull v Halifax (National League) | Halifax·43% | O81 / O60 | 1277 / Y62 | �
 Southend v Fylde (National League) | Southend·46% | O84 / O65 | 1278 / Y65 | ○
 Yeovil v Boston Utd (National League) | Yeovil·39% | O71 / U54 | 1274 / Y51 | ○
 Brentwood Town FC v Dagenham and Redbridge FC (FA Cup) | Dagenham a·60% | O81 / O62 | 1280 / Y58 | ○
-AFC Rushden And Diamonds v Braintree Town FC (FA Cup) | Braintree ·55% | O80 / O61 | 1279 / Y59 | ○
+AFC Rushden And Diamonds v Braintree Town FC (FA Cup) | Braintree ·54% | O80 / O61 | 1279 / Y59 | ○
 Barton Town v Chorley FC (FA Cup) | Chorley FC·66% | O81 / O63 | X283 / Y56 | ○
 Bedford Town Football Club v Wingate & Finchley (FA Cup) | Bedford To·58% | O83 / O65 | 1X80 / Y62 | ○
 Brackley Town FC v Chelmsford City (FA Cup) | Chelmsford·41% | O74 / O51 | 1273 / Y55 | ○
 Bury FC v Bromsgrove Sporting (FA Cup) | Bury FC·53% | O82 / O63 | 1X77 / Y62 | ○
-Bury Town FC v Spalding United (FA Cup) | Spalding U·48% | O77 / O55 | 1276 / Y57 | ○
-Buxton FC v South Shields (FA Cup) | South Shie·44% | O82 / O63 | 1275 / Y64 | ○
+Bury Town FC v Spalding United (FA Cup) | Spalding U·46% | O77 / O55 | 1275 / Y58 | ○
+Buxton FC v South Shields (FA Cup) | South Shie·44% | O83 / O66 | 1277 / Y66 | ○
 Cambridge City v Alvechurch (FA Cup) | Alvechurch·48% | O81 / O61 | 1276 / Y62 | ○
-Chesham United v Real Bedford (FA Cup) | Chesham Un·47% | O80 / O60 | 1276 / Y61 | ○
+Chesham United v Real Bedford (FA Cup) | Chesham Un·47% | O82 / O63 | 1276 / Y63 | ○
 Cray Wanderers v Chippenham Town (FA Cup) | Cray Wande·54% | O81 / O62 | 1X77 / Y61 | ○
-Crowborough Athletic v Wimborne Town (FA Cup) | Wimborne T·57% | O81 / O62 | X278 / Y60 | ○
-Dorking Wanderers v Chatham Town (FA Cup) | Dorking Wa·72% | O83 / O64 | 1X88 / Y53 | ○
-Ebbsfleet United FC v Sholing FC (FA Cup) | Ebbsfleet ·68% | O79 / O58 | 1X86 / N50 | ○
-Gainsborough Trinity v Anstey Nomads (FA Cup) | Gainsborou·41% | O81 / O62 | 1276 / Y64 | ○
-Guiseley FC v Bradford Park Avenue AFC (FA Cup) | Guiseley F·51% | O79 / O59 | 1277 / Y59 | ○
-Hanwell Town FC v Dover Athletic FC (FA Cup) | Dover Athl·43% | O81 / O62 | 1276 / Y63 | ○
-Harborough Town FC v St Albans City (FA Cup) | Harborough·46% | O82 / O63 | 1275 / Y64 | ○
-Kettering Town v Worcester City (FA Cup) | Kettering ·48% | O82 / O63 | 1276 / Y63 | ○
-Leatherhead FC v Hanworth Villa (FA Cup) | Leatherhea·41% | O81 / O62 | 1276 / Y64 | ○
-Leiston FC v Coventry United (FA Cup) | Leiston FC·54% | O81 / O61 | 1X78 / Y60 | ○
+Crowborough Athletic v Wimborne Town (FA Cup) | Wimborne T·57% | O81 / O62 | X279 / Y59 | ○
+Dorking Wanderers v Chatham Town (FA Cup) | Dorking Wa·71% | O83 / O64 | 1X87 / Y53 | ○
+Ebbsfleet United FC v Sholing FC (FA Cup) | Ebbsfleet ·68% | O76 / O55 | 1X85 / N52 | ○
+Gainsborough Trinity v Anstey Nomads (FA Cup) | Gainsborou·41% | O81 / O61 | 1276 / Y63 | ○
+Guiseley FC v Bradford Park Avenue AFC (FA Cup) | Guiseley F·49% | O74 / O52 | 1276 / Y54 | ○
+Hanwell Town FC v Dover Athletic FC (FA Cup) | Dover Athl·43% | O81 / O61 | 1276 / Y62 | ○
+Harborough Town FC v St Albans City (FA Cup) | Harborough·50% | O81 / O62 | 1276 / Y62 | ○
+Kettering Town v Worcester City (FA Cup) | Kettering ·50% | O79 / O59 | 1276 / Y59 | ○
+Leatherhead FC v Hanworth Villa (FA Cup) | Leatherhea·41% | O81 / O61 | 1276 / Y63 | ○
+Leiston FC v Coventry United (FA Cup) | Leiston FC·55% | O81 / O62 | 1X78 / Y60 | ○
 Macclesfield FC v Scarborough Athletic (FA Cup) | Macclesfie·54% | O71 / U52 | 1X77 / N52 | ○
-Marine FC v Warrington Town (FA Cup) | Marine FC·52% | O73 / O50 | 1X77 / Y52 | ○
-Morecambe FC v Darlington FC (FA Cup) | Morecambe ·55% | O76 / O54 | 1X78 / Y53 | ○
-Mulbarton Wanderers v Gloucester City (FA Cup) | Gloucester·55% | O77 / O55 | X277 / Y55 | ○
+Marine FC v Warrington Town (FA Cup) | Marine FC·52% | O74 / O51 | 1X77 / Y53 | ○
+Morecambe FC v Darlington FC (FA Cup) | Morecambe ·55% | O80 / O61 | 1X78 / Y59 | ○
+Mulbarton Wanderers v Gloucester City (FA Cup) | Gloucester·54% | O77 / O55 | X277 / Y55 | ○
 Oxford City v Enfield Town (FA Cup) | Oxford Cit·60% | O81 / O62 | 1X81 / Y58 | ○
-Plymouth Parkway v Horsham FC (FA Cup) | Horsham FC·43% | O78 / O56 | 1274 / Y59 | ○
+Plymouth Parkway v Horsham FC (FA Cup) | Horsham FC·41% | O77 / O56 | 1274 / Y59 | ○
 Redditch United v Berkhamsted FC (FA Cup) | Redditch U·42% | O76 / O54 | 1273 / Y58 | ○
-Salisbury FC v Dulwich Hamlet (FA Cup) | Salisbury ·62% | O79 / O59 | 1X82 / Y55 | ○
+Salisbury FC v Dulwich Hamlet (FA Cup) | Salisbury ·60% | O79 / O59 | 1X81 / Y56 | ○
 Sheppey United FC v Chertsey Town (FA Cup) | Chertsey T·54% | O81 / O62 | 1278 / Y61 | ○
-Spennymoor Town FC v Chester FC (FA Cup) | Chester FC·41% | O75 / O53 | 1273 / Y57 | ○
-Stafford Rangers v Halesowen Town FC (FA Cup) | Halesowen ·46% | O79 / O58 | 1274 / Y61 | ○
+Spennymoor Town FC v Chester FC (FA Cup) | Chester FC·40% | O75 / O53 | 1273 / Y57 | ○
+Stafford Rangers v Halesowen Town FC (FA Cup) | Halesowen ·46% | O77 / O55 | 1274 / Y58 | ○
 Tadley Calleva v Dartford FC (FA Cup) | Dartford F·72% | O82 / O62 | X290 / Y51 | ○
-Thame United FC v Eastbourne Borough (FA Cup) | Eastbourne·56% | O81 / O62 | X278 / Y60 | ○
-Tonbridge Angels v Torquay United (FA Cup) | Torquay Un·43% | O80 / O59 | 1274 / Y62 | ○
+Thame United FC v Eastbourne Borough (FA Cup) | Eastbourne·55% | O81 / O62 | X278 / Y61 | ○
+Tonbridge Angels v Torquay United (FA Cup) | Torquay Un·40% | O78 / O56 | 1275 / Y59 | ○
 Trafford FC v Atherton Collieries (FA Cup) | Trafford F·45% | O81 / O61 | 1275 / Y63 | ○
 Truro City v Cirencester Town (FA Cup) | Truro City·79% | O84 / O67 | 1X93 / N53 | ○
 Uxbridge FC v Hungerford Town FC (FA Cup) | Uxbridge F·57% | O76 / O53 | 1X81 / Y52 | ○

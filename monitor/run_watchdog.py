@@ -1,100 +1,110 @@
-"""Run watchdog — the instrument that notices when the daily run DIDN'T happen.
+"""Run watchdog — notices when a scheduled daily board run DIDN'T happen.
 
-The daily run logs loudly inside itself (proof-of-life marker, delivery lines,
-'run completed OK') but nothing notices when the run never fires — a disabled
-Task Scheduler job, a crash before the first log line, or a machine asleep at
-07:00 all produce the same silence. This module closes that gap.
+daily.yml alerts on a run that FAILS, but nothing noticed a run that never
+started: GitHub fires scheduled crons hours late or drops them (2026-09-30:
+the 06:00 run never fired), and a dropped run is pure silence. This closes
+that gap.
 
-Designed to run on its OWN schedule (Task Scheduler, or any cron) AFTER the
-daily run's slot. It checks today's daily log for the two lines that prove a
-complete, delivered run:
+It runs from .github/workflows/watchdog.yml a couple of hours after each
+board slot and asks the GitHub API whether ANY daily.yml run (scheduled,
+Routine dispatch or manual) completed successfully inside the slot's window.
+If none did, it sends a Telegram alert. A failed run already alerted from
+daily.yml itself, so a window holding only failures is reported as such but
+not re-alerted.
 
-    - 'run completed OK'               (the run got all the way through)
-    - 'delivered N part(s) to Telegram' (the phone actually received the board)
+Slots (UTC; Lagos is UTC+1, no DST):
+  evening — board run due 20:47, window 18:00-now, checked ~23:17
+  morning — board run due 05:47, window 03:00-now, checked ~08:17
 
-A run that failed on Telegram is NOT complete (run_daily raises on that
-deliberately), and a missing log is proof Python never started — both alert.
-
-The alert is best-effort Telegram (send_telegram): the watchdog must never
-crash the scheduler. Same discipline as notify/email/whatsapp: returns
-(ok, notes), never raises.
+Never raises from the CLI: a watchdog that crashes is just more silence.
 """
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import sys
-from datetime import date
+import urllib.request
+from datetime import UTC, datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from output import notify
+from output import notify  # noqa: E402
 
-DEFAULT_LOGS_DIR = Path(__file__).parent.parent / "logs"
-
-
-def check_run_log(log_path: Path) -> tuple[bool, list[str]]:
-    """Did the daily run for this date complete AND deliver?
-
-    True only when BOTH 'run completed OK' and a Telegram delivery line are
-    present. Anything else is surfaced as a concrete reason, never a guess."""
-    if not log_path.exists():
-        return False, [f"no log at {log_path} — Python never started the run"]
-    text = log_path.read_text(encoding="utf-8", errors="replace")
-    reasons: list[str] = []
-    ok = "run completed OK" in text
-    if not ok:
-        reasons.append("log exists but no 'run completed OK' — "
-                       "the run did not finish (crashed or still running?)")
-    delivered = any("delivered" in line and "to Telegram" in line
-                    for line in text.splitlines())
-    if not delivered:
-        reasons.append("no 'delivered N part(s) to Telegram' line — "
-                       "the board did not reach the phone")
-    return ok and delivered, reasons
+WINDOW_START_UTC_HOUR = {"evening": 18, "morning": 3}
+WORKFLOW_FILE = "daily.yml"
 
 
-def _alert_text(date_iso: str, reasons: list[str]) -> str:
-    return (f"⚠ OLP XDV WATCHDOG — the {date_iso} daily push did NOT happen\n\n"
-            + "\n".join(f"• {r}" for r in reasons)
-            + "\n\nThe 07:00 board was not delivered. Check the scheduler task "
-              "and logs/daily_" + date_iso + ".log.")
+def _parse_ts(ts: str) -> datetime:
+    return datetime.fromisoformat(ts.replace("Z", "+00:00"))
 
 
-def verify(date_iso: str | None = None, logs_dir: Path | None = None,
-           notify_fn=None) -> tuple[bool, list[str]]:
-    """Verify today's (or --date's) run; alert via Telegram when it's missing.
-    Returns (run_was_complete, notes). Never raises."""
-    date_iso = date_iso or date.today().isoformat()
-    logs_dir = logs_dir or DEFAULT_LOGS_DIR
-    notes: list[str] = []
-    log_path = logs_dir / f"daily_{date_iso}.log"
-    complete, reasons = check_run_log(log_path)
-    if complete:
-        notes.append(f"{date_iso}: daily run complete and delivered — OK")
-        return True, notes
-    # Alert (best-effort). notify_fn injectable for tests.
-    notes.append(f"{date_iso}: run MISSING or incomplete — "
-                 f"{'; '.join(reasons)}")
-    send = notify_fn or notify.send_alert
+def check_runs(runs: list[dict], window_start: datetime) -> tuple[bool, str]:
+    """(ok, reason) for the daily.yml runs GitHub lists.
+
+    ok is True when at least one run created at/after window_start finished
+    with conclusion 'success'. Otherwise reason says what was seen: nothing
+    at all, only failures (already alerted by daily.yml), or a run still
+    in progress."""
+    in_window = [r for r in runs if _parse_ts(r["created_at"]) >= window_start]
+    if any(r.get("conclusion") == "success" for r in in_window):
+        return True, "a daily board run succeeded in the window"
+    if not in_window:
+        return False, "no daily board run started at all"
+    if any(r.get("status") != "completed" for r in in_window):
+        return False, "a daily board run started but has not finished"
+    return False, "every daily board run in the window failed"
+
+
+def alert_needed(ok: bool, reason: str) -> bool:
+    """Failures already alert from daily.yml; alert here for the silent cases."""
+    return not ok and reason != "every daily board run in the window failed"
+
+
+def alert_text(slot: str, reason: str, repo: str) -> str:
+    return (f"⚠ OLP XDV WATCHDOG — no {slot} board yet: {reason}.\n"
+            f"GitHub may have dropped or delayed the run. Start it by hand from GitHub Actions "
+            f"(OLP XDV daily board → Run workflow): "
+            f"https://github.com/{repo}/actions/workflows/{WORKFLOW_FILE}")
+
+
+def fetch_runs(repo: str, token: str, since: datetime) -> list[dict]:
+    url = (f"https://api.github.com/repos/{repo}/actions/workflows/"
+           f"{WORKFLOW_FILE}/runs?per_page=50&created=%3E%3D"
+           f"{since.strftime('%Y-%m-%dT%H:%M:%SZ')}")
+    req = urllib.request.Request(url, headers={
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json"})
+    with urllib.request.urlopen(req, timeout=30) as r:  # noqa: S310 (fixed https URL)
+        return json.load(r).get("workflow_runs", [])
+
+
+def window_start(slot: str, now: datetime) -> datetime:
+    return now.replace(hour=WINDOW_START_UTC_HOUR[slot], minute=0,
+                       second=0, microsecond=0)
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description="OLP XDV missed-run watchdog")
+    ap.add_argument("--slot", choices=sorted(WINDOW_START_UTC_HOUR), required=True)
+    a = ap.parse_args(argv)
+    repo = os.environ.get("GITHUB_REPOSITORY", "")
+    token = os.environ.get("GITHUB_TOKEN", "")
+    now = datetime.now(UTC)
+    start = window_start(a.slot, now)
     try:
-        ok, n = send(_alert_text(date_iso, reasons))
-        notes.append("ALERT sent to Telegram" if ok
-                     else f"ALERT delivery failed: {n}")
-    except Exception as e:  # watchdog must never crash the scheduler
-        notes.append(f"ALERT delivery raised ({e}) — watchdog continues")
-    return False, notes
+        ok, reason = check_runs(fetch_runs(repo, token, start), start)
+    except Exception as e:  # can't see the runs: say so rather than guess
+        ok, reason = False, f"watchdog could not read run history ({e})"
+    print(f"{a.slot} slot since {start:%Y-%m-%d %H:%M}Z: "
+          f"{'OK' if ok else 'MISSED'} — {reason}")
+    if alert_needed(ok, reason):
+        sent, notes = notify.send_telegram(alert_text(a.slot, reason, repo))
+        print("alert sent" if sent else f"alert NOT sent: {notes}")
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(description="OLP XDV run watchdog")
-    ap.add_argument("--date", default=None,
-                    help="ISO date to verify (default: today)")
-    ap.add_argument("--logs-dir", default=None,
-                    help="path to logs/ (default: repo logs/)")
-    a = ap.parse_args()
-    logs = Path(a.logs_dir) if a.logs_dir else None
-    complete, notes = verify(a.date, logs)
-    for n in notes:
-        print(n)
-    sys.exit(0 if complete else 2)
+    sys.exit(main())

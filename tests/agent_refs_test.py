@@ -5,7 +5,6 @@ reference to a moved or parked file sends a session to code that isn't
 there. This fails the moment one goes stale.
 """
 import re
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent

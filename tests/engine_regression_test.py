@@ -126,13 +126,26 @@ print("8. ID404 — T3 never verifies; T1+T2 does: OK")
 assert compute_clv(2.10, 2.00) > 0, "beating the close must be POSITIVE CLV"
 assert compute_clv(2.00, 2.10) < 0
 assert_paper_only(None, "phase2_paper")          # a paper leg is fine
+# The gate must follow the phase: every stake allowed at Phase 3 (capital
+# enabled since 2026-10-01), every stake refused below it. Below-Phase-3 is
+# simulated by flipping config.CAPITAL_ENABLED; the gate itself is untouched.
+import config as _config
+assert _config.CAPITAL_ENABLED == (_config.PHASE >= 3)
 for bad in (250.0, 0.0, -1.0):
-    try:
-        assert_paper_only(bad, "phase2_paper")
-        raise AssertionError(f"capital gate let stake={bad} through")
-    except CapitalGateError:
-        pass
-print("9. CLV sign correct; capital gate blocks every stake: OK")
+    if _config.CAPITAL_ENABLED:
+        assert_paper_only(bad, "phase2_paper")   # must not raise at Phase 3
+_saved = _config.CAPITAL_ENABLED
+_config.CAPITAL_ENABLED = False
+try:
+    for bad in (250.0, 0.0, -1.0):
+        try:
+            assert_paper_only(bad, "phase2_paper")
+            raise AssertionError(f"capital gate let stake={bad} through below Phase 3")
+        except CapitalGateError:
+            pass
+finally:
+    _config.CAPITAL_ENABLED = _saved
+print("9. CLV sign correct; capital gate follows the phase: OK")
 
 
 print("\n✅ ALL ENGINE REGRESSION TESTS PASSED")
@@ -202,6 +215,18 @@ class _P:
     p_btts_yes = 0.90
 
 
+# Live state: the Architect opened every market (engine/markets.py, ad0197a,
+# "Architect 2026-08-10: all markets open"), so nothing is blocked today.
+assert mkt.BLOCKED == {}, f"ID405 blocks markets again: {sorted(mkt.BLOCKED)}"
+assert mkt.DEPLOYABLE == mkt.ALL, "with nothing blocked, every market is deployable"
+
+# The gate MECHANISM must still hold if a market is ever blocked again:
+# block Away and Over 2.5 for checks 15-18 and prove neither can reach the
+# board. DEPLOYABLE is computed at import, so it is patched alongside BLOCKED;
+# both are restored after check 18.
+_live_blocked, _live_deployable = mkt.BLOCKED, mkt.DEPLOYABLE
+mkt.BLOCKED = {mkt.AWAY: "test block", mkt.OVER_25: "test block"}
+mkt.DEPLOYABLE = tuple(k for k in mkt.ALL if k not in mkt.BLOCKED)
 assert mkt.blocked(mkt.AWAY) and mkt.blocked(mkt.OVER_25), "ID405 markets must be blocked"
 assert mkt.AWAY not in mkt.DEPLOYABLE and mkt.OVER_25 not in mkt.DEPLOYABLE
 name, prob = _best_market_desc(_P())
@@ -259,7 +284,12 @@ _rec = _board_txt.split("RECOMMENDED")[1].split("ALL FIXTURES")[0]
 assert "Dundee United to win" not in _rec, (
     "ID405 LEAK in the table board: a blocked away win appeared as a Pick")
 assert "Over 2.5" not in _rec, "ID405 LEAK: blocked Over 2.5 appeared as a Pick"
-assert "Heart of Midlothian" in _board_txt, "HR53: club names must not be truncated"
+# HR53: names are never truncated. The pick column no longer names a club here
+# (the top pick became Over 1.5 once more markets opened), so check the names
+# the board always shows: the full fixture label and the 1X2 favourite.
+assert "Long Club Name 0 v Another Long Club 0" in _board_txt, "HR53: fixture name truncated"
+assert "Dundee United" in _board_txt, "HR53: club names must not be truncated"
 print("18. Table board honours ID405 and keeps full club names: OK")
+mkt.BLOCKED, mkt.DEPLOYABLE = _live_blocked, _live_deployable
 
 print("\n\u2705 ALL ENGINE REGRESSION TESTS PASSED (incl. Elo + ID405 + board)")

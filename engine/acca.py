@@ -1,0 +1,908 @@
+"""ACCA BUILDER — the day's production output folded into Acca A + split accas + singles.
+
+STANDING RULE (Architect 2026-08-09)
+  The product bet draws ONLY from fixtures kicking off TODAY — nothing else.
+  The wider scan (PART 2 / scan tables) stays the 3-day reference window, but
+  every leg of the produced bet, THE CALL, the acca and the singles comes from
+  today's slate.
+
+PRODUCTION INTENT (OLP_XDV_PRODUCTION_INTENT1.md, 2026-08-10; ranking 2026-08-11)
+  - Acca A (headline): the framework's top 4-5 highest-EDGE fixtures, each leg =
+    that fixture's OWN single best market across the FULL universe (1X2, O/U1.5,
+    O/U2.5, BTTS, Double Chance) — no forced diversity. Confirmed against the
+    Architect's ₦578,502 World Cup ticket, which worked precisely because each
+    leg was the match's true strongest signal, not because of artificial variety.
+  - Once a fixture is in Acca A it is REMOVED from the pool — a fixture never
+    appears in two bets.
+  - Singles: every remaining fixture's natural best market as a standalone
+    slip, EACH with its own booking code.
+  - The remainder is split into grouped accumulators of ~4-5 legs each (never
+    one giant accumulator — too many correlated legs is a structural weakness),
+    each with its own booking code.
+
+WHAT THIS BUILDS
+  `build_production_bets` returns the full production shape (Acca A, split
+  accas, singles). Every leg is priced on the live line in a CAPITAL-CLEARED
+  market: the builder evaluates ALL markets a fixture can be scored on
+  (mkt.EDGE_MARKETS — 1X2 Home/Draw/Away, Over/Under 1.5/2.5, BTTS, Double
+  Chance) and admits any that carry a real bookmaker price. The Odds API free
+  tier prices the five base markets; api-football fills O1.5/BTTS/DC (2026-08-11,
+  same request, zero extra quota). ID405 scope is overridden (2026-08-11,
+  Architect directive) — away wins may be recommended; all markets stay open.
+
+RANKING (changed 2026-08-19 — CANONICAL EDGE)
+  Legs are ranked by EDGE = the natural best market's canonical edge
+  (model_prob − implied_prob) — the probability gap where the model sees value
+  the market doesn't. This replaced the 2026-08-11 EV-ranking — EV (model_prob ×
+  price − 1) is retained on every leg for Kelly/staking/CLV math, but is NOT the
+  selection metric. Probability stays visible as information. When a fixture's
+  true best market has no live price, it cannot be a leg — you can only bet a
+  priced market (HR35).
+
+HONESTY (HR35 carried through)
+  - A fixture with no kickoff date is NOT in any bet — a date we cannot
+    confirm as today cannot be bet as today (never assumed).
+  - A leg we cannot price is not a leg (HR35) — unpriced fixtures stay visible
+    in the board but never enter a bookable slip.
+  - Fewer than 4-5 today fixtures -> a SHORTENED acca, never padded with a
+    tomorrow fixture and never a fabricated leg.
+  - Combined chance is the product of the legs' chances, stated as such:
+    legs are not independent, so it is information, not encouragement.
+  - An acca is a product shape, NOT a demonstrated edge. The backtest is
+    negative; the block carries the honest line.
+
+PHASE 3 (live capital, Architect-deployed 2026-08-11)
+  This module only NAMES and PRICES the bets. It never places, never stakes.
+  Booking codes are generated separately (booking/booking_codes.py) for the
+  Architect's review; capital authority stays with the Architect.
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from datetime import date
+from itertools import count
+from typing import Any, Callable, Iterator, List, Optional
+
+from engine import markets as mkt
+from engine.markets import blend_toward_market
+from engine.mes import edge_diff, mes_numeric_ev
+# Bookability gate (Architect 2026-09-19). Imported from the booking layer
+# because that layer is what knows what it can drive; selection asks rather
+# than keeping a second, drifting opinion.
+from booking.bookability import leg_is_bookable
+
+ACCA_A_MAX = 5          # the headline acca holds the top 4-5 confidence legs
+HEADLINE_MIN_LEGS = 4   # below this, Acca A is a shortened acca, never padded
+SPLIT_GROUP_TARGET = 5  # legs per acca (ratified Telegram spec §4.2)
+MIN_SHORT_ACCA = 3      # a 3-4 leg tail is a SHORT ACCA; 1-2 legs stay singles
+# ODDS LIMITS (now loaded from configuration)
+import sys
+from pathlib import Path
+
+# Add the config directory to the path so we can import from it
+config_dir = Path(__file__).parent.parent / "config"
+if str(config_dir) not in sys.path:
+    sys.path.insert(0, str(config_dir))
+
+from config.manager import get_config
+
+# Get configuration instance
+_config = get_config()
+
+MAX_ODDS_CAP = _config.get_betting_config().max_odds_cap     # hard cap — any leg with price > 1.50 is rejected (Architect 2026-09-01)
+MIN_ODDS_FLOOR = _config.get_betting_config().min_odds_floor   # hard floor — any leg with price < 1.20 is rejected (no value in heavy favourites)
+PREFERRED_ODDS_CEILING = _config.get_betting_config().preferred_odds_ceiling  # sweet spot ceiling — 1.20–1.50 is the "safe" deployment zone (Architect 2026-08-19)
+
+# QUARANTINE (Audit 2026-08-20, HR58): Leagues with 100% miss rate excluded from Acca A
+# These leagues are still eligible for singles/split accas but NOT for the headline acca.
+ACCA_A_QUARANTINE_LEAGUES = frozenset({
+    "Eredivisie",
+    "Scottish Premiership",
+})
+
+
+@dataclass
+class AccaLeg:
+    """One leg of a bet: a fixture + the capital-cleared market to back."""
+    fixture: str          # "Home v Away" (model keys, board fixture name)
+    league: str
+    market_key: str       # canonical key, e.g. mkt.DRAW
+    market_name: str      # words, e.g. "Draw" (HR53 — no bare glyphs)
+    price: float          # decimal odds on the live line
+    prob: float           # model probability for that market
+    ev: Optional[float]   # model_prob * price - 1 (EV for Kelly/staking)
+    edge: Optional[float] = None  # canonical edge = model_prob - implied_prob (selection metric)
+    # How this leg's price was obtained. "quoted" = a real bookmaker price.
+    # "derived" = computed from the book's own 1X2 line (double chance, draw no
+    # bet). A derived price must never be presented as a quote: the Architect
+    # confirms the real price at the book before anything is placed, which is
+    # what spec §2's "Deploy at <trigger>" line exists for.
+    price_basis: str = "quoted"
+    sportybet_fixture_id: Optional[str] = None  # set by the booking step
+    verification_stamp: Optional[str] = None    # "[✓ SportyBet ✓ FlashScore]" or "[⚠ unverified]" from pre-production gate
+    status: str = "capital"  # "capital" (at/under MAX_ODDS_CAP, eligible for Acca A/singles), "watchlist" (above it, not capital), or "unbookable" (cleared every bar but the booking driver cannot place it)
+    # Why a leg that cleared the odds cap and the edge bar still cannot be
+    # backed: unmapped competition, or a market with no proven drive path. Empty
+    # for every bookable leg. Carried so the board can report the exclusion
+    # instead of the leg just vanishing (HR35).
+    unbookable_reason: str = ""
+
+
+@dataclass
+class Acca:
+    """One accumulator (headline or split)."""
+    label: str            # "Acca A", "Acca B", ... or "SINGLE — <fixture>"
+    legs: List[AccaLeg] = field(default_factory=list)
+    combined_odds: Optional[float] = None
+    combined_prob: Optional[float] = None
+
+    @property
+    def n_legs(self) -> int:
+        return len(self.legs)
+
+
+@dataclass
+class ProductionBets:
+    """The day's production output: the headline acca, the split accas, singles.
+
+    `singles` are the SAME legs that fill the split accas — each remaining
+    fixture's natural best market appears both inside a split acca AND as a
+    standalone single with its own booking code (production intent #6).
+
+    `watchlist` — legs priced above MAX_ODDS_CAP (ID420 hard cap, currently
+    1.50 per Architect 2026-09-01). These are flagged for
+    review but are NOT capital-eligible — they do not enter Acca A, split accas,
+    or singles. The Architect reviews the watchlist separately."""
+    acca_a: Optional[Acca] = None
+    split_accas: List[Acca] = field(default_factory=list)
+    singles: List[AccaLeg] = field(default_factory=list)
+    watchlist: List[AccaLeg] = field(default_factory=list)
+
+    @property
+    def n_acca_legs(self) -> int:
+        """Total legs across Acca A and every split acca."""
+        n = 0
+        if self.acca_a is not None:
+            n += self.acca_a.n_legs
+        n += sum(a.n_legs for a in self.split_accas)
+        return n
+
+
+def _league_of(fixture: str) -> str:
+    """'Home v Away (League)' -> 'League'. Mirrors the board's league tag."""
+    return fixture.split(" (")[-1].rstrip(")") if " (" in fixture else "—"
+
+
+def _team_pair(bf) -> tuple[str, str]:
+    """(home, away) model keys from the fixture probs when present, else parse
+    from the fixture name — the odds_index is keyed on model keys."""
+    if bf.probs is not None:
+        return bf.probs.home_team, bf.probs.away_team
+    name = bf.fixture.split(" (")[0]
+    if " v " in name:
+        h, a = name.split(" v ", 1)
+        return h.strip(), a.strip()
+    return "", ""
+
+
+def _market_implied(market_key: str, fx, price) -> Optional[float]:
+    """The bookmaker's implied probability for one market.
+
+    Devigged where a clean two-sided quote exists (1X2 via implied_1x2,
+    O2.5/U2.5 via the over/under pair); otherwise the raw 1/price (which still
+    carries the overround — conservative: disagreements read slightly LARGER, so
+    the agreement band sits a touch tighter on favourites). Returns None when no
+    price basis exists (a leg we cannot anchor to the book is not judged)."""
+    if fx is not None:
+        if market_key in mkt.MARKETS_1X2:
+            p1x2 = mkt.implied_1x2(fx)
+            if p1x2 is not None:
+                return p1x2[mkt.MARKETS_1X2[market_key]]
+        if market_key in (mkt.OVER_25, mkt.UNDER_25):
+            o = fx.over25.price if market_key == mkt.OVER_25 else fx.under25.price
+            other = (fx.under25.price if market_key == mkt.OVER_25
+                     else fx.over25.price)
+            if o and other:
+                s = 1.0 / o + 1.0 / other
+                if s > 1.0:
+                    return (1.0 / o) / s
+    if price and price > 1.0:
+        return 1.0 / price
+    return None
+
+
+def _sb_totals_price(bf, market: str) -> Optional[float]:
+    """Over/Under price from SportyBet's cached goals line, or None.
+
+    The cache holds ONE line per fixture and it varies by match, so the stored
+    over/under prices only apply to the market matching that line -- quoting
+    them against any other line would be a different bet at the wrong price.
+    """
+    line = getattr(bf, "sb_goals_line", None)
+    if line is None:
+        return None
+    over = getattr(bf, "sb_over_odds", None)
+    under = getattr(bf, "sb_under_odds", None)
+    table = {
+        (0.5, mkt.OVER_05): over, (0.5, mkt.UNDER_05): under,
+        (1.5, mkt.OVER_15): over, (1.5, mkt.UNDER_15): under,
+        (2.5, mkt.OVER_25): over, (2.5, mkt.UNDER_25): under,
+        (3.5, mkt.OVER_35): over, (3.5, mkt.UNDER_35): under,
+    }
+    try:
+        return table.get((float(line), market))
+    except (TypeError, ValueError):
+        return None
+
+
+def _derived_1x2_price(bf, market: str) -> Optional[float]:
+    """Double-chance / draw-no-bet price implied by the book's own 1X2 line.
+
+    DC and DNB are deterministic combinations of the three 1X2 outcomes, so the
+    book's quoted H/D/A prices already contain the information. Working in the
+    book's RAW implied probabilities (1/price, overround included) keeps its
+    margin in the result rather than handing ourselves a de-vigged fair price:
+
+        DC 1X   = 1 / (qH + qD)        DNB home = (qH + qA) / qH
+        DC X2   = 1 / (qD + qA)        DNB away = (qH + qA) / qA
+        DC 12   = 1 / (qH + qA)
+
+    HONEST LIMIT, and the reason these are tagged price_basis="derived":
+    bookmakers usually load MORE margin onto combination markets than onto
+    1X2, so the real SportyBet double chance will typically be a little SHORTER
+    than this. A derived price is therefore mildly OPTIMISTIC and overstates
+    edge. It is fit for SELECTION -- choosing which market on a fixture is worth
+    looking at -- and must not be treated as a confirmed quote. Spec §2 already
+    handles the rest: the framework outputs the trigger price and the Architect
+    enters the real price at the book, so a derived price that does not survive
+    contact with the actual line simply fails the trigger and is not deployed.
+    """
+    h = getattr(bf, "sb_home_odds", None)
+    d = getattr(bf, "sb_draw_odds", None)
+    a = getattr(bf, "sb_away_odds", None)
+    if not h or not d or not a:
+        return None
+    try:
+        qh, qd, qa = 1.0 / h, 1.0 / d, 1.0 / a
+    except ZeroDivisionError:
+        return None
+
+    combos = {
+        mkt.DC_1X: qh + qd,
+        mkt.DC_X2: qd + qa,
+        mkt.DC_12: qh + qa,
+    }
+    if market in combos:
+        total = combos[market]
+        return (1.0 / total) if total > 0 else None
+
+    if market in (mkt.DNB_HOME, mkt.DNB_AWAY):
+        two_way = qh + qa
+        if two_way <= 0:
+            return None
+        share = qh if market == mkt.DNB_HOME else qa
+        return (two_way / share) if share > 0 else None
+
+    return None
+
+
+def _best_deployable_leg(bf, odds_index: Optional[dict],
+                         agreement_band: Optional[float] = None,
+                         max_odds_cap: float = MAX_ODDS_CAP,
+                         min_odds_floor: float = MIN_ODDS_FLOOR,
+                         preferred_ceiling: float = PREFERRED_ODDS_CEILING,
+                         clv_logger: Optional[Callable[[str, str, float, float, float, float], None]] = None,
+                         require_bookable: bool = True) -> tuple[Optional[AccaLeg], Optional[AccaLeg]]:
+    """The best markets for one fixture — returns (capital_leg, watchlist_leg).
+
+    Returns a tuple where:
+    - First element is the best capital-eligible leg (odds ≤ max_odds_cap)
+    - Second element is the best watchlist leg (odds > max_odds_cap) if any
+
+    ID420 (Architect 2026-08-19, cap lowered to 1.50 on 2026-09-01): any market
+    priced above MAX_ODDS_CAP goes to WATCHLIST,
+    never to capital. The watchlist is for review only — no stake is deployed.
+
+    Multi-market selection (Architect 2026-08-11): every fixture is evaluated
+    across ALL markets — 1X2, Over/Under 1.5, Over/Under 2.5, BTTS and Double
+    Chance — and picks its OWN single best market. Selection is by the highest
+    EDGE = model_prob − implied_prob (canonical edge = probability gap where the
+    model sees value the market doesn't), tiebreak model_prob, then canonical
+    market order. EV (model_prob × price − 1) is retained for Kelly/staking/CLV
+    but is NOT the selection metric. Probability stays visible as information.
+
+    AGREEMENT GATE (gambler move #2, 2026-08-15 experiment — opt-in, default
+    off): when `agreement_band` is set, a market is only admitted where the
+    model's probability and the book's implied probability AGREE within that
+    band (markets.py BLEND_NOOP_AT = 0.04 is the honest default — the zone
+    where the model is calibrated, not the +10-14pp overconfident disagreement
+    bucket the measured CLV says is losing). The EDGE ranking then chooses the
+    best leg ONLY inside that trusted zone. Disabled (None) = today's shipped
+    behaviour, untouched.
+
+    ODDS DEPLOYMENT POLICY (Architect 2026-08-19):
+    - HARD FLOOR: reject any market priced below min_odds_floor (1.20) — no
+      value in heavy favourites where book overround is hidden and edge is
+      negligible even when model agrees.
+    - HARD CEILING (capital): reject any market priced above max_odds_cap —
+      long odds are where the model is least reliable (FL-bias guardrail).
+    - WATCHLIST (ID420): markets priced above max_odds_cap are captured
+      in a separate watchlist for Architect review, not silently dropped.
+    - PREFERRED ZONE: 1.20–1.50 is the "safe" deployment sweet spot. Legs in
+      this zone are prioritised; legs above the preferred ceiling are admitted only when no
+      preferred-zone leg exists for the fixture. This mirrors personal risk
+      tolerance: accas built from short-priced legs with compounded value.
+
+    A market enters only when it carries a REAL bookmaker price (SportyBet 1X2
+    attrs, or the odds index — api-football fills O1.5/BTTS/DC, the Odds API
+    free tier fills the rest). Returns (None, None) when the fixture has no
+    priced market at all.
+
+    HARD RULE (Architect 2026-08-19): ALL fixtures with live prices must produce
+    a bet — newly promoted teams without model probs use market-implied
+    probabilities as fallback so no fixture is ever dropped from bet production."""
+    if not getattr(bf, "on_deploy_shortlist", False):
+        return (None, None)
+    # ARCHITECT 2026-08-29: every leg must be cross-source VERIFIED before it
+    # can be priced, scored or booked. verify_board stamps bf.verified as a bool
+    # on EVERY board fixture (True = confirmed by ESPN/FootballData OR SportyBet
+    # + a second source). An unverified fixture (single-source only, or not
+    # found in any source) is never admitted to Acca A, the split accas or the
+    # singles — exactly the "all data verified before it is produced" rule. The
+    # stamp stays on the board/web for audit; it simply cannot produce a bet.
+    # (A missing stamp can only occur outside the live gate, so we skip ONLY the
+    # explicit False — never guess, HR35.)
+    if getattr(bf, "verified", None) is False:
+        return (None, None)
+    home, away = _team_pair(bf)
+    fx = None
+    if odds_index is not None:
+        # Try exact, then normalized (case/diacritic/prefix-insensitive), then
+        # prefix/suffix tolerant match (e.g. "FC ST. Gallen" vs "FC St. Gallen 1879")
+        fx = odds_index.get((home, away))
+        if fx is None:
+            try:
+                from booking.team_map import resolve_team, _normalize
+                sb_h = resolve_team(home, "sportybet")
+                sb_a = resolve_team(away, "sportybet")
+                fx = odds_index.get((sb_h, sb_a))
+                if fx is None:
+                    nh, na = _normalize(home), _normalize(away)
+                    for (oh, oa), f in odds_index.items():
+                        noh, noa = _normalize(oh), _normalize(oa)
+                        if noh == nh and noa == na:
+                            fx = f
+                            break
+                        def _contains(a: str, b: str) -> bool:
+                            return a == b or (len(a) > 3 and (a in b or b in a))
+                        if _contains(noh, nh) and _contains(noa, na):
+                            fx = f
+                            break
+            except Exception:
+                pass
+
+    # If fixture has model probs, use them. Otherwise fall back to market-implied
+    # probabilities from available odds so newly promoted teams still get bets.
+    has_model_probs = bf.probs is not None
+
+    best_capital: Optional[AccaLeg] = None
+    best_capital_preferred: Optional[AccaLeg] = None  # tracks best leg in 1.20-1.50 zone
+    best_watchlist: Optional[AccaLeg] = None  # tracks best leg with odds > max_odds_cap
+    best_unbookable: Optional[AccaLeg] = None  # cleared every bar, cannot be placed
+    for market in mkt.EDGE_MARKETS:
+        # Get probability: use model probs if available, otherwise fall back to
+        # market-implied probability from the odds (for newly promoted teams).
+        if has_model_probs:
+            prob = mkt.model_prob(market, bf.probs)
+        else:
+            prob = _market_implied(market, fx, None)  # use devigged implied prob as fallback
+        if prob is None:
+            continue
+        price = None
+        # SportyBet first for the markets it carries (1X2) — it is the book the
+        # Architect actually bets at. The Odds API / api-football cover the rest.
+        # The orchestrator attaches sb_home/draw/away_odds from the SportyBet
+        # cache; using all three means a leg prices on SportyBet's own line
+        # even when the Odds API quota is exhausted (verified 2026-08-11).
+        # FULL SportyBet market map first (booking.sportybet_api). A key is
+        # present only when SportyBet actually quoted that market, so this is a
+        # real price for double chance / draw no bet / BTTS / any O-U half-line
+        # -- the markets that previously had to be derived or went unpriced.
+        sb_markets = getattr(bf, "sb_markets", None) or {}
+        price = sb_markets.get(market)
+
+        sb_attr = {mkt.HOME: "sb_home_odds",
+                   mkt.DRAW: "sb_draw_odds",
+                   mkt.AWAY: "sb_away_odds"}.get(market)
+        if price is None and sb_attr:
+            price = getattr(bf, sb_attr, None)
+
+        # SportyBet's cached TOTALS. The cache stores one goals line per fixture
+        # (it varies: 2.5, 3, 3.5) with its over/under prices, and nothing here
+        # read them -- so every Over/Under market was unpriced and skipped.
+        if price is None:
+            price = _sb_totals_price(bf, market)
+
+        # DOUBLE CHANCE and DRAW NO BET, derived from the book's own 1X2 line.
+        #
+        # Architect 2026-09-17: "if the max odd is 1.5 you explore other markets
+        # ... double chance, draw no bet ... I opened the entire betting market
+        # so you have an option to pick." That was impossible while 1X2 was the
+        # only priced market: a fixture whose 1X2 sat above the 1.50 cap had no
+        # alternative to fall back to and simply produced nothing. On
+        # 2026-09-17 that left 22 verified fixtures yielding zero acca legs.
+        #
+        # DC and DNB are deterministic COMBINATIONS of the 1X2 outcomes, so
+        # these are arithmetic on real quoted prices, not invented numbers --
+        # but they are not quotes either, and are tagged price_basis="derived".
+        if price is None:
+            price, basis = _derived_1x2_price(bf, market), "derived"
+        else:
+            basis = "quoted"
+        if price is None and odds_index is not None:
+            if fx is not None:
+                q = mkt.quote(market, fx)
+                if q is not None and q.available:
+                    price = q.price
+        if price is None and getattr(bf, "best_market_key", None) == market \
+                and getattr(bf, "best_price", None) is not None:
+            # Fall back to the fixture's already-priced headlined market when it
+            # is itself capital-cleared (covers the web re-cap path with no
+            # odds_index in scope).
+            price = bf.best_price
+            if has_model_probs:
+                prob = bf.best_model_prob if bf.best_model_prob is not None else prob
+        if price is None:
+            continue
+        # HARD ODDS FLOOR (Architect 2026-08-19): reject below 1.20 — no edge
+        # in heavy favourites where overround swallows any perceived value.
+        if price < min_odds_floor:
+            continue
+        # AGREEMENT GATE (gambler move #2, opt-in): skip any market where the
+        # model and the book DISAGREE beyond the honest band. The measured CLV
+        # says this disagreement bucket is exactly where the model is most
+        # overconfident (+10-14pp) and where legs lose. Inside the band the
+        # model is calibrated, so only trusted legs are eligible. Disabled when
+        # agreement_band is None (shipped behaviour).
+        book_p = _market_implied(market, fx, price)
+        if agreement_band is not None:
+            if book_p is None:
+                continue  # cannot anchor to the book — not judged, skip (HR35)
+            if abs(prob - book_p) > agreement_band:
+                continue  # disagreement bucket — the trap; exclude it
+        # EDGE is priced on the BLEND — the honest probability when model and
+        # market disagree (ID414). Ledger keeps RAW model_est via prob;
+        # calibration stays inert (no feedback loop).
+        # Canonical edge (Architect 2026-08-19): edge = model_prob - implied_prob.
+        # EV retained for Kelly/staking: ev = blended_prob * price - 1 (ID414).
+        prob_ev = blend_toward_market(prob, book_p) if book_p is not None else prob
+        edge = edge_diff(prob, price) if price else None
+        ev = mes_numeric_ev(prob_ev, price) if price else None
+        in_preferred = min_odds_floor <= price <= preferred_ceiling
+        # POSITIVE-EDGE GATE. Capital requires edge > 0, i.e. the model's
+        # probability exceeds the market's implied one.
+        #
+        # Selection ranks by highest edge but never required the winner to be
+        # POSITIVE, so a fixture whose markets all show negative edge still
+        # contributed its least-bad market as a capital leg. On 2026-09-17 that
+        # put three negative-edge legs into Acca A:
+        #
+        #   Juventus v Nijmegen        prob 0.641 vs implied 0.820   edge -0.178
+        #   Besiktas v Marseille       prob 0.184 vs implied 0.535   edge -0.351
+        #   Crystal Palace v Poznan    prob 0.333 vs implied 0.709   edge -0.376
+        #
+        # The model rated Besiktas at 18% where the market implied 53% -- it saw
+        # the price as badly wrong in the BOOK's favour, and the leg was backed
+        # anyway. That is the opposite of this function's own definition of edge:
+        # "the probability gap where the model sees value the market doesn't".
+        #
+        # Equivalent to requiring positive EV on the raw probability, since
+        # edge > 0  <=>  prob > 1/price  <=>  prob * price > 1  <=>  ev > 0.
+        # A fixture with no positive-edge market now yields no capital leg,
+        # which reports as "no capital-eligible pick" -- the honest result.
+        has_positive_edge = edge is not None and edge > 0
+        within_cap = price <= max_odds_cap
+        # BOOKABILITY GATE (Architect directive 2026-09-19). A leg the booking
+        # driver cannot put on a SportyBet slip is not a bet, however good its
+        # edge. On the 2026-09-19 board 6 of 20 legs could not be driven and 3
+        # of 4 accas produced no code — the edges were spent on selections that
+        # died at the betslip. The gate asks the booking layer (which is what
+        # knows) rather than proxying via competition prestige: measured
+        # bookability, not a guess about which clubs are obscure.
+        if require_bookable:
+            bookable, unbookable_reason = leg_is_bookable(_league_of(bf.fixture), market)
+        else:
+            # Callers testing a DIFFERENT rule (the same-day gate, the odds cap,
+            # the ranking) use synthetic leagues like "Test League" that are not
+            # in the booking registry and never will be. Gating them would make
+            # every such test assert on an empty board and say nothing about the
+            # rule under test. Production never passes False.
+            bookable, unbookable_reason = True, ""
+
+        in_capital_zone = within_cap and has_positive_edge and bookable
+        # Status still reflects ODDS, per ID420: "watchlist" means price > 2.00
+        # and is for Architect review. A negative-edge leg inside the cap is
+        # neither -- it is simply not a bet, and is dropped below rather than
+        # relabelled, so the watchlist keeps meaning what ID420 says it means.
+        #
+        # "unbookable" is a THIRD state, deliberately not folded into either:
+        # the leg cleared the odds cap and the edge bar and would have been
+        # capital, and the only thing wrong with it is that we cannot place it.
+        # Calling that "watchlist" would overload ID420 with a different fact.
+        if within_cap and has_positive_edge and not bookable:
+            status = "unbookable"
+        else:
+            status = "capital" if in_capital_zone else "watchlist"
+        # Skip leg if probability or price is not available (needed for Acca calculation)
+        if prob is None or price is None:
+            continue
+        if within_cap and not has_positive_edge:
+            # Inside the odds cap but the market prices it better than the model
+            # does -- no value, so it is not a candidate for capital OR for the
+            # watchlist. Dropping it is what stops the "best of a bad set"
+            # behaviour that put three negative-edge legs into Acca A.
+            continue
+        leg = AccaLeg(
+            fixture=bf.fixture.split(" (")[0],
+            league=_league_of(bf.fixture),
+            market_key=market,
+            market_name=mkt.display(market, home, away),
+            price=price,
+            prob=prob,
+            ev=ev,
+            edge=edge,
+            status=status,
+            price_basis=basis,
+            unbookable_reason=unbookable_reason,
+        )
+        if in_capital_zone:
+            # Capital-eligible leg: consider all legs in this zone regardless of price zone
+            # Selection is based solely on edge (probability gap), with probability as tiebreaker
+            if (best_capital_preferred is None or (edge is not None and (best_capital_preferred.edge is None or edge > best_capital_preferred.edge))
+                    or (edge == best_capital_preferred.edge and prob > best_capital_preferred.prob)):
+                best_capital_preferred = leg
+        elif has_positive_edge and status == "unbookable":
+            # Cleared every betting bar and cannot be placed. Tracked so the
+            # board can say so — the Architect asked to build from the bookable
+            # pool, not to be told nothing about what the pool excluded (HR35).
+            if (best_unbookable is None or (edge is not None and (best_unbookable.edge is None or edge > best_unbookable.edge))
+                    or (edge == best_unbookable.edge and prob > best_unbookable.prob)):
+                best_unbookable = leg
+        elif has_positive_edge:
+            # Watchlist leg (price above the cap) — track the best for review.
+            #
+            # Gated on positive edge for the same reason capital is. The
+            # watchlist exists to show the Architect value that the odds cap
+            # excluded, so a leg the model rates WORSE than the market is not a
+            # near-miss, it is noise. On 2026-09-17 the watchlist carried
+            # "Celtic Draw @ 4.25, edge -11.71%" alongside three genuine
+            # positive-edge entries; it cannot be staked, but it is in a list
+            # meant for attention, next to items that deserve it.
+            if (best_watchlist is None or (edge is not None and (best_watchlist.edge is None or edge > best_watchlist.edge))
+                    or (edge == best_watchlist.edge and prob > best_watchlist.prob)):
+                best_watchlist = leg
+    # Return the best capital leg (preferred zone or fallback) and watchlist leg
+    capital_leg = best_capital_preferred or best_capital
+    # HARD RULE (Architect 2026-08-19): MAX_ODDS_CAP is a hard ceiling — legs with
+    # odds > 2.00 go to WATCHLIST (ID420), never to capital. No fallback reclassifies
+    # watchlist legs as capital; the watchlist is for Architect review only.
+
+    # CLV logging: record projected CLV at selection time (if logger provided)
+    # This lets us track projected CLV vs actual CLV post-settlement
+    if clv_logger is not None and capital_leg is not None:
+        implied_prob = _market_implied(capital_leg.market_key, None, capital_leg.price)
+        if implied_prob is not None:
+            projected_clv_pct = (capital_leg.prob / implied_prob - 1) * 100
+            clv_logger(
+                fixture=capital_leg.fixture,
+                market_key=capital_leg.market_key,
+                entry_odds=capital_leg.price,
+                model_prob=capital_leg.prob,
+                implied_prob=implied_prob,
+                projected_clv_pct=projected_clv_pct,
+            )
+
+    return (capital_leg, best_watchlist)
+
+
+def _make_acca(label: str, leg_list: List[AccaLeg]) -> Acca:
+    """An Acca with combined odds/prob = the product of its legs' figures."""
+    combined_odds = 1.0
+    combined_prob = 1.0
+    for leg in leg_list:
+        combined_odds *= leg.price
+        combined_prob *= leg.prob
+    return Acca(label=label, legs=list(leg_list),
+                combined_odds=combined_odds, combined_prob=combined_prob)
+
+
+def _chunk_remainder(legs: List[AccaLeg]) -> List[List[AccaLeg]]:
+    """Split the post-Acca-A remainder into groups of SPLIT_GROUP_TARGET (5).
+
+    Ratified Telegram spec §4.2, and the Architect 2026-09-17: "fix the acca to
+    5 legs per acca". Chunk sequentially into 5s; the tail is handled per spec:
+
+      remainder >= MIN_SHORT_ACCA (3) -> its own SHORT ACCA
+      remainder 1-2                   -> not an acca; stays a single (SLV)
+
+    The previous rule was "~4-5 legs each, roughly": it allowed groups of SIX
+    and split 7/8 into 4+3 and 4+4, so the board printed accas of 4 and 6 while
+    the spec said 5. Sizes are now exact, and the only group that is not 5 is a
+    deliberate, labelled short tail.
+    """
+    n = len(legs)
+    if n < MIN_SHORT_ACCA:
+        # 1-2 legs is a single, not an accumulator.
+        return []
+
+    groups: List[List[AccaLeg]] = []
+    i = 0
+    while i < n:
+        remaining = n - i
+        if remaining < MIN_SHORT_ACCA:
+            # A 1-2 leg tail is never padded onto a full acca and never emitted
+            # as one; those legs remain available as singles.
+            break
+        take = min(SPLIT_GROUP_TARGET, remaining)
+        groups.append(legs[i:i + take])
+        i += take
+    return groups
+
+
+def _split_labels() -> Iterator[str]:
+    """'Acca B', 'Acca C', ... in order."""
+    for i in count(1):
+        yield f"Acca {chr(ord('A') + i)}"
+
+
+def build_production_bets(
+    board: List[Any],
+    today: Optional[str] = None,
+    odds_index: Optional[dict] = None,
+    acca_a_max: int = ACCA_A_MAX,
+    agreement_band: Optional[float] = None,
+    max_odds_cap: Optional[float] = MAX_ODDS_CAP,
+    min_odds_floor: Optional[float] = MIN_ODDS_FLOOR,
+    preferred_ceiling: Optional[float] = PREFERRED_ODDS_CEILING,
+    clv_logger: Optional[Callable[[str, str, float, float, float, float], None]] = None,
+    require_bookable: bool = True,
+) -> ProductionBets:
+    """Build the day's production output: Acca A + split accas + singles.
+
+    Eligibility (all required, same discipline as the old deploy acca):
+      - kickoff_date == today (the standing rule — a date we cannot confirm as
+        today is never assumed, HR35)
+      - on_deploy_shortlist (the deploy call; keeps a CONFLICT/NO_DATA-verified
+        fixture out of a bookable bet, and makes Acca A a subset of THE CALL)
+      - at least one capital-cleared market (mkt.DEPLOYABLE) with a live price
+
+    Ranking: confidence first — the leg's model probability desc, EV desc as
+    the tiebreak, fixture name as the final deterministic sort. Acca A is the
+    top `acca_a_max` (the headline), the remainder splits into ~4-5 leg accas
+    (Acca B, C, ...), and every remainder fixture is ALSO a standalone single.
+
+    `agreement_band` (optional, default None): the gambler move #2 experiment.
+    When set, legs are drawn ONLY from markets where the model and the book
+    agree within the band (the calibrated zone) — the disagreement bucket the
+    measured CLV says is losing is excluded. None = shipped EV-ranking (no
+    gate). This is an experiment flag; it does NOT touch any protected constant.
+
+    ODDS DEPLOYMENT POLICY (Architect 2026-08-19):
+      - `min_odds_floor` (default 1.20): hard floor — reject below this.
+      - `preferred_ceiling` (default 1.50): preferred zone ceiling — legs in
+        1.20–1.50 are prioritised; 1.50–2.00 admitted only as fallback.
+      - `max_odds_cap` (default 2.00): absolute hard cap — reject above this.
+
+    ACCA A STRICT ODDS POLICY:
+      Acca A (headline) ONLY uses legs in the capital zone (odds <= max_odds_cap).
+      No fallback rule reclassifies watchlist legs as capital — the MAX_ODDS_CAP
+      (2.00) is a hard ceiling. Legs with odds > 2.00 go to WATCHLIST (ID420)
+      for Architect review only and never enter Acca A, split accas, or singles.
+
+    Write-back: each leg's pick is written onto the BoardFixture
+    (best_market_key/best_market/best_price/best_model_prob/best_mes_ev) so the
+    CALL cards, produced-bet record and scan show the SAME market the acca and
+    single book — the same fixture must never carry two different "picks".
+    """
+    today = today or date.today().isoformat()
+    cap = MAX_ODDS_CAP if max_odds_cap is None else max_odds_cap
+    floor = MIN_ODDS_FLOOR if min_odds_floor is None else min_odds_floor
+    preferred = PREFERRED_ODDS_CEILING if preferred_ceiling is None else preferred_ceiling
+
+    pairs: List[tuple[Any, AccaLeg]] = []
+    watchlist_legs: List[AccaLeg] = []
+    for bf in board:
+        if bf.kickoff_date != today:
+            continue  # standing rule: today's fixtures only
+        capital_leg, watchlist_leg = _best_deployable_leg(bf, odds_index,
+                                   agreement_band=agreement_band,
+                                   max_odds_cap=cap,
+                                   min_odds_floor=floor,
+                                   preferred_ceiling=preferred,
+                                   clv_logger=clv_logger,
+                                   require_bookable=require_bookable)
+        if capital_leg is not None:
+            # Write-back (see docstring) — run before produced_bet.record so every
+            # downstream consumer agrees with the bookable leg.
+            bf.best_market_key = capital_leg.market_key
+            bf.best_market = capital_leg.market_name
+            bf.best_price = capital_leg.price
+            bf.best_model_prob = capital_leg.prob
+            bf.best_mes_ev = capital_leg.ev
+            # Carry the gate's verification stamp onto the leg so BOTH outlets
+            # (Telegram + web) show the same [✓ …]/[⚠ …] source confirmation.
+            capital_leg.verification_stamp = getattr(bf, "verification_stamp", None)
+            pairs.append((bf, capital_leg))
+        if watchlist_leg is not None:
+            watchlist_leg.verification_stamp = getattr(bf, "verification_stamp", None)
+            watchlist_legs.append(watchlist_leg)
+
+    # EDGE ranking (Architect 2026-08-19): Acca A leads with the highest-EDGE
+    # legs (canonical edge = model_prob - implied_prob) — the probability gap
+    # where the model sees value the market doesn't. EV (model_prob * price - 1)
+    # is retained on the leg for Kelly/staking but is NOT the selection metric.
+    # Probability breaks an edge tie; fixture name is the deterministic final tiebreak.
+    pairs.sort(key=lambda p: (p[1].edge if p[1].edge is not None else -1.0,
+                              p[1].prob,
+                              p[1].fixture),
+                reverse=True)
+
+    # Acca A: STRICT — only legs with odds <= max_odds_cap (2.00)
+    # This respects the preferred zone (1.20-1.50) and 50/50 zone (1.50-2.00)
+    # but NEVER allows odds > 2.00 into the headline acca.
+    # QUARANTINE (Audit 2026-08-20, HR58): Exclude Eredivisie & Scottish Premiership
+    # from the headline acca — these leagues had 100% miss rate in the audit window.
+    eligible_for_acca_a = [
+        leg for _, leg in pairs
+        if leg.price <= cap and leg.league not in ACCA_A_QUARANTINE_LEAGUES
+    ]
+    acca_a = _make_acca("Acca A", eligible_for_acca_a[:acca_a_max]) if eligible_for_acca_a else None
+
+    # Remainder for split accas: all capital legs not in Acca A
+    acca_a_fixtures = {leg.fixture for leg in (acca_a.legs if acca_a else [])}
+    remainder_legs = [leg for _, leg in pairs if leg.fixture not in acca_a_fixtures]
+
+    split_accas = [_make_acca(label, chunk)
+                   for label, chunk in zip(_split_labels(), _chunk_remainder(remainder_legs))]
+    return ProductionBets(acca_a=acca_a, split_accas=split_accas, singles=remainder_legs, watchlist=watchlist_legs)
+
+
+def build_accas(board, today: Optional[str] = None,
+                odds_index: Optional[dict] = None,
+                agreement_band: Optional[float] = None,
+                max_odds_cap: Optional[float] = MAX_ODDS_CAP,
+                min_odds_floor: Optional[float] = MIN_ODDS_FLOOR,
+                preferred_ceiling: Optional[float] = PREFERRED_ODDS_CEILING,
+                require_bookable: bool = True) -> List[Acca]:
+    """LEGACY — the acca set only (Acca A + split accas, no singles).
+
+    Kept for callers that want just the accumulator set; the production flow
+    should use `build_production_bets`."""
+    bets = build_production_bets(board, today=today, odds_index=odds_index,
+                                agreement_band=agreement_band,
+                                max_odds_cap=max_odds_cap,
+                                min_odds_floor=min_odds_floor,
+                                preferred_ceiling=preferred_ceiling,
+                                require_bookable=require_bookable)
+    return ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
+
+
+def build_single_accas(singles: List[AccaLeg]) -> List[Acca]:
+    """The singles as 1-leg slips for the booking-code driver.
+
+    `book_accas` drives one SportyBet slip per entry, so a 1-leg acca IS a
+    single — no new booking concept is needed. Label 'SINGLE — <fixture>' lets
+    the renders and the codes file address each single by name."""
+    return [_make_acca(f"SINGLE — {leg.fixture}", [leg]) for leg in singles]
+
+
+def _code_for(codes: Optional[dict], label: str) -> Optional[str]:
+    """The booking code for `label`, or None (renders NO DATA — PENDING, HR35)."""
+    if not codes:
+        return None
+    for r in codes.get("results") or []:
+        if r.get("label") == label:
+            return r.get("code")
+    return None
+
+
+def render_production_block(bets: ProductionBets, codes: Optional[dict] = None,
+                            today: Optional[str] = None,
+                            board: Optional[list] = None) -> str:
+    """Lean production block for Telegram + the saved board.
+
+    ARCHITECT FORMAT (2026-08-11, "use this always"): star on every acca,
+    legs carry fixture + market + price only (no prob/EV), combined odds and
+    booking code on ONE line, no note/footer lines. The honest-edge/capital
+    line lives in the notify envelope, not here. No eligible bets -> an honest
+    'no production pick today' note (a quiet day is a correct result, not a
+    failure).
+
+    VERIFICATION STAMP (Architect directive 2026-08-16 — STOP FABRICATION):
+    every leg carries its own `verification_stamp` (set by `build_production_bets`
+    from the board the gate stamped). VERIFIED legs show `[✓ SportyBet ✓ FlashScore]`;
+    a leg that reached production without a confirmation (e.g. a double-outage
+    keep-but-warn day) shows `[⚠ unverified]`. A leg the gate dropped can never
+    appear here — it was removed from the board before production was built.
+    The same stamp rides through to the web (the leg is serialized into the acca
+    payload), so the two outlets stay byte-faithful (webapp_feed_parity_test).
+
+    `board` is accepted for call-site compatibility (run_daily passes it) but
+    is NOT read — the stamp rides on each `AccaLeg.verification_stamp`, set
+    once at build time. The legs ARE the source of truth.
+
+    ID407 (proposed) — Accumulator compounding disclosure: any multi-leg acca
+    must show the combined probability (product of leg probabilities) with the
+    explicit label that this is arithmetic, not a framework weakness."""
+    today = today or date.today().isoformat()
+
+    def _stamp_for(leg) -> str:
+        # The gate is the only thing that sets verification_stamp; without it
+        # (e.g. a parity test building legs by hand with no board) there is
+        # nothing to stamp — return "" so the lean block is unchanged. Fabricating
+        # a stamp (even an "unverified" one) without the gate running would be
+        # exactly the honesty violation we are ending.
+        return getattr(leg, "verification_stamp", None) or ""
+
+    lines = [f"🎯 PRODUCTION BETS — {today} (today's fixtures only)", ""]
+    accas = ([bets.acca_a] if bets.acca_a else []) + bets.split_accas
+    if not accas and not bets.singles:
+        lines.append("NO production pick today — no deploy-eligible fixture "
+                     "with a live price kicks off today. A valid, honest "
+                     "result (HR35).")
+        return "\n".join(lines)
+
+    for i, acca in enumerate(accas):
+        if i:
+            lines.append("")  # blank line between accas (Architect format)
+        code = _code_for(codes, acca.label)
+        is_headline = acca.label == "Acca A"
+        head = (f"★ {acca.label} — HEADLINE, {acca.n_legs} legs"
+                if is_headline else f"★ {acca.label}  {acca.n_legs} legs")
+        lines.append(head)
+        indent = "    " if is_headline else ""
+        for leg in acca.legs:
+            lines.append(f"{indent}{leg.fixture} ({leg.league}) — "
+                         f"{leg.market_name} @ {leg.price:.2f} "
+                         f"{_stamp_for(leg)}")
+        if acca.combined_odds is not None:
+            lines.append(f"    Combined {acca.combined_odds:.2f} "
+                         f"Booking code: {code or 'NO DATA — PENDING'}")
+        # ID407 — acca compounding disclosure: show combined probability
+        # (product of independent leg probabilities). This is near-certain to
+        # be much lower than any individual leg — this is expected arithmetic,
+        # not a framework weakness.
+        if acca.combined_prob is not None and acca.n_legs > 1:
+            lines.append(f"    Combined prob {acca.combined_prob:.1%} "
+                         f"(product of {acca.n_legs} legs — compounding is arithmetic, not a weakness)")
+        else:
+            lines.append(f"    Booking code: {code or 'NO DATA — PENDING'}")
+
+    if bets.singles:
+        lines.append("")
+        lines.append("  SINGLES — one standalone slip each, own booking code")
+        for leg in bets.singles:
+            code = _code_for(codes, f"SINGLE — {leg.fixture}")
+            lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
+                         f"@ {leg.price:.2f}  Booking code: "
+                         f"{code or 'NO DATA — PENDING'} "
+                         f"{_stamp_for(leg)}")
+
+    # ID420 WATCHLIST (Architect 2026-08-19): legs with odds > 2.00 — flagged for
+    # review, NOT capital-eligible. These do not enter Acca A, split accas, or
+    # singles. The Architect reviews the watchlist separately.
+    if bets.watchlist:
+        lines.append("")
+        lines.append(f"  ⚠ WATCHLIST (ID420 — odds above {MAX_ODDS_CAP:g}) — NOT CAPITAL, review only")
+        for leg in bets.watchlist:
+            lines.append(f"    {leg.fixture} ({leg.league}) — {leg.market_name} "
+                         f"@ {leg.price:.2f}  edge {leg.edge:+.2%}  "
+                         f"{_stamp_for(leg)}")
+
+    # QUARANTINE DISCLOSURE (Audit 2026-08-20): Leagues excluded from Acca A
+    if ACCA_A_QUARANTINE_LEAGUES:
+        lines.append("")
+        lines.append("  ⚠ QUARANTINE (Audit 2026-08-20) — Excluded from Acca A:")
+        for lg in sorted(ACCA_A_QUARANTINE_LEAGUES):
+            lines.append(f"    {lg} (100% miss rate in audit window)")
+    return "\n".join(lines)

@@ -1,0 +1,103 @@
+{
+  "fetched_at": 1788003226.406512,
+  "league": "Championship",
+  "country": "England",
+  "fixtures": [
+    {
+      "id": "40189",
+      "home": "Chengdu Rongcheng",
+      "away": "Liaoning Tieren FC",
+      "kickoff": "12:35  \nID: 40189",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "27129",
+      "home": "Henan",
+      "away": "Chongqing Tonglianglong FC",
+      "kickoff": "13:00  \nID: 27129",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Liverpool",
+      "away": "Nottingham Forest",
+      "kickoff": "02:07\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Middlesbrough FC",
+      "away": "West Bromwich Albion",
+      "kickoff": "02:49\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Derby County",
+      "away": "Swansea City",
+      "kickoff": "03:37\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Wolves",
+      "away": "Stoke City",
+      "kickoff": "02:57\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "UD Oliveirense",
+      "away": "Penalva Do Castelo",
+      "kickoff": "72:51\nH2",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Energie Cottbus",
+      "away": "Greuther Furth",
+      "kickoff": "33:32\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Heidenheim",
+      "away": "Dynamo Dresden",
+      "kickoff": "33:00\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Karlsruher SC",
+      "away": "Wolfsburg",
+      "kickoff": "33:43\nH1",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Tokyo Verdy",
+      "away": "Kashima Antlers",
+      "kickoff": "68:45\nH2",
+      "league": "Championship",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Kawasaki Frontale",
+      "away": "JEF United Chiba",
+      "kickoff": "69:18\nH2",
+      "league": "Championship",
+      "raw_market": {}
+    }
+  ]
+}

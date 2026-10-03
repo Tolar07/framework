@@ -32,14 +32,17 @@ HONESTY ABOUT WHAT IT CANNOT DO
 from __future__ import annotations
 
 import sys
+import unicodedata
+from collections.abc import Callable
 from pathlib import Path
 from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from data.football_data_source import load_league, MatchResult
 from data import api_football_results as apif
-from engine.dixon_coles import fit, DixonColesModel
+from data.football_data_source import MatchResult, load_league
+from engine import elo as elo_engine
+from engine.dixon_coles import DixonColesModel, fit
 
 # Domestic leagues pooled to anchor continental clubs. Every one is already
 # ratified and already loaded elsewhere in the pipeline.
@@ -95,6 +98,10 @@ CONTINENTAL_ALIASES: dict[str, str] = {
     "Club Brugge KV": "Club Brugge",
     "Union St. Gilloise": "St. Gilloise",
     "FC Midtjylland": "Midtjylland",
+    # Champions League 2026-08-18 scan flags — exact accent/case-fold match (score 1.00)
+    "LASK Linz": "Lask Linz",
+    # Viking FK (Norway) — continental feed name -> domestic key
+    "Viking FK": "Viking",
 }
 
 
@@ -102,6 +109,40 @@ def map_continental(name: str) -> str:
     """Continental feed name -> model key. Unknown names pass through so an
     unanchored club is visibly unanchored rather than silently mis-joined."""
     return CONTINENTAL_ALIASES.get(name, name)
+
+
+def _fold_name(s: str) -> str:
+    """Accent- and case-fold for matching ('Fenerbahçe' -> 'fenerbahce')."""
+    return "".join(c for c in unicodedata.normalize("NFD", s)
+                   if unicodedata.category(c) != "Mn").lower()
+
+
+def suggest_aliases(feed_name: str, pool_teams: list[str],
+                    topk: int = 3, cutoff: float = 0.6) -> list[tuple[str, float]]:
+    """Candidates in the fitted pool that an unknown feed name most likely IS.
+
+    Used when a fixtures feed returns a team the model doesn't know (a new
+    qualifying entrant, a renamed club, a different transliteration). An exact
+    accent/case-folded match wins outright (score 1.0); otherwise difflib fuzzy
+    matches against the pool. Returns [(pool_name, similarity)] best-first,
+    empty when nothing clears the cutoff.
+
+    This is a SUGGESTION for a human to verify — never applied automatically.
+    An unverified alias is a silent mis-rating (the same bright line
+    verify_aliases() enforces on CONTINENTAL_ALIASES)."""
+    folded = _fold_name(feed_name)
+    exact = [t for t in pool_teams if _fold_name(t) == folded]
+    if exact:
+        return [(exact[0], 1.0)]
+    pool_folded = {_fold_name(t): t for t in pool_teams}
+    import difflib
+    candidates = difflib.get_close_matches(folded, list(pool_folded.keys()),
+                                           n=topk, cutoff=cutoff)
+    out = []
+    for c in candidates:
+        score = round(difflib.SequenceMatcher(None, folded, c).ratio(), 3)
+        out.append((pool_folded[c], score))
+    return out
 
 
 def verify_aliases(domestic_names: set[str]) -> list[str]:
@@ -185,10 +226,19 @@ def build_pool(competition: str, season: int = 2024,
 
 def fit_cross_league(competition: str, season: int = 2024,
                       anchor_season: str = "2425",
-                      min_matches_per_team: int = 6
+                      min_matches_per_team: int = 6,
+                      pool: Optional[tuple[list[MatchResult], dict]] = None
                       ) -> tuple[Optional[DixonColesModel], dict, list[str]]:
-    """One model spanning every pooled league. Returns (model, info, flags)."""
-    pooled, info, flags = build_pool(competition, season, anchor_season)
+    """One model spanning every pooled league. Returns (model, info, flags).
+
+    `pool=(pooled, info)` lets the caller build the pool once and reuse it
+    (e.g. for the Elo source and for the brain's content-hash) instead of
+    build_pool being called twice per continental league."""
+    if pool is not None:
+        pooled, info = pool
+        flags: list[str] = []
+    else:
+        pooled, info, flags = build_pool(competition, season, anchor_season)
     if len(pooled) < 200:
         flags.append(f"{competition}: pooled history too thin ({len(pooled)}) "
                      f"— NO DATA — PENDING")
@@ -214,3 +264,141 @@ def fit_cross_league(competition: str, season: int = 2024,
         f"1X2 here as indicative only. This competition is scan-only under "
         f"ID402 regardless, so none of it can reach capital.")
     return model, info, flags
+
+
+# ---------------------------------------------------------------------------
+# ELO BLEND WEIGHT (Phase 3.2) — how much continental matches should count.
+#
+# WHY A WEIGHT AT ALL
+#   Elo is structurally cross-league: a Dutch club beating an English one moves
+#   both ratings on one scale, so the pooled fit makes continental 1X2
+#   possible. But every match moves ratings by the SAME K-FACTOR, so a club's
+#   38 domestic results speak exactly as loudly as its 8 European ones. When a
+#   continental fixture is being priced, the European matches are the DIRECT
+#   evidence of cross-league strength — the domestic ones built the rating on a
+#   scale that was never linked to the opponent's. The pool's own caveat above
+#   (Celtic rated above Real Madrid) is exactly this: 38 weak-league domestic
+#   matches drowning the 8 European ones that would correct them.
+#
+# THE BLEND
+#   Weight every continental match in the pooled Elo by a constant `w` relative
+#   to 1.0 for domestic ones (engine/elo.py rate_through(match_weight=...)).
+#   w > 1 lets the European record speak louder exactly where it is the
+#   strongest evidence. This is NOT a new rating system — it is the same Elo,
+#   with the same leakage-free walk, just reading the direct evidence harder.
+#
+# HOW THE WEIGHT IS CHOSEN (honesty, HR35)
+#   - EVIDENCE-GATED: needs >= MIN_BLEND_MATCHES continental matches in the
+#     pool, or the engine is untouched.
+#   - PROVEN OUT-OF-SAMPLE: every candidate w is scored by Brier on the pooled
+#     continental matches, each predicted from ratings that existed BEFORE the
+#     match (the leak-free scorer hook in rate_through). The w with the lowest
+#     Brier wins.
+#   - NO-GAIN -> IDENTITY: unless the winner beats w=1.0 by MIN_BLEND_IMPROVEMENT
+#     Brier points, the weight is left at 1.0 and the model is exactly the
+#     classic engine. The optimiser can never force a change the evidence
+#     didn't earn.
+#   - LOUD: fit_blend_weight returns a flag stating whether the weight was
+#     applied, and the orchestrator surfaces it on the board.
+# ---------------------------------------------------------------------------
+
+# The candidate weights for the continental-match multiplier, 0.5..3.0 in
+# half-steps. 1.0 (the classic engine) is always on the grid, so identity is
+# always a candidate rather than an assumption.
+BLEND_WEIGHT_GRID: tuple[float, ...] = (0.5, 1.0, 1.5, 2.0, 2.5, 3.0)
+# A pool needs at least this many continental matches before ANY weight is fit.
+MIN_BLEND_MATCHES = 50
+# Brier points the best weight must beat w=1.0 by (0.005 = half a point).
+MIN_BLEND_IMPROVEMENT = 0.005
+
+
+def continental_weight(w: float) -> Callable:
+    """A match_weight callable for elo.rate_through: maps each pooled match to
+    its update weight — `w` for a continental bridge match, 1.0 for a domestic
+    one. w=1.0 reproduces the classic engine exactly."""
+    def _weight(r) -> float:
+        return w if r.league in apif.BRIDGE_COMPETITIONS else 1.0
+    return _weight
+
+
+def _weighted_continental_brier(pooled: list[MatchResult], w: float,
+                                burn_in: int) -> tuple[float | None, int]:
+    """Out-of-sample 1X2 Brier on the continental matches of a pooled graph,
+    rated with continental matches weighted `w` relative to domestic ones.
+
+    Uses the leak-free scorer hook in rate_through: every continental match is
+    scored from ratings built only from matches BEFORE it, so the weight is
+    judged exactly as it will be used. Returns (mean_brier, n_scored); brier is
+    None when no continental match was scoreable (both clubs too thin)."""
+    total = 0.0
+    n = 0
+
+    def _score(model: elo_engine.EloModel, r: MatchResult) -> None:
+        nonlocal total, n
+        if r.league not in apif.BRIDGE_COMPETITIONS:
+            return  # only continental matches are the evidence under test
+        probs = model.probabilities(r.home_team, r.away_team)
+        if probs is None:
+            return  # a too-thin club gets no score, exactly as on the board
+        target = {"H": (1.0, 0.0, 0.0), "D": (0.0, 1.0, 0.0),
+                  "A": (0.0, 0.0, 1.0)}[r.ftr]
+        total += sum((p - y) ** 2 for p, y in zip(probs, target, strict=True))
+        n += 1
+
+    elo_engine.rate_through(pooled, burn_in=burn_in,
+                            match_weight=continental_weight(w), scorer=_score)
+    return (total / n if n else None), n
+
+
+def fit_blend_weight(pooled: list[MatchResult],
+                     grid: tuple[float, ...] = BLEND_WEIGHT_GRID,
+                     burn_in: int | None = None,
+                     min_matches: int = MIN_BLEND_MATCHES,
+                     min_improvement: float = MIN_BLEND_IMPROVEMENT,
+                     ) -> tuple[float, dict]:
+    """Find the continental-match weight that minimises out-of-sample Brier.
+
+    Returns (w, info). `info` always carries `applied` and a `flag` so the
+    caller can report honestly: the weight is 1.0 (the classic engine, applied
+    or not) unless a grid point provably beats it — never a fabricated change.
+    The grid always contains 1.0, so identity is a candidate, not a fallback.
+    """
+    if burn_in is None:
+        burn_in = elo_engine.BURN_IN_PASSES
+    n_cont = sum(1 for r in pooled if r.league in apif.BRIDGE_COMPETITIONS)
+    info: dict = {"n_continental": n_cont, "grid": list(grid), "applied": False}
+    if n_cont < min_matches:
+        info["flag"] = (f"ELO blend weight: only {n_cont} continental matches "
+                        f"(< {min_matches}) — NO DATA — PENDING")
+        return 1.0, info
+
+    scored: dict[float, tuple[float | None, int]] = {
+        w: _weighted_continental_brier(pooled, w, burn_in) for w in grid}
+    info["evaluated"] = scored
+    n = max((n for _b, n in scored.values()), default=0)
+    info["n_scored"] = n
+    if n < 1:
+        info["flag"] = ("ELO blend weight: no continental match was scoreable "
+                        "(every club too thin) — NO DATA — PENDING")
+        return 1.0, info
+
+    base = scored[1.0][0]
+    best_w = min((w for w in grid if scored[w][0] is not None),
+                 key=lambda w: scored[w][0])   # ties -> smallest w
+    best = scored[best_w][0]
+    if best_w == 1.0 or best is None or best >= base - min_improvement:
+        info["flag"] = (f"ELO blend weight: no evidence a weight helps "
+                        f"(Brier {base:.4f} at w=1.0; best {best_w} "
+                        f"{best:.4f}) — left at 1.0")
+        return 1.0, info
+
+    info["applied"] = True
+    info["w"] = best_w
+    info["brier_w1"] = base
+    info["brier_best"] = best
+    info["improvement_pp"] = round((base - best) * 100, 2)
+    info["flag"] = (f"ELO blend weight w={best_w} applied — continental "
+                    f"matches count {best_w}x domestic (Brier "
+                    f"{base:.4f} -> {best:.4f} on {n} out-of-sample "
+                    f"continental matches, +{info['improvement_pp']}pp)")
+    return best_w, info

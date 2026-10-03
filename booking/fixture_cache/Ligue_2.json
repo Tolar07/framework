@@ -1,0 +1,119 @@
+{
+  "fetched_at": 1787944466.8302855,
+  "league": "Ligue 2",
+  "country": "France",
+  "fixtures": [
+    {
+      "id": "19137",
+      "home": "AC Juvenes/Dogana",
+      "away": "SC Faetano",
+      "kickoff": "20:15  \nID: 19137",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "29266",
+      "home": "San Marino Academy",
+      "away": "FC Fiorentino",
+      "kickoff": "20:15  \nID: 29266",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "43867",
+      "home": "SP Cailungo",
+      "away": "FC Domagnano",
+      "kickoff": "20:15  \nID: 43867",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "29622",
+      "home": "SS Folgore Falciano Calcio",
+      "away": "SS Murata",
+      "kickoff": "20:15  \nID: 29622",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Crystal Palace",
+      "away": "Man City",
+      "kickoff": "13:19\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Bayern Munich",
+      "away": "Stuttgart",
+      "kickoff": "41:42\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "AC Milan",
+      "away": "Venezia FC",
+      "kickoff": "24:38\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Lille",
+      "away": "PSG",
+      "kickoff": "14:11\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Wrexham AFC",
+      "away": "Birmingham City",
+      "kickoff": "13:44\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "FC Groningen",
+      "away": "Fortuna Sittard",
+      "kickoff": "55:19\nH2",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "SC Beira Mar",
+      "away": "CF Uniao de Lamas",
+      "kickoff": "12:07\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "Tenerife CD",
+      "away": "Sporting Gijon",
+      "kickoff": "14:05\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "1",
+      "home": "US Cremonese",
+      "away": "Modena FC",
+      "kickoff": "41:40\nH1",
+      "league": "Ligue 2",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Clermont Foot",
+      "away": "Sochaux-Montbeliard",
+      "kickoff": "56:45\nH2",
+      "league": "Ligue 2",
+      "raw_market": {}
+    }
+  ]
+}

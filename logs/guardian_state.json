@@ -1,0 +1,294 @@
+{
+  "timestamp": "2026-08-28T21:12:22.905127+00:00",
+  "health": [
+    {
+      "name": "phase",
+      "level": "ok",
+      "message": "paper-only held (Phase 3 \u2014 live capital (Architect-deployed))",
+      "healed": false
+    },
+    {
+      "name": "env",
+      "level": "ok",
+      "message": "5 required keys set",
+      "healed": false
+    },
+    {
+      "name": "brain",
+      "level": "ok",
+      "message": "schema v10, 163 model state(s)",
+      "healed": false
+    },
+    {
+      "name": "ledger",
+      "level": "ok",
+      "message": "76 paper leg(s)",
+      "healed": false
+    },
+    {
+      "name": "quota",
+      "level": "critical",
+      "message": "0 requests left (hard floor 1) \u2014 the daily run may be unable to pull any odds",
+      "healed": false
+    },
+    {
+      "name": "caches",
+      "level": "warn",
+      "message": "2._Bundesliga_1d.json (fixtures, 96h old); 2._Bundesliga_5d.json (fixtures, 261h old); Austrian_Bundesliga_0d.json (fixtures, 176h old); Belgian_Pro_League_1d.json (fixtures, 96h old) (+44 more)",
+      "healed": false
+    },
+    {
+      "name": "data_quality",
+      "level": "critical",
+      "message": "CALIBRATION: Bin 0.8-0.9: n=84, hit_rate=40.5%, avg_prob=84.8%, err=-44.3pp; CALIBRATION: Bin 0.9-1.0: n=37, hit_rate=54.1%, avg_prob=95.4%, err=-41.4pp (+4 more)",
+      "healed": false
+    },
+    {
+      "name": "last_run",
+      "level": "ok",
+      "message": "2026-08-28: run complete and delivered",
+      "healed": false
+    },
+    {
+      "name": "dashboard",
+      "level": "ok",
+      "message": "server up on :8088",
+      "healed": false
+    },
+    {
+      "name": "circuits",
+      "level": "ok",
+      "message": "13 source(s) across 5 group(s) healthy",
+      "healed": false
+    }
+  ],
+  "data_quality": [
+    {
+      "level": "warn",
+      "league": "2. Bundesliga",
+      "problem": "no 2526 results cache \u2014 coverage gap (fixtures stay NO DATA \u2014 PENDING; the Phase 3 gate cannot fill itself)"
+    },
+    {
+      "level": "warn",
+      "league": "CALIBRATION",
+      "problem": "Bin 0.3-0.4: n=342, hit_rate=28.7%, avg_prob=34.0%, err=-5.4pp"
+    },
+    {
+      "level": "warn",
+      "league": "CALIBRATION",
+      "problem": "Bin 0.4-0.5: n=244, hit_rate=39.3%, avg_prob=46.2%, err=-6.8pp"
+    },
+    {
+      "level": "warn",
+      "league": "CALIBRATION",
+      "problem": "Bin 0.5-0.6: n=171, hit_rate=70.8%, avg_prob=53.8%, err=+16.9pp"
+    },
+    {
+      "level": "error",
+      "league": "CALIBRATION",
+      "problem": "Bin 0.8-0.9: n=84, hit_rate=40.5%, avg_prob=84.8%, err=-44.3pp"
+    },
+    {
+      "level": "error",
+      "league": "CALIBRATION",
+      "problem": "Bin 0.9-1.0: n=37, hit_rate=54.1%, avg_prob=95.4%, err=-41.4pp"
+    }
+  ],
+  "steward": {
+    "pass": "2026-08-28T21:10:03+00:00",
+    "duration_s": 724.2,
+    "fixtures_season": "2627",
+    "sources": {
+      "sportybet": {
+        "fetched_at": "2026-08-28T20:57:59+00:00",
+        "ok": true,
+        "detail": "26 league(s) cached, 82 fixture(s) \u2014 Belgian Pro League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey\u2026"
+      },
+      "odds": {
+        "fetched_at": "2026-08-28T20:57:59+00:00",
+        "ok": false,
+        "detail": "Odds API quota spent (0 left, floor 40) \u2014 primary down, fallback must serve"
+      },
+      "af_odds": {
+        "fetched_at": "2026-08-28T20:57:59+00:00",
+        "ok": true,
+        "detail": "warmed 4 of 10 attempted league(s) (6 had nothing in window)"
+      },
+      "tsdb": {
+        "fetched_at": "2026-08-28T20:57:59+00:00",
+        "ok": true,
+        "detail": "17 league(s) with upcoming fixtures, 10 not carried (Conference League, Copa del Rey, Coppa Italia, Coupe de France)"
+      },
+      "espn": {
+        "fetched_at": "2026-08-28T20:57:59+00:00",
+        "ok": true,
+        "detail": "17 league(s) covered, 12 no ESPN slug (Copa del Rey, Coppa Italia, Coupe de France, DFB-Pokal)"
+      },
+      "clubelo": {
+        "fetched_at": "2026-08-28T20:57:59+00:00",
+        "ok": true,
+        "detail": "594 club(s) in the 2026-08-11 snapshot"
+      },
+      "fdc": {
+        "fetched_at": "2026-08-28T20:57:59+00:00",
+        "ok": true,
+        "detail": "5 live-season file(s): Austrian_Bundesliga_all.csv, Danish_Superliga_all.csv, Ekstraklasa_all.csv, Norwegian_Eliteserien_all.csv\u2026"
+      }
+    }
+  },
+  "watchdog": {
+    "complete": true,
+    "reasons": [
+      "2026-08-28: daily run complete and delivered \u2014 OK"
+    ]
+  },
+  "dead_man": {
+    "complete": true,
+    "reasons": [
+      "2026-08-28: 07:00 run complete and delivered \u2014 OK"
+    ]
+  },
+  "quota": {
+    "used": 500,
+    "remaining": 0
+  },
+  "overall": "critical",
+  "health_probes": {
+    "phase": "",
+    "env": "",
+    "brain": "",
+    "ledger": "",
+    "quota": "quota:critical",
+    "caches": "caches:warn",
+    "data_quality": "data_quality:critical",
+    "last_run": "",
+    "dashboard": "",
+    "circuits": ""
+  },
+  "health_probes_at": {
+    "phase": 1787951542,
+    "env": 1787951542,
+    "brain": 1787951542,
+    "ledger": 1787951542,
+    "quota": 1787951542,
+    "caches": 1787951542,
+    "data_quality": 1787951542,
+    "last_run": 1787951542,
+    "dashboard": 1787951542,
+    "circuits": 1787951542
+  },
+  "data_quality_probes": {
+    "dq_2. Bundesliga_0": "dq_2. Bundesliga_0:warn",
+    "dq_CALIBRATION_1": "dq_CALIBRATION_1:warn",
+    "dq_CALIBRATION_2": "dq_CALIBRATION_2:warn",
+    "dq_CALIBRATION_3": "dq_CALIBRATION_3:warn",
+    "dq_CALIBRATION_4": "dq_CALIBRATION_4:error",
+    "dq_CALIBRATION_5": "dq_CALIBRATION_5:error"
+  },
+  "data_quality_probes_at": {
+    "dq_2. Bundesliga_0": 1787951542,
+    "dq_CALIBRATION_1": 1787951542,
+    "dq_CALIBRATION_2": 1787951542,
+    "dq_CALIBRATION_3": 1787951542,
+    "dq_CALIBRATION_4": 1787951542,
+    "dq_CALIBRATION_5": 1787951542
+  },
+  "steward_probes": {
+    "steward_sportybet": "",
+    "steward_odds": "steward_odds:critical",
+    "steward_af_odds": "",
+    "steward_tsdb": "",
+    "steward_espn": "",
+    "steward_clubelo": "",
+    "steward_fdc": ""
+  },
+  "steward_probes_at": {
+    "steward_sportybet": 1787951542,
+    "steward_odds": 1787951542,
+    "steward_af_odds": 1787951542,
+    "steward_tsdb": 1787951542,
+    "steward_espn": 1787951542,
+    "steward_clubelo": 1787951542,
+    "steward_fdc": 1787951542
+  },
+  "delivery_probes": {
+    "delivery_watchdog": "",
+    "delivery_dead_man": ""
+  },
+  "delivery_probes_at": {
+    "delivery_watchdog": 1787951542,
+    "delivery_dead_man": 1787951542
+  },
+  "remediation": [
+    {
+      "name": "quota_exhausted",
+      "description": "Quota at hard floor (0/1)",
+      "success": false,
+      "detail": "All keys exhausted \u2014 needs fresh key or monthly reset. Steward will attempt api-football fallback for fixture lists.",
+      "timestamp": "2026-08-28T21:12:24.177367+00:00"
+    },
+    {
+      "name": "sportybet_cache_fresh",
+      "description": "SportyBet cache fresh (0.2h)",
+      "success": true,
+      "detail": "26 league(s) cached, 82 fixture(s) \u2014 Belgian Pro League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey\u2026",
+      "timestamp": "2026-08-28T21:12:24.177421+00:00"
+    },
+    {
+      "name": "odds_cache_stale",
+      "description": "Odds primary source failed \u2014 fallback engaged",
+      "success": false,
+      "detail": "Odds API quota spent (0 left, floor 40) \u2014 primary down, fallback must serve",
+      "timestamp": "2026-08-28T21:12:24.177441+00:00"
+    },
+    {
+      "name": "calibration_drift",
+      "description": "Calibration bin error: Bin 0.3-0.4: n=342, hit_rate=28.7%, avg_prob=34.0%, err=-5.4pp",
+      "success": true,
+      "detail": "Absolute error: 5.4pp (threshold 5.0pp). Queue shadow recalibration.",
+      "timestamp": "2026-08-28T21:12:24.177477+00:00"
+    },
+    {
+      "name": "calibration_drift",
+      "description": "Calibration bin error: Bin 0.4-0.5: n=244, hit_rate=39.3%, avg_prob=46.2%, err=-6.8pp",
+      "success": true,
+      "detail": "Absolute error: 6.8pp (threshold 5.0pp). Queue shadow recalibration.",
+      "timestamp": "2026-08-28T21:12:24.177498+00:00"
+    },
+    {
+      "name": "calibration_drift",
+      "description": "Calibration bin error: Bin 0.5-0.6: n=171, hit_rate=70.8%, avg_prob=53.8%, err=+16.9pp",
+      "success": true,
+      "detail": "Absolute error: 16.9pp (threshold 5.0pp). Queue shadow recalibration.",
+      "timestamp": "2026-08-28T21:12:24.177514+00:00"
+    },
+    {
+      "name": "calibration_drift",
+      "description": "Calibration bin error: Bin 0.8-0.9: n=84, hit_rate=40.5%, avg_prob=84.8%, err=-44.3pp",
+      "success": false,
+      "detail": "Absolute error: 44.3pp (threshold 5.0pp). Queue shadow recalibration.",
+      "timestamp": "2026-08-28T21:12:24.177527+00:00"
+    },
+    {
+      "name": "calibration_drift",
+      "description": "Calibration bin error: Bin 0.9-1.0: n=37, hit_rate=54.1%, avg_prob=95.4%, err=-41.4pp",
+      "success": false,
+      "detail": "Absolute error: 41.4pp (threshold 5.0pp). Queue shadow recalibration.",
+      "timestamp": "2026-08-28T21:12:24.177538+00:00"
+    },
+    {
+      "name": "sportybet_coverage_ok",
+      "description": "SportyBet cache has 82 fixtures",
+      "success": true,
+      "detail": "26 league(s) cached, 82 fixture(s) \u2014 Belgian Pro League, Bundesliga, Champions League, Championship, Conference League, Copa del Rey\u2026",
+      "timestamp": "2026-08-28T21:12:24.177555+00:00"
+    },
+    {
+      "name": "delivery_ok",
+      "description": "Daily run complete and delivered",
+      "success": true,
+      "detail": "Watchdog verified",
+      "timestamp": "2026-08-28T21:12:24.177565+00:00"
+    }
+  ]
+}

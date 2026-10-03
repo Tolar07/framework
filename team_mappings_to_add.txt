@@ -1,0 +1,166 @@
+"Wolfsberger AC": "Wolfsberger AC",  # Austrian Bundesliga
+"Bristol Rovers": "Bristol Rovers",  # EFL Trophy
+"Chelsea U21": "Chelsea U21",  # EFL Trophy
+"FC Twente Enschede W": "FC Twente Enschede W",  # Eredivisie
+"de Graafschap": "de Graafschap",  # Eredivisie
+"KF Llapi": "KF Llapi",  # Kosovan Superliga
+"SC Gjilani": "SC Gjilani",  # Kosovan Superliga
+"FC Annecy": "FC Annecy",  # Ligue 2
+"Grenoble Foot": "Grenoble Foot",  # Ligue 2
+"Nancy-Lorraine": "Nancy-Lorraine",  # Ligue 2
+"Pau FC": "Pau FC",  # Ligue 2
+"Rodez Aveyron Football": "Rodez Aveyron Football",  # Ligue 2
+"Stade Lavallois MFC": "Stade Lavallois MFC",  # Ligue 2
+"US Boulogne": "US Boulogne",  # Ligue 2
+"USL Dunkerque": "USL Dunkerque",  # Ligue 2
+"Dacia Buiucani": "Dacia Buiucani",  # Moldovan Super Liga
+"FC Politehnica Chisinau": "FC Politehnica Chisinau",  # Moldovan Super Liga
+"St. Johnstone FC": "St. Johnstone FC",  # Scottish Premiership
+"Ascoli Calcio 1898": "Ascoli Calcio 1898",  # Serie B
+"Calcio Padova": "Calcio Padova",  # Serie B
+"Juve Stabia": "Juve Stabia",  # Serie B
+"Verona": "Verona",  # Serie B
+"NK Radomlje": "NK Radomlje",  # Slovenian PrvaLiga
+"SCR Altach": "Altach",  # Austrian Bundesliga
+"SV Ried": "Ried",  # Austrian Bundesliga
+"TSV Hartberg": "Hartberg",  # Austrian Bundesliga
+"WSG Tirol": "Tirol",  # Austrian Bundesliga
+"Lech Poznań": "Lech Poznan",  # Ekstraklasa
+"KKS Lech Poznan": "Lech Poznan",  # Ekstraklasa
+"RKS Radomiak Radom": "Radomiak Radom",  # Ekstraklasa
+"GKS Piast Gliwice": "Piast Gliwice",  # Ekstraklasa
+"LKP Motor Lublin": "Motor Lublin",  # Ekstraklasa
+"KS Cracovia Krakow": "Cracovia",  # Ekstraklasa
+"S\xf8nderjyske": "Sonderjyske",  # Danish Superliga
+"Copenhagen": "FC Copenhagen",  # Danish Superliga
+"SonderjyskE": "Sonderjyske",  # Danish Superliga
+"Charlton Athletic": "Charlton",  # Championship
+"Queens Park Rangers": "QPR",  # Championship
+"West Bromwich Albion": "West Brom",  # Championship
+"Bolton Wanderers": "Bolton",  # Championship
+"Portsmouth FC": "Portsmouth",  # Championship
+"Athletic Bilbao": "Ath Bilbao",  # La Liga
+"Rayo Vallecano": "Vallecano",  # La Liga
+"Real Sociedad": "Sociedad",  # La Liga
+"AC Milan": "Milan",  # Serie A
+"FC Torino": "Torino",  # Serie A
+"US Lecce": "Lecce",  # Serie A
+"Bayer Leverkusen": "Leverkusen",  # Bundesliga
+"Borussia M\xf6nchengladbach": "M'gladbach",  # Bundesliga
+"Eintracht Frankfurt": "Ein Frankfurt",  # Bundesliga
+"K\xf6ln": "FC Koln",  # Bundesliga
+"Hamburger SV": "Hamburg",  # Bundesliga
+"Paris Saint-Germain": "Paris SG",  # Ligue 1
+"Estrela Amadora": "Estrela",  # Primeira Liga
+"Nacional de Madeira": "Nacional",  # Primeira Liga
+"Alverca Futebol": "Alverca",  # Primeira Liga
+"FC Arouca": "Arouca",  # Primeira Liga
+"FC Famalicao": "Famalicao",  # Primeira Liga
+"Moreirense FC": "Moreirense",  # Primeira Liga
+"Paris Saint-Germain": "Paris SG",  # UEFA Super Cup
+"Istra 1961": "Istra 1961",  # HNL
+"NK Istra 1961": "Istra 1961",  # HNL
+"Istra1961": "Istra 1961",  # HNL
+"Partizani Tirana": "Partizani",  # Albanian Superliga
+"Laçi": "Laci",  # Albanian Superliga
+"Elbasani": "AF Elbasani",  # Albanian Superliga
+"Dinamo City": "Dinamo Tirana",  # Albanian Superliga
+"Vllaznia": "Vllaznia Shkodër",  # Albanian Superliga
+"Vllaznia Shkodër": "Vllaznia Shkodër",  # Albanian Superliga
+"Skënderbeu Korçë": "Skenderbeu Korce",  # Albanian Superliga
+"Újpest": "Ujpest",  # Hungarian NB I
+"Puskás Akadémia": "Puskas Academy",  # Hungarian NB I
+"Győri ETO": "Gyori ETO FC",  # Hungarian NB I
+"Zalaegerszeg": "Zalaegerszegi TE",  # Hungarian NB I
+"Ferencváros": "Ferencvarosi TC",  # Hungarian NB I
+"Nyíregyháza": "Nyiregyhaza",  # Hungarian NB I
+"Wiltz 71": "Wiltz",  # Luxembourg National Division
+"Differdange 03": "FC Differdange 03",  # Luxembourg National Division
+"Racing Union Luxembourg": "Racing FC Union Luxembourg",  # Luxembourg National Division
+"Jeunesse Esch": "AS Jeunesse Esch",  # Luxembourg National Division
+"Mondorf-les-Bains": "US Mondorf-les-bains",  # Luxembourg National Division
+"Hostert": "US Hostert",  # Luxembourg National Division
+"Progrès Niederkorn": "Progres Niederkorn",  # Luxembourg National Division
+"Rumelange": "Rumelange",  # Luxembourg National Division
+"Kaerjeng 97": "Kaerjeng 97",  # Luxembourg National Division
+"Residence Walferdange": "Residence Walferdange",  # Luxembourg National Division
+"UNA Strassen": "UNA Strassen",  # Luxembourg National Division
+"Victoria Rosport": "Victoria Rosport",  # Luxembourg National Division
+"Etzella Ettelbruck": "Etzella Ettelbruck",  # Luxembourg National Division
+"Swift Hesperange": "Swift Hesperange",  # Luxembourg National Division
+"Atert Bissen": "Atert Bissen",  # Luxembourg National Division
+"F91 Dudelange": "F91 Dudelange",  # Luxembourg National Division
+"Petrolul Ploiești": "Petrolul Ploiesti",  # Romanian Liga I
+"Farul Constanța": "Farul Constanta",  # Romanian Liga I
+"Dinamo București": "Dinamo Bucuresti",  # Romanian Liga I
+"Oțelul Galați": "Oţelul",  # Romanian Liga I
+"CFR Cluj": "CFR 1907 Cluj",  # Romanian Liga I
+"Botoșani": "FC Botosani",  # Romanian Liga I
+"UTA Arad": "Uta Arad",  # Romanian Liga I
+"Rapid București": "Rapid Bucuresti",  # Romanian Liga I
+"Rosenborg BK": "Rosenborg",  # Norwegian Eliteserien
+"Viking FK": "Viking",  # Norwegian Eliteserien
+"Brann Bergen": "Brann",  # Norwegian Eliteserien
+"Tromsø IL": "Tromso",  # Norwegian Eliteserien
+"Sandefjord Fotball": "Sandefjord",  # Norwegian Eliteserien
+"Haugesund FK": "Haugesund",  # Norwegian Eliteserien
+"Odds BK": "Odd",  # Norwegian Eliteserien
+"Sarpsborg 08 FF": "Sarpsborg",  # Norwegian Eliteserien
+"KFUM Oslo": "KFUM",  # Norwegian Eliteserien
+"FK Jerv": "Jerv",  # Norwegian Eliteserien
+"Stabæk Fotball": "Stabaek",  # Norwegian Eliteserien
+"Fredrikstad FK": "Fredrikstad",  # Norwegian Eliteserien
+"Malmö FF": "Malmo",  # Swedish Allsvenskan
+"AIK Stockholm": "AIK",  # Swedish Allsvenskan
+"IFK Göteborg": "IFK Goteborg",  # Swedish Allsvenskan
+"Djurgårdens IF": "Djurgarden",  # Swedish Allsvenskan
+"Hammarby IF": "Hammarby",  # Swedish Allsvenskan
+"IF Elfsborg": "Elfsborg",  # Swedish Allsvenskan
+"IFK Norrköping": "Norrkoping",  # Swedish Allsvenskan
+"BK Häcken": "Hacken",  # Swedish Allsvenskan
+"IFK Värnamo": "Varbergs",  # Swedish Allsvenskan
+"IK Sirius": "Sirius",  # Swedish Allsvenskan
+"Västerås SK": "Vasteras",  # Swedish Allsvenskan
+"GAIS": "GAIS",  # Swedish Allsvenskan
+"Halmstads BK": "Halmstad",  # Swedish Allsvenskan
+"IF Brommapojkarna": "Brommapojkarna",  # Swedish Allsvenskan
+"Kalmar FF": "Kalmar",  # Swedish Allsvenskan
+"Čukarički": "Cukaricki",  # Serbian Super Liga
+"Radnički 1923": "Radnicki 1923",  # Serbian Super Liga
+"Mladost Lučani": "Mladost Lucani",  # Serbian Super Liga
+"Radnički Niš": "Radnicki NIS",  # Serbian Super Liga
+"Mačva Šabac": "Macva Sabac",  # Serbian Super Liga
+"FK Zeleznicar": "Železničar Pančevo",  # Serbian Super Liga
+"OFK Beograd": "OFK Beograd",  # Serbian Super Liga
+"Zemun": "Zemun",  # Serbian Super Liga
+"IMT Beograd": "IMT Novi Beograd",  # Serbian Super Liga
+"Partizan Belgrade": "FK Partizan",  # Serbian Super Liga
+"Radnicki 1923": "Radnicki 1923",  # Serbian Super Liga
+"Radnicki NIS": "Radnicki NIS",  # Serbian Super Liga
+"Mladost Lucani": "Mladost Lucani",  # Serbian Super Liga
+"Železiarne Podbrezová": "Podbrezová",  # Slovak Super Liga
+"Trenčín": "AS Trencin",  # Slovak Super Liga
+"Košice": "FK Košice",  # Slovak Super Liga
+"DAC 1904 Dunajská Streda": "Dunajska Streda",  # Slovak Super Liga
+"Podbrezová": "Podbrezová",  # Slovak Super Liga
+"AS Trencin": "AS Trencin",  # Slovak Super Liga
+"FK Košice": "FK Košice",  # Slovak Super Liga
+"Dunajska Streda": "Dunajska Streda",  # Slovak Super Liga
+"Spartak Trnava": "Spartak Trnava",  # Slovak Super Liga
+"Bălți": "CSF Bălți",  # Moldovan Super Liga
+"CSF Bălți": "CSF Bălți",  # Moldovan Super Liga
+"Dacia Buiucani": "Dacia-Buiucani",  # Moldovan Super Liga
+"Dacia-Buiucani": "Dacia-Buiucani",  # Moldovan Super Liga
+"Petrocub Hîncești": "Petrocub",  # Moldovan Super Liga
+"Petrocub": "Petrocub",  # Moldovan Super Liga
+"Zimbru Chișinău": "Zimbru Chisinau",  # Moldovan Super Liga
+"Real Sireți": "Real Sireti",  # Moldovan Super Liga
+"Politehnica UTM": "Politehnica UTM",  # Moldovan Super Liga
+"Milsami Orhei": "Milsami",  # Moldovan Super Liga
+"İstanbul Başakşehir": "Başakşehir",  # Turkish Super Lig
+"Başakşehir": "Başakşehir",  # Turkish Super Lig
+"Kocaelispor": "Kayserispor",  # Turkish Super Lig
+"Kayserispor": "Kayserispor",  # Turkish Super Lig
+"Çorum": "Corum",  # Turkish Super Lig
+"Gençlerbirliği": "Genclerbirligi",  # Turkish Super Lig
+"Amed": "Amed",  # Turkish Super Lig

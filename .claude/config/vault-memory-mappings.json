@@ -1,0 +1,19 @@
+{
+  "FILE_MAPPINGS": [
+    { "vault": "Agents.md", "memory": "olp-xdv-agent.md", "direction": "bidirectional" },
+    { "vault": "Architecture.md", "memory": "architecture.md", "direction": "vault-to-memory" },
+    { "vault": "Decisions Log.md", "memory": "decisions-log.md", "direction": "vault-to-memory" },
+    { "vault": "Open Questions.md", "memory": "open-questions.md", "direction": "bidirectional" },
+    { "vault": "Protected Constants.md", "memory": "protected-constants.md", "direction": "vault-to-memory" },
+    { "vault": "Rules.md", "memory": "rules.md", "direction": "bidirectional" },
+    { "vault": "Loops.md", "memory": "loops.md", "direction": "vault-to-memory" },
+    { "vault": "README.md", "memory": "readme.md", "direction": "vault-to-memory" },
+    { "vault": "Vault-Memory-Index.md", "memory": "MEMORY.md", "direction": "bidirectional" },
+    { "vault": "OLP_XDV_Framework_Index.md", "memory": "framework-index.md", "direction": "vault-to-memory" },
+    { "vault": "Audit Reports.md", "memory": "conversations/", "direction": "memory-to-vault-append" },
+    { "vault": "STATE.md", "memory": "state.md", "direction": "bidirectional" },
+    { "vault": "OLP XDV.md", "memory": "olp-xdv.md", "direction": "vault-to-memory" },
+    { "vault": "API Keys.md", "memory": "api-keys.md", "direction": "vault-to-memory" },
+    { "vault": "Viking Match Analysis 2026-08-18.md", "memory": "viking-match-analysis.md", "direction": "vault-to-memory" }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "_comment": "Logging configuration for OLP XDV - log levels, formats, and destinations",
+  "level": "INFO",
+  "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+  "file_path": "olp_xdv.log",
+  "max_file_size": 10485760,
+  "backup_count": 5,
+  "console_enabled": true,
+  "file_enabled": true
+}

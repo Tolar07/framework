@@ -1,0 +1,262 @@
+[
+  {
+    "league": "Bundesliga",
+    "cat_id": 7,
+    "tour_id": 34,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  },
+  {
+    "league": "Premier League",
+    "cat_id": 32,
+    "tour_id": 8,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  },
+  {
+    "league": "La Liga",
+    "cat_id": 31,
+    "tour_id": 23,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  },
+  {
+    "league": "Serie A",
+    "cat_id": 30,
+    "tour_id": 35,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  },
+  {
+    "league": "Championship",
+    "cat_id": 1,
+    "tour_id": 17,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  },
+  {
+    "league": "Ligue 1",
+    "cat_id": 7,
+    "tour_id": 35,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  },
+  {
+    "league": "Ligue 2",
+    "cat_id": 7,
+    "tour_id": 36,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  },
+  {
+    "league": "Primeira Liga",
+    "cat_id": 32,
+    "tour_id": 9,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  },
+  {
+    "league": "Serie B",
+    "cat_id": 30,
+    "tour_id": 36,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  },
+  {
+    "league": "La Liga 2",
+    "cat_id": 31,
+    "tour_id": 9,
+    "works": true,
+    "sample_teams": [
+      "AC Nagano Parceiro v Thespa Gunma",
+      "Giravanz Kitakyushu v Matsumoto Yamaga FC",
+      "Mio Biwako Shiga v Gainare Tottori",
+      "Kochi United SC v Roasso Kumamoto",
+      "Renofa Yamaguchi v FC Osaka"
+    ],
+    "match_scores": {
+      "Bundesliga": 0,
+      "Premier League": 1,
+      "La Liga": 0,
+      "Serie A": 0,
+      "Championship": 0,
+      "Ligue 1": 0,
+      "Ligue 2": 0,
+      "Primeira Liga": 0,
+      "Serie B": 0,
+      "La Liga 2": 0
+    },
+    "best_match": "Premier League"
+  }
+]

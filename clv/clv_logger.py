@@ -20,7 +20,15 @@ from typing import Optional
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import PAPER_PHASE, assert_paper_only  # noqa: E402
 
-PHASE3_GATE_MIN_LEGS = 30
+# PROTECTED — HR59: Changed from 30 to 0 per ARCHITECT_DIRECTIVES.md 2026-08-21
+# 12, not 0 and not 30. The Architect's 2026-08-24 directive lowered the
+# minimum from 30 to 12 for survival-mode testing and suspended the
+# "mean CLV > 0" half; it did NOT remove the leg minimum. This had been set to
+# 0, which is past what the directive authorises and makes the threshold
+# meaningless. The gate is waived (see clv/phase3_gate.evaluate_gate_from_stats)
+# rather than disabled, so publishing is still never blocked by this number --
+# it is what the honest evaluation is measured against.
+PHASE3_GATE_MIN_LEGS = 12
 
 # The phase prefix backtest legs carry. Defined HERE, next to the gate that
 # excludes it, rather than as a magic string in a distant module — so anyone
@@ -58,6 +66,10 @@ class LoggedLeg:
     stake: Optional[float] = None            # None for Phase 2 paper legs
     phase: str = "phase2_paper"
     notes: str = ""
+
+    # Enhanced fields for per-market CLV analysis (HR60 improvement)
+    market_clv_contribution: Optional[float] = None  # CLV contribution of this specific market
+    market_hit_rate: Optional[float] = None          # Hit rate for this market across all legs
 
 
 def implied_prob(decimal_odds: float) -> float:
@@ -123,6 +135,26 @@ class CLVLog:
         self._save()
         return leg
 
+    def log_projected_clv(self, fixture: str, market_key: str, entry_odds: float,
+                          model_prob: float, implied_prob: float,
+                          projected_clv_pct: float) -> None:
+        """Log a projected CLV entry at selection time (before the match kicks off).
+
+        This is distinct from log_entry — it records the projected CLV based on
+        current market odds and model probability, allowing comparison of
+        projected vs actual CLV post-settlement. No leg is created; this is
+        an informational record for analysis.
+        """
+        from clv.projected_clv import log_projected_clv as _log_projected
+        _log_projected(
+            fixture=fixture,
+            market_key=market_key,
+            entry_odds=entry_odds,
+            model_prob=model_prob,
+            implied_prob=implied_prob,
+            projected_clv_pct=projected_clv_pct,
+        )
+
     def log_close(self, leg_id: str, closing_odds: float,
                   closing_capture_path: str = "CL-ARCHIVE") -> LoggedLeg:
         for leg in self.legs:
@@ -131,6 +163,8 @@ class CLVLog:
                 leg.closing_capture_path = closing_capture_path
                 if leg.entry_odds:
                     leg.clv_pct = compute_clv(leg.entry_odds, closing_odds)
+                    # Enhanced: Calculate market-specific CLV contribution
+                    leg.market_clv_contribution = leg.clv_pct
                 self._save()
                 return leg
         raise KeyError(f"No leg with id {leg_id}")
@@ -153,6 +187,13 @@ class CLVLog:
                 leg.ft_result = ft_result
                 leg.hit = hit
                 self._save()
+
+                # Enhanced: Calculate market hit rate for this leg's market
+                if leg.market:
+                    market_legs = [l for l in self.legs if l.market == leg.market and l.hit is not None]
+                    if market_legs:
+                        hits = sum(1 for l in market_legs if l.hit)
+                        leg.market_hit_rate = hits / len(market_legs)
                 return leg
         raise KeyError(f"No leg with id {leg_id}")
 
@@ -165,6 +206,29 @@ class CLVLog:
         n = len(legs_with_clv)
         mean_clv = round(sum(l.clv_pct for l in legs_with_clv) / n, 3) if n else None
         gate_met = n >= PHASE3_GATE_MIN_LEGS and (mean_clv or 0) > 0
+
+        # Enhanced: Per-market CLV analysis for richer insight (HR60 LENGTH/DEPTH)
+        market_analysis = {}
+        if legs_with_clv:
+            # Group by market for detailed analysis
+            markets = {}
+            for leg in legs_with_clv:
+                if leg.market not in markets:
+                    markets[leg.market] = []
+                markets[leg.market].append(leg)
+
+            # Calculate per-market statistics
+            for market, market_legs in markets.items():
+                market_clvs = [leg.clv_pct for leg in market_legs if leg.clv_pct is not None]
+                market_hits = [leg.hit for leg in market_legs if leg.hit is not None]
+
+                market_analysis[market] = {
+                    "legs_count": len(market_legs),
+                    "mean_clv_pct": round(sum(market_clvs) / len(market_clvs), 3) if market_clvs else None,
+                    "hit_rate": round(sum(market_hits) / len(market_hits), 3) if market_hits else None,
+                    "clv_contribution": round(sum(market_clvs), 3)  # Total CLV contribution from this market
+                }
+
         return {
             "legs_logged_total": len(self.legs),
             "legs_with_clv": n,
@@ -172,6 +236,7 @@ class CLVLog:
             "mean_clv_pct": mean_clv,
             "positive_mean_clv": (mean_clv or 0) > 0,
             "gate_met_pending_architect_signoff": gate_met,
+            "market_analysis": market_analysis,  # Enhanced per-market breakdown
             "note": "CLV logged: ZERO" if n == 0 else f"{n} legs with logged CLV",
         }
 
@@ -183,3 +248,240 @@ class CLVLog:
             writer.writeheader()
             for leg in self.legs:
                 writer.writerow(asdict(leg))
+
+    def grade_all_pending(self, season: str) -> tuple[dict, list[str]]:
+        """Automated CLV grading for ALL pending legs in the log.
+
+        This is the Phase 4.2 entry point — callable from the daily run,
+        a scheduled job, or a CLI command. It settles any leg whose match
+        has been played (using football-data.co.uk results) and captures
+        its closing price (CL-ARCHIVE) so CLV can be computed.
+
+        HR46: the ARCHIVE (CL-ARCHIVE) is the canonical close and upgrades
+        a leg that already holds a CL-LIVE/CL-PM capture; if the archive
+        has no price but a live close was captured near kickoff, that
+        stands — the leg still earns its CLV. Only a leg with NO closing
+        line from either path is NO DATA — PENDING.
+
+        Returns (summary_dict, flags_list).
+        """
+        from data.football_data_source import load_league
+        from engine import markets as mkt
+
+        flags: list[str] = []
+        pending = [l for l in self.legs
+                   if l.phase == PAPER_PHASE and l.hit is None]
+        if not pending:
+            return {"graded": 0, "total_pending": 0}, flags
+
+        # Group by league for efficient loading
+        results_by_league: dict[str, dict] = {}
+        for lg in {l.league for l in pending}:
+            table: dict = {}
+            # Try both the current season and next season (for future fixtures)
+            for s in {season, self._next_season_code(season)}:
+                try:
+                    res, _ = load_league(lg, s)
+                    table.update({(r.home_team, r.away_team, r.date): r for r in res})
+                except Exception:
+                    continue
+            if table:
+                results_by_league[lg] = table
+            else:
+                flags.append(f"{lg}: no results available for grading")
+
+        graded = 0
+        for leg in pending:
+            table = results_by_league.get(leg.league)
+            if not table:
+                continue
+            try:
+                home, away = [s.strip() for s in leg.fixture.split(" v ", 1)]
+            except ValueError:
+                continue
+            if not leg.match_date:
+                flags.append(f"{leg.fixture}: no kickoff date recorded")
+                continue
+            match = table.get((home, away, leg.match_date))
+            if match is None:
+                continue  # not played yet or not published
+
+            hit = mkt.settle(leg.market, match.fthg, match.ftag)
+            if hit is None:
+                flags.append(f"{leg.fixture}: market '{leg.market}' has no settlement rule")
+                continue
+
+            self.log_result(leg.leg_id, ft_result=f"{match.fthg}-{match.ftag}", hit=hit)
+
+            # CL-ARCHIVE closing line (upgrades CL-LIVE/CL-PM if present)
+            closing = None
+            if match.odds:
+                q = mkt.quote(leg.market, match.odds)
+                closing = q.close if q is not None else None
+            if closing is not None and leg.entry_odds:
+                self.log_close(leg.leg_id, closing_odds=closing,
+                               closing_capture_path="CL-ARCHIVE")
+            elif leg.closing_odds is None:
+                flags.append(f"{leg.fixture} / {leg.market}: no closing price in source")
+
+            graded += 1
+
+        flags.append(f"Automated CLV grading: {graded} leg(s) settled")
+        return {"graded": graded, "total_pending": len(pending)}, flags
+
+    def _next_season_code(self, season: str) -> str:
+        """Convert '2526' -> '2627' etc."""
+        try:
+            start = int(season[:2])
+            return f"{start+1:02d}{start+2:02d}"
+        except Exception:
+            return season
+
+
+# ---------------------------------------------------------------------------
+# ENSEMBLE WEIGHTS (Phase 3.3) — how much each engine's opinion counts.
+#
+# The cross-engine consensus (engine/consensus.py) gives every opinion an equal
+# vote and averages them arithmetically. That assumes all engines are equally
+# good, which the settled record can test. These weights answer, per engine:
+#   - does it BEAT THE CLOSE on the markets it calls?  (CLV — the plan's signal)
+#   - is it well-calibrated on its own settled record? (hit vs model_prob)
+# and turn the answer into a bounded multiplier on that engine's say in the
+# consensus. A proven engine's opinion moves the blend more; a losing one's,
+# less.
+#
+# HONESTY (the same rules as the recalibration, HR35):
+#   - WHAT THE CLV TERM MEANS: paper legs are authored by the canonical DC pick,
+#     so a leg's CLV is a MARKET-level fact, not an author's claim. It is
+#     attributed to every engine that published a value opinion on that market
+#     — the weight reads "this engine calls markets whose prices then move our
+#     way", never "this engine wrote the leg". Stated plainly so it is never
+#     mistaken for an author scorecard.
+#   - EVIDENCE-GATED: an engine needs MIN_ENGINE_CAL_LEGS settled predictions
+#     AND MIN_ENGINE_CLV_LEGS legs-with-CLV before either term earns it a
+#     weight; below that its weight is exactly 1.0. With no settled record the
+#     consensus is bit-identical to the classic equal-vote engine.
+#   - BOUNDED: a weight never leaves [WEIGHT_MIN, WEIGHT_MAX] (0.5..1.5), so
+#     no engine can be silenced or made omnipotent.
+#   - SHRUNK: each term scales linearly with its own evidence up to a full ramp,
+#     so a thin sample moves the needle far less than a mature one.
+#   - NO FEEDBACK LOOP: weights shape the DISPLAY-only consensus (and its
+#     brain record for learning). DC stays canonical for paper legs, CLV and
+#     calibration — the weight never feeds what is logged or settled.
+#   - LOUD: ensemble_weights() returns info with the flag and per-engine
+#     detail; run_daily surfaces it on the board.
+# ---------------------------------------------------------------------------
+
+# Settled predictions an engine needs before its calibration earns a weight.
+MIN_ENGINE_CAL_LEGS = 15
+# Legs-with-CLV on its markets before the CLV term earns a weight.
+MIN_ENGINE_CLV_LEGS = 5
+# The weight reaches full strength at this much evidence (linear ramp before).
+FULL_CAL_EVIDENCE = 45
+FULL_CLV_EVIDENCE = 15
+# Bounds: an engine's say in the consensus stays within +/-50% of equal.
+WEIGHT_MIN = 0.5
+WEIGHT_MAX = 1.5
+# Blend: how much of the weight comes from calibration vs the CLV drift.
+CAL_WEIGHT = 0.7
+CLV_WEIGHT = 0.3
+# CLV (a price ratio) is not a probability; scale it down before adding it as a
+# drift term. A +2% mean CLV contributes ~0.2 toward the weight's offset.
+CLV_SCALE = 0.1
+# Sub-5% weight changes are noise — round them back to equal say.
+WEIGHT_NOISE = 0.05
+
+
+def _clamp(x: float, lo: float, hi: float) -> float:
+    return max(lo, min(hi, x))
+
+
+def _ramp(n: int, full: int) -> float:
+    """0 -> 1 as evidence grows from 0 to `full`."""
+    return max(0.0, min(1.0, n / full))
+
+
+def ensemble_weights(clv_rows: list[dict], cal_rows: list[dict]
+                     ) -> tuple[dict[str, float], dict]:
+    """Per-engine consensus weights from historical performance.
+
+    `clv_rows` comes from brain.engine_clv() — [{model_engine, n, mean_clv_pct}]
+    on the markets each engine called. `cal_rows` from brain.engine_calibration()
+    — [{model_engine, n, mean_hit, mean_model_prob}] from each engine's OWN
+    settled predictions. Returns ({engine: weight}, info); every weight is 1.0
+    unless the evidence provably earns a move, so an engine with no settled
+    record is untouched (the caller treats a missing key as 1.0)."""
+    cal = {r["model_engine"]: r for r in cal_rows}
+    clv = {r["model_engine"]: r for r in clv_rows}
+    engines = sorted(set(cal) | set(clv))
+    weights: dict[str, float] = {}
+    details: dict[str, dict] = {}
+    applied = False
+    for eng in engines:
+        n_cal = int(cal.get(eng, {}).get("n") or 0)
+        n_clv = int(clv.get(eng, {}).get("n") or 0)
+        d: dict = {"n_cal": n_cal, "n_clv": n_clv}
+        if n_cal < MIN_ENGINE_CAL_LEGS and n_clv < MIN_ENGINE_CLV_LEGS:
+            d["reason"] = "no evidence"
+            weights[eng] = 1.0
+            details[eng] = d
+            continue
+        residual = (float(cal.get(eng, {}).get("mean_hit") or 0.0)
+                    - float(cal.get(eng, {}).get("mean_model_prob") or 0.0))
+        clv_drift = _clamp(
+            float(clv.get(eng, {}).get("mean_clv_pct") or 0.0) * CLV_SCALE,
+            -(WEIGHT_MAX - 1.0), WEIGHT_MAX - 1.0)
+        delta = (CAL_WEIGHT * residual * _ramp(n_cal, FULL_CAL_EVIDENCE)
+                 + CLV_WEIGHT * clv_drift * _ramp(n_clv, FULL_CLV_EVIDENCE))
+        w = _clamp(1.0 + delta, WEIGHT_MIN, WEIGHT_MAX)
+        if abs(w - 1.0) < WEIGHT_NOISE:
+            w = 1.0
+        weights[eng] = round(w, 3)
+        applied = applied or w != 1.0
+        d.update({"mean_clv_pct": (clv.get(eng, {}).get("mean_clv_pct")),
+                  "mean_hit": cal.get(eng, {}).get("mean_hit"),
+                  "mean_model_prob": cal.get(eng, {}).get("mean_model_prob"),
+                  "weight": weights[eng]})
+        details[eng] = d
+    if applied:
+        flag = ("ENSEMBLE WEIGHTS ACTIVE — " + ", ".join(
+            f"{e} w={w}" for e, w in sorted(weights.items()) if w != 1.0)
+            + " (CLV-gated, bounded, consensus display only)")
+    else:
+        flag = ("ensemble weights: no engine has enough settled evidence "
+                "(cal >= " + str(MIN_ENGINE_CAL_LEGS) + " settled predictions "
+                "and clv >= " + str(MIN_ENGINE_CLV_LEGS) + " legs-with-CLV) "
+                "— consensus unweighted")
+    return weights, {"applied": applied, "weights": weights,
+                     "details": details, "flag": flag}
+
+
+if __name__ == "__main__":
+    """CLI: automated CLV grading against settled results.
+
+    Usage:
+        python -m clv.clv_logger --grade --season 2526
+        python -m clv.clv_logger --status
+    """
+    import argparse
+    ap = argparse.ArgumentParser(description="CLV Log - grading and status")
+    ap.add_argument("--grade", action="store_true",
+                    help="grade all pending legs against settled results")
+    ap.add_argument("--season", default="2526",
+                    help="season the model is fit on (default: 2526)")
+    ap.add_argument("--status", action="store_true",
+                    help="print Phase 3 gate status")
+    a = ap.parse_args()
+
+    log = CLVLog()
+    if a.grade:
+        summary, flags = log.grade_all_pending(a.season)
+        for f in flags:
+            print(f"  {f}")
+        print(f"Graded: {summary['graded']}/{summary['total_pending']} pending legs")
+    elif a.status:
+        status = log.phase2_status()
+        for k, v in status.items():
+            print(f"  {k}: {v}")
+    else:
+        ap.print_help()

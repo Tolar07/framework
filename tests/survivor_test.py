@@ -33,25 +33,31 @@ sv.apply_result(p, {"lineage_id": lid, "price": 1.5}, "LOSS")
 assert not p["lineages"][0]["alive"] and p["lineages"][0]["bankroll"] == 9.5
 print("win pays / one loss is extinction: OK")
 
-# Breeding: 5 winners, cap 8 -> 3 richest split in two, 2 carry; capital conserved.
-p = pop_of(13.81, 13.10, 13.03, 13.00, 12.84)
+# Breeding: 12 winners, cap 16 -> 4 richest split in two, 8 carry; capital conserved.
+p = pop_of(13.81, 13.10, 13.03, 13.00, 12.84, 12.5, 12.4, 12.3, 12.2, 12.1, 12.0, 11.9)
 before = sum(l["bankroll"] for l in sv.living(p))
 births = sv.breed(p, "2026-09-19")
 alive = sv.living(p)
-assert len(alive) == 8 and births == 6, (len(alive), births)
+assert len(alive) == 16 and births == 8, (len(alive), births)
 assert abs(sum(l["bankroll"] for l in alive) - before) < 0.05
 assert sv.breed(p, "2026-09-19") == 0, "no second breeding without a new win"
-# A winner holding a pending pick waits; it breeds once that pick is graded.
+# Without the history a winner holding a pending pick waits (nothing orphaned).
 p = pop_of(10.0)
 p["lineages"][0]["holding"] = {"date": "2026-10-04"}
 assert sv.breed(p, "2026-10-03") == 0 and p["lineages"][0]["to_breed"]
-p["lineages"][0]["holding"] = None
-assert sv.breed(p, "2026-10-04") == 2, "breeds on the next run, same or later day"
+# With the history it splits now and its first child inherits the pending pick.
+parent = p["lineages"][0]["lineage_id"]
+h = [{"date": "2026-10-04", "lineage_id": parent, "generation": 0, "result": "PENDING"}]
+assert sv.breed(p, "2026-10-03", h) == 2
+kids = sv.living(p)
+assert len(kids) == 2 and h[0]["lineage_id"] == kids[0]["lineage_id"] != parent
+assert kids[0]["holding"] and not kids[1].get("holding"), "one child keeps the pick, one is free"
+assert abs(sum(k["bankroll"] for k in kids) - 10.0) < 0.02
 assert not any(l["to_breed"] for l in alive)
 # 9 survivors over the cap: nobody is deleted.
-p = pop_of(*[5.0] * 9)
+p = pop_of(*[5.0] * 17)
 sv.breed(p, "2026-10-03")
-assert len(sv.living(p)) == 9
+assert len(sv.living(p)) == 17
 # Starvation floor.
 p = {"lineages": [dict(sv._lineage(), alive=False)], "last_bred_date": None}
 sv.breed(p, "2026-10-03")

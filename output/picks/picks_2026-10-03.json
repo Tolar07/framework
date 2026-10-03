@@ -62,7 +62,11 @@
     "home": 26224211,
     "away": 9240534
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:10Z"
+   },
    "sb_event_id": "sr:match:72477452",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -71,8 +75,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 0.25,
    "ev": -0.06745078093131274,
    "first_price": 1.24,
@@ -117,7 +121,9 @@
    "first_price": 1.23,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sabadell v Andorra",
@@ -156,7 +162,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Barnsley v Milton Keynes Dons",
@@ -2607,7 +2615,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Croatia v England",
@@ -2646,7 +2656,9 @@
    "first_price": 1.33,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.35,
+   "drift_pct": 1.5
   },
   {
    "fixture": "Estonia v Luxembourg",
@@ -2685,7 +2697,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Iceland v Bulgaria",
@@ -2724,7 +2738,9 @@
    "first_price": 1.25,
    "drift_since_board": 0.8,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "North Macedonia v Scotland",

@@ -109,6 +109,12 @@ class BoardFixture:
     # when the fixture resolves on the SportyBet feed; stays None (board shows
     # PENDING) when it can't be resolved — never fabricated (HR35).
     booking_code: Optional[str] = None
+    # PRICE CHECK (pipeline/odds_verify.py): VERIFIED / CONFLICT / SINGLE-SOURCE
+    # — does an independent book (bet365 via football-data, DraftKings via
+    # ESPN) agree with this fixture's SportyBet prices once margins are
+    # removed. None = not checked. A label only; it never changes a pick.
+    price_check: Optional[str] = None
+    price_note: Optional[str] = None
     booking_url: Optional[str] = None
 
 
@@ -216,6 +222,9 @@ def render_fixture_block(bf: BoardFixture, index: int = 0) -> str:
     head = f"{index}. {bf.fixture}" if index else bf.fixture
     L.append(head)
     L.append(f"   Data confidence: {_verification_words(bf.verification)}")
+    if bf.price_check:
+        L.append(f"   Price check: {bf.price_check}"
+                 + (f" — {bf.price_note}" if bf.price_note else ""))
     if bf.form_summary:
         tilt = ("" if bf.form_support is None
                 else f"  (recent-form tilt {bf.form_support:+.2f})")
@@ -408,7 +417,36 @@ def render_part4_data_integrity(board: list[BoardFixture]) -> str:
     rows = ["PART 4 — DATA INTEGRITY (ID403 counts)"]
     for t in Tier:
         rows.append(f"{t.value}: {counts[t]}")
+    checked = [bf.price_check for bf in board if bf.price_check]
+    if checked:
+        rows.append("PRICE CHECK (SportyBet vs bet365/DraftKings, margin removed): "
+                    + " · ".join(f"{t} {checked.count(t)}"
+                                 for t in ("VERIFIED", "CONFLICT", "SINGLE-SOURCE")))
     return "\n".join(rows)
+
+
+def _price_check_lines(picks: list[BoardFixture]) -> list[str]:
+    """One summary line for the singles' price check, plus each pick whose
+    SportyBet prices an independent book disagrees with (shown, never hidden;
+    it does not change the pick)."""
+    from pipeline.odds_verify import PRICE_CHECK_TOLERANCE_PP as tol
+    checked = [bf for bf in picks if bf.price_check]
+    if not checked:
+        return []
+    ok = sum(bf.price_check == "VERIFIED" for bf in checked)
+    differ = [bf for bf in checked if bf.price_check == "CONFLICT"]
+    alone = len(checked) - ok - len(differ)
+    line = (f"Price check: {ok} of {len(checked)} picks' SportyBet prices agree with an "
+            f"independent book (bet365 via football-data / DraftKings via ESPN, margin "
+            f"removed, within {tol:g} pts)")
+    if differ:
+        line += f" · {len(differ)} differ (below)"
+    if alone:
+        line += f" · {alone} quoted by no second book"
+    out = ["", line + "."]
+    for bf in differ:
+        out.append(f"   • ⚠ {_canon_short(bf.fixture)} — {bf.price_note}")
+    return out
 
 
 def render_part5_signoff(hard_rules_note: str = "") -> str:
@@ -819,6 +857,9 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         if any(bf.prob_source == "market" for bf in board):
             out.append("ᴹ = MARKET-IMPLIED: no model history for this fixture — "
                        "priced from SportyBet with the margin removed; no edge claimed.")
+        out.append("Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · "
+                   "ESPN · football-data) · ○ = one source only · ⚠ = sources disagree "
+                   "(e.g. postponed) — not deployed")
     acca_codes = dict(acca_codes or {})
     if acca_code and "Acca A" not in acca_codes:
         acca_codes["Acca A"] = acca_code
@@ -878,6 +919,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         out.append("Stake = suggested % of your bankroll per single (bigger only where an "
                    "edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, "
                    "megas 0.1%.")
+        out += _price_check_lines(shortlist)
         news = [bf for bf in shortlist if bf.news_level in ("CAUTION", "RISK")]
         if news:
             out += ["", f"⚠ TEAM NEWS — {len(news)} pick(s) hit by injuries/suspensions "

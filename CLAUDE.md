@@ -42,6 +42,7 @@ What each piece is protecting — read before changing it:
 | `engine/name_match.py` (strict, unique matches; `EXPLICIT` table) | Rates feed spellings ("Blackpool FC") with the model's history ("Blackpool"). Loosening it would put one club's rating on another. |
 | SPLIT rejection text in `run_daily.py` (`market_p` may be None → `PENDING`) | Formatting a missing market price crashed the whole run (fixed 2026-10-03). |
 | Picks ledger (`engine/picks_ledger.py`) | Records every pick AND every rated fixture; graded from Flashscore, regular time only. The scorecard and `engine/learning.py` read it. |
+| Fixture check (`verification/fixture_check.py`) + price check (`pipeline/odds_verify.py`), standing order 27 | Free second sources (ESPN, football-data). A match only CONFLICTs on positive evidence — another source lists it postponed/cancelled on a strong name match; a spelling that won't pair adds nothing, or real fixtures would drop off the deploy list. Prices are compared with margins removed: raw prices of two honest books differ ~4.5%. |
 
 **Verify, do not assume.** Check the loop with the GitHub Actions run list
 for `daily.yml` and `watchdog.yml` (conclusion `success` for each slot), and
@@ -87,13 +88,12 @@ protected nothing.
 
 Say plainly when something is not implemented; do not debug it as a fault.
 
-- **Fixture verification reaches SINGLE-SOURCE only.** Fixtures come from
-  TheSportsDB (T2) and are stamped `○ SINGLE-SOURCE` by
-  `verification/id403.py`; no T1 fixture source (ESPN, football-data) is
-  wired into the live path, so no fixture reaches VERIFIED. The laptop ESPN
-  source is parked at `legacy/laptop/data/espn_source.py`.
-- **F2 price quorum** (`pipeline/odds_verify.py`, PR #6) is merged and
-  tested but not called from the live odds path — an Architect decision.
+- **Ekstraklasa fixtures are often one source.** ESPN has no Polish league
+  and football-data's new-league file lists it only some weeks, so
+  `verification/fixture_check.py` frequently has nothing to check it against.
+- **The price check is a label only** (`pipeline/odds_verify.py`). A price
+  CONFLICT is shown on the board; nothing selects, stakes or blocks on it —
+  making it gate anything is the Architect's decision.
 - Market-implied fixtures (`ᴹ` on the board, `prob_source == "market"`)
   carry the bookmaker's numbers, not the model's; no edge is claimed.
 

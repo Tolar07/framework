@@ -153,4 +153,20 @@ import news_check as _nc2
 assert (_rd.DRIFT_DEMOTE, _nc2.DRIFT_ALERT) == (0.05, 0.05), \
     "Order 25: a pick drifting out 5%+ is demoted (refresh) and alerted (pre-kickoff)"
 
+# 26. Free multi-source verification (fixture check + price check)
+import inspect as _insp
+from data import espn_fixtures as _espn
+from verification.id403 import SOURCE_TRUST as _trust
+from pipeline import odds_verify as _ov
+_rd_src = _insp.getsource(_rd)
+assert "fixture_check.check_board(board)" in _rd_src, \
+    "Order 26: every board fixture is checked against ESPN + football-data"
+assert "odds_verify.check_prices(" in _rd_src, \
+    "Order 26: every SportyBet price on the board's day gets the price check"
+assert _trust["espn.com"] in ("T1", "T2") and _trust["football-data.co.uk"] in ("T1", "T2"), \
+    "Order 26: ESPN and football-data are trusted (T1/T2) fixture sources"
+assert _ov.PRICE_CHECK_TOLERANCE_PP == 5.0, "Order 26: price check = margin-free, 5 pts"
+assert "environ" not in _insp.getsource(_espn), \
+    "Order 26: ESPN's public scoreboard needs no key (no paid API)"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

@@ -57,6 +57,8 @@ committing unless the change is meant to update them.
 
 ## Things that look like bugs but aren't
 
-- Fixtures stamped `○ SINGLE-SOURCE` — no T1 fixture source is wired in yet.
+- A fixture stamped `○ SINGLE-SOURCE` — ESPN and football-data couldn't find
+  that match (league not covered, or a spelling that won't pair). Not a fault.
 - `ᴹ` fixtures — market-implied, the model couldn't rate them.
-- `pipeline/odds_verify.py` unused — awaiting the Architect.
+- A price check CONFLICT on a pick — an independent book disagrees by more
+  than 5 pts; it is a label for the Architect, it does not change the pick.

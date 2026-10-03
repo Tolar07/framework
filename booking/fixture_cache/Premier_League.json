@@ -1,0 +1,111 @@
+{
+  "fetched_at": 1788035371.7108634,
+  "league": "Premier League",
+  "country": "England",
+  "fixtures": [
+    {
+      "id": "13320",
+      "home": "Atletico FC Cali",
+      "away": "Bogota FC",
+      "kickoff": "21:30  \nID: 13320",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "26152",
+      "home": "CD Real Santander",
+      "away": "Internacional de Palmira",
+      "kickoff": "21:30  \nID: 26152",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "31649",
+      "home": "Real Cartagena FC",
+      "away": "Tigres FC",
+      "kickoff": "23:30  \nID: 31649",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "Premier League-3",
+      "home": "Sevilla",
+      "away": "Atletico Madrid",
+      "kickoff": "45:00\nHT",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Juventus",
+      "away": "Parma Calcio",
+      "kickoff": "81:11\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Lyon",
+      "away": "Le Havre",
+      "kickoff": "87:10\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "AJ Auxerre",
+      "away": "Angers",
+      "kickoff": "84:53\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Brest",
+      "away": "Toulouse",
+      "kickoff": "84:52\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Lorient",
+      "away": "Troyes",
+      "kickoff": "85:38\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "PEC Zwolle",
+      "away": "NEC Nijmegen",
+      "kickoff": "68:50\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "FC Pacos Ferreira",
+      "away": "AD Fafe",
+      "kickoff": "66:30\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "Premier League-11",
+      "home": "Girona",
+      "away": "Las Palmas",
+      "kickoff": "45:00\nHT",
+      "league": "Premier League",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Ascoli Calcio 1898",
+      "away": "Carrarese Calcio",
+      "kickoff": "68:15\nH2",
+      "league": "Premier League",
+      "raw_market": {}
+    }
+  ]
+}

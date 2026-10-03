@@ -1,0 +1,1102 @@
+PART 0 — HEADER
+Date: 2026-08-27 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: Europa League, La Liga, Conference League, EFL Cup
+Calibration: 42 legs logged, mean CLV -10.21%
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ 2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga
+  ⚠ 2. Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League
+  ⚠ Belgian Pro League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga
+  ⚠ Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League
+  ⚠ Champions League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship
+  ⚠ Championship: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Conference League: fixtures via api_football
+  ⚠ Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey
+  ⚠ Copa del Rey: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia
+  ⚠ Coppa Italia: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France
+  ⚠ Coupe de France: no upcoming fixtures — NO DATA — PENDING
+  ⚠ DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ DFB-Pokal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ EFL Cup: fixtures via api_football
+  ⚠ Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie
+  ⚠ Eredivisie: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Europa League: fixtures via api_football
+  ⚠ FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ FA Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker
+  ⚠ KNVB Beker: no upcoming fixtures — NO DATA — PENDING
+  ⚠ La Liga: fixtures via api_football
+  ⚠ La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2
+  ⚠ La Liga 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1
+  ⚠ Ligue 1: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2
+  ⚠ Ligue 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League
+  ⚠ Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga
+  ⚠ Primeira Liga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League
+  ⚠ Russian Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership
+  ⚠ Scottish Premiership: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A
+  ⚠ Serie A: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B
+  ⚠ Serie B: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key.
+  ⚠ Swiss Super League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal
+  ⚠ Taça de Portugal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig
+  ⚠ Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING
+  ⚠ UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.
+  ⚠ UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
+  ⚠ VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN)
+  ⚠ Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc)
+  ⚠ EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c)
+  ⚠ Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha)
+  ⚠ La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over')
+  ⚠ 2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga
+  ⚠ 2. Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League
+  ⚠ Belgian Pro League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga
+  ⚠ Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League
+  ⚠ Champions League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship
+  ⚠ Championship: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Conference League: fixtures via api_football
+  ⚠ Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey
+  ⚠ Copa del Rey: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia
+  ⚠ Coppa Italia: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France
+  ⚠ Coupe de France: no upcoming fixtures — NO DATA — PENDING
+  ⚠ DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ DFB-Pokal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ EFL Cup: fixtures via api_football
+  ⚠ Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie
+  ⚠ Eredivisie: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Europa League: fixtures via api_football
+  ⚠ FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ FA Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker
+  ⚠ KNVB Beker: no upcoming fixtures — NO DATA — PENDING
+  ⚠ La Liga: fixtures via api_football
+  ⚠ La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2
+  ⚠ La Liga 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1
+  ⚠ Ligue 1: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2
+  ⚠ Ligue 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League
+  ⚠ Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga
+  ⚠ Primeira Liga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League
+  ⚠ Russian Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership
+  ⚠ Scottish Premiership: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A
+  ⚠ Serie A: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B
+  ⚠ Serie B: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key.
+  ⚠ Swiss Super League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal
+  ⚠ Taça de Portugal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig
+  ⚠ Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING
+  ⚠ UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.
+  ⚠ UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
+  ⚠ VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN)
+  ⚠ Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc)
+  ⚠ EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c)
+  ⚠ Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha)
+  ⚠ La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over')
+  ⚠ 2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga
+  ⚠ 2. Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League
+  ⚠ Belgian Pro League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga
+  ⚠ Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League
+  ⚠ Champions League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship
+  ⚠ Championship: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Conference League: fixtures via api_football
+  ⚠ Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey
+  ⚠ Copa del Rey: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia
+  ⚠ Coppa Italia: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France
+  ⚠ Coupe de France: no upcoming fixtures — NO DATA — PENDING
+  ⚠ DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ DFB-Pokal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ EFL Cup: fixtures via api_football
+  ⚠ Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie
+  ⚠ Eredivisie: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Europa League: fixtures via api_football
+  ⚠ FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ FA Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker
+  ⚠ KNVB Beker: no upcoming fixtures — NO DATA — PENDING
+  ⚠ La Liga: fixtures via api_football
+  ⚠ La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2
+  ⚠ La Liga 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1
+  ⚠ Ligue 1: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2
+  ⚠ Ligue 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League
+  ⚠ Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga
+  ⚠ Primeira Liga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League
+  ⚠ Russian Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership
+  ⚠ Scottish Premiership: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A
+  ⚠ Serie A: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B
+  ⚠ Serie B: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key.
+  ⚠ Swiss Super League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal
+  ⚠ Taça de Portugal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig
+  ⚠ Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING
+  ⚠ UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.
+  ⚠ UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
+  ⚠ VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN)
+  ⚠ Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc)
+  ⚠ EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c)
+  ⚠ Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha)
+  ⚠ La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over')
+  ⚠ 2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga
+  ⚠ 2. Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League
+  ⚠ Belgian Pro League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga
+  ⚠ Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League
+  ⚠ Champions League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship
+  ⚠ Championship: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Conference League: fixtures via api_football
+  ⚠ Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey
+  ⚠ Copa del Rey: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia
+  ⚠ Coppa Italia: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France
+  ⚠ Coupe de France: no upcoming fixtures — NO DATA — PENDING
+  ⚠ DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ DFB-Pokal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ EFL Cup: fixtures via api_football
+  ⚠ Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie
+  ⚠ Eredivisie: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Europa League: fixtures via api_football
+  ⚠ FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ FA Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker
+  ⚠ KNVB Beker: no upcoming fixtures — NO DATA — PENDING
+  ⚠ La Liga: fixtures via api_football
+  ⚠ La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2
+  ⚠ La Liga 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1
+  ⚠ Ligue 1: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2
+  ⚠ Ligue 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League
+  ⚠ Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga
+  ⚠ Primeira Liga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League
+  ⚠ Russian Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership
+  ⚠ Scottish Premiership: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A
+  ⚠ Serie A: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B
+  ⚠ Serie B: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key.
+  ⚠ Swiss Super League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal
+  ⚠ Taça de Portugal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig
+  ⚠ Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING
+  ⚠ UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.
+  ⚠ UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
+  ⚠ VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN)
+  ⚠ Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc)
+  ⚠ EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c)
+  ⚠ Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha)
+  ⚠ La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over')
+  ⚠ 2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga
+  ⚠ 2. Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League
+  ⚠ Belgian Pro League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga
+  ⚠ Bundesliga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League
+  ⚠ Champions League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship
+  ⚠ Championship: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Conference League: fixtures via api_football
+  ⚠ Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey
+  ⚠ Copa del Rey: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia
+  ⚠ Coppa Italia: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France
+  ⚠ Coupe de France: no upcoming fixtures — NO DATA — PENDING
+  ⚠ DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ DFB-Pokal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ EFL Cup: fixtures via api_football
+  ⚠ Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie
+  ⚠ Eredivisie: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Europa League: fixtures via api_football
+  ⚠ FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING.
+  ⚠ FA Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker
+  ⚠ KNVB Beker: no upcoming fixtures — NO DATA — PENDING
+  ⚠ La Liga: fixtures via api_football
+  ⚠ La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2
+  ⚠ La Liga 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1
+  ⚠ Ligue 1: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2
+  ⚠ Ligue 2: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League
+  ⚠ Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga
+  ⚠ Primeira Liga: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League
+  ⚠ Russian Premier League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership
+  ⚠ Scottish Premiership: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A
+  ⚠ Serie A: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B
+  ⚠ Serie B: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key.
+  ⚠ Swiss Super League: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal
+  ⚠ Taça de Portugal: no upcoming fixtures — NO DATA — PENDING
+  ⚠ Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig
+  ⚠ Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING
+  ⚠ UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key.
+  ⚠ UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING
+  ⚠ VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
+  ⚠ VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN)
+  ⚠ Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc)
+  ⚠ EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c)
+  ⚠ Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha)
+  ⚠ La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over')
+  ⚠ VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF)
+  ⚠ VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN)
+  ⚠ VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35)
+  ⚠ VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN)
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+ID409 RATIFIED 2026-08-15 — board order: Detail(PART 2) → Call(PART 1) → Acca Route → THE PICK.
+
+TABLE 1 — LAYER 2 FULL GRID
+Fixture | Selected Pick | Home to win | Draw | Away to win | Over 2.5 goals | Under 2.5 goals | Over 1.5 goals | Under 1.5 goals | Both teams to score — yes | Both teams to score — no | Home Draw No Bet | Away Draw No Bet | Over 3.5 goals | Under 3.5 goals | Over 0.5 goals | Under 0.5 goals | Home or Draw (double chance) | Away or Draw (double chance) | Home or Away (double chance) | HT/FT Home/Home | HT/FT Home/Draw | HT/FT Home/Away | HT/FT Draw/Home | HT/FT Draw/Draw | HT/FT Draw/Away | HT/FT Away/Home | HT/FT Away/Draw | HT/FT Away/Away | Correct Score 1-0 | Correct Score 0-1 | Correct Score 1-1 | Correct Score 2-0 | Correct Score 0-2 | Correct Score 2-1 | Correct Score 1-2 | Correct Score 2-2 | Correct Score 0-0 | Correct Score 3-0 | Correct Score 0-3 | Correct Score 3-1 | Correct Score 1-3 | Booking Code
+KuPS v Shamrock Rovers (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+FK Jablonec v Rangers (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Maccabi Tel Aviv v FC Lugano (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Qarabag v Twente (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+SC Freiburg v Motherwell (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Monaco v Gornik Zabrze (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Brann v PAOK (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+FC Copenhagen v Inter Turku (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Hradec Králové v Panathinaikos (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Inter Club d'Escaldes v Drita (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Pafos v Dinamo Tirana (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Raków Częstochowa v HNK Hajduk Split (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Riga v KI Klaksvik (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Hapoel Tel Aviv v Atalanta (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Ajax v FC Sion (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+FC ST. Gallen v FC Nordsjaelland (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Austria Vienna v SC Braga (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Borac Banja Luka v Vikingur Reykjavik (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Brighton v Tromso (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Hibernian v Gent (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Larne v Lincoln Red Imps FC (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+FK Partizan v Getafe (Conference League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Chelsea v Luton (EFL Cup) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Fulham v AFC Wimbledon (EFL Cup) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+FC Iberia 1999 v Jagiellonia (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Ararat-Armenia v Universitatea Craiova (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Lillestrom v Egnatia Rrogozhinë (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Plzen v FK Crvena Zvezda (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Red Bull Salzburg v Mjallby AIF (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Omonia Nicosia v St. Truiden (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Kauno Žalgiris v Beşiktaş (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Aarhus v Benfica (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+CSKA Sofia v OFI (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+FC Thun v Lech Poznan (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Anderlecht v Kairat Almaty (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Ferencvarosi TC v Trabzonspor (Europa League) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+Barcelona v Athletic Club (La Liga) | NO DATA — PENDING | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO DATA — PENDING
+
+TABLE 2 — LAYER 1 COMPACT
+No deploy-eligible fixtures (empty shortlist).
+
+TABLE 3 — ACCA ROUTE
+No capital-eligible accas generated.
+
+TABLE 4 — THE PICK
+No deploy-eligible fixtures kicking off today — no pick.
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
+2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga | NO DATA — PENDING |  |  |  | 
+2. Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga | NO DATA — PENDING |  |  |  | 
+Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League | NO DATA — PENDING |  |  |  | 
+Champions League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship | NO DATA — PENDING |  |  |  | 
+Championship: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Conference League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey | NO DATA — PENDING |  |  |  | 
+Copa del Rey: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia | NO DATA — PENDING |  |  |  | 
+Coppa Italia: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France | NO DATA — PENDING |  |  |  | 
+Coupe de France: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+EFL Cup: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie | NO DATA — PENDING |  |  |  | 
+Eredivisie: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Europa League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+FA Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker | NO DATA — PENDING |  |  |  | 
+KNVB Beker: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+La Liga: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2 | NO DATA — PENDING |  |  |  | 
+La Liga 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1 | NO DATA — PENDING |  |  |  | 
+Ligue 1: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2 | NO DATA — PENDING |  |  |  | 
+Ligue 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League | NO DATA — PENDING |  |  |  | 
+Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga | NO DATA — PENDING |  |  |  | 
+Primeira Liga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League | NO DATA — PENDING |  |  |  | 
+Russian Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A | NO DATA — PENDING |  |  |  | 
+Serie A: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B | NO DATA — PENDING |  |  |  | 
+Serie B: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+Swiss Super League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc) | NO DATA — PENDING |  |  |  | 
+EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c) | NO DATA — PENDING |  |  |  | 
+Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha) | NO DATA — PENDING |  |  |  | 
+La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over') | NO DATA — PENDING |  |  |  | 
+2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga | NO DATA — PENDING |  |  |  | 
+2. Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga | NO DATA — PENDING |  |  |  | 
+Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League | NO DATA — PENDING |  |  |  | 
+Champions League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship | NO DATA — PENDING |  |  |  | 
+Championship: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Conference League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey | NO DATA — PENDING |  |  |  | 
+Copa del Rey: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia | NO DATA — PENDING |  |  |  | 
+Coppa Italia: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France | NO DATA — PENDING |  |  |  | 
+Coupe de France: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+EFL Cup: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie | NO DATA — PENDING |  |  |  | 
+Eredivisie: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Europa League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+FA Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker | NO DATA — PENDING |  |  |  | 
+KNVB Beker: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+La Liga: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2 | NO DATA — PENDING |  |  |  | 
+La Liga 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1 | NO DATA — PENDING |  |  |  | 
+Ligue 1: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2 | NO DATA — PENDING |  |  |  | 
+Ligue 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League | NO DATA — PENDING |  |  |  | 
+Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga | NO DATA — PENDING |  |  |  | 
+Primeira Liga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League | NO DATA — PENDING |  |  |  | 
+Russian Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A | NO DATA — PENDING |  |  |  | 
+Serie A: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B | NO DATA — PENDING |  |  |  | 
+Serie B: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+Swiss Super League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc) | NO DATA — PENDING |  |  |  | 
+EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c) | NO DATA — PENDING |  |  |  | 
+Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha) | NO DATA — PENDING |  |  |  | 
+La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over') | NO DATA — PENDING |  |  |  | 
+2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga | NO DATA — PENDING |  |  |  | 
+2. Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga | NO DATA — PENDING |  |  |  | 
+Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League | NO DATA — PENDING |  |  |  | 
+Champions League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship | NO DATA — PENDING |  |  |  | 
+Championship: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Conference League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey | NO DATA — PENDING |  |  |  | 
+Copa del Rey: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia | NO DATA — PENDING |  |  |  | 
+Coppa Italia: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France | NO DATA — PENDING |  |  |  | 
+Coupe de France: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+EFL Cup: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie | NO DATA — PENDING |  |  |  | 
+Eredivisie: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Europa League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+FA Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker | NO DATA — PENDING |  |  |  | 
+KNVB Beker: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+La Liga: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2 | NO DATA — PENDING |  |  |  | 
+La Liga 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1 | NO DATA — PENDING |  |  |  | 
+Ligue 1: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2 | NO DATA — PENDING |  |  |  | 
+Ligue 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League | NO DATA — PENDING |  |  |  | 
+Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga | NO DATA — PENDING |  |  |  | 
+Primeira Liga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League | NO DATA — PENDING |  |  |  | 
+Russian Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A | NO DATA — PENDING |  |  |  | 
+Serie A: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B | NO DATA — PENDING |  |  |  | 
+Serie B: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+Swiss Super League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc) | NO DATA — PENDING |  |  |  | 
+EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c) | NO DATA — PENDING |  |  |  | 
+Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha) | NO DATA — PENDING |  |  |  | 
+La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over') | NO DATA — PENDING |  |  |  | 
+2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga | NO DATA — PENDING |  |  |  | 
+2. Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga | NO DATA — PENDING |  |  |  | 
+Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League | NO DATA — PENDING |  |  |  | 
+Champions League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship | NO DATA — PENDING |  |  |  | 
+Championship: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Conference League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey | NO DATA — PENDING |  |  |  | 
+Copa del Rey: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia | NO DATA — PENDING |  |  |  | 
+Coppa Italia: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France | NO DATA — PENDING |  |  |  | 
+Coupe de France: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+EFL Cup: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie | NO DATA — PENDING |  |  |  | 
+Eredivisie: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Europa League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+FA Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker | NO DATA — PENDING |  |  |  | 
+KNVB Beker: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+La Liga: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2 | NO DATA — PENDING |  |  |  | 
+La Liga 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1 | NO DATA — PENDING |  |  |  | 
+Ligue 1: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2 | NO DATA — PENDING |  |  |  | 
+Ligue 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League | NO DATA — PENDING |  |  |  | 
+Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga | NO DATA — PENDING |  |  |  | 
+Primeira Liga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League | NO DATA — PENDING |  |  |  | 
+Russian Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A | NO DATA — PENDING |  |  |  | 
+Serie A: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B | NO DATA — PENDING |  |  |  | 
+Serie B: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+Swiss Super League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc) | NO DATA — PENDING |  |  |  | 
+EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c) | NO DATA — PENDING |  |  |  | 
+Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha) | NO DATA — PENDING |  |  |  | 
+La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over') | NO DATA — PENDING |  |  |  | 
+2. Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for 2. Bundesliga | NO DATA — PENDING |  |  |  | 
+2. Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Belgian Pro League | NO DATA — PENDING |  |  |  | 
+Belgian Pro League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Bundesliga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Bundesliga | NO DATA — PENDING |  |  |  | 
+Bundesliga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Champions League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Champions League | NO DATA — PENDING |  |  |  | 
+Champions League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Championship: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Championship | NO DATA — PENDING |  |  |  | 
+Championship: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Conference League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Copa del Rey: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Copa del Rey | NO DATA — PENDING |  |  |  | 
+Copa del Rey: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coppa Italia: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coppa Italia | NO DATA — PENDING |  |  |  | 
+Coppa Italia: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Coupe de France: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Coupe de France | NO DATA — PENDING |  |  |  | 
+Coupe de France: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (API-Football has no league matching 'DFB-Pokal' (looked up as name='DFB-Pokal', country=None) — check the name or search manually at api-football.com/documentation-v3#tag/Leagues). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+DFB-Pokal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+EFL Cup: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+Eredivisie: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Eredivisie | NO DATA — PENDING |  |  |  | 
+Eredivisie: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Europa League: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+FA Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: Odds API quota spent across all keys; api-football fallback failed (Multiple API-Football leagues match 'FA Cup': ['FA Cup (England)', 'FA Cup (Thailand)', 'FA Cup (Hong-Kong)', 'FA Cup (China)', 'FA Cup (Scotland)', 'FA Cup (South-Korea)', 'FA Cup (Malaysia)', 'FA Cup (Oman)']. Add the correct one to LEAGUE_IDS explicitly by ID.). Refusing to spend the month — entry prices are NO DATA — PENDING. | NO DATA — PENDING |  |  |  | 
+FA Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+KNVB Beker: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for KNVB Beker | NO DATA — PENDING |  |  |  | 
+KNVB Beker: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+La Liga: fixtures via api_football | NO DATA — PENDING |  |  |  | 
+La Liga 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for La Liga 2 | NO DATA — PENDING |  |  |  | 
+La Liga 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 1: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 1 | NO DATA — PENDING |  |  |  | 
+Ligue 1: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Ligue 2: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Ligue 2 | NO DATA — PENDING |  |  |  | 
+Ligue 2: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Premier League | NO DATA — PENDING |  |  |  | 
+Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Primeira Liga: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Primeira Liga | NO DATA — PENDING |  |  |  | 
+Primeira Liga: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Russian Premier League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Russian Premier League | NO DATA — PENDING |  |  |  | 
+Russian Premier League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Scottish Premiership | NO DATA — PENDING |  |  |  | 
+Scottish Premiership: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie A: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie A | NO DATA — PENDING |  |  |  | 
+Serie A: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Serie B: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Serie B | NO DATA — PENDING |  |  |  | 
+Serie B: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Swiss Super League: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'Swiss Super League' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+Swiss Super League: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Taça de Portugal | NO DATA — PENDING |  |  |  | 
+Taça de Portugal: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: odds_api: no fixtures for Turkish Super Lig | NO DATA — PENDING |  |  |  | 
+Turkish Super Lig: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: multi-source fixtures: fixtures: all 4 sources exhausted. Last error: 'UEFA Super Cup' has no verified Odds API sport key. | NO DATA — PENDING |  |  |  | 
+UEFA Super Cup: no upcoming fixtures — NO DATA — PENDING | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+Conference League: football-data load failed ('Conference League' is not covered by football-data.co.uk — this sourc) | NO DATA — PENDING |  |  |  | 
+EFL Cup: football-data load failed ('EFL Cup' is not covered by football-data.co.uk — this source has no c) | NO DATA — PENDING |  |  |  | 
+Europa League: football-data load failed ('Europa League' is not covered by football-data.co.uk — this source ha) | NO DATA — PENDING |  |  |  | 
+La Liga: carry-over fit failed (module 'engine.cross_league' has no attribute 'fit_carry_over') | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 3 verified, 34 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'KuPS v Shamrock Rovers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Jablonec v Rangers (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Maccabi Tel Aviv v FC Lugano (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Qarabag v Twente (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'SC Freiburg v Motherwell (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Monaco v Gornik Zabrze (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brann v PAOK (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Copenhagen v Inter Turku (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hradec Králové v Panathinaikos (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Inter Club d'Escaldes v Drita (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Pafos v Dinamo Tirana (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Raków Częstochowa v HNK Hajduk Split (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Riga v KI Klaksvik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hapoel Tel Aviv v Atalanta (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ajax v FC Sion (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC ST. Gallen v FC Nordsjaelland (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Austria Vienna v SC Braga (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Borac Banja Luka v Vikingur Reykjavik (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Brighton v Tromso (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Hibernian v Gent (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Larne v Lincoln Red Imps FC (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FK Partizan v Getafe (Conference League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Chelsea v Luton (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Fulham v AFC Wimbledon (EFL Cup)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Iberia 1999 v Jagiellonia (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ararat-Armenia v Universitatea Craiova (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Lillestrom v Egnatia Rrogozhinë (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Plzen v FK Crvena Zvezda (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Red Bull Salzburg v Mjallby AIF (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Omonia Nicosia v St. Truiden (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Kauno Žalgiris v Beşiktaş (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Aarhus v Benfica (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'CSKA Sofia v OFI (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'FC Thun v Lech Poznan (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Anderlecht v Kairat Almaty (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Ferencvarosi TC v Trabzonspor (Europa League)' kept UNVERIFIED -- not found in ANY source (honest gap, HR35) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 'Barcelona v Athletic Club (La Liga)' VERIFIED (T1 source: ESPN) | NO DATA — PENDING |  |  |  | 

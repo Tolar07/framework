@@ -1,0 +1,63 @@
+# Caddyfile for OLP XDV Dashboard
+# Automatic HTTPS via Let's Encrypt
+#
+# Usage:
+#   1. Install Caddy: https://caddyserver.com/docs/install
+#   2. Run: caddy run --config Caddyfile
+#   3. Access dashboard at https://<your-domain> (or https://localhost with self-signed)
+#
+# For local LAN testing without a domain:
+#   caddy run --config Caddyfile --adapter caddyfile
+#   Then access at https://localhost (browser will warn about self-signed cert)
+
+{
+    # Admin API disabled for security
+    admin off
+
+    # Logging
+    log {
+        output file logs/caddy.log
+        format json
+    }
+}
+
+# Production: replace with your actual domain
+# olp-xdv.yourdomain.com {
+#     reverse_proxy localhost:8088 {
+#         header_up X-Forwarded-For {http.request.remote.host}
+#         header_up X-Forwarded-Proto {http.request.scheme}
+#         header_up Host {http.request.host}
+#     }
+# }
+
+# Local development / LAN testing with self-signed certs
+# Access via https://localhost or https://<LAN-IP>
+:443 {
+    # Local HTTPS with auto-generated self-signed certs
+    # Browser will show warning - click "Advanced" -> "Proceed"
+    tls internal
+
+    reverse_proxy localhost:8088 {
+        header_up X-Forwarded-For {http.request.remote.host}
+        header_up X-Forwarded-Proto {http.request.scheme}
+        header_up Host {http.request.host}
+        header_up X-Real-IP {http.request.remote.host}
+    }
+
+    # Rate limiting at proxy layer (backup to app-layer)
+    # @api path /api/*
+    # rate_limit @api {
+    #     zone api_limit 10r/s
+    #     key {http.request.remote.host}
+    # }
+}
+
+# HTTP -> HTTPS redirect (production only, requires domain)
+# :80 {
+#     redir https://{host}{uri}
+# }
+
+# Alternative: LAN-only HTTP (no TLS) for quick testing
+# :8088 {
+#     reverse_proxy localhost:8088
+# }

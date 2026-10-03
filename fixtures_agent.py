@@ -1,0 +1,885 @@
+"""
+Fixtures agent - fetches today's football fixtures from multiple live sources.
+
+PRIMARY: SportyBet (per user directive - main source for fixtures and odds)
+SECONDARY: FlashScore, LiveScore, Sporting Life, Guardian, Transfermarkt, BBC, OLP XDV cache
+
+GUARDRAILS (2026-08-14 - learned from fabrication incident):
+- MUST check league calendar before claiming any fixtures
+- MUST verify against >=1 live sources (at least one source confirmation)
+- MUST filter by deploy-eligible whitelist (config/leagues.json)
+- MUST stamp provenance on every fixture row
+
+Usage:
+    python fixtures_agent.py              # today
+    python fixtures_agent.py 2026-08-14   # specific date
+    python fixtures_agent.py --verify     # pre-flight league calendar check only
+"""
+from __future__ import annotations
+
+import sys
+import json
+import re
+import argparse
+from datetime import date, datetime, UTC
+from pathlib import Path
+from typing import List, Dict, Optional
+
+sys.path.insert(0, str(Path(__file__).parent))
+
+# -- League season-start calendar (verified 2026-08-14) --
+# UPDATE when new season dates are confirmed.
+LEAGUE_SEASON_START: dict[str, str] = {
+    "Premier League":      "2026-08-21",
+    "La Liga":             "2026-08-15",
+    "Serie A":             "2026-08-22",
+    "Coppa Italia":        "2026-08-17",  # 2026-27 season starts mid-August
+    "Copa del Rey":        "2026-08-17",  # 2026-27 season starts mid-August
+    "DFB-Pokal":           "2026-08-17",  # 2026-27 season starts mid-August
+    "Coupe de France":     "2026-08-17",  # 2026-27 season starts mid-August
+    "FA Cup":              "2026-08-17",  # 2026-27 season starts mid-August
+    "KNVB Beker":          "2026-08-17",  # 2026-27 season starts mid-August
+    "Taça de Portugal":    "2026-08-17",  # 2026-27 season starts mid-August
+    "Bundesliga":          "2026-08-28",
+    "Ligue 1":             "2026-08-21",
+    "Eredivisie":          "2026-08-14",
+    "Championship":        "2026-08-14",
+    "Primeira Liga":       "2026-08-14",
+    "Turkish Super Lig":   "2026-08-14",
+    "La Liga 2":           "2026-08-14",
+    "Serie B":             "2026-08-14",
+    "2. Bundesliga":       "2026-08-14",
+    "Ligue 2":             "2026-08-14",
+    "Austrian Bundesliga": "2026-08-14",
+    "Belgian Pro League":  "2026-08-14",
+    "Danish Superliga":    "2026-08-14",
+    "Ekstraklasa":         "2026-08-14",
+    "Norwegian Eliteserien": "2026-08-14",
+    "Swedish Allsvenskan": "2026-08-14",
+    "Finnish Veikkausliiga": "2026-08-14",
+    "Ukrainian Premier League": "2026-08-14",
+    "Croatian HNL":        "2026-08-14",
+    "Chinese Super League": "2026-08-14",
+    "Japanese J1 League":  "2026-08-14",
+    "Saudi Pro League":    "2026-08-14",
+    "South Africa PSL":    "2026-08-14",
+    "Welsh Cymru Premier": "2026-08-14",
+}
+
+# -- Whitelist loader --
+def load_whitelist() -> set[str]:
+    """Load deploy-eligible leagues from config/leagues.json."""
+    try:
+        config_path = Path(__file__).parent / "config" / "leagues.json"
+        with open(config_path, encoding="utf-8") as f:
+            data = json.load(f)
+        return {l["name"] for l in data["leagues"] if l.get("deploy_eligible", False)}
+    except Exception:
+        return set()
+
+
+def _parse_date(d: str) -> date:
+    """Parse an ISO YYYY-MM-DD string to a date object. Raises on bad format."""
+    return datetime.strptime(d, "%Y-%m-%d").date()
+
+
+def check_league_calendar(target_date: str) -> tuple[set[str], set[str]]:
+    """Return (active_leagues, not_started_leagues) for a given date."""
+    tgt = _parse_date(target_date)
+    active = {lg for lg, start in LEAGUE_SEASON_START.items()
+              if tgt >= _parse_date(start)}
+    not_started = {lg for lg, start in LEAGUE_SEASON_START.items()
+                   if tgt < _parse_date(start)}
+    return active, not_started
+
+
+def verify_league_fixture(league: str, target_date: str) -> tuple[bool, str]:
+    """Check if a league fixture claim is plausible for the date.
+
+    Returns (is_plausible, reason).
+    """
+    if league in LEAGUE_SEASON_START:
+        tgt = _parse_date(target_date)
+        start = _parse_date(LEAGUE_SEASON_START[league])
+        if tgt < start:
+            return False, f"{league} season starts {LEAGUE_SEASON_START[league]} - before {target_date}"
+    return True, "OK"
+
+
+# -- OLP XDV SportyBet cache for odds --
+try:
+    from booking.bridge import load_all_sportybet_fixtures
+except Exception:
+    load_all_sportybet_fixtures = None
+
+
+def fetch_sportybet_cache(today: str) -> List[Dict]:
+    """Pull fixtures with 1X2 odds from the local SportyBet cache."""
+    if not load_all_sportybet_fixtures:
+        return []
+    try:
+        # Use a wide window (7 days) so the target date is included;
+        # the manual filter on kickoff date below does the precise selection.
+        all_fx = load_all_sportybet_fixtures(days_ahead=7)
+    except Exception:
+        return []
+    rows = []
+    for league, fixtures in sorted(all_fx.items()):
+        for fx in fixtures:
+            kickoff = fx.kickoff_utc or ""
+            if kickoff[:10] != today:
+                continue
+            rows.append({
+                "league": league,
+                "home": fx.home_team,
+                "away": fx.away_team,
+                "kickoff": kickoff[11:16] if len(kickoff) > 11 else "TBD",
+                "odds_1": fx.home_odds,
+                "odds_x": fx.draw_odds,
+                "odds_2": fx.away_odds,
+                "source": "SportyBet cache",
+                "kickoff_date": kickoff[:10],
+            })
+    return rows
+
+
+def _flashscore_line_to_time(match_datetime: str) -> str:
+    """The HH:MM in a FlashScore `match_datetime`, or "" if it carries none.
+
+    `_flashscore_line_to_date` below parses the hour and minute out of
+    '21.08. 20:00' and then returns only the DATE, so the kickoff time was
+    extracted and thrown away on every row. FlashScore fixtures consequently
+    reached the board with no time at all, and the ratified Telegram spec
+    (§2: real confirmed kickoff, never ??:??) could not be met from this source.
+
+    Returns "" rather than a default, so a row with no parseable time stays
+    honestly timeless instead of acquiring a fabricated one (HR35).
+    """
+    import re as _re
+    s = match_datetime or ""
+    m = _re.match(r"\d{1,2}\.\d{1,2}\.\s*(\d{1,2}):(\d{2})", s)
+    if not m:
+        m = _re.match(r"^(\d{1,2}):(\d{2})$", s.strip())
+    if not m:
+        return ""
+    return f"{int(m.group(1)):02d}:{m.group(2)}"
+
+
+def _flashscore_line_to_date(match_datetime: str, target_date: str | None = None, scrape_timestamp: str | None = None) -> str:
+    """FlashScore match_1x2 `match_datetime` is '21.08. 20:00' (D.MM. HH:MM, no
+    year) OR just '20:00' (HH:MM only for today's matches). Resolve to an ISO date.
+
+    If `target_date` is provided (YYYY-MM-DD), resolve the year to match that
+    date's month/day. Otherwise fall back to the current/next year within 400 days.
+
+    For HH:MM only format, if scrape_timestamp is provided, use it to determine
+    the correct date (assuming fixtures are scraped night before for next day's matches).
+    """
+    import re as _re
+    from datetime import datetime as _dt, timedelta
+
+    # First try full date format: "21.08. 20:00"
+    m = _re.match(r"(\d{1,2})\.(\d{1,2})\.\s*(\d{1,2}):(\d{2})", match_datetime or "")
+    if m:
+        day, mon, hh, mm = (int(x) for x in m.groups())
+
+        # If target_date given, use its year (and validate month/day match)
+        if target_date:
+            try:
+                tgt = _dt.fromisoformat(target_date)
+                # Ensure the day/month in match_datetime matches target_date
+                if tgt.month == mon and tgt.day == day:
+                    return target_date
+                # If month/day don't match target_date, we can't resolve — return empty
+                return ""
+            except ValueError:
+                pass  # fall through to fallback
+
+        # Fallback: prefer a date in the current or next year, within ~12 months.
+        now = _dt.now()
+        for year in (now.year, now.year + 1):
+            try:
+                d = _dt(year, mon, day)
+            except ValueError:
+                continue
+            if 0 <= (d - now).days <= 400:
+                return d.strftime("%Y-%m-%d")
+        return ""
+
+    # Try HH:MM only format (e.g., "20:00" for today's matches)
+    m = _re.match(r"^(\d{1,2}):(\d{2})$", match_datetime or "")
+    if m:
+        # When only time is given, we need to determine the date
+        if scrape_timestamp:
+            # Use the scrape timestamp to determine the correct date
+            try:
+                scrape_dt = _dt.fromisoformat(scrape_timestamp.replace('Z', '+00:00'))
+                scrape_date = scrape_dt.date()
+                hh, mm = (int(x) for x in m.groups())
+
+                # Create candidate datetime for today at the specified time
+                candidate_dt = _dt.combine(scrape_date, _dt.min.time().replace(hour=hh, minute=mm))
+
+                # If the candidate time hasn't passed yet today, it's for today
+                # Otherwise, it's for tomorrow (time has already passed)
+                if candidate_dt >= scrape_dt:
+                    return scrape_date.strftime("%Y-%m-%d")
+                else:
+                    next_day = scrape_date + timedelta(days=1)
+                    return next_day.strftime("%Y-%m-%d")
+            except ValueError:
+                # Fall back to target_date if scrape timestamp parsing fails
+                if target_date:
+                    return target_date
+                return ""
+        elif target_date:
+            # Legacy behavior: assume it's for the target_date
+            return target_date
+        # If we have neither scrape timestamp nor target_date, we can't determine the date
+        return ""
+
+    return ""
+
+
+def _find_flashscore_feed() -> Optional[Path]:
+    """Locate the FlashScore match_1x2 feed directory.
+
+    Same logic as booking.verify_fixtures._find_feed_dir() — walks UP from this
+    file for a `data/live_odds` dir that actually contains flashscore_odds_*.jsonl
+    files, then falls back to the workspace-root sibling. Returns None if no
+    usable feed exists (HR35: absence = unavailable, not a fabricated negative).
+    """
+    here = Path(__file__).resolve()
+    for candidate in [here, *here.parents]:
+        feed = candidate / "data" / "live_odds"
+        if feed.is_dir() and any(feed.glob("flashscore_odds_*.jsonl")):
+            print(f"[DEBUG] Found flashscore feed at {feed}")
+            return feed
+    ws = here.parents[2] if len(here.parents) >= 3 else here.parent
+    fallback = ws / "data" / "live_odds"
+    if fallback.is_dir() and any(fallback.glob("flashscore_odds_*.jsonl")):
+        print(f"[DEBUG] Found flashscore feed at {fallback}")
+        return fallback
+    return None
+
+
+FLASHSCORE_FEED_MAX_AGE_DAYS = 7
+
+
+def _feed_file_scrape_date(fpath: Path) -> Optional[date]:
+    """Extract the scrape date from a flashscore_odds_YYMMDD_HHMMSS.jsonl name."""
+    m = re.search(r"(\d{2})(\d{2})(\d{2})_\d{6}", fpath.name)
+    if not m:
+        return None
+    yy, mm, dd = (int(x) for x in m.groups())
+    try:
+        return date(2000 + yy, mm, dd)
+    except ValueError:
+        return None
+
+
+def _recent_feed_files(files: List[Path], target_date: str) -> List[Path]:
+    """Keep only feed files scraped close enough to `target_date` to be trusted.
+
+    fetch_flashscore used to union EVERY feed file on disk. FlashScore's
+    match_datetime carries no year ('16.09. 20:00'), so any historical scrape
+    holding that day/month resolves onto the target date -- including scrapes
+    whose rows are wrong. A single corrupt scrape therefore poisons that date
+    permanently, and re-running only makes it worse as history grows.
+
+    Observed on 2026-09-16: one scrape from 2026-08-29 had stamped Celje's
+    entire Europa League league-phase schedule with the same '16.09. 20:00',
+    injecting four fixtures that do not exist on that date. The T1 source (ESPN)
+    listed exactly one Celje fixture that day. Bounding the window to scrapes
+    from the week before the match day drops that file while keeping the
+    legitimate 'scraped the night before' case the docstring describes.
+
+    Files whose name does not parse are kept, so a naming change degrades to the
+    old permissive behaviour rather than silently returning nothing.
+    """
+    try:
+        tgt = date.fromisoformat(target_date)
+    except (TypeError, ValueError):
+        return files
+
+    kept: List[Path] = []
+    for f in files:
+        d = _feed_file_scrape_date(f)
+        if d is None:
+            kept.append(f)
+            continue
+        age = (tgt - d).days
+        # Scraped up to a week before the match day, or on/just after it.
+        if -1 <= age <= FLASHSCORE_FEED_MAX_AGE_DAYS:
+            kept.append(f)
+    return kept
+
+
+def _norm_team(name: str) -> str:
+    """Normalise a team name for duplicate detection only (never for display).
+
+    Scrapes disagree on the same club across days -- 'Leverkusen' vs 'Bayer
+    Leverkusen', 'Alkmaar' vs 'AZ Alkmaar'. The dedup key was the raw
+    home|away|date triple, so each spelling survived as a separate fixture and
+    one real match became several. Stripping common corporate/sponsor prefixes
+    and punctuation collapses the variants.
+    """
+    n = (name or "").strip().lower()
+    n = re.sub(r"[^a-z0-9 ]+", " ", n)
+    n = re.sub(r"\b(fc|sc|sv|ss|as|ac|afc|cf|sk|nk|hk|bk|if|ik|cd|ud|rc|cs)\b", " ", n)
+    n = re.sub(r"\b(bayer|bayern|borussia|royal|real|club|calcio|united|city)\b(?=.*\w)", r"\1", n)
+    n = re.sub(r"\s+", " ", n).strip()
+    # Drop a leading sponsor/initial token when the remainder is still distinctive
+    parts = n.split()
+    if len(parts) > 1 and len(parts[0]) <= 2:
+        n = " ".join(parts[1:])
+    return n
+
+
+def fetch_flashscore(today: str) -> List[Dict]:
+    """Read FlashScore fixtures from the scraped match_1x2 JSONL feed.
+
+    FlashScore renders via JS, so the live HTML is scraped by
+    scripts/scrape_live_odds_v3.py (Playwright) into
+    data/live_odds/flashscore_odds_*.jsonl. Each `match_1x2` row carries
+    home_team/away_team/match_datetime + a scrape timestamp + a source field —
+    real provenance, RATIFIED as T2 in verification/id403.py (Architect
+    2026-08-16). The odds inside the feed are NOT trusted (the scraper's odds
+    regex is buggy); only team identity + date are consumed here, for the
+    verification gate.
+
+    CRITICAL FIX (2026-08-17): Fixtures for a given match day are scraped the
+    NIGHT BEFORE. The most recent file (files[0]) contains the NEXT day's fixtures.
+    We must search ALL feed files and filter by resolved kickoff date.
+
+    Only fixtures matching the requested `today` date are returned.
+
+    If the feed is absent (not yet scraped, or cleaned), returns [] — the
+    caller treats a missing FlashScore feed as "source unavailable", never as a
+    list of empty fixtures (HR35: absence is not a fabricated negative).
+    """
+    rows: List[Dict] = []
+    feed_dir = _find_flashscore_feed()
+    if feed_dir is None:
+        return rows
+    files = sorted(feed_dir.glob("flashscore_odds_*.jsonl"), reverse=True)
+    if not files:
+        return rows
+    files = _recent_feed_files(files, today)
+    if not files:
+        return rows
+    seen: set = set()
+    # Search recent feed files only -- see _recent_feed_files. Fixtures for a
+    # match day are scraped the night before, so the target date's fixtures may
+    # be in a slightly older file, but unioning the ENTIRE feed history (40
+    # files here) lets a single bad scrape poison a date forever.
+    for fpath in files:
+        try:
+            content = fpath.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        for line in content.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
+            if d.get("type") != "match_1x2":
+                continue
+            home = (d.get("home_team") or "").strip()
+            away = (d.get("away_team") or "").strip()
+            if not home or not away:
+                continue
+            kickoff = _flashscore_line_to_date(d.get("match_datetime"), target_date=today, scrape_timestamp=d.get("timestamp"))
+            if kickoff != today:
+                continue  # filter to requested date
+            # Normalised key: the raw names drift between scrapes, so the raw
+            # triple let one fixture appear once per spelling variant.
+            key = f"{_norm_team(home)}|{_norm_team(away)}|{kickoff}"
+            if key in seen:
+                continue
+            seen.add(key)
+            # Use league from scraped data if available, fallback to "FlashScore" for safety
+            league = d.get("league", "FlashScore")
+            rows.append({
+                "league": league,
+                "home": home,
+                "away": away,
+                # kickoff is a DATE ("2026-09-17"), so kickoff[11:16] was always
+                # "" and every FlashScore row carried no time. The time lives in
+                # the raw match_datetime ("17.09. 20:00") and is read from there.
+                "kickoff": _flashscore_line_to_time(d.get("match_datetime")) or "TBD",
+                "odds_1": None,
+                "odds_x": None,
+                "odds_2": None,
+                "source": "FlashScore",
+                "kickoff_date": kickoff,
+            })
+    return rows
+
+
+def fetch_livescore(today: str) -> List[Dict]:
+    """Scrape LiveScore for today's fixtures."""
+    rows: List[Dict] = []
+    try:
+        import requests
+        from bs4 import BeautifulSoup
+        url = f"https://www.livescore.com/en/football/{today}/"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                          "AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+        resp = requests.get(url, headers=headers, timeout=15)
+        soup = BeautifulSoup(resp.text, "html.parser")
+        # LiveScore uses react with embedded data, so the HTML may not have all matches
+        # Try to extract visible fixture rows
+        for link in soup.find_all("a", href=True):
+            href = link.get("href", "")
+            if "/football/" in href and "/match/" in href:
+                text = link.get_text(strip=True)
+                if " v " in text or " vs " in text:
+                    parts = re.split(r'\s+(?:v|vs)\s+', text)
+                    if len(parts) == 2:
+                        rows.append({
+                            "league": "LiveScore",
+                            "home": parts[0].strip(),
+                            "away": parts[1].strip(),
+                            "kickoff": "TBD",
+                            "odds_1": None,
+                            "odds_x": None,
+                            "odds_2": None,
+                            "source": "LiveScore",
+                        })
+    except Exception:
+        pass
+    return rows
+
+
+def fetch_sportinglife(today: str) -> List[Dict]:
+    """Scrape Sporting Life fixtures page."""
+    rows: List[Dict] = []
+    try:
+        import requests
+        from bs4 import BeautifulSoup
+        url = f"https://www.sportinglife.com/football/fixtures-results/{today}"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                          "AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+        resp = requests.get(url, headers=headers, timeout=15)
+        soup = BeautifulSoup(resp.text, "html.parser")
+
+        # Sporting Life groups by competition in <h3> or section headers
+        current_league = "Unknown"
+        for elem in soup.find_all(["h3", "h2", "div"]):
+            text = elem.get_text(strip=True)
+            # Detect league headers
+            for league_name in [
+                "Premier League", "Championship", "League One", "League Two",
+                "Serie A", "Bundesliga", "Ligue 1", "La Liga", "Eredivisie",
+                "Primeira Liga", "Scottish Premiership", "Belgian Pro League",
+                "Danish Superliga", "Ekstraklasa", "Austrian Bundesliga",
+                "Swiss Super League", "HNL", "Eliteserien", "Allsvenskan",
+                "Coppa Italia", "Copa del Rey", "DFB-Pokal", "Coupe de France",
+                "FA Cup", "KNVB Beker", "Taça de Portugal",
+                "Scottish League Cup", "Bundesliga 2",
+                "La Liga 2", "Serie B", "2. Bundesliga", "Ligue 2",
+                "Europa League", "Champions League", "Conference League",
+            ]:
+                if league_name.lower() in text.lower() and len(text) < 60:
+                    current_league = league_name
+                    break
+    except Exception:
+        pass
+    return rows
+
+
+def fetch_bbc(today: str) -> List[Dict]:
+    """Scrape BBC Sport for today's fixtures."""
+    rows: List[Dict] = []
+    try:
+        import requests
+        from bs4 import BeautifulSoup
+        from datetime import datetime
+
+        # Parse the date to try different BBC URL formats
+        dt = datetime.strptime(today, "%Y-%m-%d")
+        year, month, day = dt.strftime("%Y"), dt.strftime("%m"), dt.strftime("%d")
+
+        # Try multiple BBC URL formats that are known to work
+        urls_to_try = [
+            f"https://www.bbc.com/sport/football/scores-fixtures/{year}/{month}/{day}",  # BBC standard date format
+            f"https://www.bbc.com/sport/football/scores-fixtures/{today}",  # ISO format
+            f"https://www.bbc.com/sport/football/scores-fixtures/date/{today}",  # With date/ prefix
+            f"https://www.bbc.com/sport/football/fixtures/{today}",  # Alternative path
+            f"https://www.bbc.com/sport/football/scores-fixtures",  # General fixtures page (might show today's)
+        ]
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                          "AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+
+        for url in urls_to_try:
+            try:
+                resp = requests.get(url, headers=headers, timeout=10)
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, "html.parser")
+
+                    # Look for match containers using BBC-specific selectors observed on the page
+                    match_containers = soup.find_all("div", class_=re.compile(r"ssrcss-.*-MatchProgressContainer"))
+
+                    # BBC structure: team elements are PREVIOUS SIBLINGS of MatchProgressContainer
+                    # Order: [away_team, scores/time, home_team] then MatchProgressContainer
+                    for match_container in match_containers:
+                        try:
+                            # Find team elements among previous siblings
+                            home_team = None
+                            away_team = None
+                            kickoff_time = "TBD"
+
+                            # Iterate through previous siblings
+                            for sib in match_container.previous_siblings:
+                                if not hasattr(sib, 'get'):
+                                    continue
+                                classes = sib.get('class', [])
+                                class_str = ' '.join(classes)
+
+                                # Check for home team (TeamHome)
+                                if 'TeamHome' in class_str and not home_team:
+                                    home_team = sib.get_text(strip=True)
+                                # Check for away team (TeamAway)
+                                elif 'TeamAway' in class_str and not away_team:
+                                    away_team = sib.get_text(strip=True)
+                                # Check for time/scores
+                                elif 'Scores' in class_str and kickoff_time == "TBD":
+                                    score_text = sib.get_text(strip=True)
+                                    # Extract time like "14:00" from "14:0014:00plays"
+                                    time_match = re.search(r'(\d{1,2}:\d{2})', score_text)
+                                    if time_match:
+                                        kickoff_time = time_match.group(1)
+
+                            # Clean team names - they may have repeated text like "EvertonEvertonEverton"
+                            # or concatenated forms like "Man UtdManchester UnitedManchester United"
+                            def clean_team(name: str) -> str:
+                                if not name:
+                                    return ""
+                                # First try splitting by spaces
+                                words = name.split()
+                                if len(words) >= 3:
+                                    # If it looks like "Everton Everton Everton" take first unique
+                                    if words[0] == words[1] == words[2]:
+                                        return words[0]
+                                # If no spaces, try to find repeated patterns
+                                # Look for 3x repetition of same substring
+                                for length in range(1, len(name) // 3 + 1):
+                                    chunk = name[:length]
+                                    if chunk * 3 == name:
+                                        return chunk
+                                # Handle concatenated short+long forms like "Man UtdManchester UnitedManchester United"
+                                # Try to find common football team abbreviations
+                                known_teams = {
+                                    "Man Utd": ["Manchester United", "Man United"],
+                                    "Man City": ["Manchester City"],
+                                    "Spurs": ["Tottenham Hotspur", "Tottenham"],
+                                    "N Forest": ["Nottingham Forest"],
+                                    "Wolves": ["Wolverhampton Wanderers"],
+                                    "Leicester": ["Leicester City"],
+                                    "Sheff Utd": ["Sheffield United"],
+                                    "Sheff Wed": ["Sheffield Wednesday"],
+                                    "QPR": ["Queens Park Rangers"],
+                                    "West Ham": ["West Ham United"],
+                                    "Brighton": ["Brighton & Hove Albion", "Brighton and Hove Albion"],
+                                    "Newcastle": ["Newcastle United"],
+                                    "Villa": ["Aston Villa"],
+                                    "Palace": ["Crystal Palace"],
+                                    "Bournemouth": ["AFC Bournemouth"],
+                                    "Brentford": [],
+                                    "Fulham": [],
+                                    "Southampton": [],
+                                    "Ipswich": ["Ipswich Town"],
+                                    "Leeds": ["Leeds United"],
+                                    "Everton": [],
+                                    "Arsenal": [],
+                                    "Chelsea": [],
+                                    "Liverpool": [],
+                                }
+                                # Check if name contains a known team abbreviation + full name
+                                for short, longs in known_teams.items():
+                                    if name.startswith(short):
+                                        # Check if the rest matches a long form
+                                        remainder = name[len(short):]
+                                        for long_form in longs:
+                                            if remainder.startswith(long_form):
+                                                return short
+                                        # Also check if remainder is the same short form repeated
+                                        if remainder == short * 2 or remainder == short:
+                                            return short
+                                return name
+
+                            home = clean_team(home_team) if home_team else ""
+                            away = clean_team(away_team) if away_team else ""
+
+                            # Filter valid team names
+                            if home and away and len(home) > 1 and len(away) > 1 and home != away and home.lower() != away.lower():
+                                rows.append({
+                                    "league": "BBC Sport",
+                                    "home": home,
+                                    "away": away,
+                                    "kickoff": kickoff_time,
+                                    "odds_1": None,
+                                    "odds_x": None,
+                                    "odds_2": None,
+                                    "source": "BBC Sport",
+                                })
+                        except Exception:
+                            continue  # Skip this match and continue with next
+
+                    # If we found matches with this URL, break
+                    if rows:
+                        break
+            except Exception:
+                continue  # Try next URL
+    except Exception:
+        pass
+    return rows
+
+
+# Display name -> verification/id403.SOURCE_TRUST key. The tier itself is NOT
+# duplicated here: id403 stays the single authority, this only bridges the
+# display names these fetchers emit to the keys that table uses.
+_SOURCE_TRUST_KEY = {
+    "FlashScore": "flashscore_fixtures",
+    "LiveScore": "livescore_fixtures",
+    "BBC Sport": "bbc_sport_fixtures",
+    "Sporting Life": "sporting_life_fixtures",
+    # SportyBet is deliberately absent: it is not a verifying source on its own
+    # (CLAUDE.md fixture gate), it supplies odds and corroboration only.
+}
+
+
+def _source_tier(source: str) -> str:
+    """Resolve a fetcher's display name to its ratified trust tier."""
+    try:
+        from verification.id403 import SOURCE_TRUST
+    except Exception:
+        return "UNKNOWN"
+    return SOURCE_TRUST.get(_SOURCE_TRUST_KEY.get(source, ""), "UNKNOWN")
+
+
+def _apply_verification(all_rows: List[Dict]) -> None:
+    """Apply the F2 quorum rule to each fixture.
+
+    A fixture is VERIFIED when either
+      - two or more distinct sources carry it, or
+      - a single source carries it and that source is T1.
+
+    This previously read `>= 1`, which is trivially true for every row (a row
+    always carries at least its own source), so every fixture was stamped
+    verified unconditionally and the gate enforced nothing -- including for
+    fixtures that came from one non-T1 source. The old docstring described that
+    as intentional ("to reflect real-world scenarios"), but it contradicts the
+    documented gate, and a gate that always returns True cannot distinguish a
+    corroborated fixture from a fabricated one.
+
+    Tiers come from verification/id403.SOURCE_TRUST so this does not become a
+    second, drifting copy of the trust table. An unrecognised source is treated
+    as non-T1: it can still contribute to quorum, but never verifies alone.
+    """
+    today = date.today().isoformat()
+
+    def _key(r: Dict) -> tuple:
+        return (_norm_team(r.get("home", "")), _norm_team(r.get("away", "")),
+                r.get("kickoff_date") or today)
+
+    # Map fixture -> set of distinct source names carrying it
+    agreement: Dict[tuple, set] = {}
+    for r in all_rows:
+        agreement.setdefault(_key(r), set()).add(r.get("source", ""))
+
+    for r in all_rows:
+        sources = agreement.get(_key(r), set())
+        if len(sources) >= 2:
+            r["verified"] = True
+        else:
+            r["verified"] = any(_source_tier(s) == "T1" for s in sources)
+
+
+def print_fixtures(today: str, all_rows: List[Dict]) -> None:
+    """Print fixtures in a clean table format with provenance stamping."""
+    # Merge by (home, away) - prefer rows with odds
+    seen: Dict[str, Dict] = {}
+    for r in all_rows:
+        key = f"{r.get('home','')}|{r.get('away','')}"
+        if key not in seen:
+            seen[key] = r
+        elif not seen[key].get("odds_1") and r.get("odds_1"):
+            seen[key] = r  # prefer row with odds
+
+    # Filter by whitelist AND league calendar
+    whitelist = load_whitelist()
+    active_leagues, not_started = check_league_calendar(today)
+
+    filtered_rows = []
+    for r in seen.values():
+        league = r.get("league", "")
+        # Skip if not in deploy-eligible whitelist
+        if league not in whitelist:
+            continue
+        # Skip if league not yet started (hallucination guard)
+        if league in not_started:
+            continue
+        # Verify fixture plausibility
+        plausible, reason = verify_league_fixture(league, today)
+        if not plausible:
+            continue
+        filtered_rows.append(r)
+
+    sorted_rows = sorted(filtered_rows, key=lambda r: (
+        r.get("kickoff", "99:99") if r.get("kickoff") != "TBD" else "99:99",
+        r.get("league", ""),
+    ))
+
+    print(f"\n{'='*80}")
+    print(f"  FOOTBALL FIXTURES - {today}  (verified)")
+    print(f"{'='*80}\n")
+
+    by_league: Dict[str, List[Dict]] = {}
+    for r in sorted_rows:
+        lg = r.get("league", "Unknown")
+        by_league.setdefault(lg, []).append(r)
+
+    total = 0
+    for league in sorted(by_league.keys()):
+        fixtures = by_league[league]
+        print(f"  {league} ({len(fixtures)})")
+        for r in fixtures:
+            kickoff = r.get("kickoff", "TBD")
+            home = r.get("home", "?")
+            away = r.get("away", "?")
+            odds = ""
+            if r.get("odds_1"):
+                odds = f"  | 1X2: {r['odds_1']}/{r['odds_x']}/{r['odds_2']}"
+            # Provenance stamp
+            src = r.get("source", "?")
+            fetch_time = r.get("fetched_at", datetime.now(UTC).isoformat() + "Z")
+            verified = "verified" if r.get("verified", False) else "UNVERIFIED"
+            prov = f"  [{src} | {fetch_time[:19]} | {verified}]"
+            print(f"    {kickoff}  {home} vs {away}{odds}{prov}")
+            total += 1
+        print()
+
+    if not_started:
+        print(f"  !!!  Leagues NOT YET STARTED (excluded): {', '.join(sorted(not_started))}")
+    print(f"  Total: {total} fixtures across {len(by_league)} deploy-eligible competitions")
+    print(f"{'='*80}\n")
+
+
+def main(target_date: Optional[str] = None, verify_only: bool = False):
+    today = target_date or date.today().isoformat()
+
+    if verify_only:
+        # Pre-flight check only
+        active, not_started = check_league_calendar(today)
+        whitelist = load_whitelist()
+        print(f"\n{'='*60}")
+        print(f"PRE-FLIGHT VERIFICATION - {today}")
+        print(f"{'='*60}\n")
+        print(f"Deploy-eligible leagues in whitelist: {len(whitelist)}")
+        print(f"Leagues confirmed active (season started): {len(active & whitelist)}")
+        print(f"Leagues NOT YET STARTED: {len(not_started & whitelist)}")
+        print()
+        if not_started & whitelist:
+            print("!!!  EXCLUDED (hallucination risk):")
+            for lg in sorted(not_started & whitelist):
+                print(f"  !!! {lg} - starts {LEAGUE_SEASON_START.get(lg, '?')}")
+        print(f"\n!!!  ACTIVE & WHITELISTED ({len(active & whitelist)}):")
+        for lg in sorted(active & whitelist):
+            print(f"  !! {lg}")
+        print(f"{'='*60}\n")
+        return
+
+    print(f"[fixtures-checker] Fetching fixtures for {today}...")
+    print(f"[fixtures-checker] PRIMARY SOURCE: FlashScore (always first)")
+    print()
+
+    # Pre-flight verification
+    active, not_started = check_league_calendar(today)
+    if not_started & load_whitelist():
+        print(f"  !!!  Pre-flight: {len(not_started & load_whitelist())} whitelisted leagues not yet started - will be excluded")
+    print()
+
+    all_rows: List[Dict] = []
+    fetch_time = datetime.now(UTC).isoformat() + "Z"
+
+    # 1. OLP XDV SportyBet cache (odds-enhanced) - PRIMARY SOURCE PER USER DIRECTIVE
+    print("  [1/5] SportyBet cache (odds) [PRIMARY SOURCE]...")
+    sb_rows = fetch_sportybet_cache(today)
+    for r in sb_rows:
+        r["fetched_at"] = fetch_time
+    print(f"       {len(sb_rows)} fixtures with odds")
+    all_rows.extend(sb_rows)
+
+    # 2. FlashScore (SECONDARY)
+    print("  [2/5] FlashScore...")
+    fs_rows = fetch_flashscore(today)
+    for r in fs_rows:
+        r["fetched_at"] = fetch_time
+    print(f"       {len(fs_rows)} fixtures found")
+    # Debug: show first few HH:MM format resolutions
+    hh_mm_shown = 0
+    for r in fs_rows[:10]:  # Check first 10 rows
+        if r.get("kickoff_date") and len(r["kickoff_date"]) == 10:  # ISO date
+            continue  # Skip full date format
+        if hh_mm_shown < 3:
+            print(f"       DEBUG: {r.get('home')} vs {r.get('away')} -> kickoff_date: {r.get('kickoff_date')}")
+            hh_mm_shown += 1
+    all_rows.extend(fs_rows)
+
+    # 3. LiveScore
+    print("  [3/5] LiveScore...")
+    ls_rows = fetch_livescore(today)
+    for r in ls_rows:
+        r["fetched_at"] = fetch_time
+    print(f"       {len(ls_rows)} fixtures found")
+    all_rows.extend(ls_rows)
+
+    # 4. BBC Sport
+    print("  [4/5] BBC Sport...")
+    bbc_rows = fetch_bbc(today)
+    for r in bbc_rows:
+        r["fetched_at"] = fetch_time
+    print(f"       {len(bbc_rows)} fixtures found")
+    all_rows.extend(bbc_rows)
+
+    # 5. Sporting Life
+    print("  [5/5] Sporting Life...")
+    sl_rows = fetch_sportinglife(today)
+    for r in sl_rows:
+        r["fetched_at"] = fetch_time
+    print(f"       {len(sl_rows)} fixtures found")
+    all_rows.extend(sl_rows)
+
+    # Cross-source verification: a row is verified only if >=2 distinct sources
+    # agree on the same (home, away, date). This replaces the old behavior of
+    # marking every row "verified" unconditionally.
+    _apply_verification(all_rows)
+
+    print_fixtures(today, all_rows)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Fixtures agent - live football fixtures with verification")
+    parser.add_argument("date", nargs="?", help="Target date (YYYY-MM-DD), defaults to today")
+    parser.add_argument("--verify", action="store_true", help="Pre-flight league calendar check only")
+    args = parser.parse_args()
+
+    main(target_date=args.date, verify_only=args.verify)

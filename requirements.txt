@@ -1,3 +1,15 @@
 numpy>=1.26
 scipy>=1.11
 requests>=2.31
+# knowledge_persistence.py imports yaml, which run_daily reaches via
+# booking.verify_fixtures -> booking.bridge. It was never declared, so a fresh
+# venv or CI runner failed the whole pipeline at import time.
+PyYAML>=6.0
+anthropic>=0.40
+playwright>=1.40
+tweepy>=4.14
+# used by the test suite; was undeclared until 2026-09-16
+pytest>=8.0
+# Imported by send_board.py, send_heartbeat.py, check_plan.py and test_plan.py
+# but never declared (from claude/fix-cache-contamination).
+python-dotenv>=1.0

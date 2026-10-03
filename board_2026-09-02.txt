@@ -1,0 +1,54 @@
+##########OLP XDV#########
+==================================
+
+📅  Wed 02 Sep 2026   (PICK · win %  ·  alt markets)
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+Board code: NO DATA — PENDING (booking-code read postponed — technical issue,
+tracked internally, not blocking pipeline output)
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+No deploy-eligible fixtures kicking off today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+──────────────────────────────────
+No capital-eligible accas generated.
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Booking codes: PENDING pipeline-wide — technical issue under repair,
+tracking resumes once read_betslip_combined_odds is fixed.
+==================================
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
+REJECTED Celtic v Dundee (Scottish Premiership) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+REJECTED Arsenal v Leeds (Premier League) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 0 verified, 0 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+REJECTED Celtic v Dundee (Scottish Premiership) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+REJECTED Arsenal v Leeds (Premier League) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 0 verified, 0 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+REJECTED Celtic v Dundee (Scottish Premiership) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+REJECTED Arsenal v Leeds (Premier League) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 0 verified, 0 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+REJECTED Celtic v Dundee (Scottish Premiership) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+REJECTED Arsenal v Leeds (Premier League) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 0 verified, 0 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+REJECTED Celtic v Dundee (Scottish Premiership) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+REJECTED Arsenal v Leeds (Premier League) — kickoff is 2026-08-14 (-19 days from target 2026-09-02). This is a different matchday, not today's. | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 0 verified, 0 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 
+VERIFY GATE: 0 verified, 0 kept-unverified, 0 dropped (FlashScore on, SportyBet OFF) | NO DATA — PENDING |  |  |  | 

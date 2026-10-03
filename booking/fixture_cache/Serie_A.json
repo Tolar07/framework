@@ -1,0 +1,103 @@
+{
+  "fetched_at": 1788035452.8649833,
+  "league": "Serie A",
+  "country": "Italy",
+  "fixtures": [
+    {
+      "id": "42927",
+      "home": "AFF Guatemala",
+      "away": "CD Mictlan",
+      "kickoff": "22:00  \nID: 42927",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "43516",
+      "home": "Deportivo Achuapa",
+      "away": "Csd Chiquimulilla",
+      "kickoff": "22:00  \nID: 43516",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "Serie A-2",
+      "home": "Sevilla",
+      "away": "Atletico Madrid",
+      "kickoff": "45:00\nHT",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Juventus",
+      "away": "Parma Calcio",
+      "kickoff": "82:21\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Lyon",
+      "away": "Le Havre",
+      "kickoff": "88:49\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "AJ Auxerre",
+      "away": "Angers",
+      "kickoff": "86:15\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Brest",
+      "away": "Toulouse",
+      "kickoff": "86:20\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Lorient",
+      "away": "Troyes",
+      "kickoff": "86:58\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "PEC Zwolle",
+      "away": "NEC Nijmegen",
+      "kickoff": "70:28\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "FC Pacos Ferreira",
+      "away": "AD Fafe",
+      "kickoff": "68:00\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "Serie A-10",
+      "home": "Girona",
+      "away": "Las Palmas",
+      "kickoff": "45:00\nHT",
+      "league": "Serie A",
+      "raw_market": {}
+    },
+    {
+      "id": "2",
+      "home": "Ascoli Calcio 1898",
+      "away": "Carrarese Calcio",
+      "kickoff": "69:19\nH2",
+      "league": "Serie A",
+      "raw_market": {}
+    }
+  ]
+}

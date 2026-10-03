@@ -1,0 +1,45 @@
+name: OLP XDV missed-run watchdog
+
+# daily.yml alerts when a board run FAILS. This catches the silent case: a
+# scheduled run GitHub delayed or dropped (2026-09-30: the 06:00 run never
+# fired). ~2.5 h after each board slot it checks that some daily.yml run
+# succeeded in the slot's window and alerts on Telegram if none did.
+on:
+  schedule:
+    - cron: "17 23 * * *"   # evening slot (board due 20:47 UTC)
+    - cron: "17 8 * * *"    # morning slot (board due 05:47 UTC)
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: "evening | morning"
+        required: true
+        default: "evening"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install requests python-dotenv
+      - name: Check the slot's board run
+        env:
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          SCHEDULE:           ${{ github.event.schedule }}
+          SLOT_INPUT:         ${{ github.event.inputs.slot }}
+        run: |
+          if [ "$SCHEDULE" = "17 23 * * *" ]; then SLOT=evening
+          elif [ "$SCHEDULE" = "17 8 * * *" ]; then SLOT=morning
+          else SLOT="${SLOT_INPUT:-evening}"; fi
+          if ! [[ "$SLOT" =~ ^(evening|morning)$ ]]; then echo "invalid slot '$SLOT'"; exit 1; fi
+          python monitor/run_watchdog.py --slot "$SLOT"

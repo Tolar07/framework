@@ -17,7 +17,7 @@ the laptop's Windows board task is disabled. Rules: `STANDING_ORDERS.md`.
 | CAPITAL_ENABLED | True (derived, `PHASE >= 3`) | `config/__init__.py` |
 | Telegram delivery | ON — board on pick days, heartbeat every day | `.github/workflows/daily.yml`, standing order 6 |
 | Board runs | 20:47 UTC (evening, next day's card) and 05:47 UTC (morning refresh); Routine + cron, duplicate-guarded | `.github/workflows/daily.yml` |
-| Missed-run alarm | 23:17 and 08:17 UTC | `.github/workflows/watchdog.yml` |
+| Missed-run watchdog | 23:17 and 08:17 UTC — starts a slot's board that never ran and says so on Telegram | `.github/workflows/watchdog.yml` |
 | CLV log (2026-10-03) | 388 legs logged, 9 with CLV, mean CLV +1.655% | `clv/clv_log.json` via `python scripts/olp_query.py status` |
 | Phase 3 CLV gate | NOT MET — 9 of 30 legs with CLV (mean positive) | `clv/clv_logger.py` `phase2_status()` |
 | Tests | `python tests/run_all.py` green; `tests.yml` on every push/PR | `.github/workflows/tests.yml` |
@@ -35,7 +35,7 @@ became one).
 | 2 | F2 price quorum (`pipeline/odds_verify.py`, PR #6) merged and tested but not called from the live odds path | OPEN — Architect decision |
 | 3 | Feed team names not matching the model's history (23 fixtures market-priced on 2026-10-03) | **CLOSED 2026-10-03** — `engine/name_match.py` (#51) |
 | 4 | A SPLIT pick with no market price crashed the whole daily run | **CLOSED 2026-10-03** — #48 |
-| 5 | A dropped GitHub cron was silent (only failures alerted) | **CLOSED 2026-10-03** — missed-run watchdog (#50) |
+| 5 | A dropped GitHub cron was silent (only failures alerted) | **CLOSED 2026-10-03** — missed-run watchdog (#50); it starts the missed run itself, and handles its own cron firing after midnight (#54) |
 | 6 | Laptop scheduled data tasks still run against laptop-only files (three `.bat` files missing; tasks failing) | OPEN — retiring them on the laptop (Architect decision 2026-10-03) |
 
 ---

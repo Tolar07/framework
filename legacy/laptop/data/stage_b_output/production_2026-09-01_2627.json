@@ -1,0 +1,44 @@
+{
+  "run_date": "2026-09-01",
+  "fixtures_season": "2627",
+  "stage_a_run_date": "2026-08-20",
+  "layer2": {
+    "compact": "PART 2 \u2014 COMPACT (fast-scan)\nFixture | Selected Pick | Booking Code",
+    "full_scan": "PART 2 \u2014 THE SCAN\nFixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src",
+    "fixtures_count": 0
+  },
+  "layer1": {
+    "table": "PART 1 \u2014 THE CALL \u2014 today's fixtures only\nNO DEPLOY-ELIGIBLE CALL this session \u2014 no deployable fixture kicks off today (a valid, honest result).",
+    "today_fixtures_count": 0
+  },
+  "acca_route": {
+    "acca_a": null,
+    "acca_a_legs": 0,
+    "acca_b": null,
+    "acca_b_legs": 0,
+    "slv": null,
+    "watchlist_count": 0
+  },
+  "the_pick": {
+    "fixture": null,
+    "market": null,
+    "price": null,
+    "edge": null,
+    "rationale": "No capital-eligible legs today"
+  },
+  "data_flags": [],
+  "stats": {
+    "total_fixtures_stage_a": 5,
+    "total_fixtures_enriched": 0,
+    "today_fixtures": 0,
+    "deploy_eligible_today": 0,
+    "no_data_fixtures": 0,
+    "conflict_fixtures": 0,
+    "verified_fixtures": 0,
+    "single_source_fixtures": 0,
+    "acca_a_legs": 0,
+    "acca_b_legs": 0,
+    "slv": null,
+    "watchlist_count": 0
+  }
+}

@@ -1,0 +1,252 @@
+##########OLP XDV#########
+==================================
+
+📅  Sat 29 Aug 2026   (PICK · win %  ·  alt markets)
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+⚽ Belgian Pro League
+   ??:??   Kortrijk v Charleroi
+       O1.5 72%  ·  O2.5 44%  ·  O3.5 23%  ·  BTTS 50%
+       AI pick = Charleroi or Draw (double chance) 74%
+⚽ Bundesliga
+   ??:??   RB Leipzig v Borussia Mönchengladbach
+       O1.5 80%  ·  O2.5 57%  ·  O3.5 35%  ·  BTTS 54%
+       AI pick = RB Leipzig to win 62%
+   14:30   Union Berlin v Eintracht Frankfurt
+       O1.5 86%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 67%
+       AI pick = Over 1.5 goals 86%
+   17:30   Borussia Dortmund v Hamburger SV
+       O1.5 77%  ·  O2.5 53%  ·  O3.5 31%  ·  BTTS 43%
+       AI pick = Borussia Dortmund to win 71%
+⚽ Championship
+   12:30   Derby v Swansea
+       O1.5 75%  ·  O2.5 49%  ·  O3.5 27%  ·  BTTS 54%
+       AI pick = Over 1.5 goals 75%
+   12:30   Middlesbrough v West Brom
+       O1.5 69%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 44%
+       AI pick = Middlesbrough to win 56%
+   15:00   Watford v West Ham
+       AI pick = Watford or West Ham (double chance) 78%
+   15:00   Southampton v Millwall
+       O1.5 78%  ·  O2.5 53%  ·  O3.5 31%  ·  BTTS 57%
+       AI pick = Over 1.5 goals 78%
+   15:00   Bristol City v Portsmouth
+       O1.5 71%  ·  O2.5 43%  ·  O3.5 22%  ·  BTTS 49%
+       AI pick = Bristol City or Draw (double chance) 76%
+   ??:??   Blackburn v QPR
+       O1.5 69%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 49%
+       AI pick = QPR or Draw (double chance) 64%
+   15:00   Norwich v Burnley
+       O1.5 60%  ·  O2.5 32%  ·  O3.5 14%  ·  BTTS 32%
+       AI pick = Burnley or Draw (double chance) 87%
+   15:00   Charlton v Preston
+       O1.5 63%  ·  O2.5 35%  ·  O3.5 16%  ·  BTTS 43%
+       AI pick = Both teams to score — no 57%
+⚽ Eredivisie
+   15:30   Excelsior v Sparta Rotterdam
+       O1.5 73%  ·  O2.5 47%  ·  O3.5 25%  ·  BTTS 51%
+       AI pick = Excelsior or Draw (double chance) 76%
+   17:45   AZ Alkmaar v GO Ahead Eagles
+       AI pick = AZ Alkmaar or GO Ahead Eagles (double chance) 75%
+⚽ La Liga 2
+   ??:??   Albacete v Oviedo
+       O1.5 70%  ·  O2.5 44%  ·  O3.5 23%  ·  BTTS 50%
+       AI pick = Over 1.5 goals 70%
+⚽ Ligue 1
+   16:15   Strasbourg v Lens
+       O1.5 82%  ·  O2.5 60%  ·  O3.5 38%  ·  BTTS 62%
+       AI pick = Over 1.5 goals 82%
+   19:45   Lyon v Le Havre
+       O1.5 66%  ·  O2.5 39%  ·  O3.5 19%  ·  BTTS 39%
+       AI pick = Both teams to score — no 61%
+   19:45   Stade Brestois 29 v Toulouse
+       O1.5 76%  ·  O2.5 52%  ·  O3.5 30%  ·  BTTS 56%
+       AI pick = Over 1.5 goals 76%
+   19:45   Auxerre v Angers
+       O1.5 53%  ·  O2.5 26%  ·  O3.5 10%  ·  BTTS 33%
+       AI pick = Angers or Draw (double chance) 55%
+⚽ Ligue 2
+   ??:??   Annecy v Metz
+       O1.5 72%  ·  O2.5 49%  ·  O3.5 27%  ·  BTTS 51%
+       AI pick = Annecy or Metz (double chance) 77%
+   ??:??   Guingamp v Nantes
+       AI pick = Nantes or Draw (double chance) 76%
+⚽ Premier League
+   15:00   Bournemouth v Everton
+       O1.5 78%  ·  O2.5 52%  ·  O3.5 30%  ·  BTTS 57%
+       AI pick = Over 1.5 goals 78%
+   17:30   Tottenham v Newcastle
+       O1.5 79%  ·  O2.5 54%  ·  O3.5 32%  ·  BTTS 59%
+       AI pick = Over 1.5 goals 79%
+⚽ Primeira Liga
+   ??:??   Arouca v Maritimo
+       AI pick = Arouca or Maritimo (double chance) 75%
+   ??:??   Alverca v Santa Clara
+       O1.5 58%  ·  O2.5 31%  ·  O3.5 14%  ·  BTTS 39%
+       AI pick = Alverca or Draw (double chance) 68%
+⚽ Russian Premier League
+   13:00   Fakel v Zenit
+       O1.5 58%  ·  O2.5 29%  ·  O3.5 12%  ·  BTTS 18%
+       AI pick = Fakel or Zenit (double chance) 75%
+   15:30   FC Krasnodar v FC Rostov
+       O1.5 83%  ·  O2.5 58%  ·  O3.5 36%  ·  BTTS 47%
+       AI pick = FC Krasnodar or FC Rostov (double chance) 79%
+   ??:??   Lokomotiv v Dynamo
+       O1.5 88%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 70%
+       AI pick = Over 2.5 goals 66%
+   18:00   Akhmat v Krylia Sovetov
+       O1.5 76%  ·  O2.5 48%  ·  O3.5 26%  ·  BTTS 56%
+       AI pick = Over 1.5 goals 76%
+⚽ Scottish Premiership
+   15:00   Celtic v Falkirk
+       O1.5 86%  ·  O2.5 66%  ·  O3.5 44%  ·  BTTS 56%
+       AI pick = Over 2.5 goals 66%
+⚽ Serie A
+   17:30   Sassuolo v Torino
+       O1.5 79%  ·  O2.5 57%  ·  O3.5 35%  ·  BTTS 58%
+       AI pick = Sassuolo or Torino (double chance) 77%
+   17:30   Fiorentina v Frosinone
+       AI pick = Fiorentina to win 60%
+   17:30   Monza v Udinese
+       O1.5 69%  ·  O2.5 42%  ·  O3.5 21%  ·  BTTS 47%
+       AI pick = Over 1.5 goals 69%
+   19:45   Juventus v Parma
+       O1.5 63%  ·  O2.5 37%  ·  O3.5 17%  ·  BTTS 33%
+       AI pick = Both teams to score — no 67%
+⚽ Serie B
+   ??:??   Sampdoria v Juve Stabia
+       O1.5 60%  ·  O2.5 31%  ·  O3.5 13%  ·  BTTS 40%
+       AI pick = Both teams to score — no 60%
+   ??:??   Virtus Entella v Cesena
+       O1.5 68%  ·  O2.5 40%  ·  O3.5 20%  ·  BTTS 48%
+       AI pick = Virtus Entella or Draw (double chance) 72%
+⚽ Swiss Super League
+   17:00   Servette FC v FC Luzern
+       AI pick = Servette FC or Draw (double chance) 76%
+⚽ Turkish Super Lig
+   17:00   Konyaspor v Kocaelispor
+       AI pick = Konyaspor or Draw (double chance) 80%
+   ??:??   Galatasaray v Göztepe
+       O1.5 87%  ·  O2.5 68%  ·  O3.5 46%  ·  BTTS 54%
+       AI pick = Over 1.5 goals 87%
+   19:30   Gaziantep FK v Rizespor
+       O1.5 76%  ·  O2.5 51%  ·  O3.5 29%  ·  BTTS 55%
+       AI pick = Gaziantep FK or Draw (double chance) 72%
+
+Board code: NO DATA — PENDING (booking-code read postponed — technical issue,
+tracked internally, not blocking pipeline output)
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+📈 Kortrijk v Charleroi — Charleroi or Draw (double chance) — 74%
+    Code: NO DATA — PENDING
+📈 RB Leipzig v Borussia Mönchengladbach — RB Leipzig to win — 62%
+    Code: NO DATA — PENDING
+📈 Union Berlin v Eintracht Frankfurt — Over 1.5 goals — 86%
+    Code: NO DATA — PENDING
+📈 Borussia Dortmund v Hamburger SV — Borussia Dortmund to win — 71%
+    Code: NO DATA — PENDING
+📈 Derby v Swansea — Over 1.5 goals — 75%
+    Code: NO DATA — PENDING
+📈 Middlesbrough v West Brom — Middlesbrough to win — 56%
+    Code: NO DATA — PENDING
+📈 Watford v West Ham — Watford or West Ham (double chance) — 78%
+    Code: NO DATA — PENDING
+📈 Southampton v Millwall — Over 1.5 goals — 78%
+    Code: NO DATA — PENDING
+📈 Bristol City v Portsmouth — Bristol City or Draw (double chance) — 76%
+    Code: NO DATA — PENDING
+📈 Blackburn v QPR — QPR or Draw (double chance) — 64%
+    Code: NO DATA — PENDING
+📈 Norwich v Burnley — Burnley or Draw (double chance) — 87%
+    Code: NO DATA — PENDING
+📈 Charlton v Preston — Both teams to score — no — 57%
+    Code: NO DATA — PENDING
+📈 Excelsior v Sparta Rotterdam — Excelsior or Draw (double chance) — 76%
+    Code: NO DATA — PENDING
+📈 AZ Alkmaar v GO Ahead Eagles — AZ Alkmaar or GO Ahead Eagles (double chance) — 75%
+    Code: NO DATA — PENDING
+📈 Albacete v Oviedo — Over 1.5 goals — 70%
+    Code: NO DATA — PENDING
+📈 Strasbourg v Lens — Over 1.5 goals — 82%
+    Code: NO DATA — PENDING
+📈 Lyon v Le Havre — Both teams to score — no — 61%
+    Code: NO DATA — PENDING
+📈 Stade Brestois 29 v Toulouse — Over 1.5 goals — 76%
+    Code: NO DATA — PENDING
+📈 Auxerre v Angers — Angers or Draw (double chance) — 55%
+    Code: NO DATA — PENDING
+📈 Annecy v Metz — Annecy or Metz (double chance) — 77%
+    Code: NO DATA — PENDING
+📈 Guingamp v Nantes — Nantes or Draw (double chance) — 76%
+    Code: NO DATA — PENDING
+📈 Bournemouth v Everton — Over 1.5 goals — 78%
+    Code: NO DATA — PENDING
+📈 Tottenham v Newcastle — Over 1.5 goals — 79%
+    Code: NO DATA — PENDING
+📈 Arouca v Maritimo — Arouca or Maritimo (double chance) — 75%
+    Code: NO DATA — PENDING
+📈 Alverca v Santa Clara — Alverca or Draw (double chance) — 68%
+    Code: NO DATA — PENDING
+📈 Fakel v Zenit — Fakel or Zenit (double chance) — 75%
+    Code: NO DATA — PENDING
+📈 FC Krasnodar v FC Rostov — FC Krasnodar or FC Rostov (double chance) — 79%
+    Code: NO DATA — PENDING
+📈 Lokomotiv v Dynamo — Over 2.5 goals — 66%
+    Code: NO DATA — PENDING
+📈 Akhmat v Krylia Sovetov — Over 1.5 goals — 76%
+    Code: NO DATA — PENDING
+📈 Celtic v Falkirk — Over 2.5 goals — 66%
+    Code: NO DATA — PENDING
+📈 Sassuolo v Torino — Sassuolo or Torino (double chance) — 77%
+    Code: NO DATA — PENDING
+📈 Fiorentina v Frosinone — Fiorentina to win — 60%
+    Code: NO DATA — PENDING
+📈 Monza v Udinese — Over 1.5 goals — 69%
+    Code: NO DATA — PENDING
+📈 Juventus v Parma — Both teams to score — no — 67%
+    Code: NO DATA — PENDING
+📈 Sampdoria v Juve Stabia — Both teams to score — no — 60%
+    Code: NO DATA — PENDING
+📈 Virtus Entella v Cesena — Virtus Entella or Draw (double chance) — 72%
+    Code: NO DATA — PENDING
+📈 Servette FC v FC Luzern — Servette FC or Draw (double chance) — 76%
+    Code: NO DATA — PENDING
+📈 Konyaspor v Kocaelispor — Konyaspor or Draw (double chance) — 80%
+    Code: NO DATA — PENDING
+📈 Galatasaray v Göztepe — Over 1.5 goals — 87%
+    Code: NO DATA — PENDING
+📈 Gaziantep FK v Rizespor — Gaziantep FK or Draw (double chance) — 72%
+    Code: NO DATA — PENDING
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+──────────────────────────────────
+No capital-eligible accas generated.
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+🎯 Primary single: Lokomotiv v Dynamo (Russian Premier League)
+  Market: Over 2.5 goals
+  Price: 1.67 (Pinnacle)
+  Model Prob: 66%
+  MES EV: +9.85%
+  Verification: ○
+  Code: NO DATA — PENDING
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Booking codes: PENDING pipeline-wide — technical issue under repair,
+tracking resumes once read_betslip_combined_odds is fixed.
+==================================
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit

@@ -1,0 +1,83 @@
+🎯 OLP XDV HEARTBEAT
+📅  Fri 18 Sep 2026
+
+⚽  Armenian Premier League
+🕐  14:00   FC Gandzasar v FC Urartu
+💡  Pick: ⚪ FC Urartu Draw No Bet (96%)
+📈  Edge: +24.5%
+💷  SportyBet: 1.40
+
+🎯 OLP XDV HEARTBEAT
+📅  Fri 18 Sep 2026
+
+⚽  Ligue 2
+🕐  18:00   Stade de Reims v Montpellier
+💡  Pick: 📉 Under 3.5 goals (84%)
+📈  Edge: +12.1%
+💷  SportyBet: 1.39
+
+🎯 OLP XDV HEARTBEAT
+📅  Fri 18 Sep 2026
+
+⚽  Serie A
+🕐  18:45   Monza v Sassuolo
+💡  Pick: 📈 Over 1.5 goals (92%)
+📈  Edge: +10.5%
+💷  SportyBet: 1.23
+
+🎯 OLP XDV HEARTBEAT
+📅  Fri 18 Sep 2026
+
+⚽  Ligue 2
+🕐  18:00   Pau FC v Dunkerque
+💡  Pick: 📈 Over 1.5 goals (89%)
+📈  Edge: +9.8%
+💷  SportyBet: 1.26
+
+🎯 OLP XDV HEARTBEAT
+📅  Fri 18 Sep 2026
+
+⚽  Ligue 2
+🕐  18:00   Rodez Aveyron v AS Nancy Lorraine
+💡  Pick: 🔗 Rodez or Draw (double chance) (79%)
+📈  Edge: +6.5%
+💷  SportyBet: 1.37
+
+🎯 OLP XDV HEARTBEAT
+📅  Fri 18 Sep 2026
+
+⚽  Belgian Pro League
+🕐  18:45   KAA Gent v Standard Liege
+💡  Pick: 📉 Under 3.5 goals (80%)
+📈  Edge: +4.7%
+💷  SportyBet: 1.33
+
+🎯 OLP XDV HEARTBEAT
+📅  Fri 18 Sep 2026
+
+⚽  Serie B
+🕐  19:30   Juve Stabia v Cesena
+💡  Pick: 🔗 Juve Stabia or Draw (double chance) (80%)
+📈  Edge: +4.4%
+💷  SportyBet: 1.33
+
+🎯 OLP XDV HEARTBEAT
+📅  Fri 18 Sep 2026
+
+⚽  2. Bundesliga
+🕐  16:30   SpVgg Greuther Fürth v 1. FC Magdeburg
+💡  Pick: 📈 Over 2.5 goals (73%)
+📈  Edge: +3.8%
+💷  SportyBet: 1.45
+
+[DNA] HEARTBEAT LINEAGE REPORT
+[ALIVE] Living lineages: 8   [EXTINCT] Extinct: 0
+[$] Total lifeforce (bankroll): 101.98
+  ln_4abf6 G3 <-ln_7d9 | [$]12.94 [S]1.00 | 0W-0L | FC Gandzasar v FC Urartu - FC Urartu Draw No Bet
+  ln_d6ef3 G3 <-ln_7d9 | [$]12.94 [S]1.00 | 0W-0L | Stade de Reims v Montpellier - Under 3.5 goals
+  ln_a6e76 G3 <-ln_b69 | [$]12.77 [S]1.00 | 0W-0L | Monza v Sassuolo - Over 1.5 goals
+  ln_0e44d G3 <-ln_b69 | [$]12.77 [S]1.00 | 0W-0L | Pau FC v Dunkerque - Over 1.5 goals
+  ln_de107 G3 <-ln_f8d | [$]12.77 [S]1.00 | 0W-0L | Rodez Aveyron v AS Nancy Lorraine - Rodez or Draw (double chance)
+  ln_d5458 G3 <-ln_f8d | [$]12.77 [S]1.00 | 0W-0L | KAA Gent v Standard Liege - Under 3.5 goals
+  ln_05fdf G3 <-ln_bcf | [$]12.51 [S]1.00 | 0W-0L | Juve Stabia v Cesena - Juve Stabia or Draw (double chance)
+  ln_6f4c0 G3 <-ln_bcf | [$]12.51 [S]1.00 | 0W-0L | SpVgg Greuther Fürth v 1. FC Magdeburg - Over 2.5 goals

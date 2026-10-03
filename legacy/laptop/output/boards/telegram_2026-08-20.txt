@@ -1,0 +1,176 @@
+OLP XDV — DAILY BOARD
+2026-08-20  |  Phase 3 — live capital (Architect-deployed)
+Leagues: 72 · 5 with fixtures
+Calibration: 17 legs logged, mean CLV -2.47%
+
+⚠ 421 data flag(s) — see /board or the saved board for full detail
+
+📋 SCAN RECORD — today's rated fixtures — 2026-08-20 (paper, ID415)
+15 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+
+1. Dinamo Minsk v Torpedo Zhodino (Belarusian Premier League)
+   Pick: Dinamo Minsk to win (46%)
+   Best market: Both teams to score — no at 1.83 — +5.62% EV
+2. Tromso v Brighton (Conference League)
+   Pick: Brighton to win (73%)
+   Best market: Brighton or Draw (double chance) at 1.10 — +2.90% EV
+3. PAOK v Brann (Conference League)
+   Pick: PAOK to win (57%)
+   Best market: PAOK or Brann (double chance) at 1.25 — -4.89% EV
+4. Vikingur Reykjavik v Borac Banja Luka (Conference League)
+   Pick: Vikingur Reykjavik to win (41%)
+   Best market: Under 2.5 goals at 2.00 — +5.01% EV
+5. Gornik Zabrze v Monaco (Conference League)
+   Pick: Monaco to win (40%)
+   Best market: Both teams to score — no at 1.91 — -7.31% EV
+6. Twente v Qarabag (Conference League)
+   Pick: Twente to win (82%)
+   Best market: Twente or Qarabag (double chance) at 1.22 — +4.92% EV
+7. FC Sion v Ajax (Conference League)
+   Pick: Ajax to win (47%)
+   Best market: Ajax to win at 1.80 — -15.43% EV
+8. Motherwell v SC Freiburg (Conference League)
+   Pick: SC Freiburg to win (72%)
+   Best market: SC Freiburg or Draw (double chance) at 1.10 — +2.25% EV
+9. FC Lugano v Maccabi Tel Aviv (Conference League)
+   Pick: FC Lugano to win (81%)
+   Best market: Both teams to score — yes at 1.80 — -5.60% EV
+10. Panathinaikos v Hradec Králové (Conference League)
+   Pick: Panathinaikos to win (60%)
+   Best market: Panathinaikos to win at 1.45 — -13.30% EV
+11. Gent v Hibernian (Conference League)
+   Pick: Hibernian to win (39%)
+   Best market: Over 1.5 goals at 1.40 — +4.41% EV
+12. Heart Of Midlothian v Rapid Vienna (Conference League)
+   Pick: Rapid Vienna to win (64%)
+   Best market: Rapid Vienna or Draw (double chance) at 1.50 — +6.12% EV
+13. Rangers v FK Jablonec (Conference League)
+   Pick: Rangers to win (56%)
+   Best market: Rangers or FK Jablonec (double chance) at 1.17 — -3.95% EV
+14. Getafe v FK Partizan (Conference League)
+   Pick: Getafe to win (81%)
+   Best market: Getafe or Draw (double chance) at 1.03 — +1.72% EV
+15. Rayo Vallecano v Alaves (La Liga)
+   Pick: Rayo Vallecano to win (56%)
+   Best market: Rayo Vallecano or Alaves (double chance) at 1.36 — +0.61% EV
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
+```
+ARMENIAN PREMIER LEAGUE
+· Van v Syunik
+  NO DATA — PENDING
+```
+```
+BELARUSIAN PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Dinamo Minsk v Torpedo Zhodino
+    AI pick: Dinamo Minsk (46%)
+```
+```
+CONFERENCE LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Tromso v Brighton
+    AI pick: Brighton (73%)
+  ★ PAOK v Brann
+    AI pick: PAOK (57%)
+  ★ Vikingur Reykjavik v Borac Banja Luka
+    AI pick: Vikingur Reykjavik (41%)
+  ★ Gornik Zabrze v Monaco
+    AI pick: Monaco (40%)
+  ★ Twente v Qarabag
+    AI pick: Twente (82%)
+  ★ FC Sion v Ajax
+    AI pick: Ajax (47%)
+  ★ Motherwell v SC Freiburg
+    AI pick: SC Freiburg (72%)
+  ★ FC Lugano v Maccabi Tel Aviv
+    AI pick: FC Lugano (81%)
+  ★ Panathinaikos v Hradec Králové
+    AI pick: Panathinaikos (60%)
+  ★ Gent v Hibernian
+    AI pick: Hibernian (39%)
+  ★ Heart Of Midlothian v Rapid Vienna
+    AI pick: Rapid Vienna (64%)
+  ★ Rangers v FK Jablonec
+    AI pick: Rangers (56%)
+  ★ Getafe v FK Partizan
+    AI pick: Getafe (81%)
+· Lincoln Red Imps FC v Larne
+  NO DATA — PENDING
+· Inter Turku v FC Copenhagen
+  NO DATA — PENDING
+· FC Midtjylland v HNK Rijeka
+  NO DATA — PENDING
+· FC Nordsjaelland v FC ST. Gallen
+  NO DATA — PENDING
+· KI Klaksvik v Riga
+  NO DATA — PENDING
+· Drita v Inter Club d'Escaldes
+  NO DATA — PENDING
+· Atalanta v Hapoel Tel Aviv
+  NO DATA — PENDING
+· SC Braga v Austria Vienna
+  NO DATA — PENDING
+· HNK Hajduk Split v Raków Częstochowa
+  NO DATA — PENDING
+· Shamrock Rovers v KuPS
+  NO DATA — PENDING
+· Dinamo Tirana v Pafos
+  NO DATA — PENDING
+```
+```
+ESTONIAN MEISTRILIIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  · Tallinna FC Flora v Saku Sporting
+    NO DATA — PENDING
+  · Viimsi JK v Harju JK Laagri
+    NO DATA — PENDING
+```
+```
+LA LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Rayo Vallecano v Alaves
+    AI pick: Rayo Vallecano (56%)
+```
+
+🎯 PRODUCTION BETS — 2026-08-20 (today's fixtures only)
+
+★ Acca A — HEADLINE, 5 legs
+    Rayo Vallecano v Alaves (La Liga) — Rayo Vallecano or Alaves (double chance) @ 1.36 [⚠ FlashScore]
+    FC Lugano v Maccabi Tel Aviv (Conference League) — Both teams to score — yes @ 1.80 [⚠ unverified]
+    Gornik Zabrze v Monaco (Conference League) — Both teams to score — no @ 1.91 [⚠ unverified]
+    Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga) — Tallinna FC Flora to win @ 1.39 [⚠ SportyBet]
+    FC Sion v Ajax (Conference League) — Ajax to win @ 1.80 [⚠ unverified]
+    Combined 11.70 Booking code: NO DATA — PENDING
+    Combined prob 5.6% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+  SINGLES — one standalone slip each, own booking code
+    Panathinaikos v Hradec Králové (Conference League) — Panathinaikos to win @ 1.45  Booking code: NO DATA — PENDING [⚠ SportyBet]
+
+  ⚠ WATCHLIST (ID420 — odds > 2.00) — NOT CAPITAL, review only
+    Dinamo Minsk v Torpedo Zhodino (Belarusian Premier League) — Torpedo Zhodino to win @ 5.07  edge -2.55%  [⚠ unverified]
+    Tromso v Brighton (Conference League) — Draw @ 4.00  edge -4.14%  [⚠ unverified]
+    PAOK v Brann (Conference League) — Brann to win @ 6.25  edge +1.67%  [⚠ SportyBet]
+    Gornik Zabrze v Monaco (Conference League) — Under 1.5 goals @ 3.75  edge +1.34%  [⚠ unverified]
+    Twente v Qarabag (Conference League) — Both teams to score — no @ 2.10  edge +1.95%  [⚠ unverified]
+    FC Sion v Ajax (Conference League) — FC Sion to win @ 3.50  edge -4.03%  [⚠ unverified]
+    Motherwell v SC Freiburg (Conference League) — Draw @ 3.90  edge -4.46%  [⚠ SportyBet]
+    Panathinaikos v Hradec Králové (Conference League) — Hradec Králové or Draw (double chance) @ 2.50  edge +0.21%  [⚠ SportyBet]
+    Gent v Hibernian (Conference League) — Draw @ 3.70  edge -0.26%  [⚠ SportyBet]
+    Heart Of Midlothian v Rapid Vienna (Conference League) — Draw @ 3.60  edge -4.90%  [⚠ unverified]
+    Rangers v FK Jablonec (Conference League) — FK Jablonec to win @ 6.00  edge +1.56%  [⚠ SportyBet]
+    Getafe v FK Partizan (Conference League) — Draw @ 4.20  edge -6.18%  [⚠ unverified]
+    Tallinna FC Flora v Saku Sporting (Estonian Meistriliiga) — Saku Sporting to win @ 5.00  edge -2.34%  [⚠ SportyBet]
+    Viimsi JK v Harju JK Laagri (Estonian Meistriliiga) — Harju JK Laagri to win @ 9.30  edge -1.23%  [⚠ SportyBet]
+
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive); away was historically measured negative — the brain learns from live legs
+
+YESTERDAY — GRADED
+No settled predictions to grade yet.
+
+7-DAY ROLLING
+no settled predictions in 7d
+1 legs logged · 1 with CLV (avg CLV +0.00%) · gate 1/30 legs
+
+HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

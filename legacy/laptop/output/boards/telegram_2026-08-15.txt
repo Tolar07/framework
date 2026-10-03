@@ -1,0 +1,593 @@
+OLP XDV — DAILY BOARD
+2026-08-15  |  Phase 3 — live capital (Architect-deployed)
+Leagues: 61 · 35 with fixtures
+Calibration: 16 legs logged, mean CLV -2.62%
+
+⚠ 426 data flag(s) — see /board or the saved board for full detail
+
+📋 SCAN RECORD — today's rated fixtures — 2026-08-15 (paper, ID415)
+52 rated fixture(s) today. This is the scan's paper record, NOT a recommendation — the production pick (if any) is in PRODUCTION BETS below. MARKED PAPER — the scan itself never carries a stake (capital is the Architect's).
+
+1. BKMA v Ararat (Armenian Premier League)
+   Pick: BKMA to win (56%)
+2. Van v Ararat-Armenia (Armenian Premier League)
+   Pick: Ararat-Armenia to win (49%)
+3. Sturm Graz v Altach (Austrian Bundesliga)
+   Pick: Sturm Graz to win (54%)
+4. St. Gilloise v Waregem (Belgian Pro League)
+   Pick: St. Gilloise to win (68%)
+   Best market: Draw at 5.06 — +6.48% EV
+5. Kortrijk v Antwerp (Belgian Pro League)
+   Pick: Antwerp to win (49%)
+   Best market: Antwerp to win at 2.70 — +32.86% EV
+6. Oud-Heverlee Leuven v Club Brugge (Belgian Pro League)
+   Pick: Club Brugge to win (69%)
+   Best market: Club Brugge to win at 1.46 — +1.40% EV
+7. Genk v Westerlo (Belgian Pro League)
+   Pick: Genk to win (48%)
+   Best market: Westerlo to win at 5.62 — +51.00% EV
+8. Alaves v Getafe (Bosnian Premier League)
+   Pick: Alaves to win (40%)
+   Best market: Getafe to win at 3.79 — +12.27% EV
+9. Sevilla v Rayo Vallecano (Bosnian Premier League)
+   Pick: Rayo Vallecano to win (37%)
+   Best market: Rayo Vallecano to win at 3.29 — +20.63% EV
+10. Venezia FC v Modena FC (Bosnian Premier League)
+   Pick: Venezia FC to win (68%)
+   Best market: Venezia FC to win at 1.55 — +5.79% EV
+11. Ludogorets v Botev Plovdiv (Bulgarian First League)
+   Pick: Ludogorets to win (73%)
+12. Bristol City v Millwall (Championship)
+   Pick: Millwall to win (38%)
+   Best market: Millwall to win at 2.80 — +7.08% EV
+13. Norwich v West Brom (Championship)
+   Pick: Norwich to win (47%)
+14. Stoke v Swansea (Championship)
+   Pick: Stoke to win (37%)
+15. Charlton v Derby (Championship)
+   Pick: Derby to win (41%)
+16. Portsmouth v QPR (Championship)
+   Pick: Portsmouth to win (38%)
+17. Sheffield United v Birmingham (Championship)
+   Pick: Sheffield United to win (40%)
+18. Sparta Praha v Teplice (Czech First League)
+   Pick: Sparta Praha to win (73%)
+19. Slovácko v Sigma Olomouc (Czech First League)
+   Pick: Sigma Olomouc to win (38%)
+20. Pardubice v Mladá Boleslav (Czech First League)
+   Pick: Pardubice to win (39%)
+21. Widzew Lodz v Korona Kielce (Ekstraklasa)
+   Pick: Widzew Lodz to win (42%)
+   Best market: Draw at 3.25 — +4.52% EV
+22. Willem II v Nijmegen (Eredivisie)
+   Pick: Nijmegen to win (44%)
+   Best market: Willem II to win at 4.87 — +32.34% EV
+23. Utrecht v AZ Alkmaar (Eredivisie)
+   Pick: Utrecht to win (49%)
+   Best market: Utrecht to win at 2.77 — +35.79% EV
+24. Excelsior v PSV Eindhoven (Eredivisie)
+   Pick: PSV Eindhoven to win (63%)
+   Best market: PSV Eindhoven to win at 1.59 — +0.05% EV
+25. NK Osijek v NK Lokomotiva Zagreb (HNL)
+   Pick: NK Osijek to win (54%)
+   Best market: NK Osijek to win at 1.99 — +7.02% EV
+26. Istra 1961 v NK Slaven Belupo (HNL)
+   Pick: Istra 1961 to win (47%)
+27. Ujpest v MTK Budapest (Hungarian NB I)
+   Pick: Ujpest to win (35%)
+28. Nyiregyhaza v Kisvárda (Hungarian NB I)
+   Pick: Nyiregyhaza to win (49%)
+29. Sevilla v Vallecano (La Liga)
+   Pick: Sevilla to win (40%)
+30. Alaves v Getafe (La Liga)
+   Pick: Alaves to win (40%)
+   Best market: Getafe to win at 3.79 — +0.82% EV
+31. Wiltz v FC Differdange 03 (Luxembourg National Division)
+   Pick: FC Differdange 03 to win (89%)
+32. Dacia-Buiucani v Petrocub (Moldovan Super Liga)
+   Pick: Petrocub to win (37%)
+33. Sutjeska v Otrant-Olympic (Montenegrin First League)
+   Pick: Sutjeska to win (47%)
+34. Rio Ave v Porto (Primeira Liga)
+   Pick: Porto to win (75%)
+   Best market: Porto to win at 1.44 — +7.68% EV
+35. Alverca v Estrela (Primeira Liga)
+   Pick: Alverca to win (43%)
+36. Rapid Bucuresti v Dinamo Bucuresti (Romanian Liga I)
+   Pick: Rapid Bucuresti to win (45%)
+37. FC Krasnodar v Akhmat (Russian Premier League)
+   Pick: FC Krasnodar to win (81%)
+38. FC Rostov v Rubin (Russian Premier League)
+   Pick: FC Rostov to win (42%)
+39. Cukaricki v OFK Beograd (Serbian Super Liga)
+   Pick: OFK Beograd to win (37%)
+40. Železničar Pančevo v FK Crvena Zvezda (Serbian Super Liga)
+   Pick: FK Crvena Zvezda to win (73%)
+41. Slovan Bratislava v Ružomberok (Slovak Super Liga)
+   Pick: Slovan Bratislava to win (79%)
+42. Podbrezová v AS Trencin (Slovak Super Liga)
+   Pick: Podbrezová to win (52%)
+43. Dukla Banská Bystrica v Žilina (Slovak Super Liga)
+   Pick: Žilina to win (68%)
+44. Skalica v FK Košice (Slovak Super Liga)
+   Pick: FK Košice to win (49%)
+45. Konyaspor v Rizespor (Turkish Super Lig)
+   Pick: Konyaspor to win (45%)
+46. Genclerbirligi v Fenerbahçe (Turkish Super Lig)
+   Pick: Fenerbahçe to win (69%)
+47. Kasımpaşa v Trabzonspor (Turkish Super Lig)
+   Pick: Kasımpaşa to win (38%)
+48. Gaziantep v Alanyaspor (Turkish Super Lig)
+   Pick: Gaziantep to win (37%)
+49. Kryvbas KR v Livyi Bereh (Ukrainian Premier League)
+   Pick: Kryvbas KR to win (59%)
+50. Alaves v Getafe (Welsh Premier League)
+   Pick: Alaves to win (40%)
+   Best market: Getafe to win at 3.76 — +11.38% EV
+51. Sevilla v Rayo Vallecano (Welsh Premier League)
+   Pick: Rayo Vallecano to win (37%)
+   Best market: Rayo Vallecano to win at 3.38 — +23.93% EV
+52. Venezia FC v Modena FC (Welsh Premier League)
+   Pick: Venezia FC to win (68%)
+   Best market: Venezia FC to win at 1.55 — +5.79% EV
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive) — historically measured negative; the brain learns from live legs.
+
+```
+ARMENIAN PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ BKMA v Ararat
+    AI pick: BKMA (56%)
+  ★ Van v Ararat-Armenia
+    AI pick: Ararat-Armenia (49%)
+· Ararat-Armenia v FC Van Charentsavan
+  NO DATA — PENDING
+· FC BKMA Yerevan v Ararat Yerevan FC
+  NO DATA — PENDING
+```
+```
+AUSTRIAN BUNDESLIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Sturm Graz v Altach
+    AI pick: Sturm Graz (54%)
+· Austria Lustenau v Wolfsberger AC
+  NO DATA — PENDING
+```
+```
+BELGIAN PRO LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ St. Gilloise v Waregem
+    AI pick: St. Gilloise (68%)
+  ★ Kortrijk v Antwerp
+    AI pick: Antwerp (49%)
+  ★ Oud-Heverlee Leuven v Club Brugge
+    AI pick: Club Brugge (69%)
+  ★ Genk v Westerlo
+    AI pick: Genk (48%)
+```
+```
+BOSNIAN PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Alaves v Getafe
+    AI pick: Alaves (40%)
+  ★ Sevilla v Rayo Vallecano
+    AI pick: Rayo Vallecano (37%)
+  ★ Venezia FC v Modena FC
+    AI pick: Venezia FC (68%)
+· US Catanzaro v FC Sudtirol Bolzano
+  NO DATA — PENDING
+· Udinese v Calcio Padova
+  NO DATA — PENDING
+· FC Torino v Carrarese Calcio
+  NO DATA — PENDING
+```
+```
+BULGARIAN FIRST LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Ludogorets v Botev Plovdiv
+    AI pick: Ludogorets (73%)
+```
+```
+CHAMPIONSHIP
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Bristol City v Millwall
+    AI pick: Millwall (38%)
+  ★ Norwich v West Brom
+    AI pick: Norwich (47%)
+  ★ Stoke v Swansea
+    AI pick: Stoke (37%)
+  ★ Charlton v Derby
+    AI pick: Derby (41%)
+  ★ Portsmouth v QPR
+    AI pick: Portsmouth (38%)
+  ★ Sheffield United v Birmingham
+    AI pick: Sheffield United (40%)
+· Bolton v Preston
+  NO DATA — PENDING
+· Middlesbrough v Lincoln City
+  NO DATA — PENDING
+```
+```
+CZECH FIRST LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Sparta Praha v Teplice
+    AI pick: Sparta Praha (73%)
+  ★ Slovácko v Sigma Olomouc
+    AI pick: Sigma Olomouc (38%)
+  ★ Pardubice v Mladá Boleslav
+    AI pick: Pardubice (39%)
+· Viktoria Plzeň v Zlín
+  NO DATA — PENDING
+```
+```
+EKSTRAKLASA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Widzew Lodz v Korona Kielce
+    AI pick: Widzew Lodz (42%)
+· Zaglebie v Śląsk Wrocław
+  NO DATA — PENDING
+· Piast Gliwice v Wieczysta Kraków
+  NO DATA — PENDING
+· Zaglebie v WKS Slask Wroclaw
+  NO DATA — PENDING
+· Piast Gliwice v Wieczysta Krakow
+  NO DATA — PENDING
+```
+```
+EREDIVISIE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Willem II v Nijmegen
+    AI pick: Nijmegen (44%)
+  ★ Utrecht v AZ Alkmaar
+    AI pick: Utrecht (49%)
+  ★ Excelsior v PSV Eindhoven
+    AI pick: PSV Eindhoven (63%)
+· For Sittard v Cambuur
+  NO DATA — PENDING
+· For Sittard v SC Cambuur
+  NO DATA — PENDING
+```
+```
+ESTONIAN MEISTRILIIGA
+· Saku Sporting v Viimsi JK
+  NO DATA — PENDING
+· Tallinna FC Flora v Paide Linnameeskond
+  NO DATA — PENDING
+```
+```
+FINNISH VEIKKAUSLIIGA
+· IFK Mariehamn v SJK Seinajoki
+  NO DATA — PENDING
+· IFK Mariehamn v Seinajoen JK
+  NO DATA — PENDING
+```
+```
+GEORGIAN EROVNULI LIGA
+· Dinamo Tbilisi v Rustavi
+  NO DATA — PENDING
+· Torpedo Kutaisi v Iberia 1999
+  NO DATA — PENDING
+· FC Dinamo Tbilisi v FC Rustavi
+  NO DATA — PENDING
+· FC Torpedo Kutaisi v Iberia 1999
+  NO DATA — PENDING
+```
+```
+GIBRALTARIAN NATIONAL LEAGUE
+· Al Wasl v United FC Dubai
+  NO DATA — PENDING
+· Al Dhafra v Sharjah
+  NO DATA — PENDING
+· Khorfakkan v Shabab Al-Ahli Dubai
+  NO DATA — PENDING
+```
+```
+HNL
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ NK Osijek v NK Lokomotiva Zagreb
+    AI pick: NK Osijek (54%)
+  ★ Istra 1961 v NK Slaven Belupo
+    AI pick: Istra 1961 (47%)
+```
+```
+HUNGARIAN NB I
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Ujpest v MTK Budapest
+    AI pick: Ujpest (35%)
+  ★ Nyiregyhaza v Kisvárda
+    AI pick: Nyiregyhaza (49%)
+· Budapest Honved FC v Szekszardi Ufc
+  NO DATA — PENDING
+· Puskas Akademia Felcsut v Pecsi MFC
+  NO DATA — PENDING
+```
+```
+ICELANDIC URVALSDEILD
+· Þór Akureyri v Keflavík
+  NO DATA — PENDING
+```
+```
+KAZAKHSTAN PREMIER LEAGUE
+· Kaisar Kyzylorda v Aktobe
+  NO DATA — PENDING
+· Ordabasy Shymkent v Altai Öskemen
+  NO DATA — PENDING
+· Ulytau v Kairat Almaty
+  NO DATA — PENDING
+· Jeńis v Jetysu Taldykorgan
+  NO DATA — PENDING
+```
+```
+KOSOVAN SUPERLIGA
+· KF Drenica Skenderaj v KF Dukagjini
+  NO DATA — PENDING
+· KF Vushtrria v KF Malisheva
+  NO DATA — PENDING
+```
+```
+LA LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Sevilla v Vallecano
+    AI pick: Sevilla (40%)
+  ★ Alaves v Getafe
+    AI pick: Alaves (40%)
+```
+```
+LUXEMBOURG NATIONAL DIVISION
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Wiltz v FC Differdange 03
+    AI pick: FC Differdange 03 (89%)
+```
+```
+MOLDOVAN SUPER LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Dacia-Buiucani v Petrocub
+    AI pick: Petrocub (37%)
+· Politehnica UTM v CSF Bălți
+  NO DATA — PENDING
+· Dacia-Buiucani v Petrocub Hincesti
+  NO DATA — PENDING
+```
+```
+MONTENEGRIN FIRST LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Sutjeska v Otrant-Olympic
+    AI pick: Sutjeska (47%)
+```
+```
+NORTH MACEDONIAN FIRST LEAGUE
+· Sileks v Skopje
+  NO DATA — PENDING
+· Tikvesh v Shkëndija Haraçinë
+  NO DATA — PENDING
+```
+```
+NORTHERN IRISH PREMIERSHIP
+· Linfield v Glentoran
+  NO DATA — PENDING
+· Coleraine v Larne
+  NO DATA — PENDING
+· Crusaders v Ballymena United
+  NO DATA — PENDING
+· Portadown v Dungannon Swifts
+  NO DATA — PENDING
+· Bangor v Cliftonville
+  NO DATA — PENDING
+· Limavady United v Carrick Rangers
+  NO DATA — PENDING
+· Bangor FC v Cliftonville FC
+  NO DATA — PENDING
+· Coleraine FC v Larne
+  NO DATA — PENDING
+· Crusaders FC v Ballymena United
+  NO DATA — PENDING
+· Limavady United FC v Carrick Rangers
+  NO DATA — PENDING
+· Linfield FC v Glentoran FC
+  NO DATA — PENDING
+· Portadown FC v Dungannon Swifts
+  NO DATA — PENDING
+```
+```
+NORWEGIAN ELITESERIEN
+· KFUM-Kameratene Oslo v Lillestrøm
+  NO DATA — PENDING
+· KFUM v Lillestroem SK
+  NO DATA — PENDING
+```
+```
+PRIMEIRA LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Rio Ave v Porto
+    AI pick: Porto (75%)
+  ★ Alverca v Estrela
+    AI pick: Alverca (43%)
+· Académico de Viseu v Santa Clara
+  NO DATA — PENDING
+· Academico de Viseu FC v Santa Clara Azores
+  NO DATA — PENDING
+```
+```
+ROMANIAN LIGA I
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Rapid Bucuresti v Dinamo Bucuresti
+    AI pick: Rapid Bucuresti (45%)
+· Csíkszereda Miercurea Ciuc v Sepsi OSK
+  NO DATA — PENDING
+```
+```
+RUSSIAN PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ FC Krasnodar v Akhmat
+    AI pick: FC Krasnodar (81%)
+  ★ FC Rostov v Rubin
+    AI pick: FC Rostov (42%)
+· CSKA Moscow v Fakel Voronezh
+  NO DATA — PENDING
+· Rodina Moscow v Akron Tolyatti
+  NO DATA — PENDING
+· Rodina Moscow v FK Akron Tolyatti
+  NO DATA — PENDING
+· CSKA Moscow v FC Fakel Voronezh
+  NO DATA — PENDING
+· Rostov FK v Rubin
+  NO DATA — PENDING
+· Krasnodar FC v FC Akhmat Grozny
+  NO DATA — PENDING
+```
+```
+SERBIAN SUPER LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Cukaricki v OFK Beograd
+    AI pick: OFK Beograd (37%)
+  ★ Železničar Pančevo v FK Crvena Zvezda
+    AI pick: FK Crvena Zvezda (73%)
+· Radnik Surdulica v Macva Sabac
+  NO DATA — PENDING
+```
+```
+SLOVAK SUPER LIGA
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Slovan Bratislava v Ružomberok
+    AI pick: Slovan Bratislava (79%)
+  ★ Podbrezová v AS Trencin
+    AI pick: Podbrezová (52%)
+  ★ Dukla Banská Bystrica v Žilina
+    AI pick: Žilina (68%)
+  ★ Skalica v FK Košice
+    AI pick: FK Košice (49%)
+```
+```
+SLOVENIAN PRVALIGA
+· Viktoriya Sumy v Kulykiv-Bilka
+  NO DATA — PENDING
+· Chernihiv v Polissya-2 Zhytomyr
+  NO DATA — PENDING
+· Metalist Kharkiv v Oleksandriya
+  NO DATA — PENDING
+· Poltava v UCSA Tarasivka
+  NO DATA — PENDING
+· Nafta 1903 Lendava v Celje
+  NO DATA — PENDING
+· Olimpija Ljubljana v NK Maribor
+  NO DATA — PENDING
+```
+```
+SWEDISH ALLSVENSKAN
+· Mjällby v Sirius
+  NO DATA — PENDING
+· AIK DFF v Vittsjo GIK
+  NO DATA — PENDING
+· IK Uppsala Fotboll v Malmo FF
+  NO DATA — PENDING
+· Brommapojkarna v Hacken Gothenburg W
+  NO DATA — PENDING
+· FC Rosengaard Malmo v Eskilstuna United DFF
+  NO DATA — PENDING
+· Hammarby v Piteaa IF DFF
+  NO DATA — PENDING
+```
+```
+TURKISH SUPER LIG
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Konyaspor v Rizespor
+    AI pick: Konyaspor (45%)
+  ★ Genclerbirligi v Fenerbahçe
+    AI pick: Fenerbahçe (69%)
+  ★ Kasımpaşa v Trabzonspor
+    AI pick: Kasımpaşa (38%)
+  ★ Gaziantep v Alanyaspor
+    AI pick: Gaziantep (37%)
+```
+```
+UKRAINIAN PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Kryvbas KR v Livyi Bereh
+    AI pick: Kryvbas KR (59%)
+· Karpaty v Bukovyna Chernivtsi
+  NO DATA — PENDING
+· Kudrivka v Obolon Kyiv
+  NO DATA — PENDING
+```
+```
+WELSH PREMIER LEAGUE
+  ⭐ ACCUMULATOR CANDIDATES (deploy-eligible):
+  ★ Alaves v Getafe
+    AI pick: Alaves (40%)
+  ★ Sevilla v Rayo Vallecano
+    AI pick: Rayo Vallecano (37%)
+  ★ Venezia FC v Modena FC
+    AI pick: Venezia FC (68%)
+· Caernarfon Town v Colwyn Bay
+  NO DATA — PENDING
+· Barry Town v Cardiff Metropolitan University
+  NO DATA — PENDING
+· US Catanzaro v FC Sudtirol Bolzano
+  NO DATA — PENDING
+· Udinese v Calcio Padova
+  NO DATA — PENDING
+· FC Torino v Carrarese Calcio
+  NO DATA — PENDING
+```
+
+🎯 PRODUCTION BETS — 2026-08-15 (today's fixtures only)
+
+★ Acca A — HEADLINE, 5 legs
+    Genk v Westerlo (Belgian Pro League) — Westerlo to win @ 5.62
+    Utrecht v AZ Alkmaar (Eredivisie) — Utrecht to win @ 2.77
+    Kortrijk v Antwerp (Belgian Pro League) — Antwerp to win @ 2.70
+    Willem II v Nijmegen (Eredivisie) — Willem II to win @ 4.87
+    Sevilla v Rayo Vallecano (Welsh Premier League) — Rayo Vallecano to win @ 3.38
+    Combined 691.87 Booking code: MLAUAC
+    Combined prob 0.6% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca B  5 legs
+Sevilla v Rayo Vallecano (Bosnian Premier League) — Rayo Vallecano to win @ 3.29
+Alaves v Getafe (Bosnian Premier League) — Getafe to win @ 3.79
+Alaves v Getafe (Welsh Premier League) — Getafe to win @ 3.76
+Rio Ave v Porto (Primeira Liga) — Porto to win @ 1.44
+Bristol City v Millwall (Championship) — Millwall to win @ 2.80
+    Combined 189.04 Booking code: NO DATA — PENDING
+    Combined prob 0.9% (product of 5 legs — compounding is arithmetic, not a weakness)
+
+★ Acca C  4 legs
+NK Osijek v NK Lokomotiva Zagreb (HNL) — NK Osijek to win @ 1.99
+St. Gilloise v Waregem (Belgian Pro League) — Draw @ 5.06
+Venezia FC v Modena FC (Bosnian Premier League) — Venezia FC to win @ 1.55
+Venezia FC v Modena FC (Welsh Premier League) — Venezia FC to win @ 1.55
+    Combined 24.19 Booking code: NO DATA — PENDING
+    Combined prob 5.3% (product of 4 legs — compounding is arithmetic, not a weakness)
+
+★ Acca D  4 legs
+Widzew Lodz v Korona Kielce (Ekstraklasa) — Draw @ 3.25
+Oud-Heverlee Leuven v Club Brugge (Belgian Pro League) — Club Brugge to win @ 1.46
+Alaves v Getafe (La Liga) — Getafe to win @ 3.79
+Excelsior v PSV Eindhoven (Eredivisie) — PSV Eindhoven to win @ 1.59
+    Combined 28.59 Booking code: NO DATA — PENDING
+    Combined prob 3.7% (product of 4 legs — compounding is arithmetic, not a weakness)
+
+  SINGLES — one standalone slip each, own booking code
+    Sevilla v Rayo Vallecano (Bosnian Premier League) — Rayo Vallecano to win @ 3.29  Booking code: NO DATA — PENDING
+    Alaves v Getafe (Bosnian Premier League) — Getafe to win @ 3.79  Booking code: NO DATA — PENDING
+    Alaves v Getafe (Welsh Premier League) — Getafe to win @ 3.76  Booking code: NO DATA — PENDING
+    Rio Ave v Porto (Primeira Liga) — Porto to win @ 1.44  Booking code: NO DATA — PENDING
+    Bristol City v Millwall (Championship) — Millwall to win @ 2.80  Booking code: NO DATA — PENDING
+    NK Osijek v NK Lokomotiva Zagreb (HNL) — NK Osijek to win @ 1.99  Booking code: NO DATA — PENDING
+    St. Gilloise v Waregem (Belgian Pro League) — Draw @ 5.06  Booking code: NO DATA — PENDING
+    Venezia FC v Modena FC (Bosnian Premier League) — Venezia FC to win @ 1.55  Booking code: NO DATA — PENDING
+    Venezia FC v Modena FC (Welsh Premier League) — Venezia FC to win @ 1.55  Booking code: NO DATA — PENDING
+    Widzew Lodz v Korona Kielce (Ekstraklasa) — Draw @ 3.25  Booking code: NO DATA — PENDING
+    Oud-Heverlee Leuven v Club Brugge (Belgian Pro League) — Club Brugge to win @ 1.46  Booking code: NO DATA — PENDING
+    Alaves v Getafe (La Liga) — Getafe to win @ 3.79  Booking code: NO DATA — PENDING
+    Excelsior v PSV Eindhoven (Eredivisie) — PSV Eindhoven to win @ 1.59  Booking code: NO DATA — PENDING
+
+Away picks may now be recommended (ID405 overridden 2026-08-11, Architect directive); away was historically measured negative — the brain learns from live legs
+
+YESTERDAY — GRADED
+No settled predictions to grade yet.
+
+7-DAY ROLLING
+no settled predictions in 7d
+6 legs logged · 5 with CLV (avg CLV -2.86%) · gate 5/30 legs
+
+HONEST EDGE LINE: an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until you deploy it.

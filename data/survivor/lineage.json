@@ -146,82 +146,6 @@
    "retired": "2026-10-02"
   },
   {
-   "lineage_id": "ln_8db6e0c97b",
-   "parent_id": "ln_4abf6adda1",
-   "generation": 5,
-   "bankroll": 7.55,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-09-19",
-   "last_result": "WIN",
-   "to_breed": true,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Azerbaijan v Lithuania",
-    "pick": "Lithuania Win to Nil — no",
-    "price": 1.2
-   }
-  },
-  {
-   "lineage_id": "ln_417ce36d31",
-   "parent_id": "ln_05fdf10f4c",
-   "generation": 5,
-   "bankroll": 6.87,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-02",
-   "last_result": "WIN",
-   "to_breed": true,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Sociedad B v Granada",
-    "pick": "Sociedad B or Granada",
-    "price": 1.33
-   }
-  },
-  {
-   "lineage_id": "ln_f105f80e4a",
-   "parent_id": "ln_05fdf10f4c",
-   "generation": 5,
-   "bankroll": 6.89,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-02",
-   "last_result": "WIN",
-   "to_breed": true,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Castellon v Ceuta",
-    "pick": "Castellon or Ceuta & Over 1.5",
-    "price": 1.21
-   }
-  },
-  {
-   "lineage_id": "ln_601e69c765",
-   "parent_id": "ln_a6e768c6de",
-   "generation": 5,
-   "bankroll": 6.92,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-02",
-   "last_result": "WIN",
-   "to_breed": true,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Wales v Denmark",
-    "pick": "Wales or Denmark",
-    "price": 1.29
-   }
-  },
-  {
    "lineage_id": "ln_b7c449c1b8",
    "parent_id": "ln_a6e768c6de",
    "generation": 5,
@@ -236,6 +160,241 @@
    "holding": null
   },
   {
+   "lineage_id": "ln_e9e0774235",
+   "parent_id": "ln_8db6e0c97b",
+   "generation": 6,
+   "bankroll": 3.77,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-04",
+    "fixture": "Azerbaijan v Lithuania",
+    "pick": "Lithuania Win to Nil — no",
+    "price": 1.2
+   }
+  },
+  {
+   "lineage_id": "ln_dc28e4182e",
+   "parent_id": "ln_8db6e0c97b",
+   "generation": 6,
+   "bankroll": 3.77,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-04",
+    "fixture": "Malta v Andorra",
+    "pick": "Andorra (+1.5) Asian handicap",
+    "price": 1.4
+   }
+  },
+  {
+   "lineage_id": "ln_8db6e0c97b",
+   "parent_id": "ln_4abf6adda1",
+   "generation": 5,
+   "bankroll": 7.55,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-09-19",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-03"
+  },
+  {
+   "lineage_id": "ln_a9d1b852ea",
+   "parent_id": "ln_417ce36d31",
+   "generation": 6,
+   "bankroll": 3.44,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-04",
+    "fixture": "Sociedad B v Granada",
+    "pick": "Sociedad B or Granada",
+    "price": 1.33
+   }
+  },
+  {
+   "lineage_id": "ln_8c4480fa24",
+   "parent_id": "ln_417ce36d31",
+   "generation": 6,
+   "bankroll": 3.44,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_417ce36d31",
+   "parent_id": "ln_05fdf10f4c",
+   "generation": 5,
+   "bankroll": 6.87,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-02",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-03"
+  },
+  {
+   "lineage_id": "ln_867ad88c97",
+   "parent_id": "ln_f105f80e4a",
+   "generation": 6,
+   "bankroll": 3.44,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-04",
+    "fixture": "Castellon v Ceuta",
+    "pick": "Castellon or Ceuta & Over 1.5",
+    "price": 1.21
+   }
+  },
+  {
+   "lineage_id": "ln_6e239f1f3d",
+   "parent_id": "ln_f105f80e4a",
+   "generation": 6,
+   "bankroll": 3.44,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_f105f80e4a",
+   "parent_id": "ln_05fdf10f4c",
+   "generation": 5,
+   "bankroll": 6.89,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-02",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-03"
+  },
+  {
+   "lineage_id": "ln_732aef7fd7",
+   "parent_id": "ln_601e69c765",
+   "generation": 6,
+   "bankroll": 3.46,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-04",
+    "fixture": "Wales v Denmark",
+    "pick": "Wales or Denmark",
+    "price": 1.29
+   }
+  },
+  {
+   "lineage_id": "ln_3b4f47d5a8",
+   "parent_id": "ln_601e69c765",
+   "generation": 6,
+   "bankroll": 3.46,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_601e69c765",
+   "parent_id": "ln_a6e768c6de",
+   "generation": 5,
+   "bankroll": 6.92,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-02",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-03"
+  },
+  {
+   "lineage_id": "ln_8afb2b090f",
+   "parent_id": "ln_3d6fe17e3f",
+   "generation": 6,
+   "bankroll": 3.52,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-04",
+    "fixture": "Republic of Ireland v Israel",
+    "pick": "Republic of Ireland Over 0.5 goals",
+    "price": 1.27
+   }
+  },
+  {
+   "lineage_id": "ln_a35b0bff5b",
+   "parent_id": "ln_3d6fe17e3f",
+   "generation": 6,
+   "bankroll": 3.52,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-04",
+    "fixture": "Kosovo v Austria",
+    "pick": "Austria Under 2.5 goals",
+    "price": 1.22
+   }
+  },
+  {
    "lineage_id": "ln_3d6fe17e3f",
    "parent_id": "ln_0e44d5c47a",
    "generation": 5,
@@ -243,15 +402,49 @@
    "stake": 1.0,
    "wins": 2,
    "losses": 0,
-   "alive": true,
+   "alive": false,
    "born_date": "2026-09-19",
    "last_result": "WIN",
-   "to_breed": true,
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-03"
+  },
+  {
+   "lineage_id": "ln_82f1a53b8e",
+   "parent_id": "ln_f3c552988d",
+   "generation": 6,
+   "bankroll": 3.54,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
    "holding": {
     "date": "2026-10-04",
-    "fixture": "Republic of Ireland v Israel",
-    "pick": "Republic of Ireland Over 0.5 goals",
-    "price": 1.27
+    "fixture": "Portugal v Norway",
+    "pick": "Portugal or Norway",
+    "price": 1.23
+   }
+  },
+  {
+   "lineage_id": "ln_aa9e5f6067",
+   "parent_id": "ln_f3c552988d",
+   "generation": 6,
+   "bankroll": 3.54,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-04",
+    "fixture": "Netherlands v Serbia",
+    "pick": "Serbia (+3.5) Asian handicap",
+    "price": 1.29
    }
   },
   {
@@ -262,15 +455,49 @@
    "stake": 1.0,
    "wins": 2,
    "losses": 0,
-   "alive": true,
+   "alive": false,
    "born_date": "2026-09-19",
    "last_result": "WIN",
-   "to_breed": true,
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-03"
+  },
+  {
+   "lineage_id": "ln_9c27faf9ca",
+   "parent_id": "ln_bb003255bf",
+   "generation": 6,
+   "bankroll": 3.53,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
    "holding": {
     "date": "2026-10-04",
-    "fixture": "Portugal v Norway",
-    "pick": "Portugal or Norway",
-    "price": 1.23
+    "fixture": "Sp Gijon v Celta B",
+    "pick": "Sp Gijon or Celta B",
+    "price": 1.22
+   }
+  },
+  {
+   "lineage_id": "ln_a6d48c81cf",
+   "parent_id": "ln_bb003255bf",
+   "generation": 6,
+   "bankroll": 3.53,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-04",
+    "fixture": "Greece v Germany",
+    "pick": "Under 4.5 goals",
+    "price": 1.21
    }
   },
   {
@@ -281,16 +508,12 @@
    "stake": 1.0,
    "wins": 2,
    "losses": 0,
-   "alive": true,
+   "alive": false,
    "born_date": "2026-09-19",
    "last_result": "WIN",
-   "to_breed": true,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Sp Gijon v Celta B",
-    "pick": "Sp Gijon or Celta B",
-    "price": 1.22
-   }
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-03"
   }
  ],
  "last_bred_date": "2026-10-03",

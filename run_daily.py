@@ -520,9 +520,12 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                             else "MEDIUM" if gap <= AGREE_PP else "LOW")
         if tier == "SPLIT":
             # Model and market disagree: shown on the board, never deployed.
+            # market_p can be None (no market price); formatting it with :.0%
+            # used to crash the whole run, so it reads PENDING (HR35).
             bf.on_deploy_shortlist = False
+            market_txt = "PENDING" if market_p is None else f"{market_p:.0%}"
             bf.rejection_reason = (
-                f"SPLIT: model {model_p:.0%} vs market {market_p:.0%} on "
+                f"SPLIT: model {model_p:.0%} vs market {market_txt} on "
                 f"{bf.best_market} — disagreement > {AGREE_PP:.0%}, not deployed")
 
     if ladder_fixtures:

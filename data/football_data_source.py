@@ -23,7 +23,7 @@ from typing import Optional
 try:
     import requests
 except ImportError:
-    requests = None
+    requests = None  # type: ignore[assignment]
 
 BASE_URL = "https://www.football-data.co.uk/mmz4281/{season}/{code}.csv"
 

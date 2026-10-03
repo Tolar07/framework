@@ -27,9 +27,10 @@ jobs:
           python-version: "3.12"
           cache: pip
 
-      - name: Install test dependencies
+      - name: Install dependencies
         run: |
-          pip install ruff mypy pytest pytest-cov pre-commit
+          pip install -r requirements.txt
+          pip install ruff mypy pytest
 
       - name: Lint (ruff — observability closure)
         # Gate scope mirrors the mypy gate: a green check on the load-bearing
@@ -41,19 +42,12 @@ jobs:
       - name: Type check (mypy gate scope)
         run: python -m mypy --config-file pyproject.toml
 
-      - name: Unit tests with coverage
-        run: |
-          python -m pytest tests/ -v --cov=olp_xdv --cov-report=term-missing --cov-report=xml
-
-      - name: Integration test (full pipeline on synthetic data)
-        run: python tests/integration_test.py
-
-      - name: Upload coverage to Codecov (optional, requires CODECOV_TOKEN)
-        if: env.CODECOV_TOKEN != ''
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./coverage.xml
-          fail_ci_if_error: false
+      - name: Tests (each file in its own process)
+        # The tests are mostly standalone scripts; tests/run_all.py runs each
+        # one as its own process (pytest-style files under pytest). Laptop-line
+        # tests written against code the 2026-10-03 lineage merge did not keep
+        # are in legacy/laptop_tests/ and do not run here.
+        run: python tests/run_all.py
 
   # The daily board workflow (daily.yml) already runs the pipeline and commits
   # the CLV log. This job is ONLY the test suite — it never mutates the repo.

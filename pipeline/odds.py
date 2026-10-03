@@ -177,6 +177,11 @@ class FixtureOdds:
     source: str = "the-odds-api.com"
     source_tier: str = "T1"
     notes: list[str] = field(default_factory=list)
+    # Price check (pipeline/odds_verify.py): VERIFIED / CONFLICT / SINGLE-SOURCE
+    # against an independent book, or "" when not checked; price_note says
+    # which book and by how much.
+    verification: str = ""
+    price_note: str = ""
 
 
 class QuotaExhausted(RuntimeError):

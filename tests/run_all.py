@@ -43,7 +43,7 @@ def main() -> int:
     for path in files:
         t0 = time.time()
         try:
-            proc = subprocess.run(command_for(path), cwd=ROOT, capture_output=True,
+            proc = subprocess.run(command_for(path), cwd=ROOT, capture_output=True,  # noqa: S603 (repo test files only)
                                   text=True, timeout=TIMEOUT_S)
             ok, out = proc.returncode == 0, proc.stdout + proc.stderr
         except subprocess.TimeoutExpired:

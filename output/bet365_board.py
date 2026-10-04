@@ -29,8 +29,10 @@ NO BOOKING CODES
   bet365 has no SportyBet-style share codes; picks are found by hand, so each
   one is grouped under its country and league (standing order 28).
 
-THE MENU IS A DRAFT until the Architect confirms it against the bet365 app
-(MENU_CONFIRMED). Live capital stays SportyBet-only (standing order 26).
+THE MENU is the full betting market (Architect 2026-10-04) except win to
+nil "no". The bet365 NAMES are a draft until the Architect confirms them
+against the app (MENU_CONFIRMED). Live capital stays SportyBet-only
+(standing order 26).
 """
 from __future__ import annotations
 
@@ -44,24 +46,38 @@ from engine import markets as mkt
 from engine.slate import AGREE_PP, CERTAINTY_HIGH_PP, DEPLOY_MIN_MODEL_PROB, DEPLOY_ODDS_MIN
 from output.produce_bet import ACCA_MAX, ACCA_MIN, _acca_name, _split_sizes
 
-# Flip to True once the Architect has checked BET365_MARKETS against the app.
+# Flip to True once the Architect has checked the bet365 NAMES against the app.
 MENU_CONFIRMED = False
 
-# SportyBet ladder market id -> bet365 market, for the markets bet365 offers
-# with the SAME settlement. 31/32 (clean sheet) and 33/34 (win to nil) are
-# handled in bet365_name(): a clean sheet is the other team's goals Over/Under
-# 0.5, and win to nil exists on bet365 only as "yes".
+# SportyBet ladder market id -> bet365 market, with the SAME settlement.
+# Architect 2026-10-04: the FULL betting market is on bet365 — every market
+# the ladder scores (engine/full_markets.LADDER_MARKET_IDS) — with one
+# exception the Architect named: win to nil is offered only as "<team> to win
+# to nil" (yes), never "no". 31/32 (clean sheet) read as the other team's
+# goals Over/Under 0.5, which settles the same way.
 BET365_MARKETS = {
     1: "Full Time Result",
     10: "Double Chance",
     11: "Draw No Bet",
+    12: "No Bet",                       # "<home> No Bet": void if home wins
+    13: "No Bet",                       # "<away> No Bet": void if away wins
     14: "Handicap Result",
     16: "Asian Handicap",
     18: "Goals Over/Under",
     19: "Team Goals",
     20: "Team Goals",
+    21: "Exact Total Goals",
+    23: "Team Total Goals",
+    24: "Team Total Goals",
+    25: "Total Goals Range",
+    26: "Goals Odd/Even",
     29: "Both Teams to Score",
-    37: "Result/Total Goals",
+    30: "Teams to Score",
+    36: "Goals & Both Teams to Score",
+    37: "Result & Total Goals",
+    546: "Double Chance & Both Teams to Score",
+    547: "Double Chance & Goals",
+    548: "Multigoals",
 }
 
 UNDER_PREF_PP = 0.03     # same Under-goals preference as run_daily's selection
@@ -119,8 +135,19 @@ def bet365_name(key: str, home: str, away: str) -> str | None:
     if mid in (1, 11):
         named = team.get(o.lower()) or ("Draw" if mid == 1 and o.lower() == "draw" else None)
         return f"{market}: {named}" if named else None
-    if mid in (18, 29):
+    if mid in (18, 26, 29):
         return f"{market}: {o[:1].upper() + o[1:].lower()}"
+    if mid in (12, 13):          # "<team> No Bet": stake back if that team wins
+        named = team.get(o.lower()) or ("Draw" if o.lower() == "draw" else None)
+        return f"{home if mid == 12 else away} {market}: {named}" if named else None
+    if mid in (21, 25, 548):     # total-goals counts / ranges, e.g. "1-3", "7+"
+        return f"{market}: {o}"
+    if mid in (23, 24):
+        return f"{market}: {home if mid == 23 else away} {o}"
+    if mid == 30:
+        named = {"none": "No goal", "only home": f"Only {home}", "only away": f"Only {away}",
+                 "both teams": "Both teams"}.get(o.lower())
+        return f"{market}: {named}" if named else None
     return f"{market}: {fm.display_key(key, home, away)}"
 
 
@@ -212,8 +239,8 @@ def render(board: list, board_date: str | None = None) -> str:
            "SportyBet's price is shown for reference.",
            "• ≠ = not the SportyBet pick (bet365 doesn't offer that one)."]
     if not MENU_CONFIRMED:
-        out.append("⚠ bet365 market list is a DRAFT — not yet checked against your "
-                   "bet365 app. Tell Claude any market that is missing or named differently.")
+        out.append("⚠ bet365 market NAMES are a DRAFT — check them against your bet365 "
+                   "app and tell Claude any that read differently there.")
     out += ["", _RULE, "bet365 SINGLES", _RULE]
     if not got:
         out.append("No bet365 pick today — nothing on bet365's list clears 50% in the "

@@ -53,8 +53,28 @@ assert b365.bet365_name(K(14, "hcp=0:2", "Away (0:2)"), "Girona", "Mallorca") \
     == "Handicap Result: Mallorca +2"
 assert b365.bet365_name(K(11, "", "Home"), "Girona", "Mallorca") == "Draw No Bet: Girona"
 assert b365.bet365_name(K(29, "", "No"), "A", "B") == "Both Teams to Score: No"
-assert b365.bet365_name(K(548, "", "1-3"), "A", "B") is None, "Multigoals: not on the menu"
 assert b365.bet365_name("DC_1X", "Wales", "Denmark") == "Double Chance: Wales or draw"
+# The full betting market (Architect 2026-10-04), Double Chance & Goals included
+H, A = "Castellon", "Ceuta"
+for k, want in [
+    (K(547, "total=1.5", "Home/Away & Over 1.5"), "Double Chance & Goals: Castellon or Ceuta & Over 1.5"),
+    (K(546, "", "Home/Draw & Yes"), "Double Chance & Both Teams to Score: Castellon or Draw & Yes"),
+    (K(36, "total=2.5", "Over 2.5 & Yes"), "Goals & Both Teams to Score: Over 2.5 & Yes"),
+    (K(37, "total=1.5", "Home & Over 1.5"), "Result & Total Goals: Castellon & Over 1.5"),
+    (K(548, "", "1-3"), "Multigoals: 1-3"),
+    (K(25, "", "2-3"), "Total Goals Range: 2-3"),
+    (K(21, "", "2"), "Exact Total Goals: 2"),
+    (K(23, "", "1-2"), "Team Total Goals: Castellon 1-2"),
+    (K(26, "", "Odd"), "Goals Odd/Even: Odd"),
+    (K(30, "", "Only Home"), "Teams to Score: Only Castellon"),
+    (K(12, "", "Away"), "Castellon No Bet: Ceuta"),
+    (K(13, "", "Draw"), "Ceuta No Bet: Draw"),
+]:
+    got_name = b365.bet365_name(k, H, A)
+    assert got_name == want, f"{k}: {got_name!r} != {want!r}"
+# Every market the ladder scores is on the bet365 list
+assert set(fm.LADDER_MARKET_IDS) <= set(b365.BET365_MARKETS) | {31, 32, 33, 34}, \
+    "the full betting market is on the bet365 list"
 print("bet365 market names: OK")
 
 # --- deploy-at price: break-even, rounded up, never under the 1.20 floor ---
@@ -73,8 +93,8 @@ swap = _bf("Azerbaijan v Lithuania (UEFA Nations League)", "Azerbaijan", "Lithua
 none = _bf("Malta v Andorra (UEFA Nations League)", "Malta", "Andorra",
            K(33, "", "No"), 1.21, 0.80, [_c(0.80, K(33, "", "No"), 1.21)])
 risk = _bf("Chelsea v Bournemouth (Premier League)", "Chelsea", "Bournemouth",
-           K(546, "", "Home/Draw & Yes"), 1.40, 0.76,
-           [_c(0.76, K(546, "", "Home/Draw & Yes"), 1.40),
+           K(33, "", "No"), 1.40, 0.76,
+           [_c(0.76, K(33, "", "No"), 1.40),
             _c(0.75, K(1, "", "Home"), 1.45),
             _c(0.72, K(18, "total=1.5", "Over 1.5"), 1.30)])
 risk.team_news = {"lineup_type": "predicted",
@@ -94,6 +114,11 @@ assert b365.choose(none) is None, "nothing winnable on bet365 -> no bet365 pick"
 pk = b365.choose(risk)
 assert pk["name"] == "Goals Over/Under: Over 1.5", \
     "a bet365 option the team news flags gives way to one it doesn't touch"
+combo = _bf("Castellon v Ceuta (La Liga 2)", "Castellon", "Ceuta",
+            K(547, "total=1.5", "Home/Away & Over 1.5"), 1.21, 0.75, [])
+pk = b365.choose(combo)
+assert pk["same"] and pk["name"] == "Double Chance & Goals: Castellon or Ceuta & Over 1.5", \
+    "a Double Chance & Goals pick stays the same pick on bet365"
 got, missing = b365.picks([same, swap, none, risk, off])
 assert len(got) == 3 and missing == [none], "deploy fixtures only; none silently dropped"
 print("bet365 picks: OK")

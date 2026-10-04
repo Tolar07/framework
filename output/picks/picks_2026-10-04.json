@@ -378,7 +378,11 @@
     "home": 147609443,
     "away": 457482616
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68931532",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -421,7 +425,11 @@
     "home": 123455272,
     "away": 53468645
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Israel missing 37%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932734",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -464,7 +472,11 @@
     "home": 393285687,
     "away": 67133328
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68931582",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -507,7 +519,11 @@
     "home": 629753015,
     "away": 408390472
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932044",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -550,7 +566,11 @@
     "home": 129719251,
     "away": 247905774
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Denmark missing 13%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932046",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {

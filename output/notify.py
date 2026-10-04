@@ -193,8 +193,44 @@ def send_telegram(body: str, token: Optional[str] = None,
     return ok, notes
 
 
+def subscriber_chats() -> list[str]:
+    """Standing order 33: the chats in the TELEGRAM_SUBSCRIBER_CHAT_IDS secret
+    (comma-separated; a secret so nobody's chat id sits in the public repo),
+    without the Architect's own chat(s), so the Architect is never sent twice."""
+    own = {os.environ.get("TELEGRAM_CHAT_ID", "").strip(),
+           os.environ.get("TELEGRAM_OWNER_CHAT_ID", "").strip()}
+    out: list[str] = []
+    for cid in os.environ.get("TELEGRAM_SUBSCRIBER_CHAT_IDS", "").split(","):
+        cid = cid.strip()
+        if cid and cid not in own and cid not in out:
+            out.append(cid)
+    return out
+
+
+def send_everyone(body: str) -> tuple[bool, list[str]]:
+    """The Architect's chat, then every subscriber chat (order 33). Everything
+    that reaches the phone goes this way EXCEPT the bet365 board (order 29),
+    which is sent with send_telegram to the Architect's own chat only.
+
+    Returns (Architect's chat delivered, notes). A subscriber that fails is a
+    note and never fails the caller. Notes name a subscriber by the last four
+    digits only — run logs of this public repo are public."""
+    ok, notes = send_telegram(body)
+    subs = subscriber_chats()
+    sent = 0
+    for cid in subs:
+        s_ok, s_notes = send_telegram(body, chat_id=cid)
+        sent += s_ok
+        if not s_ok:
+            notes.append(f"subscriber chat …{cid[-4:]}: NOT delivered ({s_notes[-1]})")
+    if subs:
+        notes.append(f"delivered to {sent}/{len(subs)} subscriber chat(s)")
+    return ok, notes
+
+
 def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]:
-    """Write the board to disk, then send it. Returns (delivered_ok, notes).
+    """Write the board to disk, then send it to the Architect and every
+    subscriber (order 33). Returns (delivered_ok, notes).
 
     Disk first, deliberately: a failed send must never lose the board. The
     boolean matters — the caller previously discarded it and logged "run
@@ -205,5 +241,5 @@ def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]
         save_to.parent.mkdir(parents=True, exist_ok=True)
         save_to.write_text(_stamp(body), encoding="utf-8")
         notes.append(f"board saved to {save_to}")
-    ok, send_notes = send_telegram(body)
+    ok, send_notes = send_everyone(body)
     return ok, notes + send_notes

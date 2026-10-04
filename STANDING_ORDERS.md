@@ -41,14 +41,16 @@ and not "ratified on backtest evidence".
 | 30 | **17 Sep spec items kept (Architect 2026-10-04).** The board header carries a Run ID (`OLPXDV-<UTC yyyymmdd-hhmm>-<6 hex>`, printed at the start of the run and written to the run log) and "Fixtures scanned · Verified"; a board without a valid Run ID is never sent — it is saved, the run fails and the failure alert fires (HR59). NO-DATA fixtures leave Table 1 for one collapsed line under it — listed, never dropped (HR35); no line when there are none. Table 1 is grouped by competition, strongest pick first, and a board too long for one message splits between competitions, never mid-row; a competition too long for one message continues with "(cont.)". | `output/produce_bet.py`, `output/notify.py`, `run_daily.py` |
 | 31 | **Alternative-market accas (Architect 2026-10-04).** Besides the main slips, every deploy fixture gets an alternative leg — its likeliest winnable in-band outcome (≥50%, 1.20–2.00) from a DIFFERENT market family than its main pick, never one the team news flags — and those legs are grouped into their own accas of 4–5 (TABLE 3B, "Alt A, B …"), each with its own SportyBet code, listed in ALL CODES, recorded and graded in the picks ledger. Table 1's alternative market is the same leg. It spreads the risk over different outcomes of the same matches; it does not raise the hit rate. Not part of the £1 live test (26) unless the Architect says so. | `output/produce_bet.py`, `run_daily.py`, `engine/picks_ledger.py` |
 | 32 | **Shaky picks switch to a steadier market (Architect 2026-10-04).** A deploy pick that doesn't sit well — its price drifted out 5%+ since the last board, the two prediction models (Dixon-Coles and Elo) disagree on the result it depends on, or its certainty is LOW (model and SportyBet disagree) — becomes its steadier alternative when one exists: a different market family where model and SportyBet agree (HIGH or MEDIUM), the team news doesn't touch it, at most 5 pts less likely (a result-free market when the models disagree on the result). It shows as ⇄ with the old pick and the reason; the original is recorded and graded too, and the weekly review compares the two. | `run_daily.py`, `output/produce_bet.py` |
-| 33 | **Subscribers get the board (Architect 2026-10-04).** Besides the Architect's chat (`TELEGRAM_CHAT_ID`, which gets everything), the board — and only the board — is sent to every chat in the `TELEGRAM_SUBSCRIBER_CHAT_IDS` secret (comma-separated; kept as a secret so nobody's chat id is in the public repo). Subscribers never get the bet365 board, heartbeat, supervisor status, weekly review or alerts. A subscriber that fails is logged and never fails the run. | `run_daily.py`, `.github/workflows/daily.yml` |
+| 33 | **Subscribers get everything but the bet365 board (Architect 2026-10-04).** Every chat in the `TELEGRAM_SUBSCRIBER_CHAT_IDS` secret (comma-separated; kept as a secret so nobody's chat id is in the public repo) gets every message the Architect's chat (`TELEGRAM_CHAT_ID`) gets, every day: the board, the heartbeat, pre-kickoff alerts, run alerts, the supervisor status and the weekly review. The one exception is the bet365 board, which goes to the Architect only (29). Command replies go to whoever asked; commands are answered for the Architect's chat only. A subscriber that fails is logged and never fails the run; the Architect is never sent twice; the supervisor status flags an empty subscriber secret. All sends go through `notify.send_everyone` / `notify.deliver`. | `output/notify.py`, `run_daily.py`, `.github/workflows/*.yml` |
 
 ## Telegram output — everything that reaches your phone
 
 This is the one record of the Telegram output (Architect 2026-10-04). Each
 line points to the order that sets it; change the order, not this list.
+Every item below also reaches each subscriber chat (33) — except item 2,
+the bet365 board, which is yours only.
 
-**1. The board** — pick days, ~10 PM Lagos for tomorrow and ~7 AM refresh (6); also to each subscriber chat (33)
+**1. The board** — pick days, ~10 PM Lagos for tomorrow and ~7 AM refresh (6)
 - Header: `##########OLP XDV#########`, date, Run ID, fixtures scanned · verified (5, 30)
 - TABLE 1 — every rated fixture, grouped by competition: Country · League (28),
   AI pick + win % with ★ BANKER / ✓ SAFE / ᴮ BOOK / ⚠ SPLIT (11, 14), odds,
@@ -64,7 +66,7 @@ line points to the order that sets it; change the order, not this list.
 - Footer — honest edge, odds band, calibration; ALL CODES as the final message (5)
 - Sent only with a valid Run ID; long boards split between competitions (30)
 
-**2. The bet365 board** — its own message, to you only, after the board (29)
+**2. The bet365 board** — its own message, to you only (never a subscriber), after the board (29)
 
 **3. The heartbeat** — every day, even with no picks (6): scorecard and
 calibration (16, 25), closing-line value (20), staking and stop-loss (21),
@@ -75,7 +77,7 @@ news (17) and price drift (25), each with the slips that carry the pick
 
 **5. Run alerts** — a failed run (6), and a board slot that never ran (`watchdog.yml`)
 
-**6. Commands** — /board /status /verify /why /log /note /debrief, answered hourly (`commands.yml`)
+**6. Commands** — /board /status /verify /why /log /note /debrief, answered hourly, for your chat only (`commands.yml`)
 
 **7. Supervisor status** — after every board run: ALL CLEAR or the issues
 found, problems first (`supervisor.yml`, `monitor/supervisor.py`)

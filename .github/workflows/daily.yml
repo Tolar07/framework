@@ -71,9 +71,12 @@ jobs:
           API_FOOTBALL_KEY:   ${{ secrets.API_FOOTBALL_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
-          # Optional: the Architect's own chat for the bet365 board (standing
-          # order 29). Unset = the bet365 board goes to TELEGRAM_CHAT_ID.
+          # Optional: a separate Architect-only chat for the bet365 board
+          # (standing order 29). Unset = TELEGRAM_CHAT_ID, the Architect's chat.
           TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          # Subscribers: comma-separated chat ids that get the board too (only
+          # the board — never the bet365 board, heartbeat or alerts).
+          TELEGRAM_SUBSCRIBER_CHAT_IDS: ${{ secrets.TELEGRAM_SUBSCRIBER_CHAT_IDS }}
           PYTHONIOENCODING:   utf-8
           SCHEDULE:           ${{ github.event.schedule }}
           TARGET_DATE_INPUT:  ${{ github.event.inputs.target_date }}

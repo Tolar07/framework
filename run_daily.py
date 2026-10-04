@@ -20,6 +20,7 @@ OPERATING PROTOCOL (master 13.1, anti-iteration)
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -643,6 +644,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             except Exception:  # noqa: BLE001 — one match's news is optional
                 news = None
             checked += 1
+            b.team_news = news      # the bet365 board re-tests its own picks
             res = tn.assess(b.best_market_key, news)
             # A pick that depends on a WEAKENED team swaps to the likeliest
             # alternative the news doesn't touch (within NEWS_SWAP_PP), as
@@ -921,6 +923,25 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             reason = "delivery skipped (--no-send)"
         print(f"  board saved to {path}; {reason}")
         _mark(runlog, reason)
+
+    # bet365 BOARD (standing order 29): the same picks limited to bets bet365
+    # offers, saved beside the board and sent as its OWN message, only to the
+    # Architect (TELEGRAM_OWNER_CHAT_ID if set, else the board's chat).
+    # Best-effort like the heartbeat: it never fails the run.
+    try:
+        from output import bet365_board
+        b365_text = bet365_board.render(board, board_date=target)
+        b365_path = BOARD_DIR / f"bet365_{target}.txt"
+        b365_path.parent.mkdir(parents=True, exist_ok=True)
+        b365_path.write_text(b365_text, encoding="utf-8")
+        if deliver_now and bet365_board.picks(board)[0]:
+            b_ok, b_notes = notify.send_telegram(
+                b365_text, chat_id=os.environ.get("TELEGRAM_OWNER_CHAT_ID") or None)
+            for n in b_notes:
+                _mark(runlog, f"bet365 board: {n}")
+            print("  bet365 board " + ("delivered" if b_ok else "NOT delivered"))
+    except Exception as e:  # noqa: BLE001 — the bet365 board never blocks the run
+        _mark(runlog, f"bet365 board error ({e})")
 
     # HEARTBEAT — a short 'system alive' ping sent EVERY day (even dry days), so
     # silence never looks like a dead system. Best-effort: a heartbeat that fails

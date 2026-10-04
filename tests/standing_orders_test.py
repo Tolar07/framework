@@ -171,4 +171,42 @@ assert _ov.PRICE_CHECK_TOLERANCE_PP == 5.0, "Order 27: price check = margin-free
 assert "environ" not in _insp.getsource(_espn), \
     "Order 27: ESPN's public scoreboard needs no key (no paid API)"
 
+# 28. Country + league on every pick
+from engine import competitions as _cp
+for lg in set(slate.WHITELIST_LEAGUES) | set(SPORTYBET_TOURNAMENT_ID):
+    assert lg in _cp.COMPETITIONS, f"Order 28: {lg} needs a country + league label"
+assert _cp.label("La Liga 2").startswith("Spain · La Liga 2"), "Order 28: club = country · league"
+assert _cp.label("UEFA Nations League") == "UEFA Nations League", \
+    "Order 28: national teams show the competition"
+assert _cp.label("Unknown Cup") == "Unknown Cup", "Order 28: never a guessed country"
+from engine.dixon_coles import FixtureProbabilities as _FP
+from verification.id403 import VerificationResult as _VR, Tier as _T
+_v = _VR(tier=_T.SINGLE_SOURCE, value=1.9, factors={"independent_domains": ["x"]}, note="")
+_fp = lambda h, a: _FP(home_team=h, away_team=a, lambda_home=1.6, lambda_away=1.1, p_home=0.6,
+                       p_draw=0.2, p_away=0.2, p_over_15=0.78, p_over_25=0.55, p_over_35=0.32,
+                       p_btts_yes=0.58)
+_b28 = pb.render_canonical_board(
+    "Mode A", "Phase 3", ["La Liga 2"], 0, None, [],
+    [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "Granada"), _v,
+                     on_deploy_shortlist=True, best_price=1.33),
+     pb.BoardFixture("Greece v Germany (UEFA Nations League)", _fp("Greece", "Germany"), _v,
+                     on_deploy_shortlist=True, best_price=1.21)])
+_t1, _t2 = _b28.split("TABLE 2 · ")[0], _b28.split("TABLE 2 · ")[1].split("TABLE 3A")[0]
+for _part, _name in ((_t1, "TABLE 1"), (_t2, "TABLE 2")):
+    assert "Country · League" in _part and "Spain · La Liga 2" in _part, \
+        f"Order 28: {_name} shows each pick's country + league"
+_t3 = _b28.split("TABLE 3 · ACCA ROUTE")[1]
+assert "Sociedad B v Granada (" in _t3 and "Spain · La Liga 2" in _t3 \
+    and "Greece v Germany (\U0001F3C6 UEFA Nations League)" in _t3, \
+    "Order 28: every acca leg and THE PICK name the competition"
+
+# 29. bet365 board, to the Architect only
+from output import bet365_board as _b365
+assert _b365.bet365_name(fm.key(34, "", "No"), "A", "B") is None, \
+    "Order 29: bet365 offers no 'win to nil — no'"
+assert _b365.deploy_at(0.95) == slate.DEPLOY_ODDS_MIN, "Order 29: deploy-at never below 1.20"
+assert "bet365_board.render(" in _rd_src and "TELEGRAM_OWNER_CHAT_ID" in _rd_src, \
+    "Order 29: built in the same run, sent on its own to the Architect"
+assert "TELEGRAM_OWNER_CHAT_ID" in wf, "Order 29: the owner chat reaches the daily run"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

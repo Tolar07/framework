@@ -1033,7 +1033,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 
     # bet365 BOARD (standing order 29): the same picks limited to bets bet365
     # offers, saved beside the board and sent as its OWN message, only to the
-    # Architect (TELEGRAM_OWNER_CHAT_ID if set, else the board's chat).
+    # Architect's own chat (TELEGRAM_OWNER_CHAT_ID; not set = saved, not sent).
     # Best-effort like the heartbeat: it never fails the run.
     try:
         from output import bet365_board
@@ -1042,11 +1042,17 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         b365_path.parent.mkdir(parents=True, exist_ok=True)
         b365_path.write_text(b365_text, encoding="utf-8")
         b365_gate = notify.board_gate(b365_text)
+        # The Architect's own chat ONLY — never the shared board chat (order
+        # 29). Until TELEGRAM_OWNER_CHAT_ID is set the board is saved, not sent.
+        owner_chat = os.environ.get("TELEGRAM_OWNER_CHAT_ID", "").strip()
         if b365_gate:
             _mark(runlog, f"bet365 board: {b365_gate}")
+        elif not owner_chat:
+            _mark(runlog, "bet365 board saved, NOT sent: TELEGRAM_OWNER_CHAT_ID is not set "
+                          "(it never goes to the shared board chat)")
+            print("  bet365 board saved, not sent (TELEGRAM_OWNER_CHAT_ID not set)")
         elif deliver_now and bet365_board.picks(board)[0]:
-            b_ok, b_notes = notify.send_telegram(
-                b365_text, chat_id=os.environ.get("TELEGRAM_OWNER_CHAT_ID") or None)
+            b_ok, b_notes = notify.send_telegram(b365_text, chat_id=owner_chat)
             for n in b_notes:
                 _mark(runlog, f"bet365 board: {n}")
             print("  bet365 board " + ("delivered" if b_ok else "NOT delivered"))

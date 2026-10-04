@@ -71,8 +71,9 @@ jobs:
           API_FOOTBALL_KEY:   ${{ secrets.API_FOOTBALL_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
-          # Optional: the Architect's own chat for the bet365 board (standing
-          # order 29). Unset = the bet365 board goes to TELEGRAM_CHAT_ID.
+          # The Architect's own chat for the bet365 board (standing order 29).
+          # Unset = the bet365 board is saved but NOT sent — it never goes to
+          # the shared board chat.
           TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
           SCHEDULE:           ${{ github.event.schedule }}

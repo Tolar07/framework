@@ -142,6 +142,8 @@ assert (_sv.OFFSPRING_PER_WIN, _sv.MAX_LINEAGES, _sv.STAKE) == (2, 16, 1.0), \
 _p = {"lineages": [_sv._lineage(bankroll=5)], "last_bred_date": None}
 _sv.apply_result(_p, {"lineage_id": _p["lineages"][0]["lineage_id"], "price": 1.4}, "LOSS")
 assert not _p["lineages"][0]["alive"], "Order 23: one loss is extinction"
+assert (_sv.MIN_CHANCE, _sv.OK_CERTAINTY) == (0.80, ("HIGH", "MEDIUM")), \
+    "Order 23: lineage bar — 80%+ chance, HIGH/MEDIUM certainty, else the lineage waits"
 
 # 24. Value-aware picks + automatic news swap
 import run_daily as _rd

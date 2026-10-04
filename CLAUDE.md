@@ -14,9 +14,15 @@ never imported, never run (see `legacy/laptop/README.md`).
 1. Read `STANDING_ORDERS.md` — the Architect's standing rules (selection,
    delivery, phase, markets). `tests/standing_orders_test.py` enforces them.
 2. Read the CURRENT STATE block at the top of `docs/obsidian-vault/STATE.md`.
+3. Read `MAP.md` — where everything is: what runs (workflows and Routines),
+   who gets what on Telegram, every secret, every stored file, what is parked
+   in `legacy/`, what survives only in git history, and what lives outside
+   this repo (the workspace repo, the laptop). Don't make the Architect
+   point you to where something is kept: look it up there, and add anything
+   you find that isn't listed.
 
 Do not answer questions about framework state from this file or from
-inference — read those two files, the code, or the run history.
+inference — read those three files, the code, or the run history.
 
 ## THE LIVE LOOP — DO NOT BREAK IT
 
@@ -24,7 +30,7 @@ Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
 
 | Workflow | When | What |
 |---|---|---|
-| `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/` |
+| `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine (IDs in `MAP.md` §1) | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/` |
 | `watchdog.yml` | 23:17 and 08:17 | `monitor/run_watchdog.py` — when a slot's board run never happened, starts it (same day + slot, so the duplicate guard holds) and says so on Telegram |
 | `news.yml` | every 20 min, 09:00-20:40 | `news_check.py` — confirmed lineups, price drift, closing price per pick |
 | `commands.yml` | hourly | `output/telegram_commands.py` — answers /status /board /verify /why /log /note /debrief |
@@ -57,9 +63,9 @@ working tree; a stash pop applied another session's WIP on 2026-09-19. Use
 explicit file copies for temporary reverts.
 
 **Do not `git add -A`.** Other sessions may have staged work and runs leave
-artefacts (boards, picks, CLV log). Add explicit paths only — the commit
-guard hook blocks `git add -A`. Work on a branch and merge through a PR whose
-`tests.yml` run is green.
+artefacts (boards, picks, CLV log). Add explicit paths only — no hook stops
+`git add -A` in this repo, so it is on you. Work on a branch and merge
+through a PR whose `tests.yml` run is green.
 
 ## HARD RULES — these are not suggestions
 
@@ -103,6 +109,7 @@ Say plainly when something is not implemented; do not debug it as a fault.
 ## DOCUMENTS
 
 - `STANDING_ORDERS.md` — the Architect's standing rules. Authoritative.
+- `MAP.md` — where everything is kept, in this repo and outside it.
 - `docs/obsidian-vault/STATE.md` — current state (top block) + session
   journal. Authoritative for state.
 - `docs/LINEAGE_MERGE_2026-10-03.md` — how the laptop and cloud copies
@@ -112,6 +119,8 @@ Say plainly when something is not implemented; do not debug it as a fault.
 
 Do not create new spec documents. Amend STATE.md. If a new file is
 genuinely needed, add a pointer line to STATE.md in the same session.
+Anything stored somewhere new — a file, a secret, a Routine, a laptop
+task — goes into `MAP.md` in the same session.
 
 ## AGENTS
 

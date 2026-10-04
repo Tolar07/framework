@@ -1,5 +1,7 @@
 # STATE.md — Framework State & Daily Retrospective Audit
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 > **Per Architect directive:** This file is the supervisor's single source of truth for multi-session state. Updated daily with fixture verification, outcome audit, and knowledge integration.
 
 ---

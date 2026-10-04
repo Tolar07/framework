@@ -1,5 +1,7 @@
 # Automated T3 Current-Season Results Source — Implementation Plan
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 **Status:** DRAFT — awaiting Architect approval  
 **Created:** 2026-08-24  
 **Context:** Reduce 27 pending legs (Aug 23) from lower-tier leagues by adding automated current-season results source

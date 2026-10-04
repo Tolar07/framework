@@ -51,6 +51,12 @@ OFFSPRING_PER_WIN = 2
 MAX_LINEAGES = 16          # Architect 2026-10-03: every winner should reproduce (was 8)
 STARVATION_FLOOR = 1.0
 UNGRADED_DAYS = 4
+# QUALITY BAR (Architect 2026-10-03): a lineage only bets on a pick we are
+# very sure of — otherwise it WAITS (alive) for a day with such a fixture.
+# One loss is death, so filling lineages with the whole board is wrong.
+MIN_CHANCE = 0.80                    # our chance the pick wins
+MIN_EV = -0.02                       # price no worse than ~2% under fair (no heavy-margin markets)
+OK_CERTAINTY = ("HIGH", "MEDIUM")    # model and SportyBet agree (never LOW / one source)
 
 
 def _new_id() -> str:
@@ -227,11 +233,63 @@ def candidates(board: list, target: str, now: Optional[datetime] = None) -> list
                     continue
             except ValueError:
                 pass
-        if getattr(b, "news_level", None) == "RISK":
+        if not meets_bar(b):
             continue
         out.append(b)
-    out.sort(key=lambda b: (_is_under(b.best_market_key),
-                            _CERT.get(b.certainty, 2) == 2, -b.best_model_prob))
+    out.sort(key=lambda b: (-b.best_model_prob, -(getattr(b, "best_mes_ev", None) or -1)))
+    return out
+
+
+def meets_bar(b) -> bool:
+    """The lineage quality bar: >= MIN_CHANCE to win, HIGH/MEDIUM certainty,
+    no injury/rotation flag, value no worse than MIN_EV."""
+    ev = getattr(b, "best_mes_ev", None)
+    return (b.best_model_prob is not None and b.best_model_prob >= MIN_CHANCE
+            and getattr(b, "certainty", None) in OK_CERTAINTY
+            and getattr(b, "news_level", None) not in ("CAUTION", "RISK")
+            and (ev is None or ev >= MIN_EV))
+
+
+def withdraw_weak(pop: dict, hist: list[dict], board: list, target: str,
+                  now: Optional[datetime] = None) -> int:
+    """Before kickoff, take back any held pick for `target` that no longer
+    meets the bar on the current board (team news, drift to LOW, the bar
+    itself). The lineage keeps its bankroll and waits. Returns how many."""
+    now = now or datetime.now(timezone.utc)
+    by_fx = {b.fixture.split(" (")[0]: b for b in board
+             if getattr(b, "probs", None) is not None}
+    by_id = {ln["lineage_id"]: ln for ln in pop["lineages"]}
+    out = 0
+    for r in hist:
+        if r["date"] != target or r.get("result") != "PENDING":
+            continue
+        b = by_fx.get(r["fixture"])
+        if b is not None and b.best_market_key != r["market_key"]:
+            # The board now prefers another market for this fixture: judge the
+            # held pick on its own recorded chance/certainty (+ today's news).
+            from types import SimpleNamespace
+            b = SimpleNamespace(best_model_prob=r.get("chance"), certainty=r.get("certainty"),
+                                news_level=getattr(b, "news_level", None), best_mes_ev=None)
+        elif b is None:
+            continue                               # fixture not on today's board: leave it
+        ko = r.get("kickoff_utc")
+        try:
+            if ko and datetime.fromisoformat(str(ko).replace("Z", "+00:00")) <= now:
+                continue                           # already started: it stands
+        except ValueError:
+            pass
+        if not meets_bar(b):
+            r["result"], r["applied"] = "WITHDRAWN", True
+            ev = getattr(b, "best_mes_ev", None)
+            r["withdrawn_reason"] = (f"below the lineage bar: {(b.best_model_prob or 0):.0%} "
+                                     f"{b.certainty}, news {getattr(b, 'news_level', None) or 'n/a'}"
+                                     + (f", value {ev:+.1%}" if ev is not None else "")
+                                     + f" (needs {MIN_CHANCE:.0%}+, HIGH/MEDIUM, no flag, "
+                                     f"value >= {MIN_EV:+.0%})")
+            ln = by_id.get(r["lineage_id"])
+            if ln:
+                ln["holding"] = None
+            out += 1
     return out
 
 
@@ -240,8 +298,9 @@ def select(pop: dict, hist: list[dict], board: list, target: str,
     """Give every free living lineage one pick for `target`. Idempotent: a
     lineage already holding a pick for that day keeps it."""
     from engine import markets as mkt
-    held = {r["lineage_id"] for r in hist if r["date"] == target}
-    taken = {r["fixture"] for r in hist if r["date"] == target}
+    live = [r for r in hist if r["date"] == target and r.get("result") != "WITHDRAWN"]
+    held = {r["lineage_id"] for r in live}
+    taken = {r["fixture"] for r in live}
     free = sorted((ln for ln in living(pop)
                    if ln["lineage_id"] not in held and not ln.get("holding")),
                   key=lambda x: -x["bankroll"])
@@ -298,8 +357,11 @@ def report(pop: dict, hist: list[dict], target: str) -> str:
                      f"@{h['price']:.2f} · "
                      f"{h['chance'] * 100:.0f}% {h.get('certainty') or ''}"
                      + (f" · code {h['code']}" if h.get("code") else ""))
-    elif alive:
-        L.append(f"No pick held for {target} yet (no eligible fixture on the board).")
+    waiting = sum(1 for ln in alive if not ln.get("holding"))
+    if waiting:
+        L.append(f"{waiting} lineage(s) waiting — no pick today met the bar "
+                 f"({MIN_CHANCE:.0%}+ chance, HIGH/MEDIUM certainty, no team-news flag). "
+                 "They stay alive and bet on a stronger day.")
     return "\n".join(L)
 
 
@@ -312,7 +374,13 @@ def daily(board: list, target: str, events: list[dict], today: Optional[str] = N
     births = breed(pop, today, hist)
     if births:
         flags.append(f"AI Survivor: {births} lineage(s) born")
+    gone = withdraw_weak(pop, hist, board, target)
+    if gone:
+        flags.append(f"AI Survivor: {gone} held pick(s) withdrawn — below the lineage bar")
     new = select(pop, hist, board, target)
-    flags.append(f"AI Survivor: {len(living(pop))} alive, {len(new)} new pick(s) for {target}")
+    holding = sum(1 for ln in living(pop) if ln.get("holding"))
+    flags.append(f"AI Survivor: {len(living(pop))} alive, {holding} holding a pick for {target} "
+                 f"({len(new)} new), {len(living(pop)) - holding} waiting for a "
+                 f"{MIN_CHANCE:.0%}+ HIGH/MEDIUM pick")
     save(pop, hist, state_dir)
     return report(pop, hist, target), flags

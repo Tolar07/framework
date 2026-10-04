@@ -15,7 +15,7 @@ from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
 from engine.slate import (DEPLOY_POOL_CAP, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
-                          DEPLOY_ODDS_SAFE)
+                          DEPLOY_ODDS_SAFE, DEPLOY_MIN_MODEL_PROB)
 from engine import markets as mkt
 from engine import competitions as comp
 from verification.id403 import VerificationResult, Tier, stamp
@@ -772,6 +772,66 @@ def _build_megas(shortlist: list[BoardFixture]) -> list[tuple]:
     return out
 
 
+# ALTERNATIVE-MARKET ACCAS (Architect 2026-10-04, standing order 31): the same
+# deploy fixtures, each with its likeliest winnable outcome from a DIFFERENT
+# market family than its main pick (goals, handicaps, team goals ...), in
+# accas of 4-5 legs. The main slips all stand or fall on the same outcomes;
+# these spread the risk over different outcomes of the same matches. Each alt
+# leg is a little less likely than the main pick — this spreads risk, it does
+# not raise the hit rate.
+def alt_leg(bf: "BoardFixture") -> Optional[tuple]:
+    """(key, chance, price) of the fixture's alternative-market leg, or None.
+
+    From the run's pool of winnable in-band outcomes (>= 50%, price
+    1.20-2.00): a different market family from the main pick, never one the
+    team news flags, strongest chance first, then value."""
+    if bf.probs is None or not bf.best_market_key:
+        return None
+    from engine.learning import family
+    main = family(bf.best_market_key)
+    pool = [c for c in (getattr(bf, "cand_pool", None) or [])
+            if family(c[2]) != main and c[0] >= DEPLOY_MIN_MODEL_PROB]
+    news = getattr(bf, "team_news", None)
+    if news and pool:
+        from engine import team_news as tn
+        pool = [c for c in pool if tn.assess(c[2], news)["level"] not in ("CAUTION", "RISK")]
+    if not pool:
+        return None
+    c = max(pool, key=lambda c: (c[0], c[1]))
+    return c[2], c[0], c[5].price
+
+
+def _build_alt_accas(shortlist: list[BoardFixture]) -> list[tuple]:
+    """[(name, [(bf, pick, prob, key, price)], combo)] — every deploy fixture
+    that has an alternative leg, strongest first, in accas of 4-5 legs."""
+    legs = []
+    for bf in shortlist:
+        a = alt_leg(bf)
+        if a:
+            key, prob, price = a
+            legs.append((bf, mkt.display(key, bf.probs.home_team, bf.probs.away_team),
+                         prob, key, price))
+    legs.sort(key=lambda t: -t[2])
+    if len(legs) < 2:
+        return []
+    out, i = [], 0
+    for n, size in enumerate(_split_sizes(len(legs), ACCA_MIN, ACCA_MAX)):
+        g = legs[i:i + size]
+        i += size
+        combo = 1.0
+        for leg in g:
+            combo *= leg[2]
+        out.append((_acca_name(n).replace("Acca", "Alt"), g, combo))
+    return out
+
+
+def _alt_odds(legs) -> float:
+    odds = 1.0
+    for leg in legs:
+        odds *= leg[4] or 1.0
+    return odds
+
+
 SAFE3_LEGS = 3            # Architect 2026-10-02: 3-leg accas at 50%+
 SAFE3_MIN_CHANCE = 0.50
 _CERT_ORDER = {"HIGH": 0, "MEDIUM": 1}
@@ -807,7 +867,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             board_date: Optional[str] = None,
                             safe3_codes: Optional[dict] = None,
                             extra_codes: Optional[dict] = None,
-                            run_id: Optional[str] = None) -> str:
+                            run_id: Optional[str] = None,
+                            alt_codes: Optional[dict] = None) -> str:
     """The ##########OLP XDV######### board the Architect reads on Telegram.
 
     Booking codes (real SportyBet share codes) are attached upstream by run_daily:
@@ -1004,6 +1065,27 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 "same slip as Table 2's:"] + _mega_lines("TABLE 3")
     out.append("")
 
+    # --- TABLE 3B · alternative-market accas (order 31) ---
+    alts = _build_alt_accas(shortlist)
+    alt_codes = alt_codes or {}
+    out += [_CANON_RULE, "TABLE 3B · ALT-MARKET ACCAS",
+            "(same fixtures, each on a DIFFERENT market from its main pick — goals,",
+            " handicaps, team goals — so one result can't sink every slip)",
+            _CANON_RULE, ""]
+    if not alts:
+        out.append("No alternative market in the 1.20–2.00 band at 50%+ today.")
+    else:
+        for name, legs, combo in alts:
+            out.append(f"{name} · code {alt_codes.get(name) or 'PENDING'} · {len(legs)} legs · "
+                       f"odds {_alt_odds(legs):.2f} · chance {round(combo*100)}%")
+            for bf, pick, prob, _key, price in legs:
+                px = f" @{price:.2f}" if price else ""
+                out.append(f"   • {comp.where(bf.fixture)} — {pick}{px} ({round(prob*100)}%)")
+        out += ["", "Each alt leg is a little less likely than the main pick: this spreads "
+                    "the risk, it does not raise the hit rate. Not part of the £1 live "
+                    "test (order 26) unless the Architect says so."]
+    out.append("")
+
     # --- TABLE 4 · the pick ---
     out += [_CANON_RULE, "TABLE 4 · THE PICK",
             "(primary single + Acca A recommendation)", _CANON_RULE, ""]
@@ -1044,7 +1126,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
-    if accas or mega_codes or safe3 or board_code:
+    if accas or mega_codes or safe3 or board_code or alts:
         out += ["", "ALL CODES"]
         for name, legs, combo in safe3:
             out.append(f"{name}: {safe3_codes.get(name) or 'PENDING'} "
@@ -1063,6 +1145,10 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         for name, legs, combo in accas:
             out.append(f"{name}: {acca_codes.get(name) or 'PENDING'} "
                        f"({len(legs)} legs · odds {_acca_odds(legs):.2f} · "
+                       f"{round(combo*100)}% · stake 0.25%)")
+        for name, legs, combo in alts:
+            out.append(f"{name}: {alt_codes.get(name) or 'PENDING'} "
+                       f"({len(legs)} legs · alt markets · odds {_alt_odds(legs):.2f} · "
                        f"{round(combo*100)}% · stake 0.25%)")
     return "\n".join(out)
 

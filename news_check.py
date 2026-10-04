@@ -170,7 +170,7 @@ def run(now: datetime | None = None, send: bool = True) -> str:
         return (f"lineups: {ok} pick(s) confirmed OK, {waiting} awaiting XI, none flagged; "
                 f"no price drift; closing prices captured: {closed}")
     slips = {}
-    for kind in ("safe3", "accas", "megas"):
+    for kind in ("safe3", "accas", "alts", "megas"):
         for slip in doc.get(kind, []):
             for s in flagged + drifted:
                 if s["fixture"] in slip["legs"]:

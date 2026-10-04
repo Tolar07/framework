@@ -39,7 +39,9 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Optional
 
-STATE_DIR = Path(__file__).parent.parent / "data" / "survivor"
+from engine import competitions as comp
+
+STATE_DIR =Path(__file__).parent.parent / "data" / "survivor"
 LINEAGE_FILE = STATE_DIR / "lineage.json"
 HISTORY_FILE = STATE_DIR / "history.jsonl"
 
@@ -282,7 +284,8 @@ def report(pop: dict, hist: list[dict], target: str) -> str:
         for h in recent:
             mark = {"WIN": "✅", "LOSS": "💀", "VOID": "↩"}[h["result"]]
             px = f" @{h['price']:.2f}" if h.get("price") else ""
-            L.append(f" {mark} {h['fixture']} — {h.get('pick') or '?'}{px}"
+            L.append(f" {mark} {comp.where(h['fixture'], h.get('league'))} — "
+                     f"{h.get('pick') or '?'}{px}"
                      + (f" ({h['score']})" if h.get("score") else ""))
     today = [h for h in hist if h["date"] == target and h.get("result") == "PENDING"]
     by_id = {ln["lineage_id"]: ln for ln in pop["lineages"]}
@@ -291,7 +294,8 @@ def report(pop: dict, hist: list[dict], target: str) -> str:
         for h in sorted(today, key=lambda h: -by_id.get(h["lineage_id"], {}).get("bankroll", 0)):
             ln = by_id.get(h["lineage_id"], {})
             L.append(f" • {h['lineage_id'][3:9]} G{h['generation']} £{ln.get('bankroll', 0):.2f}"
-                     f" → {h['fixture']}: {h['pick']} @{h['price']:.2f} · "
+                     f" → {comp.where(h['fixture'], h.get('league'))}: {h['pick']} "
+                     f"@{h['price']:.2f} · "
                      f"{h['chance'] * 100:.0f}% {h.get('certainty') or ''}"
                      + (f" · code {h['code']}" if h.get("code") else ""))
     elif alive:

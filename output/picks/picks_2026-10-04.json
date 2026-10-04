@@ -85,8 +85,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.026328721646560527,
    "first_price": 1.24,
@@ -217,8 +217,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 1.52,
    "stake_pct": 0.12,
    "ev": 0.03894533019266744,
    "first_price": 1.34,

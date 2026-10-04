@@ -1,4 +1,7 @@
 # LEAGUE DATA COVERAGE MATRIX — OLP XDV
+
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 **Version:** 2026-08-12  
 **Status:** Live reference — updated for 2026/27 season  
 **Scope:** All 25 whitelisted leagues in `engine.leagues.WHITELISTED_LEAGUES` (unified pool — softness tiers fully removed 2026-08-11; UEFA Super Cup + 6 new European leagues added 2026-08-12; HNL + Austrian Bundesliga current-season history WIRED via football-data.org 2026-08-12)

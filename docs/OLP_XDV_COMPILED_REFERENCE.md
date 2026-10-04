@@ -1,5 +1,7 @@
 # OLP XDV — COMPILED REFERENCE DOCUMENT
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 > **REPO CROSS-CHECK (Claude Code, 2026-08-08):** Saved into the working repo (`docs/`) on 2026-08-08 and cross-checked against the live codebase. The cross-check target named below, `OLP_XDV_MASTER_v303.15.md`, does **not** exist in this repo as of 2026-08-08 — the live authorities are `RATIFICATIONS.md` (append-only) + the code + `ARCHITECTURE.md`. This compiled reference describes the framework's **real-money era (April–July 2026)**; the repo is the **Phase-2 paper-only rebuild**. Stale or missing claims are annotated inline as `REPO CROSS-CHECK:` callouts.
 
 ### Built by Claude.ai chat, [today's date], from confirmed conversation search

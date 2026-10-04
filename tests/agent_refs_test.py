@@ -1,4 +1,4 @@
-"""Every file an OLP XDV agent, skill or CLAUDE.md names must exist.
+"""Every file an OLP XDV agent, skill, CLAUDE.md or MAP.md names must exist.
 
 Agents and skills are how sessions find their way around the framework; a
 reference to a moved or parked file sends a session to code that isn't
@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = sorted((ROOT / ".claude" / "agents").glob("olp-xdv-*.md")) + [
     ROOT / ".claude" / "skills" / "olp-xdv" / "SKILL.md",
     ROOT / "CLAUDE.md",
+    ROOT / "MAP.md",
 ]
 # Any path with a directory part and a code/doc extension, inline or in a code
 # block, e.g. engine/slate.py or tests/staking_test.py. URLs are skipped.

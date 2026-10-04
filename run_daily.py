@@ -126,7 +126,9 @@ def grade_open_legs(log: CLVLog, season: str,
     # capital gate. The date is now part of the key, and a leg with no recorded
     # match_date is refused rather than matched loosely.
     results_by_league: dict[str, dict] = {}
-    for lg in {l.league for l in pending}:
+    for lg in {l.league for l in pending} - {"ARCHITECT-FED"}:
+        # ARCHITECT-FED = a /log leg on no board: no league to load; it is
+        # graded from Flashscore by its match date below.
         table: dict = {}
         for s in {season, orchestrator.next_season_code(season)}:
             try:

@@ -234,12 +234,12 @@ new key.
 | Obsidian Local REST token | `omniroute-test:.claude/settings.json` (current tree) | regenerate in Obsidian; keep it out of the repo |
 | Admin dashboard password (first 3 characters) | `API Keys.md` (redacted 2026-10-04, still in history) | change it if the dashboard is ever used again |
 
-## 11. Known defects (found 2026-10-04, not fixed yet)
+## 11. Known defects (found 2026-10-04; struck through = fixed)
 
 - ~~`news.yml` ran 6 times in three days~~ — FIXED 2026-10-04: one looping job started by the board run (`monitor/news_loop.py`). If main moves and the picks file conflicts, that round's results are not saved and the next round re-checks (an alert can repeat).
-- `/log` writes legs with no match date; they are never graded and never get CLV.
-- `/note` says corrections are applied automatically; `memory/corrections.csv` is read by nothing.
-- The capital refusal message says capital is disabled at PHASE 3; it is enabled.
+- ~~`/log` legs had no match date and were never graded~~ — FIXED 2026-10-04: `/log` finds the match on a recent board (league + date) or takes a date you add, and refuses wording it can't settle.
+- `memory/corrections.csv` (`/note`) is read by nothing — `/note` now says so instead of claiming the corrections are applied.
+- ~~The capital refusal message said capital is disabled at PHASE 3~~ — corrected 2026-10-04.
 - HNL, Champions League and Europa League are whitelisted but never scanned (no SportyBet tournament id).
 - `daily`, `commands` and `news` push with `pull --rebase || true; push || echo` in separate concurrency groups — a conflict silently drops that run's commit.
 - The run log (with the Run ID) is not kept after a CI run (order 30 says it is).

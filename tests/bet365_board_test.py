@@ -124,7 +124,11 @@ assert len(got) == 3 and missing == [none], "deploy fixtures only; none silently
 print("bet365 picks: OK")
 
 # --- the board text ---
+same.kickoff_utc = "2026-10-04T16:30:00.000Z"
 txt = b365.render([same, swap, none, risk, off], board_date="2026-10-04")
+assert "Times are kickoff, Lagos time (WAT)" in txt and " • 17:30 Sociedad B v Granada — " in txt, \
+    "order 28: each bet365 single shows its kickoff (Lagos)"
+assert " • PENDING " in txt, "HR35: no kickoff time reads PENDING, never a guess"
 assert txt.startswith("##########OLP XDV · BET365#########")
 assert "Sun 04 Oct 2026" in txt and "sent to you only" in txt
 assert "\U0001F1EA\U0001F1F8 Spain · La Liga 2" in txt, "picks grouped under country + league"

@@ -44,7 +44,7 @@ from engine import competitions as comp
 from engine import full_markets as fm
 from engine import markets as mkt
 from engine.slate import AGREE_PP, CERTAINTY_HIGH_PP, DEPLOY_MIN_MODEL_PROB, DEPLOY_ODDS_MIN
-from output.produce_bet import ACCA_MAX, ACCA_MIN, _acca_name, _split_sizes
+from output.produce_bet import ACCA_MAX, ACCA_MIN, _acca_name, _split_sizes, kickoff
 
 # Flip to True once the Architect has checked the bet365 NAMES against the app.
 MENU_CONFIRMED = False
@@ -231,7 +231,8 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
     got, missing = picks(board)
     out = ["##########OLP XDV · BET365#########", _BAR, "",
            f"\U0001F4C5  {day} — bet365 board (sent to you only)",
-           f"Run ID: {run_id or 'PENDING'} (same run as the SportyBet board)", "",
+           f"Run ID: {run_id or 'PENDING'} (same run as the SportyBet board)",
+           "Times are kickoff, Lagos time (WAT)", "",
            "Same fixtures, model and checks as the SportyBet board; each pick is "
            "limited to bets bet365 offers.",
            "• No booking codes on bet365 — find each match by country → league → match.",
@@ -254,7 +255,7 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
         out += ["", where]
         for pk in sorted(pks, key=lambda x: -x["chance"]):
             sb = f"SportyBet @{pk['sb_price']:.2f}" if pk["sb_price"] else "SportyBet price PENDING"
-            out.append(f" • {pk['bf'].fixture.rsplit(' (', 1)[0]} — "
+            out.append(f" • {kickoff(pk['bf'])} {pk['bf'].fixture.rsplit(' (', 1)[0]} — "
                        f"{'' if pk['same'] else '≠ '}{pk['name']}")
             out.append(f"   {round(pk['chance'] * 100)}% · deploy at {deploy_at(pk['chance']):.2f}+ "
                        f"· {sb} · {pk['certainty']}")

@@ -3,6 +3,7 @@ Guards the Architect's standing orders (STANDING_ORDERS.md). If any of these
 fails, a change has reverted an order the Architect set — restore the order;
 do not edit this test unless the Architect has changed the order.
 """
+import os as _os
 import sys
 from pathlib import Path
 ROOT = Path(__file__).parent.parent
@@ -212,13 +213,47 @@ _b365_block = _rd_src.split("# bet365 BOARD (standing order 29)")[1].split("# HE
 assert "chat_id=owner_chat" in _b365_block and 'environ.get("TELEGRAM_SUBSCRIBER' not in _b365_block, \
     "Order 29: the bet365 board goes to the Architect's own chat only, never a subscriber"
 
-# 33. Subscribers get the board — only the board
-assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" in wf, "Order 33: the subscriber secret reaches the daily run"
-_sub_block = _rd_src.split("# SUBSCRIBERS (Architect 2026-10-04)")[1].split("if not delivered:")[0]
-assert "notify.send_telegram(telegram_text, chat_id=cid)" in _sub_block, \
-    "Order 33: each subscriber chat gets the board"
-assert _rd_src.count('os.environ.get("TELEGRAM_SUBSCRIBER_CHAT_IDS"') == 1, \
-    "Order 33: subscribers are read only for the board send"
+# 33. Subscribers get everything the Architect gets except the bet365 board
+from output import notify as _nt33
+for _wfn in ("daily.yml", "news.yml", "supervisor.yml", "watchdog.yml", "weekly.yml"):
+    assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" in \
+        (ROOT / ".github/workflows" / _wfn).read_text(encoding="utf-8"), \
+        f"Order 33: the subscriber secret reaches {_wfn}"
+assert "${TELEGRAM_SUBSCRIBER_CHAT_IDS//,/ }" in wf and "-o /dev/null" in wf, \
+    "Order 33: the failed-run alert reaches every subscriber, reply not logged"
+_sent33: list = []
+_env33 = {k: _os.environ.get(k) for k in
+          ("TELEGRAM_CHAT_ID", "TELEGRAM_OWNER_CHAT_ID", "TELEGRAM_SUBSCRIBER_CHAT_IDS")}
+_send33 = _nt33.send_telegram
+try:
+    _nt33.send_telegram = lambda body, token=None, chat_id=None: (  # type: ignore[assignment]
+        _sent33.append(chat_id) or (chat_id != "3333", ["refused"]))
+    _os.environ.update(TELEGRAM_CHAT_ID="1111", TELEGRAM_OWNER_CHAT_ID="9999",
+                       TELEGRAM_SUBSCRIBER_CHAT_IDS="2222, 3333,1111,,2222,9999")
+    _ok33, _notes33 = _nt33.deliver("board")
+    assert _sent33 == [None, "2222", "3333"], \
+        f"Order 33: the Architect's chat, then each subscriber once, never the Architect twice: {_sent33}"
+    assert _ok33 and "delivered to 1/2 subscriber chat(s)" in _notes33 and \
+        any("…3333: NOT delivered" in n for n in _notes33), \
+        f"Order 33: a failed subscriber is noted and never fails the send: {_notes33}"
+finally:
+    _nt33.send_telegram = _send33  # type: ignore[assignment]
+    for _k33, _val33 in _env33.items():
+        if _val33 is None:
+            _os.environ.pop(_k33, None)
+        else:
+            _os.environ[_k33] = _val33
+assert _rd_src.count("notify.send_telegram(") == 1 and \
+    "notify.send_telegram(b365_text, chat_id=owner_chat)" in _rd_src, \
+    "Order 33: only the bet365 board bypasses the subscribers"
+_hb_block = _rd_src.split("# HEARTBEAT")[1]
+assert "notify.deliver(hb" in _hb_block, "Order 33: subscribers get the heartbeat"
+for _src in ("monitor/supervisor.py", "monitor/run_watchdog.py", "scripts/weekly_review.py",
+             "news_check.py"):
+    _txt = (ROOT / _src).read_text(encoding="utf-8")
+    assert "notify.send_telegram(" not in _txt and \
+        ("notify.send_everyone(" in _txt or "notify.deliver(" in _txt), \
+        f"Order 33: {_src} reaches the subscribers too"
 
 # 30. 17 Sep spec items kept: Run ID + send gate, NO-DATA line, competition chunks
 from output import notify as _nt

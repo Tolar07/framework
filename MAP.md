@@ -237,9 +237,9 @@ new key.
 ## 11. Known defects (found 2026-10-04, not fixed yet)
 
 - `news.yml` has run 6 times ever (GitHub drops its 20-minute cron), so pre-kickoff lineup and price-drift alerts and closing prices (order 20) are almost always missing. A Routine or a single long-running job could drive it instead.
-- `/log` writes legs with no match date; they are never graded and never get CLV.
-- `/note` says corrections are applied automatically; `memory/corrections.csv` is read by nothing.
-- The capital refusal message says capital is disabled at PHASE 3; it is enabled.
+- ~~`/log` legs had no match date and were never graded~~ — FIXED 2026-10-04: `/log` finds the match on a recent board (league + date) or takes a date you add, and refuses wording it can't settle.
+- `memory/corrections.csv` (`/note`) is read by nothing — `/note` now says so instead of claiming the corrections are applied.
+- ~~The capital refusal message said capital is disabled at PHASE 3~~ — corrected 2026-10-04.
 - HNL, Champions League and Europa League are whitelisted but never scanned (no SportyBet tournament id).
 - `daily`, `commands` and `news` push with `pull --rebase || true; push || echo` in separate concurrency groups — a conflict silently drops that run's commit.
 - The run log (with the Run ID) is not kept after a CI run (order 30 says it is).

@@ -34,8 +34,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.09612731139462682,
    "first_price": 1.21,
@@ -84,7 +84,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Sp Gijon v Celta B",
@@ -160,8 +162,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.34,
+   "clv": -0.75,
    "stake_pct": 0.25,
    "ev": -0.019834340616403434,
    "first_price": 1.33,
@@ -210,7 +212,9 @@
    "first_price": 1.34,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.32,
+   "drift_pct": -1.5
   },
   {
    "fixture": "Azerbaijan v Lithuania",
@@ -386,7 +390,9 @@
    "first_price": 1.25,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Republic of Ireland v Israel",
@@ -427,7 +433,9 @@
    "first_price": 1.25,
    "drift_since_board": 0.8,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Netherlands v Serbia",
@@ -468,7 +476,9 @@
    "first_price": 1.21,
    "drift_since_board": 0.8,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Portugal v Norway",
@@ -509,7 +519,9 @@
    "first_price": 1.23,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Wales v Denmark",
@@ -550,7 +562,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
   }
  ],
  "accas": [

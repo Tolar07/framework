@@ -710,6 +710,17 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     except Exception as e:  # noqa: BLE001 — news degrades, the run does not
         all_flags.append(f"team news unavailable ({e})")
 
+    # ALTERNATIVE MARKET after team news (order 31): Table 1's "Alt market" is
+    # the same leg the alt-market accas book — a different market family from
+    # the (possibly swapped) pick, never one the team news flags.
+    from output.produce_bet import alt_leg as _alt_leg
+    for b in board:
+        if b.on_deploy_shortlist and b.probs is not None:
+            _a = _alt_leg(b)
+            b.alt_market = (mkt.display(_a[0], b.probs.home_team, b.probs.away_team)
+                            if _a else None)
+            b.alt_price = _a[2] if _a else None
+
     # --- PRICE DRIFT since the previous board for this day (MARKET_STUDY Q2) ---
     # The 7am refresh re-prices the picks the 10pm board published. A pick
     # whose price has drifted out DRIFT_DEMOTE+ since then lost -10.9% in the
@@ -786,9 +797,11 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     safe3_codes: dict = {}
     mega_codes = None          # dict once the picks are split into mega slips
     extra_codes: dict = {}     # per-table mega codes (Architect 2026-10-03)
+    alt_codes: dict = {}       # alt-market accas (order 31)
     _sb_index_holder: dict = {"index": None}
     try:
-        from output.produce_bet import _build_accas, _build_megas, _build_safe3
+        from output.produce_bet import (_build_accas, _build_alt_accas, _build_megas,
+                                        _build_safe3)
         from pipeline import sportybet_booking as sbk
 
         def _leg(b):
@@ -835,6 +848,16 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                                         _book([("ALL", _all3, 0)]).items()})
                 all_flags.append(f"50%+ accas: {len(safe3_codes)}/{len(safe3)} booked "
                                  f"(3 legs, high-certainty legs only)")
+                alt_accas = _build_alt_accas(deploy)
+                for _name, _legs, _c in alt_accas:
+                    _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                            bf.probs.home_team, bf.probs.away_team, key)
+                           for bf, _pick, _prob, key, _price in _legs]
+                    _code, _ = sbk.code_for_legs(sb_index, _ls)
+                    if _code:
+                        alt_codes[_name] = _code
+                all_flags.append(f"alt-market accas: {len(alt_codes)}/{len(alt_accas)} booked "
+                                 f"(a different market from each fixture's main pick)")
                 megas = _build_megas(deploy)
                 if len(megas) > 1:
                     mega_codes = _book(megas)
@@ -864,9 +887,11 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 b.fixture.rsplit("(", 1)[-1].rstrip(")").strip())
         dep = [b for b in board if b.on_deploy_shortlist]
         megas_l = _build_megas(dep)
+        from output.produce_bet import _build_alt_accas as _alt_accas
         picks_ledger.write_ledger(target, board, _build_accas(dep), _build_safe3(dep),
                                   megas_l if len(megas_l) > 1 else [],
-                                  acca_codes, safe3_codes, mega_codes)
+                                  acca_codes, safe3_codes, mega_codes,
+                                  alts=_alt_accas(dep), alt_codes=alt_codes)
     except Exception as e:  # noqa: BLE001
         all_flags.append(f"picks ledger not written ({e})")
 
@@ -911,7 +936,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
         acca_code=acca_code, board_code=board_code, board_date=target,
         acca_codes=acca_codes, mega_codes=mega_codes, safe3_codes=safe3_codes,
-        extra_codes=extra_codes, run_id=run_id)
+        extra_codes=extra_codes, run_id=run_id, alt_codes=alt_codes)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,

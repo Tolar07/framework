@@ -42,7 +42,14 @@ with tempfile.TemporaryDirectory() as d:
             [("DC_1X", "La Liga", 0.60, "won")] * 18 +
             [("DC_1X", "La Liga", 0.60, "lost")] * 2 +
             [("DC_X2", "La Liga", 0.60, "void")] * 5)          # voids ignored
+    # One match day only: no correction yet, however lopsided (MIN_DAYS).
     ledger(d, rows)
+    m1 = lr.learn(Path(d), today="2026-10-05")
+    assert m1["family"]["Double chance"]["shift"] == 0.0 and m1["family"]["Double chance"]["days"] == 1
+    assert lr.shift(m1, "DC_1X", "La Liga") == 0.0, "one day must not move the board"
+    # The same results spread over MIN_DAYS match days count.
+    for i in range(lr.MIN_DAYS):
+        ledger(d, rows[i::lr.MIN_DAYS], day=f"2026-10-0{i + 1}")
     m = lr.learn(Path(d), today="2026-10-05")
     hc = m["family"]["Asian handicap"]
     assert hc["n"] == 20 and hc["wins"] == 6

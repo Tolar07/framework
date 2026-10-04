@@ -26,7 +26,7 @@ COMMANDS
   /status    Phase 3 gate progress
   /verify    yesterday's graded results
   /why <n>   full reasoning for fixture n on today's board
-  /log       Home v Away | Market | price      -> CL-LIVE paper leg (HR46)
+  /log       Home v Away | Market | price [| YYYY-MM-DD]  -> CL-LIVE paper leg (HR46)
   /note      free text                          -> corrections log (blueprint 2.7)
   /debrief   full framework status
   /help      this list
@@ -37,7 +37,7 @@ import csv
 import json
 import os
 import sys
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -99,9 +99,10 @@ def cmd_help(_: str) -> str:
         "/verify — yesterday's graded results\n"
         "/why 2 — full reasoning for fixture 2 on today's board\n"
         "/log Hearts v Dundee United | Over 1.5 goals | 1.42\n"
-        "     records a price YOU got, as a CL-LIVE paper leg (HR46)\n"
+        "     records a price YOU got, as a CL-LIVE paper leg (HR46);\n"
+        "     add | 2026-10-05 if the match isn't on a recent board\n"
         "/note the model looks wrong on Motherwell\n"
-        "     records a correction for calibration to learn from\n"
+        "     records a correction for review (nothing reads it automatically)\n"
         "/debrief — full framework status\n\n"
         f"{PHASE_LABEL}. Live capital is Architect-deployed — this system never stakes."
     )
@@ -162,18 +163,79 @@ def cmd_why(arg: str) -> str:
     return (marker.strip() + " " + (block.split(nxt)[0] if nxt in block else block))[:3500]
 
 
+# /log MARKET WORDING -> market key (engine/markets.py), so a logged leg can be
+# settled. Anything not recognised is refused rather than logged ungradeable.
+def _market_key(text: str, homes: list[str], aways: list[str],
+                singles: list[dict]) -> Optional[str]:
+    from engine import markets as mkt
+    low = " ".join(text.lower().replace("goals", "").replace("&", " & ").split())
+    for s in singles:                       # the board's own wording for this match
+        if s.get("pick", "").lower() == text.strip().lower():
+            return s.get("market")
+    def named(names: list[str], *forms: str) -> set[str]:
+        return {f.format(n.lower()) for n in names if n for f in forms}
+
+    table = {
+        mkt.OVER_15: {"over 1.5", "o1.5"}, mkt.UNDER_15: {"under 1.5", "u1.5"},
+        mkt.OVER_25: {"over 2.5", "o2.5"}, mkt.UNDER_25: {"under 2.5", "u2.5"},
+        mkt.OVER_35: {"over 3.5", "o3.5"}, mkt.UNDER_35: {"under 3.5", "u3.5"},
+        mkt.HOME: {"home", "1", "home win"} | named(homes, "{}", "{} win", "{} to win"),
+        mkt.DRAW: {"draw", "x"},
+        mkt.AWAY: {"away", "2", "away win"} | named(aways, "{}", "{} win", "{} to win"),
+        mkt.BTTS_YES: {"btts", "btts yes", "both teams to score", "both teams to score yes", "gg"},
+        mkt.BTTS_NO: {"btts no", "both teams to score no", "ng"},
+        mkt.DC_1X: {"1x", "home or draw"} | named(homes, "{} or draw"),
+        mkt.DC_X2: {"x2", "draw or away"} | named(aways, "draw or {}", "{} or draw"),
+        mkt.DC_12: {"12", "home or away"} | {f"{h.lower()} or {a.lower()}"
+                                             for h in homes if h for a in aways if a},
+    }
+    for key, words in table.items():
+        if low in words:
+            return key
+    return None
+
+
+def _find_fixture(home: str, away: str, today: date) -> Optional[dict]:
+    """The match on a recent board (yesterday to 3 days ahead): its league,
+    match date and that day's singles. None when no board carries it."""
+    from engine.name_match import same_club
+    from engine.picks_ledger import LEDGER_DIR
+
+    def same(typed: str, board: str) -> bool:
+        return bool(typed and board) and (same_club(typed, board) or same_club(board, typed))
+
+    for offset in (0, 1, -1, 2, 3):
+        path = LEDGER_DIR / f"picks_{(today + timedelta(days=offset)).isoformat()}.json"
+        if not path.exists():
+            continue
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        for r in doc.get("rated", []) + doc.get("singles", []):
+            if same(home, r.get("home", "")) and same(away, r.get("away", "")):
+                singles = [s for s in doc.get("singles", []) if s.get("fixture") == r.get("fixture")]
+                return {"league": r.get("league"), "date": r.get("kickoff") or doc.get("date"),
+                        "home": r.get("home"), "away": r.get("away"), "singles": singles}
+    return None
+
+
 def cmd_log(arg: str) -> str:
     """Architect-fed entry price -> a CL-LIVE paper leg.
 
     This is the highest-value command here. HR46 wants the price captured at
     pick time, and the price the Architect can actually get on SportyBet is
     better evidence than any API's — it is the one that will actually be
-    settled against."""
+    settled against.
+
+    A leg is only logged when it can be graded later: the match is found on a
+    recent board (giving its league and date) or the Architect adds the date,
+    and the market wording maps to a settlement rule. Before 2026-10-04 every
+    /log leg had no match date and was never graded (grade_open_legs refuses
+    a leg it can't pin to one match)."""
+    from engine import markets as mkt
     parts = [p.strip() for p in arg.split("|")]
-    if len(parts) != 3:
-        return ("Usage: /log Home v Away | Market | price\n"
+    if len(parts) not in (3, 4):
+        return ("Usage: /log Home v Away | Market | price [| YYYY-MM-DD]\n"
                 "e.g.  /log Hearts v Dundee United | Over 1.5 goals | 1.42")
-    fixture, market, price_s = parts
+    fixture, market, price_s = parts[:3]
     try:
         price = float(price_s)
     except ValueError:
@@ -182,19 +244,46 @@ def cmd_log(arg: str) -> str:
         return f"Price {price} is out of plausible range. Nothing logged."
     if " v " not in fixture:
         return "Fixture must read 'Home v Away'. Nothing logged."
+    home, away = [s.strip() for s in fixture.split(" v ", 1)]
+
+    found = _find_fixture(home, away, datetime.now(timezone.utc).date())
+    match_date = parts[3] if len(parts) == 4 else (found or {}).get("date")
+    if len(parts) == 4:
+        try:
+            date.fromisoformat(match_date or "")
+        except ValueError:
+            return f"'{parts[3]}' is not a date (YYYY-MM-DD). Nothing logged."
+    if not match_date:
+        return (f"{fixture} isn't on a recent board, so I can't tell which match to grade. "
+                f"Add its date: /log {fixture} | {market} | {price_s} | YYYY-MM-DD. "
+                f"Nothing logged.")
+    homes, aways = [home], [away]
+    if found:                               # the board's spellings grade reliably
+        homes.append(found["home"])
+        aways.append(found["away"])
+        home, away = found["home"], found["away"]
+        fixture = f"{home} v {away}"
+    key = _market_key(market, homes, aways, (found or {}).get("singles", []))
+    if key is None:
+        return (f"I can't settle '{market}'. Use one of: Home / Draw / Away, "
+                f"<team> to win, Home or Draw (1X), Draw or Away (X2), Home or Away (12), "
+                f"Over/Under 1.5, 2.5 or 3.5, BTTS Yes/No — or the pick exactly as the "
+                f"board writes it. Nothing logged.")
 
     log = CLVLog()
     leg = log.log_entry(
-        league="ARCHITECT-FED", fixture=fixture, market=market,
+        league=(found or {}).get("league") or "ARCHITECT-FED", fixture=fixture, market=key,
         model_prob=0.0,                 # unknown here; CLV needs only the prices
         entry_odds=price, entry_capture_path="CL-LIVE",
-        phase=PAPER_PHASE, stake=None,  # Phase 2 — never a stake
+        phase=PAPER_PHASE, stake=None,  # a paper record — never a stake
+        match_date=match_date,
     )
     return (f"Logged as a PAPER leg (no stake):\n"
-            f"  {fixture}\n  {market} at {price} decimal\n"
+            f"  {fixture} ({match_date})\n  {mkt.display(key, home, away)} at {price} decimal\n"
             f"  capture path CL-LIVE, leg id {leg.leg_id[:40]}\n\n"
-            f"Its closing price will be captured after the match, and CLV "
-            f"computed then. Nothing has been staked.")
+            f"It is graded after the match from football-data or Flashscore. CLV needs "
+            f"a closing price, which only football-data publishes (its leagues only). "
+            f"Nothing has been staked.")
 
 
 def cmd_note(arg: str) -> str:
@@ -208,10 +297,10 @@ def cmd_note(arg: str) -> str:
             w.writerow(["logged_at", "source", "note", "actioned"])
         w.writerow([datetime.now(timezone.utc).isoformat(), "telegram",
                     arg.strip(), "no"])
-    return ("Correction logged for review.\n\n"
-            "Data and calibration corrections are applied automatically; any "
-            "RULE change gets proposed to you for approval first — the "
-            "framework never rewrites its own rules.")
+    return ("Correction logged for review (memory/corrections.csv).\n\n"
+            "Nothing reads it automatically yet: a session or the weekly review "
+            "has to act on it. Any RULE change is proposed to you for approval "
+            "first — the framework never rewrites its own rules.")
 
 
 def cmd_debrief(_: str) -> str:
@@ -264,7 +353,8 @@ def handle(text: str) -> str:
     if any(w in low for w in BRIGHT_LINE_WORDS) and not low.startswith("/note"):
         return (
             "REFUSED — that would move a bright line.\n\n"
-            f"Capital is disabled in code at PHASE={PHASE}, and the honest-edge "
+            f"The capital line is set in code (PHASE={PHASE}; the framework never "
+            "places a stake), and the honest-edge "
             "caveat is not removable. Those are not settings I change from a "
             "message: a chat channel can be spoofed, and the framework exists "
             "because of a fabrication incident.\n\n"

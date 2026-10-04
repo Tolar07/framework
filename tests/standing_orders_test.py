@@ -265,4 +265,26 @@ assert "TABLE 3B · ALT-MARKET ACCAS" in _b31 and "Alt A · code ALT123" in _b31
 assert "_build_alt_accas(deploy)" in _rd_src and "alts=_alt_accas(dep)" in _rd_src, \
     "Order 31: alt accas are booked and recorded every run"
 
+# 32. Shaky picks switch to a steadier market
+_b32 = pb.BoardFixture("Netherlands v Serbia (UEFA Nations League)", _fp("Netherlands", "Serbia"),
+                       _v, on_deploy_shortlist=True, best_market_key="SB:16|hcp=-3.5|Away (+3.5)",
+                       best_price=1.29, best_model_prob=0.76, certainty="LOW", tier="BOOK")
+_b32.cand_pool = [
+    (0.76, 0.0, "SB:16|hcp=-3.5|Away (+3.5)", 0.86, 0.76, _MQ(price=1.29)),   # the shaky pick
+    (0.74, 0.0, "SB:18|total=1.5|Over 1.5", 0.75, 0.73, _MQ(price=1.30)),     # agrees, 2 pts less
+    (0.79, 0.0, "SB:10||Home or Away", 0.95, 0.70, _MQ(price=1.25)),          # disagrees: never
+    (0.69, 0.0, "SB:29||No", 0.69, 0.69, _MQ(price=1.40))]                     # 7 pts less: too far
+_c32 = pb.steadier_pick(_b32)
+assert _c32 and _c32[2] == "SB:18|total=1.5|Over 1.5", \
+    "Order 32: a shaky pick moves to an agreeing market at most 5 pts less likely"
+assert pb.steadier_pick(_b32, no_side=True)[2] == "SB:18|total=1.5|Over 1.5"
+assert "_steadier(b, no_side=" in _rd_src and "DRIFT_DEMOTE * 100" in _rd_src \
+    and "b.engine_divergence and _tn.pick_side" in _rd_src, \
+    "Order 32: drift, model disagreement and LOW certainty each trigger the switch"
+_b32.switched_from = "Serbia (+3.5) Asian handicap (model and SportyBet disagree)"
+_b32.best_market_key, _b32.best_market = "SB:18|total=1.5|Over 1.5", "Over 1.5 goals"
+_t32 = pb.render_canonical_board("Mode A", "Phase 3", [], 0, None, [], [_b32])
+assert "⇄ SWITCHED" in _t32 and "was Serbia (+3.5) Asian handicap" in _t32, \
+    "Order 32: a switch is shown with the old pick and why"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

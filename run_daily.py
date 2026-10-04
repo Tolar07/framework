@@ -710,17 +710,6 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     except Exception as e:  # noqa: BLE001 — news degrades, the run does not
         all_flags.append(f"team news unavailable ({e})")
 
-    # ALTERNATIVE MARKET after team news (order 31): Table 1's "Alt market" is
-    # the same leg the alt-market accas book — a different market family from
-    # the (possibly swapped) pick, never one the team news flags.
-    from output.produce_bet import alt_leg as _alt_leg
-    for b in board:
-        if b.on_deploy_shortlist and b.probs is not None:
-            _a = _alt_leg(b)
-            b.alt_market = (mkt.display(_a[0], b.probs.home_team, b.probs.away_team)
-                            if _a else None)
-            b.alt_price = _a[2] if _a else None
-
     # --- PRICE DRIFT since the previous board for this day (MARKET_STUDY Q2) ---
     # The 7am refresh re-prices the picks the 10pm board published. A pick
     # whose price has drifted out DRIFT_DEMOTE+ since then lost -10.9% in the
@@ -753,6 +742,58 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                              f"{DRIFT_DEMOTE:.0%}+ (market agrees)")
     except Exception as e:  # noqa: BLE001
         all_flags.append(f"price-drift check skipped ({e})")
+
+    # --- SWITCH SHAKY PICKS (Architect 2026-10-04, standing order 32) ---
+    # A pick that doesn't sit well — its price drifted out 5%+ since the last
+    # board, the two prediction models disagree on the result it depends on,
+    # or its certainty is LOW (model and SportyBet disagree) — moves to its
+    # steadier alternative when one exists: a different market where model and
+    # SportyBet agree, the news doesn't touch it, at most 5 pts less likely.
+    # The original is kept on the record (switched_from, orig_market) and
+    # graded too, so the weekly review shows whether switching pays.
+    from output.produce_bet import steadier_pick as _steadier
+    from engine import team_news as _tn
+    _switched = 0
+    for b in board:
+        if not (b.on_deploy_shortlist and b.probs is not None and b.best_market_key):
+            continue
+        _drift = getattr(b, "drift_pct", None)
+        if _drift is not None and _drift >= DRIFT_DEMOTE * 100:
+            why = f"price drifted out {_drift:+.1f}% since the last board"
+        elif b.engine_divergence and _tn.pick_side(b.best_market_key):
+            why = "the two prediction models disagree on the result"
+        elif b.certainty == "LOW":
+            why = ("model and SportyBet disagree" if b.tier in ("BOOK", "SPLIT")
+                   else "LOW certainty")
+        else:
+            continue
+        c = _steadier(b, no_side=why.startswith("the two prediction"))
+        if not c:
+            continue
+        win, ev, key, model_p, market_p, quote = c
+        old_label = b.best_market
+        b.orig_market_key = b.best_market_key
+        b.best_market_key, b.best_price = key, quote.price
+        b.best_market = mkt.display(key, b.probs.home_team, b.probs.away_team)
+        b.best_model_prob, b.best_mes_ev = win, (ev if ev != -1.0 else None)
+        b.pick_model_prob, b.pick_market_prob = model_p, market_p
+        b.certainty = ("HIGH" if abs(model_p - market_p) <= CERTAINTY_HIGH_PP else "MEDIUM")
+        b.tier = ("BANKER" if key in (mkt.HOME, mkt.AWAY, "SB:1||Home", "SB:1||Away")
+                  and win >= BANKER_MIN else "SAFE")
+        b.switched_from = f"{old_label} ({why})"
+        _switched += 1
+    all_flags.append(f"switched shaky picks: {_switched} moved to a steadier market (order 32)")
+
+    # ALTERNATIVE MARKET after team news (order 31): Table 1's "Alt market" is
+    # the same leg the alt-market accas book — a different market family from
+    # the (possibly swapped) pick, never one the team news flags.
+    from output.produce_bet import alt_leg as _alt_leg
+    for b in board:
+        if b.on_deploy_shortlist and b.probs is not None:
+            _a = _alt_leg(b)
+            b.alt_market = (mkt.display(_a[0], b.probs.home_team, b.probs.away_team)
+                            if _a else None)
+            b.alt_price = _a[2] if _a else None
 
     # --- VALUE: how many picks are positive-EV on our own chance ---
     _dep = [b for b in board if b.on_deploy_shortlist and b.best_mes_ev is not None]

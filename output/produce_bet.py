@@ -80,6 +80,8 @@ class BoardFixture:
     # FotMob match id, kickoff time and predicted XI values for the
     # pre-kickoff confirmed-lineup check.
     news_level: Optional[str] = None
+    # SWITCHED (order 32): the shaky pick this one replaced, and why.
+    switched_from: Optional[str] = None
     news_note: Optional[str] = None
     fotmob_id: Optional[int] = None
     kickoff_utc: Optional[str] = None
@@ -801,6 +803,41 @@ def alt_leg(bf: "BoardFixture") -> Optional[tuple]:
     return c[2], c[0], c[5].price
 
 
+SWITCH_WITHIN_PP = 0.05   # order 32: the steadier pick may be at most 5 pts less likely
+
+
+def steadier_pick(bf: "BoardFixture", no_side: bool = False) -> Optional[tuple]:
+    """The candidate a SHAKY pick switches to (standing order 32), or None.
+
+    From the run's winnable in-band pool: a different market family from the
+    pick, model and SportyBet agreeing (HIGH or MEDIUM certainty: within
+    AGREE_PP), not touched by the team news, at most SWITCH_WITHIN_PP less
+    likely than the pick. `no_side` keeps only outcomes that don't depend on
+    which team wins (used when the two prediction models disagree on the
+    result). The strongest such candidate, then the best value."""
+    if bf.probs is None or not bf.best_market_key or bf.prob_source == "market":
+        return None
+    from engine.learning import family
+    from engine import team_news as tn
+    from engine.slate import AGREE_PP
+    main = family(bf.best_market_key)
+    floor = max(DEPLOY_MIN_MODEL_PROB, (bf.best_model_prob or 0.0) - SWITCH_WITHIN_PP)
+    news = getattr(bf, "team_news", None)
+    pool = []
+    for c in getattr(bf, "cand_pool", None) or []:
+        win, _ev, key, model_p, market_p, _q = c
+        if family(key) == main or win < floor or market_p is None or model_p is None:
+            continue
+        if abs(model_p - market_p) > AGREE_PP:
+            continue
+        if news and tn.assess(key, news)["level"] in ("CAUTION", "RISK"):
+            continue
+        if no_side and tn.pick_side(key):
+            continue
+        pool.append(c)
+    return max(pool, key=lambda c: (c[0], c[1])) if pool else None
+
+
 def _build_alt_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     """[(name, [(bf, pick, prob, key, price)], combo)] — every deploy fixture
     that has an alternative leg, strongest first, in accas of 4-5 legs."""
@@ -916,7 +953,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             groups.append(where)
             p = bf.probs
             pick, prob = _deploy_pick(bf)
-            pick_cell = (f"{_TIER_MARK.get(bf.tier, '')}{pick} · {round(prob*100)}%"
+            pick_cell = (f"{'⇄' if bf.switched_from else ''}{_TIER_MARK.get(bf.tier, '')}"
+                         f"{pick} · {round(prob*100)}%"
                          if prob else pick)
             odds = f"@{bf.best_price:.2f}" if bf.best_market_key and bf.best_price else "—"
             altm = (f"{bf.alt_market} @{bf.alt_price:.2f}" if bf.alt_market
@@ -993,7 +1031,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             pick, prob = _deploy_pick(bf)
             trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
             price = f"@{bf.best_price:.2f}" if bf.best_price else "—"
-            rows.append([_canon_short(bf.fixture), where, _TIER_MARK.get(bf.tier, "") + pick,
+            rows.append([_canon_short(bf.fixture), where,
+                         ("⇄" if bf.switched_from else "") + _TIER_MARK.get(bf.tier, "") + pick,
                          f"{round(prob*100)}%" if prob else "—", price,
                          bf.certainty or "—",
                          (f"{bf.stake_pct:g}%" if bf.stake_pct else
@@ -1010,6 +1049,14 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                    "edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, "
                    "megas 0.1%.")
         out += _price_check_lines(shortlist)
+        sw = [bf for bf in shortlist if bf.switched_from and bf.probs is not None]
+        if sw:
+            out += ["", f"⇄ SWITCHED — {len(sw)} shaky pick(s) moved to a steadier market "
+                        f"(model and SportyBet agree, at most 5 pts less likely):"]
+            for bf in sw:
+                out.append(f"   • {comp.where(bf.fixture)} — was {bf.switched_from} → now "
+                           f"{_deploy_pick(bf)[0]} ({round((bf.best_model_prob or 0) * 100)}%, "
+                           f"{bf.certainty})")
         news = [bf for bf in shortlist if bf.news_level in ("CAUTION", "RISK")]
         if news:
             out += ["", f"⚠ TEAM NEWS — {len(news)} pick(s) hit by injuries/suspensions "

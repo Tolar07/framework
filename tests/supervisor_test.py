@@ -71,6 +71,13 @@ with tempfile.TemporaryDirectory() as d:
     assert "Accas: 3/3 landed" in text and "Alt-market accas: 0/3 landed" in text
     assert "Asian handicap: won" in text.split("PROPOSALS")[1], "losing family proposed for review"
     assert "nothing is changed automatically" in text
+    # Order 32: switched picks are compared with the originals they replaced.
+    (picks / "picks_2026-10-03.json").write_text(json.dumps({"date": "2026-10-03", "singles": [
+        {"market": "SB:18|total=1.5|Over 1.5", "league": "UEFA Nations League", "chance": 0.74,
+         "price": 1.3, "result": "won", "kickoff": "2026-10-03",
+         "orig_market": "SB:16|hcp=-3.5|Away (+3.5)", "orig_result": "lost"}]}))
+    sw_text = wr.review(7, today="2026-10-04", picks=picks)
+    assert "Switched picks (order 32): 1/1 won; the original picks would have won 0/1" in sw_text
     empty = wr.review(7, today="2030-01-01", picks=picks)
     assert "No graded singles" in empty
 print("weekly review: OK")

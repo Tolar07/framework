@@ -1,43 +1,47 @@
 name: OLP XDV pre-kickoff team news
 
 # Improvement #2 (Architect 2026-10-02): re-check every pick against the
-# CONFIRMED lineup ~1 hour before kickoff and alert on Telegram when the team a
-# pick depends on is weakened or rotated. Every 20 minutes, 09:00-20:40 UTC
-# (10:00-21:40 Lagos), when kickoffs happen. Light job: stdlib + requests.
+# CONFIRMED lineup ~1 hour before kickoff, alert on price drift, and record
+# each pick's closing price (orders 17, 20, 25). Every 20 minutes,
+# 09:00-20:40 UTC (10:00-21:40 Lagos), when kickoffs happen.
+#
+# ONE job loops through the day (monitor/news_loop.py): GitHub dropped the old
+# 20-minute cron almost every time (6 runs in three days, 2026-10-04 audit).
+# daily.yml starts the loop after each board; the cron ticks below are only a
+# backup starter — a run that finds the loop already going exits at once. A
+# job may run 6 hours at most, so the loop hands off to a fresh run.
 on:
   schedule:
-    - cron: "*/20 9-20 * * *"
+    - cron: "5 9,11,13,15,17,19 * * *"
   workflow_dispatch:
+    inputs:
+      handoff:
+        description: "true = started by the previous loop run (internal)"
+        required: false
+        default: "false"
 
 permissions:
-  contents: write
-
-concurrency:
-  group: olp-xdv-news
-  cancel-in-progress: false
+  actions: write    # see whether a loop is already running; hand off to a fresh run
+  contents: write   # save lineup checks, drift and closing prices
 
 jobs:
   news:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 355
     steps:
       - uses: actions/checkout@v4
-      - name: Check confirmed lineups for upcoming picks
+      - name: Check lineups, price drift and closing prices every 20 minutes
         env:
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           # Order 33: every subscriber chat gets this too (never the bet365 board).
           TELEGRAM_SUBSCRIBER_CHAT_IDS: ${{ secrets.TELEGRAM_SUBSCRIBER_CHAT_IDS }}
           PYTHONIOENCODING:   utf-8
+          HANDOFF:            ${{ github.event.inputs.handoff }}
         run: |
           pip install -q requests
-          python3 news_check.py
-      - name: Persist lineup checks
-        run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          git add output/picks 2>/dev/null || true
-          git diff --staged --quiet && exit 0
-          git commit -m "lineup check $(date -u +%H:%M) [skip ci]"
-          git pull --rebase -q origin main || true
-          git push || echo "nothing to push"
+          if [ "$HANDOFF" = "true" ]; then python3 monitor/news_loop.py --handoff
+          else python3 monitor/news_loop.py; fi

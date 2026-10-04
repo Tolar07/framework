@@ -1,5 +1,7 @@
 # Decisions Log.md — Running Record of Architect Directives
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 > **Single source of truth for "what did the Architect actually decide and when."**
 > Backfilled from repo history + `RATIFICATIONS.md` (verified 2026-08-11), then
 > the four explicit 2026-08-11 directives are recorded. **Every future directive

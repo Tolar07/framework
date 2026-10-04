@@ -1,5 +1,7 @@
 # Fixture Gathering Method — CONFIRMED
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 > **Status:** Confirmed by the Architect, 2026-09-16.
 > **This is the method for answering "what are today's fixtures".**
 > Implementation: `verification/collaborative_fixtures.py` (`gather()`).

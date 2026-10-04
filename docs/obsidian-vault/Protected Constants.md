@@ -1,5 +1,7 @@
 # Protected Constants.md — Things No Agent May Edit or Self-Approve
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 > These are the levers that decide whether money moves and what clients see.
 > **None of them may be changed, bypassed, or "fixed" by an agent without an
 > explicit, named Architect instruction.** If you believe one is wrong, write it

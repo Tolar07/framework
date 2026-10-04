@@ -1,5 +1,7 @@
 # Rules.md — Every HR and ID as Coded
 
+> **Still the HR/ID register** — look up an ID here; only the Architect assigns new ones. The code this note names is the laptop line's (superseded 2026-10-03); for the live code read `STANDING_ORDERS.md` and `MAP.md`.
+
 > Source of truth: **the code + `RATIFICATIONS.md`** (append-only per HR33), NOT
 > any prose doc. Where a doc disagrees with the code, the code wins and the
 > disagreement is flagged below. Verified 2026-08-11 from the working tree.

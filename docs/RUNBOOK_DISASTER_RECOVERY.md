@@ -1,5 +1,7 @@
 # Disaster Recovery Runbook — OLP XDV
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 **Last updated:** 2026-08-13
 **Owner:** Architect (capital authority), Steward (ops)
 **Scope:** How to get OLP XDV publishing the daily board again after the machine dies, is wiped, or the service silently stops.

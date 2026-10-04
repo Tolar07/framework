@@ -1,5 +1,7 @@
 # Viking Match Analysis — Dinamo Zagreb vs Viking (2026-08-18)
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 **Date:** 2026-08-18  
 **Competition:** UEFA Champions League Qualifying  
 **Fixture:** Dinamo Zagreb vs Viking FK  

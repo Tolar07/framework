@@ -23,9 +23,11 @@ the laptop's Windows board task is disabled. Rules: `STANDING_ORDERS.md`.
 | Tests | `python tests/run_all.py` green; `tests.yml` on every push/PR | `.github/workflows/tests.yml` |
 
 **Canonical documents:** `STANDING_ORDERS.md` (rules, test-enforced), this
-file (state), `Rules.md` (HR/ID register), `Decisions Log.md`,
-`Protected Constants.md`, `docs/LINEAGE_MERGE_2026-10-03.md` (how the copies
-became one).
+file (state), `MAP.md` (where everything is kept — repo, history, workspace,
+laptop, secrets, Routines), `Rules.md` (HR/ID register only),
+`docs/LINEAGE_MERGE_2026-10-03.md` (how the copies became one).
+`Decisions Log.md` and `Protected Constants.md` are historical since 3 Oct:
+every directive after 31 Aug is a standing order.
 
 ## Open items (2026-10-03)
 
@@ -36,7 +38,7 @@ became one).
 | 3 | Feed team names not matching the model's history (23 fixtures market-priced on 2026-10-03) | **CLOSED 2026-10-03** — `engine/name_match.py` (#51) |
 | 4 | A SPLIT pick with no market price crashed the whole daily run | **CLOSED 2026-10-03** — #48 |
 | 5 | A dropped GitHub cron was silent (only failures alerted) | **CLOSED 2026-10-03** — missed-run watchdog (#50); it starts the missed run itself, and handles its own cron firing after midnight (#54) |
-| 6 | Laptop scheduled data tasks still run against laptop-only files (three `.bat` files missing; tasks failing) | OPEN — retiring them on the laptop (Architect decision 2026-10-03) |
+| 6 | Laptop scheduled data tasks still run against laptop-only files (three `.bat` files missing; tasks failing) | OPEN — retiring them on the laptop (Architect decision 2026-10-03). The workspace journal (`omniroute-test:docs/STATE.md`) still lists ten as "stay on"; the names are in `MAP.md` §9 |
 | 7 | Picks showed no country or league, so a pick was hard to find on the betting site (the Architect's request had been lost — in no doc or commit) | **CLOSED 2026-10-04** — standing order 28; labels from `engine/competitions.py` (new file) |
 | 8 | bet365 doesn't offer every SportyBet bet (no "win to nil — no"), so SportyBet picks can't always be placed there | **BUILT 2026-10-04** — standing order 29: a bet365 board from the same run, sent to the Architect only (`output/bet365_board.py`, new file). List widened to the full betting market (Double Chance & Goals included; only win to nil "no" left off) by the Architect the same day. OPEN: the bet365 market names (`BET365_MARKETS`) are a draft until the Architect checks them against the app; no free bet365 price feed, so picks show DEPLOY AT, not a bet365 price; bet365 picks are not yet in the picks ledger (not graded) |
 | 9 | Telegram output changes were spread over the 17 Sep spec, standing orders and commits, and the spec contradicted the live board | **CLOSED 2026-10-04** — one record: "Telegram output" section of `STANDING_ORDERS.md`; the 17 Sep spec marked superseded where it conflicts; its Run ID header + send gate, NO-DATA line and competition-boundary splitting built (order 30) |
@@ -44,6 +46,7 @@ became one).
 | 11 | Agents and skills only acted when a session called them; nothing checked each board or reviewed results | **BUILT 2026-10-04** — supervisor status after every board (`supervisor.yml`), weekly results review (`weekly.yml`), Claude PR review (`claude-review.yml`, OPEN: needs an `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN` secret). Workspace add-ons (closing_edge, sports-skills, graphify, automaton, ruflo, claude-code-action, free-llm-api-resources, external/*) are pointers with no source URL in omniroute-test — nothing to connect until they are pushed somewhere reachable |
 | 12 | A pick flagged LOW certainty, drifting price or model disagreement stayed the main pick; its alternative was only shown | **BUILT 2026-10-04** — standing order 32: it switches (⇄) to a steadier agreeing market within 5 pts; the original is graded too and the weekly review compares them |
 | 13 | The board went to ONE chat (`TELEGRAM_CHAT_ID`). The laptop line broadcast every board to the chats that pressed /start (`memory/telegram_subscribers.txt`, 2026-08-24 — three besides the Architect); the GitHub Actions line never had that broadcast, and the file was parked in `legacy/laptop/` on 3 Oct | **BUILT 2026-10-04** — order 33: every chat in the `TELEGRAM_SUBSCRIBER_CHAT_IDS` secret gets everything the Architect gets (board, heartbeat, pre-kickoff and run alerts, supervisor status, weekly review) except the bet365 board; the supervisor status flags an empty secret. OPEN: the 12:46 UTC run on 4 Oct saw the secret EMPTY — it must be a *repository* secret on Tolar07/framework. OPEN: the bot token was committed in plain text on 2026-08-16 (`22e057e`, public history) — revoke it with @BotFather and update `TELEGRAM_BOT_TOKEN` |
+| 14 | Things the system depends on were scattered: the subscriber list sat only in a parked laptop file, the Routines that start the board were recorded nowhere, four directive logs stopped in August, and the laptop versions of 21 live files survive only in git history | **BUILT 2026-10-04** — `MAP.md`: one list of where everything is kept (workflows and Routine IDs, who gets what, every secret, stored files, parked features, history-only work, the workspace repo and the laptop), read at session start (`CLAUDE.md`), paths test-checked. Records brought in: `docs/records/` (production intent 10 Aug, real-money track record), `data/sportybet/` (SportyBet tournament ids). Stale notes marked HISTORICAL; `Open Questions.md` restored (an agent error overwrote it 27 Aug). OPEN: credentials to rotate (MAP §10), defects found (MAP §11), decisions (MAP §12) |
 
 ---
 

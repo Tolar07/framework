@@ -125,9 +125,11 @@ def start_board(repo: str, token: str, slot: str, day: date) -> None:
 
 
 def _send(msg: str) -> None:
-    sent, notes = notify.send_telegram(msg)
+    # The Architect and every subscriber chat (order 33).
+    sent, notes = notify.send_everyone(msg)
     print(msg)
-    print("alert sent" if sent else f"alert NOT sent: {notes}")
+    print("alert sent" if sent else "alert NOT sent")
+    print("\n".join(notes))
 
 
 def main(argv: list[str] | None = None, now: datetime | None = None) -> int:

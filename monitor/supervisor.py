@@ -105,10 +105,20 @@ def last_run(repo: str, token: str, wf: str, branch: str | None = "main") -> str
 
 
 def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
-           runs: dict[str, str]) -> str:
-    """The one Telegram status. Problems first, each with ⚠."""
+           runs: dict[str, str], subscribers: int | None = None) -> str:
+    """The one Telegram status. Problems first, each with ⚠.
+
+    subscribers: how many subscriber chats the TELEGRAM_SUBSCRIBER_CHAT_IDS
+    secret holds (order 33); None = not checked. Zero is a problem: the
+    Architect wants the subscribers to get every board."""
     bad: list[str] = []
     ok: list[str] = []
+    if subscribers is not None:
+        (ok if subscribers else bad).append(
+            f"subscribers: {subscribers} chat(s) get every message except the bet365 board"
+            if subscribers else
+            "subscribers: none — the TELEGRAM_SUBSCRIBER_CHAT_IDS secret is empty or "
+            "not a repository secret, so only your chat gets the board")
     (ok if run_conclusion == "success" else bad).append(f"board run: {run_conclusion}")
     if not facts.get("board"):
         bad.append(f"no board saved for {day}")
@@ -161,14 +171,17 @@ def main(argv: list[str] | None = None) -> int:
         runs = ({wf: last_run(repo, token, wf, None if wf != "tests.yml" else "main")
                  for wf in ("tests.yml", "watchdog.yml", "news.yml")}
                 if repo and token else {})
-        text = report(day, name, a.run_conclusion, facts, stats, runs)
+        from output import notify
+        text = report(day, name, a.run_conclusion, facts, stats, runs,
+                      subscribers=len(notify.subscriber_chats()))
     except Exception as e:  # noqa: BLE001
         text = f"🛡 SUPERVISOR — could not complete its check ({e})"
     print(text)
     if not a.no_send:
         from output import notify
-        sent, notes = notify.send_telegram(text)
-        print("status sent" if sent else f"status NOT sent: {notes}")
+        sent, notes = notify.send_everyone(text)    # Architect + subscribers (order 33)
+        print("status sent" if sent else "status NOT sent")
+        print("\n".join(notes))
     return 0
 
 

@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import secrets
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -71,6 +72,14 @@ def _mark_started() -> Path:
         f.write(f"\n[{datetime.now(timezone.utc).isoformat()}] "
                 f"run_daily.py STARTED\n")
     return log
+
+
+def _new_run_id(now: datetime | None = None) -> str:
+    """OLPXDV-<UTC yyyymmdd-hhmm>-<6 hex>: printed at the start of the run and
+    written to the run log, so every board traces to the run that built it
+    (HR59; Telegram Output Spec §1)."""
+    now = now or datetime.now(timezone.utc)
+    return f"OLPXDV-{now:%Y%m%d-%H%M}-{secrets.token_hex(3)}"
 
 
 def _mark(log: Path, message: str) -> None:
@@ -300,6 +309,9 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     # run passes tomorrow so the 10pm board targets the next day's card.
     target = target_date or today
     runlog = _mark_started()
+    run_id = _new_run_id()
+    print(f"  run_id={run_id}")
+    _mark(runlog, f"run_id={run_id} target={target}")
     log = CLVLog()
     all_flags: list[str] = []
 
@@ -878,7 +890,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
         acca_code=acca_code, board_code=board_code, board_date=target,
         acca_codes=acca_codes, mega_codes=mega_codes, safe3_codes=safe3_codes,
-        extra_codes=extra_codes)
+        extra_codes=extra_codes, run_id=run_id)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
@@ -900,6 +912,14 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     board_delivered = False
 
     if deliver_now:
+        # SEND GATE (HR59, standing order 30): no valid Run ID, no Telegram.
+        # The board is still saved; the run fails so the failure alert fires.
+        gate = notify.board_gate(telegram_text)
+        if gate:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(full, encoding="utf-8")
+            _mark(runlog, f"RUN FAILED — {gate}")
+            raise RuntimeError(gate)
         delivered, notes = notify.deliver(telegram_text, save_to=None)
         board_delivered = delivered
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -930,11 +950,14 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     # Best-effort like the heartbeat: it never fails the run.
     try:
         from output import bet365_board
-        b365_text = bet365_board.render(board, board_date=target)
+        b365_text = bet365_board.render(board, board_date=target, run_id=run_id)
         b365_path = BOARD_DIR / f"bet365_{target}.txt"
         b365_path.parent.mkdir(parents=True, exist_ok=True)
         b365_path.write_text(b365_text, encoding="utf-8")
-        if deliver_now and bet365_board.picks(board)[0]:
+        b365_gate = notify.board_gate(b365_text)
+        if b365_gate:
+            _mark(runlog, f"bet365 board: {b365_gate}")
+        elif deliver_now and bet365_board.picks(board)[0]:
             b_ok, b_notes = notify.send_telegram(
                 b365_text, chat_id=os.environ.get("TELEGRAM_OWNER_CHAT_ID") or None)
             for n in b_notes:

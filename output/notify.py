@@ -17,6 +17,7 @@ caller is a scheduled job that nobody reads before it sends:
 from __future__ import annotations
 
 import os
+import re
 import sys
 import textwrap
 import time
@@ -66,30 +67,72 @@ def _balance_fences(chunk: str) -> str:
 
 
 def _chunk(text: str, limit: int = TELEGRAM_MAX) -> list[str]:
-    """Split on LINE boundaries, never mid-row, keeping fences balanced.
+    """Split on COMPETITION / section boundaries where possible, never mid-row,
+    keeping fences balanced (Telegram Output Spec §5, standing order 30).
 
-    Line-level rather than paragraph-level because one league's table can
-    exceed the limit on its own: splitting between two rows stays readable,
-    splitting through one does not."""
+    The board separates competitions (and sections) with a blank line, so a
+    message that must be split ends at the last blank line once at least half
+    the message is used. One competition too long for a message on its own is
+    split between two rows, and the next message opens with "(cont.)"."""
     if len(text) <= limit and "\nALL CODES\n" not in text:
         return [text]
-    chunks, current, in_fence = [], "", False
+    chunks: list[str] = []
+    cur: list[tuple[str, bool]] = []      # (line, inside a fence before it)
+    in_fence = False
+
+    def size(lines: list[tuple[str, bool]]) -> int:
+        return sum(len(t) + 1 for t, _ in lines)
+
+    def flush(lines: list[tuple[str, bool]]) -> None:
+        body = "\n".join(t for t, _ in lines).rstrip()
+        if body.strip():
+            chunks.append(_balance_fences(body))
+
+    room = limit - (len(FENCE) + 1)       # always leave room to close a fence
     for line in text.split("\n"):
-        # Leave room for a closing fence when inside one.
-        room = limit - (len(FENCE) + 1 if in_fence else 0)
         # The ALL CODES summary always starts its own (final) message.
-        if line.strip() == "ALL CODES" and current.strip() and not in_fence:
-            chunks.append(_balance_fences(current.rstrip()))
-            current = ""
-        if len(current) + len(line) + 1 > room and current:
-            chunks.append(_balance_fences(current.rstrip()))
-            current = f"{FENCE}\n" if in_fence else ""
-        current += line + "\n"
+        if line.strip() == "ALL CODES" and not in_fence and any(t.strip() for t, _ in cur):
+            flush(cur)
+            cur = []
+        if cur and size(cur) + len(line) + 1 > room:
+            half = [i for i in range(1, len(cur)) if size(cur[:i]) >= limit // 2]
+            blanks = [i for i in half if not cur[i][0].strip()]
+            # else: before a line that starts a block (an acca and its legs
+            # "   • ..." stay together), outside any table
+            starts = [i for i in half if cur[i][0][:1].strip() and not cur[i][1]]
+            cuts = blanks or starts
+            if cuts:                      # end at the last competition/block boundary
+                head, tail = cur[:cuts[-1]], cur[cuts[-1]:]
+                while tail and not tail[0][0].strip():
+                    tail = tail[1:]
+                reopen = tail[0][1] if tail else in_fence
+                cont = []
+            else:                         # one competition overflows: split rows
+                head, tail, reopen = cur, [], in_fence
+                cont = [("(cont.)", reopen)] if reopen else []
+            flush(head)
+            cur = ([(FENCE, False)] if reopen else []) + cont + tail
+            if size(cur) + len(line) + 1 > room and len(cur) > len(cont) + int(reopen):
+                flush(cur)
+                cur = ([(FENCE, False)] if in_fence else []) + \
+                      ([("(cont.)", in_fence)] if in_fence else [])
+        cur.append((line, in_fence))
         if line.strip() == FENCE:
             in_fence = not in_fence
-    if current.strip():
-        chunks.append(_balance_fences(current.rstrip()))
+    flush(cur)
     return chunks
+
+
+# HR59 send gate (Telegram Output Spec §1, standing order 30): a board reaches
+# Telegram only with a valid Run ID tracing it to the run that built it.
+RUN_ID_RE = re.compile(r"Run ID: OLPXDV-\d{8}-\d{4}-[0-9a-f]{6}\b")
+
+
+def board_gate(text: str) -> Optional[str]:
+    """Why a board must NOT be sent, or None when it may be."""
+    if not RUN_ID_RE.search(text or ""):
+        return "board has no valid Run ID (HR59) — not sent"
+    return None
 
 
 def send_telegram(body: str, token: Optional[str] = None,

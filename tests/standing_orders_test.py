@@ -207,4 +207,27 @@ assert "bet365_board.render(" in _rd_src and "TELEGRAM_OWNER_CHAT_ID" in _rd_src
     "Order 29: built in the same run, sent on its own to the Architect"
 assert "TELEGRAM_OWNER_CHAT_ID" in wf, "Order 29: the owner chat reaches the daily run"
 
+# 30. 17 Sep spec items kept: Run ID + send gate, NO-DATA line, competition chunks
+from output import notify as _nt
+_rid = _rd._new_run_id()
+assert _nt.board_gate(f"Run ID: {_rid} | x") is None, "Order 30: a board with a Run ID may be sent"
+assert _nt.board_gate("Run ID: PENDING") and _nt.board_gate(""), \
+    "Order 30: a board without a valid Run ID is never sent"
+assert "notify.board_gate(telegram_text)" in _rd_src and "run_id=run_id" in _rd_src, \
+    "Order 30: the daily run stamps the board's Run ID and gates the send on it"
+_b30 = pb.render_canonical_board(
+    "Mode A", "Phase 3", [], 0, None, [],
+    [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "Granada"), _v,
+                     on_deploy_shortlist=True, best_price=1.33),
+     pb.BoardFixture("Lech v Legia (Ekstraklasa)", None, _v)], run_id=_rid)
+assert f"Run ID: {_rid}" in _b30 and "Fixtures scanned: 2" in _b30, "Order 30: Run ID header"
+_t1_30 = _b30.split("TABLE 2 · ")[0]
+assert "Lech v Legia" not in _t1_30.split(pb.FENCE)[1], "Order 30: NO-DATA leaves Table 1"
+assert "unresolved — NO DATA — PENDING" in _t1_30 and "Lech v Legia" in _t1_30, \
+    "Order 30: NO-DATA fixtures listed on one line under Table 1, never dropped"
+_rows = lambda c: "\n".join(f"Comp{c} row {i} " + "x" * 100 for i in range(20))
+_parts = _nt._chunk(f"{pb.FENCE}\n{_rows(1)}\n\n{_rows(2)}\n{pb.FENCE}")
+assert len(_parts) == 2 and "Comp2" not in _parts[0] and "Comp1" not in _parts[1], \
+    "Order 30: a long board splits between competitions, never mid-competition"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

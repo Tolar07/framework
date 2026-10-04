@@ -297,22 +297,23 @@ Non-removable. Renders on the final message of every chunked board.
 
 ## IMPLEMENTATION STATUS — maintained by Claude Code, not part of the spec
 
-As of 2026-09-17, this spec is **ratified but NOT yet implemented**.
-`render_production_board()` does not exist. The live Telegram path is still
-`render_stage_b_output()` + `render_telegram_blend()`.
+**2026-10-04 — the one record of the Telegram output is now
+`STANDING_ORDERS.md` ("Telegram output — everything that reaches your
+phone").** The spec text above is the Architect's and is kept unchanged, but
+it is SUPERSEDED wherever it disagrees with the standing orders:
 
-Confirmed already satisfied:
-- §6 phase label — `_phase_banner()` in `output/produce_bet.py` derives from
-  `config.PHASE` (currently 3), not from calibration counts. The 28 Aug
-  "Phase 2 — PAPER ONLY" regression is closed.
-- §2 O/U both sides — `p_over_35` is mapped in `engine/markets.py` and
-  `UNDER_35` is derived; the renderer has both sides available.
-- §4.1(3) 1.50 ceiling — `MAX_ODDS_CAP` is config-driven, set to 1.50.
+| Spec says | Live rule | Order |
+|---|---|---|
+| `render_production_board()`, stacked per-fixture blocks; fixed-width tables suspended (§0, §2) | The four-table `##########OLP XDV#########` board (`render_canonical_board`) | 5 |
+| `MAX_ACCAS = 2`, surplus as singles (§4.2–4.3) | No cap: every pick in 4–5-leg accas, plus 50%+ accas and mega slips | 5, 15 |
+| Acca leg `deploy_price ≤ 1.50` (§4.1) | Deploy band 1.20–2.00, safest 1.50 | 3 |
+| Acca eligibility needs ✓ VERIFIED and EV ≥ +2.0% (§4.1) | Every in-band pick ≥ 50% is a deploy pick; VERIFIED is a label | 4, 10, 27 |
+| Booking code PENDING pipeline-wide (§2) | Real SportyBet codes on every single, acca and mega slip | 5 |
+| CLV not rendered (§6) | CLV on every pick, in the scorecard | 20 |
 
-Open work to reach full compliance:
-1. `render_production_board()` — stacked per-fixture block, competition
-   grouping, competition-boundary chunking (§1–3, §5).
-2. Send-gate `run_id` rejection (§1) — currently no code-level gate.
-3. NO-DATA collapsed footer line (§3) — fixtures currently render as rows.
-4. Retire the suspended renderers listed in §0.
-5. §4.3 `MAX_ACCAS` conflict — left at 2, awaiting Architect ratification.
+Kept and built (order 30, 2026-10-04):
+- §1 Run ID in the header and a send gate that refuses a board without one.
+- §3 NO-DATA fixtures collapsed to one line under Table 1.
+- §5 chunking on competition boundaries, "(cont.)" when one competition is too long.
+
+Still as the spec says: §6 phase label from `config.PHASE`; §7 honest-edge footer.

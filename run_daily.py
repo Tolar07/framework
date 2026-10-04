@@ -1007,6 +1007,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             path.write_text(full, encoding="utf-8")
             _mark(runlog, f"RUN FAILED — {gate}")
             raise RuntimeError(gate)
+        # The Architect's chat and every subscriber chat (order 33, via
+        # notify.deliver). One subscriber failing is logged; it never fails the run.
         delivered, notes = notify.deliver(telegram_text, save_to=None)
         board_delivered = delivered
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -1014,21 +1016,6 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         for n in notes:
             print(f"  {n}")
             _mark(runlog, n)
-        # SUBSCRIBERS (Architect 2026-10-04): the board — and only the board —
-        # also goes to every chat in TELEGRAM_SUBSCRIBER_CHAT_IDS (comma-
-        # separated, a GitHub secret so nobody's chat id sits in the public
-        # repo). One subscriber failing is logged; it never fails the run.
-        subs = [c.strip() for c in os.environ.get("TELEGRAM_SUBSCRIBER_CHAT_IDS", "").split(",")
-                if c.strip() and c.strip() != os.environ.get("TELEGRAM_CHAT_ID", "").strip()]
-        sub_ok = 0
-        for cid in subs:
-            ok_s, _n = notify.send_telegram(telegram_text, chat_id=cid)
-            sub_ok += ok_s
-            if not ok_s:
-                _mark(runlog, f"subscriber chat …{cid[-4:]}: board NOT delivered ({_n[-1]})")
-        if subs:
-            print(f"  board delivered to {sub_ok}/{len(subs)} subscriber chat(s)")
-            _mark(runlog, f"board delivered to {sub_ok}/{len(subs)} subscriber chat(s)")
         if not delivered:
             # A run that failed to reach the phone is NOT a completed run.
             # Reporting OK here is what let three failed message parts pass as
@@ -1077,7 +1064,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     # HEARTBEAT — a short 'system alive' ping sent EVERY day (even dry days), so
     # silence never looks like a dead system. Best-effort: a heartbeat that fails
     # to send is logged but does NOT fail the run — the board carries the hard
-    # delivery gate; the heartbeat is informational.
+    # delivery gate; the heartbeat is informational. Subscribers get it too
+    # (order 33, via notify.deliver).
     if heartbeat and send:
         try:
             hb = render_heartbeat(PHASE_LABEL, leagues, status["legs_with_clv"],

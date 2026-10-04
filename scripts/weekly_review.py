@@ -111,8 +111,9 @@ def main(argv: list[str] | None = None) -> int:
     print(text)
     if not a.no_send:
         from output import notify
-        sent, notes = notify.send_telegram(text)
-        print("review sent" if sent else f"review NOT sent: {notes}")
+        sent, notes = notify.send_everyone(text)    # Architect + subscribers (order 33)
+        print("review sent" if sent else "review NOT sent")
+        print("\n".join(notes))
     return 0
 
 

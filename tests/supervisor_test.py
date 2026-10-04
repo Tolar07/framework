@@ -46,10 +46,16 @@ with tempfile.TemporaryDirectory() as d:
                  "⚠ watchdog: failure", "✓ tests on main: success", "✓ Run ID present"):
         assert must in text, (must, text)
     assert "pre-kickoff" not in text, "a status that wasn't read is not reported"
+    assert "subscribers" not in text, "subscribers not checked -> not reported"
     clean = sv.report("2026-10-04", "morning", "success",
                       {"board": True, "run_id": True, "no_data": 0, "bet365": True},
-                      dict(st, top_share=0.4, single_codes=10, slip_codes=2), {})
-    assert "ALL CLEAR" in clean, clean
+                      dict(st, top_share=0.4, single_codes=10, slip_codes=2), {}, subscribers=3)
+    assert "ALL CLEAR" in clean and "✓ subscribers: 3 chat(s)" in clean, clean
+    # Order 33: an empty subscriber secret is a problem, not silence.
+    nosubs = sv.report("2026-10-04", "morning", "success",
+                       {"board": True, "run_id": True, "no_data": 0, "bet365": True},
+                       dict(st, top_share=0.4, single_codes=10, slip_codes=2), {}, subscribers=0)
+    assert "1 issue(s)" in nosubs and "⚠ subscribers: none" in nosubs, nosubs
 print("supervisor status: OK")
 
 with tempfile.TemporaryDirectory() as d:

@@ -27,6 +27,7 @@ on:
 # paper log resets every run and the Phase 3 gate can never accumulate.
 permissions:
   contents: write
+  actions: write    # start the pre-kickoff loop (news.yml) after the board
 
 concurrency:
   group: olp-xdv-daily
@@ -148,6 +149,21 @@ jobs:
           # A queued run checks out an older SHA; rebase onto latest main first.
           git pull --rebase -q origin main || true
           git push || echo "nothing to push"
+
+      # Start the pre-kickoff loop (news.yml -> monitor/news_loop.py) once the
+      # day's board is saved. The morning board is started on time by a
+      # Routine, so the loop is too; GitHub's own news.yml cron is unreliable.
+      # A loop already running makes the new one exit. Never fails the run.
+      - name: Start the pre-kickoff loop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "$(date -u +%-H)" -ge 20 ]; then echo "after 20:00 UTC: no pre-kickoff loop to start"; exit 0; fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/news.yml/dispatches" \
+            -d '{"ref":"main"}') || code=000
+          echo "pre-kickoff loop start requested (HTTP ${code}; 204 = started)"
 
       # Failure alert RE-ENABLED (2026-09-30) now that this framework is corrected
       # and re-adopted as canonical. A failed run is an operational alert, not

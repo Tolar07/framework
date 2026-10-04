@@ -32,7 +32,7 @@ Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
 |---|---|---|
 | `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine (IDs in `MAP.md` §1) | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/` |
 | `watchdog.yml` | 23:17 and 08:17 | `monitor/run_watchdog.py` — when a slot's board run never happened, starts it (same day + slot, so the duplicate guard holds) and says so on Telegram |
-| `news.yml` | every 20 min, 09:00-20:40 | `news_check.py` — confirmed lineups, price drift, closing price per pick |
+| `news.yml` | one job looping every 20 min, 09:00-20:40, started by `daily.yml` after each board (backup cron every 2 h) | `monitor/news_loop.py` → `news_check.py` — confirmed lineups, price drift, closing price per pick; saved each round |
 | `commands.yml` | hourly | `output/telegram_commands.py` — answers /status /board /verify /why /log /note /debrief |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` |
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — the supervisor agent's check: board, bet365 board, Run ID, picks spread over market types, codes booked, latest tests/watchdog/news runs; one Telegram status |
@@ -48,6 +48,7 @@ What each piece is protecting — read before changing it:
 | Late-evening guard in `daily.yml` (`date -u +%H` >= 12) | GitHub sometimes fires the evening cron after midnight UTC; without the guard the run jumps a day ahead (2026-10-01). |
 | `--only-production` + `--heartbeat` | Board only on pick days; a short "system alive" heartbeat every day. A dry day is silence on the board, never a fake board. |
 | `monitor/run_watchdog.py` + `watchdog.yml` | A dropped GitHub cron is silent; `daily.yml` only alerts on a run that FAILS. |
+| Pre-kickoff loop (`monitor/news_loop.py`, started by `daily.yml`) | GitHub dropped `news.yml`'s 20-minute cron almost every time. One loop at a time (a newer run exits while an older one is going), saved every round, handed on before the 6-hour job limit — break any of these and alerts go missing or repeat. |
 | `engine/name_match.py` (strict, unique matches; `EXPLICIT` table) | Rates feed spellings ("Blackpool FC") with the model's history ("Blackpool"). Loosening it would put one club's rating on another. |
 | SPLIT rejection text in `run_daily.py` (`market_p` may be None → `PENDING`) | Formatting a missing market price crashed the whole run (fixed 2026-10-03). |
 | Picks ledger (`engine/picks_ledger.py`) | Records every pick AND every rated fixture; graded from Flashscore, regular time only. The scorecard and `engine/learning.py` read it. |

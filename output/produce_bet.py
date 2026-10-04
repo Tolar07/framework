@@ -17,6 +17,7 @@ from engine.dixon_coles import FixtureProbabilities
 from engine.slate import (DEPLOY_POOL_CAP, DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX,
                           DEPLOY_ODDS_SAFE)
 from engine import markets as mkt
+from engine import competitions as comp
 from verification.id403 import VerificationResult, Tier, stamp
 
 
@@ -445,7 +446,7 @@ def _price_check_lines(picks: list[BoardFixture]) -> list[str]:
         line += f" · {alone} quoted by no second book"
     out = ["", line + "."]
     for bf in differ:
-        out.append(f"   • ⚠ {_canon_short(bf.fixture)} — {bf.price_note}")
+        out.append(f"   • ⚠ {comp.where(bf.fixture)} — {bf.price_note}")
     return out
 
 
@@ -831,8 +832,9 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     else:
         rows = []
         for bf in board:
+            where = comp.label(comp.league_of(bf.fixture))
             if bf.probs is None:
-                rows.append([_canon_short(bf.fixture), "NO DATA — PENDING", "—",
+                rows.append([_canon_short(bf.fixture), where, "NO DATA — PENDING", "—",
                              "—", "—", "—", stamp(bf.verification)])
                 continue
             p = bf.probs
@@ -844,11 +846,11 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                     else "—")
             alt = f"{_lean(p.p_over_15,'1.5')}/{_lean(p.p_over_25,'2.5')}"
             src = stamp(bf.verification) + ("ᴹ" if bf.prob_source == "market" else "")
-            rows.append([_canon_short(bf.fixture), pick_cell, odds, altm, alt,
+            rows.append([_canon_short(bf.fixture), where, pick_cell, odds, altm, alt,
                          _dc_cell(p), src])
         out.append(FENCE)
-        out.append(_col(rows, ["Fixture", "AI PICK · win%", "Odds", "Alt market",
-                               "O1.5/O2.5", "DC/BTTS", "Src"]))
+        out.append(_col(rows, ["Fixture", "Country · League", "AI PICK · win%", "Odds",
+                               "Alt market", "O1.5/O2.5", "DC/BTTS", "Src"]))
         out.append(FENCE)
         out.append("★ BANKER = straight win, model + market agree ≥70% "
                    "(backtest: 82% won, +4%) · ✓ SAFE = model + market agree · "
@@ -896,22 +898,23 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     else:
         rows = []
         for bf in shortlist:
+            where = comp.label(comp.league_of(bf.fixture))
             if bf.probs is None:
-                rows.append([_canon_short(bf.fixture), "NO DATA — PENDING", "—",
+                rows.append([_canon_short(bf.fixture), where, "NO DATA — PENDING", "—",
                              "—", "—", "—", "PENDING"])
                 continue
             pick, prob = _deploy_pick(bf)
             trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
             price = f"@{bf.best_price:.2f}" if bf.best_price else "—"
-            rows.append([_canon_short(bf.fixture), _TIER_MARK.get(bf.tier, "") + pick,
+            rows.append([_canon_short(bf.fixture), where, _TIER_MARK.get(bf.tier, "") + pick,
                          f"{round(prob*100)}%" if prob else "—", price,
                          bf.certainty or "—",
                          (f"{bf.stake_pct:g}%" if bf.stake_pct else
                           ("PAUSED" if bf.stake_pct == 0 else "—")),
                          bf.booking_code or "PENDING"])
         out.append(FENCE)
-        out.append(_col(rows, ["Fixture", "Pick", "Chance", "Odds", "Certainty",
-                               "Stake", "Code"]))
+        out.append(_col(rows, ["Fixture", "Country · League", "Pick", "Chance", "Odds",
+                               "Certainty", "Stake", "Code"]))
         out.append(FENCE)
         out.append("Certainty = how sure we are the chance % is right: HIGH = model and "
                    "SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree "
@@ -925,7 +928,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out += ["", f"⚠ TEAM NEWS — {len(news)} pick(s) hit by injuries/suspensions "
                         f"(certainty lowered; re-checked when lineups are confirmed):"]
             for bf in news:
-                out.append(f"   • {bf.news_level}: {_canon_short(bf.fixture)} — {bf.news_note}")
+                out.append(f"   • {bf.news_level}: {comp.where(bf.fixture)} — {bf.news_note}")
         out += [""] + _mega_lines("TABLE 2")
     out.append("")
 
@@ -943,7 +946,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                        f"{_acca_odds(legs):.2f} · chance {round(combo*100)}%")
             for bf, pick, prob in legs:
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
-                out.append(f"   • {_canon_short(bf.fixture)} — {pick}{price} "
+                out.append(f"   • {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%, {bf.certainty})")
         if len(safe3) > 1:
             n = sum(len(l) for _, l, _ in safe3)
@@ -969,7 +972,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                        f"{_acca_odds(legs):.2f} · chance {round(combo*100)}%")
             for bf, pick, prob in legs:
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
-                out.append(f"   • {_canon_short(bf.fixture)} — {pick}{price} "
+                out.append(f"   • {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%)")
         out += ["", "All accas together = every deploy pick, so their mega code is the "
                 "same slip as Table 2's:"] + _mega_lines("TABLE 3")
@@ -985,7 +988,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         top = max(ranked, key=lambda b: _deploy_pick(b)[1] or 0.0)
         pick, prob = _deploy_pick(top)
         price = f" @{top.best_price:.2f}" if top.best_price else ""
-        out.append(f"Primary single: {_canon_short(top.fixture)} — {pick} "
+        out.append(f"Primary single: {comp.where(top.fixture)} — {pick} "
                    f"({round((prob or 0)*100)}%){price} · code "
                    f"{top.booking_code or 'PENDING'}")
         if accas:

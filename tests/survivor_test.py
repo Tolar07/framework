@@ -79,16 +79,24 @@ board = [bf("A v B", "UNDER_3_5", 0.90), bf("C v D", "DC_1X", 0.80),
          bf("K v L", "DC_12", 0.99, day="2026-10-04")]                    # wrong day
 now = datetime(2026, 10, 3, 12, 0, tzinfo=timezone.utc)
 order = [b.fixture.split(" (")[0] for b in sv.candidates(board, "2026-10-03", now)]
-assert order == ["C v D", "G v H", "E v F", "A v B"], order
+assert order == ["A v B", "C v D"], order   # bar: 80%+ and HIGH/MEDIUM; E (LOW), G (75%) wait
 p = pop_of(10, 20)
 for l in p["lineages"]:
     l["to_breed"] = False
 hist = []
 new = sv.select(p, hist, board, "2026-10-03", now)
-assert [r["fixture"] for r in new] == ["C v D", "G v H"]
+assert [r["fixture"] for r in new] == ["A v B", "C v D"]
 assert new[0]["lineage_id"] == max(p["lineages"], key=lambda x: x["bankroll"])["lineage_id"]
 assert sv.select(p, hist, board, "2026-10-03", now) == [], "idempotent per day"
-print("selection (likeliest first, Under last, pre-match, idempotent): OK")
+print("selection (quality bar, likeliest first, pre-match, idempotent): OK")
+
+# A held pick that falls below the bar before kickoff is withdrawn; the lineage waits.
+weak = [bf("A v B", "UNDER_3_5", 0.90, cert="LOW"), bf("C v D", "DC_1X", 0.80)]
+assert sv.withdraw_weak(p, hist, weak, "2026-10-03", now) == 1
+assert next(r for r in hist if r["fixture"] == "A v B")["result"] == "WITHDRAWN"
+assert sum(1 for ln in sv.living(p) if ln.get("holding")) == 1
+assert sv.select(p, hist, weak, "2026-10-03", now) == [], "no other pick meets the bar"
+print("withdraw below-bar pick, lineage waits: OK")
 
 # Grading from Flashscore-shaped events + stale release.
 ev = [{"home": "C", "away": "D", "date": "2026-10-03", "fthg": 0, "ftag": 0,
@@ -97,9 +105,14 @@ import data.flashscore_results as fr
 orig = fr.find_result
 fr.find_result = lambda events, h, a, d: next((e for e in events if e["home"] == h), None)
 try:
+    # the waiting lineage takes a pick on another day that the feed never shows
+    idle = next(ln for ln in sv.living(p) if not ln.get("holding"))
+    r_gh = {"date": "2026-10-03", "lineage_id": idle["lineage_id"], "fixture": "G v H",
+            "home": "G", "away": "H", "market_key": "OVER_1_5", "price": 1.3, "result": "PENDING"}
+    hist.append(r_gh)
+    idle["holding"] = {"date": "2026-10-03"}
     flags = sv.grade(p, hist, ev, today="2026-10-04")
     r_cd = next(r for r in hist if r["fixture"] == "C v D")
-    r_gh = next(r for r in hist if r["fixture"] == "G v H")
     assert r_cd["result"] == "WIN" and r_cd["score"] == "0-0", r_cd
     assert r_gh["result"] == "PENDING"
     sv.grade(p, hist, ev, today="2026-10-09")

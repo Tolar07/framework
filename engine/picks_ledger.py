@@ -177,7 +177,7 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
             graded += s["result"] is not None
             pending += s["result"] is None
             by_fixture[s["fixture"]] = s
-        for slip in doc.get("alts", []):          # alt-market legs: own markets
+        for slip in doc.get("alts", []) + doc.get("replaced", []):   # own-market legs
             for leg in slip.get("alt_legs", []):
                 if leg["result"] is None:
                     ev = find_result(events, leg["home"], leg["away"],
@@ -189,9 +189,9 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                     elif ev and ev["finished_other"]:
                         leg["result"] = "no-90min-result"
                         changed += 1
-        for kind in ("accas", "safe3", "megas", "alts"):
+        for kind in ("accas", "safe3", "megas", "alts", "replaced"):
             for slip in doc.get(kind, []):
-                if kind == "alts":
+                if kind in ("alts", "replaced"):
                     legs = slip.get("alt_legs", [])
                 else:
                     legs = [by_fixture.get(f) for f in slip["legs"]]

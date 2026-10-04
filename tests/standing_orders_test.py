@@ -356,4 +356,8 @@ assert _rd._loses_on_draw("SB:10||Home or Away") and not _rd._loses_on_draw("SB:
 from engine import national_elo as _ne
 assert _ne.k_factor("FIFA World Cup") > _ne.k_factor("UEFA Nations League") > _ne.k_factor("Friendly")
 
+# 35. Codes frozen at 10pm
+from engine import freeze as _fz
+assert _fz.DRIFT == 0.05, "Order 35: a frozen leg is replaced only on a 5%+ drift, team news or leaving the board"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

@@ -127,7 +127,7 @@ jobs:
               exit 0
             fi
           fi
-          ARGS="--only-production --heartbeat --target-date $T"
+          ARGS="--only-production --heartbeat --target-date $T --slot $SLOT"
           echo "schedule='$SCHEDULE' slot=$SLOT -> run_daily.py $ARGS"
           python run_daily.py $ARGS
           if [ "$SLOT" != "manual" ]; then

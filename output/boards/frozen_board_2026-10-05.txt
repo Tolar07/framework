@@ -1,0 +1,133 @@
+##########OLP XDV#########
+==================================
+
+📅  Mon 05 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261004-2119-938a3f | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 9 · Verified: 1
+KO = kickoff, Lagos time (WAT)
+
+⚠ 135 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                          Country · League                 AI PICK · win%                        Odds   Alt market                              O1.5/O2.5  DC/BTTS     Src
+19:30  Cordoba v Tenerife               Spain · La Liga 2 / Hypermotion  ✓ Over 1.5 goals · 75%                @1.28  Cordoba or Tenerife @1.30               O78/O54    1275 / Y57  ✓
+
+19:45  Montenegro v Armenia             UEFA Nations League              ✓ Armenia (0:3) handicap · 82%        @1.20  Armenia (+2.5) Asian handicap @1.20     O79/O56    1X77 / Y56  ○
+17:00  Cyprus v Latvia                  UEFA Nations League              ✓ Cyprus Over 0.5 goals · 81%         @1.20  Latvia Under 1.5 goals @1.20            O72/U54    1X78 / N52  ○
+19:45  Ukraine v Hungary                UEFA Nations League              ᴮ Hungary Win to Nil — no · 81%       @1.20  Under 3.5 goals @1.28                   O79/O56    1X77 / Y56  ○
+19:45  Romania v Sweden                 UEFA Nations League              ✓ Over 1.5 goals · 80%                @1.20  Romania or Sweden @1.26                 O79/O57    1276 / Y59  ○
+19:45  France v Belgium                 UEFA Nations League              ᴮ France or Belgium · 79%             @1.20  Under 4.5 goals @1.31                   O76/O52    1X78 / Y52  ○
+19:45  Bosnia and Herzegovina v Poland  UEFA Nations League              ✓ Poland Win to Nil — no · 78%        @1.22  Over 1.5 goals @1.28                    O72/U53    1274 / Y51  ○
+19:45  Italy v Turkey                   UEFA Nations League              ⇄✓ Under 4.5 goals · 77%              @1.29  Italy Under 3.5 goals @1.21             O83/O63    1279 / Y61  ○
+19:45  Northern Ireland v Georgia       UEFA Nations League              ⇄✓ Northern Ireland or Georgia · 71%  @1.37  Northern Ireland Win to Nil — no @1.30  O72/U54    1273 / Y51  ○
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · ⚠ SPLIT = no in-band outcome either side backs
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 mega code (all 9 deploy singles): YVB13M   load ↦ www.sportybet.com/ng/?shareCode=YVB13M
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                          Country · League                 Pick                            Chance  Odds   Certainty  Stake  Code
+19:30  Cordoba v Tenerife               Spain · La Liga 2 / Hypermotion  ✓ Over 1.5 goals                75%     @1.28  MEDIUM     0.25%  W5HV4T
+17:00  Cyprus v Latvia                  UEFA Nations League              ✓ Cyprus Over 0.5 goals         81%     @1.20  HIGH       0.25%  NTV49R
+19:45  Bosnia and Herzegovina v Poland  UEFA Nations League              ✓ Poland Win to Nil — no        78%     @1.22  MEDIUM     0.25%  KE7F2W
+19:45  France v Belgium                 UEFA Nations League              ᴮ France or Belgium             79%     @1.20  LOW        0.12%  KNS94X
+19:45  Italy v Turkey                   UEFA Nations League              ⇄✓ Under 4.5 goals              77%     @1.29  HIGH       0.25%  P3V3CL
+19:45  Montenegro v Armenia             UEFA Nations League              ✓ Armenia (0:3) handicap        82%     @1.20  MEDIUM     0.25%  L8C0LL
+19:45  Northern Ireland v Georgia       UEFA Nations League              ⇄✓ Northern Ireland or Georgia  71%     @1.37  HIGH       0.25%  JPQZW9
+19:45  Romania v Sweden                 UEFA Nations League              ✓ Over 1.5 goals                80%     @1.20  HIGH       0.25%  Z7JG6J
+19:45  Ukraine v Hungary                UEFA Nations League              ᴮ Hungary Win to Nil — no       81%     @1.20  LOW        0.12%  PYE1MM
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 9 of 9 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts).
+
+⇄ SWITCHED — 2 shaky pick(s) moved to a steadier market (model and SportyBet agree, at most 5 pts less likely):
+   • Italy v Turkey (🏆 UEFA Nations League) — was Italy Under 3.5 goals (the two prediction models disagree on the result) → now Under 4.5 goals (77%, HIGH)
+   • Northern Ireland v Georgia (🏆 UEFA Nations League) — was Northern Ireland Win to Nil — no (LOW certainty) → now Northern Ireland or Georgia (71%, HIGH)
+
+⚠ TEAM NEWS — 1 pick(s) hit by injuries/suspensions (certainty lowered; re-checked when lineups are confirmed):
+   • RISK: Ukraine v Hungary (🏆 UEFA Nations League) — Ukraine missing 30% of value (Vitaliy Mykolenko, Mykola Matviyenko, Danylo Sikan); support: Hungary missing 29%
+
+TABLE 2 mega code (all 9 deploy singles): YVB13M   load ↦ www.sportybet.com/ng/?shareCode=YVB13M
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty legs only, combined chance 50% or more)
+──────────────────────────────────
+
+No 3-leg acca reaches 50% from high-certainty legs today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+──────────────────────────────────
+
+2 accas cover all 9 deploy picks — every code is also in ALL CODES at the end.
+
+Acca A · code ZEA0AK · 5 legs · odds 2.49 · chance 34%
+   • 19:45 Montenegro v Armenia (🏆 UEFA Nations League) — Armenia (0:3) handicap @1.20 (82%)
+   • 17:00 Cyprus v Latvia (🏆 UEFA Nations League) — Cyprus Over 0.5 goals @1.20 (81%)
+   • 19:45 Ukraine v Hungary (🏆 UEFA Nations League) — Hungary Win to Nil — no @1.20 (81%)
+   • 19:45 Romania v Sweden (🏆 UEFA Nations League) — Over 1.5 goals @1.20 (80%)
+   • 19:45 France v Belgium (🏆 UEFA Nations League) — France or Belgium @1.20 (79%)
+Acca B · code G4V4XG · 4 legs · odds 2.76 · chance 32%
+   • 19:45 Bosnia and Herzegovina v Poland (🏆 UEFA Nations League) — Poland Win to Nil — no @1.22 (78%)
+   • 19:45 Italy v Turkey (🏆 UEFA Nations League) — Under 4.5 goals @1.29 (77%)
+   • 19:30 Cordoba v Tenerife (🇪🇸 Spain · La Liga 2 / Hypermotion) — Over 1.5 goals @1.28 (75%)
+   • 19:45 Northern Ireland v Georgia (🏆 UEFA Nations League) — Northern Ireland or Georgia @1.37 (71%)
+
+All accas together = every deploy pick, so their mega code is the same slip as Table 2's:
+TABLE 3 mega code (all 9 deploy singles): YVB13M   load ↦ www.sportybet.com/ng/?shareCode=YVB13M
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(same fixtures, each on a DIFFERENT market from its main pick — goals,
+ handicaps, team goals — so one result can't sink every slip)
+──────────────────────────────────
+
+Alt A · code T7SVXV · 5 legs · odds 2.88 · chance 32%
+   • 19:45 Montenegro v Armenia (🏆 UEFA Nations League) — Armenia (+2.5) Asian handicap @1.20 (82%)
+   • 19:45 Italy v Turkey (🏆 UEFA Nations League) — Italy Under 3.5 goals @1.21 (82%)
+   • 17:00 Cyprus v Latvia (🏆 UEFA Nations League) — Latvia Under 1.5 goals @1.20 (79%)
+   • 19:45 France v Belgium (🏆 UEFA Nations League) — Under 4.5 goals @1.31 (78%)
+   • 19:45 Romania v Sweden (🏆 UEFA Nations League) — Romania or Sweden @1.26 (77%)
+Alt B · code V271EE · 4 legs · odds 2.77 · chance 32%
+   • 19:45 Northern Ireland v Georgia (🏆 UEFA Nations League) — Northern Ireland Win to Nil — no @1.30 (76%)
+   • 19:30 Cordoba v Tenerife (🇪🇸 Spain · La Liga 2 / Hypermotion) — Cordoba or Tenerife @1.30 (75%)
+   • 19:45 Ukraine v Hungary (🏆 UEFA Nations League) — Under 3.5 goals @1.28 (74%)
+   • 19:45 Bosnia and Herzegovina v Poland (🏆 UEFA Nations League) — Over 1.5 goals @1.28 (74%)
+
+Each alt leg is a little less likely than the main pick: this spreads the risk, it does not raise the hit rate. Not part of the £1 live test (order 26) unless the Architect says so.
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Montenegro v Armenia (🏆 UEFA Nations League) — Armenia (0:3) handicap (82%) @1.20 · code L8C0LL
+Acca A: 5 legs, model 34% · code ZEA0AK
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00 (safest ~1.50); picks above 2.00 are never deployed.
+Calibration: 9 legs logged, mean CLV +1.66%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+Board MEGA: YVB13M (9 legs · every single · stake 0.1%)
+Acca A: ZEA0AK (5 legs · odds 2.49 · 34% · stake 0.25%)
+Acca B: G4V4XG (4 legs · odds 2.76 · 32% · stake 0.25%)
+Alt A: T7SVXV (5 legs · alt markets · odds 2.88 · 32% · stake 0.25%)
+Alt B: V271EE (4 legs · alt markets · odds 2.77 · 32% · stake 0.25%)

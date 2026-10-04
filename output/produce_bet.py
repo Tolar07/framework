@@ -10,7 +10,7 @@ A missing datum renders as "NO DATA — PENDING", never filled to look complete.
 """
 from __future__ import annotations
 from dataclasses import dataclass
-from datetime import date
+from datetime import UTC, date, datetime, timedelta, timezone
 from typing import Optional
 
 from engine.dixon_coles import FixtureProbabilities
@@ -894,6 +894,25 @@ def _build_safe3(shortlist: list[BoardFixture]) -> list[tuple]:
     return out
 
 
+LAGOS = timezone(timedelta(hours=1))      # WAT — Nigeria has no daylight saving
+
+
+def kickoff(bf) -> str:
+    """Kickoff in Lagos time, HH:MM (order 28), from the kickoff the run
+    fetched (SportyBet's event start, or FotMob's for deploy picks). PENDING
+    when no source gave a time — never a guessed one (HR35)."""
+    ko = getattr(bf, "kickoff_utc", None) or ""
+    if "T" not in ko:
+        return "PENDING"
+    try:
+        when = datetime.fromisoformat(ko.replace("Z", "+00:00").replace(".000", ""))
+    except ValueError:
+        return "PENDING"
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=UTC)
+    return when.astimezone(LAGOS).strftime("%H:%M")
+
+
 def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             calibration_count: int, mean_clv: Optional[float],
                             data_flags: list[str], board: list[BoardFixture],
@@ -921,7 +940,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     out = [_CANON_HEAD, _CANON_BAR, "",
            f"\U0001F4C5  {day}   (PICK · win %  ·  alt markets)",
            f"Run ID: {run_id or 'PENDING'} | {phase}",
-           f"Fixtures scanned: {len(board)} · Verified: {verified}", ""]
+           f"Fixtures scanned: {len(board)} · Verified: {verified}",
+           "KO = kickoff, Lagos time (WAT)", ""]
 
     if data_flags:
         out.append(f"⚠ {len(data_flags)} data flag(s) — full detail in the "
@@ -961,9 +981,9 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                     else "—")
             alt = f"{_lean(p.p_over_15,'1.5')}/{_lean(p.p_over_25,'2.5')}"
             src = stamp(bf.verification) + ("ᴹ" if bf.prob_source == "market" else "")
-            rows.append([_canon_short(bf.fixture), where, pick_cell, odds, altm, alt,
-                         _dc_cell(p), src])
-        table = _col(rows, ["Fixture", "Country · League", "AI PICK · win%", "Odds",
+            rows.append([kickoff(bf), _canon_short(bf.fixture), where, pick_cell, odds, altm,
+                         alt, _dc_cell(p), src])
+        table = _col(rows, ["KO", "Fixture", "Country · League", "AI PICK · win%", "Odds",
                             "Alt market", "O1.5/O2.5", "DC/BTTS", "Src"]).split("\n")
         lines = table[:1]
         for i, row in enumerate(table[1:]):
@@ -1025,13 +1045,13 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         for bf in shortlist:
             where = comp.label(comp.league_of(bf.fixture))
             if bf.probs is None:
-                rows.append([_canon_short(bf.fixture), where, "NO DATA — PENDING", "—",
+                rows.append([kickoff(bf), _canon_short(bf.fixture), where, "NO DATA — PENDING", "—",
                              "—", "—", "—", "PENDING"])
                 continue
             pick, prob = _deploy_pick(bf)
             trig = f"{bf.mes_trigger_price:.2f}+" if bf.mes_trigger_price else "NO DATA"
             price = f"@{bf.best_price:.2f}" if bf.best_price else "—"
-            rows.append([_canon_short(bf.fixture), where,
+            rows.append([kickoff(bf), _canon_short(bf.fixture), where,
                          ("⇄" if bf.switched_from else "") + _TIER_MARK.get(bf.tier, "") + pick,
                          f"{round(prob*100)}%" if prob else "—", price,
                          bf.certainty or "—",
@@ -1039,7 +1059,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                           ("PAUSED" if bf.stake_pct == 0 else "—")),
                          bf.booking_code or "PENDING"])
         out.append(FENCE)
-        out.append(_col(rows, ["Fixture", "Country · League", "Pick", "Chance", "Odds",
+        out.append(_col(rows, ["KO", "Fixture", "Country · League", "Pick", "Chance", "Odds",
                                "Certainty", "Stake", "Code"]))
         out.append(FENCE)
         out.append("Certainty = how sure we are the chance % is right: HIGH = model and "
@@ -1080,7 +1100,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                        f"{_acca_odds(legs):.2f} · chance {round(combo*100)}%")
             for bf, pick, prob in legs:
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
-                out.append(f"   • {comp.where(bf.fixture)} — {pick}{price} "
+                out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%, {bf.certainty})")
         if len(safe3) > 1:
             n = sum(len(l) for _, l, _ in safe3)
@@ -1106,7 +1126,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                        f"{_acca_odds(legs):.2f} · chance {round(combo*100)}%")
             for bf, pick, prob in legs:
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
-                out.append(f"   • {comp.where(bf.fixture)} — {pick}{price} "
+                out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%)")
         out += ["", "All accas together = every deploy pick, so their mega code is the "
                 "same slip as Table 2's:"] + _mega_lines("TABLE 3")
@@ -1127,7 +1147,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                        f"odds {_alt_odds(legs):.2f} · chance {round(combo*100)}%")
             for bf, pick, prob, _key, price in legs:
                 px = f" @{price:.2f}" if price else ""
-                out.append(f"   • {comp.where(bf.fixture)} — {pick}{px} ({round(prob*100)}%)")
+                out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{px} "
+                           f"({round(prob*100)}%)")
         out += ["", "Each alt leg is a little less likely than the main pick: this spreads "
                     "the risk, it does not raise the hit rate. Not part of the £1 live "
                     "test (order 26) unless the Architect says so."]

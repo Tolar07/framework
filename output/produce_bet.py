@@ -1083,6 +1083,11 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                         f"(certainty lowered; re-checked when lineups are confirmed):"]
             for bf in news:
                 out.append(f"   • {bf.news_level}: {comp.where(bf.fixture)} — {bf.news_note}")
+        prof_rows = [bf for bf in shortlist if getattr(bf, "profile_line", None)]
+        if prof_rows:
+            out += ["", "TEAM PROFILES (last 20 games each side — context, not a price):"]
+            for bf in prof_rows:
+                out.append(f"   • {_canon_short(bf.fixture)}: {bf.profile_line}")
         out += [""] + _mega_lines("TABLE 2")
     out.append("")
 

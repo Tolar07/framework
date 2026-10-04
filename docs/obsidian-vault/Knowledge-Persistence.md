@@ -1,5 +1,7 @@
 # Knowledge Persistence System — Enhanced Vault-Memory Concept
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 > **Builds on existing vault-memory sync to provide structured knowledge management with automatic summarization, intelligent querying, and session-persistent institutional knowledge.**
 
 ---

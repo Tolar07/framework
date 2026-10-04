@@ -1,5 +1,7 @@
 # OLP XDV — MASTER DOCUMENTATION
 
+> **HISTORICAL — the laptop line, superseded 2026-10-03.** Kept as a record. Where this disagrees with `CLAUDE.md`, `STANDING_ORDERS.md`, the CURRENT STATE block of `STATE.md` or the code, they win. Where everything lives now: `MAP.md`.
+
 > **Date:** 2026-08-12 · **Repo:** `olp_xdv_agent/olp_xdv` · **Branch:** `elo-persistence`
 > **Purpose:** Single reference for anyone — human or AI — who needs to understand the framework as it is **actually built today**, including every place where the docs disagree with the code. Where the written docs and the code conflict, this document says so and treats **the code + `RATIFICATIONS.md`** as the authority (RATIFICATIONS is append-only per HR33).
 > **Honesty rule (HR35) applies to this document too:** nothing here is invented to fill a gap; where something is unknown it is marked as such.

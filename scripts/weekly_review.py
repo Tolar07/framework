@@ -78,6 +78,11 @@ def review(days: int = 7, today: str | None = None, picks: Path = PICKS) -> str:
                     and gap <= -REVIEW_GAP_PP):
                 proposals.append(f"{k}: won {gap * 100:+.0f} pts vs what we said over "
                                  f"{len(v)} picks — review it (learning is already trimming it)")
+    sw = [s for s in singles if s.get("orig_result") in ("won", "lost")]
+    if sw:
+        L.append(f"Switched picks (order 32): {sum(s['result'] == 'won' for s in sw)}/{len(sw)} "
+                 f"won; the original picks would have won "
+                 f"{sum(s['orig_result'] == 'won' for s in sw)}/{len(sw)}")
     for kind, label in (("safe3", "50%+ accas"), ("accas", "Accas"),
                         ("alts", "Alt-market accas"), ("megas", "Megas")):
         slips = [x for d in docs for x in d.get(kind, []) if x.get("result") in ("won", "lost")]

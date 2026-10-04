@@ -41,6 +41,8 @@ def _single(bf) -> dict:
             "certainty": bf.certainty, "code": bf.booking_code,
             "news_level": getattr(bf, "news_level", None),
             "news_note": getattr(bf, "news_note", None),
+            "switched_from": getattr(bf, "switched_from", None),
+            "orig_market": getattr(bf, "orig_market_key", None),
             "fotmob_id": getattr(bf, "fotmob_id", None),
             "kickoff_utc": getattr(bf, "kickoff_utc", None),
             "predicted_xi": getattr(bf, "predicted_xi", None),
@@ -166,6 +168,8 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                 if ev and ev["finished_regular"]:
                     s["ft"] = f'{ev["fthg"]}-{ev["ftag"]}'
                     s["result"] = _settle(s["market"], ev["fthg"], ev["ftag"])
+                    if s.get("orig_market"):      # order 32: did switching pay?
+                        s["orig_result"] = _settle(s["orig_market"], ev["fthg"], ev["ftag"])
                     changed += 1
                 elif ev and ev["finished_other"]:
                     s["result"] = "no-90min-result"

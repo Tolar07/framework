@@ -314,12 +314,7 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Sociedad B v Granada",
-    "pick": "Sociedad B or Granada",
-    "price": 1.33
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_8c4480fa24",
@@ -436,12 +431,7 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Portugal v Norway",
-    "pick": "Portugal or Norway",
-    "price": 1.23
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_aa9e5f6067",

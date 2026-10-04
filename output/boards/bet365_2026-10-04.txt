@@ -2,6 +2,7 @@
 ==================================
 
 📅  Sun 04 Oct 2026 — bet365 board (sent to you only)
+Run ID: OLPXDV-20261004-0752-768fbf (same run as the SportyBet board)
 
 Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
 • No booking codes on bet365 — find each match by country → league → match.
@@ -14,56 +15,55 @@ bet365 SINGLES
 ──────────────────────────────────
 
 🇪🇸 Spain · La Liga 2 / Hypermotion
+ • Girona v Mallorca — Goals Over/Under: Under 3.5
+   77% · deploy at 1.30+ · SportyBet @1.34 · LOW
  • Sp Gijon v Celta B — Double Chance: Sp Gijon or Celta B
-   85% · deploy at 1.20+ · SportyBet @1.23 · HIGH
- • Girona v Mallorca — Double Chance: Girona or Mallorca
-   82% · deploy at 1.22+ · SportyBet @1.31 · LOW
+   76% · deploy at 1.32+ · SportyBet @1.25 · HIGH
+ • Las Palmas v Valladolid — Goals Over/Under: Under 3.5
+   76% · deploy at 1.32+ · SportyBet @1.29 · HIGH
+ • Castellon v Ceuta — Double Chance & Goals: Castellon or Ceuta & Over 1.5
+   75% · deploy at 1.34+ · SportyBet @1.20 · HIGH
  • Sociedad B v Granada — Double Chance: Sociedad B or Granada
-   82% · deploy at 1.23+ · SportyBet @1.33 · HIGH
- • Las Palmas v Valladolid — Double Chance: Las Palmas or Valladolid
-   82% · deploy at 1.23+ · SportyBet @1.33 · HIGH
- • Castellon v Ceuta — Full Time Result: Castellon
-   77% · deploy at 1.31+ · SportyBet @1.22 · LOW
-   ⚠ RISK: Castellón missing 42% of value (Matías Orozco, Amir Saipi, Rodrigo Rêgo); support: AD Ceuta FC missing 34%
+   74% · deploy at 1.36+ · SportyBet @1.33 · HIGH
 
 🏆 UEFA Nations League
+ • Greece v Germany — Goals Over/Under: Under 4.5
+   81% · deploy at 1.24+ · SportyBet @1.25 · MEDIUM
+ • Wales v Denmark — Team Goals: Denmark Over 0.5
+   80% · deploy at 1.25+ · SportyBet @1.20 · MEDIUM
  • Portugal v Norway — Double Chance: Portugal or Norway
-   88% · deploy at 1.20+ · SportyBet @1.23 · HIGH
- • Greece v Germany — Double Chance: Greece or Germany
-   85% · deploy at 1.20+ · SportyBet @1.27 · MEDIUM
- • Wales v Denmark — Double Chance: Wales or Denmark
-   83% · deploy at 1.21+ · SportyBet @1.29 · HIGH
- • Malta v Andorra — Double Chance: Malta or Andorra
-   83% · deploy at 1.22+ · SportyBet @1.29 · LOW
- • Kosovo v Austria — Double Chance: Kosovo or Austria
-   82% · deploy at 1.22+ · SportyBet @1.31 · HIGH
- • Republic of Ireland v Israel — Double Chance: Republic of Ireland or Israel
-   82% · deploy at 1.23+ · SportyBet @1.33 · HIGH
+   80% · deploy at 1.26+ · SportyBet @1.23 · HIGH
+ • Kosovo v Austria — Team Goals: Austria Over 0.5
+   78% · deploy at 1.29+ · SportyBet @1.23 · HIGH
+ • Republic of Ireland v Israel — Team Goals: Republic of Ireland Over 0.5
+   77% · deploy at 1.31+ · SportyBet @1.25 · HIGH
+ • Netherlands v Serbia — Asian Handicap: Serbia +3.5
+   76% · deploy at 1.33+ · SportyBet @1.29 · LOW
+ • Malta v Andorra — Handicap Result: Andorra +2
+   71% · deploy at 1.41+ · SportyBet @1.39 · MEDIUM
  • Azerbaijan v Lithuania — Double Chance: Azerbaijan or Lithuania
-   78% · deploy at 1.28+ · SportyBet @1.38 · HIGH
- • Netherlands v Serbia — Handicap Result: Serbia +4
-   76% · deploy at 1.33+ · SportyBet @1.28 · LOW
+   71% · deploy at 1.42+ · SportyBet @1.38 · HIGH
 
 ──────────────────────────────────
 bet365 ACCAS
 (build by hand on bet365, strongest legs first)
 ──────────────────────────────────
-bet365 Acca A · 5 legs · chance 43% · deploy at 2.55+ combined
-   • Portugal v Norway (🏆 UEFA Nations League) — Double Chance: Portugal or Norway (88%)
-   • Sp Gijon v Celta B (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Sp Gijon or Celta B (85%)
-   • Greece v Germany (🏆 UEFA Nations League) — Double Chance: Greece or Germany (85%)
-   • Wales v Denmark (🏆 UEFA Nations League) — Double Chance: Wales or Denmark (83%)
-   • Malta v Andorra (🏆 UEFA Nations League) — Double Chance: Malta or Andorra (83%)
-bet365 Acca B · 4 legs · chance 45% · deploy at 2.25+ combined
-   • Kosovo v Austria (🏆 UEFA Nations League) — Double Chance: Kosovo or Austria (82%)
-   • Girona v Mallorca (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Girona or Mallorca (82%)
-   • Republic of Ireland v Israel (🏆 UEFA Nations League) — Double Chance: Republic of Ireland or Israel (82%)
-   • Sociedad B v Granada (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Sociedad B or Granada (82%)
-bet365 Acca C · 4 legs · chance 37% · deploy at 2.74+ combined
-   • Las Palmas v Valladolid (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Las Palmas or Valladolid (82%)
-   • Azerbaijan v Lithuania (🏆 UEFA Nations League) — Double Chance: Azerbaijan or Lithuania (78%)
-   • Castellon v Ceuta (🇪🇸 Spain · La Liga 2 / Hypermotion) — Full Time Result: Castellon (77%)
-   • Netherlands v Serbia (🏆 UEFA Nations League) — Handicap Result: Serbia +4 (76%)
+bet365 Acca A · 5 legs · chance 31% · deploy at 3.28+ combined
+   • Greece v Germany (🏆 UEFA Nations League) — Goals Over/Under: Under 4.5 (81%)
+   • Wales v Denmark (🏆 UEFA Nations League) — Team Goals: Denmark Over 0.5 (80%)
+   • Portugal v Norway (🏆 UEFA Nations League) — Double Chance: Portugal or Norway (80%)
+   • Kosovo v Austria (🏆 UEFA Nations League) — Team Goals: Austria Over 0.5 (78%)
+   • Girona v Mallorca (🇪🇸 Spain · La Liga 2 / Hypermotion) — Goals Over/Under: Under 3.5 (77%)
+bet365 Acca B · 4 legs · chance 34% · deploy at 3.04+ combined
+   • Republic of Ireland v Israel (🏆 UEFA Nations League) — Team Goals: Republic of Ireland Over 0.5 (77%)
+   • Sp Gijon v Celta B (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Sp Gijon or Celta B (76%)
+   • Las Palmas v Valladolid (🇪🇸 Spain · La Liga 2 / Hypermotion) — Goals Over/Under: Under 3.5 (76%)
+   • Netherlands v Serbia (🏆 UEFA Nations League) — Asian Handicap: Serbia +3.5 (76%)
+bet365 Acca C · 4 legs · chance 28% · deploy at 3.65+ combined
+   • Castellon v Ceuta (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance & Goals: Castellon or Ceuta & Over 1.5 (75%)
+   • Sociedad B v Granada (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Sociedad B or Granada (74%)
+   • Malta v Andorra (🏆 UEFA Nations League) — Handicap Result: Andorra +2 (71%)
+   • Azerbaijan v Lithuania (🏆 UEFA Nations League) — Double Chance: Azerbaijan or Lithuania (71%)
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.

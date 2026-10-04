@@ -37,6 +37,7 @@ became one).
 | 4 | A SPLIT pick with no market price crashed the whole daily run | **CLOSED 2026-10-03** — #48 |
 | 5 | A dropped GitHub cron was silent (only failures alerted) | **CLOSED 2026-10-03** — missed-run watchdog (#50); it starts the missed run itself, and handles its own cron firing after midnight (#54) |
 | 6 | Laptop scheduled data tasks still run against laptop-only files (three `.bat` files missing; tasks failing) | OPEN — retiring them on the laptop (Architect decision 2026-10-03) |
+| 7 | Picks showed no country or league, so a pick was hard to find on the betting site (the Architect's request had been lost — in no doc or commit) | **CLOSED 2026-10-04** — standing order 28; labels from `engine/competitions.py` (new file) |
 
 ---
 

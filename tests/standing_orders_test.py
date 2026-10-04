@@ -198,4 +198,13 @@ assert "Sociedad B v Granada (" in _t3 and "Spain · La Liga 2" in _t3 \
     and "Greece v Germany (\U0001F3C6 UEFA Nations League)" in _t3, \
     "Order 28: every acca leg and THE PICK name the competition"
 
+# 29. bet365 board, to the Architect only
+from output import bet365_board as _b365
+assert _b365.bet365_name(fm.key(34, "", "No"), "A", "B") is None, \
+    "Order 29: bet365 offers no 'win to nil — no'"
+assert _b365.deploy_at(0.95) == slate.DEPLOY_ODDS_MIN, "Order 29: deploy-at never below 1.20"
+assert "bet365_board.render(" in _rd_src and "TELEGRAM_OWNER_CHAT_ID" in _rd_src, \
+    "Order 29: built in the same run, sent on its own to the Architect"
+assert "TELEGRAM_OWNER_CHAT_ID" in wf, "Order 29: the owner chat reaches the daily run"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

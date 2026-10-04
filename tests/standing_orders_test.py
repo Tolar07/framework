@@ -232,4 +232,13 @@ _parts = _nt._chunk(f"{pb.FENCE}\n{_rows(1)}\n\n{_rows(2)}\n{pb.FENCE}")
 assert len(_parts) == 2 and "Comp2" not in _parts[0] and "Comp1" not in _parts[1], \
     "Order 30: a long board splits between competitions, never mid-competition"
 
+# 10/11/24 (2026-10-04): the alternative market and the news-swap pool come from
+# EVERY winnable in-band outcome, not just those within 3 pts of the top; a
+# swapped pick is BANKER only if it is a straight win.
+assert "alts = sorted((c for c in full_pool" in _rd_src \
+    and "bf.cand_pool = [c for c in full_pool" in _rd_src, \
+    "Order 10: the alternative market comes from the full in-band pool"
+assert 'b.tier = "SAFE" if agree else "BOOK"' in _rd_src, \
+    "Order 11: a news swap off a straight win drops the BANKER label"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

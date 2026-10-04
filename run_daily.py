@@ -506,6 +506,13 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             return max((c for c in pool if c[0] >= top - EV_PREF_PP),
                        key=lambda c: (c[1], c[0]))
 
+        # Every winnable in-band outcome, kept for the alternative market (order
+        # 10), the team-news swap (order 24) and the bet365 board (order 29).
+        # The Under preference below narrows the pool to within 3 pts of the
+        # top for CHOOSING the pick only: on 2026-10-04 a learned +7.8 pt
+        # Double Chance boost left nothing else within 3 pts, so 11 of 13
+        # fixtures showed no alternative market.
+        full_pool = list(cands)
         cands = _prefer_non_under(cands) if len(cands) > 1 else cands
         agreeing = _prefer_non_under([c for c in cands if _agree(c)])
         if bankers:
@@ -532,11 +539,11 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         # ALTERNATIVE MARKET: the next-best in-band market from a DIFFERENT
         # family than the pick (a real alternative, not 1.5 vs 2.5 of one line).
         fam = lambda k: k.split("|")[0] if k.startswith("SB:") else k.split("_")[0]
-        alts = sorted((c for c in cands if fam(c[2]) != fam(best[2])), reverse=True)
+        alts = sorted((c for c in full_pool if fam(c[2]) != fam(best[2])), reverse=True)
         if alts:
             bf.alt_market = mkt.display(alts[0][2], p.home_team, p.away_team)
             bf.alt_price = alts[0][5].price
-        bf.cand_pool = [c for c in cands if c[0] >= DEPLOY_MIN_MODEL_PROB]
+        bf.cand_pool = [c for c in full_pool if c[0] >= DEPLOY_MIN_MODEL_PROB]
         cons, ev, market, model_p, market_p, quote = best
         bf.best_market = mkt.display(market, p.home_team, p.away_team)
         bf.best_market_key = market
@@ -672,6 +679,20 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                         b.best_model_prob = c[0]
                         b.best_mes_ev = c[1] if c[1] != -1.0 else None
                         b.pick_model_prob, b.pick_market_prob = c[3], c[4]
+                        # The tier and certainty follow the NEW pick: BANKER is a
+                        # straight win only (order 11), and a pick with one
+                        # source or a disagreement is LOW (order 15).
+                        agree = c[4] is not None and abs(c[3] - c[4]) <= AGREE_PP
+                        if b.tier == "BANKER" and c[2] not in (
+                                mkt.HOME, mkt.AWAY, "SB:1||Home", "SB:1||Away"):
+                            b.tier = "SAFE" if agree else "BOOK"
+                        if (b.tier in ("BOOK", "SPLIT", "MARKET") or c[4] is None
+                                or b.prob_source == "market"):
+                            b.certainty = "LOW"
+                        else:
+                            gap = abs(c[3] - c[4])
+                            b.certainty = ("HIGH" if gap <= CERTAINTY_HIGH_PP
+                                           else "MEDIUM" if gap <= AGREE_PP else "LOW")
                         swapped += 1
                         res = {"level": "OK", "note": f"swapped from {old_pick} ({res['note']})"}
                         break

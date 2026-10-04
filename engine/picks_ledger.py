@@ -97,8 +97,26 @@ def _slip(name, legs, combo, code) -> dict:
             "legs": [bf.fixture.split(" (")[0] for bf, _p, _q in legs], "result": None}
 
 
+def _alt_slip(name, legs, combo, code) -> dict:
+    """An alternative-market acca (order 31): its legs carry their OWN market,
+    so they are graded here, not from the main singles."""
+    odds = 1.0
+    for leg in legs:
+        odds *= leg[4] or 1.0
+    return {"name": name, "code": code, "odds": round(odds, 3), "chance": combo,
+            "legs": [bf.fixture.split(" (")[0] for bf, *_ in legs],
+            "alt_legs": [{"fixture": bf.fixture.split(" (")[0],
+                          "league": bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                          "home": bf.probs.home_team, "away": bf.probs.away_team,
+                          "kickoff": bf.kickoff_date, "market": key, "pick": pick,
+                          "price": price, "chance": prob, "result": None, "ft": None}
+                         for bf, pick, prob, key, price in legs],
+            "result": None}
+
+
 def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list,
-                 acca_codes: dict, safe3_codes: dict, mega_codes: Optional[dict]) -> Path:
+                 acca_codes: dict, safe3_codes: dict, mega_codes: Optional[dict],
+                 alts: Optional[list] = None, alt_codes: Optional[dict] = None) -> Path:
     singles = [_single(bf) for bf in board
                if bf.on_deploy_shortlist and bf.probs is not None and bf.best_market_key]
     doc = {
@@ -108,6 +126,7 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
         "accas": [_slip(n, l, c, acca_codes.get(n)) for n, l, c in accas],
         "safe3": [_slip(n, l, c, safe3_codes.get(n)) for n, l, c in safe3],
         "megas": [_slip(n, l, c, (mega_codes or {}).get(n)) for n, l, c in megas],
+        "alts": [_alt_slip(n, l, c, (alt_codes or {}).get(n)) for n, l, c in (alts or [])],
         "rated": [_rated(bf) for bf in board if bf.probs is not None],
     }
     LEDGER_DIR.mkdir(parents=True, exist_ok=True)
@@ -154,9 +173,24 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
             graded += s["result"] is not None
             pending += s["result"] is None
             by_fixture[s["fixture"]] = s
-        for kind in ("accas", "safe3", "megas"):
+        for slip in doc.get("alts", []):          # alt-market legs: own markets
+            for leg in slip.get("alt_legs", []):
+                if leg["result"] is None:
+                    ev = find_result(events, leg["home"], leg["away"],
+                                     leg["kickoff"] or doc["date"])
+                    if ev and ev["finished_regular"]:
+                        leg["ft"] = f'{ev["fthg"]}-{ev["ftag"]}'
+                        leg["result"] = _settle(leg["market"], ev["fthg"], ev["ftag"])
+                        changed += 1
+                    elif ev and ev["finished_other"]:
+                        leg["result"] = "no-90min-result"
+                        changed += 1
+        for kind in ("accas", "safe3", "megas", "alts"):
             for slip in doc.get(kind, []):
-                legs = [by_fixture.get(f) for f in slip["legs"]]
+                if kind == "alts":
+                    legs = slip.get("alt_legs", [])
+                else:
+                    legs = [by_fixture.get(f) for f in slip["legs"]]
                 res = [l["result"] if l else None for l in legs]
                 if "lost" in res:
                     new = "lost"
@@ -318,7 +352,8 @@ def scorecard(days: int = 7, today: Optional[str] = None) -> str:
                                         for t, v in sorted(by_tier.items())))
     L.append("By certainty — " + " · ".join(line(c, v).replace(f"{c}: ", f"{c} ")
                                             for c, v in sorted(by_cert.items())))
-    for kind, label in (("safe3", "50%+ accas"), ("accas", "Accas"), ("megas", "Megas")):
+    for kind, label in (("safe3", "50%+ accas"), ("accas", "Accas"), ("alts", "Alt-market accas"),
+                        ("megas", "Megas")):
         slips = [x for d in docs for x in d.get(kind, []) if x["result"] in ("won", "lost")]
         if slips:
             won = sum(x["result"] == "won" for x in slips)

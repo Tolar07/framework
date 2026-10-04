@@ -72,7 +72,11 @@
     "home": 3450700,
     "away": 6968054
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Sabadell at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72477468",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -200,7 +204,11 @@
     "home": 13055969,
     "away": 20886563
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72477462",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -391,8 +399,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 1.63,
    "stake_pct": 0.25,
    "ev": 0.01322249751803839,
    "first_price": 1.25,
@@ -438,8 +446,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 3.28,
    "stake_pct": 0.25,
    "ev": -0.040126897099287184,
    "first_price": 1.25,
@@ -485,8 +493,8 @@
     "spec": "",
     "outcome": "2-5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.13493307495165152,
    "first_price": 1.21,
@@ -532,8 +540,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0163777724281835,
    "first_price": 1.23,
@@ -579,8 +587,8 @@
     "spec": "total=2.5",
     "outcome": "Under 2.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 3.31,
    "stake_pct": 0.25,
    "ev": -0.01808970497543716,
    "first_price": 1.25,

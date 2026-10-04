@@ -29,6 +29,9 @@ Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
 | `news.yml` | every 20 min, 09:00-20:40 | `news_check.py` — confirmed lineups, price drift, closing price per pick |
 | `commands.yml` | hourly | `output/telegram_commands.py` — answers /status /board /verify /why /log /note /debrief |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` |
+| `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — the supervisor agent's check: board, bet365 board, Run ID, picks spread over market types, codes booked, latest tests/watchdog/news runs; one Telegram status |
+| `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` — agent 10's results review: last 7 days by market family and league, slips landed, learning in force, proposals (nothing auto-changed) |
+| `claude-review.yml` | every PR | Claude code review (code-reviewer + compliance agents' brief); does nothing until the `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN` secret is set |
 | `backtest.yml`, `sync-health.yml` | manual | CLV backtest + metrics history; vault sync check |
 
 What each piece is protecting — read before changing it:

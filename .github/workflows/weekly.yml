@@ -1,0 +1,32 @@
+name: OLP XDV weekly review
+
+# The olp-xdv-10-ceo agent's weekly results review (Architect 2026-10-04: put
+# the agents to work). Every Monday ~08:51 Lagos, scripts/weekly_review.py
+# reads the graded picks ledger for the last 7 days and sends one Telegram
+# report: results by market family and league (worst first), every slip kind
+# landed, the learning corrections in force, and proposals for the Architect.
+# Read-only: nothing is changed automatically.
+on:
+  schedule:
+    - cron: "51 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install requests python-dotenv
+      - name: Weekly results review
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/weekly_review.py

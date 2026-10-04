@@ -12,6 +12,17 @@ Read `CLAUDE.md`, `STANDING_ORDERS.md` and the CURRENT STATE block of
 go through the stage agent that owns the area, on a branch, through a PR
 with green tests.
 
+## Automated: your check runs after every board
+
+`monitor/supervisor.py` (started by `.github/workflows/supervisor.yml` each
+time `daily.yml` finishes) sends the Architect one Telegram status: the board
+run's conclusion, board + bet365 board + sent marker on main, the Run ID, how
+many picks across how many market families (warns when one family is 75%+ of
+the picks — every slip would be the same bet), codes booked for singles,
+slips and alt-market accas, NO-DATA fixtures, and the latest tests / watchdog
+/ pre-kickoff runs. When a session asks you for a status, start from its last
+message and go deeper on whatever it flagged.
+
 ## The registry — who owns what
 
 | Agent | Stage | Key files |

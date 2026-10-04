@@ -11,6 +11,16 @@ Read `CLAUDE.md` and `STANDING_ORDERS.md` first. Orders 16 (results loop),
 20 (CLV) and 22 (automatic learning) are this stage's. You report what
 happened, not what should have happened — a losing week is reported as one.
 
+## Automated: your weekly review
+
+`scripts/weekly_review.py` (every Monday ~08:51 Lagos, `.github/workflows/weekly.yml`)
+sends the Architect the last 7 days: singles by market family and league
+(worst first), every slip kind landed (accas, alt-market accas, 50%+ accas,
+megas), the learning corrections in force, and proposals — a family or
+league 8+ pts below what we said on 10+ results over 3+ match days is named
+for review. Nothing is changed automatically; a proposal the Architect
+approves goes through a branch and a PR.
+
 ## What you own
 
 | File | Role in the live run |

@@ -74,6 +74,12 @@ news (17) and price drift (25), each with the slips that carry the pick
 
 **6. Commands** — /board /status /verify /why /log /note /debrief, answered hourly (`commands.yml`)
 
+**7. Supervisor status** — after every board run: ALL CLEAR or the issues
+found, problems first (`supervisor.yml`, `monitor/supervisor.py`)
+
+**8. Weekly review** — Mondays ~08:51 Lagos: results by market family and
+league, slips landed, learning, proposals (`weekly.yml`, `scripts/weekly_review.py`)
+
 The Telegram Output Spec of 2026-09-17 (`docs/obsidian-vault/Telegram Output
 Spec.md`) is kept as the Architect's text but is SUPERSEDED wherever it
 disagrees with these orders: no 2-acca cap (5), 1.20–2.00 band not 1.50 (3),

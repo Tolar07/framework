@@ -1,0 +1,38 @@
+name: OLP XDV supervisor
+
+# The olp-xdv-supervisor agent's check, run after EVERY board run (Architect
+# 2026-10-04: put the agents to work). When daily.yml finishes — success or
+# failure — monitor/supervisor.py reads what the run left on main (board,
+# bet365 board, sent marker, Run ID, picks ledger, codes) plus the latest
+# tests / watchdog / pre-kickoff runs, and sends ONE Telegram status line.
+# Read-only: it never changes the board or the repo.
+on:
+  workflow_run:
+    workflows: ["OLP XDV daily board"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  supervise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main          # the board run commits its board to main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install requests python-dotenv
+      - name: Check the board run and report
+        env:
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          RUN_CONCLUSION:     ${{ github.event.workflow_run.conclusion || 'manual' }}
+        run: python monitor/supervisor.py --run-conclusion "$RUN_CONCLUSION"

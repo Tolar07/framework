@@ -806,18 +806,24 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             mega_codes: Optional[dict] = None,
                             board_date: Optional[str] = None,
                             safe3_codes: Optional[dict] = None,
-                            extra_codes: Optional[dict] = None) -> str:
+                            extra_codes: Optional[dict] = None,
+                            run_id: Optional[str] = None) -> str:
     """The ##########OLP XDV######### board the Architect reads on Telegram.
 
     Booking codes (real SportyBet share codes) are attached upstream by run_daily:
     per-fixture on BoardFixture.booking_code, plus the whole-board `board_code`
     and the Acca A `acca_code`. Anything unresolved renders PENDING (HR35).
     `board_date` (YYYY-MM-DD) is the day the board is FOR — the evening run passes
-    tomorrow; defaults to today."""
+    tomorrow; defaults to today. `run_id` traces the board to the run that built
+    it (HR59); a board without one renders "Run ID: PENDING" and the send gate
+    (output.notify.board_gate) keeps it off Telegram."""
     day = (date.fromisoformat(board_date) if board_date
            else date.today()).strftime("%a %d %b %Y")
+    verified = sum(1 for bf in board if bf.verification.tier == Tier.VERIFIED)
     out = [_CANON_HEAD, _CANON_BAR, "",
-           f"\U0001F4C5  {day}   (PICK · win %  ·  alt markets)", "", ""]
+           f"\U0001F4C5  {day}   (PICK · win %  ·  alt markets)",
+           f"Run ID: {run_id or 'PENDING'} | {phase}",
+           f"Fixtures scanned: {len(board)} · Verified: {verified}", ""]
 
     if data_flags:
         out.append(f"⚠ {len(data_flags)} data flag(s) — full detail in the "
@@ -827,16 +833,26 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     # --- TABLE 1 · full market grid + AI pick ---
     out += [_CANON_RULE, "TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK",
             _CANON_RULE, ""]
+    # Grouped by competition (blank line between, for the phone and so long
+    # boards split on competition boundaries), strongest pick first within each.
+    # NO-DATA fixtures leave the table for one collapsed line below it
+    # (Telegram Output Spec §3, standing order 30) — listed, never dropped.
+    rated = [bf for bf in board if bf.probs is not None]
+    no_data = [bf for bf in board if bf.probs is None]
     if not board:
         out.append("No fixtures scanned today.")
+    elif not rated:
+        out.append("No fixture could be rated today.")
     else:
-        rows = []
-        for bf in board:
+        order: dict[str, int] = {}
+        for bf in rated:
+            order.setdefault(comp.label(comp.league_of(bf.fixture)), len(order))
+        rated.sort(key=lambda bf: (order[comp.label(comp.league_of(bf.fixture))],
+                                   -(_deploy_pick(bf)[1] or 0.0)))
+        rows, groups = [], []
+        for bf in rated:
             where = comp.label(comp.league_of(bf.fixture))
-            if bf.probs is None:
-                rows.append([_canon_short(bf.fixture), where, "NO DATA — PENDING", "—",
-                             "—", "—", "—", stamp(bf.verification)])
-                continue
+            groups.append(where)
             p = bf.probs
             pick, prob = _deploy_pick(bf)
             pick_cell = (f"{_TIER_MARK.get(bf.tier, '')}{pick} · {round(prob*100)}%"
@@ -848,9 +864,15 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             src = stamp(bf.verification) + ("ᴹ" if bf.prob_source == "market" else "")
             rows.append([_canon_short(bf.fixture), where, pick_cell, odds, altm, alt,
                          _dc_cell(p), src])
+        table = _col(rows, ["Fixture", "Country · League", "AI PICK · win%", "Odds",
+                            "Alt market", "O1.5/O2.5", "DC/BTTS", "Src"]).split("\n")
+        lines = table[:1]
+        for i, row in enumerate(table[1:]):
+            if i and groups[i] != groups[i - 1]:
+                lines.append("")
+            lines.append(row)
         out.append(FENCE)
-        out.append(_col(rows, ["Fixture", "Country · League", "AI PICK · win%", "Odds",
-                               "Alt market", "O1.5/O2.5", "DC/BTTS", "Src"]))
+        out += lines
         out.append(FENCE)
         out.append("★ BANKER = straight win, model + market agree ≥70% "
                    "(backtest: 82% won, +4%) · ✓ SAFE = model + market agree · "
@@ -862,6 +884,10 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         out.append("Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · "
                    "ESPN · football-data) · ○ = one source only · ⚠ = sources disagree "
                    "(e.g. postponed) — not deployed")
+    if no_data:
+        out += ["", f"⚠ {len(no_data)} fixture(s) unresolved — NO DATA — PENDING (no "
+                    f"market data): " + " · ".join(comp.where(bf.fixture) for bf in no_data)
+                + (f"   (full detail: run log {run_id})" if run_id else "")]
     acca_codes = dict(acca_codes or {})
     if acca_code and "Acca A" not in acca_codes:
         acca_codes["Acca A"] = acca_code

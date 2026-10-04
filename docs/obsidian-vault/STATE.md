@@ -39,6 +39,7 @@ became one).
 | 6 | Laptop scheduled data tasks still run against laptop-only files (three `.bat` files missing; tasks failing) | OPEN — retiring them on the laptop (Architect decision 2026-10-03) |
 | 7 | Picks showed no country or league, so a pick was hard to find on the betting site (the Architect's request had been lost — in no doc or commit) | **CLOSED 2026-10-04** — standing order 28; labels from `engine/competitions.py` (new file) |
 | 8 | bet365 doesn't offer every SportyBet bet (no "win to nil — no"), so SportyBet picks can't always be placed there | **BUILT 2026-10-04** — standing order 29: a bet365 board from the same run, sent to the Architect only (`output/bet365_board.py`, new file). List widened to the full betting market (Double Chance & Goals included; only win to nil "no" left off) by the Architect the same day. OPEN: the bet365 market names (`BET365_MARKETS`) are a draft until the Architect checks them against the app; no free bet365 price feed, so picks show DEPLOY AT, not a bet365 price; bet365 picks are not yet in the picks ledger (not graded) |
+| 9 | Telegram output changes were spread over the 17 Sep spec, standing orders and commits, and the spec contradicted the live board | **CLOSED 2026-10-04** — one record: "Telegram output" section of `STANDING_ORDERS.md`; the 17 Sep spec marked superseded where it conflicts; its Run ID header + send gate, NO-DATA line and competition-boundary splitting built (order 30) |
 
 ---
 

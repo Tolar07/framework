@@ -28,6 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from data import fotmob
+from engine import competitions as comp
 from engine import team_news as tn
 from engine.picks_ledger import LEDGER_DIR
 
@@ -179,14 +180,16 @@ def run(now: datetime | None = None, send: bool = True) -> str:
              f"{len(flagged)} pick(s) weakened by team news · {len(drifted)} drifting in price · "
              f"{ok} lineup(s) confirmed OK", ""]
     for s in drifted:
-        lines.append(f"DRIFT: {s['fixture']} — {s['pick']} @{s['price']} → now "
+        lines.append(f"DRIFT: {comp.where(s['fixture'], s.get('league'))} — {s['pick']} "
+                     f"@{s['price']} → now "
                      f"{s['drift_price']} (+{s['drift_pct']:.1f}%) (code {s.get('code') or '—'})")
         lines.append("   the market has moved against this pick — in the backtest such picks "
                      "won ~5 pts less than their price implied")
         if slips.get(s["fixture"]):
             lines.append(f"   in: {', '.join(dict.fromkeys(slips[s['fixture']]))}")
     for s in flagged:
-        lines.append(f"{s['lineup_check']['level']}: {s['fixture']} — {s['pick']} "
+        lines.append(f"{s['lineup_check']['level']}: "
+                     f"{comp.where(s['fixture'], s.get('league'))} — {s['pick']} "
                      f"@{s.get('price') or '?'} (code {s.get('code') or '—'})")
         lines.append(f"   {s['lineup_check']['note']}")
         if slips.get(s["fixture"]):

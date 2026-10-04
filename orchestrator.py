@@ -334,6 +334,38 @@ def scan_one_league(league: str, season: str,
     except Exception as e:  # noqa: BLE001 — xG is an enhancement, never a blocker
         flags.append(f"{league}: xG ratings unavailable ({str(e)[:60]}) — goals model only")
 
+    # NATIONAL TEAMS (Architect 2026-10-04, backtest/NATIONAL_STUDY.md): the
+    # scoreline grid = average of the UEFA Dixon-Coles fit and a national Elo
+    # rated on every international since 1990 (competition-weighted, goal
+    # margin, home advantage). On 450 unseen competitive UEFA internationals the
+    # blend had the best 1X2 Brier and near-best goals accuracy. A fixture the
+    # Dixon-Coles fit can't rate is rated by the national Elo alone.
+    if league in intl.INTERNATIONAL_LEAGUES:
+        try:
+            from engine import national_elo, xg_model
+            nat = national_elo.build()
+            blended = elo_only = 0
+            for b in board:
+                home, away = b.fixture.rsplit(" (", 1)[0].split(" v ", 1)
+                n_home, n_away = rename.get(home, home), rename.get(away, away)
+                ne_p = national_elo.predict(nat, n_home, n_away)
+                if ne_p is None:
+                    continue
+                ne_p.home_team, ne_p.away_team = home, away
+                if b.probs is not None and b.probs.matrix is not None:
+                    b.probs = xg_model.blend(b.probs, ne_p.matrix)
+                    blended += 1
+                elif b.probs is None:
+                    b.probs = ne_p
+                    b.rejection_reason = None
+                    b.on_deploy_shortlist = (is_deploy_eligible(league)
+                                             and b.verification.tier not in (Tier.CONFLICT, Tier.NO_DATA))
+                    elo_only += 1
+            flags.append(f"{league}: national Elo blended into {blended} fixture(s)"
+                         + (f", rated {elo_only} the goals model could not" if elo_only else ""))
+        except Exception as e:  # noqa: BLE001 — an enhancement, never a blocker
+            flags.append(f"{league}: national Elo unavailable ({str(e)[:60]})")
+
     # NOTHING DROPPED (Architect 2026-10-02): a fixture the model can't rate is
     # priced MARKET-IMPLIED from SportyBet instead of sitting as NO DATA.
     unrated = [i for i, b in enumerate(board) if b.probs is None]

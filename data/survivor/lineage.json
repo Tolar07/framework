@@ -265,6 +265,20 @@
    "retired": "2026-10-03"
   },
   {
+   "lineage_id": "ln_dc28e4182e",
+   "parent_id": "ln_8db6e0c97b",
+   "generation": 6,
+   "bankroll": 2.77,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 1,
+   "alive": false,
+   "born_date": "2026-10-03",
+   "last_result": "LOSS",
+   "to_breed": false,
+   "holding": null
+  },
+  {
    "lineage_id": "ln_e9e0774235",
    "parent_id": "ln_8db6e0c97b",
    "generation": 6,
@@ -276,25 +290,11 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": null
-  },
-  {
-   "lineage_id": "ln_dc28e4182e",
-   "parent_id": "ln_8db6e0c97b",
-   "generation": 6,
-   "bankroll": 3.77,
-   "stake": 1.0,
-   "wins": 0,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-03",
-   "last_result": null,
-   "to_breed": false,
    "holding": {
-    "date": "2026-10-04",
-    "fixture": "Republic of Ireland v Israel",
-    "pick": "Republic of Ireland or Israel",
-    "price": 1.33
+    "date": "2026-10-05",
+    "fixture": "Montenegro v Armenia",
+    "pick": "Armenia (0:3) handicap",
+    "price": 1.2
    }
   },
   {
@@ -452,23 +452,47 @@
    "holding": null
   },
   {
-   "lineage_id": "ln_a6d48c81cf",
-   "parent_id": "ln_bb003255bf",
-   "generation": 6,
-   "bankroll": 3.53,
+   "lineage_id": "ln_d80398a8ed",
+   "parent_id": "ln_a6d48c81cf",
+   "generation": 7,
+   "bankroll": 1.87,
    "stake": 1.0,
    "wins": 0,
    "losses": 0,
    "alive": true,
-   "born_date": "2026-10-03",
+   "born_date": "2026-10-04",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Greece v Germany",
-    "pick": "Under 4.5 goals",
-    "price": 1.21
-   }
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_9b9fdbc187",
+   "parent_id": "ln_a6d48c81cf",
+   "generation": 7,
+   "bankroll": 1.87,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-04",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_a6d48c81cf",
+   "parent_id": "ln_bb003255bf",
+   "generation": 6,
+   "bankroll": 3.74,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-03",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-04"
   }
  ],
  "last_bred_date": "2026-10-04",

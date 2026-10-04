@@ -1014,6 +1014,21 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         for n in notes:
             print(f"  {n}")
             _mark(runlog, n)
+        # SUBSCRIBERS (Architect 2026-10-04): the board — and only the board —
+        # also goes to every chat in TELEGRAM_SUBSCRIBER_CHAT_IDS (comma-
+        # separated, a GitHub secret so nobody's chat id sits in the public
+        # repo). One subscriber failing is logged; it never fails the run.
+        subs = [c.strip() for c in os.environ.get("TELEGRAM_SUBSCRIBER_CHAT_IDS", "").split(",")
+                if c.strip() and c.strip() != os.environ.get("TELEGRAM_CHAT_ID", "").strip()]
+        sub_ok = 0
+        for cid in subs:
+            ok_s, _n = notify.send_telegram(telegram_text, chat_id=cid)
+            sub_ok += ok_s
+            if not ok_s:
+                _mark(runlog, f"subscriber chat …{cid[-4:]}: board NOT delivered ({_n[-1]})")
+        if subs:
+            print(f"  board delivered to {sub_ok}/{len(subs)} subscriber chat(s)")
+            _mark(runlog, f"board delivered to {sub_ok}/{len(subs)} subscriber chat(s)")
         if not delivered:
             # A run that failed to reach the phone is NOT a completed run.
             # Reporting OK here is what let three failed message parts pass as
@@ -1033,7 +1048,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 
     # bet365 BOARD (standing order 29): the same picks limited to bets bet365
     # offers, saved beside the board and sent as its OWN message, only to the
-    # Architect's own chat (TELEGRAM_OWNER_CHAT_ID; not set = saved, not sent).
+    # Architect's own chat — never to a subscriber.
     # Best-effort like the heartbeat: it never fails the run.
     try:
         from output import bet365_board
@@ -1042,15 +1057,15 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         b365_path.parent.mkdir(parents=True, exist_ok=True)
         b365_path.write_text(b365_text, encoding="utf-8")
         b365_gate = notify.board_gate(b365_text)
-        # The Architect's own chat ONLY — never the shared board chat (order
-        # 29). Until TELEGRAM_OWNER_CHAT_ID is set the board is saved, not sent.
-        owner_chat = os.environ.get("TELEGRAM_OWNER_CHAT_ID", "").strip()
+        # The Architect's own chat ONLY (order 29): TELEGRAM_OWNER_CHAT_ID if
+        # set, else TELEGRAM_CHAT_ID — the Architect's chat — and never a
+        # subscriber chat (TELEGRAM_SUBSCRIBER_CHAT_IDS).
+        owner_chat = (os.environ.get("TELEGRAM_OWNER_CHAT_ID", "").strip()
+                      or os.environ.get("TELEGRAM_CHAT_ID", "").strip())
         if b365_gate:
             _mark(runlog, f"bet365 board: {b365_gate}")
         elif not owner_chat:
-            _mark(runlog, "bet365 board saved, NOT sent: TELEGRAM_OWNER_CHAT_ID is not set "
-                          "(it never goes to the shared board chat)")
-            print("  bet365 board saved, not sent (TELEGRAM_OWNER_CHAT_ID not set)")
+            _mark(runlog, "bet365 board saved, NOT sent: no Architect chat configured")
         elif deliver_now and bet365_board.picks(board)[0]:
             b_ok, b_notes = notify.send_telegram(b365_text, chat_id=owner_chat)
             for n in b_notes:

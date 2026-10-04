@@ -208,9 +208,17 @@ assert _b365.deploy_at(0.95) == slate.DEPLOY_ODDS_MIN, "Order 29: deploy-at neve
 assert "bet365_board.render(" in _rd_src and "TELEGRAM_OWNER_CHAT_ID" in _rd_src, \
     "Order 29: built in the same run, sent on its own to the Architect"
 assert "TELEGRAM_OWNER_CHAT_ID" in wf, "Order 29: the owner chat reaches the daily run"
-assert 'chat_id=owner_chat' in _rd_src and "elif not owner_chat:" in _rd_src \
-    and 'os.environ.get("TELEGRAM_OWNER_CHAT_ID") or None' not in _rd_src, \
-    "Order 29: the bet365 board goes to the Architect's own chat only, never the shared chat"
+_b365_block = _rd_src.split("# bet365 BOARD (standing order 29)")[1].split("# HEARTBEAT")[0]
+assert "chat_id=owner_chat" in _b365_block and 'environ.get("TELEGRAM_SUBSCRIBER' not in _b365_block, \
+    "Order 29: the bet365 board goes to the Architect's own chat only, never a subscriber"
+
+# 33. Subscribers get the board — only the board
+assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" in wf, "Order 33: the subscriber secret reaches the daily run"
+_sub_block = _rd_src.split("# SUBSCRIBERS (Architect 2026-10-04)")[1].split("if not delivered:")[0]
+assert "notify.send_telegram(telegram_text, chat_id=cid)" in _sub_block, \
+    "Order 33: each subscriber chat gets the board"
+assert _rd_src.count('os.environ.get("TELEGRAM_SUBSCRIBER_CHAT_IDS"') == 1, \
+    "Order 33: subscribers are read only for the board send"
 
 # 30. 17 Sep spec items kept: Run ID + send gate, NO-DATA line, competition chunks
 from output import notify as _nt

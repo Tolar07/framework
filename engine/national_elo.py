@@ -70,6 +70,9 @@ class Match:
 
 def load(path: Path = CSV, since: str = SINCE) -> list[Match]:
     out = []
+    if not path.exists() and path == CSV:
+        from data.international_source import _fetch_csv
+        _fetch_csv(path.parent)                       # same <=12h cache the model uses
     with open(path, encoding="utf-8", errors="replace") as fh:
         for r in csv.DictReader(fh):
             if r["date"] < since:

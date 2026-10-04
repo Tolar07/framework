@@ -224,13 +224,14 @@ _RULE = "─" * 34
 _BAR = "=" * 34
 
 
-def render(board: list, board_date: str | None = None) -> str:
+def render(board: list, board_date: str | None = None, run_id: str | None = None) -> str:
     """The bet365 board text (Telegram-ready, phone width)."""
     day = (date.fromisoformat(board_date) if board_date
            else date.today()).strftime("%a %d %b %Y")
     got, missing = picks(board)
     out = ["##########OLP XDV · BET365#########", _BAR, "",
-           f"\U0001F4C5  {day} — bet365 board (sent to you only)", "",
+           f"\U0001F4C5  {day} — bet365 board (sent to you only)",
+           f"Run ID: {run_id or 'PENDING'} (same run as the SportyBet board)", "",
            "Same fixtures, model and checks as the SportyBet board; each pick is "
            "limited to bets bet365 offers.",
            "• No booking codes on bet365 — find each match by country → league → match.",

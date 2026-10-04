@@ -38,5 +38,45 @@ and not "ratified on backtest evidence".
 | 27 | **Free multi-source verification (2026-10-03).** No paid API, ever. Every board fixture is looked up in ESPN's free scoreboard and football-data.co.uk's fixture files; two independent sources agreeing stamps it ✓ VERIFIED (ID403). A match another source lists postponed/cancelled is ⚠ CONFLICT and is not deployed (it stays on the board with the reason). Every SportyBet price on the board's day is checked against bet365 (football-data) and DraftKings (ESPN) with margins removed; a difference of more than 5 pts is shown on the board, never hidden, and does not change the pick. | `verification/fixture_check.py`, `pipeline/odds_verify.py`, `data/espn_fixtures.py` |
 | 28 | **Country + league on every pick (2026-10-04).** Every pick the Architect reads names where it is played, so it can be found on the betting site: club matches as country · league (Spain · La Liga 2), national-team and continental matches by competition (UEFA Nations League). On the board's tables (own column), every acca and 50%+ acca leg, THE PICK, team news, the price check, AI Survivor and the pre-kickoff alerts. A league with no country on file shows its own name — never a guessed country. | `engine/competitions.py`, `output/produce_bet.py` |
 | 29 | **bet365 board, to the Architect only (2026-10-04).** SportyBet and bet365 offer different bets (bet365 has no "win to nil — no"), so the same run also builds a bet365 board: each deploy pick is kept when bet365 offers it, otherwise replaced by the likeliest winnable outcome bet365 does offer (50%+, SportyBet price in band, Under-goals last, never one the team news flags); a fixture with none is listed, never dropped. Grouped by country + league, singles and accas, no booking codes. No bet365 price is invented: each pick shows DEPLOY AT (break-even for its chance, never below 1.20) and SportyBet's price for reference. Sent as its own Telegram message to the Architect only (`TELEGRAM_OWNER_CHAT_ID`, else the board's chat) and saved as `output/boards/bet365_<date>.txt`. The bet365 list is the full betting market — every market the ladder scores, Double Chance & Goals included — except win to nil "no" (Architect 2026-10-04); the bet365 market names are a draft until the Architect confirms them. Live capital stays SportyBet-only (order 26). | `output/bet365_board.py`, `run_daily.py` |
+| 30 | **17 Sep spec items kept (Architect 2026-10-04).** The board header carries a Run ID (`OLPXDV-<UTC yyyymmdd-hhmm>-<6 hex>`, printed at the start of the run and written to the run log) and "Fixtures scanned · Verified"; a board without a valid Run ID is never sent — it is saved, the run fails and the failure alert fires (HR59). NO-DATA fixtures leave Table 1 for one collapsed line under it — listed, never dropped (HR35); no line when there are none. Table 1 is grouped by competition, strongest pick first, and a board too long for one message splits between competitions, never mid-row; a competition too long for one message continues with "(cont.)". | `output/produce_bet.py`, `output/notify.py`, `run_daily.py` |
+
+## Telegram output — everything that reaches your phone
+
+This is the one record of the Telegram output (Architect 2026-10-04). Each
+line points to the order that sets it; change the order, not this list.
+
+**1. The board** — pick days, ~10 PM Lagos for tomorrow and ~7 AM refresh (6)
+- Header: `##########OLP XDV#########`, date, Run ID, fixtures scanned · verified (5, 30)
+- TABLE 1 — every rated fixture, grouped by competition: Country · League (28),
+  AI pick + win % with ★ BANKER / ✓ SAFE / ᴮ BOOK / ⚠ SPLIT (11, 14), odds,
+  alternative market (10), O1.5/O2.5 and DC/BTTS, ✓ VERIFIED / ○ / ⚠ source (27),
+  ᴹ market-implied (10); NO-DATA fixtures on one line under it (30); mega code (5)
+- TABLE 2 — deploy singles in the 1.20–2.00 band, ≥50% (3, 4): chance, odds,
+  certainty (15), stake (21), own SportyBet code (5); price check (27); team news (17); mega code (5)
+- TABLE 3A — 3-leg 50%+ accas from HIGH/MEDIUM legs, own codes (15)
+- TABLE 3 — every pick in 4–5-leg accas, strongest first, own codes; mega slips ≤ 26 legs (5)
+- TABLE 4 — the primary single and Acca A
+- Footer — honest edge, odds band, calibration; ALL CODES as the final message (5)
+- Sent only with a valid Run ID; long boards split between competitions (30)
+
+**2. The bet365 board** — its own message, to you only, after the board (29)
+
+**3. The heartbeat** — every day, even with no picks (6): scorecard and
+calibration (16, 25), closing-line value (20), staking and stop-loss (21),
+learning corrections (22), AI Survivor (23)
+
+**4. Pre-kickoff alerts** — every 20 min, 09:00–20:40 UTC: confirmed-lineup
+news (17) and price drift (25), each with the slips that carry the pick
+
+**5. Run alerts** — a failed run (6), and a board slot that never ran (`watchdog.yml`)
+
+**6. Commands** — /board /status /verify /why /log /note /debrief, answered hourly (`commands.yml`)
+
+The Telegram Output Spec of 2026-09-17 (`docs/obsidian-vault/Telegram Output
+Spec.md`) is kept as the Architect's text but is SUPERSEDED wherever it
+disagrees with these orders: no 2-acca cap (5), 1.20–2.00 band not 1.50 (3),
+real booking codes not PENDING (5), the four-table board not the stacked
+`render_production_board` blocks (5). Its Run ID, NO-DATA line and
+competition-boundary splitting were kept as order 30.
 
 _Last updated 2026-10-04._

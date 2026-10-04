@@ -77,6 +77,8 @@ sandbox/sandbox_log.json
 
 # Web dashboard generated artifacts — regenerated every run / export
 output/boards/*.json
+# The 10pm code freeze (order 35) MUST be committed: later runs read it.
+!output/boards/frozen_*.json
 # Published store — runtime state written by the /admin Approve→Publish action.
 # Like the raw boards, it is regenerated per publish and must not be committed.
 output/boards/published/

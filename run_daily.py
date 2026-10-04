@@ -20,6 +20,7 @@ OPERATING PROTOCOL (master 13.1, anti-iteration)
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import secrets
 import sys
@@ -309,6 +310,10 @@ def _has_production(board: list, logged_count: int) -> bool:
     return deploy_eligible or logged_count > 0
 
 
+class _KeepFrozen(Exception):
+    """Codes are frozen for the day: the picks ledger is not rewritten."""
+
+
 _DRAW_CACHE: dict = {}
 
 
@@ -331,12 +336,17 @@ def _loses_on_draw(key: str) -> bool:
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, only_production: bool = False,
-        heartbeat: bool = False, target_date: str | None = None) -> str:
+        heartbeat: bool = False, target_date: str | None = None,
+        slot: str | None = None, refreeze: bool = False) -> str:
     leagues = leagues or DEPLOY_LEAGUES
     today = date.today().isoformat()
     # The day the board is FOR. Defaults to today (the morning run); the evening
     # run passes tomorrow so the 10pm board targets the next day's card.
     target = target_date or today
+    # CODES FROZEN AT 10PM (engine/freeze.py, Architect 2026-10-04): once a
+    # board for `target` has been delivered, its codes are the day's codes.
+    from engine import freeze
+    frozen = None if refreeze else freeze.load(target)
     runlog = _mark_started()
     run_id = _new_run_id()
     print(f"  run_id={run_id}")
@@ -1011,10 +1021,14 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         dep = [b for b in board if b.on_deploy_shortlist]
         megas_l = _build_megas(dep)
         from output.produce_bet import _build_alt_accas as _alt_accas
+        if frozen is not None:
+            raise _KeepFrozen()
         picks_ledger.write_ledger(target, board, _build_accas(dep), _build_safe3(dep),
                                   megas_l if len(megas_l) > 1 else [],
                                   acca_codes, safe3_codes, mega_codes,
                                   alts=_alt_accas(dep), alt_codes=alt_codes)
+    except _KeepFrozen:
+        all_flags.append("picks ledger kept as frozen at the 10pm board (codes frozen)")
     except Exception as e:  # noqa: BLE001
         all_flags.append(f"picks ledger not written ({e})")
 
@@ -1080,7 +1094,72 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     deliver_now = send and (produced or not only_production)
     board_delivered = False
 
-    if deliver_now:
+    if deliver_now and frozen is not None:
+        # FROZEN DAY: no new board, no new codes — a short check instead, and
+        # new codes ONLY for slips whose legs drifted, were hit by team news or
+        # left the board. A manual run resends the frozen board first.
+        try:
+            from pipeline import sportybet_booking as _sbk
+            _idx = _sb_index_holder["index"] or _sbk._event_index()
+
+            def _price_now(leg):
+                fx = odds_index.get((leg["home"], leg["away"]))
+                if fx is None:
+                    return None
+                if str(leg["market"]).startswith("SB:"):
+                    for k, price, _r in fm.ladder(getattr(fx, "raw_markets", None)):
+                        if k == leg["market"]:
+                            return price
+                    return None
+                q = mkt.quote(leg["market"], fx)
+                return q.price if q is not None and q.available else None
+
+            def _book_legs(legs):
+                code, _ = _sbk.code_for_legs(_idx, legs) if _idx else (None, None)
+                return code
+
+            lines, recs = freeze.check(frozen, board, _price_now, _book_legs,
+                                       display=mkt.display)
+            check_text = freeze.message(frozen, lines, target, run_id)
+        except Exception as e:  # noqa: BLE001 — never send a new board instead
+            recs = []
+            check_text = freeze.message(frozen, [], target, run_id) + \
+                f"\n(check incomplete: {str(e)[:80]})"
+        texts = []
+        if slot == "manual" and freeze.board_text(target):
+            texts.append(freeze.board_text(target))
+        texts.append(check_text)
+        delivered = True
+        for t in texts:
+            ok, notes = notify.deliver(t, save_to=None)
+            delivered = delivered and ok
+            for n in notes:
+                print(f"  {n}")
+                _mark(runlog, n)
+        board_delivered = delivered
+        BOARD_DIR.mkdir(parents=True, exist_ok=True)
+        (BOARD_DIR / f"refresh_{target}.txt").write_text(full + "\n\n" + check_text,
+                                                          encoding="utf-8")
+        if recs:
+            fpath, _ = freeze.paths(target)
+            fdoc = json.loads(fpath.read_text(encoding="utf-8"))
+            fdoc["replacements"] += recs
+            fpath.write_text(json.dumps(fdoc, indent=1), encoding="utf-8")
+            try:
+                from engine.picks_ledger import LEDGER_DIR as _LDF
+                lp = _LDF / f"picks_{target}.json"
+                ldoc = json.loads(lp.read_text(encoding="utf-8"))
+                ldoc.setdefault("replaced", []).extend(
+                    [{**r, "legs": [l["fixture"] for l in r["alt_legs"]]} for r in recs
+                     if r.get("new_code")])
+                lp.write_text(json.dumps(ldoc, indent=1), encoding="utf-8")
+            except Exception:  # noqa: BLE001
+                pass
+        _mark(runlog, f"codes frozen: check sent ({len(recs)} slip(s) changed)")
+        if not delivered:
+            _mark(runlog, "RUN FAILED — frozen-codes check not delivered")
+            raise RuntimeError("Telegram delivery incomplete — see log")
+    elif deliver_now:
         # SEND GATE (HR59, standing order 30): no valid Run ID, no Telegram.
         # The board is still saved; the run fails so the failure alert fires.
         gate = notify.board_gate(telegram_text)
@@ -1098,6 +1177,15 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         for n in notes:
             print(f"  {n}")
             _mark(runlog, n)
+        if delivered:
+            try:
+                from engine.picks_ledger import LEDGER_DIR as _LDZ
+                _lp = _LDZ / f"picks_{target}.json"
+                _ldoc = json.loads(_lp.read_text(encoding="utf-8")) if _lp.exists() else {}
+                freeze.save(target, _ldoc, telegram_text, run_id, board_code=board_code)
+                _mark(runlog, f"codes frozen for {target}")
+            except Exception as e:  # noqa: BLE001
+                _mark(runlog, f"codes NOT frozen ({e})")
         if not delivered:
             # A run that failed to reach the phone is NOT a completed run.
             # Reporting OK here is what let three failed message parts pass as
@@ -1135,7 +1223,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             _mark(runlog, f"bet365 board: {b365_gate}")
         elif not owner_chat:
             _mark(runlog, "bet365 board saved, NOT sent: no Architect chat configured")
-        elif deliver_now and bet365_board.picks(board)[0]:
+        elif deliver_now and frozen is None and bet365_board.picks(board)[0]:
             b_ok, b_notes = notify.send_telegram(b365_text, chat_id=owner_chat)
             for n in b_notes:
                 _mark(runlog, f"bet365 board: {n}")
@@ -1189,6 +1277,10 @@ if __name__ == "__main__":
     ap.add_argument("--next-day", action="store_true",
                      help="target tomorrow's fixtures (the evening run's job); "
                           "shorthand for --target-date <tomorrow>")
+    ap.add_argument("--slot", default=None,
+                     help="evening | morning | manual (manual resends a frozen board)")
+    ap.add_argument("--refreeze", action="store_true",
+                     help="ignore the day's frozen codes and publish a fresh board")
     a = ap.parse_args()
     tgt = a.target_date
     if a.next_day and not tgt:
@@ -1198,5 +1290,5 @@ if __name__ == "__main__":
     out = run(season=a.season, fixtures_season=a.fixtures_season,
               leagues=a.leagues, send=not a.no_send, min_mes=a.min_mes,
               only_production=a.only_production, heartbeat=a.heartbeat,
-              target_date=tgt)
+              target_date=tgt, slot=a.slot, refreeze=a.refreeze)
     print("\n" + out)

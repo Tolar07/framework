@@ -165,7 +165,7 @@ What the laptop had that the live line does not:
 
 | Feature | Parked at | Architect asked? |
 |---|---|---|
-| Kickoff time on every fixture | `legacy/laptop/output/production_board.py` | yes — 17 Sep spec; 19 Sep "the country and the time" |
+| ~~Kickoff time on every fixture~~ — BUILT 2026-10-04 (order 28, KO column, Lagos time) | `legacy/laptop/output/production_board.py` | yes — 17 Sep spec; 19 Sep "the country and the time" |
 | Booking-code odds check: a code's odds must equal the legs' product, ±5% (ID415) | `legacy/laptop/booking/booking_codes.py` | yes — 20 Aug, ratified 23 Aug |
 | bet365 limited to top-flight European leagues | `legacy/laptop/booking/bet365_scope.py` | 19 Sep (order 29 now lists the full market) |
 | Match context: rest, fixture congestion, stage ("motivation"), ±10% | `legacy/laptop/engine/context.py` | 19 Sep |

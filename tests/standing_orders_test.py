@@ -186,20 +186,36 @@ _v = _VR(tier=_T.SINGLE_SOURCE, value=1.9, factors={"independent_domains": ["x"]
 _fp = lambda h, a: _FP(home_team=h, away_team=a, lambda_home=1.6, lambda_away=1.1, p_home=0.6,
                        p_draw=0.2, p_away=0.2, p_over_15=0.78, p_over_25=0.55, p_over_35=0.32,
                        p_btts_yes=0.58)
-_b28 = pb.render_canonical_board(
-    "Mode A", "Phase 3", ["La Liga 2"], 0, None, [],
-    [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "Granada"), _v,
-                     on_deploy_shortlist=True, best_price=1.33),
-     pb.BoardFixture("Greece v Germany (UEFA Nations League)", _fp("Greece", "Germany"), _v,
-                     on_deploy_shortlist=True, best_price=1.21)])
+_bf28 = [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "Granada"), _v,
+                         on_deploy_shortlist=True, best_price=1.33),
+         pb.BoardFixture("Greece v Germany (UEFA Nations League)", _fp("Greece", "Germany"), _v,
+                         on_deploy_shortlist=True, best_price=1.21)]
+_bf28[0].kickoff_utc = "2026-10-04T16:30:00.000Z"      # SportyBet's format
+_bf28[1].kickoff_utc = None                            # no source gave a time
+_b28 = pb.render_canonical_board("Mode A", "Phase 3", ["La Liga 2"], 0, None, [], _bf28)
+# Kickoff time on every pick, Lagos time (Architect 2026-09-19: "the country and the time")
+assert pb.kickoff(_bf28[0]) == "17:30" and pb.kickoff(_bf28[1]) == "PENDING", \
+    "Order 28: kickoff in Lagos time; PENDING when no source gave one (HR35)"
+_late = pb.BoardFixture("X v Y (La Liga 2)", None, _v)
+_late.kickoff_utc = "2026-10-04T23:30:00Z"
+assert pb.kickoff(_late) == "00:30", "Order 28: Lagos is UTC+1 all year"
+_late.kickoff_utc = "2026-10-04"
+assert pb.kickoff(_late) == "PENDING", "Order 28: a date without a time is not a kickoff time"
+assert "KO = kickoff, Lagos time (WAT)" in _b28
 _t1, _t2 = _b28.split("TABLE 2 · ")[0], _b28.split("TABLE 2 · ")[1].split("TABLE 3A")[0]
 for _part, _name in ((_t1, "TABLE 1"), (_t2, "TABLE 2")):
     assert "Country · League" in _part and "Spain · La Liga 2" in _part, \
         f"Order 28: {_name} shows each pick's country + league"
+    _rows = _part.split("\n")
+    assert any(r.startswith("KO ") for r in _rows) \
+        and any(r.startswith("17:30 ") and "Sociedad B v Granada" in r for r in _rows) \
+        and any(r.startswith("PENDING ") and "Greece v Germany" in r for r in _rows), \
+        f"Order 28: {_name} shows each kickoff"
 _t3 = _b28.split("TABLE 3 · ACCA ROUTE")[1]
 assert "Sociedad B v Granada (" in _t3 and "Spain · La Liga 2" in _t3 \
     and "Greece v Germany (\U0001F3C6 UEFA Nations League)" in _t3, \
     "Order 28: every acca leg and THE PICK name the competition"
+assert "• 17:30 Sociedad B v Granada (" in _t3, "Order 28: acca legs show the kickoff"
 
 # 29. bet365 board, to the Architect only
 from output import bet365_board as _b365

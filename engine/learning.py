@@ -12,7 +12,9 @@ expected wins = the sum of the chances we stated. A family whose picks won
 less often than we said gets its chances cut; one that beat them gets a
 small lift. SHRINK keeps a handful of results from swinging anything — the
 shift only reaches its full size after many picks — and a segment needs
-MIN_N graded picks before it counts at all. The total shift per pick is
+MIN_N graded picks spread over MIN_DAYS match days before it counts at all
+(Architect 2026-10-04: one good day — Double chance 22/23 on 3 Oct — must not
+turn the next whole board into one market). The total shift per pick is
 capped at MAX_SHIFT, so learning can steer selection but never invent
 certainty.
 
@@ -29,6 +31,7 @@ from typing import Optional
 
 WINDOW_DAYS = 90
 MIN_N = 10
+MIN_DAYS = 3        # distinct match days a segment's results must span
 SHRINK = 30
 MAX_SHIFT = 0.10
 
@@ -63,12 +66,14 @@ def league_of(fixture: str) -> str:
 
 def _seg(rows: list) -> dict:
     n = len(rows)
-    wins = sum(won for won, _c, _p in rows)
-    exp = sum(c for _w, c, _p in rows)
-    pl = sum(((p or 1.0) - 1.0) if won else -1.0 for won, _c, p in rows)
-    shift = (wins - exp) / (n + SHRINK) if n >= MIN_N else 0.0
+    wins = sum(won for won, _c, _p, _d in rows)
+    exp = sum(c for _w, c, _p, _d in rows)
+    pl = sum(((p or 1.0) - 1.0) if won else -1.0 for won, _c, p, _d in rows)
+    days = len({d for _w, _c, _p, d in rows})
+    counts = n >= MIN_N and days >= MIN_DAYS
+    shift = (wins - exp) / (n + SHRINK) if counts else 0.0
     return {"n": n, "wins": wins, "expected": round(exp, 2), "roi": pl / n if n else 0.0,
-            "shift": round(shift, 4)}
+            "days": days, "shift": round(shift, 4)}
 
 
 def learn(ledger_dir, today: Optional[str] = None) -> dict:
@@ -83,7 +88,8 @@ def learn(ledger_dir, today: Optional[str] = None) -> dict:
         for s in doc["singles"]:
             if s.get("result") not in ("won", "lost") or s.get("chance") is None:
                 continue
-            row = (s["result"] == "won", float(s["chance"]), s.get("price"))
+            row = (s["result"] == "won", float(s["chance"]), s.get("price"),
+                   (s.get("kickoff") or doc["date"])[:10])
             fam.setdefault(family(s.get("market")), []).append(row)
             lg.setdefault(s.get("league") or "?", []).append(row)
     return {"family": {k: _seg(v) for k, v in fam.items()},
@@ -107,7 +113,7 @@ def summary(model: dict, top: int = 4) -> str:
     graded = sum(v["n"] for v in model.get("family", {}).values())
     if not segs:
         return (f"Learning: {graded} graded single(s) so far — corrections start once a "
-                f"market family or league has {MIN_N}+ results.")
+                f"market family or league has {MIN_N}+ results over {MIN_DAYS}+ match days.")
     segs.sort(key=lambda x: (-x[0], x[1], x[2]))
     parts = [f"{name} {v['shift']*100:+.1f}pp ({v['wins']}/{v['n']} won vs "
              f"{v['expected']:.1f} expected)" for _a, _k, name, v in segs[:top]]

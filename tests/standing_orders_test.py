@@ -132,8 +132,8 @@ assert _st.SLIP_STAKES == {"safe3": 0.5, "accas": 0.25, "megas": 0.1}
 
 # 22. Automatic learning from results
 from engine import learning as _lr
-assert (_lr.MIN_N, _lr.SHRINK, _lr.MAX_SHIFT) == (10, 30, 0.10), \
-    "Order 22: 10+ results per segment, shrink 30, shift capped at 10 pts"
+assert (_lr.MIN_N, _lr.MIN_DAYS, _lr.SHRINK, _lr.MAX_SHIFT) == (10, 3, 30, 0.10), \
+    "Order 22: 10+ results over 3+ match days per segment, shrink 30, shift capped at 10 pts"
 
 # 23. AI Survivor lineage
 from engine import survivor as _sv
@@ -240,5 +240,29 @@ assert "alts = sorted((c for c in full_pool" in _rd_src \
     "Order 10: the alternative market comes from the full in-band pool"
 assert 'b.tier = "SAFE" if agree else "BOOK"' in _rd_src, \
     "Order 11: a news swap off a straight win drops the BANKER label"
+
+# 31. Alternative-market accas
+from engine.learning import family as _fam31
+from pipeline.odds import MarketQuote as _MQ
+def _c31(win, key, price):
+    return (win, 0.0, key, win, win, _MQ(price=price))
+_bfs31 = []
+for _i in range(5):
+    _b = pb.BoardFixture(f"H{_i} v A{_i} (La Liga 2)", _fp(f"H{_i}", f"A{_i}"), _v,
+                         on_deploy_shortlist=True, best_market_key="SB:10||Home or Away",
+                         best_price=1.30, best_model_prob=0.82)
+    _b.cand_pool = [_c31(0.82, "SB:10||Home or Away", 1.30),
+                    _c31(0.80, "SB:10||Home or Draw", 1.25),
+                    _c31(0.74, "SB:18|total=1.5|Over 1.5", 1.28)]
+    _bfs31.append(_b)
+_alts31 = pb._build_alt_accas(_bfs31)
+assert _alts31 and all(_fam31(leg[3]) != "Double chance" for _n, ls, _c in _alts31 for leg in ls), \
+    "Order 31: every alt leg is a different market family from the main pick"
+assert all(4 <= len(ls) <= 5 for _n, ls, _c in _alts31) and _alts31[0][0] == "Alt A"
+_b31 = pb.render_canonical_board("Mode A", "Phase 3", [], 0, None, [], _bfs31, alt_codes={"Alt A": "ALT123"})
+assert "TABLE 3B · ALT-MARKET ACCAS" in _b31 and "Alt A · code ALT123" in _b31 \
+    and "Alt A: ALT123" in _b31.split("\nALL CODES\n")[1], "Order 31: alt accas on the board and in ALL CODES"
+assert "_build_alt_accas(deploy)" in _rd_src and "alts=_alt_accas(dep)" in _rd_src, \
+    "Order 31: alt accas are booked and recorded every run"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

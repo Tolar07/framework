@@ -72,6 +72,7 @@ files = [
     "monitor/json_log.py",
     "engine/name_match.py",
     "monitor/run_watchdog.py",
+    "monitor/news_loop.py",
     "data/espn_fixtures.py",
     "engine/fixture_match.py",
     "verification/fixture_check.py",

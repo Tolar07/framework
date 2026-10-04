@@ -410,6 +410,10 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         fx = odds_index.get((bf.probs.home_team, bf.probs.away_team))
         if fx is None:
             continue
+        # Kickoff time for the board (order 28): SportyBet's event start; the
+        # team-news step later uses FotMob's for deploy picks.
+        if not getattr(bf, "kickoff_utc", None):
+            bf.kickoff_utc = getattr(fx, "kickoff_utc", None) or None
         bf.price_check = getattr(fx, "verification", "") or None
         bf.price_note = getattr(fx, "price_note", "") or None
         p = bf.probs

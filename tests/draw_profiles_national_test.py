@@ -41,7 +41,19 @@ assert ne.margin_mult(3) > ne.margin_mult(2) > ne.margin_mult(1) == 1.0
 m = ne.score_matrix(1.5, 1.0)
 assert abs(m.sum() - 1) < 1e-9 and m[1, 0] > m[0, 1]
 assert ne.predict(e, "X", "Y") is None, "fewer than 10 games -> not rated (HR35)"
-real = ne.build(through="2025-01-01")
+import csv, tempfile
+with tempfile.TemporaryDirectory() as d:          # offline: a small synthetic history
+    path = Path(d) / "results.csv"
+    with open(path, "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["date", "home_team", "away_team", "home_score", "away_score",
+                    "tournament", "city", "country", "neutral"])
+        for i in range(30):
+            w.writerow([f"2020-{1 + i % 12:02d}-{1 + i % 27:02d}", "France", "Gibraltar",
+                        4, 0, "UEFA Nations League", "", "", "FALSE"])
+            w.writerow([f"2021-{1 + i % 12:02d}-{1 + i % 27:02d}", "Gibraltar", "France",
+                        0, 3, "UEFA Euro qualification", "", "", "FALSE"])
+    real = ne.build(through="2025-01-01", path=path)
 pp = ne.predict(real, "France", "Gibraltar")
 assert pp is not None and pp.p_home > 0.85 and abs(pp.p_home + pp.p_draw + pp.p_away - 1) < 1e-6
 print("national Elo: OK")

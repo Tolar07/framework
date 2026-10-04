@@ -40,6 +40,14 @@ from engine import full_markets as fm
 UNDER_PREF_PP = 0.03   # see ARCHITECT PREFERENCE in the selection loop
 EV_PREF_PP = 0.02      # see VALUE-AWARE PICK in the selection loop
 DRIFT_DEMOTE = 0.05    # see PRICE DRIFT (backtest/MARKET_STUDY.md Q2)
+# DRAW GUARD (Architect 2026-10-04, backtest/DRAW_STUDY.md): real draws ran
+# +0.8 pts above the closing price across leagues, +3 pts in Belgium and the
+# Netherlands (both test periods). A pick that LOSES on a draw ("X or Y",
+# straight wins, -handicaps) is marked down by that allowance, and a pick that
+# survives a draw (1X / X2, draw no bet, +handicaps) within DRAW_PREF_PP wins.
+DRAW_PREF_PP = 0.03
+DRAW_ALLOWANCE_DEFAULT = 0.008
+DRAW_ALLOWANCE = {"Belgian Pro League": 0.03, "Eredivisie": 0.03}
 NEWS_SWAP_PP = 0.06    # see TEAM NEWS: a weakened pick swaps to a safe alternative
 from engine.mes import mes_numeric
 from engine import markets as mkt
@@ -301,6 +309,25 @@ def _has_production(board: list, logged_count: int) -> bool:
     return deploy_eligible or logged_count > 0
 
 
+_DRAW_CACHE: dict = {}
+
+
+def _loses_on_draw(key: str) -> bool:
+    """True if the outcome loses on EVERY draw (0-0, 1-1 and 2-2): "X or Y",
+    straight wins, minus handicaps. A push is not a loss."""
+    if key in _DRAW_CACHE:
+        return _DRAW_CACHE[key]
+    out = False
+    if key and key.startswith("SB:"):
+        pk = fm.parse_key(key)
+        rule = fm.rule_for(*pk) if pk else None
+        out = bool(rule) and all(rule(g, g) == "lose" for g in (0, 1, 2))
+    else:
+        out = all(mkt.settle(key, g, g) is False for g in (0, 1, 2))
+    _DRAW_CACHE[key] = out
+    return out
+
+
 def run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, only_production: bool = False,
@@ -482,6 +509,12 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         if not cands:
             continue
 
+        # DRAW GUARD: mark draw-losing outcomes down by the league's draw allowance.
+        _dallow = DRAW_ALLOWANCE.get(_lg, DRAW_ALLOWANCE_DEFAULT)
+        cands = [((round(c[0] - _dallow, 4),) + c[1:]) if _loses_on_draw(c[2]) else c
+                 for c in cands]
+        cands = [c for c in cands if c[0] >= DEPLOY_MIN_MODEL_PROB] or cands
+
         def _agree(c):
             return c[4] is not None and abs(c[3] - c[4]) <= AGREE_PP
 
@@ -509,8 +542,16 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         # cost ~2 pts of hit rate for no real gain in value.
         def _best(pool):
             top = max(c[0] for c in pool)
-            return max((c for c in pool if c[0] >= top - EV_PREF_PP),
+            pick = max((c for c in pool if c[0] >= top - EV_PREF_PP),
                        key=lambda c: (c[1], c[0]))
+            # DRAW GUARD: a draw-safe outcome within DRAW_PREF_PP beats one
+            # that loses on a draw (4 Oct: five "X or Y" picks lost to draws).
+            if _loses_on_draw(pick[2]):
+                safe = [c for c in pool if not _loses_on_draw(c[2])
+                        and c[0] >= pick[0] - DRAW_PREF_PP]
+                if safe:
+                    return max(safe, key=lambda c: (c[0], c[1]))
+            return pick
 
         # Every winnable in-band outcome, kept for the alternative market (order
         # 10), the team-news swap (order 24) and the bet365 board (order 29).
@@ -581,6 +622,41 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             f"full market ladder: {ladder_fixtures} fixture(s) scored on every "
             f"full-time SportyBet market; {ladder_rejected} in-band line(s) skipped "
             f"as inconsistent with the book's own 1X2/goals prices")
+
+    # --- TEAM TACTICAL PROFILES (engine.profiles, Architect 2026-10-04) ---
+    # Each deploy pick gets its two teams' style over their last 20 games
+    # (goals for/against, draws, BTTS, 3+ goals, clean sheets, shots on
+    # target) as context on the board. Context only: backtest/DRAW_STUDY.md
+    # found the profiles add nothing to the market's draw price, so they never
+    # change a probability.
+    try:
+        import glob as _glob
+        from engine import profiles as prof
+        from engine import name_match as _nm
+        _books: dict = {}
+        profiled = 0
+        for b in board:
+            if not (b.on_deploy_shortlist and b.probs is not None):
+                continue
+            lg = b.fixture.rsplit("(", 1)[-1].rstrip(")").strip()
+            if lg not in _books:
+                if lg in getattr(orchestrator.intl, "INTERNATIONAL_LEAGUES", set()):
+                    _books[lg] = prof.ProfileBook(prof.national_rows())
+                else:
+                    files = sorted(_glob.glob(str(prof.CACHE / f"{lg.replace(' ', '_')}_[0-9]*.csv")))
+                    _books[lg] = prof.ProfileBook(prof.club_rows(files[-3:])) if files else None
+            book = _books[lg]
+            if book is None:
+                continue
+            h, a = b.probs.home_team, b.probs.away_team
+            names = _nm.resolve([h, a], list(book.by_team))
+            mp = prof.match_profile(book, names.get(h, h), names.get(a, a))
+            if mp.draw_tendency is not None:
+                b.profile_line = mp.line()
+                profiled += 1
+        all_flags.append(f"team profiles: {profiled} deploy pick(s) profiled (last 20 games each side)")
+    except Exception as e:  # noqa: BLE001 — context only, never blocks the run
+        all_flags.append(f"team profiles unavailable ({str(e)[:60]})")
 
     # --- form & standings context (engine.form) ---
     # Derived from the same football-data results the model is fit on, so it

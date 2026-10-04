@@ -349,4 +349,11 @@ _t32 = pb.render_canonical_board("Mode A", "Phase 3", [], 0, None, [], [_b32])
 assert "⇄ SWITCHED" in _t32 and "was Serbia (+3.5) Asian handicap" in _t32, \
     "Order 32: a switch is shown with the old pick and why"
 
+# 34. Draw guard, team profiles, national Elo
+assert (_rd.DRAW_PREF_PP, _rd.DRAW_ALLOWANCE_DEFAULT) == (0.03, 0.008), "Order 34: draw guard"
+assert _rd._loses_on_draw("SB:10||Home or Away") and not _rd._loses_on_draw("SB:10||Home or Draw"), \
+    "Order 34: 'X or Y' loses on a draw, 1X does not"
+from engine import national_elo as _ne
+assert _ne.k_factor("FIFA World Cup") > _ne.k_factor("UEFA Nations League") > _ne.k_factor("Friendly")
+
 print("standing_orders_test: OK — all Architect standing orders hold")

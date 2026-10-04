@@ -272,7 +272,11 @@
     "home": 107635673,
     "away": 132633374
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Kosovo rotated: confirmed XI worth 62% of predicted",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:68932732",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -315,7 +319,11 @@
     "home": 6818047,
     "away": 1201109
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:68932812",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {

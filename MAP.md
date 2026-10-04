@@ -21,7 +21,7 @@ Everything live runs in GitHub Actions on `main`. Times UTC (Lagos = UTC+1).
 | `daily.yml` | 20:47 (evening, tomorrow's card), 05:47 (morning refresh); also dispatched with `target_date` + `slot` | `run_daily.py --only-production --heartbeat` | `clv/clv_log.json`, `output/boards/`, `output/picks/`, `data/survivor/`, `memory/` |
 | `watchdog.yml` | 23:17, 08:17 | `monitor/run_watchdog.py` — starts a slot that never ran | — |
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — one status message | — |
-| `news.yml` | every 20 min 09:00–20:40 | `news_check.py` — lineups, price drift, closing price | `output/picks/` |
+| `news.yml` | one job looping every 20 min 09:00–20:40, started by `daily.yml` after each board; backup cron every 2 h; hands itself on before GitHub's 6-hour limit | `monitor/news_loop.py` → `news_check.py` — lineups, price drift, closing price | `output/picks/`, each round |
 | `commands.yml` | hourly at :05 | `output/telegram_commands.py` | `clv/clv_log.json`, `memory/` |
 | `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` | — |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` | — |
@@ -40,8 +40,8 @@ because GitHub's cron runs late or not at all:
 
 Each slot has two Routines; the duplicate guard (`output/boards/sent_<date>_<slot>`)
 makes the second one skip. **GitHub cron is unreliable here:** on 4 Oct the
-05:47 board cron fired at 11:16; `news.yml`, due every 20 minutes, has run
-6 times in total since it was added (last 3 Oct 21:26 UTC, none on 4 Oct);
+05:47 board cron fired at 11:16; `news.yml`'s 20-minute cron ran 6 times in
+three days (so it is now one looping job the board run starts);
 `commands.yml` fires every 3–6 hours rather than hourly.
 
 ## 2. Who gets what on Telegram
@@ -234,9 +234,9 @@ new key.
 | Obsidian Local REST token | `omniroute-test:.claude/settings.json` (current tree) | regenerate in Obsidian; keep it out of the repo |
 | Admin dashboard password (first 3 characters) | `API Keys.md` (redacted 2026-10-04, still in history) | change it if the dashboard is ever used again |
 
-## 11. Known defects (found 2026-10-04, not fixed yet)
+## 11. Known defects (found 2026-10-04; struck through = fixed)
 
-- `news.yml` has run 6 times ever (GitHub drops its 20-minute cron), so pre-kickoff lineup and price-drift alerts and closing prices (order 20) are almost always missing. A Routine or a single long-running job could drive it instead.
+- ~~`news.yml` ran 6 times in three days~~ — FIXED 2026-10-04: one looping job started by the board run (`monitor/news_loop.py`). If main moves and the picks file conflicts, that round's results are not saved and the next round re-checks (an alert can repeat).
 - ~~`/log` legs had no match date and were never graded~~ — FIXED 2026-10-04: `/log` finds the match on a recent board (league + date) or takes a date you add, and refuses wording it can't settle.
 - `memory/corrections.csv` (`/note`) is read by nothing — `/note` now says so instead of claiming the corrections are applied.
 - ~~The capital refusal message said capital is disabled at PHASE 3~~ — corrected 2026-10-04.

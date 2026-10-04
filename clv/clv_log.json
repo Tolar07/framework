@@ -9194,5 +9194,43 @@
     "stake": null,
     "phase": "phase2_paper",
     "notes": ""
+  },
+  {
+    "leg_id": "Castellon_v_Ceuta_SB:18|total=4.5|Under_4.5_1791107414",
+    "date_logged": "2026-10-04T09:50:14.023914+00:00",
+    "league": "La Liga 2",
+    "fixture": "Castellon v Ceuta",
+    "market": "SB:18|total=4.5|Under 4.5",
+    "model_prob": 0.7392,
+    "match_date": "2026-10-04",
+    "entry_odds": 1.33,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
+  },
+  {
+    "leg_id": "Netherlands_v_Serbia_SB:548||2-5_1791107414",
+    "date_logged": "2026-10-04T09:50:14.029355+00:00",
+    "league": "UEFA Nations League",
+    "fixture": "Netherlands v Serbia",
+    "market": "SB:548||2-5",
+    "model_prob": 0.7146,
+    "match_date": "2026-10-04",
+    "entry_odds": 1.21,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
   }
 ]

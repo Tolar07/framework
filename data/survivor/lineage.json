@@ -276,12 +276,7 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Azerbaijan v Lithuania",
-    "pick": "Lithuania Win to Nil — no",
-    "price": 1.2
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_dc28e4182e",

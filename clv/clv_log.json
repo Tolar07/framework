@@ -9232,5 +9232,43 @@
     "stake": null,
     "phase": "phase2_paper",
     "notes": ""
+  },
+  {
+    "leg_id": "Castellon_v_Ceuta_BTTS_NO_1791118175",
+    "date_logged": "2026-10-04T12:49:34.949488+00:00",
+    "league": "La Liga 2",
+    "fixture": "Castellon v Ceuta",
+    "market": "BTTS_NO",
+    "model_prob": 0.49629525233260985,
+    "match_date": "2026-10-04",
+    "entry_odds": 2.05,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
+  },
+  {
+    "leg_id": "Wales_v_Denmark_SB:20|total=2.5|Under_2.5_1791118175",
+    "date_logged": "2026-10-04T12:49:34.959462+00:00",
+    "league": "UEFA Nations League",
+    "fixture": "Wales v Denmark",
+    "market": "SB:20|total=2.5|Under 2.5",
+    "model_prob": 0.7855,
+    "match_date": "2026-10-04",
+    "entry_odds": 1.25,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
   }
 ]

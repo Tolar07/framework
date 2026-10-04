@@ -2,7 +2,7 @@
 ==================================
 
 📅  Sun 04 Oct 2026 — bet365 board (sent to you only)
-Run ID: OLPXDV-20261004-0948-d366b1 (same run as the SportyBet board)
+Run ID: OLPXDV-20261004-1246-f9e247 (same run as the SportyBet board)
 
 Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
 • No booking codes on bet365 — find each match by country → league → match.
@@ -15,15 +15,15 @@ bet365 SINGLES
 ──────────────────────────────────
 
 🇪🇸 Spain · La Liga 2 / Hypermotion
+ • Sabadell v Andorra — Team Goals: Sabadell Over 0.5
+   79% · deploy at 1.28+ · SportyBet @1.24 · MEDIUM
  • Girona v Mallorca — Goals Over/Under: Under 3.5
-   78% · deploy at 1.28+ · SportyBet @1.31 · LOW
- • Las Palmas v Valladolid — Goals Over/Under: Under 3.5
-   76% · deploy at 1.32+ · SportyBet @1.29 · HIGH
+   78% · deploy at 1.29+ · SportyBet @1.34 · LOW
  • Sp Gijon v Celta B — Double Chance: Sp Gijon or Celta B
    76% · deploy at 1.32+ · SportyBet @1.26 · HIGH
- • Castellon v Ceuta — Goals Over/Under: Under 4.5
-   74% · deploy at 1.36+ · SportyBet @1.33 · HIGH
- • Sociedad B v Granada — Double Chance: Sociedad B or Granada
+ • Castellon v Ceuta — Double Chance & Goals: Castellon or Ceuta & Over 1.5
+   75% · deploy at 1.34+ · SportyBet @1.21 · HIGH
+ • Las Palmas v Valladolid — Double Chance: Las Palmas or Valladolid
    74% · deploy at 1.36+ · SportyBet @1.33 · HIGH
 
 🏆 UEFA Nations League
@@ -33,37 +33,37 @@ bet365 SINGLES
    81% · deploy at 1.24+ · SportyBet @1.21 · HIGH
  • Portugal v Norway — Double Chance: Portugal or Norway
    80% · deploy at 1.26+ · SportyBet @1.23 · HIGH
- • Wales v Denmark — Team Goals: Denmark Over 0.5
-   80% · deploy at 1.26+ · SportyBet @1.21 · MEDIUM
- • Republic of Ireland v Israel — Team Goals: Republic of Ireland Over 0.5
-   77% · deploy at 1.30+ · SportyBet @1.24 · MEDIUM
+ • Wales v Denmark — Team Goals: Denmark Under 2.5
+   79% · deploy at 1.28+ · SportyBet @1.25 · MEDIUM
  • Azerbaijan v Lithuania — ≠ Team Goals: Lithuania Under 1.5
-   76% · deploy at 1.32+ · SportyBet @1.31 · LOW
+   77% · deploy at 1.31+ · SportyBet @1.30 · LOW
    (SportyBet pick: Lithuania Win to Nil — no — not on bet365)
+ • Republic of Ireland v Israel — Team Goals: Republic of Ireland Over 0.5
+   76% · deploy at 1.32+ · SportyBet @1.26 · HIGH
  • Malta v Andorra — Double Chance: Malta or Andorra
-   72% · deploy at 1.39+ · SportyBet @1.31 · MEDIUM
+   73% · deploy at 1.38+ · SportyBet @1.30 · MEDIUM
  • Netherlands v Serbia — Multigoals: 2-5
-   71% · deploy at 1.40+ · SportyBet @1.21 · HIGH
+   71% · deploy at 1.42+ · SportyBet @1.22 · HIGH
 
 ──────────────────────────────────
 bet365 ACCAS
 (build by hand on bet365, strongest legs first)
 ──────────────────────────────────
-bet365 Acca A · 5 legs · chance 33% · deploy at 3.12+ combined
+bet365 Acca A · 5 legs · chance 32% · deploy at 3.17+ combined
    • Greece v Germany (🏆 UEFA Nations League) — Goals Over/Under: Under 4.5 (81%)
    • Kosovo v Austria (🏆 UEFA Nations League) — Team Goals: Austria Under 2.5 (81%)
    • Portugal v Norway (🏆 UEFA Nations League) — Double Chance: Portugal or Norway (80%)
-   • Wales v Denmark (🏆 UEFA Nations League) — Team Goals: Denmark Over 0.5 (80%)
+   • Wales v Denmark (🏆 UEFA Nations League) — Team Goals: Denmark Under 2.5 (79%)
+   • Sabadell v Andorra (🇪🇸 Spain · La Liga 2 / Hypermotion) — Team Goals: Sabadell Over 0.5 (79%)
+bet365 Acca B · 4 legs · chance 34% · deploy at 2.94+ combined
    • Girona v Mallorca (🇪🇸 Spain · La Liga 2 / Hypermotion) — Goals Over/Under: Under 3.5 (78%)
-bet365 Acca B · 4 legs · chance 34% · deploy at 2.99+ combined
-   • Republic of Ireland v Israel (🏆 UEFA Nations League) — Team Goals: Republic of Ireland Over 0.5 (77%)
-   • Las Palmas v Valladolid (🇪🇸 Spain · La Liga 2 / Hypermotion) — Goals Over/Under: Under 3.5 (76%)
-   • Azerbaijan v Lithuania (🏆 UEFA Nations League) — Team Goals: Lithuania Under 1.5 (76%)
+   • Azerbaijan v Lithuania (🏆 UEFA Nations League) — Team Goals: Lithuania Under 1.5 (77%)
+   • Republic of Ireland v Israel (🏆 UEFA Nations League) — Team Goals: Republic of Ireland Over 0.5 (76%)
    • Sp Gijon v Celta B (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Sp Gijon or Celta B (76%)
-bet365 Acca C · 4 legs · chance 28% · deploy at 3.60+ combined
-   • Castellon v Ceuta (🇪🇸 Spain · La Liga 2 / Hypermotion) — Goals Over/Under: Under 4.5 (74%)
-   • Sociedad B v Granada (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Sociedad B or Granada (74%)
-   • Malta v Andorra (🏆 UEFA Nations League) — Double Chance: Malta or Andorra (72%)
+bet365 Acca C · 4 legs · chance 28% · deploy at 3.57+ combined
+   • Castellon v Ceuta (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance & Goals: Castellon or Ceuta & Over 1.5 (75%)
+   • Las Palmas v Valladolid (🇪🇸 Spain · La Liga 2 / Hypermotion) — Double Chance: Las Palmas or Valladolid (74%)
+   • Malta v Andorra (🏆 UEFA Nations League) — Double Chance: Malta or Andorra (73%)
    • Netherlands v Serbia (🏆 UEFA Nations League) — Multigoals: 2-5 (71%)
 
 ==================================

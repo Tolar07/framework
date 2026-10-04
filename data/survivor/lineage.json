@@ -407,12 +407,7 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Kosovo v Austria",
-    "pick": "Austria Under 2.5 goals",
-    "price": 1.22
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_82f1a53b8e",
@@ -440,12 +435,7 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-04",
-    "fixture": "Las Palmas v Valladolid",
-    "pick": "Las Palmas or Valladolid",
-    "price": 1.33
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_9c27faf9ca",

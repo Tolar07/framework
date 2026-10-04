@@ -2,8 +2,8 @@
 ==================================
 
 📅  Sun 04 Oct 2026   (PICK · win %  ·  alt markets)
-Run ID: OLPXDV-20261004-0948-d366b1 | Phase 3 — live capital (Architect-deployed)
-Fixtures scanned: 14 · Verified: 5
+Run ID: OLPXDV-20261004-1246-f9e247 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 13 · Verified: 5
 
 ⚠ 136 data flag(s) — full detail in the saved board / VERIFY RESULTS
 
@@ -12,27 +12,26 @@ TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
 ──────────────────────────────────
 
 ```
-Fixture                       Country · League                 AI PICK · win%                              Odds   Alt market                           O1.5/O2.5  DC/BTTS     Src
-Girona v Mallorca             Spain · La Liga 2 / Hypermotion  ✓ Under 3.5 goals · 78%                     @1.31  Girona or Mallorca @1.31             U50/U77    X269 / N68  ✓
-Sabadell v Andorra            Spain · La Liga 2 / Hypermotion  ✓ Sabadell or draw · 78%                    @1.23  Under 3.5 goals @1.23                O74/U51    1X82 / N52  ⚠
-Las Palmas v Valladolid       Spain · La Liga 2 / Hypermotion  ✓ Under 3.5 goals · 76%                     @1.29  Las Palmas or Valladolid @1.33       O70/U56    1X82 / N56  ✓
-Sp Gijon v Celta B            Spain · La Liga 2 / Hypermotion  ✓ Sp Gijon or Celta B · 76%                 @1.26  Sp Gijon Under 2.5 goals @1.29       O73/U52    1X78 / N51  ✓
-Castellon v Ceuta             Spain · La Liga 2 / Hypermotion  ✓ Under 4.5 goals · 74%                     @1.33  Castellon or Ceuta & Over 1.5 @1.22  O85/O65    1X91 / Y50  ✓
-Sociedad B v Granada          Spain · La Liga 2 / Hypermotion  ✓ Sociedad B or Granada · 74%               @1.33  Over 1.5 goals @1.30                 O77/O53    1275 / Y56  ✓
+Fixture                       Country · League                 AI PICK · win%                              Odds   Alt market                          O1.5/O2.5  DC/BTTS     Src
+Sabadell v Andorra            Spain · La Liga 2 / Hypermotion  ✓ Sabadell Over 0.5 goals · 79%             @1.24  Andorra Clean Sheet — no @1.22      O74/U51    1X82 / N52  ✓
+Girona v Mallorca             Spain · La Liga 2 / Hypermotion  ✓ Under 3.5 goals · 78%                     @1.34  Girona or Mallorca @1.32            U50/U77    X269 / N68  ✓
+Sp Gijon v Celta B            Spain · La Liga 2 / Hypermotion  ✓ Sp Gijon or Celta B · 76%                 @1.26  Sp Gijon Under 2.5 goals @1.28      O73/U52    1X78 / N51  ✓
+Castellon v Ceuta             Spain · La Liga 2 / Hypermotion  ✓ Castellon or Ceuta & Over 1.5 · 75%       @1.21  Under 4.5 goals @1.38               O85/O65    1X91 / Y50  ✓
+Las Palmas v Valladolid       Spain · La Liga 2 / Hypermotion  ✓ Las Palmas or Valladolid · 74%            @1.33  Under 3.5 goals @1.29               O70/U56    1X82 / N56  ✓
 
-Azerbaijan v Lithuania        UEFA Nations League              ✓ Lithuania Win to Nil — no · 81%           @1.20  Lithuania Under 1.5 goals @1.31      O57/U70    1X79 / N65  ○
-Greece v Germany              UEFA Nations League              ✓ Under 4.5 goals · 81%                     @1.25  Greece or Germany @1.27              O76/O51    1275 / Y55  ○
-Kosovo v Austria              UEFA Nations League              ✓ Austria Under 2.5 goals · 81%             @1.21  Kosovo Clean Sheet — no @1.23        O69/U58    X275 / N54  ○
-Portugal v Norway             UEFA Nations League              ✓ Portugal or Norway · 80%                  @1.23  Norway (+2.5) Asian handicap @1.21   O84/O63    1X82 / Y58  ○
-Wales v Denmark               UEFA Nations League              ✓ Denmark Over 0.5 goals · 80%              @1.21  Wales Clean Sheet — no @1.20         O72/U54    1274 / N50  ○
-Republic of Ireland v Israel  UEFA Nations League              ✓ Republic of Ireland Over 0.5 goals · 77%  @1.24  Israel Clean Sheet — no @1.22        O68/U59    1X74 / N54  ○
-Malta v Andorra               UEFA Nations League              ✓ Malta or Andorra · 72%                    @1.31  Malta Over 0.5 goals @1.26           U55/U80    1X87 / N78  ○
-Netherlands v Serbia          UEFA Nations League              ✓ Multigoals 2-5 · 71%                      @1.21  Netherlands Under 4.5 goals @1.20    O79/O56    1X85 / Y51  ○
+Greece v Germany              UEFA Nations League              ✓ Under 4.5 goals · 81%                     @1.25  Greece or Germany @1.27             O76/O51    1275 / Y55  ○
+Kosovo v Austria              UEFA Nations League              ✓ Austria Under 2.5 goals · 81%             @1.21  Kosovo Clean Sheet — no @1.22       O69/U58    X275 / N54  ○
+Portugal v Norway             UEFA Nations League              ✓ Portugal or Norway · 80%                  @1.23  Norway (+2.5) Asian handicap @1.21  O84/O63    1X82 / Y58  ○
+Wales v Denmark               UEFA Nations League              ✓ Denmark Under 2.5 goals · 79%             @1.25  Wales or Denmark @1.29              O72/U54    1274 / N50  ○
+Azerbaijan v Lithuania        UEFA Nations League              ᴮ Lithuania Win to Nil — no · 77%           @1.25  Lithuania Under 1.5 goals @1.30     O56/U70    1X79 / N65  ○
+Republic of Ireland v Israel  UEFA Nations League              ✓ Republic of Ireland Over 0.5 goals · 76%  @1.26  Israel Clean Sheet — no @1.25       O68/U59    1X74 / N54  ○
+Malta v Andorra               UEFA Nations League              ✓ Malta or Andorra · 73%                    @1.30  Malta Under 2.5 goals @1.20         U55/U80    1X87 / N78  ○
+Netherlands v Serbia          UEFA Nations League              ✓ Multigoals 2-5 · 71%                      @1.22  Under 5.5 goals @1.22               O79/O56    1X85 / Y51  ○
 ```
 ★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · ⚠ SPLIT = no in-band outcome either side backs
 Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
 
-TABLE 1 mega code (all 13 deploy singles): G9RCC7   load ↦ www.sportybet.com/ng/?shareCode=G9RCC7
+TABLE 1 mega code (all 13 deploy singles): JVV5H8   load ↦ www.sportybet.com/ng/?shareCode=JVV5H8
 
 ──────────────────────────────────
 TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
@@ -41,19 +40,19 @@ TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
 
 ```
 Fixture                       Country · League                 Pick                                  Chance  Odds   Certainty  Stake  Code
-Castellon v Ceuta             Spain · La Liga 2 / Hypermotion  ✓ Under 4.5 goals                     74%     @1.33  HIGH       0.25%  HN8BFW
-Sociedad B v Granada          Spain · La Liga 2 / Hypermotion  ✓ Sociedad B or Granada               74%     @1.33  HIGH       0.25%  PQFD5S
+Castellon v Ceuta             Spain · La Liga 2 / Hypermotion  ✓ Castellon or Ceuta & Over 1.5       75%     @1.21  HIGH       0.25%  KW3Y7C
+Sabadell v Andorra            Spain · La Liga 2 / Hypermotion  ✓ Sabadell Over 0.5 goals             79%     @1.24  MEDIUM     0.25%  UW2636
 Sp Gijon v Celta B            Spain · La Liga 2 / Hypermotion  ✓ Sp Gijon or Celta B                 76%     @1.26  HIGH       0.25%  Y3LQDU
-Las Palmas v Valladolid       Spain · La Liga 2 / Hypermotion  ✓ Under 3.5 goals                     76%     @1.29  HIGH       0.25%  X5SUHM
-Girona v Mallorca             Spain · La Liga 2 / Hypermotion  ✓ Under 3.5 goals                     78%     @1.31  LOW        0.12%  SB5BXL
-Azerbaijan v Lithuania        UEFA Nations League              ✓ Lithuania Win to Nil — no           81%     @1.20  MEDIUM     0.25%  TXMV96
+Las Palmas v Valladolid       Spain · La Liga 2 / Hypermotion  ✓ Las Palmas or Valladolid            74%     @1.33  HIGH       0.25%  WXUHZ1
+Girona v Mallorca             Spain · La Liga 2 / Hypermotion  ✓ Under 3.5 goals                     78%     @1.34  LOW        0.12%  SB5BXL
+Azerbaijan v Lithuania        UEFA Nations League              ᴮ Lithuania Win to Nil — no           77%     @1.25  LOW        0.12%  TXMV96
 Kosovo v Austria              UEFA Nations League              ✓ Austria Under 2.5 goals             81%     @1.21  HIGH       0.25%  Y1SBPW
-Malta v Andorra               UEFA Nations League              ✓ Malta or Andorra                    72%     @1.31  MEDIUM     0.25%  XQRWYR
+Malta v Andorra               UEFA Nations League              ✓ Malta or Andorra                    73%     @1.30  MEDIUM     0.25%  XQRWYR
 Greece v Germany              UEFA Nations League              ✓ Under 4.5 goals                     81%     @1.25  MEDIUM     0.25%  PK4TTK
-Republic of Ireland v Israel  UEFA Nations League              ✓ Republic of Ireland Over 0.5 goals  77%     @1.24  MEDIUM     0.25%  WDFTVF
-Netherlands v Serbia          UEFA Nations League              ✓ Multigoals 2-5                      71%     @1.21  HIGH       0.25%  WWLZRX
+Republic of Ireland v Israel  UEFA Nations League              ✓ Republic of Ireland Over 0.5 goals  76%     @1.26  HIGH       0.25%  WDFTVF
+Netherlands v Serbia          UEFA Nations League              ✓ Multigoals 2-5                      71%     @1.22  HIGH       0.25%  WWLZRX
 Portugal v Norway             UEFA Nations League              ✓ Portugal or Norway                  80%     @1.23  HIGH       0.25%  P0K54J
-Wales v Denmark               UEFA Nations League              ✓ Denmark Over 0.5 goals              80%     @1.21  MEDIUM     0.25%  QPGBZP
+Wales v Denmark               UEFA Nations League              ✓ Denmark Under 2.5 goals             79%     @1.25  MEDIUM     0.25%  Y1SMD8
 ```
 Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
 Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
@@ -61,7 +60,7 @@ Stake = suggested % of your bankroll per single (bigger only where an edge is pr
 Price check: 12 of 13 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 1 differ (below).
    • ⚠ Sp Gijon v Celta B (🇪🇸 Spain · La Liga 2 / Hypermotion) — differs from bet365 via football-data: SportyBet home 55% vs 61% (margin removed, more than 5 pts apart)
 
-TABLE 2 mega code (all 13 deploy singles): G9RCC7   load ↦ www.sportybet.com/ng/?shareCode=G9RCC7
+TABLE 2 mega code (all 13 deploy singles): JVV5H8   load ↦ www.sportybet.com/ng/?shareCode=JVV5H8
 
 ──────────────────────────────────
 TABLE 3A · 50%+ ACCAS
@@ -77,25 +76,25 @@ TABLE 3 · ACCA ROUTE
 
 3 accas cover all 13 deploy picks — every code is also in ALL CODES at the end.
 
-Acca A · code HA0BUQ · 5 legs · odds 2.70 · chance 34%
-   • Azerbaijan v Lithuania (🏆 UEFA Nations League) — Lithuania Win to Nil — no @1.20 (81%)
+Acca A · code JV8C5R · 5 legs · odds 2.88 · chance 32%
    • Greece v Germany (🏆 UEFA Nations League) — Under 4.5 goals @1.25 (81%)
    • Kosovo v Austria (🏆 UEFA Nations League) — Austria Under 2.5 goals @1.21 (81%)
    • Portugal v Norway (🏆 UEFA Nations League) — Portugal or Norway @1.23 (80%)
-   • Wales v Denmark (🏆 UEFA Nations League) — Denmark Over 0.5 goals @1.21 (80%)
-Acca B · code PAZWLK · 4 legs · odds 2.64 · chance 35%
-   • Girona v Mallorca (🇪🇸 Spain · La Liga 2 / Hypermotion) — Under 3.5 goals @1.31 (78%)
-   • Republic of Ireland v Israel (🏆 UEFA Nations League) — Republic of Ireland Over 0.5 goals @1.24 (77%)
-   • Las Palmas v Valladolid (🇪🇸 Spain · La Liga 2 / Hypermotion) — Under 3.5 goals @1.29 (76%)
+   • Wales v Denmark (🏆 UEFA Nations League) — Denmark Under 2.5 goals @1.25 (79%)
+   • Sabadell v Andorra (🇪🇸 Spain · La Liga 2 / Hypermotion) — Sabadell Over 0.5 goals @1.24 (79%)
+Acca B · code V3MFJH · 4 legs · odds 2.66 · chance 35%
+   • Girona v Mallorca (🇪🇸 Spain · La Liga 2 / Hypermotion) — Under 3.5 goals @1.34 (78%)
+   • Azerbaijan v Lithuania (🏆 UEFA Nations League) — Lithuania Win to Nil — no @1.25 (77%)
+   • Republic of Ireland v Israel (🏆 UEFA Nations League) — Republic of Ireland Over 0.5 goals @1.26 (76%)
    • Sp Gijon v Celta B (🇪🇸 Spain · La Liga 2 / Hypermotion) — Sp Gijon or Celta B @1.26 (76%)
-Acca C · code Y1SJXR · 4 legs · odds 2.80 · chance 28%
-   • Castellon v Ceuta (🇪🇸 Spain · La Liga 2 / Hypermotion) — Under 4.5 goals @1.33 (74%)
-   • Sociedad B v Granada (🇪🇸 Spain · La Liga 2 / Hypermotion) — Sociedad B or Granada @1.33 (74%)
-   • Malta v Andorra (🏆 UEFA Nations League) — Malta or Andorra @1.31 (72%)
-   • Netherlands v Serbia (🏆 UEFA Nations League) — Multigoals 2-5 @1.21 (71%)
+Acca C · code P1TVY2 · 4 legs · odds 2.55 · chance 28%
+   • Castellon v Ceuta (🇪🇸 Spain · La Liga 2 / Hypermotion) — Castellon or Ceuta & Over 1.5 @1.21 (75%)
+   • Las Palmas v Valladolid (🇪🇸 Spain · La Liga 2 / Hypermotion) — Las Palmas or Valladolid @1.33 (74%)
+   • Malta v Andorra (🏆 UEFA Nations League) — Malta or Andorra @1.30 (73%)
+   • Netherlands v Serbia (🏆 UEFA Nations League) — Multigoals 2-5 @1.22 (71%)
 
 All accas together = every deploy pick, so their mega code is the same slip as Table 2's:
-TABLE 3 mega code (all 13 deploy singles): G9RCC7   load ↦ www.sportybet.com/ng/?shareCode=G9RCC7
+TABLE 3 mega code (all 13 deploy singles): JVV5H8   load ↦ www.sportybet.com/ng/?shareCode=JVV5H8
 
 ──────────────────────────────────
 TABLE 3B · ALT-MARKET ACCAS
@@ -103,22 +102,22 @@ TABLE 3B · ALT-MARKET ACCAS
  handicaps, team goals — so one result can't sink every slip)
 ──────────────────────────────────
 
-Alt A · code TSRMYP · 5 legs · odds 2.61 · chance 32%
-   • Netherlands v Serbia (🏆 UEFA Nations League) — Netherlands Under 4.5 goals @1.20 (84%)
+Alt A · code JM9WQ1 · 5 legs · odds 2.64 · chance 34%
+   • Netherlands v Serbia (🏆 UEFA Nations League) — Under 5.5 goals @1.22 (84%)
+   • Malta v Andorra (🏆 UEFA Nations League) — Malta Under 2.5 goals @1.20 (83%)
    • Portugal v Norway (🏆 UEFA Nations League) — Norway (+2.5) Asian handicap @1.21 (80%)
-   • Wales v Denmark (🏆 UEFA Nations League) — Wales Clean Sheet — no @1.20 (80%)
-   • Kosovo v Austria (🏆 UEFA Nations League) — Kosovo Clean Sheet — no @1.23 (78%)
-   • Republic of Ireland v Israel (🏆 UEFA Nations League) — Israel Clean Sheet — no @1.22 (77%)
-Alt B · code GHPT00 · 4 legs · odds 2.70 · chance 33%
+   • Sabadell v Andorra (🇪🇸 Spain · La Liga 2 / Hypermotion) — Andorra Clean Sheet — no @1.22 (79%)
+   • Kosovo v Austria (🏆 UEFA Nations League) — Kosovo Clean Sheet — no @1.22 (78%)
+Alt B · code H39K8J · 4 legs · odds 2.73 · chance 34%
    • Greece v Germany (🏆 UEFA Nations League) — Greece or Germany @1.27 (77%)
-   • Azerbaijan v Lithuania (🏆 UEFA Nations League) — Lithuania Under 1.5 goals @1.31 (76%)
-   • Sp Gijon v Celta B (🇪🇸 Spain · La Liga 2 / Hypermotion) — Sp Gijon Under 2.5 goals @1.29 (76%)
-   • Malta v Andorra (🏆 UEFA Nations League) — Malta Over 0.5 goals @1.26 (75%)
-Alt C · code MZAC48 · 4 legs · odds 2.76 · chance 29%
-   • Las Palmas v Valladolid (🇪🇸 Spain · La Liga 2 / Hypermotion) — Las Palmas or Valladolid @1.33 (74%)
-   • Sociedad B v Granada (🇪🇸 Spain · La Liga 2 / Hypermotion) — Over 1.5 goals @1.30 (74%)
-   • Castellon v Ceuta (🇪🇸 Spain · La Liga 2 / Hypermotion) — Castellon or Ceuta & Over 1.5 @1.22 (74%)
-   • Girona v Mallorca (🇪🇸 Spain · La Liga 2 / Hypermotion) — Girona or Mallorca @1.31 (72%)
+   • Azerbaijan v Lithuania (🏆 UEFA Nations League) — Lithuania Under 1.5 goals @1.30 (77%)
+   • Sp Gijon v Celta B (🇪🇸 Spain · La Liga 2 / Hypermotion) — Sp Gijon Under 2.5 goals @1.28 (76%)
+   • Las Palmas v Valladolid (🇪🇸 Spain · La Liga 2 / Hypermotion) — Under 3.5 goals @1.29 (76%)
+Alt C · code P2MK20 · 4 legs · odds 2.94 · chance 30%
+   • Republic of Ireland v Israel (🏆 UEFA Nations League) — Israel Clean Sheet — no @1.25 (76%)
+   • Wales v Denmark (🏆 UEFA Nations League) — Wales or Denmark @1.29 (75%)
+   • Castellon v Ceuta (🇪🇸 Spain · La Liga 2 / Hypermotion) — Under 4.5 goals @1.38 (72%)
+   • Girona v Mallorca (🇪🇸 Spain · La Liga 2 / Hypermotion) — Girona or Mallorca @1.32 (72%)
 
 Each alt leg is a little less likely than the main pick: this spreads the risk, it does not raise the hit rate. Not part of the £1 live test (order 26) unless the Architect says so.
 
@@ -127,8 +126,8 @@ TABLE 4 · THE PICK
 (primary single + Acca A recommendation)
 ──────────────────────────────────
 
-Primary single: Azerbaijan v Lithuania (🏆 UEFA Nations League) — Lithuania Win to Nil — no (81%) @1.20 · code TXMV96
-Acca A: 5 legs, model 34% · code HA0BUQ
+Primary single: Greece v Germany (🏆 UEFA Nations League) — Under 4.5 goals (81%) @1.25 · code PK4TTK
+Acca A: 5 legs, model 32% · code JV8C5R
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.
@@ -138,13 +137,13 @@ Booking codes: live SportyBet share codes — load a code on SportyBet to see th
 ==================================
 
 ALL CODES
-Board MEGA: G9RCC7 (13 legs · every single · stake 0.1%)
-Acca A: HA0BUQ (5 legs · odds 2.70 · 34% · stake 0.25%)
-Acca B: PAZWLK (4 legs · odds 2.64 · 35% · stake 0.25%)
-Acca C: Y1SJXR (4 legs · odds 2.80 · 28% · stake 0.25%)
-Alt A: TSRMYP (5 legs · alt markets · odds 2.61 · 32% · stake 0.25%)
-Alt B: GHPT00 (4 legs · alt markets · odds 2.70 · 33% · stake 0.25%)
-Alt C: MZAC48 (4 legs · alt markets · odds 2.76 · 29% · stake 0.25%)
+Board MEGA: JVV5H8 (13 legs · every single · stake 0.1%)
+Acca A: JV8C5R (5 legs · odds 2.88 · 32% · stake 0.25%)
+Acca B: V3MFJH (4 legs · odds 2.66 · 35% · stake 0.25%)
+Acca C: P1TVY2 (4 legs · odds 2.55 · 28% · stake 0.25%)
+Alt A: JM9WQ1 (5 legs · alt markets · odds 2.64 · 34% · stake 0.25%)
+Alt B: H39K8J (4 legs · alt markets · odds 2.73 · 34% · stake 0.25%)
+Alt C: P2MK20 (4 legs · alt markets · odds 2.94 · 30% · stake 0.25%)
 
 ============================================================
 
@@ -161,7 +160,7 @@ Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Prem
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ FA Cup: no results available for grading — legs stay PENDING, not guessed
-  ⚠ graded 0 of 153 pending leg(s)
+  ⚠ graded 0 of 155 pending leg(s)
   ⚠ picks 2026-10-03: 73 graded, 3 pending (Flashscore)
   ⚠ SportyBet events pulled live
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
@@ -189,7 +188,7 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ La Liga: 20 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ La Liga 2: 10 fixture(s) priced from SportyBet
-  ⚠ La Liga 2: price check — 5 agree with an independent book, 1 differ, 0 unchecked (margin-free, 5 pts)
+  ⚠ La Liga 2: price check — 4 agree with an independent book, 1 differ, 0 unchecked (margin-free, 5 pts)
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ Serie B: 10 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
@@ -275,27 +274,27 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ FA Cup: 5 fixture(s) priced from SportyBet
   ⚠ FA Cup: 5 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
-  ⚠ FA Cup: 0/5 fixture(s) priced MARKET-IMPLIED (cup across tiers — no single-league model; no edge claimed)
+  ⚠ FA Cup: 4/5 fixture(s) priced MARKET-IMPLIED (cup across tiers — no single-league model; no edge claimed)
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ UEFA Nations League: 26 fixture(s) priced from SportyBet
   ⚠ UEFA Nations League: 26 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
   ⚠ UEFA Nations League: national-team history via martj42/international_results — 1005 UEFA home-venue matches since 2022-01-01, 55 UEFA teams, latest result 2026-06-09; no odds in this source, so legs settle but CLV stays NO DATA
-  ⚠ TARGET DAY 2026-10-04: 14 fixture(s) kicking off that day (101 outside the target day excluded)
-  ⚠ Fixture check (TheSportsDB · ESPN · football-data): 5/14 confirmed by two independent sources, 8 one source only, 1 conflict(s) — Sabadell v Andorra (La Liga 2): ESPN lists it POSTPONED
+  ⚠ TARGET DAY 2026-10-04: 13 fixture(s) kicking off that day (102 outside the target day excluded)
+  ⚠ Fixture check (TheSportsDB · ESPN · football-data): 5/13 confirmed by two independent sources, 8 one source only, 0 conflict(s)
   ⚠ Learning: 71 graded single(s) so far — corrections start once a market family or league has 10+ results over 3+ match days.
-  ⚠ full market ladder: 14 fixture(s) scored on every full-time SportyBet market; 0 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
+  ⚠ full market ladder: 13 fixture(s) scored on every full-time SportyBet market; 0 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
   ⚠ team news (FotMob): 12 pick(s) checked, 0 flagged for injuries/suspensions, 4 swapped to an alternative the news doesn't touch
   ⚠ price drift since the last board: 0 pick(s) drifted 5%+ (demoted to LOW), 0 shortened 5%+ (market agrees)
   ⚠ switched shaky picks: 0 moved to a steadier market (order 32)
-  ⚠ value: 2/13 picks positive EV on our chance x price (avg EV -3.0%); the scorecard tracks whether +EV picks really return more
+  ⚠ value: 2/13 picks positive EV on our chance x price (avg EV -3.3%); the scorecard tracks whether +EV picks really return more
   ⚠ Staking (% of bankroll): BANKER est +0.7%, no live record yet · SAFE est -5.4%, live 31 @ -3.6% · BOOK est -5.5%, live 2 @ +22.0% · MARKET est -3.5%, live 38 @ +0.4%
   ⚠ logged 2 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
   ⚠ 50%+ accas: 0/0 booked (3 legs, high-certainty legs only)
   ⚠ alt-market accas: 3/3 booked (a different market from each fixture's main pick)
   ⚠ SportyBet booking codes: 13/13 singles, 3/3 accas, board code set
-  ⚠ AI Survivor: 1 held pick(s) withdrawn — below the lineage bar
-  ⚠ AI Survivor: 14 alive, 4 holding a pick for 2026-10-04 (0 new), 10 waiting for a 80%+ HIGH/MEDIUM pick
+  ⚠ AI Survivor: 2 held pick(s) withdrawn — below the lineage bar
+  ⚠ AI Survivor: 14 alive, 2 holding a pick for 2026-10-04 (0 new), 12 waiting for a 80%+ HIGH/MEDIUM pick
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 
 PART 1 — THE CALL
@@ -303,7 +302,7 @@ PART 1 — THE CALL
 MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 
 1. Castellon v Ceuta (La Liga 2)
-   Data confidence: VERIFIED — independent factors agree (source: sportybet.com, espn.com, football-data.co.uk)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com)
    Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P1 19pts, last5 15/15 | away: P21 4pts, last5 4/15  (recent-form tilt +0.73)
    Match result (model probabilities):
@@ -316,36 +315,36 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Castellon to win 76% · Draw 17% · Ceuta to win 6%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Under 4.5 goals
-      Model probability .......... 74%
-      Best quoted price .......... 1.33 decimal (sportybet, best of 1 books)
+   Best available market: Castellon or Ceuta & Over 1.5
+      Model probability .......... 75%
+      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.18 or longer
-      HR30 numerical MES ......... -1.68% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -9.61% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
-2. Sociedad B v Granada (La Liga 2)
-   Data confidence: VERIFIED — independent factors agree (source: sportybet.com, espn.com, football-data.co.uk)
-   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
-   Standings/form — home: P14 8pts, last5 5/15 | away: P13 8pts, last5 4/15  (recent-form tilt +0.07)
+2. Sabadell v Andorra (La Liga 2)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com)
+   Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5
+   Standings/form — home: P7 12pts, last5 10/15 | away: P17 6pts, last5 3/15  (recent-form tilt +0.47)
    Match result (model probabilities):
-      Sociedad B to win .......... 42%
-      Draw ......................... 25%
-      Granada to win .......... 32%
-   Goals: Over 1.5 goals 77% (model) | Over 2.5 goals 53% (model)
-   Both teams to score YES 56% (model)
-   Expected goals (model): Sociedad B 1.501, Granada 1.28
+      Sabadell to win .......... 59%
+      Draw ......................... 23%
+      Andorra to win .......... 18%
+   Goals: Over 1.5 goals 74% (model) | Under 2.5 goals 51% (model)
+   Both teams to score NO 52% (model)
+   Expected goals (model): Sabadell 1.773, Andorra 0.868
    Second opinion — Elo rating engine (ID82), independent of the goals model:
-      Sociedad B to win 47% · Draw 24% · Granada to win 29%
+      Sabadell to win 66% · Draw 20% · Andorra to win 14%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Sociedad B or Granada
-      Model probability .......... 74%
-      Best quoted price .......... 1.33 decimal (sportybet, best of 1 books)
-      Breakeven trigger price .... 1.31 or longer
-      HR30 numerical MES ......... -1.81% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+   Best available market: Sabadell Over 0.5 goals
+      Model probability .......... 79%
+      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
+      Breakeven trigger price .... 1.35 or longer
+      HR30 numerical MES ......... -2.63% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 3. Sp Gijon v Celta B (La Liga 2)
-   Data confidence: VERIFIED — independent factors agree (source: sportybet.com, espn.com, football-data.co.uk)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com)
    Price check: CONFLICT — differs from bet365 via football-data: SportyBet home 55% vs 61% (margin removed, more than 5 pts apart)
    Standings/form — home: P12 10pts, last5 6/15 | away: P15 8pts, last5 4/15  (recent-form tilt +0.13)
    Match result (model probabilities):
@@ -362,11 +361,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 76%
       Best quoted price .......... 1.26 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.37 or longer
-      HR30 numerical MES ......... -4.24% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.51% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 4. Las Palmas v Valladolid (La Liga 2)
-   Data confidence: VERIFIED — independent factors agree (source: sportybet.com, espn.com, football-data.co.uk)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com)
    Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P11 10pts, last5 4/15 | away: P16 8pts, last5 8/15  (recent-form tilt -0.27)
    Match result (model probabilities):
@@ -379,15 +378,15 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Las Palmas to win 69% · Draw 19% · Valladolid to win 11%
       ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +12pp on home win (Elo 69%/19%/11% vs Dixon-Coles 57%/25%/18%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
-   Best available market: Under 3.5 goals
-      Model probability .......... 76%
-      Best quoted price .......... 1.29 decimal (sportybet, best of 1 books)
+   Best available market: Las Palmas or Valladolid
+      Model probability .......... 74%
+      Best quoted price .......... 1.33 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.43 or longer
-      HR30 numerical MES ......... -1.57% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.98% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 5. Girona v Mallorca (La Liga 2)
-   Data confidence: VERIFIED — independent factors agree (source: sportybet.com, espn.com, football-data.co.uk)
+   Data confidence: VERIFIED — independent factors agree (source: football-data.co.uk, espn.com, sportybet.com)
    Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P5 13pts, last5 12/15 | away: P6 13pts, last5 10/15  (recent-form tilt -0.13)
    Match result (model probabilities):
@@ -402,34 +401,34 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +24pp on home win (Elo 55%/23%/22% vs Dixon-Coles 31%/34%/35%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
    Best available market: Under 3.5 goals
       Model probability .......... 78%
-      Best quoted price .......... 1.31 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.34 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.98 or longer
-      HR30 numerical MES ......... +2.58% expected value per unit staked — POSITIVE expected value against this price
+      HR30 numerical MES ......... +3.89% expected value per unit staked — POSITIVE expected value against this price
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 6. Azerbaijan v Lithuania (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P49 26pts, last5 1/15 | away: P48 27pts, last5 4/15  (recent-form tilt -0.20)
    Match result (model probabilities):
       Azerbaijan to win .......... 48%
       Draw ......................... 30%
       Lithuania to win .......... 21%
-   Goals: Over 1.5 goals 57% (model) | Under 2.5 goals 70% (model)
+   Goals: Over 1.5 goals 56% (model) | Under 2.5 goals 70% (model)
    Both teams to score NO 65% (model)
    Expected goals (model): Azerbaijan 1.201, Lithuania 0.695
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Azerbaijan to win 54% · Draw 26% · Lithuania to win 20%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Lithuania Win to Nil — no
-      Model probability .......... 81%
-      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
+      Model probability .......... 77%
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.77 or longer
-      HR30 numerical MES ......... -2.48% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -0.98% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 7. Kosovo v Austria (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P21 62pts, last5 7/15 | away: P10 72pts, last5 10/15  (recent-form tilt +0.20)
    Match result (model probabilities):
@@ -446,11 +445,11 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Model probability .......... 81%
       Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.46 or longer
-      HR30 numerical MES ......... -1.92% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -2.23% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 8. Malta v Andorra (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P40 39pts, last5 3/15 | away: P51 20pts, last5 4/15  (recent-form tilt -0.07)
    Match result (model probabilities):
@@ -464,14 +463,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Malta to win 74% · Draw 17% · Andorra to win 9%
       ENGINE DIVERGENCE: Elo and Dixon-Coles differ by +20pp on home win (Elo 74%/17%/9% vs Dixon-Coles 54%/32%/13%). Two independent engines disagreeing is a REVIEW signal, not an edge — treat this fixture as lower confidence until the disagreement is understood.
    Best available market: Malta or Andorra
-      Model probability .......... 72%
-      Best quoted price .......... 1.31 decimal (sportybet, best of 1 books)
+      Model probability .......... 73%
+      Best quoted price .......... 1.30 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.83 or longer
-      HR30 numerical MES ......... -5.41% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -5.66% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 9. Greece v Germany (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P17 66pts, last5 5/15 | away: P8 74pts, last5 15/15  (recent-form tilt +0.67)
    Match result (model probabilities):
@@ -492,7 +491,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 10. Republic of Ireland v Israel (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P29 48pts, last5 11/15 | away: P43 35pts, last5 8/15  (recent-form tilt +0.20)
    Match result (model probabilities):
@@ -506,14 +505,14 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Republic of Ireland to win 46% · Draw 30% · Israel to win 23%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Republic of Ireland Over 0.5 goals
-      Model probability .......... 77%
-      Best quoted price .......... 1.24 decimal (sportybet, best of 1 books)
+      Model probability .......... 76%
+      Best quoted price .......... 1.26 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.48 or longer
-      HR30 numerical MES ......... -4.35% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -4.01% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 11. Netherlands v Serbia (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P6 75pts, last5 13/15 | away: P23 59pts, last5 6/15  (recent-form tilt +0.47)
    Match result (model probabilities):
@@ -528,13 +527,13 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
    Best available market: Multigoals 2-5
       Model probability .......... 71%
-      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
+      Best quoted price .......... 1.22 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.26 or longer
-      HR30 numerical MES ......... -13.54% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -13.49% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 12. Portugal v Norway (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P1 88pts, last5 10/15 | away: P3 79pts, last5 10/15  (recent-form tilt +0.00)
    Match result (model probabilities):
@@ -555,7 +554,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 13. Wales v Denmark (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P24 57pts, last5 8/15 | away: P5 79pts, last5 8/15  (recent-form tilt -0.00)
    Match result (model probabilities):
@@ -568,22 +567,21 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
    Second opinion — Elo rating engine (ID82), independent of the goals model:
       Wales to win 18% · Draw 25% · Denmark to win 56%
       Both engines agree within tolerance — no divergence flag. Agreement is not proof of a good bet, only of a consistent read.
-   Best available market: Denmark Over 0.5 goals
-      Model probability .......... 80%
-      Best quoted price .......... 1.21 decimal (sportybet, best of 1 books)
+   Best available market: Denmark Under 2.5 goals
+      Model probability .......... 79%
+      Best quoted price .......... 1.25 decimal (sportybet, best of 1 books)
       Breakeven trigger price .... 1.40 or longer
-      HR30 numerical MES ......... -3.70% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      HR30 numerical MES ......... -1.81% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 PART 2 — THE SCAN
 Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
 Castellon v Ceuta (La Liga 2) | Castellon·76% | O85 / O65 | 1X91 / Y50 | ✓
-Sabadell v Andorra (La Liga 2) | Sabadell·59% | O74 / U51 | 1X82 / N52 | ⚠
-Sociedad B v Granada (La Liga 2) | Sociedad B·42% | O77 / O53 | 1275 / Y56 | ✓
+Sabadell v Andorra (La Liga 2) | Sabadell·59% | O74 / U51 | 1X82 / N52 | ✓
 Sp Gijon v Celta B (La Liga 2) | Sp Gijon·53% | O73 / U52 | 1X78 / N51 | ✓
 Las Palmas v Valladolid (La Liga 2) | Las Palmas·57% | O70 / U56 | 1X82 / N56 | ✓
 Girona v Mallorca (La Liga 2) | Mallorca·35% | U50 / U77 | X269 / N68 | ✓
-Azerbaijan v Lithuania (UEFA Nations League) | Azerbaijan·48% | O57 / U70 | 1X79 / N65 | ○
+Azerbaijan v Lithuania (UEFA Nations League) | Azerbaijan·48% | O56 / U70 | 1X79 / N65 | ○
 Kosovo v Austria (UEFA Nations League) | Austria·49% | O69 / U58 | X275 / N54 | ○
 Malta v Andorra (UEFA Nations League) | Malta·54% | U55 / U80 | 1X87 / N78 | ○
 Greece v Germany (UEFA Nations League) | Germany·42% | O76 / O51 | 1275 / Y55 | ○
@@ -593,15 +591,15 @@ Portugal v Norway (UEFA Nations League) | Portugal·63% | O84 / O63 | 1X82 / Y58
 Wales v Denmark (UEFA Nations League) | Denmark·47% | O72 / U54 | 1274 / N50 | ○
 
 PART 3 — REJECTED / WATCHLIST
-Sabadell v Andorra (La Liga 2): CONFLICT — ESPN lists it POSTPONED, while sportybet.com still lists it. Not deployed until the sources agree.
+None.
 
 PART 4 — DATA INTEGRITY (ID403 counts)
 VERIFIED: 5
 SINGLE-SOURCE: 8
-CONFLICT: 1
+CONFLICT: 0
 NO-DATA: 0
 DERIVED: 0
-PRICE CHECK (SportyBet vs bet365/DraftKings, margin removed): VERIFIED 13 · CONFLICT 1 · SINGLE-SOURCE 0
+PRICE CHECK (SportyBet vs bet365/DraftKings, margin removed): VERIFIED 12 · CONFLICT 1 · SINGLE-SOURCE 0
 
 PART 5 — HARD RULES + SIGN-OFF
 

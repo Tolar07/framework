@@ -1,6 +1,6 @@
 {
  "date": "2026-10-05",
- "generated_at": "2026-10-04T20:51:35Z",
+ "generated_at": "2026-10-04T21:20:21Z",
  "singles": [
   {
    "fixture": "Cordoba v Tenerife",
@@ -37,9 +37,9 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.03834334378581006,
+   "ev": -0.03834334489893643,
    "first_price": 1.28,
-   "drift_since_board": null,
+   "drift_since_board": 0.0,
    "result": null,
    "ft": null
   },
@@ -78,9 +78,9 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.029681680663056764,
+   "ev": -0.02968023208959636,
    "first_price": 1.2,
-   "drift_since_board": null,
+   "drift_since_board": 0.0,
    "result": null,
    "ft": null
   },
@@ -119,9 +119,9 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.050754204133600433,
+   "ev": -0.05076162634539905,
    "first_price": 1.22,
-   "drift_since_board": null,
+   "drift_since_board": 0.0,
    "result": null,
    "ft": null
   },
@@ -160,9 +160,9 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.12,
-   "ev": -0.046390848113661676,
+   "ev": -0.04639144237597437,
    "first_price": 1.2,
-   "drift_since_board": null,
+   "drift_since_board": 0.0,
    "result": null,
    "ft": null
   },
@@ -201,7 +201,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.008905999184083857,
+   "ev": -0.008918608355600544,
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
@@ -242,9 +242,9 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.013823630255947905,
+   "ev": -0.013818713294295404,
    "first_price": 1.2,
-   "drift_since_board": null,
+   "drift_since_board": 0.0,
    "result": null,
    "ft": null
   },
@@ -283,7 +283,7 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.0214414347722085,
+   "ev": -0.021434665545278175,
    "first_price": 1.37,
    "drift_since_board": null,
    "result": null,
@@ -298,7 +298,7 @@
    "market": "SB:18|total=1.5|Over 1.5",
    "pick": "Over 1.5 goals",
    "price": 1.2,
-   "chance": 0.8037,
+   "chance": 0.8036,
    "tier": "SAFE",
    "certainty": "HIGH",
    "code": "Z7JG6J",
@@ -324,9 +324,9 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.25,
-   "ev": -0.03561137113610502,
+   "ev": -0.035623979188589616,
    "first_price": 1.2,
-   "drift_since_board": null,
+   "drift_since_board": 0.0,
    "result": null,
    "ft": null
   },
@@ -365,9 +365,9 @@
    "closing_price": null,
    "clv": null,
    "stake_pct": 0.12,
-   "ev": -0.005478092349830654,
+   "ev": -0.00548605645122624,
    "first_price": 1.2,
-   "drift_since_board": null,
+   "drift_since_board": 0.0,
    "result": null,
    "ft": null
   }
@@ -377,7 +377,7 @@
    "name": "Acca A",
    "code": "ZEA0AK",
    "odds": 2.488,
-   "chance": 0.3428474345628782,
+   "chance": 0.3428047759297361,
    "legs": [
     "Montenegro v Armenia",
     "Cyprus v Latvia",
@@ -638,7 +638,7 @@
     0.214,
     0.228,
     0.833,
-    0.627,
+    0.628,
     0.405,
     0.611
    ],
@@ -673,7 +673,7 @@
     0.329,
     0.267,
     0.404,
-    0.719,
+    0.718,
     0.464,
     0.249,
     0.513
@@ -693,7 +693,7 @@
     0.303,
     0.794,
     0.566,
-    0.343,
+    0.342,
     0.589
    ],
    "ft": null

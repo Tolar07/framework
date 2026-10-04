@@ -223,8 +223,8 @@
    "ev": 0.03894533019266744,
    "first_price": 1.34,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-0",
    "drift_price": 1.32,
    "drift_pct": -1.5
   },
@@ -625,7 +625,7 @@
     "Republic of Ireland v Israel",
     "Sp Gijon v Celta B"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca C",
@@ -853,11 +853,11 @@
      "pick": "Girona or Mallorca",
      "price": 1.32,
      "chance": 0.7181,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "0-0"
     }
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "rated": [
@@ -949,7 +949,7 @@
     0.088,
     0.318
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "Azerbaijan v Lithuania",

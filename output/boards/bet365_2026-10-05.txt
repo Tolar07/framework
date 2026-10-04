@@ -2,7 +2,7 @@
 ==================================
 
 📅  Mon 05 Oct 2026 — bet365 board (sent to you only)
-Run ID: OLPXDV-20261004-2048-87016b (same run as the SportyBet board)
+Run ID: OLPXDV-20261004-2119-938a3f (same run as the SportyBet board)
 Times are kickoff, Lagos time (WAT)
 
 Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.

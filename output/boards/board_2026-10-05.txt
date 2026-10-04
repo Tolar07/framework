@@ -2,11 +2,11 @@
 ==================================
 
 📅  Mon 05 Oct 2026   (PICK · win %  ·  alt markets)
-Run ID: OLPXDV-20261004-2048-87016b | Phase 3 — live capital (Architect-deployed)
+Run ID: OLPXDV-20261004-2119-938a3f | Phase 3 — live capital (Architect-deployed)
 Fixtures scanned: 9 · Verified: 1
 KO = kickoff, Lagos time (WAT)
 
-⚠ 136 data flag(s) — full detail in the saved board / VERIFY RESULTS
+⚠ 135 data flag(s) — full detail in the saved board / VERIFY RESULTS
 
 ──────────────────────────────────
 TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
@@ -136,96 +136,16 @@ Alt B: V271EE (4 legs · alt markets · odds 2.77 · 32% · stake 0.25%)
 
 VERIFY RESULTS
 Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
-Sociedad B v Granada | 2-3 | 1X2_HOME | entry 2.55 | CLV NO DATA (Flashscore has no prices) | MISS
-Sociedad B v Granada | 2-3 | OVER_2_5 | entry 1.95 | CLV NO DATA (Flashscore has no prices) | HIT
-Sociedad B v Granada | 2-3 | OVER_3_5 | entry 3.3 | CLV NO DATA (Flashscore has no prices) | HIT
-Sp Gijon v Celta B | 3-2 | 1X2_DRAW | entry 4.2 | CLV NO DATA (Flashscore has no prices) | MISS
-Sp Gijon v Celta B | 3-2 | 1X2_AWAY | entry 5.6 | CLV NO DATA (Flashscore has no prices) | MISS
-Sp Gijon v Celta B | 3-2 | UNDER_2_5 | entry 2.1 | CLV NO DATA (Flashscore has no prices) | MISS
-Sp Gijon v Celta B | 3-2 | UNDER_1_5 | entry 4.1 | CLV NO DATA (Flashscore has no prices) | MISS
-Sp Gijon v Celta B | 3-2 | UNDER_3_5 | entry 1.44 | CLV NO DATA (Flashscore has no prices) | MISS
-Sp Gijon v Celta B | 3-2 | DC_X2 | entry 2.2 | CLV NO DATA (Flashscore has no prices) | MISS
-Castellon v Ceuta | 1-1 | UNDER_2_5 | entry 2.95 | CLV NO DATA (Flashscore has no prices) | HIT
-Castellon v Ceuta | 1-1 | UNDER_3_5 | entry 1.82 | CLV NO DATA (Flashscore has no prices) | HIT
-Las Palmas v Valladolid | 2-2 | 1X2_HOME | entry 2.25 | CLV NO DATA (Flashscore has no prices) | MISS
-Las Palmas v Valladolid | 2-2 | BTTS_NO | entry 1.92 | CLV NO DATA (Flashscore has no prices) | MISS
-Las Palmas v Valladolid | 2-2 | DC_1X | entry 1.32 | CLV NO DATA (Flashscore has no prices) | HIT
-Las Palmas v Valladolid | 2-2 | DC_12 | entry 1.33 | CLV NO DATA (Flashscore has no prices) | MISS
-Azerbaijan v Lithuania | 1-0 | 1X2_HOME | entry 2.45 | CLV NO DATA (Flashscore has no prices) | HIT
-Azerbaijan v Lithuania | 1-0 | UNDER_2_5 | entry 1.51 | CLV NO DATA (Flashscore has no prices) | HIT
-Azerbaijan v Lithuania | 1-0 | UNDER_1_5 | entry 2.55 | CLV NO DATA (Flashscore has no prices) | HIT
-Azerbaijan v Lithuania | 1-0 | BTTS_NO | entry 1.66 | CLV NO DATA (Flashscore has no prices) | HIT
-Azerbaijan v Lithuania | 1-0 | UNDER_3_5 | entry 1.18 | CLV NO DATA (Flashscore has no prices) | HIT
-Azerbaijan v Lithuania | 1-0 | DC_1X | entry 1.34 | CLV NO DATA (Flashscore has no prices) | HIT
-Kosovo v Austria | 1-1 | 1X2_AWAY | entry 2.24 | CLV NO DATA (Flashscore has no prices) | MISS
-Kosovo v Austria | 1-1 | UNDER_2_5 | entry 2.0 | CLV NO DATA (Flashscore has no prices) | HIT
-Kosovo v Austria | 1-1 | UNDER_1_5 | entry 4.0 | CLV NO DATA (Flashscore has no prices) | MISS
-Kosovo v Austria | 1-1 | BTTS_NO | entry 2.15 | CLV NO DATA (Flashscore has no prices) | MISS
-Kosovo v Austria | 1-1 | UNDER_3_5 | entry 1.41 | CLV NO DATA (Flashscore has no prices) | HIT
-Kosovo v Austria | 1-1 | DC_X2 | entry 1.34 | CLV NO DATA (Flashscore has no prices) | HIT
-Malta v Andorra | 1-0 | 1X2_DRAW | entry 3.59 | CLV NO DATA (Flashscore has no prices) | MISS
-Malta v Andorra | 1-0 | UNDER_2_5 | entry 1.54 | CLV NO DATA (Flashscore has no prices) | HIT
-Malta v Andorra | 1-0 | UNDER_1_5 | entry 2.65 | CLV NO DATA (Flashscore has no prices) | HIT
-Malta v Andorra | 1-0 | BTTS_NO | entry 1.53 | CLV NO DATA (Flashscore has no prices) | HIT
-Malta v Andorra | 1-0 | UNDER_3_5 | entry 1.19 | CLV NO DATA (Flashscore has no prices) | HIT
-Greece v Germany | 0-0 | 1X2_HOME | entry 3.98 | CLV NO DATA (Flashscore has no prices) | MISS
-Greece v Germany | 0-0 | UNDER_2_5 | entry 2.3 | CLV NO DATA (Flashscore has no prices) | HIT
-Greece v Germany | 0-0 | UNDER_1_5 | entry 4.8 | CLV NO DATA (Flashscore has no prices) | HIT
-Greece v Germany | 0-0 | BTTS_NO | entry 2.3 | CLV NO DATA (Flashscore has no prices) | HIT
-Greece v Germany | 0-0 | UNDER_3_5 | entry 1.53 | CLV NO DATA (Flashscore has no prices) | HIT
-Greece v Germany | 0-0 | DC_1X | entry 1.85 | CLV NO DATA (Flashscore has no prices) | HIT
-Republic of Ireland v Israel | 1-1 | 1X2_HOME | entry 2.18 | CLV NO DATA (Flashscore has no prices) | MISS
-Republic of Ireland v Israel | 1-1 | UNDER_2_5 | entry 1.78 | CLV NO DATA (Flashscore has no prices) | HIT
-Republic of Ireland v Israel | 1-1 | UNDER_1_5 | entry 3.33 | CLV NO DATA (Flashscore has no prices) | MISS
-Republic of Ireland v Israel | 1-1 | BTTS_NO | entry 1.91 | CLV NO DATA (Flashscore has no prices) | MISS
-Republic of Ireland v Israel | 1-1 | UNDER_3_5 | entry 1.3 | CLV NO DATA (Flashscore has no prices) | HIT
-Netherlands v Serbia | 2-1 | 1X2_DRAW | entry 8.82 | CLV NO DATA (Flashscore has no prices) | MISS
-Netherlands v Serbia | 2-1 | 1X2_AWAY | entry 17.08 | CLV NO DATA (Flashscore has no prices) | MISS
-Netherlands v Serbia | 2-1 | UNDER_2_5 | entry 3.2 | CLV NO DATA (Flashscore has no prices) | MISS
-Netherlands v Serbia | 2-1 | UNDER_1_5 | entry 7.2 | CLV NO DATA (Flashscore has no prices) | MISS
-Netherlands v Serbia | 2-1 | BTTS_YES | entry 2.1 | CLV NO DATA (Flashscore has no prices) | HIT
-Netherlands v Serbia | 2-1 | UNDER_3_5 | entry 1.9 | CLV NO DATA (Flashscore has no prices) | HIT
-Netherlands v Serbia | 2-1 | DC_X2 | entry 4.5 | CLV NO DATA (Flashscore has no prices) | MISS
-Portugal v Norway | 2-1 | 1X2_HOME | entry 1.68 | CLV NO DATA (Flashscore has no prices) | HIT
-Portugal v Norway | 2-1 | UNDER_2_5 | entry 2.85 | CLV NO DATA (Flashscore has no prices) | MISS
-Portugal v Norway | 2-1 | UNDER_1_5 | entry 6.4 | CLV NO DATA (Flashscore has no prices) | MISS
-Portugal v Norway | 2-1 | BTTS_NO | entry 2.55 | CLV NO DATA (Flashscore has no prices) | MISS
-Portugal v Norway | 2-1 | UNDER_3_5 | entry 1.78 | CLV NO DATA (Flashscore has no prices) | HIT
-Wales v Denmark | 0-1 | UNDER_2_5 | entry 2.2 | CLV NO DATA (Flashscore has no prices) | HIT
-Wales v Denmark | 0-1 | UNDER_1_5 | entry 4.5 | CLV NO DATA (Flashscore has no prices) | HIT
-Wales v Denmark | 0-1 | BTTS_NO | entry 2.25 | CLV NO DATA (Flashscore has no prices) | HIT
-Wales v Denmark | 0-1 | UNDER_3_5 | entry 1.48 | CLV NO DATA (Flashscore has no prices) | HIT
-Sociedad B v Granada | 2-3 | SB:10||Home or Away | entry 1.33 | CLV NO DATA (Flashscore has no prices) | HIT
-Sp Gijon v Celta B | 3-2 | SB:10||Home or Away | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
-Castellon v Ceuta | 1-1 | SB:547|total=1.5|Home/Away & Over 1.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | MISS
-Las Palmas v Valladolid | 2-2 | SB:19|total=0.5|Over 0.5 | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
-Azerbaijan v Lithuania | 1-0 | SB:34||No | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
-Kosovo v Austria | 1-1 | SB:20|total=2.5|Under 2.5 | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
-Malta v Andorra | 1-0 | SB:16|hcp=-1.5|Away (+1.5) | entry 1.4 | CLV NO DATA (Flashscore has no prices) | HIT
-Greece v Germany | 0-0 | SB:18|total=4.5|Under 4.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
-Republic of Ireland v Israel | 1-1 | SB:19|total=0.5|Over 0.5 | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
-Netherlands v Serbia | 2-1 | SB:16|hcp=-3.5|Away (+3.5) | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
-Portugal v Norway | 2-1 | SB:10||Home or Away | entry 1.23 | CLV NO DATA (Flashscore has no prices) | HIT
-Wales v Denmark | 0-1 | SB:10||Home or Away | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
-Malta v Andorra | 1-0 | DC_X2 | entry 2.2 | CLV NO DATA (Flashscore has no prices) | MISS
-Greece v Germany | 0-0 | 1X2_DRAW | entry 3.98 | CLV NO DATA (Flashscore has no prices) | HIT
-Wales v Denmark | 0-1 | 1X2_HOME | entry 3.94 | CLV NO DATA (Flashscore has no prices) | MISS
-Castellon v Ceuta | 1-1 | SB:1||Home | entry 1.22 | CLV NO DATA (Flashscore has no prices) | MISS
-Las Palmas v Valladolid | 2-2 | SB:10||Home or Away | entry 1.33 | CLV NO DATA (Flashscore has no prices) | MISS
-Azerbaijan v Lithuania | 1-0 | SB:10||Home or Away | entry 1.38 | CLV NO DATA (Flashscore has no prices) | HIT
-Kosovo v Austria | 1-1 | SB:10||Home or Away | entry 1.31 | CLV NO DATA (Flashscore has no prices) | MISS
-Malta v Andorra | 1-0 | SB:10||Home or Away | entry 1.29 | CLV NO DATA (Flashscore has no prices) | HIT
-Greece v Germany | 0-0 | SB:10||Home or Away | entry 1.27 | CLV NO DATA (Flashscore has no prices) | MISS
-Republic of Ireland v Israel | 1-1 | SB:10||Home or Away | entry 1.33 | CLV NO DATA (Flashscore has no prices) | MISS
-Netherlands v Serbia | 2-1 | SB:14|hcp=0:4|Away (0:4) | entry 1.28 | CLV NO DATA (Flashscore has no prices) | HIT
-Las Palmas v Valladolid | 2-2 | SB:18|total=3.5|Under 3.5 | entry 1.29 | CLV NO DATA (Flashscore has no prices) | MISS
-Kosovo v Austria | 1-1 | SB:20|total=0.5|Over 0.5 | entry 1.23 | CLV NO DATA (Flashscore has no prices) | HIT
-Malta v Andorra | 1-0 | SB:14|hcp=0:2|Away (0:2) | entry 1.39 | CLV NO DATA (Flashscore has no prices) | HIT
-Wales v Denmark | 0-1 | SB:20|total=0.5|Over 0.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
-Castellon v Ceuta | 1-1 | SB:18|total=4.5|Under 4.5 | entry 1.33 | CLV NO DATA (Flashscore has no prices) | HIT
-Netherlands v Serbia | 2-1 | SB:548||2-5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
-Castellon v Ceuta | 1-1 | BTTS_NO | entry 2.05 | CLV NO DATA (Flashscore has no prices) | MISS
-Wales v Denmark | 0-1 | SB:20|total=2.5|Under 2.5 | entry 1.25 | CLV NO DATA (Flashscore has no prices) | HIT
+Girona v Mallorca | 0-0 | 1X2_DRAW | entry 3.4 | CLV NO DATA (Flashscore has no prices) | HIT
+Girona v Mallorca | 0-0 | 1X2_AWAY | entry 3.1 | CLV NO DATA (Flashscore has no prices) | MISS
+Girona v Mallorca | 0-0 | UNDER_2_5 | entry 1.93 | CLV NO DATA (Flashscore has no prices) | HIT
+Girona v Mallorca | 0-0 | UNDER_1_5 | entry 3.7 | CLV NO DATA (Flashscore has no prices) | HIT
+Girona v Mallorca | 0-0 | BTTS_NO | entry 2.1 | CLV NO DATA (Flashscore has no prices) | HIT
+Girona v Mallorca | 0-0 | UNDER_3_5 | entry 1.37 | CLV NO DATA (Flashscore has no prices) | HIT
+Girona v Mallorca | 0-0 | DC_X2 | entry 1.58 | CLV NO DATA (Flashscore has no prices) | HIT
+Girona v Mallorca | 0-0 | SB:16|hcp=-1.5|Away (+1.5) | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
+Girona v Mallorca | 0-0 | SB:10||Home or Away | entry 1.31 | CLV NO DATA (Flashscore has no prices) | MISS
+Girona v Mallorca | 0-0 | SB:18|total=3.5|Under 3.5 | entry 1.34 | CLV NO DATA (Flashscore has no prices) | HIT
 
 ============================================================
 
@@ -237,9 +157,9 @@ Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Prem
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ FA Cup: no results available for grading — legs stay PENDING, not guessed
-  ⚠ graded 90 of 157 pending leg(s)
+  ⚠ graded 10 of 122 pending leg(s)
   ⚠ picks 2026-10-03: 73 graded, 3 pending (Flashscore)
-  ⚠ SportyBet events pulled live
+  ⚠ SportyBet events served from cache (<=60min)
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
   ⚠ Danish Superliga: 6 fixture(s) priced from SportyBet
@@ -361,17 +281,16 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Learning: 71 graded single(s) so far — corrections start once a market family or league has 10+ results over 3+ match days.
   ⚠ full market ladder: 9 fixture(s) scored on every full-time SportyBet market; 0 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
   ⚠ team news (FotMob): 9 pick(s) checked, 1 flagged for injuries/suspensions, 3 swapped to an alternative the news doesn't touch
+  ⚠ price drift since the last board: 0 pick(s) drifted 5%+ (demoted to LOW), 0 shortened 5%+ (market agrees)
   ⚠ switched shaky picks: 2 moved to a steadier market (order 32)
   ⚠ value: 0/9 picks positive EV on our chance x price (avg EV -2.8%); the scorecard tracks whether +EV picks really return more
   ⚠ Staking (% of bankroll): BANKER est +0.7%, no live record yet · SAFE est -5.4%, live 31 @ -3.6% · BOOK est -5.5%, live 2 @ +22.0% · MARKET est -3.5%, live 38 @ +0.4%
-  ⚠ logged 55 new paper leg(s) with a live entry price
+  ⚠ logged 0 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
   ⚠ 50%+ accas: 0/0 booked (3 legs, high-certainty legs only)
   ⚠ alt-market accas: 2/2 booked (a different market from each fixture's main pick)
   ⚠ SportyBet booking codes: 9/9 singles, 2/2 accas, board code set
-  ⚠ AI Survivor: graded 2 pick(s)
-  ⚠ AI Survivor: 2 lineage(s) born
-  ⚠ AI Survivor: 14 alive, 1 holding a pick for 2026-10-05 (1 new), 13 waiting for a 80%+ HIGH/MEDIUM pick
+  ⚠ AI Survivor: 14 alive, 1 holding a pick for 2026-10-05 (0 new), 13 waiting for a 80%+ HIGH/MEDIUM pick
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 
 PART 1 — THE CALL
@@ -379,7 +298,7 @@ PART 1 — THE CALL
 MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
 
 1. Cordoba v Tenerife (La Liga 2)
-   Data confidence: VERIFIED — independent factors agree (source: espn.com, football-data.co.uk, sportybet.com)
+   Data confidence: VERIFIED — independent factors agree (source: sportybet.com, espn.com, football-data.co.uk)
    Price check: VERIFIED — agrees with bet365 via football-data within 5 pts on 1X2 and O/U 2.5; agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P18 6pts, last5 3/15 | away: P9 11pts, last5 5/15  (recent-form tilt -0.13)
    Match result (model probabilities):
@@ -400,7 +319,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 2. Cyprus v Latvia (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P36 42pts, last5 7/15 | away: P45 34pts, last5 2/15  (recent-form tilt +0.33)
    Match result (model probabilities):
@@ -421,7 +340,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 3. Bosnia and Herzegovina v Poland (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P30 48pts, last5 7/15 | away: P18 65pts, last5 7/15  (recent-form tilt -0.00)
    Match result (model probabilities):
@@ -442,7 +361,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 4. France v Belgium (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P20 62pts, last5 13/15 | away: P13 70pts, last5 11/15  (recent-form tilt +0.13)
    Match result (model probabilities):
@@ -463,7 +382,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 5. Italy v Turkey (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P9 73pts, last5 10/15 | away: P4 79pts, last5 13/15  (recent-form tilt -0.20)
    Match result (model probabilities):
@@ -484,7 +403,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 6. Montenegro v Armenia (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P35 45pts, last5 7/15 | away: P47 32pts, last5 2/15  (recent-form tilt +0.33)
    Match result (model probabilities):
@@ -505,7 +424,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 7. Northern Ireland v Georgia (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2
    Standings/form — home: P33 45pts, last5 4/15 | away: P22 59pts, last5 5/15  (recent-form tilt +0.07)
    Match result (model probabilities):
@@ -526,7 +445,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 8. Romania v Sweden (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P14 68pts, last5 7/15 | away: P28 51pts, last5 5/15  (recent-form tilt +0.13)
    Match result (model probabilities):
@@ -547,7 +466,7 @@ MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
       Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
 
 9. Ukraine v Hungary (UEFA Nations League)
-   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: espn.com, sportybet.com)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com, espn.com)
    Price check: VERIFIED — agrees with DraftKings via ESPN within 5 pts on 1X2 and O/U 2.5
    Standings/form — home: P44 34pts, last5 7/15 | away: P7 75pts, last5 10/15  (recent-form tilt -0.20)
    Match result (model probabilities):

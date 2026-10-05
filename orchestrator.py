@@ -50,6 +50,12 @@ FULL_WHITELIST = list(WHITELIST_LEAGUES)
 # weighted to recent matches (backtest/RECENCY_STUDY.md: 240 days beat 120 and
 # the last-season-only model on accuracy, coverage and market agreement).
 RECENCY_HALF_LIFE_DAYS = 240.0
+# Pull every team's ratings toward the league average (dixon_coles.fit ridge).
+# backtest/SHRINK_STUDY.md (2026-10-05): walk-forward over 3,650 matches, 1X2
+# log loss 1.0168 -> 1.0127 overall, promoted clubs 1.0457 -> 1.0320, a side
+# with under 10 games 1.1274 -> 1.0721; better in 10 of 13 leagues. 6 helped
+# thin teams more but hurt established ones; 3 is best overall.
+RIDGE = 3.0
 RECENCY_MAX_MATCHES = 800
 
 
@@ -274,9 +280,9 @@ def scan_one_league(league: str, season: str,
         model = cross_model
     elif recency_fit:
         model = fit(results, half_life_days=RECENCY_HALF_LIFE_DAYS,
-                    ref_date=date.today().isoformat())
+                    ref_date=date.today().isoformat(), ridge=RIDGE)
     else:
-        model = fit(results)
+        model = fit(results, ridge=RIDGE)
 
     # Second engine (ID82 Elo, ratified 2026-08-04). Built from the SAME match
     # history the goals model was fitted on, so the two are reading identical

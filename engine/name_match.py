@@ -76,6 +76,7 @@ EXPLICIT = {
     "Young Boys Bern": "Young Boys",
     # Norway, Sweden (2026-10-05)
     "Fredrikstad FK": "Fredrikstad",
+    "Kristiansund BK": "Kristiansund",
     "IK Start": "Start",
     "Lillestroem SK": "Lillestrom",
     "Rosenborg BK": "Rosenborg",

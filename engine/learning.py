@@ -54,7 +54,9 @@ _SB_NAMES = {"1": "1X2", "10": "Double chance", "11": "Draw no bet",
              "29": "BTTS", "30": "Which team scores", "31": "Home clean sheet",
              "32": "Away clean sheet", "33": "Home win to nil", "34": "Away win to nil",
              "36": "Total & BTTS", "37": "Result & total", "546": "DC & BTTS",
-             "547": "DC & total", "548": "Multigoals"}
+             "547": "DC & total", "548": "Multigoals",
+             "60": "1st half 1X2", "63": "1st half double chance",
+             "64": "1st half draw no bet"}
 _LEGACY = {"HOME": "1X2", "AWAY": "1X2", "DRAW": "1X2", "DC": "Double chance",
            "OVER": "Over/Under", "UNDER": "Over/Under", "BTTS": "BTTS", "DNB": "Draw no bet"}
 

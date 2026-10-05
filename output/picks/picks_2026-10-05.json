@@ -38,8 +38,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 1.59,
    "stake_pct": 0.25,
    "ev": -0.03834334489893643,
    "first_price": 1.28,
@@ -166,7 +166,11 @@
     "home": 797273164,
     "away": 213051883
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68931486",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -209,7 +213,11 @@
     "home": 534432313,
     "away": 140967746
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68931490",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -252,7 +260,11 @@
     "home": 50259493,
     "away": 32044755
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Armenia rotated: confirmed XI worth 32% of predicted",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932420",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -295,7 +307,11 @@
     "home": 66971652,
     "away": 188309493
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932762",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -338,7 +354,11 @@
     "home": 59232602,
     "away": 185853044
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932624",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -381,7 +401,11 @@
     "home": 97171710,
     "away": 150684238
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Ukraine missing 32% of value (Vitaliy Mykolenko, Mykola Matviyenko, Danylo Sikan); support: Hungary missing 29%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932764",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {

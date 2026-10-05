@@ -133,8 +133,8 @@ assert _st.SLIP_STAKES == {"safe3": 0.5, "accas": 0.25, "megas": 0.1}
 
 # 22. Automatic learning from results
 from engine import learning as _lr
-assert (_lr.MIN_N, _lr.MIN_DAYS, _lr.SHRINK, _lr.MAX_SHIFT) == (10, 3, 30, 0.10), \
-    "Order 22: 10+ results over 3+ match days per segment, shrink 30, shift capped at 10 pts"
+assert (_lr.MIN_N, _lr.MIN_DAYS, _lr.Z_MIN, _lr.SHRINK, _lr.MAX_SHIFT) == (50, 5, 2.0, 30, 0.10), \
+    "Order 22: 50+ results over 5+ match days and a 2-sd gap, shrink 30, shift capped at 10 pts"
 
 # 23. AI Survivor lineage
 from engine import survivor as _sv
@@ -359,5 +359,41 @@ assert _ne.k_factor("FIFA World Cup") > _ne.k_factor("UEFA Nations League") > _n
 # 35. Codes frozen at 10pm
 from engine import freeze as _fz
 assert _fz.DRIFT == 0.05, "Order 35: a frozen leg is replaced only on a 5%+ drift, team news or leaving the board"
+
+# 36. BTTS calibrated; BTTS-yes / over-goals value picks
+from engine import calibration as _cal
+assert _cal.btts_yes(0.45) > 0.45 and _cal.btts_yes(0.75) < 0.75, "Order 36(a): BTTS calibrated"
+assert "cal.model_prob(market, mkt.model_prob(market, p))" in _rd_src \
+    and "md = (cal.model_prob(k, md[0]), md[1])" in _rd_src, \
+    "Order 36(a): the calibrated BTTS feeds both selection routes"
+assert _rd.VALUE_MIN_EV == 0.02, "Order 36(b): value threshold EV >= 2%"
+for _k in ("BTTS_YES", "SB:29||Yes", "OVER_2_5", "SB:18|total=2.5|Over 2.5", "SB:19|total=1.5|Over 1.5"):
+    assert _rd._goals_value_key(_k), f"Order 36(b): {_k} is a value-eligible market"
+for _k in ("BTTS_NO", "SB:29||No", "UNDER_2_5", "SB:18|total=3.5|Under 3.5", "SB:10||Home or Draw", "1X2_HOME"):
+    assert not _rd._goals_value_key(_k), f"Order 36(b): {_k} is not value-eligible"
+assert slate.TIER_RANK["BANKER"] < slate.TIER_RANK["VALUE"] < slate.TIER_RANK["BOOK"]
+from engine import staking as _stk
+assert _stk.PRIORS["VALUE"] < 0, "Order 36(b): VALUE gets the minimal stake until proven"
+
+# 37. Positive-value bets
+from types import SimpleNamespace as _NS37
+assert pb.VALUE_BET_MIN_EV == 0.02, "Order 37: EV >= +2% on our chance"
+def _bf37(fix, src="model", pool=None, best="SB:1||Home"):
+    return _NS37(fixture=fix, probs=_NS37(home_team="A", away_team="B"), prob_source=src,
+                 best_market_key=best, team_news=None, cand_pool=pool or [], kickoff_utc=None,
+                 kickoff_date="2026-10-06")
+_p37 = [(0.70, -0.03, "SB:1||Home", 0.72, 0.70, _MQ(price=1.38)),     # the main pick
+        (0.61, 0.069, "SB:18|total=3.5|Under 3.5", 0.76, 0.55, _MQ(price=1.76)),
+        (0.55, 0.01, "SB:29||Yes", 0.56, 0.54, _MQ(price=1.84)),       # +1%: too little
+        (0.56, 0.037, "SB:16|hcp=0.5|Home (+0.5)", 0.71, 0.52, _MQ(price=1.84))]
+_v = pb.value_leg(_bf37("A v B (Serie A)", pool=_p37))
+assert _v and _v[0] == "SB:18|total=3.5|Under 3.5" and abs(_v[3] - 0.069) < 1e-9, \
+    "Order 37: the outcome furthest above fair odds, not the main pick"
+assert pb.value_leg(_bf37("A v B (FA Cup)", src="market", pool=_p37)) is None, \
+    "Order 37: market-implied fixtures never qualify"
+assert pb.value_leg(_bf37("A v B (Serie A)", pool=_p37[:1] + _p37[2:3])) is None
+_vs = pb._build_value([_bf37("A v B (Serie A)", pool=_p37), _bf37("C v D (Serie A)", pool=_p37[:1] + _p37[3:])])
+assert [n for n, _l, _c in _vs] == ["Value 1", "Value 2", "Value acca"], _vs
+assert len(_vs[-1][1]) == 2, "Order 37: one Value acca of all the value bets"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

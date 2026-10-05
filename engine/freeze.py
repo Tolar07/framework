@@ -30,22 +30,25 @@ BOARD_DIR = Path(__file__).parent.parent / "output" / "boards"
 DRIFT = 0.05
 
 
-def paths(target: str, board_dir: Path = BOARD_DIR) -> tuple[Path, Path]:
-    return board_dir / f"frozen_{target}.json", board_dir / f"frozen_board_{target}.txt"
+def paths(target: str, board_dir: Optional[Path] = None) -> tuple[Path, Path]:
+    # BOARD_DIR is read at call time, so a dry run (run_daily --no-send) can
+    # point it at a scratch copy and never touch the real frozen files.
+    d = board_dir or BOARD_DIR
+    return d / f"frozen_{target}.json", d / f"frozen_board_{target}.txt"
 
 
-def load(target: str, board_dir: Path = BOARD_DIR) -> Optional[dict]:
+def load(target: str, board_dir: Optional[Path] = None) -> Optional[dict]:
     p, _ = paths(target, board_dir)
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
-def board_text(target: str, board_dir: Path = BOARD_DIR) -> Optional[str]:
+def board_text(target: str, board_dir: Optional[Path] = None) -> Optional[str]:
     _, t = paths(target, board_dir)
     return t.read_text(encoding="utf-8") if t.exists() else None
 
 
 def save(target: str, ledger_doc: dict, text: str, run_id: Optional[str],
-         board_code: Optional[str] = None, board_dir: Path = BOARD_DIR) -> Path:
+         board_code: Optional[str] = None, board_dir: Optional[Path] = None) -> Path:
     p, t = paths(target, board_dir)
     p.parent.mkdir(parents=True, exist_ok=True)
     doc = {"date": target, "frozen_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

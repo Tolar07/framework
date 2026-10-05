@@ -66,7 +66,7 @@ MODEL_WEIGHT = 0.25
 # CERTAINTY (2026-10-02): HIGH when model and bookmaker agree within this;
 # MEDIUM within AGREE_PP; LOW otherwise or when only one source exists.
 CERTAINTY_HIGH_PP = 0.03
-TIER_RANK = {"BANKER": 0, "SAFE": 1, "BOOK": 2, "MARKET": 3, "SPLIT": 4}
+TIER_RANK = {"BANKER": 0, "SAFE": 1, "VALUE": 1.5, "BOOK": 2, "MARKET": 3, "SPLIT": 4}
 
 
 def in_deploy_band(price: Optional[float]) -> bool:
@@ -94,6 +94,7 @@ WHITELIST_LEAGUES = (
     "Premier League",
     "La Liga",
     "Champions League",
+    "Conference League",       # added 2026-10-05 (market-implied, order 10)
     # Second tiers — MIDWEEK coverage (football-data history + SportyBet priced).
     "La Liga 2",
     "Serie B",
@@ -107,6 +108,11 @@ WHITELIST_LEAGUES = (
     # National teams — rated on the international results dataset
     # (data/international_source.py). Added 2026-09-30 at the Architect's request.
     "UEFA Nations League",
+    # More European top flights — added 2026-10-05 (Architect: full coverage).
+    "Turkish Super Lig",
+    "Greek Super League",
+    "Austrian Bundesliga",
+    "Swiss Super League",
 )
 
 # --- MARKET GATE (ratified 2026-08-04, evidence below) ----------------------

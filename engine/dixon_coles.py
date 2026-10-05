@@ -108,7 +108,7 @@ def score_matrix(lam_h: float, lam_a: float, rho: float) -> np.ndarray:
 def fit(results: list, min_matches_per_team: int = 4,
         x0_teams: Optional[dict] = None, x0_globals: Optional[tuple] = None,
         return_raw_x: bool = False, half_life_days: Optional[float] = None,
-        ref_date: Optional[str] = None) -> DixonColesModel:
+        ref_date: Optional[str] = None, ridge: float = 0.0) -> DixonColesModel:
     """Fit attack/defence/home-advantage/rho by maximum likelihood on a list of
     MatchResult (from data.football_data_source). Time weighting is OFF by
     default (see half_life_days below); pass results already filtered to the
@@ -126,7 +126,13 @@ def fit(results: list, min_matches_per_team: int = 4,
     (ISO) to weight each match by 0.5 ** (age_days / half_life_days), the
     standard Dixon-Coles treatment. DEFAULT IS OFF (None) so existing callers
     and calibration are unchanged — turning it on is a deliberate, visible
-    model change, not a silent drift."""
+    model change, not a silent drift.
+
+    Shrinkage (optional, 2026-10-05): `ridge` > 0 adds ridge * sum(attack^2 +
+    (defence - mean defence)^2) to the objective, pulling every team toward the
+    league average by the same amount — which matters most for teams with few
+    matches (promoted clubs, early season) and barely at all for teams with a
+    full season. 0 (default) is the unpenalised fit."""
     from collections import defaultdict
     from datetime import date as _date
 
@@ -183,7 +189,10 @@ def fit(results: list, min_matches_per_team: int = 4,
         tau[_m10] = 1.0 + lam_a[_m10] * rho
         tau[_m11] = 1.0 - rho
         np.maximum(tau, 1e-6, out=tau)
-        return -float(np.sum(_w * (ll + np.log(tau))))
+        nll = -float(np.sum(_w * (ll + np.log(tau))))
+        if ridge:
+            nll += ridge * float(np.sum(attack ** 2) + np.sum((defence - defence.mean()) ** 2))
+        return nll
 
     def neg_log_likelihood(x):
         attack, defence, home_adv, rho = unpack(x)

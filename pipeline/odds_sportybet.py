@@ -77,6 +77,19 @@ SPORTYBET_TOURNAMENT_ID = {
     "League Two": "sr:tournament:25",
     "National League": "sr:tournament:173",
     "FA Cup": "sr:tournament:19",
+    # European club competitions + Croatia — added 2026-10-05 (Architect: full
+    # coverage). IDs from data/sportybet/sportybet_tournaments_2026-08-23.txt,
+    # category "International Clubs" / "Croatia". Priced MARKET-IMPLIED for now
+    # (orchestrator.MARKET_ONLY_LEAGUES): no current-season model for them yet.
+    "Champions League": "sr:tournament:7",
+    "Europa League": "sr:tournament:679",
+    "Conference League": "sr:tournament:34480",
+    "HNL": "sr:tournament:170",
+    # More European top flights (2026-10-05), same source and check.
+    "Turkish Super Lig": "sr:tournament:52",
+    "Greek Super League": "sr:tournament:185",
+    "Austrian Bundesliga": "sr:tournament:45",
+    "Swiss Super League": "sr:tournament:215",
 }
 
 # SportyBet team name -> model (football-data) key. Verified pairs only; exact

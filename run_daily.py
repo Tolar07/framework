@@ -23,6 +23,7 @@ import argparse
 import json
 import os
 import secrets
+from contextlib import contextmanager
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -49,9 +50,14 @@ DRIFT_DEMOTE = 0.05    # see PRICE DRIFT (backtest/MARKET_STUDY.md Q2)
 DRAW_PREF_PP = 0.03
 DRAW_ALLOWANCE_DEFAULT = 0.008
 DRAW_ALLOWANCE = {"Belgian Pro League": 0.03, "Eredivisie": 0.03}
+# VALUE — BTTS AND GOALS (Architect 2026-10-05, standing order 36): a both-
+# teams-to-score-yes or Over-goals outcome priced above its fair odds (EV on
+# our chance >= VALUE_MIN_EV) takes the pick from the likeliest outcome.
+VALUE_MIN_EV = 0.02
 NEWS_SWAP_PP = 0.06    # see TEAM NEWS: a weakened pick swaps to a safe alternative
 from engine.mes import mes_numeric
 from engine import markets as mkt
+from engine import calibration as cal
 from engine.form import compute_table, fixture_form, form_support as _form_support
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import (render_produce_bet, render_verify_results,
@@ -251,7 +257,7 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 
         for market in mkt.DEPLOYABLE:
             quote = mkt.quote(market, fx)
-            model_p = mkt.model_prob(market, p)
+            model_p = cal.model_prob(market, mkt.model_prob(market, p))
             if quote is None or not quote.available or model_p is None:
                 continue
             mes = mes_numeric(model_p, quote.price)
@@ -317,6 +323,19 @@ class _KeepFrozen(Exception):
 _DRAW_CACHE: dict = {}
 
 
+def _goals_value_key(key: str) -> bool:
+    """Both teams to score YES, or an OVER-goals line (match or team total).
+    Under-goals and BTTS-no stay out (Architect preference, order 12)."""
+    if key in (mkt.BTTS_YES, mkt.OVER_15, mkt.OVER_25, mkt.OVER_35):
+        return True
+    pk = fm.parse_key(key) if key and key.startswith("SB:") else None
+    if not pk:
+        return False
+    mid, _spec, out = pk
+    o = out.strip().lower()
+    return (mid == 29 and o == "yes") or (mid in (18, 19, 20) and o.startswith("over"))
+
+
 def _loses_on_draw(key: str) -> bool:
     """True if the outcome loses on EVERY draw (0-0, 1-1 and 2-2): "X or Y",
     straight wins, minus handicaps. A push is not a loss."""
@@ -333,12 +352,62 @@ def _loses_on_draw(key: str) -> bool:
     return out
 
 
-def run(season: str = "2526", fixtures_season: str | None = None,
+@contextmanager
+def _dry_run_sandbox():
+    """A --no-send run (and tests/stress_test.py) works on a SCRATCH COPY of
+    every file the run writes: the picks ledger, the CLV log, the boards and
+    the frozen codes. On 2026-10-05 a stress test rewrote the real 5 Oct board,
+    ledger and CLV log with an unsent 109-fixture board. The AI Survivor
+    already used its own scratch copy (see AI SURVIVOR below)."""
+    import shutil
+    import tempfile
+
+    import clv.clv_logger as _clv
+    from engine import freeze as _fz
+    from engine import picks_ledger as _pl
+
+    global BOARD_DIR
+    saved = (BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR)
+    tmp = Path(tempfile.mkdtemp(prefix="olpxdv-dry-"))
+    boards, picks, clv_log = tmp / "boards", tmp / "picks", tmp / "clv_log.json"
+    for src, dst in ((saved[0], boards), (saved[1], picks)):
+        if src.exists():
+            shutil.copytree(src, dst)
+        else:
+            dst.mkdir(parents=True)
+    if saved[2].exists():
+        shutil.copy2(saved[2], clv_log)
+    BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = (
+        boards, picks, clv_log, boards)
+    print(f"  dry run: writing to scratch copies under {tmp} (real records untouched)")
+    try:
+        yield tmp
+    finally:
+        BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = saved
+
+
+def run(season: str | None = None, fixtures_season: str | None = None,
+        leagues: list[str] | None = None, send: bool = True,
+        min_mes: float = 0.0, only_production: bool = False,
+        heartbeat: bool = False, target_date: str | None = None,
+        slot: str | None = None, refreeze: bool = False) -> str:
+    kw = dict(season=season, fixtures_season=fixtures_season, leagues=leagues,
+              send=send, min_mes=min_mes, only_production=only_production,
+              heartbeat=heartbeat, target_date=target_date, slot=slot,
+              refreeze=refreeze)
+    if send:
+        return _run(**kw)
+    with _dry_run_sandbox():
+        return _run(**kw)
+
+
+def _run(season: str | None = None, fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, only_production: bool = False,
         heartbeat: bool = False, target_date: str | None = None,
         slot: str | None = None, refreeze: bool = False) -> str:
     leagues = leagues or DEPLOY_LEAGUES
+    season = season or orchestrator.fit_season_code()
     today = date.today().isoformat()
     # The day the board is FOR. Defaults to today (the morning run); the evening
     # run passes tomorrow so the 10pm board targets the next day's card.
@@ -465,7 +534,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         cands: list = []   # (cons, ev, market, model_p, market_p, quote)
         for market in mkt.DEPLOYABLE:
             quote = mkt.quote(market, fx)
-            model_p = mkt.model_prob(market, p)
+            # BTTS calibrated (engine/calibration.py)
+            model_p = cal.model_prob(market, mkt.model_prob(market, p))
             if quote is None or not quote.available or model_p is None:
                 continue
             if not in_deploy_band(quote.price):
@@ -507,6 +577,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 md = fm.evaluate(dgrid, rule) if dgrid is not None else mk
                 if md is None:
                     continue
+                if dgrid is not None:      # the model's BTTS, calibrated (engine/calibration.py)
+                    md = (cal.model_prob(k, md[0]), md[1])
                 cw, cp = md if mk is None else (mk[0] + MODEL_WEIGHT * (md[0] - mk[0]),
                                                 mk[1] + MODEL_WEIGHT * (md[1] - mk[1]))
                 win = round(cw + sh(k), 4)
@@ -593,6 +665,20 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 best = (round(best[4] + sh(best[2]), 4),) + best[1:]
             else:
                 best, tier = max(cands), "SPLIT"
+        # VALUE — BTTS AND GOALS (order 36, Architect 2026-10-05): the pick is
+        # normally the outcome likeliest to WIN, so a 60% "both teams to score"
+        # never beat a 78% Double Chance (backtest/BTTS_STUDY.md). A BTTS-yes
+        # or Over-goals outcome priced ABOVE its fair odds (EV >= VALUE_MIN_EV
+        # on our chance, still >= 50% and inside 1.20-2.00) now takes the pick
+        # when it is better value than the likeliest one. BANKER stays first.
+        # It trades hit rate for value; VALUE picks are graded as their own tier.
+        if tier != "BANKER" and not market_only:
+            value = [c for c in full_pool if _goals_value_key(c[2]) and c[4] is not None
+                     and c[1] >= VALUE_MIN_EV and c[0] >= DEPLOY_MIN_MODEL_PROB]
+            if value:
+                v = max(value, key=lambda c: (c[1], c[0]))
+                if v[2] != best[2] and v[1] > best[1]:
+                    best, tier = v, "VALUE"
         # ALTERNATIVE MARKET: the next-best in-band market from a DIFFERENT
         # family than the pick (a real alternative, not 1.5 vs 2.5 of one line).
         fam = lambda k: k.split("|")[0] if k.startswith("SB:") else k.split("_")[0]
@@ -627,6 +713,9 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 f"SPLIT: model {model_p:.0%} vs market {market_txt} on "
                 f"{bf.best_market} — disagreement > {AGREE_PP:.0%}, not deployed")
 
+    _n_value = sum(1 for b in board if getattr(b, "tier", None) == "VALUE")
+    all_flags.append(f"value picks (order 36): {_n_value} BTTS-yes / over-goals pick(s) "
+                     f"priced above fair odds took the pick from the likeliest outcome")
     if ladder_fixtures:
         all_flags.append(
             f"full market ladder: {ladder_fixtures} fixture(s) scored on every "
@@ -775,8 +864,9 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                         # straight win only (order 11), and a pick with one
                         # source or a disagreement is LOW (order 15).
                         agree = c[4] is not None and abs(c[3] - c[4]) <= AGREE_PP
-                        if b.tier == "BANKER" and c[2] not in (
-                                mkt.HOME, mkt.AWAY, "SB:1||Home", "SB:1||Away"):
+                        if (b.tier == "BANKER" and c[2] not in (
+                                mkt.HOME, mkt.AWAY, "SB:1||Home", "SB:1||Away")) \
+                                or b.tier == "VALUE":
                             b.tier = "SAFE" if agree else "BOOK"
                         if (b.tier in ("BOOK", "SPLIT", "MARKET") or c[4] is None
                                 or b.prob_source == "market"):
@@ -852,6 +942,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         _drift = getattr(b, "drift_pct", None)
         if _drift is not None and _drift >= DRIFT_DEMOTE * 100:
             why = f"price drifted out {_drift:+.1f}% since the last board"
+        elif b.tier == "VALUE":
+            continue   # order 36: a value pick disagrees with SportyBet by design
         elif b.engine_divergence and _tn.pick_side(b.best_market_key):
             why = "the two prediction models disagree on the result"
         elif b.certainty == "LOW":
@@ -886,6 +978,17 @@ def run(season: str = "2526", fixtures_season: str | None = None,
             b.alt_market = (mkt.display(_a[0], b.probs.home_team, b.probs.away_team)
                             if _a else None)
             b.alt_price = _a[2] if _a else None
+
+    # --- SHARP CHECK (2026-10-05): each final pick against the Betfair
+    # Exchange's fair odds (pipeline/sharp.py). A label only — the edge that
+    # matters, measured when the pick is made. Never blocks the run.
+    try:
+        from pipeline import sharp as _sharp
+        _n_sh, _above_sh, _ = _sharp.check(board)
+        all_flags.append(f"sharp check: {_n_sh} pick(s) priced on the Betfair Exchange, "
+                         f"{_above_sh} above its fair odds")
+    except Exception as e:  # noqa: BLE001
+        all_flags.append(f"sharp check unavailable ({str(e)[:80]})")
 
     # --- VALUE: how many picks are positive-EV on our own chance ---
     _dep = [b for b in board if b.on_deploy_shortlist and b.best_mes_ev is not None]
@@ -931,6 +1034,7 @@ def run(season: str = "2526", fixtures_season: str | None = None,
     mega_codes = None          # dict once the picks are split into mega slips
     extra_codes: dict = {}     # per-table mega codes (Architect 2026-10-03)
     alt_codes: dict = {}       # alt-market accas (order 31)
+    value_codes: dict = {}     # positive-value bets (order 37)
     _sb_index_holder: dict = {"index": None}
     try:
         from output.produce_bet import (_build_accas, _build_alt_accas, _build_megas,
@@ -991,6 +1095,19 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                         alt_codes[_name] = _code
                 all_flags.append(f"alt-market accas: {len(alt_codes)}/{len(alt_accas)} booked "
                                  f"(a different market from each fixture's main pick)")
+                # POSITIVE-VALUE BETS (order 37): each its own code, plus one acca.
+                from output.produce_bet import _build_value
+                value_slips = _build_value(deploy)
+                for _name, _legs, _c in value_slips:
+                    _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                            bf.probs.home_team, bf.probs.away_team, key)
+                           for bf, _pick, _prob, key, _price in _legs]
+                    _code, _ = sbk.code_for_legs(sb_index, _ls)
+                    if _code:
+                        value_codes[_name] = _code
+                _nv = sum(1 for n, _l, _c in value_slips if n != "Value acca")
+                all_flags.append(f"positive-value bets (order 37): {_nv} found, "
+                                 f"{len(value_codes)}/{len(value_slips)} slip(s) booked")
                 megas = _build_megas(deploy)
                 if len(megas) > 1:
                     mega_codes = _book(megas)
@@ -1018,15 +1135,23 @@ def run(season: str = "2526", fixtures_season: str | None = None,
                 b.kickoff_utc = fx.kickoff_utc
             b.sb_tid = SPORTYBET_TOURNAMENT_ID.get(
                 b.fixture.rsplit("(", 1)[-1].rstrip(")").strip())
+            # The learned correction inside the final pick's chance, so the
+            # ledger keeps the chance BEFORE learning (engine/learning.py reads
+            # chance_raw and must not re-measure its own shift).
+            b.learn_shift = (learning.shift(learned, b.best_market_key,
+                                            b.fixture.rsplit("(", 1)[-1].rstrip(")").strip())
+                             if (learned and learning and b.best_market_key) else 0.0)
         dep = [b for b in board if b.on_deploy_shortlist]
         megas_l = _build_megas(dep)
         from output.produce_bet import _build_alt_accas as _alt_accas
+        from output.produce_bet import _build_value as _build_value_l
         if frozen is not None:
             raise _KeepFrozen()
         picks_ledger.write_ledger(target, board, _build_accas(dep), _build_safe3(dep),
                                   megas_l if len(megas_l) > 1 else [],
                                   acca_codes, safe3_codes, mega_codes,
-                                  alts=_alt_accas(dep), alt_codes=alt_codes)
+                                  alts=_alt_accas(dep), alt_codes=alt_codes,
+                                  values=_build_value_l(dep), value_codes=value_codes)
     except _KeepFrozen:
         all_flags.append("picks ledger kept as frozen at the 10pm board (codes frozen)")
     except Exception as e:  # noqa: BLE001
@@ -1073,7 +1198,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
         acca_code=acca_code, board_code=board_code, board_date=target,
         acca_codes=acca_codes, mega_codes=mega_codes, safe3_codes=safe3_codes,
-        extra_codes=extra_codes, run_id=run_id, alt_codes=alt_codes)
+        extra_codes=extra_codes, run_id=run_id, alt_codes=alt_codes,
+        value_codes=value_codes)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
@@ -1258,7 +1384,8 @@ def run(season: str = "2526", fixtures_season: str | None = None,
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="OLP XDV daily 07:00 run")
-    ap.add_argument("--season", default="2526", help="season the model is FIT on")
+    ap.add_argument("--season", default=None,
+                    help="season the model is FIT on (default: the last completed season)")
     ap.add_argument("--fixtures-season", default=None)
     ap.add_argument("--leagues", nargs="+", default=None)
     ap.add_argument("--min-mes", type=float, default=0.0,

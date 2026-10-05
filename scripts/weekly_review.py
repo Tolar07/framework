@@ -29,7 +29,7 @@ sys.path.insert(0, str(ROOT))
 
 PICKS = ROOT / "output" / "picks"
 REVIEW_GAP_PP = 0.08     # hit rate this far below the stated chance -> review
-MIN_N, MIN_DAYS = 10, 3  # same evidence bar as learning (order 22)
+MIN_N, MIN_DAYS = 10, 3  # bar for PROPOSING a review; automatic learning needs more (order 22)
 
 
 def _docs(days: int, today: str, picks: Path) -> list[dict]:

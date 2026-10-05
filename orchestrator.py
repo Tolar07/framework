@@ -50,7 +50,24 @@ FULL_WHITELIST = list(WHITELIST_LEAGUES)
 # weighted to recent matches (backtest/RECENCY_STUDY.md: 240 days beat 120 and
 # the last-season-only model on accuracy, coverage and market agreement).
 RECENCY_HALF_LIFE_DAYS = 240.0
+# Pull every team's ratings toward the league average (dixon_coles.fit ridge).
+# backtest/SHRINK_STUDY.md (2026-10-05): walk-forward over 3,650 matches, 1X2
+# log loss 1.0168 -> 1.0127 overall, promoted clubs 1.0457 -> 1.0320, a side
+# with under 10 games 1.1274 -> 1.0721; better in 10 of 13 leagues. 6 helped
+# thin teams more but hurt established ones; 3 is best overall.
+RIDGE = 3.0
 RECENCY_MAX_MATCHES = 800
+
+
+def fit_season_code(today=None) -> str:
+    """The last COMPLETED season — what the model is fit on (2026-10-05: was a
+    hard-coded "2526" that would have gone stale next summer). A new season
+    is taken to start on 1 July: on 2026-10-05 this is "2526" (fixtures from
+    "2627"); from 2027-07-01 it is "2627"."""
+    from datetime import date as _d
+    t = today or _d.today()
+    start = t.year if t.month >= 7 else t.year - 1      # year the current season began
+    return f"{(start - 1) % 100:02d}{start % 100:02d}"
 
 
 def next_season_code(season: str) -> str:
@@ -71,7 +88,13 @@ def _unrated_detail(model, home: str, away: str) -> str:
 
 # Competitions with no single-league history to fit (a cup mixing every tier).
 # Every fixture is priced MARKET-IMPLIED from SportyBet (engine.market_implied).
-MARKET_ONLY_LEAGUES = {"FA Cup"}
+# Priced from SportyBet with the margin removed (order 10, marked ᴹ, no edge
+# claimed). FA Cup: a cup across tiers. European club competitions + HNL
+# (2026-10-05): the cross-league model is anchored on 2024/25 and its history
+# source (API-Football free plan) cannot see the current season, so they are
+# market-implied until a current-season model exists for them.
+MARKET_ONLY_LEAGUES = {"FA Cup", "Champions League", "Europa League",
+                       "Conference League", "HNL"}
 
 
 def _odds_by_pair(league: str) -> tuple[dict, list[str]]:
@@ -128,8 +151,10 @@ def scan_one_league(league: str, season: str,
         flags += oflags
         odds, of2 = _odds_by_pair(league)
         board, n = _market_board(league, pairs, dates, odds)
+        why = ("cup across tiers — no single-league model" if league == "FA Cup"
+               else "no current-season model for this competition yet")
         flags.append(f"{league}: {n}/{len(pairs)} fixture(s) priced MARKET-IMPLIED "
-                     f"(cup across tiers — no single-league model; no edge claimed)")
+                     f"({why}; no edge claimed)")
         return board, flags
 
     # football-data.co.uk carries no continental competitions and no Croatia.
@@ -255,9 +280,9 @@ def scan_one_league(league: str, season: str,
         model = cross_model
     elif recency_fit:
         model = fit(results, half_life_days=RECENCY_HALF_LIFE_DAYS,
-                    ref_date=date.today().isoformat())
+                    ref_date=date.today().isoformat(), ridge=RIDGE)
     else:
-        model = fit(results)
+        model = fit(results, ridge=RIDGE)
 
     # Second engine (ID82 Elo, ratified 2026-08-04). Built from the SAME match
     # history the goals model was fitted on, so the two are reading identical
@@ -407,13 +432,14 @@ def scan_one_league(league: str, season: str,
     return board, flags
 
 
-def run_all_leagues(season: str = "2526", leagues: list[str] | None = None,
+def run_all_leagues(season: str | None = None, leagues: list[str] | None = None,
                      fixtures_season: str | None = None):
     """Scans every whitelisted league into ONE combined board. This is the
     'wide eyes' half of ID402 — every league on the list gets scanned every
     run, whether or not its season has started, whether or not it's deploy-
     eligible. Leagues with no data this week simply show as NO DATA — PENDING
     rather than being silently dropped from the run."""
+    season = season or fit_season_code()
     leagues = leagues or FULL_WHITELIST
     fixtures_season = fixtures_season or next_season_code(season)
     combined_board: list[BoardFixture] = []
@@ -485,7 +511,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--all", action="store_true", help="scan the full 15-league ID401 whitelist")
     ap.add_argument("--league", default="Scottish Premiership")
-    ap.add_argument("--season", default="2526",
+    ap.add_argument("--season", default=None,
                      help="season the model is FIT on (last completed season)")
     ap.add_argument("--fixtures-season", default=None,
                      help="season fixtures are pulled from (default: the season after --season)")

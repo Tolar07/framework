@@ -85,8 +85,10 @@ def compute_clv(entry_odds: float, closing_odds: float) -> float:
 
 
 class CLVLog:
-    def __init__(self, path: str | Path = DEFAULT_LOG_PATH):
-        self.path = Path(path)
+    def __init__(self, path: str | Path | None = None):
+        # DEFAULT_LOG_PATH is read at call time so a dry run can point it at a
+        # scratch copy (run_daily._dry_run_sandbox).
+        self.path = Path(path) if path is not None else DEFAULT_LOG_PATH
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.legs: list[LoggedLeg] = self._load()
 

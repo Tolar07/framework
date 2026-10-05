@@ -23,6 +23,7 @@ import argparse
 import json
 import os
 import secrets
+from contextlib import contextmanager
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -333,7 +334,56 @@ def _loses_on_draw(key: str) -> bool:
     return out
 
 
+@contextmanager
+def _dry_run_sandbox():
+    """A --no-send run (and tests/stress_test.py) works on a SCRATCH COPY of
+    every file the run writes: the picks ledger, the CLV log, the boards and
+    the frozen codes. On 2026-10-05 a stress test rewrote the real 5 Oct board,
+    ledger and CLV log with an unsent 109-fixture board. The AI Survivor
+    already used its own scratch copy (see AI SURVIVOR below)."""
+    import shutil
+    import tempfile
+
+    import clv.clv_logger as _clv
+    from engine import freeze as _fz
+    from engine import picks_ledger as _pl
+
+    global BOARD_DIR
+    saved = (BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR)
+    tmp = Path(tempfile.mkdtemp(prefix="olpxdv-dry-"))
+    boards, picks, clv_log = tmp / "boards", tmp / "picks", tmp / "clv_log.json"
+    for src, dst in ((saved[0], boards), (saved[1], picks)):
+        if src.exists():
+            shutil.copytree(src, dst)
+        else:
+            dst.mkdir(parents=True)
+    if saved[2].exists():
+        shutil.copy2(saved[2], clv_log)
+    BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = (
+        boards, picks, clv_log, boards)
+    print(f"  dry run: writing to scratch copies under {tmp} (real records untouched)")
+    try:
+        yield tmp
+    finally:
+        BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = saved
+
+
 def run(season: str = "2526", fixtures_season: str | None = None,
+        leagues: list[str] | None = None, send: bool = True,
+        min_mes: float = 0.0, only_production: bool = False,
+        heartbeat: bool = False, target_date: str | None = None,
+        slot: str | None = None, refreeze: bool = False) -> str:
+    kw = dict(season=season, fixtures_season=fixtures_season, leagues=leagues,
+              send=send, min_mes=min_mes, only_production=only_production,
+              heartbeat=heartbeat, target_date=target_date, slot=slot,
+              refreeze=refreeze)
+    if send:
+        return _run(**kw)
+    with _dry_run_sandbox():
+        return _run(**kw)
+
+
+def _run(season: str = "2526", fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, only_production: bool = False,
         heartbeat: bool = False, target_date: str | None = None,

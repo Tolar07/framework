@@ -41,7 +41,9 @@
    "first_price": 1.28,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -2.3
   },
   {
    "fixture": "Cyprus v Latvia",
@@ -79,8 +81,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02968023208959636,
    "first_price": 1.2,

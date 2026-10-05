@@ -131,7 +131,9 @@
    "first_price": 1.22,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "France v Belgium",
@@ -172,7 +174,9 @@
    "first_price": 1.2,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Italy v Turkey",
@@ -213,7 +217,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Montenegro v Armenia",
@@ -254,7 +260,9 @@
    "first_price": 1.2,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 6.7
   },
   {
    "fixture": "Northern Ireland v Georgia",
@@ -295,7 +303,9 @@
    "first_price": 1.37,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.4,
+   "drift_pct": 2.2
   },
   {
    "fixture": "Romania v Sweden",
@@ -336,7 +346,9 @@
    "first_price": 1.2,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.17,
+   "drift_pct": -2.5
   },
   {
    "fixture": "Ukraine v Hungary",
@@ -377,7 +389,9 @@
    "first_price": 1.2,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   }
  ],
  "accas": [

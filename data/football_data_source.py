@@ -58,8 +58,13 @@ LEAGUE_CODES = {
     "League One": "E2",
     "League Two": "E3",
     "National League": "EC",
+    # More European top flights — added 2026-10-05 (Architect: full coverage).
+    "Turkish Super Lig": "T1",
+    "Greek Super League": "G1",
     "Danish Superliga": None,   # 'Extra' league, different endpoint (see EXTRA_URL)
     "Ekstraklasa": None,        # 'Extra' league, different endpoint
+    "Austrian Bundesliga": None,    # 'Extra' league (2026-10-05)
+    "Swiss Super League": None,     # 'Extra' league (2026-10-05)
     "HNL": None,                # NOT COVERED — Croatia isn't in football-data.co.uk's country list
 }
 
@@ -69,6 +74,12 @@ EXTRA_URL = "https://www.football-data.co.uk/new/{code}.csv"
 EXTRA_CODES = {
     "Danish Superliga": "DNK",
     "Ekstraklasa": "POL",
+    # Added 2026-10-05. Austria and Switzerland play August-May like the
+    # main leagues; Norway/Sweden (calendar-year seasons) are not added: the
+    # Extra season label for them is "2026", which _season_to_extra_label
+    # does not produce.
+    "Austrian Bundesliga": "AUT",
+    "Swiss Super League": "SWZ",
 }
 
 # The 'Extra' endpoint uses a DIFFERENT schema from the main per-season CSVs,

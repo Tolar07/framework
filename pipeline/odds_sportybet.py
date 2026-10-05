@@ -85,6 +85,11 @@ SPORTYBET_TOURNAMENT_ID = {
     "Europa League": "sr:tournament:679",
     "Conference League": "sr:tournament:34480",
     "HNL": "sr:tournament:170",
+    # More European top flights (2026-10-05), same source and check.
+    "Turkish Super Lig": "sr:tournament:52",
+    "Greek Super League": "sr:tournament:185",
+    "Austrian Bundesliga": "sr:tournament:45",
+    "Swiss Super League": "sr:tournament:215",
 }
 
 # SportyBet team name -> model (football-data) key. Verified pairs only; exact

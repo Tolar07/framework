@@ -65,6 +65,8 @@ LEAGUE_CODES = {
     "Ekstraklasa": None,        # 'Extra' league, different endpoint
     "Austrian Bundesliga": None,    # 'Extra' league (2026-10-05)
     "Swiss Super League": None,     # 'Extra' league (2026-10-05)
+    "Eliteserien": None,            # 'Extra' league, calendar year (2026-10-05)
+    "Allsvenskan": None,            # 'Extra' league, calendar year (2026-10-05)
     "HNL": None,                # NOT COVERED — Croatia isn't in football-data.co.uk's country list
 }
 
@@ -75,12 +77,21 @@ EXTRA_CODES = {
     "Danish Superliga": "DNK",
     "Ekstraklasa": "POL",
     # Added 2026-10-05. Austria and Switzerland play August-May like the
-    # main leagues; Norway/Sweden (calendar-year seasons) are not added: the
-    # Extra season label for them is "2026", which _season_to_extra_label
-    # does not produce.
+    # main leagues.
     "Austrian Bundesliga": "AUT",
     "Swiss Super League": "SWZ",
+    # Calendar-year leagues (March-November), added 2026-10-05: their Extra
+    # season label is one year ("2026"), see CALENDAR_LEAGUES.
+    "Eliteserien": "NOR",
+    "Allsvenskan": "SWE",
 }
+
+# Leagues whose season is a calendar year. A season code maps to its START
+# year: "2526" -> "2025" (the last completed season while the code is the fit
+# season) and "2627" -> "2026" (the season being played). Gap: between March
+# and June the newest calendar season is already under way but is only picked
+# up from 1 July, when fit_season_code moves on.
+CALENDAR_LEAGUES = {"Eliteserien", "Allsvenskan"}
 
 # The 'Extra' endpoint uses a DIFFERENT schema from the main per-season CSVs,
 # and bundles every season into one file. Mapping the core fields here (rather
@@ -93,11 +104,14 @@ EXTRA_COLUMNS = {"home": "Home", "away": "Away",
                  "hg": "HG", "ag": "AG", "res": "Res"}
 
 
-def _season_to_extra_label(season: str) -> str:
-    """'2526' -> '2025/2026', the value in the Extra CSVs' own Season column.
+def _season_to_extra_label(season: str, league: Optional[str] = None) -> str:
+    """'2526' -> '2025/2026', the value in the Extra CSVs' own Season column;
+    for a calendar-year league (CALENDAR_LEAGUES) '2526' -> '2025'.
     Raises on a malformed code rather than guessing a season."""
     if len(season) != 4 or not season.isdigit():
         raise ValueError(f"Season code must be 4 digits like '2526', got {season!r}")
+    if league in CALENDAR_LEAGUES:
+        return f"20{season[:2]}"
     return f"20{season[:2]}/20{season[2:]}"
 
 
@@ -337,7 +351,7 @@ def parse_csv_text(league: str, csv_text: str, season: Optional[str] = None,
 
     season_label = None
     if is_extra and season is not None:
-        season_label = _season_to_extra_label(season)
+        season_label = _season_to_extra_label(season, league)
 
     for i, raw_row in enumerate(reader):
         row = _clean_row(raw_row)

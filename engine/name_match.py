@@ -74,6 +74,28 @@ EXPLICIT = {
     "Lausanne-Sport": "Lausanne",
     "Servette Geneva": "Servette",
     "Young Boys Bern": "Young Boys",
+    # Norway, Sweden (2026-10-05)
+    "Fredrikstad FK": "Fredrikstad",
+    "IK Start": "Start",
+    "Lillestroem SK": "Lillestrom",
+    "Rosenborg BK": "Rosenborg",
+    "Sandefjord Fotball": "Sandefjord",
+    "Tromsoe IL": "Tromso",
+    "Vaalerenga IF": "Valerenga",
+    "BK Hacken": "Hacken",
+    "Degerfors IF": "Degerfors",
+    "Djurgardens IF": "Djurgarden",
+    "Halmstads BK": "Halmstad",
+    "Hammarby IF": "Hammarby",
+    "IF Brommapojkarna": "Brommapojkarna",
+    "IF Elfsborg": "Elfsborg",
+    "IFK Goteborg": "Goteborg",
+    "IK Sirius": "Sirius",
+    "Kalmar FF": "Kalmar",
+    "Malmo": "Malmo FF",
+    "Mjallby AIF": "Mjallby",
+    "Orgryte IS": "Orgryte",
+    "Vasteraas SK": "Vasteras SK",
 }
 
 

@@ -113,6 +113,8 @@ WHITELIST_LEAGUES = (
     "Greek Super League",
     "Austrian Bundesliga",
     "Swiss Super League",
+    "Eliteserien",             # Norway — calendar-year season (2026-10-05)
+    "Allsvenskan",             # Sweden — calendar-year season (2026-10-05)
 )
 
 # --- MARKET GATE (ratified 2026-08-04, evidence below) ----------------------

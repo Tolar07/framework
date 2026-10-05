@@ -27,7 +27,15 @@ def test_no_fixed_season_default() -> None:
     assert inspect.signature(orchestrator.run_all_leagues).parameters["season"].default is None
 
 
+def test_calendar_year_leagues() -> None:
+    from data.football_data_source import CALENDAR_LEAGUES, _season_to_extra_label as lab
+    assert {"Eliteserien", "Allsvenskan"} <= CALENDAR_LEAGUES
+    assert lab("2526", "Eliteserien") == "2025" and lab("2627", "Allsvenskan") == "2026"
+    assert lab("2526", "Danish Superliga") == "2025/2026" and lab("2526") == "2025/2026"
+
+
 if __name__ == "__main__":
+    test_calendar_year_leagues()
     test_fit_season_code()
     test_no_fixed_season_default()
     print("season: OK")

@@ -91,6 +91,30 @@ def _range(text: str):
     return None
 
 
+def is_underdog_handicap(k: str) -> bool:
+    """True for a handicap outcome that GIVES its side a start: Asian handicap
+    (16) on a plus line ("Enfield Town (+2.5)"), European handicap (14) on the
+    side spotted goals ("0:2" for the away team). Standing order 38."""
+    pk = parse_key(k) if k else None
+    if not pk:
+        return False
+    mid, spec, outcome = pk
+    who = outcome.split(" (")[0].strip().lower()
+    sp = _spec(spec)
+    if mid == 16:
+        try:
+            line = float(sp.get("hcp", ""))
+        except ValueError:
+            return False
+        return (line > 0) if who == "home" else (-line > 0) if who == "away" else False
+    if mid == 14:
+        m = re.fullmatch(r"(\d+):(\d+)", sp.get("hcp", ""))
+        if not m:
+            return False
+        return (int(m.group(1)) > 0) if who == "home" else (int(m.group(2)) > 0) if who == "away" else False
+    return False
+
+
 def rule_for(market_id, specifier: str, outcome: str) -> Optional[Rule]:
     """win/push/lose rule for one SportyBet outcome, or None if unsupported."""
     mid = int(market_id)

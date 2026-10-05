@@ -41,7 +41,9 @@
    "first_price": 1.28,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -2.3
   },
   {
    "fixture": "Cyprus v Latvia",
@@ -66,7 +68,11 @@
     "home": 14141382,
     "away": 8047705
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Cyprus at full strength",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:68932418",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -75,8 +81,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02968023208959636,
    "first_price": 1.2,

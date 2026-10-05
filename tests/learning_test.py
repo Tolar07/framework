@@ -92,6 +92,25 @@ with tempfile.TemporaryDirectory() as d:
             encoding="utf-8")
     m = lr.learn(Path(d), today="2026-10-05")
     assert m["family"]["Double chance"]["expected"] == 36.0, m["family"]["Double chance"]
+with tempfile.TemporaryDirectory() as d:
+    # Rated fixtures add one row per market family not already picked.
+    for i in range(lr.MIN_DAYS):
+        day = f"2026-09-{10 + i:02d}"
+        rated = [{"fixture": f"T{i}{k} v U{i}{k}", "kickoff": day, "ft": "2-1",
+                  "pool": [["SB:29||Yes", 0.55], ["SB:10||Home or Draw", 0.75]]}
+                 for k in range(15)]
+        singles = [{"fixture": f"T{i}0 v U{i}0", "market": "DC_1X", "league": "La Liga",
+                    "chance": 0.75, "price": 1.3, "result": "won", "kickoff": day}]
+        (Path(d) / f"picks_{day}.json").write_text(json.dumps(
+            {"date": day, "singles": singles, "rated": rated}), encoding="utf-8")
+    m = lr.learn(Path(d), today="2026-10-05")
+    bt = m["family"]["BTTS"]
+    assert bt["n"] == 15 * lr.MIN_DAYS and bt["wins"] == bt["n"], bt   # 2-1: BTTS yes won
+    dc = m["family"]["Double chance"]
+    # 75 rated DC rows minus the 5 fixtures whose single was Double chance, + 5 singles
+    assert dc["n"] == 15 * lr.MIN_DAYS, dc
+    assert bt["shift"] > 0, "every rated fixture counts: 75/75 BTTS at 55% is a real gap"
+    assert "BTTS" not in m["league"] and m["league"]["La Liga"]["n"] == lr.MIN_DAYS
 print("learned shifts + cap + window: OK")
 
 print("\n✅ ALL LEARNING TESTS PASSED")

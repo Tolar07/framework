@@ -25,7 +25,11 @@
     "home": 5849785,
     "away": 4920991
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72477458",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -115,7 +119,11 @@
     "home": 81319453,
     "away": 143794932
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Bosnia and Herzegovina missing 26% of value (Kerim Alajbegovi\u0107); Bosnia and Herzegovina rotated: confirmed XI worth 70% of predicted; support: Poland missing 18%",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:68932622",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {

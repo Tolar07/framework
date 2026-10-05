@@ -133,8 +133,8 @@ assert _st.SLIP_STAKES == {"safe3": 0.5, "accas": 0.25, "megas": 0.1}
 
 # 22. Automatic learning from results
 from engine import learning as _lr
-assert (_lr.MIN_N, _lr.MIN_DAYS, _lr.SHRINK, _lr.MAX_SHIFT) == (10, 3, 30, 0.10), \
-    "Order 22: 10+ results over 3+ match days per segment, shrink 30, shift capped at 10 pts"
+assert (_lr.MIN_N, _lr.MIN_DAYS, _lr.Z_MIN, _lr.SHRINK, _lr.MAX_SHIFT) == (50, 5, 2.0, 30, 0.10), \
+    "Order 22: 50+ results over 5+ match days and a 2-sd gap, shrink 30, shift capped at 10 pts"
 
 # 23. AI Survivor lineage
 from engine import survivor as _sv

@@ -37,7 +37,11 @@ def _single(bf) -> dict:
     return {"fixture": bf.fixture.split(" (")[0], "league": league,
             "home": bf.probs.home_team, "away": bf.probs.away_team,
             "kickoff": bf.kickoff_date, "market": bf.best_market_key, "pick": pick,
-            "price": bf.best_price, "chance": bf.best_model_prob, "tier": bf.tier,
+            "price": bf.best_price, "chance": bf.best_model_prob,
+            # before any learned correction (engine/learning.py, 2026-10-05)
+            "chance_raw": (None if bf.best_model_prob is None else
+                           round(bf.best_model_prob - (getattr(bf, "learn_shift", 0.0) or 0.0), 4)),
+            "tier": bf.tier,
             "certainty": bf.certainty, "code": bf.booking_code,
             "news_level": getattr(bf, "news_level", None),
             "news_note": getattr(bf, "news_note", None),

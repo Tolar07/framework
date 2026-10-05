@@ -375,4 +375,25 @@ assert slate.TIER_RANK["BANKER"] < slate.TIER_RANK["VALUE"] < slate.TIER_RANK["B
 from engine import staking as _stk
 assert _stk.PRIORS["VALUE"] < 0, "Order 36(b): VALUE gets the minimal stake until proven"
 
+# 37. Positive-value bets
+from types import SimpleNamespace as _NS37
+assert pb.VALUE_BET_MIN_EV == 0.02, "Order 37: EV >= +2% on our chance"
+def _bf37(fix, src="model", pool=None, best="SB:1||Home"):
+    return _NS37(fixture=fix, probs=_NS37(home_team="A", away_team="B"), prob_source=src,
+                 best_market_key=best, team_news=None, cand_pool=pool or [], kickoff_utc=None,
+                 kickoff_date="2026-10-06")
+_p37 = [(0.70, -0.03, "SB:1||Home", 0.72, 0.70, _MQ(price=1.38)),     # the main pick
+        (0.61, 0.069, "SB:18|total=3.5|Under 3.5", 0.76, 0.55, _MQ(price=1.76)),
+        (0.55, 0.01, "SB:29||Yes", 0.56, 0.54, _MQ(price=1.84)),       # +1%: too little
+        (0.56, 0.037, "SB:16|hcp=0.5|Home (+0.5)", 0.71, 0.52, _MQ(price=1.84))]
+_v = pb.value_leg(_bf37("A v B (Serie A)", pool=_p37))
+assert _v and _v[0] == "SB:18|total=3.5|Under 3.5" and abs(_v[3] - 0.069) < 1e-9, \
+    "Order 37: the outcome furthest above fair odds, not the main pick"
+assert pb.value_leg(_bf37("A v B (FA Cup)", src="market", pool=_p37)) is None, \
+    "Order 37: market-implied fixtures never qualify"
+assert pb.value_leg(_bf37("A v B (Serie A)", pool=_p37[:1] + _p37[2:3])) is None
+_vs = pb._build_value([_bf37("A v B (Serie A)", pool=_p37), _bf37("C v D (Serie A)", pool=_p37[:1] + _p37[3:])])
+assert [n for n, _l, _c in _vs] == ["Value 1", "Value 2", "Value acca"], _vs
+assert len(_vs[-1][1]) == 2, "Order 37: one Value acca of all the value bets"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

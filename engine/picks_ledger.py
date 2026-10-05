@@ -126,7 +126,8 @@ def _alt_slip(name, legs, combo, code) -> dict:
 
 def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list,
                  acca_codes: dict, safe3_codes: dict, mega_codes: Optional[dict],
-                 alts: Optional[list] = None, alt_codes: Optional[dict] = None) -> Path:
+                 alts: Optional[list] = None, alt_codes: Optional[dict] = None,
+                 values: Optional[list] = None, value_codes: Optional[dict] = None) -> Path:
     singles = [_single(bf) for bf in board
                if bf.on_deploy_shortlist and bf.probs is not None and bf.best_market_key]
     doc = {
@@ -137,6 +138,8 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
         "safe3": [_slip(n, l, c, safe3_codes.get(n)) for n, l, c in safe3],
         "megas": [_slip(n, l, c, (mega_codes or {}).get(n)) for n, l, c in megas],
         "alts": [_alt_slip(n, l, c, (alt_codes or {}).get(n)) for n, l, c in (alts or [])],
+        # positive-value bets (order 37): own markets, graded like the alt legs
+        "value": [_alt_slip(n, l, c, (value_codes or {}).get(n)) for n, l, c in (values or [])],
         "rated": [_rated(bf) for bf in board if bf.probs is not None],
     }
     LEDGER_DIR.mkdir(parents=True, exist_ok=True)
@@ -185,7 +188,8 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
             graded += s["result"] is not None
             pending += s["result"] is None
             by_fixture[s["fixture"]] = s
-        for slip in doc.get("alts", []) + doc.get("replaced", []):   # own-market legs
+        for slip in (doc.get("alts", []) + doc.get("replaced", [])
+                     + doc.get("value", [])):                         # own-market legs
             for leg in slip.get("alt_legs", []):
                 if leg["result"] is None:
                     ev = find_result(events, leg["home"], leg["away"],
@@ -197,9 +201,9 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                     elif ev and ev["finished_other"]:
                         leg["result"] = "no-90min-result"
                         changed += 1
-        for kind in ("accas", "safe3", "megas", "alts", "replaced"):
+        for kind in ("accas", "safe3", "megas", "alts", "replaced", "value"):
             for slip in doc.get(kind, []):
-                if kind in ("alts", "replaced"):
+                if kind in ("alts", "replaced", "value"):
                     legs = slip.get("alt_legs", [])
                 else:
                     legs = [by_fixture.get(f) for f in slip["legs"]]

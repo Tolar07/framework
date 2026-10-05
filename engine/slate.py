@@ -94,6 +94,7 @@ WHITELIST_LEAGUES = (
     "Premier League",
     "La Liga",
     "Champions League",
+    "Conference League",       # added 2026-10-05 (market-implied, order 10)
     # Second tiers — MIDWEEK coverage (football-data history + SportyBet priced).
     "La Liga 2",
     "Serie B",

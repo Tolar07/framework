@@ -38,12 +38,27 @@ def make_synthetic_results(league: str, n_teams: int = 10) -> list[MatchResult]:
     return results, teams
 
 
-# --- test 1: uncovered league is flagged, never silently skipped or guessed ---
-board, flags = orchestrator.scan_one_league("Champions League", season="2526")
+# --- test 1: an uncovered league is flagged, never silently skipped or guessed ---
+board, flags = orchestrator.scan_one_league("Not A Real League", season="2526")
 assert board == [], "an uncovered league must produce an empty board, never fabricated fixtures"
-assert any("NO DATA" in f and "Champions League" in f for f in flags), \
+assert flags and any("Not A Real League" in f for f in flags), \
     f"uncovered league must be flagged explicitly, got: {flags}"
-print("Uncovered league (Champions League) correctly flagged, not silently dropped: OK")
+print("Uncovered league correctly flagged, not silently dropped: OK")
+
+# --- test 1b: European cups are market-implied (2026-10-05) and never invent a price ---
+assert {"Champions League", "Europa League", "Conference League", "HNL"} <= \
+    orchestrator.MARKET_ONLY_LEAGUES
+with patch("pipeline.odds.fixtures_from_odds",
+           return_value=([("Lens", "Sporting")], {("Lens", "Sporting"): "2026-10-13"}, [])), \
+        patch("orchestrator._odds_by_pair", return_value=({}, [])):
+    board, flags = orchestrator.scan_one_league("Champions League", season="2526")
+assert len(board) == 1 and board[0].probs is None and not board[0].on_deploy_shortlist, \
+    "a fixture with no price is listed, never given made-up numbers or deployed (HR35)"
+assert "NO DATA — PENDING" in (board[0].rejection_reason or "")
+assert board[0].prob_source == "market"
+assert any("0/1 fixture(s) priced MARKET-IMPLIED" in f and "no edge claimed" in f
+           for f in flags), flags
+print("Champions League priced market-implied, nothing invented without a price: OK")
 
 
 # --- test 2: thin history is flagged rather than fit on too little ---

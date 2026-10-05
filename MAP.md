@@ -85,14 +85,14 @@ Read by code but passed by no workflow (laptop only): `ALERT_EMAIL_TO`,
 | Setting | Where |
 |---|---|
 | Phase, capital switch | `config/__init__.py` (`PHASE = 3`, `CAPITAL_ENABLED`) |
-| Leagues scanned | `engine/slate.py` `WHITELIST_LEAGUES`; only leagues with a `SPORTYBET_TOURNAMENT_ID` in `pipeline/odds_sportybet.py` are actually scanned (so HNL, Champions League and Europa League never are) |
+| Leagues scanned | `engine/slate.py` `WHITELIST_LEAGUES`; only leagues with a `SPORTYBET_TOURNAMENT_ID` in `pipeline/odds_sportybet.py` are actually scanned (HNL, Champions League, Europa League and Conference League were added 2026-10-05, market-implied) |
 | Odds band, 50% floor, tiers | `engine/slate.py` (`DEPLOY_ODDS_MIN/MAX`, `MIN_MODEL_PROB`, `AGREE_PP`, `BANKER_MIN`) |
 | Pick preferences, drift, news swap | `run_daily.py` (`UNDER_PREF_PP`, `EV_PREF_PP`, `DRIFT_DEMOTE`, `NEWS_SWAP_PP`) |
 | Stakes and stop-loss | `engine/staking.py` (% of bankroll — **no bankroll figure is recorded anywhere**) |
 | AI Survivor | `engine/survivor.py` (£100 genesis, £1 stake) |
 | Learning | `engine/learning.py` (90-day window, 10 results, 3 match days) |
 | Phase 3 CLV gate | `clv/clv_logger.py` (`PHASE3_GATE_MIN_LEGS = 30`, mean must be positive) — see §12 |
-| Season | `"2526"` default in `run_daily.py` and `orchestrator.py` — bump every summer |
+| Season | `orchestrator.fit_season_code()` — the last completed season, switching on 1 July (2026-10-05; was a fixed `"2526"`) |
 | Team spellings | `engine/name_match.py`, `TEAM_ALIASES` in `pipeline/odds_sportybet.py` |
 
 ## 4. What the system remembers
@@ -240,7 +240,7 @@ new key.
 - ~~`/log` legs had no match date and were never graded~~ — FIXED 2026-10-04: `/log` finds the match on a recent board (league + date) or takes a date you add, and refuses wording it can't settle.
 - `memory/corrections.csv` (`/note`) is read by nothing — `/note` now says so instead of claiming the corrections are applied.
 - ~~The capital refusal message said capital is disabled at PHASE 3~~ — corrected 2026-10-04.
-- HNL, Champions League and Europa League are whitelisted but never scanned (no SportyBet tournament id).
+- ~~HNL, Champions League and Europa League are whitelisted but never scanned~~ — FIXED 2026-10-05: SportyBet ids added; priced market-implied (with the Conference League).
 - `daily`, `commands` and `news` push with `pull --rebase || true; push || echo` in separate concurrency groups — a conflict silently drops that run's commit.
 - The run log (with the Run ID) is not kept after a CI run (order 30 says it is).
 - `.claude/hooks/check_protected_files.py` guards files that no longer exist; the real constants (`config/__init__.py`, `engine/slate.py`) are unguarded. No hook blocks `git add -A`.

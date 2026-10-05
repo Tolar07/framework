@@ -2,7 +2,7 @@
 ==================================
 
 📅  Mon 05 Oct 2026 — bet365 board (sent to you only)
-Run ID: OLPXDV-20261004-2119-938a3f (same run as the SportyBet board)
+Run ID: OLPXDV-20261005-0550-fa125e (same run as the SportyBet board)
 Times are kickoff, Lagos time (WAT)
 
 Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
@@ -23,37 +23,37 @@ bet365 SINGLES
  • 19:45 Montenegro v Armenia — Handicap Result: Armenia +3
    82% · deploy at 1.22+ · SportyBet @1.20 · MEDIUM
  • 17:00 Cyprus v Latvia — Team Goals: Cyprus Over 0.5
-   81% · deploy at 1.24+ · SportyBet @1.20 · HIGH
- • 19:45 Romania v Sweden — Goals Over/Under: Over 1.5
-   80% · deploy at 1.25+ · SportyBet @1.20 · HIGH
- • 19:45 France v Belgium — Double Chance: France or Belgium
-   79% · deploy at 1.26+ · SportyBet @1.20 · LOW
- • 19:45 Italy v Turkey — Goals Over/Under: Under 4.5
-   77% · deploy at 1.31+ · SportyBet @1.29 · HIGH
+   80% · deploy at 1.25+ · SportyBet @1.20 · MEDIUM
+ • 19:45 Ukraine v Hungary — Goals Over/Under: Under 3.5
+   78% · deploy at 1.29+ · SportyBet @1.25 · LOW
+ • 19:45 Romania v Sweden — Double Chance: Romania or Sweden
+   75% · deploy at 1.33+ · SportyBet @1.26 · MEDIUM
+ • 19:45 Italy v Turkey — Team Goals: Turkey Under 1.5
+   74% · deploy at 1.35+ · SportyBet @1.28 · MEDIUM
  • 19:45 Bosnia and Herzegovina v Poland — ≠ Goals Over/Under: Over 1.5
-   74% · deploy at 1.35+ · SportyBet @1.28 · HIGH
+   73% · deploy at 1.37+ · SportyBet @1.28 · MEDIUM
    (SportyBet pick: Poland Win to Nil — no — not on bet365)
- • 19:45 Ukraine v Hungary — ≠ Double Chance: Ukraine or Hungary
-   74% · deploy at 1.36+ · SportyBet @1.34 · MEDIUM
-   (SportyBet pick: Hungary Win to Nil — no — not on bet365)
- • 19:45 Northern Ireland v Georgia — Double Chance: Northern Ireland or Georgia
-   71% · deploy at 1.40+ · SportyBet @1.37 · HIGH
+ • 19:45 France v Belgium — Multigoals: 2-5
+   71% · deploy at 1.41+ · SportyBet @1.20 · MEDIUM
+ • 19:45 Northern Ireland v Georgia — ≠ Multigoals: 1-3
+   71% · deploy at 1.41+ · SportyBet @1.22 · HIGH
+   (SportyBet pick: Northern Ireland Win to Nil — no — not on bet365)
 
 ──────────────────────────────────
 bet365 ACCAS
 (build by hand on bet365, strongest legs first)
 ──────────────────────────────────
-bet365 Acca A · 5 legs · chance 33% · deploy at 3.12+ combined
+bet365 Acca A · 5 legs · chance 29% · deploy at 3.51+ combined
    • Montenegro v Armenia (🏆 UEFA Nations League) — Handicap Result: Armenia +3 (82%)
-   • Cyprus v Latvia (🏆 UEFA Nations League) — Team Goals: Cyprus Over 0.5 (81%)
-   • Romania v Sweden (🏆 UEFA Nations League) — Goals Over/Under: Over 1.5 (80%)
-   • France v Belgium (🏆 UEFA Nations League) — Double Chance: France or Belgium (79%)
-   • Italy v Turkey (🏆 UEFA Nations League) — Goals Over/Under: Under 4.5 (77%)
-bet365 Acca B · 4 legs · chance 29% · deploy at 3.44+ combined
+   • Cyprus v Latvia (🏆 UEFA Nations League) — Team Goals: Cyprus Over 0.5 (80%)
+   • Ukraine v Hungary (🏆 UEFA Nations League) — Goals Over/Under: Under 3.5 (78%)
+   • Romania v Sweden (🏆 UEFA Nations League) — Double Chance: Romania or Sweden (75%)
    • Cordoba v Tenerife (🇪🇸 Spain · La Liga 2 / Hypermotion) — Goals Over/Under: Over 1.5 (75%)
-   • Bosnia and Herzegovina v Poland (🏆 UEFA Nations League) — Goals Over/Under: Over 1.5 (74%)
-   • Ukraine v Hungary (🏆 UEFA Nations League) — Double Chance: Ukraine or Hungary (74%)
-   • Northern Ireland v Georgia (🏆 UEFA Nations League) — Double Chance: Northern Ireland or Georgia (71%)
+bet365 Acca B · 4 legs · chance 27% · deploy at 3.68+ combined
+   • Italy v Turkey (🏆 UEFA Nations League) — Team Goals: Turkey Under 1.5 (74%)
+   • Bosnia and Herzegovina v Poland (🏆 UEFA Nations League) — Goals Over/Under: Over 1.5 (73%)
+   • France v Belgium (🏆 UEFA Nations League) — Multigoals: 2-5 (71%)
+   • Northern Ireland v Georgia (🏆 UEFA Nations League) — Multigoals: 1-3 (71%)
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.

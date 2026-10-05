@@ -716,5 +716,217 @@
    ],
    "ft": null
   }
+ ],
+ "replaced": [
+  {
+   "kind": "single",
+   "name": "Ukraine v Hungary",
+   "old_code": "PYE1MM",
+   "new_code": "VQUJNP",
+   "notes": [
+    "Ukraine v Hungary: Hungary Win to Nil \u2014 no \u2192 Under 3.5 goals (team news: Ukraine missing 30% of value (Vitaliy Mykolenko, Mykola Matviyenko, Danylo Sikan); support: Hungary missing 29%)"
+   ],
+   "odds": 1.25,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Ukraine v Hungary",
+     "home": "Ukraine",
+     "away": "Hungary",
+     "kickoff": "2026-10-05",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.25,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Ukraine v Hungary"
+   ]
+  },
+  {
+   "kind": "accas",
+   "name": "Acca A",
+   "old_code": "ZEA0AK",
+   "new_code": "LM7DTE",
+   "notes": [
+    "Ukraine v Hungary: Hungary Win to Nil \u2014 no \u2192 Under 3.5 goals (team news: Ukraine missing 30% of value (Vitaliy Mykolenko, Mykola Matviyenko, Danylo Sikan); support: Hungary missing 29%)"
+   ],
+   "odds": 2.592,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Montenegro v Armenia",
+     "home": "Montenegro",
+     "away": "Armenia",
+     "kickoff": "2026-10-05",
+     "market": "SB:14|hcp=0:3|Away (0:3)",
+     "pick": "Armenia (0:3) handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Cyprus v Latvia",
+     "home": "Cyprus",
+     "away": "Latvia",
+     "kickoff": "2026-10-05",
+     "market": "SB:19|total=0.5|Over 0.5",
+     "pick": "Cyprus Over 0.5 goals",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Ukraine v Hungary",
+     "home": "Ukraine",
+     "away": "Hungary",
+     "kickoff": "2026-10-05",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Romania v Sweden",
+     "home": "Romania",
+     "away": "Sweden",
+     "kickoff": "2026-10-05",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "France v Belgium",
+     "home": "France",
+     "away": "Belgium",
+     "kickoff": "2026-10-05",
+     "market": "SB:10||Home or Away",
+     "pick": "France or Belgium",
+     "price": 1.2,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Montenegro v Armenia",
+    "Cyprus v Latvia",
+    "Ukraine v Hungary",
+    "Romania v Sweden",
+    "France v Belgium"
+   ]
+  },
+  {
+   "kind": "board",
+   "name": "Board MEGA",
+   "old_code": "YVB13M",
+   "new_code": "KQM5ZA",
+   "notes": [
+    "Ukraine v Hungary: Hungary Win to Nil \u2014 no \u2192 Under 3.5 goals (team news: Ukraine missing 30% of value (Vitaliy Mykolenko, Mykola Matviyenko, Danylo Sikan); support: Hungary missing 29%)"
+   ],
+   "odds": 7.153,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Cordoba v Tenerife",
+     "home": "Cordoba",
+     "away": "Tenerife",
+     "kickoff": "2026-10-05",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Cyprus v Latvia",
+     "home": "Cyprus",
+     "away": "Latvia",
+     "kickoff": "2026-10-05",
+     "market": "SB:19|total=0.5|Over 0.5",
+     "pick": "Cyprus Over 0.5 goals",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Bosnia and Herzegovina v Poland",
+     "home": "Bosnia and Herzegovina",
+     "away": "Poland",
+     "kickoff": "2026-10-05",
+     "market": "SB:34||No",
+     "pick": "Poland Win to Nil \u2014 no",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "France v Belgium",
+     "home": "France",
+     "away": "Belgium",
+     "kickoff": "2026-10-05",
+     "market": "SB:10||Home or Away",
+     "pick": "France or Belgium",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Italy v Turkey",
+     "home": "Italy",
+     "away": "Turkey",
+     "kickoff": "2026-10-05",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Montenegro v Armenia",
+     "home": "Montenegro",
+     "away": "Armenia",
+     "kickoff": "2026-10-05",
+     "market": "SB:14|hcp=0:3|Away (0:3)",
+     "pick": "Armenia (0:3) handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Northern Ireland v Georgia",
+     "home": "Northern Ireland",
+     "away": "Georgia",
+     "kickoff": "2026-10-05",
+     "market": "SB:10||Home or Away",
+     "pick": "Northern Ireland or Georgia",
+     "price": 1.37,
+     "result": null
+    },
+    {
+     "fixture": "Romania v Sweden",
+     "home": "Romania",
+     "away": "Sweden",
+     "kickoff": "2026-10-05",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Ukraine v Hungary",
+     "home": "Ukraine",
+     "away": "Hungary",
+     "kickoff": "2026-10-05",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.25,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Cordoba v Tenerife",
+    "Cyprus v Latvia",
+    "Bosnia and Herzegovina v Poland",
+    "France v Belgium",
+    "Italy v Turkey",
+    "Montenegro v Armenia",
+    "Northern Ireland v Georgia",
+    "Romania v Sweden",
+    "Ukraine v Hungary"
+   ]
+  }
  ]
 }

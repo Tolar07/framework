@@ -42,6 +42,8 @@ COMPETITIONS: dict[str, tuple[str | None, str]] = {
     "Greek Super League": ("Greece", "Super League"),
     "Austrian Bundesliga": ("Austria", "Bundesliga"),
     "Swiss Super League": ("Switzerland", "Super League"),
+    "Eliteserien": ("Norway", "Eliteserien"),
+    "Allsvenskan": ("Sweden", "Allsvenskan"),
     "Champions League": (None, "UEFA Champions League"),
     "Europa League": (None, "UEFA Europa League"),
     "Conference League": (None, "UEFA Conference League"),
@@ -63,7 +65,7 @@ FLAGS: dict[str, str] = {
     "Netherlands": _flag_of("NL"), "Belgium": _flag_of("BE"),
     "Denmark": _flag_of("DK"), "Poland": _flag_of("PL"), "Croatia": _flag_of("HR"),
     "Turkey": _flag_of("TR"), "Greece": _flag_of("GR"), "Austria": _flag_of("AT"),
-    "Switzerland": _flag_of("CH"),
+    "Switzerland": _flag_of("CH"), "Norway": _flag_of("NO"), "Sweden": _flag_of("SE"),
 }
 TROPHY = "\U0001F3C6"
 

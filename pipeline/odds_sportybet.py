@@ -90,6 +90,8 @@ SPORTYBET_TOURNAMENT_ID = {
     "Greek Super League": "sr:tournament:185",
     "Austrian Bundesliga": "sr:tournament:45",
     "Swiss Super League": "sr:tournament:215",
+    "Eliteserien": "sr:tournament:20",          # Norway (calendar-year season)
+    "Allsvenskan": "sr:tournament:40",          # Sweden (calendar-year season)
 }
 
 # SportyBet team name -> model (football-data) key. Verified pairs only; exact

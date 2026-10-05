@@ -360,4 +360,19 @@ assert _ne.k_factor("FIFA World Cup") > _ne.k_factor("UEFA Nations League") > _n
 from engine import freeze as _fz
 assert _fz.DRIFT == 0.05, "Order 35: a frozen leg is replaced only on a 5%+ drift, team news or leaving the board"
 
+# 36. BTTS calibrated; BTTS-yes / over-goals value picks
+from engine import calibration as _cal
+assert _cal.btts_yes(0.45) > 0.45 and _cal.btts_yes(0.75) < 0.75, "Order 36(a): BTTS calibrated"
+assert "cal.model_prob(market, mkt.model_prob(market, p))" in _rd_src \
+    and "md = (cal.model_prob(k, md[0]), md[1])" in _rd_src, \
+    "Order 36(a): the calibrated BTTS feeds both selection routes"
+assert _rd.VALUE_MIN_EV == 0.02, "Order 36(b): value threshold EV >= 2%"
+for _k in ("BTTS_YES", "SB:29||Yes", "OVER_2_5", "SB:18|total=2.5|Over 2.5", "SB:19|total=1.5|Over 1.5"):
+    assert _rd._goals_value_key(_k), f"Order 36(b): {_k} is a value-eligible market"
+for _k in ("BTTS_NO", "SB:29||No", "UNDER_2_5", "SB:18|total=3.5|Under 3.5", "SB:10||Home or Draw", "1X2_HOME"):
+    assert not _rd._goals_value_key(_k), f"Order 36(b): {_k} is not value-eligible"
+assert slate.TIER_RANK["BANKER"] < slate.TIER_RANK["VALUE"] < slate.TIER_RANK["BOOK"]
+from engine import staking as _stk
+assert _stk.PRIORS["VALUE"] < 0, "Order 36(b): VALUE gets the minimal stake until proven"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

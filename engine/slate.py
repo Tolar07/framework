@@ -66,7 +66,7 @@ MODEL_WEIGHT = 0.25
 # CERTAINTY (2026-10-02): HIGH when model and bookmaker agree within this;
 # MEDIUM within AGREE_PP; LOW otherwise or when only one source exists.
 CERTAINTY_HIGH_PP = 0.03
-TIER_RANK = {"BANKER": 0, "SAFE": 1, "BOOK": 2, "MARKET": 3, "SPLIT": 4}
+TIER_RANK = {"BANKER": 0, "SAFE": 1, "VALUE": 1.5, "BOOK": 2, "MARKET": 3, "SPLIT": 4}
 
 
 def in_deploy_band(price: Optional[float]) -> bool:

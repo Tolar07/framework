@@ -386,7 +386,7 @@ def _dry_run_sandbox():
         BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = saved
 
 
-def run(season: str = "2526", fixtures_season: str | None = None,
+def run(season: str | None = None, fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, only_production: bool = False,
         heartbeat: bool = False, target_date: str | None = None,
@@ -401,12 +401,13 @@ def run(season: str = "2526", fixtures_season: str | None = None,
         return _run(**kw)
 
 
-def _run(season: str = "2526", fixtures_season: str | None = None,
+def _run(season: str | None = None, fixtures_season: str | None = None,
         leagues: list[str] | None = None, send: bool = True,
         min_mes: float = 0.0, only_production: bool = False,
         heartbeat: bool = False, target_date: str | None = None,
         slot: str | None = None, refreeze: bool = False) -> str:
     leagues = leagues or DEPLOY_LEAGUES
+    season = season or orchestrator.fit_season_code()
     today = date.today().isoformat()
     # The day the board is FOR. Defaults to today (the morning run); the evening
     # run passes tomorrow so the 10pm board targets the next day's card.
@@ -1349,7 +1350,8 @@ def _run(season: str = "2526", fixtures_season: str | None = None,
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="OLP XDV daily 07:00 run")
-    ap.add_argument("--season", default="2526", help="season the model is FIT on")
+    ap.add_argument("--season", default=None,
+                    help="season the model is FIT on (default: the last completed season)")
     ap.add_argument("--fixtures-season", default=None)
     ap.add_argument("--leagues", nargs="+", default=None)
     ap.add_argument("--min-mes", type=float, default=0.0,

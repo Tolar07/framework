@@ -40,6 +40,7 @@ COMPETITIONS: dict[str, tuple[str | None, str]] = {
     "HNL": ("Croatia", "HNL"),
     "Champions League": (None, "UEFA Champions League"),
     "Europa League": (None, "UEFA Europa League"),
+    "Conference League": (None, "UEFA Conference League"),
     "UEFA Nations League": (None, "UEFA Nations League"),
 }
 

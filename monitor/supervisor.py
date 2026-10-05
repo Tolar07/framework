@@ -105,7 +105,8 @@ def last_run(repo: str, token: str, wf: str, branch: str | None = "main") -> str
 
 
 def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
-           runs: dict[str, str], subscribers: int | None = None) -> str:
+           runs: dict[str, str], subscribers: int | None = None,
+           knowledge: dict | None = None) -> str:
     """The one Telegram status. Problems first, each with ⚠.
 
     subscribers: how many subscriber chats the TELEGRAM_SUBSCRIBER_CHAT_IDS
@@ -148,6 +149,16 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
         st = runs[wf]
         (ok if st in ("success", "in_progress", "queued", "none") else bad).append(
             f"{label}: {st}")
+    # KNOWLEDGE LOOP (order 39): the run must have refreshed memory/knowledge.json
+    # today; open proposals are waiting on the Architect. None = not checked.
+    if knowledge is not None:
+        upd, today = knowledge.get("updated"), knowledge.get("today")
+        (ok if upd and upd == today else bad).append(
+            f"knowledge file updated {upd}" if upd == today else
+            f"knowledge file NOT updated today (last: {upd or 'never'}) — the losing-market "
+            f"watch did not run")
+        if knowledge.get("open"):
+            ok.append(f"{knowledge['open']} proposal(s) waiting for /approve or /reject")
     head = (f"🛡 SUPERVISOR · {day} {slot} — "
             + ("ALL CLEAR" if not bad else f"{len(bad)} issue(s)"))
     return "\n".join([head] + [f"⚠ {b}" for b in bad] + [f"✓ {o}" for o in ok])
@@ -172,8 +183,15 @@ def main(argv: list[str] | None = None) -> int:
                  for wf in ("tests.yml", "watchdog.yml", "news.yml")}
                 if repo and token else {})
         from output import notify
+        from datetime import datetime, timezone
+
+        from engine import loss_watch
+        kn = loss_watch._load(loss_watch.KNOWLEDGE_FILE, {})
+        knowledge = {"updated": kn.get("updated"),
+                     "today": datetime.now(timezone.utc).date().isoformat(),
+                     "open": sum(p.get("status") == "open" for p in loss_watch.load_proposals())}
         text = report(day, name, a.run_conclusion, facts, stats, runs,
-                      subscribers=len(notify.subscriber_chats()))
+                      subscribers=len(notify.subscriber_chats()), knowledge=knowledge)
     except Exception as e:  # noqa: BLE001
         text = f"🛡 SUPERVISOR — could not complete its check ({e})"
     print(text)

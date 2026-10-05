@@ -106,7 +106,9 @@ Read by code but passed by no workflow (laptop only): `ALERT_EMAIL_TO`,
 | `data/survivor/` | `engine/survivor.py` | survivor | yes |
 | `data/european/results.json` | `data/european_archive.py` (every run, from Flashscore) | nothing yet — the history a current-season European model needs (2026-10-05) | yes |
 | `memory/telegram_offset.json` | commands | commands | yes |
-| `memory/corrections.csv` | `/note` | **nothing** (see §11) | yes |
+| `memory/corrections.csv` | `/note` | heartbeat + weekly review list the open ones (`engine/loss_watch.open_notes`, order 39) | yes |
+| `memory/knowledge.json` | daily run (`engine/loss_watch.remember`) | supervisor (updated today?), sessions; what was learned: market x competition results, flags, learning corrections, 120-day history | yes |
+| `memory/proposals.json` | daily run (`loss_watch.propose`), `/approve` `/reject` | daily run (approved blocks drop candidates), heartbeat, `/proposals`, supervisor | yes |
 | `logs/daily_<date>.log` (Run ID, delivery notes) | `run_daily.py` | nobody in CI — **lost after every run**; the Actions job log has it | no |
 | `data/cache/`, `backtest/cache/` | the fetchers | the fetchers | Actions cache only |
 | `data/sportybet/` | laptop dump, 2026-08-23 | nothing yet — every SportyBet country/tournament id, for wider coverage | yes |
@@ -239,7 +241,7 @@ new key.
 
 - ~~`news.yml` ran 6 times in three days~~ — FIXED 2026-10-04: one looping job started by the board run (`monitor/news_loop.py`). If main moves and the picks file conflicts, that round's results are not saved and the next round re-checks (an alert can repeat).
 - ~~`/log` legs had no match date and were never graded~~ — FIXED 2026-10-04: `/log` finds the match on a recent board (league + date) or takes a date you add, and refuses wording it can't settle.
-- `memory/corrections.csv` (`/note`) is read by nothing — `/note` now says so instead of claiming the corrections are applied.
+- `memory/corrections.csv` (`/note`) is listed on the heartbeat and in the weekly review until acted on (2026-10-05, order 39); nothing applies it automatically.
 - ~~The capital refusal message said capital is disabled at PHASE 3~~ — corrected 2026-10-04.
 - ~~HNL, Champions League and Europa League are whitelisted but never scanned~~ — FIXED 2026-10-05: SportyBet ids added; priced market-implied (with the Conference League).
 - `daily`, `commands` and `news` push with `pull --rebase || true; push || echo` in separate concurrency groups — a conflict silently drops that run's commit.

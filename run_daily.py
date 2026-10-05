@@ -371,6 +371,7 @@ def _dry_run_sandbox():
     import clv.clv_logger as _clv
     from data import european_archive as _eu
     from engine import freeze as _fz
+    from engine import loss_watch as _lw
     from engine import picks_ledger as _pl
 
     global BOARD_DIR
@@ -388,6 +389,11 @@ def _dry_run_sandbox():
     _eu.PATH = tmp / "european_results.json"
     if saved_eu.exists():
         shutil.copy2(saved_eu, _eu.PATH)
+    saved_lw = (_lw.KNOWLEDGE_FILE, _lw.PROPOSALS_FILE)
+    _lw.KNOWLEDGE_FILE, _lw.PROPOSALS_FILE = tmp / "knowledge.json", tmp / "proposals.json"
+    for src, dst in zip(saved_lw, (_lw.KNOWLEDGE_FILE, _lw.PROPOSALS_FILE)):
+        if src.exists():
+            shutil.copy2(src, dst)
     BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = (
         boards, picks, clv_log, boards)
     print(f"  dry run: writing to scratch copies under {tmp} (real records untouched)")
@@ -396,6 +402,7 @@ def _dry_run_sandbox():
     finally:
         BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = saved
         _eu.PATH = saved_eu
+        _lw.KNOWLEDGE_FILE, _lw.PROPOSALS_FILE = saved_lw
 
 
 def run(season: str | None = None, fixtures_season: str | None = None,
@@ -517,7 +524,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
 
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
-    ladder_fixtures = ladder_rejected = dog_hcp_dropped = 0
+    ladder_fixtures = ladder_rejected = dog_hcp_dropped = approved_dropped = 0
     # AUTOMATIC LEARNING (improvement #6, engine.learning): every graded pick
     # corrects the next board. A market family or league whose picks won less
     # often than we said gets its chances cut (and can fall below the 50%
@@ -531,6 +538,25 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     except Exception as e:  # noqa: BLE001 — learning is optional, the run is not
         learning, learned, learning_line = None, {}, None
         all_flags.append(f"learning from results unavailable ({e})")
+    # LOSING-MARKET WATCH + KNOWLEDGE + PROPOSALS (order 39, engine/loss_watch):
+    # flags market x competition groups that are losing, writes what was
+    # learned to memory/knowledge.json, opens proposals for the Architect, and
+    # loads the blocks he approved (applied in the selection loop below).
+    loss_line, approved_blocks = None, []
+    try:
+        from engine import loss_watch
+        from engine.picks_ledger import LEDGER_DIR as _LD2
+        _w = loss_watch.watch(_LD2)
+        for _p in loss_watch.propose(_w):
+            all_flags.append(f"new proposal {_p['id']}: {_p['text']} ({_p['evidence']})")
+        loss_watch.remember(_w, learned)
+        approved_blocks = loss_watch.blocks()
+        loss_line = "\n".join(x for x in (loss_watch.summary(_w),
+                                           loss_watch.notes_line(loss_watch.open_notes())) if x)
+        all_flags.append(f"losing-market watch: {len(_w['flags'])} flag(s), "
+                         f"{len(approved_blocks)} approved block(s) in force")
+    except Exception as e:  # noqa: BLE001 — the watch is an extra, never a blocker
+        all_flags.append(f"losing-market watch unavailable ({e})")
     for bf in board:
         if bf.probs is None:
             continue
@@ -615,6 +641,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             _n = len(cands)
             cands = [c for c in cands if not fm.is_underdog_handicap(c[2])]
             dog_hcp_dropped += _n - len(cands)
+        # APPROVED BLOCKS (order 39): market segments the Architect approved
+        # dropping, from the losing-market watch's proposals.
+        if approved_blocks:
+            _n = len(cands)
+            cands = [c for c in cands if not loss_watch.blocked(c[2], _lg, approved_blocks)]
+            approved_dropped += _n - len(cands)
         if not cands:
             continue
 
@@ -753,6 +785,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     _n_value = sum(1 for b in board if getattr(b, "tier", None) == "VALUE")
     all_flags.append(f"value picks (order 36): {_n_value} BTTS-yes / over-goals pick(s) "
                      f"priced above fair odds took the pick from the likeliest outcome")
+    if approved_dropped:
+        all_flags.append(f"approved blocks (order 39): {approved_dropped} outcome(s) not considered")
     if dog_hcp_dropped:
         all_flags.append(f"FA Cup underdog handicaps (order 38): {dog_hcp_dropped} outcome(s) "
                          f"not considered")
@@ -1423,7 +1457,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                   status["mean_clv_pct"], board, board_delivered,
                                   board_date=target,
                                   scorecard="\n\n".join(x for x in (scorecard_text, staking_line,
-                                                                  learning_line, survivor_text)
+                                                                  learning_line, loss_line,
+                                                                  survivor_text)
                                                         if x))
             hb_ok, hb_notes = notify.deliver(hb, save_to=None)
             for n in hb_notes:

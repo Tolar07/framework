@@ -92,6 +92,15 @@ def review(days: int = 7, today: str | None = None, picks: Path = PICKS) -> str:
         L.append(learning.summary(learning.learn(picks, today=today)))
     except Exception as e:  # noqa: BLE001
         L.append(f"Learning: unavailable ({e})")
+    # The losing-market watch, its proposals and your /note corrections
+    # (order 39, engine/loss_watch; memory/proposals.json, memory/corrections.csv)
+    try:
+        from engine import loss_watch
+        L.append(loss_watch.summary(loss_watch.watch(picks, today=today)))
+        L.append(loss_watch.notes_line(loss_watch.open_notes()) or
+                 "Your /note corrections: none waiting.")
+    except Exception as e:  # noqa: BLE001
+        L.append(f"Losing-market watch: unavailable ({e})")
     L.append("PROPOSALS for the Architect (nothing is changed automatically):")
     L += [f"  • {p}" for p in proposals] or ["  • none — no family or league is running "
                                              f"{REVIEW_GAP_PP * 100:.0f}+ pts below what we said "

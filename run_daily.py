@@ -979,6 +979,17 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                             if _a else None)
             b.alt_price = _a[2] if _a else None
 
+    # --- SHARP CHECK (2026-10-05): each final pick against the Betfair
+    # Exchange's fair odds (pipeline/sharp.py). A label only — the edge that
+    # matters, measured when the pick is made. Never blocks the run.
+    try:
+        from pipeline import sharp as _sharp
+        _n_sh, _above_sh, _ = _sharp.check(board)
+        all_flags.append(f"sharp check: {_n_sh} pick(s) priced on the Betfair Exchange, "
+                         f"{_above_sh} above its fair odds")
+    except Exception as e:  # noqa: BLE001
+        all_flags.append(f"sharp check unavailable ({str(e)[:80]})")
+
     # --- VALUE: how many picks are positive-EV on our own chance ---
     _dep = [b for b in board if b.on_deploy_shortlist and b.best_mes_ev is not None]
     if _dep:

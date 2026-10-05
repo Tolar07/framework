@@ -319,6 +319,15 @@ def display_key(k: str, home: str = "Home", away: str = "Away") -> str:
         return f"{sub(outcome).replace('/', ' or ')}"
     if mid in (25, 548, 21):
         return f"{_NAMES[mid]} {outcome}"
+    if mid == 60:      # first-half result markets (engine/half.py)
+        return {"Home": f"{home} to lead at half-time", "Away": f"{away} to lead at half-time"
+                }.get(outcome, "Level at half-time")
+    if mid == 63:
+        return {"Home or Draw": f"{home} or level at half-time",
+                "Draw or Away": f"{away} or level at half-time",
+                "Home or Away": f"{home} or {away} to lead at half-time"}.get(outcome, outcome)
+    if mid == 64:
+        return f"{sub(outcome)} at half-time (draw no bet)"
     return f"{_NAMES.get(mid, 'Market')}: {sub(outcome)}"
 
 

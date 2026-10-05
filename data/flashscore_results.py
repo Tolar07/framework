@@ -78,11 +78,26 @@ def parse_feed(text: str) -> list[dict]:
             "home": kv.get("AE", ""), "away": kv.get("AF", ""),
             "fthg": hg, "ftag": ag,
             "finished_regular": finished and kv.get("AC") == FINISHED_REGULAR and hg is not None,
+            # first half = full time - second half (BC/BD are the SECOND-half
+            # goals; checked on 37 of 37 matches against football-data's
+            # half-time scores, 2026-10-05). None when the feed omits them.
+            "fh_home": _first_half(hg, kv.get("BC")),
+            "fh_away": _first_half(ag, kv.get("BD")),
             "finished_other": finished and kv.get("AC") != FINISHED_REGULAR,
             "stage": kv.get("AC"),
             "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%M:%SZ"),
         })
     return out
+
+
+def _first_half(ft: Optional[int], second: Optional[str]) -> Optional[int]:
+    try:
+        s = int(second) if second is not None else None
+    except ValueError:
+        return None
+    if ft is None or s is None or s > ft or s < 0:
+        return None
+    return ft - s
 
 
 def results_for_offset(offset: int, sign: Optional[str] = None) -> list[dict]:

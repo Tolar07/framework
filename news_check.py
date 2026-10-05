@@ -41,7 +41,7 @@ DRIFT_ALERT = 0.05             # price moved out 5%+ since the board -> alert
 _UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 _LADDER_IDS = ("1,10,11,12,13,14,16,18,19,20,21,23,24,25,26,29,30,31,32,33,34,"
-               "36,37,546,547,548")
+               "36,37,546,547,548,60,63,64")   # + first-half result markets
 _TOURNAMENT = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
                "?sportId=sr:sport:1&marketId=" + _LADDER_IDS +
                "&pageSize=100&pageNum=1&tournamentId={tid}")

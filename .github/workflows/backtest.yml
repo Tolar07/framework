@@ -12,8 +12,13 @@ name: OLP XDV backtest metrics
 # A manual trigger (workflow_dispatch) with "full: true" runs the complete
 # backtest across all deploy + control leagues for the deep history.
 # Manual-only since the 2026-10-03 lineage merge: on push it committed metrics
-# back to main, alongside the cloud daily workflow. Re-enable deliberately.
+# back to main, alongside the cloud daily workflow. Since 2026-10-05 it also
+# runs on the 2nd of every month (Architect: "make sure everything is being
+# used"), well clear of the daily board slots, so the metrics history shows
+# whether the month's code changes moved the backtest.
 on:
+  schedule:
+    - cron: "13 12 2 * *"
   workflow_dispatch:
     inputs:
       full:
@@ -33,7 +38,7 @@ concurrency:
 jobs:
   metrics:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 60   # the monthly full run covers every league
 
     steps:
       - uses: actions/checkout@v4
@@ -60,30 +65,21 @@ jobs:
             olp-xdv-backtest-${{ runner.os }}-${{ github.ref_name }}-
             olp-xdv-backtest-${{ runner.os }}-
 
-      # Full run = all DEFAULT_AB + DEFAULT_CONTROL leagues (omit --leagues);
-      # the commit/PR slice = Eredivisie only, kept fast (~1-3 min).
+      # Full run = all DEFAULT_AB + DEFAULT_CONTROL leagues (omit --leagues):
+      # the monthly schedule and a manual "full: true"; otherwise Eredivisie only.
       - name: Run the backtest and record metrics
         env:
           PYTHONIOENCODING: utf-8
         run: |
           set -euo pipefail
           LEAGUES=""
-          if [ "${{ github.event.inputs.full }}" != "true" ]; then
+          if [ "${{ github.event_name }}" != "schedule" ] && [ "${{ github.event.inputs.full }}" != "true" ]; then
             LEAGUES="--leagues Eredivisie"
           fi
           python -m backtest.clv_backtest \
             --test-season 2425 --carry-in 2324 \
             $LEAGUES --no-write
           python -m backtest.metrics_history
-
-      - name: Run backtest regression tests
-        if: github.event_name != 'workflow_dispatch'
-        run: |
-          set -euo pipefail
-          python tests/clv_backtest_test.py
-          python tests/backtest_report_test.py
-          python tests/engine_regression_test.py
-          python tests/metrics_history_test.py
 
       # Commit the metrics row back on the default branch only. PR runs have a
       # detached/merge HEAD — they record locally and lose nothing important;
@@ -95,4 +91,5 @@ jobs:
           git config user.email "olp-xdv-agent@users.noreply.github.com"
           git add backtest/results/metrics_history.jsonl || true
           git diff --staged --quiet || git commit -m "backtest metrics $(date -u +%Y-%m-%dT%H:%M:%SZ) [skip ci]"
+          git pull --rebase -q origin main || true
           git push || echo "nothing to push"

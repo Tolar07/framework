@@ -26,7 +26,7 @@ Everything live runs in GitHub Actions on `main`. Times UTC (Lagos = UTC+1).
 | `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` | — |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` | — |
 | `claude-review.yml` | every PR | Claude review; idle until `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN` is set | — |
-| `backtest.yml`, `sync-health.yml` | manual | CLV backtest; vault sync check | `backtest/results/` |
+| `backtest.yml` | 2nd of every month 12:13 + manual | full CLV backtest; metrics history | `backtest/results/` |
 
 **Routines (claude.ai, outside the repo)** — they dispatch `daily.yml` on time
 because GitHub's cron runs late or not at all:
@@ -77,8 +77,8 @@ Repository secrets. Values are never in the repo.
 | `GITHUB_TOKEN` | watchdog, supervisor | automatic |
 
 Read by code but passed by no workflow (laptop only): `ALERT_EMAIL_TO`,
-`ALERT_SMTP_*`, `ALERT_WEBHOOK_URL` (`monitor/alert_dispatcher.py`),
-`FIRECRAWL_API_KEY`, `PERPLEXITY_API_KEY` (`monitor/mcp_health.py`).
+`ALERT_SMTP_*`, `ALERT_WEBHOOK_URL`, `FIRECRAWL_API_KEY`, `PERPLEXITY_API_KEY` — used only by
+laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 
 **Settings that live in code** (change only with the Architect):
 
@@ -114,8 +114,9 @@ Read by code but passed by no workflow (laptop only): `ALERT_EMAIL_TO`,
 | `data/sportybet/` | laptop dump, 2026-08-23 | nothing yet — every SportyBet country/tournament id, for wider coverage | yes |
 | `docs/records/` | — | — | the Architect's production intent (10 Aug) and the recovered real-money track record |
 
-Tracked but read by nothing: `config/leagues.json` (the 61-league registry of
-August), `fixtures.json`, `data/heartbeat/`.
+`leagues.json` (August's 61-league registry) and `fixtures.json` (read by nothing) were parked in
+`legacy/laptop/parked_2026-10-05/` on 2026-10-05. `data/heartbeat/` is the input
+`scripts/rebuild_survivor.py` rebuilds AI Survivor from (recovery only).
 
 ## 5. Outside sources
 
@@ -192,7 +193,7 @@ hand-edited gate record ("test-approval") — never trust it.
 | What | Where | How to read |
 |---|---|---|
 | The laptop versions of 21 live files (run_daily, produce_bet, telegram_commands, markets, odds, flashscore, football_data…) — lost to main in the 3 Oct merge, not in `legacy/` | branch `elo-persistence` (tip `81ef177`), merged by `55f1da6` | `git fetch origin elo-persistence` (the default fetch skips it), then `git show 81ef177:<path>` |
-| PR #1's 16 Sep fixes: production floor of 10 matches per team, whole-season Flashscore fetch, TheSportsDB by league, a 500-line `config/leagues.json` update | branch `claude/fix-cache-contamination`, merge `021dd2e` ("main wins") | `git show origin/claude/fix-cache-contamination:<path>` |
+| PR #1's 16 Sep fixes: production floor of 10 matches per team, whole-season Flashscore fetch, TheSportsDB by league, a 500-line update to the league registry (`legacy/laptop/parked_2026-10-05/leagues.json`) | branch `claude/fix-cache-contamination`, merge `021dd2e` ("main wins") | `git show origin/claude/fix-cache-contamination:<path>` |
 | A developer `CLAUDE.md` (17 Sep), never merged | branch `claude/claude-rc-xj5xfe` | superseded |
 
 The other 71 `claude/*` branches are fully on main. Every branch is a frozen
@@ -247,7 +248,7 @@ new key.
 - `daily`, `commands` and `news` push with `pull --rebase || true; push || echo` in separate concurrency groups — a conflict silently drops that run's commit.
 - The run log (with the Run ID) is not kept after a CI run (order 30 says it is).
 - `.claude/hooks/check_protected_files.py` guards files that no longer exist; the real constants (`config/__init__.py`, `engine/slate.py`) are unguarded. No hook blocks `git add -A`.
-- `backtest.yml` calls a test that does not exist; `sync-health.yml` points at a folder that does not exist in this repo.
+- Fixed 2026-10-05: `backtest.yml`'s dead step (a missing test) removed and it runs monthly; `sync-health.yml` (pointed at a folder not in this repo) parked in `legacy/laptop/parked_2026-10-05/`.
 - Two corrupted headings in the STATE journal, under the 2026-09-05 entry (`---ork:`, `---ospective`); the original text is lost.
 
 ## 12. Waiting on the Architect

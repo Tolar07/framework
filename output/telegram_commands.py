@@ -30,6 +30,7 @@ COMMANDS
   /note      free text                          -> corrections log (blueprint 2.7)
   /debrief   full framework status
   /proposals the losing-market watch's proposals (order 39)
+  /lookup <team>, /picks [date]   the records, via scripts/olp_query.py
   /approve P3, /reject P3   decide a proposal — the Architect's chat ONLY,
              refused when TELEGRAM_CHAT_ID is unset (fails closed)
   /help      this list
@@ -108,6 +109,8 @@ def cmd_help(_: str) -> str:
         "     records a correction; the heartbeat and weekly review list it until acted on\n"
         "/debrief — full framework status\n"
         "/proposals — markets the watch proposes to stop picking\n"
+        "/lookup Arsenal — every pick and rated fixture for a team on record\n"
+        "/picks or /picks 2026-10-03 — a day's picks and results\n"
         "/approve P3 or /reject P3 — decide one (rejecting an approved block lifts it)\n\n"
         f"{PHASE_LABEL}. Live capital is Architect-deployed — this system never stakes."
     )
@@ -342,6 +345,47 @@ def cmd_debrief(_: str) -> str:
     ])
 
 
+def _olp():
+    """scripts/olp_query.py — the same read-only answers sessions get from the
+    olp-xdv skill, so the phone and a session never disagree."""
+    import importlib.util
+    path = Path(__file__).parent.parent / "scripts" / "olp_query.py"
+    spec = importlib.util.spec_from_file_location("olp_query", path)
+    mod = importlib.util.module_from_spec(spec)          # type: ignore[arg-type]
+    spec.loader.exec_module(mod)                         # type: ignore[union-attr]
+    return mod
+
+
+def cmd_lookup(arg: str) -> str:
+    team = arg.strip()
+    if not team:
+        return "Usage: /lookup Arsenal — every pick and rated fixture for that team on record"
+    rows = _olp().lookup(team)["rows"]
+    if isinstance(rows, str):
+        return f"{team}: {rows}"
+    out = []
+    for r in rows[-12:]:
+        if "pick" in r:
+            out.append(f"{r['date']} {r['fixture']}: {r['pick']} "
+                       f"({r['chance']:.0%}) → {r.get('result') or 'PENDING'} {r.get('ft') or ''}")
+        else:
+            out.append(f"{r['date']} {r['fixture']}: rated, no pick → {r.get('ft') or 'PENDING'}")
+    return f"ON RECORD — {team} (last {len(out)})\n\n" + "\n".join(out)
+
+
+def cmd_picks(arg: str) -> str:
+    day = arg.strip() or None
+    got = _olp().picks(day)
+    if isinstance(got["singles"], str):
+        return f"Picks {got['date']}: {got['singles']}"
+    rows = [f"{s['fixture']}: {s['pick']} @{s['price']} → {s.get('result') or 'PENDING'} "
+            f"{s.get('ft') or ''}".rstrip() for s in got["singles"]]
+    won = sum(s.get("result") == "won" for s in got["singles"])
+    lost = sum(s.get("result") == "lost" for s in got["singles"])
+    return (f"PICKS {got['date']} — {won} won, {lost} lost, "
+            f"{len(rows) - won - lost} open\n\n" + "\n".join(rows[:40]))
+
+
 def cmd_proposals(_: str) -> str:
     from engine import loss_watch
     props = loss_watch.load_proposals()
@@ -370,6 +414,7 @@ HANDLERS = {
     "/status": cmd_status, "/board": cmd_board, "/verify": cmd_verify,
     "/why": cmd_why, "/log": cmd_log, "/note": cmd_note,
     "/debrief": cmd_debrief, "/proposals": cmd_proposals,
+    "/lookup": cmd_lookup, "/picks": cmd_picks,
 }
 
 

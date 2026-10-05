@@ -411,6 +411,10 @@ assert "NO_DOG_HANDICAP_LEAGUES" in _src38 and "is_underdog_handicap" in _src38 
     _src38.index("is_underdog_handicap") < _src38.index("DRAW GUARD: mark"), \
     "Order 38: underdog handicaps are dropped before the pick is chosen"
 
+from engine import freeze as _fz38
+assert _fz38.forbidden("SB:16|hcp=-2.5|Away (+2.5)", "FA Cup"), \
+    "Order 38: a frozen FA Cup underdog handicap is replaced at the next run"
+
 # 39. Losing-market watch, knowledge file and proposals
 from engine import loss_watch as _lw39
 assert (_lw39.FLAG_MIN_N, _lw39.FLAG_MAX_PL, _lw39.PROPOSE_MIN_N, _lw39.PROPOSE_MAX_PL,

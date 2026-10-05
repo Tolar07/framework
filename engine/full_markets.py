@@ -91,6 +91,12 @@ def _range(text: str):
     return None
 
 
+# Standing order 38 (Architect 2026-10-05): competitions where an underdog
+# handicap is never picked. run_daily drops them before the pick is chosen;
+# engine/freeze replaces a frozen leg that carries one.
+NO_DOG_HANDICAP_LEAGUES = frozenset({"FA Cup"})
+
+
 def is_underdog_handicap(k: str) -> bool:
     """True for a handicap outcome that GIVES its side a start: Asian handicap
     (16) on a plus line ("Enfield Town (+2.5)"), European handicap (14) on the

@@ -30,7 +30,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install dependencies
-        run: pip install requests python-dotenv
+        run: pip install requests
       - name: Check the slot's board run
         env:
           GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}

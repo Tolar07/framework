@@ -32,6 +32,8 @@ def test_dry_run_sandbox() -> None:
         assert clv.DEFAULT_LOG_PATH == tmp / "clv_log.json"
         assert clv.CLVLog().path == tmp / "clv_log.json"
         assert freeze.paths("2026-10-05")[0].parent == tmp / "boards"
+        from data import european_archive as eu
+        assert eu.PATH == tmp / "european_results.json"
         # the scratch copy starts with the real records, so grading, learning
         # and the frozen-codes check behave as in a real run
         for f in real[1].glob("picks_*.json"):

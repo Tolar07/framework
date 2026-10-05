@@ -145,6 +145,8 @@ jobs:
           git add output/picks 2>/dev/null || true
           # AI Survivor lineage (population + every pick, graded in place).
           git add data/survivor 2>/dev/null || true
+          # European club results archive (data/european_archive.py).
+          git add data/european 2>/dev/null || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
           # A queued run checks out an older SHA; rebase onto latest main first.
           git pull --rebase -q origin main || true

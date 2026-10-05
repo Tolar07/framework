@@ -54,7 +54,9 @@ _SB_NAMES = {"1": "1X2", "10": "Double chance", "11": "Draw no bet",
              "29": "BTTS", "30": "Which team scores", "31": "Home clean sheet",
              "32": "Away clean sheet", "33": "Home win to nil", "34": "Away win to nil",
              "36": "Total & BTTS", "37": "Result & total", "546": "DC & BTTS",
-             "547": "DC & total", "548": "Multigoals"}
+             "547": "DC & total", "548": "Multigoals",
+             "60": "1st half 1X2", "63": "1st half double chance",
+             "64": "1st half draw no bet"}
 _LEGACY = {"HOME": "1X2", "AWAY": "1X2", "DRAW": "1X2", "DC": "Double chance",
            "OVER": "Over/Under", "UNDER": "Over/Under", "BTTS": "BTTS", "DNB": "Draw no bet"}
 
@@ -79,12 +81,14 @@ def _seg(rows: list) -> dict:
     wins = sum(won for won, _c, _p, _d in rows)
     exp = sum(c for _w, c, _p, _d in rows)
     sd = sum(c * (1 - c) for _w, c, _p, _d in rows) ** 0.5
-    pl = sum(((p or 1.0) - 1.0) if won else -1.0 for won, _c, p, _d in rows)
+    # profit only over rows with a price (rated-fixture rows carry none)
+    priced = [(won, p) for won, _c, p, _d in rows if p]
+    pl = sum((p - 1.0) if won else -1.0 for won, p in priced)
     days = len({d for _w, _c, _p, d in rows})
     z = (wins - exp) / sd if sd > 0 else 0.0
     counts = n >= MIN_N and days >= MIN_DAYS and abs(z) >= Z_MIN
     shift = (wins - exp) / (n + SHRINK) if counts else 0.0
-    return {"n": n, "wins": wins, "expected": round(exp, 2), "roi": pl / n if n else 0.0,
+    return {"n": n, "wins": wins, "expected": round(exp, 2), "roi": pl / len(priced) if priced else 0.0,
             "days": days, "z": round(z, 2), "shift": round(shift, 4)}
 
 
@@ -93,6 +97,7 @@ def learn(ledger_dir, today: Optional[str] = None) -> dict:
     today = today or date.today().isoformat()
     since = (date.fromisoformat(today) - timedelta(days=WINDOW_DAYS)).isoformat()
     picks = []
+    rated_rows: list = []
     for path in sorted(ledger_dir.glob("picks_*.json")):
         doc = json.loads(path.read_text(encoding="utf-8"))
         if not (since <= doc["date"] < today):
@@ -106,8 +111,14 @@ def learn(ledger_dir, today: Optional[str] = None) -> dict:
             picks.append((family(s.get("market")), s.get("league") or "?",
                           (s["result"] == "won", float(c), s.get("price"),
                            (s.get("kickoff") or doc["date"])[:10])))
+        rated_rows += _rated_rows(doc)
     fam: dict = {}
     for f, _l, row in picks:
+        fam.setdefault(f, []).append(row)
+    # Every rated fixture adds one row per market family it was not picked in
+    # (2026-10-05). Family corrections only: one row per fixture per family
+    # keeps the rows independent, which a league segment would not be.
+    for f, row in rated_rows:
         fam.setdefault(f, []).append(row)
     fam_seg = {k: _seg(v) for k, v in fam.items()}
     # League corrections are measured AFTER the market-family correction, so a
@@ -117,6 +128,32 @@ def learn(ledger_dir, today: Optional[str] = None) -> dict:
         c2 = min(0.999, max(0.001, c + fam_seg[f]["shift"]))
         lg.setdefault(league, []).append((won, c2, price, day))
     return {"family": fam_seg, "league": {k: _seg(v) for k, v in lg.items()}}
+
+
+def _rated_rows(doc: dict) -> list:
+    """[(family, (won, chance, None, day))] from a ledger's graded rated
+    fixtures: each recorded pool outcome, settled from the final score, except
+    in a market family the fixture's own single already covers."""
+    from engine.picks_ledger import _settle
+    picked = {(s.get("fixture"), family(s.get("market"))) for s in doc.get("singles", [])}
+    out = []
+    for r in doc.get("rated", []):
+        ft = r.get("ft") or ""
+        if "-" not in ft:
+            continue
+        try:
+            hg, ag = (int(x) for x in ft.split("-"))
+        except ValueError:
+            continue
+        day = (r.get("kickoff") or doc["date"])[:10]
+        for key, chance in r.get("pool") or []:
+            f = family(key)
+            if (r.get("fixture"), f) in picked or chance is None:
+                continue
+            res = _settle(key, hg, ag)
+            if res in ("won", "lost"):
+                out.append((f, (res == "won", float(chance), None, day)))
+    return out
 
 
 def shift(model: dict, key: Optional[str], league: str) -> float:

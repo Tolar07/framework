@@ -58,6 +58,7 @@ NEWS_SWAP_PP = 0.06    # see TEAM NEWS: a weakened pick swaps to a safe alternat
 from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine import calibration as cal
+from engine import half
 from engine.form import compute_table, fixture_form, form_support as _form_support
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import (render_produce_bet, render_verify_results,
@@ -363,11 +364,13 @@ def _dry_run_sandbox():
     import tempfile
 
     import clv.clv_logger as _clv
+    from data import european_archive as _eu
     from engine import freeze as _fz
     from engine import picks_ledger as _pl
 
     global BOARD_DIR
     saved = (BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR)
+    saved_eu = _eu.PATH
     tmp = Path(tempfile.mkdtemp(prefix="olpxdv-dry-"))
     boards, picks, clv_log = tmp / "boards", tmp / "picks", tmp / "clv_log.json"
     for src, dst in ((saved[0], boards), (saved[1], picks)):
@@ -377,6 +380,9 @@ def _dry_run_sandbox():
             dst.mkdir(parents=True)
     if saved[2].exists():
         shutil.copy2(saved[2], clv_log)
+    _eu.PATH = tmp / "european_results.json"
+    if saved_eu.exists():
+        shutil.copy2(saved_eu, _eu.PATH)
     BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = (
         boards, picks, clv_log, boards)
     print(f"  dry run: writing to scratch copies under {tmp} (real records untouched)")
@@ -384,6 +390,7 @@ def _dry_run_sandbox():
         yield tmp
     finally:
         BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = saved
+        _eu.PATH = saved_eu
 
 
 def run(season: str | None = None, fixtures_season: str | None = None,
@@ -433,6 +440,15 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         fs_events = results_since(7)
     except Exception as e:  # noqa: BLE001 — grading degrades, the run does not
         all_flags.append(f"Flashscore results unavailable ({e}) — grading deferred")
+    # European club results kept for a future current-season model
+    # (data/european_archive.py); a dry run writes to its scratch copy.
+    try:
+        from data import european_archive
+        _n_eu = european_archive.archive(fs_events)
+        if _n_eu:
+            all_flags.append(f"European results archived: {_n_eu} new")
+    except Exception as e:  # noqa: BLE001
+        all_flags.append(f"European results archive skipped ({str(e)[:60]})")
     verify_block, gflags = grade_open_legs(log, season, fs_events)
     all_flags += gflags
     try:
@@ -686,6 +702,16 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         if alts:
             bf.alt_market = mkt.display(alts[0][2], p.home_team, p.away_team)
             bf.alt_price = alts[0][5].price
+        # FIRST-HALF RESULT MARKETS (engine/half.py, backtest/HALF_STUDY.md):
+        # model-rated fixtures only; they join the pool AFTER the main pick is
+        # chosen, so they reach the value table and alt legs, never the pick.
+        if not market_only and getattr(p, "lambda_home", None):
+            try:
+                full_pool += half.candidates(getattr(fx, "raw_markets", None), p, _lg,
+                                             MODEL_WEIGHT, (DEPLOY_ODDS_MIN, DEPLOY_ODDS_MAX),
+                                             DEPLOY_MIN_MODEL_PROB)
+            except Exception:  # noqa: BLE001 — an extra, never a blocker
+                pass
         bf.cand_pool = [c for c in full_pool if c[0] >= DEPLOY_MIN_MODEL_PROB]
         cons, ev, market, model_p, market_p, quote = best
         bf.best_market = mkt.display(market, p.home_team, p.away_team)
@@ -851,6 +877,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             # done by hand on 2026-10-02 (Bosnia v Sweden, Ukraine v N. Ireland).
             if res["level"] in ("CAUTION", "RISK") and news:
                 for c in sorted(getattr(b, "cand_pool", []), reverse=True):
+                    if half.is_first_half(c[2]):
+                        continue     # first-half markets never become the main pick
                     if c[2] == b.best_market_key or c[0] < b.best_model_prob - NEWS_SWAP_PP:
                         continue
                     if tn.assess(c[2], news)["level"] == "OK":
@@ -1141,6 +1169,19 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             b.learn_shift = (learning.shift(learned, b.best_market_key,
                                             b.fixture.rsplit("(", 1)[-1].rstrip(")").strip())
                              if (learned and learning and b.best_market_key) else 0.0)
+            # LEARNING FROM EVERY RATED FIXTURE (2026-10-05): the strongest
+            # in-band outcome of each market family for this fixture, with its
+            # chance BEFORE any learned shift, recorded with the rated fixture
+            # so learning sees every fixture, not only the picks.
+            _lgb = b.fixture.rsplit("(", 1)[-1].rstrip(")").strip()
+            _top: dict = {}
+            for _c in getattr(b, "cand_pool", None) or []:
+                _f = learning.family(_c[2]) if learning else None
+                if _f and (_f not in _top or _c[0] > _top[_f][0]):
+                    _top[_f] = _c
+            b.pool_raw = [[_c[2], round(_c[0] - (learning.shift(learned, _c[2], _lgb)
+                                                  if learned else 0.0), 4)]
+                          for _c in _top.values()]
         dep = [b for b in board if b.on_deploy_shortlist]
         megas_l = _build_megas(dep)
         from output.produce_bet import _build_alt_accas as _alt_accas

@@ -61,6 +61,9 @@ def _single(bf) -> dict:
             "ev": getattr(bf, "best_mes_ev", None),
             # the Betfair Exchange's fair chance and our price's value against
             # it (pipeline/sharp.py, 2026-10-05); None where not priced there
+            # share of each side's squad value missing (FotMob), recorded for
+            # backtest/lineup_study.py — how much an absence should move a chance
+            "missing": _missing(bf),
             "sharp_p": getattr(bf, "sharp_p", None),
             "sharp_ev": getattr(bf, "sharp_ev", None),
             # price at the FIRST board for this day + the move since (drift guard)
@@ -74,6 +77,13 @@ RATED_KEYS = ("home", "draw", "away", "o15", "o25", "o35", "btts")
 RATED_GRADE_DAYS = 14   # older ungraded fixtures are left as they are
 
 
+def _missing(bf) -> Optional[dict]:
+    news = getattr(bf, "team_news", None)
+    if not news:
+        return None
+    return {s: (news.get(s) or {}).get("missing_share") for s in ("home", "away")}
+
+
 def _rated(bf) -> dict:
     p = bf.probs
     return {"fixture": bf.fixture.split(" (")[0],
@@ -82,6 +92,9 @@ def _rated(bf) -> dict:
             "src": getattr(bf, "prob_source", "model"),
             "p": [round(float(x), 3) for x in (p.p_home, p.p_draw, p.p_away, p.p_over_15,
                                                 p.p_over_25, p.p_over_35, p.p_btts_yes)],
+            # the strongest in-band outcome per market family, chance before
+            # any learned shift — learning's rows from every rated fixture
+            "pool": getattr(bf, "pool_raw", None) or [],
             "ft": None}
 
 
@@ -148,6 +161,16 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
     return path
 
 
+def _settle_ev(market: str, ev: dict) -> Optional[str]:
+    """Settle a leg from a Flashscore result: first-half markets from the
+    first-half score (engine/half.py) — left ungraded (None) when the feed
+    gave none — everything else from the full-time score."""
+    from engine import half
+    if half.is_first_half(market):
+        return half.settle(market, ev.get("fh_home"), ev.get("fh_away"))
+    return _settle(market, ev["fthg"], ev["ftag"])
+
+
 def _settle(market: str, hg: int, ag: int) -> str:
     """'won' / 'lost' / 'void' (stake back: DNB draw, Asian whole-line push)."""
     if market and market.startswith("SB:"):
@@ -196,7 +219,7 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                                      leg["kickoff"] or doc["date"])
                     if ev and ev["finished_regular"]:
                         leg["ft"] = f'{ev["fthg"]}-{ev["ftag"]}'
-                        leg["result"] = _settle(leg["market"], ev["fthg"], ev["ftag"])
+                        leg["result"] = _settle_ev(leg["market"], ev)
                         changed += 1
                     elif ev and ev["finished_other"]:
                         leg["result"] = "no-90min-result"

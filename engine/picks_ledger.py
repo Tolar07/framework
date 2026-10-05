@@ -59,6 +59,10 @@ def _single(bf) -> dict:
             "closing_price": None, "clv": None,
             "stake_pct": getattr(bf, "stake_pct", None),
             "ev": getattr(bf, "best_mes_ev", None),
+            # the Betfair Exchange's fair chance and our price's value against
+            # it (pipeline/sharp.py, 2026-10-05); None where not priced there
+            "sharp_p": getattr(bf, "sharp_p", None),
+            "sharp_ev": getattr(bf, "sharp_ev", None),
             # price at the FIRST board for this day + the move since (drift guard)
             "first_price": getattr(bf, "first_price", None) or bf.best_price,
             "drift_since_board": getattr(bf, "drift_pct", None),

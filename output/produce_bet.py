@@ -452,6 +452,23 @@ def _price_check_lines(picks: list[BoardFixture]) -> list[str]:
     return out
 
 
+def _sharp_lines(picks: list[BoardFixture]) -> list[str]:
+    """One line: how many picks are priced above the Betfair Exchange's fair
+    odds (pipeline/sharp.py). A label only; it never changes a pick."""
+    checked = [bf for bf in picks if getattr(bf, "sharp_ev", None) is not None]
+    if not checked:
+        return []
+    above = [bf for bf in checked if bf.sharp_ev > 0]
+    avg = 100 * sum(bf.sharp_ev for bf in checked) / len(checked)
+    out = [f"Sharp check: {len(above)} of {len(checked)} picks priced above the Betfair "
+           f"Exchange's fair odds (margin removed; average {avg:+.1f}% vs fair). "
+           f"Above fair = real value; below = the bookmaker's margin."]
+    for bf in sorted(above, key=lambda b: -b.sharp_ev)[:5]:
+        out.append(f"   • {comp.where(bf.fixture)} — {bf.best_market} @{bf.best_price:.2f}: "
+                   f"{bf.sharp_ev * 100:+.1f}% vs fair")
+    return out
+
+
 def render_part5_signoff(hard_rules_note: str = "") -> str:
     return ("PART 5 — HARD RULES + SIGN-OFF\n"
             f"{hard_rules_note}\n"
@@ -1070,6 +1087,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                    "edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, "
                    "megas 0.1%.")
         out += _price_check_lines(shortlist)
+        out += _sharp_lines(shortlist)
         sw = [bf for bf in shortlist if bf.switched_from and bf.probs is not None]
         if sw:
             out += ["", f"⇄ SWITCHED — {len(sw)} shaky pick(s) moved to a steadier market "

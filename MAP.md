@@ -119,7 +119,7 @@ August), `fixtures.json`, `data/heartbeat/`.
 | Source | Module | Key |
 |---|---|---|
 | SportyBet NG — prices, booking codes, closing prices | `pipeline/odds_sportybet.py`, `pipeline/sportybet_booking.py`, `news_check.py` | none |
-| football-data.co.uk — history, bet365 prices | `data/football_data_source.py`, `pipeline/odds_footballdata.py`, `verification/fixture_check.py` | none |
+| football-data.co.uk — history, bet365 prices, Betfair Exchange fair odds (sharp check) | `data/football_data_source.py`, `pipeline/odds_footballdata.py`, `verification/fixture_check.py`, `pipeline/sharp.py` | none |
 | ESPN (+ DraftKings prices) | `data/espn_fixtures.py`, `pipeline/odds_verify.py` | none |
 | FotMob — team news, lineups | `data/fotmob.py` | none |
 | Flashscore feed — results | `data/flashscore_results.py` | public header |

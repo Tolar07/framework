@@ -396,4 +396,31 @@ _vs = pb._build_value([_bf37("A v B (Serie A)", pool=_p37), _bf37("C v D (Serie 
 assert [n for n, _l, _c in _vs] == ["Value 1", "Value 2", "Value acca"], _vs
 assert len(_vs[-1][1]) == 2, "Order 37: one Value acca of all the value bets"
 
+# 38. No underdog handicaps in the FA Cup
+from engine import full_markets as _fm38
+assert "FA Cup" in _rd.NO_DOG_HANDICAP_LEAGUES, "Order 38: FA Cup underdog handicaps are dropped"
+for _k in ("SB:16|hcp=-2.5|Away (+2.5)", "SB:16|hcp=1.5|Home (+1.5)", "SB:16|hcp=-0.5|Away (+0.5)",
+           "SB:14|hcp=0:2|Away (0:2)", "SB:14|hcp=1:0|Home (1:0)"):
+    assert _fm38.is_underdog_handicap(_k), f"Order 38: {_k} gives its side a start"
+for _k in ("SB:16|hcp=-1.5|Home (-1.5)", "SB:16|hcp=1.5|Away (-1.5)", "SB:16|hcp=0|Home (0)",
+           "SB:14|hcp=0:1|Home (0:1)", "SB:14|hcp=0:1|Draw (0:1)", "SB:10||Home or Draw", "HOME"):
+    assert not _fm38.is_underdog_handicap(_k), f"Order 38: {_k} is not an underdog handicap"
+import inspect as _in38
+_src38 = _in38.getsource(_rd._run)
+assert "NO_DOG_HANDICAP_LEAGUES" in _src38 and "is_underdog_handicap" in _src38 and \
+    _src38.index("is_underdog_handicap") < _src38.index("DRAW GUARD: mark"), \
+    "Order 38: underdog handicaps are dropped before the pick is chosen"
+
+# 39. Losing-market watch, knowledge file and proposals
+from engine import loss_watch as _lw39
+assert (_lw39.FLAG_MIN_N, _lw39.FLAG_MAX_PL, _lw39.PROPOSE_MIN_N, _lw39.PROPOSE_MAX_PL,
+        _lw39.PROPOSE_Z, _lw39.WINDOW_DAYS) == (8, -2.0, 12, -3.0, -1.5, 21), "Order 39: watch thresholds"
+_src39 = _in38.getsource(_rd._run)
+assert "loss_watch.blocked" in _src39 and _src39.index("loss_watch.blocked") < \
+    _src39.index("DRAW GUARD: mark"), "Order 39: approved blocks are dropped before the pick"
+assert "loss_line" in _src39, "Order 39: the watch reaches the heartbeat"
+from output import telegram_commands as _tc39
+assert _tc39.handle("/approve P1").startswith("REFUSED"), \
+    "Order 39: a decision without the Architect's chat is refused"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

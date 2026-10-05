@@ -42,9 +42,12 @@ from pipeline.odds import FixtureOdds, MarketQuote, CACHE_DIR, ODDS_MAX_AGE_SECO
 _UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 from engine.full_markets import LADDER_MARKET_IDS
-# Full-time market ladder (Architect 2026-10-02: "look at the full market").
+from engine.half import FIRST_HALF_IDS
+# Full-time market ladder (Architect 2026-10-02: "look at the full market"),
+# plus the first-half result markets (engine/half.py, 2026-10-05).
 _LIST = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
-         "?sportId=sr:sport:1&marketId=" + ",".join(map(str, LADDER_MARKET_IDS)) +
+         "?sportId=sr:sport:1&marketId="
+         + ",".join(map(str, LADDER_MARKET_IDS + FIRST_HALF_IDS)) +
          "&pageSize=100&pageNum={page}")
 _CACHE = CACHE_DIR / "sportybet_events.json"
 
@@ -90,6 +93,8 @@ SPORTYBET_TOURNAMENT_ID = {
     "Greek Super League": "sr:tournament:185",
     "Austrian Bundesliga": "sr:tournament:45",
     "Swiss Super League": "sr:tournament:215",
+    "Eliteserien": "sr:tournament:20",          # Norway (calendar-year season)
+    "Allsvenskan": "sr:tournament:40",          # Sweden (calendar-year season)
 }
 
 # SportyBet team name -> model (football-data) key. Verified pairs only; exact

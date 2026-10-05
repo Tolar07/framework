@@ -85,7 +85,7 @@ Read by code but passed by no workflow (laptop only): `ALERT_EMAIL_TO`,
 | Setting | Where |
 |---|---|
 | Phase, capital switch | `config/__init__.py` (`PHASE = 3`, `CAPITAL_ENABLED`) |
-| Leagues scanned | `engine/slate.py` `WHITELIST_LEAGUES`; only leagues with a `SPORTYBET_TOURNAMENT_ID` in `pipeline/odds_sportybet.py` are actually scanned (HNL, Champions League, Europa League and Conference League were added 2026-10-05, market-implied; Turkey, Greece, Austria and Switzerland the same day, model-rated) |
+| Leagues scanned | `engine/slate.py` `WHITELIST_LEAGUES`; only leagues with a `SPORTYBET_TOURNAMENT_ID` in `pipeline/odds_sportybet.py` are actually scanned (HNL, Champions League, Europa League and Conference League were added 2026-10-05, market-implied; Turkey, Greece, Austria, Switzerland, Norway and Sweden the same day, model-rated) |
 | Odds band, 50% floor, tiers | `engine/slate.py` (`DEPLOY_ODDS_MIN/MAX`, `MIN_MODEL_PROB`, `AGREE_PP`, `BANKER_MIN`) |
 | Pick preferences, drift, news swap | `run_daily.py` (`UNDER_PREF_PP`, `EV_PREF_PP`, `DRIFT_DEMOTE`, `NEWS_SWAP_PP`) |
 | Stakes and stop-loss | `engine/staking.py` (% of bankroll — **no bankroll figure is recorded anywhere**) |
@@ -104,6 +104,7 @@ Read by code but passed by no workflow (laptop only): `ALERT_EMAIL_TO`,
 | `output/boards/sent_<date>_<slot>` | `daily.yml` | the duplicate guard, supervisor | yes |
 | `output/picks/picks_<date>.json` | `engine/picks_ledger.py`, `news_check.py` | learning, staking, scorecard, supervisor, weekly review | yes |
 | `data/survivor/` | `engine/survivor.py` | survivor | yes |
+| `data/european/results.json` | `data/european_archive.py` (every run, from Flashscore) | nothing yet — the history a current-season European model needs (2026-10-05) | yes |
 | `memory/telegram_offset.json` | commands | commands | yes |
 | `memory/corrections.csv` | `/note` | **nothing** (see §11) | yes |
 | `logs/daily_<date>.log` (Run ID, delivery notes) | `run_daily.py` | nobody in CI — **lost after every run**; the Actions job log has it | no |
@@ -122,7 +123,7 @@ August), `fixtures.json`, `data/heartbeat/`.
 | football-data.co.uk — history, bet365 prices, Betfair Exchange fair odds (sharp check) | `data/football_data_source.py`, `pipeline/odds_footballdata.py`, `verification/fixture_check.py`, `pipeline/sharp.py` | none |
 | ESPN (+ DraftKings prices) | `data/espn_fixtures.py`, `pipeline/odds_verify.py` | none |
 | FotMob — team news, lineups | `data/fotmob.py` | none |
-| Flashscore feed — results | `data/flashscore_results.py` | public header |
+| Flashscore feed — results, first-half score (full time − the feed's second-half BC/BD), European results archive | `data/flashscore_results.py`, `data/european_archive.py` | public header |
 | Understat — xG | `engine/xg_model.py` | none |
 | International results (GitHub) | `data/international_source.py` | none |
 | TheSportsDB, API-Football, The Odds API | see §3 | secrets |

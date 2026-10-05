@@ -808,8 +808,12 @@ def alt_leg(bf: "BoardFixture") -> Optional[tuple]:
         return None
     from engine.learning import family
     main = family(bf.best_market_key)
+    from engine.half import is_first_half
+    # first-half legs move with the full-time pick (a half-time "X or level"
+    # beside a full-time "X or draw"), so they never spread the risk here
     pool = [c for c in (getattr(bf, "cand_pool", None) or [])
-            if family(c[2]) != main and c[0] >= DEPLOY_MIN_MODEL_PROB]
+            if not is_first_half(c[2])
+            and family(c[2]) != main and c[0] >= DEPLOY_MIN_MODEL_PROB]
     news = getattr(bf, "team_news", None)
     if news and pool:
         from engine import team_news as tn
@@ -841,10 +845,13 @@ def steadier_pick(bf: "BoardFixture", no_side: bool = False) -> Optional[tuple]:
     floor = max(DEPLOY_MIN_MODEL_PROB, (bf.best_model_prob or 0.0) - SWITCH_WITHIN_PP)
     news = getattr(bf, "team_news", None)
     pool = []
+    from engine.half import is_first_half
     for c in getattr(bf, "cand_pool", None) or []:
         win, _ev, key, model_p, market_p, _q = c
         if family(key) == main or win < floor or market_p is None or model_p is None:
             continue
+        if is_first_half(key):
+            continue     # first-half markets never become the main pick
         if abs(model_p - market_p) > AGREE_PP:
             continue
         if news and tn.assess(key, news)["level"] in ("CAUTION", "RISK"):

@@ -359,6 +359,25 @@ def scan_one_league(league: str, season: str,
     except Exception as e:  # noqa: BLE001 — xG is an enhancement, never a blocker
         flags.append(f"{league}: xG ratings unavailable ({str(e)[:60]}) — goals model only")
 
+    # SHOTS-ON-TARGET BLEND (2026-10-05, backtest/SOT_STUDY.md): an xG stand-in
+    # from football-data's shots on target, blended the same way, in the
+    # leagues where it beat Dixon-Coles alone.
+    try:
+        from engine import sot_model
+        if league in sot_model.SOT_LEAGUES and league not in xg_model.UNDERSTAT:
+            sr = sot_model.ratings_for(league, season, fixtures_season or next_season_code(season))
+            blended = 0
+            for b in board:
+                if b.probs is None or b.prob_source != "model":
+                    continue
+                sm = sr.matrix(b.probs.home_team, b.probs.away_team) if sr else None
+                if sm is not None:
+                    b.probs = xg_model.blend(b.probs, sm)
+                    blended += 1
+            flags.append(f"{league}: {blended} fixture(s) blended with shots-on-target ratings")
+    except Exception as e:  # noqa: BLE001 — an enhancement, never a blocker
+        flags.append(f"{league}: shots-on-target ratings unavailable ({str(e)[:60]})")
+
     # NATIONAL TEAMS (Architect 2026-10-04, backtest/NATIONAL_STUDY.md): the
     # scoreline grid = average of the UEFA Dixon-Coles fit and a national Elo
     # rated on every international since 1990 (competition-weighted, goal

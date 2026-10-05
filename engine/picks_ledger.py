@@ -82,6 +82,9 @@ def _rated(bf) -> dict:
             "src": getattr(bf, "prob_source", "model"),
             "p": [round(float(x), 3) for x in (p.p_home, p.p_draw, p.p_away, p.p_over_15,
                                                 p.p_over_25, p.p_over_35, p.p_btts_yes)],
+            # the strongest in-band outcome per market family, chance before
+            # any learned shift — learning's rows from every rated fixture
+            "pool": getattr(bf, "pool_raw", None) or [],
             "ft": None}
 
 

@@ -1141,6 +1141,19 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             b.learn_shift = (learning.shift(learned, b.best_market_key,
                                             b.fixture.rsplit("(", 1)[-1].rstrip(")").strip())
                              if (learned and learning and b.best_market_key) else 0.0)
+            # LEARNING FROM EVERY RATED FIXTURE (2026-10-05): the strongest
+            # in-band outcome of each market family for this fixture, with its
+            # chance BEFORE any learned shift, recorded with the rated fixture
+            # so learning sees every fixture, not only the picks.
+            _lgb = b.fixture.rsplit("(", 1)[-1].rstrip(")").strip()
+            _top: dict = {}
+            for _c in getattr(b, "cand_pool", None) or []:
+                _f = learning.family(_c[2]) if learning else None
+                if _f and (_f not in _top or _c[0] > _top[_f][0]):
+                    _top[_f] = _c
+            b.pool_raw = [[_c[2], round(_c[0] - (learning.shift(learned, _c[2], _lgb)
+                                                  if learned else 0.0), 4)]
+                          for _c in _top.values()]
         dep = [b for b in board if b.on_deploy_shortlist]
         megas_l = _build_megas(dep)
         from output.produce_bet import _build_alt_accas as _alt_accas

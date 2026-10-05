@@ -58,7 +58,7 @@ VALUE_MIN_EV = 0.02
 # 38): on 3 Oct, plus-line handicaps on FA Cup underdogs (Enfield +2.5 lost
 # 6-1, Cirencester +3.5 lost 4-0, Dulwich +2.5 lost 5-0) were the board's worst
 # market. They are never scored there, so the likeliest other outcome is picked.
-NO_DOG_HANDICAP_LEAGUES = frozenset({"FA Cup"})
+NO_DOG_HANDICAP_LEAGUES = fm.NO_DOG_HANDICAP_LEAGUES
 NEWS_SWAP_PP = 0.06    # see TEAM NEWS: a weakened pick swaps to a safe alternative
 from engine.mes import mes_numeric
 from engine import markets as mkt
@@ -1467,6 +1467,18 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             _mark(runlog, "heartbeat delivered" if hb_ok else "heartbeat NOT delivered")
         except Exception as e:  # noqa: BLE001 — heartbeat is best-effort
             _mark(runlog, f"heartbeat error ({e})")
+
+    # THE RUN LOG (order 30): one committed line per real run (memory/runs.jsonl).
+    if send:
+        try:
+            from monitor.json_log import record_run
+            record_run(run_id=run_id, target=target, slot=slot,
+                       board_delivered=board_delivered,
+                       fixtures=len(board),
+                       picks=sum(1 for b in board if getattr(b, "on_deploy_shortlist", False)),
+                       flags=[f[:160] for f in all_flags][:40])
+        except Exception as e:  # noqa: BLE001 — the run log never fails the run
+            _mark(runlog, f"run log not written ({e})")
 
     _mark(runlog, "run completed OK")
     return full

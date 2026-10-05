@@ -38,7 +38,7 @@ Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — the supervisor agent's check: board, bet365 board, Run ID, picks spread over market types, codes booked, latest tests/watchdog/news runs; one Telegram status |
 | `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` — agent 10's results review: last 7 days by market family and league, slips landed, learning in force, proposals (nothing auto-changed) |
 | `claude-review.yml` | every PR | Claude code review (code-reviewer + compliance agents' brief); does nothing until the `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN` secret is set |
-| `backtest.yml`, `sync-health.yml` | manual | CLV backtest + metrics history; vault sync check |
+| `backtest.yml` | 2nd of every month + manual | full CLV backtest; metrics history committed (`backtest/results/`) |
 
 What each piece is protecting — read before changing it:
 

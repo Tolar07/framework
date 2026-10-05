@@ -104,12 +104,36 @@ def started(leg: dict, now: datetime) -> bool:
         return False
 
 
+def league_of(fixture: str) -> str:
+    return fixture.rsplit("(", 1)[-1].rstrip(")").strip() if "(" in fixture else ""
+
+
+def forbidden(market: Optional[str], league: str) -> Optional[str]:
+    """Why a standing order forbids this pick now, or None."""
+    from engine import full_markets as fm
+    if league in fm.NO_DOG_HANDICAP_LEAGUES and fm.is_underdog_handicap(market or ""):
+        return f"underdog handicap in the {league} (order 38)"
+    try:
+        from engine import loss_watch
+        if loss_watch.blocked(market, league, loss_watch.blocks()):
+            return f"{loss_watch.segment(market)} in {league} blocked by the Architect (order 39)"
+    except Exception:  # noqa: BLE001 — a missing proposals file blocks nothing
+        pass
+    return None
+
+
 def leg_issue(leg: dict, board_by_fx: dict, price_now) -> Optional[str]:
     """Why a frozen leg must change, or None. `price_now(leg)` -> current
     SportyBet price of the leg's own market, or None."""
     b = board_by_fx.get(leg["fixture"])
     if b is None or getattr(b, "probs", None) is None:
         return "no longer on the board"
+    # A pick a standing order now forbids (order 38 FA Cup underdog handicaps,
+    # order 39 approved blocks) is replaced even on a frozen slip (Architect
+    # 2026-10-05: "you stop picking it if it's recommended").
+    why = forbidden(leg["market"], leg.get("league") or league_of(getattr(b, "fixture", "")))
+    if why:
+        return why
     p = price_now(leg)
     if p and leg.get("price") and p / leg["price"] - 1 >= DRIFT:
         return f"price drifted {leg['price']:.2f} → {p:.2f}"

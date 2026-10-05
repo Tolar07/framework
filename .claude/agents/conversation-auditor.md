@@ -36,7 +36,7 @@ Analyze conversation history to identify and learn from:
 ### 4. Presenting Cup/Friendly Matches as League Fixtures
 ```
 ��� Coppa Italia, Scottish League Cup, friendlies mixed with league fixtures
-��� Filter by deploy-eligible whitelist (config/leagues.json)
+��� Filter by deploy-eligible whitelist (engine/slate.py WHITELIST_LEAGUES)
 ```
 
 ### 5. Date Drift
@@ -50,7 +50,7 @@ Analyze conversation history to identify and learn from:
 1. **Check league calendars** — When does each league's 2026-27 season start?
 2. **Query live sources** — BBC Sport scores-fixtures, FlashScore, LiveScore for TODAY's date
 3. **Cross-reference** — At least 2 independent live sources must agree
-4. **Filter by whitelist** — Only deploy-eligible leagues from `config/leagues.json`
+4. **Filter by whitelist** — Only deploy-eligible leagues from `engine/slate.py` (WHITELIST_LEAGUES)
 5. **Stamp provenance** — Every fixture row must show: source, fetch time, verification status
 
 ## Learning From This Conversation

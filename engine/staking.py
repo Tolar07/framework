@@ -26,7 +26,9 @@ from datetime import date, timedelta
 from typing import Optional
 
 # Backtest priors (backtest/PROFIT_STUDY.md, SELECTION_STUDY.md, ANCHOR_STUDY.md)
-PRIORS = {"BANKER": 0.007, "SAFE": -0.06, "BOOK": -0.06, "MARKET": -0.05}
+PRIORS = {"BANKER": 0.007, "SAFE": -0.06, "BOOK": -0.06, "MARKET": -0.05,
+          # VALUE (order 36): no evidence yet, so the minimal stake until live results prove it
+          "VALUE": -0.05}
 PRIOR_N = 100
 WINDOW_DAYS = 60
 STOP_UNITS = 6.0
@@ -87,7 +89,7 @@ def single_stake(tier: str, certainty: Optional[str], price: Optional[float],
 
 def summary(stats: dict) -> str:
     parts = []
-    for tier in ("BANKER", "SAFE", "BOOK", "MARKET"):
+    for tier in ("BANKER", "SAFE", "VALUE", "BOOK", "MARKET"):
         s = stats.get(tier)
         roi = est_roi(tier, stats)
         state = "PAUSED" if s and s.get("paused") else f"est {roi:+.1%}"

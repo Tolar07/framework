@@ -50,6 +50,10 @@ DRIFT_DEMOTE = 0.05    # see PRICE DRIFT (backtest/MARKET_STUDY.md Q2)
 DRAW_PREF_PP = 0.03
 DRAW_ALLOWANCE_DEFAULT = 0.008
 DRAW_ALLOWANCE = {"Belgian Pro League": 0.03, "Eredivisie": 0.03}
+# VALUE — BTTS AND GOALS (Architect 2026-10-05, standing order 36): a both-
+# teams-to-score-yes or Over-goals outcome priced above its fair odds (EV on
+# our chance >= VALUE_MIN_EV) takes the pick from the likeliest outcome.
+VALUE_MIN_EV = 0.02
 NEWS_SWAP_PP = 0.06    # see TEAM NEWS: a weakened pick swaps to a safe alternative
 from engine.mes import mes_numeric
 from engine import markets as mkt
@@ -317,6 +321,19 @@ class _KeepFrozen(Exception):
 
 
 _DRAW_CACHE: dict = {}
+
+
+def _goals_value_key(key: str) -> bool:
+    """Both teams to score YES, or an OVER-goals line (match or team total).
+    Under-goals and BTTS-no stay out (Architect preference, order 12)."""
+    if key in (mkt.BTTS_YES, mkt.OVER_15, mkt.OVER_25, mkt.OVER_35):
+        return True
+    pk = fm.parse_key(key) if key and key.startswith("SB:") else None
+    if not pk:
+        return False
+    mid, _spec, out = pk
+    o = out.strip().lower()
+    return (mid == 29 and o == "yes") or (mid in (18, 19, 20) and o.startswith("over"))
 
 
 def _loses_on_draw(key: str) -> bool:
@@ -647,6 +664,20 @@ def _run(season: str = "2526", fixtures_season: str | None = None,
                 best = (round(best[4] + sh(best[2]), 4),) + best[1:]
             else:
                 best, tier = max(cands), "SPLIT"
+        # VALUE — BTTS AND GOALS (order 36, Architect 2026-10-05): the pick is
+        # normally the outcome likeliest to WIN, so a 60% "both teams to score"
+        # never beat a 78% Double Chance (backtest/BTTS_STUDY.md). A BTTS-yes
+        # or Over-goals outcome priced ABOVE its fair odds (EV >= VALUE_MIN_EV
+        # on our chance, still >= 50% and inside 1.20-2.00) now takes the pick
+        # when it is better value than the likeliest one. BANKER stays first.
+        # It trades hit rate for value; VALUE picks are graded as their own tier.
+        if tier != "BANKER" and not market_only:
+            value = [c for c in full_pool if _goals_value_key(c[2]) and c[4] is not None
+                     and c[1] >= VALUE_MIN_EV and c[0] >= DEPLOY_MIN_MODEL_PROB]
+            if value:
+                v = max(value, key=lambda c: (c[1], c[0]))
+                if v[2] != best[2] and v[1] > best[1]:
+                    best, tier = v, "VALUE"
         # ALTERNATIVE MARKET: the next-best in-band market from a DIFFERENT
         # family than the pick (a real alternative, not 1.5 vs 2.5 of one line).
         fam = lambda k: k.split("|")[0] if k.startswith("SB:") else k.split("_")[0]
@@ -681,6 +712,9 @@ def _run(season: str = "2526", fixtures_season: str | None = None,
                 f"SPLIT: model {model_p:.0%} vs market {market_txt} on "
                 f"{bf.best_market} — disagreement > {AGREE_PP:.0%}, not deployed")
 
+    _n_value = sum(1 for b in board if getattr(b, "tier", None) == "VALUE")
+    all_flags.append(f"value picks (order 36): {_n_value} BTTS-yes / over-goals pick(s) "
+                     f"priced above fair odds took the pick from the likeliest outcome")
     if ladder_fixtures:
         all_flags.append(
             f"full market ladder: {ladder_fixtures} fixture(s) scored on every "
@@ -829,8 +863,9 @@ def _run(season: str = "2526", fixtures_season: str | None = None,
                         # straight win only (order 11), and a pick with one
                         # source or a disagreement is LOW (order 15).
                         agree = c[4] is not None and abs(c[3] - c[4]) <= AGREE_PP
-                        if b.tier == "BANKER" and c[2] not in (
-                                mkt.HOME, mkt.AWAY, "SB:1||Home", "SB:1||Away"):
+                        if (b.tier == "BANKER" and c[2] not in (
+                                mkt.HOME, mkt.AWAY, "SB:1||Home", "SB:1||Away")) \
+                                or b.tier == "VALUE":
                             b.tier = "SAFE" if agree else "BOOK"
                         if (b.tier in ("BOOK", "SPLIT", "MARKET") or c[4] is None
                                 or b.prob_source == "market"):
@@ -906,6 +941,8 @@ def _run(season: str = "2526", fixtures_season: str | None = None,
         _drift = getattr(b, "drift_pct", None)
         if _drift is not None and _drift >= DRIFT_DEMOTE * 100:
             why = f"price drifted out {_drift:+.1f}% since the last board"
+        elif b.tier == "VALUE":
+            continue   # order 36: a value pick disagrees with SportyBet by design
         elif b.engine_divergence and _tn.pick_side(b.best_market_key):
             why = "the two prediction models disagree on the result"
         elif b.certainty == "LOW":

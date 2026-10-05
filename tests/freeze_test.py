@@ -77,3 +77,21 @@ _tn.assess = _orig
 print("news-hit leg with no alternative -> dropped / slip withdrawn: OK")
 
 print("\n✅ ALL FREEZE TESTS PASSED")
+
+# Order 38 on a frozen board: an FA Cup underdog handicap frozen before the rule
+# existed is replaced by the board's current pick; a favourite's line is kept.
+dog = "SB:16|hcp=-1.5|Away (+1.5)"
+fav = "SB:16|hcp=-1.5|Home (-1.5)"
+led4 = {"singles": [dict(single("G v H", dog, 1.23, "S4"), league="FA Cup"),
+                    dict(single("I v J", fav, 1.25, "S5"), league="FA Cup")],
+        "accas": [], "safe3": [], "megas": [], "alts": []}
+with tempfile.TemporaryDirectory() as d:
+    freeze.save("2026-10-06", led4, "T", "R", board_dir=Path(d))
+    fz4 = freeze.load("2026-10-06", Path(d))
+board4 = [NS(**{**vars(bf("G v H", "SB:18|total=1.5|Over 1.5")), "fixture": "G v H (FA Cup)"}),
+          NS(**{**vars(bf("I v J", fav)), "fixture": "I v J (FA Cup)"})]
+lines, recs = freeze.check(fz4, board4, lambda leg: leg["price"], book, now)
+assert [r["name"] for r in recs] == ["G v H"], recs
+assert "order 38" in recs[0]["notes"][0] and recs[0]["alt_legs"][0]["market"] == "SB:18|total=1.5|Over 1.5"
+assert freeze.forbidden(dog, "League Two") is None and freeze.forbidden(fav, "FA Cup") is None
+print("FA Cup underdog handicap on a frozen board -> replaced (order 38): OK")

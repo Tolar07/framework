@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install dependencies
-        run: pip install requests python-dotenv
+        run: pip install requests numpy scipy   # the losing-market watch reads market keys (order 39)
       - name: Weekly results review
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

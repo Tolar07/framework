@@ -134,6 +134,30 @@ def test_supervisor_checks_knowledge() -> None:
     fresh = supervisor.report(**base, knowledge={"updated": "2026-10-05", "today": "2026-10-05",
                                                  "open": 2})
     assert "ALL CLEAR" in fresh and "2 proposal(s) waiting" in fresh
+    nolog = supervisor.report(**base, knowledge={"updated": "2026-10-05", "today": "2026-10-05",
+                                                 "last_run": {"target": "2026-10-05"}})
+    assert "run log has no record for 2026-10-06" in nolog
+    logged = supervisor.report(**base, knowledge={"updated": "2026-10-05", "today": "2026-10-05",
+                                                  "last_run": {"target": "2026-10-06",
+                                                               "run_id": "OLPXDV-x"}})
+    assert "ALL CLEAR" in logged and "OLPXDV-x" in logged
+
+
+def test_run_log() -> None:
+    from monitor import json_log
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "runs.jsonl"
+        assert json_log.read_runs(p) == []
+        json_log.record_run(p, run_id="OLPXDV-1", target="2026-10-06", slot="evening", picks=3)
+        json_log.record_run(p, run_id="OLPXDV-2", target="2026-10-06", slot="morning", picks=3)
+        runs = json_log.read_runs(p)
+        assert [r["run_id"] for r in runs] == ["OLPXDV-1", "OLPXDV-2"]
+        assert runs[-1]["event"] == "board_run" and runs[-1]["picks"] == 3
+        import logging
+        for h in list(logging.getLogger("olp.json").handlers):
+            if getattr(h, "baseFilename", "") == str(p):
+                h.close()
+                logging.getLogger("olp.json").removeHandler(h)
 
 
 if __name__ == "__main__":
@@ -143,4 +167,5 @@ if __name__ == "__main__":
     test_notes()
     test_telegram_decisions_fail_closed()
     test_supervisor_checks_knowledge()
+    test_run_log()
     print("loss watch: OK")

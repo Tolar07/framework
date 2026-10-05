@@ -159,6 +159,13 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
             f"watch did not run")
         if knowledge.get("open"):
             ok.append(f"{knowledge['open']} proposal(s) waiting for /approve or /reject")
+        last = knowledge.get("last_run")
+        if last is not None:
+            (ok if last.get("target") == day else bad).append(
+                f"run log: {last.get('run_id')} for {last.get('target')}"
+                if last.get("target") == day else
+                f"run log has no record for {day} (last: {last.get('target') or 'none'}) "
+                f"— memory/runs.jsonl")
     head = (f"🛡 SUPERVISOR · {day} {slot} — "
             + ("ALL CLEAR" if not bad else f"{len(bad)} issue(s)"))
     return "\n".join([head] + [f"⚠ {b}" for b in bad] + [f"✓ {o}" for o in ok])
@@ -186,10 +193,12 @@ def main(argv: list[str] | None = None) -> int:
         from datetime import datetime, timezone
 
         from engine import loss_watch
+        from monitor.json_log import read_runs
         kn = loss_watch._load(loss_watch.KNOWLEDGE_FILE, {})
         knowledge = {"updated": kn.get("updated"),
                      "today": datetime.now(timezone.utc).date().isoformat(),
-                     "open": sum(p.get("status") == "open" for p in loss_watch.load_proposals())}
+                     "open": sum(p.get("status") == "open" for p in loss_watch.load_proposals()),
+                     "last_run": (lambda r: r[-1] if r else {})(read_runs(last=1))}
         text = report(day, name, a.run_conclusion, facts, stats, runs,
                       subscribers=len(notify.subscriber_chats()), knowledge=knowledge)
     except Exception as e:  # noqa: BLE001

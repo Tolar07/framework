@@ -113,6 +113,34 @@ def json_log(message: str, **fields: object) -> None:
     setup_json_logging().info(message, extra={"event": message, **fields})
 
 
+# THE RUN LOG (standing order 30, review item 18): one JSON line per board
+# run, committed by daily.yml with memory/, so every Run ID survives the
+# runner. The supervisor and sessions read it (read_runs).
+RUN_LOG = ROOT / "memory" / "runs.jsonl"
+
+
+def record_run(path: Path | None = None, **fields: object) -> None:
+    """Append one run record to the run log (2 MB, 2 backups)."""
+    logger = setup_json_logging(path or RUN_LOG, max_bytes=2 * 1024 * 1024, backup_count=2)
+    logger.info("board run", extra={"event": "board_run", "extra_fields": fields})
+
+
+def read_runs(path: Path | None = None, last: int = 20) -> list[dict]:
+    """The last `last` run records; [] when there are none."""
+    p = Path(path or RUN_LOG)
+    try:
+        lines = p.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return []
+    out = []
+    for ln in lines[-last:]:
+        try:
+            out.append(json.loads(ln))
+        except json.JSONDecodeError:
+            continue
+    return out
+
+
 def rotate_log_file(log_path: Path,
                     max_bytes: int = DEFAULT_MAX_BYTES,
                     backup_count: int = DEFAULT_BACKUP_COUNT) -> bool:
@@ -120,7 +148,7 @@ def rotate_log_file(log_path: Path,
 
     For .bat-redirected logs (poller.log, launcher.log, etc.) the shell owns
     the file handle, so RotatingFileHandler can't help. This function is called
-    by ``scripts/rotate_logs.py`` (scheduled pre-run) or by health_monitor's
+    by the laptop's rotate_logs.py (parked 2026-10-05) or by health_monitor's
     self-heal probe. It renames ``file.log`` -> ``file.log.1``, shifts older
     backups down, and truncates the original — preserving the shell's open
     handle (append mode writes to the now-truncated inode).

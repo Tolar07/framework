@@ -59,8 +59,8 @@ with tempfile.TemporaryDirectory() as d:
 
 # Honest replies
 _src = Path(tc.__file__).read_text(encoding="utf-8")
-assert "Nothing reads it automatically" in _src and "applied automatically" not in _src, \
-    "/note must not claim corrections are applied (nothing reads corrections.csv)"
+assert "not applied automatically" in _src and "is applied automatically" not in _src, \
+    "/note must not claim corrections are applied (the heartbeat only lists them)"
 assert "Capital is disabled" not in _src, \
     "capital is enabled at Phase 3; the refusal must not say otherwise"
 print("✅ /log legs are gradeable: OK")

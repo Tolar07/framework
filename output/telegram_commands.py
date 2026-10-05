@@ -29,6 +29,9 @@ COMMANDS
   /log       Home v Away | Market | price [| YYYY-MM-DD]  -> CL-LIVE paper leg (HR46)
   /note      free text                          -> corrections log (blueprint 2.7)
   /debrief   full framework status
+  /proposals the losing-market watch's proposals (order 39)
+  /approve P3, /reject P3   decide a proposal — the Architect's chat ONLY,
+             refused when TELEGRAM_CHAT_ID is unset (fails closed)
   /help      this list
 """
 from __future__ import annotations
@@ -102,8 +105,10 @@ def cmd_help(_: str) -> str:
         "     records a price YOU got, as a CL-LIVE paper leg (HR46);\n"
         "     add | 2026-10-05 if the match isn't on a recent board\n"
         "/note the model looks wrong on Motherwell\n"
-        "     records a correction for review (nothing reads it automatically)\n"
-        "/debrief — full framework status\n\n"
+        "     records a correction; the heartbeat and weekly review list it until acted on\n"
+        "/debrief — full framework status\n"
+        "/proposals — markets the watch proposes to stop picking\n"
+        "/approve P3 or /reject P3 — decide one (rejecting an approved block lifts it)\n\n"
         f"{PHASE_LABEL}. Live capital is Architect-deployed — this system never stakes."
     )
 
@@ -298,9 +303,9 @@ def cmd_note(arg: str) -> str:
         w.writerow([datetime.now(timezone.utc).isoformat(), "telegram",
                     arg.strip(), "no"])
     return ("Correction logged for review (memory/corrections.csv).\n\n"
-            "Nothing reads it automatically yet: a session or the weekly review "
-            "has to act on it. Any RULE change is proposed to you for approval "
-            "first — the framework never rewrites its own rules.")
+            "It is listed on the heartbeat and in the weekly review until a session "
+            "acts on it; it is not applied automatically. Any RULE change is proposed "
+            "to you for approval first — the framework never rewrites its own rules.")
 
 
 def cmd_debrief(_: str) -> str:
@@ -337,15 +342,38 @@ def cmd_debrief(_: str) -> str:
     ])
 
 
+def cmd_proposals(_: str) -> str:
+    from engine import loss_watch
+    props = loss_watch.load_proposals()
+    if not props:
+        return ("No proposals yet. The losing-market watch (order 39) proposes stopping a "
+                "market in a competition once it has enough losing results.")
+    rows = [f"{p['id']} [{p['status']}] {p['text']} — {p['evidence']}" for p in props[-15:]]
+    return "PROPOSALS (order 39)\n\n" + "\n".join(rows) + \
+        "\n\nReply /approve ID or /reject ID. Rejecting an approved block lifts it."
+
+
+def _decide(arg: str, approve: bool, chat_id: Optional[str]) -> str:
+    # FAILS CLOSED: a decision changes what the board picks, so it is taken
+    # only from the Architect's own chat, and never when no chat is configured.
+    if not chat_id or chat_id not in _allowed():
+        return "REFUSED — proposals are decided from the Architect's chat only."
+    pid = arg.strip().split()[0] if arg.strip() else ""
+    if not pid:
+        return f"Usage: /{'approve' if approve else 'reject'} P3"
+    from engine import loss_watch
+    return loss_watch.decide(pid, approve)
+
+
 HANDLERS = {
     "/help": cmd_help, "/start": cmd_help,
     "/status": cmd_status, "/board": cmd_board, "/verify": cmd_verify,
     "/why": cmd_why, "/log": cmd_log, "/note": cmd_note,
-    "/debrief": cmd_debrief,
+    "/debrief": cmd_debrief, "/proposals": cmd_proposals,
 }
 
 
-def handle(text: str) -> str:
+def handle(text: str, chat_id: Optional[str] = None) -> str:
     """Route one message. Bright-line requests are refused, not executed."""
     stripped = text.strip()
     low = stripped.lower()
@@ -364,6 +392,8 @@ def handle(text: str) -> str:
         )
 
     cmd = low.split()[0] if low else ""
+    if cmd in ("/approve", "/reject"):
+        return _decide(stripped[len(cmd):], cmd == "/approve", chat_id)
     handler = HANDLERS.get(cmd)
     if handler is None:
         return f"Unknown command '{cmd or stripped[:20]}'.\n\n{cmd_help('')}"
@@ -396,7 +426,7 @@ def poll_once(token: Optional[str] = None) -> list[str]:
         if allowed and chat_id not in allowed:
             notes.append(f"IGNORED message from non-whitelisted chat {chat_id}")
             continue
-        reply = handle(text)
+        reply = handle(text, chat_id)
         send_telegram(reply, token=token, chat_id=chat_id)
         notes.append(f"handled {text.split()[0] if text.split() else '?'} from {chat_id}")
 

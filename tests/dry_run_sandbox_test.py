@@ -34,6 +34,8 @@ def test_dry_run_sandbox() -> None:
         assert freeze.paths("2026-10-05")[0].parent == tmp / "boards"
         from data import european_archive as eu
         assert eu.PATH == tmp / "european_results.json"
+        from engine import loss_watch as lw
+        assert lw.KNOWLEDGE_FILE == tmp / "knowledge.json" and lw.PROPOSALS_FILE == tmp / "proposals.json"
         # the scratch copy starts with the real records, so grading, learning
         # and the frozen-codes check behave as in a real run
         for f in real[1].glob("picks_*.json"):
@@ -44,6 +46,8 @@ def test_dry_run_sandbox() -> None:
         clv.DEFAULT_LOG_PATH.write_text("[]", encoding="utf-8")
     assert (run_daily.BOARD_DIR, picks_ledger.LEDGER_DIR, clv.DEFAULT_LOG_PATH,
             freeze.BOARD_DIR) == real
+    from engine import loss_watch as lw
+    assert lw.KNOWLEDGE_FILE.parent.name == "memory", "the real knowledge path is restored"
     assert not (real[1] / "picks_2099-01-01.json").exists()
     assert not (real[0] / "board_2099-01-01.txt").exists()
     assert _digest(real[2]) == clv_before

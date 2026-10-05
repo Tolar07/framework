@@ -1110,6 +1110,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 b.kickoff_utc = fx.kickoff_utc
             b.sb_tid = SPORTYBET_TOURNAMENT_ID.get(
                 b.fixture.rsplit("(", 1)[-1].rstrip(")").strip())
+            # The learned correction inside the final pick's chance, so the
+            # ledger keeps the chance BEFORE learning (engine/learning.py reads
+            # chance_raw and must not re-measure its own shift).
+            b.learn_shift = (learning.shift(learned, b.best_market_key,
+                                            b.fixture.rsplit("(", 1)[-1].rstrip(")").strip())
+                             if (learned and learning and b.best_market_key) else 0.0)
         dep = [b for b in board if b.on_deploy_shortlist]
         megas_l = _build_megas(dep)
         from output.produce_bet import _build_alt_accas as _alt_accas

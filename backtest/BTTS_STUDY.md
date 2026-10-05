@@ -49,3 +49,18 @@ model's average BTTS chance was 45%.
    price is better than fair — that is a selection change for the Architect.
 4. Leagues differ: Championship, National League, Eredivisie and Bundesliga
    hold their BTTS calls; Ligue 1 and Belgium do not.
+
+## Follow-up (same day): calibration adopted
+
+Platt scaling fitted on all 3,550 matches; each checked by fitting on 13
+leagues and scoring the 14th, every league in turn (Brier, lower is better):
+
+| Market | Model said / landed | Raw | Calibrated | Leagues better |
+|---|---|---|---|---|
+| BTTS yes | 50.8% / 55.0% | 0.2502 | 0.2462 | 8 of 13 |
+| Over 1.5 | 74.6% / 77.5% | 0.1755 | 0.1725 | 10 of 13 |
+| Over 2.5 | 50.6% / 53.5% | 0.2517 | 0.2463 | 11 of 13 |
+
+The model under-rates goals by ~3 pts across all three. Adopted in
+`engine/calibration.py` (standing order 36). Over/Under 3.5 and team totals
+were not tested and are unchanged.

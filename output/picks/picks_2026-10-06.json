@@ -1,0 +1,2332 @@
+{
+ "date": "2026-10-06",
+ "generated_at": "2026-10-05T21:30:40Z",
+ "singles": [
+  {
+   "fixture": "Atherton Collieries v Trafford FC",
+   "league": "FA Cup",
+   "home": "Atherton Collieries",
+   "away": "Trafford FC",
+   "kickoff": "2026-10-06",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.2,
+   "chance": 0.8059,
+   "chance_raw": 0.8059,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "K3DX2W",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-06T18:45:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:75265606",
+   "sb_tid": "sr:tournament:19",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.032967723035103313,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Halesowen Town FC v Stafford Rangers",
+   "league": "FA Cup",
+   "home": "Halesowen Town FC",
+   "away": "Stafford Rangers",
+   "kickoff": "2026-10-06",
+   "market": "SB:10||Home or Away",
+   "pick": "Halesowen Town FC or Stafford Rangers",
+   "price": 1.22,
+   "chance": 0.7699,
+   "chance_raw": 0.7699,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "HBV3VP",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-06T18:45:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:75265608",
+   "sb_tid": "sr:tournament:19",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.050905079286678534,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Scarborough Athletic v Macclesfield FC",
+   "league": "FA Cup",
+   "home": "Scarborough Athletic",
+   "away": "Macclesfield FC",
+   "kickoff": "2026-10-06",
+   "market": "SB:34||No",
+   "pick": "Macclesfield FC Win to Nil \u2014 no",
+   "price": 1.23,
+   "chance": 0.777,
+   "chance_raw": 0.777,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "MU72JU",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-06T18:45:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:75265604",
+   "sb_tid": "sr:tournament:19",
+   "sb_market": {
+    "id": 34,
+    "desc": null,
+    "spec": "",
+    "outcome": "No"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.044241295619715904,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Spalding United v Bury Town FC",
+   "league": "FA Cup",
+   "home": "Spalding United",
+   "away": "Bury Town FC",
+   "kickoff": "2026-10-06",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.27,
+   "chance": 0.7672,
+   "chance_raw": 0.7672,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "Q0FDB7",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-06T18:45:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:75265610",
+   "sb_tid": "sr:tournament:19",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.02562054276437531,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.27,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Wingate & Finchley v Bedford Town Football Club",
+   "league": "FA Cup",
+   "home": "Wingate & Finchley",
+   "away": "Bedford Town Football Club",
+   "kickoff": "2026-10-06",
+   "market": "SB:16|hcp=1.5|Home (+1.5)",
+   "pick": "Wingate & Finchley (+1.5) Asian handicap",
+   "price": 1.23,
+   "chance": 0.7886,
+   "chance_raw": 0.7886,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "YVXPU3",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-06T18:45:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:75265612",
+   "sb_tid": "sr:tournament:19",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=1.5",
+    "outcome": "Home (+1.5)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.030014865342886443,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Kazakhstan v Faroe Islands",
+   "league": "UEFA Nations League",
+   "home": "Kazakhstan",
+   "away": "Faroe Islands",
+   "kickoff": "2026-10-06",
+   "market": "SB:18|total=3.5|Under 3.5",
+   "pick": "Under 3.5 goals",
+   "price": 1.21,
+   "chance": 0.8185,
+   "chance_raw": 0.8185,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "NRDWVA",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5181939,
+   "kickoff_utc": "2026-10-06T14:00:00.000Z",
+   "predicted_xi": {
+    "home": 3706663,
+    "away": 3676036
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68932368",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=3.5",
+    "outcome": "Under 3.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.009589017420204016,
+   "missing": {
+    "home": 0.628533710198283,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Albania v San Marino",
+   "league": "UEFA Nations League",
+   "home": "Albania",
+   "away": "San Marino",
+   "kickoff": "2026-10-06",
+   "market": "SB:16|hcp=-5.5|Away (+5.5)",
+   "pick": "San Marino (+5.5) Asian handicap",
+   "price": 1.21,
+   "chance": 0.826,
+   "chance_raw": 0.826,
+   "tier": "BOOK",
+   "certainty": "LOW",
+   "code": "HD2UQS",
+   "news_level": "OK",
+   "news_note": "support: Albania missing 14%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5181900,
+   "kickoff_utc": "2026-10-06T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 41373126,
+    "away": 1026777
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68932514",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=-5.5",
+    "outcome": "Away (+5.5)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.05302087444407377,
+   "missing": {
+    "home": 0.1411602685380831,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Belarus v Finland",
+   "league": "UEFA Nations League",
+   "home": "Belarus",
+   "away": "Finland",
+   "kickoff": "2026-10-06",
+   "market": "SB:19|total=0.5|Over 0.5",
+   "pick": "Belarus Over 0.5 goals",
+   "price": 1.6,
+   "chance": 0.6398,
+   "chance_raw": 0.6398,
+   "tier": "VALUE",
+   "certainty": "LOW",
+   "code": "PHR6AB",
+   "news_level": "OK",
+   "news_note": "support: Finland missing 33%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5181901,
+   "kickoff_utc": "2026-10-06T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 7078555,
+    "away": 25877632
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68932516",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 19,
+    "desc": null,
+    "spec": "total=0.5",
+    "outcome": "Over 0.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": 0.02362829682013179,
+   "missing": {
+    "home": 0.0,
+    "away": 0.33444309071864115
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.6,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Croatia v Spain",
+   "league": "UEFA Nations League",
+   "home": "Croatia",
+   "away": "Spain",
+   "kickoff": "2026-10-06",
+   "market": "SB:548||2-5",
+   "pick": "Multigoals 2-5",
+   "price": 1.2,
+   "chance": 0.7096,
+   "chance_raw": 0.7096,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "K9Y2LQ",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5181855,
+   "kickoff_utc": "2026-10-06T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 247469574,
+    "away": 769950101
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68931704",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 548,
+    "desc": null,
+    "spec": "",
+    "outcome": "2-5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.14847700272388809,
+   "missing": {
+    "home": 0.014048162541302865,
+    "away": 0.19816782742051203
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "England v Czech Republic",
+   "league": "UEFA Nations League",
+   "home": "England",
+   "away": "Czech Republic",
+   "kickoff": "2026-10-06",
+   "market": "SB:19|total=4.5|Under 4.5",
+   "pick": "England Under 4.5 goals",
+   "price": 1.23,
+   "chance": 0.798,
+   "chance_raw": 0.798,
+   "tier": "SAFE",
+   "certainty": "LOW",
+   "code": "PNMKL3",
+   "news_level": "RISK",
+   "news_note": "Czechia missing 30% of value (Ladislav Krejc\u00ed, Adam Karabec)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5181856,
+   "kickoff_utc": "2026-10-06T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 745475373,
+    "away": 68298692
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68931706",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 19,
+    "desc": null,
+    "spec": "total=4.5",
+    "outcome": "Under 4.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.12,
+   "ev": -0.01841734287603536,
+   "missing": {
+    "home": 0.09875762299883173,
+    "away": 0.2968875694691988
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Estonia v Iceland",
+   "league": "UEFA Nations League",
+   "home": "Estonia",
+   "away": "Iceland",
+   "kickoff": "2026-10-06",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.29,
+   "chance": 0.7535,
+   "chance_raw": 0.7535,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "J3JLZL",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5181955,
+   "kickoff_utc": "2026-10-06T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 6800724,
+    "away": 74469826
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68932274",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.02794268169478431,
+   "missing": {
+    "home": 0.09282905690010804,
+    "away": 0.25264406006845
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.29,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Luxembourg v Bulgaria",
+   "league": "UEFA Nations League",
+   "home": "Luxembourg",
+   "away": "Bulgaria",
+   "kickoff": "2026-10-06",
+   "market": "SB:14|hcp=0:2|Away (0:2)",
+   "pick": "Bulgaria (0:2) handicap",
+   "price": 1.21,
+   "chance": 0.8074,
+   "chance_raw": 0.8074,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "V5VNUD",
+   "news_level": "OK",
+   "news_note": "support: Luxembourg missing 86%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5181956,
+   "kickoff_utc": "2026-10-06T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 3424675,
+    "away": 21240457
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68932276",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 14,
+    "desc": null,
+    "spec": "hcp=0:2",
+    "outcome": "Away (0:2)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.023049975316329796,
+   "missing": {
+    "home": 0.8601851324519466,
+    "away": 0.11474234450944298
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Moldova v Slovakia",
+   "league": "UEFA Nations League",
+   "home": "Moldova",
+   "away": "Slovakia",
+   "kickoff": "2026-10-06",
+   "market": "SB:10||Home or Away",
+   "pick": "Moldova or Slovakia",
+   "price": 1.2,
+   "chance": 0.7904,
+   "chance_raw": 0.7904,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "GSWAY4",
+   "news_level": "OK",
+   "news_note": "Moldova at full strength",
+   "switched_from": "Moldova (+2.5) Asian handicap (the two prediction models disagree on the result)",
+   "orig_market": "SB:16|hcp=2.5|Home (+2.5)",
+   "fotmob_id": 5181940,
+   "kickoff_utc": "2026-10-06T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 5860109,
+    "away": 53326716
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68932370",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.04189216041478161,
+   "missing": {
+    "home": 0.0,
+    "away": 0.03009961033902916
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Scotland v Slovenia",
+   "league": "UEFA Nations League",
+   "home": "Scotland",
+   "away": "Slovenia",
+   "kickoff": "2026-10-06",
+   "market": "SB:19|total=0.5|Over 0.5",
+   "pick": "Scotland Over 0.5 goals",
+   "price": 1.25,
+   "chance": 0.7868,
+   "chance_raw": 0.7868,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "K5MVK9",
+   "news_level": "OK",
+   "news_note": "Scotland at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5181782,
+   "kickoff_utc": "2026-10-06T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 99966755,
+    "away": 65543288
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68932792",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 19,
+    "desc": null,
+    "spec": "total=0.5",
+    "outcome": "Over 0.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.01647722969838572,
+   "missing": {
+    "home": 0.021240859363734408,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.25,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Switzerland v North Macedonia",
+   "league": "UEFA Nations League",
+   "home": "Switzerland",
+   "away": "North Macedonia",
+   "kickoff": "2026-10-06",
+   "market": "SB:548||1-4",
+   "pick": "Multigoals 1-4",
+   "price": 1.22,
+   "chance": 0.7122,
+   "chance_raw": 0.7122,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "Z22256",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5181783,
+   "kickoff_utc": "2026-10-06T18:45:00.000Z",
+   "predicted_xi": {
+    "home": 203313713,
+    "away": 20034001
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:68932794",
+   "sb_tid": "sr:tournament:23755",
+   "sb_market": {
+    "id": 548,
+    "desc": null,
+    "spec": "",
+    "outcome": "1-4"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.13110053046750803,
+   "missing": {
+    "home": 0.0,
+    "away": 0.018163580780864257
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  }
+ ],
+ "accas": [
+  {
+   "name": "Acca A",
+   "code": "JS6RUY",
+   "odds": 2.615,
+   "chance": 0.35105205791009503,
+   "legs": [
+    "Albania v San Marino",
+    "Kazakhstan v Faroe Islands",
+    "Luxembourg v Bulgaria",
+    "Atherton Collieries v Trafford FC",
+    "England v Czech Republic"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca B",
+   "code": "GGPE3J",
+   "odds": 2.769,
+   "chance": 0.29337519683826335,
+   "legs": [
+    "Moldova v Slovakia",
+    "Wingate & Finchley v Bedford Town Football Club",
+    "Scotland v Slovenia",
+    "Scarborough Athletic v Macclesfield FC",
+    "Halesowen Town FC v Stafford Rangers"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca C",
+   "code": "N7P8UW",
+   "odds": 3.838,
+   "chance": 0.18691823122730125,
+   "legs": [
+    "Spalding United v Bury Town FC",
+    "Estonia v Iceland",
+    "Switzerland v North Macedonia",
+    "Croatia v Spain",
+    "Belarus v Finland"
+   ],
+   "result": null
+  }
+ ],
+ "safe3": [
+  {
+   "name": "50+ #1",
+   "code": "U67UG7",
+   "odds": 1.815,
+   "chance": 0.5090142803200001,
+   "legs": [
+    "Kazakhstan v Faroe Islands",
+    "Moldova v Slovakia",
+    "Scotland v Slovenia"
+   ],
+   "result": null
+  }
+ ],
+ "megas": [],
+ "alts": [
+  {
+   "name": "Alt A",
+   "code": "J7UJDH",
+   "odds": 2.68,
+   "chance": 0.34564285346907164,
+   "legs": [
+    "Switzerland v North Macedonia",
+    "Luxembourg v Bulgaria",
+    "Belarus v Finland",
+    "Halesowen Town FC v Stafford Rangers",
+    "Scotland v Slovenia"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Switzerland v North Macedonia",
+     "league": "UEFA Nations League",
+     "home": "Switzerland",
+     "away": "North Macedonia",
+     "kickoff": "2026-10-06",
+     "market": "SB:19|total=4.5|Under 4.5",
+     "pick": "Switzerland Under 4.5 goals",
+     "price": 1.21,
+     "chance": 0.8275,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Luxembourg v Bulgaria",
+     "league": "UEFA Nations League",
+     "home": "Luxembourg",
+     "away": "Bulgaria",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.21,
+     "chance": 0.8175,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Belarus v Finland",
+     "league": "UEFA Nations League",
+     "home": "Belarus",
+     "away": "Finland",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=2:0|Home (2:0)",
+     "pick": "Belarus (2:0) handicap",
+     "price": 1.24,
+     "chance": 0.8058,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Halesowen Town FC v Stafford Rangers",
+     "league": "FA Cup",
+     "home": "Halesowen Town FC",
+     "away": "Stafford Rangers",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.21,
+     "chance": 0.7999,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Scotland v Slovenia",
+     "league": "UEFA Nations League",
+     "home": "Scotland",
+     "away": "Slovenia",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=1:0|Home (1:0)",
+     "pick": "Scotland (1:0) handicap",
+     "price": 1.22,
+     "chance": 0.7927,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Alt B",
+   "code": "JSTK6X",
+   "odds": 3.017,
+   "chance": 0.2941793551483587,
+   "legs": [
+    "Wingate & Finchley v Bedford Town Football Club",
+    "Moldova v Slovakia",
+    "Albania v San Marino",
+    "Croatia v Spain",
+    "Spalding United v Bury Town FC"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Wingate & Finchley v Bedford Town Football Club",
+     "league": "FA Cup",
+     "home": "Wingate & Finchley",
+     "away": "Bedford Town Football Club",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=2:0|Home (2:0)",
+     "pick": "Wingate & Finchley (2:0) handicap",
+     "price": 1.21,
+     "chance": 0.7886,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Moldova v Slovakia",
+     "league": "UEFA Nations League",
+     "home": "Moldova",
+     "away": "Slovakia",
+     "kickoff": "2026-10-06",
+     "market": "SB:16|hcp=2.5|Home (+2.5)",
+     "pick": "Moldova (+2.5) Asian handicap",
+     "price": 1.25,
+     "chance": 0.7864,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Albania v San Marino",
+     "league": "UEFA Nations League",
+     "home": "Albania",
+     "away": "San Marino",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=0:6|Away (0:6)",
+     "pick": "San Marino (0:6) handicap",
+     "price": 1.2,
+     "chance": 0.7826,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Croatia v Spain",
+     "league": "UEFA Nations League",
+     "home": "Croatia",
+     "away": "Spain",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.33,
+     "chance": 0.7797,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Spalding United v Bury Town FC",
+     "league": "FA Cup",
+     "home": "Spalding United",
+     "away": "Bury Town FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:16|hcp=0.5|Home (+0.5)",
+     "pick": "Spalding United (+0.5) Asian handicap",
+     "price": 1.25,
+     "chance": 0.7774,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Alt C",
+   "code": "Z9DQV7",
+   "odds": 3.096,
+   "chance": 0.22588987321890602,
+   "legs": [
+    "Atherton Collieries v Trafford FC",
+    "Estonia v Iceland",
+    "Scarborough Athletic v Macclesfield FC",
+    "Kazakhstan v Faroe Islands",
+    "England v Czech Republic"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Atherton Collieries v Trafford FC",
+     "league": "FA Cup",
+     "home": "Atherton Collieries",
+     "away": "Trafford FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:33||No",
+     "pick": "Atherton Collieries Win to Nil \u2014 no",
+     "price": 1.24,
+     "chance": 0.7704,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Estonia v Iceland",
+     "league": "UEFA Nations League",
+     "home": "Estonia",
+     "away": "Iceland",
+     "kickoff": "2026-10-06",
+     "market": "SB:10||Home or Away",
+     "pick": "Estonia or Iceland",
+     "price": 1.25,
+     "chance": 0.758,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Scarborough Athletic v Macclesfield FC",
+     "league": "FA Cup",
+     "home": "Scarborough Athletic",
+     "away": "Macclesfield FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.27,
+     "chance": 0.7511,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Kazakhstan v Faroe Islands",
+     "league": "UEFA Nations League",
+     "home": "Kazakhstan",
+     "away": "Faroe Islands",
+     "kickoff": "2026-10-06",
+     "market": "SB:33||No",
+     "pick": "Kazakhstan Win to Nil \u2014 no",
+     "price": 1.3,
+     "chance": 0.7214,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "England v Czech Republic",
+     "league": "UEFA Nations League",
+     "home": "England",
+     "away": "Czech Republic",
+     "kickoff": "2026-10-06",
+     "market": "SB:548||2-5",
+     "pick": "Multigoals 2-5",
+     "price": 1.21,
+     "chance": 0.7139,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  }
+ ],
+ "value": [
+  {
+   "name": "Value 1",
+   "code": "SK5BKK",
+   "odds": 1.87,
+   "chance": 0.5738,
+   "legs": [
+    "Croatia v Spain"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Croatia v Spain",
+     "league": "UEFA Nations League",
+     "home": "Croatia",
+     "away": "Spain",
+     "kickoff": "2026-10-06",
+     "market": "SB:20|total=2.5|Under 2.5",
+     "pick": "Spain Under 2.5 goals",
+     "price": 1.87,
+     "chance": 0.5738,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Value 2",
+   "code": "QDAPA1",
+   "odds": 1.92,
+   "chance": 0.542,
+   "legs": [
+    "Switzerland v North Macedonia"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Switzerland v North Macedonia",
+     "league": "UEFA Nations League",
+     "home": "Switzerland",
+     "away": "North Macedonia",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=0:3|Away (0:3)",
+     "pick": "North Macedonia (0:3) handicap",
+     "price": 1.92,
+     "chance": 0.542,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Value 3",
+   "code": "G4VB13",
+   "odds": 1.77,
+   "chance": 0.5776,
+   "legs": [
+    "Belarus v Finland"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Belarus v Finland",
+     "league": "UEFA Nations League",
+     "home": "Belarus",
+     "away": "Finland",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=1:0|Home (1:0)",
+     "pick": "Belarus (1:0) handicap",
+     "price": 1.77,
+     "chance": 0.5776,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Value acca",
+   "code": "GE1FFM",
+   "odds": 6.355,
+   "chance": 0.17963336895999998,
+   "legs": [
+    "Croatia v Spain",
+    "Switzerland v North Macedonia",
+    "Belarus v Finland"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Croatia v Spain",
+     "league": "UEFA Nations League",
+     "home": "Croatia",
+     "away": "Spain",
+     "kickoff": "2026-10-06",
+     "market": "SB:20|total=2.5|Under 2.5",
+     "pick": "Spain Under 2.5 goals",
+     "price": 1.87,
+     "chance": 0.5738,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Switzerland v North Macedonia",
+     "league": "UEFA Nations League",
+     "home": "Switzerland",
+     "away": "North Macedonia",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=0:3|Away (0:3)",
+     "pick": "North Macedonia (0:3) handicap",
+     "price": 1.92,
+     "chance": 0.542,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Belarus v Finland",
+     "league": "UEFA Nations League",
+     "home": "Belarus",
+     "away": "Finland",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=1:0|Home (1:0)",
+     "pick": "Belarus (1:0) handicap",
+     "price": 1.77,
+     "chance": 0.5776,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  }
+ ],
+ "rated": [
+  {
+   "fixture": "Atherton Collieries v Trafford FC",
+   "league": "FA Cup",
+   "home": "Atherton Collieries",
+   "away": "Trafford FC",
+   "kickoff": "2026-10-06",
+   "src": "market",
+   "p": [
+    0.489,
+    0.224,
+    0.286,
+    0.786,
+    0.581,
+    0.37,
+    0.586
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8095
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7577
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7367
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7367
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7432
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7222
+    ],
+    [
+     "SB:29||Yes",
+     0.5971
+    ],
+    [
+     "SB:26||Even",
+     0.5012
+    ],
+    [
+     "SB:30||Both teams",
+     0.5971
+    ],
+    [
+     "SB:31||No",
+     0.7222
+    ],
+    [
+     "SB:33||No",
+     0.7704
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6117
+    ],
+    [
+     "SB:548||2-4",
+     0.6154
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Halesowen Town FC v Stafford Rangers",
+   "league": "FA Cup",
+   "home": "Halesowen Town FC",
+   "away": "Stafford Rangers",
+   "kickoff": "2026-10-06",
+   "src": "market",
+   "p": [
+    0.547,
+    0.221,
+    0.232,
+    0.794,
+    0.596,
+    0.384,
+    0.583
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5385
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7999
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7699
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.7685
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.7685
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.6995
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.691
+    ],
+    [
+     "SB:29||Yes",
+     0.5893
+    ],
+    [
+     "SB:11||Home",
+     0.5465
+    ],
+    [
+     "SB:26||Even",
+     0.501
+    ],
+    [
+     "SB:13||Home",
+     0.5385
+    ],
+    [
+     "SB:30||Both teams",
+     0.5893
+    ],
+    [
+     "SB:31||No",
+     0.691
+    ],
+    [
+     "SB:33||No",
+     0.7365
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.6359
+    ],
+    [
+     "SB:548||2-4",
+     0.6138
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Scarborough Athletic v Macclesfield FC",
+   "league": "FA Cup",
+   "home": "Scarborough Athletic",
+   "away": "Macclesfield FC",
+   "kickoff": "2026-10-06",
+   "src": "market",
+   "p": [
+    0.34,
+    0.254,
+    0.406,
+    0.695,
+    0.459,
+    0.256,
+    0.5
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.7511
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7246
+    ],
+    [
+     "SB:14|hcp=0:1|Away (0:1)",
+     0.6667
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.6667
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.6974
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7368
+    ],
+    [
+     "SB:29||Yes",
+     0.5139
+    ],
+    [
+     "SB:26||Even",
+     0.5032
+    ],
+    [
+     "SB:30||Both teams",
+     0.5139
+    ],
+    [
+     "SB:31||No",
+     0.7368
+    ],
+    [
+     "SB:32||No",
+     0.6974
+    ],
+    [
+     "SB:34||No",
+     0.777
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.6217
+    ],
+    [
+     "SB:548||2-6",
+     0.7038
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Spalding United v Bury Town FC",
+   "league": "FA Cup",
+   "home": "Spalding United",
+   "away": "Bury Town FC",
+   "kickoff": "2026-10-06",
+   "src": "market",
+   "p": [
+    0.547,
+    0.221,
+    0.232,
+    0.744,
+    0.524,
+    0.314,
+    0.52
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5342
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7672
+    ],
+    [
+     "SB:10||Home or Draw",
+     0.7774
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.7774
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.7774
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7428
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7226
+    ],
+    [
+     "SB:29||Yes",
+     0.5335
+    ],
+    [
+     "SB:11||Home",
+     0.5422
+    ],
+    [
+     "SB:26||Even",
+     0.5019
+    ],
+    [
+     "SB:13||Home",
+     0.5342
+    ],
+    [
+     "SB:30||Both teams",
+     0.5335
+    ],
+    [
+     "SB:31||No",
+     0.6451
+    ],
+    [
+     "SB:33||No",
+     0.7065
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6606
+    ],
+    [
+     "SB:548||2-5",
+     0.703
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Wingate & Finchley v Bedford Town Football Club",
+   "league": "FA Cup",
+   "home": "Wingate & Finchley",
+   "away": "Bedford Town Football Club",
+   "kickoff": "2026-10-06",
+   "src": "market",
+   "p": [
+    0.321,
+    0.249,
+    0.43,
+    0.746,
+    0.524,
+    0.314,
+    0.554
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7648
+    ],
+    [
+     "SB:10||Home or Away",
+     0.74
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.7886
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.7886
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7184
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7788
+    ],
+    [
+     "SB:29||Yes",
+     0.5595
+    ],
+    [
+     "SB:26||Even",
+     0.5019
+    ],
+    [
+     "SB:30||Both teams",
+     0.5595
+    ],
+    [
+     "SB:31||No",
+     0.7788
+    ],
+    [
+     "SB:32||No",
+     0.7184
+    ],
+    [
+     "SB:34||No",
+     0.7807
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.6051
+    ],
+    [
+     "SB:548||2-5",
+     0.7018
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Kazakhstan v Faroe Islands",
+   "league": "UEFA Nations League",
+   "home": "Kazakhstan",
+   "away": "Faroe Islands",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.512,
+    0.278,
+    0.209,
+    0.645,
+    0.375,
+    0.18,
+    0.412
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.8185
+    ],
+    [
+     "SB:10||Home or Draw",
+     0.7201
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.7201
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.7201
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.714
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7552
+    ],
+    [
+     "SB:29||No",
+     0.5405
+    ],
+    [
+     "SB:26||Even",
+     0.5073
+    ],
+    [
+     "SB:31||No",
+     0.6103
+    ],
+    [
+     "SB:32||No",
+     0.714
+    ],
+    [
+     "SB:33||No",
+     0.7214
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6713
+    ],
+    [
+     "SB:548||1-3",
+     0.7074
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7806
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Albania v San Marino",
+   "league": "UEFA Nations League",
+   "home": "Albania",
+   "away": "San Marino",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.93,
+    0.056,
+    0.013,
+    0.88,
+    0.75,
+    0.616,
+    0.194
+   ],
+   "pool": [
+    [
+     "SB:18|total=6|Under 6",
+     0.692
+    ],
+    [
+     "SB:14|hcp=0:6|Away (0:6)",
+     0.7826
+    ],
+    [
+     "SB:16|hcp=-5.5|Away (+5.5)",
+     0.7826
+    ],
+    [
+     "SB:19|total=5.5|Under 5.5",
+     0.7483
+    ],
+    [
+     "SB:20|total=0.5|Under 0.5",
+     0.6958
+    ],
+    [
+     "SB:29||No",
+     0.6531
+    ],
+    [
+     "SB:26||Even",
+     0.502
+    ],
+    [
+     "SB:547|total=3.5|Home/Draw & Over 3.5",
+     0.6342
+    ],
+    [
+     "SB:548||1-5",
+     0.6751
+    ],
+    [
+     "SB:60||Home",
+     0.7494
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Belarus v Finland",
+   "league": "UEFA Nations League",
+   "home": "Belarus",
+   "away": "Finland",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.428,
+    0.279,
+    0.292,
+    0.69,
+    0.428,
+    0.221,
+    0.482
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.7952
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7151
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.8058
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.8058
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.7233
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7195
+    ],
+    [
+     "SB:29||No",
+     0.5267
+    ],
+    [
+     "SB:26||Even",
+     0.5063
+    ],
+    [
+     "SB:31||No",
+     0.7195
+    ],
+    [
+     "SB:32||No",
+     0.6398
+    ],
+    [
+     "SB:34||No",
+     0.7394
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.6444
+    ],
+    [
+     "SB:548||1-3",
+     0.6955
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.7683
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Croatia v Spain",
+   "league": "UEFA Nations League",
+   "home": "Croatia",
+   "away": "Spain",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.182,
+    0.237,
+    0.581,
+    0.708,
+    0.448,
+    0.236,
+    0.43
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.7125
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7797
+    ],
+    [
+     "SB:14|hcp=3:0|Home (3:0)",
+     0.7075
+    ],
+    [
+     "SB:16|hcp=0.5|Away (-0.5)",
+     0.7125
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.5423
+    ],
+    [
+     "SB:20|total=3.5|Under 3.5",
+     0.774
+    ],
+    [
+     "SB:29||Yes",
+     0.5081
+    ],
+    [
+     "SB:26||Even",
+     0.5021
+    ],
+    [
+     "SB:32||No",
+     0.5423
+    ],
+    [
+     "SB:34||No",
+     0.5885
+    ],
+    [
+     "SB:37|total=1.5|Away & Over 1.5",
+     0.6126
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6883
+    ],
+    [
+     "SB:548||1-4",
+     0.7335
+    ],
+    [
+     "SB:60||Away",
+     0.5184
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6557
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "England v Czech Republic",
+   "league": "UEFA Nations League",
+   "home": "England",
+   "away": "Czech Republic",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.834,
+    0.111,
+    0.056,
+    0.859,
+    0.673,
+    0.46,
+    0.386
+   ],
+   "pool": [
+    [
+     "SB:18|total=5|Under 5",
+     0.6955
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.7124
+    ],
+    [
+     "SB:16|hcp=-3.5|Away (+3.5)",
+     0.7124
+    ],
+    [
+     "SB:19|total=4.5|Under 4.5",
+     0.798
+    ],
+    [
+     "SB:20|total=0.5|Under 0.5",
+     0.5702
+    ],
+    [
+     "SB:29||No",
+     0.5638
+    ],
+    [
+     "SB:26||Even",
+     0.5006
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5856
+    ],
+    [
+     "SB:24|variant=sr:exact_goals:3+|0",
+     0.5702
+    ],
+    [
+     "SB:30||Only Home",
+     0.5357
+    ],
+    [
+     "SB:31||Yes",
+     0.5702
+    ],
+    [
+     "SB:33||Yes",
+     0.5357
+    ],
+    [
+     "SB:37|total=2.5|Home & Over 2.5",
+     0.6495
+    ],
+    [
+     "SB:547|total=2.5|Home/Draw & Over 2.5",
+     0.682
+    ],
+    [
+     "SB:546||Home/Draw & No",
+     0.5702
+    ],
+    [
+     "SB:548||2-5",
+     0.7139
+    ],
+    [
+     "SB:60||Home",
+     0.6412
+    ],
+    [
+     "SB:63||Home or Away",
+     0.7182
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Estonia v Iceland",
+   "league": "UEFA Nations League",
+   "home": "Estonia",
+   "away": "Iceland",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.234,
+    0.263,
+    0.504,
+    0.714,
+    0.461,
+    0.252,
+    0.491
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.5696
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7535
+    ],
+    [
+     "SB:10||Home or Away",
+     0.758
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.6708
+    ],
+    [
+     "SB:16|hcp=2|Home (+2.0)",
+     0.6708
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.7743
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.739
+    ],
+    [
+     "SB:29||Yes",
+     0.5014
+    ],
+    [
+     "SB:11||Away",
+     0.5776
+    ],
+    [
+     "SB:26||Even",
+     0.504
+    ],
+    [
+     "SB:12||Away",
+     0.5696
+    ],
+    [
+     "SB:32||No",
+     0.5899
+    ],
+    [
+     "SB:34||No",
+     0.6619
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.7023
+    ],
+    [
+     "SB:548||2-5",
+     0.6876
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6001
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Luxembourg v Bulgaria",
+   "league": "UEFA Nations League",
+   "home": "Luxembourg",
+   "away": "Bulgaria",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.394,
+    0.301,
+    0.305,
+    0.627,
+    0.355,
+    0.164,
+    0.425
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.8175
+    ],
+    [
+     "SB:10||Home or Draw",
+     0.717
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.8074
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.8074
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7131
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7513
+    ],
+    [
+     "SB:29||No",
+     0.5379
+    ],
+    [
+     "SB:26||Even",
+     0.5074
+    ],
+    [
+     "SB:31||No",
+     0.616
+    ],
+    [
+     "SB:32||No",
+     0.7131
+    ],
+    [
+     "SB:33||No",
+     0.7267
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6681
+    ],
+    [
+     "SB:548||1-3",
+     0.7068
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7861
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Moldova v Slovakia",
+   "league": "UEFA Nations League",
+   "home": "Moldova",
+   "away": "Slovakia",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.134,
+    0.211,
+    0.655,
+    0.74,
+    0.49,
+    0.272,
+    0.431
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.6603
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7697
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7904
+    ],
+    [
+     "SB:14|hcp=3:0|Home (3:0)",
+     0.7864
+    ],
+    [
+     "SB:16|hcp=2.5|Home (+2.5)",
+     0.7864
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.5258
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.6739
+    ],
+    [
+     "SB:29||No",
+     0.5231
+    ],
+    [
+     "SB:26||Even",
+     0.5028
+    ],
+    [
+     "SB:12||Away",
+     0.6603
+    ],
+    [
+     "SB:32||No",
+     0.5258
+    ],
+    [
+     "SB:34||No",
+     0.5897
+    ],
+    [
+     "SB:37|total=4.5|Away & Under 4.5",
+     0.5355
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.7383
+    ],
+    [
+     "SB:548||2-5",
+     0.7001
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6172
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Scotland v Slovenia",
+   "league": "UEFA Nations League",
+   "home": "Scotland",
+   "away": "Slovenia",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.552,
+    0.251,
+    0.196,
+    0.711,
+    0.453,
+    0.24,
+    0.464
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5273
+    ],
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.778
+    ],
+    [
+     "SB:10||Home or Draw",
+     0.7927
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.7927
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.7927
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.797
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7885
+    ],
+    [
+     "SB:29||No",
+     0.5307
+    ],
+    [
+     "SB:11||Home",
+     0.5353
+    ],
+    [
+     "SB:26||Even",
+     0.5053
+    ],
+    [
+     "SB:13||Home",
+     0.5273
+    ],
+    [
+     "SB:31||No",
+     0.5743
+    ],
+    [
+     "SB:32||No",
+     0.7868
+    ],
+    [
+     "SB:33||No",
+     0.6656
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.7163
+    ],
+    [
+     "SB:548||1-3",
+     0.6866
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.621
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Switzerland v North Macedonia",
+   "league": "UEFA Nations League",
+   "home": "Switzerland",
+   "away": "North Macedonia",
+   "kickoff": "2026-10-06",
+   "src": "model",
+   "p": [
+    0.79,
+    0.141,
+    0.069,
+    0.81,
+    0.591,
+    0.37,
+    0.384
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7475
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.7335
+    ],
+    [
+     "SB:16|hcp=-3.5|Away (+3.5)",
+     0.7335
+    ],
+    [
+     "SB:19|total=4.5|Under 4.5",
+     0.8275
+    ],
+    [
+     "SB:20|total=0.5|Under 0.5",
+     0.6273
+    ],
+    [
+     "SB:29||No",
+     0.6217
+    ],
+    [
+     "SB:26||Even",
+     0.501
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5452
+    ],
+    [
+     "SB:24|variant=sr:exact_goals:3+|0",
+     0.6273
+    ],
+    [
+     "SB:30||Only Home",
+     0.584
+    ],
+    [
+     "SB:31||Yes",
+     0.6273
+    ],
+    [
+     "SB:33||Yes",
+     0.584
+    ],
+    [
+     "SB:37|total=2.5|Home & Over 2.5",
+     0.6089
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.7113
+    ],
+    [
+     "SB:546||Home/Draw & No",
+     0.6273
+    ],
+    [
+     "SB:548||2-5",
+     0.7207
+    ],
+    [
+     "SB:60||Home",
+     0.6436
+    ],
+    [
+     "SB:63||Home or Away",
+     0.7099
+    ]
+   ],
+   "ft": null
+  }
+ ]
+}

@@ -44,8 +44,8 @@
    "ev": -0.03834334489893643,
    "first_price": 1.28,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-2",
    "drift_price": 1.25,
    "drift_pct": -2.3
   },
@@ -91,8 +91,8 @@
    "ev": -0.02968023208959636,
    "first_price": 1.2,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "drift_price": 1.18,
    "drift_pct": -1.7
   },
@@ -138,8 +138,8 @@
    "ev": -0.05076162634539905,
    "first_price": 1.22,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "drift_price": 1.22,
    "drift_pct": 0.0
   },
@@ -185,8 +185,8 @@
    "ev": -0.04639144237597437,
    "first_price": 1.2,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-1",
    "drift_price": 1.2,
    "drift_pct": 0.0
   },
@@ -232,10 +232,11 @@
    "ev": -0.008918608355600544,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-1",
    "drift_price": 1.27,
-   "drift_pct": -1.6
+   "drift_pct": -1.6,
+   "orig_result": "won"
   },
   {
    "fixture": "Montenegro v Armenia",
@@ -279,8 +280,8 @@
    "ev": -0.013818713294295404,
    "first_price": 1.2,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-0",
    "drift_price": 1.28,
    "drift_pct": 6.7
   },
@@ -326,10 +327,11 @@
    "ev": -0.021434665545278175,
    "first_price": 1.37,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-0",
    "drift_price": 1.4,
-   "drift_pct": 2.2
+   "drift_pct": 2.2,
+   "orig_result": "won"
   },
   {
    "fixture": "Romania v Sweden",
@@ -373,8 +375,8 @@
    "ev": -0.035623979188589616,
    "first_price": 1.2,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-1",
    "drift_price": 1.17,
    "drift_pct": -2.5
   },
@@ -420,8 +422,8 @@
    "ev": -0.00548605645122624,
    "first_price": 1.2,
    "drift_since_board": 0.0,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.22,
    "drift_pct": 1.7
   }
@@ -439,7 +441,7 @@
     "Romania v Sweden",
     "France v Belgium"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca B",
@@ -452,7 +454,7 @@
     "Cordoba v Tenerife",
     "Northern Ireland v Georgia"
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "safe3": [],
@@ -481,8 +483,8 @@
      "pick": "Armenia (+2.5) Asian handicap",
      "price": 1.2,
      "chance": 0.8218,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-0"
     },
     {
      "fixture": "Italy v Turkey",
@@ -494,8 +496,8 @@
      "pick": "Italy Under 3.5 goals",
      "price": 1.21,
      "chance": 0.8153,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "3-1"
     },
     {
      "fixture": "Cyprus v Latvia",
@@ -507,8 +509,8 @@
      "pick": "Latvia Under 1.5 goals",
      "price": 1.2,
      "chance": 0.7931,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "France v Belgium",
@@ -520,8 +522,8 @@
      "pick": "Under 4.5 goals",
      "price": 1.31,
      "chance": 0.7808,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "4-1"
     },
     {
      "fixture": "Romania v Sweden",
@@ -533,11 +535,11 @@
      "pick": "Romania or Sweden",
      "price": 1.26,
      "chance": 0.7711,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-1"
     }
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Alt B",
@@ -561,8 +563,8 @@
      "pick": "Northern Ireland Win to Nil \u2014 no",
      "price": 1.3,
      "chance": 0.7637,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-0"
     },
     {
      "fixture": "Cordoba v Tenerife",
@@ -574,8 +576,8 @@
      "pick": "Cordoba or Tenerife",
      "price": 1.3,
      "chance": 0.7489,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "3-2"
     },
     {
      "fixture": "Ukraine v Hungary",
@@ -587,8 +589,8 @@
      "pick": "Under 3.5 goals",
      "price": 1.28,
      "chance": 0.7431,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Bosnia and Herzegovina v Poland",
@@ -600,11 +602,11 @@
      "pick": "Over 1.5 goals",
      "price": 1.28,
      "chance": 0.7414,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "1-0"
     }
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "rated": [
@@ -624,7 +626,7 @@
     0.318,
     0.574
    ],
-   "ft": null
+   "ft": "3-2"
   },
   {
    "fixture": "Cyprus v Latvia",
@@ -642,7 +644,7 @@
     0.247,
     0.483
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Bosnia and Herzegovina v Poland",
@@ -660,7 +662,7 @@
     0.251,
     0.508
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "France v Belgium",
@@ -678,7 +680,7 @@
     0.295,
     0.522
    ],
-   "ft": null
+   "ft": "4-1"
   },
   {
    "fixture": "Italy v Turkey",
@@ -696,7 +698,7 @@
     0.405,
     0.611
    ],
-   "ft": null
+   "ft": "3-1"
   },
   {
    "fixture": "Montenegro v Armenia",
@@ -714,7 +716,7 @@
     0.337,
     0.559
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "Northern Ireland v Georgia",
@@ -732,7 +734,7 @@
     0.249,
     0.513
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "Romania v Sweden",
@@ -750,7 +752,7 @@
     0.342,
     0.589
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Ukraine v Hungary",
@@ -768,7 +770,7 @@
     0.335,
     0.559
    ],
-   "ft": null
+   "ft": "1-2"
   }
  ],
  "replaced": [
@@ -781,7 +783,7 @@
     "Ukraine v Hungary: Hungary Win to Nil \u2014 no \u2192 Under 3.5 goals (team news: Ukraine missing 30% of value (Vitaliy Mykolenko, Mykola Matviyenko, Danylo Sikan); support: Hungary missing 29%)"
    ],
    "odds": 1.25,
-   "result": null,
+   "result": "won",
    "alt_legs": [
     {
      "fixture": "Ukraine v Hungary",
@@ -791,7 +793,8 @@
      "market": "SB:18|total=3.5|Under 3.5",
      "pick": "Under 3.5 goals",
      "price": 1.25,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     }
    ],
    "legs": [
@@ -807,7 +810,7 @@
     "Ukraine v Hungary: Hungary Win to Nil \u2014 no \u2192 Under 3.5 goals (team news: Ukraine missing 30% of value (Vitaliy Mykolenko, Mykola Matviyenko, Danylo Sikan); support: Hungary missing 29%)"
    ],
    "odds": 2.592,
-   "result": null,
+   "result": "lost",
    "alt_legs": [
     {
      "fixture": "Montenegro v Armenia",
@@ -817,7 +820,8 @@
      "market": "SB:14|hcp=0:3|Away (0:3)",
      "pick": "Armenia (0:3) handicap",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "0-0"
     },
     {
      "fixture": "Cyprus v Latvia",
@@ -827,7 +831,8 @@
      "market": "SB:19|total=0.5|Over 0.5",
      "pick": "Cyprus Over 0.5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "Ukraine v Hungary",
@@ -837,7 +842,8 @@
      "market": "SB:18|total=3.5|Under 3.5",
      "pick": "Under 3.5 goals",
      "price": 1.25,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Romania v Sweden",
@@ -847,7 +853,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.2,
-     "result": null
+     "result": "lost",
+     "ft": "0-1"
     },
     {
      "fixture": "France v Belgium",
@@ -857,7 +864,8 @@
      "market": "SB:10||Home or Away",
      "pick": "France or Belgium",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "4-1"
     }
    ],
    "legs": [
@@ -877,7 +885,7 @@
     "Ukraine v Hungary: Hungary Win to Nil \u2014 no \u2192 Under 3.5 goals (team news: Ukraine missing 30% of value (Vitaliy Mykolenko, Mykola Matviyenko, Danylo Sikan); support: Hungary missing 29%)"
    ],
    "odds": 7.153,
-   "result": null,
+   "result": "lost",
    "alt_legs": [
     {
      "fixture": "Cordoba v Tenerife",
@@ -887,7 +895,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.28,
-     "result": null
+     "result": "won",
+     "ft": "3-2"
     },
     {
      "fixture": "Cyprus v Latvia",
@@ -897,7 +906,8 @@
      "market": "SB:19|total=0.5|Over 0.5",
      "pick": "Cyprus Over 0.5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "Bosnia and Herzegovina v Poland",
@@ -907,7 +917,8 @@
      "market": "SB:34||No",
      "pick": "Poland Win to Nil \u2014 no",
      "price": 1.22,
-     "result": null
+     "result": "won",
+     "ft": "1-0"
     },
     {
      "fixture": "France v Belgium",
@@ -917,7 +928,8 @@
      "market": "SB:10||Home or Away",
      "pick": "France or Belgium",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "4-1"
     },
     {
      "fixture": "Italy v Turkey",
@@ -927,7 +939,8 @@
      "market": "SB:18|total=4.5|Under 4.5",
      "pick": "Under 4.5 goals",
      "price": 1.29,
-     "result": null
+     "result": "won",
+     "ft": "3-1"
     },
     {
      "fixture": "Montenegro v Armenia",
@@ -937,7 +950,8 @@
      "market": "SB:14|hcp=0:3|Away (0:3)",
      "pick": "Armenia (0:3) handicap",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "0-0"
     },
     {
      "fixture": "Northern Ireland v Georgia",
@@ -947,7 +961,8 @@
      "market": "SB:10||Home or Away",
      "pick": "Northern Ireland or Georgia",
      "price": 1.37,
-     "result": null
+     "result": "lost",
+     "ft": "0-0"
     },
     {
      "fixture": "Romania v Sweden",
@@ -957,7 +972,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.2,
-     "result": null
+     "result": "lost",
+     "ft": "0-1"
     },
     {
      "fixture": "Ukraine v Hungary",
@@ -967,7 +983,8 @@
      "market": "SB:18|total=3.5|Under 3.5",
      "pick": "Under 3.5 goals",
      "price": 1.25,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     }
    ],
    "legs": [

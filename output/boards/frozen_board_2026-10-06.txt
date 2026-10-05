@@ -1,0 +1,194 @@
+##########OLP XDV#########
+==================================
+
+📅  Tue 06 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261005-2127-9f9436 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 15 · Verified: 0
+KO = kickoff, Lagos time (WAT)
+
+⚠ 212 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                                          Country · League     AI PICK · win%                                  Odds   Alt market                                   O1.5/O2.5  DC/BTTS     Src
+19:45  Atherton Collieries v Trafford FC                England · FA Cup     Over 1.5 goals · 81%                            @1.20  Atherton Collieries Win to Nil — no @1.24    O79/O58    1278 / Y59  ○ᴹ
+19:45  Wingate & Finchley v Bedford Town Football Club  England · FA Cup     Wingate & Finchley (+1.5) Asian handicap · 79%  @1.23  Wingate & Finchley (2:0) handicap @1.21      O75/O52    1275 / Y55  ○ᴹ
+19:45  Scarborough Athletic v Macclesfield FC           England · FA Cup     Macclesfield FC Win to Nil — no · 78%           @1.23  Under 3.5 goals @1.27                        O70/U54    1275 / Y50  ○ᴹ
+19:45  Halesowen Town FC v Stafford Rangers             England · FA Cup     Halesowen Town FC or Stafford Rangers · 77%     @1.22  Under 4.5 goals @1.21                        O79/O60    1278 / Y58  ○ᴹ
+19:45  Spalding United v Bury Town FC                   England · FA Cup     Over 1.5 goals · 77%                            @1.27  Spalding United (+0.5) Asian handicap @1.25  O74/O52    1278 / Y52  ○ᴹ
+
+19:45  Albania v San Marino                             UEFA Nations League  ᴮ San Marino (+5.5) Asian handicap · 83%        @1.21  San Marino (0:6) handicap @1.20              O88/O75    1X99 / N81  ○
+15:00  Kazakhstan v Faroe Islands                       UEFA Nations League  ✓ Under 3.5 goals · 82%                         @1.21  Kazakhstan Win to Nil — no @1.30             O65/U62    1X79 / N59  ○
+19:45  Luxembourg v Bulgaria                            UEFA Nations League  ✓ Bulgaria (0:2) handicap · 81%                 @1.21  Under 3.5 goals @1.21                        O63/U65    1270 / N58  ○
+19:45  England v Czech Republic                         UEFA Nations League  ✓ England Under 4.5 goals · 80%                 @1.23  Multigoals 2-5 @1.21                         O86/O67    1X94 / N61  ○
+19:45  Moldova v Slovakia                               UEFA Nations League  ⇄✓ Moldova or Slovakia · 79%                    @1.20  Moldova (+2.5) Asian handicap @1.25          O74/U51    X287 / N57  ○
+19:45  Scotland v Slovenia                              UEFA Nations League  ✓ Scotland Over 0.5 goals · 79%                 @1.25  Scotland (1:0) handicap @1.22                O71/U55    1X80 / N54  ○
+19:45  Estonia v Iceland                                UEFA Nations League  ✓ Over 1.5 goals · 75%                          @1.29  Estonia or Iceland @1.25                     O71/U54    X277 / N51  ○
+19:45  Switzerland v North Macedonia                    UEFA Nations League  ✓ Multigoals 1-4 · 71%                          @1.22  Switzerland Under 4.5 goals @1.21            O81/O59    1X93 / N62  ○
+19:45  Croatia v Spain                                  UEFA Nations League  ✓ Multigoals 2-5 · 71%                          @1.20  Under 4.5 goals @1.33                        O71/U55    X282 / N57  ○
+19:45  Belarus v Finland                                UEFA Nations League  $ Belarus Over 0.5 goals · 64%                  @1.60  Belarus (2:0) handicap @1.24                 O69/U57    1272 / N52  ○
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 mega code (all 15 deploy singles): HFQUEA   load ↦ www.sportybet.com/ng/?shareCode=HFQUEA
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                                          Country · League     Pick                                      Chance  Odds   Certainty  Stake  Code
+19:45  Atherton Collieries v Trafford FC                England · FA Cup     Over 1.5 goals                            81%     @1.20  LOW        0.12%  K3DX2W
+19:45  Halesowen Town FC v Stafford Rangers             England · FA Cup     Halesowen Town FC or Stafford Rangers     77%     @1.22  LOW        0.12%  HBV3VP
+19:45  Scarborough Athletic v Macclesfield FC           England · FA Cup     Macclesfield FC Win to Nil — no           78%     @1.23  LOW        0.12%  MU72JU
+19:45  Spalding United v Bury Town FC                   England · FA Cup     Over 1.5 goals                            77%     @1.27  LOW        0.12%  Q0FDB7
+19:45  Wingate & Finchley v Bedford Town Football Club  England · FA Cup     Wingate & Finchley (+1.5) Asian handicap  79%     @1.23  LOW        0.12%  YVXPU3
+15:00  Kazakhstan v Faroe Islands                       UEFA Nations League  ✓ Under 3.5 goals                         82%     @1.21  HIGH       0.25%  NRDWVA
+19:45  Albania v San Marino                             UEFA Nations League  ᴮ San Marino (+5.5) Asian handicap        83%     @1.21  LOW        0.12%  HD2UQS
+19:45  Belarus v Finland                                UEFA Nations League  $ Belarus Over 0.5 goals                  64%     @1.60  LOW        0.12%  PHR6AB
+19:45  Croatia v Spain                                  UEFA Nations League  ✓ Multigoals 2-5                          71%     @1.20  MEDIUM     0.25%  K9Y2LQ
+19:45  England v Czech Republic                         UEFA Nations League  ✓ England Under 4.5 goals                 80%     @1.23  LOW        0.12%  PNMKL3
+19:45  Estonia v Iceland                                UEFA Nations League  ✓ Over 1.5 goals                          75%     @1.29  HIGH       0.25%  J3JLZL
+19:45  Luxembourg v Bulgaria                            UEFA Nations League  ✓ Bulgaria (0:2) handicap                 81%     @1.21  MEDIUM     0.25%  V5VNUD
+19:45  Moldova v Slovakia                               UEFA Nations League  ⇄✓ Moldova or Slovakia                    79%     @1.20  HIGH       0.25%  GSWAY4
+19:45  Scotland v Slovenia                              UEFA Nations League  ✓ Scotland Over 0.5 goals                 79%     @1.25  HIGH       0.25%  K5MVK9
+19:45  Switzerland v North Macedonia                    UEFA Nations League  ✓ Multigoals 1-4                          71%     @1.22  MEDIUM     0.25%  Z22256
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 9 of 15 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 6 quoted by no second book.
+
+⇄ SWITCHED — 1 shaky pick(s) moved to a steadier market (model and SportyBet agree, at most 5 pts less likely):
+   • Moldova v Slovakia (🏆 UEFA Nations League) — was Moldova (+2.5) Asian handicap (the two prediction models disagree on the result) → now Moldova or Slovakia (79%, HIGH)
+
+⚠ TEAM NEWS — 1 pick(s) hit by injuries/suspensions (certainty lowered; re-checked when lineups are confirmed):
+   • RISK: England v Czech Republic (🏆 UEFA Nations League) — Czechia missing 30% of value (Ladislav Krejcí, Adam Karabec)
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Kazakhstan v Faroe Islands: tempo 2.3 goals/game · draw tendency 15% · a side often fails to score | Kazakhstan 0.8-1.9 a game, draws 15%, BTTS 30%, clean sheets 25% | Faroe Islands 1.0-0.9 a game, draws 15%, BTTS 40%, clean sheets 25%
+   • Albania v San Marino: tempo 2.5 goals/game · draw tendency 12% · a side often fails to score | Albania 0.8-0.9 a game, draws 15%, BTTS 25%, clean sheets 40% | San Marino 0.6-2.8 a game, draws 10%, BTTS 40%, clean sheets 10%
+   • Belarus v Finland: tempo 2.8 goals/game · draw tendency 22% · a side often fails to score | Belarus 1.4-1.5 a game, draws 35%, BTTS 50%, clean sheets 35% | Finland 0.9-1.8 a game, draws 10%, BTTS 40%, clean sheets 15%
+   • Croatia v Spain: tempo 3.0 goals/game · draw tendency 18% | Croatia 2.0-1.1 a game, draws 10%, BTTS 50%, clean sheets 35% | Spain 2.5-0.6 a game, draws 25%, BTTS 30%, clean sheets 70%
+   • England v Czech Republic: tempo 3.0 goals/game · draw tendency 22% | England 2.3-0.8 a game, draws 10%, BTTS 40%, clean sheets 55% | Czech Republic 1.8-1.1 a game, draws 35%, BTTS 60%, clean sheets 35%
+   • Estonia v Iceland: tempo 3.1 goals/game · draw tendency 20% · open, high-scoring pairing · a side often fails to score | Estonia 0.9-1.8 a game, draws 20%, BTTS 45%, clean sheets 20% | Iceland 1.4-2.1 a game, draws 20%, BTTS 60%, clean sheets 15%
+   • Luxembourg v Bulgaria: tempo 2.5 goals/game · draw tendency 22% · a side often fails to score | Luxembourg 0.3-1.6 a game, draws 20%, BTTS 20%, clean sheets 20% | Bulgaria 1.1-2.0 a game, draws 25%, BTTS 40%, clean sheets 25%
+   • Moldova v Slovakia: tempo 2.9 goals/game · draw tendency 18% · a side often fails to score | Moldova 0.9-2.3 a game, draws 20%, BTTS 45%, clean sheets 20% | Slovakia 1.3-1.3 a game, draws 15%, BTTS 35%, clean sheets 45%
+   • Scotland v Slovenia: tempo 2.4 goals/game · draw tendency 25% · a side often fails to score | Scotland 1.6-1.1 a game, draws 10%, BTTS 35%, clean sheets 40% | Slovenia 0.9-1.2 a game, draws 40%, BTTS 45%, clean sheets 35%
+   • Switzerland v North Macedonia: tempo 2.7 goals/game · draw tendency 38% · both draw-prone | Switzerland 2.2-0.9 a game, draws 35%, BTTS 60%, clean sheets 40% | North Macedonia 1.2-1.1 a game, draws 40%, BTTS 30%, clean sheets 60%
+
+TABLE 2 mega code (all 15 deploy singles): HFQUEA   load ↦ www.sportybet.com/ng/?shareCode=HFQUEA
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty legs only, combined chance 50% or more)
+──────────────────────────────────
+
+50+ #1 · code U67UG7 · odds 1.81 · chance 51%
+   • 15:00 Kazakhstan v Faroe Islands (🏆 UEFA Nations League) — Under 3.5 goals @1.21 (82%, HIGH)
+   • 19:45 Moldova v Slovakia (🏆 UEFA Nations League) — Moldova or Slovakia @1.20 (79%, HIGH)
+   • 19:45 Scotland v Slovenia (🏆 UEFA Nations League) — Scotland Over 0.5 goals @1.25 (79%, HIGH)
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(capital-eligible grouped accumulators, own code per acca)
+──────────────────────────────────
+
+3 accas cover all 15 deploy picks — every code is also in ALL CODES at the end.
+
+Acca A · code JS6RUY · 5 legs · odds 2.61 · chance 35%
+   • 19:45 Albania v San Marino (🏆 UEFA Nations League) — San Marino (+5.5) Asian handicap @1.21 (83%)
+   • 15:00 Kazakhstan v Faroe Islands (🏆 UEFA Nations League) — Under 3.5 goals @1.21 (82%)
+   • 19:45 Luxembourg v Bulgaria (🏆 UEFA Nations League) — Bulgaria (0:2) handicap @1.21 (81%)
+   • 19:45 Atherton Collieries v Trafford FC (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Over 1.5 goals @1.20 (81%)
+   • 19:45 England v Czech Republic (🏆 UEFA Nations League) — England Under 4.5 goals @1.23 (80%)
+Acca B · code GGPE3J · 5 legs · odds 2.77 · chance 29%
+   • 19:45 Moldova v Slovakia (🏆 UEFA Nations League) — Moldova or Slovakia @1.20 (79%)
+   • 19:45 Wingate & Finchley v Bedford Town Football Club (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Wingate & Finchley (+1.5) Asian handicap @1.23 (79%)
+   • 19:45 Scotland v Slovenia (🏆 UEFA Nations League) — Scotland Over 0.5 goals @1.25 (79%)
+   • 19:45 Scarborough Athletic v Macclesfield FC (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Macclesfield FC Win to Nil — no @1.23 (78%)
+   • 19:45 Halesowen Town FC v Stafford Rangers (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Halesowen Town FC or Stafford Rangers @1.22 (77%)
+Acca C · code N7P8UW · 5 legs · odds 3.84 · chance 19%
+   • 19:45 Spalding United v Bury Town FC (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Over 1.5 goals @1.27 (77%)
+   • 19:45 Estonia v Iceland (🏆 UEFA Nations League) — Over 1.5 goals @1.29 (75%)
+   • 19:45 Switzerland v North Macedonia (🏆 UEFA Nations League) — Multigoals 1-4 @1.22 (71%)
+   • 19:45 Croatia v Spain (🏆 UEFA Nations League) — Multigoals 2-5 @1.20 (71%)
+   • 19:45 Belarus v Finland (🏆 UEFA Nations League) — Belarus Over 0.5 goals @1.60 (64%)
+
+All accas together = every deploy pick, so their mega code is the same slip as Table 2's:
+TABLE 3 mega code (all 15 deploy singles): HFQUEA   load ↦ www.sportybet.com/ng/?shareCode=HFQUEA
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(same fixtures, each on a DIFFERENT market from its main pick — goals,
+ handicaps, team goals — so one result can't sink every slip)
+──────────────────────────────────
+
+Alt A · code J7UJDH · 5 legs · odds 2.68 · chance 35%
+   • 19:45 Switzerland v North Macedonia (🏆 UEFA Nations League) — Switzerland Under 4.5 goals @1.21 (83%)
+   • 19:45 Luxembourg v Bulgaria (🏆 UEFA Nations League) — Under 3.5 goals @1.21 (82%)
+   • 19:45 Belarus v Finland (🏆 UEFA Nations League) — Belarus (2:0) handicap @1.24 (81%)
+   • 19:45 Halesowen Town FC v Stafford Rangers (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Under 4.5 goals @1.21 (80%)
+   • 19:45 Scotland v Slovenia (🏆 UEFA Nations League) — Scotland (1:0) handicap @1.22 (79%)
+Alt B · code JSTK6X · 5 legs · odds 3.02 · chance 29%
+   • 19:45 Wingate & Finchley v Bedford Town Football Club (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Wingate & Finchley (2:0) handicap @1.21 (79%)
+   • 19:45 Moldova v Slovakia (🏆 UEFA Nations League) — Moldova (+2.5) Asian handicap @1.25 (79%)
+   • 19:45 Albania v San Marino (🏆 UEFA Nations League) — San Marino (0:6) handicap @1.20 (78%)
+   • 19:45 Croatia v Spain (🏆 UEFA Nations League) — Under 4.5 goals @1.33 (78%)
+   • 19:45 Spalding United v Bury Town FC (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Spalding United (+0.5) Asian handicap @1.25 (78%)
+Alt C · code Z9DQV7 · 5 legs · odds 3.10 · chance 23%
+   • 19:45 Atherton Collieries v Trafford FC (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Atherton Collieries Win to Nil — no @1.24 (77%)
+   • 19:45 Estonia v Iceland (🏆 UEFA Nations League) — Estonia or Iceland @1.25 (76%)
+   • 19:45 Scarborough Athletic v Macclesfield FC (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Under 3.5 goals @1.27 (75%)
+   • 15:00 Kazakhstan v Faroe Islands (🏆 UEFA Nations League) — Kazakhstan Win to Nil — no @1.30 (72%)
+   • 19:45 England v Czech Republic (🏆 UEFA Nations League) — Multigoals 2-5 @1.21 (71%)
+
+Each alt leg is a little less likely than the main pick: this spreads the risk, it does not raise the hit rate. Not part of the £1 live test (order 26) unless the Architect says so.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+Value 1 · code SK5BKK · 19:45 Croatia v Spain (🏆 UEFA Nations League) — Spain Under 2.5 goals @1.87 (57%, value +7.3% · model 76% vs SportyBet 51%)
+Value 2 · code QDAPA1 · 19:45 Switzerland v North Macedonia (🏆 UEFA Nations League) — North Macedonia (0:3) handicap @1.92 (54%, value +4.1% · model 64% vs SportyBet 51%)
+Value 3 · code G4VB13 · 19:45 Belarus v Finland (🏆 UEFA Nations League) — Belarus (1:0) handicap @1.77 (58%, value +2.2% · model 71% vs SportyBet 53%)
+Value acca · code GE1FFM · 3 legs · odds 6.36 · chance 18%
+
+Value means our chance × price is above 1. It comes from the model disagreeing with SportyBet, which is unproven: graded as its own line, minimal stake (0.25%) until results prove it.
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Albania v San Marino (🏆 UEFA Nations League) — San Marino (+5.5) Asian handicap (83%) @1.21 · code HD2UQS
+Acca A: 5 legs, model 35% · code JS6RUY
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00 (safest ~1.50); picks above 2.00 are never deployed.
+Calibration: 9 legs logged, mean CLV +1.66%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+50+ #1: U67UG7 (3 legs · odds 1.81 · 51% · stake 0.5%)
+Board MEGA: HFQUEA (15 legs · every single · stake 0.1%)
+Acca A: JS6RUY (5 legs · odds 2.61 · 35% · stake 0.25%)
+Acca B: GGPE3J (5 legs · odds 2.77 · 29% · stake 0.25%)
+Acca C: N7P8UW (5 legs · odds 3.84 · 19% · stake 0.25%)
+Alt A: J7UJDH (5 legs · alt markets · odds 2.68 · 35% · stake 0.25%)
+Alt B: JSTK6X (5 legs · alt markets · odds 3.02 · 29% · stake 0.25%)
+Alt C: Z9DQV7 (5 legs · alt markets · odds 3.10 · 23% · stake 0.25%)
+Value 1: SK5BKK (1 leg · positive value · odds 1.87 · 57% · stake 0.25%)
+Value 2: QDAPA1 (1 leg · positive value · odds 1.92 · 54% · stake 0.25%)
+Value 3: G4VB13 (1 leg · positive value · odds 1.77 · 58% · stake 0.25%)
+Value acca: GE1FFM (3 legs · positive value · odds 6.36 · 18% · stake 0.1%)

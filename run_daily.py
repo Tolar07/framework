@@ -1034,6 +1034,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     mega_codes = None          # dict once the picks are split into mega slips
     extra_codes: dict = {}     # per-table mega codes (Architect 2026-10-03)
     alt_codes: dict = {}       # alt-market accas (order 31)
+    value_codes: dict = {}     # positive-value bets (order 37)
     _sb_index_holder: dict = {"index": None}
     try:
         from output.produce_bet import (_build_accas, _build_alt_accas, _build_megas,
@@ -1094,6 +1095,19 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                         alt_codes[_name] = _code
                 all_flags.append(f"alt-market accas: {len(alt_codes)}/{len(alt_accas)} booked "
                                  f"(a different market from each fixture's main pick)")
+                # POSITIVE-VALUE BETS (order 37): each its own code, plus one acca.
+                from output.produce_bet import _build_value
+                value_slips = _build_value(deploy)
+                for _name, _legs, _c in value_slips:
+                    _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                            bf.probs.home_team, bf.probs.away_team, key)
+                           for bf, _pick, _prob, key, _price in _legs]
+                    _code, _ = sbk.code_for_legs(sb_index, _ls)
+                    if _code:
+                        value_codes[_name] = _code
+                _nv = sum(1 for n, _l, _c in value_slips if n != "Value acca")
+                all_flags.append(f"positive-value bets (order 37): {_nv} found, "
+                                 f"{len(value_codes)}/{len(value_slips)} slip(s) booked")
                 megas = _build_megas(deploy)
                 if len(megas) > 1:
                     mega_codes = _book(megas)
@@ -1130,12 +1144,14 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         dep = [b for b in board if b.on_deploy_shortlist]
         megas_l = _build_megas(dep)
         from output.produce_bet import _build_alt_accas as _alt_accas
+        from output.produce_bet import _build_value as _build_value_l
         if frozen is not None:
             raise _KeepFrozen()
         picks_ledger.write_ledger(target, board, _build_accas(dep), _build_safe3(dep),
                                   megas_l if len(megas_l) > 1 else [],
                                   acca_codes, safe3_codes, mega_codes,
-                                  alts=_alt_accas(dep), alt_codes=alt_codes)
+                                  alts=_alt_accas(dep), alt_codes=alt_codes,
+                                  values=_build_value_l(dep), value_codes=value_codes)
     except _KeepFrozen:
         all_flags.append("picks ledger kept as frozen at the 10pm board (codes frozen)")
     except Exception as e:  # noqa: BLE001
@@ -1182,7 +1198,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
         acca_code=acca_code, board_code=board_code, board_date=target,
         acca_codes=acca_codes, mega_codes=mega_codes, safe3_codes=safe3_codes,
-        extra_codes=extra_codes, run_id=run_id, alt_codes=alt_codes)
+        extra_codes=extra_codes, run_id=run_id, alt_codes=alt_codes,
+        value_codes=value_codes)
 
     detail_text = render_produce_bet(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,

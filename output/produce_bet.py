@@ -879,6 +879,54 @@ def _build_alt_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     return out
 
 
+VALUE_BET_MIN_EV = 0.02   # positive-value table (order 37): EV >= +2% on our chance
+
+
+def value_leg(bf: BoardFixture) -> Optional[tuple[str, float, float, float, float, float]]:
+    """POSITIVE-VALUE BET (order 37, Architect 2026-10-05): the outcome of this
+    fixture whose price is furthest above our fair odds — EV >= +2% on our
+    chance, still >= 50% and inside 1.20–2.00 (cand_pool holds only those) —
+    when it is not already the main pick. None for a market-implied fixture
+    (its numbers are the bookmaker's, so no outcome can beat them) or when the
+    team news flags the outcome. Returns (key, chance, price, ev, model, market)."""
+    if bf.probs is None or getattr(bf, "prob_source", "model") == "market":
+        return None
+    from engine import team_news as tn
+    news = getattr(bf, "team_news", None)
+    best = None
+    for c in getattr(bf, "cand_pool", None) or []:
+        chance, ev, key, model_p, market_p, quote = c
+        if (key == bf.best_market_key or ev is None or ev < VALUE_BET_MIN_EV
+                or market_p is None or not quote or not quote.price):
+            continue
+        if news and tn.assess(key, news)["level"] != "OK":
+            continue
+        if best is None or (ev, chance) > (best[3], best[1]):
+            best = (key, chance, quote.price, ev, model_p, market_p)
+    return best
+
+
+def _build_value(shortlist: list[BoardFixture]) -> list[tuple]:
+    """[(name, [(bf, pick, prob, key, price)], combo)] — each positive-value
+    bet as its own single ("Value 1", …), best value first, then one
+    "Value acca" of them all when there are 2+ (order 37)."""
+    legs = []
+    for bf in shortlist:
+        v = value_leg(bf)
+        if v:
+            key, prob, price, ev, _m, _k = v
+            legs.append((bf, mkt.display(key, bf.probs.home_team, bf.probs.away_team),
+                         prob, key, price, ev))
+    legs.sort(key=lambda t: -t[5])
+    out = [(f"Value {i}", [leg[:5]], leg[2]) for i, leg in enumerate(legs, 1)]
+    if len(legs) > 1:
+        combo = 1.0
+        for leg in legs:
+            combo *= leg[2]
+        out.append(("Value acca", [leg[:5] for leg in legs], combo))
+    return out
+
+
 def _alt_odds(legs) -> float:
     odds = 1.0
     for leg in legs:
@@ -941,7 +989,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                             safe3_codes: Optional[dict] = None,
                             extra_codes: Optional[dict] = None,
                             run_id: Optional[str] = None,
-                            alt_codes: Optional[dict] = None) -> str:
+                            alt_codes: Optional[dict] = None,
+                            value_codes: Optional[dict] = None) -> str:
     """The ##########OLP XDV######### board the Architect reads on Telegram.
 
     Booking codes (real SportyBet share codes) are attached upstream by run_daily:
@@ -1178,6 +1227,34 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                     "test (order 26) unless the Architect says so."]
     out.append("")
 
+    # --- TABLE 3C · positive-value bets (order 37) ---
+    values = _build_value(shortlist)
+    value_codes = value_codes or {}
+    out += [_CANON_RULE, "TABLE 3C · POSITIVE-VALUE BETS",
+            "(priced ABOVE our fair odds — the bets with value in them, even where",
+            " they are not the likeliest outcome)", _CANON_RULE, ""]
+    if not values:
+        out.append("No outcome priced above our fair odds today (EV +2% or more, 50%+, "
+                   "1.20–2.00).")
+    else:
+        for name, legs, combo in values:
+            if name == "Value acca":
+                out.append(f"{name} · code {value_codes.get(name) or 'PENDING'} · "
+                           f"{len(legs)} legs · odds {_alt_odds(legs):.2f} · "
+                           f"chance {round(combo*100)}%")
+                continue
+            bf, pick, prob, _key, price = legs[0]
+            v = value_leg(bf)
+            gap = f" · model {v[4]:.0%} vs SportyBet {v[5]:.0%}" if v else ""
+            out.append(f"{name} · code {value_codes.get(name) or 'PENDING'} · "
+                       f"{kickoff(bf)} {comp.where(bf.fixture)} — {pick} @{price:.2f} "
+                       f"({round(prob*100)}%, value {v[3]*100:+.1f}%{gap})" if v else
+                       f"{name} · {comp.where(bf.fixture)} — {pick} @{price:.2f}")
+        out += ["", "Value means our chance × price is above 1. It comes from the model "
+                    "disagreeing with SportyBet, which is unproven: graded as its own "
+                    "line, minimal stake (0.25%) until results prove it."]
+    out.append("")
+
     # --- TABLE 4 · the pick ---
     out += [_CANON_RULE, "TABLE 4 · THE PICK",
             "(primary single + Acca A recommendation)", _CANON_RULE, ""]
@@ -1218,7 +1295,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
-    if accas or mega_codes or safe3 or board_code or alts:
+    if accas or mega_codes or safe3 or board_code or alts or values:
         out += ["", "ALL CODES"]
         for name, legs, combo in safe3:
             out.append(f"{name}: {safe3_codes.get(name) or 'PENDING'} "
@@ -1242,6 +1319,11 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out.append(f"{name}: {alt_codes.get(name) or 'PENDING'} "
                        f"({len(legs)} legs · alt markets · odds {_alt_odds(legs):.2f} · "
                        f"{round(combo*100)}% · stake 0.25%)")
+        for name, legs, combo in values:
+            out.append(f"{name}: {value_codes.get(name) or 'PENDING'} "
+                       f"({len(legs)} leg{'s' if len(legs) > 1 else ''} · positive value · "
+                       f"odds {_alt_odds(legs):.2f} · {round(combo*100)}% · "
+                       f"stake {'0.1' if len(legs) > 1 else '0.25'}%)")
     return "\n".join(out)
 
 

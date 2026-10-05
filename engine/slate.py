@@ -108,6 +108,11 @@ WHITELIST_LEAGUES = (
     # National teams — rated on the international results dataset
     # (data/international_source.py). Added 2026-09-30 at the Architect's request.
     "UEFA Nations League",
+    # More European top flights — added 2026-10-05 (Architect: full coverage).
+    "Turkish Super Lig",
+    "Greek Super League",
+    "Austrian Bundesliga",
+    "Swiss Super League",
 )
 
 # --- MARKET GATE (ratified 2026-08-04, evidence below) ----------------------

@@ -53,6 +53,7 @@ DRAW_ALLOWANCE = {"Belgian Pro League": 0.03, "Eredivisie": 0.03}
 NEWS_SWAP_PP = 0.06    # see TEAM NEWS: a weakened pick swaps to a safe alternative
 from engine.mes import mes_numeric
 from engine import markets as mkt
+from engine import calibration as cal
 from engine.form import compute_table, fixture_form, form_support as _form_support
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import (render_produce_bet, render_verify_results,
@@ -252,7 +253,7 @@ def log_paper_legs(log: CLVLog, board: list, odds_index: dict,
 
         for market in mkt.DEPLOYABLE:
             quote = mkt.quote(market, fx)
-            model_p = mkt.model_prob(market, p)
+            model_p = cal.model_prob(market, mkt.model_prob(market, p))
             if quote is None or not quote.available or model_p is None:
                 continue
             mes = mes_numeric(model_p, quote.price)
@@ -515,7 +516,8 @@ def _run(season: str = "2526", fixtures_season: str | None = None,
         cands: list = []   # (cons, ev, market, model_p, market_p, quote)
         for market in mkt.DEPLOYABLE:
             quote = mkt.quote(market, fx)
-            model_p = mkt.model_prob(market, p)
+            # BTTS calibrated (engine/calibration.py)
+            model_p = cal.model_prob(market, mkt.model_prob(market, p))
             if quote is None or not quote.available or model_p is None:
                 continue
             if not in_deploy_band(quote.price):
@@ -557,6 +559,8 @@ def _run(season: str = "2526", fixtures_season: str | None = None,
                 md = fm.evaluate(dgrid, rule) if dgrid is not None else mk
                 if md is None:
                     continue
+                if dgrid is not None:      # the model's BTTS, calibrated (engine/calibration.py)
+                    md = (cal.model_prob(k, md[0]), md[1])
                 cw, cp = md if mk is None else (mk[0] + MODEL_WEIGHT * (md[0] - mk[0]),
                                                 mk[1] + MODEL_WEIGHT * (md[1] - mk[1]))
                 win = round(cw + sh(k), 4)

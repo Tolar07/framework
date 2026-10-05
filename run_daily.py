@@ -54,6 +54,11 @@ DRAW_ALLOWANCE = {"Belgian Pro League": 0.03, "Eredivisie": 0.03}
 # teams-to-score-yes or Over-goals outcome priced above its fair odds (EV on
 # our chance >= VALUE_MIN_EV) takes the pick from the likeliest outcome.
 VALUE_MIN_EV = 0.02
+# NO UNDERDOG HANDICAPS IN THE FA CUP (Architect 2026-10-05, standing order
+# 38): on 3 Oct, plus-line handicaps on FA Cup underdogs (Enfield +2.5 lost
+# 6-1, Cirencester +3.5 lost 4-0, Dulwich +2.5 lost 5-0) were the board's worst
+# market. They are never scored there, so the likeliest other outcome is picked.
+NO_DOG_HANDICAP_LEAGUES = frozenset({"FA Cup"})
 NEWS_SWAP_PP = 0.06    # see TEAM NEWS: a weakened pick swaps to a safe alternative
 from engine.mes import mes_numeric
 from engine import markets as mkt
@@ -512,7 +517,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
 
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
-    ladder_fixtures = ladder_rejected = 0
+    ladder_fixtures = ladder_rejected = dog_hcp_dropped = 0
     # AUTOMATIC LEARNING (improvement #6, engine.learning): every graded pick
     # corrects the next board. A market family or league whose picks won less
     # often than we said gets its chances cut (and can fall below the 50%
@@ -604,6 +609,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                               None if (mk is None or market_only) else mk[0],
                               odds_mod.MarketQuote(price=price, bookmaker="sportybet",
                                                    n_books=1)))
+        # NO UNDERDOG HANDICAPS (order 38): dropped before anything is chosen,
+        # so they never become the pick, the alternative, a value bet or a swap.
+        if _lg in NO_DOG_HANDICAP_LEAGUES:
+            _n = len(cands)
+            cands = [c for c in cands if not fm.is_underdog_handicap(c[2])]
+            dog_hcp_dropped += _n - len(cands)
         if not cands:
             continue
 
@@ -742,6 +753,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     _n_value = sum(1 for b in board if getattr(b, "tier", None) == "VALUE")
     all_flags.append(f"value picks (order 36): {_n_value} BTTS-yes / over-goals pick(s) "
                      f"priced above fair odds took the pick from the likeliest outcome")
+    if dog_hcp_dropped:
+        all_flags.append(f"FA Cup underdog handicaps (order 38): {dog_hcp_dropped} outcome(s) "
+                         f"not considered")
     if ladder_fixtures:
         all_flags.append(
             f"full market ladder: {ladder_fixtures} fixture(s) scored on every "

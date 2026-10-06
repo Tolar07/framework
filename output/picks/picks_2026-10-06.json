@@ -452,7 +452,11 @@
     "home": 745475373,
     "away": 68298692
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Czechia missing 22% of value (Ladislav Krejc\u00ed)",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68931706",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -552,7 +556,11 @@
     "home": 3424675,
     "away": 21240457
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Bulgaria missing 12% of value (Lukas Petkov, Dimitar Velkovski); support: Luxembourg missing 89%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932276",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -652,7 +660,11 @@
     "home": 99966755,
     "away": 65543288
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Scotland at full strength",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932792",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -702,7 +714,11 @@
     "home": 203313713,
     "away": 20034001
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:68932794",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {

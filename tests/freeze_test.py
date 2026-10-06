@@ -76,6 +76,24 @@ assert not any(r["name"] == "A v B" for r in recs), "news not touching the froze
 _tn.assess = _orig
 print("news-hit leg with no alternative -> dropped / slip withdrawn: OK")
 
+# Scan failure (6 Oct 2026: SportyBet refused the runner, 0 fixtures priced):
+# nothing is withdrawn, every leg stays as frozen and the message says which
+# matches were not re-checked.
+unchecked = []
+lines, recs = freeze.check(fz, [], lambda leg: None, book, now, unchecked=unchecked)
+assert lines == [] and recs == [], (lines, recs)
+assert unchecked == ["A v B", "C v D"], unchecked          # E v F already started
+msg = freeze.message(fz, lines, "2026-10-05", "R", unchecked=unchecked)
+assert "Not re-checked this run" in msg and "2 match(es)" in msg and "No changes" in msg, msg
+print("empty scan -> codes kept, not re-checked matches listed: OK")
+
+# Its league WAS priced but the fixture is gone (postponed) -> still 'left the board'.
+board4 = [bf("C v D", "OVER_1_5"), bf("E v F", "DC_X2")]
+unchecked = []
+lines, recs = freeze.check(fz, board4, lambda leg: leg["price"], book, now, unchecked=unchecked)
+assert unchecked == [] and any("no longer on the board" in l for l in lines), lines
+print("fixture gone from a priced league -> still replaced: OK")
+
 print("\n✅ ALL FREEZE TESTS PASSED")
 
 # Order 38 on a frozen board: an FA Cup underdog handicap frozen before the rule

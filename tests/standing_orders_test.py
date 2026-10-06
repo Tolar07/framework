@@ -359,6 +359,8 @@ assert _ne.k_factor("FIFA World Cup") > _ne.k_factor("UEFA Nations League") > _n
 # 35. Codes frozen at 10pm
 from engine import freeze as _fz
 assert _fz.DRIFT == 0.05, "Order 35: a frozen leg is replaced only on a 5%+ drift, team news or leaving the board"
+assert "if send and frozen is not None:" in _rd_src, \
+    "Order 35: a frozen day always sends its check, even when the run produced nothing"
 
 # 36. BTTS calibrated; BTTS-yes / over-goals value picks
 from engine import calibration as _cal

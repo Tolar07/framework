@@ -44,7 +44,7 @@ from engine import competitions as comp
 from engine import full_markets as fm
 from engine import markets as mkt
 from engine.slate import AGREE_PP, CERTAINTY_HIGH_PP, DEPLOY_MIN_MODEL_PROB, DEPLOY_ODDS_MIN
-from output.produce_bet import ACCA_MAX, ACCA_MIN, _acca_name, _split_sizes, kickoff
+from output.produce_bet import ACCA_LEG_MIN, ACCA_MAX, ACCA_MIN, _acca_name, _split_sizes, kickoff
 
 # Flip to True once the Architect has checked the bet365 NAMES against the app.
 MENU_CONFIRMED = False
@@ -264,7 +264,8 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
             if pk["news"]:
                 out.append(f"   ⚠ {pk['news']}")
 
-    legs = sorted(got, key=lambda x: -x["chance"])
+    # order 40: only 75%+ picks go into an acca, 3 legs each
+    legs = sorted((pk for pk in got if pk["chance"] >= ACCA_LEG_MIN), key=lambda x: -x["chance"])
     sizes = _split_sizes(len(legs), ACCA_MIN, ACCA_MAX)
     if sizes:
         out += ["", _RULE, "bet365 ACCAS", "(build by hand on bet365, strongest legs first)",

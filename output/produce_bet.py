@@ -720,7 +720,15 @@ def _canon_short(fixture: str) -> str:
     return fixture.split(" (")[0]
 
 
-ACCA_MIN, ACCA_MAX = 4, 5      # Architect 2026-10-02: 4-5 legs per acca
+# Architect 2026-10-06 (order 40), after Monday's board: 7 of 9 singles won
+# but every acca lost. At ~78% a leg, a 5-leg acca wins about 1 time in 3 and
+# one surprise result sank 2-3 slips at once because the same matches sat in
+# every acca. So: accas of 3 legs; only picks of 75%+ go into an acca; and no
+# match is in more than one acca (the megas are the one place everything is
+# combined). Fixtures are handed out in order: 50+ accas, main accas, alt
+# accas, value acca — each takes only matches no earlier acca used.
+ACCA_MIN, ACCA_MAX = 3, 3
+ACCA_LEG_MIN = 0.75
 MEGA_MAX_LEGS = 26             # SportyBet won't take 78 on one slip: split into parts
 
 
@@ -754,12 +762,24 @@ def _ranked_legs(shortlist: list[BoardFixture]) -> list[tuple]:
     return sorted(legs, key=lambda t: t[2], reverse=True)
 
 
+def _acca_legs(shortlist: list[BoardFixture]) -> list[tuple]:
+    """Ranked deploy legs strong enough for an acca (order 40: 75%+)."""
+    return [l for l in _ranked_legs(shortlist) if l[2] >= ACCA_LEG_MIN]
+
+
+def _used(slips: list[tuple]) -> set[str]:
+    """Matches already in these slips ('Home v Away')."""
+    return {_canon_short(leg[0].fixture) for _n, legs, _c in slips for leg in legs}
+
+
 def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
-    """EVERY deploy pick grouped into accumulators of 4-5 legs, strongest legs
-    first (Acca A = the top legs, then B, C, ...), each fixture in exactly one
-    acca. Combined model probability = PRODUCT of the legs (an explicit
+    """Deploy picks of 75%+ grouped into accumulators of up to 3 legs,
+    strongest legs first (Acca A = the top legs, then B, C, ...), leaving out
+    the matches a 50+ acca already holds — a match is in one acca at most
+    (order 40). Combined model probability = PRODUCT of the legs (an explicit
     independence assumption, stated on the board). [] if < 2 legs."""
-    legs = _ranked_legs(shortlist)
+    taken = _used(_build_safe3(shortlist))
+    legs = [l for l in _acca_legs(shortlist) if _canon_short(l[0].fixture) not in taken]
     if len(legs) < 2:
         return []
     out, i = [], 0
@@ -794,7 +814,8 @@ def _build_megas(shortlist: list[BoardFixture]) -> list[tuple]:
 # ALTERNATIVE-MARKET ACCAS (Architect 2026-10-04, standing order 31): the same
 # deploy fixtures, each with its likeliest winnable outcome from a DIFFERENT
 # market family than its main pick (goals, handicaps, team goals ...), in
-# accas of 4-5 legs. The main slips all stand or fall on the same outcomes;
+# accas of up to 3 legs (order 40: only matches no 50+ or main acca holds,
+# 75%+ legs). The main slips all stand or fall on the same outcomes;
 # these spread the risk over different outcomes of the same matches. Each alt
 # leg is a little less likely than the main pick — this spreads risk, it does
 # not raise the hit rate.
@@ -863,12 +884,16 @@ def steadier_pick(bf: "BoardFixture", no_side: bool = False) -> Optional[tuple]:
 
 
 def _build_alt_accas(shortlist: list[BoardFixture]) -> list[tuple]:
-    """[(name, [(bf, pick, prob, key, price)], combo)] — every deploy fixture
-    that has an alternative leg, strongest first, in accas of 4-5 legs."""
+    """[(name, [(bf, pick, prob, key, price)], combo)] — deploy fixtures whose
+    alternative leg is 75%+ and that no 50+ or main acca already holds
+    (order 40), strongest first, in accas of up to 3 legs."""
+    taken = _used(_build_safe3(shortlist)) | _used(_build_accas(shortlist))
     legs = []
     for bf in shortlist:
+        if bf.probs is None or _canon_short(bf.fixture) in taken:
+            continue
         a = alt_leg(bf)
-        if a:
+        if a and a[1] >= ACCA_LEG_MIN:
             key, prob, price = a
             legs.append((bf, mkt.display(key, bf.probs.home_team, bf.probs.away_team),
                          prob, key, price))
@@ -916,7 +941,8 @@ def value_leg(bf: BoardFixture) -> Optional[tuple[str, float, float, float, floa
 def _build_value(shortlist: list[BoardFixture]) -> list[tuple]:
     """[(name, [(bf, pick, prob, key, price)], combo)] — each positive-value
     bet as its own single ("Value 1", …), best value first, then one
-    "Value acca" of them all when there are 2+ (order 37)."""
+    "Value acca" when 2+ of them are 75%+ on matches no other acca holds
+    (order 37; order 40: up to 3 legs, best value first)."""
     legs = []
     for bf in shortlist:
         v = value_leg(bf)
@@ -926,11 +952,16 @@ def _build_value(shortlist: list[BoardFixture]) -> list[tuple]:
                          prob, key, price, ev))
     legs.sort(key=lambda t: -t[5])
     out = [(f"Value {i}", [leg[:5]], leg[2]) for i, leg in enumerate(legs, 1)]
-    if len(legs) > 1:
+    acca = [leg for leg in legs if leg[2] >= ACCA_LEG_MIN]
+    if len(acca) > 1:
+        taken = (_used(_build_safe3(shortlist)) | _used(_build_accas(shortlist))
+                 | _used(_build_alt_accas(shortlist)))
+        acca = [leg for leg in acca if _canon_short(leg[0].fixture) not in taken][:ACCA_MAX]
+    if len(acca) > 1:
         combo = 1.0
-        for leg in legs:
+        for leg in acca:
             combo *= leg[2]
-        out.append(("Value acca", [leg[:5] for leg in legs], combo))
+        out.append(("Value acca", [leg[:5] for leg in acca], combo))
     return out
 
 
@@ -951,7 +982,7 @@ def _build_safe3(shortlist: list[BoardFixture]) -> list[tuple]:
     high-certainty legs (HIGH first, then MEDIUM — never LOW: a leg whose %
     we can't trust can't carry a 50%+ promise). Strongest legs first; stops
     at the first trio below 50%. A fixture appears in at most one."""
-    legs = [l for l in _ranked_legs(shortlist)
+    legs = [l for l in _acca_legs(shortlist)
             if l[0].certainty in _CERT_ORDER]
     legs.sort(key=lambda t: (_CERT_ORDER[t[0].certainty], -t[2]))
     out = []
@@ -1170,7 +1201,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
     safe3 = _build_safe3(shortlist)
     safe3_codes = safe3_codes or {}
     out += [_CANON_RULE, "TABLE 3A · 50%+ ACCAS",
-            "(3 legs each, high-certainty legs only, combined chance 50% or more)",
+            "(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)",
             _CANON_RULE, ""]
     if not safe3:
         out.append("No 3-leg acca reaches 50% from high-certainty legs today.")
@@ -1191,14 +1222,17 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
 
     # --- TABLE 3 · ACCA route ---
     out += [_CANON_RULE, "TABLE 3 · ACCA ROUTE",
-            "(capital-eligible grouped accumulators, own code per acca)",
+            "(3 legs each, 75%+ picks only, a match in one acca at most — order 40)",
             _CANON_RULE, ""]
     accas = _build_accas(shortlist)
     if not accas:
         out.append("No capital-eligible accas generated.")
     else:
-        out.append(f"{len(accas)} accas cover all {sum(len(l) for _, l, _ in accas)} "
-                   f"deploy picks — every code is also in ALL CODES at the end.")
+        out.append(f"{len(accas)} accas · {sum(len(l) for _, l, _ in accas)} picks of 75%+ "
+                   f"not already in a 50+ acca — every code is also in ALL CODES at the end.")
+        _low = sum(1 for _l in _ranked_legs(shortlist) if _l[2] < ACCA_LEG_MIN)
+        if _low:
+            out.append(f"{_low} pick(s) under 75% stay singles only (Table 2).")
         out.append("")
         for name, legs, combo in accas:
             code = acca_codes.get(name) or "PENDING"
@@ -1208,19 +1242,19 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                 price = f" @{bf.best_price:.2f}" if bf.best_price else ""
                 out.append(f"   • {kickoff(bf)} {comp.where(bf.fixture)} — {pick}{price} "
                            f"({round(prob*100)}%)")
-        out += ["", "All accas together = every deploy pick, so their mega code is the "
-                "same slip as Table 2's:"] + _mega_lines("TABLE 3")
+        out += ["", "Every deploy pick on one slip (the same slip as Table 2's mega):"] \
+            + _mega_lines("TABLE 3")
     out.append("")
 
     # --- TABLE 3B · alternative-market accas (order 31) ---
     alts = _build_alt_accas(shortlist)
     alt_codes = alt_codes or {}
     out += [_CANON_RULE, "TABLE 3B · ALT-MARKET ACCAS",
-            "(same fixtures, each on a DIFFERENT market from its main pick — goals,",
-            " handicaps, team goals — so one result can't sink every slip)",
+            "(matches no other acca holds, each on a DIFFERENT market from its main",
+            " pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)",
             _CANON_RULE, ""]
     if not alts:
-        out.append("No alternative market in the 1.20–2.00 band at 50%+ today.")
+        out.append("No alternative leg of 75%+ on a match no other acca holds today.")
     else:
         for name, legs, combo in alts:
             out.append(f"{name} · code {alt_codes.get(name) or 'PENDING'} · {len(legs)} legs · "

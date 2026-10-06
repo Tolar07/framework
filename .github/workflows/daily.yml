@@ -134,6 +134,28 @@ jobs:
             date -u +%FT%TZ > "$MARKER"
           fi
 
+      # NBA PAPER BOARD (standing order 41): after the evening football board,
+      # SportyBet NBA prices that beat the sharp line, to the Architect's own
+      # chat only; grades earlier NBA picks first. Paper only — never fails
+      # the football run. A manual dispatch resends the day's board.
+      - name: NBA paper board
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+          SCHEDULE:           ${{ github.event.schedule }}
+          SLOT_INPUT:         ${{ github.event.inputs.slot }}
+        run: |
+          if [ "$SCHEDULE" = "47 20 * * *" ] || [ "$SLOT_INPUT" = "evening" ]; then
+            python run_nba.py
+          elif [ -z "$SCHEDULE" ] && [ "${SLOT_INPUT:-manual}" = "manual" ]; then
+            python run_nba.py --resend
+          else
+            echo "NBA paper board runs with the evening board only"
+          fi
+
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.
       - name: Persist the CLV log and board

@@ -45,6 +45,9 @@ class Game:
     ml_away: Optional[float] = None
     spread: Optional[float] = None     # home handicap (negative = home favoured)
     total: Optional[float] = None
+    home_name: str = ""                # ESPN display name, e.g. "Boston Celtics"
+    away_name: str = ""
+    tip: str = ""                      # tip-off, ISO UTC ("2026-10-07T00:00Z")
 
 
 def _get(url: str, tries: int = 3) -> Optional[dict]:
@@ -90,7 +93,10 @@ def scoreboard(d: date, use_cache: bool = True) -> list[Game]:
         g = Game(id=e["id"], date=e["date"][:10], season=e["season"]["year"],
                  stype=e["season"]["type"], home=side["home"]["team"]["abbreviation"],
                  away=side["away"]["team"]["abbreviation"],
-                 completed=bool(e.get("status", {}).get("type", {}).get("completed")))
+                 completed=bool(e.get("status", {}).get("type", {}).get("completed")),
+                 home_name=side["home"]["team"].get("displayName", ""),
+                 away_name=side["away"]["team"].get("displayName", ""),
+                 tip=e.get("date", ""))
         if g.completed:
             try:
                 g.hs, g.as_ = int(side["home"]["score"]), int(side["away"]["score"])

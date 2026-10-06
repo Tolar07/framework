@@ -12,7 +12,14 @@ Fair chances
   winner (219)     the sharp moneyline with its margin removed
   handicap (223)   home margin ~ Normal(-sharp spread, 13.7)   (NBA_STUDY Q-margin)
   total (225)      final total ~ Normal(sharp total, 18.0)     (NBA_STUDY Q5)
-All SportyBet NBA markets include overtime, as do ESPN's lines and results.
+  1st half total (68)     ~ Normal(0.502 x sharp total, 11.9)  (NBA_STUDY Q7)
+  1st quarter total (236, quarternr=1) ~ Normal(0.253 x sharp total, 8.1)
+The full-game markets include overtime, as do ESPN's lines and results; the
+half and quarter totals never do.
+The Architect's own NBA method (2026-10-06) — Over a LOW points line, Under a
+HIGH one, full game / 1st half / 1st quarter — is exactly what these lines
+price: the board backs such a line only when SportyBet pays above its fair
+price for that distance from the expected score.
 
 A pick needs: price 1.20-2.00, chance >= 50%, value (chance x price - 1)
 >= +3% on the winner market or >= +5% on a handicap / total line (the normal
@@ -29,6 +36,9 @@ from typing import Optional
 
 TOTAL_SD = 18.0
 MARGIN_SD = 13.7
+H1_SHARE, H1_SD = 0.502, 11.9     # 1st half: share of the game total, spread
+Q1_SHARE, Q1_SD = 0.253, 8.1      # 1st quarter
+PERIOD_MARKETS = ("68", "236")
 BAND = (1.20, 2.00)
 MIN_CHANCE = 0.50
 MIN_EV_WINNER = 0.03
@@ -68,12 +78,17 @@ def fair_chance(market_id: str, specifier: str, outcome: str, sharp) -> Optional
         mean = -sharp.spread                     # expected home margin
         p_home = 1 - _phi((-h - mean) / MARGIN_SD)
         return p_home if side == "Home" else (1 - p_home if side == "Away" else None)
-    if market_id == "225":
+    if market_id in ("225",) + PERIOD_MARKETS:
         m = re.search(r"total=(\d+(?:\.\d+)?)", specifier or "")
         if sharp.total is None or not m:
             return None
+        if market_id == "236" and "quarternr=1" not in (specifier or ""):
+            return None                          # 1st quarter only
+        mean, sd = {"225": (sharp.total, TOTAL_SD),
+                    "68": (H1_SHARE * sharp.total, H1_SD),
+                    "236": (Q1_SHARE * sharp.total, Q1_SD)}[market_id]
         line = float(m.group(1))
-        p_over = 1 - _phi((line - sharp.total) / TOTAL_SD)
+        p_over = 1 - _phi((line - mean) / sd)
         return p_over if side == "Over" else (1 - p_over if side == "Under" else None)
     return None
 
@@ -83,7 +98,7 @@ def candidates(event: dict, sharp) -> tuple[list[dict], list[dict]]:
     picks, suspect = [], []
     for m in event.get("markets", []):
         mid = str(m.get("id"))
-        if mid not in ("219", "223", "225"):
+        if mid not in ("219", "223", "225") + PERIOD_MARKETS:
             continue
         spec = m.get("specifier") or ""
         for o in m.get("outcomes", []):
@@ -128,11 +143,17 @@ def display(row: dict, home: str, away: str) -> str:
         return f"{team} ({m.group(1) if m else '?'}) handicap"
     if mid == "225":
         return f"{o} points (incl. OT)"
+    if mid == "68":
+        return f"1st half {o} points"
+    if mid == "236":
+        return f"1st quarter {o} points"
     return o
 
 
-def settle(row: dict, hs: int, as_: int) -> Optional[str]:
-    """'won' / 'lost' for a pick from the final score (incl. OT), or None."""
+def settle(row: dict, hs: int, as_: int, q_home: Optional[list] = None,
+           q_away: Optional[list] = None) -> Optional[str]:
+    """'won' / 'lost' for a pick from the final score (incl. OT) — or, for a
+    1st-half / 1st-quarter total, from the quarter scores — or None."""
     o, mid, spec = row["outcome"], row["market_id"], row.get("specifier") or ""
     if mid == "219":
         return "won" if (o == "Home") == (hs > as_) else "lost"
@@ -149,4 +170,11 @@ def settle(row: dict, hs: int, as_: int) -> Optional[str]:
             return None
         over = hs + as_ > float(m.group(1))
         return "won" if (o.startswith("Over") == over) else "lost"
+    if mid in PERIOD_MARKETS:
+        m = re.search(r"total=(\d+(?:\.\d+)?)", spec)
+        n = 2 if mid == "68" else 1
+        if not m or not q_home or not q_away or len(q_home) < n or len(q_away) < n:
+            return None
+        pts = sum(q_home[:n]) + sum(q_away[:n])
+        return "won" if (o.startswith("Over") == (pts > float(m.group(1)))) else "lost"
     return None

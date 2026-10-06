@@ -258,7 +258,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.17,
+   "drift_pct": -3.3
   },
   {
    "fixture": "Albania v San Marino",

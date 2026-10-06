@@ -192,8 +192,11 @@ def _settle_90_bounds(market: str, ev: dict) -> Optional[str]:
     1-1, final 1-2 (aet): 90' was 1-1 or 1-2, and "Macclesfield win to nil —
     no" wins either way. None when the range allows both outcomes."""
     from engine import half
-    fh, fa, th, ta = ev.get("fh_home"), ev.get("fh_away"), ev.get("fthg"), ev.get("ftag")
-    if None in (fh, fa, th, ta) or fh > th or fa > ta:
+    fh, fa = ev.get("fh_home"), ev.get("fh_away")
+    th, ta = ev.get("fthg"), ev.get("ftag")
+    if fh is None or fa is None or th is None or ta is None:
+        return None
+    if fh > th or fa > ta:
         return None
     if half.is_first_half(market):
         return half.settle(market, fh, fa)
@@ -223,9 +226,9 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                         s["orig_result"] = _settle(s["orig_market"], ev["fthg"], ev["ftag"])
                     changed += 1
                 elif ev and ev["finished_other"]:
-                    new = _settle_90_bounds(s["market"], ev) or "no-90min-result"
-                    if new != s["result"]:
-                        s["result"] = new
+                    res90 = _settle_90_bounds(s["market"], ev) or "no-90min-result"
+                    if res90 != s["result"]:
+                        s["result"] = res90
                         changed += 1
             graded += s["result"] is not None
             pending += s["result"] is None
@@ -241,9 +244,9 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                         leg["result"] = _settle_ev(leg["market"], ev)
                         changed += 1
                     elif ev and ev["finished_other"]:
-                        new = _settle_90_bounds(leg["market"], ev) or "no-90min-result"
-                        if new != leg["result"]:
-                            leg["result"] = new
+                        res90 = _settle_90_bounds(leg["market"], ev) or "no-90min-result"
+                        if res90 != leg["result"]:
+                            leg["result"] = res90
                             changed += 1
         for kind in ("accas", "safe3", "megas", "alts", "replaced", "value"):
             for slip in doc.get(kind, []):

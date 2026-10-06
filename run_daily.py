@@ -1309,10 +1309,14 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     deliver_now = send and (produced or not only_production)
     board_delivered = False
 
-    if deliver_now and frozen is not None:
+    if send and frozen is not None:
         # FROZEN DAY: no new board, no new codes — a short check instead, and
         # new codes ONLY for slips whose legs drifted, were hit by team news or
         # left the board. A manual run resends the frozen board first.
+        # Sent even when this run produced nothing (--only-production): the
+        # chats hold last night's codes and must hear whether they still stand
+        # (6 Oct 2026: SportyBet refused the runner, the scan came back empty
+        # and the morning check was silently skipped).
         try:
             from pipeline import sportybet_booking as _sbk
             _idx = _sb_index_holder["index"] or _sbk._event_index()
@@ -1333,9 +1337,13 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 code, _ = _sbk.code_for_legs(_idx, legs) if _idx else (None, None)
                 return code
 
+            unchecked: list = []
             lines, recs = freeze.check(frozen, board, _price_now, _book_legs,
-                                       display=mkt.display)
-            check_text = freeze.message(frozen, lines, target, run_id)
+                                       display=mkt.display, unchecked=unchecked)
+            check_text = freeze.message(frozen, lines, target, run_id, unchecked=unchecked)
+            if unchecked:
+                _mark(runlog, f"codes frozen: {len(unchecked)} match(es) not re-checked "
+                              f"(no prices this run) — kept as frozen")
         except Exception as e:  # noqa: BLE001 — never send a new board instead
             recs = []
             check_text = freeze.message(frozen, [], target, run_id) + \

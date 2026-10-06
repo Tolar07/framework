@@ -74,8 +74,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -3.17,
    "stake_pct": 0.12,
    "ev": -0.050905079286678534,
    "missing": null,
@@ -118,8 +118,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.16,
+   "clv": 6.03,
    "stake_pct": 0.12,
    "ev": -0.044241295619715904,
    "missing": null,
@@ -162,8 +162,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.0,
    "stake_pct": 0.12,
    "ev": -0.02562054276437531,
    "missing": null,
@@ -206,8 +206,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -6.82,
    "stake_pct": 0.12,
    "ev": -0.030014865342886443,
    "missing": null,
@@ -298,7 +298,11 @@
     "home": 41373126,
     "away": 1026777
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "San Marino rotated: confirmed XI worth 78% of predicted",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:68932514",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -307,8 +311,8 @@
     "spec": "hcp=-5.5",
     "outcome": "Away (+5.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.12,
    "ev": -0.05302087444407377,
    "missing": {
@@ -348,7 +352,11 @@
     "home": 7078555,
     "away": 25877632
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Finland missing 35%",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:68932516",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -357,8 +365,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.62,
+   "clv": -1.23,
    "stake_pct": 0.12,
    "ev": 0.02362829682013179,
    "missing": {
@@ -411,8 +419,8 @@
     "spec": "",
     "outcome": "2-5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.14847700272388809,
    "missing": {
@@ -465,8 +473,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.12,
    "ev": -0.01841734287603536,
    "missing": {
@@ -506,7 +514,11 @@
     "home": 6800724,
     "away": 74469826
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:68932274",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -515,8 +527,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -2.27,
    "stake_pct": 0.25,
    "ev": -0.02794268169478431,
    "missing": {
@@ -569,8 +581,8 @@
     "spec": "hcp=0:2",
     "outcome": "Away (0:2)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 3.42,
    "stake_pct": 0.25,
    "ev": -0.023049975316329796,
    "missing": {
@@ -610,7 +622,11 @@
     "home": 5860109,
     "away": 53326716
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:68932370",
    "sb_tid": "sr:tournament:23755",
    "sb_market": {
@@ -619,8 +635,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04189216041478161,
    "missing": {
@@ -673,8 +689,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -2.34,
    "stake_pct": 0.25,
    "ev": -0.01647722969838572,
    "missing": {
@@ -727,8 +743,8 @@
     "spec": "",
     "outcome": "1-4"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.13110053046750803,
    "missing": {

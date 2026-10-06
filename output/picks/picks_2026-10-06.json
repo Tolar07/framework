@@ -2328,5 +2328,500 @@
    ],
    "ft": null
   }
+ ],
+ "replaced": [
+  {
+   "kind": "single",
+   "name": "Wingate & Finchley v Bedford Town Football Club",
+   "old_code": "YVXPU3",
+   "new_code": "Y6P242",
+   "notes": [
+    "Wingate & Finchley v Bedford Town Football Club: Wingate & Finchley (+1.5) Asian handicap \u2192 Over 1.5 goals (underdog handicap in the FA Cup (order 38))"
+   ],
+   "odds": 1.26,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Wingate & Finchley v Bedford Town Football Club",
+     "home": "Wingate & Finchley",
+     "away": "Bedford Town Football Club",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.26,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Wingate & Finchley v Bedford Town Football Club"
+   ]
+  },
+  {
+   "kind": "single",
+   "name": "Belarus v Finland",
+   "old_code": "PHR6AB",
+   "new_code": "M0VPL9",
+   "notes": [
+    "Belarus v Finland: Belarus Over 0.5 goals \u2192 Under 3.5 goals (price drifted 1.60 \u2192 1.69)"
+   ],
+   "odds": 1.2,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Belarus v Finland",
+     "home": "Belarus",
+     "away": "Finland",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.2,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Belarus v Finland"
+   ]
+  },
+  {
+   "kind": "accas",
+   "name": "Acca A",
+   "old_code": "JS6RUY",
+   "new_code": "V0CXXY",
+   "notes": [
+    "England v Czech Republic: England Under 4.5 goals dropped (team news: Czechia missing 25% of value (Ladislav Krejc\u00ed))"
+   ],
+   "odds": 2.126,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Albania v San Marino",
+     "home": "Albania",
+     "away": "San Marino",
+     "kickoff": "2026-10-06",
+     "market": "SB:16|hcp=-5.5|Away (+5.5)",
+     "pick": "San Marino (+5.5) Asian handicap",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Kazakhstan v Faroe Islands",
+     "home": "Kazakhstan",
+     "away": "Faroe Islands",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Luxembourg v Bulgaria",
+     "home": "Luxembourg",
+     "away": "Bulgaria",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=0:2|Away (0:2)",
+     "pick": "Bulgaria (0:2) handicap",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Atherton Collieries v Trafford FC",
+     "home": "Atherton Collieries",
+     "away": "Trafford FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.2,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Albania v San Marino",
+    "Kazakhstan v Faroe Islands",
+    "Luxembourg v Bulgaria",
+    "Atherton Collieries v Trafford FC"
+   ]
+  },
+  {
+   "kind": "accas",
+   "name": "Acca B",
+   "old_code": "GGPE3J",
+   "new_code": "U1Y8G9",
+   "notes": [
+    "Wingate & Finchley v Bedford Town Football Club: Wingate & Finchley (+1.5) Asian handicap \u2192 Over 1.5 goals (underdog handicap in the FA Cup (order 38))"
+   ],
+   "odds": 2.836,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Moldova v Slovakia",
+     "home": "Moldova",
+     "away": "Slovakia",
+     "kickoff": "2026-10-06",
+     "market": "SB:10||Home or Away",
+     "pick": "Moldova or Slovakia",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Wingate & Finchley v Bedford Town Football Club",
+     "home": "Wingate & Finchley",
+     "away": "Bedford Town Football Club",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Scotland v Slovenia",
+     "home": "Scotland",
+     "away": "Slovenia",
+     "kickoff": "2026-10-06",
+     "market": "SB:19|total=0.5|Over 0.5",
+     "pick": "Scotland Over 0.5 goals",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Scarborough Athletic v Macclesfield FC",
+     "home": "Scarborough Athletic",
+     "away": "Macclesfield FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:34||No",
+     "pick": "Macclesfield FC Win to Nil \u2014 no",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Halesowen Town FC v Stafford Rangers",
+     "home": "Halesowen Town FC",
+     "away": "Stafford Rangers",
+     "kickoff": "2026-10-06",
+     "market": "SB:10||Home or Away",
+     "pick": "Halesowen Town FC or Stafford Rangers",
+     "price": 1.22,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Moldova v Slovakia",
+    "Wingate & Finchley v Bedford Town Football Club",
+    "Scotland v Slovenia",
+    "Scarborough Athletic v Macclesfield FC",
+    "Halesowen Town FC v Stafford Rangers"
+   ]
+  },
+  {
+   "kind": "accas",
+   "name": "Acca C",
+   "old_code": "N7P8UW",
+   "new_code": "T3HJZP",
+   "notes": [
+    "Belarus v Finland: Belarus Over 0.5 goals \u2192 Under 3.5 goals (price drifted 1.60 \u2192 1.69)"
+   ],
+   "odds": 2.878,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Spalding United v Bury Town FC",
+     "home": "Spalding United",
+     "away": "Bury Town FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "Estonia v Iceland",
+     "home": "Estonia",
+     "away": "Iceland",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Switzerland v North Macedonia",
+     "home": "Switzerland",
+     "away": "North Macedonia",
+     "kickoff": "2026-10-06",
+     "market": "SB:548||1-4",
+     "pick": "Multigoals 1-4",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Croatia v Spain",
+     "home": "Croatia",
+     "away": "Spain",
+     "kickoff": "2026-10-06",
+     "market": "SB:548||2-5",
+     "pick": "Multigoals 2-5",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Belarus v Finland",
+     "home": "Belarus",
+     "away": "Finland",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.2,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Spalding United v Bury Town FC",
+    "Estonia v Iceland",
+    "Switzerland v North Macedonia",
+    "Croatia v Spain",
+    "Belarus v Finland"
+   ]
+  },
+  {
+   "kind": "alts",
+   "name": "Alt B",
+   "old_code": "JSTK6X",
+   "new_code": "U2RZVV",
+   "notes": [
+    "Wingate & Finchley v Bedford Town Football Club: Wingate & Finchley (2:0) handicap \u2192 Over 1.5 goals (underdog handicap in the FA Cup (order 38))",
+    "Spalding United v Bury Town FC: Spalding United (+0.5) Asian handicap \u2192 Over 1.5 goals (underdog handicap in the FA Cup (order 38))"
+   ],
+   "odds": 3.192,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Wingate & Finchley v Bedford Town Football Club",
+     "home": "Wingate & Finchley",
+     "away": "Bedford Town Football Club",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Moldova v Slovakia",
+     "home": "Moldova",
+     "away": "Slovakia",
+     "kickoff": "2026-10-06",
+     "market": "SB:16|hcp=2.5|Home (+2.5)",
+     "pick": "Moldova (+2.5) Asian handicap",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Albania v San Marino",
+     "home": "Albania",
+     "away": "San Marino",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=0:6|Away (0:6)",
+     "pick": "San Marino (0:6) handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Croatia v Spain",
+     "home": "Croatia",
+     "away": "Spain",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.33,
+     "result": null
+    },
+    {
+     "fixture": "Spalding United v Bury Town FC",
+     "home": "Spalding United",
+     "away": "Bury Town FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.27,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Wingate & Finchley v Bedford Town Football Club",
+    "Moldova v Slovakia",
+    "Albania v San Marino",
+    "Croatia v Spain",
+    "Spalding United v Bury Town FC"
+   ]
+  },
+  {
+   "kind": "board",
+   "name": "Board MEGA",
+   "old_code": "HFQUEA",
+   "new_code": "TWF00L",
+   "notes": [
+    "Wingate & Finchley v Bedford Town Football Club: Wingate & Finchley (+1.5) Asian handicap \u2192 Over 1.5 goals (underdog handicap in the FA Cup (order 38))",
+    "Belarus v Finland: Belarus Over 0.5 goals \u2192 Under 3.5 goals (price drifted 1.60 \u2192 1.69)",
+    "England v Czech Republic: England Under 4.5 goals dropped (team news: Czechia missing 25% of value (Ladislav Krejc\u00ed))"
+   ],
+   "odds": 17.353,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Atherton Collieries v Trafford FC",
+     "home": "Atherton Collieries",
+     "away": "Trafford FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Halesowen Town FC v Stafford Rangers",
+     "home": "Halesowen Town FC",
+     "away": "Stafford Rangers",
+     "kickoff": "2026-10-06",
+     "market": "SB:10||Home or Away",
+     "pick": "Halesowen Town FC or Stafford Rangers",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Scarborough Athletic v Macclesfield FC",
+     "home": "Scarborough Athletic",
+     "away": "Macclesfield FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:34||No",
+     "pick": "Macclesfield FC Win to Nil \u2014 no",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Spalding United v Bury Town FC",
+     "home": "Spalding United",
+     "away": "Bury Town FC",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "Wingate & Finchley v Bedford Town Football Club",
+     "home": "Wingate & Finchley",
+     "away": "Bedford Town Football Club",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Kazakhstan v Faroe Islands",
+     "home": "Kazakhstan",
+     "away": "Faroe Islands",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Albania v San Marino",
+     "home": "Albania",
+     "away": "San Marino",
+     "kickoff": "2026-10-06",
+     "market": "SB:16|hcp=-5.5|Away (+5.5)",
+     "pick": "San Marino (+5.5) Asian handicap",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Belarus v Finland",
+     "home": "Belarus",
+     "away": "Finland",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=3.5|Under 3.5",
+     "pick": "Under 3.5 goals",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Croatia v Spain",
+     "home": "Croatia",
+     "away": "Spain",
+     "kickoff": "2026-10-06",
+     "market": "SB:548||2-5",
+     "pick": "Multigoals 2-5",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Estonia v Iceland",
+     "home": "Estonia",
+     "away": "Iceland",
+     "kickoff": "2026-10-06",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Luxembourg v Bulgaria",
+     "home": "Luxembourg",
+     "away": "Bulgaria",
+     "kickoff": "2026-10-06",
+     "market": "SB:14|hcp=0:2|Away (0:2)",
+     "pick": "Bulgaria (0:2) handicap",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Moldova v Slovakia",
+     "home": "Moldova",
+     "away": "Slovakia",
+     "kickoff": "2026-10-06",
+     "market": "SB:10||Home or Away",
+     "pick": "Moldova or Slovakia",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Scotland v Slovenia",
+     "home": "Scotland",
+     "away": "Slovenia",
+     "kickoff": "2026-10-06",
+     "market": "SB:19|total=0.5|Over 0.5",
+     "pick": "Scotland Over 0.5 goals",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Switzerland v North Macedonia",
+     "home": "Switzerland",
+     "away": "North Macedonia",
+     "kickoff": "2026-10-06",
+     "market": "SB:548||1-4",
+     "pick": "Multigoals 1-4",
+     "price": 1.22,
+     "result": null
+    }
+   ],
+   "legs": [
+    "Atherton Collieries v Trafford FC",
+    "Halesowen Town FC v Stafford Rangers",
+    "Scarborough Athletic v Macclesfield FC",
+    "Spalding United v Bury Town FC",
+    "Wingate & Finchley v Bedford Town Football Club",
+    "Kazakhstan v Faroe Islands",
+    "Albania v San Marino",
+    "Belarus v Finland",
+    "Croatia v Spain",
+    "Estonia v Iceland",
+    "Luxembourg v Bulgaria",
+    "Moldova v Slovakia",
+    "Scotland v Slovenia",
+    "Switzerland v North Macedonia"
+   ]
+  }
  ]
 }

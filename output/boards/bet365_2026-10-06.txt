@@ -2,7 +2,7 @@
 ==================================
 
 📅  Tue 06 Oct 2026 — bet365 board (sent to you only)
-Run ID: OLPXDV-20261006-0549-0a8bf7 (same run as the SportyBet board)
+Run ID: OLPXDV-20261006-0612-e99987 (same run as the SportyBet board)
 Times are kickoff, Lagos time (WAT)
 
 Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
@@ -14,7 +14,65 @@ Same fixtures, model and checks as the SportyBet board; each pick is limited to 
 ──────────────────────────────────
 bet365 SINGLES
 ──────────────────────────────────
-No bet365 pick today — nothing on bet365's list clears 50% in the 1.20–2.00 band.
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup
+ • 19:45 Atherton Collieries v Trafford FC — Goals Over/Under: Over 1.5
+   81% · deploy at 1.25+ · SportyBet @1.20 · LOW
+ • 19:45 Halesowen Town FC v Stafford Rangers — Double Chance: Halesowen Town FC or Stafford Rangers
+   77% · deploy at 1.30+ · SportyBet @1.22 · LOW
+ • 19:45 Spalding United v Bury Town FC — Goals Over/Under: Over 1.5
+   77% · deploy at 1.31+ · SportyBet @1.27 · LOW
+ • 19:45 Wingate & Finchley v Bedford Town Football Club — Goals Over/Under: Over 1.5
+   76% · deploy at 1.31+ · SportyBet @1.26 · LOW
+ • 19:45 Scarborough Athletic v Macclesfield FC — ≠ Team Goals: Macclesfield FC Over 0.5
+   74% · deploy at 1.36+ · SportyBet @1.31 · LOW
+   (SportyBet pick: Macclesfield FC Win to Nil — no — not on bet365)
+
+🏆 UEFA Nations League
+ • 19:45 Albania v San Marino — Handicap Result: San Marino +6
+   82% · deploy at 1.22+ · SportyBet @1.20 · LOW
+ • 15:00 Kazakhstan v Faroe Islands — Goals Over/Under: Under 3.5
+   82% · deploy at 1.22+ · SportyBet @1.20 · LOW
+ • 19:45 Scotland v Slovenia — Asian Handicap: Scotland +0.5
+   81% · deploy at 1.24+ · SportyBet @1.20 · HIGH
+ • 19:45 Luxembourg v Bulgaria — Asian Handicap: Bulgaria +1.5
+   81% · deploy at 1.24+ · SportyBet @1.21 · MEDIUM
+ • 19:45 Belarus v Finland — Goals Over/Under: Under 3.5
+   81% · deploy at 1.24+ · SportyBet @1.20 · MEDIUM
+ • 19:45 England v Czech Republic — Team Goals: England Under 4.5
+   80% · deploy at 1.26+ · SportyBet @1.23 · MEDIUM
+   ⚠ CAUTION: Czechia missing 25% of value (Ladislav Krejcí)
+ • 19:45 Croatia v Spain — Team Goals: Spain Under 3.5
+   77% · deploy at 1.30+ · SportyBet @1.33 · LOW
+ • 19:45 Moldova v Slovakia — Goals Over/Under: Over 1.5
+   77% · deploy at 1.30+ · SportyBet @1.26 · HIGH
+ • 19:45 Estonia v Iceland — Goals Over/Under: Over 1.5
+   75% · deploy at 1.33+ · SportyBet @1.29 · HIGH
+ • 19:45 Switzerland v North Macedonia — Multigoals: 1-4
+   71% · deploy at 1.41+ · SportyBet @1.22 · MEDIUM
+
+──────────────────────────────────
+bet365 ACCAS
+(build by hand on bet365, strongest legs first)
+──────────────────────────────────
+bet365 Acca A · 5 legs · chance 36% · deploy at 2.84+ combined
+   • Albania v San Marino (🏆 UEFA Nations League) — Handicap Result: San Marino +6 (82%)
+   • Kazakhstan v Faroe Islands (🏆 UEFA Nations League) — Goals Over/Under: Under 3.5 (82%)
+   • Scotland v Slovenia (🏆 UEFA Nations League) — Asian Handicap: Scotland +0.5 (81%)
+   • Luxembourg v Bulgaria (🏆 UEFA Nations League) — Asian Handicap: Bulgaria +1.5 (81%)
+   • Belarus v Finland (🏆 UEFA Nations League) — Goals Over/Under: Under 3.5 (81%)
+bet365 Acca B · 5 legs · chance 29% · deploy at 3.46+ combined
+   • Atherton Collieries v Trafford FC (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Goals Over/Under: Over 1.5 (81%)
+   • England v Czech Republic (🏆 UEFA Nations League) — Team Goals: England Under 4.5 (80%)
+   • Croatia v Spain (🏆 UEFA Nations League) — Team Goals: Spain Under 3.5 (77%)
+   • Moldova v Slovakia (🏆 UEFA Nations League) — Goals Over/Under: Over 1.5 (77%)
+   • Halesowen Town FC v Stafford Rangers (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Double Chance: Halesowen Town FC or Stafford Rangers (77%)
+bet365 Acca C · 5 legs · chance 23% · deploy at 4.38+ combined
+   • Spalding United v Bury Town FC (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Goals Over/Under: Over 1.5 (77%)
+   • Wingate & Finchley v Bedford Town Football Club (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Goals Over/Under: Over 1.5 (76%)
+   • Estonia v Iceland (🏆 UEFA Nations League) — Goals Over/Under: Over 1.5 (75%)
+   • Scarborough Athletic v Macclesfield FC (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · FA Cup) — Team Goals: Macclesfield FC Over 0.5 (74%)
+   • Switzerland v North Macedonia (🏆 UEFA Nations League) — Multigoals: 1-4 (71%)
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.

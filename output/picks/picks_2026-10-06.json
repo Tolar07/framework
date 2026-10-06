@@ -41,8 +41,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-0"
   },
   {
    "fixture": "Halesowen Town FC v Stafford Rangers",
@@ -83,8 +83,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.26,
    "drift_pct": 3.3
   },
@@ -171,8 +171,8 @@
    "sharp_ev": null,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-0",
    "drift_price": 1.27,
    "drift_pct": 0.0
   },
@@ -215,8 +215,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-3",
    "drift_price": 1.32,
    "drift_pct": 7.3
   },
@@ -269,8 +269,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-2",
    "drift_price": 1.17,
    "drift_pct": -3.3
   },
@@ -323,8 +323,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "drift_price": 1.18,
    "drift_pct": -2.5
   },
@@ -377,8 +377,8 @@
    "sharp_ev": null,
    "first_price": 1.6,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "drift_price": 1.73,
    "drift_pct": 8.1
   },
@@ -431,8 +431,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.19,
    "drift_pct": -0.8
   },
@@ -485,8 +485,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-0",
    "drift_price": 1.26,
    "drift_pct": 2.4
   },
@@ -539,8 +539,8 @@
    "sharp_ev": null,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-0",
    "drift_price": 1.37,
    "drift_pct": 6.2
   },
@@ -593,8 +593,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-2",
    "drift_price": 1.17,
    "drift_pct": -3.3
   },
@@ -647,10 +647,11 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-4",
    "drift_price": 1.2,
-   "drift_pct": 0.0
+   "drift_pct": 0.0,
+   "orig_result": "lost"
   },
   {
    "fixture": "Scotland v Slovenia",
@@ -701,8 +702,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.3,
    "drift_pct": 4.0
   },
@@ -755,8 +756,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-0",
    "drift_price": 1.2,
    "drift_pct": -1.6
   }
@@ -774,7 +775,7 @@
     "Atherton Collieries v Trafford FC",
     "England v Czech Republic"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca B",
@@ -788,7 +789,7 @@
     "Scarborough Athletic v Macclesfield FC",
     "Halesowen Town FC v Stafford Rangers"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca C",
@@ -802,7 +803,7 @@
     "Croatia v Spain",
     "Belarus v Finland"
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "safe3": [
@@ -816,7 +817,7 @@
     "Moldova v Slovakia",
     "Scotland v Slovenia"
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "megas": [],
@@ -844,8 +845,8 @@
      "pick": "Switzerland Under 4.5 goals",
      "price": 1.21,
      "chance": 0.8275,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "3-0"
     },
     {
      "fixture": "Luxembourg v Bulgaria",
@@ -857,8 +858,8 @@
      "pick": "Under 3.5 goals",
      "price": 1.21,
      "chance": 0.8175,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-2"
     },
     {
      "fixture": "Belarus v Finland",
@@ -870,8 +871,8 @@
      "pick": "Belarus (2:0) handicap",
      "price": 1.24,
      "chance": 0.8058,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-0"
     },
     {
      "fixture": "Halesowen Town FC v Stafford Rangers",
@@ -883,8 +884,8 @@
      "pick": "Under 4.5 goals",
      "price": 1.21,
      "chance": 0.7999,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Scotland v Slovenia",
@@ -896,11 +897,11 @@
      "pick": "Scotland (1:0) handicap",
      "price": 1.22,
      "chance": 0.7927,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "1-2"
     }
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Alt B",
@@ -925,8 +926,8 @@
      "pick": "Wingate & Finchley (2:0) handicap",
      "price": 1.21,
      "chance": 0.7886,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "1-3"
     },
     {
      "fixture": "Moldova v Slovakia",
@@ -938,8 +939,8 @@
      "pick": "Moldova (+2.5) Asian handicap",
      "price": 1.25,
      "chance": 0.7864,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "0-4"
     },
     {
      "fixture": "Albania v San Marino",
@@ -951,8 +952,8 @@
      "pick": "San Marino (0:6) handicap",
      "price": 1.2,
      "chance": 0.7826,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "Croatia v Spain",
@@ -964,8 +965,8 @@
      "pick": "Under 4.5 goals",
      "price": 1.33,
      "chance": 0.7797,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Spalding United v Bury Town FC",
@@ -977,11 +978,11 @@
      "pick": "Spalding United (+0.5) Asian handicap",
      "price": 1.25,
      "chance": 0.7774,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "4-0"
     }
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Alt C",
@@ -1006,8 +1007,8 @@
      "pick": "Atherton Collieries Win to Nil \u2014 no",
      "price": 1.24,
      "chance": 0.7704,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "3-0"
     },
     {
      "fixture": "Estonia v Iceland",
@@ -1019,8 +1020,8 @@
      "pick": "Estonia or Iceland",
      "price": 1.25,
      "chance": 0.758,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "0-0"
     },
     {
      "fixture": "Scarborough Athletic v Macclesfield FC",
@@ -1045,8 +1046,8 @@
      "pick": "Kazakhstan Win to Nil \u2014 no",
      "price": 1.3,
      "chance": 0.7214,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-2"
     },
     {
      "fixture": "England v Czech Republic",
@@ -1058,11 +1059,11 @@
      "pick": "Multigoals 2-5",
      "price": 1.21,
      "chance": 0.7139,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "3-0"
     }
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "value": [
@@ -1085,11 +1086,11 @@
      "pick": "Spain Under 2.5 goals",
      "price": 1.87,
      "chance": 0.5738,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-2"
     }
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Value 2",
@@ -1110,11 +1111,11 @@
      "pick": "North Macedonia (0:3) handicap",
      "price": 1.92,
      "chance": 0.542,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "3-0"
     }
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Value 3",
@@ -1135,11 +1136,11 @@
      "pick": "Belarus (1:0) handicap",
      "price": 1.77,
      "chance": 0.5776,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-0"
     }
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Value acca",
@@ -1162,8 +1163,8 @@
      "pick": "Spain Under 2.5 goals",
      "price": 1.87,
      "chance": 0.5738,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Switzerland v North Macedonia",
@@ -1175,8 +1176,8 @@
      "pick": "North Macedonia (0:3) handicap",
      "price": 1.92,
      "chance": 0.542,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "3-0"
     },
     {
      "fixture": "Belarus v Finland",
@@ -1188,11 +1189,11 @@
      "pick": "Belarus (1:0) handicap",
      "price": 1.77,
      "chance": 0.5776,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-0"
     }
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "rated": [
@@ -1266,7 +1267,7 @@
      0.6154
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   },
   {
    "fixture": "Halesowen Town FC v Stafford Rangers",
@@ -1350,7 +1351,7 @@
      0.6138
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Scarborough Athletic v Macclesfield FC",
@@ -1510,7 +1511,7 @@
      0.703
     ]
    ],
-   "ft": null
+   "ft": "4-0"
   },
   {
    "fixture": "Wingate & Finchley v Bedford Town Football Club",
@@ -1586,7 +1587,7 @@
      0.7018
     ]
    ],
-   "ft": null
+   "ft": "1-3"
   },
   {
    "fixture": "Kazakhstan v Faroe Islands",
@@ -1662,7 +1663,7 @@
      0.7806
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Albania v San Marino",
@@ -1722,7 +1723,7 @@
      0.7494
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "Belarus v Finland",
@@ -1798,7 +1799,7 @@
      0.7683
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Croatia v Spain",
@@ -1878,7 +1879,7 @@
      0.6557
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "England v Czech Republic",
@@ -1970,7 +1971,7 @@
      0.7182
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   },
   {
    "fixture": "Estonia v Iceland",
@@ -2054,7 +2055,7 @@
      0.6001
     ]
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "Luxembourg v Bulgaria",
@@ -2130,7 +2131,7 @@
      0.7861
     ]
    ],
-   "ft": null
+   "ft": "0-2"
   },
   {
    "fixture": "Moldova v Slovakia",
@@ -2214,7 +2215,7 @@
      0.6172
     ]
    ],
-   "ft": null
+   "ft": "0-4"
   },
   {
    "fixture": "Scotland v Slovenia",
@@ -2302,7 +2303,7 @@
      0.621
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Switzerland v North Macedonia",
@@ -2394,7 +2395,7 @@
      0.7099
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   }
  ],
  "replaced": [
@@ -2407,7 +2408,7 @@
     "Wingate & Finchley v Bedford Town Football Club: Wingate & Finchley (+1.5) Asian handicap \u2192 Over 1.5 goals (underdog handicap in the FA Cup (order 38))"
    ],
    "odds": 1.26,
-   "result": null,
+   "result": "won",
    "alt_legs": [
     {
      "fixture": "Wingate & Finchley v Bedford Town Football Club",
@@ -2417,7 +2418,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.26,
-     "result": null
+     "result": "won",
+     "ft": "1-3"
     }
    ],
    "legs": [
@@ -2433,7 +2435,7 @@
     "Belarus v Finland: Belarus Over 0.5 goals \u2192 Under 3.5 goals (price drifted 1.60 \u2192 1.69)"
    ],
    "odds": 1.2,
-   "result": null,
+   "result": "won",
    "alt_legs": [
     {
      "fixture": "Belarus v Finland",
@@ -2443,7 +2445,8 @@
      "market": "SB:18|total=3.5|Under 3.5",
      "pick": "Under 3.5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "1-0"
     }
    ],
    "legs": [
@@ -2459,7 +2462,7 @@
     "England v Czech Republic: England Under 4.5 goals dropped (team news: Czechia missing 25% of value (Ladislav Krejc\u00ed))"
    ],
    "odds": 2.126,
-   "result": null,
+   "result": "lost",
    "alt_legs": [
     {
      "fixture": "Albania v San Marino",
@@ -2469,7 +2472,8 @@
      "market": "SB:16|hcp=-5.5|Away (+5.5)",
      "pick": "San Marino (+5.5) Asian handicap",
      "price": 1.21,
-     "result": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "Kazakhstan v Faroe Islands",
@@ -2479,7 +2483,8 @@
      "market": "SB:18|total=3.5|Under 3.5",
      "pick": "Under 3.5 goals",
      "price": 1.21,
-     "result": null
+     "result": "lost",
+     "ft": "2-2"
     },
     {
      "fixture": "Luxembourg v Bulgaria",
@@ -2489,7 +2494,8 @@
      "market": "SB:14|hcp=0:2|Away (0:2)",
      "pick": "Bulgaria (0:2) handicap",
      "price": 1.21,
-     "result": null
+     "result": "won",
+     "ft": "0-2"
     },
     {
      "fixture": "Atherton Collieries v Trafford FC",
@@ -2499,7 +2505,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "3-0"
     }
    ],
    "legs": [
@@ -2528,7 +2535,8 @@
      "market": "SB:10||Home or Away",
      "pick": "Moldova or Slovakia",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "0-4"
     },
     {
      "fixture": "Wingate & Finchley v Bedford Town Football Club",
@@ -2538,7 +2546,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.26,
-     "result": null
+     "result": "won",
+     "ft": "1-3"
     },
     {
      "fixture": "Scotland v Slovenia",
@@ -2548,7 +2557,8 @@
      "market": "SB:19|total=0.5|Over 0.5",
      "pick": "Scotland Over 0.5 goals",
      "price": 1.25,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Scarborough Athletic v Macclesfield FC",
@@ -2568,7 +2578,8 @@
      "market": "SB:10||Home or Away",
      "pick": "Halesowen Town FC or Stafford Rangers",
      "price": 1.22,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     }
    ],
    "legs": [
@@ -2588,7 +2599,7 @@
     "Belarus v Finland: Belarus Over 0.5 goals \u2192 Under 3.5 goals (price drifted 1.60 \u2192 1.69)"
    ],
    "odds": 2.878,
-   "result": null,
+   "result": "lost",
    "alt_legs": [
     {
      "fixture": "Spalding United v Bury Town FC",
@@ -2598,7 +2609,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.27,
-     "result": null
+     "result": "won",
+     "ft": "4-0"
     },
     {
      "fixture": "Estonia v Iceland",
@@ -2608,7 +2620,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.29,
-     "result": null
+     "result": "lost",
+     "ft": "0-0"
     },
     {
      "fixture": "Switzerland v North Macedonia",
@@ -2618,7 +2631,8 @@
      "market": "SB:548||1-4",
      "pick": "Multigoals 1-4",
      "price": 1.22,
-     "result": null
+     "result": "won",
+     "ft": "3-0"
     },
     {
      "fixture": "Croatia v Spain",
@@ -2628,7 +2642,8 @@
      "market": "SB:548||2-5",
      "pick": "Multigoals 2-5",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Belarus v Finland",
@@ -2638,7 +2653,8 @@
      "market": "SB:18|total=3.5|Under 3.5",
      "pick": "Under 3.5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "1-0"
     }
    ],
    "legs": [
@@ -2659,7 +2675,7 @@
     "Spalding United v Bury Town FC: Spalding United (+0.5) Asian handicap \u2192 Over 1.5 goals (underdog handicap in the FA Cup (order 38))"
    ],
    "odds": 3.192,
-   "result": null,
+   "result": "lost",
    "alt_legs": [
     {
      "fixture": "Wingate & Finchley v Bedford Town Football Club",
@@ -2669,7 +2685,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.26,
-     "result": null
+     "result": "won",
+     "ft": "1-3"
     },
     {
      "fixture": "Moldova v Slovakia",
@@ -2679,7 +2696,8 @@
      "market": "SB:16|hcp=2.5|Home (+2.5)",
      "pick": "Moldova (+2.5) Asian handicap",
      "price": 1.25,
-     "result": null
+     "result": "lost",
+     "ft": "0-4"
     },
     {
      "fixture": "Albania v San Marino",
@@ -2689,7 +2707,8 @@
      "market": "SB:14|hcp=0:6|Away (0:6)",
      "pick": "San Marino (0:6) handicap",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "Croatia v Spain",
@@ -2699,7 +2718,8 @@
      "market": "SB:18|total=4.5|Under 4.5",
      "pick": "Under 4.5 goals",
      "price": 1.33,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Spalding United v Bury Town FC",
@@ -2709,7 +2729,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.27,
-     "result": null
+     "result": "won",
+     "ft": "4-0"
     }
    ],
    "legs": [
@@ -2731,7 +2752,7 @@
     "England v Czech Republic: England Under 4.5 goals dropped (team news: Czechia missing 25% of value (Ladislav Krejc\u00ed))"
    ],
    "odds": 17.353,
-   "result": null,
+   "result": "lost",
    "alt_legs": [
     {
      "fixture": "Atherton Collieries v Trafford FC",
@@ -2741,7 +2762,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "3-0"
     },
     {
      "fixture": "Halesowen Town FC v Stafford Rangers",
@@ -2751,7 +2773,8 @@
      "market": "SB:10||Home or Away",
      "pick": "Halesowen Town FC or Stafford Rangers",
      "price": 1.22,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Scarborough Athletic v Macclesfield FC",
@@ -2771,7 +2794,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.27,
-     "result": null
+     "result": "won",
+     "ft": "4-0"
     },
     {
      "fixture": "Wingate & Finchley v Bedford Town Football Club",
@@ -2781,7 +2805,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.26,
-     "result": null
+     "result": "won",
+     "ft": "1-3"
     },
     {
      "fixture": "Kazakhstan v Faroe Islands",
@@ -2791,7 +2816,8 @@
      "market": "SB:18|total=3.5|Under 3.5",
      "pick": "Under 3.5 goals",
      "price": 1.21,
-     "result": null
+     "result": "lost",
+     "ft": "2-2"
     },
     {
      "fixture": "Albania v San Marino",
@@ -2801,7 +2827,8 @@
      "market": "SB:16|hcp=-5.5|Away (+5.5)",
      "pick": "San Marino (+5.5) Asian handicap",
      "price": 1.21,
-     "result": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "Belarus v Finland",
@@ -2811,7 +2838,8 @@
      "market": "SB:18|total=3.5|Under 3.5",
      "pick": "Under 3.5 goals",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "1-0"
     },
     {
      "fixture": "Croatia v Spain",
@@ -2821,7 +2849,8 @@
      "market": "SB:548||2-5",
      "pick": "Multigoals 2-5",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Estonia v Iceland",
@@ -2831,7 +2860,8 @@
      "market": "SB:18|total=1.5|Over 1.5",
      "pick": "Over 1.5 goals",
      "price": 1.29,
-     "result": null
+     "result": "lost",
+     "ft": "0-0"
     },
     {
      "fixture": "Luxembourg v Bulgaria",
@@ -2841,7 +2871,8 @@
      "market": "SB:14|hcp=0:2|Away (0:2)",
      "pick": "Bulgaria (0:2) handicap",
      "price": 1.21,
-     "result": null
+     "result": "won",
+     "ft": "0-2"
     },
     {
      "fixture": "Moldova v Slovakia",
@@ -2851,7 +2882,8 @@
      "market": "SB:10||Home or Away",
      "pick": "Moldova or Slovakia",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "0-4"
     },
     {
      "fixture": "Scotland v Slovenia",
@@ -2861,7 +2893,8 @@
      "market": "SB:19|total=0.5|Over 0.5",
      "pick": "Scotland Over 0.5 goals",
      "price": 1.25,
-     "result": null
+     "result": "won",
+     "ft": "1-2"
     },
     {
      "fixture": "Switzerland v North Macedonia",
@@ -2871,7 +2904,8 @@
      "market": "SB:548||1-4",
      "pick": "Multigoals 1-4",
      "price": 1.22,
-     "result": null
+     "result": "won",
+     "ft": "3-0"
     }
    ],
    "legs": [

@@ -149,17 +149,28 @@ def leg_issue(leg: dict, board_by_fx: dict, price_now) -> Optional[str]:
 
 
 def check(frozen: dict, board: list, price_now, book, now: Optional[datetime] = None,
-          display=None) -> tuple[list[str], list[dict]]:
+          display=None, unchecked: Optional[list] = None) -> tuple[list[str], list[dict]]:
     """(message lines, replacement records). `book(legs)` -> new code or None,
-    legs as (league, home, away, market). `display(market, home, away)` names a pick."""
+    legs as (league, home, away, market). `display(market, home, away)` names a pick.
+    Fixtures that could not be re-checked are appended to `unchecked` if given."""
     now = now or datetime.now(timezone.utc)
     by_fx = {b.fixture.split(" (")[0]: b for b in board}
+    # Leagues this run actually priced. A leg whose league produced nothing
+    # (e.g. SportyBet refused the runner, 6 Oct 2026) was not re-checked —
+    # it stays as frozen; it has not "left the board".
+    priced = {league_of(b.fixture) for b in board if getattr(b, "probs", None) is not None}
     lines, recs = [], []
     for s in slips(frozen):
         new_legs, notes = [], []
         for leg in s["legs"]:
             if started(leg, now):
                 new_legs.append(leg)
+                continue
+            if (leg["fixture"] not in by_fx
+                    and (leg.get("league") or "") not in priced):
+                new_legs.append(leg)
+                if unchecked is not None and leg["fixture"] not in unchecked:
+                    unchecked.append(leg["fixture"])
                 continue
             why = leg_issue(leg, by_fx, price_now)
             if not why:
@@ -199,11 +210,17 @@ def check(frozen: dict, board: list, price_now, book, now: Optional[datetime] = 
     return lines, recs
 
 
-def message(frozen: dict, lines: list[str], target: str, run_id: str) -> str:
+def message(frozen: dict, lines: list[str], target: str, run_id: str,
+            unchecked: Optional[list] = None) -> str:
     head = [f"🔒 OLP XDV — CODES FROZEN · {target}", f"Run ID: {run_id}",
             f"The codes from the board sent at {_lagos(frozen['frozen_at'])} (Lagos) "
             f"are the codes for {target}."]
+    tail = []
+    if unchecked:
+        tail = ["", f"ℹ Not re-checked this run (no prices came back): {len(unchecked)} match(es) — "
+                    f"their legs stay as sent last night; the pre-kickoff team-news check still "
+                    f"covers them."]
     if not lines:
-        return "\n".join(head + ["", "✅ No changes — every leg still stands. Use last night's codes."])
+        return "\n".join(head + ["", "✅ No changes. Use last night's codes."] + tail)
     return "\n".join(head + ["", f"⚠ {len(lines)} slip(s) changed — use the NEW code for these "
-                                 f"only; every other code stays as it was:", ""] + lines)
+                                 f"only; every other code stays as it was:", ""] + lines + tail)

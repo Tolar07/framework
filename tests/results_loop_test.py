@@ -62,4 +62,26 @@ with tempfile.TemporaryDirectory() as d:
     assert "1W-0L-1V" in card and "+0.80u" in card, card
 print("ledger grading + scorecard: OK")
 
+# --- after extra time: settled only when every possible 90' score agrees ----
+AET = ("SA÷1¬~ZA÷ENGLAND: FA Cup - Qualification¬~AA÷x9¬AD÷1791312300¬AB÷3¬AC÷10¬"
+       "AE÷Scarborough¬AF÷Macclesfield¬AG÷1¬AH÷2¬BC÷0¬BD÷1¬")
+ev2 = fs.parse_feed(AET)
+assert ev2[0]["finished_other"] and (ev2[0]["fh_home"], ev2[0]["fh_away"]) == (1, 1)
+# HT 1-1, final 1-2 (aet) -> 90' was 1-1 or 1-2
+assert pl._settle_90_bounds("1X2_HOME", ev2[0]) == "lost", "home won neither way"
+assert pl._settle_90_bounds("1X2_AWAY", ev2[0]) is None, "1-1 or 1-2: never guessed"
+assert pl._settle_90_bounds(fm.key(18, "total=1.5", "Over 1.5"), ev2[0]) == "won"
+with tempfile.TemporaryDirectory() as d:
+    pl.LEDGER_DIR = Path(d)
+    doc = {"date": "2026-10-06", "generated_at": "", "singles": [
+        {"fixture": "Scarborough v Macclesfield", "league": "FA Cup", "home": "Scarborough",
+         "away": "Macclesfield", "kickoff": "2026-10-06", "market": "1X2_HOME", "pick": "x",
+         "price": 2.5, "chance": 0.4, "tier": "SAFE", "certainty": "LOW", "code": "S",
+         "result": "no-90min-result", "ft": None}], "accas": [], "safe3": [], "megas": []}
+    (Path(d) / "picks_2026-10-06.json").write_text(json.dumps(doc), encoding="utf-8")
+    pl.grade_all(ev2, today="2026-10-07")
+    out = json.loads((Path(d) / "picks_2026-10-06.json").read_text(encoding="utf-8"))
+    assert out["singles"][0]["result"] == "lost", "an earlier no-90min-result is re-checked"
+print("after extra time: settled from the half-time..final range only when certain: OK")
+
 print("\n✅ ALL RESULTS-LOOP TESTS PASSED")

@@ -184,6 +184,23 @@ def _settle(market: str, hg: int, ag: int) -> str:
     return "unknown" if hit is None else ("won" if hit else "lost")
 
 
+def _settle_90_bounds(market: str, ev: dict) -> Optional[str]:
+    """A match decided after extra time / penalties: the feed gives the
+    half-time and the FINAL score, not the 90-minute one. The 90-minute score
+    lies between the two, goal by goal; when the pick settles the SAME way for
+    every score in that range it is settled — never a guess (HR35). E.g. HT
+    1-1, final 1-2 (aet): 90' was 1-1 or 1-2, and "Macclesfield win to nil —
+    no" wins either way. None when the range allows both outcomes."""
+    from engine import half
+    fh, fa, th, ta = ev.get("fh_home"), ev.get("fh_away"), ev.get("fthg"), ev.get("ftag")
+    if None in (fh, fa, th, ta) or fh > th or fa > ta:
+        return None
+    if half.is_first_half(market):
+        return half.settle(market, fh, fa)
+    outs = {_settle(market, h, a) for h in range(fh, th + 1) for a in range(fa, ta + 1)}
+    return outs.pop() if len(outs) == 1 and "unknown" not in outs else None
+
+
 def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
     """Grade every ungraded single + slip in past ledgers. Returns flags."""
     from data.flashscore_results import find_result
@@ -197,7 +214,7 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
         changed = graded = pending = 0
         by_fixture = {}
         for s in doc["singles"]:
-            if s["result"] is None:
+            if s["result"] in (None, "no-90min-result"):
                 ev = find_result(events, s["home"], s["away"], s["kickoff"] or doc["date"])
                 if ev and ev["finished_regular"]:
                     s["ft"] = f'{ev["fthg"]}-{ev["ftag"]}'
@@ -206,15 +223,17 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                         s["orig_result"] = _settle(s["orig_market"], ev["fthg"], ev["ftag"])
                     changed += 1
                 elif ev and ev["finished_other"]:
-                    s["result"] = "no-90min-result"
-                    changed += 1
+                    new = _settle_90_bounds(s["market"], ev) or "no-90min-result"
+                    if new != s["result"]:
+                        s["result"] = new
+                        changed += 1
             graded += s["result"] is not None
             pending += s["result"] is None
             by_fixture[s["fixture"]] = s
         for slip in (doc.get("alts", []) + doc.get("replaced", [])
                      + doc.get("value", [])):                         # own-market legs
             for leg in slip.get("alt_legs", []):
-                if leg["result"] is None:
+                if leg["result"] in (None, "no-90min-result"):
                     ev = find_result(events, leg["home"], leg["away"],
                                      leg["kickoff"] or doc["date"])
                     if ev and ev["finished_regular"]:
@@ -222,8 +241,10 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                         leg["result"] = _settle_ev(leg["market"], ev)
                         changed += 1
                     elif ev and ev["finished_other"]:
-                        leg["result"] = "no-90min-result"
-                        changed += 1
+                        new = _settle_90_bounds(leg["market"], ev) or "no-90min-result"
+                        if new != leg["result"]:
+                            leg["result"] = new
+                            changed += 1
         for kind in ("accas", "safe3", "megas", "alts", "replaced", "value"):
             for slip in doc.get(kind, []):
                 if kind in ("alts", "replaced", "value"):

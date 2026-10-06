@@ -45,7 +45,7 @@ LAGOS = timezone(timedelta(hours=1))
 HOURS = 26
 TOURNAMENTS = {"sr:tournament:132": "regular", "sr:tournament:2382": "preseason"}
 _FEED = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
-         "?sportId=sr:sport:2&marketId=219,223,225&pageSize=100&pageNum={page}")
+         "?sportId=sr:sport:2&marketId=219,223,225,68,236&pageSize=100&pageNum={page}")
 _UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 _RULE = "──────────────────────────────────"
@@ -163,7 +163,7 @@ def grade(now: datetime) -> list[str]:
             g = next((x for x in ns.scoreboard(day, use_cache=False) if x.id == p["espn_id"]), None)
             if g is None or not g.completed:
                 continue
-            p["result"] = nv.settle(p, g.hs, g.as_)
+            p["result"] = nv.settle(p, g.hs, g.as_, g.q_home, g.q_away)
             p["score"] = f"{g.hs}-{g.as_}"
             ns.attach_odds(g, use_cache=False)          # the closing line
             pc = nv.fair_chance(p["market_id"], p["specifier"], p["outcome"], g)

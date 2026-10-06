@@ -54,4 +54,18 @@ txt = run_nba.render([], "2026-10-21", "OLPXDV-20261020-2047-abcdef", 0, None, [
 assert "PAPER BOARD" in txt and "Run ID: OLPXDV-20261020-2047-abcdef" in txt
 print("matching + board text: OK")
 
+# 1st half / 1st quarter totals (the Architect's low-Over / high-Under method)
+sh2 = NS(ml_home=1.9, ml_away=1.9, spread=-1.5, total=230.0)
+assert abs(nv.fair_chance("68", "total=115.5", "Over 115.5", sh2) - 0.5) < 0.01          # 0.502 x 230 = 115.5
+assert 0.84 < nv.fair_chance("68", "total=103.5", "Over 103.5", sh2) < 0.86              # 12 below
+assert 0.81 < nv.fair_chance("236", "total=50.5|quarternr=1", "Over 50.5", sh2) < 0.85  # 7.7 below 58.2
+assert nv.fair_chance("236", "total=50.5|quarternr=2", "Over 50.5", sh2) is None, "1st quarter only"
+assert nv.settle({"market_id": "236", "outcome": "Over 50.5", "specifier": "total=50.5|quarternr=1"},
+                 110, 100, [30, 25, 30, 25], [24, 25, 25, 26]) == "won"                 # Q1 = 54
+assert nv.settle({"market_id": "68", "outcome": "Under 104.5", "specifier": "total=104.5"},
+                 110, 100, [30, 25, 30, 25], [24, 25, 25, 26]) == "won"                 # H1 = 104 (OT never counts)
+assert nv.settle({"market_id": "68", "outcome": "Over 100.5", "specifier": "total=100.5"}, 1, 0, None, None) is None
+assert nv.display({"market_id": "236", "outcome": "Over 50.5"}, "A", "B") == "1st quarter Over 50.5 points"
+print("1st half / 1st quarter totals: OK")
+
 print("\n✅ ALL NBA TESTS PASSED")

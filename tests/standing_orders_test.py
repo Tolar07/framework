@@ -37,7 +37,7 @@ assert slate.DEPLOY_POOL_CAP is None or slate.DEPLOY_POOL_CAP >= 100, \
     "Order 5: every in-band fixture is a deploy single (Architect 2026-10-02)"
 from output.produce_bet import _split_sizes
 assert all(4 <= x <= 5 for x in _split_sizes(78, 4, 5)) and sum(_split_sizes(78, 4, 5)) == 78, \
-    "Order 5: accas are 4-5 legs and cover every pick"
+    "Order 5: groups never exceed their cap and cover every leg"
 
 # 6. Delivery schedule
 wf = (ROOT / ".github/workflows/daily.yml").read_text(encoding="utf-8")
@@ -309,18 +309,21 @@ from pipeline.odds import MarketQuote as _MQ
 def _c31(win, key, price):
     return (win, 0.0, key, win, win, _MQ(price=price))
 _bfs31 = []
-for _i in range(5):
+for _i in range(6):
+    # H0-H2: main pick 82% -> Acca A. H3-H5: main pick 72% (singles only) but
+    # a 78% Over 1.5 alternative -> Alt A (order 40: a match in one acca at most).
+    _main = 0.82 if _i < 3 else 0.72
     _b = pb.BoardFixture(f"H{_i} v A{_i} (La Liga 2)", _fp(f"H{_i}", f"A{_i}"), _v,
                          on_deploy_shortlist=True, best_market_key="SB:10||Home or Away",
-                         best_price=1.30, best_model_prob=0.82)
-    _b.cand_pool = [_c31(0.82, "SB:10||Home or Away", 1.30),
+                         best_market="Home or Away", best_price=1.30, best_model_prob=_main)
+    _b.cand_pool = [_c31(_main, "SB:10||Home or Away", 1.30),
                     _c31(0.80, "SB:10||Home or Draw", 1.25),
-                    _c31(0.74, "SB:18|total=1.5|Over 1.5", 1.28)]
+                    _c31(0.78, "SB:18|total=1.5|Over 1.5", 1.28)]
     _bfs31.append(_b)
 _alts31 = pb._build_alt_accas(_bfs31)
 assert _alts31 and all(_fam31(leg[3]) != "Double chance" for _n, ls, _c in _alts31 for leg in ls), \
     "Order 31: every alt leg is a different market family from the main pick"
-assert all(4 <= len(ls) <= 5 for _n, ls, _c in _alts31) and _alts31[0][0] == "Alt A"
+assert all(len(ls) <= 3 for _n, ls, _c in _alts31) and _alts31[0][0] == "Alt A"
 _b31 = pb.render_canonical_board("Mode A", "Phase 3", [], 0, None, [], _bfs31, alt_codes={"Alt A": "ALT123"})
 assert "TABLE 3B · ALT-MARKET ACCAS" in _b31 and "Alt A · code ALT123" in _b31 \
     and "Alt A: ALT123" in _b31.split("\nALL CODES\n")[1], "Order 31: alt accas on the board and in ALL CODES"
@@ -395,8 +398,16 @@ assert pb.value_leg(_bf37("A v B (FA Cup)", src="market", pool=_p37)) is None, \
     "Order 37: market-implied fixtures never qualify"
 assert pb.value_leg(_bf37("A v B (Serie A)", pool=_p37[:1] + _p37[2:3])) is None
 _vs = pb._build_value([_bf37("A v B (Serie A)", pool=_p37), _bf37("C v D (Serie A)", pool=_p37[:1] + _p37[3:])])
-assert [n for n, _l, _c in _vs] == ["Value 1", "Value 2", "Value acca"], _vs
-assert len(_vs[-1][1]) == 2, "Order 37: one Value acca of all the value bets"
+assert [n for n, _l, _c in _vs] == ["Value 1", "Value 2"], _vs
+# order 40: a Value acca only from 75%+ value legs on matches no other acca holds
+_p37b = [(0.78, 0.03, "SB:18|total=3.5|Under 3.5", 0.80, 0.76, _MQ(price=1.32))]
+_bs37 = [_bf37("A v B (Serie A)", pool=_p37b), _bf37("C v D (Serie A)", pool=_p37b)]
+for _x in _bs37:                     # main picks of 80% -> both in Acca A
+    _x.best_market, _x.best_model_prob, _x.certainty = "A to win", 0.80, None
+assert [n for n, _l, _c in pb._build_accas(_bs37)] == ["Acca A"]
+_vs = pb._build_value(_bs37)
+assert [n for n, _l, _c in _vs] == ["Value 1", "Value 2"], \
+    "Order 40: value legs on matches the main accas hold stay singles"
 
 # 38. No underdog handicaps in the FA Cup
 from engine import full_markets as _fm38
@@ -428,5 +439,19 @@ assert "loss_line" in _src39, "Order 39: the watch reaches the heartbeat"
 from output import telegram_commands as _tc39
 assert _tc39.handle("/approve P1").startswith("REFUSED"), \
     "Order 39: a decision without the Architect's chat is refused"
+
+# 40. Accas: 3 legs, 75%+ picks, a match in one acca at most
+assert (pb.ACCA_MIN, pb.ACCA_MAX, pb.ACCA_LEG_MIN) == (3, 3, 0.75), "Order 40: 3-leg accas of 75%+ picks"
+_bfs40 = [pb.BoardFixture(f"P{_i} v Q{_i} (Serie A)", _fp(f"P{_i}", f"Q{_i}"), _v,
+                          on_deploy_shortlist=True, best_market="P to win",
+                          best_model_prob=_p, certainty=_c)
+          for _i, (_p, _c) in enumerate([(0.86, "HIGH"), (0.85, "HIGH"), (0.84, "HIGH"),
+                                         (0.80, "LOW"), (0.79, "LOW"), (0.77, "LOW"),
+                                         (0.76, "LOW"), (0.70, "LOW"), (0.65, "HIGH")])]
+_s40, _a40 = pb._build_safe3(_bfs40), pb._build_accas(_bfs40)
+_all40 = [l[0].fixture for _n, ls, _c in _s40 + _a40 for l in ls]
+assert len(_all40) == len(set(_all40)) == 7, "Order 40: every 75%+ pick in exactly one acca"
+assert not any(f.startswith(("P7 ", "P8 ")) for f in _all40), "Order 40: picks under 75% stay singles"
+assert all(len(ls) <= 3 for _n, ls, _c in _s40 + _a40), "Order 40: at most 3 legs an acca"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

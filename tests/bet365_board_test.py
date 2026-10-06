@@ -83,7 +83,7 @@ print("deploy-at price: OK")
 
 # --- picking ---
 same = _bf("Sociedad B v Granada (La Liga 2)", "Sociedad B", "Granada",
-           K(10, "", "Home or Away"), 1.33, 0.74, [])
+           K(10, "", "Home or Away"), 1.33, 0.76, [])
 swap = _bf("Azerbaijan v Lithuania (UEFA Nations League)", "Azerbaijan", "Lithuania",
            K(34, "", "No"), 1.20, 0.82,
            [_c(0.82, K(34, "", "No"), 1.20),
@@ -105,7 +105,7 @@ off = BoardFixture("Lech v Legia (Ekstraklasa)", None, _V)   # not on the deploy
 
 pk = b365.choose(same)
 assert pk["same"] and pk["name"] == "Double Chance: Sociedad B or Granada" \
-    and pk["chance"] == 0.74, "a pick bet365 offers stays the same pick"
+    and pk["chance"] == 0.76, "a pick bet365 offers stays the same pick"
 pk = b365.choose(swap)
 assert not pk["same"] and pk["name"] == "Double Chance: Lithuania or draw", \
     "a SportyBet-only pick gives way to the likeliest bet365 one, Under-goals last"
@@ -133,11 +133,14 @@ assert txt.startswith("##########OLP XDV · BET365#########")
 assert "Sun 04 Oct 2026" in txt and "sent to you only" in txt
 assert "\U0001F1EA\U0001F1F8 Spain · La Liga 2" in txt, "picks grouped under country + league"
 assert "\U0001F3C6 UEFA Nations League" in txt
-assert "deploy at 1.36+" in txt and "SportyBet @1.33" in txt, "deploy-at + SportyBet reference"
+assert "deploy at 1.32+" in txt and "SportyBet @1.33" in txt, "deploy-at + SportyBet reference"
 assert "≠ Double Chance: Lithuania or draw" in txt
 assert "(SportyBet pick: Lithuania Win to Nil — no — not on bet365)" in txt
 assert "No bet365 pick (1)" in txt and "Malta v Andorra" in txt, "HR35: shown, never dropped"
 assert "bet365 Acca A" in txt, "picks grouped into accas to build by hand"
+_accas = txt.split("bet365 ACCAS")[1]
+assert "Sociedad B" in _accas and "Lithuania" in _accas and "Chelsea" not in _accas, \
+    "order 40: only 75%+ picks go into a bet365 acca (Chelsea's 72% stays a single)"
 assert ("DRAFT" in txt) == (not b365.MENU_CONFIRMED)
 assert "Lech v Legia" not in txt
 assert "@1.2" not in txt.split("bet365 SINGLES")[1].replace("SportyBet @", ""), \

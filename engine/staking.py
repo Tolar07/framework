@@ -13,7 +13,7 @@ live results take over as they accumulate):
   < -3%                -> 0.25% (proven losing: minimal)
   LOW certainty halves the stake.
 
-Slips: 50%+ accas 0.5%, 4-5 leg accas 0.25%, mega slips 0.1% — every extra
+Slips: 50%+ accas 0.5%, 3-leg accas (order 40) 0.25%, mega slips 0.1% — every extra
 leg adds the bookmaker's margin again.
 
 STOP-LOSS: a tier whose last 20 graded singles lost >= STOP_UNITS units is

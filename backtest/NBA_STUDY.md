@@ -86,3 +86,26 @@ stale centre line left inside a ladder (Miami v Minnesota: 236.5 at
   That can't be backtested (no SportyBet price history); it has to be
   measured live, on paper, from the regular-season start (20 Oct 2026).
   Preseason games (starters rested) are not a fair test.
+
+## Q7 · The Architect's method: Over a low line, Under a high line (full game, 1st half, 1st quarter)
+
+2,427 test games (2024-25, 2025-26) with quarter scores. Expected score as a
+share of the closing game line, and how widely the real score lands around it:
+
+| Period | Expected | Spread (sd) | 8 below → Over lands | 12 below → Over lands | 15 below → Over lands |
+|---|---|---|---|---|---|
+| 1st quarter | 0.253 × line (230 → 58.2) | 8.1 | 83.8% (fair 1.19) | 93.6% (fair 1.07) | 96.9% (fair 1.03) |
+| 1st half | 0.502 × line (230 → 115.6) | 11.9 | 75.4% (fair 1.33) | 84.6% (fair 1.18) | 89.9% (fair 1.11) |
+| Full game | 1.003 × line | 18.0 | 65.3% (fair 1.53) | 73.3% (fair 1.36) | 78.5% (fair 1.27) |
+
+The Under side mirrors it (8 above → Under lands 84.4% / 75.0% / 69.0%).
+
+SportyBet's NBA full-game ladders on 6 Oct (26 games) only reach ~6 points
+from the centre: Over the lowest line landed ~63% at an average 1.52 (value
+−4.4%); Under the highest ~63% at 1.54 (−3.8%). One of 52 extremes was
+above fair (Brooklyn Under 231.5 @1.56, +5.6%). NBA 1st-half and
+1st-quarter totals were not yet listed (they are for European leagues).
+
+So the method is sound as a way of choosing SAFE lines, but it only pays
+when SportyBet's price beats the fair price for that distance — which the
+paper board now checks for full-game, 1st-half and 1st-quarter totals.

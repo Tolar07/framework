@@ -12,6 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine import nba_ext_model as xm
+from engine import nba_teams as nt
 
 tmp = Path(tempfile.mkdtemp()) / "nba_betting.db"
 con = sqlite3.connect(tmp)
@@ -33,10 +34,11 @@ con.close()
 # ESPN tips at 02:30 UTC on the 22nd; NBA_Betting dates the game the 21st (US)
 rows = xm.load(tmp, [date(2026, 10, 22)])
 assert len(rows) == 3, rows
-m = xm.match(rows, "GS", "NO", date(2026, 10, 22))
+gsw, nop = nt.by_espn("GS"), nt.by_espn("NO")          # ESPN's codes -> NBA codes
+m = xm.match(rows, gsw.key, nop.key, date(2026, 10, 22))
 assert set(m) == {"standard", "vegas"}, m
-assert xm.match(rows, "GS", "NO", date(2026, 10, 25)) == {}, "more than a day apart: no match"
-assert xm.match(rows, "NO", "GS", date(2026, 10, 22)) == {}, "home/away must not swap"
+assert xm.match(rows, gsw.key, nop.key, date(2026, 10, 25)) == {}, "more than a day apart: no match"
+assert xm.match(rows, nop.key, gsw.key, date(2026, 10, 22)) == {}, "home/away must not swap"
 assert xm.load(tmp.parent / "missing.db", [date(2026, 10, 22)]) == []
 print("read-only load + ESPN team/date matching: OK")
 

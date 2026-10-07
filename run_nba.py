@@ -38,6 +38,7 @@ sys.path.insert(0, str(ROOT))
 
 from data import nba_source as ns  # noqa: E402
 from engine import nba_ext_model as xm  # noqa: E402
+from engine import nba_teams as nt  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
 
 LEDGER_DIR = ROOT / "output" / "picks"
@@ -102,11 +103,15 @@ def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int
     picks, scanned = [], 0
     for stage, e in evs:
         tip = _tip_utc(e["estimateStartTime"])
-        hn, an = nickname(e.get("homeTeamName")), nickname(e.get("awayTeamName"))
-        g = next((g for g in espn if nickname(g.home_name) == hn and nickname(g.away_name) == an
+        label = f"{e.get('homeTeamName')} v {e.get('awayTeamName')}"
+        ht, hnote = nt.sportybet(e.get("homeTeamName"), e.get("homeTeamId"))
+        at, anote = nt.sportybet(e.get("awayTeamName"), e.get("awayTeamId"))
+        notes += [n for n in (hnote, anote) if n]
+        if ht is None or at is None:
+            continue
+        g = next((g for g in espn if nt.by_espn(g.home) == ht and nt.by_espn(g.away) == at
                   and abs((datetime.fromisoformat(g.tip.replace("Z", "+00:00")) - tip).total_seconds()) < 6 * 3600),
                  None)
-        label = f"{e.get('homeTeamName')} v {e.get('awayTeamName')}"
         if g is None:
             notes.append(f"{label}: no ESPN game matched — skipped")
             continue
@@ -129,10 +134,14 @@ def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int
             continue
         best = max(found, key=lambda r: (r["ev"], r["chance"]))
         if ext_rows:
-            ext = xm.view(best, xm.match(ext_rows, g.home, g.away, tip.date()))
+            ext = xm.view(best, xm.match(ext_rows, ht.key, at.key, tip.date()))
             if ext:
                 best = {**best, "ext_model": ext}
+        min_ev = nv.MIN_EV_WINNER if best["market_id"] == "219" else nv.MIN_EV_LINE
         picks.append({**best, "stage": stage, "event_id": e.get("eventId"),
+                      "home_key": ht.key, "away_key": at.key,
+                      "bet365": {"pick": nt.bet365_pick(best, ht, at),
+                                 "take_at": nt.bet365_take_at(best, min_ev, nv.BAND[0])},
                       "espn_id": g.id, "espn_date": g.tip[:10], "tip": tip.isoformat(),
                       "home": e.get("homeTeamName"), "away": e.get("awayTeamName"),
                       "pick": nv.display(best, e.get("homeTeamName"), e.get("awayTeamName")),
@@ -216,13 +225,21 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
         L += [f"{tip:%H:%M}  {p['home']} v {p['away']}{tag}",
               f"   {p['pick']} @{p['price']:.2f} · chance {p['chance']:.0%} · fair {p['fair_price']:.2f} "
               f"· value {p['ev']:+.1%}",
-              f"   code {p['code'] or 'PENDING'}", ""]
+              f"   code {p['code'] or 'PENDING'}"]
+        b365 = p.get("bet365") or {}
+        if b365.get("pick"):
+            L.append(f"   bet365: {b365['pick']} · take at {b365['take_at']:.2f}+")
+        L.append("")
     if mega:
         L += [f"All {len(picks)} picks on one slip: {mega}", ""]
+    if any((p.get("bet365") or {}).get("pick") for p in picks):
+        L += ["bet365: no bet365 price feed (order 27), so none is shown — 'take at' is the",
+              "lowest bet365 price that still clears this board's value bar."
+              + ("" if nt.BET365_CONFIRMED else " bet365 names are a draft until checked in the app."), ""]
     L += [_RULE, scorecard(), "",
           "Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board",
           "tests the one route left — SportyBet paying above the sharp price — on paper only."]
-    flagged = [n for n in notes if "too good" in n or "disagree" in n]
+    flagged = [n for n in notes if "too good" in n or "disagree" in n or n.startswith("mapping:")]
     if flagged:
         L += ["", "Checked and left out:"] + [f" • {n}" for n in flagged[:8]]
     return "\n".join(L)

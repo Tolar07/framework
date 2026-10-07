@@ -342,14 +342,21 @@ def _load_all_events() -> tuple[dict[str, list[dict]], list[str]]:
     return by_tid, flags
 
 
+# SportyBet lists every line of a ladder, but only status 0 is open for betting:
+# status 1 = suspended, 2 = closed (shown with stale prices; a booking code for
+# it loads but cannot be placed — 2026-10-07). Only open markets count.
+def is_open(market: dict) -> bool:
+    return market.get("status") in (None, 0, "0")
+
+
 def parse_markets(event: dict) -> list[dict]:
-    """The FULL market ladder for one event (nothing dropped) — for display or
-    future use. {id, desc, specifier, outcomes:[{desc, odds}]}."""
+    """The market ladder for one event — every OPEN market (closed and
+    suspended lines dropped). {id, desc, specifier, outcomes:[{desc, odds}]}."""
     return [{
         "id": m.get("id"), "desc": m.get("desc"), "specifier": m.get("specifier", ""),
         "outcomes": [{"id": o.get("id"), "desc": o.get("desc"), "odds": o.get("odds")}
                      for o in m.get("outcomes", [])],
-    } for m in event.get("markets", [])]
+    } for m in event.get("markets", []) if is_open(m)]
 
 
 def _price(markets: list[dict], desc: str, outcome: str, specifier: str = "") -> Optional[float]:

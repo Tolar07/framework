@@ -12,6 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "backtest"))
 
+import pipeline.odds_sportybet as osb
 from engine import universe as uv
 
 T0 = datetime(2026, 10, 7, 12, 0, tzinfo=UTC)
@@ -41,7 +42,10 @@ bb_event = {"eventId": "sr:match:2", "estimateStartTime": KO, "homeTeamName": "P
                         mk("223", [("Home (-9.5)", 2.6), ("Away (+9.5)", 1.45)], "hcp=-9.5")]}
 assert uv.prices("basketball", bb_event) == {"win": [1.5, 2.6], "total": [173.5, 1.92, 1.9],
                                              "hcp": [-5.5, 1.95, 1.88]}, "main line = closest to even"
-print("prices from SportyBet events (main basketball line = closest to even): OK")
+shut = {**fb_event, "markets": [{**m, "status": 2} if m["id"] == "29" else m for m in fb_event["markets"]]}
+assert "btts" not in uv.prices("football", shut), "a closed market is not a real price"
+assert [m["id"] for m in osb.parse_markets(shut)] == ["1", "18", "18", "10"], "football reads open markets only"
+print("prices from SportyBet events (main basketball line = closest to even; closed lines dropped): OK")
 
 tour = {"name": "Super Lig", "id": "sr:tournament:52"}
 pending = {}

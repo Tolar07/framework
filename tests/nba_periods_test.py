@@ -50,6 +50,13 @@ picks, suspect = nv.candidates(ev, sharp)
 assert [r["outcome"] for r in picks] == ["Over 95.5"], picks          # ~84% at 1.30 = +9%
 print("candidates include the new markets: OK")
 
+# a CLOSED SportyBet line (status 2: listed with a stale price, not bettable) is never picked
+closed = {"markets": [{**ev["markets"][1], "status": 2}]}
+assert nv.candidates(closed, sharp) == ([], []), "closed lines never become picks (2026-10-07)"
+assert nv.candidates({"markets": [{**ev["markets"][1], "status": 0}]}, sharp)[0], "open lines still do"
+assert nv.sportybet_winner_chance({"markets": [{**ev["markets"][0], "status": 1}]}) is None
+print("closed / suspended SportyBet lines never picked: OK")
+
 # settlement: final score incl. OT for team totals; quarters for the rest
 qh, qa = [30, 28, 25, 27, 10], [25, 26, 30, 29, 8]      # 120-118 after OT (110-110 in regulation)
 assert nv.settle({"market_id": "227", "outcome": "Over 119.5", "specifier": "total=119.5"}, 120, 118) == "won"

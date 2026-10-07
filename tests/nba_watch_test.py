@@ -88,7 +88,11 @@ still = w.price_check([("regular", event("e6", over=1.95, under=1.85), tip, bos,
 assert still == [], "value still there (sharp total 224.5): no warning"
 gone = w.price_check([("regular", event("e7", total_line=233.5), tip, bos, lal, game(231.5))], {},
                      {"e7": {**sent["e5"], "event_id": "e7"}})
-assert len(gone) == 1 and "no longer offered" in gone[0]
+assert len(gone) == 1 and "not open for betting" in gone[0]
+closed_ev = event("e8")
+closed_ev["markets"][1]["status"] = 2
+shut = w.price_check([("regular", closed_ev, tip, bos, lal, game(231.5))], {}, {"e8": {**sent["e5"], "event_id": "e8"}})
+assert len(shut) == 1 and "can't be placed" in shut[0], "a sent pick whose line closed is flagged"
 assert "PRICE CHECK — earlier picks:" in w.render(later, "OLPXDV-20261021-2200-abc123", [], [], notes)
 assert st5["reopen"] == ["e5"], "a dead pick reopens its game"
 # the reopened game gets a replacement pick (sharp total now 224.5 -> Under 231.5 has value again)

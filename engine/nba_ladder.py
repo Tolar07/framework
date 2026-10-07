@@ -50,8 +50,8 @@ def ladders(event: dict) -> dict[str, list[list[float]]]:
     out: dict[str, list[list[float]]] = {}
     for m in event.get("markets", []):
         mid, spec = str(m.get("id")), m.get("specifier") or ""
-        if mid not in TOTAL_MARKETS + HCP_MARKETS:
-            continue
+        if mid not in TOTAL_MARKETS + HCP_MARKETS or not nv.is_open(m):
+            continue                     # closed lines carry stale prices — not SportyBet's real view
         px = {}
         for o in m.get("outcomes", []):
             try:

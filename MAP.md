@@ -23,7 +23,7 @@ Everything live runs in GitHub Actions on `main`. Times UTC (Lagos = UTC+1).
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — one status message | — |
 | `news.yml` | one job looping every 20 min 09:00–20:40, started by `daily.yml` after each board; backup cron every 2 h; hands itself on before GitHub's 6-hour limit | `monitor/news_loop.py` → `news_check.py` — lineups, price drift, closing price | `output/picks/`, each round |
 | `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h; started by `daily.yml` after the evening NBA board, backup cron 16:05/19:05/22:05; hands itself on before 6 h | `monitor/nba_watch.py` — sharp line vs SportyBet, booked picks + LAG notes to the Architect only, ladder snapshots | `output/picks/nba_watch_*`, `output/nba_watch/`, `output/nba_ladders/`, each round |
-| `universe.yml` | every 3 h at :20 (missed runs just delay grading) | `monitor/universe_sweep.py` — every SportyBet football + basketball game, covered or not: first/last price, graded from Flashscore; study once a day | `data/universe/graded_<month>.jsonl`, `backtest/UNIVERSE_STUDY.md` |
+| `universe.yml` | every 3 h at :20 (missed runs just delay grading) | `monitor/universe_sweep.py` — every SportyBet football + basketball game, covered or not: first/last price, graded from Flashscore; once a day the study, plus FotMob post-match stats of the last 3 days' rated fixtures (`data/match_stats.py`) | `data/universe/graded_<month>.jsonl`, `backtest/UNIVERSE_STUDY.md`, `data/match_stats/`, `backtest/MATCH_STATS_STUDY.md` |
 | `commands.yml` | hourly at :05 | `output/telegram_commands.py` | `clv/clv_log.json`, `memory/` |
 | `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` | — |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` | — |
@@ -113,6 +113,7 @@ laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 | `data/survivor/` | `engine/survivor.py` | survivor | yes |
 | `data/universe/graded_<month>.jsonl` | `engine/universe.py` via `universe.yml` — one line per graded game (both sports, every SportyBet competition): first/last price, covered or not, result | `backtest/universe_study.py` → `backtest/UNIVERSE_STUDY.md`; nothing selects on it (2026-10-07) | yes |
 | `data/cache/` (the universe sweep's pending games, gzipped) | the universe sweep — prices of games not yet graded | the sweep | Actions cache only (`universe.yml`) |
+| `data/match_stats/<month>.jsonl`, `team_profiles.json` | `data/match_stats.py` via `universe.yml` — FotMob post-match stats (possession, xG, shots, big chances, corners, cards …) of every fixture the board rated | `backtest/match_stats_study.py` → `backtest/MATCH_STATS_STUDY.md` (league styles, what decides matches, team profiles); nothing selects on it (2026-10-07) | yes |
 | `data/cups/results.json` | `data/european_archive.archive_cups` (every run, from Flashscore) — Turkish Cup ties, every round, with both clubs' divisions | `backtest/cup_study.py` → `backtest/TURKISH_CUP_STUDY.md`; nothing prices the cup yet (2026-10-07) | yes |
 | `data/european/results.json` | `data/european_archive.py` (every run, from Flashscore) | nothing yet — the history a current-season European model needs (2026-10-05) | yes |
 | `memory/telegram_offset.json` | commands | commands | yes |

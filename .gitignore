@@ -15,6 +15,7 @@ memory/conversations/
 !output/boards/feed_audit.jsonl
 !output/nba_ladders/*.jsonl
 !data/universe/*.jsonl
+!data/match_stats/*.jsonl
 !feed_audit.jsonl
 # EXCEPTION (2026-09-17): the heartbeat/lineage records ARE tracked.
 #

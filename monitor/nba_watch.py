@@ -19,7 +19,12 @@ while any SportyBet NBA game tips off in the next AHEAD hours:
   3. a line move after which SportyBet's winner price still disagrees with
      the sharp line by more than nba_value.MAX_ML_GAP is reported as a LAG
      (no pick: a gap that size can also be a wrong match — check by hand);
-  4. every ladder is saved for the ladder study (engine/nba_ladder.py).
+  4. every ladder is saved for the ladder study (engine/nba_ladder.py);
+  5. PRICE CHECK: the morning board sends its codes 11-17 hours early, so
+     every pick already sent (board or watch) is re-priced against the
+     current sharp line; when its value has gone (SportyBet now pays below
+     fair) or the bet is no longer offered, the Architect is told once —
+     "skip it if you haven't placed it".
 
 Alerts go to the Architect's own chat only (like the NBA board). A LIVE TEST
 since 2026-10-07: the Architect places a pick by hand from its SportyBet code
@@ -62,8 +67,10 @@ LEDGER_DIR = run_nba.LEDGER_DIR
 API = "https://api.github.com/repos/{repo}/actions/workflows/nba_watch.yml"
 
 
-def lagos_date(tip: datetime) -> str:
-    return tip.astimezone(run_nba.LAGOS).date().isoformat()
+def night_key(tip: datetime) -> str:
+    """The board date of a game's NBA night (run_nba.night_key): the watch's
+    files line up with the board's."""
+    return run_nba.night_key(tip)
 
 
 def _load(path: Path, empty: dict) -> dict:
@@ -127,7 +134,7 @@ def check(now: datetime, games: list[tuple], state: dict, taken: set) -> tuple[l
         best = max(found, key=lambda r: (r["ev"], r["chance"]))
         min_ev = nv.MIN_EV_WINNER if best["market_id"] == "219" else nv.MIN_EV_LINE
         reason = (f"sharp line moved since {first['at']}: {'; '.join(moves)}" if moves
-                  else "new value since the evening board")
+                  else "new value since the morning board")
         picks.append({**best, "source": "watch", "reason": reason, "found_at": now.isoformat(),
                       "stage": stage, "event_id": eid, "home_key": ht.key, "away_key": at.key,
                       "bet365": {"pick": nt.bet365_pick(best, ht, at),
@@ -142,7 +149,40 @@ def check(now: datetime, games: list[tuple], state: dict, taken: set) -> tuple[l
     return picks, lags, snaps
 
 
-def render(now: datetime, run_id: str, picks: list[dict], lags: list[str]) -> str:
+def price_check(games: list[tuple], state: dict, sent: dict[str, dict]) -> list[str]:
+    """Notes for picks already sent (`sent`: event id -> pick) whose value has
+    gone at the current price and sharp line, or that are no longer offered.
+    Each pick is reported once (`state["gone"]`)."""
+    notes = []
+    done = state.setdefault("gone", [])
+    for _stage, e, _tip, _ht, _at, g in games:
+        p = sent.get(e.get("eventId"))
+        if p is None or not (g.ml_home and g.ml_away):
+            continue
+        key = f"{p['event_id']}|{p['market_id']}|{p.get('specifier', '')}|{p['outcome']}"
+        if key in done:
+            continue
+        label = f"{e.get('homeTeamName')} v {e.get('awayTeamName')}: {p['pick']}"
+        price = next((float(o["odds"]) for m in e.get("markets", [])
+                      if str(m.get("id")) == p["market_id"] and (m.get("specifier") or "") == (p.get("specifier") or "")
+                      for o in m.get("outcomes", []) if o.get("desc") == p["outcome"] and o.get("odds")), None)
+        if price is None:
+            done.append(key)
+            notes.append(f"{label} — no longer offered on SportyBet (code {p.get('code') or 'PENDING'})")
+            continue
+        chance = nv.fair_chance(p["market_id"], p.get("specifier") or "", p["outcome"], g)
+        if chance is None:
+            continue
+        ev = chance * price - 1
+        if ev < 0:
+            done.append(key)
+            notes.append(f"{label} — sent @{p['price']:.2f} ({p['ev']:+.1%}); now @{price:.2f}, fair "
+                         f"{1 / chance:.2f} ({ev:+.1%}). VALUE GONE — skip it if you haven't placed it "
+                         f"(code {p.get('code') or 'PENDING'})")
+    return notes
+
+
+def render(now: datetime, run_id: str, picks: list[dict], lags: list[str], gone: list[str] | None = None) -> str:
     L = ["🏀 OLP XDV · NBA LINE WATCH — LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)",
          f"Run ID: {run_id}", f"Checked {now.astimezone(run_nba.LAGOS):%H:%M} Lagos (WAT)", ""]
     for p in picks:
@@ -158,6 +198,8 @@ def render(now: datetime, run_id: str, picks: list[dict], lags: list[str]) -> st
         L.append("")
     if lags:
         L += ["LAG — check by hand (no pick):"] + [f" • {n}" for n in lags] + [""]
+    if gone:
+        L += ["PRICE CHECK — earlier picks:"] + [f" • {n}" for n in gone] + [""]
     L.append("Prices move fast near tip-off: check the price is still there before acting.")
     return "\n".join(L)
 
@@ -180,14 +222,15 @@ def run_round(now: datetime, send: bool = True) -> str:
         ns.attach_odds(g, use_cache=False)
     by_date: dict[str, list[tuple]] = {}
     for item in games:
-        by_date.setdefault(lagos_date(item[2]), []).append(item)
-    all_picks, all_lags, snaps = [], [], []
+        by_date.setdefault(night_key(item[2]), []).append(item)
+    all_picks, all_lags, all_gone, snaps = [], [], [], []
     for day, items in by_date.items():
         state_path, ledger = WATCH_DIR / f"{day}.json", LEDGER_DIR / f"nba_watch_{day}.json"
         state = _load(state_path, {"date": day})
         doc = _load(ledger, {"date": day, "picks": []})
         board = _load(LEDGER_DIR / f"nba_{day}.json", {"picks": []})
         taken = {p["event_id"] for p in board.get("picks", []) + doc["picks"]}
+        all_gone += price_check(items, state, {p["event_id"]: p for p in board.get("picks", []) + doc["picks"]})
         picks, lags, rows = check(now, items, state, taken)
         snaps += rows
         if picks:
@@ -203,9 +246,10 @@ def run_round(now: datetime, send: bool = True) -> str:
         all_picks += picks
         all_lags += lags
     nl.save(snaps, now)
-    summary = f"{len(games)} games watched · {len(all_picks)} new picks · {len(all_lags)} lags"
-    if all_picks or all_lags:
-        text = render(now, run_nba._run_id(now), all_picks, all_lags)
+    summary = (f"{len(games)} games watched · {len(all_picks)} new picks · {len(all_lags)} lags · "
+               f"{len(all_gone)} value gone")
+    if all_picks or all_lags or all_gone:
+        text = render(now, run_nba._run_id(now), all_picks, all_lags, all_gone)
         print(text)
         owner = (os.environ.get("TELEGRAM_OWNER_CHAT_ID", "").strip()
                  or os.environ.get("TELEGRAM_CHAT_ID", "").strip())

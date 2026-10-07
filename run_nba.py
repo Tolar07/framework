@@ -1,12 +1,16 @@
 """
-NBA BOARD (standing order 41, Architect 2026-10-06; LIVE TEST since 2026-10-07) — run once a day
-from the evening run, after the football board.
+NBA BOARD (standing order 41, Architect 2026-10-06; LIVE TEST since 2026-10-07) — built once a
+day by the MORNING run (06:47 Lagos) for that coming night's games, so the codes
+arrive 11-17 hours before tip-off (Architect 2026-10-07: "I need at least 12
+hours or 6 hours before kickoff"). The evening run is only a backup for a
+missed morning board — a board already sent is never sent twice.
 
   1. grade every earlier NBA pick whose game has finished (ESPN final score,
      overtime included) and record its CLOSING value — the pick's price
      against the sharp closing line — the honest test of a price edge;
   2. read SportyBet's NBA games (regular season + preseason) and ESPN's
-     sharp lines for every game tipping off in the next HOURS hours;
+     sharp lines for every game of the NBA NIGHT: 10:00 UTC to 10:00 UTC the
+     next day (every US game day, matinees and the late West Coast games);
   3. list only prices ABOVE the fair price (engine/nba_value.py), one per
      game, each with its own SportyBet booking code, + one code for them all;
   4. send it to the Architect's own chat only, as a LIVE TEST: the Architect
@@ -15,7 +19,8 @@ from the evening run, after the football board.
 Preseason games are shown and graded as a pipeline test but kept OUT of the
 record (starters are rested — not a fair test of anything).
 
-  python run_nba.py              build, grade, send
+  python run_nba.py              build, grade, send (tonight's night)
+  python run_nba.py --night D    the night starting 10:00 UTC on date D
   python run_nba.py --no-send    build + grade, print, don't send
   python run_nba.py --rebuild    replace an already-built board for the day
 
@@ -29,7 +34,7 @@ import os
 import secrets
 import sys
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -45,7 +50,7 @@ from engine import nba_value as nv  # noqa: E402
 LEDGER_DIR = ROOT / "output" / "picks"
 BOARD_DIR = ROOT / "output" / "boards"
 LAGOS = timezone(timedelta(hours=1))
-HOURS = 26
+NIGHT_START = 10       # UTC hour an NBA night begins (no NBA game tips 06:30-10:00 UTC)
 TOURNAMENTS = {"sr:tournament:132": "regular", "sr:tournament:2382": "preseason"}
 _FEED = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
          "?sportId=sr:sport:2&marketId=219,223,225,68,236,227,228,18,66,303&pageSize=100&pageNum={page}")
@@ -85,15 +90,34 @@ def _tip_utc(ms) -> datetime:
     return datetime.fromtimestamp(ms / 1000, tz=timezone.utc)
 
 
-def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int]:
-    """(picks, notes, games scanned) for games tipping off in (now, now + hours]."""
+def night_start(night: date) -> datetime:
+    return datetime(night.year, night.month, night.day, NIGHT_START, tzinfo=UTC)
+
+
+def night_of(now: datetime) -> date:
+    """The night a run without --night targets: today's from 05:00 UTC on
+    (the latest NBA tip-off is ~04:30 UTC), before that yesterday's (whose late
+    games may still be to come)."""
+    return now.date() if now.hour >= 5 else (now - timedelta(days=1)).date()
+
+
+def night_key(tip: datetime) -> str:
+    """The board / ledger date of the night a game belongs to: the date the
+    night ENDS (a game at 00:00 Lagos on the 8th belongs to board 2026-10-08)."""
+    return ((tip - timedelta(hours=NIGHT_START)).date() + timedelta(days=1)).isoformat()
+
+
+def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[str], int]:
+    """(picks, notes, games scanned) for the night's games not yet tipped off."""
+    start = night_start(night or night_of(now))
+    end = start + timedelta(hours=24)
     notes: list[str] = []
     try:
         evs = sportybet_events()
     except Exception as e:  # noqa: BLE001
         return [], [f"SportyBet NBA feed unavailable ({str(e)[:80]}) — no board"], 0
     evs = [(st, e) for st, e in evs if e.get("estimateStartTime")
-           and now < _tip_utc(e["estimateStartTime"]) <= now + timedelta(hours=hours)]
+           and max(now, start) < _tip_utc(e["estimateStartTime"]) < end]
     days = sorted({(_tip_utc(e["estimateStartTime"]) + d).date()
                    for _s, e in evs for d in (timedelta(hours=-6), timedelta(0))})
     espn = [g for d in days for g in ns.scoreboard(d, use_cache=False)]
@@ -261,17 +285,17 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-send", action="store_true")
     ap.add_argument("--rebuild", action="store_true")
-    ap.add_argument("--hours", type=int, default=HOURS)
+    ap.add_argument("--night", help="YYYY-MM-DD: the night starting 10:00 UTC that day (default: tonight)")
     ap.add_argument("--resend", action="store_true", help="send again even if already sent")
     a = ap.parse_args()
     now = datetime.now(timezone.utc)
     for n in grade(now):
         print(f"  {n}")
-    picks, notes, scanned = build(now, a.hours)
+    night = date.fromisoformat(a.night) if a.night else night_of(now)
+    picks, notes, scanned = build(now, night)
     for n in notes:
         print(f"  ⚠ {n}")
-    first_tip = picks[0]["tip"] if picks else (now + timedelta(hours=6)).isoformat()
-    board_date = datetime.fromisoformat(first_tip).astimezone(LAGOS).date().isoformat()
+    board_date = night_key(night_start(night))
     ledger = LEDGER_DIR / f"nba_{board_date}.json"
     text_path = BOARD_DIR / f"nba_{board_date}.txt"
     if ledger.exists() and text_path.exists() and not a.rebuild:

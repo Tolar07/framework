@@ -134,11 +134,14 @@ jobs:
             date -u +%FT%TZ > "$MARKER"
           fi
 
-      # NBA PAPER BOARD (standing order 41): after the evening football board,
-      # SportyBet NBA prices that beat the sharp line, to the Architect's own
-      # chat only; grades earlier NBA picks first. Paper only — never fails
-      # the football run. A manual dispatch resends the day's board.
-      - name: NBA paper board
+      # NBA BOARD (standing order 41, live test at £1 a pick): SportyBet NBA
+      # prices that beat the sharp line, to the Architect's own chat only;
+      # grades earlier NBA picks first. Built by the MORNING run for that
+      # night's games, 11-17 h before tip-off (Architect 2026-10-07: "at least
+      # 12 hours or 6 hours before kickoff"); the evening run only sends it if
+      # the morning board was missed (a board already sent is never resent).
+      # Never fails the football run. A manual dispatch resends the night's board.
+      - name: NBA board
         continue-on-error: true
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -148,12 +151,14 @@ jobs:
           SCHEDULE:           ${{ github.event.schedule }}
           SLOT_INPUT:         ${{ github.event.inputs.slot }}
         run: |
-          if [ "$SCHEDULE" = "47 20 * * *" ] || [ "$SLOT_INPUT" = "evening" ]; then
-            python run_nba.py
-          elif [ -z "$SCHEDULE" ] && [ "${SLOT_INPUT:-manual}" = "manual" ]; then
-            python run_nba.py --resend
+          if [ "$SCHEDULE" = "47 5 * * *" ] || [ "$SLOT_INPUT" = "morning" ]; then
+            python run_nba.py --night "$(date -u +%F)"
+          elif [ "$SCHEDULE" = "47 20 * * *" ] || [ "$SLOT_INPUT" = "evening" ]; then
+            # backup: tonight's board, unless it was already built and sent
+            if [ "$(date -u +%H)" -ge 5 ]; then N=$(date -u +%F); else N=$(date -u -d yesterday +%F); fi
+            python run_nba.py --night "$N"
           else
-            echo "NBA paper board runs with the evening board only"
+            python run_nba.py --resend
           fi
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes

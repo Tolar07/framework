@@ -18,11 +18,11 @@ Everything live runs in GitHub Actions on `main`. Times UTC (Lagos = UTC+1).
 
 | Workflow | When | Runs | Commits back |
 |---|---|---|---|
-| `daily.yml` | 20:47 (evening, tomorrow's card), 05:47 (morning refresh); also dispatched with `target_date` + `slot` | `run_daily.py --only-production --heartbeat`; evening also `run_nba.py` (NBA board, order 41) | `clv/clv_log.json`, `output/boards/`, `output/picks/`, `data/survivor/`, `memory/`, `output/nba_ladders/` |
+| `daily.yml` | 20:47 (evening, tomorrow's card), 05:47 (morning refresh); also dispatched with `target_date` + `slot` | `run_daily.py --only-production --heartbeat`; morning also `run_nba.py --night` (NBA board, order 41, 11–17 h before tip-off; evening = backup only) | `clv/clv_log.json`, `output/boards/`, `output/picks/`, `data/survivor/`, `memory/`, `output/nba_ladders/` |
 | `watchdog.yml` | 23:17, 08:17 | `monitor/run_watchdog.py` — starts a slot that never ran | — |
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — one status message | — |
 | `news.yml` | one job looping every 20 min 09:00–20:40, started by `daily.yml` after each board; backup cron every 2 h; hands itself on before GitHub's 6-hour limit | `monitor/news_loop.py` → `news_check.py` — lineups, price drift, closing price | `output/picks/`, each round |
-| `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h; started by `daily.yml` after the evening NBA board, backup cron 16:05/19:05/22:05; hands itself on before 6 h | `monitor/nba_watch.py` — sharp line vs SportyBet, booked picks + LAG notes to the Architect only, ladder snapshots | `output/picks/nba_watch_*`, `output/nba_watch/`, `output/nba_ladders/`, each round |
+| `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h; started by `daily.yml`'s evening run, backup cron 16:05/19:05/22:05; hands itself on before 6 h | `monitor/nba_watch.py` — sharp line vs SportyBet, booked picks + LAG notes + VALUE GONE price checks of sent picks to the Architect only, ladder snapshots | `output/picks/nba_watch_*`, `output/nba_watch/`, `output/nba_ladders/`, each round |
 | `universe.yml` | every 3 h at :20 (missed runs just delay grading) | `monitor/universe_sweep.py` — every SportyBet football + basketball game, covered or not: first/last price, graded from Flashscore; once a day the study, plus FotMob post-match stats of the last 3 days' rated fixtures (`data/match_stats.py`) | `data/universe/graded_<month>.jsonl`, `backtest/UNIVERSE_STUDY.md`, `data/match_stats/`, `backtest/MATCH_STATS_STUDY.md` |
 | `commands.yml` | hourly at :05 | `output/telegram_commands.py` | `clv/clv_log.json`, `memory/` |
 | `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` | — |

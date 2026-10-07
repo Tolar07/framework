@@ -2,7 +2,8 @@
 UNIVERSE SWEEP — every 3 hours: read SportyBet's whole football and
 basketball list, keep each game's first/last pre-kick-off prices, grade the
 games that have finished from Flashscore, and archive them (engine/universe.py).
-Once a day it rewrites backtest/UNIVERSE_STUDY.md, and collects FotMob's
+Once a day it rewrites backtest/UNIVERSE_STUDY.md and the paper book
+(backtest/PAPER_BOOK.md: the system's own £1 paper bets), and collects FotMob's
 post-match stats of the last 3 days' rated fixtures (data/match_stats.py) for
 backtest/MATCH_STATS_STUDY.md.
 
@@ -93,7 +94,7 @@ def sweep(now: datetime) -> str:
             index[sport] = uv.ResultIndex([])
             notes.append(f"{sport}: Flashscore unavailable ({str(e)[:60]}) — grading waits")
     graded, gave_up = uv.grade(pending, index, now)
-    uv.archive(graded)
+    uv.archive(graded, now=now)
     uv.save_pending(pending)
     notes.append(f"graded {len(graded) - gave_up}, no result found {gave_up}, waiting {len(pending)}")
     return " · ".join(notes)
@@ -107,7 +108,7 @@ def persist(now: datetime) -> str:
     if os.environ.get("GITHUB_ACTIONS") != "true":
         return "not saved (outside GitHub Actions)"
     _git("add", "data/universe", "backtest/UNIVERSE_STUDY.md", "data/match_stats",
-         "backtest/MATCH_STATS_STUDY.md")
+         "backtest/MATCH_STATS_STUDY.md", "backtest/PAPER_BOOK.md")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"universe {now:%Y-%m-%d %H:%M} [skip ci]")
@@ -131,6 +132,7 @@ def main(argv: list[str] | None = None) -> int:
         import importlib
         sys.path.insert(0, str(ROOT / "backtest"))
         importlib.import_module("universe_study").main()
+        importlib.import_module("paper_book_study").main()
         try:
             from data import match_stats
             n, notes = match_stats.collect(days=3)

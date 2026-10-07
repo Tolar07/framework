@@ -64,11 +64,15 @@ def far_value(row: dict, key: str, ladder: list[list[float]]) -> list[float]:
 
 
 def main() -> int:
-    rows = nl.load()
+    every = nl.load()
+    rows = [r for r in every if nl.is_clean(r)]
+    dropped = len(every) - len(rows)
     L = ["# NBA LADDER STUDY — the spread SportyBet's ladders assume", "",
          "Written by `backtest/nba_ladder_study.py` from every saved SportyBet NBA ladder "
          "(`output/nba_ladders/`). Implied spread = the sd of the Normal curve that best "
          "fits the ladder's margin-free prices (`engine/nba_ladder.fit`).", ""]
+    L += [f"OPEN LINES ONLY: {dropped} older snapshots were dropped — they mixed in closed lines (SportyBet "
+          f"status 2: listed with stale prices, not bettable), which faked a too-wide ladder.", ""]
     if not rows:
         L.append("No ladder saved yet — NO DATA — PENDING.")
         OUT.write_text("\n".join(L) + "\n", encoding="utf-8")

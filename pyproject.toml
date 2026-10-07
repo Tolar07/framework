@@ -80,6 +80,7 @@ files = [
     "engine/universe.py",
     "monitor/universe_sweep.py",
     "data/match_stats.py",
+    "engine/paper_book.py",
     "data/espn_fixtures.py",
     "engine/fixture_match.py",
     "verification/fixture_check.py",

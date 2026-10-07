@@ -90,6 +90,11 @@ gone = w.price_check([("regular", event("e7", total_line=233.5), tip, bos, lal, 
                      {"e7": {**sent["e5"], "event_id": "e7"}})
 assert len(gone) == 1 and "no longer offered" in gone[0]
 assert "PRICE CHECK — earlier picks:" in w.render(later, "OLPXDV-20261021-2200-abc123", [], [], notes)
+assert st5["reopen"] == ["e5"], "a dead pick reopens its game"
+# the reopened game gets a replacement pick (sharp total now 224.5 -> Under 231.5 has value again)
+st5["first"] = {"e5": {"at": "21:00Z", "spread": -1.5, "total": 224.5, "ml_home": 1.87, "ml_away": 1.95}}
+rp, _l, _s = w.check(later, [("regular", event("e5"), tip, bos, lal, game(224.5))], st5, set())
+assert len(rp) == 1 and rp[0]["reason"].startswith("REPLACES the earlier pick"), rp
 print("price check of picks already sent (value gone / withdrawn, once): OK")
 
 # loop helpers: rounds on :00/:15/:30/:45; never touches git outside GitHub Actions

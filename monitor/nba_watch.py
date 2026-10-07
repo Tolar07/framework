@@ -170,11 +170,13 @@ def price_check(games: list[tuple], state: dict, sent: dict[str, dict]) -> list[
         label = f"{e.get('homeTeamName')} v {e.get('awayTeamName')}: {p['pick']}"
         price = next((float(o["odds"]) for m in e.get("markets", [])
                       if str(m.get("id")) == p["market_id"] and (m.get("specifier") or "") == (p.get("specifier") or "")
+                      and nv.is_open(m)
                       for o in m.get("outcomes", []) if o.get("desc") == p["outcome"] and o.get("odds")), None)
         if price is None:
             done.append(key)
             reopen.append(p["event_id"])
-            notes.append(f"{label} — no longer offered on SportyBet (code {p.get('code') or 'PENDING'})")
+            notes.append(f"{label} — not open for betting on SportyBet any more (code {p.get('code') or 'PENDING'} "
+                         f"can't be placed)")
             continue
         chance = nv.fair_chance(p["market_id"], p.get("specifier") or "", p["outcome"], g)
         if chance is None:

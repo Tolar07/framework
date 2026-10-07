@@ -57,6 +57,8 @@ def prices(sport: str, event: dict) -> dict:
     out: dict = {}
     main: dict[str, tuple[float, list]] = {}
     for m in event.get("markets", []):
+        if m.get("status") not in (None, 0, "0"):
+            continue                     # closed / suspended line: not a real offer
         mid, spec = str(m.get("id")), m.get("specifier") or ""
         px = {(o.get("desc") or "").strip(): _f(o.get("odds")) for o in m.get("outcomes", [])}
         if sport == "football":

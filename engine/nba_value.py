@@ -153,12 +153,19 @@ def fair_chance(market_id: str, specifier: str, outcome: str, sharp) -> Optional
     return None
 
 
+# SportyBet lists every line of a ladder, but only status 0 is open for betting:
+# status 1 = suspended, 2 = closed (shown with stale prices; a booking code for
+# it loads but cannot be placed — 2026-10-07). Only open markets count.
+def is_open(market: dict) -> bool:
+    return market.get("status") in (None, 0, "0")
+
+
 def candidates(event: dict, sharp) -> tuple[list[dict], list[dict]]:
     """(value picks, suspect gaps) for one SportyBet event against its sharp line."""
     picks, suspect = [], []
     for m in event.get("markets", []):
         mid = str(m.get("id"))
-        if mid not in MARKETS:
+        if mid not in MARKETS or not is_open(m):
             continue
         spec = m.get("specifier") or ""
         for o in m.get("outcomes", []):
@@ -184,7 +191,7 @@ def candidates(event: dict, sharp) -> tuple[list[dict], list[dict]]:
 
 def sportybet_winner_chance(event: dict) -> Optional[float]:
     for m in event.get("markets", []):
-        if str(m.get("id")) == "219":
+        if str(m.get("id")) == "219" and is_open(m):
             px = {o.get("desc"): o.get("odds") for o in m.get("outcomes", [])}
             try:
                 return devig(float(px["Home"]), float(px["Away"]))

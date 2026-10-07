@@ -33,6 +33,7 @@ Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
 | `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine (IDs in `MAP.md` §1) | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/` |
 | `watchdog.yml` | 23:17 and 08:17 | `monitor/run_watchdog.py` — when a slot's board run never happened, starts it (same day + slot, so the duplicate guard holds) and says so on Telegram |
 | `news.yml` | one job looping every 20 min, 09:00-20:40, started by `daily.yml` after each board (backup cron every 2 h) | `monitor/news_loop.py` → `news_check.py` — confirmed lineups, price drift, closing price per pick; saved each round |
+| `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h, started by `daily.yml` after the evening NBA board (backup cron 16:05/19:05/22:05) | `monitor/nba_watch.py` — sharp line vs SportyBet; paper picks + LAG notes to the Architect only; ladder snapshots; saved each round |
 | `commands.yml` | hourly | `output/telegram_commands.py` — answers /status /board /verify /why /log /note /debrief /proposals /approve /reject |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` |
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — the supervisor agent's check: board, bet365 board, Run ID, picks spread over market types, codes booked, latest tests/watchdog/news runs; one Telegram status |
@@ -50,6 +51,7 @@ What each piece is protecting — read before changing it:
 | `monitor/run_watchdog.py` + `watchdog.yml` | A dropped GitHub cron is silent; `daily.yml` only alerts on a run that FAILS. |
 | Pre-kickoff loop (`monitor/news_loop.py`, started by `daily.yml`) | GitHub dropped `news.yml`'s 20-minute cron almost every time. One loop at a time (a newer run exits while an older one is going), saved every round, handed on before the 6-hour job limit — break any of these and alerts go missing or repeat. |
 | `engine/name_match.py` (strict, unique matches; `EXPLICIT` table) | Rates feed spellings ("Blackpool FC") with the model's history ("Blackpool"). Loosening it would put one club's rating on another. |
+| NBA line watch (`monitor/nba_watch.py`): one loop, git only inside Actions, one pick per game | Same reasons as the pre-kickoff loop; a desktop run must never reset the checkout; a game already on the board is never picked twice. |
 | `engine/nba_teams.py` (SportyBet id decides; an id/name conflict is skipped, a new id flagged) | Matches SportyBet NBA games to ESPN's sharp line. A wrong match would price one game off another game's line. |
 | SPLIT rejection text in `run_daily.py` (`market_p` may be None → `PENDING`) | Formatting a missing market price crashed the whole run (fixed 2026-10-03). |
 | Picks ledger (`engine/picks_ledger.py`) | Records every pick AND every rated fixture; graded from Flashscore, regular time only. The scorecard and `engine/learning.py` read it. |

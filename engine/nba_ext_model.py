@@ -96,8 +96,8 @@ def view(pick: dict, by_variant: dict[str, dict]) -> dict | None:
         rec = {"home_cover_prob": p_home, "open_line": line,
                "predicted_margin": r.get("predicted_margin"),
                "predicted_at": r.get("predicted_at"), "applies": applies}
-        if applies:
-            p_side = p_home if side == "Home" else 1 - p_home
+        if applies and p_home is not None:
+            p_side = float(p_home) if side == "Home" else 1 - float(p_home)
             rec["side_prob"] = round(p_side, 4)
             rec["agrees"] = p_side > 0.5
         out[variant] = rec

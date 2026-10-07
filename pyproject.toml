@@ -77,6 +77,8 @@ files = [
     "engine/nba_ladder.py",
     "engine/nba_ext_model.py",
     "monitor/nba_watch.py",
+    "engine/universe.py",
+    "monitor/universe_sweep.py",
     "data/espn_fixtures.py",
     "engine/fixture_match.py",
     "verification/fixture_check.py",

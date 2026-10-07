@@ -1,0 +1,49 @@
+name: OLP XDV universe sweep
+
+# Every SportyBet football and basketball game, covered or not (Architect
+# 2026-10-07: learn "how the game is played, how the betting goes on them"):
+# every 3 hours read the whole upcoming list (first/last price per game),
+# grade finished games from Flashscore and archive them; the study is
+# rewritten once a day. monitor/universe_sweep.py, engine/universe.py.
+#
+# Prices of games not yet played are kept in the Actions cache (not git);
+# a game reaches git once, graded, in data/universe/graded_<month>.jsonl.
+# A dropped GitHub cron only delays grading: the next sweep catches up.
+on:
+  schedule:
+    - cron: "20 */3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # save graded games and the study
+
+concurrency:
+  group: universe
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Restore the ungraded games and Flashscore cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/cache/universe
+            data/cache/flashscore
+          key: olp-xdv-universe-${{ github.run_id }}
+          restore-keys: olp-xdv-universe-
+      - name: Sweep, grade, archive
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          python monitor/universe_sweep.py

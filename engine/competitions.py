@@ -39,6 +39,7 @@ COMPETITIONS: dict[str, tuple[str | None, str]] = {
     "Ekstraklasa": ("Poland", "Ekstraklasa"),
     "HNL": ("Croatia", "HNL"),
     "Turkish Super Lig": ("Turkey", "Super Lig"),
+    "Turkish Cup": ("Turkey", "Turkish Cup"),
     "Greek Super League": ("Greece", "Super League"),
     "Austrian Bundesliga": ("Austria", "Bundesliga"),
     "Swiss Super League": ("Switzerland", "Super League"),

@@ -100,14 +100,15 @@ def _first_half(ft: Optional[int], second: Optional[str]) -> Optional[int]:
     return ft - s
 
 
-def results_for_offset(offset: int, sign: Optional[str] = None) -> list[dict]:
+def results_for_offset(offset: int, sign: Optional[str] = None, sport: int = 1) -> list[dict]:
     """Events for a day relative to today (0 = today, -1 = yesterday, ...).
-    Past days are cached once fully settled."""
+    Past days are cached once fully settled. sport 1 = football (the default,
+    the grading source), 3 = basketball (engine/universe.py, 2026-10-07)."""
     day = date.fromordinal(date.today().toordinal() + offset).isoformat()
-    cache = _CACHE / f"{day}.json"
+    cache = _CACHE / (f"{day}.json" if sport == 1 else f"s{sport}_{day}.json")
     if offset < -1 and cache.exists():
         return json.loads(cache.read_text(encoding="utf-8"))
-    text = _get(_FEED.format(offset=offset),
+    text = _get(_FEED.replace("f_1_", f"f_{sport}_").format(offset=offset),
                 {"x-fsign": sign or feed_sign(), "Referer": "https://www.flashscore.co.uk/"})
     events = parse_feed(text)
     if offset < 0:
@@ -116,13 +117,13 @@ def results_for_offset(offset: int, sign: Optional[str] = None) -> list[dict]:
     return events
 
 
-def results_since(days_back: int = 7) -> list[dict]:
+def results_since(days_back: int = 7, sport: int = 1) -> list[dict]:
     """Every event from `days_back` days ago up to today (Flashscore keeps 7)."""
     sign = feed_sign()
     out = []
     for off in range(-min(days_back, 7), 1):
         try:
-            out += results_for_offset(off, sign)
+            out += results_for_offset(off, sign, sport)
         except Exception:  # noqa: BLE001 — a missing day stays ungraded
             continue
         time.sleep(0.3)

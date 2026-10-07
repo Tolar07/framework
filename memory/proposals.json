@@ -1,1 +1,13 @@
-[]
+[
+ {
+  "id": "P1",
+  "segment": "Asian handicap (underdog)",
+  "league": "FA Cup",
+  "action": "block",
+  "text": "stop picking Asian handicap (underdog) in FA Cup",
+  "evidence": "8/13 won (62%; its prices need 82%), -3.27 units over 2 match day(s)",
+  "status": "open",
+  "opened": "2026-10-07",
+  "decided": null
+ }
+]

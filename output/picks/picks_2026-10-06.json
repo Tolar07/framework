@@ -127,7 +127,7 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
+   "result": "won",
    "ft": null,
    "drift_price": 1.16,
    "drift_pct": -5.7
@@ -1033,7 +1033,7 @@
      "pick": "Under 3.5 goals",
      "price": 1.27,
      "chance": 0.7511,
-     "result": null,
+     "result": "won",
      "ft": null
     },
     {
@@ -1427,7 +1427,7 @@
      0.7038
     ]
    ],
-   "ft": null
+   "ft": "no-90min-result"
   },
   {
    "fixture": "Spalding United v Bury Town FC",
@@ -2525,7 +2525,7 @@
     "Wingate & Finchley v Bedford Town Football Club: Wingate & Finchley (+1.5) Asian handicap \u2192 Over 1.5 goals (underdog handicap in the FA Cup (order 38))"
    ],
    "odds": 2.836,
-   "result": null,
+   "result": "won",
    "alt_legs": [
     {
      "fixture": "Moldova v Slovakia",
@@ -2568,7 +2568,7 @@
      "market": "SB:34||No",
      "pick": "Macclesfield FC Win to Nil \u2014 no",
      "price": 1.23,
-     "result": null
+     "result": "won"
     },
     {
      "fixture": "Halesowen Town FC v Stafford Rangers",
@@ -2784,7 +2784,7 @@
      "market": "SB:34||No",
      "pick": "Macclesfield FC Win to Nil \u2014 no",
      "price": 1.23,
-     "result": null
+     "result": "won"
     },
     {
      "fixture": "Spalding United v Bury Town FC",

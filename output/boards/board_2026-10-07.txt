@@ -2,11 +2,11 @@
 ==================================
 
 📅  Wed 07 Oct 2026   (PICK · win %  ·  alt markets)
-Run ID: OLPXDV-20261006-2048-ef81ac | Phase 3 — live capital (Architect-deployed)
+Run ID: OLPXDV-20261007-0548-a5a193 | Phase 3 — live capital (Architect-deployed)
 Fixtures scanned: 0 · Verified: 0
 KO = kickoff, Lagos time (WAT)
 
-⚠ 213 data flag(s) — full detail in the saved board / VERIFY RESULTS
+⚠ 214 data flag(s) — full detail in the saved board / VERIFY RESULTS
 
 ──────────────────────────────────
 TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
@@ -71,103 +71,22 @@ Booking codes: PENDING — no deploy-eligible pick resolved on SportyBet today (
 
 VERIFY RESULTS
 Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
-Halesowen Town FC v Stafford Rangers | 1-2 | UNDER_2_5 | entry 2.35 | CLV NO DATA (Flashscore has no prices) | MISS
-Spalding United v Bury Town FC | 4-0 | BTTS_YES | entry 1.8 | CLV NO DATA (Flashscore has no prices) | MISS
-Kazakhstan v Faroe Islands | 2-2 | 1X2_HOME | entry 2.44 | CLV NO DATA (Flashscore has no prices) | MISS
-Kazakhstan v Faroe Islands | 2-2 | OVER_2_5 | entry 2.5 | CLV NO DATA (Flashscore has no prices) | HIT
-Kazakhstan v Faroe Islands | 2-2 | OVER_1_5 | entry 1.48 | CLV NO DATA (Flashscore has no prices) | HIT
-Kazakhstan v Faroe Islands | 2-2 | BTTS_YES | entry 2.1 | CLV NO DATA (Flashscore has no prices) | HIT
-Kazakhstan v Faroe Islands | 2-2 | DC_1X | entry 1.35 | CLV NO DATA (Flashscore has no prices) | HIT
-Albania v San Marino | 2-1 | 1X2_DRAW | entry 22.97 | CLV NO DATA (Flashscore has no prices) | MISS
-Albania v San Marino | 2-1 | 1X2_AWAY | entry 86.8 | CLV NO DATA (Flashscore has no prices) | MISS
-Albania v San Marino | 2-1 | UNDER_2_5 | entry 5.25 | CLV NO DATA (Flashscore has no prices) | MISS
-Albania v San Marino | 2-1 | UNDER_1_5 | entry 13.0 | CLV NO DATA (Flashscore has no prices) | MISS
-Albania v San Marino | 2-1 | BTTS_YES | entry 2.55 | CLV NO DATA (Flashscore has no prices) | HIT
-Albania v San Marino | 2-1 | UNDER_3_5 | entry 2.75 | CLV NO DATA (Flashscore has no prices) | HIT
-Belarus v Finland | 1-0 | 1X2_HOME | entry 3.93 | CLV NO DATA (Flashscore has no prices) | HIT
-Belarus v Finland | 1-0 | OVER_2_5 | entry 2.35 | CLV NO DATA (Flashscore has no prices) | MISS
-Belarus v Finland | 1-0 | OVER_1_5 | entry 1.44 | CLV NO DATA (Flashscore has no prices) | MISS
-Belarus v Finland | 1-0 | BTTS_YES | entry 2.1 | CLV NO DATA (Flashscore has no prices) | MISS
-Belarus v Finland | 1-0 | DC_1X | entry 1.72 | CLV NO DATA (Flashscore has no prices) | HIT
-Croatia v Spain | 1-2 | 1X2_HOME | entry 10.82 | CLV NO DATA (Flashscore has no prices) | MISS
-Croatia v Spain | 1-2 | 1X2_DRAW | entry 6.92 | CLV NO DATA (Flashscore has no prices) | MISS
-Croatia v Spain | 1-2 | UNDER_2_5 | entry 2.85 | CLV NO DATA (Flashscore has no prices) | MISS
-Croatia v Spain | 1-2 | UNDER_1_5 | entry 6.25 | CLV NO DATA (Flashscore has no prices) | MISS
-Croatia v Spain | 1-2 | UNDER_3_5 | entry 1.76 | CLV NO DATA (Flashscore has no prices) | HIT
-Croatia v Spain | 1-2 | DC_1X | entry 3.5 | CLV NO DATA (Flashscore has no prices) | MISS
-England v Czech Republic | 3-0 | 1X2_DRAW | entry 10.77 | CLV NO DATA (Flashscore has no prices) | MISS
-England v Czech Republic | 3-0 | 1X2_AWAY | entry 24.16 | CLV NO DATA (Flashscore has no prices) | MISS
-England v Czech Republic | 3-0 | UNDER_2_5 | entry 3.4 | CLV NO DATA (Flashscore has no prices) | MISS
-England v Czech Republic | 3-0 | UNDER_1_5 | entry 7.7 | CLV NO DATA (Flashscore has no prices) | MISS
-England v Czech Republic | 3-0 | BTTS_YES | entry 2.35 | CLV NO DATA (Flashscore has no prices) | MISS
-England v Czech Republic | 3-0 | UNDER_3_5 | entry 1.98 | CLV NO DATA (Flashscore has no prices) | HIT
-Estonia v Iceland | 0-0 | 1X2_HOME | entry 5.81 | CLV NO DATA (Flashscore has no prices) | MISS
-Estonia v Iceland | 0-0 | 1X2_DRAW | entry 4.24 | CLV NO DATA (Flashscore has no prices) | HIT
-Estonia v Iceland | 0-0 | BTTS_YES | entry 1.97 | CLV NO DATA (Flashscore has no prices) | MISS
-Estonia v Iceland | 0-0 | UNDER_3_5 | entry 1.37 | CLV NO DATA (Flashscore has no prices) | HIT
-Estonia v Iceland | 0-0 | DC_1X | entry 2.25 | CLV NO DATA (Flashscore has no prices) | HIT
-Luxembourg v Bulgaria | 0-2 | 1X2_DRAW | entry 3.35 | CLV NO DATA (Flashscore has no prices) | MISS
-Luxembourg v Bulgaria | 0-2 | 1X2_AWAY | entry 3.63 | CLV NO DATA (Flashscore has no prices) | HIT
-Luxembourg v Bulgaria | 0-2 | OVER_2_5 | entry 2.45 | CLV NO DATA (Flashscore has no prices) | MISS
-Luxembourg v Bulgaria | 0-2 | OVER_1_5 | entry 1.48 | CLV NO DATA (Flashscore has no prices) | HIT
-Luxembourg v Bulgaria | 0-2 | BTTS_YES | entry 2.15 | CLV NO DATA (Flashscore has no prices) | MISS
-Luxembourg v Bulgaria | 0-2 | UNDER_3_5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
-Luxembourg v Bulgaria | 0-2 | DC_X2 | entry 1.65 | CLV NO DATA (Flashscore has no prices) | HIT
-Moldova v Slovakia | 0-4 | 1X2_HOME | entry 7.83 | CLV NO DATA (Flashscore has no prices) | MISS
-Moldova v Slovakia | 0-4 | 1X2_DRAW | entry 4.84 | CLV NO DATA (Flashscore has no prices) | MISS
-Moldova v Slovakia | 0-4 | BTTS_YES | entry 2.05 | CLV NO DATA (Flashscore has no prices) | MISS
-Moldova v Slovakia | 0-4 | UNDER_3_5 | entry 1.42 | CLV NO DATA (Flashscore has no prices) | MISS
-Scotland v Slovenia | 1-2 | 1X2_HOME | entry 1.86 | CLV NO DATA (Flashscore has no prices) | MISS
-Scotland v Slovenia | 1-2 | OVER_2_5 | entry 2.25 | CLV NO DATA (Flashscore has no prices) | HIT
-Scotland v Slovenia | 1-2 | OVER_1_5 | entry 1.42 | CLV NO DATA (Flashscore has no prices) | HIT
-Scotland v Slovenia | 1-2 | BTTS_YES | entry 2.15 | CLV NO DATA (Flashscore has no prices) | HIT
-Scotland v Slovenia | 1-2 | OVER_3_5 | entry 4.2 | CLV NO DATA (Flashscore has no prices) | MISS
-Switzerland v North Macedonia | 3-0 | 1X2_DRAW | entry 11.02 | CLV NO DATA (Flashscore has no prices) | MISS
-Switzerland v North Macedonia | 3-0 | 1X2_AWAY | entry 33.03 | CLV NO DATA (Flashscore has no prices) | MISS
-Switzerland v North Macedonia | 3-0 | UNDER_2_5 | entry 2.95 | CLV NO DATA (Flashscore has no prices) | MISS
-Switzerland v North Macedonia | 3-0 | UNDER_1_5 | entry 6.6 | CLV NO DATA (Flashscore has no prices) | MISS
-Switzerland v North Macedonia | 3-0 | BTTS_YES | entry 2.85 | CLV NO DATA (Flashscore has no prices) | MISS
-Switzerland v North Macedonia | 3-0 | UNDER_3_5 | entry 1.81 | CLV NO DATA (Flashscore has no prices) | HIT
-Switzerland v North Macedonia | 3-0 | DC_X2 | entry 5.6 | CLV NO DATA (Flashscore has no prices) | MISS
-Atherton Collieries v Trafford FC | 3-0 | SB:18|total=1.5|Over 1.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
-Halesowen Town FC v Stafford Rangers | 1-2 | SB:10||Home or Away | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
-Spalding United v Bury Town FC | 4-0 | SB:18|total=1.5|Over 1.5 | entry 1.27 | CLV NO DATA (Flashscore has no prices) | HIT
-Wingate & Finchley v Bedford Town Football Club | 1-3 | SB:16|hcp=1.5|Home (+1.5) | entry 1.23 | CLV NO DATA (Flashscore has no prices) | MISS
-Kazakhstan v Faroe Islands | 2-2 | SB:18|total=3.5|Under 3.5 | entry 1.21 | CLV NO DATA (Flashscore has no prices) | MISS
-Albania v San Marino | 2-1 | SB:16|hcp=-5.5|Away (+5.5) | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
-Belarus v Finland | 1-0 | SB:19|total=0.5|Over 0.5 | entry 1.6 | CLV NO DATA (Flashscore has no prices) | HIT
-Croatia v Spain | 1-2 | SB:548||2-5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
-England v Czech Republic | 3-0 | SB:19|total=4.5|Under 4.5 | entry 1.23 | CLV NO DATA (Flashscore has no prices) | HIT
-Estonia v Iceland | 0-0 | SB:18|total=1.5|Over 1.5 | entry 1.29 | CLV NO DATA (Flashscore has no prices) | MISS
-Luxembourg v Bulgaria | 0-2 | SB:14|hcp=0:2|Away (0:2) | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
-Moldova v Slovakia | 0-4 | SB:10||Home or Away | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
-Scotland v Slovenia | 1-2 | SB:19|total=0.5|Over 0.5 | entry 1.25 | CLV NO DATA (Flashscore has no prices) | HIT
-Switzerland v North Macedonia | 3-0 | SB:548||1-4 | entry 1.22 | CLV NO DATA (Flashscore has no prices) | HIT
-Kazakhstan v Faroe Islands | 2-2 | DC_12 | entry 1.39 | CLV NO DATA (Flashscore has no prices) | MISS
-Belarus v Finland | 1-0 | OVER_3_5 | entry 4.8 | CLV NO DATA (Flashscore has no prices) | MISS
-Scotland v Slovenia | 1-2 | 1X2_AWAY | entry 5.42 | CLV NO DATA (Flashscore has no prices) | HIT
-Wingate & Finchley v Bedford Town Football Club | 1-3 | SB:18|total=1.5|Over 1.5 | entry 1.26 | CLV NO DATA (Flashscore has no prices) | HIT
-Albania v San Marino | 2-1 | SB:14|hcp=0:6|Away (0:6) | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
-Belarus v Finland | 1-0 | SB:18|total=3.5|Under 3.5 | entry 1.2 | CLV NO DATA (Flashscore has no prices) | HIT
-Croatia v Spain | 1-2 | SB:20|total=3.5|Under 3.5 | entry 1.33 | CLV NO DATA (Flashscore has no prices) | HIT
-Luxembourg v Bulgaria | 0-2 | SB:16|hcp=-1.5|Away (+1.5) | entry 1.21 | CLV NO DATA (Flashscore has no prices) | HIT
-Moldova v Slovakia | 0-4 | SB:18|total=1.5|Over 1.5 | entry 1.26 | CLV NO DATA (Flashscore has no prices) | HIT
-Scotland v Slovenia | 1-2 | SB:16|hcp=0.5|Home (+0.5) | entry 1.2 | CLV NO DATA (Flashscore has no prices) | MISS
 
 ============================================================
 
 DETAIL — HR53 full per-fixture audit (not sent to Telegram)
 
 PART 0 — HEADER
-Date: 2026-10-06 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Date: 2026-10-07 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
 Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Conference League, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, League One, League Two, National League, FA Cup, UEFA Nations League, Turkish Super Lig, Greek Super League, Austrian Bundesliga, Swiss Super League, Eliteserien, Allsvenskan
 Calibration: 9 legs logged, mean CLV +1.66%
 DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ FA Cup: no results available for grading — legs stay PENDING, not guessed
-  ⚠ graded 82 of 143 pending leg(s)
+  ⚠ graded 0 of 61 pending leg(s)
   ⚠ picks 2026-10-03: 73 graded, 3 pending (Flashscore)
   ⚠ picks 2026-10-04: 12 graded, 1 pending; 12/13 rated fixtures graded (Flashscore)
   ⚠ picks 2026-10-05: 9 graded, 0 pending; 9/9 rated fixtures graded (Flashscore)
+  ⚠ picks 2026-10-06: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
   ⚠ SportyBet events pulled live
   ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
   ⚠ SportyBet events served from cache (<=60min)
@@ -363,18 +282,18 @@ DATA FLAGS (surfaced first, per HR53/ID403):
   ⚠ Allsvenskan: 14 feed name(s) matched to the model's spelling — BK Hacken -> Hacken, Degerfors IF -> Degerfors, Djurgardens IF -> Djurgarden, Halmstads BK -> Halmstad, Hammarby IF -> Hammarby, IF Brommapojkarna -> Brommapojkarna, IF Elfsborg -> Elfsborg, IFK Goteborg -> Goteborg, IK Sirius -> Sirius, Kalmar FF -> Kalmar, Malmo -> Malmo FF, Mjallby AIF -> Mjallby, Orgryte IS -> Orgryte, Vasteraas SK -> Vasteras SK
   ⚠ TARGET DAY 2026-10-07: 0 fixture(s) kicking off that day (201 outside the target day excluded)
   ⚠ Fixture check (TheSportsDB · ESPN · football-data): 0/0 confirmed by two independent sources, 0 one source only, 0 conflict(s)
-  ⚠ Learning: 92 graded single(s) so far — corrections start once a market family or league has 50+ results over 5+ match days and its results are clearly off its stated chances.
-  ⚠ losing-market watch: 1 flag(s), 0 approved block(s) in force
+  ⚠ Learning: 288 graded single(s) so far — corrections start once a market family or league has 50+ results over 5+ match days and its results are clearly off its stated chances.
+  ⚠ new proposal P1: stop picking Asian handicap (underdog) in FA Cup (8/13 won (62%; its prices need 82%), -3.27 units over 2 match day(s))
+  ⚠ losing-market watch: 2 flag(s), 0 approved block(s) in force
   ⚠ value picks (order 36): 0 BTTS-yes / over-goals pick(s) priced above fair odds took the pick from the likeliest outcome
   ⚠ team profiles: 0 deploy pick(s) profiled (last 20 games each side)
   ⚠ team news (FotMob): 0 pick(s) checked, 0 flagged for injuries/suspensions, 0 swapped to an alternative the news doesn't touch
+  ⚠ price drift since the last board: 0 pick(s) drifted 5%+ (demoted to LOW), 0 shortened 5%+ (market agrees)
   ⚠ switched shaky picks: 0 moved to a steadier market (order 32)
   ⚠ sharp check: 0 pick(s) priced on the Betfair Exchange, 0 above its fair odds
-  ⚠ Staking (% of bankroll): BANKER est +0.7%, no live record yet · SAFE est -5.1%, live 49 @ -3.3% · VALUE est -5.0%, no live record yet · BOOK est -4.7%, live 5 @ +21.8% · MARKET est -3.5%, live 38 @ +0.4%
+  ⚠ Staking (% of bankroll): BANKER est +0.7%, no live record yet · SAFE est -5.3%, live 57 @ -4.0% · VALUE est -4.4%, live 1 @ +60.0% · BOOK est -4.4%, live 6 @ +21.7% · MARKET est -3.5%, live 43 @ +0.1%
   ⚠ logged 0 new paper leg(s) with a live entry price
   ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
-  ⚠ AI Survivor: graded 1 pick(s)
-  ⚠ AI Survivor: 2 lineage(s) born
   ⚠ AI Survivor: 16 alive, 0 holding a pick for 2026-10-07 (0 new), 16 waiting for a 80%+ HIGH/MEDIUM pick
 HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
 

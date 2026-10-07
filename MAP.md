@@ -94,7 +94,7 @@ laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 | Phase 3 CLV gate | `clv/clv_logger.py` (`PHASE3_GATE_MIN_LEGS = 30`, mean must be positive) — see §12 |
 | Season | `orchestrator.fit_season_code()` — the last completed season, switching on 1 July (2026-10-05; was a fixed `"2526"`) |
 | Team spellings | `engine/name_match.py`, `TEAM_ALIASES` in `pipeline/odds_sportybet.py` |
-| NBA teams (ESPN id/code, SportyBet Sportradar id, bet365 draft name, NBA_Betting code) | `engine/nba_teams.py` (`TEAMS`, `BET365_CONFIRMED = False`); LAC/SAC/TOR SportyBet ids pending — a run flags the first one seen |
+| NBA teams (ESPN id/code, SportyBet Sportradar id, bet365 draft name, NBA_Betting code) | `engine/nba_teams.py` (`TEAMS`, `BET365_CONFIRMED = False`); all 30 SportyBet ids on file (LAC/SAC/TOR via Sportradar stats, 2026-10-07) — a new or conflicting id is flagged on the run |
 
 ## 4. What the system remembers
 

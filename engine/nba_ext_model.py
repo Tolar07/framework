@@ -31,9 +31,6 @@ from datetime import date, timedelta
 from pathlib import Path
 
 LINE_TOL = 1.0
-# ESPN abbreviations that NBA_Betting spells differently (its config.TEAM_ABBREVIATION_MAP)
-_ESPN_TO_EXT = {"GS": "GSW", "NO": "NOP", "NY": "NYK", "SA": "SAS", "UTAH": "UTA",
-                "WSH": "WAS", "PHO": "PHX", "BK": "BKN", "BRK": "BKN", "CHO": "CHA"}
 
 _QUERY = """
     SELECT p.game_id, p.model_variant, p.predicted_at, p.home_cover_prob,
@@ -42,11 +39,6 @@ _QUERY = """
     JOIN games AS g ON g.game_id = p.game_id
     WHERE substr(p.game_id, 1, 8) BETWEEN :lo AND :hi
 """
-
-
-def abbr(espn_abbr: str) -> str:
-    a = (espn_abbr or "").strip().upper()
-    return _ESPN_TO_EXT.get(a, a)
 
 
 def load(db_path: str | Path, days: list[date]) -> list[dict]:
@@ -68,12 +60,12 @@ def load(db_path: str | Path, days: list[date]) -> list[dict]:
         return []
 
 
-def match(rows: list[dict], home: str, away: str, tip_date: date) -> dict[str, dict]:
-    """{variant: row} for one ESPN game (abbreviations), its US date within a day of tip."""
-    h, a = abbr(home), abbr(away)
+def match(rows: list[dict], home_key: str, away_key: str, tip_date: date) -> dict[str, dict]:
+    """{variant: row} for one game by NBA team code (engine/nba_teams key — the
+    same codes NBA_Betting stores), its US date within a day of tip."""
     out: dict[str, dict] = {}
     for r in rows:
-        if r.get("home_team") != h or r.get("away_team") != a:
+        if r.get("home_team") != home_key or r.get("away_team") != away_key:
             continue
         try:
             d = date(int(r["game_id"][:4]), int(r["game_id"][4:6]), int(r["game_id"][6:8]))

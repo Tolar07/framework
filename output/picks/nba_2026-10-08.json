@@ -1,0 +1,111 @@
+{
+ "date": "2026-10-08",
+ "run_id": "OLPXDV-20261007-1758-3b5ff3",
+ "generated_at": "2026-10-07T17:58:44Z",
+ "mega_code": "RPT5EJ",
+ "picks": [
+  {
+   "market_id": "228",
+   "specifier": "total=125.5",
+   "outcome": "Under 125.5",
+   "outcome_id": "13",
+   "price": 1.61,
+   "chance": 0.6706,
+   "fair_price": 1.491,
+   "ev": 0.0797,
+   "stage": "preseason",
+   "event_id": "sr:match:73864144",
+   "home_key": "IND",
+   "away_key": "MIN",
+   "bet365": {
+    "pick": "Team Totals: MIN Timberwolves Under 125.5",
+    "take_at": 1.57
+   },
+   "espn_id": "401914123",
+   "espn_date": "2026-10-07",
+   "tip": "2026-10-07T23:00:00+00:00",
+   "home": "Indiana Pacers",
+   "away": "Minnesota Timberwolves",
+   "pick": "Minnesota Timberwolves Under 125.5 points (incl. OT)",
+   "sharp": {
+    "ml_home": 2.24,
+    "ml_away": 1.6757,
+    "spread": 3.5,
+    "total": 237.5
+   },
+   "code": "Z54MJS",
+   "result": null,
+   "score": null,
+   "close_value": null
+  },
+  {
+   "market_id": "228",
+   "specifier": "total=107.5",
+   "outcome": "Under 107.5",
+   "outcome_id": "13",
+   "price": 1.58,
+   "chance": 0.6865,
+   "fair_price": 1.457,
+   "ev": 0.0846,
+   "stage": "preseason",
+   "event_id": "sr:match:73864148",
+   "home_key": "OKC",
+   "away_key": "MIL",
+   "bet365": {
+    "pick": "Team Totals: MIL Bucks Under 107.5",
+    "take_at": 1.53
+   },
+   "espn_id": "401908620",
+   "espn_date": "2026-10-08",
+   "tip": "2026-10-08T00:00:00+00:00",
+   "home": "Oklahoma City Thunder",
+   "away": "Milwaukee Bucks",
+   "pick": "Milwaukee Bucks Under 107.5 points (incl. OT)",
+   "sharp": {
+    "ml_home": 1.1481,
+    "ml_away": 5.9,
+    "spread": -14.5,
+    "total": 218.5
+   },
+   "code": "LEH80D",
+   "result": null,
+   "score": null,
+   "close_value": null
+  },
+  {
+   "market_id": "228",
+   "specifier": "total=109.5",
+   "outcome": "Under 109.5",
+   "outcome_id": "13",
+   "price": 1.6,
+   "chance": 0.7738,
+   "fair_price": 1.292,
+   "ev": 0.238,
+   "stage": "preseason",
+   "event_id": "sr:match:73864150",
+   "home_key": "POR",
+   "away_key": "GSW",
+   "bet365": {
+    "pick": "Team Totals: GS Warriors Under 109.5",
+    "take_at": 1.36
+   },
+   "espn_id": "401914129",
+   "espn_date": "2026-10-08",
+   "tip": "2026-10-08T02:00:00+00:00",
+   "home": "Portland Trail Blazers",
+   "away": "Golden State Warriors",
+   "pick": "Golden State Warriors Under 109.5 points (incl. OT)",
+   "sharp": {
+    "ml_home": 1.1923,
+    "ml_away": 4.9,
+    "spread": -14.5,
+    "total": 216.5
+   },
+   "code": "LMUX44",
+   "result": null,
+   "score": null,
+   "close_value": null
+  }
+ ],
+ "sent_at": "2026-10-07T17:58:57Z"
+}

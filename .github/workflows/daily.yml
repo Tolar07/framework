@@ -194,6 +194,17 @@ jobs:
           code=$(curl -s -o /dev/null -w "%{http_code}" -X POST \n            -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \n            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/nba_watch.yml/dispatches" \n            -d '{"ref":"main"}') || code=000
           echo "NBA line watch start requested (HTTP ${code}; 204 = started)"
 
+      # Start the universe sweep (universe.yml -> monitor/universe_sweep.py) after
+      # every board run: GitHub's own 3-hourly cron for it is unreliable, so each
+      # board guarantees a sweep (grade, archive, studies). Its concurrency group
+      # queues it behind a sweep already running. Never fails the run.
+      - name: Start the universe sweep
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST             -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/universe.yml/dispatches"             -d '{"ref":"main"}') || code=000
+          echo "universe sweep start requested (HTTP ${code}; 204 = started)"
+
       # Start the pre-kickoff loop (news.yml -> monitor/news_loop.py) once the
       # day's board is saved. The morning board is started on time by a
       # Routine, so the loop is too; GitHub's own news.yml cron is unreliable.

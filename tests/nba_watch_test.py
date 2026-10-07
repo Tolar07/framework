@@ -76,12 +76,29 @@ assert "Run ID: OLPXDV-20261021-2200-abc123" in txt and "Under 231.5" in txt and
 assert "bet365: Game Lines › Total: Under 231.5" in txt and "LAG — check by hand" in txt and "LIVE TEST" in txt and "place it by hand" in txt
 print("alert text: OK")
 
+# price check: a pick sent this morning whose value has gone is flagged once
+sent = {"e5": {"event_id": "e5", "market_id": "225", "specifier": "total=231.5", "outcome": "Under 231.5",
+               "pick": "Under 231.5 points (incl. OT)", "price": 1.85, "ev": 0.12, "code": "ABC123"}}
+st5 = {}
+notes = w.price_check([("regular", event("e5", over=2.10, under=1.72), tip, bos, lal, game(231.5))], st5, sent)
+assert len(notes) == 1 and "VALUE GONE" in notes[0] and "@1.72" in notes[0] and "ABC123" in notes[0], notes
+assert w.price_check([("regular", event("e5", over=2.10, under=1.72), tip, bos, lal, game(231.5))], st5, sent) == []
+still = w.price_check([("regular", event("e6", over=1.95, under=1.85), tip, bos, lal, game(224.5))], {},
+                      {"e6": {**sent["e5"], "event_id": "e6"}})
+assert still == [], "value still there (sharp total 224.5): no warning"
+gone = w.price_check([("regular", event("e7", total_line=233.5), tip, bos, lal, game(231.5))], {},
+                     {"e7": {**sent["e5"], "event_id": "e7"}})
+assert len(gone) == 1 and "no longer offered" in gone[0]
+assert "PRICE CHECK — earlier picks:" in w.render(later, "OLPXDV-20261021-2200-abc123", [], [], notes)
+print("price check of picks already sent (value gone / withdrawn, once): OK")
+
 # loop helpers: rounds on :00/:15/:30/:45; never touches git outside GitHub Actions
 assert w.next_round(datetime(2026, 10, 21, 21, 7, 30, tzinfo=UTC)).minute == 15
 assert w.next_round(datetime(2026, 10, 21, 21, 45, 0, tzinfo=UTC)).minute == 0
 os.environ.pop("GITHUB_ACTIONS", None)
 assert not w.in_actions() and w.persist(now) == "not saved (outside GitHub Actions)"
-assert w.lagos_date(datetime(2026, 10, 21, 23, 30, tzinfo=UTC)) == "2026-10-22"
+assert w.night_key(datetime(2026, 10, 21, 23, 30, tzinfo=UTC)) == "2026-10-22"
+assert w.night_key(datetime(2026, 10, 24, 17, 0, tzinfo=UTC)) == "2026-10-25", "a matinee belongs to its night's board"
 print("loop helpers, no git outside Actions: OK")
 
 # order 41: NBA alerts go to the Architect's own chat only, never the subscribers

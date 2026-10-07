@@ -1,0 +1,49 @@
+name: OLP XDV NBA line watch
+
+# NBA line watch (order 41 paper board; Architect 2026-10-07: "build A and B
+# together and C"): every 15 minutes while an NBA game tips off within 6
+# hours, the sharp line (ESPN) against SportyBet — value SportyBet hasn't
+# priced yet goes to the Architect's own chat as a PAPER pick, every ladder
+# is saved for the ladder study. monitor/nba_watch.py.
+#
+# ONE job loops (like news.yml): daily.yml starts it after the evening NBA
+# board; the cron ticks below are backup starters (weekend matinees tip from
+# ~17:00 UTC) — a run that finds an older loop going exits at once, and one
+# with no game in the next 6 hours ends. It hands off before 6 hours.
+on:
+  schedule:
+    - cron: "5 16,19,22 * * *"
+  workflow_dispatch:
+    inputs:
+      handoff:
+        description: "true = started by the previous loop run (internal)"
+        required: false
+        default: "false"
+
+permissions:
+  actions: write    # see whether a loop is already running; hand off to a fresh run
+  contents: write   # save watch picks, line state and ladders
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Watch NBA lines every 15 minutes
+        env:
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+          HANDOFF:            ${{ github.event.inputs.handoff }}
+        run: |
+          pip install -q -r requirements.txt
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          if [ "$HANDOFF" = "true" ]; then python monitor/nba_watch.py --handoff
+          else python monitor/nba_watch.py; fi

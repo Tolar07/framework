@@ -145,7 +145,14 @@ BET365_MARKETS = {
     "225": "Game Lines › Total",
     "68": "1st Half › Total",
     "236": "1st Quarter › Total",
+    "227": "Team Totals",
+    "228": "Team Totals",
+    "66": "1st Half › Spread",
+    "303": "Quarter › Spread",
 }
+# No bet365 line for SportyBet's regulation-time total (18): bet365's game
+# total includes overtime, so it is a different bet.
+_QUARTER = {"1": "1st Quarter", "2": "2nd Quarter", "3": "3rd Quarter"}
 
 
 def bet365_pick(row: dict, home: Team, away: Team) -> str | None:
@@ -159,10 +166,19 @@ def bet365_pick(row: dict, home: Team, away: Team) -> str | None:
     if mid == "219":
         team = {"Home": home, "Away": away}.get(side)
         return f"{market}: {team.bet365}" if team else None
-    if mid == "223":
+    if mid in ("223", "66", "303"):
         m = re.search(r"\(([-+]?\d+(?:\.\d+)?)\)", o)
         team = {"Home": home, "Away": away}.get(side)
+        if mid == "303":
+            q = re.search(r"quarternr=(\d)", row.get("specifier") or "")
+            if not q or q.group(1) not in _QUARTER:
+                return None
+            market = f"{_QUARTER[q.group(1)]} › Spread"
         return f"{market}: {team.bet365} {float(m.group(1)):+g}" if team and m else None
+    if mid in ("227", "228"):
+        m = re.match(r"(Over|Under)\s+(\d+(?:\.\d+)?)$", o)
+        team = home if mid == "227" else away
+        return f"{market}: {team.bet365} {m.group(1)} {m.group(2)}" if m else None
     m = re.match(r"(Over|Under)\s+(\d+(?:\.\d+)?)$", o)
     return f"{market}: {m.group(1)} {m.group(2)}" if m else None
 

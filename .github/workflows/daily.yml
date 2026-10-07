@@ -169,10 +169,23 @@ jobs:
           git add data/survivor 2>/dev/null || true
           # European club results archive (data/european_archive.py).
           git add data/european 2>/dev/null || true
+          # NBA ladder snapshots (engine/nba_ladder.py) for the ladder study.
+          git add output/nba_ladders 2>/dev/null || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
           # A queued run checks out an older SHA; rebase onto latest main first.
           git pull --rebase -q origin main || true
           git push || echo "nothing to push"
+
+      # Start the NBA line watch (nba_watch.yml -> monitor/nba_watch.py) after the
+      # evening NBA board: every 15 min while a game tips within 6 h. Its own
+      # cron ticks are backups; a second loop exits at once. Never fails the run.
+      - name: Start the NBA line watch
+        if: github.event.schedule == '47 20 * * *' || github.event.inputs.slot == 'evening'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST \n            -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \n            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/nba_watch.yml/dispatches" \n            -d '{"ref":"main"}') || code=000
+          echo "NBA line watch start requested (HTTP ${code}; 204 = started)"
 
       # Start the pre-kickoff loop (news.yml -> monitor/news_loop.py) once the
       # day's board is saved. The morning board is started on time by a

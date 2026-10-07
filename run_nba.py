@@ -38,6 +38,7 @@ sys.path.insert(0, str(ROOT))
 
 from data import nba_source as ns  # noqa: E402
 from engine import nba_ext_model as xm  # noqa: E402
+from engine import nba_ladder as nl  # noqa: E402
 from engine import nba_teams as nt  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
 
@@ -47,7 +48,7 @@ LAGOS = timezone(timedelta(hours=1))
 HOURS = 26
 TOURNAMENTS = {"sr:tournament:132": "regular", "sr:tournament:2382": "preseason"}
 _FEED = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
-         "?sportId=sr:sport:2&marketId=219,223,225,68,236&pageSize=100&pageNum={page}")
+         "?sportId=sr:sport:2&marketId=219,223,225,68,236,227,228,18,66,303&pageSize=100&pageNum={page}")
 _UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 _RULE = "──────────────────────────────────"
@@ -100,7 +101,7 @@ def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int
     # pick for later grading; it never chooses, drops or reorders a pick.
     ext_db = os.environ.get("NBA_EXT_MODEL_DB", "").strip()
     ext_rows = xm.load(ext_db, days) if ext_db else []
-    picks, scanned = [], 0
+    picks, scanned, snaps = [], 0, []
     for stage, e in evs:
         tip = _tip_utc(e["estimateStartTime"])
         label = f"{e.get('homeTeamName')} v {e.get('awayTeamName')}"
@@ -116,6 +117,7 @@ def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int
             notes.append(f"{label}: no ESPN game matched — skipped")
             continue
         ns.attach_odds(g, use_cache=False)
+        snaps.append(nl.snapshot_row(now, stage, e, ht.key, at.key, g))   # ladder study
         if not (g.ml_home and g.ml_away):
             notes.append(f"{label}: no sharp line yet — skipped")
             continue
@@ -148,6 +150,7 @@ def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int
                       "sharp": {"ml_home": g.ml_home, "ml_away": g.ml_away,
                                 "spread": g.spread, "total": g.total},
                       "code": None, "result": None, "score": None, "close_value": None})
+    nl.save(snaps, now)
     picks.sort(key=lambda p: p["tip"])
     return picks, notes, scanned
 
@@ -194,19 +197,27 @@ def grade(now: datetime) -> list[str]:
 
 
 def scorecard() -> str:
-    """The paper record: regular-season picks only (preseason is a pipeline test)."""
+    """The paper record: regular-season picks only (preseason is a pipeline test).
+    The board's picks and the line watch's (monitor/nba_watch.py) are kept apart."""
     rows = []
     for path in sorted(LEDGER_DIR.glob("nba_*.json")):
         rows += [p for p in json.loads(path.read_text(encoding="utf-8")).get("picks", [])
                  if p.get("stage") == "regular" and p.get("result") in ("won", "lost")]
-    if not rows:
+    board = [p for p in rows if p.get("source") != "watch"]
+    watch = [p for p in rows if p.get("source") == "watch"]
+    if not board and not watch:
         return "Paper record: no graded regular-season pick yet (the season opens 20 Oct)."
-    w = sum(p["result"] == "won" for p in rows)
-    ret = sum(p["price"] for p in rows if p["result"] == "won") - len(rows)
-    cv = [p["close_value"] for p in rows if p.get("close_value") is not None]
-    cvs = f" · beat the closing line on average by {100 * sum(cv) / len(cv):+.1f}%" if cv else ""
-    return (f"Paper record (regular season): {len(rows)} picks · won {w} ({100 * w / len(rows):.0f}%) · "
-            f"£1 each returned {ret:+.2f} ({100 * ret / len(rows):+.1f}%){cvs}")
+    out = []
+    for name, ps in (("Paper record (regular season)", board), ("Line watch record", watch)):
+        if not ps:
+            continue
+        w = sum(p["result"] == "won" for p in ps)
+        ret = sum(p["price"] for p in ps if p["result"] == "won") - len(ps)
+        cv = [p["close_value"] for p in ps if p.get("close_value") is not None]
+        cvs = f" · beat the closing line on average by {100 * sum(cv) / len(cv):+.1f}%" if cv else ""
+        out.append(f"{name}: {len(ps)} picks · won {w} ({100 * w / len(ps):.0f}%) · "
+                   f"£1 each returned {ret:+.2f} ({100 * ret / len(ps):+.1f}%){cvs}")
+    return "\n".join(out)
 
 
 def render(picks: list[dict], board_date: str, run_id: str, scanned: int,

@@ -169,6 +169,8 @@ jobs:
           git add data/survivor 2>/dev/null || true
           # European club results archive (data/european_archive.py).
           git add data/european 2>/dev/null || true
+          # Turkish Cup results + clubs' divisions (data/european_archive.archive_cups).
+          git add data/cups 2>/dev/null || true
           # NBA ladder snapshots (engine/nba_ladder.py) for the ladder study.
           git add output/nba_ladders 2>/dev/null || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"

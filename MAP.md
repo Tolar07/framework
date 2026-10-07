@@ -110,6 +110,7 @@ laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 | `output/nba_watch/<date>.json` | `monitor/nba_watch.py` — first sharp line seen per game, LAGs reported | the watch (line moves, no repeat alerts) | yes |
 | `output/nba_ladders/<date>.jsonl` | `engine/nba_ladder.py` via `run_nba.py` and the watch — every SportyBet NBA ladder + its fitted centre/spread | `backtest/nba_ladder_study.py` → `backtest/NBA_LADDER_STUDY.md` | yes |
 | `data/survivor/` | `engine/survivor.py` | survivor | yes |
+| `data/cups/results.json` | `data/european_archive.archive_cups` (every run, from Flashscore) — Turkish Cup ties, every round, with both clubs' divisions | `backtest/cup_study.py` → `backtest/TURKISH_CUP_STUDY.md`; nothing prices the cup yet (2026-10-07) | yes |
 | `data/european/results.json` | `data/european_archive.py` (every run, from Flashscore) | nothing yet — the history a current-season European model needs (2026-10-05) | yes |
 | `memory/telegram_offset.json` | commands | commands | yes |
 | `memory/corrections.csv` | `/note` | heartbeat + weekly review list the open ones (`engine/loss_watch.open_notes`, order 39) | yes |

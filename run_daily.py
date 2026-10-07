@@ -376,7 +376,7 @@ def _dry_run_sandbox():
 
     global BOARD_DIR
     saved = (BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR)
-    saved_eu = _eu.PATH
+    saved_eu, saved_cup = _eu.PATH, _eu.CUP_PATH
     tmp = Path(tempfile.mkdtemp(prefix="olpxdv-dry-"))
     boards, picks, clv_log = tmp / "boards", tmp / "picks", tmp / "clv_log.json"
     for src, dst in ((saved[0], boards), (saved[1], picks)):
@@ -389,6 +389,9 @@ def _dry_run_sandbox():
     _eu.PATH = tmp / "european_results.json"
     if saved_eu.exists():
         shutil.copy2(saved_eu, _eu.PATH)
+    _eu.CUP_PATH = tmp / "cup_results.json"
+    if saved_cup.exists():
+        shutil.copy2(saved_cup, _eu.CUP_PATH)
     saved_lw = (_lw.KNOWLEDGE_FILE, _lw.PROPOSALS_FILE)
     _lw.KNOWLEDGE_FILE, _lw.PROPOSALS_FILE = tmp / "knowledge.json", tmp / "proposals.json"
     for src, dst in zip(saved_lw, (_lw.KNOWLEDGE_FILE, _lw.PROPOSALS_FILE)):
@@ -401,7 +404,7 @@ def _dry_run_sandbox():
         yield tmp
     finally:
         BOARD_DIR, _pl.LEDGER_DIR, _clv.DEFAULT_LOG_PATH, _fz.BOARD_DIR = saved
-        _eu.PATH = saved_eu
+        _eu.PATH, _eu.CUP_PATH = saved_eu, saved_cup
         _lw.KNOWLEDGE_FILE, _lw.PROPOSALS_FILE = saved_lw
 
 
@@ -459,6 +462,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         _n_eu = european_archive.archive(fs_events)
         if _n_eu:
             all_flags.append(f"European results archived: {_n_eu} new")
+        _n_cup = european_archive.archive_cups(fs_events)
+        if _n_cup:
+            all_flags.append(f"Turkish Cup results archived: {_n_cup} new")
     except Exception as e:  # noqa: BLE001
         all_flags.append(f"European results archive skipped ({str(e)[:60]})")
     verify_block, gflags = grade_open_legs(log, season, fs_events)

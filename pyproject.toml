@@ -79,6 +79,7 @@ files = [
     "monitor/nba_watch.py",
     "engine/universe.py",
     "monitor/universe_sweep.py",
+    "data/match_stats.py",
     "data/espn_fixtures.py",
     "engine/fixture_match.py",
     "verification/fixture_check.py",

@@ -2,7 +2,9 @@
 UNIVERSE SWEEP — every 3 hours: read SportyBet's whole football and
 basketball list, keep each game's first/last pre-kick-off prices, grade the
 games that have finished from Flashscore, and archive them (engine/universe.py).
-Once a day it rewrites backtest/UNIVERSE_STUDY.md.
+Once a day it rewrites backtest/UNIVERSE_STUDY.md, and collects FotMob's
+post-match stats of the last 3 days' rated fixtures (data/match_stats.py) for
+backtest/MATCH_STATS_STUDY.md.
 
 The prices of games not yet played live in data/cache/universe/ (the
 universe.yml Actions cache — not git: thousands of games a day would bloat
@@ -104,7 +106,8 @@ def _git(*args: str) -> subprocess.CompletedProcess:
 def persist(now: datetime) -> str:
     if os.environ.get("GITHUB_ACTIONS") != "true":
         return "not saved (outside GitHub Actions)"
-    _git("add", "data/universe", "backtest/UNIVERSE_STUDY.md")
+    _git("add", "data/universe", "backtest/UNIVERSE_STUDY.md", "data/match_stats",
+         "backtest/MATCH_STATS_STUDY.md")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"universe {now:%Y-%m-%d %H:%M} [skip ci]")
@@ -128,6 +131,13 @@ def main(argv: list[str] | None = None) -> int:
         import importlib
         sys.path.insert(0, str(ROOT / "backtest"))
         importlib.import_module("universe_study").main()
+        try:
+            from data import match_stats
+            n, notes = match_stats.collect(days=3)
+            print(f"[{now:%H:%M}Z] match stats: {n} new" + "".join(f" · {x}" for x in notes))
+        except Exception as e:  # noqa: BLE001 — FotMob down never stops the sweep
+            print(f"[{now:%H:%M}Z] match stats skipped ({str(e)[:60]})")
+        importlib.import_module("match_stats_study").main()
     print(f"[{now:%H:%M}Z] {persist(now)}")
     return 0
 

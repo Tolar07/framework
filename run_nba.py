@@ -37,6 +37,7 @@ ROOT = Path(__file__).parent
 sys.path.insert(0, str(ROOT))
 
 from data import nba_source as ns  # noqa: E402
+from engine import nba_ext_model as xm  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
 
 LEDGER_DIR = ROOT / "output" / "picks"
@@ -94,6 +95,10 @@ def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int
     days = sorted({(_tip_utc(e["estimateStartTime"]) + d).date()
                    for _s, e in evs for d in (timedelta(hours=-6), timedelta(0))})
     espn = [g for d in days for g in ns.scoreboard(d, use_cache=False)]
+    # Shadow only: the external NBA_Betting model's view is stored beside each
+    # pick for later grading; it never chooses, drops or reorders a pick.
+    ext_db = os.environ.get("NBA_EXT_MODEL_DB", "").strip()
+    ext_rows = xm.load(ext_db, days) if ext_db else []
     picks, scanned = [], 0
     for stage, e in evs:
         tip = _tip_utc(e["estimateStartTime"])
@@ -123,6 +128,10 @@ def build(now: datetime, hours: int = HOURS) -> tuple[list[dict], list[str], int
         if not found:
             continue
         best = max(found, key=lambda r: (r["ev"], r["chance"]))
+        if ext_rows:
+            ext = xm.view(best, xm.match(ext_rows, g.home, g.away, tip.date()))
+            if ext:
+                best = {**best, "ext_model": ext}
         picks.append({**best, "stage": stage, "event_id": e.get("eventId"),
                       "espn_id": g.id, "espn_date": g.tip[:10], "tip": tip.isoformat(),
                       "home": e.get("homeTeamName"), "away": e.get("awayTeamName"),

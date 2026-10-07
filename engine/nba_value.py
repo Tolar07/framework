@@ -1,5 +1,5 @@
 """
-NBA PAPER BOARD — value by PRICE COMPARISON (standing order 41, Architect
+NBA BOARD — value by PRICE COMPARISON (standing order 41, Architect
 2026-10-06: "Yes, build the paper NBA board").
 
 backtest/NBA_STUDY.md showed the football method (pick the likeliest outcome)
@@ -35,8 +35,8 @@ A pick needs: price 1.20-2.00, chance >= 50%, value (chance x price - 1)
 >= +3% on the winner market or >= +5% on a handicap / total line (the normal
 curve is an approximation, so it must clear a bigger margin). Above +25% the
 gap is treated as a data error (a stale line), listed for checking, never
-picked. One pick per game: the best value. PAPER ONLY — no stake, no capital
-(order 26 is unchanged) until the graded record shows it works.
+picked. One pick per game: the best value. A LIVE TEST since 2026-10-07: the
+Architect places picks by hand from their SportyBet codes (orders 26, 41).
 """
 from __future__ import annotations
 

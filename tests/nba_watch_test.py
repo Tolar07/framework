@@ -48,7 +48,7 @@ picks, lags, _ = w.check(later, [("regular", event("e1"), tip, bos, lal, game(22
 assert len(picks) == 1 and picks[0]["outcome"] == "Under 231.5" and picks[0]["source"] == "watch", picks
 assert "total 231.5 → 224.5" in picks[0]["reason"] and picks[0]["ev"] >= 0.05
 assert picks[0]["bet365"]["pick"] == "Game Lines › Total: Under 231.5" and "e1" in taken
-print("line move found, SportyBet's stale price alerted as a paper pick: OK")
+print("line move found, SportyBet's stale price alerted as a pick: OK")
 
 # round 3: same game again -> no second pick (one per game)
 picks, _, _ = w.check(later, [("regular", event("e1"), tip, bos, lal, game(224.5))], state, taken)
@@ -73,7 +73,7 @@ txt = w.render(later, "OLPXDV-20261021-2200-abc123",
                                                                    game(224.5))], {"first": {"e9": state["first"]["e1"]}}, set())[0]],
                ["X v Y: check by hand"])
 assert "Run ID: OLPXDV-20261021-2200-abc123" in txt and "Under 231.5" in txt and "why: sharp line moved" in txt
-assert "bet365: Game Lines › Total: Under 231.5" in txt and "LAG — check by hand" in txt and "paper" in txt
+assert "bet365: Game Lines › Total: Under 231.5" in txt and "LAG — check by hand" in txt and "LIVE TEST" in txt and "place it by hand" in txt
 print("alert text: OK")
 
 # loop helpers: rounds on :00/:15/:30/:45; never touches git outside GitHub Actions

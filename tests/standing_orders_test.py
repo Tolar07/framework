@@ -454,13 +454,15 @@ assert len(_all40) == len(set(_all40)) == 7, "Order 40: every 75%+ pick in exact
 assert not any(f.startswith(("P7 ", "P8 ")) for f in _all40), "Order 40: picks under 75% stay singles"
 assert all(len(ls) <= 3 for _n, ls, _c in _s40 + _a40), "Order 40: at most 3 legs an acca"
 
-# 41. NBA paper board
+# 41. NBA board (live test since 2026-10-07)
 from engine import nba_value as _nv41
 assert (_nv41.MIN_EV_WINNER, _nv41.MIN_EV_LINE, _nv41.MAX_EV, _nv41.BAND) == (0.03, 0.05, 0.25, (1.20, 2.00)), \
     "Order 41: NBA picks only above the fair price; stale gaps left out"
 _nba41 = (ROOT / "run_nba.py").read_text(encoding="utf-8")
 assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "send_everyone" not in _nba41, \
-    "Order 41: the NBA paper board goes to the Architect's own chat only"
+    "Order 41: the NBA board goes to the Architect's own chat only"
 assert "python run_nba.py" in wf, "Order 41: the NBA board runs with the evening board"
+assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41, \
+    "Orders 26/41 (2026-10-07): the NBA board is a live test, placed by hand from its codes"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

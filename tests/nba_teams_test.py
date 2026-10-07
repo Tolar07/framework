@@ -57,7 +57,7 @@ for field in ("key", "espn_id", "espn_abbr", "name", "bet365"):
     vals = [getattr(t, field) for t in nt.TEAMS]
     assert len(set(vals)) == 30, f"{field} must be unique"
 ids = [t.sr_id for t in nt.TEAMS if t.sr_id]
-assert len(ids) == len(set(ids)) == 27
+assert len(ids) == len(set(ids)) == 30
 assert {t.key for t in nt.TEAMS} == EXT, "team keys are NBA_Betting's codes"
 print("30 teams, unique on every field, keys = NBA_Betting codes: OK")
 
@@ -72,11 +72,22 @@ print("all 30 ESPN teams (id, abbreviation, name): OK")
 for name, sr in SB.items():
     t, note = nt.sportybet(name, sr)
     assert t and t.sr_id == sr and note is None, (name, t, note)
-assert {t.key for t in nt.TEAMS if t.sr_id is None} == {"LAC", "SAC", "TOR"}
-print("all 27 SportyBet names + ids seen 2026-10-07: OK")
+# The three SportyBet had no game for on 2026-10-07: ids from Sportradar's stats
+# service, which named all 27 feed ids above exactly as SportyBet does.
+for name, sr in [("Los Angeles Clippers", "sr:competitor:3425"), ("LA Clippers", "sr:competitor:3425"),
+                 ("Sacramento Kings", "sr:competitor:3413"), ("Toronto Raptors", "sr:competitor:3433")]:
+    t, note = nt.sportybet(name, sr)
+    assert t and t.sr_id == sr and note is None, (name, t, note)
+print("all 30 SportyBet ids (27 from the feed + 3 from Sportradar stats): OK")
 
-t, note = nt.sportybet("Los Angeles Clippers", "sr:competitor:9999")
-assert t.key == "LAC" and note.startswith("mapping: new SportyBet id"), note
+# a team without an id on file matches by name and flags the id it was shown
+tor = nt.BY_KEY["TOR"]
+nt._BY_NAME["toronto raptors"] = tor._replace(sr_id=None)
+try:
+    t, note = nt.sportybet("Toronto Raptors", "sr:competitor:9999")
+    assert t.key == "TOR" and note.startswith("mapping: new SportyBet id"), note
+finally:
+    nt._BY_NAME["toronto raptors"] = tor
 t, note = nt.sportybet("Toronto Raptors", None)
 assert t.key == "TOR" and note is None
 t, note = nt.sportybet("Boston Celtics", "sr:competitor:3423")       # Atlanta's id

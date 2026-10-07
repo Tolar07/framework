@@ -8,11 +8,12 @@ NBA TEAMS — one table for every source the NBA board reads (order 41).
     bet365    how bet365 lists the team (DRAFT — see BET365_CONFIRMED)
 
 SportyBet ids were read from SportyBet's own NBA feed on 2026-10-07 for the
-27 teams it listed that day. LA Clippers, Sacramento Kings and Toronto
-Raptors had no game listed, so their ids are None: those teams match by
-name, and the first id SportyBet shows for them is flagged on the run for
-adding here. Nothing is guessed (HR59): an id that disagrees with its name
-is flagged and the game is skipped, as football's name matching does.
+27 teams it listed that day. LA Clippers (3425), Sacramento Kings (3413) and
+Toronto Raptors (3433) had no game listed; their ids come from Sportradar's
+public stats service (stats_team_info), which named all 27 feed ids exactly
+as SportyBet does. Nothing is guessed (HR59): an id that disagrees with its
+name is flagged and the game is skipped, as football's name matching does;
+a team ever left without an id matches by name and its first id is flagged.
 
 bet365 has no free feed (order 27: no paid API), so the bet365 names and
 market labels are a draft until the Architect checks them against the app,
@@ -51,7 +52,7 @@ TEAMS = (
     Team("GSW", "9", "GS", "Golden State Warriors", "sr:competitor:3428", "GS Warriors"),
     Team("HOU", "10", "HOU", "Houston Rockets", "sr:competitor:3412", "HOU Rockets"),
     Team("IND", "11", "IND", "Indiana Pacers", "sr:competitor:3419", "IND Pacers"),
-    Team("LAC", "12", "LAC", "LA Clippers", None, "LA Clippers"),
+    Team("LAC", "12", "LAC", "LA Clippers", "sr:competitor:3425", "LA Clippers"),
     Team("LAL", "13", "LAL", "Los Angeles Lakers", "sr:competitor:3427", "LA Lakers"),
     Team("MEM", "29", "MEM", "Memphis Grizzlies", "sr:competitor:3415", "MEM Grizzlies"),
     Team("MIA", "14", "MIA", "Miami Heat", "sr:competitor:3435", "MIA Heat"),
@@ -64,9 +65,9 @@ TEAMS = (
     Team("PHI", "20", "PHI", "Philadelphia 76ers", "sr:competitor:3420", "PHI 76ers"),
     Team("PHX", "21", "PHX", "Phoenix Suns", "sr:competitor:3416", "PHX Suns"),
     Team("POR", "22", "POR", "Portland Trail Blazers", "sr:competitor:3414", "POR Trail Blazers"),
-    Team("SAC", "23", "SAC", "Sacramento Kings", None, "SAC Kings"),
+    Team("SAC", "23", "SAC", "Sacramento Kings", "sr:competitor:3413", "SAC Kings"),
     Team("SAS", "24", "SA", "San Antonio Spurs", "sr:competitor:3429", "SA Spurs"),
-    Team("TOR", "28", "TOR", "Toronto Raptors", None, "TOR Raptors"),
+    Team("TOR", "28", "TOR", "Toronto Raptors", "sr:competitor:3433", "TOR Raptors"),
     Team("UTA", "26", "UTAH", "Utah Jazz", "sr:competitor:3434", "UTA Jazz"),
     Team("WAS", "27", "WSH", "Washington Wizards", "sr:competitor:3431", "WAS Wizards"),
 )

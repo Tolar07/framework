@@ -1,6 +1,10 @@
 {
  "date": "2026-10-08",
- "gone": [],
+ "gone": [
+  "sr:match:73864144|228|total=125.5|Under 125.5",
+  "sr:match:73864148|228|total=107.5|Under 107.5",
+  "sr:match:73864150|228|total=109.5|Under 109.5"
+ ],
  "first": {
   "sr:match:73864144": {
    "at": "21:12Z",
@@ -37,5 +41,10 @@
    "ml_home": 1.1923,
    "ml_away": 4.9
   }
- }
+ },
+ "reopen": [
+  "sr:match:73864144",
+  "sr:match:73864148",
+  "sr:match:73864150"
+ ]
 }

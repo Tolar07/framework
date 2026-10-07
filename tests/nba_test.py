@@ -1,5 +1,5 @@
 """
-Offline test of the NBA paper board (order 41): fair chances from the sharp
+Offline test of the NBA board (order 41, live test): fair chances from the sharp
 line, value picks only above the fair price, stale-line guard, settlement
 incl. overtime, and team matching.
 """
@@ -51,7 +51,7 @@ assert run_nba.nickname("Portland Trail Blazers") == "blazers"
 assert nv.display({"market_id": "223", "outcome": "Away (+11.5)"}, "OKC", "New Orleans Pelicans") \
     == "New Orleans Pelicans (+11.5) handicap"
 txt = run_nba.render([], "2026-10-21", "OLPXDV-20261020-2047-abcdef", 0, None, [])
-assert "PAPER BOARD" in txt and "Run ID: OLPXDV-20261020-2047-abcdef" in txt
+assert "LIVE TEST" in txt and "place it by hand" in txt and "Run ID: OLPXDV-20261020-2047-abcdef" in txt
 print("matching + board text: OK")
 
 # 1st half / 1st quarter totals (the Architect's low-Over / high-Under method)

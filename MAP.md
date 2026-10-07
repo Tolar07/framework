@@ -18,11 +18,11 @@ Everything live runs in GitHub Actions on `main`. Times UTC (Lagos = UTC+1).
 
 | Workflow | When | Runs | Commits back |
 |---|---|---|---|
-| `daily.yml` | 20:47 (evening, tomorrow's card), 05:47 (morning refresh); also dispatched with `target_date` + `slot` | `run_daily.py --only-production --heartbeat`; evening also `run_nba.py` (NBA paper board, order 41) | `clv/clv_log.json`, `output/boards/`, `output/picks/`, `data/survivor/`, `memory/`, `output/nba_ladders/` |
+| `daily.yml` | 20:47 (evening, tomorrow's card), 05:47 (morning refresh); also dispatched with `target_date` + `slot` | `run_daily.py --only-production --heartbeat`; evening also `run_nba.py` (NBA board, order 41) | `clv/clv_log.json`, `output/boards/`, `output/picks/`, `data/survivor/`, `memory/`, `output/nba_ladders/` |
 | `watchdog.yml` | 23:17, 08:17 | `monitor/run_watchdog.py` — starts a slot that never ran | — |
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — one status message | — |
 | `news.yml` | one job looping every 20 min 09:00–20:40, started by `daily.yml` after each board; backup cron every 2 h; hands itself on before GitHub's 6-hour limit | `monitor/news_loop.py` → `news_check.py` — lineups, price drift, closing price | `output/picks/`, each round |
-| `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h; started by `daily.yml` after the evening NBA board, backup cron 16:05/19:05/22:05; hands itself on before 6 h | `monitor/nba_watch.py` — sharp line vs SportyBet, paper picks + LAG notes to the Architect only, ladder snapshots | `output/picks/nba_watch_*`, `output/nba_watch/`, `output/nba_ladders/`, each round |
+| `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h; started by `daily.yml` after the evening NBA board, backup cron 16:05/19:05/22:05; hands itself on before 6 h | `monitor/nba_watch.py` — sharp line vs SportyBet, booked picks + LAG notes to the Architect only, ladder snapshots | `output/picks/nba_watch_*`, `output/nba_watch/`, `output/nba_ladders/`, each round |
 | `commands.yml` | hourly at :05 | `output/telegram_commands.py` | `clv/clv_log.json`, `memory/` |
 | `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` | — |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` | — |
@@ -51,7 +51,7 @@ three days (so it is now one looping job the board run starts);
 |---|---|---|
 | The Architect (`TELEGRAM_CHAT_ID`) | everything | secret |
 | bet365 board | the Architect only — `TELEGRAM_OWNER_CHAT_ID` if set, else `TELEGRAM_CHAT_ID` (order 29) | secret |
-| NBA paper board + NBA line watch | the Architect only — `TELEGRAM_OWNER_CHAT_ID` if set, else `TELEGRAM_CHAT_ID` (order 41) | secret |
+| NBA board + NBA line watch (live test since 2026-10-07, placed by hand from the codes) | the Architect only — `TELEGRAM_OWNER_CHAT_ID` if set, else `TELEGRAM_CHAT_ID` (order 41) | secret |
 | Subscribers | everything except the bet365 board (order 33) | secret `TELEGRAM_SUBSCRIBER_CHAT_IDS`, comma-separated |
 | Commands | answered for the Architect's chat only | `output/telegram_commands.py` |
 

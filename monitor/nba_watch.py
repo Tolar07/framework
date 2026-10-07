@@ -1,6 +1,6 @@
 """
 NBA LINE WATCH — every 15 minutes before tip-off, the sharp line against
-SportyBet (order 41 paper board; Architect 2026-10-07: "build A and B
+SportyBet (order 41 NBA board; Architect 2026-10-07: "build A and B
 together and C").
 
 The biggest edge on a soft book is team news it hasn't priced yet: a star
@@ -21,8 +21,9 @@ while any SportyBet NBA game tips off in the next AHEAD hours:
      (no pick: a gap that size can also be a wrong match — check by hand);
   4. every ladder is saved for the ladder study (engine/nba_ladder.py).
 
-Alerts go to the Architect's own chat only (like the NBA board). PAPER ONLY —
-no stake, no capital; live capital stays SportyBet football (order 26).
+Alerts go to the Architect's own chat only (like the NBA board). A LIVE TEST
+since 2026-10-07: the Architect places a pick by hand from its SportyBet code
+(orders 26, 41); the framework never stakes.
 
 GitHub drops crons, so the watch is ONE job that loops (as monitor/news_loop.py):
 nba_watch.yml's cron ticks and daily.yml's evening run start it; a run that
@@ -142,7 +143,7 @@ def check(now: datetime, games: list[tuple], state: dict, taken: set) -> tuple[l
 
 
 def render(now: datetime, run_id: str, picks: list[dict], lags: list[str]) -> str:
-    L = ["🏀 OLP XDV · NBA LINE WATCH — paper, no real money (order 41)",
+    L = ["🏀 OLP XDV · NBA LINE WATCH — LIVE TEST: load the code, place it by hand (orders 26, 41)",
          f"Run ID: {run_id}", f"Checked {now.astimezone(run_nba.LAGOS):%H:%M} Lagos (WAT)", ""]
     for p in picks:
         tip = datetime.fromisoformat(p["tip"]).astimezone(run_nba.LAGOS)

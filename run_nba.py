@@ -1,5 +1,5 @@
 """
-NBA PAPER BOARD (standing order 41, Architect 2026-10-06) — run once a day
+NBA BOARD (standing order 41, Architect 2026-10-06; LIVE TEST since 2026-10-07) — run once a day
 from the evening run, after the football board.
 
   1. grade every earlier NBA pick whose game has finished (ESPN final score,
@@ -9,8 +9,8 @@ from the evening run, after the football board.
      sharp lines for every game tipping off in the next HOURS hours;
   3. list only prices ABOVE the fair price (engine/nba_value.py), one per
      game, each with its own SportyBet booking code, + one code for them all;
-  4. send it to the Architect's own chat only, as a PAPER board: no stake,
-     no capital, until the graded record says otherwise.
+  4. send it to the Architect's own chat only, as a LIVE TEST: the Architect
+     places a pick by hand from its code (order 26); the framework never stakes.
 
 Preseason games are shown and graded as a pipeline test but kept OUT of the
 record (starters are rested — not a fair test of anything).
@@ -197,7 +197,7 @@ def grade(now: datetime) -> list[str]:
 
 
 def scorecard() -> str:
-    """The paper record: regular-season picks only (preseason is a pipeline test).
+    """The graded record: regular-season picks only (preseason is a pipeline test).
     The board's picks and the line watch's (monitor/nba_watch.py) are kept apart."""
     rows = []
     for path in sorted(LEDGER_DIR.glob("nba_*.json")):
@@ -206,9 +206,9 @@ def scorecard() -> str:
     board = [p for p in rows if p.get("source") != "watch"]
     watch = [p for p in rows if p.get("source") == "watch"]
     if not board and not watch:
-        return "Paper record: no graded regular-season pick yet (the season opens 20 Oct)."
+        return "NBA record: no graded regular-season pick yet (the season opens 20 Oct)."
     out = []
-    for name, ps in (("Paper record (regular season)", board), ("Line watch record", watch)):
+    for name, ps in (("NBA record (regular season)", board), ("Line watch record", watch)):
         if not ps:
             continue
         w = sum(p["result"] == "won" for p in ps)
@@ -222,7 +222,7 @@ def scorecard() -> str:
 
 def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
            mega: Optional[str], notes: list[str]) -> str:
-    L = ["##########OLP XDV · NBA #########", "🏀 PAPER BOARD — no real money (order 41)",
+    L = ["##########OLP XDV · NBA #########", "🏀 LIVE TEST — load the code, place it by hand (orders 26, 41)",
          "==================================", "",
          f"📅  {datetime.fromisoformat(board_date):%a %d %b %Y}   ·   tip-off = Lagos time (WAT)",
          f"Run ID: {run_id}", f"Games checked against the sharp line: {scanned}", "",
@@ -249,7 +249,8 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
               + ("" if nt.BET365_CONFIRMED else " bet365 names are a draft until checked in the app."), ""]
     L += [_RULE, scorecard(), "",
           "Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board",
-          "tests the one route left — SportyBet paying above the sharp price — on paper only."]
+          "tests the one route left — SportyBet paying above the sharp price — as a live test.",
+          "The framework never stakes: every bet is placed by hand from its code."]
     flagged = [n for n in notes if "too good" in n or "disagree" in n or n.startswith("mapping:")]
     if flagged:
         L += ["", "Checked and left out:"] + [f" • {n}" for n in flagged[:8]]

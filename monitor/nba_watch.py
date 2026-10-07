@@ -24,7 +24,9 @@ while any SportyBet NBA game tips off in the next AHEAD hours:
      every pick already sent (board or watch) is re-priced against the
      current sharp line; when its value has gone (SportyBet now pays below
      fair) or the bet is no longer offered, the Architect is told once —
-     "skip it if you haven't placed it".
+     "skip it if you haven't placed it" — and the game is REOPENED: the watch
+     may then send a replacement pick at the current price with a new code
+     (Architect 2026-10-07: "the booking code is not available anymore").
 
 Alerts go to the Architect's own chat only (like the NBA board). A LIVE TEST
 since 2026-10-07: the Architect places a pick by hand from its SportyBet code
@@ -135,6 +137,8 @@ def check(now: datetime, games: list[tuple], state: dict, taken: set) -> tuple[l
         min_ev = nv.MIN_EV_WINNER if best["market_id"] == "219" else nv.MIN_EV_LINE
         reason = (f"sharp line moved since {first['at']}: {'; '.join(moves)}" if moves
                   else "new value since the morning board")
+        if eid in state.get("reopen", []):
+            reason = "REPLACES the earlier pick on this game (value gone / no longer offered); " + reason
         picks.append({**best, "source": "watch", "reason": reason, "found_at": now.isoformat(),
                       "stage": stage, "event_id": eid, "home_key": ht.key, "away_key": at.key,
                       "bet365": {"pick": nt.bet365_pick(best, ht, at),
@@ -155,6 +159,7 @@ def price_check(games: list[tuple], state: dict, sent: dict[str, dict]) -> list[
     Each pick is reported once (`state["gone"]`)."""
     notes = []
     done = state.setdefault("gone", [])
+    reopen = state.setdefault("reopen", [])
     for _stage, e, _tip, _ht, _at, g in games:
         p = sent.get(e.get("eventId"))
         if p is None or not (g.ml_home and g.ml_away):
@@ -168,6 +173,7 @@ def price_check(games: list[tuple], state: dict, sent: dict[str, dict]) -> list[
                       for o in m.get("outcomes", []) if o.get("desc") == p["outcome"] and o.get("odds")), None)
         if price is None:
             done.append(key)
+            reopen.append(p["event_id"])
             notes.append(f"{label} — no longer offered on SportyBet (code {p.get('code') or 'PENDING'})")
             continue
         chance = nv.fair_chance(p["market_id"], p.get("specifier") or "", p["outcome"], g)
@@ -176,6 +182,7 @@ def price_check(games: list[tuple], state: dict, sent: dict[str, dict]) -> list[
         ev = chance * price - 1
         if ev < 0:
             done.append(key)
+            reopen.append(p["event_id"])
             notes.append(f"{label} — sent @{p['price']:.2f} ({p['ev']:+.1%}); now @{price:.2f}, fair "
                          f"{1 / chance:.2f} ({ev:+.1%}). VALUE GONE — skip it if you haven't placed it "
                          f"(code {p.get('code') or 'PENDING'})")
@@ -229,8 +236,11 @@ def run_round(now: datetime, send: bool = True) -> str:
         state = _load(state_path, {"date": day})
         doc = _load(ledger, {"date": day, "picks": []})
         board = _load(LEDGER_DIR / f"nba_{day}.json", {"picks": []})
-        taken = {p["event_id"] for p in board.get("picks", []) + doc["picks"]}
-        all_gone += price_check(items, state, {p["event_id"]: p for p in board.get("picks", []) + doc["picks"]})
+        sent = board.get("picks", []) + doc["picks"]
+        all_gone += price_check(items, state, {p["event_id"]: p for p in sent})
+        # a game whose sent pick died is open again — once: a replacement takes it
+        replaced = {p["event_id"] for p in doc["picks"] if "REPLACES" in (p.get("reason") or "")}
+        taken = {p["event_id"] for p in sent} - (set(state.get("reopen", [])) - replaced)
         picks, lags, rows = check(now, items, state, taken)
         snaps += rows
         if picks:

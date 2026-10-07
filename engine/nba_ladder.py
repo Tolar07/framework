@@ -30,6 +30,10 @@ from statistics import NormalDist
 from engine import nba_value as nv
 
 LADDER_DIR = Path(__file__).parent.parent / "output" / "nba_ladders"
+# Snapshots before this moment kept CLOSED lines too (status 2, stale prices —
+# fixed 2026-10-07, da24079) and can't be cleaned afterwards: they don't record
+# a line's status. The study reads only snapshots marked open_only or newer.
+OPEN_ONLY_SINCE = "2026-10-07T22:05:00Z"
 # SportyBet points markets read as ladders: totals, team totals, regulation
 # total, and the full-game / 1st-half / quarter handicaps (as home margin).
 TOTAL_MARKETS = ("225", "227", "228", "18")
@@ -106,7 +110,7 @@ def snapshot_row(now: datetime, stage: str, event: dict, home: str, away: str, g
             "tip": getattr(g, "tip", None), "home": home, "away": away,
             "sharp": {"ml_home": g.ml_home, "ml_away": g.ml_away,
                       "spread": g.spread, "total": g.total},
-            "ladders": lads,
+            "ladders": lads, "open_only": True,
             "fits": {k: fit(k, rows) for k, rows in lads.items()}}
 
 
@@ -119,6 +123,11 @@ def save(rows: list[dict], now: datetime, folder: Path = LADDER_DIR) -> Path | N
         for r in rows:
             f.write(json.dumps(r, separators=(",", ":")) + "\n")
     return path
+
+
+def is_clean(row: dict) -> bool:
+    """Open lines only: marked so, or taken after the closed-lines fix."""
+    return bool(row.get("open_only")) or (row.get("at") or "") >= OPEN_ONLY_SINCE
 
 
 def load(folder: Path = LADDER_DIR) -> list[dict]:

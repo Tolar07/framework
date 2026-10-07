@@ -205,23 +205,32 @@ def save_pending(pending: dict, path: Path = PENDING) -> None:
         json.dump(pending, f, separators=(",", ":"))
 
 
-def archive(rows: list[dict], folder: Path = GRADED_DIR) -> int:
-    """Append graded games to data/universe/graded_<kick-off month>.jsonl."""
-    by_month: dict[str, list[dict]] = {}
-    for r in rows:
-        by_month.setdefault(r["ko"][:7], []).append(r)
-    for month, rs in by_month.items():
-        folder.mkdir(parents=True, exist_ok=True)
-        with (folder / f"graded_{month}.jsonl").open("a", encoding="utf-8") as f:
-            for r in rs:
-                f.write(json.dumps(r, separators=(",", ":")) + "\n")
+def archive(rows: list[dict], folder: Path = GRADED_DIR, now: datetime | None = None) -> int:
+    """Write one sweep's graded games to data/universe/graded_<UTC date>_<HHMM>.jsonl.gz.
+    One small compressed file per sweep, never rewritten: ~1,900 games a day as
+    plain text would grow the repo by ~1 MB a day."""
+    if not rows:
+        return 0
+    now = now or datetime.now(UTC)
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"graded_{now:%Y-%m-%d_%H%M}.jsonl.gz"
+    with gzip.open(path, "at", encoding="utf-8") as f:
+        for r in rows:
+            f.write(json.dumps(r, separators=(",", ":")) + "\n")
     return len(rows)
 
 
 def load_graded(folder: Path = GRADED_DIR) -> list[dict]:
+    """Every graded game: the compressed per-sweep files and the plain monthly
+    file of the first desktop sweep (2026-10-07)."""
     rows = []
-    for path in sorted(folder.glob("graded_*.jsonl")):
-        rows += [json.loads(x) for x in path.read_text(encoding="utf-8").splitlines() if x.strip()]
+    for path in sorted(folder.glob("graded_*.jsonl*")):
+        if path.suffix == ".gz":
+            with gzip.open(path, "rt", encoding="utf-8") as f:
+                text = f.read()
+        else:
+            text = path.read_text(encoding="utf-8")
+        rows += [json.loads(x) for x in text.splitlines() if x.strip()]
     return rows
 
 

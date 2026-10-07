@@ -222,7 +222,7 @@ def scorecard() -> str:
 
 def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
            mega: Optional[str], notes: list[str]) -> str:
-    L = ["##########OLP XDV · NBA #########", "🏀 LIVE TEST — load the code, place it by hand (orders 26, 41)",
+    L = ["##########OLP XDV · NBA #########", "🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)",
          "==================================", "",
          f"📅  {datetime.fromisoformat(board_date):%a %d %b %Y}   ·   tip-off = Lagos time (WAT)",
          f"Run ID: {run_id}", f"Games checked against the sharp line: {scanned}", "",

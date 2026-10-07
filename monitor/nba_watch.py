@@ -143,7 +143,7 @@ def check(now: datetime, games: list[tuple], state: dict, taken: set) -> tuple[l
 
 
 def render(now: datetime, run_id: str, picks: list[dict], lags: list[str]) -> str:
-    L = ["🏀 OLP XDV · NBA LINE WATCH — LIVE TEST: load the code, place it by hand (orders 26, 41)",
+    L = ["🏀 OLP XDV · NBA LINE WATCH — LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)",
          f"Run ID: {run_id}", f"Checked {now.astimezone(run_nba.LAGOS):%H:%M} Lagos (WAT)", ""]
     for p in picks:
         tip = datetime.fromisoformat(p["tip"]).astimezone(run_nba.LAGOS)

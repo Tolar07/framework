@@ -462,7 +462,7 @@ _nba41 = (ROOT / "run_nba.py").read_text(encoding="utf-8")
 assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "send_everyone" not in _nba41, \
     "Order 41: the NBA board goes to the Architect's own chat only"
 assert "python run_nba.py" in wf, "Order 41: the NBA board runs with the evening board"
-assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41, \
+assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41 and "£1 a pick" in _nba41, \
     "Orders 26/41 (2026-10-07): the NBA board is a live test, placed by hand from its codes"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

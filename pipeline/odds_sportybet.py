@@ -95,6 +95,9 @@ SPORTYBET_TOURNAMENT_ID = {
     "Swiss Super League": "sr:tournament:215",
     "Eliteserien": "sr:tournament:20",          # Norway (calendar-year season)
     "Allsvenskan": "sr:tournament:40",          # Sweden (calendar-year season)
+    # Turkish Cup (Turkiye Kupasi) — added 2026-10-07 (Architect: "yes add the
+    # Turkish Cup"). ID verified live: the event block "Turkiye / Turkiye Kupasi".
+    "Turkish Cup": "sr:tournament:96",
 }
 
 # SportyBet team name -> model (football-data) key. Verified pairs only; exact

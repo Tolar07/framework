@@ -92,9 +92,10 @@ def _unrated_detail(model, home: str, away: str) -> str:
 # claimed). FA Cup: a cup across tiers. European club competitions + HNL
 # (2026-10-05): the cross-league model is anchored on 2024/25 and its history
 # source (API-Football free plan) cannot see the current season, so they are
-# market-implied until a current-season model exists for them.
+# market-implied until a current-season model exists for them. Turkish Cup
+# (2026-10-07): a cup across every tier, amateur clubs included.
 MARKET_ONLY_LEAGUES = {"FA Cup", "Champions League", "Europa League",
-                       "Conference League", "HNL"}
+                       "Conference League", "HNL", "Turkish Cup"}
 
 
 def _odds_by_pair(league: str) -> tuple[dict, list[str]]:

@@ -23,7 +23,7 @@ Everything live runs in GitHub Actions on `main`. Times UTC (Lagos = UTC+1).
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — one status message | — |
 | `news.yml` | one job looping every 20 min 09:00–20:40, started by `daily.yml` after each board; backup cron every 2 h; hands itself on before GitHub's 6-hour limit | `monitor/news_loop.py` → `news_check.py` — lineups, price drift, closing price | `output/picks/`, each round |
 | `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h; started by `daily.yml`'s evening run, backup cron 16:05/19:05/22:05; hands itself on before 6 h | `monitor/nba_watch.py` — sharp line vs SportyBet, booked picks + LAG notes + VALUE GONE price checks of sent picks to the Architect only, ladder snapshots | `output/picks/nba_watch_*`, `output/nba_watch/`, `output/nba_ladders/`, each round |
-| `universe.yml` | every 3 h at :20 (missed runs just delay grading) | `monitor/universe_sweep.py` — every SportyBet football + basketball game, covered or not: first/last price, graded from Flashscore; once a day the study, plus FotMob post-match stats of the last 3 days' rated fixtures (`data/match_stats.py`) | `data/universe/graded_<month>.jsonl`, `backtest/UNIVERSE_STUDY.md`, `data/match_stats/`, `backtest/MATCH_STATS_STUDY.md` |
+| `universe.yml` | every 3 h at :20, and started by every `daily.yml` board run (missed runs just delay grading) | `monitor/universe_sweep.py` — every SportyBet football + basketball game, covered or not: first/last price, graded from Flashscore; once a day the study, plus FotMob post-match stats of the last 3 days' rated fixtures (`data/match_stats.py`) | `data/universe/graded_<month>.jsonl`, `backtest/UNIVERSE_STUDY.md`, `data/match_stats/`, `backtest/MATCH_STATS_STUDY.md` |
 | `commands.yml` | hourly at :05 | `output/telegram_commands.py` | `clv/clv_log.json`, `memory/` |
 | `weekly.yml` | Mondays 07:51 | `scripts/weekly_review.py` | — |
 | `tests.yml` | every push / PR to main | ruff + mypy gates, `tests/run_all.py` | — |
@@ -40,7 +40,7 @@ because GitHub's cron runs late or not at all:
 | OLP XDV weekly agent review | Mondays 09:51, read-only, push + email | `trig_01RsYF3PXPrkvjGBwiYp3opE` |
 | Re-check omniroute-test#2 | one-off reminder for a frozen-branch PR | `trig_01C87oUyMkvBBxeuDvwTQczH` |
 
-Each slot has two Routines; the duplicate guard (`output/boards/sent_<date>_<slot>`)
+Since 2026-10-07 the two board Routines also carry `Tolar07/framework` as a source, so a re-fired or fresh-session run can dispatch (the 7 Oct evening re-fire failed with HTTP 403 without it; the scheduled runs post into a persistent session that already had access). Each slot has two Routines; the duplicate guard (`output/boards/sent_<date>_<slot>`)
 makes the second one skip. **GitHub cron is unreliable here:** on 4 Oct the
 05:47 board cron fired at 11:16; `news.yml`'s 20-minute cron ran 6 times in
 three days (so it is now one looping job the board run starts);

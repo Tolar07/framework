@@ -34,9 +34,9 @@
     "total": 237.5
    },
    "code": "Z54MJS",
-   "result": null,
-   "score": null,
-   "close_value": null
+   "result": "won",
+   "score": "123-112",
+   "close_value": 0.1052
   },
   {
    "market_id": "228",

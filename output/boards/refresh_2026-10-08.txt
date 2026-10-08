@@ -1,0 +1,379 @@
+##########OLP XDV#########
+==================================
+
+📅  Thu 08 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261008-0550-1760bf | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 1 · Verified: 0
+KO = kickoff, Lagos time (WAT)
+
+⚠ 230 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                                   Country · League      AI PICK · win%        Odds   Alt market                                O1.5/O2.5  DC/BTTS     Src
+15:00  Denizli Idman Yurdu v Serik Belediyespor  Turkey · Turkish Cup  Over 1.5 goals · 81%  @1.20  Serik Belediyespor Under 3.5 goals @1.21  O79/O59    X289 / N52  ○ᴹ
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 mega code (all 1 deploy singles): JPS0PB   load ↦ www.sportybet.com/ng/?shareCode=JPS0PB
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                                   Country · League      Pick            Chance  Odds   Certainty  Stake  Code
+15:00  Denizli Idman Yurdu v Serik Belediyespor  Turkey · Turkish Cup  Over 1.5 goals  81%     @1.20  LOW        0.12%  JPS0PB
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 0 of 1 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 1 quoted by no second book.
+
+TABLE 2 mega code (all 1 deploy singles): JPS0PB   load ↦ www.sportybet.com/ng/?shareCode=JPS0PB
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+No 3-leg acca reaches 50% from high-certainty legs today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(3 legs each, 75%+ picks only, a match in one acca at most — order 40)
+──────────────────────────────────
+
+No capital-eligible accas generated.
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+No alternative leg of 75%+ on a match no other acca holds today.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+No outcome priced above our fair odds today (EV +2% or more, 50%+, 1.20–2.00).
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Denizli Idman Yurdu v Serik Belediyespor (🇹🇷 Turkey · Turkish Cup) — Over 1.5 goals (81%) @1.20 · code JPS0PB
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00 (safest ~1.50); picks above 2.00 are never deployed.
+Calibration: 9 legs logged, mean CLV +1.66%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+Board MEGA: JPS0PB (1 legs · every single · stake 0.1%)
+
+============================================================
+
+VERIFY RESULTS
+Fixture | FT | 1X2/DC | O1.5/O2.5 | BTTS | Hit
+
+============================================================
+
+DETAIL — HR53 full per-fixture audit (not sent to Telegram)
+
+PART 0 — HEADER
+Date: 2026-10-08 | Mode: Mode A | Phase: Phase 3 — live capital (Architect-deployed)
+Leagues scanned: Eredivisie, Danish Superliga, Belgian Pro League, Scottish Premiership, Ekstraklasa, HNL, Championship, Serie A, Bundesliga, Ligue 1, Europa League, Primeira Liga, Premier League, La Liga, Champions League, Conference League, La Liga 2, Serie B, 2. Bundesliga, Ligue 2, League One, League Two, National League, FA Cup, UEFA Nations League, Turkish Super Lig, Greek Super League, Austrian Bundesliga, Swiss Super League, Eliteserien, Allsvenskan, Turkish Cup
+Calibration: 9 legs logged, mean CLV +1.66%
+DATA FLAGS (surfaced first, per HR53/ID403):
+  ⚠ FA Cup: no results available for grading — legs stay PENDING, not guessed
+  ⚠ Turkish Cup: no results available for grading — legs stay PENDING, not guessed
+  ⚠ graded 0 of 63 pending leg(s)
+  ⚠ picks 2026-10-03: 73 graded, 3 pending (Flashscore)
+  ⚠ picks 2026-10-04: 12 graded, 1 pending; 12/13 rated fixtures graded (Flashscore)
+  ⚠ picks 2026-10-05: 9 graded, 0 pending; 9/9 rated fixtures graded (Flashscore)
+  ⚠ picks 2026-10-06: 15 graded, 0 pending; 15/15 rated fixtures graded (Flashscore)
+  ⚠ picks 2026-10-07: 0 graded, 0 pending (Flashscore)
+  ⚠ SportyBet events pulled live
+  ⚠ Eredivisie: 18 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Danish Superliga: 6 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Belgian Pro League: 9 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Scottish Premiership: 12 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ekstraklasa: 10 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ HNL: 5 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Championship: 24 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Serie A: 20 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Bundesliga: 18 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ligue 1: 18 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Europa League: 18 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Primeira Liga: 9 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Premier League: 20 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ La Liga: 20 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Champions League: 18 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Conference League: 18 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ La Liga 2: 11 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Serie B: 10 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ 2. Bundesliga: 9 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ligue 2: 9 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ League One: 12 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ League Two: 12 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ National League: 12 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ FA Cup: 0 fixture(s) priced from SportyBet
+  ⚠ FA Cup: not in football-data fixtures.csv (Extra-schema or uncovered league) — NO DATA — PENDING
+  ⚠ FA Cup: the-odds-api unavailable ('FA Cup' has no verified Odds API sport key.)
+  ⚠ FA Cup: no source produced prices — NO DATA — PENDING
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ UEFA Nations League: 0 fixture(s) priced from SportyBet
+  ⚠ UEFA Nations League: not in football-data fixtures.csv (Extra-schema or uncovered league) — NO DATA — PENDING
+  ⚠ UEFA Nations League: the-odds-api unavailable ('UEFA Nations League' has no verified Odds API sport key.)
+  ⚠ UEFA Nations League: no source produced prices — NO DATA — PENDING
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Turkish Super Lig: 9 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Greek Super League: 14 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Austrian Bundesliga: 12 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Swiss Super League: 6 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Eliteserien: 8 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Allsvenskan: 8 fixture(s) priced from SportyBet
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Turkish Cup: 1 fixture(s) priced from SportyBet
+  ⚠ Turkish Cup: price check — 0 agree with an independent book, 0 differ, 1 unchecked (margin-free, 5 pts)
+  ⚠ Eredivisie: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Eredivisie: model fitted on last season + 63 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Eredivisie: 0 fixture(s) blended with shots-on-target ratings
+  ⚠ Danish Superliga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Danish Superliga: model fitted on last season + 54 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Belgian Pro League: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Belgian Pro League: model fitted on last season + 63 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Belgian Pro League: 0 fixture(s) blended with shots-on-target ratings
+  ⚠ Scottish Premiership: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Scottish Premiership: model fitted on last season + 42 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Scottish Premiership: 0 fixture(s) blended with shots-on-target ratings
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ekstraklasa: 10 fixture(s) priced from SportyBet
+  ⚠ Ekstraklasa: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Ekstraklasa: model fitted on last season + 78 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ HNL: 5 fixture(s) priced from SportyBet
+  ⚠ HNL: 5 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ HNL: 5/5 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  ⚠ Championship: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Championship: model fitted on last season + 95 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Championship: 0 fixture(s) blended with shots-on-target ratings
+  ⚠ Serie A: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Serie A: model fitted on last season + 50 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Serie A: 0 fixture(s) blended with xG ratings (Understat)
+  ⚠ Bundesliga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Bundesliga: model fitted on last season + 36 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Bundesliga: 0 fixture(s) blended with xG ratings (Understat)
+  ⚠ Ligue 1: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Ligue 1: model fitted on last season + 45 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Ligue 1: 0 fixture(s) blended with xG ratings (Understat)
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Europa League: 18 fixture(s) priced from SportyBet
+  ⚠ Europa League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Europa League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  ⚠ Primeira Liga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Primeira Liga: model fitted on last season + 62 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Premier League: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ Premier League: model fitted on last season + 50 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Premier League: 0 fixture(s) blended with xG ratings (Understat)
+  ⚠ La Liga: no upcoming fixtures (no fixtures in window) — NO DATA — PENDING
+  ⚠ La Liga: model fitted on last season + 69 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ La Liga: 0 fixture(s) blended with xG ratings (Understat)
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Champions League: 18 fixture(s) priced from SportyBet
+  ⚠ Champions League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Champions League: 18/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Conference League: 18 fixture(s) priced from SportyBet
+  ⚠ Conference League: 18 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Conference League: 17/18 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ La Liga 2: 11 fixture(s) priced from SportyBet
+  ⚠ La Liga 2: 11 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ La Liga 2: model fitted on last season + 88 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Serie B: 10 fixture(s) priced from SportyBet
+  ⚠ Serie B: 10 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Serie B: model fitted on last season + 50 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Serie B: 6 feed name(s) matched to the model's spelling — Ascoli Calcio 1898 -> Ascoli, Benevento Calcio -> Benevento, Hellas Verona -> Verona, L.R. Vicenza -> Vicenza, SC Pisa -> Pisa, SS Arezzo -> Arezzo
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ 2. Bundesliga: 9 fixture(s) priced from SportyBet
+  ⚠ 2. Bundesliga: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ 2. Bundesliga: model fitted on last season + 54 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ 2. Bundesliga: 3 feed name(s) matched to the model's spelling — Energie Cottbus -> Cottbus, FC St. Pauli -> St Pauli, VfL 1899 Osnabruck -> Osnabruck
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Ligue 2: 9 fixture(s) priced from SportyBet
+  ⚠ Ligue 2: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Ligue 2: model fitted on last season + 63 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Ligue 2: 1 feed name(s) matched to the model's spelling — Sochaux-Montbeliard -> Sochaux
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ League One: 12 fixture(s) priced from SportyBet
+  ⚠ League One: 12 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ League One: model fitted on last season + 90 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ League One: 10 feed name(s) matched to the model's spelling — Blackpool FC -> Blackpool, Bromley FC -> Bromley, Cambridge United -> Cambridge, Doncaster Rovers -> Doncaster, Oxford United -> Oxford, Peterborough United -> Peterboro, Sheffield Wednesday -> Sheffield Weds, Stevenage FC -> Stevenage, Stockport County FC -> Stockport, Wycombe Wanderers -> Wycombe
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ League Two: 12 fixture(s) priced from SportyBet
+  ⚠ League Two: 12 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ League Two: model fitted on last season + 102 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ League Two: 3 feed name(s) matched to the model's spelling — Barnet FC -> Barnet, Colchester United -> Colchester, York City FC -> York
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ National League: 12 fixture(s) priced from SportyBet
+  ⚠ National League: 12 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ National League: model fitted on last season + 143 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ National League: 2 feed name(s) matched to the model's spelling — Forest Green Rovers -> Forest Green, Scunthorpe United -> Scunthorpe
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ FA Cup: 0 fixture(s) priced from SportyBet
+  ⚠ FA Cup: not in football-data fixtures.csv (Extra-schema or uncovered league) — NO DATA — PENDING
+  ⚠ FA Cup: the-odds-api unavailable ('FA Cup' has no verified Odds API sport key.)
+  ⚠ FA Cup: no source produced prices — NO DATA — PENDING
+  ⚠ FA Cup: 0 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ FA Cup: 0/0 fixture(s) priced MARKET-IMPLIED (cup across tiers — no single-league model; no edge claimed)
+  ⚠ UEFA Nations League: no upcoming fixtures (thesportsdb: 'UEFA Nations League' is not mapped in LEAGUE_IDS for TheSportsDB.) — NO DATA — PENDING
+  ⚠ UEFA Nations League: national-team history via martj42/international_results — 1105 UEFA home-venue matches since 2022-01-01, 55 UEFA teams, latest result 2026-10-06; no odds in this source, so legs settle but CLV stays NO DATA
+  ⚠ UEFA Nations League: national Elo blended into 0 fixture(s)
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Turkish Super Lig: 9 fixture(s) priced from SportyBet
+  ⚠ Turkish Super Lig: 9 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Turkish Super Lig: model fitted on last season + 54 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Turkish Super Lig: 12 feed name(s) matched to the model's spelling — Amed Sportif Faaliyetler -> Amedspor, Besiktas Istanbul -> Besiktas, Caykur Rizespor -> Rizespor, Corum FK -> Corum, Erzurumspor FK -> Erzurumspor, Fenerbahce Istanbul -> Fenerbahce, Galatasaray Istanbul -> Galatasaray, Gaziantep FK -> Gaziantep, Genclerbirligi SK -> Genclerbirligi, Goztepe Izmir -> Goztep, Istanbul BB -> Buyuksehyr, Kasimpasa Istanbul -> Kasimpasa
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Greek Super League: 14 fixture(s) priced from SportyBet
+  ⚠ Greek Super League: 14 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Greek Super League: model fitted on last season + 35 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Greek Super League: 10 feed name(s) matched to the model's spelling — AE Kifisia FC -> Kifisia, AEK Athens -> AEK, APO Levadiakos FC -> Levadeiakos, Aris Thessaloniki -> Aris, Atromitos Athinon -> Atromitos, Olympiacos -> Olympiakos, PAE PS Kalamata -> Kalamata, POT Iraklis -> Iraklis, Panaitolikos Agrinio -> Panetolikos, Volos NPS -> Volos NFC
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Austrian Bundesliga: 12 fixture(s) priced from SportyBet
+  ⚠ Austrian Bundesliga: 12 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Austrian Bundesliga: model fitted on last season + 42 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Austrian Bundesliga: 8 feed name(s) matched to the model's spelling — Austria Lustenau -> A. Lustenau, FK Austria Wien -> Austria Vienna, Grazer AK 1902 -> Grazer AK, LASK Linz -> LASK, SCR Altach -> Altach, SV Ried -> Ried, TSV Hartberg -> Hartberg, WSG Tirol -> Tirol
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Swiss Super League: 6 fixture(s) priced from SportyBet
+  ⚠ Swiss Super League: 6 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Swiss Super League: model fitted on last season + 54 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Swiss Super League: 10 feed name(s) matched to the model's spelling — FC Luzern -> Luzern, FC Sion -> Sion, FC St. Gallen 1879 -> St. Gallen, FC Thun -> Thun, FC Vaduz -> Vaduz, FC Zurich -> Zurich, Grasshopper Club Zurich -> Grasshoppers, Lausanne-Sport -> Lausanne, Servette Geneva -> Servette, Young Boys Bern -> Young Boys
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Eliteserien: 8 fixture(s) priced from SportyBet
+  ⚠ Eliteserien: 8 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Eliteserien: model fitted on last season + 168 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Eliteserien: 12 feed name(s) matched to the model's spelling — Aalesunds FK -> Aalesund, Bodoe/Glimt -> Bodo/Glimt, Fredrikstad FK -> Fredrikstad, IK Start -> Start, Kristiansund BK -> Kristiansund, Lillestroem SK -> Lillestrom, Rosenborg BK -> Rosenborg, SK Brann -> Brann, Sandefjord Fotball -> Sandefjord, Tromsoe IL -> Tromso, Vaalerenga IF -> Valerenga, Viking FK -> Viking
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Allsvenskan: 8 fixture(s) priced from SportyBet
+  ⚠ Allsvenskan: 8 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Allsvenskan: model fitted on last season + 176 match(es) of this season, weighted to recent (half-life 240.0 days)
+  ⚠ Allsvenskan: 14 feed name(s) matched to the model's spelling — BK Hacken -> Hacken, Degerfors IF -> Degerfors, Djurgardens IF -> Djurgarden, Halmstads BK -> Halmstad, Hammarby IF -> Hammarby, IF Brommapojkarna -> Brommapojkarna, IF Elfsborg -> Elfsborg, IFK Goteborg -> Goteborg, IK Sirius -> Sirius, Kalmar FF -> Kalmar, Malmo -> Malmo FF, Mjallby AIF -> Mjallby, Orgryte IS -> Orgryte, Vasteraas SK -> Vasteras SK
+  ⚠ SportyBet events served from cache (<=60min)
+  ⚠ Turkish Cup: 1 fixture(s) priced from SportyBet
+  ⚠ Turkish Cup: 1 fixture(s) derived from the odds feed (no dedicated fixtures source for this league)
+  ⚠ Turkish Cup: 1/1 fixture(s) priced MARKET-IMPLIED (no current-season model for this competition yet; no edge claimed)
+  ⚠ TARGET DAY 2026-10-08: 1 fixture(s) kicking off that day (201 outside the target day excluded)
+  ⚠ Fixture check (TheSportsDB · ESPN · football-data): 0/1 confirmed by two independent sources, 1 one source only, 0 conflict(s)
+  ⚠ Learning: 288 graded single(s) so far — corrections start once a market family or league has 50+ results over 5+ match days and its results are clearly off its stated chances.
+  ⚠ losing-market watch: 2 flag(s), 0 approved block(s) in force
+  ⚠ value picks (order 36): 0 BTTS-yes / over-goals pick(s) priced above fair odds took the pick from the likeliest outcome
+  ⚠ FA Cup underdog handicaps (order 38): 5 outcome(s) not considered
+  ⚠ full market ladder: 1 fixture(s) scored on every full-time SportyBet market; 0 in-band line(s) skipped as inconsistent with the book's own 1X2/goals prices
+  ⚠ team profiles: 0 deploy pick(s) profiled (last 20 games each side)
+  ⚠ team news (FotMob): 0 pick(s) checked, 0 flagged for injuries/suspensions, 0 swapped to an alternative the news doesn't touch
+  ⚠ price drift since the last board: 0 pick(s) drifted 5%+ (demoted to LOW), 0 shortened 5%+ (market agrees)
+  ⚠ switched shaky picks: 0 moved to a steadier market (order 32)
+  ⚠ sharp check: 0 pick(s) priced on the Betfair Exchange, 0 above its fair odds
+  ⚠ value: 0/1 picks positive EV on our chance x price (avg EV -3.0%); the scorecard tracks whether +EV picks really return more
+  ⚠ Staking (% of bankroll): BANKER est +0.7%, no live record yet · SAFE est -5.3%, live 57 @ -4.0% · VALUE est -4.4%, live 1 @ +60.0% · BOOK est -4.4%, live 6 @ +21.7% · MARKET est -3.5%, live 43 @ +0.1%
+  ⚠ logged 0 new paper leg(s) with a live entry price
+  ⚠ Phase 3 gate: 9 of 30 legs with logged CLV; mean CLV 1.655
+  ⚠ 50%+ accas: 0/0 booked (3 legs, high-certainty legs only)
+  ⚠ alt-market accas: 0/0 booked (a different market from each fixture's main pick)
+  ⚠ positive-value bets (order 37): 0 found, 0/0 slip(s) booked
+  ⚠ SportyBet booking codes: 1/1 singles, 0/0 accas, board code set
+  ⚠ picks ledger kept as frozen at the 10pm board (codes frozen)
+  ⚠ AI Survivor: 16 alive, 0 holding a pick for 2026-10-08 (0 new), 16 waiting for a 80%+ HIGH/MEDIUM pick
+HONEST EDGE LINE: this is an excellent informed process but NOT a demonstrated profitable edge.
+
+PART 1 — THE CALL
+1 deploy-eligible fixture(s), top model conviction, capped at 1000 (ID402).
+MARKED PAPER — Phase 2, zero capital. Nothing here is a live bet.
+
+1. Denizli Idman Yurdu v Serik Belediyespor (Turkish Cup)
+   Data confidence: SINGLE-SOURCE — one source only, no capital on this alone (source: sportybet.com)
+   Price check: SINGLE-SOURCE — no independent book quotes this match
+   Match result (model probabilities):
+      Denizli Idman Yurdu to win .......... 11%
+      Draw ......................... 17%
+      Serik Belediyespor to win .......... 71%
+   Goals: Over 1.5 goals 79% (model) | Over 2.5 goals 59% (model)
+   Both teams to score NO 52% (model)
+   Probabilities: MARKET-IMPLIED (SportyBet prices, margin removed) — the model has no history on this fixture; no model edge is claimed
+   Second opinion (Elo): NO DATA — PENDING (one or both clubs below the Elo match floor)
+   Best available market: Over 1.5 goals
+      Model probability .......... 81%
+      Best quoted price .......... 1.20 decimal (sportybet, best of 1 books)
+      HR30 numerical MES ......... -2.96% expected value per unit staked — NEGATIVE expected value — the price does not clear the model
+      Price captured from sportybet. Confirm the live price before acting — the Architect deploys, not this system.
+
+PART 2 — THE SCAN
+Fixture | 1X2 | O1.5/O2.5 | DC/BTTS | Src
+Denizli Idman Yurdu v Serik Belediyespor (Turkish Cup) | Serik Bele·71% | O79 / O59 | X289 / N52 | ○
+
+PART 3 — REJECTED / WATCHLIST
+None.
+
+PART 4 — DATA INTEGRITY (ID403 counts)
+VERIFIED: 0
+SINGLE-SOURCE: 1
+CONFLICT: 0
+NO-DATA: 0
+DERIVED: 0
+PRICE CHECK (SportyBet vs bet365/DraftKings, margin removed): VERIFIED 0 · CONFLICT 0 · SINGLE-SOURCE 1
+
+PART 5 — HARD RULES + SIGN-OFF
+
+Honest edge statement: the framework is an excellent informed process but NOT a demonstrated profitable edge.
+Capital authority: THE ARCHITECT. Nothing here is live until the Architect deploys it.
+
+🔒 OLP XDV — CODES FROZEN · 2026-10-08
+Run ID: OLPXDV-20261008-0550-1760bf
+The codes from the board sent at 01:26 (Lagos) are the codes for 2026-10-08.
+
+✅ No changes. Use last night's codes.

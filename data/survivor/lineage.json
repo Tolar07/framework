@@ -503,7 +503,12 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-09",
+    "fixture": "Braunschweig v Holstein Kiel",
+    "pick": "Under 4.5 goals",
+    "price": 1.24
+   }
   },
   {
    "lineage_id": "ln_9c27faf9ca",

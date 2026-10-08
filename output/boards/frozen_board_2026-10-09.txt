@@ -1,0 +1,179 @@
+##########OLP XDV#########
+==================================
+
+📅  Fri 09 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261008-2048-587490 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 15 · Verified: 0
+KO = kickoff, Lagos time (WAT)
+
+⚠ 252 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                                    Country · League           AI PICK · win%                          Odds   Alt market                                O1.5/O2.5  DC/BTTS     Src
+19:30  Rakow v GKS Katowice                       Poland · Ekstraklasa       ✓ Under 4.5 goals · 79%                 @1.24  Rakow or GKS Katowice @1.28               O85/O62    1273 / Y66  ○
+17:00  Wieczysta Krakow v Wisla Plock             Poland · Ekstraklasa       ✓ Over 1.5 goals · 79%                  @1.22  Wieczysta Krakow or Wisla Plock @1.29     O79/O53    1X73 / Y58  ○
+
+17:00  HNK Gorica v NK Rudes Zagreb               Croatia · HNL              Over 1.5 goals · 77%                    @1.25  HNK Gorica or NK Rudes Zagreb @1.23       O76/O54    1X82 / Y52  ○ᴹ
+
+19:30  Avellino v Sampdoria                       Italy · Serie B            ✓ Under 3.5 goals · 77%                 @1.29  Avellino or Sampdoria @1.32               O66/U61    1X77 / N56  ○
+
+17:30  Braunschweig v Holstein Kiel               Germany · 2. Bundesliga    ✓ Under 4.5 goals · 81%                 @1.24  Braunschweig or Holstein Kiel @1.28       O76/O52    1275 / Y56  ○
+17:30  Heidenheim v Kaiserslautern                Germany · 2. Bundesliga    ✓ Under 4.5 goals · 80%                 @1.22  Heidenheim or Kaiserslautern @1.28        O83/O62    1277 / Y63  ○
+
+19:00  Dunkerque v Annecy                         France · Ligue 2           ✓ Annecy (+1.5) Asian handicap · 80%    @1.21  Dunkerque Under 2.5 goals @1.20           O80/O56    1274 / Y60  ○
+19:00  Nancy v Guingamp                           France · Ligue 2           ✓ Guingamp (+1.5) Asian handicap · 78%  @1.25  Nancy Under 2.5 goals @1.22               O75/U51    1272 / Y54  ○
+19:00  Pau FC v Laval                             France · Ligue 2           ✓ Pau FC Over 0.5 goals · 78%           @1.23  Laval Clean Sheet — no @1.22              O78/O53    1273 / Y57  ○
+19:00  Montpellier v Grenoble                     France · Ligue 2           ✓ Over 1.5 goals · 71%                  @1.34  Montpellier Under 2.5 goals @1.28         O55/U73    1X77 / N65  ○
+19:00  Sochaux-Montbeliard v Boulogne             France · Ligue 2           ⇄✓ Multigoals 1-3 · 70%                 @1.21  Under 3.5 goals @1.21                     U54/U80    1X75 / N71  ○
+
+19:45  Sutton v Boreham Wood                      England · National League  ✓ Over 1.5 goals · 81%                  @1.20  Boreham Wood (+0.5) Asian handicap @1.23  O84/O64    1281 / Y60  ○
+
+18:00  Galatasaray Istanbul v Kasimpasa Istanbul  Turkey · Super Lig         ⇄✓ Under 4.5 goals · 76%                @1.32  Kasimpasa Istanbul Under 1.5 goals @1.20  O81/O58    1X88 / Y51  ○
+
+18:00  SK Brann v Viking FK                       Norway · Eliteserien       ⇄✓ SK Brann or Viking FK · 77%          @1.27  SK Brann Under 2.5 goals @1.23            O86/O67    1277 / Y67  ○
+
+18:00  IFK Goteborg v Vasteraas SK                Sweden · Allsvenskan       ✓ Under 4.5 goals · 81%                 @1.21  IFK Goteborg Win to Nil — no @1.27        O82/O59    1275 / Y62  ○
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 mega code (all 15 deploy singles): GN0PGU   load ↦ www.sportybet.com/ng/?shareCode=GN0PGU
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                                    Country · League           Pick                              Chance  Odds   Certainty  Stake  Code
+17:00  Wieczysta Krakow v Wisla Plock             Poland · Ekstraklasa       ✓ Over 1.5 goals                  79%     @1.22  HIGH       0.25%  THJCJQ
+19:30  Rakow v GKS Katowice                       Poland · Ekstraklasa       ✓ Under 4.5 goals                 79%     @1.24  HIGH       0.25%  W9UMQ8
+17:00  HNK Gorica v NK Rudes Zagreb               Croatia · HNL              Over 1.5 goals                    77%     @1.25  LOW        0.12%  GRNF25
+19:30  Avellino v Sampdoria                       Italy · Serie B            ✓ Under 3.5 goals                 77%     @1.29  MEDIUM     0.25%  G62XMC
+17:30  Braunschweig v Holstein Kiel               Germany · 2. Bundesliga    ✓ Under 4.5 goals                 81%     @1.24  MEDIUM     0.25%  QUX4XS
+17:30  Heidenheim v Kaiserslautern                Germany · 2. Bundesliga    ✓ Under 4.5 goals                 80%     @1.22  HIGH       0.25%  TZGQSM
+19:00  Montpellier v Grenoble                     France · Ligue 2           ✓ Over 1.5 goals                  71%     @1.34  HIGH       0.25%  J8MY9V
+19:00  Nancy v Guingamp                           France · Ligue 2           ✓ Guingamp (+1.5) Asian handicap  78%     @1.25  MEDIUM     0.25%  YJAPR8
+19:00  Pau FC v Laval                             France · Ligue 2           ✓ Pau FC Over 0.5 goals           78%     @1.23  HIGH       0.25%  VYSW4H
+19:00  Sochaux-Montbeliard v Boulogne             France · Ligue 2           ⇄✓ Multigoals 1-3                 70%     @1.21  HIGH       0.25%  TVU1P4
+19:00  Dunkerque v Annecy                         France · Ligue 2           ✓ Annecy (+1.5) Asian handicap    80%     @1.21  MEDIUM     0.25%  VWYFYB
+19:45  Sutton v Boreham Wood                      England · National League  ✓ Over 1.5 goals                  81%     @1.20  HIGH       0.25%  TRJSP3
+18:00  Galatasaray Istanbul v Kasimpasa Istanbul  Turkey · Super Lig         ⇄✓ Under 4.5 goals                76%     @1.32  MEDIUM     0.25%  Y62KPL
+18:00  SK Brann v Viking FK                       Norway · Eliteserien       ⇄✓ SK Brann or Viking FK          77%     @1.27  HIGH       0.25%  N4K3PQ
+18:00  IFK Goteborg v Vasteraas SK                Sweden · Allsvenskan       ✓ Under 4.5 goals                 81%     @1.21  HIGH       0.25%  X0X2E4
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 9 of 15 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 6 quoted by no second book.
+
+⇄ SWITCHED — 3 shaky pick(s) moved to a steadier market (model and SportyBet agree, at most 5 pts less likely):
+   • Sochaux-Montbeliard v Boulogne (🇫🇷 France · Ligue 2) — was Sochaux-Montbeliard (+0.5) Asian handicap (the two prediction models disagree on the result) → now Multigoals 1-3 (70%, HIGH)
+   • Galatasaray Istanbul v Kasimpasa Istanbul (🇹🇷 Turkey · Super Lig) — was Kasimpasa Istanbul Under 1.5 goals (the two prediction models disagree on the result) → now Under 4.5 goals (76%, MEDIUM)
+   • SK Brann v Viking FK (🇳🇴 Norway · Eliteserien) — was SK Brann Under 2.5 goals (the two prediction models disagree on the result) → now SK Brann or Viking FK (77%, HIGH)
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Avellino v Sampdoria: tempo 2.3 goals/game · draw tendency 22% · a side often fails to score | Avellino 1.1-1.2 a game, draws 20%, BTTS 45%, clean sheets 35%, SoT 3.6-3.7 | Sampdoria 0.8-1.4 a game, draws 25%, BTTS 45%, clean sheets 25%, SoT 3.9-3.6
+   • Braunschweig v Holstein Kiel: tempo 3.0 goals/game · draw tendency 28% | Braunschweig 1.4-1.8 a game, draws 25%, BTTS 65%, clean sheets 10%, SoT 4.8-4.5 | Holstein Kiel 1.3-1.6 a game, draws 30%, BTTS 65%, clean sheets 20%, SoT 3.5-4.6
+   • Heidenheim v Kaiserslautern: tempo 3.3 goals/game · draw tendency 13% · open, high-scoring pairing · a side often fails to score | Heidenheim 2.3-2.0 a game, draws 17%, BTTS 67%, clean sheets 33%, SoT 5.8-5.5 | Kaiserslautern 1.1-1.2 a game, draws 10%, BTTS 20%, clean sheets 50%, SoT 4.3-5.2
+   • Montpellier v Grenoble: tempo 1.9 goals/game · draw tendency 45% · both draw-prone · low-scoring pairing · a side often fails to score | Montpellier 1.1-0.8 a game, draws 40%, BTTS 40%, clean sheets 50%, SoT 4.2-4.2 | Grenoble 0.9-1.1 a game, draws 50%, BTTS 45%, clean sheets 45%, SoT 2.4-4.5
+   • Nancy v Guingamp: tempo 2.5 goals/game · draw tendency 35% · both draw-prone · a side often fails to score | Nancy 1.2-1.5 a game, draws 35%, BTTS 60%, clean sheets 25%, SoT 3.3-4.0 | Guingamp 0.9-1.4 a game, draws 35%, BTTS 55%, clean sheets 20%, SoT 4.6-4.5
+   • Pau FC v Laval: tempo 2.9 goals/game · draw tendency 32% · both draw-prone | Pau FC 1.2-1.8 a game, draws 20%, BTTS 45%, clean sheets 30%, SoT 3.7-4.6 | Laval 1.2-1.6 a game, draws 45%, BTTS 70%, clean sheets 15%, SoT 4.1-5.2
+   • Sochaux-Montbeliard v Boulogne: tempo 1.6 goals/game · draw tendency 51% · both draw-prone · low-scoring pairing · a side often fails to score | Sochaux 0.6-0.7 a game, draws 57%, BTTS 29%, clean sheets 57%, SoT 2.6-5.3 | Boulogne 0.8-1.1 a game, draws 45%, BTTS 45%, clean sheets 40%, SoT 3.0-4.0
+   • Dunkerque v Annecy: tempo 3.0 goals/game · draw tendency 25% · a side often fails to score | Dunkerque 1.4-1.7 a game, draws 30%, BTTS 65%, clean sheets 5%, SoT 4.0-4.7 | Annecy 1.6-1.4 a game, draws 20%, BTTS 65%, clean sheets 25%, SoT 4.0-3.3
+   • Sutton v Boreham Wood: tempo 3.0 goals/game · draw tendency 18% · a side often fails to score | Sutton 1.0-1.6 a game, draws 20%, BTTS 40%, clean sheets 20%, SoT 3.8-3.2 | Boreham Wood 2.5-0.9 a game, draws 15%, BTTS 65%, clean sheets 35%, SoT 5.8-3.0
+   • Galatasaray Istanbul v Kasimpasa Istanbul: tempo 3.0 goals/game · draw tendency 25% | Galatasaray 2.1-1.3 a game, draws 10%, BTTS 55%, clean sheets 30%, SoT 5.9-3.6 | Kasimpasa 1.2-1.4 a game, draws 40%, BTTS 60%, clean sheets 30%, SoT 3.0-4.2
+
+TABLE 2 mega code (all 15 deploy singles): GN0PGU   load ↦ www.sportybet.com/ng/?shareCode=GN0PGU
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+50+ #1 · code GVZ4M3 · odds 1.77 · chance 52%
+   • 18:00 IFK Goteborg v Vasteraas SK (🇸🇪 Sweden · Allsvenskan) — Under 4.5 goals @1.21 (81%, HIGH)
+   • 19:45 Sutton v Boreham Wood (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Over 1.5 goals @1.20 (81%, HIGH)
+   • 17:30 Heidenheim v Kaiserslautern (🇩🇪 Germany · 2. Bundesliga) — Under 4.5 goals @1.22 (80%, HIGH)
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(3 legs each, 75%+ picks only, a match in one acca at most — order 40)
+──────────────────────────────────
+
+4 accas · 10 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+2 pick(s) under 75% stay singles only (Table 2).
+
+Acca A · code XBBKK0 · 3 legs · odds 1.86 · chance 51%
+   • 17:30 Braunschweig v Holstein Kiel (🇩🇪 Germany · 2. Bundesliga) — Under 4.5 goals @1.24 (81%)
+   • 19:00 Dunkerque v Annecy (🇫🇷 France · Ligue 2) — Annecy (+1.5) Asian handicap @1.21 (80%)
+   • 19:30 Rakow v GKS Katowice (🇵🇱 Poland · Ekstraklasa) — Under 4.5 goals @1.24 (79%)
+Acca B · code HBW10H · 3 legs · odds 1.88 · chance 48%
+   • 17:00 Wieczysta Krakow v Wisla Plock (🇵🇱 Poland · Ekstraklasa) — Over 1.5 goals @1.22 (79%)
+   • 19:00 Nancy v Guingamp (🇫🇷 France · Ligue 2) — Guingamp (+1.5) Asian handicap @1.25 (78%)
+   • 19:00 Pau FC v Laval (🇫🇷 France · Ligue 2) — Pau FC Over 0.5 goals @1.23 (78%)
+Acca C · code GMDW5V · 2 legs · odds 1.61 · chance 59%
+   • 17:00 HNK Gorica v NK Rudes Zagreb (🇭🇷 Croatia · HNL) — Over 1.5 goals @1.25 (77%)
+   • 19:30 Avellino v Sampdoria (🇮🇹 Italy · Serie B) — Under 3.5 goals @1.29 (77%)
+Acca D · code Z22X4L · 2 legs · odds 1.68 · chance 58%
+   • 18:00 SK Brann v Viking FK (🇳🇴 Norway · Eliteserien) — SK Brann or Viking FK @1.27 (77%)
+   • 18:00 Galatasaray Istanbul v Kasimpasa Istanbul (🇹🇷 Turkey · Super Lig) — Under 4.5 goals @1.32 (76%)
+
+Every deploy pick on one slip (the same slip as Table 2's mega):
+TABLE 3 mega code (all 15 deploy singles): GN0PGU   load ↦ www.sportybet.com/ng/?shareCode=GN0PGU
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+Alt A · code N1KWC5 · 2 legs · odds 1.55 · chance 66%
+   • 19:00 Sochaux-Montbeliard v Boulogne (🇫🇷 France · Ligue 2) — Under 3.5 goals @1.21 (84%)
+   • 19:00 Montpellier v Grenoble (🇫🇷 France · Ligue 2) — Montpellier Under 2.5 goals @1.28 (79%)
+
+Each alt leg is a little less likely than the main pick: this spreads the risk, it does not raise the hit rate. Not part of the £1 live test (order 26) unless the Architect says so.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+Value 1 · code YAZ14E · 19:00 Montpellier v Grenoble (🇫🇷 France · Ligue 2) — Montpellier Under 1.5 goals @1.92 (54%, value +4.6% · model 70% vs SportyBet 49%)
+Value 2 · code ZJLF5T · 18:00 IFK Goteborg v Vasteraas SK (🇸🇪 Sweden · Allsvenskan) — Vasteraas SK (+1.0) Asian handicap @1.59 (51%, value +2.3% · model 63% vs SportyBet 46%)
+Value 3 · code ZXF3YG · 17:30 Braunschweig v Holstein Kiel (🇩🇪 Germany · 2. Bundesliga) — Under 3.5 goals @1.61 (64%, value +2.3% · model 70% vs SportyBet 61%)
+
+Value means our chance × price is above 1. It comes from the model disagreeing with SportyBet, which is unproven: graded as its own line, minimal stake (0.25%) until results prove it.
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: IFK Goteborg v Vasteraas SK (🇸🇪 Sweden · Allsvenskan) — Under 4.5 goals (81%) @1.21 · code X0X2E4
+Acca A: 3 legs, model 51% · code XBBKK0
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00 (safest ~1.50); picks above 2.00 are never deployed.
+Calibration: 9 legs logged, mean CLV +1.66%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+50+ #1: GVZ4M3 (3 legs · odds 1.77 · 52% · stake 0.5%)
+Board MEGA: GN0PGU (15 legs · every single · stake 0.1%)
+Acca A: XBBKK0 (3 legs · odds 1.86 · 51% · stake 0.25%)
+Acca B: HBW10H (3 legs · odds 1.88 · 48% · stake 0.25%)
+Acca C: GMDW5V (2 legs · odds 1.61 · 59% · stake 0.25%)
+Acca D: Z22X4L (2 legs · odds 1.68 · 58% · stake 0.25%)
+Alt A: N1KWC5 (2 legs · alt markets · odds 1.55 · 66% · stake 0.25%)
+Value 1: YAZ14E (1 leg · positive value · odds 1.92 · 54% · stake 0.25%)
+Value 2: ZJLF5T (1 leg · positive value · odds 1.59 · 51% · stake 0.25%)
+Value 3: ZXF3YG (1 leg · positive value · odds 1.61 · 64% · stake 0.25%)

@@ -210,10 +210,16 @@ def scan_one_league(league: str, season: str,
                 flags.append(f"{league}: {len(fx_skipped)} fixture rows skipped/malformed")
         except Exception as e:
             errors.append(f"thesportsdb: {e}")
+        if not upcoming_fixtures:
             # Fall back to deriving fixtures from the ODDS feed. A priced event
             # is an upcoming fixture, so a league with history and live prices
             # but no fixtures-source league ID (Ekstraklasa) is recovered
-            # rather than scanning as NO DATA.
+            # rather than scanning as NO DATA. Also when TheSportsDB answers
+            # with NOTHING in the window (not only when it errors): on
+            # 2026-10-08 it returned no Friday games for the Bundesliga,
+            # Ligue 1, La Liga, Eredivisie, Championship and Premier League,
+            # so Dortmund v Werder, Lens v Lyon, PSV, Malaga v Espanyol and
+            # West Ham v QPR never reached the board.
             try:
                 import pipeline.odds as _odds
                 pairs, dates, oflags = _odds.fixtures_from_odds(league)

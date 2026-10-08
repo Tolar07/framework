@@ -37,7 +37,7 @@ _FEED = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
          "?sportId={sport}&marketId={markets}&pageSize=100&pageNum={page}")
 _UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36", "Accept": "application/json"}
-STUDY_HOUR = 6          # UTC: the study is rewritten on the first sweep at/after this hour
+STUDY_HOUR = 6          # UTC: studies + the paper-book note on the first sweep at/after this hour each day
 
 
 def covered_ids() -> dict[str, set[str]]:
@@ -121,6 +121,29 @@ def persist(now: datetime) -> str:
     return "NOT SAVED — main moved and a file conflicted; the next sweep re-grades"
 
 
+NOTE_DIR = ROOT / "data" / "universe" / "notes"
+
+
+def send_daily_note(now: datetime) -> str:
+    """The morning paper-book note to the Architect's own chat, once a day
+    (marker data/universe/notes/<UTC date>.sent). Never a subscriber chat."""
+    marker = NOTE_DIR / f"{now:%Y-%m-%d}.sent"
+    if marker.exists():
+        return "paper-book note already sent today"
+    owner = (os.environ.get("TELEGRAM_OWNER_CHAT_ID", "").strip()
+             or os.environ.get("TELEGRAM_CHAT_ID", "").strip())
+    if not owner or not os.environ.get("TELEGRAM_BOT_TOKEN"):
+        return "paper-book note not sent (no Telegram settings here)"
+    from engine import paper_book
+    from output import notify
+    text = paper_book.daily_note([r for r in uv.load_graded() if r.get("result")])
+    ok, notes = notify.send_telegram(text, chat_id=owner)      # the Architect only
+    if ok:
+        NOTE_DIR.mkdir(parents=True, exist_ok=True)
+        marker.write_text(now.strftime("%Y-%m-%dT%H:%MZ"), encoding="utf-8")
+    return f"paper-book note {'sent' if ok else 'NOT sent'} {notes}"
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="OLP XDV universe sweep")
     ap.add_argument("--study", action="store_true", help="rewrite the study only")
@@ -128,21 +151,23 @@ def main(argv: list[str] | None = None) -> int:
     now = datetime.now(UTC)
     if not a.study:
         print(f"[{now:%H:%M}Z] {sweep(now)}")
-    if a.study or now.hour == STUDY_HOUR or not (ROOT / "backtest" / "UNIVERSE_STUDY.md").exists():
+    morning_due = now.hour >= STUDY_HOUR and not (NOTE_DIR / f"{now:%Y-%m-%d}.sent").exists()
+    if a.study or morning_due or not (ROOT / "backtest" / "UNIVERSE_STUDY.md").exists():
         import importlib
         sys.path.insert(0, str(ROOT / "backtest"))
         importlib.import_module("universe_study").main()
         importlib.import_module("paper_book_study").main()
         try:
-            from data import match_stats
-            n, notes = match_stats.collect(days=3)
+            # data/match_stats.py sits beside its data folder data/match_stats/: load the module by name
+            n, notes = importlib.import_module("data.match_stats").collect(days=3)
             print(f"[{now:%H:%M}Z] match stats: {n} new" + "".join(f" · {x}" for x in notes))
         except Exception as e:  # noqa: BLE001 — FotMob down never stops the sweep
             print(f"[{now:%H:%M}Z] match stats skipped ({str(e)[:60]})")
         importlib.import_module("match_stats_study").main()
+        if morning_due:
+            print(f"[{now:%H:%M}Z] {send_daily_note(now)}")
     print(f"[{now:%H:%M}Z] {persist(now)}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

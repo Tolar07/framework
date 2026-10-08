@@ -125,8 +125,8 @@ def start_board(repo: str, token: str, slot: str, day: date) -> None:
 
 
 def _send(msg: str) -> None:
-    # The Architect and every subscriber chat (order 33).
-    sent, notes = notify.send_everyone(msg)
+    # The Architect's own chat only — subscribers get the board alone (order 33).
+    sent, notes = notify.send_architect(msg)
     print(msg)
     print("alert sent" if sent else "alert NOT sent")
     print("\n".join(notes))

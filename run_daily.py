@@ -1463,8 +1463,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     # HEARTBEAT — a short 'system alive' ping sent EVERY day (even dry days), so
     # silence never looks like a dead system. Best-effort: a heartbeat that fails
     # to send is logged but does NOT fail the run — the board carries the hard
-    # delivery gate; the heartbeat is informational. Subscribers get it too
-    # (order 33, via notify.deliver).
+    # delivery gate; the heartbeat is informational. Sent to the
+    # Architect's own chat only — subscribers get the board and nothing else (order 33).
     if heartbeat and send:
         try:
             hb = render_heartbeat(PHASE_LABEL, leagues, status["legs_with_clv"],
@@ -1474,7 +1474,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                                                   learning_line, loss_line,
                                                                   survivor_text)
                                                         if x))
-            hb_ok, hb_notes = notify.deliver(hb, save_to=None)
+            hb_ok, hb_notes = notify.send_architect(hb)
             for n in hb_notes:
                 _mark(runlog, f"heartbeat: {n}")
             print("  heartbeat " + ("delivered" if hb_ok else "NOT delivered"))

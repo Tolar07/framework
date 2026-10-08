@@ -195,6 +195,15 @@ def book(picks: list[dict]) -> Optional[str]:
     return None
 
 
+def espn_days(p: dict) -> list:
+    """The ESPN scoreboard days that can hold a pick's game. ESPN files a game
+    under its US date, so a tip-off after midnight UTC (most NBA games) sits
+    on the day BEFORE its UTC date (8 Oct 2026: OKC v MIL, 00:00Z on the 8th,
+    is on ESPN's 7 Oct scoreboard)."""
+    d = datetime.fromisoformat(p["espn_date"]).date()
+    return [d - timedelta(days=1), d]
+
+
 def grade(now: datetime) -> list[str]:
     """Grade every pending pick whose game tipped off 3+ hours ago."""
     notes = []
@@ -204,8 +213,8 @@ def grade(now: datetime) -> list[str]:
         for p in doc.get("picks", []):
             if p.get("result") or datetime.fromisoformat(p["tip"]) > now - timedelta(hours=3):
                 continue
-            day = datetime.fromisoformat(p["espn_date"]).date()
-            g = next((x for x in ns.scoreboard(day, use_cache=False) if x.id == p["espn_id"]), None)
+            g = next((x for day in espn_days(p) for x in ns.scoreboard(day, use_cache=False)
+                      if x.id == p["espn_id"]), None)
             if g is None or not g.completed:
                 continue
             p["result"] = nv.settle(p, g.hs, g.as_, g.q_home, g.q_away)

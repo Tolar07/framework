@@ -1,0 +1,86 @@
+##########OLP XDV#########
+==================================
+
+📅  Thu 08 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261008-0024-bfadb9 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 1 · Verified: 0
+KO = kickoff, Lagos time (WAT)
+
+⚠ 228 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                                   Country · League      AI PICK · win%        Odds   Alt market                                O1.5/O2.5  DC/BTTS     Src
+15:00  Denizli Idman Yurdu v Serik Belediyespor  Turkey · Turkish Cup  Over 1.5 goals · 81%  @1.20  Serik Belediyespor Under 3.5 goals @1.20  O79/O59    X288 / N52  ○ᴹ
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 mega code (all 1 deploy singles): JPS0PB   load ↦ www.sportybet.com/ng/?shareCode=JPS0PB
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                                   Country · League      Pick            Chance  Odds   Certainty  Stake  Code
+15:00  Denizli Idman Yurdu v Serik Belediyespor  Turkey · Turkish Cup  Over 1.5 goals  81%     @1.20  LOW        0.12%  JPS0PB
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 0 of 1 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts) · 1 quoted by no second book.
+
+TABLE 2 mega code (all 1 deploy singles): JPS0PB   load ↦ www.sportybet.com/ng/?shareCode=JPS0PB
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+No 3-leg acca reaches 50% from high-certainty legs today.
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(3 legs each, 75%+ picks only, a match in one acca at most — order 40)
+──────────────────────────────────
+
+No capital-eligible accas generated.
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+No alternative leg of 75%+ on a match no other acca holds today.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+No outcome priced above our fair odds today (EV +2% or more, 50%+, 1.20–2.00).
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: Denizli Idman Yurdu v Serik Belediyespor (🇹🇷 Turkey · Turkish Cup) — Over 1.5 goals (81%) @1.20 · code JPS0PB
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00 (safest ~1.50); picks above 2.00 are never deployed.
+Calibration: 9 legs logged, mean CLV +1.66%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+Board MEGA: JPS0PB (1 legs · every single · stake 0.1%)

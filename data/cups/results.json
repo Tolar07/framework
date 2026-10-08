@@ -106,6 +106,19 @@
  {
   "date": "2026-10-07",
   "competition": "TURKEY: Turkish Cup - Qualification",
+  "home": "Eskisehirspor",
+  "away": "Aksehirspor",
+  "home_tier": 4,
+  "away_tier": 4,
+  "fthg": 4,
+  "ftag": 1,
+  "fh_home": 2,
+  "fh_away": 1,
+  "went_to_et": false
+ },
+ {
+  "date": "2026-10-07",
+  "competition": "TURKEY: Turkish Cup - Qualification",
   "home": "Gaziemirspor",
   "away": "Fethiyespor",
   "home_tier": 4,

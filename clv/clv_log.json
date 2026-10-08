@@ -12329,5 +12329,43 @@
     "stake": null,
     "phase": "phase2_paper",
     "notes": ""
+  },
+  {
+    "leg_id": "Denizli_Idman_Yurdu_v_Serik_Belediyespor_BTTS_YES_1791419179",
+    "date_logged": "2026-10-08T00:26:18.875887+00:00",
+    "league": "Turkish Cup",
+    "fixture": "Denizli Idman Yurdu v Serik Belediyespor",
+    "market": "BTTS_YES",
+    "model_prob": 0.5383832605569435,
+    "match_date": "2026-10-08",
+    "entry_odds": 1.93,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
+  },
+  {
+    "leg_id": "Denizli_Idman_Yurdu_v_Serik_Belediyespor_SB:18|total=1.5|Over_1.5_1791419179",
+    "date_logged": "2026-10-08T00:26:18.888129+00:00",
+    "league": "Turkish Cup",
+    "fixture": "Denizli Idman Yurdu v Serik Belediyespor",
+    "market": "SB:18|total=1.5|Over 1.5",
+    "model_prob": 0.8096,
+    "match_date": "2026-10-08",
+    "entry_odds": 1.2,
+    "entry_capture_path": "CL-LIVE",
+    "closing_odds": null,
+    "closing_capture_path": null,
+    "clv_pct": null,
+    "ft_result": null,
+    "hit": null,
+    "stake": null,
+    "phase": "phase2_paper",
+    "notes": ""
   }
 ]

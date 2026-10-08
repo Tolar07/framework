@@ -87,6 +87,16 @@ def f_safe_dc(p: dict) -> list[Bet]:
     return [(("dc:1x", "dc:12", "dc:x2")[i], i, x[i])] if _between(x[i], 1.20, 1.40) else []
 
 
+def f_draw_proof(p: dict) -> list[Bet]:
+    x = p.get("dc")
+    return [("dc:12", 1, x[1])] if x and _between(x[1], 1.20, 1.40) else []
+
+
+def f_mid_home(p: dict) -> list[Bet]:
+    x = p.get("1x2")
+    return [("1x2:home", 0, x[0])] if x and _between(x[0], 1.60, 2.50) else []
+
+
 def b_home_fav(p: dict) -> list[Bet]:
     x = p.get("win")
     return [("win:home", 0, x[0])] if x and _between(x[0], 1.20, 1.60) else []
@@ -116,11 +126,19 @@ STRATEGIES: dict[str, tuple[str, str, Callable[[dict], list[Bet]]]] = {
     "F6 under 2.5 when favoured": ("football", "Under 2.5 when priced shorter than Over", f_under_fav),
     "F7 BTTS no": ("football", "both teams to score — no, at 1.50–2.00", f_btts_no),
     "F8 safe double chance": ("football", "the shortest double chance at 1.20–1.40", f_safe_dc),
+    "F9 draw-proof": ("football", "home or away (dc 12) at 1.20–1.40", f_draw_proof),
+    "F10 mid-price home": ("football", "home win at 1.60–2.50", f_mid_home),
     "B1 home favourite": ("basketball", "home winner at 1.20–1.60", b_home_fav),
     "B2 away underdog": ("basketball", "away winner at 2.00–3.50", b_away_dog),
     "B3 main total under": ("basketball", "Under the main total line", b_under),
     "B4 main total over": ("basketball", "Over the main total line", b_over),
 }
+
+
+# Rules added after the book had seen results count only games from the day
+# they were written down — the evidence that suggested a rule can't also be its
+# test. F9 / F10 / A4: proposed 2026-10-08 from the first graded days.
+SINCE = {"F9 draw-proof": "2026-10-09", "F10 mid-price home": "2026-10-09"}
 
 
 def bets(row: dict) -> list[dict]:
@@ -135,7 +153,7 @@ def bets(row: dict) -> list[dict]:
     res = row["result"]
     out = []
     for name, (sport, _desc, rule) in STRATEGIES.items():
-        if sport != row["sport"]:
+        if sport != row["sport"] or (row.get("ko") or "")[:10] < SINCE.get(name, ""):
             continue
         for key, _i, price in rule(first):
             if key not in won:                 # e.g. a football game decided after 90'
@@ -194,6 +212,7 @@ ACCAS: dict[str, tuple[str, tuple[str, ...]]] = {
     "A2 three favourites": ("3 legs from F1 + F2", ("F1 short favourite", "F2 mid favourite")),
     "A3 mixed safe": ("3 legs from F8 + F1 + B1", ("F8 safe double chance", "F1 short favourite",
                                                     "B1 home favourite")),
+    "A4 three draw-proof": ("3 legs from F9 (from 2026-10-09)", ("F9 draw-proof",)),
 }
 ACCA_LEGS = 3
 

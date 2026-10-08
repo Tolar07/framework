@@ -109,4 +109,12 @@ src = (Path(__file__).parent.parent / "monitor" / "universe_sweep.py").read_text
 assert "notify.send_telegram(text, chat_id=owner)" in src and "send_everyone" not in src
 print("daily note: once a day, the Architect's chat only: OK")
 
+# F9 / F10 count only games from 2026-10-09 (proposed from earlier results)
+old = {**fb({"1x2": [1.80, 3.6, 4.4], "dc": [1.20, 1.30, 1.90]}, {"1x2": [1.80, 3.6, 4.4], "dc": [1.20, 1.30, 1.90]}, 2, 1),
+       "ko": "2026-10-08T19:00Z"}
+new = {**old, "ko": "2026-10-09T19:00Z"}
+assert not {"F9 draw-proof", "F10 mid-price home"} & {x["strategy"] for x in pb.bets(old)}
+assert {"F9 draw-proof", "F10 mid-price home"} <= {x["strategy"] for x in pb.bets(new)}
+print("F9 / F10 count only games from the day they were written down: OK")
+
 print("ALL PAPER-BOOK TESTS PASSED")

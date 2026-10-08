@@ -229,14 +229,19 @@ _b365_block = _rd_src.split("# bet365 BOARD (standing order 29)")[1].split("# HE
 assert "chat_id=owner_chat" in _b365_block and 'environ.get("TELEGRAM_SUBSCRIBER' not in _b365_block, \
     "Order 29: the bet365 board goes to the Architect's own chat only, never a subscriber"
 
-# 33. Subscribers get everything the Architect gets except the bet365 board
+# 33. Subscribers get the board and nothing else (Architect 2026-10-08)
 from output import notify as _nt33
-for _wfn in ("daily.yml", "news.yml", "supervisor.yml", "watchdog.yml", "weekly.yml"):
+for _wfn in ("daily.yml", "supervisor.yml"):
     assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" in \
         (ROOT / ".github/workflows" / _wfn).read_text(encoding="utf-8"), \
         f"Order 33: the subscriber secret reaches {_wfn}"
-assert "${TELEGRAM_SUBSCRIBER_CHAT_IDS//,/ }" in wf and "-o /dev/null" in wf, \
-    "Order 33: the failed-run alert reaches every subscriber, reply not logged"
+for _wfn in ("news.yml", "watchdog.yml", "weekly.yml"):
+    assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" not in \
+        (ROOT / ".github/workflows" / _wfn).read_text(encoding="utf-8"), \
+        f"Order 33: {_wfn} sends to the Architect only"
+_fail33 = wf.split("- name: Report failure to Telegram")[1]
+assert "SUBSCRIBER" not in _fail33 and "-o /dev/null" in _fail33, \
+    "Order 33: the failed-run alert goes to the Architect only, reply not logged"
 _sent33: list = []
 _env33 = {k: _os.environ.get(k) for k in
           ("TELEGRAM_CHAT_ID", "TELEGRAM_OWNER_CHAT_ID", "TELEGRAM_SUBSCRIBER_CHAT_IDS")}
@@ -263,13 +268,13 @@ assert _rd_src.count("notify.send_telegram(") == 1 and \
     "notify.send_telegram(b365_text, chat_id=owner_chat)" in _rd_src, \
     "Order 33: only the bet365 board bypasses the subscribers"
 _hb_block = _rd_src.split("# HEARTBEAT")[1]
-assert "notify.deliver(hb" in _hb_block, "Order 33: subscribers get the heartbeat"
+assert "notify.send_architect(hb)" in _hb_block and "notify.deliver(hb" not in _hb_block, \
+    "Order 33: the heartbeat goes to the Architect only"
 for _src in ("monitor/supervisor.py", "monitor/run_watchdog.py", "scripts/weekly_review.py",
              "news_check.py"):
     _txt = (ROOT / _src).read_text(encoding="utf-8")
-    assert "notify.send_telegram(" not in _txt and \
-        ("notify.send_everyone(" in _txt or "notify.deliver(" in _txt), \
-        f"Order 33: {_src} reaches the subscribers too"
+    assert "notify.send_architect(" in _txt and "notify.send_everyone(" not in _txt and \
+        "notify.deliver(" not in _txt, f"Order 33: {_src} goes to the Architect only"
 
 # 30. 17 Sep spec items kept: Run ID + send gate, NO-DATA line, competition chunks
 from output import notify as _nt

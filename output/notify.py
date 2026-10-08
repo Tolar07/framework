@@ -207,10 +207,16 @@ def subscriber_chats() -> list[str]:
     return out
 
 
+def send_architect(body: str) -> tuple[bool, list[str]]:
+    """The Architect's own chat only (order 33): everything that is not the
+    board — heartbeat, pre-kickoff alerts, run alerts, the supervisor status,
+    the weekly review. Subscribers never see it."""
+    return send_telegram(body)
+
+
 def send_everyone(body: str) -> tuple[bool, list[str]]:
-    """The Architect's chat, then every subscriber chat (order 33). Everything
-    that reaches the phone goes this way EXCEPT the bet365 board (order 29),
-    which is sent with send_telegram to the Architect's own chat only.
+    """The Architect's chat, then every subscriber chat (order 33). Only the
+    board goes this way (via deliver); everything else is send_architect.
 
     Returns (Architect's chat delivered, notes). A subscriber that fails is a
     note and never fails the caller. Notes name a subscriber by the last four
@@ -230,7 +236,8 @@ def send_everyone(body: str) -> tuple[bool, list[str]]:
 
 def deliver(body: str, save_to: Optional[Path] = None) -> tuple[bool, list[str]]:
     """Write the board to disk, then send it to the Architect and every
-    subscriber (order 33). Returns (delivered_ok, notes).
+    subscriber (order 33: subscribers get the board and nothing else).
+    Returns (delivered_ok, notes).
 
     Disk first, deliberately: a failed send must never lose the board. The
     boolean matters — the caller previously discarded it and logged "run

@@ -200,7 +200,7 @@ def run(now: datetime | None = None, send: bool = True) -> str:
     msg = "\n".join(lines)
     if send:
         from output import notify
-        ok_sent, notes = notify.deliver(msg, save_to=None)
+        ok_sent, notes = notify.send_architect(msg)  # Architect only (order 33)
         print("\n".join(notes))
     return msg
 

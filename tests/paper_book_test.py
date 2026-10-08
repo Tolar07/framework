@@ -67,4 +67,46 @@ assert "2 graded games so far" in txt and "| F1 short favourite | 1X2 favourite 
 assert "+40.0% / +40.0%" in txt and "**Ready to propose:** none yet" in txt
 print("study written: OK")
 
+# fair chances: a double chance's three outcomes sum to 2, not 1
+dc = [x for x in pb.bets(fb({"dc": [1.30, 1.35, 2.20]}, {"dc": [1.30, 1.35, 2.20]}, 1, 0)) if x["market"] == "dc:1x"]
+assert dc and abs(dc[0]["fair"] - 2 * (1 / 1.30) / (1 / 1.30 + 1 / 1.35 + 1 / 2.20)) < 1e-9 and 0.7 < dc[0]["fair"] < 0.8
+# why: 1x2 losses split into draws / beaten; totals by margin against the line
+lost = [{**f1, "won": 0, "score": [1, 1]}, {**f1, "won": 0, "score": [0, 2]}, f1]
+assert pb.why(lost) == "lost 2: 1 draw(s), 1 beaten"
+ou = [{**bs["F5 over 2.5 when favoured"], "score": [2, 0]}, {**bs["F5 over 2.5 when favoured"], "won": 1, "score": [3, 1]}]
+assert pb.why(ou) == "total vs line (goals): wins +1.5, losses -0.5"
+print("fair chance (double chance) and why-breakdowns: OK")
+
+# paper accas: 3 legs a day, one per game, highest fair chance; wins only if all three do
+def game(i, h, a, day="2026-10-09"):
+    r = fb({"1x2": [1.30, 5.0, 9.0], "dc": [1.05, 1.25, 3.1]}, {"1x2": [1.30, 5.0, 9.0], "dc": [1.05, 1.25, 3.1]}, h, a)
+    return {**r, "id": f"g{i}", "ko": f"{day}T19:00Z", "home": f"H{i}", "away": f"A{i}"}
+day1 = [game(1, 2, 0), game(2, 1, 0), game(3, 3, 1), game(4, 0, 0)]
+acc = pb.accas(day1)
+a2 = [x for x in acc if x["acca"] == "A2 three favourites"]
+assert len(a2) == 1 and len(a2[0]["legs"]) == 3 and a2[0]["won"] == 1 and abs(a2[0]["price"] - 1.3 ** 3) < 1e-3
+assert 0.3 < a2[0]["expected"] < 0.6
+assert pb.accas(day1[:2]) == [], "fewer than 3 legs that day: no acca"
+lost_day = [game(1, 2, 0), game(2, 0, 1), game(3, 3, 1)]
+assert [x["won"] for x in pb.accas(lost_day) if x["acca"] == "A2 three favourites"] == [0]
+print("paper accas (3 legs, one a game, all must win): OK")
+
+note = pb.daily_note(day1)
+assert note.startswith("📒 OLP XDV · PAPER BOOK — 4 games graded") and "Paper accas:" in note and "Ready to propose: none yet" in note
+import os  # noqa: E402
+
+from monitor import universe_sweep as usw  # noqa: E402
+
+for k in ("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID", "TELEGRAM_OWNER_CHAT_ID"):
+    os.environ.pop(k, None)
+usw.NOTE_DIR = Path(tempfile.mkdtemp())
+from datetime import UTC, datetime  # noqa: E402
+
+assert usw.send_daily_note(datetime(2026, 10, 9, 6, 20, tzinfo=UTC)).startswith("paper-book note not sent")
+(usw.NOTE_DIR / "2026-10-09.sent").write_text("x")
+assert usw.send_daily_note(datetime(2026, 10, 9, 9, 20, tzinfo=UTC)) == "paper-book note already sent today"
+src = (Path(__file__).parent.parent / "monitor" / "universe_sweep.py").read_text(encoding="utf-8")
+assert "notify.send_telegram(text, chat_id=owner)" in src and "send_everyone" not in src
+print("daily note: once a day, the Architect's chat only: OK")
+
 print("ALL PAPER-BOOK TESTS PASSED")

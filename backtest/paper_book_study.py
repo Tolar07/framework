@@ -50,6 +50,32 @@ def main() -> int:
         L.append(f"| {name} | {desc} | {a.n} | {a.won / a.n:.0%} | {a.roi():+.1%} ± {a.se():.1%} | "
                  f"{_pct(a.avg_clv())} | £{100 + a.pnl:.2f} | {_pct(c.roi() if c.n else None)} / "
                  f"{_pct(u.roi() if u.n else None)} | {a.verdict()} |")
+    by_rule: dict[str, list[dict]] = {}
+    for row in rows:
+        for b in pb.bets(row):
+            by_rule.setdefault(b["strategy"], []).append(b)
+    L += ["", "## Why the bets won or lost", "", "| Rule | how |", "|---|---|"]
+    L += [f"| {n} | {pb.why(by_rule.get(n, []))} |" for n in pb.STRATEGIES]
+    ac = pb.accas(rows)
+    L += ["", "## Paper accas — 3 legs a day from the strongest rules (highest fair chance, one leg a game)", "",
+          "| Acca | what it combines | accas | landed | £1 return | landed vs expected | legs won |",
+          "|---|---|---|---|---|---|---|"]
+    for name, (desc, _rules) in pb.ACCAS.items():
+        xs = [a for a in ac if a["acca"] == name]
+        if not xs:
+            L.append(f"| {name} | {desc} | 0 | — | — | — | — |")
+            continue
+        n, w = len(xs), sum(a["won"] for a in xs)
+        exp = sum(a["expected"] for a in xs) / n
+        L.append(f"| {name} | {desc} | {n} | {w}/{n} | {sum(a['pnl'] for a in xs) / n:+.1%} | "
+                 f"{w / n:.0%} vs {exp:.0%} | {sum(a['legs_won'] for a in xs)}/{3 * n} |")
+    if ac:
+        last = max(a["day"] for a in ac)
+        L += ["", f"Latest accas ({last}):"]
+        for a in ac:
+            if a["day"] == last:
+                L.append(f"- {a['acca']} @{a['price']:.2f} — {'LANDED' if a['won'] else 'lost'} "
+                         f"({a['legs_won']}/3): " + "; ".join(a["legs"]))
     ready = [n for n in pb.STRATEGIES if sc[n]["all"].verdict() == "READY TO PROPOSE"]
     L += ["", "**Ready to propose:** " + (", ".join(ready) if ready else "none yet — the book needs more graded games."),
           "", "A rule's return is only trusted once it is large against its standard error: with £1 bets at "

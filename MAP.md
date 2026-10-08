@@ -257,7 +257,7 @@ new key.
 - `memory/corrections.csv` (`/note`) is listed on the heartbeat and in the weekly review until acted on (2026-10-05, order 39); nothing applies it automatically.
 - ~~The capital refusal message said capital is disabled at PHASE 3~~ — corrected 2026-10-04.
 - ~~HNL, Champions League and Europa League are whitelisted but never scanned~~ — FIXED 2026-10-05: SportyBet ids added; priced market-implied (with the Conference League).
-- `daily`, `commands` and `news` push with `pull --rebase || true; push || echo` in separate concurrency groups — a conflict silently drops that run's commit.
+- `daily`, `commands` and `news` push with `pull --rebase || true; push || echo` in separate concurrency groups — a conflict silently drops that run's commit. **2026-10-08: it did** — the 7 Oct evening board's commit was dropped and a late cron re-sent the board to everyone. Fixed for the board: the sent marker is saved to main on its own right after delivery (`monitor/push_marker.py`), NBA ladder logs merge as a union (`.gitattributes`), and the persist step now warns instead of failing silently. `commands` and `news` keep the old pattern.
 - The run log (with the Run ID) is not kept after a CI run (order 30 says it is).
 - `.claude/hooks/check_protected_files.py` guards files that no longer exist; the real constants (`config/__init__.py`, `engine/slate.py`) are unguarded. No hook blocks `git add -A`.
 - Fixed 2026-10-05: `backtest.yml`'s dead step (a missing test) removed and it runs monthly; `sync-health.yml` (pointed at a folder not in this repo) parked in `legacy/laptop/parked_2026-10-05/`.

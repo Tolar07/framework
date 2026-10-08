@@ -68,9 +68,9 @@
     "total": 218.5
    },
    "code": "LEH80D",
-   "result": null,
-   "score": null,
-   "close_value": null
+   "result": "lost",
+   "score": "126-128",
+   "close_value": 0.034
   },
   {
    "market_id": "228",
@@ -102,9 +102,9 @@
     "total": 216.5
    },
    "code": "LMUX44",
-   "result": null,
-   "score": null,
-   "close_value": null
+   "result": "lost",
+   "score": "123-118",
+   "close_value": 0.194
   }
  ],
  "sent_at": "2026-10-07T17:58:57Z"

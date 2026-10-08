@@ -75,8 +75,8 @@ jobs:
           # Optional: a separate Architect-only chat for the bet365 board
           # (standing order 29). Unset = TELEGRAM_CHAT_ID, the Architect's chat.
           TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
-          # Subscribers (order 33): comma-separated chat ids that get everything
-          # the Architect gets — board, heartbeat, alerts — except the bet365 board.
+          # Subscribers (order 33): comma-separated chat ids that get the board
+          # and nothing else (no heartbeat, alerts or bet365 board).
           TELEGRAM_SUBSCRIBER_CHAT_IDS: ${{ secrets.TELEGRAM_SUBSCRIBER_CHAT_IDS }}
           PYTHONIOENCODING:   utf-8
           SCHEDULE:           ${{ github.event.schedule }}
@@ -224,17 +224,14 @@ jobs:
       # and re-adopted as canonical. A failed run is an operational alert, not
       # paper-calibration noise — it fires only on failure() so the phone hears
       # about a broken run (no board) but nothing else.
-      # The Architect's chat and every subscriber chat (order 33). The reply is
-      # discarded: it names the chat, and this public repo's run logs are public.
+      # The Architect's chat only — subscribers get the board alone (order 33).
+      # The reply is discarded: it names the chat, and run logs are public.
       - name: Report failure to Telegram
         if: failure()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
-          TELEGRAM_SUBSCRIBER_CHAT_IDS: ${{ secrets.TELEGRAM_SUBSCRIBER_CHAT_IDS }}
         run: |
           MSG="OLP XDV: a scheduled run FAILED. No board from this run — this is a system failure, not a quiet slate. Run log: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          for CID in $(printf '%s\n' "${TELEGRAM_CHAT_ID}" ${TELEGRAM_SUBSCRIBER_CHAT_IDS//,/ } | awk 'NF && !seen[$1]++'); do
-            curl -s -o /dev/null -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-              -d chat_id="${CID}" --data-urlencode text="${MSG}" || true
-          done
+          curl -s -o /dev/null -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" --data-urlencode text="${MSG}" || true

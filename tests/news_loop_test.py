@@ -47,7 +47,7 @@ assert nl.EARLIEST < nl.HANDOFF_AFTER, "an early start never waits past the job 
 news = (ROOT / ".github/workflows/news.yml").read_text(encoding="utf-8")
 daily = (ROOT / ".github/workflows/daily.yml").read_text(encoding="utf-8")
 assert "monitor/news_loop.py" in news and "actions: write" in news and "timeout-minutes: 355" in news
-assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" in news, "order 33: subscribers get the alerts"
+assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" not in news, "order 33: alerts go to the Architect only"
 assert "actions/workflows/news.yml/dispatches" in daily and "actions: write" in daily, \
     "the board run starts the loop"
 _start = daily.split("- name: Start the pre-kickoff loop")[1].split("- name:")[0]

@@ -116,7 +116,7 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
     ok: list[str] = []
     if subscribers is not None:
         (ok if subscribers else bad).append(
-            f"subscribers: {subscribers} chat(s) get every message except the bet365 board"
+            f"subscribers: {subscribers} chat(s) get the board"
             if subscribers else
             "subscribers: none — the TELEGRAM_SUBSCRIBER_CHAT_IDS secret is empty or "
             "not a repository secret, so only your chat gets the board")
@@ -206,7 +206,7 @@ def main(argv: list[str] | None = None) -> int:
     print(text)
     if not a.no_send:
         from output import notify
-        sent, notes = notify.send_everyone(text)    # Architect + subscribers (order 33)
+        sent, notes = notify.send_architect(text)    # Architect only (order 33)
         print("status sent" if sent else "status NOT sent")
         print("\n".join(notes))
     return 0

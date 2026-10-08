@@ -42,6 +42,9 @@ SOURCE_TRUST = {
     # (e.g. football-data.org) provides F2 quorum.
     "thesportsdb.com": "T2",
     "bbc.co.uk": "T2", "skysports.com": "T2", "espn.com": "T2",
+    # fotmob.com (Architect 2026-10-08, "the 20 fixtures must be verified always"):
+    # a structured match feed like ESPN, used as a third fixture source.
+    "fotmob.com": "T2",
     # T3 — aggregators, lead-only, never verifying alone
     "predictz.com": "T3", "betinf.com": "T3", "fctables.com": "T3",
     # Rejected / JS-locked — never usable even as a lead

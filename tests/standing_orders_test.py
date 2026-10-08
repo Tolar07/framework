@@ -461,6 +461,21 @@ _all40 = [l[0].fixture for _n, ls, _c in _s40 + _a40 for l in ls]
 assert len(_all40) == len(set(_all40)) == 7, "Order 40: every 75%+ pick in exactly one acca"
 assert not any(f.startswith(("P7 ", "P8 ")) for f in _all40), "Order 40: picks under 75% stay singles"
 assert all(len(ls) <= 3 for _n, ls, _c in _s40 + _a40), "Order 40: at most 3 legs an acca"
+# Architect 2026-10-08: a TABLE 3 acca's odds are 3.00 at most
+assert pb.TABLE3_ODDS_MAX == 3.00, "Order 40: TABLE 3 odds cap 3.00"
+_bfo40 = [pb.BoardFixture(f"R{_i} v S{_i} (Serie A)", _fp(f"R{_i}", f"S{_i}"), _v,
+                          on_deploy_shortlist=True, best_market="R to win",
+                          best_model_prob=0.80 - _i / 100, certainty="LOW", best_price=_pr)
+          for _i, _pr in enumerate([1.25, 1.30, 1.55, 1.60, 1.20, 1.22, 2.10])]
+_a40o = pb._build_accas(_bfo40)
+assert _a40o and all(pb._acca_odds(ls) <= 3.00 for _n, ls, _c in _a40o),     f"Order 40: no TABLE 3 acca above 3.00 odds: {[round(pb._acca_odds(ls), 2) for _n, ls, _c in _a40o]}"
+assert all(2 <= len(ls) <= 3 for _n, ls, _c in _a40o), "Order 40: capped accas keep 2-3 legs"
+_in40o = [l[0].fixture for _n, ls, _c in _a40o for l in ls]
+assert len(_in40o) == len(set(_in40o)), "Order 40: a match in one acca at most, after the cap"
+_orch40 = (ROOT / "orchestrator.py").read_text(encoding="utf-8")
+_fb40 = _orch40.split('errors.append(f"thesportsdb: {e}")')[1]
+assert _fb40.lstrip().startswith("if not upcoming_fixtures:") and "fixtures_from_odds" in _fb40, \
+    "fixtures: an EMPTY TheSportsDB answer falls back to the odds feed, not only an error"
 
 # 41. NBA board (live test since 2026-10-07)
 from engine import nba_value as _nv41

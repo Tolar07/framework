@@ -68,4 +68,9 @@ assert nv.settle({"market_id": "68", "outcome": "Over 100.5", "specifier": "tota
 assert nv.display({"market_id": "236", "outcome": "Over 50.5"}, "A", "B") == "1st quarter Over 50.5 points"
 print("1st half / 1st quarter totals: OK")
 
+from datetime import date as _d
+assert run_nba.espn_days({"espn_date": "2026-10-08"}) == [_d(2026, 10, 7), _d(2026, 10, 8)], \
+    "a game after midnight UTC is on ESPN's US-date scoreboard (the day before)"
+print("grading looks on the US-date scoreboard: OK")
+
 print("\n✅ ALL NBA TESTS PASSED")

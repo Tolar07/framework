@@ -137,8 +137,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -0.81,
    "stake_pct": 0.12,
    "ev": 0.02513896891194034,
    "missing": {
@@ -451,8 +451,8 @@
     "spec": "total=2.5",
     "outcome": "Under 2.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -2.42,
    "stake_pct": 0.25,
    "ev": -0.011235820171640265,
    "missing": {
@@ -590,7 +590,11 @@
     "home": 17656628,
     "away": 80683467
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: M\u00e1laga missing 35%",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72478616",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -640,7 +644,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:73092954",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -1047,8 +1055,8 @@
     "spec": "hcp=-0.5",
     "outcome": "Away (+0.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.04675943806075211,
    "missing": {

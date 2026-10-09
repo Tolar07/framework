@@ -472,7 +472,11 @@
     "home": 8607768,
     "away": 14287475
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Moreirense at full strength",
+    "at": "17:00Z"
+   },
    "sb_event_id": "sr:match:72530958",
    "sb_tid": "sr:tournament:238",
    "sb_market": {

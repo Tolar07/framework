@@ -102,6 +102,8 @@ def main() -> int:
         for r in srows:
             first = {k: (won, price) for k, won, price, _m in uv.outcomes(sport, r["first"]["p"], r["result"])}
             for k, won, price, mkt in uv.outcomes(sport, r["last"]["p"], r["result"]):
+                if k[1:3] == "up":
+                    continue       # early payout: outcomes overlap, no fair chance — measured by paper rules F11-F13
                 f = _fair(price, mkt)
                 side[k].add(won, price, f)
                 lo, hi = next(b for b in BANDS if b[0] <= price < b[1])

@@ -64,6 +64,49 @@ def find_match(matches: list[dict], home: str, away: str) -> Optional[dict]:
     return scored[0][1]
 
 
+def timeline(details: dict) -> Optional[dict]:
+    """{goals: [[minute, "h" | "a"], ...] of the 90 minutes in order, ht: [h, a]}
+    from a FotMob match page, or None when it has no goal events. Stoppage-time
+    goals count (FotMob gives them minute 45/90 plus added time); extra-time
+    goals (minute 91+) and shoot-outs don't."""
+    ev = (((details.get("content") or {}).get("matchFacts") or {}).get("events") or {}).get("events")
+    if ev is None:
+        return None
+    goals, ht, score = [], None, [0, 0]
+    for e in ev:                                       # FotMob lists events in order
+        if e.get("type") == "Half" and e.get("halfStrShort") == "HT":
+            ht = [e.get("homeScore"), e.get("awayScore")]
+        elif (e.get("type") == "Goal" and not e.get("isPenaltyShootoutEvent")
+              and isinstance(e.get("time"), int) and e["time"] <= 90):
+            new = e.get("newScore")
+            if not (isinstance(new, list) and len(new) == 2 and sum(new) == sum(score) + 1):
+                return None                            # the running score is the only safe read of an own goal
+            goals.append([e["time"], "h" if new[0] > score[0] else "a"])
+            score = new
+    return {"goals": goals, "ht": ht}
+
+
+class Timelines:
+    """Goal timelines looked up by team names and kick-off, FotMob's day list
+    fetched once per date. find() -> timeline dict | None (game not on FotMob);
+    raises when FotMob is unreachable, so the caller can retry later."""
+
+    def __init__(self) -> None:
+        self.days: dict[str, list[dict]] = {}
+
+    def find(self, home: str, away: str, ko: str) -> Optional[dict]:
+        from datetime import date, timedelta
+        d0 = date.fromisoformat(ko[:10])
+        for off in (0, -1, 1):                         # FotMob's day list is local-time
+            day = (d0 + timedelta(days=off)).isoformat()
+            if day not in self.days:
+                self.days[day] = matches_on(day)
+            m = find_match(self.days[day], home, away)
+            if m is not None:
+                return timeline(match_details(m["id"])) if m.get("finished") else None
+        return None
+
+
 def _side(team: dict) -> dict:
     starters = team.get("starters") or []
     unavailable = team.get("unavailable") or []

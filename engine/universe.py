@@ -15,11 +15,17 @@ backtest/universe_study.py turns that into what the market gets right and
 wrong, league by league and market by market.
 
 Prices kept (raw SportyBet decimals, so returns can be measured):
-  football    1X2 (1), Over/Under 1.5 / 2.5 / 3.5 (18), BTTS (29), Double Chance (10)
+  football    1X2 (1), Over/Under 1.5 / 2.5 / 3.5 (18), BTTS (29), Double Chance (10),
+              1X2 - 2UP (60100) and 1X2 - 1UP (60200): SportyBet's early payout — the
+              team's bet pays as soon as it leads by 2 (1), else as a plain 1X2
   basketball  winner incl. OT (219), the main total (225) and main handicap (223):
               the line SportyBet prices closest to even
 Football bets settle on 90 minutes: a game decided after extra time keeps
-its result but is flagged and never read as a 90-minute score.
+its result but is flagged and never read as a 90-minute score. An early-payout
+bet the final score can't settle (the team scored enough to have led, but
+didn't win) needs the goal times: the sweep adds them from FotMob
+(data.fotmob.goal_timeline) as result["goals"]; without them that side is
+left unsettled, never guessed.
 """
 from __future__ import annotations
 
@@ -27,16 +33,18 @@ import gzip
 import json
 import re
 import unicodedata
+from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 PENDING = ROOT / "data" / "cache" / "universe" / "pending.json.gz"   # Actions cache, not git
 GRADED_DIR = ROOT / "data" / "universe"
-SPORTS = {"football": ("sr:sport:1", "1,18,29,10", 1), "basketball": ("sr:sport:2", "219,225,223", 3)}
+SPORTS = {"football": ("sr:sport:1", "1,18,29,10,60100,60200", 1),"basketball": ("sr:sport:2", "219,225,223", 3)}
 GRADE_AFTER = timedelta(hours=3)        # a game is looked up 3 h after kick-off
 GIVE_UP_AFTER = timedelta(days=7)       # Flashscore keeps 7 days
 OU_LINES = ("1.5", "2.5", "3.5")
+UP = {"60100": ("2up", 2), "60200": ("1up", 1)}   # SportyBet market id -> (price key, lead that pays early)
 
 
 def _f(x) -> float | None:
@@ -76,6 +84,8 @@ def prices(sport: str, event: dict) -> dict:
                       px.get("Draw or Away") or px.get("X2")]
                 if all(dc):
                     out["dc"] = dc
+            elif mid in UP and all(px.get(k) for k in ("Home", "Draw", "Away")):
+                out[UP[mid][0]] = [px["Home"], px["Draw"], px["Away"]]
         else:
             if mid == "219" and px.get("Home") and px.get("Away"):
                 out["win"] = [px["Home"], px["Away"]]
@@ -171,9 +181,13 @@ def result_of(sport: str, e: dict) -> dict:
     return {"h": e["fthg"], "a": e["ftag"]}
 
 
-def grade(pending: dict, index: dict[str, ResultIndex], now: datetime) -> tuple[list[dict], int]:
+def grade(pending: dict, index: dict[str, ResultIndex], now: datetime,
+          goals_of: Callable[[dict], list | None] | None = None) -> tuple[list[dict], int]:
     """(graded rows to archive, games given up on). Graded and given-up games
-    leave `pending`; a game too recent to look up stays."""
+    leave `pending`; a game too recent to look up stays. `goals_of(row)` gives
+    a game's 90-minute goal times (None: the source doesn't have the game) for
+    the early-payout bets the score alone can't settle; when it raises (source
+    down) the game waits for the next sweep."""
     done, gave_up = [], 0
     for eid in list(pending):
         r = pending[eid]
@@ -182,7 +196,17 @@ def grade(pending: dict, index: dict[str, ResultIndex], now: datetime) -> tuple[
             continue
         hit = index[r["sport"]].find(r["home"], r["away"], r["ko"])
         if hit is not None:
-            done.append({**r, "result": result_of(r["sport"], hit), "graded_at": now.strftime("%Y-%m-%dT%H:%MZ")})
+            res = result_of(r["sport"], hit)
+            if goals_of is not None and needs_goals(r, res):
+                try:
+                    goals = goals_of(r)
+                except Exception:  # noqa: BLE001 — source down: retried next sweep
+                    if now - ko < GIVE_UP_AFTER:
+                        continue
+                    goals = None
+                if goals is not None and len(goals) == res["h"] + res["a"]:
+                    res["goals"] = goals          # a timeline that disagrees with the score is not used
+            done.append({**r, "result": res, "graded_at": now.strftime("%Y-%m-%dT%H:%MZ")})
             del pending[eid]
         elif now - ko > GIVE_UP_AFTER:
             done.append({**r, "result": None, "graded_at": now.strftime("%Y-%m-%dT%H:%MZ")})
@@ -234,6 +258,36 @@ def load_graded(folder: Path = GRADED_DIR) -> list[dict]:
     return rows
 
 
+# ── early payout (1X2 - 1UP / 2UP) ───────────────────────────────────────────
+def up_won(n: int, side: str, h: int, a: int, goals: list | None = None) -> int | None:
+    """1 / 0 for `side` ("home" | "away") on a 1X2 nUP bet, or None when only the
+    goal times could tell. It pays if the team wins after 90 minutes OR leads
+    by n at any moment of the 90 (stoppage time included, extra time not).
+    `goals`: the 90-minute goals in order, [[minute, "h" | "a"], ...]."""
+    own, opp = (h, a) if side == "home" else (a, h)
+    if own > opp:
+        return 1
+    if own < n:
+        return 0                                  # never scored enough to lead by n
+    if goals is None:
+        return None
+    lead = 0
+    for _minute, who in goals:
+        lead += 1 if who == side[0] else -1
+        if lead >= n:
+            return 1
+    return 0
+
+
+def needs_goals(row: dict, res: dict) -> bool:
+    """Does settling this graded football game's early-payout prices need the goal times?"""
+    p = row.get("first", {}).get("p", {})
+    if row.get("sport") != "football" or res.get("after_90") or not any(k in p for k, _n in UP.values()):
+        return False
+    return any(up_won(n, side, res["h"], res["a"]) is None
+               for k, n in UP.values() if k in p for side in ("home", "away"))
+
+
 # ── settlement of the kept markets (for the study) ───────────────────────────
 def outcomes(sport: str, prices_: dict, res: dict) -> list[tuple[str, int, float, list[float]]]:
     """[(market:side, won 0/1, price taken, the market's prices)] for one graded
@@ -264,6 +318,15 @@ def outcomes(sport: str, prices_: dict, res: dict) -> list[tuple[str, int, float
             p = prices_["dc"]
             won = [h >= a, h != a, h <= a]
             out += [(f"dc:{s}", int(w), x, p) for s, w, x in zip(("1x", "12", "x2"), won, p, strict=True)]
+        for key, n in UP.values():
+            if key not in prices_:
+                continue
+            p = prices_[key]
+            for side, x in (("home", p[0]), ("away", p[2])):
+                w = up_won(n, side, h, a, res.get("goals"))
+                if w is not None:                 # goal times missing: that side stays unsettled
+                    out.append((f"{key}:{side}", w, x, p))
+            out.append((f"{key}:draw", int(h == a), p[1], p))
     else:
         if "win" in prices_:
             p = prices_["win"]

@@ -229,7 +229,7 @@ _b365_block = _rd_src.split("# bet365 BOARD (standing order 29)")[1].split("# HE
 assert "chat_id=owner_chat" in _b365_block and 'environ.get("TELEGRAM_SUBSCRIBER' not in _b365_block, \
     "Order 29: the bet365 board goes to the Architect's own chat only, never a subscriber"
 
-# 33. Subscribers get the board and nothing else (Architect 2026-10-08)
+# 33. Subscribers get the booking codes and nothing else (Architect 2026-10-09)
 from output import notify as _nt33
 for _wfn in ("daily.yml", "supervisor.yml"):
     assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" in \
@@ -257,6 +257,11 @@ try:
     assert _ok33 and "delivered to 1/2 subscriber chat(s)" in _notes33 and \
         any("…3333: NOT delivered" in n for n in _notes33), \
         f"Order 33: a failed subscriber is noted and never fails the send: {_notes33}"
+    _sent33.clear()
+    _sok33, _snotes33 = _nt33.send_subscribers("codes")
+    assert _sent33 == ["2222", "3333"], \
+        f"Order 33: the codes go to each subscriber once, never the Architect: {_sent33}"
+    assert not _sok33 and "codes delivered to 1/2 subscriber chat(s)" in _snotes33, _snotes33
 finally:
     _nt33.send_telegram = _send33  # type: ignore[assignment]
     for _k33, _val33 in _env33.items():
@@ -264,6 +269,18 @@ finally:
             _os.environ.pop(_k33, None)
         else:
             _os.environ[_k33] = _val33
+_brd33 = _rd_src.split("SEND GATE (HR59")[1].split("# bet365 BOARD")[0]
+assert "notify.send_architect(telegram_text)" in _brd33 and "notify.deliver(" not in _rd_src, \
+    "Order 33: the board goes to the Architect only"
+assert "notify.send_subscribers(" in _brd33 and "render_subscriber_codes(telegram_text" in _brd33, \
+    "Order 33: subscribers get the codes message"
+assert "notify.send_subscribers(check_text)" in _rd_src, "Order 33: subscribers get the codes check"
+_codes33 = pb.render_subscriber_codes(
+    "board table text\n\nALL CODES\nAcca A: Q13HC7 (4 legs · odds 2.27 · 45% · stake 0.25%)\n"
+    "Board MEGA: N2TNRF (24 legs · every single · stake 0.1%)\n\n====\nVERIFY RESULTS", [], "2026-10-09")
+assert "Acca A: Q13HC7" in _codes33 and "Board MEGA: N2TNRF" in _codes33, _codes33
+assert "stake" not in _codes33 and "board table text" not in _codes33 and "VERIFY" not in _codes33, \
+    f"Order 33: codes only — no stakes, tables or results: {_codes33}"
 assert _rd_src.count("notify.send_telegram(") == 1 and \
     "notify.send_telegram(b365_text, chat_id=owner_chat)" in _rd_src, \
     "Order 33: only the bet365 board bypasses the subscribers"

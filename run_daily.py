@@ -1360,11 +1360,16 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         texts.append(check_text)
         delivered = True
         for t in texts:
-            ok, notes = notify.deliver(t, save_to=None)
+            ok, notes = notify.send_architect(t)
             delivered = delivered and ok
             for n in notes:
                 print(f"  {n}")
                 _mark(runlog, n)
+        # Subscribers get the codes check only — never the board (order 33).
+        _s_ok, s_notes = notify.send_subscribers(check_text)
+        for n in s_notes:
+            print(f"  {n}")
+            _mark(runlog, n)
         board_delivered = delivered
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         (BOARD_DIR / f"refresh_{target}.txt").write_text(full + "\n\n" + check_text,
@@ -1397,9 +1402,14 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             path.write_text(full, encoding="utf-8")
             _mark(runlog, f"RUN FAILED — {gate}")
             raise RuntimeError(gate)
-        # The Architect's chat and every subscriber chat (order 33, via
-        # notify.deliver). One subscriber failing is logged; it never fails the run.
-        delivered, notes = notify.deliver(telegram_text, save_to=None)
+        # The board goes to the Architect's chat; every subscriber chat gets the
+        # booking codes only (order 33, Architect 2026-10-09). One subscriber
+        # failing is logged; it never fails the run.
+        delivered, notes = notify.send_architect(telegram_text)
+        from output.produce_bet import render_subscriber_codes
+        _s_ok, s_notes = notify.send_subscribers(
+            render_subscriber_codes(telegram_text, board, target))
+        notes = notes + s_notes
         board_delivered = delivered
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(full, encoding="utf-8")

@@ -9,6 +9,7 @@ HR35 hard guardrail carried through: completeness never overrides honesty.
 A missing datum renders as "NO DATA — PENDING", never filled to look complete.
 """
 from __future__ import annotations
+import re
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, timedelta, timezone
 from typing import Optional
@@ -1412,6 +1413,42 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                        f"({len(legs)} leg{'s' if len(legs) > 1 else ''} · positive value · "
                        f"odds {_alt_odds(legs):.2f} · {round(combo*100)}% · "
                        f"stake {'0.1' if len(legs) > 1 else '0.25'}%)")
+    return "\n".join(out)
+
+
+def render_subscriber_codes(board_text: str, board: list, board_date: str) -> str:
+    """What a subscriber gets (order 33, Architect 2026-10-09: "just send them
+    the codes, the booking codes ... they just only need the code"): each
+    deploy single's code, then every acca / mega / alt / value code from the
+    board's ALL CODES block — no tables, chances, stakes or analysis."""
+    try:
+        from datetime import date as _d
+        day = _d.fromisoformat(board_date).strftime("%a %d %b")
+    except (TypeError, ValueError):
+        day = board_date or ""
+    out = [f"OLP XDV · {day} · booking codes",
+           "Load a code on SportyBet: Betslip → Load code (or sportybet.com/ng/?shareCode=CODE)"]
+    singles = sorted((bf for bf in board
+                      if getattr(bf, "on_deploy_shortlist", False) and getattr(bf, "booking_code", None)),
+                     key=lambda bf: kickoff(bf))
+    if singles:
+        out += ["", "SINGLES"]
+        for bf in singles:
+            pick, _p = _deploy_pick(bf)
+            price = f" @{bf.best_price:.2f}" if bf.best_price else ""
+            out.append(f"{kickoff(bf)} {_canon_short(bf.fixture)} — {pick}{price}: {bf.booking_code}")
+    parts = (board_text or "").split("\nALL CODES\n", 1)
+    if len(parts) == 2:
+        rows = []
+        for line in parts[1].splitlines():
+            if line.startswith("===="):
+                break
+            if line.strip():
+                rows.append(re.sub(r" · stake [0-9.]+%", "", line))
+        if rows:
+            out += ["", "ACCAS · MEGAS · VALUE"] + rows
+    if len(out) == 2:
+        out += ["", "No booking codes today."]
     return "\n".join(out)
 
 

@@ -6,6 +6,8 @@ so ID403 stamped it ○ SINGLE-SOURCE. This looks the same match up in two free
 sources (Architect 2026-10-03: no paid APIs):
 
   ESPN scoreboard           espn.com              T2   data/espn_fixtures.py
+  FotMob match list         fotmob.com            T2   data/fotmob.py (Architect
+                                                       2026-10-08: every fixture verified)
   football-data.co.uk       football-data.co.uk   T1   fixtures.csv and
                                                        new_league_fixtures.csv
 
@@ -29,12 +31,14 @@ from datetime import date, timedelta
 from typing import Callable, Optional
 
 from data import espn_fixtures as espn
+from data import fotmob
 from engine.fixture_match import find_match
 from verification.id403 import SourcedDatum, Tier, verify
 
 FD_URL = "https://www.football-data.co.uk/fixtures.csv"
 FD_NEW_URL = "https://www.football-data.co.uk/new_league_fixtures.csv"
 FD_DOMAIN = "football-data.co.uk"
+FM_DOMAIN = "fotmob.com"
 
 
 def split_fixture(label: str) -> Optional[tuple[str, str, str]]:
@@ -94,10 +98,26 @@ def _base_domain(bf) -> Optional[str]:
     return domains[0] if domains else None
 
 
+def _fotmob_events(days: set[str], flags: list[str], fetch: Callable) -> list[dict]:
+    """FotMob's whole match list for each board day (one call a day, every
+    league). A day FotMob can't serve is flagged and adds nothing."""
+    events: dict = {}
+    for d in sorted({x for day in days for x in _days_around(day)}):
+        try:
+            for e in fetch(d):
+                # One match once: a match listed on two days would otherwise
+                # make the name match ambiguous and add nothing.
+                events.setdefault(e.get("id") or (e.get("home"), e.get("away")), e)
+        except Exception as e:  # noqa: BLE001 — a source down is flagged, not fatal
+            flags.append(f"FotMob unavailable for {d} ({str(e)[:50]})")
+    return list(events.values())
+
+
 def check_board(board: list, fetch_espn: Callable = espn.fetch_day,
                 fetch_fd: Optional[Callable] = None,
                 fetch_fd_extra: Optional[Callable] = None,
-                max_days: int = 3) -> list[str]:
+                max_days: int = 3,
+                fetch_fotmob: Callable = fotmob.matches_on) -> list[str]:
     """Re-stamp every board fixture's ID403 verification with the second and
     third sources. Mutates `board` in place (verification, and for a CONFLICT
     on_deploy_shortlist + rejection_reason). Returns data flags.
@@ -119,6 +139,8 @@ def check_board(board: list, fetch_espn: Callable = espn.fetch_day,
 
     counts = {Tier.VERIFIED: 0, Tier.SINGLE_SOURCE: 0, Tier.CONFLICT: 0}
     conflicts: list[str] = []
+    all_days = {bf.kickoff_date[:10] for fx in by_league.values() for bf in fx}
+    fm_events = _fotmob_events(set(sorted(all_days)[:max_days]), flags, fetch_fotmob)
     for league, fixtures in by_league.items():
         days = set(sorted({bf.kickoff_date[:10] for bf in fixtures})[:max_days])
         events = _espn_events(league, days, flags, fetch_espn)
@@ -145,6 +167,11 @@ def check_board(board: list, fetch_espn: Callable = espn.fetch_day,
             mf = find_match(home, away, near_fd, lambda r: (r.home_team, r.away_team))
             if mf is not None:
                 claims.append(SourcedDatum(domain=FD_DOMAIN, value=value, url=fd_url))
+            near_fm = [e for e in fm_events if _near(e.get("kickoff_utc") or "", bf.kickoff_date)]
+            mm = find_match(home, away, near_fm, lambda e: (e["home"], e["away"]))
+            if mm is not None:
+                claims.append(SourcedDatum(domain=FM_DOMAIN, value=value,
+                                           url=f"https://www.fotmob.com/match/{mm.item.get('id')}"))
             if len(claims) == 1:
                 counts[Tier.SINGLE_SOURCE] += 1
                 continue
@@ -159,7 +186,7 @@ def check_board(board: list, fetch_espn: Callable = espn.fetch_day,
                                        f"Not deployed until the sources agree.")
     total = sum(counts.values())
     flags.append(
-        f"Fixture check (TheSportsDB · ESPN · football-data): {counts[Tier.VERIFIED]}/"
+        f"Fixture check (TheSportsDB · ESPN · football-data · FotMob): {counts[Tier.VERIFIED]}/"
         f"{total} confirmed by two independent sources, {counts[Tier.SINGLE_SOURCE]} "
         f"one source only, {counts[Tier.CONFLICT]} conflict(s)"
         + ("" if not conflicts else " — " + " | ".join(conflicts)))

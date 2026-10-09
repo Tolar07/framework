@@ -187,9 +187,9 @@ _fp = lambda h, a: _FP(home_team=h, away_team=a, lambda_home=1.6, lambda_away=1.
                        p_draw=0.2, p_away=0.2, p_over_15=0.78, p_over_25=0.55, p_over_35=0.32,
                        p_btts_yes=0.58)
 _bf28 = [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "Granada"), _v,
-                         on_deploy_shortlist=True, best_price=1.33),
+                         on_deploy_shortlist=True, best_price=1.50),
          pb.BoardFixture("Greece v Germany (UEFA Nations League)", _fp("Greece", "Germany"), _v,
-                         on_deploy_shortlist=True, best_price=1.21)]
+                         on_deploy_shortlist=True, best_price=1.40)]
 _bf28[0].kickoff_utc = "2026-10-04T16:30:00.000Z"      # SportyBet's format
 _bf28[1].kickoff_utc = None                            # no source gave a time
 _b28 = pb.render_canonical_board("Mode A", "Phase 3", ["La Liga 2"], 0, None, [], _bf28)
@@ -461,6 +461,24 @@ _all40 = [l[0].fixture for _n, ls, _c in _s40 + _a40 for l in ls]
 assert len(_all40) == len(set(_all40)) == 7, "Order 40: every 75%+ pick in exactly one acca"
 assert not any(f.startswith(("P7 ", "P8 ")) for f in _all40), "Order 40: picks under 75% stay singles"
 assert all(len(ls) <= 3 for _n, ls, _c in _s40 + _a40), "Order 40: at most 3 legs an acca"
+# Architect 2026-10-08/09: a TABLE 3 acca's odds are 2.00 to 3.00
+assert (pb.TABLE3_ODDS_MIN, pb.TABLE3_ODDS_MAX) == (2.00, 3.00), "Order 40: TABLE 3 odds 2.00-3.00"
+_bfo40 = [pb.BoardFixture(f"R{_i} v S{_i} (Serie A)", _fp(f"R{_i}", f"S{_i}"), _v,
+                          on_deploy_shortlist=True, best_market="R to win",
+                          best_model_prob=0.95 - _i / 100, certainty="LOW", best_price=_pr)
+          for _i, _pr in enumerate([1.22, 1.21, 1.23, 1.25, 1.21, 1.24, 1.26, 1.20, 1.23,
+                                    1.25, 1.22, 1.24, 1.29, 1.25, 1.26, 1.29, 1.24])]
+_a40o = pb._build_accas(_bfo40)
+_odds40 = [round(pb._acca_odds(ls), 2) for _n, ls, _c in _a40o]
+assert _a40o and all(2.00 <= o <= 3.00 for o in _odds40), f"Order 40: TABLE 3 accas 2.00-3.00: {_odds40}"
+assert len(_a40o) == 4, f"Order 40: 17 legs of ~1.24 collapse to 4 accas, not 6: {_odds40}"
+_in40o = [l[0].fixture for _n, ls, _c in _a40o for l in ls]
+assert len(_in40o) == len(set(_in40o)), "Order 40: a match in one acca at most"
+assert len(_in40o) == 17, "Order 40: every 75%+ leg placed while the 3.00 cap allows"
+_orch40 = (ROOT / "orchestrator.py").read_text(encoding="utf-8")
+_fb40 = _orch40.split('errors.append(f"thesportsdb: {e}")')[1]
+assert _fb40.lstrip().startswith("if not upcoming_fixtures:") and "fixtures_from_odds" in _fb40, \
+    "fixtures: an EMPTY TheSportsDB answer falls back to the odds feed, not only an error"
 
 # 41. NBA board (live test since 2026-10-07)
 from engine import nba_value as _nv41

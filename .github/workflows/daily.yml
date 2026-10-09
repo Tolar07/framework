@@ -22,6 +22,10 @@ on:
         description: "evening | morning = scheduled slot (sent at most once per day); manual = always send"
         required: false
         default: "manual"
+      refreeze:
+        description: "yes = publish a FRESH board with new codes for a day whose codes are frozen (order 35; only when the Architect asks)"
+        required: false
+        default: "no"
 
 # Needed so the run can commit the CLV log back — without persistence the
 # paper log resets every run and the Phase 3 gate can never accumulate.
@@ -82,6 +86,7 @@ jobs:
           SCHEDULE:           ${{ github.event.schedule }}
           TARGET_DATE_INPUT:  ${{ github.event.inputs.target_date }}
           SLOT_INPUT:         ${{ github.event.inputs.slot }}
+          REFREEZE_INPUT:     ${{ github.event.inputs.refreeze }}
         # TELEGRAM DELIVERY ON — production board + daily heartbeat (Architect's
         # request 2026-09-30). --only-production sends the canonical board ONLY on
         # days with real picks; --heartbeat sends a short 'system alive' ping
@@ -128,6 +133,7 @@ jobs:
             fi
           fi
           ARGS="--only-production --heartbeat --target-date $T --slot $SLOT"
+          if [ "$REFREEZE_INPUT" = "yes" ] && [ "$SLOT" = "manual" ]; then ARGS="$ARGS --refreeze"; fi
           echo "schedule='$SCHEDULE' slot=$SLOT -> run_daily.py $ARGS"
           python run_daily.py $ARGS
           if [ "$SLOT" != "manual" ]; then

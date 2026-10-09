@@ -522,7 +522,12 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-09",
+    "fixture": "Nancy v Guingamp",
+    "pick": "Nancy Under 2.5 goals",
+    "price": 1.24
+   }
   },
   {
    "lineage_id": "ln_d80398a8ed",
@@ -553,6 +558,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-08",
+ "last_bred_date": "2026-10-09",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

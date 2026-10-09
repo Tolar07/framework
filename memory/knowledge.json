@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08",
+ "updated": "2026-10-09",
  "window_days": 21,
  "graded": 107,
  "segments": [
@@ -298,6 +298,15 @@
   },
   {
    "date": "2026-10-08",
+   "graded": 107,
+   "corrections": {},
+   "flags": [
+    "Asian handicap (underdog) · FA Cup · -3.27u (8/13)",
+    "Asian handicap (underdog) · all · -2.58u (15/21)"
+   ]
+  },
+  {
+   "date": "2026-10-09",
    "graded": 107,
    "corrections": {},
    "flags": [

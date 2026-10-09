@@ -138,6 +138,10 @@ jobs:
           python run_daily.py $ARGS
           if [ "$SLOT" != "manual" ]; then
             date -u +%FT%TZ > "$MARKER"
+            # Save the marker to main NOW, on its own (monitor/push_marker.py).
+            # It used to ride in the persist commit, which a rebase conflict can
+            # drop — then a late GitHub cron re-sent the board (2026-10-08).
+            python monitor/push_marker.py "$MARKER" "board sent $T $SLOT [skip ci]" || true
           fi
 
       # NBA BOARD (standing order 41, live test at £1 a pick): SportyBet NBA
@@ -186,7 +190,12 @@ jobs:
           git add output/nba_ladders 2>/dev/null || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
           # A queued run checks out an older SHA; rebase onto latest main first.
-          git pull --rebase -q origin main || true
+          # A conflict used to be silent and dropped this commit; say so instead
+          # (the sent marker is already on main — see the run step).
+          if ! git pull --rebase -q origin main; then
+            git rebase --abort || true
+            echo "::warning::persist: main moved and a file conflicted — this run's board/picks/CLV commit was NOT saved"
+          fi
           git push || echo "nothing to push"
 
       # Start the NBA line watch (nba_watch.yml -> monitor/nba_watch.py) after the

@@ -214,6 +214,23 @@ def send_architect(body: str) -> tuple[bool, list[str]]:
     return send_telegram(body)
 
 
+def send_subscribers(body: str) -> tuple[bool, list[str]]:
+    """Every subscriber chat only (order 33, Architect 2026-10-09: subscribers
+    get the booking codes and nothing else). Returns (all delivered, notes);
+    a subscriber that fails is a note, never a failed run. Chats named by
+    their last four digits only — run logs of this public repo are public."""
+    subs = subscriber_chats()
+    sent, notes = 0, []
+    for cid in subs:
+        s_ok, s_notes = send_telegram(body, chat_id=cid)
+        sent += s_ok
+        if not s_ok:
+            notes.append(f"subscriber chat …{cid[-4:]}: NOT delivered ({s_notes[-1]})")
+    if subs:
+        notes.append(f"codes delivered to {sent}/{len(subs)} subscriber chat(s)")
+    return sent == len(subs), notes
+
+
 def send_everyone(body: str) -> tuple[bool, list[str]]:
     """The Architect's chat, then every subscriber chat (order 33). Only the
     board goes this way (via deliver); everything else is send_architect.

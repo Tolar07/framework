@@ -26,7 +26,11 @@
     "home": 132096945,
     "away": 36413994
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: PSV Eindhoven missing 42%",
+    "at": "17:20Z"
+   },
    "sb_event_id": "sr:match:72041158",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -485,8 +489,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02838783385626853,
    "missing": {

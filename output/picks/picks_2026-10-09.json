@@ -538,7 +538,9 @@
    "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.34,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Malaga CF v Espanol",
@@ -1086,7 +1088,11 @@
     "home": 9375858,
     "away": 22685173
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "sb_event_id": "sr:match:67015404",
    "sb_tid": "sr:tournament:20",
    "sb_market": {

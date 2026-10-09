@@ -45,7 +45,7 @@ def _fd(home, away, day="2026-10-04", league="La Liga 2"):
                        source="football-data.co.uk (fixtures)")
 
 
-def _run(board, espn_events=(), fd_rows=(), espn_error=None, fotmob_events=()):
+def _run(board, espn_events=(), fd_rows=(), espn_error=None, fotmob_events=(), fs_events=()):
     def fetch_espn(league, day):
         if espn_error:
             raise espn_error
@@ -53,7 +53,8 @@ def _run(board, espn_events=(), fd_rows=(), espn_error=None, fotmob_events=()):
     return fc.check_board(board, fetch_espn=fetch_espn,
                           fetch_fd=lambda lg: (list(fd_rows), []),
                           fetch_fd_extra=lambda lg: ([], []),
-                          fetch_fotmob=lambda day: list(fotmob_events))
+                          fetch_fotmob=lambda day: list(fotmob_events),
+                          fetch_flashscore=lambda day: list(fs_events))
 
 
 def test_espn_agreement_verifies_despite_spelling() -> None:
@@ -131,9 +132,29 @@ def test_fotmob_is_the_second_trusted_source() -> None:
     def down(day):
         raise OSError("timeout")
     flags = fc.check_board(board, fetch_espn=lambda lg, d: [], fetch_fd=lambda lg: ([], []),
-                           fetch_fd_extra=lambda lg: ([], []), fetch_fotmob=down)
+                           fetch_fd_extra=lambda lg: ([], []), fetch_fotmob=down,
+                           fetch_flashscore=lambda d: [])
     assert board[0].verification.tier == Tier.SINGLE_SOURCE
     assert any("FotMob unavailable" in f for f in flags), flags
+
+
+def test_flashscore_and_fotmob_verify_a_league_espn_lacks() -> None:
+    # Poland / Croatia: ESPN has no scoreboard; FotMob + Flashscore agree.
+    board = [_bf("Wieczysta Krakow", "Wisla Plock", league="Ekstraklasa", base="sportybet.com")]
+    flags = _run(board, fotmob_events=[{"id": 9, "home": "Wieczysta Kraków", "away": "Wisła Płock",
+                                        "league": "Ekstraklasa", "kickoff_utc": "2026-10-04T16:00:00.000Z"}],
+                 fs_events=[{"home": "Wieczysta Krakow", "away": "Wisla Plock U19",
+                             "kickoff_utc": "2026-10-04T10:00:00Z"},
+                            {"home": "Wieczysta Krakow", "away": "Wisla Plock",
+                             "kickoff_utc": "2026-10-04T16:00:00Z"}])
+    assert board[0].verification.tier == Tier.VERIFIED, flags
+    assert {"fotmob.com", "flashscore.co.uk"} <= set(board[0].verification.factors["verifying_domains"])
+
+
+def test_letters_nfkd_cannot_fold_still_pair() -> None:
+    for a, b in (("Nordsjaelland", "FC Nordsjælland"), ("Vasteraas SK", "Västerås SK"),
+                 ("Kasimpasa Istanbul", "Kasımpaşa"), ("Wisla Plock", "Wisła Płock")):
+        assert team_score(a, b) >= STRONG, (a, b, team_score(a, b))
 
 
 def test_no_data_and_undated_fixtures_untouched() -> None:

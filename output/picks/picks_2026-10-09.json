@@ -124,7 +124,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72364130",
    "sb_tid": "sr:tournament:38",
    "sb_market": {
@@ -228,7 +232,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72043190",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -237,8 +245,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -1.57,
    "stake_pct": 0.25,
    "ev": -0.017186882586772367,
    "missing": {
@@ -376,7 +384,11 @@
     "home": 306849964,
     "away": 49518683
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72513220",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -385,8 +397,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": -4.58,
    "stake_pct": 0.25,
    "ev": -0.08621533115975955,
    "missing": {
@@ -426,7 +438,11 @@
     "home": 104456835,
     "away": 169861760
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Lens missing 32% of value (Jean-Clair Todibo, Abdallah Sima, Jhoanner Ch\u00e1vez); Lens rotated: confirmed XI worth 63% of predicted",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72036204",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -633,8 +649,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -4.44,
    "stake_pct": 0.25,
    "ev": -0.00906372018003665,
    "missing": {

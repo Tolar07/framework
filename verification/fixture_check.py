@@ -8,6 +8,9 @@ sources (Architect 2026-10-03: no paid APIs):
   ESPN scoreboard           espn.com              T2   data/espn_fixtures.py
   FotMob match list         fotmob.com            T2   data/fotmob.py (Architect
                                                        2026-10-08: every fixture verified)
+  Flashscore day feed       flashscore.co.uk      T2   data/flashscore_results.py
+                                                       (2026-10-09: covers Poland and
+                                                       Croatia, which ESPN doesn't)
   football-data.co.uk       football-data.co.uk   T1   fixtures.csv and
                                                        new_league_fixtures.csv
 
@@ -27,10 +30,12 @@ WHAT COUNTS (HR35 — never resolved by picking a side, never guessed)
 """
 from __future__ import annotations
 
+import re
 from datetime import date, timedelta
 from typing import Callable, Optional
 
 from data import espn_fixtures as espn
+from data import flashscore_results as flashscore
 from data import fotmob
 from engine.fixture_match import find_match
 from verification.id403 import SourcedDatum, Tier, verify
@@ -39,6 +44,16 @@ FD_URL = "https://www.football-data.co.uk/fixtures.csv"
 FD_NEW_URL = "https://www.football-data.co.uk/new_league_fixtures.csv"
 FD_DOMAIN = "football-data.co.uk"
 FM_DOMAIN = "fotmob.com"
+FS_DOMAIN = "flashscore.co.uk"
+# Youth / women / reserve sides share the senior club's name ("Galatasaray U19")
+# and would make the pairing ambiguous.
+_NOT_SENIOR = re.compile(r"\b(U\d{2}|Women|W|II|B|Reserves?)$", re.I)
+
+
+def _flashscore_day(day: str) -> list[dict]:
+    """Flashscore's whole football feed for one date (scheduled matches too)."""
+    offset = date.fromisoformat(day).toordinal() - date.today().toordinal()
+    return flashscore.results_for_offset(offset)
 
 
 def split_fixture(label: str) -> Optional[tuple[str, str, str]]:
@@ -113,11 +128,27 @@ def _fotmob_events(days: set[str], flags: list[str], fetch: Callable) -> list[di
     return list(events.values())
 
 
+def _flashscore_events(days: set[str], flags: list[str], fetch: Callable) -> list[dict]:
+    """Flashscore's senior matches for each board day; a day it can't serve is
+    flagged and adds nothing."""
+    events: dict = {}
+    for d in sorted({x for day in days for x in _days_around(day)}):
+        try:
+            for e in fetch(d):
+                if _NOT_SENIOR.search(e.get("home", "")) or _NOT_SENIOR.search(e.get("away", "")):
+                    continue
+                events.setdefault((e.get("home"), e.get("away"), (e.get("kickoff_utc") or "")[:10]), e)
+        except Exception as e:  # noqa: BLE001 — a source down is flagged, not fatal
+            flags.append(f"Flashscore unavailable for {d} ({str(e)[:50]})")
+    return list(events.values())
+
+
 def check_board(board: list, fetch_espn: Callable = espn.fetch_day,
                 fetch_fd: Optional[Callable] = None,
                 fetch_fd_extra: Optional[Callable] = None,
                 max_days: int = 3,
-                fetch_fotmob: Callable = fotmob.matches_on) -> list[str]:
+                fetch_fotmob: Callable = fotmob.matches_on,
+                fetch_flashscore: Callable = _flashscore_day) -> list[str]:
     """Re-stamp every board fixture's ID403 verification with the second and
     third sources. Mutates `board` in place (verification, and for a CONFLICT
     on_deploy_shortlist + rejection_reason). Returns data flags.
@@ -141,6 +172,7 @@ def check_board(board: list, fetch_espn: Callable = espn.fetch_day,
     conflicts: list[str] = []
     all_days = {bf.kickoff_date[:10] for fx in by_league.values() for bf in fx}
     fm_events = _fotmob_events(set(sorted(all_days)[:max_days]), flags, fetch_fotmob)
+    fs_events = _flashscore_events(set(sorted(all_days)[:max_days]), flags, fetch_flashscore)
     for league, fixtures in by_league.items():
         days = set(sorted({bf.kickoff_date[:10] for bf in fixtures})[:max_days])
         events = _espn_events(league, days, flags, fetch_espn)
@@ -172,6 +204,11 @@ def check_board(board: list, fetch_espn: Callable = espn.fetch_day,
             if mm is not None:
                 claims.append(SourcedDatum(domain=FM_DOMAIN, value=value,
                                            url=f"https://www.fotmob.com/match/{mm.item.get('id')}"))
+            near_fs = [e for e in fs_events if _near(e.get("kickoff_utc") or "", bf.kickoff_date)]
+            ms = find_match(home, away, near_fs, lambda e: (e["home"], e["away"]))
+            if ms is not None:
+                claims.append(SourcedDatum(domain=FS_DOMAIN, value=value,
+                                           url="https://www.flashscore.co.uk/"))
             if len(claims) == 1:
                 counts[Tier.SINGLE_SOURCE] += 1
                 continue
@@ -186,7 +223,7 @@ def check_board(board: list, fetch_espn: Callable = espn.fetch_day,
                                        f"Not deployed until the sources agree.")
     total = sum(counts.values())
     flags.append(
-        f"Fixture check (TheSportsDB · ESPN · football-data · FotMob): {counts[Tier.VERIFIED]}/"
+        f"Fixture check (TheSportsDB · ESPN · football-data · FotMob · Flashscore): {counts[Tier.VERIFIED]}/"
         f"{total} confirmed by two independent sources, {counts[Tier.SINGLE_SOURCE]} "
         f"one source only, {counts[Tier.CONFLICT]} conflict(s)"
         + ("" if not conflicts else " — " + " | ".join(conflicts)))

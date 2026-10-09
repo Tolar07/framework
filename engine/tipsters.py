@@ -13,9 +13,12 @@ INPUT (written by the collector session; one slip per line, append-only):
     link          bet365 "Add To Your Bet Slip" URL        stated_odds  total odds the post states, or null
     legs          bet365: read from the post; SportyBet: [] — decoded here from the code. A leg:
       {sport: football|basketball, home, away, kickoff (ISO or null),
-       market: football 1x2|dc|dnb|ou|btts|ah|team_total, basketball win|total|spread, or "other",
+       market: football 1x2|dc|dnb|ou|btts|ah|team_total, the SportyBet specials 1up|2up
+       (early payout), dc_1up, or_over ("Home Team or Over 2.5"), win_either_half, run3
+       ("To Score 3 or More Goals in a Row"); basketball win|total|spread; or "other",
        selection: home|draw|away|1x|12|x2|over|under|yes|no, line (ah/spread: the SELECTED side's
-       handicap), team (team_total: home|away), price, text}
+       handicap), team (team_total, or_over, win_either_half: home|away; run3: home|away|any),
+       price, text}
   Extra fields (e.g. "note") are ignored.
 
 The folder is the PUBLIC repo's data/tipsters/ only once the Architect has
@@ -38,8 +41,11 @@ import hashlib
 import json
 import re
 import urllib.request
+from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+
+from engine.universe import up_won
 
 _SHARE = "https://www.sportybet.com/api/{cc}/orders/share/{code}"
 _UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -49,6 +55,13 @@ _UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.
 GRADE_AFTER = timedelta(hours=3)
 GIVE_UP_AFTER = timedelta(days=7)
 DC = {"Home or Draw": "1x", "Home or Away": "12", "Draw or Away": "x2"}
+# SportyBet market ids of the slip-only football markets (read off decoded slips, 2026-10-09)
+UP = {"60200": "1up", "60100": "2up"}                  # 1X2 - 1UP / 2UP: early payout
+OR_OVER = {"854": "home", "858": "away"}               # "Home Team or Over 2.5" / "Away or Over 2.5"
+EITHER_HALF = {"50": "home", "51": "away"}             # "Home Team to Win Either Half"
+RUN3 = {"60020": "any", "60021": "home", "60022": "away"}   # "... To Score 3 or More Goals in a Row"
+# settled from the goal times / half-time score when the final score alone can't
+TIMELINE = {"1up", "2up", "dc_1up", "win_either_half", "run3"}
 
 
 def slip_key(slip: dict) -> str:
@@ -103,54 +116,87 @@ def map_leg(event: dict) -> dict:
            "text": f"{m.get('desc')}: {desc}" + (f" [{spec}]" if spec else ""),
            "sb": {"event": event.get("eventId"), "market": mid, "spec": spec,
                   "open": m.get("status") in (None, 0, "0") and o.get("isActive") in (None, 1, "1")}}
+    leg.update(_vocab(sport, mid, spec, desc))
+    return leg
+
+
+def _vocab(sport: str, mid: str, spec: str, desc: str) -> dict:
+    """The vocabulary fields of one SportyBet market + outcome ({} = "other")."""
+    out: dict = {}
     num = re.search(r"(?:total|hcp)=(-?\d+(?:\.\d+)?)", spec)
     first = desc.split(" ")[0].lower() if desc else ""
     if sport == "football":
         if mid == "1" and first in ("home", "draw", "away"):
-            leg.update(market="1x2", selection=first)
+            out.update(market="1x2", selection=first)
         elif mid == "10" and desc in DC:
-            leg.update(market="dc", selection=DC[desc])
+            out.update(market="dc", selection=DC[desc])
         elif mid == "11" and first in ("home", "away"):
-            leg.update(market="dnb", selection=first)
+            out.update(market="dnb", selection=first)
         elif mid == "18" and num and first in ("over", "under"):
-            leg.update(market="ou", selection=first, line=float(num.group(1)))
+            out.update(market="ou", selection=first, line=float(num.group(1)))
         elif mid == "29" and first in ("yes", "no"):
-            leg.update(market="btts", selection=first)
+            out.update(market="btts", selection=first)
         elif mid == "16" and first in ("home", "away"):
             h = re.search(r"\(([-+]?\d+(?:\.\d+)?)\)", desc)
             if h:
-                leg.update(market="ah", selection=first, line=float(h.group(1)))
+                out.update(market="ah", selection=first, line=float(h.group(1)))
         elif mid in ("19", "20") and num and first in ("over", "under"):
-            leg.update(market="team_total", selection=first, line=float(num.group(1)),
+            out.update(market="team_total", selection=first, line=float(num.group(1)),
                        team="home" if mid == "19" else "away")
+        elif mid in UP and first in ("home", "draw", "away"):
+            out.update(market=UP[mid], selection=first)
+        elif mid == "60110" and desc in DC:
+            out.update(market="dc_1up", selection=DC[desc])
+        elif mid in OR_OVER and num and first in ("yes", "no"):
+            out.update(market="or_over", selection=first, line=float(num.group(1)), team=OR_OVER[mid])
+        elif mid in EITHER_HALF and first in ("yes", "no"):
+            out.update(market="win_either_half", selection=first, team=EITHER_HALF[mid])
+        elif mid in RUN3 and first in ("yes", "no"):
+            out.update(market="run3", selection=first, team=RUN3[mid])
     elif sport == "basketball":
         if mid == "219" and first in ("home", "away"):
-            leg.update(market="win", selection=first)
+            out.update(market="win", selection=first)
         elif mid == "225" and num and first in ("over", "under"):
-            leg.update(market="total", selection=first, line=float(num.group(1)))
+            out.update(market="total", selection=first, line=float(num.group(1)))
         elif mid == "223" and first in ("home", "away"):
             h = re.search(r"\(([-+]?\d+(?:\.\d+)?)\)", desc)
             if h:
-                leg.update(market="spread", selection=first, line=float(h.group(1)))
+                out.update(market="spread", selection=first, line=float(h.group(1)))
         elif mid in ("227", "228") and num and first in ("over", "under"):
-            leg.update(market="team_total", selection=first, line=float(num.group(1)),
+            out.update(market="team_total", selection=first, line=float(num.group(1)),
                        team="home" if mid == "227" else "away")
-    return leg
+    return out
+
+
+def remap(leg: dict) -> dict:
+    """A leg decoded before its market was in the vocabulary, mapped again from
+    the SportyBet market id and outcome it kept ("sb", "text")."""
+    sb = leg.get("sb") or {}
+    if leg.get("market") != "other" or not sb.get("market") or ": " not in (leg.get("text") or ""):
+        return leg
+    desc = leg["text"].split(" [")[0].rsplit(": ", 1)[1].strip()
+    return {**leg, **_vocab(leg.get("sport") or "", str(sb["market"]), sb.get("spec") or "", desc)}
 
 
 # Leg classes (Architect 2026-10-08: "slips are often mostly right but add a
 # few very risky legs that sink the acca" — learn at LEG level):
 #   aligned  — a plain market priced at 60%+ implied (<= 1.67): the double
 #              chance / favourite / goals-line legs our own rules F8/F1/F2/B1 bet
-#   risky    — a long price (> 2.00) or an exotic market ("other")
+#   risky    — a long price (> 2.00) or a market we can't read ("other")
+#   special  — a SportyBet special we grade (1UP/2UP early payout, "or Over 2.5",
+#              win either half, 3 goals in a row) at 2.00 or shorter: kept apart
+#              so these short-priced favourites' legs don't blur aligned vs risky
 #   middle   — everything else
 PLAIN = {"1x2", "dc", "dnb", "ou", "btts", "ah", "team_total", "win", "total", "spread"}
+SPECIAL = {"1up", "2up", "dc_1up", "or_over", "win_either_half", "run3"}
 
 
 def leg_class(leg: dict) -> str:
-    price = leg.get("price") or 0.0
-    if leg.get("market") not in PLAIN or price > 2.00:
+    price, m = leg.get("price") or 0.0, leg.get("market")
+    if (m not in PLAIN and m not in SPECIAL) or price > 2.00:
         return "risky"
+    if m in SPECIAL:
+        return "special"
     return "aligned" if 0 < price <= 1 / 0.60 else "middle"
 
 
@@ -194,9 +240,55 @@ def decode_pending(folder: Path, now: datetime) -> list[str]:
 
 
 # ── settling ─────────────────────────────────────────────────────────────────
-def settle(leg: dict, h: int, a: int) -> str | None:
-    """'win' | 'lose' | 'push' | 'half_win' | 'half_lose' for a leg, or None (can't settle)."""
+def _yes(cond: bool | None, sel: str | None) -> str | None:
+    return None if cond is None else "win" if cond == (sel == "yes") else "lose"
+
+
+def _run3(team: str, h: int, a: int, goals: list | None) -> bool | None:
+    """Did `team` ("home" | "away" | "any") score 3+ goals in a row (no opponent goal between)?"""
+    sides = ("h", "a") if team == "any" else (team[0],)
+    if all((h if s == "h" else a) < 3 for s in sides):
+        return False
+    if goals is None:
+        return None
+    run, last = 0, None
+    for _minute, who in goals:
+        run = run + 1 if who == last else 1
+        last = who
+        if run >= 3 and who in sides:
+            return True
+    return False
+
+
+def settle(leg: dict, h: int, a: int, ht: list | None = None, goals: list | None = None) -> str | None:
+    """'win' | 'lose' | 'push' | 'half_win' | 'half_lose' for a leg, or None (can't settle).
+    ht: the half-time score; goals: the 90-minute goals in order, [[minute, "h" | "a"], ...]
+    (engine.universe.up_won) — needed only by the TIMELINE markets, and only when
+    the final score can't settle them alone."""
     m, sel, line = leg.get("market"), leg.get("selection"), leg.get("line")
+    if m in ("1up", "2up"):
+        if sel == "draw":
+            return "win" if h == a else "lose"
+        w = up_won(int(m[0]), sel, h, a, goals) if sel in ("home", "away") else None
+        return None if w is None else "win" if w else "lose"
+    if m == "dc_1up":                                  # the double chance, or the 1UP early payout
+        if (sel == "1x" and h >= a) or (sel == "x2" and h <= a) or (sel == "12" and h != a):
+            return "win"
+        if sel == "12":
+            return "win" if h + a else "lose"         # any scored draw had a 1-goal lead first
+        w = up_won(1, "home" if sel == "1x" else "away", h, a, goals)
+        return None if w is None else "win" if w else "lose"
+    if m == "or_over" and line is not None:
+        team_won = (h > a) if leg.get("team") == "home" else (a > h)
+        return _yes(team_won or h + a > line, sel)
+    if m == "win_either_half":
+        if not ht or None in ht:
+            return None
+        o1, p1 = (ht[0], ht[1]) if leg.get("team") == "home" else (ht[1], ht[0])
+        o2, p2 = ((h, a) if leg.get("team") == "home" else (a, h))
+        return _yes(o1 > p1 or o2 - o1 > p2 - p1, sel)
+    if m == "run3":
+        return _yes(_run3(leg.get("team") or "any", h, a, goals), sel)
 
     def cmp(x: float) -> str:
         return "win" if x > 0 else "lose" if x < 0 else "push"
@@ -248,14 +340,17 @@ def _kickoff(leg: dict, posted: datetime) -> datetime:
         return posted
 
 
-def grade_due(folder: Path, index: dict, now: datetime) -> list[str]:
-    """Grade every decoded slip whose games are all 3 h past kick-off."""
+def grade_due(folder: Path, index: dict, now: datetime,
+              timeline: Callable[[str, str, str], dict | None] | None = None) -> list[str]:
+    """Grade every decoded slip whose games are all 3 h past kick-off.
+    timeline(home, away, ko) -> {goals, ht} (data.fotmob.Timelines.find) settles
+    the TIMELINE markets the final score can't; if it fails the slip waits."""
     notes, graded, decoded = [], _done(folder, "graded"), _done(folder, "decoded")
     for s in load_slips(folder):
         key = slip_key(s)
         if key in graded:
             continue
-        legs = s.get("legs") or (decoded.get(key) or {}).get("legs")
+        legs = [remap(leg) for leg in s.get("legs") or (decoded.get(key) or {}).get("legs") or []]
         if not legs:
             continue
         posted = datetime.fromisoformat((s.get("posted_at") or now.isoformat()).replace("Z", "+00:00"))
@@ -270,7 +365,16 @@ def grade_due(folder: Path, index: dict, now: datetime) -> list[str]:
                 hit = idx.find(leg["home"], leg["away"], ko.strftime("%Y-%m-%dT%H:%MZ"))
             res = None
             if hit is not None and not (leg.get("sport") == "football" and hit.get("finished_other")):
-                res = settle(leg, hit["fthg"], hit["ftag"])
+                h, a = hit["fthg"], hit["ftag"]
+                ht = [hit.get("fh_home"), hit.get("fh_away")]
+                res = settle(leg, h, a, ht)
+                if res is None and leg.get("market") in TIMELINE and timeline is not None:
+                    try:
+                        tl = timeline(leg["home"], leg["away"], ko.strftime("%Y-%m-%dT%H:%MZ"))
+                    except Exception:  # noqa: BLE001 — FotMob down: the slip waits for the next run
+                        tl = None
+                    if tl and len(tl["goals"]) == h + a:          # a timeline that disagrees with the score is not used
+                        res = settle(leg, h, a, tl.get("ht") if None in ht else ht, tl["goals"])
             out_legs.append({**leg, "result": res, "score": [hit["fthg"], hit["ftag"]] if hit else None})
             if res is None:
                 unknown.append(leg.get("text") or leg.get("market"))

@@ -33,7 +33,8 @@ def run(folder: Path, now: datetime, out: Path | None = None) -> list[str]:
             index[sport] = uv.ResultIndex(fr.results_since(7, sport=fs_sport))
         except Exception as e:  # noqa: BLE001 — grading waits for the next run
             notes.append(f"{sport}: Flashscore unavailable ({str(e)[:60]})")
-    notes += tp.grade_due(folder, index, now)
+    from data import fotmob as fm
+    notes += tp.grade_due(folder, index, now, fm.Timelines().find)
     import tipster_study
     tipster_study.write(folder, out or folder / "TIPSTER_STUDY.md")
     return notes

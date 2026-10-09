@@ -93,7 +93,13 @@ def sweep(now: datetime) -> str:
         except Exception as e:  # noqa: BLE001
             index[sport] = uv.ResultIndex([])
             notes.append(f"{sport}: Flashscore unavailable ({str(e)[:60]}) — grading waits")
-    graded, gave_up = uv.grade(pending, index, now)
+    from data import fotmob as fm
+    timelines = fm.Timelines()
+
+    def goals_of(r: dict) -> list | None:
+        tl = timelines.find(r["home"], r["away"], r["ko"])
+        return tl["goals"] if tl else None
+    graded, gave_up = uv.grade(pending, index, now, goals_of)
     uv.archive(graded, now=now)
     uv.save_pending(pending)
     notes.append(f"graded {len(graded) - gave_up}, no result found {gave_up}, waiting {len(pending)}")

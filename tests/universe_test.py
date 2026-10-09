@@ -103,4 +103,48 @@ assert "40 games graded" in txt and "| 1x2:home | 40 | 100.0%" in txt and "+30.0
 assert "Turkiye · Super Lig — 1x2:home" in txt, "a 40-game standout competition is listed"
 print("study written (sides, bands, standout competitions): OK")
 
+# early payout (1X2 - 2UP / 1UP): pays on an n-goal lead at any moment, else as a plain 1X2
+ev = {"markets": [{"id": 60100, "status": 0, "outcomes": [{"desc": "Home", "odds": "1.41"}, {"desc": "Draw", "odds": "5.07"},
+                                                          {"desc": "Away", "odds": "7.29"}]},
+                  {"id": 60200, "status": 2, "outcomes": [{"desc": "Home", "odds": "1.23"}, {"desc": "Draw", "odds": "5.07"},
+                                                          {"desc": "Away", "odds": "3.26"}]}]}
+assert uv.prices("football", ev) == {"2up": [1.41, 5.07, 7.29]}, "a closed 1UP line is not kept"
+assert uv.up_won(2, "home", 3, 1) == 1 and uv.up_won(2, "home", 1, 1) == 0, "won, or never scored 2"
+assert uv.up_won(2, "home", 2, 2) is None, "2-2: only the goal times can tell"
+assert uv.up_won(2, "home", 2, 2, [[10, "h"], [30, "h"], [60, "a"], [80, "a"]]) == 1, "2-0 up, then pegged back"
+assert uv.up_won(2, "home", 2, 2, [[10, "h"], [30, "a"], [60, "h"], [80, "a"]]) == 0, "never 2 up"
+assert uv.up_won(1, "away", 1, 2, None) == 1 and uv.up_won(1, "away", 2, 1, [[5, "a"], [50, "h"], [70, "h"]]) == 1
+up = {"2up": [1.41, 5.07, 7.29]}
+o = {k: w for k, w, *_ in uv.outcomes("football", up, {"h": 2, "a": 2, "after_90": False})}
+assert o == {"2up:draw": 1}, "sides the score can't settle are left out, never guessed"
+o = {k: w for k, w, *_ in uv.outcomes("football", up, {"h": 2, "a": 2, "after_90": False,
+                                                        "goals": [[1, "h"], [2, "h"], [3, "a"], [4, "a"]]})}
+assert o == {"2up:home": 1, "2up:away": 0, "2up:draw": 1}, o
+row = {"sport": "football", "first": {"p": up}, "ko": "2026-10-09T15:00Z", "home": "A", "away": "B"}
+assert uv.needs_goals(row, {"h": 2, "a": 2}) and not uv.needs_goals(row, {"h": 1, "a": 0})
+fin = {"finished_regular": True, "finished_other": False, "kickoff_utc": "2026-10-09T15:00Z", "home": "A", "away": "B",
+       "fthg": 2, "ftag": 2}
+
+
+class _One:
+    def find(self, *a):
+        return fin
+
+
+calls = []
+
+
+def _down(r):
+    calls.append(r)
+    raise RuntimeError("FotMob down")
+
+
+pend = {"e": dict(row, id="e")}
+done, _ = uv.grade(pend, {"football": _One()}, datetime(2026, 10, 9, 19, tzinfo=UTC), _down)
+assert done == [] and "e" in pend and calls, "goal source down: the game waits"
+done, _ = uv.grade(pend, {"football": _One()}, datetime(2026, 10, 9, 19, tzinfo=UTC),
+                   lambda r: [[1, "h"], [2, "h"], [3, "a"]])
+assert "goals" not in done[0]["result"], "a timeline that disagrees with the 2-2 score is not used"
+print("early payout (2UP/1UP) prices, settlement and goal times: OK")
+
 print("ALL UNIVERSE TESTS PASSED")

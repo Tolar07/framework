@@ -117,4 +117,22 @@ assert not {"F9 draw-proof", "F10 mid-price home"} & {x["strategy"] for x in pb.
 assert {"F9 draw-proof", "F10 mid-price home"} <= {x["strategy"] for x in pb.bets(new)}
 print("F9 / F10 count only games from the day they were written down: OK")
 
+# F11-F13: the same strong-home games bet three ways (2UP, plain, double chance), from 2026-10-10
+p = {"1x2": [1.25, 6.0, 11.0], "dc": [1.04, 1.18, 4.0], "2up": [1.22, 6.0, 9.0]}
+strong = {**fb(p, p, 2, 2), "ko": "2026-10-10T15:00Z", "id": "s1",
+          "result": {"h": 2, "a": 2, "after_90": False, "goals": [[5, "h"], [20, "h"], [70, "a"], [88, "a"]]}}
+sb = {x["strategy"]: x for x in pb.bets(strong)}
+assert sb["F11 2UP strong home"]["won"] == 1 and sb["F11 2UP strong home"]["fair"] is None, "2-0 up then 2-2: paid early"
+assert sb["F12 strong home, plain"]["won"] == 0 and sb["F13 strong home, double chance"]["won"] == 1
+assert pb.why([sb["F11 2UP strong home"]]) == "won 1 (1 only by the early payout), lost 0"
+assert "F11 2UP strong home" not in {x["strategy"] for x in pb.bets({**strong, "ko": "2026-10-09T15:00Z"})}
+assert not {"F11 2UP strong home", "F12 strong home, plain"} & {x["strategy"] for x in pb.bets(
+    {**strong, "first": {"p": {**p, "1x2": [1.50, 4.0, 6.0]}}})}, "home under 75% margin-free: no bet"
+assert "F12 strong home, plain" not in {x["strategy"] for x in pb.bets(
+    {**strong, "first": {"p": {k: v for k, v in p.items() if k != "2up"}}})}, "no 2UP offered: none of the three"
+nog = {**strong, "result": {"h": 2, "a": 2, "after_90": False}}
+assert not {"F11 2UP strong home", "F12 strong home, plain", "F13 strong home, double chance"} & \
+    {x["strategy"] for x in pb.bets(nog)}, "no goal times: 2UP unsettled, and F12/F13 skip the game too"
+print("F11-F13: 2UP vs plain vs double chance on the same games: OK")
+
 print("ALL PAPER-BOOK TESTS PASSED")

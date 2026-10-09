@@ -141,7 +141,11 @@ _SYN = [(r"\bczechia\b", "czech republic"), (r"\bturkiye\b", "turkey"),
         (r"\bweds\b", "wednesday"), (r"\bwed\b", "wednesday"), (r"\brvs\b", "rovers"),
         (r"\bcelta b\b", "celta vigo b"), (r"\bpeterboro\b", "peterborough"),
         (r"\bpa\b", "park avenue"), (r"^wolves$", "wolverhampton wanderers"),
-        (r"^spurs$", "tottenham")]
+        (r"^spurs$", "tottenham"),
+        # Turkish clubs Flashscore lists under their current names (8 Oct 2026:
+        # the Turkish Cup tie stayed ungraded on the name mismatch).
+        (r"^denizli iy gureller$", "denizli idman yurdu"),
+        (r"^serik spor$", "serik belediyespor")]
 
 
 def norm(name: str) -> str:

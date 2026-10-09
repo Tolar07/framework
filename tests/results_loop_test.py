@@ -84,4 +84,8 @@ with tempfile.TemporaryDirectory() as d:
     assert out["singles"][0]["result"] == "lost", "an earlier no-90min-result is re-checked"
 print("after extra time: settled from the half-time..final range only when certain: OK")
 
+assert fs._sim("Denizli Idman Yurdu", "Denizli IY Gureller") == 1.0
+assert fs._sim("Serik Belediyespor", "Serik Spor") == 1.0
+print("Turkish club aliases: OK")
+
 print("\n✅ ALL RESULTS-LOOP TESTS PASSED")

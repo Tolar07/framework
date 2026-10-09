@@ -346,8 +346,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.0360158333805487,
    "missing": null,
@@ -552,8 +552,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -1.48,
    "stake_pct": 0.25,
    "ev": -0.01191452658571912,
    "missing": null,
@@ -603,8 +603,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.033805746300241135,
    "missing": {
@@ -1046,7 +1046,11 @@
     "home": 399733,
     "away": 1739802
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Boreham Wood at full strength",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:72740694",
    "sb_tid": "sr:tournament:173",
    "sb_market": {

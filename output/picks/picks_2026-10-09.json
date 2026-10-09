@@ -181,8 +181,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.048493540176537286,
    "missing": {
@@ -244,7 +244,9 @@
    "first_price": 1.24,
    "drift_since_board": 0.8,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
   },
   {
    "fixture": "HNK Gorica v NK Rudes Zagreb",
@@ -283,8 +285,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -6.02,
    "stake_pct": 0.12,
    "ev": -0.03605890865018424,
    "missing": {
@@ -388,7 +390,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Lens v Lyon",
@@ -624,7 +628,9 @@
    "first_price": 1.29,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.35,
+   "drift_pct": 4.7
   },
   {
    "fixture": "Braunschweig v Holstein Kiel",
@@ -650,7 +656,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:72513902",
    "sb_tid": "sr:tournament:44",
    "sb_market": {

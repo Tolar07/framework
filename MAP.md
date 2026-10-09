@@ -53,7 +53,7 @@ three days (so it is now one looping job the board run starts);
 | The Architect (`TELEGRAM_CHAT_ID`) | everything | secret |
 | bet365 board | the Architect only — `TELEGRAM_OWNER_CHAT_ID` if set, else `TELEGRAM_CHAT_ID` (order 29) | secret |
 | NBA board + NBA line watch (live test since 2026-10-07, placed by hand from the codes) | the Architect only — `TELEGRAM_OWNER_CHAT_ID` if set, else `TELEGRAM_CHAT_ID` (order 41) | secret |
-| Subscribers | the board only (order 33) | secret `TELEGRAM_SUBSCRIBER_CHAT_IDS`, comma-separated |
+| Subscribers | booking codes only (order 33) | secret `TELEGRAM_SUBSCRIBER_CHAT_IDS`, comma-separated |
 | Commands | answered for the Architect's chat only | `output/telegram_commands.py` |
 
 The three subscriber chat ids were first collected by the laptop's /start

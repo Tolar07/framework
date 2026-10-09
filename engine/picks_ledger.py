@@ -144,7 +144,8 @@ def _alt_slip(name, legs, combo, code) -> dict:
 def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list,
                  acca_codes: dict, safe3_codes: dict, mega_codes: Optional[dict],
                  alts: Optional[list] = None, alt_codes: Optional[dict] = None,
-                 values: Optional[list] = None, value_codes: Optional[dict] = None) -> Path:
+                 values: Optional[list] = None, value_codes: Optional[dict] = None,
+                 combined: Optional[dict] = None) -> Path:
     singles = [_single(bf) for bf in board
                if bf.on_deploy_shortlist and bf.probs is not None and bf.best_market_key]
     doc = {
@@ -158,6 +159,14 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
         # positive-value bets (order 37): own markets, graded like the alt legs
         "value": [_alt_slip(n, l, c, (value_codes or {}).get(n)) for n, l, c in (values or [])],
         "rated": [_rated(bf) for bf in board if bf.probs is not None],
+        # one code for every slip of a kind (Architect 2026-10-09): lands only
+        # when every slip of that kind lands
+        "combined": [{"name": n, "of": kind, "code": (combined or {}).get(key), "result": None}
+                     for n, kind, key in (("ACCAS MEGA", "accas", "accas_mega"),
+                                          ("ALT MEGA", "alts", "alts_mega"),
+                                          ("VALUE MEGA", "value", "value_mega"),
+                                          ("50+ MEGA", "safe3", "safe3_mega"))
+                     if (combined or {}).get(key)],
     }
     LEDGER_DIR.mkdir(parents=True, exist_ok=True)
     path = LEDGER_DIR / f"picks_{target}.json"
@@ -274,6 +283,14 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                         if res90 != leg["result"]:
                             leg["result"] = res90
                             changed += 1
+        for cmb in doc.get("combined", []):
+            kind = cmb["of"]
+            res = [s.get("result") for s in doc.get(kind, [])
+                   if not (kind == "value" and s.get("name") == "Value acca")]
+            new = "lost" if "lost" in res else ("won" if res and all(r == "won" for r in res) else None)
+            if new != cmb.get("result"):
+                cmb["result"] = new
+                changed += 1
         for kind in ("accas", "safe3", "megas", "alts", "replaced", "value"):
             for slip in doc.get(kind, []):
                 if kind in ("alts", "replaced", "value"):

@@ -48,7 +48,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -3.2
   },
   {
    "fixture": "Nordsjaelland v Odense",
@@ -474,7 +476,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sp Braga v Sp Lisbon",
@@ -754,7 +758,9 @@
    "first_price": 1.34,
    "drift_since_board": -0.7,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": -1.5
   },
   {
    "fixture": "Nancy v Guingamp",
@@ -796,7 +802,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -2.4
   },
   {
    "fixture": "Pau FC v Laval",
@@ -838,7 +846,9 @@
    "first_price": 1.23,
    "drift_since_board": -0.8,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sochaux-Montbeliard v Boulogne",
@@ -880,7 +890,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Dunkerque v Annecy",
@@ -922,7 +934,9 @@
    "first_price": 1.21,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sutton v Boreham Wood",

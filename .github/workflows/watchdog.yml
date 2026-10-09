@@ -7,7 +7,12 @@ name: OLP XDV missed-run watchdog
 # going) it starts the slot's board itself and says so on Telegram.
 on:
   schedule:
+    # A first check ~35 min after each slot (2026-10-09: the board Routine's
+    # session hit its usage limit and GitHub's 20:47 cron never fired, so
+    # Saturday's board waited for the 23:17 check), then the late check.
+    - cron: "23 21 * * *"   # evening slot, first check
     - cron: "17 23 * * *"   # evening slot (board due 20:47 UTC)
+    - cron: "23 6 * * *"    # morning slot, first check
     - cron: "17 8 * * *"    # morning slot (board due 05:47 UTC)
   workflow_dispatch:
     inputs:
@@ -39,8 +44,8 @@ jobs:
           SCHEDULE:           ${{ github.event.schedule }}
           SLOT_INPUT:         ${{ github.event.inputs.slot }}
         run: |
-          if [ "$SCHEDULE" = "17 23 * * *" ]; then SLOT=evening
-          elif [ "$SCHEDULE" = "17 8 * * *" ]; then SLOT=morning
+          if [ "$SCHEDULE" = "17 23 * * *" ] || [ "$SCHEDULE" = "23 21 * * *" ]; then SLOT=evening
+          elif [ "$SCHEDULE" = "17 8 * * *" ] || [ "$SCHEDULE" = "23 6 * * *" ]; then SLOT=morning
           else SLOT="${SLOT_INPUT:-evening}"; fi
           if ! [[ "$SLOT" =~ ^(evening|morning)$ ]]; then echo "invalid slot '$SLOT'"; exit 1; fi
           python monitor/run_watchdog.py --slot "$SLOT"

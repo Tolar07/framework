@@ -1190,6 +1190,24 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                 _nv = sum(1 for n, _l, _c in value_slips if n != "Value acca")
                 all_flags.append(f"positive-value bets (order 37): {_nv} found, "
                                  f"{len(value_codes)}/{len(value_slips)} slip(s) booked")
+                # COMBINED CODES (Architect 2026-10-09: "all the ACCAs ... combine
+                # everything and book it as one ... all the value bets ... all the
+                # alternate bets"): one slip each, beside the per-slip codes.
+                if len(accas) > 1:
+                    _alla = [(ba, pa, qa) for _n, lsa, _c in accas for ba, pa, qa in lsa]
+                    extra_codes.update({k.replace("ALL", "accas_mega"): v for k, v in
+                                        _book([("ALL", _alla, 0)]).items()})
+                for _kind, _slips, _skip in (("alts_mega", alt_accas, None),
+                                             ("value_mega", value_slips, "Value acca")):
+                    _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                            bf.probs.home_team, bf.probs.away_team, key)
+                           for _n, _legs, _c in _slips if _n != _skip
+                           for bf, _pick, _prob, key, _price in _legs]
+                    if len(_ls) > 1:
+                        _code, _ = sbk.code_for_legs(sb_index, _ls)
+                        if _code:
+                            extra_codes[_kind] = _code
+                            extra_codes[_kind + "_legs"] = len(_ls)
                 megas = _build_megas(deploy)
                 if len(megas) > 1:
                     mega_codes = _book(megas)
@@ -1246,7 +1264,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                   megas_l if len(megas_l) > 1 else [],
                                   acca_codes, safe3_codes, mega_codes,
                                   alts=_alt_accas(dep), alt_codes=alt_codes,
-                                  values=_build_value_l(dep), value_codes=value_codes)
+                                  values=_build_value_l(dep), value_codes=value_codes,
+                                  combined=extra_codes)
     except _KeepFrozen:
         all_flags.append("picks ledger kept as frozen at the 10pm board (codes frozen)")
     except Exception as e:  # noqa: BLE001

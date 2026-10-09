@@ -90,7 +90,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Beveren v Lommel SK",
@@ -1010,7 +1012,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 1.6
   },
   {
    "fixture": "SK Brann v Viking FK",
@@ -1058,7 +1062,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "IFK Goteborg v Vasteraas SK",
@@ -1106,7 +1112,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   }
  ],
  "accas": [

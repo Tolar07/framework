@@ -45,14 +45,15 @@ def _fd(home, away, day="2026-10-04", league="La Liga 2"):
                        source="football-data.co.uk (fixtures)")
 
 
-def _run(board, espn_events=(), fd_rows=(), espn_error=None):
+def _run(board, espn_events=(), fd_rows=(), espn_error=None, fotmob_events=()):
     def fetch_espn(league, day):
         if espn_error:
             raise espn_error
         return [e for e in espn_events if e.kickoff_utc[:10] == day]
     return fc.check_board(board, fetch_espn=fetch_espn,
                           fetch_fd=lambda lg: (list(fd_rows), []),
-                          fetch_fd_extra=lambda lg: ([], []))
+                          fetch_fd_extra=lambda lg: ([], []),
+                          fetch_fotmob=lambda day: list(fotmob_events))
 
 
 def test_espn_agreement_verifies_despite_spelling() -> None:
@@ -113,6 +114,26 @@ def test_odds_feed_base_needs_two_trusted_sources() -> None:
     _run(board, [_ev("Wigan Athletic", "Bolton Wanderers", league="League One")],
          fd_rows=[_fd("Wigan", "Bolton", league="League One")])
     assert board[0].verification.tier == Tier.VERIFIED
+
+
+def test_fotmob_is_the_second_trusted_source() -> None:
+    # Architect 2026-10-08: every fixture verified. An odds-feed fixture that
+    # ESPN and FotMob both list is VERIFIED without football-data.
+    board = [_bf("Wigan", "Bolton", league="League One", base="sportybet.com")]
+    flags = _run(board, [_ev("Wigan Athletic", "Bolton Wanderers", league="League One")],
+                 fotmob_events=[{"id": 7, "home": "Wigan", "away": "Bolton Wanderers",
+                                 "league": "League One", "kickoff_utc": "2026-10-04T14:00:00.000Z"}])
+    assert board[0].verification.tier == Tier.VERIFIED, flags
+    assert "fotmob.com" in board[0].verification.factors["verifying_domains"]
+    assert any("FotMob" in f and "1/1 confirmed" in f for f in flags), flags
+    # FotMob down: flagged, nothing added, the run carries on
+    board = [_bf("Wigan", "Bolton", league="League One", base="sportybet.com")]
+    def down(day):
+        raise OSError("timeout")
+    flags = fc.check_board(board, fetch_espn=lambda lg, d: [], fetch_fd=lambda lg: ([], []),
+                           fetch_fd_extra=lambda lg: ([], []), fetch_fotmob=down)
+    assert board[0].verification.tier == Tier.SINGLE_SOURCE
+    assert any("FotMob unavailable" in f for f in flags), flags
 
 
 def test_no_data_and_undated_fixtures_untouched() -> None:

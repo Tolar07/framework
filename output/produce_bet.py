@@ -729,6 +729,14 @@ def _canon_short(fixture: str) -> str:
 # accas, value acca — each takes only matches no earlier acca used.
 ACCA_MIN, ACCA_MAX = 3, 3
 ACCA_LEG_MIN = 0.75
+# Architect 2026-10-08/09: a TABLE 3 acca is "meaningful": its combined SportyBet
+# odds are 2.00 at least ("I don't want it to be less than 2 odds") and 3.00 at
+# most ("2.1 ... or 2.5"), so fewer, longer accas ("collapse it from 6 to like
+# 4"). Each acca takes the strongest remaining legs until it reaches 2.00, never
+# passing 3.00 or TABLE3_MAX_LEGS. Applies to TABLE 3 only; 3A/3B/3C keep 3 legs.
+TABLE3_ODDS_MIN = 2.00
+TABLE3_ODDS_MAX = 3.00
+TABLE3_MAX_LEGS = 6
 MEGA_MAX_LEGS = 26             # SportyBet won't take 78 on one slip: split into parts
 
 
@@ -782,15 +790,54 @@ def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     legs = [l for l in _acca_legs(shortlist) if _canon_short(l[0].fixture) not in taken]
     if len(legs) < 2:
         return []
-    out, i = [], 0
-    for n, size in enumerate(_split_sizes(len(legs), ACCA_MIN, ACCA_MAX)):
-        g = legs[i:i + size]
-        i += size
+    out = _table3_groups(legs)
+    named = []
+    for n, g in enumerate(out):
         combo = 1.0
         for _, _, prob in g:
             combo *= prob
-        out.append((_acca_name(n), g, combo))
-    return out
+        named.append((_acca_name(n), g, combo))
+    return named
+
+
+def _table3_groups(legs: list[tuple]) -> list[list]:
+    """Ranked legs (strongest first) -> TABLE 3 accas of TABLE3_ODDS_MIN to
+    TABLE3_ODDS_MAX combined odds. An acca keeps taking the next leg that fits
+    under the max until it reaches the min (or TABLE3_MAX_LEGS). Legs left over
+    that can't make a 2.00 acca of their own join the last acca while it stays
+    within the max; any still left stay singles (Table 2).
+
+    A leg without a quoted price can't be measured against the odds band, so
+    a slate with one keeps the plain 3-leg grouping (order 40)."""
+    if any(getattr(leg[0], "best_price", None) is None for leg in legs):
+        out, i = [], 0
+        for size in _split_sizes(len(legs), ACCA_MIN, ACCA_MAX):
+            out.append(legs[i:i + size])
+            i += size
+        return out
+    groups: list[list] = []
+    pool = list(legs)
+    while pool:
+        g: list = []
+        for leg in list(pool):
+            if _acca_odds(g) >= TABLE3_ODDS_MIN or len(g) >= TABLE3_MAX_LEGS:
+                break
+            if _acca_odds(g + [leg]) <= TABLE3_ODDS_MAX:
+                g.append(leg)
+                pool.remove(leg)
+        if not g:
+            break
+        if _acca_odds(g) >= TABLE3_ODDS_MIN and len(g) >= 2:
+            groups.append(g)
+            continue
+        # too few legs left for a 2.00 acca: top up the last accas, else singles
+        for leg in g:
+            for last in reversed(groups):
+                if len(last) < TABLE3_MAX_LEGS and _acca_odds(last + [leg]) <= TABLE3_ODDS_MAX:
+                    last.append(leg)
+                    break
+        break
+    return groups
 
 
 def _build_megas(shortlist: list[BoardFixture]) -> list[tuple]:
@@ -1106,7 +1153,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out.append("ᴹ = MARKET-IMPLIED: no model history for this fixture — "
                        "priced from SportyBet with the margin removed; no edge claimed.")
         out.append("Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · "
-                   "ESPN · football-data) · ○ = one source only · ⚠ = sources disagree "
+                   "ESPN · football-data · FotMob) · ○ = one source only · ⚠ = sources disagree "
                    "(e.g. postponed) — not deployed")
     if no_data:
         out += ["", f"⚠ {len(no_data)} fixture(s) unresolved — NO DATA — PENDING (no "
@@ -1222,7 +1269,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
 
     # --- TABLE 3 · ACCA route ---
     out += [_CANON_RULE, "TABLE 3 · ACCA ROUTE",
-            "(3 legs each, 75%+ picks only, a match in one acca at most — order 40)",
+            "(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40)",
             _CANON_RULE, ""]
     accas = _build_accas(shortlist)
     if not accas:
@@ -1371,7 +1418,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
 def _acca_odds(legs) -> float:
     odds = 1.0
     for bf, _pick, _prob in legs:
-        odds *= bf.best_price or 1.0
+        odds *= getattr(bf, "best_price", None) or 1.0
     return odds
 
 

@@ -29,6 +29,10 @@ from typing import Optional
 from engine import markets as mkt
 
 LEDGER_DIR = Path(__file__).parent.parent / "output" / "picks"
+# Ledgers whose codes a later board replaced (a --refreeze, Architect 2026-10-09:
+# "all codes that were generated should be kept for verification"). Graded
+# like any ledger; left out of the scorecard so a day is never counted twice.
+SUPERSEDED_DIR = LEDGER_DIR / "superseded"
 
 
 def _single(bf) -> dict:
@@ -157,8 +161,30 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
     }
     LEDGER_DIR.mkdir(parents=True, exist_ok=True)
     path = LEDGER_DIR / f"picks_{target}.json"
+    _archive_if_codes_change(path, doc)
     path.write_text(json.dumps(doc, indent=1), encoding="utf-8")
     return path
+
+
+def _codes(doc: dict) -> set:
+    return {s.get("code") for k in ("singles", "accas", "safe3", "megas", "alts", "value")
+            for s in doc.get(k, []) if s.get("code")}
+
+
+def _archive_if_codes_change(path: Path, new_doc: dict) -> None:
+    """Keep the old ledger (and so its codes) when a rewrite would drop codes
+    that already went out, so every code sent is still graded."""
+    if not path.exists():
+        return
+    try:
+        old = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return
+    if _codes(old) - _codes(new_doc):
+        SUPERSEDED_DIR.mkdir(parents=True, exist_ok=True)
+        stamp = (old.get("generated_at") or "").replace("-", "").replace(":", "")[:13]
+        (SUPERSEDED_DIR / f"picks_{old.get('date')}_{stamp or 'old'}.json").write_text(
+            json.dumps(old, indent=1), encoding="utf-8")
 
 
 def _settle_ev(market: str, ev: dict) -> Optional[str]:
@@ -210,7 +236,7 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
     today = today or date.today().isoformat()
     flags = []
     by_day = _index_by_day(events)
-    for path in sorted(LEDGER_DIR.glob("picks_*.json")):
+    for path in sorted(LEDGER_DIR.glob("picks_*.json")) + sorted(SUPERSEDED_DIR.glob("picks_*.json")):
         doc = json.loads(path.read_text(encoding="utf-8"))
         if doc["date"] > today:
             continue

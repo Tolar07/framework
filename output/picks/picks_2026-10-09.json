@@ -658,7 +658,9 @@
    "first_price": 1.24,
    "drift_since_board": -0.8,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 3.3
   },
   {
    "fixture": "Heidenheim v Kaiserslautern",
@@ -706,7 +708,9 @@
    "first_price": 1.22,
    "drift_since_board": 0.8,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Montpellier v Grenoble",

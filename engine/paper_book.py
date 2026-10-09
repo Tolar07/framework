@@ -97,6 +97,28 @@ def f_mid_home(p: dict) -> list[Bet]:
     return [("1x2:home", 0, x[0])] if x and _between(x[0], 1.60, 2.50) else []
 
 
+# F11-F13 bet the SAME games three ways — a home side the 1X2 prices give 75%+
+# once the margin is removed, where SportyBet also offers 2UP — so early payout
+# is compared with the plain win and the double chance on equal terms.
+def _strong_home(p: dict) -> bool:
+    x = p.get("1x2")
+    if not x or not p.get("2up"):
+        return False
+    return (1 / x[0]) / sum(1 / v for v in x) >= 0.75
+
+
+def f_2up_home(p: dict) -> list[Bet]:
+    return [("2up:home", 0, p["2up"][0])] if _strong_home(p) else []
+
+
+def f_strong_home(p: dict) -> list[Bet]:
+    return [("1x2:home", 0, p["1x2"][0])] if _strong_home(p) else []
+
+
+def f_strong_home_dc(p: dict) -> list[Bet]:
+    return [("dc:1x", 0, p["dc"][0])] if _strong_home(p) and p.get("dc") else []
+
+
 def b_home_fav(p: dict) -> list[Bet]:
     x = p.get("win")
     return [("win:home", 0, x[0])] if x and _between(x[0], 1.20, 1.60) else []
@@ -128,6 +150,10 @@ STRATEGIES: dict[str, tuple[str, str, Callable[[dict], list[Bet]]]] = {
     "F8 safe double chance": ("football", "the shortest double chance at 1.20–1.40", f_safe_dc),
     "F9 draw-proof": ("football", "home or away (dc 12) at 1.20–1.40", f_draw_proof),
     "F10 mid-price home": ("football", "home win at 1.60–2.50", f_mid_home),
+    "F11 2UP strong home": ("football", "home 2UP (early payout at a 2-goal lead) when the home win is 75%+ "
+                                        "margin-free", f_2up_home),
+    "F12 strong home, plain": ("football", "home win on F11's games", f_strong_home),
+    "F13 strong home, double chance": ("football", "home or draw on F11's games", f_strong_home_dc),
     "B1 home favourite": ("basketball", "home winner at 1.20–1.60", b_home_fav),
     "B2 away underdog": ("basketball", "away winner at 2.00–3.50", b_away_dog),
     "B3 main total under": ("basketball", "Under the main total line", b_under),
@@ -138,7 +164,10 @@ STRATEGIES: dict[str, tuple[str, str, Callable[[dict], list[Bet]]]] = {
 # Rules added after the book had seen results count only games from the day
 # they were written down — the evidence that suggested a rule can't also be its
 # test. F9 / F10 / A4: proposed 2026-10-08 from the first graded days.
-SINCE = {"F9 draw-proof": "2026-10-09", "F10 mid-price home": "2026-10-09"}
+# F11-F13: proposed 2026-10-09 (2UP on tipster slips); 2UP prices are swept from then.
+SINCE = {"F9 draw-proof": "2026-10-09", "F10 mid-price home": "2026-10-09",
+         "F11 2UP strong home": "2026-10-10", "F12 strong home, plain": "2026-10-10",
+         "F13 strong home, double chance": "2026-10-10"}
 
 
 def bets(row: dict) -> list[dict]:
@@ -151,9 +180,13 @@ def bets(row: dict) -> list[dict]:
     market = {k: m for k, _w, _x, m in settled}
     last_px = {k: x for k, _w, x, _m in uv.outcomes(row["sport"], last, row["result"])}
     res = row["result"]
+    # F11 unsettled (no goal times): F12/F13 skip the game too, so the three stay like for like
+    same_games_off = row["sport"] == "football" and _strong_home(first) and "2up:home" not in won
     out = []
     for name, (sport, _desc, rule) in STRATEGIES.items():
         if sport != row["sport"] or (row.get("ko") or "")[:10] < SINCE.get(name, ""):
+            continue
+        if same_games_off and rule in (f_strong_home, f_strong_home_dc):
             continue
         for key, _i, price in rule(first):
             if key not in won:                 # e.g. a football game decided after 90'
@@ -165,8 +198,10 @@ def bets(row: dict) -> list[dict]:
                     float(key.split(":")[0][3:]) if key.startswith("o/u") else None)
             out.append({"strategy": name, "game": f"{row['home']} v {row['away']}", "comp": row.get("comp"),
                         "covered": row.get("covered"), "market": key, "price": price,
-                        # a double chance's three outcomes cover each result twice: chances sum to 2
-                        "fair": (2 if key.startswith("dc:") else 1) * (1 / price) / sum(1 / p for p in market[key]),
+                        # a double chance's three outcomes cover each result twice: chances sum to 2;
+                        # early-payout outcomes overlap (2-0 then 2-2 pays home AND draw): no fair chance
+                        "fair": None if key[1:3] == "up" else
+                                (2 if key.startswith("dc:") else 1) * (1 / price) / sum(1 / p for p in market[key]),
                         "won": won[key], "pnl": won[key] * price - 1,
                         "clv": (price / close - 1) if close else None,
                         "id": row.get("id"), "day": (row.get("ko") or "")[:10],
@@ -180,6 +215,10 @@ def why(rule_bets: list[dict]) -> str:
         return "—"
     lost = [b for b in rule_bets if not b["won"]]
     m = rule_bets[0]["market"]
+    if m[1:3] == "up" and not m.endswith("draw"):
+        i = 0 if m.endswith("home") else 1
+        early = sum(1 for b in rule_bets if b["won"] and b["score"][i] <= b["score"][1 - i])
+        return f"won {len(rule_bets) - len(lost)} ({early} only by the early payout), lost {len(lost)}"
     if m.startswith("1x2:") and m != "1x2:draw":
         draws = sum(1 for b in lost if b["score"][0] == b["score"][1])
         return f"lost {len(lost)}: {draws} draw(s), {len(lost) - draws} beaten" if lost else "no loss yet"

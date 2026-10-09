@@ -104,11 +104,13 @@ def write(folder: Path, out: Path) -> str:
                      f"{sum(1 / x['price'] for x in xs) / len(xs):.0%} |")
     L += ["", "## Legs by class — aligned vs risky add-ons", "",
           "aligned = a plain market at 60%+ implied (≤ 1.67, the kind of leg our F8/F1/F2/B1 rules bet); "
-          "risky = a price over 2.00 or an exotic market; middle = the rest.", "",
+          "special = a SportyBet special we grade (1UP/2UP early payout, \"or Over 2.5\", win either half, "
+          "3 in a row) at 2.00 or shorter; risky = a price over 2.00 or a market we can't read; "
+          "middle = the rest.", "",
           "| Class | legs | landed | implied (avg) | ungradable |", "|---|---|---|---|---|"]
     agg: dict = {"slips_graded": len(graded), "classes": {}}
-    all_legs = [leg for s in slips for leg in s["legs"]]
-    for cls in ("aligned", "middle", "risky"):
+    all_legs = [tp.remap(leg) for s in slips for leg in s["legs"]]
+    for cls in ("aligned", "middle", "special", "risky"):
         xs = [x for x in all_legs if tp.leg_class(x) == cls]
         gx = [x for x in xs if x.get("result") in ("win", "lose", "half_win", "half_lose")]
         if not xs:

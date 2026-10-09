@@ -71,4 +71,9 @@ assert g["status"] == "lost" and g["payout"] == 0.0 and g["unknown"] == ["exotic
 assert tp.grade_due(d, idx, datetime(2026, 10, 9, 20, tzinfo=UTC)) == [], "graded once"
 print("grading (a slip that lost a leg needs no other result): OK")
 
+posted = datetime(2026, 10, 9, 8, tzinfo=UTC)
+assert tp._kickoff({"kickoff": "Newmarket 1:15"}, posted) == posted, "a race card is not a date"
+assert tp._kickoff({"kickoff": None}, posted) == posted and tp._kickoff({}, posted) == posted
+print("unparsable kick-off falls back to the post time: OK")
+
 print("ALL TIPSTER TESTS PASSED")

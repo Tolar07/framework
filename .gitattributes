@@ -24,3 +24,8 @@
 *.bat text eol=crlf
 *.cmd text eol=crlf
 *.ps1 text eol=crlf
+
+# Append-only logs written by several workflows (daily NBA board, NBA line
+# watch): keep both sides' lines on a merge/rebase instead of conflicting.
+# A conflict here dropped the 7 Oct evening board's commit (2026-10-08).
+output/nba_ladders/*.jsonl merge=union

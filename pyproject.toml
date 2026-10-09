@@ -73,6 +73,7 @@ files = [
     "engine/name_match.py",
     "monitor/run_watchdog.py",
     "monitor/news_loop.py",
+    "monitor/push_marker.py",
     "engine/nba_teams.py",
     "engine/nba_ladder.py",
     "engine/nba_ext_model.py",

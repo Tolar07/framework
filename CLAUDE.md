@@ -46,7 +46,7 @@ What each piece is protecting — read before changing it:
 
 | Thing | Why it is the way it is |
 |---|---|
-| Duplicate guard in `daily.yml` (`output/boards/sent_<date>_<slot>`, checked against the LATEST main) | The Routine and the GitHub cron both start each slot; the second one for the same day + slot must skip, or the board is sent twice. |
+| Duplicate guard in `daily.yml` (`output/boards/sent_<date>_<slot>`, checked against the LATEST main; saved to main on its own by `monitor/push_marker.py` right after delivery) | The Routine and the GitHub cron both start each slot; the second one for the same day + slot must skip, or the board is sent twice. The marker used to ride in the persist commit, which a rebase conflict dropped — the 8 Oct board went out twice. |
 | Late-evening guard in `daily.yml` (`date -u +%H` >= 12) | GitHub sometimes fires the evening cron after midnight UTC; without the guard the run jumps a day ahead (2026-10-01). |
 | `--only-production` + `--heartbeat` | Board only on pick days; a short "system alive" heartbeat every day. A dry day is silence on the board, never a fake board. |
 | `monitor/run_watchdog.py` + `watchdog.yml` | A dropped GitHub cron is silent; `daily.yml` only alerts on a run that FAILS. |

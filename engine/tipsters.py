@@ -239,6 +239,15 @@ def leg_factor(result: str, price: float) -> float:
     return FACTOR[result]
 
 
+def _kickoff(leg: dict, posted: datetime) -> datetime:
+    """A leg's kick-off; the post time when it is missing or not a date (a
+    collector-read race card says "Newmarket 1:15")."""
+    try:
+        return datetime.fromisoformat(leg["kickoff"].replace("Z", "+00:00"))
+    except (KeyError, AttributeError, ValueError):
+        return posted
+
+
 def grade_due(folder: Path, index: dict, now: datetime) -> list[str]:
     """Grade every decoded slip whose games are all 3 h past kick-off."""
     notes, graded, decoded = [], _done(folder, "graded"), _done(folder, "decoded")
@@ -250,8 +259,7 @@ def grade_due(folder: Path, index: dict, now: datetime) -> list[str]:
         if not legs:
             continue
         posted = datetime.fromisoformat((s.get("posted_at") or now.isoformat()).replace("Z", "+00:00"))
-        kos = [datetime.fromisoformat(leg["kickoff"].replace("Z", "+00:00")) if leg.get("kickoff") else posted
-               for leg in legs]
+        kos = [_kickoff(leg, posted) for leg in legs]
         if now - max(kos) < GRADE_AFTER:
             continue
         out_legs, factor, unknown = [], 1.0, []

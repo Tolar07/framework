@@ -447,7 +447,12 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-09",
+    "fixture": "Lens v Lyon",
+    "pick": "Lyon Under 2.5 goals",
+    "price": 1.21
+   }
   },
   {
    "lineage_id": "ln_a35b0bff5b",
@@ -461,7 +466,12 @@
    "born_date": "2026-10-03",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-09",
+    "fixture": "PSV Eindhoven v Heerenveen",
+    "pick": "Heerenveen (+3.5) Asian handicap",
+    "price": 1.25
+   }
   },
   {
    "lineage_id": "ln_08346893fd",

@@ -1,12 +1,150 @@
 {
  "date": "2026-10-09",
- "frozen_at": "2026-10-08T20:52:03Z",
- "run_id": "OLPXDV-20261008-2048-587490",
- "board_code": "GN0PGU",
+ "frozen_at": "2026-10-09T06:28:30Z",
+ "run_id": "OLPXDV-20261009-0625-57b007",
+ "board_code": "N2TNRF",
  "ledger": {
   "date": "2026-10-09",
-  "generated_at": "2026-10-08T20:51:54Z",
+  "generated_at": "2026-10-09T06:28:14Z",
   "singles": [
+   {
+    "fixture": "PSV Eindhoven v Heerenveen",
+    "league": "Eredivisie",
+    "home": "PSV Eindhoven",
+    "away": "Heerenveen",
+    "kickoff": "2026-10-09",
+    "market": "SB:16|hcp=-3.5|Away (+3.5)",
+    "pick": "Heerenveen (+3.5) Asian handicap",
+    "price": 1.25,
+    "chance": 0.8089,
+    "chance_raw": 0.8089,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "XSMSEZ",
+    "news_level": "OK",
+    "news_note": "support: PSV Eindhoven missing 48%",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5781762,
+    "kickoff_utc": "2026-10-09T18:00:00.000Z",
+    "predicted_xi": {
+     "home": 132096945,
+     "away": 36413994
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72041158",
+    "sb_tid": "sr:tournament:37",
+    "sb_market": {
+     "id": 16,
+     "desc": null,
+     "spec": "hcp=-3.5",
+     "outcome": "Away (+3.5)"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": 0.011123523243270483,
+    "missing": {
+     "home": 0.4848157755132626,
+     "away": 0.05980330020095178
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.25,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Nordsjaelland v Odense",
+    "league": "Danish Superliga",
+    "home": "Nordsjaelland",
+    "away": "Odense",
+    "kickoff": "2026-10-09",
+    "market": "SB:16|hcp=-2.5|Away (+2.5)",
+    "pick": "Odense (+2.5) Asian handicap",
+    "price": 1.26,
+    "chance": 0.7934,
+    "chance_raw": 0.7934,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "RPT3AQ",
+    "news_level": null,
+    "news_note": null,
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": null,
+    "kickoff_utc": "2026-10-09T17:00:00Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:71925044",
+    "sb_tid": "sr:tournament:39",
+    "sb_market": {
+     "id": 16,
+     "desc": null,
+     "spec": "hcp=-2.5",
+     "outcome": "Away (+2.5)"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.000307416418824924,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.26,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Beveren v Lommel SK",
+    "league": "Belgian Pro League",
+    "home": "Beveren",
+    "away": "Lommel SK",
+    "kickoff": "2026-10-09",
+    "market": "SB:18|total=4.5|Under 4.5",
+    "pick": "Under 4.5 goals",
+    "price": 1.22,
+    "chance": 0.8403,
+    "chance_raw": 0.8403,
+    "tier": "SAFE",
+    "certainty": "LOW",
+    "code": "H6W2SK",
+    "news_level": "OK",
+    "news_note": "swapped from Beveren (+0.5) Asian handicap (SK Beveren missing 100% of value (L\u00e9andre Kuavita, Viktor Boone, Laurent Jans); support: Lommel missing 100%)",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5811773,
+    "kickoff_utc": "2026-10-09T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 0,
+     "away": 0
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72364130",
+    "sb_tid": "sr:tournament:38",
+    "sb_market": {
+     "id": 18,
+     "desc": null,
+     "spec": "total=4.5",
+     "outcome": "Under 4.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.12,
+    "ev": 0.02513896891194034,
+    "missing": {
+     "home": 1.0,
+     "away": 1.0
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.22,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
    {
     "fixture": "Wieczysta Krakow v Wisla Plock",
     "league": "Ekstraklasa",
@@ -15,14 +153,14 @@
     "kickoff": "2026-10-09",
     "market": "SB:18|total=1.5|Over 1.5",
     "pick": "Over 1.5 goals",
-    "price": 1.22,
-    "chance": 0.7873,
-    "chance_raw": 0.7873,
+    "price": 1.2,
+    "chance": 0.7929,
+    "chance_raw": 0.7929,
     "tier": "SAFE",
     "certainty": "HIGH",
     "code": "THJCJQ",
     "news_level": "OK",
-    "news_note": "pick does not depend on one team's lineup",
+    "news_note": "swapped from Wisla Plock (+1.5) Asian handicap (Wis\u0142a P\u0142ock missing 100% of value (Dani Pacheco); support: Wieczysta Krak\u00f3w missing 100%)",
     "switched_from": null,
     "orig_market": null,
     "fotmob_id": 5804003,
@@ -43,7 +181,7 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.039454150517541864,
+    "ev": -0.048493540176537286,
     "missing": {
      "home": 1.0,
      "away": 1.0
@@ -51,7 +189,7 @@
     "sharp_p": null,
     "sharp_ev": null,
     "first_price": 1.22,
-    "drift_since_board": null,
+    "drift_since_board": -1.6,
     "result": null,
     "ft": null
    },
@@ -63,9 +201,9 @@
     "kickoff": "2026-10-09",
     "market": "SB:18|total=4.5|Under 4.5",
     "pick": "Under 4.5 goals",
-    "price": 1.24,
-    "chance": 0.7916,
-    "chance_raw": 0.7916,
+    "price": 1.25,
+    "chance": 0.7863,
+    "chance_raw": 0.7863,
     "tier": "SAFE",
     "certainty": "HIGH",
     "code": "W9UMQ8",
@@ -91,7 +229,7 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.018405052346991635,
+    "ev": -0.017186882586772367,
     "missing": {
      "home": 1.0,
      "away": 1.0
@@ -99,7 +237,7 @@
     "sharp_p": null,
     "sharp_ev": null,
     "first_price": 1.24,
-    "drift_since_board": null,
+    "drift_since_board": 0.8,
     "result": null,
     "ft": null
    },
@@ -147,6 +285,282 @@
     "sharp_p": null,
     "sharp_ev": null,
     "first_price": 1.25,
+    "drift_since_board": 0.0,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "West Ham v QPR",
+    "league": "Championship",
+    "home": "West Ham",
+    "away": "QPR",
+    "kickoff": "2026-10-09",
+    "market": "SB:10||Home or Away",
+    "pick": "West Ham or QPR",
+    "price": 1.2,
+    "chance": 0.7953,
+    "chance_raw": 0.7953,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "QVHZFJ",
+    "news_level": null,
+    "news_note": null,
+    "switched_from": "QPR (+2.5) Asian handicap (the two prediction models disagree on the result)",
+    "orig_market": "SB:16|hcp=-2.5|Away (+2.5)",
+    "fotmob_id": null,
+    "kickoff_utc": "2026-10-09T19:00:00Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72339886",
+    "sb_tid": "sr:tournament:18",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.0360158333805487,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Dortmund v Werder Bremen",
+    "league": "Bundesliga",
+    "home": "Dortmund",
+    "away": "Werder Bremen",
+    "kickoff": "2026-10-09",
+    "market": "SB:547|total=1.5|Home/Away & Over 1.5",
+    "pick": "Dortmund or Werder Bremen & Over 1.5",
+    "price": 1.25,
+    "chance": 0.723,
+    "chance_raw": 0.723,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "QA2NHC",
+    "news_level": "OK",
+    "news_note": "swapped from Dortmund to win (Borussia Dortmund missing 26% of value (Nico Schlotterbeck, Giannis Konstantelias, Julian Ryerson); support: Werder Bremen missing 41%)",
+    "switched_from": "Under 4.5 goals (model and SportyBet disagree)",
+    "orig_market": "SB:18|total=4.5|Under 4.5",
+    "fotmob_id": 5881180,
+    "kickoff_utc": "2026-10-09T18:30:00.000Z",
+    "predicted_xi": {
+     "home": 306849964,
+     "away": 49518683
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72513220",
+    "sb_tid": "sr:tournament:35",
+    "sb_market": {
+     "id": 547,
+     "desc": null,
+     "spec": "total=1.5",
+     "outcome": "Home/Away & Over 1.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.08621533115975955,
+    "missing": {
+     "home": 0.26157205761193103,
+     "away": 0.41139216575181003
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.25,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Lens v Lyon",
+    "league": "Ligue 1",
+    "home": "Lens",
+    "away": "Lyon",
+    "kickoff": "2026-10-09",
+    "market": "SB:20|total=2.5|Under 2.5",
+    "pick": "Lyon Under 2.5 goals",
+    "price": 1.21,
+    "chance": 0.8172,
+    "chance_raw": 0.8172,
+    "tier": "SAFE",
+    "certainty": "MEDIUM",
+    "code": "VURKN2",
+    "news_level": "OK",
+    "news_note": "Lens at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5802947,
+    "kickoff_utc": "2026-10-09T18:45:00.000Z",
+    "predicted_xi": {
+     "home": 104456835,
+     "away": 169861760
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72036204",
+    "sb_tid": "sr:tournament:34",
+    "sb_market": {
+     "id": 20,
+     "desc": null,
+     "spec": "total=2.5",
+     "outcome": "Under 2.5"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.011235820171640265,
+    "missing": {
+     "home": 0.07895044642938626,
+     "away": 0.006992185122331847
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.21,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Moreirense v Gil Vicente",
+    "league": "Primeira Liga",
+    "home": "Moreirense",
+    "away": "Gil Vicente",
+    "kickoff": "2026-10-09",
+    "market": "SB:16|hcp=1.5|Home (+1.5)",
+    "pick": "Moreirense (+1.5) Asian handicap",
+    "price": 1.2,
+    "chance": 0.8097,
+    "chance_raw": 0.8097,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "LQW6RN",
+    "news_level": "OK",
+    "news_note": "Moreirense at full strength",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5887651,
+    "kickoff_utc": "2026-10-09T17:45:00.000Z",
+    "predicted_xi": {
+     "home": 8607768,
+     "away": 14287475
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72530958",
+    "sb_tid": "sr:tournament:238",
+    "sb_market": {
+     "id": 16,
+     "desc": null,
+     "spec": "hcp=1.5",
+     "outcome": "Home (+1.5)"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.02838783385626853,
+    "missing": {
+     "home": 0.0,
+     "away": 0.11519984968744128
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Sp Braga v Sp Lisbon",
+    "league": "Primeira Liga",
+    "home": "Sp Braga",
+    "away": "Sp Lisbon",
+    "kickoff": "2026-10-09",
+    "market": "SB:10||Home or Away",
+    "pick": "Sp Braga or Sp Lisbon",
+    "price": 1.33,
+    "chance": 0.7349,
+    "chance_raw": 0.7349,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "SH801Y",
+    "news_level": null,
+    "news_note": null,
+    "switched_from": "Sp Lisbon Win to Nil \u2014 no (the two prediction models disagree on the result)",
+    "orig_market": "SB:34||No",
+    "fotmob_id": null,
+    "kickoff_utc": "2026-10-09T19:15:00Z",
+    "predicted_xi": null,
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72530950",
+    "sb_tid": "sr:tournament:238",
+    "sb_market": {
+     "id": 10,
+     "desc": null,
+     "spec": "",
+     "outcome": "Home or Away"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.01191452658571912,
+    "missing": null,
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.33,
+    "drift_since_board": null,
+    "result": null,
+    "ft": null
+   },
+   {
+    "fixture": "Malaga CF v Espanol",
+    "league": "La Liga",
+    "home": "Malaga CF",
+    "away": "Espanol",
+    "kickoff": "2026-10-09",
+    "market": "SB:33||No",
+    "pick": "Malaga CF Win to Nil \u2014 no",
+    "price": 1.2,
+    "chance": 0.8052,
+    "chance_raw": 0.8052,
+    "tier": "SAFE",
+    "certainty": "HIGH",
+    "code": "KTKJD5",
+    "news_level": "OK",
+    "news_note": "support: M\u00e1laga missing 35%",
+    "switched_from": null,
+    "orig_market": null,
+    "fotmob_id": 5868086,
+    "kickoff_utc": "2026-10-09T19:00:00.000Z",
+    "predicted_xi": {
+     "home": 17656628,
+     "away": 80683467
+    },
+    "lineup_check": null,
+    "sb_event_id": "sr:match:72478616",
+    "sb_tid": "sr:tournament:8",
+    "sb_market": {
+     "id": 33,
+     "desc": null,
+     "spec": "",
+     "outcome": "No"
+    },
+    "closing_price": null,
+    "clv": null,
+    "stake_pct": 0.25,
+    "ev": -0.033805746300241135,
+    "missing": {
+     "home": 0.35108130464329723,
+     "away": 0.049979034616473364
+    },
+    "sharp_p": null,
+    "sharp_ev": null,
+    "first_price": 1.2,
     "drift_since_board": null,
     "result": null,
     "ft": null
@@ -160,8 +574,8 @@
     "market": "SB:18|total=3.5|Under 3.5",
     "pick": "Under 3.5 goals",
     "price": 1.29,
-    "chance": 0.7667,
-    "chance_raw": 0.7667,
+    "chance": 0.7682,
+    "chance_raw": 0.7682,
     "tier": "SAFE",
     "certainty": "MEDIUM",
     "code": "G62XMC",
@@ -187,7 +601,7 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.011013687562107188,
+    "ev": -0.00906372018003665,
     "missing": {
      "home": 1.0,
      "away": 1.0
@@ -195,7 +609,7 @@
     "sharp_p": null,
     "sharp_ev": null,
     "first_price": 1.29,
-    "drift_since_board": null,
+    "drift_since_board": 0.0,
     "result": null,
     "ft": null
    },
@@ -207,9 +621,9 @@
     "kickoff": "2026-10-09",
     "market": "SB:18|total=4.5|Under 4.5",
     "pick": "Under 4.5 goals",
-    "price": 1.24,
-    "chance": 0.8057,
-    "chance_raw": 0.8057,
+    "price": 1.23,
+    "chance": 0.8146,
+    "chance_raw": 0.8146,
     "tier": "SAFE",
     "certainty": "MEDIUM",
     "code": "QUX4XS",
@@ -235,7 +649,7 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.0009113540342564619,
+    "ev": 0.001988587546126741,
     "missing": {
      "home": 1.0,
      "away": 1.0
@@ -243,7 +657,7 @@
     "sharp_p": null,
     "sharp_ev": null,
     "first_price": 1.24,
-    "drift_since_board": null,
+    "drift_since_board": -0.8,
     "result": null,
     "ft": null
    },
@@ -255,9 +669,9 @@
     "kickoff": "2026-10-09",
     "market": "SB:18|total=4.5|Under 4.5",
     "pick": "Under 4.5 goals",
-    "price": 1.22,
-    "chance": 0.7994,
-    "chance_raw": 0.7994,
+    "price": 1.23,
+    "chance": 0.7929,
+    "chance_raw": 0.7929,
     "tier": "SAFE",
     "certainty": "HIGH",
     "code": "TZGQSM",
@@ -283,7 +697,7 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.024730052020257798,
+    "ev": -0.024692329412039804,
     "missing": {
      "home": 1.0,
      "away": 1.0
@@ -291,7 +705,7 @@
     "sharp_p": null,
     "sharp_ev": null,
     "first_price": 1.22,
-    "drift_since_board": null,
+    "drift_since_board": 0.8,
     "result": null,
     "ft": null
    },
@@ -303,11 +717,11 @@
     "kickoff": "2026-10-09",
     "market": "SB:18|total=1.5|Over 1.5",
     "pick": "Over 1.5 goals",
-    "price": 1.34,
-    "chance": 0.707,
-    "chance_raw": 0.707,
+    "price": 1.33,
+    "chance": 0.7135,
+    "chance_raw": 0.7135,
     "tier": "SAFE",
-    "certainty": "HIGH",
+    "certainty": "MEDIUM",
     "code": "J8MY9V",
     "news_level": "NO NEWS",
     "news_note": "no team news published",
@@ -328,12 +742,12 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.052670223609801115,
+    "ev": -0.05099058920528332,
     "missing": null,
     "sharp_p": null,
     "sharp_ev": null,
     "first_price": 1.34,
-    "drift_since_board": null,
+    "drift_since_board": -0.7,
     "result": null,
     "ft": null
    },
@@ -343,14 +757,14 @@
     "home": "Nancy",
     "away": "Guingamp",
     "kickoff": "2026-10-09",
-    "market": "SB:16|hcp=-1.5|Away (+1.5)",
-    "pick": "Guingamp (+1.5) Asian handicap",
-    "price": 1.25,
-    "chance": 0.7849,
-    "chance_raw": 0.7849,
+    "market": "SB:19|total=2.5|Under 2.5",
+    "pick": "Nancy Under 2.5 goals",
+    "price": 1.24,
+    "chance": 0.8,
+    "chance_raw": 0.8,
     "tier": "SAFE",
     "certainty": "MEDIUM",
-    "code": "YJAPR8",
+    "code": "MXH97K",
     "news_level": "NO NEWS",
     "news_note": "no team news published",
     "switched_from": null,
@@ -362,19 +776,19 @@
     "sb_event_id": "sr:match:72037370",
     "sb_tid": "sr:tournament:182",
     "sb_market": {
-     "id": 16,
+     "id": 19,
      "desc": null,
-     "spec": "hcp=-1.5",
-     "outcome": "Away (+1.5)"
+     "spec": "total=2.5",
+     "outcome": "Under 2.5"
     },
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.018817327954046337,
+    "ev": -0.00806053315320765,
     "missing": null,
     "sharp_p": null,
     "sharp_ev": null,
-    "first_price": 1.25,
+    "first_price": 1.24,
     "drift_since_board": null,
     "result": null,
     "ft": null
@@ -387,9 +801,9 @@
     "kickoff": "2026-10-09",
     "market": "SB:19|total=0.5|Over 0.5",
     "pick": "Pau FC Over 0.5 goals",
-    "price": 1.23,
-    "chance": 0.7788,
-    "chance_raw": 0.7788,
+    "price": 1.22,
+    "chance": 0.7814,
+    "chance_raw": 0.7814,
     "tier": "SAFE",
     "certainty": "HIGH",
     "code": "VYSW4H",
@@ -412,12 +826,12 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.04206359480222377,
+    "ev": -0.046678920520543565,
     "missing": null,
     "sharp_p": null,
     "sharp_ev": null,
     "first_price": 1.23,
-    "drift_since_board": null,
+    "drift_since_board": -0.8,
     "result": null,
     "ft": null
    },
@@ -429,16 +843,16 @@
     "kickoff": "2026-10-09",
     "market": "SB:548||1-3",
     "pick": "Multigoals 1-3",
-    "price": 1.21,
-    "chance": 0.7024,
-    "chance_raw": 0.7024,
+    "price": 1.23,
+    "chance": 0.6925,
+    "chance_raw": 0.6925,
     "tier": "SAFE",
     "certainty": "HIGH",
     "code": "TVU1P4",
     "news_level": "NO NEWS",
     "news_note": "no team news published",
-    "switched_from": "Sochaux-Montbeliard (+0.5) Asian handicap (the two prediction models disagree on the result)",
-    "orig_market": "SB:16|hcp=0.5|Home (+0.5)",
+    "switched_from": "Sochaux-Montbeliard Win to Nil \u2014 no (the two prediction models disagree on the result)",
+    "orig_market": "SB:33||No",
     "fotmob_id": 5803279,
     "kickoff_utc": "2026-10-09T18:00:00.000Z",
     "predicted_xi": null,
@@ -454,11 +868,11 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.1500383598263072,
+    "ev": -0.1481718420530317,
     "missing": null,
     "sharp_p": null,
     "sharp_ev": null,
-    "first_price": 1.21,
+    "first_price": 1.23,
     "drift_since_board": null,
     "result": null,
     "ft": null
@@ -496,12 +910,12 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.030682041167780505,
+    "ev": -0.030683958922781307,
     "missing": null,
     "sharp_p": null,
     "sharp_ev": null,
     "first_price": 1.21,
-    "drift_since_board": null,
+    "drift_since_board": 0.0,
     "result": null,
     "ft": null
    },
@@ -511,16 +925,16 @@
     "home": "Sutton",
     "away": "Boreham Wood",
     "kickoff": "2026-10-09",
-    "market": "SB:18|total=1.5|Over 1.5",
-    "pick": "Over 1.5 goals",
-    "price": 1.2,
-    "chance": 0.8064,
-    "chance_raw": 0.8064,
+    "market": "SB:16|hcp=-0.5|Away (+0.5)",
+    "pick": "Boreham Wood (+0.5) Asian handicap",
+    "price": 1.22,
+    "chance": 0.7813,
+    "chance_raw": 0.7813,
     "tier": "SAFE",
     "certainty": "HIGH",
-    "code": "TRJSP3",
+    "code": "NBYSJH",
     "news_level": "OK",
-    "news_note": "pick does not depend on one team's lineup",
+    "news_note": "Boreham Wood at full strength",
     "switched_from": null,
     "orig_market": null,
     "fotmob_id": 5906501,
@@ -533,22 +947,22 @@
     "sb_event_id": "sr:match:72740694",
     "sb_tid": "sr:tournament:173",
     "sb_market": {
-     "id": 18,
+     "id": 16,
      "desc": null,
-     "spec": "total=1.5",
-     "outcome": "Over 1.5"
+     "spec": "hcp=-0.5",
+     "outcome": "Away (+0.5)"
     },
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.0323386352312478,
+    "ev": -0.04675943806075211,
     "missing": {
      "home": 0.0,
      "away": 0.0
     },
     "sharp_p": null,
     "sharp_ev": null,
-    "first_price": 1.2,
+    "first_price": 1.22,
     "drift_since_board": null,
     "result": null,
     "ft": null
@@ -561,9 +975,9 @@
     "kickoff": "2026-10-09",
     "market": "SB:18|total=4.5|Under 4.5",
     "pick": "Under 4.5 goals",
-    "price": 1.32,
-    "chance": 0.7635,
-    "chance_raw": 0.7635,
+    "price": 1.29,
+    "chance": 0.7778,
+    "chance_raw": 0.7778,
     "tier": "SAFE",
     "certainty": "MEDIUM",
     "code": "Y62KPL",
@@ -586,11 +1000,11 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": 0.007853170466927573,
+    "ev": 0.0033644084654476103,
     "missing": null,
     "sharp_p": null,
     "sharp_ev": null,
-    "first_price": 1.32,
+    "first_price": 1.29,
     "drift_since_board": null,
     "result": null,
     "ft": null
@@ -603,9 +1017,9 @@
     "kickoff": "2026-10-09",
     "market": "SB:10||Home or Away",
     "pick": "SK Brann or Viking FK",
-    "price": 1.27,
-    "chance": 0.7659,
-    "chance_raw": 0.7659,
+    "price": 1.26,
+    "chance": 0.7698,
+    "chance_raw": 0.7698,
     "tier": "SAFE",
     "certainty": "HIGH",
     "code": "N4K3PQ",
@@ -631,14 +1045,14 @@
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.017191483720328526,
+    "ev": -0.019984757019798738,
     "missing": {
      "home": 0.37270486186519025,
      "away": 0.09826162384969112
     },
     "sharp_p": null,
     "sharp_ev": null,
-    "first_price": 1.27,
+    "first_price": 1.26,
     "drift_since_board": null,
     "result": null,
     "ft": null
@@ -649,14 +1063,14 @@
     "home": "IFK Goteborg",
     "away": "Vasteraas SK",
     "kickoff": "2026-10-09",
-    "market": "SB:18|total=4.5|Under 4.5",
-    "pick": "Under 4.5 goals",
-    "price": 1.21,
-    "chance": 0.8069,
-    "chance_raw": 0.8069,
+    "market": "SB:10||Home or Away",
+    "pick": "IFK Goteborg or Vasteraas SK",
+    "price": 1.24,
+    "chance": 0.7659,
+    "chance_raw": 0.7659,
     "tier": "SAFE",
-    "certainty": "HIGH",
-    "code": "X0X2E4",
+    "certainty": "MEDIUM",
+    "code": "PX7R9P",
     "news_level": "OK",
     "news_note": "pick does not depend on one team's lineup",
     "switched_from": null,
@@ -671,22 +1085,22 @@
     "sb_event_id": "sr:match:67126794",
     "sb_tid": "sr:tournament:40",
     "sb_market": {
-     "id": 18,
+     "id": 10,
      "desc": null,
-     "spec": "total=4.5",
-     "outcome": "Under 4.5"
+     "spec": "",
+     "outcome": "Home or Away"
     },
     "closing_price": null,
     "clv": null,
     "stake_pct": 0.25,
-    "ev": -0.023658599273449488,
+    "ev": -0.04033717716091745,
     "missing": {
      "home": null,
      "away": null
     },
     "sharp_p": null,
     "sharp_ev": null,
-    "first_price": 1.21,
+    "first_price": 1.24,
     "drift_since_board": null,
     "result": null,
     "ft": null
@@ -695,47 +1109,54 @@
   "accas": [
    {
     "name": "Acca A",
-    "code": "XBBKK0",
-    "odds": 1.86,
-    "chance": 0.510935267332,
+    "code": "Q13HC7",
+    "odds": 2.27,
+    "chance": 0.4524826827172104,
     "legs": [
+     "Beveren v Lommel SK",
+     "Lens v Lyon",
      "Braunschweig v Holstein Kiel",
-     "Dunkerque v Annecy",
-     "Rakow v GKS Katowice"
+     "PSV Eindhoven v Heerenveen"
     ],
     "result": null
    },
    {
     "name": "Acca B",
-    "code": "HBW10H",
-    "odds": 1.876,
-    "chance": 0.48126083847600004,
+    "code": "NXKHA1",
+    "odds": 2.269,
+    "chance": 0.4031691868368001,
     "legs": [
-     "Wieczysta Krakow v Wisla Plock",
+     "Dunkerque v Annecy",
      "Nancy v Guingamp",
-     "Pau FC v Laval"
+     "Nordsjaelland v Odense",
+     "Wieczysta Krakow v Wisla Plock"
     ],
     "result": null
    },
    {
     "name": "Acca C",
-    "code": "GMDW5V",
-    "odds": 1.613,
-    "chance": 0.5912790400000001,
+    "code": "TC3M1Y",
+    "odds": 2.838,
+    "chance": 0.2915211001445951,
     "legs": [
-     "HNK Gorica v NK Rudes Zagreb",
-     "Avellino v Sampdoria"
+     "Heidenheim v Kaiserslautern",
+     "Rakow v GKS Katowice",
+     "Pau FC v Laval",
+     "Sutton v Boreham Wood",
+     "IFK Goteborg v Vasteraas SK"
     ],
     "result": null
    },
    {
     "name": "Acca D",
-    "code": "Z22X4L",
-    "odds": 1.676,
-    "chance": 0.58476465,
+    "code": "ZLF559",
+    "odds": 2.621,
+    "chance": 0.35472121987176963,
     "legs": [
+     "Galatasaray Istanbul v Kasimpasa Istanbul",
+     "HNK Gorica v NK Rudes Zagreb",
      "SK Brann v Viking FK",
-     "Galatasaray Istanbul v Kasimpasa Istanbul"
+     "Avellino v Sampdoria"
     ],
     "result": null
    }
@@ -743,13 +1164,13 @@
   "safe3": [
    {
     "name": "50+ #1",
-    "code": "GVZ4M3",
-    "odds": 1.771,
-    "chance": 0.520156917504,
+    "code": "HMNYJ4",
+    "odds": 1.728,
+    "chance": 0.518512090932,
     "legs": [
-     "IFK Goteborg v Vasteraas SK",
-     "Sutton v Boreham Wood",
-     "Heidenheim v Kaiserslautern"
+     "Moreirense v Gil Vicente",
+     "Malaga CF v Espanol",
+     "West Ham v QPR"
     ],
     "result": null
    }
@@ -758,12 +1179,13 @@
   "alts": [
    {
     "name": "Alt A",
-    "code": "N1KWC5",
-    "odds": 1.549,
-    "chance": 0.6627143600000001,
+    "code": "N4N2L2",
+    "odds": 1.951,
+    "chance": 0.507444539064,
     "legs": [
      "Sochaux-Montbeliard v Boulogne",
-     "Montpellier v Grenoble"
+     "Montpellier v Grenoble",
+     "Sp Braga v Sp Lisbon"
     ],
     "alt_legs": [
      {
@@ -774,8 +1196,8 @@
       "kickoff": "2026-10-09",
       "market": "SB:18|total=3.5|Under 3.5",
       "pick": "Under 3.5 goals",
-      "price": 1.21,
-      "chance": 0.8356,
+      "price": 1.25,
+      "chance": 0.8168,
       "result": null,
       "ft": null
      },
@@ -787,8 +1209,21 @@
       "kickoff": "2026-10-09",
       "market": "SB:19|total=2.5|Under 2.5",
       "pick": "Montpellier Under 2.5 goals",
-      "price": 1.28,
-      "chance": 0.7931,
+      "price": 1.29,
+      "chance": 0.7883,
+      "result": null,
+      "ft": null
+     },
+     {
+      "fixture": "Sp Braga v Sp Lisbon",
+      "league": "Primeira Liga",
+      "home": "Sp Braga",
+      "away": "Sp Lisbon",
+      "kickoff": "2026-10-09",
+      "market": "SB:16|hcp=1.5|Home (+1.5)",
+      "pick": "Sp Braga (+1.5) Asian handicap",
+      "price": 1.21,
+      "chance": 0.7881,
       "result": null,
       "ft": null
      }
@@ -799,9 +1234,34 @@
   "value": [
    {
     "name": "Value 1",
+    "code": "Y492WK",
+    "odds": 1.56,
+    "chance": 0.6888,
+    "legs": [
+     "Beveren v Lommel SK"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Beveren v Lommel SK",
+      "league": "Belgian Pro League",
+      "home": "Beveren",
+      "away": "Lommel SK",
+      "kickoff": "2026-10-09",
+      "market": "SB:18|total=3.5|Under 3.5",
+      "pick": "Under 3.5 goals",
+      "price": 1.56,
+      "chance": 0.6888,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Value 2",
     "code": "YAZ14E",
-    "odds": 1.92,
-    "chance": 0.5447,
+    "odds": 1.96,
+    "chance": 0.5392,
     "legs": [
      "Montpellier v Grenoble"
     ],
@@ -814,8 +1274,8 @@
       "kickoff": "2026-10-09",
       "market": "SB:19|total=1.5|Under 1.5",
       "pick": "Montpellier Under 1.5 goals",
-      "price": 1.92,
-      "chance": 0.5447,
+      "price": 1.96,
+      "chance": 0.5392,
       "result": null,
       "ft": null
      }
@@ -823,10 +1283,110 @@
     "result": null
    },
    {
-    "name": "Value 2",
-    "code": "ZJLF5T",
+    "name": "Value 3",
+    "code": "G0LN6M",
+    "odds": 1.35,
+    "chance": 0.6275,
+    "legs": [
+     "Sochaux-Montbeliard v Boulogne"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Sochaux-Montbeliard v Boulogne",
+      "league": "Ligue 2",
+      "home": "Sochaux-Montbeliard",
+      "away": "Boulogne",
+      "kickoff": "2026-10-09",
+      "market": "SB:18|total=3|Under 3",
+      "pick": "Under 3 goals",
+      "price": 1.35,
+      "chance": 0.6275,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Value 4",
+    "code": "H1G59S",
     "odds": 1.59,
-    "chance": 0.5055,
+    "chance": 0.6481,
+    "legs": [
+     "PSV Eindhoven v Heerenveen"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "PSV Eindhoven v Heerenveen",
+      "league": "Eredivisie",
+      "home": "PSV Eindhoven",
+      "away": "Heerenveen",
+      "kickoff": "2026-10-09",
+      "market": "SB:19|total=3.5|Under 3.5",
+      "pick": "PSV Eindhoven Under 3.5 goals",
+      "price": 1.59,
+      "chance": 0.6481,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Value 5",
+    "code": "LM8AG4",
+    "odds": 1.75,
+    "chance": 0.5872,
+    "legs": [
+     "Nordsjaelland v Odense"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Nordsjaelland v Odense",
+      "league": "Danish Superliga",
+      "home": "Nordsjaelland",
+      "away": "Odense",
+      "kickoff": "2026-10-09",
+      "market": "SB:18|total=3.5|Under 3.5",
+      "pick": "Under 3.5 goals",
+      "price": 1.75,
+      "chance": 0.5872,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Value 6",
+    "code": "G3HP6A",
+    "odds": 1.87,
+    "chance": 0.5495,
+    "legs": [
+     "Dortmund v Werder Bremen"
+    ],
+    "alt_legs": [
+     {
+      "fixture": "Dortmund v Werder Bremen",
+      "league": "Bundesliga",
+      "home": "Dortmund",
+      "away": "Werder Bremen",
+      "kickoff": "2026-10-09",
+      "market": "SB:18|total=3.5|Under 3.5",
+      "pick": "Under 3.5 goals",
+      "price": 1.87,
+      "chance": 0.5495,
+      "result": null,
+      "ft": null
+     }
+    ],
+    "result": null
+   },
+   {
+    "name": "Value 7",
+    "code": "X2SC5Y",
+    "odds": 1.44,
+    "chance": 0.709,
     "legs": [
      "IFK Goteborg v Vasteraas SK"
     ],
@@ -837,35 +1397,10 @@
       "home": "IFK Goteborg",
       "away": "Vasteraas SK",
       "kickoff": "2026-10-09",
-      "market": "SB:16|hcp=-1|Away (+1.0)",
-      "pick": "Vasteraas SK (+1.0) Asian handicap",
-      "price": 1.59,
-      "chance": 0.5055,
-      "result": null,
-      "ft": null
-     }
-    ],
-    "result": null
-   },
-   {
-    "name": "Value 3",
-    "code": "ZXF3YG",
-    "odds": 1.61,
-    "chance": 0.6356,
-    "legs": [
-     "Braunschweig v Holstein Kiel"
-    ],
-    "alt_legs": [
-     {
-      "fixture": "Braunschweig v Holstein Kiel",
-      "league": "2. Bundesliga",
-      "home": "Braunschweig",
-      "away": "Holstein Kiel",
-      "kickoff": "2026-10-09",
-      "market": "SB:18|total=3.5|Under 3.5",
-      "pick": "Under 3.5 goals",
-      "price": 1.61,
-      "chance": 0.6356,
+      "market": "SB:16|hcp=-1.5|Away (+1.5)",
+      "pick": "Vasteraas SK (+1.5) Asian handicap",
+      "price": 1.44,
+      "chance": 0.709,
       "result": null,
       "ft": null
      }
@@ -874,6 +1409,270 @@
    }
   ],
   "rated": [
+   {
+    "fixture": "PSV Eindhoven v Heerenveen",
+    "league": "Eredivisie",
+    "home": "PSV Eindhoven",
+    "away": "Heerenveen",
+    "kickoff": "2026-10-09",
+    "src": "model",
+    "p": [
+     0.656,
+     0.176,
+     0.168,
+     0.912,
+     0.763,
+     0.57,
+     0.689
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.6952
+     ],
+     [
+      "SB:18|total=2.5|Over 2.5",
+      0.765
+     ],
+     [
+      "SB:14|hcp=0:4|Away (0:4)",
+      0.8089
+     ],
+     [
+      "SB:16|hcp=-3.5|Away (+3.5)",
+      0.8089
+     ],
+     [
+      "SB:19|total=4.5|Under 4.5",
+      0.8148
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7105
+     ],
+     [
+      "SB:29||Yes",
+      0.6604
+     ],
+     [
+      "SB:26||Even",
+      0.5019
+     ],
+     [
+      "SB:23|variant=sr:exact_goals:3+|3+",
+      0.5441
+     ],
+     [
+      "SB:30||Both teams",
+      0.6748
+     ],
+     [
+      "SB:31||No",
+      0.7105
+     ],
+     [
+      "SB:33||No",
+      0.7262
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.6527
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.6198
+     ],
+     [
+      "SB:547|total=2.5|Home/Draw & Over 2.5",
+      0.694
+     ],
+     [
+      "SB:546||Home/Draw & Yes",
+      0.5821
+     ],
+     [
+      "SB:548||1-5",
+      0.7312
+     ],
+     [
+      "SB:60||Home",
+      0.5757
+     ],
+     [
+      "SB:63||Home or Away",
+      0.7255
+     ],
+     [
+      "SB:64||Home",
+      0.5757
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Nordsjaelland v Odense",
+    "league": "Danish Superliga",
+    "home": "Nordsjaelland",
+    "away": "Odense",
+    "kickoff": "2026-10-09",
+    "src": "model",
+    "p": [
+     0.567,
+     0.243,
+     0.19,
+     0.79,
+     0.547,
+     0.324,
+     0.545
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.611
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.7668
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.7934
+     ],
+     [
+      "SB:16|hcp=-2.5|Away (+2.5)",
+      0.7934
+     ],
+     [
+      "SB:19|total=3.5|Under 3.5",
+      0.8215
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7034
+     ],
+     [
+      "SB:29||Yes",
+      0.5948
+     ],
+     [
+      "SB:11||Home",
+      0.619
+     ],
+     [
+      "SB:26||Even",
+      0.5055
+     ],
+     [
+      "SB:13||Home",
+      0.611
+     ],
+     [
+      "SB:30||Both teams",
+      0.5894
+     ],
+     [
+      "SB:31||No",
+      0.6627
+     ],
+     [
+      "SB:33||No",
+      0.7041
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.5299
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.7
+     ],
+     [
+      "SB:548||1-4",
+      0.7253
+     ],
+     [
+      "SB:63||Home or Away",
+      0.6477
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Beveren v Lommel SK",
+    "league": "Belgian Pro League",
+    "home": "Beveren",
+    "away": "Lommel SK",
+    "kickoff": "2026-10-09",
+    "src": "model",
+    "p": [
+     0.404,
+     0.303,
+     0.293,
+     0.602,
+     0.33,
+     0.148,
+     0.396
+    ],
+    "pool": [
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.8403
+     ],
+     [
+      "SB:10||Home or Draw",
+      0.7352
+     ],
+     [
+      "SB:14|hcp=0:2|Away (0:2)",
+      0.7405
+     ],
+     [
+      "SB:16|hcp=-1.5|Away (+1.5)",
+      0.7405
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.7656
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.6822
+     ],
+     [
+      "SB:29||Yes",
+      0.5704
+     ],
+     [
+      "SB:26||Even",
+      0.5038
+     ],
+     [
+      "SB:30||Both teams",
+      0.544
+     ],
+     [
+      "SB:31||No",
+      0.6775
+     ],
+     [
+      "SB:33||No",
+      0.7462
+     ],
+     [
+      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      0.6201
+     ],
+     [
+      "SB:548||1-3",
+      0.6201
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7661
+     ]
+    ],
+    "ft": null
+   },
    {
     "fixture": "Wieczysta Krakow v Wisla Plock",
     "league": "Ekstraklasa",
@@ -893,59 +1692,55 @@
     "pool": [
      [
       "SB:18|total=1.5|Over 1.5",
-      0.7873
+      0.7929
      ],
      [
       "SB:10||Home or Away",
-      0.736
+      0.7377
      ],
      [
       "SB:14|hcp=0:2|Away (0:2)",
-      0.7746
+      0.7729
      ],
      [
       "SB:16|hcp=-1.5|Away (+1.5)",
-      0.7746
+      0.7729
      ],
      [
-      "SB:19|total=0.5|Over 0.5",
-      0.795
+      "SB:19|total=2.5|Under 2.5",
+      0.7825
      ],
      [
       "SB:20|total=0.5|Over 0.5",
-      0.7237
+      0.7283
      ],
      [
       "SB:29||Yes",
-      0.5813
+      0.5876
      ],
      [
       "SB:26||Even",
-      0.5116
+      0.5115
      ],
      [
       "SB:30||Both teams",
-      0.5804
+      0.5867
      ],
      [
       "SB:31||No",
-      0.7237
+      0.7283
      ],
      [
-      "SB:33||No",
-      0.7854
-     ],
-     [
-      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      "SB:547|total=1.5|Home/Away & Over 1.5",
       0.5888
      ],
      [
       "SB:548||2-4",
-      0.622
+      0.6217
      ],
      [
       "SB:63||Home or Draw",
-      0.7465
+      0.7407
      ]
     ],
     "ft": null
@@ -969,31 +1764,31 @@
     "pool": [
      [
       "SB:18|total=4.5|Under 4.5",
-      0.7916
+      0.7863
      ],
      [
       "SB:10||Home or Away",
-      0.7485
+      0.7509
      ],
      [
       "SB:14|hcp=0:2|Away (0:2)",
-      0.7725
+      0.762
      ],
      [
       "SB:16|hcp=-1.5|Away (+1.5)",
-      0.7725
+      0.762
      ],
      [
       "SB:19|total=2.5|Under 2.5",
-      0.7594
+      0.7483
      ],
      [
       "SB:20|total=0.5|Over 0.5",
-      0.7638
+      0.761
      ],
      [
       "SB:29||Yes",
-      0.6172
+      0.6205
      ],
      [
       "SB:26||Even",
@@ -1001,27 +1796,27 @@
      ],
      [
       "SB:30||Both teams",
-      0.6274
+      0.6306
      ],
      [
       "SB:31||No",
-      0.7638
+      0.761
      ],
      [
       "SB:36|total=2.5|Over 2.5 & Yes",
-      0.517
+      0.5218
      ],
      [
       "SB:547|total=1.5|Home/Away & Over 1.5",
-      0.6211
+      0.6263
      ],
      [
       "SB:548||2-4",
-      0.6164
+      0.6152
      ],
      [
       "SB:63||Home or Draw",
-      0.7244
+      0.7312
      ]
     ],
     "ft": null
@@ -1111,6 +1906,498 @@
     "ft": null
    },
    {
+    "fixture": "West Ham v QPR",
+    "league": "Championship",
+    "home": "West Ham",
+    "away": "QPR",
+    "kickoff": "2026-10-09",
+    "src": "model",
+    "p": [
+     0.607,
+     0.199,
+     0.194,
+     0.872,
+     0.688,
+     0.476,
+     0.642
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.6247
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.7671
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7953
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.7843
+     ],
+     [
+      "SB:16|hcp=-2.5|Away (+2.5)",
+      0.7843
+     ],
+     [
+      "SB:19|total=1.5|Over 1.5",
+      0.6461
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7138
+     ],
+     [
+      "SB:29||Yes",
+      0.5721
+     ],
+     [
+      "SB:11||Home",
+      0.6327
+     ],
+     [
+      "SB:26||Even",
+      0.5027
+     ],
+     [
+      "SB:13||Home",
+      0.6247
+     ],
+     [
+      "SB:30||Both teams",
+      0.5803
+     ],
+     [
+      "SB:31||No",
+      0.6517
+     ],
+     [
+      "SB:33||No",
+      0.6914
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.541
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.7059
+     ],
+     [
+      "SB:548||2-4",
+      0.6039
+     ],
+     [
+      "SB:63||Home or Away",
+      0.659
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Dortmund v Werder Bremen",
+    "league": "Bundesliga",
+    "home": "Dortmund",
+    "away": "Werder Bremen",
+    "kickoff": "2026-10-09",
+    "src": "model",
+    "p": [
+     0.735,
+     0.17,
+     0.096,
+     0.815,
+     0.595,
+     0.371,
+     0.471
+    ],
+    "pool": [
+     [
+      "SB:1||Home",
+      0.7252
+     ],
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.7354
+     ],
+     [
+      "SB:14|hcp=0:3|Away (0:3)",
+      0.6929
+     ],
+     [
+      "SB:16|hcp=-0.5|Home (-0.5)",
+      0.7252
+     ],
+     [
+      "SB:19|total=3.5|Under 3.5",
+      0.7456
+     ],
+     [
+      "SB:20|total=1.5|Under 1.5",
+      0.7764
+     ],
+     [
+      "SB:29||Yes",
+      0.5578
+     ],
+     [
+      "SB:26||Even",
+      0.5016
+     ],
+     [
+      "SB:30||Both teams",
+      0.5419
+     ],
+     [
+      "SB:31||No",
+      0.587
+     ],
+     [
+      "SB:33||No",
+      0.6202
+     ],
+     [
+      "SB:37|total=1.5|Home & Over 1.5",
+      0.643
+     ],
+     [
+      "SB:547|total=1.5|Home/Draw & Over 1.5",
+      0.7767
+     ],
+     [
+      "SB:548||2-5",
+      0.7205
+     ],
+     [
+      "SB:60||Home",
+      0.5505
+     ],
+     [
+      "SB:63||Home or Away",
+      0.6763
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Lens v Lyon",
+    "league": "Ligue 1",
+    "home": "Lens",
+    "away": "Lyon",
+    "kickoff": "2026-10-09",
+    "src": "model",
+    "p": [
+     0.521,
+     0.227,
+     0.253,
+     0.833,
+     0.624,
+     0.405,
+     0.62
+    ],
+    "pool": [
+     [
+      "SB:18|total=4.5|Under 4.5",
+      0.78
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7597
+     ],
+     [
+      "SB:14|hcp=0:2|Away (0:2)",
+      0.7648
+     ],
+     [
+      "SB:16|hcp=-1.5|Away (+1.5)",
+      0.7648
+     ],
+     [
+      "SB:19|total=2.5|Under 2.5",
+      0.7473
+     ],
+     [
+      "SB:20|total=2.5|Under 2.5",
+      0.8172
+     ],
+     [
+      "SB:29||Yes",
+      0.6254
+     ],
+     [
+      "SB:26||Even",
+      0.5026
+     ],
+     [
+      "SB:30||Both teams",
+      0.6306
+     ],
+     [
+      "SB:31||No",
+      0.7676
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5267
+     ],
+     [
+      "SB:547|total=1.5|Home/Away & Over 1.5",
+      0.6304
+     ],
+     [
+      "SB:548||2-4",
+      0.6087
+     ],
+     [
+      "SB:63||Home or Draw",
+      0.7198
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Moreirense v Gil Vicente",
+    "league": "Primeira Liga",
+    "home": "Moreirense",
+    "away": "Gil Vicente",
+    "kickoff": "2026-10-09",
+    "src": "model",
+    "p": [
+     0.307,
+     0.282,
+     0.411,
+     0.671,
+     0.406,
+     0.202,
+     0.465
+    ],
+    "pool": [
+     [
+      "SB:18|total=3.5|Under 3.5",
+      0.7908
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7137
+     ],
+     [
+      "SB:14|hcp=0:1|Away (0:1)",
+      0.6983
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.8097
+     ],
+     [
+      "SB:19|total=1.5|Under 1.5",
+      0.7174
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7252
+     ],
+     [
+      "SB:29||No",
+      0.5118
+     ],
+     [
+      "SB:26||Even",
+      0.5049
+     ],
+     [
+      "SB:31||No",
+      0.7252
+     ],
+     [
+      "SB:32||No",
+      0.65
+     ],
+     [
+      "SB:34||No",
+      0.7463
+     ],
+     [
+      "SB:547|total=4.5|Draw/Away & Under 4.5",
+      0.6416
+     ],
+     [
+      "SB:548||1-3",
+      0.6945
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7681
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Sp Braga v Sp Lisbon",
+    "league": "Primeira Liga",
+    "home": "Sp Braga",
+    "away": "Sp Lisbon",
+    "kickoff": "2026-10-09",
+    "src": "model",
+    "p": [
+     0.283,
+     0.236,
+     0.481,
+     0.805,
+     0.582,
+     0.358,
+     0.597
+    ],
+    "pool": [
+     [
+      "SB:18|total=1.5|Over 1.5",
+      0.7453
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7349
+     ],
+     [
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.7881
+     ],
+     [
+      "SB:16|hcp=1.5|Home (+1.5)",
+      0.7881
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.7004
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.769
+     ],
+     [
+      "SB:29||Yes",
+      0.5372
+     ],
+     [
+      "SB:26||Even",
+      0.5027
+     ],
+     [
+      "SB:30||Both teams",
+      0.5391
+     ],
+     [
+      "SB:31||No",
+      0.769
+     ],
+     [
+      "SB:32||No",
+      0.7004
+     ],
+     [
+      "SB:34||No",
+      0.7701
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6112
+     ],
+     [
+      "SB:548||2-6",
+      0.7252
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.7492
+     ]
+    ],
+    "ft": null
+   },
+   {
+    "fixture": "Malaga CF v Espanol",
+    "league": "La Liga",
+    "home": "Malaga CF",
+    "away": "Espanol",
+    "kickoff": "2026-10-09",
+    "src": "model",
+    "p": [
+     0.298,
+     0.284,
+     0.418,
+     0.673,
+     0.406,
+     0.203,
+     0.462
+    ],
+    "pool": [
+     [
+      "SB:18|total=3.5|Under 3.5",
+      0.7639
+     ],
+     [
+      "SB:10||Home or Away",
+      0.7196
+     ],
+     [
+      "SB:14|hcp=0:1|Away (0:1)",
+      0.6554
+     ],
+     [
+      "SB:16|hcp=-0.5|Away (+0.5)",
+      0.6554
+     ],
+     [
+      "SB:19|total=0.5|Over 0.5",
+      0.6955
+     ],
+     [
+      "SB:20|total=0.5|Over 0.5",
+      0.7192
+     ],
+     [
+      "SB:29||Yes",
+      0.5177
+     ],
+     [
+      "SB:26||Even",
+      0.505
+     ],
+     [
+      "SB:30||Both teams",
+      0.5006
+     ],
+     [
+      "SB:31||No",
+      0.7192
+     ],
+     [
+      "SB:32||No",
+      0.6955
+     ],
+     [
+      "SB:33||No",
+      0.8052
+     ],
+     [
+      "SB:34||No",
+      0.7814
+     ],
+     [
+      "SB:547|total=4.5|Home/Away & Under 4.5",
+      0.6235
+     ],
+     [
+      "SB:548||2-6",
+      0.6924
+     ],
+     [
+      "SB:63||Draw or Away",
+      0.727
+     ]
+    ],
+    "ft": null
+   },
+   {
     "fixture": "Avellino v Sampdoria",
     "league": "Serie B",
     "home": "Avellino",
@@ -1129,31 +2416,31 @@
     "pool": [
      [
       "SB:18|total=3.5|Under 3.5",
-      0.7667
+      0.7682
      ],
      [
       "SB:10||Home or Away",
-      0.7165
+      0.716
      ],
      [
       "SB:14|hcp=1:0|Home (1:0)",
-      0.6602
+      0.6655
      ],
      [
       "SB:16|hcp=1|Home (+1.0)",
-      0.6602
+      0.6655
      ],
      [
       "SB:19|total=0.5|Over 0.5",
-      0.7195
+      0.7216
      ],
      [
       "SB:20|total=0.5|Over 0.5",
-      0.6885
+      0.6845
      ],
      [
       "SB:29||Yes",
-      0.5167
+      0.5154
      ],
      [
       "SB:26||Even",
@@ -1161,23 +2448,23 @@
      ],
      [
       "SB:31||No",
-      0.6885
+      0.6845
      ],
      [
       "SB:32||No",
-      0.7195
+      0.7216
      ],
      [
       "SB:547|total=4.5|Home/Away & Under 4.5",
-      0.6218
+      0.6221
      ],
      [
       "SB:548||1-3",
-      0.6776
+      0.6786
      ],
      [
       "SB:63||Home or Draw",
-      0.7373
+      0.7385
      ]
     ],
     "ft": null
@@ -1201,59 +2488,55 @@
     "pool": [
      [
       "SB:18|total=4.5|Under 4.5",
-      0.8057
+      0.8146
      ],
      [
       "SB:10||Home or Away",
-      0.7525
+      0.751
      ],
      [
-      "SB:14|hcp=0:1|Away (0:1)",
-      0.6244
+      "SB:14|hcp=2:0|Home (2:0)",
+      0.8006
      ],
      [
       "SB:16|hcp=1.5|Home (+1.5)",
-      0.8124
+      0.8006
      ],
      [
-      "SB:19|total=2.5|Under 2.5",
-      0.8053
+      "SB:19|total=0.5|Over 0.5",
+      0.7645
      ],
      [
       "SB:20|total=2.5|Under 2.5",
-      0.7985
+      0.7942
      ],
      [
       "SB:29||Yes",
-      0.6141
+      0.6043
      ],
      [
       "SB:26||Even",
-      0.5001
+      0.5002
      ],
      [
       "SB:30||Both teams",
-      0.6104
+      0.6006
      ],
      [
       "SB:32||No",
-      0.7798
-     ],
-     [
-      "SB:36|total=2.5|Over 2.5 & Yes",
-      0.5012
+      0.7645
      ],
      [
       "SB:547|total=1.5|Home/Away & Over 1.5",
-      0.6064
+      0.6001
      ],
      [
       "SB:548||2-4",
-      0.6122
+      0.614
      ],
      [
       "SB:63||Draw or Away",
-      0.6956
+      0.7109
      ]
     ],
     "ft": null
@@ -1272,64 +2555,68 @@
      0.825,
      0.617,
      0.395,
-     0.627
+     0.626
     ],
     "pool": [
      [
       "SB:18|total=4.5|Under 4.5",
-      0.7994
+      0.7929
      ],
      [
       "SB:10||Home or Away",
-      0.7623
+      0.7633
      ],
      [
       "SB:14|hcp=0:2|Away (0:2)",
-      0.7285
+      0.7298
      ],
      [
       "SB:16|hcp=-1.5|Away (+1.5)",
-      0.7285
+      0.7298
      ],
      [
       "SB:19|total=2.5|Under 2.5",
-      0.7311
+      0.728
      ],
      [
       "SB:20|total=0.5|Over 0.5",
-      0.7253
+      0.7325
      ],
      [
       "SB:29||Yes",
-      0.5986
+      0.606
      ],
      [
       "SB:26||Even",
-      0.5001
+      0.5
      ],
      [
       "SB:30||Both teams",
-      0.6046
+      0.612
      ],
      [
       "SB:31||No",
-      0.7253
+      0.7325
      ],
      [
       "SB:33||No",
-      0.7703
+      0.7758
+     ],
+     [
+      "SB:36|total=2.5|Over 2.5 & Yes",
+      0.5082
      ],
      [
       "SB:547|total=1.5|Home/Away & Over 1.5",
-      0.6209
+      0.6255
      ],
      [
       "SB:548||2-4",
-      0.613
+      0.6118
      ],
      [
       "SB:63||Home or Draw",
-      0.7624
+      0.7578
      ]
     ],
     "ft": null
@@ -1346,74 +2633,74 @@
      0.338,
      0.228,
      0.553,
-     0.274,
+     0.275,
      0.112,
      0.352
     ],
     "pool": [
      [
       "SB:1||Home",
-      0.5407
+      0.5412
      ],
      [
       "SB:18|total=3.5|Under 3.5",
-      0.7896
+      0.7826
      ],
      [
       "SB:10||Home or Away",
-      0.7289
+      0.7307
      ],
      [
       "SB:14|hcp=0:2|Away (0:2)",
-      0.7072
+      0.7053
      ],
      [
       "SB:16|hcp=-1.5|Away (+1.5)",
-      0.7072
+      0.7053
      ],
      [
       "SB:19|total=2.5|Under 2.5",
-      0.7931
+      0.7883
      ],
      [
       "SB:20|total=0.5|Over 0.5",
-      0.5426
+      0.5492
      ],
      [
       "SB:29||No",
-      0.5411
+      0.534
      ],
      [
       "SB:11||Home",
-      0.5487
+      0.5492
      ],
      [
       "SB:26||Even",
-      0.5108
+      0.5106
      ],
      [
       "SB:13||Home",
-      0.5407
+      0.5412
      ],
      [
       "SB:31||No",
-      0.5426
+      0.5492
      ],
      [
       "SB:33||No",
-      0.647
+      0.6509
      ],
      [
       "SB:547|total=4.5|Home/Draw & Under 4.5",
-      0.7359
+      0.7311
      ],
      [
       "SB:548||1-3",
-      0.6852
+      0.6808
      ],
      [
       "SB:63||Draw or Away",
-      0.5994
+      0.6001
      ]
     ],
     "ft": null
@@ -1437,31 +2724,31 @@
     "pool": [
      [
       "SB:18|total=1.5|Over 1.5",
-      0.7617
+      0.761
      ],
      [
       "SB:10||Home or Away",
-      0.7327
+      0.7351
      ],
      [
       "SB:14|hcp=0:2|Away (0:2)",
-      0.7849
+      0.7691
      ],
      [
       "SB:16|hcp=-1.5|Away (+1.5)",
-      0.7849
+      0.7691
      ],
      [
       "SB:19|total=2.5|Under 2.5",
-      0.8105
+      0.8
      ],
      [
       "SB:20|total=0.5|Over 0.5",
-      0.7029
+      0.6887
      ],
      [
       "SB:29||Yes",
-      0.552
+      0.5467
      ],
      [
       "SB:26||Even",
@@ -1469,31 +2756,27 @@
      ],
      [
       "SB:30||Both teams",
-      0.5462
+      0.5408
      ],
      [
       "SB:31||No",
-      0.7029
-     ],
-     [
-      "SB:32||No",
-      0.7739
+      0.6887
      ],
      [
       "SB:33||No",
-      0.7723
+      0.7583
      ],
      [
-      "SB:547|total=4.5|Home/Away & Under 4.5",
-      0.6069
+      "SB:547|total=4.5|Home/Draw & Under 4.5",
+      0.6186
      ],
      [
       "SB:548||2-5",
-      0.6974
+      0.697
      ],
      [
       "SB:63||Home or Draw",
-      0.7507
+      0.7641
      ]
     ],
     "ft": null
@@ -1517,63 +2800,63 @@
     "pool": [
      [
       "SB:18|total=1.5|Over 1.5",
-      0.7461
+      0.7504
      ],
      [
       "SB:10||Home or Away",
-      0.7314
+      0.7327
      ],
      [
       "SB:14|hcp=0:2|Away (0:2)",
-      0.7711
+      0.7699
      ],
      [
       "SB:16|hcp=-1.5|Away (+1.5)",
-      0.7711
+      0.7699
      ],
      [
-      "SB:19|total=0.5|Over 0.5",
-      0.7788
+      "SB:19|total=2.5|Under 2.5",
+      0.8035
      ],
      [
-      "SB:20|total=1.5|Under 1.5",
-      0.6858
+      "SB:20|total=0.5|Over 0.5",
+      0.6822
      ],
      [
       "SB:29||Yes",
-      0.5333
+      0.5377
      ],
      [
       "SB:26||Even",
-      0.5071
+      0.507
      ],
      [
       "SB:30||Both teams",
-      0.531
+      0.5354
      ],
      [
       "SB:31||No",
-      0.6787
+      0.6822
      ],
      [
       "SB:32||No",
-      0.7788
+      0.7814
      ],
      [
       "SB:33||No",
-      0.7522
+      0.754
      ],
      [
       "SB:547|total=4.5|Home/Draw & Under 4.5",
-      0.6291
+      0.6262
      ],
      [
       "SB:548||2-5",
-      0.6905
+      0.6931
      ],
      [
       "SB:63||Home or Draw",
-      0.7636
+      0.7647
      ]
     ],
     "ft": null
@@ -1587,7 +2870,7 @@
     "src": "model",
     "p": [
      0.376,
-     0.378,
+     0.377,
      0.246,
      0.465,
      0.201,
@@ -1597,63 +2880,59 @@
     "pool": [
      [
       "SB:18|total=3.5|Under 3.5",
-      0.8356
+      0.8168
      ],
      [
       "SB:10||Home or Draw",
-      0.717
+      0.7133
      ],
      [
       "SB:14|hcp=1:0|Home (1:0)",
-      0.717
+      0.7133
      ],
      [
       "SB:16|hcp=0.5|Home (+0.5)",
-      0.717
+      0.7133
      ],
      [
       "SB:19|total=0.5|Over 0.5",
-      0.685
+      0.6979
      ],
      [
       "SB:20|total=1.5|Under 1.5",
-      0.764
+      0.7476
      ],
      [
       "SB:29||No",
-      0.5451
+      0.5253
      ],
      [
       "SB:26||Even",
-      0.5146
+      0.5137
      ],
      [
       "SB:31||No",
-      0.5971
+      0.6129
      ],
      [
       "SB:32||No",
-      0.685
+      0.6979
      ],
      [
       "SB:33||No",
-      0.7303
-     ],
-     [
-      "SB:36|total=2.5|Under 2.5 & No",
-      0.5197
+      0.7371
      ],
      [
       "SB:547|total=4.5|Home/Draw & Under 4.5",
-      0.6743
+      0.6637
      ],
      [
       "SB:548||1-3",
-      0.7024
+      0.6925
      ],
      [
       "SB:63||Home or Draw",
-      0.7844
+      0.7767
      ]
     ],
     "ft": null
@@ -1670,7 +2949,7 @@
      0.264,
      0.389,
      0.797,
-     0.559,
+     0.558,
      0.335,
      0.598
     ],
@@ -1757,67 +3036,67 @@
     "pool": [
      [
       "SB:1||Away",
-      0.5531
+      0.5576
      ],
      [
-      "SB:18|total=1.5|Over 1.5",
-      0.8064
+      "SB:18|total=4.5|Under 4.5",
+      0.7966
      ],
      [
       "SB:10||Draw or Away",
-      0.7788
+      0.7813
      ],
      [
       "SB:14|hcp=0:1|Away (0:1)",
-      0.7788
+      0.7813
      ],
      [
       "SB:16|hcp=-0.5|Away (+0.5)",
-      0.7788
+      0.7813
      ],
      [
       "SB:19|total=1.5|Under 1.5",
-      0.6852
+      0.6839
      ],
      [
       "SB:20|total=2.5|Under 2.5",
-      0.6923
+      0.6859
      ],
      [
       "SB:29||Yes",
-      0.5784
+      0.5818
      ],
      [
       "SB:11||Away",
-      0.5611
+      0.5656
      ],
      [
       "SB:12||Away",
-      0.5531
+      0.5576
      ],
      [
       "SB:30||Both teams",
-      0.5805
+      0.5839
      ],
      [
       "SB:32||No",
-      0.6795
+      0.6806
      ],
      [
       "SB:34||No",
-      0.7249
+      0.7247
      ],
      [
       "SB:547|total=1.5|Draw/Away & Over 1.5",
-      0.6432
+      0.6485
      ],
      [
       "SB:548||2-4",
-      0.6121
+      0.6115
      ],
      [
-      "SB:63||Draw or Away",
-      0.8005
+      "SB:63||Home or Away",
+      0.6267
      ]
     ],
     "ft": null
@@ -1841,67 +3120,67 @@
     "pool": [
      [
       "SB:1||Home",
-      0.725
+      0.716
      ],
      [
       "SB:18|total=4.5|Under 4.5",
-      0.7635
+      0.7778
      ],
      [
       "SB:14|hcp=0:3|Away (0:3)",
-      0.6981
+      0.7118
      ],
      [
       "SB:16|hcp=-0.5|Home (-0.5)",
-      0.725
+      0.716
      ],
      [
       "SB:19|total=3.5|Under 3.5",
-      0.7621
+      0.7771
      ],
      [
       "SB:20|total=1.5|Under 1.5",
-      0.8027
+      0.8056
      ],
      [
       "SB:29||Yes",
-      0.5229
+      0.5165
      ],
      [
       "SB:26||Even",
-      0.5052
+      0.5053
      ],
      [
       "SB:30||Both teams",
-      0.5126
+      0.5062
      ],
      [
       "SB:31||No",
-      0.5581
+      0.5546
      ],
      [
       "SB:33||No",
-      0.5981
+      0.5973
      ],
      [
       "SB:37|total=1.5|Home & Over 1.5",
-      0.6351
+      0.6215
      ],
      [
       "SB:547|total=1.5|Home/Draw & Over 1.5",
-      0.7682
+      0.7573
      ],
      [
-      "SB:548||2-5",
-      0.7245
+      "SB:548||1-4",
+      0.7351
      ],
      [
       "SB:60||Home",
-      0.5511
+      0.5449
      ],
      [
       "SB:63||Home or Away",
-      0.6719
+      0.6671
      ]
     ],
     "ft": null
@@ -1925,59 +3204,59 @@
     "pool": [
      [
       "SB:18|total=4.5|Under 4.5",
-      0.7448
+      0.7304
      ],
      [
       "SB:10||Home or Away",
-      0.7659
+      0.7698
      ],
      [
       "SB:14|hcp=2:0|Home (2:0)",
-      0.7507
+      0.7365
      ],
      [
       "SB:16|hcp=1.5|Home (+1.5)",
-      0.7507
+      0.7365
      ],
      [
       "SB:19|total=2.5|Under 2.5",
-      0.7991
+      0.798
      ],
      [
       "SB:20|total=2.5|Under 2.5",
-      0.715
+      0.6954
      ],
      [
       "SB:29||Yes",
-      0.6521
+      0.6617
      ],
      [
       "SB:26||Even",
-      0.5031
+      0.503
      ],
      [
       "SB:30||Both teams",
-      0.6639
+      0.6734
      ],
      [
       "SB:32||No",
-      0.7852
+      0.7861
      ],
      [
       "SB:36|total=2.5|Over 2.5 & Yes",
-      0.5669
+      0.5798
      ],
      [
       "SB:547|total=1.5|Home/Away & Over 1.5",
-      0.6547
+      0.6646
      ],
      [
       "SB:548||2-5",
-      0.725
+      0.7236
      ],
      [
       "SB:63||Draw or Away",
-      0.7257
+      0.7315
      ]
     ],
     "ft": null
@@ -2000,60 +3279,72 @@
     ],
     "pool": [
      [
+      "SB:1||Home",
+      0.5018
+     ],
+     [
       "SB:18|total=4.5|Under 4.5",
-      0.8069
+      0.7925
      ],
      [
       "SB:10||Home or Away",
-      0.7598
+      0.7659
      ],
      [
       "SB:14|hcp=1:0|Home (1:0)",
-      0.7267
+      0.7359
      ],
      [
       "SB:16|hcp=0.5|Home (+0.5)",
-      0.7267
+      0.7359
      ],
      [
       "SB:19|total=2.5|Under 2.5",
-      0.7349
+      0.7143
      ],
      [
       "SB:20|total=0.5|Over 0.5",
-      0.7149
+      0.7171
      ],
      [
       "SB:29||Yes",
-      0.5882
+      0.5978
+     ],
+     [
+      "SB:11||Home",
+      0.5098
      ],
      [
       "SB:26||Even",
-      0.5038
+      0.5037
+     ],
+     [
+      "SB:13||Home",
+      0.5018
      ],
      [
       "SB:30||Both teams",
-      0.5936
+      0.6031
      ],
      [
       "SB:31||No",
-      0.7149
+      0.7171
      ],
      [
       "SB:33||No",
-      0.7637
+      0.7621
      ],
      [
       "SB:547|total=1.5|Home/Away & Over 1.5",
-      0.618
+      0.632
      ],
      [
       "SB:548||2-4",
-      0.6164
+      0.6136
      ],
      [
       "SB:63||Home or Draw",
-      0.7653
+      0.7699
      ]
     ],
     "ft": null

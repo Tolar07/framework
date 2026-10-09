@@ -2,7 +2,7 @@
 ==================================
 
 📅  Fri 09 Oct 2026 — bet365 board (sent to you only)
-Run ID: OLPXDV-20261009-0535-558a5e (same run as the SportyBet board)
+Run ID: OLPXDV-20261009-0625-57b007 (same run as the SportyBet board)
 Times are kickoff, Lagos time (WAT)
 
 Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
@@ -15,6 +15,18 @@ Same fixtures, model and checks as the SportyBet board; each pick is limited to 
 bet365 SINGLES
 ──────────────────────────────────
 
+🇳🇱 Netherlands · Eredivisie
+ • 19:00 PSV Eindhoven v Heerenveen — Asian Handicap: Heerenveen +3.5
+   81% · deploy at 1.24+ · SportyBet @1.25 · MEDIUM
+
+🇩🇰 Denmark · Superliga
+ • 18:00 Nordsjaelland v Odense — Asian Handicap: Odense +2.5
+   79% · deploy at 1.27+ · SportyBet @1.26 · MEDIUM
+
+🇧🇪 Belgium · Pro League
+ • 19:45 Beveren v Lommel SK — Goals Over/Under: Under 4.5
+   84% · deploy at 1.20+ · SportyBet @1.22 · LOW
+
 🇵🇱 Poland · Ekstraklasa
  • 17:00 Wieczysta Krakow v Wisla Plock — Goals Over/Under: Over 1.5
    79% · deploy at 1.27+ · SportyBet @1.20 · HIGH
@@ -24,6 +36,29 @@ bet365 SINGLES
 🇭🇷 Croatia · HNL
  • 17:00 HNK Gorica v NK Rudes Zagreb — Goals Over/Under: Over 1.5
    77% · deploy at 1.30+ · SportyBet @1.25 · LOW
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship
+ • 20:00 West Ham v QPR — Double Chance: West Ham or QPR
+   80% · deploy at 1.26+ · SportyBet @1.20 · HIGH
+
+🇩🇪 Germany · Bundesliga
+ • 19:30 Dortmund v Werder Bremen — Double Chance & Goals: Dortmund or Werder Bremen & Over 1.5
+   72% · deploy at 1.39+ · SportyBet @1.25 · MEDIUM
+
+🇫🇷 France · Ligue 1
+ • 19:45 Lens v Lyon — Team Goals: Lyon Under 2.5
+   82% · deploy at 1.23+ · SportyBet @1.21 · MEDIUM
+
+🇵🇹 Portugal · Primeira Liga / Liga Portugal
+ • 18:45 Moreirense v Gil Vicente — Asian Handicap: Moreirense +1.5
+   81% · deploy at 1.24+ · SportyBet @1.20 · HIGH
+ • 20:15 Sp Braga v Sp Lisbon — Double Chance: Sp Braga or Sp Lisbon
+   73% · deploy at 1.37+ · SportyBet @1.33 · HIGH
+
+🇪🇸 Spain · La Liga
+ • 20:00 Malaga CF v Espanol — ≠ Goals Over/Under: Under 3.5
+   76% · deploy at 1.31+ · SportyBet @1.33 · MEDIUM
+   (SportyBet pick: Malaga CF Win to Nil — no — not on bet365)
 
 🇮🇹 Italy · Serie B
  • 19:30 Avellino v Sampdoria — Goals Over/Under: Under 3.5
@@ -67,24 +102,33 @@ bet365 SINGLES
 bet365 ACCAS
 (build by hand on bet365, strongest legs first)
 ──────────────────────────────────
-bet365 Acca A · 3 legs · chance 52% · deploy at 1.92+ combined
+bet365 Acca A · 3 legs · chance 56% · deploy at 1.82+ combined
+   • Beveren v Lommel SK (🇧🇪 Belgium · Pro League) — Goals Over/Under: Under 4.5 (84%)
+   • Lens v Lyon (🇫🇷 France · Ligue 1) — Team Goals: Lyon Under 2.5 (82%)
    • Braunschweig v Holstein Kiel (🇩🇪 Germany · 2. Bundesliga) — Goals Over/Under: Under 4.5 (81%)
+bet365 Acca B · 3 legs · chance 52% · deploy at 1.92+ combined
+   • Moreirense v Gil Vicente (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — Asian Handicap: Moreirense +1.5 (81%)
+   • PSV Eindhoven v Heerenveen (🇳🇱 Netherlands · Eredivisie) — Asian Handicap: Heerenveen +3.5 (81%)
    • Dunkerque v Annecy (🇫🇷 France · Ligue 2) — Asian Handicap: Annecy +1.5 (80%)
+bet365 Acca C · 3 legs · chance 50% · deploy at 2.00+ combined
    • Nancy v Guingamp (🇫🇷 France · Ligue 2) — Team Goals: Nancy Under 2.5 (80%)
-bet365 Acca B · 3 legs · chance 49% · deploy at 2.06+ combined
+   • West Ham v QPR (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: West Ham or QPR (80%)
+   • Nordsjaelland v Odense (🇩🇰 Denmark · Superliga) — Asian Handicap: Odense +2.5 (79%)
+bet365 Acca D · 3 legs · chance 49% · deploy at 2.06+ combined
    • Wieczysta Krakow v Wisla Plock (🇵🇱 Poland · Ekstraklasa) — Goals Over/Under: Over 1.5 (79%)
    • Heidenheim v Kaiserslautern (🇩🇪 Germany · 2. Bundesliga) — Goals Over/Under: Under 4.5 (79%)
    • Rakow v GKS Katowice (🇵🇱 Poland · Ekstraklasa) — Goals Over/Under: Under 4.5 (79%)
-bet365 Acca C · 3 legs · chance 47% · deploy at 2.11+ combined
+bet365 Acca E · 3 legs · chance 47% · deploy at 2.11+ combined
    • Pau FC v Laval (🇫🇷 France · Ligue 2) — Team Goals: Pau FC Over 0.5 (78%)
    • Sutton v Boreham Wood (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · National League) — Asian Handicap: Boreham Wood +0.5 (78%)
    • Galatasaray Istanbul v Kasimpasa Istanbul (🇹🇷 Turkey · Super Lig) — Goals Over/Under: Under 4.5 (78%)
-bet365 Acca D · 2 legs · chance 59% · deploy at 1.69+ combined
+bet365 Acca F · 3 legs · chance 46% · deploy at 2.21+ combined
    • HNK Gorica v NK Rudes Zagreb (🇭🇷 Croatia · HNL) — Goals Over/Under: Over 1.5 (77%)
    • SK Brann v Viking FK (🇳🇴 Norway · Eliteserien) — Double Chance: SK Brann or Viking FK (77%)
-bet365 Acca E · 2 legs · chance 59% · deploy at 1.72+ combined
    • Avellino v Sampdoria (🇮🇹 Italy · Serie B) — Goals Over/Under: Under 3.5 (77%)
+bet365 Acca G · 2 legs · chance 59% · deploy at 1.72+ combined
    • IFK Goteborg v Vasteraas SK (🇸🇪 Sweden · Allsvenskan) — Double Chance: IFK Goteborg or Vasteraas SK (77%)
+   • Malaga CF v Espanol (🇪🇸 Spain · La Liga) — Goals Over/Under: Under 3.5 (76%)
 
 ==================================
 Honest edge: not a demonstrated edge · Capital: Architect only.

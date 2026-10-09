@@ -41,8 +41,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-1",
    "drift_price": 1.2,
    "drift_pct": 0.0
   }
@@ -119,7 +119,7 @@
      0.6147
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   }
  ]
 }

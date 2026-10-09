@@ -45,6 +45,8 @@ SOURCE_TRUST = {
     # fotmob.com (Architect 2026-10-08, "the 20 fixtures must be verified always"):
     # a structured match feed like ESPN, used as a third fixture source.
     "fotmob.com": "T2",
+    # flashscore.co.uk (2026-10-09): the grading source, also a fixture source.
+    "flashscore.co.uk": "T2",
     # T3 — aggregators, lead-only, never verifying alone
     "predictz.com": "T3", "betinf.com": "T3", "fctables.com": "T3",
     # Rejected / JS-locked — never usable even as a lead

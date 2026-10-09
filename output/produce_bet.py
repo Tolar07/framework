@@ -1153,7 +1153,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
             out.append("ᴹ = MARKET-IMPLIED: no model history for this fixture — "
                        "priced from SportyBet with the margin removed; no edge claimed.")
         out.append("Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · "
-                   "ESPN · football-data · FotMob) · ○ = one source only · ⚠ = sources disagree "
+                   "ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree "
                    "(e.g. postponed) — not deployed")
     if no_data:
         out += ["", f"⚠ {len(no_data)} fixture(s) unresolved — NO DATA — PENDING (no "

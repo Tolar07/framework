@@ -1396,6 +1396,16 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         if mega_codes is None and board_code:
             out.append(f"Board MEGA: {board_code} ({len(shortlist)} legs · every single · "
                        f"stake 0.1%)")
+        if extra_codes.get("accas_mega"):
+            out.append(f"ACCAS MEGA: {extra_codes['accas_mega']} "
+                       f"({sum(len(l) for _, l, _ in accas)} legs · every Table 3 acca on one slip · "
+                       f"odds {_acca_odds([x for _, l, _ in accas for x in l]):,.2f} · stake 0.1%)")
+        if extra_codes.get("alts_mega"):
+            out.append(f"ALT MEGA: {extra_codes['alts_mega']} "
+                       f"({extra_codes.get('alts_mega_legs', '?')} legs · every alt acca on one slip · stake 0.1%)")
+        if extra_codes.get("value_mega"):
+            out.append(f"VALUE MEGA: {extra_codes['value_mega']} "
+                       f"({extra_codes.get('value_mega_legs', '?')} legs · every value bet on one slip · stake 0.1%)")
         megas = _build_megas(shortlist) if mega_codes is not None else []
         for name, legs, combo in megas:
             out.append(f"{name}: {(mega_codes or {}).get(name) or 'PENDING'} "

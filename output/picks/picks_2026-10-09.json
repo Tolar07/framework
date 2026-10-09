@@ -186,7 +186,9 @@
    "first_price": 1.22,
    "drift_since_board": -1.6,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Rakow v GKS Katowice",
@@ -282,7 +284,9 @@
    "first_price": 1.25,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.0
   },
   {
    "fixture": "West Ham v QPR",

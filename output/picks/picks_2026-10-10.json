@@ -666,7 +666,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Jagiellonia v Gornik Zabrze",
@@ -753,8 +755,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 1.68,
    "stake_pct": 0.12,
    "ev": -0.04782360492098925,
    "missing": {
@@ -1395,8 +1397,8 @@
     "spec": "hcp=2:0",
     "outcome": "Home (2:0)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.12,
    "ev": -0.01620608012623881,
    "missing": {
@@ -1532,7 +1534,11 @@
     "home": 79853103,
     "away": 687279507
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513228",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1632,7 +1638,11 @@
     "home": 86685888,
     "away": 244836584
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513230",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1682,7 +1692,11 @@
     "home": 25334406,
     "away": 267511136
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513236",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1732,7 +1746,11 @@
     "home": 56730485,
     "away": 30209469
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Union Berlin missing 25%",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513232",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -2836,7 +2854,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:73092956",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2845,8 +2867,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.043947734017364626,
    "missing": {
@@ -2886,7 +2908,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:73092960",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2895,8 +2921,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.045644891975075375,
    "missing": {
@@ -2936,7 +2962,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:73092970",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2945,8 +2975,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.12,
    "ev": 0.000960622533723976,
    "missing": {
@@ -2996,8 +3026,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -3.12,
    "stake_pct": 0.25,
    "ev": -0.022078665055888735,
    "missing": null,
@@ -5284,7 +5314,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72723236",
    "sb_tid": "sr:tournament:52",
    "sb_market": {
@@ -5293,8 +5327,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 5.04,
    "stake_pct": 0.25,
    "ev": -0.010429051602317996,
    "missing": {
@@ -5347,8 +5381,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.03629485279130018,
    "missing": {
@@ -5935,8 +5969,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": -0.0118928079632864,
    "missing": {
@@ -5989,8 +6023,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.04543677942353064,
    "missing": {
@@ -6052,7 +6086,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -2.5
   }
  ],
  "accas": [

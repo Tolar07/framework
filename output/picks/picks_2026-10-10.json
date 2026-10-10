@@ -172,7 +172,11 @@
     "home": 119725018,
     "away": 16549541
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "sb_event_id": "",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -328,7 +332,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:72364140",
    "sb_tid": "sr:tournament:38",
    "sb_market": {
@@ -2228,7 +2236,11 @@
     "home": 9087048,
     "away": 13613856
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Estoril at full strength",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:72530946",
    "sb_tid": "sr:tournament:238",
    "sb_market": {
@@ -2278,7 +2290,11 @@
     "home": 7305801,
     "away": 10348641
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:72530952",
    "sb_tid": "sr:tournament:238",
    "sb_market": {
@@ -2817,8 +2833,8 @@
     "spec": "total=5.5",
     "outcome": "Under 5.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 3.33,
    "stake_pct": 0.25,
    "ev": -0.0029940949700563158,
    "missing": {
@@ -2972,8 +2988,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -1.61,
    "stake_pct": 0.25,
    "ev": -0.0417816108396164,
    "missing": null,

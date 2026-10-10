@@ -234,7 +234,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.17,
+   "drift_pct": -3.3
   },
   {
    "fixture": "RAAL La Louviere v Club Brugge",
@@ -426,7 +428,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Falkirk v Dundee",
@@ -474,7 +478,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Hearts v St Mirren",
@@ -516,7 +522,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Rangers v Kilmarnock",
@@ -564,7 +572,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -1.7
   },
   {
    "fixture": "Cracovia v Zaglebie",
@@ -841,8 +851,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.01922628275208038,
    "missing": {
@@ -895,8 +905,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.029329195907189298,
    "missing": {
@@ -949,8 +959,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -0.81,
    "stake_pct": 0.25,
    "ev": -0.05261695239772923,
    "missing": {
@@ -1012,7 +1022,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Bolton Wanderers v Stoke",
@@ -1060,7 +1072,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Derby v Wrexham",
@@ -1108,7 +1122,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Middlesbrough v Wolves",
@@ -1156,7 +1172,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Preston v Millwall",
@@ -1204,7 +1222,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Sheffield United v Lincoln City",
@@ -1252,7 +1272,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Watford v Burnley",
@@ -1300,7 +1322,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Genoa v Fiorentina",
@@ -2155,8 +2179,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02843657561973123,
    "missing": {
@@ -2218,7 +2242,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Chelsea v Bournemouth",
@@ -2266,7 +2292,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 2.4
   },
   {
    "fixture": "Ipswich Town v Fulham",
@@ -2314,7 +2342,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Sunderland v Brighton",
@@ -2362,7 +2392,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Man United v Tottenham",
@@ -3392,8 +3424,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": -1.53,
    "stake_pct": 0.25,
    "ev": -0.03520074377985605,
    "missing": null,
@@ -3430,7 +3462,11 @@
     "home": 4358614,
     "away": 3993669
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:00Z"
+   },
    "sb_event_id": "sr:match:72341254",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3439,8 +3475,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03641228710273792,
    "missing": {
@@ -3502,7 +3538,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": -2.4
   },
   {
    "fixture": "Cambridge United v Blackpool FC",
@@ -3550,7 +3588,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Doncaster Rovers v Burton",
@@ -3598,7 +3638,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Huddersfield v Sheffield Wednesday",
@@ -3646,7 +3688,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Leicester v Peterborough United",
@@ -3694,7 +3738,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Mansfield v Bromley FC",
@@ -3742,7 +3788,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Milton Keynes Dons v Reading",
@@ -3790,7 +3838,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Stevenage FC v Wigan",
@@ -3832,7 +3882,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Stockport County FC v Barnsley",
@@ -3880,7 +3932,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.33,
+   "drift_pct": 1.5
   },
   {
    "fixture": "Wycombe Wanderers v Luton",
@@ -3928,7 +3982,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Oldham v Accrington",
@@ -3954,7 +4010,11 @@
     "home": 2003557,
     "away": 1145696
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:00Z"
+   },
    "sb_event_id": "sr:match:72342160",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -3963,8 +4023,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -3.08,
    "stake_pct": 0.25,
    "ev": -0.04174984786858993,
    "missing": {
@@ -4004,7 +4064,11 @@
     "home": 1646768,
     "away": 1662533
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:00Z"
+   },
    "sb_event_id": "sr:match:72342176",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4013,8 +4077,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.052305973873050804,
    "missing": {
@@ -4076,7 +4140,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Cheltenham v Salford",
@@ -4124,7 +4190,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Crawley Town v Chesterfield",
@@ -4172,7 +4240,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Fleetwood Town v Walsall",
@@ -4220,7 +4290,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -1.7
   },
   {
    "fixture": "Newport County v Colchester United",
@@ -4268,7 +4340,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Port Vale v Grimsby",
@@ -4316,7 +4390,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Rotherham v Gillingham",
@@ -4364,7 +4440,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Shrewsbury v Exeter",
@@ -4412,7 +4490,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Tranmere v Rochdale",
@@ -4460,7 +4540,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "York City FC v Northampton",
@@ -4508,7 +4590,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Altrincham v Aldershot",
@@ -4534,7 +4618,11 @@
     "home": 708978,
     "away": 215392
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:00Z"
+   },
    "sb_event_id": "sr:match:72740696",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -4543,8 +4631,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 1.68,
    "stake_pct": 0.25,
    "ev": -0.009613655147031941,
    "missing": {
@@ -4584,7 +4672,11 @@
     "home": 956636,
     "away": 582349
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Kidderminster Harriers at full strength",
+    "at": "11:00Z"
+   },
    "sb_event_id": "sr:match:72740698",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -4593,8 +4685,8 @@
     "spec": "hcp=-2.5",
     "outcome": "Away (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -0.81,
    "stake_pct": 0.12,
    "ev": 0.009739943609335278,
    "missing": {
@@ -4656,7 +4748,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Hornchurch v Eastleigh",
@@ -4704,7 +4798,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Boston Utd v Southend",
@@ -4752,7 +4848,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Halifax v Gateshead",
@@ -4800,7 +4898,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Tamworth v Barrow",
@@ -4848,7 +4948,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Wealdstone v Yeovil",
@@ -4896,7 +4998,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Woking v Harrogate",
@@ -4944,7 +5048,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Worthing v Solihull",
@@ -4992,7 +5098,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Forest Green Rovers v Hartlepool",
@@ -5674,7 +5782,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.17,
+   "drift_pct": -3.3
   },
   {
    "fixture": "Rosenborg BK v Sandefjord Fotball",

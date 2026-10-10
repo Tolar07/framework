@@ -666,7 +666,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:72043192",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -675,8 +679,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": -0.060372839990970095,
    "missing": {
@@ -3548,7 +3552,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Notts County v Oxford United",
@@ -5918,7 +5924,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:72176960",
    "sb_tid": "sr:tournament:215",
    "sb_market": {
@@ -5968,7 +5978,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:72176964",
    "sb_tid": "sr:tournament:215",
    "sb_market": {
@@ -6297,8 +6311,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 1.68,
    "stake_pct": 0.25,
    "ev": -0.04117398669773986,
    "missing": {

@@ -1,0 +1,42 @@
+{
+ "date": "2026-10-11",
+ "picks": [
+  {
+   "market_id": "223",
+   "specifier": "hcp=2.5",
+   "outcome": "Home (+2.5)",
+   "outcome_id": "1714",
+   "price": 1.58,
+   "chance": 0.6693,
+   "fair_price": 1.494,
+   "ev": 0.0575,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-10-10T21:30:00.000099+00:00",
+   "stage": "preseason",
+   "event_id": "sr:match:73323628",
+   "home_key": "IND",
+   "away_key": "ATL",
+   "bet365": {
+    "pick": "Game Lines \u203a Spread: IND Pacers +2.5",
+    "take_at": 1.57
+   },
+   "espn_id": "401898396",
+   "espn_date": "2026-10-10",
+   "tip": "2026-10-10T23:00:00+00:00",
+   "home": "Indiana Pacers",
+   "away": "Atlanta Hawks",
+   "pick": "Indiana Pacers (+2.5) handicap",
+   "sharp": {
+    "ml_home": 1.6452,
+    "ml_away": 2.3,
+    "spread": -3.5,
+    "total": 236.5
+   },
+   "code": "HK8MMS",
+   "result": null,
+   "score": null,
+   "close_value": null
+  }
+ ]
+}

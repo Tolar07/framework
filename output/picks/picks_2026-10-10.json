@@ -5506,7 +5506,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -3.9
   },
   {
    "fixture": "WSG Tirol v SV Ried",
@@ -5554,7 +5556,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "FK Austria Wien v Sturm Graz",

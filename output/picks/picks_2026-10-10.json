@@ -818,7 +818,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Charlton v Bristol City",
@@ -1460,7 +1462,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 2.5
   },
   {
    "fixture": "Napoli v Frosinone",
@@ -1547,8 +1551,8 @@
     "spec": "total=6.5",
     "outcome": "Under 6.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -0.81,
    "stake_pct": 0.25,
    "ev": 0.010156162528904833,
    "missing": {
@@ -1588,7 +1592,11 @@
     "home": 141115354,
     "away": 83026404
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Hamburger SV missing 21%",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72513224",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1597,8 +1605,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Draw & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.0667786206185591,
    "missing": {
@@ -1651,8 +1659,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.25,
    "ev": -0.0099987186719529,
    "missing": {
@@ -1705,8 +1713,8 @@
     "spec": "total=5.5",
     "outcome": "Under 5.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -2.44,
    "stake_pct": 0.12,
    "ev": 0.02759375061468816,
    "missing": {
@@ -1759,8 +1767,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -1.61,
    "stake_pct": 0.25,
    "ev": -0.024708536948763515,
    "missing": {
@@ -2276,7 +2284,11 @@
     "home": 298919721,
     "away": 356569835
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72221294",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -2326,7 +2338,11 @@
     "home": 496622844,
     "away": 273226287
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72221296",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -2376,7 +2392,11 @@
     "home": 180380129,
     "away": 237091512
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Ipswich Town missing 15%",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72221304",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -2426,7 +2446,11 @@
     "home": 223136354,
     "away": 271765454
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72221310",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -3652,7 +3676,11 @@
     "home": 3538323,
     "away": 5425203
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72341240",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -5444,7 +5472,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -3.3
   },
   {
    "fixture": "AEK Athens v OFI Crete",
@@ -5736,7 +5766,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Lugano v FC Luzern",
@@ -5784,7 +5816,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Servette Geneva v FC Sion",
@@ -5832,7 +5866,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -3.2
   },
   {
    "fixture": "Bodoe/Glimt v Kristiansund BK",
@@ -5858,7 +5894,11 @@
     "home": 41845108,
     "away": 7328957
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:67015402",
    "sb_tid": "sr:tournament:20",
    "sb_market": {
@@ -5930,7 +5970,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "AIK v IF Brommapojkarna",

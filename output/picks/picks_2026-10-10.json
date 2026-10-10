@@ -606,7 +606,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Slask Wroclaw v Lech Poznan",
@@ -750,7 +752,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "NK Osijek v NK Istra 1961",
@@ -824,7 +828,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Charlton Athletic at full strength",
+    "at": "10:00Z"
+   },
    "sb_event_id": "sr:match:72339868",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -874,7 +882,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Norwich City at full strength",
+    "at": "10:00Z"
+   },
    "sb_event_id": "sr:match:72339880",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -924,7 +936,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Birmingham City at full strength",
+    "at": "10:00Z"
+   },
    "sb_event_id": "sr:match:72339884",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1332,7 +1348,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Inter v Parma",
@@ -2752,7 +2770,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Empoli v Palermo",
@@ -2800,7 +2820,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sudtirol v Ascoli Calcio 1898",
@@ -2848,7 +2870,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Virtus Entella v Juve Stabia",
@@ -2890,7 +2914,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.8
   },
   {
    "fixture": "L.R. Vicenza v SC Pisa",
@@ -5014,7 +5040,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:00Z"
+   },
    "sb_event_id": "sr:match:72723240",
    "sb_tid": "sr:tournament:52",
    "sb_market": {
@@ -5023,8 +5053,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -3.08,
    "stake_pct": 0.25,
    "ev": -0.01774305644845109,
    "missing": {
@@ -5086,7 +5116,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -2.4
   },
   {
    "fixture": "Samsunspor v Trabzonspor",
@@ -5134,7 +5166,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Caykur Rizespor v Fenerbahce Istanbul",
@@ -5710,7 +5744,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "GAIS v IK Sirius",
@@ -5758,7 +5794,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Mjallby AIF v Degerfors IF",

@@ -606,8 +606,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04099007971205049,
    "missing": null,
@@ -740,7 +740,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:71913088",
    "sb_tid": "sr:tournament:170",
    "sb_market": {
@@ -1000,7 +1004,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Blackburn Rovers at full strength",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72339864",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1050,7 +1058,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Bolton Wanderers at full strength",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72339866",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1100,7 +1112,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Derby County at full strength",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72339870",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1150,7 +1166,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Middlesbrough at full strength",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72339872",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1200,7 +1220,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Preston North End at full strength",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72339874",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1250,7 +1274,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Lincoln City at full strength",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72339876",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1300,7 +1328,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72339882",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1350,7 +1382,11 @@
     "home": 82601512,
     "away": 174313291
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Genoa missing 30% of value (Lorenzo Colombo, Franz-Ethan Meichtry, Lorenzo Venturino); support: Fiorentina missing 16%",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:71945292",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -1810,7 +1846,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Brest v Angers",
@@ -2945,7 +2983,11 @@
    "fotmob_id": 5967094,
    "kickoff_utc": "2026-10-10T13:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Juve Stabia at full strength",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:73092962",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -3014,7 +3056,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 4.0
   },
   {
    "fixture": "SS Arezzo v Cremonese",
@@ -5290,7 +5334,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72723248",
    "sb_tid": "sr:tournament:52",
    "sb_market": {

@@ -324,162 +324,123 @@
    "retired": "2026-10-06"
   },
   {
-   "lineage_id": "ln_61e179d213",
-   "parent_id": "ln_e9e0774235",
-   "generation": 7,
-   "bankroll": 1.99,
-   "stake": 1.0,
-   "wins": 0,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-05",
-   "last_result": null,
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-10",
-    "fixture": "Charlton v Bristol City",
-    "pick": "Charlton (+1.5) Asian handicap",
-    "price": 1.21
-   }
-  },
-  {
-   "lineage_id": "ln_b34f09d959",
-   "parent_id": "ln_e9e0774235",
-   "generation": 7,
-   "bankroll": 1.99,
-   "stake": 1.0,
-   "wins": 0,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-05",
-   "last_result": null,
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-10",
-    "fixture": "Real Madrid v Villarreal",
-    "pick": "Under 5.5 goals",
-    "price": 1.24
-   }
-  },
-  {
-   "lineage_id": "ln_a9d1b852ea",
-   "parent_id": "ln_417ce36d31",
-   "generation": 6,
-   "bankroll": 3.44,
-   "stake": 1.0,
-   "wins": 0,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-03",
-   "last_result": null,
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-10",
-    "fixture": "Ajax v Nijmegen",
-    "pick": "Under 5.5 goals",
-    "price": 1.23
-   }
-  },
-  {
-   "lineage_id": "ln_8c4480fa24",
-   "parent_id": "ln_417ce36d31",
-   "generation": 6,
-   "bankroll": 3.44,
-   "stake": 1.0,
-   "wins": 0,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-03",
-   "last_result": null,
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-10",
-    "fixture": "Altrincham v Aldershot",
-    "pick": "Under 4.5 goals",
-    "price": 1.23
-   }
-  },
-  {
    "lineage_id": "ln_867ad88c97",
    "parent_id": "ln_f105f80e4a",
    "generation": 6,
-   "bankroll": 3.44,
+   "bankroll": 2.44,
    "stake": 1.0,
    "wins": 0,
-   "losses": 0,
-   "alive": true,
+   "losses": 1,
+   "alive": false,
    "born_date": "2026-10-03",
-   "last_result": null,
+   "last_result": "LOSS",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-10",
-    "fixture": "AIK v IF Brommapojkarna",
-    "pick": "Under 4.5 goals",
-    "price": 1.22
-   }
-  },
-  {
-   "lineage_id": "ln_6e239f1f3d",
-   "parent_id": "ln_f105f80e4a",
-   "generation": 6,
-   "bankroll": 3.44,
-   "stake": 1.0,
-   "wins": 0,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-03",
-   "last_result": null,
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-10",
-    "fixture": "Tranmere v Rochdale",
-    "pick": "Tranmere Under 2.5 goals",
-    "price": 1.22
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_732aef7fd7",
    "parent_id": "ln_601e69c765",
    "generation": 6,
-   "bankroll": 3.46,
+   "bankroll": 2.46,
    "stake": 1.0,
    "wins": 0,
+   "losses": 1,
+   "alive": false,
+   "born_date": "2026-10-03",
+   "last_result": "LOSS",
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_61e179d213",
+   "parent_id": "ln_e9e0774235",
+   "generation": 8,
+   "bankroll": 2.2,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-05",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_b34f09d959",
+   "parent_id": "ln_e9e0774235",
+   "generation": 8,
+   "bankroll": 2.23,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-05",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_a9d1b852ea",
+   "parent_id": "ln_417ce36d31",
+   "generation": 7,
+   "bankroll": 3.67,
+   "stake": 1.0,
+   "wins": 1,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-03",
-   "last_result": null,
+   "last_result": "WIN",
    "to_breed": false,
    "holding": {
-    "date": "2026-10-10",
-    "fixture": "Watford v Burnley",
-    "pick": "Burnley Win to Nil — no",
-    "price": 1.2
+    "date": "2026-10-11",
+    "fixture": "Benfica v Guimaraes",
+    "pick": "Guimaraes (+3.5) Asian handicap",
+    "price": 1.22
+   }
+  },
+  {
+   "lineage_id": "ln_8c4480fa24",
+   "parent_id": "ln_417ce36d31",
+   "generation": 7,
+   "bankroll": 3.67,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-11",
+    "fixture": "Excelsior v Groningen",
+    "pick": "Under 4.5 goals",
+    "price": 1.24
+   }
+  },
+  {
+   "lineage_id": "ln_6e239f1f3d",
+   "parent_id": "ln_f105f80e4a",
+   "generation": 7,
+   "bankroll": 3.66,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-11",
+    "fixture": "Hammarby IF v Djurgardens IF",
+    "pick": "Under 4.5 goals",
+    "price": 1.23
    }
   },
   {
    "lineage_id": "ln_3b4f47d5a8",
    "parent_id": "ln_601e69c765",
-   "generation": 6,
-   "bankroll": 3.46,
-   "stake": 1.0,
-   "wins": 0,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-03",
-   "last_result": null,
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-10",
-    "fixture": "Eldense v Cordoba",
-    "pick": "Under 4.5 goals",
-    "price": 1.2
-   }
-  },
-  {
-   "lineage_id": "ln_8afb2b090f",
-   "parent_id": "ln_3d6fe17e3f",
    "generation": 7,
-   "bankroll": 3.73,
+   "bankroll": 3.66,
    "stake": 1.0,
    "wins": 1,
    "losses": 0,
@@ -487,29 +448,43 @@
    "born_date": "2026-10-03",
    "last_result": "WIN",
    "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_8afb2b090f",
+   "parent_id": "ln_3d6fe17e3f",
+   "generation": 8,
+   "bankroll": 3.94,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-03",
+   "last_result": "WIN",
+   "to_breed": false,
    "holding": {
-    "date": "2026-10-10",
-    "fixture": "Dundee United v Hibernian",
-    "pick": "Under 4.5 goals",
-    "price": 1.21
+    "date": "2026-10-11",
+    "fixture": "AE Kifisia FC v Panaitolikos Agrinio",
+    "pick": "AE Kifisia FC Under 2.5 goals",
+    "price": 1.2
    }
   },
   {
    "lineage_id": "ln_a35b0bff5b",
    "parent_id": "ln_3d6fe17e3f",
-   "generation": 7,
-   "bankroll": 3.77,
+   "generation": 8,
+   "bankroll": 3.97,
    "stake": 1.0,
-   "wins": 1,
+   "wins": 2,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-03",
    "last_result": "WIN",
    "to_breed": false,
    "holding": {
-    "date": "2026-10-10",
-    "fixture": "Monaco v Toulouse",
-    "pick": "Toulouse (0:3) handicap",
+    "date": "2026-10-11",
+    "fixture": "Mechelen v St Truiden",
+    "pick": "Under 4.5 goals",
     "price": 1.2
    }
   },
@@ -542,42 +517,90 @@
    "holding": null
   },
   {
+   "lineage_id": "ln_be8217fa8d",
+   "parent_id": "ln_aa9e5f6067",
+   "generation": 8,
+   "bankroll": 2.0,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-10",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_34e695b566",
+   "parent_id": "ln_aa9e5f6067",
+   "generation": 8,
+   "bankroll": 2.0,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-10",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
    "lineage_id": "ln_aa9e5f6067",
    "parent_id": "ln_f3c552988d",
    "generation": 7,
-   "bankroll": 3.78,
+   "bankroll": 3.99,
    "stake": 1.0,
-   "wins": 1,
+   "wins": 2,
    "losses": 0,
-   "alive": true,
+   "alive": false,
    "born_date": "2026-10-03",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-10",
-    "fixture": "Bodoe/Glimt v Kristiansund BK",
-    "pick": "Under 6.5 goals",
-    "price": 1.21
-   }
+   "holding": null,
+   "retired": "2026-10-10"
+  },
+  {
+   "lineage_id": "ln_176de4cf5c",
+   "parent_id": "ln_9c27faf9ca",
+   "generation": 8,
+   "bankroll": 2.0,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-10",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_e64a90d058",
+   "parent_id": "ln_9c27faf9ca",
+   "generation": 8,
+   "bankroll": 2.0,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-10",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
   },
   {
    "lineage_id": "ln_9c27faf9ca",
    "parent_id": "ln_bb003255bf",
    "generation": 7,
-   "bankroll": 3.77,
+   "bankroll": 3.99,
    "stake": 1.0,
-   "wins": 1,
+   "wins": 2,
    "losses": 0,
-   "alive": true,
+   "alive": false,
    "born_date": "2026-10-03",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-10",
-    "fixture": "Augsburg v Bayern Munich",
-    "pick": "Under 6.5 goals",
-    "price": 1.22
-   }
+   "holding": null,
+   "retired": "2026-10-10"
   },
   {
    "lineage_id": "ln_d80398a8ed",

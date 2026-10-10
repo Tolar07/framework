@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-09",
+ "updated": "2026-10-10",
  "window_days": 21,
- "graded": 108,
+ "graded": 133,
  "segments": [
   {
    "segment": "Asian handicap (underdog)",
@@ -16,16 +16,16 @@
    "flag": true
   },
   {
-   "segment": "Asian handicap (underdog)",
+   "segment": "DC & total",
    "league": "all",
-   "n": 21,
-   "wins": 15,
-   "hit": 0.714,
-   "need": 0.816,
-   "pl": -2.58,
-   "z": -0.9,
-   "days": 2,
-   "flag": true
+   "n": 3,
+   "wins": 0,
+   "hit": 0.0,
+   "need": 0.813,
+   "pl": -3.0,
+   "z": -2.94,
+   "days": 3,
+   "flag": false
   },
   {
    "segment": "Over/Under",
@@ -42,13 +42,25 @@
   {
    "segment": "Over/Under",
    "league": "all",
-   "n": 25,
-   "wins": 19,
-   "hit": 0.76,
-   "need": 0.805,
-   "pl": -1.3,
+   "n": 34,
+   "wins": 26,
+   "hit": 0.765,
+   "need": 0.803,
+   "pl": -1.55,
+   "z": -0.3,
+   "days": 6,
+   "flag": false
+  },
+  {
+   "segment": "Asian handicap (underdog)",
+   "league": "all",
+   "n": 26,
+   "wins": 20,
+   "hit": 0.769,
+   "need": 0.816,
+   "pl": -1.44,
    "z": -0.32,
-   "days": 5,
+   "days": 3,
    "flag": false
   },
   {
@@ -77,18 +89,6 @@
   },
   {
    "segment": "Double chance",
-   "league": "La Liga 2",
-   "n": 4,
-   "wins": 3,
-   "hit": 0.75,
-   "need": 0.782,
-   "pl": -0.21,
-   "z": 0.01,
-   "days": 2,
-   "flag": false
-  },
-  {
-   "segment": "Double chance",
    "league": "UEFA Nations League",
    "n": 5,
    "wins": 4,
@@ -112,15 +112,39 @@
    "flag": false
   },
   {
+   "segment": "Double chance",
+   "league": "La Liga 2",
+   "n": 5,
+   "wins": 4,
+   "hit": 0.8,
+   "need": 0.788,
+   "pl": 0.02,
+   "z": 0.24,
+   "days": 2,
+   "flag": false
+  },
+  {
+   "segment": "Home goals",
+   "league": "all",
+   "n": 10,
+   "wins": 8,
+   "hit": 0.8,
+   "need": 0.792,
+   "pl": 0.23,
+   "z": 0.2,
+   "days": 5,
+   "flag": false
+  },
+  {
    "segment": "Away goals",
    "league": "all",
-   "n": 7,
-   "wins": 6,
-   "hit": 0.857,
-   "need": 0.809,
-   "pl": 0.41,
-   "z": 0.43,
-   "days": 2,
+   "n": 8,
+   "wins": 7,
+   "hit": 0.875,
+   "need": 0.811,
+   "pl": 0.62,
+   "z": 0.56,
+   "days": 3,
    "flag": false
   },
   {
@@ -184,39 +208,15 @@
    "flag": false
   },
   {
-   "segment": "Home goals",
-   "league": "all",
-   "n": 7,
-   "wins": 6,
-   "hit": 0.857,
-   "need": 0.784,
-   "pl": 0.77,
-   "z": 0.57,
-   "days": 4,
-   "flag": false
-  },
-  {
    "segment": "Asian handicap (underdog)",
    "league": "National League",
-   "n": 3,
-   "wins": 3,
-   "hit": 1.0,
-   "need": 0.793,
-   "pl": 0.79,
-   "z": 0.93,
-   "days": 1,
-   "flag": false
-  },
-  {
-   "segment": "Multigoals",
-   "league": "all",
    "n": 4,
    "wins": 4,
    "hit": 1.0,
-   "need": 0.817,
-   "pl": 0.9,
-   "z": 1.31,
-   "days": 3,
+   "need": 0.799,
+   "pl": 1.01,
+   "z": 1.07,
+   "days": 2,
    "flag": false
   },
   {
@@ -229,6 +229,18 @@
    "pl": 1.1,
    "z": 0.92,
    "days": 2,
+   "flag": false
+  },
+  {
+   "segment": "Multigoals",
+   "league": "all",
+   "n": 5,
+   "wins": 5,
+   "hit": 1.0,
+   "need": 0.816,
+   "pl": 1.13,
+   "z": 1.47,
+   "days": 4,
    "flag": false
   },
   {
@@ -258,13 +270,13 @@
   {
    "segment": "Double chance",
    "league": "all",
-   "n": 31,
-   "wins": 28,
-   "hit": 0.903,
-   "need": 0.803,
-   "pl": 3.68,
-   "z": 1.74,
-   "days": 4,
+   "n": 35,
+   "wins": 31,
+   "hit": 0.886,
+   "need": 0.804,
+   "pl": 3.41,
+   "z": 1.6,
+   "days": 5,
    "flag": false
   }
  ],
@@ -312,6 +324,14 @@
    "flags": [
     "Asian handicap (underdog) · FA Cup · -3.27u (8/13)",
     "Asian handicap (underdog) · all · -2.58u (15/21)"
+   ]
+  },
+  {
+   "date": "2026-10-10",
+   "graded": 133,
+   "corrections": {},
+   "flags": [
+    "Asian handicap (underdog) · FA Cup · -3.27u (8/13)"
    ]
   }
  ]

@@ -270,7 +270,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:72364138",
    "sb_tid": "sr:tournament:38",
    "sb_market": {
@@ -342,7 +346,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 3.2
   },
   {
    "fixture": "Waregem v Gent",
@@ -390,7 +396,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.4,
+   "drift_pct": 7.7
   },
   {
    "fixture": "Dundee United v Hibernian",
@@ -1548,7 +1556,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Augsburg v Bayern Munich",
@@ -1850,8 +1860,8 @@
     "spec": "hcp=1:0",
     "outcome": "Home (1:0)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": -0.03535371992113834,
    "missing": null,
@@ -1964,7 +1974,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -3.2
   },
   {
    "fixture": "Lorient v Paris FC",
@@ -2012,7 +2024,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 2.4
   },
   {
    "fixture": "Monaco v Toulouse",
@@ -2060,7 +2074,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Paris SG v Le Mans FC",
@@ -2102,7 +2118,9 @@
    "first_price": 2.0,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.87,
+   "drift_pct": -6.5
   },
   {
    "fixture": "Maritimo Madeira v Porto",
@@ -2557,8 +2575,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02490824345051179,
    "missing": {
@@ -2696,7 +2714,11 @@
     "home": 831661616,
     "away": 42672858
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:72478612",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -2705,8 +2727,8 @@
     "spec": "total=5.5",
     "outcome": "Under 5.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.81,
    "stake_pct": 0.12,
    "ev": 0.019801010594936663,
    "missing": {
@@ -2768,7 +2790,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Ceuta v Sabadell",
@@ -2861,8 +2885,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 2.54,
    "stake_pct": 0.25,
    "ev": -0.016878264760270656,
    "missing": {
@@ -2918,7 +2942,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 4.1
   },
   {
    "fixture": "Benevento Calcio v Cesena",
@@ -5433,8 +5459,8 @@
     "spec": "hcp=0.5",
     "outcome": "Home (+0.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04838335426919904,
    "missing": {
@@ -5690,7 +5716,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:72936066",
    "sb_tid": "sr:tournament:185",
    "sb_market": {
@@ -5699,8 +5729,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 1.61,
    "stake_pct": 0.25,
    "ev": -0.024122258150866438,
    "missing": {
@@ -5740,7 +5770,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:72936064",
    "sb_tid": "sr:tournament:185",
    "sb_market": {
@@ -5749,8 +5783,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.12,
    "ev": -0.030806014245081226,
    "missing": {

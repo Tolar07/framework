@@ -1874,7 +1874,11 @@
     "home": 155847724,
     "away": 24829846
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "sb_event_id": "sr:match:72036206",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -1883,8 +1887,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04307647862157449,
    "missing": {
@@ -3128,7 +3132,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "sb_event_id": "sr:match:73092964",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -3137,8 +3145,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -3.88,
    "stake_pct": 0.25,
    "ev": -0.03374601038487757,
    "missing": {
@@ -3200,7 +3208,9 @@
    "first_price": 1.34,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.34,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Magdeburg v Hannover",
@@ -5763,8 +5773,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 4.96,
    "stake_pct": 0.25,
    "ev": -0.010862062217967372,
    "missing": {
@@ -5817,8 +5827,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.009281397838866723,
    "missing": {
@@ -5880,7 +5890,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.8
   },
   {
    "fixture": "FC Zurich v FC Thun",
@@ -6006,7 +6018,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:40Z"
+   },
    "sb_event_id": "sr:match:72176962",
    "sb_tid": "sr:tournament:215",
    "sb_market": {

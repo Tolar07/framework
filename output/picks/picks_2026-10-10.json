@@ -1494,7 +1494,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 2.5
   },
   {
    "fixture": "Hoffenheim v Hamburg",
@@ -1542,7 +1544,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Mainz v Leverkusen",
@@ -1590,7 +1594,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Paderborn v Stuttgart",
@@ -1638,7 +1644,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 2.5
   },
   {
    "fixture": "Union Berlin v SV 07 Elversberg",
@@ -1686,7 +1694,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 2.5
   },
   {
    "fixture": "RB Leipzig v Ein Frankfurt",
@@ -2132,7 +2142,11 @@
     "home": 781069055,
     "away": 246295813
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72221292",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -3051,8 +3065,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.023593765502731068,
    "missing": {
@@ -3105,8 +3119,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.25,
    "ev": -0.01809870175211914,
    "missing": {
@@ -3152,8 +3166,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.027627959591734363,
    "missing": null,
@@ -3365,7 +3379,11 @@
    "fotmob_id": 5837202,
    "kickoff_utc": "2026-10-10T11:30:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72341252",
    "sb_tid": "sr:tournament:24",
    "sb_market": {

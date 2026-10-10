@@ -279,8 +279,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 1.59,
    "stake_pct": 0.25,
    "ev": -0.002927703906710266,
    "missing": {
@@ -824,7 +824,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:71913084",
    "sb_tid": "sr:tournament:170",
    "sb_market": {
@@ -833,8 +837,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.12,
    "ev": -0.043874340566781966,
    "missing": {
@@ -1481,8 +1485,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -3.23,
    "stake_pct": 0.25,
    "ev": -0.046482770729054934,
    "missing": {
@@ -2540,7 +2544,11 @@
     "home": 379145010,
     "away": 482357874
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:72221308",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -2840,7 +2848,11 @@
     "home": 5032512,
     "away": 6299501
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:72477484",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -3420,7 +3432,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Clermont v Red Star",
@@ -5635,8 +5649,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 3.39,
    "stake_pct": 0.25,
    "ev": -0.01950685589626977,
    "missing": {
@@ -5947,8 +5961,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -1.57,
    "stake_pct": 0.25,
    "ev": -0.02677071424357802,
    "missing": {
@@ -6001,8 +6015,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -1.64,
    "stake_pct": 0.25,
    "ev": -0.041187759713015026,
    "missing": {
@@ -6055,8 +6069,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 3.31,
    "stake_pct": 0.25,
    "ev": -0.006867178282476294,
    "missing": {
@@ -6163,8 +6177,8 @@
     "spec": "",
     "outcome": "2-5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.13613936312939656,
    "missing": {

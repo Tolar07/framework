@@ -2534,7 +2534,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Barcelona v Getafe",
@@ -2678,7 +2680,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -6.2
   },
   {
    "fixture": "Eldense v Cordoba",
@@ -3281,7 +3285,11 @@
    "fotmob_id": 5803272,
    "kickoff_utc": "2026-10-10T12:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Clermont Foot at full strength",
+    "at": "11:20Z"
+   },
    "sb_event_id": "sr:match:72037362",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -5858,7 +5866,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:20Z"
+   },
    "sb_event_id": "sr:match:67126790",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -5908,7 +5920,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "GAIS at full strength",
+    "at": "11:20Z"
+   },
    "sb_event_id": "sr:match:67126796",
    "sb_tid": "sr:tournament:40",
    "sb_market": {

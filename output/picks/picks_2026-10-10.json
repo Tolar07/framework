@@ -2474,8 +2474,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -3.23,
    "stake_pct": 0.25,
    "ev": -0.01961399464442648,
    "missing": null,
@@ -3298,8 +3298,8 @@
     "spec": "hcp=2:0",
     "outcome": "Home (2:0)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -0.8,
    "stake_pct": 0.25,
    "ev": -0.02492829358293447,
    "missing": null,
@@ -3333,7 +3333,11 @@
    "fotmob_id": 5803277,
    "kickoff_utc": "2026-10-10T12:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:72037372",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -3342,8 +3346,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -1.52,
    "stake_pct": 0.25,
    "ev": -0.020027435144942762,
    "missing": null,

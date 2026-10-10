@@ -67,3 +67,19 @@ assert 'extra_codes["btts"]' in _rd2 and "btts=_btts_l(board)" in _rd2
 _b3 = (Path(__file__).parent.parent / "output" / "bet365_board.py").read_text(encoding="utf-8")
 assert "_build_btts(board)" in _b3, "bet365 board lists the BTTS games"
 print("BTTS table: OK")
+# Value first (Architect 2026-10-10): Acca A takes the best-value legs
+from types import SimpleNamespace as _VNS
+from output import produce_bet as _vpb
+_vb = [_VNS(fixture=f"V{i} v W{i} (Serie A)", best_price=pr, probs=None)
+       for i, pr in enumerate([1.20, 1.45, 1.25, 1.50])]
+_vlegs = [(b, "pick", ch) for b, ch in zip(_vb, [0.86, 0.80, 0.84, 0.76])]
+_orig_legs, _orig_s3 = _vpb._acca_legs, _vpb._build_safe3
+try:
+    _vpb._acca_legs = lambda sl: list(_vlegs)
+    _vpb._build_safe3 = lambda sl: []
+    _accs = _vpb._build_accas([])
+    _first = [l[0].fixture[:2] for l in _accs[0][1]]
+    assert _first[0] == "V1", _first      # 0.80 x 1.45 = 1.16, the best value, goes first
+finally:
+    _vpb._acca_legs, _vpb._build_safe3 = _orig_legs, _orig_s3
+print("value-first accas: OK")

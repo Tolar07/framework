@@ -789,6 +789,12 @@ def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     independence assumption, stated on the board). [] if < 2 legs."""
     taken = _used(_build_safe3(shortlist))
     legs = [l for l in _acca_legs(shortlist) if _canon_short(l[0].fixture) not in taken]
+    # VALUE FIRST (Architect 2026-10-10: "be more strategic with the ACCA").
+    # Graded 3-10 Oct: 75%+ legs priced at or above our fair odds (chance x
+    # price >= 1) won 12 of 12 (+24.7% at £1); legs priced under fair won 79%
+    # and lost money, and Table 3 accas landed 5 of 19 (-46%). So legs are taken
+    # best value first: Acca A carries the value legs, the weakest go last.
+    legs.sort(key=lambda l: -((l[2] or 0) * (getattr(l[0], "best_price", None) or 0)))
     if len(legs) < 2:
         return []
     out = _table3_groups(legs)

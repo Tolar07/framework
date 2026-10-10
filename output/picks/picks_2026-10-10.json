@@ -26,7 +26,11 @@
     "home": 13813413,
     "away": 21571870
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:00Z"
+   },
    "sb_event_id": "",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -2128,7 +2132,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": -2.3
   },
   {
    "fixture": "Academico de Viseu FC v Estoril",
@@ -6254,7 +6260,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Mj\u00e4llby at full strength",
+    "at": "14:00Z"
+   },
    "sb_event_id": "sr:match:67126800",
    "sb_tid": "sr:tournament:40",
    "sb_market": {

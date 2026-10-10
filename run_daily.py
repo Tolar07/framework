@@ -1208,6 +1208,25 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                         if _code:
                             extra_codes[_kind] = _code
                             extra_codes[_kind + "_legs"] = len(_ls)
+                # TABLE 3D · BTTS (Architect 2026-10-10): price each fixture's
+                # BTTS-yes from SportyBet, then book the table as one slip.
+                try:
+                    from output.produce_bet import _build_btts
+                    for _b in board:
+                        _fx = odds_index.get((_b.probs.home_team, _b.probs.away_team)) \
+                            if _b.probs else None
+                        _q = getattr(_fx, "btts_yes", None) if _fx else None
+                        _b.btts_price = getattr(_q, "price", None)
+                    for _n, _legs, _c in _build_btts(board):
+                        _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                                bf.probs.home_team, bf.probs.away_team, key)
+                               for bf, _pick, _prob, key, _price in _legs]
+                        _code, _ = sbk.code_for_legs(sb_index, _ls)
+                        if _code:
+                            extra_codes["btts"] = _code
+                            extra_codes["btts_legs"] = len(_ls)
+                except Exception as _e:  # noqa: BLE001
+                    all_flags.append(f"BTTS table skipped ({_e})")
                 megas = _build_megas(deploy)
                 if len(megas) > 1:
                     mega_codes = _book(megas)
@@ -1258,6 +1277,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         megas_l = _build_megas(dep)
         from output.produce_bet import _build_alt_accas as _alt_accas
         from output.produce_bet import _build_value as _build_value_l
+        from output.produce_bet import _build_btts as _btts_l
         if frozen is not None:
             raise _KeepFrozen()
         picks_ledger.write_ledger(target, board, _build_accas(dep), _build_safe3(dep),
@@ -1265,7 +1285,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                   acca_codes, safe3_codes, mega_codes,
                                   alts=_alt_accas(dep), alt_codes=alt_codes,
                                   values=_build_value_l(dep), value_codes=value_codes,
-                                  combined=extra_codes)
+                                  combined=extra_codes,
+                                  btts=_btts_l(board))
     except _KeepFrozen:
         all_flags.append("picks ledger kept as frozen at the 10pm board (codes frozen)")
     except Exception as e:  # noqa: BLE001

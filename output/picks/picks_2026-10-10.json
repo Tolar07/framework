@@ -1542,7 +1542,11 @@
     "home": 174710042,
     "away": 44411505
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:71945300",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -1960,7 +1964,11 @@
     "home": 43987593,
     "away": 37768420
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72036202",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -2060,7 +2068,11 @@
     "home": 164821446,
     "away": 72823710
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Toulouse at full strength",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72036210",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -3456,7 +3468,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72513896",
    "sb_tid": "sr:tournament:44",
    "sb_market": {
@@ -3465,8 +3481,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.015018572959761611,
    "missing": {

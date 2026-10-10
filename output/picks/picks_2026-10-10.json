@@ -337,8 +337,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -3.12,
    "stake_pct": 0.25,
    "ev": -0.00733322670852854,
    "missing": {
@@ -378,7 +378,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72364146",
    "sb_tid": "sr:tournament:38",
    "sb_market": {
@@ -387,8 +391,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.39,
+   "clv": -6.47,
    "stake_pct": 0.25,
    "ev": -0.03391711370870243,
    "missing": {
@@ -1555,8 +1559,8 @@
     "spec": "",
     "outcome": "1-4"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -1.63,
    "stake_pct": 0.25,
    "ev": -0.12758628952324336,
    "missing": {
@@ -1977,8 +1981,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 4.2,
    "stake_pct": 0.25,
    "ev": -0.04099739329387031,
    "missing": {
@@ -2018,7 +2022,11 @@
     "home": 52249596,
     "away": 67745700
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Lorient missing 14% of value (Noah Mbamba, Panos Katseris, Mohamed Bamba); Lorient rotated: confirmed XI worth 68% of predicted; support: Paris FC missing 17%",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72036208",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -2027,8 +2035,8 @@
     "spec": "hcp=2:0",
     "outcome": "Home (2:0)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -1.6,
    "stake_pct": 0.25,
    "ev": -0.01586116219572753,
    "missing": {
@@ -2081,8 +2089,8 @@
     "spec": "hcp=0:3",
     "outcome": "Away (0:3)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.008967581841075156,
    "missing": {
@@ -2128,8 +2136,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.81,
+   "clv": 10.5,
    "stake_pct": 0.12,
    "ev": 0.05975114755557698,
    "missing": null,
@@ -2796,7 +2804,11 @@
     "home": 739083633,
     "away": 189812260
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72478622",
    "sb_tid": "sr:tournament:8",
    "sb_market": {

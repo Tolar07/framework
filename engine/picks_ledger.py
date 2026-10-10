@@ -145,7 +145,7 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
                  acca_codes: dict, safe3_codes: dict, mega_codes: Optional[dict],
                  alts: Optional[list] = None, alt_codes: Optional[dict] = None,
                  values: Optional[list] = None, value_codes: Optional[dict] = None,
-                 combined: Optional[dict] = None) -> Path:
+                 combined: Optional[dict] = None, btts: Optional[list] = None) -> Path:
     singles = [_single(bf) for bf in board
                if bf.on_deploy_shortlist and bf.probs is not None and bf.best_market_key]
     doc = {
@@ -159,6 +159,8 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
         # positive-value bets (order 37): own markets, graded like the alt legs
         "value": [_alt_slip(n, l, c, (value_codes or {}).get(n)) for n, l, c in (values or [])],
         "rated": [_rated(bf) for bf in board if bf.probs is not None],
+        # TABLE 3D (Architect 2026-10-10): the BTTS slip, graded like an alt slip
+        "btts": [_alt_slip(n, l, c, (combined or {}).get("btts")) for n, l, c in (btts or [])],
         # one code for every slip of a kind (Architect 2026-10-09): lands only
         # when every slip of that kind lands
         "combined": [{"name": n, "of": kind, "code": (combined or {}).get(key), "result": None}
@@ -269,7 +271,7 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
             pending += s["result"] is None
             by_fixture[s["fixture"]] = s
         for slip in (doc.get("alts", []) + doc.get("replaced", [])
-                     + doc.get("value", [])):                         # own-market legs
+                     + doc.get("value", []) + doc.get("btts", [])):                         # own-market legs
             for leg in slip.get("alt_legs", []):
                 if leg["result"] in (None, "no-90min-result"):
                     ev = find_result(events, leg["home"], leg["away"],
@@ -291,9 +293,9 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
             if new != cmb.get("result"):
                 cmb["result"] = new
                 changed += 1
-        for kind in ("accas", "safe3", "megas", "alts", "replaced", "value"):
+        for kind in ("accas", "safe3", "megas", "alts", "replaced", "value", "btts"):
             for slip in doc.get(kind, []):
-                if kind in ("alts", "replaced", "value"):
+                if kind in ("alts", "replaced", "value", "btts"):
                     legs = slip.get("alt_legs", [])
                 else:
                     legs = [by_fixture.get(f) for f in slip["legs"]]

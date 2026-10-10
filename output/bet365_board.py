@@ -243,6 +243,16 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
     if not MENU_CONFIRMED:
         out.append("⚠ bet365 market NAMES are a DRAFT — check them against your bet365 "
                    "app and tell Claude any that read differently there.")
+    try:   # BOTH TEAMS TO SCORE (Architect 2026-10-10: "for SportyBet and bet365")
+        from output.produce_bet import _build_btts
+        _bt = _build_btts(board)
+    except Exception:  # noqa: BLE001
+        _bt = []
+    if _bt:
+        out += ["", _RULE, "bet365 BOTH TEAMS TO SCORE (same games as SportyBet TABLE 3D)", _RULE]
+        for _bf, _pk, _ch, _k, _pr in _bt[0][1]:
+            out.append(f"• {kickoff(_bf)} {_bf.fixture.split(' (')[0]} — Both Teams to Score: Yes "
+                       f"({round(_ch*100)}%) · DEPLOY AT {deploy_at(_ch):.2f} · SportyBet {_pr:.2f}")
     out += ["", _RULE, "bet365 SINGLES", _RULE]
     if not got:
         out.append("No bet365 pick today — nothing on bet365's list clears 50% in the "

@@ -2163,8 +2163,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 1.56,
    "stake_pct": 0.12,
    "ev": -0.020041681271230516,
    "missing": {
@@ -2226,7 +2226,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Casa Pia v Santa Clara",
@@ -2274,7 +2276,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 2.4
   },
   {
    "fixture": "Arsenal v Leeds",

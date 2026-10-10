@@ -732,7 +732,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72043196",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -741,8 +745,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -2.38,
    "stake_pct": 0.25,
    "ev": -0.04214365703493839,
    "missing": {
@@ -3595,7 +3599,11 @@
    "fotmob_id": 5803280,
    "kickoff_utc": "2026-10-10T18:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Rodez at full strength",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72037376",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -3604,8 +3612,8 @@
     "spec": "hcp=-2.5",
     "outcome": "Away (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -3.01,
    "stake_pct": 0.25,
    "ev": -0.0061417639924356004,
    "missing": null,

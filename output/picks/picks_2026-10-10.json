@@ -78,7 +78,11 @@
     "home": 108461153,
     "away": 66324503
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "sb_event_id": "",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -2146,7 +2150,11 @@
     "home": 6334069,
     "away": 245843743
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "sb_event_id": "sr:match:72530956",
    "sb_tid": "sr:tournament:238",
    "sb_market": {
@@ -5450,7 +5458,11 @@
     "home": 849313,
     "away": 1291202
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Forest Green Rovers at full strength",
+    "at": "16:20Z"
+   },
    "sb_event_id": "sr:match:72740716",
    "sb_tid": "sr:tournament:173",
    "sb_market": {

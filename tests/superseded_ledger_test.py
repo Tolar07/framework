@@ -83,3 +83,17 @@ try:
 finally:
     _vpb._acca_legs, _vpb._build_safe3 = _orig_legs, _orig_s3
 print("value-first accas: OK")
+# TABLE 3E · DRAWS (Architect 2026-10-11): ledgered with their codes, graded,
+# and a draw code that went out is kept on a rewrite
+_d0 = _bfx(0, 0.5, None)
+_d0.probs.home_team, _d0.probs.away_team = "H0", "A0"
+_dslips = [("Draw 1", [(_d0, "Draw", 0.31, _pb.mkt.DRAW, 3.1)], 0.31)]
+with tempfile.TemporaryDirectory() as tmp:
+    pl.LEDGER_DIR, pl.SUPERSEDED_DIR = Path(tmp), Path(tmp) / "superseded"
+    _p = pl.write_ledger("2026-10-11", [], [], [], [], {}, {}, None,
+                         combined={"draw_codes": {"Draw 1": "DRW001"}}, draws=_dslips)
+    _doc = json.loads(_p.read_text(encoding="utf-8"))
+    assert _doc["draws"][0]["code"] == "DRW001" and _doc["draws"][0]["alt_legs"][0]["market"] == _pb.mkt.DRAW
+    assert "DRW001" in pl._codes(_doc), "a sent draw code counts as sent"
+    assert pl._settle(_pb.mkt.DRAW, 1, 1) == "won" and pl._settle(_pb.mkt.DRAW, 2, 1) == "lost"
+print("draw table ledger: OK")

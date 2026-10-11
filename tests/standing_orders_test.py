@@ -508,4 +508,35 @@ assert "python run_nba.py" in wf, "Order 41: the NBA board runs with the evening
 assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41 and "£1 a pick" in _nba41, \
     "Orders 26/41 (2026-10-07): the NBA board is a live test, placed by hand from its codes"
 
+# 42. Draw table (Architect 2026-10-11): evenly matched + priced low-scoring
+from types import SimpleNamespace as _NS42
+from output import produce_bet as _pb42
+def _d42(i, q, probs=True):
+    return _NS42(fixture=f"H{i} v A{i} (Serie B)", probs=_NS42(home_team=f"H{i}", away_team=f"A{i}") if probs else None,
+                 draw_quote=q, kickoff_date="2026-10-12", kickoff_utc=None)
+_b42 = [_d42(0, (2.60, 2.90, 2.80, 1.55)),   # even, low-scoring: in
+        _d42(1, (2.70, 3.00, 2.70, 1.65)),   # in
+        _d42(2, (2.65, 3.05, 2.75, 1.70)),   # in (1.70 is the edge)
+        _d42(3, (2.60, 2.90, 2.80, 1.95)),   # priced for goals: out
+        _d42(4, (1.80, 3.40, 4.50, 1.60)),   # a favourite: out
+        _d42(5, (2.40, 2.60, 2.50, 1.50)),   # 1X2 margin > 9%: out
+        _d42(6, (2.60, 2.90, 2.80, None)),   # no Under 2.5 price: out
+        _d42(7, (2.60, 2.90, 2.80, 1.55), probs=False)]
+_dr42 = _pb42._build_draws(_b42)
+_sing42 = [n for n, l, _c in _dr42 if len(l) == 1]
+_dbl42 = [(n, l) for n, l, _c in _dr42 if len(l) == 2]
+assert _sing42 == ["Draw 1", "Draw 2", "Draw 3"], _dr42
+assert {l[0][0].fixture[:2] for _n, l, _c in _dr42 if len(l) == 1} == {"H0", "H1", "H2"}, _dr42
+assert len(_dbl42) == 1 and _dbl42[0][0] == "Draw double A", "Order 42: 2-leg draw doubles, strongest first"
+assert all(leg[1] == "Draw" and leg[3] == mkt.DRAW for _n, l, _c in _dr42 for leg in l)
+assert _pb42._build_draws([]) == []
+assert (_pb42.DRAW_GAP_MAX, _pb42.DRAW_U25_MAX, _pb42.DRAW_MARGIN_MAX) == (0.10, 1.70, 0.09),     "Order 42: the draw rule is the one backtest/DRAW_LEAGUE_STUDY.md tested"
+_rd42 = (ROOT / "run_daily.py").read_text(encoding="utf-8")
+assert 'extra_codes["draw_codes"]' in _rd42 and "draws=_draws_l(board)" in _rd42, "Order 42: booked and ledgered"
+assert "_build_draws(board)" in (ROOT / "output" / "bet365_board.py").read_text(encoding="utf-8"),     "Order 42: the bet365 board lists the same draws"
+from engine import paper_book as _pbk42
+assert "F14 even, low-scoring draw" in _pbk42.STRATEGIES and _pbk42.ACCA_SIZE.get("A5 two draws") == 2
+assert _pbk42.f_even_low_draw({"1x2": [2.6, 2.9, 2.8], "ou2.5": [2.3, 1.6]}) == [("1x2:draw", 1, 2.9)]
+assert _pbk42.f_even_low_draw({"1x2": [1.8, 3.4, 4.5], "ou2.5": [2.3, 1.6]}) == []
+
 print("standing_orders_test: OK — all Architect standing orders hold")

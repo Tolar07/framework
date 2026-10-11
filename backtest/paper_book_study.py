@@ -57,7 +57,7 @@ def main() -> int:
     L += ["", "## Why the bets won or lost", "", "| Rule | how |", "|---|---|"]
     L += [f"| {n} | {pb.why(by_rule.get(n, []))} |" for n in pb.STRATEGIES]
     ac = pb.accas(rows)
-    L += ["", "## Paper accas — 3 legs a day from the strongest rules (highest fair chance, one leg a game)", "",
+    L += ["", "## Paper accas — 3 legs a day (2 for A5, the draw double) from the strongest rules (highest fair chance, one leg a game)", "",
           "| Acca | what it combines | accas | landed | £1 return | landed vs expected | legs won |",
           "|---|---|---|---|---|---|---|"]
     for name, (desc, _rules) in pb.ACCAS.items():

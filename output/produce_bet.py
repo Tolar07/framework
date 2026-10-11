@@ -1406,10 +1406,31 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                        f"— BTTS yes @{_pr:.2f} (model {round(_ch*100)}%, fair {1/_ch:.2f})")
         out.append(f"BTTS slip: {extra_codes.get('btts') or 'PENDING'} "
                    f"({len(_blegs)} legs · odds {_bodds:.2f} · {round(_bcombo*100)}%)")
+    # --- TABLE 3E · DRAWS (Architect 2026-10-11) ---
+    try:
+        _draws = _build_draws(board)
+    except Exception:  # noqa: BLE001 — a display table never breaks the board
+        _draws = []
+    _dcodes = extra_codes.get("draw_codes") or {}
+    if _draws:
+        out += [_CANON_RULE, "TABLE 3E · DRAWS",
+                "(evenly matched + priced low-scoring: these drew 33% over 149k past matches, "
+                "+4% at bet365 prices — thin edge, minimal stake)", _CANON_RULE]
+        for _n, _legs, _c in _draws:
+            if len(_legs) == 1:
+                _bf, _pk, _ch, _k, _pr = _legs[0]
+                out.append(f"   • {kickoff(_bf)} "
+                           f"{comp.where(_bf.fixture.split(' (')[0], _bf.fixture.rsplit('(', 1)[-1].rstrip(')'))} "
+                           f"— Draw @{_pr:.2f} ({round(_ch*100)}%) · {_n}: {_dcodes.get(_n) or 'PENDING'}")
+        for _n, _legs, _c in _draws:
+            if len(_legs) == 2:
+                _o = _legs[0][4] * _legs[1][4]
+                out.append(f"{_n}: {_dcodes.get(_n) or 'PENDING'} (2 draws · odds {_o:.2f} · "
+                           f"{round(_c*100)}%)")
     # --- ALL CODES: every acca + mega code in one short block, LAST, so it
     # lands in its own final Telegram message and can't be missed in a long
     # board (2026-10-02: accas G-O sat in a later message and were missed).
-    if accas or mega_codes or safe3 or board_code or alts or values:
+    if accas or mega_codes or safe3 or board_code or alts or values or extra_codes.get("draw_codes"):
         out += ["", "ALL CODES"]
         for name, legs, combo in safe3:
             out.append(f"{name}: {safe3_codes.get(name) or 'PENDING'} "
@@ -1431,6 +1452,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
         if extra_codes.get("btts"):
             out.append(f"BTTS: {extra_codes['btts']} "
                        f"({extra_codes.get('btts_legs', '?')} legs · both teams to score · stake 0.1%)")
+        for _n, _code in (extra_codes.get("draw_codes") or {}).items():
+            out.append(f"{_n.upper()}: {_code} (draw · stake 0.1%)")
         if extra_codes.get("value_mega"):
             out.append(f"VALUE MEGA: {extra_codes['value_mega']} "
                        f"({extra_codes.get('value_mega_legs', '?')} legs · every value bet on one slip · stake 0.1%)")
@@ -1522,6 +1545,50 @@ def _build_btts(board: list) -> list[tuple]:
     for r in rows:
         combo *= r[2]
     return [("BTTS", rows, combo)]
+
+
+# DRAW TABLE (Architect 2026-10-11: "those leagues that have more draws ...
+# create a separate table for them ... create an ACCA for them, even if it's at
+# least two leg"). backtest/DRAW_LEAGUE_STUDY.md (149k matches, 38 leagues,
+# 2012-2026): the league alone is no edge (picking "draw leagues" from the 4
+# seasons before lost -1.4% the next season) - the GAME is: two evenly matched
+# sides (margin-free win chances within 10 pts) in a game priced low-scoring
+# (Under 2.5 at 1.70 or shorter) drew 33.5% of the time and made +3.5% at
+# bet365 prices to 2021 and +4.3% from 2022 on. TABLE 3E lists those games,
+# each draw its own single, paired strongest-first into 2-leg draw doubles.
+# Chance = SportyBet's own margin-free draw price (no model claim). The edge
+# is thin and the last two seasons were negative, so stake stays minimal.
+DRAW_GAP_MAX = 0.10       # |home win - away win| margin-free
+DRAW_U25_MAX = 1.70       # SportyBet Under 2.5 price
+DRAW_MARGIN_MAX = 0.09    # skip a 1X2 book carrying more than 9% margin
+DRAW_MAX_LEGS = 8
+
+
+def _build_draws(board: list) -> list[tuple]:
+    """[("Draw 1", [leg], chance), ..., ("Draw double A", [leg, leg], chance), ...]
+    or []. A leg is (bf, pick, chance, market key, SportyBet price) - the
+    alt-slip shape the ledger grades. Prices come from bf.draw_quote =
+    (home, draw, away, under 2.5), set by run_daily from SportyBet."""
+    rows = []
+    for bf in board:
+        q = getattr(bf, "draw_quote", None)
+        if not q or getattr(bf, "probs", None) is None or not all(q[:3]) or not q[3]:
+            continue
+        h, d, a, u25 = q
+        book = 1 / h + 1 / d + 1 / a
+        if book - 1 > DRAW_MARGIN_MAX:
+            continue
+        ph, pd, pa = 1 / h / book, 1 / d / book, 1 / a / book
+        if abs(ph - pa) >= DRAW_GAP_MAX or u25 > DRAW_U25_MAX:
+            continue
+        rows.append((bf, "Draw", pd, mkt.DRAW, d))
+    rows.sort(key=lambda r: -r[2])
+    rows = rows[:DRAW_MAX_LEGS]
+    out = [(f"Draw {i + 1}", [r], r[2]) for i, r in enumerate(rows)]
+    for j in range(len(rows) // 2):
+        a, b = rows[2 * j], rows[2 * j + 1]
+        out.append((f"Draw double {chr(65 + j)}", [a, b], a[2] * b[2]))
+    return out
 
 
 def _acca_odds(legs) -> float:

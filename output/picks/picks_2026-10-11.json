@@ -868,7 +868,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 2.5
   },
   {
    "fixture": "NK Lokomotiva Zagreb v NK Varazdin",
@@ -948,7 +950,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:71913090",
    "sb_tid": "sr:tournament:170",
    "sb_market": {
@@ -1214,7 +1220,11 @@
     "home": 80258995,
     "away": 264999683
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:71945302",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -2710,7 +2720,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:72723246",
    "sb_tid": "sr:tournament:52",
    "sb_market": {

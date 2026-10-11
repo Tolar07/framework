@@ -680,7 +680,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72201646",
    "sb_tid": "sr:tournament:36",
    "sb_market": {
@@ -730,7 +734,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72043194",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -739,8 +747,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -0.81,
    "stake_pct": 0.25,
    "ev": -0.04301476885186317,
    "missing": {
@@ -870,7 +878,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:71913086",
    "sb_tid": "sr:tournament:170",
    "sb_market": {
@@ -1076,7 +1088,11 @@
     "home": 141547271,
     "away": 47212106
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:71945296",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -1126,7 +1142,11 @@
     "home": 44885168,
     "away": 120882442
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:71945298",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -1364,7 +1384,11 @@
     "home": 68974909,
     "away": 127329171
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72036212",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -1436,7 +1460,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.32,
+   "drift_pct": 1.5
   },
   {
    "fixture": "Troyes v Marseille",
@@ -1710,7 +1736,11 @@
     "home": 87138961,
     "away": 308328151
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72221302",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -2280,7 +2310,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Modena v Hellas Verona",
@@ -2560,7 +2592,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72723232",
    "sb_tid": "sr:tournament:52",
    "sb_market": {

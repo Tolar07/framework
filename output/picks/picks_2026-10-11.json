@@ -400,8 +400,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 0.25,
    "ev": -0.03555893296457191,
    "missing": null,
@@ -963,8 +963,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -0.8,
    "stake_pct": 0.12,
    "ev": -0.0390170426221782,
    "missing": {
@@ -1233,8 +1233,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 2.5,
    "stake_pct": 0.25,
    "ev": -0.038425672840261216,
    "missing": {
@@ -1998,7 +1998,11 @@
     "home": 169547255,
     "away": 27434608
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:72478608",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -2204,7 +2208,11 @@
     "home": 19634596,
     "away": 12062327
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Las Palmas missing 40%",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:72477486",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -2733,8 +2741,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": -5.34,
    "stake_pct": 0.12,
    "ev": 0.02448513586575851,
    "missing": {
@@ -2878,8 +2886,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 4.03,
    "stake_pct": 0.25,
    "ev": -0.03292214338609223,
    "missing": null,

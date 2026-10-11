@@ -1282,7 +1282,11 @@
     "home": 79618569,
     "away": 296612186
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:71945288",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -1291,8 +1295,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -2.22,
    "stake_pct": 0.25,
    "ev": -0.025470411818684036,
    "missing": {
@@ -1538,7 +1542,11 @@
     "home": 23339500,
     "away": 134930028
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72036218",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -1547,8 +1555,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.25,
    "ev": -0.007733169983587085,
    "missing": {
@@ -2070,7 +2078,11 @@
     "home": 66528938,
     "away": 75971690
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Valencia missing 24%",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72478618",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -2282,7 +2294,11 @@
     "home": 7338323,
     "away": 9479083
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72477478",
    "sb_tid": "sr:tournament:54",
    "sb_market": {

@@ -282,7 +282,11 @@
     "home": 9211034,
     "away": 6362748
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Silkeborg missing 16%",
+    "at": "11:20Z"
+   },
    "sb_event_id": "sr:match:71925046",
    "sb_tid": "sr:tournament:39",
    "sb_market": {
@@ -1860,7 +1864,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Betis v Osasuna",
@@ -1982,7 +1988,11 @@
     "home": 7181808,
     "away": 6609310
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:20Z"
+   },
    "sb_event_id": "sr:match:72477474",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -2054,7 +2064,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Mallorca v Las Palmas",

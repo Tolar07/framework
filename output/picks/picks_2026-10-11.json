@@ -1561,8 +1561,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -4.44,
    "stake_pct": 0.25,
    "ev": -0.011132270527377974,
    "missing": {
@@ -1624,7 +1624,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -2.5
   },
   {
    "fixture": "Arouca v Estrela",
@@ -3139,8 +3141,8 @@
     "spec": "",
     "outcome": "1-4"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.12646846876559603,
    "missing": {
@@ -3193,8 +3195,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.024477776429881137,
    "missing": {
@@ -3491,8 +3493,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Draw & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 1.69,
    "stake_pct": 0.25,
    "ev": -0.07788334585896939,
    "missing": {

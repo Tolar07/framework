@@ -924,7 +924,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "09:20Z"
+   },
    "sb_event_id": "sr:match:72339878",
    "sb_tid": "sr:tournament:18",
    "sb_market": {

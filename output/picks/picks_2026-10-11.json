@@ -188,7 +188,11 @@
     "home": 11138825,
     "away": 23594045
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:72041174",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -197,8 +201,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": 0.004349036456084976,
    "missing": {
@@ -604,7 +608,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Motherwell v Celtic",
@@ -3290,7 +3296,11 @@
     "home": 5932259,
     "away": 10454740
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:67015416",
    "sb_tid": "sr:tournament:20",
    "sb_market": {
@@ -3400,7 +3410,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.16,
+   "drift_pct": -3.3
   },
   {
    "fixture": "Hammarby IF v Djurgardens IF",

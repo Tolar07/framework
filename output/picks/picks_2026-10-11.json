@@ -93,8 +93,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.017672122675276403,
    "missing": {
@@ -134,7 +134,11 @@
     "home": 6663120,
     "away": 11618134
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "sb_event_id": "sr:match:72041172",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -143,8 +147,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 5.04,
    "stake_pct": 0.25,
    "ev": -0.010692525546617704,
    "missing": {
@@ -206,7 +210,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Randers FC v Viborg",
@@ -1650,7 +1656,11 @@
     "home": 314922950,
     "away": 356596003
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "sb_event_id": "sr:match:72221300",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -2832,7 +2842,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "sb_event_id": "sr:match:72345528",
    "sb_tid": "sr:tournament:45",
    "sb_market": {
@@ -2841,8 +2855,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 1.68,
    "stake_pct": 0.12,
    "ev": 0.010003007411548026,
    "missing": {
@@ -2882,7 +2896,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:00Z"
+   },
    "sb_event_id": "sr:match:72345522",
    "sb_tid": "sr:tournament:45",
    "sb_market": {
@@ -2891,8 +2909,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.042439028264039,
    "missing": {
@@ -2948,7 +2966,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -2.5
   },
   {
    "fixture": "Grasshopper Club Zurich v Young Boys Bern",
@@ -3141,8 +3161,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.25,
    "ev": -0.033041656596169866,
    "missing": {
@@ -3204,7 +3224,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 0.0
   },
   {
    "fixture": "IK Start v HamKam",
@@ -3246,7 +3268,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Lillestroem SK v Molde",

@@ -1,0 +1,105 @@
+##########OLP XDV · BET365#########
+==================================
+
+📅  Mon 12 Oct 2026 — bet365 board (sent to you only)
+Run ID: OLPXDV-20261011-2048-240a9f (same run as the SportyBet board)
+Times are kickoff, Lagos time (WAT)
+
+Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
+• No booking codes on bet365 — find each match by country → league → match.
+• DEPLOY AT = the lowest bet365 price worth taking (break-even for the chance, never below 1.20). Below it, skip the bet. SportyBet's price is shown for reference.
+• ≠ = not the SportyBet pick (bet365 doesn't offer that one).
+⚠ bet365 market NAMES are a DRAFT — check them against your bet365 app and tell Claude any that read differently there.
+
+──────────────────────────────────
+bet365 SINGLES
+──────────────────────────────────
+
+🇩🇰 Denmark · Superliga
+ • 18:00 Aarhus v Sonderjyske — Asian Handicap: Sonderjyske +2.5
+   81% · deploy at 1.24+ · SportyBet @1.21 · HIGH
+
+🇵🇱 Poland · Ekstraklasa
+ • 17:00 Radomiak Radom v Motor Lublin — Goals Over/Under: Under 4.5
+   81% · deploy at 1.24+ · SportyBet @1.22 · HIGH
+ • 19:30 GKS Katowice v Wieczysta Krakow — Team Goals: Wieczysta Krakow Over 0.5
+   75% · deploy at 1.33+ · SportyBet @1.24 · MEDIUM
+
+🇮🇹 Italy · Serie A
+ • 17:30 Atalanta v Venezia FC — Double Chance: Atalanta or Venezia FC
+   80% · deploy at 1.26+ · SportyBet @1.22 · HIGH
+ • 19:45 Torino v Udinese — Team Goals: Torino Over 0.5
+   74% · deploy at 1.35+ · SportyBet @1.31 · HIGH
+
+🇵🇹 Portugal · Primeira Liga / Liga Portugal
+ • 20:15 Famalicao v Alverca — Team Goals: Famalicao Over 0.5
+   78% · deploy at 1.29+ · SportyBet @1.22 · HIGH
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League
+ • 20:00 Coventry City v Newcastle — Goals Over/Under: Under 4.5
+   84% · deploy at 1.20+ · SportyBet @1.21 · MEDIUM
+
+🇪🇸 Spain · La Liga
+ • 20:00 Levante v Sevilla — Double Chance: Levante or Sevilla
+   73% · deploy at 1.38+ · SportyBet @1.35 · HIGH
+
+🇪🇸 Spain · La Liga 2 / Hypermotion
+ • 17:30 Oviedo v Eibar — Goals Over/Under: Under 3.5
+   80% · deploy at 1.26+ · SportyBet @1.23 · MEDIUM
+ • 15:15 Burgos v Granada — Goals Over/Under: Under 3.5
+   79% · deploy at 1.27+ · SportyBet @1.25 · MEDIUM
+ • 13:00 Valladolid v Albacete — Goals Over/Under: Under 3.5
+   75% · deploy at 1.34+ · SportyBet @1.34 · MEDIUM
+ • 20:00 Tenerife v Girona — Double Chance: Tenerife or Girona
+   72% · deploy at 1.39+ · SportyBet @1.34 · HIGH
+
+🇫🇷 France · Ligue 2
+ • 19:45 Dijon v Metz — Goals Over/Under: Over 1.5
+   78% · deploy at 1.29+ · SportyBet @1.22 · HIGH
+
+🇹🇷 Turkey · Super Lig
+ • 18:00 Eyupspor v Goztepe Izmir — Goals Over/Under: Over 1.5
+   77% · deploy at 1.30+ · SportyBet @1.25 · HIGH
+
+🇬🇷 Greece · Super League
+ • 16:00 PAOK v PAE PS Kalamata — Goals Over/Under: Under 4.5
+   77% · deploy at 1.31+ · SportyBet @1.27 · HIGH
+
+🇳🇴 Norway · Eliteserien
+ • 18:00 KFUM Oslo v Vaalerenga IF — Team Goals: Vaalerenga IF Over 0.5
+   79% · deploy at 1.27+ · SportyBet @1.20 · MEDIUM
+
+🇸🇪 Sweden · Allsvenskan
+ • 18:00 IF Elfsborg v Halmstads BK — Team Goals: Halmstads BK Under 1.5
+   81% · deploy at 1.24+ · SportyBet @1.20 · MEDIUM
+ • 18:00 Malmo v Kalmar FF — Goals Over/Under: Over 1.5
+   78% · deploy at 1.29+ · SportyBet @1.24 · HIGH
+
+──────────────────────────────────
+bet365 ACCAS
+(build by hand on bet365, strongest legs first)
+──────────────────────────────────
+bet365 Acca A · 3 legs · chance 55% · deploy at 1.85+ combined
+   • Coventry City v Newcastle (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Premier League) — Goals Over/Under: Under 4.5 (84%)
+   • Aarhus v Sonderjyske (🇩🇰 Denmark · Superliga) — Asian Handicap: Sonderjyske +2.5 (81%)
+   • IF Elfsborg v Halmstads BK (🇸🇪 Sweden · Allsvenskan) — Team Goals: Halmstads BK Under 1.5 (81%)
+bet365 Acca B · 3 legs · chance 52% · deploy at 1.97+ combined
+   • Radomiak Radom v Motor Lublin (🇵🇱 Poland · Ekstraklasa) — Goals Over/Under: Under 4.5 (81%)
+   • Oviedo v Eibar (🇪🇸 Spain · La Liga 2 / Hypermotion) — Goals Over/Under: Under 3.5 (80%)
+   • Atalanta v Venezia FC (🇮🇹 Italy · Serie A) — Double Chance: Atalanta or Venezia FC (80%)
+bet365 Acca C · 3 legs · chance 48% · deploy at 2.08+ combined
+   • KFUM Oslo v Vaalerenga IF (🇳🇴 Norway · Eliteserien) — Team Goals: Vaalerenga IF Over 0.5 (79%)
+   • Burgos v Granada (🇪🇸 Spain · La Liga 2 / Hypermotion) — Goals Over/Under: Under 3.5 (79%)
+   • Famalicao v Alverca (🇵🇹 Portugal · Primeira Liga / Liga Portugal) — Team Goals: Famalicao Over 0.5 (78%)
+bet365 Acca D · 3 legs · chance 46% · deploy at 2.16+ combined
+   • Dijon v Metz (🇫🇷 France · Ligue 2) — Goals Over/Under: Over 1.5 (78%)
+   • Malmo v Kalmar FF (🇸🇪 Sweden · Allsvenskan) — Goals Over/Under: Over 1.5 (78%)
+   • Eyupspor v Goztepe Izmir (🇹🇷 Turkey · Super Lig) — Goals Over/Under: Over 1.5 (77%)
+bet365 Acca E · 2 legs · chance 58% · deploy at 1.74+ combined
+   • PAOK v PAE PS Kalamata (🇬🇷 Greece · Super League) — Goals Over/Under: Under 4.5 (77%)
+   • GKS Katowice v Wieczysta Krakow (🇵🇱 Poland · Ekstraklasa) — Team Goals: Wieczysta Krakow Over 0.5 (75%)
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Live capital test is SportyBet only (standing order 26) — this board is for reference.
+==================================

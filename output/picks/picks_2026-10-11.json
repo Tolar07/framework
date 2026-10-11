@@ -406,7 +406,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Standard v Charleroi",
@@ -956,7 +958,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Southampton v Portsmouth",
@@ -1220,7 +1224,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -2.4
   },
   {
    "fixture": "Cagliari v Juventus",
@@ -1300,8 +1306,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -2.44,
    "stake_pct": 0.25,
    "ev": -0.04131627420142836,
    "missing": null,
@@ -2678,7 +2684,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 5.6
   },
   {
    "fixture": "AE Kifisia FC v Panaitolikos Agrinio",
@@ -2814,7 +2822,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": -2.3
   },
   {
    "fixture": "Olympiacos v Panathinaikos",
@@ -3438,7 +3448,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "H\u00e4cken at full strength",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:67126798",
    "sb_tid": "sr:tournament:40",
    "sb_market": {

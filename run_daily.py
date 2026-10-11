@@ -1227,6 +1227,30 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                             extra_codes["btts_legs"] = len(_ls)
                 except Exception as _e:  # noqa: BLE001
                     all_flags.append(f"BTTS table skipped ({_e})")
+                # TABLE 3E · DRAWS (Architect 2026-10-11): price each fixture's
+                # 1X2 + Under 2.5 from SportyBet, then book every draw single and
+                # every 2-leg draw double.
+                try:
+                    from output.produce_bet import _build_draws
+                    for _b in board:
+                        _fx = odds_index.get((_b.probs.home_team, _b.probs.away_team))                             if _b.probs else None
+                        _b.draw_quote = tuple(getattr(getattr(_fx, _a, None), "price", None)
+                                              for _a in ("home", "draw", "away", "under25"))                             if _fx else None
+                    _dc = {}
+                    _dslips = _build_draws(board)
+                    for _n, _legs, _c in _dslips:
+                        _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
+                               bf.probs.home_team, bf.probs.away_team, key)
+                               for bf, _pick, _prob, key, _price in _legs]
+                        _code, _ = sbk.code_for_legs(sb_index, _ls)
+                        if _code:
+                            _dc[_n] = _code
+                    if _dc:
+                        extra_codes["draw_codes"] = _dc
+                    all_flags.append(f"draw table: {sum(1 for _n, _l, _c in _dslips if len(_l) == 1)} "
+                                     f"draw(s), {len(_dc)}/{len(_dslips)} slip(s) booked")
+                except Exception as _e:  # noqa: BLE001
+                    all_flags.append(f"draw table skipped ({_e})")
                 megas = _build_megas(deploy)
                 if len(megas) > 1:
                     mega_codes = _book(megas)
@@ -1278,6 +1302,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         from output.produce_bet import _build_alt_accas as _alt_accas
         from output.produce_bet import _build_value as _build_value_l
         from output.produce_bet import _build_btts as _btts_l
+        from output.produce_bet import _build_draws as _draws_l
         if frozen is not None:
             raise _KeepFrozen()
         picks_ledger.write_ledger(target, board, _build_accas(dep), _build_safe3(dep),
@@ -1286,7 +1311,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                   alts=_alt_accas(dep), alt_codes=alt_codes,
                                   values=_build_value_l(dep), value_codes=value_codes,
                                   combined=extra_codes,
-                                  btts=_btts_l(board))
+                                  btts=_btts_l(board), draws=_draws_l(board))
     except _KeepFrozen:
         all_flags.append("picks ledger kept as frozen at the 10pm board (codes frozen)")
     except Exception as e:  # noqa: BLE001

@@ -253,6 +253,17 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
         for _bf, _pk, _ch, _k, _pr in _bt[0][1]:
             out.append(f"• {kickoff(_bf)} {_bf.fixture.split(' (')[0]} — Both Teams to Score: Yes "
                        f"({round(_ch*100)}%) · DEPLOY AT {deploy_at(_ch):.2f} · SportyBet {_pr:.2f}")
+    try:   # DRAWS (Architect 2026-10-11): same games as SportyBet TABLE 3E
+        from output.produce_bet import _build_draws
+        _dr = [l[0] for _n, l, _c in _build_draws(board) if len(l) == 1]
+    except Exception:  # noqa: BLE001
+        _dr = []
+    if _dr:
+        out += ["", _RULE, "bet365 DRAWS (same games as SportyBet TABLE 3E)", _RULE]
+        for _bf, _pk, _ch, _k, _pr in _dr:
+            out.append(f"• {kickoff(_bf)} {_bf.fixture.split(' (')[0]} — Full Time Result: Draw "
+                       f"({round(_ch*100)}%) · DEPLOY AT {math.ceil(100.0 / _ch - 1e-9) / 100.0:.2f} · "
+                       f"SportyBet {_pr:.2f}")
     out += ["", _RULE, "bet365 SINGLES", _RULE]
     if not got:
         out.append("No bet365 pick today — nothing on bet365's list clears 50% in the "

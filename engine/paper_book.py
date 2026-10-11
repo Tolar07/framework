@@ -119,6 +119,19 @@ def f_strong_home_dc(p: dict) -> list[Bet]:
     return [("dc:1x", 0, p["dc"][0])] if _strong_home(p) and p.get("dc") else []
 
 
+# F14 (Architect 2026-10-11, the draw table): the draw when the two sides are
+# evenly matched (margin-free win chances within 10 pts) and the game is priced
+# low-scoring (Under 2.5 at 1.70 or shorter) - backtest/DRAW_LEAGUE_STUDY.md.
+def f_even_low_draw(p: dict) -> list[Bet]:
+    x, u = p.get("1x2"), p.get("ou2.5")
+    if not x or not u or not u[1]:
+        return []
+    s = sum(1 / v for v in x)
+    if abs(1 / x[0] - 1 / x[2]) / s >= 0.10 or u[1] > 1.70:
+        return []
+    return [("1x2:draw", 1, x[1])]
+
+
 def b_home_fav(p: dict) -> list[Bet]:
     x = p.get("win")
     return [("win:home", 0, x[0])] if x and _between(x[0], 1.20, 1.60) else []
@@ -154,6 +167,8 @@ STRATEGIES: dict[str, tuple[str, str, Callable[[dict], list[Bet]]]] = {
                                         "margin-free", f_2up_home),
     "F12 strong home, plain": ("football", "home win on F11's games", f_strong_home),
     "F13 strong home, double chance": ("football", "home or draw on F11's games", f_strong_home_dc),
+    "F14 even, low-scoring draw": ("football", "draw when the win chances are within 10 pts and Under 2.5 "
+                                               "is 1.70 or shorter", f_even_low_draw),
     "B1 home favourite": ("basketball", "home winner at 1.20–1.60", b_home_fav),
     "B2 away underdog": ("basketball", "away winner at 2.00–3.50", b_away_dog),
     "B3 main total under": ("basketball", "Under the main total line", b_under),
@@ -167,7 +182,8 @@ STRATEGIES: dict[str, tuple[str, str, Callable[[dict], list[Bet]]]] = {
 # F11-F13: proposed 2026-10-09 (2UP on tipster slips); 2UP prices are swept from then.
 SINCE = {"F9 draw-proof": "2026-10-09", "F10 mid-price home": "2026-10-09",
          "F11 2UP strong home": "2026-10-10", "F12 strong home, plain": "2026-10-10",
-         "F13 strong home, double chance": "2026-10-10"}
+         "F13 strong home, double chance": "2026-10-10",
+         "F14 even, low-scoring draw": "2026-10-12"}
 
 
 def bets(row: dict) -> list[dict]:
@@ -252,8 +268,10 @@ ACCAS: dict[str, tuple[str, tuple[str, ...]]] = {
     "A3 mixed safe": ("3 legs from F8 + F1 + B1", ("F8 safe double chance", "F1 short favourite",
                                                     "B1 home favourite")),
     "A4 three draw-proof": ("3 legs from F9 (from 2026-10-09)", ("F9 draw-proof",)),
+    "A5 two draws": ("2 legs from F14 (from 2026-10-12)", ("F14 even, low-scoring draw",)),
 }
 ACCA_LEGS = 3
+ACCA_SIZE = {"A5 two draws": 2}     # the draw double (Architect 2026-10-11: "at least two leg")
 
 
 def accas(rows: list[dict]) -> list[dict]:
@@ -272,9 +290,9 @@ def accas(rows: list[dict]) -> list[dict]:
                     continue
                 games.add(b["id"])
                 legs.append(b)
-                if len(legs) == ACCA_LEGS:
+                if len(legs) == ACCA_SIZE.get(name, ACCA_LEGS):
                     break
-            if len(legs) < ACCA_LEGS:
+            if len(legs) < ACCA_SIZE.get(name, ACCA_LEGS):
                 continue
             price = expected = 1.0
             for b in legs:

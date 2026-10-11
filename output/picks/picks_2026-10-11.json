@@ -352,8 +352,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 2.46,
    "stake_pct": 0.25,
    "ev": -0.045938053269664936,
    "missing": null,
@@ -494,8 +494,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -3.1,
    "stake_pct": 0.25,
    "ev": -0.10659212032338461,
    "missing": null,
@@ -554,7 +554,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Mechelen v St Truiden",
@@ -1546,7 +1548,11 @@
     "home": 13628361,
     "away": 6822987
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72530960",
    "sb_tid": "sr:tournament:238",
    "sb_market": {
@@ -1904,7 +1910,11 @@
     "home": 166684649,
     "away": 65591266
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72478624",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -1913,8 +1923,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.12,
    "ev": -0.03663298723188302,
    "missing": {
@@ -1976,7 +1986,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Racing Santander v Valencia",
@@ -2104,7 +2116,11 @@
     "home": 34088198,
     "away": 21920303
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72477472",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -2113,8 +2129,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -2.38,
    "stake_pct": 0.25,
    "ev": -0.03930371133663535,
    "missing": {
@@ -2176,7 +2192,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -3.2
   },
   {
    "fixture": "Cadiz v Sp Gijon",
@@ -2718,8 +2736,8 @@
     "spec": "total=2.5",
     "outcome": "Under 2.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.01520934652503092,
    "missing": null,
@@ -2756,7 +2774,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Iraklis missing 24%",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72936076",
    "sb_tid": "sr:tournament:185",
    "sb_market": {
@@ -2765,8 +2787,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.051877050333203556,
    "missing": {
@@ -3104,7 +3126,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72176970",
    "sb_tid": "sr:tournament:215",
    "sb_market": {
@@ -3154,7 +3180,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72176968",
    "sb_tid": "sr:tournament:215",
    "sb_market": {

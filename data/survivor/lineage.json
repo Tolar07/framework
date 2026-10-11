@@ -352,6 +352,36 @@
    "holding": null
   },
   {
+   "lineage_id": "ln_aa9e5f6067",
+   "parent_id": "ln_f3c552988d",
+   "generation": 7,
+   "bankroll": 3.99,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-03",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-10"
+  },
+  {
+   "lineage_id": "ln_9c27faf9ca",
+   "parent_id": "ln_bb003255bf",
+   "generation": 7,
+   "bankroll": 3.99,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-03",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-10"
+  },
+  {
    "lineage_id": "ln_61e179d213",
    "parent_id": "ln_e9e0774235",
    "generation": 8,
@@ -363,7 +393,12 @@
    "born_date": "2026-10-05",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-11",
+    "fixture": "Rennes v Auxerre",
+    "pick": "Rennes Under 3.5 goals",
+    "price": 1.23
+   }
   },
   {
    "lineage_id": "ln_b34f09d959",
@@ -377,7 +412,12 @@
    "born_date": "2026-10-05",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-11",
+    "fixture": "Arouca v Estrela",
+    "pick": "Arouca Over 0.5 goals",
+    "price": 1.22
+   }
   },
   {
    "lineage_id": "ln_a9d1b852ea",
@@ -448,7 +488,12 @@
    "born_date": "2026-10-03",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-11",
+    "fixture": "Bochum v Bielefeld",
+    "pick": "Under 4.5 goals",
+    "price": 1.2
+   }
   },
   {
    "lineage_id": "ln_8afb2b090f",
@@ -528,7 +573,12 @@
    "born_date": "2026-10-10",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-11",
+    "fixture": "Nice v Strasbourg",
+    "pick": "Under 4.5 goals",
+    "price": 1.24
+   }
   },
   {
    "lineage_id": "ln_34e695b566",
@@ -543,21 +593,6 @@
    "last_result": null,
    "to_breed": false,
    "holding": null
-  },
-  {
-   "lineage_id": "ln_aa9e5f6067",
-   "parent_id": "ln_f3c552988d",
-   "generation": 7,
-   "bankroll": 3.99,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-03",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-10"
   },
   {
    "lineage_id": "ln_176de4cf5c",
@@ -588,21 +623,6 @@
    "holding": null
   },
   {
-   "lineage_id": "ln_9c27faf9ca",
-   "parent_id": "ln_bb003255bf",
-   "generation": 7,
-   "bankroll": 3.99,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-03",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-10"
-  },
-  {
    "lineage_id": "ln_d80398a8ed",
    "parent_id": "ln_a6d48c81cf",
    "generation": 7,
@@ -631,6 +651,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-10",
+ "last_bred_date": "2026-10-11",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

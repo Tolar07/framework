@@ -2440,7 +2440,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:00Z"
+   },
    "sb_event_id": "sr:match:73092966",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2449,8 +2453,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.36,
+   "clv": -5.15,
    "stake_pct": 0.25,
    "ev": -0.03241088172698081,
    "missing": {

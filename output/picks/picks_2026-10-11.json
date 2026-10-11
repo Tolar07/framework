@@ -48,7 +48,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Zwolle v Cambuur",
@@ -240,7 +242,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Silkeborg v Horsens",
@@ -288,7 +292,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Brondby v Lyngby",
@@ -420,7 +426,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -1.6
   },
   {
    "fixture": "St. Gilloise v Oud-Heverlee Leuven",
@@ -606,7 +614,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Aberdeen v St Johnstone",
@@ -936,7 +946,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 4.2
   },
   {
    "fixture": "Como v Roma",
@@ -984,7 +996,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 2.5
   },
   {
    "fixture": "Lazio v Monza",
@@ -1746,7 +1760,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Sociedad v RC Deportivo de A Coruna",
@@ -1938,7 +1954,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Almeria v Leganes",
@@ -2274,7 +2292,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -1.7
   },
   {
    "fixture": "FC St. Pauli v Karlsruhe",
@@ -2322,7 +2342,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Hertha v Greuther Furth",
@@ -2370,7 +2392,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Konyaspor v Istanbul BB",
@@ -2412,7 +2436,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Gaziantep FK v Corum FK",
@@ -2874,7 +2900,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "FC St. Gallen 1879 v Lausanne-Sport",
@@ -3198,7 +3226,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "BK Hacken v Orgryte IS",

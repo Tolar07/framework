@@ -613,8 +613,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.05218459532287689,
    "missing": {
@@ -955,8 +955,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -2.44,
    "stake_pct": 0.25,
    "ev": -0.022111149351824788,
    "missing": {
@@ -1262,7 +1262,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 3.3
   },
   {
    "fixture": "Freiburg v Schalke",

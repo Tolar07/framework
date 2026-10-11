@@ -693,8 +693,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.36,
+   "clv": -1.47,
    "stake_pct": 0.25,
    "ev": -0.0017472737804145044,
    "missing": {
@@ -810,7 +810,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 4.0
   },
   {
    "fixture": "Legia v Wisla",
@@ -891,8 +893,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.12,
    "ev": -0.05080599705606392,
    "missing": {
@@ -1101,8 +1103,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 4.07,
    "stake_pct": 0.25,
    "ev": -0.018750139777383157,
    "missing": {
@@ -1155,8 +1157,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.0033395791728658697,
    "missing": {
@@ -1358,7 +1360,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Nice v Strasbourg",
@@ -1397,8 +1401,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 2.56,
    "stake_pct": 0.25,
    "ev": -0.04003328666206507,
    "missing": {
@@ -1695,8 +1699,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03699149335014784,
    "missing": {
@@ -1749,8 +1753,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 1.52,
    "stake_pct": 0.25,
    "ev": -0.022487125592211554,
    "missing": {
@@ -1812,7 +1816,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Elche v Celta",
@@ -2238,7 +2244,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:73092958",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2247,8 +2257,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -2.38,
    "stake_pct": 0.25,
    "ev": -0.03915281747455157,
    "missing": {
@@ -2605,8 +2615,8 @@
     "spec": "total=2",
     "outcome": "Over 2"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.36,
+   "clv": 8.09,
    "stake_pct": 0.12,
    "ev": 0.025921335404276657,
    "missing": {

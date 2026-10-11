@@ -798,7 +798,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:72043188",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -807,8 +811,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -4.62,
    "stake_pct": 0.25,
    "ev": -0.05296533181582386,
    "missing": {
@@ -1365,8 +1369,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.019749660102376776,
    "missing": {
@@ -1835,8 +1839,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 2.46,
    "stake_pct": 0.25,
    "ev": -0.006345742642414276,
    "missing": {
@@ -2920,7 +2924,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -1.6
   },
   {
    "fixture": "SCR Altach v Wolfsberger AC",

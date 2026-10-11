@@ -1638,7 +1638,11 @@
     "home": 192356175,
     "away": 13702273
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Benfica missing 14%",
+    "at": "16:20Z"
+   },
    "sb_event_id": "sr:match:72530962",
    "sb_tid": "sr:tournament:238",
    "sb_market": {

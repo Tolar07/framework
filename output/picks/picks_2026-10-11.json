@@ -80,7 +80,11 @@
     "home": 11487429,
     "away": 9486976
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:72041170",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -241,8 +245,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.05533884798258559,
    "missing": {
@@ -295,8 +299,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -3.12,
    "stake_pct": 0.25,
    "ev": -0.013676068251316731,
    "missing": {
@@ -1522,7 +1526,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.35,
+   "drift_pct": 4.7
   },
   {
    "fixture": "Benfica v Guimaraes",
@@ -1792,7 +1798,11 @@
     "home": 23420754,
     "away": 76368764
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Elche missing 12% of value (Federico Redondo, Yago Santiago); support: Celta Vigo missing 19%",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:72478610",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -1801,8 +1811,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": -0.03360703063327242,
    "missing": {
@@ -2001,8 +2011,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 0.25,
    "ev": -0.05188792377301543,
    "missing": {
@@ -2977,8 +2987,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.0680947480370776,
    "missing": {
@@ -3040,7 +3050,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.8
   },
   {
    "fixture": "FC Vaduz v Basel",
@@ -3088,7 +3100,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Fredrikstad FK v Tromsoe IL",
@@ -3114,7 +3128,11 @@
     "home": 6375269,
     "away": 9515148
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:67015406",
    "sb_tid": "sr:tournament:20",
    "sb_market": {
@@ -3309,8 +3327,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 0.25,
    "ev": -0.013642415141161268,
    "missing": {
@@ -3372,7 +3390,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -1.7
   }
  ],
  "accas": [

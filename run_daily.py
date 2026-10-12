@@ -531,7 +531,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
     ladder_fixtures = ladder_rejected = dog_hcp_dropped = approved_dropped = 0
-    same_result_dropped = 0
+    same_result_dropped = short_dc_dropped = 0
     # AUTOMATIC LEARNING (improvement #6, engine.learning): every graded pick
     # corrects the next board. A market family or league whose picks won less
     # often than we said gets its chances cut (and can fall below the 50%
@@ -658,6 +658,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             _n = len(cands)
             cands = [c for c in cands if not loss_watch.blocked(c[2], _lg, approved_blocks)]
             approved_dropped += _n - len(cands)
+        # SHORT DOUBLE CHANCE NEEDS VALUE (order 43): a double chance at
+        # 1.20-1.40 stays only if our chance x price >= 1; otherwise the
+        # likeliest other outcome is picked by the normal rules.
+        _n = len(cands)
+        cands = [c for c in cands if not fm.short_dc_without_value(c[0], c[2], c[5].price)]
+        short_dc_dropped += _n - len(cands)
         if not cands:
             continue
 
@@ -801,6 +807,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     if dog_hcp_dropped:
         all_flags.append(f"FA Cup underdog handicaps (order 38): {dog_hcp_dropped} outcome(s) "
                          f"not considered")
+    if short_dc_dropped:
+        all_flags.append(f"short double chance needs value (order 43): {short_dc_dropped} "
+                         f"outcome(s) at 1.20-1.40 below fair price not considered")
     if same_result_dropped:
         all_flags.append(f"same-result price shopping: {same_result_dropped} outcome(s) dropped "
                          f"for the same bet at a better price under another market")

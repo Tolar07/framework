@@ -229,6 +229,26 @@ def rule_for(market_id, specifier: str, outcome: str) -> Optional[Rule]:
     return None
 
 
+# Order 43 (Architect 2026-10-12): a double chance priced 1.20-1.40 is picked
+# only at positive value on our own chance. The paper book's F8 / F9 (1,000+
+# bets each) won MORE often than the margin-free price said, yet lost 3.7% /
+# 5.1%: on short double chances the margin, not the prediction, is the leak.
+SHORT_DC_BAND = (1.20, 1.40)
+_DC_KEYS = frozenset({"DC_1X", "DC_X2", "DC_12"})
+
+
+def is_short_double_chance(key: str, price: float) -> bool:
+    """A double chance outcome (SportyBet market 10 or the DC_* keys) in the band."""
+    dc = key in _DC_KEYS or (key or "").startswith("SB:10|")
+    return dc and SHORT_DC_BAND[0] <= price <= SHORT_DC_BAND[1]
+
+
+def short_dc_without_value(win: float, key: str, price: float) -> bool:
+    """True when order 43 keeps this outcome off the board: short double chance,
+    and our chance x price < 1 (it is expected to lose money)."""
+    return is_short_double_chance(key, price) and win * price < 1
+
+
 def settles_as(rule: Rule) -> tuple:
     """How a rule settles on every scoreline of the grid. Two outcomes with the
     same signature are the same bet under different names — "Home or Draw" and

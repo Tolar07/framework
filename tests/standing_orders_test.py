@@ -508,4 +508,13 @@ assert "python run_nba.py" in wf, "Order 41: the NBA board runs with the evening
 assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41 and "£1 a pick" in _nba41, \
     "Orders 26/41 (2026-10-07): the NBA board is a live test, placed by hand from its codes"
 
+# 43. Short double chance needs value (Architect 2026-10-12)
+from engine import full_markets as _fm43
+assert _fm43.SHORT_DC_BAND == (1.20, 1.40), "Order 43: the short double chance band is 1.20-1.40"
+assert _fm43.short_dc_without_value(0.78, "SB:10||Home or Draw", 1.25), "Order 43: 0.78 x 1.25 < 1 is dropped"
+assert not _fm43.short_dc_without_value(0.82, "SB:10||Home or Draw", 1.25), "Order 43: value is kept"
+assert not _fm43.short_dc_without_value(0.60, "SB:10||Home or Draw", 1.55), "Order 43: above 1.40 untouched"
+_rd43 = (ROOT / "run_daily.py").read_text(encoding="utf-8")
+assert "fm.short_dc_without_value(c[0], c[2], c[5].price)" in _rd43, "Order 43: applied in run_daily selection"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

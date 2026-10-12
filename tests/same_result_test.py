@@ -42,3 +42,11 @@ kept, dropped = fm.best_price_per_result([cand("SB:10||Home/Draw", 1.29), cand("
 assert [c[2] for c in kept] == ["SB:10||Home/Draw", "X", "Y"] and dropped == 1
 
 print("same_result_test: OK")
+
+# order 43: short double chance needs value
+assert fm.is_short_double_chance("SB:10||Home or Away", 1.30) and fm.is_short_double_chance("DC_1X", 1.20)
+assert not fm.is_short_double_chance("SB:1||Home", 1.30) and not fm.is_short_double_chance("DC_12", 1.41)
+assert fm.short_dc_without_value(0.75, "SB:10||Home or Away", 1.30)        # 0.975 < 1: dropped
+assert not fm.short_dc_without_value(0.78, "SB:10||Home or Away", 1.30)    # 1.014: kept
+assert not fm.short_dc_without_value(0.50, "SB:18|total=1.5|Over 1.5", 1.30)  # not a double chance
+print("order 43 checks: OK")

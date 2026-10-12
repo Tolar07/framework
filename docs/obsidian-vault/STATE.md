@@ -46,6 +46,12 @@ every directive after 31 Aug is a standing order.
   choosing on value (chance × price) before chance for short DC legs — a
   selection-rule change. Only F7 BTTS-no shows a real chance error (47.2%
   won vs 51.2% fair, 2.1 se).
+- **Order 43 (same day, Architect: "go ahead, you decide the number"):** a
+  double chance at 1.20–1.40 is scored only when our chance × price ≥ 1.
+  Checked on the October ledgers: all 67 short double chance singles would
+  have been dropped (63 graded: 50 won, −1.02u). Expect fewer picks and
+  other markets in their place; whether those replacements do better is
+  not proven yet — watch the weekly review.
 
 ## Open items (2026-10-03)
 

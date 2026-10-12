@@ -188,7 +188,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Torino v Udinese",
@@ -473,8 +475,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 2.46,
    "stake_pct": 0.25,
    "ev": -0.01560584123173503,
    "missing": {
@@ -536,7 +538,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Tenerife v Girona",

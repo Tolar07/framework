@@ -12,7 +12,7 @@ INPUT (written by the collector session; one slip per line, append-only):
     code          SportyBet booking code        country   SportyBet site: "ng" (default) | "gh" | "ke"
     link          bet365 "Add To Your Bet Slip" URL        stated_odds  total odds the post states, or null
     legs          bet365: read from the post; SportyBet: [] — decoded here from the code. A leg:
-      {sport: football|basketball, home, away, kickoff (ISO or null),
+      {sport: football|basketball, home, away, kickoff (ISO UTC, "Z" — a time with no zone is read as UTC — or null),
        market: football 1x2|dc|dnb|ou|btts|ah|team_total, the SportyBet specials 1up|2up
        (early payout), dc_1up, or_over ("Home Team or Over 2.5"), win_either_half, run3
        ("To Score 3 or More Goals in a Row"); basketball win|total|spread; or "other",
@@ -331,11 +331,19 @@ def leg_factor(result: str, price: float) -> float:
     return FACTOR[result]
 
 
+def _utc(text: str) -> datetime:
+    """ISO time -> aware datetime; a time written without a zone is UTC
+    (12 Oct: the collector wrote "2026-10-13T01:00" and the naive time
+    crashed grade_due's comparison, stopping the whole run)."""
+    d = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    return d if d.tzinfo else d.replace(tzinfo=UTC)
+
+
 def _kickoff(leg: dict, posted: datetime) -> datetime:
     """A leg's kick-off; the post time when it is missing or not a date (a
     collector-read race card says "Newmarket 1:15")."""
     try:
-        return datetime.fromisoformat(leg["kickoff"].replace("Z", "+00:00"))
+        return _utc(leg["kickoff"])
     except (KeyError, AttributeError, ValueError):
         return posted
 
@@ -353,7 +361,7 @@ def grade_due(folder: Path, index: dict, now: datetime,
         legs = [remap(leg) for leg in s.get("legs") or (decoded.get(key) or {}).get("legs") or []]
         if not legs:
             continue
-        posted = datetime.fromisoformat((s.get("posted_at") or now.isoformat()).replace("Z", "+00:00"))
+        posted = _utc(s.get("posted_at") or now.isoformat())
         kos = [_kickoff(leg, posted) for leg in legs]
         if now - max(kos) < GRADE_AFTER:
             continue

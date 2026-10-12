@@ -72,6 +72,14 @@ assert g["status"] == "lost" and g["payout"] == 0.0 and g["unknown"] == ["exotic
 assert tp.grade_due(d, idx, datetime(2026, 10, 9, 20, tzinfo=UTC)) == [], "graded once"
 print("grading (a slip that lost a leg needs no other result): OK")
 
+dn = Path(tempfile.mkdtemp())            # 12 Oct: kickoff and post time written with no zone
+naive = {**slip, "post_url": "u-naive", "posted_at": "2026-10-09T10:00:00",
+         "legs": [{**leg, "kickoff": "2026-10-09T15:00"} for leg in slip["legs"]]}
+(dn / "slips_2026-10-09.jsonl").write_text(json.dumps(naive) + "\n", encoding="utf-8")
+assert tp.grade_due(dn, idx, datetime(2026, 10, 9, 16, tzinfo=UTC)) == [], "a zone-less kickoff is UTC"
+assert tp.grade_due(dn, idx, datetime(2026, 10, 9, 19, tzinfo=UTC)) == ["None: lost"], "and grades without crashing"
+print("zone-less kickoff read as UTC: OK")
+
 posted = datetime(2026, 10, 9, 8, tzinfo=UTC)
 assert tp._kickoff({"kickoff": "Newmarket 1:15"}, posted) == posted, "a race card is not a date"
 assert tp._kickoff({"kickoff": None}, posted) == posted and tp._kickoff({}, posted) == posted

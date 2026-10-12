@@ -433,10 +433,9 @@ assert [n for n, _l, _c in _vs] == ["Value 1", "Value 2"], \
 
 # 38. No underdog handicaps in the FA Cup
 from engine import full_markets as _fm38
-assert "FA Cup" in _rd.NO_DOG_HANDICAP_LEAGUES, "Order 38: FA Cup underdog handicaps are dropped"
-assert "Turkish Cup" in _rd.NO_DOG_HANDICAP_LEAGUES, "Order 38 (2026-10-07): Turkish Cup underdog handicaps are dropped too"
+assert _rd.NO_DOG_HANDICAP_LEAGUES == frozenset(), "Order 38 LIFTED 2026-10-12: no competition blocks underdog handicaps"
 from engine import freeze as _fz38
-assert _fz38.forbidden("SB:16|hcp=-1.5|Away (+1.5)", "Turkish Cup"), "Order 38: a frozen Turkish Cup underdog handicap is replaced"
+assert not _fz38.forbidden("SB:16|hcp=-1.5|Away (+1.5)", "Turkish Cup"), "Order 38 LIFTED: a frozen underdog handicap is kept"
 for _k in ("SB:16|hcp=-2.5|Away (+2.5)", "SB:16|hcp=1.5|Home (+1.5)", "SB:16|hcp=-0.5|Away (+0.5)",
            "SB:14|hcp=0:2|Away (0:2)", "SB:14|hcp=1:0|Home (1:0)"):
     assert _fm38.is_underdog_handicap(_k), f"Order 38: {_k} gives its side a start"
@@ -450,8 +449,8 @@ assert "NO_DOG_HANDICAP_LEAGUES" in _src38 and "is_underdog_handicap" in _src38 
     "Order 38: underdog handicaps are dropped before the pick is chosen"
 
 from engine import freeze as _fz38
-assert _fz38.forbidden("SB:16|hcp=-2.5|Away (+2.5)", "FA Cup"), \
-    "Order 38: a frozen FA Cup underdog handicap is replaced at the next run"
+assert not _fz38.forbidden("SB:16|hcp=-2.5|Away (+2.5)", "FA Cup"), \
+    "Order 38 LIFTED 2026-10-12: a frozen FA Cup underdog handicap is kept"
 
 # 39. Losing-market watch, knowledge file and proposals
 from engine import loss_watch as _lw39

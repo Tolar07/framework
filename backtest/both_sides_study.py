@@ -3,7 +3,7 @@ BOTH SIDES STUDY — does learning from every graded game, bet on or not,
 make the picks better? (Architect 2026-10-12: "every market is yes or no ...
 learn from it, don't block it ... I want to see that there's an improvement.")
 
-Every side of every market SportyBet priced on every graded football game
+Every side of every market SportyBet priced on every graded football and basketball game
 (data/universe/, engine/universe.py: 1X2, double chance, BTTS yes/no,
 Over/Under 0.5-4.5, 1UP/2UP) is one 1/0 record: the chance SportyBet's price
 gave it (margin removed) and whether it landed. Records are grouped by
@@ -46,15 +46,28 @@ def band(price: float) -> str:
     return "?"
 
 
+def label(sport: str, rec: dict) -> str:
+    """A group name that is the same from game to game: team names and basketball
+    lines are dropped, the side and the line in goals are kept."""
+    k = rec["key"]
+    if sport == "football":
+        from engine import full_markets as fm
+        return fm.display_key(k)
+    market, side = k.split("|")[0], k.split("|")[-1]
+    if market == "hcp":
+        line = rec.get("line", 0.0)
+        gets = line if side == "home" else -line          # points this side is given
+        return f"handicap {'underdog' if gets > 0 else 'favourite'}"
+    return f"{'total' if market == 'total' else 'winner'} {side}"
+
+
 def records(row: dict) -> list[dict]:
-    """Every settled side of every market of one graded football game."""
+    """Every settled side of every market of one graded game, with a fair chance."""
     out = []
-    for key, won, price, market in uv.outcomes("football", row["first"]["p"], row["result"]):
-        if key[1:3] == "up" or not price or price <= 1:
-            continue                        # early payout sides overlap: no fair chance
-        inv = sum(1 / x for x in market if x)
-        fair = (2 if key.startswith("dc:") else 1) * (1 / price) / inv
-        out.append({"seg": f"{key} @{band(price)}", "key": key, "won": won, "price": price, "fair": fair})
+    for r in uv.all_records(row):
+        if r["fair"] is None or r["price"] <= 1:
+            continue
+        out.append({**r, "seg": f"{label(row['sport'], r)} @{band(r['price'])}"})
     return out
 
 
@@ -106,8 +119,7 @@ class Book:
         return f"{self.n} | {self.won} ({self.won / self.n:.1%}) | {self.exp:.0f} | {m:+.1%} ± {se:.1%}"
 
 
-def main() -> int:
-    games = [r for r in uv.load_graded() if r.get("sport") == "football" and r.get("result")]
+def run(sport: str, games: list[dict]) -> list[str]:
     by_day: dict[str, list[list[dict]]] = defaultdict(list)
     for g in games:
         recs = records(g)
@@ -122,13 +134,13 @@ def main() -> int:
     tested_days = 0
     for day in days:
         shift = learn(history)
-        if shift:
+        if history:
             tested_days += 1
 
         def learned(r: dict, shift: dict = shift) -> float:
             return min(0.99, max(0.01, r["fair"] + shift.get(r["seg"], 0.0)))
         for recs in by_day[day]:
-            if shift:
+            if history:
                 for r in recs:
                     brier_plain += (r["fair"] - r["won"]) ** 2
                     brier_learned += (learned(r) - r["won"]) ** 2
@@ -153,12 +165,12 @@ def main() -> int:
         s[0] += 1
         s[1] += r["won"]
         s[2] += r["fair"]
-    L = ["# BOTH SIDES STUDY — learning from every side of every market, bet on or not", "",
+    L = [f"# BOTH SIDES STUDY — {sport.upper()}: every side of every market, bet on or not", "",
          "Written by `backtest/both_sides_study.py` (see its docstring). Every side of every market on every "
-         "graded football game is a yes/no record: SportyBet's margin-free chance vs what happened. "
+         "graded game is a yes/no record: SportyBet's margin-free chance vs what happened. "
          "Corrections are learned walk-forward — each day is judged only on what was learned BEFORE it.", "",
-         f"{len(games)} graded football games, {len(history)} yes/no records, {len(days)} match days; "
-         f"{tested_days} day(s) had a learned correction to test.", "",
+         f"{len(games)} graded {sport} games, {len(history)} yes/no records, {len(days)} match days; "
+         f"{tested_days} day(s) tested on what the days before them taught.", "",
          "## Does learning improve the chances?", "",
          "| | Brier score (lower is better) |", "|---|---|"]
     if n_brier:
@@ -181,8 +193,16 @@ def main() -> int:
             continue
         L.append(f"| {seg} | {n} | {w / n:.1%} | {e / n:.1%} | {(w - e) / n:+.1%} | "
                  f"{final.get(seg, 0.0):+.1%} |")
+    return L
+
+
+def main() -> int:
+    every = [r for r in uv.load_graded() if r.get("result")]
+    L: list[str] = []
+    for sport in ("football", "basketball"):
+        L += run(sport, [r for r in every if r.get("sport") == sport]) + [""]
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
-    print("\n".join(L[:40]))
+    print("\n".join(L))
     return 0
 
 

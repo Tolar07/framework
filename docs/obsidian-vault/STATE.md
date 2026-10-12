@@ -29,6 +29,22 @@ laptop, secrets, Routines), `Rules.md` (HR/ID register only),
 `Decisions Log.md` and `Protected Constants.md` are historical since 3 Oct:
 every directive after 31 Aug is a standing order.
 
+## 2026-10-12 — Every market, both sports; order 38 lifted; tipster study fixed
+
+- **Order 38 LIFTED** (Architect: "lift it too"): `NO_DOG_HANDICAP_LEAGUES` is
+  empty; underdog handicaps are scored and learned from everywhere.
+- **Every market learned** (Architect: "apply this learning to ... the entire
+  football betting market, same for basketball"): the universe sweep now
+  keeps every outcome of every full-time ladder market (22 more SportyBet
+  markets: handicaps, DNB, team goals, exact goals, ranges, odd/even, clean
+  sheets, win to nil, combos, Multigoals) and every basketball total and
+  handicap line. `engine/universe.all_records` → yes/no records;
+  `backtest/both_sides_study.py` learns football and basketball separately.
+  Old rows are renamed into the same keys. New markets have data from the
+  next sweep on.
+- **Tipster study fixed:** it crashed on every run since 11 Oct 08:05 on a
+  leg with no price (legs read from an image); grading itself kept running.
+
 ## 2026-10-12 — Both sides study: learning from every yes/no, bet on or not
 
 Architect: "don't block it, learn from it ... I want to see that there's an

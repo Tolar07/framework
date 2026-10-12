@@ -15,6 +15,11 @@ backtest/universe_study.py turns that into what the market gets right and
 wrong, league by league and market by market.
 
 Prices kept (raw SportyBet decimals, so returns can be measured):
+  ALL SIDES (2026-10-12): football also keeps every outcome of every full-time
+              ladder market (engine/full_markets.LADDER_MARKET_IDS) as p["ladder"]
+              {"SB:<id>|<spec>|<outcome>": price}; basketball every total and
+              handicap line as p["lines"]. all_records() turns a graded game into
+              yes/no records for backtest/both_sides_study.py.
   football    1X2 (1), Over/Under 1.5 / 2.5 / 3.5 (18), BTTS (29), Double Chance (10),
               1X2 - 2UP (60100) and 1X2 - 1UP (60200): SportyBet's early payout — the
               team's bet pays as soon as it leads by 2 (1), else as a plain 1X2
@@ -40,7 +45,10 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 PENDING = ROOT / "data" / "cache" / "universe" / "pending.json.gz"   # Actions cache, not git
 GRADED_DIR = ROOT / "data" / "universe"
-SPORTS = {"football": ("sr:sport:1", "1,18,29,10,60100,60200", 1),"basketball": ("sr:sport:2", "219,225,223", 3)}
+# Football also asks for every full-time market of the ladder (engine/full_markets,
+# Architect 2026-10-12: "apply this learning to ... the entire football betting market").
+_FB_LADDER = "11,12,13,14,16,19,20,21,23,24,25,26,30,31,32,33,34,36,37,546,547,548"
+SPORTS = {"football": ("sr:sport:1", "1,18,29,10,60100,60200," + _FB_LADDER, 1),"basketball": ("sr:sport:2", "219,225,223", 3)}
 GRADE_AFTER = timedelta(hours=3)        # a game is looked up 3 h after kick-off
 GIVE_UP_AFTER = timedelta(days=7)       # Flashscore keeps 7 days
 OU_LINES = ("1.5", "2.5", "3.5")
@@ -69,6 +77,18 @@ def prices(sport: str, event: dict) -> dict:
             continue                     # closed / suspended line: not a real offer
         mid, spec = str(m.get("id")), m.get("specifier") or ""
         px = {(o.get("desc") or "").strip(): _f(o.get("odds")) for o in m.get("outcomes", [])}
+        # every side of every market, keyed like the board's ladder ("SB:18|total=2.5|Over 2.5")
+        if sport == "football" and mid.isdigit() and int(mid) in _ladder_ids():
+            for desc, x in px.items():
+                if x:
+                    out.setdefault("ladder", {})[f"SB:{mid}|{spec}|{desc}"] = x
+        if sport == "basketball" and mid in ("225", "223"):
+            line = _num(spec, "total" if mid == "225" else "hcp")
+            if line is not None:
+                for desc, x in px.items():
+                    side = desc.split(" ")[0].lower()        # Over / Under / Home / Away
+                    if x and side in ("over", "under", "home", "away"):
+                        out.setdefault("lines", {})[f"{'total' if mid == '225' else 'hcp'}|{line}|{side}"] = x
         if sport == "football":
             if mid == "1" and all(px.get(k) for k in ("Home", "Draw", "Away")):
                 out["1x2"] = [px["Home"], px["Draw"], px["Away"]]
@@ -110,6 +130,11 @@ def prices(sport: str, event: dict) -> dict:
     for key, (_g, row) in main.items():
         out[key] = row
     return out
+
+
+def _ladder_ids() -> frozenset[int]:
+    from engine import full_markets as fm
+    return frozenset(fm.LADDER_MARKET_IDS)
 
 
 def event_row(sport: str, event: dict, tournament: dict, covered_ids: set[str], now: datetime) -> dict:
@@ -341,3 +366,91 @@ def outcomes(sport: str, prices_: dict, res: dict) -> list[tuple[str, int, float
                 cov = h - a + line > 0
                 out += [("hcp:home", int(cov), ph, [ph, pa]), ("hcp:away", int(not cov), pa, [ph, pa])]
     return out
+
+
+# ── every side of every market, as yes/no records (Architect 2026-10-12) ──────
+# Old rows (before 2026-10-12) kept only 1X2, O/U 1.5-3.5, BTTS and double
+# chance; their sides are renamed to the ladder's keys so old and new records
+# learn together.
+_LEGACY = {"1x2:home": "SB:1||Home", "1x2:draw": "SB:1||Draw", "1x2:away": "SB:1||Away",
+           "btts:yes": "SB:29||Yes", "btts:no": "SB:29||No",
+           "dc:1x": "SB:10||Home or Draw", "dc:12": "SB:10||Home or Away", "dc:x2": "SB:10||Draw or Away"}
+_TWICE = {10, 546, 547}          # every result wins two of these markets' outcomes
+
+
+def _legacy_key(k: str) -> str | None:
+    if k in _LEGACY:
+        return _LEGACY[k]
+    if k.startswith("o/u"):
+        line, side = k[3:].split(":")
+        return f"SB:18|total={line}|{side.title()} {line}"
+    return None
+
+
+def all_records(row: dict, which: str = "first") -> list[dict]:
+    """[{key, won 0/1, price, fair}] — every settled side of every market of one
+    graded game. `fair` = the price's chance with the market's margin removed,
+    or None when the market's sides overlap in a way that can't be de-vigged
+    (Multigoals). Pushes (a whole line landing exactly) are left out."""
+    res = row.get("result")
+    if not res or (row.get("sport") == "football" and res.get("after_90")):
+        return []
+    p = (row.get(which) or {}).get("p") or {}
+    h, a = res["h"], res["a"]
+    recs: list[dict] = []
+    if row.get("sport") == "football":
+        from engine import full_markets as fm
+        ladder = dict(p.get("ladder") or {})
+        if not ladder:                          # an old row: its kept markets, renamed
+            for k, _w, x, _m in outcomes("football", p, res):
+                lk = _legacy_key(k)
+                if lk:
+                    ladder[lk] = x
+        groups: dict[str, list[float]] = {}
+        for k, x in ladder.items():
+            groups.setdefault(k.rsplit("|", 1)[0], []).append(x)
+        for k, x in ladder.items():
+            pk = fm.parse_key(k)
+            rule = fm.rule_for(*pk) if pk else None
+            if rule is None:
+                continue
+            r = rule(h, a)
+            if r == "push":
+                continue
+            mid = pk[0]
+            inv = sum(1 / v for v in groups[k.rsplit("|", 1)[0]])
+            fair = None if mid == 548 else (2 if mid in _TWICE else 1) * (1 / x) / inv
+            if fair is not None and not 0 < fair < 1:
+                fair = None                     # a market only partly priced
+            recs.append({"key": k, "won": int(r == "win"), "price": x, "fair": fair})
+        return recs
+    lines = dict(p.get("lines") or {})
+    if not lines:
+        if "total" in p:
+            ln, o, u = p["total"]
+            lines.update({f"total|{ln}|over": o, f"total|{ln}|under": u})
+        if "hcp" in p:
+            ln, ph, pa = p["hcp"]
+            lines.update({f"hcp|{ln}|home": ph, f"hcp|{ln}|away": pa})
+    if "win" in p:
+        ph, pa = p["win"]
+        inv = 1 / ph + 1 / pa
+        recs += [{"key": "win|home", "won": int(h > a), "price": ph, "fair": (1 / ph) / inv},
+                 {"key": "win|away", "won": int(a > h), "price": pa, "fair": (1 / pa) / inv}]
+    for k, x in lines.items():
+        market, ln, side = k.split("|")
+        line = float(ln)
+        other = {"over": "under", "under": "over", "home": "away", "away": "home"}[side]
+        y = lines.get(f"{market}|{ln}|{other}")
+        if market == "total":
+            if h + a == line:
+                continue
+            won = (h + a > line) == (side == "over")
+        else:
+            margin = h - a + line                  # the line is the home side's
+            if margin == 0:
+                continue
+            won = (margin > 0) == (side == "home")
+        fair = (1 / x) / (1 / x + 1 / y) if y else None
+        recs.append({"key": k, "won": int(won), "price": x, "fair": fair, "line": line})
+    return recs

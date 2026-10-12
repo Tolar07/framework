@@ -95,7 +95,9 @@ def _range(text: str):
 # handicap is never picked. run_daily drops them before the pick is chosen;
 # engine/freeze replaces a frozen leg that carries one.
 # Turkish Cup added 2026-10-07 (Architect: "apply order 38 to Turkish Cup").
-NO_DOG_HANDICAP_LEAGUES = frozenset({"FA Cup", "Turkish Cup"})
+# LIFTED 2026-10-12 (Architect: "lift it too" — learn from underdog handicaps,
+# don't block them). The mechanism stays; the list is empty.
+NO_DOG_HANDICAP_LEAGUES: frozenset[str] = frozenset()
 
 
 def is_underdog_handicap(k: str) -> bool:

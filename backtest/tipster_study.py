@@ -73,7 +73,9 @@ def write(folder: Path, out: Path) -> str:
         by_poster[s["poster"] or "?"].append(s)
     for p in sorted(by_poster, key=lambda p: -len(by_poster[p])):
         L.append(_slip_row(p, by_poster[p]))
-    legs = [leg for s in graded for leg in s["legs"] if leg.get("result") in ("win", "lose", "half_win", "half_lose")]
+    # a leg read without its price (legs from an image) counts for nothing here
+    legs = [leg for s in graded for leg in s["legs"]
+            if leg.get("result") in ("win", "lose", "half_win", "half_lose") and leg.get("price")]
     L += ["", "## Legs by market", "", "| Market | legs | landed | implied (avg) |", "|---|---|---|---|"]
     by_m: dict[str, list[dict]] = defaultdict(list)
     for leg in legs:
@@ -97,7 +99,7 @@ def write(folder: Path, out: Path) -> str:
           "| Slips carrying the game | legs | landed | implied (avg) |", "|---|---|---|---|"]
     for lo, hi, name in ((1, 2, "1"), (2, 3, "2"), (3, 999, "3+")):
         xs = [leg for s in graded for leg in s["legs"]
-              if leg.get("result") in ("win", "lose", "half_win", "half_lose")
+              if leg.get("result") in ("win", "lose", "half_win", "half_lose") and leg.get("price")
               and lo <= count[(s["posted_at"][:10], (leg.get("home") or "").lower(), (leg.get("away") or "").lower())] < hi]
         if xs:
             L.append(f"| {name} | {len(xs)} | {sum(x['result'] in ('win', 'half_win') for x in xs) / len(xs):.0%} | "
@@ -112,7 +114,7 @@ def write(folder: Path, out: Path) -> str:
     all_legs = [tp.remap(leg) for s in slips for leg in s["legs"]]
     for cls in ("aligned", "middle", "special", "risky"):
         xs = [x for x in all_legs if tp.leg_class(x) == cls]
-        gx = [x for x in xs if x.get("result") in ("win", "lose", "half_win", "half_lose")]
+        gx = [x for x in xs if x.get("result") in ("win", "lose", "half_win", "half_lose") and x.get("price")]
         if not xs:
             continue
         landed = sum(x["result"] in ("win", "half_win") for x in gx)

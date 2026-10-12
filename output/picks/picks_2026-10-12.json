@@ -83,8 +83,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.01563656257683188,
    "missing": {
@@ -146,7 +146,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Atalanta v Venezia FC",
@@ -172,7 +174,11 @@
     "home": 270043850,
     "away": 60000137
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:71945286",
    "sb_tid": "sr:tournament:23",
    "sb_market": {

@@ -1737,10 +1737,11 @@
    "sharp_ev": -0.0279,
    "first_price": 1.32,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "drift_price": 1.32,
-   "drift_pct": 0.0
+   "drift_pct": 0.0,
+   "orig_result": "won"
   },
   {
    "fixture": "Crystal Palace v Nott'm Forest",
@@ -2116,8 +2117,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-2",
    "drift_price": 1.2,
    "drift_pct": -0.8
   },
@@ -2333,8 +2334,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-1",
    "drift_price": 1.23,
    "drift_pct": -2.4
   },
@@ -3720,7 +3721,7 @@
     "FC Vaduz v Basel",
     "Racing Santander v Valencia"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca H",
@@ -3972,8 +3973,8 @@
      "pick": "Arouca Over 0.5 goals",
      "price": 1.23,
      "chance": 0.8035,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-0"
     },
     {
      "fixture": "St. Gilloise v Oud-Heverlee Leuven",
@@ -7039,7 +7040,7 @@
      0.7666
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Crystal Palace v Nott'm Forest",
@@ -7603,7 +7604,7 @@
      0.7164
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Andorra v Castellon",
@@ -7923,7 +7924,7 @@
      0.7331
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Catanzaro v Mantova",
@@ -10012,19 +10013,19 @@
    "name": "ACCAS MEGA",
    "of": "accas",
    "code": "XPLNVD",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "ALT MEGA",
    "of": "alts",
    "code": "XQ7G94",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "VALUE MEGA",
    "of": "value",
    "code": "G7Z7VS",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "50+ MEGA",
@@ -10113,7 +10114,8 @@
      "market": "SB:19|total=0.5|Over 0.5",
      "pick": "Racing Santander Over 0.5 goals",
      "price": 1.21,
-     "result": null
+     "result": "won",
+     "ft": "2-2"
     }
    ],
    "legs": [
@@ -10305,7 +10307,8 @@
      "market": "SB:19|total=0.5|Over 0.5",
      "pick": "Racing Santander Over 0.5 goals",
      "price": 1.21,
-     "result": null
+     "result": "won",
+     "ft": "2-2"
     },
     {
      "fixture": "Hertha v Greuther Furth",

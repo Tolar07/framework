@@ -29,6 +29,24 @@ laptop, secrets, Routines), `Rules.md` (HR/ID register only),
 `Decisions Log.md` and `Protected Constants.md` are historical since 3 Oct:
 every directive after 31 Aug is a standing order.
 
+## 2026-10-12 — Both sides study: learning from every yes/no, bet on or not
+
+Architect: "don't block it, learn from it ... I want to see that there's an
+improvement." `backtest/both_sides_study.py` → `backtest/BOTH_SIDES_STUDY.md`,
+rerun daily by `monitor/universe_sweep.py`. Every side of every market on
+every graded football game (1,922 games, 22,359 yes/no records, 6 match days)
+vs SportyBet's margin-free chance, learned walk-forward:
+- Chances: no improvement yet (Brier 0.20921 plain vs 0.20950 learned).
+- Picks, £1 a game: likeliest on plain chances −6.0%; likeliest on learned
+  chances −6.3%; learned chances + best value within 2 pts −5.5% (all ±1.5%).
+  Value-aware picking is the best of the three but not yet beyond luck.
+- Strongest groups: BTTS no at 1.60–2.00 landed 45.4% vs 50.5% said; 1X at
+  1.60–2.00 41.2% vs 52.7%; Over 3.5 at 2.00–3.00 33.3% vs 38.1%; very short
+  double chances (1.00–1.20) and Under 3.5 / home 1.40–1.60 landed above.
+- Decision: no blocks. The P1 block and the order-43 block were withdrawn the
+  same day. A learned correction is wired into selection only once the study
+  shows it beats plain picking by 2+ standard errors.
+
 ## Open items (2026-10-03)
 
 | # | Item | Status |

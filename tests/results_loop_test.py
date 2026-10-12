@@ -29,6 +29,11 @@ assert fs.find_result(ev, "Bristol Rvs", "Crewe", "2026-09-20") is None, "wrong 
 assert fs.find_result(ev, "Man City", "Crewe", "2026-10-03") is None
 assert fs._sim("Man City", "Manchester Utd") < fs.MATCH_MIN, "Man City must never match Man Utd"
 assert fs.find_result(ev, "Czech Republic", "Spain", "2026-10-03") is None, "home/away order matters"
+_ev12 = [{"home": "KFUM Oslo", "away": "Valerenga", "kickoff_utc": "2026-10-12T17:00:00Z", "fthg": 2, "ftag": 1},
+         {"home": "AEK Larnaca", "away": "Omonia", "kickoff_utc": "2026-10-12T17:00:00Z", "fthg": 0, "ftag": 0}]
+assert fs.find_result(_ev12, "KFUM Oslo", "Vaalerenga IF", "2026-10-12")["fthg"] == 2, \
+    "a feed spelling with a name_match alias grades (12 Oct: KFUM v Vaalerenga stayed ungraded)"
+assert fs.find_result(_ev12, "AEK Athens", "Omonia", "2026-10-12") is None, "an alias counts only when exact"
 print("strict name/date matching: OK")
 
 # --- ledger grading ---------------------------------------------------------

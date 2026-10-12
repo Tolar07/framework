@@ -163,6 +163,21 @@ with tempfile.TemporaryDirectory() as tmp:
     assert "1 of 1 legs measured against the close" in text and "| @a | 1 | +11.1%" in text, text[-900:]
     assert json.loads((f / "aggregates.json").read_text())["clv"]["legs_measured"] == 1
     assert "NO DATA — PENDING" in ts.write(f, f / "T.md", universe_rows=[])
+up = {"sport": "football", "market": "1up", "selection": "home", "price": 1.6, "sb": {"event": "sr:match:7"}}
+uni_up = [{**uni[0], "last": {**uni[0]["last"], "p": {**uni[0]["last"]["p"], "1up": [1.5, 3.4, 2.6]}}}]
+r_up = ts.leg_clv(up, "2026-10-09T10:00Z", ts.UniverseIndex(uni_up))
+assert abs(r_up["clv"] - (1.6 / 1.5 - 1)) < 1e-9 and r_up["ev_close"] is None and r_up["move"] is None, \
+    "1UP rows don't add up to one: CLV only, no margin-free EV"
+with tempfile.TemporaryDirectory() as tmp:
+    f = Path(tmp)
+    nop = {"sport": "football", "market": "team_total", "selection": "over", "line": 1.5, "team": "home",
+           "price": None, "home": "Home FC", "away": "Away FC", "kickoff": "2026-10-10T15:00Z", "result": "win"}
+    (f / "graded_2026-10-10.jsonl").write_text(json.dumps({
+        "post_url": "https://x.com/b/status/2", "poster": "@b", "official": False, "book": "bet365",
+        "posted_at": "2026-10-10T09:00:00Z", "status": "won", "payout": 1.5, "implied": 1.0,
+        "legs": [nop, {**home, "home": "Home FC", "away": "Away FC", "kickoff": "2026-10-10T15:00Z",
+                       "result": "win"}], "unknown": []}) + "\n")
+    assert "Legs by class" in ts.write(f, f / "T.md", universe_rows=uni_up), "a leg with no price must not crash the study"
 print("closing-line value of tipster legs: OK")
 
 print("ALL TIPSTER TESTS PASSED")

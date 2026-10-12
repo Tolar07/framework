@@ -70,16 +70,21 @@ def _devig(ps: list[float]) -> list[float]:
     return [i / sum(inv) for i in inv]
 
 
-def leg_quote(leg: dict, p: dict) -> tuple[float, float] | None:
+def leg_quote(leg: dict, p: dict) -> tuple[float, float | None] | None:
     """(SportyBet price, margin-free chance) of the leg's own outcome in one
     universe price snapshot `p`, or None when the sweep doesn't keep that market
     or line. Double chance is priced from the 1X2 (margin removed there)."""
     m, sel, line = leg.get("market"), leg.get("selection"), leg.get("line")
     side = {"home": 0, "draw": 1, "away": 2}
     if leg.get("sport") == "football":
-        if m in ("1x2", "1up", "2up") and sel in side:
-            row = p.get("1x2" if m == "1x2" else m)
+        if m == "1x2" and sel in side:
+            row = p.get("1x2")
             return (row[side[sel]], _devig(row)[side[sel]]) if row else None
+        if m in ("1up", "2up") and sel in side:
+            # Both teams can go 1 (or 2) up in the same game, so the row's
+            # chances don't add up to one: no margin-free chance, price only.
+            row = p.get(m)
+            return (row[side[sel]], None) if row else None
         if m == "dc" and sel in DC_PAIRS and p.get("dc") and p.get("1x2"):
             i, j = DC_PAIRS[sel]
             fair = _devig(p["1x2"])
@@ -142,8 +147,9 @@ def leg_clv(leg: dict, entry_at: str | None, idx: UniverseIndex) -> dict | None:
     first = leg_quote(leg, row["first"]["p"])
     if close is None or not entry_at or entry_at > row["last"]["at"]:
         return None
-    return {"clv": leg["price"] / close[0] - 1, "ev_close": close[1] * leg["price"] - 1,
-            "move": (close[1] - first[1]) if first else None,
+    return {"clv": leg["price"] / close[0] - 1,
+            "ev_close": close[1] * leg["price"] - 1 if close[1] is not None else None,
+            "move": (close[1] - first[1]) if first and first[1] is not None and close[1] is not None else None,
             "lead_h": (datetime.fromisoformat(row["ko"].replace("Z", "+00:00"))
                        - datetime.fromisoformat(entry_at.replace("Z", "+00:00"))).total_seconds() / 3600}
 
@@ -152,11 +158,11 @@ def _clv_row(name: str, xs: list[dict]) -> str:
     if not xs:
         return f"| {name} | 0 | — | — | — | — |"
     c = [x["clv"] for x in xs]
-    e = [x["ev_close"] for x in xs]
+    e = [x["ev_close"] for x in xs if x["ev_close"] is not None]
     mv = [x["move"] for x in xs if x["move"] is not None]
     lead = sorted(x["lead_h"] for x in xs)[len(xs) // 2]
     return (f"| {name} | {len(xs)} | {sum(c) / len(c):+.1%} ± {_se(c):.1%} · beat {sum(v > 0 for v in c) / len(c):.0%} | "
-            f"{sum(e) / len(e):+.1%} ± {_se(e):.1%} | "
+            f"{f'{sum(e) / len(e):+.1%} ± {_se(e):.1%}' if e else '—'} | "
             f"{f'{100 * sum(mv) / len(mv):+.2f} ± {100 * _se(mv):.2f} pts' if mv else '—'} | {lead:.0f} h |")
 
 
@@ -175,7 +181,8 @@ def clv_section(slips: list[dict], folder: Path, rows: list[dict] | None = None)
          "(SportyBet's share API gives today's price, not the price at posting — decode soon after "
          "collecting), a bet365 leg's price as posted. A leg whose entry price was read after the "
          "sweep's last look has no close and is left out, as is a market the sweep doesn't keep "
-         "(handicaps, team totals, specials other than 1UP/2UP).", ""]
+         "(handicaps, team totals, specials other than 1UP/2UP). 1UP/2UP legs get a CLV but no EV or move: "
+         "both teams can go a goal up in the same game, so that row's chances don't add up to one.", ""]
     if not rows:
         L.append("No universe sweep data in this checkout (`data/universe/`) — NO DATA — PENDING.")
         return L, {}
@@ -216,8 +223,9 @@ def clv_section(slips: list[dict], folder: Path, rows: list[dict] | None = None)
     for cls in ("aligned", "middle", "special", "risky"):
         xs = [r for _, leg, r in out if tp.leg_class(tp.remap(leg)) == cls]
         if xs:
+            ev = [x["ev_close"] for x in xs if x["ev_close"] is not None]
             agg[cls] = {"legs": len(xs), "clv_avg": sum(x["clv"] for x in xs) / len(xs),
-                        "ev_close_avg": sum(x["ev_close"] for x in xs) / len(xs)}
+                        "ev_close_avg": sum(ev) / len(ev) if ev else None}
     return L, agg
 
 
@@ -241,7 +249,9 @@ def write(folder: Path, out: Path, universe_rows: list[dict] | None = None) -> s
         by_poster[s["poster"] or "?"].append(s)
     for p in sorted(by_poster, key=lambda p: -len(by_poster[p])):
         L.append(_slip_row(p, by_poster[p]))
-    legs = [leg for s in graded for leg in s["legs"] if leg.get("result") in ("win", "lose", "half_win", "half_lose")]
+    # a leg read with no price (bet365 team totals, 10 Oct) has no implied chance
+    legs = [leg for s in graded for leg in s["legs"]
+            if leg.get("result") in ("win", "lose", "half_win", "half_lose") and leg.get("price")]
     L += ["", "## Legs by market", "", "| Market | legs | landed | implied (avg) |", "|---|---|---|---|"]
     by_m: dict[str, list[dict]] = defaultdict(list)
     for leg in legs:
@@ -265,7 +275,7 @@ def write(folder: Path, out: Path, universe_rows: list[dict] | None = None) -> s
           "| Slips carrying the game | legs | landed | implied (avg) |", "|---|---|---|---|"]
     for lo, hi, name in ((1, 2, "1"), (2, 3, "2"), (3, 999, "3+")):
         xs = [leg for s in graded for leg in s["legs"]
-              if leg.get("result") in ("win", "lose", "half_win", "half_lose")
+              if leg.get("result") in ("win", "lose", "half_win", "half_lose") and leg.get("price")
               and lo <= count[(s["posted_at"][:10], (leg.get("home") or "").lower(), (leg.get("away") or "").lower())] < hi]
         if xs:
             L.append(f"| {name} | {len(xs)} | {sum(x['result'] in ('win', 'half_win') for x in xs) / len(xs):.0%} | "
@@ -284,7 +294,8 @@ def write(folder: Path, out: Path, universe_rows: list[dict] | None = None) -> s
         if not xs:
             continue
         landed = sum(x["result"] in ("win", "half_win") for x in gx)
-        imp = sum(1 / x["price"] for x in gx) / len(gx) if gx else None
+        px = [x for x in gx if x.get("price")]
+        imp = sum(1 / x["price"] for x in px) / len(px) if px else None
         L.append(f"| {cls} | {len(xs)} | {f'{landed}/{len(gx)} = {landed / len(gx):.0%}' if gx else '—'} | "
                  f"{f'{imp:.0%}' if imp else '—'} | {len(xs) - len(gx)} |")
         agg["classes"][cls] = {"legs": len(xs), "graded": len(gx), "landed": landed, "implied_avg": imp}

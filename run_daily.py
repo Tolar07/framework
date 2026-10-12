@@ -64,6 +64,7 @@ from engine.mes import mes_numeric
 from engine import markets as mkt
 from engine import calibration as cal
 from engine import half
+from engine import focus as _focus
 from engine.form import compute_table, fixture_form, form_support as _form_support
 from clv.clv_logger import CLVLog, compute_clv
 from output.produce_bet import (render_produce_bet, render_verify_results,
@@ -896,6 +897,18 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             f"deploy odds band {DEPLOY_ODDS_MIN:.2f}–{DEPLOY_ODDS_MAX:.2f}: "
             f"{band_dropped} fixture(s) dropped from THE CALL (price out of band)")
 
+    # BOARD FOCUS (Architect 2026-10-12, engine/focus.py): on a focus day only
+    # the focus competitions reach the board; every other deploy pick becomes
+    # a STUDY pick — recorded and graded, never sent. Before the cap, so the
+    # focus picks don't lose slots to fixtures that won't be shown.
+    focus = _focus.leagues_for(target)
+    _studied = _focus.demote(board, focus)
+    shown = [b for b in board if _focus.on_board(b, focus)]
+    if focus:
+        all_flags.append(
+            f"BOARD FOCUS {target}: {', '.join(focus)} only — {len(shown)} of {len(board)} "
+            f"rated fixture(s) on the board; {_studied} pick(s) elsewhere kept as study (paper)")
+
     shortlisted = [b for b in board if b.on_deploy_shortlist]
     capped = {id(b) for b in build_deploy_shortlist(shortlisted)}
     for b in board:
@@ -1217,7 +1230,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                             if _b.probs else None
                         _q = getattr(_fx, "btts_yes", None) if _fx else None
                         _b.btts_price = getattr(_q, "price", None)
-                    for _n, _legs, _c in _build_btts(board):
+                    for _n, _legs, _c in _build_btts(shown):
                         _ls = [(bf.fixture.rsplit("(", 1)[-1].rstrip(")").strip(),
                                 bf.probs.home_team, bf.probs.away_team, key)
                                for bf, _pick, _prob, key, _price in _legs]
@@ -1286,7 +1299,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                   alts=_alt_accas(dep), alt_codes=alt_codes,
                                   values=_build_value_l(dep), value_codes=value_codes,
                                   combined=extra_codes,
-                                  btts=_btts_l(board))
+                                  btts=_btts_l(shown))
     except _KeepFrozen:
         all_flags.append("picks ledger kept as frozen at the 10pm board (codes frozen)")
     except Exception as e:  # noqa: BLE001
@@ -1330,7 +1343,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     telegram_text = render_canonical_board(
         mode="Mode A", phase=PHASE_LABEL, leagues_scanned=leagues,
         calibration_count=status["legs_with_clv"],
-        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=board,
+        mean_clv=status["mean_clv_pct"], data_flags=all_flags, board=shown,
         acca_code=acca_code, board_code=board_code, board_date=target,
         acca_codes=acca_codes, mega_codes=mega_codes, safe3_codes=safe3_codes,
         extra_codes=extra_codes, run_id=run_id, alt_codes=alt_codes,
@@ -1488,7 +1501,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     # Best-effort like the heartbeat: it never fails the run.
     try:
         from output import bet365_board
-        b365_text = bet365_board.render(board, board_date=target, run_id=run_id)
+        b365_text = bet365_board.render(shown, board_date=target, run_id=run_id)
         b365_path = BOARD_DIR / f"bet365_{target}.txt"
         b365_path.parent.mkdir(parents=True, exist_ok=True)
         b365_path.write_text(b365_text, encoding="utf-8")
@@ -1502,7 +1515,7 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             _mark(runlog, f"bet365 board: {b365_gate}")
         elif not owner_chat:
             _mark(runlog, "bet365 board saved, NOT sent: no Architect chat configured")
-        elif deliver_now and frozen is None and bet365_board.picks(board)[0]:
+        elif deliver_now and frozen is None and bet365_board.picks(shown)[0]:
             b_ok, b_notes = notify.send_telegram(b365_text, chat_id=owner_chat)
             for n in b_notes:
                 _mark(runlog, f"bet365 board: {n}")

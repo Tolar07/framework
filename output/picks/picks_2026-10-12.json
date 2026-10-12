@@ -245,8 +245,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -1.5,
    "stake_pct": 0.25,
    "ev": -0.027128295859793705,
    "missing": {
@@ -390,7 +390,11 @@
     "home": 39704688,
     "away": 75155506
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72478614",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -602,7 +606,11 @@
     "home": 4834588,
     "away": 13055969
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72477490",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -649,7 +657,11 @@
    "fotmob_id": 5803273,
    "kickoff_utc": "2026-10-12T18:45:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72037364",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -658,8 +670,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -3.17,
    "stake_pct": 0.25,
    "ev": -0.052472328439539306,
    "missing": null,

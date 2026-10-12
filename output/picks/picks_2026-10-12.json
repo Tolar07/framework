@@ -124,7 +124,11 @@
     "home": 5720230,
     "away": 8079276
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: GKS Katowice missing 13%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74128332",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -133,8 +137,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.06742659931868433,
    "missing": {
@@ -228,7 +232,11 @@
     "home": 71987553,
     "away": 66045886
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Torino missing 16% of value (Niccol\u00f2 Fortini); support: Udinese missing 33%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:71945304",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -328,7 +336,11 @@
     "home": 112158289,
     "away": 364776947
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72221298",
    "sb_tid": "sr:tournament:17",
    "sb_market": {

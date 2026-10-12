@@ -404,7 +404,11 @@
     "home": 9741901,
     "away": 5796905
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:20Z"
+   },
    "sb_event_id": "sr:match:72477492",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -476,7 +480,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Oviedo v Eibar",

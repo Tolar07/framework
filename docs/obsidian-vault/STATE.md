@@ -29,6 +29,8 @@ laptop, secrets, Routines), `Rules.md` (HR/ID register only),
 `Decisions Log.md` and `Protected Constants.md` are historical since 3 Oct:
 every directive after 31 Aug is a standing order.
 
+**2026-10-12 — board focus.** Architect: "tomorrow's board should be a Champions League alone ... any other fixture or competition outside Champions League should be studied ... paper bet". `config/focus.json` names a day's focus competitions; `engine/focus.py` keeps every other deploy pick off the board as a STUDY pick (ledger `study`, graded, not counted as a board single). Every fixture is still rated and recorded under `rated`. Set for 2026-10-13 only. No rule ID assigned yet.
+
 ## Open items (2026-10-03)
 
 | # | Item | Status |

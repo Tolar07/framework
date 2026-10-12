@@ -159,6 +159,11 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
         # positive-value bets (order 37): own markets, graded like the alt legs
         "value": [_alt_slip(n, l, c, (value_codes or {}).get(n)) for n, l, c in (values or [])],
         "rated": [_rated(bf) for bf in board if bf.probs is not None],
+        # STUDY picks (engine/focus.py): deploy picks outside a focus day's
+        # competitions — never sent, graded like singles so the miss is learned
+        "study": [{**_single(bf), "study": True} for bf in board
+                  if getattr(bf, "study_pick", False) and bf.probs is not None
+                  and bf.best_market_key],
         # TABLE 3D (Architect 2026-10-10): the BTTS slip, graded like an alt slip
         "btts": [_alt_slip(n, l, c, (combined or {}).get("btts")) for n, l, c in (btts or [])],
         # one code for every slip of a kind (Architect 2026-10-09): lands only
@@ -253,7 +258,7 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
             continue
         changed = graded = pending = 0
         by_fixture = {}
-        for s in doc["singles"]:
+        for s in doc["singles"] + doc.get("study", []):
             if s["result"] in (None, "no-90min-result"):
                 ev = find_result(events, s["home"], s["away"], s["kickoff"] or doc["date"])
                 if ev and ev["finished_regular"]:
@@ -267,6 +272,8 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                     if res90 != s["result"]:
                         s["result"] = res90
                         changed += 1
+            if s.get("study"):
+                continue                # paper only: not a board single
             graded += s["result"] is not None
             pending += s["result"] is None
             by_fixture[s["fixture"]] = s

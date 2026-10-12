@@ -6,7 +6,13 @@ from a folder and writes TIPSTER_STUDY.md next to them:
      their prices implied, £1 return per slip with its standard error;
   2. legs by market and by price band;
   3. consensus: does a game that appears on several slips that day land more often?
-  4. official "Top Picks" codes vs everyone else, against the bookmaker's margin.
+  4. official "Top Picks" codes vs everyone else, against the bookmaker's margin;
+  5. closing-line value (Architect 2026-10-12: "add closing-line value to the
+     tipster study"): each leg is found in the universe sweep (data/universe/,
+     by SportyBet event id, else the strict name match) and its entry price
+     compared with SportyBet's last price before kick-off. Winning or losing is
+     noise at these sample sizes; a tipster who knows something gets prices
+     that shorten before kick-off.
 Implied chance = 1 / price, margin INCLUDED (a slip shows only the chosen
 price), so a fairly priced leg lands a little MORE often than implied — the
 margin-free bar is ~5% above it. Same bar as the paper book: nothing is trusted
@@ -20,6 +26,7 @@ import argparse
 import json
 import sys
 from collections import defaultdict
+from datetime import datetime
 from math import sqrt
 from pathlib import Path
 
@@ -27,6 +34,7 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 from engine import tipsters as tp  # noqa: E402
+from engine import universe as uv  # noqa: E402
 
 MIN_SLIPS = 100
 BANDS = ((1.0, 1.3), (1.3, 1.6), (1.6, 2.0), (2.0, 3.0), (3.0, 1000.0))
@@ -53,7 +61,167 @@ def _slip_row(name: str, slips: list[dict]) -> str:
             f"{'learning' if len(g) < MIN_SLIPS else 'enough to judge'} |")
 
 
-def write(folder: Path, out: Path) -> str:
+# ── closing-line value ───────────────────────────────────────────────────────
+DC_PAIRS = {"1x": (0, 1), "12": (0, 2), "x2": (1, 2)}
+
+
+def _devig(ps: list[float]) -> list[float]:
+    inv = [1 / p for p in ps]
+    return [i / sum(inv) for i in inv]
+
+
+def leg_quote(leg: dict, p: dict) -> tuple[float, float] | None:
+    """(SportyBet price, margin-free chance) of the leg's own outcome in one
+    universe price snapshot `p`, or None when the sweep doesn't keep that market
+    or line. Double chance is priced from the 1X2 (margin removed there)."""
+    m, sel, line = leg.get("market"), leg.get("selection"), leg.get("line")
+    side = {"home": 0, "draw": 1, "away": 2}
+    if leg.get("sport") == "football":
+        if m in ("1x2", "1up", "2up") and sel in side:
+            row = p.get("1x2" if m == "1x2" else m)
+            return (row[side[sel]], _devig(row)[side[sel]]) if row else None
+        if m == "dc" and sel in DC_PAIRS and p.get("dc") and p.get("1x2"):
+            i, j = DC_PAIRS[sel]
+            fair = _devig(p["1x2"])
+            return p["dc"][("1x", "12", "x2").index(sel)], fair[i] + fair[j]
+        if m == "ou" and sel in ("over", "under") and line is not None:
+            row = p.get(f"ou{line}")
+            k = 0 if sel == "over" else 1
+            return (row[k], _devig(row)[k]) if row else None
+        if m == "btts" and sel in ("yes", "no") and p.get("btts"):
+            k = 0 if sel == "yes" else 1
+            return p["btts"][k], _devig(p["btts"])[k]
+        return None
+    if leg.get("sport") == "basketball":
+        if m == "win" and sel in ("home", "away") and p.get("win"):
+            k = 0 if sel == "home" else 1
+            return p["win"][k], _devig(p["win"])[k]
+        if m == "total" and sel in ("over", "under") and p.get("total") and line == p["total"][0]:
+            k = 1 if sel == "over" else 2
+            return p["total"][k], _devig(p["total"][1:])[k - 1]
+        if m == "spread" and sel in ("home", "away") and p.get("hcp") and line is not None:
+            hl = line if sel == "home" else -line              # leg line is the SELECTED side's
+            if hl == p["hcp"][0]:
+                k = 1 if sel == "home" else 2
+                return p["hcp"][k], _devig(p["hcp"][1:])[k - 1]
+    return None
+
+
+class UniverseIndex:
+    """Universe rows by SportyBet event id, and by the strict name match."""
+
+    def __init__(self, rows: list[dict]):
+        self.by_id = {r["id"]: r for r in rows if r.get("id")}
+        self.by_sport: dict[str, list[dict]] = defaultdict(list)
+        for r in rows:
+            if r.get("ko") and r.get("home") and r.get("away"):
+                self.by_sport[r["sport"]].append({**r, "kickoff_utc": r["ko"]})
+
+    def find(self, leg: dict) -> dict | None:
+        row = self.by_id.get((leg.get("sb") or {}).get("event") or "")
+        if row is not None:
+            return row
+        if not (leg.get("home") and leg.get("away") and leg.get("kickoff")):
+            return None
+        from data import flashscore_results as fr
+        return fr.find_result(self.by_sport.get(leg.get("sport") or "", []),
+                              leg["home"], leg["away"], leg["kickoff"][:10])
+
+
+def leg_clv(leg: dict, entry_at: str | None, idx: UniverseIndex) -> dict | None:
+    """The leg against the close. None when the game or market isn't in the
+    sweep, or the entry price was read after the sweep's last look (no close
+    to compare with). clv = entry / closing − 1, as for our own picks (order 20);
+    ev_close = closing fair chance × entry − 1 (margin removed); move = how far
+    the market moved TOWARDS the leg between the sweep's first and last look,
+    in points of fair chance — independent of when the entry price was read."""
+    row = idx.find(leg)
+    if row is None or not leg.get("price"):
+        return None
+    close = leg_quote(leg, row["last"]["p"])
+    first = leg_quote(leg, row["first"]["p"])
+    if close is None or not entry_at or entry_at > row["last"]["at"]:
+        return None
+    return {"clv": leg["price"] / close[0] - 1, "ev_close": close[1] * leg["price"] - 1,
+            "move": (close[1] - first[1]) if first else None,
+            "lead_h": (datetime.fromisoformat(row["ko"].replace("Z", "+00:00"))
+                       - datetime.fromisoformat(entry_at.replace("Z", "+00:00"))).total_seconds() / 3600}
+
+
+def _clv_row(name: str, xs: list[dict]) -> str:
+    if not xs:
+        return f"| {name} | 0 | — | — | — | — |"
+    c = [x["clv"] for x in xs]
+    e = [x["ev_close"] for x in xs]
+    mv = [x["move"] for x in xs if x["move"] is not None]
+    lead = sorted(x["lead_h"] for x in xs)[len(xs) // 2]
+    return (f"| {name} | {len(xs)} | {sum(c) / len(c):+.1%} ± {_se(c):.1%} · beat {sum(v > 0 for v in c) / len(c):.0%} | "
+            f"{sum(e) / len(e):+.1%} ± {_se(e):.1%} | "
+            f"{f'{100 * sum(mv) / len(mv):+.2f} ± {100 * _se(mv):.2f} pts' if mv else '—'} | {lead:.0f} h |")
+
+
+def clv_section(slips: list[dict], folder: Path, rows: list[dict] | None = None) -> tuple[list[str], dict]:
+    """The study's closing-line section and its nameless aggregates."""
+    rows = uv.load_graded() if rows is None else rows
+    L = ["", "## Closing-line value — did the price move towards the tip?", "",
+         "Each leg is looked up in the universe sweep (`data/universe/`; every SportyBet football and "
+         "basketball game, first and last price before kick-off, swept every 3 h) and compared with "
+         "SportyBet's LAST price there. CLV = entry price / closing price − 1 (positive = the price "
+         "shortened after the tip, as for our own picks, order 20). EV vs close = the closing price's "
+         "margin-free chance × the entry price − 1 (a fair bet reads 0; the bookmaker's margin makes "
+         "the average leg about −5%). Move = how many points of margin-free chance the market moved "
+         "TOWARDS the leg between the sweep's first and last look — it doesn't depend on when the "
+         "entry price was read. Entry price: a SportyBet leg's price when its code was DECODED "
+         "(SportyBet's share API gives today's price, not the price at posting — decode soon after "
+         "collecting), a bet365 leg's price as posted. A leg whose entry price was read after the "
+         "sweep's last look has no close and is left out, as is a market the sweep doesn't keep "
+         "(handicaps, team totals, specials other than 1UP/2UP).", ""]
+    if not rows:
+        L.append("No universe sweep data in this checkout (`data/universe/`) — NO DATA — PENDING.")
+        return L, {}
+    idx = UniverseIndex(rows)
+    decoded = tp._done(folder, "decoded")
+    out: list[tuple[dict, dict, dict]] = []
+    looked = 0
+    for s in slips:
+        entry_at = ((decoded.get(s["post_url"]) or {}).get("decoded_at") if s.get("book") == "sportybet"
+                    else s.get("posted_at"))
+        entry_at = entry_at.replace("+00:00", "Z")[:16] + "Z" if entry_at else None
+        for leg in s["legs"]:
+            looked += 1
+            r = leg_clv(tp.remap(leg), entry_at, idx)
+            if r is not None:
+                out.append((s, leg, r))
+    L += [f"{len(out)} of {looked} legs measured against the close.", "",
+          "| Group | legs | CLV ± se · beat close | EV vs close ± se | moved towards the leg | median entry → kick-off |",
+          "|---|---|---|---|---|---|"]
+    L.append(_clv_row("all legs", [r for _, _, r in out]))
+    for book in ("sportybet", "bet365"):
+        L.append(_clv_row(f"{book} slips", [r for s, _, r in out if s.get("book") == book]))
+    L.append(_clv_row("official Top Picks", [r for s, _, r in out if s.get("official")]))
+    for cls in ("aligned", "middle", "special", "risky"):
+        L.append(_clv_row(f"class: {cls}", [r for _, leg, r in out if tp.leg_class(tp.remap(leg)) == cls]))
+    by_p: dict[str, list[dict]] = defaultdict(list)
+    for s, _, r in out:
+        by_p[s.get("poster") or "?"].append(r)
+    L += ["", "Per poster (nothing trusted before 100+ legs measured):", "",
+          "| Poster | legs | CLV ± se · beat close | EV vs close ± se | moved towards the leg | median entry → kick-off |",
+          "|---|---|---|---|---|---|"]
+    for p in sorted(by_p, key=lambda p: -len(by_p[p])):
+        L.append(_clv_row(p, by_p[p]))
+    L += ["", "Reading it: a poster with a CLV and a 'moved towards' clearly above zero over 100+ legs is "
+          "spotting prices before the market corrects them — the one sign of real skill. Near zero "
+          "with a high landing rate means they pick favourites the price already describes."]
+    agg = {"legs_measured": len(out)}
+    for cls in ("aligned", "middle", "special", "risky"):
+        xs = [r for _, leg, r in out if tp.leg_class(tp.remap(leg)) == cls]
+        if xs:
+            agg[cls] = {"legs": len(xs), "clv_avg": sum(x["clv"] for x in xs) / len(xs),
+                        "ev_close_avg": sum(x["ev_close"] for x in xs) / len(xs)}
+    return L, agg
+
+
+def write(folder: Path, out: Path, universe_rows: list[dict] | None = None) -> str:
     slips = tp.load_graded(folder)
     L = ["# TIPSTER STUDY — slips posted on X, graded", "",
          "Written by `backtest/tipster_study.py` from graded slips (`engine/tipsters.py`). Implied chance = "
@@ -129,6 +297,7 @@ def write(folder: Path, out: Path) -> str:
         L += ["", f"Counterfactual — the same slips with ONLY their aligned legs: {sum(kept)}/{len(kept)} would have "
               f"landed (as posted: {sum(s['status'] == 'won' for s in graded)}/{len(graded)})."]
         agg["aligned_only_slips"] = {"landed": sum(kept), "of": len(kept)}
+    clv_lines, agg["clv"] = clv_section(slips, folder, universe_rows)
     # nameless aggregates only — the one output that may feed the framework's learning
     (out.parent / "aggregates.json").write_text(json.dumps(agg, indent=1), encoding="utf-8")
     L += ["", "## Official Top Picks vs everyone else", "",
@@ -136,7 +305,8 @@ def write(folder: Path, out: Path) -> str:
     L.append(_slip_row("official (@SportyBet / @SportyBetNG)", [s for s in slips if s["official"]]))
     L.append(_slip_row("tipsters", [s for s in slips if not s["official"]]))
     L += ["", "A bookmaker's margin of ~5% a leg compounds on an acca: 6 legs at fair prices still return about "
-          "−26% on average, so a long acca slip must beat that just to break even.", ""]
+          "−26% on average, so a long acca slip must beat that just to break even."]
+    L += clv_lines + [""]
     out.write_text("\n".join(L) + "\n", encoding="utf-8")
     return "\n".join(L)
 

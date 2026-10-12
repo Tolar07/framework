@@ -153,6 +153,9 @@ laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 `docs/obsidian-vault/STATE.md`, this file, `docs/LINEAGE_MERGE_2026-10-03.md`,
 `.claude/agents/olp-xdv-*.md`, `backtest/*_STUDY.md`.
 
+**Reference:** `docs/obsidian-vault/Football-Markets-Catalogue.md` (2026-10-12) —
+the full football market list, settlement rules and identities. Study note only.
+
 **Register:** `docs/obsidian-vault/Rules.md` is still where HR/ID numbers are
 looked up; the code it names is the laptop line's.
 

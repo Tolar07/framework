@@ -412,7 +412,7 @@ def all_records(row: dict, which: str = "first") -> list[dict]:
         for k, x in ladder.items():
             pk = fm.parse_key(k)
             rule = fm.rule_for(*pk) if pk else None
-            if rule is None:
+            if pk is None or rule is None:
                 continue
             r = rule(h, a)
             if r == "push":

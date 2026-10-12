@@ -114,7 +114,8 @@ def persist(now: datetime) -> str:
     if os.environ.get("GITHUB_ACTIONS") != "true":
         return "not saved (outside GitHub Actions)"
     _git("add", "data/universe", "backtest/UNIVERSE_STUDY.md", "data/match_stats",
-         "backtest/MATCH_STATS_STUDY.md", "backtest/PAPER_BOOK.md")
+         "backtest/MATCH_STATS_STUDY.md", "backtest/PAPER_BOOK.md",
+         "backtest/BOTH_SIDES_STUDY.md")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"universe {now:%Y-%m-%d %H:%M} [skip ci]")
@@ -163,6 +164,8 @@ def main(argv: list[str] | None = None) -> int:
         sys.path.insert(0, str(ROOT / "backtest"))
         importlib.import_module("universe_study").main()
         importlib.import_module("paper_book_study").main()
+        # every side of every market, learned walk-forward (Architect 2026-10-12)
+        importlib.import_module("both_sides_study").main()
         try:
             # data/match_stats.py sits beside its data folder data/match_stats/: load the module by name
             n, notes = importlib.import_module("data.match_stats").collect(days=3)

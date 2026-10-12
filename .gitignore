@@ -107,3 +107,6 @@ graphify-out/
 !data/survivor/**
 !memory/*.jsonl
 !output/picks/**
+
+# local settings backups
+.claude/settings.json.bak-*

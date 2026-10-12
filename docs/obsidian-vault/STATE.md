@@ -29,6 +29,11 @@ laptop, secrets, Routines), `Rules.md` (HR/ID register only),
 `Decisions Log.md` and `Protected Constants.md` are historical since 3 Oct:
 every directive after 31 Aug is a standing order.
 
+**Reference (2026-10-12):** `docs/obsidian-vault/Football-Markets-Catalogue.md` —
+every football market as yes/no options, house settlement rules, market
+identities (1X = AH +0.5, DNB = AH 0), and strategy notes from our graded
+results. A study note, never a selector.
+
 ## Open items (2026-10-03)
 
 | # | Item | Status |

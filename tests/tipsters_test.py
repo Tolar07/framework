@@ -132,4 +132,37 @@ assert fm.timeline({"content": {"matchFacts": {"events": {"events": [
 assert fm.timeline({"content": {"matchFacts": {"events": {"events": [{"type": "Goal", "time": 3, "newScore": [2, 0]}]}}}}) is None
 print("FotMob goal timeline: OK")
 
+# ── closing-line value (backtest/tipster_study.py) ───────────────────────────
+from backtest import tipster_study as ts  # noqa: E402
+
+uni = [{"sport": "football", "id": "sr:match:7", "ko": "2026-10-10T15:00Z", "home": "Home FC", "away": "Away FC",
+        "first": {"at": "2026-10-09T09:00Z", "p": {"1x2": [2.0, 3.4, 3.8], "ou2.5": [1.9, 1.9]}},
+        "last": {"at": "2026-10-10T13:00Z", "p": {"1x2": [1.8, 3.6, 4.4], "ou2.5": [2.0, 1.8],
+                                                  "dc": [1.25, 1.3, 2.0]}}}]
+idx = ts.UniverseIndex(uni)
+home = {"sport": "football", "market": "1x2", "selection": "home", "price": 2.0, "sb": {"event": "sr:match:7"}}
+r = ts.leg_clv(home, "2026-10-09T10:00Z", idx)
+assert abs(r["clv"] - (2.0 / 1.8 - 1)) < 1e-9 and r["move"] > 0 and r["ev_close"] > 0 and round(r["lead_h"]) == 29
+assert ts.leg_clv(home, "2026-10-10T14:00Z", idx) is None, "entry read after the last look: no close"
+by_name = {"sport": "football", "market": "ou", "selection": "over", "line": 2.5, "price": 1.9,
+           "home": "Home FC", "away": "Away FC", "kickoff": "2026-10-10T15:00Z"}
+assert ts.leg_clv(by_name, "2026-10-09T10:00Z", idx)["clv"] < 0, "found by name; over drifted 1.9 -> 2.0"
+dc = ts.leg_quote({"sport": "football", "market": "dc", "selection": "1x"}, uni[0]["last"]["p"])
+assert dc[0] == 1.25 and 0.7 < dc[1] < 0.8
+assert ts.leg_quote({"sport": "football", "market": "ah", "selection": "home", "line": -1}, uni[0]["last"]["p"]) is None
+with tempfile.TemporaryDirectory() as tmp:
+    f = Path(tmp)
+    leg = {**home, "home": "Home FC", "away": "Away FC", "kickoff": "2026-10-10T15:00Z", "result": "win"}
+    (f / "graded_2026-10-09.jsonl").write_text(json.dumps({
+        "post_url": "https://x.com/a/status/1", "poster": "@a", "official": False, "book": "sportybet",
+        "posted_at": "2026-10-09T09:30:00Z", "status": "won", "payout": 2.0, "implied": 0.5,
+        "legs": [leg], "unknown": []}) + "\n")
+    (f / "decoded_2026-10-09.jsonl").write_text(json.dumps({
+        "post_url": "https://x.com/a/status/1", "decoded_at": "2026-10-09T10:00Z", "legs": [leg]}) + "\n")
+    text = ts.write(f, f / "TIPSTER_STUDY.md", universe_rows=uni)
+    assert "1 of 1 legs measured against the close" in text and "| @a | 1 | +11.1%" in text, text[-900:]
+    assert json.loads((f / "aggregates.json").read_text())["clv"]["legs_measured"] == 1
+    assert "NO DATA — PENDING" in ts.write(f, f / "T.md", universe_rows=[])
+print("closing-line value of tipster legs: OK")
+
 print("ALL TIPSTER TESTS PASSED")

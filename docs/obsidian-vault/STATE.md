@@ -31,9 +31,9 @@ every directive after 31 Aug is a standing order.
 
 ## 2026-10-12 — P1 approved, same-result price shopping, paper-book finding
 
-- **P1 approved** by the Architect ("do P1"): stop picking underdog Asian
-  handicaps in the FA Cup (`memory/proposals.json`). Order 38 already drops
-  them; P1 makes it an order-39 block too.
+- **P1 rejected** by the Architect ("I would rather you not block it and learn
+  from it"): underdog Asian handicaps in the FA Cup stay a learning segment,
+  not an order-39 block (`memory/proposals.json`). Order 38 is unchanged.
 - **Same-result price shopping** (`engine/full_markets.best_price_per_result`,
   `run_daily.py`, `tests/same_result_test.py`): ladder outcomes that settle
   the same on every scoreline (1X = AH +0.5, DNB = AH 0) keep only the best

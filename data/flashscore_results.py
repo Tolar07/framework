@@ -175,6 +175,19 @@ def _sim(a: str, b: str) -> float:
 MATCH_MIN = 0.85     # 'Man City' vs 'Manchester Utd' scores 0.81 — kept out
 
 
+def _name_sim(ours: str, theirs: str) -> float:
+    """_sim, also trying the board's own alias for `ours` (engine/name_match.py
+    EXPLICIT, the table that rates feed spellings), counted only when the
+    alias is exactly Flashscore's name. Never lower than _sim alone.
+    12 Oct 2026: 'Vaalerenga IF' v Flashscore's 'Valerenga' scored 0.82 and
+    the won pick stayed ungraded; its alias 'Valerenga' matches."""
+    from engine.name_match import EXPLICIT
+    alias = EXPLICIT.get(ours)
+    if alias and norm(alias) == norm(theirs):
+        return 1.0      # exact alias only: 'AEK' must not reach 'AEK Larnaca' by containment
+    return _sim(ours, theirs)
+
+
 def find_result(events: list[dict], home: str, away: str,
                 match_date: str) -> Optional[dict]:
     """The finished event for `home v away` kicking off on `match_date`
@@ -193,7 +206,7 @@ def find_result(events: list[dict], home: str, away: str,
             continue
         if abs((d - d0).days) > 1:
             continue
-        s = min(_sim(home, ev["home"]), _sim(away, ev["away"]))
+        s = min(_name_sim(home, ev["home"]), _name_sim(away, ev["away"]))
         if s >= MATCH_MIN:
             scored.append((s, ev))
     if not scored:

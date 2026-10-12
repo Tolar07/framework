@@ -338,9 +338,11 @@ for _i in range(6):
     _b = pb.BoardFixture(f"H{_i} v A{_i} (La Liga 2)", _fp(f"H{_i}", f"A{_i}"), _v,
                          on_deploy_shortlist=True, best_market_key="SB:10||Home or Away",
                          best_market="Home or Away", best_price=1.30, best_model_prob=_main)
+    # order 42: the alt legs are of different kinds, so one alt acca may hold them all
+    _alt = ["SB:18|total=1.5|Over 1.5", "SB:16|hcp=-0.5|Home (-0.5)", "SB:18|total=4.5|Under 4.5"][_i % 3]
     _b.cand_pool = [_c31(_main, "SB:10||Home or Away", 1.30),
                     _c31(0.80, "SB:10||Home or Draw", 1.25),
-                    _c31(0.78, "SB:18|total=1.5|Over 1.5", 1.28)]
+                    _c31(0.78, _alt, 1.28)]
     _bfs31.append(_b)
 _alts31 = pb._build_alt_accas(_bfs31)
 assert _alts31 and all(_fam31(leg[3]) != "Double chance" for _n, ls, _c in _alts31 for leg in ls), \
@@ -507,5 +509,35 @@ assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "send_everyone"
 assert "python run_nba.py" in wf, "Order 41: the NBA board runs with the evening board"
 assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41 and "£1 a pick" in _nba41, \
     "Orders 26/41 (2026-10-07): the NBA board is a live test, placed by hand from its codes"
+
+from dataclasses import replace as _replace
+
+# 42. Acca mix: at most one Under-goals and one Over-goals leg an acca (2026-10-12)
+assert pb.MIX_MAX_PER_DIRECTION == 1, "Order 42: one Under and one Over leg per acca at most"
+assert [pb.goals_direction(k) for k in ("SB:18|total=3.5|Under 3.5", "SB:19|total=0.5|Over 0.5",
+                                        "OVER_2_5", "Torino Over 0.5 goals", "SB:547|total=1.5|Draw/Away & Over 1.5",
+                                        "SB:10||Home or Away", "SB:16|hcp=-2.5|Away (+2.5)", "SB:548||2-4")] \
+    == ["under", "over", "over", "over", "over", None, None, None], "Order 42: goals legs told apart"
+_k42 = ["SB:18|total=3.5|Under 3.5", "SB:18|total=4.5|Under 4.5", "SB:18|total=3.5|Under 3.5",
+        "SB:18|total=1.5|Over 1.5", "SB:19|total=0.5|Over 0.5", "SB:10||Home or Away",
+        "SB:10||Home or Draw", "SB:16|hcp=-0.5|Home (-0.5)", "SB:18|total=1.5|Over 1.5"]
+_bfs42 = [pb.BoardFixture(f"M{_i} v N{_i} (Serie A)", _fp(f"M{_i}", f"N{_i}"), _v,
+                          on_deploy_shortlist=True, best_market_key=_k, best_market=f"pick {_i}",
+                          best_model_prob=0.90 - _i / 100, certainty="LOW", best_price=1.25)
+          for _i, _k in enumerate(_k42)]
+for _slips42 in (pb._build_accas(_bfs42), pb._build_accas([_replace(b, best_price=None) for b in _bfs42])):
+    assert _slips42, "Order 42: accas still built"
+    for _n42, _ls42, _c42 in _slips42:
+        _d42 = [pb.goals_direction(l[0].best_market_key) for l in _ls42]
+        assert _d42.count("under") <= 1 and _d42.count("over") <= 1, f"Order 42: {_n42} mixes {_d42}"
+_mega42 = pb._build_megas(_bfs42)
+assert sum(len(ls) for _n, ls, _c in _mega42) == len(_bfs42), "Order 42: the megas still carry every pick"
+_bfs42h = [_replace(b, certainty="HIGH") for b in _bfs42]
+for _n42, _ls42, _c42 in pb._build_safe3(_bfs42h):
+    _d42 = [pb.goals_direction(l[0].best_market_key) for l in _ls42]
+    assert _d42.count("under") <= 1 and _d42.count("over") <= 1, f"Order 42: {_n42} mixes {_d42}"
+from output import bet365_board as _b365_42
+assert "mix_groups(" in (ROOT / "output" / "bet365_board.py").read_text(encoding="utf-8") and _b365_42, \
+    "Order 42: the bet365 accas follow the mix too"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

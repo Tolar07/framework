@@ -741,6 +741,68 @@ TABLE3_MAX_LEGS = 6
 MEGA_MAX_LEGS = 26             # SportyBet won't take 78 on one slip: split into parts
 
 
+# ACCA MIX (Architect 2026-10-12, order 42: "Do the acca mix"). On 12 Oct
+# Acca A carried four Under-goals legs and Acca B five goals-line legs: one
+# high-scoring evening sinks a slip built from one kind of bet. So an acca holds
+# at most ONE Under-goals leg and at most ONE Over-goals leg (match or team
+# goals, a goals combo); its other legs come from other markets. It changes
+# which legs share a slip, never a fixture's pick. The megas are exempt: they
+# are the one place every pick is combined (order 5). A leg that fits no acca
+# stays a single.
+MIX_MAX_PER_DIRECTION = 1
+
+
+def goals_direction(key_or_text: Optional[str]) -> Optional[str]:
+    """'over' / 'under' for a goals-line outcome (a market key like
+    'SB:18|total=3.5|Under 3.5', 'OVER_2_5', or the pick's words like
+    'Torino Over 0.5 goals'), else None (results, double chance, handicaps,
+    BTTS, multigoals ...)."""
+    if not key_or_text:
+        return None
+    s = key_or_text.split("|")[-1].lower().replace("_", " ")
+    words = s.replace("&", " ").replace("/", " ").split()
+    if "under" in words:
+        return "under"
+    if "over" in words:
+        return "over"
+    return None
+
+
+def _leg_direction(leg) -> Optional[str]:
+    """Goals direction of an acca leg: (bf, pick, prob[, key, price])."""
+    if len(leg) > 3 and isinstance(leg[3], str):
+        return goals_direction(leg[3])
+    bf = leg[0]
+    key = getattr(bf, "best_market_key", None) if getattr(bf, "best_market", None) == leg[1] else None
+    return goals_direction(key) or goals_direction(leg[1])
+
+
+def mix_ok(group: list, leg, direction=_leg_direction) -> bool:
+    """True when `leg` can join `group` under the acca mix (order 42)."""
+    d = direction(leg)
+    return d is None or sum(direction(x) == d for x in group) < MIX_MAX_PER_DIRECTION
+
+
+def mix_groups(legs: list, sizes: list[int], direction=_leg_direction) -> list[list]:
+    """Legs (best first) into groups of the given sizes, each taking the best
+    remaining legs the mix allows; a group that can't reach 2 legs is dropped
+    and its legs stay singles."""
+    pool, out = list(legs), []
+    for size in sizes:
+        g: list = []
+        for leg in list(pool):
+            if len(g) >= size:
+                break
+            if mix_ok(g, leg, direction):
+                g.append(leg)
+                pool.remove(leg)
+        if len(g) >= 2:
+            out.append(g)
+        else:
+            pool = g + pool
+    return out
+
+
 def _split_sizes(n: int, lo: int, hi: int) -> list[int]:
     """Near-equal sizes summing to n, NEVER above hi (more legs = more risk);
     as few groups as possible. A group may fall below lo only when n forces it
@@ -817,11 +879,7 @@ def _table3_groups(legs: list[tuple]) -> list[list]:
     A leg without a quoted price can't be measured against the odds band, so
     a slate with one keeps the plain 3-leg grouping (order 40)."""
     if any(getattr(leg[0], "best_price", None) is None for leg in legs):
-        out, i = [], 0
-        for size in _split_sizes(len(legs), ACCA_MIN, ACCA_MAX):
-            out.append(legs[i:i + size])
-            i += size
-        return out
+        return mix_groups(legs, _split_sizes(len(legs), ACCA_MIN, ACCA_MAX))
     groups: list[list] = []
     pool = list(legs)
     while pool:
@@ -829,7 +887,7 @@ def _table3_groups(legs: list[tuple]) -> list[list]:
         for leg in list(pool):
             if _acca_odds(g) >= TABLE3_ODDS_MIN or len(g) >= TABLE3_MAX_LEGS:
                 break
-            if _acca_odds(g + [leg]) <= TABLE3_ODDS_MAX:
+            if _acca_odds(g + [leg]) <= TABLE3_ODDS_MAX and mix_ok(g, leg):
                 g.append(leg)
                 pool.remove(leg)
         if not g:
@@ -840,7 +898,8 @@ def _table3_groups(legs: list[tuple]) -> list[list]:
         # too few legs left for a 2.00 acca: top up the last accas, else singles
         for leg in g:
             for last in reversed(groups):
-                if len(last) < TABLE3_MAX_LEGS and _acca_odds(last + [leg]) <= TABLE3_ODDS_MAX:
+                if (len(last) < TABLE3_MAX_LEGS and _acca_odds(last + [leg]) <= TABLE3_ODDS_MAX
+                        and mix_ok(last, leg)):
                     last.append(leg)
                     break
         break
@@ -954,10 +1013,8 @@ def _build_alt_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     legs.sort(key=lambda t: -t[2])
     if len(legs) < 2:
         return []
-    out, i = [], 0
-    for n, size in enumerate(_split_sizes(len(legs), ACCA_MIN, ACCA_MAX)):
-        g = legs[i:i + size]
-        i += size
+    out = []
+    for n, g in enumerate(mix_groups(legs, _split_sizes(len(legs), ACCA_MIN, ACCA_MAX))):
         combo = 1.0
         for leg in g:
             combo *= leg[2]
@@ -1010,12 +1067,13 @@ def _build_value(shortlist: list[BoardFixture]) -> list[tuple]:
     if len(acca) > 1:
         taken = (_used(_build_safe3(shortlist)) | _used(_build_accas(shortlist))
                  | _used(_build_alt_accas(shortlist)))
-        acca = [leg for leg in acca if _canon_short(leg[0].fixture) not in taken][:ACCA_MAX]
+        acca = [leg for leg in acca if _canon_short(leg[0].fixture) not in taken]
+        acca = (mix_groups([leg[:5] for leg in acca], [ACCA_MAX]) or [[]])[0]
     if len(acca) > 1:
         combo = 1.0
         for leg in acca:
             combo *= leg[2]
-        out.append(("Value acca", [leg[:5] for leg in acca], combo))
+        out.append(("Value acca", acca, combo))
     return out
 
 
@@ -1040,8 +1098,10 @@ def _build_safe3(shortlist: list[BoardFixture]) -> list[tuple]:
             if l[0].certainty in _CERT_ORDER]
     legs.sort(key=lambda t: (_CERT_ORDER[t[0].certainty], -t[2]))
     out = []
-    for i in range(0, len(legs) - SAFE3_LEGS + 1, SAFE3_LEGS):
-        g = sorted(legs[i:i + SAFE3_LEGS], key=lambda t: -t[2])
+    for g in mix_groups(legs, [SAFE3_LEGS] * (len(legs) // SAFE3_LEGS)):
+        if len(g) < SAFE3_LEGS:
+            break
+        g = sorted(g, key=lambda t: -t[2])
         combo = 1.0
         for _, _, prob in g:
             combo *= prob
@@ -1276,7 +1336,8 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
 
     # --- TABLE 3 · ACCA route ---
     out += [_CANON_RULE, "TABLE 3 · ACCA ROUTE",
-            "(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40)",
+            "(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40;"
+            " one Under-goals and one Over-goals leg at most — order 42)",
             _CANON_RULE, ""]
     accas = _build_accas(shortlist)
     if not accas:

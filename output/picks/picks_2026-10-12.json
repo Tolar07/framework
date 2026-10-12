@@ -70,7 +70,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:72043184",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -518,7 +522,11 @@
     "home": 11655752,
     "away": 5369350
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:72477488",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -806,7 +814,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Elfsborg at full strength",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:67126804",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -856,7 +868,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:67126802",
    "sb_tid": "sr:tournament:40",
    "sb_market": {

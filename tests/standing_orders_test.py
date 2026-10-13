@@ -510,6 +510,8 @@ assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "send_everyone"
 assert "python run_nba.py" in wf, "Order 41: the NBA board runs with the evening board"
 assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41 and "£1 a pick" in _nba41, \
     "Orders 26/41 (2026-10-07): the NBA board is a live test, placed by hand from its codes"
+assert "STUDY LINES — not picks, nothing booked (order 41)" in _nba41 and "nm.save(looks, now)" in _nba41, \
+    "Order 41 (2026-10-13): study lines under the picks; every SportyBet market saved for the market study"
 
 from dataclasses import replace as _replace
 

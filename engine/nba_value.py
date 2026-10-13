@@ -189,6 +189,40 @@ def candidates(event: dict, sharp) -> tuple[list[dict], list[dict]]:
     return picks, suspect
 
 
+STUDY_BAND = (1.20, 3.00)
+
+
+def study_lines(event: dict, sharp) -> list[dict]:
+    """For the board's STUDY LINES (order 41, Architect 2026-10-13): per priced
+    market (each quarter apart), the SportyBet line closest to value — its
+    price, fair price and value, whatever the value. Not a pick: nothing is
+    booked from it."""
+    best: dict[str, dict] = {}
+    for m in event.get("markets", []):
+        mid = str(m.get("id"))
+        if mid not in MARKETS or not is_open(m):
+            continue
+        spec = m.get("specifier") or ""
+        q = re.search(r"quarternr=(\d)", spec)
+        key = f"{mid}/q{q.group(1)}" if q else mid
+        for o in m.get("outcomes", []):
+            try:
+                price = float(o.get("odds"))
+            except (TypeError, ValueError):
+                continue
+            if not (STUDY_BAND[0] <= price <= STUDY_BAND[1]):
+                continue
+            p = fair_chance(mid, spec, o.get("desc", ""), sharp)
+            if p is None:
+                continue
+            row = {"market_id": mid, "specifier": spec, "outcome": o.get("desc", ""), "price": price,
+                   "chance": round(p, 4), "fair_price": round(1 / p, 3), "ev": round(p * price - 1, 4)}
+            if row["ev"] <= MAX_EV and (key not in best or row["ev"] > best[key]["ev"]):
+                best[key] = row
+    order = {k: i for i, k in enumerate(MARKETS)}
+    return sorted(best.values(), key=lambda r: (order.get(r["market_id"], 99), r["specifier"]))
+
+
 def sportybet_winner_chance(event: dict) -> Optional[float]:
     for m in event.get("markets", []):
         if str(m.get("id")) == "219" and is_open(m):

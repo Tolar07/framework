@@ -1,0 +1,568 @@
+{
+ "graded_at": "2026-10-13T21:01Z",
+ "results": {
+  "Lens v Sporting": {
+   "ft": [
+    0,
+    2
+   ],
+   "ht": [
+    0,
+    1
+   ],
+   "fotmob": "Lens 0-2 Sporting CP"
+  },
+  "Sabah Masazir v Slavia Prague": {
+   "ft": [
+    2,
+    0
+   ],
+   "ht": [
+    0,
+    0
+   ],
+   "fotmob": "Sabah FK 2-0 Slavia Prague"
+  },
+  "Bristol City v Blackburn": {
+   "ft": [
+    0,
+    1
+   ],
+   "ht": [
+    0,
+    1
+   ],
+   "fotmob": "Bristol City 0-1 Blackburn Rovers"
+  },
+  "Burnley v Charlton": {
+   "ft": [
+    2,
+    2
+   ],
+   "ht": [
+    1,
+    0
+   ],
+   "fotmob": "Burnley 2-2 Charlton Athletic"
+  },
+  "Cardiff City v Watford": {
+   "ft": [
+    5,
+    1
+   ],
+   "ht": [
+    4,
+    0
+   ],
+   "fotmob": "Cardiff City 5-1 Watford"
+  },
+  "Millwall v Swansea": {
+   "ft": [
+    0,
+    1
+   ],
+   "ht": [
+    0,
+    0
+   ],
+   "fotmob": "Millwall 0-1 Swansea City"
+  },
+  "Wolves v Bolton Wanderers": {
+   "ft": [
+    1,
+    3
+   ],
+   "ht": [
+    0,
+    1
+   ],
+   "fotmob": "Wolverhampton Wanderers 1-3 Bolton Wanderers"
+  },
+  "Wrexham v West Brom": {
+   "ft": [
+    1,
+    2
+   ],
+   "ht": [
+    0,
+    0
+   ],
+   "fotmob": "Wrexham 1-2 West Bromwich Albion"
+  },
+  "Arsenal v Lille": {
+   "ft": [
+    3,
+    0
+   ],
+   "ht": [
+    0,
+    0
+   ],
+   "fotmob": "Arsenal 3-0 Lille"
+  },
+  "Atletico Madrid v Man Utd": {
+   "ft": [
+    2,
+    0
+   ],
+   "ht": [
+    1,
+    0
+   ],
+   "fotmob": "Atlético Madrid 2-0 Manchester United"
+  },
+  "Birmingham v Preston": {
+   "ft": [
+    4,
+    0
+   ],
+   "ht": [
+    3,
+    0
+   ],
+   "fotmob": "Birmingham City 4-0 Preston North End"
+  },
+  "Galatasaray Istanbul v Barcelona": {
+   "ft": [
+    1,
+    4
+   ],
+   "ht": [
+    1,
+    1
+   ],
+   "fotmob": "Galatasaray 1-4 Barcelona"
+  },
+  "Inter v Club Brugge": {
+   "ft": [
+    3,
+    4
+   ],
+   "ht": [
+    1,
+    1
+   ],
+   "fotmob": "Inter 3-4 Club Brugge"
+  },
+  "RB Leipzig v PSV Eindhoven": {
+   "ft": [
+    1,
+    0
+   ],
+   "ht": [
+    0,
+    0
+   ],
+   "fotmob": "RB Leipzig 1-0 PSV Eindhoven"
+  },
+  "Stoke v Middlesbrough": {
+   "ft": [
+    2,
+    3
+   ],
+   "ht": [
+    0,
+    0
+   ],
+   "fotmob": "Stoke City 2-3 Middlesbrough"
+  },
+  "Viking FK v Bayern Munich": {
+   "ft": [
+    3,
+    3
+   ],
+   "ht": [
+    2,
+    0
+   ],
+   "fotmob": "Viking 3-3 Bayern München"
+  },
+  "Villarreal v Napoli": {
+   "ft": [
+    3,
+    1
+   ],
+   "ht": [
+    2,
+    1
+   ],
+   "fotmob": "Villarreal 3-1 Napoli"
+  }
+ },
+ "board": {
+  "singles": [
+   {
+    "fixture": "Lens v Sporting",
+    "pick": "Lens Over 0.5 goals",
+    "price": 1.22,
+    "code": "H4ZH1X",
+    "result": "lost"
+   },
+   {
+    "fixture": "Sabah Masazir v Slavia Prague",
+    "pick": "Sabah Masazir or Slavia Prague",
+    "price": 1.29,
+    "code": "ZL9ZBX",
+    "result": "won"
+   },
+   {
+    "fixture": "Arsenal v Lille",
+    "pick": "Under 4.5 goals",
+    "price": 1.27,
+    "code": "UU2746",
+    "result": "won"
+   },
+   {
+    "fixture": "Atletico Madrid v Man Utd",
+    "pick": "Atletico Madrid or Man Utd",
+    "price": 1.27,
+    "code": "T3XD7Y",
+    "result": "won"
+   },
+   {
+    "fixture": "Galatasaray Istanbul v Barcelona",
+    "pick": "Over 2.5 goals",
+    "price": 1.2,
+    "code": "KNKNYJ",
+    "result": "won"
+   },
+   {
+    "fixture": "Inter v Club Brugge",
+    "pick": "Club Brugge Under 1.5 goals",
+    "price": 1.2,
+    "code": "YQFZZ5",
+    "result": "lost"
+   },
+   {
+    "fixture": "RB Leipzig v PSV Eindhoven",
+    "pick": "RB Leipzig or PSV Eindhoven",
+    "price": 1.21,
+    "code": "GC34RF",
+    "result": "won"
+   },
+   {
+    "fixture": "Viking FK v Bayern Munich",
+    "pick": "Under 6.5 goals",
+    "price": 1.22,
+    "code": "Z8V7A0",
+    "result": "won"
+   },
+   {
+    "fixture": "Villarreal v Napoli",
+    "pick": "Villarreal or Napoli",
+    "price": 1.3,
+    "code": "SVYGEP",
+    "result": "won"
+   }
+  ],
+  "slips": [
+   {
+    "name": "Acca A",
+    "code": "XMHBWF",
+    "result": "won",
+    "return": 2.58
+   },
+   {
+    "name": "Alt A",
+    "code": "WK2SP1",
+    "result": "lost",
+    "return": 0.0
+   },
+   {
+    "name": "Board MEGA (all 9 singles)",
+    "code": "QGVBZ7",
+    "result": "lost",
+    "return": 0.0
+   }
+  ]
+ },
+ "study": {
+  "legs": [
+   {
+    "match": "Lens v Sporting",
+    "pick": "GG/NG Yes",
+    "price": 1.51,
+    "result": "lost"
+   },
+   {
+    "match": "Sabah Masazir v Slavia Prague",
+    "pick": "Over/Under Under 4.5",
+    "price": 1.23,
+    "result": "won"
+   },
+   {
+    "match": "Bristol City v Blackburn",
+    "pick": "1st Half - Double Chance Home or Draw",
+    "price": 1.24,
+    "result": "lost"
+   },
+   {
+    "match": "Burnley v Charlton",
+    "pick": "Draw No Bet Home",
+    "price": 1.26,
+    "result": "void"
+   },
+   {
+    "match": "Cardiff City v Watford",
+    "pick": "Double Chance Home or Away",
+    "price": 1.24,
+    "result": "won"
+   },
+   {
+    "match": "Millwall v Swansea",
+    "pick": "Odd/Even Even",
+    "price": 1.88,
+    "result": "lost"
+   },
+   {
+    "match": "Wolves v Bolton Wanderers",
+    "pick": "Away No Bet Home",
+    "price": 1.21,
+    "result": "void"
+   },
+   {
+    "match": "Wrexham v West Brom",
+    "pick": "Handicap 0:2 Away (0:2)",
+    "price": 1.2,
+    "result": "won"
+   },
+   {
+    "match": "Arsenal v Lille",
+    "pick": "Double Chance & Over/Under 1.5 Home/Draw & Over 1.5",
+    "price": 1.2,
+    "result": "won"
+   },
+   {
+    "match": "Atletico Madrid v Man Utd",
+    "pick": "Multigoals 2-5",
+    "price": 1.2,
+    "result": "won"
+   },
+   {
+    "match": "Birmingham v Preston",
+    "pick": "Asian Handicap -2.5 Away (+2.5)",
+    "price": 1.2,
+    "result": "lost"
+   },
+   {
+    "match": "Galatasaray Istanbul v Barcelona",
+    "pick": "1X2 & Over/Under 1.5 Away & Over 1.5",
+    "price": 1.32,
+    "result": "won"
+   },
+   {
+    "match": "Inter v Club Brugge",
+    "pick": "1X2 Home",
+    "price": 1.26,
+    "result": "lost"
+   },
+   {
+    "match": "RB Leipzig v PSV Eindhoven",
+    "pick": "Over/Under & GG/NG Over 2.5 & Yes",
+    "price": 1.46,
+    "result": "lost"
+   },
+   {
+    "match": "Stoke v Middlesbrough",
+    "pick": "Middlesbrough FC Over/Under Under 2.5",
+    "price": 1.28,
+    "result": "lost"
+   },
+   {
+    "match": "Viking FK v Bayern Munich",
+    "pick": "Away Team Goals 3+",
+    "price": 1.27,
+    "result": "won"
+   },
+   {
+    "match": "Villarreal v Napoli",
+    "pick": "Home Team to Win to Nil No",
+    "price": 1.21,
+    "result": "won"
+   }
+  ],
+  "btts": [
+   {
+    "match": "Lens v Sporting",
+    "call": "Yes",
+    "price": 1.51,
+    "code": "SSVG4E",
+    "result": "lost"
+   },
+   {
+    "match": "Sabah Masazir v Slavia Prague",
+    "call": "Yes",
+    "price": 1.56,
+    "code": "TALRHQ",
+    "result": "lost"
+   },
+   {
+    "match": "Bristol City v Blackburn",
+    "call": "Yes",
+    "price": 1.82,
+    "code": "GGRQQ9",
+    "result": "lost"
+   },
+   {
+    "match": "Burnley v Charlton",
+    "call": "Yes",
+    "price": 1.9,
+    "code": "VFQPQR",
+    "result": "won"
+   },
+   {
+    "match": "Cardiff City v Watford",
+    "call": "Yes",
+    "price": 1.57,
+    "code": "WU8RDX",
+    "result": "won"
+   },
+   {
+    "match": "Millwall v Swansea",
+    "call": "Yes",
+    "price": 1.74,
+    "code": "MYKFVD",
+    "result": "lost"
+   },
+   {
+    "match": "Wolves v Bolton Wanderers",
+    "call": "Yes",
+    "price": 1.85,
+    "code": "T9Q1U1",
+    "result": "won"
+   },
+   {
+    "match": "Wrexham v West Brom",
+    "call": "Yes",
+    "price": 1.82,
+    "code": "Y6S1XA",
+    "result": "won"
+   },
+   {
+    "match": "Arsenal v Lille",
+    "call": "No",
+    "price": 1.68,
+    "code": "X87VDU",
+    "result": "won"
+   },
+   {
+    "match": "Atletico Madrid v Man Utd",
+    "call": "Yes",
+    "price": 1.57,
+    "code": "XR5431",
+    "result": "lost"
+   },
+   {
+    "match": "Birmingham v Preston",
+    "call": "Yes",
+    "price": 1.83,
+    "code": "RDFMBX",
+    "result": "lost"
+   },
+   {
+    "match": "Galatasaray Istanbul v Barcelona",
+    "call": "Yes",
+    "price": 1.43,
+    "code": "PM6V4W",
+    "result": "won"
+   },
+   {
+    "match": "Inter v Club Brugge",
+    "call": "Yes",
+    "price": 1.85,
+    "code": "Z1F7W3",
+    "result": "won"
+   },
+   {
+    "match": "RB Leipzig v PSV Eindhoven",
+    "call": "Yes",
+    "price": 1.36,
+    "code": "VD0N7V",
+    "result": "lost"
+   },
+   {
+    "match": "Stoke v Middlesbrough",
+    "call": "Yes",
+    "price": 1.65,
+    "code": "ZZYAB4",
+    "result": "won"
+   },
+   {
+    "match": "Viking FK v Bayern Munich",
+    "call": "Yes",
+    "price": 1.73,
+    "code": "YFNF6Q",
+    "result": "won"
+   },
+   {
+    "match": "Villarreal v Napoli",
+    "call": "Yes",
+    "price": 1.54,
+    "code": "Z64P3W",
+    "result": "won"
+   }
+  ],
+  "slips": [
+   {
+    "name": "Acca A",
+    "code": "NMEGRA",
+    "result": "lost",
+    "return": 0.0
+   },
+   {
+    "name": "Acca B",
+    "code": "LF67X3",
+    "result": "lost",
+    "return": 0.0
+   },
+   {
+    "name": "Acca C",
+    "code": "QFMRJ9",
+    "result": "lost",
+    "return": 0.0
+   },
+   {
+    "name": "Acca D",
+    "code": "G97QRL",
+    "result": "won",
+    "return": 2.01
+   },
+   {
+    "name": "Acca E",
+    "code": "S3XUNJ",
+    "result": "lost",
+    "return": 0.0
+   },
+   {
+    "name": "Main MEGA",
+    "code": "XGGV6M",
+    "result": "lost",
+    "return": 0.0
+   },
+   {
+    "name": "BTTS A",
+    "code": "XF25GR",
+    "result": "lost",
+    "return": 0.0
+   },
+   {
+    "name": "BTTS B",
+    "code": "S0VTPX",
+    "result": "lost",
+    "return": 0.0
+   },
+   {
+    "name": "BTTS C",
+    "code": "YJDDWN",
+    "result": "lost",
+    "return": 0.0
+   },
+   {
+    "name": "BTTS MEGA (all 17)",
+    "code": "GUTE2Q",
+    "result": "lost",
+    "return": 0.0
+   }
+  ]
+ }
+}

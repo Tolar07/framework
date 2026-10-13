@@ -5,7 +5,9 @@ games that have finished from Flashscore, and archive them (engine/universe.py).
 Once a day it rewrites backtest/UNIVERSE_STUDY.md and the paper book
 (backtest/PAPER_BOOK.md: the system's own £1 paper bets), and collects FotMob's
 post-match stats of the last 3 days' rated fixtures (data/match_stats.py) for
-backtest/MATCH_STATS_STUDY.md.
+backtest/MATCH_STATS_STUDY.md. Before kick-off every football game gets both
+teams' FotMob profile (data/team_profiles.py); backtest/PROFILE_STUDY.md scores
+those reads against the results.
 
 The prices of games not yet played live in data/cache/universe/ (the
 universe.yml Actions cache — not git: thousands of games a day would bloat
@@ -100,6 +102,13 @@ def sweep(now: datetime) -> str:
         tl = timelines.find(r["home"], r["away"], r["ko"])
         return tl["goals"] if tl else None
     graded, gave_up = uv.grade(pending, index, now, goals_of)
+    try:
+        # every game, bet on or not, gets both teams' pre-match profile before
+        # kick-off; it rides into the graded archive for the paper book's P rules
+        from data import team_profiles as tpf
+        notes.append(tpf.attach(pending, now))
+    except Exception as e:  # noqa: BLE001 — FotMob down never stops the sweep
+        notes.append(f"profiles skipped ({str(e)[:60]})")
     uv.archive(graded, now=now)
     uv.save_pending(pending)
     notes.append(f"graded {len(graded) - gave_up}, no result found {gave_up}, waiting {len(pending)}")
@@ -114,7 +123,8 @@ def persist(now: datetime) -> str:
     if os.environ.get("GITHUB_ACTIONS") != "true":
         return "not saved (outside GitHub Actions)"
     _git("add", "data/universe", "backtest/UNIVERSE_STUDY.md", "data/match_stats",
-         "backtest/MATCH_STATS_STUDY.md", "backtest/PAPER_BOOK.md")
+         "backtest/MATCH_STATS_STUDY.md", "backtest/PAPER_BOOK.md", "data/teams",
+         "backtest/PROFILE_STUDY.md")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"universe {now:%Y-%m-%d %H:%M} [skip ci]")
@@ -170,6 +180,7 @@ def main(argv: list[str] | None = None) -> int:
         except Exception as e:  # noqa: BLE001 — FotMob down never stops the sweep
             print(f"[{now:%H:%M}Z] match stats skipped ({str(e)[:60]})")
         importlib.import_module("match_stats_study").main()
+        importlib.import_module("profile_study").main()
         if morning_due:
             print(f"[{now:%H:%M}Z] {send_daily_note(now)}")
     print(f"[{now:%H:%M}Z] {persist(now)}")

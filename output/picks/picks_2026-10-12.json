@@ -2578,19 +2578,19 @@
    "name": "ACCAS MEGA",
    "of": "accas",
    "code": "GFBAG1",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "ALT MEGA",
    "of": "alts",
    "code": "P023J8",
-   "result": null
+   "result": "won"
   },
   {
    "name": "VALUE MEGA",
    "of": "value",
    "code": "LMWN7X",
-   "result": null
+   "result": "lost"
   }
  ]
 }

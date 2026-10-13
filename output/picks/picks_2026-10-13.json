@@ -42,7 +42,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sabah Masazir v Slavia Prague",
@@ -90,7 +92,9 @@
    "first_price": 1.29,
    "drift_since_board": 0.0,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Arsenal v Lille",

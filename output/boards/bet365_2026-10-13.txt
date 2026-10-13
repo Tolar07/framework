@@ -1,0 +1,87 @@
+##########OLP XDV · BET365#########
+==================================
+
+📅  Tue 13 Oct 2026 — bet365 board (sent to you only)
+Run ID: OLPXDV-20261013-0214-2eff46 (same run as the SportyBet board)
+Times are kickoff, Lagos time (WAT)
+
+Same fixtures, model and checks as the SportyBet board; each pick is limited to bets bet365 offers.
+• No booking codes on bet365 — find each match by country → league → match.
+• DEPLOY AT = the lowest bet365 price worth taking (break-even for the chance, never below 1.20). Below it, skip the bet. SportyBet's price is shown for reference.
+• ≠ = not the SportyBet pick (bet365 doesn't offer that one).
+⚠ bet365 market NAMES are a DRAFT — check them against your bet365 app and tell Claude any that read differently there.
+
+──────────────────────────────────
+bet365 SINGLES
+──────────────────────────────────
+
+🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship
+ • 19:45 Cardiff City v Watford — Double Chance: Cardiff City or Watford
+   83% · deploy at 1.22+ · SportyBet @1.24 · HIGH
+ • 19:45 Wolves v Bolton Wanderers — Goals Over/Under: Over 1.5
+   82% · deploy at 1.23+ · SportyBet @1.20 · HIGH
+ • 20:00 Birmingham v Preston — Double Chance: Birmingham or Preston
+   82% · deploy at 1.23+ · SportyBet @1.24 · MEDIUM
+ • 19:45 Burnley v Charlton — Double Chance: Burnley or Charlton
+   81% · deploy at 1.24+ · SportyBet @1.25 · MEDIUM
+ • 20:00 Stoke v Middlesbrough — Goals Over/Under: Over 1.5
+   78% · deploy at 1.28+ · SportyBet @1.23 · HIGH
+ • 19:45 Millwall v Swansea — Double Chance: Millwall or Swansea
+   78% · deploy at 1.28+ · SportyBet @1.32 · HIGH
+ • 19:45 Bristol City v Blackburn — Double Chance: Bristol City or Blackburn
+   78% · deploy at 1.29+ · SportyBet @1.32 · MEDIUM
+ • 19:45 Wrexham v West Brom — Double Chance: Wrexham or West Brom
+   77% · deploy at 1.30+ · SportyBet @1.34 · HIGH
+
+🏆 UEFA Champions League
+ • 20:00 RB Leipzig v PSV Eindhoven — Double Chance: RB Leipzig or PSV Eindhoven
+   85% · deploy at 1.20+ · SportyBet @1.22 · LOW
+ • 20:00 Atletico Madrid v Man Utd — Double Chance: Atletico Madrid or Man Utd
+   82% · deploy at 1.22+ · SportyBet @1.27 · LOW
+ • 20:00 Viking FK v Bayern Munich — Goals Over/Under: Under 6.5
+   82% · deploy at 1.23+ · SportyBet @1.22 · LOW
+ • 17:45 Sabah Masazir v Slavia Prague — Double Chance: Sabah Masazir or Slavia Prague
+   81% · deploy at 1.24+ · SportyBet @1.29 · LOW
+ • 20:00 Villarreal v Napoli — Double Chance: Villarreal or Napoli
+   81% · deploy at 1.24+ · SportyBet @1.30 · LOW
+ • 17:45 Lens v Sporting — Handicap Result: Sporting +2
+   81% · deploy at 1.25+ · SportyBet @1.20 · LOW
+ • 20:00 Inter v Club Brugge — Team Goals: Club Brugge Under 1.5
+   80% · deploy at 1.25+ · SportyBet @1.20 · LOW
+ • 20:00 Galatasaray Istanbul v Barcelona — Goals Over/Under: Over 2.5
+   80% · deploy at 1.25+ · SportyBet @1.20 · LOW
+ • 20:00 Arsenal v Lille — Goals Over/Under: Under 4.5
+   78% · deploy at 1.28+ · SportyBet @1.25 · LOW
+
+──────────────────────────────────
+bet365 ACCAS
+(build by hand on bet365, strongest legs first)
+──────────────────────────────────
+bet365 Acca A · 3 legs · chance 58% · deploy at 1.79+ combined
+   • RB Leipzig v PSV Eindhoven (🏆 UEFA Champions League) — Double Chance: RB Leipzig or PSV Eindhoven (85%)
+   • Cardiff City v Watford (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: Cardiff City or Watford (83%)
+   • Atletico Madrid v Man Utd (🏆 UEFA Champions League) — Double Chance: Atletico Madrid or Man Utd (82%)
+bet365 Acca B · 3 legs · chance 55% · deploy at 1.86+ combined
+   • Viking FK v Bayern Munich (🏆 UEFA Champions League) — Goals Over/Under: Under 6.5 (82%)
+   • Wolves v Bolton Wanderers (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Goals Over/Under: Over 1.5 (82%)
+   • Birmingham v Preston (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: Birmingham or Preston (82%)
+bet365 Acca C · 3 legs · chance 53% · deploy at 1.91+ combined
+   • Sabah Masazir v Slavia Prague (🏆 UEFA Champions League) — Double Chance: Sabah Masazir or Slavia Prague (81%)
+   • Villarreal v Napoli (🏆 UEFA Champions League) — Double Chance: Villarreal or Napoli (81%)
+   • Burnley v Charlton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: Burnley or Charlton (81%)
+bet365 Acca D · 3 legs · chance 52% · deploy at 1.95+ combined
+   • Lens v Sporting (🏆 UEFA Champions League) — Handicap Result: Sporting +2 (81%)
+   • Inter v Club Brugge (🏆 UEFA Champions League) — Team Goals: Club Brugge Under 1.5 (80%)
+   • Galatasaray Istanbul v Barcelona (🏆 UEFA Champions League) — Goals Over/Under: Over 2.5 (80%)
+bet365 Acca E · 3 legs · chance 48% · deploy at 2.10+ combined
+   • Stoke v Middlesbrough (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Goals Over/Under: Over 1.5 (78%)
+   • Arsenal v Lille (🏆 UEFA Champions League) — Goals Over/Under: Under 4.5 (78%)
+   • Millwall v Swansea (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: Millwall or Swansea (78%)
+bet365 Acca F · 2 legs · chance 60% · deploy at 1.68+ combined
+   • Bristol City v Blackburn (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: Bristol City or Blackburn (78%)
+   • Wrexham v West Brom (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Double Chance: Wrexham or West Brom (77%)
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Live capital test is SportyBet only (standing order 26) — this board is for reference.
+==================================

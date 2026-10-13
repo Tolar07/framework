@@ -469,42 +469,103 @@
    "retired": "2026-10-11"
   },
   {
-   "lineage_id": "ln_b34f09d959",
-   "parent_id": "ln_e9e0774235",
-   "generation": 9,
-   "bankroll": 2.45,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-05",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-12",
-    "fixture": "GKS Katowice v Wieczysta Krakow",
-    "pick": "GKS Katowice or Wieczysta Krakow",
-    "price": 1.27
-   }
-  },
-  {
    "lineage_id": "ln_f2e044dd75",
    "parent_id": "ln_a9d1b852ea",
    "generation": 8,
-   "bankroll": 1.95,
+   "bankroll": 0.95,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 1,
+   "alive": false,
+   "born_date": "2026-10-11",
+   "last_result": "LOSS",
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_be8217fa8d",
+   "parent_id": "ln_aa9e5f6067",
+   "generation": 9,
+   "bankroll": 1.24,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 1,
+   "alive": false,
+   "born_date": "2026-10-10",
+   "last_result": "LOSS",
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_34e695b566",
+   "parent_id": "ln_aa9e5f6067",
+   "generation": 8,
+   "bankroll": 1.0,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 1,
+   "alive": false,
+   "born_date": "2026-10-10",
+   "last_result": "LOSS",
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_176de4cf5c",
+   "parent_id": "ln_9c27faf9ca",
+   "generation": 8,
+   "bankroll": 1.0,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 1,
+   "alive": false,
+   "born_date": "2026-10-10",
+   "last_result": "LOSS",
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_210c3d4911",
+   "parent_id": "ln_b34f09d959",
+   "generation": 10,
+   "bankroll": 1.36,
    "stake": 1.0,
    "wins": 0,
    "losses": 0,
    "alive": true,
-   "born_date": "2026-10-11",
+   "born_date": "2026-10-13",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-12",
-    "fixture": "Oviedo v Eibar",
-    "pick": "Under 3.5 goals",
-    "price": 1.23
-   }
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_512082ad04",
+   "parent_id": "ln_b34f09d959",
+   "generation": 10,
+   "bankroll": 1.36,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-13",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_b34f09d959",
+   "parent_id": "ln_e9e0774235",
+   "generation": 9,
+   "bankroll": 2.72,
+   "stake": 1.0,
+   "wins": 3,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-05",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-13"
   },
   {
    "lineage_id": "ln_46d12c4eb0",
@@ -577,23 +638,52 @@
    "holding": null
   },
   {
+   "lineage_id": "ln_33fcba123b",
+   "parent_id": "ln_8afb2b090f",
+   "generation": 9,
+   "bankroll": 2.07,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-13",
+   "last_result": null,
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-13",
+    "fixture": "Wolves v Bolton Wanderers",
+    "pick": "Over 1.5 goals",
+    "price": 1.2
+   }
+  },
+  {
+   "lineage_id": "ln_83f064584d",
+   "parent_id": "ln_8afb2b090f",
+   "generation": 9,
+   "bankroll": 2.07,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-13",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
    "lineage_id": "ln_8afb2b090f",
    "parent_id": "ln_3d6fe17e3f",
    "generation": 8,
-   "bankroll": 3.94,
+   "bankroll": 4.14,
    "stake": 1.0,
-   "wins": 2,
+   "wins": 3,
    "losses": 0,
-   "alive": true,
+   "alive": false,
    "born_date": "2026-10-03",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-11",
-    "fixture": "AE Kifisia FC v Panaitolikos Agrinio",
-    "pick": "AE Kifisia FC Under 2.5 goals",
-    "price": 1.2
-   }
+   "holding": null,
+   "retired": "2026-10-13"
   },
   {
    "lineage_id": "ln_08346893fd",
@@ -624,80 +714,47 @@
    "holding": null
   },
   {
-   "lineage_id": "ln_be8217fa8d",
-   "parent_id": "ln_aa9e5f6067",
+   "lineage_id": "ln_e71d3df7e2",
+   "parent_id": "ln_e64a90d058",
    "generation": 9,
-   "bankroll": 2.24,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-10",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-12",
-    "fixture": "Coventry City v Newcastle",
-    "pick": "Under 4.5 goals",
-    "price": 1.21
-   }
-  },
-  {
-   "lineage_id": "ln_34e695b566",
-   "parent_id": "ln_aa9e5f6067",
-   "generation": 8,
-   "bankroll": 2.0,
+   "bankroll": 1.15,
    "stake": 1.0,
    "wins": 0,
    "losses": 0,
    "alive": true,
-   "born_date": "2026-10-10",
+   "born_date": "2026-10-13",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-12",
-    "fixture": "Aarhus v Sonderjyske",
-    "pick": "Sonderjyske (+2.5) Asian handicap",
-    "price": 1.21
-   }
+   "holding": null
   },
   {
-   "lineage_id": "ln_176de4cf5c",
-   "parent_id": "ln_9c27faf9ca",
-   "generation": 8,
-   "bankroll": 2.0,
+   "lineage_id": "ln_3722e31ca8",
+   "parent_id": "ln_e64a90d058",
+   "generation": 9,
+   "bankroll": 1.15,
    "stake": 1.0,
    "wins": 0,
    "losses": 0,
    "alive": true,
-   "born_date": "2026-10-10",
+   "born_date": "2026-10-13",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-12",
-    "fixture": "Radomiak Radom v Motor Lublin",
-    "pick": "Under 4.5 goals",
-    "price": 1.22
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_e64a90d058",
    "parent_id": "ln_9c27faf9ca",
    "generation": 8,
-   "bankroll": 2.0,
+   "bankroll": 2.29,
    "stake": 1.0,
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
-   "alive": true,
+   "alive": false,
    "born_date": "2026-10-10",
-   "last_result": null,
+   "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-12",
-    "fixture": "KFUM Oslo v Vaalerenga IF",
-    "pick": "KFUM Oslo or Vaalerenga IF",
-    "price": 1.29
-   }
+   "holding": null,
+   "retired": "2026-10-13"
   },
   {
    "lineage_id": "ln_d80398a8ed",
@@ -728,6 +785,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-12",
+ "last_bred_date": "2026-10-13",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

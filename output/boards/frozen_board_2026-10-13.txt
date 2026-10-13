@@ -1,0 +1,157 @@
+##########OLP XDV#########
+==================================
+
+📅  Tue 13 Oct 2026   (PICK · win %  ·  alt markets)
+Run ID: OLPXDV-20261013-0214-2eff46 | Phase 3 — live capital (Architect-deployed)
+Fixtures scanned: 17 · Verified: 16
+KO = kickoff, Lagos time (WAT)
+
+⚠ 338 data flag(s) — full detail in the saved board / VERIFY RESULTS
+
+──────────────────────────────────
+TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK
+──────────────────────────────────
+
+```
+KO     Fixture                           Country · League        AI PICK · win%                        Odds   Alt market                         O1.5/O2.5  DC/BTTS     Src
+19:45  Cardiff City v Watford            England · Championship  ✓ Cardiff City or Watford · 83%       @1.24  Under 4.5 goals @1.27              O82/O61    1276 / Y62  ✓
+19:45  Wolves v Bolton Wanderers         England · Championship  ✓ Over 1.5 goals · 82%                @1.20  Wolves Under 3.5 goals @1.20       O85/O66    1X79 / Y62  ✓
+20:00  Birmingham v Preston              England · Championship  ✓ Birmingham or Preston · 82%         @1.24  Over 1.5 goals @1.24               O73/U53    1X80 / N52  ✓
+19:45  Burnley v Charlton                England · Championship  ✓ Burnley or Charlton · 81%           @1.25  Over 1.5 goals @1.29               O75/U50    1273 / Y53  ✓
+20:00  Stoke v Middlesbrough             England · Championship  ✓ Over 1.5 goals · 78%                @1.23  Stoke or Middlesbrough @1.29       O75/U51    1273 / Y54  ✓
+19:45  Millwall v Swansea                England · Championship  ✓ Millwall or Swansea · 78%           @1.32  Over 1.5 goals @1.29               O74/U52    1273 / Y53  ✓
+19:45  Bristol City v Blackburn          England · Championship  ✓ Bristol City or Blackburn · 78%     @1.32  Bristol City Over 0.5 goals @1.24  O68/U59    1X72 / N53  ✓
+19:45  Wrexham v West Brom               England · Championship  ✓ Wrexham or West Brom · 77%          @1.34  Under 3.5 goals @1.31              O68/U59    1271 / N52  ✓
+
+20:00  RB Leipzig v PSV Eindhoven        UEFA Champions League   RB Leipzig or PSV Eindhoven · 85%     @1.22  Under 5.5 goals @1.22              O89/O73    1279 / Y69  ✓ᴹ
+20:00  Atletico Madrid v Man Utd         UEFA Champions League   Atletico Madrid or Man Utd · 82%      @1.27  Under 4.5 goals @1.28              O83/O63    1276 / Y63  ○ᴹ
+20:00  Viking FK v Bayern Munich         UEFA Champions League   Under 6.5 goals · 82%                 @1.22  Viking FK (5:0) handicap @1.24     O93/O84    X295 / Y56  ✓ᴹ
+17:45  Sabah Masazir v Slavia Prague     UEFA Champions League   Sabah Masazir or Slavia Prague · 81%  @1.29  Under 4.5 goals @1.22              O80/O59    1275 / Y60  ✓ᴹ
+20:00  Villarreal v Napoli               UEFA Champions League   Villarreal or Napoli · 81%            @1.30  Under 4.5 goals @1.24              O82/O60    1274 / Y62  ✓ᴹ
+17:45  Lens v Sporting                   UEFA Champions League   Sporting (0:2) handicap · 81%         @1.20  Lens or Sporting @1.29             O82/O61    1275 / Y63  ✓ᴹ
+20:00  Inter v Club Brugge               UEFA Champions League   Club Brugge Under 1.5 goals · 80%     @1.20  Inter to win @1.28                 O86/O68    1X91 / Y51  ✓ᴹ
+20:00  Galatasaray Istanbul v Barcelona  UEFA Champions League   Over 2.5 goals · 80%                  @1.20  Multigoals 1-5 @1.22               O92/O80    X289 / Y65  ✓ᴹ
+20:00  Arsenal v Lille                   UEFA Champions League   Under 4.5 goals · 78%                 @1.25  Arsenal or Lille & Over 1.5 @1.27  O82/O62    1X93 / N58  ✓ᴹ
+```
+★ BANKER = straight win, model + market agree ≥70% (backtest: 82% won, +4%) · ✓ SAFE = model + market agree · ᴮ BOOK = model and SportyBet disagree, so the bookmaker's pick is followed · $ VALUE = both teams to score / over goals priced above its fair odds (order 36) · ⚠ SPLIT = no in-band outcome either side backs
+ᴹ = MARKET-IMPLIED: no model history for this fixture — priced from SportyBet with the margin removed; no edge claimed.
+Src: ✓ = fixture confirmed by two independent sources (TheSportsDB · ESPN · football-data · FotMob · Flashscore) · ○ = one source only · ⚠ = sources disagree (e.g. postponed) — not deployed
+
+TABLE 1 mega code (all 17 deploy singles): YFY59M   load ↦ www.sportybet.com/ng/?shareCode=YFY59M
+
+──────────────────────────────────
+TABLE 2 · LAYER 1 — DEPLOY-ELIGIBLE SINGLES
+(fixtures that clear the deploy threshold, one row each, own code)
+──────────────────────────────────
+
+```
+KO     Fixture                           Country · League        Pick                            Chance  Odds   Certainty  Stake  Code
+19:45  Bristol City v Blackburn          England · Championship  ✓ Bristol City or Blackburn     78%     @1.32  MEDIUM     0.25%  XJQ7W6
+19:45  Burnley v Charlton                England · Championship  ✓ Burnley or Charlton           81%     @1.25  MEDIUM     0.25%  X0ZKAK
+19:45  Cardiff City v Watford            England · Championship  ✓ Cardiff City or Watford       83%     @1.24  HIGH       0.25%  VJTHMD
+19:45  Millwall v Swansea                England · Championship  ✓ Millwall or Swansea           78%     @1.32  HIGH       0.25%  K6AW2Z
+19:45  Wolves v Bolton Wanderers         England · Championship  ✓ Over 1.5 goals                82%     @1.20  HIGH       0.25%  RF9M41
+19:45  Wrexham v West Brom               England · Championship  ✓ Wrexham or West Brom          77%     @1.34  HIGH       0.25%  J51ZCC
+20:00  Birmingham v Preston              England · Championship  ✓ Birmingham or Preston         82%     @1.24  MEDIUM     0.25%  Y7CR1R
+20:00  Stoke v Middlesbrough             England · Championship  ✓ Over 1.5 goals                78%     @1.23  HIGH       0.25%  RYM31M
+17:45  Lens v Sporting                   UEFA Champions League   Sporting (0:2) handicap         81%     @1.20  LOW        0.12%  Z4A6F1
+17:45  Sabah Masazir v Slavia Prague     UEFA Champions League   Sabah Masazir or Slavia Prague  81%     @1.29  LOW        0.12%  ZL9ZBX
+20:00  Arsenal v Lille                   UEFA Champions League   Under 4.5 goals                 78%     @1.25  LOW        0.12%  UU2746
+20:00  Atletico Madrid v Man Utd         UEFA Champions League   Atletico Madrid or Man Utd      82%     @1.27  LOW        0.12%  T3XD7Y
+20:00  Galatasaray Istanbul v Barcelona  UEFA Champions League   Over 2.5 goals                  80%     @1.20  LOW        0.12%  KNKNYJ
+20:00  Inter v Club Brugge               UEFA Champions League   Club Brugge Under 1.5 goals     80%     @1.20  LOW        0.12%  YQFZZ5
+20:00  RB Leipzig v PSV Eindhoven        UEFA Champions League   RB Leipzig or PSV Eindhoven     85%     @1.22  LOW        0.12%  GC34RF
+20:00  Viking FK v Bayern Munich         UEFA Champions League   Under 6.5 goals                 82%     @1.22  LOW        0.12%  Z8V7A0
+20:00  Villarreal v Napoli               UEFA Champions League   Villarreal or Napoli            81%     @1.30  LOW        0.12%  SVYGEP
+```
+Certainty = how sure we are the chance % is right: HIGH = model and SportyBet within 3 pts · MEDIUM = within 7 · LOW = they disagree or only one source.
+Stake = suggested % of your bankroll per single (bigger only where an edge is proven; PAUSED = stop-loss). Accas 0.25%, 50%+ accas 0.5%, megas 0.1%.
+
+Price check: 17 of 17 picks' SportyBet prices agree with an independent book (bet365 via football-data / DraftKings via ESPN, margin removed, within 5 pts).
+
+TEAM PROFILES (last 20 games each side — context, not a price):
+   • Bristol City v Blackburn: tempo 2.4 goals/game · draw tendency 32% · both draw-prone | Bristol City 1.1-1.4 a game, draws 25%, BTTS 55%, clean sheets 20%, SoT 4.1-4.2 | Blackburn 1.1-1.1 a game, draws 40%, BTTS 65%, clean sheets 20%, SoT 3.5-3.9
+   • Burnley v Charlton: tempo 2.8 goals/game · draw tendency 40% · both draw-prone | Burnley 1.4-1.9 a game, draws 44%, BTTS 89%, clean sheets 11%, SoT 4.2-4.9 | Charlton 0.9-1.2 a game, draws 35%, BTTS 65%, clean sheets 25%, SoT 3.2-4.9
+   • Cardiff City v Watford: tempo 2.7 goals/game · draw tendency 35% · both draw-prone · a side often fails to score | Cardiff 1.2-1.6 a game, draws 44%, BTTS 78%, clean sheets 0%, SoT 6.0-5.3 | Watford 0.8-1.9 a game, draws 25%, BTTS 55%, clean sheets 5%, SoT 4.0-5.6
+   • Millwall v Swansea: tempo 2.8 goals/game · draw tendency 25% | Millwall 1.6-1.2 a game, draws 25%, BTTS 55%, clean sheets 40%, SoT 4.1-3.4 | Swansea 1.6-1.1 a game, draws 25%, BTTS 60%, clean sheets 30%, SoT 4.7-4.0
+   • Wolves v Bolton Wanderers: tempo 3.2 goals/game · draw tendency 18% · open, high-scoring pairing | Wolves 1.9-1.4 a game, draws 25%, BTTS 62%, clean sheets 25%, SoT 4.2-3.9 | Bolton 1.3-1.9 a game, draws 11%, BTTS 56%, clean sheets 22%, SoT 4.8-5.6
+   • Wrexham v West Brom: tempo 2.4 goals/game · draw tendency 38% · both draw-prone | Wrexham 1.2-1.6 a game, draws 35%, BTTS 65%, clean sheets 25%, SoT 3.1-4.8 | West Brom 1.2-0.8 a game, draws 40%, BTTS 45%, clean sheets 45%, SoT 4.2-3.2
+   • Birmingham v Preston: tempo 2.6 goals/game · draw tendency 28% | Birmingham 1.2-1.1 a game, draws 40%, BTTS 65%, clean sheets 20%, SoT 4.7-3.5 | Preston 1.1-1.9 a game, draws 15%, BTTS 70%, clean sheets 0%, SoT 3.4-5.0
+   • Stoke v Middlesbrough: tempo 3.0 goals/game · draw tendency 28% | Stoke 1.4-1.8 a game, draws 15%, BTTS 65%, clean sheets 15%, SoT 3.8-4.2 | Middlesbrough 1.8-1.2 a game, draws 40%, BTTS 65%, clean sheets 25%, SoT 5.8-3.4
+
+TABLE 2 mega code (all 17 deploy singles): YFY59M   load ↦ www.sportybet.com/ng/?shareCode=YFY59M
+
+──────────────────────────────────
+TABLE 3A · 50%+ ACCAS
+(3 legs each, high-certainty 75%+ legs only, combined chance 50% or more)
+──────────────────────────────────
+
+50+ #1 · code RHR7YJ · odds 1.96 · chance 53%
+   • 19:45 Cardiff City v Watford (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Cardiff City or Watford @1.24 (83%, HIGH)
+   • 19:45 Wolves v Bolton Wanderers (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Over 1.5 goals @1.20 (82%, HIGH)
+   • 19:45 Millwall v Swansea (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Millwall or Swansea @1.32 (78%, HIGH)
+
+──────────────────────────────────
+TABLE 3 · ACCA ROUTE
+(75%+ picks only, each acca 2.00–3.00 odds, a match in one acca at most — order 40; one Under-goals and one Over-goals leg at most — order 42)
+──────────────────────────────────
+
+3 accas · 12 picks of 75%+ not already in a 50+ acca — every code is also in ALL CODES at the end.
+
+Acca A · code UT3TYB · 3 legs · odds 2.13 · chance 54%
+   • 20:00 Villarreal v Napoli (🏆 UEFA Champions League) — Villarreal or Napoli @1.30 (81%)
+   • 17:45 Sabah Masazir v Slavia Prague (🏆 UEFA Champions League) — Sabah Masazir or Slavia Prague @1.29 (81%)
+   • 20:00 Atletico Madrid v Man Utd (🏆 UEFA Champions League) — Atletico Madrid or Man Utd @1.27 (82%)
+Acca B · code VLV0W8 · 4 legs · odds 2.70 · chance 40%
+   • 19:45 Wrexham v West Brom (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Wrexham or West Brom @1.34 (77%)
+   • 20:00 RB Leipzig v PSV Eindhoven (🏆 UEFA Champions League) — RB Leipzig or PSV Eindhoven @1.22 (85%)
+   • 19:45 Bristol City v Blackburn (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Bristol City or Blackburn @1.32 (78%)
+   • 20:00 Arsenal v Lille (🏆 UEFA Champions League) — Under 4.5 goals @1.25 (78%)
+Acca C · code H71FHJ · 5 legs · odds 2.79 · chance 34%
+   • 20:00 Birmingham v Preston (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Birmingham or Preston @1.24 (82%)
+   • 19:45 Burnley v Charlton (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Burnley or Charlton @1.25 (81%)
+   • 20:00 Viking FK v Bayern Munich (🏆 UEFA Champions League) — Under 6.5 goals @1.22 (82%)
+   • 17:45 Lens v Sporting (🏆 UEFA Champions League) — Sporting (0:2) handicap @1.20 (81%)
+   • 20:00 Stoke v Middlesbrough (🏴󠁧󠁢󠁥󠁮󠁧󠁿 England · Championship) — Over 1.5 goals @1.23 (78%)
+
+Every deploy pick on one slip (the same slip as Table 2's mega):
+TABLE 3 mega code (all 17 deploy singles): YFY59M   load ↦ www.sportybet.com/ng/?shareCode=YFY59M
+
+──────────────────────────────────
+TABLE 3B · ALT-MARKET ACCAS
+(matches no other acca holds, each on a DIFFERENT market from its main
+ pick — goals, handicaps, team goals — 75%+ legs, 3 per acca)
+──────────────────────────────────
+
+No alternative leg of 75%+ on a match no other acca holds today.
+
+──────────────────────────────────
+TABLE 3C · POSITIVE-VALUE BETS
+(priced ABOVE our fair odds — the bets with value in them, even where
+ they are not the likeliest outcome)
+──────────────────────────────────
+
+No outcome priced above our fair odds today (EV +2% or more, 50%+, 1.20–2.00).
+
+──────────────────────────────────
+TABLE 4 · THE PICK
+(primary single + Acca A recommendation)
+──────────────────────────────────
+
+Primary single: RB Leipzig v PSV Eindhoven (🏆 UEFA Champions League) — RB Leipzig or PSV Eindhoven (85%) @1.22 · code GC34RF
+Acca A: 3 legs, model 54% · code UT3TYB
+
+==================================
+Honest edge: not a demonstrated edge · Capital: Architect only.
+Deploy odds band: 1.20–2.00 (safest ~1.50); picks above 2.00 are never deployed.
+Calibration: 35 legs logged, mean CLV +2.31%.
+Booking codes: live SportyBet share codes — load a code on SportyBet to see the slip. Nothing is placed; the Architect deploys.
+==================================
+
+ALL CODES
+50+ #1: RHR7YJ (3 legs · odds 1.96 · 53% · stake 0.5%)
+Board MEGA: YFY59M (17 legs · every single · stake 0.1%)
+ACCAS MEGA: MHWGET (12 legs · every Table 3 acca on one slip · odds 16.03 · stake 0.1%)
+Acca A: UT3TYB (3 legs · odds 2.13 · 54% · stake 0.25%)
+Acca B: VLV0W8 (4 legs · odds 2.70 · 40% · stake 0.25%)
+Acca C: H71FHJ (5 legs · odds 2.79 · 34% · stake 0.25%)

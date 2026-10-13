@@ -47,8 +47,8 @@
    "sharp_ev": null,
    "first_price": 1.32,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-1"
   },
   {
    "fixture": "Burnley v Charlton",
@@ -95,8 +95,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "2-2"
   },
   {
    "fixture": "Cardiff City v Watford",
@@ -143,8 +143,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "5-1"
   },
   {
    "fixture": "Millwall v Swansea",
@@ -191,8 +191,8 @@
    "sharp_ev": null,
    "first_price": 1.32,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-1"
   },
   {
    "fixture": "Wolves v Bolton Wanderers",
@@ -239,8 +239,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-3"
   },
   {
    "fixture": "Wrexham v West Brom",
@@ -287,8 +287,8 @@
    "sharp_ev": null,
    "first_price": 1.34,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Birmingham v Preston",
@@ -851,7 +851,7 @@
     "Lens v Sporting",
     "Stoke v Middlesbrough"
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "safe3": [
@@ -865,7 +865,7 @@
     "Wolves v Bolton Wanderers",
     "Millwall v Swansea"
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "megas": [],
@@ -950,7 +950,7 @@
      0.7699
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Burnley v Charlton",
@@ -1038,7 +1038,7 @@
      0.5954
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Cardiff City v Watford",
@@ -1130,7 +1130,7 @@
      0.7865
     ]
    ],
-   "ft": null
+   "ft": "5-1"
   },
   {
    "fixture": "Millwall v Swansea",
@@ -1210,7 +1210,7 @@
      0.7295
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Wolves v Bolton Wanderers",
@@ -1302,7 +1302,7 @@
      0.5062
     ]
    ],
-   "ft": null
+   "ft": "1-3"
   },
   {
    "fixture": "Wrexham v West Brom",
@@ -1382,7 +1382,7 @@
      0.7555
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Birmingham v Preston",

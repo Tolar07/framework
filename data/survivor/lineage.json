@@ -668,10 +668,10 @@
    "holding": null
   },
   {
-   "lineage_id": "ln_33fcba123b",
-   "parent_id": "ln_8afb2b090f",
-   "generation": 9,
-   "bankroll": 2.07,
+   "lineage_id": "ln_fd9b5ff8a2",
+   "parent_id": "ln_33fcba123b",
+   "generation": 10,
+   "bankroll": 1.14,
    "stake": 1.0,
    "wins": 0,
    "losses": 0,
@@ -679,12 +679,36 @@
    "born_date": "2026-10-13",
    "last_result": null,
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-13",
-    "fixture": "Wolves v Bolton Wanderers",
-    "pick": "Over 1.5 goals",
-    "price": 1.2
-   }
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_bf6c496f83",
+   "parent_id": "ln_33fcba123b",
+   "generation": 10,
+   "bankroll": 1.14,
+   "stake": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-13",
+   "last_result": null,
+   "to_breed": false,
+   "holding": null
+  },
+  {
+   "lineage_id": "ln_33fcba123b",
+   "parent_id": "ln_8afb2b090f",
+   "generation": 9,
+   "bankroll": 2.27,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-13",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-13"
   },
   {
    "lineage_id": "ln_83f064584d",
@@ -698,7 +722,12 @@
    "born_date": "2026-10-13",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-14",
+    "fixture": "Norwich v Southampton",
+    "pick": "Southampton (+1.5) Asian handicap",
+    "price": 1.22
+   }
   },
   {
    "lineage_id": "ln_08346893fd",

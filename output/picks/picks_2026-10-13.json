@@ -627,7 +627,7 @@
      0.7677
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Burnley v Charlton",
@@ -715,7 +715,7 @@
      0.5954
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Cardiff City v Watford",
@@ -807,7 +807,7 @@
      0.7919
     ]
    ],
-   "ft": null
+   "ft": "5-1"
   },
   {
    "fixture": "Millwall v Swansea",
@@ -887,7 +887,7 @@
      0.7377
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "Wolves v Bolton Wanderers",
@@ -979,7 +979,7 @@
      0.5062
     ]
    ],
-   "ft": null
+   "ft": "1-3"
   },
   {
    "fixture": "Wrexham v West Brom",
@@ -1059,7 +1059,7 @@
      0.7555
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Birmingham v Preston",
@@ -1994,8 +1994,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-1",
    "study": true
   },
   {
@@ -2037,8 +2037,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-2",
    "study": true
   },
   {
@@ -2080,8 +2080,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "5-1",
    "study": true
   },
   {
@@ -2123,8 +2123,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-1",
    "study": true
   },
   {
@@ -2166,8 +2166,8 @@
    "sharp_ev": null,
    "first_price": 1.66,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-3",
    "study": true
   },
   {
@@ -2209,8 +2209,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "study": true
   },
   {

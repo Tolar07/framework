@@ -174,7 +174,11 @@
     "home": 456459212,
     "away": 488294894
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74165910",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -274,7 +278,11 @@
     "home": 415156431,
     "away": 119326501
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Club Brugge missing 26%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74165912",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -324,7 +332,11 @@
     "home": 274951205,
     "away": 137163027
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74165916",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -374,7 +386,11 @@
     "home": 20149801,
     "away": 667643252
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74165918",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -424,7 +440,11 @@
     "home": 204455986,
     "away": 158473196
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74165920",
    "sb_tid": "sr:tournament:7",
    "sb_market": {

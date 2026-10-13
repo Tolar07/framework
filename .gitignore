@@ -107,3 +107,6 @@ graphify-out/
 !data/survivor/**
 !memory/*.jsonl
 !output/picks/**
+
+# dated team-profile snapshots stay local (latest.json.gz is the committed copy; MAP.md)
+data/teams/profiles_*.json.gz

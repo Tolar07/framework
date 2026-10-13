@@ -1,0 +1,267 @@
+{
+ "run_id": "STUDY-dab19260",
+ "fetched_at": "2026-10-13T21:21:03Z",
+ "accas": [
+  {
+   "name": "Acca A",
+   "code": "VLVEGV",
+   "odds": 2.59,
+   "chance": 0.343,
+   "legs": [
+    "Lincoln City v West Ham \u2014 Over/Under: Over/Under total=4.5: Under 4.5",
+    "Norwich v Southampton \u2014 Asian handicap: Asian Handicap -1.5 hcp=-1.5: Away (+1.5)",
+    "Portsmouth FC v Sheffield United \u2014 European handicap: Handicap 0:2 hcp=0:2: Away (0:2)",
+    "Betis v Porto \u2014 Team goals: Betis Over/Under total=0.5: Over 0.5",
+    "Roma v Real Madrid \u2014 Win to nil: Away Team to Win to Nil : No"
+   ],
+   "kind": "75%+ legs"
+  },
+  {
+   "name": "Acca B",
+   "code": "PZ4CZV",
+   "odds": 2.31,
+   "chance": 0.383,
+   "legs": [
+    "LASK Linz v Liverpool \u2014 1X2: 1X2 : Away",
+    "Bodoe/Glimt v Borussia Dortmund \u2014 Both teams to score: GG/NG : Yes",
+    "Feyenoord v Como 1907 \u2014 1st half double chance: 1st Half - Double Chance : Draw or Away"
+   ],
+   "kind": "study legs, under 75%"
+  },
+  {
+   "name": "Acca C",
+   "code": "N11EMV",
+   "odds": 2.23,
+   "chance": 0.271,
+   "legs": [
+    "Man City v PSG \u2014 Double chance & total: Double Chance & Over/Under 1.5 total=1.5: Home/Away & Over 1.5",
+    "Shakhtar D v AEK Athens \u2014 Multigoals: Multigoals : 2-5",
+    "Aston Villa v Fenerbahce Istanbul \u2014 Draw no bet: Draw No Bet : Home"
+   ],
+   "kind": "study legs, under 75%"
+  },
+  {
+   "name": "Acca D",
+   "code": "RDFZW9",
+   "odds": 1.63,
+   "chance": 0.539,
+   "legs": [
+    "Queens Park Rangers v Derby County \u2014 Double chance: Double Chance : Home or Draw",
+    "Slovan Bratislava v Stuttgart \u2014 1X2 & total: 1X2 & Over/Under 1.5 total=1.5: Away & Over 1.5"
+   ],
+   "kind": "remaining legs"
+  }
+ ],
+ "mega": {
+  "name": "Main MEGA",
+  "code": "QT9E9C",
+  "odds": 21.88,
+  "chance": 0.019,
+  "legs": [
+   "Feyenoord v Como 1907 \u2014 1st half double chance: 1st Half - Double Chance : Draw or Away",
+   "LASK Linz v Liverpool \u2014 1X2: 1X2 : Away",
+   "Norwich v Southampton \u2014 Asian handicap: Asian Handicap -1.5 hcp=-1.5: Away (+1.5)",
+   "Portsmouth FC v Sheffield United \u2014 European handicap: Handicap 0:2 hcp=0:2: Away (0:2)",
+   "Queens Park Rangers v Derby County \u2014 Double chance: Double Chance : Home or Draw",
+   "Aston Villa v Fenerbahce Istanbul \u2014 Draw no bet: Draw No Bet : Home",
+   "Betis v Porto \u2014 Team goals: Betis Over/Under total=0.5: Over 0.5",
+   "Bodoe/Glimt v Borussia Dortmund \u2014 Both teams to score: GG/NG : Yes",
+   "Lincoln City v West Ham \u2014 Over/Under: Over/Under total=4.5: Under 4.5",
+   "Man City v PSG \u2014 Double chance & total: Double Chance & Over/Under 1.5 total=1.5: Home/Away & Over 1.5",
+   "Roma v Real Madrid \u2014 Win to nil: Away Team to Win to Nil : No",
+   "Shakhtar D v AEK Athens \u2014 Multigoals: Multigoals : 2-5",
+   "Slovan Bratislava v Stuttgart \u2014 1X2 & total: 1X2 & Over/Under 1.5 total=1.5: Away & Over 1.5"
+  ]
+ },
+ "btts": [
+  {
+   "match": "Feyenoord v Como 1907",
+   "call": "Yes",
+   "price": 1.43,
+   "win": 0.663,
+   "model": null,
+   "ev": -0.052,
+   "other": "No @2.85 34%",
+   "code": "QA0XSD"
+  },
+  {
+   "match": "LASK Linz v Liverpool",
+   "call": "Yes",
+   "price": 1.7,
+   "win": 0.568,
+   "model": null,
+   "ev": -0.035,
+   "other": "No @2.15 43%",
+   "code": "L6KKPK"
+  },
+  {
+   "match": "Norwich v Southampton",
+   "call": "Yes",
+   "price": 1.47,
+   "win": 0.631,
+   "model": 0.6058941366257071,
+   "ev": -0.072,
+   "other": "No @2.70 37%",
+   "code": "M9XMX0"
+  },
+  {
+   "match": "Portsmouth FC v Sheffield United",
+   "call": "Yes",
+   "price": 1.76,
+   "win": 0.538,
+   "model": 0.5596692507633614,
+   "ev": -0.054,
+   "other": "No @2.10 46%",
+   "code": "XSPAVL"
+  },
+  {
+   "match": "Queens Park Rangers v Derby County",
+   "call": "Yes",
+   "price": 1.82,
+   "win": 0.521,
+   "model": null,
+   "ev": -0.051,
+   "other": "No @2.00 48%",
+   "code": "PTTSGM"
+  },
+  {
+   "match": "Aston Villa v Fenerbahce Istanbul",
+   "call": "Yes",
+   "price": 1.65,
+   "win": 0.579,
+   "model": null,
+   "ev": -0.045,
+   "other": "No @2.25 42%",
+   "code": "JUET82"
+  },
+  {
+   "match": "Betis v Porto",
+   "call": "Yes",
+   "price": 1.64,
+   "win": 0.579,
+   "model": null,
+   "ev": -0.051,
+   "other": "No @2.25 42%",
+   "code": "Q9X0RT"
+  },
+  {
+   "match": "Bodoe/Glimt v Borussia Dortmund",
+   "call": "Yes",
+   "price": 1.38,
+   "win": 0.69,
+   "model": null,
+   "ev": -0.047,
+   "other": "No @3.10 31%",
+   "code": "VFJW73"
+  },
+  {
+   "match": "Lincoln City v West Ham",
+   "call": "Yes",
+   "price": 1.69,
+   "win": 0.559,
+   "model": 0.565420968541641,
+   "ev": -0.055,
+   "other": "No @2.20 44%",
+   "code": "NFQRDW"
+  },
+  {
+   "match": "Man City v PSG",
+   "call": "Yes",
+   "price": 1.43,
+   "win": 0.663,
+   "model": null,
+   "ev": -0.052,
+   "other": "No @2.85 34%",
+   "code": "SL60FA"
+  },
+  {
+   "match": "Roma v Real Madrid",
+   "call": "Yes",
+   "price": 1.44,
+   "win": 0.659,
+   "model": null,
+   "ev": -0.051,
+   "other": "No @2.80 34%",
+   "code": "SMJV9B"
+  },
+  {
+   "match": "Shakhtar D v AEK Athens",
+   "call": "Yes",
+   "price": 1.69,
+   "win": 0.561,
+   "model": null,
+   "ev": -0.052,
+   "other": "No @2.20 44%",
+   "code": "PJEDBW"
+  },
+  {
+   "match": "Slovan Bratislava v Stuttgart",
+   "call": "Yes",
+   "price": 1.67,
+   "win": 0.576,
+   "model": null,
+   "ev": -0.037,
+   "other": "No @2.20 42%",
+   "code": "UL877L"
+  }
+ ],
+ "btts_slips": [
+  {
+   "name": "BTTS A",
+   "code": "KLVXDJ",
+   "odds": 2.84,
+   "chance": 0.302,
+   "legs": [
+    "Bodoe/Glimt v Borussia Dortmund \u2014 Both teams to score: GG/NG : Yes",
+    "Roma v Real Madrid \u2014 Both teams to score: GG/NG : Yes",
+    "Man City v PSG \u2014 Both teams to score: GG/NG : Yes"
+   ]
+  },
+  {
+   "name": "BTTS B",
+   "code": "MQULFA",
+   "odds": 2.1,
+   "chance": 0.418,
+   "legs": [
+    "Feyenoord v Como 1907 \u2014 Both teams to score: GG/NG : Yes",
+    "Norwich v Southampton \u2014 Both teams to score: GG/NG : Yes"
+   ]
+  },
+  {
+   "name": "BTTS MEGA (all 13)",
+   "code": "UWS8WL",
+   "odds": 419.84,
+   "chance": 0.001,
+   "legs": [
+    "Bodoe/Glimt v Borussia Dortmund \u2014 Both teams to score: GG/NG : Yes",
+    "Man City v PSG \u2014 Both teams to score: GG/NG : Yes",
+    "Feyenoord v Como 1907 \u2014 Both teams to score: GG/NG : Yes",
+    "Roma v Real Madrid \u2014 Both teams to score: GG/NG : Yes",
+    "Norwich v Southampton \u2014 Both teams to score: GG/NG : Yes",
+    "Betis v Porto \u2014 Both teams to score: GG/NG : Yes",
+    "Aston Villa v Fenerbahce Istanbul \u2014 Both teams to score: GG/NG : Yes",
+    "Slovan Bratislava v Stuttgart \u2014 Both teams to score: GG/NG : Yes",
+    "LASK Linz v Liverpool \u2014 Both teams to score: GG/NG : Yes",
+    "Shakhtar D v AEK Athens \u2014 Both teams to score: GG/NG : Yes",
+    "Lincoln City v West Ham \u2014 Both teams to score: GG/NG : Yes",
+    "Portsmouth FC v Sheffield United \u2014 Both teams to score: GG/NG : Yes",
+    "Queens Park Rangers v Derby County \u2014 Both teams to score: GG/NG : Yes"
+   ]
+  }
+ ],
+ "singles": {
+  "Feyenoord v Como 1907": "YZ33E0",
+  "LASK Linz v Liverpool": "XL8FPT",
+  "Norwich v Southampton": "T4CVAT",
+  "Portsmouth FC v Sheffield United": "JBLH72",
+  "Queens Park Rangers v Derby County": "ND8TXZ",
+  "Aston Villa v Fenerbahce Istanbul": "YX8PK0",
+  "Betis v Porto": "J4WCSP",
+  "Bodoe/Glimt v Borussia Dortmund": "VFJW73",
+  "Lincoln City v West Ham": "XGFUTZ",
+  "Man City v PSG": "VTKHG7",
+  "Roma v Real Madrid": "QK7ZJ3",
+  "Shakhtar D v AEK Athens": "ZCJUB3",
+  "Slovan Bratislava v Stuttgart": "NEH4SV"
+ }
+}

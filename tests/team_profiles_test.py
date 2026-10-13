@@ -99,7 +99,7 @@ names = str(pb.bets(row))
 assert "btts:yes" in names and "o/u2.5:over" in names, names
 assert "o/u3.5:under" in names, "P5 tests the board's habit: short Under 3.5 against a BTTS-yes profile"
 assert "btts:yes" not in str(pb.bets({**row, "profile": None})), "no profile: no P bet"
-assert "btts:yes" not in str(pb.bets({**row, "ko": "2026-10-13T19:00Z"})), "P rules start 2026-10-14"
+assert "btts:yes" not in str(pb.bets({**row, "ko": "2026-10-12T19:00Z"})), "P rules start 2026-10-13"
 print("paper book profile rules: OK")
 
 # ── the profile study ──

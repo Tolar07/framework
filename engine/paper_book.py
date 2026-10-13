@@ -211,10 +211,11 @@ STRATEGIES: dict[str, tuple[str, str, Callable[[dict], list[Bet]]]] = {
 SINCE = {"F9 draw-proof": "2026-10-09", "F10 mid-price home": "2026-10-09",
          "F11 2UP strong home": "2026-10-10", "F12 strong home, plain": "2026-10-10",
          "F13 strong home, double chance": "2026-10-10",
-         # P1-P5: written 2026-10-13, before any profiled game was graded
-         "P1 profile: BTTS yes": "2026-10-14", "P2 profile: over 2.5": "2026-10-14",
-         "P3 profile: under 3.5": "2026-10-14", "P4 profile: BTTS no": "2026-10-14",
-         "P5 short Under 3.5 v profile": "2026-10-14"}
+         # P1-P5: written 2026-10-13, before any profiled game was graded; they
+         # count from that day (Architect: "start the 5 profile rule today")
+         "P1 profile: BTTS yes": "2026-10-13", "P2 profile: over 2.5": "2026-10-13",
+         "P3 profile: under 3.5": "2026-10-13", "P4 profile: BTTS no": "2026-10-13",
+         "P5 short Under 3.5 v profile": "2026-10-13"}
 
 
 def bets(row: dict) -> list[dict]:

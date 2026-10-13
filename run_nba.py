@@ -44,6 +44,7 @@ sys.path.insert(0, str(ROOT))
 from data import nba_source as ns  # noqa: E402
 from engine import nba_ext_model as xm  # noqa: E402
 from engine import nba_ladder as nl  # noqa: E402
+from engine import nba_markets as nm  # noqa: E402
 from engine import nba_teams as nt  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
 
@@ -107,15 +108,15 @@ def night_key(tip: datetime) -> str:
     return ((tip - timedelta(hours=NIGHT_START)).date() + timedelta(days=1)).isoformat()
 
 
-def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[str], int]:
-    """(picks, notes, games scanned) for the night's games not yet tipped off."""
+def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[str], int, list[dict]]:
+    """(picks, notes, games scanned, study lines) for the night's games not yet tipped off."""
     start = night_start(night or night_of(now))
     end = start + timedelta(hours=24)
     notes: list[str] = []
     try:
         evs = sportybet_events()
     except Exception as e:  # noqa: BLE001
-        return [], [f"SportyBet NBA feed unavailable ({str(e)[:80]}) — no board"], 0
+        return [], [f"SportyBet NBA feed unavailable ({str(e)[:80]}) — no board"], 0, []
     evs = [(st, e) for st, e in evs if e.get("estimateStartTime")
            and max(now, start) < _tip_utc(e["estimateStartTime"]) < end]
     days = sorted({(_tip_utc(e["estimateStartTime"]) + d).date()
@@ -125,7 +126,7 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
     # pick for later grading; it never chooses, drops or reorders a pick.
     ext_db = os.environ.get("NBA_EXT_MODEL_DB", "").strip()
     ext_rows = xm.load(ext_db, days) if ext_db else []
-    picks, scanned, snaps = [], 0, []
+    picks, scanned, snaps, looks, study = [], 0, [], [], []
     for stage, e in evs:
         tip = _tip_utc(e["estimateStartTime"])
         label = f"{e.get('homeTeamName')} v {e.get('awayTeamName')}"
@@ -142,6 +143,7 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
             continue
         ns.attach_odds(g, use_cache=False)
         snaps.append(nl.snapshot_row(now, stage, e, ht.key, at.key, g))   # ladder study
+        looks.append(nm.snapshot(now, stage, e.get("eventId"), ht.key, at.key, g))   # every-market study
         if not (g.ml_home and g.ml_away):
             notes.append(f"{label}: no sharp line yet — skipped")
             continue
@@ -153,6 +155,8 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
                          f"{abs(sb_p - sharp_p):.0%} on the winner — stale or mismatched, skipped")
             continue
         found, suspect = nv.candidates(e, g)
+        study.append({"tip": tip.isoformat(), "stage": stage, "home": e.get("homeTeamName"),
+                      "away": e.get("awayTeamName"), "lines": nv.study_lines(e, g)})
         for s in suspect:
             notes.append(f"{label}: {s['outcome']} @{s['price']:.2f} looks {s['ev']:+.0%} — "
                          f"too good to be true (stale line?), not picked")
@@ -175,8 +179,10 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
                                 "spread": g.spread, "total": g.total},
                       "code": None, "result": None, "score": None, "close_value": None})
     nl.save(snaps, now)
+    nm.save(looks, now)
     picks.sort(key=lambda p: p["tip"])
-    return picks, notes, scanned
+    study.sort(key=lambda x: x["tip"])
+    return picks, notes, scanned, study
 
 
 def book(picks: list[dict]) -> Optional[str]:
@@ -254,7 +260,7 @@ def scorecard() -> str:
 
 
 def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
-           mega: Optional[str], notes: list[str]) -> str:
+           mega: Optional[str], notes: list[str], study: list[dict] | None = None) -> str:
     L = ["##########OLP XDV · NBA #########", "🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)",
          "==================================", "",
          f"📅  {datetime.fromisoformat(board_date):%a %d %b %Y}   ·   tip-off = Lagos time (WAT)",
@@ -280,6 +286,19 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
         L += ["bet365: no bet365 price feed (order 27), so none is shown — 'take at' is the",
               "lowest bet365 price that still clears this board's value bar."
               + ("" if nt.BET365_CONFIRMED else " bet365 names are a draft until checked in the app."), ""]
+    if study:
+        L += [_RULE, "STUDY LINES — not picks, nothing booked (order 41)", _RULE,
+              "Each market's SportyBet line closest to the fair price, value or not:",
+              "value = chance × price − 1; most sit below 0 (SportyBet's margin).", ""]
+        for g in study:
+            if not g["lines"]:
+                continue
+            tip = datetime.fromisoformat(g["tip"]).astimezone(LAGOS)
+            tag = " · PRESEASON" if g["stage"] == "preseason" else ""
+            L.append(f"{tip:%H:%M}  {g['home']} v {g['away']}{tag}")
+            L += [f"   {nv.display(r, g['home'], g['away'])} @{r['price']:.2f} · fair {r['fair_price']:.2f} "
+                  f"· {r['ev']:+.1%}" for r in g["lines"]]
+            L.append("")
     L += [_RULE, scorecard(), "",
           "Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board",
           "tests the one route left — SportyBet paying above the sharp price — as a live test.",
@@ -301,7 +320,7 @@ def main() -> int:
     for n in grade(now):
         print(f"  {n}")
     night = date.fromisoformat(a.night) if a.night else night_of(now)
-    picks, notes, scanned = build(now, night)
+    picks, notes, scanned, study = build(now, night)
     for n in notes:
         print(f"  ⚠ {n}")
     board_date = night_key(night_start(night))
@@ -313,12 +332,13 @@ def main() -> int:
     else:
         run_id = _run_id(now)
         mega = book(picks) if picks else None
-        text = render(picks, board_date, run_id, scanned, mega, notes)
+        text = render(picks, board_date, run_id, scanned, mega, notes, study)
         LEDGER_DIR.mkdir(parents=True, exist_ok=True)
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,
                                       "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                                      "mega_code": mega, "picks": picks}, indent=1), encoding="utf-8")
+                                      "mega_code": mega, "picks": picks, "study": study}, indent=1),
+                          encoding="utf-8")
         text_path.write_text(text, encoding="utf-8")
     print(text)
     if a.no_send:

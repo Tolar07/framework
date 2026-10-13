@@ -42,6 +42,7 @@ ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 from data import fotmob as fm  # noqa: E402
+from data import league_strength as ls  # noqa: E402
 
 TEAMS_DIR = ROOT / "data" / "teams"
 _LEAGUE = "https://www.fotmob.com/api/data/leagues?id={lid}"
@@ -167,19 +168,38 @@ def style(team: dict, league_teams: list[dict]) -> dict:
             "press": tier("high_turnovers_pm"), "set_pieces": tier("setpiece_goals")}
 
 
-def profile_read(home: dict, away: dict) -> dict:
+def profile_read(home: dict, away: dict, gap: float | None = 0.0) -> dict:
     """What the two sides' attack and defence numbers point to for this game.
     goals_hint = each side's xG per match averaged with what the opponent
     concedes; lean = BTTS/Over when both attacks meet leaky defences, Under /
-    double chance when both defences are strong. A label only."""
+    double chance when both defences are strong. A label only.
+
+    gap = home league's strength minus away league's in goals per match
+    (data/league_strength.py): 0.0 in the same league; across leagues each
+    side's hint moves by half of it, and the lean reads the adjusted hints
+    alone (the strong / weak tiers are league-relative and don't compare).
+    None = across leagues with a league not rated -> PENDING, never a guess."""
     def g(t: dict, key: str) -> float | None:
         s = t["stats"].get(key)
         return s["value"] if s else None
     hx, ax, hxa, axa = g(home, "xg_pm"), g(away, "xg_pm"), g(home, "xga_pm"), g(away, "xga_pm")
     if None in (hx, ax, hxa, axa):
         return {"goals_hint": None, "lean": "PENDING — xG not published for one side"}
-    h_goals = (hx + axa) / 2
-    a_goals = (ax + hxa) / 2
+    if gap is None:
+        return {"goals_hint": None, "lean": "PENDING — different leagues, one not rated for strength"}
+    h_goals = max(0.15, (hx + axa) / 2 + gap / 2)
+    a_goals = max(0.15, (ax + hxa) / 2 - gap / 2)
+    if gap:
+        if min(h_goals, a_goals) >= 1.25:
+            lean = "BTTS yes / Over 2.5 — both expected to score"
+        elif h_goals + a_goals <= 2.3:
+            lean = "Under / double chance — goals look scarce"
+        elif min(h_goals, a_goals) < 0.8:
+            lean = "one side unlikely to score — BTTS no / win to nil"
+        else:
+            lean = "no clear lean"
+        return {"home_goals_hint": round(h_goals, 2), "away_goals_hint": round(a_goals, 2),
+                "total_hint": round(h_goals + a_goals, 2), "lean": lean, "league_gap": gap}
     hs, as_ = home.get("style", {}), away.get("style", {})
     leaky = [s for s in (hs, as_) if s.get("defence") == "weak"]
     sharp = [s for s in (hs, as_) if s.get("attack") == "strong"]
@@ -319,7 +339,8 @@ class TeamCache:
                                                        ensure_ascii=False).encode("utf-8")))
 
 
-def game_profile(cache: TeamCache, home_id, away_id, now: datetime) -> dict | None:
+def game_profile(cache: TeamCache, home_id, away_id, now: datetime,
+                 strength: dict | None = None) -> dict | None:
     """Both teams' compact profiles, their style against their own league, and
     the fixture profile read. None when either team can't be profiled."""
     h, a = cache.get(home_id, now), cache.get(away_id, now)
@@ -332,7 +353,60 @@ def game_profile(cache: TeamCache, home_id, away_id, now: datetime) -> dict | No
         full["style"] = style(full, peers) if len(peers) >= 6 else {}
         sides.append((t, full))
     return {"home": {**h, "style": sides[0][1]["style"]}, "away": {**a, "style": sides[1][1]["style"]},
-            "read": profile_read(sides[0][1], sides[1][1]), "at": now.strftime("%Y-%m-%dT%H:%MZ")}
+            "read": profile_read(sides[0][1], sides[1][1], ls.gap(strength or {}, h.get("league"), a.get("league"))),
+            "at": now.strftime("%Y-%m-%dT%H:%MZ")}
+
+
+_NORDIC = str.maketrans({"ø": "oe", "Ø": "Oe", "å": "aa", "Å": "Aa", "æ": "ae", "Æ": "Ae"})
+_YOUTH = ("u17", "u18", "u19", "u20", "u21", "u23", "youth", "reserve", "primavera", "junior")
+_WOMEN = ("women", "femin", "frauen", "wsl", "liga f")
+
+
+def _sim2(a: str, b: str) -> float:
+    """Name similarity that also reads Nordic letters both ways
+    ("Strømmen" = "Stroemmen", "Åsane" = "Aasane")."""
+    return max(fr_sim(a, b), fr_sim(a, b.translate(_NORDIC)), fr_sim(a.translate(_NORDIC), b))
+
+
+def fr_sim(a: str, b: str) -> float:
+    from data import flashscore_results as fr
+    return fr._sim(a, b)
+
+
+def _kind(text: str) -> str:
+    t = f" {(text or '').lower()} "
+    if any(k in t for k in _WOMEN) or t.rstrip().endswith(" w"):
+        return "women"
+    if any(k in t for k in _YOUTH):
+        return "youth"
+    return "men"
+
+
+def match_game(fixtures: list[dict], r: dict) -> dict | None:
+    """The FotMob fixture of a SportyBet game, for its profile. Stricter in
+    one way than grading's matcher (same kick-off within 30 min, same men's /
+    youth / women's kind) and so it can accept one more case: one team's name
+    exact, the only such fixture at that kick-off ("Man City v PSG" =
+    "Manchester City v Paris Saint-Germain"). Never a guess between two."""
+    from data import flashscore_results as fr
+    ko = datetime.fromisoformat(r["ko"].replace("Z", "+00:00"))
+    kind = _kind(f"{r.get('comp', '')} {r['home']} {r['away']}")
+    cands = []
+    for m in fixtures:
+        k = m.get("kickoff_utc") or ""
+        try:
+            if abs((datetime.fromisoformat(k.replace("Z", "+00:00")) - ko).total_seconds()) > 1800:
+                continue
+        except ValueError:
+            continue
+        if _kind(f"{m.get('league', '')} {m['home']} {m['away']}") != kind:
+            continue
+        cands.append((_sim2(r["home"], m["home"]), _sim2(r["away"], m["away"]), m))
+    both = sorted(cands, key=lambda c: -min(c[0], c[1]))
+    if both and min(both[0][:2]) >= fr.MATCH_MIN and (len(both) < 2 or min(both[1][:2]) < min(both[0][:2]) - 0.02):
+        return both[0][2]
+    one = [c for c in cands if max(c[0], c[1]) >= 0.95 and min(c[0], c[1]) >= 0.2]
+    return one[0][2] if len(one) == 1 else None
 
 
 def attach(pending: dict, now: datetime, cache: TeamCache | None = None,
@@ -341,6 +415,7 @@ def attach(pending: dict, now: datetime, cache: TeamCache | None = None,
     pre-match profile (row["profile"]); soonest games first. Best effort: a
     game FotMob can't match unambiguously gets none (never a guess)."""
     cache = cache or TeamCache()
+    strength = ls.load()
     games = sorted((r for r in pending.values() if r.get("sport") == "football" and "profile" not in r
                     and 0 <= (datetime.fromisoformat(r["ko"].replace("Z", "+00:00")) - now).total_seconds()
                     <= horizon_h * 3600), key=lambda r: r["ko"])
@@ -353,11 +428,11 @@ def attach(pending: dict, now: datetime, cache: TeamCache | None = None,
                 by_day[day] = fm.matches_on(day)
             except Exception:  # noqa: BLE001
                 by_day[day] = []
-        m = fm.find_match(by_day[day], r["home"], r["away"])
+        m = match_game(by_day[day], r)
         if not m or not m.get("home_id") or not m.get("away_id"):
             unmatched += 1
             continue
-        prof = game_profile(cache, m["home_id"], m["away_id"], now)
+        prof = game_profile(cache, m["home_id"], m["away_id"], now, strength)
         if prof:
             r["profile"] = prof
             done += 1                    # over budget, get() serves only cached teams

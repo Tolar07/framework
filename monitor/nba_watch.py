@@ -19,7 +19,8 @@ while any SportyBet NBA game tips off in the next AHEAD hours:
   3. a line move after which SportyBet's winner price still disagrees with
      the sharp line by more than nba_value.MAX_ML_GAP is reported as a LAG
      (no pick: a gap that size can also be a wrong match — check by hand);
-  4. every ladder is saved for the ladder study (engine/nba_ladder.py);
+  4. every ladder is saved for the ladder study (engine/nba_ladder.py), and
+     every market SportyBet lists for the market study (engine/nba_markets.py);
   5. PRICE CHECK: the morning board sends its codes 11-17 hours early, so
      every pick already sent (board or watch) is re-priced against the
      current sharp line; when its value has gone (SportyBet now pays below
@@ -57,6 +58,7 @@ sys.path.insert(0, str(ROOT))
 import run_nba  # noqa: E402
 from data import nba_source as ns  # noqa: E402
 from engine import nba_ladder as nl  # noqa: E402
+from engine import nba_markets as nm  # noqa: E402
 from engine import nba_teams as nt  # noqa: E402
 from engine import nba_value as nv  # noqa: E402
 
@@ -258,6 +260,8 @@ def run_round(now: datetime, send: bool = True) -> str:
         all_picks += picks
         all_lags += lags
     nl.save(snaps, now)
+    nm.save([nm.snapshot(now, st, e.get("eventId"), ht.key, at.key, g)    # every market, every look
+             for st, e, _tip, ht, at, g in games], now)
     summary = (f"{len(games)} games watched · {len(all_picks)} new picks · {len(all_lags)} lags · "
                f"{len(all_gone)} value gone")
     if all_picks or all_lags or all_gone:
@@ -318,7 +322,7 @@ def sync() -> None:
 def persist(now: datetime) -> str:
     if not in_actions():
         return "not saved (outside GitHub Actions)"
-    _git("add", "output/picks", "output/nba_watch", "output/nba_ladders")
+    _git("add", "output/picks", "output/nba_watch", "output/nba_ladders", "output/nba_markets")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"nba watch {now:%H:%M} [skip ci]")

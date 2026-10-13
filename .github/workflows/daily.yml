@@ -170,6 +170,9 @@ jobs:
           else
             python run_nba.py --resend
           fi
+          # the NBA studies: every SportyBet market against the results, and the ladder spreads
+          python backtest/nba_market_study.py || true
+          python backtest/nba_ladder_study.py || true
 
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.
@@ -188,6 +191,8 @@ jobs:
           git add data/cups 2>/dev/null || true
           # NBA ladder snapshots (engine/nba_ladder.py) for the ladder study.
           git add output/nba_ladders 2>/dev/null || true
+          # Every SportyBet NBA market at every look (engine/nba_markets.py) + the NBA studies.
+          git add output/nba_markets backtest/NBA_MARKET_STUDY.md backtest/NBA_LADDER_STUDY.md 2>/dev/null || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
           # A queued run checks out an older SHA; rebase onto latest main first.
           # A conflict used to be silent and dropped this commit; say so instead

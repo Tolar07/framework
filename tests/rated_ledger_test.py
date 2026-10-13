@@ -28,6 +28,7 @@ def fixture(home, away, src="model", shortlist=False):
 def test_records_every_rated_fixture_and_grades_it():
     with tempfile.TemporaryDirectory() as d:
         pl.LEDGER_DIR = Path(d)
+        pl.SUPERSEDED_DIR = Path(d) / "superseded"   # never the real superseded ledgers
         board = [fixture("Bristol Rvs", "Crewe"), fixture("Grimsby", "Shrewsbury", "market"),
                  SimpleNamespace(fixture="No Model v Fixture (League Two)", probs=None,
                                  on_deploy_shortlist=False, best_market_key=None)]
@@ -49,6 +50,7 @@ def test_records_every_rated_fixture_and_grades_it():
 def test_old_ledgers_are_not_regraded():
     with tempfile.TemporaryDirectory() as d:
         pl.LEDGER_DIR = Path(d)
+        pl.SUPERSEDED_DIR = Path(d) / "superseded"   # never the real superseded ledgers
         path = pl.write_ledger("2026-10-03", [fixture("Bristol Rvs", "Crewe")],
                                [], [], [], {}, {}, None)
         pl.grade_all(fs.parse_feed(FEED), today="2026-11-30")

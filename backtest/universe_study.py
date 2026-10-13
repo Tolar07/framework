@@ -36,8 +36,13 @@ MIN_N = 30
 BANDS = ((1.0, 1.3), (1.3, 1.6), (1.6, 2.0), (2.0, 3.0), (3.0, 5.0), (5.0, 1000.0))
 
 
-def _fair(price: float, market: list[float]) -> float:
-    return (1 / price) / sum(1 / p for p in market)
+def _fair(price: float, market: list[float], key: str = "") -> float:
+    """SportyBet's chance with its margin removed. A double-chance side covers
+    two of the three results, so its three sides add up to 200%, not 100%
+    (until 2026-10-13 they were scaled to 100% — the study showed dc landing
+    ~33 points above "fair", which was the arithmetic, not the market)."""
+    share = 2.0 if key.startswith("dc:") else 1.0
+    return share * (1 / price) / sum(1 / p for p in market)
 
 
 class Acc:
@@ -104,7 +109,7 @@ def main() -> int:
             for k, won, price, mkt in uv.outcomes(sport, r["last"]["p"], r["result"]):
                 if k[1:3] == "up":
                     continue       # early payout: outcomes overlap, no fair chance — measured by paper rules F11-F13
-                f = _fair(price, mkt)
+                f = _fair(price, mkt, k)
                 side[k].add(won, price, f)
                 lo, hi = next(b for b in BANDS if b[0] <= price < b[1])
                 band[f"{k.split(':')[0]} @ {lo:.2f}–{hi:.2f}"].add(won, price, f)
@@ -114,7 +119,7 @@ def main() -> int:
                     p0 = first[k][1]
                     tag = ("shortened 3%+" if price < p0 * 0.97 else
                            "drifted 3%+" if price > p0 * 1.03 else "steady")
-                    moved[tag].add(won, p0, _fair(price, mkt))        # return at the FIRST price
+                    moved[tag].add(won, p0, _fair(price, mkt, k))        # return at the FIRST price
         L += ["### Every market side", "", *HEAD]
         L += [side[k].row(k) for k in sorted(side)]
         L += ["", "### By price band (all sides of a market together)", "", *HEAD]

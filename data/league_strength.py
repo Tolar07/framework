@@ -14,7 +14,13 @@ the bridges. Here they come from FotMob's own pages:
 
 The fit: for every finished match, goal difference (capped at ±3) =
 rating(home team's league) − rating(away team's league) + home advantage,
-least squares with a small ridge (RIDGE matches' worth of pull to 0). A
+least squares with a small ridge (RIDGE matches' worth of pull to 0), in two
+stages: first the club competitions' main stages alone (the strong leagues
+meeting each other) fix those leagues' ratings; then every other league is
+rated against them (lower divisions via the cups, small countries via the
+qualifiers). One stage was tried first: small countries met only in
+qualifiers were pulled to the average and flattered whoever beat them
+(Denmark came out level with the Bundesliga). A
 rating is goals per match against an average league in the fit; only the
 DIFFERENCE between two leagues is used. A league with fewer than MIN_N
 matches against other leagues is not rated (HR35: its games read PENDING,
@@ -46,17 +52,17 @@ _ALL = "https://www.fotmob.com/api/data/allLeagues"
 _LEAGUE = "https://www.fotmob.com/api/data/leagues?id={lid}&season={season}"
 _TEAM = "https://www.fotmob.com/api/data/teams?id={tid}"
 GD_CAP = 3
-RIDGE = 4.0
+RIDGE = 1.0
 MIN_N = 8
 LAST_SEASON_WEIGHT = 0.5
 SEASONS = 2
 
 _CLUB_COMP = re.compile(r"champions league|europa league|conference league|libertadores|sudamericana|"
-                        r"concacaf champions|leagues cup|caf confed", re.I)
+                        r"concacaf champions|leagues cup|caf confed|club world cup|intercontinental", re.I)
 _CUP = re.compile(r"\b(cup|cupen|pokal|pokalen|copa del rey|coppa italia|coupe de france|beker|taça|"
                   r"kupa|kupası|kupasi|puchar|pohár|pohar|kup|kupen|bikar)\b", re.I)
 _NOT = re.compile(r"women|femin|fémin|femenin|frauen|\(w\)|\bw\b|u1\d|u2\d|youth|super ?cup|supercup|supercoppa|recopa|"
-                  r"olympic|world cup|nations|\bEURO\b|gold cup|asian cup|africa cup|swf|swpl", re.I)
+                  r"olympic|(?<!club )world cup|nations|\bEURO\b|gold cup|asian cup|africa cup|swf|swpl", re.I)
 EUROPE = {"England", "Spain", "Germany", "Italy", "France", "Netherlands", "Portugal", "Scotland", "Belgium",
           "Turkey", "Türkiye", "Turkiye", "Greece", "Austria", "Switzerland", "Denmark", "Poland", "Norway",
           "Sweden", "Croatia", "Czechia", "Czech Republic", "Serbia", "Ukraine", "Romania", "Hungary", "Slovakia",
@@ -123,37 +129,83 @@ def team_leagues(ids: set[str], pause: float = 0.3) -> dict[str, list]:
     return known
 
 
-def fit(matches: list[dict], league_of: dict[str, list]) -> dict:
-    """Ratings from cross-league matches (see the module doc)."""
+def _solve(rows: list[tuple], fixed: dict[str, float], ridge: float) -> tuple[dict[str, float], float, dict]:
+    """Least squares of capped goal difference on league ratings + home
+    advantage, with the `fixed` leagues' ratings held as known."""
     import numpy as np
-    rows = []
-    for m in matches:
-        lh, la = (league_of.get(m["h"]) or [None])[0], (league_of.get(m["a"]) or [None])[0]
-        if lh is not None and la is not None:
-            rows.append((str(lh), str(la), max(-GD_CAP, min(GD_CAP, m["hg"] - m["ag"])), m["w"]))
-    leagues = sorted({x for r in rows for x in r[:2]})
-    ix = {lg: i for i, lg in enumerate(leagues)}
-    k = len(leagues)
+    free = sorted({x for r in rows for x in r[:2]} - set(fixed))
+    ix = {lg: i for i, lg in enumerate(free)}
+    k = len(free)
     a = np.zeros((len(rows), k + 1))
     y = np.zeros(len(rows))
-    w = np.zeros(len(rows))
-    cross = dict.fromkeys(leagues, 0.0)
+    sw = np.zeros(len(rows))
+    cross: dict[str, float] = {}
     for i, (lh, la, gd, wt) in enumerate(rows):
-        a[i, ix[lh]] += 1
-        a[i, ix[la]] -= 1
+        y[i] = gd - fixed.get(lh, 0.0) + fixed.get(la, 0.0)
+        if lh in ix:
+            a[i, ix[lh]] += 1
+        if la in ix:
+            a[i, ix[la]] -= 1
         a[i, k] = 1.0                       # home advantage
-        y[i], w[i] = gd, wt
+        sw[i] = wt ** 0.5
         if lh != la:
-            cross[lh] += 1
-            cross[la] += 1
-    sw = np.sqrt(w)
-    reg = np.diag([RIDGE] * k + [0.0])
-    coef = np.linalg.solve((a * sw[:, None]).T @ (a * sw[:, None]) + reg, (a * sw[:, None]).T @ (y * sw))
+            cross[lh] = cross.get(lh, 0) + 1
+            cross[la] = cross.get(la, 0) + 1
+    aw = a * sw[:, None]
+    coef = np.linalg.solve(aw.T @ aw + np.diag([ridge] * k + [0.0]), aw.T @ (y * sw))
+    return {lg: float(coef[ix[lg]]) for lg in free}, float(coef[k]), cross
+
+
+def fit(matches: list[dict], league_of: dict[str, list], main_comps: set | None = None) -> dict:
+    """Ratings in two stages (see the module doc). Stage 1 rates the leagues
+    from the club competitions' MAIN stages (`main_comps`; all matches when
+    None), where strong leagues meet each other. Stage 2 holds those fixed and
+    rates every other league — lower divisions through the cups, small
+    countries through the qualifiers — against them. A small country met only
+    in qualifiers can't then pull a big league's level about."""
+    rows, stage1 = [], []
+    for m in matches:
+        lh, la = (league_of.get(m["h"]) or [None])[0], (league_of.get(m["a"]) or [None])[0]
+        if lh is None or la is None:
+            continue
+        r = (str(lh), str(la), max(-GD_CAP, min(GD_CAP, m["hg"] - m["ag"])), m["w"])
+        rows.append(r)
+        if main_comps is None or m.get("comp") in main_comps:
+            stage1.append(r)
+    r1, _h1, c1 = _solve(stage1, {}, RIDGE)
+    fixed = {lg: v for lg, v in r1.items() if c1.get(lg, 0) >= MIN_N}
+    r2, home, c2 = _solve(rows, fixed, RIDGE)
     names = {str(v[0]): v[1] for v in league_of.values() if v and v[0] is not None}
-    return {"home_advantage": round(float(coef[k]), 3),
-            "leagues": {lg: {"name": names.get(lg), "rating": round(float(coef[ix[lg]]), 3),
-                             "cross_matches": int(cross[lg]), "rated": cross[lg] >= MIN_N}
-                        for lg in leagues}}
+    group = _groups(rows)
+    out = {}
+    for lg in sorted(set(fixed) | set(r2)):
+        n = int(c2.get(lg, 0))
+        out[lg] = {"name": names.get(lg), "rating": round(fixed.get(lg, r2.get(lg, 0.0)), 3), "cross_matches": n,
+                   "stage": 1 if lg in fixed else 2, "rated": lg in fixed or n >= MIN_N, "group": group.get(lg)}
+    return {"home_advantage": round(home, 3), "leagues": out}
+
+
+def _groups(rows: list[tuple]) -> dict[str, str]:
+    """Leagues linked by matches into one group (union-find); a group is
+    named after its smallest league id. Ratings compare only within a group."""
+    parent: dict[str, str] = {}
+
+    def find(x: str) -> str:
+        while parent.setdefault(x, x) != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    for lh, la, _gd, _w in rows:
+        a, b = find(lh), find(la)
+        if a != b:
+            parent[max(a, b)] = min(a, b)
+    return {lg: find(lg) for lg in parent}
+
+
+def main_competitions(comps: dict[int, str]) -> set[int]:
+    """The club competitions' main stages: international, not qualifying."""
+    return {lid for lid, name in comps.items()
+            if name.startswith("International") and "qualif" not in name.lower()}
 
 
 def build() -> dict:
@@ -168,7 +220,7 @@ def build() -> dict:
         print(f"  {name}: {len(got)} matches")
         matches += got
     league_of = team_leagues({m["h"] for m in matches} | {m["a"] for m in matches})
-    out = fit(matches, league_of)
+    out = fit(matches, league_of, main_competitions(comps))
     out.update({"built_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%MZ"), "source": "FotMob",
                 "competitions": len(comps), "matches": len(matches)})
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -190,7 +242,7 @@ def gap(table: dict, home_league, away_league) -> float | None:
         return 0.0
     lg = table.get("leagues") or {}
     h, a = lg.get(str(home_league)), lg.get(str(away_league))
-    if not h or not a or not h.get("rated") or not a.get("rated"):
+    if not h or not a or not h.get("rated") or not a.get("rated") or h.get("group") != a.get("group"):
         return None
     return round(h["rating"] - a["rating"], 3)
 

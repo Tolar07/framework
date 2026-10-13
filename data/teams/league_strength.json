@@ -1,0 +1,1233 @@
+{
+ "home_advantage": 0.202,
+ "leagues": {
+  "0": {
+   "name": null,
+   "rating": -1.046,
+   "cross_matches": 1550,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "10226": {
+   "name": "2. Deild",
+   "rating": -2.0,
+   "cross_matches": 21,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "10325": {
+   "name": null,
+   "rating": 0.377,
+   "cross_matches": 3,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "108": {
+   "name": "League One",
+   "rating": 0.715,
+   "cross_matches": 153,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "109": {
+   "name": "League Two",
+   "rating": 0.241,
+   "cross_matches": 105,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "110": {
+   "name": "Ligue 2",
+   "rating": 0.598,
+   "cross_matches": 90,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "111": {
+   "name": "Eerste Divisie",
+   "rating": -0.864,
+   "cross_matches": 23,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "112": {
+   "name": "Liga Profesional",
+   "rating": 0.649,
+   "cross_matches": 196,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "113": {
+   "name": "A-League",
+   "rating": -0.162,
+   "cross_matches": 24,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "116": {
+   "name": "Premier League Relegation Group",
+   "rating": -1.592,
+   "cross_matches": 20,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "117": {
+   "name": "National League",
+   "rating": 0.096,
+   "cross_matches": 159,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "118": {
+   "name": "Premier League",
+   "rating": -0.757,
+   "cross_matches": 47,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "119": {
+   "name": "2. Liga",
+   "rating": 0.131,
+   "cross_matches": 38,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "120": {
+   "name": "Super League",
+   "rating": -0.386,
+   "cross_matches": 36,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "121": {
+   "name": "Primera Division Apertura",
+   "rating": -0.068,
+   "cross_matches": 12,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "122": {
+   "name": "1. Liga",
+   "rating": 0.098,
+   "cross_matches": 127,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "123": {
+   "name": "Championship",
+   "rating": -0.119,
+   "cross_matches": 128,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "124": {
+   "name": "League One",
+   "rating": -0.548,
+   "cross_matches": 188,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "125": {
+   "name": "League Two",
+   "rating": -1.243,
+   "cross_matches": 201,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "126": {
+   "name": "Premier Division",
+   "rating": -0.965,
+   "cross_matches": 85,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "127": {
+   "name": "Ligat ha'Al",
+   "rating": -0.809,
+   "cross_matches": 66,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "128": {
+   "name": "Leumit League Relegation Group",
+   "rating": -0.956,
+   "cross_matches": 20,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "129": {
+   "name": "Premiership",
+   "rating": -0.14,
+   "cross_matches": 76,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "130": {
+   "name": "Major League Soccer",
+   "rating": 0.562,
+   "cross_matches": 186,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "131": {
+   "name": "Liga 1",
+   "rating": -0.004,
+   "cross_matches": 90,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "134": {
+   "name": "Coupe de France",
+   "rating": -0.904,
+   "cross_matches": 40,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "135": {
+   "name": "Super League",
+   "rating": 0.565,
+   "cross_matches": 122,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "136": {
+   "name": "Cyprus League",
+   "rating": 0.551,
+   "cross_matches": 77,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "140": {
+   "name": "LaLiga2",
+   "rating": 0.368,
+   "cross_matches": 35,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "144": {
+   "name": "Primera División",
+   "rating": -0.266,
+   "cross_matches": 64,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "146": {
+   "name": "2. Bundesliga",
+   "rating": 0.187,
+   "cross_matches": 48,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "147": {
+   "name": "Serie C Grp. C",
+   "rating": -0.609,
+   "cross_matches": 12,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "150": {
+   "name": "Coupe de la Ligue",
+   "rating": -1.281,
+   "cross_matches": 1,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "161": {
+   "name": "Liga AUF Uruguaya Clausura",
+   "rating": 0.236,
+   "cross_matches": 78,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "163": {
+   "name": "Challenge League",
+   "rating": 0.191,
+   "cross_matches": 25,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "165": {
+   "name": "1. Lig",
+   "rating": -0.572,
+   "cross_matches": 30,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "168": {
+   "name": "Superettan",
+   "rating": -0.109,
+   "cross_matches": 54,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "169": {
+   "name": "Ettan Norra",
+   "rating": -0.878,
+   "cross_matches": 60,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "173": {
+   "name": "Prva Liga",
+   "rating": -0.031,
+   "cross_matches": 56,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "176": {
+   "name": "1. Liga",
+   "rating": 0.544,
+   "cross_matches": 82,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "182": {
+   "name": "Super Liga",
+   "rating": 0.439,
+   "cross_matches": 49,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "185": {
+   "name": "Liga Portugal 2",
+   "rating": 0.821,
+   "cross_matches": 50,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "189": {
+   "name": "Superliga",
+   "rating": -0.294,
+   "cross_matches": 56,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "196": {
+   "name": "Ekstraklasa",
+   "rating": 0.422,
+   "cross_matches": 115,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "197": {
+   "name": "I Liga",
+   "rating": 0.252,
+   "cross_matches": 32,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "199": {
+   "name": "Division Profesional",
+   "rating": 0.162,
+   "cross_matches": 72,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "208": {
+   "name": "3. Liga",
+   "rating": -0.746,
+   "cross_matches": 22,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "212": {
+   "name": "NB I",
+   "rating": 0.707,
+   "cross_matches": 68,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "213": {
+   "name": "Magyar Kupa",
+   "rating": -0.897,
+   "cross_matches": 3,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "215": {
+   "name": "Besta deildin",
+   "rating": -0.061,
+   "cross_matches": 140,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "216": {
+   "name": "1. Deild",
+   "rating": -0.662,
+   "cross_matches": 99,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "218": {
+   "name": "First Division",
+   "rating": -1.151,
+   "cross_matches": 23,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "223": {
+   "name": "J. League",
+   "rating": 0.441,
+   "cross_matches": 64,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "225": {
+   "name": "Premier League",
+   "rating": -0.552,
+   "cross_matches": 42,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "226": {
+   "name": "Virsliga",
+   "rating": -0.231,
+   "cross_matches": 40,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "228": {
+   "name": "A Lyga",
+   "rating": -1.04,
+   "cross_matches": 32,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "229": {
+   "name": "National Division",
+   "rating": -1.189,
+   "cross_matches": 26,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "230": {
+   "name": "Liga MX",
+   "rating": 0.459,
+   "cross_matches": 172,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "231": {
+   "name": "Super Liga",
+   "rating": -1.24,
+   "cross_matches": 32,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "232": {
+   "name": "1. CFL",
+   "rating": -1.653,
+   "cross_matches": 22,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "239": {
+   "name": "2. Division",
+   "rating": 0.835,
+   "cross_matches": 43,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "240": {
+   "name": "3. Division",
+   "rating": 0.46,
+   "cross_matches": 39,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "241": {
+   "name": null,
+   "rating": -0.403,
+   "cross_matches": 59,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "246": {
+   "name": "Serie A",
+   "rating": 0.627,
+   "cross_matches": 86,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "248": {
+   "name": "Premium liiga",
+   "rating": -0.943,
+   "cross_matches": 36,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "249": {
+   "name": "Prva Liga",
+   "rating": -0.354,
+   "cross_matches": 36,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "250": {
+   "name": "Premier League",
+   "rating": -0.743,
+   "cross_matches": 32,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "251": {
+   "name": "Ykkösliiga",
+   "rating": -0.608,
+   "cross_matches": 38,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "252": {
+   "name": "HNL",
+   "rating": 0.273,
+   "cross_matches": 83,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "253": {
+   "name": "FNL",
+   "rating": -0.042,
+   "cross_matches": 33,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "260": {
+   "name": "Kategoria Superiore",
+   "rating": -0.148,
+   "cross_matches": 38,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "262": {
+   "name": "Premier League",
+   "rating": 0.308,
+   "cross_matches": 52,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "263": {
+   "name": "Premier League",
+   "rating": -0.344,
+   "cross_matches": 34,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "264": {
+   "name": "First Division B",
+   "rating": -0.594,
+   "cross_matches": 10,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "267": {
+   "name": "Premier League",
+   "rating": 0.081,
+   "cross_matches": 38,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "268": {
+   "name": "Série A",
+   "rating": 0.851,
+   "cross_matches": 250,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "270": {
+   "name": "First Professional League",
+   "rating": -0.134,
+   "cross_matches": 72,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "273": {
+   "name": "Primera División",
+   "rating": 0.331,
+   "cross_matches": 69,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "274": {
+   "name": "Primera A",
+   "rating": 0.424,
+   "cross_matches": 91,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "336": {
+   "name": "Liga Nacional Apertura",
+   "rating": -0.63,
+   "cross_matches": 4,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "337": {
+   "name": "Liga Nacional - Apertura",
+   "rating": -0.65,
+   "cross_matches": 6,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "338": {
+   "name": "First League",
+   "rating": -0.454,
+   "cross_matches": 23,
+   "stage": 2,
+   "rated": true,
+   "group": "338"
+  },
+  "339": {
+   "name": "Primera División",
+   "rating": -0.12,
+   "cross_matches": 66,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "38": {
+   "name": "Bundesliga",
+   "rating": -0.176,
+   "cross_matches": 125,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "40": {
+   "name": "Belgian Pro League",
+   "rating": 0.628,
+   "cross_matches": 79,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "439": {
+   "name": "Erovnuli Liga",
+   "rating": -1.081,
+   "cross_matches": 32,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "441": {
+   "name": "Premier League",
+   "rating": 0.445,
+   "cross_matches": 55,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "46": {
+   "name": "Superligaen",
+   "rating": 0.759,
+   "cross_matches": 104,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "461": {
+   "name": "Premier League",
+   "rating": 0.195,
+   "cross_matches": 17,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "47": {
+   "name": "Premier League",
+   "rating": 1.771,
+   "cross_matches": 239,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "48": {
+   "name": "Championship",
+   "rating": 0.892,
+   "cross_matches": 122,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "51": {
+   "name": "Veikkausliiga Championship Group",
+   "rating": -0.081,
+   "cross_matches": 97,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "512": {
+   "name": "Regionalliga Bayern",
+   "rating": -1.158,
+   "cross_matches": 24,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "513": {
+   "name": null,
+   "rating": -1.405,
+   "cross_matches": 2,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "516": {
+   "name": "Ligue 1",
+   "rating": -0.531,
+   "cross_matches": 60,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "519": {
+   "name": "Premier League",
+   "rating": 0.225,
+   "cross_matches": 73,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "522": {
+   "name": "Premier League",
+   "rating": -2.031,
+   "cross_matches": 4,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "523": {
+   "name": "Persian Gulf",
+   "rating": -0.304,
+   "cross_matches": 29,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "524": {
+   "name": "Stars League",
+   "rating": -1.132,
+   "cross_matches": 20,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "529": {
+   "name": "Premier League",
+   "rating": -1.723,
+   "cross_matches": 2,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "53": {
+   "name": "Ligue 1",
+   "rating": 1.087,
+   "cross_matches": 168,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "530": {
+   "name": "Botola Pro",
+   "rating": -0.271,
+   "cross_matches": 55,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "533": {
+   "name": "NPFL",
+   "rating": -1.637,
+   "cross_matches": 20,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "535": {
+   "name": "Qatar Stars League",
+   "rating": -0.531,
+   "cross_matches": 45,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "536": {
+   "name": "Saudi Pro League",
+   "rating": 0.579,
+   "cross_matches": 63,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "537": {
+   "name": "Premier Soccer League",
+   "rating": -0.121,
+   "cross_matches": 60,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "538": {
+   "name": "Pro League",
+   "rating": -0.023,
+   "cross_matches": 48,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "54": {
+   "name": "Bundesliga",
+   "rating": 1.112,
+   "cross_matches": 154,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "540": {
+   "name": "Superliga",
+   "rating": -0.655,
+   "cross_matches": 20,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "544": {
+   "name": "Ligue I",
+   "rating": -0.272,
+   "cross_matches": 33,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "55": {
+   "name": "Serie A",
+   "rating": 0.939,
+   "cross_matches": 121,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "57": {
+   "name": "Eredivisie",
+   "rating": 0.033,
+   "cross_matches": 111,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "59": {
+   "name": "Eliteserien",
+   "rating": 0.427,
+   "cross_matches": 67,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "61": {
+   "name": "Liga Portugal",
+   "rating": 1.116,
+   "cross_matches": 120,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "63": {
+   "name": "Premier League",
+   "rating": 0.606,
+   "cross_matches": 20,
+   "stage": 2,
+   "rated": true,
+   "group": "338"
+  },
+  "64": {
+   "name": "Premiership",
+   "rating": -0.412,
+   "cross_matches": 154,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "67": {
+   "name": "Allsvenskan",
+   "rating": -0.494,
+   "cross_matches": 114,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "69": {
+   "name": "Super League",
+   "rating": 0.179,
+   "cross_matches": 106,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "71": {
+   "name": "Super Lig",
+   "rating": 0.955,
+   "cross_matches": 104,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "85": {
+   "name": "1. Division",
+   "rating": 1.174,
+   "cross_matches": 57,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "86": {
+   "name": "Serie B",
+   "rating": 0.01,
+   "cross_matches": 36,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "87": {
+   "name": "LaLiga",
+   "rating": 1.151,
+   "cross_matches": 154,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "8814": {
+   "name": "Série B",
+   "rating": 0.064,
+   "cross_matches": 7,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "8815": {
+   "name": "Super League 2",
+   "rating": -1.072,
+   "cross_matches": 42,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "8870": {
+   "name": "National League Championship",
+   "rating": -1.063,
+   "cross_matches": 5,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "8935": {
+   "name": "II Liga",
+   "rating": 0.112,
+   "cross_matches": 41,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "8944": {
+   "name": "National League North",
+   "rating": 0.208,
+   "cross_matches": 189,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "8947": {
+   "name": "Northern Premier Division",
+   "rating": -0.173,
+   "cross_matches": 274,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "8965": {
+   "name": "Primera Nacional",
+   "rating": 0.672,
+   "cross_matches": 8,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "8968": {
+   "name": "Primera Federacion - Group 2",
+   "rating": -0.343,
+   "cross_matches": 31,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "8969": {
+   "name": "Ykkonen Championship Group",
+   "rating": -1.149,
+   "cross_matches": 31,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "8970": {
+   "name": "Ligue 3",
+   "rating": 0.422,
+   "cross_matches": 79,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "8973": {
+   "name": null,
+   "rating": -0.087,
+   "cross_matches": 40,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "8983": {
+   "name": "Super League",
+   "rating": 0.253,
+   "cross_matches": 10,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "8984": {
+   "name": "Thai League",
+   "rating": -0.215,
+   "cross_matches": 46,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "8985": {
+   "name": "Liga Super",
+   "rating": -0.199,
+   "cross_matches": 20,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "9039": {
+   "name": "LPF Apertura",
+   "rating": 0.374,
+   "cross_matches": 2,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "9066": {
+   "name": "Premier League",
+   "rating": -0.527,
+   "cross_matches": 44,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "9080": {
+   "name": "K-League 1",
+   "rating": -0.245,
+   "cross_matches": 47,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "9084": {
+   "name": "Premier League 2",
+   "rating": -0.112,
+   "cross_matches": 110,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "9088": {
+   "name": "V-League",
+   "rating": -0.506,
+   "cross_matches": 17,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "9096": {
+   "name": "Second Professional League",
+   "rating": -1.532,
+   "cross_matches": 13,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "9100": {
+   "name": "2. Division",
+   "rating": -1.007,
+   "cross_matches": 10,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "9112": {
+   "name": "Liga 3 Zona B",
+   "rating": 0.268,
+   "cross_matches": 48,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "9117": {
+   "name": "NB II",
+   "rating": -0.263,
+   "cross_matches": 12,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "9123": {
+   "name": null,
+   "rating": -0.151,
+   "cross_matches": 3,
+   "stage": 2,
+   "rated": false,
+   "group": "338"
+  },
+  "9126": {
+   "name": "Primera B",
+   "rating": -0.395,
+   "cross_matches": 13,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "9138": {
+   "name": "Segunda Federacion - Group 3",
+   "rating": -0.459,
+   "cross_matches": 53,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "9195": {
+   "name": "Tweede Divisie",
+   "rating": -1.081,
+   "cross_matches": 18,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "9389": {
+   "name": "Irish Cup",
+   "rating": -1.344,
+   "cross_matches": 3,
+   "stage": 2,
+   "rated": false,
+   "group": "0"
+  },
+  "9478": {
+   "name": "Indian Super League",
+   "rating": -1.548,
+   "cross_matches": 10,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  },
+  "9545": {
+   "name": "Highland / Lowland",
+   "rating": -1.624,
+   "cross_matches": 121,
+   "stage": 2,
+   "rated": true,
+   "group": "0"
+  },
+  "9986": {
+   "name": "Premier League",
+   "rating": -1.458,
+   "cross_matches": 10,
+   "stage": 1,
+   "rated": true,
+   "group": "0"
+  }
+ },
+ "built_at": "2026-10-13T20:13Z",
+ "source": "FotMob",
+ "competitions": 63,
+ "matches": 7970
+}

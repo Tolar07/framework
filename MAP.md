@@ -89,6 +89,7 @@ laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 |---|---|
 | Phase, capital switch | `config/__init__.py` (`PHASE = 3`, `CAPITAL_ENABLED`) |
 | Leagues scanned | `engine/slate.py` `WHITELIST_LEAGUES`; only leagues with a `SPORTYBET_TOURNAMENT_ID` in `pipeline/odds_sportybet.py` are actually scanned (HNL, Champions League, Europa League and Conference League were added 2026-10-05, market-implied; Turkey, Greece, Austria, Switzerland, Norway and Sweden the same day, model-rated) |
+| Board focus (one competition gets the board for a day; the rest are study picks, graded, never sent) | `config/focus.json` (`{"YYYY-MM-DD": ["Champions League"]}`), read by `engine/focus.py` — Architect 2026-10-12 |
 | Odds band, 50% floor, tiers | `engine/slate.py` (`DEPLOY_ODDS_MIN/MAX`, `MIN_MODEL_PROB`, `AGREE_PP`, `BANKER_MIN`) |
 | Pick preferences, drift, news swap | `run_daily.py` (`UNDER_PREF_PP`, `EV_PREF_PP`, `DRIFT_DEMOTE`, `NEWS_SWAP_PP`) |
 | Stakes and stop-loss | `engine/staking.py` (% of bankroll — **no bankroll figure is recorded anywhere**) |

@@ -63,7 +63,7 @@ assert _bt and [r[0].fixture[:2] for r in _bt[0][1]] == ["H0", "H1"], _bt
 assert all(r[2] >= _pb.BTTS_MIN and 1.20 <= r[4] <= 2.00 for r in _bt[0][1])
 assert _pb._build_btts(_brd[:1]) == [], "one BTTS game is not a slip"
 _rd2 = (Path(__file__).parent.parent / "run_daily.py").read_text(encoding="utf-8")
-assert 'extra_codes["btts"]' in _rd2 and "btts=_btts_l(board)" in _rd2
+assert 'extra_codes["btts"]' in _rd2 and "btts=_btts_l(shown)" in _rd2  # shown = the focus-day board (engine/focus.py)
 _b3 = (Path(__file__).parent.parent / "output" / "bet365_board.py").read_text(encoding="utf-8")
 assert "_build_btts(board)" in _b3, "bet365 board lists the BTTS games"
 print("BTTS table: OK")

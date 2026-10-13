@@ -139,6 +139,43 @@ def b_over(p: dict) -> list[Bet]:
     return [("total:over", 0, x[1])] if x else []
 
 
+# PROFILE RULES (Architect 2026-10-13: "understand how they operate too
+# before you do the paper bet on them"). Each reads the game's pre-match team
+# profile (data/team_profiles.py: both sides' xG for/against, style against
+# their own league) that the sweep stored on the row; the row's prices arrive
+# as p, the profile as p["_profile"]. A game without a profile gets no bet.
+def _read(p: dict) -> dict:
+    return ((p.get("_profile") or {}).get("read") or {})
+
+
+def p_btts_yes(p: dict) -> list[Bet]:
+    x = p.get("btts")
+    return [("btts:yes", 0, x[0])] if x and _read(p).get("lean", "").startswith("BTTS yes") else []
+
+
+def p_over25(p: dict) -> list[Bet]:
+    x = p.get("ou2.5")
+    return [("o/u2.5:over", 0, x[0])] if x and _read(p).get("lean", "").startswith("BTTS yes") else []
+
+
+def p_under35(p: dict) -> list[Bet]:
+    x = p.get("ou3.5")
+    return [("o/u3.5:under", 1, x[1])] if x and _read(p).get("lean", "").startswith("Under") else []
+
+
+def p_btts_no(p: dict) -> list[Bet]:
+    x = p.get("btts")
+    return [("btts:no", 1, x[1])] if x and _read(p).get("lean", "").startswith("one side") else []
+
+
+def p_under35_vs_profile(p: dict) -> list[Bet]:
+    """The board's habit, tested: Under 3.5 at 1.20-1.50 when the profile says
+    both sides score — the case that sank the 12 Oct Unders."""
+    x = p.get("ou3.5")
+    return ([("o/u3.5:under", 1, x[1])] if x and _between(x[1], 1.20, 1.50)
+            and _read(p).get("lean", "").startswith("BTTS yes") else [])
+
+
 STRATEGIES: dict[str, tuple[str, str, Callable[[dict], list[Bet]]]] = {
     "F1 short favourite": ("football", "1X2 favourite at 1.20–1.50", f_short_fav),
     "F2 mid favourite": ("football", "1X2 favourite at 1.50–2.00", f_mid_fav),
@@ -154,6 +191,12 @@ STRATEGIES: dict[str, tuple[str, str, Callable[[dict], list[Bet]]]] = {
                                         "margin-free", f_2up_home),
     "F12 strong home, plain": ("football", "home win on F11's games", f_strong_home),
     "F13 strong home, double chance": ("football", "home or draw on F11's games", f_strong_home_dc),
+    "P1 profile: BTTS yes": ("football", "BTTS yes when both teams' profiles say both score", p_btts_yes),
+    "P2 profile: over 2.5": ("football", "Over 2.5 on P1's games", p_over25),
+    "P3 profile: under 3.5": ("football", "Under 3.5 when the profiles say goals are scarce", p_under35),
+    "P4 profile: BTTS no": ("football", "BTTS no when one side's profile says it won't score", p_btts_no),
+    "P5 short Under 3.5 v profile": ("football", "Under 3.5 at 1.20–1.50 when the profiles say both score",
+                                     p_under35_vs_profile),
     "B1 home favourite": ("basketball", "home winner at 1.20–1.60", b_home_fav),
     "B2 away underdog": ("basketball", "away winner at 2.00–3.50", b_away_dog),
     "B3 main total under": ("basketball", "Under the main total line", b_under),
@@ -167,7 +210,11 @@ STRATEGIES: dict[str, tuple[str, str, Callable[[dict], list[Bet]]]] = {
 # F11-F13: proposed 2026-10-09 (2UP on tipster slips); 2UP prices are swept from then.
 SINCE = {"F9 draw-proof": "2026-10-09", "F10 mid-price home": "2026-10-09",
          "F11 2UP strong home": "2026-10-10", "F12 strong home, plain": "2026-10-10",
-         "F13 strong home, double chance": "2026-10-10"}
+         "F13 strong home, double chance": "2026-10-10",
+         # P1-P5: written 2026-10-13, before any profiled game was graded
+         "P1 profile: BTTS yes": "2026-10-14", "P2 profile: over 2.5": "2026-10-14",
+         "P3 profile: under 3.5": "2026-10-14", "P4 profile: BTTS no": "2026-10-14",
+         "P5 short Under 3.5 v profile": "2026-10-14"}
 
 
 def bets(row: dict) -> list[dict]:
@@ -175,6 +222,7 @@ def bets(row: dict) -> list[dict]:
     if not row.get("result"):
         return []
     first, last = row["first"]["p"], row["last"]["p"]
+    first = {**first, "_profile": row.get("profile")}      # P rules read the pre-match profile
     settled = uv.outcomes(row["sport"], first, row["result"])
     won = {k: w for k, w, _x, _m in settled}
     market = {k: m for k, _w, _x, m in settled}

@@ -33,7 +33,7 @@ def _get(url: str) -> dict:
 
 
 def matches_on(day: str) -> list[dict]:
-    """[{id, home, away, league, kickoff_utc, finished, score}] for a date (YYYY-MM-DD)."""
+    """[{id, home, away, home_id, away_id, league, kickoff_utc, finished, score}] for a date (YYYY-MM-DD)."""
     data = _get(_MATCHES.format(ymd=day.replace("-", "")))
     out = []
     for lg in data.get("leagues", []):
@@ -41,6 +41,7 @@ def matches_on(day: str) -> list[dict]:
             st = m.get("status") or {}
             out.append({"id": m.get("id"), "home": (m.get("home") or {}).get("name", ""),
                         "away": (m.get("away") or {}).get("name", ""),
+                        "home_id": (m.get("home") or {}).get("id"), "away_id": (m.get("away") or {}).get("id"),
                         "league": lg.get("name", ""),
                         "kickoff_utc": st.get("utcTime", ""),
                         "finished": bool(st.get("finished")) and not st.get("cancelled"),

@@ -76,13 +76,13 @@ def snapshot(now: datetime, stage: str, event_id: str, home: str, away: str, g) 
             "markets": markets}
 
 
-def save(rows: list[dict], now: datetime, folder: Path = OUT_DIR) -> None:
-    rows = [r for r in rows if r]
-    if not rows:
+def save(rows: list[dict | None], now: datetime, folder: Path = OUT_DIR) -> None:
+    kept = [r for r in rows if r]
+    if not kept:
         return
     folder.mkdir(parents=True, exist_ok=True)
     with (folder / f"{now:%Y-%m-%d}.jsonl").open("a", encoding="utf-8") as f:
-        for r in rows:
+        for r in kept:
             f.write(json.dumps(r, separators=(",", ":")) + "\n")
 
 

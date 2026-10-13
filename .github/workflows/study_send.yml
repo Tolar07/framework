@@ -1,0 +1,33 @@
+name: OLP XDV study send
+
+# Manual only: sends one saved study file (data/study/<date>/*.txt) to the
+# Architect's own chat — never to subscribers (scripts/send_study.py).
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "data/study/<date>/<file>.txt"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Send to the Architect
+        env:
+          TELEGRAM_BOT_TOKEN:     ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:       ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          STUDY_PATH:             ${{ github.event.inputs.path }}
+          PYTHONIOENCODING:       utf-8
+        run: python scripts/send_study.py "$STUDY_PATH"

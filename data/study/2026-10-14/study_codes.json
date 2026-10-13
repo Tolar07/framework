@@ -263,5 +263,68 @@
   "Roma v Real Madrid": "QK7ZJ3",
   "Shakhtar D v AEK Athens": "ZCJUB3",
   "Slovan Bratislava v Stuttgart": "NEH4SV"
- }
+ },
+ "btts_slips_all": [
+  {
+   "name": "BTTS A",
+   "code": "GS61W9",
+   "odds": 2.82,
+   "chance": 0.303,
+   "legs": [
+    "Bodoe/Glimt v Borussia Dortmund",
+    "Man City v PSG",
+    "Feyenoord v Como 1907"
+   ]
+  },
+  {
+   "name": "BTTS B",
+   "code": "US3K7K",
+   "odds": 2.12,
+   "chance": 0.416,
+   "legs": [
+    "Roma v Real Madrid",
+    "Norwich v Southampton"
+   ]
+  },
+  {
+   "name": "BTTS C",
+   "code": "LV93TK",
+   "odds": 2.71,
+   "chance": 0.335,
+   "legs": [
+    "Betis v Porto",
+    "Aston Villa v Fenerbahce Istanbul"
+   ]
+  },
+  {
+   "name": "BTTS D",
+   "code": "TU9NYY",
+   "odds": 2.84,
+   "chance": 0.327,
+   "legs": [
+    "Slovan Bratislava v Stuttgart",
+    "LASK Linz v Liverpool"
+   ]
+  },
+  {
+   "name": "BTTS E",
+   "code": "VR52DW",
+   "odds": 2.86,
+   "chance": 0.314,
+   "legs": [
+    "Shakhtar D v AEK Athens",
+    "Lincoln City v West Ham"
+   ]
+  },
+  {
+   "name": "BTTS F (remaining legs)",
+   "code": "GCWWYS",
+   "odds": 3.2,
+   "chance": 0.28,
+   "legs": [
+    "Portsmouth FC v Sheffield United",
+    "Queens Park Rangers v Derby County"
+   ]
+  }
+ ]
 }

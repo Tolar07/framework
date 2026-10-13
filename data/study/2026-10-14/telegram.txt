@@ -66,11 +66,15 @@ Man City v PSG: Yes @1.43 · 66% · SL60FA
 Roma v Real Madrid: Yes @1.44 · 66% · SMJV9B
 Shakhtar D v AEK Athens: Yes @1.69 · 56% · PJEDBW
 Slovan Bratislava v Stuttgart: Yes @1.67 · 58% · UL877L
-BTTS A KLVXDJ @2.84
-BTTS B MQULFA @2.10
+BTTS A GS61W9 @2.82 · 30% — Bodoe/Glimt v Borussia Dortmund; Man City v PSG; Feyenoord v Como 1907
+BTTS B US3K7K @2.12 · 42% — Roma v Real Madrid; Norwich v Southampton
+BTTS C LV93TK @2.71 · 34% — Betis v Porto; Aston Villa v Fenerbahce Istanbul
+BTTS D TU9NYY @2.84 · 33% — Slovan Bratislava v Stuttgart; LASK Linz v Liverpool
+BTTS E VR52DW @2.86 · 31% — Shakhtar D v AEK Athens; Lincoln City v West Ham
+BTTS F (remaining legs) GCWWYS @3.20 · 28% — Portsmouth FC v Sheffield United; Queens Park Rangers v Derby County
 BTTS MEGA (all 13) UWS8WL @419.84
 
-Every BTTS call is Yes: SportyBet's prices make Yes the likelier side in all 13 — the 13 Oct calls went 10-7 at break-even, so treat these as a test, not an edge.
+Every BTTS call is Yes: SportyBet's prices AND the team profiles make Yes the likelier side in all 13 (closest: Portsmouth–Sheff Utd 52%, QPR–Derby 53%, LASK–Liverpool 56%) — the 13 Oct calls went 10-7 at break-even, so treat these as a test, not an edge.
 
 13 OCT GRADED (full tables: data/study/2026-10-13/GRADES.md)
 Live board singles 7-2, -0.24u (prices 1.20-1.30 need ~80%) · Acca A XMHBWF WON 2.58 · Alt A & mega lost

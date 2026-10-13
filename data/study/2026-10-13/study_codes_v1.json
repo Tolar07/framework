@@ -1,0 +1,80 @@
+{
+ "accas": [
+  {
+   "name": "Acca A",
+   "code": "NMEGRA",
+   "note": "4 leg(s)",
+   "odds": 2.322432,
+   "chance": 0.4090544080213978,
+   "legs": [
+    "Birmingham v Preston \u2014 Asian Handicap -2.5 hcp=-2.5: Away (+2.5)",
+    "Stoke v Middlesbrough \u2014 Middlesbrough FC Over/Under total=2.5: Under 2.5",
+    "Inter v Club Brugge \u2014 1X2 : Home",
+    "Wrexham v West Brom \u2014 Handicap 0:2 hcp=0:2: Away (0:2)"
+   ],
+   "dirs": [
+    null,
+    "under",
+    null,
+    null
+   ]
+  },
+  {
+   "name": "Acca B",
+   "code": "LF67X3",
+   "note": "5 leg(s)",
+   "odds": 2.7460920959999995,
+   "chance": 0.30166039703330255,
+   "legs": [
+    "Sabah Masazir v Slavia Prague \u2014 Over/Under total=4.5: Under 4.5",
+    "Cardiff City v Watford \u2014 Double Chance : Home or Away",
+    "Villarreal v Napoli \u2014 Home Team to Win to Nil : No",
+    "Bristol City v Blackburn \u2014 1st Half - Double Chance : Home or Draw",
+    "Arsenal v Lille \u2014 Double Chance & Over/Under 1.5 total=1.5: Home/Draw & Over 1.5"
+   ],
+   "dirs": [
+    "under",
+    null,
+    null,
+    null,
+    "over"
+   ]
+  }
+ ],
+ "mega": {
+  "code": "XGGV6M",
+  "note": "17 leg(s)",
+  "legs": 17,
+  "odds": 81.07007428672338,
+  "chance": 0.003273430005329979
+ },
+ "singles_only": [
+  "Lens v Sporting",
+  "Burnley v Charlton",
+  "Millwall v Swansea",
+  "Wolves v Bolton Wanderers",
+  "Atletico Madrid v Man Utd",
+  "Galatasaray Istanbul v Barcelona",
+  "RB Leipzig v PSV Eindhoven",
+  "Viking FK v Bayern Munich"
+ ],
+ "singles": {
+  "Lens v Sporting": "SSVG4E",
+  "Sabah Masazir v Slavia Prague": "XJLF8C",
+  "Bristol City v Blackburn": "LJ88NR",
+  "Burnley v Charlton": "LS6QA5",
+  "Cardiff City v Watford": "VJTHMD",
+  "Millwall v Swansea": "Y7CWSP",
+  "Wolves v Bolton Wanderers": "GFYJH1",
+  "Wrexham v West Brom": "VF4UTG",
+  "Arsenal v Lille": "S8KN98",
+  "Atletico Madrid v Man Utd": "LKFVDT",
+  "Birmingham v Preston": "TCS7L5",
+  "Galatasaray Istanbul v Barcelona": "LFT19G",
+  "Inter v Club Brugge": "L7H760",
+  "RB Leipzig v PSV Eindhoven": "S9T26Q",
+  "Stoke v Middlesbrough": "MYKUCX",
+  "Viking FK v Bayern Munich": "L2BBHF",
+  "Villarreal v Napoli": "JJ9Y5X"
+ }
+}

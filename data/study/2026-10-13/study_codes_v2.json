@@ -1,0 +1,322 @@
+{
+ "run_id": "STUDY-412d9663",
+ "fetched_at": "2026-10-13T06:44:57Z",
+ "accas": [
+  {
+   "name": "Acca A",
+   "code": "NMEGRA",
+   "odds": 2.32,
+   "chance": 0.409,
+   "legs": [
+    "Birmingham v Preston \u2014 Asian handicap: Asian Handicap -2.5 hcp=-2.5: Away (+2.5)",
+    "Stoke v Middlesbrough \u2014 Team goals: Middlesbrough FC Over/Under total=2.5: Under 2.5",
+    "Inter v Club Brugge \u2014 1X2: 1X2 : Home",
+    "Wrexham v West Brom \u2014 European handicap: Handicap 0:2 hcp=0:2: Away (0:2)"
+   ],
+   "kind": "75%+ legs"
+  },
+  {
+   "name": "Acca B",
+   "code": "LF67X3",
+   "odds": 2.75,
+   "chance": 0.302,
+   "legs": [
+    "Sabah Masazir v Slavia Prague \u2014 Over/Under: Over/Under total=4.5: Under 4.5",
+    "Cardiff City v Watford \u2014 Double chance: Double Chance : Home or Away",
+    "Villarreal v Napoli \u2014 Win to nil: Home Team to Win to Nil : No",
+    "Bristol City v Blackburn \u2014 1st half double chance: 1st Half - Double Chance : Home or Draw",
+    "Arsenal v Lille \u2014 Double chance & total: Double Chance & Over/Under 1.5 total=1.5: Home/Draw & Over 1.5"
+   ],
+   "kind": "75%+ legs"
+  },
+  {
+   "name": "Acca C",
+   "code": "QFMRJ9",
+   "odds": 2.84,
+   "chance": 0.314,
+   "legs": [
+    "Millwall v Swansea \u2014 Odd/Even: Odd/Even : Even",
+    "Lens v Sporting \u2014 Both teams to score: GG/NG : Yes"
+   ],
+   "kind": "study legs, under 75%"
+  },
+  {
+   "name": "Acca D",
+   "code": "G97QRL",
+   "odds": 2.01,
+   "chance": 0.366,
+   "legs": [
+    "Galatasaray Istanbul v Barcelona \u2014 1X2 & total: 1X2 & Over/Under 1.5 total=1.5: Away & Over 1.5",
+    "Viking FK v Bayern Munich \u2014 Team multigoals: Away Team Goals variant=sr:exact_goals:3+: 3+",
+    "Atletico Madrid v Man Utd \u2014 Multigoals: Multigoals : 2-5"
+   ],
+   "kind": "study legs, under 75%"
+  },
+  {
+   "name": "Acca E",
+   "code": "S3XUNJ",
+   "odds": 2.23,
+   "chance": 0.231,
+   "legs": [
+    "RB Leipzig v PSV Eindhoven \u2014 Total & BTTS: Over/Under & GG/NG total=2.5: Over 2.5 & Yes",
+    "Wolves v Bolton Wanderers \u2014 Home/Away no bet: Away No Bet : Home",
+    "Burnley v Charlton \u2014 Draw no bet: Draw No Bet : Home"
+   ],
+   "kind": "study legs, under 75%"
+  }
+ ],
+ "mega": {
+  "name": "Main MEGA",
+  "code": "XGGV6M",
+  "odds": 81.07,
+  "chance": 0.003,
+  "legs": [
+   "Lens v Sporting \u2014 Both teams to score: GG/NG : Yes",
+   "Sabah Masazir v Slavia Prague \u2014 Over/Under: Over/Under total=4.5: Under 4.5",
+   "Bristol City v Blackburn \u2014 1st half double chance: 1st Half - Double Chance : Home or Draw",
+   "Burnley v Charlton \u2014 Draw no bet: Draw No Bet : Home",
+   "Cardiff City v Watford \u2014 Double chance: Double Chance : Home or Away",
+   "Millwall v Swansea \u2014 Odd/Even: Odd/Even : Even",
+   "Wolves v Bolton Wanderers \u2014 Home/Away no bet: Away No Bet : Home",
+   "Wrexham v West Brom \u2014 European handicap: Handicap 0:2 hcp=0:2: Away (0:2)",
+   "Arsenal v Lille \u2014 Double chance & total: Double Chance & Over/Under 1.5 total=1.5: Home/Draw & Over 1.5",
+   "Atletico Madrid v Man Utd \u2014 Multigoals: Multigoals : 2-5",
+   "Birmingham v Preston \u2014 Asian handicap: Asian Handicap -2.5 hcp=-2.5: Away (+2.5)",
+   "Galatasaray Istanbul v Barcelona \u2014 1X2 & total: 1X2 & Over/Under 1.5 total=1.5: Away & Over 1.5",
+   "Inter v Club Brugge \u2014 1X2: 1X2 : Home",
+   "RB Leipzig v PSV Eindhoven \u2014 Total & BTTS: Over/Under & GG/NG total=2.5: Over 2.5 & Yes",
+   "Stoke v Middlesbrough \u2014 Team goals: Middlesbrough FC Over/Under total=2.5: Under 2.5",
+   "Viking FK v Bayern Munich \u2014 Team multigoals: Away Team Goals variant=sr:exact_goals:3+: 3+",
+   "Villarreal v Napoli \u2014 Win to nil: Home Team to Win to Nil : No"
+  ]
+ },
+ "btts": [
+  {
+   "match": "Lens v Sporting",
+   "call": "Yes",
+   "price": 1.51,
+   "win": 0.624,
+   "model": null,
+   "ev": -0.057,
+   "other": "No @2.55 38%",
+   "code": "SSVG4E"
+  },
+  {
+   "match": "Sabah Masazir v Slavia Prague",
+   "call": "Yes",
+   "price": 1.56,
+   "win": 0.606,
+   "model": null,
+   "ev": -0.054,
+   "other": "No @2.45 39%",
+   "code": "TALRHQ"
+  },
+  {
+   "match": "Bristol City v Blackburn",
+   "call": "Yes",
+   "price": 1.82,
+   "win": 0.513,
+   "model": 0.5309726430755872,
+   "ev": -0.067,
+   "other": "No @1.99 49%",
+   "code": "GGRQQ9"
+  },
+  {
+   "match": "Burnley v Charlton",
+   "call": "Yes",
+   "price": 1.9,
+   "win": 0.515,
+   "model": 0.5584303462555895,
+   "ev": -0.022,
+   "other": "No @1.91 49%",
+   "code": "VFQPQR"
+  },
+  {
+   "match": "Cardiff City v Watford",
+   "call": "Yes",
+   "price": 1.57,
+   "win": 0.601,
+   "model": 0.5948208080954462,
+   "ev": -0.056,
+   "other": "No @2.45 40%",
+   "code": "WU8RDX"
+  },
+  {
+   "match": "Millwall v Swansea",
+   "call": "Yes",
+   "price": 1.74,
+   "win": 0.542,
+   "model": 0.5542599663808896,
+   "ev": -0.056,
+   "other": "No @2.10 46%",
+   "code": "MYKFVD"
+  },
+  {
+   "match": "Wolves v Bolton Wanderers",
+   "call": "Yes",
+   "price": 1.85,
+   "win": 0.539,
+   "model": 0.6009190069249672,
+   "ev": -0.003,
+   "other": "No @1.96 46%",
+   "code": "T9Q1U1"
+  },
+  {
+   "match": "Wrexham v West Brom",
+   "call": "Yes",
+   "price": 1.82,
+   "win": 0.516,
+   "model": 0.5340542787061604,
+   "ev": -0.06,
+   "other": "No @2.00 48%",
+   "code": "Y6S1XA"
+  },
+  {
+   "match": "Arsenal v Lille",
+   "call": "No",
+   "price": 1.68,
+   "win": 0.559,
+   "model": null,
+   "ev": -0.06,
+   "other": "Yes @2.20 44%",
+   "code": "X87VDU"
+  },
+  {
+   "match": "Atletico Madrid v Man Utd",
+   "call": "Yes",
+   "price": 1.57,
+   "win": 0.609,
+   "model": null,
+   "ev": -0.044,
+   "other": "No @2.45 39%",
+   "code": "XR5431"
+  },
+  {
+   "match": "Birmingham v Preston",
+   "call": "Yes",
+   "price": 1.83,
+   "win": 0.524,
+   "model": 0.536123140236855,
+   "ev": -0.041,
+   "other": "No @1.99 48%",
+   "code": "RDFMBX"
+  },
+  {
+   "match": "Galatasaray Istanbul v Barcelona",
+   "call": "Yes",
+   "price": 1.43,
+   "win": 0.671,
+   "model": null,
+   "ev": -0.04,
+   "other": "No @2.85 33%",
+   "code": "PM6V4W"
+  },
+  {
+   "match": "Inter v Club Brugge",
+   "call": "Yes",
+   "price": 1.85,
+   "win": 0.521,
+   "model": null,
+   "ev": -0.036,
+   "other": "No @1.96 48%",
+   "code": "Z1F7W3"
+  },
+  {
+   "match": "RB Leipzig v PSV Eindhoven",
+   "call": "Yes",
+   "price": 1.36,
+   "win": 0.702,
+   "model": null,
+   "ev": -0.045,
+   "other": "No @3.20 30%",
+   "code": "VD0N7V"
+  },
+  {
+   "match": "Stoke v Middlesbrough",
+   "call": "Yes",
+   "price": 1.65,
+   "win": 0.567,
+   "model": 0.5595141061361448,
+   "ev": -0.065,
+   "other": "No @2.25 43%",
+   "code": "ZZYAB4"
+  },
+  {
+   "match": "Viking FK v Bayern Munich",
+   "call": "Yes",
+   "price": 1.73,
+   "win": 0.553,
+   "model": null,
+   "ev": -0.042,
+   "other": "No @2.10 45%",
+   "code": "YFNF6Q"
+  },
+  {
+   "match": "Villarreal v Napoli",
+   "call": "Yes",
+   "price": 1.54,
+   "win": 0.61,
+   "model": null,
+   "ev": -0.061,
+   "other": "No @2.50 39%",
+   "code": "Z64P3W"
+  }
+ ],
+ "btts_slips": [
+  {
+   "name": "BTTS A",
+   "code": "XF25GR",
+   "odds": 2.25,
+   "chance": 0.408,
+   "legs": [
+    "Galatasaray Istanbul v Barcelona \u2014 Both teams to score: GG/NG : Yes",
+    "Atletico Madrid v Man Utd \u2014 Both teams to score: GG/NG : Yes"
+   ]
+  },
+  {
+   "name": "BTTS B",
+   "code": "S0VTPX",
+   "odds": 2.12,
+   "chance": 0.426,
+   "legs": [
+    "RB Leipzig v PSV Eindhoven \u2014 Both teams to score: GG/NG : Yes",
+    "Sabah Masazir v Slavia Prague \u2014 Both teams to score: GG/NG : Yes"
+   ]
+  },
+  {
+   "name": "BTTS C",
+   "code": "YJDDWN",
+   "odds": 2.37,
+   "chance": 0.375,
+   "legs": [
+    "Cardiff City v Watford \u2014 Both teams to score: GG/NG : Yes",
+    "Lens v Sporting \u2014 Both teams to score: GG/NG : Yes"
+   ]
+  },
+  {
+   "name": "BTTS MEGA (all 17)",
+   "code": "GUTE2Q",
+   "odds": 5719.74,
+   "chance": 0.0,
+   "legs": [
+    "RB Leipzig v PSV Eindhoven \u2014 Both teams to score: GG/NG : Yes",
+    "Galatasaray Istanbul v Barcelona \u2014 Both teams to score: GG/NG : Yes",
+    "Lens v Sporting \u2014 Both teams to score: GG/NG : Yes",
+    "Villarreal v Napoli \u2014 Both teams to score: GG/NG : Yes",
+    "Atletico Madrid v Man Utd \u2014 Both teams to score: GG/NG : Yes",
+    "Sabah Masazir v Slavia Prague \u2014 Both teams to score: GG/NG : Yes",
+    "Cardiff City v Watford \u2014 Both teams to score: GG/NG : Yes",
+    "Stoke v Middlesbrough \u2014 Both teams to score: GG/NG : Yes",
+    "Arsenal v Lille \u2014 Both teams to score: GG/NG : No",
+    "Viking FK v Bayern Munich \u2014 Both teams to score: GG/NG : Yes",
+    "Millwall v Swansea \u2014 Both teams to score: GG/NG : Yes",
+    "Wolves v Bolton Wanderers \u2014 Both teams to score: GG/NG : Yes",
+    "Birmingham v Preston \u2014 Both teams to score: GG/NG : Yes",
+    "Inter v Club Brugge \u2014 Both teams to score: GG/NG : Yes",
+    "Wrexham v West Brom \u2014 Both teams to score: GG/NG : Yes",
+    "Burnley v Charlton \u2014 Both teams to score: GG/NG : Yes",
+    "Bristol City v Blackburn \u2014 Both teams to score: GG/NG : Yes"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1115 @@
+{
+ "run_id": "STUDY-412d9663",
+ "fetched_at": "2026-10-13T06:44:57Z",
+ "flags": [
+  "SportyBet events served from cache (<=60min)"
+ ],
+ "lines_rejected": 0,
+ "legs": [
+  {
+   "match": "Lens v Sporting",
+   "comp": "UEFA Champions League",
+   "ko": "2026-10-13T16:45:00+00:00",
+   "src": "market",
+   "pick": {
+    "fam": "Both teams to score",
+    "mid": "29",
+    "spec": "",
+    "mdesc": "GG/NG",
+    "pick": "Yes",
+    "price": 1.51,
+    "win": 0.6242732339383051,
+    "void": 0.0,
+    "mkt_win": 0.6242732339383051,
+    "model_win": null,
+    "ev": -0.05734741675315924,
+    "sel": {
+     "eventId": "sr:match:74165904",
+     "marketId": "29",
+     "specifier": "",
+     "outcomeId": "74"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.51,
+     "win": 0.6242732339383051,
+     "void": 0.0,
+     "mkt_win": 0.6242732339383051,
+     "model_win": null,
+     "ev": -0.05734741675315924,
+     "sel": {
+      "eventId": "sr:match:74165904",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.55,
+     "win": 0.3757267660616946,
+     "void": 0.0,
+     "mkt_win": 0.3757267660616946,
+     "model_win": null,
+     "ev": -0.04189674654267883,
+     "sel": {
+      "eventId": "sr:match:74165904",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Sabah Masazir v Slavia Prague",
+   "comp": "UEFA Champions League",
+   "ko": "2026-10-13T16:45:00+00:00",
+   "src": "market",
+   "pick": {
+    "fam": "Over/Under",
+    "mid": "18",
+    "spec": "total=4.5",
+    "mdesc": "Over/Under",
+    "pick": "Under 4.5",
+    "price": 1.23,
+    "win": 0.8032630891309446,
+    "void": 0.0,
+    "mkt_win": 0.8032630891309446,
+    "model_win": null,
+    "ev": -0.011986400368938166,
+    "sel": {
+     "eventId": "sr:match:74165906",
+     "marketId": "18",
+     "specifier": "total=4.5",
+     "outcomeId": "13"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.56,
+     "win": 0.6062502922492311,
+     "void": 0.0,
+     "mkt_win": 0.6062502922492311,
+     "model_win": null,
+     "ev": -0.05424954409119942,
+     "sel": {
+      "eventId": "sr:match:74165906",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.45,
+     "win": 0.3937497077507694,
+     "void": 0.0,
+     "mkt_win": 0.3937497077507694,
+     "model_win": null,
+     "ev": -0.03531321601061488,
+     "sel": {
+      "eventId": "sr:match:74165906",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Bristol City v Blackburn",
+   "comp": "England \u00b7 Championship",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "src": "model+market",
+   "pick": {
+    "fam": "1st half double chance",
+    "mid": "63",
+    "spec": "",
+    "mdesc": "1st Half - Double Chance",
+    "pick": "Home or Draw",
+    "price": 1.24,
+    "win": 0.7663517743174351,
+    "void": 0.0,
+    "mkt_win": 0.7653860990339807,
+    "model_win": 0.7692488001677984,
+    "ev": -0.049723799846380534,
+    "sel": {
+     "eventId": "sr:match:72339890",
+     "marketId": "63",
+     "specifier": "",
+     "outcomeId": "9"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.82,
+     "win": 0.5126734268204151,
+     "void": 0.0,
+     "mkt_win": 0.506573688068691,
+     "model_win": 0.5309726430755872,
+     "ev": -0.06693436318684454,
+     "sel": {
+      "eventId": "sr:match:72339890",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 1.99,
+     "win": 0.487326573179585,
+     "void": 0.0,
+     "mkt_win": 0.49342631193130904,
+     "model_win": 0.4690273569244129,
+     "ev": -0.03022011937262581,
+     "sel": {
+      "eventId": "sr:match:72339890",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Burnley v Charlton",
+   "comp": "England \u00b7 Championship",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "src": "model+market",
+   "pick": {
+    "fam": "Draw no bet",
+    "mid": "11",
+    "spec": "",
+    "mdesc": "Draw No Bet",
+    "pick": "Home",
+    "price": 1.26,
+    "win": 0.5576820130384831,
+    "void": 0.23445279469476848,
+    "mkt_win": 0.5861504175339494,
+    "model_win": 0.4722767995520844,
+    "ev": -0.06286786887674278,
+    "sel": {
+     "eventId": "sr:match:72339892",
+     "marketId": "11",
+     "specifier": "",
+     "outcomeId": "4"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.9,
+     "win": 0.5148401864437187,
+     "void": 0.0,
+     "mkt_win": 0.500310133173095,
+     "model_win": 0.5584303462555895,
+     "ev": -0.02180364575693461,
+     "sel": {
+      "eventId": "sr:match:72339892",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 1.91,
+     "win": 0.48515981355628135,
+     "void": 0.0,
+     "mkt_win": 0.49968986682690497,
+     "model_win": 0.4415696537444105,
+     "ev": -0.07334475610750268,
+     "sel": {
+      "eventId": "sr:match:72339892",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Cardiff City v Watford",
+   "comp": "England \u00b7 Championship",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "src": "model+market",
+   "pick": {
+    "fam": "Double chance",
+    "mid": "10",
+    "spec": "",
+    "mdesc": "Double Chance",
+    "pick": "Home or Away",
+    "price": 1.24,
+    "win": 0.7837222603298603,
+    "void": 0.0,
+    "mkt_win": 0.7882600329885817,
+    "model_win": 0.770108942353696,
+    "ev": -0.02818439719097332,
+    "sel": {
+     "eventId": "sr:match:72339894",
+     "marketId": "10",
+     "specifier": "",
+     "outcomeId": "10"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.57,
+     "win": 0.601419294542882,
+     "void": 0.0,
+     "mkt_win": 0.6036187900253607,
+     "model_win": 0.5948208080954462,
+     "ev": -0.055771707567675244,
+     "sel": {
+      "eventId": "sr:match:72339894",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.45,
+     "win": 0.3985807054571182,
+     "void": 0.0,
+     "mkt_win": 0.39638120997463966,
+     "model_win": 0.40517919190455376,
+     "ev": -0.023477271630060303,
+     "sel": {
+      "eventId": "sr:match:72339894",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Millwall v Swansea",
+   "comp": "England \u00b7 Championship",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "src": "model+market",
+   "pick": {
+    "fam": "Odd/Even",
+    "mid": "26",
+    "spec": "",
+    "mdesc": "Odd/Even",
+    "pick": "Even",
+    "price": 1.88,
+    "win": 0.5025954010654394,
+    "void": 0.0,
+    "mkt_win": 0.5024842699285016,
+    "model_win": 0.5029287944762532,
+    "ev": -0.05512064599697397,
+    "sel": {
+     "eventId": "sr:match:72339896",
+     "marketId": "26",
+     "specifier": "",
+     "outcomeId": "72"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.74,
+     "win": 0.5424919484474597,
+     "void": 0.0,
+     "mkt_win": 0.5385692758029831,
+     "model_win": 0.5542599663808896,
+     "ev": -0.056064009701420114,
+     "sel": {
+      "eventId": "sr:match:72339896",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.1,
+     "win": 0.4575080515525404,
+     "void": 0.0,
+     "mkt_win": 0.4614307241970169,
+     "model_win": 0.44574003361911074,
+     "ev": -0.03923309173966516,
+     "sel": {
+      "eventId": "sr:match:72339896",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Wolves v Bolton Wanderers",
+   "comp": "England \u00b7 Championship",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "src": "model+market",
+   "pick": {
+    "fam": "Home/Away no bet",
+    "mid": "13",
+    "spec": "",
+    "mdesc": "Away No Bet",
+    "pick": "Home",
+    "price": 1.21,
+    "win": 0.6568803585332427,
+    "void": 0.15266935838167106,
+    "mkt_win": 0.6809306919607739,
+    "model_win": 0.5847293582506488,
+    "ev": -0.05250540779310531,
+    "sel": {
+     "eventId": "sr:match:72339900",
+     "marketId": "13",
+     "specifier": "",
+     "outcomeId": "780"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.85,
+     "win": 0.5391260681826383,
+     "void": 0.0,
+     "mkt_win": 0.5185284219351953,
+     "model_win": 0.6009190069249672,
+     "ev": -0.002616773862119115,
+     "sel": {
+      "eventId": "sr:match:72339900",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 1.96,
+     "win": 0.46087393181736164,
+     "void": 0.0,
+     "mkt_win": 0.4814715780648045,
+     "model_win": 0.399080993075033,
+     "ev": -0.09668709363797123,
+     "sel": {
+      "eventId": "sr:match:72339900",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Wrexham v West Brom",
+   "comp": "England \u00b7 Championship",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "src": "model+market",
+   "pick": {
+    "fam": "European handicap",
+    "mid": "14",
+    "spec": "hcp=0:2",
+    "mdesc": "Handicap 0:2",
+    "pick": "Away (0:2)",
+    "price": 1.2,
+    "win": 0.8122285706253035,
+    "void": 0.0,
+    "mkt_win": 0.803911664874351,
+    "model_win": 0.8371792878781611,
+    "ev": -0.025325715249635783,
+    "sel": {
+     "eventId": "sr:match:72339902",
+     "marketId": "14",
+     "specifier": "hcp=0:2",
+     "outcomeId": "1713"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.82,
+     "win": 0.5163764032785249,
+     "void": 0.0,
+     "mkt_win": 0.5104837781359797,
+     "model_win": 0.5340542787061604,
+     "ev": -0.06019494603308473,
+     "sel": {
+      "eventId": "sr:match:72339902",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.0,
+     "win": 0.48362359672147504,
+     "void": 0.0,
+     "mkt_win": 0.4895162218640202,
+     "model_win": 0.4659457212938396,
+     "ev": -0.03275280655704993,
+     "sel": {
+      "eventId": "sr:match:72339902",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Arsenal v Lille",
+   "comp": "UEFA Champions League",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "src": "market",
+   "pick": {
+    "fam": "Double chance & total",
+    "mid": "547",
+    "spec": "total=1.5",
+    "mdesc": "Double Chance & Over/Under 1.5",
+    "pick": "Home/Draw & Over 1.5",
+    "price": 1.2,
+    "win": 0.7900492034535144,
+    "void": 0.0,
+    "mkt_win": 0.7900492034535144,
+    "model_win": null,
+    "ev": -0.051940955855782844,
+    "sel": {
+     "eventId": "sr:match:74165908",
+     "marketId": "547",
+     "specifier": "total=1.5",
+     "outcomeId": "1727"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 2.2,
+     "win": 0.44076775692427855,
+     "void": 0.0,
+     "mkt_win": 0.44076775692427855,
+     "model_win": null,
+     "ev": -0.030310934766587083,
+     "sel": {
+      "eventId": "sr:match:74165908",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 1.68,
+     "win": 0.5592322430757212,
+     "void": 0.0,
+     "mkt_win": 0.5592322430757212,
+     "model_win": null,
+     "ev": -0.06048983163278843,
+     "sel": {
+      "eventId": "sr:match:74165908",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Atletico Madrid v Man Utd",
+   "comp": "UEFA Champions League",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "src": "market",
+   "pick": {
+    "fam": "Multigoals",
+    "mid": "548",
+    "spec": "",
+    "mdesc": "Multigoals",
+    "pick": "2-5",
+    "price": 1.2,
+    "win": 0.7214084775607309,
+    "void": 0.0,
+    "mkt_win": 0.7214084775607309,
+    "model_win": null,
+    "ev": -0.1343098269271229,
+    "sel": {
+     "eventId": "sr:match:74165910",
+     "marketId": "548",
+     "specifier": "",
+     "outcomeId": "1737"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.57,
+     "win": 0.6087195282795775,
+     "void": 0.0,
+     "mkt_win": 0.6087195282795775,
+     "model_win": null,
+     "ev": -0.0443103406010632,
+     "sel": {
+      "eventId": "sr:match:74165910",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.45,
+     "win": 0.39128047172042285,
+     "void": 0.0,
+     "mkt_win": 0.39128047172042285,
+     "model_win": null,
+     "ev": -0.04136284428496395,
+     "sel": {
+      "eventId": "sr:match:74165910",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Birmingham v Preston",
+   "comp": "England \u00b7 Championship",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "src": "model+market",
+   "pick": {
+    "fam": "Asian handicap",
+    "mid": "16",
+    "spec": "hcp=-2.5",
+    "mdesc": "Asian Handicap -2.5",
+    "pick": "Away (+2.5)",
+    "price": 1.2,
+    "win": 0.832439311241096,
+    "void": 0.0,
+    "mkt_win": 0.8187313588362345,
+    "model_win": 0.8735631684556808,
+    "ev": -0.0010728265106847434,
+    "sel": {
+     "eventId": "sr:match:72339888",
+     "marketId": "16",
+     "specifier": "hcp=-2.5",
+     "outcomeId": "1715"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.83,
+     "win": 0.5242871124287796,
+     "void": 0.0,
+     "mkt_win": 0.5203417698260877,
+     "model_win": 0.536123140236855,
+     "ev": -0.040554584255333315,
+     "sel": {
+      "eventId": "sr:match:72339888",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 1.99,
+     "win": 0.47571288757122043,
+     "void": 0.0,
+     "mkt_win": 0.47965823017391224,
+     "model_win": 0.46387685976314497,
+     "ev": -0.05333135373327136,
+     "sel": {
+      "eventId": "sr:match:72339888",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Galatasaray Istanbul v Barcelona",
+   "comp": "UEFA Champions League",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "src": "market",
+   "pick": {
+    "fam": "1X2 & total",
+    "mid": "37",
+    "spec": "total=1.5",
+    "mdesc": "1X2 & Over/Under 1.5",
+    "pick": "Away & Over 1.5",
+    "price": 1.32,
+    "win": 0.6997465144884139,
+    "void": 0.0,
+    "mkt_win": 0.6997465144884139,
+    "model_win": null,
+    "ev": -0.07633460087529365,
+    "sel": {
+     "eventId": "sr:match:74165914",
+     "marketId": "37",
+     "specifier": "total=1.5",
+     "outcomeId": "804"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.43,
+     "win": 0.6710047392050764,
+     "void": 0.0,
+     "mkt_win": 0.6710047392050764,
+     "model_win": null,
+     "ev": -0.04046322293674076,
+     "sel": {
+      "eventId": "sr:match:74165914",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.85,
+     "win": 0.3289952607949236,
+     "void": 0.0,
+     "mkt_win": 0.3289952607949236,
+     "model_win": null,
+     "ev": -0.06236350673446778,
+     "sel": {
+      "eventId": "sr:match:74165914",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Inter v Club Brugge",
+   "comp": "UEFA Champions League",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "src": "market",
+   "pick": {
+    "fam": "1X2",
+    "mid": "1",
+    "spec": "",
+    "mdesc": "1X2",
+    "pick": "Home",
+    "price": 1.26,
+    "win": 0.7779078272252345,
+    "void": 0.0,
+    "mkt_win": 0.7779078272252345,
+    "model_win": null,
+    "ev": -0.019836137696204514,
+    "sel": {
+     "eventId": "sr:match:74165912",
+     "marketId": "1",
+     "specifier": "",
+     "outcomeId": "1"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.85,
+     "win": 0.5209233361545417,
+     "void": 0.0,
+     "mkt_win": 0.5209233361545417,
+     "model_win": null,
+     "ev": -0.03629182811409781,
+     "sel": {
+      "eventId": "sr:match:74165912",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 1.96,
+     "win": 0.4790766638454576,
+     "void": 0.0,
+     "mkt_win": 0.4790766638454576,
+     "model_win": null,
+     "ev": -0.06100973886290306,
+     "sel": {
+      "eventId": "sr:match:74165912",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "RB Leipzig v PSV Eindhoven",
+   "comp": "UEFA Champions League",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "src": "market",
+   "pick": {
+    "fam": "Total & BTTS",
+    "mid": "36",
+    "spec": "total=2.5",
+    "mdesc": "Over/Under & GG/NG",
+    "pick": "Over 2.5 & Yes",
+    "price": 1.46,
+    "win": 0.6306355587152237,
+    "void": 0.0,
+    "mkt_win": 0.6306355587152237,
+    "model_win": null,
+    "ev": -0.07927208427577337,
+    "sel": {
+     "eventId": "sr:match:74165916",
+     "marketId": "36",
+     "specifier": "total=2.5",
+     "outcomeId": "90"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.36,
+     "win": 0.7019690920499808,
+     "void": 0.0,
+     "mkt_win": 0.7019690920499808,
+     "model_win": null,
+     "ev": -0.04532203481202601,
+     "sel": {
+      "eventId": "sr:match:74165916",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 3.2,
+     "win": 0.29803090795001963,
+     "void": 0.0,
+     "mkt_win": 0.29803090795001963,
+     "model_win": null,
+     "ev": -0.04630109455993714,
+     "sel": {
+      "eventId": "sr:match:74165916",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Stoke v Middlesbrough",
+   "comp": "England \u00b7 Championship",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "src": "model+market",
+   "pick": {
+    "fam": "Team goals",
+    "mid": "20",
+    "spec": "total=2.5",
+    "mdesc": "Middlesbrough FC Over/Under",
+    "pick": "Under 2.5",
+    "price": 1.28,
+    "win": 0.7777178958422019,
+    "void": 0.0,
+    "mkt_win": 0.7660718007756814,
+    "model_win": 0.8126561810417634,
+    "ev": -0.004521093321981584,
+    "sel": {
+     "eventId": "sr:match:72339898",
+     "marketId": "20",
+     "specifier": "total=2.5",
+     "outcomeId": "13"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.65,
+     "win": 0.5669045969921467,
+     "void": 0.0,
+     "mkt_win": 0.5693680939441472,
+     "model_win": 0.5595141061361448,
+     "ev": -0.06460741496295808,
+     "sel": {
+      "eventId": "sr:match:72339898",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.25,
+     "win": 0.43309540300785343,
+     "void": 0.0,
+     "mkt_win": 0.4306319060558528,
+     "model_win": 0.4404858938638554,
+     "ev": -0.025535343232329755,
+     "sel": {
+      "eventId": "sr:match:72339898",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Viking FK v Bayern Munich",
+   "comp": "UEFA Champions League",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "src": "market",
+   "pick": {
+    "fam": "Team multigoals",
+    "mid": "24",
+    "spec": "variant=sr:exact_goals:3+",
+    "mdesc": "Away Team Goals",
+    "pick": "3+",
+    "price": 1.27,
+    "win": 0.7249984942297356,
+    "void": 0.0,
+    "mkt_win": 0.7249984942297356,
+    "model_win": null,
+    "ev": -0.07925191232823581,
+    "sel": {
+     "eventId": "sr:match:74165918",
+     "marketId": "24",
+     "specifier": "variant=sr:exact_goals:3+",
+     "outcomeId": "sr:exact_goals:3+:91"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.73,
+     "win": 0.5534689403542512,
+     "void": 0.0,
+     "mkt_win": 0.5534689403542512,
+     "model_win": null,
+     "ev": -0.04249873318714548,
+     "sel": {
+      "eventId": "sr:match:74165918",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.1,
+     "win": 0.4465310596457489,
+     "void": 0.0,
+     "mkt_win": 0.4465310596457489,
+     "model_win": null,
+     "ev": -0.06228477474392724,
+     "sel": {
+      "eventId": "sr:match:74165918",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  },
+  {
+   "match": "Villarreal v Napoli",
+   "comp": "UEFA Champions League",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "src": "market",
+   "pick": {
+    "fam": "Win to nil",
+    "mid": "33",
+    "spec": "",
+    "mdesc": "Home Team to Win to Nil",
+    "pick": "No",
+    "price": 1.21,
+    "win": 0.7914363589370718,
+    "void": 0.0,
+    "mkt_win": 0.7914363589370718,
+    "model_win": null,
+    "ev": -0.042362005686143234,
+    "sel": {
+     "eventId": "sr:match:74165920",
+     "marketId": "33",
+     "specifier": "",
+     "outcomeId": "76"
+    }
+   },
+   "btts": {
+    "Yes": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "Yes",
+     "price": 1.54,
+     "win": 0.6098627076904847,
+     "void": 0.0,
+     "mkt_win": 0.6098627076904847,
+     "model_win": null,
+     "ev": -0.06081143015665358,
+     "sel": {
+      "eventId": "sr:match:74165920",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "74"
+     }
+    },
+    "No": {
+     "fam": "Both teams to score",
+     "mid": "29",
+     "spec": "",
+     "mdesc": "GG/NG",
+     "pick": "No",
+     "price": 2.5,
+     "win": 0.39013729230951544,
+     "void": 0.0,
+     "mkt_win": 0.39013729230951544,
+     "model_win": null,
+     "ev": -0.024656769226211406,
+     "sel": {
+      "eventId": "sr:match:74165920",
+      "marketId": "29",
+      "specifier": "",
+      "outcomeId": "76"
+     }
+    }
+   }
+  }
+ ]
+}

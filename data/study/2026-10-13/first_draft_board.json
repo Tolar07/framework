@@ -1,0 +1,305 @@
+{
+ "run_id": "STUDY-26d90170",
+ "fetched_at": "2026-10-13T06:29:03Z",
+ "flags": [
+  "SportyBet events served from cache (<=60min)"
+ ],
+ "fixtures": [
+  {
+   "comp": "UEFA Champions League",
+   "home": "Lens",
+   "away": "Sporting",
+   "ko": "2026-10-13T16:45:00+00:00",
+   "pick": {
+    "fam": "Team goals",
+    "mid": "19",
+    "spec": "total=0.5",
+    "mdesc": "Lens Over/Under",
+    "pick": "Over 0.5",
+    "price": 1.22,
+    "chance": 0.7789855072463768,
+    "margin": 0.052230270682424695
+   }
+  },
+  {
+   "comp": "UEFA Champions League",
+   "home": "Sabah Masazir",
+   "away": "Slavia Prague",
+   "ko": "2026-10-13T16:45:00+00:00",
+   "pick": {
+    "fam": "Odd/Even",
+    "mid": "26",
+    "spec": "",
+    "mdesc": "Odd/Even",
+    "pick": "Even",
+    "price": 1.85,
+    "chance": 0.5157068062827225,
+    "margin": 0.04815475373851008
+   }
+  },
+  {
+   "comp": "England \u00b7 Championship",
+   "home": "Bristol City",
+   "away": "Blackburn Rovers",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "pick": {
+    "fam": "Asian handicap",
+    "mid": "16",
+    "spec": "hcp=-1.5",
+    "mdesc": "Asian Handicap -1.5",
+    "pick": "Away (+1.5)",
+    "price": 1.25,
+    "chance": 0.7619047619047619,
+    "margin": 0.050000000000000044
+   }
+  },
+  {
+   "comp": "England \u00b7 Championship",
+   "home": "Burnley",
+   "away": "Charlton Athletic",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "pick": {
+    "fam": "Double chance & total",
+    "mid": "547",
+    "spec": "total=4.5",
+    "mdesc": "Double Chance & Over/Under 4.5",
+    "pick": "Home/Draw & Under 4.5",
+    "price": 1.32,
+    "chance": 0.6917757953855453,
+    "margin": 0.09511746815822053
+   }
+  },
+  {
+   "comp": "England \u00b7 Championship",
+   "home": "Cardiff City",
+   "away": "Watford",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "pick": {
+    "fam": "Double chance",
+    "mid": "10",
+    "spec": "",
+    "mdesc": "Double Chance",
+    "pick": "Home or Draw",
+    "price": 1.21,
+    "chance": 0.8029847777869141,
+    "margin": 0.029217867951971677
+   }
+  },
+  {
+   "comp": "England \u00b7 Championship",
+   "home": "Millwall FC",
+   "away": "Swansea City",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "pick": {
+    "fam": "Win to nil",
+    "mid": "33",
+    "spec": "",
+    "mdesc": "Home Team to Win to Nil",
+    "pick": "No",
+    "price": 1.22,
+    "chance": 0.7789855072463768,
+    "margin": 0.052230270682424695
+   }
+  },
+  {
+   "comp": "England \u00b7 Championship",
+   "home": "Wolves",
+   "away": "Bolton Wanderers",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "pick": {
+    "fam": "Home/Away no bet",
+    "mid": "13",
+    "spec": "",
+    "mdesc": "Away No Bet",
+    "pick": "Home",
+    "price": 1.22,
+    "chance": 0.7520325203252033,
+    "margin": 0.08994240141781118
+   }
+  },
+  {
+   "comp": "England \u00b7 Championship",
+   "home": "Wrexham AFC",
+   "away": "West Bromwich Albion",
+   "ko": "2026-10-13T18:45:00+00:00",
+   "pick": {
+    "fam": "European handicap",
+    "mid": "14",
+    "spec": "hcp=0:2",
+    "mdesc": "Handicap 0:2",
+    "pick": "Away (0:2)",
+    "price": 1.2,
+    "chance": 0.7807507987220448,
+    "margin": 0.06734867860187554
+   }
+  },
+  {
+   "comp": "UEFA Champions League",
+   "home": "Arsenal",
+   "away": "Lille",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "pick": {
+    "fam": "1X2",
+    "mid": "1",
+    "spec": "",
+    "mdesc": "1X2",
+    "pick": "Home",
+    "price": 1.24,
+    "chance": 0.7926850015979597,
+    "margin": 0.01736706419008094
+   }
+  },
+  {
+   "comp": "UEFA Champions League",
+   "home": "Atletico Madrid",
+   "away": "Man Utd",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "pick": {
+    "fam": "Multigoals",
+    "mid": "548",
+    "spec": "",
+    "mdesc": "Multigoals",
+    "pick": "2-5",
+    "price": 1.2,
+    "chance": 0.7144907483574532,
+    "margin": 0.16633187378435355
+   }
+  },
+  {
+   "comp": "England \u00b7 Championship",
+   "home": "Birmingham City",
+   "away": "Preston North End",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "pick": {
+    "fam": "Draw no bet",
+    "mid": "11",
+    "spec": "",
+    "mdesc": "Draw No Bet",
+    "pick": "Home",
+    "price": 1.22,
+    "chance": 0.7789855072463768,
+    "margin": 0.052230270682424695
+   }
+  },
+  {
+   "comp": "UEFA Champions League",
+   "home": "Galatasaray Istanbul",
+   "away": "Barcelona",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "pick": {
+    "fam": "1st half draw no bet",
+    "mid": "64",
+    "spec": "",
+    "mdesc": "1st Half - Draw No Bet",
+    "pick": "Away",
+    "price": 1.21,
+    "chance": 0.7880910683012259,
+    "margin": 0.04866850321395777
+   }
+  },
+  {
+   "comp": "UEFA Champions League",
+   "home": "Inter",
+   "away": "Club Brugge",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "pick": {
+    "fam": "1X2 & total",
+    "mid": "37",
+    "spec": "total=1.5",
+    "mdesc": "1X2 & Over/Under 1.5",
+    "pick": "Home & Over 1.5",
+    "price": 1.32,
+    "chance": 0.664291028668103,
+    "margin": 0.14042750072161825
+   }
+  },
+  {
+   "comp": "UEFA Champions League",
+   "home": "RB Leipzig",
+   "away": "PSV Eindhoven",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "pick": {
+    "fam": "Total & BTTS",
+    "mid": "36",
+    "spec": "total=2.5",
+    "mdesc": "Over/Under & GG/NG",
+    "pick": "Over 2.5 & Yes",
+    "price": 1.46,
+    "chance": 0.6100321426954592,
+    "margin": 0.12277937326860999
+   }
+  },
+  {
+   "comp": "England \u00b7 Championship",
+   "home": "Stoke City",
+   "away": "Middlesbrough FC",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "pick": {
+    "fam": "Over/Under",
+    "mid": "18",
+    "spec": "total=4",
+    "mdesc": "Over/Under",
+    "pick": "Under 4",
+    "price": 1.23,
+    "chance": 0.7815275310834814,
+    "margin": 0.04028085735402809
+   }
+  },
+  {
+   "comp": "UEFA Champions League",
+   "home": "Viking FK",
+   "away": "Bayern Munich",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "pick": {
+    "fam": "1st half 1X2",
+    "mid": "60",
+    "spec": "",
+    "mdesc": "1st Half - 1X2",
+    "pick": "Away",
+    "price": 1.34,
+    "chance": 0.7025952452275266,
+    "margin": 0.06216012958463479
+   }
+  },
+  {
+   "comp": "UEFA Champions League",
+   "home": "Villarreal",
+   "away": "Napoli",
+   "ko": "2026-10-13T19:00:00+00:00",
+   "pick": {
+    "fam": "Both teams to score",
+    "mid": "29",
+    "spec": "",
+    "mdesc": "GG/NG",
+    "pick": "Yes",
+    "price": 1.54,
+    "chance": 0.6188118811881189,
+    "margin": 0.049350649350649256
+   }
+  }
+ ],
+ "families_available": [
+  "1X2",
+  "1X2 & total",
+  "1st half 1X2",
+  "1st half double chance",
+  "1st half draw no bet",
+  "Asian handicap",
+  "Both teams to score",
+  "Double chance",
+  "Double chance & BTTS",
+  "Double chance & total",
+  "Draw no bet",
+  "European handicap",
+  "Exact goals / range",
+  "Home/Away no bet",
+  "Multigoals",
+  "Odd/Even",
+  "Over/Under",
+  "Team goals",
+  "Team multigoals",
+  "Total & BTTS",
+  "Which team scores",
+  "Win to nil"
+ ]
+}

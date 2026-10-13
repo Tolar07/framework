@@ -75,19 +75,35 @@ pending = {"a": {"sport": "football", "ko": ko, "home": "Top", "away": "Leaky"},
            "b": {"sport": "football", "ko": ko, "home": "Nobody", "away": "Else"},
            "c": {"sport": "football", "ko": late, "home": "Top", "away": "Leaky"},
            "d": {"sport": "basketball", "ko": ko, "home": "Top", "away": "Leaky"}}
-fixtures = [{"home": "Top", "away": "Leaky", "home_id": 6, "away_id": 1}]
-real = tp.fm.matches_on, tp.fm.find_match
+fixtures = [{"home": "Top", "away": "Leaky", "home_id": 6, "away_id": 1, "league": "Premier League",
+             "kickoff_utc": ko[:-1] + ":00.000Z"}]
+real = tp.fm.matches_on
 tp.fm.matches_on = lambda day: fixtures
-tp.fm.find_match = lambda ms, h, a: next((m for m in ms if (m["home"], m["away"]) == (h, a)), None)
 try:
     note = tp.attach(pending, now, cache=cache)
 finally:
-    tp.fm.matches_on, tp.fm.find_match = real
+    tp.fm.matches_on = real
 assert pending["a"]["profile"]["read"]["lean"].startswith("BTTS yes")
 assert "profile" not in pending["b"], "not matched on FotMob: no profile"
 assert "profile" not in pending["c"] and "profile" not in pending["d"], "too far off / not football"
 assert "1 games profiled, 1 not matched" in note, note
 print("sweep attach + game profile: OK")
+
+# the profile matcher: kick-off and men's / youth / women's kind must agree;
+# one exact name is enough when it is the only such fixture at that time
+fx = [{"home": "Manchester City", "away": "Paris Saint-Germain", "league": "Champions League",
+       "kickoff_utc": "2026-10-14T19:00:00.000Z", "home_id": 1, "away_id": 2},
+      {"home": "Manchester City U19", "away": "Paris Saint-Germain U19", "league": "UEFA Youth League",
+       "kickoff_utc": "2026-10-14T19:00:00.000Z", "home_id": 3, "away_id": 4},
+      {"home": "Strømmen", "away": "Åsane", "league": "1. Divisjon", "kickoff_utc": "2026-10-14T13:00:00.000Z",
+       "home_id": 5, "away_id": 6}]
+g = {"ko": "2026-10-14T19:00Z", "comp": "UEFA Champions League"}
+assert tp.match_game(fx, {**g, "home": "Man City", "away": "PSG"})["home_id"] == 1, "youth fixture kept apart"
+assert tp.match_game(fx, {**g, "comp": "UEFA Youth League", "home": "Man City U19", "away": "PSG U19"})["home_id"] == 3
+assert tp.match_game(fx, {**g, "ko": "2026-10-14T21:00Z", "home": "Man City", "away": "PSG"}) is None, "kick-off differs"
+assert tp.match_game(fx, {"ko": "2026-10-14T13:00Z", "comp": "1st Division",
+                          "home": "Stroemmen IF", "away": "Aasane Fotball"})["home_id"] == 5, "Nordic letters"
+print("profile matcher: OK")
 
 # ── the paper book's profile rules read the stored profile ──
 from engine import paper_book as pb  # noqa: E402

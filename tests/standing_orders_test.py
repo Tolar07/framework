@@ -229,7 +229,7 @@ _b365_block = _rd_src.split("# bet365 BOARD (standing order 29)")[1].split("# HE
 assert "chat_id=owner_chat" in _b365_block and 'environ.get("TELEGRAM_SUBSCRIBER' not in _b365_block, \
     "Order 29: the bet365 board goes to the Architect's own chat only, never a subscriber"
 
-# 33. Subscribers get the booking codes and nothing else (Architect 2026-10-09)
+# 33. Subscribers get the full board and nothing else (Architect 2026-10-13; codes only 2026-10-09)
 from output import notify as _nt33
 for _wfn in ("daily.yml", "supervisor.yml"):
     assert "TELEGRAM_SUBSCRIBER_CHAT_IDS" in \
@@ -272,9 +272,10 @@ finally:
 _brd33 = _rd_src.split("SEND GATE (HR59")[1].split("# bet365 BOARD")[0]
 assert "notify.send_architect(telegram_text)" in _brd33 and "notify.deliver(" not in _rd_src, \
     "Order 33: the board goes to the Architect only"
-assert "notify.send_subscribers(" in _brd33 and "render_subscriber_codes(telegram_text" in _brd33, \
-    "Order 33: subscribers get the codes message"
-assert "notify.send_subscribers(check_text)" in _rd_src, "Order 33: subscribers get the codes check"
+assert "notify.send_subscribers(telegram_text)" in _brd33, \
+    "Order 33 (2026-10-13): subscribers get the full board"
+assert "notify.send_subscribers(t_)" in _rd_src and "texts.append(check_text)" in _rd_src, \
+    "Order 33: subscribers get the resent frozen board and the codes check"
 _codes33 = pb.render_subscriber_codes(
     "board table text\n\nALL CODES\nAcca A: Q13HC7 (4 legs · odds 2.27 · 45% · stake 0.25%)\n"
     "Board MEGA: N2TNRF (24 legs · every single · stake 0.1%)\n\n====\nVERIFY RESULTS", [], "2026-10-09")

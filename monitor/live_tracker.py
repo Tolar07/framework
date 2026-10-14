@@ -118,7 +118,14 @@ def snap(mid) -> dict:
     st = (d.get("header") or {}).get("status") or {}
     c = d.get("content") or {}
     stats: dict[str, list[float]] = {}
-    for grp in ((c.get("stats") or {}).get("Periods", {}).get("All", {}).get("stats") or []):
+    # Every step is `or {}`, not `.get(k, {})`: FotMob sends "Periods": null and
+    # "All": null in the minutes around kickoff, before a match has any stats,
+    # and a default only applies to a MISSING key, not a null one. The bare
+    # defaults here crashed every poll of Feyenoord v Como from 16:46 on
+    # 2026-10-14 ('NoneType' object has no attribute 'get') — that match went
+    # unrecorded while the others logged normally.
+    _periods = (c.get("stats") or {}).get("Periods") or {}
+    for grp in ((_periods.get("All") or {}).get("stats") or []):
         for s in grp.get("stats") or []:
             k = STAT_KEYS.get(s.get("title"))
             if k and k not in stats and s.get("stats") and None not in s["stats"]:

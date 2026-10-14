@@ -174,6 +174,15 @@ jobs:
           python backtest/nba_market_study.py || true
           python backtest/nba_ladder_study.py || true
 
+      # The pre-kickoff loop captures SportyBet's own closing price onto the picks
+      # ledger; this is what carries it into the CLV log the Phase 3 gate reads
+      # (without it the gate saw 35 of 307 legs — see clv/clv_sync.py).
+      - name: Sync captured closing prices into the CLV log
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python clv/clv_sync.py
+
       # The CLV log IS the Phase 2 evidence. Committing it back is what makes
       # the gate cumulative across runs rather than starting from zero daily.
       - name: Persist the CLV log and board

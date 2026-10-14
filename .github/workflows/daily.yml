@@ -269,6 +269,24 @@ jobs:
           code=$(curl -s -o /dev/null -w "%{http_code}" -X POST             -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/universe.yml/dispatches"             -d '{"ref":"main"}') || code=000
           echo "universe sweep start requested (HTTP ${code}; 204 = started)"
 
+      # Start the live matchday tracker (live.yml -> monitor/live_loop.py) once
+      # the day's board is saved: it follows every fixture on the board minute
+      # by minute and Telegrams the Architect on each goal, red card, half time
+      # and full time (Architect 2026-10-14: "let GitHub give me the update").
+      # A loop already running makes the new one exit; too early and it exits
+      # too. Free: this repo is public, so Actions minutes are unmetered.
+      # Never fails the board run.
+      - name: Start the live matchday tracker
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/live.yml/dispatches" \
+            -d '{"ref":"main"}') || code=000
+          echo "live tracker start requested (HTTP ${code}; 204 = started)"
+
       # Start the pre-kickoff loop (news.yml -> monitor/news_loop.py) once the
       # day's board is saved. The morning board is started on time by a
       # Routine, so the loop is too; GitHub's own news.yml cron is unreliable.

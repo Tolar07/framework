@@ -1442,8 +1442,12 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
                      "SportyBet today (HR35: shown, never fabricated).")
     out += [_CANON_BAR,
             "Honest edge: not a demonstrated edge · Capital: Architect only.",
-            f"Deploy odds band: {DEPLOY_ODDS_MIN:.2f}–{DEPLOY_ODDS_MAX:.2f} "
-            f"(safest ~{DEPLOY_ODDS_SAFE:.2f}); picks above 2.00 are never deployed.",
+            # Order 3 amended 2026-10-14: "safest 1.50" withdrawn — of 332 graded
+            # singles the 1.30-1.50 band is the board's worst (-29.4% over 30).
+            # The footer points at the record instead of naming a safe price.
+            f"Deploy odds band: {DEPLOY_ODDS_MIN:.2f}–{DEPLOY_ODDS_MAX:.2f}; picks above "
+            f"{DEPLOY_ODDS_MAX:.2f} are never deployed. No price inside the band is "
+            f"'safest' — the record by band is in backtest/PRICE_BAND_STUDY.md (order 3).",
             f"Calibration: {calibration_count} legs logged, {clv}.",
             code_line,
             _CANON_BAR]

@@ -38,6 +38,8 @@ jobs:
         # carries a legacy lint baseline (ruff check . ≈ 1k findings) — a
         # codebase-wide cleanup is out of scope for CI.
         run: python -m ruff check monitor/json_log.py tests/monitor_json_log_test.py tests/run_all.py
+             clv/clv_sync.py tests/clv_sync_test.py engine/sharp_value.py
+             monitor/sharp_list.py tests/sharp_value_test.py backtest/price_band_study.py
 
       - name: Type check (mypy gate scope)
         run: python -m mypy --config-file pyproject.toml

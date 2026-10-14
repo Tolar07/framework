@@ -144,7 +144,35 @@ check("live.yml: started by the board run too",
 _src = (ROOT / "monitor" / "live_loop.py").read_text(encoding="utf-8")
 check("live_loop: sends through send_architect, never deliver()",
       "send_architect" in _src and "notify.deliver(" not in _src)
-check("live_loop: a quiet round sends nothing", "if lines:" in _src)
+check("live_loop: a quiet round sends nothing", "if send:" in _src)
+check("live_loop: what is sent goes through the failure filter",
+      "worth_telling(lines, said)" in _src)
+
+# --------------------------------------------------------------------------
+# A broken feed is said ONCE, not every two minutes for ninety minutes.
+# 2026-10-14: snap() crashed on every poll of one match (FotMob sends
+# "Periods": null around kickoff and a .get default only covers a MISSING key),
+# so on Actions that match would have Telegrammed the same failure ~45 times.
+_said: set[str] = set()
+_fail = "[16:46Z] Feyenoord v Como: poll failed ('NoneType' object has no attribute 'get')"
+_first = ll.worth_telling([_fail], _said)
+check("worth_telling: a failure is reported the first time", len(_first) == 1, f"{_first}")
+check("worth_telling: and says it will not repeat", "said once" in _first[0])
+_again = ll.worth_telling(["[16:48Z] Feyenoord v Como: poll failed "
+                           "('NoneType' object has no attribute 'get')"], _said)
+check("worth_telling: the same failure two minutes later is silent", _again == [], f"{_again}")
+_other = ll.worth_telling(["[16:50Z] Norwich v Southampton: poll failed (timed out)"], _said)
+check("worth_telling: a DIFFERENT failure still gets through", len(_other) == 1)
+_goal = ll.worth_telling(["[16:52] CHANGE Norwich 1-0 Southampton (20') · xG 0.3-0.1"], _said)
+check("worth_telling: a goal always goes through", len(_goal) == 1)
+_goal2 = ll.worth_telling(["[16:54] CHANGE Norwich 2-0 Southampton (24') · xG 0.6-0.1"], _said)
+check("worth_telling: and so does the next one — events are never deduped",
+      len(_goal2) == 1)
+
+# snap()'s null-safety, on the payload shape that actually broke it
+_src = (ROOT / "monitor" / "live_tracker.py").read_text(encoding="utf-8")
+check("snap: the stats chain uses `or {}`, never a bare .get default",
+      '.get("Periods", {})' not in _src and '.get("All", {})' not in _src)
 
 print()
 if FAILED:

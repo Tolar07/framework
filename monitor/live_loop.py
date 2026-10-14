@@ -99,6 +99,26 @@ def hand_off(repo: str, token: str, day: str) -> None:
         pass
 
 
+def worth_telling(lines: list[str], said: set[str]) -> list[str]:
+    """The lines to send. A match event (a goal, a red card, half time, full
+    time) always goes. A FAILURE goes ONCE and then stays quiet: a feed that
+    breaks for a whole match would otherwise send the Architect the same line
+    every two minutes for ninety minutes — which is the noise this job exists
+    to avoid. The failure is still printed to the run log every round, so the
+    run history keeps the full picture.
+    """
+    out = []
+    for line in lines:
+        if "failed" not in line:
+            out.append(line)
+            continue
+        key = line.split("] ", 1)[-1]          # drop the timestamp: same fault, same key
+        if key not in said:
+            said.add(key)
+            out.append(line + "  (said once; see the run log for the rest)")
+    return out
+
+
 def tell(body: str) -> None:
     """To the Architect's own chat only (order 33). A failed send is said out
     loud and never stops the loop — the snapshots are the record, not Telegram."""
@@ -168,14 +188,16 @@ def main(argv: list[str] | None = None) -> int:
               + (" | ".join(m["calls"]) or "no call"), flush=True)
 
     seen: dict = {}
+    said: set[str] = set()
     rounds = 0
     while True:
         lines, still = lt.round_once(matches, seen, out_dir)
         rounds += 1
         for line in lines:
             print(line, flush=True)
-        if lines:
-            tell(f"LIVE — {day}\n\n" + "\n\n".join(lines))
+        send = worth_telling(lines, said)
+        if send:
+            tell(f"LIVE — {day}\n\n" + "\n\n".join(send))
         if not still:
             print("ALL MATCHES FINISHED", flush=True)
             print(f"  {persist(day, datetime.now(UTC))}", flush=True)

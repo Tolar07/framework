@@ -86,6 +86,10 @@ files = [
     "engine/fixture_match.py",
     "verification/fixture_check.py",
     "pipeline/odds_verify.py",
+    "clv/clv_sync.py",
+    "engine/sharp_value.py",
+    "monitor/sharp_list.py",
+    "backtest/price_band_study.py",
 ]
 
 [tool.pytest.ini_options]

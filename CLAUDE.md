@@ -30,7 +30,7 @@ Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
 
 | Workflow | When | What |
 |---|---|---|
-| `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine (IDs in `MAP.md` §1) | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/` |
+| `daily.yml` | 20:47 (evening, builds TOMORROW) and 05:47 (morning refresh, TODAY); also started on time by a Routine (IDs in `MAP.md` §1) | `run_daily.py --only-production --heartbeat --target-date <day>`; commits `clv/clv_log.json`, `output/boards`, `output/picks`, `data/survivor`, `memory/`, `data/sharp` (the parallel sharp-value list, order 37 amended) |
 | `watchdog.yml` | 23:17 and 08:17 | `monitor/run_watchdog.py` — when a slot's board run never happened, starts it (same day + slot, so the duplicate guard holds) and says so on Telegram |
 | `news.yml` | one job looping every 20 min, 09:00-20:40, started by `daily.yml` after each board (backup cron every 2 h) | `monitor/news_loop.py` → `news_check.py` — confirmed lineups, price drift, closing price per pick; saved each round |
 | `nba_watch.yml` | one job looping every 15 min while an NBA game tips within 6 h, started by `daily.yml`'s evening run (backup cron 16:05/19:05/22:05) | `monitor/nba_watch.py` — sharp line vs SportyBet; booked picks (live test, placed by hand) + LAG notes to the Architect only; ladder snapshots; saved each round |
@@ -108,6 +108,12 @@ Say plainly when something is not implemented; do not debug it as a fault.
 - **The price check is a label only** (`pipeline/odds_verify.py`). A price
   CONFLICT is shown on the board; nothing selects, stakes or blocks on it —
   making it gate anything is the Architect's decision.
+- **The sharp check is a label on the board, and a SELECTOR only on the
+  parallel list.** `pipeline/sharp.py` labels each board pick with its value
+  against the Betfair Exchange and the board is sent regardless (orders 3, 4,
+  11 unchanged). `monitor/sharp_list.py` is the separate test that selects on
+  it — its own store (`data/sharp/`), its own codes, the same grader. Don't
+  "fix" the board to match it: the comparison is the point.
 - Market-implied fixtures (`ᴹ` on the board, `prob_source == "market"`)
   carry the bookmaker's numbers, not the model's; no edge is claimed.
 

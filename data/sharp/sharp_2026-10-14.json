@@ -1,0 +1,64 @@
+{
+ "date": "2026-10-14",
+ "run_id": "SHARP-a7a5dbd9",
+ "fetched_utc": "2026-10-14T11:33:10Z",
+ "rule": {
+  "min_ev": 0.02,
+  "band": [
+   1.2,
+   3.0
+  ],
+  "max_ev": 0.25
+ },
+ "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
+ "fixtures_on_day": 13,
+ "fixtures_priced_by_exchange": 3,
+ "picks": [
+  {
+   "league": "Championship",
+   "home": "Norwich",
+   "away": "Southampton",
+   "fixture": "Norwich v Southampton (Championship)",
+   "kickoff": "2026-10-14T18:45:00Z",
+   "market_id": "18",
+   "specifier": "total=2.5",
+   "outcome": "Over 2.5",
+   "key": "SB:18|total=2.5|Over 2.5",
+   "price": 1.6,
+   "outcome_id": "12",
+   "sharp_p": 0.6434,
+   "fair_price": 1.554,
+   "sharp_ev": 0.0294,
+   "code": "M9XEBH",
+   "url": "http://www.sportybet.com/ng/?shareCode=M9XEBH",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-a7a5dbd9"
+  },
+  {
+   "league": "Championship",
+   "home": "Portsmouth",
+   "away": "Sheffield United",
+   "fixture": "Portsmouth v Sheffield United (Championship)",
+   "kickoff": "2026-10-14T18:45:00Z",
+   "market_id": "18",
+   "specifier": "total=2.5",
+   "outcome": "Over 2.5",
+   "key": "SB:18|total=2.5|Over 2.5",
+   "price": 2.05,
+   "outcome_id": "12",
+   "sharp_p": 0.4987,
+   "fair_price": 2.005,
+   "sharp_ev": 0.0224,
+   "code": "ME7U4C",
+   "url": "http://www.sportybet.com/ng/?shareCode=ME7U4C",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-a7a5dbd9"
+  }
+ ],
+ "suspect": [],
+ "flags": [
+  "football-data fixtures.csv served from cache (<=60min)"
+ ]
+}

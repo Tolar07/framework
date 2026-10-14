@@ -14,8 +14,15 @@ every goal, red card, half time and full time.
 
 Tracked: the day's Champions League matches plus every fixture on the day's
 board (output/picks/picks_<date>.json) and study board, where those exist.
-Run on matchdays from a session (an all-day Actions job would use about
-three times the free Actions minutes); nothing here bets or changes a board.
+Nothing here bets, prices or changes a board.
+
+NORMALLY RUN BY GITHUB ACTIONS: `live.yml` -> `monitor/live_loop.py`, which
+shares `round_once` below and Telegrams the Architect on each event. The first
+version of this file said an all-day Actions job would cost "about three times
+the free Actions minutes" and so should be run from a session instead. That was
+wrong: this repo is PUBLIC, and GitHub-hosted minutes are unmetered on public
+repositories (corrected 2026-10-14). Running it by hand, as below, is for a
+one-off or a backfill.
 
     python monitor/live_tracker.py 2026-10-14
 """
@@ -127,6 +134,56 @@ def snap(mid) -> dict:
             "stats": stats, "events": evs, "momentum_last10": mom[-10:]}
 
 
+def round_once(matches: list[dict], seen: dict, out_dir: Path,
+               live: list[dict] | None = None) -> tuple[list[str], int]:
+    """One poll of every tracked match. Appends a snapshot per match to
+    data/study/<day>/live/<fotmob id>.jsonl and returns (the lines worth saying
+    out loud — a goal, a red card, half time, full time, or a feed that failed
+    — and how many matches are still to finish).
+
+    Shared by the session script below and the GitHub Actions loop
+    (monitor/live_loop.py), so a matchday watched from either place records and
+    reports exactly the same events.
+    """
+    lines: list[str] = []
+    if live is None:
+        try:
+            live = live_prices()
+        except Exception as e:  # noqa: BLE001 — SportyBet down: FotMob numbers still logged
+            live = []
+            lines.append(f"[{datetime.now(UTC):%H:%M}Z] SportyBet live feed failed ({str(e)[:40]})")
+    still = 0
+    for m in matches:
+        if datetime.fromisoformat(m["kickoff_utc"].replace("Z", "+00:00")) > datetime.now(UTC):
+            still += 1
+            continue                                 # not started: no poll yet
+        try:
+            s = snap(m["id"])
+        except Exception as e:  # noqa: BLE001 — a missed poll is a gap, not a stop
+            lines.append(f"[{datetime.now(UTC):%H:%M}Z] {m['home']} v {m['away']}: "
+                         f"poll failed ({str(e)[:40]})")
+            still += 1
+            continue
+        sb = sportybet_live(live, m)
+        s["sportybet"] = {"score": sb["score"], "clock": sb["clock"], "prices": sb["prices"]} if sb else None
+        with (out_dir / f"{m['id']}.jsonl").open("a", encoding="utf-8") as f:
+            f.write(json.dumps(s, separators=(",", ":")) + "\n")
+        key = (s["score"], s["finished"], tuple(s["reds"]), s["live"] == "HT")
+        if seen.get(m["id"]) != key and (m["id"] in seen or s["finished"]):
+            xg, sot = s["stats"].get("xg", ["?", "?"]), s["stats"].get("sot", ["?", "?"])
+            what = "FULL TIME" if s["finished"] else "HALF TIME" if s["live"] == "HT" else "CHANGE"
+            one = (sb or {}).get("prices", {}).get("1x2") or {}
+            px = f" · SportyBet 1X2 {one.get('Home')}/{one.get('Draw')}/{one.get('Away')}" if one else ""
+            lines.append(f"[{s['at']}] {what} {m['home']} {s['score']} {m['away']} ({s['live']}) · "
+                         f"xG {xg[0]}-{xg[1]} · on target {sot[0]}-{sot[1]} · "
+                         f"reds {s['reds'][0]}-{s['reds'][1]}{px} · "
+                         + (" | ".join(m["calls"]) or "no call"))
+        seen[m["id"]] = key
+        if not s["finished"]:
+            still += 1
+    return lines, still
+
+
 def main(argv: list[str]) -> int:
     day = argv[0] if argv else datetime.now(UTC).strftime("%Y-%m-%d")
     out_dir = ROOT / "data" / "study" / day / "live"
@@ -134,41 +191,13 @@ def main(argv: list[str]) -> int:
     matches = tracked(day, our_calls(day))
     print(f"tracking {len(matches)} matches on {day}", flush=True)
     for m in matches:
-        print(f"  {m['kickoff_utc'][11:16]}Z {m['home']} v {m['away']} — " + (" | ".join(m["calls"]) or "no call"), flush=True)
+        print(f"  {m['kickoff_utc'][11:16]}Z {m['home']} v {m['away']} — "
+              + (" | ".join(m["calls"]) or "no call"), flush=True)
     seen: dict = {}
     while True:
-        try:
-            live = live_prices()
-        except Exception as e:  # noqa: BLE001 — SportyBet down: FotMob numbers still logged
-            live = []
-            print(f"[{datetime.now(UTC):%H:%M}Z] SportyBet live feed failed ({str(e)[:40]})", flush=True)
-        still = 0
-        for m in matches:
-            if datetime.fromisoformat(m["kickoff_utc"].replace("Z", "+00:00")) > datetime.now(UTC):
-                still += 1
-                continue                                 # not started: no poll yet
-            try:
-                s = snap(m["id"])
-            except Exception as e:  # noqa: BLE001 — a missed poll is a gap, not a stop
-                print(f"[{datetime.now(UTC):%H:%M}Z] {m['home']} v {m['away']}: poll failed ({str(e)[:40]})", flush=True)
-                still += 1
-                continue
-            sb = sportybet_live(live, m)
-            s["sportybet"] = {"score": sb["score"], "clock": sb["clock"], "prices": sb["prices"]} if sb else None
-            with (out_dir / f"{m['id']}.jsonl").open("a", encoding="utf-8") as f:
-                f.write(json.dumps(s, separators=(",", ":")) + "\n")
-            key = (s["score"], s["finished"], tuple(s["reds"]), s["live"] == "HT")
-            if seen.get(m["id"]) != key and (m["id"] in seen or s["finished"]):
-                xg, sot = s["stats"].get("xg", ["?", "?"]), s["stats"].get("sot", ["?", "?"])
-                what = "FULL TIME" if s["finished"] else "HALF TIME" if s["live"] == "HT" else "CHANGE"
-                one = (sb or {}).get("prices", {}).get("1x2") or {}
-                px = f" · SportyBet 1X2 {one.get('Home')}/{one.get('Draw')}/{one.get('Away')}" if one else ""
-                print(f"[{s['at']}] {what} {m['home']} {s['score']} {m['away']} ({s['live']}) · xG {xg[0]}-{xg[1]} "
-                      f"· on target {sot[0]}-{sot[1]} · reds {s['reds'][0]}-{s['reds'][1]}{px} · "
-                      + (" | ".join(m["calls"]) or "no call"), flush=True)
-            seen[m["id"]] = key
-            if not s["finished"]:
-                still += 1
+        lines, still = round_once(matches, seen, out_dir)
+        for line in lines:
+            print(line, flush=True)
         if not still:
             print("ALL MATCHES FINISHED", flush=True)
             return 0

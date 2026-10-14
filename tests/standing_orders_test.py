@@ -543,4 +543,14 @@ from output import bet365_board as _b365_42
 assert "mix_groups(" in (ROOT / "output" / "bet365_board.py").read_text(encoding="utf-8") and _b365_42, \
     "Order 42: the bet365 accas follow the mix too"
 
+# 43. Under 3.5 / 4.5 by team profile (2026-10-14)
+from data import team_profiles as _tp43
+from engine import calibration as _cal43
+assert 3.5 in _cal43.OVER and 4.5 in _cal43.OVER, "Order 43: the 3.5 and 4.5 lines are calibrated"
+_rd43 = (ROOT / "run_daily.py").read_text(encoding="utf-8")
+assert "_tp.is_shootout(_read)" in _rd43 and "_shootout_under(c[2])" in _rd43, \
+    "Order 43: match Unders up to 4.5 are dropped before a pick is chosen when the profile reads a shootout"
+assert _tp43.is_shootout({"lean": "BTTS yes / Over 2.5 — both expected to score"})
+assert not _tp43.is_shootout({"lean": "Under / double chance — goals look scarce"}) and not _tp43.is_shootout(None)
+
 print("standing_orders_test: OK — all Architect standing orders hold")

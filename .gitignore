@@ -16,6 +16,15 @@ memory/conversations/
 !output/nba_ladders/*.jsonl
 !data/universe/*.jsonl
 !data/match_stats/*.jsonl
+!data/study/*/live/*.jsonl
+# The live matchday snapshots (live.yml -> monitor/live_loop.py) and every
+# SportyBet NBA market at every look (engine/nba_markets.py). Both are written
+# by a workflow that then runs `git add` on them, so the blanket *.jsonl rule
+# above meant those adds silently saved NOTHING: a fresh clone had none of the
+# files, and the studies could only ever see what the one job had just written.
+# Found 2026-10-14 while wiring live.yml; nba_ladders was negated above, its
+# sibling nba_markets never was.
+!output/nba_markets/*.jsonl
 !feed_audit.jsonl
 # EXCEPTION (2026-09-17): the heartbeat/lineage records ARE tracked.
 #

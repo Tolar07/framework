@@ -25,6 +25,7 @@ sys.path.insert(0, str(ROOT))
 
 from monitor import live_loop as ll  # noqa: E402
 from monitor import live_tracker as lt  # noqa: E402
+from monitor import loop_util as lu  # noqa: E402
 
 FAILED: list[str] = []
 
@@ -119,8 +120,8 @@ check("hand off: not before the limit is near",
 check("hand off: before GitHub kills the job at 6 h",
       ll.should_hand_off(_t0, _t0 + timedelta(hours=5, minutes=31)))
 check("hand off: the window leaves room to save and dispatch",
-      timedelta(hours=6) - timedelta(minutes=20) > ll.HANDOFF_AFTER,
-      f"{ll.HANDOFF_AFTER}")
+      timedelta(hours=6) - timedelta(minutes=20) > lu.HANDOFF_AFTER,
+      f"{lu.HANDOFF_AFTER}")
 
 # first_kickoff drives the "too early" exit
 check("first kickoff: the earliest of the day",

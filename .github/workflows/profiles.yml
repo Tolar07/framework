@@ -1,0 +1,84 @@
+name: OLP XDV team profiles + league strength
+
+# Architect 2026-10-14: "do everything ... and all".
+#
+# `data/team_profiles.py` and `data/league_strength.py` were marked "by hand" in
+# MAP.md, and ORDER 43 READS THEIR OUTPUT ON EVERY BOARD: the strength-adjusted
+# profile read decides whether a fixture is a shootout, and so whether a match
+# Under up to 4.5 may be picked at all. A live selection rule was running on a
+# file nobody refreshed — the profiles were last built by hand on 13 Oct.
+#
+# Weekly is the right cadence: a squad, its injuries and a league's rating move
+# over weeks, not hours, and the universe sweep already refreshes the 7-day team
+# cache for the fixtures it sees. Mondays, early, so a fresh week's boards run
+# on fresh profiles. Off the hour because GitHub drops :00 ticks.
+on:
+  schedule:
+    - cron: "41 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  profiles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      # Each step is continue-on-error and each is saved on its own: a FotMob
+      # outage on the profiles must not cost the league ratings, and a stale
+      # file is better than no file (the board degrades to "no profile read",
+      # which order 43 already handles — it leaves the Under as it was).
+      - name: Rebuild every team's profile (29 competitions, FotMob)
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python data/team_profiles.py
+
+      - name: Refit the cross-league strength ratings
+        continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python data/league_strength.py
+
+      - name: Save whatever was rebuilt
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add data/teams || true
+          if git diff --staged --quiet; then
+            echo "::warning::profiles: NOTHING CHANGED — both rebuilds produced no new data; order 43 is still reading last week's profiles"
+            exit 0
+          fi
+          git commit -q -m "team profiles + league strength $(date -u +%Y-%m-%d) [skip ci]"
+          if ! git pull --rebase -q origin main; then
+            git rebase --abort || true
+            echo "::warning::profiles: main moved and a file conflicted — this week's rebuild was NOT saved"
+            exit 0
+          fi
+          git push -q origin HEAD:main && echo "profiles saved to main"
+
+      - name: Say what the board will read this week
+        if: always()
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import datetime as dt
+          root = Path(".")
+          for name in ("latest.json.gz", "team_cache.json.gz", "league_strength.json", "team_leagues.json"):
+              p = root / "data" / "teams" / name
+              if p.exists():
+                  age = dt.datetime.now(dt.UTC) - dt.datetime.fromtimestamp(p.stat().st_mtime, dt.UTC)
+                  print(f"{name:24s} {p.stat().st_size/1024:9.0f} KB  rebuilt {age.days}d {age.seconds//3600}h ago")
+              else:
+                  print(f"{name:24s} MISSING — PENDING")
+          PY

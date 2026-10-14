@@ -2,18 +2,18 @@
 
 Written by `backtest/match_stats_study.py` from `data/match_stats/` (FotMob post-match stats of every fixture the board rated). A stat FotMob didn't publish is left out, never counted as 0. A study, not a selector.
 
-238 matches, 2026-10-04 to 2026-10-12.
+254 matches, 2026-10-04 to 2026-10-13.
 
 ## League styles (per match, both teams together)
 
 | League | matches | goals | xG | shots | on target | big chances | corners | yellow | goals per shot on target |
 |---|---|---|---|---|---|---|---|---|---|
 | UEFA Nations League | 26 | 2.15 | 2.65 | 26.2 | 7.8 | 4.3 | 9.0 | 3.9 | 0.28 |
+| Championship | 19 | 2.74 | 2.87 | 26.3 | 8.7 | 5.1 | 10.3 | 0.0 | 0.32 |
 | La Liga 2 | 15 | 2.53 | 2.58 | 25.6 | 7.9 | 4.3 | 10.3 | 5.8 | 0.32 |
 | National League | 12 | 3.25 | — | — | — | — | — | — | — |
 | League One | 12 | 2.92 | 3.00 | 28.1 | 8.8 | 4.6 | 12.3 | 3.8 | 0.33 |
 | League Two | 12 | 2.08 | 2.63 | 23.6 | 6.2 | 2.9 | 9.0 | 4.6 | 0.33 |
-| Championship | 11 | 2.18 | 2.70 | 26.5 | 8.5 | 4.5 | 9.7 | 0.0 | 0.26 |
 | Serie B | 10 | 2.90 | 3.03 | 28.7 | 8.1 | 4.5 | 8.6 | 3.8 | 0.36 |
 | Serie A | 10 | 2.70 | 3.18 | 29.0 | 9.5 | 5.2 | 9.5 | 3.5 | 0.28 |
 | Premier League | 10 | 3.60 | 3.06 | 26.7 | 10.3 | 6.4 | 9.0 | 4.2 | 0.35 |
@@ -26,6 +26,7 @@ Written by `backtest/match_stats_study.py` from `data/match_stats/` (FotMob post
 | 2. Bundesliga | 8 | 2.75 | 2.80 | 29.2 | 10.4 | 4.1 | 13.1 | 4.0 | 0.27 |
 | Ligue 2 | 8 | 2.38 | 2.69 | 24.6 | 9.0 | 4.1 | 10.5 | 4.2 | 0.26 |
 | Allsvenskan | 8 | 3.00 | 2.99 | 28.1 | 10.0 | 3.0 | 10.9 | 0.0 | 0.30 |
+| Champions League | 8 | 3.75 | 3.75 | 29.5 | 12.1 | 6.5 | 10.8 | 3.8 | 0.31 |
 | Bundesliga | 7 | 3.71 | 3.57 | 32.6 | 10.9 | 6.1 | 10.6 | 2.4 | 0.34 |
 | Turkish Super Lig | 7 | 2.86 | 3.36 | 29.4 | 10.7 | 5.0 | 10.4 | 4.0 | 0.27 |
 | Swiss Super League | 6 | 3.17 | 2.91 | 28.7 | 9.0 | 4.3 | 10.7 | 5.0 | 0.35 |
@@ -42,10 +43,10 @@ Every match where the two sides differed on the measure (draws included).
 
 | The side with more … | matches | won | drew | lost |
 |---|---|---|---|---|
-| expected goals | 218 | 61% | 22% | 16% |
-| shots on target | 197 | 60% | 20% | 19% |
-| big chances | 186 | 60% | 22% | 18% |
-| possession | 217 | 37% | 22% | 41% |
+| expected goals | 234 | 61% | 22% | 17% |
+| shots on target | 213 | 60% | 20% | 20% |
+| big chances | 201 | 59% | 21% | 20% |
+| possession | 232 | 38% | 21% | 41% |
 
 ## Team profiles (3+ matches with xG), strongest xG balance first
 
@@ -55,5 +56,5 @@ Finishing = goals minus xG per match: a big positive number is usually luck that
 |---|---|---|---|---|---|---|---|
 | Andorra | La Liga 2 | 3 | 1.18 | 0.91 | 3.7–4.0 | 47% | -0.85 |
 
-All 463 teams' profiles: `data/match_stats/team_profiles.json`.
+All 469 teams' profiles: `data/match_stats/team_profiles.json`.
 

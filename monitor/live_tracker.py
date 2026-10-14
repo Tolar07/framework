@@ -171,6 +171,13 @@ def round_once(matches: list[dict], seen: dict, out_dir: Path,
                          f"poll failed ({str(e)[:40]})")
             still += 1
             continue
+        # WHO this row is about. The file is named by FotMob id, which was the
+        # only identity a snapshot carried — and on 2026-10-14 five of the
+        # thirteen board picks had fotmob_id = None in the picks ledger, so
+        # their snapshots could not be joined back to the pick being tracked
+        # even though the tracker had followed all thirteen by name. The
+        # tracker always knows the names; it writes them down now.
+        s["home"], s["away"], s["kickoff_utc"] = m["home"], m["away"], m.get("kickoff_utc")
         sb = sportybet_live(live, m)
         s["sportybet"] = {"score": sb["score"], "clock": sb["clock"], "prices": sb["prices"]} if sb else None
         with (out_dir / f"{m['id']}.jsonl").open("a", encoding="utf-8") as f:

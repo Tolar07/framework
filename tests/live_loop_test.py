@@ -15,6 +15,7 @@ What it pins down, all offline:
 """
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 from datetime import UTC, datetime, timedelta
@@ -68,6 +69,13 @@ try:
         check("round_once: the first poll records without announcing", lines == [] and still == 1,
               f"{lines}")
         check("round_once: the snapshot is written", (out / "1.jsonl").exists())
+        # Every row says WHO it is about. The file name is the FotMob id, and on
+        # 2026-10-14 five of thirteen board picks had fotmob_id = None in the
+        # ledger, so their snapshots could not be joined back to the pick.
+        _row = json.loads((out / "1.jsonl").read_text(encoding="utf-8").splitlines()[0])
+        check("round_once: the row carries the fixture, not just the id",
+              _row.get("home") == "Norwich" and _row.get("away") == "Southampton"
+              and _row.get("kickoff_utc") == started_ko, f"{_row.get('home')} v {_row.get('away')}")
 
         # A goal is one line.
         state["s"] = snapshot("0-1", "31'", False)

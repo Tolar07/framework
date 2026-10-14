@@ -145,7 +145,8 @@ _SYN = [(r"\bczechia\b", "czech republic"), (r"\bturkiye\b", "turkey"),
         # Turkish clubs Flashscore lists under their current names (8 Oct 2026:
         # the Turkish Cup tie stayed ungraded on the name mismatch).
         (r"^denizli iy gureller$", "denizli idman yurdu"),
-        (r"^serik spor$", "serik belediyespor")]
+        (r"^serik spor$", "serik belediyespor"),
+        (r"^sabah masazir$", "sabah baku")]          # Flashscore: 'Sabah Baku'
 
 
 def norm(name: str) -> str:
@@ -173,6 +174,12 @@ def _sim(a: str, b: str) -> float:
 
 
 MATCH_MIN = 0.85     # 'Man City' vs 'Manchester Utd' scores 0.81 — kept out
+
+# Youth / women's sides. On a Champions League day the UEFA Youth League plays
+# the same clubs ('Inter U19' v 'Club Brugge U19'); a senior pick must never
+# weigh them, or two candidates tie and the result is never graded (13 Oct
+# 2026: Inter v Club Brugge, Lens v Sporting, Sabah v Slavia stayed ungraded).
+_SECOND_XI = re.compile(r"\b(u1[5-9]|u2[0-3]|women|w|youth)\b", re.I)
 
 
 def _name_sim(ours: str, theirs: str) -> float:
@@ -206,6 +213,9 @@ def find_result(events: list[dict], home: str, away: str,
             continue
         if abs((d - d0).days) > 1:
             continue
+        if (_SECOND_XI.search(f'{ev["home"]} {ev["away"]}')
+                and not _SECOND_XI.search(f"{home} {away}")):
+            continue                     # a youth / women's game, not ours
         s = min(_name_sim(home, ev["home"]), _name_sim(away, ev["away"]))
         if s >= MATCH_MIN:
             scored.append((s, ev))

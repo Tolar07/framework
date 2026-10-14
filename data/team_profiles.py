@@ -216,6 +216,23 @@ def profile_read(home: dict, away: dict, gap: float | None = 0.0) -> dict:
             "total_hint": round(h_goals + a_goals, 2), "lean": lean}
 
 
+def fixture_read(home: str, away: str, db: dict | None = None, strength: dict | None = None) -> dict | None:
+    """The strength-adjusted profile read of one fixture by team names, or None
+    when either team isn't in the profile database (never a guess)."""
+    db = load() if db is None else db
+    th, ta = find(db, home), find(db, away)
+    if not th or not ta:
+        return None
+    st = ls.load() if strength is None else strength
+    return profile_read(th, ta, ls.gap(st, th.get("stats_league"), ta.get("stats_league")))
+
+
+def is_shootout(read: dict | None) -> bool:
+    """Both sides expected to score plenty (the profile's BTTS yes / Over lean):
+    an Under 3.5 / 4.5 goes against the read (order 43)."""
+    return bool(read) and (read.get("lean") or "").startswith("BTTS yes")
+
+
 def collect(leagues: list[str] | None = None, pause: float = 0.35) -> dict:
     """Fetch every team of the given (default: all covered) competitions and
     write data/teams/latest.json.gz plus a dated snapshot."""

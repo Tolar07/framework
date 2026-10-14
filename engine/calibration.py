@@ -14,8 +14,8 @@ Raw 35% -> 48%, 45% -> 53%, 55% -> 57%, 65% -> 61%, 75% -> 66%.
 
 It corrects the model's BTTS yes/no chance (basic market and SportyBet's
 ladder market 29) and its match-total Over/Under 1.5 and 2.5 (basic markets
-and ladder market 18). The scoreline grid, other lines, team totals and the
-combos are unchanged. The bookmaker's side is never
+and ladder market 18), and from 2026-10-14 the 3.5 and 4.5 lines. The scoreline
+grid, other lines, team totals and the combos are unchanged. The bookmaker's side is never
 touched. Refit with backtest/btts_study.py as seasons are added.
 """
 from __future__ import annotations
@@ -29,9 +29,14 @@ BTTS_B = 0.4371
 # Goals lines (same study, same method; 2026-10-05). The model under-rates
 # goals: it said Over 2.5 50.6% on average and 53.5% landed, Over 1.5 74.6% vs
 # 77.5%. Leave-one-league-out Brier: Over 2.5 0.2517 -> 0.2463 (better in 11 of
-# 13 leagues), Over 1.5 0.1755 -> 0.1725 (10 of 13). Only the two lines that
-# were tested are corrected; Over/Under 3.5 and team totals are unchanged.
-OVER = {1.5: (0.6793, 0.5080), 2.5: (0.1286, 0.4170)}
+# 13 leagues), Over 1.5 0.1755 -> 0.1725 (10 of 13).
+# 3.5 and 4.5 (Architect 2026-10-14, backtest/GOALS_LINE_STUDY.md, 3,598
+# walk-forward matches): right on average but over-confident on the Under at the
+# top — a model 80-90% Under 3.5 landed 75.7%. Leave-one-league-out Brier: 3.5
+# 0.2087 -> 0.2066 (11 of 13 leagues), 4.5 0.1169 -> 0.1156 (10 of 13). Raw
+# Under 3.5 80% -> 74.9%, 85% -> 78.0%. Team totals are unchanged.
+OVER = {1.5: (0.6793, 0.5080), 2.5: (0.1286, 0.4170),
+        3.5: (-0.4096, 0.4947), 4.5: (-0.8932, 0.5389)}
 
 
 def _platt(raw: float, a: float, b: float) -> float:
@@ -52,9 +57,10 @@ def over(line: float, raw: Optional[float]) -> Optional[float]:
 
 
 def goals_key(key: str) -> Optional[tuple[float, bool]]:
-    """(line, is_over) for a MATCH-total Over/Under 1.5 or 2.5 key, else None."""
+    """(line, is_over) for a MATCH-total Over/Under key on a calibrated line, else None."""
     fixed = {"OVER_1_5": (1.5, True), "UNDER_1_5": (1.5, False),
-             "OVER_2_5": (2.5, True), "UNDER_2_5": (2.5, False)}
+             "OVER_2_5": (2.5, True), "UNDER_2_5": (2.5, False),
+             "OVER_3_5": (3.5, True), "UNDER_3_5": (3.5, False)}
     if key in fixed:
         return fixed[key]
     if key and key.startswith("SB:18|"):

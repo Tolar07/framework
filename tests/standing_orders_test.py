@@ -23,9 +23,16 @@ assert slate.BLOCKED_DEPLOY_MARKETS == {}, "Order 2: no market may be blocked (s
 for k in (mkt.HOME, mkt.DRAW, mkt.AWAY, mkt.OVER_25, mkt.UNDER_25):
     assert k in mkt.DEPLOYABLE, f"Order 2: {k} must be deployable"
 
-# 3. Odds band
+# 3. Odds band (amended 2026-10-14: the band holds, "safest 1.50" is withdrawn)
 assert (slate.DEPLOY_ODDS_MIN, slate.DEPLOY_ODDS_MAX, slate.DEPLOY_ODDS_SAFE) == (1.20, 2.00, 1.50), \
-    "Order 3: band is 1.20-2.00, safest 1.50"
+    "Order 3: band is 1.20-2.00; 1.50 is the midpoint label"
+_pb3 = (ROOT / "output" / "produce_bet.py").read_text(encoding="utf-8")
+assert "safest ~" not in _pb3, \
+    "Order 3 (amended 2026-10-14): the board no longer calls any price 'safest'"
+assert "PRICE_BAND_STUDY.md" in _pb3, \
+    "Order 3 (amended): the footer points at the record by band instead"
+assert (ROOT / "backtest" / "price_band_study.py").exists(), \
+    "Order 3 (amended): the record by band is regenerated from the ledgers"
 assert slate.in_deploy_band(2.00) and not slate.in_deploy_band(2.01)
 assert slate.in_deploy_band(1.20) and not slate.in_deploy_band(1.19)
 
@@ -51,6 +58,18 @@ assert "if: failure()" in wf, "Order 6: failure alert"
 for lg in ("UEFA Nations League", "League One", "League Two", "National League", "FA Cup"):
     assert lg in SPORTYBET_TOURNAMENT_ID, f"Order 7: {lg} must be covered"
 assert len(SPORTYBET_TOURNAMENT_ID) >= 21, "Order 7: 16 leagues + UNL + English lower tiers + FA Cup"
+# 7 + 37 (amended 2026-10-14): the parallel sharp list covers only what a sharp
+# reference prices, and says so; the board's own coverage is untouched.
+from data.football_data_source import LEAGUE_CODES as _lc7
+_sharp7 = [lg for lg in SPORTYBET_TOURNAMENT_ID if _lc7.get(lg)]
+assert len(_sharp7) >= 19, \
+    f"Order 7 (amended): {len(_sharp7)} of the covered leagues have a football-data division code"
+# A league with no division code (CL, EL, Conference, FA Cup, the new-leagues
+# file's countries) has no exchange price here, so the parallel list must
+# produce nothing for it rather than guess (HR35).
+assert not _lc7.get("Champions League") and not _lc7.get("Danish Superliga")
+from engine import sharp_value as _sv7
+assert _sv7.fair_row({}, "Champions League", "Arsenal", "Bayern Munich") is None
 
 # 10. Alternative markets open; nothing dropped (market-implied fallback)
 for k in (mkt.DC_1X, mkt.DC_X2, mkt.DC_12, mkt.OVER_15, mkt.UNDER_15,
@@ -552,5 +571,29 @@ assert "_tp.is_shootout(_read)" in _rd43 and "_shootout_under(c[2])" in _rd43, \
     "Order 43: match Unders up to 4.5 are dropped before a pick is chosen when the profile reads a shootout"
 assert _tp43.is_shootout({"lean": "BTTS yes / Over 2.5 — both expected to score"})
 assert not _tp43.is_shootout({"lean": "Under / double chance — goals look scarce"}) and not _tp43.is_shootout(None)
+
+# 37. Value against the sharp market — the parallel list (amended 2026-10-14)
+from engine import sharp_value as _sv37
+from monitor import sharp_list as _sl37
+assert _sv37.MIN_EV > 0, "Order 37 (amended): a pick must BEAT the exchange's fair price"
+assert _sv37.BAND[1] > slate.DEPLOY_ODDS_MAX, \
+    "Order 37 (amended): the parallel list reaches past the board's 2.00 ceiling"
+assert _sv37.MAX_EV > _sv37.MIN_EV, "Order 37 (amended): an impossible edge is not a pick"
+# Orders 4 and 11 do not apply to this list: no >=50% floor anywhere in it.
+assert "DEPLOY_MIN_MODEL_PROB" not in (ROOT / "engine" / "sharp_value.py").read_text(encoding="utf-8")
+# It is a separate store and never writes the board's.
+_sl37_src = (ROOT / "monitor" / "sharp_list.py").read_text(encoding="utf-8")
+assert 'STORE = ROOT / "data" / "sharp"' in _sl37_src and "output/boards" not in _sl37_src, \
+    "Order 37 (amended): the parallel list never touches the board or its codes"
+assert _sl37.STORE.name == "sharp"
+# A price at or below fair is never taken, however likely the outcome.
+_fair37 = {"h": 0.80, "d": 0.12, "a": 0.08}
+_rows37 = _sv37.scan([{"id": "1", "specifier": "", "status": 0,
+                       "outcomes": [{"id": "x", "desc": "Home", "odds": "1.24"}]}], _fair37)
+assert _rows37 and _sv37.pick(_rows37) is None, \
+    "Order 37 (amended): an 80% favourite at 1.24 is below fair (1.25) and is not taken"
+_wf37 = (ROOT / ".github" / "workflows" / "daily.yml").read_text(encoding="utf-8")
+assert "monitor/sharp_list.py --grade" in _wf37 and "data/sharp" in _wf37, \
+    "Order 37 (amended): the list runs and is graded with the board, every day"
 
 print("standing_orders_test: OK — all Architect standing orders hold")

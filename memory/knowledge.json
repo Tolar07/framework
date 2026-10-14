@@ -1,18 +1,18 @@
 {
- "updated": "2026-10-13",
+ "updated": "2026-10-14",
  "window_days": 21,
- "graded": 326,
+ "graded": 332,
  "segments": [
   {
    "segment": "Over/Under",
    "league": "all",
-   "n": 136,
-   "wins": 103,
-   "hit": 0.757,
-   "need": 0.802,
-   "pl": -7.77,
-   "z": -0.7,
-   "days": 9,
+   "n": 139,
+   "wins": 106,
+   "hit": 0.763,
+   "need": 0.803,
+   "pl": -7.08,
+   "z": -0.57,
+   "days": 10,
    "flag": true
   },
   {
@@ -76,18 +76,6 @@
    "flag": true
   },
   {
-   "segment": "Double chance",
-   "league": "all",
-   "n": 66,
-   "wins": 51,
-   "hit": 0.773,
-   "need": 0.801,
-   "pl": -2.8,
-   "z": 0.07,
-   "days": 8,
-   "flag": true
-  },
-  {
    "segment": "Over/Under",
    "league": "La Liga 2",
    "n": 11,
@@ -110,6 +98,18 @@
    "z": -1.49,
    "days": 3,
    "flag": false
+  },
+  {
+   "segment": "Double chance",
+   "league": "all",
+   "n": 69,
+   "wins": 54,
+   "hit": 0.783,
+   "need": 0.801,
+   "pl": -2.02,
+   "z": 0.27,
+   "days": 9,
+   "flag": true
   },
   {
    "segment": "Over/Under",
@@ -448,6 +448,18 @@
    "flag": false
   },
   {
+   "segment": "Over/Under",
+   "league": "Champions League",
+   "n": 3,
+   "wins": 3,
+   "hit": 1.0,
+   "need": 0.813,
+   "pl": 0.69,
+   "z": 0.87,
+   "days": 1,
+   "flag": false
+  },
+  {
    "segment": "Double chance",
    "league": "National League",
    "n": 3,
@@ -493,6 +505,18 @@
    "pl": 0.77,
    "z": 0.92,
    "days": 2,
+   "flag": false
+  },
+  {
+   "segment": "Double chance",
+   "league": "Champions League",
+   "n": 3,
+   "wins": 3,
+   "hit": 1.0,
+   "need": 0.794,
+   "pl": 0.78,
+   "z": 0.94,
+   "days": 1,
    "flag": false
   },
   {
@@ -653,7 +677,7 @@
   }
  ],
  "learning": {
-  "family:Double chance": 0.0544
+  "family:Double chance": 0.058
  },
  "blocks_in_force": [],
  "history": [
@@ -742,6 +766,20 @@
     "Asian handicap (underdog) · FA Cup · -3.27u (8/13)",
     "Double chance · all · -2.80u (51/66)",
     "Over/Under · La Liga 2 · -2.15u (7/11)"
+   ]
+  },
+  {
+   "date": "2026-10-14",
+   "graded": 332,
+   "corrections": {
+    "family:Double chance": 0.058
+   },
+   "flags": [
+    "Over/Under · all · -7.08u (106/139)",
+    "Asian handicap (underdog) · all · -3.76u (36/48)",
+    "Asian handicap (underdog) · FA Cup · -3.27u (8/13)",
+    "Over/Under · La Liga 2 · -2.15u (7/11)",
+    "Double chance · all · -2.02u (54/69)"
    ]
   }
  ]

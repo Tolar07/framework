@@ -335,8 +335,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "4-0"
   },
   {
    "fixture": "Stoke v Middlesbrough",
@@ -383,8 +383,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-3"
   },
   {
    "fixture": "Lens v Sporting",
@@ -521,8 +521,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-0"
   },
   {
    "fixture": "Atletico Madrid v Man Utd",
@@ -569,8 +569,8 @@
    "sharp_ev": null,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-0"
   },
   {
    "fixture": "Galatasaray Istanbul v Barcelona",
@@ -617,8 +617,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-4"
   },
   {
    "fixture": "Inter v Club Brugge",
@@ -713,8 +713,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-0"
   },
   {
    "fixture": "Viking FK v Bayern Munich",
@@ -761,8 +761,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-3"
   },
   {
    "fixture": "Villarreal v Napoli",
@@ -809,8 +809,8 @@
    "sharp_ev": null,
    "first_price": 1.3,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-1"
   }
  ],
  "accas": [
@@ -837,7 +837,7 @@
     "Bristol City v Blackburn",
     "Arsenal v Lille"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca C",
@@ -1470,7 +1470,7 @@
      0.61
     ]
    ],
-   "ft": null
+   "ft": "4-0"
   },
   {
    "fixture": "Stoke v Middlesbrough",
@@ -1546,7 +1546,7 @@
      0.7609
     ]
    ],
-   "ft": null
+   "ft": "2-3"
   },
   {
    "fixture": "Lens v Sporting",
@@ -1774,7 +1774,7 @@
      0.6103
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   },
   {
    "fixture": "Atletico Madrid v Man Utd",
@@ -1862,7 +1862,7 @@
      0.608
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Galatasaray Istanbul v Barcelona",
@@ -1950,7 +1950,7 @@
      0.7264
     ]
    ],
-   "ft": null
+   "ft": "1-4"
   },
   {
    "fixture": "Inter v Club Brugge",
@@ -2118,7 +2118,7 @@
      0.7112
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Viking FK v Bayern Munich",
@@ -2202,7 +2202,7 @@
      0.6764
     ]
    ],
-   "ft": null
+   "ft": "3-3"
   },
   {
    "fixture": "Villarreal v Napoli",
@@ -2278,7 +2278,7 @@
      0.72
     ]
    ],
-   "ft": null
+   "ft": "3-1"
   }
  ],
  "btts": [],
@@ -2287,7 +2287,7 @@
    "name": "ACCAS MEGA",
    "of": "accas",
    "code": "MHWGET",
-   "result": null
+   "result": "lost"
   }
  ]
 }

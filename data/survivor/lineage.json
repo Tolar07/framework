@@ -570,6 +570,21 @@
    "retired": "2026-10-13"
   },
   {
+   "lineage_id": "ln_33fcba123b",
+   "parent_id": "ln_8afb2b090f",
+   "generation": 9,
+   "bankroll": 2.27,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-13",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-13"
+  },
+  {
    "lineage_id": "ln_210c3d4911",
    "parent_id": "ln_b34f09d959",
    "generation": 10,
@@ -696,21 +711,6 @@
    "holding": null
   },
   {
-   "lineage_id": "ln_33fcba123b",
-   "parent_id": "ln_8afb2b090f",
-   "generation": 9,
-   "bankroll": 2.27,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-13",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-13"
-  },
-  {
    "lineage_id": "ln_83f064584d",
    "parent_id": "ln_8afb2b090f",
    "generation": 9,
@@ -814,6 +814,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-13",
+ "last_bred_date": "2026-10-14",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

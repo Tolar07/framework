@@ -343,6 +343,13 @@ def _goals_value_key(key: str) -> bool:
     return (mid == 29 and o == "yes") or (mid in (18, 19, 20) and o.startswith("over"))
 
 
+def _shootout_under(key: str) -> bool:
+    """A match-total Under on a line up to 4.5 (order 43): '1.5'..'4.5' Unders,
+    basic keys or SportyBet's ladder market 18. Team totals are not touched."""
+    g = cal.goals_key(key)
+    return g is not None and not g[1] and g[0] <= 4.5
+
+
 def _loses_on_draw(key: str) -> bool:
     """True if the outcome loses on EVERY draw (0-0, 1-1 and 2-2): "X or Y",
     straight wins, minus handicaps. A push is not a loss."""
@@ -532,6 +539,13 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     # Attach the best-EV live market to each fixture so HR30's numerical MES
     # can actually be stated, rather than falling back to an HR30 exception.
     ladder_fixtures = ladder_rejected = dog_hcp_dropped = approved_dropped = 0
+    shootout_unders = 0
+    try:                                   # team profiles for order 43 (best effort)
+        from data import league_strength as _ls
+        from data import team_profiles as _tp
+        _prof_db, _prof_st = _tp.load(), _ls.load()
+    except Exception:  # noqa: BLE001 — no profiles: order 43 stands down, never guesses
+        _prof_db, _prof_st = {}, {}
     # AUTOMATIC LEARNING (improvement #6, engine.learning): every graded pick
     # corrects the next board. A market family or league whose picks won less
     # often than we said gets its chances cut (and can fall below the 50%
@@ -654,6 +668,15 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             _n = len(cands)
             cands = [c for c in cands if not loss_watch.blocked(c[2], _lg, approved_blocks)]
             approved_dropped += _n - len(cands)
+        # NO UNDERS IN A SHOOTOUT (order 43): when the strength-adjusted team
+        # profiles read both sides scoring plenty, a match Under up to 4.5 goes
+        # against the read — dropped, leaving Over 1.5 / Over 2.5 to compete.
+        if _prof_db:
+            _read = _tp.fixture_read(bf.probs.home_team, bf.probs.away_team, _prof_db, _prof_st)
+            if _tp.is_shootout(_read):
+                _n = len(cands)
+                cands = [c for c in cands if not _shootout_under(c[2])]
+                shootout_unders += _n - len(cands)
         if not cands:
             continue
 
@@ -794,6 +817,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                      f"priced above fair odds took the pick from the likeliest outcome")
     if approved_dropped:
         all_flags.append(f"approved blocks (order 39): {approved_dropped} outcome(s) not considered")
+    if shootout_unders:
+        all_flags.append(f"No Unders in a shootout (order 43): {shootout_unders} match Under outcome(s) "
+                         "dropped where the team profiles read both sides scoring plenty")
     if dog_hcp_dropped:
         all_flags.append(f"FA Cup underdog handicaps (order 38): {dog_hcp_dropped} outcome(s) "
                          f"not considered")

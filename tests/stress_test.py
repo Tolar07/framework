@@ -195,7 +195,16 @@ if not os.environ.get("ODDS_API_KEY"):
     load_dotenv()
 
 t0 = time.time()
+import shutil
+
 import run_daily
+from engine import picks_ledger as _pl
+
+# The end-to-end run grades ledgers as the live run does; point it at a copy so
+# a local test run never rewrites the real graded ledgers (2026-10-14).
+_ledger_copy = Path(tempfile.mkdtemp()) / "picks"
+shutil.copytree(_pl.LEDGER_DIR, _ledger_copy)
+_pl.LEDGER_DIR, _pl.SUPERSEDED_DIR = _ledger_copy, _ledger_copy / "superseded"
 try:
     full = run_daily.run(send=False)
     ok = bool(full) and "PART 0" in full and "PART 1" in full

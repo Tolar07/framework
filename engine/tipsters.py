@@ -40,6 +40,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import sys
 import urllib.request
 from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
@@ -68,10 +69,70 @@ def slip_key(slip: dict) -> str:
     return slip.get("post_url") or hashlib.sha256(json.dumps(slip, sort_keys=True).encode()).hexdigest()[:16]
 
 
+def _num(x: object) -> float | None:
+    """A price or handicap line as a NUMBER, or None when it is not one.
+
+    The bet365 legs are written straight into the slip JSON by the collector
+    (`collect.ps1` -> Claude in Chrome) and nothing there makes it write
+    numbers. A price read off a post as the string "1.85" crashed the scheduled
+    grader on every run from 13 Oct:
+
+        implied *= 1 / leg["price"] if leg.get("price") else 1.0
+        TypeError: unsupported operand type(s) for /: 'int' and 'str'
+
+    which is why `graded_*.jsonl` stopped at 12 Oct while collection carried on.
+    A loose type from the same source had already stopped a run on 12 Oct (see
+    `_utc`), so this is coerced ONCE here, where rows are read, rather than
+    guarded at each of the eight places a price or line is used. An unreadable
+    value becomes None, which every caller already treats as "can't settle /
+    no price" — never a made-up number (HR35).
+    """
+    if x is None or isinstance(x, bool):
+        return None
+    if isinstance(x, (int, float)):
+        return float(x)
+    text = str(x).strip().replace(" ", "").lstrip("+")
+    if text.count(",") == 1 and "." not in text:
+        text = text.replace(",", ".")      # "1,85" is a decimal comma, not a thousands mark
+    try:
+        return float(text)
+    except ValueError:
+        return None
+
+
+def _clean(row: dict) -> dict:
+    """Normalise the numbers in one slip / decoded / graded row."""
+    for key in ("stated_odds", "decoded_odds", "implied", "payout"):
+        if key in row:
+            row[key] = _num(row[key])
+    for leg in row.get("legs") or []:
+        if isinstance(leg, dict):
+            for key in ("price", "line"):
+                if key in leg:
+                    leg[key] = _num(leg[key])
+    return row
+
+
 def _jsonl(path: Path) -> list[dict]:
+    """Every row of one .jsonl file, numbers coerced (_num). A line that will
+    not parse is skipped and SAID OUT LOUD on stderr — the collector appends
+    from a browser session, so a half-written line is possible, and one bad
+    line must not take a whole graded day down with it. It is never passed over
+    in silence (HR35)."""
     if not path.exists():
         return []
-    return [json.loads(x) for x in path.read_text(encoding="utf-8").splitlines() if x.strip()]
+    out: list[dict] = []
+    for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError as e:
+            print(f"  {path.name} line {n}: unreadable, skipped ({e})", file=sys.stderr)
+            continue
+        if isinstance(row, dict):
+            out.append(_clean(row))
+    return out
 
 
 def load_slips(folder: Path) -> list[dict]:

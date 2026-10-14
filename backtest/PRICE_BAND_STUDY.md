@@ -1,6 +1,6 @@
 # PRICE BAND STUDY — the board's record by the price it took
 
-Generated 2026-10-14 11:36Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
+Generated 2026-10-14 23:28Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
 
 **All 332 graded board singles**: stated 78.0%, landed 78.0% (calibration error +0.0 points) at an average price of 1.242, which needs 80.5% to break even. Return -3.4% ± 2.8.
 
@@ -30,7 +30,7 @@ The prediction is not the problem. The price is.
 | list | n | landed | stated | break-even | return / unit | reading |
 |---|---|---|---|---|---|---|
 | study picks (demoted, not sent) | 8 | 75.0% | 78.0% | 78.1% | -2.6% ± 21.9 | no edge either way |
-| sharp value list (parallel test) | 0 | PENDING | PENDING | PENDING | PENDING | no graded pick |
+| sharp value list (parallel test) | 2 | 50.0% | 57.1% | 54.8% | +2.5% ± 102.5 | no edge either way |
 
 The sharp list takes a price only when SportyBet pays MORE than the Betfair Exchange's fair odds (`engine/sharp_value.py`), with no most-likely-outcome and no 50% floor. It is the control for the price question: same days, same fixtures, same grader.
 

@@ -93,4 +93,14 @@ assert fs._sim("Denizli Idman Yurdu", "Denizli IY Gureller") == 1.0
 assert fs._sim("Serik Belediyespor", "Serik Spor") == 1.0
 print("Turkish club aliases: OK")
 
+# A UEFA Youth League game of the same clubs never blocks the senior result.
+_ucl = [{"league": "EUROPE: Champions League", "home": "Inter", "away": "Club Brugge KV", "fthg": 3,
+         "ftag": 4, "finished_regular": True, "finished_other": False, "kickoff_utc": "2026-10-13T19:00:00Z"},
+        {"league": "EUROPE: UEFA Youth League", "home": "Inter U19", "away": "Club Brugge U19", "fthg": 1,
+         "ftag": 1, "finished_regular": True, "finished_other": False, "kickoff_utc": "2026-10-13T13:00:00Z"}]
+assert fs.find_result(_ucl, "Inter", "Club Brugge", "2026-10-13")["ftag"] == 4
+assert fs.find_result(_ucl, "Inter U19", "Club Brugge U19", "2026-10-13")["ftag"] == 1
+assert fs._sim("Sabah Masazir", "Sabah Baku") == 1.0
+print("youth games ignored for senior picks; Sabah alias: OK")
+
 print("\n✅ ALL RESULTS-LOOP TESTS PASSED")

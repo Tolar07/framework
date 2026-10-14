@@ -234,7 +234,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 1.6
   },
   {
    "fixture": "LASK Linz v Liverpool",
@@ -282,7 +284,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.35,
+   "drift_pct": 8.9
   },
   {
    "fixture": "Aston Villa v Fenerbahce Istanbul",

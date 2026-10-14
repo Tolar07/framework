@@ -1,25 +1,45 @@
 name: OLP XDV telegram commands
 
-# Hourly. Deliberately not more often: every 15 minutes would be ~2,900
-# Actions minutes/month against a 2,000-minute free allowance, whereas hourly
-# is ~720. Replies can therefore be up to an hour behind — run
-# `python output/telegram_commands.py` locally for instant answers.
+# ONE JOB LOOPS, polling every 5 minutes (monitor/commands_loop.py).
+#
+# This was hourly, on the belief that anything faster would cost "~2,900
+# Actions minutes/month against a 2,000-minute free allowance". That allowance
+# does not apply here: Tolar07/framework is PUBLIC, and GitHub-hosted minutes
+# are unmetered on public repositories. The same wrong premise had the live
+# matchday tracker running in a Claude session instead of Actions until
+# 2026-10-14.
+#
+# And hourly did not even deliver hourly. Measured over the 35 hours to
+# 2026-10-14 17:00 UTC, GitHub gave this workflow SIX runs: 13:36, 07:28,
+# 01:47, 22:36, 17:31, 09:17. So /board or /status could sit unanswered for
+# six hours while this workflow's history showed nothing but green.
 on:
   schedule:
+    # A BACKUP STARTER, not the poller. One job now loops every 5 minutes
+    # (monitor/commands_loop.py) because this hourly tick produced SIX runs in
+    # the 35 hours to 2026-10-14 17:00 UTC - /board could wait six hours. A
+    # tick that finds a loop already running exits at once.
     - cron: "5 * * * *"
   workflow_dispatch:
+    inputs:
+      handoff:
+        description: "true = started by the previous loop run (internal)"
+        required: false
+        default: "false"
 
 permissions:
+  actions: write    # see whether a loop is already running; hand off to a fresh run
   contents: write
 
-concurrency:
-  group: olp-xdv-commands
-  cancel-in-progress: false   # /log writes to the CLV log — never interrupt it
+# No concurrency group, deliberately: with a loop that runs for hours, queued
+# runs would pile up behind it. The single-loop guard in commands_loop.py does
+# the job instead - a newer run exits while an older one is going, so two jobs
+# never write the CLV log at once. Same as news.yml and nba_watch.yml.
 
 jobs:
   poll:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 355    # a job may run 6 h; the loop hands off at 5 h 30
 
     steps:
       - uses: actions/checkout@v4
@@ -31,22 +51,23 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Answer pending commands
+      - name: Answer commands every 5 minutes until the job limit
         env:
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
           ODDS_API_KEY:       ${{ secrets.ODDS_API_KEY }}
           THESPORTSDB_KEY:    ${{ secrets.THESPORTSDB_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONIOENCODING:   utf-8
-        run: python output/telegram_commands.py
-
-      # /log appends a paper leg and /note appends a correction — both are
-      # state the next run must see, so they are committed back.
-      - name: Persist logged legs, notes and read offset
+          HANDOFF:            ${{ github.event.inputs.handoff }}
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          git add clv/clv_log.json memory/ || true
-          git diff --staged --quiet || git commit -m "telegram commands $(date -u +%Y-%m-%dT%H:%M) [skip ci]"
-          git pull --rebase --autostash || true
-          git push || echo "nothing to push"
+          ARGS=""
+          if [ "$HANDOFF" = "true" ]; then ARGS="--handoff"; fi
+          python monitor/commands_loop.py $ARGS
+
+      # The loop commits /log's legs, /note's corrections and the read offset
+      # right after the round that produced them (monitor/commands_loop.py),
+      # so there is no trailing persist step: an answered command must never be
+      # answered twice, and that cannot wait for the job to end.

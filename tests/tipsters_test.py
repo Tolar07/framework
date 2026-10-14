@@ -188,4 +188,43 @@ with tempfile.TemporaryDirectory() as tmp:
     assert "Legs by class" in ts.write(f, f / "T.md", universe_rows=uni_up), "a leg with no price must not crash the study"
 print("closing-line value of tipster legs: OK")
 
+# ── the collector writes loose JSON; the grader must not assume clean types ──
+# 2026-10-14: the scheduled grader crashed on EVERY run from 13 Oct with
+#   implied *= 1 / leg["price"] ... TypeError: unsupported operand type(s)
+#   for /: 'int' and 'str'
+# because a bet365 leg's price was the string "1.85" (the collector session
+# writes those legs straight into the slip JSON). Collection carried on, so
+# graded_*.jsonl silently stopped at 12 Oct while slips kept arriving.
+assert tp._num("1.85") == 1.85 and tp._num(1.85) == 1.85, "a price given as text is still a price"
+assert tp._num("2,10") == 2.10, "a decimal comma is a decimal point"
+assert tp._num(" 1.50 ") == 1.5 and tp._num("+1.75") == 1.75, "padding and a leading + are not values"
+assert tp._num("-1.5") == -1.5, "a handicap line can be negative"
+for junk in ("", "abc", "evs", None, True, [], {}):
+    assert tp._num(junk) is None, f"{junk!r} is not a number and must read None, never a guess (HR35)"
+
+with tempfile.TemporaryDirectory() as tmp:
+    f = Path(tmp)
+    str_leg = {"sport": "football", "home": "Norwich", "away": "Southampton",
+               "kickoff": "2026-10-13T18:45Z", "market": "ou", "selection": "over",
+               "line": "2.5", "price": "1.85", "text": "Over 2.5"}
+    (f / "slips_2026-10-13.jsonl").write_text(json.dumps({
+        "poster": "@a", "post_url": "https://x.com/a/status/9", "book": "bet365",
+        "posted_at": "2026-10-13T10:00:00Z", "stated_odds": "3.52", "legs": [str_leg]}) + "\n"
+        # a half-written line: the collector appends from a browser session, and
+        # one torn line used to take every slip in the file down with it
+        + '{"poster": "@b", "post_url": "https://x.com/b/status/8", "legs": [{"pri\n',
+        encoding="utf-8")
+    _slips = tp.load_slips(f)
+    assert len(_slips) == 1, "the torn line is skipped, the good slip still loads"
+    _leg = _slips[0]["legs"][0]
+    assert _leg["price"] == 1.85 and _leg["line"] == 2.5 and _slips[0]["stated_odds"] == 3.52, \
+        "every number is coerced where the row is READ, not at each of the eight uses"
+    _implied = 1.0
+    for _lg in _slips[0]["legs"]:                      # the exact line that crashed
+        _implied *= 1 / _lg["price"] if _lg.get("price") else 1.0
+    assert abs(_implied - 1 / 1.85) < 1e-9
+    assert tp.settle(_leg, 2, 1) == "win" and tp.leg_class(_leg) == "middle", \
+        "a coerced line settles and classes like a native number"
+print("loose types from the collector: OK")
+
 print("ALL TIPSTER TESTS PASSED")

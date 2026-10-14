@@ -128,4 +128,19 @@ assert "Profiled graded games: **3**" in text and "| BTTS yes / Over 2.5 *(too f
 assert "NO DATA — PENDING" in ps.build([]), "no profiled games: PENDING, never an empty table"
 print("profile study: OK")
 
+# order 43: a fixture's read by team names; a shootout drops match Unders up to 4.5
+db = {"leagues": {"L": {"teams": [{**team("Top", 2.1, 1.0), "name": "Top FC", "stats_league": 47, "style": s["Top"]},
+                                  {**team("Leaky", 1.9, 2.0), "name": "Leaky Town", "stats_league": 47,
+                                   "style": s["Leaky"]}]}}}
+r = tp.fixture_read("Top FC", "Leaky Town", db, {})
+assert tp.is_shootout(r), r
+assert tp.fixture_read("Top FC", "Nobody United", db, {}) is None, "a team not in the database: no read, no guess"
+sys.path.insert(0, str(Path(__file__).parent.parent))
+import run_daily as rd  # noqa: E402
+
+assert rd._shootout_under("SB:18|total=3.5|Under 3.5") and rd._shootout_under("UNDER_3_5")
+assert not rd._shootout_under("SB:18|total=2.5|Over 2.5") and not rd._shootout_under("SB:18|total=5.5|Under 5.5")
+assert not rd._shootout_under("SB:20|total=1.5|Under 1.5"), "team totals are not touched by order 43"
+print("order 43 shootout gate: OK")
+
 print("ALL TEAM PROFILE TESTS PASSED")

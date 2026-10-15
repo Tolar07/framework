@@ -498,7 +498,11 @@
     "home": 275996514,
     "away": 21139042
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "AFC Bournemouth missing 45% of value (Alex Scott, Junior Kroupi, Veljko Milosavljevi\u0107); support: Sturm Graz missing 55%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74172966",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -698,7 +702,11 @@
     "home": 129620819,
     "away": 127538483
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74172984",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -745,7 +753,11 @@
    "fotmob_id": 6112341,
    "kickoff_utc": "2026-10-15T19:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74172972",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -792,7 +804,11 @@
     "home": 129587749,
     "away": 57207593
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Olympiacos at full strength",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74172976",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -842,7 +858,11 @@
     "home": 23481530,
     "away": 12279560
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "NEC Nijmegen at full strength",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74172974",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -892,7 +912,11 @@
     "home": 112722918,
     "away": 6013845
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "OFI Crete at full strength",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74172982",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -1466,7 +1490,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173178",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1560,7 +1588,11 @@
     "home": 51936264,
     "away": 6972111
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173192",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1610,7 +1642,11 @@
     "home": 99839102,
     "away": 5473410
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Freiburg rotated: confirmed XI worth 64% of predicted; support: Jablonec missing 17%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173204",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1660,7 +1696,11 @@
     "home": 13397456,
     "away": 33234566
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173196",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1710,7 +1750,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Brann missing 27%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173208",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1760,7 +1804,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173200",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1810,7 +1858,11 @@
     "home": 4612141,
     "away": 6919647
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Oxford United at full strength",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72341270",
    "sb_tid": "sr:tournament:24",
    "sb_market": {

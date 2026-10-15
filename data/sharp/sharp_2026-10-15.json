@@ -1,7 +1,7 @@
 {
  "date": "2026-10-15",
- "run_id": "SHARP-877e2bdb",
- "fetched_utc": "2026-10-14T23:27:21Z",
+ "run_id": "SHARP-75e15818",
+ "fetched_utc": "2026-10-15T05:56:16Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -16,6 +16,6 @@
  "picks": [],
  "suspect": [],
  "flags": [
-  "football-data fixtures.csv pulled live"
+  "football-data fixtures.csv served from cache (<=60min)"
  ]
 }

@@ -1,0 +1,42 @@
+##########OLP XDV · NBA #########
+🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)
+==================================
+
+📅  Fri 16 Oct 2026   ·   tip-off = Lagos time (WAT)
+Run ID: OLPXDV-20261015-0555-09be24
+Games checked against the sharp line: 2
+
+Only prices where SportyBet pays MORE than the fair price (the sharp line, margin
+removed). One pick per game. Value = chance × price − 1.
+
+──────────────────────────────────
+PICKS
+──────────────────────────────────
+
+No SportyBet NBA price above the fair price today.
+──────────────────────────────────
+STUDY LINES — not picks, nothing booked (order 41)
+──────────────────────────────────
+Each market's SportyBet line closest to the fair price, value or not:
+value = chance × price − 1; most sit below 0 (SportyBet's margin).
+
+00:30  New York Knicks v Toronto Raptors · PRESEASON
+   New York Knicks to win (incl. OT) @1.46 · fair 1.52 · -4.0%
+   New York Knicks (+2.5) handicap @1.35 · fair 1.39 · -2.8%
+   Under 231.5 points (incl. OT) @1.50 · fair 1.59 · -5.4%
+   New York Knicks Over 113.5 points (incl. OT) @1.64 · fair 1.74 · -5.5%
+   Toronto Raptors Under 110.5 points (incl. OT) @1.80 · fair 1.93 · -6.9%
+
+01:30  Houston Rockets v Oklahoma City Thunder · PRESEASON
+   Houston Rockets to win (incl. OT) @2.35 · fair 2.46 · -4.4%
+   Oklahoma City Thunder (+3.5) handicap @1.40 · fair 1.44 · -2.7%
+   Over 224.5 points (incl. OT) @1.90 · fair 2.00 · -5.0%
+   Houston Rockets Over 112.5 points (incl. OT) @2.20 · fair 2.29 · -4.1%
+   Oklahoma City Thunder Over 113.5 points (incl. OT) @1.80 · fair 1.93 · -6.8%
+
+──────────────────────────────────
+NBA record: no graded regular-season pick yet (the season opens 20 Oct).
+
+Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board
+tests the one route left — SportyBet paying above the sharp price — as a live test.
+The framework never stakes: every bet is placed by hand from its code.

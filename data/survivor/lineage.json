@@ -624,7 +624,12 @@
    "born_date": "2026-10-11",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-15",
+    "fixture": "Mansfield v Oxford United",
+    "pick": "Oxford United (+1.5) Asian handicap",
+    "price": 1.22
+   }
   },
   {
    "lineage_id": "ln_34eb142b29",
@@ -814,6 +819,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-14",
+ "last_bred_date": "2026-10-15",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

@@ -1,0 +1,4730 @@
+{
+ "date": "2026-10-15",
+ "generated_at": "2026-10-15T05:55:34Z",
+ "singles": [
+  {
+   "fixture": "Alkmaar v Hapoel Be`er Sheva FC",
+   "league": "Europa League",
+   "home": "Alkmaar",
+   "away": "Hapoel Be`er Sheva FC",
+   "kickoff": "2026-10-15",
+   "market": "SB:19|total=3.5|Under 3.5",
+   "pick": "Alkmaar Under 3.5 goals",
+   "price": 1.3,
+   "chance": 0.7446,
+   "chance_raw": 0.7446,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "GTH0VP",
+   "news_level": "OK",
+   "news_note": "swapped from Alkmaar or Draw & Over 1.5 (AZ Alkmaar missing 33% of value (Kees Smit, Stije Resink, Jizz Hornkamp))",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112265,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 66342363,
+    "away": 10065395
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172952",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 19,
+    "desc": null,
+    "spec": "total=3.5",
+    "outcome": "Under 3.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.0320737960530455,
+   "missing": {
+    "home": 0.3288627207951874,
+    "away": 0.10305234502283986
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.3,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "KKS Lech Poznan v Bayer Leverkusen",
+   "league": "Europa League",
+   "home": "KKS Lech Poznan",
+   "away": "Bayer Leverkusen",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "KKS Lech Poznan or Bayer Leverkusen",
+   "price": 1.21,
+   "chance": 0.8521,
+   "chance_raw": 0.7941,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "SYQETD",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112318,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 18606022,
+    "away": 225665026
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172956",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.029401025176267526,
+   "missing": {
+    "home": 0.10380740754370162,
+    "away": 0.3076024017162487
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Lyon v Crystal Palace",
+   "league": "Europa League",
+   "home": "Lyon",
+   "away": "Crystal Palace",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "Lyon or Crystal Palace",
+   "price": 1.3,
+   "chance": 0.8113,
+   "chance_raw": 0.7533,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "XGX76D",
+   "news_level": "OK",
+   "news_note": "swapped from Lyon Over 0.5 goals (Lyon missing 15% of value (Lo\u00efs Openda, Nicol\u00e1s Tagliafico, Mohamed Ou\u00e9draogo); support: Crystal Palace missing 25%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112260,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 159339158,
+    "away": 314922950
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172960",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.010374739372092212,
+   "missing": {
+    "home": 0.1505564859998345,
+    "away": 0.251897590119888
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.3,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "NK Celje v AC Omonia Nicosia",
+   "league": "Europa League",
+   "home": "NK Celje",
+   "away": "AC Omonia Nicosia",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "NK Celje or AC Omonia Nicosia",
+   "price": 1.33,
+   "chance": 0.7922,
+   "chance_raw": 0.7342,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "P5LJA1",
+   "news_level": "OK",
+   "news_note": "swapped from AC Omonia Nicosia Win to Nil \u2014 no (NK Celje missing 100% of value (Jo\u0161t Pi\u0161ek); support: Omonia Nicosia missing 100%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112336,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 0,
+    "away": 0
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172958",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.012821849872316826,
+   "missing": {
+    "home": 1.0,
+    "away": 1.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.33,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Salzburg v AC Milan",
+   "league": "Europa League",
+   "home": "Salzburg",
+   "away": "AC Milan",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "Salzburg or AC Milan",
+   "price": 1.29,
+   "chance": 0.8167,
+   "chance_raw": 0.7587,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "RTBN4R",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112294,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 43921743,
+    "away": 271444901
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172954",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.01090611000764008,
+   "missing": {
+    "home": 0.2577566924300947,
+    "away": 0.12809687010640394
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.29,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "SCU Torreense v Sunderland AFC",
+   "league": "Europa League",
+   "home": "SCU Torreense",
+   "away": "Sunderland AFC",
+   "kickoff": "2026-10-15",
+   "market": "SB:18|total=4.5|Under 4.5",
+   "pick": "Under 4.5 goals",
+   "price": 1.23,
+   "chance": 0.7983,
+   "chance_raw": 0.7983,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "ZBAEVR",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112360,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 0,
+    "away": 0
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172964",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=4.5",
+    "outcome": "Under 4.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.01815167380922511,
+   "missing": {
+    "home": 1.0,
+    "away": 1.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Sparta Prague v Lillestroem SK",
+   "league": "Europa League",
+   "home": "Sparta Prague",
+   "away": "Lillestroem SK",
+   "kickoff": "2026-10-15",
+   "market": "SB:547|total=1.5|Home/Draw & Over 1.5",
+   "pick": "Sparta Prague or Draw & Over 1.5",
+   "price": 1.23,
+   "chance": 0.7651,
+   "chance_raw": 0.7651,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "XM750M",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-15T16:45:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172950",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 547,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Home/Draw & Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.05890634007839668,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Union Gilloise v Real Sociedad",
+   "league": "Europa League",
+   "home": "Union Gilloise",
+   "away": "Real Sociedad",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "Union Gilloise or Real Sociedad",
+   "price": 1.31,
+   "chance": 0.8084,
+   "chance_raw": 0.7504,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "M0K57P",
+   "news_level": "OK",
+   "news_note": "swapped from Real Sociedad (+1.5) Asian handicap (Real Sociedad missing 12% of value (Jon Aramburu, Luken Beitia, \u00c1lvaro Odriozola); support: Union St.Gilloise missing 54%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112286,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 32368977,
+    "away": 149718452
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172962",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.006544321225082639,
+   "missing": {
+    "home": 0.5427081169769545,
+    "away": 0.12255243766003789
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.31,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Benfica v Celtic",
+   "league": "Europa League",
+   "home": "Benfica",
+   "away": "Celtic",
+   "kickoff": "2026-10-15",
+   "market": "SB:547|total=1.5|Home/Away & Over 1.5",
+   "pick": "Benfica or Celtic & Over 1.5",
+   "price": 1.21,
+   "chance": 0.7618,
+   "chance_raw": 0.7618,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "H8WQKX",
+   "news_level": "OK",
+   "news_note": "swapped from Celtic (0:4) handicap (Celtic missing 29% of value (Cameron Carter-Vickers, Alistair Johnston, Yang Hyun-Jun); support: Benfica missing 14%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112247,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 202341534,
+    "away": 54058380
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172980",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 547,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Home/Away & Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.06860128960499912,
+   "missing": {
+    "home": 0.13514077738218364,
+    "away": 0.2879951703394186
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Bournemouth v Sturm Graz",
+   "league": "Europa League",
+   "home": "Bournemouth",
+   "away": "Sturm Graz",
+   "kickoff": "2026-10-15",
+   "market": "SB:19|total=1.5|Over 1.5",
+   "pick": "Bournemouth Over 1.5 goals",
+   "price": 1.23,
+   "chance": 0.7906,
+   "chance_raw": 0.7906,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "RMYKXH",
+   "news_level": "RISK",
+   "news_note": "AFC Bournemouth missing 41% of value (Alex Scott, Junior Kroupi, Veljko Milosavljevi\u0107); support: Sturm Graz missing 48%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112328,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 275996514,
+    "away": 21139042
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172966",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 19,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.027535447710280825,
+   "missing": {
+    "home": 0.4079946214001854,
+    "away": 0.4789065801083218
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Celta v Juventus",
+   "league": "Europa League",
+   "home": "Celta",
+   "away": "Juventus",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "Celta or Juventus",
+   "price": 1.36,
+   "chance": 0.7794,
+   "chance_raw": 0.7214,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "MH6UWG",
+   "news_level": "OK",
+   "news_note": "swapped from Celta (2:0) handicap (Celta Vigo missing 25% of value (Jones El-Abdellaoui, Pablo Dur\u00e1n, Miguel Rom\u00e1n); support: Juventus missing 40%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112346,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 73458889,
+    "away": 284938580
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172978",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.007995993985925098,
+   "missing": {
+    "home": 0.24528006517689793,
+    "away": 0.40178069280918083
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.36,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Ferencvarosi Budapest v Viktoria Plzen",
+   "league": "Europa League",
+   "home": "Ferencvarosi Budapest",
+   "away": "Viktoria Plzen",
+   "kickoff": "2026-10-15",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.2,
+   "chance": 0.8025,
+   "chance_raw": 0.8025,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "Z06KEW",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112279,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 9217859,
+    "away": 18936539
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172968",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.03705449081685308,
+   "missing": {
+    "home": 0.0573678850408908,
+    "away": 0.2129204802561344
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "GNK Dinamo Zagreb v RSC Anderlecht",
+   "league": "Europa League",
+   "home": "GNK Dinamo Zagreb",
+   "away": "RSC Anderlecht",
+   "kickoff": "2026-10-15",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.23,
+   "chance": 0.7807,
+   "chance_raw": 0.7807,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "GJAVC6",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112291,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 29527944,
+    "away": 22930039
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172970",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.03975484233179194,
+   "missing": {
+    "home": 0.0,
+    "away": 0.29692385238345015
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Hoffenheim v Besiktas Istanbul",
+   "league": "Europa League",
+   "home": "Hoffenheim",
+   "away": "Besiktas Istanbul",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "Hoffenheim or Besiktas Istanbul",
+   "price": 1.27,
+   "chance": 0.8245,
+   "chance_raw": 0.7665,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "SR54GZ",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112353,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 129620819,
+    "away": 127538483
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172984",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.01639508732418904,
+   "missing": {
+    "home": 0.23439319473055337,
+    "away": 0.1833171480414273
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.27,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Jagiellonia Bialystok v FC Ararat-Armenia",
+   "league": "Europa League",
+   "home": "Jagiellonia Bialystok",
+   "away": "FC Ararat-Armenia",
+   "kickoff": "2026-10-15",
+   "market": "SB:18|total=4.5|Under 4.5",
+   "pick": "Under 4.5 goals",
+   "price": 1.23,
+   "chance": 0.7975,
+   "chance_raw": 0.7975,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "WNVVP1",
+   "news_level": "NO NEWS",
+   "news_note": "no team news published",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112341,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172972",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=4.5",
+    "outcome": "Under 4.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.01906127797326196,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Marseille v Olympiacos",
+   "league": "Europa League",
+   "home": "Marseille",
+   "away": "Olympiacos",
+   "kickoff": "2026-10-15",
+   "market": "SB:14|hcp=0:2|Away (0:2)",
+   "pick": "Olympiacos (0:2) handicap",
+   "price": 1.21,
+   "chance": 0.7983,
+   "chance_raw": 0.7983,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "ZWW80Y",
+   "news_level": "OK",
+   "news_note": "Olympiacos at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112274,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 129587749,
+    "away": 57207593
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172976",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 14,
+    "desc": null,
+    "spec": "hcp=0:2",
+    "outcome": "Away (0:2)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.034067019877309535,
+   "missing": {
+    "home": 0.10805893044613714,
+    "away": 0.06476395478380777
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "NEC Nijmegen v PFC Levski Sofia",
+   "league": "Europa League",
+   "home": "NEC Nijmegen",
+   "away": "PFC Levski Sofia",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Draw",
+   "pick": "NEC Nijmegen or draw",
+   "price": 1.27,
+   "chance": 0.8037,
+   "chance_raw": 0.7457,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "M3MFQZ",
+   "news_level": "OK",
+   "news_note": "support: Levski Sofia missing 14%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112369,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 23481530,
+    "away": 12279560
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172974",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Draw"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.05302280791023328,
+   "missing": {
+    "home": 0.029208260949015255,
+    "away": 0.13574808434302993
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.27,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Rennes v OFI Crete",
+   "league": "Europa League",
+   "home": "Rennes",
+   "away": "OFI Crete",
+   "kickoff": "2026-10-15",
+   "market": "SB:14|hcp=0:4|Away (0:4)",
+   "pick": "OFI Crete (0:4) handicap",
+   "price": 1.21,
+   "chance": 0.8021,
+   "chance_raw": 0.8021,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "JVCAEB",
+   "news_level": "OK",
+   "news_note": "OFI Crete at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112309,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 112722918,
+    "away": 6013845
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74172982",
+   "sb_tid": "sr:tournament:679",
+   "sb_market": {
+    "id": 14,
+    "desc": null,
+    "spec": "hcp=0:4",
+    "outcome": "Away (0:4)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.02950062443790269,
+   "missing": {
+    "home": 0.0,
+    "away": 0.1052831017334508
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "CS Universitatea Craiova v Getafe",
+   "league": "Conference League",
+   "home": "CS Universitatea Craiova",
+   "away": "Getafe",
+   "kickoff": "2026-10-15",
+   "market": "SB:18|total=3.5|Under 3.5",
+   "pick": "Under 3.5 goals",
+   "price": 1.23,
+   "chance": 0.8016,
+   "chance_raw": 0.8016,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "VD0ZW6",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112505,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 17778387,
+    "away": 39910417
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173174",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=3.5",
+    "outcome": "Under 3.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.014071842711863347,
+   "missing": {
+    "home": 0.08371407574310805,
+    "away": 0.49131077773741755
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Gent v AGF Aarhus",
+   "league": "Conference League",
+   "home": "Gent",
+   "away": "AGF Aarhus",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "Gent or AGF Aarhus",
+   "price": 1.25,
+   "chance": 0.8221,
+   "chance_raw": 0.7641,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "YWCT07",
+   "news_level": "OK",
+   "news_note": "swapped from Gent or draw (Gent missing 18% of value (Josu\u00e9 Vergara, Matisse Samoise, L\u00e1szlo B\u00e9nes))",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112413,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 28582809,
+    "away": 19057692
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173148",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.03485493578681642,
+   "missing": {
+    "home": 0.18260319871585798,
+    "away": 0.06821547422917518
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.25,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "HNK Hajduk Split v Ajax",
+   "league": "Conference League",
+   "home": "HNK Hajduk Split",
+   "away": "Ajax",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "HNK Hajduk Split or Ajax",
+   "price": 1.23,
+   "chance": 0.8397,
+   "chance_raw": 0.7817,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "W7FASX",
+   "news_level": "OK",
+   "news_note": "swapped from Ajax or draw (Ajax missing 18% of value (Caio Henrique, Kasper Dolberg, Anton Gaaei); support: Hajduk Split missing 16%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112523,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 11265284,
+    "away": 126354845
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173144",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.028711786711748566,
+   "missing": {
+    "home": 0.1571893193104344,
+    "away": 0.17693447944215873
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "KF Egnatia Rrogozhine v FC Midtjylland",
+   "league": "Conference League",
+   "home": "KF Egnatia Rrogozhine",
+   "away": "FC Midtjylland",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "KF Egnatia Rrogozhine or FC Midtjylland",
+   "price": 1.23,
+   "chance": 0.8362,
+   "chance_raw": 0.7782,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "PEGSVJ",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112553,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 3289609,
+    "away": 35967039
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173152",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.03293949718353073,
+   "missing": {
+    "home": 0.0,
+    "away": 0.23067719434456482
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Kuopion Palloseura v Trabzonspor",
+   "league": "Conference League",
+   "home": "Kuopion Palloseura",
+   "away": "Trabzonspor",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "Kuopion Palloseura or Trabzonspor",
+   "price": 1.21,
+   "chance": 0.8463,
+   "chance_raw": 0.7883,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "RZDWFL",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-15T16:45:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173156",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.03649034596682699,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Lugano v Crvena Zvezda",
+   "league": "Conference League",
+   "home": "Lugano",
+   "away": "Crvena Zvezda",
+   "kickoff": "2026-10-15",
+   "market": "SB:16|hcp=-1.5|Away (+1.5)",
+   "pick": "Crvena Zvezda (+1.5) Asian handicap",
+   "price": 1.2,
+   "chance": 0.8079,
+   "chance_raw": 0.8079,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "WW442T",
+   "news_level": "OK",
+   "news_note": "support: Lugano missing 33%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112473,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 21257538,
+    "away": 34214863
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173138",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=-1.5",
+    "outcome": "Away (+1.5)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.03048338494370062,
+   "missing": {
+    "home": 0.3294747273853987,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Mjallby AIF v Inter Club de Escaldes",
+   "league": "Conference League",
+   "home": "Mjallby AIF",
+   "away": "Inter Club de Escaldes",
+   "kickoff": "2026-10-15",
+   "market": "SB:18|total=1.5|Over 1.5",
+   "pick": "Over 1.5 goals",
+   "price": 1.2,
+   "chance": 0.81,
+   "chance_raw": 0.81,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "P44753",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112549,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 0,
+    "away": 0
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173160",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.0280221783275747,
+   "missing": {
+    "home": 1.0,
+    "away": null
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Panathinaikos v FK Borac Banja Luka",
+   "league": "Conference League",
+   "home": "Panathinaikos",
+   "away": "FK Borac Banja Luka",
+   "kickoff": "2026-10-15",
+   "market": "SB:16|hcp=-3.5|Away (+3.5)",
+   "pick": "FK Borac Banja Luka (+3.5) Asian handicap",
+   "price": 1.2,
+   "chance": 0.8112,
+   "chance_raw": 0.8112,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "R9T8BK",
+   "news_level": "OK",
+   "news_note": "support: Panathinaikos missing 100%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112415,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 0,
+    "away": 0
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173164",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=-3.5",
+    "outcome": "Away (+3.5)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.026609355105575272,
+   "missing": {
+    "home": 1.0,
+    "away": null
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "PFC CSKA Sofia v Monaco",
+   "league": "Conference League",
+   "home": "PFC CSKA Sofia",
+   "away": "Monaco",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "PFC CSKA Sofia or Monaco",
+   "price": 1.21,
+   "chance": 0.849,
+   "chance_raw": 0.791,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "SVEF4S",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112541,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 9036512,
+    "away": 152569629
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173166",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.033215120668774634,
+   "missing": {
+    "home": 0.07901447086335463,
+    "away": 0.028172542018199635
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Riga FC v FC Kairat Almaty",
+   "league": "Conference League",
+   "home": "Riga FC",
+   "away": "FC Kairat Almaty",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Draw",
+   "pick": "Riga FC or draw",
+   "price": 1.26,
+   "chance": 0.805,
+   "chance_raw": 0.747,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "M9USQ0",
+   "news_level": "NO NEWS",
+   "news_note": "no team news published",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112521,
+   "kickoff_utc": "2026-10-15T16:45:00.000Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173170",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Draw"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.058769331410386316,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.26,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Atalanta v Pafos FC",
+   "league": "Conference League",
+   "home": "Atalanta",
+   "away": "Pafos FC",
+   "kickoff": "2026-10-15",
+   "market": "SB:18|total=4.5|Under 4.5",
+   "pick": "Under 4.5 goals",
+   "price": 1.28,
+   "chance": 0.7714,
+   "chance_raw": 0.7714,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "UGEAQ2",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112387,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 0,
+    "away": 0
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173178",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=4.5",
+    "outcome": "Under 4.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.01262648709155656,
+   "missing": {
+    "home": 1.0,
+    "away": null
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.28,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Copenhagen v Braga",
+   "league": "Conference League",
+   "home": "Copenhagen",
+   "away": "Braga",
+   "kickoff": "2026-10-15",
+   "market": "SB:33||No",
+   "pick": "Copenhagen Win to Nil \u2014 no",
+   "price": 1.24,
+   "chance": 0.7716,
+   "chance_raw": 0.7716,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "H1J2RN",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-15T19:00:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173188",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 33,
+    "desc": null,
+    "spec": "",
+    "outcome": "No"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.04317002249066826,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.24,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "FC Twente Enschede v FC Thun",
+   "league": "Conference League",
+   "home": "FC Twente Enschede",
+   "away": "FC Thun",
+   "kickoff": "2026-10-15",
+   "market": "SB:18|total=5.5|Under 5.5",
+   "pick": "Under 5.5 goals",
+   "price": 1.24,
+   "chance": 0.7992,
+   "chance_raw": 0.7992,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "H25FWY",
+   "news_level": "OK",
+   "news_note": "swapped from FC Twente Enschede Over 1.5 goals (FC Twente missing 15% of value (Stav Lemkin, Filip Thorvaldsen, Lars Unnerstall); support: Thun missing 15%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112482,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 51936264,
+    "away": 6972111
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173192",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=5.5",
+    "outcome": "Under 5.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.009012829731613548,
+   "missing": {
+    "home": 0.14675084682937967,
+    "away": 0.15259593580688247
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.24,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Freiburg v FK Jablonec",
+   "league": "Conference League",
+   "home": "Freiburg",
+   "away": "FK Jablonec",
+   "kickoff": "2026-10-15",
+   "market": "SB:547|total=1.5|Home/Draw & Over 1.5",
+   "pick": "Freiburg or Draw & Over 1.5",
+   "price": 1.2,
+   "chance": 0.7887,
+   "chance_raw": 0.7887,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "HMNVP1",
+   "news_level": "OK",
+   "news_note": "support: Jablonec missing 13%",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112398,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 99839102,
+    "away": 5473410
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173204",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 547,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Home/Draw & Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.05354191886707871,
+   "missing": {
+    "home": 0.049910874576801385,
+    "away": 0.1286175860232643
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Heart of Midlothian FC v Nordsjaelland",
+   "league": "Conference League",
+   "home": "Heart of Midlothian FC",
+   "away": "Nordsjaelland",
+   "kickoff": "2026-10-15",
+   "market": "SB:10||Home or Away",
+   "pick": "Heart of Midlothian FC or Nordsjaelland",
+   "price": 1.29,
+   "chance": 0.816,
+   "chance_raw": 0.758,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "SBQBNM",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112497,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 13397456,
+    "away": 33234566
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173196",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.011903139898043591,
+   "missing": {
+    "home": 0.11875643709508542,
+    "away": 0.023028203531913073
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.29,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "SK Brann v Lincoln Red Imps",
+   "league": "Conference League",
+   "home": "SK Brann",
+   "away": "Lincoln Red Imps",
+   "kickoff": "2026-10-15",
+   "market": "SB:16|hcp=-3.5|Away (+3.5)",
+   "pick": "Lincoln Red Imps (+3.5) Asian handicap",
+   "price": 1.29,
+   "chance": 0.7502,
+   "chance_raw": 0.7502,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "G6TBXF",
+   "news_level": "OK",
+   "news_note": "swapped from SK Brann Over 1.5 goals (Brann missing 100% of value (Nana Boakye, Kristall Ingason, Leo Cornic))",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112493,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 0,
+    "away": 0
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173208",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=-3.5",
+    "outcome": "Away (+3.5)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.03229949531981868,
+   "missing": {
+    "home": 1.0,
+    "away": null
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.29,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "St. Truidense VV v FC Iberia 1999",
+   "league": "Conference League",
+   "home": "St. Truidense VV",
+   "away": "FC Iberia 1999",
+   "kickoff": "2026-10-15",
+   "market": "SB:18|total=4.5|Under 4.5",
+   "pick": "Under 4.5 goals",
+   "price": 1.32,
+   "chance": 0.7469,
+   "chance_raw": 0.7469,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "H1Y5TR",
+   "news_level": "OK",
+   "news_note": "swapped from St. Truidense VV Over 1.5 goals (St.Truiden missing 100% of value (Arbnor Muja))",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6112491,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 0,
+    "away": 0
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74173200",
+   "sb_tid": "sr:tournament:34480",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=4.5",
+    "outcome": "Under 4.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.014096047572845438,
+   "missing": {
+    "home": 1.0,
+    "away": null
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.32,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Mansfield v Oxford United",
+   "league": "League One",
+   "home": "Mansfield",
+   "away": "Oxford United",
+   "kickoff": "2026-10-15",
+   "market": "SB:16|hcp=-1.5|Away (+1.5)",
+   "pick": "Oxford United (+1.5) Asian handicap",
+   "price": 1.22,
+   "chance": 0.8041,
+   "chance_raw": 0.8041,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "UYM336",
+   "news_level": "OK",
+   "news_note": "Oxford United at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5837212,
+   "kickoff_utc": "2026-10-15T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 4612141,
+    "away": 6919647
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:72341270",
+   "sb_tid": "sr:tournament:24",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=-1.5",
+    "outcome": "Away (+1.5)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.018984004915650665,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  }
+ ],
+ "accas": [
+  {
+   "name": "Acca A",
+   "code": "XWD7UZ",
+   "odds": 2.316,
+   "chance": 0.511173324648,
+   "legs": [
+    "Celta v Juventus",
+    "Union Gilloise v Real Sociedad",
+    "Lyon v Crystal Palace"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca B",
+   "code": "X285Z4",
+   "odds": 2.213,
+   "chance": 0.5279436278399999,
+   "legs": [
+    "NK Celje v AC Omonia Nicosia",
+    "Salzburg v AC Milan",
+    "Heart of Midlothian FC v Nordsjaelland"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca C",
+   "code": "XHJANR",
+   "odds": 2.325,
+   "chance": 0.49330502762055295,
+   "legs": [
+    "Hoffenheim v Besiktas Istanbul",
+    "HNK Hajduk Split v Ajax",
+    "KKS Lech Poznan v Bayer Leverkusen",
+    "KF Egnatia Rrogozhine v FC Midtjylland"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca D",
+   "code": "XKCQU9",
+   "odds": 2.859,
+   "chance": 0.37898042364147777,
+   "legs": [
+    "Gent v AGF Aarhus",
+    "PFC CSKA Sofia v Monaco",
+    "Kuopion Palloseura v Trabzonspor",
+    "NEC Nijmegen v PFC Levski Sofia",
+    "SCU Torreense v Sunderland AFC"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca E",
+   "code": "XBE8U2",
+   "odds": 2.745,
+   "chance": 0.33677077842888486,
+   "legs": [
+    "Riga FC v FC Kairat Almaty",
+    "FC Twente Enschede v FC Thun",
+    "Mansfield v Oxford United",
+    "Panathinaikos v FK Borac Banja Luka",
+    "Ferencvarosi Budapest v Viktoria Plzen"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca F",
+   "code": "RE397R",
+   "odds": 2.286,
+   "chance": 0.3952051260440556,
+   "legs": [
+    "Atalanta v Pafos FC",
+    "Bournemouth v Sturm Graz",
+    "Rennes v OFI Crete",
+    "Lugano v Crvena Zvezda"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca G",
+   "code": "XJ5428",
+   "odds": 2.857,
+   "chance": 0.3000392943962261,
+   "legs": [
+    "CS Universitatea Craiova v Getafe",
+    "Mjallby AIF v Inter Club de Escaldes",
+    "SK Brann v Lincoln Red Imps",
+    "Marseille v Olympiacos",
+    "Copenhagen v Braga"
+   ],
+   "result": null
+  }
+ ],
+ "safe3": [],
+ "megas": [
+  {
+   "name": "Mega 1",
+   "code": "X0DRT4",
+   "odds": 48.813,
+   "chance": 0.028225928499294086,
+   "legs": [
+    "KKS Lech Poznan v Bayer Leverkusen",
+    "PFC CSKA Sofia v Monaco",
+    "Kuopion Palloseura v Trabzonspor",
+    "HNK Hajduk Split v Ajax",
+    "KF Egnatia Rrogozhine v FC Midtjylland",
+    "Hoffenheim v Besiktas Istanbul",
+    "Gent v AGF Aarhus",
+    "Salzburg v AC Milan",
+    "Heart of Midlothian FC v Nordsjaelland",
+    "Lyon v Crystal Palace",
+    "Panathinaikos v FK Borac Banja Luka",
+    "Mjallby AIF v Inter Club de Escaldes",
+    "Union Gilloise v Real Sociedad",
+    "Lugano v Crvena Zvezda",
+    "Riga FC v FC Kairat Almaty",
+    "Mansfield v Oxford United",
+    "NEC Nijmegen v PFC Levski Sofia",
+    "Ferencvarosi Budapest v Viktoria Plzen"
+   ],
+   "result": null
+  },
+  {
+   "name": "Mega 2",
+   "code": "SA2QX5",
+   "odds": 58.012,
+   "chance": 0.011361777888611113,
+   "legs": [
+    "Rennes v OFI Crete",
+    "CS Universitatea Craiova v Getafe",
+    "FC Twente Enschede v FC Thun",
+    "SCU Torreense v Sunderland AFC",
+    "Marseille v Olympiacos",
+    "Jagiellonia Bialystok v FC Ararat-Armenia",
+    "NK Celje v AC Omonia Nicosia",
+    "Bournemouth v Sturm Graz",
+    "Freiburg v FK Jablonec",
+    "GNK Dinamo Zagreb v RSC Anderlecht",
+    "Celta v Juventus",
+    "Copenhagen v Braga",
+    "Atalanta v Pafos FC",
+    "Sparta Prague v Lillestroem SK",
+    "Benfica v Celtic",
+    "SK Brann v Lincoln Red Imps",
+    "St. Truidense VV v FC Iberia 1999",
+    "Alkmaar v Hapoel Be`er Sheva FC"
+   ],
+   "result": null
+  }
+ ],
+ "alts": [
+  {
+   "name": "Alt A",
+   "code": "X285Z6",
+   "odds": 1.56,
+   "chance": 0.65609559,
+   "legs": [
+    "Jagiellonia Bialystok v FC Ararat-Armenia",
+    "GNK Dinamo Zagreb v RSC Anderlecht"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Jagiellonia Bialystok v FC Ararat-Armenia",
+     "league": "Europa League",
+     "home": "Jagiellonia Bialystok",
+     "away": "FC Ararat-Armenia",
+     "kickoff": "2026-10-15",
+     "market": "SB:19|total=3.5|Under 3.5",
+     "pick": "Jagiellonia Bialystok Under 3.5 goals",
+     "price": 1.2,
+     "chance": 0.8121,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "GNK Dinamo Zagreb v RSC Anderlecht",
+     "league": "Europa League",
+     "home": "GNK Dinamo Zagreb",
+     "away": "RSC Anderlecht",
+     "kickoff": "2026-10-15",
+     "market": "SB:10||Home or Away",
+     "pick": "GNK Dinamo Zagreb or RSC Anderlecht",
+     "price": 1.3,
+     "chance": 0.8079,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  },
+  {
+   "name": "Alt B",
+   "code": "WUWHB6",
+   "odds": 1.562,
+   "chance": 0.59830104,
+   "legs": [
+    "Sparta Prague v Lillestroem SK",
+    "Freiburg v FK Jablonec"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Sparta Prague v Lillestroem SK",
+     "league": "Europa League",
+     "home": "Sparta Prague",
+     "away": "Lillestroem SK",
+     "kickoff": "2026-10-15",
+     "market": "SB:20|total=1.5|Under 1.5",
+     "pick": "Lillestroem SK Under 1.5 goals",
+     "price": 1.24,
+     "chance": 0.7746,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Freiburg v FK Jablonec",
+     "league": "Conference League",
+     "home": "Freiburg",
+     "away": "FK Jablonec",
+     "kickoff": "2026-10-15",
+     "market": "SB:1||Home",
+     "pick": "Freiburg to win",
+     "price": 1.26,
+     "chance": 0.7724,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  }
+ ],
+ "value": [],
+ "rated": [
+  {
+   "fixture": "Alkmaar v Hapoel Be`er Sheva FC",
+   "league": "Europa League",
+   "home": "Alkmaar",
+   "away": "Hapoel Be`er Sheva FC",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.744,
+    0.155,
+    0.101,
+    0.845,
+    0.661,
+    0.449,
+    0.517
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7362
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7433
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.6845
+    ],
+    [
+     "SB:16|hcp=-0.5|Home (-0.5)",
+     0.7362
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.7446
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7928
+    ],
+    [
+     "SB:29||Yes",
+     0.5261
+    ],
+    [
+     "SB:26||Even",
+     0.5006
+    ],
+    [
+     "SB:30||Both teams",
+     0.5261
+    ],
+    [
+     "SB:31||No",
+     0.5701
+    ],
+    [
+     "SB:33||No",
+     0.6033
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.6511
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7804
+    ],
+    [
+     "SB:548||2-5",
+     0.7237
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "KKS Lech Poznan v Bayer Leverkusen",
+   "league": "Europa League",
+   "home": "KKS Lech Poznan",
+   "away": "Bayer Leverkusen",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.191,
+    0.207,
+    0.602,
+    0.852,
+    0.67,
+    0.468,
+    0.62
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.5963
+    ],
+    [
+     "SB:18|total=2.5|Over 2.5",
+     0.6673
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7941
+    ],
+    [
+     "SB:14|hcp=3:0|Home (3:0)",
+     0.7989
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.8022
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7014
+    ],
+    [
+     "SB:20|total=3.5|Under 3.5",
+     0.8138
+    ],
+    [
+     "SB:29||Yes",
+     0.6258
+    ],
+    [
+     "SB:11||Away",
+     0.6043
+    ],
+    [
+     "SB:26||Even",
+     0.5005
+    ],
+    [
+     "SB:12||Away",
+     0.5963
+    ],
+    [
+     "SB:30||Both teams",
+     0.6258
+    ],
+    [
+     "SB:32||No",
+     0.7014
+    ],
+    [
+     "SB:34||No",
+     0.7335
+    ],
+    [
+     "SB:37|total=1.5|Away & Over 1.5",
+     0.5246
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5392
+    ],
+    [
+     "SB:547|total=1.5|Draw/Away & Over 1.5",
+     0.6983
+    ],
+    [
+     "SB:546||Draw/Away & Yes",
+     0.5035
+    ],
+    [
+     "SB:548||2-5",
+     0.7232
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Lyon v Crystal Palace",
+   "league": "Europa League",
+   "home": "Lyon",
+   "away": "Crystal Palace",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.412,
+    0.26,
+    0.328,
+    0.811,
+    0.599,
+    0.392,
+    0.619
+   ],
+   "pool": [
+    [
+     "SB:18|total=4|Under 4",
+     0.6318
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7533
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7851
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7851
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.8039
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.763
+    ],
+    [
+     "SB:29||Yes",
+     0.6134
+    ],
+    [
+     "SB:26||Even",
+     0.5011
+    ],
+    [
+     "SB:30||Both teams",
+     0.6134
+    ],
+    [
+     "SB:31||No",
+     0.763
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5044
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6106
+    ],
+    [
+     "SB:548||2-5",
+     0.7199
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "NK Celje v AC Omonia Nicosia",
+   "league": "Europa League",
+   "home": "NK Celje",
+   "away": "AC Omonia Nicosia",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.351,
+    0.277,
+    0.372,
+    0.753,
+    0.514,
+    0.31,
+    0.557
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7525
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7342
+    ],
+    [
+     "SB:14|hcp=0:1|Away (0:1)",
+     0.6394
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.6394
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7356
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7474
+    ],
+    [
+     "SB:29||Yes",
+     0.5498
+    ],
+    [
+     "SB:26||Even",
+     0.5022
+    ],
+    [
+     "SB:30||Both teams",
+     0.5498
+    ],
+    [
+     "SB:31||No",
+     0.7474
+    ],
+    [
+     "SB:32||No",
+     0.7356
+    ],
+    [
+     "SB:34||No",
+     0.8024
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.609
+    ],
+    [
+     "SB:548||2-5",
+     0.6952
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Salzburg v AC Milan",
+   "league": "Europa League",
+   "home": "Salzburg",
+   "away": "AC Milan",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.275,
+    0.253,
+    0.471,
+    0.812,
+    0.6,
+    0.392,
+    0.611
+   ],
+   "pool": [
+    [
+     "SB:18|total=4|Under 4",
+     0.6298
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7587
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.7401
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.7401
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7319
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7409
+    ],
+    [
+     "SB:29||Yes",
+     0.6062
+    ],
+    [
+     "SB:26||Even",
+     0.5011
+    ],
+    [
+     "SB:30||Both teams",
+     0.6062
+    ],
+    [
+     "SB:32||No",
+     0.7319
+    ],
+    [
+     "SB:34||No",
+     0.778
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.617
+    ],
+    [
+     "SB:548||2-5",
+     0.7202
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "SCU Torreense v Sunderland AFC",
+   "league": "Europa League",
+   "home": "SCU Torreense",
+   "away": "Sunderland AFC",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.113,
+    0.173,
+    0.714,
+    0.805,
+    0.599,
+    0.383,
+    0.484
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.7057
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7983
+    ],
+    [
+     "SB:14|hcp=3:0|Home (3:0)",
+     0.731
+    ],
+    [
+     "SB:16|hcp=2.5|Home (+2.5)",
+     0.731
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.5479
+    ],
+    [
+     "SB:20|total=3.5|Under 3.5",
+     0.7982
+    ],
+    [
+     "SB:29||No",
+     0.5067
+    ],
+    [
+     "SB:26||Even",
+     0.501
+    ],
+    [
+     "SB:32||No",
+     0.5479
+    ],
+    [
+     "SB:34||No",
+     0.593
+    ],
+    [
+     "SB:37|total=1.5|Away & Over 1.5",
+     0.6018
+    ],
+    [
+     "SB:547|total=1.5|Draw/Away & Over 1.5",
+     0.7387
+    ],
+    [
+     "SB:548||2-5",
+     0.721
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Sparta Prague v Lillestroem SK",
+   "league": "Europa League",
+   "home": "Sparta Prague",
+   "away": "Lillestroem SK",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.719,
+    0.168,
+    0.112,
+    0.843,
+    0.656,
+    0.446,
+    0.534
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.712
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7493
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.7094
+    ],
+    [
+     "SB:16|hcp=-0.5|Home (-0.5)",
+     0.712
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.7623
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7746
+    ],
+    [
+     "SB:29||Yes",
+     0.5415
+    ],
+    [
+     "SB:26||Even",
+     0.5006
+    ],
+    [
+     "SB:30||Both teams",
+     0.5415
+    ],
+    [
+     "SB:31||No",
+     0.5911
+    ],
+    [
+     "SB:33||No",
+     0.6254
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.627
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7651
+    ],
+    [
+     "SB:548||2-5",
+     0.724
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Union Gilloise v Real Sociedad",
+   "league": "Europa League",
+   "home": "Union Gilloise",
+   "away": "Real Sociedad",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.379,
+    0.266,
+    0.355,
+    0.808,
+    0.59,
+    0.384,
+    0.617
+   ],
+   "pool": [
+    [
+     "SB:18|total=4|Under 4",
+     0.641
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7504
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.6322
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.809
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7988
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.8119
+    ],
+    [
+     "SB:29||Yes",
+     0.6082
+    ],
+    [
+     "SB:26||Even",
+     0.5012
+    ],
+    [
+     "SB:30||Both teams",
+     0.6082
+    ],
+    [
+     "SB:31||No",
+     0.7742
+    ],
+    [
+     "SB:32||No",
+     0.7856
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6038
+    ],
+    [
+     "SB:548||2-5",
+     0.7182
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Benfica v Celtic",
+   "league": "Europa League",
+   "home": "Benfica",
+   "away": "Celtic",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.776,
+    0.135,
+    0.088,
+    0.871,
+    0.708,
+    0.504,
+    0.534
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7683
+    ],
+    [
+     "SB:18|total=2.5|Over 2.5",
+     0.7084
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.8022
+    ],
+    [
+     "SB:16|hcp=-3.5|Away (+3.5)",
+     0.8022
+    ],
+    [
+     "SB:19|total=1.5|Over 1.5",
+     0.7696
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7872
+    ],
+    [
+     "SB:29||Yes",
+     0.5418
+    ],
+    [
+     "SB:26||Even",
+     0.5003
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5235
+    ],
+    [
+     "SB:30||Both teams",
+     0.5418
+    ],
+    [
+     "SB:31||No",
+     0.5767
+    ],
+    [
+     "SB:33||No",
+     0.6023
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.6964
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.7618
+    ],
+    [
+     "SB:548||2-5",
+     0.7158
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Bournemouth v Sturm Graz",
+   "league": "Europa League",
+   "home": "Bournemouth",
+   "away": "Sturm Graz",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.808,
+    0.12,
+    0.072,
+    0.876,
+    0.717,
+    0.517,
+    0.507
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7996
+    ],
+    [
+     "SB:18|total=2.5|Over 2.5",
+     0.7176
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.7718
+    ],
+    [
+     "SB:16|hcp=-0.5|Home (-0.5)",
+     0.7996
+    ],
+    [
+     "SB:19|total=1.5|Over 1.5",
+     0.7906
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.5439
+    ],
+    [
+     "SB:29||Yes",
+     0.5149
+    ],
+    [
+     "SB:26||Even",
+     0.5003
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5536
+    ],
+    [
+     "SB:30||Both teams",
+     0.5149
+    ],
+    [
+     "SB:31||No",
+     0.5439
+    ],
+    [
+     "SB:33||No",
+     0.5682
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.7284
+    ],
+    [
+     "SB:547|total=2.5|Home/Draw & Over 2.5",
+     0.6737
+    ],
+    [
+     "SB:548||2-5",
+     0.7131
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Celta v Juventus",
+   "league": "Europa League",
+   "home": "Celta",
+   "away": "Juventus",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.277,
+    0.297,
+    0.426,
+    0.705,
+    0.449,
+    0.253,
+    0.501
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.772
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7214
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.7943
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.7943
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.7118
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7451
+    ],
+    [
+     "SB:29||No",
+     0.5117
+    ],
+    [
+     "SB:26||Even",
+     0.5039
+    ],
+    [
+     "SB:31||No",
+     0.7451
+    ],
+    [
+     "SB:32||No",
+     0.6553
+    ],
+    [
+     "SB:34||No",
+     0.7432
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.6419
+    ],
+    [
+     "SB:548||2-6",
+     0.6861
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Ferencvarosi Budapest v Viktoria Plzen",
+   "league": "Europa League",
+   "home": "Ferencvarosi Budapest",
+   "away": "Viktoria Plzen",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.492,
+    0.249,
+    0.259,
+    0.803,
+    0.584,
+    0.377,
+    0.593
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8135
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7585
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.7315
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.7315
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7388
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.711
+    ],
+    [
+     "SB:29||Yes",
+     0.5898
+    ],
+    [
+     "SB:26||Even",
+     0.5012
+    ],
+    [
+     "SB:30||Both teams",
+     0.5898
+    ],
+    [
+     "SB:31||No",
+     0.711
+    ],
+    [
+     "SB:33||No",
+     0.7602
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6102
+    ],
+    [
+     "SB:548||2-5",
+     0.7174
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "GNK Dinamo Zagreb v RSC Anderlecht",
+   "league": "Europa League",
+   "home": "GNK Dinamo Zagreb",
+   "away": "RSC Anderlecht",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.471,
+    0.264,
+    0.265,
+    0.782,
+    0.554,
+    0.35,
+    0.577
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7807
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7499
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7466
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7466
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7672
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7014
+    ],
+    [
+     "SB:29||Yes",
+     0.5683
+    ],
+    [
+     "SB:26||Even",
+     0.5016
+    ],
+    [
+     "SB:30||Both teams",
+     0.5683
+    ],
+    [
+     "SB:31||No",
+     0.7014
+    ],
+    [
+     "SB:33||No",
+     0.7581
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6084
+    ],
+    [
+     "SB:548||2-5",
+     0.7092
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Hoffenheim v Besiktas Istanbul",
+   "league": "Europa League",
+   "home": "Hoffenheim",
+   "away": "Besiktas Istanbul",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.487,
+    0.241,
+    0.271,
+    0.831,
+    0.631,
+    0.427,
+    0.633
+   ],
+   "pool": [
+    [
+     "SB:18|total=2|Over 2",
+     0.6265
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7665
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7237
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7237
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7124
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7442
+    ],
+    [
+     "SB:29||Yes",
+     0.6292
+    ],
+    [
+     "SB:26||Even",
+     0.5008
+    ],
+    [
+     "SB:30||Both teams",
+     0.6292
+    ],
+    [
+     "SB:31||No",
+     0.7442
+    ],
+    [
+     "SB:33||No",
+     0.7837
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5286
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6388
+    ],
+    [
+     "SB:548||2-4",
+     0.6079
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Jagiellonia Bialystok v FC Ararat-Armenia",
+   "league": "Europa League",
+   "home": "Jagiellonia Bialystok",
+   "away": "FC Ararat-Armenia",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.684,
+    0.186,
+    0.13,
+    0.808,
+    0.6,
+    0.384,
+    0.509
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.6762
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7975
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.7555
+    ],
+    [
+     "SB:16|hcp=-2.5|Away (+2.5)",
+     0.7555
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.8121
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7845
+    ],
+    [
+     "SB:29||Yes",
+     0.5179
+    ],
+    [
+     "SB:26||Even",
+     0.501
+    ],
+    [
+     "SB:13||Home",
+     0.6762
+    ],
+    [
+     "SB:30||Both teams",
+     0.5179
+    ],
+    [
+     "SB:31||No",
+     0.5798
+    ],
+    [
+     "SB:33||No",
+     0.6247
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.5758
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7234
+    ],
+    [
+     "SB:548||2-5",
+     0.7211
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Marseille v Olympiacos",
+   "league": "Europa League",
+   "home": "Marseille",
+   "away": "Olympiacos",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.403,
+    0.275,
+    0.321,
+    0.771,
+    0.54,
+    0.332,
+    0.575
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.77
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7406
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7983
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7983
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.811
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7315
+    ],
+    [
+     "SB:29||Yes",
+     0.5669
+    ],
+    [
+     "SB:26||Even",
+     0.5018
+    ],
+    [
+     "SB:30||Both teams",
+     0.5669
+    ],
+    [
+     "SB:31||No",
+     0.7315
+    ],
+    [
+     "SB:32||No",
+     0.775
+    ],
+    [
+     "SB:33||No",
+     0.7919
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.6017
+    ],
+    [
+     "SB:548||2-5",
+     0.7043
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "NEC Nijmegen v PFC Levski Sofia",
+   "league": "Europa League",
+   "home": "NEC Nijmegen",
+   "away": "PFC Levski Sofia",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.5,
+    0.256,
+    0.244,
+    0.774,
+    0.543,
+    0.337,
+    0.557
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7739
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7518
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.7457
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.7457
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7582
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.6869
+    ],
+    [
+     "SB:29||Yes",
+     0.5537
+    ],
+    [
+     "SB:11||Home",
+     0.5054
+    ],
+    [
+     "SB:26||Even",
+     0.5017
+    ],
+    [
+     "SB:30||Both teams",
+     0.5537
+    ],
+    [
+     "SB:31||No",
+     0.678
+    ],
+    [
+     "SB:33||No",
+     0.737
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6313
+    ],
+    [
+     "SB:548||2-5",
+     0.7062
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Rennes v OFI Crete",
+   "league": "Europa League",
+   "home": "Rennes",
+   "away": "OFI Crete",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.789,
+    0.133,
+    0.078,
+    0.855,
+    0.679,
+    0.47,
+    0.491
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7804
+    ],
+    [
+     "SB:18|total=2.5|Over 2.5",
+     0.679
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.8021
+    ],
+    [
+     "SB:16|hcp=-3.5|Away (+3.5)",
+     0.8021
+    ],
+    [
+     "SB:19|total=1.5|Over 1.5",
+     0.7587
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.5314
+    ],
+    [
+     "SB:29||No",
+     0.5029
+    ],
+    [
+     "SB:26||Even",
+     0.5005
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5084
+    ],
+    [
+     "SB:31||No",
+     0.5314
+    ],
+    [
+     "SB:33||No",
+     0.5616
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.6976
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.752
+    ],
+    [
+     "SB:548||2-5",
+     0.7218
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "CS Universitatea Craiova v Getafe",
+   "league": "Conference League",
+   "home": "CS Universitatea Craiova",
+   "away": "Getafe",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.303,
+    0.3,
+    0.397,
+    0.663,
+    0.408,
+    0.218,
+    0.465
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.8016
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7091
+    ],
+    [
+     "SB:14|hcp=0:1|Away (0:1)",
+     0.6873
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.6873
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.7167
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7098
+    ],
+    [
+     "SB:29||No",
+     0.5381
+    ],
+    [
+     "SB:26||Even",
+     0.5051
+    ],
+    [
+     "SB:31||No",
+     0.7098
+    ],
+    [
+     "SB:32||No",
+     0.6507
+    ],
+    [
+     "SB:34||No",
+     0.7521
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.6363
+    ],
+    [
+     "SB:548||1-3",
+     0.7002
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Gent v AGF Aarhus",
+   "league": "Conference League",
+   "home": "Gent",
+   "away": "AGF Aarhus",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.572,
+    0.232,
+    0.195,
+    0.76,
+    0.531,
+    0.32,
+    0.514
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5656
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7683
+    ],
+    [
+     "SB:10||Home or Draw",
+     0.8015
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.8015
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.8015
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7242
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7458
+    ],
+    [
+     "SB:29||Yes",
+     0.5215
+    ],
+    [
+     "SB:11||Home",
+     0.5736
+    ],
+    [
+     "SB:26||Even",
+     0.5019
+    ],
+    [
+     "SB:13||Home",
+     0.5656
+    ],
+    [
+     "SB:30||Both teams",
+     0.5215
+    ],
+    [
+     "SB:31||No",
+     0.6219
+    ],
+    [
+     "SB:33||No",
+     0.6829
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6787
+    ],
+    [
+     "SB:548||2-5",
+     0.7035
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "HNK Hajduk Split v Ajax",
+   "league": "Conference League",
+   "home": "HNK Hajduk Split",
+   "away": "Ajax",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.2,
+    0.219,
+    0.581,
+    0.822,
+    0.622,
+    0.41,
+    0.587
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.5753
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7811
+    ],
+    [
+     "SB:10||Draw or Away",
+     0.7937
+    ],
+    [
+     "SB:14|hcp=0:1|Away (0:1)",
+     0.7937
+    ],
+    [
+     "SB:16|hcp=-0.5|Away (+0.5)",
+     0.7937
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.683
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.6622
+    ],
+    [
+     "SB:29||Yes",
+     0.594
+    ],
+    [
+     "SB:11||Away",
+     0.5833
+    ],
+    [
+     "SB:26||Even",
+     0.5008
+    ],
+    [
+     "SB:12||Away",
+     0.5753
+    ],
+    [
+     "SB:30||Both teams",
+     0.594
+    ],
+    [
+     "SB:32||No",
+     0.6814
+    ],
+    [
+     "SB:34||No",
+     0.7223
+    ],
+    [
+     "SB:547|total=1.5|Draw/Away & Over 1.5",
+     0.6689
+    ],
+    [
+     "SB:548||2-4",
+     0.6095
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "KF Egnatia Rrogozhine v FC Midtjylland",
+   "league": "Conference League",
+   "home": "KF Egnatia Rrogozhine",
+   "away": "FC Midtjylland",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.165,
+    0.222,
+    0.613,
+    0.776,
+    0.551,
+    0.337,
+    0.512
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.6069
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7819
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7782
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.6291
+    ],
+    [
+     "SB:16|hcp=2|Home (+2.0)",
+     0.6291
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.7642
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.6887
+    ],
+    [
+     "SB:29||Yes",
+     0.5173
+    ],
+    [
+     "SB:11||Away",
+     0.6149
+    ],
+    [
+     "SB:26||Even",
+     0.5016
+    ],
+    [
+     "SB:12||Away",
+     0.6069
+    ],
+    [
+     "SB:30||Both teams",
+     0.5173
+    ],
+    [
+     "SB:32||No",
+     0.6025
+    ],
+    [
+     "SB:34||No",
+     0.6588
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.6892
+    ],
+    [
+     "SB:548||2-5",
+     0.7098
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Kuopion Palloseura v Trabzonspor",
+   "league": "Conference League",
+   "home": "Kuopion Palloseura",
+   "away": "Trabzonspor",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.156,
+    0.207,
+    0.637,
+    0.79,
+    0.571,
+    0.356,
+    0.514
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.6298
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8203
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7883
+    ],
+    [
+     "SB:14|hcp=3:0|Home (3:0)",
+     0.7976
+    ],
+    [
+     "SB:16|hcp=2.5|Home (+2.5)",
+     0.7976
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.7672
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.6616
+    ],
+    [
+     "SB:29||Yes",
+     0.5225
+    ],
+    [
+     "SB:11||Away",
+     0.6378
+    ],
+    [
+     "SB:26||Even",
+     0.5013
+    ],
+    [
+     "SB:12||Away",
+     0.6298
+    ],
+    [
+     "SB:30||Both teams",
+     0.5225
+    ],
+    [
+     "SB:32||No",
+     0.5992
+    ],
+    [
+     "SB:34||No",
+     0.6505
+    ],
+    [
+     "SB:37|total=1.5|Away & Over 1.5",
+     0.5243
+    ],
+    [
+     "SB:547|total=4.5|Draw/Away & Under 4.5",
+     0.6864
+    ],
+    [
+     "SB:548||2-5",
+     0.7154
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Lugano v Crvena Zvezda",
+   "league": "Conference League",
+   "home": "Lugano",
+   "away": "Crvena Zvezda",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.388,
+    0.264,
+    0.348,
+    0.79,
+    0.564,
+    0.356,
+    0.595
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.8286
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7454
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.6429
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.8079
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.8079
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7572
+    ],
+    [
+     "SB:29||Yes",
+     0.5889
+    ],
+    [
+     "SB:26||Even",
+     0.5015
+    ],
+    [
+     "SB:30||Both teams",
+     0.5889
+    ],
+    [
+     "SB:31||No",
+     0.7572
+    ],
+    [
+     "SB:32||No",
+     0.7777
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.5906
+    ],
+    [
+     "SB:548||2-5",
+     0.7125
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Mjallby AIF v Inter Club de Escaldes",
+   "league": "Conference League",
+   "home": "Mjallby AIF",
+   "away": "Inter Club de Escaldes",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.719,
+    0.172,
+    0.109,
+    0.8,
+    0.59,
+    0.377,
+    0.475
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.711
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.81
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.7286
+    ],
+    [
+     "SB:16|hcp=-2.5|Away (+2.5)",
+     0.7286
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.7999
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.5346
+    ],
+    [
+     "SB:29||No",
+     0.5191
+    ],
+    [
+     "SB:26||Even",
+     0.5011
+    ],
+    [
+     "SB:31||No",
+     0.5346
+    ],
+    [
+     "SB:33||No",
+     0.5814
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.6036
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7378
+    ],
+    [
+     "SB:548||2-5",
+     0.7197
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Panathinaikos v FK Borac Banja Luka",
+   "league": "Conference League",
+   "home": "Panathinaikos",
+   "away": "FK Borac Banja Luka",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.797,
+    0.133,
+    0.07,
+    0.825,
+    0.63,
+    0.411,
+    0.432
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7886
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.772
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.639
+    ],
+    [
+     "SB:16|hcp=-3.5|Away (+3.5)",
+     0.8112
+    ],
+    [
+     "SB:19|total=1.5|Over 1.5",
+     0.735
+    ],
+    [
+     "SB:20|total=0.5|Under 0.5",
+     0.5296
+    ],
+    [
+     "SB:29||No",
+     0.5641
+    ],
+    [
+     "SB:26||Even",
+     0.5008
+    ],
+    [
+     "SB:24|variant=sr:exact_goals:3+|0",
+     0.5296
+    ],
+    [
+     "SB:31||Yes",
+     0.5296
+    ],
+    [
+     "SB:33||No",
+     0.5093
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.6871
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7919
+    ],
+    [
+     "SB:546||Home/Draw & No",
+     0.5296
+    ],
+    [
+     "SB:548||2-4",
+     0.607
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "PFC CSKA Sofia v Monaco",
+   "league": "Conference League",
+   "home": "PFC CSKA Sofia",
+   "away": "Monaco",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.158,
+    0.206,
+    0.636,
+    0.8,
+    0.59,
+    0.377,
+    0.534
+   ],
+   "pool": [
+    [
+     "SB:1||Away",
+     0.629
+    ],
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.809
+    ],
+    [
+     "SB:10||Home or Away",
+     0.791
+    ],
+    [
+     "SB:14|hcp=3:0|Home (3:0)",
+     0.7938
+    ],
+    [
+     "SB:16|hcp=2.5|Home (+2.5)",
+     0.7938
+    ],
+    [
+     "SB:19|total=1.5|Under 1.5",
+     0.7521
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.6496
+    ],
+    [
+     "SB:29||Yes",
+     0.5401
+    ],
+    [
+     "SB:11||Away",
+     0.637
+    ],
+    [
+     "SB:26||Even",
+     0.5011
+    ],
+    [
+     "SB:12||Away",
+     0.629
+    ],
+    [
+     "SB:30||Both teams",
+     0.5401
+    ],
+    [
+     "SB:32||No",
+     0.6154
+    ],
+    [
+     "SB:34||No",
+     0.6625
+    ],
+    [
+     "SB:37|total=1.5|Away & Over 1.5",
+     0.5301
+    ],
+    [
+     "SB:547|total=1.5|Draw/Away & Over 1.5",
+     0.692
+    ],
+    [
+     "SB:548||2-5",
+     0.7194
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Riga FC v FC Kairat Almaty",
+   "league": "Conference League",
+   "home": "Riga FC",
+   "away": "FC Kairat Almaty",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.483,
+    0.275,
+    0.242,
+    0.725,
+    0.472,
+    0.274,
+    0.504
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.7497
+    ],
+    [
+     "SB:10||Home or Draw",
+     0.747
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7511
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7511
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.8036
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7299
+    ],
+    [
+     "SB:29||No",
+     0.5015
+    ],
+    [
+     "SB:26||Even",
+     0.5031
+    ],
+    [
+     "SB:31||No",
+     0.6379
+    ],
+    [
+     "SB:32||No",
+     0.7814
+    ],
+    [
+     "SB:33||No",
+     0.7171
+    ],
+    [
+     "SB:547|total=4.5|Home/Draw & Under 4.5",
+     0.6645
+    ],
+    [
+     "SB:548||2-6",
+     0.7049
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Atalanta v Pafos FC",
+   "league": "Conference League",
+   "home": "Atalanta",
+   "away": "Pafos FC",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.712,
+    0.172,
+    0.116,
+    0.828,
+    0.631,
+    0.419,
+    0.517
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7045
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7714
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.7231
+    ],
+    [
+     "SB:16|hcp=-2.5|Away (+2.5)",
+     0.7231
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.7809
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7864
+    ],
+    [
+     "SB:29||Yes",
+     0.5247
+    ],
+    [
+     "SB:26||Even",
+     0.5008
+    ],
+    [
+     "SB:30||Both teams",
+     0.5247
+    ],
+    [
+     "SB:31||No",
+     0.5777
+    ],
+    [
+     "SB:33||No",
+     0.6164
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.612
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7515
+    ],
+    [
+     "SB:548||2-4",
+     0.6068
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Copenhagen v Braga",
+   "league": "Conference League",
+   "home": "Copenhagen",
+   "away": "Braga",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.386,
+    0.294,
+    0.32,
+    0.705,
+    0.449,
+    0.253,
+    0.507
+   ],
+   "pool": [
+    [
+     "SB:18|total=3.5|Under 3.5",
+     0.7702
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7189
+    ],
+    [
+     "SB:14|hcp=1:0|Home (1:0)",
+     0.6686
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.6686
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7239
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.6845
+    ],
+    [
+     "SB:29||No",
+     0.5044
+    ],
+    [
+     "SB:26||Even",
+     0.5038
+    ],
+    [
+     "SB:31||No",
+     0.6845
+    ],
+    [
+     "SB:32||No",
+     0.7239
+    ],
+    [
+     "SB:33||No",
+     0.7716
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.6265
+    ],
+    [
+     "SB:548||2-6",
+     0.6877
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "FC Twente Enschede v FC Thun",
+   "league": "Conference League",
+   "home": "FC Twente Enschede",
+   "away": "FC Thun",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.791,
+    0.124,
+    0.085,
+    0.893,
+    0.748,
+    0.556,
+    0.566
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7827
+    ],
+    [
+     "SB:18|total=5.5|Under 5.5",
+     0.7992
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.7759
+    ],
+    [
+     "SB:16|hcp=-0.5|Home (-0.5)",
+     0.7827
+    ],
+    [
+     "SB:19|total=4.5|Under 4.5",
+     0.8162
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7672
+    ],
+    [
+     "SB:29||Yes",
+     0.5693
+    ],
+    [
+     "SB:26||Even",
+     0.5002
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5678
+    ],
+    [
+     "SB:30||Both teams",
+     0.5693
+    ],
+    [
+     "SB:31||No",
+     0.5993
+    ],
+    [
+     "SB:33||No",
+     0.6193
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.7227
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5144
+    ],
+    [
+     "SB:547|total=2.5|Home/Draw & Over 2.5",
+     0.692
+    ],
+    [
+     "SB:546||Home/Draw & Yes",
+     0.5161
+    ],
+    [
+     "SB:548||2-5",
+     0.7008
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Freiburg v FK Jablonec",
+   "league": "Conference League",
+   "home": "Freiburg",
+   "away": "FK Jablonec",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.781,
+    0.141,
+    0.079,
+    0.831,
+    0.639,
+    0.426,
+    0.456
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7724
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7642
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.654
+    ],
+    [
+     "SB:16|hcp=-0.5|Home (-0.5)",
+     0.7724
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.7376
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.5027
+    ],
+    [
+     "SB:29||No",
+     0.5349
+    ],
+    [
+     "SB:26||Even",
+     0.5007
+    ],
+    [
+     "SB:31||No",
+     0.5027
+    ],
+    [
+     "SB:33||No",
+     0.5399
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.6759
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7887
+    ],
+    [
+     "SB:548||2-4",
+     0.6046
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Heart of Midlothian FC v Nordsjaelland",
+   "league": "Conference League",
+   "home": "Heart of Midlothian FC",
+   "away": "Nordsjaelland",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.329,
+    0.256,
+    0.415,
+    0.826,
+    0.622,
+    0.418,
+    0.64
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7847
+    ],
+    [
+     "SB:10||Home or Away",
+     0.758
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.7795
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.7795
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.8114
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.7606
+    ],
+    [
+     "SB:29||Yes",
+     0.6313
+    ],
+    [
+     "SB:26||Even",
+     0.5009
+    ],
+    [
+     "SB:30||Both teams",
+     0.6313
+    ],
+    [
+     "SB:32||No",
+     0.7746
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5265
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6255
+    ],
+    [
+     "SB:548||2-4",
+     0.6105
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "SK Brann v Lincoln Red Imps",
+   "league": "Conference League",
+   "home": "SK Brann",
+   "away": "Lincoln Red Imps",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.837,
+    0.108,
+    0.056,
+    0.865,
+    0.699,
+    0.488,
+    0.443
+   ],
+   "pool": [
+    [
+     "SB:18|total=5|Under 5",
+     0.7045
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.7502
+    ],
+    [
+     "SB:16|hcp=-3.5|Away (+3.5)",
+     0.7502
+    ],
+    [
+     "SB:19|total=1.5|Over 1.5",
+     0.7951
+    ],
+    [
+     "SB:20|total=0.5|Under 0.5",
+     0.5226
+    ],
+    [
+     "SB:29||No",
+     0.5473
+    ],
+    [
+     "SB:26||Even",
+     0.5004
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5601
+    ],
+    [
+     "SB:24|variant=sr:exact_goals:3+|0",
+     0.5226
+    ],
+    [
+     "SB:31||Yes",
+     0.5226
+    ],
+    [
+     "SB:33||No",
+     0.5044
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.7486
+    ],
+    [
+     "SB:547|total=2.5|Home/Draw & Over 2.5",
+     0.669
+    ],
+    [
+     "SB:546||Home/Draw & No",
+     0.5226
+    ],
+    [
+     "SB:548||2-5",
+     0.7182
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "St. Truidense VV v FC Iberia 1999",
+   "league": "Conference League",
+   "home": "St. Truidense VV",
+   "away": "FC Iberia 1999",
+   "kickoff": "2026-10-15",
+   "src": "market",
+   "p": [
+    0.772,
+    0.143,
+    0.085,
+    0.843,
+    0.657,
+    0.447,
+    0.487
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7639
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7469
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.6572
+    ],
+    [
+     "SB:16|hcp=-0.5|Home (-0.5)",
+     0.7639
+    ],
+    [
+     "SB:19|total=1.5|Over 1.5",
+     0.7375
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.5324
+    ],
+    [
+     "SB:29||No",
+     0.5061
+    ],
+    [
+     "SB:26||Even",
+     0.5006
+    ],
+    [
+     "SB:31||No",
+     0.5324
+    ],
+    [
+     "SB:33||No",
+     0.5663
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.675
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.7337
+    ],
+    [
+     "SB:548||2-5",
+     0.7239
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Mansfield v Oxford United",
+   "league": "League One",
+   "home": "Mansfield",
+   "away": "Oxford United",
+   "kickoff": "2026-10-15",
+   "src": "model",
+   "p": [
+    0.339,
+    0.248,
+    0.412,
+    0.792,
+    0.562,
+    0.338,
+    0.592
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7821
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7435
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.8041
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.8041
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.8098
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7465
+    ],
+    [
+     "SB:29||Yes",
+     0.5776
+    ],
+    [
+     "SB:26||Even",
+     0.5023
+    ],
+    [
+     "SB:30||Both teams",
+     0.5789
+    ],
+    [
+     "SB:31||No",
+     0.7465
+    ],
+    [
+     "SB:32||No",
+     0.7754
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.5952
+    ],
+    [
+     "SB:548||1-3",
+     0.6188
+    ],
+    [
+     "SB:63||Home or Draw",
+     0.7202
+    ]
+   ],
+   "ft": null
+  }
+ ],
+ "study": [],
+ "btts": [],
+ "combined": [
+  {
+   "name": "ACCAS MEGA",
+   "of": "accas",
+   "code": "Q5VQ4J",
+   "result": null
+  },
+  {
+   "name": "ALT MEGA",
+   "of": "alts",
+   "code": "VLVW54",
+   "result": null
+  }
+ ]
+}

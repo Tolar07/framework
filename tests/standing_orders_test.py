@@ -596,4 +596,24 @@ _wf37 = (ROOT / ".github" / "workflows" / "daily.yml").read_text(encoding="utf-8
 assert "monitor/sharp_list.py --grade" in _wf37 and "data/sharp" in _wf37, \
     "Order 37 (amended): the list runs and is graded with the board, every day"
 
+# 44. Matchbook closing-price learning (2026-10-15)
+import json as _j44, tempfile as _t44  # noqa: E401
+from engine import learning as _l44
+assert (_l44.MB_MIN_N, _l44.MB_MAX_SHIFT, _l44.MB_K) == (30, 0.05, 1.0), "Order 44: 30 bets, ±5 pts, 1 pt per 1% CLV"
+with _t44.TemporaryDirectory() as _d44:
+    _p44 = Path(_d44) / "s.json"
+    _p44.write_text(_j44.dumps({"groups": {
+        "framework family: Over/Under": {"clv_n": 40, "mean_clv": -0.20},
+        "framework family: Double chance": {"clv_n": 40, "mean_clv": 0.02},
+        "framework family: BTTS": {"clv_n": 29, "mean_clv": 0.10},
+        "family: 1X2": {"clv_n": 99, "mean_clv": 0.10}}}), encoding="utf-8")
+    _m44 = _l44.matchbook_shifts(_p44)
+assert _m44["Over/Under"]["shift"] == -0.05, "Order 44: capped at -5 pts"
+assert _m44["Double chance"]["shift"] == 0.02, "Order 44: +2% CLV lifts the family 2 pts"
+assert _m44["BTTS"]["shift"] == 0.0, "Order 44: nothing moves before 30 bets"
+assert "1X2" not in _m44, "Order 44: only the framework's own bets count, not the agent's oracle"
+assert _l44.shift({"matchbook": _m44}, "SB:18|total=2.5|Under 2.5", "?") == -0.05, "Order 44: applied to the pick's family"
+assert _l44.shift({"family": {"Over/Under": {"shift": -0.08}}, "matchbook": _m44},
+                  "SB:18|total=2.5|Under 2.5", "?") == -0.10, "Order 44: inside the overall ±10 pt cap"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

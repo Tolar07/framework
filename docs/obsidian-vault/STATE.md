@@ -31,6 +31,14 @@ every directive after 31 Aug is a standing order.
 
 **2026-10-12 — board focus.** Architect: "tomorrow's board should be a Champions League alone ... any other fixture or competition outside Champions League should be studied ... paper bet". `config/focus.json` names a day's focus competitions; `engine/focus.py` keeps every other deploy pick off the board as a STUDY pick (ledger `study`, graded, not counted as a board single). Every fixture is still rated and recorded under `rated`. Set for 2026-10-13 only. No rule ID assigned yet.
 
+**2026-10-15 — live Matchbook agent linked to the framework.** The Architect amended the
+capital bright line for one agent OUTSIDE this repo (`Tolar07/matchbook-agent`, see MAP.md §9);
+this repo still never stakes. The agent bets this repo's picks and rated markets on Matchbook
+every 15 min; `matchbook_ledger.yml` reads its graded ledger back daily into
+`data/matchbook/summary.json` (anonymised: won vs expected, CLV vs Matchbook's close), shown in
+the weekly review. ORDER 44 (same day) lets it steer selection: each market family's chances shift by
+its CLV against Matchbook's close (±5 pts, after 30+ bets), inside the existing learning cap.
+
 **2026-10-15 — board save fixed.** The 15 Oct evening board's commit (`picks_2026-10-15.json`,
 codes already sent on Telegram) was DROPPED: the NBA line watch appended to the same
 `output/nba_markets` file and the persist rebase gave up. Now `output/nba_markets/*.jsonl`

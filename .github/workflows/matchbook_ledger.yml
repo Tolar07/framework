@@ -8,8 +8,8 @@ name: OLP XDV Matchbook evidence
 # repo with a read-only deploy key (secret MATCHBOOK_LEDGER_KEY) and writes an
 # ANONYMISED summary to data/matchbook/summary.json — counts, won vs expected,
 # CLV against Matchbook's closing price. THIS REPO IS PUBLIC: no stake, no £,
-# no id ever lands here (tests/matchbook_ledger_test.py). A study, never a
-# selector: nothing here changes a pick (monitor/matchbook_ledger.py).
+# no id ever lands here (tests/matchbook_ledger_test.py). ORDER 44: engine/learning.py
+# shifts each market family by its CLV against Matchbook's close (±5 pts, 30+ bets).
 #
 # Daily, early, before the morning board. Off the hour because GitHub drops :00 ticks.
 on:

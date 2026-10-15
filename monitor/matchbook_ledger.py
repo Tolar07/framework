@@ -17,10 +17,12 @@ THIS REPO IS PUBLIC. Only anonymised counts and rates are written
 (data/matchbook/summary.json): no stake, no £ figure, no balance, no offer or
 account id. The raw ledger never touches this repo.
 
-A STUDY, NEVER A SELECTOR: nothing here changes a pick. Letting it steer
-selection is a new rule and needs an ID from the Architect (CLAUDE.md, RULE
-CHANGES). The bot already acts on it itself: it pauses any source x market
-group whose bets keep losing to the close.
+ORDER 44 (Architect 2026-10-15) makes it steer selection: engine/learning.py
+reads the "framework family: ..." groups (the framework's own bets only, not
+the agent's oracle) and shifts each market family's chances by its mean CLV
+against Matchbook's close, capped at 5 points, once it has 30 bets with a
+close. The bot also acts on it itself: it pauses any source x market group
+whose bets keep losing to the close.
 
     python monitor/matchbook_ledger.py <ledger.jsonl> <out summary.json>
 """
@@ -57,7 +59,10 @@ def summarise(rows: list[dict]) -> dict:
         if r.get("status") in (None, "VOID"):
             continue
         fam = FAMILY.get(r.get("market_name") or "", r.get("market_name") or "PENDING")
-        for key in (f"family: {fam}", f"source: {_source(r)}", "all"):
+        keys = [f"family: {fam}", f"source: {_source(r)}", "all"]
+        if r.get("source") == "framework":
+            keys.append(f"framework family: {fam}")      # order 44 reads these
+        for key in keys:
             g = groups.setdefault(key, {"bets": 0, "settled": 0, "won": 0, "lost": 0,
                                         "clv_n": 0, "clv_sum": 0.0, "chance_sum": 0.0})
             g["bets"] += 1

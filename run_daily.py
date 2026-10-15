@@ -1529,6 +1529,10 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     # offers, saved beside the board and sent as its OWN message, only to the
     # Architect's own chat — never to a subscriber.
     # Best-effort like the heartbeat: it never fails the run.
+    # NOT SENT since 2026-10-15 (Architect: "Matchbook should replace bet365 ... bet365
+    # needs me to do everything manually and Matchbook is doing everything
+    # automatically"): the Matchbook bot sends its own Matchbook board instead. The
+    # file is still saved for the record and the supervisor; BET365_SEND=1 sends again.
     try:
         from output import bet365_board
         b365_text = bet365_board.render(shown, board_date=target, run_id=run_id)
@@ -1543,6 +1547,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                       or os.environ.get("TELEGRAM_CHAT_ID", "").strip())
         if b365_gate:
             _mark(runlog, f"bet365 board: {b365_gate}")
+        elif os.environ.get("BET365_SEND", "").strip() != "1":
+            _mark(runlog, "bet365 board saved, not sent: replaced by the Matchbook board (order 29)")
         elif not owner_chat:
             _mark(runlog, "bet365 board saved, NOT sent: no Architect chat configured")
         elif deliver_now and frozen is None and bet365_board.picks(shown)[0]:

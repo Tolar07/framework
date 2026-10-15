@@ -92,6 +92,12 @@ def review(days: int = 7, today: str | None = None, picks: Path = PICKS) -> str:
         L.append(learning.summary(learning.learn(picks, today=today)))
     except Exception as e:  # noqa: BLE001
         L.append(f"Learning: unavailable ({e})")
+    # The live Matchbook agent's evidence (matchbook_ledger.yml; anonymised)
+    try:
+        from monitor import matchbook_ledger
+        L.extend(matchbook_ledger.lines())
+    except Exception as e:  # noqa: BLE001
+        L.append(f"Matchbook (live agent): unavailable ({e})")
     # The losing-market watch, its proposals and your /note corrections
     # (order 39, engine/loss_watch; memory/proposals.json, memory/corrections.csv)
     try:

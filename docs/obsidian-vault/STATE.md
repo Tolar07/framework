@@ -31,6 +31,14 @@ every directive after 31 Aug is a standing order.
 
 **2026-10-12 — board focus.** Architect: "tomorrow's board should be a Champions League alone ... any other fixture or competition outside Champions League should be studied ... paper bet". `config/focus.json` names a day's focus competitions; `engine/focus.py` keeps every other deploy pick off the board as a STUDY pick (ledger `study`, graded, not counted as a board single). Every fixture is still rated and recorded under `rated`. Set for 2026-10-13 only. No rule ID assigned yet.
 
+**2026-10-15 — board save fixed.** The 15 Oct evening board's commit (`picks_2026-10-15.json`,
+codes already sent on Telegram) was DROPPED: the NBA line watch appended to the same
+`output/nba_markets` file and the persist rebase gave up. Now `output/nba_markets/*.jsonl`
+merges by union, and daily.yml's persist retries rebase+push 4 times (`--autostash`; from the
+3rd try a file both sides changed keeps the run's copy). `tests/persist_retry_test.py` runs
+the real step against the 15 Oct conflict. The 15 Oct evening picks file itself is not
+recoverable (no artifact); the codes are in the Architect's Telegram.
+
 ## Open items (2026-10-03)
 
 | # | Item | Status |

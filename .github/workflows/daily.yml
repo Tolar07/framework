@@ -239,13 +239,32 @@ jobs:
           git add data/sharp backtest/PRICE_BAND_STUDY.md 2>/dev/null || true
           git diff --staged --quiet || git commit -m "daily board $(date -u +%Y-%m-%d) [skip ci]"
           # A queued run checks out an older SHA; rebase onto latest main first.
-          # A conflict used to be silent and dropped this commit; say so instead
-          # (the sent marker is already on main — see the run step).
-          if ! git pull --rebase -q origin main; then
-            git rebase --abort || true
-            echo "::warning::persist: main moved and a file conflicted — this run's board/picks/CLV commit was NOT saved"
+          # 2026-10-15 (Architect: "fix the conflict ... make sure everything is
+          # saved ... so you don't lose anything"): the evening board's commit
+          # (picks_2026-10-15.json with the codes already sent) was DROPPED
+          # because the NBA line watch appended to the same nba_markets file.
+          # Now: append-only logs merge by union (.gitattributes); the rebase +
+          # push is retried 4 times (main moves while the loops save); from the
+          # 3rd try a file both sides changed keeps THIS RUN's copy (-X theirs:
+          # in a rebase "theirs" is the commit being replayed) — the board and
+          # its codes cannot be rebuilt, a loop rewrites its own file next round.
+          saved=no
+          for attempt in 1 2 3 4; do
+            X=""; [ "$attempt" -ge 3 ] && X="-X theirs"
+            if git pull --rebase --autostash -q $X origin main; then
+              if git push -q origin HEAD:main; then saved=yes; break; fi
+            else
+              git rebase --abort || true
+            fi
+            sleep $((attempt * 5))
+          done
+          if [ "$saved" = yes ]; then
+            echo "persist: board/picks/CLV saved to main (try $attempt)"
+            [ "$attempt" -ge 3 ] && echo "::warning::persist: saved on try $attempt, keeping this run's copy of any file both sides changed"
+          else
+            # not exit 1: the steps below start the news / live / commands loops
+            echo "::error::persist: board/picks/CLV NOT saved after 4 tries — the codes sent are only in Telegram"
           fi
-          git push || echo "nothing to push"
 
       # Start the NBA line watch (nba_watch.yml -> monitor/nba_watch.py) after the
       # evening NBA board: every 15 min while a game tips within 6 h. Its own

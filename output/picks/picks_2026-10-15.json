@@ -48,7 +48,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": 0.0
   },
   {
    "fixture": "KKS Lech Poznan v Bayer Leverkusen",
@@ -96,7 +98,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -1.7
   },
   {
    "fixture": "Lyon v Crystal Palace",
@@ -144,7 +148,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": 0.0
   },
   {
    "fixture": "NK Celje v AC Omonia Nicosia",
@@ -192,7 +198,9 @@
    "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.33,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Salzburg v AC Milan",
@@ -240,7 +248,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": -0.8
   },
   {
    "fixture": "SCU Torreense v Sunderland AFC",
@@ -288,7 +298,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Sparta Prague v Lillestroem SK",
@@ -330,7 +342,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -3.3
   },
   {
    "fixture": "Union Gilloise v Real Sociedad",
@@ -378,7 +392,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Benfica v Celtic",
@@ -900,7 +916,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -2.4
   },
   {
    "fixture": "Gent v AGF Aarhus",
@@ -948,7 +966,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.0
   },
   {
    "fixture": "HNK Hajduk Split v Ajax",
@@ -996,7 +1016,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "KF Egnatia Rrogozhine v FC Midtjylland",
@@ -1044,7 +1066,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Kuopion Palloseura v Trabzonspor",
@@ -1086,7 +1110,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Lugano v Crvena Zvezda",
@@ -1134,7 +1160,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 2.5
   },
   {
    "fixture": "Mjallby AIF v Inter Club de Escaldes",
@@ -1182,7 +1210,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 2.5
   },
   {
    "fixture": "Panathinaikos v FK Borac Banja Luka",
@@ -1230,7 +1260,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "PFC CSKA Sofia v Monaco",
@@ -1278,7 +1310,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -2.5
   },
   {
    "fixture": "Riga FC v FC Kairat Almaty",
@@ -1320,7 +1354,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Atalanta v Pafos FC",

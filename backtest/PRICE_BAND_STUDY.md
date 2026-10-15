@@ -1,6 +1,6 @@
 # PRICE BAND STUDY — the board's record by the price it took
 
-Generated 2026-10-15 05:56Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
+Generated 2026-10-15 10:19Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
 
 **All 332 graded board singles**: stated 78.0%, landed 78.0% (calibration error +0.0 points) at an average price of 1.242, which needs 80.5% to break even. Return -3.4% ± 2.8.
 

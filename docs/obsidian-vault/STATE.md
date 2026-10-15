@@ -36,7 +36,8 @@ capital bright line for one agent OUTSIDE this repo (`Tolar07/matchbook-agent`, 
 this repo still never stakes. The agent bets this repo's picks and rated markets on Matchbook
 every 15 min; `matchbook_ledger.yml` reads its graded ledger back daily into
 `data/matchbook/summary.json` (anonymised: won vs expected, CLV vs Matchbook's close), shown in
-the weekly review. A study, not a selector — steering selection with it needs a rule ID.
+the weekly review. ORDER 44 (same day) lets it steer selection: each market family's chances shift by
+its CLV against Matchbook's close (±5 pts, after 30+ bets), inside the existing learning cap.
 
 ## Open items (2026-10-03)
 

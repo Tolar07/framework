@@ -39,6 +39,14 @@ every 15 min; `matchbook_ledger.yml` reads its graded ledger back daily into
 the weekly review. ORDER 44 (same day) lets it steer selection: each market family's chances shift by
 its CLV against Matchbook's close (±5 pts, after 30+ bets), inside the existing learning cap.
 
+**2026-10-15 — board save fixed.** The 15 Oct evening board's commit (`picks_2026-10-15.json`,
+codes already sent on Telegram) was DROPPED: the NBA line watch appended to the same
+`output/nba_markets` file and the persist rebase gave up. Now `output/nba_markets/*.jsonl`
+merges by union, and daily.yml's persist retries rebase+push 4 times (`--autostash`; from the
+3rd try a file both sides changed keeps the run's copy). `tests/persist_retry_test.py` runs
+the real step against the 15 Oct conflict. The 15 Oct evening picks file itself is not
+recoverable (no artifact); the codes are in the Architect's Telegram.
+
 ## Open items (2026-10-03)
 
 | # | Item | Status |

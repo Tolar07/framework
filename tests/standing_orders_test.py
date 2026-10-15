@@ -247,6 +247,8 @@ assert "TELEGRAM_OWNER_CHAT_ID" in wf, "Order 29: the owner chat reaches the dai
 _b365_block = _rd_src.split("# bet365 BOARD (standing order 29)")[1].split("# HEARTBEAT")[0]
 assert "chat_id=owner_chat" in _b365_block and 'environ.get("TELEGRAM_SUBSCRIBER' not in _b365_block, \
     "Order 29: the bet365 board goes to the Architect's own chat only, never a subscriber"
+assert 'environ.get("BET365_SEND", "").strip() != "1"' in _b365_block, \
+    "Order 29 (2026-10-15): the bet365 board is saved but not sent unless BET365_SEND=1 (Matchbook replaced it)"
 
 # 33. Subscribers get the full board and nothing else (Architect 2026-10-13; codes only 2026-10-09)
 from output import notify as _nt33

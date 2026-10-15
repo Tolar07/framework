@@ -260,7 +260,11 @@ jobs:
           done
           if [ "$saved" = yes ]; then
             echo "persist: board/picks/CLV saved to main (try $attempt)"
-            [ "$attempt" -ge 3 ] && echo "::warning::persist: saved on try $attempt, keeping this run's copy of any file both sides changed"
+            # if/fi, not `[ ] && echo`: as the step's last command a false test
+            # failed the step on a try-1 save and skipped every loop below (2026-10-15).
+            if [ "$attempt" -ge 3 ]; then
+              echo "::warning::persist: saved on try $attempt, keeping this run's copy of any file both sides changed"
+            fi
           else
             # not exit 1: the steps below start the news / live / commands loops
             echo "::error::persist: board/picks/CLV NOT saved after 4 tries — the codes sent are only in Telegram"

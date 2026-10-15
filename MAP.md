@@ -26,6 +26,7 @@ Everything live runs in GitHub Actions on `main`. Times UTC (Lagos = UTC+1).
 | `study_send.yml` | manual only (from 2026-10-13) | `scripts/send_study.py <data/study/…/*.txt>` — sends one saved study file to the Architect's own chat (`TELEGRAM_OWNER_CHAT_ID`, else `TELEGRAM_CHAT_ID`), never to subscribers | nothing |
 | `commands.yml` | one job looping every 5 min; started by `daily.yml` after each board, hourly cron as a backup starter; hands off before 6 h | `monitor/commands_loop.py` — answers the Architect's Telegram commands. Was hourly and GitHub delivered 6 runs in 35 h (measured 14 Oct), so /board could wait six hours | `clv/clv_log.json`, `memory/` — committed after any round that answered something |
 | `profiles.yml` | Mondays 04:41 + manual | `data/team_profiles.py` (every team of 29 FotMob competitions) and `data/league_strength.py` (cross-league ratings). Both were "by hand" until 2026-10-14 while ORDER 43 read them on every board | everything under `data/teams/` (the profile snapshot, the team cache, the league ratings and the club-to-league map) — committed weekly; a week that rebuilds nothing prints a `::warning::` |
+| `matchbook_ledger.yml` | daily 05:23 + manual | `monitor/matchbook_ledger.py` — reads the live Matchbook agent's graded ledger from the private repo `Tolar07/matchbook-agent` (read-only deploy key) and writes an ANONYMISED summary: bets, won vs expected, CLV against Matchbook's closing price, per market family and source. A study, never a selector; shown in the weekly review | `data/matchbook/summary.json` — committed when it changes; counts and rates only, never a stake, £ or id (this repo is public) |
 | `live.yml` | one job per matchday, started by `daily.yml` after each board; backup crons 11:09/14:09/17:09/19:09; hands off before 6 h | `monitor/live_loop.py` — the matchday minute by minute (shares `live_tracker.round_once`): every board fixture's FotMob score, xG, shots on target and reds beside SportyBet's live 1X2 / goal-line / BTTS prices. One Telegram to the ARCHITECT ONLY per round with an event; a quiet round is silent; a full-time summary at the end | `data/study/<date>/live/<fotmob id>.jsonl`, committed every ~20 min |
 | `universe.yml` | every 3 h at :20, and started by every `daily.yml` board run (missed runs just delay grading) | `monitor/universe_sweep.py` — every SportyBet football + basketball game, covered or not: first/last price, graded from Flashscore; once a day the study, plus FotMob post-match stats of the last 3 days' rated fixtures (`data/match_stats.py`); before kick-off each football game gets both teams' FotMob profile (`data/team_profiles.py`) | `data/universe/graded_<month>.jsonl`, `backtest/UNIVERSE_STUDY.md`, `data/match_stats/`, `backtest/MATCH_STATS_STUDY.md`, `data/teams/` (team cache), `backtest/PROFILE_STUDY.md` |
 | `commands.yml` | hourly at :05 | `output/telegram_commands.py` | `clv/clv_log.json`, `memory/` |
@@ -78,6 +79,7 @@ Repository secrets. Values are never in the repo.
 | `TELEGRAM_OWNER_CHAT_ID` | `run_daily.py`, notify | optional separate chat for the bet365 board |
 | `TELEGRAM_SUBSCRIBER_CHAT_IDS` | `output/notify.py` | subscribers (order 33) |
 | `ODDS_API_KEY` | `pipeline/odds.py` | The Odds API, last-resort prices — **rotate, see §10** |
+| `MATCHBOOK_LEDGER_KEY` | `matchbook_ledger.yml` | private half of a READ-ONLY deploy key on `Tolar07/matchbook-agent` (fetches its `ledger/`); added 2026-10-15 |
 | `THESPORTSDB_KEY` | `data/thesportsdb_fixtures.py` (falls back to the public key) | fixtures |
 | `API_FOOTBALL_KEY` | `data/fixtures_source.py`, `data/api_football_results.py` | fixtures fallback; free plan, ends 2026-10-17 |
 | `ANTHROPIC_API_KEY` / `CLAUDE_CODE_OAUTH_TOKEN` | `claude-review.yml` | PR review — not set |
@@ -109,6 +111,7 @@ laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 | Path | Written by | Read by | In git? |
 |---|---|---|---|
 | `clv/clv_log.json` | `run_daily.py`, `/log` | run_daily, /status, `scripts/olp_query.py` | yes |
+| `data/matchbook/summary.json` | `monitor/matchbook_ledger.py` (`matchbook_ledger.yml`) | `scripts/weekly_review.py` | yes (anonymised) |
 | `output/boards/board_<date>.txt`, `bet365_<date>.txt` | `run_daily.py` | commands, supervisor, olp_query | yes |
 | `output/boards/sent_<date>_<slot>` | `daily.yml` | the duplicate guard, supervisor | yes |
 | `output/picks/picks_<date>.json` | `engine/picks_ledger.py`, `news_check.py` | learning, staking, scorecard, supervisor, weekly review | yes |
@@ -246,6 +249,14 @@ decided on 3 Oct to retire them (STATE open item 6), the workspace journal still
 says ten "stay on" (result check, hourly fixtures, SportyBet cache, closing
 line, Flashscore scrape, live monitor, auto-sync, team-name audit, match
 analysis, MCP watchdog).
+
+**The live Matchbook agent** (Architect amendment 2026-10-15, the one exception to the
+capital bright line — it lives OUTSIDE this repo, which still never stakes): code in
+`omniroute-test:matchbook_live/` (branch `ccr-8337175b-znydr8`) deployed to the private
+repo `Tolar07/matchbook-agent`, run every 15 min by a self-hosted runner `matchbook-uk` on
+the laptop (state in `C:\olp\matchbook_state`). It READS this repo's `output/picks/` and
+publishes its graded ledger to its own `ledger/`, which `matchbook_ledger.yml` reads back.
+Secrets there: the Matchbook login, the OmniRoute oracle, the Telegram bot.
 
 **Elsewhere:** private repos `Tolar07/closing_edge` and
 `Tolar07/CLV-log-and-framework-docs` (empty); the first track record (3 Aug) in

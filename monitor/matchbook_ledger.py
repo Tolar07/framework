@@ -1,0 +1,120 @@
+"""
+MATCHBOOK EVIDENCE — what the live Matchbook agent learned, fed back here.
+
+Architect 2026-10-15: "The framework should also be training the bots ... I
+want the bot to have recursive self-improvement", and a constant back-and-forth
+between the bot and the framework.
+
+The bot (Tolar07/matchbook-agent, private; runs on the Architect's UK machine)
+reads this repo's picks every 15 minutes and bets them on Matchbook. Each run it
+commits its graded ledger to its own repo's ledger/. `matchbook_ledger.yml`
+fetches that file with a read-only deploy key and this module turns it into
+evidence the framework can see: per market family and per source, how many
+bets, how many won, and the mean CLV against Matchbook's closing price — the
+first measure this framework has of its picks against a sharp exchange's close.
+
+THIS REPO IS PUBLIC. Only anonymised counts and rates are written
+(data/matchbook/summary.json): no stake, no £ figure, no balance, no offer or
+account id. The raw ledger never touches this repo.
+
+A STUDY, NEVER A SELECTOR: nothing here changes a pick. Letting it steer
+selection is a new rule and needs an ID from the Architect (CLAUDE.md, RULE
+CHANGES). The bot already acts on it itself: it pauses any source x market
+group whose bets keep losing to the close.
+
+    python monitor/matchbook_ledger.py <ledger.jsonl> <out summary.json>
+"""
+from __future__ import annotations
+
+import json
+import sys
+from datetime import UTC
+from pathlib import Path
+
+FAMILY = {"Match Odds": "1X2", "Total": "Over/Under", "Double Chance": "Double chance",
+          "Handicap": "Asian handicap", "Both Teams To Score": "BTTS", "Draw No Bet": "Draw no bet"}
+SOURCE = {"oracle": "oracle (blind LLM)", "pick": "framework pick", "pool": "framework rated market"}
+SUMMARY = Path(__file__).resolve().parent.parent / "data" / "matchbook" / "summary.json"
+
+
+def _source(row: dict) -> str:
+    if row.get("source") != "framework":
+        return SOURCE["oracle"]
+    return SOURCE["pool"] if row.get("fw_pool") else SOURCE["pick"]
+
+
+def _clv(row: dict) -> float | None:
+    try:
+        return float(row["avg_odds"]) / float(row["close_back"]) - 1
+    except (KeyError, TypeError, ValueError, ZeroDivisionError):
+        return None
+
+
+def summarise(rows: list[dict]) -> dict:
+    """Anonymised: counts and rates only."""
+    groups: dict = {}
+    for r in rows:
+        if r.get("status") in (None, "VOID"):
+            continue
+        fam = FAMILY.get(r.get("market_name") or "", r.get("market_name") or "PENDING")
+        for key in (f"family: {fam}", f"source: {_source(r)}", "all"):
+            g = groups.setdefault(key, {"bets": 0, "settled": 0, "won": 0, "lost": 0,
+                                        "clv_n": 0, "clv_sum": 0.0, "chance_sum": 0.0})
+            g["bets"] += 1
+            if r["status"] in ("WON", "LOST"):
+                g["settled"] += 1
+                g["won" if r["status"] == "WON" else "lost"] += 1
+                g["chance_sum"] += float(r.get("oracle_p") or 0)
+                c = _clv(r)
+                if c is not None:
+                    g["clv_n"] += 1
+                    g["clv_sum"] += c
+    out = {}
+    for k, g in sorted(groups.items()):
+        out[k] = {"bets": g["bets"], "settled": g["settled"], "won": g["won"], "lost": g["lost"],
+                  "expected_wins": round(g["chance_sum"], 2),
+                  "mean_clv": round(g["clv_sum"] / g["clv_n"], 4) if g["clv_n"] else None,
+                  "clv_n": g["clv_n"]}
+    return out
+
+
+def load(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    return [json.loads(x) for x in path.read_text(encoding="utf-8").splitlines() if x.strip()]
+
+
+def lines(summary_path: Path = SUMMARY) -> list[str]:
+    """For the weekly review / debrief."""
+    if not summary_path.exists():
+        return ["Matchbook (live agent): PENDING — no ledger fetched yet"]
+    s = json.loads(summary_path.read_text(encoding="utf-8"))
+    groups = s.get("groups") or {}
+    if not groups:
+        return [f"Matchbook (live agent): no bets yet (ledger read {s.get('fetched', 'PENDING')})"]
+    out = [f"Matchbook (live agent, ledger read {s.get('fetched', 'PENDING')}) — "
+           "won vs expected, and CLV against Matchbook's closing price:"]
+    for k, g in groups.items():
+        clv = "PENDING" if g["mean_clv"] is None else f"{g['mean_clv']:+.1%} over {g['clv_n']}"
+        out.append(f"  {k}: {g['bets']} bets, {g['won']}/{g['settled']} won "
+                   f"(expected {g['expected_wins']:.1f}), CLV {clv}")
+    return out
+
+
+def main(argv: list[str]) -> int:
+    if len(argv) != 3:
+        print(__doc__)
+        return 2
+    rows = load(Path(argv[1]))
+    from datetime import datetime
+    doc = {"fetched": datetime.now(UTC).strftime("%Y-%m-%d"), "rows_read": len(rows),
+           "groups": summarise(rows)}
+    out = Path(argv[2])
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(doc, indent=1) + "\n", encoding="utf-8")
+    print("\n".join(lines(out)))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

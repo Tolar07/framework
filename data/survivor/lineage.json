@@ -615,20 +615,20 @@
   {
    "lineage_id": "ln_46d12c4eb0",
    "parent_id": "ln_a9d1b852ea",
-   "generation": 8,
-   "bankroll": 1.95,
+   "generation": 9,
+   "bankroll": 2.17,
    "stake": 1.0,
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-11",
-   "last_result": null,
+   "last_result": "WIN",
    "to_breed": false,
    "holding": {
-    "date": "2026-10-15",
-    "fixture": "Mansfield v Oxford United",
-    "pick": "Oxford United (+1.5) Asian handicap",
-    "price": 1.22
+    "date": "2026-10-16",
+    "fixture": "Energie Cottbus v Nurnberg",
+    "pick": "Energie Cottbus or Nurnberg",
+    "price": 1.25
    }
   },
   {
@@ -643,7 +643,12 @@
    "born_date": "2026-10-11",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-16",
+    "fixture": "Heerenveen v Excelsior",
+    "pick": "Excelsior (+2.5) Asian handicap",
+    "price": 1.21
+   }
   },
   {
    "lineage_id": "ln_5ba438d1ad",
@@ -657,7 +662,12 @@
    "born_date": "2026-10-11",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-16",
+    "fixture": "Frosinone v Sassuolo",
+    "pick": "Frosinone or Sassuolo",
+    "price": 1.29
+   }
   },
   {
    "lineage_id": "ln_fa3260c064",
@@ -671,7 +681,12 @@
    "born_date": "2026-10-11",
    "last_result": null,
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-16",
+    "fixture": "Burnley v Wolves",
+    "pick": "Burnley or Wolves",
+    "price": 1.31
+   }
   },
   {
    "lineage_id": "ln_67b12c4335",
@@ -718,20 +733,20 @@
   {
    "lineage_id": "ln_83f064584d",
    "parent_id": "ln_8afb2b090f",
-   "generation": 9,
-   "bankroll": 2.07,
+   "generation": 10,
+   "bankroll": 2.29,
    "stake": 1.0,
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-13",
-   "last_result": null,
+   "last_result": "WIN",
    "to_breed": false,
    "holding": {
-    "date": "2026-10-14",
-    "fixture": "Norwich v Southampton",
-    "pick": "Southampton (+1.5) Asian handicap",
-    "price": 1.22
+    "date": "2026-10-16",
+    "fixture": "Ein Frankfurt v FC Koln",
+    "pick": "Ein Frankfurt or FC Koln",
+    "price": 1.25
    }
   },
   {

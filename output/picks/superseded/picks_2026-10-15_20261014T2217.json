@@ -88,8 +88,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-4"
   },
   {
    "fixture": "Lyon v Crystal Palace",
@@ -136,8 +136,8 @@
    "sharp_ev": null,
    "first_price": 1.3,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-2"
   },
   {
    "fixture": "NK Celje v AC Omonia Nicosia",
@@ -184,8 +184,8 @@
    "sharp_ev": null,
    "first_price": 1.33,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-3"
   },
   {
    "fixture": "Salzburg v AC Milan",
@@ -232,8 +232,8 @@
    "sharp_ev": null,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-4"
   },
   {
    "fixture": "SCU Torreense v Sunderland AFC",
@@ -280,8 +280,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Sparta Prague v Lillestroem SK",
@@ -317,8 +317,8 @@
    "sharp_ev": null,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-1"
   },
   {
    "fixture": "Union Gilloise v Real Sociedad",
@@ -405,8 +405,8 @@
    "sharp_ev": null,
    "first_price": 1.33,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "4-1"
   },
   {
    "fixture": "Bournemouth v Sturm Graz",
@@ -445,8 +445,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-0"
   },
   {
    "fixture": "Celta v Juventus",
@@ -493,8 +493,8 @@
    "sharp_ev": null,
    "first_price": 1.35,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Ferencvarosi Budapest v Viktoria Plzen",
@@ -541,8 +541,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "GNK Dinamo Zagreb v RSC Anderlecht",
@@ -629,8 +629,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-3"
   },
   {
    "fixture": "Jagiellonia Bialystok v FC Ararat-Armenia",
@@ -671,8 +671,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-1"
   },
   {
    "fixture": "Marseille v Olympiacos",
@@ -711,8 +711,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "0-1"
   },
   {
    "fixture": "NEC Nijmegen v PFC Levski Sofia",
@@ -759,8 +759,8 @@
    "sharp_ev": null,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-1"
   },
   {
    "fixture": "Rennes v OFI Crete",
@@ -799,8 +799,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "CS Universitatea Craiova v Getafe",
@@ -887,8 +887,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-0"
   },
   {
    "fixture": "HNK Hajduk Split v Ajax",
@@ -935,8 +935,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "KF Egnatia Rrogozhine v FC Midtjylland",
@@ -975,8 +975,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-1"
   },
   {
    "fixture": "Kuopion Palloseura v Trabzonspor",
@@ -1057,8 +1057,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "3-2"
   },
   {
    "fixture": "Mjallby AIF v Inter Club de Escaldes",
@@ -1145,8 +1145,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "PFC CSKA Sofia v Monaco",
@@ -1193,8 +1193,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-2"
   },
   {
    "fixture": "Riga FC v FC Kairat Almaty",
@@ -1235,8 +1235,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-1"
   },
   {
    "fixture": "Atalanta v Pafos FC",
@@ -1283,8 +1283,8 @@
    "sharp_ev": null,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-1"
   },
   {
    "fixture": "Copenhagen v Braga",
@@ -1325,8 +1325,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "lost",
+   "ft": "3-0"
   },
   {
    "fixture": "FC Twente Enschede v FC Thun",
@@ -1365,8 +1365,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-0"
   },
   {
    "fixture": "Freiburg v FK Jablonec",
@@ -1405,8 +1405,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "3-2"
   },
   {
    "fixture": "Heart of Midlothian FC v Nordsjaelland",
@@ -1493,8 +1493,8 @@
    "sharp_ev": null,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-1"
   },
   {
    "fixture": "St. Truidense VV v FC Iberia 1999",
@@ -1541,8 +1541,8 @@
    "sharp_ev": null,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "2-0"
   },
   {
    "fixture": "Mansfield v Oxford United",
@@ -1589,8 +1589,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null
+   "result": "won",
+   "ft": "1-1"
   }
  ],
  "accas": [
@@ -1629,7 +1629,7 @@
     "HNK Hajduk Split v Ajax",
     "Gent v AGF Aarhus"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca D",
@@ -1656,7 +1656,7 @@
     "KF Egnatia Rrogozhine v FC Midtjylland",
     "FC Twente Enschede v FC Thun"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca F",
@@ -1669,7 +1669,7 @@
     "Freiburg v FK Jablonec",
     "Panathinaikos v FK Borac Banja Luka"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca G",
@@ -1682,7 +1682,7 @@
     "SK Brann v Lincoln Red Imps",
     "Copenhagen v Braga"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca H",
@@ -1726,7 +1726,7 @@
     "Panathinaikos v FK Borac Banja Luka",
     "Mansfield v Oxford United"
    ],
-   "result": null,
+   "result": "lost",
    "reconstructed_legs": true
   },
   {
@@ -1754,7 +1754,7 @@
     "Benfica v Celtic",
     "Bournemouth v Sturm Graz"
    ],
-   "result": null,
+   "result": "lost",
    "reconstructed_legs": true
   }
  ],
@@ -1931,7 +1931,7 @@
      0.7232
     ]
    ],
-   "ft": null
+   "ft": "0-4"
   },
   {
    "fixture": "Lyon v Crystal Palace",
@@ -2011,7 +2011,7 @@
      0.7199
     ]
    ],
-   "ft": null
+   "ft": "3-2"
   },
   {
    "fixture": "NK Celje v AC Omonia Nicosia",
@@ -2087,7 +2087,7 @@
      0.6952
     ]
    ],
-   "ft": null
+   "ft": "0-3"
   },
   {
    "fixture": "Salzburg v AC Milan",
@@ -2163,7 +2163,7 @@
      0.7202
     ]
    ],
-   "ft": null
+   "ft": "0-4"
   },
   {
    "fixture": "SCU Torreense v Sunderland AFC",
@@ -2235,7 +2235,7 @@
      0.721
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Sparta Prague v Lillestroem SK",
@@ -2311,7 +2311,7 @@
      0.724
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Union Gilloise v Real Sociedad",
@@ -2463,7 +2463,7 @@
      0.7158
     ]
    ],
-   "ft": null
+   "ft": "4-1"
   },
   {
    "fixture": "Bournemouth v Sturm Graz",
@@ -2543,7 +2543,7 @@
      0.7131
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   },
   {
    "fixture": "Celta v Juventus",
@@ -2619,7 +2619,7 @@
      0.6861
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Ferencvarosi Budapest v Viktoria Plzen",
@@ -2699,7 +2699,7 @@
      0.7174
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "GNK Dinamo Zagreb v RSC Anderlecht",
@@ -2863,7 +2863,7 @@
      0.6079
     ]
    ],
-   "ft": null
+   "ft": "2-3"
   },
   {
    "fixture": "Jagiellonia Bialystok v FC Ararat-Armenia",
@@ -2943,7 +2943,7 @@
      0.7211
     ]
    ],
-   "ft": null
+   "ft": "3-1"
   },
   {
    "fixture": "Marseille v Olympiacos",
@@ -3027,7 +3027,7 @@
      0.7043
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "NEC Nijmegen v PFC Levski Sofia",
@@ -3107,7 +3107,7 @@
      0.7062
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Rennes v OFI Crete",
@@ -3183,7 +3183,7 @@
      0.7218
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "CS Universitatea Craiova v Getafe",
@@ -3343,7 +3343,7 @@
      0.7035
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "HNK Hajduk Split v Ajax",
@@ -3427,7 +3427,7 @@
      0.6095
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "KF Egnatia Rrogozhine v FC Midtjylland",
@@ -3511,7 +3511,7 @@
      0.7098
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Kuopion Palloseura v Trabzonspor",
@@ -3671,7 +3671,7 @@
      0.7125
     ]
    ],
-   "ft": null
+   "ft": "3-2"
   },
   {
    "fixture": "Mjallby AIF v Inter Club de Escaldes",
@@ -3823,7 +3823,7 @@
      0.607
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "PFC CSKA Sofia v Monaco",
@@ -3911,7 +3911,7 @@
      0.7194
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Riga FC v FC Kairat Almaty",
@@ -3991,7 +3991,7 @@
      0.7049
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Atalanta v Pafos FC",
@@ -4067,7 +4067,7 @@
      0.6068
     ]
    ],
-   "ft": null
+   "ft": "3-1"
   },
   {
    "fixture": "Copenhagen v Braga",
@@ -4139,7 +4139,7 @@
      0.6877
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   },
   {
    "fixture": "FC Twente Enschede v FC Thun",
@@ -4227,7 +4227,7 @@
      0.7008
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Freiburg v FK Jablonec",
@@ -4299,7 +4299,7 @@
      0.6046
     ]
    ],
-   "ft": null
+   "ft": "3-2"
   },
   {
    "fixture": "Heart of Midlothian FC v Nordsjaelland",
@@ -4455,7 +4455,7 @@
      0.7182
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "St. Truidense VV v FC Iberia 1999",
@@ -4527,7 +4527,7 @@
      0.7239
     ]
    ],
-   "ft": null
+   "ft": "2-0"
   },
   {
    "fixture": "Mansfield v Oxford United",
@@ -4607,7 +4607,7 @@
      0.7197
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   }
  ],
  "study": [],

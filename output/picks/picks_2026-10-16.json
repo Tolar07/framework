@@ -300,7 +300,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Frosinone v Sassuolo",
@@ -348,7 +350,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Ein Frankfurt v FC Koln",
@@ -440,7 +444,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "RC Deportivo de A Coruna v Levante",
@@ -488,7 +494,9 @@
    "first_price": 1.32,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.32,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Leganes v Cordoba",
@@ -627,8 +635,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 1.63,
    "stake_pct": 0.25,
    "ev": -0.018710118363859385,
    "missing": {
@@ -681,8 +689,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03419228065799884,
    "missing": {

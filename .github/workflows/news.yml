@@ -3,7 +3,7 @@ name: OLP XDV pre-kickoff team news
 # Improvement #2 (Architect 2026-10-02): re-check every pick against the
 # CONFIRMED lineup ~1 hour before kickoff, alert on price drift, and record
 # each pick's closing price (orders 17, 20, 25). Every 20 minutes,
-# 09:00-20:40 UTC (10:00-21:40 Lagos), when kickoffs happen.
+# 09:00-20:40 UTC (10:00-21:40 UK in BST), when kickoffs happen.
 #
 # ONE job loops through the day (monitor/news_loop.py): GitHub dropped the old
 # 20-minute cron almost every time (6 runs in three days, 2026-10-04 audit).

@@ -26,7 +26,7 @@ inference — read those three files, the code, or the run history.
 
 ## THE LIVE LOOP — DO NOT BREAK IT
 
-Everything runs in GitHub Actions on `main`. Times are UTC (Lagos = UTC+1).
+Everything runs in GitHub Actions on `main`. Times are UTC unless marked; the board slots (21:47 / 06:47) and every time on the boards are UK time, daylight saving included (`engine/uktime.py`, Architect 2026-10-15: "we are in the UK, not Lagos").
 
 | Workflow | When | What |
 |---|---|---|

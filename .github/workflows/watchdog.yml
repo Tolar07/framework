@@ -10,10 +10,15 @@ on:
     # A first check ~35 min after each slot (2026-10-09: the board Routine's
     # session hit its usage limit and GitHub's 20:47 cron never fired, so
     # Saturday's board waited for the 23:17 check), then the late check.
-    - cron: "23 21 * * *"   # evening slot, first check
-    - cron: "17 23 * * *"   # evening slot (board due 20:47 UTC)
-    - cron: "23 6 * * *"    # morning slot, first check
-    - cron: "17 8 * * *"    # morning slot (board due 05:47 UTC)
+    # Slots are UK time (21:47 / 06:47, daylight saving included): 20:47 /
+    # 05:47 UTC in BST, 21:47 / 06:47 UTC in GMT. A check that lands before
+    # its slot's UK time (winter) does nothing — the next one covers it.
+    - cron: "23 21 * * *"   # evening slot, first check (BST)
+    - cron: "23 22 * * *"   # evening slot, first check (GMT)
+    - cron: "17 23 * * *"   # evening slot, late check
+    - cron: "23 6 * * *"    # morning slot, first check (BST)
+    - cron: "23 7 * * *"    # morning slot, first check (GMT)
+    - cron: "17 8 * * *"    # morning slot, late check
   workflow_dispatch:
     inputs:
       slot:
@@ -44,8 +49,10 @@ jobs:
           SCHEDULE:           ${{ github.event.schedule }}
           SLOT_INPUT:         ${{ github.event.inputs.slot }}
         run: |
-          if [ "$SCHEDULE" = "17 23 * * *" ] || [ "$SCHEDULE" = "23 21 * * *" ]; then SLOT=evening
-          elif [ "$SCHEDULE" = "17 8 * * *" ] || [ "$SCHEDULE" = "23 6 * * *" ]; then SLOT=morning
-          else SLOT="${SLOT_INPUT:-evening}"; fi
+          case "$SCHEDULE" in
+            "23 21 * * *"|"23 22 * * *"|"17 23 * * *") SLOT=evening ;;
+            "23 6 * * *"|"23 7 * * *"|"17 8 * * *")    SLOT=morning ;;
+            *) SLOT="${SLOT_INPUT:-evening}" ;;
+          esac
           if ! [[ "$SLOT" =~ ^(evening|morning)$ ]]; then echo "invalid slot '$SLOT'"; exit 1; fi
           python monitor/run_watchdog.py --slot "$SLOT"

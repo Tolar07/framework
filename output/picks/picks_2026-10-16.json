@@ -194,8 +194,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.024590039213793546,
    "missing": null,
@@ -336,7 +336,11 @@
     "home": 45328610,
     "away": 77571689
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:71945310",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -392,8 +396,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 1.63,
    "stake_pct": 0.25,
    "ev": -0.01298951795079295,
    "missing": null,
@@ -543,8 +547,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -1.52,
    "stake_pct": 0.25,
    "ev": -0.027871388553135423,
    "missing": {
@@ -584,7 +588,11 @@
     "home": 12904894,
     "away": 12490640
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:73092990",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -593,8 +601,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 2.42,
    "stake_pct": 0.25,
    "ev": -0.028244419971819035,
    "missing": {

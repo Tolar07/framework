@@ -1,7 +1,7 @@
 {
  "date": "2026-10-17",
- "run_id": "SHARP-825f4b51",
- "fetched_utc": "2026-10-16T20:55:58Z",
+ "run_id": "SHARP-5706355f",
+ "fetched_utc": "2026-10-16T23:02:11Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -15,6 +15,27 @@
  "fixtures_priced_by_exchange": 56,
  "picks": [
   {
+   "league": "Championship",
+   "home": "Norwich",
+   "away": "Portsmouth",
+   "fixture": "Norwich v Portsmouth (Championship)",
+   "kickoff": "2026-10-17T14:00:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Home",
+   "key": "SB:1||Home",
+   "price": 1.92,
+   "outcome_id": "1",
+   "sharp_p": 0.5384,
+   "fair_price": 1.857,
+   "sharp_ev": 0.0338,
+   "code": "UFFXCS",
+   "url": "http://www.sportybet.com/ng/?shareCode=UFFXCS",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-5706355f"
+  },
+  {
    "league": "La Liga",
    "home": "Valencia",
    "away": "Ath Bilbao",
@@ -24,16 +45,16 @@
    "specifier": "",
    "outcome": "Away",
    "key": "SB:1||Away",
-   "price": 2.39,
+   "price": 2.38,
    "outcome_id": "3",
    "sharp_p": 0.4342,
    "fair_price": 2.303,
-   "sharp_ev": 0.0377,
+   "sharp_ev": 0.0334,
    "code": "YJTG20",
    "url": "http://www.sportybet.com/ng/?shareCode=YJTG20",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-825f4b51"
+   "run_id": "SHARP-5706355f"
   },
   {
    "league": "Serie A",
@@ -54,11 +75,11 @@
    "url": "http://www.sportybet.com/ng/?shareCode=TY57ML",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-825f4b51"
+   "run_id": "SHARP-5706355f"
   }
  ],
  "suspect": [],
  "flags": [
-  "football-data fixtures.csv served from cache (<=60min)"
+  "football-data fixtures.csv pulled live"
  ]
 }

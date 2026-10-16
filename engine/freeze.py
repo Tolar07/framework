@@ -58,10 +58,11 @@ def save(target: str, ledger_doc: dict, text: str, run_id: Optional[str],
     return p
 
 
-def _lagos(iso: str) -> str:
+def _uk(iso: str) -> str:
+    """HH:MM on the UK clock (Architect 2026-10-15: "we are in the UK")."""
+    from engine.uktime import hm
     try:
-        dt = datetime.fromisoformat(iso.replace("Z", "+00:00"))
-        return f"{(dt.hour + 1) % 24:02d}:{dt.minute:02d}"
+        return hm(datetime.fromisoformat(iso.replace("Z", "+00:00")))
     except (ValueError, AttributeError):
         return "?"
 
@@ -213,7 +214,7 @@ def check(frozen: dict, board: list, price_now, book, now: Optional[datetime] = 
 def message(frozen: dict, lines: list[str], target: str, run_id: str,
             unchecked: Optional[list] = None) -> str:
     head = [f"🔒 OLP XDV — CODES FROZEN · {target}", f"Run ID: {run_id}",
-            f"The codes from the board sent at {_lagos(frozen['frozen_at'])} (Lagos) "
+            f"The codes from the board sent at {_uk(frozen['frozen_at'])} (UK) "
             f"are the codes for {target}."]
     tail = []
     if unchecked:

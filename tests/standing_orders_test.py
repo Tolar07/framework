@@ -48,9 +48,12 @@ assert all(4 <= x <= 5 for x in _split_sizes(78, 4, 5)) and sum(_split_sizes(78,
 
 # 6. Delivery schedule
 wf = (ROOT / ".github/workflows/daily.yml").read_text(encoding="utf-8")
-assert '"47 20 * * *"' in wf and '"47 5 * * *"' in wf, "Order 6: ~10 PM + ~7 AM Lagos runs"
+assert all(f'"{c}"' in wf for c in ("47 20 * * *", "47 21 * * *", "47 5 * * *", "47 6 * * *")), \
+    "Order 6: ~10 PM + ~7 AM UK runs, a cron for BST and one for GMT"
+assert "TZ=Europe/London date +%H%M" in wf and "needs.when.outputs.go == 'yes'" in wf, \
+    "Order 6: a cron that lands before the slot's UK time sends nothing"
 assert "--only-production --heartbeat" in wf, "Order 6: production board + daily heartbeat"
-assert "date -u -d tomorrow" in wf, "Order 6: evening run builds the next day's board"
+assert "TZ=Europe/London date -d tomorrow" in wf, "Order 6: evening run builds the next (UK) day's board"
 assert "sent_${T}_${SLOT}" in wf, "Order 6: each day's board is sent once per slot (no duplicates)"
 assert "if: failure()" in wf, "Order 6: failure alert"
 
@@ -212,15 +215,18 @@ _bf28 = [pb.BoardFixture("Sociedad B v Granada (La Liga 2)", _fp("Sociedad B", "
 _bf28[0].kickoff_utc = "2026-10-04T16:30:00.000Z"      # SportyBet's format
 _bf28[1].kickoff_utc = None                            # no source gave a time
 _b28 = pb.render_canonical_board("Mode A", "Phase 3", ["La Liga 2"], 0, None, [], _bf28)
-# Kickoff time on every pick, Lagos time (Architect 2026-09-19: "the country and the time")
+# Kickoff time on every pick, UK time (Architect 2026-09-19: "the country and the time";
+# 2026-10-15: "we are in the UK, not Lagos")
 assert pb.kickoff(_bf28[0]) == "17:30" and pb.kickoff(_bf28[1]) == "PENDING", \
-    "Order 28: kickoff in Lagos time; PENDING when no source gave one (HR35)"
+    "Order 28: kickoff in UK time (BST on 4 Oct); PENDING when no source gave one (HR35)"
 _late = pb.BoardFixture("X v Y (La Liga 2)", None, _v)
 _late.kickoff_utc = "2026-10-04T23:30:00Z"
-assert pb.kickoff(_late) == "00:30", "Order 28: Lagos is UTC+1 all year"
+assert pb.kickoff(_late) == "00:30", "Order 28: UK time is UTC+1 in BST"
+_late.kickoff_utc = "2026-11-04T23:30:00Z"
+assert pb.kickoff(_late) == "23:30", "Order 28: UK time is UTC+0 in GMT (from 25 Oct 2026)"
 _late.kickoff_utc = "2026-10-04"
 assert pb.kickoff(_late) == "PENDING", "Order 28: a date without a time is not a kickoff time"
-assert "KO = kickoff, Lagos time (WAT)" in _b28
+assert "KO = kickoff, UK time" in _b28
 _t1, _t2 = _b28.split("TABLE 2 · ")[0], _b28.split("TABLE 2 · ")[1].split("TABLE 3A")[0]
 for _part, _name in ((_t1, "TABLE 1"), (_t2, "TABLE 2")):
     assert "Country · League" in _part and "Spain · La Liga 2" in _part, \

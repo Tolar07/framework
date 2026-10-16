@@ -187,7 +187,7 @@ def choose(bf) -> dict | None:
     name = bet365_name(bf.best_market_key, home, away)
     if name:
         flagged = bf.news_level in ("CAUTION", "RISK")
-        return {"bf": bf, "name": name, "chance": bf.best_model_prob,
+        return {"bf": bf, "name": name, "chance": bf.best_model_prob, "key": bf.best_market_key,
                 "sb_price": bf.best_price, "certainty": bf.certainty or "LOW",
                 "same": True, "sb_pick": sb_pick,
                 "news": f"{bf.news_level}: {bf.news_note}" if flagged else None}
@@ -208,7 +208,7 @@ def choose(bf) -> dict | None:
     near = [c for c in pool if c[0] >= top - UNDER_PREF_PP and not _is_under(c[2])]
     c = max(near or pool, key=lambda c: (c[0], c[1]))
     lv = levels.get(c[2], {})
-    return {"bf": bf, "name": bet365_name(c[2], home, away), "chance": c[0],
+    return {"bf": bf, "name": bet365_name(c[2], home, away), "chance": c[0], "key": c[2],
             "sb_price": c[5].price, "certainty": _certainty(c[3], c[4]),
             "same": False, "sb_pick": sb_pick,
             "news": (f"{lv['level']}: {lv['note']}"
@@ -227,6 +227,21 @@ def picks(board: list) -> tuple[list[dict], list]:
         else:
             missing.append(bf)
     return got, missing
+
+
+def records(board: list, board_date: str) -> dict:
+    """The bet365 singles as data (Architect 2026-10-16: "the singles that were supposed
+    to be allocated to bet365 should be sent to the bot"): the Matchbook bot backs them
+    from its singles pot. 'same' = the SportyBet pick; otherwise bet365's own pick."""
+    got, _ = picks(board)
+    rows = []
+    for pk in got:
+        bf, p = pk["bf"], pk["bf"].probs
+        rows.append({"fixture": bf.fixture, "home": p.home_team, "away": p.away_team,
+                     "kickoff_utc": getattr(bf, "kickoff_utc", None), "market": pk["key"],
+                     "pick": pk["name"], "chance": pk["chance"], "certainty": pk["certainty"],
+                     "same": pk["same"], "news_level": getattr(bf, "news_level", None)})
+    return {"date": board_date, "singles": rows}
 
 
 _RULE = "─" * 34

@@ -1539,6 +1539,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         b365_path = BOARD_DIR / f"bet365_{target}.txt"
         b365_path.parent.mkdir(parents=True, exist_ok=True)
         b365_path.write_text(b365_text, encoding="utf-8")
+        # The same picks as data for the Matchbook bot's singles pot (Architect
+        # 2026-10-16). Written with the 10pm board only: the codes and picks are
+        # frozen after it, so the morning run never rewrites what the bot reads.
+        if frozen is None:
+            (BOARD_DIR / f"bet365_{target}.json").write_text(
+                json.dumps(bet365_board.records(shown, target), indent=1, default=str), encoding="utf-8")
         b365_gate = notify.board_gate(b365_text)
         # The Architect's own chat ONLY (order 29): TELEGRAM_OWNER_CHAT_ID if
         # set, else TELEGRAM_CHAT_ID — the Architect's chat — and never a

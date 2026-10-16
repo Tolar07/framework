@@ -286,7 +286,11 @@
     "home": 44725129,
     "away": 136569909
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72339916",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -349,8 +353,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.00589455465006572,
    "missing": {
@@ -434,7 +438,11 @@
     "home": 9938949,
     "away": 75683748
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Le Mans at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72036224",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -443,8 +451,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -1.64,
    "stake_pct": 0.25,
    "ev": -0.024838671830900383,
    "missing": {
@@ -484,7 +492,11 @@
     "home": 53791274,
     "away": 41936700
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72478630",
    "sb_tid": "sr:tournament:8",
    "sb_market": {

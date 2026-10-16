@@ -80,6 +80,10 @@ BOARD_DIR = Path(__file__).parent / "output" / "boards"
 LOG_DIR = Path(__file__).parent / "logs"
 
 
+
+class _Bet365Retired(Exception):
+    """The bet365 board is no longer built (2026-10-16, Matchbook replaces it)."""
+
 def _mark_started() -> Path:
     """Write proof-of-life BEFORE anything can fail.
 
@@ -1533,7 +1537,12 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     # needs me to do everything manually and Matchbook is doing everything
     # automatically"): the Matchbook bot sends its own Matchbook board instead. The
     # file is still saved for the record and the supervisor; BET365_SEND=1 sends again.
+    # RETIRED 2026-10-16 (Architect: "we're migrating away from B365 ... integrate Matchbook
+    # fully"): not even built now — the Matchbook bot reads the picks file directly and
+    # stopped reading bet365_<date>.json. BET365_BUILD=1 builds it again.
     try:
+        if os.environ.get("BET365_BUILD", "").strip() != "1":
+            raise _Bet365Retired
         from output import bet365_board
         b365_text = bet365_board.render(shown, board_date=target, run_id=run_id)
         b365_path = BOARD_DIR / f"bet365_{target}.txt"
@@ -1562,6 +1571,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
             for n in b_notes:
                 _mark(runlog, f"bet365 board: {n}")
             print("  bet365 board " + ("delivered" if b_ok else "NOT delivered"))
+    except _Bet365Retired:
+        _mark(runlog, "bet365 board retired (Matchbook replaces it; BET365_BUILD=1 builds it)")
     except Exception as e:  # noqa: BLE001 — the bet365 board never blocks the run
         _mark(runlog, f"bet365 board error ({e})")
 

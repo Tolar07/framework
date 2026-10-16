@@ -42,12 +42,23 @@ jobs:
             exit 1
           fi
           mkdir -p ~/.ssh && printf '%s\n' "$KEY" > ~/.ssh/mb && chmod 600 ~/.ssh/mb
+          trap 'rm -f ~/.ssh/mb' EXIT                  # the key never outlives this step, pass or fail
           ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
-          GIT_SSH_COMMAND="ssh -i ~/.ssh/mb -o IdentitiesOnly=yes" \
-            git clone -q --depth 1 --filter=blob:none --sparse git@github.com:Tolar07/matchbook-agent.git "$RUNNER_TEMP/mb"
+          # The key goes to EVERY git command that talks to the private repo, not just
+          # the clone. --filter=blob:none means the clone brings commits and folder
+          # lists only; `sparse-checkout set ledger` is what downloads the ledger's
+          # contents, and before 2026-10-16 it ran without the key: GitHub refused it
+          # (Permission denied (publickey) on ledger/ledger.jsonl), every run since
+          # 15 Oct, and continue-on-error kept the badge green over a PENDING summary.
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/mb -o IdentitiesOnly=yes"
+          git clone -q --depth 1 --filter=blob:none --sparse git@github.com:Tolar07/matchbook-agent.git "$RUNNER_TEMP/mb"
           git -C "$RUNNER_TEMP/mb" sparse-checkout set ledger
-          rm -f ~/.ssh/mb
-          ls -la "$RUNNER_TEMP/mb/ledger" || echo "no ledger/ yet — the agent has not published"
+          ls -la "$RUNNER_TEMP/mb/ledger"
+          # A fetch that brings no ledger is a failed fetch, not an empty one.
+          if [ ! -s "$RUNNER_TEMP/mb/ledger/ledger.jsonl" ]; then
+            echo "::warning::ledger/ledger.jsonl missing or empty — Matchbook evidence PENDING"
+            exit 1
+          fi
 
       - uses: actions/setup-python@v5
         with:
@@ -73,3 +84,13 @@ jobs:
             exit 0
           fi
           git push -q origin HEAD:main && echo "Matchbook evidence saved to main"
+
+      # LAST, so a failed fetch still runs every step above that can run, then
+      # turns the run RED. continue-on-error alone left 15 and 16 Oct green while
+      # nothing was read: the watchdog, the run list and the Architect all saw a
+      # pass. A missing ledger is a fault to look at, not a quiet PENDING.
+      - name: Fail the run if the ledger was not read
+        if: steps.fetch.outcome != 'success'
+        run: |
+          echo "::error::Matchbook ledger NOT read — data/matchbook/summary.json not updated (evidence PENDING). See the 'Fetch the agent's ledger' step."
+          exit 1

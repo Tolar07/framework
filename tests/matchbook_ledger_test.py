@@ -51,8 +51,32 @@ def test_missing_ledger_reads_pending():
     assert "PENDING" in ml.lines(Path("does/not/exist.json"))[0]
 
 
+def test_workflow_fetch_uses_the_key_for_every_git_call():
+    """15-16 Oct: the clone had the deploy key, `sparse-checkout set ledger` did not.
+
+    With --filter=blob:none the sparse checkout is what downloads ledger.jsonl, so
+    GitHub refused it (Permission denied (publickey)) and the summary stayed
+    PENDING under a green badge. The key must be exported for the whole step, and
+    a run that read nothing must end red.
+    """
+    # Plain text, not YAML: PyYAML left requirements.txt on 2026-10-05.
+    wf = (ROOT / ".github" / "workflows" / "matchbook_ledger.yml").read_text(encoding="utf-8")
+    steps = wf.split("\n      - ")                  # one chunk per step of the one job
+    fetch = next(s for s in steps if "id: fetch" in s)
+    export = fetch.find("export GIT_SSH_COMMAND=")
+    assert export != -1, "GIT_SSH_COMMAND must be exported, not prefixed to the clone alone"
+    clone = fetch.find("git clone -q")
+    sparse = fetch.find('git -C "$RUNNER_TEMP/mb" sparse-checkout set ledger')
+    assert -1 < export < clone < sparse, (export, clone, sparse)
+    assert "trap 'rm -f ~/.ssh/mb' EXIT" in fetch, "the key file must be removed on failure too"
+    assert "ledger/ledger.jsonl" in fetch, "a fetch that brings no ledger must fail"
+    last = steps[-1]
+    assert "if: steps.fetch.outcome != 'success'" in last and "exit 1" in last, last
+
+
 if __name__ == "__main__":
     test_counts_and_clv()
     test_nothing_private_in_the_public_file()
     test_missing_ledger_reads_pending()
+    test_workflow_fetch_uses_the_key_for_every_git_call()
     print("matchbook_ledger_test: OK")

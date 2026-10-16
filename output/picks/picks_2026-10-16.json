@@ -616,7 +616,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Holstein Kiel v Hertha",
@@ -664,7 +666,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Guingamp v Pau FC",

@@ -1,7 +1,11 @@
 {
  "date": "2026-10-17",
- "gone": [],
- "reopen": [],
+ "gone": [
+  "sr:match:73863910|223|hcp=-6.5|Away (+6.5)"
+ ],
+ "reopen": [
+  "sr:match:73863910"
+ ],
  "first": {
   "sr:match:73863908": {
    "at": "19:30Z",

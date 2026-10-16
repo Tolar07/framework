@@ -1,7 +1,7 @@
 {
  "date": "2026-10-16",
- "run_id": "SHARP-c8674d3b",
- "fetched_utc": "2026-10-16T05:56:26Z",
+ "run_id": "SHARP-aadc537a",
+ "fetched_utc": "2026-10-16T10:06:39Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -12,10 +12,32 @@
  },
  "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
  "fixtures_on_day": 22,
- "fixtures_priced_by_exchange": 0,
- "picks": [],
+ "fixtures_priced_by_exchange": 11,
+ "picks": [
+  {
+   "league": "La Liga 2",
+   "home": "Leganes",
+   "away": "Cordoba",
+   "fixture": "Leganes v Cordoba (La Liga 2)",
+   "kickoff": "2026-10-16T18:30:00Z",
+   "market_id": "18",
+   "specifier": "total=2.5",
+   "outcome": "Over 2.5",
+   "key": "SB:18|total=2.5|Over 2.5",
+   "price": 1.81,
+   "outcome_id": "12",
+   "sharp_p": 0.5749,
+   "fair_price": 1.739,
+   "sharp_ev": 0.0406,
+   "code": "S70YJP",
+   "url": "http://www.sportybet.com/ng/?shareCode=S70YJP",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-aadc537a"
+  }
+ ],
  "suspect": [],
  "flags": [
-  "football-data fixtures.csv served from cache (<=60min)"
+  "football-data fixtures.csv pulled live"
  ]
 }

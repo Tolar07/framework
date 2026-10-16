@@ -1,7 +1,7 @@
 {
  "date": "2026-10-17",
- "run_id": "SHARP-5706355f",
- "fetched_utc": "2026-10-16T23:02:11Z",
+ "run_id": "SHARP-dfcd2c72",
+ "fetched_utc": "2026-10-16T23:56:58Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -29,11 +29,11 @@
    "sharp_p": 0.5384,
    "fair_price": 1.857,
    "sharp_ev": 0.0338,
-   "code": "UFFXCS",
-   "url": "http://www.sportybet.com/ng/?shareCode=UFFXCS",
+   "code": null,
+   "url": null,
    "result": null,
    "ft": null,
-   "run_id": "SHARP-5706355f"
+   "run_id": "SHARP-dfcd2c72"
   },
   {
    "league": "La Liga",
@@ -50,11 +50,11 @@
    "sharp_p": 0.4342,
    "fair_price": 2.303,
    "sharp_ev": 0.0334,
-   "code": "YJTG20",
-   "url": "http://www.sportybet.com/ng/?shareCode=YJTG20",
+   "code": null,
+   "url": null,
    "result": null,
    "ft": null,
-   "run_id": "SHARP-5706355f"
+   "run_id": "SHARP-dfcd2c72"
   },
   {
    "league": "Serie A",
@@ -71,15 +71,15 @@
    "sharp_p": 0.6526,
    "fair_price": 1.532,
    "sharp_ev": 0.0442,
-   "code": "TY57ML",
-   "url": "http://www.sportybet.com/ng/?shareCode=TY57ML",
+   "code": null,
+   "url": null,
    "result": null,
    "ft": null,
-   "run_id": "SHARP-5706355f"
+   "run_id": "SHARP-dfcd2c72"
   }
  ],
  "suspect": [],
  "flags": [
-  "football-data fixtures.csv pulled live"
+  "football-data fixtures.csv served from cache (<=60min)"
  ]
 }

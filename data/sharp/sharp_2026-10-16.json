@@ -1,7 +1,7 @@
 {
  "date": "2026-10-16",
- "run_id": "SHARP-8ae57060",
- "fetched_utc": "2026-10-15T23:19:36Z",
+ "run_id": "SHARP-c8674d3b",
+ "fetched_utc": "2026-10-16T05:56:26Z",
  "rule": {
   "min_ev": 0.02,
   "band": [

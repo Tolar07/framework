@@ -1,0 +1,637 @@
+{
+ "date": "2026-10-17",
+ "run_id": "OLPXDV-20261016-0555-710ff7",
+ "generated_at": "2026-10-16T05:55:57Z",
+ "mega_code": null,
+ "picks": [],
+ "study": [
+  {
+   "tip": "2026-10-16T23:00:00+00:00",
+   "stage": "preseason",
+   "home": "Detroit Pistons",
+   "away": "Toronto Raptors",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.25,
+     "chance": 0.7572,
+     "fair_price": 1.321,
+     "ev": -0.0535
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-13.5",
+     "outcome": "Home (-13.5)",
+     "price": 2.6,
+     "chance": 0.3852,
+     "fair_price": 2.596,
+     "ev": 0.0014
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=216.5",
+     "outcome": "Over 216.5",
+     "price": 1.73,
+     "chance": 0.5442,
+     "fair_price": 1.837,
+     "ev": -0.0585
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=111.5",
+     "outcome": "Over 111.5",
+     "price": 1.61,
+     "chance": 0.5937,
+     "fair_price": 1.684,
+     "ev": -0.0441
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=102.5",
+     "outcome": "Under 102.5",
+     "price": 2.2,
+     "chance": 0.4294,
+     "fair_price": 2.329,
+     "ev": -0.0553
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-16T23:00:00+00:00",
+   "stage": "preseason",
+   "home": "Indiana Pacers",
+   "away": "Milwaukee Bucks",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.28,
+     "chance": 0.7409,
+     "fair_price": 1.35,
+     "ev": -0.0517
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-4.5",
+     "outcome": "Away (+4.5)",
+     "price": 2.6,
+     "chance": 0.3852,
+     "fair_price": 2.596,
+     "ev": 0.0014
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=237.5",
+     "outcome": "Over 237.5",
+     "price": 2.1,
+     "chance": 0.4778,
+     "fair_price": 2.093,
+     "ev": 0.0035
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=119.5",
+     "outcome": "Over 119.5",
+     "price": 1.6,
+     "chance": 0.6108,
+     "fair_price": 1.637,
+     "ev": -0.0227
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=115.5",
+     "outcome": "Over 115.5",
+     "price": 2.2,
+     "chance": 0.4475,
+     "fair_price": 2.234,
+     "ev": -0.0154
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-16T23:00:00+00:00",
+   "stage": "preseason",
+   "home": "Orlando Magic",
+   "away": "Miami Heat",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.7,
+     "chance": 0.5635,
+     "fair_price": 1.775,
+     "ev": -0.0421
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=1.5",
+     "outcome": "Home (+1.5)",
+     "price": 1.61,
+     "chance": 0.6148,
+     "fair_price": 1.626,
+     "ev": -0.0101
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=230.5",
+     "outcome": "Over 230.5",
+     "price": 1.7,
+     "chance": 0.5662,
+     "fair_price": 1.766,
+     "ev": -0.0375
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=117.5",
+     "outcome": "Over 117.5",
+     "price": 1.85,
+     "chance": 0.524,
+     "fair_price": 1.908,
+     "ev": -0.0306
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=113.5",
+     "outcome": "Over 113.5",
+     "price": 1.64,
+     "chance": 0.5706,
+     "fair_price": 1.753,
+     "ev": -0.0642
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-16T23:00:00+00:00",
+   "stage": "preseason",
+   "home": "Philadelphia 76ers",
+   "away": "Boston Celtics",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.37,
+     "chance": 0.7002,
+     "fair_price": 1.428,
+     "ev": -0.0408
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-11.5",
+     "outcome": "Home (-11.5)",
+     "price": 2.5,
+     "chance": 0.3852,
+     "fair_price": 2.596,
+     "ev": -0.0371
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=219.5",
+     "outcome": "Over 219.5",
+     "price": 1.71,
+     "chance": 0.5662,
+     "fair_price": 1.766,
+     "ev": -0.0318
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=114.5",
+     "outcome": "Over 114.5",
+     "price": 1.87,
+     "chance": 0.524,
+     "fair_price": 1.908,
+     "ev": -0.0201
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=105.5",
+     "outcome": "Over 105.5",
+     "price": 1.64,
+     "chance": 0.5706,
+     "fair_price": 1.753,
+     "ev": -0.0642
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-17T00:00:00+00:00",
+   "stage": "preseason",
+   "home": "Chicago Bulls",
+   "away": "Minnesota Timberwolves",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 1.82,
+     "chance": 0.5217,
+     "fair_price": 1.917,
+     "ev": -0.0504
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-2.5",
+     "outcome": "Away (+2.5)",
+     "price": 1.63,
+     "chance": 0.6148,
+     "fair_price": 1.626,
+     "ev": 0.0022
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=239.5",
+     "outcome": "Under 239.5",
+     "price": 1.51,
+     "chance": 0.6306,
+     "fair_price": 1.586,
+     "ev": -0.0479
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=114.5",
+     "outcome": "Under 114.5",
+     "price": 2.15,
+     "chance": 0.4409,
+     "fair_price": 2.268,
+     "ev": -0.0521
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=115.5",
+     "outcome": "Over 115.5",
+     "price": 1.67,
+     "chance": 0.5706,
+     "fair_price": 1.753,
+     "ev": -0.0471
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-17T00:00:00+00:00",
+   "stage": "preseason",
+   "home": "Dallas Mavericks",
+   "away": "Atlanta Hawks",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 1.96,
+     "chance": 0.4892,
+     "fair_price": 2.044,
+     "ev": -0.0412
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=2.5",
+     "outcome": "Home (+2.5)",
+     "price": 1.64,
+     "chance": 0.6148,
+     "fair_price": 1.626,
+     "ev": 0.0083
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=229.5",
+     "outcome": "Over 229.5",
+     "price": 1.62,
+     "chance": 0.5879,
+     "fair_price": 1.701,
+     "ev": -0.0476
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=114.5",
+     "outcome": "Over 114.5",
+     "price": 1.6,
+     "chance": 0.6108,
+     "fair_price": 1.637,
+     "ev": -0.0227
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=118.5",
+     "outcome": "Under 118.5",
+     "price": 1.62,
+     "chance": 0.5872,
+     "fair_price": 1.703,
+     "ev": -0.0487
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-17T00:00:00+00:00",
+   "stage": "preseason",
+   "home": "Memphis Grizzlies",
+   "away": "Charlotte Hornets",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 1.82,
+     "chance": 0.5217,
+     "fair_price": 1.917,
+     "ev": -0.0504
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-2.5",
+     "outcome": "Away (+2.5)",
+     "price": 1.64,
+     "chance": 0.6148,
+     "fair_price": 1.626,
+     "ev": 0.0083
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=224.5",
+     "outcome": "Over 224.5",
+     "price": 1.52,
+     "chance": 0.6306,
+     "fair_price": 1.586,
+     "ev": -0.0416
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=112.5",
+     "outcome": "Over 112.5",
+     "price": 1.62,
+     "chance": 0.5765,
+     "fair_price": 1.735,
+     "ev": -0.0661
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=113.5",
+     "outcome": "Over 113.5",
+     "price": 1.65,
+     "chance": 0.5879,
+     "fair_price": 1.701,
+     "ev": -0.03
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-17T00:00:00+00:00",
+   "stage": "preseason",
+   "home": "New Orleans Pelicans",
+   "away": "Washington Wizards",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 2.1,
+     "chance": 0.4573,
+     "fair_price": 2.187,
+     "ev": -0.0398
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-1.5",
+     "outcome": "Away (+1.5)",
+     "price": 1.64,
+     "chance": 0.6148,
+     "fair_price": 1.626,
+     "ev": 0.0083
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=232.5",
+     "outcome": "Over 232.5",
+     "price": 2.1,
+     "chance": 0.4558,
+     "fair_price": 2.194,
+     "ev": -0.0429
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=112.5",
+     "outcome": "Over 112.5",
+     "price": 1.67,
+     "chance": 0.5591,
+     "fair_price": 1.789,
+     "ev": -0.0663
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=113.5",
+     "outcome": "Over 113.5",
+     "price": 1.6,
+     "chance": 0.605,
+     "fair_price": 1.653,
+     "ev": -0.032
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-17T00:00:00+00:00",
+   "stage": "preseason",
+   "home": "San Antonio Spurs",
+   "away": "Sacramento Kings",
+   "lines": [
+    {
+     "market_id": "223",
+     "specifier": "hcp=-21.5",
+     "outcome": "Away (+21.5)",
+     "price": 1.44,
+     "chance": 0.6693,
+     "fair_price": 1.494,
+     "ev": -0.0362
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=232.5",
+     "outcome": "Over 232.5",
+     "price": 2.1,
+     "chance": 0.4558,
+     "fair_price": 2.194,
+     "ev": -0.0429
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=121.5",
+     "outcome": "Over 121.5",
+     "price": 1.68,
+     "chance": 0.5591,
+     "fair_price": 1.789,
+     "ev": -0.0607
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=108.5",
+     "outcome": "Over 108.5",
+     "price": 2.1,
+     "chance": 0.4651,
+     "fair_price": 2.15,
+     "ev": -0.0233
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-17T02:00:00+00:00",
+   "stage": "preseason",
+   "home": "Golden State Warriors",
+   "away": "Portland Trail Blazers",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Away",
+     "price": 1.67,
+     "chance": 0.583,
+     "fair_price": 1.715,
+     "ev": -0.0264
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-1.5",
+     "outcome": "Away (+1.5)",
+     "price": 1.58,
+     "chance": 0.6424,
+     "fair_price": 1.557,
+     "ev": 0.015
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=227.5",
+     "outcome": "Under 227.5",
+     "price": 1.75,
+     "chance": 0.5442,
+     "fair_price": 1.837,
+     "ev": -0.0476
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=111.5",
+     "outcome": "Under 111.5",
+     "price": 1.9,
+     "chance": 0.5113,
+     "fair_price": 1.956,
+     "ev": -0.0285
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=114.5",
+     "outcome": "Over 114.5",
+     "price": 1.91,
+     "chance": 0.5004,
+     "fair_price": 1.999,
+     "ev": -0.0443
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-17T02:00:00+00:00",
+   "stage": "preseason",
+   "home": "Phoenix Suns",
+   "away": "Utah Jazz",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.52,
+     "chance": 0.6369,
+     "fair_price": 1.57,
+     "ev": -0.0319
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=1.5",
+     "outcome": "Home (+1.5)",
+     "price": 1.45,
+     "chance": 0.6693,
+     "fair_price": 1.494,
+     "ev": -0.0295
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=231.5",
+     "outcome": "Under 231.5",
+     "price": 1.5,
+     "chance": 0.6306,
+     "fair_price": 1.586,
+     "ev": -0.0542
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=116.5",
+     "outcome": "Over 116.5",
+     "price": 2.1,
+     "chance": 0.4535,
+     "fair_price": 2.205,
+     "ev": -0.0476
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=108.5",
+     "outcome": "Under 108.5",
+     "price": 2.2,
+     "chance": 0.4294,
+     "fair_price": 2.329,
+     "ev": -0.0553
+    }
+   ]
+  },
+  {
+   "tip": "2026-10-17T02:30:00+00:00",
+   "stage": "preseason",
+   "home": "Los Angeles Lakers",
+   "away": "Denver Nuggets",
+   "lines": [
+    {
+     "market_id": "219",
+     "specifier": "",
+     "outcome": "Home",
+     "price": 1.4,
+     "chance": 0.6958,
+     "fair_price": 1.437,
+     "ev": -0.0259
+    },
+    {
+     "market_id": "223",
+     "specifier": "hcp=-12.5",
+     "outcome": "Home (-12.5)",
+     "price": 2.95,
+     "chance": 0.3307,
+     "fair_price": 3.024,
+     "ev": -0.0244
+    },
+    {
+     "market_id": "225",
+     "specifier": "total=228.5",
+     "outcome": "Under 228.5",
+     "price": 2.25,
+     "chance": 0.4338,
+     "fair_price": 2.305,
+     "ev": -0.0239
+    },
+    {
+     "market_id": "227",
+     "specifier": "total=121.5",
+     "outcome": "Under 121.5",
+     "price": 1.61,
+     "chance": 0.5813,
+     "fair_price": 1.72,
+     "ev": -0.0641
+    },
+    {
+     "market_id": "228",
+     "specifier": "total=115.5",
+     "outcome": "Under 115.5",
+     "price": 1.6,
+     "chance": 0.6043,
+     "fair_price": 1.655,
+     "ev": -0.0331
+    }
+   ]
+  }
+ ],
+ "sent_at": "2026-10-16T05:56:15Z"
+}

@@ -626,9 +626,9 @@
    "to_breed": false,
    "holding": {
     "date": "2026-10-16",
-    "fixture": "Energie Cottbus v Nurnberg",
-    "pick": "Energie Cottbus or Nurnberg",
-    "price": 1.25
+    "fixture": "Corum FK v Caykur Rizespor",
+    "pick": "Over 1.5 goals",
+    "price": 1.22
    }
   },
   {
@@ -834,6 +834,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-15",
+ "last_bred_date": "2026-10-16",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

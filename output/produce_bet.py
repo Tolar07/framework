@@ -1111,11 +1111,14 @@ def _build_safe3(shortlist: list[BoardFixture]) -> list[tuple]:
     return out
 
 
-LAGOS = timezone(timedelta(hours=1))      # WAT — Nigeria has no daylight saving
+from engine.uktime import UK  # noqa: E402 — the Architect's clock (UK, DST-aware)
+
+LAGOS = UK      # old name kept for imports; every board time is UK time now
 
 
 def kickoff(bf) -> str:
-    """Kickoff in Lagos time, HH:MM (order 28), from the kickoff the run
+    """Kickoff in UK time, HH:MM (order 28; Architect 2026-10-15: "we are in
+    the UK"), BST/GMT as the date requires, from the kickoff the run
     fetched (SportyBet's event start, or FotMob's for deploy picks). PENDING
     when no source gave a time — never a guessed one (HR35)."""
     ko = getattr(bf, "kickoff_utc", None) or ""
@@ -1127,7 +1130,7 @@ def kickoff(bf) -> str:
         return "PENDING"
     if when.tzinfo is None:
         when = when.replace(tzinfo=UTC)
-    return when.astimezone(LAGOS).strftime("%H:%M")
+    return when.astimezone(UK).strftime("%H:%M")
 
 
 def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
@@ -1159,7 +1162,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
            f"\U0001F4C5  {day}   (PICK · win %  ·  alt markets)",
            f"Run ID: {run_id or 'PENDING'} | {phase}",
            f"Fixtures scanned: {len(board)} · Verified: {verified}",
-           "KO = kickoff, Lagos time (WAT)", ""]
+           "KO = kickoff, UK time", ""]
 
     if data_flags:
         out.append(f"⚠ {len(data_flags)} data flag(s) — full detail in the "

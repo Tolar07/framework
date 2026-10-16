@@ -241,7 +241,7 @@ def render(board: list, board_date: str | None = None, run_id: str | None = None
     out = ["##########OLP XDV · BET365#########", _BAR, "",
            f"\U0001F4C5  {day} — bet365 board (sent to you only)",
            f"Run ID: {run_id or 'PENDING'} (same run as the SportyBet board)",
-           "Times are kickoff, Lagos time (WAT)", "",
+           "Times are kickoff, UK time", "",
            "Same fixtures, model and checks as the SportyBet board; each pick is "
            "limited to bets bet365 offers.",
            "• No booking codes on bet365 — find each match by country → league → match.",

@@ -5,7 +5,7 @@ it to fail again going forward." Until now the board was started by a Claude
 Routine plus GitHub's own crons, with the watchdog as a backup — and all three
 fire late: on 15 Oct the Routine reached its session 2 h 21 min late, and
 neither GitHub's 20:47 cron nor the watchdog's 21:23 cron fired at all, so
-Friday's board had not gone out by 00:08 Lagos.
+Friday's board had not gone out by 00:08.
 
 This is a clock that does not depend on anyone's schedule. ONE GitHub Actions
 job (clock.yml) loops all day: every minute it looks at the time, and when a
@@ -13,8 +13,12 @@ slot is due and that slot's board has not been sent (no output/boards/
 sent_<date>_<slot> marker on main) and no board run is going, it starts
 daily.yml for that slot itself.
 
-  evening  due 20:47 UTC (21:47 Lagos) — TOMORROW's card (Lagos date)
-  morning  due 05:47 UTC (06:47 Lagos) — today's card
+  evening  due 21:47 UK time — TOMORROW's card (UK date)
+  morning  due 06:47 UK time — today's card
+
+UK time follows daylight saving (Architect 2026-10-15: "we are in the UK, not
+Lagos" -> "UK time for everything"): 21:47 UK is 20:47 UTC in BST and 21:47
+UTC in GMT (from the last Sunday of October) — engine/uktime.py.
 
 A slot stays due for a few hours (a board at 01:00 still beats none); a run
 that ends without the marker (failed) is retried after RETRY_AFTER, at most
@@ -36,29 +40,32 @@ import time
 import urllib.error
 import urllib.request
 from datetime import UTC, date, datetime, timedelta
+from pathlib import Path
 
-SLOTS = {"evening": (20, 47), "morning": (5, 47)}            # UTC
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from engine import uktime  # noqa: E402
+
+SLOTS = uktime.SLOT_UK                                        # UK wall-clock time
 DUE_FOR = {"evening": timedelta(hours=7), "morning": timedelta(hours=4)}
 RETRY_AFTER = timedelta(minutes=40)
 MAX_TRIES = 3
 TICK = 60                                                     # seconds
 HANDOFF_AFTER = timedelta(hours=5, minutes=40)               # job limit is 6 h
-LAGOS = timedelta(hours=1)
 API = "https://api.github.com/repos/{repo}"
 
 
 def due_slots(now: datetime) -> list[tuple[str, date]]:
     """[(slot, target card date)] whose start time has passed and that are
-    still inside their due window at `now` (UTC)."""
+    still inside their due window at `now`. Slot times are on the UK clock."""
     out = []
-    for slot, (h, m) in SLOTS.items():
+    today = uktime.uk(now).date()
+    for slot in SLOTS:
         for back in (0, 1):                       # today's slot, or yesterday's still due
-            day = (now - timedelta(days=back)).date()
-            start = datetime(day.year, day.month, day.day, h, m, tzinfo=UTC)
+            uk_day = today - timedelta(days=back)
+            start = uktime.slot_start(slot, uk_day)
             if start <= now < start + DUE_FOR[slot]:
-                lagos_day = (start + LAGOS).date()
-                target = lagos_day + timedelta(days=1) if slot == "evening" else lagos_day
-                out.append((slot, target))
+                out.append((slot, uktime.target_card(slot, uk_day)))
     return out
 
 

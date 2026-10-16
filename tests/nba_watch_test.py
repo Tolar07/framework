@@ -35,6 +35,9 @@ def game(total, spread=-1.5, ml=(1.87, 1.95)):
     return NS(id="401", tip="2026-10-21T23:30Z", ml_home=ml[0], ml_away=ml[1], spread=spread, total=total)
 
 
+from data import matchbook_prices as _mbp  # noqa: E402
+_mbp.nba_events = lambda get=None: []        # offline: no Matchbook listing in the test
+
 # round 1: sharp total 231.5 = SportyBet's line -> no value; first line recorded
 state, taken = {}, set()
 picks, lags, snaps = w.check(now, [("regular", event("e1"), tip, bos, lal, game(231.5))], state, taken)
@@ -47,7 +50,7 @@ later = now.replace(hour=22)
 picks, lags, _ = w.check(later, [("regular", event("e1"), tip, bos, lal, game(224.5))], state, taken)
 assert len(picks) == 1 and picks[0]["outcome"] == "Under 231.5" and picks[0]["source"] == "watch", picks
 assert "total 231.5 → 224.5" in picks[0]["reason"] and picks[0]["ev"] >= 0.05
-assert picks[0]["bet365"]["pick"] == "Game Lines › Total: Under 231.5" and "e1" in taken
+assert picks[0]["matchbook"] == {"back": None} and "bet365" not in picks[0] and "e1" in taken
 print("line move found, SportyBet's stale price alerted as a pick: OK")
 
 # round 3: same game again -> no second pick (one per game)
@@ -73,7 +76,7 @@ txt = w.render(later, "OLPXDV-20261021-2200-abc123",
                                                                    game(224.5))], {"first": {"e9": state["first"]["e1"]}}, set())[0]],
                ["X v Y: check by hand"])
 assert "Run ID: OLPXDV-20261021-2200-abc123" in txt and "Under 231.5" in txt and "why: sharp line moved" in txt
-assert "bet365: Game Lines › Total: Under 231.5" in txt and "LAG — check by hand" in txt and "LIVE TEST" in txt and "place it by hand" in txt
+assert "Matchbook: not listed" in txt and "bet365" not in txt and "LAG — check by hand" in txt and "LIVE TEST" in txt and "place it by hand" in txt
 print("alert text: OK")
 
 # price check: a pick sent this morning whose value has gone is flagged once

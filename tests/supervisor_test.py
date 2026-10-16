@@ -41,7 +41,8 @@ with tempfile.TemporaryDirectory() as d:
     text = sv.report("2026-10-04", "morning", "success", facts, st,
                      {"tests.yml": "success", "watchdog.yml": "failure"})
     assert text.startswith("🛡 SUPERVISOR · 2026-10-04 morning — ") and "issue(s)" in text
-    for must in ("⚠ bet365 board MISSING", "⚠ 2 fixture(s) NO DATA",
+    assert "bet365" not in text, text            # retired 2026-10-16
+    for must in ("⚠ 2 fixture(s) NO DATA",
                  "⚠ 90% of picks are Double chance", "⚠ codes: 9/10 singles, 1/2 slips",
                  "⚠ watchdog: failure", "✓ tests on main: success", "✓ Run ID present"):
         assert must in text, (must, text)

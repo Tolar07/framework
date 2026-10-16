@@ -88,6 +88,13 @@ def sweep(now: datetime) -> str:
             notes.append(f"{sport}: {len(rows)} listed, {uv.update(pending, rows)} new")
         except Exception as e:  # noqa: BLE001 — one sport failing never stops the other
             notes.append(f"{sport}: SportyBet unavailable ({str(e)[:60]})")
+    try:
+        # Matchbook's price for the same markets, beside SportyBet's (Architect 2026-10-16:
+        # integrate Matchbook fully; bet365 retired) — backtest/MATCHBOOK_PRICE_STUDY.md
+        from data import matchbook_prices as mbp
+        notes.append(mbp.attach(pending, now))
+    except Exception as e:  # noqa: BLE001 — Matchbook down never stops the sweep
+        notes.append(f"Matchbook skipped ({str(e)[:60]})")
     index = {}
     for sport, (_sid, _m, fs_sport) in uv.SPORTS.items():
         try:
@@ -124,7 +131,7 @@ def persist(now: datetime) -> str:
         return "not saved (outside GitHub Actions)"
     _git("add", "data/universe", "backtest/UNIVERSE_STUDY.md", "data/match_stats",
          "backtest/MATCH_STATS_STUDY.md", "backtest/PAPER_BOOK.md", "data/teams",
-         "backtest/PROFILE_STUDY.md")
+         "backtest/PROFILE_STUDY.md", "backtest/MATCHBOOK_PRICE_STUDY.md")
     if _git("diff", "--staged", "--quiet").returncode == 0:
         return "nothing to save"
     _git("commit", "-q", "-m", f"universe {now:%Y-%m-%d %H:%M} [skip ci]")
@@ -173,6 +180,10 @@ def main(argv: list[str] | None = None) -> int:
         sys.path.insert(0, str(ROOT / "backtest"))
         importlib.import_module("universe_study").main()
         importlib.import_module("paper_book_study").main()
+        try:
+            importlib.import_module("matchbook_price_study").main()
+        except Exception as e:  # noqa: BLE001 — the Matchbook study never stops the sweep
+            print(f"[{now:%H:%M}Z] Matchbook price study skipped ({str(e)[:60]})")
         try:
             # data/match_stats.py sits beside its data folder data/match_stats/: load the module by name
             n, notes = importlib.import_module("data.match_stats").collect(days=3)

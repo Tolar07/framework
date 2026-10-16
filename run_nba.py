@@ -169,11 +169,8 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
             ext = xm.view(best, xm.match(ext_rows, ht.key, at.key, tip.date()))
             if ext:
                 best = {**best, "ext_model": ext}
-        min_ev = nv.MIN_EV_WINNER if best["market_id"] == "219" else nv.MIN_EV_LINE
         picks.append({**best, "stage": stage, "event_id": e.get("eventId"),
                       "home_key": ht.key, "away_key": at.key,
-                      "bet365": {"pick": nt.bet365_pick(best, ht, at),
-                                 "take_at": nt.bet365_take_at(best, min_ev, nv.BAND[0])},
                       "espn_id": g.id, "espn_date": g.tip[:10], "tip": tip.isoformat(),
                       "home": e.get("homeTeamName"), "away": e.get("awayTeamName"),
                       "pick": nv.display(best, e.get("homeTeamName"), e.get("awayTeamName")),
@@ -184,6 +181,12 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
     nm.save(looks, now)
     picks.sort(key=lambda p: p["tip"])
     study.sort(key=lambda x: x["tip"])
+    if picks:
+        # bet365 retired (Architect 2026-10-16): each pick carries Matchbook's back price instead
+        from data import matchbook_prices as mbp
+        mb = mbp.nba_events()
+        for p in picks:
+            p["matchbook"] = {"back": mbp.nba_back(mb, p)}
     return picks, notes, scanned, study
 
 
@@ -278,16 +281,12 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
               f"   {p['pick']} @{p['price']:.2f} · chance {p['chance']:.0%} · fair {p['fair_price']:.2f} "
               f"· value {p['ev']:+.1%}",
               f"   code {p['code'] or 'PENDING'}"]
-        b365 = p.get("bet365") or {}
-        if b365.get("pick"):
-            L.append(f"   bet365: {b365['pick']} · take at {b365['take_at']:.2f}+")
+        if "matchbook" in p:
+            mbx = (p.get("matchbook") or {}).get("back")
+            L.append(f"   Matchbook: back {mbx:.2f}" if mbx else "   Matchbook: not listed")
         L.append("")
     if mega:
         L += [f"All {len(picks)} picks on one slip: {mega}", ""]
-    if any((p.get("bet365") or {}).get("pick") for p in picks):
-        L += ["bet365: no bet365 price feed (order 27), so none is shown — 'take at' is the",
-              "lowest bet365 price that still clears this board's value bar."
-              + ("" if nt.BET365_CONFIRMED else " bet365 names are a draft until checked in the app."), ""]
     if study:
         L += [_RULE, "STUDY LINES — not picks, nothing booked (order 41)", _RULE,
               "Each market's SportyBet line closest to the fair price, value or not:",

@@ -7,7 +7,7 @@ looks at what the run actually left behind on main — not at what "should"
 have happened — and sends the Architect ONE Telegram status:
 
   * the board run's own conclusion;
-  * the day's board, bet365 board and sent marker exist;
+  * the day's board and sent marker exist (the bet365 board is retired, 2026-10-16);
   * the board carries a Run ID (HR59);
   * the picks: how many, how many market families, the largest family's
     share (one family on most picks = every slip is the same bet), main and
@@ -126,8 +126,6 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
     else:
         (ok if facts["run_id"] else bad).append("Run ID " + ("present" if facts["run_id"]
                                                              else "MISSING (HR59)"))
-        (ok if facts["bet365"] else bad).append("bet365 board " + ("saved" if facts["bet365"]
-                                                                   else "MISSING"))
         if facts["no_data"]:
             bad.append(f"{facts['no_data']} fixture(s) NO DATA")
     if stats:

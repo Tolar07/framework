@@ -136,15 +136,12 @@ def check(now: datetime, games: list[tuple], state: dict, taken: set) -> tuple[l
         if not found:
             continue
         best = max(found, key=lambda r: (r["ev"], r["chance"]))
-        min_ev = nv.MIN_EV_WINNER if best["market_id"] == "219" else nv.MIN_EV_LINE
         reason = (f"sharp line moved since {first['at']}: {'; '.join(moves)}" if moves
                   else "new value since the morning board")
         if eid in state.get("reopen", []):
             reason = "REPLACES the earlier pick on this game (value gone / no longer offered); " + reason
         picks.append({**best, "source": "watch", "reason": reason, "found_at": now.isoformat(),
                       "stage": stage, "event_id": eid, "home_key": ht.key, "away_key": at.key,
-                      "bet365": {"pick": nt.bet365_pick(best, ht, at),
-                                 "take_at": nt.bet365_take_at(best, min_ev, nv.BAND[0])},
                       "espn_id": g.id, "espn_date": g.tip[:10], "tip": tip.isoformat(),
                       "home": e.get("homeTeamName"), "away": e.get("awayTeamName"),
                       "pick": nv.display(best, e.get("homeTeamName"), e.get("awayTeamName")),
@@ -152,6 +149,12 @@ def check(now: datetime, games: list[tuple], state: dict, taken: set) -> tuple[l
                                 "spread": g.spread, "total": g.total},
                       "code": None, "result": None, "score": None, "close_value": None})
         taken.add(eid)
+    if picks:
+        # bet365 retired (Architect 2026-10-16): each pick carries Matchbook's back price instead
+        from data import matchbook_prices as mbp
+        mb = mbp.nba_events()
+        for p in picks:
+            p["matchbook"] = {"back": mbp.nba_back(mb, p)}
     return picks, lags, snaps
 
 
@@ -204,8 +207,9 @@ def render(now: datetime, run_id: str, picks: list[dict], lags: list[str], gone:
               f"· value {p['ev']:+.1%}",
               f"   why: {p['reason']}",
               f"   code {p['code'] or 'PENDING'}"]
-        if (p.get("bet365") or {}).get("pick"):
-            L.append(f"   bet365: {p['bet365']['pick']} · take at {p['bet365']['take_at']:.2f}+")
+        if "matchbook" in p:
+            mbx = (p.get("matchbook") or {}).get("back")
+            L.append(f"   Matchbook: back {mbx:.2f}" if mbx else "   Matchbook: not listed")
         L.append("")
     if lags:
         L += ["LAG — check by hand (no pick):"] + [f" • {n}" for n in lags] + [""]

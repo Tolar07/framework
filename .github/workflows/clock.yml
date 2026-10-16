@@ -1,6 +1,7 @@
 name: OLP XDV board clock
 
-# Starts the 10pm (21:47 Lagos) and 7am (06:47 Lagos) board runs ON TIME
+# Starts the 10pm (21:47 UK) and 7am (06:47 UK) board runs ON TIME, on the UK
+# clock with daylight saving (Architect 2026-10-15: "UK time for everything")
 # (Architect 2026-10-15: "make sure the triggers [are] on time ... I don't want
 # it to fail again"). GitHub's crons and the board Routine both fire hours
 # late; this ONE job loops all day and starts daily.yml itself the minute a
@@ -12,8 +13,10 @@ name: OLP XDV board clock
 on:
   schedule:
     - cron: "13 */2 * * *"     # restart if the clock died
-    - cron: "31 20 * * *"      # and just before each slot
+    - cron: "31 20 * * *"      # and just before each slot (BST)
     - cron: "31 5 * * *"
+    - cron: "31 21 * * *"      # (GMT)
+    - cron: "31 6 * * *"
   workflow_dispatch:
     inputs:
       handoff:

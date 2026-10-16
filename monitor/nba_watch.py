@@ -195,9 +195,9 @@ def price_check(games: list[tuple], state: dict, sent: dict[str, dict]) -> list[
 
 def render(now: datetime, run_id: str, picks: list[dict], lags: list[str], gone: list[str] | None = None) -> str:
     L = ["🏀 OLP XDV · NBA LINE WATCH — LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)",
-         f"Run ID: {run_id}", f"Checked {now.astimezone(run_nba.LAGOS):%H:%M} Lagos (WAT)", ""]
+         f"Run ID: {run_id}", f"Checked {now.astimezone(run_nba.UK):%H:%M} UK time", ""]
     for p in picks:
-        tip = datetime.fromisoformat(p["tip"]).astimezone(run_nba.LAGOS)
+        tip = datetime.fromisoformat(p["tip"]).astimezone(run_nba.UK)
         tag = " · PRESEASON (test only)" if p["stage"] == "preseason" else ""
         L += [f"{tip:%H:%M}  {p['home']} v {p['away']}{tag}",
               f"   {p['pick']} @{p['price']:.2f} · chance {p['chance']:.0%} · fair {p['fair_price']:.2f} "

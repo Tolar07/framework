@@ -16,15 +16,23 @@ def T(h, m, d=15):
     return datetime(2026, 10, d, h, m, tzinfo=UTC)
 
 
-# --- due windows and target cards ------------------------------------------
-assert bc.due_slots(T(20, 46)) == [], "not before 20:47 UTC"
-assert bc.due_slots(T(20, 47)) == [("evening", date(2026, 10, 16))], "21:47 Lagos -> tomorrow's card"
-assert bc.due_slots(T(23, 8)) == [("evening", date(2026, 10, 16))], "still due at 00:08 Lagos"
-assert bc.due_slots(T(1, 30, 16)) == [("evening", date(2026, 10, 16))], "after midnight UTC: the evening just past"
+# --- due windows and target cards (UK time; BST = UTC+1 until 25 Oct 2026) --
+assert bc.due_slots(T(20, 46)) == [], "not before 21:47 UK (20:47 UTC in BST)"
+assert bc.due_slots(T(20, 47)) == [("evening", date(2026, 10, 16))], "21:47 UK -> tomorrow's card"
+assert bc.due_slots(T(23, 8)) == [("evening", date(2026, 10, 16))], "still due at 00:08 UK"
+assert bc.due_slots(T(1, 30, 16)) == [("evening", date(2026, 10, 16))], "after midnight: the evening just past"
 assert bc.due_slots(T(3, 47, 16)) == [], "evening window over"
-assert bc.due_slots(T(5, 47)) == [("morning", date(2026, 10, 15))], "06:47 Lagos -> today's card"
+assert bc.due_slots(T(5, 47)) == [("morning", date(2026, 10, 15))], "06:47 UK -> today's card"
 assert bc.due_slots(T(9, 46)) == [("morning", date(2026, 10, 15))]
 assert bc.due_slots(T(9, 47)) == [], "morning window over"
+# GMT from Sunday 25 Oct 2026 (Architect 2026-10-15: "UK time for everything"):
+# the slots stay 21:47 / 06:47 on the UK clock, an hour later in UTC.
+assert bc.due_slots(T(20, 47, 24)) == [("evening", date(2026, 10, 25))], "Sat 24 Oct: still BST"
+assert bc.due_slots(T(5, 47, 25)) == [], "Sun 25 Oct 05:47 UTC = 05:47 GMT: not yet"
+assert bc.due_slots(T(6, 47, 25)) == [("morning", date(2026, 10, 25))], "06:47 GMT"
+assert bc.due_slots(T(20, 47, 26)) == [], "20:47 GMT: an hour before the board"
+assert bc.due_slots(T(21, 47, 26)) == [("evening", date(2026, 10, 27))], "21:47 GMT -> tomorrow's card"
+assert bc.due_slots(T(0, 30, 27)) == [("evening", date(2026, 10, 27))], "after midnight GMT: the evening just past"
 assert bc.marker("evening", date(2026, 10, 16)) == "output/boards/sent_2026-10-16_evening"
 print("due windows + target cards: OK")
 

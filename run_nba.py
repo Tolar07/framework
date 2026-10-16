@@ -1,6 +1,6 @@
 """
 NBA BOARD (standing order 41, Architect 2026-10-06; LIVE TEST since 2026-10-07) — built once a
-day by the MORNING run (06:47 Lagos) for that coming night's games, so the codes
+day by the MORNING run (06:47 UK) for that coming night's games, so the codes
 arrive 11-17 hours before tip-off (Architect 2026-10-07: "I need at least 12
 hours or 6 hours before kickoff"). The evening run is only a backup for a
 missed morning board — a board already sent is never sent twice.
@@ -50,7 +50,9 @@ from engine import nba_value as nv  # noqa: E402
 
 LEDGER_DIR = ROOT / "output" / "picks"
 BOARD_DIR = ROOT / "output" / "boards"
-LAGOS = timezone(timedelta(hours=1))
+from engine.uktime import UK  # noqa: E402 — tip-off times on the UK clock (Architect 2026-10-15)
+
+LAGOS = UK      # old name kept for imports
 NIGHT_START = 10       # UTC hour an NBA night begins (no NBA game tips 06:30-10:00 UTC)
 TOURNAMENTS = {"sr:tournament:132": "regular", "sr:tournament:2382": "preseason"}
 _FEED = ("https://www.sportybet.com/api/ng/factsCenter/pcUpcomingEvents"
@@ -104,7 +106,7 @@ def night_of(now: datetime) -> date:
 
 def night_key(tip: datetime) -> str:
     """The board / ledger date of the night a game belongs to: the date the
-    night ENDS (a game at 00:00 Lagos on the 8th belongs to board 2026-10-08)."""
+    night ENDS (a game at 23:00 UTC on the 7th belongs to board 2026-10-08)."""
     return ((tip - timedelta(hours=NIGHT_START)).date() + timedelta(days=1)).isoformat()
 
 
@@ -263,14 +265,14 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
            mega: Optional[str], notes: list[str], study: list[dict] | None = None) -> str:
     L = ["##########OLP XDV · NBA #########", "🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)",
          "==================================", "",
-         f"📅  {datetime.fromisoformat(board_date):%a %d %b %Y}   ·   tip-off = Lagos time (WAT)",
+         f"📅  {datetime.fromisoformat(board_date):%a %d %b %Y}   ·   tip-off = UK time",
          f"Run ID: {run_id}", f"Games checked against the sharp line: {scanned}", "",
          "Only prices where SportyBet pays MORE than the fair price (the sharp line, margin",
          "removed). One pick per game. Value = chance × price − 1.", "", _RULE, "PICKS", _RULE, ""]
     if not picks:
         L.append("No SportyBet NBA price above the fair price today.")
     for p in picks:
-        tip = datetime.fromisoformat(p["tip"]).astimezone(LAGOS)
+        tip = datetime.fromisoformat(p["tip"]).astimezone(UK)
         tag = " · PRESEASON (test only)" if p["stage"] == "preseason" else ""
         L += [f"{tip:%H:%M}  {p['home']} v {p['away']}{tag}",
               f"   {p['pick']} @{p['price']:.2f} · chance {p['chance']:.0%} · fair {p['fair_price']:.2f} "
@@ -293,7 +295,7 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
         for g in study:
             if not g["lines"]:
                 continue
-            tip = datetime.fromisoformat(g["tip"]).astimezone(LAGOS)
+            tip = datetime.fromisoformat(g["tip"]).astimezone(UK)
             tag = " · PRESEASON" if g["stage"] == "preseason" else ""
             L.append(f"{tip:%H:%M}  {g['home']} v {g['away']}{tag}")
             L += [f"   {nv.display(r, g['home'], g['away'])} @{r['price']:.2f} · fair {r['fair_price']:.2f} "

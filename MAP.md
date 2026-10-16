@@ -14,7 +14,7 @@ a path named here stops existing.
 
 ## 1. What runs
 
-Everything live runs in GitHub Actions on `main`. Times UTC (Lagos = UTC+1).
+Everything live runs in GitHub Actions on `main`. Times UTC unless marked; the board slots and every time on the boards are UK time (BST = UTC+1, GMT = UTC+0 from the last Sunday of October; `engine/uktime.py`, Architect 2026-10-15).
 
 | Workflow | When | Runs | Commits back |
 |---|---|---|---|
@@ -38,11 +38,11 @@ Everything live runs in GitHub Actions on `main`. Times UTC (Lagos = UTC+1).
 **Routines (claude.ai, outside the repo)** — they dispatch `daily.yml` on time
 because GitHub's cron runs late or not at all:
 
-| Routine | Schedule (Lagos) | ID |
+| Routine | Schedule (UK time) | ID |
 |---|---|---|
-| OLP XDV evening board | 21:47 daily | `trig_01Vcrxe7wjgfQAnT42d9Vpbz` and a duplicate `trig_01MsTr3s2u7nnYz8CTx4bhsD` |
-| OLP XDV morning board | 06:47 daily | `trig_01TnihPuzt1q4kCFqgQqxWLi` and a duplicate `trig_014L97BjwDoGsR7hDoENRJoi` |
-| OLP XDV weekly agent review | Mondays 09:51, read-only, push + email | `trig_01RsYF3PXPrkvjGBwiYp3opE` |
+| OLP XDV evening board | 21:47 daily (`CRON_TZ=Europe/London` since 2026-10-15) | `trig_01Vcrxe7wjgfQAnT42d9Vpbz` and a duplicate `trig_01MsTr3s2u7nnYz8CTx4bhsD` (disabled) |
+| OLP XDV morning board | 06:47 daily (`CRON_TZ=Europe/London`) | `trig_01TnihPuzt1q4kCFqgQqxWLi` and a duplicate `trig_014L97BjwDoGsR7hDoENRJoi` (disabled) |
+| OLP XDV weekly agent review | Mondays 09:51 (`CRON_TZ=Europe/London`), read-only, push + email | `trig_01RsYF3PXPrkvjGBwiYp3opE` |
 | Re-check omniroute-test#2 | one-off reminder for a frozen-branch PR | `trig_01C87oUyMkvBBxeuDvwTQczH` |
 
 Since 2026-10-07 the two board Routines also carry `Tolar07/framework` as a source, so a re-fired or fresh-session run can dispatch (the 7 Oct evening re-fire failed with HTTP 403 without it; the scheduled runs post into a persistent session that already had access). Each slot has two Routines; the duplicate guard (`output/boards/sent_<date>_<slot>`)

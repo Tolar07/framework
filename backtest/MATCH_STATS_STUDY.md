@@ -2,7 +2,7 @@
 
 Written by `backtest/match_stats_study.py` from `data/match_stats/` (FotMob post-match stats of every fixture the board rated). A stat FotMob didn't publish is left out, never counted as 0. A study, not a selector.
 
-262 matches, 2026-10-04 to 2026-10-14.
+295 matches, 2026-10-04 to 2026-10-15.
 
 ## League styles (per match, both teams together)
 
@@ -10,10 +10,12 @@ Written by `backtest/match_stats_study.py` from `data/match_stats/` (FotMob post
 |---|---|---|---|---|---|---|---|---|---|
 | UEFA Nations League | 26 | 2.15 | 2.65 | 26.2 | 7.8 | 4.3 | 9.0 | 3.9 | 0.28 |
 | Championship | 22 | 2.91 | 2.96 | 27.2 | 8.9 | 5.3 | 10.6 | 0.0 | 0.33 |
+| Europa League | 17 | 3.18 | 3.31 | 27.3 | 9.6 | 5.8 | 9.1 | 4.2 | 0.33 |
 | La Liga 2 | 15 | 2.53 | 2.58 | 25.6 | 7.9 | 4.3 | 10.3 | 5.8 | 0.32 |
+| Conference League | 15 | 2.67 | 2.82 | 28.7 | 9.4 | 4.7 | 9.4 | 3.2 | 0.28 |
+| League One | 13 | 2.85 | 3.09 | 28.3 | 8.6 | 4.6 | 12.5 | 3.7 | 0.33 |
 | Champions League | 13 | 4.46 | 3.59 | 29.5 | 12.1 | 6.3 | 11.4 | 3.4 | 0.37 |
 | National League | 12 | 3.25 | — | — | — | — | — | — | — |
-| League One | 12 | 2.92 | 3.00 | 28.1 | 8.8 | 4.6 | 12.3 | 3.8 | 0.33 |
 | League Two | 12 | 2.08 | 2.63 | 23.6 | 6.2 | 2.9 | 9.0 | 4.6 | 0.33 |
 | Serie B | 10 | 2.90 | 3.03 | 28.7 | 8.1 | 4.5 | 8.6 | 3.8 | 0.36 |
 | Serie A | 10 | 2.70 | 3.18 | 29.0 | 9.5 | 5.2 | 9.5 | 3.5 | 0.28 |
@@ -43,10 +45,10 @@ Every match where the two sides differed on the measure (draws included).
 
 | The side with more … | matches | won | drew | lost |
 |---|---|---|---|---|
-| expected goals | 242 | 62% | 21% | 17% |
-| shots on target | 219 | 61% | 19% | 20% |
-| big chances | 206 | 59% | 21% | 20% |
-| possession | 240 | 38% | 20% | 41% |
+| expected goals | 275 | 64% | 21% | 15% |
+| shots on target | 247 | 62% | 19% | 19% |
+| big chances | 235 | 61% | 21% | 18% |
+| possession | 271 | 39% | 21% | 40% |
 
 ## Team profiles (3+ matches with xG), strongest xG balance first
 
@@ -56,5 +58,5 @@ Finishing = goals minus xG per match: a big positive number is usually luck that
 |---|---|---|---|---|---|---|---|
 | Andorra | La Liga 2 | 3 | 1.18 | 0.91 | 3.7–4.0 | 47% | -0.85 |
 
-All 473 teams' profiles: `data/match_stats/team_profiles.json`.
+All 509 teams' profiles: `data/match_stats/team_profiles.json`.
 

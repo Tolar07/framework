@@ -1,5 +1,87 @@
 {
- "fetched": "PENDING",
- "rows_read": 0,
- "groups": {}
+ "fetched": "2026-10-16",
+ "rows_read": 22,
+ "groups": {
+  "all": {
+   "bets": 22,
+   "settled": 11,
+   "won": 8,
+   "lost": 3,
+   "expected_wins": 8.59,
+   "mean_clv": 0.0015,
+   "clv_n": 11
+  },
+  "family: 1X2": {
+   "bets": 1,
+   "settled": 1,
+   "won": 0,
+   "lost": 1,
+   "expected_wins": 0.35,
+   "mean_clv": -0.0047,
+   "clv_n": 1
+  },
+  "family: Asian handicap": {
+   "bets": 2,
+   "settled": 1,
+   "won": 1,
+   "lost": 0,
+   "expected_wins": 0.8,
+   "mean_clv": -0.0074,
+   "clv_n": 1
+  },
+  "family: Double chance": {
+   "bets": 19,
+   "settled": 9,
+   "won": 7,
+   "lost": 2,
+   "expected_wins": 7.44,
+   "mean_clv": 0.0032,
+   "clv_n": 9
+  },
+  "framework family: Asian handicap": {
+   "bets": 2,
+   "settled": 1,
+   "won": 1,
+   "lost": 0,
+   "expected_wins": 0.8,
+   "mean_clv": -0.0074,
+   "clv_n": 1
+  },
+  "framework family: Double chance": {
+   "bets": 19,
+   "settled": 9,
+   "won": 7,
+   "lost": 2,
+   "expected_wins": 7.44,
+   "mean_clv": 0.0032,
+   "clv_n": 9
+  },
+  "source: framework pick": {
+   "bets": 20,
+   "settled": 9,
+   "won": 7,
+   "lost": 2,
+   "expected_wins": 7.44,
+   "mean_clv": 0.0032,
+   "clv_n": 9
+  },
+  "source: framework rated market": {
+   "bets": 1,
+   "settled": 1,
+   "won": 1,
+   "lost": 0,
+   "expected_wins": 0.8,
+   "mean_clv": -0.0074,
+   "clv_n": 1
+  },
+  "source: oracle (blind LLM)": {
+   "bets": 1,
+   "settled": 1,
+   "won": 0,
+   "lost": 1,
+   "expected_wins": 0.35,
+   "mean_clv": -0.0047,
+   "clv_n": 1
+  }
+ }
 }

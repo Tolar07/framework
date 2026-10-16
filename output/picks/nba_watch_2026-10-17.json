@@ -1,0 +1,41 @@
+{
+ "date": "2026-10-17",
+ "picks": [
+  {
+   "market_id": "223",
+   "specifier": "hcp=-6.5",
+   "outcome": "Away (+6.5)",
+   "outcome_id": "1715",
+   "price": 1.9,
+   "chance": 0.558,
+   "fair_price": 1.792,
+   "ev": 0.0603,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-10-16T22:30:00.000159+00:00",
+   "stage": "preseason",
+   "event_id": "sr:match:73863910",
+   "home_key": "CHI",
+   "away_key": "MIN",
+   "espn_id": "401908943",
+   "espn_date": "2026-10-17",
+   "tip": "2026-10-17T00:00:00+00:00",
+   "home": "Chicago Bulls",
+   "away": "Minnesota Timberwolves",
+   "pick": "Minnesota Timberwolves (+6.5) handicap",
+   "sharp": {
+    "ml_home": 1.5556,
+    "ml_away": 2.5,
+    "spread": -4.5,
+    "total": 234.5
+   },
+   "code": "V3S1Z5",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": null
+   }
+  }
+ ]
+}

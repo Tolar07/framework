@@ -1,7 +1,7 @@
 {
  "date": "2026-10-16",
- "run_id": "SHARP-aadc537a",
- "fetched_utc": "2026-10-16T10:06:39Z",
+ "run_id": "SHARP-97e168cc",
+ "fetched_utc": "2026-10-16T11:55:44Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -14,6 +14,27 @@
  "fixtures_on_day": 22,
  "fixtures_priced_by_exchange": 11,
  "picks": [
+  {
+   "league": "2. Bundesliga",
+   "home": "Holstein Kiel",
+   "away": "Hertha",
+   "fixture": "Holstein Kiel v Hertha (2. Bundesliga)",
+   "kickoff": "2026-10-16T16:30:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Away",
+   "key": "SB:1||Away",
+   "price": 2.4,
+   "outcome_id": "3",
+   "sharp_p": 0.4408,
+   "fair_price": 2.269,
+   "sharp_ev": 0.0579,
+   "code": "Y9708L",
+   "url": "http://www.sportybet.com/ng/?shareCode=Y9708L",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-97e168cc"
+  },
   {
    "league": "La Liga 2",
    "home": "Leganes",
@@ -33,7 +54,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=S70YJP",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-aadc537a"
+   "run_id": "SHARP-97e168cc"
   }
  ],
  "suspect": [],

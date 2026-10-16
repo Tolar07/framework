@@ -48,7 +48,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 3.3
   },
   {
    "fixture": "Horsens v Randers FC",
@@ -718,7 +720,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Annecy v Nancy",
@@ -766,7 +770,9 @@
    "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.36,
+   "drift_pct": 2.3
   },
   {
    "fixture": "Grenoble v Boulogne",
@@ -814,7 +820,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.16,
+   "drift_pct": -4.1
   },
   {
    "fixture": "Reims v Dijon",
@@ -862,7 +870,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Laval v Clermont",
@@ -910,7 +920,9 @@
    "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.33,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Corum FK v Caykur Rizespor",

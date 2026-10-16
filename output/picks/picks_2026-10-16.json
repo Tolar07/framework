@@ -126,7 +126,11 @@
     "home": 6564256,
     "away": 10112720
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:72043200",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -218,7 +222,11 @@
     "home": 1435682,
     "away": 12150586
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:71913092",
    "sb_tid": "sr:tournament:170",
    "sb_market": {

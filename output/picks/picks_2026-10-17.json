@@ -6310,7 +6310,11 @@
     "home": 3084998,
     "away": 18692134
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Austria Lustenau missing 14% of value (Emmanuel Chukwu, Sacha Delaye); support: LASK missing 27%",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:72345542",
    "sb_tid": "sr:tournament:45",
    "sb_market": {

@@ -667,8 +667,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -2.38,
    "stake_pct": 1.0,
    "ev": -0.0530524346682707,
    "missing": {
@@ -1359,8 +1359,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.025973076239170556,
    "missing": {
@@ -2124,7 +2124,11 @@
     "home": 364776947,
     "away": 318599990
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:72221326",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -3084,7 +3088,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Metz v Sochaux-Montbeliard",
@@ -6253,8 +6259,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -3.88,
    "stake_pct": 0.25,
    "ev": -0.004257521218316573,
    "missing": {
@@ -6553,8 +6559,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -7.58,
    "stake_pct": 0.25,
    "ev": -0.09961040113841035,
    "missing": {

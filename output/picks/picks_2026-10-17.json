@@ -134,7 +134,11 @@
     "home": 23624189,
     "away": 9342915
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72041184",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -1425,8 +1429,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -2.36,
    "stake_pct": 0.25,
    "ev": -0.022669024716396646,
    "missing": {
@@ -1834,7 +1838,11 @@
     "home": 117014600,
     "away": 40819482
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72036226",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -1843,8 +1851,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 2.56,
    "stake_pct": 0.25,
    "ev": 0.003536843468394002,
    "missing": {
@@ -1897,8 +1905,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.004801007953150083,
    "missing": {

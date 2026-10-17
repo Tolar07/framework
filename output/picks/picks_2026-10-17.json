@@ -496,7 +496,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Cracovia v Legia",
@@ -570,7 +572,11 @@
     "home": 4583718,
     "away": 5079126
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "NK Istra 1961 missing 13% of value (Antonio Mauri\u0107, Daouda Doumbia)",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:71913098",
    "sb_tid": "sr:tournament:170",
    "sb_market": {
@@ -579,8 +585,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 1.0,
    "ev": -0.041871038247752956,
    "missing": {
@@ -1237,8 +1243,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -1.56,
    "stake_pct": 0.25,
    "ev": -0.006862341982224129,
    "missing": {
@@ -1424,7 +1430,11 @@
     "home": 23173303,
     "away": 78133761
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513252",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1474,7 +1484,11 @@
     "home": 26332351,
     "away": 110307233
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513254",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1524,7 +1538,11 @@
     "home": 31432518,
     "away": 351696214
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513244",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1574,7 +1592,11 @@
     "home": 49875828,
     "away": 28813813
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513250",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -2471,8 +2493,8 @@
     "spec": "total=2.5",
     "outcome": "Under 2.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -2.38,
    "stake_pct": 0.25,
    "ev": -0.026494362723660347,
    "missing": {
@@ -2512,7 +2534,11 @@
     "home": 5512725,
     "away": 5895907
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:73092974",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2521,8 +2547,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 1.56,
    "stake_pct": 0.25,
    "ev": -0.015692710101864127,
    "missing": {
@@ -2562,7 +2588,11 @@
     "home": 12422021,
     "away": 5723347
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Virtus Entella at full strength",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:73092984",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2571,8 +2601,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.07499222758947233,
    "missing": {
@@ -2612,7 +2642,11 @@
     "home": 11412192,
     "away": 16278065
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Modena at full strength",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:73092976",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2621,8 +2655,8 @@
     "spec": "",
     "outcome": "Draw or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.12,
    "ev": -0.08920796738061587,
    "missing": {
@@ -5794,7 +5828,11 @@
     "home": 18372818,
     "away": 12401193
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72723256",
    "sb_tid": "sr:tournament:52",
    "sb_market": {
@@ -5803,8 +5841,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -0.76,
    "stake_pct": 0.25,
    "ev": 0.00011038598603896332,
    "missing": {
@@ -5857,8 +5895,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 1.57,
    "stake_pct": 0.12,
    "ev": 0.0048550594201459685,
    "missing": {
@@ -6252,7 +6290,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 0.8
   }
  ],
  "accas": [

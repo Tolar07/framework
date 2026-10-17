@@ -572,7 +572,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 0.0
   },
   {
    "fixture": "NK Lokomotiva Zagreb v NK Istra 1961",
@@ -652,7 +654,11 @@
     "home": 4249957,
     "away": 2802476
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:71913100",
    "sb_tid": "sr:tournament:170",
    "sb_market": {
@@ -1340,7 +1346,11 @@
     "home": 114057659,
     "away": 340922847
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:71945306",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -6230,7 +6240,11 @@
     "home": 153219144,
     "away": 9377296
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:72723262",
    "sb_tid": "sr:tournament:52",
    "sb_market": {
@@ -6526,7 +6540,11 @@
     "home": 20455439,
     "away": 5375028
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:20Z"
+   },
    "sb_event_id": "sr:match:67015430",
    "sb_tid": "sr:tournament:20",
    "sb_market": {

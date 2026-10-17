@@ -5500,7 +5500,11 @@
     "home": 7588033,
     "away": 5159032
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Erzurumspor FK at full strength",
+    "at": "09:40Z"
+   },
    "sb_event_id": "sr:match:72723266",
    "sb_tid": "sr:tournament:52",
    "sb_market": {

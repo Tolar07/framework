@@ -1754,7 +1754,11 @@
     "home": 270570866,
     "away": 659279219
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Chelsea missing 16%",
+    "at": "10:20Z"
+   },
    "sb_event_id": "sr:match:72221318",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -2674,7 +2678,11 @@
     "home": 13563141,
     "away": 8892234
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:20Z"
+   },
    "sb_event_id": "sr:match:72513910",
    "sb_tid": "sr:tournament:44",
    "sb_market": {
@@ -2778,7 +2786,11 @@
     "home": 34601961,
     "away": 13210847
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Wolfsburg at full strength",
+    "at": "10:20Z"
+   },
    "sb_event_id": "sr:match:72513906",
    "sb_tid": "sr:tournament:44",
    "sb_market": {

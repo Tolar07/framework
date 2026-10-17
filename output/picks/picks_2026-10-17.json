@@ -185,8 +185,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": -0.04093424225386322,
    "missing": {
@@ -239,8 +239,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -1.59,
    "stake_pct": 0.25,
    "ev": -0.04366040784147418,
    "missing": {
@@ -293,8 +293,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.01820231790428095,
    "missing": {
@@ -347,8 +347,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": 0.77,
    "stake_pct": 0.25,
    "ev": -0.022123951280090592,
    "missing": {
@@ -860,8 +860,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 1.55,
    "stake_pct": 0.25,
    "ev": -0.05588543002427504,
    "missing": null,
@@ -911,8 +911,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -2.42,
    "stake_pct": 0.25,
    "ev": -0.038630947868191545,
    "missing": {
@@ -952,7 +952,11 @@
     "home": 24510099,
     "away": 39408345
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72339918",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -961,8 +965,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.020544851536481668,
    "missing": {
@@ -1015,8 +1019,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02628822755164173,
    "missing": {
@@ -1056,7 +1060,11 @@
     "home": 57873552,
     "away": 27809165
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72339926",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1065,8 +1073,8 @@
     "spec": "",
     "outcome": "Home"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.25,
    "ev": -0.04426170512948768,
    "missing": {
@@ -1119,8 +1127,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 0.25,
    "ev": -0.014901340812541908,
    "missing": {
@@ -1173,8 +1181,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0429395629482876,
    "missing": {
@@ -1214,7 +1222,11 @@
     "home": 47328810,
     "away": 31545600
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72339934",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1223,8 +1235,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 1.61,
    "stake_pct": 0.25,
    "ev": -0.039884288540623536,
    "missing": {
@@ -1708,7 +1720,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 4.1
   },
   {
    "fixture": "Strasbourg v Paris SG",
@@ -1941,8 +1955,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.013311270739940206,
    "missing": {
@@ -1995,8 +2009,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.25,
    "ev": -0.045350667294269176,
    "missing": {
@@ -2049,8 +2063,8 @@
     "spec": "",
     "outcome": "Home"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.5,
    "ev": -0.020724425238957567,
    "missing": {
@@ -2112,7 +2126,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Espanol v Ath Madrid",
@@ -2192,7 +2208,11 @@
     "home": 200404735,
     "away": 22004217
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72478644",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -2201,8 +2221,8 @@
     "spec": "",
     "outcome": "Home"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0389506223680981,
    "missing": {
@@ -2264,7 +2284,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.33,
+   "drift_pct": 2.3
   },
   {
    "fixture": "Valencia v Ath Bilbao",
@@ -2386,7 +2408,11 @@
     "home": 5592069,
     "away": 23167730
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Mallorca at full strength",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72477500",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -2395,8 +2421,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.07045797459878256,
    "missing": {
@@ -2458,7 +2484,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Las Palmas v Castellon",
@@ -3320,7 +3348,11 @@
     "home": 5510401,
     "away": 3792104
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Cambridge United at full strength",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72341262",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3329,8 +3361,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.15,
+   "clv": 4.35,
    "stake_pct": 0.25,
    "ev": -0.02304266632794738,
    "missing": {
@@ -3383,8 +3415,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 1.63,
    "stake_pct": 0.25,
    "ev": -0.0654838980588126,
    "missing": {
@@ -3437,8 +3469,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.25,
    "ev": -0.037392479240141996,
    "missing": {
@@ -3491,8 +3523,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.05581069247232595,
    "missing": {
@@ -3545,8 +3577,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.04122336435647522,
    "missing": {
@@ -3599,8 +3631,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.03603717520667338,
    "missing": {
@@ -3653,8 +3685,8 @@
     "spec": "",
     "outcome": "Home"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -1.56,
    "stake_pct": 0.5,
    "ev": -0.051270691490749254,
    "missing": {
@@ -3707,8 +3739,8 @@
     "spec": "",
     "outcome": "Draw or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 4.88,
    "stake_pct": 0.25,
    "ev": -0.061361991973925334,
    "missing": {
@@ -3761,8 +3793,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 1.61,
    "stake_pct": 0.25,
    "ev": -0.07631052856621967,
    "missing": {
@@ -3923,8 +3955,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -1.64,
    "stake_pct": 0.25,
    "ev": -0.06649805044430912,
    "missing": {
@@ -3977,8 +4009,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -1.5,
    "stake_pct": 0.25,
    "ev": -0.053491880361148714,
    "missing": {
@@ -4031,8 +4063,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.056471190518843306,
    "missing": {
@@ -4085,8 +4117,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 0.25,
    "ev": -0.0436218430657489,
    "missing": {
@@ -4139,8 +4171,8 @@
     "spec": "",
     "outcome": "Draw or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -3.79,
    "stake_pct": 0.25,
    "ev": -0.07359330577469703,
    "missing": {
@@ -4193,8 +4225,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.058427649809632,
    "missing": {
@@ -4234,7 +4266,11 @@
     "home": 2725710,
     "away": 3159972
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72342214",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4243,8 +4279,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": -2.26,
    "stake_pct": 0.25,
    "ev": -0.04637477338868301,
    "missing": {
@@ -4297,8 +4333,8 @@
     "spec": "",
     "outcome": "2-4"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.76,
    "stake_pct": 0.25,
    "ev": -0.20608092508822817,
    "missing": {
@@ -4351,8 +4387,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03599406262011495,
    "missing": {
@@ -4405,8 +4441,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.25,
    "ev": -0.02261829382752767,
    "missing": {
@@ -4491,7 +4527,11 @@
    "fotmob_id": 6401691,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368588",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4500,8 +4540,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -0.81,
    "stake_pct": 1.0,
    "ev": -0.051918345076992445,
    "missing": null,
@@ -4535,7 +4575,11 @@
    "fotmob_id": 6392457,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368582",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4544,8 +4588,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.14,
+   "clv": 5.26,
    "stake_pct": 1.0,
    "ev": -0.043254099163041015,
    "missing": null,
@@ -4579,7 +4623,11 @@
    "fotmob_id": 6392465,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368602",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4588,8 +4636,8 @@
     "spec": "total=1.5",
     "outcome": "Home & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.16,
+   "clv": 6.03,
    "stake_pct": 1.0,
    "ev": -0.09892391423380165,
    "missing": null,
@@ -4623,7 +4671,11 @@
    "fotmob_id": 6392455,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368576",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4632,8 +4684,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Draw & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -2.38,
    "stake_pct": 1.0,
    "ev": -0.07213689467157414,
    "missing": null,
@@ -4667,7 +4719,11 @@
    "fotmob_id": 6392452,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368568",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4676,8 +4732,8 @@
     "spec": "",
     "outcome": "Home"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 1.0,
    "ev": -0.0379577179736762,
    "missing": null,
@@ -4711,7 +4767,11 @@
    "fotmob_id": 6401690,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368598",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4720,8 +4780,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.14,
+   "clv": 5.26,
    "stake_pct": 1.0,
    "ev": -0.05733903069262081,
    "missing": null,
@@ -4758,7 +4818,11 @@
     "home": 1668886,
     "away": 715103
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368610",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4808,7 +4872,11 @@
     "home": 896371,
     "away": 362780
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368572",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4817,8 +4885,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.86,
    "ev": -0.02774227524968531,
    "missing": {
@@ -4858,7 +4926,11 @@
     "home": 974115,
     "away": 218525
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368586",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4867,8 +4939,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -2.44,
    "stake_pct": 1.0,
    "ev": -0.042584978370384885,
    "missing": {
@@ -4905,7 +4977,11 @@
    "fotmob_id": 6392462,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368594",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4914,8 +4990,8 @@
     "spec": "",
     "outcome": "Draw or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 3.39,
    "stake_pct": 1.0,
    "ev": -0.06466051566287745,
    "missing": null,
@@ -4949,7 +5025,11 @@
    "fotmob_id": 6392449,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368560",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -4958,8 +5038,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -1.63,
    "stake_pct": 1.0,
    "ev": -0.04400579608882971,
    "missing": null,
@@ -4993,7 +5073,11 @@
    "fotmob_id": 6392474,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368620",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5002,8 +5086,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.0,
    "stake_pct": 0.89,
    "ev": -0.01645132385055681,
    "missing": null,
@@ -5037,7 +5121,11 @@
    "fotmob_id": 6392470,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368612",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5046,8 +5134,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Draw & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -2.38,
    "stake_pct": 1.0,
    "ev": -0.05532111655498684,
    "missing": null,
@@ -5081,7 +5169,11 @@
    "fotmob_id": 6392450,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368564",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5090,8 +5182,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.0,
    "stake_pct": 0.96,
    "ev": -0.04282863419630112,
    "missing": null,
@@ -5125,7 +5217,11 @@
    "fotmob_id": 6401688,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368562",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5134,8 +5230,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -1.55,
    "stake_pct": 0.89,
    "ev": -0.03634675745693916,
    "missing": null,
@@ -5169,7 +5265,11 @@
    "fotmob_id": 6392448,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368558",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5178,8 +5278,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -0.8,
    "stake_pct": 1.0,
    "ev": -0.046358170283739675,
    "missing": null,
@@ -5213,7 +5313,11 @@
    "fotmob_id": 6392453,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368570",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5222,8 +5326,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 1.0,
    "ev": -0.045831586909733546,
    "missing": null,
@@ -5260,7 +5364,11 @@
     "home": 538800,
     "away": 736497
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368584",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5269,8 +5377,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.86,
    "ev": -0.05494408579227683,
    "missing": {
@@ -5307,7 +5415,11 @@
    "fotmob_id": 6392463,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368596",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5316,8 +5428,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.0,
    "stake_pct": 1.0,
    "ev": -0.015256242669543951,
    "missing": null,
@@ -5351,7 +5463,11 @@
    "fotmob_id": 6392451,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368566",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5360,8 +5476,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.0,
    "stake_pct": 0.92,
    "ev": -0.028128159243565376,
    "missing": null,
@@ -5395,7 +5511,11 @@
    "fotmob_id": 6401687,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368574",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5404,8 +5524,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.0,
    "stake_pct": 0.96,
    "ev": -0.027945533969511493,
    "missing": null,
@@ -5439,7 +5559,11 @@
    "fotmob_id": 6392473,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368618",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5448,8 +5572,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.92,
    "ev": -0.026829565154260937,
    "missing": null,
@@ -5483,7 +5607,11 @@
    "fotmob_id": 6392460,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368590",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5492,8 +5620,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.0,
    "stake_pct": 0.96,
    "ev": -0.03691355045548328,
    "missing": null,
@@ -5536,8 +5664,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 1.0,
    "ev": -0.0400346550448174,
    "missing": null,
@@ -5571,7 +5699,11 @@
    "fotmob_id": 6392471,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368614",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5580,8 +5712,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Draw & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -0.81,
    "stake_pct": 1.0,
    "ev": -0.07088077373549817,
    "missing": null,
@@ -5615,7 +5747,11 @@
    "fotmob_id": 6401689,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368580",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5624,8 +5760,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 5.93,
    "stake_pct": 0.96,
    "ev": -0.05166810425632162,
    "missing": null,
@@ -5662,7 +5798,11 @@
     "home": 103680,
     "away": 1059676
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368592",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5671,8 +5811,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": 0.0,
    "stake_pct": 0.8,
    "ev": -0.037515795327729085,
    "missing": {
@@ -5709,7 +5849,11 @@
    "fotmob_id": 6392466,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368604",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5718,8 +5862,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 1.0,
    "ev": -0.035303365143728005,
    "missing": null,
@@ -5753,7 +5897,11 @@
    "fotmob_id": 6392464,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368600",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5762,8 +5910,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 1.0,
    "ev": -0.044248339163106665,
    "missing": null,
@@ -5800,7 +5948,11 @@
     "home": 1004637,
     "away": 461284
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368608",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5809,8 +5961,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.86,
    "ev": -0.024969633834496463,
    "missing": {
@@ -5847,7 +5999,11 @@
    "fotmob_id": 6392467,
    "kickoff_utc": "2026-10-17T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:75368606",
    "sb_tid": "sr:tournament:19",
    "sb_market": {
@@ -5856,8 +6012,8 @@
     "spec": "",
     "outcome": "Draw or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -1.54,
    "stake_pct": 0.86,
    "ev": -0.05069466565945702,
    "missing": null,
@@ -6112,8 +6268,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.028011789907071982,
    "missing": null,
@@ -6305,8 +6461,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.021229224029223448,
    "missing": {

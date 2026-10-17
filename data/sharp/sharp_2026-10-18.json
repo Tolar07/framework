@@ -1,7 +1,7 @@
 {
  "date": "2026-10-18",
- "run_id": "SHARP-b67f4e2a",
- "fetched_utc": "2026-10-17T20:58:42Z",
+ "run_id": "SHARP-c66b84b8",
+ "fetched_utc": "2026-10-17T22:40:41Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -33,7 +33,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=RNPV84",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-b67f4e2a"
+   "run_id": "SHARP-c66b84b8"
   },
   {
    "league": "La Liga 2",
@@ -54,7 +54,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=QYUFDQ",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-b67f4e2a"
+   "run_id": "SHARP-c66b84b8"
   },
   {
    "league": "Ligue 1",
@@ -75,7 +75,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=X84E3B",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-b67f4e2a"
+   "run_id": "SHARP-c66b84b8"
   },
   {
    "league": "Serie B",
@@ -96,7 +96,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=YAH24J",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-b67f4e2a"
+   "run_id": "SHARP-c66b84b8"
   }
  ],
  "suspect": [
@@ -166,6 +166,6 @@
   }
  ],
  "flags": [
-  "football-data fixtures.csv served from cache (<=60min)"
+  "football-data fixtures.csv pulled live"
  ]
 }

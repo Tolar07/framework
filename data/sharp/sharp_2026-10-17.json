@@ -1,7 +1,7 @@
 {
  "date": "2026-10-17",
- "run_id": "SHARP-20ba04f1",
- "fetched_utc": "2026-10-17T09:40:48Z",
+ "run_id": "SHARP-5c726489",
+ "fetched_utc": "2026-10-17T11:11:45Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -11,30 +11,9 @@
   "max_ev": 0.25
  },
  "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
- "fixtures_on_day": 128,
- "fixtures_priced_by_exchange": 56,
+ "fixtures_on_day": 124,
+ "fixtures_priced_by_exchange": 53,
  "picks": [
-  {
-   "league": "2. Bundesliga",
-   "home": "Greuther Furth",
-   "away": "Braunschweig",
-   "fixture": "Greuther Furth v Braunschweig (2. Bundesliga)",
-   "kickoff": "2026-10-17T11:00:00Z",
-   "market_id": "18",
-   "specifier": "total=2.5",
-   "outcome": "Under 2.5",
-   "key": "SB:18|total=2.5|Under 2.5",
-   "price": 2.65,
-   "outcome_id": "13",
-   "sharp_p": 0.39,
-   "fair_price": 2.564,
-   "sharp_ev": 0.0335,
-   "code": "RPWQG8",
-   "url": "http://www.sportybet.com/ng/?shareCode=RPWQG8",
-   "result": null,
-   "ft": null,
-   "run_id": "SHARP-20ba04f1"
-  },
   {
    "league": "Championship",
    "home": "Norwich",
@@ -54,28 +33,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=UFFXCS",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-20ba04f1"
-  },
-  {
-   "league": "Championship",
-   "home": "Wrexham",
-   "away": "Preston",
-   "fixture": "Wrexham v Preston (Championship)",
-   "kickoff": "2026-10-17T14:00:00Z",
-   "market_id": "18",
-   "specifier": "total=2.5",
-   "outcome": "Over 2.5",
-   "key": "SB:18|total=2.5|Over 2.5",
-   "price": 2.0,
-   "outcome_id": "12",
-   "sharp_p": 0.5102,
-   "fair_price": 1.96,
-   "sharp_ev": 0.0204,
-   "code": "X6HBVR",
-   "url": "http://www.sportybet.com/ng/?shareCode=X6HBVR",
-   "result": null,
-   "ft": null,
-   "run_id": "SHARP-20ba04f1"
+   "run_id": "SHARP-5c726489"
   },
   {
    "league": "La Liga",
@@ -96,28 +54,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=MUQ4Q6",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-20ba04f1"
-  },
-  {
-   "league": "La Liga",
-   "home": "Espanol",
-   "away": "Ath Madrid",
-   "fixture": "Espanol v Ath Madrid (La Liga)",
-   "kickoff": "2026-10-17T12:00:00Z",
-   "market_id": "18",
-   "specifier": "total=2.5",
-   "outcome": "Under 2.5",
-   "key": "SB:18|total=2.5|Under 2.5",
-   "price": 2.25,
-   "outcome_id": "13",
-   "sharp_p": 0.4687,
-   "fair_price": 2.134,
-   "sharp_ev": 0.0545,
-   "code": "G2A74X",
-   "url": "http://www.sportybet.com/ng/?shareCode=G2A74X",
-   "result": null,
-   "ft": null,
-   "run_id": "SHARP-20ba04f1"
+   "run_id": "SHARP-5c726489"
   },
   {
    "league": "La Liga",
@@ -129,16 +66,16 @@
    "specifier": "",
    "outcome": "Away",
    "key": "SB:1||Away",
-   "price": 2.4,
+   "price": 2.38,
    "outcome_id": "3",
    "sharp_p": 0.4342,
    "fair_price": 2.303,
-   "sharp_ev": 0.0421,
+   "sharp_ev": 0.0334,
    "code": "YJTG20",
    "url": "http://www.sportybet.com/ng/?shareCode=YJTG20",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-20ba04f1"
+   "run_id": "SHARP-5c726489"
   },
   {
    "league": "La Liga",
@@ -159,28 +96,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=WFFK5Z",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-20ba04f1"
-  },
-  {
-   "league": "La Liga 2",
-   "home": "Sociedad B",
-   "away": "Almeria",
-   "fixture": "Sociedad B v Almeria (La Liga 2)",
-   "kickoff": "2026-10-17T12:00:00Z",
-   "market_id": "18",
-   "specifier": "total=2.5",
-   "outcome": "Under 2.5",
-   "key": "SB:18|total=2.5|Under 2.5",
-   "price": 2.35,
-   "outcome_id": "13",
-   "sharp_p": 0.4439,
-   "fair_price": 2.253,
-   "sharp_ev": 0.0431,
-   "code": "MXKNX1",
-   "url": "http://www.sportybet.com/ng/?shareCode=MXKNX1",
-   "result": null,
-   "ft": null,
-   "run_id": "SHARP-20ba04f1"
+   "run_id": "SHARP-5c726489"
   },
   {
    "league": "League Two",
@@ -201,7 +117,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=QLKUGQ",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-20ba04f1"
+   "run_id": "SHARP-5c726489"
   },
   {
    "league": "Ligue 1",
@@ -213,16 +129,16 @@
    "specifier": "",
    "outcome": "Home",
    "key": "SB:1||Home",
-   "price": 2.06,
+   "price": 2.05,
    "outcome_id": "1",
    "sharp_p": 0.5133,
    "fair_price": 1.948,
-   "sharp_ev": 0.0574,
+   "sharp_ev": 0.0523,
    "code": "G1P3R7",
    "url": "http://www.sportybet.com/ng/?shareCode=G1P3R7",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-20ba04f1"
+   "run_id": "SHARP-5c726489"
   },
   {
    "league": "Premier League",
@@ -234,16 +150,16 @@
    "specifier": "",
    "outcome": "Away",
    "key": "SB:1||Away",
-   "price": 2.43,
+   "price": 2.46,
    "outcome_id": "3",
    "sharp_p": 0.4444,
    "fair_price": 2.25,
-   "sharp_ev": 0.0798,
+   "sharp_ev": 0.0931,
    "code": "RLKLJD",
    "url": "http://www.sportybet.com/ng/?shareCode=RLKLJD",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-20ba04f1"
+   "run_id": "SHARP-5c726489"
   },
   {
    "league": "Serie A",
@@ -255,16 +171,16 @@
    "specifier": "",
    "outcome": "Home",
    "key": "SB:1||Home",
-   "price": 1.63,
+   "price": 1.62,
    "outcome_id": "1",
    "sharp_p": 0.6526,
    "fair_price": 1.532,
-   "sharp_ev": 0.0638,
+   "sharp_ev": 0.0572,
    "code": "TY57ML",
    "url": "http://www.sportybet.com/ng/?shareCode=TY57ML",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-20ba04f1"
+   "run_id": "SHARP-5c726489"
   }
  ],
  "suspect": [],

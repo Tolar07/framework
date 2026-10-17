@@ -48,7 +48,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -4.7
   },
   {
    "fixture": "Telstar v Feyenoord",
@@ -2065,8 +2067,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": -0.030645380743363093,
    "missing": {
@@ -2259,8 +2261,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 1.57,
    "stake_pct": 0.25,
    "ev": -0.017740010127226924,
    "missing": {
@@ -2952,7 +2954,11 @@
     "home": 30659689,
     "away": 3033924
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Metz rotated: confirmed XI worth 36% of predicted",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:72037388",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -2961,8 +2967,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -2.44,
    "stake_pct": 0.25,
    "ev": -0.08313610710659691,
    "missing": {
@@ -3002,7 +3008,11 @@
     "home": 20737330,
     "away": 5969598
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:72037390",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -3011,8 +3021,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 1.63,
    "stake_pct": 0.25,
    "ev": -0.04575213223847441,
    "missing": {
@@ -6062,8 +6072,8 @@
     "spec": "hcp=3.5",
     "outcome": "Home (+3.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.00460783623629224,
    "missing": null,

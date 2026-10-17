@@ -102,7 +102,9 @@
    "first_price": 1.4,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.39,
+   "drift_pct": -0.7
   },
   {
    "fixture": "Sparta Rotterdam v Willem II",
@@ -494,7 +496,11 @@
     "home": 5720230,
     "away": 7206123
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:72043204",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -503,8 +509,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04491155633296562,
    "missing": {
@@ -3224,7 +3230,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Milton Keynes Dons v Luton",
@@ -6568,7 +6576,11 @@
     "home": 10596122,
     "away": 6710749
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:67126806",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -6577,8 +6589,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.25,
    "ev": -0.027710980649803485,
    "missing": {

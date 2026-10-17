@@ -172,7 +172,11 @@
     "home": 8355491,
     "away": 5846404
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72201658",
    "sb_tid": "sr:tournament:36",
    "sb_market": {
@@ -222,7 +226,11 @@
     "home": 13577192,
     "away": 4386549
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72201664",
    "sb_tid": "sr:tournament:36",
    "sb_market": {
@@ -272,7 +280,11 @@
     "home": 3801868,
     "away": 5718658
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72201666",
    "sb_tid": "sr:tournament:36",
    "sb_market": {
@@ -322,7 +334,11 @@
     "home": 3303807,
     "away": 7376202
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72201668",
    "sb_tid": "sr:tournament:36",
    "sb_market": {
@@ -882,7 +898,11 @@
     "home": 32968000,
     "away": 60819593
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Bristol City missing 15% of value (Noah Eile, Lorent Tolaj)",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339914",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -982,7 +1002,11 @@
     "home": 49997526,
     "away": 17660147
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339924",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1082,7 +1106,11 @@
     "home": 56257302,
     "away": 144493285
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "West Ham United at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339928",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1132,7 +1160,11 @@
     "home": 24557645,
     "away": 11233016
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339932",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1896,7 +1928,11 @@
     "home": 367419476,
     "away": 472710650
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72221314",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -1946,7 +1982,11 @@
     "home": 234351616,
     "away": 93087285
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72221320",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -1996,7 +2036,11 @@
     "home": 924919133,
     "away": 180099321
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Manchester City at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72221324",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -3326,7 +3370,11 @@
     "home": 4280773,
     "away": 3397306
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Bradford City at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341264",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3376,7 +3424,11 @@
     "home": 22120082,
     "away": 4677355
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341266",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3426,7 +3478,11 @@
     "home": 9286180,
     "away": 5370031
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Leyton Orient at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341268",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3476,7 +3532,11 @@
     "home": 6231301,
     "away": 8101146
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341276",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3526,7 +3586,11 @@
     "home": 7101627,
     "away": 3903819
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341278",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3576,7 +3640,11 @@
     "home": 5060658,
     "away": 2467779
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Stockport County at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341280",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3626,7 +3694,11 @@
     "home": 6934286,
     "away": 4705717
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Reading at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341282",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3676,7 +3748,11 @@
     "home": 4039769,
     "away": 3517427
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Wycombe Wanderers at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341284",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3834,7 +3910,11 @@
     "home": 1705175,
     "away": 931193
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Gillingham at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342186",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -3884,7 +3964,11 @@
     "home": 1852584,
     "away": 2119734
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Colchester United at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342190",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -3934,7 +4018,11 @@
     "home": 2455050,
     "away": 2915659
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Crewe Alexandra at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342194",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -3984,7 +4072,11 @@
     "home": 2431990,
     "away": 1788647
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Grimsby Town at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342202",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4034,7 +4126,11 @@
     "home": 1317435,
     "away": 1023468
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "York City at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342206",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4084,7 +4180,11 @@
     "home": 1732722,
     "away": 1771627
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Oldham Athletic at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342210",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4184,7 +4284,11 @@
     "home": 2860613,
     "away": 1383546
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342218",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4234,7 +4338,11 @@
     "home": 1549841,
     "away": 1821036
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342226",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4284,7 +4392,11 @@
     "home": 1927278,
     "away": 2385230
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342228",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -6180,7 +6292,11 @@
     "home": 7255234,
     "away": 6057136
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Kristiansund at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:67015420",
    "sb_tid": "sr:tournament:20",
    "sb_market": {

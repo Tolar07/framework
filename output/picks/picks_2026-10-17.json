@@ -648,7 +648,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Middlesbrough v Cardiff City",
@@ -1306,7 +1308,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Roma v Genoa",
@@ -1380,7 +1384,11 @@
     "home": 92248688,
     "away": 242063134
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72513248",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1389,8 +1397,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.018027756141566043,
    "missing": {
@@ -1443,8 +1451,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -1.52,
    "stake_pct": 0.25,
    "ev": -0.008380861971354792,
    "missing": {
@@ -1497,8 +1505,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0031121211078157796,
    "missing": {
@@ -1551,8 +1559,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.03243952961112517,
    "missing": {
@@ -1605,8 +1613,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 1.61,
    "stake_pct": 0.25,
    "ev": -0.033131584874128595,
    "missing": {
@@ -5958,7 +5966,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 4.0
   },
   {
    "fixture": "APO Levadiakos FC v Volos NPS",
@@ -6242,7 +6252,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 4.1
   },
   {
    "fixture": "AIK v IFK Goteborg",

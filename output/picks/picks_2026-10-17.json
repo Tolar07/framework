@@ -80,7 +80,11 @@
     "home": 6137137,
     "away": 141052391
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Feyenoord missing 27%",
+    "at": "17:20Z"
+   },
    "sb_event_id": "sr:match:72041182",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -6428,7 +6432,11 @@
     "home": 3066917,
     "away": 9768779
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:20Z"
+   },
    "sb_event_id": "sr:match:72345538",
    "sb_tid": "sr:tournament:45",
    "sb_market": {

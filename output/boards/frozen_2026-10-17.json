@@ -17339,5 +17339,312 @@
    }
   ]
  },
- "replacements": []
+ "replacements": [
+  {
+   "kind": "single",
+   "name": "Leiston FC v Guiseley FC",
+   "old_code": "WLBLGZ",
+   "new_code": null,
+   "notes": [
+    "Leiston FC v Guiseley FC: Leiston FC or Guiseley FC dropped (no longer on the board)"
+   ],
+   "alt_legs": []
+  },
+  {
+   "kind": "accas",
+   "name": "Acca D",
+   "old_code": "MVKCCJ",
+   "new_code": "JSB3D6",
+   "notes": [
+    "Leiston FC v Guiseley FC: Leiston FC or Guiseley FC dropped (no longer on the board)"
+   ],
+   "odds": 1.588,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Plymouth Parkway v Chertsey Town",
+     "home": "Plymouth Parkway",
+     "away": "Chertsey Town",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Plymouth Parkway or Chertsey Town",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Bury FC v Harrogate Town",
+     "home": "Bury FC",
+     "away": "Harrogate Town",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Bury FC or Harrogate Town",
+     "price": 1.26,
+     "result": null
+    }
+   ]
+  },
+  {
+   "kind": "megas",
+   "name": "Mega 2",
+   "old_code": "UWU73R",
+   "new_code": "P8PFG8",
+   "notes": [
+    "Leiston FC v Guiseley FC: Leiston FC or Guiseley FC dropped (no longer on the board)"
+   ],
+   "odds": 321.184,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Plymouth Parkway v Chertsey Town",
+     "home": "Plymouth Parkway",
+     "away": "Chertsey Town",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Plymouth Parkway or Chertsey Town",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Metz v Sochaux-Montbeliard",
+     "home": "Metz",
+     "away": "Sochaux-Montbeliard",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Draw",
+     "pick": "Metz or draw",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Bury FC v Harrogate Town",
+     "home": "Bury FC",
+     "away": "Harrogate Town",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Bury FC or Harrogate Town",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Hibernian v Falkirk",
+     "home": "Hibernian",
+     "away": "Falkirk",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Hibernian or Falkirk",
+     "price": 1.24,
+     "result": null
+    },
+    {
+     "fixture": "NK Osijek v HNK Gorica",
+     "home": "NK Osijek",
+     "away": "HNK Gorica",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "NK Osijek or HNK Gorica",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Sparta Rotterdam v Willem II",
+     "home": "Sparta Rotterdam",
+     "away": "Willem II",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Sparta Rotterdam or Willem II",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "HamKam v Bodoe/Glimt",
+     "home": "HamKam",
+     "away": "Bodoe/Glimt",
+     "kickoff": "2026-10-17",
+     "market": "SB:16|hcp=3.5|Home (+3.5)",
+     "pick": "HamKam (+3.5) Asian handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Werder Bremen v Paderborn",
+     "home": "Werder Bremen",
+     "away": "Paderborn",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Werder Bremen or Paderborn",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Gateshead FC v Stafford Rangers",
+     "home": "Gateshead FC",
+     "away": "Stafford Rangers",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Draw",
+     "pick": "Gateshead FC or draw",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "Spalding United v Alvechurch",
+     "home": "Spalding United",
+     "away": "Alvechurch",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Draw",
+     "pick": "Spalding United or draw",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Greuther Furth v Braunschweig",
+     "home": "Greuther Furth",
+     "away": "Braunschweig",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Greuther Furth or Braunschweig",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "FC Halifax Town v South Shields",
+     "home": "FC Halifax Town",
+     "away": "South Shields",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "FC Halifax Town or South Shields",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Leicester v Doncaster Rovers",
+     "home": "Leicester",
+     "away": "Doncaster Rovers",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Leicester or Doncaster Rovers",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Tranmere v Barnet FC",
+     "home": "Tranmere",
+     "away": "Barnet FC",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Tranmere or Barnet FC",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Nantes v Dunkerque",
+     "home": "Nantes",
+     "away": "Dunkerque",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Nantes or Dunkerque",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Amed Sportif Faaliyetler v Konyaspor",
+     "home": "Amed Sportif Faaliyetler",
+     "away": "Konyaspor",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Amed Sportif Faaliyetler or Konyaspor",
+     "price": 1.31,
+     "result": null
+    },
+    {
+     "fixture": "Espanol v Ath Madrid",
+     "home": "Espanol",
+     "away": "Ath Madrid",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Espanol or Ath Madrid",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "Schalke v Mainz",
+     "home": "Schalke",
+     "away": "Mainz",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Schalke or Mainz",
+     "price": 1.3,
+     "result": null
+    },
+    {
+     "fixture": "Crewe v Rochdale",
+     "home": "Crewe",
+     "away": "Rochdale",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Draw",
+     "pick": "Crewe or draw",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Wrexham v Preston",
+     "home": "Wrexham",
+     "away": "Preston",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Wrexham or Preston",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Peterborough United v Burton",
+     "home": "Peterborough United",
+     "away": "Burton",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Peterborough United or Burton",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Wealdstone FC v Worthing FC",
+     "home": "Wealdstone FC",
+     "away": "Worthing FC",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Wealdstone FC or Worthing FC",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Sociedad B v Almeria",
+     "home": "Sociedad B",
+     "away": "Almeria",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Sociedad B or Almeria",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Kilmarnock v Motherwell",
+     "home": "Kilmarnock",
+     "away": "Motherwell",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Kilmarnock or Motherwell",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Norwich v Portsmouth",
+     "home": "Norwich",
+     "away": "Portsmouth",
+     "kickoff": "2026-10-17",
+     "market": "SB:10||Home or Away",
+     "pick": "Norwich or Portsmouth",
+     "price": 1.28,
+     "result": null
+    }
+   ]
+  }
+ ]
 }

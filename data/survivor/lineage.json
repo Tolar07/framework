@@ -599,6 +599,21 @@
    "holding": null
   },
   {
+   "lineage_id": "ln_46d12c4eb0",
+   "parent_id": "ln_a9d1b852ea",
+   "generation": 9,
+   "bankroll": 2.39,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-11",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-16"
+  },
+  {
    "lineage_id": "ln_210c3d4911",
    "parent_id": "ln_b34f09d959",
    "generation": 10,
@@ -612,9 +627,9 @@
    "to_breed": false,
    "holding": {
     "date": "2026-10-17",
-    "fixture": "Greuther Furth v Braunschweig",
-    "pick": "Greuther Furth or Braunschweig",
-    "price": 1.28
+    "fixture": "Dundee v Rangers",
+    "pick": "Under 4.5 goals",
+    "price": 1.23
    }
   },
   {
@@ -675,21 +690,6 @@
    }
   },
   {
-   "lineage_id": "ln_46d12c4eb0",
-   "parent_id": "ln_a9d1b852ea",
-   "generation": 9,
-   "bankroll": 2.39,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-11",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-16"
-  },
-  {
    "lineage_id": "ln_5ba438d1ad",
    "parent_id": "ln_6e239f1f3d",
    "generation": 9,
@@ -741,9 +741,9 @@
    "to_breed": false,
    "holding": {
     "date": "2026-10-17",
-    "fixture": "Hamburg v Stuttgart",
-    "pick": "Hamburg or Stuttgart",
-    "price": 1.25
+    "fixture": "Everton v Chelsea",
+    "pick": "Chelsea Win to Nil — no",
+    "price": 1.21
    }
   },
   {
@@ -918,6 +918,6 @@
    }
   }
  ],
- "last_bred_date": "2026-10-16",
+ "last_bred_date": "2026-10-17",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

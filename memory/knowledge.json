@@ -1,18 +1,18 @@
 {
- "updated": "2026-10-16",
+ "updated": "2026-10-17",
  "window_days": 21,
- "graded": 374,
+ "graded": 395,
  "segments": [
   {
    "segment": "Over/Under",
    "league": "all",
-   "n": 146,
-   "wins": 113,
-   "hit": 0.774,
+   "n": 150,
+   "wins": 117,
+   "hit": 0.78,
    "need": 0.803,
-   "pl": -5.32,
-   "z": -0.25,
-   "days": 12,
+   "pl": -4.43,
+   "z": -0.08,
+   "days": 13,
    "flag": true
   },
   {
@@ -52,6 +52,30 @@
    "flag": true
   },
   {
+   "segment": "Double chance",
+   "league": "Serie B",
+   "n": 3,
+   "wins": 0,
+   "hit": 0.0,
+   "need": 0.78,
+   "pl": -3.0,
+   "z": -2.95,
+   "days": 3,
+   "flag": false
+  },
+  {
+   "segment": "Asian handicap (underdog)",
+   "league": "all",
+   "n": 57,
+   "wins": 44,
+   "hit": 0.772,
+   "need": 0.815,
+   "pl": -2.94,
+   "z": -0.44,
+   "days": 9,
+   "flag": true
+  },
+  {
    "segment": "DC & total",
    "league": "all",
    "n": 10,
@@ -61,18 +85,6 @@
    "pl": -2.7,
    "z": -1.15,
    "days": 7,
-   "flag": true
-  },
-  {
-   "segment": "Asian handicap (underdog)",
-   "league": "all",
-   "n": 54,
-   "wins": 42,
-   "hit": 0.778,
-   "need": 0.815,
-   "pl": -2.4,
-   "z": -0.31,
-   "days": 8,
    "flag": true
   },
   {
@@ -88,6 +100,18 @@
    "flag": true
   },
   {
+   "segment": "Double chance",
+   "league": "2. Bundesliga",
+   "n": 7,
+   "wins": 4,
+   "hit": 0.571,
+   "need": 0.802,
+   "pl": -2.05,
+   "z": -1.28,
+   "days": 3,
+   "flag": false
+  },
+  {
    "segment": "Over/Under",
    "league": "Belgian Pro League",
    "n": 7,
@@ -97,6 +121,18 @@
    "pl": -2.03,
    "z": -1.49,
    "days": 3,
+   "flag": false
+  },
+  {
+   "segment": "Double chance",
+   "league": "all",
+   "n": 98,
+   "wins": 77,
+   "hit": 0.786,
+   "need": 0.798,
+   "pl": -1.91,
+   "z": 0.45,
+   "days": 12,
    "flag": false
   },
   {
@@ -161,6 +197,18 @@
   },
   {
    "segment": "Double chance",
+   "league": "Ligue 2",
+   "n": 4,
+   "wins": 2,
+   "hit": 0.5,
+   "need": 0.777,
+   "pl": -1.47,
+   "z": -1.08,
+   "days": 2,
+   "flag": false
+  },
+  {
+   "segment": "Double chance",
    "league": "League Two",
    "n": 5,
    "wins": 3,
@@ -172,15 +220,15 @@
    "flag": false
   },
   {
-   "segment": "Double chance",
-   "league": "La Liga 2",
-   "n": 6,
-   "wins": 4,
-   "hit": 0.667,
-   "need": 0.781,
-   "pl": -0.98,
-   "z": -0.46,
-   "days": 3,
+   "segment": "Away win to nil",
+   "league": "all",
+   "n": 12,
+   "wins": 9,
+   "hit": 0.75,
+   "need": 0.813,
+   "pl": -0.97,
+   "z": -0.28,
+   "days": 7,
    "flag": false
   },
   {
@@ -229,6 +277,18 @@
    "pl": -0.72,
    "z": -0.33,
    "days": 3,
+   "flag": false
+  },
+  {
+   "segment": "Double chance",
+   "league": "La Liga 2",
+   "n": 7,
+   "wins": 5,
+   "hit": 0.714,
+   "need": 0.779,
+   "pl": -0.68,
+   "z": -0.2,
+   "days": 4,
    "flag": false
   },
   {
@@ -341,18 +401,6 @@
   },
   {
    "segment": "Double chance",
-   "league": "2. Bundesliga",
-   "n": 5,
-   "wins": 4,
-   "hit": 0.8,
-   "need": 0.804,
-   "pl": -0.05,
-   "z": 0.13,
-   "days": 2,
-   "flag": false
-  },
-  {
-   "segment": "Double chance",
    "league": "Conference League",
    "n": 5,
    "wins": 4,
@@ -361,30 +409,6 @@
    "pl": -0.05,
    "z": 0.15,
    "days": 1,
-   "flag": false
-  },
-  {
-   "segment": "Away win to nil",
-   "league": "all",
-   "n": 11,
-   "wins": 9,
-   "hit": 0.818,
-   "need": 0.811,
-   "pl": 0.03,
-   "z": 0.3,
-   "days": 6,
-   "flag": false
-  },
-  {
-   "segment": "Away goals",
-   "league": "all",
-   "n": 16,
-   "wins": 13,
-   "hit": 0.812,
-   "need": 0.811,
-   "pl": 0.04,
-   "z": 0.26,
-   "days": 7,
    "flag": false
   },
   {
@@ -397,6 +421,18 @@
    "pl": 0.24,
    "z": 0.27,
    "days": 3,
+   "flag": false
+  },
+  {
+   "segment": "Away goals",
+   "league": "all",
+   "n": 17,
+   "wins": 14,
+   "hit": 0.824,
+   "need": 0.811,
+   "pl": 0.28,
+   "z": 0.4,
+   "days": 8,
    "flag": false
   },
   {
@@ -445,6 +481,18 @@
    "pl": 0.66,
    "z": 0.87,
    "days": 1,
+   "flag": false
+  },
+  {
+   "segment": "Home goals",
+   "league": "Ligue 2",
+   "n": 3,
+   "wins": 3,
+   "hit": 1.0,
+   "need": 0.818,
+   "pl": 0.67,
+   "z": 0.9,
+   "days": 2,
    "flag": false
   },
   {
@@ -509,13 +557,13 @@
   },
   {
    "segment": "Over/Under",
-   "league": "HNL",
+   "league": "Ligue 2",
    "n": 3,
    "wins": 3,
    "hit": 1.0,
-   "need": 0.806,
-   "pl": 0.72,
-   "z": 0.93,
+   "need": 0.799,
+   "pl": 0.76,
+   "z": 0.96,
    "days": 3,
    "flag": false
   },
@@ -545,14 +593,14 @@
   },
   {
    "segment": "Over/Under",
-   "league": "Austrian Bundesliga",
+   "league": "HNL",
    "n": 4,
    "wins": 4,
    "hit": 1.0,
-   "need": 0.812,
-   "pl": 0.93,
-   "z": 1.0,
-   "days": 2,
+   "need": 0.813,
+   "pl": 0.92,
+   "z": 1.06,
+   "days": 4,
    "flag": false
   },
   {
@@ -617,6 +665,18 @@
   },
   {
    "segment": "Over/Under",
+   "league": "Austrian Bundesliga",
+   "n": 5,
+   "wins": 5,
+   "hit": 1.0,
+   "need": 0.813,
+   "pl": 1.15,
+   "z": 1.13,
+   "days": 2,
+   "flag": false
+  },
+  {
+   "segment": "Over/Under",
    "league": "Greek Super League",
    "n": 5,
    "wins": 5,
@@ -637,18 +697,6 @@
    "pl": 1.33,
    "z": 1.24,
    "days": 2,
-   "flag": false
-  },
-  {
-   "segment": "Double chance",
-   "league": "all",
-   "n": 88,
-   "wins": 72,
-   "hit": 0.818,
-   "need": 0.799,
-   "pl": 1.71,
-   "z": 1.11,
-   "days": 11,
    "flag": false
   },
   {
@@ -688,18 +736,6 @@
    "flag": false
   },
   {
-   "segment": "Over/Under",
-   "league": "Turkish Super Lig",
-   "n": 7,
-   "wins": 7,
-   "hit": 1.0,
-   "need": 0.787,
-   "pl": 1.93,
-   "z": 1.53,
-   "days": 4,
-   "flag": false
-  },
-  {
    "segment": "Double chance",
    "league": "Europa League",
    "n": 7,
@@ -724,15 +760,15 @@
    "flag": false
   },
   {
-   "segment": "Home goals",
-   "league": "all",
-   "n": 25,
-   "wins": 22,
-   "hit": 0.88,
-   "need": 0.81,
-   "pl": 2.24,
-   "z": 1.17,
-   "days": 10,
+   "segment": "Over/Under",
+   "league": "Turkish Super Lig",
+   "n": 8,
+   "wins": 8,
+   "hit": 1.0,
+   "need": 0.788,
+   "pl": 2.19,
+   "z": 1.62,
+   "days": 4,
    "flag": false
   },
   {
@@ -746,14 +782,26 @@
    "z": 1.61,
    "days": 2,
    "flag": false
+  },
+  {
+   "segment": "Home goals",
+   "league": "all",
+   "n": 27,
+   "wins": 24,
+   "hit": 0.889,
+   "need": 0.8,
+   "pl": 3.36,
+   "z": 1.43,
+   "days": 11,
+   "flag": false
   }
  ],
  "learning": {
-  "family:Double chance": 0.0689,
-  "family:Odd/Even": -0.0635,
-  "family:Draw no bet": 0.1514,
-  "family:Away no bet": 0.1315,
-  "family:Result & total": 0.0919
+  "family:Double chance": 0.0569,
+  "family:Draw no bet": 0.1437,
+  "family:Away no bet": 0.1301,
+  "family:Away clean sheet": -0.067,
+  "family:Result & total": 0.1021
  },
  "blocks_in_force": [],
  "history": [
@@ -888,6 +936,24 @@
     "Asian handicap (underdog) · FA Cup · -3.27u (8/13)",
     "DC & total · all · -2.70u (6/10)",
     "Asian handicap (underdog) · all · -2.40u (42/54)",
+    "Over/Under · La Liga 2 · -2.15u (7/11)"
+   ]
+  },
+  {
+   "date": "2026-10-17",
+   "graded": 395,
+   "corrections": {
+    "family:Double chance": 0.0569,
+    "family:Draw no bet": 0.1437,
+    "family:Away no bet": 0.1301,
+    "family:Away clean sheet": -0.067,
+    "family:Result & total": 0.1021
+   },
+   "flags": [
+    "Over/Under · all · -4.43u (117/150)",
+    "Asian handicap (underdog) · FA Cup · -3.27u (8/13)",
+    "Asian handicap (underdog) · all · -2.94u (44/57)",
+    "DC & total · all · -2.70u (6/10)",
     "Over/Under · La Liga 2 · -2.15u (7/11)"
    ]
   }

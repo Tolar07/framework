@@ -3197,19 +3197,19 @@
    "name": "ALT MEGA",
    "of": "alts",
    "code": "V0GQCN",
-   "result": null
+   "result": "won"
   },
   {
    "name": "VALUE MEGA",
    "of": "value",
    "code": "WNZT1E",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "50+ MEGA",
    "of": "safe3",
    "code": "HYSGM9",
-   "result": null
+   "result": "lost"
   }
  ]
 }

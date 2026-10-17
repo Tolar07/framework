@@ -5609,8 +5609,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-2",
    "drift_price": 1.3,
    "drift_pct": 3.2
   },
@@ -6041,8 +6041,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-2",
    "drift_price": 1.23,
    "drift_pct": 0.8
   },
@@ -15976,7 +15976,7 @@
      0.7637
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Alanyaspor v Erzurumspor FK",
@@ -16624,7 +16624,7 @@
      0.7427
     ]
    ],
-   "ft": null
+   "ft": "0-2"
   },
   {
    "fixture": "FC Zurich v FC Thun",

@@ -30,9 +30,9 @@
     "total": 234.5
    },
    "code": "V3S1Z5",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "133-116",
+   "close_value": -0.05,
    "matchbook": {
     "back": null
    }

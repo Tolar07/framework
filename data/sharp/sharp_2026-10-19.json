@@ -1,7 +1,7 @@
 {
  "date": "2026-10-19",
- "run_id": "SHARP-4d3a337d",
- "fetched_utc": "2026-10-18T21:00:53Z",
+ "run_id": "SHARP-aee8841d",
+ "fetched_utc": "2026-10-18T22:37:26Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -33,11 +33,11 @@
    "url": "http://www.sportybet.com/ng/?shareCode=YCATVA",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-4d3a337d"
+   "run_id": "SHARP-aee8841d"
   }
  ],
  "suspect": [],
  "flags": [
-  "football-data fixtures.csv served from cache (<=60min)"
+  "football-data fixtures.csv pulled live"
  ]
 }

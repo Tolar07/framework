@@ -894,7 +894,11 @@
     "home": 296612186,
     "away": 138604654
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:71945312",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -903,8 +907,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.79,
    "stake_pct": 0.25,
    "ev": -0.030438852918187376,
    "missing": {
@@ -1258,7 +1262,11 @@
     "home": 137252118,
     "away": 68974909
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72036230",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -1267,8 +1275,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -1.55,
    "stake_pct": 0.25,
    "ev": -0.013055891430011735,
    "missing": {
@@ -1686,7 +1694,11 @@
     "home": 760696383,
     "away": 90691387
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Real Madrid missing 18%",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72478640",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -1952,7 +1964,11 @@
     "home": 8965503,
     "away": 2933639
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Sabadell missing 25%",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72477494",
    "sb_tid": "sr:tournament:54",
    "sb_market": {

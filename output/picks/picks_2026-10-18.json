@@ -440,8 +440,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.25,
    "ev": -0.04557039249785633,
    "missing": null,
@@ -849,8 +849,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 3.23,
    "stake_pct": 0.25,
    "ev": -0.02126335523511791,
    "missing": {
@@ -2392,8 +2392,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -2.44,
    "stake_pct": 0.25,
    "ev": -0.031412061435421856,
    "missing": null,

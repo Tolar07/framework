@@ -32,7 +32,7 @@ import json
 import sys
 import time
 import urllib.request
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -42,6 +42,13 @@ from data import fotmob as fm  # noqa: E402
 from data.flashscore_results import _sim  # noqa: E402
 
 POLL = 120
+# A match with no full time this long after kickoff is over for the tracker:
+# postponed, abandoned, or a feed that never reports it. Without this, two
+# 2026-10-17 matches FotMob never marked started kept the loop handing off to
+# itself with --day 2026-10-17 all through the 18th, holding live.yml's queue
+# so that no run for the 18th ever started (each was queued, then cancelled).
+GIVE_UP = timedelta(hours=4)
+GAVE_UP = (None, False, (0, 0), False, "gave up")   # seen[] marker; summary reads PENDING
 LEAGUES = ("Champions League",)
 STAT_KEYS = {"Expected goals (xG)": "xg", "Total shots": "shots", "Shots on target": "sot",
              "Touches in opposition box": "box", "Big chances": "big", "Ball possession": "poss"}
@@ -161,9 +168,20 @@ def round_once(matches: list[dict], seen: dict, out_dir: Path,
             lines.append(f"[{datetime.now(UTC):%H:%M}Z] SportyBet live feed failed ({str(e)[:40]})")
     still = 0
     for m in matches:
-        if datetime.fromisoformat(m["kickoff_utc"].replace("Z", "+00:00")) > datetime.now(UTC):
+        ko = datetime.fromisoformat(m["kickoff_utc"].replace("Z", "+00:00"))
+        now = datetime.now(UTC)
+        if ko > now:
             still += 1
             continue                                 # not started: no poll yet
+        prev = seen.get(m["id"])
+        if prev == GAVE_UP:
+            continue
+        if now - ko >= GIVE_UP and not (prev and prev[1]):
+            seen[m["id"]] = GAVE_UP
+            lines.append(f"[{now:%H:%M}Z] NO FULL TIME {m['home']} v {m['away']} — "
+                         f"{GIVE_UP.seconds // 3600} h after kickoff, stopped following "
+                         "(postponed or abandoned?)")
+            continue
         try:
             s = snap(m["id"])
         except Exception as e:  # noqa: BLE001 — a missed poll is a gap, not a stop

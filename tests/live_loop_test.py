@@ -120,12 +120,26 @@ try:
         check("summary: a match let go reads PENDING (HR35)",
               "PENDING" in ll.summary("2026-10-17", [match("3", old_ko)], seen))
 
-        # A match that already reached full time is NOT reported as given up.
+        # A match that already reached full time is NOT reported as given up —
+        # not even by a run that starts late or after a hand-off (empty seen):
+        # it is polled once and its real full time recorded.
         lt.snap = lambda mid: snapshot("2-0", "FT", True)
         seen = {"4": ("2-0", True, (0, 0), False)}
         lines, still = lt.round_once([match("4", old_ko)], seen, out, live=[])
         check("round_once: a finished match is never called 'no full time'",
               lines == [] and still == 0, f"{lines} still={still}")
+        seen = {}
+        lines, still = lt.round_once([match("5", old_ko)], seen, out, live=[])
+        check("round_once: a late start still records the real full time, not 'no full time'",
+              still == 0 and len(lines) == 1 and "FULL TIME" in lines[0]
+              and "NO FULL TIME" not in lines[0], f"{lines} still={still}")
+
+        # A feed that fails for good is let go too, once past GIVE_UP.
+        lt.snap = lambda mid: (_ for _ in ()).throw(RuntimeError("feed down"))
+        seen = {}
+        lines, still = lt.round_once([match("6", old_ko)], seen, out, live=[])
+        check("round_once: a poll that keeps failing past GIVE_UP is let go",
+              still == 0 and any("NO FULL TIME" in x for x in lines), f"{lines} still={still}")
 finally:
     lt.snap, lt.sportybet_live = _saved_snap, _saved_sb
 

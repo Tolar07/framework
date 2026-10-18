@@ -1707,8 +1707,8 @@
     "spec": "hcp=-3.5",
     "outcome": "Away (+3.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.018578757621200204,
    "missing": {
@@ -1977,8 +1977,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.42,
+   "clv": -5.63,
    "stake_pct": 0.25,
    "ev": -0.07037476279635824,
    "missing": {

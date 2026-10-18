@@ -2106,7 +2106,11 @@
     "home": 12788730,
     "away": 7020772
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Sampdoria missing 46%",
+    "at": "17:00Z"
+   },
    "sb_event_id": "sr:match:73092988",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2115,8 +2119,8 @@
     "spec": "total=2.5",
     "outcome": "Under 2.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": -0.03326683208496861,
    "missing": {

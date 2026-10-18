@@ -1,7 +1,7 @@
 {
  "date": "2026-10-18",
- "run_id": "SHARP-de79b21e",
- "fetched_utc": "2026-10-18T05:55:35Z",
+ "run_id": "SHARP-5f915897",
+ "fetched_utc": "2026-10-18T09:54:23Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -33,7 +33,28 @@
    "url": "http://www.sportybet.com/ng/?shareCode=RNPV84",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-de79b21e"
+   "run_id": "SHARP-5f915897"
+  },
+  {
+   "league": "Eredivisie",
+   "home": "Nijmegen",
+   "away": "For Sittard",
+   "fixture": "Nijmegen v For Sittard (Eredivisie)",
+   "kickoff": "2026-10-18T18:00:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Home",
+   "key": "SB:1||Home",
+   "price": 1.75,
+   "outcome_id": "1",
+   "sharp_p": 0.5901,
+   "fair_price": 1.695,
+   "sharp_ev": 0.0327,
+   "code": "WC8V80",
+   "url": "http://www.sportybet.com/ng/?shareCode=WC8V80",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-5f915897"
   },
   {
    "league": "La Liga",
@@ -41,20 +62,20 @@
    "away": "Alaves",
    "fixture": "Celta v Alaves (La Liga)",
    "kickoff": "2026-10-18T14:15:00Z",
-   "market_id": "1",
-   "specifier": "",
-   "outcome": "Home",
-   "key": "SB:1||Home",
-   "price": 2.33,
-   "outcome_id": "1",
-   "sharp_p": 0.4451,
-   "fair_price": 2.247,
-   "sharp_ev": 0.037,
-   "code": "V5RVKE",
-   "url": "http://www.sportybet.com/ng/?shareCode=V5RVKE",
+   "market_id": "18",
+   "specifier": "total=2.5",
+   "outcome": "Over 2.5",
+   "key": "SB:18|total=2.5|Over 2.5",
+   "price": 2.5,
+   "outcome_id": "12",
+   "sharp_p": 0.4243,
+   "fair_price": 2.357,
+   "sharp_ev": 0.0608,
+   "code": "PQK6VN",
+   "url": "http://www.sportybet.com/ng/?shareCode=PQK6VN",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-de79b21e"
+   "run_id": "SHARP-5f915897"
   },
   {
    "league": "La Liga 2",
@@ -66,16 +87,16 @@
    "specifier": "total=2.5",
    "outcome": "Under 2.5",
    "key": "SB:18|total=2.5|Under 2.5",
-   "price": 1.75,
+   "price": 1.8,
    "outcome_id": "13",
    "sharp_p": 0.6433,
    "fair_price": 1.554,
-   "sharp_ev": 0.1258,
+   "sharp_ev": 0.158,
    "code": "QYUFDQ",
    "url": "http://www.sportybet.com/ng/?shareCode=QYUFDQ",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-de79b21e"
+   "run_id": "SHARP-5f915897"
   },
   {
    "league": "La Liga 2",
@@ -96,7 +117,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=JAK18B",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-de79b21e"
+   "run_id": "SHARP-5f915897"
   },
   {
    "league": "Ligue 1",
@@ -108,16 +129,79 @@
    "specifier": "",
    "outcome": "Home",
    "key": "SB:1||Home",
-   "price": 1.98,
+   "price": 1.93,
    "outcome_id": "1",
    "sharp_p": 0.5685,
    "fair_price": 1.759,
-   "sharp_ev": 0.1256,
+   "sharp_ev": 0.0972,
    "code": "X84E3B",
    "url": "http://www.sportybet.com/ng/?shareCode=X84E3B",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-de79b21e"
+   "run_id": "SHARP-5f915897"
+  },
+  {
+   "league": "Premier League",
+   "home": "Bournemouth",
+   "away": "Sunderland",
+   "fixture": "Bournemouth v Sunderland (Premier League)",
+   "kickoff": "2026-10-18T13:00:00Z",
+   "market_id": "18",
+   "specifier": "total=2.5",
+   "outcome": "Over 2.5",
+   "key": "SB:18|total=2.5|Over 2.5",
+   "price": 1.98,
+   "outcome_id": "12",
+   "sharp_p": 0.5253,
+   "fair_price": 1.904,
+   "sharp_ev": 0.04,
+   "code": "VR0GDG",
+   "url": "http://www.sportybet.com/ng/?shareCode=VR0GDG",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-5f915897"
+  },
+  {
+   "league": "Premier League",
+   "home": "Leeds",
+   "away": "Man United",
+   "fixture": "Leeds v Man United (Premier League)",
+   "kickoff": "2026-10-18T13:00:00Z",
+   "market_id": "1",
+   "specifier": "",
+   "outcome": "Home",
+   "key": "SB:1||Home",
+   "price": 2.62,
+   "outcome_id": "1",
+   "sharp_p": 0.4066,
+   "fair_price": 2.459,
+   "sharp_ev": 0.0653,
+   "code": "JD6ZY3",
+   "url": "http://www.sportybet.com/ng/?shareCode=JD6ZY3",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-5f915897"
+  },
+  {
+   "league": "Premier League",
+   "home": "Nott'm Forest",
+   "away": "Arsenal",
+   "fixture": "Nott'm Forest v Arsenal (Premier League)",
+   "kickoff": "2026-10-18T15:30:00Z",
+   "market_id": "18",
+   "specifier": "total=2.5",
+   "outcome": "Under 2.5",
+   "key": "SB:18|total=2.5|Under 2.5",
+   "price": 2.05,
+   "outcome_id": "13",
+   "sharp_p": 0.5088,
+   "fair_price": 1.965,
+   "sharp_ev": 0.0431,
+   "code": "PWQPER",
+   "url": "http://www.sportybet.com/ng/?shareCode=PWQPER",
+   "result": null,
+   "ft": null,
+   "run_id": "SHARP-5f915897"
   },
   {
    "league": "Serie A",
@@ -129,16 +213,16 @@
    "specifier": "total=2.5",
    "outcome": "Under 2.5",
    "key": "SB:18|total=2.5|Under 2.5",
-   "price": 2.25,
+   "price": 2.3,
    "outcome_id": "13",
    "sharp_p": 0.4559,
    "fair_price": 2.193,
-   "sharp_ev": 0.0258,
+   "sharp_ev": 0.0486,
    "code": "NFAVVE",
    "url": "http://www.sportybet.com/ng/?shareCode=NFAVVE",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-de79b21e"
+   "run_id": "SHARP-5f915897"
   },
   {
    "league": "Serie B",
@@ -159,7 +243,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=YAH24J",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-de79b21e"
+   "run_id": "SHARP-5f915897"
   }
  ],
  "suspect": [
@@ -221,14 +305,14 @@
    "specifier": "",
    "outcome": "Draw",
    "key": "SB:1||Draw",
-   "price": 3.3,
+   "price": 3.4,
    "outcome_id": "2",
    "sharp_p": 0.3968,
    "fair_price": 2.52,
-   "sharp_ev": 0.3093
+   "sharp_ev": 0.349
   }
  ],
  "flags": [
-  "football-data fixtures.csv served from cache (<=60min)"
+  "football-data fixtures.csv pulled live"
  ]
 }

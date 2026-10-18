@@ -632,7 +632,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.17,
+   "drift_pct": -5.6
   },
   {
    "fixture": "HNK Hajduk Split v NK Varazdin",
@@ -671,8 +673,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 2.4,
    "stake_pct": 0.9,
    "ev": -0.028915274460711182,
    "missing": {
@@ -766,7 +768,11 @@
     "home": 175224004,
     "away": 330816416
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:71945308",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -775,8 +781,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": -0.76,
    "stake_pct": 0.25,
    "ev": -0.006023763347293376,
    "missing": {
@@ -912,7 +918,11 @@
     "home": 244836584,
     "away": 84826011
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513240",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -978,7 +988,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Angers v Marseille",
@@ -1017,8 +1029,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 1.57,
    "stake_pct": 0.25,
    "ev": -0.013589266140178746,
    "missing": {
@@ -1269,8 +1281,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -2.22,
    "stake_pct": 0.25,
    "ev": -0.012152835950608343,
    "missing": {
@@ -1323,8 +1335,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 1.69,
    "stake_pct": 0.25,
    "ev": -0.04197335894569665,
    "missing": {
@@ -1377,8 +1389,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.14,
+   "clv": 6.14,
    "stake_pct": 0.25,
    "ev": -0.0029078144474818934,
    "missing": {
@@ -1440,7 +1452,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Osasuna v Racing Santander",
@@ -1914,7 +1928,11 @@
     "home": 5847914,
     "away": 14825125
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: S\u00fcdtirol missing 25%",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:73092980",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -1923,8 +1941,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 1.55,
    "stake_pct": 0.25,
    "ev": -0.06925282748581274,
    "missing": {
@@ -2271,8 +2289,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.36,
+   "clv": -5.88,
    "stake_pct": 0.25,
    "ev": -0.04584745315067851,
    "missing": {
@@ -2367,8 +2385,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.34,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.027437115492165542,
    "missing": {

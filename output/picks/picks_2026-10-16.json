@@ -311,8 +311,8 @@
    "sharp_ev": null,
    "first_price": 1.31,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.31,
    "drift_pct": 0.0
   },
@@ -1851,7 +1851,7 @@
      0.7282
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Frosinone v Sassuolo",

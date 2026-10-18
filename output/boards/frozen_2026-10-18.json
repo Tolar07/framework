@@ -9268,5 +9268,582 @@
    }
   ]
  },
- "replacements": []
+ "replacements": [
+  {
+   "kind": "single",
+   "name": "Dresden v Magdeburg",
+   "old_code": "UHYZ55",
+   "new_code": "VLUW57",
+   "notes": [
+    "Dresden v Magdeburg: Dresden Over 0.5 goals \u2192 Dresden or Magdeburg (team news: Dynamo Dresden missing 12% of value (Kenneth Schmidt, Thomas Leon Keller, Lars B\u00fcnning))"
+   ],
+   "odds": 1.28,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Dresden v Magdeburg",
+     "home": "Dresden",
+     "away": "Magdeburg",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Dresden or Magdeburg",
+     "price": 1.28,
+     "result": null
+    }
+   ]
+  },
+  {
+   "kind": "single",
+   "name": "AE Kifisia FC v Aris Thessaloniki",
+   "old_code": "Q41NV6",
+   "new_code": "QQW2PM",
+   "notes": [
+    "AE Kifisia FC v Aris Thessaloniki: AE Kifisia FC (+1.5) Asian handicap \u2192 Over 1.5 goals (team news: Kifisia FC missing 19% of value (Giannis Doiranlis, Jon De Luis, Ioannis Kousoulos); support: Aris Thessaloniki missing 24%)"
+   ],
+   "odds": 1.33,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "AE Kifisia FC v Aris Thessaloniki",
+     "home": "AE Kifisia FC",
+     "away": "Aris Thessaloniki",
+     "kickoff": "2026-10-18",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.33,
+     "result": null
+    }
+   ]
+  },
+  {
+   "kind": "accas",
+   "name": "Acca G",
+   "old_code": "YT0TKH",
+   "new_code": "U44EHV",
+   "notes": [
+    "AE Kifisia FC v Aris Thessaloniki: AE Kifisia FC (+1.5) Asian handicap \u2192 Over 1.5 goals (team news: Kifisia FC missing 19% of value (Giannis Doiranlis, Jon De Luis, Ioannis Kousoulos); support: Aris Thessaloniki missing 24%)",
+    "Dresden v Magdeburg: Dresden Over 0.5 goals \u2192 Dresden or Magdeburg (team news: Dynamo Dresden missing 12% of value (Kenneth Schmidt, Thomas Leon Keller, Lars B\u00fcnning))"
+   ],
+   "odds": 3.245,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Salzburg v SCR Altach",
+     "home": "Salzburg",
+     "away": "SCR Altach",
+     "kickoff": "2026-10-18",
+     "market": "SB:19|total=3.5|Under 3.5",
+     "pick": "Salzburg Under 3.5 goals",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Lorient v Monaco",
+     "home": "Lorient",
+     "away": "Monaco",
+     "kickoff": "2026-10-18",
+     "market": "SB:14|hcp=2:0|Home (2:0)",
+     "pick": "Lorient (2:0) handicap",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Lech Poznan v Korona Kielce",
+     "home": "Lech Poznan",
+     "away": "Korona Kielce",
+     "kickoff": "2026-10-18",
+     "market": "SB:16|hcp=-2.5|Away (+2.5)",
+     "pick": "Korona Kielce (+2.5) Asian handicap",
+     "price": 1.24,
+     "result": null
+    },
+    {
+     "fixture": "AE Kifisia FC v Aris Thessaloniki",
+     "home": "AE Kifisia FC",
+     "away": "Aris Thessaloniki",
+     "kickoff": "2026-10-18",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.33,
+     "result": null
+    },
+    {
+     "fixture": "Dresden v Magdeburg",
+     "home": "Dresden",
+     "away": "Magdeburg",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Dresden or Magdeburg",
+     "price": 1.28,
+     "result": null
+    }
+   ]
+  },
+  {
+   "kind": "megas",
+   "name": "Mega 1",
+   "old_code": "JZ2FG6",
+   "new_code": "YHUTYM",
+   "notes": [
+    "AE Kifisia FC v Aris Thessaloniki: AE Kifisia FC (+1.5) Asian handicap \u2192 Over 1.5 goals (team news: Kifisia FC missing 19% of value (Giannis Doiranlis, Jon De Luis, Ioannis Kousoulos); support: Aris Thessaloniki missing 24%)"
+   ],
+   "odds": 110.729,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Istanbul BB v Gaziantep FK",
+     "home": "Istanbul BB",
+     "away": "Gaziantep FK",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Draw",
+     "pick": "Istanbul BB or draw",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Brighton v Crystal Palace",
+     "home": "Brighton",
+     "away": "Crystal Palace",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Brighton or Crystal Palace",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Leverkusen v Freiburg",
+     "home": "Leverkusen",
+     "away": "Freiburg",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Leverkusen or Freiburg",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Celtic v Hearts",
+     "home": "Celtic",
+     "away": "Hearts",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Celtic or Hearts",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Odense v Brondby",
+     "home": "Odense",
+     "away": "Brondby",
+     "kickoff": "2026-10-18",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Orgryte IS v GAIS",
+     "home": "Orgryte IS",
+     "away": "GAIS",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Orgryte IS or GAIS",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "M'gladbach v Hoffenheim",
+     "home": "M'gladbach",
+     "away": "Hoffenheim",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "M'gladbach or Hoffenheim",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Lyon v Nice",
+     "home": "Lyon",
+     "away": "Nice",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Lyon or Nice",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "FC Copenhagen v Aarhus",
+     "home": "FC Copenhagen",
+     "away": "Aarhus",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "FC Copenhagen or Aarhus",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Leeds v Man United",
+     "home": "Leeds",
+     "away": "Man United",
+     "kickoff": "2026-10-18",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "AE Kifisia FC v Aris Thessaloniki",
+     "home": "AE Kifisia FC",
+     "away": "Aris Thessaloniki",
+     "kickoff": "2026-10-18",
+     "market": "SB:18|total=1.5|Over 1.5",
+     "pick": "Over 1.5 goals",
+     "price": 1.33,
+     "result": null
+    },
+    {
+     "fixture": "PAOK v POT Iraklis",
+     "home": "PAOK",
+     "away": "POT Iraklis",
+     "kickoff": "2026-10-18",
+     "market": "SB:18|total=4.5|Under 4.5",
+     "pick": "Under 4.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Karlsruhe v Darmstadt",
+     "home": "Karlsruhe",
+     "away": "Darmstadt",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Karlsruhe or Darmstadt",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Girona v Andorra",
+     "home": "Girona",
+     "away": "Andorra",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Girona or Andorra",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Salzburg v SCR Altach",
+     "home": "Salzburg",
+     "away": "SCR Altach",
+     "kickoff": "2026-10-18",
+     "market": "SB:19|total=3.5|Under 3.5",
+     "pick": "Salzburg Under 3.5 goals",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Real Madrid v Sevilla",
+     "home": "Real Madrid",
+     "away": "Sevilla",
+     "kickoff": "2026-10-18",
+     "market": "SB:16|hcp=-3.5|Away (+3.5)",
+     "pick": "Sevilla (+3.5) Asian handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Bielefeld v VfL 1899 Osnabruck",
+     "home": "Bielefeld",
+     "away": "VfL 1899 Osnabruck",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Draw",
+     "pick": "Bielefeld or draw",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Nijmegen v For Sittard",
+     "home": "Nijmegen",
+     "away": "For Sittard",
+     "kickoff": "2026-10-18",
+     "market": "SB:16|hcp=-2.5|Away (+2.5)",
+     "pick": "For Sittard (+2.5) Asian handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Osasuna v Racing Santander",
+     "home": "Osasuna",
+     "away": "Racing Santander",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Osasuna or Racing Santander",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Gornik Zabrze v Piast Gliwice",
+     "home": "Gornik Zabrze",
+     "away": "Piast Gliwice",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Gornik Zabrze or Piast Gliwice",
+     "price": 1.23,
+     "result": null
+    },
+    {
+     "fixture": "Angers v Marseille",
+     "home": "Angers",
+     "away": "Marseille",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Angers or Marseille",
+     "price": 1.29,
+     "result": null
+    },
+    {
+     "fixture": "Fiorentina v Como",
+     "home": "Fiorentina",
+     "away": "Como",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Fiorentina or Como",
+     "price": 1.3,
+     "result": null
+    }
+   ]
+  },
+  {
+   "kind": "megas",
+   "name": "Mega 2",
+   "old_code": "PVHBJ9",
+   "new_code": "TDF95R",
+   "notes": [
+    "Dresden v Magdeburg: Dresden Over 0.5 goals \u2192 Dresden or Magdeburg (team news: Dynamo Dresden missing 12% of value (Kenneth Schmidt, Thomas Leon Keller, Lars B\u00fcnning))"
+   ],
+   "odds": 159.874,
+   "result": null,
+   "alt_legs": [
+    {
+     "fixture": "Milan v Atalanta",
+     "home": "Milan",
+     "away": "Atalanta",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Milan or Atalanta",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Juventus v Lazio",
+     "home": "Juventus",
+     "away": "Lazio",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Juventus or Lazio",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "Nott'm Forest v Arsenal",
+     "home": "Nott'm Forest",
+     "away": "Arsenal",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Nott'm Forest or Arsenal",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Tromsoe IL v KFUM Oslo",
+     "home": "Tromsoe IL",
+     "away": "KFUM Oslo",
+     "kickoff": "2026-10-18",
+     "market": "SB:16|hcp=-2.5|Away (+2.5)",
+     "pick": "KFUM Oslo (+2.5) Asian handicap",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Sandefjord Fotball v Lillestroem SK",
+     "home": "Sandefjord Fotball",
+     "away": "Lillestroem SK",
+     "kickoff": "2026-10-18",
+     "market": "SB:19|total=2.5|Under 2.5",
+     "pick": "Sandefjord Fotball Under 2.5 goals",
+     "price": 1.22,
+     "result": null
+    },
+    {
+     "fixture": "Sturm Graz v Grazer AK 1902",
+     "home": "Sturm Graz",
+     "away": "Grazer AK 1902",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Sturm Graz or Grazer AK 1902",
+     "price": 1.26,
+     "result": null
+    },
+    {
+     "fixture": "Paris FC v Rennes",
+     "home": "Paris FC",
+     "away": "Rennes",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Paris FC or Rennes",
+     "price": 1.31,
+     "result": null
+    },
+    {
+     "fixture": "Malmo v BK Hacken",
+     "home": "Malmo",
+     "away": "BK Hacken",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Malmo or BK Hacken",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Sarpsborg 08 v Rosenborg BK",
+     "home": "Sarpsborg 08",
+     "away": "Rosenborg BK",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Sarpsborg 08 or Rosenborg BK",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "HNK Hajduk Split v NK Varazdin",
+     "home": "HNK Hajduk Split",
+     "away": "NK Varazdin",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "HNK Hajduk Split or NK Varazdin",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Dresden v Magdeburg",
+     "home": "Dresden",
+     "away": "Magdeburg",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Dresden or Magdeburg",
+     "price": 1.28,
+     "result": null
+    },
+    {
+     "fixture": "Groningen v Ajax",
+     "home": "Groningen",
+     "away": "Ajax",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Groningen or Ajax",
+     "price": 1.25,
+     "result": null
+    },
+    {
+     "fixture": "Zwolle v Go Ahead Eagles",
+     "home": "Zwolle",
+     "away": "Go Ahead Eagles",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Zwolle or Go Ahead Eagles",
+     "price": 1.27,
+     "result": null
+    },
+    {
+     "fixture": "Vasteraas SK v Mjallby AIF",
+     "home": "Vasteraas SK",
+     "away": "Mjallby AIF",
+     "kickoff": "2026-10-18",
+     "market": "SB:16|hcp=-1.5|Away (+1.5)",
+     "pick": "Mjallby AIF (+1.5) Asian handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Udinese v Lecce",
+     "home": "Udinese",
+     "away": "Lecce",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Udinese or Lecce",
+     "price": 1.3,
+     "result": null
+    },
+    {
+     "fixture": "Sonderjyske v Silkeborg",
+     "home": "Sonderjyske",
+     "away": "Silkeborg",
+     "kickoff": "2026-10-18",
+     "market": "SB:19|total=0.5|Over 0.5",
+     "pick": "Sonderjyske Over 0.5 goals",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Vaalerenga IF v SK Brann",
+     "home": "Vaalerenga IF",
+     "away": "SK Brann",
+     "kickoff": "2026-10-18",
+     "market": "SB:16|hcp=1.5|Home (+1.5)",
+     "pick": "Vaalerenga IF (+1.5) Asian handicap",
+     "price": 1.2,
+     "result": null
+    },
+    {
+     "fixture": "Sampdoria v SS Arezzo",
+     "home": "Sampdoria",
+     "away": "SS Arezzo",
+     "kickoff": "2026-10-18",
+     "market": "SB:19|total=2.5|Under 2.5",
+     "pick": "Sampdoria Under 2.5 goals",
+     "price": 1.21,
+     "result": null
+    },
+    {
+     "fixture": "Malaga CF v Sociedad",
+     "home": "Malaga CF",
+     "away": "Sociedad",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Malaga CF or Sociedad",
+     "price": 1.32,
+     "result": null
+    },
+    {
+     "fixture": "Bournemouth v Sunderland",
+     "home": "Bournemouth",
+     "away": "Sunderland",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Home or Away",
+     "pick": "Bournemouth or Sunderland",
+     "price": 1.32,
+     "result": null
+    },
+    {
+     "fixture": "Lech Poznan v Korona Kielce",
+     "home": "Lech Poznan",
+     "away": "Korona Kielce",
+     "kickoff": "2026-10-18",
+     "market": "SB:16|hcp=-2.5|Away (+2.5)",
+     "pick": "Korona Kielce (+2.5) Asian handicap",
+     "price": 1.24,
+     "result": null
+    },
+    {
+     "fixture": "Lyngby v Nordsjaelland",
+     "home": "Lyngby",
+     "away": "Nordsjaelland",
+     "kickoff": "2026-10-18",
+     "market": "SB:10||Draw or Away",
+     "pick": "Nordsjaelland or draw",
+     "price": 1.28,
+     "result": null
+    }
+   ]
+  }
+ ]
 }

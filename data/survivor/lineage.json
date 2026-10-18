@@ -642,6 +642,36 @@
    "holding": null
   },
   {
+   "lineage_id": "ln_5ba438d1ad",
+   "parent_id": "ln_6e239f1f3d",
+   "generation": 9,
+   "bankroll": 2.5,
+   "stake": 1.0,
+   "wins": 2,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-11",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-17"
+  },
+  {
+   "lineage_id": "ln_d80398a8ed",
+   "parent_id": "ln_a6d48c81cf",
+   "generation": 7,
+   "bankroll": 2.16,
+   "stake": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "alive": false,
+   "born_date": "2026-10-04",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": null,
+   "retired": "2026-10-17"
+  },
+  {
    "lineage_id": "ln_210c3d4911",
    "parent_id": "ln_b34f09d959",
    "generation": 10,
@@ -756,37 +786,22 @@
    }
   },
   {
-   "lineage_id": "ln_5ba438d1ad",
-   "parent_id": "ln_6e239f1f3d",
-   "generation": 9,
-   "bankroll": 2.5,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-11",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-17"
-  },
-  {
    "lineage_id": "ln_fa3260c064",
    "parent_id": "ln_3b4f47d5a8",
-   "generation": 8,
-   "bankroll": 1.93,
+   "generation": 9,
+   "bankroll": 2.24,
    "stake": 1.0,
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-11",
-   "last_result": null,
+   "last_result": "WIN",
    "to_breed": false,
    "holding": {
-    "date": "2026-10-16",
-    "fixture": "Burnley v Wolves",
-    "pick": "Burnley or Wolves",
-    "price": 1.31
+    "date": "2026-10-18",
+    "fixture": "Istanbul BB v Gaziantep FK",
+    "pick": "Istanbul BB or Gaziantep FK",
+    "price": 1.25
    }
   },
   {
@@ -934,22 +949,12 @@
    "born_date": "2026-10-17",
    "last_result": null,
    "to_breed": false,
-   "holding": null
-  },
-  {
-   "lineage_id": "ln_d80398a8ed",
-   "parent_id": "ln_a6d48c81cf",
-   "generation": 7,
-   "bankroll": 2.16,
-   "stake": 1.0,
-   "wins": 1,
-   "losses": 0,
-   "alive": false,
-   "born_date": "2026-10-04",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": null,
-   "retired": "2026-10-17"
+   "holding": {
+    "date": "2026-10-18",
+    "fixture": "Malmo v BK Hacken",
+    "pick": "Under 4.5 goals",
+    "price": 1.24
+   }
   },
   {
    "lineage_id": "ln_9b9fdbc187",
@@ -971,6 +976,6 @@
    }
   }
  ],
- "last_bred_date": "2026-10-17",
+ "last_bred_date": "2026-10-18",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

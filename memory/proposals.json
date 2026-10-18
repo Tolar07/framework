@@ -9,5 +9,16 @@
   "status": "open",
   "opened": "2026-10-07",
   "decided": null
+ },
+ {
+  "id": "P2",
+  "segment": "DC & total",
+  "league": "all",
+  "action": "block",
+  "text": "stop picking DC & total in any competition",
+  "evidence": "8/14 won (57%; its prices need 82%), -4.25 units over 8 match day(s)",
+  "status": "open",
+  "opened": "2026-10-18",
+  "decided": null
  }
 ]

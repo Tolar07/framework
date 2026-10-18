@@ -564,7 +564,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Lech Poznan v Korona Kielce",
@@ -660,7 +662,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Udinese v Lecce",
@@ -699,8 +703,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02138075117403071,
    "missing": {
@@ -762,7 +766,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Milan v Atalanta",
@@ -996,7 +1002,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Le Havre v Auxerre",
@@ -1236,7 +1244,9 @@
    "first_price": 1.32,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.34,
+   "drift_pct": 1.5
   },
   {
    "fixture": "Brighton v Crystal Palace",
@@ -1284,7 +1294,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Leeds v Man United",
@@ -1332,7 +1344,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.16,
+   "drift_pct": -4.1
   },
   {
    "fixture": "Nott'm Forest v Arsenal",
@@ -1864,7 +1878,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": -3.8
   },
   {
    "fixture": "Cesena v Avellino",
@@ -2136,8 +2152,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -2.4,
    "stake_pct": 0.25,
    "ev": -0.05007789171799626,
    "missing": null,
@@ -2196,7 +2212,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.34,
+   "drift_pct": 4.7
   },
   {
    "fixture": "Istanbul BB v Gaziantep FK",
@@ -2286,7 +2304,9 @@
    "first_price": 1.34,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.34,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Panaitolikos Agrinio v Olympiacos",

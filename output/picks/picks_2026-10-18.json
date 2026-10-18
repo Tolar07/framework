@@ -134,7 +134,11 @@
     "home": 24137889,
     "away": 115939210
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:00Z"
+   },
    "sb_event_id": "sr:match:72041192",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -2503,8 +2507,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 2.54,
    "stake_pct": 0.25,
    "ev": -0.038753662336709405,
    "missing": {
@@ -2566,7 +2570,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.8
   },
   {
    "fixture": "PAOK v POT Iraklis",
@@ -3155,8 +3161,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.0,
    "stake_pct": 0.12,
    "ev": 0.009980441453354194,
    "missing": {
@@ -3205,8 +3211,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.026561817578175884,
    "missing": {
@@ -3246,7 +3252,11 @@
     "home": 2822316,
     "away": 3925365
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:00Z"
+   },
    "sb_event_id": "sr:match:67126808",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -3255,8 +3265,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 0.25,
    "ev": -0.04383148739922471,
    "missing": {

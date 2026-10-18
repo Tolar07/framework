@@ -1,7 +1,7 @@
 {
  "date": "2026-10-19",
- "run_id": "SHARP-aee8841d",
- "fetched_utc": "2026-10-18T22:37:26Z",
+ "run_id": "SHARP-6a6b2ce0",
+ "fetched_utc": "2026-10-18T23:43:02Z",
  "rule": {
   "min_ev": 0.02,
   "band": [
@@ -33,7 +33,7 @@
    "url": "http://www.sportybet.com/ng/?shareCode=YCATVA",
    "result": null,
    "ft": null,
-   "run_id": "SHARP-aee8841d"
+   "run_id": "SHARP-6a6b2ce0"
   }
  ],
  "suspect": [],

@@ -125,6 +125,12 @@ def main(argv: list[str] | None = None) -> int:
     run_id = int(os.environ.get("GITHUB_RUN_ID", "0") or 0)
     started = datetime.now(UTC)
 
+    # A day older than yesterday is over: never track it, never hand it on.
+    # (2026-10-18: a hand-off chain carried --day 2026-10-17 for a whole day.)
+    if datetime.fromisoformat(day).date() < started.date() - timedelta(days=1):
+        print(f"{day} is over — nothing to track")
+        return 0
+
     if not a.handoff and repo and token and lu.other_loop_running(WORKFLOW, repo, token, run_id):
         print("a live loop is already running — nothing to do")
         return 0

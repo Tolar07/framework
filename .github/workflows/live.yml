@@ -36,9 +36,12 @@ permissions:
   actions: write    # see whether a loop is already running; hand off to a fresh run
   contents: write   # commit the live snapshots as the day goes
 
-concurrency:
-  group: olp-xdv-live
-  cancel-in-progress: false   # never kill a tracker mid-write
+# No concurrency group, deliberately (same as news.yml, commands.yml and
+# nba_watch.yml). With a loop that runs for hours, every starter that fired
+# meanwhile sat queued in the group and was cancelled by the next one — a run
+# history full of "cancelled", and a stuck loop blocked every later day
+# (2026-10-18). The single-loop guard in live_loop.py does the job instead: a
+# newer run exits at once while an older one is going.
 
 jobs:
   live:

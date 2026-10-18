@@ -912,7 +912,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -0.8
   },
   {
    "fixture": "M'gladbach v Hoffenheim",
@@ -2046,7 +2048,11 @@
     "home": 10316545,
     "away": 6922788
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Dynamo Dresden missing 12% of value (Kenneth Schmidt, Thomas Leon Keller, Lars B\u00fcnning)",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72513914",
    "sb_tid": "sr:tournament:44",
    "sb_market": {

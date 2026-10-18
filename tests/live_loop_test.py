@@ -10,6 +10,9 @@ What it pins down, all offline:
   * the full-time summary names every tracked match and reads PENDING for one
     whose score never arrived (HR35), never a guess;
   * the loop hands off before GitHub's 6-hour job limit;
+  * a match with no full time GIVE_UP after kickoff (postponed, abandoned) is
+    let go, said once — it can never hold the day open, and a day older than
+    yesterday is never tracked (2026-10-18: one loop followed the 17th all day);
   * the Telegram route is the Architect's chat only (order 33) — the workflow
     must not carry the subscriber secret.
 """
@@ -100,8 +103,41 @@ try:
         lines, still = lt.round_once([match("2", future_ko)], {}, out, live=[])
         check("round_once: a match before kickoff is not polled, and the day stays open",
               lines == [] and still == 1, f"{lines} still={still}")
+
+        # A match that never kicks off (postponed) or never reaches full time is
+        # let go GIVE_UP after kickoff: said once, then never polled, and it no
+        # longer keeps the day open.
+        old_ko = (datetime.now(UTC) - lt.GIVE_UP - timedelta(minutes=5)).strftime("%Y-%m-%dT%H:%MZ")
+        lt.snap = lambda mid: snapshot(None, None, False)
+        seen = {}
+        lines, still = lt.round_once([match("3", old_ko)], seen, out, live=[])
+        check("round_once: a match with no full time after GIVE_UP is let go",
+              still == 0 and len(lines) == 1 and "NO FULL TIME" in lines[0], f"{lines} still={still}")
+        lt.snap = lambda mid: (_ for _ in ()).throw(AssertionError("polled after giving up"))
+        lines, still = lt.round_once([match("3", old_ko)], seen, out, live=[])
+        check("round_once: and is said once, then never polled again",
+              lines == [] and still == 0, f"{lines} still={still}")
+        check("summary: a match let go reads PENDING (HR35)",
+              "PENDING" in ll.summary("2026-10-17", [match("3", old_ko)], seen))
+
+        # A match that already reached full time is NOT reported as given up.
+        lt.snap = lambda mid: snapshot("2-0", "FT", True)
+        seen = {"4": ("2-0", True, (0, 0), False)}
+        lines, still = lt.round_once([match("4", old_ko)], seen, out, live=[])
+        check("round_once: a finished match is never called 'no full time'",
+              lines == [] and still == 0, f"{lines} still={still}")
 finally:
     lt.snap, lt.sportybet_live = _saved_snap, _saved_sb
+
+# A day older than yesterday is over: the loop exits without tracking it.
+_old_day = (datetime.now(UTC) - timedelta(days=2)).strftime("%Y-%m-%d")
+_saved_tracked = lt.tracked
+try:
+    lt.tracked = lambda day, calls: (_ for _ in ()).throw(AssertionError("tracked an old day"))
+    check("live_loop: a day older than yesterday is never tracked",
+          ll.main(["--day", _old_day, "--handoff"]) == 0)
+finally:
+    lt.tracked = _saved_tracked
 
 # --------------------------------------------------------------------------
 # The full-time summary
@@ -139,6 +175,8 @@ check("order 33: the tracker never carries the subscriber secret",
 check("order 33: it does carry the Architect's chat", "TELEGRAM_CHAT_ID" in _wf)
 check("live.yml: one loop at a time, handed off before the job limit",
       "handoff" in _wf and "timeout-minutes: 355" in _wf)
+check("live.yml: no concurrency group — queued starters were cancelled and a stuck "
+      "loop blocked every later day", "\nconcurrency:" not in _wf)
 check("live.yml: started by the board run too",
       "live.yml/dispatches" in (ROOT / ".github" / "workflows" / "daily.yml")
       .read_text(encoding="utf-8"))

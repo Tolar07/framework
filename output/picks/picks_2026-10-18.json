@@ -147,8 +147,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.028399098238233167,
    "missing": {
@@ -2858,7 +2858,11 @@
     "home": 14530973,
     "away": 6029140
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:67015422",
    "sb_tid": "sr:tournament:20",
    "sb_market": {
@@ -3018,7 +3022,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 5.0
   },
   {
    "fixture": "IK Sirius v IF Elfsborg",
@@ -3152,7 +3158,11 @@
     "home": 5943014,
     "away": 26631044
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:67126820",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -3202,7 +3212,11 @@
     "home": 12462307,
     "away": 7502857
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:67126810",
    "sb_tid": "sr:tournament:40",
    "sb_market": {

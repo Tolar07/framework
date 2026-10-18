@@ -1,15 +1,15 @@
 {
- "fetched": "2026-10-17",
- "rows_read": 34,
+ "fetched": "2026-10-18",
+ "rows_read": 41,
  "groups": {
   "all": {
-   "bets": 34,
-   "settled": 23,
-   "won": 13,
-   "lost": 10,
-   "expected_wins": 18.15,
-   "mean_clv": -0.0026,
-   "clv_n": 23
+   "bets": 41,
+   "settled": 37,
+   "won": 24,
+   "lost": 13,
+   "expected_wins": 29.74,
+   "mean_clv": -0.003,
+   "clv_n": 37
   },
   "family: 1X2": {
    "bets": 1,
@@ -30,13 +30,13 @@
    "clv_n": 2
   },
   "family: Double chance": {
-   "bets": 30,
-   "settled": 19,
-   "won": 12,
-   "lost": 7,
-   "expected_wins": 15.65,
-   "mean_clv": -0.0005,
-   "clv_n": 19
+   "bets": 37,
+   "settled": 33,
+   "won": 23,
+   "lost": 10,
+   "expected_wins": 27.24,
+   "mean_clv": -0.0018,
+   "clv_n": 33
   },
   "family: Moneyline": {
    "bets": 1,
@@ -57,13 +57,13 @@
    "clv_n": 2
   },
   "framework family: Double chance": {
-   "bets": 25,
-   "settled": 19,
-   "won": 12,
-   "lost": 7,
-   "expected_wins": 15.65,
-   "mean_clv": -0.0005,
-   "clv_n": 19
+   "bets": 26,
+   "settled": 26,
+   "won": 16,
+   "lost": 10,
+   "expected_wins": 21.44,
+   "mean_clv": -0.0015,
+   "clv_n": 26
   },
   "framework family: Moneyline": {
    "bets": 1,
@@ -75,13 +75,13 @@
    "clv_n": 1
   },
   "source: framework pick": {
-   "bets": 26,
-   "settled": 20,
-   "won": 12,
-   "lost": 8,
-   "expected_wins": 16.48,
-   "mean_clv": 0.0007,
-   "clv_n": 20
+   "bets": 27,
+   "settled": 27,
+   "won": 16,
+   "lost": 11,
+   "expected_wins": 22.27,
+   "mean_clv": -0.0005,
+   "clv_n": 27
   },
   "source: framework rated market": {
    "bets": 2,
@@ -93,13 +93,13 @@
    "clv_n": 2
   },
   "source: oracle (blind LLM)": {
-   "bets": 6,
-   "settled": 1,
-   "won": 0,
+   "bets": 12,
+   "settled": 8,
+   "won": 7,
    "lost": 1,
-   "expected_wins": 0.35,
-   "mean_clv": -0.0047,
-   "clv_n": 1
+   "expected_wins": 6.15,
+   "mean_clv": -0.0032,
+   "clv_n": 8
   }
  }
 }

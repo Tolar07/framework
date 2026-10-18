@@ -80,7 +80,11 @@
     "home": 9145063,
     "away": 66342363
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Cambuur missing 12% of value (Daan Visser, Wout Asselman); support: AZ Alkmaar missing 33%",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:72041190",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -281,8 +285,8 @@
     "spec": "",
     "outcome": "Draw or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 3.23,
    "stake_pct": 0.25,
    "ev": -0.054316493648611575,
    "missing": {
@@ -335,8 +339,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03855433719504586,
    "missing": {
@@ -1447,8 +1451,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.9,
    "ev": -0.017498952734924966,
    "missing": {
@@ -1647,8 +1651,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.024044169113294545,
    "missing": {
@@ -2432,7 +2436,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -2.5
   },
   {
    "fixture": "AE Kifisia FC v Aris Thessaloniki",
@@ -2932,7 +2938,11 @@
     "home": 9185521,
     "away": 8259961
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:67126816",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -2941,8 +2951,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 0.25,
    "ev": -0.030328150281880295,
    "missing": {
@@ -2982,7 +2992,11 @@
     "home": 3202377,
     "away": 9762272
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Mj\u00e4llby rotated: confirmed XI worth 76% of predicted; support: V\u00e4ster\u00e5s SK missing 19%",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:67126818",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -2991,8 +3005,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.03706817708339538,
    "missing": {
@@ -3054,7 +3068,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Malmo v BK Hacken",
@@ -3102,7 +3118,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Orgryte IS v GAIS",
@@ -3150,7 +3168,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -1.6
   }
  ],
  "accas": [

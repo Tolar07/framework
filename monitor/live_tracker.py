@@ -173,21 +173,20 @@ def round_once(matches: list[dict], seen: dict, out_dir: Path,
         if ko > now:
             still += 1
             continue                                 # not started: no poll yet
-        prev = seen.get(m["id"])
-        if prev == GAVE_UP:
+        if seen.get(m["id"]) == GAVE_UP:
             continue
-        if now - ko >= GIVE_UP and not (prev and prev[1]):
-            seen[m["id"]] = GAVE_UP
-            lines.append(f"[{now:%H:%M}Z] NO FULL TIME {m['home']} v {m['away']} — "
-                         f"{GIVE_UP.seconds // 3600} h after kickoff, stopped following "
-                         "(postponed or abandoned?)")
-            continue
+        # Past GIVE_UP the match is still polled once, so a run that starts late
+        # (or after a hand-off) records a real full time instead of giving up.
+        overdue = now - ko >= GIVE_UP
         try:
             s = snap(m["id"])
         except Exception as e:  # noqa: BLE001 — a missed poll is a gap, not a stop
             lines.append(f"[{datetime.now(UTC):%H:%M}Z] {m['home']} v {m['away']}: "
                          f"poll failed ({str(e)[:40]})")
-            still += 1
+            if overdue:
+                give_up(m, seen, lines, now)
+            else:
+                still += 1
             continue
         sb = sportybet_live(live, m)
         s["sportybet"] = {"score": sb["score"], "clock": sb["clock"], "prices": sb["prices"]} if sb else None
@@ -204,9 +203,21 @@ def round_once(matches: list[dict], seen: dict, out_dir: Path,
                          f"reds {s['reds'][0]}-{s['reds'][1]}{px} · "
                          + (" | ".join(m["calls"]) or "no call"))
         seen[m["id"]] = key
-        if not s["finished"]:
+        if s["finished"]:
+            continue
+        if overdue:
+            give_up(m, seen, lines, now)
+        else:
             still += 1
     return lines, still
+
+
+def give_up(m: dict, seen: dict, lines: list[str], now: datetime) -> None:
+    """Stop following a match with no full time GIVE_UP after kickoff, saying so once."""
+    seen[m["id"]] = GAVE_UP
+    lines.append(f"[{now:%H:%M}Z] NO FULL TIME {m['home']} v {m['away']} — "
+                 f"{GIVE_UP.seconds // 3600} h after kickoff, stopped following "
+                 "(postponed or abandoned?)")
 
 
 def main(argv: list[str]) -> int:

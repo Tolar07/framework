@@ -442,7 +442,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Celtic v Hearts",
@@ -844,7 +846,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -2.3
   },
   {
    "fixture": "Juventus v Lazio",
@@ -931,8 +935,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.25,
    "ev": -0.025123356230066785,
    "missing": {
@@ -2346,7 +2350,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.8
   },
   {
    "fixture": "PAE PS Kalamata v OFI Crete",

@@ -388,8 +388,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": 0.0007647462086470824,
    "missing": null,
@@ -476,8 +476,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": -0.05523540773200808,
    "missing": null,
@@ -1538,7 +1538,11 @@
     "home": 66709297,
     "away": 39325326
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Celta Vigo missing 25%",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72478628",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -1547,8 +1551,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.033800388258768965,
    "missing": {
@@ -1610,7 +1614,9 @@
    "first_price": 1.32,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": -1.5
   },
   {
    "fixture": "Real Madrid v Sevilla",
@@ -1738,7 +1744,11 @@
     "home": 6869255,
     "away": 8684995
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72477504",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -1747,8 +1757,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.03149468612539652,
    "missing": {
@@ -1810,7 +1820,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Valladolid v Eldense",
@@ -1858,7 +1870,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Burgos v Sabadell",
@@ -2438,8 +2452,8 @@
     "spec": "hcp=2.5",
     "outcome": "Home (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 1.56,
    "stake_pct": 0.12,
    "ev": 0.028857343063394048,
    "missing": null,
@@ -2476,7 +2490,11 @@
     "home": 45917388,
     "away": 3103071
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72936088",
    "sb_tid": "sr:tournament:185",
    "sb_market": {

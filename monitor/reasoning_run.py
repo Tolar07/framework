@@ -38,7 +38,8 @@ def main(argv: list[str] | None = None) -> int:
         out = R.OUT_DIR / f"reasoning_{d}.json"
         if out.exists() and not a.force:
             old = json.loads(out.read_text(encoding="utf-8"))
-            if old.get("picks_generated_at") == picks.get("generated_at") and not old.get("note"):
+            if (old.get("picks_generated_at") == picks.get("generated_at") and not old.get("note")
+                    and old.get("prompt_version") == R.prompt_version()):
                 print(f"{d}: already reasoned for this board")
                 continue
         doc = R.reason(picks, now=now)

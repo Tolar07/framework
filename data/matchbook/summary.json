@@ -1,15 +1,15 @@
 {
- "fetched": "2026-10-18",
+ "fetched": "2026-10-19",
  "rows_read": 41,
  "groups": {
   "all": {
    "bets": 41,
-   "settled": 37,
-   "won": 24,
+   "settled": 41,
+   "won": 28,
    "lost": 13,
-   "expected_wins": 29.74,
-   "mean_clv": -0.003,
-   "clv_n": 37
+   "expected_wins": 33.01,
+   "mean_clv": -0.0027,
+   "clv_n": 41
   },
   "family: 1X2": {
    "bets": 1,
@@ -31,12 +31,12 @@
   },
   "family: Double chance": {
    "bets": 37,
-   "settled": 33,
-   "won": 23,
+   "settled": 37,
+   "won": 27,
    "lost": 10,
-   "expected_wins": 27.24,
-   "mean_clv": -0.0018,
-   "clv_n": 33
+   "expected_wins": 30.5,
+   "mean_clv": -0.0016,
+   "clv_n": 37
   },
   "family: Moneyline": {
    "bets": 1,
@@ -94,12 +94,12 @@
   },
   "source: oracle (blind LLM)": {
    "bets": 12,
-   "settled": 8,
-   "won": 7,
+   "settled": 12,
+   "won": 11,
    "lost": 1,
-   "expected_wins": 6.15,
-   "mean_clv": -0.0032,
-   "clv_n": 8
+   "expected_wins": 9.41,
+   "mean_clv": -0.0021,
+   "clv_n": 12
   }
  }
 }

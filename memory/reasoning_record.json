@@ -1,12 +1,22 @@
 {
  "updated": "2026-10-19",
- "graded": 0,
+ "graded": 8,
  "by_verdict": {
   "back": {
-   "n": 0
+   "n": 7,
+   "won": 4,
+   "hit": 0.571,
+   "flat_return": -0.2457,
+   "model_said": 0.78,
+   "ai_said": 0.78
   },
   "lower": {
-   "n": 0
+   "n": 1,
+   "won": 1,
+   "hit": 1.0,
+   "flat_return": 0.23,
+   "model_said": 0.814,
+   "ai_said": 0.814
   },
   "veto": {
    "n": 0

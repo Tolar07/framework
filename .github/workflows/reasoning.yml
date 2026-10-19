@@ -1,0 +1,53 @@
+name: OLP XDV reasoning step
+
+# The framework's thinking step (engine/reasoning.py, Architect 2026-10-19: "give the entire
+# framework the thinking superpower"). After each board run, Gemini judges every single
+# (back / lower / veto, with reasons) into output/reasoning/reasoning_<date>.json, and every
+# past verdict is scored against its result in memory/reasoning_record.json.
+# ADVISORY ONLY: it never changes, drops or stakes a pick. The daily board starts it after
+# each run; the crons below are backups. No GEMINI_API_KEY -> every verdict reads PENDING.
+on:
+  schedule:
+    - cron: "17 22 * * *"
+    - cron: "17 7 * * *"
+    - cron: "17 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: olp-xdv-reasoning
+  cancel-in-progress: false
+
+jobs:
+  reason:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+
+      - name: Reason over today's and tomorrow's picks
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL:   ${{ vars.GEMINI_MODEL }}
+          PYTHONIOENCODING: utf-8
+        run: python monitor/reasoning_run.py
+
+      - name: Save
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add output/reasoning memory/reasoning_record.json || true
+          if git diff --staged --quiet; then echo "reasoning unchanged"; exit 0; fi
+          git commit -q -m "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && { echo "reasoning saved"; exit 0; }
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done
+          echo "::warning::reasoning NOT saved: main kept moving"

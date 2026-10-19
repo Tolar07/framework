@@ -47,6 +47,27 @@ def test_nothing_private_in_the_public_file():
         assert private not in text.lower(), private
 
 
+PAPER = [{"rule": "FW-ALL", "market_name": "Total", "status": "WIN", "p": 0.8, "odds": 1.3, "close": 1.25,
+          "event_name": "Secret FC vs Hidden United", "runner_id": 991},
+         {"rule": "FW-ALL", "market_name": "Total", "status": "LOSS", "p": 0.7, "odds": 1.5, "close": 1.5},
+         {"rule": "F9", "market_name": "Match Odds", "status": "OPEN", "odds": 2.0}]
+
+
+def test_paper_study_is_summarised_anonymously():
+    with tempfile.TemporaryDirectory() as d:
+        led, pap, out = Path(d) / "ledger.jsonl", Path(d) / "paper.jsonl", Path(d) / "summary.json"
+        led.write_text("".join(json.dumps(r) + "\n" for r in ROWS), encoding="utf-8")
+        pap.write_text("".join(json.dumps(r) + "\n" for r in PAPER), encoding="utf-8")
+        assert ml.main(["x", str(led), str(out), str(pap)]) == 0
+        doc = json.loads(out.read_text(encoding="utf-8"))
+        text = out.read_text(encoding="utf-8")
+    g = doc["paper"]["FW-ALL | Over/Under"]
+    assert (g["graded"], g["won"], g["expected_wins"], g["flat_return"]) == (2, 1, 1.5, -0.35)
+    assert "F9" not in doc["paper"]                      # nothing graded yet
+    for private in ("secret", "hidden", "991"):
+        assert private not in text.lower(), private
+
+
 def test_missing_ledger_reads_pending():
     assert "PENDING" in ml.lines(Path("does/not/exist.json"))[0]
 

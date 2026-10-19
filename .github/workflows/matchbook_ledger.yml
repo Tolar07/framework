@@ -68,7 +68,7 @@ jobs:
         if: steps.fetch.outcome == 'success'
         env:
           PYTHONIOENCODING: utf-8
-        run: python monitor/matchbook_ledger.py "$RUNNER_TEMP/mb/ledger/ledger.jsonl" data/matchbook/summary.json
+        run: python monitor/matchbook_ledger.py "$RUNNER_TEMP/mb/ledger/ledger.jsonl" data/matchbook/summary.json "$RUNNER_TEMP/mb/ledger/paper.jsonl"
 
       - name: Save
         if: steps.fetch.outcome == 'success'

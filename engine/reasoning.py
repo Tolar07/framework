@@ -11,8 +11,9 @@ reads each single with its context and judges it:
     reasons     one or two sentences
 
 Context per pick: the framework's pick, price, chance, tier, certainty and news/lineup notes;
-the framework's own graded record for that market family (memory/knowledge.json); and the
-Matchbook agent's record for that family (data/matchbook/summary.json).
+the framework's own graded record for that market family (memory/knowledge.json); the
+Matchbook agent's record for that family and its paper study of every framework pick at
+Matchbook prices (both in data/matchbook/summary.json).
 
 ADVISORY ONLY until it earns weight. Nothing here changes, drops or stakes a pick. It writes
 output/reasoning/reasoning_<date>.json, and record() scores every past verdict against the
@@ -37,6 +38,7 @@ LEDGER_DIR = ROOT / "output" / "picks"
 KNOWLEDGE = ROOT / "memory" / "knowledge.json"
 MB_SUMMARY = ROOT / "data" / "matchbook" / "summary.json"
 RECORD = ROOT / "memory" / "reasoning_record.json"
+POOL_MIN_CHANCE = 0.80           # the Matchbook agent trades pool legs only from 80% (survivor rule, 2026-10-15)
 
 BASE_URL = os.getenv("GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai").rstrip("/")
 BATCH = 15                       # picks per request: few requests on the free tier's daily cap
@@ -51,6 +53,19 @@ confidence ("lower"), or not backed ("veto"). Be calibrated: "back" should be yo
 when nothing argues against the pick; use "veto" only with a concrete reason. Do not invent
 facts that are not in the context; if you lack information, say so and keep the model's view.
 
+Rules:
+- "ai_chance" is YOUR estimate, not a copy. Start from model_chance and move it for each concrete
+  reason in the context: a LOSING record in the family (the model has been overconfident there)
+  pulls it down by about the gap between "won" and "needs"; key absences for the picked side pull
+  it down; nothing in the context = stay within 0.02 of model_chance with confidence <= 0.4.
+- "break_even_chance" is 1/price. If your ai_chance is below it, the verdict cannot be "back".
+  Picks with "pool": true have no bookmaker price (the exchange agent prices them itself): judge
+  the chance only.
+- The records are given as plain sentences that start with WINNING, LOSING or TOO FEW. Quote that
+  word in your reasons when you use a record; never call a LOSING record strong or a TOO FEW one
+  evidence.
+- Each reason names the specific fact it rests on (a number or a news item from the context).
+
 Return JSON only: {"picks": [{"id": <id>, "verdict": "back"|"lower"|"veto",
 "ai_chance": <0-1>, "confidence": <0-1>, "reasons": "<one or two sentences>"}]}
 
@@ -62,6 +77,23 @@ PICKS:
 def _family(market: str) -> str:
     from engine.learning import family
     return family(market)
+
+
+def paper_records() -> dict:
+    """The agent's paper study of ALL framework picks at Matchbook prices (rule FW-ALL), by family."""
+    try:
+        p = json.loads(MB_SUMMARY.read_text(encoding="utf-8")).get("paper") or {}
+    except (OSError, ValueError):
+        return {}
+    return {k.split(" | ", 1)[1]: v for k, v in p.items() if k.startswith("FW-ALL | ")}
+
+
+def say_paper(r: Optional[dict]) -> str:
+    if not r or not r.get("graded"):
+        return "TOO FEW: no paper-study picks in this family yet"
+    n, won, exp, ret = r["graded"], r["won"], r.get("expected_wins") or 0, r.get("flat_return") or 0
+    word = "TOO FEW" if n < 20 else ("WINNING" if ret > 0 else "LOSING")
+    return f"{word}: paper study at Matchbook prices, {won}/{n} won vs {exp:.1f} expected, flat return {ret:+.1%}"
 
 
 def family_records() -> tuple[dict, dict]:
@@ -86,20 +118,45 @@ def family_records() -> tuple[dict, dict]:
     return fw, mb
 
 
+def say_framework(r: Optional[dict]) -> str:
+    if not r or not r.get("n"):
+        return "TOO FEW: no graded framework picks in this family yet"
+    n, hit, need, pl = r["n"], r.get("hit") or 0, r.get("need") or 0, r.get("pl") or 0
+    word = "TOO FEW" if n < 15 else ("WINNING" if pl > 0 else "LOSING")
+    return (f"{word}: framework graded {n} picks in this family, won {hit:.0%}, needs {need:.0%} "
+            f"to break even at its prices, profit {pl:+.2f} units")
+
+
+def say_matchbook(r: Optional[dict]) -> str:
+    if not r or not r.get("bets"):
+        return "TOO FEW: no Matchbook bets in this family yet"
+    n, won, exp = r["bets"], r.get("won") or 0, r.get("expected_wins") or 0
+    clv = r.get("mean_clv")
+    word = "TOO FEW" if n < 10 else ("WINNING" if won >= exp else "LOSING")
+    clv_s = f", mean closing-line value {clv:+.1%}" if clv is not None else ""
+    return f"{word}: Matchbook {n} bets, won {won} vs {exp:.1f} expected{clv_s}"
+
+
 def context(singles: list[dict]) -> list[dict]:
     fw, mb = family_records()
+    paper = paper_records()
     out = []
     for i, s in enumerate(singles):
         fam = _family(s.get("market") or "")
         out.append({
             "id": i, "fixture": s.get("fixture"), "league": s.get("league"),
             "kickoff_utc": s.get("kickoff_utc"), "pick": s.get("pick") or s.get("market"),
-            "price": s.get("price"), "model_chance": s.get("chance"), "tier": s.get("tier"),
+            "price": s.get("price"), "model_chance": s.get("chance"),
+            "break_even_chance": round(1 / float(s["price"]), 4) if s.get("price") else None,
+            "model_edge_pts": round(100 * (float(s["chance"]) - 1 / float(s["price"])), 1)
+            if s.get("price") and s.get("chance") is not None else None,
+            "tier": s.get("tier"), "pool": bool(s.get("pool")),
             "certainty": s.get("certainty"), "market_family": fam,
             "news": " · ".join(x for x in (s.get("news_level"), s.get("news_note"),
                                            (s.get("lineup_check") or {}).get("note")) if x),
-            "framework_record_in_family": fw.get(fam),
-            "matchbook_record_in_family": mb.get(fam),
+            "framework_record_in_family": say_framework(fw.get(fam)),
+            "matchbook_record_in_family": say_matchbook(mb.get(fam)),
+            "paper_record_in_family": say_paper(paper.get(fam)),
         })
     return out
 
@@ -126,10 +183,16 @@ def pick_model(get: Callable, key: str) -> Optional[str]:
     return None
 
 
-def _ask(post: Callable, key: str, model: str, rows: list[dict]) -> dict:
-    r = post(f"{BASE_URL}/chat/completions", headers={"Authorization": f"Bearer {key}"}, timeout=120,
-             json={"model": model, "temperature": 0.2, "response_format": {"type": "json_object"},
-                   "messages": [{"role": "user", "content": PROMPT + json.dumps(rows, ensure_ascii=False)}]})
+def _ask(post: Callable, key: str, model: str, rows: list[dict], sleep: Optional[Callable] = None) -> dict:
+    import time
+    sleep = sleep or time.sleep
+    for attempt in range(3):           # the free tier answers 503/429 when busy: wait and retry
+        r = post(f"{BASE_URL}/chat/completions", headers={"Authorization": f"Bearer {key}"}, timeout=120,
+                 json={"model": model, "temperature": 0.2, "response_format": {"type": "json_object"},
+                       "messages": [{"role": "user", "content": PROMPT + json.dumps(rows, ensure_ascii=False)}]})
+        if getattr(r, "status_code", 200) not in (429, 500, 502, 503, 504) or attempt == 2:
+            break
+        sleep(20 * (attempt + 1))
     r.raise_for_status()
     text = r.json()["choices"][0]["message"]["content"]
     text = re.sub(r"^```(?:json)?|```$", "", text.strip()).strip()
@@ -150,6 +213,23 @@ def _clean(p: Optional[dict]) -> dict:
             "reasons": str(p.get("reasons") or "")[:400]}
 
 
+def pool_legs(picks_doc: dict) -> list[dict]:
+    """The rated pool's legs the Matchbook agent can trade (chance >= POOL_MIN_CHANCE) that are not
+    already singles, shaped like singles so they get a verdict too (2026-10-19: on 20-10 only 3 of
+    the 17 tradable legs were singles, so the agent's bets mostly carried no verdict)."""
+    singles = {(s.get("fixture"), s.get("market")) for s in picks_doc.get("singles") or []}
+    ko = {s.get("fixture"): s.get("kickoff_utc") for s in picks_doc.get("singles") or []}
+    out = []
+    for r in picks_doc.get("rated") or []:
+        for mk, ch in r.get("pool") or []:
+            if ch is None or ch < POOL_MIN_CHANCE or (r.get("fixture"), mk) in singles:
+                continue
+            out.append({"fixture": r.get("fixture"), "league": r.get("league"),
+                        "kickoff_utc": ko.get(r.get("fixture")) or r.get("kickoff"),
+                        "market": mk, "pick": mk.rsplit("|", 1)[-1], "chance": ch, "pool": True})
+    return out
+
+
 def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] = None,
            post: Optional[Callable] = None, now: Optional[datetime] = None) -> dict:
     """The reasoning document for one picks file. Never raises on a model failure."""
@@ -157,7 +237,7 @@ def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] =
     key = key if key is not None else os.getenv("GEMINI_API_KEY", "").strip()
     get, post = get or requests.get, post or requests.post
     now = now or datetime.now(UTC)
-    singles = picks_doc.get("singles") or []
+    singles = (picks_doc.get("singles") or []) + pool_legs(picks_doc)
     rows = context(singles)
     doc = {"date": picks_doc.get("date"), "picks_generated_at": picks_doc.get("generated_at"),
            "run_at": now.isoformat(timespec="seconds"), "model": None, "advisory": True,
@@ -170,14 +250,18 @@ def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] =
             doc["model"] = pick_model(get, key)
             if not doc["model"]:
                 doc["note"] = "NO DATA — PENDING: no Gemini Flash model on this key"
-            for i in range(0, len(rows), BATCH) if doc["model"] else ():
-                answers.update(_ask(post, key, doc["model"], rows[i:i + BATCH]))
         except Exception as e:  # noqa: BLE001 — a failed call reads PENDING, never stops anything
             doc["note"] = f"NO DATA — PENDING: {type(e).__name__}: {str(e)[:160]}"
+        for i in range(0, len(rows), BATCH) if doc["model"] else ():
+            try:                     # one failed batch leaves only its own picks PENDING
+                answers.update(_ask(post, key, doc["model"], rows[i:i + BATCH]))
+            except Exception as e:  # noqa: BLE001
+                doc["note"] = f"PARTLY PENDING: {type(e).__name__}: {str(e)[:160]}"
     for row, s in zip(rows, singles):
         doc["picks"].append({"fixture": s.get("fixture"), "market": s.get("market"),
                              "pick": row["pick"], "price": s.get("price"),
                              "model_chance": s.get("chance"), "code": s.get("code"),
+                             "pool": bool(s.get("pool")),
                              **_clean(answers.get(row["id"]))})
     return doc
 
@@ -210,10 +294,22 @@ def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
                  "flat_return": round(sum((r[2] - 1) if r[1] else -1 for r in g) / len(g), 4),
                  "model_said": round(sum(r[3] or 0 for r in g) / len(g), 3),
                  "ai_said": round(sum(r[4] or 0 for r in g) / len(g), 3)}
-    return {"updated": datetime.now(UTC).date().isoformat(), "graded": len(rows), "by_verdict": by}
+    # who was closer: the model's chance or the reasoning's own (Brier score, lower is better)
+    sc = [r for r in rows if r[3] is not None and r[4] is not None]
+    brier = {"n": len(sc)}
+    if sc:
+        brier["model"] = round(sum((float(r[3]) - r[1]) ** 2 for r in sc) / len(sc), 4)
+        brier["ai"] = round(sum((float(r[4]) - r[1]) ** 2 for r in sc) / len(sc), 4)
+    return {"updated": datetime.now(UTC).date().isoformat(), "graded": len(rows), "by_verdict": by,
+            "brier": brier}
 
 
 def summary_line(rec: dict) -> str:
     b = rec.get("by_verdict") or {}
     parts = [f"{v} {b[v]['won']}/{b[v]['n']} ({b[v]['flat_return']:+.1%})" for v in VERDICTS if b.get(v, {}).get("n")]
+    br = rec.get("brier") or {}
+    if br.get("n"):
+        better = ("level" if br["ai"] == br["model"] else
+                  "the reasoning is closer" if br["ai"] < br["model"] else "the plain model is closer")
+        parts.append(f"Brier model {br['model']:.3f} vs AI {br['ai']:.3f}: {better}")
     return f"Reasoning record ({rec.get('graded', 0)} graded): " + (" · ".join(parts) or "nothing graded yet")

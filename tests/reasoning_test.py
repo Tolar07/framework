@@ -82,6 +82,43 @@ def test_record_scores_verdicts_against_results():
         assert "veto 0/1" in R.summary_line(rec)
 
 
+def test_records_are_plain_verdicts_and_break_even_is_given():
+    assert R.say_framework({"n": 169, "hit": 0.781, "need": 0.803, "pl": -4.82}).startswith("LOSING")
+    assert R.say_framework({"n": 3, "hit": 0, "need": 0.8, "pl": -3}).startswith("TOO FEW")
+    assert R.say_framework(None).startswith("TOO FEW")
+    assert R.say_matchbook({"bets": 12, "won": 10, "expected_wins": 9.1, "mean_clv": 0.01}).startswith("WINNING")
+    assert R.say_matchbook({"bets": 1, "won": 0, "expected_wins": 0.35}).startswith("TOO FEW")
+    row = R.context(PICKS["singles"])[0]
+    assert row["break_even_chance"] == round(1 / 1.3, 4) and row["model_edge_pts"] == 3.1
+
+
+def test_busy_server_is_retried():
+    calls = []
+
+    class Busy(Resp):
+        status_code = 503
+
+        def raise_for_status(self):
+            raise RuntimeError("503")
+
+    def post(url, json=None, **kw):
+        calls.append(1)
+        return Busy({}) if len(calls) < 2 else post_ok(url, json=json, **kw)
+
+    got = R._ask(post, "k", "gemini-3.0-flash-lite", R.context(PICKS["singles"]), sleep=lambda s: None)
+    assert len(calls) == 2 and got[0]["verdict"] == "veto"
+
+
+def test_tradable_pool_legs_get_verdicts_too():
+    doc = {**PICKS, "rated": [{"fixture": "A v B", "pool": [["SB:10||Home or Away", 0.8], ["SB:1||Home", 0.9]]},
+                              {"fixture": "E v F", "pool": [["SB:18|total=3.5|Under 3.5", 0.85],
+                                                            ["SB:1||Home", 0.6]]}]}
+    legs = R.pool_legs(doc)
+    assert [(x["fixture"], x["pick"]) for x in legs] == [("A v B", "Home"), ("E v F", "Under 3.5")]
+    out = R.reason(doc, key="", now=NOW)
+    assert len(out["picks"]) == 4 and [p["pool"] for p in out["picks"]] == [False, False, True, True]
+
+
 def test_it_never_touches_the_picks_file():
     import inspect
     src = inspect.getsource(R)

@@ -603,6 +603,10 @@ assert _rows37 and _sv37.pick(_rows37) is None, \
 _wf37 = (ROOT / ".github" / "workflows" / "daily.yml").read_text(encoding="utf-8")
 assert "monitor/sharp_list.py --grade" in _wf37 and "data/sharp" in _wf37, \
     "Order 37 (amended): the list runs and is graded with the board, every day"
+assert ('echo "skipped=yes" >> "$GITHUB_OUTPUT"' in _wf37
+        and "BOARD_SKIPPED:     ${{ steps.board.outputs.skipped }}" in _wf37
+        and 'if [ "$BOARD_SKIPPED" = "yes" ]' in _wf37), \
+    "Order 37: a late cron whose board was skipped as delivered never re-sends the sharp list"
 
 # 44. Matchbook closing-price learning (2026-10-15)
 import json as _j44, tempfile as _t44  # noqa: E401

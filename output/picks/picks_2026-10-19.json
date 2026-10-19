@@ -126,7 +126,11 @@
     "home": 49150567,
     "away": 69712165
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Monza missing 37%",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:71945316",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -135,8 +139,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.04236201222300218,
    "missing": {
@@ -198,7 +202,9 @@
    "first_price": 1.38,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.38,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sp Braga v Gil Vicente",
@@ -294,7 +300,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Getafe v Vallecano",
@@ -342,7 +350,9 @@
    "first_price": 1.39,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.42,
+   "drift_pct": 2.2
   },
   {
    "fixture": "Celta B v Tenerife",
@@ -434,7 +444,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 3.3
   },
   {
    "fixture": "Trabzonspor v Besiktas Istanbul",

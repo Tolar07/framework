@@ -24,7 +24,11 @@ against Matchbook's close, capped at 5 points, once it has 30 bets with a
 close. The bot also acts on it itself: it pauses any source x market group
 whose bets keep losing to the close.
 
-    python monitor/matchbook_ledger.py <ledger.jsonl> <out summary.json>
+    python monitor/matchbook_ledger.py <ledger.jsonl> <out summary.json> [<paper.jsonl>]
+
+The agent's PAPER STUDY (ledger/paper.jsonl: rules FW-ALL / FW-MED / F2 / F9 / F10 priced at
+Matchbook, no money) is summarised the same way into "paper" (2026-10-19, task item 3: the
+framework results, the Matchbook ledger and the paper studies feed one shared memory).
 """
 from __future__ import annotations
 
@@ -83,6 +87,31 @@ def summarise(rows: list[dict]) -> dict:
     return out
 
 
+def summarise_paper(rows: list[dict]) -> dict:
+    """Anonymised, per rule and per 'rule | family': graded, won vs expected, flat return, CLV."""
+    groups: dict = {}
+    for r in rows:
+        if r.get("status") not in ("WIN", "LOSS"):
+            continue
+        fam = FAMILY.get(r.get("market_name") or "", r.get("market_name") or "PENDING")
+        for key in (r.get("rule") or "?", f"{r.get('rule') or '?'} | {fam}"):
+            g = groups.setdefault(key, {"n": 0, "won": 0, "p": 0.0, "ret": 0.0, "clv_n": 0, "clv": 0.0})
+            won = r["status"] == "WIN"
+            g["n"] += 1
+            g["won"] += won
+            g["p"] += float(r.get("p") or 0)
+            g["ret"] += (float(r.get("odds") or 1) - 1) if won else -1
+            try:
+                g["clv"] += float(r["odds"]) / float(r["close"]) - 1
+                g["clv_n"] += 1
+            except (KeyError, TypeError, ValueError, ZeroDivisionError):
+                pass
+    return {k: {"graded": g["n"], "won": g["won"], "expected_wins": round(g["p"], 1),
+                "flat_return": round(g["ret"] / g["n"], 4),
+                "mean_clv": round(g["clv"] / g["clv_n"], 4) if g["clv_n"] else None}
+            for k, g in sorted(groups.items())}
+
+
 def load(path: Path) -> list[dict]:
     if not path.exists():
         return []
@@ -103,17 +132,27 @@ def lines(summary_path: Path = SUMMARY) -> list[str]:
         clv = "PENDING" if g["mean_clv"] is None else f"{g['mean_clv']:+.1%} over {g['clv_n']}"
         out.append(f"  {k}: {g['bets']} bets, {g['won']}/{g['settled']} won "
                    f"(expected {g['expected_wins']:.1f}), CLV {clv}")
+    paper = {k: v for k, v in (s.get("paper") or {}).items() if "|" not in k}
+    if paper:
+        out.append("Matchbook paper study (no money), by rule:")
+        for k, g in paper.items():
+            clv = "PENDING" if g["mean_clv"] is None else f"{g['mean_clv']:+.1%}"
+            exp = f"expected {g['expected_wins']:.1f}" if g["expected_wins"] else "no model chance"
+            out.append(f"  {k}: {g['won']}/{g['graded']} won ({exp}), "
+                       f"flat return {g['flat_return']:+.1%}, CLV {clv}")
     return out
 
 
 def main(argv: list[str]) -> int:
-    if len(argv) != 3:
+    if len(argv) not in (3, 4):
         print(__doc__)
         return 2
     rows = load(Path(argv[1]))
     from datetime import datetime
     doc = {"fetched": datetime.now(UTC).strftime("%Y-%m-%d"), "rows_read": len(rows),
            "groups": summarise(rows)}
+    if len(argv) == 4:
+        doc["paper"] = summarise_paper(load(Path(argv[3])))
     out = Path(argv[2])
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(doc, indent=1) + "\n", encoding="utf-8")

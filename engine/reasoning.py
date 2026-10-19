@@ -11,8 +11,9 @@ reads each single with its context and judges it:
     reasons     one or two sentences
 
 Context per pick: the framework's pick, price, chance, tier, certainty and news/lineup notes;
-the framework's own graded record for that market family (memory/knowledge.json); and the
-Matchbook agent's record for that family (data/matchbook/summary.json).
+the framework's own graded record for that market family (memory/knowledge.json); the
+Matchbook agent's record for that family and its paper study of every framework pick at
+Matchbook prices (both in data/matchbook/summary.json).
 
 ADVISORY ONLY until it earns weight. Nothing here changes, drops or stakes a pick. It writes
 output/reasoning/reasoning_<date>.json, and record() scores every past verdict against the
@@ -78,6 +79,23 @@ def _family(market: str) -> str:
     return family(market)
 
 
+def paper_records() -> dict:
+    """The agent's paper study of ALL framework picks at Matchbook prices (rule FW-ALL), by family."""
+    try:
+        p = json.loads(MB_SUMMARY.read_text(encoding="utf-8")).get("paper") or {}
+    except (OSError, ValueError):
+        return {}
+    return {k.split(" | ", 1)[1]: v for k, v in p.items() if k.startswith("FW-ALL | ")}
+
+
+def say_paper(r: Optional[dict]) -> str:
+    if not r or not r.get("graded"):
+        return "TOO FEW: no paper-study picks in this family yet"
+    n, won, exp, ret = r["graded"], r["won"], r.get("expected_wins") or 0, r.get("flat_return") or 0
+    word = "TOO FEW" if n < 20 else ("WINNING" if ret > 0 else "LOSING")
+    return f"{word}: paper study at Matchbook prices, {won}/{n} won vs {exp:.1f} expected, flat return {ret:+.1%}"
+
+
 def family_records() -> tuple[dict, dict]:
     """(framework segments by family, Matchbook groups by family) — empty when missing."""
     fw, mb = {}, {}
@@ -121,6 +139,7 @@ def say_matchbook(r: Optional[dict]) -> str:
 
 def context(singles: list[dict]) -> list[dict]:
     fw, mb = family_records()
+    paper = paper_records()
     out = []
     for i, s in enumerate(singles):
         fam = _family(s.get("market") or "")
@@ -137,6 +156,7 @@ def context(singles: list[dict]) -> list[dict]:
                                            (s.get("lineup_check") or {}).get("note")) if x),
             "framework_record_in_family": say_framework(fw.get(fam)),
             "matchbook_record_in_family": say_matchbook(mb.get(fam)),
+            "paper_record_in_family": say_paper(paper.get(fam)),
         })
     return out
 

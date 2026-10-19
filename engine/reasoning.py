@@ -43,19 +43,41 @@ BATCH = 15                       # picks per request: few requests on the free t
 VERDICTS = ("back", "lower", "veto")
 _SKIP_MODELS = ("preview", "exp", "tts", "image", "live", "embedding", "audio", "thinking", "learnlm", "gemma")
 
-PROMPT = """You are the reasoning step of a football betting model. For each pick below, the
-model has already calculated a probability. Your job is judgement: weigh what the numbers may
-miss (team news and absences in the notes, motivation, the model's own record in that market
-family, the exchange record) and say whether the pick should be backed as is, backed with less
-confidence ("lower"), or not backed ("veto"). Be calibrated: "back" should be your usual answer
-when nothing argues against the pick; use "veto" only with a concrete reason. Do not invent
-facts that are not in the context; if you lack information, say so and keep the model's view.
+PROMPT = """You are the reasoning step of a football betting model. For each pick, the model has
+already calculated a probability ("model_chance"). Your job is independent judgement.
 
+Read each pick's context literally:
+- "record_framework" is how the framework's own past picks in this market family did:
+  hit rate vs the hit rate needed to break even at the prices taken, and profit in units.
+  Hit below need, or negative profit, is a WEAK record, whatever the model_chance says.
+- "record_matchbook" is how the live exchange bets in this market family did: wins vs the
+  wins the prices implied, and closing-line value. Fewer wins than implied, or negative CLV,
+  is a WEAK record.
+- "news" holds absences and lineup notes. Absences on the side the pick relies on argue
+  against it; on the other side, for it.
+
+Then give, for each pick:
+- "ai_chance": YOUR probability. Start from model_chance and move it for what the numbers
+  above show; do not just copy it. Keep it the same only when nothing in the context argues
+  either way, and say so.
+- "verdict": "back" (nothing against it), "lower" (a weak record or a news concern), or
+  "veto" (a concrete reason the pick is likely wrong).
+- "confidence": 0-1, how sure you are of your ai_chance.
+- "reasons": one or two sentences, quoting the numbers you used. Never call a record strong
+  if its hit is below need or its profit is negative.
+
+Do not invent facts that are not in the context.
 Return JSON only: {"picks": [{"id": <id>, "verdict": "back"|"lower"|"veto",
-"ai_chance": <0-1>, "confidence": <0-1>, "reasons": "<one or two sentences>"}]}
+"ai_chance": <0-1>, "confidence": <0-1>, "reasons": "<text>"}]}
 
 PICKS:
 """
+
+
+def prompt_version() -> str:
+    """Changes whenever the prompt does, so a better prompt re-reasons today's board."""
+    import hashlib
+    return hashlib.sha1(PROMPT.encode("utf-8")).hexdigest()[:10]
 
 
 # ---------------------------------------------------------------- context
@@ -86,6 +108,22 @@ def family_records() -> tuple[dict, dict]:
     return fw, mb
 
 
+def _say_fw(r: Optional[dict]) -> str:
+    if not r or not r.get("n"):
+        return "no graded framework record in this family"
+    hit, need, pl = r.get("hit") or 0, r.get("need") or 0, r.get("pl") or 0
+    return (f"{r['n']} graded: hit {hit:.0%} vs {need:.0%} needed to break even, profit {pl:+.2f} units "
+            f"-> {'WEAK' if hit < need or pl < 0 else 'OK'}")
+
+
+def _say_mb(r: Optional[dict]) -> str:
+    if not r or not r.get("bets"):
+        return "no Matchbook bets in this family"
+    won, exp, clv = r.get("won") or 0, r.get("expected_wins") or 0, r.get("mean_clv") or 0
+    return (f"{r['bets']} bets: won {won} vs {exp:.1f} expected from the prices, CLV {clv:+.1%} "
+            f"-> {'WEAK' if won < exp or clv < 0 else 'OK'}")
+
+
 def context(singles: list[dict]) -> list[dict]:
     fw, mb = family_records()
     out = []
@@ -98,8 +136,8 @@ def context(singles: list[dict]) -> list[dict]:
             "certainty": s.get("certainty"), "market_family": fam,
             "news": " · ".join(x for x in (s.get("news_level"), s.get("news_note"),
                                            (s.get("lineup_check") or {}).get("note")) if x),
-            "framework_record_in_family": fw.get(fam),
-            "matchbook_record_in_family": mb.get(fam),
+            "record_framework": _say_fw(fw.get(fam)),
+            "record_matchbook": _say_mb(mb.get(fam)),
         })
     return out
 
@@ -160,6 +198,7 @@ def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] =
     singles = picks_doc.get("singles") or []
     rows = context(singles)
     doc = {"date": picks_doc.get("date"), "picks_generated_at": picks_doc.get("generated_at"),
+           "prompt_version": prompt_version(),
            "run_at": now.isoformat(timespec="seconds"), "model": None, "advisory": True,
            "note": None, "picks": []}
     answers: dict = {}

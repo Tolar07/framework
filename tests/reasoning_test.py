@@ -82,6 +82,13 @@ def test_record_scores_verdicts_against_results():
         assert "veto 0/1" in R.summary_line(rec)
 
 
+def test_records_are_spelled_out_with_a_weak_flag():
+    assert R._say_fw({"n": 20, "hit": 0.6, "need": 0.78, "pl": -5.0}).endswith("WEAK")
+    assert R._say_fw({"n": 20, "hit": 0.8, "need": 0.78, "pl": 1.0}).endswith("OK")
+    assert R._say_mb({"bets": 37, "won": 27, "expected_wins": 30.5, "mean_clv": -0.0016}).endswith("WEAK")
+    assert "no Matchbook" in R._say_mb(None)
+
+
 def test_it_never_touches_the_picks_file():
     import inspect
     src = inspect.getsource(R)

@@ -829,20 +829,20 @@
   {
    "lineage_id": "ln_08346893fd",
    "parent_id": "ln_82f1a53b8e",
-   "generation": 9,
-   "bankroll": 2.36,
+   "generation": 10,
+   "bankroll": 2.59,
    "stake": 1.0,
-   "wins": 2,
+   "wins": 3,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-06",
    "last_result": "WIN",
    "to_breed": false,
    "holding": {
-    "date": "2026-10-19",
-    "fixture": "Viborg v Midtjylland",
-    "pick": "Under 4.5 goals",
-    "price": 1.23
+    "date": "2026-10-20",
+    "fixture": "Oxford United v Wigan",
+    "pick": "Oxford United or Wigan",
+    "price": 1.29
    }
   },
   {
@@ -857,7 +857,12 @@
    "born_date": "2026-10-06",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": null
+   "holding": {
+    "date": "2026-10-20",
+    "fixture": "Cheltenham v Fleetwood Town",
+    "pick": "Cheltenham (+1.5) Asian handicap",
+    "price": 1.22
+   }
   },
   {
    "lineage_id": "ln_e71d3df7e2",

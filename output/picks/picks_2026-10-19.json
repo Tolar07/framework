@@ -48,7 +48,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Wisla Plock v Radomiak Radom",
@@ -96,7 +98,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Monza v Cagliari",
@@ -476,7 +480,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Degerfors IF v Kalmar FF",
@@ -524,7 +530,9 @@
    "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.33,
+   "drift_pct": 0.0
   }
  ],
  "accas": [

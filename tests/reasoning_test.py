@@ -109,6 +109,16 @@ def test_busy_server_is_retried():
     assert len(calls) == 2 and got[0]["verdict"] == "veto"
 
 
+def test_tradable_pool_legs_get_verdicts_too():
+    doc = {**PICKS, "rated": [{"fixture": "A v B", "pool": [["SB:10||Home or Away", 0.8], ["SB:1||Home", 0.9]]},
+                              {"fixture": "E v F", "pool": [["SB:18|total=3.5|Under 3.5", 0.85],
+                                                            ["SB:1||Home", 0.6]]}]}
+    legs = R.pool_legs(doc)
+    assert [(x["fixture"], x["pick"]) for x in legs] == [("A v B", "Home"), ("E v F", "Under 3.5")]
+    out = R.reason(doc, key="", now=NOW)
+    assert len(out["picks"]) == 4 and [p["pool"] for p in out["picks"]] == [False, False, True, True]
+
+
 def test_it_never_touches_the_picks_file():
     import inspect
     src = inspect.getsource(R)

@@ -37,6 +37,7 @@ LEDGER_DIR = ROOT / "output" / "picks"
 KNOWLEDGE = ROOT / "memory" / "knowledge.json"
 MB_SUMMARY = ROOT / "data" / "matchbook" / "summary.json"
 RECORD = ROOT / "memory" / "reasoning_record.json"
+POOL_MIN_CHANCE = 0.80           # the Matchbook agent trades pool legs only from 80% (survivor rule, 2026-10-15)
 
 BASE_URL = os.getenv("GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai").rstrip("/")
 BATCH = 15                       # picks per request: few requests on the free tier's daily cap
@@ -57,6 +58,8 @@ Rules:
   pulls it down by about the gap between "won" and "needs"; key absences for the picked side pull
   it down; nothing in the context = stay within 0.02 of model_chance with confidence <= 0.4.
 - "break_even_chance" is 1/price. If your ai_chance is below it, the verdict cannot be "back".
+  Picks with "pool": true have no bookmaker price (the exchange agent prices them itself): judge
+  the chance only.
 - The records are given as plain sentences that start with WINNING, LOSING or TOO FEW. Quote that
   word in your reasons when you use a record; never call a LOSING record strong or a TOO FEW one
   evidence.
@@ -128,7 +131,7 @@ def context(singles: list[dict]) -> list[dict]:
             "break_even_chance": round(1 / float(s["price"]), 4) if s.get("price") else None,
             "model_edge_pts": round(100 * (float(s["chance"]) - 1 / float(s["price"])), 1)
             if s.get("price") and s.get("chance") is not None else None,
-            "tier": s.get("tier"),
+            "tier": s.get("tier"), "pool": bool(s.get("pool")),
             "certainty": s.get("certainty"), "market_family": fam,
             "news": " · ".join(x for x in (s.get("news_level"), s.get("news_note"),
                                            (s.get("lineup_check") or {}).get("note")) if x),
@@ -190,6 +193,23 @@ def _clean(p: Optional[dict]) -> dict:
             "reasons": str(p.get("reasons") or "")[:400]}
 
 
+def pool_legs(picks_doc: dict) -> list[dict]:
+    """The rated pool's legs the Matchbook agent can trade (chance >= POOL_MIN_CHANCE) that are not
+    already singles, shaped like singles so they get a verdict too (2026-10-19: on 20-10 only 3 of
+    the 17 tradable legs were singles, so the agent's bets mostly carried no verdict)."""
+    singles = {(s.get("fixture"), s.get("market")) for s in picks_doc.get("singles") or []}
+    ko = {s.get("fixture"): s.get("kickoff_utc") for s in picks_doc.get("singles") or []}
+    out = []
+    for r in picks_doc.get("rated") or []:
+        for mk, ch in r.get("pool") or []:
+            if ch is None or ch < POOL_MIN_CHANCE or (r.get("fixture"), mk) in singles:
+                continue
+            out.append({"fixture": r.get("fixture"), "league": r.get("league"),
+                        "kickoff_utc": ko.get(r.get("fixture")) or r.get("kickoff"),
+                        "market": mk, "pick": mk.rsplit("|", 1)[-1], "chance": ch, "pool": True})
+    return out
+
+
 def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] = None,
            post: Optional[Callable] = None, now: Optional[datetime] = None) -> dict:
     """The reasoning document for one picks file. Never raises on a model failure."""
@@ -197,7 +217,7 @@ def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] =
     key = key if key is not None else os.getenv("GEMINI_API_KEY", "").strip()
     get, post = get or requests.get, post or requests.post
     now = now or datetime.now(UTC)
-    singles = picks_doc.get("singles") or []
+    singles = (picks_doc.get("singles") or []) + pool_legs(picks_doc)
     rows = context(singles)
     doc = {"date": picks_doc.get("date"), "picks_generated_at": picks_doc.get("generated_at"),
            "run_at": now.isoformat(timespec="seconds"), "model": None, "advisory": True,
@@ -221,6 +241,7 @@ def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] =
         doc["picks"].append({"fixture": s.get("fixture"), "market": s.get("market"),
                              "pick": row["pick"], "price": s.get("price"),
                              "model_chance": s.get("chance"), "code": s.get("code"),
+                             "pool": bool(s.get("pool")),
                              **_clean(answers.get(row["id"]))})
     return doc
 

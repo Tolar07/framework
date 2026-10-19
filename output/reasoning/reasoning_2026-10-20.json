@@ -1,10 +1,10 @@
 {
  "date": "2026-10-20",
  "picks_generated_at": "2026-10-19T20:55:13Z",
- "run_at": "2026-10-19T20:56:37+00:00",
+ "run_at": "2026-10-19T22:59:33+00:00",
  "model": "gemini-3.5-flash-lite",
  "advisory": true,
- "note": "NO DATA — PENDING: HTTPError: 503 Server Error: Service Unavailable for url: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+ "note": null,
  "picks": [
   {
    "fixture": "Wolves v Portsmouth",
@@ -13,10 +13,11 @@
    "price": 1.24,
    "model_chance": 0.8208,
    "code": "PNR2GM",
-   "verdict": "back",
-   "ai_chance": 0.8208,
-   "confidence": 0.8,
-   "reasons": "Solid double chance pick with no negative news or concerning factors from the record."
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.81,
+   "confidence": 0.3,
+   "reasons": "The framework has a LOSING record in the Double chance market family, pulling down confidence slightly."
   },
   {
    "fixture": "Fenerbahce Istanbul v Slavia Prague",
@@ -25,10 +26,11 @@
    "price": 1.24,
    "model_chance": 0.8388,
    "code": "NP2V14",
-   "verdict": "back",
-   "ai_chance": 0.8388,
-   "confidence": 0.75,
-   "reasons": "Both teams have notable absences, but the model price and probability align well for a double chance market."
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.82,
+   "confidence": 0.3,
+   "reasons": "Fenerbahçe and Slavia Prague are dealing with key absences, and the framework has a LOSING record in the Double chance family."
   },
   {
    "fixture": "Sabah Masazir v Borussia Dortmund",
@@ -37,10 +39,11 @@
    "price": 1.25,
    "model_chance": 0.7381,
    "code": "VC5TWY",
-   "verdict": "lower",
-   "ai_chance": 0.7381,
-   "confidence": 0.6,
-   "reasons": "The framework record in this specific market family shows a negative P/L and low hit rate compared to needs, so caution is warranted."
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.72,
+   "confidence": 0.4,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8, and the framework holds a LOSING record in this family."
   },
   {
    "fixture": "Liverpool v Villarreal",
@@ -49,10 +52,11 @@
    "price": 1.2,
    "model_chance": 0.8567,
    "code": "G55N0G",
-   "verdict": "back",
-   "ai_chance": 0.8567,
-   "confidence": 0.8,
-   "reasons": "Clean double chance pick with no lineup dependencies noted."
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.84,
+   "confidence": 0.3,
+   "reasons": "The framework record in this family is LOSING, requiring caution despite the positive model edge."
   },
   {
    "fixture": "Man City v AEK Athens",
@@ -61,10 +65,11 @@
    "price": 1.24,
    "model_chance": 0.7947,
    "code": "GWQLBK",
-   "verdict": "back",
-   "ai_chance": 0.7947,
-   "confidence": 0.7,
-   "reasons": "Under 5.5 goals is a very high threshold, giving a strong safety margin despite slightly negative framework history."
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.78,
+   "confidence": 0.4,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8065, reinforced by a LOSING record in the Over/Under family."
   },
   {
    "fixture": "Napoli v Bodoe/Glimt",
@@ -73,10 +78,11 @@
    "price": 1.22,
    "model_chance": 0.8457,
    "code": "SZB9DY",
-   "verdict": "back",
-   "ai_chance": 0.8457,
-   "confidence": 0.8,
-   "reasons": "Balanced absences on both sides and high model probability support backing this double chance selection."
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.83,
+   "confidence": 0.3,
+   "reasons": "Key absences for Napoli and Bodø/Glimt combined with a LOSING record in the Double chance family justify a lower verdict."
   },
   {
    "fixture": "Porto v PSV Eindhoven",
@@ -85,10 +91,11 @@
    "price": 1.21,
    "model_chance": 0.8495,
    "code": "P68R9C",
-   "verdict": "back",
-   "ai_chance": 0.8495,
-   "confidence": 0.8,
-   "reasons": "Straightforward double chance pick with no injury concerns."
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.83,
+   "confidence": 0.3,
+   "reasons": "The framework exhibits a LOSING record in the Double chance market family."
   },
   {
    "fixture": "PSG v Barcelona",
@@ -97,10 +104,11 @@
    "price": 1.24,
    "model_chance": 0.8499,
    "code": "JMDST5",
-   "verdict": "back",
-   "ai_chance": 0.8499,
-   "confidence": 0.8,
-   "reasons": "High model confidence in a heavyweight clash where a draw covers the bet nicely."
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.83,
+   "confidence": 0.3,
+   "reasons": "A LOSING record in the Double chance family dampens our confidence despite the solid model chance."
   },
   {
    "fixture": "Roma v Slovan Bratislava",
@@ -109,10 +117,11 @@
    "price": 1.23,
    "model_chance": 0.8008,
    "code": "G8MT5B",
-   "verdict": "back",
-   "ai_chance": 0.8008,
-   "confidence": 0.75,
-   "reasons": "High goal line for Under 5.5 provides a very safe buffer against Slovan Bratislava visiting Roma."
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.79,
+   "confidence": 0.4,
+   "reasons": "The ai_chance is below the break_even_chance of 0.813, backed by a LOSING record in the Over/Under family."
   },
   {
    "fixture": "Stuttgart v Atletico Madrid",
@@ -121,10 +130,11 @@
    "price": 1.29,
    "model_chance": 0.8222,
    "code": "Y80HAG",
+   "pool": false,
    "verdict": "back",
-   "ai_chance": 0.8222,
-   "confidence": 0.75,
-   "reasons": "Decent price on the double chance market with no contrary team news."
+   "ai_chance": 0.81,
+   "confidence": 0.4,
+   "reasons": "The ai_chance remains above the break_even_chance of 0.7752 with no specific squad news to downgrade it further."
   },
   {
    "fixture": "AFC Wimbledon v Mansfield",
@@ -133,10 +143,11 @@
    "price": 1.3,
    "model_chance": 0.7906,
    "code": "YJG3FJ",
-   "verdict": "back",
-   "ai_chance": 0.7906,
-   "confidence": 0.85,
-   "reasons": "Safe tier fixture with high certainty and clean team news."
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.78,
+   "confidence": 0.3,
+   "reasons": "The framework record in this family is LOSING, suggesting a downward adjustment to ai_chance."
   },
   {
    "fixture": "Blackpool FC v Milton Keynes Dons",
@@ -145,10 +156,11 @@
    "price": 1.2,
    "model_chance": 0.7998,
    "code": "Z40HMH",
-   "verdict": "back",
-   "ai_chance": 0.7998,
-   "confidence": 0.9,
-   "reasons": "Blackpool is at full strength, and the framework record in this market family is strongly positive."
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.79,
+   "confidence": 0.4,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8333."
   },
   {
    "fixture": "Bromley FC v Leicester",
@@ -157,10 +169,11 @@
    "price": 1.24,
    "model_chance": 0.8273,
    "code": "HZETL7",
-   "verdict": "back",
-   "ai_chance": 0.8273,
-   "confidence": 0.85,
-   "reasons": "High certainty safe tier selection with solid model backing."
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.81,
+   "confidence": 0.3,
+   "reasons": "A LOSING record in the Double chance family pulls the ai_chance down closer to the break_even_chance."
   },
   {
    "fixture": "Burton v Bradford",
@@ -169,10 +182,11 @@
    "price": 1.29,
    "model_chance": 0.7706,
    "code": "MT5B8G",
-   "verdict": "lower",
-   "ai_chance": 0.7706,
-   "confidence": 0.65,
-   "reasons": "Model probability is slightly below the implied price threshold needed for value, despite being full strength."
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.76,
+   "confidence": 0.4,
+   "reasons": "The ai_chance is below the break_even_chance of 0.7752, alongside a LOSING record in the Double chance family."
   },
   {
    "fixture": "Cambridge United v Wycombe Wanderers",
@@ -181,10 +195,11 @@
    "price": 1.29,
    "model_chance": 0.8038,
    "code": "MZWDVZ",
-   "verdict": "back",
-   "ai_chance": 0.8038,
-   "confidence": 0.85,
-   "reasons": "Both teams at full strength with high certainty matching the model's expected output."
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.79,
+   "confidence": 0.3,
+   "reasons": "The framework record in the Double chance family is LOSING, tempering the model's enthusiasm."
   },
   {
    "fixture": "Doncaster Rovers v Stockport County FC",
@@ -193,10 +208,11 @@
    "price": 1.28,
    "model_chance": 0.7877,
    "code": "GQLSW8",
+   "pool": false,
    "verdict": "back",
    "ai_chance": 0.7877,
-   "confidence": 0.8,
-   "reasons": "Model probability aligns well with the price and Stockport is at full strength."
+   "confidence": 0.4,
+   "reasons": "Model chance exceeds break_even_chance and Stockport County is at full strength."
   },
   {
    "fixture": "Huddersfield v Peterborough United",
@@ -205,10 +221,11 @@
    "price": 1.2,
    "model_chance": 0.8429,
    "code": "HDV36M",
+   "pool": false,
    "verdict": "back",
    "ai_chance": 0.8429,
-   "confidence": 0.85,
-   "reasons": "High model certainty for a double chance market with no reported lineup concerns."
+   "confidence": 0.4,
+   "reasons": "Model chance exceeds break_even_chance with positive edge."
   },
   {
    "fixture": "Luton v Barnsley",
@@ -217,10 +234,11 @@
    "price": 1.26,
    "model_chance": 0.7888,
    "code": "SPLB83",
-   "verdict": "back",
+   "pool": false,
+   "verdict": "veto",
    "ai_chance": 0.7888,
-   "confidence": 0.75,
-   "reasons": "Generous Asian handicap cushion for Barnsley who are at full strength."
+   "confidence": 0.6,
+   "reasons": "Model chance is below break_even_chance of 0.7937."
   },
   {
    "fixture": "Notts County v Sheffield Wednesday",
@@ -229,10 +247,11 @@
    "price": 1.24,
    "model_chance": 0.7804,
    "code": "MY1S5V",
-   "verdict": "back",
+   "pool": false,
+   "verdict": "veto",
    "ai_chance": 0.7804,
-   "confidence": 0.8,
-   "reasons": "Strong defensive handicap margin for Notts County at home."
+   "confidence": 0.6,
+   "reasons": "Model chance is below break_even_chance of 0.8065."
   },
   {
    "fixture": "Oxford United v Wigan",
@@ -241,10 +260,11 @@
    "price": 1.29,
    "model_chance": 0.8094,
    "code": "YSD3ZM",
+   "pool": false,
    "verdict": "back",
    "ai_chance": 0.8094,
-   "confidence": 0.75,
-   "reasons": "Solid double chance selection supported by team news indicating full strength."
+   "confidence": 0.4,
+   "reasons": "Model chance exceeds break_even_chance and Oxford United is at full strength."
   },
   {
    "fixture": "Stevenage FC v Plymouth",
@@ -253,10 +273,11 @@
    "price": 1.32,
    "model_chance": 0.7846,
    "code": "KG7JGZ",
+   "pool": false,
    "verdict": "back",
    "ai_chance": 0.7846,
-   "confidence": 0.8,
-   "reasons": "Model confidence is high and price offers reasonable value for a double chance pick."
+   "confidence": 0.4,
+   "reasons": "Model chance exceeds break_even_chance with positive edge."
   },
   {
    "fixture": "Barnet FC v Swindon",
@@ -265,10 +286,11 @@
    "price": 1.23,
    "model_chance": 0.7997,
    "code": "N3K831",
-   "verdict": "back",
+   "pool": false,
+   "verdict": "veto",
    "ai_chance": 0.7997,
-   "confidence": 0.75,
-   "reasons": "Swindon at full strength with a comfortable +2.5 goal start."
+   "confidence": 0.6,
+   "reasons": "Model chance is below break_even_chance of 0.813."
   },
   {
    "fixture": "Bristol Rvs v Salford",
@@ -277,10 +299,11 @@
    "price": 1.22,
    "model_chance": 0.7729,
    "code": "Y3SS4Q",
-   "verdict": "lower",
+   "pool": false,
+   "verdict": "veto",
    "ai_chance": 0.7729,
-   "confidence": 0.65,
-   "reasons": "Framework record in this market family shows negative P/L, suggesting a slight reduction in confidence."
+   "confidence": 0.6,
+   "reasons": "Model chance is below break_even_chance of 0.8197, and framework record is LOSING."
   },
   {
    "fixture": "Cheltenham v Fleetwood Town",
@@ -289,10 +312,11 @@
    "price": 1.22,
    "model_chance": 0.8036,
    "code": "VS8BRU",
-   "verdict": "back",
+   "pool": false,
+   "verdict": "veto",
    "ai_chance": 0.8036,
-   "confidence": 0.75,
-   "reasons": "Cheltenham at full strength backed by a solid Asian handicap buffer."
+   "confidence": 0.6,
+   "reasons": "Model chance is below break_even_chance of 0.8197."
   },
   {
    "fixture": "Chesterfield v Colchester United",
@@ -301,10 +325,11 @@
    "price": 1.22,
    "model_chance": 0.8227,
    "code": "W8RT6K",
+   "pool": false,
    "verdict": "back",
    "ai_chance": 0.8227,
-   "confidence": 0.75,
-   "reasons": "High model probability for a double chance bet with clean team news."
+   "confidence": 0.4,
+   "reasons": "Model chance exceeds break_even_chance."
   },
   {
    "fixture": "Crawley Town v Shrewsbury",
@@ -313,10 +338,11 @@
    "price": 1.32,
    "model_chance": 0.7843,
    "code": "N0GZQS",
+   "pool": false,
    "verdict": "back",
    "ai_chance": 0.7843,
-   "confidence": 0.8,
-   "reasons": "Solid metrics and full squad availability support this double chance selection."
+   "confidence": 0.4,
+   "reasons": "Model chance exceeds break_even_chance with positive edge."
   },
   {
    "fixture": "Exeter v Crewe",
@@ -325,10 +351,11 @@
    "price": 1.2,
    "model_chance": 0.7724,
    "code": "YB4ES3",
-   "verdict": "lower",
+   "pool": false,
+   "verdict": "veto",
    "ai_chance": 0.7724,
-   "confidence": 0.65,
-   "reasons": "Model hit rate in this specific market family has historically lagged slightly behind requirements."
+   "confidence": 0.6,
+   "reasons": "Model chance is below break_even_chance of 0.8333."
   },
   {
    "fixture": "Northampton v Tranmere",
@@ -337,10 +364,11 @@
    "price": 1.2,
    "model_chance": 0.8105,
    "code": "XDAJMT",
-   "verdict": "back",
+   "pool": false,
+   "verdict": "veto",
    "ai_chance": 0.8105,
-   "confidence": 0.75,
-   "reasons": "Tranmere at full strength with a generous +2.5 goal handicap advantage."
+   "confidence": 0.6,
+   "reasons": "Model chance is below break_even_chance of 0.8333."
   },
   {
    "fixture": "Rochdale v Grimsby",
@@ -349,10 +377,11 @@
    "price": 1.25,
    "model_chance": 0.7796,
    "code": "KKGPHB",
-   "verdict": "back",
+   "pool": false,
+   "verdict": "veto",
    "ai_chance": 0.7796,
-   "confidence": 0.75,
-   "reasons": "Rochdale reported at full strength, making the handicap pick reliable."
+   "confidence": 0.6,
+   "reasons": "Model chance is below break_even_chance of 0.8."
   },
   {
    "fixture": "Rotherham v Newport County",
@@ -361,10 +390,11 @@
    "price": 1.23,
    "model_chance": 0.7771,
    "code": "J7D91Z",
-   "verdict": "back",
+   "pool": false,
+   "verdict": "veto",
    "ai_chance": 0.7771,
-   "confidence": 0.85,
-   "reasons": "Strong framework profitability and high hit rate in the home goals market family."
+   "confidence": 0.6,
+   "reasons": "Model chance is below break_even_chance of 0.813, despite WINNING record in the family."
   },
   {
    "fixture": "Walsall v Oldham",
@@ -373,8 +403,11 @@
    "price": 1.29,
    "model_chance": 0.7873,
    "code": "H0DEB9",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.7713,
+   "confidence": 0.5,
+   "reasons": "The ai_chance falls below the break_even_chance of 0.7752 due to the LOSING framework record and LOSING Matchbook record in this market family."
   },
   {
    "fixture": "York City FC v Accrington",
@@ -383,8 +416,11 @@
    "price": 1.21,
    "model_chance": 0.8437,
    "code": "HP154Y",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.8357,
+   "confidence": 0.4,
+   "reasons": "Despite the LOSING framework record and LOSING Matchbook record, the model chance provides enough cushion above the break_even_chance of 0.8264 with York City at full strength."
   },
   {
    "fixture": "Gillingham v Port Vale",
@@ -393,8 +429,11 @@
    "price": 1.22,
    "model_chance": 0.7851,
    "code": "XC1KL3",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.7751,
+   "confidence": 0.5,
+   "reasons": "The ai_chance is lower than the break_even_chance of 0.8197, and the framework record in this family is TOO FEW."
   },
   {
    "fixture": "Alvechurch v Spalding United",
@@ -403,8 +442,11 @@
    "price": 1.24,
    "model_chance": 0.7736,
    "code": "ZKZ177",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.7636,
+   "confidence": 0.5,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8065 despite the WINNING framework record."
   },
   {
    "fixture": "Anstey Nomads v Macclesfield FC",
@@ -413,8 +455,11 @@
    "price": 1.22,
    "model_chance": 0.7825,
    "code": "R8MX9U",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.7725,
+   "confidence": 0.5,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8197, heavily influenced by the LOSING framework record."
   },
   {
    "fixture": "Cray Wanderers v Bedford Town Football Club",
@@ -423,8 +468,11 @@
    "price": 1.22,
    "model_chance": 0.7927,
    "code": "MT5JUF",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.7827,
+   "confidence": 0.5,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8197, and the framework record in this family is LOSING."
   },
   {
    "fixture": "FC United of Manchester v Altrincham FC",
@@ -433,8 +481,11 @@
    "price": 1.23,
    "model_chance": 0.785,
    "code": "M3A8DP",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.775,
+   "confidence": 0.5,
+   "reasons": "The ai_chance is below the break_even_chance of 0.813, compounded by the LOSING framework record."
   },
   {
    "fixture": "Forest Green Rovers v Chesham United",
@@ -443,8 +494,11 @@
    "price": 1.24,
    "model_chance": 0.786,
    "code": "QV6GLV",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.786,
+   "confidence": 0.4,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8065 despite the WINNING framework record."
   },
   {
    "fixture": "Gloucester City v Barrow AFC",
@@ -453,8 +507,11 @@
    "price": 1.21,
    "model_chance": 0.7972,
    "code": "PWBWNV",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.7872,
+   "confidence": 0.5,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8264, supported by the LOSING framework record."
   },
   {
    "fixture": "Harrogate Town v Bury FC",
@@ -463,8 +520,11 @@
    "price": 1.23,
    "model_chance": 0.8316,
    "code": "S5V6LV",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.8196,
+   "confidence": 0.3,
+   "reasons": "The LOSING framework record and LOSING Matchbook record pull down the ai_chance, making it very close to the break_even_chance of 0.813."
   },
   {
    "fixture": "Stafford Rangers v Gateshead FC",
@@ -473,8 +533,11 @@
    "price": 1.23,
    "model_chance": 0.7689,
    "code": "KA3TEP",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.7589,
+   "confidence": 0.5,
+   "reasons": "The ai_chance is below the break_even_chance of 0.813, and the framework record in this family is TOO FEW."
   },
   {
    "fixture": "Tadley Calleva v Aldershot Town FC",
@@ -483,8 +546,11 @@
    "price": 1.2,
    "model_chance": 0.8421,
    "code": "S72W2J",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "lower",
+   "ai_chance": 0.8301,
+   "confidence": 0.3,
+   "reasons": "The LOSING framework record and LOSING Matchbook record pull the ai_chance closer to the break_even_chance of 0.8333."
   },
   {
    "fixture": "Worcester City v Chorley FC",
@@ -493,8 +559,11 @@
    "price": 1.24,
    "model_chance": 0.7776,
    "code": "P1ZWN5",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.7676,
+   "confidence": 0.5,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8065, reflecting the LOSING framework record."
   },
   {
    "fixture": "Yeovil Town v Leatherhead FC",
@@ -503,8 +572,193 @@
    "price": 1.22,
    "model_chance": 0.7924,
    "code": "MA10LE",
-   "verdict": "PENDING",
-   "reasons": "no answer for this pick"
+   "pool": false,
+   "verdict": "veto",
+   "ai_chance": 0.7924,
+   "confidence": 0.4,
+   "reasons": "The ai_chance is below the break_even_chance of 0.8197 despite the WINNING framework record."
+  },
+  {
+   "fixture": "Liverpool v Villarreal",
+   "market": "SB:19|total=3.5|Under 3.5",
+   "pick": "Under 3.5",
+   "price": null,
+   "model_chance": 0.8052,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.8052,
+   "confidence": 0.4,
+   "reasons": "There is no bookmaker price given for this pool pick, and the WINNING framework record supports maintaining the model chance."
+  },
+  {
+   "fixture": "Napoli v Bodoe/Glimt",
+   "market": "SB:14|hcp=0:3|Away (0:3)",
+   "pick": "Away (0:3)",
+   "price": null,
+   "model_chance": 0.8102,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.8102,
+   "confidence": 0.4,
+   "reasons": "There is TOO FEW information in the context regarding this family, so the model's chance is kept close with low confidence."
+  },
+  {
+   "fixture": "Napoli v Bodoe/Glimt",
+   "market": "SB:16|hcp=-2.5|Away (+2.5)",
+   "pick": "Away (+2.5)",
+   "price": null,
+   "model_chance": 0.8102,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.8102,
+   "confidence": 0.4,
+   "reasons": "There is TOO FEW information regarding this market family, so the model chance is maintained."
+  },
+  {
+   "fixture": "Stuttgart v Atletico Madrid",
+   "market": "SB:19|total=2.5|Under 2.5",
+   "pick": "Under 2.5",
+   "price": null,
+   "model_chance": 0.8116,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.82,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING with 37 picks and profit +4.27 units, supporting the model's chance."
+  },
+  {
+   "fixture": "AFC Wimbledon v Mansfield",
+   "market": "SB:20|total=2.5|Under 2.5",
+   "pick": "Under 2.5",
+   "price": null,
+   "model_chance": 0.8127,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.82,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING with 22 picks in this family, supporting a positive view."
+  },
+  {
+   "fixture": "Huddersfield v Peterborough United",
+   "market": "SB:14|hcp=0:3|Away (0:3)",
+   "pick": "Away (0:3)",
+   "price": null,
+   "model_chance": 0.8121,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.8121,
+   "confidence": 0.4,
+   "reasons": "There is TOO FEW information in the context, keeping the AI chance close to the model chance."
+  },
+  {
+   "fixture": "Huddersfield v Peterborough United",
+   "market": "SB:16|hcp=-2.5|Away (+2.5)",
+   "pick": "Away (+2.5)",
+   "price": null,
+   "model_chance": 0.8121,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.8121,
+   "confidence": 0.4,
+   "reasons": "There is TOO FEW information in the context, so the model chance is retained."
+  },
+  {
+   "fixture": "Luton v Barnsley",
+   "market": "SB:19|total=3.5|Under 3.5",
+   "pick": "Under 3.5",
+   "price": null,
+   "model_chance": 0.8058,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.815,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING with 37 graded picks, reinforcing confidence in the model probability."
+  },
+  {
+   "fixture": "Notts County v Sheffield Wednesday",
+   "market": "SB:20|total=2.5|Under 2.5",
+   "pick": "Under 2.5",
+   "price": null,
+   "model_chance": 0.8094,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.81,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING with 22 picks in this family, providing solid support."
+  },
+  {
+   "fixture": "Oxford United v Wigan",
+   "market": "SB:19|total=0.5|Over 0.5",
+   "pick": "Over 0.5",
+   "price": null,
+   "model_chance": 0.8137,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.82,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING with 37 graded picks in this family, backing the model view."
+  },
+  {
+   "fixture": "Cheltenham v Fleetwood Town",
+   "market": "SB:14|hcp=2:0|Home (2:0)",
+   "pick": "Home (2:0)",
+   "price": null,
+   "model_chance": 0.8036,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.8036,
+   "confidence": 0.4,
+   "reasons": "There is TOO FEW information in the context for this family, keeping the probability close to the model's."
+  },
+  {
+   "fixture": "Chesterfield v Colchester United",
+   "market": "SB:18|total=4.5|Under 4.5",
+   "pick": "Under 4.5",
+   "price": null,
+   "model_chance": 0.83,
+   "code": null,
+   "pool": true,
+   "verdict": "lower",
+   "ai_chance": 0.78,
+   "confidence": 0.5,
+   "reasons": "The framework record is LOSING with 169 picks and negative profit, justifying a reduction in the AI chance."
+  },
+  {
+   "fixture": "Rochdale v Grimsby",
+   "market": "SB:20|total=2.5|Under 2.5",
+   "pick": "Under 2.5",
+   "price": null,
+   "model_chance": 0.8025,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.81,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING with 22 picks in this family, supporting the selection."
+  },
+  {
+   "fixture": "Cray Wanderers v Bedford Town Football Club",
+   "market": "SB:20|total=2.5|Under 2.5",
+   "pick": "Under 2.5",
+   "price": null,
+   "model_chance": 0.8005,
+   "code": null,
+   "pool": true,
+   "verdict": "back",
+   "ai_chance": 0.81,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING with 22 graded picks in this family, supporting the pick."
   }
  ]
 }

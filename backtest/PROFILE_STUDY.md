@@ -2,23 +2,23 @@
 
 Every graded SportyBet football game that carried both teams' FotMob profile before kick-off (data/team_profiles.py), bet on or not. *Landed* is how often the market won; *fair* is SportyBet's own chance at the last price, margin removed; *ROI* is £1 flat at that price. A lean only says something when landed beats fair over 20+ games. A study, not a selector.
 
-Profiled graded games: **798**
+Profiled graded games: **1118**
 
 ## 1. By profile lean
 
 | Lean | Games | Goals/game | Hint | BTTS yes landed / fair / ROI | BTTS no landed / fair / ROI | Over 2.5 landed / fair / ROI | Under 3.5 landed / fair / ROI |
 |---|---:|---:|---:|---|---|---|---|
-| PENDING | 608 | 3.01 | PENDING | 58% / 55% / -2.3% (580) | 42% / 45% / -13.7% (580) | 58% / 56% / -4.1% (592) | 64% / 63% / -5.5% (582) |
-| no clear lean | 105 | 3.44 | 2.96 | 56% / 55% / -4.8% (105) | 44% / 45% / -9.6% (105) | 65% / 57% / +8.5% (105) | 53% / 63% / -19.6% (105) |
-| BTTS yes / Over 2.5 | 77 | 3.08 | 3.10 | 55% / 58% / -11.1% (77) | 45% / 42% / +0.9% (77) | 55% / 58% / -11.5% (77) | 58% / 62% / -11.6% (77) |
-| Under / double chance *(too few)* | 5 | 2.20 | 2.16 | 60% / 45% / +27.8% (5) | 40% / 55% / -31.8% (5) | 40% / 40% / -7.0% (5) | 100% / 78% / +20.8% (5) |
-| one side unlikely to score *(too few)* | 3 | 3.00 | 2.15 | 33% / 43% / -18.3% (3) | 67% / 57% / +16.0% (3) | 100% / 48% / +123.7% (3) | 100% / 70% / +45.3% (3) |
+| PENDING | 846 | 2.97 | PENDING | 58% / 55% / -2.2% (790) | 42% / 45% / -13.6% (790) | 56% / 55% / -5.1% (817) | 64% / 63% / -5.9% (786) |
+| no clear lean | 148 | 3.43 | 2.93 | 57% / 54% / -1.5% (148) | 43% / 46% / -12.0% (148) | 65% / 57% / +8.8% (148) | 55% / 63% / -17.9% (148) |
+| BTTS yes / Over 2.5 | 110 | 3.25 | 3.09 | 57% / 57% / -6.4% (110) | 43% / 43% / -5.8% (110) | 59% / 58% / -2.4% (110) | 56% / 63% / -15.8% (110) |
+| Under / double chance *(too few)* | 9 | 2.22 | 2.17 | 44% / 46% / -11.1% (9) | 56% / 54% / -6.2% (9) | 44% / 41% / -5.6% (9) | 89% / 77% / +6.8% (9) |
+| one side unlikely to score *(too few)* | 5 | 2.40 | 2.31 | 20% / 44% / -51.0% (5) | 80% / 56% / +37.6% (5) | 60% / 51% / +34.2% (5) | 100% / 68% / +46.0% (5) |
 
 ## 2. The goal hint against the goals scored
 
 | Profile total hint | Games | Mean hint | Mean goals |
 |---|---:|---:|---:|
 | < 2.0 | 2 | 1.69 | 3.00 |
-| 2.0–2.5 | 15 | 2.33 | 2.67 |
-| 2.5–3.0 | 85 | 2.76 | 2.82 |
-| 3.0+ | 88 | 3.34 | 3.77 |
+| 2.0–2.5 | 25 | 2.31 | 2.40 |
+| 2.5–3.0 | 120 | 2.75 | 3.00 |
+| 3.0+ | 125 | 3.31 | 3.76 |

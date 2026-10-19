@@ -159,8 +159,8 @@
    "sharp_ev": -0.0445,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-2",
    "drift_price": 1.22,
    "drift_pct": 0.0
   },
@@ -429,8 +429,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-2",
    "drift_price": 1.22,
    "drift_pct": -2.4
   },
@@ -2399,10 +2399,11 @@
    "sharp_ev": -0.0374,
    "first_price": 1.35,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "0-0",
    "drift_price": 1.34,
-   "drift_pct": -0.7
+   "drift_pct": -0.7,
+   "orig_result": "won"
   },
   {
    "fixture": "Sociedad B v Almeria",
@@ -2615,8 +2616,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-3",
    "drift_price": 1.2,
    "drift_pct": 0.0
   },
@@ -6734,7 +6735,7 @@
     "Dover Athletic FC v Dorking Wanderers",
     "SC Pisa v Cremonese"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca C",
@@ -7002,7 +7003,7 @@
     "Hibernian v Falkirk",
     "Sparta Rotterdam v Willem II"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "50+ #5",
@@ -7335,8 +7336,8 @@
      "pick": "Las Palmas or Castellon",
      "price": 1.28,
      "chance": 0.8165,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "0-3"
     },
     {
      "fixture": "Salford v Crawley Town",
@@ -7352,7 +7353,7 @@
      "ft": "2-1"
     }
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Alt B",
@@ -8160,7 +8161,7 @@
      0.8
     ]
    ],
-   "ft": null
+   "ft": "3-2"
   },
   {
    "fixture": "Aberdeen v St Mirren",
@@ -8552,7 +8553,7 @@
      0.6473
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Motor Lublin v Slask Wroclaw",
@@ -11628,7 +11629,7 @@
      0.7401
     ]
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "Sociedad B v Almeria",
@@ -11932,7 +11933,7 @@
      0.749
     ]
    ],
-   "ft": null
+   "ft": "0-3"
   },
   {
    "fixture": "Ascoli Calcio 1898 v Empoli",
@@ -18197,7 +18198,8 @@
      "market": "SB:10||Home or Away",
      "pick": "Sparta Rotterdam or Willem II",
      "price": 1.22,
-     "result": null
+     "result": "won",
+     "ft": "3-2"
     },
     {
      "fixture": "HamKam v Bodoe/Glimt",

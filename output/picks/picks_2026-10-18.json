@@ -9585,25 +9585,25 @@
    "name": "ACCAS MEGA",
    "of": "accas",
    "code": "M3W61Y",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "ALT MEGA",
    "of": "alts",
    "code": "LRN2YM",
-   "result": null
+   "result": "won"
   },
   {
    "name": "VALUE MEGA",
    "of": "value",
    "code": "XY8YCC",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "50+ MEGA",
    "of": "safe3",
    "code": "NRKEEX",
-   "result": null
+   "result": "lost"
   }
  ],
  "replaced": [

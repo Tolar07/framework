@@ -674,21 +674,16 @@
   {
    "lineage_id": "ln_210c3d4911",
    "parent_id": "ln_b34f09d959",
-   "generation": 10,
-   "bankroll": 1.36,
+   "generation": 11,
+   "bankroll": 1.59,
    "stake": 1.0,
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-13",
-   "last_result": null,
+   "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-17",
-    "fixture": "Dundee v Rangers",
-    "pick": "Under 4.5 goals",
-    "price": 1.23
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_512082ad04",
@@ -926,6 +921,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-18",
+ "last_bred_date": "2026-10-19",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

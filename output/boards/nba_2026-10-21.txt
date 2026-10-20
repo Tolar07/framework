@@ -1,0 +1,86 @@
+##########OLP XDV · NBA #########
+🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)
+==================================
+
+📅  Wed 21 Oct 2026   ·   tip-off = UK time
+Run ID: OLPXDV-20261020-0551-2f4562
+Games checked against the sharp line: 3
+
+Only prices where SportyBet pays MORE than the fair price (the sharp line, margin
+removed). One pick per game. Value = chance × price − 1.
+
+──────────────────────────────────
+PICKS
+──────────────────────────────────
+
+20:00  Detroit Pistons v Boston Celtics
+   1st half Under 114.5 points @1.95 · chance 61% · fair 1.64 · value +18.8%
+   code UQ4WNK
+   Matchbook: not listed
+
+00:00  New York Knicks v Philadelphia 76ers
+   1st half Under 118.5 points @1.95 · chance 56% · fair 1.79 · value +9.1%
+   code URCHF3
+   Matchbook: not listed
+
+02:30  San Antonio Spurs v Oklahoma City Thunder
+   1st half Over 112.5 points @1.95 · chance 64% · fair 1.57 · value +24.5%
+   code LZ05QV
+   Matchbook: not listed
+
+All 3 picks on one slip: Q7SD0N
+
+──────────────────────────────────
+STUDY LINES — not picks, nothing booked (order 41)
+──────────────────────────────────
+Each market's SportyBet line closest to the fair price, value or not:
+value = chance × price − 1; most sit below 0 (SportyBet's margin).
+
+20:00  Detroit Pistons v Boston Celtics
+   Boston Celtics to win (incl. OT) @1.86 · fair 1.92 · -3.0%
+   Boston Celtics (+1.5) handicap @1.77 · fair 1.71 · +3.8%
+   Under 231.5 points (incl. OT) @1.37 · fair 1.41 · -2.6%
+   1st half Under 111.5 points @2.40 · fair 1.96 · +22.5%
+   1st quarter Under 57.5 points @1.90 · fair 1.75 · +8.6%
+   Detroit Pistons Under 108.5 points (incl. OT) @2.25 · fair 2.27 · -0.8%
+   Boston Celtics Over 112.5 points (incl. OT) @2.10 · fair 2.15 · -2.3%
+   Under 220.5 points (regulation time, no OT) @1.95 · fair 2.00 · -2.5%
+   Boston Celtics (+2.5) 1st half handicap @1.58 · fair 1.60 · -1.5%
+   Boston Celtics (+0.5) 1st quarter handicap @1.76 · fair 1.83 · -3.6%
+   Boston Celtics (+1.5) 2nd quarter handicap @1.63 · fair 1.68 · -3.1%
+   Boston Celtics (-0.5) 3rd quarter handicap @1.96 · fair 2.00 · -2.2%
+
+00:00  New York Knicks v Philadelphia 76ers
+   Philadelphia 76ers to win (incl. OT) @2.53 · fair 2.61 · -3.0%
+   New York Knicks (+1.5) handicap @1.50 · fair 1.49 · +0.4%
+   Over 236.5 points (incl. OT) @2.38 · fair 2.43 · -1.9%
+   1st half Under 114.5 points @2.65 · fair 2.35 · +12.9%
+   1st quarter Under 59.5 points @1.94 · fair 1.88 · +3.5%
+   New York Knicks Over 120.5 points (incl. OT) @2.30 · fair 2.29 · +0.3%
+   Philadelphia 76ers Over 114.5 points (incl. OT) @2.00 · fair 2.07 · -3.5%
+   Over 230.5 points (regulation time, no OT) @1.87 · fair 1.91 · -2.2%
+   New York Knicks (+0.5) 1st half handicap @1.60 · fair 1.61 · -0.7%
+   New York Knicks (-0.5) 1st quarter handicap @1.75 · fair 1.83 · -4.2%
+   New York Knicks (-0.5) 3rd quarter handicap @1.76 · fair 1.84 · -4.2%
+   New York Knicks (+0.5) 2nd quarter handicap @1.67 · fair 1.69 · -1.3%
+
+02:30  San Antonio Spurs v Oklahoma City Thunder
+   Oklahoma City Thunder to win (incl. OT) @2.06 · fair 2.11 · -2.4%
+   San Antonio Spurs (+1.5) handicap @1.72 · fair 1.71 · +0.9%
+   Over 228.5 points (incl. OT) @1.65 · fair 1.70 · -3.0%
+   1st half Over 112.5 points @1.95 · fair 1.57 · +24.5%
+   1st quarter Over 56.5 points @1.90 · fair 1.63 · +16.4%
+   San Antonio Spurs Over 115.5 points (incl. OT) @1.76 · fair 1.79 · -1.6%
+   Oklahoma City Thunder Over 113.5 points (incl. OT) @1.68 · fair 1.75 · -4.1%
+   Over 230.5 points (regulation time, no OT) @1.87 · fair 1.91 · -2.2%
+   San Antonio Spurs (+1.5) 1st half handicap @1.67 · fair 1.70 · -1.7%
+   San Antonio Spurs (+1.5) 1st quarter handicap @1.62 · fair 1.68 · -3.6%
+   San Antonio Spurs (+1.5) 2nd quarter handicap @1.63 · fair 1.68 · -3.1%
+   San Antonio Spurs (+1.5) 3rd quarter handicap @1.62 · fair 1.69 · -4.1%
+
+──────────────────────────────────
+NBA record: no graded regular-season pick yet (the season opens 20 Oct).
+
+Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board
+tests the one route left — SportyBet paying above the sharp price — as a live test.
+The framework never stakes: every bet is placed by hand from its code.

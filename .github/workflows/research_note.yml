@@ -1,0 +1,32 @@
+name: OLP XDV research note
+
+# One Telegram line to the Architect when the weekly research session opens
+# its PR (research/WEEKLY_BRIEF.md). Reads memory/hypotheses.jsonl from the
+# PR's branch; tests, changes and stakes nothing.
+on:
+  pull_request:
+    types: [opened]
+    branches: [main]
+    paths: ["research/RESULTS.md"]
+
+permissions:
+  contents: read
+
+jobs:
+  note:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install requests
+      - name: Send the research line (Architect only)
+        env:
+          TELEGRAM_BOT_TOKEN:     ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:       ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_OWNER_CHAT_ID: ${{ secrets.TELEGRAM_OWNER_CHAT_ID }}
+          PR_URL:                 ${{ github.event.pull_request.html_url }}
+        run: python research/runner.py --notify "$PR_URL"

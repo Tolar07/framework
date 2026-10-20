@@ -92,6 +92,45 @@ def load(picks_dir: Path = X.PICKS_DIR, reasoning_dir: Path = X.REASONING_DIR) -
     return out
 
 
+def nba_slips(picks_dir: Path = X.PICKS_DIR, reasoning_dir: Path = X.REASONING_DIR) -> list[dict]:
+    """The NBA board's combined slip per night (its one code over every pick, order 41) as a
+    slip of regular-season legs — NBA treated as football (Architect 2026-10-20). Kept apart
+    from football's slips: its classes never reach the football killer rules."""
+    from engine import reasoning as R
+    out = []
+    for path in sorted(picks_dir.glob("nba_2*.json")):
+        try:
+            doc = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        try:
+            rd = json.loads((reasoning_dir / f"reasoning_nba_{doc['date']}.json").read_text(encoding="utf-8"))
+            verdicts = {(x.get("fixture"), x.get("market")): x.get("verdict") for x in rd.get("picks") or []}
+        except (OSError, ValueError, KeyError):
+            verdicts = {}
+        legs = []
+        for p in doc.get("picks") or []:
+            if p.get("stage") != "regular":
+                continue
+            lg = X.nba_leg(p)
+            mk = f"NBA:{p.get('market_id')}|{p.get('specifier') or ''}|{p.get('outcome')}"
+            legs.append({**lg, "family": R.nba_family(p.get("market_id")), "league": "NBA", "certainty": "?",
+                         "news": "?", "verdict": verdicts.get((lg["fixture"], mk))})
+        if len(legs) < 2:
+            continue                                  # one pick is a single, not a slip
+        res = [lg["result"] for lg in legs]
+        result = "lost" if "lost" in res else "won" if all(r == "won" for r in res) else None
+        out.append({"kind": "nba", "name": "NBA combined", "day": doc["date"], "result": result, "legs": legs})
+    return out
+
+
+def full() -> dict[str, Any]:
+    """Football's post-mortem with the NBA one under "nba" (kept apart)."""
+    pm = build(load())
+    pm["nba"] = build(nba_slips())
+    return pm
+
+
 def build(slips: list[dict], before: str | None = None) -> dict[str, Any]:
     """The post-mortem over graded slips (only those dated before `before`)."""
     graded = [s for s in slips if s["result"] in ("won", "lost") and (before is None or s["day"] < before)]
@@ -187,10 +226,17 @@ def section(pm: dict) -> list[str]:
         out.append(f"  {c}: lost {r['lost']}/{r['legs']} ({r['loss_rate']:.0%} v {r['stated_loss']:.0%} stated, "
                    f"z {r['z']:+.1f}), killed {r['slips_killed']} slip(s)" + (" — KILLER" if r["killer"] else ""))
     out.append("Killer classes (50+ legs, z >= 2): " + (", ".join(pm.get("killers") or []) or "none yet"))
+    nba = pm.get("nba")
+    if nba is not None:
+        out.append(f"NBA combined slips: {nba.get('slips_lost', 0)} of {nba.get('slips_graded', 0)} lost, "
+                   f"{nba.get('legs', 0)} distinct legs")
+        for c, r in worst(nba, 3):
+            out.append(f"  NBA {c}: lost {r['lost']}/{r['legs']} ({r['loss_rate']:.0%} v {r['stated_loss']:.0%} "
+                       f"stated, z {r['z']:+.1f})")
     return out
 
 
 if __name__ == "__main__":
-    pm = build(load())
+    pm = full()
     save(pm)
     print("\n".join(section(pm)))

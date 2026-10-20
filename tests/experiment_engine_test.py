@@ -161,4 +161,15 @@ with tempfile.TemporaryDirectory() as d:
     assert out["accas_dropped"][0]["result"] == "won"
     assert "1 graded, 0 pending" in flags[0], flags
 
+# ── research queue (memory/strategy_queue.jsonl): each id registered once, in shadow ─
+with tempfile.TemporaryDirectory() as d:
+    q = Path(d) / "q.jsonl"
+    e = {"strategy_id": "research:H9", "kind": "shadow_strategy", "mode": "shadow", "idea": "test",
+         "queued_at": "2026-10-20T09:00:00Z", "rule": {"market": "1x2:home", "price_min": 1.5}}
+    q.write_text(json.dumps(e) + "\n" + json.dumps({**e, "idea": "dup"}) + "\nnot json\n")
+    rr = X._research_rules(q)
+    assert [r.name for r in rr] == ["R:research:H9"] and rr[0].desc == "research — test"
+    assert rr[0].since == "2026-10-20" and not rr[0].wireable and rr[0].slot == "singles"
+assert X.queued(Path("/nonexistent")) == []
+
 print("experiment_engine_test: OK")

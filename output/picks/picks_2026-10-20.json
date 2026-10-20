@@ -96,7 +96,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -3.2
   },
   {
    "fixture": "Sabah Masazir v Borussia Dortmund",
@@ -144,7 +146,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Liverpool v Villarreal",

@@ -628,4 +628,20 @@ assert _l44.shift({"matchbook": _m44}, "SB:18|total=2.5|Under 2.5", "?") == -0.0
 assert _l44.shift({"family": {"Over/Under": {"shift": -0.08}}, "matchbook": _m44},
                   "SB:18|total=2.5|Under 2.5", "?") == -0.10, "Order 44: inside the overall ±10 pt cap"
 
+# Experiment engine (Architect 2026-10-20; ID pending): swaps strategies within
+# slots only — 100 bets, CLV AND return both significant, 7-day cool-down, ON
+# by default; it never touches stakes, the CLV gate or the league list.
+import os as _os_x  # noqa: E402
+from engine import experiments as _xp  # noqa: E402
+assert (_xp.MIN_BETS, _xp.Z_BAR, _xp.COOLDOWN_DAYS) == (100, 1.645, 7), "experiment engine: promotion bar"
+_os_x.environ.pop("OLP_EXPERIMENTS", None)
+assert _xp.enabled(), "experiment engine: ON by default (Architect 2026-10-20)"
+assert _xp.SLOTS == ("singles", "accas", "safe3"), "experiment engine: only the board's own slots"
+_src_x = (ROOT / "engine" / "experiments.py").read_text(encoding="utf-8")
+for _forbidden in ("staking", "ARCHITECT_SIGNOFF", "CLV_GATE", "LEAGUES", "assert_paper_only"):
+    assert f"import {_forbidden}" not in _src_x and f"{_forbidden} =" not in _src_x, \
+        f"experiment engine must not touch {_forbidden}"
+assert "Experiment engine may swap strategies within slots" in (ROOT / "STANDING_ORDERS.md").read_text(
+    encoding="utf-8"), "experiment engine order recorded"
+
 print("standing_orders_test: OK — all Architect standing orders hold")

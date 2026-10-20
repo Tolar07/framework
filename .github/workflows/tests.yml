@@ -43,6 +43,7 @@ jobs:
              engine/features.py engine/walkforward.py data/fixture_features.py
              backtest/features_study.py tests/features_test.py
              research/runner.py tests/research_test.py
+             engine/experiments.py monitor/experiment_run.py tests/experiment_engine_test.py
 
       - name: Type check (mypy gate scope)
         run: python -m mypy --config-file pyproject.toml

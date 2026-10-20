@@ -141,6 +141,62 @@ def test_it_never_touches_the_picks_file():
     assert ".write_text" not in src and "open(" not in src      # the engine only reads; the runner writes output/ and memory/
 
 
+# ── NBA (Architect 2026-10-20: "the Gemini reasoning, build the NBA") ─────────
+NBA_BOARD = {"date": "2026-10-21", "generated_at": "n1", "picks": [
+    {"home": "Detroit Pistons", "away": "Boston Celtics", "tip": "2026-10-20T19:00:00+00:00", "market_id": "68",
+     "specifier": "total=114.5", "outcome": "Under 114.5", "pick": "1st half Under 114.5 points", "price": 1.95,
+     "chance": 0.6095, "ev": 0.1884, "stage": "regular", "sharp": {"total": 221.5}, "result": None}],
+    "picks_dropped": [
+    {"home": "New York Knicks", "away": "Philadelphia 76ers", "tip": "2026-10-20T23:00:00+00:00",
+     "market_id": "219", "specifier": "", "outcome": "Away", "pick": "76ers to win", "price": 2.53,
+     "chance": 0.40, "ev": 0.012, "stage": "regular", "result": None}]}
+
+
+def test_nba_board_is_reasoned_with_its_own_prompt_and_families():
+    seen = {}
+
+    def post(url, json=None, **kw):
+        import json as j
+        seen["prompt"] = json["messages"][0]["content"]
+        ans = {"picks": [{"id": 0, "verdict": "back", "ai_chance": 0.6, "confidence": 0.5, "reasons": "a"},
+                         {"id": 1, "verdict": "lower", "ai_chance": 0.38, "confidence": 0.5, "reasons": "b"}]}
+        return Resp({"choices": [{"message": {"content": j.dumps(ans)}}]})
+    with tempfile.TemporaryDirectory() as d:
+        doc = R.reason_nba(NBA_BOARD, key="k", get=get, post=post, now=NOW, ledger_dir=Path(d))
+    assert doc["sport"] == "nba" and [p["verdict"] for p in doc["picks"]] == ["back", "lower"]
+    assert doc["picks"][0]["market"] == "NBA:68|total=114.5|Under 114.5"
+    assert doc["picks"][0]["fixture"] == "Detroit Pistons v Boston Celtics"
+    assert "NBA betting model" in seen["prompt"] and "football" not in seen["prompt"].split("PICKS:")[0]
+    assert '"market_family": "NBA 1st half total"' in seen["prompt"] and "value_pts" in seen["prompt"]
+    assert R.nba_family("219") == "NBA winner" and R.nba_family("999") == "NBA other"
+
+
+def test_nba_record_scores_verdicts_and_keeps_football_apart():
+    with tempfile.TemporaryDirectory() as d:
+        out, led = Path(d) / "out", Path(d) / "led"
+        out.mkdir()
+        led.mkdir()
+        board = json.loads(json.dumps(NBA_BOARD))
+        board["picks"][0].update(result="won", close_value=0.05)
+        board["picks_dropped"][0].update(result="lost")
+        (led / "nba_2026-10-21.json").write_text(json.dumps(board))
+        (out / "reasoning_nba_2026-10-21.json").write_text(json.dumps({"date": "2026-10-21", "picks": [
+            {"fixture": "Detroit Pistons v Boston Celtics", "market": "NBA:68|total=114.5|Under 114.5", "verdict": "back"},
+            {"fixture": "New York Knicks v Philadelphia 76ers", "market": "NBA:219||Away", "verdict": "lower"}]}))
+        rec = R.record(out, led)
+    assert rec["graded"] == 0, "NBA verdicts never enter the football record"
+    nb = rec["nba"]["by_verdict"]
+    assert rec["nba"]["graded"] == 2 and nb["back"] == {"n": 1, "won": 1, "flat_return": 0.95, "close_value": 0.05}
+    assert nb["lower"]["won"] == 0 and nb["veto"] == {"n": 0}
+    assert "NBA (2 graded)" in R.summary_line(rec)
+    with tempfile.TemporaryDirectory() as d:
+        b = json.loads(json.dumps(NBA_BOARD))
+        b["picks"][0].update(result="won")
+        (Path(d) / "nba_2026-10-21.json").write_text(json.dumps(b))
+        assert R.nba_records(Path(d)) == {"NBA 1st half total": {"n": 1, "won": 1, "flat_return": 0.95,
+                                                                  "close_value": None}}
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

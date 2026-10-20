@@ -60,7 +60,8 @@ three days (so it is now one looping job the board run starts);
 |---|---|---|
 | The Architect (`TELEGRAM_CHAT_ID`) | everything | secret |
 | bet365 board | the Architect only — `TELEGRAM_OWNER_CHAT_ID` if set, else `TELEGRAM_CHAT_ID` (order 29) | secret |
-| NBA board + NBA line watch (live test since 2026-10-07, placed by hand from the codes) | the Architect only — `TELEGRAM_OWNER_CHAT_ID` if set, else `TELEGRAM_CHAT_ID` (order 41) | secret |
+| NBA board (live test since 2026-10-07, placed by hand from the codes) | the Architect — `TELEGRAM_OWNER_CHAT_ID` if set, else `TELEGRAM_CHAT_ID` — then every `TELEGRAM_SUBSCRIBER_CHAT_IDS` chat, as the football board (order 41, from 2026-10-20) | secret |
+| NBA line watch (live test since 2026-10-07) | the Architect only — `TELEGRAM_OWNER_CHAT_ID` if set, else `TELEGRAM_CHAT_ID` (order 41; football's pre-kickoff alerts are Architect-only too) | secret |
 | Nightly retrain line (`retrain.yml`) | the Architect only (`send_architect`) | secret |
 | Subscribers | booking codes only (order 33) | secret `TELEGRAM_SUBSCRIBER_CHAT_IDS`, comma-separated |
 | Commands | answered for the Architect's chat only | `output/telegram_commands.py` |

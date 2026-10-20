@@ -42,6 +42,7 @@ jobs:
              monitor/sharp_list.py tests/sharp_value_test.py backtest/price_band_study.py
              engine/features.py engine/walkforward.py data/fixture_features.py
              backtest/features_study.py tests/features_test.py
+             research/runner.py tests/research_test.py
              engine/experiments.py monitor/experiment_run.py tests/experiment_engine_test.py
              engine/leg_postmortem.py tests/leg_postmortem_test.py
 

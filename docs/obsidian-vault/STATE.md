@@ -35,6 +35,8 @@ every directive after 31 Aug is a standing order.
 
 **2026-10-20 — leg-level post-mortems (autonomy item 2).** `engine/leg_postmortem.py` (run by `monitor/experiment_run.py` before every board) classes every leg of every graded slip by market family, price band, league, certainty, news and Gemini verdict, and measures loss rate as a leg v its stated chance → `memory/leg_postmortem.json`. A class with 50+ legs losing at z ≥ 2 above what it stated is a slip killer. Fed back ONLY as experiment-engine strategies (AK accas / TK 50%+ accas: no killer-class leg; killers per day from slips graded before it; Gemini dimension report-only) — they must earn promotion. Supervisor carries one line, the weekly review a section. First numbers (2026-10-20): 127 of 187 graded slips lost, 629 distinct legs, no killer class yet; worst Serie B legs lost 8/22 (36% v 22% stated, z +1.7).
 
+**2026-10-20 — retrain gate: "no calibration" competes too.** `engine/retrain.py`'s nightly gate now scores three candidates per family on the holdout — live, refit and the raw model chance (identity, A=0 B=1) — and adopts a challenger only if it beats live on BOTH Brier and log loss (same 200 fit / 50 holdout guards); `choice` is logged in `memory/retrain_log.jsonl` and `memory/calibration_live.json`. On 2026-10-20's data Over 3.5 raw (Brier 0.22214, log loss 0.63435) beats live (0.22584 / 0.64260) and the refit (0.22602 / 0.64302).
+
 **2026-10-15 — live Matchbook agent linked to the framework.** The Architect amended the
 capital bright line for one agent OUTSIDE this repo (`Tolar07/matchbook-agent`, see MAP.md §9);
 this repo still never stakes. The agent bets this repo's picks and rated markets on Matchbook

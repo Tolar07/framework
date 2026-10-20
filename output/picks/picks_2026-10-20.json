@@ -672,7 +672,11 @@
     "home": 4781109,
     "away": 4280773
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Bradford City at full strength",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72341292",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -722,7 +726,11 @@
     "home": 4022152,
     "away": 4095498
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72341294",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -872,7 +880,11 @@
     "home": 4960563,
     "away": 5468593
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Barnsley at full strength",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72341300",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -1172,7 +1184,11 @@
     "home": 1770140,
     "away": 2709647
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Cheltenham Town at full strength",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72342240",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1322,7 +1338,11 @@
     "home": 2119734,
     "away": 2547984
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Crewe Alexandra at full strength",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72342252",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1572,7 +1592,11 @@
     "home": 1091491,
     "away": 1985163
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "York City at full strength",
+    "at": "17:40Z"
+   },
    "sb_event_id": "sr:match:72342276",
    "sb_tid": "sr:tournament:25",
    "sb_market": {

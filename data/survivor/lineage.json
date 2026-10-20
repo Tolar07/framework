@@ -702,21 +702,16 @@
   {
    "lineage_id": "ln_29aed566b8",
    "parent_id": "ln_46d12c4eb0",
-   "generation": 11,
-   "bankroll": 1.5,
+   "generation": 12,
+   "bankroll": 1.7,
    "stake": 1.0,
-   "wins": 1,
+   "wins": 2,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-16",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-18",
-    "fixture": "Real Madrid v Sevilla",
-    "pick": "Sevilla (+3.5) Asian handicap",
-    "price": 1.2
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_deddbc9ed4",
@@ -926,6 +921,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-19",
+ "last_bred_date": "2026-10-20",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

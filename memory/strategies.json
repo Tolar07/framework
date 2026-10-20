@@ -1,6 +1,6 @@
 {
  "engine_on": true,
- "evaluated_at": "2026-10-20T08:29Z",
+ "evaluated_at": "2026-10-20T08:30Z",
  "flagged": [],
  "last_change": {},
  "live": {
@@ -131,6 +131,37 @@
    "vs_live": "0/100 graded bets",
    "why_not": "the reasoning step runs after the board is built \u2014 no verdict exists at selection time",
    "wireable": false
+  },
+  "AK accas: no slip-killer leg": {
+   "counted": {
+    "clv": null,
+    "clv_se": null,
+    "first": null,
+    "last": null,
+    "n": 0,
+    "n_clv": 0,
+    "roi": null,
+    "roi_se": null,
+    "won": 0
+   },
+   "desc": "accas with no leg from a class that loses significantly more than stated (50+ legs, z >= 2.0)",
+   "in_sample": {
+    "clv": -0.0024,
+    "clv_se": 0.0051,
+    "first": "2026-10-03",
+    "last": "2026-10-19",
+    "n": 90,
+    "n_clv": 73,
+    "roi": -0.1977,
+    "roi_se": 0.1218,
+    "won": 30
+   },
+   "since": "2026-10-20",
+   "slot": "accas",
+   "status": "shadow",
+   "vs_live": "0/100 graded bets",
+   "why_not": null,
+   "wireable": true
   },
   "S0 board singles": {
    "counted": {
@@ -501,6 +532,37 @@
    "vs_live": "0/100 graded bets",
    "why_not": "the reasoning step runs after the board is built \u2014 no verdict exists at selection time",
    "wireable": false
+  },
+  "TK 50%+ accas: no slip-killer leg": {
+   "counted": {
+    "clv": null,
+    "clv_se": null,
+    "first": null,
+    "last": null,
+    "n": 0,
+    "n_clv": 0,
+    "roi": null,
+    "roi_se": null,
+    "won": 0
+   },
+   "desc": "50%+ accas with no leg from a slip-killer class",
+   "in_sample": {
+    "clv": 0.0089,
+    "clv_se": 0.0049,
+    "first": "2026-10-03",
+    "last": "2026-10-18",
+    "n": 39,
+    "n_clv": 37,
+    "roi": -0.0575,
+    "roi_se": 0.1575,
+    "won": 19
+   },
+   "since": "2026-10-20",
+   "slot": "safe3",
+   "status": "shadow",
+   "vs_live": "0/100 graded bets",
+   "why_not": null,
+   "wireable": true
   },
   "U:A1 three safe double chances": {
    "counted": {

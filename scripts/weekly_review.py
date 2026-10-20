@@ -113,6 +113,15 @@ def review(days: int = 7, today: str | None = None, picks: Path = PICKS) -> str:
                  "Your /note corrections: none waiting.")
     except Exception as e:  # noqa: BLE001
         L.append(f"Losing-market watch: unavailable ({e})")
+    # Autonomy (2026-10-20): slip post-mortem (engine/leg_postmortem.py) and
+    # the experiment engine's live rule per slot (engine/experiments.py)
+    try:
+        from engine import experiments as _xp
+        from engine import leg_postmortem as _lp
+        L.extend(_lp.section(_lp.build(_lp.load())))
+        L.append("Experiments: " + _xp.brief(_xp.load_registry()))
+    except Exception as e:  # noqa: BLE001
+        L.append(f"Slip post-mortem / experiments: unavailable ({e})")
     L.append("PROPOSALS for the Architect (nothing is changed automatically):")
     L += [f"  • {p}" for p in proposals] or ["  • none — no family or league is running "
                                              f"{REVIEW_GAP_PP * 100:.0f}+ pts below what we said "

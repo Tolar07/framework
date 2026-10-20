@@ -1,0 +1,71 @@
+{
+ "Fenerbahce Istanbul v Slavia Prague": {
+  "absent": [
+   {
+    "name": "Jayden Oosterwolde",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Marco Asensio",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mert M\u00fcld\u00fcr",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Step\u00e1n Chaloupek",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Igoh Ogbu",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "David Jur\u00e1sek",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-20T11:40Z",
+  "away_missing_share": 0.3815551853850119,
+  "away_unavailable": 6,
+  "fotmob_id": 6106333,
+  "home_missing_share": 0.2045167058511499,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-20T16:45:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Sabah Masazir v Borussia Dortmund": {
+  "absent": [
+   {
+    "name": "Konstantinos Karetsas",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Giannis Konstantelias",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Emre Can",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-20T11:40Z",
+  "away_missing_share": 0.16440510629855518,
+  "away_unavailable": 4,
+  "fotmob_id": 6106422,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-20T16:45:00.000Z",
+  "lineup_type": "predicted"
+ }
+}

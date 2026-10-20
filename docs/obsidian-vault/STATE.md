@@ -47,6 +47,8 @@ merges by union, and daily.yml's persist retries rebase+push 4 times (`--autosta
 the real step against the 15 Oct conflict. The 15 Oct evening picks file itself is not
 recoverable (no artifact); the codes are in the Architect's Telegram.
 
+**2026-10-20 — richer data (autonomy plan item 5).** Team news (injuries, lineup predicted → confirmed) is now captured for every rated fixture each pre-kickoff round (`data/fixture_features.py`, `data/features/news_<date>.json`), and a feature file per day (`data/features/features_<date>.json`: xG form before the match, team news, closing prices margin removed — Matchbook and SportyBet from the universe sweep, the Betfair Exchange close from football-data.co.uk for the main leagues (free, published days after) — result; PENDING where missing) is built by the universe sweep. Pinnacle: football-data no longer carries it; no other free ToS-compliant source. `backtest/features_study.py` → `backtest/FEATURES_STUDY.md` tests each feature walk-forward against the model (`engine/walkforward.py`). First run (432 graded fixtures, 4–19 Oct): no feature yet shows information beyond the model — team-news edge and the SportyBet close gap NO CLEAR EFFECT (gain within 1 se); xG form (11 fixtures: the xG archive holds rated fixtures only, from 4 Oct), Matchbook close (58 scored) and Betfair close (49 scored) NOT ENOUGH DATA. Read by studies and shadow strategies only; nothing selects or stakes on them.
+
 ## Open items (2026-10-03)
 
 | # | Item | Status |

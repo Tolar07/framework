@@ -7,7 +7,7 @@
    "status": "placed",
    "legs": 9,
    "odds": 7.77,
-   "units": 0.1,
+   "units": 1.0,
    "reason": ""
   },
   {
@@ -26,6 +26,15 @@
    "legs": 2,
    "odds": 1.57,
    "units": 1.0,
+   "reason": ""
+  },
+  {
+   "code": "XNHBN3",
+   "section": "board",
+   "status": "placed",
+   "legs": 11,
+   "odds": null,
+   "units": null,
    "reason": ""
   },
   {

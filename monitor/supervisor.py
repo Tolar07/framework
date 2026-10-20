@@ -164,6 +164,17 @@ def report(day: str, slot: str, run_conclusion: str, facts: dict, stats: dict,
                 if last.get("target") == day else
                 f"run log has no record for {day} (last: {last.get('target') or 'none'}) "
                 f"— memory/runs.jsonl")
+    # Autonomy (2026-10-20): the experiment engine's slots and the slip
+    # post-mortem, one line each, from memory/ (written before the board).
+    try:
+        from engine import experiments as _xp
+        from engine import leg_postmortem as _lp
+        if _xp.REGISTRY.exists():
+            ok.append("experiments: " + _xp.brief(_xp.load_registry()))
+        if _lp.OUT.exists():
+            ok.append(_lp.line(json.loads(_lp.OUT.read_text(encoding="utf-8"))))
+    except Exception as e:  # noqa: BLE001 — a status line, never a failed check
+        ok.append(f"experiments / post-mortem: unreadable ({e})")
     head = (f"🛡 SUPERVISOR · {day} {slot} — "
             + ("ALL CLEAR" if not bad else f"{len(bad)} issue(s)"))
     return "\n".join([head] + [f"⚠ {b}" for b in bad] + [f"✓ {o}" for o in ok])

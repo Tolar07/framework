@@ -4,6 +4,9 @@ promotion / demotion (engine/experiments.py), before the board is built.
 
     python monitor/experiment_run.py [--dry] [--no-telegram]
 
+Also rebuilds the slip post-mortem (engine/leg_postmortem.py ->
+memory/leg_postmortem.json) the killer-avoiding strategies read.
+
 Reads output/picks/ (the board's candidates, graded), output/reasoning/ and
 data/universe/ (the paper rules). Writes memory/strategies.json (who is live per
 slot + standings) and appends every change to memory/strategy_log.jsonl; one
@@ -43,11 +46,18 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as err:  # noqa: BLE001 — the board rules still run without the paper book
         print(f"universe not read ({err}) — paper rules scored as empty")
         rows = []
-    try:
-        contexts = X._postmortem().contexts(days)
+    try:                                     # item 2: slip post-mortem + killer contexts
+        lp = X._postmortem()
+        pm = lp.build(lp.load())
+        if not a.dry:
+            lp.save(pm)
+        print(lp.line(pm))
+        contexts = lp.contexts(days)
     except ImportError:
         contexts = None
     reg, events = X.evaluate(days, X.universe_bets(rows), X.load_registry(), today, contexts)
+    if not a.dry:                            # saved before anything is printed or sent
+        X.save(reg, events)
     print(f"engine {'ON' if X.enabled() else 'OFF (OLP_EXPERIMENTS=off)'} · {len(days)} board days · "
           f"{len(rows)} universe games")
     for name, r in sorted(reg["standings"].items(), key=lambda kv: (kv[1]["slot"], kv[1]["status"] != "LIVE")):
@@ -58,10 +68,7 @@ def main(argv: list[str] | None = None) -> int:
               f"({c['n_clv']} closes) — {r.get('vs_live', 'live')}" + _ins(r))
     for ev in events:
         print("EVENT", X.telegram_line(ev))
-    if a.dry:
-        return 0
-    X.save(reg, events)
-    if events and not a.no_telegram:
+    if events and not a.dry and not a.no_telegram:
         try:
             from output.notify import send_architect
             send_architect("\n".join(X.telegram_line(ev) for ev in events))

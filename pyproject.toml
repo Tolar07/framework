@@ -56,6 +56,7 @@ follow_imports = "silent"
 files = [
     "engine/experiments.py",
     "monitor/experiment_run.py",
+    "engine/leg_postmortem.py",
     "data/football_data_source.py",
     "data/international_source.py",
     "data/fotmob.py",

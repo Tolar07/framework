@@ -409,7 +409,7 @@ def brief(reg: dict) -> str:
         live = reg.get("live", {}).get(slot, DEFAULT[slot])
         lc = (st.get(live) or {}).get("counted") or {}
         rivals = [(n, r["counted"]) for n, r in st.items()
-                  if r["slot"] == slot and n != live and r["counted"]["n"]]
+                  if r["slot"] == slot and n != live and r["counted"]["n"] >= 30]
         lead = max(rivals, key=lambda x: x[1]["roi"] or -9, default=None)
         roi = f"{lc['roi']:+.0%}" if lc.get("roi") is not None else "—"
         s = f"{slot}: {live} ({lc.get('n', 0)} bets, {roi})"

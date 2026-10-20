@@ -164,14 +164,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-20T15:40Z",
-  "away_missing_share": 0.3815551853850119,
+  "at": "2026-10-20T16:00Z",
+  "away_missing_share": 0.3205333075773714,
   "away_unavailable": 6,
   "fotmob_id": 6106333,
-  "home_missing_share": 0.2045167058511499,
+  "home_missing_share": 0.18421879167504127,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-20T16:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Gillingham v Port Vale": {
   "absent": [],
@@ -465,14 +465,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-20T15:40Z",
-  "away_missing_share": 0.16440510629855518,
+  "at": "2026-10-20T16:00Z",
+  "away_missing_share": 0.17836424720365865,
   "away_unavailable": 4,
   "fotmob_id": 6106422,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-20T16:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Stevenage FC v Plymouth": {
   "absent": [],

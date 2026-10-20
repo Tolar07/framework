@@ -269,17 +269,23 @@ def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] =
 # ---------------------------------------------------------------- the record
 def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
     """Every past verdict against the graded result: hit rate and flat-stake return by
-    verdict. Thinking earns weight only if 'veto' loses more and 'back' wins more."""
+    verdict. Thinking earns weight only if 'veto' loses more and 'back' wins more.
+    Closing-line value (%) is scored per verdict too, once the close is in, result or not:
+    'back' should beat the close more often than 'veto'."""
     rows = []
+    clvs: dict = {v: [] for v in VERDICTS}
     for f in sorted(out_dir.glob("reasoning_*.json")):
         try:
             r = json.loads(f.read_text(encoding="utf-8"))
             p = json.loads((ledger_dir / f"picks_{r['date']}.json").read_text(encoding="utf-8"))
         except (OSError, ValueError, KeyError):
             continue
-        res = {(s.get("fixture"), s.get("market")): s.get("result") for s in p.get("singles") or []}
+        sing = {(s.get("fixture"), s.get("market")): s for s in p.get("singles") or []}
         for x in r.get("picks") or []:
-            got = res.get((x.get("fixture"), x.get("market")))
+            s = sing.get((x.get("fixture"), x.get("market"))) or {}
+            got = s.get("result")
+            if x.get("verdict") in VERDICTS and s.get("clv") is not None:
+                clvs[x["verdict"]].append(float(s["clv"]))
             if x.get("verdict") in VERDICTS and got in ("won", "lost"):
                 rows.append((x["verdict"], got == "won", float(x.get("price") or 0),
                              x.get("model_chance"), x.get("ai_chance")))
@@ -294,6 +300,11 @@ def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
                  "flat_return": round(sum((r[2] - 1) if r[1] else -1 for r in g) / len(g), 4),
                  "model_said": round(sum(r[3] or 0 for r in g) / len(g), 3),
                  "ai_said": round(sum(r[4] or 0 for r in g) / len(g), 3)}
+    for v in VERDICTS:
+        c = clvs[v]
+        if c:
+            by[v].update({"clv_n": len(c), "mean_clv": round(sum(c) / len(c), 2),
+                          "beat_close": sum(1 for x in c if x > 0)})
     # who was closer: the model's chance or the reasoning's own (Brier score, lower is better)
     sc = [r for r in rows if r[3] is not None and r[4] is not None]
     brier = {"n": len(sc)}
@@ -307,6 +318,10 @@ def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
 def summary_line(rec: dict) -> str:
     b = rec.get("by_verdict") or {}
     parts = [f"{v} {b[v]['won']}/{b[v]['n']} ({b[v]['flat_return']:+.1%})" for v in VERDICTS if b.get(v, {}).get("n")]
+    clv = [f"{v} {b[v]['mean_clv']:+.2f}% (beat {b[v]['beat_close']}/{b[v]['clv_n']})"
+           for v in VERDICTS if b.get(v, {}).get("clv_n")]
+    if clv:
+        parts.append("CLV " + ", ".join(clv))
     br = rec.get("brier") or {}
     if br.get("n"):
         better = ("level" if br["ai"] == br["model"] else

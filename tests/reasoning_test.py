@@ -82,6 +82,22 @@ def test_record_scores_verdicts_against_results():
         assert "veto 0/1" in R.summary_line(rec)
 
 
+def test_record_scores_clv_per_verdict_even_before_the_result():
+    with tempfile.TemporaryDirectory() as d:
+        out, led = Path(d) / "r", Path(d) / "p"
+        out.mkdir(), led.mkdir()
+        doc = R.reason(PICKS, key="k", get=get, post=post_ok, now=NOW)
+        (out / "reasoning_2026-10-19.json").write_text(json.dumps(doc))
+        closed = {**PICKS, "singles": [{**PICKS["singles"][0], "clv": -2.5},
+                                       {**PICKS["singles"][1], "clv": 4.0}]}
+        (led / "picks_2026-10-19.json").write_text(json.dumps(closed))
+        rec = R.record(out, led)
+        assert rec["graded"] == 0
+        assert rec["by_verdict"]["back"]["mean_clv"] == 4.0 and rec["by_verdict"]["back"]["beat_close"] == 1
+        assert rec["by_verdict"]["veto"]["mean_clv"] == -2.5 and rec["by_verdict"]["veto"]["beat_close"] == 0
+        assert "CLV back +4.00% (beat 1/1)" in R.summary_line(rec)
+
+
 def test_records_are_plain_verdicts_and_break_even_is_given():
     assert R.say_framework({"n": 169, "hit": 0.781, "need": 0.803, "pl": -4.82}).startswith("LOSING")
     assert R.say_framework({"n": 3, "hit": 0, "need": 0.8, "pl": -3}).startswith("TOO FEW")

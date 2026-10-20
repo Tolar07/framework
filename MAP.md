@@ -114,6 +114,8 @@ laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 |---|---|---|---|
 | `clv/clv_log.json` | `run_daily.py`, `/log` | run_daily, /status, `scripts/olp_query.py` | yes |
 | `data/matchbook/summary.json` | `monitor/matchbook_ledger.py` (`matchbook_ledger.yml`) | `scripts/weekly_review.py` | yes (anonymised) |
+| `data/sportybet/placed_<date>.json` | the SportyBet placer on the Architect's PC (the placer script in the omniroute-test repo, after each 22:00 run): code, section, status, legs, odds taken, stake in units, skip reason (no naira, bet id or balance) | `monitor/sportybet_ledger.py` | yes (anonymised) |
+| `data/sportybet/summary.json` | `monitor/sportybet_ledger.py` (step in `matchbook_ledger.yml`, 05:23) — real SportyBet bets by section joined to the board's grading: placed, landed, return at the odds taken | `scripts/weekly_review.py` | yes (anonymised) |
 | `data/universe/graded_*.jsonl.gz` `mb_first` / `mb_last` | `data/matchbook_prices.py` (called by `monitor/universe_sweep.py` every sweep — Matchbook public prices for the same markets, no login; 2026-10-16 bet365 → Matchbook) | `backtest/matchbook_price_study.py` → `backtest/MATCHBOOK_PRICE_STUDY.md` (coverage, both-book returns, SportyBet-above-Matchbook-fair mismatches); `run_nba.py` / `monitor/nba_watch.py` show each NBA pick's Matchbook back price (bet365 lines retired) | yes |
 | `output/boards/board_<date>.txt`, `bet365_<date>.txt` | `run_daily.py` | commands, supervisor, olp_query | yes |
 | `output/boards/sent_<date>_<slot>` | `daily.yml` | the duplicate guard, supervisor | yes |

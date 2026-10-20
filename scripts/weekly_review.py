@@ -98,6 +98,12 @@ def review(days: int = 7, today: str | None = None, picks: Path = PICKS) -> str:
         L.extend(matchbook_ledger.lines())
     except Exception as e:  # noqa: BLE001
         L.append(f"Matchbook (live agent): unavailable ({e})")
+    # The Architect's real SportyBet bets (the placer; data/sportybet/, anonymised)
+    try:
+        from monitor import sportybet_ledger
+        L.extend(sportybet_ledger.lines())
+    except Exception as e:  # noqa: BLE001
+        L.append(f"SportyBet (real bets): unavailable ({e})")
     # The losing-market watch, its proposals and your /note corrections
     # (order 39, engine/loss_watch; memory/proposals.json, memory/corrections.csv)
     try:

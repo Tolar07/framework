@@ -1,0 +1,16 @@
+{
+ "families": {
+  "over_3.5": {
+   "a": -0.3507,
+   "adopted": "2026-10-20T08:09:46Z",
+   "b": 0.3837,
+   "brier_after": 0.22584,
+   "brier_before": 0.22733,
+   "holdout_from": "2026-10-17",
+   "n_fit": 276,
+   "n_holdout": 158
+  }
+ },
+ "source": "engine/retrain.py (nightly, retrain.yml)",
+ "updated": "2026-10-20T08:09:46Z"
+}

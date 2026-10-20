@@ -42,10 +42,13 @@
   "ai": 0.223
  },
  "nba": {
-  "graded": 0,
+  "graded": 1,
   "by_verdict": {
    "back": {
-    "n": 0
+    "n": 1,
+    "won": 1,
+    "flat_return": 0.95,
+    "close_value": 0.2198
    },
    "lower": {
     "n": 0

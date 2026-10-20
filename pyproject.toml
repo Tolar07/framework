@@ -60,6 +60,7 @@ files = [
     "engine/elo.py",
     "engine/features.py",
     "engine/walkforward.py",
+    "research/runner.py",
     "engine/markets.py",
     "engine/mes.py",
     "engine/picks_ledger.py",

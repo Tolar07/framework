@@ -76,4 +76,36 @@ assert "1 killer class(es)" in LP.line(pm) and "league=Leaky" in LP.line(pm)
 assert any("KILLER" in x for x in LP.section(pm))
 assert LP.line({}) == "post-mortem: no graded slips yet"
 
+# ── NBA combined slips (Architect 2026-10-20: NBA treated as football), kept apart ─
+import json as _json  # noqa: E402
+import tempfile as _tf  # noqa: E402
+from pathlib import Path as _P  # noqa: E402
+
+
+def _np(mid: str, res: str | None, stage: str = "regular") -> dict:
+    return {"home": f"H{mid}", "away": "A", "market_id": mid, "specifier": "total=110.5", "outcome": "Under 110.5",
+            "price": 1.95, "chance": 0.6, "ev": 0.1, "result": res, "close_value": 0.02, "stage": stage}
+
+
+with _tf.TemporaryDirectory() as _d:
+    _p = _P(_d)
+    (_p / "nba_2026-10-21.json").write_text(_json.dumps({"date": "2026-10-21", "picks": [_np("68", "won"), _np("219", "lost")]}))
+    (_p / "nba_2026-10-22.json").write_text(_json.dumps({"date": "2026-10-22", "picks": [_np("68", "won"), _np("225", "won")]}))
+    (_p / "nba_2026-10-23.json").write_text(_json.dumps({"date": "2026-10-23", "picks": [_np("68", "won")]}))
+    (_p / "nba_2026-10-24.json").write_text(_json.dumps({"date": "2026-10-24", "picks": [_np("68", "won"), _np("219", None)]}))
+    (_p / "nba_2026-10-07.json").write_text(_json.dumps({"date": "2026-10-07", "picks": [_np("68", "won", "preseason"), _np("219", "won", "preseason")]}))
+    (_p / "reasoning_nba_2026-10-21.json").write_text(_json.dumps({"picks": [
+        {"fixture": "H68 v A", "market": "NBA:68|total=110.5|Under 110.5", "verdict": "back"}]}))
+    ns = LP.nba_slips(_p, _p)
+assert [(x["day"], x["result"]) for x in ns] == [("2026-10-21", "lost"), ("2026-10-22", "won"), ("2026-10-24", None)], \
+    "a combined slip needs 2+ regular-season legs; pending until every leg is graded"
+assert ns[0]["legs"][0]["family"] == "NBA 1st half total" and ns[0]["legs"][0]["league"] == "NBA"
+assert ns[0]["legs"][0]["verdict"] == "back" and ns[1]["legs"][0]["verdict"] is None
+npm = LP.build(ns)
+assert npm["slips_graded"] == 2 and npm["slips_lost"] == 1
+assert "family=NBA winner" in npm["classes"] and "league=NBA" in npm["classes"]
+sec = LP.section({**pm, "nba": npm})
+assert any(x.startswith("NBA combined slips: 1 of 2 lost") for x in sec)
+assert not any("NBA" in c for c in LP.rule_killers({**pm, "nba": npm})), "NBA never feeds football's killer rule"
+
 print("leg_postmortem_test: OK")

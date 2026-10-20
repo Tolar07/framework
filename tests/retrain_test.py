@@ -103,6 +103,7 @@ def test_refuses_a_worse_fit() -> None:
         live_doc = {"families": {f: {"a": 0.0, "b": 1.0} for f in retrain.FAMILIES}}
         summary, live, _ = _run(Path(t), truth=lambda x: x, live_doc=live_doc)
         for r in summary["results"]:
+            assert r.get("choice") != "raw", "raw is the live calibration here: never a challenger"
             if r["decision"] == "adopt":   # adopted only when strictly better on both scores
                 assert r["brier_new"] < r["brier_live"] and r["logloss_new"] < r["logloss_live"]
             else:
@@ -111,7 +112,42 @@ def test_refuses_a_worse_fit() -> None:
     hold = [{"day": "2026-09-30", "p": [0.5] * 7, "y": [1] * 7}] * 60
     fit = [{"day": "2026-09-01", "p": [0.5] * 7, "y": [0] * 7}] * 240
     for r in retrain.evaluate(fit + hold, dict(cal.DEFAULTS)):
-        assert r["decision"] == "keep", r
+        assert r.get("choice") != "refit", r
+        if r["decision"] == "adopt":   # the raw chance may still beat live, on both scores
+            assert r["choice"] == "raw" and r["adopt"] == [0.0, 1.0]
+            assert r["brier_raw"] < r["brier_live"] and r["logloss_raw"] < r["logloss_live"]
+
+
+def test_no_calibration_is_a_candidate() -> None:
+    """Architect's "auto" rule: the raw model chance (identity) competes too."""
+    random.seed(3)
+    rows = []
+    for d in range(30):
+        for _ in range(10):
+            x = random.uniform(0.2, 0.8)
+            rows.append({"day": f"2026-09-{1 + d:02d}",
+                         "p": [x] * 7, "y": [int(random.random() < x)] * 7})
+    # live calibration badly off, refit pulled toward it can't escape: raw is truth
+    bad = {f: (1.5, 0.3) for f in retrain.FAMILIES}
+    res = retrain.evaluate(rows, bad)
+    for r in res:
+        assert r["decision"] == "adopt", r
+        assert r["brier_raw"] < r["brier_live"] and r["logloss_raw"] < r["logloss_live"]
+        assert r["brier_after"] in (r["brier_raw"], r["brier_new"])
+    with tempfile.TemporaryDirectory() as t:
+        live = Path(t) / "cal.json"
+        live.write_text(json.dumps({"families": {f: {"a": 1.5, "b": 0.3} for f in retrain.FAMILIES}}))
+        _ledger(Path(t), n_days=30, per_day=10, truth=lambda x: x)
+        summary = retrain.run(Path(t), live, Path(t) / "log.jsonl")
+        doc = json.loads(live.read_text())["families"]
+        for r in summary["results"]:
+            if r["decision"] == "adopt":
+                assert doc[r["family"]]["choice"] == r["choice"]
+                assert [doc[r["family"]]["a"], doc[r["family"]]["b"]] == r["adopt"]
+                if r["choice"] == "raw":
+                    assert r["adopt"] == [0.0, 1.0] and "no calibration" in retrain.message(summary)
+        assert all("logloss_raw" in json.loads(x) for x in (Path(t) / "log.jsonl").read_text().splitlines()
+                   if "brier_new" in x)
 
 
 def test_refuses_small_samples() -> None:
@@ -143,6 +179,7 @@ if __name__ == "__main__":
     test_fit_never_reads_holdout()
     test_adopts_a_better_fit_and_calibration_reads_it()
     test_refuses_a_worse_fit()
+    test_no_calibration_is_a_candidate()
     test_refuses_small_samples()
     test_falls_back_when_file_missing_or_bad()
     print("retrain: OK")

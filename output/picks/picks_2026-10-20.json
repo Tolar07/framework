@@ -39,8 +39,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04294617424114977,
    "missing": {
@@ -188,7 +188,11 @@
     "home": 419255543,
     "away": 241159128
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:74165948",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -238,7 +242,11 @@
     "home": 939161804,
     "away": 40267811
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:74165950",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -288,7 +296,11 @@
     "home": 205082801,
     "away": 38751749
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:74165954",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -338,7 +350,11 @@
     "home": 269796680,
     "away": 122926093
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:74165946",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -432,7 +448,11 @@
     "home": 229644454,
     "away": 9570187
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:74165944",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -526,7 +546,11 @@
     "home": 3680251,
     "away": 5102278
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72341286",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -535,8 +559,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03597569609409501,
    "missing": {
@@ -576,7 +600,11 @@
     "home": 5370031,
     "away": 5869170
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Blackpool at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72341288",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -585,8 +613,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 1.69,
    "stake_pct": 0.25,
    "ev": -0.04025491383569957,
    "missing": {
@@ -626,7 +654,11 @@
     "home": 2458728,
     "away": 22754756
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72341290",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -635,8 +667,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 1.64,
    "stake_pct": 0.25,
    "ev": -0.034871899730062994,
    "missing": {
@@ -689,8 +721,8 @@
     "spec": "",
     "outcome": "Draw or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 6.61,
    "stake_pct": 0.25,
    "ev": -0.07943249631939109,
    "missing": {
@@ -743,8 +775,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.34,
+   "clv": -3.73,
    "stake_pct": 0.25,
    "ev": -0.026277491606116365,
    "missing": {
@@ -784,7 +816,11 @@
     "home": 4694659,
     "away": 4996062
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Stockport County at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72341296",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -793,8 +829,8 @@
     "spec": "",
     "outcome": "Draw or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 5.79,
    "stake_pct": 0.25,
    "ev": -0.06469808911990294,
    "missing": {
@@ -834,7 +870,11 @@
     "home": 9235017,
     "away": 5215595
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72341298",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -843,8 +883,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 1.69,
    "stake_pct": 0.25,
    "ev": -0.0473697919262942,
    "missing": {
@@ -897,8 +937,8 @@
     "spec": "hcp=-2.5",
     "outcome": "Away (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.006134942669463572,
    "missing": {
@@ -938,7 +978,11 @@
     "home": 2525747,
     "away": 5964593
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Notts County at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72341302",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -947,8 +991,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -4.62,
    "stake_pct": 0.25,
    "ev": -0.03225151316025199,
    "missing": {
@@ -988,7 +1032,11 @@
     "home": 6083817,
     "away": 6551072
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72341304",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -997,8 +1045,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 1.57,
    "stake_pct": 0.25,
    "ev": -0.01907097905518418,
    "missing": {
@@ -1038,7 +1086,11 @@
     "home": 3397306,
     "away": 6209502
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72341306",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -1047,8 +1099,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.76,
    "stake_pct": 0.25,
    "ev": -0.029029324179797533,
    "missing": {
@@ -1088,7 +1140,11 @@
     "home": 2654868,
     "away": 1588111
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Swindon Town at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72342232",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1097,8 +1153,8 @@
     "spec": "hcp=-2.5",
     "outcome": "Away (+2.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -0.81,
    "stake_pct": 0.25,
    "ev": -0.01639425276525952,
    "missing": {
@@ -1138,7 +1194,11 @@
     "home": 2613152,
     "away": 2732986
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72342236",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1147,8 +1207,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -1.61,
    "stake_pct": 0.25,
    "ev": -0.057057205592839444,
    "missing": {
@@ -1201,8 +1261,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -0.81,
    "stake_pct": 0.25,
    "ev": -0.01962574276232054,
    "missing": {
@@ -1242,7 +1302,11 @@
     "home": 3159972,
     "away": 1829830
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72342244",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1251,8 +1315,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.05609946947636868,
    "missing": {
@@ -1292,7 +1356,11 @@
     "home": 1429569,
     "away": 1993980
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72342248",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1301,8 +1369,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.76,
    "stake_pct": 0.25,
    "ev": -0.029427418331250732,
    "missing": {
@@ -1355,8 +1423,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 0.25,
    "ev": -0.07313190333809316,
    "missing": {
@@ -1396,7 +1464,11 @@
     "home": 1788647,
     "away": 2231691
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Tranmere Rovers at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72342260",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1405,8 +1477,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02745536493285816,
    "missing": {
@@ -1446,7 +1518,11 @@
     "home": 2271666,
     "away": 2047942
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Rochdale at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72342264",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1455,8 +1531,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.025533486942471928,
    "missing": {
@@ -1496,7 +1572,11 @@
     "home": 2262409,
     "away": 1646164
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Rotherham United rotated: confirmed XI worth 78% of predicted",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72342268",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1505,8 +1585,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -1.6,
    "stake_pct": 0.25,
    "ev": -0.044130411409531556,
    "missing": {
@@ -1546,7 +1626,11 @@
     "home": 2223322,
     "away": 2216888
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72342272",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1555,8 +1639,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -0.77,
    "stake_pct": 0.25,
    "ev": -0.0475892913230217,
    "missing": {
@@ -1609,8 +1693,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.14,
+   "clv": 6.14,
    "stake_pct": 0.25,
    "ev": -0.04805461479009643,
    "missing": {
@@ -1650,7 +1734,11 @@
     "home": 1626068,
     "away": 2725710
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Gillingham at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72342256",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -1706,8 +1794,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 1.64,
    "stake_pct": 0.25,
    "ev": -0.040744749450440154,
    "missing": null,
@@ -1750,8 +1838,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -0.81,
    "stake_pct": 0.25,
    "ev": -0.04533411078443583,
    "missing": null,
@@ -1794,8 +1882,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.032893252946173734,
    "missing": null,
@@ -1838,8 +1926,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 5.13,
    "stake_pct": 0.25,
    "ev": -0.0344601231835695,
    "missing": null,
@@ -1882,8 +1970,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -3.88,
    "stake_pct": 0.25,
    "ev": -0.025320066927697837,
    "missing": null,
@@ -1926,8 +2014,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03534618826364011,
    "missing": null,
@@ -1970,8 +2058,8 @@
     "spec": "",
     "outcome": "Home or Draw"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.82,
    "stake_pct": 0.25,
    "ev": -0.04724002080334766,
    "missing": null,
@@ -2014,8 +2102,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 2.5,
    "stake_pct": 0.25,
    "ev": -0.05426510400834661,
    "missing": null,
@@ -2058,8 +2146,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.048237687516217154,
    "missing": null,
@@ -2102,8 +2190,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -0.8,
    "stake_pct": 0.25,
    "ev": -0.03575863192112361,
    "missing": null,
@@ -2146,8 +2234,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.03326978794396751,
    "missing": null,

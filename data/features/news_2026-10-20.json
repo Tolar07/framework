@@ -218,14 +218,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-20T18:00Z",
-  "away_missing_share": 0.02040248187633372,
+  "at": "2026-10-20T18:20Z",
+  "away_missing_share": 0.020886527108265315,
   "away_unavailable": 1,
   "fotmob_id": 6106248,
-  "home_missing_share": 0.3356551327114903,
+  "home_missing_share": 0.48408303330626246,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-20T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Luton v Barnsley": {
   "absent": [],
@@ -241,11 +241,6 @@
  "Man City v AEK Athens": {
   "absent": [
    {
-    "name": "Erling Haaland",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Antoine Semenyo",
     "side": "home",
     "type": "injury"
@@ -256,19 +251,24 @@
     "type": "injury"
    },
    {
+    "name": "Matheus Nunes",
+    "side": "home",
+    "type": "injury"
+   },
+   {
     "name": "Thomas Strakosha",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-20T18:00Z",
-  "away_missing_share": 0.04363224416351331,
+  "at": "2026-10-20T18:20Z",
+  "away_missing_share": 0.04816385476586038,
   "away_unavailable": 1,
   "fotmob_id": 6106257,
-  "home_missing_share": 1.0,
-  "home_unavailable": 5,
+  "home_missing_share": 0.2462168074330842,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-20T19:00:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "Napoli v Bodoe/Glimt": {
   "absent": [
@@ -293,24 +293,24 @@
     "type": "injury"
    },
    {
-    "name": "Ole Blomberg",
+    "name": "Magnus Bech Riisn\u00e6s",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Magnus Bech Riisn\u00e6s",
+    "name": "August Mikkelsen",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-20T18:00Z",
-  "away_missing_share": 0.17555922882980496,
-  "away_unavailable": 4,
+  "at": "2026-10-20T18:20Z",
+  "away_missing_share": 0.13869764254212325,
+  "away_unavailable": 3,
   "fotmob_id": 6106320,
-  "home_missing_share": 0.21582610389968127,
+  "home_missing_share": 0.22349542129339,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-20T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Northampton v Tranmere": {
   "absent": [],
@@ -373,14 +373,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-20T18:00Z",
+  "at": "2026-10-20T18:20Z",
   "away_missing_share": 0.3886425846537875,
   "away_unavailable": 7,
   "fotmob_id": 6106287,
   "home_missing_share": 0.09215301128404764,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-20T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Rochdale v Grimsby": {
   "absent": [],
@@ -406,7 +406,7 @@
     "type": "injury"
    },
    {
-    "name": "Bryan Cristante",
+    "name": "Paulo Dybala",
     "side": "home",
     "type": "injury"
    },
@@ -421,14 +421,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-20T18:00Z",
-  "away_missing_share": 0.08109451556872581,
+  "at": "2026-10-20T18:20Z",
+  "away_missing_share": 0.07930134197510484,
   "away_unavailable": 2,
   "fotmob_id": 6106277,
-  "home_missing_share": 0.34839449063407135,
-  "home_unavailable": 4,
+  "home_missing_share": 0.333960606666321,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-20T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Rotherham v Newport County": {
   "absent": [],

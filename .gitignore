@@ -119,3 +119,7 @@ graphify-out/
 
 # dated team-profile snapshots stay local (latest.json.gz is the committed copy; MAP.md)
 data/teams/profiles_*.json.gz
+
+# The session-start vault hook writes a Windows-path log folder into the
+# checkout on Linux (c:/Users/...): local only, never committed (public repo).
+c:/

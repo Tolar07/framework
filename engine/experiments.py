@@ -56,6 +56,7 @@ REGISTRY = ROOT / "memory" / "strategies.json"
 LOG = ROOT / "memory" / "strategy_log.jsonl"
 PICKS_DIR = ROOT / "output" / "picks"
 REASONING_DIR = ROOT / "output" / "reasoning"
+QUEUE = ROOT / "memory" / "strategy_queue.jsonl"   # accepted research rules (research/runner.py)
 
 MIN_BETS = 100          # graded bets a challenger needs in its window
 MIN_CLV = 30            # bets with a closing price, each side, before CLV can count
@@ -170,8 +171,33 @@ def _postmortem() -> Any:
     return importlib.import_module("engine.leg_postmortem")
 
 
+def queued(path: Path = QUEUE) -> list[dict]:
+    """Accepted research hypotheses (research/runner.py), one entry per id."""
+    out: dict[str, dict] = {}
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return []
+    for ln in lines:
+        try:
+            e = json.loads(ln)
+        except ValueError:
+            continue
+        if e.get("kind") == "shadow_strategy" and e.get("strategy_id") and isinstance(e.get("rule"), dict):
+            out.setdefault(e["strategy_id"], e)              # registered once
+    return list(out.values())
+
+
+def _research_rules(path: Path = QUEUE) -> list[Strategy]:
+    # Accepted after its evidence was seen: counts from the day it was queued.
+    return [Strategy(f"R:{e['strategy_id']}", "singles", f"research — {e.get('idea') or e['strategy_id']}",
+                     universe=e["strategy_id"], since=(e.get("queued_at") or "")[:10], wireable=False,
+                     why_not=UNIVERSE_WHY, extra={"rule": e["rule"]})
+            for e in queued(path)]
+
+
 def strategies() -> list[Strategy]:
-    out = _board_rules() + _universe_rules()
+    out = _board_rules() + _universe_rules() + _research_rules()
     try:                                     # item 2: the slip-killer rule, if built
         extra = _postmortem().strategies()
     except ImportError:
@@ -259,6 +285,14 @@ def universe_bets(rows: list[dict]) -> dict[str, list[dict]]:
     for a in pb.accas(rows):
         out.setdefault(f"U:{a['acca']}", []).append(
             {"day": a["day"], "won": a["won"], "pnl": a["pnl"], "clv": None})
+    for st in _research_rules():
+        try:
+            from research.runner import rule_bets
+            got = rule_bets(st.extra["rule"], rows)
+        except Exception:  # noqa: BLE001 — a malformed queued rule scores as empty
+            got = []
+        out[st.name] = [{"day": day, "won": won, "pnl": won * px - 1, "clv": (px / lp - 1) if lp else None}
+                        for day, won, px, lp in got]
     return out
 
 

@@ -17,11 +17,21 @@ ladder market 29) and its match-total Over/Under 1.5 and 2.5 (basic markets
 and ladder market 18), and from 2026-10-14 the 3.5 and 4.5 lines. The scoreline
 grid, other lines, team totals and the combos are unchanged. The bookmaker's side is never
 touched. Refit with backtest/btts_study.py as seasons are added.
+
+NIGHTLY REFIT (Architect 2026-10-20, "auto"): engine/retrain.py refits these
+on every graded rated fixture and writes any fit that beats the live one on
+games it was not fitted on to memory/calibration_live.json. This module reads
+that file at import; a family missing from it, or a missing / unreadable file,
+uses the constants below.
 """
 from __future__ import annotations
 
+import json
 import math
+from pathlib import Path
 from typing import Optional
+
+LIVE_PATH = Path(__file__).resolve().parent.parent / "memory" / "calibration_live.json"
 
 BTTS_A = 0.1892
 BTTS_B = 0.4371
@@ -39,6 +49,38 @@ OVER = {1.5: (0.6793, 0.5080), 2.5: (0.1286, 0.4170),
         3.5: (-0.4096, 0.4947), 4.5: (-0.8932, 0.5389)}
 
 
+# The fitted defaults, by family name (engine/retrain.py's names).
+DEFAULTS = {"btts": (BTTS_A, BTTS_B), **{f"over_{k}": v for k, v in OVER.items()}}
+
+
+def load_params(path: Optional[Path] = LIVE_PATH) -> dict[str, tuple[float, float]]:
+    """Live (A, B) per family: the file's where valid (finite, B > 0), else the default."""
+    params = dict(DEFAULTS)
+    if path is None:
+        return params
+    try:
+        fams = json.loads(Path(path).read_text(encoding="utf-8")).get("families") or {}
+    except (OSError, ValueError, AttributeError):
+        return params
+    for fam, v in fams.items():
+        try:
+            a, b = float(v["a"]), float(v["b"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if fam in params and math.isfinite(a) and math.isfinite(b) and b > 0:
+            params[fam] = (a, b)
+    return params
+
+
+PARAMS = load_params()
+
+
+def use(path: Optional[Path]) -> None:
+    """Reload the live parameters (None = the constants above). For tests."""
+    global PARAMS
+    PARAMS = load_params(path)
+
+
 def _platt(raw: float, a: float, b: float) -> float:
     p = min(max(float(raw), 1e-4), 1 - 1e-4)
     return 1 / (1 + math.exp(-(a + b * math.log(p / (1 - p)))))
@@ -46,14 +88,14 @@ def _platt(raw: float, a: float, b: float) -> float:
 
 def btts_yes(raw: Optional[float]) -> Optional[float]:
     """The model's BTTS-yes chance, calibrated."""
-    return None if raw is None else _platt(raw, BTTS_A, BTTS_B)
+    return None if raw is None else _platt(raw, *PARAMS["btts"])
 
 
 def over(line: float, raw: Optional[float]) -> Optional[float]:
     """The model's Over-<line> chance, calibrated where the line was tested."""
     if raw is None or line not in OVER:
         return raw
-    return _platt(raw, *OVER[line])
+    return _platt(raw, *PARAMS.get(f"over_{line}", OVER[line]))
 
 
 def goals_key(key: str) -> Optional[tuple[float, bool]]:

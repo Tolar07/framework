@@ -8,6 +8,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine import calibration as cal  # noqa: E402
 
+# These check the fitted constants; the nightly refit's file is tested in
+# tests/retrain_test.py.
+cal.use(None)
+
 
 def test_btts_calibration() -> None:
     # the model under-rates BTTS at the low end and over-spreads at the top

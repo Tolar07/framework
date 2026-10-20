@@ -30,9 +30,9 @@
     "total": 221.5
    },
    "code": "UQ4WNK",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "121-113",
+   "close_value": 0.2198,
    "matchbook": {
     "back": null
    }

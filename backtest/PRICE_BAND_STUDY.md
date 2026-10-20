@@ -1,8 +1,8 @@
 # PRICE BAND STUDY — the board's record by the price it took
 
-Generated 2026-10-20 05:51Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
+Generated 2026-10-20 20:52Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
 
-**All 588 graded board singles**: stated 79.0%, landed 78.7% (calibration error -0.3 points) at an average price of 1.248, which needs 80.1% to break even. Return -1.8% ± 2.1.
+**All 622 graded board singles**: stated 79.1%, landed 78.3% (calibration error -0.8 points) at an average price of 1.248, which needs 80.1% to break even. Return -2.4% ± 2.1.
 
 The prediction is not the problem. The price is.
 
@@ -10,9 +10,9 @@ The prediction is not the problem. The price is.
 
 | band | n | landed | stated | break-even | return / unit | reading |
 |---|---|---|---|---|---|---|
-| 1.00–1.25 | 326 | 79.1% | 79.8% | 82.2% | -3.7% ± 2.7 | no edge either way |
-| 1.25–1.30 | 183 | 82.0% | 79.0% | 79.0% | +3.8% ± 3.6 | no edge either way |
-| 1.30–1.50 | 77 | 68.8% | 76.5% | 75.6% | -9.1% ± 7.0 | no edge either way |
+| 1.00–1.25 | 349 | 77.9% | 79.8% | 82.1% | -5.2% ± 2.7 | no edge either way |
+| 1.25–1.30 | 191 | 82.2% | 79.0% | 78.9% | +4.1% ± 3.5 | no edge either way |
+| 1.30–1.50 | 80 | 70.0% | 76.6% | 75.6% | -7.6% ± 6.8 | no edge either way |
 | 1.50–2.00 | 2 | 100.0% | 58.8% | 57.0% | +75.5% ± 15.5 | ahead |
 | 2.00+ | 0 | PENDING | PENDING | PENDING | PENDING | no graded pick |
 
@@ -22,8 +22,8 @@ The prediction is not the problem. The price is.
 |---|---|---|---|---|---|---|
 | BANKER | 2 | 100.0% | 75.1% | 78.7% | +27.0% ± 1.0 | ahead |
 | BOOK | 15 | 73.3% | 77.6% | 79.4% | -9.2% ± 14.7 | no edge either way |
-| MARKET | 128 | 84.4% | 79.9% | 80.7% | +4.7% ± 4.0 | no edge either way |
-| SAFE | 440 | 77.0% | 79.0% | 80.2% | -4.1% ± 2.5 | no edge either way |
+| MARKET | 140 | 81.4% | 79.8% | 80.7% | +1.0% ± 4.1 | no edge either way |
+| SAFE | 462 | 77.3% | 79.0% | 80.2% | -3.8% ± 2.4 | no edge either way |
 | VALUE | 3 | 100.0% | 57.2% | 60.2% | +66.0% ± 13.1 | ahead |
 
 ## The other two populations

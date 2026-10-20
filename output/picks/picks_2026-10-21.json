@@ -1,0 +1,1502 @@
+{
+ "date": "2026-10-21",
+ "generated_at": "2026-10-20T20:52:03Z",
+ "singles": [
+  {
+   "fixture": "Levante v Ath Bilbao",
+   "league": "La Liga",
+   "home": "Levante",
+   "away": "Ath Bilbao",
+   "kickoff": "2026-10-21",
+   "market": "SB:10||Home or Away",
+   "pick": "Levante or Ath Bilbao",
+   "price": 1.34,
+   "chance": 0.7898,
+   "chance_raw": 0.7308,
+   "tier": "SAFE",
+   "certainty": "HIGH",
+   "code": "NGATLN",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": "Levante (+1.5) Asian handicap (model and SportyBet disagree)",
+   "orig_market": "SB:16|hcp=1.5|Home (+1.5)",
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-21T18:00:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74801144",
+   "sb_tid": "sr:tournament:8",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.010040574393300306,
+   "missing": null,
+   "sharp_p": 0.7122,
+   "sharp_ev": -0.0457,
+   "first_price": 1.34,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Como 1907 v Man Utd",
+   "league": "Champions League",
+   "home": "Como 1907",
+   "away": "Man Utd",
+   "kickoff": "2026-10-21",
+   "market": "SB:10||Home or Away",
+   "pick": "Como 1907 or Man Utd",
+   "price": 1.29,
+   "chance": 0.8178,
+   "chance_raw": 0.7588,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "Q2UGX1",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106410,
+   "kickoff_utc": "2026-10-21T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 309781880,
+    "away": 438235985
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74165958",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.010834040222058139,
+   "missing": {
+    "home": 0.17675745000421703,
+    "away": 0.3797018598790451
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.29,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Lille v Galatasaray Istanbul",
+   "league": "Champions League",
+   "home": "Lille",
+   "away": "Galatasaray Istanbul",
+   "kickoff": "2026-10-21",
+   "market": "SB:10||Home or Away",
+   "pick": "Lille or Galatasaray Istanbul",
+   "price": 1.29,
+   "chance": 0.8167,
+   "chance_raw": 0.7577,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "Q758AD",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106312,
+   "kickoff_utc": "2026-10-21T16:45:00.000Z",
+   "predicted_xi": {
+    "home": 130432431,
+    "away": 223590881
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74165960",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.012232419390931115,
+   "missing": {
+    "home": 0.336386851729693,
+    "away": 0.23052376212688602
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.29,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Aston Villa v Viking FK",
+   "league": "Champions League",
+   "home": "Aston Villa",
+   "away": "Viking FK",
+   "kickoff": "2026-10-21",
+   "market": "SB:19|total=4.5|Under 4.5",
+   "pick": "Aston Villa Under 4.5 goals",
+   "price": 1.2,
+   "chance": 0.8155,
+   "chance_raw": 0.8155,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "WVKWM6",
+   "news_level": "OK",
+   "news_note": "swapped from Aston Villa Over 1.5 goals (Aston Villa missing 44% of value (Amadou Onana, Johan Manzambi, Ian Maatsen))",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106285,
+   "kickoff_utc": "2026-10-21T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 245309324,
+    "away": 22685173
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74165962",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 19,
+    "desc": null,
+    "spec": "total=4.5",
+    "outcome": "Under 4.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.021442002689946227,
+   "missing": {
+    "home": 0.4391820368708958,
+    "away": 0.09826162384969112
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Bayern Munich v Arsenal",
+   "league": "Champions League",
+   "home": "Bayern Munich",
+   "away": "Arsenal",
+   "kickoff": "2026-10-21",
+   "market": "SB:10||Home or Away",
+   "pick": "Bayern Munich or Arsenal",
+   "price": 1.28,
+   "chance": 0.8165,
+   "chance_raw": 0.7575,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "V1345H",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106238,
+   "kickoff_utc": "2026-10-21T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 533721626,
+    "away": 725329325
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74165966",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.020189116755705894,
+   "missing": {
+    "home": 0.2052714666066003,
+    "away": 0.24374084866848475
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.28,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Betis v Feyenoord",
+   "league": "Champions League",
+   "home": "Betis",
+   "away": "Feyenoord",
+   "kickoff": "2026-10-21",
+   "market": "SB:10||Home or Away",
+   "pick": "Betis or Feyenoord",
+   "price": 1.2,
+   "chance": 0.8608,
+   "chance_raw": 0.8018,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "M05YV3",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-21T19:00:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74165972",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.028246645050777452,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Club Brugge v Lens",
+   "league": "Champions League",
+   "home": "Club Brugge",
+   "away": "Lens",
+   "kickoff": "2026-10-21",
+   "market": "SB:10||Home or Away",
+   "pick": "Club Brugge or Lens",
+   "price": 1.26,
+   "chance": 0.831,
+   "chance_raw": 0.772,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "WTP99E",
+   "news_level": "OK",
+   "news_note": "pick does not depend on one team's lineup",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106297,
+   "kickoff_utc": "2026-10-21T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 119448796,
+    "away": 106810076
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74165964",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 10,
+    "desc": null,
+    "spec": "",
+    "outcome": "Home or Away"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.017141005486993488,
+   "missing": {
+    "home": 0.25870273147431355,
+    "away": 0.13627563418235145
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.26,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Inter v Shakhtar D",
+   "league": "Champions League",
+   "home": "Inter",
+   "away": "Shakhtar D",
+   "kickoff": "2026-10-21",
+   "market": "SB:19|total=1.5|Over 1.5",
+   "pick": "Inter Over 1.5 goals",
+   "price": 1.2,
+   "chance": 0.8088,
+   "chance_raw": 0.8088,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "ZZZJWH",
+   "news_level": null,
+   "news_note": null,
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": null,
+   "kickoff_utc": "2026-10-21T19:00:00Z",
+   "predicted_xi": null,
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74165968",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 19,
+    "desc": null,
+    "spec": "total=1.5",
+    "outcome": "Over 1.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.029460241402196052,
+   "missing": null,
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.2,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Real Madrid v RB Leipzig",
+   "league": "Champions League",
+   "home": "Real Madrid",
+   "away": "RB Leipzig",
+   "kickoff": "2026-10-21",
+   "market": "SB:18|total=2.5|Over 2.5",
+   "pick": "Over 2.5 goals",
+   "price": 1.21,
+   "chance": 0.7919,
+   "chance_raw": 0.7919,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "MGQ839",
+   "news_level": "OK",
+   "news_note": "swapped from RB Leipzig (0:4) handicap (RB Leipzig missing 20% of value (Christoph Baumgartner, Assan Ou\u00e9draogo, Marc Guiu))",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106244,
+   "kickoff_utc": "2026-10-21T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 836936363,
+    "away": 274951205
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74165970",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=2.5",
+    "outcome": "Over 2.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.041770482524219776,
+   "missing": {
+    "home": 0.07400012036037071,
+    "away": 0.1988233066468311
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.21,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Sporting v LASK Linz",
+   "league": "Champions League",
+   "home": "Sporting",
+   "away": "LASK Linz",
+   "kickoff": "2026-10-21",
+   "market": "SB:18|total=5.5|Under 5.5",
+   "pick": "Under 5.5 goals",
+   "price": 1.23,
+   "chance": 0.801,
+   "chance_raw": 0.801,
+   "tier": "MARKET",
+   "certainty": "LOW",
+   "code": "RW2AG7",
+   "news_level": "OK",
+   "news_note": "swapped from Sporting Over 1.5 goals (Sporting CP missing 23% of value (Zeno Debast, Rodrigo Zalazar, Nuno Santos); support: LASK missing 26%)",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 6106281,
+   "kickoff_utc": "2026-10-21T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 233908320,
+    "away": 20518656
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:74165974",
+   "sb_tid": "sr:tournament:7",
+   "sb_market": {
+    "id": 18,
+    "desc": null,
+    "spec": "total=5.5",
+    "outcome": "Under 5.5"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.01476140829615824,
+   "missing": {
+    "home": 0.22523484187959994,
+    "away": 0.258110205546944
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.23,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  },
+  {
+   "fixture": "Reading v Leyton Orient",
+   "league": "League One",
+   "home": "Reading",
+   "away": "Leyton Orient",
+   "kickoff": "2026-10-21",
+   "market": "SB:16|hcp=-2.5|Away (+2.5)",
+   "pick": "Leyton Orient (+2.5) Asian handicap",
+   "price": 1.22,
+   "chance": 0.8179,
+   "chance_raw": 0.8179,
+   "tier": "SAFE",
+   "certainty": "MEDIUM",
+   "code": "Q8CTNK",
+   "news_level": "OK",
+   "news_note": "Leyton Orient at full strength",
+   "switched_from": null,
+   "orig_market": null,
+   "fotmob_id": 5837230,
+   "kickoff_utc": "2026-10-21T19:00:00.000Z",
+   "predicted_xi": {
+    "home": 5490254,
+    "away": 9113208
+   },
+   "lineup_check": null,
+   "sb_event_id": "sr:match:72341308",
+   "sb_tid": "sr:tournament:24",
+   "sb_market": {
+    "id": 16,
+    "desc": null,
+    "spec": "hcp=-2.5",
+    "outcome": "Away (+2.5)"
+   },
+   "closing_price": null,
+   "clv": null,
+   "stake_pct": 0.25,
+   "ev": -0.0021302133555759495,
+   "missing": {
+    "home": 0.0,
+    "away": 0.0
+   },
+   "sharp_p": null,
+   "sharp_ev": null,
+   "first_price": 1.22,
+   "drift_since_board": null,
+   "result": null,
+   "ft": null
+  }
+ ],
+ "accas": [
+  {
+   "name": "Acca A",
+   "code": "RPYRT7",
+   "odds": 2.676,
+   "chance": 0.42664625101074233,
+   "legs": [
+    "Levante v Ath Bilbao",
+    "Como 1907 v Man Utd",
+    "Lille v Galatasaray Istanbul",
+    "Inter v Shakhtar D"
+   ],
+   "result": null
+  },
+  {
+   "name": "Acca B",
+   "code": "Y6VH8H",
+   "odds": 2.904,
+   "chance": 0.3826416102222197,
+   "legs": [
+    "Club Brugge v Lens",
+    "Bayern Munich v Arsenal",
+    "Betis v Feyenoord",
+    "Reading v Leyton Orient",
+    "Sporting v LASK Linz"
+   ],
+   "result": null
+  }
+ ],
+ "safe3": [],
+ "megas": [],
+ "alts": [
+  {
+   "name": "Alt A",
+   "code": "SDU5LW",
+   "odds": 1.575,
+   "chance": 0.60802497,
+   "legs": [
+    "Aston Villa v Viking FK",
+    "Real Madrid v RB Leipzig"
+   ],
+   "alt_legs": [
+    {
+     "fixture": "Aston Villa v Viking FK",
+     "league": "Champions League",
+     "home": "Aston Villa",
+     "away": "Viking FK",
+     "kickoff": "2026-10-21",
+     "market": "SB:18|total=5.5|Under 5.5",
+     "pick": "Under 5.5 goals",
+     "price": 1.24,
+     "chance": 0.7947,
+     "result": null,
+     "ft": null
+    },
+    {
+     "fixture": "Real Madrid v RB Leipzig",
+     "league": "Champions League",
+     "home": "Real Madrid",
+     "away": "RB Leipzig",
+     "kickoff": "2026-10-21",
+     "market": "SB:1||Home",
+     "pick": "Real Madrid to win",
+     "price": 1.27,
+     "chance": 0.7651,
+     "result": null,
+     "ft": null
+    }
+   ],
+   "result": null
+  }
+ ],
+ "value": [],
+ "rated": [
+  {
+   "fixture": "Levante v Ath Bilbao",
+   "league": "La Liga",
+   "home": "Levante",
+   "away": "Ath Bilbao",
+   "kickoff": "2026-10-21",
+   "src": "model",
+   "p": [
+    0.452,
+    0.272,
+    0.276,
+    0.757,
+    0.502,
+    0.282,
+    0.545
+   ],
+   "pool": [
+    [
+     "SB:18|total=1.5|Over 1.5",
+     0.7503
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7308
+    ],
+    [
+     "SB:14|hcp=2:0|Home (2:0)",
+     0.8084
+    ],
+    [
+     "SB:16|hcp=1.5|Home (+1.5)",
+     0.8084
+    ],
+    [
+     "SB:19|total=0.5|Over 0.5",
+     0.7124
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.8335
+    ],
+    [
+     "SB:29||Yes",
+     0.5401
+    ],
+    [
+     "SB:11||Away",
+     0.4014
+    ],
+    [
+     "SB:30||Both teams",
+     0.5347
+    ],
+    [
+     "SB:31||No",
+     0.7496
+    ],
+    [
+     "SB:32||No",
+     0.7124
+    ],
+    [
+     "SB:34||No",
+     0.7851
+    ],
+    [
+     "SB:547|total=4.5|Home/Away & Under 4.5",
+     0.6119
+    ],
+    [
+     "SB:548||2-5",
+     0.6919
+    ],
+    [
+     "SB:63||Draw or Away",
+     0.7343
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Como 1907 v Man Utd",
+   "league": "Champions League",
+   "home": "Como 1907",
+   "away": "Man Utd",
+   "kickoff": "2026-10-21",
+   "src": "market",
+   "p": [
+    0.428,
+    0.255,
+    0.317,
+    0.825,
+    0.622,
+    0.411,
+    0.634
+   ],
+   "pool": [
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.7844
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7588
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7699
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7699
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7529
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7683
+    ],
+    [
+     "SB:29||Yes",
+     0.6302
+    ],
+    [
+     "SB:11||Home",
+     0.4377
+    ],
+    [
+     "SB:13||Home",
+     0.4297
+    ],
+    [
+     "SB:30||Both teams",
+     0.6302
+    ],
+    [
+     "SB:31||No",
+     0.7683
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5257
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6264
+    ],
+    [
+     "SB:548||2-5",
+     0.723
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Lille v Galatasaray Istanbul",
+   "league": "Champions League",
+   "home": "Lille",
+   "away": "Galatasaray Istanbul",
+   "kickoff": "2026-10-21",
+   "src": "market",
+   "p": [
+    0.43,
+    0.257,
+    0.312,
+    0.822,
+    0.616,
+    0.41,
+    0.633
+   ],
+   "pool": [
+    [
+     "SB:18|total=4|Under 4",
+     0.6144
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7577
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7687
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7687
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7552
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7629
+    ],
+    [
+     "SB:29||Yes",
+     0.6246
+    ],
+    [
+     "SB:11||Home",
+     0.4404
+    ],
+    [
+     "SB:13||Home",
+     0.4324
+    ],
+    [
+     "SB:30||Both teams",
+     0.6246
+    ],
+    [
+     "SB:31||No",
+     0.7629
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5189
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6224
+    ],
+    [
+     "SB:548||2-5",
+     0.7223
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Aston Villa v Viking FK",
+   "league": "Champions League",
+   "home": "Aston Villa",
+   "away": "Viking FK",
+   "kickoff": "2026-10-21",
+   "src": "market",
+   "p": [
+    0.786,
+    0.128,
+    0.086,
+    0.894,
+    0.753,
+    0.563,
+    0.567
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7785
+    ],
+    [
+     "SB:18|total=5.5|Under 5.5",
+     0.7947
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.778
+    ],
+    [
+     "SB:16|hcp=-0.5|Home (-0.5)",
+     0.7785
+    ],
+    [
+     "SB:19|total=4.5|Under 4.5",
+     0.8155
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.758
+    ],
+    [
+     "SB:29||Yes",
+     0.5788
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5687
+    ],
+    [
+     "SB:30||Both teams",
+     0.5788
+    ],
+    [
+     "SB:31||No",
+     0.6092
+    ],
+    [
+     "SB:33||No",
+     0.6286
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.7201
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.524
+    ],
+    [
+     "SB:547|total=2.5|Home/Draw & Over 2.5",
+     0.6937
+    ],
+    [
+     "SB:546||Home/Draw & Yes",
+     0.5231
+    ],
+    [
+     "SB:548||2-5",
+     0.6986
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Bayern Munich v Arsenal",
+   "league": "Champions League",
+   "home": "Bayern Munich",
+   "away": "Arsenal",
+   "kickoff": "2026-10-21",
+   "src": "market",
+   "p": [
+    0.46,
+    0.251,
+    0.289,
+    0.812,
+    0.6,
+    0.394,
+    0.613
+   ],
+   "pool": [
+    [
+     "SB:18|total=4|Under 4",
+     0.6288
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7575
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.75
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.75
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.7478
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.7399
+    ],
+    [
+     "SB:29||Yes",
+     0.6095
+    ],
+    [
+     "SB:11||Home",
+     0.4668
+    ],
+    [
+     "SB:13||Home",
+     0.4588
+    ],
+    [
+     "SB:30||Both teams",
+     0.6095
+    ],
+    [
+     "SB:31||No",
+     0.7399
+    ],
+    [
+     "SB:33||No",
+     0.7857
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5023
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6162
+    ],
+    [
+     "SB:548||2-5",
+     0.7204
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Betis v Feyenoord",
+   "league": "Champions League",
+   "home": "Betis",
+   "away": "Feyenoord",
+   "kickoff": "2026-10-21",
+   "src": "market",
+   "p": [
+    0.612,
+    0.197,
+    0.191,
+    0.87,
+    0.703,
+    0.503,
+    0.646
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.6063
+    ],
+    [
+     "SB:18|total=2.5|Over 2.5",
+     0.7017
+    ],
+    [
+     "SB:10||Home or Away",
+     0.8018
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.7837
+    ],
+    [
+     "SB:16|hcp=0.5|Home (+0.5)",
+     0.8045
+    ],
+    [
+     "SB:19|total=3.5|Under 3.5",
+     0.7886
+    ],
+    [
+     "SB:20|total=0.5|Over 0.5",
+     0.72
+    ],
+    [
+     "SB:29||Yes",
+     0.6515
+    ],
+    [
+     "SB:11||Home",
+     0.6143
+    ],
+    [
+     "SB:13||Home",
+     0.6063
+    ],
+    [
+     "SB:30||Both teams",
+     0.6515
+    ],
+    [
+     "SB:31||No",
+     0.72
+    ],
+    [
+     "SB:33||No",
+     0.7466
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.5436
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5717
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.7152
+    ],
+    [
+     "SB:546||Home/Draw & Yes",
+     0.5245
+    ],
+    [
+     "SB:548||2-5",
+     0.7174
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Club Brugge v Lens",
+   "league": "Champions League",
+   "home": "Club Brugge",
+   "away": "Lens",
+   "kickoff": "2026-10-21",
+   "src": "market",
+   "p": [
+    0.467,
+    0.238,
+    0.295,
+    0.858,
+    0.675,
+    0.472,
+    0.671
+   ],
+   "pool": [
+    [
+     "SB:18|total=2.5|Over 2.5",
+     0.6699
+    ],
+    [
+     "SB:10||Home or Away",
+     0.772
+    ],
+    [
+     "SB:14|hcp=0:2|Away (0:2)",
+     0.7329
+    ],
+    [
+     "SB:16|hcp=-1.5|Away (+1.5)",
+     0.7329
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.6951
+    ],
+    [
+     "SB:20|total=2.5|Under 2.5",
+     0.8042
+    ],
+    [
+     "SB:29||Yes",
+     0.6678
+    ],
+    [
+     "SB:11||Home",
+     0.4748
+    ],
+    [
+     "SB:13||Home",
+     0.4668
+    ],
+    [
+     "SB:30||Both teams",
+     0.6678
+    ],
+    [
+     "SB:31||No",
+     0.781
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5748
+    ],
+    [
+     "SB:547|total=1.5|Home/Away & Over 1.5",
+     0.6626
+    ],
+    [
+     "SB:548||2-5",
+     0.7229
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Inter v Shakhtar D",
+   "league": "Champions League",
+   "home": "Inter",
+   "away": "Shakhtar D",
+   "kickoff": "2026-10-21",
+   "src": "market",
+   "p": [
+    0.801,
+    0.119,
+    0.079,
+    0.896,
+    0.754,
+    0.564,
+    0.557
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7931
+    ],
+    [
+     "SB:18|total=5.5|Under 5.5",
+     0.7929
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.7639
+    ],
+    [
+     "SB:16|hcp=-0.5|Home (-0.5)",
+     0.7931
+    ],
+    [
+     "SB:19|total=1.5|Over 1.5",
+     0.8088
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7734
+    ],
+    [
+     "SB:29||Yes",
+     0.5644
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5808
+    ],
+    [
+     "SB:30||Both teams",
+     0.5644
+    ],
+    [
+     "SB:31||No",
+     0.5924
+    ],
+    [
+     "SB:33||No",
+     0.6116
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.7344
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5117
+    ],
+    [
+     "SB:547|total=2.5|Home/Draw & Over 2.5",
+     0.7019
+    ],
+    [
+     "SB:546||Home/Draw & Yes",
+     0.5147
+    ],
+    [
+     "SB:548||2-5",
+     0.6977
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Real Madrid v RB Leipzig",
+   "league": "Champions League",
+   "home": "Real Madrid",
+   "away": "RB Leipzig",
+   "kickoff": "2026-10-21",
+   "src": "market",
+   "p": [
+    0.773,
+    0.128,
+    0.099,
+    0.913,
+    0.792,
+    0.616,
+    0.627
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.7651
+    ],
+    [
+     "SB:18|total=2.5|Over 2.5",
+     0.7919
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.7751
+    ],
+    [
+     "SB:16|hcp=-3.5|Away (+3.5)",
+     0.7751
+    ],
+    [
+     "SB:19|total=4.5|Under 4.5",
+     0.7946
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.701
+    ],
+    [
+     "SB:29||Yes",
+     0.636
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5955
+    ],
+    [
+     "SB:30||Both teams",
+     0.636
+    ],
+    [
+     "SB:31||No",
+     0.6653
+    ],
+    [
+     "SB:33||No",
+     0.6801
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.719
+    ],
+    [
+     "SB:36|total=2.5|Over 2.5 & Yes",
+     0.5856
+    ],
+    [
+     "SB:547|total=2.5|Home/Away & Over 2.5",
+     0.7205
+    ],
+    [
+     "SB:546||Home/Draw & Yes",
+     0.567
+    ],
+    [
+     "SB:548||1-5",
+     0.7359
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Sporting v LASK Linz",
+   "league": "Champions League",
+   "home": "Sporting",
+   "away": "LASK Linz",
+   "kickoff": "2026-10-21",
+   "src": "market",
+   "p": [
+    0.81,
+    0.118,
+    0.072,
+    0.891,
+    0.747,
+    0.553,
+    0.535
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.8018
+    ],
+    [
+     "SB:18|total=5.5|Under 5.5",
+     0.801
+    ],
+    [
+     "SB:14|hcp=0:4|Away (0:4)",
+     0.7587
+    ],
+    [
+     "SB:16|hcp=-3.5|Away (+3.5)",
+     0.7587
+    ],
+    [
+     "SB:19|total=1.5|Over 1.5",
+     0.8082
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7914
+    ],
+    [
+     "SB:29||Yes",
+     0.5447
+    ],
+    [
+     "SB:23|variant=sr:exact_goals:3+|3+",
+     0.5799
+    ],
+    [
+     "SB:30||Both teams",
+     0.5447
+    ],
+    [
+     "SB:31||No",
+     0.5718
+    ],
+    [
+     "SB:33||No",
+     0.5921
+    ],
+    [
+     "SB:37|total=1.5|Home & Over 1.5",
+     0.74
+    ],
+    [
+     "SB:547|total=2.5|Home/Draw & Over 2.5",
+     0.6991
+    ],
+    [
+     "SB:548||2-5",
+     0.7017
+    ]
+   ],
+   "ft": null
+  },
+  {
+   "fixture": "Reading v Leyton Orient",
+   "league": "League One",
+   "home": "Reading",
+   "away": "Leyton Orient",
+   "kickoff": "2026-10-21",
+   "src": "model",
+   "p": [
+    0.529,
+    0.232,
+    0.239,
+    0.796,
+    0.568,
+    0.344,
+    0.572
+   ],
+   "pool": [
+    [
+     "SB:1||Home",
+     0.5933
+    ],
+    [
+     "SB:18|total=4.5|Under 4.5",
+     0.818
+    ],
+    [
+     "SB:10||Home or Away",
+     0.7804
+    ],
+    [
+     "SB:14|hcp=0:3|Away (0:3)",
+     0.8179
+    ],
+    [
+     "SB:16|hcp=-2.5|Away (+2.5)",
+     0.8179
+    ],
+    [
+     "SB:19|total=2.5|Under 2.5",
+     0.6757
+    ],
+    [
+     "SB:20|total=1.5|Under 1.5",
+     0.7289
+    ],
+    [
+     "SB:29||Yes",
+     0.5528
+    ],
+    [
+     "SB:11||Home",
+     0.6013
+    ],
+    [
+     "SB:13||Home",
+     0.5933
+    ],
+    [
+     "SB:30||Both teams",
+     0.5512
+    ],
+    [
+     "SB:31||No",
+     0.638
+    ],
+    [
+     "SB:33||No",
+     0.6869
+    ],
+    [
+     "SB:547|total=1.5|Home/Draw & Over 1.5",
+     0.6667
+    ],
+    [
+     "SB:548||2-4",
+     0.6158
+    ],
+    [
+     "SB:63||Home or Away",
+     0.6264
+    ]
+   ],
+   "ft": null
+  }
+ ],
+ "study": [],
+ "btts": [],
+ "singles_dropped": [],
+ "accas_dropped": [],
+ "safe3_dropped": [],
+ "combined": [
+  {
+   "name": "ACCAS MEGA",
+   "of": "accas",
+   "code": "MKUDJ5",
+   "result": null
+  },
+  {
+   "name": "ALT MEGA",
+   "of": "alts",
+   "code": "SDU5LW",
+   "result": null
+  }
+ ]
+}

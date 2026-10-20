@@ -824,8 +824,27 @@
   {
    "lineage_id": "ln_08346893fd",
    "parent_id": "ln_82f1a53b8e",
+   "generation": 11,
+   "bankroll": 2.88,
+   "stake": 1.0,
+   "wins": 4,
+   "losses": 0,
+   "alive": true,
+   "born_date": "2026-10-06",
+   "last_result": "WIN",
+   "to_breed": false,
+   "holding": {
+    "date": "2026-10-21",
+    "fixture": "Reading v Leyton Orient",
+    "pick": "Leyton Orient (+2.5) Asian handicap",
+    "price": 1.22
+   }
+  },
+  {
+   "lineage_id": "ln_bcc299b218",
+   "parent_id": "ln_82f1a53b8e",
    "generation": 10,
-   "bankroll": 2.59,
+   "bankroll": 2.57,
    "stake": 1.0,
    "wins": 3,
    "losses": 0,
@@ -833,31 +852,7 @@
    "born_date": "2026-10-06",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-20",
-    "fixture": "Oxford United v Wigan",
-    "pick": "Oxford United or Wigan",
-    "price": 1.29
-   }
-  },
-  {
-   "lineage_id": "ln_bcc299b218",
-   "parent_id": "ln_82f1a53b8e",
-   "generation": 9,
-   "bankroll": 2.35,
-   "stake": 1.0,
-   "wins": 2,
-   "losses": 0,
-   "alive": true,
-   "born_date": "2026-10-06",
-   "last_result": "WIN",
-   "to_breed": false,
-   "holding": {
-    "date": "2026-10-20",
-    "fixture": "Cheltenham v Fleetwood Town",
-    "pick": "Cheltenham (+1.5) Asian handicap",
-    "price": 1.22
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_e71d3df7e2",

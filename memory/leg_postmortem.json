@@ -543,6 +543,13 @@
  },
  "killers": [],
  "legs": 631,
+ "nba": {
+  "classes": {},
+  "killers": [],
+  "legs": 0,
+  "slips_graded": 0,
+  "slips_lost": 0
+ },
  "slips_graded": 190,
  "slips_lost": 128
 }

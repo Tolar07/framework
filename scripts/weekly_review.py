@@ -51,6 +51,47 @@ def _seg_line(name: str, rows: list[dict]) -> tuple[float, str]:
     return gap, f"{name}: {w}/{n} won ({w / n:.0%} vs {said:.0%} said) · {pl:+.2f}u"
 
 
+def nba_section(days: int, today: str, picks: Path = PICKS) -> list[str]:
+    """The NBA board's week, as football's (Architect 2026-10-20: NBA treated as football):
+    graded regular-season picks, by market family, value against the closing line, and the
+    Gemini reasoning's NBA record."""
+    from engine import reasoning as R
+    start = (date.fromisoformat(today) - timedelta(days=days)).isoformat()
+    rows = []
+    for f in sorted(picks.glob("nba_2*.json")):
+        try:
+            doc = json.loads(f.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if not (start < doc.get("date", "") <= today):
+            continue
+        rows += [p for p in doc.get("picks") or []
+                 if p.get("stage") == "regular" and p.get("result") in ("won", "lost") and p.get("price")]
+
+    def say(name: str, ps: list[dict]) -> str:
+        won = sum(p["result"] == "won" for p in ps)
+        ret = sum((p["price"] - 1) if p["result"] == "won" else -1 for p in ps) / len(ps)
+        cv = [p["close_value"] for p in ps if p.get("close_value") is not None]
+        return (f"{name}: {won}/{len(ps)} won, flat return {ret:+.1%}"
+                + (f", value v closing line {sum(cv) / len(cv):+.1%}" if cv else ""))
+    out = ["*NBA board* (regular season, placed by hand from the codes)"]
+    if not rows:
+        out.append(f"  no graded regular-season NBA pick in the last {days} days")
+    else:
+        out.append("  " + say("All NBA picks", rows))
+        fam: dict = defaultdict(list)
+        for p in rows:
+            fam[R.nba_family(p.get("market_id"))].append(p)
+        out += [f"  {say(k, v)}" for k, v in sorted(fam.items())]
+    try:
+        nb = (json.loads(R.RECORD.read_text(encoding="utf-8")).get("nba") or {}).get("by_verdict") or {}
+        parts = [f"{v} {nb[v]['won']}/{nb[v]['n']}" for v in R.VERDICTS if nb.get(v, {}).get("n")]
+        out.append("  Gemini on NBA: " + (", ".join(parts) or "nothing graded yet"))
+    except (OSError, ValueError):
+        out.append("  Gemini on NBA: record PENDING")
+    return out
+
+
 def review(days: int = 7, today: str | None = None, picks: Path = PICKS) -> str:
     from engine import learning
     today = today or date.today().isoformat()
@@ -60,7 +101,7 @@ def review(days: int = 7, today: str | None = None, picks: Path = PICKS) -> str:
                if s.get("result") in ("won", "lost") and s.get("chance") is not None]
     if not singles:
         return (f"📈 WEEKLY REVIEW · to {today}\nNo graded singles in the last {days} days "
-                f"— nothing to review yet.")
+                f"— nothing to review yet.\n" + "\n".join(nba_section(days, today, picks)))
     _gap, overall = _seg_line(f"All singles ({len(docs)} board day(s))", singles)
     L = [f"📈 WEEKLY REVIEW · {days} days to {today}", overall]
     proposals = []
@@ -118,10 +159,11 @@ def review(days: int = 7, today: str | None = None, picks: Path = PICKS) -> str:
     try:
         from engine import experiments as _xp
         from engine import leg_postmortem as _lp
-        L.extend(_lp.section(_lp.build(_lp.load())))
+        L.extend(_lp.section(_lp.full()))
         L.append("Experiments: " + _xp.brief(_xp.load_registry()))
     except Exception as e:  # noqa: BLE001
         L.append(f"Slip post-mortem / experiments: unavailable ({e})")
+    L.extend(nba_section(days, today, picks))
     L.append("PROPOSALS for the Architect (nothing is changed automatically):")
     L += [f"  • {p}" for p in proposals] or ["  • none — no family or league is running "
                                              f"{REVIEW_GAP_PP * 100:.0f}+ pts below what we said "

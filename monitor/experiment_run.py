@@ -48,7 +48,7 @@ def main(argv: list[str] | None = None) -> int:
         rows = []
     try:                                     # item 2: slip post-mortem + killer contexts
         lp = X._postmortem()
-        pm = lp.build(lp.load())
+        pm = lp.full()                       # football + the NBA combined slips, kept apart
         if not a.dry:
             lp.save(pm)
         print(lp.line(pm))

@@ -13,8 +13,11 @@ missed morning board — a board already sent is never sent twice.
      next day (every US game day, matinees and the late West Coast games);
   3. list only prices ABOVE the fair price (engine/nba_value.py), one per
      game, each with its own SportyBet booking code, + one code for them all;
-  4. send it to the Architect's own chat only, as a LIVE TEST: the Architect
-     places a pick by hand from its code (order 26); the framework never stakes.
+  4. send it to the Architect's chat, then every subscriber chat as the football
+     board goes (Architect 2026-10-20: "The way we are treating football, that's how
+     NBA should be treated too"), as a LIVE TEST: the Architect places a pick by hand
+     from its code (order 26); the framework never stakes. The experiment engine's
+     live NBA rule (slot "nba") decides which picks stay; dropped ones are graded.
 
 Preseason games are shown and graded as a pipeline test but kept OUT of the
 record (starters are rested — not a fair test of anything).
@@ -221,7 +224,7 @@ def grade(now: datetime) -> list[str]:
     for path in sorted(LEDGER_DIR.glob("nba_*.json")):
         doc = json.loads(path.read_text(encoding="utf-8"))
         changed = False
-        for p in doc.get("picks", []):
+        for p in doc.get("picks", []) + doc.get("picks_dropped", []):   # dropped ones too (experiment engine)
             if p.get("result") or datetime.fromisoformat(p["tip"]) > now - timedelta(hours=3):
                 continue
             g = next((x for day in espn_days(p) for x in ns.scoreboard(day, use_cache=False)
@@ -310,6 +313,18 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
     return "\n".join(L)
 
 
+def live_rule(picks: list[dict]) -> tuple[list[dict], list[dict]]:
+    """(kept, dropped) under the experiment engine's live NBA rule (engine/experiments.py,
+    slot "nba"; Architect 2026-10-20: NBA treated as football is). The default keeps every
+    pick; a dropped pick is recorded and graded, never booked or sent."""
+    from engine import experiments as X
+    st = X.live_rules().get("nba")
+    if st is None or st.keep is None:
+        return picks, []
+    keep = [p for p in picks if st.keep(X.nba_leg(p), {})]
+    return keep, [p for p in picks if p not in keep]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-send", action="store_true")
@@ -322,6 +337,7 @@ def main() -> int:
         print(f"  {n}")
     night = date.fromisoformat(a.night) if a.night else night_of(now)
     picks, notes, scanned, study = build(now, night)
+    picks, dropped = live_rule(picks)
     for n in notes:
         print(f"  ⚠ {n}")
     board_date = night_key(night_start(night))
@@ -338,7 +354,8 @@ def main() -> int:
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,
                                       "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                                      "mega_code": mega, "picks": picks, "study": study}, indent=1),
+                                      "mega_code": mega, "picks": picks, "picks_dropped": dropped,
+                                      "study": study}, indent=1),
                           encoding="utf-8")
         text_path.write_text(text, encoding="utf-8")
     print(text)
@@ -355,7 +372,10 @@ def main() -> int:
     if doc.get("sent_at") and not (a.resend or a.rebuild):
         print(f"  NBA board for {board_date} already sent at {doc['sent_at']} — not sent twice")
         return 0
-    ok, sent = notify.send_telegram(text, chat_id=owner)     # the Architect only
+    ok, sent = notify.send_telegram(text, chat_id=owner)     # the Architect's chat first
+    if ok:      # then every subscriber, as the football board (Architect 2026-10-20: NBA treated as football)
+        _s_ok, s_notes = notify.send_subscribers(text)
+        sent += s_notes
     for n in sent:
         print(f"  NBA board: {n}")
     if ok and doc:

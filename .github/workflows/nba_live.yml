@@ -1,0 +1,64 @@
+name: OLP XDV NBA live tracker
+
+# Architect 2026-10-20: "The way we are treating football, that's how NBA should be
+# treated too ... the live tracker." The NBA board's games followed live, as live.yml
+# follows the football matchday: ONE job (monitor/nba_live.py) polls ESPN every 120 s and
+# sends the Architect one Telegram per round that has an event (tip-off, end of each
+# quarter / half time / overtime, final) with where each pick stands. Snapshots are
+# committed to data/study/nba/<board date>/ as the night goes.
+#
+# NBA games tip 16:00-04:30 UTC, after football's live loop has ended, hence a loop of
+# its own. The crons are backup STARTERS (GitHub drops and delays crons); a run that
+# finds an older loop going exits at once, one too early (first tip > 3 h away) exits,
+# and a job nearing the 6-hour limit hands off to a fresh run.
+on:
+  schedule:
+    - cron: "9 16,19,22,1,4 * * *"
+  workflow_dispatch:
+    inputs:
+      board:
+        description: "NBA board date (YYYY-MM-DD). Blank = tonight's."
+        required: false
+        default: ""
+      handoff:
+        description: "true = started by the previous loop run (internal)"
+        required: false
+        default: "false"
+
+permissions:
+  actions: write    # see whether a loop is already running; hand off to a fresh run
+  contents: write   # commit the live snapshots as the night goes
+
+# No concurrency group, deliberately (as live.yml): the single-loop guard does the job.
+
+jobs:
+  nba-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Follow the NBA board's games and report each event
+        env:
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          # The Architect's own chat only (order 33), as the football live tracker.
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+          BOARD_INPUT:        ${{ github.event.inputs.board }}
+          HANDOFF:            ${{ github.event.inputs.handoff }}
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          ARGS=""
+          if [ -n "$BOARD_INPUT" ]; then
+            if ! [[ "$BOARD_INPUT" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+              echo "invalid board '$BOARD_INPUT' (want YYYY-MM-DD)"; exit 1
+            fi
+            ARGS="--board $BOARD_INPUT"
+          fi
+          if [ "$HANDOFF" = "true" ]; then ARGS="$ARGS --handoff"; fi
+          python monitor/nba_live.py $ARGS

@@ -532,8 +532,8 @@ from engine import nba_value as _nv41
 assert (_nv41.MIN_EV_WINNER, _nv41.MIN_EV_LINE, _nv41.MAX_EV, _nv41.BAND) == (0.03, 0.05, 0.25, (1.20, 2.00)), \
     "Order 41: NBA picks only above the fair price; stale gaps left out"
 _nba41 = (ROOT / "run_nba.py").read_text(encoding="utf-8")
-assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "send_everyone" not in _nba41, \
-    "Order 41: the NBA board goes to the Architect's own chat only"
+assert "notify.send_telegram(text, chat_id=owner)" in _nba41 and "notify.send_subscribers(text)" in _nba41, \
+    "Order 41 (2026-10-20): the NBA board goes to the Architect, then every subscriber, as football's"
 assert "python run_nba.py" in wf, "Order 41: the NBA board runs with the evening board"
 assert "LIVE TEST" in _nba41 and "PAPER BOARD" not in _nba41 and "place it by hand" in _nba41 and "£1 a pick" in _nba41, \
     "Orders 26/41 (2026-10-07): the NBA board is a live test, placed by hand from its codes"
@@ -636,7 +636,8 @@ from engine import experiments as _xp  # noqa: E402
 assert (_xp.MIN_BETS, _xp.Z_BAR, _xp.COOLDOWN_DAYS) == (100, 1.645, 7), "experiment engine: promotion bar"
 _os_x.environ.pop("OLP_EXPERIMENTS", None)
 assert _xp.enabled(), "experiment engine: ON by default (Architect 2026-10-20)"
-assert _xp.SLOTS == ("singles", "accas", "safe3"), "experiment engine: only the board's own slots"
+assert _xp.SLOTS == ("singles", "accas", "safe3", "nba"), \
+    "experiment engine: only the boards' own slots, NBA included (Architect 2026-10-20)"
 _src_x = (ROOT / "engine" / "experiments.py").read_text(encoding="utf-8")
 for _forbidden in ("staking", "ARCHITECT_SIGNOFF", "CLV_GATE", "LEAGUES", "assert_paper_only"):
     assert f"import {_forbidden}" not in _src_x and f"{_forbidden} =" not in _src_x, \

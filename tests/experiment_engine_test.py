@@ -172,4 +172,37 @@ with tempfile.TemporaryDirectory() as d:
     assert rr[0].since == "2026-10-20" and not rr[0].wireable and rr[0].slot == "singles"
 assert X.queued(Path("/nonexistent")) == []
 
+# ── the NBA slot (Architect 2026-10-20: "The autonomous engine should cover NBA too") ─
+assert "nba" in X.SLOTS and X.DEFAULT["nba"] == "N0 NBA board picks"
+_nba = [s for s in X.strategies() if s.slot == "nba"]
+assert {s.name for s in _nba if s.universe} >= {"U:B1 home favourite", "U:B4 main total over"}, \
+    "basketball paper rules are scored in the NBA slot"
+assert all(not s.wireable for s in _nba if s.universe)
+
+
+def _nba_pick(mid: str, price: float, res: str | None, ev: float = 0.05, stage: str = "regular") -> dict:
+    return {"home": "H", "away": "A", "market_id": mid, "price": price, "chance": 0.6, "ev": ev,
+            "result": res, "close_value": 0.02, "stage": stage}
+
+
+nl = X.nba_leg(_nba_pick("68", 1.95, "won"))
+assert nl["market"] == "68" and X.nba_bet(nl, "d") == {"day": "d", "won": 1, "pnl": 0.95, "clv": 0.02}
+assert X.nba_bet(X.nba_leg(_nba_pick("68", 1.95, "won", stage="preseason")), "d") is None, "preseason never counts"
+assert X.nba_bet(X.nba_leg(_nba_pick("68", 1.95, None)), "d") is None, "ungraded picks are not bets"
+_by = {s.name: s for s in _nba}
+_ml, _h1 = X.nba_leg(_nba_pick("219", 2.10, "lost", ev=0.10)), X.nba_leg(_nba_pick("68", 1.95, "won"))
+assert _by["N1 winner only"].keep(_ml, {}) and not _by["N1 winner only"].keep(_h1, {})
+assert _by["N4 halves and quarters only"].keep(_h1, {}) and not _by["N3 full game only"].keep(_h1, {})
+assert _by["N5 value +8% or more"].keep(_ml, {}) and not _by["N5 value +8% or more"].keep(_h1, {})
+assert _by["N6 price 1.80+"].keep(_ml, {})
+with tempfile.TemporaryDirectory() as d:
+    (Path(d) / "nba_2026-10-21.json").write_text(json.dumps({
+        "date": "2026-10-21", "picks": [_nba_pick("68", 1.95, "won")],
+        "picks_dropped": [_nba_pick("219", 2.10, "lost", ev=0.10)]}))
+    (Path(d) / "nba_watch_2026-10-21.json").write_text(json.dumps({"date": "2026-10-21", "picks": []}))
+    nd = X.load_days(Path(d), Path(d))
+    assert [x["day"] for x in nd] == ["2026-10-21"] and len(nd[0]["nba"]) == 2, "board + dropped, not the watch"
+    assert len(X.board_bets(_by["N0 NBA board picks"], nd)) == 2
+    assert [b["won"] for b in X.board_bets(_by["N1 winner only"], nd)] == [0]
+
 print("experiment_engine_test: OK")

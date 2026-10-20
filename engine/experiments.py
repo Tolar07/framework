@@ -9,6 +9,8 @@ board SLOT:
   singles  TABLE 2 deploy singles (the board's own picks)
   accas    TABLE 3 accas
   safe3    TABLE 3A 50%+ accas
+  nba      the NBA board's picks (order 41; Architect 2026-10-20: "The way we are
+           treating football, that's how NBA should be treated too")
 
 Board strategies are SUBSET rules: they keep or drop the board's own picks /
 slips, never invent new ones, and a dropped pick or slip is still recorded in
@@ -64,8 +66,11 @@ Z_BAR = 1.645           # one-sided 95%
 COOLDOWN_DAYS = 7
 WRITTEN = "2026-10-20"  # the day the board strategies below were written down
 
-SLOTS = ("singles", "accas", "safe3")
-DEFAULT = {"singles": "S0 board singles", "accas": "A0 board accas", "safe3": "T0 board 50%+ accas"}
+SLOTS = ("singles", "accas", "safe3", "nba")
+DEFAULT = {"singles": "S0 board singles", "accas": "A0 board accas", "safe3": "T0 board 50%+ accas",
+           "nba": "N0 NBA board picks"}
+NBA_WINNER = {"219"}                                  # moneyline (incl. OT)
+NBA_FULL_GAME = {"219", "223", "225", "227", "228"}   # winner, handicap, total, team totals (incl. OT)
 
 
 def enabled() -> bool:
@@ -153,11 +158,41 @@ def _board_rules() -> list[Strategy]:
     return singles + slips
 
 
+def nba_leg(p: dict) -> dict:
+    """An NBA board pick (output/picks/nba_<date>.json) -> leg. Its CLV is the
+    framework's own measure for NBA: value against the closing sharp line
+    (`close_value`, run_nba.grade) — no closing SportyBet price is kept."""
+    return {"fixture": f"{p.get('home')} v {p.get('away')}", "market": str(p.get("market_id") or ""),
+            "price": p.get("price"), "chance": p.get("chance"), "value": p.get("ev"),
+            "result": p.get("result"), "close_value": p.get("close_value"), "stage": p.get("stage")}
+
+
+def _nba_rules() -> list[Strategy]:
+    w = WRITTEN
+    return [
+        Strategy(DEFAULT["nba"], "nba", "every pick the NBA board makes (order 41)", _all),
+        Strategy("N1 winner only", "nba", "NBA picks on the winner (moneyline)",
+                 lambda x, _c: x["market"] in NBA_WINNER, since=w),
+        Strategy("N2 lines only", "nba", "NBA picks on a handicap or total, not the winner",
+                 lambda x, _c: x["market"] not in NBA_WINNER, since=w),
+        Strategy("N3 full game only", "nba", "NBA picks settled on the whole game (no half / quarter)",
+                 lambda x, _c: x["market"] in NBA_FULL_GAME, since=w),
+        Strategy("N4 halves and quarters only", "nba", "NBA picks on a 1st half or a quarter",
+                 lambda x, _c: x["market"] not in NBA_FULL_GAME, since=w),
+        Strategy("N5 value +8% or more", "nba", "NBA picks at least 8% over the sharp line's fair price",
+                 lambda x, _c: (x["value"] or 0) >= 0.08, since=w),
+        Strategy("N6 price 1.80+", "nba", "NBA picks priced 1.80 or more", _band(1.80, 99.0), since=w),
+    ]
+
+
 def _universe_rules() -> list[Strategy]:
     from engine import paper_book as pb
     out = [Strategy(f"U:{n}", "singles", f"paper rule — {d}", universe=n, since=pb.SINCE.get(n, ""),
                     wireable=False, why_not=UNIVERSE_WHY)
            for n, (sport, d, _f) in pb.STRATEGIES.items() if sport == "football"]
+    out += [Strategy(f"U:{n}", "nba", f"paper rule — {d}", universe=n, since=pb.SINCE.get(n, ""),
+                     wireable=False, why_not=UNIVERSE_WHY)
+            for n, (sport, d, _f) in pb.STRATEGIES.items() if sport == "basketball"]
     out += [Strategy(f"U:{n}", "accas", f"paper acca — {d}", universe=n,
                      since="2026-10-09" if n.startswith("A4") else "", wireable=False, why_not=UNIVERSE_WHY)
             for n, (d, _r) in pb.ACCAS.items()]
@@ -197,7 +232,7 @@ def _research_rules(path: Path = QUEUE) -> list[Strategy]:
 
 
 def strategies() -> list[Strategy]:
-    out = _board_rules() + _universe_rules() + _research_rules()
+    out = _board_rules() + _nba_rules() + _universe_rules() + _research_rules()
     try:                                     # item 2: the slip-killer rule, if built
         extra = _postmortem().strategies()
     except ImportError:
@@ -233,7 +268,15 @@ def load_days(picks_dir: Path = PICKS_DIR, reasoning_dir: Path = REASONING_DIR) 
                         for s in doc.get(slot, []) + doc.get(f"{slot}_dropped", [])]
                  for slot in ("accas", "safe3")}
         days.append({"day": doc["date"], "legs": legs, "slips": slips})
-    return days
+    by_day = {d["day"]: d for d in days}
+    for path in sorted(picks_dir.glob("nba_2*.json")):   # the NBA board, not the line watch's file
+        try:
+            doc = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        d = by_day.setdefault(doc["date"], {"day": doc["date"], "legs": [], "slips": {"accas": [], "safe3": []}})
+        d["nba"] = [nba_leg(p) for p in doc.get("picks", []) + doc.get("picks_dropped", [])]
+    return sorted(by_day.values(), key=lambda d: d["day"])
 
 
 def single_bet(lg: dict, day: str) -> dict | None:
@@ -242,6 +285,15 @@ def single_bet(lg: dict, day: str) -> dict | None:
     won = lg["result"] == "won"
     return {"day": day, "won": int(won), "pnl": (lg["price"] - 1) if won else -1.0,
             "clv": (lg["price"] / lg["close"] - 1) if lg["close"] else None}
+
+
+def nba_bet(lg: dict, day: str) -> dict | None:
+    """A graded regular-season NBA pick (preseason is a pipeline test, order 41;
+    a push is no bet)."""
+    if lg["stage"] == "preseason" or lg["result"] not in ("won", "lost") or not lg["price"]:
+        return None
+    won = lg["result"] == "won"
+    return {"day": day, "won": int(won), "pnl": (lg["price"] - 1) if won else -1.0, "clv": lg["close_value"]}
 
 
 def slip_bet(s: dict, day: str) -> dict | None:
@@ -267,6 +319,8 @@ def board_bets(st: Strategy, days: list[dict], contexts: dict | None = None) -> 
         ctx = (contexts or {}).get(d["day"], {})
         if st.slot == "singles":
             bets = [single_bet(lg, d["day"]) for lg in d["legs"] if keep(lg, ctx)]
+        elif st.slot == "nba":
+            bets = [nba_bet(lg, d["day"]) for lg in d.get("nba", []) if keep(lg, ctx)]
         else:
             bets = [slip_bet(s, d["day"]) for s in d["slips"][st.slot]
                     if all(lg is None or keep(lg, ctx) for lg in s["legs"])]

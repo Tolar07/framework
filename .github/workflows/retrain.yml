@@ -1,0 +1,63 @@
+name: OLP XDV nightly retrain
+
+# Architect 2026-10-20 ("auto"): every night the model's calibration (BTTS,
+# Over 1.5 / 2.5 / 3.5) is refitted on every graded rated fixture — picked or
+# not — and goes live BY ITSELF only where it beats the live calibration on the
+# newest games, which it was not fitted on (engine/retrain.py). No /approve.
+# Chances only: stakes, gates and leagues are untouched.
+#
+# 03:31 UTC: clear of daily.yml (20:47 / 05:47) and off the hour (GitHub drops :00 ticks).
+on:
+  schedule:
+    - cron: "31 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: retrain
+  cancel-in-progress: false
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pip install -q -r requirements.txt
+
+      - name: Refit and gate
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python monitor/retrain_run.py --message-file "$RUNNER_TEMP/retrain_msg.txt"
+
+      - name: Save
+        run: |
+          git config user.name  "olp-xdv-agent"
+          git config user.email "olp-xdv-agent@users.noreply.github.com"
+          git add memory/retrain_log.jsonl memory/calibration_live.json
+          if git diff --staged --quiet; then echo "retrain files unchanged"; exit 0; fi
+          git commit -q -m "retrain $(date -u +%Y-%m-%d) [skip ci]"
+          for i in 1 2 3; do
+            if git pull --rebase -q origin main && git push -q origin HEAD:main; then
+              echo "retrain saved to main"; exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          echo "::error::retrain: could not save to main after 3 tries"
+          exit 1
+
+      - name: Tell the Architect
+        env:
+          PYTHONIOENCODING: utf-8
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python monitor/retrain_run.py --send "$RUNNER_TEMP/retrain_msg.txt"

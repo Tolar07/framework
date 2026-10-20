@@ -23,10 +23,14 @@ Method, per family:
      rest the FIT set. The fit never sees a holdout row.
   2. Platt fit (calibrated = sigmoid(A + B * logit(raw))) on the fit set, pulled
      gently toward the live A, B (PRIOR_WEIGHT) so a few days' noise can't swing it.
-  3. GATE: the new A, B go live only if fit n >= MIN_FIT and holdout n >=
-     MIN_HOLDOUT, B > 0 (a higher raw chance never reads lower), and on the
-     holdout BOTH Brier and log loss beat the live calibration's. Otherwise the
-     live one stays.
+  3. GATE: three candidates on the holdout — the LIVE calibration, the REFIT
+     and NO CALIBRATION (the raw model chance: A = 0, B = 1, the identity;
+     Architect's "auto" rule: adopt whatever predicts best out of sample).
+     A challenger goes live only if fit n >= MIN_FIT and holdout n >=
+     MIN_HOLDOUT and it beats the live calibration on BOTH holdout Brier and
+     log loss (the refit also needs B > 0: a higher raw chance never reads
+     lower). If both challengers qualify, the one better on both wins; if they
+     split, the lower Brier. Otherwise the live one stays.
 Each night's comparison is appended to memory/retrain_log.jsonl; adopted
 parameters are written to memory/calibration_live.json, which
 engine/calibration.py reads. Chances only — stakes, gates and leagues untouched.
@@ -53,6 +57,7 @@ HOLDOUT_FRAC = 0.20
 MIN_FIT = 200
 MIN_HOLDOUT = 50
 PRIOR_WEIGHT = 5.0     # L2 pull toward the live (A, B), in log-likelihood units
+RAW = (0.0, 1.0)       # no calibration: sigmoid(0 + 1 * logit(p)) = p
 
 
 def load_rows(picks_dir: Path = PICKS_DIR) -> list[dict]:
@@ -156,16 +161,26 @@ def evaluate(rows: list[dict], live: dict[str, tuple[float, float]]) -> list[dic
         hx, hy = [r["p"][i] for r in hold], [r["y"][i] for r in hold]
         b_old, l_old = scores(hx, hy, old)
         b_new, l_new = scores(hx, hy, new)
-        b_raw, _ = scores(hx, hy, None)
+        b_raw, l_raw = scores(hx, hy, None)
         rec.update(new=[round(new[0], 4), round(new[1], 4)],
                    brier_live=round(b_old, 5), brier_new=round(b_new, 5), brier_raw=round(b_raw, 5),
-                   logloss_live=round(l_old, 5), logloss_new=round(l_new, 5))
-        if not (math.isfinite(new[0]) and math.isfinite(new[1])) or new[1] <= 0:
-            rec.update(decision="keep", reason="fit not usable (slope <= 0 or not finite)")
-        elif b_new < b_old and l_new < l_old:
-            rec.update(decision="adopt", reason="holdout Brier and log loss both better")
+                   logloss_live=round(l_old, 5), logloss_new=round(l_new, 5), logloss_raw=round(l_raw, 5))
+        refit_ok = math.isfinite(new[0]) and math.isfinite(new[1]) and new[1] > 0
+        # challengers that beat the live calibration on BOTH holdout scores
+        wins = [(b, ll, name, ab) for b, ll, name, ab in
+                ((b_new, l_new, "refit", new), (b_raw, l_raw, "raw", RAW))
+                if (name != "refit" or refit_ok) and tuple(ab) != tuple(old) and b < b_old and ll < l_old]
+        if wins:
+            dom = [w for w in wins if all(w[0] <= o[0] and w[1] <= o[1] for o in wins)]
+            b, ll, name, ab = (dom or sorted(wins))[0]
+            rec.update(decision="adopt", choice=name, adopt=[round(ab[0], 4), round(ab[1], 4)],
+                       brier_after=round(b, 5),
+                       reason=("no calibration (raw chance)" if name == "raw" else "refit")
+                       + " beats live on holdout Brier and log loss")
+        elif not refit_ok:
+            rec.update(decision="keep", reason="fit not usable (slope <= 0 or not finite); raw not better")
         else:
-            rec.update(decision="keep", reason="new fit not better on the holdout")
+            rec.update(decision="keep", reason="neither the refit nor raw chance is better on the holdout")
         out.append(rec)
     return out
 
@@ -187,10 +202,10 @@ def run(picks_dir: Path = PICKS_DIR, live_path: Path = cal.LIVE_PATH,
             doc = {"families": {}}
         for r in changed:
             doc["families"][r["family"]] = {
-                "a": r["new"][0], "b": r["new"][1], "adopted": stamp,
+                "a": r["adopt"][0], "b": r["adopt"][1], "adopted": stamp, "choice": r["choice"],
                 "n_fit": r["n_fit"], "n_holdout": r["n_holdout"],
                 "holdout_from": r["holdout_from"],
-                "brier_before": r["brier_live"], "brier_after": r["brier_new"]}
+                "brier_before": r["brier_live"], "brier_after": r["brier_after"]}
         doc["updated"] = stamp
         doc["source"] = "engine/retrain.py (nightly, retrain.yml)"
         live_path.parent.mkdir(parents=True, exist_ok=True)
@@ -214,7 +229,8 @@ def message(summary: dict) -> str:
         if "brier_new" not in r:
             parts.append(f"{lab} kept (sample too small)")
         elif r["decision"] == "adopt":
-            parts.append(f"{lab} CHANGED {r['brier_live']:.4f}→{r['brier_new']:.4f}")
+            to = " (no calibration)" if r.get("choice") == "raw" else ""
+            parts.append(f"{lab} CHANGED{to} {r['brier_live']:.4f}→{r['brier_after']:.4f}")
         else:
             parts.append(f"{lab} kept ({r['brier_live']:.4f} live vs {r['brier_new']:.4f} new)")
     return f"Retrain {summary['date']} (holdout Brier, {n}): " + " · ".join(parts)

@@ -8,7 +8,10 @@
    "hit": 0.571,
    "flat_return": -0.2457,
    "model_said": 0.78,
-   "ai_said": 0.78
+   "ai_said": 0.78,
+   "clv_n": 10,
+   "mean_clv": -0.29,
+   "beat_close": 3
   },
   "lower": {
    "n": 1,
@@ -16,7 +19,10 @@
    "hit": 1.0,
    "flat_return": 0.23,
    "model_said": 0.814,
-   "ai_said": 0.814
+   "ai_said": 0.814,
+   "clv_n": 1,
+   "mean_clv": 0.0,
+   "beat_close": 0
   },
   "veto": {
    "n": 0

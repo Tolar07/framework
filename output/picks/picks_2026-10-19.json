@@ -1587,13 +1587,13 @@
    "name": "ACCAS MEGA",
    "of": "accas",
    "code": "HSPXWF",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "VALUE MEGA",
    "of": "value",
    "code": "W6XBWN",
-   "result": null
+   "result": "won"
   }
  ]
 }

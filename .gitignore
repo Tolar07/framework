@@ -25,6 +25,9 @@ memory/conversations/
 # Found 2026-10-14 while wiring live.yml; nba_ladders was negated above, its
 # sibling nba_markets never was.
 !output/nba_markets/*.jsonl
+# The NBA live tracker's snapshots (nba_live.yml -> monitor/nba_live.py), same trap again
+# (2026-10-20: the first night's saves were all "nothing new to save").
+!data/study/nba/*/live.jsonl
 !feed_audit.jsonl
 # EXCEPTION (2026-09-17): the heartbeat/lineage records ARE tracked.
 #

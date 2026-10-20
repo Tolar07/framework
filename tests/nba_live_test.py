@@ -73,6 +73,14 @@ def test_espn_silent_keeps_waiting_quietly():
     assert lines == [] and still is True
 
 
+
+def test_snapshots_are_not_git_ignored():
+    """The blanket *.jsonl ignore made the first night's saves silently save nothing."""
+    import subprocess
+    root = Path(__file__).parent.parent
+    r = subprocess.run(["git", "check-ignore", "-q", "data/study/nba/2026-10-21/live.jsonl"], cwd=root)
+    assert r.returncode == 1, "data/study/nba/<board>/live.jsonl must be tracked (see .gitignore)"
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

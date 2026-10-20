@@ -97,6 +97,18 @@ jobs:
           key: olp-xdv-data-${{ github.run_id }}
           restore-keys: olp-xdv-data-
 
+      # EXPERIMENT ENGINE (engine/experiments.py, Architect 2026-10-20): every
+      # strategy scored in shadow; a promotion / demotion is applied to
+      # memory/strategies.json BEFORE the board reads it, one Telegram line per
+      # change. A failure here leaves every slot as it was — never blocks the board.
+      - name: Experiment engine (shadow strategies, promotion)
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONIOENCODING:   utf-8
+        run: python monitor/experiment_run.py
+
       - name: Run the daily board
         id: board
         env:

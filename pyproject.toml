@@ -54,6 +54,8 @@ follow_imports = "silent"
 # gate that catches regressions in clean modules. Laptop-line code parked in
 # legacy/ (2026-10-03) is out of scope.
 files = [
+    "engine/experiments.py",
+    "monitor/experiment_run.py",
     "data/football_data_source.py",
     "data/international_source.py",
     "data/fotmob.py",

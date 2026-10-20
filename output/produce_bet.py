@@ -843,13 +843,35 @@ def _used(slips: list[tuple]) -> set[str]:
     return {_canon_short(leg[0].fixture) for _n, legs, _c in slips for leg in legs}
 
 
-def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
+# EXPERIMENT ENGINE (engine/experiments.py): a promoted slip rule keeps or
+# drops whole slips of its slot; run_daily.py sets SLIP_RULES from the live
+# registry. Dropped slips are kept in ENGINE_DROPPED for the ledger (graded,
+# never sent). raw=True is the board's own build — used for "a match is in one
+# acca at most", so dropping a slip never reshuffles the other tables.
+SLIP_RULES: dict = {}       # slot ("accas" | "safe3") -> callable([BoardFixture]) -> bool
+ENGINE_DROPPED: dict = {}   # slot -> {slip name: (name, legs, combo)}
+
+
+def _engine_keep(slot: str, groups: list[tuple]) -> list[tuple]:
+    rule = SLIP_RULES.get(slot)
+    if not rule:
+        return groups
+    kept = []
+    for g in groups:
+        if rule([leg[0] for leg in g[1]]):
+            kept.append(g)
+        else:
+            ENGINE_DROPPED.setdefault(slot, {})[g[0]] = g
+    return kept
+
+
+def _build_accas(shortlist: list[BoardFixture], raw: bool = False) -> list[tuple]:
     """Deploy picks of 75%+ grouped into accumulators of up to 3 legs,
     strongest legs first (Acca A = the top legs, then B, C, ...), leaving out
     the matches a 50+ acca already holds — a match is in one acca at most
     (order 40). Combined model probability = PRODUCT of the legs (an explicit
     independence assumption, stated on the board). [] if < 2 legs."""
-    taken = _used(_build_safe3(shortlist))
+    taken = _used(_build_safe3(shortlist, raw=True))
     legs = [l for l in _acca_legs(shortlist) if _canon_short(l[0].fixture) not in taken]
     # VALUE FIRST (Architect 2026-10-10: "be more strategic with the ACCA").
     # Graded 3-10 Oct: 75%+ legs priced at or above our fair odds (chance x
@@ -866,7 +888,7 @@ def _build_accas(shortlist: list[BoardFixture]) -> list[tuple]:
         for _, _, prob in g:
             combo *= prob
         named.append((_acca_name(n), g, combo))
-    return named
+    return named if raw else _engine_keep("accas", named)
 
 
 def _table3_groups(legs: list[tuple]) -> list[list]:
@@ -1000,7 +1022,7 @@ def _build_alt_accas(shortlist: list[BoardFixture]) -> list[tuple]:
     """[(name, [(bf, pick, prob, key, price)], combo)] — deploy fixtures whose
     alternative leg is 75%+ and that no 50+ or main acca already holds
     (order 40), strongest first, in accas of up to 3 legs."""
-    taken = _used(_build_safe3(shortlist)) | _used(_build_accas(shortlist))
+    taken = _used(_build_safe3(shortlist, raw=True)) | _used(_build_accas(shortlist, raw=True))
     legs = []
     for bf in shortlist:
         if bf.probs is None or _canon_short(bf.fixture) in taken:
@@ -1065,7 +1087,7 @@ def _build_value(shortlist: list[BoardFixture]) -> list[tuple]:
     out = [(f"Value {i}", [leg[:5]], leg[2]) for i, leg in enumerate(legs, 1)]
     acca = [leg for leg in legs if leg[2] >= ACCA_LEG_MIN]
     if len(acca) > 1:
-        taken = (_used(_build_safe3(shortlist)) | _used(_build_accas(shortlist))
+        taken = (_used(_build_safe3(shortlist, raw=True)) | _used(_build_accas(shortlist, raw=True))
                  | _used(_build_alt_accas(shortlist)))
         acca = [leg for leg in acca if _canon_short(leg[0].fixture) not in taken]
         acca = (mix_groups([leg[:5] for leg in acca], [ACCA_MAX]) or [[]])[0]
@@ -1089,7 +1111,7 @@ SAFE3_MIN_CHANCE = 0.50
 _CERT_ORDER = {"HIGH": 0, "MEDIUM": 1}
 
 
-def _build_safe3(shortlist: list[BoardFixture]) -> list[tuple]:
+def _build_safe3(shortlist: list[BoardFixture], raw: bool = False) -> list[tuple]:
     """3-leg accas with a combined chance of 50%+, built ONLY from
     high-certainty legs (HIGH first, then MEDIUM — never LOW: a leg whose %
     we can't trust can't carry a 50%+ promise). Strongest legs first; stops
@@ -1108,7 +1130,7 @@ def _build_safe3(shortlist: list[BoardFixture]) -> list[tuple]:
         if combo < SAFE3_MIN_CHANCE:
             break
         out.append((f"50+ #{len(out) + 1}", g, combo))
-    return out
+    return out if raw else _engine_keep("safe3", out)
 
 
 from engine.uktime import UK  # noqa: E402 — the Architect's clock (UK, DST-aware)

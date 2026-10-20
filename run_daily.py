@@ -1149,6 +1149,38 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         f"legs with logged CLV; mean CLV "
         f"{status['mean_clv_pct'] if status['mean_clv_pct'] is not None else 'NO DATA — PENDING'}")
 
+    # --- EXPERIMENT ENGINE (engine/experiments.py, Architect 2026-10-20) ---
+    # A strategy promoted in shadow decides which of the board's own picks /
+    # slips fill its slot. Dropped picks stay in the ledger (singles_dropped,
+    # accas_dropped, safe3_dropped), graded, so the default is still scored.
+    # Stakes are untouched. Off: OLP_EXPERIMENTS=off.
+    try:
+        from engine import experiments as _xp
+        from engine import picks_ledger as _pl_x
+        from output import produce_bet as _pb_x
+        _pb_x.SLIP_RULES.clear()
+        _pb_x.ENGINE_DROPPED.clear()
+        _xrules = _xp.live_rules()
+        _xctx = _xp.board_context() if _xrules else {}
+        _xs = _xrules.get("singles")
+        if _xs and _xs.keep:
+            _xdrop = 0
+            for b in board:
+                if b.on_deploy_shortlist and b.probs is not None and b.best_market_key \
+                        and not _xs.keep(_xp.leg(_pl_x._single(b)), _xctx):
+                    b.on_deploy_shortlist = False
+                    b.engine_dropped = True
+                    _xdrop += 1
+            all_flags.append(f"experiment engine: singles by \"{_xs.name}\" — {_xdrop} pick(s) kept off (graded)")
+        for _slot in ("accas", "safe3"):
+            _xr = _xrules.get(_slot)
+            if _xr and _xr.keep:
+                _pb_x.SLIP_RULES[_slot] = (lambda bfs, _k=_xr.keep: all(
+                    _k(_xp.leg(_pl_x._single(bf)), _xctx) for bf in bfs))
+                all_flags.append(f"experiment engine: {_slot} by \"{_xr.name}\"")
+    except Exception as e:  # noqa: BLE001 — the board's defaults stand
+        all_flags.append(f"experiment engine skipped ({e}) — every slot on its default")
+
     # --- real SportyBet booking codes for the deploy picks ---
     # A booking code is a shareable slip, NOT a placed bet (no stake, no account).
     # Anything that can't be resolved on SportyBet's live feed, or fails the share

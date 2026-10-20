@@ -76,7 +76,7 @@ _vlegs = [(b, "pick", ch) for b, ch in zip(_vb, [0.86, 0.80, 0.84, 0.76])]
 _orig_legs, _orig_s3 = _vpb._acca_legs, _vpb._build_safe3
 try:
     _vpb._acca_legs = lambda sl: list(_vlegs)
-    _vpb._build_safe3 = lambda sl: []
+    _vpb._build_safe3 = lambda sl, raw=False: []
     _accs = _vpb._build_accas([])
     _first = [l[0].fixture[:2] for l in _accs[0][1]]
     assert _first[0] == "V1", _first      # 0.80 x 1.45 = 1.16, the best value, goes first

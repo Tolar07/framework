@@ -40,6 +40,7 @@ jobs:
         run: python -m ruff check monitor/json_log.py tests/monitor_json_log_test.py tests/run_all.py
              clv/clv_sync.py tests/clv_sync_test.py engine/sharp_value.py
              monitor/sharp_list.py tests/sharp_value_test.py backtest/price_band_study.py
+             engine/experiments.py monitor/experiment_run.py tests/experiment_engine_test.py
 
       - name: Type check (mypy gate scope)
         run: python -m mypy --config-file pyproject.toml

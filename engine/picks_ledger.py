@@ -141,6 +141,14 @@ def _alt_slip(name, legs, combo, code) -> dict:
             "result": None}
 
 
+def _engine_dropped(slot: str) -> list:
+    try:
+        from output.produce_bet import ENGINE_DROPPED
+    except ImportError:
+        return []
+    return list(ENGINE_DROPPED.get(slot, {}).values())
+
+
 def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list,
                  acca_codes: dict, safe3_codes: dict, mega_codes: Optional[dict],
                  alts: Optional[list] = None, alt_codes: Optional[dict] = None,
@@ -168,6 +176,14 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
         "btts": [_alt_slip(n, l, c, (combined or {}).get("btts")) for n, l, c in (btts or [])],
         # one code for every slip of a kind (Architect 2026-10-09): lands only
         # when every slip of that kind lands
+        # EXPERIMENT ENGINE (engine/experiments.py): picks / slips a live
+        # strategy kept off the board — graded, never sent, so the board's
+        # default rule is still scored on the same candidates
+        "singles_dropped": [_single(bf) for bf in board
+                            if getattr(bf, "engine_dropped", False) and bf.probs is not None
+                            and bf.best_market_key],
+        **{f"{slot}_dropped": [_slip(n, l, c, None) for n, l, c in _engine_dropped(slot)]
+           for slot in ("accas", "safe3")},
         "combined": [{"name": n, "of": kind, "code": (combined or {}).get(key), "result": None}
                      for n, kind, key in (("ACCAS MEGA", "accas", "accas_mega"),
                                           ("ALT MEGA", "alts", "alts_mega"),
@@ -257,8 +273,9 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
         if doc["date"] > today:
             continue
         changed = graded = pending = 0
-        by_fixture = {}
-        for s in doc["singles"] + doc.get("study", []):
+        by_fixture: dict = {}
+        dropped = doc.get("singles_dropped", [])
+        for s in doc["singles"] + doc.get("study", []) + dropped:
             if s["result"] in (None, "no-90min-result"):
                 ev = find_result(events, s["home"], s["away"], s["kickoff"] or doc["date"])
                 if ev and ev["finished_regular"]:
@@ -274,6 +291,9 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                         changed += 1
             if s.get("study"):
                 continue                # paper only: not a board single
+            if any(s is d for d in dropped):
+                by_fixture.setdefault(s["fixture"], s)
+                continue                # kept off by the experiment engine: graded, not counted
             graded += s["result"] is not None
             pending += s["result"] is None
             by_fixture[s["fixture"]] = s
@@ -300,7 +320,8 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
             if new != cmb.get("result"):
                 cmb["result"] = new
                 changed += 1
-        for kind in ("accas", "safe3", "megas", "alts", "replaced", "value", "btts"):
+        for kind in ("accas", "safe3", "megas", "alts", "replaced", "value", "btts",
+                     "accas_dropped", "safe3_dropped"):
             for slip in doc.get(kind, []):
                 if kind in ("alts", "replaced", "value", "btts"):
                     legs = slip.get("alt_legs", [])

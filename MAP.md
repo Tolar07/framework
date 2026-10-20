@@ -18,7 +18,7 @@ Everything live runs in GitHub Actions on `main`. Times UTC unless marked; the b
 
 | Workflow | When | Runs | Commits back |
 |---|---|---|---|
-| `daily.yml` | 20:47 (evening, tomorrow's card), 05:47 (morning refresh); also dispatched with `target_date` + `slot` | `run_daily.py --only-production --heartbeat`; morning also `run_nba.py --night` (NBA board, order 41, 11–17 h before tip-off; evening = backup only) | `clv/clv_log.json`, `output/boards/`, `output/picks/`, `data/survivor/`, `memory/`, `output/nba_ladders/`, `output/nba_markets/`, `backtest/NBA_MARKET_STUDY.md`, `backtest/NBA_LADDER_STUDY.md`, `data/sharp/` |
+| `daily.yml` | 20:47 (evening, tomorrow's card), 05:47 (morning refresh); also dispatched with `target_date` + `slot` | first `monitor/experiment_run.py` (experiment engine: shadow strategies scored, promotion / demotion applied before the board reads it; `OLP_EXPERIMENTS=off` freezes it), then `run_daily.py --only-production --heartbeat`; morning also `run_nba.py --night` (NBA board, order 41, 11–17 h before tip-off; evening = backup only) | `clv/clv_log.json`, `output/boards/`, `output/picks/`, `data/survivor/`, `memory/`, `output/nba_ladders/`, `output/nba_markets/`, `backtest/NBA_MARKET_STUDY.md`, `backtest/NBA_LADDER_STUDY.md`, `data/sharp/` |
 | `watchdog.yml` | 23:17, 08:17 | `monitor/run_watchdog.py` — starts a slot that never ran | — |
 | `supervisor.yml` | after every `daily.yml` run | `monitor/supervisor.py` — one status message | — |
 | `news.yml` | one job looping every 20 min 09:00–20:40, started by `daily.yml` after each board; backup cron every 2 h; hands itself on before GitHub's 6-hour limit | `monitor/news_loop.py` → `news_check.py` — lineups, price drift, closing price | `output/picks/`, each round |
@@ -144,6 +144,9 @@ laptop scripts parked in `legacy/laptop/parked_2026-10-05/` (2026-10-05).
 | `memory/corrections.csv` | `/note` | heartbeat + weekly review list the open ones (`engine/loss_watch.open_notes`, order 39) | yes |
 | `memory/knowledge.json` | daily run (`engine/loss_watch.remember`) | supervisor (updated today?), sessions; what was learned: market x competition results, flags, learning corrections, 120-day history | yes |
 | `memory/proposals.json` | daily run (`loss_watch.propose`), `/approve` `/reject` | daily run (approved blocks drop candidates), heartbeat, `/proposals`, supervisor | yes |
+| `memory/strategies.json` | `monitor/experiment_run.py` (daily.yml, before every board; `engine/experiments.py`) — which strategy is LIVE per slot (singles / accas / safe3), every strategy's standings (counted since written + in-sample), rules flagged as qualifying but not wireable | `run_daily.py` (the live rule keeps / drops the board's own picks and slips; `output/produce_bet.py` `SLIP_RULES`), supervisor, weekly review | yes |
+| `memory/strategy_log.jsonl` | the same — one line per promotion / demotion / not-wireable flag (Architect 2026-10-20) | the Architect, sessions | yes |
+| `output/picks/picks_<date>.json` keys `singles_dropped`, `accas_dropped`, `safe3_dropped` | `run_daily.py` when a live experiment rule keeps a pick / slip off the board | graded by `engine/picks_ledger.grade_all`, closing price by `news_check.py`; scored by `engine/experiments.py`; never sent, never on the scorecard | yes |
 | `logs/daily_<date>.log` (Run ID, delivery notes) | `run_daily.py` | nobody in CI — **lost after every run**; the Actions job log has it | no |
 | `data/cache/`, `backtest/cache/` | the fetchers | the fetchers | Actions cache only |
 | `data/sportybet/` | laptop dump, 2026-08-23 | nothing yet — every SportyBet country/tournament id, for wider coverage | yes |

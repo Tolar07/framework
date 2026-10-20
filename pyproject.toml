@@ -61,6 +61,8 @@ files = [
     "data/international_source.py",
     "data/fotmob.py",
     "engine/elo.py",
+    "engine/features.py",
+    "engine/walkforward.py",
     "engine/markets.py",
     "engine/mes.py",
     "engine/picks_ledger.py",

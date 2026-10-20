@@ -49,6 +49,26 @@ def main(argv: list[str] | None = None) -> int:
         for p in doc["picks"]:
             if p["verdict"] in ("veto", "lower"):
                 print(f"  {p['verdict'].upper():5} {p['pick']} — {p['fixture']}: {p.get('reasons', '')}")
+    # the NBA board too (Architect 2026-10-20: NBA treated as football is)
+    for d in dates:
+        src = R.LEDGER_DIR / f"nba_{d}.json"
+        if not src.exists():
+            continue
+        board = json.loads(src.read_text(encoding="utf-8"))
+        if not (board.get("picks") or board.get("picks_dropped")):
+            print(f"NBA {d}: no picks")
+            continue
+        out = R.OUT_DIR / f"reasoning_nba_{d}.json"
+        if out.exists() and not a.force:
+            old = json.loads(out.read_text(encoding="utf-8"))
+            if old.get("picks_generated_at") == board.get("generated_at") and not old.get("note"):
+                print(f"NBA {d}: already reasoned for this board")
+                continue
+        doc = R.reason_nba(board, now=now)
+        out.write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
+        print(f"NBA {d}: {len(doc['picks'])} picks · model {doc['model']} · "
+              + ", ".join(f"{p['verdict']} {p['pick']}" for p in doc["picks"])
+              + (f" · {doc['note']}" if doc["note"] else ""))
     rec = R.record()
     R.RECORD.write_text(json.dumps(rec, indent=1), encoding="utf-8")
     print(R.summary_line(rec))

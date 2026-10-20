@@ -183,13 +183,14 @@ def pick_model(get: Callable, key: str) -> Optional[str]:
     return None
 
 
-def _ask(post: Callable, key: str, model: str, rows: list[dict], sleep: Optional[Callable] = None) -> dict:
+def _ask(post: Callable, key: str, model: str, rows: list[dict], sleep: Optional[Callable] = None,
+         prompt: str = PROMPT) -> dict:
     import time
     sleep = sleep or time.sleep
     for attempt in range(3):           # the free tier answers 503/429 when busy: wait and retry
         r = post(f"{BASE_URL}/chat/completions", headers={"Authorization": f"Bearer {key}"}, timeout=120,
                  json={"model": model, "temperature": 0.2, "response_format": {"type": "json_object"},
-                       "messages": [{"role": "user", "content": PROMPT + json.dumps(rows, ensure_ascii=False)}]})
+                       "messages": [{"role": "user", "content": prompt + json.dumps(rows, ensure_ascii=False)}]})
         if getattr(r, "status_code", 200) not in (429, 500, 502, 503, 504) or attempt == 2:
             break
         sleep(20 * (attempt + 1))
@@ -233,12 +234,16 @@ def pool_legs(picks_doc: dict) -> list[dict]:
 def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] = None,
            post: Optional[Callable] = None, now: Optional[datetime] = None) -> dict:
     """The reasoning document for one picks file. Never raises on a model failure."""
+    singles = (picks_doc.get("singles") or []) + pool_legs(picks_doc)
+    return _reason(picks_doc, singles, context(singles), PROMPT, key, get, post, now)
+
+
+def _reason(picks_doc: dict, singles: list[dict], rows: list[dict], prompt: str, key: Optional[str],
+            get: Optional[Callable], post: Optional[Callable], now: Optional[datetime]) -> dict:
     import requests
     key = key if key is not None else os.getenv("GEMINI_API_KEY", "").strip()
     get, post = get or requests.get, post or requests.post
     now = now or datetime.now(UTC)
-    singles = (picks_doc.get("singles") or []) + pool_legs(picks_doc)
-    rows = context(singles)
     doc = {"date": picks_doc.get("date"), "picks_generated_at": picks_doc.get("generated_at"),
            "run_at": now.isoformat(timespec="seconds"), "model": None, "advisory": True,
            "note": None, "picks": []}
@@ -254,7 +259,7 @@ def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] =
             doc["note"] = f"NO DATA — PENDING: {type(e).__name__}: {str(e)[:160]}"
         for i in range(0, len(rows), BATCH) if doc["model"] else ():
             try:                     # one failed batch leaves only its own picks PENDING
-                answers.update(_ask(post, key, doc["model"], rows[i:i + BATCH]))
+                answers.update(_ask(post, key, doc["model"], rows[i:i + BATCH], prompt=prompt))
             except Exception as e:  # noqa: BLE001
                 doc["note"] = f"PARTLY PENDING: {type(e).__name__}: {str(e)[:160]}"
     for row, s in zip(rows, singles):
@@ -266,6 +271,119 @@ def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] =
     return doc
 
 
+# ---------------------------------------------------------------- NBA (Architect 2026-10-20: "The way we
+# are treating football, that's how NBA should be treated too ... the Gemini reasoning, build the NBA")
+NBA_FAMILY = {"219": "NBA winner", "223": "NBA handicap", "225": "NBA total", "227": "NBA team total",
+              "228": "NBA team total", "68": "NBA 1st half total", "66": "NBA 1st half handicap",
+              "236": "NBA quarter total", "303": "NBA quarter handicap"}
+PROMPT_NBA = PROMPT.replace("a football betting model", "an NBA betting model").replace(
+    "(team news and absences in the notes, motivation,",
+    "(the sharp line it was priced from, how far the price sits above fair, motivation,") + ""
+PROMPT_NBA = PROMPT_NBA.replace("PICKS:\n", "NBA notes: model_chance is the sharp bookmaker's line (ESPN BET) with its "
+                                "margin removed, so it is already a market view; \"value_pts\" is how far the "
+                                "SportyBet price sits above that fair price. Totals and handicaps include overtime "
+                                "unless the pick names a half or a quarter.\n\nPICKS:\n")
+
+
+def nba_family(market_id) -> str:
+    return NBA_FAMILY.get(str(market_id), "NBA other")
+
+
+def nba_records(ledger_dir: Path = LEDGER_DIR) -> dict:
+    """{family: {n, won, flat_return, close_value}} — graded regular-season NBA board picks."""
+    g: dict = {}
+    for f in sorted(ledger_dir.glob("nba_2*.json")):
+        try:
+            doc = json.loads(f.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        for p in doc.get("picks") or []:
+            if p.get("stage") != "regular" or p.get("result") not in ("won", "lost") or not p.get("price"):
+                continue
+            r = g.setdefault(nba_family(p.get("market_id")), {"n": 0, "won": 0, "ret": 0.0, "cv": []})
+            r["n"] += 1
+            r["won"] += p["result"] == "won"
+            r["ret"] += (float(p["price"]) - 1) if p["result"] == "won" else -1.0
+            if p.get("close_value") is not None:
+                r["cv"].append(float(p["close_value"]))
+    return {k: {"n": v["n"], "won": v["won"], "flat_return": round(v["ret"] / v["n"], 4),
+                "close_value": round(sum(v["cv"]) / len(v["cv"]), 4) if v["cv"] else None}
+            for k, v in g.items()}
+
+
+def say_nba(r: Optional[dict]) -> str:
+    if not r or not r.get("n"):
+        return "TOO FEW: no graded regular-season NBA picks in this family yet"
+    n, ret = r["n"], r.get("flat_return") or 0
+    word = "TOO FEW" if n < 15 else ("WINNING" if ret > 0 else "LOSING")
+    cv = r.get("close_value")
+    return (f"{word}: NBA board graded {n} picks in this family, won {r['won']}, flat return {ret:+.1%}"
+            + (f", value against the closing line {cv:+.1%}" if cv is not None else ""))
+
+
+def nba_context(picks: list[dict], ledger_dir: Path = LEDGER_DIR) -> list[dict]:
+    rec = nba_records(ledger_dir)
+    out = []
+    for i, p in enumerate(picks):
+        price, ch = p.get("price"), p.get("chance")
+        fam = nba_family(p.get("market_id"))
+        out.append({
+            "id": i, "fixture": f"{p.get('home')} v {p.get('away')}", "tip_utc": p.get("tip"),
+            "stage": p.get("stage"), "pick": p.get("pick"), "price": price, "model_chance": ch,
+            "break_even_chance": round(1 / float(price), 4) if price else None,
+            "value_pts": round(100 * float(p["ev"]), 1) if p.get("ev") is not None else None,
+            "market_family": fam, "sharp_line": p.get("sharp"), "pool": False,
+            "framework_record_in_family": say_nba(rec.get(fam)),
+        })
+    return out
+
+
+def reason_nba(nba_doc: dict, key: Optional[str] = None, get: Optional[Callable] = None,
+               post: Optional[Callable] = None, now: Optional[datetime] = None,
+               ledger_dir: Path = LEDGER_DIR) -> dict:
+    """The reasoning document for one NBA board (output/picks/nba_<date>.json): the same
+    advisory judgement as football's, on the board's picks (kept and dropped)."""
+    picks = (nba_doc.get("picks") or []) + (nba_doc.get("picks_dropped") or [])
+    doc = _reason(nba_doc, picks, nba_context(picks, ledger_dir), PROMPT_NBA, key, get, post, now)
+    doc["sport"] = "nba"
+    for x, p in zip(doc["picks"], picks):
+        x["fixture"], x["market"] = f"{p.get('home')} v {p.get('away')}", \
+            f"NBA:{p.get('market_id')}|{p.get('specifier') or ''}|{p.get('outcome')}"
+    return doc
+
+
+def record_nba(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
+    """NBA verdicts against their graded results (regular season), and close_value per verdict."""
+    rows, cvs = [], {v: [] for v in VERDICTS}
+    for f in sorted(out_dir.glob("reasoning_nba_*.json")):
+        try:
+            r = json.loads(f.read_text(encoding="utf-8"))
+            d = json.loads((ledger_dir / f"nba_{r['date']}.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError, KeyError):
+            continue
+        by = {(f"{p.get('home')} v {p.get('away')}",
+               f"NBA:{p.get('market_id')}|{p.get('specifier') or ''}|{p.get('outcome')}"): p
+              for p in (d.get("picks") or []) + (d.get("picks_dropped") or [])}
+        for x in r.get("picks") or []:
+            p = by.get((x.get("fixture"), x.get("market"))) or {}
+            if x.get("verdict") not in VERDICTS or p.get("stage") != "regular":
+                continue
+            if p.get("close_value") is not None:
+                cvs[x["verdict"]].append(float(p["close_value"]))
+            if p.get("result") in ("won", "lost"):
+                rows.append((x["verdict"], p["result"] == "won", float(p.get("price") or 0)))
+    out: dict = {}
+    for v in VERDICTS:
+        g = [r for r in rows if r[0] == v]
+        out[v] = {"n": len(g)}
+        if g:
+            won = sum(1 for r in g if r[1])
+            out[v].update(won=won, flat_return=round(sum((r[2] - 1) if r[1] else -1 for r in g) / len(g), 4))
+        if cvs[v]:
+            out[v]["close_value"] = round(sum(cvs[v]) / len(cvs[v]), 4)
+    return {"graded": len(rows), "by_verdict": out}
+
+
 # ---------------------------------------------------------------- the record
 def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
     """Every past verdict against the graded result: hit rate and flat-stake return by
@@ -274,7 +392,7 @@ def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
     'back' should beat the close more often than 'veto'."""
     rows = []
     clvs: dict = {v: [] for v in VERDICTS}
-    for f in sorted(out_dir.glob("reasoning_*.json")):
+    for f in sorted(out_dir.glob("reasoning_2*.json")):        # football; NBA is reasoning_nba_*
         try:
             r = json.loads(f.read_text(encoding="utf-8"))
             p = json.loads((ledger_dir / f"picks_{r['date']}.json").read_text(encoding="utf-8"))
@@ -312,7 +430,7 @@ def record(out_dir: Path = OUT_DIR, ledger_dir: Path = LEDGER_DIR) -> dict:
         brier["model"] = round(sum((float(r[3]) - r[1]) ** 2 for r in sc) / len(sc), 4)
         brier["ai"] = round(sum((float(r[4]) - r[1]) ** 2 for r in sc) / len(sc), 4)
     return {"updated": datetime.now(UTC).date().isoformat(), "graded": len(rows), "by_verdict": by,
-            "brier": brier}
+            "brier": brier, "nba": record_nba(out_dir, ledger_dir)}
 
 
 def summary_line(rec: dict) -> str:
@@ -327,4 +445,7 @@ def summary_line(rec: dict) -> str:
         better = ("level" if br["ai"] == br["model"] else
                   "the reasoning is closer" if br["ai"] < br["model"] else "the plain model is closer")
         parts.append(f"Brier model {br['model']:.3f} vs AI {br['ai']:.3f}: {better}")
-    return f"Reasoning record ({rec.get('graded', 0)} graded): " + (" · ".join(parts) or "nothing graded yet")
+    nb = (rec.get("nba") or {}).get("by_verdict") or {}
+    nba = [f"{v} {nb[v]['won']}/{nb[v]['n']} ({nb[v]['flat_return']:+.1%})" for v in VERDICTS if nb.get(v, {}).get("n")]
+    return (f"Reasoning record ({rec.get('graded', 0)} graded): " + (" · ".join(parts) or "nothing graded yet")
+            + f" · NBA ({(rec.get('nba') or {}).get('graded', 0)} graded): " + (" · ".join(nba) or "nothing graded yet"))

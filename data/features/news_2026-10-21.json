@@ -108,12 +108,17 @@
  "Como 1907 v Man Utd": {
   "absent": [
    {
-    "name": "Moise Kean",
+    "name": "Trevoh Chalobah",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Assane Diao",
+    "name": "Jes\u00fas Rodr\u00edguez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Moise Kean",
     "side": "home",
     "type": "injury"
    },
@@ -133,12 +138,12 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-21T11:00Z",
-  "away_missing_share": 0.3797018598790451,
-  "away_unavailable": 7,
+  "at": "2026-10-21T15:20Z",
+  "away_missing_share": 0.42060886089835764,
+  "away_unavailable": 9,
   "fotmob_id": 6106410,
-  "home_missing_share": 0.17675745000421703,
-  "home_unavailable": 2,
+  "home_missing_share": 0.39121130717806096,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-21T16:45:00.000Z",
   "lineup_type": "predicted"
  },
@@ -165,7 +170,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-21T11:00Z",
+  "at": "2026-10-21T15:20Z",
   "away_missing_share": 0.16327561110399655,
   "away_unavailable": 1,
   "fotmob_id": 6106312,

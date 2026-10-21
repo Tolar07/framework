@@ -290,7 +290,7 @@ def write(folder: Path, out: Path, universe_rows: list[dict] | None = None) -> s
     all_legs = [tp.remap(leg) for s in slips for leg in s["legs"]]
     for cls in ("aligned", "middle", "special", "risky"):
         xs = [x for x in all_legs if tp.leg_class(x) == cls]
-        gx = [x for x in xs if x.get("result") in ("win", "lose", "half_win", "half_lose")]
+        gx = [x for x in xs if x.get("result") in ("win", "lose", "half_win", "half_lose") and x.get("price")]
         if not xs:
             continue
         landed = sum(x["result"] in ("win", "half_win") for x in gx)

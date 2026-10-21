@@ -50,7 +50,7 @@ later = now.replace(hour=22)
 picks, lags, _ = w.check(later, [("regular", event("e1"), tip, bos, lal, game(224.5))], state, taken)
 assert len(picks) == 1 and picks[0]["outcome"] == "Under 231.5" and picks[0]["source"] == "watch", picks
 assert "total 231.5 → 224.5" in picks[0]["reason"] and picks[0]["ev"] >= 0.05
-assert picks[0]["matchbook"] == {"back": None} and "bet365" not in picks[0] and "e1" in taken
+assert picks[0]["matchbook"] == {"back": None, "listed": False} and "bet365" not in picks[0] and "e1" in taken
 print("line move found, SportyBet's stale price alerted as a pick: OK")
 
 # round 3: same game again -> no second pick (one per game)

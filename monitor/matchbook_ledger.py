@@ -68,7 +68,8 @@ def summarise(rows: list[dict]) -> dict:
             keys.append(f"framework family: {fam}")      # order 44 reads these
         for key in keys:
             g = groups.setdefault(key, {"bets": 0, "settled": 0, "won": 0, "lost": 0,
-                                        "clv_n": 0, "clv_sum": 0.0, "chance_sum": 0.0})
+                                        "clv_n": 0, "clv_sum": 0.0, "clv_sq": 0.0,
+                                        "chance_sum": 0.0, "cost": 0.0, "pnl": 0.0})
             g["bets"] += 1
             if r["status"] in ("WON", "LOST"):
                 g["settled"] += 1
@@ -78,13 +79,27 @@ def summarise(rows: list[dict]) -> dict:
                 if c is not None:
                     g["clv_n"] += 1
                     g["clv_sum"] += c
+                    g["clv_sq"] += c * c
+                try:
+                    g["cost"] += float(r["cost_gbp"])
+                    g["pnl"] += float(r["pnl_gbp"])
+                except (KeyError, TypeError, ValueError):
+                    pass
     out = {}
     for k, g in sorted(groups.items()):
         out[k] = {"bets": g["bets"], "settled": g["settled"], "won": g["won"], "lost": g["lost"],
                   "expected_wins": round(g["chance_sum"], 2),
                   "mean_clv": round(g["clv_sum"] / g["clv_n"], 4) if g["clv_n"] else None,
-                  "clv_n": g["clv_n"]}
+                  "clv_n": g["clv_n"], "clv_sd": _sd(g["clv_n"], g["clv_sum"], g["clv_sq"]),
+                  "roi": round(g["pnl"] / g["cost"], 4) if g["cost"] else None}   # a rate, no pounds
     return out
+
+
+def _sd(n: int, total: float, sq: float) -> float | None:
+    """Sample standard deviation from running sums (for the weekly scorecard's margin of error)."""
+    if n < 2:
+        return None
+    return round(max((sq - total * total / n) / (n - 1), 0.0) ** 0.5, 4)
 
 
 def summarise_paper(rows: list[dict]) -> dict:

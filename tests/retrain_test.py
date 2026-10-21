@@ -131,6 +131,8 @@ def test_no_calibration_is_a_candidate() -> None:
     bad = {f: (1.5, 0.3) for f in retrain.FAMILIES}
     res = retrain.evaluate(rows, bad)
     for r in res:
+        if isinstance(retrain.FAMILIES[r["family"]], tuple):
+            continue    # these rows aren't a coherent home/draw/away split; see test_double_chance_sums
         assert r["decision"] == "adopt", r
         assert r["brier_raw"] < r["brier_live"] and r["logloss_raw"] < r["logloss_live"]
         assert r["brier_after"] in (r["brier_raw"], r["brier_new"])
@@ -183,3 +185,30 @@ if __name__ == "__main__":
     test_refuses_small_samples()
     test_falls_back_when_file_missing_or_bad()
     print("retrain: OK")
+
+
+def test_double_chance_sums() -> None:
+    """Double chance (2026-10-21): its raw chance is the sum of two result outcomes, and it
+    lands when either does."""
+    random.seed(5)
+    rows = []
+    for d in range(30):
+        for _ in range(10):
+            h = random.uniform(0.2, 0.6)
+            dr = random.uniform(0.15, 0.3)
+            u = random.random()
+            y3 = [int(u < h), int(h <= u < h + dr), int(u >= h + dr)]
+            rows.append({"day": f"2026-09-{1 + d:02d}", "p": [h, dr, 1 - h - dr, .5, .5, .5, .5],
+                         "y": y3 + [0, 0, 0, 0]})
+    r0 = rows[0]
+    assert abs(retrain._x(r0, retrain.FAMILIES["dc_1x"]) - (r0["p"][0] + r0["p"][1])) < 1e-12
+    assert retrain._y(r0, retrain.FAMILIES["dc_x2"]) == max(r0["y"][1], r0["y"][2])
+    res = {r["family"]: r for r in retrain.evaluate(rows, dict(cal.DEFAULTS))}
+    for f in ("dc_1x", "dc_x2", "dc_12", "home", "draw", "away"):
+        assert res[f]["live"] == [0.0, 1.0], "result families start uncalibrated"
+        assert "brier_raw" in res[f]
+    assert cal.model_prob("SB:10||Home or Draw", 0.8) == 0.8, "uncalibrated until a fit is adopted"
+    print("double chance sums: OK")
+
+
+test_double_chance_sums()

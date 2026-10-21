@@ -181,6 +181,21 @@ def round_once(games: list[dict], seen: dict, out_file: Path, get=None) -> tuple
     return lines, still
 
 
+def resume(out_file: Path) -> dict:
+    """Each game's last saved look, so a handed-off run does not announce again what the run
+    before it already said (21 Oct: the 23:51 hand-off re-sent a game's tip-off and final)."""
+    seen: dict = {}
+    if out_file.exists():
+        for line in out_file.read_text(encoding="utf-8").splitlines():
+            try:
+                r = json.loads(line)
+            except ValueError:
+                continue
+            if r.get("espn_id") and r.get("state"):
+                seen[r["espn_id"]] = r
+    return seen
+
+
 def tell(body: str) -> None:
     """To the Architect's own chat only (order 33), as football's live tracker."""
     try:
@@ -225,7 +240,7 @@ def main(argv: list[str] | None = None) -> int:
     for g in games:
         print(f"  {g['tip'][11:16]}Z {g['away']} @ {g['home']} — " + " | ".join(p.get("pick") or "" for p in g["picks"]),
               flush=True)
-    seen: dict = {}
+    seen = resume(out_file)
     rounds = 0
     while True:
         lines, still = round_once(games, seen, out_file)

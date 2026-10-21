@@ -5,6 +5,8 @@ name: OLP XDV weekly review
 # reads the graded picks ledger for the last 7 days and sends one Telegram
 # report: results by market family and league (worst first), every slip kind
 # landed, the learning corrections in force, and proposals for the Architect.
+# Also builds the CLV scorecard (scripts/clv_scorecard.py) and saves it to
+# output/scorecard/latest.txt, which the PC's WhatsApp mirror posts on Mondays.
 # Read-only: nothing is changed automatically.
 on:
   schedule:
@@ -12,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   review:
@@ -30,3 +32,17 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python scripts/weekly_review.py
+      - name: Save the CLV scorecard for the WhatsApp mirror
+        run: |
+          python scripts/clv_scorecard.py > /dev/null
+          git config user.name "olp-xdv-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add output/scorecard/latest.txt
+          git diff --cached --quiet && exit 0
+          git commit -q -m "CLV scorecard $(date -u +%Y-%m-%d) [skip ci]"
+          for i in 1 2 3; do
+            if git pull --rebase -q origin main && git push -q origin HEAD:main; then exit 0; fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          echo "::error::scorecard: could not save to main"; exit 1

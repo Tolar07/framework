@@ -232,7 +232,11 @@
     "home": 533721626,
     "away": 725329325
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:74165966",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -532,7 +536,11 @@
     "home": 5490254,
     "away": 9113208
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Leyton Orient at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72341308",
    "sb_tid": "sr:tournament:24",
    "sb_market": {

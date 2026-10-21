@@ -181,14 +181,14 @@
  },
  "Reading v Leyton Orient": {
   "absent": [],
-  "at": "2026-10-21T18:00Z",
+  "at": "2026-10-21T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837230,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-21T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Real Madrid v RB Leipzig": {
   "absent": [

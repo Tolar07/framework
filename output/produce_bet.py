@@ -122,6 +122,36 @@ class BoardFixture:
     booking_url: Optional[str] = None
 
 
+# The pipeline's "data flags" carry every run note, most of them only where a price or
+# rating came from. On 21 Oct the board read "312 data flags" for a handful of real gaps
+# (the Architect, 2026-10-21: "resolve it"). A PROBLEM is a line saying data is missing,
+# wrong or unavailable; everything else is a source note, kept in the saved board.
+_PROBLEM = re.compile(r"NO DATA|unavailable|not found|failed|error|could not|missing|"
+                      r"no results available|disagree|\b[1-9]\d* differ|\b[1-9]\d* conflict", re.I)
+
+
+def split_flags(flags: list[str]) -> tuple[list[str], list[str]]:
+    """(problems, notes), each de-duplicated in order."""
+    problems, notes, no_close = [], [], 0
+    for f in dict.fromkeys(flags):
+        if "no closing price in source" in f:
+            no_close += 1        # football-data has no SportyBet-market closes; one line for all
+        else:
+            (problems if _PROBLEM.search(f) else notes).append(f)
+    if no_close:
+        notes.append(f"{no_close} graded leg(s) have no football-data closing price (SportyBet "
+                     f"markets); their CLV comes from the picks' own SportyBet closing capture")
+    return problems, notes
+
+
+def flags_headline(flags: list[str]) -> str:
+    problems, notes = split_flags(flags)
+    if problems:
+        return (f"⚠ {len(problems)} data problem(s) · {len(notes)} source note(s) — full detail "
+                f"in the saved board / VERIFY RESULTS")
+    return f"✓ No data problems · {len(notes)} source note(s) in the saved board"
+
+
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],
                   calibration_count: int, mean_clv: Optional[float],
                   data_flags: list[str]) -> str:
@@ -133,9 +163,13 @@ def render_part0(mode: str, phase: str, leagues_scanned: list[str],
         f"mean CLV {mean_clv:+.2f}%" if mean_clv is not None
         else f"Calibration: {calibration_count} legs logged, CLV logged: ZERO",
     ]
-    if data_flags:
+    problems, notes = split_flags(data_flags)
+    if problems:
         lines.append("DATA FLAGS (surfaced first, per HR53/ID403):")
-        lines.extend(f"  ⚠ {flag}" for flag in data_flags)
+        lines.extend(f"  ⚠ {flag}" for flag in problems)
+    if notes:
+        lines.append("SOURCE NOTES (where the data came from, not problems):")
+        lines.extend(f"  · {flag}" for flag in notes)
     lines.append("HONEST EDGE LINE: this is an excellent informed process but "
                   "NOT a demonstrated profitable edge.")
     return "\n".join(lines)
@@ -1187,8 +1221,7 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
            "KO = kickoff, UK time", ""]
 
     if data_flags:
-        out.append(f"⚠ {len(data_flags)} data flag(s) — full detail in the "
-                   f"saved board / VERIFY RESULTS")
+        out.append(flags_headline(data_flags))
         out.append("")
 
     # --- TABLE 1 · full market grid + AI pick ---
@@ -1633,9 +1666,12 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
         f"Leagues: {', '.join(leagues_scanned)}\n"
         f"Calibration: {calibration_count} legs logged, {clv}",
     ]
-    if data_flags:
+    problems, notes = split_flags(data_flags)
+    if problems:
         parts.append("DATA FLAGS (surfaced first, per HR53/ID403)\n"
-                     + "\n".join(f"⚠ {f}" for f in data_flags))
+                     + "\n".join(f"⚠ {f}" for f in problems))
+    if notes:
+        parts.append(f"{len(notes)} source note(s) — where the data came from, in the saved board")
     parts.append(render_recommended_table(shortlist))
     detail = render_pick_detail(shortlist)
     if detail:

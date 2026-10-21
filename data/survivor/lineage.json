@@ -812,14 +812,9 @@
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-13",
-   "last_result": "WIN",
+   "last_result": "NO_RESULT",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-16",
-    "fixture": "Ein Frankfurt v FC Koln",
-    "pick": "Ein Frankfurt or FC Koln",
-    "price": 1.25
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_08346893fd",
@@ -916,6 +911,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-20",
+ "last_bred_date": "2026-10-21",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

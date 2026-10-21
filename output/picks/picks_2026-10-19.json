@@ -267,8 +267,8 @@
    "sharp_ev": -0.0685,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-2",
    "drift_price": 1.26,
    "drift_pct": 0.8
   },
@@ -321,8 +321,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-1",
    "drift_price": 1.21,
    "drift_pct": 0.0
   },
@@ -375,8 +375,8 @@
    "sharp_ev": -0.0672,
    "first_price": 1.39,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "drift_price": 1.42,
    "drift_pct": 2.2
   },
@@ -625,7 +625,7 @@
     "Trabzonspor v Besiktas Istanbul",
     "Wisla Plock v Radomiak Radom"
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "megas": [],
@@ -1093,7 +1093,7 @@
      0.5837
     ]
    ],
-   "ft": null
+   "ft": "1-2"
   },
   {
    "fixture": "Tottenham v Coventry City",
@@ -1181,7 +1181,7 @@
      0.6146
     ]
    ],
-   "ft": null
+   "ft": "3-1"
   },
   {
    "fixture": "Getafe v Vallecano",
@@ -1265,7 +1265,7 @@
      0.7539
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Celta B v Tenerife",

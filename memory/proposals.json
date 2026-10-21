@@ -16,9 +16,20 @@
   "league": "all",
   "action": "block",
   "text": "stop picking DC & total in any competition",
-  "evidence": "9/16 won (56%; its prices need 82%), -5.02 units over 9 match day(s)",
+  "evidence": "10/17 won (59%; its prices need 82%), -4.77 units over 10 match day(s)",
   "status": "open",
   "opened": "2026-10-18",
+  "decided": null
+ },
+ {
+  "id": "P3",
+  "segment": "Home win to nil",
+  "league": "all",
+  "action": "block",
+  "text": "stop picking Home win to nil in any competition",
+  "evidence": "9/15 won (60%; its prices need 81%), -3.96 units over 9 match day(s)",
+  "status": "open",
+  "opened": "2026-10-21",
   "decided": null
  }
 ]

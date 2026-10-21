@@ -63,9 +63,9 @@
     "total": 232.5
    },
    "code": "URCHF3",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "100-106",
+   "close_value": 0.1236,
    "matchbook": {
     "back": null
    }
@@ -96,9 +96,9 @@
     "total": 232.5
    },
    "code": "LZ05QV",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "104-116",
+   "close_value": 0.1506,
    "matchbook": {
     "back": null
    }

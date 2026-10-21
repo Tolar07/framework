@@ -50,7 +50,14 @@ OVER = {1.5: (0.6793, 0.5080), 2.5: (0.1286, 0.4170),
 
 
 # The fitted defaults, by family name (engine/retrain.py's names).
-DEFAULTS = {"btts": (BTTS_A, BTTS_B), **{f"over_{k}": v for k, v in OVER.items()}}
+# MATCH RESULT + DOUBLE CHANCE (2026-10-21, the Architect's "do what you will do next"):
+# the board's 1.30-1.50 picks, mostly these markets, won 69% where the model said 73%.
+# They start uncalibrated (A=0, B=1: the raw chance, nothing changes); the nightly retrain
+# (engine/retrain.py) adopts a fit only when it beats the raw chance out of sample.
+RESULT_FAMILIES = ("home", "draw", "away", "dc_1x", "dc_x2", "dc_12")
+
+DEFAULTS = {"btts": (BTTS_A, BTTS_B), **{f"over_{k}": v for k, v in OVER.items()},
+            **{f: (0.0, 1.0) for f in RESULT_FAMILIES}}
 
 
 def load_params(path: Optional[Path] = LIVE_PATH) -> dict[str, tuple[float, float]]:
@@ -117,6 +124,19 @@ def goals_key(key: str) -> Optional[tuple[float, bool]]:
     return None
 
 
+_RESULT_KEYS = {"1X2_HOME": "home", "1X2_DRAW": "draw", "1X2_AWAY": "away",
+                "DC_1X": "dc_1x", "DC_X2": "dc_x2", "DC_12": "dc_12",
+                "SB:1||Home": "home", "SB:1||Draw": "draw", "SB:1||Away": "away",
+                "SB:10||Home or Draw": "dc_1x", "SB:10||Draw or Away": "dc_x2",
+                "SB:10||Home or Away": "dc_12"}
+
+
+def result_family(key: str) -> Optional[str]:
+    """'home' / 'draw' / 'away' / 'dc_1x' / 'dc_x2' / 'dc_12' for a full-time result or
+    double-chance key (basic or SportyBet ladder), else None."""
+    return _RESULT_KEYS.get(key or "")
+
+
 def is_btts_key(key: str) -> Optional[bool]:
     """True for a BTTS-yes key, False for BTTS-no, None for any other market."""
     if key == "BTTS_YES":
@@ -135,6 +155,10 @@ def model_prob(key: str, raw: Optional[float]) -> Optional[float]:
     that same outcome (for BTTS-no, the raw no-chance)."""
     if raw is None:
         return None
+    rf = result_family(key)
+    if rf is not None:
+        a, b = PARAMS.get(rf, (0.0, 1.0))
+        return raw if (a, b) == (0.0, 1.0) else _platt(raw, a, b)
     g = goals_key(key)
     if g is not None:
         line, is_over = g

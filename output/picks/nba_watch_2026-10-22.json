@@ -37,6 +37,43 @@
     "back": 1.9,
     "listed": true
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=116.5",
+   "outcome": "Over 116.5",
+   "outcome_id": "12",
+   "price": 1.96,
+   "chance": 0.6069,
+   "fair_price": 1.648,
+   "ev": 0.1895,
+   "source": "watch",
+   "reason": "REPLACES the earlier pick on this game (value gone / no longer offered); new value since the morning board",
+   "found_at": "2026-10-21T22:00:00.000133+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719334",
+   "home_key": "WAS",
+   "away_key": "MIL",
+   "espn_id": "401909835",
+   "espn_date": "2026-10-21",
+   "tip": "2026-10-21T23:00:00+00:00",
+   "home": "Washington Wizards",
+   "away": "Milwaukee Bucks",
+   "pick": "1st half Over 116.5 points",
+   "sharp": {
+    "ml_home": 1.5714,
+    "ml_away": 2.45,
+    "spread": -4.5,
+    "total": 238.5
+   },
+   "code": "P20U6U",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.87,
+    "listed": true
+   }
   }
  ]
 }

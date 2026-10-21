@@ -123,6 +123,13 @@ def _band(lo: float, hi: float) -> Keep:
     return lambda x, _c: x["price"] is not None and lo <= x["price"] < hi
 
 
+def _value_margin(x: dict, _c: dict) -> bool:
+    p, c = x["price"], x["chance"]
+    if not (p and c) or not 1.20 <= p <= 2.00:
+        return False
+    return c * p - 1 >= (0.035 if p <= 1.50 else 0.05)
+
+
 GEMINI_WHY = "the reasoning step runs after the board is built — no verdict exists at selection time"
 UNIVERSE_WHY = "picks from every SportyBet game, not the board's candidates"
 
@@ -143,6 +150,11 @@ def _board_rules() -> list[Strategy]:
                  lambda x, _c: x["family"] != "Double chance", since=w),
         Strategy("S7 drop Gemini vetoes", "singles", "singles the reasoning step did not veto",
                  lambda x, _c: x["verdict"] != "veto", since=w, wireable=False, why_not=GEMINI_WHY),
+        # From the OLP-XDV Cloud v2.0 spec the Architect had reviewed (2026-10-21): a value
+        # gate with a margin, stricter than S4. Shadow only until it earns the slot.
+        Strategy("S8 value margin 1.20-2.00", "singles",
+                 "singles priced 1.20-2.00 with chance x price - 1 at least +3.5% (to 1.50) or +5% (above)",
+                 _value_margin, since="2026-10-21"),
     ]
     slips = []
     for slot, code, label in (("accas", "A", "accas"), ("safe3", "T", "50%+ accas")):

@@ -1235,6 +1235,21 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
 
                 accas = _build_accas(deploy)
                 acca_codes = _book(accas)
+                # POSITIVE-CLV ACCAS (Architect 2026-10-21): extra accas from the
+                # deploy picks whose market family has had positive CLV; the
+                # board's accas and megas are unchanged (engine/clv_accas.py)
+                try:
+                    from engine import clv_accas as _ca
+                    from engine import picks_ledger as _plc
+                    _cstats = _ca.family_clv(_plc.LEDGER_DIR, target)
+                    _cslips = _ca.build(deploy, _cstats)
+                    _ccodes = _book(_cslips)
+                    extra_codes["clv_accas"] = [{**_plc._slip(n, l, c, _ccodes.get(n)),
+                                                 "families": sorted(_ca.positive_families(_cstats))}
+                                                for n, l, c in _cslips]
+                    all_flags.append(_ca.note(_cstats, _cslips))
+                except Exception as _e:  # noqa: BLE001 — an extra, never blocks the board
+                    all_flags.append(f"positive-CLV accas not built ({str(_e)[:80]})")
                 acca_code = acca_codes.get("Acca A")
                 safe3 = _build_safe3(deploy)
                 safe3_codes = _book(safe3)

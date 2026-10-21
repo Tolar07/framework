@@ -552,6 +552,8 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
         _prof_db, _prof_st = _tp.load(), _ls.load()
     except Exception:  # noqa: BLE001 — no profiles: order 43 stands down, never guesses
         _prof_db, _prof_st = {}, {}
+
+    same_result_dropped = 0
     # AUTOMATIC LEARNING (improvement #6, engine.learning): every graded pick
     # corrects the next board. A market family or league whose picks won less
     # often than we said gets its chances cut (and can fall below the 50%
@@ -662,6 +664,10 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                               None if (mk is None or market_only) else mk[0],
                               odds_mod.MarketQuote(price=price, bookmaker="sportybet",
                                                    n_books=1)))
+            # SAME-RESULT PRICE SHOPPING (Architect 2026-10-12): one bet sold
+            # under two names (1X = AH +0.5, DNB = AH 0) keeps only its best price.
+            cands, _dup = fm.best_price_per_result(cands, {k: r for k, _p, r in ladder})
+            same_result_dropped += _dup
         # NO UNDERDOG HANDICAPS (order 38): dropped before anything is chosen,
         # so they never become the pick, the alternative, a value bet or a swap.
         if _lg in NO_DOG_HANDICAP_LEAGUES:
@@ -829,6 +835,9 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
     if dog_hcp_dropped:
         all_flags.append(f"FA Cup underdog handicaps (order 38): {dog_hcp_dropped} outcome(s) "
                          f"not considered")
+    if same_result_dropped:
+        all_flags.append(f"same-result price shopping: {same_result_dropped} outcome(s) dropped "
+                         f"for the same bet at a better price under another market")
     if ladder_fixtures:
         all_flags.append(
             f"full market ladder: {ladder_fixtures} fixture(s) scored on every "

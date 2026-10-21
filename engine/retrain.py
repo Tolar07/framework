@@ -15,8 +15,10 @@ Universe games (data/universe/) carry prices and results but no model chance,
 so they cannot calibrate the model and are not used here.
 
 Families: the ones engine/calibration.py applies and the ledger stores a raw
-chance for — BTTS and match-total Over 1.5 / 2.5 / 3.5. Over 4.5 (no stored raw
-chance) and 1X2 / double chance / handicaps (never calibrated) are unchanged.
+chance for — BTTS and match-total Over 1.5 / 2.5 / 3.5, and from 2026-10-21 the
+full-time result (home / draw / away) and double chance (home+draw, draw+away,
+home+away; their raw chance is the sum of the two outcomes). Over 4.5 (no stored
+raw chance) and handicaps are unchanged.
 
 Method, per family:
   1. rows sorted by kickoff; the newest ~20% (whole days) is the HOLDOUT, the
@@ -51,8 +53,20 @@ PICKS_DIR = ROOT / "output" / "picks"
 LOG_PATH = ROOT / "memory" / "retrain_log.jsonl"
 
 # family -> index into a rated row's "p" (and _outcomes): see picks_ledger.RATED_KEYS
-FAMILIES = {"btts": 6, "over_1.5": 3, "over_2.5": 4, "over_3.5": 5}
-LABEL = {"btts": "BTTS", "over_1.5": "Over 1.5", "over_2.5": "Over 2.5", "over_3.5": "Over 3.5"}
+# a tuple = the sum of those outcomes (double chance: home + draw, ...), 2026-10-21
+FAMILIES = {"btts": 6, "over_1.5": 3, "over_2.5": 4, "over_3.5": 5,
+            "home": 0, "draw": 1, "away": 2, "dc_1x": (0, 1), "dc_x2": (1, 2), "dc_12": (0, 2)}
+LABEL = {"btts": "BTTS", "over_1.5": "Over 1.5", "over_2.5": "Over 2.5", "over_3.5": "Over 3.5",
+         "home": "Home win", "draw": "Draw", "away": "Away win",
+         "dc_1x": "Home or draw", "dc_x2": "Draw or away", "dc_12": "Home or away"}
+
+
+def _x(r: dict, i) -> float:
+    return sum(r["p"][j] for j in i) if isinstance(i, tuple) else r["p"][i]
+
+
+def _y(r: dict, i) -> int:
+    return max(r["y"][j] for j in i) if isinstance(i, tuple) else r["y"][i]
 HOLDOUT_FRAC = 0.20
 MIN_FIT = 200
 MIN_HOLDOUT = 50
@@ -157,8 +171,8 @@ def evaluate(rows: list[dict], live: dict[str, tuple[float, float]]) -> list[dic
                        f"or holdout {len(hold)} < {MIN_HOLDOUT})")
             out.append(rec)
             continue
-        new = fit_platt([r["p"][i] for r in fit], [r["y"][i] for r in fit], old)
-        hx, hy = [r["p"][i] for r in hold], [r["y"][i] for r in hold]
+        new = fit_platt([_x(r, i) for r in fit], [_y(r, i) for r in fit], old)
+        hx, hy = [_x(r, i) for r in hold], [_y(r, i) for r in hold]
         b_old, l_old = scores(hx, hy, old)
         b_new, l_new = scores(hx, hy, new)
         b_raw, l_raw = scores(hx, hy, None)

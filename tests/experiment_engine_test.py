@@ -58,9 +58,11 @@ for slot, d in X.DEFAULT.items():
     assert d in names and next(s for s in X.strategies() if s.name == d).slot == slot
 assert all(not s.wireable for s in X.strategies() if s.universe), "paper rules are never wired"
 assert all(not s.wireable for s in X.strategies() if "Gemini" in s.name), "Gemini runs after the board"
-assert all(s.since == X.WRITTEN for s in X.strategies()
+# a board rule counts from the day it was written: the first set on X.WRITTEN,
+# later ones (S8, 2026-10-21) on their own day, never earlier
+assert all(s.since and s.since >= X.WRITTEN for s in X.strategies()
            if not s.universe and s.name not in X.DEFAULT.values() and s.extra.get("kind") != "killer"), \
-    "board rules written today count from today"
+    "board rules count from the day they were written"
 assert (X.MIN_BETS, X.Z_BAR, X.COOLDOWN_DAYS) == (100, 1.645, 7)
 
 # ── the promotion test ───────────────────────────────────────────────────────

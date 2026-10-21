@@ -53,7 +53,7 @@ with tempfile.TemporaryDirectory() as d:
             [("SB:16|hcp=-1|Home", "Serie A", 0.70, "lost")] * 42 +
             [("DC_1X", "La Liga", 0.60, "won")] * 54 +
             [("DC_1X", "La Liga", 0.60, "lost")] * 6 +
-            [("DC_X2", "La Liga", 0.60, "void")] * 5)          # voids ignored
+            [("DC_X2", "La Liga", 0.60, "void")] * 5)          # voids: did not win
     # One match day only: no correction yet, however lopsided (MIN_DAYS).
     ledger(d, rows)
     m1 = lr.learn(Path(d), today="2026-10-05")
@@ -65,7 +65,7 @@ with tempfile.TemporaryDirectory() as d:
     hc = m["family"]["Asian handicap"]
     assert hc["n"] == 60 and hc["wins"] == 18 and hc["z"] <= -lr.Z_MIN
     assert abs(hc["shift"] - (18 - 42) / (60 + lr.SHRINK)) < 1e-4, hc
-    assert m["family"]["Double chance"]["n"] == 60, "voids are not results"
+    assert m["family"]["Double chance"]["n"] == 65, "a void counts as a pick that did not win"
     s_hc = lr.shift(m, "SB:16|hcp=0|Away", "Serie A")
     s_dc = lr.shift(m, "SB:10||Draw or Away", "La Liga")
     assert s_hc < 0 < s_dc, (s_hc, s_dc)
@@ -120,3 +120,17 @@ with tempfile.TemporaryDirectory() as d:
 print("learned shifts + cap + window: OK")
 
 print("\n✅ ALL LEARNING TESTS PASSED")
+
+
+# DRAW NO BET (2026-10-21): the stated chance is the OUTRIGHT win chance, the
+# push sits in the rest. 100 picks at 50% with a 30% push chance that land
+# exactly as stated (50 won, 30 void, 20 lost) are perfectly calibrated:
+# no correction. Dropping the voids read them as 50/70 won vs 35 expected.
+with tempfile.TemporaryDirectory() as d:
+    dnb = ([("SB:11||Home", "Serie A", 0.50, "won")] * 50 + [("SB:11||Home", "Serie A", 0.50, "void")] * 30
+           + [("SB:11||Home", "Serie A", 0.50, "lost")] * 20)
+    spread(d, dnb, lr.MIN_DAYS)
+    seg = lr.learn(Path(d), today="2026-10-05")["family"]["Draw no bet"]
+    assert seg["n"] == 100 and seg["wins"] == 50 and abs(seg["expected"] - 50) < 1e-6, seg
+    assert seg["shift"] == 0.0, seg
+print("draw no bet voids: OK")

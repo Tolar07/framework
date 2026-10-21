@@ -25,8 +25,13 @@ shift (`chance_raw`) — all 2026-10-05.
 
 The shifted chance is what ranks the candidates and what must clear the 50%
 floor, so a market family that keeps losing drops off the board on its own
-and one that keeps winning rises. Results are never guessed (HR35): only
-won/lost singles count; voids and ungraded picks are ignored.
+and one that keeps winning rises. Results are never guessed (HR35): ungraded
+picks are ignored. A VOID (stake back: a draw-no-bet draw, an Asian or goals
+whole-line push) counts as a pick that did NOT win, with no profit or loss:
+the stated chance is the chance of winning outright, push included in the
+rest (run_daily: EV = win x price + push - 1). Dropping voids compared wins
+among the non-voids with that outright chance and read Draw no bet as
++18.8pp (127/173 vs 88.9 expected, 21 Oct board), lifting it by the full cap.
 """
 from __future__ import annotations
 
@@ -117,13 +122,15 @@ def learn(ledger_dir, today: Optional[str] = None) -> dict:
         if not (since <= doc["date"] < today):
             continue
         for s in doc["singles"]:
-            if s.get("result") not in ("won", "lost") or s.get("chance") is None:
+            if s.get("result") not in ("won", "lost", "void") or s.get("chance") is None:
                 continue
             # Learn from the chance BEFORE any learned correction (2026-10-05):
             # learning from already-shifted chances re-measured its own shift.
             c = s.get("chance_raw", s["chance"])
             picks.append((family(s.get("market")), s.get("league") or "?",
-                          (s["result"] == "won", float(c), s.get("price"),
+                          # a void has no price here: no profit or loss in the ROI
+                          (s["result"] == "won", float(c),
+                           s.get("price") if s["result"] != "void" else None,
                            (s.get("kickoff") or doc["date"])[:10])))
         rated_rows += _rated_rows(doc)
     fam: dict = {}
@@ -182,7 +189,7 @@ def _rated_rows(doc: dict) -> list:
             if (r.get("fixture"), f) in picked or chance is None:
                 continue
             res = _settle(key, hg, ag)
-            if res in ("won", "lost"):
+            if res in ("won", "lost", "void"):        # a void is "did not win" (see top)
                 out.append((f, (res == "won", float(chance), None, day)))
     return out
 

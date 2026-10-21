@@ -184,6 +184,8 @@ def write_ledger(target: str, board: list, accas: list, safe3: list, megas: list
                             and bf.best_market_key],
         **{f"{slot}_dropped": [_slip(n, l, c, None) for n, l, c in _engine_dropped(slot)]
            for slot in ("accas", "safe3")},
+        # POSITIVE-CLV ACCAS (engine/clv_accas.py, Architect 2026-10-21), graded like the accas
+        "clv_accas": list((combined or {}).get("clv_accas") or []),
         "combined": [{"name": n, "of": kind, "code": (combined or {}).get(key), "result": None}
                      for n, kind, key in (("ACCAS MEGA", "accas", "accas_mega"),
                                           ("ALT MEGA", "alts", "alts_mega"),
@@ -321,7 +323,7 @@ def grade_all(events: list[dict], today: Optional[str] = None) -> list[str]:
                 cmb["result"] = new
                 changed += 1
         for kind in ("accas", "safe3", "megas", "alts", "replaced", "value", "btts",
-                     "accas_dropped", "safe3_dropped"):
+                     "accas_dropped", "safe3_dropped", "clv_accas"):
             for slip in doc.get(kind, []):
                 if kind in ("alts", "replaced", "value", "btts"):
                     legs = slip.get("alt_legs", [])

@@ -1,6 +1,42 @@
 {
- "updated": "2026-10-20",
- "days": 0,
- "sections": {},
+ "updated": "2026-10-21",
+ "days": 1,
+ "sections": {
+  "accas": {
+   "placed": 2,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "all": {
+   "placed": 5,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "alts": {
+   "placed": 1,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "board": {
+   "placed": 1,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "combined": {
+   "placed": 1,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  }
+ },
  "skipped": {}
 }

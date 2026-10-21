@@ -186,6 +186,17 @@ def main(argv: list[str] | None = None) -> int:
         sent, notes = notify.send_architect(text)    # Architect only (order 33)
         print("review sent" if sent else "review NOT sent")
         print("\n".join(notes))
+    # CLV scorecard (Architect 2026-10-21): the headline measure, with margins of error. Also
+    # written to output/scorecard/latest.txt by weekly.yml for the PC's WhatsApp mirror.
+    try:
+        from scripts import clv_scorecard
+        card = clv_scorecard.scorecard()
+        print(card)
+        if not a.no_send:
+            from output import notify
+            notify.send_architect(card)
+    except Exception as e:  # noqa: BLE001
+        print(f"CLV scorecard unavailable ({e})")
     return 0
 
 

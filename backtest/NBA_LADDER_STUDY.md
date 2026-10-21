@@ -4,22 +4,22 @@ Written by `backtest/nba_ladder_study.py` from every saved SportyBet NBA ladder 
 
 OPEN LINES ONLY: 40 older snapshots were dropped — they mixed in closed lines (SportyBet status 2: listed with stale prices, not bettable), which faked a too-wide ladder.
 
-987 looks at 67 games, 2026-10-07 to 2026-10-21. Regular season and preseason are measured apart (preseason rests starters).
+998 looks at 67 games, 2026-10-07 to 2026-10-21. Regular season and preseason are measured apart (preseason rests starters).
 
-## Regular — 70 looks at 14 games
+## Regular — 81 looks at 14 games
 
 | Market | ladders | implied sd (median) | measured sd | ladder is | value per side in band: median · best |
 |---|---|---|---|---|---|
-| Full-game total | 70 | 18.45 | 18.0 | about right | -4.3% · +2.3% |
-| Home points | 68 | 11.52 | 11.3 | about right | -4.7% · +3.4% |
-| Away points | 68 | 11.63 | 11.3 | about right | -4.8% · +1.9% |
+| Full-game total | 81 | 18.47 | 18.0 | about right | -4.3% · +2.3% |
+| Home points | 79 | 11.53 | 11.3 | about right | -4.7% · +3.4% |
+| Away points | 79 | 11.63 | 11.3 | about right | -4.8% · +1.9% |
 | Regulation total | 0 | — | 17.2 | PENDING | -3.9% · +1.6% |
-| Full-game handicap | 70 | 15.25 | 13.7 | WIDER by 1.5 | -3.0% · +5.6% |
-| 1st-half handicap | 68 | 11.70 | 11.0 | WIDER by 0.7 | -5.7% · +1.0% |
-| 1st-quarter handicap | 68 | 8.82 | 8.3 | WIDER by 0.5 | -5.9% · -1.8% |
-| 2nd-quarter handicap | 68 | 8.85 | 8.2 | WIDER by 0.7 | -6.1% · +1.0% |
-| 3rd-quarter handicap | 68 | 8.79 | 8.5 | about right | -5.8% · +0.9% |
-| 4th-quarter handicap | 68 | 8.37 | — | PENDING | — |
+| Full-game handicap | 81 | 15.14 | 13.7 | WIDER by 1.4 | -3.0% · +5.6% |
+| 1st-half handicap | 79 | 11.70 | 11.0 | WIDER by 0.7 | -5.4% · +1.0% |
+| 1st-quarter handicap | 79 | 8.82 | 8.3 | WIDER by 0.5 | -5.7% · -1.8% |
+| 2nd-quarter handicap | 79 | 8.85 | 8.2 | WIDER by 0.7 | -6.1% · +1.0% |
+| 3rd-quarter handicap | 79 | 8.81 | 8.5 | about right | -5.8% · +0.9% |
+| 4th-quarter handicap | 79 | 8.37 | — | PENDING | — |
 
 ## Preseason — 917 looks at 53 games
 

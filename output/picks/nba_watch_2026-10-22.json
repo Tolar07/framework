@@ -1,0 +1,42 @@
+{
+ "date": "2026-10-22",
+ "picks": [
+  {
+   "market_id": "68",
+   "specifier": "total=106.5",
+   "outcome": "Over 106.5",
+   "outcome_id": "12",
+   "price": 1.91,
+   "chance": 0.6217,
+   "fair_price": 1.608,
+   "ev": 0.1875,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-10-21T20:03:42.364624+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719336",
+   "home_key": "BKN",
+   "away_key": "CHA",
+   "espn_id": "401909836",
+   "espn_date": "2026-10-21",
+   "tip": "2026-10-21T23:30:00+00:00",
+   "home": "Brooklyn Nets",
+   "away": "Charlotte Hornets",
+   "pick": "1st half Over 106.5 points",
+   "sharp": {
+    "ml_home": 1.9804,
+    "ml_away": 1.8475,
+    "spread": 1.5,
+    "total": 219.5
+   },
+   "code": "ZTBKJE",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.9,
+    "listed": true
+   }
+  }
+ ]
+}

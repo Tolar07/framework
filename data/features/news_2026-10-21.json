@@ -1,0 +1,71 @@
+{
+ "Como 1907 v Man Utd": {
+  "absent": [
+   {
+    "name": "Moise Kean",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Assane Diao",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kobbie Mainoo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Benjamin \u0160e\u0161ko",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Patrick Dorgu",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-21T11:00Z",
+  "away_missing_share": 0.3797018598790451,
+  "away_unavailable": 7,
+  "fotmob_id": 6106410,
+  "home_missing_share": 0.17675745000421703,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-21T16:45:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Lille v Galatasaray Istanbul": {
+  "absent": [
+   {
+    "name": "Hamza Igamane",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ayase Ueda",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tiago Santos",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rafael Le\u00e3o",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-21T11:00Z",
+  "away_missing_share": 0.16327561110399655,
+  "away_unavailable": 1,
+  "fotmob_id": 6106312,
+  "home_missing_share": 0.336386851729693,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-21T16:45:00.000Z",
+  "lineup_type": "predicted"
+ }
+}

@@ -65,6 +65,24 @@ recoverable (no artifact); the codes are in the Architect's Telegram.
 
 **2026-10-20 — research harness (autonomy plan item 4).** `memory/hypotheses.jsonl` holds ideas as declarative tests (bet rule on the graded universe, or a feature against the model); `research/runner.py` tests each walk-forward (`engine/walkforward.py`: earlier half vs later half, CLV against the last price) and writes `research/RESULTS.md`. An ACCEPTED bet rule goes to `memory/strategy_queue.jsonl` as a SHADOW strategy for the experiment engine (not merged yet; it will read the queue) — paper only. Seeded with 3: H001 SportyBet 1X2 3%+ above Matchbook fair — accepted as shadow (199 bets, +19.4% ± 14.1%: under 2 se, so it is a paper test, not evidence of an edge; it overlaps the parallel sharp list); H002 short home favourites 1.20-1.50 — inconclusive (422 bets, −1.9% ± 3.0%); H003 SportyBet Over 2.5 close as a model feature — inconclusive. `research/WEEKLY_BRIEF.md` is the prompt for a weekly scheduled research session (read-mostly: may change only the hypotheses, results, queue and its notes; one PR; one Telegram line via `research_note.yml`).
 
+## 2026-10-12 — P1 approved, same-result price shopping, paper-book finding
+
+- **P1 rejected** by the Architect ("I would rather you not block it and learn
+  from it"): underdog Asian handicaps in the FA Cup stay a learning segment,
+  not an order-39 block (`memory/proposals.json`). Order 38 is unchanged.
+- **Same-result price shopping** (`engine/full_markets.best_price_per_result`,
+  `run_daily.py`, `tests/same_result_test.py`): ladder outcomes that settle
+  the same on every scoreline (1X = AH +0.5, DNB = AH 0) keep only the best
+  SportyBet price. Counted in the run flags.
+- **Paper-book finding (not built, needs the Architect):** F8 safe DC and
+  F9 draw-proof lose over 1,174 / 1,363 paper bets (−3.7% / −5.1%), but they
+  WON MORE often than the margin-free price said (76.1% vs 72.9%, 74.9% vs
+  72.8%). The chances are right; SportyBet's margin on short double chances
+  is what loses. Marking those chances down would be wrong. The fix would be
+  choosing on value (chance × price) before chance for short DC legs — a
+  selection-rule change. Only F7 BTTS-no shows a real chance error (47.2%
+  won vs 51.2% fair, 2.1 se).
+
 ## Open items (2026-10-03)
 
 | # | Item | Status |

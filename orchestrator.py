@@ -200,6 +200,7 @@ def scan_one_league(league: str, season: str,
         # fallback for whoever runs this on a paid plan.
         errors: list[str] = []
         upcoming_fixtures = []
+        odds_answered = False
         try:
             fixtures, fx_skipped = tsdb.fetch_upcoming(league, fx_season)
             upcoming_fixtures = tsdb.as_pairs(fixtures)
@@ -223,6 +224,7 @@ def scan_one_league(league: str, season: str,
             try:
                 import pipeline.odds as _odds
                 pairs, dates, oflags = _odds.fixtures_from_odds(league)
+                odds_answered = True     # SportyBet answered: an empty list means no games on offer
                 if pairs:
                     upcoming_fixtures = pairs
                     fixture_dates.update(dates)
@@ -237,7 +239,11 @@ def scan_one_league(league: str, season: str,
                 except Exception as e3:
                     errors.append(f"api-football: {e3}")
 
-        if not upcoming_fixtures:
+        if not upcoming_fixtures and odds_answered:
+            # The book itself lists no games (a cup between rounds, an international
+            # break over): nothing is missing, so this is a note, not a problem.
+            flags.append(f"{league}: no fixtures on offer in the window (SportyBet lists none)")
+        elif not upcoming_fixtures:
             detail = " | ".join(errors) if errors else "no fixtures in window"
             flags.append(f"{league}: no upcoming fixtures ({detail}) — NO DATA — PENDING")
 

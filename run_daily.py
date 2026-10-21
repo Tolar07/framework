@@ -164,7 +164,9 @@ def grade_open_legs(log: CLVLog, season: str,
                 continue  # that season simply isn't published yet
         if table:
             results_by_league[lg] = table
-        else:
+        elif not fs_events:
+            # Only a problem without Flashscore too: with it, the fallback below
+            # grades these legs (cups, European ties) by their match date.
             flags.append(f"{lg}: no results available for grading — "
                          f"legs stay PENDING, not guessed")
 

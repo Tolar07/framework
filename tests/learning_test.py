@@ -12,6 +12,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from engine import learning as lr
 
+# These cases test learning from the picks ledger alone. The live Matchbook summary
+# (order 44, data/matchbook/summary.json) moves every day; on 2026-10-21 its Double
+# chance group reached MB_MIN_N and its +0.06pp shift broke the "no correction" checks.
+_live_matchbook_shifts = lr.matchbook_shifts
+lr.matchbook_shifts = lambda *_a, **_k: {}
+
 # Market families group equivalent keys from both key styles.
 assert lr.family("SB:16|hcp=-1|Home") == "Asian handicap"
 assert lr.family("SB:10||Home or Draw") == lr.family("DC_1X") == "Double chance"

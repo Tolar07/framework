@@ -12,7 +12,8 @@ missed morning board — a board already sent is never sent twice.
      sharp lines for every game of the NBA NIGHT: 10:00 UTC to 10:00 UTC the
      next day (every US game day, matinees and the late West Coast games);
   3. list only prices ABOVE the fair price (engine/nba_value.py), one per
-     game, each with its own SportyBet booking code, + one code for them all;
+     game, each with its own SportyBet booking code, + the night's picks split
+     over two accas (one acca under 4 picks; Architect 2026-10-21);
   4. send it to the Architect's chat, then every subscriber chat as the football
      board goes (Architect 2026-10-20: "The way we are treating football, that's how
      NBA should be treated too"), as a LIVE TEST: the Architect places a pick by hand
@@ -193,20 +194,57 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
     return picks, notes, scanned, study
 
 
-def book(picks: list[dict]) -> Optional[str]:
-    """Own code per pick; returns one code for all picks (2+), or None."""
+# The Architect, 2026-10-21, on the 10-leg "all picks on one slip" code: "do an ACC for
+# 11 fixtures, split it into two, and book it". From ACCA_SPLIT_MIN picks the night's picks
+# go on two accas in tip-off order (the first half one slip, the rest the other); fewer go
+# on one acca. The one-slip mega is no longer booked.
+ACCA_SPLIT_MIN = 4
+
+
+def split_accas(picks: list[dict]) -> list[list[dict]]:
+    ordered = sorted(picks, key=lambda p: p["tip"])
+    if len(ordered) < 2:
+        return []
+    if len(ordered) < ACCA_SPLIT_MIN:
+        return [ordered]
+    half = (len(ordered) + 1) // 2
+    return [ordered[:half], ordered[half:]]
+
+
+def _sel(p: dict) -> dict:
+    return {"eventId": p["event_id"], "marketId": p["market_id"],
+            "specifier": p["specifier"], "outcomeId": p["outcome_id"]}
+
+
+def book(picks: list[dict]) -> list[dict]:
+    """Own code per pick; returns the night's accas [{name, code, legs, odds}]."""
     from pipeline.sportybet_booking import create_booking_code
-    sels = []
     for p in picks:
-        sel = {"eventId": p["event_id"], "marketId": p["market_id"],
-               "specifier": p["specifier"], "outcomeId": p["outcome_id"]}
-        code, _url, _ = create_booking_code([sel])
+        code, _url, _ = create_booking_code([_sel(p)])
         p["code"] = code
-        sels.append(sel)
-    if len(sels) > 1:
-        code, _url, _ = create_booking_code(sels)
-        return code
-    return None
+    accas = []
+    for i, group in enumerate(split_accas(picks)):
+        code, _url, _ = create_booking_code([_sel(p) for p in group])
+        odds = 1.0
+        for p in group:
+            odds *= p["price"]
+        accas.append({"name": f"NBA acca {'AB'[i]}", "code": code, "legs": [p["event_id"] for p in group],
+                      "odds": round(odds, 2), "result": None})
+    return accas
+
+
+def grade_accas(doc: dict) -> bool:
+    """An acca is won when every leg won, lost as soon as one leg lost. True if any changed."""
+    res = {p["event_id"]: p.get("result") for p in doc.get("picks", [])}
+    changed = False
+    for a in doc.get("accas") or []:
+        if a.get("result"):
+            continue
+        legs = [res.get(e) for e in a["legs"]]
+        r = "lost" if "lost" in legs else "won" if legs and all(x == "won" for x in legs) else None
+        if r:
+            a["result"], changed = r, True
+    return changed
 
 
 def espn_days(p: dict) -> list:
@@ -237,6 +275,7 @@ def grade(now: datetime) -> list[str]:
             pc = nv.fair_chance(p["market_id"], p["specifier"], p["outcome"], g)
             p["close_value"] = round(pc * p["price"] - 1, 4) if pc else None
             changed = True
+        changed = grade_accas(doc) or changed
         if changed:
             path.write_text(json.dumps(doc, indent=1), encoding="utf-8")
             notes.append(f"graded {path.name}")
@@ -268,7 +307,8 @@ def scorecard() -> str:
 
 
 def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
-           mega: Optional[str], notes: list[str], study: list[dict] | None = None) -> str:
+           mega: Optional[str], notes: list[str], study: list[dict] | None = None,
+           accas: list[dict] | None = None) -> str:
     L = ["##########OLP XDV · NBA #########", "🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)",
          "==================================", "",
          f"📅  {datetime.fromisoformat(board_date):%a %d %b %Y}   ·   tip-off = UK time",
@@ -290,6 +330,10 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
         L.append("")
     if mega:
         L += [f"All {len(picks)} picks on one slip: {mega}", ""]
+    for a in accas or []:
+        L += [f"{a['name']} ({len(a['legs'])} picks, odds {a['odds']:.2f}): {a['code'] or 'PENDING'}"]
+    if accas:
+        L.append("")
     if study:
         L += [_RULE, "STUDY LINES — not picks, nothing booked (order 41)", _RULE,
               "Each market's SportyBet line closest to the fair price, value or not:",
@@ -348,13 +392,14 @@ def main() -> int:
         print(f"  NBA board for {board_date} already built — resending it (use --rebuild to replace)")
     else:
         run_id = _run_id(now)
-        mega = book(picks) if picks else None
-        text = render(picks, board_date, run_id, scanned, mega, notes, study)
+        accas = book(picks) if picks else []
+        text = render(picks, board_date, run_id, scanned, None, notes, study, accas)
         LEDGER_DIR.mkdir(parents=True, exist_ok=True)
         BOARD_DIR.mkdir(parents=True, exist_ok=True)
         ledger.write_text(json.dumps({"date": board_date, "run_id": run_id,
                                       "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                                      "mega_code": mega, "picks": picks, "picks_dropped": dropped,
+                                      "mega_code": None, "accas": accas, "picks": picks,
+                                      "picks_dropped": dropped,
                                       "study": study}, indent=1),
                           encoding="utf-8")
         text_path.write_text(text, encoding="utf-8")

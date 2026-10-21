@@ -12,7 +12,7 @@
     "type": "injury"
    },
    {
-    "name": "Ian Maatsen",
+    "name": "Matteo Ruggeri",
     "side": "home",
     "type": "injury"
    },
@@ -32,14 +32,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-21T17:40Z",
-  "away_missing_share": 0.09826162384969112,
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.13051225355875362,
   "away_unavailable": 5,
   "fotmob_id": 6106285,
-  "home_missing_share": 0.41917715614384077,
-  "home_unavailable": 7,
+  "home_missing_share": 0.38013549039896727,
+  "home_unavailable": 5,
   "kickoff_utc": "2026-10-21T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Bayern Munich v Arsenal": {
   "absent": [
@@ -64,14 +64,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-21T17:40Z",
-  "away_missing_share": 0.24374084866848475,
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.24085279379172655,
   "away_unavailable": 3,
   "fotmob_id": 6106238,
-  "home_missing_share": 0.20240772416812086,
+  "home_missing_share": 0.23500800626744145,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-21T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Club Brugge v Lens": {
   "absent": [
@@ -96,14 +96,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-21T17:40Z",
-  "away_missing_share": 0.13627563418235145,
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.15529456084010929,
   "away_unavailable": 5,
   "fotmob_id": 6106297,
-  "home_missing_share": 0.25870273147431355,
+  "home_missing_share": 0.2545504384575578,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-21T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Como 1907 v Man Utd": {
   "absent": [
@@ -181,7 +181,7 @@
  },
  "Reading v Leyton Orient": {
   "absent": [],
-  "at": "2026-10-21T17:40Z",
+  "at": "2026-10-21T18:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837230,
@@ -218,14 +218,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-21T17:40Z",
-  "away_missing_share": 0.1378993884238973,
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.13609944872006796,
   "away_unavailable": 2,
   "fotmob_id": 6106244,
-  "home_missing_share": 0.07709158590419211,
+  "home_missing_share": 0.0766093095208481,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-21T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Sporting v LASK Linz": {
   "absent": [
@@ -260,13 +260,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-21T17:40Z",
-  "away_missing_share": 0.258110205546944,
+  "at": "2026-10-21T18:00Z",
+  "away_missing_share": 0.27048790550108465,
   "away_unavailable": 3,
   "fotmob_id": 6106281,
-  "home_missing_share": 0.22523484187959994,
+  "home_missing_share": 0.22348670050676003,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-21T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  }
 }

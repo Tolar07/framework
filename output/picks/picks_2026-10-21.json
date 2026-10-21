@@ -178,7 +178,11 @@
     "home": 245309324,
     "away": 22685173
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Viking missing 13% of value (Martin Roseth, Anders B\u00e6rtelsen, Nicholas D'Agostino); Viking rotated: confirmed XI worth 73% of predicted; support: Aston Villa missing 38%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74165962",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -322,7 +326,11 @@
     "home": 119448796,
     "away": 106810076
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74165964",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -416,7 +424,11 @@
     "home": 836936363,
     "away": 274951205
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74165970",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -466,7 +478,11 @@
     "home": 233908320,
     "away": 20518656
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74165974",
    "sb_tid": "sr:tournament:7",
    "sb_market": {

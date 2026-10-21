@@ -1470,5 +1470,35 @@
    ]
   }
  ],
- "sent_at": "2026-10-21T05:51:03Z"
+ "sent_at": "2026-10-21T05:51:03Z",
+ "accas": [
+  {
+   "name": "NBA acca A",
+   "code": "RW2ZME",
+   "legs": [
+    "sr:match:73719332",
+    "sr:match:73719334",
+    "sr:match:73682416",
+    "sr:match:73719338",
+    "sr:match:73719340"
+   ],
+   "odds": 25.67,
+   "result": null,
+   "booked_at": "2026-10-21T12:25Z (by hand: the 10-pick LRPFTC split in two, Architect 2026-10-21)"
+  },
+  {
+   "name": "NBA acca B",
+   "code": "JCALSC",
+   "legs": [
+    "sr:match:73719342",
+    "sr:match:73719344",
+    "sr:match:73682476",
+    "sr:match:73719346",
+    "sr:match:73719348"
+   ],
+   "odds": 26.27,
+   "result": null,
+   "booked_at": "2026-10-21T12:25Z (by hand: the 10-pick LRPFTC split in two, Architect 2026-10-21)"
+  }
+ ]
 }

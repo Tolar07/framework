@@ -7,9 +7,14 @@ name: OLP XDV nightly retrain
 # Chances only: stakes, gates and leagues are untouched.
 #
 # 03:31 UTC: clear of daily.yml (20:47 / 05:47) and off the hour (GitHub drops :00 ticks).
+# 04:43 and 05:13 UTC are backups (Architect 2026-10-21): GitHub dropped the 03:31 tick
+# on 21 Oct. A scheduled run skips when the retrain already ran that UTC day, so the
+# backups only run when the 03:31 one never started; all still land before the 05:47 board.
 on:
   schedule:
     - cron: "31 3 * * *"
+    - cron: "43 4 * * *"
+    - cron: "13 5 * * *"
   workflow_dispatch:
 
 permissions:
@@ -26,19 +31,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Already ran today?
+        id: once
+        if: github.event_name == 'schedule'
+        run: |
+          if grep -q "\"at\": \"$(date -u +%Y-%m-%d)T" memory/retrain_log.jsonl 2>/dev/null; then
+            echo "retrain already ran today (UTC): this backup run does nothing"
+            echo "skip=1" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-python@v5
+        if: steps.once.outputs.skip != '1'
         with:
           python-version: "3.12"
 
       - name: Install
+        if: steps.once.outputs.skip != '1'
         run: pip install -q -r requirements.txt
 
       - name: Refit and gate
+        if: steps.once.outputs.skip != '1'
         env:
           PYTHONIOENCODING: utf-8
         run: python monitor/retrain_run.py --message-file "$RUNNER_TEMP/retrain_msg.txt"
 
       - name: Save
+        if: steps.once.outputs.skip != '1'
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
@@ -56,6 +74,7 @@ jobs:
           exit 1
 
       - name: Tell the Architect
+        if: steps.once.outputs.skip != '1'
         env:
           PYTHONIOENCODING: utf-8
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

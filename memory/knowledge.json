@@ -1075,9 +1075,7 @@
  "learning": {
   "family:Double chance": 0.0575,
   "family:Away win to nil": -0.0733,
-  "family:Away no bet": 0.1342,
-  "family:Odd/Even": -0.0589,
-  "family:Draw no bet": 0.1858
+  "family:Odd/Even": -0.0589
  },
  "blocks_in_force": [],
  "history": [
@@ -1292,9 +1290,7 @@
    "corrections": {
     "family:Double chance": 0.0575,
     "family:Away win to nil": -0.0733,
-    "family:Away no bet": 0.1342,
-    "family:Odd/Even": -0.0589,
-    "family:Draw no bet": 0.1858
+    "family:Odd/Even": -0.0589
    },
    "flags": [
     "Double chance · Serie B · -5.06u (3/9)",

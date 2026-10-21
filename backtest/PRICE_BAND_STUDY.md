@@ -1,8 +1,8 @@
 # PRICE BAND STUDY — the board's record by the price it took
 
-Generated 2026-10-21 05:51Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
+Generated 2026-10-21 20:53Z from `output/picks/picks_*.json` (graded board singles only; study picks and the parallel sharp list are reported separately below).
 
-**All 625 graded board singles**: stated 79.1%, landed 78.2% (calibration error -0.8 points) at an average price of 1.248, which needs 80.1% to break even. Return -2.5% ± 2.1.
+**All 628 graded board singles**: stated 79.1%, landed 78.3% (calibration error -0.7 points) at an average price of 1.248, which needs 80.1% to break even. Return -2.3% ± 2.1.
 
 The prediction is not the problem. The price is.
 
@@ -11,8 +11,8 @@ The prediction is not the problem. The price is.
 | band | n | landed | stated | break-even | return / unit | reading |
 |---|---|---|---|---|---|---|
 | 1.00–1.25 | 350 | 78.0% | 79.8% | 82.1% | -5.1% ± 2.7 | no edge either way |
-| 1.25–1.30 | 192 | 82.3% | 79.0% | 79.0% | +4.2% ± 3.5 | no edge either way |
-| 1.30–1.50 | 81 | 69.1% | 76.6% | 75.6% | -8.8% ± 6.8 | no edge either way |
+| 1.25–1.30 | 194 | 82.5% | 79.0% | 78.9% | +4.5% ± 3.5 | no edge either way |
+| 1.30–1.50 | 82 | 69.5% | 76.6% | 75.6% | -8.2% ± 6.8 | no edge either way |
 | 1.50–2.00 | 2 | 100.0% | 58.8% | 57.0% | +75.5% ± 15.5 | ahead |
 | 2.00+ | 0 | PENDING | PENDING | PENDING | PENDING | no graded pick |
 
@@ -22,8 +22,8 @@ The prediction is not the problem. The price is.
 |---|---|---|---|---|---|---|
 | BANKER | 2 | 100.0% | 75.1% | 78.7% | +27.0% ± 1.0 | ahead |
 | BOOK | 16 | 75.0% | 78.1% | 79.6% | -7.3% ± 13.8 | no edge either way |
-| MARKET | 140 | 81.4% | 79.8% | 80.7% | +1.0% ± 4.1 | no edge either way |
-| SAFE | 464 | 77.2% | 79.0% | 80.2% | -3.9% ± 2.4 | no edge either way |
+| MARKET | 142 | 81.7% | 79.9% | 80.7% | +1.4% ± 4.0 | no edge either way |
+| SAFE | 465 | 77.2% | 79.0% | 80.1% | -3.8% ± 2.4 | no edge either way |
 | VALUE | 3 | 100.0% | 57.2% | 60.2% | +66.0% ± 13.1 | ahead |
 
 ## The other two populations

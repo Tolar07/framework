@@ -115,5 +115,5 @@ def load_results(league: str, cache_dir: Optional[str | Path] = None
     flags.append(f"{league}: national-team history via martj42/international_results "
                  f"— {len(results)} UEFA home-venue matches since {HISTORY_SINCE}, "
                  f"{len(uefa)} UEFA teams, latest result {latest or 'none'}; no odds "
-                 f"in this source, so legs settle but CLV stays NO DATA")
+                 f"in this source, so a leg's CLV comes from its SportyBet closing capture")
     return results, skipped, flags

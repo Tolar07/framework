@@ -144,14 +144,6 @@ def split_flags(flags: list[str]) -> tuple[list[str], list[str]]:
     return problems, notes
 
 
-def flags_headline(flags: list[str]) -> str:
-    problems, notes = split_flags(flags)
-    if problems:
-        return (f"⚠ {len(problems)} data problem(s) · {len(notes)} source note(s) — full detail "
-                f"in the saved board / VERIFY RESULTS")
-    return f"✓ No data problems · {len(notes)} source note(s) in the saved board"
-
-
 def render_part0(mode: str, phase: str, leagues_scanned: list[str],
                   calibration_count: int, mean_clv: Optional[float],
                   data_flags: list[str]) -> str:
@@ -1220,9 +1212,9 @@ def render_canonical_board(mode: str, phase: str, leagues_scanned: list[str],
            f"Fixtures scanned: {len(board)} · Verified: {verified}",
            "KO = kickoff, UK time", ""]
 
-    if data_flags:
-        out.append(flags_headline(data_flags))
-        out.append("")
+    # No flag line on the board the Architect reads (2026-10-21: "I don't want to see the
+    # data flag again ... fix all these issues before it gets to me"). Problems stay in the
+    # saved board's PART 0, where the nightly data-fix task reads and fixes them.
 
     # --- TABLE 1 · full market grid + AI pick ---
     out += [_CANON_RULE, "TABLE 1 · LAYER 2 — FULL MARKET GRID + AI PICK",
@@ -1666,12 +1658,7 @@ def render_telegram_board(mode: str, phase: str, leagues_scanned: list[str],
         f"Leagues: {', '.join(leagues_scanned)}\n"
         f"Calibration: {calibration_count} legs logged, {clv}",
     ]
-    problems, notes = split_flags(data_flags)
-    if problems:
-        parts.append("DATA FLAGS (surfaced first, per HR53/ID403)\n"
-                     + "\n".join(f"⚠ {f}" for f in problems))
-    if notes:
-        parts.append(f"{len(notes)} source note(s) — where the data came from, in the saved board")
+    # data flags stay off the Architect's message (2026-10-21); see render_canonical_board
     parts.append(render_recommended_table(shortlist))
     detail = render_pick_detail(shortlist)
     if detail:

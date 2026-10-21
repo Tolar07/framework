@@ -70,7 +70,11 @@
     "home": 309781880,
     "away": 438235985
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:74165958",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -120,7 +124,11 @@
     "home": 130432431,
     "away": 223590881
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:74165960",
    "sb_tid": "sr:tournament:7",
    "sb_market": {
@@ -192,7 +200,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Bayern Munich v Arsenal",
@@ -240,7 +250,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Betis v Feyenoord",
@@ -282,7 +294,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Club Brugge v Lens",
@@ -330,7 +344,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Inter v Shakhtar D",
@@ -372,7 +388,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 4.2
   },
   {
    "fixture": "Real Madrid v RB Leipzig",
@@ -420,7 +438,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -2.5
   },
   {
    "fixture": "Sporting v LASK Linz",
@@ -468,7 +488,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Reading v Leyton Orient",
@@ -516,7 +538,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 2.5
   }
  ],
  "accas": [

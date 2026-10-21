@@ -138,14 +138,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-21T15:40Z",
-  "away_missing_share": 0.42060886089835764,
-  "away_unavailable": 9,
+  "at": "2026-10-21T16:00Z",
+  "away_missing_share": 0.4460253870409425,
+  "away_unavailable": 8,
   "fotmob_id": 6106410,
-  "home_missing_share": 0.39121130717806096,
+  "home_missing_share": 0.35639630095167996,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-21T16:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Lille v Galatasaray Istanbul": {
   "absent": [
@@ -170,14 +170,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-21T15:40Z",
-  "away_missing_share": 0.16327561110399655,
+  "at": "2026-10-21T16:00Z",
+  "away_missing_share": 0.15023593541315927,
   "away_unavailable": 1,
   "fotmob_id": 6106312,
-  "home_missing_share": 0.336386851729693,
+  "home_missing_share": 0.34323675910522095,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-21T16:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Reading v Leyton Orient": {
   "absent": [],

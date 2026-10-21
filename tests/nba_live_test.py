@@ -73,6 +73,22 @@ def test_espn_silent_keeps_waiting_quietly():
     assert lines == [] and still is True
 
 
+def test_a_handed_off_run_does_not_repeat_what_was_said():
+    """21 Oct: the 23:51 hand-off re-sent a finished game's TIP-OFF and FINAL."""
+    g = {"espn_id": "401909088", "home": "DET", "away": "BOS", "espn_days": ["20261020"], "picks": [PICK_H1]}
+    with tempfile.TemporaryDirectory() as d:
+        out = Path(d) / "live.jsonl"
+        seen: dict = {}
+        for e in NIGHT[:3]:                                   # first run: tip-off, end of Q1
+            NL.round_once([g], seen, out, get=lambda _u, e=e: {"events": [e]})
+        out.write_text(out.read_text() + "not json\n")
+        resumed = NL.resume(out)                              # the next run starts here
+        lines, _ = NL.round_once([g], resumed, out, get=lambda _u: {"events": [NIGHT[3]]})
+        assert lines == [], "nothing new since the last run's look"
+        lines, _ = NL.round_once([g], resumed, out, get=lambda _u: {"events": [NIGHT[4]]})
+        assert lines[0].startswith("HALF TIME") and not any("TIP" in x or "END Q1" in x for x in lines)
+        assert NL.resume(Path(d) / "missing.jsonl") == {}
+
 
 def test_snapshots_are_not_git_ignored():
     """The blanket *.jsonl ignore made the first night's saves silently save nothing."""

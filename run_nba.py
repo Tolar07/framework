@@ -190,7 +190,7 @@ def build(now: datetime, night: date | None = None) -> tuple[list[dict], list[st
         from data import matchbook_prices as mbp
         mb = mbp.nba_events()
         for p in picks:
-            p["matchbook"] = {"back": mbp.nba_back(mb, p)}
+            p["matchbook"] = {"back": mbp.nba_back(mb, p), "listed": mbp.nba_listed(mb, p)}
     return picks, notes, scanned, study
 
 
@@ -326,7 +326,9 @@ def render(picks: list[dict], board_date: str, run_id: str, scanned: int,
               f"   code {p['code'] or 'PENDING'}"]
         if "matchbook" in p:
             mbx = (p.get("matchbook") or {}).get("back")
-            L.append(f"   Matchbook: back {mbx:.2f}" if mbx else "   Matchbook: not listed")
+            L.append(f"   Matchbook: back {mbx:.2f}" if mbx else
+                     "   Matchbook: listed, no back price yet (the bot offers its own)"
+                     if (p.get("matchbook") or {}).get("listed") else "   Matchbook: not listed")
         L.append("")
     if mega:
         L += [f"All {len(picks)} picks on one slip: {mega}", ""]

@@ -217,9 +217,35 @@ def attach(pending: dict, now: datetime, events: list[dict] | None = None,
     return f"Matchbook: {len(events)} events, {found} games matched, {priced} priced"
 
 
+def _half_total(e: dict, out: str, line: float | None) -> dict | None:
+    """The runner for a 1st-half total pick (SportyBet 68) in Matchbook's "1st Half Total"."""
+    if line is None:
+        return None
+    side = "over" if out.startswith("over") else "under"
+    for m in e.get("markets") or []:
+        if (m.get("name") or "").strip().lower() == "1st half total" and m.get("status", "open") == "open":
+            for r in m.get("runners") or []:
+                if (r.get("name") or "").strip().lower() == f"{side} {line:g}":
+                    return r
+    return None
+
+
+def nba_listed(events: list[dict], pick: dict) -> bool:
+    """Matchbook lists this pick's market and line (it may have no back price yet)."""
+    e = match({"sport": "basketball", "home": pick.get("home"), "away": pick.get("away"),
+               "ko": pick.get("tip")}, events)
+    if e is None:
+        return False
+    if str(pick.get("market_id")) == "68":
+        m = re.search(r"total=([+-]?\d+(?:\.\d+)?)", pick.get("specifier") or "")
+        return _half_total(e, (pick.get("outcome") or "").lower(), float(m.group(1)) if m else None) is not None
+    return nba_back(events, pick) is not None
+
+
 def nba_back(events: list[dict], pick: dict) -> float | None:
     """Matchbook's best back for one NBA board pick (winner 219, handicap 223,
-    total 225, at SportyBet's own line), or None when Matchbook doesn't list it."""
+    total 225, 1st-half total 68, at SportyBet's own line), or None when
+    Matchbook doesn't list it or has no back price on it."""
     e = match({"sport": "basketball", "home": pick.get("home"), "away": pick.get("away"),
                "ko": pick.get("tip")}, events)
     if e is None:
@@ -227,6 +253,8 @@ def nba_back(events: list[dict], pick: dict) -> float | None:
     mid, out = str(pick.get("market_id")), (pick.get("outcome") or "").lower()
     m = re.search(r"(?:hcp|total)=([+-]?\d+(?:\.\d+)?)", pick.get("specifier") or "")
     line = float(m.group(1)) if m else None
+    if mid == "68":
+        return _back(_half_total(e, out, line))
     if mid == "219":
         q = quote(e, "basketball").get("win")
         return (q[0] if out.startswith("home") else q[1]) if q else None
@@ -236,7 +264,7 @@ def nba_back(events: list[dict], pick: dict) -> float | None:
     if mid == "223" and line is not None:
         q = quote(e, "basketball", {"hcp": [line]}).get("hcp")
         return (q[1] if out.startswith("home") else q[2]) if q else None
-    return None                                   # team totals / periods: not on Matchbook
+    return None                                   # team totals / quarters: not on Matchbook
 
 
 def nba_events(get: Callable[[str], dict] = _get) -> list[dict]:

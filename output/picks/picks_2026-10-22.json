@@ -51,8 +51,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-4",
    "drift_price": 1.16,
    "drift_pct": -3.3
   },
@@ -105,8 +105,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "4-1",
    "drift_price": 1.25,
    "drift_pct": 1.6
   },
@@ -213,8 +213,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-2",
    "drift_price": 1.18,
    "drift_pct": -3.3
   },
@@ -267,8 +267,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "drift_price": 1.26,
    "drift_pct": 0.0
   },
@@ -321,8 +321,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-2",
    "drift_price": 1.18,
    "drift_pct": -1.7
   },
@@ -375,8 +375,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-0",
    "drift_price": 1.15,
    "drift_pct": -5.0
   },
@@ -797,8 +797,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-6",
    "drift_price": 1.18,
    "drift_pct": -2.5
   },
@@ -1013,8 +1013,8 @@
    "sharp_ev": null,
    "first_price": 1.25,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-5",
    "drift_price": 1.25,
    "drift_pct": 0.0
   },
@@ -1057,8 +1057,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-2",
    "drift_price": 1.25,
    "drift_pct": 3.3
   },
@@ -1111,8 +1111,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-1",
    "drift_price": 1.21,
    "drift_pct": -0.8
   },
@@ -1165,8 +1165,8 @@
    "sharp_ev": null,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-0",
    "drift_price": 1.4,
    "drift_pct": 9.4
   },
@@ -1219,8 +1219,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-4",
    "drift_price": 1.26,
    "drift_pct": 0.0
   },
@@ -1273,8 +1273,8 @@
    "sharp_ev": null,
    "first_price": 1.31,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-5",
    "drift_price": 1.34,
    "drift_pct": 2.3
   },
@@ -1381,8 +1381,8 @@
    "sharp_ev": null,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-2",
    "drift_price": 1.28,
    "drift_pct": 0.8
   },
@@ -1435,8 +1435,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "drift_price": 1.24,
    "drift_pct": 0.0
   },
@@ -1953,7 +1953,7 @@
     "KKS Lech Poznan v Sunderland AFC",
     "Pafos FC v Riga FC"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca D",
@@ -1980,7 +1980,7 @@
     "Olympiacos v Sparta Prague",
     "Union Gilloise v Hapoel Be`er Sheva FC"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca F",
@@ -2037,7 +2037,7 @@
     "Viktoria Plzen v PFC Levski Sofia",
     "Ajax v Atalanta"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Mega 2",
@@ -2064,7 +2064,7 @@
     "Union Gilloise v Hapoel Be`er Sheva FC",
     "Trabzonspor v Heart of Midlothian FC"
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "alts": [
@@ -2089,8 +2089,8 @@
      "pick": "Under 4.5 goals",
      "price": 1.21,
      "chance": 0.8218,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "2-2"
     },
     {
      "fixture": "Bournemouth v AC Milan",
@@ -2115,8 +2115,8 @@
      "pick": "Sturm Graz or Marseille",
      "price": 1.3,
      "chance": 0.8087,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-0"
     }
    ],
    "result": null
@@ -2154,11 +2154,11 @@
      "pick": "Ferencvarosi Budapest Under 3.5 goals",
      "price": 1.22,
      "chance": 0.7921,
-     "result": null,
-     "ft": null
+     "result": "lost",
+     "ft": "4-1"
     }
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "value": [],
@@ -2245,7 +2245,7 @@
      0.6107
     ]
    ],
-   "ft": null
+   "ft": "0-4"
   },
   {
    "fixture": "Ferencvarosi Budapest v SCU Torreense",
@@ -2313,7 +2313,7 @@
      0.721
     ]
    ],
-   "ft": null
+   "ft": "4-1"
   },
   {
    "fixture": "GNK Dinamo Zagreb v NEC Nijmegen",
@@ -2477,7 +2477,7 @@
      0.7159
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "KKS Lech Poznan v Sunderland AFC",
@@ -2557,7 +2557,7 @@
      0.706
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "OFI Crete v Bayer Leverkusen",
@@ -2633,7 +2633,7 @@
      0.7166
     ]
    ],
-   "ft": null
+   "ft": "0-2"
   },
   {
    "fixture": "Sturm Graz v Marseille",
@@ -2701,7 +2701,7 @@
      0.7142
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Union Gilloise v Hapoel Be`er Sheva FC",
@@ -3277,7 +3277,7 @@
      0.7198
     ]
    ],
-   "ft": null
+   "ft": "0-6"
   },
   {
    "fixture": "NK Celje v Salzburg",
@@ -3601,7 +3601,7 @@
      0.7026
     ]
    ],
-   "ft": null
+   "ft": "1-5"
   },
   {
    "fixture": "Crvena Zvezda v Copenhagen",
@@ -3673,7 +3673,7 @@
      0.7149
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "FC Iberia 1999 v Mjallby AIF",
@@ -3745,7 +3745,7 @@
      0.6918
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "FK Jablonec v Brighton",
@@ -3809,7 +3809,7 @@
      0.6049
     ]
    ],
-   "ft": null
+   "ft": "0-0"
   },
   {
    "fixture": "FK Kauno Zalgiris v SK Brann",
@@ -3889,7 +3889,7 @@
      0.717
     ]
    ],
-   "ft": null
+   "ft": "1-4"
   },
   {
    "fixture": "Getafe v Lugano",
@@ -3969,7 +3969,7 @@
      0.7021
     ]
    ],
-   "ft": null
+   "ft": "2-5"
   },
   {
    "fixture": "Inter Club de Escaldes v CS Universitatea Craiova",
@@ -4121,7 +4121,7 @@
      0.609
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Pafos FC v Riga FC",
@@ -4201,7 +4201,7 @@
      0.7129
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Trabzonspor v Heart of Midlothian FC",
@@ -4898,7 +4898,7 @@
     "GNK Dinamo Zagreb v NEC Nijmegen",
     "FK Borac Banja Luka v Kuopion Palloseura"
    ],
-   "result": null,
+   "result": "lost",
    "families": [
     "Double chance",
     "Over/Under"

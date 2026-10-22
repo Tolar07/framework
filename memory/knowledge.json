@@ -1,7 +1,7 @@
 {
  "updated": "2026-10-22",
  "window_days": 21,
- "graded": 637,
+ "graded": 639,
  "segments": [
   {
    "segment": "Over/Under",
@@ -472,18 +472,6 @@
    "flag": false
   },
   {
-   "segment": "Double chance",
-   "league": "all",
-   "n": 245,
-   "wins": 194,
-   "hit": 0.792,
-   "need": 0.792,
-   "pl": -0.35,
-   "z": 1.21,
-   "days": 17,
-   "flag": false
-  },
-  {
    "segment": "Asian handicap (underdog)",
    "league": "all",
    "n": 79,
@@ -565,6 +553,18 @@
    "pl": 0.09,
    "z": 0.29,
    "days": 5,
+   "flag": false
+  },
+  {
+   "segment": "Double chance",
+   "league": "all",
+   "n": 247,
+   "wins": 196,
+   "hit": 0.794,
+   "need": 0.792,
+   "pl": 0.12,
+   "z": 1.27,
+   "days": 17,
    "flag": false
   },
   {
@@ -724,18 +724,6 @@
    "flag": false
   },
   {
-   "segment": "Double chance",
-   "league": "Eredivisie",
-   "n": 3,
-   "wins": 3,
-   "hit": 1.0,
-   "need": 0.818,
-   "pl": 0.67,
-   "z": 0.97,
-   "days": 3,
-   "flag": false
-  },
-  {
    "segment": "Away goals",
    "league": "UEFA Nations League",
    "n": 3,
@@ -833,6 +821,18 @@
   },
   {
    "segment": "Double chance",
+   "league": "Turkish Super Lig",
+   "n": 3,
+   "wins": 3,
+   "hit": 1.0,
+   "need": 0.791,
+   "pl": 0.8,
+   "z": 0.95,
+   "days": 3,
+   "flag": false
+  },
+  {
+   "segment": "Double chance",
    "league": "Eliteserien",
    "n": 3,
    "wins": 3,
@@ -877,6 +877,18 @@
    "pl": 0.92,
    "z": 1.06,
    "days": 4,
+   "flag": false
+  },
+  {
+   "segment": "Double chance",
+   "league": "Eredivisie",
+   "n": 4,
+   "wins": 4,
+   "hit": 1.0,
+   "need": 0.81,
+   "pl": 0.94,
+   "z": 1.13,
+   "days": 3,
    "flag": false
   },
   {
@@ -1073,9 +1085,10 @@
   }
  ],
  "learning": {
-  "family:Double chance": 0.0566,
-  "family:Away win to nil": -0.07,
-  "family:Odd/Even": -0.0589
+  "family:Double chance": 0.0573,
+  "family:Away win to nil": -0.0684,
+  "family:DC & total": 0.0385,
+  "family:Odd/Even": -0.0612
  },
  "blocks_in_force": [],
  "history": [
@@ -1303,11 +1316,12 @@
   },
   {
    "date": "2026-10-22",
-   "graded": 637,
+   "graded": 639,
    "corrections": {
-    "family:Double chance": 0.0566,
-    "family:Away win to nil": -0.07,
-    "family:Odd/Even": -0.0589
+    "family:Double chance": 0.0573,
+    "family:Away win to nil": -0.0684,
+    "family:DC & total": 0.0385,
+    "family:Odd/Even": -0.0612
    },
    "flags": [
     "Over/Under · all · -5.26u (139/178)",

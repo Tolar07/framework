@@ -1,0 +1,21 @@
+{
+ "date": "2026-10-23",
+ "run_id": "SHARP-439080f6",
+ "fetched_utc": "2026-10-22T20:53:31Z",
+ "rule": {
+  "min_ev": 0.02,
+  "band": [
+   1.2,
+   3.0
+  ],
+  "max_ev": 0.25
+ },
+ "source": "SportyBet live prices vs Betfair Exchange fair odds (football-data fixtures.csv, proportional de-vig)",
+ "fixtures_on_day": 26,
+ "fixtures_priced_by_exchange": 0,
+ "picks": [],
+ "suspect": [],
+ "flags": [
+  "football-data fixtures.csv served from cache (<=60min)"
+ ]
+}

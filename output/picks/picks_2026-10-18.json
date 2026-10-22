@@ -51,8 +51,8 @@
    "sharp_ev": -0.049,
    "first_price": 1.27,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-1",
    "drift_price": 1.27,
    "drift_pct": 0.0
   },
@@ -2446,8 +2446,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-1",
    "drift_price": 1.21,
    "drift_pct": 0.8
   },
@@ -3418,7 +3418,7 @@
     "Istanbul BB v Gaziantep FK",
     "HNK Hajduk Split v NK Varazdin"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca C",
@@ -3594,7 +3594,7 @@
     "Vasteraas SK v Mjallby AIF",
     "Udinese v Lecce"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "50+ #9",
@@ -4155,7 +4155,7 @@
      0.7575
     ]
    ],
-   "ft": null
+   "ft": "4-1"
   },
   {
    "fixture": "Cambuur v AZ Alkmaar",
@@ -8095,7 +8095,7 @@
      0.6307
     ]
    ],
-   "ft": null
+   "ft": "2-1"
   },
   {
    "fixture": "PAE PS Kalamata v OFI Crete",
@@ -9756,7 +9756,8 @@
      "market": "SB:10||Home or Draw",
      "pick": "Istanbul BB or draw",
      "price": 1.2,
-     "result": null
+     "result": "won",
+     "ft": "2-1"
     },
     {
      "fixture": "Brighton v Crystal Palace",
@@ -10163,7 +10164,8 @@
      "market": "SB:10||Home or Away",
      "pick": "Zwolle or Go Ahead Eagles",
      "price": 1.27,
-     "result": null
+     "result": "won",
+     "ft": "4-1"
     },
     {
      "fixture": "Vasteraas SK v Mjallby AIF",

@@ -27,14 +27,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T18:00Z",
-  "away_missing_share": 0.14609175676101396,
+  "at": "2026-10-22T18:20Z",
+  "away_missing_share": 0.1376275418970718,
   "away_unavailable": 3,
   "fotmob_id": 6112342,
-  "home_missing_share": 0.15756082764510446,
+  "home_missing_share": 0.15667995936440818,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "AGF Aarhus v KF Egnatia Rrogozhine": {
   "absent": [
@@ -96,14 +96,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T18:00Z",
-  "away_missing_share": 0.3426067162459277,
+  "at": "2026-10-22T18:20Z",
+  "away_missing_share": 0.375473348228568,
   "away_unavailable": 8,
   "fotmob_id": 6112393,
-  "home_missing_share": 0.22009491954662763,
+  "home_missing_share": 0.19608420708037996,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Besiktas Istanbul v Crystal Palace": {
   "absent": [
@@ -128,19 +128,19 @@
     "type": "injury"
    },
    {
-    "name": "Ben Chilwell",
+    "name": "Takehiro Tomiyasu",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T18:00Z",
-  "away_missing_share": 0.16477325028305911,
-  "away_unavailable": 4,
+  "at": "2026-10-22T18:20Z",
+  "away_missing_share": 0.16397249657877852,
+  "away_unavailable": 3,
   "fotmob_id": 6112356,
-  "home_missing_share": 0.18742615777382107,
+  "home_missing_share": 0.1988728291868768,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Bournemouth v AC Milan": {
   "absent": [
@@ -234,24 +234,24 @@
     "type": "injury"
    },
    {
-    "name": "Pablo Dur\u00e1n",
+    "name": "Miguel Rom\u00e1n",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Miguel Rom\u00e1n",
+    "name": "\u00c1lvaro N\u00fa\u00f1ez",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T18:00Z",
-  "away_missing_share": 0.25933407796170205,
-  "away_unavailable": 6,
+  "at": "2026-10-22T18:20Z",
+  "away_missing_share": 0.30172284368987573,
+  "away_unavailable": 5,
   "fotmob_id": 6112300,
-  "home_missing_share": 0.3435721797139133,
+  "home_missing_share": 0.3407376080385898,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "FC Ararat-Armenia v Alkmaar": {
   "absent": [
@@ -586,14 +586,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T18:00Z",
-  "away_missing_share": 0.27166582504991954,
+  "at": "2026-10-22T18:20Z",
+  "away_missing_share": 0.33476487654189263,
   "away_unavailable": 4,
   "fotmob_id": 6112350,
-  "home_missing_share": 0.25884430729844593,
+  "home_missing_share": 0.327326356023969,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Inter Club de Escaldes v CS Universitatea Craiova": {
   "absent": [

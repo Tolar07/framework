@@ -39,8 +39,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 1.69,
    "stake_pct": 0.25,
    "ev": -0.036038356736419086,
    "missing": {
@@ -93,8 +93,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -1.6,
    "stake_pct": 0.25,
    "ev": -0.018037611938139242,
    "missing": {
@@ -147,8 +147,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 0.25,
    "ev": -0.02881814941625549,
    "missing": {
@@ -201,8 +201,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 1.67,
    "stake_pct": 0.25,
    "ev": -0.033878820017835154,
    "missing": {
@@ -255,8 +255,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -1.56,
    "stake_pct": 0.25,
    "ev": -0.028523031859124415,
    "missing": {
@@ -309,8 +309,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.07447768493859752,
    "missing": {
@@ -363,8 +363,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 3.42,
    "stake_pct": 0.25,
    "ev": -0.04063639300258959,
    "missing": {
@@ -417,8 +417,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 2.36,
    "stake_pct": 0.25,
    "ev": -0.013572086234909686,
    "missing": {
@@ -1012,8 +1012,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -1.63,
    "stake_pct": 0.25,
    "ev": -0.03436040298241139,
    "missing": null,
@@ -1063,8 +1063,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 4.27,
    "stake_pct": 0.25,
    "ev": -0.029974264077228585,
    "missing": {
@@ -1117,8 +1117,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.36,
+   "clv": -5.88,
    "stake_pct": 0.25,
    "ev": -0.020433131256410775,
    "missing": {
@@ -1171,8 +1171,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -2.33,
    "stake_pct": 0.25,
    "ev": -0.020285283147142175,
    "missing": {
@@ -1225,8 +1225,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.36,
+   "clv": -3.68,
    "stake_pct": 0.25,
    "ev": -0.022208998927296553,
    "missing": {
@@ -1279,8 +1279,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 3.31,
    "stake_pct": 0.25,
    "ev": -0.029692962007960122,
    "missing": {
@@ -1333,8 +1333,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -1.55,
    "stake_pct": 0.25,
    "ev": -0.010685707163299418,
    "missing": {
@@ -1387,8 +1387,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -3.88,
    "stake_pct": 0.25,
    "ev": -0.02878798366418167,
    "missing": {
@@ -1441,8 +1441,8 @@
     "spec": "total=1.5",
     "outcome": "Home/Away & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": 0.8,
    "stake_pct": 0.25,
    "ev": -0.06833140808930283,
    "missing": {

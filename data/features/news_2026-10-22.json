@@ -1,0 +1,29 @@
+{
+ "FC Kairat Almaty v Panathinaikos": {
+  "absent": [
+   {
+    "name": "Azzedine Ounahi",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Victor Kristiansen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Adriano Jagu\u0161i\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-22T09:00Z",
+  "away_missing_share": 0.4264326487012039,
+  "away_unavailable": 4,
+  "fotmob_id": 6112498,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-22T14:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ }
+}

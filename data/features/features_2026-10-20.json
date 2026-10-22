@@ -3,12 +3,12 @@
   "away": "Mansfield",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4498,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2675,
+    "home": 0.2827,
+    "over25": 0.5152
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -322,12 +322,12 @@
   "away": "Salford",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3825,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2819,
+    "home": 0.3356,
+    "over25": 0.5239
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -456,12 +456,12 @@
   "away": "Bradford",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.5409,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2571,
+    "home": 0.202,
+    "over25": 0.5075
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -590,12 +590,12 @@
   "away": "Fleetwood Town",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4557,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2722,
+    "home": 0.2722,
+    "over25": 0.5327
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -724,12 +724,12 @@
   "away": "Shrewsbury",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3559,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2749,
+    "home": 0.3692,
+    "over25": 0.5152
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -817,7 +817,7 @@
   },
   "date": "2026-10-20",
   "fixture": "Cray Wanderers v Bedford Town Football Club",
-  "ft": "PENDING",
+  "ft": "no-90min-result",
   "home": "Cray Wanderers",
   "league": "FA Cup",
   "model_p": "PENDING",
@@ -917,12 +917,12 @@
   "away": "Crewe",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.327,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.3117,
+    "home": 0.3613,
+    "over25": 0.4478
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -1192,12 +1192,12 @@
   "away": "Port Vale",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4262,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2952,
+    "home": 0.2786,
+    "over25": 0.4342
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -1218,7 +1218,7 @@
   },
   "date": "2026-10-20",
   "fixture": "Gillingham v Port Vale",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "Gillingham",
   "league": "League Two",
   "model_p": [
@@ -1470,7 +1470,7 @@
   },
   "date": "2026-10-20",
   "fixture": "Liverpool v Villarreal",
-  "ft": "PENDING",
+  "ft": "4-3",
   "home": "Liverpool",
   "league": "Champions League",
   "model_p": "PENDING",
@@ -1524,12 +1524,12 @@
   "away": "Barnsley",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1602,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.1948,
+    "home": 0.645,
+    "over25": 0.7083
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -1617,7 +1617,7 @@
   },
   "date": "2026-10-20",
   "fixture": "Man City v AEK Athens",
-  "ft": "PENDING",
+  "ft": "5-1",
   "home": "Man City",
   "league": "Champions League",
   "model_p": "PENDING",
@@ -1697,7 +1697,7 @@
   },
   "date": "2026-10-20",
   "fixture": "Napoli v Bodoe/Glimt",
-  "ft": "PENDING",
+  "ft": "4-3",
   "home": "Napoli",
   "league": "Champions League",
   "model_p": "PENDING",
@@ -1761,12 +1761,12 @@
   "away": "Tranmere",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2648,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.292,
+    "home": 0.4432,
+    "over25": 0.4436
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -1988,7 +1988,7 @@
   },
   "date": "2026-10-20",
   "fixture": "PSG v Barcelona",
-  "ft": "PENDING",
+  "ft": "4-2",
   "home": "PSG",
   "league": "Champions League",
   "model_p": "PENDING",
@@ -2047,7 +2047,7 @@
   },
   "date": "2026-10-20",
   "fixture": "Porto v PSV Eindhoven",
-  "ft": "PENDING",
+  "ft": "0-1",
   "home": "Porto",
   "league": "Champions League",
   "model_p": "PENDING",
@@ -2106,12 +2106,12 @@
   "away": "Grimsby",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.4755,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2536,
+    "home": 0.271,
+    "over25": 0.5799
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -2199,7 +2199,7 @@
   },
   "date": "2026-10-20",
   "fixture": "Roma v Slovan Bratislava",
-  "ft": "PENDING",
+  "ft": "4-0",
   "home": "Roma",
   "league": "Champions League",
   "model_p": "PENDING",
@@ -2258,12 +2258,12 @@
   "away": "Newport County",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.2723,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.276,
+    "home": 0.4517,
+    "over25": 0.4837
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -2552,7 +2552,7 @@
   },
   "date": "2026-10-20",
   "fixture": "Stuttgart v Atletico Madrid",
-  "ft": "PENDING",
+  "ft": "1-1",
   "home": "Stuttgart",
   "league": "Champions League",
   "model_p": "PENDING",
@@ -2644,12 +2644,12 @@
   "away": "Oldham",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.3677,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.27,
+    "home": 0.3623,
+    "over25": 0.5427
    },
    "sharp": {
     "at": "2026-10-20T14:23Z",
@@ -2711,12 +2711,12 @@
   "away": "Portsmouth",
   "close": {
    "betfair": {
-    "at": "PENDING",
-    "away": "PENDING",
+    "at": "close",
+    "away": 0.1549,
     "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "draw": 0.2254,
+    "home": 0.6197,
+    "over25": 0.5213
    },
    "sharp": {
     "at": "PENDING",

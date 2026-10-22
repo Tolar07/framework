@@ -1420,6 +1420,11 @@ def _run(season: str | None = None, fixtures_season: str | None = None,
                                             for h in _spicks])
             survivor_text += (f"\nAI Survivor mega code (all {len(_spicks)} lineage picks): "
                               f"{_scode or 'PENDING'}")
+            if _scode:   # saved for the SportyBet placer (Architect 2026-10-22: the mega is placed too)
+                _mf = sdir / "mega_codes.json"
+                _megas = json.loads(_mf.read_text(encoding="utf-8")) if _mf.exists() else {}
+                _megas[target] = {"code": _scode, "legs": len(_spicks)}
+                _mf.write_text(json.dumps(_megas, indent=1, sort_keys=True), encoding="utf-8")
     except Exception as e:  # noqa: BLE001 — the lineage never blocks the board
         all_flags.append(f"AI Survivor step skipped ({e})")
 

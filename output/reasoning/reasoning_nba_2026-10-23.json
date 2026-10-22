@@ -1,0 +1,37 @@
+{
+ "date": "2026-10-23",
+ "picks_generated_at": "2026-10-22T05:51:29Z",
+ "run_at": "2026-10-22T05:52:22+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": true,
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Philadelphia 76ers v Cleveland Cavaliers",
+   "market": "NBA:68|total=114.5|Over 114.5",
+   "pick": "1st half Over 114.5 points",
+   "price": 1.9,
+   "model_chance": 0.6227,
+   "code": "T7ZPDE",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.61,
+   "confidence": 0.4,
+   "reasons": "The framework record is TOO FEW with 13 picks in this family, so ai_chance stays close to model_chance. With break_even_chance at 0.5263 and value_pts at 18.3, the price offers positive expectation."
+  },
+  {
+   "fixture": "Oklahoma City Thunder v Denver Nuggets",
+   "market": "NBA:68|total=114.5|Over 114.5",
+   "pick": "1st half Over 114.5 points",
+   "price": 1.9,
+   "model_chance": 0.6227,
+   "code": "K40P38",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.61,
+   "confidence": 0.4,
+   "reasons": "The framework record is TOO FEW with 13 picks in this family, meaning ai_chance remains near model_chance. The price of 1.9 exceeds the break_even_chance of 0.5263 alongside strong value_pts of 18.3."
+  }
+ ],
+ "sport": "nba"
+}

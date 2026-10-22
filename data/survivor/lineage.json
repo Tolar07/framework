@@ -758,21 +758,16 @@
   {
    "lineage_id": "ln_fa3260c064",
    "parent_id": "ln_3b4f47d5a8",
-   "generation": 9,
-   "bankroll": 2.24,
+   "generation": 10,
+   "bankroll": 2.49,
    "stake": 1.0,
-   "wins": 1,
+   "wins": 2,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-11",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-18",
-    "fixture": "Istanbul BB v Gaziantep FK",
-    "pick": "Istanbul BB or Gaziantep FK",
-    "price": 1.25
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_fd9b5ff8a2",
@@ -819,21 +814,16 @@
   {
    "lineage_id": "ln_08346893fd",
    "parent_id": "ln_82f1a53b8e",
-   "generation": 11,
-   "bankroll": 2.88,
+   "generation": 12,
+   "bankroll": 3.1,
    "stake": 1.0,
-   "wins": 4,
+   "wins": 5,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-06",
    "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-21",
-    "fixture": "Reading v Leyton Orient",
-    "pick": "Leyton Orient (+2.5) Asian handicap",
-    "price": 1.22
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_bcc299b218",
@@ -866,21 +856,16 @@
   {
    "lineage_id": "ln_43682fc1f5",
    "parent_id": "ln_d80398a8ed",
-   "generation": 8,
-   "bankroll": 1.08,
+   "generation": 9,
+   "bankroll": 1.35,
    "stake": 1.0,
-   "wins": 0,
+   "wins": 1,
    "losses": 0,
    "alive": true,
    "born_date": "2026-10-17",
-   "last_result": null,
+   "last_result": "WIN",
    "to_breed": false,
-   "holding": {
-    "date": "2026-10-18",
-    "fixture": "Zwolle v Go Ahead Eagles",
-    "pick": "Zwolle or Go Ahead Eagles",
-    "price": 1.27
-   }
+   "holding": null
   },
   {
    "lineage_id": "ln_ab05e65eb3",

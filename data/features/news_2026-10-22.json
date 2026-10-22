@@ -27,7 +27,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
+  "at": "2026-10-22T18:00Z",
   "away_missing_share": 0.14609175676101396,
   "away_unavailable": 3,
   "fotmob_id": 6112342,
@@ -54,14 +54,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
+  "at": "2026-10-22T18:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 6112534,
-  "home_missing_share": 0.10891279973852588,
+  "home_missing_share": 0.12997246256426864,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Ajax v Atalanta": {
   "absent": [
@@ -96,7 +96,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
+  "at": "2026-10-22T18:00Z",
   "away_missing_share": 0.3426067162459277,
   "away_unavailable": 8,
   "fotmob_id": 6112393,
@@ -133,7 +133,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
+  "at": "2026-10-22T18:00Z",
   "away_missing_share": 0.16477325028305911,
   "away_unavailable": 4,
   "fotmob_id": 6112356,
@@ -175,14 +175,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
-  "away_missing_share": 0.29399600638079326,
+  "at": "2026-10-22T18:00Z",
+  "away_missing_share": 0.33182384688777317,
   "away_unavailable": 5,
   "fotmob_id": 6112326,
-  "home_missing_share": 0.34016139804396434,
+  "home_missing_share": 0.3497128976158782,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Braga v Gent": {
   "absent": [
@@ -202,14 +202,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
-  "away_missing_share": 0.08060628365596179,
+  "at": "2026-10-22T18:00Z",
+  "away_missing_share": 0.07298334399036649,
   "away_unavailable": 2,
   "fotmob_id": 6112390,
-  "home_missing_share": 0.07811308957837022,
+  "home_missing_share": 0.055625770584857806,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Celtic v Celta": {
   "absent": [
@@ -244,7 +244,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
+  "at": "2026-10-22T18:00Z",
   "away_missing_share": 0.25933407796170205,
   "away_unavailable": 6,
   "fotmob_id": 6112300,
@@ -337,29 +337,24 @@
     "type": "injury"
    },
    {
-    "name": "Victor Bak",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Martin Erli\u0107",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Arbnor Muja",
-    "side": "away",
+    "name": "El\u00edas \u00d3lafsson",
+    "side": "home",
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
-  "away_missing_share": 0.07950059329770084,
-  "away_unavailable": 1,
+  "at": "2026-10-22T18:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
   "fotmob_id": 6112406,
-  "home_missing_share": 0.2548046613558052,
-  "home_unavailable": 6,
+  "home_missing_share": 0.2033840035240259,
+  "home_unavailable": 5,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "FC Thun v HNK Hajduk Split": {
   "absent": [
@@ -389,14 +384,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
+  "at": "2026-10-22T18:00Z",
   "away_missing_share": 0.05913952295868806,
   "away_unavailable": 2,
   "fotmob_id": 6112540,
-  "home_missing_share": 0.14079203313748476,
-  "home_unavailable": 5,
+  "home_missing_share": 0.12338992395110833,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "FK Jablonec v Brighton": {
   "absent": [
@@ -591,7 +586,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
+  "at": "2026-10-22T18:00Z",
   "away_missing_share": 0.27166582504991954,
   "away_unavailable": 4,
   "fotmob_id": 6112350,
@@ -625,11 +620,6 @@
     "type": "injury"
    },
    {
-    "name": "Nik Prelec",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Ilay Camara",
     "side": "away",
     "type": "injury"
@@ -638,21 +628,16 @@
     "name": "Killian Sardella",
     "side": "away",
     "type": "injury"
-   },
-   {
-    "name": "Giulian Biancone",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
-  "away_missing_share": 0.1555827204477586,
-  "away_unavailable": 3,
+  "at": "2026-10-22T18:00Z",
+  "away_missing_share": 0.13779914705991242,
+  "away_unavailable": 2,
   "fotmob_id": 6112339,
-  "home_missing_share": 0.19518312132756505,
-  "home_unavailable": 2,
+  "home_missing_share": 0.13346403904666435,
+  "home_unavailable": 1,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Juventus v Rennes": {
   "absent": [
@@ -751,14 +736,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
-  "away_missing_share": 0.1448751955110199,
+  "at": "2026-10-22T18:00Z",
+  "away_missing_share": 0.1758866268347773,
   "away_unavailable": 4,
   "fotmob_id": 6112484,
   "home_missing_share": 0.0,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Monaco v Freiburg": {
   "absent": [
@@ -778,25 +763,20 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
-  "away_missing_share": 0.013707572796885037,
+  "at": "2026-10-22T18:00Z",
+  "away_missing_share": 0.014890354760499937,
   "away_unavailable": 1,
   "fotmob_id": 6112399,
-  "home_missing_share": 0.07329506460508702,
+  "home_missing_share": 0.08933926673747547,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "NK Celje v Salzburg": {
   "absent": [
    {
     "name": "Jo\u0161t Pi\u0161ek",
     "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Karim Konat\u00e9",
-    "side": "away",
     "type": "injury"
    },
    {
@@ -808,16 +788,21 @@
     "name": "Enrique Aguilar",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Justin Omoregie",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
-  "away_missing_share": 0.3246240756759763,
-  "away_unavailable": 4,
+  "at": "2026-10-22T18:00Z",
+  "away_missing_share": 0.09532268428574714,
+  "away_unavailable": 3,
   "fotmob_id": 6112335,
-  "home_missing_share": 0.042977331796015386,
+  "home_missing_share": 0.04459071128197905,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Nordsjaelland v PFC CSKA Sofia": {
   "absent": [
@@ -921,14 +906,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
-  "away_missing_share": 0.2332067966766767,
+  "at": "2026-10-22T18:00Z",
+  "away_missing_share": 0.292947504949938,
   "away_unavailable": 5,
   "fotmob_id": 6112267,
-  "home_missing_share": 0.06296981127444003,
+  "home_missing_share": 0.08798940898531829,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Pafos FC v Riga FC": {
   "absent": [],
@@ -1075,11 +1060,6 @@
     "type": "injury"
    },
    {
-    "name": "Akram Bouras",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Ga\u0161per Trdin",
     "side": "away",
     "type": "injury"
@@ -1090,13 +1070,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T17:40Z",
-  "away_missing_share": 0.15380367854560703,
-  "away_unavailable": 3,
+  "at": "2026-10-22T18:00Z",
+  "away_missing_share": 0.05404297133169896,
+  "away_unavailable": 2,
   "fotmob_id": 6112285,
-  "home_missing_share": 0.2132419117470593,
+  "home_missing_share": 0.1494253301155587,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-22T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  }
 }

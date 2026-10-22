@@ -708,7 +708,11 @@
     "home": 12464199,
     "away": 40906314
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173010",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -802,7 +806,11 @@
     "home": 5731403,
     "away": 35994453
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173014",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -852,7 +860,11 @@
     "home": 74285110,
     "away": 24822763
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173016",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -902,7 +914,11 @@
     "home": 17932013,
     "away": 14811300
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173008",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -1482,7 +1498,11 @@
     "home": 21448190,
     "away": 3602293
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173254",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1582,7 +1602,11 @@
     "home": 58657187,
     "away": 32425766
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Braga at full strength",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173274",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1682,7 +1706,11 @@
     "home": 9775490,
     "away": 11816342
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Thun missing 12%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173266",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1776,7 +1804,11 @@
     "home": 1252285,
     "away": 61768897
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: FC Twente missing 18%",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173272",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1826,7 +1858,11 @@
     "home": 174575024,
     "away": 89261455
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Monaco at full strength",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:74173258",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {

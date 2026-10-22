@@ -884,7 +884,11 @@
     "home": 3148118,
     "away": 45917388
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:74173212",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {

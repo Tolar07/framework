@@ -146,7 +146,12 @@ _SYN = [(r"\bczechia\b", "czech republic"), (r"\bturkiye\b", "turkey"),
         # the Turkish Cup tie stayed ungraded on the name mismatch).
         (r"^denizli iy gureller$", "denizli idman yurdu"),
         (r"^serik spor$", "serik belediyespor"),
-        (r"^sabah masazir$", "sabah baku")]          # Flashscore: 'Sabah Baku'
+        (r"^sabah masazir$", "sabah baku"),          # Flashscore: 'Sabah Baku'
+        # 22 Oct 2026: two AI Survivor picks of 18 Oct stayed ungraded on these
+        # ('Go Ahead Eagles' v Flashscore's 'G.A. Eagles'; 'Istanbul BB' is
+        # Basaksehir's old name, 'Istanbul Buyuksehir Belediyespor').
+        (r"^g a eagles$", "go ahead eagles"),
+        (r"^istanbul bb$", "basaksehir"), (r"^istanbul basaksehir$", "basaksehir")]
 
 
 def norm(name: str) -> str:

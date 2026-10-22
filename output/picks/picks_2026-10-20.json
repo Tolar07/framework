@@ -213,8 +213,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-3",
    "drift_price": 1.19,
    "drift_pct": -0.8
   },
@@ -267,8 +267,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "5-1",
    "drift_price": 1.25,
    "drift_pct": 0.8
   },
@@ -321,8 +321,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-3",
    "drift_price": 1.25,
    "drift_pct": 2.5
   },
@@ -375,8 +375,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "0-1",
    "drift_price": 1.21,
    "drift_pct": 0.0
   },
@@ -419,8 +419,8 @@
    "sharp_ev": null,
    "first_price": 1.24,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-2",
    "drift_price": 1.23,
    "drift_pct": -0.8
   },
@@ -473,8 +473,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-0",
    "drift_price": 1.29,
    "drift_pct": 4.9
   },
@@ -517,8 +517,8 @@
    "sharp_ev": null,
    "first_price": 1.29,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-1",
    "drift_price": 1.28,
    "drift_pct": -0.8
   },
@@ -1761,8 +1761,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-1",
    "drift_price": 1.26,
    "drift_pct": 3.3
   },
@@ -1905,7 +1905,7 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
+   "result": "won",
    "ft": null,
    "drift_price": 1.22,
    "drift_pct": 0.0
@@ -2306,7 +2306,7 @@
     "PSG v Barcelona",
     "Oxford United v Wigan"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca B",
@@ -2331,7 +2331,7 @@
     "Porto v PSV Eindhoven",
     "Harrogate Town v Bury FC"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca D",
@@ -2371,7 +2371,7 @@
     "Rochdale v Grimsby",
     "Gloucester City v Barrow AFC"
    ],
-   "result": null
+   "result": "won"
   },
   {
    "name": "Acca G",
@@ -2705,11 +2705,11 @@
      "pick": "Port Vale Under 1.5 goals",
      "price": 1.56,
      "chance": 0.6561,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "1-1"
     }
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "rated": [
@@ -3035,7 +3035,7 @@
      0.7237
     ]
    ],
-   "ft": null
+   "ft": "4-3"
   },
   {
    "fixture": "Man City v AEK Athens",
@@ -3115,7 +3115,7 @@
      0.6987
     ]
    ],
-   "ft": null
+   "ft": "5-1"
   },
   {
    "fixture": "Napoli v Bodoe/Glimt",
@@ -3203,7 +3203,7 @@
      0.7242
     ]
    ],
-   "ft": null
+   "ft": "4-3"
   },
   {
    "fixture": "Porto v PSV Eindhoven",
@@ -3291,7 +3291,7 @@
      0.7253
     ]
    ],
-   "ft": null
+   "ft": "0-1"
   },
   {
    "fixture": "PSG v Barcelona",
@@ -3359,7 +3359,7 @@
      0.7238
     ]
    ],
-   "ft": null
+   "ft": "4-2"
   },
   {
    "fixture": "Roma v Slovan Bratislava",
@@ -3427,7 +3427,7 @@
      0.7016
     ]
    ],
-   "ft": null
+   "ft": "4-0"
   },
   {
    "fixture": "Stuttgart v Atletico Madrid",
@@ -3499,7 +3499,7 @@
      0.7246
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "AFC Wimbledon v Mansfield",
@@ -5335,7 +5335,7 @@
      0.7331
     ]
    ],
-   "ft": null
+   "ft": "1-1"
   },
   {
    "fixture": "Alvechurch v Spalding United",
@@ -5527,7 +5527,7 @@
      0.6169
     ]
    ],
-   "ft": null
+   "ft": "no-90min-result"
   },
   {
    "fixture": "FC United of Manchester v Altrincham FC",

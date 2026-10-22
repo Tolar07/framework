@@ -30,9 +30,9 @@
     "total": 235.5
    },
    "code": "S58YXC",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "125-132",
+   "close_value": 0.1991,
    "matchbook": {
     "back": null
    }
@@ -63,9 +63,9 @@
     "total": 239.5
    },
    "code": "V4UN87",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "128-116",
+   "close_value": 0.1558,
    "matchbook": {
     "back": null
    }
@@ -96,9 +96,9 @@
     "total": 242.5
    },
    "code": "VFV53Z",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "106-131",
+   "close_value": 0.0913,
    "matchbook": {
     "back": null
    }
@@ -129,9 +129,9 @@
     "total": 236.5
    },
    "code": "QAUUF7",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "135-92",
+   "close_value": 0.2432,
    "matchbook": {
     "back": null
    }
@@ -162,9 +162,9 @@
     "total": 239.5
    },
    "code": "MB9761",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "123-103",
+   "close_value": 0.2139,
    "matchbook": {
     "back": null
    }
@@ -195,9 +195,9 @@
     "total": 239.5
    },
    "code": "U45PMA",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "120-123",
+   "close_value": 0.2137,
    "matchbook": {
     "back": null
    }
@@ -228,9 +228,9 @@
     "total": 229.5
    },
    "code": "VAYQ1Z",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "128-110",
+   "close_value": 0.132,
    "matchbook": {
     "back": null
    }
@@ -261,9 +261,9 @@
     "total": 235.5
    },
    "code": "RN4E94",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "127-105",
+   "close_value": 0.1839,
    "matchbook": {
     "back": null
    }
@@ -294,9 +294,9 @@
     "total": 231.5
    },
    "code": "QHKPFU",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "124-83",
+   "close_value": 0.1258,
    "matchbook": {
     "back": null
    }
@@ -327,9 +327,9 @@
     "total": 228.5
    },
    "code": "RPC11K",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "121-96",
+   "close_value": 0.1858,
    "matchbook": {
     "back": null
    }
@@ -1483,7 +1483,7 @@
     "sr:match:73719340"
    ],
    "odds": 25.67,
-   "result": null,
+   "result": "lost",
    "booked_at": "2026-10-21T12:25Z (by hand: the 10-pick LRPFTC split in two, Architect 2026-10-21)"
   },
   {
@@ -1497,7 +1497,7 @@
     "sr:match:73719348"
    ],
    "odds": 26.27,
-   "result": null,
+   "result": "won",
    "booked_at": "2026-10-21T12:25Z (by hand: the 10-pick LRPFTC split in two, Architect 2026-10-21)"
   }
  ]

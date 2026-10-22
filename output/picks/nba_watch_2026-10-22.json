@@ -30,9 +30,9 @@
     "total": 219.5
    },
    "code": "ZTBKJE",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "103-110",
+   "close_value": 0.2179,
    "matchbook": {
     "back": 1.9,
     "listed": true
@@ -67,9 +67,9 @@
     "total": 238.5
    },
    "code": "P20U6U",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "128-116",
+   "close_value": 0.2211,
    "matchbook": {
     "back": 1.87,
     "listed": true

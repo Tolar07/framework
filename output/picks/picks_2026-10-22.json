@@ -134,7 +134,11 @@
     "home": 29503571,
     "away": 30127535
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:74172990",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -184,7 +188,11 @@
     "home": 270218183,
     "away": 118325743
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:74172992",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -234,7 +242,11 @@
     "home": 24021073,
     "away": 217636235
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:74172994",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -468,7 +480,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 3.2
   },
   {
    "fixture": "Besiktas Istanbul v Crystal Palace",
@@ -516,7 +530,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Bournemouth v AC Milan",
@@ -564,7 +580,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Celtic v Celta",
@@ -612,7 +630,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -4.0
   },
   {
    "fixture": "Hoffenheim v Lyon",
@@ -660,7 +680,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Jagiellonia Bialystok v RSC Anderlecht",
@@ -708,7 +730,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Lillestroem SK v Real Sociedad",
@@ -750,7 +774,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.18,
+   "drift_pct": -2.5
   },
   {
    "fixture": "NK Celje v Salzburg",
@@ -798,7 +824,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Olympiacos v Sparta Prague",
@@ -846,7 +874,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Viktoria Plzen v PFC Levski Sofia",
@@ -894,7 +924,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": -0.8
   },
   {
    "fixture": "FC Kairat Almaty v Panathinaikos",
@@ -1072,7 +1104,11 @@
     "home": 5132373,
     "away": 271765454
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:74173228",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1230,7 +1266,11 @@
     "home": 564177,
     "away": 10772551
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:74173240",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1334,7 +1374,11 @@
     "home": 11019793,
     "away": 2531619
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:74173242",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1384,7 +1428,11 @@
     "home": 111379819,
     "away": 11836112
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:74173246",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1456,7 +1504,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Ajax v Atalanta",
@@ -1504,7 +1554,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Braga v Gent",
@@ -1552,7 +1604,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "FC Midtjylland v St. Truidense VV",
@@ -1600,7 +1654,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.8
   },
   {
    "fixture": "FC Thun v HNK Hajduk Split",
@@ -1648,7 +1704,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -1.7
   },
   {
    "fixture": "FK Borac Banja Luka v Kuopion Palloseura",
@@ -1690,7 +1748,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Lincoln Red Imps v FC Twente Enschede",
@@ -1738,7 +1798,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 5.0
   },
   {
    "fixture": "Monaco v Freiburg",
@@ -1786,7 +1848,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -2.5
   }
  ],
  "accas": [

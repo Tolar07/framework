@@ -411,7 +411,7 @@
     "type": "injury"
    },
    {
-    "name": "Klemen Mihelak",
+    "name": "Jan Suchan",
     "side": "home",
     "type": "injury"
    },
@@ -431,14 +431,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:40Z",
-  "away_missing_share": 0.37392369608127407,
+  "at": "2026-10-22T16:00Z",
+  "away_missing_share": 0.4521899263531232,
   "away_unavailable": 7,
   "fotmob_id": 6112526,
-  "home_missing_share": 0.16964724706780748,
-  "home_unavailable": 4,
+  "home_missing_share": 0.17112724391461162,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "FK Kauno Zalgiris v SK Brann": {
   "absent": [
@@ -512,14 +512,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:40Z",
+  "at": "2026-10-22T16:00Z",
   "away_missing_share": 0.0652144060071639,
   "away_unavailable": 3,
   "fotmob_id": 6112293,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Getafe v Lugano": {
   "absent": [
@@ -608,14 +608,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:40Z",
-  "away_missing_share": 0.10083451510398886,
+  "at": "2026-10-22T16:00Z",
+  "away_missing_share": 0.06973569959789634,
   "away_unavailable": 1,
   "fotmob_id": 6112536,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Jagiellonia Bialystok v RSC Anderlecht": {
   "absent": [
@@ -677,14 +677,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:40Z",
+  "at": "2026-10-22T16:00Z",
   "away_missing_share": 0.20190040019814995,
   "away_unavailable": 1,
   "fotmob_id": 6112251,
   "home_missing_share": 0.4413548161044575,
   "home_unavailable": 7,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "KKS Lech Poznan v Sunderland AFC": {
   "absent": [
@@ -719,14 +719,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:40Z",
+  "at": "2026-10-22T16:00Z",
   "away_missing_share": 0.33934719190803253,
   "away_unavailable": 5,
   "fotmob_id": 6112320,
   "home_missing_share": 0.3161767921058633,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Lincoln Red Imps v FC Twente Enschede": {
   "absent": [
@@ -932,14 +932,14 @@
  },
  "Pafos FC v Riga FC": {
   "absent": [],
-  "at": "2026-10-22T15:40Z",
+  "at": "2026-10-22T16:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 6112419,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Sturm Graz v Marseille": {
   "absent": [
@@ -1011,14 +1011,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:40Z",
-  "away_missing_share": 0.16125291585156046,
+  "at": "2026-10-22T16:00Z",
+  "away_missing_share": 0.14794016901700735,
   "away_unavailable": 4,
   "fotmob_id": 6112502,
-  "home_missing_share": 0.1375888948648306,
+  "home_missing_share": 0.18762393998285554,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Union Gilloise v Hapoel Be`er Sheva FC": {
   "absent": [

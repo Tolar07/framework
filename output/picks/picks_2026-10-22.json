@@ -906,7 +906,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Crvena Zvezda v Copenhagen",

@@ -1,23 +1,23 @@
 {
- "updated": "2026-10-21",
- "days": 1,
+ "updated": "2026-10-22",
+ "days": 2,
  "sections": {
   "accas": {
-   "placed": 2,
+   "placed": 9,
    "settled": 0,
    "won": 0,
    "avg_odds": null,
    "return": null
   },
   "all": {
-   "placed": 5,
+   "placed": 27,
    "settled": 0,
    "won": 0,
    "avg_odds": null,
    "return": null
   },
   "alts": {
-   "placed": 1,
+   "placed": 3,
    "settled": 0,
    "won": 0,
    "avg_odds": null,
@@ -30,7 +30,35 @@
    "avg_odds": null,
    "return": null
   },
+  "clv_accas": {
+   "placed": 2,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
   "combined": {
+   "placed": 3,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "megas": {
+   "placed": 2,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "nba": {
+   "placed": 6,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "nba_accas": {
    "placed": 1,
    "settled": 0,
    "won": 0,
@@ -38,5 +66,12 @@
    "return": null
   }
  },
- "skipped": {}
+ "skipped": {
+  "odds moved (1.44 vs 1.9)": 1,
+  "odds moved (1.58 vs 1.9)": 1,
+  "odds moved (1.78 vs 1.9)": 1,
+  "odds moved (1.86 vs 1.97)": 1,
+  "odds moved (16.20 vs board 25.67)": 1,
+  "odds moved (about 426 vs board product a": 1
+ }
 }

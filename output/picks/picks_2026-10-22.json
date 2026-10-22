@@ -26,7 +26,11 @@
     "home": 1136090,
     "away": 56209025
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:74172986",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -76,7 +80,11 @@
     "home": 9056232,
     "away": 7724467
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:74172988",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -276,7 +284,11 @@
     "home": 6032449,
     "away": 244836584
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:74172996",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -326,7 +338,11 @@
     "home": 19763305,
     "away": 121902332
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:74173000",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -376,7 +392,11 @@
     "home": 32368977,
     "away": 10462264
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:74172998",
    "sb_tid": "sr:tournament:679",
    "sb_market": {
@@ -998,7 +1018,11 @@
     "home": 902243,
     "away": 7410918
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Iberia 1999 rotated: confirmed XI worth 80% of predicted",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:74173216",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1098,7 +1122,11 @@
     "home": 743194,
     "away": 9795451
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:74173232",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1148,7 +1176,11 @@
     "home": 47031258,
     "away": 13184261
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:74173236",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {
@@ -1248,7 +1280,11 @@
     "home": 32082569,
     "away": 11253952
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:74173220",
    "sb_tid": "sr:tournament:34480",
    "sb_market": {

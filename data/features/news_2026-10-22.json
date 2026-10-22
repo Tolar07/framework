@@ -271,14 +271,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.3664255893567211,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.45424147243763996,
   "away_unavailable": 3,
   "fotmob_id": 6112382,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "FC Iberia 1999 v Mjallby AIF": {
   "absent": [
@@ -293,14 +293,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.03875790218880529,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.0402501760195089,
   "away_unavailable": 2,
   "fotmob_id": 6112552,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "FC Kairat Almaty v Panathinaikos": {
   "absent": [
@@ -431,7 +431,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
+  "at": "2026-10-22T15:40Z",
   "away_missing_share": 0.37392369608127407,
   "away_unavailable": 7,
   "fotmob_id": 6112526,
@@ -458,14 +458,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.35347995913151836,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.3274354960346756,
   "away_unavailable": 6,
   "fotmob_id": 6112545,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Ferencvarosi Budapest v SCU Torreense": {
   "absent": [
@@ -485,14 +485,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.07706495724514571,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.07735234393701211,
   "away_unavailable": 1,
   "fotmob_id": 6112281,
-  "home_missing_share": 0.10941749174885036,
+  "home_missing_share": 0.12216655370340705,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "GNK Dinamo Zagreb v NEC Nijmegen": {
   "absent": [
@@ -512,14 +512,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.06770287298812123,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.0652144060071639,
   "away_unavailable": 3,
   "fotmob_id": 6112293,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Getafe v Lugano": {
   "absent": [
@@ -549,14 +549,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.044122265826191456,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.02234181992156348,
   "away_unavailable": 2,
   "fotmob_id": 6112475,
-  "home_missing_share": 0.35270542557764195,
+  "home_missing_share": 0.44863793684965775,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Hoffenheim v Lyon": {
   "absent": [
@@ -608,7 +608,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
+  "at": "2026-10-22T15:40Z",
   "away_missing_share": 0.10083451510398886,
   "away_unavailable": 1,
   "fotmob_id": 6112536,
@@ -677,14 +677,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.1724557704952447,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.20190040019814995,
   "away_unavailable": 1,
   "fotmob_id": 6112251,
-  "home_missing_share": 0.44746551687356717,
+  "home_missing_share": 0.4413548161044575,
   "home_unavailable": 7,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "KKS Lech Poznan v Sunderland AFC": {
   "absent": [
@@ -719,14 +719,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.3127758012793384,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.33934719190803253,
   "away_unavailable": 5,
   "fotmob_id": 6112320,
-  "home_missing_share": 0.3035607850914159,
+  "home_missing_share": 0.3161767921058633,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Lincoln Red Imps v FC Twente Enschede": {
   "absent": [
@@ -837,14 +837,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.064449122865355,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.06574400244227165,
   "away_unavailable": 1,
   "fotmob_id": 6112531,
-  "home_missing_share": 0.023835374133970483,
+  "home_missing_share": 0.023246932706270856,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "OFI Crete v Bayer Leverkusen": {
   "absent": [
@@ -879,14 +879,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.3063782643723834,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.3739433226175317,
   "away_unavailable": 6,
   "fotmob_id": 6112370,
-  "home_missing_share": 0.1990665411716471,
+  "home_missing_share": 0.18688682054552927,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Olympiacos v Sparta Prague": {
   "absent": [
@@ -932,7 +932,7 @@
  },
  "Pafos FC v Riga FC": {
   "absent": [],
-  "at": "2026-10-22T15:20Z",
+  "at": "2026-10-22T15:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 6112419,
@@ -969,14 +969,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.11409429607769955,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.15918222877010935,
   "away_unavailable": 2,
   "fotmob_id": 6112314,
-  "home_missing_share": 0.48128092945631873,
+  "home_missing_share": 0.49151576675681635,
   "home_unavailable": 7,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Trabzonspor v Heart of Midlothian FC": {
   "absent": [
@@ -1011,7 +1011,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
+  "at": "2026-10-22T15:40Z",
   "away_missing_share": 0.16125291585156046,
   "away_unavailable": 4,
   "fotmob_id": 6112502,
@@ -1033,7 +1033,7 @@
     "type": "injury"
    },
    {
-    "name": "Kevin Rodr\u00edguez",
+    "name": "Rob Schoofs",
     "side": "home",
     "type": "injury"
    },
@@ -1048,19 +1048,19 @@
     "type": "injury"
    },
    {
-    "name": "Jo\u00e3o Victor",
+    "name": "Idan Nachmias",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-22T15:20Z",
-  "away_missing_share": 0.29077811107156776,
-  "away_unavailable": 4,
+  "at": "2026-10-22T15:40Z",
+  "away_missing_share": 0.2478534318385486,
+  "away_unavailable": 3,
   "fotmob_id": 6112289,
-  "home_missing_share": 0.4424262826611883,
-  "home_unavailable": 6,
+  "home_missing_share": 0.3754409965845557,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-22T16:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Viktoria Plzen v PFC Levski Sofia": {
   "absent": [

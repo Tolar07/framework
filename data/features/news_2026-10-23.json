@@ -132,6 +132,33 @@
   "kickoff_utc": "2026-10-23T18:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Empoli v L.R. Vicenza": {
+  "absent": [
+   {
+    "name": "Gerard Yepes",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Frank Tsadjout",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Armand Rada",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T12:40Z",
+  "away_missing_share": 0.08449676730501197,
+  "away_unavailable": 2,
+  "fotmob_id": 5967113,
+  "home_missing_share": 0.09721533717723216,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-23T18:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Go Ahead Eagles v Telstar": {
   "absent": [
    {
@@ -163,6 +190,43 @@
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-23T18:00:00.000Z",
   "lineup_type": "predicted"
+ },
+ "Granada v Valladolid": {
+  "absent": [
+   {
+    "name": "Pedro Alema\u00f1",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Alejandro Marqu\u00e9s",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juanmi Latasa",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Guille Bueno",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Miguel Rubio",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T12:40Z",
+  "away_missing_share": 0.38134838987129943,
+  "away_unavailable": 6,
+  "fotmob_id": 5868510,
+  "home_missing_share": 0.2203426108812888,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-23T18:30:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "IF Elfsborg v Malmo": {
   "absent": [
@@ -270,6 +334,48 @@
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Widzew Lodz v Gornik Zabrze": {
+  "absent": [
+   {
+    "name": "Paulinho B\u00f3ia",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Lukas Lerager",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Carlos Isaac",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Luk\u00e1s Sad\u00edlek",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Janis Antiste",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Michal S\u00e1cek",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T12:40Z",
+  "away_missing_share": 0.17669772497933653,
+  "away_unavailable": 3,
+  "fotmob_id": 5804020,
+  "home_missing_share": 0.13541890065353213,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-23T18:30:00.000Z",
   "lineup_type": "lastStarting11"
  }
 }

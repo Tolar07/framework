@@ -13,6 +13,11 @@ on:
     - cron: "17 7 * * *"
     - cron: "17 13 * * *"
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Judge the boards again even if already reasoned (e.g. after a model or prompt change)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -37,7 +42,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL:   ${{ vars.GEMINI_MODEL }}
           PYTHONIOENCODING: utf-8
-        run: python monitor/reasoning_run.py
+          FORCE: ${{ inputs.force && '--force' || '' }}
+        run: python monitor/reasoning_run.py $FORCE
 
       - name: Save
         run: |

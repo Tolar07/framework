@@ -119,6 +119,15 @@
    "reason": ""
   },
   {
+   "code": "PUJSJN",
+   "section": "survivor_mega",
+   "status": "placed",
+   "legs": 3,
+   "odds": 2.11,
+   "units": 1.0,
+   "reason": ""
+  },
+  {
    "code": "QHLE9F",
    "section": "alts",
    "status": "placed",
@@ -200,6 +209,15 @@
    "reason": ""
   },
   {
+   "code": "V3H48H",
+   "section": "survivor",
+   "status": "placed",
+   "legs": 1,
+   "odds": 1.27,
+   "units": 2.0,
+   "reason": ""
+  },
+  {
    "code": "VMFFZU",
    "section": "value",
    "status": "placed",
@@ -210,7 +228,7 @@
   },
   {
    "code": "VZM7RP",
-   "section": "survivor_mega",
+   "section": "?",
    "status": "placed",
    "legs": 3,
    "odds": 2.13,
@@ -228,7 +246,7 @@
   },
   {
    "code": "WT9NSW",
-   "section": "survivor",
+   "section": "?",
    "status": "placed",
    "legs": 1,
    "odds": 1.26,

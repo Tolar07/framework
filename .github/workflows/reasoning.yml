@@ -4,8 +4,9 @@ name: OLP XDV reasoning step
 # framework the thinking superpower"). After each board run, Gemini judges every single
 # (back / lower / veto, with reasons) into output/reasoning/reasoning_<date>.json, and every
 # past verdict is scored against its result in memory/reasoning_record.json.
-# ADVISORY ONLY: it never changes, drops or stakes a pick. The daily board starts it after
-# each run; the crons below are backups. No GEMINI_API_KEY -> every verdict reads PENDING.
+# IT ACTS (2026-10-23): the bots scale a single's stake by its verdict (back x1, lower x0.75, veto x0.5),
+# never dropping a pick; it searches Google for team news and learns from its own record (memory/reasoning_lessons.json).
+# The daily board starts it after each run; the crons below are backups. No GEMINI_API_KEY -> every verdict reads PENDING.
 on:
   schedule:
     - cron: "17 22 * * *"
@@ -42,7 +43,7 @@ jobs:
         run: |
           git config user.name  "olp-xdv-agent"
           git config user.email "olp-xdv-agent@users.noreply.github.com"
-          git add output/reasoning memory/reasoning_record.json || true
+          git add output/reasoning memory/reasoning_record.json memory/reasoning_lessons.json 2>/dev/null || git add output/reasoning memory/reasoning_record.json || true
           if git diff --staged --quiet; then echo "reasoning unchanged"; exit 0; fi
           git commit -q -m "reasoning $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
           for i in 1 2 3; do

@@ -281,10 +281,26 @@ def pool_legs(picks_doc: dict) -> list[dict]:
     return out
 
 
+def value_legs(picks_doc: dict) -> list[dict]:
+    """The value singles (one leg each, own booking code) that are not already board singles, so the
+    SportyBet placer can apply their verdict to the value codes it places (2026-10-23)."""
+    singles = {(s.get("fixture"), s.get("market")) for s in picks_doc.get("singles") or []}
+    out = []
+    for v in picks_doc.get("value") or []:
+        legs = v.get("alt_legs") or []
+        if not isinstance(v, dict) or len(legs) != 1 or (legs[0].get("fixture"), legs[0].get("market")) in singles:
+            continue
+        leg = legs[0]
+        out.append({"fixture": leg.get("fixture"), "league": leg.get("league"), "kickoff_utc": leg.get("kickoff"),
+                    "market": leg.get("market"), "pick": leg.get("pick"), "price": leg.get("price"),
+                    "chance": leg.get("chance"), "code": v.get("code"), "tier": "value"})
+    return out
+
+
 def reason(picks_doc: dict, key: Optional[str] = None, get: Optional[Callable] = None,
            post: Optional[Callable] = None, now: Optional[datetime] = None) -> dict:
     """The reasoning document for one picks file. Never raises on a model failure."""
-    singles = (picks_doc.get("singles") or []) + pool_legs(picks_doc)
+    singles = (picks_doc.get("singles") or []) + pool_legs(picks_doc) + value_legs(picks_doc)
     return _reason(picks_doc, singles, context(singles), PROMPT, key, get, post, now)
 
 

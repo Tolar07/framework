@@ -17,14 +17,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T16:20Z",
+  "at": "2026-10-23T16:40Z",
   "away_missing_share": 0.22471411649178571,
   "away_unavailable": 4,
   "fotmob_id": 5904778,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T17:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Alaves v Malaga CF": {
   "absent": [
@@ -181,7 +181,7 @@
  },
  "Clermont v Guingamp": {
   "absent": [],
-  "at": "2026-10-23T12:09Z",
+  "at": "2026-10-23T16:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803291,
@@ -219,7 +219,7 @@
  },
  "Dunkerque v Metz": {
   "absent": [],
-  "at": "2026-10-23T12:09Z",
+  "at": "2026-10-23T16:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803293,
@@ -278,7 +278,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T12:09Z",
+  "at": "2026-10-23T16:40Z",
   "away_missing_share": 0.07757049452992587,
   "away_unavailable": 1,
   "fotmob_id": 5781781,
@@ -459,7 +459,7 @@
  },
  "Nancy v Laval": {
   "absent": [],
-  "at": "2026-10-23T12:09Z",
+  "at": "2026-10-23T16:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803295,
@@ -470,7 +470,7 @@
  },
  "Pau FC v Grenoble": {
   "absent": [],
-  "at": "2026-10-23T12:09Z",
+  "at": "2026-10-23T16:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803296,
@@ -507,18 +507,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T16:20Z",
-  "away_missing_share": 0.12328307733290059,
+  "at": "2026-10-23T16:40Z",
+  "away_missing_share": 0.1335673650852204,
   "away_unavailable": 4,
   "fotmob_id": 5846005,
   "home_missing_share": 0.09444913191243967,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-23T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Sochaux-Montbeliard v Annecy": {
   "absent": [],
-  "at": "2026-10-23T12:09Z",
+  "at": "2026-10-23T16:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803297,

@@ -124,7 +124,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:72366408",
    "sb_tid": "sr:tournament:38",
    "sb_market": {
@@ -283,8 +287,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03988774155643526,
    "missing": {
@@ -539,8 +543,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -2.4,
    "stake_pct": 0.25,
    "ev": -0.03158974486735033,
    "missing": {
@@ -593,8 +597,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 1.59,
    "stake_pct": 0.25,
    "ev": -0.009971523680081695,
    "missing": {
@@ -1117,7 +1121,11 @@
    "fotmob_id": 5906513,
    "kickoff_utc": "2026-10-23T18:45:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "18:40Z"
+   },
    "sb_event_id": "sr:match:72740718",
    "sb_tid": "sr:tournament:173",
    "sb_market": {

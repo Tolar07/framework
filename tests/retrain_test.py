@@ -207,7 +207,12 @@ def test_double_chance_sums() -> None:
     for f in ("dc_1x", "dc_x2", "dc_12", "home", "draw", "away"):
         assert res[f]["live"] == [0.0, 1.0], "result families start uncalibrated"
         assert "brier_raw" in res[f]
-    assert cal.model_prob("SB:10||Home or Draw", 0.8) == 0.8, "uncalibrated until a fit is adopted"
+    # against the defaults, not memory/calibration_live.json: the nightly retrain adopts real fits
+    live, cal.PARAMS = cal.PARAMS, dict(cal.DEFAULTS)
+    try:
+        assert cal.model_prob("SB:10||Home or Draw", 0.8) == 0.8, "uncalibrated until a fit is adopted"
+    finally:
+        cal.PARAMS = live
     print("double chance sums: OK")
 
 

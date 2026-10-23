@@ -1,0 +1,275 @@
+{
+ "Alanyaspor v Kocaelispor": {
+  "absent": [
+   {
+    "name": "Maestro",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fatih Aksoy",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tanguy Zoukrou",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Bruno Petkovi\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Massadio Ha\u00efdara",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.2342378244599868,
+  "away_unavailable": 4,
+  "fotmob_id": 5904778,
+  "home_missing_share": 0.3959619954166636,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-23T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Bochum v Wolfsburg": {
+  "absent": [
+   {
+    "name": "Oliver Olsen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Enis \u00c7okaj",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jean Manuel Mbom",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aster Vranckx",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mattias Svanberg",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Fraser Hornby",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.24645754290746938,
+  "away_unavailable": 5,
+  "fotmob_id": 5881699,
+  "home_missing_share": 0.3034130530472409,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-23T16:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Clermont v Guingamp": {
+  "absent": [],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803291,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Darmstadt v FC St. Pauli": {
+  "absent": [
+   {
+    "name": "Fabian N\u00fcrnberger",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Luca Marseiler",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Yosuke Furukawa",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Marcus Mathisen",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.02174273410288617,
+  "away_unavailable": 1,
+  "fotmob_id": 5881701,
+  "home_missing_share": 0.15939607565760602,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-23T16:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Dunkerque v Metz": {
+  "absent": [],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803293,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Go Ahead Eagles v Telstar": {
+  "absent": [
+   {
+    "name": "Eus Waayers",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Pim Saathof",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nick Marsman",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Rui Mendes",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.07757049452992587,
+  "away_unavailable": 1,
+  "fotmob_id": 5781781,
+  "home_missing_share": 0.08874635199907065,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "IF Elfsborg v Malmo": {
+  "absent": [
+   {
+    "name": "Jovan Milosavljevi\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mayckel Lahdo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Kenan Busulad\u017ei\u0107",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.42175091274223164,
+  "away_unavailable": 8,
+  "fotmob_id": 5107633,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Nancy v Laval": {
+  "absent": [],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803295,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Pau FC v Grenoble": {
+  "absent": [],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803296,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "SCR Altach v FK Austria Wien": {
+  "absent": [
+   {
+    "name": "Marko Ragu\u017e",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mike-Steven B\u00e4hre",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Noah Boti\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Aleksandar Dragovi\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Manprit Sarkaria",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.12328307733290059,
+  "away_unavailable": 4,
+  "fotmob_id": 5846005,
+  "home_missing_share": 0.09444913191243967,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-23T17:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Sochaux-Montbeliard v Annecy": {
+  "absent": [],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5803297,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T18:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Vasteraas SK v Halmstads BK": {
+  "absent": [],
+  "at": "2026-10-23T12:09Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5107635,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-23T17:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ }
+}

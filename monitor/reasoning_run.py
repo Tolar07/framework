@@ -72,6 +72,15 @@ def main(argv: list[str] | None = None) -> int:
     rec = R.record()
     R.RECORD.write_text(json.dumps(rec, indent=1), encoding="utf-8")
     print(R.summary_line(rec))
+    # once a day per sport, the reasoning rewrites its own lessons from the graded record
+    # (memory/reasoning_lessons.json, read by every later run: recursive self-improvement)
+    for sport in ("football", "nba"):
+        les = R.reflect(sport, now=now)
+        if les:
+            allx = R.load_lessons()
+            allx[sport] = les
+            R.LESSONS.write_text(json.dumps(allx, indent=1, ensure_ascii=False), encoding="utf-8")
+            print(f"lessons {sport}: {len(les['lessons'])} from {les['graded']} graded · {les['summary']}")
     return 0
 
 

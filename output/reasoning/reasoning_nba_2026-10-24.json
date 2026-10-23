@@ -1,0 +1,89 @@
+{
+ "date": "2026-10-24",
+ "picks_generated_at": "2026-10-23T05:51:21Z",
+ "run_at": "2026-10-23T05:52:29+00:00",
+ "model": "gemini-3.5-flash-lite",
+ "advisory": true,
+ "note": null,
+ "picks": [
+  {
+   "fixture": "Milwaukee Bucks v Chicago Bulls",
+   "market": "NBA:68|total=115.5|Over 115.5",
+   "pick": "1st half Over 115.5 points",
+   "price": 1.95,
+   "model_chance": 0.6229,
+   "code": "YQ0WZC",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.6229,
+   "confidence": 0.55,
+   "reasons": "The framework record is WINNING in this family, and the price of 1.95 offers a strong edge over the break_even_chance of 0.5128."
+  },
+  {
+   "fixture": "Boston Celtics v New York Knicks",
+   "market": "NBA:68|total=114.5|Under 114.5",
+   "pick": "1st half Under 114.5 points",
+   "price": 2.0,
+   "model_chance": 0.5767,
+   "code": "UKGLYG",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.5767,
+   "confidence": 0.5,
+   "reasons": "Supported by a WINNING record in this family and an ai_chance exceeding the break_even_chance of 0.5."
+  },
+  {
+   "fixture": "Orlando Magic v Minnesota Timberwolves",
+   "market": "NBA:68|total=114.5|Over 114.5",
+   "pick": "1st half Over 114.5 points",
+   "price": 1.91,
+   "model_chance": 0.6227,
+   "code": "KA53VC",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.6227,
+   "confidence": 0.55,
+   "reasons": "The pick benefits from a WINNING family record and significant positive value_pts of 18.9."
+  },
+  {
+   "fixture": "Miami Heat v Detroit Pistons",
+   "market": "NBA:68|total=121.5|Under 121.5",
+   "pick": "1st half Under 121.5 points",
+   "price": 1.9,
+   "model_chance": 0.5758,
+   "code": "S5WK2N",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.5758,
+   "confidence": 0.45,
+   "reasons": "Backed by a WINNING record in the NBA 1st half total family and a model_chance safely above the break_even_chance."
+  },
+  {
+   "fixture": "San Antonio Spurs v Houston Rockets",
+   "market": "NBA:68|total=110.5|Over 110.5",
+   "pick": "1st half Over 110.5 points",
+   "price": 2.0,
+   "model_chance": 0.6222,
+   "code": "HMV5HH",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.6222,
+   "confidence": 0.55,
+   "reasons": "High value_pts of 24.4 and a WINNING family record support backing this selection."
+  },
+  {
+   "fixture": "Utah Jazz v New Orleans Pelicans",
+   "market": "NBA:223|hcp=1.5|Home (+1.5)",
+   "pick": "Utah Jazz (+1.5) handicap",
+   "price": 1.72,
+   "model_chance": 0.6148,
+   "code": "MBWTMW",
+   "pool": false,
+   "verdict": "back",
+   "ai_chance": 0.6148,
+   "confidence": 0.4,
+   "reasons": "Despite a TOO FEW record in this family, the ai_chance of 0.6148 clears the break_even_chance of 0.5814."
+  }
+ ],
+ "sport": "nba"
+}

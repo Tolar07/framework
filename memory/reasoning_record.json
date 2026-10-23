@@ -1,54 +1,54 @@
 {
  "updated": "2026-10-23",
- "graded": 72,
+ "graded": 80,
  "by_verdict": {
   "back": {
-   "n": 18,
-   "won": 12,
-   "hit": 0.667,
-   "flat_return": -0.1467,
-   "model_said": 0.798,
-   "ai_said": 0.797,
+   "n": 19,
+   "won": 13,
+   "hit": 0.684,
+   "flat_return": -0.1284,
+   "model_said": 0.801,
+   "ai_said": 0.799,
    "clv_n": 20,
    "mean_clv": 0.65,
    "beat_close": 12
   },
   "lower": {
-   "n": 23,
-   "won": 17,
-   "hit": 0.739,
-   "flat_return": -0.0774,
-   "model_said": 0.828,
-   "ai_said": 0.813,
+   "n": 26,
+   "won": 19,
+   "hit": 0.731,
+   "flat_return": -0.0885,
+   "model_said": 0.827,
+   "ai_said": 0.812,
    "clv_n": 39,
    "mean_clv": 0.21,
    "beat_close": 18
   },
   "veto": {
-   "n": 31,
-   "won": 22,
-   "hit": 0.71,
-   "flat_return": -0.1229,
-   "model_said": 0.784,
-   "ai_said": 0.778,
+   "n": 35,
+   "won": 25,
+   "hit": 0.714,
+   "flat_return": -0.1191,
+   "model_said": 0.786,
+   "ai_said": 0.779,
    "clv_n": 43,
    "mean_clv": -0.16,
    "beat_close": 15
   }
  },
  "brier": {
-  "n": 72,
-  "model": 0.2139,
-  "ai": 0.2123
+  "n": 80,
+  "model": 0.2115,
+  "ai": 0.2097
  },
  "nba": {
-  "graded": 13,
+  "graded": 15,
   "by_verdict": {
    "back": {
-    "n": 13,
+    "n": 15,
     "won": 9,
-    "flat_return": 0.3323,
-    "close_value": 0.1722
+    "flat_return": 0.1547,
+    "close_value": 0.1797
    },
    "lower": {
     "n": 0

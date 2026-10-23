@@ -830,9 +830,9 @@
    "to_breed": false,
    "holding": {
     "date": "2026-10-23",
-    "fixture": "Bochum v Wolfsburg",
-    "pick": "Bochum or Wolfsburg",
-    "price": 1.26
+    "fixture": "Go Ahead Eagles v Telstar",
+    "pick": "Telstar (+2.5) Asian handicap",
+    "price": 1.23
    }
   },
   {
@@ -911,6 +911,6 @@
    "holding": null
   }
  ],
- "last_bred_date": "2026-10-22",
+ "last_bred_date": "2026-10-23",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

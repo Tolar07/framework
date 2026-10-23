@@ -204,8 +204,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-1",
    "drift_price": 1.2,
    "drift_pct": 0.0
   },
@@ -258,8 +258,8 @@
    "sharp_ev": null,
    "first_price": 1.28,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "2-2",
    "drift_price": 1.29,
    "drift_pct": 0.8
   },
@@ -302,8 +302,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "drift_price": 1.21,
    "drift_pct": 0.8
   },
@@ -356,8 +356,8 @@
    "sharp_ev": null,
    "first_price": 1.26,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "3-0",
    "drift_price": 1.25,
    "drift_pct": -0.8
   },
@@ -400,8 +400,8 @@
    "sharp_ev": null,
    "first_price": 1.2,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "lost",
+   "ft": "1-0",
    "drift_price": 1.25,
    "drift_pct": 4.2
   },
@@ -454,8 +454,8 @@
    "sharp_ev": null,
    "first_price": 1.21,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "4-1",
    "drift_price": 1.18,
    "drift_pct": -2.5
   },
@@ -508,8 +508,8 @@
    "sharp_ev": null,
    "first_price": 1.23,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "2-3",
    "drift_price": 1.21,
    "drift_pct": -1.6
   },
@@ -562,8 +562,8 @@
    "sharp_ev": null,
    "first_price": 1.22,
    "drift_since_board": null,
-   "result": null,
-   "ft": null,
+   "result": "won",
+   "ft": "1-0",
    "drift_price": 1.25,
    "drift_pct": 2.5
   }
@@ -580,7 +580,7 @@
     "Lille v Galatasaray Istanbul",
     "Inter v Shakhtar D"
    ],
-   "result": null
+   "result": "lost"
   },
   {
    "name": "Acca B",
@@ -594,7 +594,7 @@
     "Reading v Leyton Orient",
     "Sporting v LASK Linz"
    ],
-   "result": null
+   "result": "lost"
   }
  ],
  "safe3": [],
@@ -620,8 +620,8 @@
      "pick": "Under 5.5 goals",
      "price": 1.24,
      "chance": 0.7947,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "3-1"
     },
     {
      "fixture": "Real Madrid v RB Leipzig",
@@ -633,11 +633,11 @@
      "pick": "Real Madrid to win",
      "price": 1.27,
      "chance": 0.7651,
-     "result": null,
-     "ft": null
+     "result": "won",
+     "ft": "4-1"
     }
    ],
-   "result": null
+   "result": "won"
   }
  ],
  "value": [],
@@ -956,7 +956,7 @@
      0.6986
     ]
    ],
-   "ft": null
+   "ft": "3-1"
   },
   {
    "fixture": "Bayern Munich v Arsenal",
@@ -1036,7 +1036,7 @@
      0.7204
     ]
    ],
-   "ft": null
+   "ft": "2-2"
   },
   {
    "fixture": "Betis v Feyenoord",
@@ -1128,7 +1128,7 @@
      0.7174
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Club Brugge v Lens",
@@ -1204,7 +1204,7 @@
      0.7229
     ]
    ],
-   "ft": null
+   "ft": "3-0"
   },
   {
    "fixture": "Inter v Shakhtar D",
@@ -1288,7 +1288,7 @@
      0.6977
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   },
   {
    "fixture": "Real Madrid v RB Leipzig",
@@ -1372,7 +1372,7 @@
      0.7359
     ]
    ],
-   "ft": null
+   "ft": "4-1"
   },
   {
    "fixture": "Sporting v LASK Linz",
@@ -1448,7 +1448,7 @@
      0.7017
     ]
    ],
-   "ft": null
+   "ft": "2-3"
   },
   {
    "fixture": "Reading v Leyton Orient",
@@ -1532,7 +1532,7 @@
      0.6264
     ]
    ],
-   "ft": null
+   "ft": "1-0"
   }
  ],
  "study": [],

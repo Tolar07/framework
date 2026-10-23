@@ -12,7 +12,7 @@
     "sr:match:73682538"
    ],
    "odds": 3.61,
-   "result": null
+   "result": "lost"
   }
  ],
  "picks": [
@@ -42,9 +42,9 @@
     "total": 235.5
    },
    "code": "T7ZPDE",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "114-106",
+   "close_value": 0.2432,
    "matchbook": {
     "back": null,
     "listed": true
@@ -76,9 +76,9 @@
     "total": 235.5
    },
    "code": "K40P38",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "96-84",
+   "close_value": 0.2135,
    "matchbook": {
     "back": null,
     "listed": true

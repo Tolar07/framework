@@ -1,0 +1,152 @@
+##########OLP XDV · NBA #########
+🏀 LIVE TEST — £1 a pick: load the code, place it by hand (orders 26, 41)
+==================================
+
+📅  Sat 24 Oct 2026   ·   tip-off = UK time
+Run ID: OLPXDV-20261023-0551-fabcab
+Games checked against the sharp line: 12
+
+Only prices where SportyBet pays MORE than the fair price (the sharp line, margin
+removed). One pick per game. Value = chance × price − 1.
+
+──────────────────────────────────
+PICKS
+──────────────────────────────────
+
+21:00  Milwaukee Bucks v Chicago Bulls
+   1st half Over 115.5 points @1.95 · chance 62% · fair 1.60 · value +21.5%
+   code YQ0WZC
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+00:00  Boston Celtics v New York Knicks
+   1st half Under 114.5 points @2.00 · chance 58% · fair 1.73 · value +15.3%
+   code UKGLYG
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+00:00  Orlando Magic v Minnesota Timberwolves
+   1st half Over 114.5 points @1.91 · chance 62% · fair 1.61 · value +18.9%
+   code KA53VC
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+01:00  Miami Heat v Detroit Pistons
+   1st half Under 121.5 points @1.90 · chance 58% · fair 1.74 · value +9.4%
+   code S5WK2N
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+02:30  San Antonio Spurs v Houston Rockets
+   1st half Over 110.5 points @2.00 · chance 62% · fair 1.61 · value +24.4%
+   code HMV5HH
+   Matchbook: listed, no back price yet (the bot offers its own)
+
+02:30  Utah Jazz v New Orleans Pelicans
+   Utah Jazz (+1.5) handicap @1.72 · chance 61% · fair 1.63 · value +5.8%
+   code MBWTMW
+   Matchbook: not listed
+
+NBA acca A (3 picks, odds 7.45): Y83YXV
+NBA acca B (3 picks, odds 6.54): VPUDLM
+
+──────────────────────────────────
+STUDY LINES — not picks, nothing booked (order 41)
+──────────────────────────────────
+Each market's SportyBet line closest to the fair price, value or not:
+value = chance × price − 1; most sit below 0 (SportyBet's margin).
+
+21:00  Milwaukee Bucks v Chicago Bulls
+   Milwaukee Bucks to win (incl. OT) @1.99 · fair 2.04 · -2.7%
+   Chicago Bulls (+1.5) handicap @1.77 · fair 1.71 · +3.8%
+   Under 249.5 points (incl. OT) @1.30 · fair 1.34 · -2.8%
+   1st half Over 116.5 points @2.10 · fair 1.69 · +24.0%
+   1st quarter Over 58.5 points @1.97 · fair 1.73 · +13.8%
+   Milwaukee Bucks Under 119.5 points (incl. OT) @1.80 · fair 1.83 · -1.6%
+   Chicago Bulls Over 120.5 points (incl. OT) @2.10 · fair 2.15 · -2.3%
+   Under 235.5 points (regulation time, no OT) @2.05 · fair 2.10 · -2.2%
+   Chicago Bulls (-3.5) 1st half handicap @2.45 · fair 2.45 · +0.1%
+   Chicago Bulls (+1.5) 2nd quarter handicap @1.64 · fair 1.68 · -2.5%
+   Chicago Bulls (-1.5) 1st quarter handicap @2.15 · fair 2.21 · -2.9%
+   Chicago Bulls (-2.5) 3rd quarter handicap @2.40 · fair 2.46 · -2.5%
+
+00:00  Boston Celtics v New York Knicks
+   Boston Celtics to win (incl. OT) @1.75 · fair 1.77 · -1.4%
+   Boston Celtics (+1.5) handicap @1.67 · fair 1.63 · +2.7%
+   Under 235.5 points (incl. OT) @1.29 · fair 1.34 · -3.6%
+   1st half Under 110.5 points @2.70 · fair 2.26 · +19.7%
+   1st quarter Under 57.5 points @1.93 · fair 1.83 · +5.5%
+   Boston Celtics Over 113.5 points (incl. OT) @2.05 · fair 2.05 · +0.2%
+   New York Knicks Under 109.5 points (incl. OT) @2.10 · fair 2.15 · -2.5%
+   Over 220.5 points (regulation time, no OT) @1.77 · fair 1.83 · -3.3%
+   Boston Celtics (-0.5) 1st half handicap @1.84 · fair 1.85 · -0.7%
+   Boston Celtics (-2.5) 1st quarter handicap @2.30 · fair 2.38 · -3.4%
+   Boston Celtics (-2.5) 3rd quarter handicap @2.30 · fair 2.38 · -3.2%
+   Boston Celtics (+1.5) 2nd quarter handicap @1.61 · fair 1.64 · -1.9%
+
+00:00  Charlotte Hornets v Atlanta Hawks
+   Atlanta Hawks to win (incl. OT) @1.71 · fair 1.77 · -3.6%
+   Atlanta Hawks (+1.5) handicap @1.64 · fair 1.63 · +0.8%
+   Under 235.5 points (incl. OT) @1.37 · fair 1.41 · -2.6%
+
+00:00  Indiana Pacers v Dallas Mavericks
+   Indiana Pacers to win (incl. OT) @1.46 · fair 1.50 · -2.3%
+   Indiana Pacers (-11.5) handicap @2.87 · fair 2.80 · +2.6%
+   Under 249.5 points (incl. OT) @1.30 · fair 1.34 · -2.8%
+
+00:00  Orlando Magic v Minnesota Timberwolves
+   Minnesota Timberwolves to win (incl. OT) @1.81 · fair 1.88 · -3.6%
+   Minnesota Timberwolves (+1.5) handicap @1.73 · fair 1.71 · +1.5%
+   Under 248.5 points (incl. OT) @1.27 · fair 1.31 · -2.9%
+   1st half Over 117.5 points @2.35 · fair 1.91 · +23.2%
+   1st quarter Over 57.5 points @1.86 · fair 1.66 · +11.9%
+
+00:00  Washington Wizards v Toronto Raptors
+   Toronto Raptors to win (incl. OT) @1.42 · fair 1.47 · -3.4%
+   Toronto Raptors (-11.5) handicap @2.85 · fair 2.80 · +1.9%
+   Over 234.5 points (incl. OT) @1.78 · fair 1.84 · -3.1%
+
+01:00  Miami Heat v Detroit Pistons
+   Miami Heat to win (incl. OT) @1.94 · fair 2.00 · -3.0%
+   Miami Heat (+1.5) handicap @1.85 · fair 1.71 · +8.5%
+   Over 236.5 points (incl. OT) @1.87 · fair 1.92 · -2.4%
+   1st half Under 117.5 points @2.55 · fair 2.26 · +12.8%
+   1st quarter Under 61.5 points @1.84 · fair 1.76 · +4.7%
+
+02:30  San Antonio Spurs v Houston Rockets
+   San Antonio Spurs to win (incl. OT) @1.50 · fair 1.55 · -3.3%
+   San Antonio Spurs (-10.5) handicap @2.87 · fair 2.80 · +2.6%
+   Under 239.5 points (incl. OT) @1.30 · fair 1.34 · -2.8%
+   1st half Over 110.5 points @2.00 · fair 1.61 · +24.4%
+   1st quarter Over 55.5 points @1.95 · fair 1.67 · +17.1%
+   San Antonio Spurs Over 117.5 points (incl. OT) @2.10 · fair 2.12 · -1.1%
+   Houston Rockets Under 110.5 points (incl. OT) @2.05 · fair 2.08 · -1.2%
+   Under 225.5 points (regulation time, no OT) @2.05 · fair 2.10 · -2.2%
+   San Antonio Spurs (-5.5) 1st half handicap @2.35 · fair 2.33 · +0.7%
+   San Antonio Spurs (-1.5) 2nd quarter handicap @1.95 · fair 1.96 · -0.7%
+   San Antonio Spurs (-2.5) 3rd quarter handicap @2.10 · fair 2.15 · -2.3%
+   San Antonio Spurs (-3.5) 1st quarter handicap @2.30 · fair 2.38 · -3.4%
+
+02:30  Utah Jazz v New Orleans Pelicans
+   New Orleans Pelicans to win (incl. OT) @2.12 · fair 2.19 · -3.1%
+   Utah Jazz (+1.5) handicap @1.72 · fair 1.63 · +5.8%
+   Under 250.5 points (incl. OT) @1.30 · fair 1.34 · -2.8%
+
+03:00  Golden State Warriors v Memphis Grizzlies
+   Golden State Warriors to win (incl. OT) @1.70 · fair 1.72 · -0.9%
+   Golden State Warriors (+1.5) handicap @1.63 · fair 1.56 · +4.7%
+   Over 237.5 points (incl. OT) @2.16 · fair 2.19 · -1.6%
+
+03:00  Los Angeles Lakers v LA Clippers
+   Los Angeles Lakers to win (incl. OT) @1.26 · fair 1.32 · -4.2%
+   LA Clippers (+4.5) handicap @2.89 · fair 2.60 · +11.3%
+   Under 240.5 points (incl. OT) @1.29 · fair 1.34 · -3.6%
+
+03:00  Sacramento Kings v Portland Trail Blazers
+   Portland Trail Blazers to win (incl. OT) @1.33 · fair 1.36 · -2.4%
+   Sacramento Kings (+2.5) handicap @2.90 · fair 2.80 · +3.7%
+   Under 244.5 points (incl. OT) @1.29 · fair 1.34 · -3.6%
+
+──────────────────────────────────
+NBA record (regular season): 15 picks · won 9 (60%) · £1 each returned +2.32 (+15.5%) · beat the closing line on average by +18.0%
+Line watch record: 2 picks · won 0 (0%) · £1 each returned -2.00 (-100.0%) · beat the closing line on average by +21.9%
+
+Honest edge: the backtest found NO edge in picking NBA favourites (−7.8%). This board
+tests the one route left — SportyBet paying above the sharp price — as a live test.
+The framework never stakes: every bet is placed by hand from its code.

@@ -1206,7 +1206,11 @@
     "home": 8723451,
     "away": 12486232
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Malm\u00f6 FF missing 31%",
+    "at": "16:20Z"
+   },
    "sb_event_id": "sr:match:67126830",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -1256,7 +1260,11 @@
     "home": 2641148,
     "away": 5657338
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:20Z"
+   },
    "sb_event_id": "sr:match:67126834",
    "sb_tid": "sr:tournament:40",
    "sb_market": {

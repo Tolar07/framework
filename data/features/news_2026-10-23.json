@@ -2,16 +2,6 @@
  "Alanyaspor v Kocaelispor": {
   "absent": [
    {
-    "name": "Maestro",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Fatih Aksoy",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Tanguy Zoukrou",
     "side": "away",
     "type": "injury"
@@ -27,14 +17,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T16:00Z",
-  "away_missing_share": 0.2342378244599868,
+  "at": "2026-10-23T16:20Z",
+  "away_missing_share": 0.22471411649178571,
   "away_unavailable": 4,
   "fotmob_id": 5904778,
-  "home_missing_share": 0.3959619954166636,
-  "home_unavailable": 2,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Alaves v Malaga CF": {
   "absent": [
@@ -369,11 +359,6 @@
  "IF Elfsborg v Malmo": {
   "absent": [
    {
-    "name": "Jovan Milosavljevi\u0107",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Mayckel Lahdo",
     "side": "away",
     "type": "injury"
@@ -382,16 +367,21 @@
     "name": "Kenan Busulad\u017ei\u0107",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Oscar Sj\u00f6strand",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-23T16:00Z",
-  "away_missing_share": 0.42175091274223164,
-  "away_unavailable": 8,
+  "at": "2026-10-23T16:20Z",
+  "away_missing_share": 0.30685242984363,
+  "away_unavailable": 7,
   "fotmob_id": 5107633,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Ipswich Town v Nott'm Forest": {
   "absent": [
@@ -517,7 +507,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T16:00Z",
+  "at": "2026-10-23T16:20Z",
   "away_missing_share": 0.12328307733290059,
   "away_unavailable": 4,
   "fotmob_id": 5846005,
@@ -581,14 +571,14 @@
  },
  "Vasteraas SK v Halmstads BK": {
   "absent": [],
-  "at": "2026-10-23T16:00Z",
+  "at": "2026-10-23T16:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107635,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Widzew Lodz v Gornik Zabrze": {
   "absent": [

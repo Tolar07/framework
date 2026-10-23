@@ -1,11 +1,11 @@
 {
  "date": "2026-10-23",
  "picks_generated_at": "2026-10-22T20:52:46Z",
- "run_at": "2026-10-23T15:51:30+00:00",
- "model": "gemini-3.8-flash, gemini-3.5-flash-lite",
+ "run_at": "2026-10-23T17:53:19+00:00",
+ "model": "gemini-3.5-flash-lite",
  "advisory": false,
  "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
- "note": "PARTLY PENDING: JSONDecodeError: Extra data: line 7 column 4 (char 226)",
+ "note": "PARTLY PENDING: JSONDecodeError: Extra data: line 1 column 194 (char 193)",
  "picks": [
   {
    "fixture": "Go Ahead Eagles v Telstar",
@@ -15,11 +15,11 @@
    "model_chance": 0.8423,
    "code": "TB0H0R",
    "pool": false,
-   "verdict": "back",
-   "stake_factor": 1.0,
-   "ai_chance": 0.84,
-   "confidence": 0.4,
-   "reasons": "Go Ahead Eagles are at full strength, and our record strongly supports backing 1X lines over DC 12 selections."
+   "verdict": "veto",
+   "stake_factor": 0.5,
+   "ai_chance": 0.81,
+   "confidence": 0.5,
+   "reasons": "Applying lesson: Veto Double Chance '12' (lay-the-draw) bets whenever the market family or Matchbook record is LOSING (framework LOSING, Matchbook LOSING)."
   },
   {
    "fixture": "Randers FC v Brondby",
@@ -29,11 +29,11 @@
    "model_chance": 0.7996,
    "code": "H1G2C9",
    "pool": false,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.788,
-   "confidence": 0.35,
-   "reasons": "The Matchbook record is LOSING in the Double chance family, pulling ai_chance down slightly, but it remains above the break_even_chance of 0.7812."
+   "verdict": "veto",
+   "stake_factor": 0.5,
+   "ai_chance": 0.77,
+   "confidence": 0.5,
+   "reasons": "Applying lesson: Avoid Double Chance '12' at odds above 1.30 or when the framework record is LOSING (price is 1.28, but framework and Matchbook records are LOSING)."
   },
   {
    "fixture": "Kortrijk v Mechelen",
@@ -43,11 +43,11 @@
    "model_chance": 0.7535,
    "code": "PCD8P9",
    "pool": false,
-   "verdict": "veto",
-   "stake_factor": 0.5,
-   "ai_chance": 0.745,
-   "confidence": 0.45,
-   "reasons": "Ai_chance is well below the break_even_chance of 0.7874, and the framework record in the Over/Under family is LOSING."
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.75,
+   "confidence": 0.4,
+   "reasons": "Model chance is below break_even_chance (0.7535 vs 0.7874) and framework record is LOSING."
   },
   {
    "fixture": "Motor Lublin v Zaglebie",
@@ -57,11 +57,11 @@
    "model_chance": 0.7743,
    "code": "MTQV19",
    "pool": false,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.79,
-   "confidence": 0.35,
-   "reasons": "Applying our lesson to not veto positive Asian cushions on small deficits under 3%, backed by a WINNING paper record in the Asian handicap family."
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.7743,
+   "confidence": 0.6,
+   "reasons": "Applying lesson: Do not veto Asian Handicap +1.5 or +2.5 selections on small model-to-breakeven deficits (<3%), backed by WINNING paper record."
   },
   {
    "fixture": "Widzew Lodz v Gornik Zabrze",
@@ -73,9 +73,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.755,
-   "confidence": 0.4,
-   "reasons": "Per our lesson, we avoid Double Chance '12' selections at odds above 1.30, and the framework record in this family is LOSING."
+   "ai_chance": 0.75,
+   "confidence": 0.5,
+   "reasons": "Applying lesson: Veto Double Chance '12' when market family is LOSING (framework LOSING, Matchbook LOSING)."
   },
   {
    "fixture": "Bolton Wanderers v Middlesbrough",
@@ -85,11 +85,11 @@
    "model_chance": 0.8413,
    "code": "GXY01N",
    "pool": false,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.83,
-   "confidence": 0.35,
-   "reasons": "The framework record is LOSING in Double chance, dampening confidence, but ai_chance stays above the break_even_chance of 0.8264."
+   "verdict": "veto",
+   "stake_factor": 0.5,
+   "ai_chance": 0.81,
+   "confidence": 0.5,
+   "reasons": "Applying lesson: Veto Double Chance '12' when market family is LOSING (framework LOSING, Matchbook LOSING)."
   },
   {
    "fixture": "Torino v Monza",
@@ -101,9 +101,9 @@
    "pool": false,
    "verdict": "lower",
    "stake_factor": 0.75,
-   "ai_chance": 0.53,
+   "ai_chance": 0.54,
    "confidence": 0.3,
-   "reasons": "Model shows positive edge, but the framework record is LOSING in the Over/Under family, warranting a lower stake above break_even_chance 0.5181."
+   "reasons": "Framework record in family is LOSING, pulling confidence down despite edge."
   },
   {
    "fixture": "Stuttgart v M'gladbach",
@@ -113,11 +113,11 @@
    "model_chance": 0.7049,
    "code": "GU611Y",
    "pool": false,
-   "verdict": "veto",
-   "stake_factor": 0.5,
-   "ai_chance": 0.69,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.7049,
    "confidence": 0.4,
-   "reasons": "Model edge is negative against break_even_chance 0.7143, and the paper record in the 1X2 family is LOSING with flat return -11.7%."
+   "reasons": "Paper record in family is LOSING and ai_chance is slightly below break_even_chance (0.7049 vs 0.7143)."
   },
   {
    "fixture": "Brest v Nice",
@@ -129,9 +129,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.75,
-   "confidence": 0.4,
-   "reasons": "Price is above 1.30 on DC 12 where draw frequency is high, and both Brest (17%) and Nice (19%) have notable squad absences."
+   "ai_chance": 0.78,
+   "confidence": 0.5,
+   "reasons": "Applying lesson: Veto Double Chance '12' matches when missing player value exceeds 20% for either side (Nice missing 19%, Brest missing 17%, combined roster depletion risk)."
   },
   {
    "fixture": "Guimaraes v Maritimo Madeira",
@@ -141,11 +141,11 @@
    "model_chance": 0.8086,
    "code": "WHV0E0",
    "pool": false,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.795,
-   "confidence": 0.35,
-   "reasons": "Matchbook record is LOSING in Double chance, which tempers our probability, but ai_chance holds clear of break_even_chance 0.7874."
+   "verdict": "veto",
+   "stake_factor": 0.5,
+   "ai_chance": 0.78,
+   "confidence": 0.5,
+   "reasons": "Applying lesson: Veto Double Chance '12' when the framework and Matchbook records are LOSING."
   },
   {
    "fixture": "Ipswich Town v Nott'm Forest",
@@ -155,11 +155,11 @@
    "model_chance": 0.7938,
    "code": "R3PJFX",
    "pool": false,
-   "verdict": "veto",
-   "stake_factor": 0.5,
-   "ai_chance": 0.785,
-   "confidence": 0.45,
-   "reasons": "Ai_chance sits below break_even_chance 0.8197, and the framework record in the Away goals family is LOSING."
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.7938,
+   "confidence": 0.4,
+   "reasons": "Ai_chance is below break_even_chance (0.7938 vs 0.8197) and framework record is LOSING."
   },
   {
    "fixture": "Alaves v Malaga CF",
@@ -169,11 +169,11 @@
    "model_chance": 0.8213,
    "code": "PTXD0V",
    "pool": false,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.805,
-   "confidence": 0.35,
-   "reasons": "Solid 4.0 pt model edge is somewhat offset by a LOSING Matchbook record in Double chance, keeping ai_chance above break_even_chance 0.7812."
+   "verdict": "veto",
+   "stake_factor": 0.5,
+   "ai_chance": 0.79,
+   "confidence": 0.5,
+   "reasons": "Applying lesson: Veto Double Chance '12' when framework and Matchbook records are LOSING."
   },
   {
    "fixture": "Granada v Valladolid",
@@ -185,9 +185,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.73,
-   "confidence": 0.45,
-   "reasons": "Price exceeds 1.30 and Valladolid is missing 38% of squad value, triggering our lesson to veto DC 12 when player absences exceed 20%."
+   "ai_chance": 0.76,
+   "confidence": 0.5,
+   "reasons": "Applying lesson: Veto Double Chance '12' when missing player value exceeds 20% (Real Valladolid missing 38%, Granada missing 22%) and framework record is LOSING."
   },
   {
    "fixture": "Empoli v L.R. Vicenza",
@@ -200,8 +200,8 @@
    "verdict": "veto",
    "stake_factor": 0.5,
    "ai_chance": 0.75,
-   "confidence": 0.5,
-   "reasons": "Lesson dictates vetoing Win to Nil — no at odds <=1.24; ai_chance is well below break_even_chance 0.8333 and framework record is LOSING."
+   "confidence": 0.6,
+   "reasons": "Applying lesson: Veto 'Win to Nil — no' at odds <=1.24 (price is 1.20) and framework record is LOSING."
   },
   {
    "fixture": "Bochum v Wolfsburg",
@@ -211,11 +211,11 @@
    "model_chance": 0.8268,
    "code": "WT9NSW",
    "pool": false,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.81,
-   "confidence": 0.35,
-   "reasons": "Comfortable model edge above break_even_chance 0.7937, though the LOSING framework record in Double chance advises reduced confidence."
+   "verdict": "veto",
+   "stake_factor": 0.5,
+   "ai_chance": 0.8,
+   "confidence": 0.5,
+   "reasons": "Applying lesson: Veto Double Chance '12' when framework and Matchbook records are LOSING."
   },
   {
    "fixture": "Darmstadt v FC St. Pauli",
@@ -227,9 +227,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.75,
+   "ai_chance": 0.74,
    "confidence": 0.5,
-   "reasons": "Applying the lesson to veto Double Chance '12' (lay-the-draw) bets whenever the market family or Matchbook record is LOSING: framework graded 258 picks in this family, won 79%. Matchbook record is also LOSING."
+   "reasons": "Veto Double Chance '12' because the framework_record_in_family is LOSING and Matchbook record in family is LOSING; missing value of 14% also triggers our lesson."
   },
   {
    "fixture": "Clermont v Guingamp",
@@ -241,9 +241,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.74,
+   "ai_chance": 0.73,
    "confidence": 0.5,
-   "reasons": "Following the direct rule to veto Double Chance '12' selections when the framework record is LOSING: framework graded 258 picks in this family, won 79%."
+   "reasons": "Veto Double Chance '12' because the framework_record_in_family is LOSING and Matchbook record in family is LOSING per our lessons."
   },
   {
    "fixture": "Nancy v Laval",
@@ -255,9 +255,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.76,
+   "ai_chance": 0.77,
    "confidence": 0.5,
-   "reasons": "Adhering to the lessons: veto Double Chance '12' bets whenever the framework record is LOSING: framework graded 258 picks in this family, won 79%."
+   "reasons": "Veto Double Chance '12' because the framework_record_in_family is LOSING and Matchbook record in family is LOSING per our established rules."
   },
   {
    "fixture": "Pau FC v Grenoble",
@@ -267,11 +267,11 @@
    "model_chance": 0.7803,
    "code": "NDZTYW",
    "pool": false,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.78,
-   "confidence": 0.4,
-   "reasons": "Ai_chance is below break_even_chance of 0.8264, though supported by a WINNING framework record in this family: framework graded 43 picks, won 84%."
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.82,
+   "confidence": 0.6,
+   "reasons": "The framework_record_in_family is WINNING and Pau is at full strength, supporting the pick well above break-even."
   },
   {
    "fixture": "Sochaux-Montbeliard v Annecy",
@@ -283,9 +283,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.72,
+   "ai_chance": 0.74,
    "confidence": 0.5,
-   "reasons": "Per the lesson: veto 'Win to Nil — no' at odds <=1.24 (price is 1.24), supported by a LOSING framework record in this family: framework graded 15 picks, won 60%."
+   "reasons": "Veto 'Win to Nil — no' at odds <=1.24 per our lesson, and framework_record_in_family is LOSING."
   },
   {
    "fixture": "Dunkerque v Metz",
@@ -297,9 +297,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.75,
+   "ai_chance": 0.76,
    "confidence": 0.5,
-   "reasons": "Applying the lesson to strictly veto Over 1.5 goals at short odds (1.20–1.24) when the framework record is LOSING: framework graded 184 picks, won 78%."
+   "reasons": "Strictly veto Over 1.5 goals at short odds (1.22) when the framework_record_in_family is LOSING per our lessons."
   },
   {
    "fixture": "Gateshead v Tamworth",
@@ -311,9 +311,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.77,
+   "ai_chance": 0.79,
    "confidence": 0.5,
-   "reasons": "Veto Double Chance '12' bets when the framework record is LOSING: framework graded 258 picks in this family, won 79%, and Matchbook record is LOSING."
+   "reasons": "Veto Double Chance '12' because the framework_record_in_family is LOSING and Matchbook record in family is LOSING."
   },
   {
    "fixture": "Alanyaspor v Kocaelispor",
@@ -325,9 +325,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.73,
+   "ai_chance": 0.72,
    "confidence": 0.5,
-   "reasons": "Veto Double Chance '12' matches when missing player value exceeds 20% for either side: Alanyaspor missing 40% of value."
+   "reasons": "Avoid Double Chance '12' at odds above 1.30 per our lessons, and framework_record_in_family is LOSING."
   },
   {
    "fixture": "SCR Altach v FK Austria Wien",
@@ -341,7 +341,7 @@
    "stake_factor": 0.5,
    "ai_chance": 0.75,
    "confidence": 0.5,
-   "reasons": "Veto Double Chance '12' bets whenever the framework record is LOSING: framework graded 258 picks in this family, won 79%, and Matchbook record is LOSING."
+   "reasons": "Veto Double Chance '12' because the framework_record_in_family is LOSING and Matchbook record in family is LOSING."
   },
   {
    "fixture": "IF Elfsborg v Malmo",
@@ -351,11 +351,11 @@
    "model_chance": 0.7889,
    "code": "PYKZ5L",
    "pool": false,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.78,
-   "confidence": 0.4,
-   "reasons": "Ai_chance is below the break_even_chance of 0.8333, but backed by a WINNING framework record in this family: framework graded 43 picks, won 84%."
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.84,
+   "confidence": 0.6,
+   "reasons": "The framework_record_in_family is WINNING and Malmö FF is missing key value, reinforcing Elfsborg scoring."
   },
   {
    "fixture": "Vasteraas SK v Halmstads BK",
@@ -367,9 +367,9 @@
    "pool": false,
    "verdict": "veto",
    "stake_factor": 0.5,
-   "ai_chance": 0.79,
+   "ai_chance": 0.8,
    "confidence": 0.5,
-   "reasons": "Veto Double Chance '12' bets whenever the framework record or Matchbook record is LOSING: framework graded 258 picks in this family, won 79%."
+   "reasons": "Veto Double Chance '12' because the framework_record_in_family is LOSING and Matchbook record in family is LOSING."
   },
   {
    "fixture": "Go Ahead Eagles v Telstar",
@@ -382,8 +382,8 @@
    "verdict": "back",
    "stake_factor": 1.0,
    "ai_chance": 0.82,
-   "confidence": 0.6,
-   "reasons": "Pool true selection with a WINNING paper study record at Matchbook prices: 35/49 won vs 32.5 expected, flat return +9.8%."
+   "confidence": 0.5,
+   "reasons": "The paper_record_in_family is WINNING and positive handicap cushion is supported by paper study performance."
   },
   {
    "fixture": "Go Ahead Eagles v Telstar",
@@ -393,11 +393,11 @@
    "model_chance": 0.8289,
    "code": null,
    "pool": true,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.81,
-   "confidence": 0.4,
-   "reasons": "Pool true selection with a WINNING framework record in this family: framework graded 43 picks, won 84%, needs 81%."
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.83,
+   "confidence": 0.5,
+   "reasons": "The framework_record_in_family is WINning for this family, aligning nicely with the model chance."
   },
   {
    "fixture": "Randers FC v Brondby",
@@ -407,11 +407,11 @@
    "model_chance": 0.831,
    "code": null,
    "pool": true,
-   "verdict": "lower",
-   "stake_factor": 0.75,
-   "ai_chance": 0.81,
+   "verdict": "back",
+   "stake_factor": 1.0,
+   "ai_chance": 0.83,
    "confidence": 0.4,
-   "reasons": "Framework record is LOSING in this family (graded 184 picks, won 78%), pulling down ai_chance despite being a pool selection."
+   "reasons": "Reserve Under backing for high cushions like Under 4.5 per our lessons, keeping ai_chance aligned with model."
   },
   {
    "fixture": "Motor Lublin v Zaglebie",
@@ -423,9 +423,9 @@
    "pool": true,
    "verdict": "back",
    "stake_factor": 1.0,
-   "ai_chance": 0.81,
-   "confidence": 0.6,
-   "reasons": "Pool true selection supported by a WINNING framework record in this family: framework graded 43 picks, won 84%."
+   "ai_chance": 0.8,
+   "confidence": 0.5,
+   "reasons": "The framework_record_in_family is WINNING and model probability comfortably meets expectations for Under 2.5."
   },
   {
    "fixture": "Bolton Wanderers v Middlesbrough",
@@ -439,7 +439,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.8245,
    "confidence": 0.4,
-   "reasons": "Positive handicap cushion of +2.5 supports backing based on our lesson that positive cushions hold strong."
+   "reasons": "Positive handicap cushion supports the selection following our rule to back positive Asian handicaps."
   },
   {
    "fixture": "Stuttgart v M'gladbach",
@@ -451,9 +451,9 @@
    "pool": true,
    "verdict": "lower",
    "stake_factor": 0.75,
-   "ai_chance": 0.79,
+   "ai_chance": 0.795,
    "confidence": 0.35,
-   "reasons": "The framework record in this family is LOSING, which pulls our ai_chance down slightly from the model_chance."
+   "reasons": "The framework record in this family is LOSING, which pulls down our ai_chance slightly from the model."
   },
   {
    "fixture": "Brest v Nice",
@@ -467,7 +467,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.8053,
    "confidence": 0.4,
-   "reasons": "The framework record in this family is WINNING, supporting the model's view."
+   "reasons": "The framework record in this family is WINNING, supporting the model's probability for a home goal."
   },
   {
    "fixture": "Bochum v Wolfsburg",
@@ -481,7 +481,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.81,
    "confidence": 0.4,
-   "reasons": "The framework record in this family is WINNING, supporting the model's view."
+   "reasons": "The framework record in this family is WINNING, and no negative factors appear in the context."
   },
   {
    "fixture": "Darmstadt v FC St. Pauli",
@@ -493,9 +493,9 @@
    "pool": true,
    "verdict": "lower",
    "stake_factor": 0.75,
-   "ai_chance": 0.79,
+   "ai_chance": 0.795,
    "confidence": 0.35,
-   "reasons": "The framework record in this family is LOSING, pulling the ai_chance down."
+   "reasons": "The framework record in this family is LOSING, requiring a downward adjustment to our ai_chance."
   },
   {
    "fixture": "Pau FC v Grenoble",
@@ -509,7 +509,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.8034,
    "confidence": 0.4,
-   "reasons": "The framework record in this family is WINNING, supporting the model's view."
+   "reasons": "The framework record in this family is WINNING, and there are no conflicting notes."
   },
   {
    "fixture": "Gateshead v Tamworth",
@@ -523,7 +523,7 @@
    "stake_factor": 0.75,
    "ai_chance": 0.79,
    "confidence": 0.35,
-   "reasons": "The framework record in this family is LOSING, pulling down the ai_chance."
+   "reasons": "The framework record in this family is LOSING, so we lower confidence accordingly."
   },
   {
    "fixture": "Alanyaspor v Kocaelispor",
@@ -537,7 +537,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.808,
    "confidence": 0.4,
-   "reasons": "No conflicting records or concrete negative news found; staying close to model_chance."
+   "reasons": "No negative framework record or context is present, so we stay close to the model's probability."
   },
   {
    "fixture": "SCR Altach v FK Austria Wien",
@@ -551,7 +551,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.8165,
    "confidence": 0.4,
-   "reasons": "The framework record in this family is WINNING, supporting the model's view."
+   "reasons": "The framework record in this family is WINNING, supporting a standard back verdict."
   },
   {
    "fixture": "Vasteraas SK v Halmstads BK",
@@ -565,7 +565,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.8043,
    "confidence": 0.4,
-   "reasons": "No concrete negative facts found; staying within 0.02 of the model_chance."
+   "reasons": "Positive handicap cushion supports the pick in line with our rules for Asian handicaps."
   },
   {
    "fixture": "Alaves v Malaga CF",
@@ -579,7 +579,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.6082,
    "confidence": 0.4,
-   "reasons": "Ai_chance exceeds break_even_chance of 0.5814 and paper record is LOSING but no concrete news argues against it."
+   "reasons": "Model chance exceeds the break_even_chance of 0.5814 with no contradictory framework record."
   },
   {
    "fixture": "Randers FC v Brondby",
@@ -591,9 +591,9 @@
    "pool": false,
    "verdict": "lower",
    "stake_factor": 0.75,
-   "ai_chance": 0.66,
+   "ai_chance": 0.665,
    "confidence": 0.35,
-   "reasons": "The framework record in this family is LOSING, pulling our ai_chance down slightly."
+   "reasons": "The framework record in this family is LOSING, which pulls our ai_chance down towards the break_even_chance of 0.6494."
   },
   {
    "fixture": "Guimaraes v Maritimo Madeira",
@@ -607,7 +607,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.5274,
    "confidence": 0.4,
-   "reasons": "The framework record in this family is WINNING, supporting the model's view above break_even_chance of 0.5128."
+   "reasons": "The framework record in this family is WINNING, and the model chance exceeds the break_even_chance of 0.5128."
   },
   {
    "fixture": "Kortrijk v Mechelen",
@@ -621,7 +621,7 @@
    "stake_factor": 0.5,
    "ai_chance": 0.5111,
    "confidence": 0.5,
-   "reasons": "Ai_chance is well below the break_even_chance of 0.6329, and the framework record in this family is LOSING."
+   "reasons": "Our ai_chance is significantly below the break_even_chance of 0.6329, and the framework record in this family is LOSING."
   },
   {
    "fixture": "Vasteraas SK v Halmstads BK",
@@ -635,7 +635,7 @@
    "stake_factor": 1.0,
    "ai_chance": 0.5906,
    "confidence": 0.4,
-   "reasons": "Ai_chance exceeds break_even_chance of 0.5848 with no concrete contrary news."
+   "reasons": "Model chance is slightly above the break_even_chance of 0.5848 with no specific negative news."
   },
   {
    "fixture": "Torino v Monza",

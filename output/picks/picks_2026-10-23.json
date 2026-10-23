@@ -270,7 +270,11 @@
     "home": 19112035,
     "away": 70227497
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72339938",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -333,8 +337,8 @@
     "spec": "total=2.5",
     "outcome": "Over 2.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.8,
+   "clv": 7.22,
    "stake_pct": 0.25,
    "ev": 0.055629406533593606,
    "missing": {
@@ -431,8 +435,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": 0.007101316772876842,
    "missing": {
@@ -576,7 +580,11 @@
     "home": 40530125,
     "away": 18663495
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:72478646",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -680,7 +688,11 @@
     "home": 7767190,
     "away": 6480494
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "LR Vicenza at full strength",
+    "at": "18:20Z"
+   },
    "sb_event_id": "sr:match:73093000",
    "sb_tid": "sr:tournament:53",
    "sb_market": {

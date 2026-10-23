@@ -54,14 +54,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T18:00Z",
-  "away_missing_share": 0.2215233476439385,
+  "at": "2026-10-23T18:20Z",
+  "away_missing_share": 0.23312995650364005,
   "away_unavailable": 6,
   "fotmob_id": 5868101,
-  "home_missing_share": 0.056125211486219774,
+  "home_missing_share": 0.06678993762660511,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-23T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Bochum v Wolfsburg": {
   "absent": [
@@ -128,14 +128,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T18:00Z",
-  "away_missing_share": 0.2024931500032575,
+  "at": "2026-10-23T18:20Z",
+  "away_missing_share": 0.1808074615475851,
   "away_unavailable": 3,
   "fotmob_id": 5836887,
-  "home_missing_share": 0.021279451499625835,
+  "home_missing_share": 0.02228114611578361,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-23T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Brest v Nice": {
   "absent": [
@@ -246,14 +246,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T18:00Z",
-  "away_missing_share": 0.08449676730501197,
+  "at": "2026-10-23T18:20Z",
+  "away_missing_share": 0.09464756709609264,
   "away_unavailable": 2,
   "fotmob_id": 5967113,
-  "home_missing_share": 0.09721533717723216,
+  "home_missing_share": 0.09111786033208738,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-23T18:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Go Ahead Eagles v Telstar": {
   "absent": [
@@ -332,7 +332,7 @@
     "type": "injury"
    },
    {
-    "name": "Thiago Balieiro",
+    "name": "Gui",
     "side": "home",
     "type": "injury"
    },
@@ -342,12 +342,12 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T14:00Z",
-  "away_missing_share": 0.11739191445623737,
+  "at": "2026-10-23T18:20Z",
+  "away_missing_share": 0.12431273532361958,
   "away_unavailable": 1,
   "fotmob_id": 5887662,
-  "home_missing_share": 0.12218419362546758,
-  "home_unavailable": 5,
+  "home_missing_share": 0.12974499211469787,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-23T19:45:00.000Z",
   "lineup_type": "predicted"
  },
@@ -443,7 +443,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T18:00Z",
+  "at": "2026-10-23T18:20Z",
   "away_missing_share": 1.0,
   "away_unavailable": 7,
   "fotmob_id": 5811786,

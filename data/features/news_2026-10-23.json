@@ -54,7 +54,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T13:00Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.2215233476439385,
   "away_unavailable": 6,
   "fotmob_id": 5868101,
@@ -128,7 +128,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T13:00Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.2024931500032575,
   "away_unavailable": 3,
   "fotmob_id": 5836887,
@@ -170,7 +170,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.18512132326222594,
   "away_unavailable": 4,
   "fotmob_id": 5802966,
@@ -181,14 +181,14 @@
  },
  "Clermont v Guingamp": {
   "absent": [],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803291,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Darmstadt v FC St. Pauli": {
   "absent": [
@@ -219,14 +219,14 @@
  },
  "Dunkerque v Metz": {
   "absent": [],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803293,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Empoli v L.R. Vicenza": {
   "absent": [
@@ -246,7 +246,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.08449676730501197,
   "away_unavailable": 2,
   "fotmob_id": 5967113,
@@ -310,7 +310,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.38134838987129943,
   "away_unavailable": 6,
   "fotmob_id": 5868510,
@@ -401,7 +401,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T13:00Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.1163618499126421,
   "away_unavailable": 2,
   "fotmob_id": 5795491,
@@ -443,7 +443,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 1.0,
   "away_unavailable": 7,
   "fotmob_id": 5811786,
@@ -454,25 +454,25 @@
  },
  "Nancy v Laval": {
   "absent": [],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803295,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Pau FC v Grenoble": {
   "absent": [],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803296,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "SCR Altach v FK Austria Wien": {
   "absent": [
@@ -513,14 +513,14 @@
  },
  "Sochaux-Montbeliard v Annecy": {
   "absent": [],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803297,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-23T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Torino v Monza": {
   "absent": [
@@ -555,7 +555,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:20Z",
+  "at": "2026-10-23T17:40Z",
   "away_missing_share": 0.39932619310566786,
   "away_unavailable": 5,
   "fotmob_id": 5749718,
@@ -608,13 +608,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:20Z",
-  "away_missing_share": 0.17669772497933653,
+  "at": "2026-10-23T17:40Z",
+  "away_missing_share": 0.1565548244956106,
   "away_unavailable": 3,
   "fotmob_id": 5804020,
-  "home_missing_share": 0.13541890065353213,
+  "home_missing_share": 0.1244317838885691,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-23T18:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  }
 }

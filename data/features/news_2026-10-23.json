@@ -181,7 +181,7 @@
  },
  "Clermont v Guingamp": {
   "absent": [],
-  "at": "2026-10-23T16:40Z",
+  "at": "2026-10-23T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803291,
@@ -219,7 +219,7 @@
  },
  "Dunkerque v Metz": {
   "absent": [],
-  "at": "2026-10-23T16:40Z",
+  "at": "2026-10-23T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803293,
@@ -246,7 +246,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T12:40Z",
+  "at": "2026-10-23T17:00Z",
   "away_missing_share": 0.08449676730501197,
   "away_unavailable": 2,
   "fotmob_id": 5967113,
@@ -271,21 +271,16 @@
     "name": "Nick Marsman",
     "side": "home",
     "type": "injury"
-   },
-   {
-    "name": "Rui Mendes",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-10-23T16:40Z",
-  "away_missing_share": 0.07757049452992587,
-  "away_unavailable": 1,
+  "at": "2026-10-23T17:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
   "fotmob_id": 5781781,
-  "home_missing_share": 0.08874635199907065,
+  "home_missing_share": 0.09179287682741255,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-23T18:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Granada v Valladolid": {
   "absent": [
@@ -315,7 +310,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T12:40Z",
+  "at": "2026-10-23T17:00Z",
   "away_missing_share": 0.38134838987129943,
   "away_unavailable": 6,
   "fotmob_id": 5868510,
@@ -459,7 +454,7 @@
  },
  "Nancy v Laval": {
   "absent": [],
-  "at": "2026-10-23T16:40Z",
+  "at": "2026-10-23T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803295,
@@ -470,7 +465,7 @@
  },
  "Pau FC v Grenoble": {
   "absent": [],
-  "at": "2026-10-23T16:40Z",
+  "at": "2026-10-23T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803296,
@@ -507,18 +502,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T16:40Z",
+  "at": "2026-10-23T17:00Z",
   "away_missing_share": 0.1335673650852204,
   "away_unavailable": 4,
   "fotmob_id": 5846005,
   "home_missing_share": 0.09444913191243967,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-23T17:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Sochaux-Montbeliard v Annecy": {
   "absent": [],
-  "at": "2026-10-23T16:40Z",
+  "at": "2026-10-23T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803297,
@@ -613,7 +608,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T12:40Z",
+  "at": "2026-10-23T17:00Z",
   "away_missing_share": 0.17669772497933653,
   "away_unavailable": 3,
   "fotmob_id": 5804020,

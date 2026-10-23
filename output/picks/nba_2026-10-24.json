@@ -54,9 +54,9 @@
     "total": 237.5
    },
    "code": "YQ0WZC",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "125-132",
+   "close_value": 0.3358,
    "matchbook": {
     "back": null,
     "listed": true

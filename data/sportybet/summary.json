@@ -1,55 +1,55 @@
 {
- "updated": "2026-10-22",
- "days": 2,
+ "updated": "2026-10-23",
+ "days": 3,
  "sections": {
   "accas": {
-   "placed": 9,
-   "settled": 0,
+   "placed": 12,
+   "settled": 4,
    "won": 0,
-   "avg_odds": null,
-   "return": null
+   "avg_odds": 2.72,
+   "return": -1.0
   },
   "all": {
-   "placed": 27,
-   "settled": 0,
+   "placed": 53,
+   "settled": 9,
    "won": 0,
-   "avg_odds": null,
-   "return": null
+   "avg_odds": 64.51,
+   "return": -1.0
   },
   "alts": {
-   "placed": 3,
-   "settled": 0,
+   "placed": 5,
+   "settled": 1,
    "won": 0,
-   "avg_odds": null,
-   "return": null
+   "avg_odds": 1.61,
+   "return": -1.0
   },
   "board": {
-   "placed": 1,
+   "placed": 2,
    "settled": 0,
    "won": 0,
    "avg_odds": null,
    "return": null
   },
   "clv_accas": {
-   "placed": 2,
+   "placed": 4,
    "settled": 0,
    "won": 0,
    "avg_odds": null,
    "return": null
   },
   "combined": {
-   "placed": 3,
-   "settled": 0,
+   "placed": 7,
+   "settled": 2,
    "won": 0,
-   "avg_odds": null,
-   "return": null
+   "avg_odds": 234.31,
+   "return": -1.0
   },
   "megas": {
    "placed": 2,
-   "settled": 0,
+   "settled": 2,
    "won": 0,
-   "avg_odds": null,
-   "return": null
+   "avg_odds": 49.75,
+   "return": -1.0
   },
   "nba": {
    "placed": 6,
@@ -64,14 +64,44 @@
    "won": 0,
    "avg_odds": null,
    "return": null
+  },
+  "safe3": {
+   "placed": 3,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "survivor": {
+   "placed": 3,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "survivor_mega": {
+   "placed": 1,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
+  },
+  "value": {
+   "placed": 7,
+   "settled": 0,
+   "won": 0,
+   "avg_odds": null,
+   "return": null
   }
  },
  "skipped": {
+  "odds moved": 2,
   "odds moved (1.44 vs 1.9)": 1,
   "odds moved (1.58 vs 1.9)": 1,
   "odds moved (1.78 vs 1.9)": 1,
   "odds moved (1.86 vs 1.97)": 1,
   "odds moved (16.20 vs board 25.67)": 1,
-  "odds moved (about 426 vs board product a": 1
+  "odds moved (about 426 vs board product a": 1,
+  "placed 22": 1
  }
 }

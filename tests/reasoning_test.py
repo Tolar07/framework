@@ -1,4 +1,4 @@
-"""engine/reasoning.py — the advisory thinking step. No network: get/post are fakes."""
+"""engine/reasoning.py — the thinking step (its verdict scales the stake since 2026-10-23). No network: get/post are fakes."""
 from __future__ import annotations
 
 import json
@@ -46,7 +46,8 @@ def test_reason_picks_newest_stable_flash_lite_and_cleans_answers():
     doc = R.reason(PICKS, key="k", get=get, post=post_ok, now=NOW)
     assert doc["model"] == "gemini-3.0-flash-lite"
     assert [p["verdict"] for p in doc["picks"]] == ["veto", "back"]
-    assert doc["advisory"] is True and doc["note"] is None
+    assert doc["advisory"] is False and doc["note"] is None
+    assert [p["stake_factor"] for p in doc["picks"]] == [0.5, 1.0]   # the verdict acts on the stake
 
 
 def test_no_key_or_failure_reads_pending():
@@ -195,6 +196,92 @@ def test_nba_record_scores_verdicts_and_keeps_football_apart():
         (Path(d) / "nba_2026-10-21.json").write_text(json.dumps(b))
         assert R.nba_records(Path(d)) == {"NBA 1st half total": {"n": 1, "won": 1, "flat_return": 0.95,
                                                                   "close_value": None}}
+
+
+
+def _graded_dir(d):
+    """One reasoned day: A v B vetoed and WON (a mistake), C v D backed and won."""
+    out, led = Path(d) / "out", Path(d) / "led"
+    out.mkdir()
+    led.mkdir()
+    doc = {"date": "2026-10-19", "picks": [
+        {"fixture": "A v B", "market": "SB:10||Home or Away", "pick": "A or B", "price": 1.3, "verdict": "veto",
+         "model_chance": 0.8, "ai_chance": 0.6, "reasons": "rotation feared"},
+        {"fixture": "C v D", "market": "SB:18|total=4.5|Under 4.5", "pick": "Under 4.5", "price": 1.2,
+         "verdict": "back", "model_chance": 0.82, "ai_chance": 0.85, "reasons": "both sides tight"}]}
+    (out / "reasoning_2026-10-19.json").write_text(json.dumps(doc))
+    p = json.loads(json.dumps(PICKS))
+    for s in p["singles"]:
+        s["result"] = "won"
+    (led / "picks_2026-10-19.json").write_text(json.dumps(p))
+    return out, led
+
+
+def test_teaching_shows_record_mistakes_and_lessons():
+    with tempfile.TemporaryDirectory() as d:
+        out, led = _graded_dir(d)
+        les = Path(d) / "lessons.json"
+        les.write_text(json.dumps({"football": {"lessons": ["veto only on a confirmed absence"]}}))
+        t = R.teaching("football", out, led, les)
+        assert "2 graded verdicts" in t and "veto: 1/1 won" in t
+        assert "YOUR RECENT MISTAKES" in t and "A v B" in t and "rotation feared" in t and "-> it WON" in t
+        assert "C v D" not in t.split("YOUR RECENT MISTAKES")[1].split("YOUR LESSONS")[0]   # a right call
+        assert "veto only on a confirmed absence" in t
+
+
+def test_reflect_rewrites_lessons_once_a_day_and_keeps_old_ones_on_failure():
+    with tempfile.TemporaryDirectory() as d:
+        out, led = _graded_dir(d)
+        les = Path(d) / "lessons.json"
+
+        def post_les(url, json=None, **kw):
+            import json as j
+            return Resp({"choices": [{"message": {"content": j.dumps(
+                {"lessons": ["only veto on a confirmed absence"], "summary": "vetoes on rumour won"})}}]})
+        got = R.reflect("football", key="k", get=get, post=post_les, now=NOW, out_dir=out, ledger_dir=led,
+                        lessons_path=les)
+        assert got["lessons"] == ["only veto on a confirmed absence"] and got["graded"] == 2
+        les.write_text(json.dumps({"football": got}))                   # the runner saves it
+        assert R.reflect("football", key="k", get=get, post=post_les, now=NOW, out_dir=out, ledger_dir=led,
+                         lessons_path=les) is None                       # once a day
+
+        def boom(*a, **k):
+            raise ConnectionError("down")
+        les2 = Path(d) / "l2.json"
+        les2.write_text(json.dumps({"football": {"lessons": ["old"], "date": "2026-10-01", "graded": 1}}))
+        assert R.reflect("football", key="k", get=get, post=boom, now=NOW, out_dir=out, ledger_dir=led,
+                         lessons_path=les2) is None                      # failed: nothing to save, old ones stay
+
+
+def test_model_chain_strongest_first_and_falls_back():
+    def get_pro(url, **kw):
+        return Resp({"data": [{"id": "models/gemini-3.0-pro"}, {"id": "models/gemini-3.0-flash"},
+                              {"id": "models/gemini-3.0-flash-lite"}]})
+    assert R.model_chain(get_pro, "k") == ["gemini-3.0-pro", "gemini-3.0-flash", "gemini-3.0-flash-lite"]
+    seen = []
+
+    def post_quota(url, json=None, **kw):
+        import json as j
+        model = (json or {}).get("model") or url.split("/models/")[1].split(":")[0]
+        seen.append(model)
+        if "pro" in model:
+            raise RuntimeError("429 quota")
+        if ":generateContent" in url:                      # the grounded call answers like Gemini does
+            ans = {"picks": [{"id": 0, "verdict": "lower", "ai_chance": 0.75, "confidence": 0.5, "reasons": "x"},
+                             {"id": 1, "verdict": "back", "ai_chance": 0.85, "confidence": 0.6, "reasons": "y"}]}
+            return Resp({"candidates": [{"content": {"parts": [{"text": "Found news.\n" + j.dumps(ans)}]}}]})
+        raise AssertionError("the grounded call should have answered")
+    doc = R.reason(PICKS, key="k", get=get_pro, post=post_quota, now=NOW)
+    assert doc["model"] == "gemini-3.0-flash" and seen[0] == "gemini-3.0-pro"
+    assert [p["stake_factor"] for p in doc["picks"]] == [0.75, 1.0]
+
+
+def test_value_singles_get_verdicts_with_their_code():
+    doc = dict(PICKS, value=[{"name": "Value 1", "code": "VAL111", "alt_legs": [
+        {"fixture": "E v F", "market": "SB:1||Home", "pick": "E to win", "price": 1.9, "chance": 0.6}]}])
+    rows = R.value_legs(doc)
+    assert [(r["fixture"], r["code"]) for r in rows] == [("E v F", "VAL111")]
+    assert R.value_legs(dict(PICKS, value=[{"code": "X", "alt_legs": [PICKS["singles"][0]]}])) == []
 
 
 if __name__ == "__main__":

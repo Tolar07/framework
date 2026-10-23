@@ -27,7 +27,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T12:09Z",
+  "at": "2026-10-23T15:40Z",
   "away_missing_share": 0.2342378244599868,
   "away_unavailable": 4,
   "fotmob_id": 5904778,
@@ -106,14 +106,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T15:20Z",
+  "at": "2026-10-23T15:40Z",
   "away_missing_share": 0.24645754290746938,
   "away_unavailable": 5,
   "fotmob_id": 5881699,
-  "home_missing_share": 0.3034130530472409,
+  "home_missing_share": 0.31789447955722605,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-23T16:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Bolton Wanderers v Middlesbrough": {
   "absent": [
@@ -216,21 +216,16 @@
     "name": "Yosuke Furukawa",
     "side": "home",
     "type": "injury"
-   },
-   {
-    "name": "Marcus Mathisen",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-10-23T15:20Z",
-  "away_missing_share": 0.02174273410288617,
-  "away_unavailable": 1,
+  "at": "2026-10-23T15:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
   "fotmob_id": 5881701,
-  "home_missing_share": 0.15939607565760602,
+  "home_missing_share": 0.15506033918640455,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-23T16:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Dunkerque v Metz": {
   "absent": [],
@@ -389,7 +384,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T12:09Z",
+  "at": "2026-10-23T15:40Z",
   "away_missing_share": 0.42175091274223164,
   "away_unavailable": 8,
   "fotmob_id": 5107633,
@@ -586,7 +581,7 @@
  },
  "Vasteraas SK v Halmstads BK": {
   "absent": [],
-  "at": "2026-10-23T12:09Z",
+  "at": "2026-10-23T15:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107635,

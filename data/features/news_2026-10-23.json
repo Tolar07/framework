@@ -339,6 +339,38 @@
   "kickoff_utc": "2026-10-23T18:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Guimaraes v Maritimo Madeira": {
+  "absent": [
+   {
+    "name": "Alioune Ndoye",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Juan Diego Castillo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Thiago Balieiro",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Yellu Santiago",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-23T14:00Z",
+  "away_missing_share": 0.11739191445623737,
+  "away_unavailable": 1,
+  "fotmob_id": 5887662,
+  "home_missing_share": 0.12218419362546758,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-23T19:45:00.000Z",
+  "lineup_type": "predicted"
+ },
  "IF Elfsborg v Malmo": {
   "absent": [
    {

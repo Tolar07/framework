@@ -592,12 +592,21 @@
    },
    "gemini=back": {
     "killer": false,
-    "legs": 15,
-    "loss_rate": 0.4,
-    "lost": 6,
-    "slips_killed": 3,
-    "stated_loss": 0.3873,
-    "z": 0.1
+    "legs": 13,
+    "loss_rate": 0.3077,
+    "lost": 4,
+    "slips_killed": 2,
+    "stated_loss": 0.3888,
+    "z": -0.6
+   },
+   "gemini=veto": {
+    "killer": false,
+    "legs": 2,
+    "loss_rate": 1.0,
+    "lost": 2,
+    "slips_killed": 1,
+    "stated_loss": 0.3773,
+    "z": 1.82
    },
    "league=NBA": {
     "killer": false,

@@ -1545,13 +1545,13 @@
    "name": "ACCAS MEGA",
    "of": "accas",
    "code": "MKUDJ5",
-   "result": null
+   "result": "lost"
   },
   {
    "name": "ALT MEGA",
    "of": "alts",
    "code": "SDU5LW",
-   "result": null
+   "result": "won"
   }
  ]
 }

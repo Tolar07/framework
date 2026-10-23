@@ -20,8 +20,8 @@
    "flat_return": -0.0885,
    "model_said": 0.827,
    "ai_said": 0.812,
-   "clv_n": 39,
-   "mean_clv": 0.21,
+   "clv_n": 40,
+   "mean_clv": 0.16,
    "beat_close": 18
   },
   "veto": {
@@ -45,16 +45,19 @@
   "graded": 15,
   "by_verdict": {
    "back": {
-    "n": 15,
+    "n": 13,
     "won": 9,
-    "flat_return": 0.1547,
-    "close_value": 0.1797
+    "flat_return": 0.3323,
+    "close_value": 0.1722
    },
    "lower": {
     "n": 0
    },
    "veto": {
-    "n": 0
+    "n": 2,
+    "won": 0,
+    "flat_return": -1.0,
+    "close_value": 0.2283
    }
   }
  }

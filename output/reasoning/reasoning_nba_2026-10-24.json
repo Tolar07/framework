@@ -1,9 +1,10 @@
 {
  "date": "2026-10-24",
  "picks_generated_at": "2026-10-23T05:51:21Z",
- "run_at": "2026-10-23T05:52:29+00:00",
+ "run_at": "2026-10-23T15:51:30+00:00",
  "model": "gemini-3.5-flash-lite",
- "advisory": true,
+ "advisory": false,
+ "acts_on": "stake: back x1, lower x0.75, veto x0.5 (never dropped)",
  "note": null,
  "picks": [
   {
@@ -15,9 +16,10 @@
    "code": "YQ0WZC",
    "pool": false,
    "verdict": "back",
-   "ai_chance": 0.6229,
-   "confidence": 0.55,
-   "reasons": "The framework record is WINNING in this family, and the price of 1.95 offers a strong edge over the break_even_chance of 0.5128."
+   "stake_factor": 1.0,
+   "ai_chance": 0.61,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING in this family. The price of 1.95 meets our lesson to require 1.90 or higher when backing 1st half totals."
   },
   {
    "fixture": "Boston Celtics v New York Knicks",
@@ -27,10 +29,11 @@
    "model_chance": 0.5767,
    "code": "UKGLYG",
    "pool": false,
-   "verdict": "back",
-   "ai_chance": 0.5767,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.56,
    "confidence": 0.5,
-   "reasons": "Supported by a WINNING record in this family and an ai_chance exceeding the break_even_chance of 0.5."
+   "reasons": "The framework record is WINNING in this family, but the model chance of 0.5767 is modest against a 2.0 price. We back with lower confidence."
   },
   {
    "fixture": "Orlando Magic v Minnesota Timberwolves",
@@ -41,9 +44,10 @@
    "code": "KA53VC",
    "pool": false,
    "verdict": "back",
-   "ai_chance": 0.6227,
-   "confidence": 0.55,
-   "reasons": "The pick benefits from a WINNING family record and significant positive value_pts of 18.9."
+   "stake_factor": 1.0,
+   "ai_chance": 0.61,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING in this family, and the price of 1.91 satisfies our lesson requiring odds of 1.90 or higher."
   },
   {
    "fixture": "Miami Heat v Detroit Pistons",
@@ -53,10 +57,11 @@
    "model_chance": 0.5758,
    "code": "S5WK2N",
    "pool": false,
-   "verdict": "back",
-   "ai_chance": 0.5758,
-   "confidence": 0.45,
-   "reasons": "Backed by a WINNING record in the NBA 1st half total family and a model_chance safely above the break_even_chance."
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.56,
+   "confidence": 0.5,
+   "reasons": "The framework record is WINNING in this family, but the value points are narrow at 9.4 with a price of 1.90."
   },
   {
    "fixture": "San Antonio Spurs v Houston Rockets",
@@ -67,9 +72,10 @@
    "code": "HMV5HH",
    "pool": false,
    "verdict": "back",
-   "ai_chance": 0.6222,
-   "confidence": 0.55,
-   "reasons": "High value_pts of 24.4 and a WINNING family record support backing this selection."
+   "stake_factor": 1.0,
+   "ai_chance": 0.61,
+   "confidence": 0.6,
+   "reasons": "The framework record is WINNING in this family, and the price of 2.0 safely meets our lesson to demand odds of 1.90 or higher."
   },
   {
    "fixture": "Utah Jazz v New Orleans Pelicans",
@@ -79,10 +85,11 @@
    "model_chance": 0.6148,
    "code": "MBWTMW",
    "pool": false,
-   "verdict": "back",
-   "ai_chance": 0.6148,
+   "verdict": "lower",
+   "stake_factor": 0.75,
+   "ai_chance": 0.59,
    "confidence": 0.4,
-   "reasons": "Despite a TOO FEW record in this family, the ai_chance of 0.6148 clears the break_even_chance of 0.5814."
+   "reasons": "The framework record states TOO FEW picks in this family, so we keep our adjustment minimal and confidence low."
   }
  ],
  "sport": "nba"

@@ -229,8 +229,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": -0.76,
    "stake_pct": 0.25,
    "ev": -0.04747636962163171,
    "missing": {
@@ -320,7 +320,11 @@
     "home": 72810279,
     "away": 42134392
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:71945342",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -376,8 +380,8 @@
     "spec": "",
     "outcome": "Home"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": 3.7,
    "stake_pct": 0.76,
    "ev": -0.001989125572428696,
    "missing": null,
@@ -414,7 +418,11 @@
     "home": 40819482,
     "away": 75035466
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72036242",
    "sb_tid": "sr:tournament:34",
    "sb_market": {
@@ -514,7 +522,11 @@
     "home": 183328570,
     "away": 372850984
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Nottingham Forest missing 12% of value (Igor Jesus, Nicol\u00f2 Savona)",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72221344",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -614,7 +626,11 @@
     "home": 8898735,
     "away": 9313190
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "18:00Z"
+   },
    "sb_event_id": "sr:match:72477530",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -623,8 +639,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.01612504395332648,
    "missing": {
@@ -673,8 +689,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 2.56,
    "stake_pct": 0.25,
    "ev": -0.0692908681440898,
    "missing": {

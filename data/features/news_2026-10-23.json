@@ -54,7 +54,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:40Z",
+  "at": "2026-10-23T18:00Z",
   "away_missing_share": 0.2215233476439385,
   "away_unavailable": 6,
   "fotmob_id": 5868101,
@@ -128,7 +128,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:40Z",
+  "at": "2026-10-23T18:00Z",
   "away_missing_share": 0.2024931500032575,
   "away_unavailable": 3,
   "fotmob_id": 5836887,
@@ -170,14 +170,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:40Z",
-  "away_missing_share": 0.18512132326222594,
+  "at": "2026-10-23T18:00Z",
+  "away_missing_share": 0.17317056762970615,
   "away_unavailable": 4,
   "fotmob_id": 5802966,
   "home_missing_share": 0.1677014730362032,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-23T18:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Clermont v Guingamp": {
   "absent": [],
@@ -246,7 +246,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:40Z",
+  "at": "2026-10-23T18:00Z",
   "away_missing_share": 0.08449676730501197,
   "away_unavailable": 2,
   "fotmob_id": 5967113,
@@ -310,14 +310,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:40Z",
-  "away_missing_share": 0.38134838987129943,
+  "at": "2026-10-23T18:00Z",
+  "away_missing_share": 0.39100504181076096,
   "away_unavailable": 6,
   "fotmob_id": 5868510,
-  "home_missing_share": 0.2203426108812888,
+  "home_missing_share": 0.2508602359903427,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-23T18:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Guimaraes v Maritimo Madeira": {
   "absent": [
@@ -401,14 +401,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:40Z",
-  "away_missing_share": 0.1163618499126421,
+  "at": "2026-10-23T18:00Z",
+  "away_missing_share": 0.12119415185452505,
   "away_unavailable": 2,
   "fotmob_id": 5795491,
-  "home_missing_share": 0.05324476176969946,
+  "home_missing_share": 0.05132624407356974,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-23T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Kortrijk v Mechelen": {
   "absent": [
@@ -443,7 +443,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:40Z",
+  "at": "2026-10-23T18:00Z",
   "away_missing_share": 1.0,
   "away_unavailable": 7,
   "fotmob_id": 5811786,
@@ -555,14 +555,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:40Z",
-  "away_missing_share": 0.39932619310566786,
+  "at": "2026-10-23T18:00Z",
+  "away_missing_share": 0.3944535127656001,
   "away_unavailable": 5,
   "fotmob_id": 5749718,
-  "home_missing_share": 0.20403467929230526,
+  "home_missing_share": 0.21145035736015452,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-23T18:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Vasteraas SK v Halmstads BK": {
   "absent": [],

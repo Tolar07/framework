@@ -276,6 +276,14 @@ def test_model_chain_strongest_first_and_falls_back():
     assert [p["stake_factor"] for p in doc["picks"]] == [0.75, 1.0]
 
 
+def test_value_singles_get_verdicts_with_their_code():
+    doc = dict(PICKS, value=[{"name": "Value 1", "code": "VAL111", "alt_legs": [
+        {"fixture": "E v F", "market": "SB:1||Home", "pick": "E to win", "price": 1.9, "chance": 0.6}]}])
+    rows = R.value_legs(doc)
+    assert [(r["fixture"], r["code"]) for r in rows] == [("E v F", "VAL111")]
+    assert R.value_legs(dict(PICKS, value=[{"code": "X", "alt_legs": [PICKS["singles"][0]]}])) == []
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

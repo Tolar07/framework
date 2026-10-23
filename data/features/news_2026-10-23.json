@@ -170,7 +170,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T13:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 0.18512132326222594,
   "away_unavailable": 4,
   "fotmob_id": 5802966,
@@ -181,7 +181,7 @@
  },
  "Clermont v Guingamp": {
   "absent": [],
-  "at": "2026-10-23T17:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803291,
@@ -219,7 +219,7 @@
  },
  "Dunkerque v Metz": {
   "absent": [],
-  "at": "2026-10-23T17:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803293,
@@ -246,7 +246,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 0.08449676730501197,
   "away_unavailable": 2,
   "fotmob_id": 5967113,
@@ -310,7 +310,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 0.38134838987129943,
   "away_unavailable": 6,
   "fotmob_id": 5868510,
@@ -443,7 +443,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T13:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 1.0,
   "away_unavailable": 7,
   "fotmob_id": 5811786,
@@ -454,7 +454,7 @@
  },
  "Nancy v Laval": {
   "absent": [],
-  "at": "2026-10-23T17:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803295,
@@ -465,7 +465,7 @@
  },
  "Pau FC v Grenoble": {
   "absent": [],
-  "at": "2026-10-23T17:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803296,
@@ -513,7 +513,7 @@
  },
  "Sochaux-Montbeliard v Annecy": {
   "absent": [],
-  "at": "2026-10-23T17:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803297,
@@ -555,8 +555,8 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T13:00Z",
-  "away_missing_share": 0.41016248084802764,
+  "at": "2026-10-23T17:20Z",
+  "away_missing_share": 0.39932619310566786,
   "away_unavailable": 5,
   "fotmob_id": 5749718,
   "home_missing_share": 0.20403467929230526,
@@ -608,7 +608,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-23T17:00Z",
+  "at": "2026-10-23T17:20Z",
   "away_missing_share": 0.17669772497933653,
   "away_unavailable": 3,
   "fotmob_id": 5804020,

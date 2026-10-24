@@ -86,14 +86,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T16:00Z",
-  "away_missing_share": 0.03843038058393678,
+  "at": "2026-10-24T16:20Z",
+  "away_missing_share": 0.036466522428151446,
   "away_unavailable": 1,
   "fotmob_id": 5887654,
   "home_missing_share": 0.504270362595216,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T17:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Antwerp v Charleroi": {
   "absent": [
@@ -1401,7 +1401,7 @@
  },
  "Kidderminster v Worthing": {
   "absent": [],
-  "at": "2026-10-24T16:00Z",
+  "at": "2026-10-24T16:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906520,
@@ -2309,7 +2309,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T16:00Z",
+  "at": "2026-10-24T16:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5967109,

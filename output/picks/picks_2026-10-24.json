@@ -93,8 +93,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.005129741588366987,
    "missing": {
@@ -2126,7 +2126,11 @@
     "home": 11878856,
     "away": 13493468
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Alverca missing 50%",
+    "at": "16:20Z"
+   },
    "sb_event_id": "sr:match:72530964",
    "sb_tid": "sr:tournament:238",
    "sb_market": {
@@ -5317,7 +5321,11 @@
    "fotmob_id": 5906520,
    "kickoff_utc": "2026-10-24T16:30:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "NO XI",
+    "note": "no confirmed lineup published",
+    "at": "16:20Z"
+   },
    "sb_event_id": "sr:match:72740740",
    "sb_tid": "sr:tournament:173",
    "sb_market": {

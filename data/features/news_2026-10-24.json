@@ -1196,14 +1196,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T18:20Z",
-  "away_missing_share": 0.09448947994933893,
+  "at": "2026-10-24T18:40Z",
+  "away_missing_share": 0.10711329991628274,
   "away_unavailable": 2,
   "fotmob_id": 5887657,
-  "home_missing_share": 0.0814652671839442,
+  "home_missing_share": 0.0753357372102497,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T19:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Gillingham v Grimsby": {
   "absent": [],
@@ -2163,14 +2163,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T18:20Z",
+  "at": "2026-10-24T18:40Z",
   "away_missing_share": 0.14174435725439874,
   "away_unavailable": 3,
   "fotmob_id": 5811788,
   "home_missing_share": 0.05623112481564663,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T18:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "RB Leipzig v SV 07 Elversberg": {
   "absent": [

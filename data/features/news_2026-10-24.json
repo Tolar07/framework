@@ -86,7 +86,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:40Z",
+  "at": "2026-10-24T16:00Z",
   "away_missing_share": 0.03843038058393678,
   "away_unavailable": 1,
   "fotmob_id": 5887654,
@@ -172,14 +172,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:40Z",
-  "away_missing_share": 0.17422949674576388,
+  "at": "2026-10-24T16:00Z",
+  "away_missing_share": 0.21370990586901445,
   "away_unavailable": 3,
   "fotmob_id": 5943276,
-  "home_missing_share": 0.09198520488131222,
+  "home_missing_share": 0.07357473885988922,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T16:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Aston Villa v Man City": {
   "absent": [
@@ -1399,6 +1399,17 @@
   "kickoff_utc": "2026-10-24T15:30:00.000Z",
   "lineup_type": "confirmed"
  },
+ "Kidderminster v Worthing": {
+  "absent": [],
+  "at": "2026-10-24T16:00Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5906520,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-24T16:30:00.000Z",
+  "lineup_type": "simple"
+ },
  "Korona Kielce v GKS Katowice": {
   "absent": [
    {
@@ -2298,7 +2309,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T16:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5967109,
@@ -2858,7 +2869,7 @@
     "type": "injury"
    },
    {
-    "name": "Thomas Didillon-H\u00f6dl",
+    "name": "Justin Hoogma",
     "side": "home",
     "type": "injury"
    },
@@ -2878,14 +2889,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T15:40Z",
+  "at": "2026-10-24T16:00Z",
   "away_missing_share": 0.18813125546263915,
   "away_unavailable": 4,
   "fotmob_id": 5781785,
-  "home_missing_share": 0.19692932778156227,
-  "home_unavailable": 5,
+  "home_missing_share": 0.16385906391075877,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T16:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Wolves v Watford": {
   "absent": [

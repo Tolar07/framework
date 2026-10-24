@@ -80,7 +80,11 @@
     "home": 9164718,
     "away": 8869951
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:72041198",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -152,7 +156,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Antwerp v Charleroi",
@@ -298,7 +304,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": -0.8
   },
   {
    "fixture": "RAAL La Louviere v Waregem",
@@ -346,7 +354,9 @@
    "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.33,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Dundee United v Aberdeen",
@@ -1670,7 +1680,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Augsburg v Union Berlin",
@@ -1972,8 +1984,8 @@
     "spec": "hcp=0:3",
     "outcome": "Away (0:3)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -6.67,
    "stake_pct": 0.25,
    "ev": -0.04917709710752283,
    "missing": null,
@@ -2032,7 +2044,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Estrela v Casa Pia",
@@ -2385,8 +2399,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.014154010408063744,
    "missing": {
@@ -2547,8 +2561,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.009440383961196064,
    "missing": {
@@ -2610,7 +2624,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Cordoba v Eibar",
@@ -2750,8 +2766,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 0.25,
    "ev": -0.00555522247483109,
    "missing": null,
@@ -2801,8 +2817,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04403746435672262,
    "missing": {
@@ -2864,7 +2880,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Sudtirol v Sampdoria",
@@ -3552,7 +3570,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Huddersfield v Wigan",
@@ -5306,8 +5326,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.05666716520941073,
    "missing": null,
@@ -5550,7 +5570,11 @@
     "home": 2664307,
     "away": 6114293
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "16:00Z"
+   },
    "sb_event_id": "sr:match:72936092",
    "sb_tid": "sr:tournament:185",
    "sb_market": {
@@ -5559,8 +5583,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -1.48,
    "stake_pct": 0.25,
    "ev": -0.03689892644570825,
    "missing": {

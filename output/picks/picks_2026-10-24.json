@@ -238,8 +238,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.029650847685021353,
    "missing": null,
@@ -861,8 +861,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 0.25,
    "ev": -0.04168305370199876,
    "missing": {
@@ -1607,8 +1607,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -0.74,
    "stake_pct": 0.25,
    "ev": -0.0012872536674141122,
    "missing": {
@@ -2372,7 +2372,11 @@
     "home": 716879979,
     "away": 466837849
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:72221336",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -2530,7 +2534,11 @@
     "home": 75215161,
     "away": 177527978
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:72478664",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -2780,7 +2788,11 @@
     "home": 9855662,
     "away": 12864013
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:40Z"
+   },
    "sb_event_id": "sr:match:72477534",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -3436,7 +3448,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Dijon v Rodez",
@@ -5441,8 +5455,8 @@
     "spec": "total=2.5",
     "outcome": "Over 2.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.83,
+   "clv": 2.73,
    "stake_pct": 0.25,
    "ev": 0.04223358871711458,
    "missing": {
@@ -5495,8 +5509,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.81,
    "stake_pct": 0.25,
    "ev": -0.014082161637551605,
    "missing": {
@@ -5795,8 +5809,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.011414790302830213,
    "missing": {
@@ -5849,8 +5863,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -1.59,
    "stake_pct": 0.25,
    "ev": -0.023621635449589617,
    "missing": {
@@ -5912,7 +5926,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Bodoe/Glimt v Vaalerenga IF",
@@ -5988,8 +6004,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 2.5,
    "stake_pct": 0.25,
    "ev": -0.03299911773759401,
    "missing": null,

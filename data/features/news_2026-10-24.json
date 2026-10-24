@@ -86,7 +86,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:00Z",
+  "at": "2026-10-24T15:40Z",
   "away_missing_share": 0.03843038058393678,
   "away_unavailable": 1,
   "fotmob_id": 5887654,
@@ -172,7 +172,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:20Z",
+  "at": "2026-10-24T15:40Z",
   "away_missing_share": 0.17422949674576388,
   "away_unavailable": 3,
   "fotmob_id": 5943276,
@@ -683,19 +683,19 @@
     "type": "injury"
    },
    {
-    "name": "Pedro Porro",
+    "name": "Destiny Udogie",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:20Z",
-  "away_missing_share": 0.402796427185404,
-  "away_unavailable": 9,
+  "at": "2026-10-24T15:40Z",
+  "away_missing_share": 0.3601303451117908,
+  "away_unavailable": 8,
   "fotmob_id": 5795487,
-  "home_missing_share": 0.18332212171028517,
+  "home_missing_share": 0.18982151319327378,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-24T16:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Cheltenham v Newport County": {
   "absent": [],
@@ -1439,29 +1439,29 @@
  "Las Palmas v Sociedad B": {
   "absent": [
    {
-    "name": "Ale Garc\u00eda",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Enrique Clemente",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Jerem\u00eda Recoba",
+    "name": "Marvin Park",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Viti",
     "side": "home",
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:20Z",
+  "at": "2026-10-24T15:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5868512,
-  "home_missing_share": 0.41756504646372267,
-  "home_unavailable": 8,
+  "home_missing_share": 0.23121301693595103,
+  "home_unavailable": 6,
   "kickoff_utc": "2026-10-24T16:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Lazio v Parma": {
   "absent": [
@@ -2691,14 +2691,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:20Z",
-  "away_missing_share": 0.17152225659430037,
+  "at": "2026-10-24T15:40Z",
+  "away_missing_share": 0.20140620105235255,
   "away_unavailable": 3,
   "fotmob_id": 5868110,
-  "home_missing_share": 0.20660131398946072,
+  "home_missing_share": 0.2354563700870187,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-24T16:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Vallecano v Elche": {
   "absent": [
@@ -2878,7 +2878,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T15:20Z",
+  "at": "2026-10-24T15:40Z",
   "away_missing_share": 0.18813125546263915,
   "away_unavailable": 4,
   "fotmob_id": 5781785,

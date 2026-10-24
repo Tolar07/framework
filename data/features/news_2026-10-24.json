@@ -10,6 +10,38 @@
   "kickoff_utc": "2026-10-24T14:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Alverca v Arouca": {
+  "absent": [
+   {
+    "name": "Bastien Meupiyou",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Noah Raveyre",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juli\u00e1n Mart\u00ednez",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Miguel Puche",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T11:00Z",
+  "away_missing_share": 0.03843038058393678,
+  "away_unavailable": 1,
+  "fotmob_id": 5887654,
+  "home_missing_share": 0.504270362595216,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-24T17:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Antwerp v Charleroi": {
   "absent": [
    {
@@ -502,14 +534,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:40Z",
-  "away_missing_share": 0.2574368306787664,
-  "away_unavailable": 6,
+  "at": "2026-10-24T11:00Z",
+  "away_missing_share": 0.2589559887467467,
+  "away_unavailable": 5,
   "fotmob_id": 5836889,
-  "home_missing_share": 0.07312306260779126,
+  "home_missing_share": 0.08067006724834483,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T11:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Chelsea v Tottenham": {
   "absent": [
@@ -650,14 +682,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:40Z",
-  "away_missing_share": 0.19048980240434035,
+  "at": "2026-10-24T11:00Z",
+  "away_missing_share": 0.15009378723424474,
   "away_unavailable": 5,
   "fotmob_id": 5868508,
   "home_missing_share": 0.15068948433403923,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T12:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Coventry City v Fulham": {
   "absent": [
@@ -736,7 +768,7 @@
  },
  "Dijon v Rodez": {
   "absent": [],
-  "at": "2026-10-24T10:40Z",
+  "at": "2026-10-24T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803292,
@@ -817,7 +849,7 @@
  },
  "Eastleigh v Boston Utd": {
   "absent": [],
-  "at": "2026-10-24T10:40Z",
+  "at": "2026-10-24T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906517,
@@ -1052,7 +1084,7 @@
  },
  "Harrogate v Sutton": {
   "absent": [],
-  "at": "2026-10-24T10:40Z",
+  "at": "2026-10-24T11:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906518,
@@ -2015,12 +2047,12 @@
  "Sheffield United v Derby": {
   "absent": [
    {
-    "name": "Femi Seriki",
+    "name": "Matt Doherty",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Matt Doherty",
+    "name": "Jamie Shackleton",
     "side": "home",
     "type": "injury"
    },
@@ -2030,24 +2062,24 @@
     "type": "injury"
    },
    {
-    "name": "Max Johnston",
+    "name": "Sondre Klingen Lang\u00e5s",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Sondre Klingen Lang\u00e5s",
+    "name": "Eiran Cashin",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:40Z",
-  "away_missing_share": 0.5438833100368369,
-  "away_unavailable": 10,
+  "at": "2026-10-24T11:00Z",
+  "away_missing_share": 0.4569206935450617,
+  "away_unavailable": 8,
   "fotmob_id": 5836894,
-  "home_missing_share": 0.044313507541382996,
+  "home_missing_share": 0.020640811448401374,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T11:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "St Mirren v Dundee": {
   "absent": [
@@ -2320,14 +2352,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:40Z",
-  "away_missing_share": 0.10201371324283794,
+  "at": "2026-10-24T11:00Z",
+  "away_missing_share": 0.10021276916873467,
   "away_unavailable": 1,
   "fotmob_id": 5868107,
-  "home_missing_share": 0.46390049682739476,
+  "home_missing_share": 0.4624197269517271,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T12:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Virtus Entella v Mantova": {
   "absent": [
@@ -2414,6 +2446,48 @@
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-24T14:00:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Willem II v Cambuur": {
+  "absent": [
+   {
+    "name": "Amine Lachkar",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Armin Culum",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Thomas Didillon-H\u00f6dl",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Daan Visser",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Wout Asselman",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Devid Eugene Bouah",
+    "side": "away",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-10-24T11:00Z",
+  "away_missing_share": 0.18813125546263915,
+  "away_unavailable": 4,
+  "fotmob_id": 5781785,
+  "home_missing_share": 0.19692932778156227,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-24T16:45:00.000Z",
+  "lineup_type": "predicted"
  },
  "Wolves v Watford": {
   "absent": [

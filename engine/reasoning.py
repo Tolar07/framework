@@ -45,7 +45,7 @@ RECORD = ROOT / "memory" / "reasoning_record.json"
 POOL_MIN_CHANCE = 0.80           # the Matchbook agent trades pool legs only from 80% (survivor rule, 2026-10-15)
 
 BASE_URL = os.getenv("GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai").rstrip("/")
-BATCH = 15                       # picks per request: few requests on the free tier's daily cap
+BATCH = 10                       # picks per request: deeper search per match, still inside the free tier's daily cap
 VERDICTS = ("back", "lower", "veto")
 # THE VERDICT ACTS (the Architect, 2026-10-23: "let it keep acting until it gets itself right ...
 # recursive self-improvement"): the bots scale a single's stake by its verdict. A pick is never
@@ -74,6 +74,12 @@ LEARN FROM YOUR RECORD: your own scorecard, your recent mistakes and the lessons
 yourself come before the picks. Apply the lessons; do not repeat a mistake listed there.
 
 Rules:
+- FACTS GIVEN (2026-10-24): "market_chance" is the sharp bookmaker's de-margined chance for the same
+  outcome (null when it has no line). When it differs from model_chance by more than 0.04 the two
+  disagree: find out why (news, line-ups) and say which you trust; with no fact either way, move
+  half-way to market_chance. "missing_value_share" is the share of each team's squad value
+  unavailable (injured, suspended, not in the predicted XI): 0.30+ on the side your pick needs is a
+  concrete reason to pull the chance down, on the other side a reason to keep or raise it.
 - "ai_chance" is YOUR estimate, not a copy. Start from model_chance and move it for each concrete
   reason in the context: a LOSING record in the family (the model has been overconfident there)
   pulls it down by about the gap between "won" and "needs"; key absences for the picked side pull
@@ -172,6 +178,9 @@ def context(singles: list[dict]) -> list[dict]:
             "break_even_chance": round(1 / float(s["price"]), 4) if s.get("price") else None,
             "model_edge_pts": round(100 * (float(s["chance"]) - 1 / float(s["price"])), 1)
             if s.get("price") and s.get("chance") is not None else None,
+            "market_chance": s.get("sharp_p"),
+            "missing_value_share": {k: round(float(v), 2) for k, v in (s.get("missing") or {}).items()
+                                    if isinstance(v, (int, float))} or None,
             "tier": s.get("tier"), "pool": bool(s.get("pool")),
             "certainty": s.get("certainty"), "market_family": fam,
             "news": " · ".join(x for x in (s.get("news_level"), s.get("news_note"),

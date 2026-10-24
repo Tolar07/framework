@@ -185,8 +185,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -4.0,
    "stake_pct": 0.25,
    "ev": -0.05035778741409125,
    "missing": {
@@ -379,8 +379,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.017315671654135834,
    "missing": {
@@ -433,8 +433,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.042493966682996764,
    "missing": {
@@ -487,8 +487,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 1.57,
    "stake_pct": 0.12,
    "ev": 0.002601502445190196,
    "missing": {
@@ -541,8 +541,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02377777800866543,
    "missing": {
@@ -1061,8 +1061,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": -2.31,
    "stake_pct": 0.25,
    "ev": -0.012338062661564564,
    "missing": {
@@ -1115,8 +1115,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.010426504238257417,
    "missing": {
@@ -1156,7 +1156,11 @@
     "home": 13344931,
     "away": 37550325
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72339944",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1165,8 +1169,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.013611436667858356,
    "missing": {
@@ -1219,8 +1223,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.3,
+   "clv": 0.77,
    "stake_pct": 0.25,
    "ev": -0.024766405549582537,
    "missing": {
@@ -1266,8 +1270,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": -1.63,
    "stake_pct": 0.25,
    "ev": -0.04088604485186409,
    "missing": null,
@@ -1317,8 +1321,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.34,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.01349481814351805,
    "missing": {
@@ -1371,8 +1375,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02473885994615921,
    "missing": {
@@ -1425,8 +1429,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 0.25,
    "ev": -0.03241929665446064,
    "missing": {
@@ -1958,7 +1962,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Lens v Paris FC",
@@ -2032,7 +2038,11 @@
     "home": 13267384,
     "away": 6273562
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72530966",
    "sb_tid": "sr:tournament:238",
    "sb_market": {
@@ -2245,8 +2255,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 3.42,
    "stake_pct": 0.25,
    "ev": -0.03787192516779314,
    "missing": {
@@ -2299,8 +2309,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.008176519622466683,
    "missing": {
@@ -2362,7 +2372,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Vallecano v Elche",
@@ -2455,8 +2467,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.006257023258243843,
    "missing": {
@@ -2518,7 +2530,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Ath Madrid v RC Deportivo de A Coruna",
@@ -2646,7 +2660,11 @@
     "home": 17306703,
     "away": 25874343
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72477532",
    "sb_tid": "sr:tournament:54",
    "sb_market": {
@@ -2655,8 +2673,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": 0.75,
    "stake_pct": 0.25,
    "ev": -0.03768847728784552,
    "missing": {
@@ -2712,7 +2730,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Las Palmas v Sociedad B",
@@ -2760,7 +2780,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Almeria v Oviedo",
@@ -3622,7 +3644,11 @@
     "home": 3334393,
     "away": 4288758
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72341310",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3631,8 +3657,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.27,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.031557053276616065,
    "missing": {
@@ -3685,8 +3711,8 @@
     "spec": "hcp=1.5",
     "outcome": "Home (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.18,
+   "clv": 1.69,
    "stake_pct": 0.25,
    "ev": -0.028884936749110746,
    "missing": {
@@ -3739,8 +3765,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.022511947406749777,
    "missing": {
@@ -3793,8 +3819,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.32,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.022488799118500324,
    "missing": {
@@ -3847,8 +3873,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04524084243676152,
    "missing": {
@@ -3888,7 +3914,11 @@
     "home": 4544977,
     "away": 5964593
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Sheffield Wednesday at full strength",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72341320",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3897,8 +3927,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -1.61,
    "stake_pct": 0.25,
    "ev": -0.03673893509998172,
    "missing": {
@@ -3951,8 +3981,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -3.91,
    "stake_pct": 0.25,
    "ev": -0.05145475312541792,
    "missing": {
@@ -4005,8 +4035,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 1.53,
    "stake_pct": 0.25,
    "ev": -0.01784164966413815,
    "missing": {
@@ -4059,8 +4089,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.03132651818179266,
    "missing": {
@@ -4113,8 +4143,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.024908798172496138,
    "missing": {
@@ -4329,8 +4359,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0400755753733103,
    "missing": {
@@ -4383,8 +4413,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.05410119111737832,
    "missing": {
@@ -4437,8 +4467,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -2.38,
    "stake_pct": 0.25,
    "ev": -0.049870866213041265,
    "missing": {
@@ -4491,8 +4521,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.33,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.048275698491118346,
    "missing": {
@@ -4545,8 +4575,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.04570940523833711,
    "missing": {
@@ -4599,8 +4629,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.029628546452419302,
    "missing": {
@@ -4653,8 +4683,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 2.5,
    "stake_pct": 0.25,
    "ev": -0.056316561779067964,
    "missing": {
@@ -4707,8 +4737,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 0.25,
    "ev": -0.05885037053129338,
    "missing": {
@@ -4841,7 +4871,11 @@
    "fotmob_id": 5906514,
    "kickoff_utc": "2026-10-24T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72740724",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -4850,8 +4884,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.015941326897437547,
    "missing": null,
@@ -4885,7 +4919,11 @@
    "fotmob_id": 5906515,
    "kickoff_utc": "2026-10-24T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72740726",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -4894,8 +4932,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.03887888465624245,
    "missing": null,
@@ -4942,8 +4980,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.0437045982213633,
    "missing": null,
@@ -4977,7 +5015,11 @@
    "fotmob_id": 5906519,
    "kickoff_utc": "2026-10-24T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72740730",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -4986,8 +5028,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -0.78,
    "stake_pct": 0.25,
    "ev": -0.03929197906674031,
    "missing": null,
@@ -5021,7 +5063,11 @@
    "fotmob_id": 5906521,
    "kickoff_utc": "2026-10-24T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72740732",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -5030,8 +5076,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.19,
+   "clv": 0.84,
    "stake_pct": 0.25,
    "ev": -0.04698681619417355,
    "missing": null,
@@ -5078,8 +5124,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.041433907957723615,
    "missing": null,
@@ -5113,7 +5159,11 @@
    "fotmob_id": 5906523,
    "kickoff_utc": "2026-10-24T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:40Z"
+   },
    "sb_event_id": "sr:match:72740736",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -5122,8 +5172,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.033536963917685014,
    "missing": null,
@@ -5170,8 +5220,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 0.25,
    "ev": -0.041594270811564193,
    "missing": null,
@@ -5224,7 +5274,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Eyupspor v Kasimpasa Istanbul",
@@ -5470,7 +5522,9 @@
    "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.34,
+   "drift_pct": 0.8
   },
   {
    "fixture": "AEK Athens v Panaitolikos Agrinio",
@@ -5834,8 +5888,8 @@
     "spec": "total=2.5",
     "outcome": "Home/Draw & Over 2.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.16,
+   "clv": 4.31,
    "stake_pct": 0.25,
    "ev": -0.07652801805595455,
    "missing": null,

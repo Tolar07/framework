@@ -203,7 +203,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.24671305740475788,
   "away_unavailable": 5,
   "fotmob_id": 5881197,
@@ -240,7 +240,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.11155225878921622,
   "away_unavailable": 4,
   "fotmob_id": 5967110,
@@ -272,7 +272,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.29256412547156957,
   "away_unavailable": 2,
   "fotmob_id": 5107631,
@@ -417,7 +417,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.2820986567013657,
   "away_unavailable": 3,
   "fotmob_id": 5749711,
@@ -645,7 +645,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.39262618746090217,
   "away_unavailable": 4,
   "fotmob_id": 5749712,
@@ -762,7 +762,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5967112,
@@ -929,7 +929,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.29397700462993537,
   "away_unavailable": 7,
   "fotmob_id": 5881199,
@@ -1030,7 +1030,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5904776,
@@ -1078,7 +1078,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.09063270058867594,
   "away_unavailable": 2,
   "fotmob_id": 5765945,
@@ -1196,7 +1196,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.5041040072736955,
   "away_unavailable": 9,
   "fotmob_id": 5107634,
@@ -1255,14 +1255,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.12548253486165814,
   "away_unavailable": 3,
   "fotmob_id": 5804014,
-  "home_missing_share": 0.146466727489346,
+  "home_missing_share": 0.1593108269106857,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T12:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Las Palmas v Sociedad B": {
   "absent": [
@@ -1441,7 +1441,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.36409717443644996,
   "away_unavailable": 7,
   "fotmob_id": 5881202,
@@ -1483,7 +1483,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.1933946524097392,
   "away_unavailable": 3,
   "fotmob_id": 5967115,
@@ -1684,7 +1684,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.12463322116315224,
   "away_unavailable": 3,
   "fotmob_id": 5881203,
@@ -1874,7 +1874,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.47632499800594813,
   "away_unavailable": 4,
   "fotmob_id": 5881204,
@@ -2241,7 +2241,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.47923924883137975,
   "away_unavailable": 6,
   "fotmob_id": 5967117,
@@ -2416,7 +2416,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:40Z",
+  "at": "2026-10-24T12:00Z",
   "away_missing_share": 0.14802074615844438,
   "away_unavailable": 4,
   "fotmob_id": 5967114,

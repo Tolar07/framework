@@ -289,3 +289,12 @@ if __name__ == "__main__":
         if name.startswith("test_"):
             fn()
     print("reasoning_test OK")
+
+
+def test_market_chance_and_absences_reach_the_verdict():
+    s = {**PICKS["singles"][0], "sharp_p": 0.7753, "missing": {"home": 0.4724, "away": 0.2512}}
+    row = R.context([s])[0]
+    assert row["market_chance"] == 0.7753
+    assert row["missing_value_share"] == {"home": 0.47, "away": 0.25}
+    assert R.context(PICKS["singles"])[0]["missing_value_share"] is None
+    assert "market_chance" in R.PROMPT and "market_chance" in R.PROMPT_NBA

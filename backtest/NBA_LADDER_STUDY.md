@@ -4,22 +4,22 @@ Written by `backtest/nba_ladder_study.py` from every saved SportyBet NBA ladder 
 
 OPEN LINES ONLY: 40 older snapshots were dropped — they mixed in closed lines (SportyBet status 2: listed with stale prices, not bettable), which faked a too-wide ladder.
 
-1616 looks at 89 games, 2026-10-07 to 2026-10-24. Regular season and preseason are measured apart (preseason rests starters).
+1676 looks at 89 games, 2026-10-07 to 2026-10-24. Regular season and preseason are measured apart (preseason rests starters).
 
-## Regular — 699 looks at 36 games
+## Regular — 759 looks at 36 games
 
 | Market | ladders | implied sd (median) | measured sd | ladder is | value per side in band: median · best |
 |---|---|---|---|---|---|
-| Full-game total | 699 | 18.37 | 18.0 | about right | -4.0% · +2.3% |
-| Home points | 688 | 11.69 | 11.3 | about right | -4.7% · +6.2% |
-| Away points | 688 | 11.63 | 11.3 | about right | -4.7% · +3.8% |
+| Full-game total | 759 | 18.37 | 18.0 | about right | -4.0% · +2.3% |
+| Home points | 748 | 11.69 | 11.3 | about right | -4.7% · +6.2% |
+| Away points | 748 | 11.63 | 11.3 | about right | -4.8% · +3.8% |
 | Regulation total | 0 | — | 17.2 | PENDING | -4.0% · +3.0% |
-| Full-game handicap | 699 | 14.91 | 13.7 | WIDER by 1.2 | -3.2% · +8.5% |
-| 1st-half handicap | 688 | 11.70 | 11.0 | WIDER by 0.7 | -4.0% · +5.2% |
-| 1st-quarter handicap | 686 | 8.82 | 8.3 | WIDER by 0.5 | -5.3% · +0.8% |
-| 2nd-quarter handicap | 686 | 8.95 | 8.2 | WIDER by 0.8 | -5.0% · +5.2% |
-| 3rd-quarter handicap | 686 | 8.81 | 8.5 | about right | -5.0% · +1.0% |
-| 4th-quarter handicap | 686 | 8.32 | — | PENDING | — |
+| Full-game handicap | 759 | 14.87 | 13.7 | WIDER by 1.2 | -3.3% · +8.5% |
+| 1st-half handicap | 748 | 11.72 | 11.0 | WIDER by 0.7 | -4.0% · +5.2% |
+| 1st-quarter handicap | 746 | 8.82 | 8.3 | WIDER by 0.5 | -5.3% · +0.9% |
+| 2nd-quarter handicap | 746 | 8.95 | 8.2 | WIDER by 0.8 | -4.9% · +5.2% |
+| 3rd-quarter handicap | 746 | 8.81 | 8.5 | about right | -5.0% · +1.0% |
+| 4th-quarter handicap | 746 | 8.32 | — | PENDING | — |
 
 ## Preseason — 917 looks at 53 games
 

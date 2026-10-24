@@ -696,7 +696,11 @@
     "home": 7206123,
     "away": 4497874
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:72043224",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -705,8 +709,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.041761468659042955,
    "missing": {
@@ -6112,7 +6116,11 @@
     "home": 17355129,
     "away": 3637519
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: \u00d6rgryte missing 26%",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:67126822",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -6121,8 +6129,8 @@
     "spec": "total=1.5",
     "outcome": "Home & Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -0.82,
    "stake_pct": 0.25,
    "ev": -0.10183807646178311,
    "missing": {
@@ -6162,7 +6170,11 @@
     "home": 4512701,
     "away": 5170625
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:67126836",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -6171,8 +6183,8 @@
     "spec": "total=1.5",
     "outcome": "Over 1.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 1.65,
    "stake_pct": 0.25,
    "ev": -0.039570601639467906,
    "missing": {

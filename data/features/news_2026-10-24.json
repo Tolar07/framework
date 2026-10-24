@@ -172,7 +172,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.17422949674576388,
   "away_unavailable": 3,
   "fotmob_id": 5943276,
@@ -688,7 +688,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.402796427185404,
   "away_unavailable": 9,
   "fotmob_id": 5795487,
@@ -929,14 +929,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.2634794204570028,
   "away_unavailable": 4,
   "fotmob_id": 5107629,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-24T15:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Doncaster Rovers v Sheffield Wednesday": {
   "absent": [],
@@ -1390,14 +1390,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107636,
   "home_missing_share": 0.1239827976326362,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T15:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Korona Kielce v GKS Katowice": {
   "absent": [
@@ -1454,7 +1454,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5868512,
@@ -1771,7 +1771,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.32993931040451596,
   "away_unavailable": 7,
   "fotmob_id": 5765948,
@@ -1813,7 +1813,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.3195747338238786,
   "away_unavailable": 4,
   "fotmob_id": 5749717,
@@ -1920,7 +1920,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.18005832360958998,
   "away_unavailable": 3,
   "fotmob_id": 5943277,
@@ -2026,14 +2026,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.04733515123384308,
   "away_unavailable": 2,
   "fotmob_id": 5804018,
   "home_missing_share": 0.22008363989389162,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-24T15:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Portsmouth v Millwall": {
   "absent": [
@@ -2340,7 +2340,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.13138579424917046,
   "away_unavailable": 4,
   "fotmob_id": 5904784,
@@ -2696,7 +2696,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:40Z",
+  "at": "2026-10-24T15:00Z",
   "away_missing_share": 0.17152225659430037,
   "away_unavailable": 3,
   "fotmob_id": 5868110,

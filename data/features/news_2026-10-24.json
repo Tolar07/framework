@@ -1878,7 +1878,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:40Z",
+  "at": "2026-10-24T17:00Z",
   "away_missing_share": 0.011981629196704927,
   "away_unavailable": 1,
   "fotmob_id": 5881706,
@@ -2309,14 +2309,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T16:40Z",
+  "at": "2026-10-24T17:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5967109,
-  "home_missing_share": 0.05124998788448584,
+  "home_missing_share": 0.05107397379359057,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-24T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Samsunspor v Amed Sportif Faaliyetler": {
   "absent": [
@@ -2995,7 +2995,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:40Z",
+  "at": "2026-10-24T17:00Z",
   "away_missing_share": 1.0,
   "away_unavailable": 8,
   "fotmob_id": 5804284,

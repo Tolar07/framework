@@ -2139,8 +2139,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 1.63,
    "stake_pct": 0.25,
    "ev": -0.016022897140719028,
    "missing": {
@@ -2202,7 +2202,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Aston Villa v Man City",
@@ -5638,8 +5640,8 @@
     "spec": "hcp=-3.5",
     "outcome": "Away (+3.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": -1.53,
    "stake_pct": 0.25,
    "ev": -0.0004271717011830045,
    "missing": null,

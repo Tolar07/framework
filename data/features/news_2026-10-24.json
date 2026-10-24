@@ -34,7 +34,7 @@
     "type": "injury"
    },
    {
-    "name": "Gui Guedes",
+    "name": "Rodrigo Ely",
     "side": "home",
     "type": "injury"
    },
@@ -54,14 +54,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T18:00Z",
-  "away_missing_share": 0.45691387841595543,
-  "away_unavailable": 7,
+  "at": "2026-10-24T18:20Z",
+  "away_missing_share": 0.4676741006859999,
+  "away_unavailable": 5,
   "fotmob_id": 5868504,
-  "home_missing_share": 0.09454055686470374,
-  "home_unavailable": 4,
+  "home_missing_share": 0.09612773695730432,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T19:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Alverca v Arouca": {
   "absent": [
@@ -251,14 +251,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T18:00Z",
-  "away_missing_share": 0.27551584641473864,
+  "at": "2026-10-24T18:20Z",
+  "away_missing_share": 0.2551187556831225,
   "away_unavailable": 5,
   "fotmob_id": 5868103,
   "home_missing_share": 0.1553072533352237,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Augsburg v Union Berlin": {
   "absent": [
@@ -1196,7 +1196,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T18:00Z",
+  "at": "2026-10-24T18:20Z",
   "away_missing_share": 0.09448947994933893,
   "away_unavailable": 2,
   "fotmob_id": 5887657,
@@ -1512,14 +1512,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T18:00Z",
-  "away_missing_share": 0.08273310103038756,
+  "at": "2026-10-24T18:20Z",
+  "away_missing_share": 0.09793792895623278,
   "away_unavailable": 3,
   "fotmob_id": 5749715,
   "home_missing_share": 0.19854089612782486,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T18:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Leganes v Mallorca": {
   "absent": [
@@ -2163,14 +2163,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T18:00Z",
-  "away_missing_share": 1.0,
+  "at": "2026-10-24T18:20Z",
+  "away_missing_share": 0.14174435725439874,
   "away_unavailable": 3,
   "fotmob_id": 5811788,
-  "home_missing_share": 1.0,
+  "home_missing_share": 0.05623112481564663,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T18:45:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "simple"
  },
  "RB Leipzig v SV 07 Elversberg": {
   "absent": [
@@ -2474,14 +2474,14 @@
  },
  "St Etienne v Nantes": {
   "absent": [],
-  "at": "2026-10-24T18:00Z",
+  "at": "2026-10-24T18:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803298,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-24T18:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "St Mirren v Dundee": {
   "absent": [
@@ -2842,24 +2842,19 @@
     "type": "injury"
    },
    {
-    "name": "Viktor Boone",
-    "side": "away",
-    "type": "injury"
-   },
-   {
-    "name": "Laurent Jans",
+    "name": "Kurt Abrahams",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T18:00Z",
-  "away_missing_share": 1.0,
-  "away_unavailable": 4,
+  "at": "2026-10-24T18:20Z",
+  "away_missing_share": 0.16357254753776385,
+  "away_unavailable": 2,
   "fotmob_id": 5811790,
-  "home_missing_share": 1.0,
+  "home_missing_share": 0.1100952832048284,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-24T18:45:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "Willem II v Cambuur": {
   "absent": [

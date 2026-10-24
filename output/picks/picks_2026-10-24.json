@@ -624,7 +624,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Pogon Szczecin v Radomiak Radom",
@@ -762,7 +764,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -0.8
   },
   {
    "fixture": "NK Varazdin v NK Slaven Belupo",
@@ -1386,7 +1390,9 @@
    "first_price": 1.38,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.4,
+   "drift_pct": 1.4
   },
   {
    "fixture": "Como v Sassuolo",
@@ -1434,7 +1440,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Napoli v Roma",
@@ -2676,7 +2684,9 @@
    "first_price": 1.35,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.38,
+   "drift_pct": 2.2
   },
   {
    "fixture": "Modena v Cesena",
@@ -2724,7 +2734,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Avellino v Padova",
@@ -2772,7 +2784,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Cremonese v Juve Stabia",
@@ -2820,7 +2834,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Virtus Entella v Mantova",
@@ -2868,7 +2884,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.19,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Catanzaro v Ascoli Calcio 1898",
@@ -2990,7 +3008,11 @@
     "home": 6922788,
     "away": 4506296
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:00Z"
+   },
    "sb_event_id": "sr:match:72513936",
    "sb_tid": "sr:tournament:44",
    "sb_market": {
@@ -4872,8 +4894,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": -1.56,
    "stake_pct": 0.25,
    "ev": -0.050354546613426865,
    "missing": null,
@@ -4932,7 +4954,9 @@
    "first_price": 1.35,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.34,
+   "drift_pct": -0.7
   },
   {
    "fixture": "Samsunspor v Amed Sportif Faaliyetler",
@@ -5532,7 +5556,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 2.5
   },
   {
    "fixture": "IK Sirius v AIK",
@@ -5580,7 +5606,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Djurgardens IF v Orgryte IS",

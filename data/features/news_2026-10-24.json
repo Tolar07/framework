@@ -97,7 +97,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.20299198134340318,
   "away_unavailable": 4,
   "fotmob_id": 5795486,
@@ -278,7 +278,7 @@
  },
  "Bristol Rvs v Swindon": {
   "absent": [],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838004,
@@ -470,7 +470,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.2574368306787664,
   "away_unavailable": 6,
   "fotmob_id": 5836889,
@@ -481,7 +481,7 @@
  },
  "Cheltenham v Newport County": {
   "absent": [],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838005,
@@ -816,6 +816,43 @@
   "kickoff_utc": "2026-10-24T13:30:00.000Z",
   "lineup_type": "predicted"
  },
+ "FC Zurich v FC Luzern": {
+  "absent": [
+   {
+    "name": "Damienus Reverson",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Sebastian Walker",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ilan Sauter",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Sandro Wyss",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Leonardo Bertone",
+    "side": "away",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-10-24T10:00Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 2,
+  "fotmob_id": 5804285,
+  "home_missing_share": 1.0,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-10-24T16:00:00.000Z",
+  "lineup_type": "unavailable"
+ },
  "Falkirk v Kilmarnock": {
   "absent": [
    {
@@ -951,7 +988,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:40Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.15815040931434485,
   "away_unavailable": 3,
   "fotmob_id": 5881702,
@@ -983,7 +1020,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:40Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.09827677780181175,
   "away_unavailable": 1,
   "fotmob_id": 5881703,
@@ -994,7 +1031,7 @@
  },
  "Huddersfield v Wigan": {
   "absent": [],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837237,
@@ -1180,7 +1217,7 @@
  },
  "Luton v Leicester": {
   "absent": [],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837238,
@@ -1202,14 +1239,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:40Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.2086063412354519,
   "away_unavailable": 2,
   "fotmob_id": 5881705,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-24T11:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Mainz v Werder Bremen": {
   "absent": [
@@ -1280,9 +1317,93 @@
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "NK Varazdin v NK Slaven Belupo": {
+  "absent": [
+   {
+    "name": "Frane Maglica",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Matej Vuk",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Silvio Ilinkovi\u0107",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Filip Ma\u017ear",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Marko Dabro",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Karlo I\u0161asegi",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T10:00Z",
+  "away_missing_share": 0.32993931040451596,
+  "away_unavailable": 7,
+  "fotmob_id": 5765948,
+  "home_missing_share": 0.2318565025692934,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-24T16:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Napoli v Roma": {
+  "absent": [
+   {
+    "name": "Alessandro Buongiorno",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "David Neres",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Costantino Favasuli",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Manu Kon\u00e9",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mile Svilar",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Lorenzo Pellegrini",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T10:00Z",
+  "away_missing_share": 0.3195747338238786,
+  "away_unavailable": 4,
+  "fotmob_id": 5749717,
+  "home_missing_share": 0.1858084708310604,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-24T16:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Northampton v Colchester United": {
   "absent": [],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838010,
@@ -1311,6 +1432,48 @@
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-24T14:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "POT Iraklis v AE Kifisia FC": {
+  "absent": [
+   {
+    "name": "Yoel B\u00e1rcenas",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Yohan Roche",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Giorgos Giannoutsos",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Giannis Doiranlis",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jon De Luis",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ioannis Kousoulos",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T10:00Z",
+  "away_missing_share": 0.18005832360958998,
+  "away_unavailable": 3,
+  "fotmob_id": 5943277,
+  "home_missing_share": 0.2900771208226221,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-24T16:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Paderborn v Hamburg": {
@@ -1452,7 +1615,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.5465915727874175,
   "away_unavailable": 7,
   "fotmob_id": 5836891,
@@ -1642,6 +1805,90 @@
   "kickoff_utc": "2026-10-24T14:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Samsunspor v Amed Sportif Faaliyetler": {
+  "absent": [
+   {
+    "name": "Kouadou Assoumou",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fatih Kaya",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Celil Y\u00fcksel",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Collins Sor",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Lumbardh Dellova",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Dilhan Demir",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T10:00Z",
+  "away_missing_share": 0.13138579424917046,
+  "away_unavailable": 4,
+  "fotmob_id": 5904784,
+  "home_missing_share": 0.11873721853122947,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-24T16:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Servette Geneva v FC Vaduz": {
+  "absent": [
+   {
+    "name": "David Datro Fofana",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Timoth\u00e9 Cognat",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Miroslav Stevanovi\u0107",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ranjan Neelakandan",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Lado Akhalaia",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Stephan Seiler",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T10:00Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 5,
+  "fotmob_id": 5804281,
+  "home_missing_share": 1.0,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-24T16:00:00.000Z",
+  "lineup_type": "unavailable"
+ },
  "Sheffield United v Derby": {
   "absent": [
    {
@@ -1670,7 +1917,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T10:00Z",
   "away_missing_share": 0.5438833100368369,
   "away_unavailable": 10,
   "fotmob_id": 5836894,

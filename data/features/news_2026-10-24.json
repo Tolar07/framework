@@ -1507,7 +1507,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T13:00Z",
+  "at": "2026-10-24T17:20Z",
   "away_missing_share": 0.08273310103038756,
   "away_unavailable": 3,
   "fotmob_id": 5749715,
@@ -1586,7 +1586,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T13:00Z",
+  "at": "2026-10-24T17:20Z",
   "away_missing_share": 0.15860707607115088,
   "away_unavailable": 2,
   "fotmob_id": 5802967,
@@ -1878,7 +1878,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:00Z",
+  "at": "2026-10-24T17:20Z",
   "away_missing_share": 0.011981629196704927,
   "away_unavailable": 1,
   "fotmob_id": 5881706,
@@ -2158,7 +2158,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T13:00Z",
+  "at": "2026-10-24T17:20Z",
   "away_missing_share": 1.0,
   "away_unavailable": 3,
   "fotmob_id": 5811788,
@@ -2469,7 +2469,7 @@
  },
  "St Etienne v Nantes": {
   "absent": [],
-  "at": "2026-10-24T13:00Z",
+  "at": "2026-10-24T17:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803298,
@@ -2847,7 +2847,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T13:00Z",
+  "at": "2026-10-24T17:20Z",
   "away_missing_share": 1.0,
   "away_unavailable": 4,
   "fotmob_id": 5811790,
@@ -2975,7 +2975,7 @@
     "type": "suspension"
    },
    {
-    "name": "Gregory W\u00fcthrich",
+    "name": "Loris Benito",
     "side": "home",
     "type": "injury"
    },
@@ -2995,13 +2995,13 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:00Z",
-  "away_missing_share": 1.0,
-  "away_unavailable": 8,
+  "at": "2026-10-24T17:20Z",
+  "away_missing_share": 0.33551778543760286,
+  "away_unavailable": 7,
   "fotmob_id": 5804284,
-  "home_missing_share": 1.0,
-  "home_unavailable": 5,
+  "home_missing_share": 0.06945174967105633,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T18:30:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  }
 }

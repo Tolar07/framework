@@ -671,6 +671,33 @@
   "kickoff_utc": "2026-10-24T12:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Djurgardens IF v Orgryte IS": {
+  "absent": [
+   {
+    "name": "Rasmus Alm",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "William Svensson",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jerome Tibbling Ugwo",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T09:40Z",
+  "away_missing_share": 0.2634794204570028,
+  "away_unavailable": 4,
+  "fotmob_id": 5107629,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-24T15:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Doncaster Rovers v Sheffield Wednesday": {
   "absent": [],
   "at": "2026-10-24T09:00Z",
@@ -924,7 +951,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T09:40Z",
   "away_missing_share": 0.15815040931434485,
   "away_unavailable": 3,
   "fotmob_id": 5881702,
@@ -956,7 +983,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T09:40Z",
   "away_missing_share": 0.09827677780181175,
   "away_unavailable": 1,
   "fotmob_id": 5881703,
@@ -1006,6 +1033,28 @@
   "home_missing_share": 0.08814940937838417,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Kalmar FF v IF Brommapojkarna": {
+  "absent": [
+   {
+    "name": "Emeka Nnamani",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aboubacar Keita",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T09:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5107636,
+  "home_missing_share": 0.1239827976326362,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-24T15:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Korona Kielce v GKS Katowice": {
@@ -1153,7 +1202,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T09:40Z",
   "away_missing_share": 0.2086063412354519,
   "away_unavailable": 2,
   "fotmob_id": 5881705,
@@ -1324,13 +1373,50 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:20Z",
-  "away_missing_share": 0.18084913828429905,
+  "at": "2026-10-24T09:40Z",
+  "away_missing_share": 0.1932148364898881,
   "away_unavailable": 2,
   "fotmob_id": 5804017,
-  "home_missing_share": 0.030152033371891113,
+  "home_missing_share": 0.030052340959886892,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-24T10:15:00.000Z",
+  "lineup_type": "confirmed"
+ },
+ "Pogon Szczecin v Radomiak Radom": {
+  "absent": [
+   {
+    "name": "Linus Wahlqvist Egnell",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Musa Juwara",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Hussein Ali",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Anastasios Donis",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Mateusz Cichocki",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T09:40Z",
+  "away_missing_share": 0.04547004701690423,
+  "away_unavailable": 2,
+  "fotmob_id": 5804018,
+  "home_missing_share": 0.22008363989389162,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-24T15:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Portsmouth v Millwall": {

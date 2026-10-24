@@ -836,7 +836,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Charlton v Norwich",
@@ -1548,7 +1550,9 @@
    "first_price": 1.34,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.35,
+   "drift_pct": 0.7
   },
   {
    "fixture": "Lazio v Parma",
@@ -1635,8 +1639,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 1.61,
    "stake_pct": 0.25,
    "ev": -0.006504974956277221,
    "missing": {
@@ -1676,7 +1680,11 @@
     "home": 98873707,
     "away": 27068354
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72513270",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1685,8 +1693,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.01945177623602734,
    "missing": {
@@ -1739,8 +1747,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 1.61,
    "stake_pct": 0.25,
    "ev": -0.004664401764263637,
    "missing": {
@@ -1793,8 +1801,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.007244597632090066,
    "missing": {
@@ -1847,8 +1855,8 @@
     "spec": "total=5.5",
     "outcome": "Under 5.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 2.48,
    "stake_pct": 0.25,
    "ev": -0.00704869525320706,
    "missing": {
@@ -2178,7 +2186,11 @@
     "home": 657377072,
     "away": 279544119
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72221332",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -2228,7 +2240,11 @@
     "home": 115686709,
     "away": 237091512
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72221338",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -4568,7 +4584,11 @@
     "home": 1088253,
     "away": 2619543
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "York City at full strength",
+    "at": "13:00Z"
+   },
    "sb_event_id": "sr:match:72342322",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -5228,7 +5248,9 @@
    "first_price": 1.88,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.85,
+   "drift_pct": -1.6
   },
   {
    "fixture": "POT Iraklis v AE Kifisia FC",
@@ -5276,7 +5298,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Asteras Tripolis v APO Levadiakos FC",
@@ -5556,7 +5580,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Servette Geneva v FC Vaduz",
@@ -5604,7 +5630,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 2.4
   },
   {
    "fixture": "Young Boys Bern v FC St. Gallen 1879",
@@ -5738,7 +5766,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -2.4
   },
   {
    "fixture": "BK Hacken v Degerfors IF",

@@ -172,7 +172,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72366402",
    "sb_tid": "sr:tournament:38",
    "sb_market": {
@@ -238,7 +242,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Westerlo v Beveren",
@@ -360,7 +366,11 @@
     "home": 7376202,
     "away": 6513114
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72201670",
    "sb_tid": "sr:tournament:36",
    "sb_market": {
@@ -410,7 +420,11 @@
     "home": 4278074,
     "away": 4015495
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72201672",
    "sb_tid": "sr:tournament:36",
    "sb_market": {
@@ -460,7 +474,11 @@
     "home": 56431510,
     "away": 4203207
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72201678",
    "sb_tid": "sr:tournament:36",
    "sb_market": {
@@ -510,7 +528,11 @@
     "home": 4865258,
     "away": 4499161
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72201680",
    "sb_tid": "sr:tournament:36",
    "sb_market": {
@@ -1026,7 +1048,11 @@
     "home": 12360280,
     "away": 44600304
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339936",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1076,7 +1102,11 @@
     "home": 14387244,
     "away": 60162098
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339940",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1176,7 +1206,11 @@
     "home": 24779815,
     "away": 25316418
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339948",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1270,7 +1304,11 @@
     "home": 52535222,
     "away": 32244726
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339954",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1320,7 +1358,11 @@
     "home": 134895302,
     "away": 55758524
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339956",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1370,7 +1412,11 @@
     "home": 132773173,
     "away": 36469973
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72339958",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -2396,7 +2442,11 @@
     "home": 63106561,
     "away": 55348417
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72478656",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -3622,7 +3672,11 @@
     "home": 5230481,
     "away": 4962957
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Blackpool at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341312",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3672,7 +3726,11 @@
     "home": 2700747,
     "away": 4654269
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341314",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3722,7 +3780,11 @@
     "home": 5058223,
     "away": 9948153
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341316",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3772,7 +3834,11 @@
     "home": 4185524,
     "away": 5729490
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Plymouth Argyle at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341318",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3872,7 +3938,11 @@
     "home": 3837704,
     "away": 5196295
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341326",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3922,7 +3992,11 @@
     "home": 7081274,
     "away": 4018437
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341328",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3972,7 +4046,11 @@
     "home": 5490254,
     "away": 6006042
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341330",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -4022,7 +4100,11 @@
     "home": 3213833,
     "away": 5869170
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72341332",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -4234,7 +4316,11 @@
     "home": 2778081,
     "away": 2216888
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342280",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4284,7 +4370,11 @@
     "home": 3367987,
     "away": 2547984
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342290",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4334,7 +4424,11 @@
     "home": 1296478,
     "away": 2303140
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342294",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4384,7 +4478,11 @@
     "home": 2169145,
     "away": 2734141
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342298",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4434,7 +4532,11 @@
     "home": 1805334,
     "away": 2142275
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Grimsby Town at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342302",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4484,7 +4586,11 @@
     "home": 2221241,
     "away": 1985163
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342310",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4534,7 +4640,11 @@
     "home": 1768645,
     "away": 1760646
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Shrewsbury Town at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72342314",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -4819,7 +4929,11 @@
    "fotmob_id": 5906516,
    "kickoff_utc": "2026-10-24T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "AFC Fylde at full strength",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72740728",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -4951,7 +5065,11 @@
    "fotmob_id": 5906522,
    "kickoff_utc": "2026-10-24T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72740734",
    "sb_tid": "sr:tournament:173",
    "sb_market": {
@@ -5039,7 +5157,11 @@
    "fotmob_id": 5906524,
    "kickoff_utc": "2026-10-24T14:00:00.000Z",
    "predicted_xi": null,
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "13:20Z"
+   },
    "sb_event_id": "sr:match:72740738",
    "sb_tid": "sr:tournament:173",
    "sb_market": {

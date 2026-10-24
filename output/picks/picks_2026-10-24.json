@@ -690,7 +690,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Wisla v Rakow",
@@ -758,7 +760,11 @@
     "home": 2545534,
     "away": 4058258
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: HNK Gorica missing 30%",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:71913104",
    "sb_tid": "sr:tournament:170",
    "sb_market": {
@@ -767,8 +773,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.059077728698754606,
    "missing": {
@@ -1425,8 +1431,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.4,
+   "clv": -1.43,
    "stake_pct": 0.25,
    "ev": 0.010084790846361269,
    "missing": {
@@ -1479,8 +1485,8 @@
     "spec": "total=3.5",
     "outcome": "Under 3.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 1.63,
    "stake_pct": 0.12,
    "ev": -0.01039358312237737,
    "missing": {
@@ -1616,7 +1622,11 @@
     "home": 105427447,
     "away": 31432518
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513266",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1716,7 +1726,11 @@
     "home": 77156506,
     "away": 49875828
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513268",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1766,7 +1780,11 @@
     "home": 22456803,
     "away": 85973412
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513272",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -1816,7 +1834,11 @@
     "home": 253451073,
     "away": 23819502
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:72513258",
    "sb_tid": "sr:tournament:35",
    "sb_market": {
@@ -2759,8 +2781,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.39,
+   "clv": -2.88,
    "stake_pct": 0.25,
    "ev": -0.025513225872134226,
    "missing": {
@@ -2813,8 +2835,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.051405389516430144,
    "missing": {
@@ -2867,8 +2889,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": -2.42,
    "stake_pct": 0.25,
    "ev": -0.05042555405664617,
    "missing": {
@@ -2921,8 +2943,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.31,
+   "clv": -1.53,
    "stake_pct": 0.25,
    "ev": -0.04961766678753454,
    "missing": {
@@ -2962,7 +2984,11 @@
     "home": 5095615,
     "away": 12114719
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Mantova missing 16% of value (Jonathan Silva, Federico Chinetti, Andrea Meroni)",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:73093002",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2971,8 +2997,8 @@
     "spec": "hcp=-1.5",
     "outcome": "Away (+1.5)"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03256081282139489,
    "missing": {
@@ -5139,8 +5165,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.34,
+   "clv": 0.75,
    "stake_pct": 0.25,
    "ev": -0.022292854339881152,
    "missing": {
@@ -5751,8 +5777,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.29,
+   "clv": -5.43,
    "stake_pct": 0.25,
    "ev": -0.005557415383083075,
    "missing": {
@@ -5792,7 +5818,11 @@
     "home": 11506173,
     "away": 9717623
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:40Z"
+   },
    "sb_event_id": "sr:match:67126832",
    "sb_tid": "sr:tournament:40",
    "sb_market": {
@@ -5801,8 +5831,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.2,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03449202939758356,
    "missing": {
@@ -5864,7 +5894,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Kalmar FF v IF Brommapojkarna",
@@ -5912,7 +5944,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -0.8
   }
  ],
  "accas": [

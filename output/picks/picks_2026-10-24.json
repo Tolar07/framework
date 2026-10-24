@@ -614,7 +614,11 @@
     "home": 13549466,
     "away": 5849782
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72043218",
    "sb_tid": "sr:tournament:202",
    "sb_market": {
@@ -623,8 +627,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.03704144135439713,
    "missing": {
@@ -1408,7 +1412,11 @@
     "home": 69712165,
     "away": 98321106
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:71945328",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -1458,7 +1466,11 @@
     "home": 283333438,
     "away": 75873461
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "RISK",
+    "note": "Sassuolo missing 50% of value (Isma\u00ebl Kon\u00e9, Jay Idzes, Fedde Leysen); Sassuolo rotated: confirmed XI worth 64% of predicted; support: Como missing 43%",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:71945330",
    "sb_tid": "sr:tournament:23",
    "sb_market": {
@@ -2734,7 +2746,11 @@
     "home": 14825125,
     "away": 14375261
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:73093008",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2784,7 +2800,11 @@
     "home": 16456586,
     "away": 14542091
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:73093004",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2834,7 +2854,11 @@
     "home": 15032435,
     "away": 14505784
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Padova missing 13% of value (Luca Zanimacchia, Kevin Lasagna, Gianluca Caprari)",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:73092994",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -2884,7 +2908,11 @@
     "home": 25594424,
     "away": 6472080
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:73092998",
    "sb_tid": "sr:tournament:53",
    "sb_market": {
@@ -3006,7 +3034,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   },
   {
    "fixture": "SS Arezzo v Benevento Calcio",
@@ -5096,7 +5126,11 @@
     "home": 12190969,
     "away": 7588033
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:72723268",
    "sb_tid": "sr:tournament:52",
    "sb_market": {
@@ -5704,7 +5738,11 @@
     "home": 7502857,
     "away": 3587101
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "12:20Z"
+   },
    "sb_event_id": "sr:match:67126826",
    "sb_tid": "sr:tournament:40",
    "sb_market": {

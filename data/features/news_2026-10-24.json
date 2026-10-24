@@ -203,7 +203,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.24671305740475788,
   "away_unavailable": 5,
   "fotmob_id": 5881197,
@@ -216,11 +216,6 @@
   "absent": [
    {
     "name": "Daniel Fila",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Tommaso Cancellotti",
     "side": "home",
     "type": "injury"
    },
@@ -240,14 +235,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
-  "away_missing_share": 0.11155225878921622,
+  "at": "2026-10-24T12:20Z",
+  "away_missing_share": 0.130558373698709,
   "away_unavailable": 4,
   "fotmob_id": 5967110,
-  "home_missing_share": 0.11426113209023551,
-  "home_unavailable": 2,
+  "home_missing_share": 0.09704746314304839,
+  "home_unavailable": 1,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "BK Hacken v Degerfors IF": {
   "absent": [
@@ -272,14 +267,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
-  "away_missing_share": 0.29256412547156957,
+  "at": "2026-10-24T12:20Z",
+  "away_missing_share": 0.3052970823755065,
   "away_unavailable": 2,
   "fotmob_id": 5107631,
   "home_missing_share": 0.19283221778604384,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Barnet FC v Oldham": {
   "absent": [],
@@ -417,14 +412,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
-  "away_missing_share": 0.2820986567013657,
+  "at": "2026-10-24T12:20Z",
+  "away_missing_share": 0.28938350255626605,
   "away_unavailable": 3,
   "fotmob_id": 5749711,
-  "home_missing_share": 0.10976725599878644,
+  "home_missing_share": 0.10864748665712308,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Cambridge United v Plymouth": {
   "absent": [],
@@ -645,14 +640,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
-  "away_missing_share": 0.39262618746090217,
+  "at": "2026-10-24T12:20Z",
+  "away_missing_share": 0.5007603844247835,
   "away_unavailable": 4,
   "fotmob_id": 5749712,
-  "home_missing_share": 0.35868702724749874,
+  "home_missing_share": 0.4284776906506484,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Cordoba v Eibar": {
   "absent": [
@@ -747,11 +742,6 @@
  "Cremonese v Juve Stabia": {
   "absent": [
    {
-    "name": "Federico Bonazzoli",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Michele Collocolo",
     "side": "home",
     "type": "injury"
@@ -760,16 +750,21 @@
     "name": "Simone Pontisso",
     "side": "home",
     "type": "injury"
+   },
+   {
+    "name": "David St\u00fcckler",
+    "side": "home",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5967112,
-  "home_missing_share": 0.23435072796800996,
-  "home_unavailable": 8,
+  "home_missing_share": 0.16400776886599933,
+  "home_unavailable": 6,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Dijon v Rodez": {
   "absent": [],
@@ -929,7 +924,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.29397700462993537,
   "away_unavailable": 7,
   "fotmob_id": 5881199,
@@ -1030,14 +1025,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5904776,
-  "home_missing_share": 0.11816056404882441,
+  "home_missing_share": 0.11572254721825187,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Gillingham v Grimsby": {
   "absent": [],
@@ -1053,17 +1048,17 @@
  "HNK Gorica v NK Lokomotiva Zagreb": {
   "absent": [
    {
-    "name": "Ante Kavelj",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Sule Wisdom Aondowase",
     "side": "home",
     "type": "injury"
    },
    {
     "name": "Stjepan Ku\u010di\u0161",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kevin \u010custovi\u0107",
     "side": "home",
     "type": "injury"
    },
@@ -1078,14 +1073,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.09063270058867594,
   "away_unavailable": 2,
   "fotmob_id": 5765945,
-  "home_missing_share": 0.5515355496042977,
-  "home_unavailable": 7,
+  "home_missing_share": 0.29621968158755013,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Harrogate v Sutton": {
   "absent": [],
@@ -1196,7 +1191,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.5041040072736955,
   "away_unavailable": 9,
   "fotmob_id": 5107634,
@@ -1255,14 +1250,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.12548253486165814,
   "away_unavailable": 3,
   "fotmob_id": 5804014,
   "home_missing_share": 0.1593108269106857,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T12:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Las Palmas v Sociedad B": {
   "absent": [
@@ -1441,7 +1436,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.36409717443644996,
   "away_unavailable": 7,
   "fotmob_id": 5881202,
@@ -1473,24 +1468,19 @@
     "type": "injury"
    },
    {
-    "name": "Maat Caprini",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Luca Schirone",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
-  "away_missing_share": 0.1933946524097392,
-  "away_unavailable": 3,
+  "at": "2026-10-24T12:20Z",
+  "away_missing_share": 0.11698788797385107,
+  "away_unavailable": 2,
   "fotmob_id": 5967115,
-  "home_missing_share": 0.13093812933911456,
+  "home_missing_share": 0.13625643796747924,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "NK Varazdin v NK Slaven Belupo": {
   "absent": [
@@ -1684,7 +1674,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.12463322116315224,
   "away_unavailable": 3,
   "fotmob_id": 5881203,
@@ -1874,7 +1864,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
+  "at": "2026-10-24T12:20Z",
   "away_missing_share": 0.47632499800594813,
   "away_unavailable": 4,
   "fotmob_id": 5881204,
@@ -2211,17 +2201,17 @@
  "Sudtirol v Sampdoria": {
   "absent": [
    {
-    "name": "Kevin Zeroli",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Niklas Pyyhti\u00e4",
     "side": "home",
     "type": "injury"
    },
    {
     "name": "Hamza El Kaouakibi",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Bjarki Steinn Bjarkason",
     "side": "home",
     "type": "injury"
    },
@@ -2241,14 +2231,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
-  "away_missing_share": 0.47923924883137975,
+  "at": "2026-10-24T12:20Z",
+  "away_missing_share": 0.5234061380983909,
   "away_unavailable": 6,
   "fotmob_id": 5967117,
-  "home_missing_share": 0.2652397288194933,
-  "home_unavailable": 6,
+  "home_missing_share": 0.18759008976428262,
+  "home_unavailable": 5,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "TSV Hartberg v Wolfsberger AC": {
   "absent": [
@@ -2416,14 +2406,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T12:00Z",
-  "away_missing_share": 0.14802074615844438,
+  "at": "2026-10-24T12:20Z",
+  "away_missing_share": 0.16483505812078036,
   "away_unavailable": 4,
   "fotmob_id": 5967114,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "WSG Tirol v Grazer AK 1902": {
   "absent": [

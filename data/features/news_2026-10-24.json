@@ -72,12 +72,12 @@
     "type": "injury"
    },
    {
-    "name": "Johan Manzambi",
+    "name": "Matteo Ruggeri",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Matteo Ruggeri",
+    "name": "Aaron Wan-Bissaka",
     "side": "home",
     "type": "injury"
    },
@@ -87,22 +87,17 @@
     "type": "injury"
    },
    {
-    "name": "Nico O'Reilly",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Matheus Nunes",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:00Z",
-  "away_missing_share": 0.20299198134340318,
-  "away_unavailable": 4,
+  "at": "2026-10-24T10:20Z",
+  "away_missing_share": 0.12997713345993425,
+  "away_unavailable": 2,
   "fotmob_id": 5795486,
-  "home_missing_share": 0.33160652567900323,
-  "home_unavailable": 5,
+  "home_missing_share": 0.22845406677195618,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T11:30:00.000Z",
   "lineup_type": "predicted"
  },
@@ -278,7 +273,7 @@
  },
  "Bristol Rvs v Swindon": {
   "absent": [],
-  "at": "2026-10-24T10:00Z",
+  "at": "2026-10-24T10:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838004,
@@ -470,7 +465,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:00Z",
+  "at": "2026-10-24T10:20Z",
   "away_missing_share": 0.2574368306787664,
   "away_unavailable": 6,
   "fotmob_id": 5836889,
@@ -481,7 +476,7 @@
  },
  "Cheltenham v Newport County": {
   "absent": [],
-  "at": "2026-10-24T10:00Z",
+  "at": "2026-10-24T10:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838005,
@@ -988,14 +983,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:00Z",
-  "away_missing_share": 0.15815040931434485,
+  "at": "2026-10-24T10:20Z",
+  "away_missing_share": 0.14337894572048035,
   "away_unavailable": 3,
   "fotmob_id": 5881702,
-  "home_missing_share": 0.024335657846332157,
+  "home_missing_share": 0.04058249299675656,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-24T11:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Hertha v Bielefeld": {
   "absent": [
@@ -1020,18 +1015,18 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:00Z",
-  "away_missing_share": 0.09827677780181175,
+  "at": "2026-10-24T10:20Z",
+  "away_missing_share": 0.09517397533428545,
   "away_unavailable": 1,
   "fotmob_id": 5881703,
-  "home_missing_share": 0.30925628348630224,
+  "home_missing_share": 0.32143884196983014,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T11:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Huddersfield v Wigan": {
   "absent": [],
-  "at": "2026-10-24T10:00Z",
+  "at": "2026-10-24T10:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837237,
@@ -1217,7 +1212,7 @@
  },
  "Luton v Leicester": {
   "absent": [],
-  "at": "2026-10-24T10:00Z",
+  "at": "2026-10-24T10:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5837238,
@@ -1403,7 +1398,7 @@
  },
  "Northampton v Colchester United": {
   "absent": [],
-  "at": "2026-10-24T10:00Z",
+  "at": "2026-10-24T10:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5838010,
@@ -1615,7 +1610,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:00Z",
+  "at": "2026-10-24T10:20Z",
   "away_missing_share": 0.5465915727874175,
   "away_unavailable": 7,
   "fotmob_id": 5836891,
@@ -1917,7 +1912,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T10:00Z",
+  "at": "2026-10-24T10:20Z",
   "away_missing_share": 0.5438833100368369,
   "away_unavailable": 10,
   "fotmob_id": 5836894,

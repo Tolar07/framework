@@ -230,14 +230,19 @@
     "type": "injury"
    },
    {
-    "name": "Cristian Buonaiuto",
+    "name": "Kevin Lasagna",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Gianluca Caprari",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
-  "away_missing_share": 0.08455364162612856,
-  "away_unavailable": 2,
+  "at": "2026-10-24T11:40Z",
+  "away_missing_share": 0.11155225878921622,
+  "away_unavailable": 4,
   "fotmob_id": 5967110,
   "home_missing_share": 0.11426113209023551,
   "home_unavailable": 2,
@@ -267,7 +272,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T11:40Z",
   "away_missing_share": 0.29256412547156957,
   "away_unavailable": 2,
   "fotmob_id": 5107631,
@@ -412,7 +417,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T11:40Z",
   "away_missing_share": 0.2820986567013657,
   "away_unavailable": 3,
   "fotmob_id": 5749711,
@@ -640,7 +645,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T11:40Z",
   "away_missing_share": 0.39262618746090217,
   "away_unavailable": 4,
   "fotmob_id": 5749712,
@@ -747,35 +752,35 @@
     "type": "injury"
    },
    {
-    "name": "David St\u00fcckler",
+    "name": "Michele Collocolo",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Fabio Gerli",
+    "name": "Simone Pontisso",
     "side": "home",
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5967112,
-  "home_missing_share": 0.15523530238074867,
-  "home_unavailable": 5,
+  "home_missing_share": 0.23435072796800996,
+  "home_unavailable": 8,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Dijon v Rodez": {
   "absent": [],
-  "at": "2026-10-24T11:20Z",
+  "at": "2026-10-24T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803292,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-24T12:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Djurgardens IF v Orgryte IS": {
   "absent": [
@@ -1025,7 +1030,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5904776,
@@ -1073,7 +1078,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T11:40Z",
   "away_missing_share": 0.09063270058867594,
   "away_unavailable": 2,
   "fotmob_id": 5765945,
@@ -1191,7 +1196,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T11:40Z",
   "away_missing_share": 0.5041040072736955,
   "away_unavailable": 9,
   "fotmob_id": 5107634,
@@ -1250,7 +1255,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T11:20Z",
+  "at": "2026-10-24T11:40Z",
   "away_missing_share": 0.12548253486165814,
   "away_unavailable": 3,
   "fotmob_id": 5804014,
@@ -1453,6 +1458,11 @@
     "type": "injury"
    },
    {
+    "name": "St\u00eanio",
+    "side": "home",
+    "type": "injury"
+   },
+   {
     "name": "Joris Manquant",
     "side": "home",
     "type": "injury"
@@ -1461,14 +1471,24 @@
     "name": "Jonathan Klinsmann",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Maat Caprini",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Luca Schirone",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
-  "away_missing_share": 0.10000791557332424,
-  "away_unavailable": 1,
+  "at": "2026-10-24T11:40Z",
+  "away_missing_share": 0.1933946524097392,
+  "away_unavailable": 3,
   "fotmob_id": 5967115,
-  "home_missing_share": 0.10448915962217056,
-  "home_unavailable": 2,
+  "home_missing_share": 0.13093812933911456,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-24T13:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
@@ -1960,6 +1980,23 @@
   "kickoff_utc": "2026-10-24T14:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "SS Arezzo v Benevento Calcio": {
+  "absent": [
+   {
+    "name": "Marco Olivieri",
+    "side": "home",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T11:40Z",
+  "away_missing_share": 0.0,
+  "away_unavailable": 0,
+  "fotmob_id": 5967109,
+  "home_missing_share": 0.05124998788448584,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-24T17:30:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Samsunspor v Amed Sportif Faaliyetler": {
   "absent": [
    {
@@ -2204,9 +2241,9 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
-  "away_missing_share": 0.4363731760533955,
-  "away_unavailable": 4,
+  "at": "2026-10-24T11:40Z",
+  "away_missing_share": 0.47923924883137975,
+  "away_unavailable": 6,
   "fotmob_id": 5967117,
   "home_missing_share": 0.2652397288194933,
   "home_unavailable": 6,
@@ -2364,6 +2401,11 @@
  "Virtus Entella v Mantova": {
   "absent": [
    {
+    "name": "Jonathan Silva",
+    "side": "away",
+    "type": "injury"
+   },
+   {
     "name": "Federico Chinetti",
     "side": "away",
     "type": "injury"
@@ -2372,16 +2414,11 @@
     "name": "Andrea Meroni",
     "side": "away",
     "type": "injury"
-   },
-   {
-    "name": "Filippo Vesentini",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
-  "away_missing_share": 0.10388297290815988,
-  "away_unavailable": 3,
+  "at": "2026-10-24T11:40Z",
+  "away_missing_share": 0.14802074615844438,
+  "away_unavailable": 4,
   "fotmob_id": 5967114,
   "home_missing_share": 0.0,
   "home_unavailable": 0,

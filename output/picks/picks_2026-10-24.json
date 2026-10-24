@@ -48,7 +48,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Willem II v Cambuur",
@@ -1964,7 +1966,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Alverca v Arouca",
@@ -2301,8 +2305,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 1.59,
    "stake_pct": 0.25,
    "ev": -0.016800424785819557,
    "missing": {
@@ -2501,8 +2505,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": 2.38,
    "stake_pct": 0.25,
    "ev": -0.014818069402665723,
    "missing": {
@@ -3286,7 +3290,11 @@
     "home": 2711912,
     "away": 9081194
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "CAUTION",
+    "note": "Rodez rotated: confirmed XI worth 75% of predicted",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:72037402",
    "sb_tid": "sr:tournament:182",
    "sb_market": {
@@ -3295,8 +3303,8 @@
     "spec": "",
     "outcome": "No"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": -0.83,
    "stake_pct": 0.25,
    "ev": -0.03913832323601507,
    "missing": {

@@ -405,6 +405,38 @@
   "kickoff_utc": "2026-10-24T14:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Catanzaro v Ascoli Calcio 1898": {
+  "absent": [
+   {
+    "name": "Franck Tchaouna",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Andrej Pogacar",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Francesco Reita",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Manuel Alagna",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-24T09:20Z",
+  "away_missing_share": 0.07871698894814032,
+  "away_unavailable": 1,
+  "fotmob_id": 5967111,
+  "home_missing_share": 0.07109872305620014,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-24T15:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Charlton v Norwich": {
   "absent": [
    {
@@ -1292,7 +1324,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T09:20Z",
   "away_missing_share": 0.18084913828429905,
   "away_unavailable": 2,
   "fotmob_id": 5804017,

@@ -35,8 +35,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.23,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.022621265203916274,
    "missing": {
@@ -98,7 +98,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Den Haag v Heerenveen",
@@ -2051,8 +2053,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.28,
+   "clv": 0.78,
    "stake_pct": 0.25,
    "ev": -0.014170813720934206,
    "missing": {
@@ -2114,7 +2116,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Gil Vicente v Porto",
@@ -5566,7 +5570,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": 0.0
   },
   {
    "fixture": "TSV Hartberg v Wolfsberger AC",

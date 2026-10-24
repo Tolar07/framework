@@ -1,0 +1,42 @@
+{
+ "date": "2026-10-25",
+ "picks": [
+  {
+   "market_id": "68",
+   "specifier": "total=115.5",
+   "outcome": "Over 115.5",
+   "outcome_id": "12",
+   "price": 1.91,
+   "chance": 0.5904,
+   "fair_price": 1.694,
+   "ev": 0.1277,
+   "source": "watch",
+   "reason": "REPLACES the earlier pick on this game (value gone / no longer offered); new value since the morning board",
+   "found_at": "2026-10-24T18:43:52.655836+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719376",
+   "home_key": "PHI",
+   "away_key": "MIL",
+   "espn_id": "401909855",
+   "espn_date": "2026-10-24",
+   "tip": "2026-10-24T23:30:00+00:00",
+   "home": "Philadelphia 76ers",
+   "away": "Milwaukee Bucks",
+   "pick": "1st half Over 115.5 points",
+   "sharp": {
+    "ml_home": 1.1739,
+    "ml_away": 5.25,
+    "spread": -12.5,
+    "total": 235.5
+   },
+   "code": "GGXABV",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.88,
+    "listed": true
+   }
+  }
+ ]
+}

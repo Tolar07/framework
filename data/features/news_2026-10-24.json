@@ -172,7 +172,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:00Z",
+  "at": "2026-10-24T15:20Z",
   "away_missing_share": 0.17422949674576388,
   "away_unavailable": 3,
   "fotmob_id": 5943276,
@@ -688,7 +688,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:00Z",
+  "at": "2026-10-24T15:20Z",
   "away_missing_share": 0.402796427185404,
   "away_unavailable": 9,
   "fotmob_id": 5795487,
@@ -1454,7 +1454,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:00Z",
+  "at": "2026-10-24T15:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5868512,
@@ -1746,12 +1746,12 @@
     "type": "injury"
    },
    {
-    "name": "Matej Vuk",
+    "name": "Silvio Ilinkovi\u0107",
     "side": "home",
     "type": "injury"
    },
    {
-    "name": "Silvio Ilinkovi\u0107",
+    "name": "Elvir Durakovi\u0107",
     "side": "home",
     "type": "injury"
    },
@@ -1771,14 +1771,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:00Z",
-  "away_missing_share": 0.32993931040451596,
-  "away_unavailable": 7,
+  "at": "2026-10-24T15:20Z",
+  "away_missing_share": 0.28218041157850937,
+  "away_unavailable": 6,
   "fotmob_id": 5765948,
-  "home_missing_share": 0.2318565025692934,
-  "home_unavailable": 5,
+  "home_missing_share": 0.18663830053499358,
+  "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T16:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Napoli v Roma": {
   "absent": [
@@ -1813,14 +1813,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:00Z",
-  "away_missing_share": 0.3195747338238786,
+  "at": "2026-10-24T15:20Z",
+  "away_missing_share": 0.30915406497324255,
   "away_unavailable": 4,
   "fotmob_id": 5749717,
-  "home_missing_share": 0.1858084708310604,
+  "home_missing_share": 0.1825149924074376,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T16:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Northampton v Colchester United": {
   "absent": [],
@@ -1920,14 +1920,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:00Z",
-  "away_missing_share": 0.18005832360958998,
+  "at": "2026-10-24T15:20Z",
+  "away_missing_share": 0.17937789486533218,
   "away_unavailable": 3,
   "fotmob_id": 5943277,
-  "home_missing_share": 0.2900771208226221,
+  "home_missing_share": 0.3002965342978049,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T16:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Paderborn v Hamburg": {
   "absent": [
@@ -2310,11 +2310,6 @@
  "Samsunspor v Amed Sportif Faaliyetler": {
   "absent": [
    {
-    "name": "Kouadou Assoumou",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Fatih Kaya",
     "side": "home",
     "type": "injury"
@@ -2330,24 +2325,24 @@
     "type": "injury"
    },
    {
-    "name": "Lumbardh Dellova",
+    "name": "Dilhan Demir",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Dilhan Demir",
+    "name": "Muhammed Yildirim",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:00Z",
-  "away_missing_share": 0.13138579424917046,
-  "away_unavailable": 4,
+  "at": "2026-10-24T15:20Z",
+  "away_missing_share": 0.10666839049495087,
+  "away_unavailable": 3,
   "fotmob_id": 5904784,
-  "home_missing_share": 0.11873721853122947,
-  "home_unavailable": 3,
+  "home_missing_share": 0.03262501394242431,
+  "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T16:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Scunthorpe United v Woking": {
   "absent": [],
@@ -2696,7 +2691,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T15:00Z",
+  "at": "2026-10-24T15:20Z",
   "away_missing_share": 0.17152225659430037,
   "away_unavailable": 3,
   "fotmob_id": 5868110,
@@ -2883,7 +2878,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T11:00Z",
+  "at": "2026-10-24T15:20Z",
   "away_missing_share": 0.18813125546263915,
   "away_unavailable": 4,
   "fotmob_id": 5781785,

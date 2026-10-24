@@ -54,7 +54,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T13:00Z",
+  "at": "2026-10-24T17:40Z",
   "away_missing_share": 0.45691387841595543,
   "away_unavailable": 7,
   "fotmob_id": 5868504,
@@ -251,7 +251,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T13:00Z",
+  "at": "2026-10-24T17:40Z",
   "away_missing_share": 0.27551584641473864,
   "away_unavailable": 5,
   "fotmob_id": 5868103,
@@ -891,7 +891,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T13:00Z",
+  "at": "2026-10-24T17:40Z",
   "away_missing_share": 0.03973006109795628,
   "away_unavailable": 1,
   "fotmob_id": 5781779,
@@ -1507,7 +1507,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:20Z",
+  "at": "2026-10-24T17:40Z",
   "away_missing_share": 0.08273310103038756,
   "away_unavailable": 3,
   "fotmob_id": 5749715,
@@ -1586,7 +1586,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:20Z",
+  "at": "2026-10-24T17:40Z",
   "away_missing_share": 0.15860707607115088,
   "away_unavailable": 2,
   "fotmob_id": 5802967,
@@ -1878,14 +1878,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:20Z",
+  "at": "2026-10-24T17:40Z",
   "away_missing_share": 0.011981629196704927,
   "away_unavailable": 1,
   "fotmob_id": 5881706,
-  "home_missing_share": 0.3738268772972023,
+  "home_missing_share": 0.39462329569750654,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T18:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Oxford United v Bradford": {
   "absent": [],
@@ -2158,7 +2158,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T17:20Z",
+  "at": "2026-10-24T17:40Z",
   "away_missing_share": 1.0,
   "away_unavailable": 3,
   "fotmob_id": 5811788,
@@ -2469,7 +2469,7 @@
  },
  "St Etienne v Nantes": {
   "absent": [],
-  "at": "2026-10-24T17:20Z",
+  "at": "2026-10-24T17:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803298,
@@ -2847,7 +2847,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:20Z",
+  "at": "2026-10-24T17:40Z",
   "away_missing_share": 1.0,
   "away_unavailable": 4,
   "fotmob_id": 5811790,

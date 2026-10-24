@@ -604,7 +604,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:00Z",
+  "at": "2026-10-24T14:20Z",
   "away_missing_share": 0.07871698894814032,
   "away_unavailable": 1,
   "fotmob_id": 5967111,
@@ -929,7 +929,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:00Z",
+  "at": "2026-10-24T14:20Z",
   "away_missing_share": 0.2634794204570028,
   "away_unavailable": 4,
   "fotmob_id": 5107629,
@@ -1390,7 +1390,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:00Z",
+  "at": "2026-10-24T14:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5107636,
@@ -2026,7 +2026,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:00Z",
+  "at": "2026-10-24T14:20Z",
   "away_missing_share": 0.04547004701690423,
   "away_unavailable": 2,
   "fotmob_id": 5804018,
@@ -2627,7 +2627,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:00Z",
+  "at": "2026-10-24T14:20Z",
   "away_missing_share": 0.1296350638174686,
   "away_unavailable": 2,
   "fotmob_id": 5846006,
@@ -2659,14 +2659,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:00Z",
+  "at": "2026-10-24T14:20Z",
   "away_missing_share": 0.18958222825975732,
   "away_unavailable": 1,
   "fotmob_id": 5781784,
   "home_missing_share": 0.3813208061970744,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-24T14:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Valencia v Villarreal": {
   "absent": [
@@ -2787,14 +2787,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T14:00Z",
-  "away_missing_share": 0.27854658677464306,
+  "at": "2026-10-24T14:20Z",
+  "away_missing_share": 0.32518489807788403,
   "away_unavailable": 3,
   "fotmob_id": 5846010,
-  "home_missing_share": 0.04948229294089103,
+  "home_missing_share": 0.060247958595714045,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-24T15:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "West Ham v Southampton": {
   "absent": [

@@ -1142,20 +1142,20 @@
     "over25": "PENDING"
    },
    "sharp": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-16T18:11Z",
+    "away": 0.261,
+    "btts": 0.5728,
+    "draw": 0.2755,
+    "home": 0.4635,
+    "over25": 0.5163
    },
    "soft": {
-    "at": "PENDING",
-    "away": "PENDING",
-    "btts": "PENDING",
-    "draw": "PENDING",
-    "home": "PENDING",
-    "over25": "PENDING"
+    "at": "2026-10-16T18:11Z",
+    "away": 0.267,
+    "btts": 0.5584,
+    "draw": 0.2685,
+    "home": 0.4645,
+    "over25": 0.5325
    }
   },
   "date": "2026-10-16",

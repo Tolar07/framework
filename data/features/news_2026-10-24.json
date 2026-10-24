@@ -768,7 +768,7 @@
  },
  "Dijon v Rodez": {
   "absent": [],
-  "at": "2026-10-24T11:00Z",
+  "at": "2026-10-24T11:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803292,
@@ -849,14 +849,14 @@
  },
  "Eastleigh v Boston Utd": {
   "absent": [],
-  "at": "2026-10-24T11:00Z",
+  "at": "2026-10-24T11:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906517,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-24T11:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Estrela v Casa Pia": {
   "absent": [
@@ -1084,14 +1084,14 @@
  },
  "Harrogate v Sutton": {
   "absent": [],
-  "at": "2026-10-24T11:00Z",
+  "at": "2026-10-24T11:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5906518,
   "home_missing_share": 0.0,
   "home_unavailable": 0,
   "kickoff_utc": "2026-10-24T11:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Heidenheim v Energie Cottbus": {
   "absent": [
@@ -1250,7 +1250,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T09:00Z",
+  "at": "2026-10-24T11:20Z",
   "away_missing_share": 0.12548253486165814,
   "away_unavailable": 3,
   "fotmob_id": 5804014,

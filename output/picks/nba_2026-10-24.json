@@ -13,7 +13,7 @@
     "sr:match:73719354"
    ],
    "odds": 7.45,
-   "result": null
+   "result": "lost"
   },
   {
    "name": "NBA acca B",
@@ -24,7 +24,7 @@
     "sr:match:73719362"
    ],
    "odds": 6.54,
-   "result": null
+   "result": "won"
   }
  ],
  "picks": [
@@ -88,9 +88,9 @@
     "total": 223.5
    },
    "code": "UKGLYG",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "107-103",
+   "close_value": 0.2511,
    "matchbook": {
     "back": null,
     "listed": true
@@ -122,9 +122,9 @@
     "total": 235.5
    },
    "code": "KA53VC",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "93-115",
+   "close_value": 0.1586,
    "matchbook": {
     "back": null,
     "listed": true
@@ -156,9 +156,9 @@
     "total": 237.5
    },
    "code": "S5WK2N",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "111-128",
+   "close_value": 0.1562,
    "matchbook": {
     "back": null,
     "listed": true
@@ -190,9 +190,9 @@
     "total": 227.5
    },
    "code": "HMV5HH",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "110-114",
+   "close_value": 0.1466,
    "matchbook": {
     "back": null,
     "listed": true
@@ -224,9 +224,9 @@
     "total": 238.5
    },
    "code": "MBWTMW",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "120-119",
+   "close_value": 0.0091,
    "matchbook": {
     "back": null,
     "listed": false

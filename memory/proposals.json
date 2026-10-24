@@ -31,5 +31,16 @@
   "status": "open",
   "opened": "2026-10-21",
   "decided": null
+ },
+ {
+  "id": "P4",
+  "segment": "Double chance",
+  "league": "2. Bundesliga",
+  "action": "block",
+  "text": "stop picking Double chance in 2. Bundesliga",
+  "evidence": "8/14 won (57%; its prices need 80%), -4.00 units over 6 match day(s)",
+  "status": "open",
+  "opened": "2026-10-24",
+  "decided": null
  }
 ]

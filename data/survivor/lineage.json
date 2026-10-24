@@ -742,9 +742,9 @@
    "to_breed": false,
    "holding": {
     "date": "2026-10-24",
-    "fixture": "BK Hacken v Degerfors IF",
-    "pick": "Under 4.5 goals",
-    "price": 1.22
+    "fixture": "Solihull v Carlisle",
+    "pick": "Solihull (+2.5) Asian handicap",
+    "price": 1.21
    }
   },
   {
@@ -875,8 +875,8 @@
    "to_breed": false,
    "holding": {
     "date": "2026-10-24",
-    "fixture": "Young Boys Bern v FC St. Gallen 1879",
-    "pick": "Young Boys Bern or FC St. Gallen 1879",
+    "fixture": "Heidenheim v Energie Cottbus",
+    "pick": "Heidenheim or Energie Cottbus",
     "price": 1.22
    }
   },
@@ -976,6 +976,6 @@
    }
   }
  ],
- "last_bred_date": "2026-10-23",
+ "last_bred_date": "2026-10-24",
  "rebuilt": "2026-10-02 from laptop state of 2026-09-19 (scripts/rebuild_survivor.py)"
 }

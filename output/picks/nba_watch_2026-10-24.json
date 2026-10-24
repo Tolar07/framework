@@ -30,9 +30,9 @@
     "total": 227.5
    },
    "code": "NS8MWK",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "81-128",
+   "close_value": 0.1384,
    "matchbook": {
     "back": 1.92,
     "listed": true
@@ -67,9 +67,9 @@
     "total": 239.5
    },
    "code": "PQ2H30",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "105-121",
+   "close_value": 0.0414,
    "matchbook": {
     "back": 1.99,
     "listed": true
@@ -104,9 +104,9 @@
     "total": 237.5
    },
    "code": "R1C2KW",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "102-112",
+   "close_value": 0.2135,
    "matchbook": {
     "back": 1.86,
     "listed": true
@@ -141,9 +141,9 @@
     "total": 237.5
    },
    "code": "JESSBP",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "108-111",
+   "close_value": 0.1312,
    "matchbook": {
     "back": 1.95,
     "listed": true
@@ -178,9 +178,9 @@
     "total": 225.5
    },
    "code": "WZWMQL",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "won",
+   "score": "125-117",
+   "close_value": 0.1265,
    "matchbook": {
     "back": 1.99,
     "listed": true
@@ -215,9 +215,9 @@
     "total": 231.5
    },
    "code": "U8W7M0",
-   "result": null,
-   "score": null,
-   "close_value": null,
+   "result": "lost",
+   "score": "120-128",
+   "close_value": 0.1628,
    "matchbook": {
     "back": 1.87,
     "listed": true

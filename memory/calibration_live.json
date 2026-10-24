@@ -1,37 +1,37 @@
 {
  "families": {
   "away": {
-   "a": 0.2875,
-   "adopted": "2026-10-23T08:44:32Z",
-   "b": 1.3524,
-   "brier_after": 0.19755,
-   "brier_before": 0.19771,
-   "choice": "refit",
+   "a": 0.0,
+   "adopted": "2026-10-24T08:19:13Z",
+   "b": 1.0,
+   "brier_after": 0.21046,
+   "brier_before": 0.21085,
+   "choice": "raw",
    "holdout_from": "2026-10-18",
    "n_fit": 368,
-   "n_holdout": 96
+   "n_holdout": 115
   },
   "dc_12": {
-   "a": 0.1659,
-   "adopted": "2026-10-23T08:44:32Z",
-   "b": 0.9554,
-   "brier_after": 0.16197,
-   "brier_before": 0.16223,
+   "a": 0.2041,
+   "adopted": "2026-10-24T08:19:13Z",
+   "b": 0.9216,
+   "brier_after": 0.17163,
+   "brier_before": 0.17175,
    "choice": "refit",
    "holdout_from": "2026-10-18",
    "n_fit": 368,
-   "n_holdout": 96
+   "n_holdout": 115
   },
   "dc_1x": {
-   "a": -0.2885,
-   "adopted": "2026-10-23T08:44:32Z",
-   "b": 1.3544,
-   "brier_after": 0.19758,
-   "brier_before": 0.19774,
-   "choice": "refit",
+   "a": 0.0,
+   "adopted": "2026-10-24T08:19:13Z",
+   "b": 1.0,
+   "brier_after": 0.21049,
+   "brier_before": 0.2109,
+   "choice": "raw",
    "holdout_from": "2026-10-18",
    "n_fit": 368,
-   "n_holdout": 96
+   "n_holdout": 115
   },
   "dc_x2": {
    "a": -0.125,
@@ -45,15 +45,15 @@
    "n_holdout": 93
   },
   "draw": {
-   "a": -0.1662,
-   "adopted": "2026-10-23T08:44:32Z",
-   "b": 0.955,
-   "brier_after": 0.16205,
-   "brier_before": 0.16231,
+   "a": -0.2045,
+   "adopted": "2026-10-24T08:19:13Z",
+   "b": 0.921,
+   "brier_after": 0.1717,
+   "brier_before": 0.17182,
    "choice": "refit",
    "holdout_from": "2026-10-18",
    "n_fit": 368,
-   "n_holdout": 96
+   "n_holdout": 115
   },
   "home": {
    "a": 0.1255,
@@ -90,5 +90,5 @@
   }
  },
  "source": "engine/retrain.py (nightly, retrain.yml)",
- "updated": "2026-10-23T08:44:32Z"
+ "updated": "2026-10-24T08:19:13Z"
 }

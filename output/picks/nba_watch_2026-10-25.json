@@ -37,6 +37,43 @@
     "back": 1.88,
     "listed": true
    }
+  },
+  {
+   "market_id": "68",
+   "specifier": "total=106.5",
+   "outcome": "Over 106.5",
+   "outcome_id": "12",
+   "price": 1.85,
+   "chance": 0.6688,
+   "fair_price": 1.495,
+   "ev": 0.2372,
+   "source": "watch",
+   "reason": "new value since the morning board",
+   "found_at": "2026-10-24T20:00:00.000113+00:00",
+   "stage": "regular",
+   "event_id": "sr:match:73719386",
+   "home_key": "PHX",
+   "away_key": "GSW",
+   "espn_id": "401909860",
+   "espn_date": "2026-10-25",
+   "tip": "2026-10-25T02:00:00+00:00",
+   "home": "Phoenix Suns",
+   "away": "Golden State Warriors",
+   "pick": "1st half Over 106.5 points",
+   "sharp": {
+    "ml_home": 1.2667,
+    "ml_away": 3.95,
+    "spread": -9.5,
+    "total": 222.5
+   },
+   "code": "KEFKCL",
+   "result": null,
+   "score": null,
+   "close_value": null,
+   "matchbook": {
+    "back": 1.83,
+    "listed": true
+   }
   }
  ]
 }

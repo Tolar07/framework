@@ -890,7 +890,11 @@
     "home": 20734839,
     "away": 22225868
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72339946",
    "sb_tid": "sr:tournament:18",
    "sb_market": {
@@ -1586,7 +1590,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "FC Koln v Schalke",
@@ -1634,7 +1640,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.29,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Mainz v Werder Bremen",
@@ -1682,7 +1690,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Paderborn v Hamburg",
@@ -1730,7 +1740,9 @@
    "first_price": 1.3,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.3,
+   "drift_pct": 0.0
   },
   {
    "fixture": "RB Leipzig v SV 07 Elversberg",
@@ -1778,7 +1790,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 1.6
   },
   {
    "fixture": "Dortmund v Ein Frankfurt",
@@ -2038,7 +2052,11 @@
     "home": 293523608,
     "away": 889712738
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72221334",
    "sb_tid": "sr:tournament:17",
    "sb_market": {
@@ -3021,8 +3039,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 0.0,
    "stake_pct": 0.25,
    "ev": -0.02154681989531726,
    "missing": {
@@ -3075,8 +3093,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.17,
+   "clv": 3.42,
    "stake_pct": 0.25,
    "ev": -0.02623321504501841,
    "missing": {
@@ -3129,8 +3147,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.26,
+   "clv": -0.79,
    "stake_pct": 0.25,
    "ev": -0.023146073336816175,
    "missing": {
@@ -3316,7 +3334,11 @@
     "home": 9161127,
     "away": 6808978
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "Huddersfield Town at full strength",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72341322",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3366,7 +3388,11 @@
     "home": 4960563,
     "away": 28408014
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72341324",
    "sb_tid": "sr:tournament:24",
    "sb_market": {
@@ -3896,7 +3922,11 @@
     "home": 2474099,
     "away": 1777769
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72342284",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -3946,7 +3976,11 @@
     "home": 1803486,
     "away": 1492737
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72342288",
    "sb_tid": "sr:tournament:25",
    "sb_market": {
@@ -3996,7 +4030,11 @@
     "home": 1788647,
     "away": 1889773
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "10:40Z"
+   },
    "sb_event_id": "sr:match:72342306",
    "sb_tid": "sr:tournament:25",
    "sb_market": {

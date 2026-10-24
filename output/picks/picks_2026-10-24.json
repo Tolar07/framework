@@ -570,7 +570,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Korona Kielce v GKS Katowice",
@@ -852,7 +854,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Portsmouth v Millwall",
@@ -900,7 +904,9 @@
    "first_price": 1.34,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.34,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sheffield United v Derby",
@@ -948,7 +954,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Blackburn v Wrexham",
@@ -2040,7 +2048,9 @@
    "first_price": 1.23,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Arsenal v Everton",
@@ -2232,7 +2242,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Racing Santander v Espanol",
@@ -2424,7 +2436,9 @@
    "first_price": 1.29,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Leganes v Mallorca",
@@ -2994,7 +3008,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Heidenheim v Energie Cottbus",
@@ -3042,7 +3058,9 @@
    "first_price": 1.21,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.21,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Hertha v Bielefeld",
@@ -3090,7 +3108,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Nurnberg v Kaiserslautern",
@@ -3186,7 +3206,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "St Etienne v Nantes",
@@ -3282,7 +3304,9 @@
    "first_price": 1.35,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.33,
+   "drift_pct": -1.5
   },
   {
    "fixture": "Luton v Leicester",
@@ -3330,7 +3354,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.0
   },
   {
    "fixture": "AFC Wimbledon v Wycombe Wanderers",
@@ -3858,7 +3884,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Cheltenham v Newport County",
@@ -3906,7 +3934,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Northampton v Colchester United",
@@ -3954,7 +3984,9 @@
    "first_price": 1.32,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.32,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Barnet FC v Oldham",
@@ -4380,7 +4412,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Harrogate v Sutton",
@@ -4422,7 +4456,9 @@
    "first_price": 1.25,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.24,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Aldershot v Wealdstone",
@@ -4842,7 +4878,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.8
   },
   {
    "fixture": "Gaziantep FK v Erzurumspor FK",

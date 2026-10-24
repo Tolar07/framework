@@ -54,7 +54,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T17:40Z",
+  "at": "2026-10-24T18:00Z",
   "away_missing_share": 0.45691387841595543,
   "away_unavailable": 7,
   "fotmob_id": 5868504,
@@ -251,7 +251,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:40Z",
+  "at": "2026-10-24T18:00Z",
   "away_missing_share": 0.27551584641473864,
   "away_unavailable": 5,
   "fotmob_id": 5868103,
@@ -889,16 +889,21 @@
     "name": "Dirk Proper",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Levi Smans",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:40Z",
-  "away_missing_share": 0.03973006109795628,
-  "away_unavailable": 1,
+  "at": "2026-10-24T18:00Z",
+  "away_missing_share": 0.06337289162839999,
+  "away_unavailable": 2,
   "fotmob_id": 5781779,
-  "home_missing_share": 0.1870512757174486,
+  "home_missing_share": 0.14404846798306378,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-24T19:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Dijon v Rodez": {
   "absent": [],
@@ -1191,7 +1196,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T13:40Z",
+  "at": "2026-10-24T18:00Z",
   "away_missing_share": 0.09448947994933893,
   "away_unavailable": 2,
   "fotmob_id": 5887657,
@@ -1507,7 +1512,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:40Z",
+  "at": "2026-10-24T18:00Z",
   "away_missing_share": 0.08273310103038756,
   "away_unavailable": 3,
   "fotmob_id": 5749715,
@@ -1586,14 +1591,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:40Z",
-  "away_missing_share": 0.15860707607115088,
+  "at": "2026-10-24T18:00Z",
+  "away_missing_share": 0.1496814702126876,
   "away_unavailable": 2,
   "fotmob_id": 5802967,
-  "home_missing_share": 0.1559853752684342,
+  "home_missing_share": 0.131223165217134,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-24T18:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Lincoln City v Burnley": {
   "absent": [
@@ -1878,14 +1883,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:40Z",
+  "at": "2026-10-24T18:00Z",
   "away_missing_share": 0.011981629196704927,
   "away_unavailable": 1,
   "fotmob_id": 5881706,
   "home_missing_share": 0.39462329569750654,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-24T18:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Oxford United v Bradford": {
   "absent": [],
@@ -2158,7 +2163,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-24T17:40Z",
+  "at": "2026-10-24T18:00Z",
   "away_missing_share": 1.0,
   "away_unavailable": 3,
   "fotmob_id": 5811788,
@@ -2469,7 +2474,7 @@
  },
  "St Etienne v Nantes": {
   "absent": [],
-  "at": "2026-10-24T17:40Z",
+  "at": "2026-10-24T18:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5803298,
@@ -2847,7 +2852,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-24T17:40Z",
+  "at": "2026-10-24T18:00Z",
   "away_missing_share": 1.0,
   "away_unavailable": 4,
   "fotmob_id": 5811790,

@@ -1,6 +1,6 @@
 {
  "engine_on": true,
- "evaluated_at": "2026-10-25T10:08Z",
+ "evaluated_at": "2026-10-25T12:00Z",
  "flagged": [
   "R:research:H001"
  ],
@@ -384,32 +384,32 @@
   },
   "R:research:H001": {
    "counted": {
-    "clv": 0.1493,
-    "clv_se": 0.0094,
+    "clv": 0.149,
+    "clv_se": 0.0093,
     "first": "2026-10-20",
     "last": "2026-10-25",
-    "n": 221,
-    "n_clv": 221,
-    "roi": 0.2034,
-    "roi_se": 0.1257,
-    "won": 89
+    "n": 224,
+    "n_clv": 224,
+    "roi": 0.2152,
+    "roi_se": 0.1248,
+    "won": 91
    },
    "desc": "research \u2014 Back any 1X2 side SportyBet prices 3%+ above Matchbook's fair price (margin removed) at first look",
    "in_sample": {
-    "clv": 0.1609,
+    "clv": 0.1607,
     "clv_se": 0.0079,
     "first": "2026-10-16",
     "last": "2026-10-25",
-    "n": 424,
-    "n_clv": 424,
-    "roi": 0.1876,
-    "roi_se": 0.0933,
-    "won": 162
+    "n": 427,
+    "n_clv": 427,
+    "roi": 0.1939,
+    "roi_se": 0.0929,
+    "won": 164
    },
    "since": "2026-10-20",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "beats live: return z 2.16, CLV z 15.48",
+   "vs_live": "beats live: return z 2.27, CLV z 15.63",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -946,8 +946,8 @@
     "last": "2026-10-25",
     "n": 17,
     "n_clv": 0,
-    "roi": -0.1775,
-    "roi_se": 0.2181,
+    "roi": -0.1766,
+    "roi_se": 0.2183,
     "won": 8
    },
    "desc": "paper acca \u2014 3 legs from F9 (from 2026-10-09)",
@@ -958,8 +958,8 @@
     "last": "2026-10-25",
     "n": 17,
     "n_clv": 0,
-    "roi": -0.1775,
-    "roi_se": 0.2181,
+    "roi": -0.1766,
+    "roi_se": 0.2183,
     "won": 8
    },
    "since": "2026-10-09",
@@ -971,63 +971,63 @@
   },
   "U:B1 home favourite": {
    "counted": {
-    "clv": -0.001,
+    "clv": -0.0014,
     "clv_se": 0.0047,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 353,
-    "n_clv": 353,
-    "roi": -0.0577,
+    "n": 354,
+    "n_clv": 354,
+    "roi": -0.0604,
     "roi_se": 0.0341,
     "won": 243
    },
    "desc": "paper rule \u2014 home winner at 1.20\u20131.60",
    "in_sample": {
-    "clv": -0.001,
+    "clv": -0.0014,
     "clv_se": 0.0047,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 353,
-    "n_clv": 353,
-    "roi": -0.0577,
+    "n": 354,
+    "n_clv": 354,
+    "roi": -0.0604,
     "roi_se": 0.0341,
     "won": 243
    },
    "since": "start",
    "slot": "nba",
    "status": "shadow",
-   "vs_live": "too few closing prices (353 v 28, 30 each needed)",
+   "vs_live": "too few closing prices (354 v 28, 30 each needed)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
   "U:B2 away underdog": {
    "counted": {
-    "clv": -0.0073,
+    "clv": -0.0066,
     "clv_se": 0.0078,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 401,
-    "n_clv": 401,
-    "roi": -0.04,
+    "n": 402,
+    "n_clv": 402,
+    "roi": -0.0359,
     "roi_se": 0.0618,
-    "won": 155
+    "won": 156
    },
    "desc": "paper rule \u2014 away winner at 2.00\u20133.50",
    "in_sample": {
-    "clv": -0.0073,
+    "clv": -0.0066,
     "clv_se": 0.0078,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 401,
-    "n_clv": 401,
-    "roi": -0.04,
+    "n": 402,
+    "n_clv": 402,
+    "roi": -0.0359,
     "roi_se": 0.0618,
-    "won": 155
+    "won": 156
    },
    "since": "start",
    "slot": "nba",
    "status": "shadow",
-   "vs_live": "too few closing prices (401 v 28, 30 each needed)",
+   "vs_live": "too few closing prices (402 v 28, 30 each needed)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -1037,11 +1037,11 @@
     "clv_se": 0.0006,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1036,
+    "n": 1038,
     "n_clv": 452,
-    "roi": -0.1104,
+    "roi": -0.1103,
     "roi_se": 0.0288,
-    "won": 497
+    "won": 498
    },
    "desc": "paper rule \u2014 Under the main total line",
    "in_sample": {
@@ -1049,11 +1049,11 @@
     "clv_se": 0.0006,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1036,
+    "n": 1038,
     "n_clv": 452,
-    "roi": -0.1104,
+    "roi": -0.1103,
     "roi_se": 0.0288,
-    "won": 497
+    "won": 498
    },
    "since": "start",
    "slot": "nba",
@@ -1068,11 +1068,11 @@
     "clv_se": 0.0005,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1036,
+    "n": 1038,
     "n_clv": 452,
-    "roi": -0.0367,
-    "roi_se": 0.0288,
-    "won": 539
+    "roi": -0.0368,
+    "roi_se": 0.0287,
+    "won": 540
    },
    "desc": "paper rule \u2014 Over the main total line",
    "in_sample": {
@@ -1080,11 +1080,11 @@
     "clv_se": 0.0005,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1036,
+    "n": 1038,
     "n_clv": 452,
-    "roi": -0.0367,
-    "roi_se": 0.0288,
-    "won": 539
+    "roi": -0.0368,
+    "roi_se": 0.0287,
+    "won": 540
    },
    "since": "start",
    "slot": "nba",
@@ -1099,11 +1099,11 @@
     "clv_se": 0.0025,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 802,
-    "n_clv": 802,
-    "roi": 0.0008,
+    "n": 804,
+    "n_clv": 804,
+    "roi": 0.0017,
     "roi_se": 0.0211,
-    "won": 593
+    "won": 595
    },
    "desc": "paper rule \u2014 1X2 favourite at 1.20\u20131.50",
    "in_sample": {
@@ -1111,47 +1111,47 @@
     "clv_se": 0.0025,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 802,
-    "n_clv": 802,
-    "roi": 0.0008,
+    "n": 804,
+    "n_clv": 804,
+    "roi": 0.0017,
     "roi_se": 0.0211,
-    "won": 593
+    "won": 595
    },
    "since": "start",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z 1.37, CLV z -0.31; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z 1.40, CLV z -0.31; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
   "U:F10 mid-price home": {
    "counted": {
-    "clv": -0.0044,
+    "clv": -0.0043,
     "clv_se": 0.0019,
     "first": "2026-10-09",
     "last": "2026-10-25",
-    "n": 2572,
-    "n_clv": 2572,
-    "roi": -0.0186,
+    "n": 2586,
+    "n_clv": 2586,
+    "roi": -0.0178,
     "roi_se": 0.0199,
-    "won": 1270
+    "won": 1278
    },
    "desc": "paper rule \u2014 home win at 1.60\u20132.50",
    "in_sample": {
-    "clv": -0.0044,
+    "clv": -0.0043,
     "clv_se": 0.0019,
     "first": "2026-10-09",
     "last": "2026-10-25",
-    "n": 2572,
-    "n_clv": 2572,
-    "roi": -0.0186,
+    "n": 2586,
+    "n_clv": 2586,
+    "roi": -0.0178,
     "roi_se": 0.0199,
-    "won": 1270
+    "won": 1278
    },
    "since": "2026-10-09",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z 0.67, CLV z -2.39; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z 0.70, CLV z -2.36; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -1250,63 +1250,63 @@
   },
   "U:F2 mid favourite": {
    "counted": {
-    "clv": -0.001,
+    "clv": -0.0009,
     "clv_se": 0.002,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 2188,
-    "n_clv": 2188,
-    "roi": -0.0234,
+    "n": 2201,
+    "n_clv": 2201,
+    "roi": -0.0253,
     "roi_se": 0.0185,
-    "won": 1233
+    "won": 1238
    },
    "desc": "paper rule \u2014 1X2 favourite at 1.50\u20132.00",
    "in_sample": {
-    "clv": -0.001,
+    "clv": -0.0009,
     "clv_se": 0.002,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 2188,
-    "n_clv": 2188,
-    "roi": -0.0234,
+    "n": 2201,
+    "n_clv": 2201,
+    "roi": -0.0253,
     "roi_se": 0.0185,
-    "won": 1233
+    "won": 1238
    },
    "since": "start",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z 0.57, CLV z -0.76; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z 0.50, CLV z -0.73; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
   "U:F3 home underdog": {
    "counted": {
-    "clv": -0.0069,
+    "clv": -0.0071,
     "clv_se": 0.0035,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1636,
-    "n_clv": 1636,
-    "roi": -0.116,
-    "roi_se": 0.0355,
-    "won": 466
+    "n": 1645,
+    "n_clv": 1645,
+    "roi": -0.1165,
+    "roi_se": 0.0354,
+    "won": 468
    },
    "desc": "paper rule \u2014 home win at 2.50\u20135.00",
    "in_sample": {
-    "clv": -0.0069,
+    "clv": -0.0071,
     "clv_se": 0.0035,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1636,
-    "n_clv": 1636,
-    "roi": -0.116,
-    "roi_se": 0.0355,
-    "won": 466
+    "n": 1645,
+    "n_clv": 1645,
+    "roi": -0.1165,
+    "roi_se": 0.0354,
+    "won": 468
    },
    "since": "start",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z -1.89, CLV z -2.11; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z -1.91, CLV z -2.18; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -1316,11 +1316,11 @@
     "clv_se": 0.0013,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1127,
-    "n_clv": 1127,
-    "roi": -0.1331,
+    "n": 1133,
+    "n_clv": 1133,
+    "roi": -0.1315,
     "roi_se": 0.0432,
-    "won": 299
+    "won": 301
    },
    "desc": "paper rule \u2014 draw when the two win prices are within 25%",
    "in_sample": {
@@ -1328,78 +1328,78 @@
     "clv_se": 0.0013,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1127,
-    "n_clv": 1127,
-    "roi": -0.1331,
+    "n": 1133,
+    "n_clv": 1133,
+    "roi": -0.1315,
     "roi_se": 0.0432,
-    "won": 299
+    "won": 301
    },
    "since": "start",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z -1.97, CLV z -2.56; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z -1.94, CLV z -2.55; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
   "U:F5 over 2.5 when favoured": {
    "counted": {
-    "clv": -0.0006,
+    "clv": -0.0007,
     "clv_se": 0.0009,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 2748,
-    "n_clv": 2718,
-    "roi": -0.0144,
+    "n": 2764,
+    "n_clv": 2734,
+    "roi": -0.0147,
     "roi_se": 0.0145,
-    "won": 1738
+    "won": 1747
    },
    "desc": "paper rule \u2014 Over 2.5 when priced shorter than Under",
    "in_sample": {
-    "clv": -0.0006,
+    "clv": -0.0007,
     "clv_se": 0.0009,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 2748,
-    "n_clv": 2718,
-    "roi": -0.0144,
+    "n": 2764,
+    "n_clv": 2734,
+    "roi": -0.0147,
     "roi_se": 0.0145,
-    "won": 1738
+    "won": 1747
    },
    "since": "start",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z 0.99, CLV z -1.08; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z 0.98, CLV z -1.13; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
   "U:F6 under 2.5 when favoured": {
    "counted": {
-    "clv": -0.009,
+    "clv": -0.0091,
     "clv_se": 0.0012,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1464,
-    "n_clv": 1459,
-    "roi": -0.0841,
-    "roi_se": 0.0215,
-    "won": 816
+    "n": 1471,
+    "n_clv": 1466,
+    "roi": -0.0826,
+    "roi_se": 0.0214,
+    "won": 821
    },
    "desc": "paper rule \u2014 Under 2.5 when priced shorter than Over",
    "in_sample": {
-    "clv": -0.009,
+    "clv": -0.0091,
     "clv_se": 0.0012,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1464,
-    "n_clv": 1459,
-    "roi": -0.0841,
-    "roi_se": 0.0215,
-    "won": 816
+    "n": 1471,
+    "n_clv": 1466,
+    "roi": -0.0826,
+    "roi_se": 0.0214,
+    "won": 821
    },
    "since": "start",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z -1.54, CLV z -6.46; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z -1.49, CLV z -6.55; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -1409,11 +1409,11 @@
     "clv_se": 0.0012,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1788,
-    "n_clv": 1780,
-    "roi": -0.1511,
+    "n": 1798,
+    "n_clv": 1790,
+    "roi": -0.1507,
     "roi_se": 0.0211,
-    "won": 854
+    "won": 859
    },
    "desc": "paper rule \u2014 both teams to score \u2014 no, at 1.50\u20132.00",
    "in_sample": {
@@ -1421,16 +1421,16 @@
     "clv_se": 0.0012,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 1788,
-    "n_clv": 1780,
-    "roi": -0.1511,
+    "n": 1798,
+    "n_clv": 1790,
+    "roi": -0.1507,
     "roi_se": 0.0211,
-    "won": 854
+    "won": 859
    },
    "since": "start",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z -3.85, CLV z -2.52; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z -3.84, CLV z -2.53; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -1440,11 +1440,11 @@
     "clv_se": 0.0004,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 3397,
-    "n_clv": 3395,
-    "roi": -0.038,
-    "roi_se": 0.0093,
-    "won": 2585
+    "n": 3418,
+    "n_clv": 3416,
+    "roi": -0.0384,
+    "roi_se": 0.0092,
+    "won": 2600
    },
    "desc": "paper rule \u2014 the shortest double chance at 1.20\u20131.40",
    "in_sample": {
@@ -1452,16 +1452,16 @@
     "clv_se": 0.0004,
     "first": "2026-10-07",
     "last": "2026-10-25",
-    "n": 3397,
-    "n_clv": 3395,
-    "roi": -0.038,
-    "roi_se": 0.0093,
-    "won": 2585
+    "n": 3418,
+    "n_clv": 3416,
+    "roi": -0.0384,
+    "roi_se": 0.0092,
+    "won": 2600
    },
    "since": "start",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z 0.05, CLV z -3.65; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z 0.03, CLV z -3.64; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -1471,11 +1471,11 @@
     "clv_se": 0.0003,
     "first": "2026-10-09",
     "last": "2026-10-25",
-    "n": 4067,
-    "n_clv": 4063,
+    "n": 4091,
+    "n_clv": 4087,
     "roi": -0.0562,
     "roi_se": 0.0087,
-    "won": 3029
+    "won": 3047
    },
    "desc": "paper rule \u2014 home or away (dc 12) at 1.20\u20131.40",
    "in_sample": {
@@ -1483,16 +1483,16 @@
     "clv_se": 0.0003,
     "first": "2026-10-09",
     "last": "2026-10-25",
-    "n": 4067,
-    "n_clv": 4063,
+    "n": 4091,
+    "n_clv": 4087,
     "roi": -0.0562,
     "roi_se": 0.0087,
-    "won": 3029
+    "won": 3047
    },
    "since": "2026-10-09",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z -0.85, CLV z -2.04; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z -0.85, CLV z -2.06; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -1502,11 +1502,11 @@
     "clv_se": 0.0037,
     "first": "2026-10-13",
     "last": "2026-10-25",
-    "n": 195,
-    "n_clv": 195,
-    "roi": -0.0568,
-    "roi_se": 0.0588,
-    "won": 112
+    "n": 196,
+    "n_clv": 196,
+    "roi": -0.0528,
+    "roi_se": 0.0586,
+    "won": 113
    },
    "desc": "paper rule \u2014 BTTS yes when both teams' profiles say both score",
    "in_sample": {
@@ -1514,16 +1514,16 @@
     "clv_se": 0.0037,
     "first": "2026-10-13",
     "last": "2026-10-25",
-    "n": 195,
-    "n_clv": 195,
-    "roi": -0.0568,
-    "roi_se": 0.0588,
-    "won": 112
+    "n": 196,
+    "n_clv": 196,
+    "roi": -0.0528,
+    "roi_se": 0.0586,
+    "won": 113
    },
    "since": "2026-10-13",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z -0.37, CLV z 3.93; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z -0.31, CLV z 3.94; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -1533,11 +1533,11 @@
     "clv_se": 0.0044,
     "first": "2026-10-13",
     "last": "2026-10-25",
-    "n": 195,
-    "n_clv": 195,
-    "roi": -0.0354,
-    "roi_se": 0.0594,
-    "won": 114
+    "n": 196,
+    "n_clv": 196,
+    "roi": -0.0315,
+    "roi_se": 0.0593,
+    "won": 115
    },
    "desc": "paper rule \u2014 Over 2.5 on P1's games",
    "in_sample": {
@@ -1545,16 +1545,16 @@
     "clv_se": 0.0044,
     "first": "2026-10-13",
     "last": "2026-10-25",
-    "n": 195,
-    "n_clv": 195,
-    "roi": -0.0354,
-    "roi_se": 0.0594,
-    "won": 114
+    "n": 196,
+    "n_clv": 196,
+    "roi": -0.0315,
+    "roi_se": 0.0593,
+    "won": 115
    },
    "since": "2026-10-13",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z -0.03, CLV z 2.30; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z 0.03, CLV z 2.31; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   },
@@ -1622,32 +1622,32 @@
   },
   "U:P5 short Under 3.5 v profile": {
    "counted": {
-    "clv": -0.035,
-    "clv_se": 0.0047,
+    "clv": -0.0349,
+    "clv_se": 0.0046,
     "first": "2026-10-13",
-    "last": "2026-10-24",
-    "n": 109,
-    "n_clv": 109,
-    "roi": -0.0611,
+    "last": "2026-10-25",
+    "n": 110,
+    "n_clv": 110,
+    "roi": -0.0696,
     "roi_se": 0.0624,
     "won": 74
    },
    "desc": "paper rule \u2014 Under 3.5 at 1.20\u20131.50 when the profiles say both score",
    "in_sample": {
-    "clv": -0.035,
-    "clv_se": 0.0047,
+    "clv": -0.0349,
+    "clv_se": 0.0046,
     "first": "2026-10-13",
-    "last": "2026-10-24",
-    "n": 109,
-    "n_clv": 109,
-    "roi": -0.0611,
+    "last": "2026-10-25",
+    "n": 110,
+    "n_clv": 110,
+    "roi": -0.0696,
     "roi_se": 0.0624,
     "won": 74
    },
    "since": "2026-10-13",
    "slot": "singles",
    "status": "shadow",
-   "vs_live": "not significantly better (return z -0.41, CLV z -7.61; 1.645 needed on both)",
+   "vs_live": "not significantly better (return z -0.54, CLV z -7.65; 1.645 needed on both)",
    "why_not": "picks from every SportyBet game, not the board's candidates",
    "wireable": false
   }

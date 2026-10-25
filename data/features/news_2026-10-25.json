@@ -264,14 +264,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T18:40Z",
-  "away_missing_share": 0.19529889826208957,
+  "at": "2026-10-25T19:00Z",
+  "away_missing_share": 0.19640357803867908,
   "away_unavailable": 5,
   "fotmob_id": 5868105,
   "home_missing_share": 0.1699185516733619,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T20:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Basel v Grasshopper Club Zurich": {
   "absent": [
@@ -2293,8 +2293,8 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T18:40Z",
-  "away_missing_share": 0.3606705081233538,
+  "at": "2026-10-25T19:00Z",
+  "away_missing_share": 0.3434284887677285,
   "away_unavailable": 7,
   "fotmob_id": 5749719,
   "home_missing_share": 0.3418224216404712,

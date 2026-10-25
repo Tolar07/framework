@@ -73,6 +73,48 @@
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
   "lineup_type": "predicted"
  },
+ "Basel v Grasshopper Club Zurich": {
+  "absent": [
+   {
+    "name": "Gabriel Sigua",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aaron Malouda",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Asane Sow",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tim Meyer",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Julian von Moos",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Pantaleo Creti",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T09:40Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 4,
+  "fotmob_id": 5804280,
+  "home_missing_share": 1.0,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-25T15:30:00.000Z",
+  "lineup_type": "unavailable"
+ },
  "Braunschweig v Hannover": {
   "absent": [
    {
@@ -227,6 +269,60 @@
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
   "lineup_type": "predicted"
+ },
+ "Estoril v Moreirense": {
+  "absent": [
+   {
+    "name": "Fabr\u00edcio Garcia",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Marac\u00e1s",
+    "side": "away",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-10-25T09:40Z",
+  "away_missing_share": 0.04345239885025383,
+  "away_unavailable": 1,
+  "fotmob_id": 5887656,
+  "home_missing_share": 0.032977755435811454,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-25T15:30:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "FC Sion v Lausanne-Sport": {
+  "absent": [
+   {
+    "name": "Baltazar",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Tyler Fredricson",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Koba Koindredi",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Beyatt Lekoueiry",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T09:40Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 7,
+  "fotmob_id": 5804282,
+  "home_missing_share": 1.0,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-25T15:30:00.000Z",
+  "lineup_type": "unavailable"
  },
  "FC Thun v Lugano": {
   "absent": [
@@ -817,6 +913,48 @@
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T13:00:00.000Z",
   "lineup_type": "predicted"
+ },
+ "Mjallby AIF v Hammarby IF": {
+  "absent": [
+   {
+    "name": "Ludvig Tidstrand",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Timo Stavitski",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Villum Dalsgaard",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Amin Boudri",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Oliver Hagen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Oscar Johansson Schellhas",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T09:40Z",
+  "away_missing_share": 0.14568712795640518,
+  "away_unavailable": 3,
+  "fotmob_id": 5107632,
+  "home_missing_share": 0.09888754015122331,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-25T15:30:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "Monaco v Lille": {
   "absent": [

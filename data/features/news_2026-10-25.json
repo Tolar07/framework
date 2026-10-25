@@ -148,7 +148,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:00Z",
+  "at": "2026-10-25T16:20Z",
   "away_missing_share": 1.0,
   "away_unavailable": 3,
   "fotmob_id": 5943275,
@@ -402,7 +402,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:00Z",
+  "at": "2026-10-25T16:20Z",
   "away_missing_share": 0.19953805514874554,
   "away_unavailable": 4,
   "fotmob_id": 5868507,
@@ -789,7 +789,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:00Z",
+  "at": "2026-10-25T16:20Z",
   "away_missing_share": 0.17985554367242898,
   "away_unavailable": 3,
   "fotmob_id": 5811785,
@@ -1277,14 +1277,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:00Z",
+  "at": "2026-10-25T16:20Z",
   "away_missing_share": 0.4540033753055989,
   "away_unavailable": 8,
   "fotmob_id": 5749716,
   "home_missing_share": 0.2815378671735338,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T17:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Legia v Lech Poznan": {
   "absent": [
@@ -1314,14 +1314,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:00Z",
+  "at": "2026-10-25T16:20Z",
   "away_missing_share": 0.31376143132454876,
   "away_unavailable": 6,
   "fotmob_id": 5804015,
   "home_missing_share": 0.14352979167110982,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T16:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Liverpool v Brighton": {
   "absent": [
@@ -1620,14 +1620,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:00Z",
-  "away_missing_share": 0.15602096118838593,
+  "at": "2026-10-25T16:20Z",
+  "away_missing_share": 0.16307077583336416,
   "away_unavailable": 2,
   "fotmob_id": 5765947,
-  "home_missing_share": 0.46703559668364203,
+  "home_missing_share": 0.4769310625649665,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T17:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Nacional v Sp Braga": {
   "absent": [
@@ -2081,11 +2081,11 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:00Z",
+  "at": "2026-10-25T16:20Z",
   "away_missing_share": 0.19916350612613323,
   "away_unavailable": 2,
   "fotmob_id": 5868108,
-  "home_missing_share": 0.011272705769682189,
+  "home_missing_share": 0.012326022654252823,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T17:30:00.000Z",
   "lineup_type": "predicted"

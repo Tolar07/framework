@@ -1,4 +1,46 @@
 {
+ "AZ Alkmaar v Twente": {
+  "absent": [
+   {
+    "name": "Kees Smit",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Stije Resink",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jizz Hornkamp",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Stav Lemkin",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Filip Thorvaldsen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Max Bruns",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T13:00Z",
+  "away_missing_share": 0.16408805893149364,
+  "away_unavailable": 4,
+  "fotmob_id": 5781782,
+  "home_missing_share": 0.3288627207951874,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-25T19:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Albacete v Eldense": {
   "absent": [
    {
@@ -133,7 +175,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:40Z",
+  "at": "2026-10-25T13:00Z",
   "away_missing_share": 0.029154237832078843,
   "away_unavailable": 1,
   "fotmob_id": 5749710,
@@ -404,24 +446,19 @@
     "type": "injury"
    },
    {
-    "name": "Jacob Ramsey",
-    "side": "away",
-    "type": "injury"
-   },
-   {
-    "name": "Anthony Elanga",
+    "name": "Ewen Jaouen",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:40Z",
-  "away_missing_share": 0.2954858203567333,
-  "away_unavailable": 4,
+  "at": "2026-10-25T13:00Z",
+  "away_missing_share": 0.18318258682410865,
+  "away_unavailable": 2,
   "fotmob_id": 5795489,
-  "home_missing_share": 0.29626768179916857,
+  "home_missing_share": 0.2867964357092954,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Estoril v Moreirense": {
   "absent": [
@@ -663,7 +700,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:40Z",
+  "at": "2026-10-25T13:00Z",
   "away_missing_share": 0.09644219502567723,
   "away_unavailable": 4,
   "fotmob_id": 5749713,
@@ -848,7 +885,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T13:00Z",
   "away_missing_share": 0.3063782643723834,
   "away_unavailable": 6,
   "fotmob_id": 5881201,
@@ -924,17 +961,17 @@
  "Hull City v Brentford": {
   "absent": [
    {
-    "name": "Robinio Vaz",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Mohamed-Ali Cho",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Ilyas Ansah",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Charlie Hughes",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Nobel Mendy",
     "side": "home",
     "type": "injury"
    },
@@ -954,14 +991,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T12:40Z",
-  "away_missing_share": 0.19670012861820854,
-  "away_unavailable": 5,
+  "at": "2026-10-25T13:00Z",
+  "away_missing_share": 0.18669255755570144,
+  "away_unavailable": 4,
   "fotmob_id": 5795490,
-  "home_missing_share": 0.5055833000250751,
-  "home_unavailable": 10,
+  "home_missing_share": 0.3867445802639605,
+  "home_unavailable": 8,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "IK Start v Sandefjord Fotball": {
   "absent": [
@@ -1055,11 +1092,6 @@
     "type": "injury"
    },
    {
-    "name": "Olaf Kobacki",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Adam Radwa\u0144ski",
     "side": "away",
     "type": "injury"
@@ -1070,14 +1102,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:40Z",
-  "away_missing_share": 0.071502354876794,
-  "away_unavailable": 3,
+  "at": "2026-10-25T13:00Z",
+  "away_missing_share": 0.028448495397793885,
+  "away_unavailable": 2,
   "fotmob_id": 5804013,
-  "home_missing_share": 0.13346403904666435,
+  "home_missing_share": 0.15052674266408184,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T13:45:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Konyaspor v Genclerbirligi SK": {
   "absent": [
@@ -1287,14 +1319,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:40Z",
+  "at": "2026-10-25T13:00Z",
   "away_missing_share": 0.40899423351875475,
   "away_unavailable": 8,
   "fotmob_id": 5795492,
-  "home_missing_share": 0.3422056977444664,
+  "home_missing_share": 0.3356551327114903,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Man United v Bournemouth": {
   "absent": [
@@ -1319,24 +1351,24 @@
     "type": "injury"
    },
    {
-    "name": "Junior Kroupi",
+    "name": "Veljko Milosavljevi\u0107",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Veljko Milosavljevi\u0107",
+    "name": "Alex T\u00f3th",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:40Z",
-  "away_missing_share": 0.3531077014534411,
-  "away_unavailable": 5,
+  "at": "2026-10-25T13:00Z",
+  "away_missing_share": 0.2819212150839608,
+  "away_unavailable": 4,
   "fotmob_id": 5795493,
-  "home_missing_share": 0.3996912702785904,
-  "home_unavailable": 7,
+  "home_missing_share": 0.37144266708233264,
+  "home_unavailable": 6,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Marseille v Le Havre": {
   "absent": [
@@ -1519,7 +1551,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:40Z",
+  "at": "2026-10-25T13:00Z",
   "away_missing_share": 0.3198734311921364,
   "away_unavailable": 4,
   "fotmob_id": 5802969,
@@ -1709,7 +1741,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:40Z",
+  "at": "2026-10-25T13:00Z",
   "away_missing_share": 0.2005239306544978,
   "away_unavailable": 5,
   "fotmob_id": 5943279,
@@ -1793,14 +1825,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T12:40Z",
-  "away_missing_share": 0.059852574314635656,
+  "at": "2026-10-25T13:00Z",
+  "away_missing_share": 0.0526795067166672,
   "away_unavailable": 3,
   "fotmob_id": 5967116,
-  "home_missing_share": 0.24519121342121022,
+  "home_missing_share": 0.25432240208814183,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Rennes v Strasbourg": {
   "absent": [
@@ -2123,14 +2155,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:40Z",
-  "away_missing_share": 0.22184826061760585,
+  "at": "2026-10-25T13:00Z",
+  "away_missing_share": 0.1688161743737647,
   "away_unavailable": 2,
   "fotmob_id": 5846009,
   "home_missing_share": 0.5132312360435644,
   "home_unavailable": 9,
   "kickoff_utc": "2026-10-25T13:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Sunderland v Leeds": {
   "absent": [

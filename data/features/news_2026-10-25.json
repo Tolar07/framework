@@ -197,7 +197,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T11:00Z",
+  "at": "2026-10-25T11:20Z",
   "away_missing_share": 0.06699328579080847,
   "away_unavailable": 1,
   "fotmob_id": 5881700,
@@ -537,7 +537,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T11:00Z",
+  "at": "2026-10-25T11:20Z",
   "away_missing_share": 1.0,
   "away_unavailable": 4,
   "fotmob_id": 5811784,
@@ -680,29 +680,19 @@
     "type": "injury"
    },
    {
-    "name": "Cameron Carter-Vickers",
-    "side": "away",
-    "type": "injury"
-   },
-   {
-    "name": "Alistair Johnston",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Yang Hyun-Jun",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T11:00Z",
-  "away_missing_share": 0.3446157673286957,
-  "away_unavailable": 4,
+  "at": "2026-10-25T11:20Z",
+  "away_missing_share": 0.0678636977211112,
+  "away_unavailable": 1,
   "fotmob_id": 5793954,
-  "home_missing_share": 0.2169418099204735,
+  "home_missing_share": 0.21191493714554166,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T12:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Hoffenheim v Leverkusen": {
   "absent": [
@@ -779,7 +769,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T11:00Z",
+  "at": "2026-10-25T11:20Z",
   "away_missing_share": 0.12429268469903693,
   "away_unavailable": 3,
   "fotmob_id": 5881704,

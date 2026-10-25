@@ -34,15 +34,15 @@
    "n_holdout": 115
   },
   "dc_x2": {
-   "a": -0.125,
-   "adopted": "2026-10-22T08:49:04Z",
-   "b": 1.3135,
-   "brier_after": 0.21958,
-   "brier_before": 0.2212,
-   "choice": "refit",
-   "holdout_from": "2026-10-18",
-   "n_fit": 368,
-   "n_holdout": 93
+   "a": 0.0,
+   "adopted": "2026-10-25T08:37:37Z",
+   "b": 1.0,
+   "brier_after": 0.23282,
+   "brier_before": 0.23388,
+   "choice": "raw",
+   "holdout_from": "2026-10-23",
+   "n_fit": 464,
+   "n_holdout": 132
   },
   "draw": {
    "a": -0.2045,
@@ -56,15 +56,15 @@
    "n_holdout": 115
   },
   "home": {
-   "a": 0.1255,
-   "adopted": "2026-10-22T08:49:04Z",
-   "b": 1.3146,
-   "brier_after": 0.21951,
-   "brier_before": 0.22115,
-   "choice": "refit",
-   "holdout_from": "2026-10-18",
-   "n_fit": 368,
-   "n_holdout": 93
+   "a": 0.0,
+   "adopted": "2026-10-25T08:37:37Z",
+   "b": 1.0,
+   "brier_after": 0.23287,
+   "brier_before": 0.23395,
+   "choice": "raw",
+   "holdout_from": "2026-10-23",
+   "n_fit": 464,
+   "n_holdout": 132
   },
   "over_2.5": {
    "a": 0.1881,
@@ -90,5 +90,5 @@
   }
  },
  "source": "engine/retrain.py (nightly, retrain.yml)",
- "updated": "2026-10-24T08:19:13Z"
+ "updated": "2026-10-25T08:37:37Z"
 }

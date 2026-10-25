@@ -2293,14 +2293,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T19:00Z",
-  "away_missing_share": 0.3434284887677285,
-  "away_unavailable": 7,
+  "at": "2026-10-25T19:20Z",
+  "away_missing_share": 0.3365211480201178,
+  "away_unavailable": 6,
   "fotmob_id": 5749719,
   "home_missing_share": 0.3418224216404712,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T19:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Viking FK v Tromsoe IL": {
   "absent": [

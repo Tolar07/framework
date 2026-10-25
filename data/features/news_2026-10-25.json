@@ -148,14 +148,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:40Z",
-  "away_missing_share": 1.0,
+  "at": "2026-10-25T17:00Z",
+  "away_missing_share": 0.14953029631723286,
   "away_unavailable": 3,
   "fotmob_id": 5943275,
-  "home_missing_share": 1.0,
+  "home_missing_share": 0.18501452387031153,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T17:30:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "Atalanta v Frosinone": {
   "absent": [
@@ -789,14 +789,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:40Z",
+  "at": "2026-10-25T17:00Z",
   "away_missing_share": 0.1906163146124568,
   "away_unavailable": 3,
   "fotmob_id": 5811785,
   "home_missing_share": 0.07386425299911123,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T17:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Goztepe Izmir v Corum FK": {
   "absent": [
@@ -1546,7 +1546,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T12:20Z",
+  "at": "2026-10-25T17:00Z",
   "away_missing_share": 0.17586669589512383,
   "away_unavailable": 3,
   "fotmob_id": 5104934,
@@ -1647,7 +1647,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:40Z",
+  "at": "2026-10-25T17:00Z",
   "away_missing_share": 0.054768275735078795,
   "away_unavailable": 1,
   "fotmob_id": 5887658,
@@ -1731,7 +1731,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:40Z",
+  "at": "2026-10-25T17:00Z",
   "away_missing_share": 0.23514114422669685,
   "away_unavailable": 7,
   "fotmob_id": 5943278,
@@ -1916,24 +1916,19 @@
     "type": "injury"
    },
    {
-    "name": "\u00d3scar Aranda",
-    "side": "away",
-    "type": "injury"
-   },
-   {
     "name": "Gil Dias",
     "side": "away",
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T16:40Z",
-  "away_missing_share": 0.07958063543704869,
-  "away_unavailable": 2,
+  "at": "2026-10-25T17:00Z",
+  "away_missing_share": 0.031024607319476413,
+  "away_unavailable": 1,
   "fotmob_id": 5887659,
-  "home_missing_share": 0.25215349342123267,
+  "home_missing_share": 0.21761458898328678,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T18:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Sabadell v Tenerife": {
   "absent": [
@@ -2150,7 +2145,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:20Z",
+  "at": "2026-10-25T17:00Z",
   "away_missing_share": 1.0,
   "away_unavailable": 2,
   "fotmob_id": 5811789,

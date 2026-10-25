@@ -1892,8 +1892,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.35,
+   "clv": -3.7,
    "stake_pct": 0.25,
    "ev": 0.00756019385004536,
    "missing": null,

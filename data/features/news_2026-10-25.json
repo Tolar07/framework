@@ -32,11 +32,11 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T17:40Z",
-  "away_missing_share": 0.16408805893149364,
+  "at": "2026-10-25T18:00Z",
+  "away_missing_share": 0.14768619991030343,
   "away_unavailable": 4,
   "fotmob_id": 5781782,
-  "home_missing_share": 0.3288627207951874,
+  "home_missing_share": 0.3919357673928046,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T19:00:00.000Z",
   "lineup_type": "predicted"
@@ -2130,7 +2130,7 @@
     "type": "injury"
    },
    {
-    "name": "Darius Olaru",
+    "name": "Rob Schoofs",
     "side": "home",
     "type": "injury"
    },
@@ -2138,21 +2138,16 @@
     "name": "Joel Ndala",
     "side": "away",
     "type": "injury"
-   },
-   {
-    "name": "Omotayo Adaramola",
-    "side": "away",
-    "type": "injury"
    }
   ],
-  "at": "2026-10-25T17:40Z",
-  "away_missing_share": 1.0,
-  "away_unavailable": 2,
+  "at": "2026-10-25T18:00Z",
+  "away_missing_share": 0.23901592468519284,
+  "away_unavailable": 1,
   "fotmob_id": 5811789,
-  "home_missing_share": 1.0,
-  "home_unavailable": 7,
+  "home_missing_share": 0.3518424967669465,
+  "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T18:15:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "Sturm Graz v SV Ried": {
   "absent": [

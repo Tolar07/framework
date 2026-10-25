@@ -1546,14 +1546,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T17:00Z",
-  "away_missing_share": 0.17586669589512383,
+  "at": "2026-10-25T17:20Z",
+  "away_missing_share": 0.1878907578569255,
   "away_unavailable": 3,
   "fotmob_id": 5104934,
   "home_missing_share": 0.1743532228705679,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-25T18:15:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Monaco v Lille": {
   "absent": [
@@ -1647,14 +1647,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T17:00Z",
-  "away_missing_share": 0.054768275735078795,
+  "at": "2026-10-25T17:20Z",
+  "away_missing_share": 0.05498111275189865,
   "away_unavailable": 1,
   "fotmob_id": 5887658,
-  "home_missing_share": 0.1762682399674795,
+  "home_missing_share": 0.1539704178939843,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T18:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Nijmegen v Groningen": {
   "absent": [
@@ -1731,14 +1731,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T17:00Z",
-  "away_missing_share": 0.23514114422669685,
+  "at": "2026-10-25T17:20Z",
+  "away_missing_share": 0.23799171495598875,
   "away_unavailable": 7,
   "fotmob_id": 5943278,
-  "home_missing_share": 0.12793487639128814,
+  "home_missing_share": 0.12637914019381752,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T18:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Olympiacos v PAE PS Kalamata": {
   "absent": [
@@ -2145,7 +2145,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T17:00Z",
+  "at": "2026-10-25T17:20Z",
   "away_missing_share": 1.0,
   "away_unavailable": 2,
   "fotmob_id": 5811789,

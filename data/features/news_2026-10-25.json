@@ -148,7 +148,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:20Z",
+  "at": "2026-10-25T16:40Z",
   "away_missing_share": 1.0,
   "away_unavailable": 3,
   "fotmob_id": 5943275,
@@ -402,14 +402,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:20Z",
-  "away_missing_share": 0.19953805514874554,
+  "at": "2026-10-25T16:40Z",
+  "away_missing_share": 0.21020173530768324,
   "away_unavailable": 4,
   "fotmob_id": 5868507,
   "home_missing_share": 0.27359228519207407,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Celta v Betis": {
   "absent": [
@@ -789,14 +789,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:20Z",
-  "away_missing_share": 0.17985554367242898,
+  "at": "2026-10-25T16:40Z",
+  "away_missing_share": 0.1906163146124568,
   "away_unavailable": 3,
   "fotmob_id": 5811785,
-  "home_missing_share": 0.07298334399036649,
+  "home_missing_share": 0.07386425299911123,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T17:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Goztepe Izmir v Corum FK": {
   "absent": [
@@ -1620,14 +1620,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:20Z",
+  "at": "2026-10-25T16:40Z",
   "away_missing_share": 0.16307077583336416,
   "away_unavailable": 2,
   "fotmob_id": 5765947,
   "home_missing_share": 0.4769310625649665,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T17:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Nacional v Sp Braga": {
   "absent": [
@@ -1647,7 +1647,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:00Z",
+  "at": "2026-10-25T16:40Z",
   "away_missing_share": 0.054768275735078795,
   "away_unavailable": 1,
   "fotmob_id": 5887658,
@@ -1731,7 +1731,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:00Z",
+  "at": "2026-10-25T16:40Z",
   "away_missing_share": 0.23514114422669685,
   "away_unavailable": 7,
   "fotmob_id": 5943278,
@@ -1926,7 +1926,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T12:00Z",
+  "at": "2026-10-25T16:40Z",
   "away_missing_share": 0.07958063543704869,
   "away_unavailable": 2,
   "fotmob_id": 5887659,
@@ -2081,14 +2081,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T16:20Z",
-  "away_missing_share": 0.19916350612613323,
+  "at": "2026-10-25T16:40Z",
+  "away_missing_share": 0.16409860899906556,
   "away_unavailable": 2,
   "fotmob_id": 5868108,
   "home_missing_share": 0.012326022654252823,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T17:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Sparta Rotterdam v Ajax": {
   "absent": [

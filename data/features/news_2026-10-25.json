@@ -456,14 +456,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:20Z",
+  "at": "2026-10-25T14:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5811783,
   "home_missing_share": 0.25870273147431355,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T15:00:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Crystal Palace v Newcastle": {
   "absent": [
@@ -515,14 +515,14 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T14:20Z",
-  "away_missing_share": 0.04345239885025383,
+  "at": "2026-10-25T14:40Z",
+  "away_missing_share": 0.04012457120126844,
   "away_unavailable": 1,
   "fotmob_id": 5887656,
-  "home_missing_share": 0.032977755435811454,
+  "home_missing_share": 0.033878824714608055,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T15:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "FC Sion v Lausanne-Sport": {
   "absent": [
@@ -821,7 +821,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:00Z",
+  "at": "2026-10-25T14:40Z",
   "away_missing_share": 0.16082317292353085,
   "away_unavailable": 3,
   "fotmob_id": 5904780,
@@ -1075,7 +1075,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:00Z",
+  "at": "2026-10-25T14:40Z",
   "away_missing_share": 0.29547625145443834,
   "away_unavailable": 5,
   "fotmob_id": 5104936,
@@ -1193,7 +1193,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:00Z",
+  "at": "2026-10-25T14:40Z",
   "away_missing_share": 0.07688451143883619,
   "away_unavailable": 2,
   "fotmob_id": 5104933,
@@ -1235,7 +1235,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:00Z",
+  "at": "2026-10-25T14:40Z",
   "away_missing_share": 0.26018107211197655,
   "away_unavailable": 4,
   "fotmob_id": 5846007,
@@ -1514,7 +1514,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:20Z",
+  "at": "2026-10-25T14:40Z",
   "away_missing_share": 0.14568712795640518,
   "away_unavailable": 3,
   "fotmob_id": 5107632,
@@ -1990,7 +1990,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:00Z",
+  "at": "2026-10-25T14:40Z",
   "away_missing_share": 0.36797871924500836,
   "away_unavailable": 4,
   "fotmob_id": 5104935,
@@ -2123,7 +2123,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:20Z",
+  "at": "2026-10-25T14:40Z",
   "away_missing_share": 0.22476800933041832,
   "away_unavailable": 5,
   "fotmob_id": 5781778,

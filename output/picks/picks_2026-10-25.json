@@ -42,7 +42,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.17,
+   "drift_pct": -4.1
   },
   {
    "fixture": "Nijmegen v Groningen",
@@ -660,7 +662,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Motherwell v Hearts",
@@ -750,7 +754,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.27,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Jagiellonia v Wisla Plock",
@@ -942,7 +948,9 @@
    "first_price": 1.36,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.37,
+   "drift_pct": 0.7
   },
   {
    "fixture": "Atalanta v Frosinone",

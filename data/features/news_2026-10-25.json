@@ -175,14 +175,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:00Z",
+  "at": "2026-10-25T13:20Z",
   "away_missing_share": 0.029154237832078843,
   "away_unavailable": 1,
   "fotmob_id": 5749710,
-  "home_missing_share": 0.3146428277416221,
+  "home_missing_share": 0.32089123507456396,
   "home_unavailable": 7,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Auxerre v Le Mans FC": {
   "absent": [
@@ -700,14 +700,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:00Z",
+  "at": "2026-10-25T13:20Z",
   "away_missing_share": 0.09644219502567723,
   "away_unavailable": 4,
   "fotmob_id": 5749713,
-  "home_missing_share": 0.12810313792661984,
+  "home_missing_share": 0.1744422462637253,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Gent v Anderlecht": {
   "absent": [
@@ -885,7 +885,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:00Z",
+  "at": "2026-10-25T13:20Z",
   "away_missing_share": 0.3063782643723834,
   "away_unavailable": 6,
   "fotmob_id": 5881201,
@@ -1102,14 +1102,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:00Z",
+  "at": "2026-10-25T13:20Z",
   "away_missing_share": 0.028448495397793885,
   "away_unavailable": 2,
   "fotmob_id": 5804013,
   "home_missing_share": 0.15052674266408184,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T13:45:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Konyaspor v Genclerbirligi SK": {
   "absent": [
@@ -1551,7 +1551,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:00Z",
+  "at": "2026-10-25T13:20Z",
   "away_missing_share": 0.3198734311921364,
   "away_unavailable": 4,
   "fotmob_id": 5802969,
@@ -1741,7 +1741,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:00Z",
+  "at": "2026-10-25T13:20Z",
   "away_missing_share": 0.2005239306544978,
   "away_unavailable": 5,
   "fotmob_id": 5943279,
@@ -1825,7 +1825,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T13:00Z",
+  "at": "2026-10-25T13:20Z",
   "away_missing_share": 0.0526795067166672,
   "away_unavailable": 3,
   "fotmob_id": 5967116,
@@ -2155,14 +2155,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:00Z",
+  "at": "2026-10-25T13:20Z",
   "away_missing_share": 0.1688161743737647,
   "away_unavailable": 2,
   "fotmob_id": 5846009,
   "home_missing_share": 0.5132312360435644,
   "home_unavailable": 9,
   "kickoff_utc": "2026-10-25T13:30:00.000Z",
-  "lineup_type": "simple"
+  "lineup_type": "confirmed"
  },
  "Sunderland v Leeds": {
   "absent": [

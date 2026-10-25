@@ -86,6 +86,11 @@
  "Angers v Lorient": {
   "absent": [
    {
+    "name": "Emmanuel Biumla",
+    "side": "home",
+    "type": "injury"
+   },
+   {
     "name": "Isak Steiner Jensen",
     "side": "away",
     "type": "injury"
@@ -96,17 +101,17 @@
     "type": "injury"
    },
    {
-    "name": "Mohamed Bamba",
+    "name": "Panos Katseris",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:20Z",
-  "away_missing_share": 0.18551021035202966,
-  "away_unavailable": 4,
+  "at": "2026-10-25T15:00Z",
+  "away_missing_share": 0.20907826555693124,
+  "away_unavailable": 5,
   "fotmob_id": 5802964,
-  "home_missing_share": 0.0,
-  "home_unavailable": 0,
+  "home_missing_share": 0.11669829883151017,
+  "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T16:15:00.000Z",
   "lineup_type": "predicted"
  },
@@ -217,7 +222,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:20Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.25366374975732625,
   "away_unavailable": 6,
   "fotmob_id": 5802965,
@@ -621,7 +626,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:40Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.33042711319904766,
   "away_unavailable": 5,
   "fotmob_id": 5881200,
@@ -821,7 +826,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:40Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.16082317292353085,
   "away_unavailable": 3,
   "fotmob_id": 5904780,
@@ -853,7 +858,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:20Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.04728080173828549,
   "away_unavailable": 1,
   "fotmob_id": 5967118,
@@ -1075,11 +1080,11 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:40Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.29547625145443834,
   "away_unavailable": 5,
   "fotmob_id": 5104936,
-  "home_missing_share": 0.1563505346099118,
+  "home_missing_share": 0.13449844707600261,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T16:00:00.000Z",
   "lineup_type": "predicted"
@@ -1193,7 +1198,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:40Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.07688451143883619,
   "away_unavailable": 2,
   "fotmob_id": 5104933,
@@ -1235,7 +1240,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:40Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.26018107211197655,
   "away_unavailable": 4,
   "fotmob_id": 5846007,
@@ -1319,7 +1324,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:40Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.3161767921058633,
   "away_unavailable": 6,
   "fotmob_id": 5804015,
@@ -1435,7 +1440,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:20Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.2924318188235371,
   "away_unavailable": 5,
   "fotmob_id": 5802968,
@@ -1514,7 +1519,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:40Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.14568712795640518,
   "away_unavailable": 3,
   "fotmob_id": 5107632,
@@ -1899,7 +1904,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:20Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.4003728078395869,
   "away_unavailable": 6,
   "fotmob_id": 5802970,
@@ -1990,7 +1995,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:40Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.36797871924500836,
   "away_unavailable": 4,
   "fotmob_id": 5104935,
@@ -2123,14 +2128,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:40Z",
-  "away_missing_share": 0.22476800933041832,
-  "away_unavailable": 5,
+  "at": "2026-10-25T15:00Z",
+  "away_missing_share": 0.1852137189878088,
+  "away_unavailable": 4,
   "fotmob_id": 5781778,
   "home_missing_share": 0.0794651292537672,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T15:45:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "St. Gilloise v Cercle Brugge": {
   "absent": [
@@ -2239,7 +2244,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:40Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.34682094342186753,
   "away_unavailable": 6,
   "fotmob_id": 5795494,
@@ -2271,7 +2276,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:20Z",
+  "at": "2026-10-25T15:00Z",
   "away_missing_share": 0.1798901593536783,
   "away_unavailable": 3,
   "fotmob_id": 5802971,

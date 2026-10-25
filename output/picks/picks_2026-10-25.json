@@ -178,7 +178,11 @@
     "home": 23624189,
     "away": 93684372
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "support: Ajax missing 19%",
+    "at": "15:00Z"
+   },
    "sb_event_id": "sr:match:72041208",
    "sb_tid": "sr:tournament:37",
    "sb_market": {
@@ -1675,8 +1679,8 @@
     "spec": "total=0.5",
     "outcome": "Over 0.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.04353441180253903,
    "missing": {
@@ -1738,7 +1742,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Rio Ave v Famalicao",
@@ -1786,7 +1792,9 @@
    "first_price": 1.33,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.33,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sp Lisbon v Academico de Viseu FC",
@@ -3058,7 +3066,9 @@
    "first_price": 1.26,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.26,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Sturm Graz v SV Ried",
@@ -3255,8 +3265,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.22,
+   "clv": -1.64,
    "stake_pct": 0.25,
    "ev": -0.04266615397574591,
    "missing": {
@@ -3309,8 +3319,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.24,
+   "clv": 4.03,
    "stake_pct": 0.12,
    "ev": 0.01316156093744203,
    "missing": {
@@ -3709,8 +3719,8 @@
     "spec": "total=4.5",
     "outcome": "Under 4.5"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.25,
+   "clv": -2.4,
    "stake_pct": 0.25,
    "ev": -0.0030520227144399392,
    "missing": {

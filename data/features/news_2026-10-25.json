@@ -74,14 +74,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:00Z",
+  "at": "2026-10-25T14:20Z",
   "away_missing_share": 0.1998208473608834,
   "away_unavailable": 3,
   "fotmob_id": 5868503,
-  "home_missing_share": 0.22238655915992694,
+  "home_missing_share": 0.2505126360590848,
   "home_unavailable": 6,
   "kickoff_utc": "2026-10-25T15:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Angers v Lorient": {
   "absent": [
@@ -291,24 +291,24 @@
     "type": "injury"
    },
    {
-    "name": "Julian von Moos",
+    "name": "Pantaleo Creti",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Pantaleo Creti",
+    "name": "Abdoulaye Diaby",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:00Z",
-  "away_missing_share": 1.0,
-  "away_unavailable": 4,
+  "at": "2026-10-25T14:20Z",
+  "away_missing_share": 0.31542084567646195,
+  "away_unavailable": 3,
   "fotmob_id": 5804280,
-  "home_missing_share": 1.0,
+  "home_missing_share": 0.14557733310475818,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T15:30:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "Braunschweig v Hannover": {
   "absent": [
@@ -355,14 +355,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:00Z",
-  "away_missing_share": 0.10894419872881891,
+  "at": "2026-10-25T14:20Z",
+  "away_missing_share": 0.10524952156631827,
   "away_unavailable": 1,
   "fotmob_id": 5868506,
-  "home_missing_share": 0.5403551646808702,
+  "home_missing_share": 0.4577437689264723,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T15:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Castellon v Sp Gijon": {
   "absent": [
@@ -439,14 +439,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:00Z",
-  "away_missing_share": 0.15001782104363606,
+  "at": "2026-10-25T14:20Z",
+  "away_missing_share": 0.17150995505463906,
   "away_unavailable": 3,
   "fotmob_id": 5868104,
-  "home_missing_share": 0.2489130170229534,
+  "home_missing_share": 0.26125349542105825,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T15:15:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Club Brugge v St Truiden": {
   "absent": [
@@ -456,14 +456,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:00Z",
+  "at": "2026-10-25T14:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5811783,
-  "home_missing_share": 0.2545504384575578,
+  "home_missing_share": 0.25870273147431355,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T15:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "simple"
  },
  "Crystal Palace v Newcastle": {
   "absent": [
@@ -515,7 +515,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T14:00Z",
+  "at": "2026-10-25T14:20Z",
   "away_missing_share": 0.04345239885025383,
   "away_unavailable": 1,
   "fotmob_id": 5887656,
@@ -547,14 +547,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:00Z",
-  "away_missing_share": 1.0,
+  "at": "2026-10-25T14:20Z",
+  "away_missing_share": 0.31144296340603717,
   "away_unavailable": 7,
   "fotmob_id": 5804282,
-  "home_missing_share": 1.0,
+  "home_missing_share": 0.10143219870890026,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T15:30:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "confirmed"
  },
  "FC Thun v Lugano": {
   "absent": [
@@ -991,14 +991,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:00Z",
+  "at": "2026-10-25T14:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5739535,
-  "home_missing_share": 0.13847375881957122,
+  "home_missing_share": 0.17019621488977135,
   "home_unavailable": 2,
   "kickoff_utc": "2026-10-25T15:00:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Hull City v Brentford": {
   "absent": [
@@ -1514,7 +1514,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T14:00Z",
+  "at": "2026-10-25T14:20Z",
   "away_missing_share": 0.14568712795640518,
   "away_unavailable": 3,
   "fotmob_id": 5107632,
@@ -2123,7 +2123,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:00Z",
+  "at": "2026-10-25T14:20Z",
   "away_missing_share": 0.22476800933041832,
   "away_unavailable": 5,
   "fotmob_id": 5781778,

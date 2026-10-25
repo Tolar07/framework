@@ -384,7 +384,11 @@
     "home": 6420856,
     "away": 6206180
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:71925068",
    "sb_tid": "sr:tournament:39",
    "sb_market": {
@@ -2150,7 +2154,11 @@
     "home": 69187112,
     "away": 165856057
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:72478652",
    "sb_tid": "sr:tournament:8",
    "sb_market": {
@@ -3210,7 +3218,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:72177030",
    "sb_tid": "sr:tournament:215",
    "sb_market": {
@@ -3260,7 +3272,11 @@
     "home": 0,
     "away": 0
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "14:20Z"
+   },
    "sb_event_id": "sr:match:72177040",
    "sb_tid": "sr:tournament:215",
    "sb_market": {

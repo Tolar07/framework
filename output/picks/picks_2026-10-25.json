@@ -663,8 +663,8 @@
     "spec": "",
     "outcome": "Home or Away"
    },
-   "closing_price": null,
-   "clv": null,
+   "closing_price": 1.21,
+   "clv": 0.83,
    "stake_pct": 0.25,
    "ev": -0.03750401454599539,
    "missing": {
@@ -1220,7 +1220,9 @@
    "first_price": 1.27,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.25,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Freiburg v Bayern Munich",
@@ -2498,7 +2500,11 @@
     "home": 7937287,
     "away": 13110462
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:72513938",
    "sb_tid": "sr:tournament:44",
    "sb_market": {
@@ -2548,7 +2554,11 @@
     "home": 9788943,
     "away": 10316545
    },
-   "lineup_check": null,
+   "lineup_check": {
+    "level": "OK",
+    "note": "pick does not depend on one team's lineup",
+    "at": "11:40Z"
+   },
    "sb_event_id": "sr:match:72513934",
    "sb_tid": "sr:tournament:44",
    "sb_market": {

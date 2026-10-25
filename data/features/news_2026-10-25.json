@@ -68,6 +68,48 @@
   "kickoff_utc": "2026-10-25T16:15:00.000Z",
   "lineup_type": "predicted"
  },
+ "Aris Thessaloniki v Atromitos Athinon": {
+  "absent": [
+   {
+    "name": "Manu Garc\u00eda",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Loren Mor\u00f3n",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Giannis Gianniotas",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Cristopher N\u00fanez",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Jere Uronen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Gerasimos Mitoglou",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T11:40Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 3,
+  "fotmob_id": 5943275,
+  "home_missing_share": 1.0,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-25T17:30:00.000Z",
+  "lineup_type": "unavailable"
+ },
  "Atalanta v Frosinone": {
   "absent": [
    {
@@ -197,14 +239,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T11:20Z",
+  "at": "2026-10-25T11:40Z",
   "away_missing_share": 0.06699328579080847,
   "away_unavailable": 1,
   "fotmob_id": 5881700,
-  "home_missing_share": 0.036152155434122646,
+  "home_missing_share": 0.03185059950224512,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Cadiz v Ceuta": {
   "absent": [
@@ -236,6 +278,48 @@
   "home_missing_share": 0.5403551646808702,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T15:15:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Castellon v Sp Gijon": {
+  "absent": [
+   {
+    "name": "Ousmane Nana Camara",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Fabrizio Brignani",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Juanjo Nieto",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Andr\u00e9s Ferrari",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nikita Iosifov",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Konrad de la Fuente",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T11:40Z",
+  "away_missing_share": 0.19953805514874554,
+  "away_unavailable": 4,
+  "fotmob_id": 5868507,
+  "home_missing_share": 0.27359228519207407,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-25T17:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Celta v Betis": {
@@ -416,17 +500,22 @@
     "type": "injury"
    },
    {
+    "name": "Renato Steffen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
     "name": "Carbone",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
-  "away_missing_share": 0.02234181992156348,
-  "away_unavailable": 2,
+  "at": "2026-10-25T11:40Z",
+  "away_missing_share": 0.04094331283832821,
+  "away_unavailable": 3,
   "fotmob_id": 5804283,
-  "home_missing_share": 0.205473546641839,
-  "home_unavailable": 6,
+  "home_missing_share": 0.18623240595096008,
+  "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T13:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
@@ -495,7 +584,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T11:40Z",
   "away_missing_share": 0.2720754620588023,
   "away_unavailable": 5,
   "fotmob_id": 5107630,
@@ -522,29 +611,24 @@
     "type": "injury"
    },
    {
-    "name": "Gustav Mortensen",
-    "side": "away",
-    "type": "suspension"
-   },
-   {
     "name": "Josu\u00e9 Homawoo",
     "side": "away",
     "type": "injury"
    },
    {
-    "name": "Dimitri Laval\u00e9e",
+    "name": "Mohamed El Hankouri",
     "side": "away",
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T11:20Z",
-  "away_missing_share": 1.0,
-  "away_unavailable": 4,
+  "at": "2026-10-25T11:40Z",
+  "away_missing_share": 0.055441538307260396,
+  "away_unavailable": 2,
   "fotmob_id": 5811784,
-  "home_missing_share": 1.0,
+  "home_missing_share": 0.1269741941498618,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T12:30:00.000Z",
-  "lineup_type": "unavailable"
+  "lineup_type": "simple"
  },
  "Genoa v Venezia FC": {
   "absent": [
@@ -587,6 +671,43 @@
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
   "lineup_type": "predicted"
+ },
+ "Gent v Anderlecht": {
+  "absent": [
+   {
+    "name": "Josu\u00e9 Vergara",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mouhamed Ngom",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ilay Camara",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Lucas Hey",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Killian Sardella",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T11:40Z",
+  "away_missing_share": 0.17985554367242898,
+  "away_unavailable": 3,
+  "fotmob_id": 5811785,
+  "home_missing_share": 0.07298334399036649,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-25T17:30:00.000Z",
+  "lineup_type": "lastStarting11"
  },
  "Goztepe Izmir v Corum FK": {
   "absent": [
@@ -739,17 +860,17 @@
  "Holstein Kiel v Dresden": {
   "absent": [
    {
-    "name": "Kasper Davidsen",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Frederik Roslyng",
     "side": "home",
     "type": "injury"
    },
    {
     "name": "Lasse Rosenboom",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Hamza Muqaj",
     "side": "home",
     "type": "injury"
    },
@@ -769,14 +890,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T11:20Z",
+  "at": "2026-10-25T11:40Z",
   "away_missing_share": 0.12429268469903693,
   "away_unavailable": 3,
   "fotmob_id": 5881704,
-  "home_missing_share": 0.3505530548300551,
-  "home_unavailable": 6,
+  "home_missing_share": 0.2108576505052276,
+  "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T12:30:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Horsens v Sonderjyske": {
   "absent": [
@@ -991,7 +1112,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T11:40Z",
   "away_missing_share": 0.16518596095821422,
   "away_unavailable": 4,
   "fotmob_id": 5904781,
@@ -1292,7 +1413,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T11:40Z",
   "away_missing_share": 0.0957042038944207,
   "away_unavailable": 2,
   "fotmob_id": 5739532,
@@ -1625,7 +1746,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T11:40Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5868513,
@@ -1699,7 +1820,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T11:40Z",
   "away_missing_share": 0.02719374286893758,
   "away_unavailable": 2,
   "fotmob_id": 5739534,
@@ -1739,6 +1860,38 @@
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T11:15:00.000Z",
   "lineup_type": "confirmed"
+ },
+ "Sociedad v Levante": {
+  "absent": [
+   {
+    "name": "Luken Beitia",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "\u00c1lvaro Odriozola",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Enzo Bardeli",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Adri\u00e1n De La Fuente",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T11:40Z",
+  "away_missing_share": 0.19916350612613323,
+  "away_unavailable": 2,
+  "fotmob_id": 5868108,
+  "home_missing_share": 0.011272705769682189,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-25T17:30:00.000Z",
+  "lineup_type": "predicted"
  },
  "Sparta Rotterdam v Ajax": {
   "absent": [

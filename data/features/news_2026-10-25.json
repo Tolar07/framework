@@ -430,6 +430,38 @@
   "kickoff_utc": "2026-10-25T13:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Freiburg v Bayern Munich": {
+  "absent": [
+   {
+    "name": "Florent Muslija",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jamal Musiala",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Aleksandar Pavlovi\u0107",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Luis D\u00edaz",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T10:40Z",
+  "away_missing_share": 0.33042711319904766,
+  "away_unavailable": 5,
+  "fotmob_id": 5881200,
+  "home_missing_share": 0.012449457193598917,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-25T16:30:00.000Z",
+  "lineup_type": "predicted"
+ },
  "GAIS v IFK Goteborg": {
   "absent": [
    {
@@ -663,7 +695,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T10:40Z",
   "away_missing_share": 0.3446157673286957,
   "away_unavailable": 4,
   "fotmob_id": 5793954,
@@ -895,14 +927,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:20Z",
-  "away_missing_share": 0.1835027175052019,
+  "at": "2026-10-25T10:40Z",
+  "away_missing_share": 0.19243354810654992,
   "away_unavailable": 3,
   "fotmob_id": 5749714,
   "home_missing_share": 0.336645335250398,
   "home_unavailable": 5,
   "kickoff_utc": "2026-10-25T11:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Jagiellonia v Wisla Plock": {
   "absent": [
@@ -1040,6 +1072,48 @@
   "home_missing_share": 0.27027796123229636,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T16:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Legia v Lech Poznan": {
+  "absent": [
+   {
+    "name": "R\u00faben Vinagre",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Jakub \u017bew\u0142akow",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Vahan Bichakhchyan",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Wojciech Mo\u0144ka",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Allahyar Sayyadmanesh",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ali Gholizadeh",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T10:40Z",
+  "away_missing_share": 0.3161767921058633,
+  "away_unavailable": 6,
+  "fotmob_id": 5804015,
+  "home_missing_share": 0.2381454986888304,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-25T16:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Liverpool v Brighton": {
@@ -1588,14 +1662,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T10:20Z",
-  "away_missing_share": 0.03335198604743485,
+  "at": "2026-10-25T10:40Z",
+  "away_missing_share": 0.03670218690825382,
   "away_unavailable": 1,
   "fotmob_id": 5804019,
-  "home_missing_share": 0.16167726534620733,
+  "home_missing_share": 0.114184652615777,
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T11:15:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Sparta Rotterdam v Ajax": {
   "absent": [
@@ -1660,6 +1734,48 @@
   "home_unavailable": 7,
   "kickoff_utc": "2026-10-25T13:30:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Sunderland v Leeds": {
+  "absent": [
+   {
+    "name": "Daniel Ballard",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Wilson Isidor",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kevin Danso",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Anton Stach",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Noah Okafor",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Dominic Calvert-Lewin",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T10:40Z",
+  "away_missing_share": 0.34682094342186753,
+  "away_unavailable": 6,
+  "fotmob_id": 5795494,
+  "home_missing_share": 0.21528717450593107,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-25T16:30:00.000Z",
+  "lineup_type": "predicted"
  },
  "Toulouse v Troyes": {
   "absent": [

@@ -487,6 +487,48 @@
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
   "lineup_type": "predicted"
  },
+ "Goztepe Izmir v Corum FK": {
+  "absent": [
+   {
+    "name": "Furkan Bay\u0131r",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ibrahim Sabra",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Allan God\u00f3i",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Andrei Borza",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Serdar Saat\u00e7i",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Feyttullah G\u00fcrl\u00fck",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T10:00Z",
+  "away_missing_share": 0.16082317292353085,
+  "away_unavailable": 3,
+  "fotmob_id": 5904780,
+  "home_missing_share": 0.0646834110665481,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-25T16:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
  "Hibernian v Celtic": {
   "absent": [
    {
@@ -677,6 +719,48 @@
   "kickoff_utc": "2026-10-25T14:00:00.000Z",
   "lineup_type": "predicted"
  },
+ "IK Start v Sandefjord Fotball": {
+  "absent": [
+   {
+    "name": "Jens Huseb\u00f8",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Erlend Segberg",
+    "side": "home",
+    "type": "suspension"
+   },
+   {
+    "name": "Filip Manojlovi\u0107",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Filip Loftesnes-Bjune",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nikolaj M\u00f6ller",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Devon Koswal",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T10:00Z",
+  "away_missing_share": 0.29547625145443834,
+  "away_unavailable": 5,
+  "fotmob_id": 5104936,
+  "home_missing_share": 0.1563505346099118,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-25T16:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Inter v Fiorentina": {
   "absent": [
    {
@@ -710,7 +794,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T10:00Z",
   "away_missing_share": 0.1835027175052019,
   "away_unavailable": 3,
   "fotmob_id": 5749714,
@@ -791,6 +875,70 @@
   "home_missing_share": 0.2791247981086919,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T13:00:00.000Z",
+  "lineup_type": "lastStarting11"
+ },
+ "Kristiansund BK v KFUM Oslo": {
+  "absent": [
+   {
+    "name": "Ayoub Aleesami",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Amin Nouri",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T10:00Z",
+  "away_missing_share": 0.07688451143883619,
+  "away_unavailable": 2,
+  "fotmob_id": 5104933,
+  "home_missing_share": 0.0,
+  "home_unavailable": 0,
+  "kickoff_utc": "2026-10-25T16:00:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "LASK Linz v Salzburg": {
+  "absent": [
+   {
+    "name": "Lukas Jungwirth",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "George Bello",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ramiz Harakat\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Edmund Baidoo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Nikolas Veratschnig",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Enrique Aguilar",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T10:00Z",
+  "away_missing_share": 0.26018107211197655,
+  "away_unavailable": 4,
+  "fotmob_id": 5846007,
+  "home_missing_share": 0.27027796123229636,
+  "home_unavailable": 3,
+  "kickoff_utc": "2026-10-25T16:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
  "Liverpool v Brighton": {
@@ -1178,6 +1326,43 @@
   "kickoff_utc": "2026-10-25T13:00:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Sarpsborg 08 v Aalesunds FK": {
+  "absent": [
+   {
+    "name": "Michael Opoku",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Frederik Carstensen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Aleksander Hammer Kjelsen",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Marcus Haagensen Reed",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Simen Haram",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T10:00Z",
+  "away_missing_share": 0.36797871924500836,
+  "away_unavailable": 4,
+  "fotmob_id": 5104935,
+  "home_missing_share": 0.09979477548732635,
+  "home_unavailable": 2,
+  "kickoff_utc": "2026-10-25T16:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Silkeborg v Nordsjaelland": {
   "absent": [
    {
@@ -1238,7 +1423,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T10:00Z",
   "away_missing_share": 0.03335198604743485,
   "away_unavailable": 1,
   "fotmob_id": 5804019,
@@ -1246,6 +1431,38 @@
   "home_unavailable": 4,
   "kickoff_utc": "2026-10-25T11:15:00.000Z",
   "lineup_type": "lastStarting11"
+ },
+ "Sparta Rotterdam v Ajax": {
+  "absent": [
+   {
+    "name": "Shunsuke Mito",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Caio Henrique",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Kasper Dolberg",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Anton Gaaei",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T10:00Z",
+  "away_missing_share": 0.22476800933041832,
+  "away_unavailable": 5,
+  "fotmob_id": 5781778,
+  "home_missing_share": 0.0794651292537672,
+  "home_unavailable": 1,
+  "kickoff_utc": "2026-10-25T15:45:00.000Z",
+  "lineup_type": "predicted"
  },
  "Sturm Graz v SV Ried": {
   "absent": [

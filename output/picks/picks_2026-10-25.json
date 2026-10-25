@@ -284,7 +284,9 @@
    "first_price": 1.28,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.28,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Silkeborg v Nordsjaelland",
@@ -332,7 +334,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.2,
+   "drift_pct": -1.6
   },
   {
    "fixture": "Horsens v Sonderjyske",
@@ -1996,7 +2000,9 @@
    "first_price": 1.2,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 1.7
   },
   {
    "fixture": "Celta v Betis",
@@ -2188,7 +2194,9 @@
    "first_price": 1.22,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.22,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Albacete v Eldense",
@@ -2620,7 +2628,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Goztepe Izmir v Corum FK",
@@ -2998,7 +3008,9 @@
    "first_price": 1.24,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.23,
+   "drift_pct": -0.8
   },
   {
    "fixture": "Basel v Grasshopper Club Zurich",
@@ -3424,7 +3436,9 @@
    "first_price": 1.31,
    "drift_since_board": null,
    "result": null,
-   "ft": null
+   "ft": null,
+   "drift_price": 1.31,
+   "drift_pct": 0.0
   },
   {
    "fixture": "Mjallby AIF v Hammarby IF",

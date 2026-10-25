@@ -584,7 +584,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:00Z",
+  "at": "2026-10-25T12:20Z",
   "away_missing_share": 0.2720754620588023,
   "away_unavailable": 5,
   "fotmob_id": 5107630,
@@ -1070,7 +1070,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:00Z",
+  "at": "2026-10-25T12:20Z",
   "away_missing_share": 0.071502354876794,
   "away_unavailable": 3,
   "fotmob_id": 5804013,
@@ -1082,44 +1082,29 @@
  "Konyaspor v Genclerbirligi SK": {
   "absent": [
    {
-    "name": "Enis Destan",
-    "side": "home",
-    "type": "injury"
-   },
-   {
     "name": "Adil Demirba\u011f",
     "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "U\u011furcan Yaz\u011f\u0131l\u0131",
-    "side": "home",
-    "type": "injury"
-   },
-   {
-    "name": "Cheikh Niasse",
-    "side": "away",
-    "type": "injury"
-   },
-   {
-    "name": "Adama Traor\u00e9",
-    "side": "away",
     "type": "injury"
    },
    {
     "name": "K\u00e9vin Rodrigues",
     "side": "away",
     "type": "injury"
+   },
+   {
+    "name": "Peter Etebo",
+    "side": "away",
+    "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:00Z",
-  "away_missing_share": 0.16518596095821422,
-  "away_unavailable": 4,
+  "at": "2026-10-25T12:20Z",
+  "away_missing_share": 0.04330258602562585,
+  "away_unavailable": 2,
   "fotmob_id": 5904781,
-  "home_missing_share": 0.2791247981086919,
-  "home_unavailable": 3,
+  "home_missing_share": 0.11925335172101167,
+  "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Kristiansund BK v KFUM Oslo": {
   "absent": [
@@ -1464,6 +1449,48 @@
   "kickoff_utc": "2026-10-25T15:30:00.000Z",
   "lineup_type": "lastStarting11"
  },
+ "Molde v Fredrikstad FK": {
+  "absent": [
+   {
+    "name": "Sivert Hansen",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Halldor Stenevik",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Seydina Diop",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Kennedy Okpaleke",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Sigurd Kvile",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Daniel Eid",
+    "side": "away",
+    "type": "suspension"
+   }
+  ],
+  "at": "2026-10-25T12:20Z",
+  "away_missing_share": 0.17586669589512383,
+  "away_unavailable": 3,
+  "fotmob_id": 5104934,
+  "home_missing_share": 0.1743532228705679,
+  "home_unavailable": 6,
+  "kickoff_utc": "2026-10-25T18:15:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Monaco v Lille": {
   "absent": [
    {
@@ -1598,11 +1625,11 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:00Z",
+  "at": "2026-10-25T12:20Z",
   "away_missing_share": 0.14751591819505638,
   "away_unavailable": 4,
   "fotmob_id": 5781777,
-  "home_missing_share": 0.06523207099281943,
+  "home_missing_share": 0.06800843066257493,
   "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T13:30:00.000Z",
   "lineup_type": "predicted"
@@ -1724,7 +1751,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:00Z",
+  "at": "2026-10-25T12:20Z",
   "away_missing_share": 0.23731181770495097,
   "away_unavailable": 7,
   "fotmob_id": 5781783,
@@ -1852,14 +1879,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:00Z",
+  "at": "2026-10-25T12:20Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5868513,
-  "home_missing_share": 0.10716432554597344,
+  "home_missing_share": 0.0954600040285407,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T13:00:00.000Z",
-  "lineup_type": "lastStarting11"
+  "lineup_type": "confirmed"
  },
  "Sarpsborg 08 v Aalesunds FK": {
   "absent": [
@@ -2031,6 +2058,43 @@
   "kickoff_utc": "2026-10-25T15:45:00.000Z",
   "lineup_type": "predicted"
  },
+ "St. Gilloise v Cercle Brugge": {
+  "absent": [
+   {
+    "name": "Kevin Mac Allister",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Ond\u0159ej Kri\u010dfalu\u0161i",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Darius Olaru",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Joel Ndala",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Omotayo Adaramola",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T12:20Z",
+  "away_missing_share": 1.0,
+  "away_unavailable": 2,
+  "fotmob_id": 5811789,
+  "home_missing_share": 1.0,
+  "home_unavailable": 7,
+  "kickoff_utc": "2026-10-25T18:15:00.000Z",
+  "lineup_type": "unavailable"
+ },
  "Sturm Graz v SV Ried": {
   "absent": [
    {
@@ -2059,7 +2123,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T12:00Z",
+  "at": "2026-10-25T12:20Z",
   "away_missing_share": 0.22184826061760585,
   "away_unavailable": 2,
   "fotmob_id": 5846009,
@@ -2170,7 +2234,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T12:00Z",
+  "at": "2026-10-25T12:20Z",
   "away_missing_share": 0.1458195696401689,
   "away_unavailable": 2,
   "fotmob_id": 5104930,

@@ -74,7 +74,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:20Z",
+  "at": "2026-10-25T14:00Z",
   "away_missing_share": 0.1998208473608834,
   "away_unavailable": 3,
   "fotmob_id": 5868503,
@@ -226,6 +226,48 @@
   "kickoff_utc": "2026-10-25T16:15:00.000Z",
   "lineup_type": "predicted"
  },
+ "Barcelona v Real Madrid": {
+  "absent": [
+   {
+    "name": "Jules Kound\u00e9",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Dani Olmo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Eric Garc\u00eda",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Vin\u00edcius J\u00fanior",
+    "side": "away",
+    "type": "suspension"
+   },
+   {
+    "name": "Rodrygo",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Ra\u00fal Asencio",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T14:00Z",
+  "away_missing_share": 0.19529889826208957,
+  "away_unavailable": 5,
+  "fotmob_id": 5868105,
+  "home_missing_share": 0.1699185516733619,
+  "home_unavailable": 5,
+  "kickoff_utc": "2026-10-25T20:00:00.000Z",
+  "lineup_type": "predicted"
+ },
  "Basel v Grasshopper Club Zurich": {
   "absent": [
    {
@@ -259,7 +301,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:40Z",
+  "at": "2026-10-25T14:00Z",
   "away_missing_share": 1.0,
   "away_unavailable": 4,
   "fotmob_id": 5804280,
@@ -313,7 +355,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:20Z",
+  "at": "2026-10-25T14:00Z",
   "away_missing_share": 0.10894419872881891,
   "away_unavailable": 1,
   "fotmob_id": 5868506,
@@ -397,7 +439,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:20Z",
+  "at": "2026-10-25T14:00Z",
   "away_missing_share": 0.15001782104363606,
   "away_unavailable": 3,
   "fotmob_id": 5868104,
@@ -414,7 +456,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:40Z",
+  "at": "2026-10-25T14:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5811783,
@@ -473,7 +515,7 @@
     "type": "suspension"
    }
   ],
-  "at": "2026-10-25T09:40Z",
+  "at": "2026-10-25T14:00Z",
   "away_missing_share": 0.04345239885025383,
   "away_unavailable": 1,
   "fotmob_id": 5887656,
@@ -505,7 +547,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:40Z",
+  "at": "2026-10-25T14:00Z",
   "away_missing_share": 1.0,
   "away_unavailable": 7,
   "fotmob_id": 5804282,
@@ -885,14 +927,14 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:40Z",
-  "away_missing_share": 0.3063782643723834,
+  "at": "2026-10-25T14:00Z",
+  "away_missing_share": 0.29638673113760927,
   "away_unavailable": 6,
   "fotmob_id": 5881201,
-  "home_missing_share": 0.26020192534926956,
-  "home_unavailable": 4,
+  "home_missing_share": 0.2605506968992685,
+  "home_unavailable": 3,
   "kickoff_utc": "2026-10-25T14:30:00.000Z",
-  "lineup_type": "predicted"
+  "lineup_type": "confirmed"
  },
  "Holstein Kiel v Dresden": {
   "absent": [
@@ -949,7 +991,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T13:40Z",
+  "at": "2026-10-25T14:00Z",
   "away_missing_share": 0.0,
   "away_unavailable": 0,
   "fotmob_id": 5739535,
@@ -1472,7 +1514,7 @@
     "type": "injury"
    }
   ],
-  "at": "2026-10-25T09:40Z",
+  "at": "2026-10-25T14:00Z",
   "away_missing_share": 0.14568712795640518,
   "away_unavailable": 3,
   "fotmob_id": 5107632,
@@ -2236,6 +2278,48 @@
   "home_missing_share": 0.023301770873180496,
   "home_unavailable": 1,
   "kickoff_utc": "2026-10-25T16:15:00.000Z",
+  "lineup_type": "predicted"
+ },
+ "Udinese v Milan": {
+  "absent": [
+   {
+    "name": "Oumar Solet",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Idrissa Gueye",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Vakoun Issouf Bayo",
+    "side": "home",
+    "type": "injury"
+   },
+   {
+    "name": "Mario Gila",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Diego Moreira",
+    "side": "away",
+    "type": "injury"
+   },
+   {
+    "name": "Alexis Saelemaekers",
+    "side": "away",
+    "type": "injury"
+   }
+  ],
+  "at": "2026-10-25T14:00Z",
+  "away_missing_share": 0.3606705081233538,
+  "away_unavailable": 7,
+  "fotmob_id": 5749719,
+  "home_missing_share": 0.3418224216404712,
+  "home_unavailable": 4,
+  "kickoff_utc": "2026-10-25T19:45:00.000Z",
   "lineup_type": "predicted"
  },
  "Viking FK v Tromsoe IL": {
